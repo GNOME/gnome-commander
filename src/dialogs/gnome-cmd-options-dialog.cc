@@ -31,8 +31,6 @@ extern "C" GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Optio
 extern "C" GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
 extern "C" GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
 extern "C" GtkWidget *create_font_picker (GtkWidget *parent, const gchar *name);
-extern "C" GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
-extern "C" void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 extern "C" void store_format_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 extern "C" void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 extern "C" void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
@@ -55,14 +53,6 @@ static void on_save_tabs_toggled (GtkCheckButton *check_button, GtkWidget *dialo
     GtkWidget *check = lookup_widget (dialog, "save_dirs");
 
     gtk_widget_set_sensitive (check, !gtk_check_button_get_active (check_button));
-}
-
-
-static void on_confirm_delete_toggled (GtkCheckButton *check_button, GtkWidget *dialog)
-{
-    GtkWidget *check = lookup_widget (dialog, "delete_default_check");
-
-    gtk_widget_set_sensitive (check, gtk_check_button_get_active (check_button));
 }
 
 
@@ -704,163 +694,4 @@ void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     cfg.icon_scale_quality = (GdkInterpType) gtk_adjustment_get_value (adj);
 
     cfg.list_row_height = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (row_height_spin));
-}
-
-
-/***********************************************************************
- *
- *  The Confirmation tab
- *
- **********************************************************************/
-
-GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
-{
-    GtkWidget *scrolled_window, *vbox, *cat, *cat_box;
-    GtkWidget *radio, *check;
-
-    vbox = create_tabvbox (parent);
-
-    scrolled_window = gtk_scrolled_window_new ();
-    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
-                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
-    gtk_widget_set_hexpand (scrolled_window, TRUE);
-    gtk_widget_set_vexpand (scrolled_window, TRUE);
-    gtk_widget_set_margin_top (scrolled_window, 6);
-    gtk_widget_set_margin_bottom (scrolled_window, 6);
-    gtk_widget_set_margin_start (scrolled_window, 6);
-    gtk_widget_set_margin_end (scrolled_window, 6);
-    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-
-    /* Delete options
-     */
-    cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Delete"));
-    gtk_box_append (GTK_BOX (vbox), cat);
-
-    check = create_check (parent, _("Confirm before delete"), "confirm_delete_check");
-    gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.confirm_delete);
-    g_signal_connect (check, "toggled", G_CALLBACK (on_confirm_delete_toggled), parent);
-
-    check = create_check (parent, _("Confirm defaults to OK"), "delete_default_check");
-    gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.confirm_delete_default!=GTK_BUTTONS_CANCEL);
-    gtk_widget_set_sensitive (check, cfg.confirm_delete);
-
-
-    /* Copy overwrite options
-     */
-    cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Preselected overwrite action in copy dialog"));
-    gtk_box_append (GTK_BOX (vbox), cat);
-
-    radio = create_radio (parent, NULL, _("Query first"), "copy_overwrite_query");
-    gtk_box_append (GTK_BOX (cat_box), radio);
-    if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
-    radio = create_radio (parent, radio, _("Rename"), "copy_rename_all");
-    gtk_box_append (GTK_BOX (cat_box), radio);
-    if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
-    radio = create_radio (parent, radio, _("Skip"), "copy_overwrite_skip_all");
-    gtk_box_append (GTK_BOX (cat_box), radio);
-    if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
-    radio = create_radio (parent, radio, _("Overwrite silently"), "copy_overwrite_silently");
-    gtk_box_append (GTK_BOX (cat_box), radio);
-    if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
-
-
-    /* Move overwrite options
-     */
-    cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Preselected overwrite action in move dialog"));
-    gtk_box_append (GTK_BOX (vbox), cat);
-
-    radio = create_radio (parent, NULL, _("Query first"), "move_overwrite_query");
-    gtk_box_append (GTK_BOX (cat_box), radio);
-    if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
-    radio = create_radio (parent, radio, _("Rename"), "move_rename_all");
-    gtk_box_append (GTK_BOX (cat_box), radio);
-    if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
-    radio = create_radio (parent, radio, _("Skip"), "move_overwrite_skip_all");
-    gtk_box_append (GTK_BOX (cat_box), radio);
-    if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
-    radio = create_radio (parent, radio, _("Overwrite silently"), "move_overwrite_silently");
-    gtk_box_append (GTK_BOX (cat_box), radio);
-    if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
-
-
-    /* Drag and Drop options
-     */
-    cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Default Drag and Drop Action"));
-    gtk_box_append (GTK_BOX (vbox), cat);
-
-    radio = create_radio (parent, NULL, _("Confirm mouse operation"), "mouse_dnd_default");
-    gtk_box_append (GTK_BOX (cat_box), radio);
-    if (cfg.mouse_dnd_default==GNOME_CMD_DEFAULT_DND_QUERY)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
-    radio = create_radio (parent, radio, _("Copy"), "mouse_dnd_copy");
-    gtk_box_append (GTK_BOX (cat_box), radio);
-    if (cfg.mouse_dnd_default==GNOME_CMD_DEFAULT_DND_COPY)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
-    radio = create_radio (parent, radio, _("Move"), "mouse_dnd_move");
-    gtk_box_append (GTK_BOX (cat_box), radio);
-    if (cfg.mouse_dnd_default==GNOME_CMD_DEFAULT_DND_MOVE)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
-
-    return scrolled_window;
-}
-
-
-void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
-{
-    GtkWidget *confirm_delete_check = lookup_widget (dialog, "confirm_delete_check");
-    GtkWidget *delete_default_check = lookup_widget (dialog, "delete_default_check");
-    GtkWidget *confirm_copy_silent = lookup_widget (dialog, "copy_overwrite_silently");
-    GtkWidget *confirm_copy_query = lookup_widget (dialog, "copy_overwrite_query");
-    GtkWidget *confirm_copy_rename_all = lookup_widget (dialog, "copy_rename_all");
-    GtkWidget *confirm_copy_skip_all = lookup_widget (dialog, "copy_overwrite_skip_all");
-    GtkWidget *confirm_move_silent = lookup_widget (dialog, "move_overwrite_silently");
-    GtkWidget *confirm_move_query = lookup_widget (dialog, "move_overwrite_query");
-    GtkWidget *confirm_move_rename_all = lookup_widget (dialog, "move_rename_all");
-    GtkWidget *confirm_move_skip_all = lookup_widget (dialog, "move_overwrite_skip_all");
-    GtkWidget *mouse_dnd_query = lookup_widget (dialog, "mouse_dnd_default");
-    GtkWidget *mouse_dnd_copy = lookup_widget (dialog, "mouse_dnd_copy");
-    GtkWidget *mouse_dnd_move = lookup_widget (dialog, "mouse_dnd_move");
-
-    cfg.confirm_delete = gtk_check_button_get_active (GTK_CHECK_BUTTON (confirm_delete_check));
-
-    cfg.confirm_delete_default = gtk_check_button_get_active (GTK_CHECK_BUTTON (delete_default_check)) ? GTK_BUTTONS_OK : GTK_BUTTONS_CANCEL;
-
-    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (confirm_copy_silent)))
-        cfg.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY;
-    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (confirm_copy_query)))
-        cfg.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
-    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (confirm_copy_rename_all)))
-        cfg.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL;
-    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (confirm_copy_skip_all)))
-        cfg.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
-
-    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (confirm_move_silent)))
-        cfg.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY;
-    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (confirm_move_query)))
-        cfg.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
-    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (confirm_move_rename_all)))
-        cfg.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL;
-    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (confirm_move_skip_all)))
-        cfg.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
-
-    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (mouse_dnd_query)))
-        cfg.mouse_dnd_default = GNOME_CMD_DEFAULT_DND_QUERY;
-    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (mouse_dnd_copy)))
-        cfg.mouse_dnd_default = GNOME_CMD_DEFAULT_DND_COPY;
-    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (mouse_dnd_move)))
-        cfg.mouse_dnd_default = GNOME_CMD_DEFAULT_DND_MOVE;
 }

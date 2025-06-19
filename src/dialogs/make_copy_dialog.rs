@@ -27,7 +27,7 @@ use crate::{
     libgcmd::file_descriptor::FileDescriptorExt,
     main_win::MainWindow,
     transfer::gnome_cmd_copy_gfiles,
-    types::GnomeCmdConfirmOverwriteMode,
+    types::ConfirmOverwriteMode,
     utils::{channel_send_action, dialog_button_box, handle_escape_key, SenderExt, NO_BUTTONS},
 };
 use gettextrs::gettext;
@@ -141,7 +141,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         dest_dir,
         Some(dest_fn.to_owned()),
         gio::FileCopyFlags::NONE,
-        GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
+        ConfirmOverwriteMode::Query,
     )
     .await;
 

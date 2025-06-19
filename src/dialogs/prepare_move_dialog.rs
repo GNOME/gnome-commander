@@ -21,7 +21,7 @@ use super::prepare_transfer_dialog::PrepareTransferDialog;
 use crate::{
     data::ConfirmOptionsRead, file_selector::FileSelector,
     libgcmd::file_descriptor::FileDescriptorExt, main_win::MainWindow,
-    transfer::gnome_cmd_move_gfiles, types::GnomeCmdConfirmOverwriteMode, utils::bold,
+    transfer::gnome_cmd_move_gfiles, types::ConfirmOverwriteMode, utils::bold,
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gio, prelude::*};
@@ -84,10 +84,10 @@ pub async fn prepare_move_dialog_show(
     dialog.append_to_left(&silent);
 
     match options.confirm_move_overwrite() {
-        GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY => &silent,
-        GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL => &skip,
-        GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL => &rename,
-        GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY => &query,
+        ConfirmOverwriteMode::Silently => &silent,
+        ConfirmOverwriteMode::SkipAll => &skip,
+        ConfirmOverwriteMode::RenameAll => &rename,
+        ConfirmOverwriteMode::Query => &query,
     }
     .set_active(true);
 
@@ -96,17 +96,17 @@ pub async fn prepare_move_dialog_show(
     };
 
     let mut copy_flags = gio::FileCopyFlags::NONE;
-    let overwrite_mode: GnomeCmdConfirmOverwriteMode;
+    let overwrite_mode: ConfirmOverwriteMode;
 
     if silent.is_active() {
-        overwrite_mode = GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY;
+        overwrite_mode = ConfirmOverwriteMode::Silently;
         copy_flags |= gio::FileCopyFlags::OVERWRITE;
     } else if query.is_active() {
-        overwrite_mode = GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
+        overwrite_mode = ConfirmOverwriteMode::Query;
     } else if rename.is_active() {
-        overwrite_mode = GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL;
+        overwrite_mode = ConfirmOverwriteMode::RenameAll;
     } else {
-        overwrite_mode = GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
+        overwrite_mode = ConfirmOverwriteMode::SkipAll;
     }
 
     let _transfer_result = gnome_cmd_move_gfiles(

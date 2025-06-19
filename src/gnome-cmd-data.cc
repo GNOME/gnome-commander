@@ -208,46 +208,6 @@ static void on_use_trash_changed (GnomeCmdMainWin *main_win)
     gnome_cmd_data.options.deleteToTrash = use_trash;
 }
 
-static void on_confirm_delete_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean confirm_delete;
-
-    confirm_delete = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE);
-    gnome_cmd_data.options.confirm_delete = confirm_delete;
-}
-
-static void on_confirm_delete_default_changed (GnomeCmdMainWin *main_win)
-{
-    gint confirm_delete_default;
-
-    confirm_delete_default = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE_DEFAULT);
-    gnome_cmd_data.options.confirm_delete_default = (GtkButtonsType) confirm_delete_default;
-}
-
-static void on_confirm_copy_overwrite_changed (GnomeCmdMainWin *main_win)
-{
-    gint confirm_copy_overwrite;
-
-    confirm_copy_overwrite = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_COPY_OVERWRITE);
-    gnome_cmd_data.options.confirm_copy_overwrite = (GnomeCmdConfirmOverwriteMode) confirm_copy_overwrite;
-}
-
-static void on_confirm_move_overwrite_changed (GnomeCmdMainWin *main_win)
-{
-    gint confirm_move_overwrite;
-
-    confirm_move_overwrite = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOVE_OVERWRITE);
-    gnome_cmd_data.options.confirm_move_overwrite = (GnomeCmdConfirmOverwriteMode) confirm_move_overwrite;
-}
-
-static void on_mouse_drag_and_drop_changed (GnomeCmdMainWin *main_win)
-{
-    gint mouse_dnd_default;
-
-    mouse_dnd_default = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOUSE_DRAG_AND_DROP);
-    gnome_cmd_data.options.mouse_dnd_default = (GnomeCmdDefaultDndMode) mouse_dnd_default;
-}
-
 static void on_select_dirs_changed (GnomeCmdMainWin *main_win)
 {
     gboolean select_dirs;
@@ -381,31 +341,6 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs, GnomeCmdMainWin *ma
                       G_CALLBACK (on_use_trash_changed),
                       main_win);
 
-    g_signal_connect_swapped (gs->confirm,
-                      "changed::delete",
-                      G_CALLBACK (on_confirm_delete_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->confirm,
-                      "changed::delete-default",
-                      G_CALLBACK (on_confirm_delete_default_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->confirm,
-                      "changed::copy-overwrite",
-                      G_CALLBACK (on_confirm_copy_overwrite_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->confirm,
-                      "changed::move-overwrite",
-                      G_CALLBACK (on_confirm_move_overwrite_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->confirm,
-                      "changed::mouse-drag-and-drop",
-                      G_CALLBACK (on_mouse_drag_and_drop_changed),
-                      main_win);
-
     g_signal_connect_swapped (gs->general,
                       "changed::select-dirs",
                       G_CALLBACK (on_select_dirs_changed),
@@ -515,11 +450,6 @@ GnomeCmdData::Options::Options(const Options &cfg)
     icon_size = cfg.icon_size;
     icon_scale_quality = cfg.icon_scale_quality;
     theme_icon_dir = cfg.theme_icon_dir;
-    confirm_delete = cfg.confirm_delete;
-    confirm_delete_default = cfg.confirm_delete_default;
-    confirm_copy_overwrite = cfg.confirm_copy_overwrite;
-    confirm_move_overwrite = cfg.confirm_move_overwrite;
-    mouse_dnd_default = cfg.mouse_dnd_default;
     deleteToTrash = cfg.deleteToTrash;
     gcmd_settings = nullptr;
 }
@@ -557,10 +487,6 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         icon_size = cfg.icon_size;
         icon_scale_quality = cfg.icon_scale_quality;
         theme_icon_dir = cfg.theme_icon_dir;
-        confirm_delete = cfg.confirm_delete;
-        confirm_copy_overwrite = cfg.confirm_copy_overwrite;
-        confirm_move_overwrite = cfg.confirm_move_overwrite;
-        mouse_dnd_default = cfg.mouse_dnd_default;
         gcmd_settings = nullptr;
     }
 
@@ -853,12 +779,6 @@ void GnomeCmdData::load()
 
     options.list_row_height = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_LIST_ROW_HEIGHT);
 
-    options.confirm_delete = g_settings_get_boolean (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE);
-    options.confirm_delete_default = (GtkButtonsType) g_settings_get_enum (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE_DEFAULT);
-    options.confirm_copy_overwrite = (GnomeCmdConfirmOverwriteMode) g_settings_get_enum (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_COPY_OVERWRITE);
-    options.confirm_move_overwrite = (GnomeCmdConfirmOverwriteMode) g_settings_get_enum (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOVE_OVERWRITE);
-    options.mouse_dnd_default      = (GnomeCmdDefaultDndMode) g_settings_get_enum (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOUSE_DRAG_AND_DROP);
-
     options.select_dirs = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS);
     options.case_sens_sort = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE);
     options.symbolic_links_as_regular_files = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SYMBOLIC_LINKS_AS_REG_FILES);
@@ -923,12 +843,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     gchar *utf8_date_format = g_locale_to_utf8 (options.date_format, -1, nullptr, nullptr, nullptr);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DATE_DISP_FORMAT, utf8_date_format);
     g_free (utf8_date_format);
-
-    set_gsettings_when_changed      (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE, &(options.confirm_delete));
-    set_gsettings_enum_when_changed (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE_DEFAULT, options.confirm_delete_default);
-    set_gsettings_enum_when_changed (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_COPY_OVERWRITE, options.confirm_copy_overwrite);
-    set_gsettings_enum_when_changed (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOVE_OVERWRITE, options.confirm_move_overwrite);
-    set_gsettings_enum_when_changed (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOUSE_DRAG_AND_DROP, options.mouse_dnd_default);
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS, &(options.select_dirs));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE, &(options.case_sens_sort));

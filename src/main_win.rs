@@ -43,7 +43,7 @@ use crate::{
     shortcuts::Shortcuts,
     tags::tags::FileMetadataService,
     transfer::{gnome_cmd_copy_gfiles, gnome_cmd_move_gfiles},
-    types::{FileSelectorID, GnomeCmdConfirmOverwriteMode},
+    types::{ConfirmOverwriteMode, FileSelectorID},
     utils::{extract_menu_shortcuts, MenuBuilderExt},
 };
 use gettextrs::gettext;
@@ -1144,7 +1144,7 @@ impl MainWindow {
                     dir.clone(),
                     None,
                     gio::FileCopyFlags::NONE,
-                    GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
+                    ConfirmOverwriteMode::Query,
                 )
                 .await
             }
@@ -1155,7 +1155,7 @@ impl MainWindow {
                     dir.clone(),
                     None,
                     gio::FileCopyFlags::NONE,
-                    GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
+                    ConfirmOverwriteMode::Query,
                 )
                 .await
             }

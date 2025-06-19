@@ -24,7 +24,7 @@ use crate::{
     search::profile::{SearchProfile, SearchProfilePtr, SearchProfileVariant},
     tab_label::TabLockIndicator,
     types::{
-        ExtensionDisplayMode, GnomeCmdConfirmOverwriteMode, GraphicalLayoutMode,
+        ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GraphicalLayoutMode,
         PermissionDisplayMode, SizeDisplayMode,
     },
 };
@@ -260,7 +260,7 @@ impl GeneralOptionsWrite for GeneralOptions {
 
 pub struct ConfirmOptions(pub gio::Settings);
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq, Eq)]
 pub enum DeleteDefault {
     Cancel = 3,
     Delete = 1,
@@ -269,13 +269,17 @@ pub enum DeleteDefault {
 pub trait ConfirmOptionsRead {
     fn confirm_delete(&self) -> bool;
     fn confirm_delete_default(&self) -> DeleteDefault;
-    fn confirm_copy_overwrite(&self) -> GnomeCmdConfirmOverwriteMode;
-    fn confirm_move_overwrite(&self) -> GnomeCmdConfirmOverwriteMode;
+    fn confirm_copy_overwrite(&self) -> ConfirmOverwriteMode;
+    fn confirm_move_overwrite(&self) -> ConfirmOverwriteMode;
+    fn dnd_mode(&self) -> DndMode;
 }
 
 pub trait ConfirmOptionsWrite {
-    fn set_confirm_delete(&self, confirm_delete: bool);
-    fn confirm_delete_default(&self, delete_default: DeleteDefault);
+    fn set_confirm_delete(&self, confirm_delete: bool) -> WriteResult;
+    fn set_confirm_delete_default(&self, delete_default: DeleteDefault) -> WriteResult;
+    fn set_confirm_copy_overwrite(&self, mode: ConfirmOverwriteMode) -> WriteResult;
+    fn set_confirm_move_overwrite(&self, mode: ConfirmOverwriteMode) -> WriteResult;
+    fn set_dnd_mode(&self, mode: DndMode) -> WriteResult;
 }
 
 impl ConfirmOptions {
@@ -298,32 +302,53 @@ impl ConfirmOptionsRead for ConfirmOptions {
         }
     }
 
-    fn confirm_copy_overwrite(&self) -> GnomeCmdConfirmOverwriteMode {
+    fn confirm_copy_overwrite(&self) -> ConfirmOverwriteMode {
         self.0
             .enum_("copy-overwrite")
             .try_into()
             .ok()
-            .and_then(GnomeCmdConfirmOverwriteMode::from_repr)
-            .unwrap_or(GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
+            .and_then(ConfirmOverwriteMode::from_repr)
+            .unwrap_or(ConfirmOverwriteMode::Query)
     }
 
-    fn confirm_move_overwrite(&self) -> GnomeCmdConfirmOverwriteMode {
+    fn confirm_move_overwrite(&self) -> ConfirmOverwriteMode {
         self.0
             .enum_("move-overwrite")
             .try_into()
             .ok()
-            .and_then(GnomeCmdConfirmOverwriteMode::from_repr)
-            .unwrap_or(GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
+            .and_then(ConfirmOverwriteMode::from_repr)
+            .unwrap_or(ConfirmOverwriteMode::Query)
+    }
+
+    fn dnd_mode(&self) -> DndMode {
+        self.0
+            .enum_("mouse-drag-and-drop")
+            .try_into()
+            .ok()
+            .and_then(DndMode::from_repr)
+            .unwrap_or_default()
     }
 }
 
 impl ConfirmOptionsWrite for ConfirmOptions {
-    fn set_confirm_delete(&self, confirm_delete: bool) {
-        self.0.set_boolean("delete", confirm_delete);
+    fn set_confirm_delete(&self, confirm_delete: bool) -> WriteResult {
+        self.0.set_boolean("delete", confirm_delete)
     }
 
-    fn confirm_delete_default(&self, delete_default: DeleteDefault) {
-        self.0.set_enum("delete-default", delete_default as i32);
+    fn set_confirm_delete_default(&self, delete_default: DeleteDefault) -> WriteResult {
+        self.0.set_enum("delete-default", delete_default as i32)
+    }
+
+    fn set_confirm_copy_overwrite(&self, mode: ConfirmOverwriteMode) -> WriteResult {
+        self.0.set_enum("copy-overwrite", mode as i32)
+    }
+
+    fn set_confirm_move_overwrite(&self, mode: ConfirmOverwriteMode) -> WriteResult {
+        self.0.set_enum("move-overwrite", mode as i32)
+    }
+
+    fn set_dnd_mode(&self, mode: DndMode) -> WriteResult {
+        self.0.set_enum("mouse-drag-and-drop", mode as i32)
     }
 }
 

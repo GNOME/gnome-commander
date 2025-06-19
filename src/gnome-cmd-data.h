@@ -284,12 +284,6 @@ struct GnomeCmdData
         guint                        icon_size;
         GdkInterpType                icon_scale_quality;
         gchar                       *theme_icon_dir;
-        //  Confirmation
-        gboolean                     confirm_delete;
-        GtkButtonsType               confirm_delete_default;
-        GnomeCmdConfirmOverwriteMode confirm_copy_overwrite;
-        GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
-        GnomeCmdDefaultDndMode       mouse_dnd_default;
         //  Filters
         gboolean                     symbolic_links_as_regular_files;
 
@@ -320,12 +314,7 @@ struct GnomeCmdData
                    use_ls_colors(FALSE),
                    icon_size(16),
                    icon_scale_quality(GDK_INTERP_HYPER),
-                   theme_icon_dir(nullptr),
-                   confirm_delete(TRUE),
-                   confirm_delete_default(GTK_BUTTONS_OK),
-                   confirm_copy_overwrite(GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
-                   confirm_move_overwrite(GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
-                   mouse_dnd_default(GNOME_CMD_DEFAULT_DND_QUERY)
+                   theme_icon_dir(nullptr)
         {
         }
 

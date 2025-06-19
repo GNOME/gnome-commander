@@ -19,6 +19,7 @@
 
 pub mod options_dialog;
 
+pub mod confirmation_tab;
 pub mod devices_tab;
 pub mod filters_tab;
 pub mod programs_tab;

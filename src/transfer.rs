@@ -23,7 +23,7 @@
 use crate::{
     dialogs::transfer_progress_dialog::TransferProgressWindow,
     dir::Directory,
-    types::{GnomeCmdConfirmOverwriteMode, GnomeCmdTransferType, SizeDisplayMode},
+    types::{ConfirmOverwriteMode, GnomeCmdTransferType, SizeDisplayMode},
     utils::{nice_size, pending, time_to_string, ErrorMessage},
 };
 use async_channel::{Receiver, Sender};
@@ -51,7 +51,7 @@ use std::{
 };
 
 mod ffi {
-    use crate::{dir::ffi::GnomeCmdDir, types::GnomeCmdConfirmOverwriteMode};
+    use crate::{dir::ffi::GnomeCmdDir, types::ConfirmOverwriteMode};
     use gtk::{gio, glib};
     use std::{ffi::c_char, os::raw::c_void};
 
@@ -62,7 +62,7 @@ mod ffi {
             to: *const GnomeCmdDir,
             dest_fn: *const c_char,
             copy_flags: gio::ffi::GFileCopyFlags,
-            overwrite_mode: GnomeCmdConfirmOverwriteMode,
+            overwrite_mode: ConfirmOverwriteMode,
             on_completed_func: *const c_void,
             on_completed_data: *mut c_void,
         );
@@ -73,7 +73,7 @@ mod ffi {
             to: *const GnomeCmdDir,
             dest_fn: *const c_char,
             copy_flags: gio::ffi::GFileCopyFlags,
-            overwrite_mode: GnomeCmdConfirmOverwriteMode,
+            overwrite_mode: ConfirmOverwriteMode,
             on_completed_func: *const c_void,
             on_completed_data: *mut c_void,
         );
@@ -84,7 +84,7 @@ mod ffi {
             to: *const GnomeCmdDir,
             dest_fn: *const c_char,
             copy_flags: gio::ffi::GFileCopyFlags,
-            overwrite_mode: GnomeCmdConfirmOverwriteMode,
+            overwrite_mode: ConfirmOverwriteMode,
             on_completed_func: *const c_void,
             on_completed_data: *mut c_void,
         );
@@ -106,7 +106,7 @@ pub async fn gnome_cmd_copy_gfiles(
     to: Directory,
     dest_fn: Option<String>,
     copy_flags: gio::FileCopyFlags,
-    overwrite_mode: GnomeCmdConfirmOverwriteMode,
+    overwrite_mode: ConfirmOverwriteMode,
 ) -> bool {
     let (sender, receiver) = async_channel::bounded::<bool>(1);
     unsafe extern "C" fn send(succeess: glib::ffi::gboolean, user_data: glib::ffi::gpointer) {
@@ -135,7 +135,7 @@ pub async fn gnome_cmd_move_gfiles(
     to: Directory,
     dest_fn: Option<String>,
     copy_flags: gio::FileCopyFlags,
-    overwrite_mode: GnomeCmdConfirmOverwriteMode,
+    overwrite_mode: ConfirmOverwriteMode,
 ) -> bool {
     let (sender, receiver) = async_channel::bounded::<bool>(1);
     unsafe extern "C" fn send(succeess: glib::ffi::gboolean, user_data: glib::ffi::gpointer) {
@@ -164,7 +164,7 @@ pub async fn gnome_cmd_link_gfiles(
     to: Directory,
     dest_fn: Option<String>,
     copy_flags: gio::FileCopyFlags,
-    overwrite_mode: GnomeCmdConfirmOverwriteMode,
+    overwrite_mode: ConfirmOverwriteMode,
 ) -> bool {
     let (sender, receiver) = async_channel::bounded::<bool>(1);
     unsafe extern "C" fn send(succeess: glib::ffi::gboolean, user_data: glib::ffi::gpointer) {
@@ -425,7 +425,7 @@ async fn update_transfer_gui_error_copy(
     src: &gio::File,
     dst: &gio::File,
     error: &glib::Error,
-    overwrite_mode: GnomeCmdConfirmOverwriteMode,
+    overwrite_mode: ConfirmOverwriteMode,
     many: bool,
     size_display_mode: SizeDisplayMode,
     date_format: &str,
@@ -437,32 +437,20 @@ async fn update_transfer_gui_error_copy(
         match src.query_file_type(gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE) {
             gio::FileType::Directory => {
                 return match overwrite_mode {
-                    GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL => {
-                        Ok(ProblemAction::SkipAll)
-                    }
-                    GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL => {
-                        Ok(ProblemAction::RenameAll)
-                    }
-                    GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY => {
-                        Ok(ProblemAction::CopyInto)
-                    }
-                    GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY => {
+                    ConfirmOverwriteMode::SkipAll => Ok(ProblemAction::SkipAll),
+                    ConfirmOverwriteMode::RenameAll => Ok(ProblemAction::RenameAll),
+                    ConfirmOverwriteMode::Silently => Ok(ProblemAction::CopyInto),
+                    ConfirmOverwriteMode::Query => {
                         Ok(run_directory_copy_overwrite_dialog(parent_window, &msg, many).await)
                     }
                 };
             }
             gio::FileType::Regular => {
                 return match overwrite_mode {
-                    GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL => {
-                        Ok(ProblemAction::SkipAll)
-                    }
-                    GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL => {
-                        Ok(ProblemAction::RenameAll)
-                    }
-                    GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY => {
-                        Ok(ProblemAction::CopyInto)
-                    }
-                    GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY => {
+                    ConfirmOverwriteMode::SkipAll => Ok(ProblemAction::SkipAll),
+                    ConfirmOverwriteMode::RenameAll => Ok(ProblemAction::RenameAll),
+                    ConfirmOverwriteMode::Silently => Ok(ProblemAction::CopyInto),
+                    ConfirmOverwriteMode::Query => {
                         run_file_copy_overwrite_dialog(
                             parent_window,
                             src,
@@ -544,7 +532,7 @@ async fn update_transfer_gui_error_move(
     src: &gio::File,
     dst: &gio::File,
     error: &glib::Error,
-    overwrite_mode: GnomeCmdConfirmOverwriteMode,
+    overwrite_mode: ConfirmOverwriteMode,
     many: bool,
     size_display_mode: SizeDisplayMode,
     date_format: &str,
@@ -556,13 +544,9 @@ async fn update_transfer_gui_error_move(
         Ok(run_simple_error_dialog(parent_window, &msg, error).await)
     } else {
         match overwrite_mode {
-            GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL => {
-                Ok(ProblemAction::SkipAll)
-            }
-            GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL => {
-                Ok(ProblemAction::RenameAll)
-            }
-            GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY => {
+            ConfirmOverwriteMode::SkipAll => Ok(ProblemAction::SkipAll),
+            ConfirmOverwriteMode::RenameAll => Ok(ProblemAction::RenameAll),
+            ConfirmOverwriteMode::Silently => {
                 // Note: When doing a native move operation, there is no option to
                 // move a folder into another folder like it is available for the copy
                 // process. The reason is that in the former case, we don't step recursively
@@ -570,7 +554,7 @@ async fn update_transfer_gui_error_move(
                 // 'copy into' when moving folders.
                 Ok(ProblemAction::ReplaceAll)
             }
-            GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY => {
+            ConfirmOverwriteMode::Query => {
                 run_move_overwrite_dialog(
                     parent_window,
                     src,
@@ -660,7 +644,7 @@ async fn transfer_gui_loop(
     tc: &TransferControl,
     no_of_files: u64,
     transfer_type: GnomeCmdTransferType,
-    overwrite_mode: GnomeCmdConfirmOverwriteMode,
+    overwrite_mode: ConfirmOverwriteMode,
     size_display_mode: SizeDisplayMode,
     date_format: &str,
 ) -> bool {
@@ -785,7 +769,7 @@ pub extern "C" fn start_transfer_gui(
     title: *const c_char,
     no_of_files: u64,
     transfer_type: GnomeCmdTransferType,
-    overwrite_mode: GnomeCmdConfirmOverwriteMode,
+    overwrite_mode: ConfirmOverwriteMode,
     size_display_mode: SizeDisplayMode,
     date_format: *const c_char,
 ) -> *mut TransferControl {
