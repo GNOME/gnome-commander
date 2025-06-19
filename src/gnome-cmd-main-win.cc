@@ -40,44 +40,7 @@
 using namespace std;
 
 
-struct GnomeCmdMainWinPrivate
-{
-
-    bool state_saved;
-};
-
-
 extern "C" void gnome_cmd_main_win_update_style(GnomeCmdMainWin *main_win);
-static GnomeCmdMainWinPrivate *gnome_cmd_main_win_priv (GnomeCmdMainWin *mw)
-{
-    return (GnomeCmdMainWinPrivate *) g_object_get_data (G_OBJECT (mw), "priv");
-}
-
-
-/*******************************
- * Gtk class implementation
- *******************************/
-
-extern "C" void gnome_cmd_main_win_dispose (GnomeCmdMainWin *main_win)
-{
-    auto priv = gnome_cmd_main_win_priv (main_win);
-
-    if (!priv->state_saved)
-    {
-        gnome_cmd_data.save(main_win);
-        priv->state_saved = true;
-    }
-
-}
-
-
-extern "C" void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
-{
-    auto priv = g_new0 (GnomeCmdMainWinPrivate, 1);
-    g_object_set_data_full (G_OBJECT (mw), "priv", priv, g_free);
-
-    priv->state_saved = false;
-}
 
 
 GnomeCmdFileSelector *GnomeCmdMainWin::fs(FileSelectorID id)

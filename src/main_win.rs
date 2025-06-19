@@ -51,7 +51,7 @@ use gtk::{
     gdk, gio,
     glib::{
         self,
-        translate::{from_glib_borrow, from_glib_none, Borrowed, ToGlibPtr},
+        translate::{from_glib_borrow, Borrowed, ToGlibPtr},
     },
     graphene,
     prelude::*,
@@ -422,10 +422,6 @@ pub mod imp {
             self.file_selector_left.borrow().update_connections();
             self.file_selector_right.borrow().update_connections();
 
-            unsafe {
-                super::ffi::gnome_cmd_main_win_init(self.obj().to_glib_none().0);
-            }
-
             let key_controller = gtk::EventControllerKey::builder()
                 .propagation_phase(gtk::PropagationPhase::Capture)
                 .build();
@@ -526,17 +522,8 @@ pub mod imp {
         }
 
         fn dispose(&self) {
-            self.plugin_manager.save();
-
-            let options = GeneralOptions::new();
-            options.set_keybindings(&self.shortcuts.save());
-            self.obj()
-                .save_tabs(options.save_tabs_on_exit(), options.save_dirs_on_exit());
-
-            self.obj().save_command_line_history(&options);
-
-            unsafe {
-                super::ffi::gnome_cmd_main_win_dispose(self.obj().to_glib_none().0);
+            if let Err(error) = self.obj().save_state() {
+                eprintln!("Failed to save state: {error}");
             }
         }
     }
@@ -1104,13 +1091,11 @@ pub mod ffi {
     pub type GnomeCmdMainWin = <super::MainWindow as glib::object::ObjectType>::GlibType;
 
     extern "C" {
-        pub fn gnome_cmd_main_win_init(main_win: *mut GnomeCmdMainWin);
-        pub fn gnome_cmd_main_win_dispose(main_win: *mut GnomeCmdMainWin);
-
         pub fn gnome_cmd_main_win_focus_file_lists(main_win: *mut GnomeCmdMainWin);
 
         pub fn gnome_cmd_main_win_update_view(main_win: *mut GnomeCmdMainWin);
 
+        pub fn gnome_cmd_data_save(mw: *mut GnomeCmdMainWin);
     }
 }
 
@@ -1280,6 +1265,24 @@ impl MainWindow {
         } else {
             options.set_command_line_history(&[])
         }
+    }
+
+    pub fn save_state(&self) -> WriteResult {
+        let options = GeneralOptions::new();
+
+        self.imp().plugin_manager.save();
+
+        options.set_keybindings(&self.imp().shortcuts.save());
+
+        self.save_tabs(options.save_tabs_on_exit(), options.save_dirs_on_exit());
+
+        self.save_command_line_history(&options)?;
+
+        unsafe {
+            ffi::gnome_cmd_data_save(self.to_glib_none().0);
+        }
+
+        Ok(())
     }
 
     pub fn change_connection(&self, id: FileSelectorID) {
