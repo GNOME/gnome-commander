@@ -17,6 +17,8 @@
  * For more details see the file COPYING.
  */
 
+#![allow(dead_code)]
+
 use super::file_descriptor::FileDescriptor;
 use gtk::glib::{self, prelude::*, translate::*};
 

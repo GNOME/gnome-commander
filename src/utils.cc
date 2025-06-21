@@ -375,20 +375,6 @@ inline void transform (gchar *s, gchar from, gchar to)
 }
 
 
-gchar *unix_to_unc (const gchar *path)
-{
-    g_return_val_if_fail (path != NULL, NULL);
-    g_return_val_if_fail (path[0] == '/', NULL);
-
-    gchar *out = (gchar *) g_malloc (strlen(path)+2);
-    out[0] = '\\';
-    strcpy (out+1, path);
-    transform (out+1, '/', '\\');
-
-    return out;
-}
-
-
 void gnome_cmd_toggle_file_name_selection (GtkWidget *entry)
 {
     const gchar *text = gtk_editable_get_text (GTK_EDITABLE (entry));

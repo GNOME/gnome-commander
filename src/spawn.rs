@@ -21,7 +21,7 @@
  */
 
 use crate::{
-    data::{ProgramsOptions, ProgramsOptionsRead},
+    data::ProgramsOptionsRead,
     file::File,
     libgcmd::file_descriptor::FileDescriptorExt,
     utils::{make_run_in_terminal_command, ErrorMessage},
@@ -29,11 +29,7 @@ use crate::{
 use gettextrs::gettext;
 use gtk::{
     gio::prelude::*,
-    glib::{
-        self,
-        ffi::{gboolean, GList},
-        translate::{from_glib_none, IntoGlibPtr},
-    },
+    glib::{self, ffi::GList, translate::IntoGlibPtr},
 };
 use std::{
     cell::OnceCell,

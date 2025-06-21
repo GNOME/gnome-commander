@@ -36,7 +36,6 @@ sources_headers = files(
   'gnome-cmd-includes.h',
   'gnome-cmd-main-win.h',
   'gnome-cmd-path.h',
-  'gnome-cmd-regex.h',
   'gnome-cmd-selection-profile-component.h',
   'gnome-cmd-treeview.h',
   'gnome-cmd-types.h',

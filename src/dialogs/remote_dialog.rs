@@ -36,8 +36,8 @@ use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 mod imp {
     use super::*;
     use crate::{
-        dialogs::connect_dialog::ConnectDialog,
-        utils::{dialog_button_box, display_help, swap_list_store_items},
+        dialogs::{connect_dialog::ConnectDialog, order_utils::ordering_buttons},
+        utils::{dialog_button_box, display_help},
     };
     use std::{cell::OnceCell, time::Duration};
 
@@ -48,8 +48,6 @@ mod imp {
         pub view: gtk::ColumnView,
         edit_button: gtk::Button,
         remove_button: gtk::Button,
-        up_button: gtk::Button,
-        down_button: gtk::Button,
         connect_button: gtk::Button,
         #[property(get, construct_only)]
         main_window: OnceCell<MainWindow>,
@@ -76,14 +74,6 @@ mod imp {
                     .build(),
                 remove_button: gtk::Button::builder()
                     .label(&gettext("_Remove"))
-                    .use_underline(true)
-                    .build(),
-                up_button: gtk::Button::builder()
-                    .label(&gettext("_Up"))
-                    .use_underline(true)
-                    .build(),
-                down_button: gtk::Button::builder()
-                    .label(&gettext("_Down"))
                     .use_underline(true)
                     .build(),
                 connect_button: gtk::Button::builder()
@@ -175,18 +165,9 @@ mod imp {
             ));
             bbox.append(&self.remove_button);
 
-            self.up_button.connect_clicked(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                move |_| imp.move_up()
-            ));
-            bbox.append(&self.up_button);
-            self.down_button.connect_clicked(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                move |_| imp.move_down()
-            ));
-            bbox.append(&self.down_button);
+            let (up_button, down_button) = ordering_buttons(&self.selection);
+            bbox.append(&up_button);
+            bbox.append(&down_button);
 
             let help_button = gtk::Button::builder()
                 .label(&gettext("_Help"))
@@ -256,19 +237,9 @@ mod imp {
         }
 
         fn selection_changed(&self) {
-            let position = self.selection.selected();
-            if position != gtk::INVALID_LIST_POSITION {
-                let len = self.selection.n_items();
-                self.edit_button.set_sensitive(true);
-                self.remove_button.set_sensitive(true);
-                self.up_button.set_sensitive(position > 0);
-                self.down_button.set_sensitive(position + 1 < len);
-            } else {
-                self.edit_button.set_sensitive(false);
-                self.remove_button.set_sensitive(false);
-                self.up_button.set_sensitive(false);
-                self.down_button.set_sensitive(false);
-            }
+            let has_selection = self.selection.selected() != gtk::INVALID_LIST_POSITION;
+            self.edit_button.set_sensitive(has_selection);
+            self.remove_button.set_sensitive(has_selection);
         }
 
         pub fn selected_connection(&self) -> Option<(u32, ConnectionRemote)> {
@@ -320,53 +291,6 @@ mod imp {
                 return;
             };
             self.obj().connections().remove(&connection);
-        }
-
-        fn move_up(&self) {
-            let Some((position, connection)) = self.selected_connection() else {
-                return;
-            };
-            let Some(prev_position) = position.checked_sub(1) else {
-                return;
-            };
-            let Some(prev_connection) = self.selection.item(prev_position) else {
-                return;
-            };
-            let Some(store) = self
-                .connections
-                .get()
-                .map(|l| l.all())
-                .and_downcast::<gio::ListStore>()
-            else {
-                return;
-            };
-            swap_list_store_items(&store, &connection, &prev_connection);
-            self.selection.set_selected(prev_position);
-        }
-
-        fn move_down(&self) {
-            let Some((position, connection)) = self.selected_connection() else {
-                return;
-            };
-            let Some(next_position) = position
-                .checked_add(1)
-                .filter(|p| *p < self.selection.n_items())
-            else {
-                return;
-            };
-            let Some(next_connection) = self.selection.item(next_position) else {
-                return;
-            };
-            let Some(store) = self
-                .connections
-                .get()
-                .map(|l| l.all())
-                .and_downcast::<gio::ListStore>()
-            else {
-                return;
-            };
-            swap_list_store_items(&store, &connection, &next_connection);
-            self.selection.set_selected(next_position);
         }
 
         async fn on_help_btn_clicked(&self) {

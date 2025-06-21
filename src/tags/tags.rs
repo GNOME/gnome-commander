@@ -24,17 +24,16 @@ use crate::{
     plugin_manager::PluginManager,
 };
 use gtk::{
-    gio::{self, ffi::GMenu},
+    gio,
     glib::{
         self,
-        ffi::GType,
         prelude::*,
         subclass::prelude::*,
-        translate::{from_glib_borrow, from_glib_none, Borrowed, IntoGlib, ToGlibPtr},
+        translate::{from_glib_borrow, Borrowed},
     },
 };
 use indexmap::IndexMap;
-use std::{borrow::Cow, ffi::c_char};
+use std::borrow::Cow;
 
 #[derive(Clone, PartialEq, Eq, Hash)]
 pub struct GnomeCmdTagClass(pub String);
@@ -228,21 +227,6 @@ impl FileMetadataService {
         }
         tsv
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_metadata_service_get_type() -> GType {
-    FileMetadataService::static_type().into_glib()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_metadata_service_create_menu(
-    fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
-    action_name: *const c_char,
-) -> *mut GMenu {
-    let fms: Borrowed<FileMetadataService> = unsafe { from_glib_borrow(fms) };
-    let action_name: String = unsafe { from_glib_none(action_name) };
-    fms.create_menu(&action_name).to_glib_full()
 }
 
 #[no_mangle]

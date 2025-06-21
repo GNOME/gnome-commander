@@ -20,7 +20,7 @@
 use super::app_dialog::edit_app_dialog;
 use crate::{
     app::{load_favorite_apps, save_favorite_apps, AppExt, AppTarget, UserDefinedApp},
-    utils::swap_list_store_items,
+    dialogs::order_utils::ordering_buttons,
 };
 use gettextrs::gettext;
 use gtk::{
@@ -94,16 +94,8 @@ fn favorite_apps_widget() -> (gtk::Widget, gtk::SingleSelection) {
         .build();
     bbox.append(&remove_button);
 
-    let up_button = gtk::Button::builder()
-        .label(gettext("_Up"))
-        .use_underline(true)
-        .build();
+    let (up_button, down_button) = ordering_buttons(&selection);
     bbox.append(&up_button);
-
-    let down_button = gtk::Button::builder()
-        .label(gettext("_Down"))
-        .use_underline(true)
-        .build();
     bbox.append(&down_button);
 
     selection.connect_selected_notify(glib::clone!(
@@ -111,24 +103,10 @@ fn favorite_apps_widget() -> (gtk::Widget, gtk::SingleSelection) {
         edit_button,
         #[weak]
         remove_button,
-        #[weak]
-        up_button,
-        #[weak]
-        down_button,
         move |selection| {
-            let position = selection.selected();
-            if position != gtk::INVALID_LIST_POSITION {
-                let len = selection.n_items();
-                edit_button.set_sensitive(true);
-                remove_button.set_sensitive(true);
-                up_button.set_sensitive(position > 0);
-                down_button.set_sensitive(position + 1 < len);
-            } else {
-                edit_button.set_sensitive(false);
-                remove_button.set_sensitive(false);
-                up_button.set_sensitive(false);
-                down_button.set_sensitive(false);
-            }
+            let has_selection = selection.selected() != gtk::INVALID_LIST_POSITION;
+            edit_button.set_sensitive(has_selection);
+            remove_button.set_sensitive(has_selection);
         }
     ));
 
@@ -193,53 +171,6 @@ fn favorite_apps_widget() -> (gtk::Widget, gtk::SingleSelection) {
         move |_| {
             if let Some(store) = selection.model().and_downcast::<gio::ListStore>() {
                 store.remove(selection.selected());
-            }
-        }
-    ));
-    up_button.connect_clicked(glib::clone!(
-        #[weak]
-        selection,
-        move |_| {
-            let position = selection.selected();
-            if position == gtk::INVALID_LIST_POSITION {
-                return;
-            };
-            let Some(item) = selection.item(position) else {
-                return;
-            };
-            let Some(prev_position) = position.checked_sub(1) else {
-                return;
-            };
-            let Some(prev_item) = selection.item(prev_position) else {
-                return;
-            };
-            if let Some(store) = selection.model().and_downcast::<gio::ListStore>() {
-                swap_list_store_items(&store, &item, &prev_item);
-                selection.set_selected(prev_position);
-            }
-        }
-    ));
-    down_button.connect_clicked(glib::clone!(
-        #[weak]
-        selection,
-        move |_| {
-            let position = selection.selected();
-            if position == gtk::INVALID_LIST_POSITION {
-                return;
-            };
-            let Some(item) = selection.item(position) else {
-                return;
-            };
-            let Some(next_position) = position.checked_add(1).filter(|p| *p < selection.n_items())
-            else {
-                return;
-            };
-            let Some(next_item) = selection.item(next_position) else {
-                return;
-            };
-            if let Some(store) = selection.model().and_downcast::<gio::ListStore>() {
-                swap_list_store_items(&store, &item, &next_item);
-                selection.set_selected(next_position);
             }
         }
     ));

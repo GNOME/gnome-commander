@@ -1413,17 +1413,10 @@ Copyright \u{00A9} 2024 Andrey Kuteiko";
         .present();
 }
 
-#[derive(Clone, Copy)]
-pub enum ActionInitialState {
-    BooleanTrue,
-}
-
 pub struct UserAction {
     pub action_name: &'static str,
     pub activate: Option<fn(&MainWindow, &gio::SimpleAction, Option<&glib::Variant>)>,
     pub parameter_type: Option<Cow<'static, glib::VariantTy>>,
-    pub change_state: Option<fn(&MainWindow, &gio::SimpleAction, Option<&glib::Variant>)>,
-    pub state: Option<ActionInitialState>,
     pub name: &'static str,
     pub description: String,
 }
@@ -1439,8 +1432,6 @@ impl UserAction {
             action_name,
             activate: Some(activate),
             parameter_type: None,
-            change_state: None,
-            state: None,
             name,
             description,
         }
@@ -1457,25 +1448,6 @@ impl UserAction {
             action_name,
             activate: Some(activate),
             parameter_type: Some(parameter_type),
-            change_state: None,
-            state: None,
-            name,
-            description,
-        }
-    }
-
-    const fn boolean(
-        action_name: &'static str,
-        change_state: fn(&MainWindow, &gio::SimpleAction, Option<&glib::Variant>),
-        name: &'static str,
-        description: String,
-    ) -> Self {
-        Self {
-            action_name,
-            activate: None,
-            parameter_type: None,
-            change_state: Some(change_state),
-            state: Some(ActionInitialState::BooleanTrue),
             name,
             description,
         }
@@ -1490,34 +1462,18 @@ impl UserAction {
             action_name,
             activate: None,
             parameter_type: None,
-            change_state: None,
-            state: None,
             name,
             description,
         }
     }
 
     pub fn action_entry(&self) -> Option<gio::ActionEntry<MainWindow>> {
-        if let Some(activate) = self.activate {
-            Some(
-                gio::ActionEntry::builder(&self.action_name)
-                    .activate(activate)
-                    .parameter_type(self.parameter_type.as_deref())
-                    .build(),
-            )
-        } else if let Some(change_state) = self.change_state {
-            Some(
-                gio::ActionEntry::builder(&self.action_name)
-                    .change_state(change_state)
-                    .state(match self.state {
-                        Some(ActionInitialState::BooleanTrue) => true.to_variant(),
-                        None => glib::Variant::from_none(glib::VariantTy::ANY),
-                    })
-                    .build(),
-            )
-        } else {
-            None
-        }
+        Some(
+            gio::ActionEntry::builder(&self.action_name)
+                .activate(self.activate?)
+                .parameter_type(self.parameter_type.as_deref())
+                .build(),
+        )
     }
 }
 

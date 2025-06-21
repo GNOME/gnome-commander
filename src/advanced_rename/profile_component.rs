@@ -27,8 +27,7 @@ use crate::{
     utils::{dialog_button_box, NO_BUTTONS},
 };
 use gettextrs::gettext;
-use gtk::{gio, glib, prelude::*, subclass::prelude::*};
-use std::error::Error;
+use gtk::{gio, glib, pango, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
@@ -37,6 +36,7 @@ mod imp {
             profile::{CaseConversion, TrimBlanks},
             regex_dialog::show_advrename_regex_dialog,
         },
+        dialogs::order_utils::ordering_buttons,
         utils::{attributes_bold, MenuBuilderExt},
     };
     use std::{
@@ -60,9 +60,10 @@ mod imp {
         pub counter_step_spin: gtk::SpinButton,
         pub counter_digits_combo: gtk::DropDown,
 
-        pub regex_model: gtk::ListStore,
+        pub regex_model: gio::ListStore,
+        regex_selection_model: gtk::SingleSelection,
         block_deleted_signal: Cell<i32>,
-        regex_view: gtk::TreeView,
+        regex_view: gtk::ColumnView,
 
         regex_add_button: gtk::Button,
         regex_edit_button: gtk::Button,
@@ -110,13 +111,8 @@ mod imp {
                 .entry_text_column(0)
                 .build();
 
-            let regex_model = gtk::ListStore::new(&[
-                bool::static_type(),
-                String::static_type(),
-                String::static_type(),
-                bool::static_type(),
-                String::static_type(),
-            ]);
+            let regex_model = gio::ListStore::new::<glib::BoxedAnyObject>();
+            let regex_selection_model = gtk::SingleSelection::new(Some(regex_model.clone()));
 
             Self {
                 file_metadata_service: OnceCell::new(),
@@ -132,12 +128,11 @@ mod imp {
                     .model(&counter_digits_model())
                     .build(),
 
-                regex_view: gtk::TreeView::builder()
-                    .model(&regex_model)
-                    .reorderable(true)
-                    .enable_search(false)
+                regex_view: gtk::ColumnView::builder()
+                    .model(&regex_selection_model)
                     .build(),
                 regex_model,
+                regex_selection_model,
                 block_deleted_signal: Default::default(),
 
                 regex_add_button: gtk::Button::builder()
@@ -362,6 +357,10 @@ mod imp {
                 bbox.append(&self.regex_edit_button);
                 bbox.append(&self.regex_remove_button);
                 bbox.append(&self.regex_remove_all_button);
+
+                let (up_button, down_button) = ordering_buttons(&self.regex_selection_model);
+                bbox.append(&up_button);
+                bbox.append(&down_button);
             }
 
             // Case conversion & blank trimming
@@ -437,17 +436,17 @@ mod imp {
                     }
                 ));
 
-            self.regex_model.connect_row_deleted(glib::clone!(
+            self.regex_model.connect_items_changed(glib::clone!(
                 #[weak]
                 this,
-                move |_, _| if this.imp().block_deleted_signal.get() == 0 {
+                move |_, _, _, _| if this.imp().block_deleted_signal.get() == 0 {
                     this.emit_by_name::<()>("regex-changed", &[])
                 }
             ));
-            self.regex_view.connect_row_activated(glib::clone!(
+            self.regex_view.connect_activate(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
-                move |_, _, _| {
+                move |_, _| {
                     glib::spawn_future_local(async move { imp.edit_regex().await });
                 }
             ));
@@ -583,10 +582,7 @@ mod imp {
             if let Some(rx) =
                 show_advrename_regex_dialog(&parent_window, &gettext("Add Rule"), None).await
             {
-                let iter = self.regex_model.append();
-                set_regex_row(&self.regex_model, &iter, &rx);
-
-                self.obj().emit_by_name::<()>("regex-changed", &[]);
+                self.regex_model.append(&glib::BoxedAnyObject::new(rx));
             }
         }
 
@@ -595,25 +591,32 @@ mod imp {
                 eprintln!("No window");
                 return;
             };
-            let Some((_, iter)) = self.regex_view.selection().selected() else {
+            let position = self.regex_selection_model.selected();
+            if position == gtk::INVALID_LIST_POSITION {
                 return;
-            };
-            let Ok(rx) = get_regex_row(&self.regex_model, &iter) else {
+            }
+            let Some(rx) = self
+                .regex_model
+                .item(position)
+                .and_downcast::<glib::BoxedAnyObject>()
+                .map(|b| b.borrow::<RegexReplace>().clone())
+            else {
                 return;
             };
             if let Some(rr) =
                 show_advrename_regex_dialog(&parent_window, &gettext("Edit Rule"), Some(&rx)).await
             {
-                set_regex_row(&self.regex_model, &iter, &rr);
-                self.obj().emit_by_name::<()>("regex-changed", &[]);
+                self.regex_model
+                    .splice(position, 1, &[glib::BoxedAnyObject::new(rr)]);
             }
         }
 
         fn remove_regex(&self) {
-            let Some((_, iter)) = self.regex_view.selection().selected() else {
+            let position = self.regex_selection_model.selected();
+            if position == gtk::INVALID_LIST_POSITION {
                 return;
-            };
-            self.regex_model.remove(&iter);
+            }
+            self.regex_model.remove(position);
             self.regex_changed();
         }
 
@@ -621,7 +624,7 @@ mod imp {
             self.block_deleted_signal
                 .set(self.block_deleted_signal.get() + 1);
 
-            self.regex_model.clear();
+            self.regex_model.remove_all();
 
             self.block_deleted_signal
                 .set(self.block_deleted_signal.get() - 1);
@@ -630,7 +633,7 @@ mod imp {
         }
 
         fn regex_changed(&self) {
-            let empty = self.regex_model.iter_first().is_none();
+            let empty = self.regex_model.n_items() == 0;
             self.regex_edit_button.set_sensitive(!empty);
             self.regex_remove_button.set_sensitive(!empty);
             self.regex_remove_all_button.set_sensitive(!empty);
@@ -749,46 +752,131 @@ mod imp {
         model
     }
 
-    fn create_regex_view(view: &gtk::TreeView) {
-        fn new_text_column(column_id: i32, title: &str, tooltip: &str) -> gtk::TreeViewColumn {
-            let renderer = gtk::CellRendererText::new();
-            renderer.set_foreground(Some("red"));
-            renderer.set_xalign(0.0);
-
-            let col = gtk::TreeViewColumn::with_attributes(
-                title,
-                &renderer,
-                &[
-                    ("text", column_id),
-                    (
-                        "foreground-set",
-                        RegexViewColumns::COL_MALFORMED_REGEX as i32,
-                    ),
-                ],
-            );
-            col.set_clickable(true);
-            col.set_resizable(true);
-            col.button().set_tooltip_text(Some(tooltip));
-            col
+    fn regex_attributes(regex_replace: &RegexReplace) -> Option<pango::AttrList> {
+        if !regex_replace.is_valid() {
+            let attrs = pango::AttrList::new();
+            attrs.insert(pango::AttrColor::new_foreground(0xFFFF, 0, 0));
+            Some(attrs)
+        } else {
+            None
         }
+    }
 
-        view.append_column(&new_text_column(
-            RegexViewColumns::COL_PATTERN as i32,
-            &gettext("Search for"),
-            &gettext("Regex pattern"),
-        ));
+    fn create_regex_view(view: &gtk::ColumnView) {
+        view.append_column(
+            &gtk::ColumnViewColumn::builder()
+                .title(gettext("Search for"))
+                .resizable(true)
+                .expand(true)
+                .factory(&regex_pattern_factory())
+                .build(),
+        );
 
-        view.append_column(&new_text_column(
-            RegexViewColumns::COL_REPLACE as i32,
-            &gettext("Replace with"),
-            &gettext("Replacement"),
-        ));
+        view.append_column(
+            &gtk::ColumnViewColumn::builder()
+                .title(gettext("Replace with"))
+                .resizable(true)
+                .expand(true)
+                .factory(&regex_replacement_factory())
+                .build(),
+        );
 
-        view.append_column(&new_text_column(
-            RegexViewColumns::COL_MATCH_CASE_LABEL as i32,
-            &gettext("Match case"),
-            &gettext("Case sensitive matching"),
-        ));
+        view.append_column(
+            &gtk::ColumnViewColumn::builder()
+                .title(gettext("Match case"))
+                .resizable(true)
+                .expand(false)
+                .factory(&regex_match_case_factory())
+                .build(),
+        );
+    }
+
+    fn regex_pattern_factory() -> gtk::ListItemFactory {
+        let factory = gtk::SignalListItemFactory::new();
+        factory.connect_setup(|_, obj| {
+            if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() {
+                let label = gtk::Label::builder().xalign(0.0).build();
+                list_item.set_child(Some(&label));
+            }
+        });
+        factory.connect_bind(|_, obj| {
+            let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() else {
+                return;
+            };
+            let Some(label) = list_item.child().and_downcast::<gtk::Label>() else {
+                return;
+            };
+            let item = list_item.item().and_downcast::<glib::BoxedAnyObject>();
+            let regex_item = item.as_ref().map(|b| b.borrow::<RegexReplace>());
+
+            label.set_text(regex_item.as_ref().map(|r| &*r.pattern).unwrap_or_default());
+            label.set_attributes(regex_item.and_then(|r| regex_attributes(&r)).as_ref());
+        });
+        factory.upcast()
+    }
+
+    fn regex_replacement_factory() -> gtk::ListItemFactory {
+        let factory = gtk::SignalListItemFactory::new();
+        factory.connect_setup(|_, obj| {
+            if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() {
+                let label = gtk::Label::builder().xalign(0.0).build();
+                list_item.set_child(Some(&label));
+            }
+        });
+        factory.connect_bind(|_, obj| {
+            let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() else {
+                return;
+            };
+            let Some(label) = list_item.child().and_downcast::<gtk::Label>() else {
+                return;
+            };
+            let item = list_item.item().and_downcast::<glib::BoxedAnyObject>();
+            let regex_item = item.as_ref().map(|b| b.borrow::<RegexReplace>());
+
+            label.set_text(
+                regex_item
+                    .as_ref()
+                    .map(|r| &*r.replacement)
+                    .unwrap_or_default(),
+            );
+            label.set_attributes(regex_item.and_then(|r| regex_attributes(&r)).as_ref());
+        });
+        factory.upcast()
+    }
+
+    fn regex_match_case_factory() -> gtk::ListItemFactory {
+        let factory = gtk::SignalListItemFactory::new();
+        factory.connect_setup(|_, obj| {
+            if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() {
+                let label = gtk::Label::builder().xalign(0.0).build();
+                list_item.set_child(Some(&label));
+            }
+        });
+        factory.connect_bind(|_, obj| {
+            let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() else {
+                return;
+            };
+            let Some(label) = list_item.child().and_downcast::<gtk::Label>() else {
+                return;
+            };
+            let item = list_item.item().and_downcast::<glib::BoxedAnyObject>();
+            let regex_item = item.as_ref().map(|b| b.borrow::<RegexReplace>());
+
+            label.set_text(
+                &regex_item
+                    .as_ref()
+                    .map(|r| {
+                        if r.match_case {
+                            gettext("Yes")
+                        } else {
+                            gettext("No")
+                        }
+                    })
+                    .unwrap_or_default(),
+            );
+            label.set_attributes(regex_item.and_then(|r| regex_attributes(&r)).as_ref());
+        });
+        factory.upcast()
     }
 
     fn case_modes() -> gtk::StringList {
@@ -842,17 +930,10 @@ impl AdvancedRenameProfileComponent {
         let model = &self.imp().regex_model;
 
         let mut result = Vec::new();
-        if let Some(iter) = model.iter_first() {
-            loop {
-                if let Ok(regex_replace) = get_regex_row(model, &iter) {
-                    if regex_replace.is_valid() {
-                        result.push(regex_replace);
-                    }
-                }
-
-                if !model.iter_next(&iter) {
-                    break;
-                }
+        for b in model.iter::<glib::BoxedAnyObject>().flatten() {
+            let regex_replace = b.borrow::<RegexReplace>();
+            if regex_replace.is_valid() {
+                result.push(regex_replace.clone());
             }
         }
         result
@@ -892,8 +973,7 @@ impl AdvancedRenameProfileComponent {
         self.imp().remove_all_regexes();
         let regex_model = &self.imp().regex_model;
         for rx in profile.patterns() {
-            let iter = regex_model.append();
-            set_regex_row(&regex_model, &iter, &rx);
+            regex_model.append(&glib::BoxedAnyObject::new(rx));
         }
 
         self.imp()
@@ -918,22 +998,13 @@ impl AdvancedRenameProfileComponent {
             &template_entry
         });
 
-        let store = &self.imp().regex_model;
-
-        let mut patterns = Vec::new();
-        if let Some(iter) = store.iter_first() {
-            loop {
-                match get_regex_row(&store, &iter) {
-                    Ok(rx) => patterns.push(rx),
-                    Err(error) => {
-                        eprintln!("{error}")
-                    }
-                }
-                if !store.iter_next(&iter) {
-                    break;
-                }
-            }
-        }
+        let patterns: Vec<RegexReplace> = self
+            .imp()
+            .regex_model
+            .iter::<glib::BoxedAnyObject>()
+            .flatten()
+            .map(|b| b.borrow::<RegexReplace>().clone())
+            .collect();
 
         profile.set_patterns(patterns);
     }
@@ -1073,46 +1144,4 @@ async fn get_selected_range(
     };
 
     range
-}
-
-#[allow(non_camel_case_types)]
-enum RegexViewColumns {
-    COL_MALFORMED_REGEX = 0,
-    COL_PATTERN,
-    COL_REPLACE,
-    COL_MATCH_CASE,
-    COL_MATCH_CASE_LABEL,
-}
-
-fn get_regex_row(
-    store: &gtk::ListStore,
-    iter: &gtk::TreeIter,
-) -> Result<RegexReplace, Box<dyn Error>> {
-    use RegexViewColumns::*;
-    Ok(RegexReplace {
-        pattern: store.get_value(iter, COL_PATTERN as i32).get()?,
-        replacement: store.get_value(iter, COL_REPLACE as i32).get()?,
-        match_case: store.get_value(iter, COL_MATCH_CASE as i32).get()?,
-    })
-}
-
-fn set_regex_row(store: &gtk::ListStore, iter: &gtk::TreeIter, regex: &RegexReplace) {
-    use RegexViewColumns::*;
-    store.set(
-        iter,
-        &[
-            (COL_MALFORMED_REGEX as u32, &!regex.is_valid()),
-            (COL_PATTERN as u32, &regex.pattern),
-            (COL_REPLACE as u32, &regex.replacement),
-            (COL_MATCH_CASE as u32, &regex.match_case),
-            (
-                COL_MATCH_CASE_LABEL as u32,
-                &if regex.match_case {
-                    gettext("Yes")
-                } else {
-                    gettext("No")
-                },
-            ),
-        ],
-    );
 }
