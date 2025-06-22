@@ -55,12 +55,12 @@ src_test() {
 }
 
 pkg_postinst() {
-	xdg_icon_cache_update
+	xdg_pkg_postinst
 	gnome2_pkg_postinst
 	optfeature "synchronizing files and directories" dev-util/meld
 }
 
 pkg_postrm() {
-	xdg_icon_cache_update
+	xdg_pkg_postinst
 	gnome2_schemas_update
 }
