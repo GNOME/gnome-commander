@@ -9,7 +9,6 @@ plugins/gsf/gsf-plugin.cc
 plugins/poppler/poppler-plugin.cc
 plugins/taglib/taglib-plugin.cc
 plugins/test/test-plugin.cc
-src/advrename_profile_component.rs
 src/application.rs
 src/app.rs
 src/chmod_component.rs
@@ -17,8 +16,6 @@ src/chown_component.rs
 src/connection/device.rs
 src/connection/remote.rs
 src/dialogs/about_plugin.rs
-src/dialogs/advrename_dialog.rs
-src/dialogs/advrename_regex_dialog.rs
 src/dialogs/chmod_dialog.rs
 src/dialogs/chown_dialog.rs
 src/dialogs/connect_dialog.rs
@@ -26,7 +23,6 @@ src/dialogs/create_symlink_dialog.rs
 src/dialogs/delete_dialog.rs
 src/dialogs/edit_bookmark_dialog.rs
 src/dialogs/file_properties_dialog.rs
-src/dialogs/gnome-cmd-advrename-dialog.cc
 src/dialogs/gnome-cmd-mkdir-dialog.cc
 src/dialogs/gnome-cmd-options-dialog.cc
 src/dialogs/gnome-cmd-search-dialog.cc
@@ -47,7 +43,6 @@ src/dialogs/prepare_transfer_dialog.rs
 src/dialogs/profiles/edit_profile_dialog.rs
 src/dialogs/profiles/manage_profiles_dialog.rs
 src/dialogs/remote_dialog.rs
-src/dialogs/search_dialog.rs
 src/dialogs/shortcuts/shortcut_dialog.rs
 src/dialogs/shortcuts/shortcuts_dialog.rs
 src/dialogs/transfer_progress_dialog.rs
@@ -60,7 +55,6 @@ src/file_list/quick_search.rs
 src/file_metainfo_view.rs
 src/file_selector.rs
 src/file_view.rs
-src/gnome-cmd-advrename-profile-component.cc
 src/gnome-cmd-block.cc
 src/gnome-cmd-con.cc
 src/gnome-cmd-con-device.cc
@@ -73,7 +67,6 @@ src/gnome-cmd-file.cc
 src/gnome-cmd-file-list.cc
 src/gnome-cmd-file-selector.cc
 src/gnome-cmd-main-win.cc
-src/gnome-cmd-selection-profile-component.cc
 src/gnome-cmd-user-actions.cc
 src/gnome-cmd-xfer.cc
 src/intviewer/search_dialog.rs
