@@ -65,6 +65,17 @@
   </suggests>
 
   <releases>
+    <release type="stable" version="1.18.3" date="2025-06-22">
+      <description>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Improved compatibility with Wayland (Balló György)</li>
+          <li>Fix crash when SMB button is pressed (Andrey Kutejko)</li>
+          <li>Issue #179: DEL key in quick search dialog wants remove whole file/dir (Andrey Kutejko)</li>
+        </ul>
+        <p>New or updated translations: ru (Sergej A.), sv (Anders Jonsson)</p>
+      </description>
+    </release>
     <release type="stable" version="1.18.2" date="2025-02-10">
       <description>
         <p>This release fixes the following bugs:</p>
