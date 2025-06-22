@@ -18,11 +18,11 @@ RDEPEND="
 	doc? ( gnome-extra/yelp )
 	>=dev-libs/glib-2.70.0:2
 	>=x11-libs/gtk+-@GTK_REQ@:3
-	exif? ( >=media-gfx/exiv2-@EXIV2_REQ@ )
+	exif? ( >=media-gfx/exiv2-@EXIV2_REQ@:= )
 	gsf? ( >=gnome-extra/libgsf-1.12:= )
-	pdf? ( app-text/poppler[cairo] )
+	pdf? ( app-text/poppler:=[cairo] )
 	samba? ( gnome-base/gvfs[samba] )
-	taglib? ( >=media-libs/taglib-@TAGLIB_REQ@ )
+	taglib? ( >=media-libs/taglib-@TAGLIB_REQ@:= )
 "
 BDEPEND="
 	doc? ( app-text/yelp-tools )
