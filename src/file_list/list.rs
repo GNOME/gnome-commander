@@ -594,14 +594,6 @@ pub extern "C" fn toggle_files_with_same_extension(
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_stats(fl: *mut ffi::GnomeCmdFileList) -> *mut c_char {
-    let fl: FileList = unsafe { from_glib_none(fl) };
-    let options = GeneralOptions::new();
-    let stats = fl.stats_str(options.size_display_mode());
-    stats.to_glib_full()
-}
-
-#[no_mangle]
 pub extern "C" fn gnome_cmd_file_list_show_quicksearch(
     fl: *mut ffi::GnomeCmdFileList,
     keyval: u32,

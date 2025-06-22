@@ -68,7 +68,6 @@ struct GnomeCmdFileSelector
     void update_files();
     void update_direntry();
     void update_vol_label();
-    void update_selected_files_label();
     void update_style();
     void update_connections();
 
@@ -109,8 +108,6 @@ inline FileSelectorID operator ! (FileSelectorID id)
 extern "C" GnomeCmdFileList *gnome_cmd_file_selector_file_list (GnomeCmdFileSelector *fs);
 extern "C" GnomeCmdFileList *gnome_cmd_file_selector_file_list_nth (GnomeCmdFileSelector *fs, gint n);
 
-extern "C" GtkWidget *gnome_cmd_file_selector_connection_bar(GnomeCmdFileSelector *fs);
-
 extern "C" GtkWidget *gnome_cmd_file_selector_new_tab_full (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, gint sort_col, gint sort_order, gboolean locked, gboolean activate, gboolean grab_focus);
 
 extern "C" gboolean gnome_cmd_file_selector_is_active (GnomeCmdFileSelector *fs);
@@ -124,13 +121,6 @@ extern "C" void gnome_cmd_file_selector_back (GnomeCmdFileSelector *fs);
 extern "C" gboolean gnome_cmd_file_selector_is_tab_locked (GnomeCmdFileSelector *fs, GnomeCmdFileList *fl);
 extern "C" gboolean gnome_cmd_file_selector_is_current_tab_locked (GnomeCmdFileSelector *fs);
 extern "C" void gnome_cmd_file_selector_set_tab_locked (GnomeCmdFileSelector *fs, GnomeCmdFileList *fl, gboolean lock);
-
-extern "C" void gnome_cmd_file_selector_update_show_devlist(GnomeCmdFileSelector *fs, gboolean visible);
-
-extern "C" void gnome_cmd_file_selector_show_bookmarks (GnomeCmdFileSelector *fs);
-extern "C" void gnome_cmd_file_selector_show_history (GnomeCmdFileSelector *fs);
-
-extern "C" void gnome_cmd_file_selector_activate_connection_list (GnomeCmdFileSelector *fs);
 
 extern "C" void gnome_cmd_file_selector_update_tab_label (GnomeCmdFileSelector *fs, GnomeCmdFileList *fl);
 

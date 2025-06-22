@@ -17,13 +17,8 @@
  * For more details see the file COPYING.
  */
 
-use crate::connection::list::ConnectionList;
-use gtk::{
-    gio,
-    glib::{self, ffi::GType, translate::IntoGlib},
-    prelude::*,
-    subclass::prelude::*,
-};
+use crate::connection::{connection::Connection, list::ConnectionList};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
@@ -166,9 +161,15 @@ impl ConnectionBar {
             .property("connection-list", connection_list)
             .build()
     }
-}
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_connection_bar_get_type() -> GType {
-    ConnectionBar::static_type().into_glib()
+    pub fn connect_clicked<F: Fn(&Self, &Connection, bool) + 'static>(
+        &self,
+        f: F,
+    ) -> glib::SignalHandlerId {
+        self.connect_closure(
+            "clicked",
+            false,
+            glib::closure_local!(move |this, con, new_tab| { (f)(this, con, new_tab) }),
+        )
+    }
 }

@@ -871,7 +871,15 @@ pub fn command_open_terminal(
 
 /* ***************************** View Menu ****************************** */
 
-c_action!(view_dir_history);
+pub fn view_dir_history(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .show_history();
+}
 
 pub fn view_up(
     main_win: &MainWindow,
@@ -1179,7 +1187,15 @@ pub fn bookmarks_goto(
     fs.goto_directory(&connection, Path::new(&bookmark.path()));
 }
 
-c_action!(bookmarks_view);
+pub fn bookmarks_view(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .show_bookmarks();
+}
 
 /************** Options Menu **************/
 

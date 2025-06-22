@@ -31,7 +31,6 @@
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-dir-indicator.h"
 #include "utils.h"
 #include "dialogs/gnome-cmd-mkdir-dialog.h"
 
@@ -72,7 +71,6 @@ GNOME_CMD_USER_ACTION(edit_filter);
 GNOME_CMD_USER_ACTION(edit_copy_fnames);
 
 /************** View Menu **************/
-GNOME_CMD_USER_ACTION(view_dir_history);
 GNOME_CMD_USER_ACTION(view_directory);
 GNOME_CMD_USER_ACTION(view_prev_tab);
 GNOME_CMD_USER_ACTION(view_next_tab);
@@ -80,8 +78,6 @@ GNOME_CMD_USER_ACTION(view_toggle_tab_lock);
 GNOME_CMD_USER_ACTION(view_step_up);
 GNOME_CMD_USER_ACTION(view_step_down);
 
-/************** Bookmarks Menu **************/
-GNOME_CMD_USER_ACTION(bookmarks_view);
 
 
 static GnomeCmdFileList *get_fl (GnomeCmdMainWin *main_win, const FileSelectorID fsID)
@@ -201,14 +197,6 @@ void mark_unselect_with_pattern (GSimpleAction *action, GVariant *parameter, gpo
 /* Changing of GSettings here will trigger functions in gnome-cmd-data.cc */
 /* ********************************************************************** */
 
-void view_dir_history (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gnome_cmd_file_selector_show_history (main_win->fs (ACTIVE));
-}
-
-
 void view_step_up (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
@@ -272,14 +260,4 @@ void view_toggle_tab_lock (GSimpleAction *action, GVariant *parameter, gpointer 
         gnome_cmd_file_selector_set_tab_locked (fs, fl, !locked);
         gnome_cmd_file_selector_update_tab_label (fs, fl);
     }
-}
-
-
-/************** Bookmarks Menu **************/
-
-void bookmarks_view (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gnome_cmd_file_selector_show_bookmarks (main_win->fs (ACTIVE));
 }
