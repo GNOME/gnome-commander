@@ -544,7 +544,13 @@ glib::wrapper! {
         @extends gtk::Widget, gtk::Window;
 }
 
-type GnomeCmdSearchDialog = <SearchDialog as glib::object::ObjectType>::GlibType;
+impl SearchDialog {
+    pub fn show_and_set_focus(&self) {
+        unsafe { gnome_cmd_search_dialog_show_and_set_focus(self.to_glib_none().0) }
+    }
+}
+
+pub type GnomeCmdSearchDialog = <SearchDialog as glib::object::ObjectType>::GlibType;
 
 #[no_mangle]
 pub extern "C" fn gnome_cmd_search_dialog_get_type() -> GType {
@@ -555,6 +561,7 @@ extern "C" {
     fn gnome_cmd_search_dialog_init(dialog: *mut GnomeCmdSearchDialog);
     fn gnome_cmd_search_dialog_dispose(dialog: *mut GnomeCmdSearchDialog);
     fn gnome_cmd_search_dialog_update_profile_menu(dialog: *mut GnomeCmdSearchDialog);
+    fn gnome_cmd_search_dialog_show_and_set_focus(dialog: *mut GnomeCmdSearchDialog);
 
     fn gnome_cmd_search_dialog_goto(dialog: *mut GnomeCmdSearchDialog, file: *mut GnomeCmdFile);
     fn gnome_cmd_search_dialog_stop(dialog: *mut GnomeCmdSearchDialog);

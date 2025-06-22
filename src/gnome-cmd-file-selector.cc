@@ -67,6 +67,7 @@ extern "C" gboolean mime_exec_file (GtkWindow *parent_window, GnomeCmdFile *f);
 extern "C" GType gnome_cmd_connection_bar_get_type();
 extern "C" gchar *gnome_cmd_file_list_stats(GnomeCmdFileList *list);
 extern "C" GtkNotebook *gnome_cmd_file_selector_get_notebook (GnomeCmdFileSelector *fs);
+extern "C" void gnome_cmd_file_selector_update_show_tabs (GnomeCmdFileSelector *fs);
 
 
 static GnomeCmdFileSelectorPrivate *file_selector_priv (GnomeCmdFileSelector *fs)
@@ -654,7 +655,7 @@ void GnomeCmdFileSelector::update_style()
     if (priv->realized)
         update_files();
 
-    update_show_tabs();
+    gnome_cmd_file_selector_update_show_tabs (this);
 
     GtkNotebook *notebook = gnome_cmd_file_selector_get_notebook (this);
     int tabs = gtk_notebook_get_n_pages (notebook);
@@ -679,15 +680,6 @@ void gnome_cmd_file_selector_update_show_devlist(GnomeCmdFileSelector *fs, gbool
     auto lm = gtk_widget_get_layout_manager (GTK_WIDGET (fs));
     auto lc = gtk_layout_manager_get_layout_child (lm, priv->vol_label);
     gtk_grid_layout_child_set_row (GTK_GRID_LAYOUT_CHILD (lc), visible ? 1 : 4);
-}
-
-
-void GnomeCmdFileSelector::update_show_tabs()
-{
-    auto priv = file_selector_priv (this);
-    GtkNotebook *notebook = gnome_cmd_file_selector_get_notebook (this);
-    gboolean show = gnome_cmd_data.options.always_show_tabs || gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook)) > 1;
-    gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notebook), show);
 }
 
 
@@ -754,6 +746,9 @@ gboolean GnomeCmdFileSelector::is_active()
 }
 
 
+extern "C" GType gnome_cmd_tab_label_get_type();
+
+
 GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean locked, gboolean activate)
 {
     auto priv = file_selector_priv (this);
@@ -776,20 +771,11 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     // hide dir column
     fl->show_column(GnomeCmdFileList::COLUMN_DIR, FALSE);
 
-    GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-
-    auto tab_label_pin = gtk_image_new_from_file (PIXMAPS_DIR G_DIR_SEPARATOR_S "pin.png");
-    auto tab_label_text = gtk_label_new (nullptr);
-
-    g_object_set_data (G_OBJECT (hbox), "tab_label_pin", tab_label_pin);
-    g_object_set_data (G_OBJECT (hbox), "tab_label_text", tab_label_text);
-
-    gtk_box_append (GTK_BOX (hbox), tab_label_pin);
-    gtk_box_append (GTK_BOX (hbox), tab_label_text);
+    GtkWidget *tab_label = GTK_WIDGET (g_object_new (gnome_cmd_tab_label_get_type(), nullptr));
 
     GtkNotebook *notebook = gnome_cmd_file_selector_get_notebook (this);
-    gint n = gtk_notebook_append_page (notebook, GTK_WIDGET (fl), hbox);
-    update_show_tabs();
+    gint n = gtk_notebook_append_page (notebook, GTK_WIDGET (fl), tab_label);
+    gnome_cmd_file_selector_update_show_tabs (this);
 
     gtk_notebook_set_tab_reorderable (notebook, GTK_WIDGET (fl), TRUE);
 
@@ -838,61 +824,6 @@ void GnomeCmdFileSelector::next_tab()
     else
         if (n > 1)
             gtk_notebook_set_current_page (notebook, 0);
-}
-
-
-void gnome_cmd_file_selector_update_tab_label (GnomeCmdFileSelector *fs, GnomeCmdFileList *fl)
-{
-    auto priv = file_selector_priv (fs);
-
-    GnomeCmdDir *dir = gnome_cmd_file_list_get_directory (fl);
-    const gchar *name = dir != nullptr ? GNOME_CMD_FILE (dir)->get_name() : nullptr;
-
-    gboolean locked = gnome_cmd_file_selector_is_tab_locked (fs, fl);
-
-    GtkNotebook *notebook = gnome_cmd_file_selector_get_notebook (fs);
-    GtkWidget *hbox = gtk_notebook_get_tab_label (notebook, GTK_WIDGET (fl));
-    GtkWidget *tab_label_pin = GTK_WIDGET (g_object_get_data (G_OBJECT (hbox), "tab_label_pin"));
-    GtkWidget *tab_label_text = GTK_WIDGET (g_object_get_data (G_OBJECT (hbox), "tab_label_text"));
-
-    switch (gnome_cmd_data.options.tab_lock_indicator)
-    {
-        case GnomeCmdData::TAB_LOCK_ICON:
-            gtk_widget_set_visible (tab_label_pin, locked);
-            gtk_label_set_text (GTK_LABEL (tab_label_text), name);
-            break;
-
-        case GnomeCmdData::TAB_LOCK_ASTERISK:
-            gtk_widget_hide (tab_label_pin);
-            if (locked)
-            {
-                gchar *s = g_strconcat ("* ", name, nullptr);
-                gtk_label_set_text (GTK_LABEL (tab_label_text), s);
-                g_free (s);
-            }
-            else
-            {
-                gtk_label_set_text (GTK_LABEL (tab_label_text), name);
-            }
-            break;
-
-        case GnomeCmdData::TAB_LOCK_STYLED_TEXT:
-            gtk_widget_hide (tab_label_pin);
-            if (locked)
-            {
-                gchar *s = g_strconcat ("<span foreground='blue'>", name, "</span>", nullptr);
-                gtk_label_set_markup (GTK_LABEL (tab_label_text), s);
-                g_free (s);
-            }
-            else
-            {
-                gtk_label_set_text (GTK_LABEL (tab_label_text), name);
-            }
-            break;
-
-        default:
-            break;
-    }
 }
 
 

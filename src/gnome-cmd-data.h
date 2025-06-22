@@ -249,31 +249,6 @@ struct GnomeCmdData
 
     enum {SEARCH_HISTORY_SIZE=10, ADVRENAME_HISTORY_SIZE=10};
 
-    typedef enum
-    {
-        G_FILE_IS_UNKNOWN,
-        G_FILE_IS_REGULAR,
-        G_FILE_IS_DIR,
-        G_FILE_IS_SYMLINK,
-        G_FILE_IS_SPECIAL,
-        G_FILE_IS_SHORTCUT,
-        G_FILE_IS_MOUNTABLE,
-        G_FILE_IS_HIDDEN,
-        G_FILE_IS_BACKUP,
-        G_FILE_IS_VIRTUAL,
-        G_FILE_IS_VOLATILE
-    }GcmdFileType;
-
-    struct FilterSettings
-    {
-        gboolean file_types[11];
-
-        FilterSettings()
-        {
-            memset(file_types, 0, sizeof(file_types));
-        }
-    };
-
     struct Options
     {
       public:
@@ -309,31 +284,8 @@ struct GnomeCmdData
         guint                        icon_size;
         GdkInterpType                icon_scale_quality;
         gchar                       *theme_icon_dir;
-        //  Tabs
-        gboolean                     always_show_tabs;
-        int                          tab_lock_indicator;
-        //  Confirmation
-        gboolean                     confirm_delete;
-        GtkButtonsType               confirm_delete_default;
-        GnomeCmdConfirmOverwriteMode confirm_copy_overwrite;
-        GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
-        GnomeCmdDefaultDndMode       mouse_dnd_default;
         //  Filters
         gboolean                     symbolic_links_as_regular_files;
-        //  Programs
-        gboolean                     honor_expect_uris;
-        gchar                       *viewer;
-        gboolean                     use_internal_viewer;
-        gchar                       *editor;
-        gchar                       *differ;
-        gboolean                     use_internal_search;
-        gchar                       *search;
-        gchar                       *sendto;
-        gchar                       *termopen;
-        gchar                       *termexec;
-        //  Devices
-        gboolean                     device_only_icon;
-        gboolean                     show_samba_workgroups_button;
 
         Options(): gcmd_settings(nullptr),
                    left_mouse_button_mode(LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
@@ -362,26 +314,7 @@ struct GnomeCmdData
                    use_ls_colors(FALSE),
                    icon_size(16),
                    icon_scale_quality(GDK_INTERP_HYPER),
-                   theme_icon_dir(nullptr),
-                   always_show_tabs(FALSE),
-                   tab_lock_indicator(TAB_LOCK_ICON),
-                   confirm_delete(TRUE),
-                   confirm_delete_default(GTK_BUTTONS_OK),
-                   confirm_copy_overwrite(GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
-                   confirm_move_overwrite(GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
-                   mouse_dnd_default(GNOME_CMD_DEFAULT_DND_QUERY),
-                   honor_expect_uris(FALSE),
-                   viewer(nullptr),
-                   use_internal_viewer(TRUE),
-                   editor(nullptr),
-                   differ(nullptr),
-                   use_internal_search(TRUE),
-                   search(nullptr),
-                   sendto(nullptr),
-                   termopen(nullptr),
-                   termexec(nullptr),
-                   device_only_icon(FALSE),
-                   show_samba_workgroups_button(FALSE)
+                   theme_icon_dir(nullptr)
         {
         }
 
@@ -392,13 +325,6 @@ struct GnomeCmdData
             g_free (date_format);
             g_free (list_font);
             g_free (theme_icon_dir);
-            g_free (viewer);
-            g_free (editor);
-            g_free (differ);
-            g_free (search);
-            g_free (sendto);
-            g_free (termopen);
-            g_free (termexec);
         }
 
         Options &operator = (const Options &cfg);
@@ -422,48 +348,6 @@ struct GnomeCmdData
         {
             g_free (theme_icon_dir);
             theme_icon_dir = g_strdup (dir);
-        }
-
-        void set_viewer(const gchar *command)
-        {
-            g_free (viewer);
-            viewer = g_strdup (command);
-        }
-
-        void set_editor(const gchar *command)
-        {
-            g_free (editor);
-            editor = g_strdup (command);
-        }
-
-        void set_differ(const gchar *command)
-        {
-            g_free (differ);
-            differ = g_strdup (command);
-        }
-
-        void set_search(const gchar *command)
-        {
-            g_free (search);
-            search = g_strdup (command);
-        }
-
-        void set_sendto(const gchar *command)
-        {
-            g_free (sendto);
-            sendto = g_strdup (command);
-        }
-
-        void set_termexec(const gchar *command)
-        {
-            g_free (termexec);
-            termexec = g_strdup (command);
-        }
-
-        void set_termopen(const gchar *command)
-        {
-            g_free (termopen);
-            termopen = g_strdup (command);
         }
 
         void on_size_display_mode_changed();
@@ -525,8 +409,6 @@ struct GnomeCmdData
     gint                         cmdline_history_length;
     GList                       *get_list_from_gsettings_string_array (GSettings *settings, const gchar *key);
     gboolean                     set_gsettings_string_array_from_glist (GSettings *settings, const gchar *key, GList *strings);
-
-    gboolean                     use_gcmd_block;
 
     guint                        opts_dialog_width;
     guint                        opts_dialog_height;

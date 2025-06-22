@@ -31,13 +31,21 @@ pub enum FileSelectorID {
 
 /// The (reversed) order of following enums compared to the occurrence in the GUI is significant
 #[repr(C)]
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, strum::FromRepr)]
-pub enum GnomeCmdConfirmOverwriteMode {
-    GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY = 0,
-    GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL,
-    GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL,
-    GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
+pub enum ConfirmOverwriteMode {
+    Silently = 0,
+    SkipAll,
+    RenameAll,
+    Query,
+}
+
+#[repr(C)]
+#[derive(Clone, Copy, Default, strum::FromRepr)]
+pub enum DndMode {
+    #[default]
+    Query = 0,
+    Copy,
+    Move,
 }
 
 #[repr(C)]

@@ -39,10 +39,11 @@ use crate::{
         state::{State, StateExt},
     },
     plugin_manager::{wrap_plugin_menu, PluginManager},
+    search::search_dialog::SearchDialog,
     shortcuts::Shortcuts,
     tags::tags::FileMetadataService,
     transfer::{gnome_cmd_copy_gfiles, gnome_cmd_move_gfiles},
-    types::{FileSelectorID, GnomeCmdConfirmOverwriteMode},
+    types::{ConfirmOverwriteMode, FileSelectorID},
     utils::{extract_menu_shortcuts, MenuBuilderExt},
 };
 use gettextrs::gettext;
@@ -876,6 +877,7 @@ pub mod imp {
 
 pub mod ffi {
     use super::*;
+    use crate::search::search_dialog::GnomeCmdSearchDialog;
 
     pub type GnomeCmdMainWin = <super::MainWindow as glib::object::ObjectType>::GlibType;
 
@@ -898,6 +900,10 @@ pub mod ffi {
             main_win: *mut GnomeCmdMainWin,
             fs: *mut GnomeCmdFileSelector,
         );
+
+        pub fn gnome_cmd_main_win_get_or_create_search_dialog(
+            main_win: *mut GnomeCmdMainWin,
+        ) -> *mut GnomeCmdSearchDialog;
     }
 }
 
@@ -1053,6 +1059,14 @@ impl MainWindow {
     pub fn file_metadata_service(&self) -> FileMetadataService {
         self.imp().file_metadata_service.clone()
     }
+
+    pub fn get_or_create_search_dialog(&self) -> SearchDialog {
+        unsafe {
+            from_glib_none(ffi::gnome_cmd_main_win_get_or_create_search_dialog(
+                self.to_glib_none().0,
+            ))
+        }
+    }
 }
 
 enum CutAndPasteOperation {
@@ -1130,7 +1144,7 @@ impl MainWindow {
                     dir.clone(),
                     None,
                     gio::FileCopyFlags::NONE,
-                    GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
+                    ConfirmOverwriteMode::Query,
                 )
                 .await
             }
@@ -1141,7 +1155,7 @@ impl MainWindow {
                     dir.clone(),
                     None,
                     gio::FileCopyFlags::NONE,
-                    GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
+                    ConfirmOverwriteMode::Query,
                 )
                 .await
             }

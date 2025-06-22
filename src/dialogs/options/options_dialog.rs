@@ -17,8 +17,12 @@
  * For more details see the file COPYING.
  */
 
+use super::{devices_tab::DevicesTab, tabs_tab::TabsTab};
 use crate::{
-    data::GeneralOptions,
+    data::{ConfirmOptions, FiltersOptions, GeneralOptions, ProgramsOptions},
+    dialogs::options::{
+        confirmation_tab::CondifrmationTab, filters_tab::FiltersTab, programs_tab::ProgramsTab,
+    },
     main_win::ffi::GnomeCmdMainWin,
     utils::{dialog_button_box, display_help, SenderExt},
 };
@@ -38,20 +42,10 @@ extern "C" {
     fn create_general_tab(dialog: *mut GtkWindow, cfg: *mut c_void) -> *mut GtkWidget;
     fn create_format_tab(dialog: *mut GtkWindow, cfg: *mut c_void) -> *mut GtkWidget;
     fn create_layout_tab(dialog: *mut GtkWindow, cfg: *mut c_void) -> *mut GtkWidget;
-    fn create_tabs_tab(dialog: *mut GtkWindow, cfg: *mut c_void) -> *mut GtkWidget;
-    fn create_confirmation_tab(dialog: *mut GtkWindow, cfg: *mut c_void) -> *mut GtkWidget;
-    fn create_filter_tab(dialog: *mut GtkWindow, cfg: *mut c_void) -> *mut GtkWidget;
-    fn create_programs_tab(dialog: *mut GtkWindow, cfg: *mut c_void) -> *mut GtkWidget;
-    fn create_devices_tab(dialog: *mut GtkWindow, cfg: *mut c_void) -> *mut GtkWidget;
 
     fn store_general_options(dialog: *mut GtkWindow, cfg: *mut c_void);
     fn store_format_options(dialog: *mut GtkWindow, cfg: *mut c_void);
     fn store_layout_options(dialog: *mut GtkWindow, cfg: *mut c_void);
-    fn store_tabs_options(dialog: *mut GtkWindow, cfg: *mut c_void);
-    fn store_confirmation_options(dialog: *mut GtkWindow, cfg: *mut c_void);
-    fn store_filter_options(dialog: *mut GtkWindow, cfg: *mut c_void);
-    fn store_programs_options(dialog: *mut GtkWindow, cfg: *mut c_void);
-    fn store_devices_options(dialog: *mut GtkWindow, cfg: *mut c_void);
 
     fn gnome_cmd_data_options() -> *mut c_void;
     fn gnome_cmd_data_save(mw: *mut GnomeCmdMainWin);
@@ -77,6 +71,10 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
     dialog.set_child(Some(&content_area));
 
     let general_options = GeneralOptions::new();
+    let confirmation_options = ConfirmOptions::new();
+    let filters_options = FiltersOptions::new();
+    let programs_options = ProgramsOptions::new();
+
     remember_window_size(&dialog, &general_options.0);
 
     let notebook = gtk::Notebook::builder().hexpand(true).vexpand(true).build();
@@ -88,16 +86,16 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
         unsafe { from_glib_none(create_format_tab(dialog.to_glib_none().0, cfg)) };
     let layout_tab: gtk::Widget =
         unsafe { from_glib_none(create_layout_tab(dialog.to_glib_none().0, cfg)) };
-    let tabs_tab: gtk::Widget =
-        unsafe { from_glib_none(create_tabs_tab(dialog.to_glib_none().0, cfg)) };
-    let confirmation_tab: gtk::Widget =
-        unsafe { from_glib_none(create_confirmation_tab(dialog.to_glib_none().0, cfg)) };
-    let filter_tab: gtk::Widget =
-        unsafe { from_glib_none(create_filter_tab(dialog.to_glib_none().0, cfg)) };
-    let programs_tab: gtk::Widget =
-        unsafe { from_glib_none(create_programs_tab(dialog.to_glib_none().0, cfg)) };
-    let devices_tab: gtk::Widget =
-        unsafe { from_glib_none(create_devices_tab(dialog.to_glib_none().0, cfg)) };
+    let tabs_tab = TabsTab::new();
+    tabs_tab.read(&general_options);
+    let confirmation_tab = CondifrmationTab::new();
+    confirmation_tab.read(&confirmation_options);
+    let filters_tab = FiltersTab::new();
+    filters_tab.read(&filters_options);
+    let programs_tab = ProgramsTab::new();
+    programs_tab.read(&general_options, &programs_options);
+    let devices_tab = DevicesTab::new();
+    devices_tab.read(&general_options);
 
     notebook.append_page(
         &general_tab,
@@ -112,23 +110,23 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
         Some(&gtk::Label::builder().label(gettext("Layout")).build()),
     );
     notebook.append_page(
-        &tabs_tab,
+        &tabs_tab.widget(),
         Some(&gtk::Label::builder().label(gettext("Tabs")).build()),
     );
     notebook.append_page(
-        &confirmation_tab,
+        &confirmation_tab.widget(),
         Some(&gtk::Label::builder().label(gettext("Confirmation")).build()),
     );
     notebook.append_page(
-        &filter_tab,
+        &filters_tab.widget(),
         Some(&gtk::Label::builder().label(gettext("Filters")).build()),
     );
     notebook.append_page(
-        &programs_tab,
+        &programs_tab.widget(),
         Some(&gtk::Label::builder().label(gettext("Programs")).build()),
     );
     notebook.append_page(
-        &devices_tab,
+        &devices_tab.widget(),
         Some(&gtk::Label::builder().label(gettext("Devices")).build()),
     );
 
@@ -209,11 +207,21 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
             store_general_options(dialog.to_glib_none().0, cfg);
             store_format_options(dialog.to_glib_none().0, cfg);
             store_layout_options(dialog.to_glib_none().0, cfg);
-            store_tabs_options(dialog.to_glib_none().0, cfg);
-            store_confirmation_options(dialog.to_glib_none().0, cfg);
-            store_filter_options(dialog.to_glib_none().0, cfg);
-            store_programs_options(dialog.to_glib_none().0, cfg);
-            store_devices_options(dialog.to_glib_none().0, cfg);
+            if let Err(error) = tabs_tab.write(&general_options) {
+                eprintln!("{error}");
+            }
+            if let Err(error) = confirmation_tab.write(&confirmation_options) {
+                eprintln!("{error}");
+            }
+            if let Err(error) = filters_tab.write(&filters_options) {
+                eprintln!("{error}");
+            }
+            if let Err(error) = programs_tab.write(&general_options, &programs_options) {
+                eprintln!("{error}");
+            }
+            if let Err(error) = devices_tab.write(&general_options) {
+                eprintln!("{error}");
+            }
             gnome_cmd_data_save(std::ptr::null_mut());
             if let Ok(mut last_active_tab) = LAST_ACTIVE_TAB.lock() {
                 *last_active_tab = notebook.current_page().unwrap_or_default();

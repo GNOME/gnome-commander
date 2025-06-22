@@ -57,7 +57,6 @@ GNOME_CMD_USER_ACTION(file_internal_view);
 GNOME_CMD_USER_ACTION(file_external_view);
 GNOME_CMD_USER_ACTION(file_edit);
 GNOME_CMD_USER_ACTION(file_edit_new_doc);
-GNOME_CMD_USER_ACTION(file_search);
 GNOME_CMD_USER_ACTION(file_quick_search);
 GNOME_CMD_USER_ACTION(file_chmod);
 GNOME_CMD_USER_ACTION(file_chown);
@@ -125,41 +124,6 @@ void file_delete (GSimpleAction *action, GVariant *parameter, gpointer user_data
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
     gnome_cmd_file_list_show_delete_dialog (get_fl (main_win, ACTIVE));
-}
-
-
-void file_search (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    if (gnome_cmd_data.options.use_internal_search)
-    {
-        auto dlg = main_win->get_or_create_search_dialog ();
-        gnome_cmd_search_dialog_show_and_set_focus (dlg);
-    }
-    else
-    {
-        GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
-        GList *sfl = fl->get_selected_files();
-
-        GError *error = nullptr;
-        int result = spawn_async_r(nullptr, sfl, gnome_cmd_data.options.search, &error);
-        switch (result)
-        {
-            case 0:
-                break;
-            case 1:
-            case 2:
-                DEBUG ('g', "Search command is empty.\n");
-                gnome_cmd_show_message (*main_win, _("No search command given."), _("You can set a command for a search tool in the program options."));
-                g_clear_error (&error);
-                break;
-            case 3:
-            default:
-                gnome_cmd_error_message (*main_win, _("Unable to execute command."), error);
-                break;
-        }
-    }
 }
 
 

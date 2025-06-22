@@ -228,7 +228,52 @@ pub fn file_edit_new_doc(
     });
 }
 
-c_action!(file_search);
+pub fn file_search(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
+    let options = ProgramsOptions::new();
+
+    glib::spawn_future_local(async move {
+        if options.use_internal_search() {
+            let dlg = main_win.get_or_create_search_dialog();
+            dlg.show_and_set_focus();
+        } else {
+            fn no_search_command_error() -> String {
+                format!(
+                    "{}\n{}",
+                    gettext("No search command given."),
+                    gettext("You can set a command for a search tool in the program options.")
+                )
+            }
+
+            let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+            let file_list = file_selector.file_list();
+            let files = file_list.selected_files();
+            let error_message = match spawn_async(None, &files, &options.search_cmd()) {
+                Ok(_) => return,
+                Err(SpawnError::InvalidTemplate) => ErrorMessage::brief(no_search_command_error()),
+                Err(SpawnError::InvalidCommand(e)) => {
+                    ErrorMessage::with_error(no_search_command_error(), &e)
+                }
+                Err(SpawnError::Failure(e)) => {
+                    ErrorMessage::with_error(gettext("Unable to execute command."), &e)
+                }
+            };
+            if let Some(window) = main_win.root().and_downcast::<gtk::Window>() {
+                error_message.show(&window).await;
+            } else {
+                eprintln!(
+                    "No window. Search failed: {}\n{}",
+                    error_message.message,
+                    error_message.secondary_text.unwrap_or_default()
+                );
+            }
+        }
+    });
+}
 
 pub fn file_quick_search(
     main_win: &MainWindow,

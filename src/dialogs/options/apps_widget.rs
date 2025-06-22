@@ -20,162 +20,189 @@
 use super::app_dialog::edit_app_dialog;
 use crate::{
     app::{load_favorite_apps, save_favorite_apps, AppExt, AppTarget, UserDefinedApp},
+    data::{GeneralOptionsRead, GeneralOptionsWrite, WriteResult},
     dialogs::order_utils::ordering_buttons,
 };
 use gettextrs::gettext;
-use gtk::{
-    ffi::GtkWidget,
-    gio,
-    glib::translate::{from_glib_none, ToGlibPtr},
-    prelude::*,
-};
+use gtk::{gio, glib, prelude::*};
 use std::collections::BTreeSet;
 
-fn favorite_apps_widget() -> (gtk::Widget, gtk::SingleSelection) {
-    let hbox = gtk::Box::builder()
-        .orientation(gtk::Orientation::Horizontal)
-        .spacing(12)
-        .build();
+pub struct FavoriteApps {
+    hbox: gtk::Box,
+    selection: gtk::SingleSelection,
+}
 
-    let selection = gtk::SingleSelection::new(None::<gio::ListModel>);
+impl FavoriteApps {
+    pub fn new() -> Self {
+        let hbox = gtk::Box::builder()
+            .orientation(gtk::Orientation::Horizontal)
+            .spacing(12)
+            .build();
 
-    let view = gtk::ColumnView::builder().model(&selection).build();
+        let selection = gtk::SingleSelection::new(None::<gio::ListModel>);
 
-    view.append_column(
-        &gtk::ColumnViewColumn::builder()
-            .factory(&app_icon_factory())
-            .build(),
-    );
-    view.append_column(
-        &gtk::ColumnViewColumn::builder()
-            .title(gettext("Label"))
-            .factory(&app_label_factory())
-            .resizable(true)
-            .build(),
-    );
-    view.append_column(
-        &gtk::ColumnViewColumn::builder()
-            .title(gettext("Command"))
-            .factory(&app_command_factory())
-            .expand(true)
-            .resizable(true)
-            .build(),
-    );
+        let view = gtk::ColumnView::builder().model(&selection).build();
 
-    hbox.append(
-        &gtk::ScrolledWindow::builder()
-            .has_frame(true)
-            .child(&view)
-            .hexpand(true)
-            .build(),
-    );
+        view.append_column(
+            &gtk::ColumnViewColumn::builder()
+                .factory(&app_icon_factory())
+                .build(),
+        );
+        view.append_column(
+            &gtk::ColumnViewColumn::builder()
+                .title(gettext("Label"))
+                .factory(&app_label_factory())
+                .resizable(true)
+                .build(),
+        );
+        view.append_column(
+            &gtk::ColumnViewColumn::builder()
+                .title(gettext("Command"))
+                .factory(&app_command_factory())
+                .expand(true)
+                .resizable(true)
+                .build(),
+        );
 
-    let bbox = gtk::Box::builder()
-        .orientation(gtk::Orientation::Vertical)
-        .spacing(6)
-        .build();
-    hbox.append(&bbox);
+        hbox.append(
+            &gtk::ScrolledWindow::builder()
+                .has_frame(true)
+                .child(&view)
+                .hexpand(true)
+                .build(),
+        );
 
-    let add_button = gtk::Button::builder()
-        .label(gettext("_Add"))
-        .use_underline(true)
-        .build();
-    bbox.append(&add_button);
+        let bbox = gtk::Box::builder()
+            .orientation(gtk::Orientation::Vertical)
+            .spacing(6)
+            .build();
+        hbox.append(&bbox);
 
-    let edit_button = gtk::Button::builder()
-        .label(gettext("_Edit"))
-        .use_underline(true)
-        .build();
-    bbox.append(&edit_button);
+        let add_button = gtk::Button::builder()
+            .label(gettext("_Add"))
+            .use_underline(true)
+            .build();
+        bbox.append(&add_button);
 
-    let remove_button = gtk::Button::builder()
-        .label(gettext("_Remove"))
-        .use_underline(true)
-        .build();
-    bbox.append(&remove_button);
+        let edit_button = gtk::Button::builder()
+            .label(gettext("_Edit"))
+            .use_underline(true)
+            .build();
+        bbox.append(&edit_button);
 
-    let (up_button, down_button) = ordering_buttons(&selection);
-    bbox.append(&up_button);
-    bbox.append(&down_button);
+        let remove_button = gtk::Button::builder()
+            .label(gettext("_Remove"))
+            .use_underline(true)
+            .build();
+        bbox.append(&remove_button);
 
-    selection.connect_selected_notify(glib::clone!(
-        #[weak]
-        edit_button,
-        #[weak]
-        remove_button,
-        move |selection| {
-            let has_selection = selection.selected() != gtk::INVALID_LIST_POSITION;
-            edit_button.set_sensitive(has_selection);
-            remove_button.set_sensitive(has_selection);
-        }
-    ));
+        let (up_button, down_button) = ordering_buttons(&selection);
+        bbox.append(&up_button);
+        bbox.append(&down_button);
 
-    add_button.connect_clicked(glib::clone!(
-        #[weak]
-        selection,
-        move |btn| {
-            let Some(parent_window) = btn.root().and_downcast::<gtk::Window>() else {
-                return;
-            };
-            let Some(store) = selection.model().and_downcast::<gio::ListStore>() else {
-                return;
-            };
-            glib::spawn_future_local(async move {
-                let mut app = UserDefinedApp {
-                    name: String::new(),
-                    command_template: String::new(),
-                    icon_path: None,
-                    target: AppTarget::SomeFiles,
-                    pattern_string: String::from("*.ext1;*.ext2"),
-                    handles_uris: false,
-                    handles_multiple: false,
-                    requires_terminal: false,
-                };
-                let taken_names = app_names(store.upcast_ref(), gtk::INVALID_LIST_POSITION);
-                if edit_app_dialog(&parent_window, &mut app, true, taken_names).await {
-                    store.append(&glib::BoxedAnyObject::new(app));
-                    selection.set_selected(selection.n_items() - 1);
-                }
-            });
-        }
-    ));
-    edit_button.connect_clicked(glib::clone!(
-        #[weak]
-        selection,
-        move |btn| {
-            let Some(parent_window) = btn.root().and_downcast::<gtk::Window>() else {
-                return;
-            };
-            let Some(store) = selection.model().and_downcast::<gio::ListStore>() else {
-                return;
-            };
-            glib::spawn_future_local(async move {
-                let position = selection.selected();
-                let Some(mut app) = store
-                    .item(position)
-                    .and_downcast::<glib::BoxedAnyObject>()
-                    .map(|b| b.borrow::<UserDefinedApp>().clone())
-                else {
+        selection.connect_selected_notify(glib::clone!(
+            #[weak]
+            edit_button,
+            #[weak]
+            remove_button,
+            move |selection| {
+                let has_selection = selection.selected() != gtk::INVALID_LIST_POSITION;
+                edit_button.set_sensitive(has_selection);
+                remove_button.set_sensitive(has_selection);
+            }
+        ));
+
+        add_button.connect_clicked(glib::clone!(
+            #[weak]
+            selection,
+            move |btn| {
+                let Some(parent_window) = btn.root().and_downcast::<gtk::Window>() else {
                     return;
                 };
-                let taken_names = app_names(store.upcast_ref(), position);
-                if edit_app_dialog(&parent_window, &mut app, false, taken_names).await {
-                    store.splice(position, 1, &[glib::BoxedAnyObject::new(app)]);
-                }
-            });
-        }
-    ));
-    remove_button.connect_clicked(glib::clone!(
-        #[weak]
-        selection,
-        move |_| {
-            if let Some(store) = selection.model().and_downcast::<gio::ListStore>() {
-                store.remove(selection.selected());
+                let Some(store) = selection.model().and_downcast::<gio::ListStore>() else {
+                    return;
+                };
+                glib::spawn_future_local(async move {
+                    let mut app = UserDefinedApp {
+                        name: String::new(),
+                        command_template: String::new(),
+                        icon_path: None,
+                        target: AppTarget::SomeFiles,
+                        pattern_string: String::from("*.ext1;*.ext2"),
+                        handles_uris: false,
+                        handles_multiple: false,
+                        requires_terminal: false,
+                    };
+                    let taken_names = app_names(store.upcast_ref(), gtk::INVALID_LIST_POSITION);
+                    if edit_app_dialog(&parent_window, &mut app, true, taken_names).await {
+                        store.append(&glib::BoxedAnyObject::new(app));
+                        selection.set_selected(selection.n_items() - 1);
+                    }
+                });
             }
-        }
-    ));
+        ));
+        edit_button.connect_clicked(glib::clone!(
+            #[weak]
+            selection,
+            move |btn| {
+                let Some(parent_window) = btn.root().and_downcast::<gtk::Window>() else {
+                    return;
+                };
+                let Some(store) = selection.model().and_downcast::<gio::ListStore>() else {
+                    return;
+                };
+                glib::spawn_future_local(async move {
+                    let position = selection.selected();
+                    let Some(mut app) = store
+                        .item(position)
+                        .and_downcast::<glib::BoxedAnyObject>()
+                        .map(|b| b.borrow::<UserDefinedApp>().clone())
+                    else {
+                        return;
+                    };
+                    let taken_names = app_names(store.upcast_ref(), position);
+                    if edit_app_dialog(&parent_window, &mut app, false, taken_names).await {
+                        store.splice(position, 1, &[glib::BoxedAnyObject::new(app)]);
+                    }
+                });
+            }
+        ));
+        remove_button.connect_clicked(glib::clone!(
+            #[weak]
+            selection,
+            move |_| {
+                if let Some(store) = selection.model().and_downcast::<gio::ListStore>() {
+                    store.remove(selection.selected());
+                }
+            }
+        ));
 
-    (hbox.upcast(), selection)
+        Self { hbox, selection }
+    }
+
+    pub fn widget(&self) -> gtk::Widget {
+        self.hbox.clone().upcast()
+    }
+
+    pub fn read(&self, options: &dyn GeneralOptionsRead) {
+        let model: gio::ListStore = load_favorite_apps(options)
+            .into_iter()
+            .map(|app| glib::BoxedAnyObject::new(app))
+            .collect();
+        self.selection.set_model(Some(&model));
+    }
+
+    pub fn write(&self, options: &dyn GeneralOptionsWrite) -> WriteResult {
+        if let Some(model) = self.selection.model() {
+            let apps: Vec<UserDefinedApp> = model
+                .iter::<glib::BoxedAnyObject>()
+                .flatten()
+                .map(|b| b.borrow::<UserDefinedApp>().clone())
+                .collect();
+            save_favorite_apps(&apps, options)?;
+        }
+        Ok(())
+    }
 }
 
 fn app_icon_factory() -> gtk::ListItemFactory {
@@ -266,43 +293,4 @@ fn app_names(model: &gio::ListModel, exclude_position: u32) -> BTreeSet<String> 
         .filter_map(|i| model.item(i).and_downcast::<glib::BoxedAnyObject>())
         .map(|b| b.borrow::<UserDefinedApp>().name())
         .collect()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_favorite_apps_widget() -> *mut GtkWidget {
-    let (widget, selection) = favorite_apps_widget();
-    unsafe {
-        widget.set_data("selection", selection);
-    }
-    widget.to_glib_full()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_favorite_apps_widget_load_apps(widget_ptr: *mut GtkWidget) {
-    let widget: gtk::Widget = unsafe { from_glib_none(widget_ptr) };
-    let selection: &gtk::SingleSelection = unsafe { widget.data("selection").unwrap().as_ref() };
-
-    let model: gio::ListStore = load_favorite_apps()
-        .into_iter()
-        .map(|app| glib::BoxedAnyObject::new(app))
-        .collect();
-    selection.set_model(Some(&model));
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_favorite_apps_widget_save_apps(widget_ptr: *mut GtkWidget) {
-    let widget: gtk::Widget = unsafe { from_glib_none(widget_ptr) };
-    let selection: &gtk::SingleSelection = unsafe { widget.data("selection").unwrap().as_ref() };
-
-    let Some(model) = selection.model() else {
-        return;
-    };
-
-    let apps: Vec<UserDefinedApp> = model
-        .iter::<glib::BoxedAnyObject>()
-        .flatten()
-        .map(|b| b.borrow::<UserDefinedApp>().clone())
-        .collect();
-
-    save_favorite_apps(&apps);
 }

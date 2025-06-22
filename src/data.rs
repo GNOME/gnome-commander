@@ -18,11 +18,13 @@
  */
 
 use crate::{
+    app::FavoriteAppVariant,
     file_selector::TabVariant,
     filter::PatternType,
     search::profile::{SearchProfile, SearchProfilePtr, SearchProfileVariant},
+    tab_label::TabLockIndicator,
     types::{
-        ExtensionDisplayMode, GnomeCmdConfirmOverwriteMode, GraphicalLayoutMode,
+        ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GraphicalLayoutMode,
         PermissionDisplayMode, SizeDisplayMode,
     },
 };
@@ -36,6 +38,8 @@ use gtk::{
 };
 use std::ffi::{c_char, c_void};
 
+pub type WriteResult = Result<(), glib::BoolError>;
+
 pub struct GeneralOptions(pub gio::Settings);
 
 pub trait GeneralOptionsRead {
@@ -45,6 +49,9 @@ pub trait GeneralOptionsRead {
     fn symlink_format(&self) -> String;
     fn use_trash(&self) -> bool;
     fn keybindings(&self) -> glib::Variant;
+
+    fn always_show_tabs(&self) -> bool;
+    fn tab_lock_indicator(&self) -> TabLockIndicator;
 
     fn file_list_tabs(&self) -> Vec<TabVariant>;
 
@@ -60,6 +67,11 @@ pub trait GeneralOptionsRead {
 
     fn quick_seaech_exact_match_begin(&self) -> bool;
     fn quick_seaech_exact_match_end(&self) -> bool;
+
+    fn show_samba_workgroups_button(&self) -> bool;
+    fn device_only_icon(&self) -> bool;
+
+    fn favorite_apps(&self) -> Vec<FavoriteAppVariant>;
 }
 
 pub trait GeneralOptionsWrite {
@@ -72,7 +84,15 @@ pub trait GeneralOptionsWrite {
 
     fn set_keybindings(&self, keybindings: &glib::Variant);
 
+    fn set_always_show_tabs(&self, always_show_tabs: bool) -> WriteResult;
+    fn set_tab_lock_indicator(&self, tab_lock_indicator: TabLockIndicator) -> WriteResult;
+
     fn set_file_list_tabs(&self, tabs: &[TabVariant]);
+
+    fn set_show_samba_workgroups_button(&self, value: bool) -> WriteResult;
+    fn set_device_only_icon(&self, value: bool) -> WriteResult;
+
+    fn set_favorite_apps(&self, apps: &[FavoriteAppVariant]) -> WriteResult;
 }
 
 impl GeneralOptions {
@@ -102,6 +122,19 @@ impl GeneralOptionsRead for GeneralOptions {
 
     fn keybindings(&self) -> glib::Variant {
         self.0.value("keybindings")
+    }
+
+    fn always_show_tabs(&self) -> bool {
+        self.0.boolean("always-show-tabs")
+    }
+
+    fn tab_lock_indicator(&self) -> TabLockIndicator {
+        self.0
+            .enum_("tab-lock-indicator")
+            .try_into()
+            .ok()
+            .and_then(TabLockIndicator::from_repr)
+            .unwrap_or_default()
     }
 
     fn file_list_tabs(&self) -> Vec<TabVariant> {
@@ -163,6 +196,19 @@ impl GeneralOptionsRead for GeneralOptions {
     fn quick_seaech_exact_match_end(&self) -> bool {
         self.0.boolean("quick-search-exact-match-end")
     }
+
+    fn show_samba_workgroups_button(&self) -> bool {
+        self.0.boolean("show-samba-workgroup-button")
+    }
+
+    fn device_only_icon(&self) -> bool {
+        self.0.boolean("dev-only-icon")
+    }
+
+    fn favorite_apps(&self) -> Vec<FavoriteAppVariant> {
+        let variant = self.0.value("favorite-apps");
+        Vec::<FavoriteAppVariant>::from_variant(&variant).unwrap_or_default()
+    }
 }
 
 impl GeneralOptionsWrite for GeneralOptions {
@@ -186,14 +232,35 @@ impl GeneralOptionsWrite for GeneralOptions {
         self.0.set_value("keybindings", keybindings);
     }
 
+    fn set_always_show_tabs(&self, always_show_tabs: bool) -> WriteResult {
+        self.0.set_boolean("always-show-tabs", always_show_tabs)
+    }
+
+    fn set_tab_lock_indicator(&self, tab_lock_indicator: TabLockIndicator) -> WriteResult {
+        self.0
+            .set_enum("tab-lock-indicator", tab_lock_indicator as i32)
+    }
+
     fn set_file_list_tabs(&self, tabs: &[TabVariant]) {
         self.0.set("file-list-tabs", tabs);
+    }
+
+    fn set_show_samba_workgroups_button(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("show-samba-workgroup-button", value)
+    }
+
+    fn set_device_only_icon(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("dev-only-icon", value)
+    }
+
+    fn set_favorite_apps(&self, apps: &[FavoriteAppVariant]) -> WriteResult {
+        self.0.set_value("favorite-apps", &apps.to_variant())
     }
 }
 
 pub struct ConfirmOptions(pub gio::Settings);
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq, Eq)]
 pub enum DeleteDefault {
     Cancel = 3,
     Delete = 1,
@@ -202,13 +269,17 @@ pub enum DeleteDefault {
 pub trait ConfirmOptionsRead {
     fn confirm_delete(&self) -> bool;
     fn confirm_delete_default(&self) -> DeleteDefault;
-    fn confirm_copy_overwrite(&self) -> GnomeCmdConfirmOverwriteMode;
-    fn confirm_move_overwrite(&self) -> GnomeCmdConfirmOverwriteMode;
+    fn confirm_copy_overwrite(&self) -> ConfirmOverwriteMode;
+    fn confirm_move_overwrite(&self) -> ConfirmOverwriteMode;
+    fn dnd_mode(&self) -> DndMode;
 }
 
 pub trait ConfirmOptionsWrite {
-    fn set_confirm_delete(&self, confirm_delete: bool);
-    fn confirm_delete_default(&self, delete_default: DeleteDefault);
+    fn set_confirm_delete(&self, confirm_delete: bool) -> WriteResult;
+    fn set_confirm_delete_default(&self, delete_default: DeleteDefault) -> WriteResult;
+    fn set_confirm_copy_overwrite(&self, mode: ConfirmOverwriteMode) -> WriteResult;
+    fn set_confirm_move_overwrite(&self, mode: ConfirmOverwriteMode) -> WriteResult;
+    fn set_dnd_mode(&self, mode: DndMode) -> WriteResult;
 }
 
 impl ConfirmOptions {
@@ -231,32 +302,53 @@ impl ConfirmOptionsRead for ConfirmOptions {
         }
     }
 
-    fn confirm_copy_overwrite(&self) -> GnomeCmdConfirmOverwriteMode {
+    fn confirm_copy_overwrite(&self) -> ConfirmOverwriteMode {
         self.0
             .enum_("copy-overwrite")
             .try_into()
             .ok()
-            .and_then(GnomeCmdConfirmOverwriteMode::from_repr)
-            .unwrap_or(GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
+            .and_then(ConfirmOverwriteMode::from_repr)
+            .unwrap_or(ConfirmOverwriteMode::Query)
     }
 
-    fn confirm_move_overwrite(&self) -> GnomeCmdConfirmOverwriteMode {
+    fn confirm_move_overwrite(&self) -> ConfirmOverwriteMode {
         self.0
             .enum_("move-overwrite")
             .try_into()
             .ok()
-            .and_then(GnomeCmdConfirmOverwriteMode::from_repr)
-            .unwrap_or(GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
+            .and_then(ConfirmOverwriteMode::from_repr)
+            .unwrap_or(ConfirmOverwriteMode::Query)
+    }
+
+    fn dnd_mode(&self) -> DndMode {
+        self.0
+            .enum_("mouse-drag-and-drop")
+            .try_into()
+            .ok()
+            .and_then(DndMode::from_repr)
+            .unwrap_or_default()
     }
 }
 
 impl ConfirmOptionsWrite for ConfirmOptions {
-    fn set_confirm_delete(&self, confirm_delete: bool) {
-        self.0.set_boolean("delete", confirm_delete);
+    fn set_confirm_delete(&self, confirm_delete: bool) -> WriteResult {
+        self.0.set_boolean("delete", confirm_delete)
     }
 
-    fn confirm_delete_default(&self, delete_default: DeleteDefault) {
-        self.0.set_enum("delete-default", delete_default as i32);
+    fn set_confirm_delete_default(&self, delete_default: DeleteDefault) -> WriteResult {
+        self.0.set_enum("delete-default", delete_default as i32)
+    }
+
+    fn set_confirm_copy_overwrite(&self, mode: ConfirmOverwriteMode) -> WriteResult {
+        self.0.set_enum("copy-overwrite", mode as i32)
+    }
+
+    fn set_confirm_move_overwrite(&self, mode: ConfirmOverwriteMode) -> WriteResult {
+        self.0.set_enum("move-overwrite", mode as i32)
+    }
+
+    fn set_dnd_mode(&self, mode: DndMode) -> WriteResult {
+        self.0.set_enum("mouse-drag-and-drop", mode as i32)
     }
 }
 
@@ -394,6 +486,20 @@ pub trait ProgramsOptionsRead {
     fn use_gcmd_block(&self) -> bool;
 }
 
+pub trait ProgramsOptionsWrite {
+    fn set_dont_download(&self, value: bool) -> WriteResult;
+    fn set_use_internal_viewer(&self, value: bool) -> WriteResult;
+    fn set_viewer_cmd(&self, value: &str) -> WriteResult;
+    fn set_editor_cmd(&self, value: &str) -> WriteResult;
+    fn set_differ_cmd(&self, value: &str) -> WriteResult;
+    fn set_use_internal_search(&self, value: bool) -> WriteResult;
+    fn set_search_cmd(&self, value: &str) -> WriteResult;
+    fn set_sendto_cmd(&self, value: &str) -> WriteResult;
+    fn set_terminal_cmd(&self, value: &str) -> WriteResult;
+    fn set_terminal_exec_cmd(&self, value: &str) -> WriteResult;
+    fn set_use_gcmd_block(&self, value: bool) -> WriteResult;
+}
+
 impl ProgramsOptions {
     pub fn new() -> Self {
         Self(gio::Settings::new(
@@ -445,6 +551,52 @@ impl ProgramsOptionsRead for ProgramsOptions {
 
     fn use_gcmd_block(&self) -> bool {
         self.0.boolean("use-gcmd-block")
+    }
+}
+
+impl ProgramsOptionsWrite for ProgramsOptions {
+    fn set_dont_download(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("dont-download", value)
+    }
+
+    fn set_use_internal_viewer(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("use-internal-viewer", value)
+    }
+
+    fn set_viewer_cmd(&self, value: &str) -> WriteResult {
+        self.0.set_string("viewer-cmd", value)
+    }
+
+    fn set_editor_cmd(&self, value: &str) -> WriteResult {
+        self.0.set_string("editor-cmd", value)
+    }
+
+    fn set_differ_cmd(&self, value: &str) -> WriteResult {
+        self.0.set_string("differ-cmd", value)
+    }
+
+    fn set_use_internal_search(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("use-internal-search", value)
+    }
+
+    fn set_search_cmd(&self, value: &str) -> WriteResult {
+        self.0.set_string("search-cmd", value)
+    }
+
+    fn set_sendto_cmd(&self, value: &str) -> WriteResult {
+        self.0.set_string("sendto-cmd", value)
+    }
+
+    fn set_terminal_cmd(&self, value: &str) -> WriteResult {
+        self.0.set_string("terminal-cmd", value)
+    }
+
+    fn set_terminal_exec_cmd(&self, value: &str) -> WriteResult {
+        self.0.set_string("terminal-exec-cmd", value)
+    }
+
+    fn set_use_gcmd_block(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("use-gcmd-block", value)
     }
 }
 

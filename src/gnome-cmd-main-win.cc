@@ -456,15 +456,15 @@ void GnomeCmdMainWin::update_cmdline()
 }
 
 
-GnomeCmdSearchDialog *GnomeCmdMainWin::get_or_create_search_dialog ()
+GnomeCmdSearchDialog *gnome_cmd_main_win_get_or_create_search_dialog (GnomeCmdMainWin *main_win)
 {
-    auto priv = gnome_cmd_main_win_priv (this);
+    auto priv = gnome_cmd_main_win_priv (main_win);
     auto dlg = static_cast<GnomeCmdSearchDialog*>(g_weak_ref_get (&priv->file_search_dlg));
     if (!dlg)
     {
         dlg = gnome_cmd_search_dialog_new (&gnome_cmd_data.search_defaults,
-            gnome_cmd_main_win_get_file_metadata_service (this),
-            gnome_cmd_data.options.search_window_is_transient ? GTK_WINDOW (this) : nullptr);
+            gnome_cmd_main_win_get_file_metadata_service (main_win),
+            gnome_cmd_data.options.search_window_is_transient ? GTK_WINDOW (main_win) : nullptr);
         g_weak_ref_set (&priv->file_search_dlg, dlg);
     }
     return dlg;

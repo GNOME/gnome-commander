@@ -58,6 +58,7 @@ mod select_directory_button;
 mod select_icon_button;
 mod shortcuts;
 mod spawn;
+mod tab_label;
 mod tags;
 mod transfer;
 mod types;

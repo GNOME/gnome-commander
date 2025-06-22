@@ -18,13 +18,7 @@
  */
 
 use crate::utils::attributes_bold;
-use gtk::{glib, prelude::*};
-
-pub trait OptionsWidget {
-    fn widget(&self) -> gtk::Widget;
-    fn load(&self);
-    fn save(&self) -> Result<(), glib::error::BoolError>;
-}
+use gtk::prelude::*;
 
 pub fn create_category(title: &str, content: &impl IsA<gtk::Widget>) -> gtk::Widget {
     let frame = gtk::Box::builder()

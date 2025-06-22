@@ -18,7 +18,7 @@
  */
 
 use crate::{
-    data::{GeneralOptions, ProgramsOptionsRead},
+    data::{GeneralOptionsRead, GeneralOptionsWrite, ProgramsOptionsRead, WriteResult},
     file::File,
     libgcmd::file_descriptor::FileDescriptorExt,
     spawn::{parse_command_template, spawn_async_command},
@@ -261,19 +261,22 @@ impl App {
 }
 
 #[derive(glib::Variant)]
-struct FavoriteAppVariant {
-    name: String,
-    command_template: String,
-    icon_path: String,
-    pattern_string: String,
-    target: u32,
-    handles_uris: bool,
-    handles_multiple: bool,
-    requires_terminal: bool,
+pub struct FavoriteAppVariant {
+    pub name: String,
+    pub command_template: String,
+    pub icon_path: String,
+    pub pattern_string: String,
+    pub target: u32,
+    pub handles_uris: bool,
+    pub handles_multiple: bool,
+    pub requires_terminal: bool,
 }
 
-pub fn save_favorite_apps(apps: &[UserDefinedApp]) {
-    let variant = apps
+pub fn save_favorite_apps(
+    apps: &[UserDefinedApp],
+    options: &dyn GeneralOptionsWrite,
+) -> WriteResult {
+    let variants = apps
         .iter()
         .map(|app| FavoriteAppVariant {
             name: app.name.to_owned(),
@@ -289,19 +292,13 @@ pub fn save_favorite_apps(apps: &[UserDefinedApp]) {
             handles_multiple: app.handles_multiple,
             requires_terminal: app.requires_terminal,
         })
-        .collect::<Vec<_>>()
-        .to_variant();
-
-    if let Err(error) = GeneralOptions::new().0.set_value("favorite-apps", &variant) {
-        eprintln!("Failed to save favorite apps: {}", error);
-    }
+        .collect::<Vec<_>>();
+    options.set_favorite_apps(&variants)
 }
 
-pub fn load_favorite_apps() -> Vec<UserDefinedApp> {
-    let variant = GeneralOptions::new().0.value("favorite-apps");
-
-    Vec::<FavoriteAppVariant>::from_variant(&variant)
-        .unwrap_or_default()
+pub fn load_favorite_apps(options: &dyn GeneralOptionsRead) -> Vec<UserDefinedApp> {
+    options
+        .favorite_apps()
         .into_iter()
         .map(|app| UserDefinedApp {
             name: app.name,

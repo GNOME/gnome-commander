@@ -37,6 +37,3 @@ extern "C" void gnome_cmd_shortcuts_free(GnomeCmdShortcuts *a);
 extern "C" void gnome_cmd_shortcuts_save_to_settings(GnomeCmdShortcuts *a);
 extern "C" gboolean gnome_cmd_shortcuts_handle_key_event(GnomeCmdShortcuts *a, GnomeCmdMainWin *mw, guint keyval, guint mask);
 extern "C" gchar *gnome_cmd_shortcuts_bookmark_shortcuts(GnomeCmdShortcuts *a, const gchar *bookmark_name);
-
-
-extern "C" int spawn_async_r(const char *cwd, GList *files_list, const char *command_template, GError **error);

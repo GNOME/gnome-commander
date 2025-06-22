@@ -19,6 +19,12 @@
 
 pub mod options_dialog;
 
+pub mod confirmation_tab;
+pub mod devices_tab;
+pub mod filters_tab;
+pub mod programs_tab;
+pub mod tabs_tab;
+
 pub mod app_dialog;
 pub mod apps_widget;
 pub mod device_dialog;
@@ -27,4 +33,3 @@ pub mod edit_palette_dialog;
 
 pub mod common;
 pub mod devices_widget;
-pub mod filters_widget;
