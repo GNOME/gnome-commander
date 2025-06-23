@@ -860,7 +860,7 @@ pub fn open_terminal(
     spawn_async_command(dpath.as_deref(), &command).map_err(SpawnError::into_message)
 }
 
-/// Executes the command stored in `gnome_cmd_data.options.termopen` in the active directory.
+/// Executes the command stored in `terminal-cmd` in the active directory.
 pub fn command_open_terminal(
     main_win: &MainWindow,
     _action: &gio::SimpleAction,

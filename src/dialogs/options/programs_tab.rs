@@ -195,6 +195,8 @@ impl ProgramsTab {
         programs_options.set_differ_cmd(&self.differ.text())?;
         programs_options.set_search_cmd(&self.search.text())?;
         programs_options.set_use_internal_search(self.use_internal_search.is_active())?;
+        programs_options.set_sendto_cmd(&self.send_to.text())?;
+        programs_options.set_terminal_cmd(&self.termopen.text())?;
         self.fav_apps.write(general_options)?;
         programs_options.set_terminal_exec_cmd(&self.termexec.text())?;
         programs_options.set_use_gcmd_block(self.use_gcmd_block.is_active())?;
