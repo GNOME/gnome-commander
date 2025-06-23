@@ -117,8 +117,11 @@ pub trait GeneralOptionsWrite {
     fn set_list_font(&self, value: &str) -> WriteResult;
     fn set_list_row_height(&self, value: u32) -> WriteResult;
 
+    fn set_date_display_format(&self, format: &str) -> WriteResult;
     fn set_graphical_layout_mode(&self, mode: GraphicalLayoutMode) -> WriteResult;
     fn set_extension_display_mode(&self, mode: ExtensionDisplayMode) -> WriteResult;
+    fn set_size_display_mode(&self, mode: SizeDisplayMode) -> WriteResult;
+    fn set_permissions_display_mode(&self, mode: PermissionDisplayMode) -> WriteResult;
 
     fn set_icon_size(&self, value: u32) -> WriteResult;
     fn set_icon_scale_quality(&self, value: IconScaleQuality) -> WriteResult;
@@ -398,12 +401,24 @@ impl GeneralOptionsWrite for GeneralOptions {
         self.0.set_uint("list-row-height", value)
     }
 
+    fn set_date_display_format(&self, format: &str) -> WriteResult {
+        self.0.set_string("date-disp-format", format)
+    }
+
     fn set_graphical_layout_mode(&self, mode: GraphicalLayoutMode) -> WriteResult {
         self.0.set_enum("graphical-layout-mode", mode as i32)
     }
 
     fn set_extension_display_mode(&self, mode: ExtensionDisplayMode) -> WriteResult {
         self.0.set_enum("extension-display-mode", mode as i32)
+    }
+
+    fn set_size_display_mode(&self, mode: SizeDisplayMode) -> WriteResult {
+        self.0.set_enum("size-display-mode", mode as i32)
+    }
+
+    fn set_permissions_display_mode(&self, mode: PermissionDisplayMode) -> WriteResult {
+        self.0.set_enum("perm-display-mode", mode as i32)
     }
 
     fn set_icon_size(&self, value: u32) -> WriteResult {

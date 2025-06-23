@@ -113,9 +113,9 @@ const gchar *type2string (guint32 type, gchar *buf, guint max)
 }
 
 
-const gchar *perm2string (guint32 permissions, gchar *buf, guint max)
+const gchar *perm2string (GnomeCmdPermDispMode mode, guint32 permissions, gchar *buf, guint max)
 {
-    switch (gnome_cmd_data.options.perm_disp_mode)
+    switch (mode)
     {
         case GNOME_CMD_PERM_DISP_MODE_TEXT:
             return perm2textstring (permissions, buf, max);

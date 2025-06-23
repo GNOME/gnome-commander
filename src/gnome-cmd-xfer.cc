@@ -99,9 +99,7 @@ extern "C" TransferControl *start_transfer_gui(
     const gchar *title,
     guint64 no_of_files,
     GnomeCmdTransferType transfer_type,
-    GnomeCmdConfirmOverwriteMode overwrite_mode,
-    GnomeCmdSizeDispMode size_display_mode,
-    const gchar *date_format
+    GnomeCmdConfirmOverwriteMode overwrite_mode
 );
 
 extern "C" GCancellable *transfer_get_cancellable(TransferControl *tc_ptr);
@@ -366,9 +364,7 @@ gnome_cmd_copy_gfiles_start (GtkWindow *parent_window,
         _("preparing…"),
         xferData->filesTotal,
         COPY,
-        overwriteMode,
-        gnome_cmd_data.options.size_disp_mode,
-        gnome_cmd_data.options.date_format);
+        overwriteMode);
 
     g_set_object(&xferData->cancellable, transfer_get_cancellable(xferData->transfer_control));
 
@@ -450,9 +446,7 @@ gnome_cmd_move_gfiles_start (GtkWindow *parent_window,
         _("preparing…"),
         xferData->filesTotal,
         MOVE,
-        overwriteMode,
-        gnome_cmd_data.options.size_disp_mode,
-        gnome_cmd_data.options.date_format);
+        overwriteMode);
 
     g_set_object(&xferData->cancellable, transfer_get_cancellable(xferData->transfer_control));
 
@@ -535,9 +529,7 @@ gnome_cmd_link_gfiles_start (GtkWindow *parent_window,
         _("preparing…"),
         xferData->filesTotal,
         LINK,
-        overwriteMode,
-        gnome_cmd_data.options.size_disp_mode,
-        gnome_cmd_data.options.date_format);
+        overwriteMode);
 
     g_set_object(&xferData->cancellable, transfer_get_cancellable(xferData->transfer_control));
 
@@ -570,9 +562,7 @@ gnome_cmd_tmp_download (GtkWindow *parent_window,
         _("downloading to /tmp"),
         xferData->filesTotal,
         COPY,
-        GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
-        gnome_cmd_data.options.size_disp_mode,
-        gnome_cmd_data.options.date_format);
+        GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
 
     g_set_object(&xferData->cancellable, transfer_get_cancellable(xferData->transfer_control));
 

@@ -62,7 +62,7 @@ void gnome_cmd_show_message (GtkWindow *parent, const gchar *message, const gcha
 void gnome_cmd_error_message (GtkWindow *parent, const gchar *message, GError *error);
 
 const gchar *type2string (guint32 type, gchar *buf, guint max);
-const gchar *perm2string (guint32 permissions, gchar *buf, guint max);
+const gchar *perm2string (GnomeCmdPermDispMode mode, guint32 permissions, gchar *buf, guint max);
 const gchar *perm2textstring (guint32 permissions, gchar *buf, guint max);
 const gchar *perm2numstring (guint32 permissions, gchar *buf, guint max);
 const gchar *size2string (guint64 size, GnomeCmdSizeDispMode size_disp_mode);

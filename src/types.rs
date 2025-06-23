@@ -78,7 +78,8 @@ pub enum ExtensionDisplayMode {
 }
 
 #[repr(C)]
-#[derive(Clone, Copy, Default, strum::FromRepr)]
+#[derive(Clone, Copy, Default, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdSizeDisplayMode")]
 pub enum SizeDisplayMode {
     Plain = 0,
     Locale,
@@ -88,7 +89,8 @@ pub enum SizeDisplayMode {
 }
 
 #[repr(C)]
-#[derive(Clone, Copy, Default, strum::FromRepr)]
+#[derive(Clone, Copy, Default, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdPermissionDisplayMode")]
 pub enum PermissionDisplayMode {
     #[default]
     Text = 0,

@@ -543,9 +543,15 @@ static void set_model_row(GnomeCmdFileList *fl, GtkTreeIter *iter, GnomeCmdFile 
 
     GnomeCmdExtDispMode ext_disp_mode;
     GnomeCmdLayout layout;
+    GnomeCmdSizeDispMode size_disp_mode;
+    GnomeCmdPermDispMode perm_disp_mode;
+    gchar *date_format;
     g_object_get (fl,
         "extension-display-mode", &ext_disp_mode,
         "graphical-layout-mode", &layout,
+        "size-display-mode", &size_disp_mode,
+        "permissions-display-mode", &perm_disp_mode,
+        "date-display-format", &date_format,
         nullptr);
 
     // If the user wants a character instead of icon for filetype set it now
@@ -583,12 +589,12 @@ static void set_model_row(GnomeCmdFileList *fl, GtkTreeIter *iter, GnomeCmdFile 
     gtk_list_store_set (model, iter, GnomeCmdFileList::COLUMN_NAME, fname, -1);
     gtk_list_store_set (model, iter, GnomeCmdFileList::COLUMN_EXT, fext, -1);
 
-    gtk_list_store_set (model, iter, GnomeCmdFileList::COLUMN_SIZE, tree_size ? (gchar *) f->get_tree_size_as_str() : (gchar *) f->get_size(), -1);
+    gtk_list_store_set (model, iter, GnomeCmdFileList::COLUMN_SIZE, tree_size ? (gchar *) f->get_tree_size_as_str(size_disp_mode) : (gchar *) f->get_size(size_disp_mode), -1);
 
     if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY || !gnome_cmd_file_is_dotdot (f))
     {
-        gtk_list_store_set (model, iter, GnomeCmdFileList::COLUMN_DATE, (gchar *) f->get_mdate(FALSE), -1);
-        gtk_list_store_set (model, iter, GnomeCmdFileList::COLUMN_PERM, (gchar *) f->get_perm(), -1);
+        gtk_list_store_set (model, iter, GnomeCmdFileList::COLUMN_DATE, (gchar *) f->get_mdate(date_format), -1);
+        gtk_list_store_set (model, iter, GnomeCmdFileList::COLUMN_PERM, (gchar *) f->get_perm(perm_disp_mode), -1);
         gtk_list_store_set (model, iter, GnomeCmdFileList::COLUMN_OWNER, (gchar *) f->get_owner(), -1);
         gtk_list_store_set (model, iter, GnomeCmdFileList::COLUMN_GROUP, (gchar *) f->get_group(), -1);
     }
@@ -601,6 +607,7 @@ static void set_model_row(GnomeCmdFileList *fl, GtkTreeIter *iter, GnomeCmdFile 
     g_free (dpath);
     g_free (fname);
     g_free (fext);
+    g_free (date_format);
 }
 
 

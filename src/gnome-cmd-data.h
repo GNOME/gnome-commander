@@ -211,10 +211,6 @@ struct GnomeCmdData
         gboolean                     save_search_history_on_exit;
         gboolean                     search_window_is_transient {true};
         gboolean                     deleteToTrash;
-        // Format
-        GnomeCmdSizeDispMode         size_disp_mode;
-        GnomeCmdPermDispMode         perm_disp_mode;
-        GnomeCmdDateFormat           date_format;           // NOTE: internally stored as locale (which not always defaults to UTF8), needs converting from/to UTF8 for editing and cfg load/save
         //  Filters
         gboolean                     symbolic_links_as_regular_files;
 
@@ -234,29 +230,13 @@ struct GnomeCmdData
                    save_dir_history_on_exit(TRUE),
                    save_cmdline_history_on_exit(TRUE),
                    save_search_history_on_exit(TRUE),
-                   deleteToTrash(TRUE),
-                   size_disp_mode(GNOME_CMD_SIZE_DISP_MODE_POWERED),
-                   perm_disp_mode(GNOME_CMD_PERM_DISP_MODE_TEXT),
-                   date_format(nullptr)
+                   deleteToTrash(TRUE)
         {
         }
 
         Options(const Options &cfg);
 
-        ~Options()
-        {
-            g_free (date_format);
-        }
-
         Options &operator = (const Options &cfg);
-
-        void set_date_format(const GnomeCmdDateFormat format)
-        {
-            g_free (date_format);
-            date_format = g_strdup (format);
-        }
-
-        void on_size_display_mode_changed();
     };
 
     static GSettingsSchemaSource* GetGlobalSchemaSource();

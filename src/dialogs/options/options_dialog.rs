@@ -21,8 +21,8 @@ use super::{devices_tab::DevicesTab, tabs_tab::TabsTab};
 use crate::{
     data::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions, ProgramsOptions},
     dialogs::options::{
-        confirmation_tab::CondifrmationTab, filters_tab::FiltersTab, layout_tab::LayoutTab,
-        programs_tab::ProgramsTab,
+        confirmation_tab::CondifrmationTab, filters_tab::FiltersTab, format_tab::FormatTab,
+        layout_tab::LayoutTab, programs_tab::ProgramsTab,
     },
     main_win::ffi::GnomeCmdMainWin,
     utils::{dialog_button_box, display_help, SenderExt},
@@ -41,10 +41,7 @@ use std::{ffi::c_void, sync::Mutex};
 
 extern "C" {
     fn create_general_tab(dialog: *mut GtkWindow, cfg: *mut c_void) -> *mut GtkWidget;
-    fn create_format_tab(dialog: *mut GtkWindow, cfg: *mut c_void) -> *mut GtkWidget;
-
     fn store_general_options(dialog: *mut GtkWindow, cfg: *mut c_void);
-    fn store_format_options(dialog: *mut GtkWindow, cfg: *mut c_void);
 
     fn gnome_cmd_data_options() -> *mut c_void;
     fn gnome_cmd_data_save(mw: *mut GnomeCmdMainWin);
@@ -82,8 +79,8 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
 
     let general_tab: gtk::Widget =
         unsafe { from_glib_none(create_general_tab(dialog.to_glib_none().0, cfg)) };
-    let format_tab: gtk::Widget =
-        unsafe { from_glib_none(create_format_tab(dialog.to_glib_none().0, cfg)) };
+    let format_tab = FormatTab::new();
+    format_tab.read(&general_options);
     let layout_tab = LayoutTab::new();
     layout_tab.read(&general_options, &color_options);
     let tabs_tab = TabsTab::new();
@@ -102,7 +99,7 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
         Some(&gtk::Label::builder().label(gettext("General")).build()),
     );
     notebook.append_page(
-        &format_tab,
+        &format_tab.widget(),
         Some(&gtk::Label::builder().label(gettext("Format")).build()),
     );
     notebook.append_page(
@@ -205,7 +202,9 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
     if result {
         unsafe {
             store_general_options(dialog.to_glib_none().0, cfg);
-            store_format_options(dialog.to_glib_none().0, cfg);
+            if let Err(error) = format_tab.write(&general_options) {
+                eprintln!("{error}");
+            }
             if let Err(error) = layout_tab.write(&general_options, &color_options) {
                 eprintln!("{error}");
             }

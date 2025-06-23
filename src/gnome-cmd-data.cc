@@ -92,37 +92,6 @@ static void on_bookmarks_changed (GnomeCmdMainWin *main_win)
     gnome_cmd_data.load_bookmarks();
 }
 
-static void on_size_display_mode_changed (GnomeCmdMainWin *main_win)
-{
-    gint size_disp_mode;
-
-    size_disp_mode = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
-    gnome_cmd_data.options.size_disp_mode = (GnomeCmdSizeDispMode) size_disp_mode;
-
-    main_win->update_view();
-}
-
-static void on_perm_display_mode_changed (GnomeCmdMainWin *main_win)
-{
-    gint perm_disp_mode;
-
-    perm_disp_mode = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_PERM_DISP_MODE);
-    gnome_cmd_data.options.perm_disp_mode = (GnomeCmdPermDispMode) perm_disp_mode;
-
-    main_win->update_view();
-}
-
-static void on_date_disp_format_changed (GnomeCmdMainWin *main_win)
-{
-    GnomeCmdDateFormat date_format;
-
-    date_format = (GnomeCmdDateFormat) g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_DATE_DISP_FORMAT);
-    g_free(gnome_cmd_data.options.date_format);
-    gnome_cmd_data.options.date_format = date_format;
-
-    main_win->update_view();
-}
-
 static void on_symbolic_links_as_regular_files_changed (GnomeCmdMainWin *main_win)
 {
     gboolean symbolic_links_as_regular_files;
@@ -214,21 +183,6 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs, GnomeCmdMainWin *ma
                       main_win);
 
     g_signal_connect_swapped (gs->general,
-                      "changed::size-display-mode",
-                      G_CALLBACK (on_size_display_mode_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::perm-display-mode",
-                      G_CALLBACK (on_perm_display_mode_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::date-disp-format",
-                      G_CALLBACK (on_date_disp_format_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
                       "changed::symbolic-links-as-regular-files",
                       G_CALLBACK (on_symbolic_links_as_regular_files_changed),
                       main_win);
@@ -316,9 +270,6 @@ GnomeCmdData::Options::Options(const Options &cfg)
     save_dir_history_on_exit = cfg.save_dir_history_on_exit;
     save_cmdline_history_on_exit = cfg.save_cmdline_history_on_exit;
     save_search_history_on_exit = cfg.save_search_history_on_exit;
-    size_disp_mode = cfg.size_disp_mode;
-    perm_disp_mode = cfg.perm_disp_mode;
-    date_format = g_strdup (cfg.date_format);
     deleteToTrash = cfg.deleteToTrash;
     gcmd_settings = nullptr;
 }
@@ -345,9 +296,6 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         save_dir_history_on_exit = cfg.save_dir_history_on_exit;
         save_cmdline_history_on_exit = cfg.save_cmdline_history_on_exit;
         save_search_history_on_exit = cfg.save_search_history_on_exit;
-        size_disp_mode = cfg.size_disp_mode;
-        perm_disp_mode = cfg.perm_disp_mode;
-        date_format = g_strdup (cfg.date_format);
         gcmd_settings = nullptr;
     }
 
@@ -537,13 +485,6 @@ void GnomeCmdData::load()
     if (!priv)
         priv = g_new0 (Private, 1);
 
-    options.size_disp_mode = (GnomeCmdSizeDispMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
-    options.perm_disp_mode = (GnomeCmdPermDispMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_PERM_DISP_MODE);
-
-    gchar *utf8_date_format = g_settings_get_string (options.gcmd_settings->general, GCMD_SETTINGS_DATE_DISP_FORMAT);
-    options.date_format = g_locale_from_utf8 (utf8_date_format, -1, nullptr, nullptr, nullptr);
-    g_free (utf8_date_format);
-
     options.select_dirs = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS);
     options.case_sens_sort = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE);
     options.symbolic_links_as_regular_files = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SYMBOLIC_LINKS_AS_REG_FILES);
@@ -589,13 +530,6 @@ void GnomeCmdData::load()
 
 void GnomeCmdData::save(GnomeCmdMainWin *main_win)
 {
-    set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, options.size_disp_mode);
-    set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_PERM_DISP_MODE, options.perm_disp_mode);
-
-    gchar *utf8_date_format = g_locale_to_utf8 (options.date_format, -1, nullptr, nullptr, nullptr);
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DATE_DISP_FORMAT, utf8_date_format);
-    g_free (utf8_date_format);
-
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS, &(options.select_dirs));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE, &(options.case_sens_sort));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SYMBOLIC_LINKS_AS_REG_FILES, &(options.symbolic_links_as_regular_files));

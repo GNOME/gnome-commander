@@ -52,7 +52,7 @@ mod imp {
     use crate::{
         data::ColorOptions,
         tags::tags::FileMetadataService,
-        types::{ExtensionDisplayMode, GraphicalLayoutMode},
+        types::{ExtensionDisplayMode, GraphicalLayoutMode, PermissionDisplayMode},
     };
     use std::{
         cell::{Cell, OnceCell, RefCell},
@@ -77,6 +77,15 @@ mod imp {
 
         #[property(get, set, builder(GraphicalLayoutMode::default()))]
         graphical_layout_mode: Cell<GraphicalLayoutMode>,
+
+        #[property(get, set, builder(SizeDisplayMode::default()))]
+        size_display_mode: Cell<SizeDisplayMode>,
+
+        #[property(get, set, builder(PermissionDisplayMode::default()))]
+        permissions_display_mode: Cell<PermissionDisplayMode>,
+
+        #[property(get, set)]
+        date_display_format: RefCell<String>,
 
         #[property(get, set)]
         pub use_ls_colors: Cell<bool>,
@@ -117,6 +126,18 @@ mod imp {
             general_options
                 .0
                 .bind("graphical-layout-mode", &*fl, "graphical-layout-mode")
+                .build();
+            general_options
+                .0
+                .bind("size-display-mode", &*fl, "size-display-mode")
+                .build();
+            general_options
+                .0
+                .bind("perm-display-mode", &*fl, "permissions-display-mode")
+                .build();
+            general_options
+                .0
+                .bind("date-disp-format", &*fl, "date-display-format")
                 .build();
 
             let color_options = ColorOptions::new();

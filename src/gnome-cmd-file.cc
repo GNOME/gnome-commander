@@ -647,30 +647,30 @@ const gchar *GnomeCmdFile::get_group()
 }
 
 
-inline const gchar *date2string (GDateTime *date, gboolean overide_disp_setting)
+inline const gchar *date2string (GDateTime *date, const gchar *date_format)
 {
     if (!date) return nullptr;
 
-    return time2string (date, overide_disp_setting ? "%c" : gnome_cmd_data.options.date_format);
+    return time2string (date, date_format);
 }
 
 
-const gchar *GnomeCmdFile::get_adate(gboolean overide_disp_setting)
+const gchar *GnomeCmdFile::get_adate(const gchar *date_format)
 {
     g_return_val_if_fail (get_file_info() != nullptr, nullptr);
 
-    return date2string (g_file_info_get_access_date_time(get_file_info()), overide_disp_setting);
+    return date2string (g_file_info_get_access_date_time(get_file_info()), date_format);
 }
 
-const gchar *GnomeCmdFile::get_mdate(gboolean overide_disp_setting)
+const gchar *GnomeCmdFile::get_mdate(const gchar *date_format)
 {
     g_return_val_if_fail (get_file_info() != nullptr, nullptr);
 
-    return date2string (g_file_info_get_modification_date_time (get_file_info()), overide_disp_setting);
+    return date2string (g_file_info_get_modification_date_time (get_file_info()), date_format);
 }
 
 
-const gchar *GnomeCmdFile::get_size()
+const gchar *GnomeCmdFile::get_size(GnomeCmdSizeDispMode size_disp_mode)
 {
     static gchar dir_indicator[] = "<DIR> ";
 
@@ -678,7 +678,7 @@ const gchar *GnomeCmdFile::get_size()
         return dir_indicator;
 
     auto size = GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_STANDARD_SIZE);
-    return size2string (size, gnome_cmd_data.options.size_disp_mode);
+    return size2string (size, size_disp_mode);
 }
 
 
@@ -720,26 +720,26 @@ guint64 GnomeCmdFile::calc_tree_size (gulong *count)
 }
 
 
-const gchar *GnomeCmdFile::get_tree_size_as_str()
+const gchar *GnomeCmdFile::get_tree_size_as_str(GnomeCmdSizeDispMode size_disp_mode)
 {
     auto priv = file_private (this);
     if (priv->is_dotdot)
-        return get_size();
+        return get_size(size_disp_mode);
 
     if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)
-        return get_size();
+        return get_size(size_disp_mode);
 
     priv->tree_size = calc_tree_size (nullptr);
 
-    return size2string (priv->tree_size, gnome_cmd_data.options.size_disp_mode);
+    return size2string (priv->tree_size, size_disp_mode);
 }
 
 
-const gchar *GnomeCmdFile::get_perm()
+const gchar *GnomeCmdFile::get_perm(GnomeCmdPermDispMode mode)
 {
     static gchar perm_str[MAX_PERM_LENGTH];
 
-    perm2string (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_MODE) & 0xFFF, perm_str, MAX_PERM_LENGTH);
+    perm2string (mode, GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_MODE) & 0xFFF, perm_str, MAX_PERM_LENGTH);
     return perm_str;
 }
 

@@ -63,12 +63,12 @@ struct GnomeCmdFile
     const gchar *get_extension();
     const gchar *get_owner();
     const gchar *get_group();
-    const gchar *get_adate(gboolean overide_disp_setting);
-    const gchar *get_mdate(gboolean overide_disp_setting);
-    const gchar *get_size();
+    const gchar *get_adate(const gchar *date_format);
+    const gchar *get_mdate(const gchar *date_format);
+    const gchar *get_size(GnomeCmdSizeDispMode size_disp_mode);
     guint64 calc_tree_size (gulong *count);
-    const gchar *get_tree_size_as_str();
-    const gchar *get_perm();
+    const gchar *get_tree_size_as_str(GnomeCmdSizeDispMode size_disp_mode);
+    const gchar *get_perm(GnomeCmdPermDispMode mode);
     gboolean has_content_type(const gchar *contentType);
     gboolean content_type_begins_with(const gchar *contentTypeStart);
 
