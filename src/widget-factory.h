@@ -58,12 +58,4 @@ GtkWidget *create_entry (GtkWidget *parent, const gchar *name, const gchar *valu
 
 GtkWidget *create_check (GtkWidget *parent, const gchar *text, const gchar *name);
 
-GtkWidget *create_check_with_mnemonic (GtkWidget *parent, const gchar *text, const gchar *name);
-
 GtkWidget *create_radio (GtkWidget *parent, GtkWidget *group, const gchar *text, const gchar *name);
-
-GtkWidget *create_spin (GtkWidget *parent, const gchar *name, gint min, gint max, gint value);
-
-GtkWidget *create_scale (GtkWidget *parent, const gchar *name, gint value, gint min, gint max);
-
-GtkWidget *create_combo_box_text (GtkWidget *parent, const gchar **items);

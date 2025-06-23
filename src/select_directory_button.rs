@@ -18,12 +18,7 @@
  */
 
 use gettextrs::gettext;
-use gtk::{
-    gio,
-    glib::{self, ffi::GType, translate::IntoGlib},
-    prelude::*,
-    subclass::prelude::*,
-};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
@@ -112,9 +107,4 @@ impl Default for DirectoryButton {
     fn default() -> Self {
         glib::Object::builder().build()
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_directory_button_get_type() -> GType {
-    DirectoryButton::static_type().into_glib()
 }

@@ -41,6 +41,7 @@ const DEFAULT_PLANE_COLORS: PlaneColors = [
     gdk::RGBA::WHITE,
 ];
 
+#[derive(Clone)]
 pub struct LsColorsPalette {
     colors: [PlaneColors; LsPallettePlane::COUNT],
 }

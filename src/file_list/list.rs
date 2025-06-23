@@ -49,8 +49,15 @@ use std::{collections::HashSet, ffi::c_char, ops::ControlFlow, path::Path};
 
 mod imp {
     use super::*;
-    use crate::tags::tags::FileMetadataService;
-    use std::{cell::OnceCell, sync::OnceLock};
+    use crate::{
+        data::ColorOptions,
+        tags::tags::FileMetadataService,
+        types::{ExtensionDisplayMode, GraphicalLayoutMode},
+    };
+    use std::{
+        cell::{Cell, OnceCell, RefCell},
+        sync::OnceLock,
+    };
 
     #[derive(Default, glib::Properties)]
     #[properties(wrapper_type = super::FileList)]
@@ -58,6 +65,21 @@ mod imp {
         pub quick_search: glib::WeakRef<QuickSearch>,
         #[property(get, construct_only)]
         pub file_metadata_service: OnceCell<FileMetadataService>,
+
+        #[property(get, set)]
+        pub font_name: RefCell<String>,
+
+        #[property(get, set)]
+        pub row_height: Cell<u32>,
+
+        #[property(get, set, builder(ExtensionDisplayMode::default()))]
+        pub extension_display_mode: Cell<ExtensionDisplayMode>,
+
+        #[property(get, set, builder(GraphicalLayoutMode::default()))]
+        graphical_layout_mode: Cell<GraphicalLayoutMode>,
+
+        #[property(get, set)]
+        pub use_ls_colors: Cell<bool>,
     }
 
     #[glib::object_subclass]
@@ -78,6 +100,30 @@ mod imp {
             unsafe {
                 ffi::gnome_cmd_file_list_init(fl.to_glib_none().0);
             }
+
+            let general_options = GeneralOptions::new();
+            general_options
+                .0
+                .bind("list-font", &*fl, "font-name")
+                .build();
+            general_options
+                .0
+                .bind("list-row-height", &*fl, "row-height")
+                .build();
+            general_options
+                .0
+                .bind("extension-display-mode", &*fl, "extension-display-mode")
+                .build();
+            general_options
+                .0
+                .bind("graphical-layout-mode", &*fl, "graphical-layout-mode")
+                .build();
+
+            let color_options = ColorOptions::new();
+            color_options
+                .0
+                .bind("use-ls-colors", &*fl, "use-ls-colors")
+                .build();
         }
 
         fn dispose(&self) {

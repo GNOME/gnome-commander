@@ -22,16 +22,25 @@ use crate::{
     connection::history::History,
     file_selector::TabVariant,
     filter::PatternType,
+    layout::{
+        color_themes::{load_custom_theme, save_custom_theme, ColorTheme, ColorThemeId},
+        ls_colors_palette::{load_palette, save_palette, LsColorsPalette},
+        PREF_COLORS,
+    },
     search::profile::{SearchProfile, SearchProfileVariant},
     tab_label::TabLockIndicator,
     types::{
-        ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GraphicalLayoutMode,
+        ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GraphicalLayoutMode, IconScaleQuality,
         PermissionDisplayMode, QuickSearchShortcut, SizeDisplayMode,
     },
 };
 use gettextrs::gettext;
 use gtk::{gio, prelude::*};
-use std::{rc::Rc, sync::LazyLock};
+use std::{
+    path::{Path, PathBuf},
+    rc::Rc,
+    sync::LazyLock,
+};
 
 pub type WriteResult = Result<(), glib::BoolError>;
 
@@ -50,11 +59,18 @@ pub trait GeneralOptionsRead {
 
     fn file_list_tabs(&self) -> Vec<TabVariant>;
 
+    fn list_font(&self) -> String;
+    fn list_row_height(&self) -> u32;
+
     fn date_display_format(&self) -> String;
     fn graphical_layout_mode(&self) -> GraphicalLayoutMode;
     fn extension_display_mode(&self) -> ExtensionDisplayMode;
     fn size_display_mode(&self) -> SizeDisplayMode;
     fn permissions_display_mode(&self) -> PermissionDisplayMode;
+
+    fn icon_size(&self) -> u32;
+    fn icon_scale_quality(&self) -> IconScaleQuality;
+    fn mime_icon_dir(&self) -> Option<PathBuf>;
 
     fn select_dirs(&self) -> bool;
 
@@ -97,6 +113,16 @@ pub trait GeneralOptionsWrite {
     fn set_tab_lock_indicator(&self, tab_lock_indicator: TabLockIndicator) -> WriteResult;
 
     fn set_file_list_tabs(&self, tabs: &[TabVariant]);
+
+    fn set_list_font(&self, value: &str) -> WriteResult;
+    fn set_list_row_height(&self, value: u32) -> WriteResult;
+
+    fn set_graphical_layout_mode(&self, mode: GraphicalLayoutMode) -> WriteResult;
+    fn set_extension_display_mode(&self, mode: ExtensionDisplayMode) -> WriteResult;
+
+    fn set_icon_size(&self, value: u32) -> WriteResult;
+    fn set_icon_scale_quality(&self, value: IconScaleQuality) -> WriteResult;
+    fn set_mime_icon_dir(&self, value: Option<&Path>) -> WriteResult;
 
     fn set_show_samba_workgroups_button(&self, value: bool) -> WriteResult;
     fn set_device_only_icon(&self, value: bool) -> WriteResult;
@@ -159,6 +185,14 @@ impl GeneralOptionsRead for GeneralOptions {
         self.0.get("file-list-tabs")
     }
 
+    fn list_font(&self) -> String {
+        self.0.string("list-font").to_string()
+    }
+
+    fn list_row_height(&self) -> u32 {
+        self.0.uint("list-row-height")
+    }
+
     fn date_display_format(&self) -> String {
         self.0.string("date-disp-format").to_string()
     }
@@ -197,6 +231,25 @@ impl GeneralOptionsRead for GeneralOptions {
             .ok()
             .and_then(PermissionDisplayMode::from_repr)
             .unwrap_or_default()
+    }
+
+    fn icon_size(&self) -> u32 {
+        self.0.uint("icon-size")
+    }
+
+    fn icon_scale_quality(&self) -> IconScaleQuality {
+        self.0
+            .enum_("icon-scale-quality")
+            .try_into()
+            .ok()
+            .and_then(IconScaleQuality::from_repr)
+            .unwrap_or_default()
+    }
+
+    fn mime_icon_dir(&self) -> Option<PathBuf> {
+        Some(self.0.string("mime-icon-dir"))
+            .filter(|s| !s.is_empty())
+            .map(PathBuf::from)
     }
 
     fn select_dirs(&self) -> bool {
@@ -337,6 +390,37 @@ impl GeneralOptionsWrite for GeneralOptions {
             .set_uint("cmdline-history-length", value.try_into().unwrap_or(16))
     }
 
+    fn set_list_font(&self, value: &str) -> WriteResult {
+        self.0.set_string("list-font", value)
+    }
+
+    fn set_list_row_height(&self, value: u32) -> WriteResult {
+        self.0.set_uint("list-row-height", value)
+    }
+
+    fn set_graphical_layout_mode(&self, mode: GraphicalLayoutMode) -> WriteResult {
+        self.0.set_enum("graphical-layout-mode", mode as i32)
+    }
+
+    fn set_extension_display_mode(&self, mode: ExtensionDisplayMode) -> WriteResult {
+        self.0.set_enum("extension-display-mode", mode as i32)
+    }
+
+    fn set_icon_size(&self, value: u32) -> WriteResult {
+        self.0.set_uint("icon-size", value)
+    }
+
+    fn set_icon_scale_quality(&self, value: IconScaleQuality) -> WriteResult {
+        self.0.set_enum("icon-scale-quality", value as i32)
+    }
+
+    fn set_mime_icon_dir(&self, value: Option<&Path>) -> WriteResult {
+        self.0.set_string(
+            "mime-icon-dir",
+            value.and_then(|v| v.to_str()).unwrap_or_default(),
+        )
+    }
+
     fn set_show_samba_workgroups_button(&self, value: bool) -> WriteResult {
         self.0.set_boolean("show-samba-workgroup-button", value)
     }
@@ -367,6 +451,69 @@ impl GeneralOptionsWrite for GeneralOptions {
 
     fn set_save_search_history(&self, value: bool) -> WriteResult {
         self.0.set_boolean("save-search-history-on-exit", value)
+    }
+}
+
+pub struct ColorOptions(pub gio::Settings);
+
+pub trait ColorOptionsRead {
+    fn theme(&self) -> Option<ColorThemeId>;
+    fn custom_theme(&self) -> ColorTheme;
+    fn use_ls_colors(&self) -> bool;
+    fn ls_color_palette(&self) -> LsColorsPalette;
+}
+
+pub trait ColorOptionsWrite {
+    fn set_theme(&self, value: Option<ColorThemeId>) -> WriteResult;
+    fn set_custom_theme(&self, theme: &ColorTheme) -> WriteResult;
+    fn set_use_ls_colors(&self, value: bool) -> WriteResult;
+    fn set_ls_color_palette(&self, palette: &LsColorsPalette) -> WriteResult;
+}
+
+impl ColorOptions {
+    pub fn new() -> Self {
+        Self(gio::Settings::new(PREF_COLORS))
+    }
+}
+
+impl ColorOptionsRead for ColorOptions {
+    fn theme(&self) -> Option<ColorThemeId> {
+        self.0
+            .enum_("theme")
+            .try_into()
+            .ok()
+            .and_then(ColorThemeId::from_repr)
+    }
+
+    fn custom_theme(&self) -> ColorTheme {
+        load_custom_theme(&self.0)
+    }
+
+    fn use_ls_colors(&self) -> bool {
+        self.0.boolean("use-ls-colors")
+    }
+
+    fn ls_color_palette(&self) -> LsColorsPalette {
+        load_palette(&self.0)
+    }
+}
+
+impl ColorOptionsWrite for ColorOptions {
+    fn set_theme(&self, value: Option<ColorThemeId>) -> WriteResult {
+        self.0
+            .set_enum("theme", value.map(|v| v as i32).unwrap_or_default())
+    }
+
+    fn set_custom_theme(&self, theme: &ColorTheme) -> WriteResult {
+        save_custom_theme(&theme, &self.0)
+    }
+
+    fn set_use_ls_colors(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("use-ls-colors", value)
+    }
+
+    fn set_ls_color_palette(&self, palette: &LsColorsPalette) -> WriteResult {
+        save_palette(palette, &self.0)
     }
 }
 

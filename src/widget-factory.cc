@@ -180,18 +180,6 @@ GtkWidget *create_check (GtkWidget *parent, const gchar *text, const gchar *name
 }
 
 
-GtkWidget *create_check_with_mnemonic (GtkWidget *parent, const gchar *text, const gchar *name)
-{
-    GtkWidget *btn = gtk_check_button_new_with_mnemonic (text);
-
-    g_object_ref (btn);
-    g_object_set_data_full (G_OBJECT (parent), name, btn, g_object_unref);
-    gtk_widget_show (btn);
-
-    return btn;
-}
-
-
 GtkWidget *create_radio (GtkWidget *parent, GtkWidget *group, const gchar *text, const gchar *name)
 {
     GtkWidget *btn = gtk_check_button_new_with_label (text);
@@ -201,43 +189,4 @@ GtkWidget *create_radio (GtkWidget *parent, GtkWidget *group, const gchar *text,
     gtk_widget_show (btn);
 
     return btn;
-}
-
-
-GtkWidget *create_spin (GtkWidget *parent, const gchar *name, gint min, gint max, gint value)
-{
-    GtkAdjustment *adj = GTK_ADJUSTMENT (gtk_adjustment_new (value, min, max, 1, 10, 0));
-    GtkWidget *spin = gtk_spin_button_new (adj, 1, 0);
-    g_object_ref (spin);
-    g_object_set_data_full (G_OBJECT (parent), name, spin, g_object_unref);
-    gtk_widget_show (spin);
-    gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin), TRUE);
-    return spin;
-}
-
-
-GtkWidget *create_scale (GtkWidget *parent, const gchar *name, gint value, gint min, gint max)
-{
-    GtkWidget *scale = gtk_scale_new (GTK_ORIENTATION_HORIZONTAL, GTK_ADJUSTMENT (gtk_adjustment_new (value, min, max, 0, 0, 0)));
-    g_object_ref (scale);
-    g_object_set_data_full (G_OBJECT (parent), name, scale, g_object_unref);
-    gtk_widget_show (scale);
-    gtk_scale_set_digits (GTK_SCALE (scale), 0);
-
-    return scale;
-}
-
-
-GtkWidget *create_combo_box_text (GtkWidget *parent, const gchar **items)
-{
-    GtkWidget *combo = gtk_combo_box_text_new ();
-    g_object_ref (combo);
-    g_object_set_data_full (G_OBJECT (parent), "combo", combo, g_object_unref);
-    gtk_widget_show (combo);
-
-    if (items)
-        for (gint i = 0; items[i]; i++)
-            gtk_combo_box_text_append_text ((GtkComboBoxText*) combo, items[i]);
-
-    return combo;
 }

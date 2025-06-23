@@ -753,7 +753,7 @@ const gchar *GnomeCmdFile::get_type_string()
 }
 
 
-GIcon *GnomeCmdFile::get_type_icon()
+GIcon *GnomeCmdFile::get_type_icon(GnomeCmdLayout layout)
 {
     auto priv = file_private (this);
     g_return_val_if_fail (get_file_info() != nullptr, FALSE);
@@ -761,7 +761,7 @@ GIcon *GnomeCmdFile::get_type_icon()
     GFileType file_type = (GFileType) GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE);
     gboolean is_symlink = priv->is_dotdot ? false : g_file_info_get_is_symlink (get_file_info());
 
-    switch (gnome_cmd_data.options.layout)
+    switch (layout)
     {
         case GNOME_CMD_LAYOUT_MIME_ICONS:
         {

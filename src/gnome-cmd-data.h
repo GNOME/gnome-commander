@@ -146,67 +146,6 @@ GSettings *gcmd_settings_get_general (GcmdSettings *);
 #define GCMD_SETTINGS_KEYBINDINGS                     "keybindings"
 #define GCMD_SETTINGS_KEYBINDING_FORMAT_STRING        "(sssbbbbbb)"
 
-#define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
-#define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
-#define GCMD_SETTINGS_FILTER_HIDE_REGULAR             "hide-regular"
-#define GCMD_SETTINGS_FILTER_HIDE_DIRECTORY           "hide-directory"
-#define GCMD_SETTINGS_FILTER_HIDE_SYMLINK             "hide-symlink"
-#define GCMD_SETTINGS_FILTER_HIDE_SPECIAL             "hide-special"
-#define GCMD_SETTINGS_FILTER_HIDE_SHORTCUT            "hide-shortcut"
-#define GCMD_SETTINGS_FILTER_HIDE_MOUNTABLE           "hide-mountable"
-#define GCMD_SETTINGS_FILTER_HIDE_VIRTUAL             "hide-virtual"
-#define GCMD_SETTINGS_FILTER_HIDE_VOLATILE            "hide-volatile"
-#define GCMD_SETTINGS_FILTER_HIDE_HIDDEN              "hide-dotfile"
-#define GCMD_SETTINGS_FILTER_HIDE_BACKUPS             "hide-backupfiles"
-#define GCMD_SETTINGS_FILTER_BACKUP_PATTERN           "backup-pattern"
-
-#define GCMD_PREF_CONFIRM                             "org.gnome.gnome-commander.preferences.confirmations"
-#define GCMD_SETTINGS_CONFIRM_DELETE                  "delete"
-#define GCMD_SETTINGS_CONFIRM_DELETE_DEFAULT          "delete-default"
-#define GCMD_SETTINGS_CONFIRM_COPY_OVERWRITE          "copy-overwrite"
-#define GCMD_SETTINGS_CONFIRM_MOVE_OVERWRITE          "move-overwrite"
-#define GCMD_SETTINGS_CONFIRM_MOUSE_DRAG_AND_DROP     "mouse-drag-and-drop"
-
-#define GCMD_PREF_COLORS                              "org.gnome.gnome-commander.preferences.colors"
-#define GCMD_SETTINGS_COLORS_THEME                    "theme"
-#define GCMD_SETTINGS_COLORS_USE_LS_COLORS            "use-ls-colors"
-
-#define GCMD_PREF_PROGRAMS                            "org.gnome.gnome-commander.preferences.programs"
-#define GCMD_SETTINGS_DONT_DOWNLOAD                   "dont-download"
-#define GCMD_SETTINGS_USE_INTERNAL_VIEWER             "use-internal-viewer"
-#define GCMD_SETTINGS_VIEWER_CMD                      "viewer-cmd"
-#define GCMD_SETTINGS_EDITOR_CMD                      "editor-cmd"
-#define GCMD_SETTINGS_DIFFER_CMD                      "differ-cmd"
-#define GCMD_SETTINGS_USE_INTERNAL_SEARCH             "use-internal-search"
-#define GCMD_SETTINGS_SEARCH_CMD                      "search-cmd"
-#define GCMD_SETTINGS_SENDTO_CMD                      "sendto-cmd"
-#define GCMD_SETTINGS_TERMINAL_CMD                    "terminal-cmd"
-#define GCMD_SETTINGS_TERMINAL_EXEC_CMD               "terminal-exec-cmd"
-#define GCMD_SETTINGS_USE_GCMD_BLOCK                  "use-gcmd-block"
-
-#define GCMD_PREF_NETWORK                             "org.gnome.gnome-commander.preferences.network"
-#define GCMD_SETTINGS_QUICK_CONNECT_URI               "quick-connect-uri"
-
-//gKeyFile constants
-#define DEVICES_FILENAME                              "devices"
-#define DEVICES_DEVICE                                "device"
-#define DEVICES_MOUNT_POINT                           "mount_point"
-#define DEVICES_ICON_PATH                             "icon_path"
-#define FAV_APPS_FILENAME                             "fav-apps"
-#define FAV_APPS_CMD                                  "cmd"
-#define FAV_APPS_ICON                                 "icon"
-#define FAV_APPS_PATTERN                              "pattern"
-#define FAV_APPS_TARGET                               "target"
-#define FAV_APPS_HANDLES_URIS                         "handles_uris"
-#define FAV_APPS_HANDLES_MULTIPLE                     "handles_multiple"
-#define FAV_APPS_REQUIRES_TERMINAL                    "requires_terminal"
-#define TABS_LAYOUT_FILENAME                          "file-list-tabs"
-#define TAB_PATH                                      "path"
-#define TAB_FILESLECTORID                             "fileSelectorId"
-#define TAB_SORT                                      "sort"
-#define TAB_ASC                                       "asc"
-#define TAB_LOCK                                      "lock"
-
 
 extern "C" GType gnome_cmd_advanced_rename_profile_get_type ();
 struct AdvancedRenameProfile;
@@ -276,15 +215,6 @@ struct GnomeCmdData
         GnomeCmdSizeDispMode         size_disp_mode;
         GnomeCmdPermDispMode         perm_disp_mode;
         GnomeCmdDateFormat           date_format;           // NOTE: internally stored as locale (which not always defaults to UTF8), needs converting from/to UTF8 for editing and cfg load/save
-        //  Layout
-        gchar                       *list_font;
-        gint                         list_row_height;
-        GnomeCmdExtDispMode          ext_disp_mode;
-        GnomeCmdLayout               layout;
-        gboolean                     use_ls_colors;
-        guint                        icon_size;
-        GdkInterpType                icon_scale_quality;
-        gchar                       *theme_icon_dir;
         //  Filters
         gboolean                     symbolic_links_as_regular_files;
 
@@ -307,15 +237,7 @@ struct GnomeCmdData
                    deleteToTrash(TRUE),
                    size_disp_mode(GNOME_CMD_SIZE_DISP_MODE_POWERED),
                    perm_disp_mode(GNOME_CMD_PERM_DISP_MODE_TEXT),
-                   date_format(nullptr),
-                   list_font(nullptr),
-                   list_row_height(16),
-                   ext_disp_mode(GNOME_CMD_EXT_DISP_BOTH),
-                   layout(GNOME_CMD_LAYOUT_MIME_ICONS),
-                   use_ls_colors(FALSE),
-                   icon_size(16),
-                   icon_scale_quality(GDK_INTERP_HYPER),
-                   theme_icon_dir(nullptr)
+                   date_format(nullptr)
         {
         }
 
@@ -324,31 +246,14 @@ struct GnomeCmdData
         ~Options()
         {
             g_free (date_format);
-            g_free (list_font);
-            g_free (theme_icon_dir);
         }
 
         Options &operator = (const Options &cfg);
-
-        GnomeCmdColorMode color_mode();
-        void set_color_mode(GnomeCmdColorMode color_mode);
 
         void set_date_format(const GnomeCmdDateFormat format)
         {
             g_free (date_format);
             date_format = g_strdup (format);
-        }
-
-        void set_list_font(const gchar *font)
-        {
-            g_free (list_font);
-            list_font = g_strdup (font);
-        }
-
-        void set_theme_icon_dir(const gchar *dir)
-        {
-            g_free (theme_icon_dir);
-            theme_icon_dir = g_strdup (dir);
         }
 
         void on_size_display_mode_changed();

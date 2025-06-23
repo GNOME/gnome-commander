@@ -38,6 +38,21 @@ pub struct ColorTheme {
     pub alt_bg: gdk::RGBA,
 }
 
+impl Default for ColorTheme {
+    fn default() -> Self {
+        Self {
+            sel_fg: gdk::RGBA::parse("#ffff00000000").unwrap(),
+            sel_bg: gdk::RGBA::parse("#000000004444").unwrap(),
+            norm_fg: gdk::RGBA::parse("#ffffffffffff").unwrap(),
+            norm_bg: gdk::RGBA::parse("#000000004444").unwrap(),
+            curs_fg: gdk::RGBA::parse("#000000000000").unwrap(),
+            curs_bg: gdk::RGBA::parse("#aaaaaaaaaaaa").unwrap(),
+            alt_fg: gdk::RGBA::parse("#ffffffffffff").unwrap(),
+            alt_bg: gdk::RGBA::parse("#000000004444").unwrap(),
+        }
+    }
+}
+
 #[derive(strum::FromRepr)]
 #[repr(C)]
 enum ThemeItem {
@@ -152,12 +167,12 @@ static COLOR_THEME_WINTER: LazyLock<ColorTheme> = LazyLock::new(|| ColorTheme {
     curs_bg: gdk::RGBA::parse("#0000ffffffff").unwrap(),
 });
 
-#[derive(Clone, Copy, strum::FromRepr, Default, Debug)]
-enum ColorThemeId {
+#[derive(Clone, Copy, strum::FromRepr, Default, Debug, PartialEq, Eq)]
+pub enum ColorThemeId {
     Modern = 1,
+    #[default]
     Fusion,
     Classic,
-    #[default]
     DeepBlue,
     Cafezinho,
     GreenTiger,

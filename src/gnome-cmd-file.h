@@ -21,6 +21,8 @@
 
 #pragma once
 
+#include "gnome-cmd-types.h"
+
 #define GNOME_CMD_TYPE_FILE              (gnome_cmd_file_get_type ())
 #define GNOME_CMD_FILE(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_FILE, GnomeCmdFile))
 #define GNOME_CMD_FILE_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_FILE, GnomeCmdFileClass))
@@ -73,7 +75,7 @@ struct GnomeCmdFile
     GnomeCmdDir *get_parent_dir();
 
     const gchar *get_type_string();
-    GIcon *get_type_icon();
+    GIcon *get_type_icon(GnomeCmdLayout layout);
 
     gboolean chmod(guint32 permissions, GError **error);
     gboolean chown(uid_t uid, gid_t gid, GError **error);

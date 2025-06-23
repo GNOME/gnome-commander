@@ -58,7 +58,8 @@ pub enum GnomeCmdTransferType {
 }
 
 #[repr(C)]
-#[derive(Clone, Copy, Default, strum::FromRepr)]
+#[derive(Clone, Copy, Default, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdGraphicalLayoutMode")]
 pub enum GraphicalLayoutMode {
     Text = 0,
     TypeIcons,
@@ -67,7 +68,8 @@ pub enum GraphicalLayoutMode {
 }
 
 #[repr(C)]
-#[derive(Clone, Copy, Default, strum::FromRepr)]
+#[derive(Clone, Copy, Default, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdExtensionDisplayMode")]
 pub enum ExtensionDisplayMode {
     WithFileName = 0,
     Stripped,
@@ -91,6 +93,17 @@ pub enum PermissionDisplayMode {
     #[default]
     Text = 0,
     Number,
+}
+
+#[repr(C)]
+#[derive(Clone, Copy, Default, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdIconScaleQuality")]
+pub enum IconScaleQuality {
+    Nearest = 0,
+    Tiles,
+    Bilinear,
+    #[default]
+    Hyper,
 }
 
 #[repr(C)]

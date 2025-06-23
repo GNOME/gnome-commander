@@ -327,9 +327,12 @@ static void init_private(GnomeCmdFileList *fl)
 }
 
 
-static void paint_cell_with_ls_colors (GtkCellRenderer *cell, GnomeCmdFile *file, bool has_foreground, LsColorsPalette *ls_palette)
+static void paint_cell_with_ls_colors (GnomeCmdFileList *fl, GtkCellRenderer *cell, GnomeCmdFile *file, bool has_foreground, LsColorsPalette *ls_palette)
 {
-    if (!gnome_cmd_data.options.use_ls_colors)
+    gboolean use_ls_colors = FALSE;
+    g_object_get (fl, "use-ls-colors", &use_ls_colors, nullptr);
+
+    if (!use_ls_colors)
         return;
 
     gint fg;
@@ -369,10 +372,13 @@ static void cell_data (GtkTreeViewColumn *column,
         cell_data->column_index, &value,
         -1);
 
+    GnomeCmdLayout layout;
+    g_object_get (cell_data->fl, "graphical-layout-mode", &layout, nullptr);
+
     bool has_foreground;
     if (cell_data->column_index == GnomeCmdFileList::COLUMN_ICON)
     {
-        if (gnome_cmd_data.options.layout == GNOME_CMD_LAYOUT_TEXT)
+        if (layout == GNOME_CMD_LAYOUT_TEXT)
             g_object_set (G_OBJECT (cell), "gicon", NULL, nullptr);
         else
             g_object_set (G_OBJECT (cell), "gicon", value, nullptr);
@@ -380,7 +386,7 @@ static void cell_data (GtkTreeViewColumn *column,
     }
     else if (cell_data->column_index == DATA_COLUMN_ICON_NAME)
     {
-        if (gnome_cmd_data.options.layout == GNOME_CMD_LAYOUT_TEXT)
+        if (layout == GNOME_CMD_LAYOUT_TEXT)
             g_object_set (G_OBJECT (cell), "text", value, nullptr);
         else
             g_object_set (G_OBJECT (cell), "text", NULL, nullptr);
@@ -433,7 +439,7 @@ static void cell_data (GtkTreeViewColumn *column,
                 nullptr);
         }
 
-        paint_cell_with_ls_colors (cell, file, has_foreground, priv->ls_palette);
+        paint_cell_with_ls_colors (cell_data->fl, cell, file, has_foreground, priv->ls_palette);
     }
 }
 
@@ -535,8 +541,15 @@ static void set_model_row(GnomeCmdFileList *fl, GtkTreeIter *iter, GnomeCmdFile 
 
     GtkListStore *model = priv->store;
 
+    GnomeCmdExtDispMode ext_disp_mode;
+    GnomeCmdLayout layout;
+    g_object_get (fl,
+        "extension-display-mode", &ext_disp_mode,
+        "graphical-layout-mode", &layout,
+        nullptr);
+
     // If the user wants a character instead of icon for filetype set it now
-    if (gnome_cmd_data.options.layout == GNOME_CMD_LAYOUT_TEXT)
+    if (layout == GNOME_CMD_LAYOUT_TEXT)
         gtk_list_store_set (model, iter, DATA_COLUMN_ICON_NAME, (gchar *) f->get_type_string(), -1);
 
     // Prepare the strings to show
@@ -546,7 +559,7 @@ static void set_model_row(GnomeCmdFileList *fl, GtkTreeIter *iter, GnomeCmdFile 
     g_free (t1);
     g_free (t2);
 
-    if (gnome_cmd_data.options.ext_disp_mode == GNOME_CMD_EXT_DISP_STRIPPED
+    if (ext_disp_mode == GNOME_CMD_EXT_DISP_STRIPPED
         && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_REGULAR)
     {
         fname = strip_extension (f->get_name());
@@ -561,7 +574,7 @@ static void set_model_row(GnomeCmdFileList *fl, GtkTreeIter *iter, GnomeCmdFile 
     else
         gtk_list_store_set (model, iter, GnomeCmdFileList::COLUMN_DIR, dpath, -1);
 
-    if (gnome_cmd_data.options.ext_disp_mode != GNOME_CMD_EXT_DISP_WITH_FNAME)
+    if (ext_disp_mode != GNOME_CMD_EXT_DISP_WITH_FNAME)
         fext = get_utf8 (f->get_extension());
     else
         fext = nullptr;
@@ -615,7 +628,10 @@ static void get_focus_row_coordinates (GnomeCmdFileList *fl, gint &x, gint &y, g
 
     width = rect_name.width;
     height = rect_name.height;
-    if (gnome_cmd_data.options.ext_disp_mode != GNOME_CMD_EXT_DISP_BOTH)
+
+    GnomeCmdExtDispMode ext_disp_mode;
+    g_object_get (fl, "extension-display-mode", &ext_disp_mode, nullptr);
+    if (ext_disp_mode != GNOME_CMD_EXT_DISP_BOTH)
         width += rect_ext.width;
 }
 
@@ -1335,10 +1351,13 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, GtkTreeIte
         gtk_list_store_append (priv->store, &iter);
     set_model_row (fl, &iter, f, false);
 
+    GnomeCmdLayout layout;
+    g_object_get (fl, "graphical-layout-mode", &layout, nullptr);
+
     // If the use wants icons to show file types set it now
-    if (gnome_cmd_data.options.layout != GNOME_CMD_LAYOUT_TEXT)
+    if (layout != GNOME_CMD_LAYOUT_TEXT)
     {
-        GIcon *icon = f->get_type_icon();
+        GIcon *icon = f->get_type_icon(layout);
         gtk_list_store_set (priv->store, &iter, GnomeCmdFileList::COLUMN_ICON, icon, -1);
     }
 
@@ -1484,9 +1503,12 @@ void GnomeCmdFileList::update_file(GnomeCmdFile *f)
 
     set_model_row (this, row.get(), f, false);
 
-    if (gnome_cmd_data.options.layout != GNOME_CMD_LAYOUT_TEXT)
+    GnomeCmdLayout layout;
+    g_object_get (this, "graphical-layout-mode", &layout, nullptr);
+
+    if (layout != GNOME_CMD_LAYOUT_TEXT)
     {
-        GIcon *icon = f->get_type_icon();
+        GIcon *icon = f->get_type_icon(layout);
         gtk_list_store_set (priv->store, row.get(), GnomeCmdFileList::COLUMN_ICON, icon, -1);
     }
 }
@@ -2360,9 +2382,12 @@ void GnomeCmdFileList::update_style()
             gnome_cmd_data.options.symbolic_links_as_regular_files,
             priv->sort_raising[col]));
 
-    PangoFontDescription *font_desc = pango_font_description_from_string (gnome_cmd_data.options.list_font);
+    gchar *font_name = nullptr;
+    g_object_get (this, "font-name", &font_name, nullptr);
+    PangoFontDescription *font_desc = pango_font_description_from_string (font_name);
     // gtk_widget_override_font (*this, font_desc);
     pango_font_description_free (font_desc);
+    g_free (font_name);
 
     gtk_widget_queue_draw (*this);
 }

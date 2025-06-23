@@ -69,34 +69,15 @@ struct _GcmdSettings
     GObject parent;
 
     GSettings *general;
-    GSettings *filter;
-    GSettings *confirm;
-    GSettings *colors;
-    GSettings *programs;
-    GSettings *network;
 };
 
 G_DEFINE_TYPE (GcmdSettings, gcmd_settings, G_TYPE_OBJECT)
-
-static void gcmd_settings_finalize (GObject *object)
-{
-//    GcmdSettings *gs = GCMD_SETTINGS (object);
-//
-//    g_free (gs->old_scheme);
-//
-    G_OBJECT_CLASS (gcmd_settings_parent_class)->finalize (object);
-}
 
 static void gcmd_settings_dispose (GObject *object)
 {
     GcmdSettings *gs = GCMD_SETTINGS (object);
 
     g_clear_object (&gs->general);
-    g_clear_object (&gs->filter);
-    g_clear_object (&gs->confirm);
-    g_clear_object (&gs->colors);
-    g_clear_object (&gs->programs);
-    g_clear_object (&gs->network);
 
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
 }
@@ -131,26 +112,6 @@ static void on_perm_display_mode_changed (GnomeCmdMainWin *main_win)
     main_win->update_view();
 }
 
-static void on_graphical_layout_mode_changed (GnomeCmdMainWin *main_win)
-{
-    gint graphical_layout_mode;
-
-    graphical_layout_mode = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE);
-    gnome_cmd_data.options.layout = (GnomeCmdLayout) graphical_layout_mode;
-
-    main_win->update_view();
-}
-
-static void on_list_row_height_changed (GnomeCmdMainWin *main_win)
-{
-    guint list_row_height;
-
-    list_row_height = g_settings_get_uint (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_LIST_ROW_HEIGHT);
-    gnome_cmd_data.options.list_row_height = list_row_height;
-
-    main_win->update_view();
-}
-
 static void on_date_disp_format_changed (GnomeCmdMainWin *main_win)
 {
     GnomeCmdDateFormat date_format;
@@ -168,34 +129,6 @@ static void on_symbolic_links_as_regular_files_changed (GnomeCmdMainWin *main_wi
 
     symbolic_links_as_regular_files = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SYMBOLIC_LINKS_AS_REG_FILES);
     gnome_cmd_data.options.symbolic_links_as_regular_files = symbolic_links_as_regular_files;
-
-    main_win->update_view();
-}
-
-static void on_list_font_changed (GnomeCmdMainWin *main_win)
-{
-    g_free(gnome_cmd_data.options.list_font);
-    gnome_cmd_data.options.list_font = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_LIST_FONT);
-
-    main_win->update_view();
-}
-
-static void on_ext_disp_mode_changed (GnomeCmdMainWin *main_win)
-{
-    gint ext_disp_mode;
-
-    ext_disp_mode = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_EXT_DISP_MODE);
-    gnome_cmd_data.options.ext_disp_mode = (GnomeCmdExtDispMode) ext_disp_mode;
-
-    main_win->update_view();
-}
-
-static void on_icon_size_changed (GnomeCmdMainWin *main_win)
-{
-    guint icon_size;
-
-    icon_size = g_settings_get_uint (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_ICON_SIZE);
-    gnome_cmd_data.options.icon_size = icon_size;
 
     main_win->update_view();
 }
@@ -222,16 +155,6 @@ static void on_case_sensitive_changed (GnomeCmdMainWin *main_win)
 
     case_sensitive = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE);
     gnome_cmd_data.options.case_sens_sort = case_sensitive;
-}
-
-static void on_use_ls_colors_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean use_ls_colors;
-
-    use_ls_colors = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS);
-    gnome_cmd_data.options.use_ls_colors = use_ls_colors;
-
-    main_win->update_view();
 }
 
 static void on_multiple_instances_changed (GnomeCmdMainWin *main_win)
@@ -279,7 +202,6 @@ static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-    object_class->finalize = gcmd_settings_finalize;
     object_class->dispose = gcmd_settings_dispose;
 }
 
@@ -302,38 +224,13 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs, GnomeCmdMainWin *ma
                       main_win);
 
     g_signal_connect_swapped (gs->general,
-                      "changed::graphical-layout-mode",
-                      G_CALLBACK (on_graphical_layout_mode_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::list-row-height",
-                      G_CALLBACK (on_list_row_height_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
                       "changed::date-disp-format",
                       G_CALLBACK (on_date_disp_format_changed),
                       main_win);
 
     g_signal_connect_swapped (gs->general,
-                      "changed::list-font",
-                      G_CALLBACK (on_list_font_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
                       "changed::symbolic-links-as-regular-files",
                       G_CALLBACK (on_symbolic_links_as_regular_files_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::extension-display-mode",
-                      G_CALLBACK (on_ext_disp_mode_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::icon-size",
-                      G_CALLBACK (on_icon_size_changed),
                       main_win);
 
     g_signal_connect_swapped (gs->general,
@@ -349,11 +246,6 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs, GnomeCmdMainWin *ma
     g_signal_connect_swapped (gs->general,
                       "changed::case-sensitive",
                       G_CALLBACK (on_case_sensitive_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->colors,
-                      "changed::use-ls-colors",
-                      G_CALLBACK (on_use_ls_colors_changed),
                       main_win);
 
     g_signal_connect_swapped (gs->general,
@@ -397,21 +289,6 @@ static void gcmd_settings_init (GcmdSettings *gs)
 
     global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_GENERAL, FALSE);
     gs->general = g_settings_new_full (global_schema, nullptr, nullptr);
-
-    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_FILTER, FALSE);
-    gs->filter = g_settings_new_full (global_schema, nullptr, nullptr);
-
-    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_CONFIRM, FALSE);
-    gs->confirm = g_settings_new_full (global_schema, nullptr, nullptr);
-
-    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_COLORS, FALSE);
-    gs->colors = g_settings_new_full (global_schema, nullptr, nullptr);
-
-    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_PROGRAMS, FALSE);
-    gs->programs = g_settings_new_full (global_schema, nullptr, nullptr);
-
-    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_NETWORK, FALSE);
-    gs->network = g_settings_new_full (global_schema, nullptr, nullptr);
 }
 
 
@@ -442,14 +319,6 @@ GnomeCmdData::Options::Options(const Options &cfg)
     size_disp_mode = cfg.size_disp_mode;
     perm_disp_mode = cfg.perm_disp_mode;
     date_format = g_strdup (cfg.date_format);
-    list_font = g_strdup (cfg.list_font);
-    list_row_height = cfg.list_row_height;
-    ext_disp_mode = cfg.ext_disp_mode;
-    layout = cfg.layout;
-    use_ls_colors = cfg.use_ls_colors;
-    icon_size = cfg.icon_size;
-    icon_scale_quality = cfg.icon_scale_quality;
-    theme_icon_dir = cfg.theme_icon_dir;
     deleteToTrash = cfg.deleteToTrash;
     gcmd_settings = nullptr;
 }
@@ -479,30 +348,10 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         size_disp_mode = cfg.size_disp_mode;
         perm_disp_mode = cfg.perm_disp_mode;
         date_format = g_strdup (cfg.date_format);
-        list_font = g_strdup (cfg.list_font);
-        list_row_height = cfg.list_row_height;
-        ext_disp_mode = cfg.ext_disp_mode;
-        layout = cfg.layout;
-        use_ls_colors = cfg.use_ls_colors;
-        icon_size = cfg.icon_size;
-        icon_scale_quality = cfg.icon_scale_quality;
-        theme_icon_dir = cfg.theme_icon_dir;
         gcmd_settings = nullptr;
     }
 
     return *this;
-}
-
-
-GnomeCmdColorMode GnomeCmdData::Options::color_mode()
-{
-    return (GnomeCmdColorMode) g_settings_get_enum (gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME);
-}
-
-
-void GnomeCmdData::Options::set_color_mode(GnomeCmdColorMode color_mode)
-{
-    g_settings_set_enum (gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME, color_mode);
 }
 
 
@@ -688,18 +537,12 @@ void GnomeCmdData::load()
     if (!priv)
         priv = g_new0 (Private, 1);
 
-    options.use_ls_colors = g_settings_get_boolean (options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS);
-
     options.size_disp_mode = (GnomeCmdSizeDispMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
     options.perm_disp_mode = (GnomeCmdPermDispMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_PERM_DISP_MODE);
 
     gchar *utf8_date_format = g_settings_get_string (options.gcmd_settings->general, GCMD_SETTINGS_DATE_DISP_FORMAT);
     options.date_format = g_locale_from_utf8 (utf8_date_format, -1, nullptr, nullptr, nullptr);
     g_free (utf8_date_format);
-
-    options.layout = (GnomeCmdLayout) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE);
-
-    options.list_row_height = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_LIST_ROW_HEIGHT);
 
     options.select_dirs = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS);
     options.case_sens_sort = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE);
@@ -708,17 +551,11 @@ void GnomeCmdData::load()
     opts_dialog_width = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_OPTS_DIALOG_WIDTH);
     opts_dialog_height = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_OPTS_DIALOG_HEIGHT);
 
-    options.list_font = g_settings_get_string (options.gcmd_settings->general, GCMD_SETTINGS_LIST_FONT);
-
-    options.ext_disp_mode = (GnomeCmdExtDispMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_EXT_DISP_MODE);
     options.left_mouse_button_mode = (LeftMouseButtonMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_CLICKS_TO_OPEN_ITEM);
     options.left_mouse_button_unselects = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_LEFT_MOUSE_BUTTON_UNSELECTS);
     options.middle_mouse_button_mode = (MiddleMouseButtonMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_MIDDLE_MOUSE_BUTTON_MODE);
     options.right_mouse_button_mode = (RightMouseButtonMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE);
     options.deleteToTrash = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_USE_TRASH);
-    options.icon_size = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SIZE);
-    options.icon_scale_quality = (GdkInterpType) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY);
-    options.theme_icon_dir = g_settings_get_string(options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR);
     gui_update_rate = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE);
 
     options.allow_multiple_instances = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
@@ -754,8 +591,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
 {
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, options.size_disp_mode);
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_PERM_DISP_MODE, options.perm_disp_mode);
-    set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE, options.layout);
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_LIST_ROW_HEIGHT, &(options.list_row_height));
 
     gchar *utf8_date_format = g_locale_to_utf8 (options.date_format, -1, nullptr, nullptr, nullptr);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DATE_DISP_FORMAT, utf8_date_format);
@@ -765,19 +600,11 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE, &(options.case_sens_sort));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SYMBOLIC_LINKS_AS_REG_FILES, &(options.symbolic_links_as_regular_files));
 
-    set_gsettings_when_changed      (options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS, &(options.use_ls_colors));
-
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_LIST_FONT, options.list_font);
-
-    set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_EXT_DISP_MODE, options.ext_disp_mode);
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_CLICKS_TO_OPEN_ITEM, options.left_mouse_button_mode);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_LEFT_MOUSE_BUTTON_UNSELECTS, &(options.left_mouse_button_unselects));
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_MIDDLE_MOUSE_BUTTON_MODE, options.middle_mouse_button_mode);
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE, options.right_mouse_button_mode);
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SIZE, &(options.icon_size));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_USE_TRASH, &(options.deleteToTrash));
-    set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY, options.icon_scale_quality);
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR, options.theme_icon_dir);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE, &(gui_update_rate));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES, &(options.allow_multiple_instances));
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT, options.quick_search);
