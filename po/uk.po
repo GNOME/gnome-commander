@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander 1.3.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/"
 "\n"
-"POT-Creation-Date: 2025-06-22 21:18+0000\n"
-"PO-Revision-Date: 2025-06-23 11:06+0300\n"
+"POT-Creation-Date: 2025-06-23 08:06+0000\n"
+"PO-Revision-Date: 2025-06-24 17:09+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -6812,8 +6812,6 @@ msgid "A total of {selected_bytes} has been selected."
 msgstr "Загалом було позначено {selected_bytes}."
 
 #: src/file_list/list.rs:504
-#| msgid "{}, {selected_dirs} of {total_dirs} dir selected"
-#| msgid_plural "{}, {selected_dirs} of {total_dirs} dirs selected"
 msgid "{selected_files} file selected."
 msgid_plural "{selected_files} files selected."
 msgstr[0] "позначено {selected_files} файл."
@@ -6822,14 +6820,12 @@ msgstr[2] "позначено {selected_files} файлів."
 msgstr[3] "позначено {selected_files} файл."
 
 #: src/file_list/list.rs:511
-#| msgid "{}, {selected_dirs} of {total_dirs} dir selected"
-#| msgid_plural "{}, {selected_dirs} of {total_dirs} dirs selected"
 msgid "{selected_dirs} directory selected."
 msgid_plural "{selected_dirs} directories selected."
-msgstr[0] ""
-msgstr[1] "позначено {selected_dirs} каталоги."
-msgstr[2] "позначено {selected_dirs} каталогів."
-msgstr[3] "позначено {selected_dirs} каталог."
+msgstr[0] "Позначено {selected_dirs} каталог."
+msgstr[1] "Позначено {selected_dirs} каталоги."
+msgstr[2] "Позначено {selected_dirs} каталогів."
+msgstr[3] "Позначено {selected_dirs} каталог."
 
 #. Add the default "Open" menu entry at the top of the popup
 #: src/file_list/popup.rs:168
