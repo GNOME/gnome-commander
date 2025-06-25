@@ -2767,3 +2767,8 @@ void gnome_cmd_file_list_update_style(GnomeCmdFileList *fl)
 {
     fl->update_style();
 }
+
+extern "C" void gnome_cmd_file_list_invalidate_tree_size(GnomeCmdFileList *fl)
+{
+    fl->invalidate_tree_size();
+}

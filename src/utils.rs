@@ -76,6 +76,16 @@ pub fn permissions_to_numbers(permissions: u32) -> String {
     format!("{:03o}", permissions)
 }
 
+pub const NO_MOD: gdk::ModifierType = gdk::ModifierType::NO_MODIFIER_MASK;
+pub const CONTROL: gdk::ModifierType = gdk::ModifierType::CONTROL_MASK;
+pub const ALT: gdk::ModifierType = gdk::ModifierType::ALT_MASK;
+pub const CONTROL_ALT: gdk::ModifierType =
+    gdk::ModifierType::CONTROL_MASK.union(gdk::ModifierType::ALT_MASK);
+pub const CONTROL_SHIFT: gdk::ModifierType =
+    gdk::ModifierType::CONTROL_MASK.union(gdk::ModifierType::SHIFT_MASK);
+pub const ALT_SHIFT: gdk::ModifierType =
+    gdk::ModifierType::ALT_MASK.union(gdk::ModifierType::SHIFT_MASK);
+
 pub fn temp_directory() -> &'static tempfile::TempDir {
     static TEMP_DIRECTORY: OnceLock<tempfile::TempDir> = OnceLock::new();
     TEMP_DIRECTORY

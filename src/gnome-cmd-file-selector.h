@@ -61,9 +61,6 @@ struct GnomeCmdFileSelector
     GtkWidget *new_tab(GnomeCmdDir *dir, gboolean activate=TRUE);
     GtkWidget *new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean locked, gboolean activate, gboolean grab_focus);
 
-    void prev_tab();
-    void next_tab();
-
     void show_filter();
     void update_files();
     void update_direntry();

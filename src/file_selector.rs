@@ -32,6 +32,7 @@ use crate::{
     file_list::list::{ffi::GnomeCmdFileList, ColumnID, FileList},
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
     tags::tags::FileMetadataService,
+    utils::{ALT, CONTROL, CONTROL_SHIFT, NO_MOD},
 };
 use gettextrs::gettext;
 use gtk::{
@@ -54,7 +55,9 @@ use std::{
 
 pub mod ffi {
     use super::*;
-    use crate::{dir::ffi::GnomeCmdDir, file_list::list::ffi::GnomeCmdFileList};
+    use crate::{
+        dir::ffi::GnomeCmdDir, file::ffi::GnomeCmdFile, file_list::list::ffi::GnomeCmdFileList,
+    };
     use gtk::{
         ffi::GtkWidget,
         glib::ffi::{gboolean, GType},
@@ -108,6 +111,12 @@ pub mod ffi {
         pub fn gnome_cmd_file_selector_update_style(fs: *mut GnomeCmdFileSelector);
 
         pub fn gnome_cmd_file_selector_update_connections(fs: *mut GnomeCmdFileSelector);
+
+        pub fn gnome_cmd_file_selector_do_file_specific_action(
+            fs: *mut GnomeCmdFileSelector,
+            fl: *mut GnomeCmdFileList,
+            f: *mut GnomeCmdFile,
+        ) -> gboolean;
     }
 }
 
@@ -120,6 +129,7 @@ mod imp {
         data::{GeneralOptions, GeneralOptionsRead},
         dialogs::manage_bookmarks_dialog::bookmark_directory,
         directory_indicator::DirectoryIndicator,
+        libgcmd::file_descriptor::FileDescriptorExt,
         tab_label::TabLabel,
         utils::get_modifiers_state,
     };
@@ -351,6 +361,18 @@ mod imp {
             ));
             self.notebook.add_controller(notebook_click);
 
+            let key_controller = gtk::EventControllerKey::builder()
+                .propagation_phase(gtk::PropagationPhase::Capture)
+                .build();
+            key_controller.connect_key_pressed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                #[upgrade_or]
+                glib::Propagation::Proceed,
+                move |_, key, _, state| imp.key_pressed(key, state)
+            ));
+            this.add_controller(key_controller);
+
             let options = GeneralOptions::new();
             options
                 .0
@@ -481,6 +503,50 @@ mod imp {
         fn set_always_show_tabs(&self, value: bool) {
             self.always_show_tabs.set(value);
             self.obj().update_show_tabs();
+        }
+
+        fn key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
+            match (key, state) {
+                (gdk::Key::Tab | gdk::Key::ISO_Left_Tab, CONTROL) => {
+                    self.obj().next_tab();
+                    glib::Propagation::Stop
+                }
+                (gdk::Key::Tab | gdk::Key::ISO_Left_Tab, CONTROL_SHIFT) => {
+                    self.obj().prev_tab();
+                    glib::Propagation::Stop
+                }
+                (gdk::Key::Left | gdk::Key::KP_Left, ALT) => {
+                    self.obj().back();
+                    glib::Propagation::Stop
+                }
+                (gdk::Key::Right | gdk::Key::KP_Right, ALT) => {
+                    self.obj().forward();
+                    glib::Propagation::Stop
+                }
+                (gdk::Key::Left | gdk::Key::KP_Left | gdk::Key::BackSpace, NO_MOD) => {
+                    let fl = self.obj().file_list();
+                    if self.obj().is_tab_locked(&fl) {
+                        if let Some(parent) = fl.directory().and_then(|d| d.parent()) {
+                            self.obj().new_tab_with_dir(&parent, true, true);
+                        }
+                    } else {
+                        fl.invalidate_tree_size();
+                        fl.goto_directory(&Path::new(".."));
+                    }
+                    glib::Propagation::Stop
+                }
+                (gdk::Key::Right | gdk::Key::KP_Right, NO_MOD) => {
+                    let fl = self.obj().file_list();
+                    if let Some(directory) = fl
+                        .selected_file()
+                        .filter(|f| f.file_info().file_type() == gio::FileType::Directory)
+                    {
+                        self.obj().do_file_specific_action(&fl, &directory);
+                    }
+                    glib::Propagation::Stop
+                }
+                _ => glib::Propagation::Proceed,
+            }
         }
     }
 
@@ -761,6 +827,25 @@ impl FileSelector {
         }
     }
 
+    pub fn prev_tab(&self) {
+        let notebook = &self.imp().notebook;
+        if notebook.current_page().map_or(false, |p| p > 0) {
+            notebook.prev_page();
+        } else if notebook.n_pages() > 1 {
+            notebook.set_current_page(None);
+        }
+    }
+
+    pub fn next_tab(&self) {
+        let notebook = &self.imp().notebook;
+        let n = notebook.n_pages();
+        if notebook.current_page().map_or(false, |p| p + 1 < n) {
+            notebook.next_page();
+        } else if n > 1 {
+            notebook.set_current_page(Some(0));
+        }
+    }
+
     fn goto(&self, connection: &Connection, dir: &str) {
         if self.is_current_tab_locked() {
             self.new_tab_with_dir(
@@ -1008,6 +1093,16 @@ impl FileSelector {
 
     pub fn update_style(&self) {
         unsafe { ffi::gnome_cmd_file_selector_update_style(self.to_glib_none().0) }
+    }
+
+    pub fn do_file_specific_action(&self, fl: &FileList, f: &File) -> bool {
+        unsafe {
+            ffi::gnome_cmd_file_selector_do_file_specific_action(
+                self.to_glib_none().0,
+                fl.to_glib_none().0,
+                f.to_glib_none().0,
+            ) != 0
+        }
     }
 }
 

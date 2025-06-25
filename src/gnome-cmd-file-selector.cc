@@ -366,89 +366,6 @@ static gboolean on_list_cmdline_execute (GnomeCmdFileList *fl, GnomeCmdFileSelec
 }
 
 
-static gboolean on_list_key_pressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
-{
-    auto fs = static_cast<GnomeCmdFileSelector*>(user_data);
-    auto priv = file_selector_priv (fs);
-
-    if (state_is_ctrl_shift (state))
-    {
-        switch (keyval)
-        {
-            case GDK_KEY_Tab:
-            case GDK_KEY_ISO_Left_Tab:
-                fs->prev_tab();
-                return TRUE;
-
-            default:
-                break;
-        }
-    }
-    else if (state_is_alt (state))
-    {
-        switch (keyval)
-        {
-            case GDK_KEY_Left:
-            case GDK_KEY_KP_Left:
-                gnome_cmd_file_selector_back(fs);
-                return TRUE;
-
-            case GDK_KEY_Right:
-            case GDK_KEY_KP_Right:
-                gnome_cmd_file_selector_forward(fs);
-                return TRUE;
-
-            default:
-                break;
-        }
-    }
-    else if (state_is_ctrl (state))
-    {
-        switch (keyval)
-        {
-            case GDK_KEY_Tab:
-            case GDK_KEY_ISO_Left_Tab:
-                fs->next_tab();
-                return TRUE;
-
-            default:
-                break;
-        }
-    }
-    else if (state_is_blank (state))
-    {
-        switch (keyval)
-        {
-            case GDK_KEY_Left:
-            case GDK_KEY_KP_Left:
-            case GDK_KEY_BackSpace:
-                if (!gnome_cmd_file_selector_is_current_tab_locked (fs))
-                {
-                    priv->list->invalidate_tree_size();
-                    priv->list->goto_directory("..");
-                }
-                else
-                    fs->new_tab(gnome_cmd_dir_get_parent (gnome_cmd_file_list_get_directory (priv->list)));
-                return TRUE;
-
-            case GDK_KEY_Right:
-            case GDK_KEY_KP_Right:
-                {
-                    auto f = priv->list->get_selected_file();
-                    if (f && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-                        fs->do_file_specific_action (priv->list, f);
-                }
-                return TRUE;
-
-            default:
-                break;
-        }
-    }
-
-    return FALSE;
-}
-
-
 /*******************************
  * Gtk class implementation
  *******************************/
@@ -466,11 +383,6 @@ extern "C" void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     g_signal_connect (con_dropdown, "notify::selected-item", G_CALLBACK (on_con_combo_item_selected), fs);
     auto dir_indicator = gnome_cmd_file_selector_get_dir_indicator (fs);
     g_signal_connect (dir_indicator, "navigate", G_CALLBACK (on_navigate), fs);
-
-    GtkEventController *key_controller = gtk_event_controller_key_new ();
-    gtk_event_controller_set_propagation_phase (key_controller, GTK_PHASE_CAPTURE);
-    gtk_widget_add_controller (GTK_WIDGET (fs), GTK_EVENT_CONTROLLER (key_controller));
-    g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_list_key_pressed), fs);
 
     fs->update_style();
 }
@@ -651,30 +563,6 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
 }
 
 
-void GnomeCmdFileSelector::prev_tab()
-{
-    GtkNotebook *notebook = gnome_cmd_file_selector_get_notebook (this);
-    if (gtk_notebook_get_current_page (notebook) > 0)
-        gtk_notebook_prev_page (notebook);
-    else
-        if (gtk_notebook_get_n_pages (notebook) > 1)
-            gtk_notebook_set_current_page (notebook, -1);
-}
-
-
-void GnomeCmdFileSelector::next_tab()
-{
-    GtkNotebook *notebook = gnome_cmd_file_selector_get_notebook (this);
-    gint n = gtk_notebook_get_n_pages (notebook);
-
-    if (gtk_notebook_get_current_page (notebook) + 1 < n)
-        gtk_notebook_next_page (notebook);
-    else
-        if (n > 1)
-            gtk_notebook_set_current_page (notebook, 0);
-}
-
-
 GnomeCmdFileList *GnomeCmdFileSelector::file_list()
 {
     return gnome_cmd_file_selector_file_list (this);
@@ -740,4 +628,9 @@ void gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs)
 void gnome_cmd_file_selector_update_style (GnomeCmdFileSelector *fs)
 {
     fs->update_style();
+}
+
+extern "C" void gnome_cmd_file_selector_do_file_specific_action (GnomeCmdFileSelector *fs, GnomeCmdFileList *fl, GnomeCmdFile *f)
+{
+    fs->do_file_specific_action(fl, f);
 }

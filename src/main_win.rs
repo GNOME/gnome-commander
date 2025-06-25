@@ -43,7 +43,10 @@ use crate::{
     tags::tags::FileMetadataService,
     transfer::{gnome_cmd_copy_gfiles, gnome_cmd_move_gfiles},
     types::{ConfirmOverwriteMode, FileSelectorID},
-    utils::{extract_menu_shortcuts, MenuBuilderExt},
+    utils::{
+        extract_menu_shortcuts, MenuBuilderExt, ALT, ALT_SHIFT, CONTROL, CONTROL_ALT,
+        CONTROL_SHIFT, NO_MOD,
+    },
 };
 use gettextrs::gettext;
 use gtk::{
@@ -908,16 +911,6 @@ pub mod imp {
             fn activate_local_action(mw: &MainWindow, action: &str) {
                 gio::prelude::ActionGroupExt::activate_action(&*mw.obj(), action, None);
             }
-
-            const NO_MOD: gdk::ModifierType = gdk::ModifierType::NO_MODIFIER_MASK;
-            const CONTROL: gdk::ModifierType = gdk::ModifierType::CONTROL_MASK;
-            const ALT: gdk::ModifierType = gdk::ModifierType::ALT_MASK;
-            const CONTROL_ALT: gdk::ModifierType =
-                gdk::ModifierType::CONTROL_MASK.union(gdk::ModifierType::ALT_MASK);
-            const CONTROL_SHIFT: gdk::ModifierType =
-                gdk::ModifierType::CONTROL_MASK.union(gdk::ModifierType::SHIFT_MASK);
-            const ALT_SHIFT: gdk::ModifierType =
-                gdk::ModifierType::ALT_MASK.union(gdk::ModifierType::SHIFT_MASK);
 
             match (state, key) {
                 (CONTROL_ALT, gdk::Key::c | gdk::Key::C) => {

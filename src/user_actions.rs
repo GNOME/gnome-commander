@@ -1072,8 +1072,21 @@ pub fn view_close_duplicate_tabs(
         .close_duplicate_tabs();
 }
 
-c_action!(view_prev_tab);
-c_action!(view_next_tab);
+pub fn view_prev_tab(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win.file_selector(FileSelectorID::ACTIVE).prev_tab();
+}
+
+pub fn view_next_tab(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win.file_selector(FileSelectorID::ACTIVE).next_tab();
+}
 
 pub fn view_in_new_tab(
     main_win: &MainWindow,

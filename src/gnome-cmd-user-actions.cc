@@ -72,8 +72,6 @@ GNOME_CMD_USER_ACTION(edit_copy_fnames);
 
 /************** View Menu **************/
 GNOME_CMD_USER_ACTION(view_directory);
-GNOME_CMD_USER_ACTION(view_prev_tab);
-GNOME_CMD_USER_ACTION(view_next_tab);
 GNOME_CMD_USER_ACTION(view_toggle_tab_lock);
 GNOME_CMD_USER_ACTION(view_step_up);
 GNOME_CMD_USER_ACTION(view_step_down);
@@ -228,22 +226,6 @@ void view_directory (GSimpleAction *action, GVariant *parameter, gpointer user_d
     GnomeCmdFile *f = fl->get_selected_file();
     if (f && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         fs->do_file_specific_action (fl, f);
-}
-
-
-void view_prev_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    main_win->fs (ACTIVE)->prev_tab();
-}
-
-
-void view_next_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    main_win->fs (ACTIVE)->next_tab();
 }
 
 
