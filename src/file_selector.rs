@@ -277,7 +277,16 @@ mod imp {
         }
     }
 
-    impl WidgetImpl for FileSelector {}
+    impl WidgetImpl for FileSelector {
+        fn grab_focus(&self) -> bool {
+            if let Some(list) = self.obj().current_file_list() {
+                list.grab_focus()
+            } else {
+                self.parent_grab_focus()
+            }
+        }
+    }
+
     impl GridImpl for FileSelector {}
 
     impl FileSelector {
@@ -363,6 +372,14 @@ impl FileSelector {
         glib::Object::builder()
             .property("file-metadata-service", file_metadata_service)
             .build()
+    }
+
+    fn current_file_list(&self) -> Option<FileList> {
+        unsafe {
+            from_glib_none(ffi::gnome_cmd_file_selector_file_list(
+                self.to_glib_none().0,
+            ))
+        }
     }
 
     pub fn file_list(&self) -> FileList {

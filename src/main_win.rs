@@ -403,20 +403,14 @@ pub mod imp {
                 .connect_activate_request(glib::clone!(
                     #[weak]
                     mw,
-                    move |fs| {
-                        mw.switch_to_fs(fs);
-                        fs.grab_focus();
-                    }
+                    move |fs| mw.switch_to_fs(fs)
                 ));
             self.file_selector_right
                 .borrow()
                 .connect_activate_request(glib::clone!(
                     #[weak]
                     mw,
-                    move |fs| {
-                        mw.switch_to_fs(fs);
-                        fs.grab_focus();
-                    }
+                    move |fs| mw.switch_to_fs(fs)
                 ));
 
             self.file_selector_left.borrow().update_connections();
