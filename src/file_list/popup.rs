@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use super::list::{ffi::GnomeCmdFileList, FileList};
+use super::list::FileList;
 use crate::{
     app::{load_favorite_apps, App, AppTarget, RegularApp, UserDefinedApp},
     config::PACKAGE,
@@ -35,10 +35,7 @@ use crate::{
 use gettextrs::gettext;
 use gtk::{
     gio::{self, ffi::GMenu},
-    glib::{
-        self,
-        translate::{from_glib_none, ToGlibPtr},
-    },
+    glib::{self, translate::ToGlibPtr},
     prelude::*,
 };
 use std::{
@@ -305,16 +302,6 @@ pub fn list_popup_menu() -> gio::Menu {
             GTK_TERMINAL_STOCKID,
         )
         .item(gettext("_Refresh"), "fl.refresh")
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_popmenu_new(fl: *const GnomeCmdFileList) -> *mut GMenu {
-    let file_list: FileList = unsafe { from_glib_none(fl) };
-    let Some(main_win) = file_list.root().and_downcast::<MainWindow>() else {
-        return std::ptr::null_mut();
-    };
-    let menu = file_popup_menu(&main_win, &file_list);
-    menu.to_glib_full()
 }
 
 #[no_mangle]

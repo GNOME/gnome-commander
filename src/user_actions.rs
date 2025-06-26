@@ -458,8 +458,9 @@ pub fn file_rename(
     let main_win = main_win.clone();
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
-
-    file_list.show_rename_dialog();
+    glib::spawn_future_local(async move {
+        file_list.show_rename_dialog().await;
+    });
 }
 
 fn symlink_name(file_name: &str, options: &dyn GeneralOptionsRead) -> String {
