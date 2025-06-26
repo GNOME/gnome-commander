@@ -399,7 +399,7 @@ impl FileList {
 
     pub fn visible_files(&self) -> glib::List<File> {
         let mut files = glib::List::new();
-        self.traverse_files::<()>(|file, _iter, _store| {
+        let _ = self.traverse_files::<()>(|file, _iter, _store| {
             files.push_back(file.clone());
             ControlFlow::Continue(())
         });
@@ -575,7 +575,7 @@ impl FileList {
     }
 
     pub fn set_selected_files(&self, files: &HashSet<File>) {
-        self.traverse_files::<()>(|file, iter, store| {
+        let _ = self.traverse_files::<()>(|file, iter, store| {
             let selected = files.contains(file);
             store.set(
                 iter,
@@ -590,7 +590,7 @@ impl FileList {
         let Some(ext) = self.selected_file().and_then(|f| f.extension()) else {
             return;
         };
-        self.traverse_files::<()>(|file, iter, store| {
+        let _ = self.traverse_files::<()>(|file, iter, store| {
             if !file.is_dotdot() && file.extension().as_ref() == Some(&ext) {
                 store.set(iter, &[(DataColumns::DATA_COLUMN_SELECTED as u32, &select)]);
             }
@@ -619,7 +619,7 @@ impl FileList {
 
     pub fn stats(&self) -> FileListStats {
         let mut stats = FileListStats::default();
-        self.traverse_files::<()>(|file, iter, store| {
+        let _ = self.traverse_files::<()>(|file, iter, store| {
             if !file.is_dotdot() {
                 let info = file.file_info();
                 let selected: bool = store.get(iter, DataColumns::DATA_COLUMN_SELECTED as i32);
