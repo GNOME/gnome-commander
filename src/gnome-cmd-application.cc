@@ -40,9 +40,3 @@ extern "C" void gnome_cmd_application_activate(GApplication *application, GnomeC
 {
     main_win = mw;
 }
-
-
-extern "C" void gnome_cmd_application_shutdown()
-{
-    remove_temp_download_dir ();
-}

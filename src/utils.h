@@ -130,8 +130,6 @@ gchar *unquote_if_needed (const gchar *in);
 
 void set_cursor_busy_for_widget (GtkWidget *widget);
 
-void remove_temp_download_dir ();
-
 void gnome_cmd_toggle_file_name_selection (GtkWidget *entry);
 
 void gnome_cmd_help_display (const gchar *file_name, const gchar *link_id=NULL);

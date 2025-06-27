@@ -36,7 +36,6 @@ pub mod ffi {
             application: *mut GnomeCmdApplication,
             main_win: *mut GnomeCmdMainWin,
         );
-        pub fn gnome_cmd_application_shutdown();
     }
 }
 
@@ -171,9 +170,6 @@ mod imp {
                 eprintln!("Failed to save connection data: {}", error.message);
             }
 
-            unsafe {
-                ffi::gnome_cmd_application_shutdown();
-            }
             gio::Settings::sync();
             self.parent_shutdown();
         }
