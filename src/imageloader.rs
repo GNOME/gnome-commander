@@ -17,20 +17,22 @@
  * For more details see the file COPYING.
  */
 
-use crate::{config::PIXMAPS_DIR, data::GeneralOptions};
+use crate::{
+    config::PIXMAPS_DIR,
+    data::GeneralOptions,
+    file::{ffi::GnomeCmdFile, File},
+    libgcmd::file_descriptor::FileDescriptorExt,
+    types::GraphicalLayoutMode,
+};
 use gtk::{
-    gio::{
-        self,
-        ffi::{GFileType, GIcon},
-    },
+    gio::{self, ffi::GIcon},
     glib::{
-        ffi::gboolean,
         object::Cast,
-        translate::{from_glib_none, FromGlib, ToGlibPtr},
+        translate::{from_glib_borrow, Borrowed, ToGlibPtr},
     },
     prelude::*,
 };
-use std::{cell::RefCell, collections::HashMap, ffi::c_char, path::Path, rc::Rc};
+use std::{cell::RefCell, collections::HashMap, path::Path, rc::Rc, sync::LazyLock};
 
 const GCMD_SETTINGS_MIME_ICON_DIR: &str = "mime-icon-dir";
 
@@ -159,6 +161,20 @@ impl IconCache {
             })
             .or_else(|| try_load_icon(&icon_dir.join(type_icon_name(file_type))))
     }
+
+    pub fn file_icon(&self, file: &File, mode: GraphicalLayoutMode) -> Option<gio::Icon> {
+        let file_type = file.file_info().file_type();
+        let is_symlink = !file.is_dotdot() && file.file_info().is_symlink();
+
+        match mode {
+            GraphicalLayoutMode::MimeIcons => file
+                .content_type()
+                .and_then(|mime_type| self.mime_type_icon(file_type, &mime_type, is_symlink))
+                .or_else(|| self.file_type_icon(file_type, is_symlink)),
+            GraphicalLayoutMode::TypeIcons => self.file_type_icon(file_type, is_symlink),
+            GraphicalLayoutMode::Text => None,
+        }
+    }
 }
 
 fn try_load_icon(path: &Path) -> Option<gio::Icon> {
@@ -214,56 +230,18 @@ fn category_icon_path(mime_type: &str) -> Option<&str> {
     }
 }
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_icon_cache_new() -> *mut Rc<IconCache> {
-    let bx = Box::new(IconCache::new());
-    Box::leak(bx)
+pub fn icon_cache() -> Rc<IconCache> {
+    static ICON_CACHE: LazyLock<glib::thread_guard::ThreadGuard<Rc<IconCache>>> =
+        LazyLock::new(|| glib::thread_guard::ThreadGuard::new(IconCache::new()));
+    ICON_CACHE.get_ref().clone()
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_icon_cache_free(p: *mut Rc<IconCache>) {
-    if !p.is_null() {
-        let bx: Box<Rc<IconCache>> = unsafe { Box::from_raw(p) };
-        drop(bx)
-    }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_icon_cache_get_file_type_icon(
-    p: *mut Rc<IconCache>,
-    file_type: GFileType,
-    symlink: gboolean,
-) -> *const GIcon {
-    if p.is_null() {
-        return std::ptr::null();
-    }
-    let icon_cache: &Rc<IconCache> = unsafe { &*p };
-    let file_type: gio::FileType = unsafe { gio::FileType::from_glib(file_type) };
-    let symlink = symlink != 0;
-
-    let icon = icon_cache.file_type_icon(file_type, symlink);
-    icon.to_glib_none().0
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_icon_cache_get_mime_type_icon(
-    p: *mut Rc<IconCache>,
-    file_type: GFileType,
-    mime_type: *const c_char,
-    symlink: gboolean,
-) -> *const GIcon {
-    if p.is_null() {
-        return std::ptr::null();
-    }
-    if mime_type.is_null() {
-        return std::ptr::null();
-    }
-
-    let icon_cache: &Rc<IconCache> = unsafe { &*p };
-    let file_type: gio::FileType = unsafe { gio::FileType::from_glib(file_type) };
-    let mime_type: String = unsafe { from_glib_none(mime_type) };
-    let symlink = symlink != 0;
-
-    let icon = icon_cache.mime_type_icon(file_type, &mime_type, symlink);
-    icon.to_glib_none().0
+pub extern "C" fn gnome_cmd_icon_cache_get_file_icon(
+    file: *mut GnomeCmdFile,
+    mode: GraphicalLayoutMode,
+) -> *mut GIcon {
+    let file: Borrowed<File> = unsafe { from_glib_borrow(file) };
+    let icon = icon_cache().file_icon(&*file, mode);
+    icon.to_glib_full()
 }

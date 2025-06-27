@@ -36,7 +36,6 @@
 #include "gnome-cmd-path.h"
 #include "utils.h"
 #include "gnome-cmd-xfer.h"
-#include "imageloader.h"
 #include "gnome-cmd-file-collection.h"
 #include "dialogs/gnome-cmd-delete-dialog.h"
 #include "dialogs/gnome-cmd-rename-dialog.h"
@@ -531,6 +530,8 @@ inline gchar *strip_extension (const gchar *fname)
 }
 
 
+extern "C" GIcon *gnome_cmd_icon_cache_get_file_icon(GnomeCmdFile *file, GnomeCmdLayout layout);
+
 static void set_model_row(GnomeCmdFileList *fl, GtkTreeIter *iter, GnomeCmdFile *f, bool tree_size)
 {
     auto priv = file_list_priv (fl);
@@ -554,9 +555,14 @@ static void set_model_row(GnomeCmdFileList *fl, GtkTreeIter *iter, GnomeCmdFile 
         "date-display-format", &date_format,
         nullptr);
 
-    // If the user wants a character instead of icon for filetype set it now
     if (layout == GNOME_CMD_LAYOUT_TEXT)
         gtk_list_store_set (model, iter, DATA_COLUMN_ICON_NAME, (gchar *) f->get_type_string(), -1);
+    else
+    {
+        GIcon *icon = gnome_cmd_icon_cache_get_file_icon(f, layout);
+        gtk_list_store_set (model, iter, GnomeCmdFileList::COLUMN_ICON, icon, -1);
+        g_object_unref(icon);
+    }
 
     // Prepare the strings to show
     gchar *t1 = f->GetPathStringThroughParent();
@@ -1371,16 +1377,6 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, GtkTreeIte
         gtk_list_store_append (priv->store, &iter);
     set_model_row (fl, &iter, f, false);
 
-    GnomeCmdLayout layout;
-    g_object_get (fl, "graphical-layout-mode", &layout, nullptr);
-
-    // If the use wants icons to show file types set it now
-    if (layout != GNOME_CMD_LAYOUT_TEXT)
-    {
-        GIcon *icon = f->get_type_icon(layout);
-        gtk_list_store_set (priv->store, &iter, GnomeCmdFileList::COLUMN_ICON, icon, -1);
-    }
-
     // If we have been waiting for this file to show up, focus it
     if (priv->focus_later && strcmp (f->get_name(), priv->focus_later)==0)
         fl->focus_file_at_row (&iter);
@@ -1522,15 +1518,6 @@ void GnomeCmdFileList::update_file(GnomeCmdFile *f)
         return;
 
     set_model_row (this, row.get(), f, false);
-
-    GnomeCmdLayout layout;
-    g_object_get (this, "graphical-layout-mode", &layout, nullptr);
-
-    if (layout != GNOME_CMD_LAYOUT_TEXT)
-    {
-        GIcon *icon = f->get_type_icon(layout);
-        gtk_list_store_set (priv->store, row.get(), GnomeCmdFileList::COLUMN_ICON, icon, -1);
-    }
 }
 
 

@@ -25,10 +25,13 @@
 #include "gnome-cmd-con-remote.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-path.h"
-#include "imageloader.h"
 #include "utils.h"
 
 using namespace std;
+
+
+#define OVERLAY_UMOUNT_ICON "overlay_umount"
+
 
 G_DEFINE_TYPE (GnomeCmdConRemote, gnome_cmd_con_remote, GNOME_CMD_TYPE_CON)
 

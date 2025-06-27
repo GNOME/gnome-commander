@@ -24,7 +24,6 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-con-home.h"
 #include "gnome-cmd-path.h"
-#include "imageloader.h"
 
 using namespace std;
 

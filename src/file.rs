@@ -202,6 +202,9 @@ impl File {
     }
 
     pub fn content_type(&self) -> Option<glib::GString> {
+        if self.is_dotdot() {
+            return None;
+        }
         let file_info = self.file_info();
         file_info
             .attribute_string(gio::FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE)

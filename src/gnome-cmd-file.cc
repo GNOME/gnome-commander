@@ -24,7 +24,6 @@
 
 #include "gnome-cmd-includes.h"
 #include "utils.h"
-#include "imageloader.h"
 #include "gnome-cmd-path.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-con-list.h"
@@ -749,32 +748,6 @@ const gchar *GnomeCmdFile::get_type_string()
 
     type2string (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE), type_str, MAX_TYPE_LENGTH);
     return type_str;
-}
-
-
-GIcon *GnomeCmdFile::get_type_icon(GnomeCmdLayout layout)
-{
-    auto priv = file_private (this);
-    g_return_val_if_fail (get_file_info() != nullptr, FALSE);
-
-    GFileType file_type = (GFileType) GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE);
-    gboolean is_symlink = priv->is_dotdot ? false : g_file_info_get_is_symlink (get_file_info());
-
-    switch (layout)
-    {
-        case GNOME_CMD_LAYOUT_MIME_ICONS:
-        {
-            auto mime_type = priv->is_dotdot ? nullptr : g_file_info_get_content_type (get_file_info());
-            auto icon = gnome_cmd_icon_cache_get_mime_type_icon(icon_cache, file_type, mime_type, is_symlink);
-            if (icon != nullptr)
-                return icon;
-            return gnome_cmd_icon_cache_get_file_type_icon(icon_cache, file_type, is_symlink);
-        }
-        case GNOME_CMD_LAYOUT_TYPE_ICONS:
-            return gnome_cmd_icon_cache_get_file_type_icon(icon_cache, file_type, is_symlink);
-        default:
-            return nullptr;
-    }
 }
 
 
