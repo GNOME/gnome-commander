@@ -167,6 +167,7 @@ summary(
     'bindir': bindir,
     'libdir': libdir,
     'datadir': datadir,
+    'iconsdir': icons_dir,
     'pixmapsdir': pixmaps_dir,
     'plugindir': plugin_dir
   },
