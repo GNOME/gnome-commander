@@ -48,8 +48,6 @@ enum DISPLAYMODE
 
 extern "C" void text_render_load_file(TextRender *w, const gchar *filename);
 
-extern "C" void text_render_notify_status_changed(TextRender *w);
-
 extern "C" void text_render_set_display_mode (TextRender *w, DISPLAYMODE mode);
 extern "C" DISPLAYMODE text_render_get_display_mode(TextRender *w);
 
@@ -75,8 +73,6 @@ extern "C" int text_render_get_font_size(TextRender *w);
 extern "C" void text_render_set_encoding(TextRender *w, const char *encoding);
 extern "C" const gchar *text_render_get_encoding(TextRender *w);
 
-extern "C" void text_render_copy_selection(TextRender *w);
-
 extern "C" offset_type text_render_get_current_offset(TextRender *w);
 extern "C" offset_type text_render_get_size(TextRender *w);
 extern "C" int text_render_get_column(TextRender *w);
@@ -84,5 +80,3 @@ extern "C" int text_render_get_column(TextRender *w);
 extern "C" offset_type text_render_get_last_displayed_offset(TextRender *w);
 
 extern "C" void text_render_ensure_offset_visible(TextRender *w, offset_type offset);
-
-extern "C" void text_render_set_marker(TextRender *w, offset_type start, offset_type end);

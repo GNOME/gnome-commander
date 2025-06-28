@@ -23,6 +23,7 @@ use crate::{
     utils::Max,
 };
 use gtk::{
+    gdk,
     glib::{
         self,
         ffi::GType,
@@ -40,7 +41,7 @@ pub mod ffi {
     use crate::intviewer::{
         data_presentation::ffi::GVDataPresentation, file_ops::ffi::ViewerFileOps,
     };
-    use gtk::ffi::GtkSnapshot;
+    use gtk::{ffi::GtkSnapshot, glib::ffi::gboolean};
     use std::ffi::c_char;
 
     pub type TextRender = <super::TextRender as glib::object::ObjectType>::GlibType;
@@ -48,8 +49,6 @@ pub mod ffi {
     extern "C" {
         pub fn text_render_init(w: *mut TextRender);
         pub fn text_render_finalize(w: *mut TextRender);
-
-        pub fn text_render_set_marker(w: *mut TextRender, start: u64, end: u64);
 
         pub fn text_render_get_current_offset(w: *mut TextRender) -> u64;
         pub fn text_render_get_size(w: *mut TextRender) -> u64;
@@ -60,10 +59,6 @@ pub mod ffi {
         pub fn text_render_get_data_presentation(w: *mut TextRender) -> *mut GVDataPresentation;
 
         pub fn text_render_load_file(w: *mut TextRender, filename: *const c_char);
-
-        pub fn text_render_notify_status_changed(w: *mut TextRender);
-
-        pub fn text_render_copy_selection(w: *mut TextRender);
 
         pub fn text_render_get_display_mode(w: *mut TextRender) -> super::TextRenderDisplayMode;
         pub fn text_render_set_display_mode(w: *mut TextRender, mode: super::TextRenderDisplayMode);
@@ -77,6 +72,8 @@ pub mod ffi {
             column: i32,
             start_of_line: u64,
             end_of_line: u64,
+            marker_start: u64,
+            marker_end: u64,
         );
         pub fn binary_mode_display_line(
             w: *mut TextRender,
@@ -84,6 +81,8 @@ pub mod ffi {
             column: i32,
             start_of_line: u64,
             end_of_line: u64,
+            marker_start: u64,
+            marker_end: u64,
         );
         pub fn hex_mode_display_line(
             w: *mut TextRender,
@@ -91,7 +90,25 @@ pub mod ffi {
             column: i32,
             start_of_line: u64,
             end_of_line: u64,
+            marker_start: u64,
+            marker_end: u64,
         );
+
+        pub fn text_mode_pixel_to_offset(
+            w: *mut TextRender,
+            x: i32,
+            y: i32,
+            start_marker: gboolean,
+        ) -> u64;
+        pub fn hex_mode_pixel_to_offset(
+            w: *mut TextRender,
+            x: i32,
+            y: i32,
+            start_marker: gboolean,
+        ) -> u64;
+
+        pub fn text_mode_copy_to_clipboard(w: *mut TextRender, start_offset: u64, end_offset: u64);
+        pub fn hex_mode_copy_to_clipboard(w: *mut TextRender, start_offset: u64, end_offset: u64);
     }
 }
 
@@ -143,6 +160,10 @@ mod imp {
         pub last_displayed_offset: Cell<u64>,
         #[property(get, set)]
         pub lines_displayed: Cell<i32>,
+        pub marker_start: Cell<u64>,
+        pub marker_end: Cell<u64>,
+        /// The button pressed to start a selection
+        button: Cell<Option<u32>>,
     }
 
     #[glib::object_subclass]
@@ -175,6 +196,9 @@ mod imp {
                 max_column: Default::default(),
                 last_displayed_offset: Default::default(),
                 lines_displayed: Default::default(),
+                marker_start: Default::default(),
+                marker_end: Default::default(),
+                button: Default::default(),
             }
         }
     }
@@ -186,11 +210,62 @@ mod imp {
 
             let this = self.obj();
 
-            this.set_can_focus(true);
+            this.set_focusable(true);
 
             unsafe { ffi::text_render_init(this.to_glib_none().0) }
 
             this.setup_current_font();
+
+            let scroll_controller = gtk::EventControllerScroll::builder()
+                .flags(gtk::EventControllerScrollFlags::VERTICAL)
+                .build();
+            scroll_controller.connect_scroll(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                #[upgrade_or]
+                glib::Propagation::Proceed,
+                move |_, _dx, dy| {
+                    imp.scroll(dy);
+                    glib::Propagation::Stop
+                }
+            ));
+            this.add_controller(scroll_controller);
+
+            let button_gesture = gtk::GestureClick::new();
+            button_gesture.connect_pressed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |gesture, n_press, x, y| imp.button_press(
+                    gesture.current_button(),
+                    n_press,
+                    x,
+                    y
+                )
+            ));
+            button_gesture.connect_released(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |gesture, _n_press, x, y| imp.button_release(gesture.current_button(), x, y)
+            ));
+            this.add_controller(button_gesture);
+
+            let motion_controller = gtk::EventControllerMotion::new();
+            motion_controller.connect_motion(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_, x, y| imp.motion_notify(x, y)
+            ));
+            this.add_controller(motion_controller);
+
+            let key_controller = gtk::EventControllerKey::new();
+            key_controller.connect_key_pressed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                #[upgrade_or]
+                glib::Propagation::Proceed,
+                move |_, key, _, _| imp.key_pressed(key)
+            ));
+            this.add_controller(key_controller);
         }
 
         fn dispose(&self) {
@@ -257,6 +332,12 @@ mod imp {
             let mut offset = self.obj().current_offset();
             let mut y = 0;
 
+            let mut marker_start = self.marker_start.get();
+            let mut marker_end = self.marker_end.get();
+            if marker_start > marker_end {
+                std::mem::swap(&mut marker_start, &mut marker_end);
+            }
+
             loop {
                 let eol_offset = dp.end_of_line_offset(offset);
                 if eol_offset == offset {
@@ -273,6 +354,8 @@ mod imp {
                             column,
                             offset,
                             eol_offset,
+                            marker_start,
+                            marker_end,
                         )
                     },
                     TextRenderDisplayMode::Binary => unsafe {
@@ -282,6 +365,8 @@ mod imp {
                             column,
                             offset,
                             eol_offset,
+                            marker_start,
+                            marker_end,
                         )
                     },
                     TextRenderDisplayMode::Hexdump => unsafe {
@@ -291,6 +376,8 @@ mod imp {
                             column,
                             offset,
                             eol_offset,
+                            marker_start,
+                            marker_end,
                         )
                     },
                 }
@@ -504,6 +591,146 @@ mod imp {
             self.hexadecimal_offset.set(hexadecimal_offset);
             self.obj().queue_draw();
         }
+
+        fn scroll(&self, dy: f64) {
+            let Some(vadjustment) = self.obj().vadjustment() else {
+                return;
+            };
+            let Some(dp) = self.obj().data_presentation() else {
+                return;
+            };
+
+            let mut current_offset = self.obj().current_offset();
+            current_offset = dp.scroll_lines(current_offset, (4.0 * dy) as i32);
+            vadjustment.set_value(current_offset as f64);
+
+            self.obj().emit_text_status_changed();
+            self.obj().queue_draw();
+        }
+
+        fn button_press(&self, button: u32, n_press: i32, x: f64, y: f64) {
+            if n_press == 1 && self.button.get().is_none() {
+                self.button.set(Some(button));
+                self.marker_start.set(match self.obj().display_mode() {
+                    TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => unsafe {
+                        ffi::text_mode_pixel_to_offset(
+                            self.obj().to_glib_none().0,
+                            x as i32,
+                            y as i32,
+                            1,
+                        )
+                    },
+                    TextRenderDisplayMode::Hexdump => unsafe {
+                        ffi::hex_mode_pixel_to_offset(
+                            self.obj().to_glib_none().0,
+                            x as i32,
+                            y as i32,
+                            1,
+                        )
+                    },
+                });
+            }
+        }
+
+        fn button_release(&self, button: u32, x: f64, y: f64) {
+            if self.button.get() == Some(button) {
+                self.button.set(None);
+                self.marker_end.set(match self.obj().display_mode() {
+                    TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => unsafe {
+                        ffi::text_mode_pixel_to_offset(
+                            self.obj().to_glib_none().0,
+                            x as i32,
+                            y as i32,
+                            0,
+                        )
+                    },
+                    TextRenderDisplayMode::Hexdump => unsafe {
+                        ffi::hex_mode_pixel_to_offset(
+                            self.obj().to_glib_none().0,
+                            x as i32,
+                            y as i32,
+                            0,
+                        )
+                    },
+                });
+                self.obj().queue_draw();
+            }
+        }
+
+        fn motion_notify(&self, x: f64, y: f64) {
+            if self.button.get().is_some() {
+                let new_marker = match self.obj().display_mode() {
+                    TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => unsafe {
+                        ffi::text_mode_pixel_to_offset(
+                            self.obj().to_glib_none().0,
+                            x as i32,
+                            y as i32,
+                            0,
+                        )
+                    },
+                    TextRenderDisplayMode::Hexdump => unsafe {
+                        ffi::hex_mode_pixel_to_offset(
+                            self.obj().to_glib_none().0,
+                            x as i32,
+                            y as i32,
+                            0,
+                        )
+                    },
+                };
+                if new_marker != self.marker_end.get() {
+                    self.marker_end.set(new_marker);
+                    self.obj().queue_draw();
+                }
+            }
+        }
+
+        fn key_pressed(&self, key: gdk::Key) -> glib::Propagation {
+            let Some(fops) = self.obj().file_ops() else {
+                return glib::Propagation::Proceed;
+            };
+            let Some(dp) = self.obj().data_presentation() else {
+                return glib::Propagation::Proceed;
+            };
+            let Some(hadjustment) = self.obj().hadjustment() else {
+                return glib::Propagation::Proceed;
+            };
+            let Some(vadjustment) = self.obj().vadjustment() else {
+                return glib::Propagation::Proceed;
+            };
+
+            let column = self.obj().column();
+            let current_offset = self.obj().current_offset();
+
+            match key {
+                gdk::Key::Up => vadjustment.set_value(dp.scroll_lines(current_offset, -1) as f64),
+                gdk::Key::Down => vadjustment.set_value(dp.scroll_lines(current_offset, 1) as f64),
+                gdk::Key::Page_Up => vadjustment.set_value(
+                    dp.scroll_lines(current_offset, -1 * (self.lines_displayed.get() - 1)) as f64,
+                ),
+                gdk::Key::Page_Down => vadjustment.set_value(
+                    dp.scroll_lines(current_offset, self.lines_displayed.get() - 1) as f64,
+                ),
+                gdk::Key::Left => {
+                    if !self.wrap_mode.get() && column > 0 {
+                        hadjustment.set_value((column - 1) as f64);
+                    }
+                }
+                gdk::Key::Right => {
+                    if !self.wrap_mode.get() {
+                        hadjustment.set_value((column + 1) as f64);
+                    }
+                }
+                gdk::Key::Home => vadjustment.set_value(0.0),
+                gdk::Key::End => vadjustment
+                    .set_value(dp.align_offset_to_line_start(fops.max_offset() - 1) as f64),
+                _ => return glib::Propagation::Proceed,
+            }
+
+            self.obj().emit_text_status_changed();
+            self.obj().queue_draw();
+
+            glib::Propagation::Stop
+        }
     }
 }
 
@@ -558,7 +785,9 @@ impl TextRender {
     }
 
     pub fn set_marker(&self, start: u64, end: u64) {
-        unsafe { ffi::text_render_set_marker(self.to_glib_none().0, start, end) }
+        self.imp().marker_start.set(start);
+        self.imp().marker_end.set(end);
+        self.queue_draw();
     }
 
     pub fn current_offset(&self) -> u64 {
@@ -605,11 +834,26 @@ impl TextRender {
     }
 
     pub fn notify_status_changed(&self) {
-        unsafe { ffi::text_render_notify_status_changed(self.to_glib_none().0) }
+        self.emit_text_status_changed();
     }
 
     pub fn copy_selection(&self) {
-        unsafe { ffi::text_render_copy_selection(self.to_glib_none().0) }
+        let mut marker_start = self.imp().marker_start.get();
+        let mut marker_end = self.imp().marker_end.get();
+        if marker_start == marker_end {
+            return;
+        }
+        if marker_start > marker_end {
+            std::mem::swap(&mut marker_start, &mut marker_end);
+        }
+        match self.display_mode() {
+            TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => unsafe {
+                ffi::text_mode_copy_to_clipboard(self.to_glib_none().0, marker_start, marker_end)
+            },
+            TextRenderDisplayMode::Hexdump => unsafe {
+                ffi::hex_mode_copy_to_clipboard(self.to_glib_none().0, marker_start, marker_end)
+            },
+        }
     }
 
     pub fn display_mode(&self) -> TextRenderDisplayMode {

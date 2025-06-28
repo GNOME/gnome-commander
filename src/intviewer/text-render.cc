@@ -45,18 +45,10 @@ using namespace std;
 
 #define NEED_PANGO_ESCAPING(x) ((x)=='<' || (x)=='>' || (x)=='&')
 
-#define TEXT_STATUS_CHANGED_SIGNAL "text-status-changed"
-
-typedef void (*display_line_proc)(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line);
-typedef offset_type (*pixel_to_offset_proc) (TextRender *obj, int x, int y, gboolean start_marker);
-typedef void (*copy_to_clipboard_proc)(TextRender *obj, offset_type start_offset, offset_type end_offset);
-
 
 // Class Private Data
 struct TextRenderPrivate
 {
-    guint8 button; // The button pressed to start a selection
-
     ViewerFileOps *fops;
     GVInputModesData *im;
     GVDataPresentation *dp;
@@ -71,23 +63,9 @@ struct TextRenderPrivate
     int           utf8alloc;
     int           utf8buf_length;
 
-    offset_type marker_start;
-    offset_type marker_end;
     gboolean hexmode_marker_on_hexdump;
-
-    pixel_to_offset_proc pixel_to_offset;
-    copy_to_clipboard_proc copy_to_clipboard;
 };
 
-
-// Gtk class related static functions
-static void text_render_position_changed(TextRender *w);
-
-static void text_render_scroll (GtkEventControllerScroll *controller, double dx, double dy, gpointer user_data);
-static void text_render_button_press (GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data);
-static void text_render_button_release (GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data);
-static void text_render_motion_notify (GtkEventControllerMotion *controller, double x, double y, gpointer user_data);
-static gboolean text_render_key_pressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data);
 
 extern "C" void text_render_update_adjustments_limits(TextRender *w);
 static void text_render_free_data(TextRender *w);
@@ -98,15 +76,15 @@ static void text_render_utf8_clear_buf(TextRender *w);
 static int text_render_utf8_printf (TextRender *w, const char *format, ...);
 static int text_render_utf8_print_char(TextRender *w, char_type value);
 
-static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offset_type end_offset);
-extern "C" void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line);
-static offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker);
+extern "C" void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offset_type end_offset);
+extern "C" void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line, offset_type marker_start, offset_type marker_end);
+extern "C" offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker);
 
-extern "C" void binary_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line);
+extern "C" void binary_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line, offset_type marker_start, offset_type marker_end);
 
-extern "C" void hex_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line);
-static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offset_type end_offset);
-static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker);
+extern "C" void hex_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line, offset_type marker_start, offset_type marker_end);
+extern "C" void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offset_type end_offset);
+extern "C" offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker);
 
 extern "C" PangoFontDescription *text_render_get_font_description(TextRender *w);
 extern "C" gint text_render_get_char_width(TextRender *w);
@@ -124,37 +102,13 @@ extern "C" void text_render_init (TextRender *w)
     auto priv = g_new0 (TextRenderPrivate, 1);
     g_object_set_data_full (G_OBJECT (w), "priv", priv, g_free);
 
-    priv->button = 0;
     priv->dispmode = DISPLAYMODE_TEXT;
-
-    priv->pixel_to_offset = text_mode_pixel_to_offset;
-    priv->copy_to_clipboard = text_mode_copy_to_clipboard;
-
-    priv->marker_start = 0;
-    priv->marker_end = 0;
 
     priv->utf8alloc = 0;
 
     priv->fixed_font_name = g_strdup ("Monospace");
 
     priv->layout = gtk_widget_create_pango_layout (GTK_WIDGET (w), NULL);
-
-    GtkEventController *scroll_controller = gtk_event_controller_scroll_new (GTK_EVENT_CONTROLLER_SCROLL_VERTICAL);
-    gtk_widget_add_controller (GTK_WIDGET (w), GTK_EVENT_CONTROLLER (scroll_controller));
-    g_signal_connect (scroll_controller, "scroll", G_CALLBACK (text_render_scroll), w);
-
-    GtkGesture *button_gesture = gtk_gesture_click_new ();
-    gtk_widget_add_controller (GTK_WIDGET (w), GTK_EVENT_CONTROLLER (button_gesture));
-    g_signal_connect (button_gesture, "pressed", G_CALLBACK (text_render_button_press), w);
-    g_signal_connect (button_gesture, "released", G_CALLBACK (text_render_button_release), w);
-
-    GtkEventController* motion_controller = gtk_event_controller_motion_new ();
-    gtk_widget_add_controller (GTK_WIDGET (w), GTK_EVENT_CONTROLLER (motion_controller));
-    g_signal_connect (motion_controller, "motion", G_CALLBACK (text_render_motion_notify), w);
-
-    GtkEventController *key_controller = gtk_event_controller_key_new ();
-    gtk_widget_add_controller (GTK_WIDGET (w), GTK_EVENT_CONTROLLER (key_controller));
-    g_signal_connect (key_controller, "key-pressed", G_CALLBACK (text_render_key_pressed), w);
 }
 
 
@@ -165,198 +119,6 @@ extern "C" void text_render_finalize (TextRender *w)
     g_clear_pointer (&priv->fixed_font_name, g_free);
     text_render_free_data(w);
     g_clear_pointer (&priv->utf8buf, g_free);
-}
-
-
-void text_render_notify_status_changed(TextRender *w)
-{
-    g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = text_render_priv (w);
-
-    g_signal_emit_by_name (w, TEXT_STATUS_CHANGED_SIGNAL);
-}
-
-
-static void text_render_position_changed(TextRender *w)
-{
-    text_render_notify_status_changed(w);
-}
-
-
-static gboolean text_render_key_pressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
-{
-    g_return_val_if_fail (IS_TEXT_RENDER (user_data), FALSE);
-    TextRender *obj = TEXT_RENDER (user_data);
-    auto priv = text_render_priv (obj);
-
-    if (!priv->dp)
-        return FALSE;
-
-    auto column = text_render_get_column (obj);
-    auto current_offset = text_render_get_current_offset (obj);
-
-    GtkAdjustment *h_adjustment, *v_adjustment;
-    gboolean wrapmode;
-    gint lines_displayed;
-    g_object_get (obj,
-        "hadjustment", &h_adjustment,
-        "vadjustment", &v_adjustment,
-        "wrap-mode", &wrapmode,
-        "lines-displayed", &lines_displayed,
-        nullptr);
-
-    switch (keyval)
-    {
-    case GDK_KEY_Up:
-        current_offset = gv_scroll_lines (priv->dp, current_offset, -1);
-        gtk_adjustment_set_value (v_adjustment, current_offset);
-        break;
-
-    case GDK_KEY_Page_Up:
-        current_offset = gv_scroll_lines (priv->dp, current_offset, -1 * (lines_displayed - 1));
-        gtk_adjustment_set_value (v_adjustment, current_offset);
-        break;
-
-    case GDK_KEY_Page_Down:
-        current_offset = gv_scroll_lines (priv->dp, current_offset, lines_displayed - 1);
-        gtk_adjustment_set_value (v_adjustment, current_offset);
-        break;
-
-    case GDK_KEY_Down:
-        current_offset = gv_scroll_lines (priv->dp, current_offset, 1);
-        gtk_adjustment_set_value (v_adjustment, current_offset);
-        break;
-
-    case GDK_KEY_Left:
-        if (!wrapmode)
-            if (column > 0)
-                gtk_adjustment_set_value (h_adjustment, column - 1);
-        break;
-
-    case GDK_KEY_Right:
-        if (!wrapmode)
-            gtk_adjustment_set_value (h_adjustment, column + 1);
-        break;
-
-    case GDK_KEY_Home:
-        gtk_adjustment_set_value (v_adjustment, 0);
-        break;
-
-    case GDK_KEY_End:
-        current_offset = gv_align_offset_to_line_start(priv->dp, gv_file_get_max_offset(priv->fops) - 1);
-        gtk_adjustment_set_value (v_adjustment, current_offset);
-        break;
-
-    default:
-        return FALSE;
-    }
-
-    text_render_position_changed(obj);
-    gtk_widget_queue_draw (GTK_WIDGET (obj));
-
-    return TRUE;
-}
-
-
-static void text_render_scroll(GtkEventControllerScroll *controller, double dx, double dy, gpointer user_data)
-{
-    g_return_if_fail (IS_TEXT_RENDER (user_data));
-    TextRender *w = TEXT_RENDER (user_data);
-    auto priv = text_render_priv (w);
-
-    if (!priv->dp)
-        return;
-
-    GtkAdjustment *v_adjustment;
-    g_object_get (w, "vadjustment", &v_adjustment, nullptr);
-
-    auto current_offset = text_render_get_current_offset (w);
-    current_offset = gv_scroll_lines (priv->dp, current_offset, 4 * dy);
-    gtk_adjustment_set_value (v_adjustment, current_offset);
-
-    text_render_position_changed (w);
-    gtk_widget_queue_draw (GTK_WIDGET (w));
-}
-
-
-void  text_render_copy_selection(TextRender *w)
-{
-    g_return_if_fail (w!=NULL);
-    auto priv = text_render_priv (w);
-    g_return_if_fail (priv->copy_to_clipboard != NULL);
-
-    if (priv->marker_start == priv->marker_end)
-        return;
-
-    offset_type marker_start = priv->marker_start;
-    offset_type marker_end   = priv->marker_end;
-
-    if (marker_start > marker_end)
-    {
-        offset_type temp = marker_end;
-        marker_end = marker_start;
-        marker_start = temp;
-    }
-
-    priv->copy_to_clipboard(w, marker_start, marker_end);
-}
-
-
-static void text_render_button_press(GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data)
-{
-    g_return_if_fail (IS_TEXT_RENDER (user_data));
-    TextRender *w = TEXT_RENDER (user_data);
-    auto priv = text_render_priv (w);
-
-    g_return_if_fail (priv->pixel_to_offset != NULL);
-
-    auto button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
-
-    if (n_press == 1 && !priv->button)
-    {
-        priv->button = button;
-        priv->marker_start = priv->pixel_to_offset(w, (int) x, (int) y, TRUE);
-    }
-}
-
-
-static void text_render_button_release(GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data)
-{
-    g_return_if_fail (IS_TEXT_RENDER (user_data));
-    TextRender *w = TEXT_RENDER (user_data);
-    auto priv = text_render_priv (w);
-
-    g_return_if_fail (priv->pixel_to_offset != NULL);
-
-    auto button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
-
-    if (priv->button == button)
-    {
-        priv->button = 0;
-
-        priv->marker_end = priv->pixel_to_offset(w, (int) x, (int) y, FALSE);
-        gtk_widget_queue_draw (GTK_WIDGET (w));
-    }
-}
-
-
-static void text_render_motion_notify (GtkEventControllerMotion *controller, double x, double y, gpointer user_data)
-{
-    g_return_if_fail (IS_TEXT_RENDER (user_data));
-    TextRender *w = TEXT_RENDER (user_data);
-    auto priv = text_render_priv (w);
-
-    g_return_if_fail (priv->pixel_to_offset != NULL);
-
-    if (priv->button != 0)
-    {
-        offset_type new_marker = priv->pixel_to_offset (w, x, y, FALSE);
-        if (new_marker != priv->marker_end)
-        {
-            priv->marker_end = new_marker;
-            gtk_widget_queue_draw (GTK_WIDGET (w));
-        }
-    }
 }
 
 
@@ -382,12 +144,14 @@ static void text_render_internal_load(TextRender *w)
     GtkAdjustment *h_adjustment, *v_adjustment;
     guint fixed_limit, tab_size;
     gchar *encoding;
+    gboolean wrap_mode;
     g_object_get (w,
         "hadjustment", &h_adjustment,
         "vadjustment", &v_adjustment,
         "encoding", &encoding,
         "fixed-limit", &fixed_limit,
         "tab-size", &tab_size,
+        "wrap-mode", &wrap_mode,
         nullptr);
 
     gtk_adjustment_set_value (h_adjustment, 0);
@@ -409,6 +173,7 @@ static void text_render_internal_load(TextRender *w)
     gv_set_wrap_limit(priv->dp, 50);
     gv_set_fixed_count(priv->dp, fixed_limit);
     gv_set_tab_size(priv->dp, tab_size);
+    gv_set_data_presentation_mode(priv->dp, wrap_mode ? PRSNT_WRAP : PRSNT_NO_WRAP);
 
     text_render_set_display_mode (w, DISPLAYMODE_TEXT);
 
@@ -616,9 +381,6 @@ void  text_render_set_display_mode (TextRender *w, DISPLAYMODE mode)
     {
     case DISPLAYMODE_TEXT:
         gv_set_data_presentation_mode(priv->dp, wrapmode ? PRSNT_WRAP : PRSNT_NO_WRAP);
-
-        priv->pixel_to_offset = text_mode_pixel_to_offset;
-        priv->copy_to_clipboard = text_mode_copy_to_clipboard;
         break;
 
     case DISPLAYMODE_BINARY:
@@ -629,9 +391,6 @@ void  text_render_set_display_mode (TextRender *w, DISPLAYMODE mode)
 
         gv_set_fixed_count(priv->dp, fixed_limit);
         gv_set_data_presentation_mode(priv->dp, PRSNT_BIN_FIXED);
-
-        priv->pixel_to_offset = text_mode_pixel_to_offset;
-        priv->copy_to_clipboard = text_mode_copy_to_clipboard;
         break;
 
     case DISPLAYMODE_HEXDUMP:
@@ -642,9 +401,6 @@ void  text_render_set_display_mode (TextRender *w, DISPLAYMODE mode)
 
         gv_set_fixed_count(priv->dp, HEXDUMP_FIXED_LIMIT);
         gv_set_data_presentation_mode(priv->dp, PRSNT_BIN_FIXED);
-
-        priv->pixel_to_offset = hex_mode_pixel_to_offset;
-        priv->copy_to_clipboard = hex_mode_copy_to_clipboard;
         break;
 
     default:
@@ -723,17 +479,6 @@ int text_render_get_column(TextRender *w)
 }
 
 
-void text_render_set_marker(TextRender *w, offset_type start, offset_type end)
-{
-    g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = text_render_priv (w);
-
-    priv->marker_start = start;
-    priv->marker_end = end;
-    gtk_widget_queue_draw (GTK_WIDGET (w));
-}
-
-
 /******************************************************
  Display mode specific functions
 ******************************************************/
@@ -796,7 +541,7 @@ static void marker_closer (TextRender *w, gboolean marker_shown)
 }
 
 
-static offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker)
+offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker)
 {
     g_return_val_if_fail (obj!=NULL, 0);
     auto priv = text_render_priv (obj);
@@ -853,7 +598,7 @@ static offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboo
 }
 
 
-static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offset_type end_offset)
+void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offset_type end_offset)
 {
     g_return_if_fail (obj!=NULL);
     g_return_if_fail (start_offset!=end_offset);
@@ -880,7 +625,7 @@ static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offse
 }
 
 
-void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line)
+void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line, offset_type marker_start, offset_type marker_end)
 {
     auto priv = text_render_priv (w);
 
@@ -889,13 +634,8 @@ void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, of
     offset_type current;
     char_type value;
     int char_count = 0;
-    offset_type marker_start;
-    offset_type marker_end;
     gboolean show_marker;
     gboolean marker_shown = FALSE;
-
-    marker_start = priv->marker_start;
-    marker_end = priv->marker_end;
 
     gboolean wrap_mode;
     guint tab_size;
@@ -905,13 +645,6 @@ void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, of
         "tab-size", &tab_size,
         "max-column", &max_column,
         nullptr);
-
-    if (marker_start > marker_end)
-    {
-        offset_type temp = marker_end;
-        marker_end = marker_start;
-        marker_start = temp;
-    }
 
     show_marker = marker_start!=marker_end;
 
@@ -971,7 +704,7 @@ void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, of
 }
 
 
-void binary_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line)
+void binary_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line, offset_type marker_start, offset_type marker_end)
 {
     auto priv = text_render_priv (w);
 
@@ -979,20 +712,8 @@ void binary_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, 
 
     offset_type current;
     char_type value;
-    offset_type marker_start;
-    offset_type marker_end;
     gboolean show_marker;
     gboolean marker_shown = FALSE;
-
-    marker_start = priv->marker_start;
-    marker_end = priv->marker_end;
-
-    if (marker_start > marker_end)
-    {
-        offset_type temp = marker_end;
-        marker_end = marker_start;
-        marker_start = temp;
-    }
 
     show_marker = marker_start!=marker_end;
     text_render_utf8_clear_buf(w);
@@ -1034,7 +755,7 @@ void binary_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, 
 }
 
 
-static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker)
+offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker)
 {
     g_return_val_if_fail (obj!=NULL, 0);
     auto priv = text_render_priv (obj);
@@ -1110,7 +831,7 @@ static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gbool
 }
 
 
-static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offset_type end_offset)
+void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offset_type end_offset)
 {
     g_return_if_fail (obj!=NULL);
     g_return_if_fail (start_offset!=end_offset);
@@ -1141,24 +862,14 @@ static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset
 }
 
 
-void hex_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line)
+void hex_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line, offset_type marker_start, offset_type marker_end)
 {
     auto priv = text_render_priv (w);
-
-    offset_type marker_start = priv->marker_start;
-    offset_type marker_end = priv->marker_end;
 
     gboolean hexadecimal_offset;
     g_object_get (w,
         "hexadecimal-offset", &hexadecimal_offset,
         nullptr);
-
-    if (marker_start > marker_end)
-    {
-        offset_type temp = marker_end;
-        marker_end = marker_start;
-        marker_start = temp;
-    }
 
     gboolean marker_shown = FALSE;
     gboolean show_marker = marker_start!=marker_end;
