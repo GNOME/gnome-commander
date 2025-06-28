@@ -37,11 +37,15 @@ pub mod ffi {
     }
 }
 
-pub struct InputMode(pub *mut ffi::GVInputModesData);
+pub struct InputMode(pub *mut ffi::GVInputModesData, bool);
 
 impl InputMode {
     pub fn new() -> Self {
-        unsafe { Self(ffi::gv_input_modes_new()) }
+        unsafe { Self(ffi::gv_input_modes_new(), true) }
+    }
+
+    pub fn borrow(ptr: *mut ffi::GVInputModesData) -> Self {
+        Self(ptr, false)
     }
 
     pub fn mode(&self) -> String {
@@ -55,8 +59,11 @@ impl InputMode {
 
 impl Drop for InputMode {
     fn drop(&mut self) {
-        unsafe {
-            ffi::gv_free_input_modes(self.0);
+        if self.1 {
+            unsafe {
+                ffi::gv_free_input_modes(self.0);
+            }
+            self.1 = false;
         }
         self.0 = std::ptr::null_mut();
     }

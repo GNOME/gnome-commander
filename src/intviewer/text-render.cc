@@ -40,83 +40,31 @@
 using namespace std;
 
 
-#define TEXT_RENDER_DEFAULT_WIDTH       100
-#define TEXT_RENDER_DEFAULT_HEIGHT      200
-
 #define HEXDUMP_FIXED_LIMIT              16
 #define MAX_CLIPBOARD_COPY_LENGTH  0xFFFFFF
 
 #define NEED_PANGO_ESCAPING(x) ((x)=='<' || (x)=='>' || (x)=='&')
 
-enum {
-  PROP_0,
-  PROP_HADJUSTMENT,
-  PROP_VADJUSTMENT,
-  PROP_HSCROLL_POLICY,
-  PROP_VSCROLL_POLICY,
-  PROP_FONT_SIZE,
-  PROP_TAB_SIZE,
-  PROP_WRAP_MODE,
-  PROP_ENCODING,
-  PROP_FIXED_LIMIT,
-  PROP_HEXADECIMAL_OFFSET,
-};
-
-enum
-{
-  TEXT_STATUS_CHANGED,
-  LAST_SIGNAL
-};
-
-static guint text_render_signals[LAST_SIGNAL] = { 0 };
+#define TEXT_STATUS_CHANGED_SIGNAL "text-status-changed"
 
 typedef void (*display_line_proc)(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line);
 typedef offset_type (*pixel_to_offset_proc) (TextRender *obj, int x, int y, gboolean start_marker);
 typedef void (*copy_to_clipboard_proc)(TextRender *obj, offset_type start_offset, offset_type end_offset);
 
 
-struct TextRender
-{
-    GtkWidget parent;
-};
-
-
-struct TextRenderClass
-{
-    GtkWidgetClass parent_class;
-
-    void (* text_status_changed) (TextRender *obj);
-};
-
 // Class Private Data
 struct TextRenderPrivate
 {
     guint8 button; // The button pressed to start a selection
 
-    GtkAdjustment *h_adjustment;
-    GtkScrollablePolicy hscroll_policy;
-
-    GtkAdjustment *v_adjustment;
-    GtkScrollablePolicy vscroll_policy;
-
     ViewerFileOps *fops;
     GVInputModesData *im;
     GVDataPresentation *dp;
 
-    gchar *encoding;
-    int tab_size;
-    int fixed_limit;
-    int font_size;
-    gboolean wrapmode;
-    int max_column;
     offset_type last_displayed_offset;
     DISPLAYMODE dispmode;
-    gboolean hex_offset_display;
     gchar *fixed_font_name;
 
-    // Pango and Fonts variables
-    gint     chars_per_line;
-    gint     lines_displayed;
     PangoLayout *layout;
 
     unsigned char *utf8buf;
@@ -127,39 +75,21 @@ struct TextRenderPrivate
     offset_type marker_end;
     gboolean hexmode_marker_on_hexdump;
 
-    display_line_proc display_line;
     pixel_to_offset_proc pixel_to_offset;
     copy_to_clipboard_proc copy_to_clipboard;
 };
 
 
-G_DEFINE_TYPE_EXTENDED (TextRender,
-                        text_render,
-                        GTK_TYPE_WIDGET,
-                        0,
-                        G_ADD_PRIVATE (TextRender)
-                        G_IMPLEMENT_INTERFACE (GTK_TYPE_SCROLLABLE, NULL))
-
-
 // Gtk class related static functions
 static void text_render_position_changed(TextRender *w);
 
-static void text_render_measure (GtkWidget* widget, GtkOrientation orientation, int for_size, int* minimum, int* natural, int* minimum_baseline, int* natural_baseline);
-static void text_render_size_allocate (GtkWidget *widget, int width, int height, int baseline);
-static void text_render_draw (GtkWidget *widget, GtkSnapshot *snapshot);
 static void text_render_scroll (GtkEventControllerScroll *controller, double dx, double dy, gpointer user_data);
 static void text_render_button_press (GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data);
 static void text_render_button_release (GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data);
 static void text_render_motion_notify (GtkEventControllerMotion *controller, double x, double y, gpointer user_data);
-static void text_render_h_adjustment_update (TextRender *obj);
-static void text_render_h_adjustment_changed (GtkAdjustment *adjustment, gpointer data);
-static void text_render_h_adjustment_value_changed (GtkAdjustment *adjustment, gpointer data);
-static void text_render_v_adjustment_update (TextRender *obj);
-static void text_render_v_adjustment_changed (GtkAdjustment *adjustment, gpointer data);
-static void text_render_v_adjustment_value_changed (GtkAdjustment *adjustment, gpointer data);
 static gboolean text_render_key_pressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data);
 
-static void text_render_update_adjustments_limits(TextRender *w);
+extern "C" void text_render_update_adjustments_limits(TextRender *w);
 static void text_render_free_data(TextRender *w);
 extern "C" void text_render_setup_font(TextRender*w, const gchar *fontname, guint fontsize);
 static void text_render_reserve_utf8buf(TextRender *w, int minlength);
@@ -169,12 +99,12 @@ static int text_render_utf8_printf (TextRender *w, const char *format, ...);
 static int text_render_utf8_print_char(TextRender *w, char_type value);
 
 static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offset_type end_offset);
-static void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line);
+extern "C" void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line);
 static offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker);
 
-static void binary_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line);
+extern "C" void binary_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line);
 
-static void hex_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line);
+extern "C" void hex_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line);
 static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offset_type end_offset);
 static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker);
 
@@ -185,101 +115,29 @@ extern "C" gint text_render_get_char_height(TextRender *w);
 
 static TextRenderPrivate* text_render_priv (TextRender *w)
 {
-    return static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    return static_cast<TextRenderPrivate*>(g_object_get_data (G_OBJECT (w), "priv"));
 }
 
 
-static void text_render_set_h_adjustment (TextRender *obj, GtkAdjustment *adjustment)
+extern "C" void text_render_init (TextRender *w)
 {
-    g_return_if_fail (IS_TEXT_RENDER (obj));
-    auto priv = text_render_priv (obj);
-
-    if (priv->h_adjustment)
-    {
-        g_signal_handlers_disconnect_matched (priv->h_adjustment, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, obj);
-        g_object_unref (priv->h_adjustment);
-    }
-
-    priv->h_adjustment = adjustment ? adjustment : gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-    g_object_ref (priv->h_adjustment);
-
-    gtk_adjustment_set_lower (priv->h_adjustment, 0.0);
-    if (priv->dp && gv_get_data_presentation_mode (priv->dp) == PRSNT_NO_WRAP)
-        gtk_adjustment_set_upper (priv->h_adjustment, priv->max_column); // TODO: find our the real horz limit
-    else
-        gtk_adjustment_set_upper (priv->h_adjustment, 0);
-    gtk_adjustment_set_step_increment (priv->h_adjustment, 1.0);
-    gtk_adjustment_set_page_increment (priv->h_adjustment, 5.0);
-    gtk_adjustment_set_page_size (priv->h_adjustment, priv->chars_per_line);
-
-    g_signal_connect (priv->h_adjustment, "changed", G_CALLBACK (text_render_h_adjustment_changed), obj);
-    g_signal_connect (priv->h_adjustment, "value-changed", G_CALLBACK (text_render_h_adjustment_value_changed), obj);
-
-    text_render_h_adjustment_update (obj);
-}
-
-
-static void text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjustment)
-{
-    g_return_if_fail (IS_TEXT_RENDER (obj));
-    auto priv = text_render_priv (obj);
-
-    if (priv->v_adjustment)
-    {
-        g_signal_handlers_disconnect_matched (priv->v_adjustment, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, obj);
-        g_object_unref (priv->v_adjustment);
-    }
-
-    priv->v_adjustment = adjustment ? adjustment : gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-    g_object_ref (priv->v_adjustment);
-
-    gtk_adjustment_set_lower (priv->v_adjustment, 0.0);
-    gtk_adjustment_set_upper (priv->v_adjustment, priv->fops ? gv_file_get_max_offset (priv->fops) - 1 : 0.0);
-    gtk_adjustment_set_step_increment (priv->v_adjustment, 1.0);
-    gtk_adjustment_set_page_increment (priv->v_adjustment, 10.0);
-    gtk_adjustment_set_page_size (priv->v_adjustment, 10.0);
-
-    g_signal_connect (priv->v_adjustment, "changed", G_CALLBACK (text_render_v_adjustment_changed), obj);
-    g_signal_connect (priv->v_adjustment, "value-changed", G_CALLBACK (text_render_v_adjustment_value_changed), obj);
-
-    text_render_v_adjustment_update (obj);
-}
-
-
-static void text_render_init (TextRender *w)
-{
-    auto priv = text_render_priv (w);
+    auto priv = g_new0 (TextRenderPrivate, 1);
+    g_object_set_data_full (G_OBJECT (w), "priv", priv, g_free);
 
     priv->button = 0;
     priv->dispmode = DISPLAYMODE_TEXT;
-    priv->h_adjustment = NULL;
-    priv->hscroll_policy = GTK_SCROLL_MINIMUM;
 
-    priv->hex_offset_display = FALSE;
-    priv->chars_per_line = 0;
-    priv->display_line = text_mode_display_line;
     priv->pixel_to_offset = text_mode_pixel_to_offset;
     priv->copy_to_clipboard = text_mode_copy_to_clipboard;
 
     priv->marker_start = 0;
     priv->marker_end = 0;
 
-    priv->v_adjustment = NULL;
-    priv->vscroll_policy = GTK_SCROLL_MINIMUM;
-
-    priv->encoding = g_strdup ("ASCII");
     priv->utf8alloc = 0;
-
-    priv->tab_size = 8;
-    priv->font_size = 12;
 
     priv->fixed_font_name = g_strdup ("Monospace");
 
     priv->layout = gtk_widget_create_pango_layout (GTK_WIDGET (w), NULL);
-
-    gtk_widget_set_can_focus(GTK_WIDGET (w), TRUE);
-
-    text_render_setup_font(w, priv->fixed_font_name, priv->font_size);
 
     GtkEventController *scroll_controller = gtk_event_controller_scroll_new (GTK_EVENT_CONTROLLER_SCROLL_VERTICAL);
     gtk_widget_add_controller (GTK_WIDGET (w), GTK_EVENT_CONTROLLER (scroll_controller));
@@ -300,180 +158,13 @@ static void text_render_init (TextRender *w)
 }
 
 
-static void text_render_get_property (GObject *obj, guint prop_id, GValue *value, GParamSpec *pspec)
+extern "C" void text_render_finalize (TextRender *w)
 {
-    auto priv = text_render_priv (TEXT_RENDER (obj));
-    switch (prop_id)
-    {
-        case PROP_HADJUSTMENT:
-            g_value_set_object (value, priv->h_adjustment);
-            break;
-        case PROP_VADJUSTMENT:
-            g_value_set_object (value, priv->v_adjustment);
-            break;
-        case PROP_HSCROLL_POLICY:
-            g_value_set_enum (value, priv->hscroll_policy);
-            break;
-        case PROP_VSCROLL_POLICY:
-            g_value_set_enum (value, priv->vscroll_policy);
-            break;
-        case PROP_FONT_SIZE:
-            g_value_set_uint (value, priv->font_size);
-            break;
-        case PROP_TAB_SIZE:
-            g_value_set_uint (value, priv->tab_size);
-            break;
-        case PROP_WRAP_MODE:
-            g_value_set_boolean (value, priv->wrapmode);
-            break;
-        case PROP_ENCODING:
-            g_value_set_string (value, priv->encoding);
-            break;
-        case PROP_FIXED_LIMIT:
-            g_value_set_int (value, priv->fixed_limit);
-            break;
-        case PROP_HEXADECIMAL_OFFSET:
-            g_value_set_boolean (value, priv->hex_offset_display);
-            break;
-        default:
-            G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
-            break;
-    }
-}
-
-
-static void text_render_set_property (GObject *obj, guint prop_id, const GValue *value, GParamSpec *pspec)
-{
-    TextRender *w = TEXT_RENDER (obj);
-    auto priv = text_render_priv (w);
-    switch (prop_id)
-    {
-        case PROP_HADJUSTMENT:
-            text_render_set_h_adjustment (w, GTK_ADJUSTMENT (g_value_get_object (value)));
-            break;
-        case PROP_VADJUSTMENT:
-            text_render_set_v_adjustment (w, GTK_ADJUSTMENT (g_value_get_object (value)));
-            break;
-        case PROP_HSCROLL_POLICY:
-            {
-                GtkScrollablePolicy policy = static_cast<GtkScrollablePolicy> (g_value_get_enum (value));
-                if (priv->hscroll_policy != policy)
-                {
-                    priv->hscroll_policy = policy;
-                    gtk_widget_queue_resize (GTK_WIDGET (w));
-                    g_object_notify_by_pspec (obj, pspec);
-                }
-            }
-            break;
-        case PROP_VSCROLL_POLICY:
-            {
-                GtkScrollablePolicy policy = static_cast<GtkScrollablePolicy> (g_value_get_enum (value));
-                if (priv->vscroll_policy != policy)
-                {
-                    priv->vscroll_policy = policy;
-                    gtk_widget_queue_resize (GTK_WIDGET (w));
-                    g_object_notify_by_pspec (obj, pspec);
-                }
-            }
-            break;
-        case PROP_FONT_SIZE:
-            text_render_set_font_size (w, g_value_get_uint (value));
-            break;
-        case PROP_TAB_SIZE:
-            text_render_set_tab_size (w, g_value_get_uint (value));
-            break;
-        case PROP_WRAP_MODE:
-            text_render_set_wrap_mode (w, g_value_get_boolean (value));
-            break;
-        case PROP_ENCODING:
-            text_render_set_encoding (w, g_value_get_string (value));
-            break;
-        case PROP_FIXED_LIMIT:
-            text_render_set_fixed_limit (w, g_value_get_int (value));
-            break;
-        case PROP_HEXADECIMAL_OFFSET:
-            text_render_set_hex_offset_display (w, g_value_get_boolean (value));
-            break;
-        default:
-            G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
-            break;
-    }
-}
-
-
-static void text_render_finalize (GObject *object)
-{
-    TextRender *w = TEXT_RENDER (object);
     auto priv = text_render_priv (w);
 
     g_clear_pointer (&priv->fixed_font_name, g_free);
-    g_clear_object (&priv->v_adjustment);
-    g_clear_object (&priv->h_adjustment);
-    g_clear_pointer (&priv->encoding, g_free);
     text_render_free_data(w);
     g_clear_pointer (&priv->utf8buf, g_free);
-
-    G_OBJECT_CLASS (text_render_parent_class)->finalize (object);
-}
-
-
-static void text_render_class_init (TextRenderClass *klass)
-{
-    GObjectClass *object_class = G_OBJECT_CLASS (klass);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    object_class->set_property = text_render_set_property;
-    object_class->get_property = text_render_get_property;
-    object_class->finalize = text_render_finalize;
-
-    widget_class->snapshot = text_render_draw;
-    widget_class->measure = text_render_measure;
-    widget_class->size_allocate = text_render_size_allocate;
-
-    g_object_class_override_property (object_class, PROP_HADJUSTMENT,    "hadjustment");
-    g_object_class_override_property (object_class, PROP_VADJUSTMENT,    "vadjustment");
-    g_object_class_override_property (object_class, PROP_HSCROLL_POLICY, "hscroll-policy");
-    g_object_class_override_property (object_class, PROP_VSCROLL_POLICY, "vscroll-policy");
-
-    g_object_class_install_property (object_class, PROP_FONT_SIZE,
-        g_param_spec_uint ("font-size", "Font size", "Font size",
-            0, G_MAXUINT, 12,
-            (GParamFlags) G_PARAM_READWRITE));
-
-    g_object_class_install_property (object_class, PROP_TAB_SIZE,
-        g_param_spec_uint ("tab-size", "Tab size", "Tab size",
-            0, G_MAXUINT, 8,
-            (GParamFlags) G_PARAM_READWRITE));
-
-    g_object_class_install_property (object_class, PROP_WRAP_MODE,
-        g_param_spec_boolean ("wrap-mode", "Wrap mode", "Wrap mode",
-            FALSE,
-            (GParamFlags) G_PARAM_READWRITE));
-
-    g_object_class_install_property (object_class, PROP_ENCODING,
-        g_param_spec_string ("encoding", "Encoding", "Encoding",
-            "ASCII",
-            (GParamFlags) G_PARAM_READWRITE));
-
-    g_object_class_install_property (object_class, PROP_FIXED_LIMIT,
-        g_param_spec_int ("fixed-limit", "Fixed limit", "Fixed limit",
-            0, G_MAXINT, 80,
-            (GParamFlags) G_PARAM_READWRITE));
-
-    g_object_class_install_property (object_class, PROP_HEXADECIMAL_OFFSET,
-        g_param_spec_boolean ("hexadecimal-offset", "Hexadecimal offset", "Hexadecimal offset",
-            FALSE,
-            (GParamFlags) G_PARAM_READWRITE));
-
-    text_render_signals[TEXT_STATUS_CHANGED] =
-        g_signal_new ("text-status-changed",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (TextRenderClass, text_status_changed),
-            NULL, NULL,
-            NULL,
-            G_TYPE_NONE,
-            0);
 }
 
 
@@ -482,7 +173,7 @@ void text_render_notify_status_changed(TextRender *w)
     g_return_if_fail (IS_TEXT_RENDER (w));
     auto priv = text_render_priv (w);
 
-    g_signal_emit (w, text_render_signals[TEXT_STATUS_CHANGED], 0);
+    g_signal_emit_by_name (w, TEXT_STATUS_CHANGED_SIGNAL);
 }
 
 
@@ -504,46 +195,56 @@ static gboolean text_render_key_pressed (GtkEventControllerKey *controller, guin
     auto column = text_render_get_column (obj);
     auto current_offset = text_render_get_current_offset (obj);
 
+    GtkAdjustment *h_adjustment, *v_adjustment;
+    gboolean wrapmode;
+    gint lines_displayed;
+    g_object_get (obj,
+        "hadjustment", &h_adjustment,
+        "vadjustment", &v_adjustment,
+        "wrap-mode", &wrapmode,
+        "lines-displayed", &lines_displayed,
+        nullptr);
+
     switch (keyval)
     {
     case GDK_KEY_Up:
         current_offset = gv_scroll_lines (priv->dp, current_offset, -1);
-        gtk_adjustment_set_value (priv->v_adjustment, current_offset);
+        gtk_adjustment_set_value (v_adjustment, current_offset);
         break;
 
     case GDK_KEY_Page_Up:
-        current_offset = gv_scroll_lines (priv->dp, current_offset, -1 * (priv->lines_displayed - 1));
-        gtk_adjustment_set_value (priv->v_adjustment, current_offset);
+        current_offset = gv_scroll_lines (priv->dp, current_offset, -1 * (lines_displayed - 1));
+        gtk_adjustment_set_value (v_adjustment, current_offset);
         break;
 
     case GDK_KEY_Page_Down:
-        current_offset = gv_scroll_lines (priv->dp, current_offset, priv->lines_displayed - 1);
-        gtk_adjustment_set_value (priv->v_adjustment, current_offset);
+        current_offset = gv_scroll_lines (priv->dp, current_offset, lines_displayed - 1);
+        gtk_adjustment_set_value (v_adjustment, current_offset);
         break;
 
     case GDK_KEY_Down:
         current_offset = gv_scroll_lines (priv->dp, current_offset, 1);
-        gtk_adjustment_set_value (priv->v_adjustment, current_offset);
+        gtk_adjustment_set_value (v_adjustment, current_offset);
         break;
 
     case GDK_KEY_Left:
-        if (!priv->wrapmode)
+        if (!wrapmode)
             if (column > 0)
-                gtk_adjustment_set_value (priv->h_adjustment, column - 1);
+                gtk_adjustment_set_value (h_adjustment, column - 1);
         break;
 
     case GDK_KEY_Right:
-        if (!priv->wrapmode)
-            gtk_adjustment_set_value (priv->h_adjustment, column + 1);
+        if (!wrapmode)
+            gtk_adjustment_set_value (h_adjustment, column + 1);
         break;
 
     case GDK_KEY_Home:
-        gtk_adjustment_set_value (priv->v_adjustment, 0);
+        gtk_adjustment_set_value (v_adjustment, 0);
         break;
 
     case GDK_KEY_End:
         current_offset = gv_align_offset_to_line_start(priv->dp, gv_file_get_max_offset(priv->fops) - 1);
-        gtk_adjustment_set_value (priv->v_adjustment, current_offset);
+        gtk_adjustment_set_value (v_adjustment, current_offset);
         break;
 
     default:
@@ -557,90 +258,6 @@ static gboolean text_render_key_pressed (GtkEventControllerKey *controller, guin
 }
 
 
-static void text_render_measure (GtkWidget* widget, GtkOrientation orientation, int for_size, int* minimum, int* natural, int* minimum_baseline, int* natural_baseline)
-{
-    if (orientation == GTK_ORIENTATION_HORIZONTAL)
-        *minimum = *natural = TEXT_RENDER_DEFAULT_WIDTH;
-    else
-        *minimum = *natural = TEXT_RENDER_DEFAULT_HEIGHT;
-}
-
-static void text_render_size_allocate (GtkWidget *widget, int width, int height, int baseline)
-{
-    g_return_if_fail (IS_TEXT_RENDER (widget));
-
-    gtk_widget_allocate (widget, width, height, baseline, nullptr);
-    TextRender *w = TEXT_RENDER (widget);
-    auto priv = text_render_priv (w);
-
-    auto char_width = text_render_get_char_width (w);
-    auto char_height = text_render_get_char_height (w);
-
-    if (priv->dp && (char_width > 0))
-    {
-        priv->chars_per_line = width / char_width;
-        gv_set_wrap_limit(priv->dp, width / char_width);
-        gtk_widget_queue_draw (widget);
-    }
-
-    priv->lines_displayed = char_height>0 ? height / char_height : 10;
-}
-
-
-static void text_render_draw (GtkWidget *widget, GtkSnapshot *snapshot)
-{
-    gint y, rc;
-    offset_type ofs;
-
-    TextRender *w = TEXT_RENDER (widget);
-    auto priv = text_render_priv (w);
-
-    g_return_if_fail (priv->display_line != NULL);
-
-    if (priv->dp==NULL)
-        return;
-
-    auto char_height = text_render_get_char_height (w);
-
-    GtkAllocation widget_allocation;
-    gtk_widget_get_allocation (widget, &widget_allocation);
-
-    graphene_rect_t rect = { { 0, 0 }, { (float) widget_allocation.width, (float) widget_allocation.height } };
-    gtk_snapshot_push_clip (snapshot, &rect);
-
-    int column = text_render_get_column (w);
-
-    ofs = text_render_get_current_offset (w);
-    y = 0;
-
-    while (TRUE)
-    {
-        offset_type eol_offset;
-
-        eol_offset = gv_get_end_of_line_offset(priv->dp, ofs);
-        if (eol_offset == ofs)
-            break;
-
-        gtk_snapshot_save (snapshot);
-        graphene_point_t pt = { .x = 0, .y = y };
-        gtk_snapshot_translate (snapshot, &pt);
-        priv->display_line(w, snapshot, column, ofs, eol_offset);
-        gtk_snapshot_restore (snapshot);
-
-        ofs = eol_offset;
-
-        y += char_height;
-        if (y>=widget_allocation.height)
-            break;
-
-    }
-
-    gtk_snapshot_pop (snapshot);
-
-    priv->last_displayed_offset = ofs;
-}
-
-
 static void text_render_scroll(GtkEventControllerScroll *controller, double dx, double dy, gpointer user_data)
 {
     g_return_if_fail (IS_TEXT_RENDER (user_data));
@@ -650,9 +267,12 @@ static void text_render_scroll(GtkEventControllerScroll *controller, double dx, 
     if (!priv->dp)
         return;
 
+    GtkAdjustment *v_adjustment;
+    g_object_get (w, "vadjustment", &v_adjustment, nullptr);
+
     auto current_offset = text_render_get_current_offset (w);
     current_offset = gv_scroll_lines (priv->dp, current_offset, 4 * dy);
-    gtk_adjustment_set_value (priv->v_adjustment, current_offset);
+    gtk_adjustment_set_value (v_adjustment, current_offset);
 
     text_render_position_changed (w);
     gtk_widget_queue_draw (GTK_WIDGET (w));
@@ -740,80 +360,6 @@ static void text_render_motion_notify (GtkEventControllerMotion *controller, dou
 }
 
 
-static void text_render_h_adjustment_update (TextRender *obj)
-{
-    g_return_if_fail (IS_TEXT_RENDER (obj));
-    text_render_notify_status_changed (obj);
-    gtk_widget_queue_draw (GTK_WIDGET (obj));
-}
-
-
-static void text_render_h_adjustment_changed (GtkAdjustment *adjustment, gpointer data)
-{
-    g_return_if_fail (adjustment != NULL);
-    g_return_if_fail (data != NULL);
-
-    TextRender *obj = TEXT_RENDER (data);
-
-    text_render_h_adjustment_update (obj);
-}
-
-
-static void text_render_h_adjustment_value_changed (GtkAdjustment *adjustment, gpointer data)
-{
-    g_return_if_fail (adjustment != NULL);
-    g_return_if_fail (data != NULL);
-
-    TextRender *obj = TEXT_RENDER (data);
-
-    text_render_h_adjustment_update (obj);
-}
-
-
-static void text_render_v_adjustment_update (TextRender *obj)
-{
-    g_return_if_fail (obj != NULL);
-    g_return_if_fail (IS_TEXT_RENDER (obj));
-    auto priv = text_render_priv (obj);
-
-    gfloat new_value = gtk_adjustment_get_value (priv->v_adjustment);
-
-    if (priv->dp)
-        new_value = gv_align_offset_to_line_start(priv->dp, (offset_type) new_value);
-
-    if (new_value != gtk_adjustment_get_value (priv->v_adjustment))
-    {
-        gtk_adjustment_set_value (priv->v_adjustment, new_value);
-        g_signal_emit_by_name (priv->v_adjustment, "value-changed");
-    }
-
-    text_render_notify_status_changed (obj);
-    gtk_widget_queue_draw (GTK_WIDGET (obj));
-}
-
-
-static void text_render_v_adjustment_changed (GtkAdjustment *adjustment, gpointer data)
-{
-    g_return_if_fail (adjustment != NULL);
-    g_return_if_fail (data != NULL);
-
-    TextRender *obj = TEXT_RENDER (data);
-
-    text_render_v_adjustment_update (obj);
-}
-
-
-static void text_render_v_adjustment_value_changed (GtkAdjustment *adjustment, gpointer data)
-{
-    g_return_if_fail (adjustment != NULL);
-    g_return_if_fail (data != NULL);
-
-    TextRender *obj = TEXT_RENDER (data);
-
-    text_render_v_adjustment_update (obj);
-}
-
-
 static void text_render_free_data(TextRender *w)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
@@ -833,15 +379,27 @@ static void text_render_internal_load(TextRender *w)
 {
     auto priv = text_render_priv (w);
 
-    gtk_adjustment_set_value (priv->h_adjustment, 0);
-    gtk_adjustment_set_value (priv->v_adjustment, 0);
+    GtkAdjustment *h_adjustment, *v_adjustment;
+    guint fixed_limit, tab_size;
+    gchar *encoding;
+    g_object_get (w,
+        "hadjustment", &h_adjustment,
+        "vadjustment", &v_adjustment,
+        "encoding", &encoding,
+        "fixed-limit", &fixed_limit,
+        "tab-size", &tab_size,
+        nullptr);
 
-    priv->max_column = 0;
+    gtk_adjustment_set_value (h_adjustment, 0);
+    gtk_adjustment_set_value (v_adjustment, 0);
+
+    g_object_set (w, "max-column", 0, nullptr);
 
     // Setup the input mode translations
     priv->im = gv_input_modes_new();
     gv_init_input_modes(priv->im, (get_byte_proc)gv_file_get_byte, priv->fops);
-    gv_set_input_mode(priv->im, priv->encoding);
+    gv_set_input_mode(priv->im, encoding);
+    g_free (encoding);
 
     // Setup the data presentation mode
     priv->dp = gv_data_presentation_new();
@@ -849,8 +407,8 @@ static void text_render_internal_load(TextRender *w)
         gv_file_get_max_offset(priv->fops));
 
     gv_set_wrap_limit(priv->dp, 50);
-    gv_set_fixed_count(priv->dp, priv->fixed_limit);
-    gv_set_tab_size(priv->dp, priv->tab_size);
+    gv_set_fixed_count(priv->dp, fixed_limit);
+    gv_set_tab_size(priv->dp, tab_size);
 
     text_render_set_display_mode (w, DISPLAYMODE_TEXT);
 
@@ -876,7 +434,7 @@ void text_render_load_file(TextRender *w, const gchar *filename)
 }
 
 
-static void text_render_update_adjustments_limits(TextRender *w)
+void text_render_update_adjustments_limits(TextRender *w)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
     auto priv = text_render_priv (w);
@@ -884,32 +442,41 @@ static void text_render_update_adjustments_limits(TextRender *w)
     if (!priv->fops)
         return;
 
-    if (priv->v_adjustment)
+    GtkAdjustment *h_adjustment, *v_adjustment;
+    guint max_column, chars_per_line;
+    g_object_get (w,
+        "hadjustment", &h_adjustment,
+        "vadjustment", &v_adjustment,
+        "max-column", &max_column,
+        "chars-per-line", &chars_per_line,
+        nullptr);
+
+    if (v_adjustment)
     {
-        gtk_adjustment_set_lower (priv->v_adjustment, 0);
-        gtk_adjustment_set_upper (priv->v_adjustment, gv_file_get_max_offset(priv->fops)-1);
+        gtk_adjustment_set_lower (v_adjustment, 0);
+        gtk_adjustment_set_upper (v_adjustment, gv_file_get_max_offset(priv->fops)-1);
     }
 
-    if (priv->h_adjustment)
+    if (h_adjustment)
     {
-        gtk_adjustment_set_step_increment (priv->h_adjustment, 1);
-        gtk_adjustment_set_page_increment (priv->h_adjustment, 5);
-        gtk_adjustment_set_page_size (priv->h_adjustment, priv->chars_per_line);
-        gtk_adjustment_set_lower (priv->h_adjustment, 0);
+        gtk_adjustment_set_step_increment (h_adjustment, 1);
+        gtk_adjustment_set_page_increment (h_adjustment, 5);
+        gtk_adjustment_set_page_size (h_adjustment, chars_per_line);
+        gtk_adjustment_set_lower (h_adjustment, 0);
         if (gv_get_data_presentation_mode(priv->dp)==PRSNT_NO_WRAP)
-            gtk_adjustment_set_upper (priv->h_adjustment, priv->max_column); // TODO: find our the real horz limit
+            gtk_adjustment_set_upper (h_adjustment, max_column); // TODO: find our the real horz limit
         else
-            gtk_adjustment_set_upper (priv->h_adjustment, 0);
+            gtk_adjustment_set_upper (h_adjustment, 0);
     }
 }
 
 
-static guint text_render_filter_undisplayable_chars(TextRender *obj)
+extern "C" void text_render_filter_undisplayable_chars(TextRender *obj)
 {
     auto priv = text_render_priv (obj);
 
     if (!priv->im)
-        return 0;
+        return;
 
     PangoRectangle logical_rect;
 
@@ -940,7 +507,6 @@ static guint text_render_filter_undisplayable_chars(TextRender *obj)
     }
 
     g_object_unref (layout);
-    return 0;
 }
 
 
@@ -1033,14 +599,24 @@ void  text_render_set_display_mode (TextRender *w, DISPLAYMODE mode)
     if (mode == priv->dispmode)
         return;
 
-    gtk_adjustment_set_value (priv->h_adjustment, 0);
+    GtkAdjustment *h_adjustment, *v_adjustment;
+    gboolean wrapmode;
+    guint fixed_limit, font_size;
+    g_object_get (w,
+        "hadjustment", &h_adjustment,
+        "vadjustment", &v_adjustment,
+        "wrap-mode", &wrapmode,
+        "fixed-limit", &fixed_limit,
+        "font-size", &font_size,
+        nullptr);
+
+    gtk_adjustment_set_value (h_adjustment, 0);
 
     switch (mode)
     {
     case DISPLAYMODE_TEXT:
-        gv_set_data_presentation_mode(priv->dp, priv->wrapmode ? PRSNT_WRAP : PRSNT_NO_WRAP);
+        gv_set_data_presentation_mode(priv->dp, wrapmode ? PRSNT_WRAP : PRSNT_NO_WRAP);
 
-        priv->display_line = text_mode_display_line;
         priv->pixel_to_offset = text_mode_pixel_to_offset;
         priv->copy_to_clipboard = text_mode_copy_to_clipboard;
         break;
@@ -1051,10 +627,9 @@ void  text_render_set_display_mode (TextRender *w, DISPLAYMODE mode)
         // TODO: switch back to the previous encoding, not just ASCII
         //        gv_set_input_mode(w->priv->im, "ASCII");
 
-        gv_set_fixed_count(priv->dp, priv->fixed_limit);
+        gv_set_fixed_count(priv->dp, fixed_limit);
         gv_set_data_presentation_mode(priv->dp, PRSNT_BIN_FIXED);
 
-        priv->display_line = binary_mode_display_line;
         priv->pixel_to_offset = text_mode_pixel_to_offset;
         priv->copy_to_clipboard = text_mode_copy_to_clipboard;
         break;
@@ -1068,7 +643,6 @@ void  text_render_set_display_mode (TextRender *w, DISPLAYMODE mode)
         gv_set_fixed_count(priv->dp, HEXDUMP_FIXED_LIMIT);
         gv_set_data_presentation_mode(priv->dp, PRSNT_BIN_FIXED);
 
-        priv->display_line = hex_mode_display_line;
         priv->pixel_to_offset = hex_mode_pixel_to_offset;
         priv->copy_to_clipboard = hex_mode_copy_to_clipboard;
         break;
@@ -1077,11 +651,11 @@ void  text_render_set_display_mode (TextRender *w, DISPLAYMODE mode)
         break;
     }
 
-    text_render_setup_font (w, priv->fixed_font_name, priv->font_size);
+    text_render_setup_font (w, priv->fixed_font_name, font_size);
     priv->dispmode = mode;
     auto current_offset = text_render_get_current_offset (w);
     current_offset = gv_align_offset_to_line_start (priv->dp, current_offset);
-    gtk_adjustment_set_value (priv->v_adjustment, current_offset);
+    gtk_adjustment_set_value (v_adjustment, current_offset);
 
     gtk_widget_queue_draw (GTK_WIDGET (w));
 }
@@ -1100,9 +674,7 @@ ViewerFileOps *text_render_get_file_ops(TextRender *w)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), NULL);
     auto priv = text_render_priv (w);
-    g_return_val_if_fail (priv->fops!=NULL, NULL);
-
-    return priv->fops;
+    return priv ? priv->fops : nullptr;
 }
 
 
@@ -1110,9 +682,7 @@ GVInputModesData *text_render_get_input_mode_data(TextRender *w)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), NULL);
     auto priv = text_render_priv (w);
-    g_return_val_if_fail (priv->im!=NULL, NULL);
-
-    return priv->im;
+    return priv ? priv->im : nullptr;
 }
 
 
@@ -1120,101 +690,17 @@ GVDataPresentation *text_render_get_data_presentation(TextRender *w)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), NULL);
     auto priv = text_render_priv (w);
-    g_return_val_if_fail (priv->dp!=NULL, NULL);
-
-    return priv->dp;
-}
-
-
-void text_render_set_tab_size(TextRender *w, int tab_size)
-{
-    g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = text_render_priv (w);
-
-    if (priv->dp==NULL)
-        return;
-
-    if (tab_size<=0)
-        return;
-
-    priv->tab_size = tab_size;
-    gv_set_tab_size(priv->dp, tab_size);
-
-    gtk_widget_queue_draw (GTK_WIDGET (w));
-}
-
-
-int text_render_get_tab_size(TextRender *w)
-{
-    g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
-    auto priv = text_render_priv (w);
-
-    return priv->tab_size;
-}
-
-
-void text_render_set_wrap_mode(TextRender *w, gboolean ACTIVE)
-{
-    g_return_if_fail (w!=NULL);
-    g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = text_render_priv (w);
-
-    if (priv->dp==NULL)
-        return;
-
-    priv->wrapmode = ACTIVE;
-    if (priv->dispmode==DISPLAYMODE_TEXT)
-    {
-        gtk_adjustment_set_value (priv->h_adjustment, 0);
-        gv_set_data_presentation_mode(priv->dp, priv->wrapmode ? PRSNT_WRAP : PRSNT_NO_WRAP);
-        text_render_update_adjustments_limits(w);
-    }
-    gtk_widget_queue_draw (GTK_WIDGET (w));
-}
-
-
-gboolean text_render_get_wrap_mode(TextRender *w)
-{
-    g_return_val_if_fail (IS_TEXT_RENDER (w), FALSE);
-    auto priv = text_render_priv (w);
-
-    return priv->wrapmode;
-}
-
-
-void text_render_set_fixed_limit(TextRender *w, int fixed_limit)
-{
-    g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = text_render_priv (w);
-
-    // this is saved later, for binary display mode. Hex display mode always use 16 bytes
-    priv->fixed_limit = fixed_limit;
-
-    // always 16 bytes in hex dump
-    if (priv->dispmode==DISPLAYMODE_HEXDUMP)
-        fixed_limit = HEXDUMP_FIXED_LIMIT;
-
-    if (priv->dp)
-        gv_set_fixed_count(priv->dp, fixed_limit);
-    gtk_widget_queue_draw (GTK_WIDGET (w));
-}
-
-
-int text_render_get_fixed_limit(TextRender *w)
-{
-    g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
-    auto priv = text_render_priv (w);
-
-    return priv->fixed_limit;
+    return priv ? priv->dp : nullptr;
 }
 
 
 offset_type text_render_get_current_offset(TextRender *w)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
-    auto priv = text_render_priv (w);
 
-    return priv->v_adjustment ? (offset_type) gtk_adjustment_get_value (priv->v_adjustment) : 0;
+    GtkAdjustment *v_adjustment;
+    g_object_get (w, "vadjustment", &v_adjustment, nullptr);
+    return v_adjustment ? (offset_type) gtk_adjustment_get_value (v_adjustment) : 0;
 }
 
 
@@ -1230,35 +716,10 @@ offset_type text_render_get_size(TextRender *w)
 int text_render_get_column(TextRender *w)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
-    auto priv = text_render_priv (w);
 
-    return priv->h_adjustment ? (int) gtk_adjustment_get_value (priv->h_adjustment) : 0;
-}
-
-
-offset_type text_render_get_last_displayed_offset(TextRender *w)
-{
-    g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
-    auto priv = text_render_priv (w);
-
-    return priv->last_displayed_offset;
-}
-
-
-void text_render_ensure_offset_visible(TextRender *w, offset_type offset)
-{
-    g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = text_render_priv (w);
-
-    if (offset < text_render_get_current_offset (w) || offset > priv->last_displayed_offset)
-    {
-        offset = gv_align_offset_to_line_start(priv->dp, offset);
-        offset = gv_scroll_lines (priv->dp, offset, -priv->lines_displayed/2);
-
-        gtk_adjustment_set_value (priv->v_adjustment, offset);
-        gtk_widget_queue_draw (GTK_WIDGET (w));
-        text_render_position_changed(w);
-    }
+    GtkAdjustment *h_adjustment;
+    g_object_get (w, "hadjustment", &h_adjustment, nullptr);
+    return h_adjustment ? (int) gtk_adjustment_get_value (h_adjustment) : 0;
 }
 
 
@@ -1270,81 +731,6 @@ void text_render_set_marker(TextRender *w, offset_type start, offset_type end)
     priv->marker_start = start;
     priv->marker_end = end;
     gtk_widget_queue_draw (GTK_WIDGET (w));
-}
-
-
-void text_render_set_encoding(TextRender *w, const char *encoding)
-{
-    g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = text_render_priv (w);
-
-    // Ugly hack: UTF-8 is not acceptable encoding in Binary/Hexdump modes
-    if (g_ascii_strcasecmp (encoding, "UTF8")==0 && (
-        priv->dispmode==DISPLAYMODE_BINARY || priv->dispmode==DISPLAYMODE_HEXDUMP))
-        {
-            g_warning ("Can't set UTF8 encoding when in Binary or HexDump display mode");
-            return;
-        }
-
-    g_free (priv->encoding);
-    priv->encoding = g_strdup (encoding);
-    if (priv->im)
-    {
-        gv_set_input_mode(priv->im, encoding);
-        text_render_filter_undisplayable_chars(w);
-        gtk_widget_queue_draw (GTK_WIDGET (w));
-    }
-}
-
-
-const gchar *text_render_get_encoding(TextRender *w)
-{
-    g_return_val_if_fail (IS_TEXT_RENDER (w), NULL);
-    auto priv = text_render_priv (w);
-
-    return priv->encoding;
-}
-
-
-void text_render_set_hex_offset_display(TextRender *w, gboolean HEX_OFFSET)
-{
-    g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = text_render_priv (w);
-
-    priv->hex_offset_display = HEX_OFFSET;
-    gtk_widget_queue_draw (GTK_WIDGET (w));
-}
-
-
-gboolean text_render_get_hex_offset_display(TextRender *w)
-{
-    g_return_val_if_fail (IS_TEXT_RENDER (w), FALSE);
-    auto priv = text_render_priv (w);
-
-    return priv->hex_offset_display;
-}
-
-
-void text_render_set_font_size(TextRender *w, int font_size)
-{
-    g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = text_render_priv (w);
-    g_return_if_fail (font_size>=4);
-
-    priv->font_size = font_size;
-    gchar *font = priv->fixed_font_name;
-
-    text_render_setup_font(w, font, font_size);
-    gtk_widget_queue_draw (GTK_WIDGET (w));
-}
-
-
-int  text_render_get_font_size(TextRender *w)
-{
-    g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
-    auto priv = text_render_priv (w);
-
-    return priv->font_size;
 }
 
 
@@ -1419,6 +805,9 @@ static offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboo
     auto char_width = text_render_get_char_width (obj);
     auto char_height = text_render_get_char_height (obj);
 
+    guint tab_size;
+    g_object_get (obj, "tab-size", &tab_size, nullptr);
+
     int line = 0;
     int column = 0;
     offset_type current_offset = text_render_get_current_offset (obj);
@@ -1444,7 +833,7 @@ static offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboo
     // Determine offset corresponding to start of line, the character at this offset and the last column occupied by character
     offset = gv_scroll_lines (priv->dp, current_offset, line);
     choff = gv_input_mode_get_utf8_char(priv->im, offset);
-    choffcol = (choff=='\t') ? priv->tab_size-1 : 0;
+    choffcol = (choff=='\t') ? tab_size-1 : 0;
 
     next_line_offset = gv_scroll_lines (priv->dp, offset, 1);
 
@@ -1453,7 +842,7 @@ static offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboo
     {
         offset = gv_input_get_next_char_offset(priv->im, offset);
         choff = gv_input_mode_get_utf8_char(priv->im, offset);
-        choffcol += (choff=='\t') ? priv->tab_size : 1;
+        choffcol += (choff=='\t') ? tab_size : 1;
     }
 
     // Increment offset if doing end-marker
@@ -1508,6 +897,15 @@ void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, of
     marker_start = priv->marker_start;
     marker_end = priv->marker_end;
 
+    gboolean wrap_mode;
+    guint tab_size;
+    guint max_column;
+    g_object_get (w,
+        "wrap-mode", &wrap_mode,
+        "tab-size", &tab_size,
+        "max-column", &max_column,
+        nullptr);
+
     if (marker_start > marker_end)
     {
         offset_type temp = marker_end;
@@ -1517,7 +915,7 @@ void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, of
 
     show_marker = marker_start!=marker_end;
 
-    if (priv->wrapmode)
+    if (wrap_mode)
         column = 0;
 
     text_render_utf8_clear_buf(w);
@@ -1541,9 +939,9 @@ void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, of
 
         if (value=='\t')
         {
-            for (int i=0; i<priv->tab_size; i++)
+            for (int i=0; i<tab_size; i++)
                 text_render_utf8_print_char(w, ' ');
-            char_count += priv->tab_size;
+            char_count += tab_size;
             continue;
         }
 
@@ -1555,9 +953,9 @@ void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, of
         char_count++;
     }
 
-    if (char_count > priv->max_column)
+    if (char_count > max_column)
     {
-        priv->max_column = char_count;
+        g_object_set (w, "max-column", char_count, nullptr);
         text_render_update_adjustments_limits(w);
     }
 
@@ -1750,6 +1148,11 @@ void hex_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, off
     offset_type marker_start = priv->marker_start;
     offset_type marker_end = priv->marker_end;
 
+    gboolean hexadecimal_offset;
+    g_object_get (w,
+        "hexadecimal-offset", &hexadecimal_offset,
+        nullptr);
+
     if (marker_start > marker_end)
     {
         offset_type temp = marker_end;
@@ -1761,7 +1164,7 @@ void hex_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, off
     gboolean show_marker = marker_start!=marker_end;
     text_render_utf8_clear_buf(w);
 
-    if (priv->hex_offset_display)
+    if (hexadecimal_offset)
         text_render_utf8_printf (w, "%08lx  ", (unsigned long)start_of_line);
     else
         text_render_utf8_printf (w, "%09lu ", (unsigned long)start_of_line);

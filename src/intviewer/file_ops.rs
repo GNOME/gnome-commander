@@ -38,11 +38,15 @@ pub mod ffi {
     }
 }
 
-pub struct FileOps(pub *mut ffi::ViewerFileOps);
+pub struct FileOps(pub *mut ffi::ViewerFileOps, bool);
 
 impl FileOps {
     pub fn new() -> Self {
-        unsafe { Self(ffi::gv_fileops_new()) }
+        unsafe { Self(ffi::gv_fileops_new(), true) }
+    }
+
+    pub fn borrow(ptr: *mut ffi::ViewerFileOps) -> Self {
+        Self(ptr, false)
     }
 
     pub fn open(&self, file: &str) -> bool {
@@ -61,11 +65,14 @@ impl FileOps {
 
 impl Drop for FileOps {
     fn drop(&mut self) {
-        unsafe {
-            ffi::gv_file_close(self.0);
-            ffi::gv_file_free(self.0);
-            self.0 = std::ptr::null_mut();
+        if self.1 {
+            unsafe {
+                ffi::gv_file_close(self.0);
+                ffi::gv_file_free(self.0);
+            }
+            self.1 = false;
         }
+        self.0 = std::ptr::null_mut();
     }
 }
 

@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use super::input_modes::ffi::GVInputModesData;
+use crate::intviewer::input_modes::InputMode;
 use gtk::glib::{
     self,
     ffi::{gboolean, gpointer},
@@ -119,7 +119,7 @@ impl Searcher {
 
     pub fn setup_new_text_search(
         &self,
-        imd: *mut GVInputModesData,
+        imd: &InputMode,
         start_offset: u64,
         max_offset: u64,
         text: &str,
@@ -128,7 +128,7 @@ impl Searcher {
         unsafe {
             ffi::g_viewer_searcher_setup_new_text_search(
                 self.to_glib_none().0,
-                imd,
+                imd.0,
                 start_offset,
                 max_offset,
                 text.to_glib_none().0,
@@ -139,7 +139,7 @@ impl Searcher {
 
     pub fn setup_new_hex_search(
         &self,
-        imd: *mut GVInputModesData,
+        imd: &InputMode,
         start_offset: u64,
         max_offset: u64,
         buffer: &[u8],
@@ -147,7 +147,7 @@ impl Searcher {
         unsafe {
             ffi::g_viewer_searcher_setup_new_hex_search(
                 self.to_glib_none().0,
-                imd,
+                imd.0,
                 start_offset,
                 max_offset,
                 buffer.as_ptr(),

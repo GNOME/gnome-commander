@@ -543,7 +543,7 @@ mod imp {
                     case_sensitive,
                 } => {
                     searcher.setup_new_text_search(
-                        self.text_render.input_mode_data(),
+                        &self.text_render.input_mode().unwrap(),
                         self.text_render.current_offset(),
                         self.text_render
                             .file_ops()
@@ -555,7 +555,7 @@ mod imp {
                 }
                 SearchRequest::Binary { pattern, .. } => {
                     searcher.setup_new_hex_search(
-                        self.text_render.input_mode_data(),
+                        &self.text_render.input_mode().unwrap(),
                         self.text_render.current_offset(),
                         self.text_render
                             .file_ops()

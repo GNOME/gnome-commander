@@ -32,14 +32,25 @@ pub mod ffi {
         pub fn gv_set_data_presentation_mode(dp: *mut GVDataPresentation, mode: i32);
 
         pub fn gv_align_offset_to_line_start(dp: *mut GVDataPresentation, offset: u64) -> u64;
+        pub fn gv_get_end_of_line_offset(dp: *mut GVDataPresentation, start_of_line: u64) -> u64;
+        pub fn gv_scroll_lines(dp: *mut GVDataPresentation, current_offset: u64, delta: i32)
+            -> u64;
+
+        pub fn gv_set_tab_size(dp: *mut GVDataPresentation, tab_size: u32);
+        pub fn gv_set_fixed_count(dp: *mut GVDataPresentation, chars_per_line: u32);
+        pub fn gv_set_wrap_limit(dp: *mut GVDataPresentation, chars_per_line: u32);
     }
 }
 
-pub struct DataPresentation(pub *mut ffi::GVDataPresentation);
+pub struct DataPresentation(pub *mut ffi::GVDataPresentation, bool);
 
 impl DataPresentation {
     pub fn new() -> Self {
-        unsafe { Self(ffi::gv_data_presentation_new()) }
+        unsafe { Self(ffi::gv_data_presentation_new(), true) }
+    }
+
+    pub fn borrow(ptr: *mut ffi::GVDataPresentation) -> Self {
+        Self(ptr, false)
     }
 
     pub fn mode(&self) -> DataPresentationMode {
@@ -56,14 +67,37 @@ impl DataPresentation {
     pub fn align_offset_to_line_start(&self, offset: u64) -> u64 {
         unsafe { ffi::gv_align_offset_to_line_start(self.0, offset) }
     }
+
+    pub fn end_of_line_offset(&self, start_of_line: u64) -> u64 {
+        unsafe { ffi::gv_get_end_of_line_offset(self.0, start_of_line) }
+    }
+
+    pub fn scroll_lines(&self, current_offset: u64, delta: i32) -> u64 {
+        unsafe { ffi::gv_scroll_lines(self.0, current_offset, delta) }
+    }
+
+    pub fn set_tab_size(&self, tab_size: u32) {
+        unsafe { ffi::gv_set_tab_size(self.0, tab_size) }
+    }
+
+    pub fn set_fixed_count(&self, chars_per_line: u32) {
+        unsafe { ffi::gv_set_fixed_count(self.0, chars_per_line) }
+    }
+
+    pub fn set_wrap_limit(&self, chars_per_line: u32) {
+        unsafe { ffi::gv_set_wrap_limit(self.0, chars_per_line) }
+    }
 }
 
 impl Drop for DataPresentation {
     fn drop(&mut self) {
-        unsafe {
-            ffi::gv_free_data_presentation(self.0);
-            self.0 = std::ptr::null_mut();
+        if self.1 {
+            unsafe {
+                ffi::gv_free_data_presentation(self.0);
+            }
+            self.1 = false;
         }
+        self.0 = std::ptr::null_mut();
     }
 }
 
