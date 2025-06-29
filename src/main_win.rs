@@ -21,7 +21,6 @@
  */
 
 use crate::{
-    command_line::CommandLine,
     connection::{
         bookmark::{Bookmark, BookmarkGoToVariant},
         connection::{Connection, ConnectionExt},
@@ -1085,10 +1084,6 @@ pub mod ffi {
     pub type GnomeCmdMainWin = <super::MainWindow as glib::object::ObjectType>::GlibType;
 
     extern "C" {
-        pub fn gnome_cmd_main_win_focus_file_lists(main_win: *mut GnomeCmdMainWin);
-
-        pub fn gnome_cmd_main_win_update_view(main_win: *mut GnomeCmdMainWin);
-
         pub fn gnome_cmd_data_save(mw: *mut GnomeCmdMainWin);
     }
 }
@@ -1286,11 +1281,14 @@ impl MainWindow {
     }
 
     pub fn focus_file_lists(&self) {
-        unsafe { ffi::gnome_cmd_main_win_focus_file_lists(self.to_glib_none().0) }
+        let (active, inactive) = self.file_selectors();
+        active.set_active(true);
+        inactive.set_active(false);
+        active.grab_focus();
     }
 
     pub fn update_view(&self) {
-        unsafe { ffi::gnome_cmd_main_win_update_view(self.to_glib_none().0) }
+        self.update_style();
     }
 
     pub fn shortcuts(&self) -> &Shortcuts {
@@ -1834,15 +1832,13 @@ pub extern "C" fn gnome_cmd_main_win_get_fs(
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_main_win_get_cmdline(
-    mw_ptr: *mut ffi::GnomeCmdMainWin,
-) -> *mut <CommandLine as glib::object::ObjectType>::GlibType {
+pub extern "C" fn gnome_cmd_main_win_update_view(mw_ptr: *mut ffi::GnomeCmdMainWin) {
     let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
-    mw.imp().cmdline.to_glib_none().0
+    mw.update_view();
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_main_win_update_style(mw_ptr: *mut ffi::GnomeCmdMainWin) {
+pub extern "C" fn gnome_cmd_main_win_focus_file_lists(mw_ptr: *mut ffi::GnomeCmdMainWin) {
     let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
-    mw.update_style();
+    mw.focus_file_lists();
 }
