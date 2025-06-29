@@ -34,7 +34,7 @@ use gtk::{
     prelude::*,
     subclass::prelude::*,
 };
-use std::{ffi::c_char, num::NonZeroU32, path::Path, sync::LazyLock};
+use std::{ffi::c_char, num::NonZeroU32, path::Path};
 
 pub mod ffi {
     use super::*;
@@ -51,7 +51,6 @@ pub mod ffi {
         pub fn text_render_finalize(w: *mut TextRender);
 
         pub fn text_render_get_current_offset(w: *mut TextRender) -> u64;
-        pub fn text_render_get_size(w: *mut TextRender) -> u64;
         pub fn text_render_get_column(w: *mut TextRender) -> i32;
 
         pub fn text_render_get_file_ops(w: *mut TextRender) -> *mut ViewerFileOps;
@@ -164,6 +163,10 @@ mod imp {
         pub marker_end: Cell<u64>,
         /// The button pressed to start a selection
         button: Cell<Option<u32>>,
+
+        pub char_width: Cell<i32>,
+        pub char_height: Cell<i32>,
+        pub font_desc: RefCell<Option<pango::FontDescription>>,
     }
 
     #[glib::object_subclass]
@@ -199,6 +202,10 @@ mod imp {
                 marker_start: Default::default(),
                 marker_end: Default::default(),
                 button: Default::default(),
+
+                char_width: Default::default(),
+                char_height: Default::default(),
+                font_desc: Default::default(),
             }
         }
     }
@@ -284,8 +291,8 @@ mod imp {
         fn size_allocate(&self, width: i32, height: i32, baseline: i32) {
             self.parent_size_allocate(width, height, baseline);
 
-            let char_width = self.obj().private().char_width;
-            let char_height = self.obj().private().char_height;
+            let char_width = self.char_width.get();
+            let char_height = self.char_height.get();
 
             if let Some(dp) = self.obj().data_presentation() {
                 if let Some(chars) =
@@ -321,7 +328,7 @@ mod imp {
 
             let display_mode = self.obj().display_mode();
 
-            let char_height = self.obj().private().char_height;
+            let char_height = self.char_height.get();
             let width = self.obj().width();
             let height = self.obj().height();
 
@@ -740,27 +747,7 @@ glib::wrapper! {
         @implements gtk::Scrollable;
 }
 
-#[derive(Default)]
-struct TextRenderPrivate {
-    char_width: i32,
-    char_height: i32,
-    font_desc: Option<pango::FontDescription>,
-}
-
 impl TextRender {
-    fn private(&self) -> &mut TextRenderPrivate {
-        static QUARK: LazyLock<glib::Quark> =
-            LazyLock::new(|| glib::Quark::from_str("text-render-private"));
-        unsafe {
-            if let Some(mut private) = self.qdata::<TextRenderPrivate>(*QUARK) {
-                private.as_mut()
-            } else {
-                self.set_qdata(*QUARK, TextRenderPrivate::default());
-                self.qdata::<TextRenderPrivate>(*QUARK).unwrap().as_mut()
-            }
-        }
-    }
-
     pub fn new() -> Self {
         glib::Object::builder().build()
     }
@@ -795,7 +782,7 @@ impl TextRender {
     }
 
     pub fn size(&self) -> u64 {
-        unsafe { ffi::text_render_get_size(self.to_glib_none().0) }
+        self.file_ops().map(|f| f.max_offset()).unwrap_or_default()
     }
 
     pub fn column(&self) -> i32 {
@@ -872,11 +859,11 @@ impl TextRender {
     }
 
     fn setup_font(&self, fontname: &str, fontsize: NonZeroU32) {
-        let private = self.private();
         let new_desc = pango::FontDescription::from_string(&format!("{fontname} {fontsize}"));
-        (private.char_width, private.char_height) =
-            get_max_char_width_and_height(self.upcast_ref(), &new_desc);
-        private.font_desc = Some(new_desc);
+        let (char_width, char_height) = get_max_char_width_and_height(self.upcast_ref(), &new_desc);
+        self.imp().char_width.set(char_width);
+        self.imp().char_height.set(char_height);
+        self.imp().font_desc.replace(Some(new_desc));
     }
 
     fn emit_text_status_changed(&self) {
@@ -933,24 +920,23 @@ pub extern "C" fn text_render_get_font_description(
     w: *mut ffi::TextRender,
 ) -> *mut PangoFontDescription {
     let w: Borrowed<TextRender> = unsafe { from_glib_borrow(w) };
-    let private = w.private();
-    if let Some(ref font_desc) = private.font_desc {
-        font_desc.to_glib_none().0
-    } else {
-        std::ptr::null_mut()
-    }
+    let font_desc = w.imp().font_desc.borrow();
+    font_desc.as_ref().map_or_else(
+        || std::ptr::null_mut(),
+        |font_desc| font_desc.to_glib_none().0,
+    )
 }
 
 #[no_mangle]
 pub extern "C" fn text_render_get_char_width(w: *mut ffi::TextRender) -> i32 {
     let w: Borrowed<TextRender> = unsafe { from_glib_borrow(w) };
-    w.private().char_width
+    w.imp().char_width.get()
 }
 
 #[no_mangle]
 pub extern "C" fn text_render_get_char_height(w: *mut ffi::TextRender) -> i32 {
     let w: Borrowed<TextRender> = unsafe { from_glib_borrow(w) };
-    w.private().char_height
+    w.imp().char_height.get()
 }
 
 fn get_max_char_width_and_height(

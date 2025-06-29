@@ -53,7 +53,6 @@ struct TextRenderPrivate
     GVInputModesData *im;
     GVDataPresentation *dp;
 
-    offset_type last_displayed_offset;
     DISPLAYMODE dispmode;
     gchar *fixed_font_name;
 
@@ -457,15 +456,6 @@ offset_type text_render_get_current_offset(TextRender *w)
     GtkAdjustment *v_adjustment;
     g_object_get (w, "vadjustment", &v_adjustment, nullptr);
     return v_adjustment ? (offset_type) gtk_adjustment_get_value (v_adjustment) : 0;
-}
-
-
-offset_type text_render_get_size(TextRender *w)
-{
-    g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
-    auto priv = text_render_priv (w);
-
-    return priv->fops ? gv_file_get_max_offset(priv->fops) : 0;
 }
 
 
