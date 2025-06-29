@@ -38,16 +38,6 @@ extern "C" GType text_render_get_type ();
 struct TextRender;
 
 
-enum DISPLAYMODE
-{
-    DISPLAYMODE_TEXT,
-    DISPLAYMODE_BINARY,
-    DISPLAYMODE_HEXDUMP
-};
-
-
-extern "C" void text_render_load_file(TextRender *w, const gchar *filename);
-
 extern "C" ViewerFileOps *text_render_get_file_ops(TextRender *w);
 extern "C" GVInputModesData *text_render_get_input_mode_data(TextRender *w);
 extern "C" GVDataPresentation *text_render_get_data_presentation(TextRender *w);

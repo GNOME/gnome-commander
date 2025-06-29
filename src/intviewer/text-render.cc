@@ -49,10 +49,6 @@ using namespace std;
 // Class Private Data
 struct TextRenderPrivate
 {
-    ViewerFileOps *fops;
-    GVInputModesData *im;
-    GVDataPresentation *dp;
-
     PangoLayout *layout;
 
     unsigned char *utf8buf;
@@ -64,7 +60,6 @@ struct TextRenderPrivate
 
 
 extern "C" void text_render_update_adjustments_limits(TextRender *w);
-static void text_render_free_data(TextRender *w);
 static void text_render_reserve_utf8buf(TextRender *w, int minlength);
 
 static void text_render_utf8_clear_buf(TextRender *w);
@@ -106,86 +101,7 @@ extern "C" void text_render_init (TextRender *w)
 extern "C" void text_render_finalize (TextRender *w)
 {
     auto priv = text_render_priv (w);
-
-    text_render_free_data(w);
     g_clear_pointer (&priv->utf8buf, g_free);
-}
-
-
-static void text_render_free_data(TextRender *w)
-{
-    g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = text_render_priv (w);
-
-    g_clear_pointer (&priv->dp, gv_free_data_presentation);
-    g_clear_pointer (&priv->im, gv_free_input_modes);
-    g_clear_pointer (&priv->fops, gv_file_free);
-}
-
-
-/*
-  This function assumes W->PRIV->FOPS has been initialized correctly
-   with whether a file name or a file descriptor
-*/
-static void text_render_internal_load(TextRender *w)
-{
-    auto priv = text_render_priv (w);
-
-    GtkAdjustment *h_adjustment, *v_adjustment;
-    guint fixed_limit, tab_size;
-    gchar *encoding;
-    gboolean wrap_mode;
-    g_object_get (w,
-        "hadjustment", &h_adjustment,
-        "vadjustment", &v_adjustment,
-        "encoding", &encoding,
-        "fixed-limit", &fixed_limit,
-        "tab-size", &tab_size,
-        "wrap-mode", &wrap_mode,
-        nullptr);
-
-    gtk_adjustment_set_value (h_adjustment, 0);
-    gtk_adjustment_set_value (v_adjustment, 0);
-
-    g_object_set (w, "max-column", 0, nullptr);
-
-    // Setup the input mode translations
-    priv->im = gv_input_modes_new();
-    gv_init_input_modes(priv->im, (get_byte_proc)gv_file_get_byte, priv->fops);
-    gv_set_input_mode(priv->im, encoding);
-    g_free (encoding);
-
-    // Setup the data presentation mode
-    priv->dp = gv_data_presentation_new();
-    gv_init_data_presentation(priv->dp, priv->im,
-        gv_file_get_max_offset(priv->fops));
-
-    gv_set_wrap_limit(priv->dp, 50);
-    gv_set_fixed_count(priv->dp, fixed_limit);
-    gv_set_tab_size(priv->dp, tab_size);
-    gv_set_data_presentation_mode(priv->dp, wrap_mode ? PRSNT_WRAP : PRSNT_NO_WRAP);
-
-    g_object_set (w, "display-mode", DISPLAYMODE_TEXT, nullptr);
-
-    text_render_update_adjustments_limits(w);
-}
-
-
-void text_render_load_file(TextRender *w, const gchar *filename)
-{
-    g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = text_render_priv (w);
-
-    text_render_free_data(w);
-
-    priv->fops = gv_fileops_new();
-    if (gv_file_open(priv->fops, filename)==-1)
-    {
-        g_warning ("Failed to load file (%s)", filename);
-        return;
-    }
-
-    text_render_internal_load(w);
 }
 
 
@@ -194,8 +110,11 @@ void text_render_update_adjustments_limits(TextRender *w)
     g_return_if_fail (IS_TEXT_RENDER (w));
     auto priv = text_render_priv (w);
 
-    if (!priv->fops)
+    auto fops = text_render_get_file_ops (w);
+    if (!fops)
         return;
+
+    auto dp = text_render_get_data_presentation (w);
 
     GtkAdjustment *h_adjustment, *v_adjustment;
     guint max_column, chars_per_line;
@@ -209,7 +128,7 @@ void text_render_update_adjustments_limits(TextRender *w)
     if (v_adjustment)
     {
         gtk_adjustment_set_lower (v_adjustment, 0);
-        gtk_adjustment_set_upper (v_adjustment, gv_file_get_max_offset(priv->fops)-1);
+        gtk_adjustment_set_upper (v_adjustment, gv_file_get_max_offset(fops)-1);
     }
 
     if (h_adjustment)
@@ -218,7 +137,7 @@ void text_render_update_adjustments_limits(TextRender *w)
         gtk_adjustment_set_page_increment (h_adjustment, 5);
         gtk_adjustment_set_page_size (h_adjustment, chars_per_line);
         gtk_adjustment_set_lower (h_adjustment, 0);
-        if (gv_get_data_presentation_mode(priv->dp)==PRSNT_NO_WRAP)
+        if (gv_get_data_presentation_mode(dp)==PRSNT_NO_WRAP)
             gtk_adjustment_set_upper (h_adjustment, max_column); // TODO: find our the real horz limit
         else
             gtk_adjustment_set_upper (h_adjustment, 0);
@@ -229,8 +148,9 @@ void text_render_update_adjustments_limits(TextRender *w)
 extern "C" void text_render_filter_undisplayable_chars(TextRender *obj)
 {
     auto priv = text_render_priv (obj);
+    auto im = text_render_get_input_mode_data (obj);
 
-    if (!priv->im)
+    if (!im)
         return;
 
     PangoRectangle logical_rect;
@@ -240,7 +160,7 @@ extern "C" void text_render_filter_undisplayable_chars(TextRender *obj)
 
     for (guint i=0; i<256; i++)
     {
-        char_type value = gv_input_mode_byte_to_utf8(priv->im, (unsigned char) i);
+        char_type value = gv_input_mode_byte_to_utf8(im, (unsigned char) i);
         text_render_utf8_clear_buf(obj);
         text_render_utf8_print_char(obj, value);
         pango_layout_set_text(layout, (char *) priv->utf8buf, priv->utf8buf_length);
@@ -258,7 +178,7 @@ extern "C" void text_render_filter_undisplayable_chars(TextRender *obj)
 
         // Pango can't display this UTF8 character, so filter it out
         if (logical_rect.width==0)
-            gv_input_mode_update_utf8_translation(priv->im, i, '.');
+            gv_input_mode_update_utf8_translation(im, i, '.');
     }
 
     g_object_unref (layout);
@@ -340,30 +260,6 @@ static int text_render_utf8_print_char(TextRender *w, char_type value)
 
     priv->utf8buf_length = current_length;
     return current_length;
-}
-
-
-ViewerFileOps *text_render_get_file_ops(TextRender *w)
-{
-    g_return_val_if_fail (IS_TEXT_RENDER (w), NULL);
-    auto priv = text_render_priv (w);
-    return priv ? priv->fops : nullptr;
-}
-
-
-GVInputModesData *text_render_get_input_mode_data(TextRender *w)
-{
-    g_return_val_if_fail (IS_TEXT_RENDER (w), NULL);
-    auto priv = text_render_priv (w);
-    return priv ? priv->im : nullptr;
-}
-
-
-GVDataPresentation *text_render_get_data_presentation(TextRender *w)
-{
-    g_return_val_if_fail (IS_TEXT_RENDER (w), NULL);
-    auto priv = text_render_priv (w);
-    return priv ? priv->dp : nullptr;
 }
 
 
@@ -453,7 +349,9 @@ offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean st
 {
     g_return_val_if_fail (obj!=NULL, 0);
     auto priv = text_render_priv (obj);
-    g_return_val_if_fail (priv->dp!=NULL, 0);
+    auto dp = text_render_get_data_presentation (obj);
+    g_return_val_if_fail (dp != NULL, 0);
+    auto im = text_render_get_input_mode_data (obj);
 
     auto char_width = text_render_get_char_width (obj);
     auto char_height = text_render_get_char_height (obj);
@@ -484,17 +382,17 @@ offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean st
     column = x / char_width + text_render_get_column (obj);
 
     // Determine offset corresponding to start of line, the character at this offset and the last column occupied by character
-    offset = gv_scroll_lines (priv->dp, current_offset, line);
-    choff = gv_input_mode_get_utf8_char(priv->im, offset);
+    offset = gv_scroll_lines (dp, current_offset, line);
+    choff = gv_input_mode_get_utf8_char(im, offset);
     choffcol = (choff=='\t') ? tab_size-1 : 0;
 
-    next_line_offset = gv_scroll_lines (priv->dp, offset, 1);
+    next_line_offset = gv_scroll_lines (dp, offset, 1);
 
     // While the current character does not occupy column 'column', check next character
     while (column>choffcol && offset<next_line_offset)
     {
-        offset = gv_input_get_next_char_offset(priv->im, offset);
-        choff = gv_input_mode_get_utf8_char(priv->im, offset);
+        offset = gv_input_get_next_char_offset(im, offset);
+        choff = gv_input_mode_get_utf8_char(im, offset);
         choffcol += (choff=='\t') ? tab_size : 1;
     }
 
@@ -511,8 +409,10 @@ void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offs
     g_return_if_fail (obj!=NULL);
     g_return_if_fail (start_offset!=end_offset);
     auto priv = text_render_priv (obj);
-    g_return_if_fail (priv->dp!=NULL);
-    g_return_if_fail (priv->im!=NULL);
+    auto dp = text_render_get_data_presentation (obj);
+    g_return_if_fail (dp!=NULL);
+    auto im = text_render_get_input_mode_data (obj);
+    g_return_if_fail (im != NULL);
 
     GdkClipboard *clip = gtk_widget_get_clipboard (GTK_WIDGET (obj));
     g_return_if_fail (clip!=NULL);
@@ -521,11 +421,11 @@ void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offs
     offset_type current = start_offset;
     while (current < end_offset && priv->utf8buf_length<MAX_CLIPBOARD_COPY_LENGTH)
     {
-        char_type value = gv_input_mode_get_utf8_char(priv->im, current);
+        char_type value = gv_input_mode_get_utf8_char(im, current);
         if (value==INVALID_CHAR)
             break;
 
-        current = gv_input_get_next_char_offset(priv->im, current);
+        current = gv_input_get_next_char_offset(im, current);
         text_render_utf8_print_char(obj, value);
     }
 
@@ -537,6 +437,7 @@ void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, of
 {
     auto priv = text_render_priv (w);
 
+    auto im = text_render_get_input_mode_data (w);
     auto char_width = text_render_get_char_width (w);
 
     offset_type current;
@@ -568,12 +469,12 @@ void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, of
             marker_shown = marker_helper(w, marker_shown, current, marker_start, marker_end);
 
         // Read a UTF8 character from the input file. The "inputmode" module is responsible for converting the file into UTF8
-        value = gv_input_mode_get_utf8_char(priv->im, current);
+        value = gv_input_mode_get_utf8_char(im, current);
         if (value==INVALID_CHAR)
             break;
 
         // move to the next character's offset
-        current = gv_input_get_next_char_offset(priv->im, current);
+        current = gv_input_get_next_char_offset(im, current);
 
         if (value=='\r' || value=='\n')
             continue;
@@ -616,6 +517,7 @@ void binary_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, 
 {
     auto priv = text_render_priv (w);
 
+    auto im = text_render_get_input_mode_data (w);
     auto char_width = text_render_get_char_width (w);
 
     offset_type current;
@@ -635,15 +537,15 @@ void binary_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, 
 
         /* Read a UTF8 character from the input file.
            The "inputmode" module is responsible for converting the file into UTF8 */
-        value = gv_input_mode_get_utf8_char(priv->im, current);
+        value = gv_input_mode_get_utf8_char(im, current);
         if (value==INVALID_CHAR)
             break;
 
         // move to the next character's offset
-        current = gv_input_get_next_char_offset(priv->im, current);
+        current = gv_input_get_next_char_offset(im, current);
 
         if (value=='\r' || value=='\n' || value=='\t')
-            value = gv_input_mode_byte_to_utf8(priv->im, (unsigned char)value);
+            value = gv_input_mode_byte_to_utf8(im, (unsigned char)value);
 
         if (NEED_PANGO_ESCAPING(value))
             text_render_utf8_printf (w, escape_pango_char(value));
@@ -667,7 +569,9 @@ offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean sta
 {
     g_return_val_if_fail (obj!=NULL, 0);
     auto priv = text_render_priv (obj);
-    g_return_val_if_fail (priv->dp!=NULL, 0);
+    auto dp = text_render_get_data_presentation (obj);
+    g_return_val_if_fail (dp != NULL, 0);
+    auto im = text_render_get_input_mode_data (obj);
 
     int line = 0;
     int column = 0;
@@ -692,8 +596,8 @@ offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean sta
     line = y / char_height;
     column = x / char_width;
 
-    offset = gv_scroll_lines (priv->dp, current_offset, line);
-    next_line_offset = gv_scroll_lines (priv->dp, offset, 1);
+    offset = gv_scroll_lines (dp, current_offset, line);
+    next_line_offset = gv_scroll_lines (dp, offset, 1);
 
     if (column<10)
         return offset;
@@ -731,7 +635,7 @@ offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean sta
 
     while (column>0 && offset<next_line_offset)
     {
-        offset = gv_input_get_next_char_offset(priv->im, offset);
+        offset = gv_input_get_next_char_offset(im, offset);
         column--;
     }
 
@@ -744,8 +648,10 @@ void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offse
     g_return_if_fail (obj!=NULL);
     g_return_if_fail (start_offset!=end_offset);
     auto priv = text_render_priv (obj);
-    g_return_if_fail (priv->dp!=NULL);
-    g_return_if_fail (priv->im!=NULL);
+    auto dp = text_render_get_data_presentation (obj);
+    g_return_if_fail (dp != NULL);
+    auto im = text_render_get_input_mode_data (obj);
+    g_return_if_fail (im != NULL);
 
     if (!priv->hexmode_marker_on_hexdump)
     {
@@ -760,7 +666,7 @@ void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offse
 
     for (offset_type current = start_offset; current < end_offset && priv->utf8buf_length<MAX_CLIPBOARD_COPY_LENGTH; current++)
     {
-        char_type value = gv_input_mode_get_raw_byte(priv->im, current);
+        char_type value = gv_input_mode_get_raw_byte(im, current);
         if (value==INVALID_CHAR)
             break;
         text_render_utf8_printf (obj, "%02x ", (unsigned char) value);
@@ -773,6 +679,7 @@ void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offse
 void hex_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line, offset_type marker_start, offset_type marker_end)
 {
     auto priv = text_render_priv (w);
+    auto im = text_render_get_input_mode_data (w);
 
     gboolean hexadecimal_offset;
     g_object_get (w,
@@ -798,7 +705,7 @@ void hex_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, off
                 priv->hexmode_marker_on_hexdump);
         }
 
-        int byte_value = gv_input_mode_get_raw_byte(priv->im, current);
+        int byte_value = gv_input_mode_get_raw_byte(im, current);
 
         if (byte_value==-1)
             break;
@@ -823,12 +730,12 @@ void hex_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, off
                 !priv->hexmode_marker_on_hexdump);
         }
 
-        int byte_value = gv_input_mode_get_raw_byte(priv->im, current);
+        int byte_value = gv_input_mode_get_raw_byte(im, current);
 
         if (byte_value==-1)
             break;
 
-        char_type value = gv_input_mode_byte_to_utf8(priv->im, (unsigned char) byte_value);
+        char_type value = gv_input_mode_byte_to_utf8(im, (unsigned char) byte_value);
 
         if (NEED_PANGO_ESCAPING(value))
             text_render_utf8_printf (w, escape_pango_char(value));

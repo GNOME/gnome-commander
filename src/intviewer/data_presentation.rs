@@ -17,7 +17,11 @@
  * For more details see the file COPYING.
  */
 
+use crate::intviewer::input_modes::InputMode;
+
 pub mod ffi {
+    use crate::intviewer::input_modes::ffi::GVInputModesData;
+
     #[repr(C)]
     pub struct GVDataPresentation {
         _data: [u8; 0],
@@ -27,6 +31,12 @@ pub mod ffi {
     extern "C" {
         pub fn gv_data_presentation_new() -> *mut GVDataPresentation;
         pub fn gv_free_data_presentation(dp: *mut GVDataPresentation);
+
+        pub fn gv_init_data_presentation(
+            dp: *mut GVDataPresentation,
+            imd: *mut GVInputModesData,
+            max_offset: u64,
+        );
 
         pub fn gv_get_data_presentation_mode(dp: *mut GVDataPresentation) -> i32;
         pub fn gv_set_data_presentation_mode(dp: *mut GVDataPresentation, mode: i32);
@@ -42,15 +52,15 @@ pub mod ffi {
     }
 }
 
-pub struct DataPresentation(pub *mut ffi::GVDataPresentation, bool);
+pub struct DataPresentation(pub *mut ffi::GVDataPresentation);
 
 impl DataPresentation {
     pub fn new() -> Self {
-        unsafe { Self(ffi::gv_data_presentation_new(), true) }
+        unsafe { Self(ffi::gv_data_presentation_new()) }
     }
 
-    pub fn borrow(ptr: *mut ffi::GVDataPresentation) -> Self {
-        Self(ptr, false)
+    pub fn init(&self, imd: &InputMode, max_offset: u64) {
+        unsafe { ffi::gv_init_data_presentation(self.0, imd.0, max_offset) }
     }
 
     pub fn mode(&self) -> DataPresentationMode {
@@ -91,11 +101,8 @@ impl DataPresentation {
 
 impl Drop for DataPresentation {
     fn drop(&mut self) {
-        if self.1 {
-            unsafe {
-                ffi::gv_free_data_presentation(self.0);
-            }
-            self.1 = false;
+        unsafe {
+            ffi::gv_free_data_presentation(self.0);
         }
         self.0 = std::ptr::null_mut();
     }

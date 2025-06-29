@@ -19,7 +19,11 @@
 
 use super::{data_presentation::DataPresentation, file_ops::FileOps};
 use crate::{
-    intviewer::input_modes::{ffi::GVInputModesData, InputMode},
+    intviewer::{
+        data_presentation::{ffi::GVDataPresentation, DataPresentationMode},
+        file_ops::ffi::ViewerFileOps,
+        input_modes::{ffi::GVInputModesData, InputMode},
+    },
     utils::Max,
 };
 use gtk::{
@@ -34,15 +38,11 @@ use gtk::{
     prelude::*,
     subclass::prelude::*,
 };
-use std::{num::NonZeroU32, path::Path};
+use std::{num::NonZeroU32, path::Path, rc::Rc};
 
 pub mod ffi {
     use super::*;
-    use crate::intviewer::{
-        data_presentation::ffi::GVDataPresentation, file_ops::ffi::ViewerFileOps,
-    };
     use gtk::{ffi::GtkSnapshot, glib::ffi::gboolean};
-    use std::ffi::c_char;
 
     pub type TextRender = <super::TextRender as glib::object::ObjectType>::GlibType;
 
@@ -52,12 +52,6 @@ pub mod ffi {
 
         pub fn text_render_get_current_offset(w: *mut TextRender) -> u64;
         pub fn text_render_get_column(w: *mut TextRender) -> i32;
-
-        pub fn text_render_get_file_ops(w: *mut TextRender) -> *mut ViewerFileOps;
-        pub fn text_render_get_input_mode_data(w: *mut TextRender) -> *mut GVInputModesData;
-        pub fn text_render_get_data_presentation(w: *mut TextRender) -> *mut GVDataPresentation;
-
-        pub fn text_render_load_file(w: *mut TextRender, filename: *const c_char);
 
         pub fn text_render_filter_undisplayable_chars(w: *mut TextRender);
         pub fn text_render_update_adjustments_limits(w: *mut TextRender);
@@ -111,13 +105,12 @@ pub mod ffi {
 const HEXDUMP_FIXED_LIMIT: u32 = 16;
 
 mod imp {
+    use super::*;
     use crate::intviewer::data_presentation::DataPresentationMode;
     use std::{
         cell::{Cell, RefCell},
         sync::OnceLock,
     };
-
-    use super::*;
 
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::TextRender)]
@@ -151,6 +144,10 @@ mod imp {
         fixed_limit: Cell<u32>,
         #[property(get, set = Self::set_hexadecimal_offset)]
         hexadecimal_offset: Cell<bool>,
+
+        pub file_ops: RefCell<Option<Rc<FileOps>>>,
+        pub input_mode: RefCell<Option<Rc<InputMode>>>,
+        pub data_presentation: RefCell<Option<Rc<DataPresentation>>>,
 
         #[property(get, set)]
         chars_per_line: Cell<u32>,
@@ -195,6 +192,10 @@ mod imp {
                 encoding: RefCell::new(String::from("ASCII")),
                 fixed_limit: Cell::new(80),
                 hexadecimal_offset: Default::default(),
+
+                file_ops: Default::default(),
+                input_mode: Default::default(),
+                data_presentation: Default::default(),
 
                 chars_per_line: Default::default(),
                 max_column: Default::default(),
@@ -831,35 +832,66 @@ impl TextRender {
         unsafe { ffi::text_render_get_column(self.to_glib_none().0) }
     }
 
-    pub fn input_mode(&self) -> Option<InputMode> {
-        let ptr = unsafe { ffi::text_render_get_input_mode_data(self.to_glib_none().0) };
-        if ptr.is_null() {
-            None
-        } else {
-            Some(InputMode::borrow(ptr))
-        }
+    pub fn input_mode(&self) -> Option<Rc<InputMode>> {
+        self.imp().input_mode.borrow().clone()
     }
 
-    pub fn file_ops(&self) -> Option<FileOps> {
-        let ptr = unsafe { ffi::text_render_get_file_ops(self.to_glib_none().0) };
-        if ptr.is_null() {
-            None
-        } else {
-            Some(FileOps::borrow(ptr))
-        }
+    pub fn file_ops(&self) -> Option<Rc<FileOps>> {
+        self.imp().file_ops.borrow().clone()
     }
 
-    pub fn data_presentation(&self) -> Option<DataPresentation> {
-        let ptr = unsafe { ffi::text_render_get_data_presentation(self.to_glib_none().0) };
-        if ptr.is_null() {
-            None
-        } else {
-            Some(DataPresentation::borrow(ptr))
-        }
+    pub fn data_presentation(&self) -> Option<Rc<DataPresentation>> {
+        self.imp().data_presentation.borrow().clone()
     }
 
     pub fn load_file(&self, filename: &Path) {
-        unsafe { ffi::text_render_load_file(self.to_glib_none().0, filename.to_glib_none().0) }
+        self.imp().input_mode.replace(None);
+        self.imp().file_ops.replace(None);
+        self.imp().data_presentation.replace(None);
+
+        let file_ops = Rc::new(FileOps::new());
+        if !file_ops.open(filename) {
+            eprintln!("Failed to load file {}", filename.display());
+            return;
+        }
+
+        if let Some(hadjustment) = self.hadjustment() {
+            hadjustment.set_value(0.0);
+        }
+        if let Some(vadjustment) = self.vadjustment() {
+            vadjustment.set_value(0.0);
+        }
+        self.set_max_column(0);
+
+        // Setup the input mode translations
+        let input_mode = Rc::new(InputMode::new());
+        input_mode.init(file_ops.clone());
+        input_mode.set_mode(&self.encoding());
+
+        // Setup the data presentation mode
+        let data_presentation = Rc::new(DataPresentation::new());
+        data_presentation.init(&input_mode, file_ops.max_offset());
+
+        data_presentation.set_wrap_limit(50);
+        data_presentation.set_fixed_count(self.fixed_limit());
+        data_presentation.set_tab_size(self.tab_size());
+        data_presentation.set_mode(if self.wrap_mode() {
+            DataPresentationMode::Wrap
+        } else {
+            DataPresentationMode::NoWrap
+        });
+
+        self.set_display_mode(TextRenderDisplayMode::Text);
+
+        self.imp().input_mode.replace(Some(input_mode));
+        self.imp().file_ops.replace(Some(file_ops));
+        self.imp()
+            .data_presentation
+            .replace(Some(data_presentation));
+
+        unsafe {
+            ffi::text_render_update_adjustments_limits(self.to_glib_none().0);
+        }
     }
 
     pub fn notify_status_changed(&self) {
@@ -979,6 +1011,30 @@ fn get_max_char_width_and_height(
         max_width.take().unwrap_or_default(),
         max_height.take().unwrap_or_default(),
     )
+}
+
+#[no_mangle]
+pub extern "C" fn text_render_get_file_ops(w: *mut ffi::TextRender) -> *mut ViewerFileOps {
+    let w: Borrowed<TextRender> = unsafe { from_glib_borrow(w) };
+    w.file_ops().map(|f| f.0).unwrap_or(std::ptr::null_mut())
+}
+
+#[no_mangle]
+pub extern "C" fn text_render_get_input_mode_data(
+    w: *mut ffi::TextRender,
+) -> *mut GVInputModesData {
+    let w: Borrowed<TextRender> = unsafe { from_glib_borrow(w) };
+    w.input_mode().map(|f| f.0).unwrap_or(std::ptr::null_mut())
+}
+
+#[no_mangle]
+pub extern "C" fn text_render_get_data_presentation(
+    w: *mut ffi::TextRender,
+) -> *mut GVDataPresentation {
+    let w: Borrowed<TextRender> = unsafe { from_glib_borrow(w) };
+    w.data_presentation()
+        .map(|f| f.0)
+        .unwrap_or(std::ptr::null_mut())
 }
 
 #[derive(Clone, Copy, Default, PartialEq, Eq, Debug, glib::Enum)]

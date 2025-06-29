@@ -20,6 +20,7 @@
 use glib::translate::{from_glib_none, ToGlibPtr};
 
 pub mod ffi {
+    use glib::{ffi::gpointer, gobject_ffi::GCallback};
     use std::ffi::c_char;
 
     #[repr(C)]
@@ -32,20 +33,43 @@ pub mod ffi {
         pub fn gv_input_modes_new() -> *mut GVInputModesData;
         pub fn gv_free_input_modes(imd: *mut GVInputModesData);
 
+        pub fn gv_init_input_modes(
+            imd: *mut GVInputModesData,
+            proc: GCallback,
+            user_data: gpointer,
+        );
+
         pub fn gv_get_input_mode(imd: *mut GVInputModesData) -> *const c_char;
         pub fn gv_set_input_mode(imd: *mut GVInputModesData, input_mode: *const c_char);
     }
 }
 
-pub struct InputMode(pub *mut ffi::GVInputModesData, bool);
+pub struct InputMode(pub *mut ffi::GVInputModesData);
 
 impl InputMode {
     pub fn new() -> Self {
-        unsafe { Self(ffi::gv_input_modes_new(), true) }
+        unsafe { Self(ffi::gv_input_modes_new()) }
     }
 
-    pub fn borrow(ptr: *mut ffi::GVInputModesData) -> Self {
-        Self(ptr, false)
+    pub fn init<S: InputSource>(&self, source: S) {
+        unsafe extern "C" fn get_byte_trampoline<S: InputSource>(
+            source_ptr: glib::ffi::gpointer,
+            offset: u64,
+        ) -> i32 {
+            let source: &S = &*(source_ptr as *const S);
+            source.byte(offset).map(|b| b.into()).unwrap_or(-1)
+        }
+
+        let source = Box::new(source);
+        unsafe {
+            ffi::gv_init_input_modes(
+                self.0,
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
+                    get_byte_trampoline::<S> as *const (),
+                )),
+                Box::into_raw(source) as *mut _,
+            )
+        }
     }
 
     pub fn mode(&self) -> String {
@@ -59,14 +83,15 @@ impl InputMode {
 
 impl Drop for InputMode {
     fn drop(&mut self) {
-        if self.1 {
-            unsafe {
-                ffi::gv_free_input_modes(self.0);
-            }
-            self.1 = false;
+        unsafe {
+            ffi::gv_free_input_modes(self.0);
         }
         self.0 = std::ptr::null_mut();
     }
+}
+
+pub trait InputSource {
+    fn byte(&self, offset: u64) -> Option<u8>;
 }
 
 #[cfg(test)]
