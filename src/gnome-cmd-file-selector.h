@@ -59,7 +59,7 @@ struct GnomeCmdFileSelector
 
     GtkWidget *new_tab();
     GtkWidget *new_tab(GnomeCmdDir *dir, gboolean activate=TRUE);
-    GtkWidget *new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean locked, gboolean activate);
+    GtkWidget *new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean locked, gboolean activate, gboolean grab_focus);
 
     void prev_tab();
     void next_tab();
@@ -82,12 +82,12 @@ inline void GnomeCmdFileSelector::set_connection(GnomeCmdCon *con, GnomeCmdDir *
 
 inline GtkWidget *GnomeCmdFileSelector::new_tab()
 {
-    return new_tab(NULL, GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, FALSE, TRUE);
+    return new_tab(NULL, GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, FALSE, TRUE, TRUE);
 }
 
 inline GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, gboolean activate)
 {
-    return new_tab(dir, file_list()->get_sort_column(), file_list()->get_sort_order(), FALSE, activate);
+    return new_tab(dir, file_list()->get_sort_column(), file_list()->get_sort_order(), FALSE, activate, activate);
 }
 
 extern "C" GType gnome_cmd_file_selector_get_type ();
@@ -111,9 +111,7 @@ extern "C" GnomeCmdFileList *gnome_cmd_file_selector_file_list_nth (GnomeCmdFile
 
 extern "C" GtkWidget *gnome_cmd_file_selector_connection_bar(GnomeCmdFileSelector *fs);
 
-extern "C" GtkWidget *gnome_cmd_file_selector_new_tab (GnomeCmdFileSelector *fs);
-extern "C" GtkWidget *gnome_cmd_file_selector_new_tab_with_dir (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, gboolean activate);
-extern "C" GtkWidget *gnome_cmd_file_selector_new_tab_full (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, gint sort_col, gint sort_order, gboolean locked, gboolean activate);
+extern "C" GtkWidget *gnome_cmd_file_selector_new_tab_full (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, gint sort_col, gint sort_order, gboolean locked, gboolean activate, gboolean grab_focus);
 
 extern "C" gboolean gnome_cmd_file_selector_is_active (GnomeCmdFileSelector *fs);
 extern "C" void gnome_cmd_file_selector_set_active (GnomeCmdFileSelector *fs, gboolean active);
@@ -137,3 +135,5 @@ extern "C" void gnome_cmd_file_selector_activate_connection_list (GnomeCmdFileSe
 extern "C" void gnome_cmd_file_selector_update_tab_label (GnomeCmdFileSelector *fs, GnomeCmdFileList *fl);
 
 extern "C" void gnome_cmd_file_selector_update_style (GnomeCmdFileSelector *fs);
+
+extern "C" void gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs);

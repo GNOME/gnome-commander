@@ -84,14 +84,6 @@ pub mod ffi {
 
         pub fn on_notebook_switch_page(fs: *mut GnomeCmdFileSelector, n: u32);
 
-        pub fn gnome_cmd_file_selector_new_tab(fs: *mut GnomeCmdFileSelector) -> *const GtkWidget;
-
-        pub fn gnome_cmd_file_selector_new_tab_with_dir(
-            fs: *mut GnomeCmdFileSelector,
-            dir: *mut GnomeCmdDir,
-            activate: gboolean,
-        ) -> *const GtkWidget;
-
         pub fn gnome_cmd_file_selector_new_tab_full(
             fs: *mut GnomeCmdFileSelector,
             dir: *mut GnomeCmdDir,
@@ -99,6 +91,7 @@ pub mod ffi {
             sort_order: c_int,
             locked: gboolean,
             activate: gboolean,
+            grab_focus: gboolean,
         ) -> *const GtkWidget;
 
         pub fn gnome_cmd_file_selector_is_active(fs: *mut GnomeCmdFileSelector) -> gboolean;
@@ -121,6 +114,10 @@ pub mod ffi {
         );
 
         pub fn gnome_cmd_file_selector_update_style(fs: *mut GnomeCmdFileSelector);
+
+        pub fn gnome_cmd_file_selector_update_connections(fs: *mut GnomeCmdFileSelector);
+
+        pub fn gnome_cmd_file_selector_activate_connection_list(fs: *mut GnomeCmdFileSelector);
     }
 }
 
@@ -280,7 +277,16 @@ mod imp {
         }
     }
 
-    impl WidgetImpl for FileSelector {}
+    impl WidgetImpl for FileSelector {
+        fn grab_focus(&self) -> bool {
+            if let Some(list) = self.obj().current_file_list() {
+                list.grab_focus()
+            } else {
+                self.parent_grab_focus()
+            }
+        }
+    }
+
     impl GridImpl for FileSelector {}
 
     impl FileSelector {
@@ -326,7 +332,7 @@ mod imp {
                     return;
                 };
                 let dir = Directory::new(&con, con.create_path(&Path::new(path)));
-                self.obj().new_tab_with_dir(&dir, true);
+                self.obj().new_tab_with_dir(&dir, true, true);
             } else {
                 fl.goto_directory(&Path::new(path));
             }
@@ -368,6 +374,14 @@ impl FileSelector {
             .build()
     }
 
+    fn current_file_list(&self) -> Option<FileList> {
+        unsafe {
+            from_glib_none(ffi::gnome_cmd_file_selector_file_list(
+                self.to_glib_none().0,
+            ))
+        }
+    }
+
     pub fn file_list(&self) -> FileList {
         unsafe {
             from_glib_none(ffi::gnome_cmd_file_selector_file_list(
@@ -386,26 +400,40 @@ impl FileSelector {
     }
 
     pub fn new_tab(&self) -> gtk::Widget {
-        unsafe { from_glib_none(ffi::gnome_cmd_file_selector_new_tab(self.to_glib_none().0)) }
+        self.new_tab_full(
+            None,
+            ColumnID::COLUMN_NAME,
+            gtk::SortType::Ascending,
+            false,
+            true,
+            true,
+        )
     }
 
-    pub fn new_tab_with_dir(&self, dir: &Directory, activate: bool) -> gtk::Widget {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_file_selector_new_tab_with_dir(
-                self.to_glib_none().0,
-                dir.to_glib_none().0,
-                activate as i32,
-            ))
-        }
+    pub fn new_tab_with_dir(
+        &self,
+        dir: &Directory,
+        activate: bool,
+        grab_focus: bool,
+    ) -> gtk::Widget {
+        self.new_tab_full(
+            Some(dir),
+            self.file_list().sort_column(),
+            self.file_list().sort_order(),
+            false,
+            activate,
+            grab_focus,
+        )
     }
 
     pub fn new_tab_full(
         &self,
-        dir: &Directory,
+        dir: Option<&Directory>,
         sort_column: ColumnID,
         sort_order: gtk::SortType,
         locked: bool,
         activate: bool,
+        grab_focus: bool,
     ) -> gtk::Widget {
         unsafe {
             from_glib_none(ffi::gnome_cmd_file_selector_new_tab_full(
@@ -415,6 +443,7 @@ impl FileSelector {
                 sort_order.into_glib(),
                 locked as gboolean,
                 activate as gboolean,
+                grab_focus as gboolean,
             ))
         }
     }
@@ -484,11 +513,19 @@ impl FileSelector {
         }
     }
 
+    pub fn update_connections(&self) {
+        unsafe { ffi::gnome_cmd_file_selector_update_connections(self.to_glib_none().0) }
+    }
+
+    pub fn activate_connection_list(&self) {
+        unsafe { ffi::gnome_cmd_file_selector_activate_connection_list(self.to_glib_none().0) }
+    }
+
     pub fn goto_directory(&self, con: &Connection, path: &Path) {
         if self.file_list().connection().as_ref() == Some(&con) {
             if self.is_current_tab_locked() {
                 let dir = Directory::new(con, con.create_path(path));
-                self.new_tab_with_dir(&dir, true);
+                self.new_tab_with_dir(&dir, true, true);
             } else {
                 self.file_list().goto_directory(path);
             }
@@ -497,14 +534,14 @@ impl FileSelector {
                 let dir = Directory::new(con, con.create_path(path));
 
                 if self.is_current_tab_locked() {
-                    self.new_tab_with_dir(&dir, true);
+                    self.new_tab_with_dir(&dir, true, true);
                 } else {
                     self.file_list().set_connection(con, Some(&dir));
                 }
             } else {
                 con.set_base_path(con.create_path(path));
                 if self.is_current_tab_locked() {
-                    self.new_tab_with_dir(&con.default_dir().unwrap(), true);
+                    self.new_tab_with_dir(&con.default_dir().unwrap(), true, true);
                 } else {
                     self.file_list().set_connection(con, None);
                 }
@@ -555,6 +592,7 @@ impl FileSelector {
         if self.is_current_tab_locked() {
             self.new_tab_with_dir(
                 &Directory::new(connection, connection.create_path(&Path::new(&dir))),
+                true,
                 true,
             );
         } else {
@@ -662,11 +700,12 @@ impl FileSelector {
             }
             if let Some(directory) = restore_directory(&connection_list, &stored_tab.uri) {
                 self.new_tab_full(
-                    &directory,
+                    Some(&directory),
                     stored_tab.sort_column_id(),
                     stored_tab.sort_type(),
                     stored_tab.locked,
                     true,
+                    false,
                 );
             }
             visited.insert(stored_tab);
@@ -680,11 +719,12 @@ impl FileSelector {
                 Directory::new_startup(con.upcast_ref(), con.create_path(&path))
             {
                 self.new_tab_full(
-                    &directory,
+                    Some(&directory),
                     ColumnID::COLUMN_NAME,
                     gtk::SortType::Ascending,
                     false,
                     true,
+                    false,
                 );
             } else {
                 eprintln!("Stored path {} is invalid. Skipping", path.display());
@@ -700,6 +740,28 @@ impl FileSelector {
             (callback)();
             None
         })
+    }
+
+    pub fn connect_directory_changed<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, &Directory) + 'static,
+    {
+        self.connect_closure(
+            "dir-changed",
+            false,
+            glib::closure_local!(move |this: &Self, d: Directory| { (callback)(this, &d) }),
+        )
+    }
+
+    pub fn connect_activate_request<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self) + 'static,
+    {
+        self.connect_closure(
+            "activate-request",
+            false,
+            glib::closure_local!(move |this: &Self| { (callback)(this) }),
+        )
     }
 
     pub fn connection_bar(&self) -> gtk::Widget {
@@ -879,7 +941,7 @@ async fn on_notebook_button_pressed(
         (2, 1, TabClick::Area) => {
             // double-click on a tabs area
             if let Some(dir) = file_selector.file_list().directory() {
-                file_selector.new_tab_with_dir(&dir, true);
+                file_selector.new_tab_with_dir(&dir, true, true);
             }
         }
         _ => {}

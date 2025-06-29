@@ -20,23 +20,11 @@
  * For more details see the file COPYING.
  */
 
-use crate::{
-    data::{GeneralOptions, GeneralOptionsRead, GeneralOptionsWrite},
-    main_win::{ffi::GnomeCmdMainWin, MainWindow},
-    user_actions::USER_ACTIONS,
-};
-use gtk::{
-    gdk,
-    glib::{
-        ffi::gboolean,
-        translate::{from_glib_none, FromGlib, ToGlibPtr},
-    },
-    prelude::*,
-};
+use crate::{main_win::MainWindow, user_actions::USER_ACTIONS};
+use gtk::{gdk, glib::translate::FromGlib, prelude::*};
 use std::{
     cell::RefCell,
     collections::{BTreeMap, BTreeSet},
-    ffi::c_char,
     rc::Rc,
 };
 
@@ -285,7 +273,8 @@ impl Shortcuts {
         // This is a bit controversial. Majority of actions to not accept arguments
         // and those which accept expect a specific variant and not an arbitrary
         // string.
-        if let Err(err) = mw.activate_action(
+        if let Err(err) = gtk::prelude::WidgetExt::activate_action(
+            mw.upcast_ref::<gtk::Widget>(),
             &format!("win.{}", call.action_name),
             call.action_data
                 .as_ref()
@@ -633,72 +622,4 @@ fn parse_key_from_old_name(name: &str) -> Option<gdk::Key> {
         "up" => Some(gdk::Key::Up),
         _ => None,
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_shortcuts_new() -> *mut Shortcuts {
-    let shortcuts = Box::new(Shortcuts::new());
-    Box::into_raw(shortcuts)
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_shortcuts_free(shortcuts_ptr: *mut Shortcuts) {
-    let shortcuts: Box<Shortcuts> = unsafe { Box::from_raw(shortcuts_ptr) };
-    drop(shortcuts);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_shortcuts_load_from_settings() -> *mut Shortcuts {
-    let options = GeneralOptions::new();
-    let variant = options.keybindings();
-
-    let shortcuts = Box::new(Shortcuts::new());
-    shortcuts.load(variant);
-
-    Box::into_raw(shortcuts)
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_shortcuts_save_to_settings(shortcuts_ptr: *mut Shortcuts) {
-    let shortcuts: &mut Shortcuts = unsafe { &mut *shortcuts_ptr };
-    let options = GeneralOptions::new();
-
-    let variant = shortcuts.save();
-    options.set_keybindings(&variant);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_shortcuts_handle_key_event(
-    shortcuts_ptr: *mut Shortcuts,
-    mw: *mut GnomeCmdMainWin,
-    keyval: u32,
-    mask: u32,
-) -> gboolean {
-    let shortcuts: &mut Shortcuts = unsafe { &mut *shortcuts_ptr };
-    let main_win: MainWindow = unsafe { from_glib_none(mw) };
-    let event = unsafe {
-        Shortcut {
-            key: gdk::Key::from_glib(keyval),
-            state: gdk::ModifierType::from_glib(mask),
-        }
-    };
-    let result = shortcuts.handle_key_event(&main_win, event);
-    result as gboolean
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_shortcuts_bookmark_shortcuts(
-    shortcuts_ptr: *mut Shortcuts,
-    bookmark_name: *const c_char,
-) -> *mut c_char {
-    let shortcuts: &mut Shortcuts = unsafe { &mut *shortcuts_ptr };
-    let bookmark_name: String = unsafe { from_glib_none(bookmark_name) };
-    let keys = shortcuts.bookmark_shortcuts(&bookmark_name);
-    let result = if keys.is_empty() {
-        None
-    } else {
-        let keys = keys.into_iter().map(|s| s.label()).collect::<Vec<_>>();
-        Some(keys.join(", "))
-    };
-    result.to_glib_full()
 }

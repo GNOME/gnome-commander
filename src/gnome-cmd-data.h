@@ -363,12 +363,10 @@ struct GnomeCmdData
   private:
 
     void load_auto_load_plugins();
-    void load_cmdline_history();
     void load_directory_history();
     gboolean save_auto_load_plugins();
     void load_connections();
     void save_connections();
-    void save_cmdline_history(GnomeCmdMainWin *main_win);
     void save_directory_history();
     void save_devices();
     gboolean add_bookmark_to_gvariant_builder(GVariantBuilder *builder, std::string bookmarkName, GnomeCmdCon *con);
@@ -381,8 +379,6 @@ struct GnomeCmdData
 
     guint                        gui_update_rate;
 
-    GStrv                        cmdline_history;
-    gint                         cmdline_history_length;
     GList                       *get_list_from_gsettings_string_array (GSettings *settings, const gchar *key);
     gboolean                     set_gsettings_string_array_from_glist (GSettings *settings, const gchar *key, GList *strings);
 

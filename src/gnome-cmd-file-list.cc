@@ -1133,9 +1133,8 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GnomeCmdFileList *fl)
 
     if (priv->realized)
     {
-        gtk_widget_set_sensitive (*fl, TRUE);
+        // gtk_widget_set_sensitive (*fl, TRUE);
         gtk_widget_set_cursor (*fl, nullptr);
-        gtk_widget_grab_focus (*fl);
     }
 
     if (priv->connected_dir!=dir)
@@ -1197,7 +1196,7 @@ static void on_dir_list_failed (GnomeCmdDir *dir, GError *error, GnomeCmdFileLis
     priv->connected_dir = nullptr;
     gnome_cmd_dir_unref (priv->cwd);
     gtk_widget_set_cursor (*fl, nullptr);
-    gtk_widget_set_sensitive (*fl, TRUE);
+    // gtk_widget_set_sensitive (*fl, TRUE);
 
     if (priv->lwd && priv->con == gnome_cmd_file_get_connection (GNOME_CMD_FILE (priv->lwd)))
     {
@@ -2291,7 +2290,7 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
 
     if (priv->realized && gnome_cmd_dir_get_state (dir) != GnomeCmdDir::STATE_LISTED)
     {
-        gtk_widget_set_sensitive (*this, FALSE);
+        // gtk_widget_set_sensitive (*this, FALSE);
         set_cursor_busy_for_widget (*this);
     }
 

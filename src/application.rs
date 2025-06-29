@@ -22,6 +22,7 @@ use gettextrs::gettext;
 use gtk::{gdk, gio, glib, prelude::*, subclass::prelude::*};
 
 pub mod ffi {
+    use crate::main_win::ffi::GnomeCmdMainWin;
     use std::ffi::c_char;
 
     pub type GnomeCmdApplication = <super::Application as glib::object::ObjectType>::GlibType;
@@ -31,14 +32,20 @@ pub mod ffi {
             application: *mut GnomeCmdApplication,
             debug_option: *mut c_char,
         );
-        pub fn gnome_cmd_application_activate(application: *mut GnomeCmdApplication);
+        pub fn gnome_cmd_application_activate(
+            application: *mut GnomeCmdApplication,
+            main_win: *mut GnomeCmdMainWin,
+        );
         pub fn gnome_cmd_application_shutdown();
     }
 }
 
 mod imp {
     use super::*;
-    use crate::config::{ICONS_DIR, PACKAGE};
+    use crate::{
+        config::{ICONS_DIR, PACKAGE},
+        main_win::MainWindow,
+    };
     use gtk::glib::translate::ToGlibPtr;
     use std::{cell::RefCell, path::PathBuf};
 
@@ -126,9 +133,24 @@ mod imp {
                 return;
             }
 
+            let main_win = MainWindow::new();
+            main_win.set_application(Some(&*self.obj()));
+            main_win.load_tabs(
+                self.start_left_dir.borrow().as_deref(),
+                self.start_right_dir.borrow().as_deref(),
+            );
+            let options = GeneralOptions::new();
+            main_win.load_command_line_history(&options);
+
             unsafe {
-                ffi::gnome_cmd_application_activate(self.obj().to_glib_none().0);
+                ffi::gnome_cmd_application_activate(
+                    self.obj().to_glib_none().0,
+                    main_win.to_glib_none().0,
+                );
             }
+
+            main_win.present();
+            main_win.set_current_panel(0);
         }
 
         fn shutdown(&self) {

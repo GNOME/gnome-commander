@@ -24,15 +24,13 @@
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-cmdline.h"
 
-#define GNOME_CMD_TYPE_MAIN_WIN              (gnome_cmd_main_win_get_type ())
-#define GNOME_CMD_MAIN_WIN(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_MAIN_WIN, GnomeCmdMainWin))
-#define GNOME_CMD_MAIN_WIN_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_MAIN_WIN, GnomeCmdMainWinClass))
-#define GNOME_CMD_IS_MAIN_WIN(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_MAIN_WIN))
-#define GNOME_CMD_IS_MAIN_WIN_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_MAIN_WIN))
-#define GNOME_CMD_MAIN_WIN_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_MAIN_WIN, GnomeCmdMainWinClass))
+
+struct GnomeCmdMainWin;
 
 
-extern "C" GType gnome_cmd_main_win_get_type ();
+extern "C" GnomeCmdFileSelector *gnome_cmd_main_win_get_fs(GnomeCmdMainWin *main_win, FileSelectorID id);
+extern "C" void gnome_cmd_main_win_update_view(GnomeCmdMainWin *main_win);
+extern "C" void gnome_cmd_main_win_focus_file_lists(GnomeCmdMainWin *main_win);
 
 
 struct GnomeCmdMainWin
@@ -41,42 +39,22 @@ struct GnomeCmdMainWin
 
   public:
 
-    void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_MAIN_WIN, NULL);  }
-    void operator delete (void *p)      {  g_object_unref (p);  }
-
-    operator GObject * () const         {  return G_OBJECT (this);         }
-    operator GActionGroup * () const    {  return G_ACTION_GROUP (this);   }
-    operator GtkWidget * () const       {  return GTK_WIDGET (this);       }
     operator GtkWindow * () const       {  return GTK_WINDOW (this);       }
 
-    GnomeCmdFileSelector *fs(FileSelectorID id);
+    GnomeCmdFileSelector *fs(FileSelectorID id)
+    {
+        return gnome_cmd_main_win_get_fs (this, id);
+    }
 
-    void change_connection(FileSelectorID id);
+    void focus_file_lists()
+    {
+        gnome_cmd_main_win_focus_file_lists (this);
+    }
 
-    void set_fs_directory_to_opposite(FileSelectorID fsID);
-
-    void focus_file_lists();
-    void refocus();
-
-    void update_view();
-    void update_show_toolbar();
-    void update_cmdline();
-
+    void update_view()
+    {
+        gnome_cmd_main_win_update_view (this);
+    }
 };
 
 extern GnomeCmdMainWin *main_win;
-
-extern "C" GnomeCmdFileSelector *gnome_cmd_main_win_get_fs(GnomeCmdMainWin *main_win, FileSelectorID id);
-
-extern "C" void gnome_cmd_main_win_change_connection(GnomeCmdMainWin *main_win, FileSelectorID id);
-
-extern "C" void gnome_cmd_main_win_focus_file_lists(GnomeCmdMainWin *main_win);
-
-extern "C" void gnome_cmd_main_win_update_view(GnomeCmdMainWin *main_win);
-
-extern "C" void gnome_cmd_main_win_switch_fs(GnomeCmdMainWin *main_win, GnomeCmdFileSelector *fs);
-
-extern "C" GnomeCmdCmdline *gnome_cmd_main_win_get_cmdline(GnomeCmdMainWin *main_win);
-
-struct GnomeCmdShortcuts;
-extern "C" GnomeCmdShortcuts *gnome_cmd_main_win_shortcuts(GnomeCmdMainWin *main_win);

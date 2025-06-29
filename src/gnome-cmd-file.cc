@@ -31,7 +31,6 @@
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-xfer.h"
 #include "intviewer/libgviewer.h"
-#include "gnome-cmd-user-actions.h"
 
 using namespace std;
 

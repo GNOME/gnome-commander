@@ -23,14 +23,12 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-data.h"
-#include "gnome-cmd-user-actions.h"
 #include "imageloader.h"
 
 
 using namespace std;
 
 
-GApplication *gnome_cmd_application = nullptr;
 GnomeCmdMainWin *main_win = nullptr;
 gchar *debug_flags = nullptr;
 
@@ -39,7 +37,6 @@ GnomeCmdIconCache *icon_cache = nullptr;
 
 extern "C" void gnome_cmd_application_startup(GApplication *application, gchar *debug_option)
 {
-    gnome_cmd_application = application;
     debug_flags = debug_option;
 
     /* Load Settings */
@@ -49,15 +46,10 @@ extern "C" void gnome_cmd_application_startup(GApplication *application, gchar *
 }
 
 
-extern "C" void gnome_cmd_application_activate(GApplication *application)
+extern "C" void gnome_cmd_application_activate(GApplication *application, GnomeCmdMainWin *mw)
 {
-    main_win = new GnomeCmdMainWin;
-    gtk_window_set_application (GTK_WINDOW (main_win), GTK_APPLICATION (application));
-    main_win->focus_file_lists();
-
+    main_win = mw;
     gnome_cmd_data.connect_signals(main_win);
-
-    gtk_window_present (*main_win);
 }
 
 

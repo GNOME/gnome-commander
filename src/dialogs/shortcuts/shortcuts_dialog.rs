@@ -284,7 +284,7 @@ impl Default for ShortcutsDialog {
 }
 
 impl ShortcutsDialog {
-    pub async fn run(parent: &gtk::Window, shortcuts: &mut Shortcuts) {
+    pub async fn run(parent: &gtk::Window, shortcuts: &Shortcuts) {
         let dialog = Self::default();
         dialog.set_transient_for(Some(parent));
         fill_model(&dialog.imp().store, shortcuts);
@@ -391,7 +391,7 @@ fn fill_model(model: &gio::ListStore, shotcuts: &Shortcuts) {
 
 fn shortcuts_from_model(
     model: &gio::ListStore,
-    shortcuts: &mut Shortcuts,
+    shortcuts: &Shortcuts,
 ) -> Result<(), Box<dyn Error>> {
     shortcuts.clear();
 
