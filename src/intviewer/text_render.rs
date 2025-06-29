@@ -27,14 +27,14 @@ use gtk::{
     glib::{
         self,
         ffi::GType,
-        translate::{from_glib_borrow, from_glib_none, Borrowed, IntoGlib, ToGlibPtr},
+        translate::{from_glib_borrow, Borrowed, IntoGlib, ToGlibPtr},
     },
     graphene,
     pango::{self, ffi::PangoFontDescription},
     prelude::*,
     subclass::prelude::*,
 };
-use std::{ffi::c_char, num::NonZeroU32, path::Path};
+use std::{num::NonZeroU32, path::Path};
 
 pub mod ffi {
     use super::*;
@@ -58,9 +58,6 @@ pub mod ffi {
         pub fn text_render_get_data_presentation(w: *mut TextRender) -> *mut GVDataPresentation;
 
         pub fn text_render_load_file(w: *mut TextRender, filename: *const c_char);
-
-        pub fn text_render_get_display_mode(w: *mut TextRender) -> super::TextRenderDisplayMode;
-        pub fn text_render_set_display_mode(w: *mut TextRender, mode: super::TextRenderDisplayMode);
 
         pub fn text_render_filter_undisplayable_chars(w: *mut TextRender);
         pub fn text_render_update_adjustments_limits(w: *mut TextRender);
@@ -138,6 +135,9 @@ mod imp {
         #[property(get, set = Self::set_vscroll_policy, override_interface = gtk::Scrollable)]
         vscroll_policy: Cell<gtk::ScrollablePolicy>,
 
+        #[property(get, set = Self::set_display_mode, builder(TextRenderDisplayMode::default()))]
+        display_mode: Cell<TextRenderDisplayMode>,
+
         pub fixed_font_name: String,
         #[property(get, set = Self::set_font_size)]
         font_size: Cell<u32>,
@@ -187,6 +187,7 @@ mod imp {
                 hscroll_policy: Cell::new(gtk::ScrollablePolicy::Minimum),
                 vscroll_policy: Cell::new(gtk::ScrollablePolicy::Minimum),
 
+                display_mode: Cell::default(),
                 fixed_font_name: String::from("Monospace"),
                 font_size: Cell::new(12),
                 tab_size: Cell::new(8),
@@ -521,6 +522,47 @@ mod imp {
             self.obj().queue_resize();
         }
 
+        fn set_display_mode(&self, mode: TextRenderDisplayMode) {
+            self.display_mode.set(mode);
+
+            let Some(dp) = self.obj().data_presentation() else {
+                return;
+            };
+            match mode {
+                TextRenderDisplayMode::Text => {
+                    dp.set_mode(if self.wrap_mode.get() {
+                        DataPresentationMode::Wrap
+                    } else {
+                        DataPresentationMode::NoWrap
+                    });
+                }
+                TextRenderDisplayMode::Binary => {
+                    // Binary display mode doesn't support UTF8
+                    // TODO: switch back to the previous encoding, not just ASCII
+                    //        input_mode.set_mode("ASCII");
+                    dp.set_fixed_count(self.fixed_limit.get());
+                    dp.set_mode(DataPresentationMode::BinaryFixed);
+                }
+                TextRenderDisplayMode::Hexdump => {
+                    // HEX display mode doesn't support UTF8
+                    // TODO: switch back to the previous encoding, not just ASCII
+                    //        input_mode.set_mode("ASCII");
+                    dp.set_fixed_count(HEXDUMP_FIXED_LIMIT);
+                    dp.set_mode(DataPresentationMode::BinaryFixed);
+                }
+            }
+            // self.obj().setup_current_font();
+            if let Some(hadjustment) = self.obj().hadjustment() {
+                hadjustment.set_value(0.0);
+            }
+            if let Some(vadjustment) = self.obj().vadjustment() {
+                vadjustment
+                    .set_value(dp.align_offset_to_line_start(self.obj().current_offset()) as f64);
+            }
+
+            self.obj().queue_draw();
+        }
+
         fn set_font_size(&self, font_size: u32) {
             self.font_size.set(font_size.max(4));
             self.obj().setup_current_font();
@@ -843,14 +885,6 @@ impl TextRender {
         }
     }
 
-    pub fn display_mode(&self) -> TextRenderDisplayMode {
-        unsafe { ffi::text_render_get_display_mode(self.to_glib_none().0) }
-    }
-
-    pub fn set_display_mode(&self, mode: TextRenderDisplayMode) {
-        unsafe { ffi::text_render_set_display_mode(self.to_glib_none().0, mode) }
-    }
-
     fn setup_current_font(&self) {
         self.setup_font(
             &self.imp().fixed_font_name,
@@ -901,21 +935,6 @@ pub extern "C" fn text_render_get_type() -> GType {
 }
 
 #[no_mangle]
-pub extern "C" fn text_render_setup_font(
-    w: *mut ffi::TextRender,
-    fontname: *const c_char,
-    fontsize: u32,
-) {
-    let w: Borrowed<TextRender> = unsafe { from_glib_borrow(w) };
-    let fontname: String = unsafe { from_glib_none(fontname) };
-    let Ok(fontsize) = fontsize.try_into() else {
-        eprintln!("Invalid font size: {fontsize}");
-        return;
-    };
-    w.setup_font(&fontname, fontsize);
-}
-
-#[no_mangle]
 pub extern "C" fn text_render_get_font_description(
     w: *mut ffi::TextRender,
 ) -> *mut PangoFontDescription {
@@ -962,9 +981,11 @@ fn get_max_char_width_and_height(
     )
 }
 
-#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+#[derive(Clone, Copy, Default, PartialEq, Eq, Debug, glib::Enum)]
+#[enum_type(name = "GnomeCmdTextRenderDisplayMode")]
 #[repr(C)]
 pub enum TextRenderDisplayMode {
+    #[default]
     Text = 0,
     Binary,
     Hexdump,

@@ -48,9 +48,6 @@ enum DISPLAYMODE
 
 extern "C" void text_render_load_file(TextRender *w, const gchar *filename);
 
-extern "C" void text_render_set_display_mode (TextRender *w, DISPLAYMODE mode);
-extern "C" DISPLAYMODE text_render_get_display_mode(TextRender *w);
-
 extern "C" ViewerFileOps *text_render_get_file_ops(TextRender *w);
 extern "C" GVInputModesData *text_render_get_input_mode_data(TextRender *w);
 extern "C" GVDataPresentation *text_render_get_data_presentation(TextRender *w);

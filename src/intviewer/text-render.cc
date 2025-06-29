@@ -53,9 +53,6 @@ struct TextRenderPrivate
     GVInputModesData *im;
     GVDataPresentation *dp;
 
-    DISPLAYMODE dispmode;
-    gchar *fixed_font_name;
-
     PangoLayout *layout;
 
     unsigned char *utf8buf;
@@ -68,7 +65,6 @@ struct TextRenderPrivate
 
 extern "C" void text_render_update_adjustments_limits(TextRender *w);
 static void text_render_free_data(TextRender *w);
-extern "C" void text_render_setup_font(TextRender*w, const gchar *fontname, guint fontsize);
 static void text_render_reserve_utf8buf(TextRender *w, int minlength);
 
 static void text_render_utf8_clear_buf(TextRender *w);
@@ -101,11 +97,7 @@ extern "C" void text_render_init (TextRender *w)
     auto priv = g_new0 (TextRenderPrivate, 1);
     g_object_set_data_full (G_OBJECT (w), "priv", priv, g_free);
 
-    priv->dispmode = DISPLAYMODE_TEXT;
-
     priv->utf8alloc = 0;
-
-    priv->fixed_font_name = g_strdup ("Monospace");
 
     priv->layout = gtk_widget_create_pango_layout (GTK_WIDGET (w), NULL);
 }
@@ -115,7 +107,6 @@ extern "C" void text_render_finalize (TextRender *w)
 {
     auto priv = text_render_priv (w);
 
-    g_clear_pointer (&priv->fixed_font_name, g_free);
     text_render_free_data(w);
     g_clear_pointer (&priv->utf8buf, g_free);
 }
@@ -174,7 +165,7 @@ static void text_render_internal_load(TextRender *w)
     gv_set_tab_size(priv->dp, tab_size);
     gv_set_data_presentation_mode(priv->dp, wrap_mode ? PRSNT_WRAP : PRSNT_NO_WRAP);
 
-    text_render_set_display_mode (w, DISPLAYMODE_TEXT);
+    g_object_set (w, "display-mode", DISPLAYMODE_TEXT, nullptr);
 
     text_render_update_adjustments_limits(w);
 }
@@ -349,79 +340,6 @@ static int text_render_utf8_print_char(TextRender *w, char_type value)
 
     priv->utf8buf_length = current_length;
     return current_length;
-}
-
-
-void  text_render_set_display_mode (TextRender *w, DISPLAYMODE mode)
-{
-    g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = text_render_priv (w);
-    g_return_if_fail (priv->fops!=NULL);
-    g_return_if_fail (priv->im!=NULL);
-    g_return_if_fail (priv->dp!=NULL);
-
-    if (mode == priv->dispmode)
-        return;
-
-    GtkAdjustment *h_adjustment, *v_adjustment;
-    gboolean wrapmode;
-    guint fixed_limit, font_size;
-    g_object_get (w,
-        "hadjustment", &h_adjustment,
-        "vadjustment", &v_adjustment,
-        "wrap-mode", &wrapmode,
-        "fixed-limit", &fixed_limit,
-        "font-size", &font_size,
-        nullptr);
-
-    gtk_adjustment_set_value (h_adjustment, 0);
-
-    switch (mode)
-    {
-    case DISPLAYMODE_TEXT:
-        gv_set_data_presentation_mode(priv->dp, wrapmode ? PRSNT_WRAP : PRSNT_NO_WRAP);
-        break;
-
-    case DISPLAYMODE_BINARY:
-
-        // Binary display mode doesn't support UTF8
-        // TODO: switch back to the previous encoding, not just ASCII
-        //        gv_set_input_mode(w->priv->im, "ASCII");
-
-        gv_set_fixed_count(priv->dp, fixed_limit);
-        gv_set_data_presentation_mode(priv->dp, PRSNT_BIN_FIXED);
-        break;
-
-    case DISPLAYMODE_HEXDUMP:
-
-        // HEX display mode doesn't support UTF8
-        // TODO: switch back to the previous encoding, not just ASCII
-        //        gv_set_input_mode(w->priv->im, "ASCII");
-
-        gv_set_fixed_count(priv->dp, HEXDUMP_FIXED_LIMIT);
-        gv_set_data_presentation_mode(priv->dp, PRSNT_BIN_FIXED);
-        break;
-
-    default:
-        break;
-    }
-
-    text_render_setup_font (w, priv->fixed_font_name, font_size);
-    priv->dispmode = mode;
-    auto current_offset = text_render_get_current_offset (w);
-    current_offset = gv_align_offset_to_line_start (priv->dp, current_offset);
-    gtk_adjustment_set_value (v_adjustment, current_offset);
-
-    gtk_widget_queue_draw (GTK_WIDGET (w));
-}
-
-
-DISPLAYMODE text_render_get_display_mode(TextRender *w)
-{
-    g_return_val_if_fail (IS_TEXT_RENDER (w), DISPLAYMODE_TEXT);
-    auto priv = text_render_priv (w);
-
-    return priv->dispmode;
 }
 
 
