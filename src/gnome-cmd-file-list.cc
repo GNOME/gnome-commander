@@ -1203,7 +1203,7 @@ static gint sort_by_owner (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
                          f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_UID), raising);
 #else
         ret = my_strcmp (f1->GetGfileAttributeString(G_FILE_ATTRIBUTE_OWNER_USER),
-                         f2->GetGfileAttributeString(G_FILE_ATTRIBUTE_OWNER_USER), raising)
+                         f2->GetGfileAttributeString(G_FILE_ATTRIBUTE_OWNER_USER), raising);
 #endif
         if (!ret)
             ret = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
@@ -1232,7 +1232,7 @@ static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
                          f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_GID), raising);
 #else
         ret = my_strcmp (f1->GetGfileAttributeString(G_FILE_ATTRIBUTE_OWNER_GROUP),
-                         f2->GetGfileAttributeString(G_FILE_ATTRIBUTE_OWNER_GROUP), raising)
+                         f2->GetGfileAttributeString(G_FILE_ATTRIBUTE_OWNER_GROUP), raising);
 #endif
         if (!ret)
             ret = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
