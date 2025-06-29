@@ -237,9 +237,13 @@ pub fn file_search(
     let options = ProgramsOptions::new();
 
     glib::spawn_future_local(async move {
+        let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+        let file_list = file_selector.file_list();
+
         if options.use_internal_search() {
+            let start_dir = file_list.directory();
             let dlg = main_win.get_or_create_search_dialog();
-            dlg.show_and_set_focus();
+            dlg.show_and_set_focus(start_dir.as_ref());
         } else {
             fn no_search_command_error() -> String {
                 format!(
@@ -249,8 +253,6 @@ pub fn file_search(
                 )
             }
 
-            let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
-            let file_list = file_selector.file_list();
             let files = file_list.selected_files();
             let error_message = match spawn_async(None, &files, &options.search_cmd()) {
                 Ok(_) => return,

@@ -1871,11 +1871,11 @@ void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl, gboolean forc
 }
 
 
-extern "C" void show_pattern_selection_dialog_r(GnomeCmdFileList *fl, gboolean mode, GnomeCmdData::SearchConfig *search_config);
+extern "C" void show_pattern_selection_dialog_r(GnomeCmdFileList *fl, gboolean mode);
 
 void gnome_cmd_file_list_show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode)
 {
-    show_pattern_selection_dialog_r(fl, mode, &gnome_cmd_data.search_defaults);
+    show_pattern_selection_dialog_r(fl, mode);
 }
 
 
@@ -2762,4 +2762,9 @@ void gnome_cmd_file_list_focus_file(GnomeCmdFileList *fl, const gchar *focus_fil
 void gnome_cmd_file_list_goto_directory(GnomeCmdFileList *fl, const gchar *dir)
 {
     fl->goto_directory(dir);
+}
+
+void gnome_cmd_file_list_update_style(GnomeCmdFileList *fl)
+{
+    fl->update_style();
 }

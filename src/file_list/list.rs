@@ -183,6 +183,8 @@ pub mod ffi {
         pub fn gnome_cmd_file_list_goto_directory(fl: *mut GnomeCmdFileList, dir: *const c_char);
 
         pub fn gnome_cmd_file_list_show_rename_dialog(fl: *mut GnomeCmdFileList);
+
+        pub fn gnome_cmd_file_list_update_style(fl: *mut GnomeCmdFileList);
     }
 }
 
@@ -233,6 +235,12 @@ impl FileList {
             .model()
             .and_then(|m| m.iter_n_children(None).try_into().ok())
             .unwrap_or_default()
+    }
+
+    pub fn clear(&self) {
+        if let Some(store) = self.tree_view().model().and_downcast::<gtk::ListStore>() {
+            store.clear();
+        }
     }
 
     pub fn visible_files(&self) -> glib::List<File> {
@@ -538,6 +546,10 @@ impl FileList {
                 popup.set_text(&initial_text);
             }
         }
+    }
+
+    pub fn update_style(&self) {
+        unsafe { ffi::gnome_cmd_file_list_update_style(self.to_glib_none().0) }
     }
 }
 

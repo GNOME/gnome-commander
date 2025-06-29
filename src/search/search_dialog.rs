@@ -17,25 +17,29 @@
  * For more details see the file COPYING.
  */
 
-use super::{profile::SearchProfile, selection_profile_component::SelectionProfileComponent};
+use super::{
+    profile::{SearchProfile, SearchProfilePtr},
+    selection_profile_component::SelectionProfileComponent,
+};
 use crate::{
     data::SearchConfig,
     dialogs::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager},
-    dir::ffi::GnomeCmdDir,
+    dir::{ffi::GnomeCmdDir, Directory},
     file::ffi::GnomeCmdFile,
+    libgcmd::file_descriptor::FileDescriptorExt,
+    tags::tags::FileMetadataService,
 };
 use gettextrs::{gettext, ngettext};
-use glib::translate::{from_glib_borrow, Borrowed};
 use gtk::{
     gio,
     glib::{
-        ffi::{gboolean, GType},
-        translate::{from_glib_none, IntoGlib, ToGlibPtr},
+        ffi::gboolean,
+        translate::{from_glib_borrow, Borrowed, ToGlibPtr},
     },
     prelude::*,
     subclass::prelude::*,
 };
-use std::{ffi::c_void, rc::Rc};
+use std::rc::Rc;
 
 struct SearchProfiles {
     profiles: gio::ListStore,
@@ -125,7 +129,7 @@ impl SearchProfiles {
 }
 
 struct SearchProfileManager {
-    config: SearchConfig,
+    config: Rc<SearchConfig>,
     profiles: SearchProfiles,
 }
 
@@ -167,8 +171,8 @@ impl ProfileManager for SearchProfileManager {
             &self.profiles.profile(profile_index).unwrap(),
             Some(labels_size_group),
         );
-        widget.set_name_patterns_history(self.config.name_patterns());
-        widget.set_content_patterns_history(self.config.content_patterns());
+        widget.set_name_patterns_history(&self.config.name_patterns());
+        widget.set_content_patterns_history(&self.config.content_patterns());
         widget.update();
         widget.grab_focus();
         widget.upcast()
@@ -200,8 +204,8 @@ mod imp {
         dir::Directory,
         file::File,
         file_list::list::FileList,
+        intviewer::search_dialog::gnome_cmd_viewer_search_text_add_to_history,
         select_directory_button::DirectoryButton,
-        tags::tags::FileMetadataService,
         utils::{dialog_button_box, display_help, ErrorMessage},
     };
     use std::cell::{OnceCell, RefCell};
@@ -210,6 +214,8 @@ mod imp {
     #[properties(wrapper_type = super::SearchDialog)]
     pub struct SearchDialog {
         pub labels_size_group: gtk::SizeGroup,
+
+        pub config: OnceCell<Rc<SearchConfig>>,
 
         #[property(get, construct_only)]
         pub file_metadata_service: OnceCell<FileMetadataService>,
@@ -230,6 +236,9 @@ mod imp {
         jump_button: gtk::Button,
         stop_button: gtk::Button,
         find_button: gtk::Button,
+
+        #[property(get, set, nullable)]
+        start_dir: RefCell<Option<Directory>>,
     }
 
     #[glib::object_subclass]
@@ -238,9 +247,28 @@ mod imp {
         type Type = super::SearchDialog;
         type ParentType = gtk::Window;
 
+        fn class_init(klass: &mut Self::Class) {
+            klass.install_action_async("search.save-profile", None, |obj, _, _| async move {
+                obj.imp().save_profile().await
+            });
+            klass.install_action_async("search.manage-profiles", None, |obj, _, _| async move {
+                obj.imp().manage_profiles().await
+            });
+            klass.install_action(
+                "search.load-profile",
+                Some(&u32::static_variant_type()),
+                |obj, _, param| {
+                    if let Some(profile_idx) = param.and_then(u32::from_variant) {
+                        obj.imp().load_profile(profile_idx);
+                    }
+                },
+            );
+        }
+
         fn new() -> Self {
             let labels_size_group = gtk::SizeGroup::new(gtk::SizeGroupMode::Horizontal);
             Self {
+                config: Default::default(),
                 file_metadata_service: Default::default(),
                 dir_browser: Default::default(),
                 profile_component: RefCell::new(SelectionProfileComponent::new(Some(
@@ -276,6 +304,8 @@ mod imp {
                     .build(),
 
                 labels_size_group,
+
+                start_dir: Default::default(),
             }
         }
     }
@@ -411,6 +441,18 @@ mod imp {
                 1,
             );
 
+            this.set_hide_on_close(true);
+            this.connect_hide(glib::clone!(
+                #[weak]
+                this,
+                move |_| {
+                    this.profile_component().copy();
+                    if let Some(file_list) = this.result_list() {
+                        file_list.clear();
+                    }
+                }
+            ));
+
             let options = GeneralOptions::new();
 
             remember_window_size(&*this, &options.0);
@@ -426,6 +468,90 @@ mod imp {
     impl DialogImpl for SearchDialog {}
 
     impl SearchDialog {
+        pub fn config(&self) -> Rc<SearchConfig> {
+            self.config.get().unwrap().clone()
+        }
+
+        pub fn update_profile_menu(&self) {
+            let menu = gio::Menu::new();
+            menu.append(
+                Some(&gettext("_Save Profile As…")),
+                Some("search.save-profile"),
+            );
+
+            let search_config = self.config();
+            let profiles = search_config.profiles();
+            let count = profiles.n_items();
+            if count > 0 {
+                menu.append(
+                    Some(&gettext("_Manage Profiles…")),
+                    Some("search.manage-profiles"),
+                );
+
+                let profiles_section = gio::Menu::new();
+                for (index, profile) in profiles.iter::<SearchProfile>().flatten().enumerate() {
+                    let item = gio::MenuItem::new(Some(&profile.name()), None);
+                    item.set_action_and_target_value(
+                        Some("search.load-profile"),
+                        Some(&(index as u32).to_variant()),
+                    );
+                    profiles_section.append_item(&item);
+                }
+                menu.append_section(None, &profiles_section);
+            }
+
+            self.obj().profile_menu_button().set_menu_model(Some(&menu));
+        }
+
+        async fn save_profile(&self) {
+            self.obj().profile_component().copy();
+            self.do_manage_profiles(true).await;
+        }
+
+        async fn manage_profiles(&self) {
+            self.do_manage_profiles(false).await;
+        }
+
+        async fn do_manage_profiles(&self, new_profile: bool) {
+            let config = self.config();
+
+            let profiles = SearchProfiles::new(&config, new_profile);
+
+            if new_profile {
+                let last_index = profiles.len() - 1;
+                profiles.set_profile_name(last_index, &gettext("New profile"));
+            }
+
+            let manager = Rc::new(SearchProfileManager { config, profiles });
+
+            if manage_profiles(
+                self.obj().upcast_ref(),
+                &manager,
+                &gettext("Profiles"),
+                Some("gnome-commander-search"),
+                new_profile,
+            )
+            .await
+            {
+                let profiles = manager.profiles.clone();
+                manager.config.set_profiles(&profiles.profiles);
+                self.update_profile_menu();
+            }
+        }
+
+        fn load_profile(&self, profile_idx: u32) {
+            let config = self.config();
+            let Some(profile) = config
+                .profiles()
+                .item(profile_idx)
+                .and_downcast::<SearchProfile>()
+            else {
+                return;
+            };
+            config.default_profile().copy_from(&profile);
+            self.obj().profile_component().update();
+        }
+
         fn selected_file(&self) -> Option<File> {
             let result_list = self.obj().result_list()?;
             let file = result_list.selected_file()?;
@@ -536,6 +662,29 @@ mod imp {
                 }
             }
         }
+
+        pub fn save_default_settings(&self) {
+            let profile_component = self.obj().profile_component();
+            let config = self.config();
+            let default_profile = config.default_profile();
+
+            profile_component.copy();
+
+            let filename_pattern = default_profile.filename_pattern();
+            if !filename_pattern.is_empty() {
+                config.add_name_pattern(&filename_pattern);
+                profile_component.set_name_patterns_history(&config.name_patterns());
+            }
+
+            if default_profile.content_search() {
+                let text_pattern = default_profile.text_pattern();
+                if !text_pattern.is_empty() {
+                    config.add_content_pattern(&text_pattern);
+                    gnome_cmd_viewer_search_text_add_to_history(&text_pattern);
+                    profile_component.set_content_patterns_history(&config.content_patterns());
+                }
+            }
+        }
     }
 }
 
@@ -545,23 +694,49 @@ glib::wrapper! {
 }
 
 impl SearchDialog {
-    pub fn show_and_set_focus(&self) {
-        unsafe { gnome_cmd_search_dialog_show_and_set_focus(self.to_glib_none().0) }
+    pub fn new(
+        config: Rc<SearchConfig>,
+        file_metadata_service: &FileMetadataService,
+        parent_window: Option<&gtk::Window>,
+    ) -> Self {
+        let this: Self = glib::Object::builder()
+            .property("file-metadata-service", file_metadata_service)
+            .build();
+        this.set_transient_for(parent_window);
+        this.imp().config.set(config.clone()).ok().unwrap();
+        this.imp().update_profile_menu();
+
+        let profile_component = this.profile_component();
+        profile_component.set_profile(Some(config.default_profile()));
+        profile_component.set_name_patterns_history(&config.name_patterns());
+        profile_component.set_content_patterns_history(&config.content_patterns());
+        profile_component.grab_focus();
+
+        this
+    }
+
+    pub fn show_and_set_focus(&self, start_dir: Option<&Directory>) {
+        self.present();
+        self.profile_component().grab_focus();
+
+        self.profile_component().update();
+        self.set_start_dir(start_dir);
+
+        self.dir_browser().set_file(start_dir.map(|d| d.file()));
+    }
+
+    pub fn update_style(&self) {
+        if let Some(fl) = self.result_list() {
+            fl.update_style();
+        }
     }
 }
 
 pub type GnomeCmdSearchDialog = <SearchDialog as glib::object::ObjectType>::GlibType;
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_search_dialog_get_type() -> GType {
-    SearchDialog::static_type().into_glib()
-}
-
 extern "C" {
     fn gnome_cmd_search_dialog_init(dialog: *mut GnomeCmdSearchDialog);
     fn gnome_cmd_search_dialog_dispose(dialog: *mut GnomeCmdSearchDialog);
-    fn gnome_cmd_search_dialog_update_profile_menu(dialog: *mut GnomeCmdSearchDialog);
-    fn gnome_cmd_search_dialog_show_and_set_focus(dialog: *mut GnomeCmdSearchDialog);
 
     fn gnome_cmd_search_dialog_goto(dialog: *mut GnomeCmdSearchDialog, file: *mut GnomeCmdFile);
     fn gnome_cmd_search_dialog_stop(dialog: *mut GnomeCmdSearchDialog);
@@ -569,6 +744,14 @@ extern "C" {
         dialog: *mut GnomeCmdSearchDialog,
         start_dir: *mut GnomeCmdDir,
     ) -> gboolean;
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_search_dialog_get_default_profile(
+    dialog_ptr: *mut GnomeCmdSearchDialog,
+) -> *mut SearchProfilePtr {
+    let dialog: Borrowed<SearchDialog> = unsafe { from_glib_borrow(dialog_ptr) };
+    dialog.imp().config().default_profile().to_glib_none().0
 }
 
 #[no_mangle]
@@ -581,40 +764,11 @@ pub extern "C" fn gnome_cmd_search_dialog_search_finished(
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_search_dialog_do_manage_profiles(
+pub extern "C" fn gnome_cmd_search_dialog_save_default_settings(
     dialog_ptr: *mut GnomeCmdSearchDialog,
-    cfg_ptr: *mut c_void,
-    new_profile: gboolean,
 ) {
-    let dialog: SearchDialog = unsafe { from_glib_none(dialog_ptr) };
-    let config = unsafe { SearchConfig::from_ptr(cfg_ptr) };
-
-    glib::spawn_future_local(async move {
-        let profiles = SearchProfiles::new(&config, new_profile != 0);
-
-        if new_profile != 0 {
-            let last_index = profiles.len() - 1;
-            profiles.set_profile_name(last_index, &gettext("New profile"));
-        }
-
-        let manager = Rc::new(SearchProfileManager { config, profiles });
-
-        if manage_profiles(
-            dialog.upcast_ref(),
-            &manager,
-            &gettext("Profiles"),
-            Some("gnome-commander-search"),
-            new_profile != 0,
-        )
-        .await
-        {
-            let profiles = manager.profiles.clone();
-            config.set_profiles(&profiles.profiles);
-            unsafe {
-                gnome_cmd_search_dialog_update_profile_menu(dialog_ptr);
-            }
-        }
-    });
+    let dialog: Borrowed<SearchDialog> = unsafe { from_glib_borrow(dialog_ptr) };
+    dialog.imp().save_default_settings();
 }
 
 fn remember_window_size(dialog: &SearchDialog, settings: &gio::Settings) {

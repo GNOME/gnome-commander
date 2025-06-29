@@ -19,18 +19,13 @@
 
 use super::file_metadata::FileMetadata;
 use crate::{
-    file::{ffi::GnomeCmdFile, File},
+    file::File,
     libgcmd::file_metadata_extractor::{FileMetadataExtractor, FileMetadataExtractorExt},
     plugin_manager::PluginManager,
 };
 use gtk::{
     gio,
-    glib::{
-        self,
-        prelude::*,
-        subclass::prelude::*,
-        translate::{from_glib_borrow, Borrowed},
-    },
+    glib::{self, prelude::*, subclass::prelude::*},
 };
 use indexmap::IndexMap;
 use std::borrow::Cow;
@@ -227,15 +222,4 @@ impl FileMetadataService {
         }
         tsv
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_metadata_service_extract_metadata(
-    fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
-    f: *mut GnomeCmdFile,
-) -> *mut FileMetadata {
-    let fms: Borrowed<FileMetadataService> = unsafe { from_glib_borrow(fms) };
-    let f: Borrowed<File> = unsafe { from_glib_borrow(f) };
-    let metadata = Box::new(fms.extract_metadata(&*f));
-    Box::leak(metadata)
 }

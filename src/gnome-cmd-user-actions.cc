@@ -35,7 +35,6 @@
 #include "gnome-cmd-dir-indicator.h"
 #include "utils.h"
 #include "dialogs/gnome-cmd-mkdir-dialog.h"
-#include "dialogs/gnome-cmd-search-dialog.h"
 
 using namespace std;
 
@@ -45,28 +44,10 @@ using namespace std;
  ***********************************/
 
 #define GNOME_CMD_USER_ACTION(f)       extern "C" void f(GSimpleAction *action, GVariant *parameter, gpointer user_data)
-#define GNOME_CMD_USER_ACTION_TGL(f)   extern "C" void f(GSimpleAction *action, GVariant *parameter, gpointer user_data)
 
 /************** File Menu **************/
-GNOME_CMD_USER_ACTION(file_copy);
-GNOME_CMD_USER_ACTION(file_copy_as);
-GNOME_CMD_USER_ACTION(file_move);
 GNOME_CMD_USER_ACTION(file_delete);
-GNOME_CMD_USER_ACTION(file_view);
-GNOME_CMD_USER_ACTION(file_internal_view);
-GNOME_CMD_USER_ACTION(file_external_view);
-GNOME_CMD_USER_ACTION(file_edit);
-GNOME_CMD_USER_ACTION(file_edit_new_doc);
-GNOME_CMD_USER_ACTION(file_quick_search);
-GNOME_CMD_USER_ACTION(file_chmod);
-GNOME_CMD_USER_ACTION(file_chown);
 GNOME_CMD_USER_ACTION(file_mkdir);
-GNOME_CMD_USER_ACTION(file_properties);
-GNOME_CMD_USER_ACTION(file_diff);
-GNOME_CMD_USER_ACTION(file_sync_dirs);
-GNOME_CMD_USER_ACTION(file_rename);
-GNOME_CMD_USER_ACTION(file_create_symlink);
-GNOME_CMD_USER_ACTION(file_sendto);
 GNOME_CMD_USER_ACTION(file_exit);
 
 /************** Mark Menu **************/
@@ -105,10 +86,8 @@ GNOME_CMD_USER_ACTION(view_step_up);
 GNOME_CMD_USER_ACTION(view_step_down);
 
 /************** Bookmarks Menu **************/
-GNOME_CMD_USER_ACTION(bookmarks_add_current);
-GNOME_CMD_USER_ACTION(bookmarks_edit);
-GNOME_CMD_USER_ACTION(bookmarks_goto);
 GNOME_CMD_USER_ACTION(bookmarks_view);
+
 
 static GnomeCmdFileList *get_fl (GnomeCmdMainWin *main_win, const FileSelectorID fsID)
 {

@@ -63,6 +63,8 @@ struct GnomeCmdFileSelectorPrivate
  * Utility functions
  *******************************/
 
+struct GnomeCmdFileMetadataService;
+
 extern "C" gboolean mime_exec_file (GtkWindow *parent_window, GnomeCmdFile *f);
 extern "C" GType gnome_cmd_connection_bar_get_type();
 extern "C" gchar *gnome_cmd_file_list_stats(GnomeCmdFileList *list);
@@ -920,4 +922,9 @@ void gnome_cmd_file_selector_activate_connection_list (GnomeCmdFileSelector *fs)
         g_signal_emit_by_name (priv->con_dropdown, "activate");
         gtk_widget_grab_focus (priv->con_dropdown);
     }
+}
+
+void gnome_cmd_file_selector_update_style (GnomeCmdFileSelector *fs)
+{
+    fs->update_style();
 }

@@ -33,7 +33,5 @@ extern "C" gboolean gnome_cmd_cmdline_is_empty (GnomeCmdCmdline *cmdline);
 
 extern "C" void gnome_cmd_cmdline_exec (GnomeCmdCmdline *cmdline);
 
-extern "C" void gnome_cmd_cmdline_update_style (GnomeCmdCmdline *cmdline);
-
 extern "C" GStrv gnome_cmd_cmdline_get_history (GnomeCmdCmdline *cmdline);
 extern "C" void gnome_cmd_cmdline_show_history (GnomeCmdCmdline *cmdline);

@@ -216,9 +216,10 @@ extern "C" void gnome_cmd_advanced_rename_profile_reset (AdvancedRenameProfile *
 
 struct GnomeCmdConRemote;
 
-extern "C" GType gnome_cmd_search_profile_get_type();
+
 struct SearchProfile;
-extern "C" void gnome_cmd_search_profile_copy_from(SearchProfile *dst, SearchProfile *src);
+struct SearchConfig;
+
 
 struct GnomeCmdData
 {
@@ -247,7 +248,7 @@ struct GnomeCmdData
         TAB_LOCK_STYLED_TEXT
     }TabLockIndicator;
 
-    enum {SEARCH_HISTORY_SIZE=10, ADVRENAME_HISTORY_SIZE=10};
+    enum {ADVRENAME_HISTORY_SIZE=10};
 
     struct Options
     {
@@ -353,29 +354,6 @@ struct GnomeCmdData
         void on_size_display_mode_changed();
     };
 
-    struct SearchConfig
-    {
-        SearchProfile *default_profile;
-
-        History name_patterns;
-        History content_patterns;
-
-        GListStore *profiles; // SearchProfile's
-
-        explicit SearchConfig():
-            name_patterns(SEARCH_HISTORY_SIZE),
-            content_patterns(SEARCH_HISTORY_SIZE)
-        {
-            default_profile = (SearchProfile *) g_object_new (gnome_cmd_search_profile_get_type (), "name", "Default", nullptr);
-            profiles = g_list_store_new (gnome_cmd_search_profile_get_type ());
-        }
-
-        ~SearchConfig() {
-            g_object_unref(default_profile);
-            g_object_unref(profiles);
-        };
-    };
-
     static GSettingsSchemaSource* GetGlobalSchemaSource();
 
     struct Private;
@@ -392,7 +370,6 @@ struct GnomeCmdData
     void save_connections();
     void save_cmdline_history(GnomeCmdMainWin *main_win);
     void save_directory_history();
-    void save_search_history();
     void save_devices();
     gboolean add_bookmark_to_gvariant_builder(GVariantBuilder *builder, std::string bookmarkName, GnomeCmdCon *con);
 
@@ -401,7 +378,6 @@ struct GnomeCmdData
     Options                      options;
     GcmdSettings                 *settings {nullptr};
 
-    SearchConfig                 search_defaults;
 
     guint                        gui_update_rate;
 

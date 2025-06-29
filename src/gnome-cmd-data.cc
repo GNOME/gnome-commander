@@ -506,33 +506,8 @@ void GnomeCmdData::Options::set_color_mode(GnomeCmdColorMode color_mode)
 }
 
 
-extern "C" GList *gnome_cmd_search_config_get_name_patterns(GnomeCmdData::SearchConfig *search_config)
-{
-    return search_config->name_patterns.ents;
-}
-
-extern "C" void gnome_cmd_search_config_add_name_pattern(GnomeCmdData::SearchConfig *search_config, const gchar *p)
-{
-    search_config->name_patterns.add(p);
-}
-
-extern "C" GList *gnome_cmd_search_config_get_content_patterns(GnomeCmdData::SearchConfig *search_config)
-{
-    return search_config->content_patterns.ents;
-}
-
-extern "C" SearchProfile *gnome_cmd_search_config_get_default_profile(GnomeCmdData::SearchConfig *search_config)
-{
-    return search_config->default_profile;
-}
-
-extern "C" GListStore *gnome_cmd_search_config_get_profiles(GnomeCmdData::SearchConfig *search_config)
-{
-    return search_config->profiles;
-}
-
-extern "C" void gnome_cmd_search_config_load(GnomeCmdData::SearchConfig *search_config);
-extern "C" void gnome_cmd_search_config_save(GnomeCmdData::SearchConfig *search_config, gboolean save_search_history);
+extern "C" void gnome_cmd_search_config_load();
+extern "C" void gnome_cmd_search_config_save();
 
 
 void GnomeCmdData::save_bookmarks()
@@ -642,31 +617,6 @@ void GnomeCmdData::save_directory_history()
     {
         GVariant* dirHistoryToStore = g_settings_get_default_value (options.gcmd_settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY);
         g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY, dirHistoryToStore);
-    }
-}
-
-
-void GnomeCmdData::save_search_history()
-{
-    if (options.save_search_history_on_exit)
-    {
-        set_gsettings_string_array_from_glist(
-            options.gcmd_settings->general,
-            GCMD_SETTINGS_SEARCH_PATTERN_HISTORY,
-            search_defaults.name_patterns.ents);
-
-        set_gsettings_string_array_from_glist(
-            options.gcmd_settings->general,
-            GCMD_SETTINGS_SEARCH_TEXT_HISTORY,
-            search_defaults.content_patterns.ents);
-    }
-    else
-    {
-        GVariant* searchHistoryToStore = g_settings_get_default_value (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_PATTERN_HISTORY);
-        g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_PATTERN_HISTORY, searchHistoryToStore);
-
-        searchHistoryToStore = g_settings_get_default_value (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_TEXT_HISTORY);
-        g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_TEXT_HISTORY, searchHistoryToStore);
     }
 }
 
@@ -813,8 +763,6 @@ void GnomeCmdData::load()
     options.save_cmdline_history_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_CMDLINE_HISTORY_ON_EXIT);
     options.save_search_history_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_SEARCH_HISTORY_ON_EXIT);
     options.search_window_is_transient = g_settings_get_boolean(options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_WIN_IS_TRANSIENT);
-    search_defaults.content_patterns.ents = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_TEXT_HISTORY);
-    search_defaults.name_patterns.ents = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_PATTERN_HISTORY);
 
     load_cmdline_history();
 
@@ -823,7 +771,7 @@ void GnomeCmdData::load()
 
     gnome_cmd_con_list_lock (priv->con_list);
     load_devices();
-    gnome_cmd_search_config_load(&search_defaults);
+    gnome_cmd_search_config_load();
     load_connections        ();
     load_bookmarks          ();
     load_directory_history  ();
@@ -882,8 +830,7 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     save_devices                    ();
     save_cmdline_history            (main_win);
     save_directory_history          ();
-    save_search_history             ();
-    gnome_cmd_search_config_save(&search_defaults, options.save_search_history_on_exit);
+    gnome_cmd_search_config_save();
     save_connections                ();
     save_bookmarks                  ();
 

@@ -43,7 +43,6 @@ using namespace std;
 
 struct GnomeCmdMainWinPrivate
 {
-    GWeakRef file_search_dlg;
 
     bool state_saved;
     GnomeCmdShortcuts *gcmd_shortcuts;
@@ -59,6 +58,7 @@ extern "C" void gnome_cmd_main_win_update_drop_con_button (GnomeCmdMainWin *main
 extern "C" GnomeCmdFileSelector *gnome_cmd_main_win_get_fs (GnomeCmdMainWin *main_win, FileSelectorID id);
 extern "C" void gnome_cmd_main_win_swap_panels (GnomeCmdMainWin *main_win);
 extern "C" void gnome_cmd_main_win_show_slide_popup (GnomeCmdMainWin *main_win);
+extern "C" void gnome_cmd_main_win_update_style(GnomeCmdMainWin *main_win);
 
 
 static gboolean on_key_pressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data);
@@ -140,7 +140,6 @@ extern "C" void gnome_cmd_main_win_dispose (GnomeCmdMainWin *main_win)
         priv->state_saved = true;
     }
 
-    g_weak_ref_set (&priv->file_search_dlg, nullptr);
 }
 
 
@@ -149,7 +148,6 @@ extern "C" void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     auto priv = g_new0 (GnomeCmdMainWinPrivate, 1);
     g_object_set_data_full (G_OBJECT (mw), "priv", priv, g_free);
 
-    priv->file_search_dlg = { { nullptr } };
     priv->state_saved = false;
     priv->gcmd_shortcuts = gnome_cmd_shortcuts_load_from_settings ();
 
@@ -181,26 +179,7 @@ GnomeCmdFileSelector *GnomeCmdMainWin::fs(FileSelectorID id)
 
 void GnomeCmdMainWin::update_view()
 {
-    update_style();
-}
-
-
-void GnomeCmdMainWin::update_style()
-{
-    auto priv = gnome_cmd_main_win_priv (this);
-    g_return_if_fail (priv != NULL);
-
-    fs(LEFT)->update_style();
-    fs(RIGHT)->update_style();
-
-    auto cmdline = gnome_cmd_main_win_get_cmdline (this);
-    gnome_cmd_cmdline_update_style (cmdline);
-
-    if (auto file_search_dlg = static_cast<GnomeCmdSearchDialog*>(g_weak_ref_get (&priv->file_search_dlg)))
-    {
-        gnome_cmd_search_dialog_update_style (file_search_dlg);
-        g_object_unref (file_search_dlg);
-    }
+    gnome_cmd_main_win_update_style(this);
 }
 
 
@@ -453,21 +432,6 @@ void GnomeCmdMainWin::update_cmdline()
     gchar *dpath = gnome_cmd_dir_get_display_path (fs(ACTIVE)->get_directory());
     gnome_cmd_cmdline_set_dir (cmdline, dpath);
     g_free (dpath);
-}
-
-
-GnomeCmdSearchDialog *gnome_cmd_main_win_get_or_create_search_dialog (GnomeCmdMainWin *main_win)
-{
-    auto priv = gnome_cmd_main_win_priv (main_win);
-    auto dlg = static_cast<GnomeCmdSearchDialog*>(g_weak_ref_get (&priv->file_search_dlg));
-    if (!dlg)
-    {
-        dlg = gnome_cmd_search_dialog_new (&gnome_cmd_data.search_defaults,
-            gnome_cmd_main_win_get_file_metadata_service (main_win),
-            gnome_cmd_data.options.search_window_is_transient ? GTK_WINDOW (main_win) : nullptr);
-        g_weak_ref_set (&priv->file_search_dlg, dlg);
-    }
-    return dlg;
 }
 
 

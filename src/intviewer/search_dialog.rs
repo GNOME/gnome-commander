@@ -18,9 +18,8 @@
  */
 
 use gettextrs::gettext;
-use glib::translate::from_glib_none;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
-use std::{ffi::c_char, fmt};
+use std::fmt;
 
 const GCMD_INTERNAL_VIEWER: &str = "org.gnome.gnome-commander.preferences.internal-viewer";
 const GCMD_SETTINGS_IV_CASE_SENSITIVE: &str = "case-sensitive-search";
@@ -374,11 +373,9 @@ fn add_to_history(settings: &gio::Settings, key: &str, value: &str) -> Result<()
     settings.set_strv(key, history)
 }
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_viewer_search_text_add_to_history(value: *const c_char) {
-    let value: String = unsafe { from_glib_none(value) };
+pub fn gnome_cmd_viewer_search_text_add_to_history(value: &str) {
     let settings = gio::Settings::new(GCMD_INTERNAL_VIEWER);
-    if let Err(error) = add_to_history(&settings, GCMD_SETTINGS_IV_SEARCH_PATTERN_TEXT, &value) {
+    if let Err(error) = add_to_history(&settings, GCMD_SETTINGS_IV_SEARCH_PATTERN_TEXT, value) {
         eprintln!("Failed to save search history: {error}");
     }
 }

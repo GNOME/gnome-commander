@@ -19,16 +19,7 @@
 
 use super::profile::SearchProfile;
 use gettextrs::{gettext, ngettext};
-use gtk::{
-    gio,
-    glib::{
-        self,
-        ffi::{GList, GType},
-        translate::{from_glib_borrow, Borrowed, IntoGlib},
-    },
-    prelude::*,
-    subclass::prelude::*,
-};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
@@ -305,7 +296,7 @@ impl SelectionProfileComponent {
         profile.set_match_case(content_search && self.imp().case_check.is_active());
     }
 
-    pub fn set_name_patterns_history(&self, history: glib::List<glib::GStringPtr>) {
+    pub fn set_name_patterns_history(&self, history: &[String]) {
         let model = &self.imp().pattern_model;
 
         model.clear();
@@ -316,7 +307,7 @@ impl SelectionProfileComponent {
         self.imp().pattern_combo.set_active(Some(0));
     }
 
-    pub fn set_content_patterns_history(&self, history: glib::List<glib::GStringPtr>) {
+    pub fn set_content_patterns_history(&self, history: &[String]) {
         let model = &self.imp().find_text_model;
 
         model.clear();
@@ -325,45 +316,4 @@ impl SelectionProfileComponent {
             model.set_value(&iter, 0, &entry.to_value());
         }
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_selection_profile_component_get_type() -> GType {
-    SelectionProfileComponent::static_type().into_glib()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_search_profile_component_update(
-    component: *mut <SelectionProfileComponent as glib::object::ObjectType>::GlibType,
-) {
-    let component: Borrowed<SelectionProfileComponent> = unsafe { from_glib_borrow(component) };
-    component.update();
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_search_profile_component_copy(
-    component: *mut <SelectionProfileComponent as glib::object::ObjectType>::GlibType,
-) {
-    let component: Borrowed<SelectionProfileComponent> = unsafe { from_glib_borrow(component) };
-    component.copy();
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_search_profile_component_set_name_patterns_history(
-    component: *mut <SelectionProfileComponent as glib::object::ObjectType>::GlibType,
-    history: *mut GList,
-) {
-    let component: Borrowed<SelectionProfileComponent> = unsafe { from_glib_borrow(component) };
-    let history: glib::List<glib::GStringPtr> = unsafe { glib::List::from_glib_none(history) };
-    component.set_name_patterns_history(history);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_search_profile_component_set_content_patterns_history(
-    component: *mut <SelectionProfileComponent as glib::object::ObjectType>::GlibType,
-    history: *mut GList,
-) {
-    let component: Borrowed<SelectionProfileComponent> = unsafe { from_glib_borrow(component) };
-    let history: glib::List<glib::GStringPtr> = unsafe { glib::List::from_glib_none(history) };
-    component.set_content_patterns_history(history);
 }

@@ -237,3 +237,5 @@ extern "C" void gnome_cmd_file_list_set_connection(GnomeCmdFileList *fl, GnomeCm
 extern "C" void gnome_cmd_file_list_focus_file(GnomeCmdFileList *fl, const gchar *focus_file, gboolean scroll_to_file);
 
 extern "C" void gnome_cmd_file_list_goto_directory(GnomeCmdFileList *fl, const gchar *dir);
+
+extern "C" void gnome_cmd_file_list_update_style(GnomeCmdFileList *fl);
