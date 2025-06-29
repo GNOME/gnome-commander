@@ -105,46 +105,6 @@ extern "C" void text_render_finalize (TextRender *w)
 }
 
 
-void text_render_update_adjustments_limits(TextRender *w)
-{
-    g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = text_render_priv (w);
-
-    auto fops = text_render_get_file_ops (w);
-    if (!fops)
-        return;
-
-    auto dp = text_render_get_data_presentation (w);
-
-    GtkAdjustment *h_adjustment, *v_adjustment;
-    guint max_column, chars_per_line;
-    g_object_get (w,
-        "hadjustment", &h_adjustment,
-        "vadjustment", &v_adjustment,
-        "max-column", &max_column,
-        "chars-per-line", &chars_per_line,
-        nullptr);
-
-    if (v_adjustment)
-    {
-        gtk_adjustment_set_lower (v_adjustment, 0);
-        gtk_adjustment_set_upper (v_adjustment, gv_file_get_max_offset(fops)-1);
-    }
-
-    if (h_adjustment)
-    {
-        gtk_adjustment_set_step_increment (h_adjustment, 1);
-        gtk_adjustment_set_page_increment (h_adjustment, 5);
-        gtk_adjustment_set_page_size (h_adjustment, chars_per_line);
-        gtk_adjustment_set_lower (h_adjustment, 0);
-        if (gv_get_data_presentation_mode(dp)==PRSNT_NO_WRAP)
-            gtk_adjustment_set_upper (h_adjustment, max_column); // TODO: find our the real horz limit
-        else
-            gtk_adjustment_set_upper (h_adjustment, 0);
-    }
-}
-
-
 extern "C" void text_render_filter_undisplayable_chars(TextRender *obj)
 {
     auto priv = text_render_priv (obj);

@@ -50,11 +50,7 @@ pub mod ffi {
         pub fn text_render_init(w: *mut TextRender);
         pub fn text_render_finalize(w: *mut TextRender);
 
-        pub fn text_render_get_current_offset(w: *mut TextRender) -> u64;
-        pub fn text_render_get_column(w: *mut TextRender) -> i32;
-
         pub fn text_render_filter_undisplayable_chars(w: *mut TextRender);
-        pub fn text_render_update_adjustments_limits(w: *mut TextRender);
 
         pub fn text_mode_display_line(
             w: *mut TextRender,
@@ -418,23 +414,7 @@ mod imp {
 
             let adjustment = adjustment.unwrap_or_default();
             self.hadjustment.replace(Some(adjustment.clone()));
-
-            adjustment.set_lower(0.0);
-            adjustment.set_upper(
-                if self
-                    .obj()
-                    .data_presentation()
-                    .map_or(false, |dp| dp.mode() == DataPresentationMode::NoWrap)
-                {
-                    // TODO: find our the real horz limit
-                    self.max_column.get() as f64
-                } else {
-                    0.0
-                },
-            );
-            adjustment.set_step_increment(1.0);
-            adjustment.set_page_increment(5.0);
-            adjustment.set_page_size(self.chars_per_line.get() as f64);
+            self.update_hadjustment_limits(&adjustment);
 
             self.hadjustment_handler_ids
                 .borrow_mut()
@@ -468,17 +448,7 @@ mod imp {
 
             let adjustment = adjustment.unwrap_or_default();
             self.vadjustment.replace(Some(adjustment.clone()));
-
-            adjustment.set_lower(0.0);
-            adjustment.set_upper(
-                self.obj()
-                    .file_ops()
-                    .and_then(|f| f.max_offset().checked_sub(1))
-                    .unwrap_or_default() as f64,
-            );
-            adjustment.set_step_increment(1.0);
-            adjustment.set_page_increment(10.0);
-            adjustment.set_page_size(10.0);
+            self.update_vadjustment_limits(&adjustment);
 
             self.vadjustment_handler_ids
                 .borrow_mut()
@@ -511,6 +481,47 @@ mod imp {
 
             self.obj().emit_text_status_changed();
             self.obj().queue_draw();
+        }
+
+        pub fn update_adjustments_limits(&self) {
+            if let Some(vadjustment) = self.obj().vadjustment() {
+                self.update_vadjustment_limits(&vadjustment);
+            }
+            if let Some(hadjustment) = self.obj().hadjustment() {
+                self.update_hadjustment_limits(&hadjustment);
+            }
+        }
+
+        fn update_hadjustment_limits(&self, adjustment: &gtk::Adjustment) {
+            adjustment.set_lower(0.0);
+            adjustment.set_upper(
+                if self
+                    .obj()
+                    .data_presentation()
+                    .map_or(false, |dp| dp.mode() == DataPresentationMode::NoWrap)
+                {
+                    // TODO: find our the real horz limit
+                    self.max_column.get() as f64
+                } else {
+                    0.0
+                },
+            );
+            adjustment.set_step_increment(1.0);
+            adjustment.set_page_increment(5.0);
+            adjustment.set_page_size(self.chars_per_line.get() as f64);
+        }
+
+        fn update_vadjustment_limits(&self, adjustment: &gtk::Adjustment) {
+            adjustment.set_lower(0.0);
+            adjustment.set_upper(
+                self.obj()
+                    .file_ops()
+                    .map(|f| f.max_offset().saturating_sub(1))
+                    .unwrap_or_default() as f64,
+            );
+            adjustment.set_step_increment(1.0);
+            adjustment.set_page_increment(10.0);
+            adjustment.set_page_size(10.0);
         }
 
         fn set_hscroll_policy(&self, policy: gtk::ScrollablePolicy) {
@@ -593,9 +604,7 @@ mod imp {
                         DataPresentationMode::NoWrap
                     });
                 }
-                unsafe {
-                    ffi::text_render_update_adjustments_limits(self.obj().to_glib_none().0);
-                }
+                self.update_adjustments_limits();
             }
             self.obj().queue_draw();
         }
@@ -821,7 +830,9 @@ impl TextRender {
     }
 
     pub fn current_offset(&self) -> u64 {
-        unsafe { ffi::text_render_get_current_offset(self.to_glib_none().0) }
+        self.vadjustment()
+            .map(|a| a.value() as u64)
+            .unwrap_or_default()
     }
 
     pub fn size(&self) -> u64 {
@@ -829,7 +840,9 @@ impl TextRender {
     }
 
     pub fn column(&self) -> i32 {
-        unsafe { ffi::text_render_get_column(self.to_glib_none().0) }
+        self.hadjustment()
+            .map(|a| a.value() as i32)
+            .unwrap_or_default()
     }
 
     pub fn input_mode(&self) -> Option<Rc<InputMode>> {
@@ -889,9 +902,7 @@ impl TextRender {
             .data_presentation
             .replace(Some(data_presentation));
 
-        unsafe {
-            ffi::text_render_update_adjustments_limits(self.to_glib_none().0);
-        }
+        self.imp().update_adjustments_limits();
     }
 
     pub fn notify_status_changed(&self) {
@@ -1035,6 +1046,12 @@ pub extern "C" fn text_render_get_data_presentation(
     w.data_presentation()
         .map(|f| f.0)
         .unwrap_or(std::ptr::null_mut())
+}
+
+#[no_mangle]
+pub extern "C" fn text_render_update_adjustments_limits(w: *mut ffi::TextRender) {
+    let w: Borrowed<TextRender> = unsafe { from_glib_borrow(w) };
+    w.imp().update_adjustments_limits();
 }
 
 #[derive(Clone, Copy, Default, PartialEq, Eq, Debug, glib::Enum)]
