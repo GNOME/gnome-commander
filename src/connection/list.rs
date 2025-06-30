@@ -37,13 +37,11 @@ use gtk::{
         self,
         ffi::GVariant,
         subclass::prelude::*,
-        translate::{
-            from_glib_borrow, from_glib_full, from_glib_none, Borrowed, IntoGlibPtr, ToGlibPtr,
-        },
+        translate::{from_glib_borrow, from_glib_full, Borrowed, IntoGlibPtr, ToGlibPtr},
     },
     prelude::*,
 };
-use std::path::Path;
+use std::{path::Path, sync::OnceLock};
 
 mod imp {
     use super::*;
@@ -106,14 +104,19 @@ glib::wrapper! {
     pub struct ConnectionList(ObjectSubclass<imp::ConnectionList>);
 }
 
-impl ConnectionList {
-    pub fn get() -> Self {
-        extern "C" {
-            fn gnome_cmd_con_list_get(
-            ) -> *mut <ConnectionList as glib::object::ObjectType>::GlibType;
-        }
+static LIST: OnceLock<glib::thread_guard::ThreadGuard<ConnectionList>> = OnceLock::new();
 
-        unsafe { from_glib_none(gnome_cmd_con_list_get()) }
+impl ConnectionList {
+    pub fn create(show_samba_workgroups_button: bool) {
+        LIST.get_or_init(|| {
+            glib::thread_guard::ThreadGuard::new(ConnectionList::new(show_samba_workgroups_button))
+        });
+    }
+
+    pub fn get() -> &'static Self {
+        LIST.get()
+            .expect("Connection list isn't created yet")
+            .get_ref()
     }
 
     pub fn new(show_samba_workgroups_button: bool) -> Self {
@@ -619,6 +622,12 @@ struct CustomDeviceVariant {
 struct ConnectionVariant {
     alias: String,
     uri: String,
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_list_get(
+) -> *mut <ConnectionList as glib::object::ObjectType>::GlibType {
+    ConnectionList::get().to_glib_none().0
 }
 
 #[no_mangle]

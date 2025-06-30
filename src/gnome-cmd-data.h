@@ -147,10 +147,6 @@ struct GnomeCmdData
 {
     static GSettingsSchemaSource* GetGlobalSchemaSource();
 
-    struct Private;
-
-    Private *priv {nullptr};
-
   private:
 
     void load_directory_history();
@@ -164,10 +160,6 @@ struct GnomeCmdData
 
     GcmdSettings                 *settings {nullptr};
 
-    GnomeCmdData();
-
-    ~GnomeCmdData();
-
     void init();
 
     void load_devices();
@@ -175,7 +167,5 @@ struct GnomeCmdData
     void load_bookmarks();
     void save(bool save_dir_history);
 };
-
-gpointer gnome_cmd_data_get_con_list ();
 
 extern GnomeCmdData gnome_cmd_data;

@@ -29,10 +29,6 @@ using namespace std;
 
 
 GnomeCmdData gnome_cmd_data;
-struct GnomeCmdData::Private
-{
-    GnomeCmdConList *con_list;
-};
 
 GSettingsSchemaSource* GnomeCmdData::GetGlobalSchemaSource()
 {
@@ -123,7 +119,9 @@ extern "C" void gnome_cmd_search_config_save();
 
 void GnomeCmdData::save_bookmarks()
 {
-    GVariant *bookmarksToStore = gnome_cmd_con_list_save_bookmarks (priv->con_list);
+    auto con_list = gnome_cmd_con_list_get();
+
+    GVariant *bookmarksToStore = gnome_cmd_con_list_save_bookmarks (con_list);
     if (bookmarksToStore == nullptr)
         bookmarksToStore = g_settings_get_default_value (settings->general, GCMD_SETTINGS_BOOKMARKS);
 
@@ -136,7 +134,9 @@ void GnomeCmdData::save_bookmarks()
  */
 void GnomeCmdData::save_devices()
 {
-    GVariant* devicesToStore = gnome_cmd_con_list_save_devices (priv->con_list);
+    auto con_list = gnome_cmd_con_list_get();
+
+    GVariant* devicesToStore = gnome_cmd_con_list_save_devices (con_list);
     if (!devicesToStore)
         devicesToStore = g_settings_get_default_value(settings->general, GCMD_SETTINGS_DEVICE_LIST);
     g_settings_set_value(settings->general, GCMD_SETTINGS_DEVICE_LIST, devicesToStore);
@@ -149,7 +149,9 @@ void GnomeCmdData::save_devices()
  */
 void GnomeCmdData::save_connections()
 {
-    GVariant* connectionsToStore = gnome_cmd_con_list_save_connections (priv->con_list);
+    auto con_list = gnome_cmd_con_list_get();
+
+    GVariant* connectionsToStore = gnome_cmd_con_list_save_connections (con_list);
     if (!connectionsToStore)
         connectionsToStore = g_settings_get_default_value (settings->general, GCMD_SETTINGS_CONNECTIONS);
     g_settings_set_value(settings->general, GCMD_SETTINGS_CONNECTIONS, connectionsToStore);
@@ -159,16 +161,20 @@ void GnomeCmdData::save_connections()
 
 void GnomeCmdData::load_bookmarks()
 {
+    auto con_list = gnome_cmd_con_list_get();
+
     auto *gVariantBookmarks = g_settings_get_value (settings->general, GCMD_SETTINGS_BOOKMARKS);
-    gnome_cmd_con_list_load_bookmarks (priv->con_list, gVariantBookmarks);
+    gnome_cmd_con_list_load_bookmarks (con_list, gVariantBookmarks);
 }
 
 
 void GnomeCmdData::save_directory_history(bool save_dir_history)
 {
+    auto con_list = gnome_cmd_con_list_get();
+
     if (save_dir_history)
     {
-        auto dir_history = gnome_cmd_con_export_dir_history (gnome_cmd_con_list_get_home (priv->con_list));
+        auto dir_history = gnome_cmd_con_export_dir_history (gnome_cmd_con_list_get_home (con_list));
         g_settings_set_strv (settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY, dir_history);
         g_strfreev (dir_history);
     }
@@ -182,29 +188,13 @@ void GnomeCmdData::save_directory_history(bool save_dir_history)
 
 inline void GnomeCmdData::load_directory_history()
 {
+    auto con_list = gnome_cmd_con_list_get();
+
     GStrv entries = g_settings_get_strv (settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY);
     gnome_cmd_con_import_dir_history (
-        gnome_cmd_con_list_get_home (priv->con_list),
+        gnome_cmd_con_list_get_home (con_list),
         entries);
     g_strfreev (entries);
-}
-
-
-GnomeCmdData::GnomeCmdData()
-{
-}
-
-
-GnomeCmdData::~GnomeCmdData()
-{
-    if (priv)
-    {
-        // free the connections
-        g_object_ref_sink (priv->con_list);
-        g_object_unref (priv->con_list);
-
-        g_free (priv);
-    }
 }
 
 /**
@@ -212,8 +202,10 @@ GnomeCmdData::~GnomeCmdData()
  */
 void GnomeCmdData::load_devices()
 {
+    auto con_list = gnome_cmd_con_list_get();
+
     GVariant *gvDevices = g_settings_get_value(settings->general, GCMD_SETTINGS_DEVICE_LIST);
-    gnome_cmd_con_list_load_devices (priv->con_list, gvDevices);
+    gnome_cmd_con_list_load_devices (con_list, gvDevices);
 }
 
 /**
@@ -221,32 +213,28 @@ void GnomeCmdData::load_devices()
  */
 void GnomeCmdData::load_connections()
 {
+    auto con_list = gnome_cmd_con_list_get();
+
     GVariant *gvConnections = g_settings_get_value(settings->general, GCMD_SETTINGS_CONNECTIONS);
-    gnome_cmd_con_list_load_connections (priv->con_list, gvConnections);
+    gnome_cmd_con_list_load_connections (con_list, gvConnections);
 }
 
 
 void GnomeCmdData::init()
 {
-    if (!priv)
-        priv = g_new0 (Private, 1);
+    auto con_list = gnome_cmd_con_list_get();
 
     settings = gcmd_settings_new();
 
-    gboolean show_samba_workgroups_button = g_settings_get_boolean(settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON);
-
-    if (!priv->con_list)
-        priv->con_list = gnome_cmd_con_list_new (show_samba_workgroups_button);
-
-    gnome_cmd_con_list_lock (priv->con_list);
+    gnome_cmd_con_list_lock (con_list);
     load_devices();
     gnome_cmd_search_config_load();
     load_connections        ();
     load_bookmarks          ();
     load_directory_history  ();
-    gnome_cmd_con_list_unlock (priv->con_list);
+    gnome_cmd_con_list_unlock (con_list);
 
-    gnome_cmd_con_list_set_volume_monitor (priv->con_list);
+    gnome_cmd_con_list_set_volume_monitor (con_list);
 
     g_signal_connect_swapped (settings->general,
                       "changed::bookmarks",
@@ -263,12 +251,6 @@ void GnomeCmdData::save(bool save_dir_history)
     save_bookmarks                  ();
 
     g_settings_sync ();
-}
-
-
-gpointer gnome_cmd_data_get_con_list ()
-{
-    return gnome_cmd_data.priv->con_list;
 }
 
 // FFI

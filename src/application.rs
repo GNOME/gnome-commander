@@ -44,6 +44,7 @@ mod imp {
     use super::*;
     use crate::{
         config::{ICONS_DIR, PACKAGE},
+        connection::list::ConnectionList,
         main_win::MainWindow,
     };
     use gtk::glib::translate::ToGlibPtr;
@@ -115,6 +116,8 @@ mod imp {
             }
 
             create_config_directory();
+
+            ConnectionList::create(GeneralOptions::new().show_samba_workgroups_button());
 
             let debug_flags = self.debug_flags.borrow().clone();
             unsafe {

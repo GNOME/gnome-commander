@@ -62,7 +62,6 @@ sources_sources = files(
   'gnome-cmd-con.cc',
   'gnome-cmd-con-device.cc',
   'gnome-cmd-con-home.cc',
-  'gnome-cmd-con-list.cc',
   'gnome-cmd-con-remote.cc',
   'gnome-cmd-con-smb.cc',
   'gnome-cmd-convert.cc',
