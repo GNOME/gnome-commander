@@ -207,6 +207,20 @@ mod imp {
                 .bind("quick-search", &*fl, "quick-search-shortcut")
                 .build();
 
+            for (column, key) in fl.tree_view().columns().iter().zip([
+                "column-width-icon",
+                "column-width-name",
+                "column-width-ext",
+                "column-width-dir",
+                "column-width-size",
+                "column-width-date",
+                "column-width-perm",
+                "column-width-owner",
+                "column-width-group",
+            ]) {
+                general_options.0.bind(key, column, "fixed-width").build();
+            }
+
             let color_options = ColorOptions::new();
             color_options
                 .0
