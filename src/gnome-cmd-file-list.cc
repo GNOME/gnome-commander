@@ -35,7 +35,6 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-path.h"
 #include "utils.h"
-#include "gnome-cmd-data.h"
 #include "gnome-cmd-xfer.h"
 #include "imageloader.h"
 #include "gnome-cmd-file-collection.h"

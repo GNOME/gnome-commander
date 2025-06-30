@@ -25,7 +25,6 @@
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-con-smb.h"
-#include "gnome-cmd-data.h"
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-file-collection.h"
 #include "utils.h"

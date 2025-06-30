@@ -24,7 +24,6 @@
 #include <regex.h>
 
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-data.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file-selector.h"

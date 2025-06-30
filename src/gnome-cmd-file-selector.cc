@@ -25,7 +25,6 @@
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-con-smb.h"
-#include "gnome-cmd-data.h"
 #include "gnome-cmd-cmdline.h"
 #include "history.h"
 #include "utils.h"

@@ -29,7 +29,6 @@
 
 #include "gnome-cmd-includes.h"
 #include "utils.h"
-#include "gnome-cmd-data.h"
 #include "imageloader.h"
 #include "gnome-cmd-main-win.h"
 #include "text-utils.h"

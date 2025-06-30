@@ -22,7 +22,6 @@
 #include <config.h>
 
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-data.h"
 #include "gnome-cmd-con-remote.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-path.h"

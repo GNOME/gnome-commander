@@ -32,7 +32,6 @@
 
 #include "gnome-cmd-path.h"
 #include "gnome-cmd-dir.h"
-#include "gnome-cmd-data.h"
 #include "utils.h"
 
 struct GnomeCmdCon

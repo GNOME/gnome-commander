@@ -25,7 +25,6 @@
 #include "gnome-cmd-includes.h"
 #include "utils.h"
 #include "imageloader.h"
-#include "gnome-cmd-data.h"
 #include "gnome-cmd-path.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-con-list.h"

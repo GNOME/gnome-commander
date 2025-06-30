@@ -24,7 +24,6 @@
 #include "gnome-cmd-includes.h"
 #include "dirlist.h"
 #include "gnome-cmd-con.h"
-#include "gnome-cmd-data.h"
 #include "utils.h"
 
 using namespace std;
