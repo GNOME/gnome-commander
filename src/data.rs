@@ -41,6 +41,7 @@ use std::{
     path::{Path, PathBuf},
     rc::Rc,
     sync::LazyLock,
+    time::Duration,
 };
 
 pub type WriteResult = Result<(), glib::BoolError>;
@@ -105,6 +106,8 @@ pub trait GeneralOptionsRead {
     fn search_pattern_history(&self) -> Vec<String>;
     fn search_text_history(&self) -> Vec<String>;
     fn save_search_history(&self) -> bool;
+
+    fn gui_update_rate(&self) -> Duration;
 }
 
 pub trait GeneralOptionsWrite {
@@ -414,6 +417,10 @@ impl GeneralOptionsRead for GeneralOptions {
 
     fn save_search_history(&self) -> bool {
         self.0.boolean("save-search-history-on-exit")
+    }
+
+    fn gui_update_rate(&self) -> Duration {
+        Duration::from_millis(self.0.uint("gui-update-rate").into())
     }
 }
 
@@ -1166,4 +1173,13 @@ impl NetworkOptionsWrite for NetworkOptions {
     fn set_quick_connect_uri(&self, uri: &str) {
         self.0.set_string("quick-connect-uri", uri);
     }
+}
+
+#[no_mangle]
+pub extern "C" fn gui_update_rate() -> u32 {
+    GeneralOptions::new()
+        .gui_update_rate()
+        .as_millis()
+        .try_into()
+        .unwrap_or(100)
 }

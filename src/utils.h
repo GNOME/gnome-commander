@@ -194,3 +194,5 @@ guint64 get_gfile_attribute_uint64(GFile *gFile, const char *attribute);
 gchar *get_gfile_attribute_string(GFileInfo *gFileInfo, const char *attribute);
 
 gchar *get_gfile_attribute_string(GFile *gFile, const char *attribute);
+
+extern "C" guint gui_update_rate();

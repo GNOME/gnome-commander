@@ -299,7 +299,7 @@ void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window)
     if (con->state != GnomeCmdCon::STATE_OPEN)
         klass->open (con, parent_window);
 
-    g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) check_con_open_progress, con);
+    g_timeout_add (gui_update_rate(), (GSourceFunc) check_con_open_progress, con);
 }
 
 

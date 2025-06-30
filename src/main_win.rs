@@ -1078,7 +1078,7 @@ pub mod ffi {
     pub type GnomeCmdMainWin = <super::MainWindow as glib::object::ObjectType>::GlibType;
 
     extern "C" {
-        pub fn gnome_cmd_data_save(mw: *mut GnomeCmdMainWin, save_dir_history: gboolean);
+        pub fn gnome_cmd_data_save(save_dir_history: gboolean);
     }
 }
 
@@ -1262,10 +1262,7 @@ impl MainWindow {
         self.save_command_line_history(&options)?;
 
         unsafe {
-            ffi::gnome_cmd_data_save(
-                self.to_glib_none().0,
-                options.save_directory_history_on_exit() as gboolean,
-            );
+            ffi::gnome_cmd_data_save(options.save_directory_history_on_exit() as gboolean);
         }
 
         Ok(())

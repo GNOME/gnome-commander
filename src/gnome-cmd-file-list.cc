@@ -290,7 +290,7 @@ static void init_private(GnomeCmdFileList *fl)
         gtk_tree_view_insert_column (priv->view, priv->columns[i], i);
 
         g_settings_bind (
-            gcmd_settings_get_general (gnome_cmd_data.options.gcmd_settings),
+            gcmd_settings_get_general (gnome_cmd_data.settings),
             file_list_column[i].settings_key_width,
             priv->columns[i],
             "fixed-width",
@@ -997,8 +997,8 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *
     g_return_if_fail (GNOME_CMD_IS_FILE (event->file));
     auto priv = file_list_priv (fl);
 
-    GnomeCmdData::LeftMouseButtonMode left_mouse_button_mode;
-    GnomeCmdData::RightMouseButtonMode right_mouse_button_mode;
+    LeftMouseButtonMode left_mouse_button_mode;
+    RightMouseButtonMode right_mouse_button_mode;
     g_object_get (fl,
         "left-mouse-button-mode", &left_mouse_button_mode,
         "right-mouse-button-mode", &right_mouse_button_mode,
@@ -1006,7 +1006,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *
 
     priv->modifier_click = event->state & (GDK_CONTROL_MASK | GDK_SHIFT_MASK);
 
-    if (event->n_press == 2 && event->button == 1 && left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
+    if (event->n_press == 2 && event->button == 1 && left_mouse_button_mode == LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
     {
         g_signal_emit_by_name (fl, FILE_ACTIVATED_SIGNAL, event->file);
     }
@@ -1027,7 +1027,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *
     {
         if (!gnome_cmd_file_is_dotdot (event->file))
         {
-            if (right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_SELECTS)
+            if (right_mouse_button_mode == RIGHT_BUTTON_SELECTS)
             {
                 auto focus_iter = fl->get_focused_file_iter();
                 if (iter_compare(priv->store, focus_iter.get(), event->iter) == 0)
@@ -1067,10 +1067,10 @@ static void on_file_released (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent 
     g_return_if_fail (GNOME_CMD_IS_FILE (event->file));
     auto priv = file_list_priv (fl);
 
-    GnomeCmdData::LeftMouseButtonMode left_mouse_button_mode;
+    LeftMouseButtonMode left_mouse_button_mode;
     g_object_get (fl, "left-mouse-button-mode", &left_mouse_button_mode, nullptr);
 
-    if (event->n_press == 1 && event->button == 1 && !priv->modifier_click && left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
+    if (event->n_press == 1 && event->button == 1 && !priv->modifier_click && left_mouse_button_mode == LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
         g_signal_emit_by_name (fl, FILE_ACTIVATED_SIGNAL, event->file);
 }
 

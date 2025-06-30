@@ -177,7 +177,7 @@ extern "C" void on_notebook_switch_page (GnomeCmdFileSelector *fs, guint n)
 
 static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event, GnomeCmdFileSelector *fs)
 {
-    GnomeCmdData::MiddleMouseButtonMode middle_mouse_button_mode;
+    MiddleMouseButtonMode middle_mouse_button_mode;
 
     switch (event->button)
     {
@@ -188,7 +188,7 @@ static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEv
 
         case 2:
             g_object_get (fl, "middle-mouse-button-mode", &middle_mouse_button_mode, nullptr);
-            if (middle_mouse_button_mode==GnomeCmdData::MIDDLE_BUTTON_GOES_UP_DIR)
+            if (middle_mouse_button_mode == MIDDLE_BUTTON_GOES_UP_DIR)
             {
                 if (gnome_cmd_file_selector_is_tab_locked (fs, fl))
                     fs->new_tab(gnome_cmd_dir_get_parent (gnome_cmd_file_list_get_directory (fl)));

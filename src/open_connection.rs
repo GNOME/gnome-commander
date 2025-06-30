@@ -19,6 +19,7 @@
 
 use crate::{
     connection::connection::{ffi::GnomeCmdCon, Connection, ConnectionExt},
+    data::{GeneralOptions, GeneralOptionsRead},
     file_list::list::{ffi::GnomeCmdFileList, FileList},
     utils::{ErrorMessage, SenderExt},
 };
@@ -29,7 +30,6 @@ use gtk::{
     glib::{self, translate::from_glib_none},
     prelude::*,
 };
-use std::time::Duration;
 
 pub async fn open_connection(file_list: &FileList, parent_window: &gtk::Window, con: &Connection) {
     let dialog = gtk::Window::builder()
@@ -116,7 +116,7 @@ pub async fn open_connection(file_list: &FileList, parent_window: &gtk::Window, 
     );
     con.open(parent_window);
 
-    let gui_update_rate = Duration::from_millis(100); // gnome_cmd_data.gui_update_rate
+    let gui_update_rate = GeneralOptions::new().gui_update_rate();
     let result = loop {
         progress_bar.pulse();
         match receiver.try_recv() {

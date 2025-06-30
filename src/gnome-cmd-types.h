@@ -108,3 +108,28 @@ typedef enum
     GNOME_CMD_DEFAULT_DND_COPY,
     GNOME_CMD_DEFAULT_DND_MOVE
 }GnomeCmdDefaultDndMode;
+
+typedef enum
+{
+    LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK,
+    LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK
+}LeftMouseButtonMode;
+
+typedef enum
+{
+    MIDDLE_BUTTON_GOES_UP_DIR,
+    MIDDLE_BUTTON_OPENS_NEW_TAB
+}MiddleMouseButtonMode;
+
+typedef enum
+{
+    RIGHT_BUTTON_POPUPS_MENU,
+    RIGHT_BUTTON_SELECTS
+}RightMouseButtonMode;
+
+typedef enum
+{
+    TAB_LOCK_ICON,
+    TAB_LOCK_ASTERISK,
+    TAB_LOCK_STYLED_TEXT
+}TabLockIndicator;

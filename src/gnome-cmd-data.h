@@ -36,10 +36,6 @@
 #include "filter.h"
 #include "history.h"
 
-#include <tuple>
-
-struct GnomeCmdMainWin;
-
 #define GCMD_TYPE_SETTINGS (gcmd_settings_get_type ())
 
 G_DECLARE_FINAL_TYPE (GcmdSettings, gcmd_settings, GCMD, SETTINGS, GObject)
@@ -147,62 +143,8 @@ GSettings *gcmd_settings_get_general (GcmdSettings *);
 #define GCMD_SETTINGS_KEYBINDING_FORMAT_STRING        "(sssbbbbbb)"
 
 
-extern "C" GType gnome_cmd_advanced_rename_profile_get_type ();
-struct AdvancedRenameProfile;
-extern "C" void gnome_cmd_advanced_rename_profile_copy_from (AdvancedRenameProfile *dst, AdvancedRenameProfile *src);
-extern "C" void gnome_cmd_advanced_rename_profile_reset (AdvancedRenameProfile *profile);
-
-
-struct GnomeCmdConRemote;
-
-
-struct SearchProfile;
-struct SearchConfig;
-
-
 struct GnomeCmdData
 {
-    typedef enum
-    {
-        LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK,
-        LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK
-    }LeftMouseButtonMode;
-
-    typedef enum
-    {
-        MIDDLE_BUTTON_GOES_UP_DIR,
-        MIDDLE_BUTTON_OPENS_NEW_TAB
-    }MiddleMouseButtonMode;
-
-    typedef enum
-    {
-        RIGHT_BUTTON_POPUPS_MENU,
-        RIGHT_BUTTON_SELECTS
-    }RightMouseButtonMode;
-
-    typedef enum
-    {
-        TAB_LOCK_ICON,
-        TAB_LOCK_ASTERISK,
-        TAB_LOCK_STYLED_TEXT
-    }TabLockIndicator;
-
-    enum {ADVRENAME_HISTORY_SIZE=10};
-
-    struct Options
-    {
-      public:
-        GcmdSettings                 *gcmd_settings;
-
-        Options(): gcmd_settings(nullptr)
-        {
-        }
-
-        Options(const Options &cfg);
-
-        Options &operator = (const Options &cfg);
-    };
-
     static GSettingsSchemaSource* GetGlobalSchemaSource();
 
     struct Private;
@@ -211,42 +153,29 @@ struct GnomeCmdData
 
   private:
 
-    void load_auto_load_plugins();
     void load_directory_history();
     gboolean save_auto_load_plugins();
     void load_connections();
     void save_connections();
     void save_directory_history(bool save_dir_history);
     void save_devices();
-    gboolean add_bookmark_to_gvariant_builder(GVariantBuilder *builder, std::string bookmarkName, GnomeCmdCon *con);
 
   public:
 
-    Options                      options;
     GcmdSettings                 *settings {nullptr};
-
-
-    guint                        gui_update_rate;
 
     GnomeCmdData();
 
     ~GnomeCmdData();
 
-    void load();
+    void init();
+
     void load_devices();
-    void gsettings_init();
-    void connect_signals(GnomeCmdMainWin *main_win);
-    void migrate_all_data_to_gsettings();
-    void load_more();
     void save_bookmarks();
     void load_bookmarks();
-    void save(GnomeCmdMainWin *main_win, bool save_dir_history);
-    gboolean set_gsettings_when_changed (GSettings *settings, const char *key, gpointer value);
+    void save(bool save_dir_history);
 };
 
 gpointer gnome_cmd_data_get_con_list ();
-
-GList *gnome_cmd_data_get_auto_load_plugins ();
-void gnome_cmd_data_set_auto_load_plugins (GList *plugins);
 
 extern GnomeCmdData gnome_cmd_data;

@@ -27,8 +27,6 @@
 
 using namespace std;
 
-#define DEFAULT_GUI_UPDATE_RATE 100
-
 
 GnomeCmdData gnome_cmd_data;
 struct GnomeCmdData::Private
@@ -87,9 +85,9 @@ GSettings *gcmd_settings_get_general (GcmdSettings *gcmd_settings)
     return gcmd_settings->general;
 }
 
-static void on_bookmarks_changed (GnomeCmdMainWin *main_win)
+static void on_bookmarks_changed (GnomeCmdData *data)
 {
-    gnome_cmd_data.load_bookmarks();
+    data->load_bookmarks();
 }
 
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
@@ -97,15 +95,6 @@ static void gcmd_settings_class_init (GcmdSettingsClass *klass)
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
     object_class->dispose = gcmd_settings_dispose;
-}
-
-
-static void gcmd_connect_gsettings_signals(GcmdSettings *gs, GnomeCmdMainWin *main_win)
-{
-    g_signal_connect_swapped (gs->general,
-                      "changed::bookmarks",
-                      G_CALLBACK (on_bookmarks_changed),
-                      main_win);
 }
 
 
@@ -128,25 +117,6 @@ GcmdSettings *gcmd_settings_new ()
 }
 
 
-GnomeCmdData::Options::Options(const Options &cfg)
-{
-    gcmd_settings = nullptr;
-}
-
-
-GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
-{
-    if (this != &cfg)
-    {
-        this->~Options();       //  free allocated data
-
-        gcmd_settings = nullptr;
-    }
-
-    return *this;
-}
-
-
 extern "C" void gnome_cmd_search_config_load();
 extern "C" void gnome_cmd_search_config_save();
 
@@ -155,9 +125,9 @@ void GnomeCmdData::save_bookmarks()
 {
     GVariant *bookmarksToStore = gnome_cmd_con_list_save_bookmarks (priv->con_list);
     if (bookmarksToStore == nullptr)
-        bookmarksToStore = g_settings_get_default_value (options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS);
+        bookmarksToStore = g_settings_get_default_value (settings->general, GCMD_SETTINGS_BOOKMARKS);
 
-    g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS, bookmarksToStore);
+    g_settings_set_value(settings->general, GCMD_SETTINGS_BOOKMARKS, bookmarksToStore);
 }
 
 
@@ -168,8 +138,8 @@ void GnomeCmdData::save_devices()
 {
     GVariant* devicesToStore = gnome_cmd_con_list_save_devices (priv->con_list);
     if (!devicesToStore)
-        devicesToStore = g_settings_get_default_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICE_LIST);
-    g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICE_LIST, devicesToStore);
+        devicesToStore = g_settings_get_default_value(settings->general, GCMD_SETTINGS_DEVICE_LIST);
+    g_settings_set_value(settings->general, GCMD_SETTINGS_DEVICE_LIST, devicesToStore);
     g_variant_unref(devicesToStore);
 }
 
@@ -181,15 +151,15 @@ void GnomeCmdData::save_connections()
 {
     GVariant* connectionsToStore = gnome_cmd_con_list_save_connections (priv->con_list);
     if (!connectionsToStore)
-        connectionsToStore = g_settings_get_default_value (options.gcmd_settings->general, GCMD_SETTINGS_CONNECTIONS);
-    g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_CONNECTIONS, connectionsToStore);
+        connectionsToStore = g_settings_get_default_value (settings->general, GCMD_SETTINGS_CONNECTIONS);
+    g_settings_set_value(settings->general, GCMD_SETTINGS_CONNECTIONS, connectionsToStore);
     g_variant_unref(connectionsToStore);
 }
 
 
 void GnomeCmdData::load_bookmarks()
 {
-    auto *gVariantBookmarks = g_settings_get_value (options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS);
+    auto *gVariantBookmarks = g_settings_get_value (settings->general, GCMD_SETTINGS_BOOKMARKS);
     gnome_cmd_con_list_load_bookmarks (priv->con_list, gVariantBookmarks);
 }
 
@@ -199,20 +169,20 @@ void GnomeCmdData::save_directory_history(bool save_dir_history)
     if (save_dir_history)
     {
         auto dir_history = gnome_cmd_con_export_dir_history (gnome_cmd_con_list_get_home (priv->con_list));
-        g_settings_set_strv (options.gcmd_settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY, dir_history);
+        g_settings_set_strv (settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY, dir_history);
         g_strfreev (dir_history);
     }
     else
     {
-        GVariant* dirHistoryToStore = g_settings_get_default_value (options.gcmd_settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY);
-        g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY, dirHistoryToStore);
+        GVariant* dirHistoryToStore = g_settings_get_default_value (settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY);
+        g_settings_set_value(settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY, dirHistoryToStore);
     }
 }
 
 
 inline void GnomeCmdData::load_directory_history()
 {
-    GStrv entries = g_settings_get_strv (options.gcmd_settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY);
+    GStrv entries = g_settings_get_strv (settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY);
     gnome_cmd_con_import_dir_history (
         gnome_cmd_con_list_get_home (priv->con_list),
         entries);
@@ -222,8 +192,6 @@ inline void GnomeCmdData::load_directory_history()
 
 GnomeCmdData::GnomeCmdData()
 {
-    //TODO: Include into GnomeCmdData::Options
-    gui_update_rate = DEFAULT_GUI_UPDATE_RATE;
 }
 
 
@@ -239,24 +207,12 @@ GnomeCmdData::~GnomeCmdData()
     }
 }
 
-void GnomeCmdData::gsettings_init()
-{
-    options.gcmd_settings = gcmd_settings_new();
-}
-
-
-void GnomeCmdData::connect_signals(GnomeCmdMainWin *main_win)
-{
-    gcmd_connect_gsettings_signals (options.gcmd_settings, main_win);
-}
-
-
 /**
  * Loads devices from gSettings into gcmd options
  */
 void GnomeCmdData::load_devices()
 {
-    GVariant *gvDevices = g_settings_get_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICE_LIST);
+    GVariant *gvDevices = g_settings_get_value(settings->general, GCMD_SETTINGS_DEVICE_LIST);
     gnome_cmd_con_list_load_devices (priv->con_list, gvDevices);
 }
 
@@ -265,19 +221,19 @@ void GnomeCmdData::load_devices()
  */
 void GnomeCmdData::load_connections()
 {
-    GVariant *gvConnections = g_settings_get_value(options.gcmd_settings->general, GCMD_SETTINGS_CONNECTIONS);
+    GVariant *gvConnections = g_settings_get_value(settings->general, GCMD_SETTINGS_CONNECTIONS);
     gnome_cmd_con_list_load_connections (priv->con_list, gvConnections);
 }
 
 
-void GnomeCmdData::load()
+void GnomeCmdData::init()
 {
     if (!priv)
         priv = g_new0 (Private, 1);
 
-    gui_update_rate = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE);
+    settings = gcmd_settings_new();
 
-    gboolean show_samba_workgroups_button = g_settings_get_boolean(options.gcmd_settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON);
+    gboolean show_samba_workgroups_button = g_settings_get_boolean(settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON);
 
     if (!priv->con_list)
         priv->con_list = gnome_cmd_con_list_new (show_samba_workgroups_button);
@@ -291,13 +247,15 @@ void GnomeCmdData::load()
     gnome_cmd_con_list_unlock (priv->con_list);
 
     gnome_cmd_con_list_set_volume_monitor (priv->con_list);
+
+    g_signal_connect_swapped (settings->general,
+                      "changed::bookmarks",
+                      G_CALLBACK (on_bookmarks_changed), this);
 }
 
 
-void GnomeCmdData::save(GnomeCmdMainWin *main_win, bool save_dir_history)
+void GnomeCmdData::save(bool save_dir_history)
 {
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE, &(gui_update_rate));
-
     save_devices                    ();
     save_directory_history          (save_dir_history);
     gnome_cmd_search_config_save();
@@ -308,85 +266,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win, bool save_dir_history)
 }
 
 
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wswitch-enum"
-#endif
-/**
- * This method stores the value for a given key if the value is different from the currently stored one
- * under the keys value. This function is able of storing several types of GSettings values.
- * Therefore, it first checks the type of GVariant of the default value of the given key. Depending on
- * the result, the gpointer is than casted to the correct type so that *value can be saved.
- * @returns TRUE if new value could be stored, else FALSE
- */
-gboolean GnomeCmdData::set_gsettings_when_changed (GSettings *settings_given, const char *key, gpointer value)
-{
-    GVariant *default_val;
-    gboolean rv = true;
-    default_val = g_settings_get_default_value (settings_given, key);
-
-    switch (g_variant_classify(default_val))
-    {
-        case G_VARIANT_CLASS_INT32:
-        {
-            gint old_value;
-            gint new_value = *(gint*) value;
-
-            old_value = g_settings_get_int (settings_given, key);
-            if (old_value != new_value)
-                rv = g_settings_set_int (settings_given, key, new_value);
-            break;
-        }
-        case G_VARIANT_CLASS_UINT32:
-        {
-            gint old_value;
-            gint new_value = *(gint*) value;
-
-            old_value = g_settings_get_uint (settings_given, key);
-            if (old_value != new_value)
-                rv = g_settings_set_uint (settings_given, key, new_value);
-            break;
-        }
-        case G_VARIANT_CLASS_STRING:
-        {
-            gchar *old_value;
-            gchar *new_value = (char*) value;
-
-            old_value = g_settings_get_string (settings_given, key);
-            if (strcmp(old_value, new_value) != 0)
-                rv = g_settings_set_string (settings_given, key, new_value);
-            g_free(old_value);
-            break;
-        }
-        case G_VARIANT_CLASS_BOOLEAN:
-        {
-            gboolean old_value;
-            gboolean new_value = *(gboolean*) value;
-
-            old_value = g_settings_get_boolean (settings_given, key);
-            if (old_value != new_value)
-                rv = g_settings_set_boolean (settings_given, key, new_value);
-            break;
-        }
-        default:
-        {
-            g_warning("Could not store value of type '%s' for key '%s'\n", g_variant_get_type_string (default_val), key);
-            rv = false;
-            break;
-        }
-    }
-    if (default_val)
-        g_variant_unref (default_val);
-
-    return rv;
-}
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-
-
-
-
 gpointer gnome_cmd_data_get_con_list ()
 {
     return gnome_cmd_data.priv->con_list;
@@ -394,12 +273,7 @@ gpointer gnome_cmd_data_get_con_list ()
 
 // FFI
 
-extern "C" GnomeCmdData::Options *gnome_cmd_data_options ()
+extern "C" void gnome_cmd_data_save (gboolean save_dir_history)
 {
-    return &gnome_cmd_data.options;
-}
-
-extern "C" void gnome_cmd_data_save (GnomeCmdMainWin *mw, gboolean save_dir_history)
-{
-    gnome_cmd_data.save (mw, save_dir_history);
+    gnome_cmd_data.save (save_dir_history);
 }
