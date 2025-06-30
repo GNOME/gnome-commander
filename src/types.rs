@@ -117,3 +117,32 @@ pub enum QuickSearchShortcut {
     Alt,
     JustACharacter,
 }
+
+#[repr(C)]
+#[derive(Clone, Copy, Default, PartialEq, Eq, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdLeftMouseButtonMode")]
+pub enum LeftMouseButtonMode {
+    #[enum_value(nick = "single-click")]
+    OpensWithSingleClick,
+    #[default]
+    #[enum_value(nick = "double-click")]
+    OpensWithDoubleClick,
+}
+
+#[repr(C)]
+#[derive(Clone, Copy, Default, PartialEq, Eq, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdMiddleMouseButtonMode")]
+pub enum MiddleMouseButtonMode {
+    #[default]
+    GoesUpDir,
+    OpensNewTab,
+}
+
+#[repr(C)]
+#[derive(Clone, Copy, Default, PartialEq, Eq, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdRightMouseButtonMode")]
+pub enum RightMouseButtonMode {
+    #[default]
+    PopupsMenu,
+    Selects,
+}

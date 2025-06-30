@@ -211,6 +211,22 @@ struct CellDataClosure
     GnomeCmdFileList *fl;
 };
 
+static void gnome_cmd_file_list_set_sorter(GnomeCmdFileList *fl, guint column, GtkSortType sort_type)
+{
+    auto priv = file_list_priv (fl);
+
+    gboolean case_sensitive, symbolic_links_as_regular_files;
+    g_object_get (G_OBJECT (fl),
+        "case-sensitive", &case_sensitive,
+        "symbolic-links-as-regular-files", &symbolic_links_as_regular_files,
+        nullptr);
+
+    g_set_object(&priv->sorter,
+        file_list_column[column].sorter_factory (
+            case_sensitive,
+            symbolic_links_as_regular_files,
+            sort_type));
+}
 
 static void init_private(GnomeCmdFileList *fl)
 {
@@ -246,10 +262,7 @@ static void init_private(GnomeCmdFileList *fl)
     memset(priv->sort_raising, GTK_SORT_ASCENDING, sizeof(priv->sort_raising));
 
     priv->current_col = GnomeCmdFileList::COLUMN_NAME;
-    priv->sorter = file_list_column[GnomeCmdFileList::COLUMN_NAME].sorter_factory (
-        gnome_cmd_data.options.case_sens_sort,
-        gnome_cmd_data.options.symbolic_links_as_regular_files,
-        GTK_SORT_ASCENDING);
+    gnome_cmd_file_list_set_sorter (fl, GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING);
 
     priv->store = gtk_list_store_new (NUM_DATA_COLUMNS,
         G_TYPE_ICON,                   // COLUMN_ICON
@@ -513,11 +526,7 @@ extern "C" void gnome_cmd_file_list_set_sorting (GnomeCmdFileList *fl, GnomeCmdF
 
     priv->current_col = sort_col;
     priv->sort_raising[sort_col] = sort_order;
-    g_set_object(&priv->sorter,
-        file_list_column[sort_col].sorter_factory (
-            gnome_cmd_data.options.case_sens_sort,
-            gnome_cmd_data.options.symbolic_links_as_regular_files,
-            sort_order));
+    gnome_cmd_file_list_set_sorter (fl, sort_col, sort_order);
 }
 
 
@@ -988,9 +997,16 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *
     g_return_if_fail (GNOME_CMD_IS_FILE (event->file));
     auto priv = file_list_priv (fl);
 
+    GnomeCmdData::LeftMouseButtonMode left_mouse_button_mode;
+    GnomeCmdData::RightMouseButtonMode right_mouse_button_mode;
+    g_object_get (fl,
+        "left-mouse-button-mode", &left_mouse_button_mode,
+        "right-mouse-button-mode", &right_mouse_button_mode,
+        nullptr);
+
     priv->modifier_click = event->state & (GDK_CONTROL_MASK | GDK_SHIFT_MASK);
 
-    if (event->n_press == 2 && event->button == 1 && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
+    if (event->n_press == 2 && event->button == 1 && left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
     {
         g_signal_emit_by_name (fl, FILE_ACTIVATED_SIGNAL, event->file);
     }
@@ -1011,7 +1027,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *
     {
         if (!gnome_cmd_file_is_dotdot (event->file))
         {
-            if (gnome_cmd_data.options.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_SELECTS)
+            if (right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_SELECTS)
             {
                 auto focus_iter = fl->get_focused_file_iter();
                 if (iter_compare(priv->store, focus_iter.get(), event->iter) == 0)
@@ -1051,7 +1067,10 @@ static void on_file_released (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent 
     g_return_if_fail (GNOME_CMD_IS_FILE (event->file));
     auto priv = file_list_priv (fl);
 
-    if (event->n_press == 1 && event->button == 1 && !priv->modifier_click && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
+    GnomeCmdData::LeftMouseButtonMode left_mouse_button_mode;
+    g_object_get (fl, "left-mouse-button-mode", &left_mouse_button_mode, nullptr);
+
+    if (event->n_press == 1 && event->button == 1 && !priv->modifier_click && left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
         g_signal_emit_by_name (fl, FILE_ACTIVATED_SIGNAL, event->file);
 }
 
@@ -1081,7 +1100,10 @@ static void on_button_release (GtkGestureClick *gesture, int n_press, double x, 
 
     if (button == 1 && state_is_blank (event.state))
     {
-        if (f && !fl->is_selected_iter(row.get()) && gnome_cmd_data.options.left_mouse_button_unselects)
+        gboolean left_mouse_button_unselects;
+        g_object_get (fl, "left-mouse-button-unselects", &left_mouse_button_unselects, nullptr);
+
+        if (f && !fl->is_selected_iter(row.get()) && left_mouse_button_unselects)
             fl->unselect_all();
     }
 }
@@ -1705,7 +1727,9 @@ void GnomeCmdFileList::unselect_all_files()
 
 void GnomeCmdFileList::select_all()
 {
-    if (gnome_cmd_data.options.select_dirs)
+    gboolean select_dirs;
+    g_object_get (this, "select-dirs", &select_dirs, nullptr);
+    if (select_dirs)
     {
         traverse_files ([this](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
             if (file && !gnome_cmd_file_is_dotdot (file))
@@ -1919,9 +1943,9 @@ static bool is_quicksearch_starting_character (guint keyval)
 }
 
 
-static bool is_quicksearch_starting_modifier (guint state)
+static bool is_quicksearch_starting_modifier (GnomeCmdQuickSearchShortcut quick_search, guint state)
 {
-    switch (gnome_cmd_data.options.quick_search)
+    switch (quick_search)
     {
         case GNOME_CMD_QUICK_SEARCH_CTRL_ALT:
             return (state & GDK_CONTROL_MASK) && (state & GDK_ALT_MASK);
@@ -2209,7 +2233,9 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
 
     if (is_quicksearch_starting_character (keyval))
     {
-        if (is_quicksearch_starting_modifier (state))
+        GnomeCmdQuickSearchShortcut quick_search_shortcut;
+        g_object_get (fl, "quick-search-shortcut", &quick_search_shortcut, nullptr);
+        if (is_quicksearch_starting_modifier (quick_search_shortcut, state))
             gnome_cmd_file_list_show_quicksearch (fl, keyval);
         else
         {
@@ -2383,11 +2409,7 @@ void GnomeCmdFileList::update_style()
     priv->ls_palette = gnome_cmd_get_palette();
 
     auto col = priv->current_col;
-    g_set_object(&priv->sorter,
-        file_list_column[col].sorter_factory (
-            gnome_cmd_data.options.case_sens_sort,
-            gnome_cmd_data.options.symbolic_links_as_regular_files,
-            priv->sort_raising[col]));
+    gnome_cmd_file_list_set_sorter (this, col, priv->sort_raising[col]);
 
     gchar *font_name = nullptr;
     g_object_get (this, "font-name", &font_name, nullptr);

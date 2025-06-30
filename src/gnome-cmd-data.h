@@ -193,44 +193,8 @@ struct GnomeCmdData
     {
       public:
         GcmdSettings                 *gcmd_settings;
-        //  General
-        LeftMouseButtonMode          left_mouse_button_mode;
-        gboolean                     left_mouse_button_unselects;
-        MiddleMouseButtonMode        middle_mouse_button_mode;
-        RightMouseButtonMode         right_mouse_button_mode;
-        gboolean                     select_dirs;
-        gboolean                     case_sens_sort;
-        GnomeCmdQuickSearchShortcut  quick_search;
-        gboolean                     quick_search_exact_match_begin;
-        gboolean                     quick_search_exact_match_end;
-        gboolean                     allow_multiple_instances;
-        gboolean                     save_dirs_on_exit;
-        gboolean                     save_tabs_on_exit;
-        gboolean                     save_dir_history_on_exit;
-        gboolean                     save_cmdline_history_on_exit;
-        gboolean                     save_search_history_on_exit;
-        gboolean                     search_window_is_transient {true};
-        gboolean                     deleteToTrash;
-        //  Filters
-        gboolean                     symbolic_links_as_regular_files;
 
-        Options(): gcmd_settings(nullptr),
-                   left_mouse_button_mode(LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
-                   left_mouse_button_unselects(TRUE),
-                   middle_mouse_button_mode(MIDDLE_BUTTON_GOES_UP_DIR),
-                   right_mouse_button_mode(RIGHT_BUTTON_POPUPS_MENU),
-                   select_dirs(TRUE),
-                   case_sens_sort(TRUE),
-                   quick_search(GNOME_CMD_QUICK_SEARCH_CTRL_ALT),
-                   quick_search_exact_match_begin(TRUE),
-                   quick_search_exact_match_end(FALSE),
-                   allow_multiple_instances(FALSE),
-                   save_dirs_on_exit(FALSE),
-                   save_tabs_on_exit(TRUE),
-                   save_dir_history_on_exit(TRUE),
-                   save_cmdline_history_on_exit(TRUE),
-                   save_search_history_on_exit(TRUE),
-                   deleteToTrash(TRUE)
+        Options(): gcmd_settings(nullptr)
         {
         }
 
@@ -252,7 +216,7 @@ struct GnomeCmdData
     gboolean save_auto_load_plugins();
     void load_connections();
     void save_connections();
-    void save_directory_history();
+    void save_directory_history(bool save_dir_history);
     void save_devices();
     gboolean add_bookmark_to_gvariant_builder(GVariantBuilder *builder, std::string bookmarkName, GnomeCmdCon *con);
 
@@ -263,12 +227,6 @@ struct GnomeCmdData
 
 
     guint                        gui_update_rate;
-
-    GList                       *get_list_from_gsettings_string_array (GSettings *settings, const gchar *key);
-    gboolean                     set_gsettings_string_array_from_glist (GSettings *settings, const gchar *key, GList *strings);
-
-    guint                        opts_dialog_width;
-    guint                        opts_dialog_height;
 
     GnomeCmdData();
 
@@ -282,9 +240,8 @@ struct GnomeCmdData
     void load_more();
     void save_bookmarks();
     void load_bookmarks();
-    void save(GnomeCmdMainWin *main_win);
+    void save(GnomeCmdMainWin *main_win, bool save_dir_history);
     gboolean set_gsettings_when_changed (GSettings *settings, const char *key, gpointer value);
-    gboolean set_gsettings_enum_when_changed (GSettings *settings, const char *key, gint value);
 };
 
 gpointer gnome_cmd_data_get_con_list ();

@@ -52,7 +52,10 @@ mod imp {
     use crate::{
         data::ColorOptions,
         tags::tags::FileMetadataService,
-        types::{ExtensionDisplayMode, GraphicalLayoutMode, PermissionDisplayMode},
+        types::{
+            ExtensionDisplayMode, GraphicalLayoutMode, LeftMouseButtonMode, MiddleMouseButtonMode,
+            PermissionDisplayMode, QuickSearchShortcut, RightMouseButtonMode,
+        },
     };
     use std::{
         cell::{Cell, OnceCell, RefCell},
@@ -89,6 +92,30 @@ mod imp {
 
         #[property(get, set)]
         pub use_ls_colors: Cell<bool>,
+
+        #[property(get, set, default = true)]
+        case_sensitive: Cell<bool>,
+
+        #[property(get, set)]
+        symbolic_links_as_regular_files: Cell<bool>,
+
+        #[property(get, set, builder(LeftMouseButtonMode::default()))]
+        left_mouse_button_mode: Cell<LeftMouseButtonMode>,
+
+        #[property(get, set, builder(MiddleMouseButtonMode::default()))]
+        middle_mouse_button_mode: Cell<MiddleMouseButtonMode>,
+
+        #[property(get, set, builder(RightMouseButtonMode::default()))]
+        right_mouse_button_mode: Cell<RightMouseButtonMode>,
+
+        #[property(get, set, default = true)]
+        left_mouse_button_unselects: Cell<bool>,
+
+        #[property(get, set, default = true)]
+        select_dirs: Cell<bool>,
+
+        #[property(get, set, builder(QuickSearchShortcut::default()))]
+        quick_search_shortcut: Cell<QuickSearchShortcut>,
     }
 
     #[glib::object_subclass]
@@ -138,6 +165,46 @@ mod imp {
             general_options
                 .0
                 .bind("date-disp-format", &*fl, "date-display-format")
+                .build();
+            general_options
+                .0
+                .bind("case-sensitive", &*fl, "case-sensitive")
+                .build();
+            general_options
+                .0
+                .bind(
+                    "symbolic-links-as-regular-files",
+                    &*fl,
+                    "symbolic-links-as-regular-files",
+                )
+                .build();
+            general_options
+                .0
+                .bind("clicks-to-open-item", &*fl, "left-mouse-button-mode")
+                .build();
+            general_options
+                .0
+                .bind("middle-mouse-btn-mode", &*fl, "middle-mouse-button-mode")
+                .build();
+            general_options
+                .0
+                .bind("right-mouse-btn-mode", &*fl, "right-mouse-button-mode")
+                .build();
+            general_options
+                .0
+                .bind(
+                    "left-mouse-btn-unselects",
+                    &*fl,
+                    "left-mouse-button-unselects",
+                )
+                .build();
+            general_options
+                .0
+                .bind("select-dirs", &*fl, "select-dirs")
+                .build();
+            general_options
+                .0
+                .bind("quick-search", &*fl, "quick-search-shortcut")
                 .build();
 
             let color_options = ColorOptions::new();
@@ -448,9 +515,8 @@ impl FileList {
     }
 
     pub fn toggle_with_pattern(&self, pattern: &Filter, mode: bool) {
-        let options = GeneralOptions::new();
-        let select_dirs = options.select_dirs();
-        self.traverse_files::<()>(|file, iter, store| {
+        let select_dirs = self.select_dirs();
+        let _ = self.traverse_files::<()>(|file, iter, store| {
             if !file.is_dotdot()
                 && (select_dirs || file.downcast_ref::<Directory>().is_none())
                 && pattern.matches(&file.file_info().display_name())
@@ -517,8 +583,9 @@ impl FileList {
         self.emit_files_changed();
     }
 
-    pub fn invert_selection(&self, select_dirs: bool) {
-        self.traverse_files::<()>(|file, iter, store| {
+    pub fn invert_selection(&self) {
+        let select_dirs = self.select_dirs();
+        let _ = self.traverse_files::<()>(|file, iter, store| {
             if !file.is_dotdot() && (select_dirs || file.downcast_ref::<Directory>().is_none()) {
                 let selected: bool = store.get(iter, DataColumns::DATA_COLUMN_SELECTED as i32);
                 store.set(
@@ -653,8 +720,7 @@ pub extern "C" fn gnome_cmd_file_list_get_type() -> GType {
 #[no_mangle]
 pub extern "C" fn gnome_cmd_file_list_invert_selection(fl: *mut ffi::GnomeCmdFileList) {
     let fl: FileList = unsafe { from_glib_none(fl) };
-    let options = GeneralOptions::new();
-    fl.invert_selection(options.select_dirs());
+    fl.invert_selection();
 }
 
 #[no_mangle]

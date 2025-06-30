@@ -45,7 +45,6 @@ sources_headers = files(
 
 sources_sources = files(
   'dialogs/gnome-cmd-mkdir-dialog.cc',
-  'dialogs/gnome-cmd-options-dialog.cc',
   'dialogs/gnome-cmd-rename-dialog.cc',
   'dialogs/gnome-cmd-search-dialog.cc',
   'intviewer/bm_byte.cc',

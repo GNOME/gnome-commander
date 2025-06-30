@@ -635,11 +635,10 @@ pub fn mark_invert_selection(
     _action: &gio::SimpleAction,
     _parameter: Option<&glib::Variant>,
 ) {
-    let options = GeneralOptions::new();
     main_win
         .file_selector(FileSelectorID::ACTIVE)
         .file_list()
-        .invert_selection(options.select_dirs());
+        .invert_selection();
 }
 
 pub fn mark_select_all_with_same_extension(

@@ -53,6 +53,7 @@ use gtk::{
     gdk, gio,
     glib::{
         self,
+        ffi::gboolean,
         translate::{from_glib_borrow, Borrowed, ToGlibPtr},
     },
     graphene,
@@ -1077,7 +1078,7 @@ pub mod ffi {
     pub type GnomeCmdMainWin = <super::MainWindow as glib::object::ObjectType>::GlibType;
 
     extern "C" {
-        pub fn gnome_cmd_data_save(mw: *mut GnomeCmdMainWin);
+        pub fn gnome_cmd_data_save(mw: *mut GnomeCmdMainWin, save_dir_history: gboolean);
     }
 }
 
@@ -1261,7 +1262,10 @@ impl MainWindow {
         self.save_command_line_history(&options)?;
 
         unsafe {
-            ffi::gnome_cmd_data_save(self.to_glib_none().0);
+            ffi::gnome_cmd_data_save(
+                self.to_glib_none().0,
+                options.save_directory_history_on_exit() as gboolean,
+            );
         }
 
         Ok(())

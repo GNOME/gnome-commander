@@ -31,7 +31,8 @@ use crate::{
     tab_label::TabLockIndicator,
     types::{
         ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GraphicalLayoutMode, IconScaleQuality,
-        PermissionDisplayMode, QuickSearchShortcut, SizeDisplayMode,
+        LeftMouseButtonMode, MiddleMouseButtonMode, PermissionDisplayMode, QuickSearchShortcut,
+        RightMouseButtonMode, SizeDisplayMode,
     },
 };
 use gettextrs::gettext;
@@ -75,10 +76,16 @@ pub trait GeneralOptionsRead {
     fn select_dirs(&self) -> bool;
 
     fn case_sensitive(&self) -> bool;
+    fn symbolic_links_as_regular_files(&self) -> bool;
 
-    fn quick_seaech_shortcut(&self) -> QuickSearchShortcut;
-    fn quick_seaech_exact_match_begin(&self) -> bool;
-    fn quick_seaech_exact_match_end(&self) -> bool;
+    fn left_mouse_button_mode(&self) -> LeftMouseButtonMode;
+    fn middle_mouse_button_mode(&self) -> MiddleMouseButtonMode;
+    fn right_mouse_button_mode(&self) -> RightMouseButtonMode;
+    fn left_mouse_button_unselects(&self) -> bool;
+
+    fn quick_search_shortcut(&self) -> QuickSearchShortcut;
+    fn quick_search_exact_match_begin(&self) -> bool;
+    fn quick_search_exact_match_end(&self) -> bool;
 
     fn show_samba_workgroups_button(&self) -> bool;
     fn device_only_icon(&self) -> bool;
@@ -88,6 +95,7 @@ pub trait GeneralOptionsRead {
 
     fn save_tabs_on_exit(&self) -> bool;
     fn save_dirs_on_exit(&self) -> bool;
+    fn save_directory_history_on_exit(&self) -> bool;
     fn save_command_line_history_on_exit(&self) -> bool;
 
     fn favorite_apps(&self) -> Vec<FavoriteAppVariant>;
@@ -100,12 +108,14 @@ pub trait GeneralOptionsRead {
 }
 
 pub trait GeneralOptionsWrite {
+    fn set_allow_multiple_instances(&self, value: bool) -> WriteResult;
+
     fn set_bookmarks(&self, bookmarks: &glib::Variant);
     fn reset_bookmarks(&self);
 
     fn set_symlink_format(&self, symlink_format: &str);
 
-    fn set_use_trash(&self, use_trash: bool);
+    fn set_use_trash(&self, use_trash: bool) -> WriteResult;
 
     fn set_keybindings(&self, keybindings: &glib::Variant);
 
@@ -127,6 +137,20 @@ pub trait GeneralOptionsWrite {
     fn set_icon_scale_quality(&self, value: IconScaleQuality) -> WriteResult;
     fn set_mime_icon_dir(&self, value: Option<&Path>) -> WriteResult;
 
+    fn set_select_dirs(&self, value: bool) -> WriteResult;
+
+    fn set_case_sensitive(&self, value: bool) -> WriteResult;
+    fn set_symbolic_links_as_regular_files(&self, value: bool) -> WriteResult;
+
+    fn set_left_mouse_button_mode(&self, mode: LeftMouseButtonMode) -> WriteResult;
+    fn set_middle_mouse_button_mode(&self, mode: MiddleMouseButtonMode) -> WriteResult;
+    fn set_right_mouse_button_mode(&self, mode: RightMouseButtonMode) -> WriteResult;
+    fn set_left_mouse_button_unselects(&self, value: bool) -> WriteResult;
+
+    fn set_quick_search_shortcut(&self, value: QuickSearchShortcut) -> WriteResult;
+    fn set_quick_search_exact_match_begin(&self, value: bool) -> WriteResult;
+    fn set_quick_search_exact_match_end(&self, value: bool) -> WriteResult;
+
     fn set_show_samba_workgroups_button(&self, value: bool) -> WriteResult;
     fn set_device_only_icon(&self, value: bool) -> WriteResult;
 
@@ -140,6 +164,10 @@ pub trait GeneralOptionsWrite {
     fn set_search_pattern_history(&self, values: &[String]) -> WriteResult;
     fn set_search_text_history(&self, values: &[String]) -> WriteResult;
     fn set_save_search_history(&self, value: bool) -> WriteResult;
+    fn set_save_dirs_on_exit(&self, value: bool) -> WriteResult;
+    fn set_save_tabs_on_exit(&self, value: bool) -> WriteResult;
+    fn set_save_directory_history_on_exit(&self, value: bool) -> WriteResult;
+    fn set_save_command_line_history_on_exit(&self, value: bool) -> WriteResult;
 }
 
 impl GeneralOptions {
@@ -263,7 +291,42 @@ impl GeneralOptionsRead for GeneralOptions {
         self.0.boolean("case-sensitive")
     }
 
-    fn quick_seaech_shortcut(&self) -> QuickSearchShortcut {
+    fn symbolic_links_as_regular_files(&self) -> bool {
+        self.0.boolean("symbolic-links-as-regular-files")
+    }
+
+    fn left_mouse_button_mode(&self) -> LeftMouseButtonMode {
+        self.0
+            .enum_("clicks-to-open-item")
+            .try_into()
+            .ok()
+            .and_then(LeftMouseButtonMode::from_repr)
+            .unwrap_or_default()
+    }
+
+    fn middle_mouse_button_mode(&self) -> MiddleMouseButtonMode {
+        self.0
+            .enum_("middle-mouse-btn-mode")
+            .try_into()
+            .ok()
+            .and_then(MiddleMouseButtonMode::from_repr)
+            .unwrap_or_default()
+    }
+
+    fn right_mouse_button_mode(&self) -> RightMouseButtonMode {
+        self.0
+            .enum_("right-mouse-btn-mode")
+            .try_into()
+            .ok()
+            .and_then(RightMouseButtonMode::from_repr)
+            .unwrap_or_default()
+    }
+
+    fn left_mouse_button_unselects(&self) -> bool {
+        self.0.boolean("left-mouse-btn-unselects")
+    }
+
+    fn quick_search_shortcut(&self) -> QuickSearchShortcut {
         self.0
             .enum_("quick-search")
             .try_into()
@@ -272,11 +335,11 @@ impl GeneralOptionsRead for GeneralOptions {
             .unwrap_or_default()
     }
 
-    fn quick_seaech_exact_match_begin(&self) -> bool {
+    fn quick_search_exact_match_begin(&self) -> bool {
         self.0.boolean("quick-search-exact-match-begin")
     }
 
-    fn quick_seaech_exact_match_end(&self) -> bool {
+    fn quick_search_exact_match_end(&self) -> bool {
         self.0.boolean("quick-search-exact-match-end")
     }
 
@@ -309,6 +372,10 @@ impl GeneralOptionsRead for GeneralOptions {
 
     fn device_only_icon(&self) -> bool {
         self.0.boolean("dev-only-icon")
+    }
+
+    fn save_directory_history_on_exit(&self) -> bool {
+        self.0.boolean("save-dir-history-on-exit")
     }
 
     fn save_command_line_history_on_exit(&self) -> bool {
@@ -351,6 +418,10 @@ impl GeneralOptionsRead for GeneralOptions {
 }
 
 impl GeneralOptionsWrite for GeneralOptions {
+    fn set_allow_multiple_instances(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("allow-multiple-instances", value)
+    }
+
     fn set_bookmarks(&self, bookmarks: &glib::Variant) {
         self.0.set_value("bookmarks", bookmarks);
     }
@@ -363,8 +434,8 @@ impl GeneralOptionsWrite for GeneralOptions {
         self.0.set_string("symlink-string", symlink_format);
     }
 
-    fn set_use_trash(&self, use_trash: bool) {
-        self.0.set_boolean("delete-to-trash", use_trash);
+    fn set_use_trash(&self, use_trash: bool) -> WriteResult {
+        self.0.set_boolean("delete-to-trash", use_trash)
     }
 
     fn set_keybindings(&self, keybindings: &glib::Variant) {
@@ -436,6 +507,46 @@ impl GeneralOptionsWrite for GeneralOptions {
         )
     }
 
+    fn set_select_dirs(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("select-dirs", value)
+    }
+
+    fn set_case_sensitive(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("case-sensitive", value)
+    }
+
+    fn set_symbolic_links_as_regular_files(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("symbolic-links-as-regular-files", value)
+    }
+
+    fn set_left_mouse_button_mode(&self, mode: LeftMouseButtonMode) -> WriteResult {
+        self.0.set_enum("clicks-to-open-item", mode as i32)
+    }
+
+    fn set_middle_mouse_button_mode(&self, mode: MiddleMouseButtonMode) -> WriteResult {
+        self.0.set_enum("middle-mouse-btn-mode", mode as i32)
+    }
+
+    fn set_right_mouse_button_mode(&self, mode: RightMouseButtonMode) -> WriteResult {
+        self.0.set_enum("right-mouse-btn-mode", mode as i32)
+    }
+
+    fn set_left_mouse_button_unselects(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("left-mouse-btn-unselects", value)
+    }
+
+    fn set_quick_search_shortcut(&self, value: QuickSearchShortcut) -> WriteResult {
+        self.0.set_enum("quick-search", value as i32)
+    }
+
+    fn set_quick_search_exact_match_begin(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("quick-search-exact-match-begin", value)
+    }
+
+    fn set_quick_search_exact_match_end(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("quick-search-exact-match-end", value)
+    }
+
     fn set_show_samba_workgroups_button(&self, value: bool) -> WriteResult {
         self.0.set_boolean("show-samba-workgroup-button", value)
     }
@@ -466,6 +577,22 @@ impl GeneralOptionsWrite for GeneralOptions {
 
     fn set_save_search_history(&self, value: bool) -> WriteResult {
         self.0.set_boolean("save-search-history-on-exit", value)
+    }
+
+    fn set_save_dirs_on_exit(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("save-dirs-on-exit", value)
+    }
+
+    fn set_save_tabs_on_exit(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("save-tabs-on-exit", value)
+    }
+
+    fn set_save_directory_history_on_exit(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("save-dir-history-on-exit", value)
+    }
+
+    fn set_save_command_line_history_on_exit(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("save-cmdline-history-on-exit", value)
     }
 }
 

@@ -92,81 +92,6 @@ static void on_bookmarks_changed (GnomeCmdMainWin *main_win)
     gnome_cmd_data.load_bookmarks();
 }
 
-static void on_symbolic_links_as_regular_files_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean symbolic_links_as_regular_files;
-
-    symbolic_links_as_regular_files = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SYMBOLIC_LINKS_AS_REG_FILES);
-    gnome_cmd_data.options.symbolic_links_as_regular_files = symbolic_links_as_regular_files;
-
-    main_win->update_view();
-}
-
-static void on_use_trash_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean use_trash;
-
-    use_trash = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_USE_TRASH);
-    gnome_cmd_data.options.deleteToTrash = use_trash;
-}
-
-static void on_select_dirs_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean select_dirs;
-
-    select_dirs = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS);
-    gnome_cmd_data.options.select_dirs = select_dirs;
-}
-
-static void on_case_sensitive_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean case_sensitive;
-
-    case_sensitive = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE);
-    gnome_cmd_data.options.case_sens_sort = case_sensitive;
-}
-
-static void on_multiple_instances_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean allow_multiple_instances;
-
-    allow_multiple_instances = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
-    gnome_cmd_data.options.allow_multiple_instances = allow_multiple_instances;
-}
-
-static void on_quick_search_shortcut_changed (GnomeCmdMainWin *main_win)
-{
-    GnomeCmdQuickSearchShortcut quick_search;
-    quick_search = (GnomeCmdQuickSearchShortcut) g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT);
-    gnome_cmd_data.options.quick_search = quick_search;
-}
-
-static void on_quick_search_exact_match_begin_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean quick_search_exact_match;
-
-    quick_search_exact_match = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN);
-    gnome_cmd_data.options.quick_search_exact_match_begin = quick_search_exact_match;
-}
-
-static void on_quick_search_exact_match_end_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean quick_search_exact_match;
-
-    quick_search_exact_match = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END);
-    gnome_cmd_data.options.quick_search_exact_match_end = quick_search_exact_match;
-}
-
-static void on_opts_dialog_width_changed()
-{
-    gnome_cmd_data.opts_dialog_width = g_settings_get_uint (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_OPTS_DIALOG_WIDTH);
-}
-
-static void on_opts_dialog_height_changed()
-{
-    gnome_cmd_data.opts_dialog_height = g_settings_get_uint (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_OPTS_DIALOG_HEIGHT);
-}
-
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -181,56 +106,6 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs, GnomeCmdMainWin *ma
                       "changed::bookmarks",
                       G_CALLBACK (on_bookmarks_changed),
                       main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::symbolic-links-as-regular-files",
-                      G_CALLBACK (on_symbolic_links_as_regular_files_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::delete-to-trash",
-                      G_CALLBACK (on_use_trash_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::select-dirs",
-                      G_CALLBACK (on_select_dirs_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::case-sensitive",
-                      G_CALLBACK (on_case_sensitive_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::allow-multiple-instances",
-                      G_CALLBACK (on_multiple_instances_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::quick-search",
-                      G_CALLBACK (on_quick_search_shortcut_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::quick-search-exact-match-begin",
-                      G_CALLBACK (on_quick_search_exact_match_begin_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::quick-search-exact-match-end",
-                      G_CALLBACK (on_quick_search_exact_match_end_changed),
-                      main_win);
-
-    g_signal_connect (gs->general,
-                      "changed::opts-dialog-width",
-                      G_CALLBACK (on_opts_dialog_width_changed),
-                      nullptr);
-
-    g_signal_connect (gs->general,
-                      "changed::opts-dialog-height",
-                      G_CALLBACK (on_opts_dialog_height_changed),
-                      nullptr);
 }
 
 
@@ -255,22 +130,6 @@ GcmdSettings *gcmd_settings_new ()
 
 GnomeCmdData::Options::Options(const Options &cfg)
 {
-    left_mouse_button_mode = cfg.left_mouse_button_mode;
-    left_mouse_button_unselects = cfg.left_mouse_button_unselects;
-    middle_mouse_button_mode = cfg.middle_mouse_button_mode;
-    right_mouse_button_mode = cfg.right_mouse_button_mode;
-    select_dirs = cfg.select_dirs;
-    case_sens_sort = cfg.case_sens_sort;
-    quick_search = cfg.quick_search;
-    quick_search_exact_match_begin = cfg.quick_search_exact_match_begin;
-    quick_search_exact_match_end = cfg.quick_search_exact_match_end;
-    allow_multiple_instances = cfg.allow_multiple_instances;
-    save_dirs_on_exit = cfg.save_dirs_on_exit;
-    save_tabs_on_exit = cfg.save_tabs_on_exit;
-    save_dir_history_on_exit = cfg.save_dir_history_on_exit;
-    save_cmdline_history_on_exit = cfg.save_cmdline_history_on_exit;
-    save_search_history_on_exit = cfg.save_search_history_on_exit;
-    deleteToTrash = cfg.deleteToTrash;
     gcmd_settings = nullptr;
 }
 
@@ -281,21 +140,6 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
     {
         this->~Options();       //  free allocated data
 
-        left_mouse_button_mode = cfg.left_mouse_button_mode;
-        left_mouse_button_unselects = cfg.left_mouse_button_unselects;
-        middle_mouse_button_mode = cfg.middle_mouse_button_mode;
-        right_mouse_button_mode = cfg.right_mouse_button_mode;
-        select_dirs = cfg.select_dirs;
-        case_sens_sort = cfg.case_sens_sort;
-        quick_search = cfg.quick_search;
-        quick_search_exact_match_begin = cfg.quick_search_exact_match_begin;
-        quick_search_exact_match_end = cfg.quick_search_exact_match_end;
-        allow_multiple_instances = cfg.allow_multiple_instances;
-        save_dirs_on_exit = cfg.save_dirs_on_exit;
-        save_tabs_on_exit = cfg.save_tabs_on_exit;
-        save_dir_history_on_exit = cfg.save_dir_history_on_exit;
-        save_cmdline_history_on_exit = cfg.save_cmdline_history_on_exit;
-        save_search_history_on_exit = cfg.save_search_history_on_exit;
         gcmd_settings = nullptr;
     }
 
@@ -350,44 +194,9 @@ void GnomeCmdData::load_bookmarks()
 }
 
 
-/**
- * This function converts a GList into a NULL terminated array of char pointers.
- * This array is stored into the given GSettings key.
- * @returns The return value of g_settings_set_strv if the length of the GList is > 0, else true.
- */
-gboolean GnomeCmdData::set_gsettings_string_array_from_glist (GSettings *settings_given, const gchar *key, GList *strings)
+void GnomeCmdData::save_directory_history(bool save_dir_history)
 {
-    gboolean rv = true;
-
-    if (strings == nullptr)
-    {
-        rv = g_settings_set_strv(settings_given, key, nullptr);
-    }
-    else
-    {
-        guint ii;
-        auto numberOfStrings = g_list_length (strings);
-        gchar** str_array;
-        str_array = new char * [numberOfStrings + 1];
-
-        // Build up a NULL terminated char array for storage in GSettings
-        for (ii = 0; strings; strings = strings->next, ++ii)
-        {
-            str_array[ii] = (gchar*) strings->data;
-        }
-        str_array[ii] = nullptr;
-
-        rv = g_settings_set_strv(settings_given, key, str_array);
-
-        delete[](str_array);
-    }
-    return rv;
-}
-
-
-void GnomeCmdData::save_directory_history()
-{
-    if (options.save_dir_history_on_exit)
+    if (save_dir_history)
     {
         auto dir_history = gnome_cmd_con_export_dir_history (gnome_cmd_con_list_get_home (priv->con_list));
         g_settings_set_strv (options.gcmd_settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY, dir_history);
@@ -398,25 +207,6 @@ void GnomeCmdData::save_directory_history()
         GVariant* dirHistoryToStore = g_settings_get_default_value (options.gcmd_settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY);
         g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY, dirHistoryToStore);
     }
-}
-
-
-/**
- * Returns a GList with newly allocated char strings
- */
-inline GList* GnomeCmdData::get_list_from_gsettings_string_array (GSettings *settings_given, const gchar *key)
-{
-    GList *list = nullptr;
-    gchar** gsettings_array;
-    gsettings_array = g_settings_get_strv (settings_given, key);
-
-    for(gint i = 0; gsettings_array[i]; ++i)
-    {
-        list = g_list_append (list, gsettings_array[i]);
-    }
-
-    g_free(gsettings_array);
-    return list;
 }
 
 
@@ -485,33 +275,9 @@ void GnomeCmdData::load()
     if (!priv)
         priv = g_new0 (Private, 1);
 
-    options.select_dirs = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS);
-    options.case_sens_sort = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE);
-    options.symbolic_links_as_regular_files = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SYMBOLIC_LINKS_AS_REG_FILES);
-
-    opts_dialog_width = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_OPTS_DIALOG_WIDTH);
-    opts_dialog_height = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_OPTS_DIALOG_HEIGHT);
-
-    options.left_mouse_button_mode = (LeftMouseButtonMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_CLICKS_TO_OPEN_ITEM);
-    options.left_mouse_button_unselects = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_LEFT_MOUSE_BUTTON_UNSELECTS);
-    options.middle_mouse_button_mode = (MiddleMouseButtonMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_MIDDLE_MOUSE_BUTTON_MODE);
-    options.right_mouse_button_mode = (RightMouseButtonMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE);
-    options.deleteToTrash = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_USE_TRASH);
     gui_update_rate = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE);
 
-    options.allow_multiple_instances = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
-    options.quick_search = (GnomeCmdQuickSearchShortcut) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT);
-    options.quick_search_exact_match_begin = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN);
-    options.quick_search_exact_match_end = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END);
-
     gboolean show_samba_workgroups_button = g_settings_get_boolean(options.gcmd_settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON);
-
-    options.save_dirs_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIRS_ON_EXIT);
-    options.save_tabs_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_TABS_ON_EXIT);
-    options.save_dir_history_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIR_HISTORY_ON_EXIT);
-    options.save_cmdline_history_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_CMDLINE_HISTORY_ON_EXIT);
-    options.save_search_history_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_SEARCH_HISTORY_ON_EXIT);
-    options.search_window_is_transient = g_settings_get_boolean(options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_WIN_IS_TRANSIENT);
 
     if (!priv->con_list)
         priv->con_list = gnome_cmd_con_list_new (show_samba_workgroups_button);
@@ -528,75 +294,17 @@ void GnomeCmdData::load()
 }
 
 
-void GnomeCmdData::save(GnomeCmdMainWin *main_win)
+void GnomeCmdData::save(GnomeCmdMainWin *main_win, bool save_dir_history)
 {
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS, &(options.select_dirs));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE, &(options.case_sens_sort));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SYMBOLIC_LINKS_AS_REG_FILES, &(options.symbolic_links_as_regular_files));
-
-    set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_CLICKS_TO_OPEN_ITEM, options.left_mouse_button_mode);
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_LEFT_MOUSE_BUTTON_UNSELECTS, &(options.left_mouse_button_unselects));
-    set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_MIDDLE_MOUSE_BUTTON_MODE, options.middle_mouse_button_mode);
-    set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE, options.right_mouse_button_mode);
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_USE_TRASH, &(options.deleteToTrash));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE, &(gui_update_rate));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES, &(options.allow_multiple_instances));
-    set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT, options.quick_search);
-
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN, &(options.quick_search_exact_match_begin));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END, &(options.quick_search_exact_match_end));
-
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_OPTS_DIALOG_WIDTH, &(opts_dialog_width));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_OPTS_DIALOG_HEIGHT, &(opts_dialog_height));
-
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIRS_ON_EXIT, &(options.save_dirs_on_exit));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_TABS_ON_EXIT, &(options.save_tabs_on_exit));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIR_HISTORY_ON_EXIT, &(options.save_dir_history_on_exit));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_CMDLINE_HISTORY_ON_EXIT, &(options.save_cmdline_history_on_exit));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_SEARCH_HISTORY_ON_EXIT, &(options.save_search_history_on_exit));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_WIN_IS_TRANSIENT , &(options.search_window_is_transient));
 
     save_devices                    ();
-    save_directory_history          ();
+    save_directory_history          (save_dir_history);
     gnome_cmd_search_config_save();
     save_connections                ();
     save_bookmarks                  ();
 
     g_settings_sync ();
-}
-
-
-/**
- * As GSettings enum-type is of GVARIANT_CLASS String, we need a separate function for
- * finding out if a key value has changed. This is done here. For storing the other GSettings
- * types, see @link set_gsettings_when_changed @endlink .
- * @returns TRUE if new value could be stored, else FALSE
- */
-gboolean GnomeCmdData::set_gsettings_enum_when_changed (GSettings *settings_given, const char *key, gint new_value)
-{
-    GVariant *default_val;
-    gboolean rv = true;
-
-    default_val = g_settings_get_default_value (settings_given, key);
-
-    // An enum key must be of type G_VARIANT_CLASS_STRING
-    if (g_variant_classify(default_val) == G_VARIANT_CLASS_STRING)
-    {
-        gint old_value;
-        old_value = g_settings_get_enum(settings_given, key);
-        if (old_value != new_value)
-            rv = g_settings_set_enum (settings_given, key, new_value);
-    }
-    else
-    {
-        g_warning("Could not store value of type '%s' for key '%s'\n", g_variant_get_type_string (default_val), key);
-        rv = false;
-    }
-
-    if (default_val)
-        g_variant_unref (default_val);
-
-    return rv;
 }
 
 
@@ -606,8 +314,7 @@ gboolean GnomeCmdData::set_gsettings_enum_when_changed (GSettings *settings_give
 #endif
 /**
  * This method stores the value for a given key if the value is different from the currently stored one
- * under the keys value. This function is able of storing several types of GSettings values (except enums
- * which is done in @link set_gsettings_enum_when_changed @endlink, and complex variant types).
+ * under the keys value. This function is able of storing several types of GSettings values.
  * Therefore, it first checks the type of GVariant of the default value of the given key. Depending on
  * the result, the gpointer is than casted to the correct type so that *value can be saved.
  * @returns TRUE if new value could be stored, else FALSE
@@ -692,7 +399,7 @@ extern "C" GnomeCmdData::Options *gnome_cmd_data_options ()
     return &gnome_cmd_data.options;
 }
 
-extern "C" void gnome_cmd_data_save (GnomeCmdMainWin *mw)
+extern "C" void gnome_cmd_data_save (GnomeCmdMainWin *mw, gboolean save_dir_history)
 {
-    gnome_cmd_data.save (mw);
+    gnome_cmd_data.save (mw, save_dir_history);
 }
