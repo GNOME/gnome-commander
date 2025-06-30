@@ -49,7 +49,7 @@ use gtk::{
 };
 use std::{
     collections::{BTreeSet, HashMap, HashSet},
-    ffi::{c_char, c_int},
+    ffi::c_int,
     path::{Path, PathBuf},
 };
 
@@ -218,8 +218,8 @@ mod imp {
             let (filter_box, filter_entry) = create_filter_box();
 
             Self {
-                connection_bar: ConnectionBar::new(&connection_list),
-                connection_list,
+                connection_bar: ConnectionBar::new(connection_list),
+                connection_list: connection_list.clone(),
                 connection_dropdown: gtk::DropDown::builder()
                     .model(&model)
                     .halign(gtk::Align::Start)

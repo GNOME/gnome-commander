@@ -128,8 +128,6 @@ inline gchar *quote_if_needed (const gchar *in)
 
 gchar *unquote_if_needed (const gchar *in);
 
-GList *string_history_add (GList *in, const gchar *value, guint maxsize);
-
 void set_cursor_busy_for_widget (GtkWidget *widget);
 
 void remove_temp_download_dir ();
