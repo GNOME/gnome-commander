@@ -19,7 +19,10 @@
 
 use crate::{
     app::FavoriteAppVariant,
-    connection::history::History,
+    connection::{
+        history::History,
+        list::{BookmarkVariant, ConnectionVariant, CustomDeviceVariant},
+    },
     file_selector::TabVariant,
     filter::PatternType,
     layout::{
@@ -51,7 +54,11 @@ pub struct GeneralOptions(pub gio::Settings);
 pub trait GeneralOptionsRead {
     fn allow_multiple_instances(&self) -> bool;
 
-    fn bookmarks(&self) -> glib::Variant;
+    fn device_list(&self) -> Vec<CustomDeviceVariant>;
+    fn directory_history(&self) -> Vec<String>;
+    fn connections(&self) -> Vec<ConnectionVariant>;
+
+    fn bookmarks(&self) -> Vec<BookmarkVariant>;
     fn symlink_format(&self) -> String;
     fn use_trash(&self) -> bool;
     fn keybindings(&self) -> glib::Variant;
@@ -113,8 +120,11 @@ pub trait GeneralOptionsRead {
 pub trait GeneralOptionsWrite {
     fn set_allow_multiple_instances(&self, value: bool) -> WriteResult;
 
-    fn set_bookmarks(&self, bookmarks: &glib::Variant);
-    fn reset_bookmarks(&self);
+    fn set_device_list(&self, value: &[CustomDeviceVariant]) -> WriteResult;
+    fn set_directory_history(&self, value: &[String]) -> WriteResult;
+    fn set_connections(&self, value: &[ConnectionVariant]) -> WriteResult;
+
+    fn set_bookmarks(&self, bookmarks: &[BookmarkVariant]) -> WriteResult;
 
     fn set_symlink_format(&self, symlink_format: &str);
 
@@ -186,8 +196,23 @@ impl GeneralOptionsRead for GeneralOptions {
         self.0.boolean("allow-multiple-instances")
     }
 
-    fn bookmarks(&self) -> glib::Variant {
-        self.0.value("bookmarks")
+    fn device_list(&self) -> Vec<CustomDeviceVariant> {
+        Vec::<CustomDeviceVariant>::from_variant(&self.0.value("device-list")).unwrap_or_default()
+    }
+    fn directory_history(&self) -> Vec<String> {
+        self.0
+            .strv("directory-history")
+            .iter()
+            .map(|v| v.to_string())
+            .collect()
+    }
+
+    fn connections(&self) -> Vec<ConnectionVariant> {
+        Vec::<ConnectionVariant>::from_variant(&self.0.value("connections")).unwrap_or_default()
+    }
+
+    fn bookmarks(&self) -> Vec<BookmarkVariant> {
+        Vec::<BookmarkVariant>::from_variant(&self.0.value("bookmarks")).unwrap_or_default()
     }
 
     fn symlink_format(&self) -> String {
@@ -429,12 +454,20 @@ impl GeneralOptionsWrite for GeneralOptions {
         self.0.set_boolean("allow-multiple-instances", value)
     }
 
-    fn set_bookmarks(&self, bookmarks: &glib::Variant) {
-        self.0.set_value("bookmarks", bookmarks);
+    fn set_device_list(&self, value: &[CustomDeviceVariant]) -> WriteResult {
+        self.0.set_value("device-list", &value.to_variant())
     }
 
-    fn reset_bookmarks(&self) {
-        self.0.reset("bookmarks");
+    fn set_directory_history(&self, value: &[String]) -> WriteResult {
+        self.0.set_strv("directory-history", value)
+    }
+
+    fn set_connections(&self, value: &[ConnectionVariant]) -> WriteResult {
+        self.0.set_value("connections", &value.to_variant())
+    }
+
+    fn set_bookmarks(&self, bookmarks: &[BookmarkVariant]) -> WriteResult {
+        self.0.set_value("bookmarks", &bookmarks.to_variant())
     }
 
     fn set_symlink_format(&self, symlink_format: &str) {
@@ -1126,22 +1159,6 @@ impl SearchConfig {
         for item in settings.search_text_history().iter().rev() {
             self.content_patterns.add(item.to_string());
         }
-    }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_search_config_load() {
-    let search_config = SearchConfig::get();
-    let options = GeneralOptions::new();
-    search_config.load(&options);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_search_config_save() {
-    let search_config = SearchConfig::get();
-    let options = GeneralOptions::new();
-    if let Err(error) = search_config.save(&options, options.save_search_history()) {
-        eprintln!("Failed to save search profiles: {}", error.message);
     }
 }
 

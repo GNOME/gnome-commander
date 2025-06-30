@@ -45,6 +45,7 @@ mod imp {
     use crate::{
         config::{ICONS_DIR, PACKAGE},
         connection::list::ConnectionList,
+        data::SearchConfig,
         main_win::MainWindow,
     };
     use gtk::glib::translate::ToGlibPtr;
@@ -117,7 +118,9 @@ mod imp {
 
             create_config_directory();
 
-            ConnectionList::create(GeneralOptions::new().show_samba_workgroups_button());
+            let options = GeneralOptions::new();
+            ConnectionList::create(options.show_samba_workgroups_button());
+            SearchConfig::get().load(&options);
 
             let debug_flags = self.debug_flags.borrow().clone();
             unsafe {
@@ -126,6 +129,9 @@ mod imp {
                     debug_flags.to_glib_none().0,
                 );
             }
+
+            ConnectionList::get().load(&options);
+            ConnectionList::get().set_volume_monitor();
         }
 
         fn activate(&self) {
@@ -157,9 +163,18 @@ mod imp {
         }
 
         fn shutdown(&self) {
+            let options = GeneralOptions::new();
+            if let Err(error) = SearchConfig::get().save(&options, options.save_search_history()) {
+                eprintln!("Failed to save search profiles: {}", error.message);
+            }
+            if let Err(error) = ConnectionList::get().save(&options) {
+                eprintln!("Failed to save connection data: {}", error.message);
+            }
+
             unsafe {
                 ffi::gnome_cmd_application_shutdown();
             }
+            gio::Settings::sync();
             self.parent_shutdown();
         }
 

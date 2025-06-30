@@ -590,8 +590,8 @@ pub async fn bookmark_directory(
         };
         con.add_bookmark(&changed_bookmark);
 
-        if let Some(bookmarks) = connection_list.save_bookmarks() {
-            options.set_bookmarks(&bookmarks);
+        if let Err(error) = options.set_bookmarks(&connection_list.save_bookmarks()) {
+            eprintln!("Failed to save bookmarks: {error}");
         }
     }
 }

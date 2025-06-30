@@ -29,8 +29,6 @@
 struct GnomeCmdConList;
 
 
-extern "C" GnomeCmdConList *gnome_cmd_con_list_new (gboolean show_samba_workgroups_button);
-
 extern "C" GnomeCmdConList *gnome_cmd_con_list_get ();
 
 extern "C" GListModel *gnome_cmd_con_list_get_all (GnomeCmdConList *list);
@@ -49,17 +47,3 @@ inline GnomeCmdCon *get_smb_con ()
 }
 
 extern "C" GnomeCmdCon *get_remote_con_for_gfile (GnomeCmdConList *list, GFile *gFile);
-
-extern "C" void gnome_cmd_con_list_load_bookmarks (GnomeCmdConList *list, GVariant *gVariantBookmarks);
-extern "C" GVariant *gnome_cmd_con_list_save_bookmarks (GnomeCmdConList *list);
-
-extern "C" void gnome_cmd_con_list_lock (GnomeCmdConList *list);
-extern "C" void gnome_cmd_con_list_unlock (GnomeCmdConList *list);
-
-extern "C" void gnome_cmd_con_list_set_volume_monitor (GnomeCmdConList *list);
-
-extern "C" void gnome_cmd_con_list_load_devices (GnomeCmdConList *list, GVariant *variant);
-extern "C" GVariant *gnome_cmd_con_list_save_devices (GnomeCmdConList *list);
-
-extern "C" void gnome_cmd_con_list_load_connections (GnomeCmdConList *list, GVariant *variant);
-extern "C" GVariant *gnome_cmd_con_list_save_connections (GnomeCmdConList *list);
