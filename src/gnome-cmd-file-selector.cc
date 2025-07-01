@@ -38,8 +38,6 @@ struct GnomeCmdFileSelectorPrivate
 {
     GnomeCmdFileList *list;
 
-    GtkWidget *filter_box {nullptr};
-
     gboolean active {FALSE};
     gboolean realized {FALSE};
     gboolean select_connection_in_progress {FALSE};
@@ -439,62 +437,6 @@ void GnomeCmdFileSelector::update_style()
     }
 
     update_connections();
-}
-
-
-static void on_filter_box_close (GtkButton *btn, GnomeCmdFileSelector *fs)
-{
-    auto priv = file_selector_priv (fs);
-    if (!priv->filter_box) return;
-
-    gtk_widget_set_visible (priv->filter_box, FALSE);
-}
-
-
-static gboolean on_filter_box_keypressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
-{
-    auto fs = static_cast<GnomeCmdFileSelector*>(user_data);
-
-    if (state_is_blank (state) && keyval == GDK_KEY_Escape)
-    {
-        on_filter_box_close (nullptr, fs);
-        return TRUE;
-    }
-
-    return FALSE;
-}
-
-
-void GnomeCmdFileSelector::show_filter()
-{
-    auto priv = file_selector_priv (this);
-
-    if (!priv->filter_box)
-    {
-        priv->filter_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-        gtk_widget_set_margin_start (priv->filter_box, 6);
-        gtk_widget_set_margin_end (priv->filter_box, 6);
-
-        GtkWidget *label = create_label (*this, _("Filter:"));
-        GtkWidget *entry = create_entry (*this, "entry", "");
-        gtk_widget_set_hexpand (entry, TRUE);
-        GtkWidget *close_btn = gtk_button_new_with_mnemonic ("x");
-        g_signal_connect (close_btn, "clicked", G_CALLBACK (on_filter_box_close), this);
-
-        GtkEventController *key_controller = gtk_event_controller_key_new ();
-        gtk_widget_add_controller (entry, GTK_EVENT_CONTROLLER (key_controller));
-        g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_filter_box_keypressed), this);
-
-        gtk_box_append (GTK_BOX (priv->filter_box), label);
-        gtk_box_append (GTK_BOX (priv->filter_box), entry);
-        gtk_box_append (GTK_BOX (priv->filter_box), close_btn);
-
-        gtk_grid_attach (GTK_GRID (this), priv->filter_box, 0, 5, 2, 1);
-
-        gtk_widget_grab_focus (entry);
-    }
-
-    gtk_widget_set_visible (priv->filter_box, TRUE);
 }
 
 

@@ -763,7 +763,13 @@ pub fn edit_cap_paste(
     });
 }
 
-c_action!(edit_filter);
+pub fn edit_filter(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win.file_selector(FileSelectorID::ACTIVE).show_filter();
+}
 
 pub fn edit_copy_fnames(
     main_win: &MainWindow,
@@ -973,7 +979,19 @@ pub fn view_in_inactive_pane(
     main_win.set_directory_to_opposite(FileSelectorID::INACTIVE);
 }
 
-c_action!(view_directory);
+pub fn view_directory(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+    if let Some(file) = file_list.selected_file() {
+        if file.file_info().file_type() == gio::FileType::Directory {
+            file_selector.do_file_specific_action(&file_list, &file);
+        }
+    }
+}
 
 pub fn view_home(
     main_win: &MainWindow,
@@ -1122,7 +1140,16 @@ pub fn view_in_inactive_tab(
     }
 }
 
-c_action!(view_toggle_tab_lock);
+pub fn view_toggle_tab_lock(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+    file_selector.toggle_tab_lock(&file_list);
+}
+
 c_action!(view_step_up);
 c_action!(view_step_down);
 

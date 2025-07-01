@@ -150,6 +150,8 @@ mod imp {
         pub directory_indicator: DirectoryIndicator,
         pub notebook: gtk::Notebook,
         pub info_label: gtk::Label,
+        pub filter_box: gtk::Box,
+        pub filter_entry: gtk::Entry,
 
         #[property(get, set, nullable)]
         pub command_line: RefCell<Option<CommandLine>>,
@@ -220,6 +222,8 @@ mod imp {
                 })),
             );
 
+            let (filter_box, filter_entry) = create_filter_box();
+
             Self {
                 connection_bar: ConnectionBar::new(&connection_list),
                 connection_list,
@@ -255,6 +259,9 @@ mod imp {
                     .margin_start(6)
                     .margin_end(6)
                     .build(),
+
+                filter_box,
+                filter_entry,
 
                 command_line: Default::default(),
 
@@ -324,6 +331,7 @@ mod imp {
 
             this.attach(&self.notebook, 0, 3, 2, 1);
             this.attach(&self.info_label, 0, 4, 1, 1);
+            this.attach(&self.filter_box, 0, 5, 2, 1);
 
             unsafe {
                 ffi::gnome_cmd_file_selector_init(self.obj().to_glib_none().0);
@@ -739,6 +747,12 @@ impl FileSelector {
         self.is_tab_locked(&self.file_list())
     }
 
+    pub fn toggle_tab_lock(&self, file_list: &FileList) {
+        let locked = self.is_tab_locked(&file_list);
+        self.set_tab_locked(&file_list, !locked);
+        self.imp().update_tab_label(file_list);
+    }
+
     pub fn update_show_devlist(&self, visible: bool) {
         self.imp().connection_dropdown.set_visible(visible);
 
@@ -1104,6 +1118,11 @@ impl FileSelector {
             ) != 0
         }
     }
+
+    pub fn show_filter(&self) {
+        self.imp().filter_box.set_visible(true);
+        self.imp().filter_entry.grab_focus();
+    }
 }
 
 #[derive(PartialEq, Eq, Hash, glib::Variant)]
@@ -1275,6 +1294,50 @@ async fn on_notebook_button_pressed(
         }
         _ => {}
     }
+}
+
+fn create_filter_box() -> (gtk::Box, gtk::Entry) {
+    let filter_box = gtk::Box::builder()
+        .orientation(gtk::Orientation::Horizontal)
+        .spacing(6)
+        .margin_start(6)
+        .margin_end(6)
+        .visible(false)
+        .build();
+
+    filter_box.append(&gtk::Label::builder().label(gettext("Filter:")).build());
+
+    let entry = gtk::Entry::builder().hexpand(true).build();
+    let key_controller = gtk::EventControllerKey::new();
+    key_controller.connect_key_pressed(glib::clone!(
+        #[weak]
+        filter_box,
+        #[upgrade_or]
+        glib::Propagation::Proceed,
+        move |_, key, _, state| {
+            eprintln!("{:?} {:?}", key, state);
+            if state == gdk::ModifierType::NO_MODIFIER_MASK && key == gdk::Key::Escape {
+                filter_box.set_visible(false);
+            }
+            glib::Propagation::Proceed
+        }
+    ));
+    entry.add_controller(key_controller);
+    filter_box.append(&entry);
+
+    let filter_close_button = gtk::Button::builder()
+        .label("x")
+        .has_frame(false)
+        .focusable(false)
+        .build();
+    filter_close_button.connect_clicked(glib::clone!(
+        #[weak]
+        filter_box,
+        move |_| filter_box.set_visible(false)
+    ));
+    filter_box.append(&filter_close_button);
+
+    (filter_box, entry)
 }
 
 #[no_mangle]
