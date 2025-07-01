@@ -20,6 +20,7 @@
 use crate::{
     config::PIXMAPS_DIR,
     data::GeneralOptions,
+    debug::debug,
     file::{ffi::GnomeCmdFile, File},
     libgcmd::file_descriptor::FileDescriptorExt,
     types::GraphicalLayoutMode,
@@ -154,12 +155,18 @@ impl IconCache {
             return None;
         }
 
-        try_load_icon(&icon_dir.join(mime_icon_name(mime_type)))
+        debug!('y', "Looking up pixmap for: {mime_type}");
+
+        let icon = try_load_icon(&icon_dir.join(mime_icon_name(mime_type)))
             .or_else(|| {
                 category_icon_path(mime_type)
                     .and_then(|file_name| try_load_icon(&icon_dir.join(file_name)))
             })
-            .or_else(|| try_load_icon(&icon_dir.join(type_icon_name(file_type))))
+            .or_else(|| try_load_icon(&icon_dir.join(type_icon_name(file_type))));
+
+        debug!('z', "Icon for {} found: {}", mime_type, icon.is_some());
+
+        icon
     }
 
     pub fn file_icon(&self, file: &File, mode: GraphicalLayoutMode) -> Option<gio::Icon> {
@@ -178,6 +185,7 @@ impl IconCache {
 }
 
 fn try_load_icon(path: &Path) -> Option<gio::Icon> {
+    debug!('z', "Trying {}", path.display());
     if path.exists() {
         Some(gio::FileIcon::new(&gio::File::for_path(path)).upcast())
     } else {
@@ -186,6 +194,7 @@ fn try_load_icon(path: &Path) -> Option<gio::Icon> {
 }
 
 fn load_icon(path: &Path) -> Option<gio::Icon> {
+    debug!('i', "imageloader: loading pixmap: {}", path.display());
     try_load_icon(path).or_else(|| {
         eprintln!("Cannot load icon {}. File wasn't found.", path.display());
         None

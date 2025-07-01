@@ -20,6 +20,7 @@
 use crate::{
     connection::connection::{ffi::GnomeCmdCon, Connection, ConnectionExt},
     data::{GeneralOptions, GeneralOptionsRead},
+    debug::debug,
     file_list::list::{ffi::GnomeCmdFileList, FileList},
     utils::{ErrorMessage, SenderExt},
 };
@@ -65,6 +66,7 @@ pub async fn open_connection(file_list: &FileList, parent_window: &gtk::Window, 
         .build();
     grid.attach(&button, 0, 2, 1, 1);
 
+    #[derive(Debug)]
     enum ConnectEvent {
         Done,
         Failure(Option<String>),
@@ -134,6 +136,7 @@ pub async fn open_connection(file_list: &FileList, parent_window: &gtk::Window, 
     con.disconnect(failed);
     dialog.close();
 
+    debug!('m', "connecion open result {:?}", result);
     match result {
         ConnectEvent::Done => file_list.set_connection(con, None),
         ConnectEvent::Failure(message) => {

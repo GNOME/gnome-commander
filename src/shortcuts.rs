@@ -20,7 +20,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::{main_win::MainWindow, user_actions::USER_ACTIONS};
+use crate::{debug::debug, main_win::MainWindow, user_actions::USER_ACTIONS};
 use gtk::{gdk, glib::translate::FromGlib, prelude::*};
 use std::{
     cell::RefCell,
@@ -112,7 +112,7 @@ impl Ord for Shortcut {
     }
 }
 
-#[derive(Clone, PartialEq, Eq)]
+#[derive(Clone, PartialEq, Eq, Debug)]
 pub struct Call {
     pub action_name: String,
     pub action_data: Option<String>,
@@ -269,6 +269,11 @@ impl Shortcuts {
         let Some(call) = inner.action.get(&event) else {
             return false;
         };
+
+        debug!(
+            'u',
+            "Key event: {:?}. Handling key event by {:?}", event, call
+        );
 
         // This is a bit controversial. Majority of actions to not accept arguments
         // and those which accept expect a specific variant and not an arbitrary
