@@ -1162,7 +1162,7 @@ impl MainWindow {
         };
 
         let Some(dir) = src
-            .is_active()
+            .active()
             .then(|| {
                 src.file_list()
                     .selected_file()

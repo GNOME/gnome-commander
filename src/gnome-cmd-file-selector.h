@@ -39,32 +39,17 @@ struct GnomeCmdFileSelector
 
   public:
 
-    operator GObject * () const             {  return G_OBJECT (this);    }
-    operator GtkWidget * () const           {  return GTK_WIDGET (this);  }
-    operator GtkBox * () const              {  return GTK_BOX (this);     }
-
     GnomeCmdFileList *file_list();
     GnomeCmdFileList *file_list(gint n);
 
     GnomeCmdDir *get_directory()            {  return gnome_cmd_file_list_get_directory (file_list()); }
-    void goto_directory(const gchar *dir)   {  file_list()->goto_directory(dir); }
-
-    void set_active(gboolean value);
-
     GnomeCmdCon *get_connection()           {  return gnome_cmd_file_list_get_connection (file_list()); }
     void set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir=NULL);
 
-    gboolean is_local()                     {  return gnome_cmd_con_is_local (get_connection ());  }
-    gboolean is_active();
-
-    GtkWidget *new_tab();
     GtkWidget *new_tab(GnomeCmdDir *dir, gboolean activate=TRUE);
     GtkWidget *new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean locked, gboolean activate, gboolean grab_focus);
 
-    void update_files();
     void update_direntry();
-    void update_vol_label();
-    void update_style();
     void update_connections();
 
     void do_file_specific_action (GnomeCmdFileList *fl, GnomeCmdFile *f);
@@ -73,11 +58,6 @@ struct GnomeCmdFileSelector
 inline void GnomeCmdFileSelector::set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir)
 {
     file_list()->set_connection(con, start_dir);
-}
-
-inline GtkWidget *GnomeCmdFileSelector::new_tab()
-{
-    return new_tab(NULL, GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, FALSE, TRUE, TRUE);
 }
 
 inline GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, gboolean activate)
@@ -106,9 +86,6 @@ extern "C" GnomeCmdFileList *gnome_cmd_file_selector_file_list_nth (GnomeCmdFile
 
 extern "C" GtkWidget *gnome_cmd_file_selector_new_tab_full (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, gint sort_col, gint sort_order, gboolean locked, gboolean activate, gboolean grab_focus);
 
-extern "C" gboolean gnome_cmd_file_selector_is_active (GnomeCmdFileSelector *fs);
-extern "C" void gnome_cmd_file_selector_set_active (GnomeCmdFileSelector *fs, gboolean active);
-
 extern "C" gboolean gnome_cmd_file_selector_can_forward (GnomeCmdFileSelector *fs);
 extern "C" gboolean gnome_cmd_file_selector_can_back (GnomeCmdFileSelector *fs);
 extern "C" void gnome_cmd_file_selector_forward (GnomeCmdFileSelector *fs);
@@ -120,6 +97,7 @@ extern "C" void gnome_cmd_file_selector_set_tab_locked (GnomeCmdFileSelector *fs
 
 extern "C" void gnome_cmd_file_selector_update_tab_label (GnomeCmdFileSelector *fs, GnomeCmdFileList *fl);
 
+extern "C" void gnome_cmd_file_selector_update_files (GnomeCmdFileSelector *fs);
 extern "C" void gnome_cmd_file_selector_update_style (GnomeCmdFileSelector *fs);
 
 extern "C" void gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs);

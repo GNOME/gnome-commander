@@ -2772,3 +2772,8 @@ extern "C" void gnome_cmd_file_list_invalidate_tree_size(GnomeCmdFileList *fl)
 {
     fl->invalidate_tree_size();
 }
+
+void gnome_cmd_file_list_show_files(GnomeCmdFileList *fl, GnomeCmdDir *dir)
+{
+    fl->show_files (dir);
+}

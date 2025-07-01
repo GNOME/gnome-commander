@@ -187,6 +187,8 @@ pub mod ffi {
         pub fn gnome_cmd_file_list_update_style(fl: *mut GnomeCmdFileList);
 
         pub fn gnome_cmd_file_list_invalidate_tree_size(fl: *mut GnomeCmdFileList);
+
+        pub fn gnome_cmd_file_list_show_files(fl: *mut GnomeCmdFileList, dir: *mut GnomeCmdDir);
     }
 }
 
@@ -556,6 +558,10 @@ impl FileList {
 
     pub fn invalidate_tree_size(&self) {
         unsafe { ffi::gnome_cmd_file_list_invalidate_tree_size(self.to_glib_none().0) }
+    }
+
+    pub fn show_files(&self, dir: &Directory) {
+        unsafe { ffi::gnome_cmd_file_list_show_files(self.to_glib_none().0, dir.to_glib_none().0) }
     }
 }
 

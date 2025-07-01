@@ -77,11 +77,6 @@ pub mod ffi {
             fs: *mut GnomeCmdFileSelector,
         ) -> *mut GnomeCmdFileList;
 
-        pub fn gnome_cmd_file_selector_file_list_nth(
-            fs: *mut GnomeCmdFileSelector,
-            n: u32,
-        ) -> *mut GnomeCmdFileList;
-
         pub fn on_notebook_switch_page(fs: *mut GnomeCmdFileSelector, n: u32);
 
         pub fn gnome_cmd_file_selector_new_tab_full(
@@ -94,9 +89,6 @@ pub mod ffi {
             grab_focus: gboolean,
         ) -> *const GtkWidget;
 
-        pub fn gnome_cmd_file_selector_is_active(fs: *mut GnomeCmdFileSelector) -> gboolean;
-        pub fn gnome_cmd_file_selector_set_active(fs: *mut GnomeCmdFileSelector, active: gboolean);
-
         pub fn gnome_cmd_file_selector_is_tab_locked(
             fs: *mut GnomeCmdFileSelector,
             fl: *mut GnomeCmdFileList,
@@ -107,8 +99,6 @@ pub mod ffi {
             fl: *mut GnomeCmdFileList,
             lock: gboolean,
         );
-
-        pub fn gnome_cmd_file_selector_update_style(fs: *mut GnomeCmdFileSelector);
 
         pub fn gnome_cmd_file_selector_update_connections(fs: *mut GnomeCmdFileSelector);
 
@@ -161,6 +151,9 @@ mod imp {
 
         #[property(get, set = Self::set_always_show_tabs)]
         always_show_tabs: Cell<bool>,
+
+        #[property(get, set = Self::set_active)]
+        active: Cell<bool>,
     }
 
     #[glib::object_subclass]
@@ -268,6 +261,7 @@ mod imp {
                 file_metadata_service: Default::default(),
 
                 always_show_tabs: Default::default(),
+                active: Default::default(),
             }
         }
     }
@@ -336,6 +330,12 @@ mod imp {
             unsafe {
                 ffi::gnome_cmd_file_selector_init(self.obj().to_glib_none().0);
             }
+
+            self.directory_indicator.connect_navigate(glib::clone!(
+                #[weak]
+                this,
+                move |_, path, new_tab| this.on_navigate(path, new_tab)
+            ));
 
             self.connection_list.connect_list_changed(glib::clone!(
                 #[weak]
@@ -501,16 +501,20 @@ mod imp {
 
         pub fn update_selected_files_label(&self) {
             let options = GeneralOptions::new();
-            let stats = self
-                .obj()
-                .file_list()
-                .stats_str(options.size_display_mode());
-            self.info_label.set_text(&stats);
+            if let Some(file_list) = self.obj().current_file_list() {
+                let stats = file_list.stats_str(options.size_display_mode());
+                self.info_label.set_text(&stats);
+            }
         }
 
         fn set_always_show_tabs(&self, value: bool) {
             self.always_show_tabs.set(value);
             self.obj().update_show_tabs();
+        }
+
+        fn set_active(&self, active: bool) {
+            self.active.set(active);
+            self.directory_indicator.set_active(active);
         }
 
         fn key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
@@ -634,12 +638,11 @@ impl FileSelector {
     }
 
     pub fn file_list_nth(&self, n: u32) -> FileList {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_file_selector_file_list_nth(
-                self.to_glib_none().0,
-                n,
-            ))
-        }
+        let notebook = &self.imp().notebook;
+        notebook
+            .nth_page(Some(n))
+            .and_downcast::<FileList>()
+            .unwrap()
     }
 
     pub fn new_tab(&self) -> gtk::Widget {
@@ -714,16 +717,6 @@ impl FileSelector {
 
     pub fn tab_count(&self) -> u32 {
         self.imp().notebook.n_pages()
-    }
-
-    pub fn is_active(&self) -> bool {
-        unsafe { ffi::gnome_cmd_file_selector_is_active(self.to_glib_none().0) != 0 }
-    }
-
-    pub fn set_active(&self, active: bool) {
-        unsafe {
-            ffi::gnome_cmd_file_selector_set_active(self.to_glib_none().0, active as gboolean);
-        }
     }
 
     pub fn is_tab_locked(&self, fl: &FileList) -> bool {
@@ -858,6 +851,18 @@ impl FileSelector {
         } else if n > 1 {
             notebook.set_current_page(Some(0));
         }
+    }
+
+    fn on_navigate(&self, path: &str, new_tab: bool) {
+        if new_tab || self.is_current_tab_locked() {
+            if let Some(connection) = self.current_file_list().and_then(|fl| fl.connection()) {
+                let dir = Directory::new(&connection, connection.create_path(&Path::new(path)));
+                self.new_tab_with_dir(&dir, true, true);
+            }
+        } else {
+            self.file_list().goto_directory(&Path::new(path));
+        }
+        self.emit_by_name::<()>("activate-request", &[]);
     }
 
     fn goto(&self, connection: &Connection, dir: &str) {
@@ -1105,8 +1110,62 @@ impl FileSelector {
         popover.popup();
     }
 
+    fn update_files(&self) {
+        let Some(file_list) = self.current_file_list() else {
+            return;
+        };
+        let Some(directory) = file_list.directory() else {
+            return;
+        };
+        file_list.show_files(&directory);
+        if self.is_realized() {
+            self.imp().update_selected_files_label();
+        }
+        if self.active() {
+            file_list.select_row(None);
+        }
+    }
+
     pub fn update_style(&self) {
-        unsafe { ffi::gnome_cmd_file_selector_update_style(self.to_glib_none().0) }
+        if self.is_realized() {
+            self.update_files();
+        }
+        self.update_show_tabs();
+        for i in 0..self.tab_count() {
+            let fl = self.file_list_nth(i);
+            fl.update_style();
+            self.imp().update_tab_label(&fl);
+        }
+        self.update_connections();
+    }
+
+    pub fn update_volume_label(&self) {
+        let Some(file_list) = self.current_file_list() else {
+            return;
+        };
+        if !file_list
+            .connection()
+            .filter(|c| c.can_show_free_space())
+            .is_some()
+        {
+            return;
+        }
+        let Some(directory) = file_list.directory() else {
+            return;
+        };
+        match directory.upcast_ref::<File>().free_space() {
+            Ok(free_space) => {
+                self.imp()
+                    .volume_size_label
+                    .set_label(&gettext("%s free").replace("%s", &glib::format_size(free_space)));
+            }
+            Err(error) => {
+                eprintln!("Failed to get free space: {error}");
+                self.imp()
+                    .volume_size_label
+                    .set_label(&gettext("Unknown disk usage"));
+            }
+        }
     }
 
     pub fn do_file_specific_action(&self, fl: &FileList, f: &File) -> bool {
@@ -1375,16 +1434,6 @@ pub extern "C" fn gnome_cmd_file_selector_connection_dropdown(
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_file_selector_set_volume_size_label(
-    fs: *mut ffi::GnomeCmdFileSelector,
-    text: *const c_char,
-) {
-    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
-    let text: String = unsafe { from_glib_none(text) };
-    fs.imp().volume_size_label.set_label(&text);
-}
-
-#[no_mangle]
 pub extern "C" fn gnome_cmd_file_selector_get_dir_indicator(
     fs: *mut ffi::GnomeCmdFileSelector,
 ) -> *mut GtkWidget {
@@ -1426,6 +1475,24 @@ pub extern "C" fn gnome_cmd_file_selector_update_tab_label(
     let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
     let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
     fs.imp().update_tab_label(&fl);
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_selector_update_files(fs: *mut ffi::GnomeCmdFileSelector) {
+    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
+    fs.update_files();
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_selector_update_style(fs: *mut ffi::GnomeCmdFileSelector) {
+    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
+    fs.update_style();
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_selector_update_vol_label(fs: *mut ffi::GnomeCmdFileSelector) {
+    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
+    fs.update_volume_label();
 }
 
 #[cfg(test)]
