@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2025-04-02 22:42+0000\n"
-"PO-Revision-Date: 2025-04-10 22:30+0200\n"
+"POT-Creation-Date: 2025-04-10 23:17+0000\n"
+"PO-Revision-Date: 2025-04-12 19:20+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -2192,14 +2192,8 @@ msgstr "Öppnas med"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:1413
-msgid ""
-"Default application to open the file with. See section <xref linkend=\"gnome-"
-"commander-mime-types\"/> for information about how to change the default "
-"behavior."
-msgstr ""
-"Standardprogram att öppna filen med. Se avsnittet <xref linkend=\"gnome-"
-"commander-mime-types\"/> för information om hur du kan ändra "
-"standardbeteendet."
+msgid "Default application to open the file with."
+msgstr "Standardprogram att öppna filen med."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:1418 C/index.docbook:2898
@@ -16066,17 +16060,6 @@ msgstr ""
 "eller skicka patchar till utvecklarna, allt i andan av fri programvara och "
 "öppen källkod."
 
-#. (itstool) path: listitem/para
-#: C/index.docbook:7664
-msgid ""
-"Configuration of default application depending on the files MIME type is "
-"broken and was finally removed in v1.4. See section <xref linkend=\"gnome-"
-"commander-mime-types\"/> for more information."
-msgstr ""
-"Konfiguration av standardprogram beroende på filernas MIME-typ är trasigt "
-"och togs slutligen bort i v1.4. Se avsnittet <xref linkend=\"gnome-commander-"
-"mime-types\"/> för mer information."
-
 #. (itstool) path: sect1/para
 #: C/index.docbook:7662
 msgid "Known limitation: <_:itemizedlist-1/>"
@@ -20569,6 +20552,24 @@ msgstr "2001-08-02"
 #: C/releases.xml:2762
 msgid "The first public version of GNOME Commander."
 msgstr "Den första offentliga versionen av GNOME Commander."
+
+#~ msgid ""
+#~ "Default application to open the file with. See section <xref "
+#~ "linkend=\"gnome-commander-mime-types\"/> for information about how to "
+#~ "change the default behavior."
+#~ msgstr ""
+#~ "Standardprogram att öppna filen med. Se avsnittet <xref linkend=\"gnome-"
+#~ "commander-mime-types\"/> för information om hur du kan ändra "
+#~ "standardbeteendet."
+
+#~ msgid ""
+#~ "Configuration of default application depending on the files MIME type is "
+#~ "broken and was finally removed in v1.4. See section <xref linkend=\"gnome-"
+#~ "commander-mime-types\"/> for more information."
+#~ msgstr ""
+#~ "Konfiguration av standardprogram beroende på filernas MIME-typ är trasigt "
+#~ "och togs slutligen bort i v1.4. Se avsnittet <xref linkend=\"gnome-"
+#~ "commander-mime-types\"/> för mer information."
 
 #~ msgid ""
 #~ "GNOME Commander is still lacking on GVFS/GIO support. Instead it uses "
