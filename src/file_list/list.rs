@@ -185,6 +185,10 @@ pub mod ffi {
         pub fn gnome_cmd_file_list_show_rename_dialog(fl: *mut GnomeCmdFileList);
 
         pub fn gnome_cmd_file_list_update_style(fl: *mut GnomeCmdFileList);
+
+        pub fn gnome_cmd_file_list_invalidate_tree_size(fl: *mut GnomeCmdFileList);
+
+        pub fn gnome_cmd_file_list_show_files(fl: *mut GnomeCmdFileList, dir: *mut GnomeCmdDir);
     }
 }
 
@@ -551,6 +555,14 @@ impl FileList {
     pub fn update_style(&self) {
         unsafe { ffi::gnome_cmd_file_list_update_style(self.to_glib_none().0) }
     }
+
+    pub fn invalidate_tree_size(&self) {
+        unsafe { ffi::gnome_cmd_file_list_invalidate_tree_size(self.to_glib_none().0) }
+    }
+
+    pub fn show_files(&self, dir: &Directory) {
+        unsafe { ffi::gnome_cmd_file_list_show_files(self.to_glib_none().0, dir.to_glib_none().0) }
+    }
 }
 
 #[derive(Default)]
@@ -591,14 +603,6 @@ pub extern "C" fn toggle_files_with_same_extension(
 ) {
     let fl: FileList = unsafe { from_glib_none(fl) };
     fl.toggle_files_with_same_extension(select != 0);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_stats(fl: *mut ffi::GnomeCmdFileList) -> *mut c_char {
-    let fl: FileList = unsafe { from_glib_none(fl) };
-    let options = GeneralOptions::new();
-    let stats = fl.stats_str(options.size_display_mode());
-    stats.to_glib_full()
 }
 
 #[no_mangle]

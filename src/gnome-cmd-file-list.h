@@ -239,3 +239,5 @@ extern "C" void gnome_cmd_file_list_focus_file(GnomeCmdFileList *fl, const gchar
 extern "C" void gnome_cmd_file_list_goto_directory(GnomeCmdFileList *fl, const gchar *dir);
 
 extern "C" void gnome_cmd_file_list_update_style(GnomeCmdFileList *fl);
+
+extern "C" void gnome_cmd_file_list_show_files(GnomeCmdFileList *fl, GnomeCmdDir *dir);

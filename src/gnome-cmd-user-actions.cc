@@ -31,7 +31,6 @@
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-dir-indicator.h"
 #include "utils.h"
 #include "dialogs/gnome-cmd-mkdir-dialog.h"
 
@@ -58,30 +57,10 @@ GNOME_CMD_USER_ACTION(mark_select_all_files);
 GNOME_CMD_USER_ACTION(mark_unselect_all_files);
 GNOME_CMD_USER_ACTION(mark_select_with_pattern);
 GNOME_CMD_USER_ACTION(mark_unselect_with_pattern);
-GNOME_CMD_USER_ACTION(mark_invert_selection);
-GNOME_CMD_USER_ACTION(mark_select_all_with_same_extension);
-GNOME_CMD_USER_ACTION(mark_unselect_all_with_same_extension);
-GNOME_CMD_USER_ACTION(mark_restore_selection);
-GNOME_CMD_USER_ACTION(mark_compare_directories);
-
-/************** Edit Menu **************/
-GNOME_CMD_USER_ACTION(edit_cap_cut);
-GNOME_CMD_USER_ACTION(edit_cap_copy);
-GNOME_CMD_USER_ACTION(edit_cap_paste);
-GNOME_CMD_USER_ACTION(edit_filter);
-GNOME_CMD_USER_ACTION(edit_copy_fnames);
 
 /************** View Menu **************/
-GNOME_CMD_USER_ACTION(view_dir_history);
-GNOME_CMD_USER_ACTION(view_directory);
-GNOME_CMD_USER_ACTION(view_prev_tab);
-GNOME_CMD_USER_ACTION(view_next_tab);
-GNOME_CMD_USER_ACTION(view_toggle_tab_lock);
 GNOME_CMD_USER_ACTION(view_step_up);
 GNOME_CMD_USER_ACTION(view_step_down);
-
-/************** Bookmarks Menu **************/
-GNOME_CMD_USER_ACTION(bookmarks_view);
 
 
 static GnomeCmdFileList *get_fl (GnomeCmdMainWin *main_win, const FileSelectorID fsID)
@@ -121,15 +100,6 @@ void file_exit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
     gtk_window_destroy (GTK_WINDOW (main_win));
-}
-
-
-/************** Edit Menu **************/
-void edit_filter (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    main_win->fs (ACTIVE)->show_filter();
 }
 
 
@@ -198,16 +168,6 @@ void mark_unselect_with_pattern (GSimpleAction *action, GVariant *parameter, gpo
 }
 
 /* ***************************** View Menu ****************************** */
-/* Changing of GSettings here will trigger functions in gnome-cmd-data.cc */
-/* ********************************************************************** */
-
-void view_dir_history (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gnome_cmd_file_selector_show_history (main_win->fs (ACTIVE));
-}
-
 
 void view_step_up (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
@@ -227,59 +187,4 @@ void view_step_down (GSimpleAction *action, GVariant *parameter, gpointer user_d
     GnomeCmdFileList *fl = fs->file_list();
 
     fl->focus_next();
-}
-
-
-void view_directory (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
-    GnomeCmdFileList *fl = fs->file_list();
-
-    GnomeCmdFile *f = fl->get_selected_file();
-    if (f && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-        fs->do_file_specific_action (fl, f);
-}
-
-
-void view_prev_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    main_win->fs (ACTIVE)->prev_tab();
-}
-
-
-void view_next_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    main_win->fs (ACTIVE)->next_tab();
-}
-
-
-void view_toggle_tab_lock (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
-    GnomeCmdFileList *fl = fs->file_list();
-
-    if (fl)
-    {
-        gboolean locked = gnome_cmd_file_selector_is_tab_locked (fs, fl);
-        gnome_cmd_file_selector_set_tab_locked (fs, fl, !locked);
-        gnome_cmd_file_selector_update_tab_label (fs, fl);
-    }
-}
-
-
-/************** Bookmarks Menu **************/
-
-void bookmarks_view (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gnome_cmd_file_selector_show_bookmarks (main_win->fs (ACTIVE));
 }

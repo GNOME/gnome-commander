@@ -18,13 +18,7 @@
  */
 
 use crate::{dir::Directory, file::File, libgcmd::file_descriptor::FileDescriptorExt};
-use gtk::{
-    gdk,
-    glib::{self, ffi::GType, translate::IntoGlib},
-    pango,
-    prelude::*,
-    subclass::prelude::*,
-};
+use gtk::{gdk, glib, pango, prelude::*, subclass::prelude::*};
 use winnow::{
     combinator::{alt, opt, preceded, separated, terminated},
     prelude::*,
@@ -264,9 +258,25 @@ glib::wrapper! {
         @extends gtk::Widget;
 }
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_directory_indicator_get_type() -> GType {
-    DirectoryIndicator::static_type().into_glib()
+impl Default for DirectoryIndicator {
+    fn default() -> Self {
+        glib::Object::builder().build()
+    }
+}
+
+impl DirectoryIndicator {
+    pub fn connect_navigate<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, &str, bool) + 'static,
+    {
+        self.connect_closure(
+            "navigate",
+            false,
+            glib::closure_local!(move |this: &Self, path: &str, new_tab: bool| {
+                (callback)(this, path, new_tab)
+            }),
+        )
+    }
 }
 
 fn split_path(path: &str) -> Vec<String> {
