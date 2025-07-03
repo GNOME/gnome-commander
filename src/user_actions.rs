@@ -635,11 +635,10 @@ pub fn mark_invert_selection(
     _action: &gio::SimpleAction,
     _parameter: Option<&glib::Variant>,
 ) {
-    let options = GeneralOptions::new();
     main_win
         .file_selector(FileSelectorID::ACTIVE)
         .file_list()
-        .invert_selection(options.select_dirs());
+        .invert_selection();
 }
 
 pub fn mark_select_all_with_same_extension(
@@ -860,7 +859,7 @@ pub fn open_terminal(
     spawn_async_command(dpath.as_deref(), &command).map_err(SpawnError::into_message)
 }
 
-/// Executes the command stored in `gnome_cmd_data.options.termopen` in the active directory.
+/// Executes the command stored in `terminal-cmd` in the active directory.
 pub fn command_open_terminal(
     main_win: &MainWindow,
     _action: &gio::SimpleAction,

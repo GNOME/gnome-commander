@@ -49,8 +49,18 @@ use std::{collections::HashSet, ffi::c_char, ops::ControlFlow, path::Path};
 
 mod imp {
     use super::*;
-    use crate::tags::tags::FileMetadataService;
-    use std::{cell::OnceCell, sync::OnceLock};
+    use crate::{
+        data::ColorOptions,
+        tags::tags::FileMetadataService,
+        types::{
+            ExtensionDisplayMode, GraphicalLayoutMode, LeftMouseButtonMode, MiddleMouseButtonMode,
+            PermissionDisplayMode, QuickSearchShortcut, RightMouseButtonMode,
+        },
+    };
+    use std::{
+        cell::{Cell, OnceCell, RefCell},
+        sync::OnceLock,
+    };
 
     #[derive(Default, glib::Properties)]
     #[properties(wrapper_type = super::FileList)]
@@ -58,6 +68,54 @@ mod imp {
         pub quick_search: glib::WeakRef<QuickSearch>,
         #[property(get, construct_only)]
         pub file_metadata_service: OnceCell<FileMetadataService>,
+
+        #[property(get, set)]
+        pub font_name: RefCell<String>,
+
+        #[property(get, set)]
+        pub row_height: Cell<u32>,
+
+        #[property(get, set, builder(ExtensionDisplayMode::default()))]
+        pub extension_display_mode: Cell<ExtensionDisplayMode>,
+
+        #[property(get, set, builder(GraphicalLayoutMode::default()))]
+        graphical_layout_mode: Cell<GraphicalLayoutMode>,
+
+        #[property(get, set, builder(SizeDisplayMode::default()))]
+        size_display_mode: Cell<SizeDisplayMode>,
+
+        #[property(get, set, builder(PermissionDisplayMode::default()))]
+        permissions_display_mode: Cell<PermissionDisplayMode>,
+
+        #[property(get, set)]
+        date_display_format: RefCell<String>,
+
+        #[property(get, set)]
+        pub use_ls_colors: Cell<bool>,
+
+        #[property(get, set, default = true)]
+        case_sensitive: Cell<bool>,
+
+        #[property(get, set)]
+        symbolic_links_as_regular_files: Cell<bool>,
+
+        #[property(get, set, builder(LeftMouseButtonMode::default()))]
+        left_mouse_button_mode: Cell<LeftMouseButtonMode>,
+
+        #[property(get, set, builder(MiddleMouseButtonMode::default()))]
+        middle_mouse_button_mode: Cell<MiddleMouseButtonMode>,
+
+        #[property(get, set, builder(RightMouseButtonMode::default()))]
+        right_mouse_button_mode: Cell<RightMouseButtonMode>,
+
+        #[property(get, set, default = true)]
+        left_mouse_button_unselects: Cell<bool>,
+
+        #[property(get, set, default = true)]
+        select_dirs: Cell<bool>,
+
+        #[property(get, set, builder(QuickSearchShortcut::default()))]
+        quick_search_shortcut: Cell<QuickSearchShortcut>,
     }
 
     #[glib::object_subclass]
@@ -78,6 +136,96 @@ mod imp {
             unsafe {
                 ffi::gnome_cmd_file_list_init(fl.to_glib_none().0);
             }
+
+            let general_options = GeneralOptions::new();
+            general_options
+                .0
+                .bind("list-font", &*fl, "font-name")
+                .build();
+            general_options
+                .0
+                .bind("list-row-height", &*fl, "row-height")
+                .build();
+            general_options
+                .0
+                .bind("extension-display-mode", &*fl, "extension-display-mode")
+                .build();
+            general_options
+                .0
+                .bind("graphical-layout-mode", &*fl, "graphical-layout-mode")
+                .build();
+            general_options
+                .0
+                .bind("size-display-mode", &*fl, "size-display-mode")
+                .build();
+            general_options
+                .0
+                .bind("perm-display-mode", &*fl, "permissions-display-mode")
+                .build();
+            general_options
+                .0
+                .bind("date-disp-format", &*fl, "date-display-format")
+                .build();
+            general_options
+                .0
+                .bind("case-sensitive", &*fl, "case-sensitive")
+                .build();
+            general_options
+                .0
+                .bind(
+                    "symbolic-links-as-regular-files",
+                    &*fl,
+                    "symbolic-links-as-regular-files",
+                )
+                .build();
+            general_options
+                .0
+                .bind("clicks-to-open-item", &*fl, "left-mouse-button-mode")
+                .build();
+            general_options
+                .0
+                .bind("middle-mouse-btn-mode", &*fl, "middle-mouse-button-mode")
+                .build();
+            general_options
+                .0
+                .bind("right-mouse-btn-mode", &*fl, "right-mouse-button-mode")
+                .build();
+            general_options
+                .0
+                .bind(
+                    "left-mouse-btn-unselects",
+                    &*fl,
+                    "left-mouse-button-unselects",
+                )
+                .build();
+            general_options
+                .0
+                .bind("select-dirs", &*fl, "select-dirs")
+                .build();
+            general_options
+                .0
+                .bind("quick-search", &*fl, "quick-search-shortcut")
+                .build();
+
+            for (column, key) in fl.tree_view().columns().iter().zip([
+                "column-width-icon",
+                "column-width-name",
+                "column-width-ext",
+                "column-width-dir",
+                "column-width-size",
+                "column-width-date",
+                "column-width-perm",
+                "column-width-owner",
+                "column-width-group",
+            ]) {
+                general_options.0.bind(key, column, "fixed-width").build();
+            }
+
+            let color_options = ColorOptions::new();
+            color_options
+                .0
+                .bind("use-ls-colors", &*fl, "use-ls-colors")
+                .build();
         }
 
         fn dispose(&self) {
@@ -381,9 +529,8 @@ impl FileList {
     }
 
     pub fn toggle_with_pattern(&self, pattern: &Filter, mode: bool) {
-        let options = GeneralOptions::new();
-        let select_dirs = options.select_dirs();
-        self.traverse_files::<()>(|file, iter, store| {
+        let select_dirs = self.select_dirs();
+        let _ = self.traverse_files::<()>(|file, iter, store| {
             if !file.is_dotdot()
                 && (select_dirs || file.downcast_ref::<Directory>().is_none())
                 && pattern.matches(&file.file_info().display_name())
@@ -450,8 +597,9 @@ impl FileList {
         self.emit_files_changed();
     }
 
-    pub fn invert_selection(&self, select_dirs: bool) {
-        self.traverse_files::<()>(|file, iter, store| {
+    pub fn invert_selection(&self) {
+        let select_dirs = self.select_dirs();
+        let _ = self.traverse_files::<()>(|file, iter, store| {
             if !file.is_dotdot() && (select_dirs || file.downcast_ref::<Directory>().is_none()) {
                 let selected: bool = store.get(iter, DataColumns::DATA_COLUMN_SELECTED as i32);
                 store.set(
@@ -586,8 +734,7 @@ pub extern "C" fn gnome_cmd_file_list_get_type() -> GType {
 #[no_mangle]
 pub extern "C" fn gnome_cmd_file_list_invert_selection(fl: *mut ffi::GnomeCmdFileList) {
     let fl: FileList = unsafe { from_glib_none(fl) };
-    let options = GeneralOptions::new();
-    fl.invert_selection(options.select_dirs());
+    fl.invert_selection();
 }
 
 #[no_mangle]

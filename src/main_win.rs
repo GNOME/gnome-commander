@@ -1072,13 +1072,7 @@ pub mod imp {
 }
 
 pub mod ffi {
-    use super::*;
-
     pub type GnomeCmdMainWin = <super::MainWindow as glib::object::ObjectType>::GlibType;
-
-    extern "C" {
-        pub fn gnome_cmd_data_save(mw: *mut GnomeCmdMainWin);
-    }
 }
 
 glib::wrapper! {
@@ -1260,9 +1254,7 @@ impl MainWindow {
 
         self.save_command_line_history(&options)?;
 
-        unsafe {
-            ffi::gnome_cmd_data_save(self.to_glib_none().0);
-        }
+        gio::Settings::sync();
 
         Ok(())
     }

@@ -519,14 +519,3 @@ pub extern "C" fn gnome_cmd_con_export_dir_history(con: *mut ffi::GnomeCmdCon) -
         .collect();
     dir_history.to_glib_full()
 }
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_import_dir_history(con: *mut ffi::GnomeCmdCon, history: GStrv) {
-    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
-    let dir_history = con.dir_history();
-    unsafe { glib::StrV::from_glib_none(history as _) }
-        .into_iter()
-        .for_each(|item| {
-            dir_history.add(item.into());
-        });
-}

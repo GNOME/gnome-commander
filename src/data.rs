@@ -19,19 +19,33 @@
 
 use crate::{
     app::FavoriteAppVariant,
-    connection::history::History,
+    connection::{
+        history::History,
+        list::{BookmarkVariant, ConnectionVariant, CustomDeviceVariant},
+    },
     file_selector::TabVariant,
     filter::PatternType,
+    layout::{
+        color_themes::{load_custom_theme, save_custom_theme, ColorTheme, ColorThemeId},
+        ls_colors_palette::{load_palette, save_palette, LsColorsPalette},
+        PREF_COLORS,
+    },
     search::profile::{SearchProfile, SearchProfileVariant},
     tab_label::TabLockIndicator,
     types::{
-        ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GraphicalLayoutMode,
-        PermissionDisplayMode, QuickSearchShortcut, SizeDisplayMode,
+        ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GraphicalLayoutMode, IconScaleQuality,
+        LeftMouseButtonMode, MiddleMouseButtonMode, PermissionDisplayMode, QuickSearchShortcut,
+        RightMouseButtonMode, SizeDisplayMode,
     },
 };
 use gettextrs::gettext;
 use gtk::{gio, prelude::*};
-use std::{rc::Rc, sync::LazyLock};
+use std::{
+    path::{Path, PathBuf},
+    rc::Rc,
+    sync::LazyLock,
+    time::Duration,
+};
 
 pub type WriteResult = Result<(), glib::BoolError>;
 
@@ -40,7 +54,11 @@ pub struct GeneralOptions(pub gio::Settings);
 pub trait GeneralOptionsRead {
     fn allow_multiple_instances(&self) -> bool;
 
-    fn bookmarks(&self) -> glib::Variant;
+    fn device_list(&self) -> Vec<CustomDeviceVariant>;
+    fn directory_history(&self) -> Vec<String>;
+    fn connections(&self) -> Vec<ConnectionVariant>;
+
+    fn bookmarks(&self) -> Vec<BookmarkVariant>;
     fn symlink_format(&self) -> String;
     fn use_trash(&self) -> bool;
     fn keybindings(&self) -> glib::Variant;
@@ -50,19 +68,32 @@ pub trait GeneralOptionsRead {
 
     fn file_list_tabs(&self) -> Vec<TabVariant>;
 
+    fn list_font(&self) -> String;
+    fn list_row_height(&self) -> u32;
+
     fn date_display_format(&self) -> String;
     fn graphical_layout_mode(&self) -> GraphicalLayoutMode;
     fn extension_display_mode(&self) -> ExtensionDisplayMode;
     fn size_display_mode(&self) -> SizeDisplayMode;
     fn permissions_display_mode(&self) -> PermissionDisplayMode;
 
+    fn icon_size(&self) -> u32;
+    fn icon_scale_quality(&self) -> IconScaleQuality;
+    fn mime_icon_dir(&self) -> Option<PathBuf>;
+
     fn select_dirs(&self) -> bool;
 
     fn case_sensitive(&self) -> bool;
+    fn symbolic_links_as_regular_files(&self) -> bool;
 
-    fn quick_seaech_shortcut(&self) -> QuickSearchShortcut;
-    fn quick_seaech_exact_match_begin(&self) -> bool;
-    fn quick_seaech_exact_match_end(&self) -> bool;
+    fn left_mouse_button_mode(&self) -> LeftMouseButtonMode;
+    fn middle_mouse_button_mode(&self) -> MiddleMouseButtonMode;
+    fn right_mouse_button_mode(&self) -> RightMouseButtonMode;
+    fn left_mouse_button_unselects(&self) -> bool;
+
+    fn quick_search_shortcut(&self) -> QuickSearchShortcut;
+    fn quick_search_exact_match_begin(&self) -> bool;
+    fn quick_search_exact_match_end(&self) -> bool;
 
     fn show_samba_workgroups_button(&self) -> bool;
     fn device_only_icon(&self) -> bool;
@@ -72,6 +103,7 @@ pub trait GeneralOptionsRead {
 
     fn save_tabs_on_exit(&self) -> bool;
     fn save_dirs_on_exit(&self) -> bool;
+    fn save_directory_history_on_exit(&self) -> bool;
     fn save_command_line_history_on_exit(&self) -> bool;
 
     fn favorite_apps(&self) -> Vec<FavoriteAppVariant>;
@@ -81,15 +113,22 @@ pub trait GeneralOptionsRead {
     fn search_pattern_history(&self) -> Vec<String>;
     fn search_text_history(&self) -> Vec<String>;
     fn save_search_history(&self) -> bool;
+
+    fn gui_update_rate(&self) -> Duration;
 }
 
 pub trait GeneralOptionsWrite {
-    fn set_bookmarks(&self, bookmarks: &glib::Variant);
-    fn reset_bookmarks(&self);
+    fn set_allow_multiple_instances(&self, value: bool) -> WriteResult;
+
+    fn set_device_list(&self, value: &[CustomDeviceVariant]) -> WriteResult;
+    fn set_directory_history(&self, value: &[String]) -> WriteResult;
+    fn set_connections(&self, value: &[ConnectionVariant]) -> WriteResult;
+
+    fn set_bookmarks(&self, bookmarks: &[BookmarkVariant]) -> WriteResult;
 
     fn set_symlink_format(&self, symlink_format: &str);
 
-    fn set_use_trash(&self, use_trash: bool);
+    fn set_use_trash(&self, use_trash: bool) -> WriteResult;
 
     fn set_keybindings(&self, keybindings: &glib::Variant);
 
@@ -97,6 +136,33 @@ pub trait GeneralOptionsWrite {
     fn set_tab_lock_indicator(&self, tab_lock_indicator: TabLockIndicator) -> WriteResult;
 
     fn set_file_list_tabs(&self, tabs: &[TabVariant]);
+
+    fn set_list_font(&self, value: &str) -> WriteResult;
+    fn set_list_row_height(&self, value: u32) -> WriteResult;
+
+    fn set_date_display_format(&self, format: &str) -> WriteResult;
+    fn set_graphical_layout_mode(&self, mode: GraphicalLayoutMode) -> WriteResult;
+    fn set_extension_display_mode(&self, mode: ExtensionDisplayMode) -> WriteResult;
+    fn set_size_display_mode(&self, mode: SizeDisplayMode) -> WriteResult;
+    fn set_permissions_display_mode(&self, mode: PermissionDisplayMode) -> WriteResult;
+
+    fn set_icon_size(&self, value: u32) -> WriteResult;
+    fn set_icon_scale_quality(&self, value: IconScaleQuality) -> WriteResult;
+    fn set_mime_icon_dir(&self, value: Option<&Path>) -> WriteResult;
+
+    fn set_select_dirs(&self, value: bool) -> WriteResult;
+
+    fn set_case_sensitive(&self, value: bool) -> WriteResult;
+    fn set_symbolic_links_as_regular_files(&self, value: bool) -> WriteResult;
+
+    fn set_left_mouse_button_mode(&self, mode: LeftMouseButtonMode) -> WriteResult;
+    fn set_middle_mouse_button_mode(&self, mode: MiddleMouseButtonMode) -> WriteResult;
+    fn set_right_mouse_button_mode(&self, mode: RightMouseButtonMode) -> WriteResult;
+    fn set_left_mouse_button_unselects(&self, value: bool) -> WriteResult;
+
+    fn set_quick_search_shortcut(&self, value: QuickSearchShortcut) -> WriteResult;
+    fn set_quick_search_exact_match_begin(&self, value: bool) -> WriteResult;
+    fn set_quick_search_exact_match_end(&self, value: bool) -> WriteResult;
 
     fn set_show_samba_workgroups_button(&self, value: bool) -> WriteResult;
     fn set_device_only_icon(&self, value: bool) -> WriteResult;
@@ -111,6 +177,10 @@ pub trait GeneralOptionsWrite {
     fn set_search_pattern_history(&self, values: &[String]) -> WriteResult;
     fn set_search_text_history(&self, values: &[String]) -> WriteResult;
     fn set_save_search_history(&self, value: bool) -> WriteResult;
+    fn set_save_dirs_on_exit(&self, value: bool) -> WriteResult;
+    fn set_save_tabs_on_exit(&self, value: bool) -> WriteResult;
+    fn set_save_directory_history_on_exit(&self, value: bool) -> WriteResult;
+    fn set_save_command_line_history_on_exit(&self, value: bool) -> WriteResult;
 }
 
 impl GeneralOptions {
@@ -126,8 +196,23 @@ impl GeneralOptionsRead for GeneralOptions {
         self.0.boolean("allow-multiple-instances")
     }
 
-    fn bookmarks(&self) -> glib::Variant {
-        self.0.value("bookmarks")
+    fn device_list(&self) -> Vec<CustomDeviceVariant> {
+        Vec::<CustomDeviceVariant>::from_variant(&self.0.value("device-list")).unwrap_or_default()
+    }
+    fn directory_history(&self) -> Vec<String> {
+        self.0
+            .strv("directory-history")
+            .iter()
+            .map(|v| v.to_string())
+            .collect()
+    }
+
+    fn connections(&self) -> Vec<ConnectionVariant> {
+        Vec::<ConnectionVariant>::from_variant(&self.0.value("connections")).unwrap_or_default()
+    }
+
+    fn bookmarks(&self) -> Vec<BookmarkVariant> {
+        Vec::<BookmarkVariant>::from_variant(&self.0.value("bookmarks")).unwrap_or_default()
     }
 
     fn symlink_format(&self) -> String {
@@ -157,6 +242,14 @@ impl GeneralOptionsRead for GeneralOptions {
 
     fn file_list_tabs(&self) -> Vec<TabVariant> {
         self.0.get("file-list-tabs")
+    }
+
+    fn list_font(&self) -> String {
+        self.0.string("list-font").to_string()
+    }
+
+    fn list_row_height(&self) -> u32 {
+        self.0.uint("list-row-height")
     }
 
     fn date_display_format(&self) -> String {
@@ -199,6 +292,25 @@ impl GeneralOptionsRead for GeneralOptions {
             .unwrap_or_default()
     }
 
+    fn icon_size(&self) -> u32 {
+        self.0.uint("icon-size")
+    }
+
+    fn icon_scale_quality(&self) -> IconScaleQuality {
+        self.0
+            .enum_("icon-scale-quality")
+            .try_into()
+            .ok()
+            .and_then(IconScaleQuality::from_repr)
+            .unwrap_or_default()
+    }
+
+    fn mime_icon_dir(&self) -> Option<PathBuf> {
+        Some(self.0.string("mime-icon-dir"))
+            .filter(|s| !s.is_empty())
+            .map(PathBuf::from)
+    }
+
     fn select_dirs(&self) -> bool {
         self.0.boolean("select-dirs")
     }
@@ -207,7 +319,42 @@ impl GeneralOptionsRead for GeneralOptions {
         self.0.boolean("case-sensitive")
     }
 
-    fn quick_seaech_shortcut(&self) -> QuickSearchShortcut {
+    fn symbolic_links_as_regular_files(&self) -> bool {
+        self.0.boolean("symbolic-links-as-regular-files")
+    }
+
+    fn left_mouse_button_mode(&self) -> LeftMouseButtonMode {
+        self.0
+            .enum_("clicks-to-open-item")
+            .try_into()
+            .ok()
+            .and_then(LeftMouseButtonMode::from_repr)
+            .unwrap_or_default()
+    }
+
+    fn middle_mouse_button_mode(&self) -> MiddleMouseButtonMode {
+        self.0
+            .enum_("middle-mouse-btn-mode")
+            .try_into()
+            .ok()
+            .and_then(MiddleMouseButtonMode::from_repr)
+            .unwrap_or_default()
+    }
+
+    fn right_mouse_button_mode(&self) -> RightMouseButtonMode {
+        self.0
+            .enum_("right-mouse-btn-mode")
+            .try_into()
+            .ok()
+            .and_then(RightMouseButtonMode::from_repr)
+            .unwrap_or_default()
+    }
+
+    fn left_mouse_button_unselects(&self) -> bool {
+        self.0.boolean("left-mouse-btn-unselects")
+    }
+
+    fn quick_search_shortcut(&self) -> QuickSearchShortcut {
         self.0
             .enum_("quick-search")
             .try_into()
@@ -216,11 +363,11 @@ impl GeneralOptionsRead for GeneralOptions {
             .unwrap_or_default()
     }
 
-    fn quick_seaech_exact_match_begin(&self) -> bool {
+    fn quick_search_exact_match_begin(&self) -> bool {
         self.0.boolean("quick-search-exact-match-begin")
     }
 
-    fn quick_seaech_exact_match_end(&self) -> bool {
+    fn quick_search_exact_match_end(&self) -> bool {
         self.0.boolean("quick-search-exact-match-end")
     }
 
@@ -253,6 +400,10 @@ impl GeneralOptionsRead for GeneralOptions {
 
     fn device_only_icon(&self) -> bool {
         self.0.boolean("dev-only-icon")
+    }
+
+    fn save_directory_history_on_exit(&self) -> bool {
+        self.0.boolean("save-dir-history-on-exit")
     }
 
     fn save_command_line_history_on_exit(&self) -> bool {
@@ -292,23 +443,39 @@ impl GeneralOptionsRead for GeneralOptions {
     fn save_search_history(&self) -> bool {
         self.0.boolean("save-search-history-on-exit")
     }
+
+    fn gui_update_rate(&self) -> Duration {
+        Duration::from_millis(self.0.uint("gui-update-rate").into())
+    }
 }
 
 impl GeneralOptionsWrite for GeneralOptions {
-    fn set_bookmarks(&self, bookmarks: &glib::Variant) {
-        self.0.set_value("bookmarks", bookmarks);
+    fn set_allow_multiple_instances(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("allow-multiple-instances", value)
     }
 
-    fn reset_bookmarks(&self) {
-        self.0.reset("bookmarks");
+    fn set_device_list(&self, value: &[CustomDeviceVariant]) -> WriteResult {
+        self.0.set_value("device-list", &value.to_variant())
+    }
+
+    fn set_directory_history(&self, value: &[String]) -> WriteResult {
+        self.0.set_strv("directory-history", value)
+    }
+
+    fn set_connections(&self, value: &[ConnectionVariant]) -> WriteResult {
+        self.0.set_value("connections", &value.to_variant())
+    }
+
+    fn set_bookmarks(&self, bookmarks: &[BookmarkVariant]) -> WriteResult {
+        self.0.set_value("bookmarks", &bookmarks.to_variant())
     }
 
     fn set_symlink_format(&self, symlink_format: &str) {
         self.0.set_string("symlink-string", symlink_format);
     }
 
-    fn set_use_trash(&self, use_trash: bool) {
-        self.0.set_boolean("delete-to-trash", use_trash);
+    fn set_use_trash(&self, use_trash: bool) -> WriteResult {
+        self.0.set_boolean("delete-to-trash", use_trash)
     }
 
     fn set_keybindings(&self, keybindings: &glib::Variant) {
@@ -335,6 +502,89 @@ impl GeneralOptionsWrite for GeneralOptions {
     fn set_command_line_history_length(&self, value: usize) -> WriteResult {
         self.0
             .set_uint("cmdline-history-length", value.try_into().unwrap_or(16))
+    }
+
+    fn set_list_font(&self, value: &str) -> WriteResult {
+        self.0.set_string("list-font", value)
+    }
+
+    fn set_list_row_height(&self, value: u32) -> WriteResult {
+        self.0.set_uint("list-row-height", value)
+    }
+
+    fn set_date_display_format(&self, format: &str) -> WriteResult {
+        self.0.set_string("date-disp-format", format)
+    }
+
+    fn set_graphical_layout_mode(&self, mode: GraphicalLayoutMode) -> WriteResult {
+        self.0.set_enum("graphical-layout-mode", mode as i32)
+    }
+
+    fn set_extension_display_mode(&self, mode: ExtensionDisplayMode) -> WriteResult {
+        self.0.set_enum("extension-display-mode", mode as i32)
+    }
+
+    fn set_size_display_mode(&self, mode: SizeDisplayMode) -> WriteResult {
+        self.0.set_enum("size-display-mode", mode as i32)
+    }
+
+    fn set_permissions_display_mode(&self, mode: PermissionDisplayMode) -> WriteResult {
+        self.0.set_enum("perm-display-mode", mode as i32)
+    }
+
+    fn set_icon_size(&self, value: u32) -> WriteResult {
+        self.0.set_uint("icon-size", value)
+    }
+
+    fn set_icon_scale_quality(&self, value: IconScaleQuality) -> WriteResult {
+        self.0.set_enum("icon-scale-quality", value as i32)
+    }
+
+    fn set_mime_icon_dir(&self, value: Option<&Path>) -> WriteResult {
+        self.0.set_string(
+            "mime-icon-dir",
+            value.and_then(|v| v.to_str()).unwrap_or_default(),
+        )
+    }
+
+    fn set_select_dirs(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("select-dirs", value)
+    }
+
+    fn set_case_sensitive(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("case-sensitive", value)
+    }
+
+    fn set_symbolic_links_as_regular_files(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("symbolic-links-as-regular-files", value)
+    }
+
+    fn set_left_mouse_button_mode(&self, mode: LeftMouseButtonMode) -> WriteResult {
+        self.0.set_enum("clicks-to-open-item", mode as i32)
+    }
+
+    fn set_middle_mouse_button_mode(&self, mode: MiddleMouseButtonMode) -> WriteResult {
+        self.0.set_enum("middle-mouse-btn-mode", mode as i32)
+    }
+
+    fn set_right_mouse_button_mode(&self, mode: RightMouseButtonMode) -> WriteResult {
+        self.0.set_enum("right-mouse-btn-mode", mode as i32)
+    }
+
+    fn set_left_mouse_button_unselects(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("left-mouse-btn-unselects", value)
+    }
+
+    fn set_quick_search_shortcut(&self, value: QuickSearchShortcut) -> WriteResult {
+        self.0.set_enum("quick-search", value as i32)
+    }
+
+    fn set_quick_search_exact_match_begin(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("quick-search-exact-match-begin", value)
+    }
+
+    fn set_quick_search_exact_match_end(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("quick-search-exact-match-end", value)
     }
 
     fn set_show_samba_workgroups_button(&self, value: bool) -> WriteResult {
@@ -367,6 +617,85 @@ impl GeneralOptionsWrite for GeneralOptions {
 
     fn set_save_search_history(&self, value: bool) -> WriteResult {
         self.0.set_boolean("save-search-history-on-exit", value)
+    }
+
+    fn set_save_dirs_on_exit(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("save-dirs-on-exit", value)
+    }
+
+    fn set_save_tabs_on_exit(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("save-tabs-on-exit", value)
+    }
+
+    fn set_save_directory_history_on_exit(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("save-dir-history-on-exit", value)
+    }
+
+    fn set_save_command_line_history_on_exit(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("save-cmdline-history-on-exit", value)
+    }
+}
+
+pub struct ColorOptions(pub gio::Settings);
+
+pub trait ColorOptionsRead {
+    fn theme(&self) -> Option<ColorThemeId>;
+    fn custom_theme(&self) -> ColorTheme;
+    fn use_ls_colors(&self) -> bool;
+    fn ls_color_palette(&self) -> LsColorsPalette;
+}
+
+pub trait ColorOptionsWrite {
+    fn set_theme(&self, value: Option<ColorThemeId>) -> WriteResult;
+    fn set_custom_theme(&self, theme: &ColorTheme) -> WriteResult;
+    fn set_use_ls_colors(&self, value: bool) -> WriteResult;
+    fn set_ls_color_palette(&self, palette: &LsColorsPalette) -> WriteResult;
+}
+
+impl ColorOptions {
+    pub fn new() -> Self {
+        Self(gio::Settings::new(PREF_COLORS))
+    }
+}
+
+impl ColorOptionsRead for ColorOptions {
+    fn theme(&self) -> Option<ColorThemeId> {
+        self.0
+            .enum_("theme")
+            .try_into()
+            .ok()
+            .and_then(ColorThemeId::from_repr)
+    }
+
+    fn custom_theme(&self) -> ColorTheme {
+        load_custom_theme(&self.0)
+    }
+
+    fn use_ls_colors(&self) -> bool {
+        self.0.boolean("use-ls-colors")
+    }
+
+    fn ls_color_palette(&self) -> LsColorsPalette {
+        load_palette(&self.0)
+    }
+}
+
+impl ColorOptionsWrite for ColorOptions {
+    fn set_theme(&self, value: Option<ColorThemeId>) -> WriteResult {
+        self.0
+            .set_enum("theme", value.map(|v| v as i32).unwrap_or_default())
+    }
+
+    fn set_custom_theme(&self, theme: &ColorTheme) -> WriteResult {
+        save_custom_theme(&theme, &self.0)
+    }
+
+    fn set_use_ls_colors(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("use-ls-colors", value)
+    }
+
+    fn set_ls_color_palette(&self, palette: &LsColorsPalette) -> WriteResult {
+        save_palette(palette, &self.0)
     }
 }
 
@@ -833,22 +1162,6 @@ impl SearchConfig {
     }
 }
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_search_config_load() {
-    let search_config = SearchConfig::get();
-    let options = GeneralOptions::new();
-    search_config.load(&options);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_search_config_save() {
-    let search_config = SearchConfig::get();
-    let options = GeneralOptions::new();
-    if let Err(error) = search_config.save(&options, options.save_search_history()) {
-        eprintln!("Failed to save search profiles: {}", error.message);
-    }
-}
-
 pub struct NetworkOptions(pub gio::Settings);
 
 pub trait NetworkOptionsRead {
@@ -877,4 +1190,13 @@ impl NetworkOptionsWrite for NetworkOptions {
     fn set_quick_connect_uri(&self, uri: &str) {
         self.0.set_string("quick-connect-uri", uri);
     }
+}
+
+#[no_mangle]
+pub extern "C" fn gui_update_rate() -> u32 {
+    GeneralOptions::new()
+        .gui_update_rate()
+        .as_millis()
+        .try_into()
+        .unwrap_or(100)
 }

@@ -22,10 +22,9 @@ use gettextrs::gettext;
 use gtk::{
     gio,
     glib::{
-        ffi::GType,
         prelude::*,
         subclass::prelude::*,
-        translate::{from_glib_borrow, from_glib_full, Borrowed, IntoGlib, ToGlibPtr},
+        translate::{from_glib_full, ToGlibPtr},
     },
     prelude::*,
 };
@@ -332,29 +331,6 @@ impl Into<AdvancedRenameProfile> for ProfileVariant {
         );
         profile
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_advanced_rename_profile_get_type() -> GType {
-    AdvancedRenameProfile::static_type().into_glib()
-}
-
-pub type AdvRenameProfilePtr = <AdvancedRenameProfile as glib::object::ObjectType>::GlibType;
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_advanced_rename_profile_copy_from(
-    dst: *mut AdvRenameProfilePtr,
-    src: *mut AdvRenameProfilePtr,
-) {
-    let dst: Borrowed<AdvancedRenameProfile> = unsafe { from_glib_borrow(dst) };
-    let src: Borrowed<AdvancedRenameProfile> = unsafe { from_glib_borrow(src) };
-    dst.copy_from(&*src);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_advanced_rename_profile_reset(profile: *mut AdvRenameProfilePtr) {
-    let dst: Borrowed<AdvancedRenameProfile> = unsafe { from_glib_borrow(profile) };
-    dst.reset();
 }
 
 pub fn load_advrename_profiles(

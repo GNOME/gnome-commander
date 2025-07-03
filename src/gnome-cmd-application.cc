@@ -22,7 +22,6 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-data.h"
 #include "imageloader.h"
 
 
@@ -41,15 +40,12 @@ extern "C" void gnome_cmd_application_startup(GApplication *application, gchar *
 
     /* Load Settings */
     icon_cache = gnome_cmd_icon_cache_new();
-    gnome_cmd_data.gsettings_init();
-    gnome_cmd_data.load();
 }
 
 
 extern "C" void gnome_cmd_application_activate(GApplication *application, GnomeCmdMainWin *mw)
 {
     main_win = mw;
-    gnome_cmd_data.connect_signals(main_win);
 }
 
 

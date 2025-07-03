@@ -24,7 +24,6 @@
 #include <regex.h>
 
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-data.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file-selector.h"
@@ -125,6 +124,7 @@ static SearchData *search_dialog_private (GnomeCmdSearchDialog *dlg)
 }
 
 
+struct SearchProfile;
 extern "C" SearchProfile *gnome_cmd_search_dialog_get_default_profile (GnomeCmdSearchDialog *dialog);
 
 
@@ -896,7 +896,7 @@ extern "C" gboolean gnome_cmd_search_dialog_find (GnomeCmdSearchDialog *dialog, 
     {
         set_statusmsg(dialog, nullptr);
         gtk_widget_show (progress_bar);
-        data.update_gui_timeout_id = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_search_status_widgets, dialog);
+        data.update_gui_timeout_id = g_timeout_add (gui_update_rate(), (GSourceFunc) update_search_status_widgets, dialog);
 
         return true;
     }

@@ -22,11 +22,3 @@
 #pragma once
 
 gchar *get_utf8 (const gchar *unknown);
-
-inline gchar *get_bold_text (const gchar *in)
-{
-    gchar *escaped_text = g_markup_escape_text (in, -1);
-    gchar *result = g_strdup_printf("<span weight=\"bold\">%s</span>", escaped_text);
-    g_free (escaped_text);
-    return result;
-}

@@ -32,7 +32,6 @@
 
 #include "gnome-cmd-path.h"
 #include "gnome-cmd-dir.h"
-#include "gnome-cmd-data.h"
 #include "utils.h"
 
 struct GnomeCmdCon
@@ -151,7 +150,6 @@ extern "C" gboolean gnome_cmd_con_is_closeable (GnomeCmdCon *con);
 
 extern "C" void gnome_cmd_con_dir_history_add (GnomeCmdCon *con, const gchar *entry);
 extern "C" GStrv gnome_cmd_con_export_dir_history (GnomeCmdCon *con);
-extern "C" void gnome_cmd_con_import_dir_history (GnomeCmdCon *con, GStrv entries);
 
 extern "C" gchar *gnome_cmd_con_get_go_text (GnomeCmdCon *con);
 extern "C" gchar *gnome_cmd_con_get_open_text (GnomeCmdCon *con);

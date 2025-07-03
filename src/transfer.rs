@@ -21,6 +21,7 @@
  */
 
 use crate::{
+    data::{GeneralOptions, GeneralOptionsRead},
     dialogs::transfer_progress_dialog::TransferProgressWindow,
     dir::Directory,
     types::{ConfirmOverwriteMode, GnomeCmdTransferType, SizeDisplayMode},
@@ -770,14 +771,13 @@ pub extern "C" fn start_transfer_gui(
     no_of_files: u64,
     transfer_type: GnomeCmdTransferType,
     overwrite_mode: ConfirmOverwriteMode,
-    size_display_mode: SizeDisplayMode,
-    date_format: *const c_char,
 ) -> *mut TransferControl {
     let parent_window: gtk::Window = unsafe { from_glib_none(parent_window_ptr) };
     let title: String = unsafe { from_glib_none(title) };
-    let date_format: String = unsafe { from_glib_none(date_format) };
 
-    let win = TransferProgressWindow::new(no_of_files, size_display_mode);
+    let options = GeneralOptions::new();
+
+    let win = TransferProgressWindow::new(no_of_files, options.size_display_mode());
     win.set_transient_for(Some(&parent_window));
     win.set_title(Some(&title));
 
@@ -791,8 +791,8 @@ pub extern "C" fn start_transfer_gui(
             no_of_files,
             transfer_type,
             overwrite_mode,
-            size_display_mode,
-            &date_format,
+            options.size_display_mode(),
+            &options.date_display_format(),
         )
         .await;
         win.close();

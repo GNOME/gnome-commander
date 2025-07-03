@@ -29,7 +29,6 @@ src/dialogs/delete_dialog.rs
 src/dialogs/edit_bookmark_dialog.rs
 src/dialogs/file_properties_dialog.rs
 src/dialogs/gnome-cmd-mkdir-dialog.cc
-src/dialogs/gnome-cmd-options-dialog.cc
 src/dialogs/gnome-cmd-search-dialog.cc
 src/dialogs/make_copy_dialog.rs
 src/dialogs/manage_bookmarks_dialog.rs
@@ -44,6 +43,9 @@ src/dialogs/options/devices_widget.rs
 src/dialogs/options/edit_colors_dialog.rs
 src/dialogs/options/edit_palette_dialog.rs
 src/dialogs/options/filters_tab.rs
+src/dialogs/options/format_tab.rs
+src/dialogs/options/general_tab.rs
+src/dialogs/options/layout_tab.rs
 src/dialogs/options/options_dialog.rs
 src/dialogs/options/programs_tab.rs
 src/dialogs/options/tabs_tab.rs
@@ -73,7 +75,6 @@ src/gnome-cmd-con-device.cc
 src/gnome-cmd-con-home.cc
 src/gnome-cmd-con-remote.cc
 src/gnome-cmd-con-smb.cc
-src/gnome-cmd-data.cc
 src/gnome-cmd-file.cc
 src/gnome-cmd-file-list.cc
 src/gnome-cmd-xfer.cc

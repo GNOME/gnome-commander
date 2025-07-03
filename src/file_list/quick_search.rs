@@ -173,10 +173,10 @@ mod imp {
             let options = self.options();
 
             let mut pattern = text.to_owned();
-            if !options.quick_seaech_exact_match_begin() && !pattern.starts_with("*") {
+            if !options.quick_search_exact_match_begin() && !pattern.starts_with("*") {
                 pattern.insert(0, '*');
             }
-            if !options.quick_seaech_exact_match_end() && !pattern.ends_with("*") {
+            if !options.quick_search_exact_match_end() && !pattern.ends_with("*") {
                 pattern.push('*');
             }
 

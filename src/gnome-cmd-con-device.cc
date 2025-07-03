@@ -25,7 +25,6 @@
 #include <sys/wait.h>
 
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-data.h"
 #include "gnome-cmd-con-device.h"
 #include "gnome-cmd-path.h"
 #include "imageloader.h"

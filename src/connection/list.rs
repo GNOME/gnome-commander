@@ -28,6 +28,7 @@ use super::{
     remote::{ffi::GnomeCmdConRemote, ConnectionRemote},
     smb::{ffi::GnomeCmdConSmb, ConnectionSmb},
 };
+use crate::data::{GeneralOptions, GeneralOptionsRead, GeneralOptionsWrite, WriteResult};
 use gtk::{
     gio::{
         self,
@@ -35,15 +36,12 @@ use gtk::{
     },
     glib::{
         self,
-        ffi::GVariant,
         subclass::prelude::*,
-        translate::{
-            from_glib_borrow, from_glib_full, from_glib_none, Borrowed, IntoGlibPtr, ToGlibPtr,
-        },
+        translate::{from_glib_borrow, Borrowed, ToGlibPtr},
     },
     prelude::*,
 };
-use std::path::Path;
+use std::{path::Path, sync::OnceLock};
 
 mod imp {
     use super::*;
@@ -106,14 +104,19 @@ glib::wrapper! {
     pub struct ConnectionList(ObjectSubclass<imp::ConnectionList>);
 }
 
-impl ConnectionList {
-    pub fn get() -> Self {
-        extern "C" {
-            fn gnome_cmd_con_list_get(
-            ) -> *mut <ConnectionList as glib::object::ObjectType>::GlibType;
-        }
+static LIST: OnceLock<glib::thread_guard::ThreadGuard<ConnectionList>> = OnceLock::new();
 
-        unsafe { from_glib_none(gnome_cmd_con_list_get()) }
+impl ConnectionList {
+    pub fn create(show_samba_workgroups_button: bool) {
+        LIST.get_or_init(|| {
+            glib::thread_guard::ThreadGuard::new(ConnectionList::new(show_samba_workgroups_button))
+        });
+    }
+
+    pub fn get() -> &'static Self {
+        LIST.get()
+            .expect("Connection list isn't created yet")
+            .get_ref()
     }
 
     pub fn new(show_samba_workgroups_button: bool) -> Self {
@@ -238,15 +241,41 @@ impl ConnectionList {
             })
     }
 
-    pub fn load_bookmarks(&self, variant: glib::Variant) {
+    pub fn load(&self, options: &dyn GeneralOptionsRead) {
+        self.lock();
+
+        self.load_devices(&options.device_list());
+        self.load_connections(&options.connections());
+        self.load_bookmarks(&options.bookmarks());
+
+        let home = self.home();
+        let dir_history = home.upcast_ref::<Connection>().dir_history();
+        for item in options.directory_history().into_iter().rev() {
+            dir_history.add(item);
+        }
+
+        self.unlock();
+    }
+
+    pub fn save(&self, options: &GeneralOptions) -> WriteResult {
+        options.set_device_list(&self.save_devices())?;
+        options.set_directory_history(&if options.save_directory_history_on_exit() {
+            self.home()
+                .upcast_ref::<Connection>()
+                .dir_history()
+                .export()
+        } else {
+            Vec::new()
+        })?;
+        options.set_connections(&self.save_connections())?;
+        options.set_bookmarks(&self.save_bookmarks())?;
+        Ok(())
+    }
+
+    pub fn load_bookmarks(&self, bookmarks: &[BookmarkVariant]) {
         for con in self.iter() {
             con.erase_bookmarks();
         }
-
-        let Some(bookmarks) = Vec::<BookmarkVariant>::from_variant(&variant) else {
-            eprintln!("Cannot load bookmarks: bad variant format.");
-            return;
-        };
 
         for bookmark in bookmarks {
             let con = if bookmark.is_remote {
@@ -270,7 +299,7 @@ impl ConnectionList {
         }
     }
 
-    pub fn save_bookmarks(&self) -> Option<glib::Variant> {
+    pub fn save_bookmarks(&self) -> Vec<BookmarkVariant> {
         let mut bookmarks = Vec::<BookmarkVariant>::new();
 
         for bookmark in self.home().bookmarks().iter::<Bookmark>().flatten() {
@@ -308,18 +337,11 @@ impl ConnectionList {
             }
         }
 
-        if bookmarks.is_empty() {
-            None
-        } else {
-            Some(bookmarks.to_variant())
-        }
+        bookmarks
     }
 
-    pub fn load_devices(&self, variant: glib::Variant) {
-        for v in Vec::<CustomDeviceVariant>::from_variant(&variant)
-            .into_iter()
-            .flatten()
-        {
+    pub fn load_devices(&self, variants: &[CustomDeviceVariant]) {
+        for v in variants {
             self.add(&ConnectionDevice::new(
                 &v.alias,
                 &v.device_fn,
@@ -330,9 +352,8 @@ impl ConnectionList {
         self.load_available_volumes();
     }
 
-    pub fn save_devices(&self) -> Option<glib::Variant> {
-        let devices: Vec<CustomDeviceVariant> = self
-            .iter()
+    fn save_devices(&self) -> Vec<CustomDeviceVariant> {
+        self.iter()
             .filter_map(|c| c.downcast::<ConnectionDevice>().ok())
             .filter(|d| !d.autovol())
             .map(|device| CustomDeviceVariant {
@@ -349,20 +370,11 @@ impl ConnectionList {
                     .and_then(|i| i.serialize())
                     .unwrap_or_else(|| "".to_variant()),
             })
-            .collect();
-
-        if devices.is_empty() {
-            None
-        } else {
-            Some(devices.to_variant())
-        }
+            .collect()
     }
 
-    pub fn load_connections(&self, variant: glib::Variant) {
-        for v in Vec::<ConnectionVariant>::from_variant(&variant)
-            .into_iter()
-            .flatten()
-        {
+    pub fn load_connections(&self, variants: &[ConnectionVariant]) {
+        for v in variants {
             match ConnectionRemote::try_from_string(&v.alias, &v.uri) {
                 Ok(remote) => self.add(&remote),
                 Err(error) => eprintln!(
@@ -374,9 +386,8 @@ impl ConnectionList {
         }
     }
 
-    pub fn save_connections(&self) -> Option<glib::Variant> {
-        let connections: Vec<ConnectionVariant> = self
-            .iter()
+    fn save_connections(&self) -> Vec<ConnectionVariant> {
+        self.iter()
             .filter_map(|c| c.downcast::<ConnectionRemote>().ok())
             .filter_map(|device| {
                 Some(ConnectionVariant {
@@ -384,13 +395,7 @@ impl ConnectionList {
                     uri: device.uri_string()?,
                 })
             })
-            .collect();
-
-        if connections.is_empty() {
-            None
-        } else {
-            Some(connections.to_variant())
-        }
+            .collect()
     }
 
     fn find_remote_by_root(&self, root_file: &gio::File) -> Option<ConnectionRemote> {
@@ -481,7 +486,7 @@ impl ConnectionList {
         self.remove(&device);
     }
 
-    fn set_volume_monitor(&self) {
+    pub fn set_volume_monitor(&self) {
         let monitor = &self.imp().volume_monitor;
         monitor.connect_mount_added(glib::clone!(
             #[weak(rename_to = this)]
@@ -524,13 +529,6 @@ impl ConnectionList {
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_con_list_new(
-    show_samba_workgroups_button: bool,
-) -> *mut <ConnectionList as glib::object::ObjectType>::GlibType {
-    ConnectionList::new(show_samba_workgroups_button).to_glib_full()
-}
-
-#[no_mangle]
 pub extern "C" fn gnome_cmd_con_list_get_all(
     list_ptr: *mut <ConnectionList as glib::object::ObjectType>::GlibType,
 ) -> *mut GListModel {
@@ -564,105 +562,32 @@ pub extern "C" fn get_remote_con_for_gfile(
     list.get_remote_con_for_file(&*file).to_glib_none().0
 }
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_list_lock(
-    list_ptr: *mut <ConnectionList as glib::object::ObjectType>::GlibType,
-) {
-    let list: Borrowed<ConnectionList> = unsafe { from_glib_borrow(list_ptr) };
-    list.lock();
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_list_unlock(
-    list_ptr: *mut <ConnectionList as glib::object::ObjectType>::GlibType,
-) {
-    let list: Borrowed<ConnectionList> = unsafe { from_glib_borrow(list_ptr) };
-    list.unlock();
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_list_load_bookmarks(
-    list_ptr: *mut <ConnectionList as glib::object::ObjectType>::GlibType,
-    variant_ptr: *mut GVariant,
-) {
-    let list: Borrowed<ConnectionList> = unsafe { from_glib_borrow(list_ptr) };
-    let variant: glib::Variant = unsafe { from_glib_full(variant_ptr) };
-    list.load_bookmarks(variant);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_list_save_bookmarks(
-    list_ptr: *mut <ConnectionList as glib::object::ObjectType>::GlibType,
-) -> *mut GVariant {
-    let list: Borrowed<ConnectionList> = unsafe { from_glib_borrow(list_ptr) };
-    let variant = list.save_bookmarks();
-    unsafe { variant.into_glib_ptr() }
+#[derive(glib::Variant)]
+pub struct BookmarkVariant {
+    pub is_remote: bool,
+    pub group_name: String,
+    pub name: String,
+    pub path: String,
 }
 
 #[derive(glib::Variant)]
-struct BookmarkVariant {
-    is_remote: bool,
-    group_name: String,
-    name: String,
-    path: String,
+pub struct CustomDeviceVariant {
+    pub alias: String,
+    pub device_fn: String,
+    pub mount_point: String,
+    pub icon: glib::Variant,
 }
 
 #[derive(glib::Variant)]
-struct CustomDeviceVariant {
-    alias: String,
-    device_fn: String,
-    mount_point: String,
-    icon: glib::Variant,
-}
-
-#[derive(glib::Variant)]
-struct ConnectionVariant {
-    alias: String,
-    uri: String,
+pub struct ConnectionVariant {
+    pub alias: String,
+    pub uri: String,
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_con_list_set_volume_monitor(
-    list_ptr: *mut <ConnectionList as glib::object::ObjectType>::GlibType,
-) {
-    let list: Borrowed<ConnectionList> = unsafe { from_glib_borrow(list_ptr) };
-    list.set_volume_monitor();
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_list_load_devices(
-    list_ptr: *mut <ConnectionList as glib::object::ObjectType>::GlibType,
-    variant_ptr: *mut GVariant,
-) {
-    let list: Borrowed<ConnectionList> = unsafe { from_glib_borrow(list_ptr) };
-    let variant: glib::Variant = unsafe { from_glib_full(variant_ptr) };
-    list.load_devices(variant);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_list_save_devices(
-    list_ptr: *mut <ConnectionList as glib::object::ObjectType>::GlibType,
-) -> *mut GVariant {
-    let list: Borrowed<ConnectionList> = unsafe { from_glib_borrow(list_ptr) };
-    list.save_devices().to_glib_full()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_list_load_connections(
-    list_ptr: *mut <ConnectionList as glib::object::ObjectType>::GlibType,
-    variant_ptr: *mut GVariant,
-) {
-    let list: Borrowed<ConnectionList> = unsafe { from_glib_borrow(list_ptr) };
-    let variant: glib::Variant = unsafe { from_glib_full(variant_ptr) };
-    list.load_connections(variant);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_list_save_connections(
-    list_ptr: *mut <ConnectionList as glib::object::ObjectType>::GlibType,
-) -> *mut GVariant {
-    let list: Borrowed<ConnectionList> = unsafe { from_glib_borrow(list_ptr) };
-    list.save_connections().to_glib_full()
+pub extern "C" fn gnome_cmd_con_list_get(
+) -> *mut <ConnectionList as glib::object::ObjectType>::GlibType {
+    ConnectionList::get().to_glib_none().0
 }
 
 #[cfg(test)]

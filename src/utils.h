@@ -62,7 +62,7 @@ void gnome_cmd_show_message (GtkWindow *parent, const gchar *message, const gcha
 void gnome_cmd_error_message (GtkWindow *parent, const gchar *message, GError *error);
 
 const gchar *type2string (guint32 type, gchar *buf, guint max);
-const gchar *perm2string (guint32 permissions, gchar *buf, guint max);
+const gchar *perm2string (GnomeCmdPermDispMode mode, guint32 permissions, gchar *buf, guint max);
 const gchar *perm2textstring (guint32 permissions, gchar *buf, guint max);
 const gchar *perm2numstring (guint32 permissions, gchar *buf, guint max);
 const gchar *size2string (guint64 size, GnomeCmdSizeDispMode size_disp_mode);
@@ -128,8 +128,6 @@ inline gchar *quote_if_needed (const gchar *in)
 
 gchar *unquote_if_needed (const gchar *in);
 
-GList *string_history_add (GList *in, const gchar *value, guint maxsize);
-
 void set_cursor_busy_for_widget (GtkWidget *widget);
 
 void remove_temp_download_dir ();
@@ -194,3 +192,5 @@ guint64 get_gfile_attribute_uint64(GFile *gFile, const char *attribute);
 gchar *get_gfile_attribute_string(GFileInfo *gFileInfo, const char *attribute);
 
 gchar *get_gfile_attribute_string(GFile *gFile, const char *attribute);
+
+extern "C" guint gui_update_rate();

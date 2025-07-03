@@ -29,7 +29,6 @@
 
 #include "gnome-cmd-includes.h"
 #include "utils.h"
-#include "gnome-cmd-data.h"
 #include "imageloader.h"
 #include "gnome-cmd-main-win.h"
 #include "text-utils.h"
@@ -113,9 +112,9 @@ const gchar *type2string (guint32 type, gchar *buf, guint max)
 }
 
 
-const gchar *perm2string (guint32 permissions, gchar *buf, guint max)
+const gchar *perm2string (GnomeCmdPermDispMode mode, guint32 permissions, gchar *buf, guint max)
 {
-    switch (gnome_cmd_data.options.perm_disp_mode)
+    switch (mode)
     {
         case GNOME_CMD_PERM_DISP_MODE_TEXT:
             return perm2textstring (permissions, buf, max);
@@ -287,36 +286,6 @@ GList *uri_strings_to_gfiles (gchar *data)
     return gFileGList;
 }
 
-GList *string_history_add (GList *in, const gchar *value, guint maxsize)
-{
-    GList *tmp = g_list_find_custom (in, (gchar *) value, (GCompareFunc) strcmp);
-    GList *out;
-
-    // if the same value has been given before move it first in the list
-    if (tmp != NULL)
-    {
-        out = g_list_remove_link (in, tmp);
-        tmp->next = out;
-        if (out)
-            out->prev = tmp;
-        out = tmp;
-    }
-    // or if its new just add it
-    else
-        out = g_list_prepend (in, g_strdup (value));
-
-    // don't let the history get too long
-    while (g_list_length (out) > maxsize)
-    {
-        tmp = g_list_last (out);
-        g_free (tmp->data);
-        out = g_list_remove_link (out, tmp);
-    }
-
-    return out;
-}
-
-
 gchar *unquote_if_needed (const gchar *in)
 {
 
@@ -361,16 +330,6 @@ void remove_temp_download_dir ()
         }
         g_free (command);
     }
-}
-
-
-inline void transform (gchar *s, gchar from, gchar to)
-{
-    gint len = strlen (s);
-
-    for (gint i=0; i<len; i++)
-        if (s[i] == from)
-            s[i] = to;
 }
 
 

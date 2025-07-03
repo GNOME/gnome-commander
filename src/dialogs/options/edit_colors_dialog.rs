@@ -17,28 +17,17 @@
  * For more details see the file COPYING.
  */
 
-use crate::{
-    layout::{
-        color_themes::{load_custom_theme, save_custom_theme},
-        PREF_COLORS,
-    },
-    utils::SenderExt,
-};
+use crate::{layout::color_themes::ColorTheme, utils::SenderExt};
 use gettextrs::gettext;
-use glib::translate::from_glib_none;
-use gtk::{ffi::GtkWindow, gio, prelude::*};
+use gtk::prelude::*;
 
-pub async fn edit_colors(parent_window: &gtk::Window) {
-    let settings = gio::Settings::new(PREF_COLORS);
-
+pub async fn edit_colors(parent_window: &gtk::Window, theme: ColorTheme) -> Option<ColorTheme> {
     let dialog = gtk::Window::builder()
         .transient_for(parent_window)
         .modal(true)
         .title(gettext("Edit Colors…"))
         .resizable(false)
         .build();
-
-    let mut theme = load_custom_theme(&settings);
 
     let grid = gtk::Grid::builder()
         .margin_top(12)
@@ -196,28 +185,20 @@ pub async fn edit_colors(parent_window: &gtk::Window) {
     ));
 
     dialog.present();
-    let _ = receiver.recv().await;
+    let ok = receiver.recv().await == Ok(());
 
-    theme.norm_fg = default_fg.rgba();
-    theme.norm_bg = default_bg.rgba();
-    theme.alt_fg = alternate_fg.rgba();
-    theme.alt_bg = alternate_bg.rgba();
-    theme.sel_fg = selected_fg.rgba();
-    theme.sel_bg = selected_bg.rgba();
-    theme.curs_fg = cursor_fg.rgba();
-    theme.curs_bg = cursor_bg.rgba();
-
-    if let Err(error) = save_custom_theme(&theme, &settings) {
-        eprintln!("Failed to save theme colors: {}", error.message);
-    }
+    let theme = ok.then(|| ColorTheme {
+        norm_fg: default_fg.rgba(),
+        norm_bg: default_bg.rgba(),
+        alt_fg: alternate_fg.rgba(),
+        alt_bg: alternate_bg.rgba(),
+        sel_fg: selected_fg.rgba(),
+        sel_bg: selected_bg.rgba(),
+        curs_fg: cursor_fg.rgba(),
+        curs_bg: cursor_bg.rgba(),
+    });
 
     dialog.close();
-}
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_edit_colors(parent_window_ptr: *mut GtkWindow) {
-    let parent_window: gtk::Window = unsafe { from_glib_none(parent_window_ptr) };
-    glib::spawn_future_local(async move {
-        edit_colors(&parent_window).await;
-    });
+    theme
 }

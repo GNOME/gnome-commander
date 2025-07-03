@@ -20,20 +20,19 @@
 use crate::{
     layout::{
         ls_colors::{LsPalletteColor, LsPallettePlane},
-        ls_colors_palette::{load_palette, save_palette, LsColorsPalette},
-        PREF_COLORS,
+        ls_colors_palette::LsColorsPalette,
     },
     utils::{dialog_button_box, SenderExt},
 };
 use gettextrs::gettext;
-use glib::translate::from_glib_none;
-use gtk::{ffi::GtkWindow, gio, prelude::*};
+use gtk::prelude::*;
 use std::collections::HashMap;
 use strum::{EnumCount, VariantArray};
 
-pub async fn edit_palette(parent_window: &gtk::Window) {
-    let settings = gio::Settings::new(PREF_COLORS);
-
+pub async fn edit_palette(
+    parent_window: &gtk::Window,
+    palette: LsColorsPalette,
+) -> Option<LsColorsPalette> {
     let dialog = gtk::Window::builder()
         .transient_for(parent_window)
         .modal(true)
@@ -55,7 +54,6 @@ pub async fn edit_palette(parent_window: &gtk::Window) {
 
     let mut buttons: HashMap<(LsPallettePlane, LsPalletteColor), gtk::ColorDialogButton> =
         HashMap::new();
-    let palette = load_palette(&settings);
     for plane in LsPallettePlane::VARIANTS {
         for palette_color in LsPalletteColor::VARIANTS {
             let btn = gtk::ColorDialogButton::builder()
@@ -230,7 +228,7 @@ pub async fn edit_palette(parent_window: &gtk::Window) {
     dialog.present();
     let result = receiver.recv().await;
 
-    if result == Ok(true) {
+    let palette = (result == Ok(true)).then(|| {
         let mut palette = LsColorsPalette::default();
         for plane in LsPallettePlane::VARIANTS {
             for palette_color in LsPalletteColor::VARIANTS {
@@ -241,18 +239,10 @@ pub async fn edit_palette(parent_window: &gtk::Window) {
                 );
             }
         }
-        if let Err(error) = save_palette(&palette, &settings) {
-            eprintln!("Failed to save palette: {}", error.message);
-        }
-    }
+        palette
+    });
 
     dialog.close();
-}
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_edit_palette(parent_window_ptr: *mut GtkWindow) {
-    let parent_window: gtk::Window = unsafe { from_glib_none(parent_window_ptr) };
-    glib::spawn_future_local(async move {
-        edit_palette(&parent_window).await;
-    });
+    palette
 }

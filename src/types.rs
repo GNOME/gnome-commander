@@ -58,7 +58,8 @@ pub enum GnomeCmdTransferType {
 }
 
 #[repr(C)]
-#[derive(Clone, Copy, Default, strum::FromRepr)]
+#[derive(Clone, Copy, Default, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdGraphicalLayoutMode")]
 pub enum GraphicalLayoutMode {
     Text = 0,
     TypeIcons,
@@ -67,7 +68,8 @@ pub enum GraphicalLayoutMode {
 }
 
 #[repr(C)]
-#[derive(Clone, Copy, Default, strum::FromRepr)]
+#[derive(Clone, Copy, Default, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdExtensionDisplayMode")]
 pub enum ExtensionDisplayMode {
     WithFileName = 0,
     Stripped,
@@ -76,7 +78,8 @@ pub enum ExtensionDisplayMode {
 }
 
 #[repr(C)]
-#[derive(Clone, Copy, Default, strum::FromRepr)]
+#[derive(Clone, Copy, Default, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdSizeDisplayMode")]
 pub enum SizeDisplayMode {
     Plain = 0,
     Locale,
@@ -86,11 +89,23 @@ pub enum SizeDisplayMode {
 }
 
 #[repr(C)]
-#[derive(Clone, Copy, Default, strum::FromRepr)]
+#[derive(Clone, Copy, Default, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdPermissionDisplayMode")]
 pub enum PermissionDisplayMode {
     #[default]
     Text = 0,
     Number,
+}
+
+#[repr(C)]
+#[derive(Clone, Copy, Default, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdIconScaleQuality")]
+pub enum IconScaleQuality {
+    Nearest = 0,
+    Tiles,
+    Bilinear,
+    #[default]
+    Hyper,
 }
 
 #[repr(C)]
@@ -101,4 +116,33 @@ pub enum QuickSearchShortcut {
     CtrlAlt = 0,
     Alt,
     JustACharacter,
+}
+
+#[repr(C)]
+#[derive(Clone, Copy, Default, PartialEq, Eq, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdLeftMouseButtonMode")]
+pub enum LeftMouseButtonMode {
+    #[enum_value(nick = "single-click")]
+    OpensWithSingleClick,
+    #[default]
+    #[enum_value(nick = "double-click")]
+    OpensWithDoubleClick,
+}
+
+#[repr(C)]
+#[derive(Clone, Copy, Default, PartialEq, Eq, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdMiddleMouseButtonMode")]
+pub enum MiddleMouseButtonMode {
+    #[default]
+    GoesUpDir,
+    OpensNewTab,
+}
+
+#[repr(C)]
+#[derive(Clone, Copy, Default, PartialEq, Eq, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdRightMouseButtonMode")]
+pub enum RightMouseButtonMode {
+    #[default]
+    PopupsMenu,
+    Selects,
 }
