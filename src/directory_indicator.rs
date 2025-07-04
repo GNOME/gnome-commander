@@ -98,19 +98,21 @@ mod imp {
             self.path_inits.borrow_mut().clear();
             self.path_labels.borrow_mut().clear();
 
-            let mut init = String::new();
-            for path_segment in split_path(path) {
-                init.push_str(&path_segment);
-                self.path_inits.borrow_mut().push(init.clone());
+            if !path.is_empty() {
+                let mut init = String::new();
+                for path_segment in split_path(path) {
+                    init.push_str(&path_segment);
+                    self.path_inits.borrow_mut().push(init.clone());
 
-                let label = gtk::Label::builder()
-                    .label(&path_segment)
-                    .attributes(&make_attributes(false, self.active.get()))
-                    .halign(gtk::Align::Start)
-                    .valign(gtk::Align::Center)
-                    .build();
-                label.set_parent(&*self.obj());
-                self.path_labels.borrow_mut().push(label);
+                    let label = gtk::Label::builder()
+                        .label(&path_segment)
+                        .attributes(&make_attributes(false, self.active.get()))
+                        .halign(gtk::Align::Start)
+                        .valign(gtk::Align::Center)
+                        .build();
+                    label.set_parent(&*self.obj());
+                    self.path_labels.borrow_mut().push(label);
+                }
             }
 
             for (index, label) in self.path_labels.borrow().iter().enumerate() {

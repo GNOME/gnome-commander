@@ -226,6 +226,7 @@ extern "C" GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl);
 extern "C" GnomeCmdFile *gnome_cmd_file_list_get_focused_file(GnomeCmdFileList *fl);
 extern "C" GnomeCmdCon *gnome_cmd_file_list_get_connection(GnomeCmdFileList *fl);
 extern "C" GnomeCmdDir *gnome_cmd_file_list_get_directory(GnomeCmdFileList *fl);
+extern "C" void gnome_cmd_file_list_set_directory(GnomeCmdFileList *fl, GnomeCmdDir *dir);
 
 extern "C" void gnome_cmd_file_list_set_sorting (GnomeCmdFileList *fl, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order);
 extern "C" gint /* ColumnID */ gnome_cmd_file_list_get_sort_column (GnomeCmdFileList *fl);
@@ -241,3 +242,5 @@ extern "C" void gnome_cmd_file_list_goto_directory(GnomeCmdFileList *fl, const g
 extern "C" void gnome_cmd_file_list_update_style(GnomeCmdFileList *fl);
 
 extern "C" void gnome_cmd_file_list_show_files(GnomeCmdFileList *fl, GnomeCmdDir *dir);
+
+extern "C" void gnome_cmd_file_list_show_column(GnomeCmdFileList *fl, GnomeCmdFileList::ColumnID col, gboolean value);

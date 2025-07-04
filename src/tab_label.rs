@@ -18,12 +18,7 @@
  */
 
 use crate::config::PIXMAPS_DIR;
-use gtk::{
-    glib::{self, ffi::GType, translate::IntoGlib},
-    pango,
-    prelude::*,
-    subclass::prelude::*,
-};
+use gtk::{glib, pango, prelude::*, subclass::prelude::*};
 use std::path::Path;
 
 mod imp {
@@ -140,9 +135,10 @@ glib::wrapper! {
         @extends gtk::Widget;
 }
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_tab_label_get_type() -> GType {
-    TabLabel::static_type().into_glib()
+impl Default for TabLabel {
+    fn default() -> Self {
+        glib::Object::builder().build()
+    }
 }
 
 #[derive(Clone, Copy, Default, strum::FromRepr, glib::Enum)]

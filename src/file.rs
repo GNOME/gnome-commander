@@ -79,6 +79,8 @@ pub mod ffi {
         pub fn gnome_cmd_file_get_uri_str(f: *const GnomeCmdFile) -> *mut c_char;
         pub fn gnome_cmd_file_is_local(f: *const GnomeCmdFile) -> gboolean;
 
+        pub fn gnome_cmd_file_get_parent_dir(f: *mut GnomeCmdFile) -> *mut GnomeCmdDir;
+
         pub fn gnome_cmd_file_rename(
             f: *mut GnomeCmdFile,
             new_name: *const c_char,
@@ -199,6 +201,10 @@ impl File {
 
     pub fn is_local(&self) -> bool {
         unsafe { ffi::gnome_cmd_file_is_local(self.to_glib_none().0) != 0 }
+    }
+
+    pub fn parent_directory(&self) -> Option<Directory> {
+        unsafe { from_glib_none(ffi::gnome_cmd_file_get_parent_dir(self.to_glib_none().0)) }
     }
 
     pub fn content_type(&self) -> Option<glib::GString> {

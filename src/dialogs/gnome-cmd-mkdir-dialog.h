@@ -24,4 +24,4 @@
 #include "gnome-cmd-dir.h"
 using namespace std;
 
-void gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_file=NULL);
+extern "C" void gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_file=NULL);

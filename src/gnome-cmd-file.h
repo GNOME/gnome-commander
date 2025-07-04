@@ -165,3 +165,5 @@ extern "C" gboolean gnome_cmd_file_chmod(GnomeCmdFile *f, guint32 permissions, G
 extern "C" gboolean gnome_cmd_file_is_dotdot(GnomeCmdFile *f);
 
 extern "C" void gnome_cmd_file_set_deleted(GnomeCmdFile *f);
+
+extern "C" GnomeCmdDir *gnome_cmd_file_get_parent_dir(GnomeCmdFile *f);

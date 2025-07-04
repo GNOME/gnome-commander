@@ -44,7 +44,6 @@ using namespace std;
 
 /************** File Menu **************/
 GNOME_CMD_USER_ACTION(file_delete);
-GNOME_CMD_USER_ACTION(file_mkdir);
 GNOME_CMD_USER_ACTION(file_exit);
 
 /************** Mark Menu **************/
@@ -76,21 +75,6 @@ void file_delete (GSimpleAction *action, GVariant *parameter, gpointer user_data
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
     gnome_cmd_file_list_show_delete_dialog (get_fl (main_win, ACTIVE));
-}
-
-
-void file_mkdir (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
-    GnomeCmdDir *dir = fs->get_directory();
-
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-
-    gnome_cmd_dir_ref (dir);
-    gnome_cmd_mkdir_dialog_new (dir, fs->file_list()->get_selected_file());
-    gnome_cmd_dir_unref (dir);
 }
 
 

@@ -48,8 +48,8 @@ use crate::{
         remote_dialog::RemoteDialog,
         shortcuts::shortcuts_dialog::ShortcutsDialog,
     },
-    dir::Directory,
-    file::File,
+    dir::{ffi::GnomeCmdDir, Directory},
+    file::{ffi::GnomeCmdFile, File},
     file_list::list::FileList,
     libgcmd::{
         file_actions::{FileActions, FileActionsExt},
@@ -327,7 +327,23 @@ pub fn file_chown(
     }
 }
 
-c_action!(file_mkdir);
+pub fn file_mkdir(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    extern "C" {
+        fn gnome_cmd_mkdir_dialog_new(dir: *mut GnomeCmdDir, selected_file: *mut GnomeCmdFile);
+    }
+
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+
+    if let Some(dir) = file_list.directory() {
+        let selected_file = file_list.selected_file();
+        unsafe { gnome_cmd_mkdir_dialog_new(dir.to_glib_none().0, selected_file.to_glib_none().0) }
+    }
+}
 
 pub fn file_properties(
     main_win: &MainWindow,
