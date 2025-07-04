@@ -39,6 +39,10 @@
 #include <gsf/gsf.h>
 
 
+extern "C" GObject *create_plugin ();
+extern "C" GnomeCmdPluginInfo *get_plugin_info ();
+
+
 using namespace std;
 
 
@@ -534,13 +538,13 @@ static void gnome_cmd_gsf_plugin_init (GnomeCmdGsfPlugin *plugin)
 }
 
 
-extern "C" GObject *create_plugin ()
+GObject *create_plugin ()
 {
     return G_OBJECT (g_object_new (GNOME_CMD_TYPE_GSF_PLUGIN, NULL));
 }
 
 
-extern "C" GnomeCmdPluginInfo *get_plugin_info ()
+GnomeCmdPluginInfo *get_plugin_info ()
 {
     static const char *authors[] = {
         "Andrey Kutejko <andy128k@gmail.com>",

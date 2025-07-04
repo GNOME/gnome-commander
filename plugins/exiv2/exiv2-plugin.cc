@@ -27,6 +27,10 @@
 #include <exiv2/exiv2.hpp>
 
 
+extern "C" GObject *create_plugin ();
+extern "C" GnomeCmdPluginInfo *get_plugin_info ();
+
+
 using namespace std;
 using namespace Exiv2;
 
@@ -756,13 +760,13 @@ static void gnome_cmd_exiv2_plugin_init (GnomeCmdExiv2Plugin *plugin)
 }
 
 
-extern "C" GObject *create_plugin ()
+GObject *create_plugin ()
 {
     return G_OBJECT (g_object_new (GNOME_CMD_TYPE_EXIV2_PLUGIN, NULL));
 }
 
 
-extern "C" GnomeCmdPluginInfo *get_plugin_info ()
+GnomeCmdPluginInfo *get_plugin_info ()
 {
     static const char *authors[] = {
         "Andrey Kutejko <andy128k@gmail.com>",

@@ -1200,7 +1200,7 @@ impl MainWindow {
             .open_tabs(right_tabs);
     }
 
-    fn save_tabs(&self, save_all: bool, save_current: bool) {
+    fn save_tabs(&self, save_all: bool, save_current: bool) -> WriteResult {
         let options = GeneralOptions::new();
 
         let mut tabs = Vec::<TabVariant>::new();
@@ -1223,7 +1223,7 @@ impl MainWindow {
                 }),
         );
 
-        options.set_file_list_tabs(&tabs);
+        options.set_file_list_tabs(&tabs)
     }
 
     pub fn load_command_line_history(&self, options: &dyn GeneralOptionsRead) {
@@ -1248,10 +1248,8 @@ impl MainWindow {
 
         self.imp().plugin_manager.save();
 
-        options.set_keybindings(&self.imp().shortcuts.save());
-
-        self.save_tabs(options.save_tabs_on_exit(), options.save_dirs_on_exit());
-
+        options.set_keybindings(&self.imp().shortcuts.save())?;
+        self.save_tabs(options.save_tabs_on_exit(), options.save_dirs_on_exit())?;
         self.save_command_line_history(&options)?;
 
         gio::Settings::sync();

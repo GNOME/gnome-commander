@@ -106,7 +106,8 @@ mod imp {
             ));
             self.combo.connect_popup_shown_notify(|cb| {
                 if !cb.is_popup_shown() {
-                    let entry = cb.child().unwrap().grab_focus();
+                    let entry = cb.child().unwrap();
+                    entry.grab_focus();
                 }
             });
 
