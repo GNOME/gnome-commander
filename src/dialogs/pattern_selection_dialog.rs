@@ -168,33 +168,37 @@ pub async fn show_pattern_selection_dialog(
     result
 }
 
-#[no_mangle]
-pub extern "C" fn show_pattern_selection_dialog_r(fl: *mut GnomeCmdFileList, mode: gboolean) {
-    let file_list: FileList = unsafe { from_glib_none(fl) };
+pub async fn select_by_pattern(file_list: &FileList, mode: bool) {
     let search_config = SearchConfig::get();
     let Some(parent_window) = file_list.root().and_downcast::<gtk::Window>() else {
         eprintln!("No window");
         return;
     };
+    if let Some(selection_pattern) = show_pattern_selection_dialog(
+        &parent_window,
+        mode,
+        search_config.name_patterns(),
+        search_config.default_profile_syntax(),
+    )
+    .await
+    {
+        let filter = Filter::new(
+            &selection_pattern.pattern,
+            selection_pattern.case_sensitive,
+            selection_pattern.pattern_type,
+        );
+
+        file_list.toggle_with_pattern(&filter, mode);
+
+        search_config.add_name_pattern(&selection_pattern.pattern);
+        search_config.set_default_profile_syntax(selection_pattern.pattern_type);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn show_pattern_selection_dialog_r(fl: *mut GnomeCmdFileList, mode: gboolean) {
+    let file_list: FileList = unsafe { from_glib_none(fl) };
     glib::spawn_future_local(async move {
-        if let Some(selection_pattern) = show_pattern_selection_dialog(
-            &parent_window,
-            mode != 0,
-            search_config.name_patterns(),
-            search_config.default_profile_syntax(),
-        )
-        .await
-        {
-            let filter = Filter::new(
-                &selection_pattern.pattern,
-                selection_pattern.case_sensitive,
-                selection_pattern.pattern_type,
-            );
-
-            file_list.toggle_with_pattern(&filter, mode != 0);
-
-            search_config.add_name_pattern(&selection_pattern.pattern);
-            search_config.set_default_profile_syntax(selection_pattern.pattern_type);
-        }
+        select_by_pattern(&file_list, mode != 0).await;
     });
 }

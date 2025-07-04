@@ -60,7 +60,6 @@ sources_sources = files(
   'gnome-cmd-file.cc',
   'gnome-cmd-file-collection.cc',
   'gnome-cmd-file-list.cc',
-  'gnome-cmd-user-actions.cc',
   'gnome-cmd-xfer.cc',
   'utils.cc',
   'text-utils.cc',

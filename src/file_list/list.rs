@@ -344,6 +344,7 @@ pub mod ffi {
 
         pub fn gnome_cmd_file_list_goto_directory(fl: *mut GnomeCmdFileList, dir: *const c_char);
 
+        pub fn gnome_cmd_file_list_show_delete_dialog(fl: *mut GnomeCmdFileList, force: gboolean);
         pub fn gnome_cmd_file_list_update_style(fl: *mut GnomeCmdFileList);
 
         pub fn gnome_cmd_file_list_invalidate_tree_size(fl: *mut GnomeCmdFileList);
@@ -355,6 +356,15 @@ pub mod ffi {
             col: c_int,
             value: gboolean,
         );
+
+        pub fn gnome_cmd_file_list_toggle(fl: *mut GnomeCmdFileList);
+        pub fn gnome_cmd_file_list_toggle_and_step(fl: *mut GnomeCmdFileList);
+        pub fn gnome_cmd_file_list_select_all(fl: *mut GnomeCmdFileList);
+        pub fn gnome_cmd_file_list_select_all_files(fl: *mut GnomeCmdFileList);
+        pub fn gnome_cmd_file_list_unselect_all_files(fl: *mut GnomeCmdFileList);
+        pub fn gnome_cmd_file_list_unselect_all(fl: *mut GnomeCmdFileList);
+        pub fn gnome_cmd_file_list_focus_prev(fl: *mut GnomeCmdFileList);
+        pub fn gnome_cmd_file_list_focus_next(fl: *mut GnomeCmdFileList);
     }
 }
 
@@ -490,6 +500,38 @@ impl FileList {
 
     pub fn selected_file(&self) -> Option<File> {
         self.focused_file().filter(|f| !f.is_dotdot())
+    }
+
+    pub fn toggle(&self) {
+        unsafe { ffi::gnome_cmd_file_list_toggle(self.to_glib_none().0) }
+    }
+
+    pub fn toggle_and_step(&self) {
+        unsafe { ffi::gnome_cmd_file_list_toggle_and_step(self.to_glib_none().0) }
+    }
+
+    pub fn select_all(&self) {
+        unsafe { ffi::gnome_cmd_file_list_select_all(self.to_glib_none().0) }
+    }
+
+    pub fn select_all_files(&self) {
+        unsafe { ffi::gnome_cmd_file_list_select_all_files(self.to_glib_none().0) }
+    }
+
+    pub fn unselect_all_files(&self) {
+        unsafe { ffi::gnome_cmd_file_list_unselect_all_files(self.to_glib_none().0) }
+    }
+
+    pub fn unselect_all(&self) {
+        unsafe { ffi::gnome_cmd_file_list_unselect_all(self.to_glib_none().0) }
+    }
+
+    pub fn focus_prev(&self) {
+        unsafe { ffi::gnome_cmd_file_list_focus_prev(self.to_glib_none().0) }
+    }
+
+    pub fn focus_next(&self) {
+        unsafe { ffi::gnome_cmd_file_list_focus_next(self.to_glib_none().0) }
     }
 
     pub fn connection(&self) -> Option<Connection> {
@@ -722,6 +764,12 @@ impl FileList {
         .replace("{selected_dirs}", &stats.selected.directories.to_string());
 
         format!("{sentence1} {sentence2} {sentence3}")
+    }
+
+    pub fn show_delete_dialog(&self, force: bool) {
+        unsafe {
+            ffi::gnome_cmd_file_list_show_delete_dialog(self.to_glib_none().0, force.into_glib())
+        }
     }
 
     pub async fn show_rename_dialog(&self) {

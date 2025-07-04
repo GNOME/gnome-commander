@@ -202,7 +202,7 @@ inline GnomeCmdFile *GnomeCmdFileList::get_selected_file()
     return !f || gnome_cmd_file_is_dotdot (f) ? nullptr : f;
 }
 
-void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl, gboolean forceDelete = FALSE);
+extern "C" void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl, gboolean forceDelete = FALSE);
 extern "C" void gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode);
 
@@ -244,3 +244,12 @@ extern "C" void gnome_cmd_file_list_update_style(GnomeCmdFileList *fl);
 extern "C" void gnome_cmd_file_list_show_files(GnomeCmdFileList *fl, GnomeCmdDir *dir);
 
 extern "C" void gnome_cmd_file_list_show_column(GnomeCmdFileList *fl, GnomeCmdFileList::ColumnID col, gboolean value);
+
+extern "C" void gnome_cmd_file_list_toggle(GnomeCmdFileList *fl);
+extern "C" void gnome_cmd_file_list_toggle_and_step(GnomeCmdFileList *fl);
+extern "C" void gnome_cmd_file_list_select_all(GnomeCmdFileList *fl);
+extern "C" void gnome_cmd_file_list_select_all_files(GnomeCmdFileList *fl);
+extern "C" void gnome_cmd_file_list_unselect_all_files(GnomeCmdFileList *fl);
+extern "C" void gnome_cmd_file_list_unselect_all(GnomeCmdFileList *fl);
+extern "C" void gnome_cmd_file_list_focus_prev(GnomeCmdFileList *fl);
+extern "C" void gnome_cmd_file_list_focus_next(GnomeCmdFileList *fl);

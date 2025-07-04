@@ -2752,3 +2752,43 @@ void gnome_cmd_file_list_show_column(GnomeCmdFileList *fl, GnomeCmdFileList::Col
 {
     fl->show_column(col, value);
 }
+
+void gnome_cmd_file_list_toggle(GnomeCmdFileList *fl)
+{
+    fl->toggle();
+}
+
+void gnome_cmd_file_list_toggle_and_step(GnomeCmdFileList *fl)
+{
+    fl->toggle_and_step();
+}
+
+void gnome_cmd_file_list_select_all(GnomeCmdFileList *fl)
+{
+    fl->select_all();
+}
+
+void gnome_cmd_file_list_select_all_files(GnomeCmdFileList *fl)
+{
+    fl->select_all_files();
+}
+
+void gnome_cmd_file_list_unselect_all_files(GnomeCmdFileList *fl)
+{
+    fl->unselect_all_files();
+}
+
+void gnome_cmd_file_list_unselect_all(GnomeCmdFileList *fl)
+{
+    fl->unselect_all();
+}
+
+void gnome_cmd_file_list_focus_prev(GnomeCmdFileList *fl)
+{
+    fl->focus_prev();
+}
+
+void gnome_cmd_file_list_focus_next(GnomeCmdFileList *fl)
+{
+    fl->focus_next();
+}
