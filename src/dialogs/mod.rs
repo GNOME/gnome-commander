@@ -18,6 +18,7 @@
  */
 
 pub mod pattern_selection_dialog;
+pub mod rename_popover;
 
 pub mod edit_bookmark_dialog;
 pub mod manage_bookmarks_dialog;

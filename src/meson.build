@@ -1,7 +1,6 @@
 sources_headers = files(
   'dialogs/gnome-cmd-delete-dialog.h',
   'dialogs/gnome-cmd-mkdir-dialog.h',
-  'dialogs/gnome-cmd-rename-dialog.h',
   'intviewer/bm_byte.h',
   'intviewer/bm_chartype.h',
   'intviewer/cp437.h',
@@ -42,7 +41,6 @@ sources_headers = files(
 
 sources_sources = files(
   'dialogs/gnome-cmd-mkdir-dialog.cc',
-  'dialogs/gnome-cmd-rename-dialog.cc',
   'dialogs/gnome-cmd-search-dialog.cc',
   'intviewer/bm_byte.cc',
   'intviewer/bm_chartype.cc',

@@ -39,7 +39,6 @@
 #include "imageloader.h"
 #include "gnome-cmd-file-collection.h"
 #include "dialogs/gnome-cmd-delete-dialog.h"
-#include "dialogs/gnome-cmd-rename-dialog.h"
 #include "text-utils.h"
 #include "widget-factory.h"
 
@@ -617,32 +616,6 @@ GnomeCmdFileListPrivate* file_list_priv (GnomeCmdFileList *fl)
 }
 
 
-// given a GnomeFileList, returns the upper-left corner of the selected file
-static void get_focus_row_coordinates (GnomeCmdFileList *fl, gint &x, gint &y, gint &width, gint &height)
-{
-    auto priv = file_list_priv (fl);
-
-    GtkTreePath *path;
-    GdkRectangle rect_name;
-    GdkRectangle rect_ext;
-
-    gtk_tree_view_get_cursor (priv->view, &path, nullptr);
-    gtk_tree_view_get_cell_area (priv->view, path, priv->columns[GnomeCmdFileList::COLUMN_NAME], &rect_name);
-    gtk_tree_view_get_cell_area (priv->view, path, priv->columns[GnomeCmdFileList::COLUMN_EXT], &rect_ext);
-    gtk_tree_path_free (path);
-
-    gtk_tree_view_convert_bin_window_to_widget_coords (priv->view, rect_name.x, rect_name.y, &x, &y);
-
-    width = rect_name.width;
-    height = rect_name.height;
-
-    GnomeCmdExtDispMode ext_disp_mode;
-    g_object_get (fl, "extension-display-mode", &ext_disp_mode, nullptr);
-    if (ext_disp_mode != GNOME_CMD_EXT_DISP_BOTH)
-        width += rect_ext.width;
-}
-
-
 void GnomeCmdFileList::focus_file_at_row (GtkTreeIter *row)
 {
     auto priv = file_list_priv (this);
@@ -811,30 +784,7 @@ static GString *build_selected_file_list (GnomeCmdFileList *fl)
 }
 
 
-extern "C" GMenu *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl);
-
-static void show_file_popup (GnomeCmdFileList *fl, GdkRectangle *point_to)
-{
-    // create the popup menu
-    GMenu *menu_model = gnome_cmd_file_popmenu_new (fl);
-    if (!menu_model) return;
-
-    GtkWidget *popover = gtk_popover_menu_new_from_model (G_MENU_MODEL (menu_model));
-    gtk_widget_set_parent (popover, GTK_WIDGET (fl));
-    gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
-    gtk_popover_menu_set_flags (GTK_POPOVER_MENU (popover), GTK_POPOVER_MENU_NESTED);
-
-    GdkRectangle rect;
-    if (!point_to)
-    {
-        get_focus_row_coordinates (fl, rect.x, rect.y, rect.width, rect.height);
-        point_to = &rect;
-    }
-
-    gtk_popover_set_pointing_to (GTK_POPOVER (popover), point_to);
-
-    gtk_popover_popup (GTK_POPOVER (popover));
-}
+extern "C" void gnome_cmd_file_list_show_file_popup (GnomeCmdFileList *fl, GdkRectangle *point_to);
 
 
 struct PopupClosure
@@ -846,7 +796,7 @@ struct PopupClosure
 
 static gboolean on_right_mb (PopupClosure *closure)
 {
-    show_file_popup (closure->fl, &closure->point_to);
+    gnome_cmd_file_list_show_file_popup (closure->fl, &closure->point_to);
     g_free (closure);
     return G_SOURCE_REMOVE;
 }
@@ -1025,7 +975,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *
                 {
                     fl->select_iter(event->iter);
                     g_signal_emit_by_name(fl, FILES_CHANGED_SIGNAL);
-                    show_file_popup (fl, nullptr);
+                    gnome_cmd_file_list_show_file_popup (fl, nullptr);
                 }
                 else
                 {
@@ -1883,24 +1833,6 @@ void GnomeCmdFileList::sort()
 }
 
 
-void gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    GnomeCmdFile *f = fl->get_selected_file();
-
-    if (GNOME_CMD_IS_FILE (f))
-    {
-        gint x, y, w, h;
-
-        get_focus_row_coordinates (fl, x, y, w, h);
-
-        GtkWidget *popover = gnome_cmd_rename_dialog_new (f, fl, x, y, w, h);
-        gtk_popover_popup (GTK_POPOVER (popover));
-    }
-}
-
-
 void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl, gboolean forceDelete)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
@@ -2026,7 +1958,7 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
                 return TRUE;
 
             case GDK_KEY_F10:
-                show_file_popup (fl, nullptr);
+                gnome_cmd_file_list_show_file_popup (fl, nullptr);
                 return TRUE;
 
             case GDK_KEY_Left:
@@ -2206,7 +2138,7 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
                 return TRUE;
 
             case GDK_KEY_Menu:
-                show_file_popup (fl, nullptr);
+                gnome_cmd_file_list_show_file_popup (fl, nullptr);
                 return TRUE;
 
             case GDK_KEY_F3:

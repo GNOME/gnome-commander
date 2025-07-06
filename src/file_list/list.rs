@@ -24,17 +24,21 @@ use super::quick_search::QuickSearch;
 use crate::{
     connection::connection::Connection,
     data::{FiltersOptions, FiltersOptionsRead, GeneralOptions, GeneralOptionsRead},
+    dialogs::rename_popover::show_rename_popover,
     dir::Directory,
     file::{ffi::GnomeCmdFile, File},
+    file_list::{list::ffi::GnomeCmdFileList, popup::file_popup_menu},
     filter::{fnmatch, Filter},
     libgcmd::file_descriptor::FileDescriptorExt,
+    main_win::MainWindow,
     tags::tags::FileMetadataService,
-    types::SizeDisplayMode,
-    utils::size_to_string,
+    types::{ExtensionDisplayMode, SizeDisplayMode},
+    utils::{size_to_string, ErrorMessage},
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{
-    gdk, gio,
+    gdk::{self, ffi::GdkRectangle},
+    gio,
     glib::{
         self,
         ffi::{gboolean, GType},
@@ -330,8 +334,6 @@ pub mod ffi {
 
         pub fn gnome_cmd_file_list_goto_directory(fl: *mut GnomeCmdFileList, dir: *const c_char);
 
-        pub fn gnome_cmd_file_list_show_rename_dialog(fl: *mut GnomeCmdFileList);
-
         pub fn gnome_cmd_file_list_update_style(fl: *mut GnomeCmdFileList);
 
         pub fn gnome_cmd_file_list_invalidate_tree_size(fl: *mut GnomeCmdFileList);
@@ -397,7 +399,7 @@ impl FileList {
 
     pub fn visible_files(&self) -> glib::List<File> {
         let mut files = glib::List::new();
-        self.traverse_files::<()>(|file, _iter, _store| {
+        let _ = self.traverse_files::<()>(|file, _iter, _store| {
             files.push_back(file.clone());
             ControlFlow::Continue(())
         });
@@ -573,7 +575,7 @@ impl FileList {
     }
 
     pub fn set_selected_files(&self, files: &HashSet<File>) {
-        self.traverse_files::<()>(|file, iter, store| {
+        let _ = self.traverse_files::<()>(|file, iter, store| {
             let selected = files.contains(file);
             store.set(
                 iter,
@@ -588,7 +590,7 @@ impl FileList {
         let Some(ext) = self.selected_file().and_then(|f| f.extension()) else {
             return;
         };
-        self.traverse_files::<()>(|file, iter, store| {
+        let _ = self.traverse_files::<()>(|file, iter, store| {
             if !file.is_dotdot() && file.extension().as_ref() == Some(&ext) {
                 store.set(iter, &[(DataColumns::DATA_COLUMN_SELECTED as u32, &select)]);
             }
@@ -617,7 +619,7 @@ impl FileList {
 
     pub fn stats(&self) -> FileListStats {
         let mut stats = FileListStats::default();
-        self.traverse_files::<()>(|file, iter, store| {
+        let _ = self.traverse_files::<()>(|file, iter, store| {
             if !file.is_dotdot() {
                 let info = file.file_info();
                 let selected: bool = store.get(iter, DataColumns::DATA_COLUMN_SELECTED as i32);
@@ -677,8 +679,37 @@ impl FileList {
         format!("{sentence1} {sentence2} {sentence3}")
     }
 
-    pub fn show_rename_dialog(&self) {
-        unsafe { ffi::gnome_cmd_file_list_show_rename_dialog(self.to_glib_none().0) }
+    pub async fn show_rename_dialog(&self) {
+        let Some(window) = self.root().and_downcast::<gtk::Window>() else {
+            eprintln!("No window");
+            return;
+        };
+        let Some(file) = self.selected_file() else {
+            return;
+        };
+        let Some(rect) = self.focus_row_coordinates() else {
+            eprintln!("Selected file is not visible");
+            return;
+        };
+
+        if let Some(new_name) = show_rename_popover(&file.get_name(), self, &rect).await {
+            match file.rename(&new_name) {
+                Ok(_) => {
+                    self.focus_file(&Path::new(&new_name), true);
+                    self.grab_focus();
+                }
+                Err(error) => {
+                    ErrorMessage::with_error(
+                        gettext("Cannot rename a file to {new_name}")
+                            .replace("{new_name}", &new_name),
+                        &error,
+                    )
+                    .show(&window)
+                    .await;
+                }
+            }
+            self.grab_focus();
+        }
     }
 
     pub fn show_quick_search(&self, key: Option<gdk::Key>) {
@@ -710,6 +741,52 @@ impl FileList {
 
     pub fn show_files(&self, dir: &Directory) {
         unsafe { ffi::gnome_cmd_file_list_show_files(self.to_glib_none().0, dir.to_glib_none().0) }
+    }
+
+    fn focus_row_coordinates(&self) -> Option<gdk::Rectangle> {
+        let options = GeneralOptions::new();
+
+        let view = self.tree_view();
+        let path = gtk::prelude::TreeViewExt::cursor(&view).0?;
+        let name_rect = view.cell_area(
+            Some(&path),
+            Some(&view.column(ColumnID::COLUMN_NAME as i32)?),
+        );
+        let mut rect = if options.extension_display_mode() != ExtensionDisplayMode::Both {
+            let ext_rect = view.cell_area(
+                Some(&path),
+                Some(&view.column(ColumnID::COLUMN_EXT as i32)?),
+            );
+            name_rect.union(&ext_rect)
+        } else {
+            name_rect
+        };
+        let (x, y) = view.convert_bin_window_to_widget_coords(rect.x(), rect.y());
+        rect.set_x(x);
+        rect.set_y(y);
+        Some(rect)
+    }
+
+    fn show_file_popup(&self, point_to: Option<&gdk::Rectangle>) {
+        let Some(main_win) = self.root().and_downcast::<MainWindow>() else {
+            return;
+        };
+        let Some(menu) = file_popup_menu(&main_win, self) else {
+            return;
+        };
+
+        let popover = gtk::PopoverMenu::from_model(Some(&menu));
+        popover.set_parent(self);
+        popover.set_position(gtk::PositionType::Bottom);
+        popover.set_flags(gtk::PopoverMenuFlags::NESTED);
+        popover.set_pointing_to(
+            point_to
+                .cloned()
+                .or_else(|| self.focus_row_coordinates())
+                .as_ref(),
+        );
+        popover.present();
+        popover.popup();
     }
 }
 
@@ -835,4 +912,22 @@ pub extern "C" fn gnome_cmd_file_is_wanted(f: *mut GnomeCmdFile) -> gboolean {
     let f: Borrowed<File> = unsafe { from_glib_borrow(f) };
     let options = FiltersOptions::new();
     file_is_wanted(&f, &options).into_glib()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_list_show_file_popup(
+    f: *mut GnomeCmdFileList,
+    point_to: *mut GdkRectangle,
+) {
+    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(f) };
+    let point_to: Borrowed<Option<gdk::Rectangle>> = unsafe { from_glib_borrow(point_to) };
+    fl.show_file_popup((&*point_to).as_ref());
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_list_show_rename_dialog(f: *mut GnomeCmdFileList) {
+    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(f) };
+    glib::spawn_future_local(async move {
+        fl.show_rename_dialog().await;
+    });
 }
