@@ -29,7 +29,6 @@
 
 #include "gnome-cmd-includes.h"
 #include "utils.h"
-#include "imageloader.h"
 #include "gnome-cmd-main-win.h"
 #include "text-utils.h"
 
@@ -38,8 +37,6 @@ using namespace std;
 
 #define FIX_PW_HACK
 #define STRINGS_TO_URIS_CHUNK 1024
-
-static gchar *tmp_file_dir = NULL;
 
 
 /**
@@ -313,23 +310,6 @@ void set_cursor_busy_for_widget (GtkWidget *widget)
         cursor_busy = gdk_cursor_new_from_name ("wait", nullptr);
 
     gtk_widget_set_cursor (widget, cursor_busy);
-}
-
-
-void remove_temp_download_dir ()
-{
-    if (tmp_file_dir)
-    {
-        gchar *path = g_build_filename (g_get_tmp_dir (), tmp_file_dir, NULL);
-        gchar *command = g_strdup_printf ("rm -rf %s", path);
-        g_free (path);
-        int status;
-        if ((status = system (command)))
-        {
-            g_warning ("executing \"%s\" failed with exit status %d\n", command, status);
-        }
-        g_free (command);
-    }
 }
 
 

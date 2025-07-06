@@ -27,12 +27,14 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-con-device.h"
 #include "gnome-cmd-path.h"
-#include "imageloader.h"
 #include "utils.h"
 
 #include "gnome-cmd-main-win.h"
 
 using namespace std;
+
+
+#define OVERLAY_UMOUNT_ICON "overlay_umount"
 
 
 struct GnomeCmdConDevicePrivate

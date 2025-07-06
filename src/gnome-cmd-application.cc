@@ -22,7 +22,6 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-main-win.h"
-#include "imageloader.h"
 
 
 using namespace std;
@@ -31,28 +30,13 @@ using namespace std;
 GnomeCmdMainWin *main_win = nullptr;
 gchar *debug_flags = nullptr;
 
-GnomeCmdIconCache *icon_cache = nullptr;
-
-
 extern "C" void gnome_cmd_application_startup(GApplication *application, gchar *debug_option)
 {
     debug_flags = debug_option;
-
-    /* Load Settings */
-    icon_cache = gnome_cmd_icon_cache_new();
 }
 
 
 extern "C" void gnome_cmd_application_activate(GApplication *application, GnomeCmdMainWin *mw)
 {
     main_win = mw;
-}
-
-
-extern "C" void gnome_cmd_application_shutdown()
-{
-    gnome_cmd_icon_cache_free(icon_cache);
-    icon_cache = nullptr;
-
-    remove_temp_download_dir ();
 }
