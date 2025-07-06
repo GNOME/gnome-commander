@@ -1315,9 +1315,8 @@ impl MainWindow {
             let dialog = SearchDialog::new(
                 search_config,
                 &self.file_metadata_service(),
-                options
-                    .search_window_is_transient()
-                    .then_some(self.upcast_ref()),
+                self,
+                options.search_window_is_transient(),
             );
             self.imp().search_dialog.set(Some(&dialog));
 

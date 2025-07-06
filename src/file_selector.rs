@@ -29,7 +29,7 @@ use crate::{
     },
     data::ProgramsOptions,
     dir::Directory,
-    file::{ffi::GnomeCmdFile, File, GnomeCmdFileExt},
+    file::{File, GnomeCmdFileExt},
     file_list::list::{ColumnID, FileList},
     libgcmd::file_descriptor::FileDescriptorExt,
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
@@ -42,10 +42,7 @@ use crate::{
 use gettextrs::gettext;
 use gtk::{
     gdk, gio,
-    glib::{
-        self,
-        translate::{from_glib_borrow, Borrowed, IntoGlib},
-    },
+    glib::{self, translate::IntoGlib},
     graphene, pango,
     prelude::*,
     subclass::prelude::*,
@@ -1611,16 +1608,6 @@ fn create_filter_box() -> (gtk::Box, gtk::Entry) {
     filter_box.append(&filter_close_button);
 
     (filter_box, entry)
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_selector_go_to_file(
-    fs: *mut ffi::GnomeCmdFileSelector,
-    f: *mut GnomeCmdFile,
-) {
-    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
-    let f: Borrowed<File> = unsafe { from_glib_borrow(f) };
-    fs.go_to_file(&*f);
 }
 
 #[cfg(test)]
