@@ -17,7 +17,9 @@
  * For more details see the file COPYING.
  */
 
+use crate::intviewer::input_modes::InputSource;
 use glib::translate::ToGlibPtr;
+use std::{path::Path, rc::Rc};
 
 pub mod ffi {
     use std::ffi::c_char;
@@ -45,7 +47,7 @@ impl FileOps {
         unsafe { Self(ffi::gv_fileops_new()) }
     }
 
-    pub fn open(&self, file: &str) -> bool {
+    pub fn open(&self, file: &Path) -> bool {
         unsafe { ffi::gv_file_open(self.0, file.to_glib_none().0) == 0 }
     }
 
@@ -64,21 +66,34 @@ impl Drop for FileOps {
         unsafe {
             ffi::gv_file_close(self.0);
             ffi::gv_file_free(self.0);
-            self.0 = std::ptr::null_mut();
         }
+        self.0 = std::ptr::null_mut();
+    }
+}
+
+impl InputSource for FileOps {
+    fn byte(&self, offset: u64) -> Option<u8> {
+        self.get_byte(offset)
+    }
+}
+
+impl InputSource for Rc<FileOps> {
+    fn byte(&self, offset: u64) -> Option<u8> {
+        self.get_byte(offset)
     }
 }
 
 #[cfg(test)]
 mod test {
     use super::*;
+    use std::path::PathBuf;
 
     #[test]
     fn get_byte_does_read() {
-        let file_path = "./TODO";
+        let file_path = PathBuf::from("./TODO");
         let fops = FileOps::new();
 
-        assert!(fops.open(file_path));
+        assert!(fops.open(&file_path));
 
         let end = fops.max_offset();
 
@@ -87,6 +102,6 @@ mod test {
             assert!(value.is_some());
         }
 
-        assert!(fops.open(file_path));
+        assert!(fops.open(&file_path));
     }
 }

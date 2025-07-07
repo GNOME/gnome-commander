@@ -102,7 +102,7 @@ pub mod imp {
 
             let widget = self.obj();
 
-            widget.set_can_focus(true);
+            widget.set_focusable(true);
 
             let scroll_controller =
                 gtk::EventControllerScroll::new(gtk::EventControllerScrollFlags::BOTH_AXES);

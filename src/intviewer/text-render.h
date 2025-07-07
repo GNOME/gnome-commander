@@ -35,69 +35,12 @@
 extern "C" GType text_render_get_type ();
 
 
-struct TextRender
-{
-    GtkWidget parent;
+struct TextRender;
 
-    struct Status
-    {
-        offset_type current_offset;
-        offset_type size;
-        int         column;
-        const char *encoding;
-        gboolean    wrap_mode;
-    };
-
-    enum DISPLAYMODE
-    {
-        DISPLAYMODE_TEXT,
-        DISPLAYMODE_BINARY,
-        DISPLAYMODE_HEXDUMP
-    };
-};
-
-inline GtkWidget *text_render_new ()
-{
-    return (GtkWidget *) g_object_new (TYPE_TEXT_RENDER, NULL);
-}
-
-extern "C" void text_render_load_file(TextRender *w, const gchar *filename);
-
-extern "C" void text_render_notify_status_changed(TextRender *w);
-
-extern "C" void text_render_set_display_mode (TextRender *w, TextRender::DISPLAYMODE mode);
-extern "C" TextRender::DISPLAYMODE text_render_get_display_mode(TextRender *w);
 
 extern "C" ViewerFileOps *text_render_get_file_ops(TextRender *w);
 extern "C" GVInputModesData *text_render_get_input_mode_data(TextRender *w);
 extern "C" GVDataPresentation *text_render_get_data_presentation(TextRender *w);
 
-extern "C" void text_render_set_tab_size(TextRender *w, int tab_size);
-extern "C" int text_render_get_tab_size(TextRender *w);
-
-extern "C" void text_render_set_wrap_mode(TextRender *w, gboolean ACTIVE);
-extern "C" gboolean text_render_get_wrap_mode(TextRender *w);
-
-extern "C" void text_render_set_fixed_limit(TextRender *w, int fixed_limit);
-extern "C" int text_render_get_fixed_limit(TextRender *w);
-
-extern "C" void text_render_set_hex_offset_display(TextRender *w, gboolean HEX_OFFSET);
-extern "C" gboolean text_render_get_hex_offset_display(TextRender *w);
-
-extern "C" void text_render_set_font_size(TextRender *w, int font_size);
-extern "C" int text_render_get_font_size(TextRender *w);
-
-extern "C" void text_render_set_encoding(TextRender *w, const char *encoding);
-extern "C" const gchar *text_render_get_encoding(TextRender *w);
-
-extern "C" void text_render_copy_selection(TextRender *w);
-
 extern "C" offset_type text_render_get_current_offset(TextRender *w);
-extern "C" offset_type text_render_get_size(TextRender *w);
 extern "C" int text_render_get_column(TextRender *w);
-
-extern "C" offset_type text_render_get_last_displayed_offset(TextRender *w);
-
-extern "C" void text_render_ensure_offset_visible(TextRender *w, offset_type offset);
-
-extern "C" void text_render_set_marker(TextRender *w, offset_type start, offset_type end);
