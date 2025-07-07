@@ -22,12 +22,7 @@
 
 use crate::{file::File, tags::tags::FileMetadataService, utils::SenderExt};
 use gettextrs::gettext;
-use gtk::{
-    gio,
-    glib::{self, ffi::GType, translate::IntoGlib},
-    prelude::*,
-    subclass::prelude::*,
-};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
@@ -571,11 +566,6 @@ mod imp {
 glib::wrapper! {
     pub struct FilePropertiesDialog(ObjectSubclass<imp::FilePropertiesDialog>)
         @extends gtk::Window, gtk::Widget;
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_properties_dialog_get_type() -> GType {
-    FilePropertiesDialog::static_type().into_glib()
 }
 
 impl FilePropertiesDialog {

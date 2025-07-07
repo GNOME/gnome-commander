@@ -1010,18 +1010,6 @@ impl AdvancedRenameProfileComponent {
     }
 }
 
-pub mod ffi {
-    use glib::{ffi::GType, translate::IntoGlib, types::StaticType};
-
-    pub type GnomeCmdAdvrenameProfileComponent =
-        <super::AdvancedRenameProfileComponent as glib::object::ObjectType>::GlibType;
-
-    #[no_mangle]
-    pub extern "C" fn gnome_cmd_advrename_profile_component_get_type() -> GType {
-        super::AdvancedRenameProfileComponent::static_type().into_glib()
-    }
-}
-
 async fn get_selected_range(
     parent_window: &gtk::Window,
     placeholder: &str,
