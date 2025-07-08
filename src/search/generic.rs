@@ -42,7 +42,9 @@ pub async fn generic_search(
         &profile.filename_pattern(),
         profile.match_case(),
         profile.pattern_type(),
-    );
+    )
+    .map_err(|error| ErrorMessage::with_error(gettext("Bad expression"), &*error))?;
+
     let content_search = profile
         .content_search()
         .then(|| (profile.text_pattern(), profile.match_case()));

@@ -22,7 +22,6 @@
 #include <config.h>
 #include <errno.h>
 #include <dirent.h>
-#include <fnmatch.h>
 #include <stdlib.h>
 
 #include <set>

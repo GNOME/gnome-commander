@@ -26,7 +26,6 @@
 #include <functional>
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-types.h"
-#include "filter.h"
 
 #define GNOME_CMD_TYPE_FILE_LIST              (gnome_cmd_file_list_get_type ())
 #define GNOME_CMD_FILE_LIST(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_FILE_LIST, GnomeCmdFileList))
