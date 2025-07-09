@@ -17,18 +17,13 @@
  * For more details see the file COPYING.
  */
 
-use super::regex_dialog::RegexReplace;
-use gettextrs::gettext;
-use gtk::{
-    gio,
-    glib::{
-        prelude::*,
-        subclass::prelude::*,
-        translate::{from_glib_full, ToGlibPtr},
-    },
-    prelude::*,
+use super::{
+    convert::{initial_caps, sentence_case, toggle_case},
+    regex_dialog::RegexReplace,
 };
-use std::{ffi::c_char, fmt};
+use gettextrs::gettext;
+use gtk::{gio, glib::subclass::prelude::*, prelude::*};
+use std::fmt;
 
 #[derive(
     Clone,
@@ -57,30 +52,13 @@ pub enum CaseConversion {
 
 impl CaseConversion {
     pub fn apply(self, string: &str) -> String {
-        extern "C" {
-            fn gcmd_convert_lowercase(s: *mut c_char) -> *mut c_char;
-            fn gcmd_convert_uppercase(s: *mut c_char) -> *mut c_char;
-            fn gcmd_convert_sentence_case(s: *mut c_char) -> *mut c_char;
-            fn gcmd_convert_initial_caps(s: *mut c_char) -> *mut c_char;
-            fn gcmd_convert_toggle_case(s: *mut c_char) -> *mut c_char;
-        }
         match self {
             Self::Unchanged => string.to_owned(),
-            Self::LowerCase => unsafe {
-                from_glib_full(gcmd_convert_lowercase(string.to_glib_full()))
-            },
-            Self::UpperCase => unsafe {
-                from_glib_full(gcmd_convert_uppercase(string.to_glib_full()))
-            },
-            Self::SentenceCase => unsafe {
-                from_glib_full(gcmd_convert_sentence_case(string.to_glib_full()))
-            },
-            Self::InitialCaps => unsafe {
-                from_glib_full(gcmd_convert_initial_caps(string.to_glib_full()))
-            },
-            Self::ToggleCase => unsafe {
-                from_glib_full(gcmd_convert_toggle_case(string.to_glib_full()))
-            },
+            Self::LowerCase => string.to_lowercase(),
+            Self::UpperCase => string.to_uppercase(),
+            Self::SentenceCase => sentence_case(&string),
+            Self::InitialCaps => initial_caps(&string),
+            Self::ToggleCase => toggle_case(&string),
         }
     }
 }

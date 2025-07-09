@@ -884,9 +884,9 @@ mod imp {
             &gettext("<unchanged>"),
             &gettext("lowercase"),
             &gettext("UPPERCASE"),
-            // &gettext("Sentence case"),
-            // &gettext("Initial Caps"),
-            // &gettext("tOGGLE cASE"),
+            &gettext("Sentence case"),
+            &gettext("Initial Caps"),
+            &gettext("tOGGLE cASE"),
         ])
     }
 
