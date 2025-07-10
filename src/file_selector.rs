@@ -27,21 +27,24 @@ use crate::{
         list::ConnectionList,
         remote::ConnectionRemote,
     },
+    data::ProgramsOptions,
     dir::Directory,
-    file::File,
-    file_list::list::{ffi::GnomeCmdFileList, ColumnID, FileList},
+    file::{ffi::GnomeCmdFile, File, GnomeCmdFileExt},
+    file_list::list::{ColumnID, FileList},
+    libgcmd::file_descriptor::FileDescriptorExt,
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
+    open_file::mime_exec_single,
+    tab_label::TabLabel,
     tags::tags::FileMetadataService,
+    types::MiddleMouseButtonMode,
     utils::{ALT, CONTROL, CONTROL_SHIFT, NO_MOD},
 };
 use gettextrs::gettext;
 use gtk::{
-    ffi::{GtkDropDown, GtkNotebook, GtkWidget},
     gdk, gio,
     glib::{
         self,
-        ffi::gboolean,
-        translate::{from_glib_borrow, from_glib_none, Borrowed, IntoGlib, ToGlibPtr},
+        translate::{from_glib_borrow, Borrowed, IntoGlib},
     },
     graphene, pango,
     prelude::*,
@@ -49,64 +52,18 @@ use gtk::{
 };
 use std::{
     collections::{BTreeSet, HashMap, HashSet},
-    ffi::c_int,
     path::{Path, PathBuf},
 };
 
 pub mod ffi {
     use super::*;
-    use crate::{
-        dir::ffi::GnomeCmdDir, file::ffi::GnomeCmdFile, file_list::list::ffi::GnomeCmdFileList,
-    };
-    use gtk::{
-        ffi::GtkWidget,
-        glib::ffi::{gboolean, GType},
-    };
+    use gtk::glib::ffi::GType;
 
     pub type GnomeCmdFileSelector = <super::FileSelector as glib::object::ObjectType>::GlibType;
 
     #[no_mangle]
     pub extern "C" fn gnome_cmd_file_selector_get_type() -> GType {
         super::FileSelector::static_type().into_glib()
-    }
-
-    extern "C" {
-        pub fn gnome_cmd_file_selector_init(fs: *mut GnomeCmdFileSelector);
-
-        pub fn gnome_cmd_file_selector_file_list(
-            fs: *mut GnomeCmdFileSelector,
-        ) -> *mut GnomeCmdFileList;
-
-        pub fn on_notebook_switch_page(fs: *mut GnomeCmdFileSelector, n: u32);
-
-        pub fn gnome_cmd_file_selector_new_tab_full(
-            fs: *mut GnomeCmdFileSelector,
-            dir: *mut GnomeCmdDir,
-            sort_col: c_int,
-            sort_order: c_int,
-            locked: gboolean,
-            activate: gboolean,
-            grab_focus: gboolean,
-        ) -> *const GtkWidget;
-
-        pub fn gnome_cmd_file_selector_is_tab_locked(
-            fs: *mut GnomeCmdFileSelector,
-            fl: *mut GnomeCmdFileList,
-        ) -> gboolean;
-
-        pub fn gnome_cmd_file_selector_set_tab_locked(
-            fs: *mut GnomeCmdFileSelector,
-            fl: *mut GnomeCmdFileList,
-            lock: gboolean,
-        );
-
-        pub fn gnome_cmd_file_selector_update_connections(fs: *mut GnomeCmdFileSelector);
-
-        pub fn gnome_cmd_file_selector_do_file_specific_action(
-            fs: *mut GnomeCmdFileSelector,
-            fl: *mut GnomeCmdFileList,
-            f: *mut GnomeCmdFile,
-        ) -> gboolean;
     }
 }
 
@@ -154,6 +111,11 @@ mod imp {
 
         #[property(get, set = Self::set_active)]
         active: Cell<bool>,
+
+        #[property(get, set, nullable)]
+        list: RefCell<Option<FileList>>,
+
+        select_connection_in_progress: Cell<bool>,
     }
 
     #[glib::object_subclass]
@@ -262,6 +224,9 @@ mod imp {
 
                 always_show_tabs: Default::default(),
                 active: Default::default(),
+                list: Default::default(),
+
+                select_connection_in_progress: Default::default(),
             }
         }
     }
@@ -327,9 +292,12 @@ mod imp {
             this.attach(&self.info_label, 0, 4, 1, 1);
             this.attach(&self.filter_box, 0, 5, 2, 1);
 
-            unsafe {
-                ffi::gnome_cmd_file_selector_init(self.obj().to_glib_none().0);
-            }
+            self.connection_dropdown
+                .connect_selected_item_notify(glib::clone!(
+                    #[weak(rename_to = imp)]
+                    self,
+                    move |_| imp.on_connection_dropdown_item_selected()
+                ));
 
             self.directory_indicator.connect_navigate(glib::clone!(
                 #[weak]
@@ -347,8 +315,22 @@ mod imp {
                 #[weak]
                 this,
                 move |_, _, n| {
-                    unsafe {
-                        ffi::on_notebook_switch_page(this.to_glib_none().0, n);
+                    let file_list = this.file_list_nth(n);
+                    let directory = file_list.directory();
+
+                    this.set_list(Some(&file_list));
+                    this.imp()
+                        .directory_indicator
+                        .set_directory(directory.as_ref());
+                    this.imp().update_selected_files_label();
+                    this.update_volume_label();
+                    this.update_style();
+
+                    if let Some(dir) = directory {
+                        this.emit_by_name::<()>("dir-changed", &[&dir]);
+                    }
+                    if let Some(con) = file_list.connection() {
+                        this.imp().select_connection(&con);
                     }
                 }
             ));
@@ -434,15 +416,18 @@ mod imp {
             self.obj().emit_by_name::<()>("activate-request", &[]);
         }
 
-        fn select_path(&self, path: &str) {
+        fn is_control_pressed(&self) -> bool {
             let mask = self
                 .obj()
                 .root()
                 .and_downcast::<gtk::Window>()
                 .as_ref()
                 .and_then(get_modifiers_state);
-            let new_tab = mask.map_or(false, |m| m.contains(gdk::ModifierType::CONTROL_MASK));
-            self.on_navigate(path, new_tab);
+            mask.map_or(false, |m| m.contains(gdk::ModifierType::CONTROL_MASK))
+        }
+
+        fn select_path(&self, path: &str) {
+            self.on_navigate(path, self.is_control_pressed());
         }
 
         async fn add_bookmark(&self) {
@@ -466,6 +451,53 @@ mod imp {
         fn refresh_tab(&self, index: u32) {
             let list = self.obj().file_list_nth(index);
             list.reload();
+        }
+
+        fn find_connection_in_dropdown(&self, con: &Connection) -> Option<u32> {
+            let model = self.connection_dropdown.model()?;
+            for position in 0..model.n_items() {
+                if let Some(item) = model.item(position).and_downcast::<Connection>() {
+                    if item == *con {
+                        return Some(position);
+                    }
+                }
+            }
+            None
+        }
+
+        pub fn select_connection(&self, con: &Connection) -> bool {
+            if let Some(position) = self.find_connection_in_dropdown(con) {
+                self.select_connection_in_progress.set(true);
+                self.connection_dropdown.set_selected(position);
+                self.select_connection_in_progress.set(false);
+                true
+            } else {
+                false
+            }
+        }
+
+        fn on_connection_dropdown_item_selected(&self) {
+            if self.select_connection_in_progress.get() {
+                return;
+            }
+            let Some(connection) = self
+                .connection_dropdown
+                .selected_item()
+                .and_downcast::<Connection>()
+            else {
+                return;
+            };
+            let Some(directory) = connection.default_dir() else {
+                return;
+            };
+            if self.is_control_pressed() || self.obj().is_current_tab_locked() {
+                self.obj().new_tab_with_dir(&directory, true, true);
+            } else {
+                self.obj()
+                    .file_list()
+                    .set_connection(&connection, Some(&directory));
+            }
+            self.obj().emit_by_name::<()>("activate-request", &[]);
         }
 
         fn on_navigate(&self, path: &str, new_tab: bool) {
@@ -622,19 +654,11 @@ impl FileSelector {
     }
 
     fn current_file_list(&self) -> Option<FileList> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_file_selector_file_list(
-                self.to_glib_none().0,
-            ))
-        }
+        self.list()
     }
 
     pub fn file_list(&self) -> FileList {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_file_selector_file_list(
-                self.to_glib_none().0,
-            ))
-        }
+        self.current_file_list().unwrap()
     }
 
     pub fn file_list_nth(&self, n: u32) -> FileList {
@@ -645,7 +669,7 @@ impl FileSelector {
             .unwrap()
     }
 
-    pub fn new_tab(&self) -> gtk::Widget {
+    pub fn new_tab(&self) {
         self.new_tab_full(
             None,
             ColumnID::COLUMN_NAME,
@@ -656,12 +680,7 @@ impl FileSelector {
         )
     }
 
-    pub fn new_tab_with_dir(
-        &self,
-        dir: &Directory,
-        activate: bool,
-        grab_focus: bool,
-    ) -> gtk::Widget {
+    pub fn new_tab_with_dir(&self, dir: &Directory, activate: bool, grab_focus: bool) {
         self.new_tab_full(
             Some(dir),
             self.file_list().sort_column(),
@@ -680,17 +699,154 @@ impl FileSelector {
         locked: bool,
         activate: bool,
         grab_focus: bool,
-    ) -> gtk::Widget {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_file_selector_new_tab_full(
-                self.to_glib_none().0,
-                dir.to_glib_none().0,
-                sort_column as c_int,
-                sort_order.into_glib(),
-                locked as gboolean,
-                activate as gboolean,
-                grab_focus as gboolean,
-            ))
+    ) {
+        let fl = FileList::new(&self.file_metadata_service());
+        fl.set_sorting(sort_column, sort_order);
+
+        if activate {
+            self.set_list(Some(&fl));
+        }
+
+        self.set_tab_locked(&fl, locked);
+        fl.update_style();
+        fl.show_column(ColumnID::COLUMN_DIR, false);
+
+        let n = self
+            .imp()
+            .notebook
+            .append_page(&fl, Some(&TabLabel::default()));
+        self.update_show_tabs();
+        self.imp().notebook.set_tab_reorderable(&fl, true);
+
+        fl.connect_con_changed(glib::clone!(
+            #[weak(rename_to = this)]
+            self,
+            move |_, con| {
+                this.imp().select_connection(con);
+            }
+        ));
+        fl.connect_dir_changed(glib::clone!(
+            #[weak(rename_to = this)]
+            self,
+            move |fl, dir| this.on_list_dir_changed(fl, dir)
+        ));
+        fl.connect_files_changed(glib::clone!(
+            #[weak(rename_to = this)]
+            self,
+            move |fl| {
+                if this.current_file_list().as_ref() == Some(fl) {
+                    this.imp().update_selected_files_label();
+                }
+            }
+        ));
+        fl.connect_file_activated(glib::clone!(
+            #[weak(rename_to = this)]
+            self,
+            move |fl, file| {
+                this.do_file_specific_action(fl, file);
+            }
+        ));
+        fl.connect_cmdline_append(glib::clone!(
+            #[weak(rename_to = this)]
+            self,
+            move |_, text| {
+                if let Some(command_line) = this.command_line().filter(|cl| cl.is_visible()) {
+                    command_line.append_text(text);
+                    command_line.grab_focus();
+                }
+            }
+        ));
+        fl.connect_cmdline_execute(glib::clone!(
+            #[weak(rename_to = this)]
+            self,
+            #[upgrade_or]
+            false,
+            move |_| {
+                if let Some(command_line) = this
+                    .command_line()
+                    .filter(|cl| cl.is_visible() && !cl.is_empty())
+                {
+                    command_line.exec(false);
+                    true
+                } else {
+                    false
+                }
+            }
+        ));
+        fl.connect_list_clicked(glib::clone!(
+            #[weak(rename_to = this)]
+            self,
+            move |fl, button, file| this.on_list_list_clicked(fl, button, file)
+        ));
+
+        if let Some(dir) = dir {
+            fl.set_connection(&dir.connection(), Some(dir));
+        }
+
+        self.imp().update_tab_label(&fl);
+
+        if activate {
+            self.imp().notebook.set_current_page(Some(n));
+            if grab_focus {
+                fl.grab_focus();
+            }
+        }
+    }
+
+    fn on_list_dir_changed(&self, fl: &FileList, dir: &Directory) {
+        if let Some(connection) = fl.connection() {
+            if let Some(path) = dir
+                .upcast_ref::<File>()
+                .get_path_string_through_parent()
+                .to_str()
+            {
+                connection.dir_history().add(path.to_owned());
+            }
+        }
+        if self.current_file_list().as_ref() != Some(fl) {
+            return;
+        }
+
+        self.imp().directory_indicator.set_directory(Some(dir));
+        self.update_volume_label();
+
+        if fl.directory().as_ref() != Some(dir) {
+            return;
+        }
+
+        self.imp().update_tab_label(fl);
+        self.update_files();
+        self.imp().update_selected_files_label();
+
+        self.emit_by_name::<()>("dir-changed", &[dir]);
+    }
+
+    fn on_list_list_clicked(&self, fl: &FileList, button: u32, file: Option<File>) {
+        match button {
+            1 | 3 => self.emit_by_name::<()>("list-clicked", &[]),
+
+            2 => {
+                if fl.middle_mouse_button_mode() == MiddleMouseButtonMode::GoesUpDir
+                    || file.as_ref().map_or(false, |f| f.is_dotdot())
+                {
+                    if self.is_tab_locked(fl) {
+                        if let Some(directory) = fl.directory().and_then(|d| d.parent()) {
+                            self.new_tab_with_dir(&directory, true, true);
+                        }
+                    } else {
+                        fl.goto_directory(&Path::new(".."));
+                    }
+                } else {
+                    if let Some(directory) =
+                        file.and_downcast::<Directory>().or_else(|| fl.directory())
+                    {
+                        self.new_tab_with_dir(&directory, true, true);
+                    }
+                }
+            }
+            6 | 8 => self.back(),
+            7 | 9 => self.forward(),
+            _ => {}
         }
     }
 
@@ -720,19 +876,16 @@ impl FileSelector {
     }
 
     pub fn is_tab_locked(&self, fl: &FileList) -> bool {
-        unsafe {
-            ffi::gnome_cmd_file_selector_is_tab_locked(self.to_glib_none().0, fl.to_glib_none().0)
-                != 0
-        }
+        unsafe { fl.data::<()>("file-list-locked").is_some() }
     }
 
     pub fn set_tab_locked(&self, fl: &FileList, lock: bool) {
         unsafe {
-            ffi::gnome_cmd_file_selector_set_tab_locked(
-                self.to_glib_none().0,
-                fl.to_glib_none().0,
-                lock as gboolean,
-            )
+            if lock {
+                fl.set_data::<()>("file-list-locked", ());
+            } else {
+                fl.steal_data::<()>("file-list-locked");
+            }
         }
     }
 
@@ -756,7 +909,17 @@ impl FileSelector {
     }
 
     pub fn update_connections(&self) {
-        unsafe { ffi::gnome_cmd_file_selector_update_connections(self.to_glib_none().0) }
+        if self.is_realized() {
+            if let Some(list) = self.current_file_list() {
+                // If the connection is no longer available use the home connection
+                if !list
+                    .connection()
+                    .map_or(false, |c| self.imp().select_connection(&c))
+                {
+                    list.set_connection(&self.imp().connection_list.home(), None);
+                }
+            }
+        }
     }
 
     pub fn activate_connection_list(&self) {
@@ -791,6 +954,26 @@ impl FileSelector {
                 } else {
                     self.file_list().set_connection(con, None);
                 }
+            }
+        }
+    }
+
+    pub fn go_to_file(&self, file: &File) {
+        let Some(dir) = file.parent_directory() else {
+            eprintln!(
+                "Cannot go to a file {}. It has no parent directory.",
+                file.get_name()
+            );
+            return;
+        };
+        if self.is_current_tab_locked() {
+            self.new_tab_with_dir(&dir, true, true);
+            self.file_list()
+                .focus_file(&Path::new(&file.get_name()), true);
+        } else {
+            if let Some(file_list) = self.current_file_list() {
+                file_list.set_connection(&file.connection(), Some(&dir));
+                file_list.focus_file(&Path::new(&file.get_name()), true);
             }
         }
     }
@@ -1168,13 +1351,44 @@ impl FileSelector {
         }
     }
 
-    pub fn do_file_specific_action(&self, fl: &FileList, f: &File) -> bool {
-        unsafe {
-            ffi::gnome_cmd_file_selector_do_file_specific_action(
-                self.to_glib_none().0,
-                fl.to_glib_none().0,
-                f.to_glib_none().0,
-            ) != 0
+    pub fn do_file_specific_action(&self, fl: &FileList, file: &File) {
+        match file.file_info().file_type() {
+            gio::FileType::Directory => {
+                if !self.is_tab_locked(fl) {
+                    fl.invalidate_tree_size();
+
+                    if file.is_dotdot() {
+                        fl.goto_directory(&Path::new(".."));
+                    } else {
+                        if let Some(directory) = file.downcast_ref::<Directory>() {
+                            fl.set_directory(directory);
+                        }
+                    }
+                } else {
+                    if file.is_dotdot() {
+                        if let Some(parent) = fl.directory().and_then(|d| d.parent()) {
+                            self.new_tab_with_dir(&parent, true, true);
+                        }
+                    } else {
+                        if let Some(directory) = file.downcast_ref::<Directory>() {
+                            self.new_tab_with_dir(directory, true, true);
+                        }
+                    }
+                }
+            }
+            gio::FileType::Regular => {
+                let options = ProgramsOptions::new();
+                if let Some(parent_window) = self.root().and_downcast::<gtk::Window>() {
+                    let file = file.clone();
+                    glib::spawn_future_local(async move {
+                        if let Err(error) = mime_exec_single(&parent_window, &file, &options).await
+                        {
+                            error.show(&parent_window).await;
+                        }
+                    });
+                }
+            }
+            _ => {}
         }
     }
 
@@ -1400,99 +1614,13 @@ fn create_filter_box() -> (gtk::Box, gtk::Entry) {
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_file_selector_can_forward(
+pub extern "C" fn gnome_cmd_file_selector_go_to_file(
     fs: *mut ffi::GnomeCmdFileSelector,
-) -> gboolean {
-    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
-    fs.can_forward() as gboolean
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_selector_can_back(fs: *mut ffi::GnomeCmdFileSelector) -> gboolean {
-    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
-    fs.can_back() as gboolean
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_selector_forward(fs: *mut ffi::GnomeCmdFileSelector) {
-    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
-    fs.forward()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_selector_back(fs: *mut ffi::GnomeCmdFileSelector) {
-    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
-    fs.back()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_selector_connection_dropdown(
-    fs: *mut ffi::GnomeCmdFileSelector,
-) -> *mut GtkDropDown {
-    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
-    fs.imp().connection_dropdown.to_glib_none().0
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_selector_get_dir_indicator(
-    fs: *mut ffi::GnomeCmdFileSelector,
-) -> *mut GtkWidget {
-    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
-    fs.imp()
-        .directory_indicator
-        .upcast_ref::<gtk::Widget>()
-        .to_glib_none()
-        .0
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_selector_get_notebook(
-    fs: *mut ffi::GnomeCmdFileSelector,
-) -> *mut GtkNotebook {
-    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
-    fs.imp().notebook.to_glib_none().0
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_selector_update_selected_files_label(
-    fs: *mut ffi::GnomeCmdFileSelector,
+    f: *mut GnomeCmdFile,
 ) {
     let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
-    fs.imp().update_selected_files_label();
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_selector_update_show_tabs(fs: *mut ffi::GnomeCmdFileSelector) {
-    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
-    fs.update_show_tabs();
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_selector_update_tab_label(
-    fs: *mut ffi::GnomeCmdFileSelector,
-    fl: *mut GnomeCmdFileList,
-) {
-    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
-    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
-    fs.imp().update_tab_label(&fl);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_selector_update_files(fs: *mut ffi::GnomeCmdFileSelector) {
-    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
-    fs.update_files();
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_selector_update_style(fs: *mut ffi::GnomeCmdFileSelector) {
-    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
-    fs.update_style();
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_selector_update_vol_label(fs: *mut ffi::GnomeCmdFileSelector) {
-    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
-    fs.update_volume_label();
+    let f: Borrowed<File> = unsafe { from_glib_borrow(f) };
+    fs.go_to_file(&*f);
 }
 
 #[cfg(test)]

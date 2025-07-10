@@ -910,23 +910,8 @@ extern "C" void gnome_cmd_search_dialog_goto (GnomeCmdSearchDialog *dialog, Gnom
     auto priv = search_dialog_private (dialog);
 
     GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
-
-    auto dir = f->get_parent_dir();
-    if (gnome_cmd_file_selector_is_current_tab_locked (fs))
-    {
-        fs->new_tab(dir);
-    }
-    else
-    {
-        fs->file_list()->set_connection(gnome_cmd_file_get_connection(f));
-        gchar *dpath = gnome_cmd_file_get_path_string_through_parent (GNOME_CMD_FILE(dir));
-        fs->file_list()->goto_directory(dpath);
-        g_free (dpath);
-    }
-
-    fs->file_list()->focus_file(f->get_name(), TRUE);
-
-    gtk_widget_grab_focus (GTK_WIDGET (fs->file_list()));
+    gnome_cmd_file_selector_go_to_file (fs, f);
+    gtk_widget_grab_focus (GTK_WIDGET (fs));
 }
 
 

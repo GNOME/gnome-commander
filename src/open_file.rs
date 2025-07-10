@@ -22,20 +22,15 @@
 
 use crate::{
     app::{App, RegularApp},
-    data::{ProgramsOptions, ProgramsOptionsRead},
-    file::{ffi::GnomeCmdFile, File},
+    data::ProgramsOptionsRead,
+    file::File,
     libgcmd::file_descriptor::FileDescriptorExt,
     spawn::SpawnError,
     transfer::gnome_cmd_tmp_download,
     utils::{temp_file, ErrorMessage, GNOME_CMD_PERM_USER_EXEC},
 };
 use gettextrs::gettext;
-use gtk::{
-    ffi::GtkWindow,
-    gio,
-    glib::{self, ffi::gboolean, translate::FromGlibPtrNone},
-    prelude::*,
-};
+use gtk::{gio, glib, prelude::*};
 
 async fn ask_make_executable(parent_window: &gtk::Window, file: &File) -> bool {
     let msg = gettext("“{}” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?")
@@ -92,7 +87,7 @@ async fn ask_download_tmp(parent_window: &gtk::Window, app: &App) -> bool {
         == Ok(1)
 }
 
-async fn mime_exec_single(
+pub async fn mime_exec_single(
     parent_window: &gtk::Window,
     file: &File,
     options: &dyn ProgramsOptionsRead,
@@ -197,29 +192,4 @@ fn single_file_list(file: gio::File) -> glib::List<gio::File> {
     let mut list = glib::List::new();
     list.push_back(file);
     list
-}
-
-#[no_mangle]
-pub extern "C" fn mime_exec_file(
-    parent_window_ptr: *mut GtkWindow,
-    file_ptr: *mut GnomeCmdFile,
-) -> gboolean {
-    if file_ptr.is_null() {
-        return 0;
-    }
-
-    let parent_window = unsafe { gtk::Window::from_glib_none(parent_window_ptr) };
-    let file = unsafe { File::from_glib_none(file_ptr) };
-
-    if file.file_info().file_type() == gio::FileType::Regular {
-        glib::spawn_future_local(async move {
-            let options = ProgramsOptions::new();
-            if let Err(error) = mime_exec_single(&parent_window, &file, &options).await {
-                error.show(&parent_window).await;
-            }
-        });
-        1
-    } else {
-        0
-    }
 }

@@ -43,19 +43,20 @@ use crate::{
         manage_bookmarks_dialog::{bookmark_directory, BookmarksDialog},
         new_text_file::show_new_textfile_dialog,
         options::options_dialog::show_options_dialog,
+        pattern_selection_dialog::select_by_pattern,
         prepare_copy_dialog::prepare_copy_dialog_show,
         prepare_move_dialog::prepare_move_dialog_show,
         remote_dialog::RemoteDialog,
         shortcuts::shortcuts_dialog::ShortcutsDialog,
     },
-    dir::Directory,
-    file::File,
+    dir::{ffi::GnomeCmdDir, Directory},
+    file::{ffi::GnomeCmdFile, File},
     file_list::list::FileList,
     libgcmd::{
         file_actions::{FileActions, FileActionsExt},
         file_descriptor::FileDescriptorExt,
     },
-    main_win::{ffi::*, MainWindow},
+    main_win::MainWindow,
     plugin_manager::{show_plugin_manager, PluginActionVariant},
     spawn::{spawn_async, spawn_async_command, SpawnError},
     types::FileSelectorID,
@@ -63,9 +64,8 @@ use crate::{
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{
-    gdk,
-    gio::{self, ffi::GSimpleAction},
-    glib::{self, ffi::GVariant, translate::ToGlibPtr},
+    gdk, gio,
+    glib::{self, translate::ToGlibPtr},
     prelude::*,
 };
 use std::{
@@ -125,32 +125,16 @@ pub fn file_move(
     });
 }
 
-macro_rules! c_action {
-    ($name:ident) => {
-        pub fn $name(
-            main_win: &MainWindow,
-            action: &gio::SimpleAction,
-            parameter: Option<&glib::Variant>,
-        ) {
-            extern "C" {
-                fn $name(
-                    action: *const GSimpleAction,
-                    parameter: *const GVariant,
-                    main_win: *mut GnomeCmdMainWin,
-                );
-            }
-            unsafe {
-                $name(
-                    action.to_glib_none().0,
-                    parameter.to_glib_none().0,
-                    main_win.to_glib_none().0,
-                );
-            }
-        }
-    };
+pub fn file_delete(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .show_delete_dialog(false);
 }
-
-c_action!(file_delete);
 
 pub fn file_view(
     main_win: &MainWindow,
@@ -327,7 +311,23 @@ pub fn file_chown(
     }
 }
 
-c_action!(file_mkdir);
+pub fn file_mkdir(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    extern "C" {
+        fn gnome_cmd_mkdir_dialog_new(dir: *mut GnomeCmdDir, selected_file: *mut GnomeCmdFile);
+    }
+
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+
+    if let Some(dir) = file_list.directory() {
+        let selected_file = file_list.selected_file();
+        unsafe { gnome_cmd_mkdir_dialog_new(dir.to_glib_none().0, selected_file.to_glib_none().0) }
+    }
+}
 
 pub fn file_properties(
     main_win: &MainWindow,
@@ -619,17 +619,103 @@ pub fn file_sendto(
     });
 }
 
-c_action!(file_exit);
+pub fn file_exit(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win.close();
+}
 
 /************** Mark Menu **************/
-c_action!(mark_toggle);
-c_action!(mark_toggle_and_step);
-c_action!(mark_select_all);
-c_action!(mark_unselect_all);
-c_action!(mark_select_all_files);
-c_action!(mark_unselect_all_files);
-c_action!(mark_select_with_pattern);
-c_action!(mark_unselect_with_pattern);
+
+pub fn mark_toggle(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .toggle()
+}
+
+pub fn mark_toggle_and_step(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .toggle_and_step()
+}
+
+pub fn mark_select_all(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .select_all()
+}
+
+pub fn mark_unselect_all(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .unselect_all()
+}
+
+pub fn mark_select_all_files(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .select_all_files()
+}
+
+pub fn mark_unselect_all_files(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .unselect_all_files()
+}
+
+pub fn mark_select_with_pattern(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let file_list = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
+    glib::spawn_future_local(async move {
+        select_by_pattern(&file_list, true).await;
+    });
+}
+
+pub fn mark_unselect_with_pattern(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let file_list = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
+    glib::spawn_future_local(async move {
+        select_by_pattern(&file_list, false).await;
+    });
+}
 
 pub fn mark_invert_selection(
     main_win: &MainWindow,
@@ -1150,8 +1236,27 @@ pub fn view_toggle_tab_lock(
     file_selector.toggle_tab_lock(&file_list);
 }
 
-c_action!(view_step_up);
-c_action!(view_step_down);
+pub fn view_step_up(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .focus_prev();
+}
+
+pub fn view_step_down(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .focus_next();
+}
 
 /************** Bookmarks Menu **************/
 

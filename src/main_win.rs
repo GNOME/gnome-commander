@@ -1817,12 +1817,6 @@ pub extern "C" fn gnome_cmd_main_win_get_fs(
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_main_win_update_view(mw_ptr: *mut ffi::GnomeCmdMainWin) {
-    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
-    mw.update_view();
-}
-
-#[no_mangle]
 pub extern "C" fn gnome_cmd_main_win_focus_file_lists(mw_ptr: *mut ffi::GnomeCmdMainWin) {
     let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
     mw.focus_file_lists();

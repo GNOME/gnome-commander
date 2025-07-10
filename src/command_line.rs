@@ -17,17 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use gtk::{
-    gdk,
-    glib::{
-        self,
-        ffi::gboolean,
-        translate::{from_glib_borrow, from_glib_none, Borrowed},
-    },
-    prelude::*,
-    subclass::prelude::*,
-};
-use std::ffi::c_char;
+use gtk::{gdk, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
@@ -363,30 +353,4 @@ impl CommandLine {
     }
 
     pub fn update_style(&self) {}
-}
-
-#[no_mangle]
-extern "C" fn gnome_cmd_cmdline_append_text(
-    cmdline: *mut <CommandLine as glib::object::ObjectType>::GlibType,
-    text: *const c_char,
-) {
-    let cmdline: Borrowed<CommandLine> = unsafe { from_glib_borrow(cmdline) };
-    let text: String = unsafe { from_glib_none(text) };
-    cmdline.append_text(&text);
-}
-
-#[no_mangle]
-extern "C" fn gnome_cmd_cmdline_is_empty(
-    cmdline: *mut <CommandLine as glib::object::ObjectType>::GlibType,
-) -> gboolean {
-    let cmdline: Borrowed<CommandLine> = unsafe { from_glib_borrow(cmdline) };
-    cmdline.is_empty() as gboolean
-}
-
-#[no_mangle]
-extern "C" fn gnome_cmd_cmdline_exec(
-    cmdline: *mut <CommandLine as glib::object::ObjectType>::GlibType,
-) {
-    let cmdline: Borrowed<CommandLine> = unsafe { from_glib_borrow(cmdline) };
-    cmdline.exec(false);
 }

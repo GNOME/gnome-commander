@@ -1010,3 +1010,8 @@ GnomeCmdFile *gnome_cmd_file_new_dotdot (GnomeCmdDir *dir)
     priv->is_dotdot = true;
     return gnomeCmdFile;
 }
+
+GnomeCmdDir *gnome_cmd_file_get_parent_dir(GnomeCmdFile *f)
+{
+    return f->get_parent_dir();
+}

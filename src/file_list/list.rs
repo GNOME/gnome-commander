@@ -49,7 +49,12 @@ use gtk::{
     prelude::*,
     subclass::prelude::*,
 };
-use std::{collections::HashSet, ffi::c_char, ops::ControlFlow, path::Path};
+use std::{
+    collections::HashSet,
+    ffi::{c_char, c_int},
+    ops::ControlFlow,
+    path::Path,
+};
 
 mod imp {
     use super::*;
@@ -255,7 +260,7 @@ mod imp {
                         .build(),
                     // The file list widget was clicked
                     glib::subclass::Signal::builder("list-clicked")
-                        .param_types([glib::Pointer::static_type()]) // GnomeCmdFileListButtonEvent
+                        .param_types([u32::static_type(), Option::<File>::static_type()])
                         .build(),
                     // The visible content of the file list has changed (files have been: selected, created, deleted or modified)
                     glib::subclass::Signal::builder("files-changed").build(),
@@ -299,7 +304,6 @@ pub mod ffi {
     use super::*;
     use crate::{connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir};
     use gtk::{ffi::GtkTreeView, glib::ffi::GList};
-    use std::ffi::c_int;
 
     pub type GnomeCmdFileList = <super::FileList as glib::object::ObjectType>::GlibType;
 
@@ -314,9 +318,15 @@ pub mod ffi {
         pub fn gnome_cmd_file_list_get_connection(fl: *mut GnomeCmdFileList) -> *mut GnomeCmdCon;
 
         pub fn gnome_cmd_file_list_get_directory(fl: *mut GnomeCmdFileList) -> *mut GnomeCmdDir;
+        pub fn gnome_cmd_file_list_set_directory(fl: *mut GnomeCmdFileList, dir: *mut GnomeCmdDir);
 
         pub fn gnome_cmd_file_list_get_sort_column(fl: *mut GnomeCmdFileList) -> c_int;
         pub fn gnome_cmd_file_list_get_sort_order(fl: *mut GnomeCmdFileList) -> c_int;
+        pub fn gnome_cmd_file_list_set_sorting(
+            fl: *mut GnomeCmdFileList,
+            sort_col: c_int,
+            sort_order: c_int,
+        );
 
         pub fn gnome_cmd_file_list_reload(fl: *mut GnomeCmdFileList);
 
@@ -334,11 +344,27 @@ pub mod ffi {
 
         pub fn gnome_cmd_file_list_goto_directory(fl: *mut GnomeCmdFileList, dir: *const c_char);
 
+        pub fn gnome_cmd_file_list_show_delete_dialog(fl: *mut GnomeCmdFileList, force: gboolean);
         pub fn gnome_cmd_file_list_update_style(fl: *mut GnomeCmdFileList);
 
         pub fn gnome_cmd_file_list_invalidate_tree_size(fl: *mut GnomeCmdFileList);
 
         pub fn gnome_cmd_file_list_show_files(fl: *mut GnomeCmdFileList, dir: *mut GnomeCmdDir);
+
+        pub fn gnome_cmd_file_list_show_column(
+            fl: *mut GnomeCmdFileList,
+            col: c_int,
+            value: gboolean,
+        );
+
+        pub fn gnome_cmd_file_list_toggle(fl: *mut GnomeCmdFileList);
+        pub fn gnome_cmd_file_list_toggle_and_step(fl: *mut GnomeCmdFileList);
+        pub fn gnome_cmd_file_list_select_all(fl: *mut GnomeCmdFileList);
+        pub fn gnome_cmd_file_list_select_all_files(fl: *mut GnomeCmdFileList);
+        pub fn gnome_cmd_file_list_unselect_all_files(fl: *mut GnomeCmdFileList);
+        pub fn gnome_cmd_file_list_unselect_all(fl: *mut GnomeCmdFileList);
+        pub fn gnome_cmd_file_list_focus_prev(fl: *mut GnomeCmdFileList);
+        pub fn gnome_cmd_file_list_focus_next(fl: *mut GnomeCmdFileList);
     }
 }
 
@@ -430,6 +456,26 @@ impl FileList {
         }
     }
 
+    pub fn set_sorting(&self, column: ColumnID, order: gtk::SortType) {
+        unsafe {
+            ffi::gnome_cmd_file_list_set_sorting(
+                self.to_glib_none().0,
+                column as _,
+                order.into_glib(),
+            )
+        }
+    }
+
+    pub fn show_column(&self, col: ColumnID, value: bool) {
+        unsafe {
+            ffi::gnome_cmd_file_list_show_column(
+                self.to_glib_none().0,
+                col as c_int,
+                value as gboolean,
+            )
+        }
+    }
+
     pub fn file_at_row(&self, iter: &gtk::TreeIter) -> Option<File> {
         self.tree_view()
             .model()?
@@ -456,6 +502,38 @@ impl FileList {
         self.focused_file().filter(|f| !f.is_dotdot())
     }
 
+    pub fn toggle(&self) {
+        unsafe { ffi::gnome_cmd_file_list_toggle(self.to_glib_none().0) }
+    }
+
+    pub fn toggle_and_step(&self) {
+        unsafe { ffi::gnome_cmd_file_list_toggle_and_step(self.to_glib_none().0) }
+    }
+
+    pub fn select_all(&self) {
+        unsafe { ffi::gnome_cmd_file_list_select_all(self.to_glib_none().0) }
+    }
+
+    pub fn select_all_files(&self) {
+        unsafe { ffi::gnome_cmd_file_list_select_all_files(self.to_glib_none().0) }
+    }
+
+    pub fn unselect_all_files(&self) {
+        unsafe { ffi::gnome_cmd_file_list_unselect_all_files(self.to_glib_none().0) }
+    }
+
+    pub fn unselect_all(&self) {
+        unsafe { ffi::gnome_cmd_file_list_unselect_all(self.to_glib_none().0) }
+    }
+
+    pub fn focus_prev(&self) {
+        unsafe { ffi::gnome_cmd_file_list_focus_prev(self.to_glib_none().0) }
+    }
+
+    pub fn focus_next(&self) {
+        unsafe { ffi::gnome_cmd_file_list_focus_next(self.to_glib_none().0) }
+    }
+
     pub fn connection(&self) -> Option<Connection> {
         unsafe {
             from_glib_none(ffi::gnome_cmd_file_list_get_connection(
@@ -469,6 +547,15 @@ impl FileList {
             from_glib_none(ffi::gnome_cmd_file_list_get_directory(
                 self.to_glib_none().0,
             ))
+        }
+    }
+
+    pub fn set_directory(&self, directory: &Directory) {
+        unsafe {
+            ffi::gnome_cmd_file_list_set_directory(
+                self.to_glib_none().0,
+                directory.to_glib_none().0,
+            )
         }
     }
 
@@ -679,6 +766,12 @@ impl FileList {
         format!("{sentence1} {sentence2} {sentence3}")
     }
 
+    pub fn show_delete_dialog(&self, force: bool) {
+        unsafe {
+            ffi::gnome_cmd_file_list_show_delete_dialog(self.to_glib_none().0, force.into_glib())
+        }
+    }
+
     pub async fn show_rename_dialog(&self) {
         let Some(window) = self.root().and_downcast::<gtk::Window>() else {
             eprintln!("No window");
@@ -741,6 +834,83 @@ impl FileList {
 
     pub fn show_files(&self, dir: &Directory) {
         unsafe { ffi::gnome_cmd_file_list_show_files(self.to_glib_none().0, dir.to_glib_none().0) }
+    }
+
+    pub fn connect_con_changed<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, &Connection) + 'static,
+    {
+        self.connect_closure(
+            "con-changed",
+            false,
+            glib::closure_local!(move |this, connection| (callback)(this, connection)),
+        )
+    }
+
+    pub fn connect_dir_changed<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, &Directory) + 'static,
+    {
+        self.connect_closure(
+            "dir-changed",
+            false,
+            glib::closure_local!(move |this, directory| (callback)(this, directory)),
+        )
+    }
+
+    pub fn connect_files_changed<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self) + 'static,
+    {
+        self.connect_closure(
+            "files-changed",
+            false,
+            glib::closure_local!(move |this| (callback)(this)),
+        )
+    }
+
+    pub fn connect_file_activated<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, &File) + 'static,
+    {
+        self.connect_closure(
+            "file-activated",
+            false,
+            glib::closure_local!(move |this, file| (callback)(this, file)),
+        )
+    }
+
+    pub fn connect_cmdline_append<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, &str) + 'static,
+    {
+        self.connect_closure(
+            "cmdline-append",
+            false,
+            glib::closure_local!(move |this, text| (callback)(this, text)),
+        )
+    }
+
+    pub fn connect_cmdline_execute<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self) -> bool + 'static,
+    {
+        self.connect_closure(
+            "cmdline-execute",
+            false,
+            glib::closure_local!(move |this| (callback)(this)),
+        )
+    }
+
+    pub fn connect_list_clicked<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, u32, Option<File>) + 'static,
+    {
+        self.connect_closure(
+            "list-clicked",
+            false,
+            glib::closure_local!(move |this, button, file| (callback)(this, button, file)),
+        )
     }
 
     fn focus_row_coordinates(&self) -> Option<gdk::Rectangle> {

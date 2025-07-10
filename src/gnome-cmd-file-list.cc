@@ -924,12 +924,12 @@ static void on_button_press (GtkGestureClick *gesture, int n_press, double x, do
     if (row)
     {
         event.file = fl->get_file_at_row(row.get());
-        g_signal_emit_by_name (fl, LIST_CLICKED_SIGNAL, &event);
+        g_signal_emit_by_name (fl, LIST_CLICKED_SIGNAL, event.button, event.file);
         g_signal_emit_by_name (fl, FILE_CLICKED_SIGNAL, &event);
     }
     else
     {
-        g_signal_emit_by_name (fl, LIST_CLICKED_SIGNAL, &event);
+        g_signal_emit_by_name (fl, LIST_CLICKED_SIGNAL, event.button, event.file);
         if (n_press == 1 && button == 3) {
             show_list_popup (fl, x, y);
         }
@@ -2697,6 +2697,12 @@ GnomeCmdDir *gnome_cmd_file_list_get_directory(GnomeCmdFileList *fl)
     return priv->cwd;
 }
 
+void gnome_cmd_file_list_set_directory(GnomeCmdFileList *fl, GnomeCmdDir *dir)
+{
+    fl->set_directory(dir);
+}
+
+
 gint gnome_cmd_file_list_get_sort_column (GnomeCmdFileList *fl)
 {
     return fl->get_sort_column();
@@ -2740,4 +2746,49 @@ extern "C" void gnome_cmd_file_list_invalidate_tree_size(GnomeCmdFileList *fl)
 void gnome_cmd_file_list_show_files(GnomeCmdFileList *fl, GnomeCmdDir *dir)
 {
     fl->show_files (dir);
+}
+
+void gnome_cmd_file_list_show_column(GnomeCmdFileList *fl, GnomeCmdFileList::ColumnID col, gboolean value)
+{
+    fl->show_column(col, value);
+}
+
+void gnome_cmd_file_list_toggle(GnomeCmdFileList *fl)
+{
+    fl->toggle();
+}
+
+void gnome_cmd_file_list_toggle_and_step(GnomeCmdFileList *fl)
+{
+    fl->toggle_and_step();
+}
+
+void gnome_cmd_file_list_select_all(GnomeCmdFileList *fl)
+{
+    fl->select_all();
+}
+
+void gnome_cmd_file_list_select_all_files(GnomeCmdFileList *fl)
+{
+    fl->select_all_files();
+}
+
+void gnome_cmd_file_list_unselect_all_files(GnomeCmdFileList *fl)
+{
+    fl->unselect_all_files();
+}
+
+void gnome_cmd_file_list_unselect_all(GnomeCmdFileList *fl)
+{
+    fl->unselect_all();
+}
+
+void gnome_cmd_file_list_focus_prev(GnomeCmdFileList *fl)
+{
+    fl->focus_prev();
+}
+
+void gnome_cmd_file_list_focus_next(GnomeCmdFileList *fl)
+{
+    fl->focus_next();
 }
