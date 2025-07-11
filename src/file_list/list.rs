@@ -20,15 +20,20 @@
  * For more details see the file COPYING.
  */
 
-use super::quick_search::QuickSearch;
+use super::{
+    file_attr_sorter::{reverse_sorter, FileAttrSorter},
+    file_type_sorter::FileTypeSorter,
+    popup::file_popup_menu,
+    quick_search::QuickSearch,
+};
 use crate::{
     connection::connection::Connection,
-    data::{FiltersOptions, FiltersOptionsRead, GeneralOptions, GeneralOptionsRead},
+    data::{ColorOptions, FiltersOptions, FiltersOptionsRead, GeneralOptions, GeneralOptionsRead},
     dialogs::rename_popover::show_rename_popover,
     dir::Directory,
     file::{ffi::GnomeCmdFile, File},
-    file_list::{list::ffi::GnomeCmdFileList, popup::file_popup_menu},
     filter::{fnmatch, Filter},
+    layout::{color_themes::ColorThemes, ls_colors_palette::load_palette},
     libgcmd::file_descriptor::FileDescriptorExt,
     main_win::MainWindow,
     tags::tags::FileMetadataService,
@@ -37,29 +42,29 @@ use crate::{
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{
+    ffi::GtkTreeView,
     gdk::{self, ffi::GdkRectangle},
     gio,
     glib::{
         self,
         ffi::{gboolean, GType},
-        translate::{
-            from_glib, from_glib_borrow, from_glib_none, Borrowed, FromGlib, IntoGlib, ToGlibPtr,
-        },
+        translate::{from_glib_borrow, from_glib_none, Borrowed, FromGlib, IntoGlib, ToGlibPtr},
     },
+    pango,
     prelude::*,
     subclass::prelude::*,
 };
-use std::{
-    collections::HashSet,
-    ffi::{c_char, c_int},
-    ops::ControlFlow,
-    path::Path,
-};
+use std::{collections::HashSet, ffi::c_char, ops::ControlFlow, path::Path};
 
 mod imp {
     use super::*;
     use crate::{
         data::ColorOptions,
+        layout::{
+            color_themes::ColorTheme,
+            ls_colors::{ls_colors_get, LsPallettePlane},
+            ls_colors_palette::LsColorsPalette,
+        },
         tags::tags::FileMetadataService,
         types::{
             ExtensionDisplayMode, GraphicalLayoutMode, LeftMouseButtonMode, MiddleMouseButtonMode,
@@ -67,9 +72,11 @@ mod imp {
         },
     };
     use std::{
+        borrow::Cow,
         cell::{Cell, OnceCell, RefCell},
         sync::OnceLock,
     };
+    use strum::VariantArray;
 
     #[derive(Default, glib::Properties)]
     #[properties(wrapper_type = super::FileList)]
@@ -125,6 +132,18 @@ mod imp {
 
         #[property(get, set, builder(QuickSearchShortcut::default()))]
         quick_search_shortcut: Cell<QuickSearchShortcut>,
+
+        pub color_theme: RefCell<Option<Cow<'static, ColorTheme>>>,
+        pub ls_palette: RefCell<LsColorsPalette>,
+
+        #[property(get)]
+        view: OnceCell<gtk::TreeView>,
+        #[property(get)]
+        store: OnceCell<gtk::ListStore>,
+
+        pub sorting: Cell<Option<(ColumnID, gtk::SortType)>>,
+        #[property(get, set)]
+        pub sorter: RefCell<Option<gtk::Sorter>>,
     }
 
     #[glib::object_subclass]
@@ -142,9 +161,111 @@ mod imp {
             let fl = self.obj();
             fl.set_layout_manager(Some(gtk::BinLayout::new()));
 
+            self.color_theme.replace(ColorThemes::new().theme());
+            self.ls_palette
+                .replace(load_palette(&ColorOptions::new().0));
+
+            let view = gtk::TreeView::builder().build();
+            let scrolled_window = gtk::ScrolledWindow::builder()
+                .hscrollbar_policy(gtk::PolicyType::Automatic)
+                .vscrollbar_policy(gtk::PolicyType::Automatic)
+                .hexpand(true)
+                .vexpand(true)
+                .child(&view)
+                .build();
+            scrolled_window.set_parent(&*fl);
+            self.view.set(view.clone()).unwrap();
+
+            let store = gtk::ListStore::new(&[
+                gio::Icon::static_type(), // COLUMN_ICON
+                String::static_type(),    // COLUMN_NAME
+                String::static_type(),    // COLUMN_EXT
+                String::static_type(),    // COLUMN_DIR
+                String::static_type(),    // COLUMN_SIZE
+                String::static_type(),    // COLUMN_DATE
+                String::static_type(),    // COLUMN_PERM
+                String::static_type(),    // COLUMN_OWNER
+                String::static_type(),    // COLUMN_GROUP
+                File::static_type(),      // DATA_COLUMN_FILE
+                String::static_type(),    // DATA_COLUMN_ICON_NAME
+                bool::static_type(),      // DATA_COLUMN_SELECTED
+            ]);
+            self.store.set(store.clone()).unwrap();
+
+            self.sorting
+                .set(Some((ColumnID::COLUMN_NAME, gtk::SortType::Ascending)));
+            fl.update_sorter();
+
+            for (i, column_id) in ColumnID::VARIANTS.iter().cloned().enumerate() {
+                let column = gtk::TreeViewColumn::builder()
+                    .title(column_id.title().unwrap_or_default())
+                    .sizing(gtk::TreeViewColumnSizing::Fixed)
+                    .resizable(true)
+                    .build();
+
+                view.insert_column(&column, i as i32);
+
+                match column_id {
+                    ColumnID::COLUMN_ICON => {
+                        column.set_clickable(false);
+
+                        let renderer = gtk::CellRendererPixbuf::new();
+                        column.pack_start(&renderer, true);
+                        column.set_cell_data_func(
+                            &renderer,
+                            glib::clone!(
+                                #[weak(rename_to = imp)]
+                                self,
+                                move |_, cell, _, iter| imp.cell_data(cell, iter, column_id as i32)
+                            ),
+                        );
+
+                        let renderer = gtk::CellRendererText::new();
+                        column.pack_start(&renderer, true);
+                        column.set_cell_data_func(
+                            &renderer,
+                            glib::clone!(
+                                #[weak(rename_to = imp)]
+                                self,
+                                move |_, cell, _, iter| imp.cell_data(
+                                    cell,
+                                    iter,
+                                    DataColumns::DATA_COLUMN_ICON_NAME as i32
+                                )
+                            ),
+                        );
+                    }
+                    _ => {
+                        column.set_clickable(true);
+                        // column.set_sort_column_id(i);
+                        column.set_sort_indicator(true);
+
+                        let renderer = gtk::CellRendererText::new();
+                        renderer.set_xalign(column_id.xalign());
+                        column.pack_start(&renderer, true);
+                        column.set_cell_data_func(
+                            &renderer,
+                            glib::clone!(
+                                #[weak(rename_to = imp)]
+                                self,
+                                move |_, cell, _, iter| imp.cell_data(cell, iter, column_id as i32)
+                            ),
+                        );
+                    }
+                }
+
+                column.connect_clicked(glib::clone!(
+                    #[weak]
+                    fl,
+                    move |_| fl.sort_by(column_id)
+                ));
+            }
+
             unsafe {
                 ffi::gnome_cmd_file_list_init(fl.to_glib_none().0);
             }
+
+            view.set_model(Some(&store));
 
             let general_options = GeneralOptions::new();
             general_options
@@ -216,7 +337,7 @@ mod imp {
                 .bind("quick-search", &*fl, "quick-search-shortcut")
                 .build();
 
-            for (column, key) in fl.tree_view().columns().iter().zip([
+            for (column, key) in fl.view().columns().iter().zip([
                 "column-width-icon",
                 "column-width-name",
                 "column-width-ext",
@@ -272,10 +393,6 @@ mod imp {
                     glib::subclass::Signal::builder("con-changed")
                         .param_types([Connection::static_type()])
                         .build(),
-                    // Column's width was changed
-                    glib::subclass::Signal::builder("resize-column")
-                        .param_types([u32::static_type(), gtk::TreeViewColumn::static_type()])
-                        .build(),
                     // A file in the list has been activated for opening
                     glib::subclass::Signal::builder("file-activated")
                         .param_types([File::static_type()])
@@ -295,7 +412,127 @@ mod imp {
 
     impl WidgetImpl for FileList {
         fn grab_focus(&self) -> bool {
-            self.obj().tree_view().grab_focus()
+            self.obj().view().grab_focus()
+        }
+    }
+
+    impl FileList {
+        fn cell_data(&self, cell: &gtk::CellRenderer, iter: &gtk::TreeIter, column: i32) {
+            let file: File = TreeModelExtManual::get(
+                &self.obj().store(),
+                iter,
+                DataColumns::DATA_COLUMN_FILE as i32,
+            );
+            let selected: bool = TreeModelExtManual::get(
+                &self.obj().store(),
+                iter,
+                DataColumns::DATA_COLUMN_SELECTED as i32,
+            );
+
+            let layout = self.graphical_layout_mode.get();
+
+            let has_foreground;
+            if column == ColumnID::COLUMN_ICON as i32 {
+                match layout {
+                    GraphicalLayoutMode::Text => {
+                        cell.set_property("gicon", gio::Icon::NONE);
+                    }
+                    _ => {
+                        let icon: Option<gio::Icon> =
+                            TreeModelExtManual::get(&self.obj().store(), iter, column);
+                        cell.set_property("gicon", icon);
+                    }
+                }
+                has_foreground = false;
+            } else if column == DataColumns::DATA_COLUMN_ICON_NAME as i32 {
+                match layout {
+                    GraphicalLayoutMode::Text => {
+                        cell.set_property("text", None::<String>);
+                    }
+                    _ => {
+                        let icon: Option<String> =
+                            TreeModelExtManual::get(&self.obj().store(), iter, column);
+                        cell.set_property("text", icon);
+                    }
+                }
+                has_foreground = false;
+            } else {
+                let value: Option<String> =
+                    TreeModelExtManual::get(&self.obj().store(), iter, column);
+                cell.set_property("text", value);
+                has_foreground = true;
+            }
+
+            if selected {
+                if let Some(color_theme) = self.color_theme.borrow().as_ref() {
+                    if has_foreground {
+                        cell.set_property("foreground-rgba", color_theme.sel_fg);
+                        cell.set_property("foreground-set", true);
+                    }
+                    cell.set_property("cell-background-rgba", color_theme.sel_bg);
+                    cell.set_property("cell-background-set", true);
+                } else {
+                    // TODO: Consider better ways to highlight selected files
+                    cell.set_property("weight-rgba", pango::Weight::Bold);
+                    cell.set_property("weight-set", true);
+                }
+            } else {
+                if let Some(color_theme) = self.color_theme.borrow().as_ref() {
+                    if has_foreground {
+                        cell.set_property("foreground-rgba", color_theme.norm_fg);
+                        cell.set_property("foreground-set", true);
+                    }
+                    cell.set_property("cell-background-rgba", color_theme.norm_bg);
+                    cell.set_property("cell-background-set", true);
+                }
+
+                self.paint_cell_with_ls_colors(cell, &file, has_foreground);
+            }
+        }
+
+        fn paint_cell_with_ls_colors(
+            &self,
+            cell: &gtk::CellRenderer,
+            file: &File,
+            has_foreground: bool,
+        ) {
+            if !self.use_ls_colors.get() {
+                return;
+            }
+            if let Some(colors) = ls_colors_get(&file.file_info()) {
+                if has_foreground {
+                    if let Some(fg) = colors.fg {
+                        cell.set_property(
+                            "foreground-rgba",
+                            self.ls_palette
+                                .borrow()
+                                .color(LsPallettePlane::Foreground, fg),
+                        );
+                        cell.set_property("foreground-set", true);
+                    }
+                }
+                if let Some(bg) = colors.bg {
+                    cell.set_property(
+                        "cell-background-rgba",
+                        self.ls_palette
+                            .borrow()
+                            .color(LsPallettePlane::Background, bg),
+                    );
+                    cell.set_property("cell-background-set", true);
+                }
+            }
+        }
+
+        pub fn update_column_sort_arrows(&self) {
+            let (col, order) = self.obj().sorting();
+            for (i, column) in self.obj().view().columns().into_iter().enumerate() {
+                if i == col as usize {
+                    column.set_sort_indicator(true);
+                    column.set_sort_order(order);
+                } else {
+                    column.set_sort_indicator(false);
+                }
+            }
         }
     }
 }
@@ -303,7 +540,7 @@ mod imp {
 pub mod ffi {
     use super::*;
     use crate::{connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir};
-    use gtk::{ffi::GtkTreeView, glib::ffi::GList};
+    use gtk::glib::ffi::GList;
 
     pub type GnomeCmdFileList = <super::FileList as glib::object::ObjectType>::GlibType;
 
@@ -311,22 +548,12 @@ pub mod ffi {
         pub fn gnome_cmd_file_list_init(fl: *mut GnomeCmdFileList);
         pub fn gnome_cmd_file_list_finalize(fl: *mut GnomeCmdFileList);
 
-        pub fn gnome_cmd_file_list_get_tree_view(fl: *mut GnomeCmdFileList) -> *mut GtkTreeView;
-
         pub fn gnome_cmd_file_list_get_selected_files(fl: *mut GnomeCmdFileList) -> *mut GList;
 
         pub fn gnome_cmd_file_list_get_connection(fl: *mut GnomeCmdFileList) -> *mut GnomeCmdCon;
 
         pub fn gnome_cmd_file_list_get_directory(fl: *mut GnomeCmdFileList) -> *mut GnomeCmdDir;
         pub fn gnome_cmd_file_list_set_directory(fl: *mut GnomeCmdFileList, dir: *mut GnomeCmdDir);
-
-        pub fn gnome_cmd_file_list_get_sort_column(fl: *mut GnomeCmdFileList) -> c_int;
-        pub fn gnome_cmd_file_list_get_sort_order(fl: *mut GnomeCmdFileList) -> c_int;
-        pub fn gnome_cmd_file_list_set_sorting(
-            fl: *mut GnomeCmdFileList,
-            sort_col: c_int,
-            sort_order: c_int,
-        );
 
         pub fn gnome_cmd_file_list_set_base_dir(fl: *mut GnomeCmdFileList, dir: *mut c_char);
 
@@ -354,12 +581,6 @@ pub mod ffi {
 
         pub fn gnome_cmd_file_list_show_files(fl: *mut GnomeCmdFileList, dir: *mut GnomeCmdDir);
 
-        pub fn gnome_cmd_file_list_show_column(
-            fl: *mut GnomeCmdFileList,
-            col: c_int,
-            value: gboolean,
-        );
-
         pub fn gnome_cmd_file_list_toggle(fl: *mut GnomeCmdFileList);
         pub fn gnome_cmd_file_list_toggle_and_step(fl: *mut GnomeCmdFileList);
         pub fn gnome_cmd_file_list_select_all(fl: *mut GnomeCmdFileList);
@@ -377,7 +598,7 @@ glib::wrapper! {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, Copy, strum::FromRepr)]
+#[derive(Clone, Copy, PartialEq, Eq, strum::FromRepr, strum::VariantArray)]
 #[repr(C)]
 pub enum ColumnID {
     COLUMN_ICON = 0,
@@ -389,6 +610,44 @@ pub enum ColumnID {
     COLUMN_PERM,
     COLUMN_OWNER,
     COLUMN_GROUP,
+}
+
+impl ColumnID {
+    pub fn title(self) -> Option<String> {
+        match self {
+            Self::COLUMN_ICON => None,
+            Self::COLUMN_NAME => Some(gettext("name")),
+            Self::COLUMN_EXT => Some(gettext("ext")),
+            Self::COLUMN_DIR => Some(gettext("dir")),
+            Self::COLUMN_SIZE => Some(gettext("size")),
+            Self::COLUMN_DATE => Some(gettext("date")),
+            Self::COLUMN_PERM => Some(gettext("perm")),
+            Self::COLUMN_OWNER => Some(gettext("uid")),
+            Self::COLUMN_GROUP => Some(gettext("gid")),
+        }
+    }
+
+    pub fn xalign(self) -> f32 {
+        match self {
+            Self::COLUMN_ICON => 0.5,
+            Self::COLUMN_SIZE => 1.0,
+            _ => 0.0,
+        }
+    }
+
+    pub fn default_sort_direction(self) -> gtk::SortType {
+        match self {
+            Self::COLUMN_ICON => gtk::SortType::Ascending,
+            Self::COLUMN_NAME => gtk::SortType::Ascending,
+            Self::COLUMN_EXT => gtk::SortType::Ascending,
+            Self::COLUMN_DIR => gtk::SortType::Ascending,
+            Self::COLUMN_SIZE => gtk::SortType::Descending,
+            Self::COLUMN_DATE => gtk::SortType::Descending,
+            Self::COLUMN_PERM => gtk::SortType::Ascending,
+            Self::COLUMN_OWNER => gtk::SortType::Ascending,
+            Self::COLUMN_GROUP => gtk::SortType::Ascending,
+        }
+    }
 }
 
 #[allow(non_camel_case_types)]
@@ -405,25 +664,16 @@ impl FileList {
             .build()
     }
 
-    fn tree_view(&self) -> gtk::TreeView {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_file_list_get_tree_view(
-                self.to_glib_none().0,
-            ))
-        }
-    }
-
     pub fn size(&self) -> usize {
-        self.tree_view()
-            .model()
-            .and_then(|m| m.iter_n_children(None).try_into().ok())
+        self.store()
+            .iter_n_children(None)
+            .try_into()
+            .ok()
             .unwrap_or_default()
     }
 
     pub fn clear(&self) {
-        if let Some(store) = self.tree_view().model().and_downcast::<gtk::ListStore>() {
-            store.clear();
-        }
+        self.store().clear();
     }
 
     pub fn visible_files(&self) -> glib::List<File> {
@@ -443,59 +693,38 @@ impl FileList {
         }
     }
 
-    pub fn sort_column(&self) -> ColumnID {
-        unsafe { ffi::gnome_cmd_file_list_get_sort_column(self.to_glib_none().0) }
-            .try_into()
-            .ok()
-            .and_then(ColumnID::from_repr)
-            .unwrap_or(ColumnID::COLUMN_NAME)
+    pub fn sorting(&self) -> (ColumnID, gtk::SortType) {
+        self.imp()
+            .sorting
+            .get()
+            .unwrap_or((ColumnID::COLUMN_NAME, gtk::SortType::Ascending))
     }
 
-    pub fn sort_order(&self) -> gtk::SortType {
-        unsafe {
-            from_glib(ffi::gnome_cmd_file_list_get_sort_order(
-                self.to_glib_none().0,
-            ))
-        }
+    pub fn set_sorting(&self, column: ColumnID, order: gtk::SortType) {
+        self.imp().sorting.set(Some((column, order)));
+        self.update_sorter();
     }
 
     pub fn set_base_dir(&self, dir: &Path) {
         unsafe { ffi::gnome_cmd_file_list_set_base_dir(self.to_glib_none().0, dir.to_glib_full()) }
     }
 
-    pub fn set_sorting(&self, column: ColumnID, order: gtk::SortType) {
-        unsafe {
-            ffi::gnome_cmd_file_list_set_sorting(
-                self.to_glib_none().0,
-                column as _,
-                order.into_glib(),
-            )
-        }
-    }
-
     pub fn show_column(&self, col: ColumnID, value: bool) {
-        unsafe {
-            ffi::gnome_cmd_file_list_show_column(
-                self.to_glib_none().0,
-                col as c_int,
-                value as gboolean,
-            )
+        if let Some(column) = self.view().column(col as i32) {
+            column.set_visible(value);
         }
     }
 
     pub fn file_at_row(&self, iter: &gtk::TreeIter) -> Option<File> {
-        self.tree_view()
-            .model()?
+        self.store()
             .get_value(iter, DataColumns::DATA_COLUMN_FILE as i32)
             .get()
             .ok()
     }
 
     pub fn focused_file_iter(&self) -> Option<gtk::TreeIter> {
-        let tree_view = self.tree_view();
-        let model = tree_view.model()?;
-        let path = TreeViewExt::cursor(&tree_view).0?;
-        let iter = model.iter(&path)?;
+        let path = TreeViewExt::cursor(&self.view()).0?;
+        let iter = self.store().iter(&path)?;
         Some(iter)
     }
 
@@ -601,13 +830,8 @@ impl FileList {
     }
 
     pub(super) fn focus_file_at_row(&self, row: &gtk::TreeIter) {
-        let tree_view = self.tree_view();
-        let Some(store) = tree_view.model().and_downcast::<gtk::ListStore>() else {
-            return;
-        };
-
-        let path = store.path(row);
-        gtk::prelude::TreeViewExt::set_cursor(&tree_view, &path, None, false);
+        let path = self.store().path(row);
+        gtk::prelude::TreeViewExt::set_cursor(&self.view(), &path, None, false);
     }
 
     pub fn focus_file(&self, focus_file: &Path, scroll_to_file: bool) {
@@ -621,11 +845,7 @@ impl FileList {
     }
 
     pub fn select_row(&self, row: Option<gtk::TreeIter>) {
-        let tree_view = self.tree_view();
-        let Some(store) = tree_view.model().and_downcast::<gtk::ListStore>() else {
-            return;
-        };
-        if let Some(row) = row.or_else(|| store.iter_first()) {
+        if let Some(row) = row.or_else(|| self.store().iter_first()) {
             self.focus_file_at_row(&row);
         }
     }
@@ -654,13 +874,11 @@ impl FileList {
         &self,
         mut visitor: impl FnMut(&File, &gtk::TreeIter, &gtk::ListStore) -> ControlFlow<T>,
     ) -> ControlFlow<T> {
-        let Some(store) = self.tree_view().model().and_downcast::<gtk::ListStore>() else {
-            return ControlFlow::Continue(());
-        };
-
+        let store = self.store();
         if let Some(iter) = store.iter_first() {
             loop {
-                let file: File = store.get(&iter, DataColumns::DATA_COLUMN_FILE as i32);
+                let file: File =
+                    TreeModelExtManual::get(&store, &iter, DataColumns::DATA_COLUMN_FILE as i32);
                 (visitor)(&file, &iter, &store)?;
                 if !store.iter_next(&iter) {
                     break;
@@ -703,7 +921,8 @@ impl FileList {
         let select_dirs = self.select_dirs();
         let _ = self.traverse_files::<()>(|file, iter, store| {
             if !file.is_dotdot() && (select_dirs || file.downcast_ref::<Directory>().is_none()) {
-                let selected: bool = store.get(iter, DataColumns::DATA_COLUMN_SELECTED as i32);
+                let selected: bool =
+                    TreeModelExtManual::get(store, iter, DataColumns::DATA_COLUMN_SELECTED as i32);
                 store.set(
                     iter,
                     &[(DataColumns::DATA_COLUMN_SELECTED as u32, &!selected)],
@@ -722,7 +941,8 @@ impl FileList {
         let _ = self.traverse_files::<()>(|file, iter, store| {
             if !file.is_dotdot() {
                 let info = file.file_info();
-                let selected: bool = store.get(iter, DataColumns::DATA_COLUMN_SELECTED as i32);
+                let selected: bool =
+                    TreeModelExtManual::get(store, iter, DataColumns::DATA_COLUMN_SELECTED as i32);
 
                 match info.file_type() {
                     gio::FileType::Directory => {
@@ -838,7 +1058,84 @@ impl FileList {
     }
 
     pub fn update_style(&self) {
+        self.imp().color_theme.replace(ColorThemes::new().theme());
+        self.imp()
+            .ls_palette
+            .replace(load_palette(&ColorOptions::new().0));
+
+        self.update_sorter();
+
         unsafe { ffi::gnome_cmd_file_list_update_style(self.to_glib_none().0) }
+    }
+
+    fn update_sorter(&self) {
+        let (column, sort_type) = self.sorting();
+
+        let file_sorter = match column {
+            ColumnID::COLUMN_ICON => return,
+            ColumnID::COLUMN_NAME => FileAttrSorter::by_name(),
+            ColumnID::COLUMN_EXT => FileAttrSorter::by_ext(),
+            ColumnID::COLUMN_DIR => FileAttrSorter::by_dir(),
+            ColumnID::COLUMN_SIZE => FileAttrSorter::by_size(),
+            ColumnID::COLUMN_DATE => FileAttrSorter::by_date(),
+            ColumnID::COLUMN_PERM => FileAttrSorter::by_perm(),
+            ColumnID::COLUMN_OWNER => FileAttrSorter::by_owner(),
+            ColumnID::COLUMN_GROUP => FileAttrSorter::by_group(),
+        };
+
+        let full_sorter = gtk::MultiSorter::new();
+        full_sorter.append(FileTypeSorter::default());
+        if sort_type == gtk::SortType::Descending {
+            full_sorter.append(reverse_sorter(file_sorter));
+        } else {
+            full_sorter.append(file_sorter);
+        }
+
+        self.set_sorter(full_sorter);
+    }
+
+    fn sort_by(&self, col: ColumnID) {
+        let (column, order) = self.sorting();
+        let sort_type = if column == col {
+            match order {
+                gtk::SortType::Ascending => gtk::SortType::Descending,
+                _ => gtk::SortType::Ascending,
+            }
+        } else {
+            col.default_sort_direction()
+        };
+        self.set_sorting(col, sort_type);
+        self.imp().update_column_sort_arrows();
+        self.sort();
+    }
+
+    fn sort(&self) {
+        let selfile = self.selected_file();
+
+        let store = self.store();
+        let sorter = self.sorter().unwrap();
+
+        let size = store.iter_n_children(None) as u32;
+        let mut indexes: Vec<u32> = (0..size).collect();
+        indexes.sort_by(|index1, index2| {
+            let iter1 = store.iter_nth_child(None, *index1 as i32).unwrap();
+            let iter2 = store.iter_nth_child(None, *index2 as i32).unwrap();
+
+            let file1: File =
+                TreeModelExtManual::get(&store, &iter1, DataColumns::DATA_COLUMN_FILE as i32);
+            let file2: File =
+                TreeModelExtManual::get(&store, &iter2, DataColumns::DATA_COLUMN_FILE as i32);
+
+            sorter.compare(&file1, &file2).into()
+        });
+        store.reorder(&indexes);
+
+        // refocus the previously selected file if this file list has the focus
+        if self.has_focus() {
+            if let Some(row) = selfile.and_then(|f| self.get_row_from_file(&f)) {
+                self.focus_file_at_row(&row);
+            }
+        }
     }
 
     pub fn invalidate_tree_size(&self) {
@@ -929,7 +1226,7 @@ impl FileList {
     fn focus_row_coordinates(&self) -> Option<gdk::Rectangle> {
         let options = GeneralOptions::new();
 
-        let view = self.tree_view();
+        let view = self.view();
         let path = gtk::prelude::TreeViewExt::cursor(&view).0?;
         let name_rect = view.cell_area(
             Some(&path),
@@ -1091,6 +1388,14 @@ fn matches_pattern(file: &str, patterns: &str) -> bool {
 }
 
 #[no_mangle]
+pub extern "C" fn gnome_cmd_file_list_get_tree_view(
+    fl: *mut ffi::GnomeCmdFileList,
+) -> *mut GtkTreeView {
+    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
+    fl.view().to_glib_none().0
+}
+
+#[no_mangle]
 pub extern "C" fn gnome_cmd_file_is_wanted(f: *mut GnomeCmdFile) -> gboolean {
     let f: Borrowed<File> = unsafe { from_glib_borrow(f) };
     let options = FiltersOptions::new();
@@ -1099,7 +1404,7 @@ pub extern "C" fn gnome_cmd_file_is_wanted(f: *mut GnomeCmdFile) -> gboolean {
 
 #[no_mangle]
 pub extern "C" fn gnome_cmd_file_list_show_file_popup(
-    f: *mut GnomeCmdFileList,
+    f: *mut ffi::GnomeCmdFileList,
     point_to: *mut GdkRectangle,
 ) {
     let fl: Borrowed<FileList> = unsafe { from_glib_borrow(f) };
@@ -1108,9 +1413,33 @@ pub extern "C" fn gnome_cmd_file_list_show_file_popup(
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_show_rename_dialog(f: *mut GnomeCmdFileList) {
+pub extern "C" fn gnome_cmd_file_list_show_rename_dialog(f: *mut ffi::GnomeCmdFileList) {
     let fl: Borrowed<FileList> = unsafe { from_glib_borrow(f) };
     glib::spawn_future_local(async move {
         fl.show_rename_dialog().await;
     });
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_list_get_sort_column(fl: *mut ffi::GnomeCmdFileList) -> i32 {
+    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
+    fl.sorting().0 as i32
+}
+
+#[no_mangle]
+pub extern "C" fn update_column_sort_arrows(fl: *mut ffi::GnomeCmdFileList) {
+    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
+    fl.imp().update_column_sort_arrows();
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_list_sort(fl: *mut ffi::GnomeCmdFileList) {
+    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
+    fl.sort();
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_list_sort_by(fl: *mut ffi::GnomeCmdFileList, col: i32) {
+    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
+    fl.sort_by(ColumnID::from_repr(col as usize).unwrap());
 }

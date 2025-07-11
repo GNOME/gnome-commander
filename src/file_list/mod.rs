@@ -18,7 +18,8 @@
  */
 
 pub mod actions;
+pub mod file_attr_sorter;
+pub mod file_type_sorter;
 pub mod list;
 pub mod popup;
 pub mod quick_search;
-pub mod sort;

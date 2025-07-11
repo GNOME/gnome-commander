@@ -678,14 +678,8 @@ impl FileSelector {
     }
 
     pub fn new_tab_with_dir(&self, dir: &Directory, activate: bool, grab_focus: bool) {
-        self.new_tab_full(
-            Some(dir),
-            self.file_list().sort_column(),
-            self.file_list().sort_order(),
-            false,
-            activate,
-            grab_focus,
-        )
+        let (sort_column, order) = self.file_list().sorting();
+        self.new_tab_full(Some(dir), sort_column, order, false, activate, grab_focus)
     }
 
     pub fn new_tab_full(
@@ -1135,11 +1129,12 @@ impl FileSelector {
             .filter_map(|file_list| {
                 let directory = file_list.directory()?;
                 let uri = directory.upcast_ref::<File>().get_uri_str()?;
+                let (column, order) = file_list.sorting();
                 Some(TabVariant {
                     uri,
                     file_felector_id: 0,
-                    sort_column: file_list.sort_column() as u8,
-                    sort_order: file_list.sort_order() != gtk::SortType::Ascending,
+                    sort_column: column as u8,
+                    sort_order: order != gtk::SortType::Ascending,
                     locked: self.is_tab_locked(&file_list),
                 })
             })
