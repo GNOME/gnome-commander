@@ -77,6 +77,7 @@ pub fn permissions_to_numbers(permissions: u32) -> String {
 }
 
 pub const NO_MOD: gdk::ModifierType = gdk::ModifierType::NO_MODIFIER_MASK;
+pub const SHIFT: gdk::ModifierType = gdk::ModifierType::SHIFT_MASK;
 pub const CONTROL: gdk::ModifierType = gdk::ModifierType::CONTROL_MASK;
 pub const ALT: gdk::ModifierType = gdk::ModifierType::ALT_MASK;
 pub const CONTROL_ALT: gdk::ModifierType =

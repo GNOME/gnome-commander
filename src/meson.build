@@ -1,5 +1,4 @@
 sources_headers = files(
-  'dialogs/gnome-cmd-delete-dialog.h',
   'dialogs/gnome-cmd-mkdir-dialog.h',
   'intviewer/bm_byte.h',
   'intviewer/bm_chartype.h',

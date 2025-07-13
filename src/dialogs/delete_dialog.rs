@@ -21,7 +21,7 @@
  */
 
 use crate::{
-    data::{ConfirmOptions, ConfirmOptionsRead, DeleteDefault, GeneralOptions, GeneralOptionsRead},
+    data::{ConfirmOptionsRead, DeleteDefault, GeneralOptionsRead},
     dir::Directory,
     file::File,
     libgcmd::file_descriptor::FileDescriptorExt,
@@ -585,29 +585,6 @@ pub async fn show_delete_dialog(
     }
 
     do_delete(parent_window, delete_action, &files, true).await;
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_delete_dialog_show(
-    parent_window: *mut GtkWindow,
-    files: *mut GList,
-    force_delete: gboolean,
-) {
-    let parent_window: gtk::Window = unsafe { from_glib_none(parent_window) };
-    let files: glib::List<File> = unsafe { glib::List::from_glib_none(files) };
-    let general_options = GeneralOptions::new();
-    let confirm_options = ConfirmOptions::new();
-
-    glib::spawn_future_local(async move {
-        show_delete_dialog(
-            &parent_window,
-            &files,
-            force_delete != 0,
-            &general_options,
-            &confirm_options,
-        )
-        .await;
-    });
 }
 
 #[no_mangle]

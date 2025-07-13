@@ -28,8 +28,11 @@ use super::{
 };
 use crate::{
     connection::connection::Connection,
-    data::{ColorOptions, FiltersOptions, FiltersOptionsRead, GeneralOptions, GeneralOptionsRead},
-    dialogs::rename_popover::show_rename_popover,
+    data::{
+        ColorOptions, ConfirmOptions, FiltersOptions, FiltersOptionsRead, GeneralOptions,
+        GeneralOptionsRead,
+    },
+    dialogs::{delete_dialog::show_delete_dialog, rename_popover::show_rename_popover},
     dir::Directory,
     file::{ffi::GnomeCmdFile, File},
     filter::{fnmatch, Filter},
@@ -42,13 +45,13 @@ use crate::{
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{
-    ffi::GtkTreeView,
+    ffi::{GtkTreeIter, GtkTreeView},
     gdk::{self, ffi::GdkRectangle},
     gio,
     glib::{
         self,
         ffi::{gboolean, GType},
-        translate::{from_glib_borrow, from_glib_none, Borrowed, FromGlib, IntoGlib, ToGlibPtr},
+        translate::{from_glib_borrow, from_glib_none, Borrowed, IntoGlib, ToGlibPtr},
     },
     pango,
     prelude::*,
@@ -60,6 +63,7 @@ mod imp {
     use super::*;
     use crate::{
         data::ColorOptions,
+        dialogs::pattern_selection_dialog::select_by_pattern,
         layout::{
             color_themes::ColorTheme,
             ls_colors::{ls_colors_get, LsPallettePlane},
@@ -70,10 +74,13 @@ mod imp {
             ExtensionDisplayMode, GraphicalLayoutMode, LeftMouseButtonMode, MiddleMouseButtonMode,
             PermissionDisplayMode, QuickSearchShortcut, RightMouseButtonMode,
         },
+        utils::{ALT, ALT_SHIFT, CONTROL, CONTROL_ALT, CONTROL_SHIFT, NO_MOD, SHIFT},
     };
     use std::{
         borrow::Cow,
         cell::{Cell, OnceCell, RefCell},
+        cmp,
+        ffi::OsStr,
         sync::OnceLock,
     };
     use strum::VariantArray;
@@ -144,6 +151,10 @@ mod imp {
         pub sorting: Cell<Option<(ColumnID, gtk::SortType)>>,
         #[property(get, set)]
         pub sorter: RefCell<Option<gtk::Sorter>>,
+
+        pub shift_down: Cell<bool>,
+        pub shift_down_row: RefCell<Option<gtk::TreeIter>>,
+        pub shift_down_key: Cell<Option<gdk::Key>>,
     }
 
     #[glib::object_subclass]
@@ -266,6 +277,24 @@ mod imp {
             }
 
             view.set_model(Some(&store));
+
+            view.connect_cursor_changed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.cursor_changed()
+            ));
+
+            let key_controller = gtk::EventControllerKey::builder()
+                .propagation_phase(gtk::PropagationPhase::Capture)
+                .build();
+            key_controller.connect_key_pressed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                #[upgrade_or]
+                glib::Propagation::Proceed,
+                move |_, key, _, state| imp.key_pressed(key, state)
+            ));
+            fl.add_controller(key_controller);
 
             let general_options = GeneralOptions::new();
             general_options
@@ -534,13 +563,374 @@ mod imp {
                 }
             }
         }
+
+        fn set_selected_at_iter(&self, iter: &gtk::TreeIter, selected: bool) {
+            self.obj().store().set_value(
+                iter,
+                DataColumns::DATA_COLUMN_SELECTED as u32,
+                &selected.to_value(),
+            );
+            self.obj().emit_files_changed();
+        }
+
+        fn cursor_changed(&self) {
+            let Some(cursor) = self.obj().focused_file_iter() else {
+                return;
+            };
+            let shift_down_key = self.shift_down_key.take();
+            let Some(shift_down_row) = self.shift_down_row.borrow().clone() else {
+                return;
+            };
+
+            match shift_down_key {
+                Some(gdk::Key::Page_Up) => {
+                    self.toggle_file_range(&shift_down_row, &cursor, false);
+                }
+                Some(gdk::Key::Page_Down) => {
+                    self.toggle_file_range(&shift_down_row, &cursor, false);
+                }
+                Some(gdk::Key::Home) => {
+                    self.toggle_file_range(&shift_down_row, &cursor, true);
+                }
+                Some(gdk::Key::End) => {
+                    self.toggle_file_range(&shift_down_row, &cursor, true);
+                }
+                _ => {}
+            }
+        }
+
+        fn toggle_file_range(
+            &self,
+            start_row: &gtk::TreeIter,
+            end_row: &gtk::TreeIter,
+            closed_end: bool,
+        ) {
+            let mut state = 0;
+            let _ = self.obj().traverse_files(|_file, iter, store| {
+                let matchez = iter_compare(store, iter, start_row) == cmp::Ordering::Equal
+                    || iter_compare(store, iter, end_row) == cmp::Ordering::Equal;
+                if state == 0 {
+                    if matchez {
+                        self.toggle_file(iter);
+                        state = 1;
+                    }
+                } else if state == 1 {
+                    if matchez {
+                        if closed_end {
+                            self.toggle_file(iter);
+                        }
+                        return ControlFlow::Break(());
+                    } else {
+                        self.toggle_file(iter);
+                    }
+                }
+                ControlFlow::Continue(())
+            });
+        }
+
+        fn select_file_range(&self, start_row: &gtk::TreeIter, end_row: &gtk::TreeIter) {
+            let mut state = 0;
+            let _ = self.obj().traverse_files(|file, iter, store| {
+                let matchez = iter_compare(store, iter, start_row) == cmp::Ordering::Equal
+                    || iter_compare(store, iter, end_row) == cmp::Ordering::Equal;
+                if state == 0 {
+                    if matchez {
+                        state = 1;
+                        if !file.is_dotdot() {
+                            self.set_selected_at_iter(iter, true);
+                        }
+                    }
+                } else {
+                    if !file.is_dotdot() {
+                        self.set_selected_at_iter(iter, true);
+                    }
+                    if matchez {
+                        return ControlFlow::Break(());
+                    }
+                }
+                ControlFlow::Continue(())
+            });
+            self.obj().emit_files_changed();
+        }
+
+        pub fn select_with_mouse(&self, iter: &gtk::TreeIter) {
+            if let Some(start_iter) = self.shift_down_row.borrow().clone() {
+                self.select_file_range(&start_iter, iter);
+                self.shift_down.set(false);
+                self.shift_down_key.set(None);
+            }
+        }
+
+        fn key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
+            match (state, key) {
+                (ALT, gdk::Key::Return | gdk::Key::KP_Enter) => {
+                    let _ = self.obj().activate_action("win.file-properties", None);
+                    return glib::Propagation::Stop;
+                }
+                (ALT, gdk::Key::KP_Add) => {
+                    self.obj().toggle_files_with_same_extension(true);
+                    return glib::Propagation::Stop;
+                }
+                (ALT, gdk::Key::KP_Subtract) => {
+                    self.obj().toggle_files_with_same_extension(false);
+                    return glib::Propagation::Stop;
+                }
+                (SHIFT, gdk::Key::F6) => {
+                    let this = self.obj().clone();
+                    glib::spawn_future_local(async move {
+                        this.show_rename_dialog().await;
+                    });
+                    return glib::Propagation::Stop;
+                }
+                (SHIFT, gdk::Key::F10) => {
+                    self.obj().show_file_popup(None);
+                    return glib::Propagation::Stop;
+                }
+                (
+                    SHIFT,
+                    gdk::Key::Left | gdk::Key::KP_Left | gdk::Key::Right | gdk::Key::KP_Right,
+                ) => {
+                    return glib::Propagation::Proceed;
+                }
+                (SHIFT, gdk::Key::Page_Up | gdk::Key::KP_Page_Up | gdk::Key::KP_9) => {
+                    self.shift_down_key.set(Some(gdk::Key::Page_Up));
+                    self.shift_down_row.replace(self.obj().focused_file_iter());
+                    return glib::Propagation::Proceed;
+                }
+                (SHIFT, gdk::Key::Page_Down | gdk::Key::KP_Page_Down | gdk::Key::KP_3) => {
+                    self.shift_down_key.set(Some(gdk::Key::Page_Down));
+                    self.shift_down_row.replace(self.obj().focused_file_iter());
+                    return glib::Propagation::Proceed;
+                }
+                (
+                    SHIFT,
+                    gdk::Key::Up
+                    | gdk::Key::KP_Up
+                    | gdk::Key::KP_8
+                    | gdk::Key::Down
+                    | gdk::Key::KP_Down
+                    | gdk::Key::KP_2,
+                ) => {
+                    self.shift_down_key.set(Some(gdk::Key::Up));
+                    if let Some(focused) = self.obj().focused_file_iter() {
+                        self.toggle_file(&focused);
+                    }
+                    return glib::Propagation::Proceed;
+                }
+                (SHIFT, gdk::Key::Home | gdk::Key::KP_Home | gdk::Key::KP_7) => {
+                    self.shift_down_key.set(Some(gdk::Key::Home));
+                    self.shift_down_row.replace(self.obj().focused_file_iter());
+                    return glib::Propagation::Proceed;
+                }
+                (SHIFT, gdk::Key::End | gdk::Key::KP_End | gdk::Key::KP_1) => {
+                    self.shift_down_key.set(Some(gdk::Key::End));
+                    self.shift_down_row.replace(self.obj().focused_file_iter());
+                    return glib::Propagation::Proceed;
+                }
+                (SHIFT, gdk::Key::Delete | gdk::Key::KP_Delete) => {
+                    let this = self.obj().clone();
+                    glib::spawn_future_local(async move {
+                        this.show_delete_dialog(true).await;
+                    });
+                    return glib::Propagation::Stop;
+                }
+                (ALT_SHIFT, gdk::Key::Return | gdk::Key::KP_Enter) => {
+                    self.obj().show_visible_tree_sizes();
+                    return glib::Propagation::Stop;
+                }
+                (CONTROL, gdk::Key::F3) => {
+                    self.obj().sort_by(ColumnID::COLUMN_NAME);
+                    return glib::Propagation::Stop;
+                }
+                (CONTROL, gdk::Key::F4) => {
+                    self.obj().sort_by(ColumnID::COLUMN_EXT);
+                    return glib::Propagation::Stop;
+                }
+                (CONTROL, gdk::Key::F5) => {
+                    self.obj().sort_by(ColumnID::COLUMN_DATE);
+                    return glib::Propagation::Stop;
+                }
+                (CONTROL, gdk::Key::F6) => {
+                    self.obj().sort_by(ColumnID::COLUMN_SIZE);
+                    return glib::Propagation::Stop;
+                }
+                (CONTROL, gdk::Key::P | gdk::Key::p) => {
+                    self.add_cwd_to_cmdline();
+                    return glib::Propagation::Stop;
+                }
+                (CONTROL, gdk::Key::Return | gdk::Key::KP_Enter) => {
+                    self.add_file_to_cmdline(false);
+                    return glib::Propagation::Stop;
+                }
+                (CONTROL_SHIFT, gdk::Key::Return | gdk::Key::KP_Enter) => {
+                    self.add_file_to_cmdline(true);
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::Return | gdk::Key::KP_Enter) => {
+                    let event_processed = self.obj().emit_by_name::<bool>("cmdline-execute", &[]);
+                    if !event_processed {
+                        if let Some(file) = self.obj().focused_file() {
+                            self.obj().emit_by_name::<()>("file-activated", &[&file]);
+                        }
+                    }
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::space) => {
+                    self.obj()
+                        .set_cursor(gdk::Cursor::from_name("wait", None).as_ref());
+
+                    self.obj().toggle();
+                    if let Some(file) = self.obj().selected_file() {
+                        self.obj().show_dir_tree_size(&file);
+                    }
+                    self.obj().emit_files_changed();
+
+                    self.obj().set_cursor(None);
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::KP_Add | gdk::Key::plus | gdk::Key::equal) => {
+                    let this = self.obj().clone();
+                    glib::spawn_future_local(async move {
+                        select_by_pattern(&this, true).await;
+                    });
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::KP_Subtract | gdk::Key::minus) => {
+                    let this = self.obj().clone();
+                    glib::spawn_future_local(async move {
+                        select_by_pattern(&this, false).await;
+                    });
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::KP_Multiply) => {
+                    self.obj().invert_selection();
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::KP_Divide) => {
+                    self.obj().restore_selection();
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::Insert | gdk::Key::KP_Insert) => {
+                    self.obj().toggle();
+                    if let Some(iter) = self.obj().focused_file_iter() {
+                        if self.obj().store().iter_next(&iter) {
+                            self.obj().focus_file_at_row(&iter);
+                        }
+                    }
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::Delete | gdk::Key::KP_Delete) => {
+                    let this = self.obj().clone();
+                    glib::spawn_future_local(async move {
+                        this.show_delete_dialog(false).await;
+                    });
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::Shift_L | gdk::Key::Shift_R) => {
+                    if !self.shift_down.get() {
+                        self.shift_down_row.replace(self.obj().focused_file_iter());
+                    }
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::Menu) => {
+                    self.obj().show_file_popup(None);
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::F3) => {
+                    let _ = self.obj().activate_action("fl.file-view", None);
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::F4) => {
+                    let _ = self.obj().activate_action("fl.file-edit", None);
+                    return glib::Propagation::Stop;
+                }
+                _ => {}
+            }
+
+            if is_quicksearch_starting_character(key) {
+                if is_quicksearch_starting_modifier(self.quick_search_shortcut.get(), state) {
+                    self.obj().show_quick_search(Some(key));
+                } else if let Some(text) = key.to_unicode().map(|c| c.to_string()) {
+                    self.obj().emit_by_name::<()>("cmdline-append", &[&text]);
+                }
+                return glib::Propagation::Stop;
+            }
+            glib::Propagation::Proceed
+        }
+
+        fn toggle_file(&self, iter: &gtk::TreeIter) {
+            unsafe {
+                ffi::gnome_cmd_file_list_toggle_file(
+                    self.obj().to_glib_none().0,
+                    iter.to_glib_none().0,
+                )
+            }
+        }
+
+        fn add_to_cmdline(&self, value: impl AsRef<OsStr>) {
+            if let Some(text) = glib::shell_quote(value).to_str() {
+                self.obj().emit_by_name::<()>("cmdline-append", &[&text]);
+            }
+        }
+
+        fn add_cwd_to_cmdline(&self) {
+            if let Some(path) = self
+                .obj()
+                .directory()
+                .and_upcast::<File>()
+                .map(|d| d.get_real_path())
+            {
+                self.add_to_cmdline(path);
+            }
+        }
+
+        fn add_file_to_cmdline(&self, fullpath: bool) {
+            if let Some(file) = self.obj().selected_file() {
+                if fullpath {
+                    self.add_to_cmdline(file.get_real_path());
+                } else {
+                    self.add_to_cmdline(file.get_name());
+                }
+            }
+        }
+    }
+
+    fn iter_compare(
+        store: &gtk::ListStore,
+        iter1: &gtk::TreeIter,
+        iter2: &gtk::TreeIter,
+    ) -> cmp::Ordering {
+        let path1 = store.path(iter1);
+        let path2 = store.path(iter2);
+        path1.cmp(&path2)
+    }
+
+    fn is_quicksearch_starting_character(key: gdk::Key) -> bool {
+        (key >= gdk::Key::A && key <= gdk::Key::Z)
+            || (key >= gdk::Key::a && key <= gdk::Key::z)
+            || (key >= gdk::Key::_0 && key <= gdk::Key::_9)
+            || key == gdk::Key::period
+            || key == gdk::Key::question
+            || key == gdk::Key::asterisk
+            || key == gdk::Key::bracketleft
+    }
+
+    fn is_quicksearch_starting_modifier(
+        quick_search: QuickSearchShortcut,
+        state: gdk::ModifierType,
+    ) -> bool {
+        match quick_search {
+            QuickSearchShortcut::CtrlAlt => state == CONTROL_ALT,
+            QuickSearchShortcut::Alt => state == ALT,
+            QuickSearchShortcut::JustACharacter => state == NO_MOD,
+        }
     }
 }
 
 pub mod ffi {
     use super::*;
     use crate::{connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir};
-    use gtk::glib::ffi::GList;
+    use gtk::{ffi::GtkTreeIter, glib::ffi::GList};
 
     pub type GnomeCmdFileList = <super::FileList as glib::object::ObjectType>::GlibType;
 
@@ -574,7 +964,6 @@ pub mod ffi {
 
         pub fn gnome_cmd_file_list_goto_directory(fl: *mut GnomeCmdFileList, dir: *const c_char);
 
-        pub fn gnome_cmd_file_list_show_delete_dialog(fl: *mut GnomeCmdFileList, force: gboolean);
         pub fn gnome_cmd_file_list_update_style(fl: *mut GnomeCmdFileList);
 
         pub fn gnome_cmd_file_list_invalidate_tree_size(fl: *mut GnomeCmdFileList);
@@ -589,6 +978,14 @@ pub mod ffi {
         pub fn gnome_cmd_file_list_unselect_all(fl: *mut GnomeCmdFileList);
         pub fn gnome_cmd_file_list_focus_prev(fl: *mut GnomeCmdFileList);
         pub fn gnome_cmd_file_list_focus_next(fl: *mut GnomeCmdFileList);
+
+        pub fn gnome_cmd_file_list_show_dir_tree_size(
+            fl: *mut GnomeCmdFileList,
+            f: *mut GnomeCmdFile,
+        );
+        pub fn gnome_cmd_file_list_show_visible_tree_sizes(fl: *mut GnomeCmdFileList);
+
+        pub fn gnome_cmd_file_list_toggle_file(fl: *mut GnomeCmdFileList, iter: *const GtkTreeIter);
     }
 }
 
@@ -670,6 +1067,16 @@ impl FileList {
             .try_into()
             .ok()
             .unwrap_or_default()
+    }
+
+    pub fn show_dir_tree_size(&self, f: &File) {
+        unsafe {
+            ffi::gnome_cmd_file_list_show_dir_tree_size(self.to_glib_none().0, f.to_glib_none().0)
+        }
+    }
+
+    pub fn show_visible_tree_sizes(&self) {
+        unsafe { ffi::gnome_cmd_file_list_show_visible_tree_sizes(self.to_glib_none().0) }
     }
 
     pub fn clear(&self) {
@@ -999,9 +1406,16 @@ impl FileList {
         format!("{sentence1} {sentence2} {sentence3}")
     }
 
-    pub fn show_delete_dialog(&self, force: bool) {
-        unsafe {
-            ffi::gnome_cmd_file_list_show_delete_dialog(self.to_glib_none().0, force.into_glib())
+    pub async fn show_delete_dialog(&self, force: bool) {
+        let Some(window) = self.root().and_downcast::<gtk::Window>() else {
+            eprintln!("No window");
+            return;
+        };
+        let files = self.selected_files();
+        if !files.is_empty() {
+            let general_options = GeneralOptions::new();
+            let confirm_options = ConfirmOptions::new();
+            show_delete_dialog(&window, &files, force, &general_options, &confirm_options).await;
         }
     }
 
@@ -1288,37 +1702,6 @@ pub extern "C" fn gnome_cmd_file_list_get_type() -> GType {
     FileList::static_type().into_glib()
 }
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_invert_selection(fl: *mut ffi::GnomeCmdFileList) {
-    let fl: FileList = unsafe { from_glib_none(fl) };
-    fl.invert_selection();
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_restore_selection(fl: *mut ffi::GnomeCmdFileList) {
-    let fl: FileList = unsafe { from_glib_none(fl) };
-    fl.restore_selection();
-}
-
-#[no_mangle]
-pub extern "C" fn toggle_files_with_same_extension(
-    fl: *mut ffi::GnomeCmdFileList,
-    select: gboolean,
-) {
-    let fl: FileList = unsafe { from_glib_none(fl) };
-    fl.toggle_files_with_same_extension(select != 0);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_show_quicksearch(
-    fl: *mut ffi::GnomeCmdFileList,
-    keyval: u32,
-) {
-    let fl: FileList = unsafe { from_glib_none(fl) };
-    let key: gdk::Key = unsafe { gdk::Key::from_glib(keyval) };
-    fl.show_quick_search(Some(key));
-}
-
 fn file_is_wanted(file: &File, options: &dyn FiltersOptionsRead) -> bool {
     match file.file().query_info(
         "standard::*",
@@ -1413,14 +1796,6 @@ pub extern "C" fn gnome_cmd_file_list_show_file_popup(
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_show_rename_dialog(f: *mut ffi::GnomeCmdFileList) {
-    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(f) };
-    glib::spawn_future_local(async move {
-        fl.show_rename_dialog().await;
-    });
-}
-
-#[no_mangle]
 pub extern "C" fn gnome_cmd_file_list_get_sort_column(fl: *mut ffi::GnomeCmdFileList) -> i32 {
     let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
     fl.sorting().0 as i32
@@ -1439,7 +1814,11 @@ pub extern "C" fn gnome_cmd_file_list_sort(fl: *mut ffi::GnomeCmdFileList) {
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_sort_by(fl: *mut ffi::GnomeCmdFileList, col: i32) {
+pub extern "C" fn gnome_cmd_file_list_select_with_mouse(
+    fl: *mut ffi::GnomeCmdFileList,
+    iter: *mut GtkTreeIter,
+) {
     let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
-    fl.sort_by(ColumnID::from_repr(col as usize).unwrap());
+    let iter: Borrowed<gtk::TreeIter> = unsafe { from_glib_borrow(iter) };
+    fl.imp().select_with_mouse(&*iter);
 }

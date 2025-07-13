@@ -50,11 +50,9 @@ struct GnomeCmdFile
     void unref();
 
     const gchar *get_name();
-    gchar *get_quoted_name();
     GnomeCmdPath *GetPathThroughParent();
     gchar *GetPathStringThroughParent();
     gchar *get_real_path();
-    gchar *get_quoted_real_path();
     gchar *get_dirname();
     gchar *get_unescaped_dirname();
 

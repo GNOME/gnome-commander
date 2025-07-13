@@ -130,10 +130,14 @@ pub fn file_delete(
     _action: &gio::SimpleAction,
     _parameter: Option<&glib::Variant>,
 ) {
-    main_win
-        .file_selector(FileSelectorID::ACTIVE)
-        .file_list()
-        .show_delete_dialog(false);
+    let main_win = main_win.clone();
+    glib::spawn_future_local(async move {
+        main_win
+            .file_selector(FileSelectorID::ACTIVE)
+            .file_list()
+            .show_delete_dialog(false)
+            .await;
+    });
 }
 
 pub fn file_view(

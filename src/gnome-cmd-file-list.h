@@ -193,12 +193,6 @@ inline GnomeCmdFile *GnomeCmdFileList::get_selected_file()
     return !f || gnome_cmd_file_is_dotdot (f) ? nullptr : f;
 }
 
-extern "C" void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl, gboolean forceDelete = FALSE);
-extern "C" void gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl);
-void gnome_cmd_file_list_show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode);
-
-extern "C" void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, guint keyval);
-
 struct GnomeCmdFileListButtonEvent
 {
     GtkTreeIter *iter;
@@ -209,8 +203,6 @@ struct GnomeCmdFileListButtonEvent
     double y;
     gint state;
 };
-
-extern "C" void gnome_cmd_show_new_textfile_dialog(GtkWindow *parent_window, GnomeCmdFileList *fl);
 
 // FFI
 extern "C" GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl);
@@ -244,3 +236,7 @@ extern "C" void gnome_cmd_file_list_unselect_all_files(GnomeCmdFileList *fl);
 extern "C" void gnome_cmd_file_list_unselect_all(GnomeCmdFileList *fl);
 extern "C" void gnome_cmd_file_list_focus_prev(GnomeCmdFileList *fl);
 extern "C" void gnome_cmd_file_list_focus_next(GnomeCmdFileList *fl);
+
+extern "C" void gnome_cmd_file_list_toggle_file(GnomeCmdFileList *fl, GtkTreeIter *iter);
+extern "C" void gnome_cmd_file_list_show_dir_tree_size(GnomeCmdFileList *fl, GnomeCmdFile *f);
+extern "C" void gnome_cmd_file_list_show_visible_tree_sizes(GnomeCmdFileList *fl);

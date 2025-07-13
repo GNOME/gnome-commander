@@ -29,7 +29,6 @@
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-main-win.h"
 #include "utils.h"
-#include "src/dialogs/gnome-cmd-delete-dialog.h"
 
 using namespace std;
 
@@ -127,6 +126,9 @@ extern "C" void transfer_done(TransferControl *tc_ptr);
 
 
 extern "C" void finish_xfer(XferData *xferData, gboolean threaded, gboolean success);
+
+
+extern "C" void do_delete_files_for_move (GtkWindow *parent_window, GList *files, gboolean showProgress);
 
 
 static void xfer_progress_update (XferData *xferData);

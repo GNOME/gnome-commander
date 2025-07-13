@@ -400,14 +400,6 @@ gboolean GnomeCmdFile::rename(const gchar *new_name, GError **error)
 }
 
 
-gchar *GnomeCmdFile::get_quoted_name()
-{
-    g_return_val_if_fail (get_file_info() != nullptr, nullptr);
-
-    return quote_if_needed (g_file_info_get_display_name(get_file_info()));
-}
-
-
 GnomeCmdPath *GnomeCmdFile::GetPathThroughParent()
 {
     g_return_val_if_fail (get_file_info() != nullptr, nullptr);
@@ -455,21 +447,6 @@ gchar *GnomeCmdFile::get_real_path()
     gchar *path = g_file_get_path (gFileTmp);
 
     return path;
-}
-
-
-gchar *GnomeCmdFile::get_quoted_real_path()
-{
-    gchar *path = get_real_path();
-
-    if (!path)
-        return nullptr;
-
-    gchar *ret = quote_if_needed (path);
-
-    g_free (path);
-
-    return ret;
 }
 
 

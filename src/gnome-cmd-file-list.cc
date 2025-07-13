@@ -37,7 +37,6 @@
 #include "utils.h"
 #include "gnome-cmd-xfer.h"
 #include "gnome-cmd-file-collection.h"
-#include "dialogs/gnome-cmd-delete-dialog.h"
 #include "text-utils.h"
 #include "widget-factory.h"
 
@@ -87,9 +86,6 @@ extern "C" gboolean gnome_cmd_file_is_wanted(GnomeCmdFile *f);
 
 
 extern "C" void gnome_cmd_file_list_sort (GnomeCmdFileList *fl);
-extern "C" void gnome_cmd_file_list_sort_by (GnomeCmdFileList *fl, GnomeCmdFileList::ColumnID col);
-static void on_cursor_change(GtkTreeView *tree, GnomeCmdFileList *fl);
-static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, guint keyval, guint keycode, GdkModifierType state, gpointer user_data);
 
 
 enum DataColumns {
@@ -106,9 +102,6 @@ struct GnomeCmdFileListPrivate
 {
     gchar *base_dir;
 
-    gboolean shift_down;
-    GtkTreeIter *shift_down_row;
-    gint shift_down_key;
     gchar *focus_later;
 
     // dropping files
@@ -360,74 +353,6 @@ static gint iter_compare(GtkListStore *store, GtkTreeIter *iter1, GtkTreeIter *i
 }
 
 
-inline void select_file_range (GnomeCmdFileList *fl, GtkTreeIter *start_row, GtkTreeIter *end_row)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    int state = 0;
-    fl->traverse_files ([fl, start_row, end_row, &state](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-        bool matches = iter_compare(store, iter, start_row) == 0 || iter_compare(store, iter, end_row) == 0;
-        if (state == 0)
-        {
-            if (matches)
-            {
-                state = 1;
-                if (!gnome_cmd_file_is_dotdot (file))
-                    fl->select_iter(iter);
-            }
-        }
-        else
-        {
-            if (!gnome_cmd_file_is_dotdot (file))
-                fl->select_iter(iter);
-            if (matches)
-                return GnomeCmdFileList::TRAVERSE_BREAK;
-        }
-        return GnomeCmdFileList::TRAVERSE_CONTINUE;
-    });
-
-    g_signal_emit_by_name (fl, FILES_CHANGED_SIGNAL);
-}
-
-
-inline void toggle_file_range (GnomeCmdFileList *fl, GtkTreeIter *start_row, GtkTreeIter *end_row, bool closed_end)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    int state = 0;
-    fl->traverse_files ([fl, start_row, end_row, &state, closed_end](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-        bool matches = iter_compare(store, iter, start_row) == 0 || iter_compare(store, iter, end_row) == 0;
-        if (state == 0)
-        {
-            if (matches)
-            {
-                fl->toggle_file (iter);
-                state = 1;
-            }
-        }
-        else if (state == 1)
-        {
-            if (matches)
-            {
-                if (closed_end)
-                {
-                    fl->toggle_file (iter);
-                }
-                return GnomeCmdFileList::TRAVERSE_BREAK;
-            }
-            else
-            {
-                fl->toggle_file (iter);
-            }
-        }
-        return GnomeCmdFileList::TRAVERSE_CONTINUE;
-    });
-}
-
-
-extern "C" void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean select);
-
-
 extern "C" void update_column_sort_arrows (GnomeCmdFileList *fl);
 
 
@@ -519,6 +444,9 @@ inline void show_list_popup (GnomeCmdFileList *fl, gint x, gint y)
 }
 
 
+extern "C" void gnome_cmd_file_list_select_with_mouse (GnomeCmdFileList *fl, GtkTreeIter *iter);
+
+
 static void on_button_press (GtkGestureClick *gesture, int n_press, double x, double y, GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
@@ -578,9 +506,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *
     {
         if (event->state & GDK_SHIFT_MASK)
         {
-            select_file_range (fl, priv->shift_down_row, event->iter);
-            priv->shift_down = FALSE;
-            priv->shift_down_key = 0;
+            gnome_cmd_file_list_select_with_mouse (fl, event->iter);
         }
         else if (event->state & GDK_CONTROL_MASK)
         {
@@ -865,9 +791,6 @@ extern "C" void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
     priv->base_dir = nullptr;
 
     priv->focus_later = nullptr;
-    priv->shift_down = FALSE;
-    priv->shift_down_row = nullptr;
-    priv->shift_down_key = 0;
 
     priv->dropping_files = nullptr;
     priv->dropping_to = nullptr;
@@ -902,16 +825,10 @@ extern "C" void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
 
     g_signal_connect (click_controller, "pressed", G_CALLBACK (on_button_press), fl);
     g_signal_connect (click_controller, "released", G_CALLBACK (on_button_release), fl);
-    g_signal_connect (view, "cursor-changed", G_CALLBACK (on_cursor_change), fl);
 
     g_signal_connect_after (fl, "realize", G_CALLBACK (on_realize), fl);
     g_signal_connect (fl, "file-clicked", G_CALLBACK (on_file_clicked), fl);
     g_signal_connect (fl, "file-released", G_CALLBACK (on_file_released), fl);
-
-    GtkEventController *key_controller = gtk_event_controller_key_new ();
-    gtk_event_controller_set_propagation_phase(key_controller, GTK_PHASE_CAPTURE);
-    gtk_widget_add_controller (GTK_WIDGET (fl), GTK_EVENT_CONTROLLER (key_controller));
-    g_signal_connect (key_controller, "key-pressed", G_CALLBACK (gnome_cmd_file_list_key_pressed), fl);
 
     gtk_widget_add_css_class (GTK_WIDGET (view), "gnome-cmd-file-list");
 
@@ -1376,372 +1293,6 @@ GtkTreeIterPtr GnomeCmdFileList::get_row_from_file(GnomeCmdFile *f)
         return TRAVERSE_CONTINUE;
     });
 	return result;
-}
-
-
-extern "C" void gnome_cmd_file_list_invert_selection(GnomeCmdFileList *fl);
-extern "C" void gnome_cmd_file_list_restore_selection(GnomeCmdFileList *fl);
-
-
-void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl, gboolean forceDelete)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    GList *files = fl->get_selected_files();
-
-    if (files)
-    {
-        gnome_cmd_delete_dialog_show (GTK_WINDOW (gtk_widget_get_root (*fl)), files, forceDelete);
-    }
-}
-
-
-extern "C" void show_pattern_selection_dialog_r(GnomeCmdFileList *fl, gboolean mode);
-
-void gnome_cmd_file_list_show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode)
-{
-    show_pattern_selection_dialog_r(fl, mode);
-}
-
-
-static bool is_quicksearch_starting_character (guint keyval)
-{
-    return (keyval >= GDK_KEY_A && keyval <= GDK_KEY_Z) ||
-            (keyval >= GDK_KEY_a && keyval <= GDK_KEY_z) ||
-            (keyval >= GDK_KEY_0 && keyval <= GDK_KEY_9) ||
-            keyval == GDK_KEY_period ||
-            keyval == GDK_KEY_question ||
-            keyval == GDK_KEY_asterisk ||
-            keyval == GDK_KEY_bracketleft;
-}
-
-
-static bool is_quicksearch_starting_modifier (GnomeCmdQuickSearchShortcut quick_search, guint state)
-{
-    switch (quick_search)
-    {
-        case GNOME_CMD_QUICK_SEARCH_CTRL_ALT:
-            return (state & GDK_CONTROL_MASK) && (state & GDK_ALT_MASK);
-
-        case GNOME_CMD_QUICK_SEARCH_ALT:
-            return !(state & GDK_CONTROL_MASK) && (state & GDK_ALT_MASK);
-
-        case GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER:
-            return !(state & GDK_CONTROL_MASK) && !(state & GDK_ALT_MASK);
-
-        default:
-            return false;
-    }
-}
-
-
-static void set_shift_down_row (GnomeCmdFileList *fl, GtkTreeIter *row)
-{
-    auto priv = file_list_priv (fl);
-
-    if (priv->shift_down_row)
-        gtk_tree_iter_free (priv->shift_down_row);
-    if (row)
-        priv->shift_down_row = gtk_tree_iter_copy (row);
-    else
-        priv->shift_down_row = nullptr;
-}
-
-
-inline void add_file_to_cmdline (GnomeCmdFileList *fl, gboolean fullpath)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    GnomeCmdFile *f = fl->get_selected_file();
-
-    if (f)
-    {
-        gchar *text = fullpath ? f->get_quoted_real_path() : f->get_quoted_name();
-        g_signal_emit_by_name (fl, CMDLINE_APPEND_SIGNAL, text);
-        g_free (text);
-    }
-}
-
-
-inline void add_cwd_to_cmdline (GnomeCmdFileList *fl)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    gchar *dpath = GNOME_CMD_FILE (gnome_cmd_file_list_get_directory (fl))->get_real_path();
-    g_signal_emit_by_name (fl, CMDLINE_APPEND_SIGNAL, dpath);
-    g_free (dpath);
-}
-
-
-static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
-{
-    auto fl = GNOME_CMD_FILE_LIST (user_data);
-    auto priv = file_list_priv (fl);
-
-    if (state_is_alt (state))
-    {
-        switch (keyval)
-        {
-            case GDK_KEY_Return:
-            case GDK_KEY_KP_Enter:
-                gtk_widget_activate_action (GTK_WIDGET (fl), "win.file-properties", nullptr);
-                return TRUE;
-
-            case GDK_KEY_KP_Add:
-                toggle_files_with_same_extension (fl, TRUE);
-                break;
-
-            case GDK_KEY_KP_Subtract:
-                toggle_files_with_same_extension (fl, FALSE);
-                break;
-
-            default:
-                break;
-        }
-    }
-    else if (state_is_shift (state))
-    {
-        switch (keyval)
-        {
-            case GDK_KEY_F6:
-                gnome_cmd_file_list_show_rename_dialog (fl);
-                return TRUE;
-
-            case GDK_KEY_F10:
-                gnome_cmd_file_list_show_file_popup (fl, nullptr);
-                return TRUE;
-
-            case GDK_KEY_Left:
-            case GDK_KEY_KP_Left:
-            case GDK_KEY_Right:
-            case GDK_KEY_KP_Right:
-                return FALSE;
-
-            case GDK_KEY_Page_Up:
-            case GDK_KEY_KP_Page_Up:
-            case GDK_KEY_KP_9:
-                priv->shift_down_key = 3;
-                set_shift_down_row (fl, fl->get_focused_file_iter().get());
-                return FALSE;
-
-            case GDK_KEY_Page_Down:
-            case GDK_KEY_KP_Page_Down:
-            case GDK_KEY_KP_3:
-                priv->shift_down_key = 4;
-                set_shift_down_row (fl, fl->get_focused_file_iter().get());
-                return FALSE;
-
-            case GDK_KEY_Up:
-            case GDK_KEY_KP_Up:
-            case GDK_KEY_KP_8:
-            case GDK_KEY_Down:
-            case GDK_KEY_KP_Down:
-            case GDK_KEY_KP_2:
-                priv->shift_down_key = 1; // 2
-                if (auto focused = fl->get_focused_file_iter())
-                    fl->toggle_file(focused.get());
-                return FALSE;
-
-            case GDK_KEY_Home:
-            case GDK_KEY_KP_Home:
-            case GDK_KEY_KP_7:
-                priv->shift_down_key = 5;
-                set_shift_down_row (fl, fl->get_focused_file_iter().get());
-                return FALSE;
-
-            case GDK_KEY_End:
-            case GDK_KEY_KP_End:
-            case GDK_KEY_KP_1:
-                priv->shift_down_key = 6;
-                set_shift_down_row (fl, fl->get_focused_file_iter().get());
-                return FALSE;
-
-            case GDK_KEY_Delete:
-            case GDK_KEY_KP_Delete:
-                gnome_cmd_file_list_show_delete_dialog (fl, TRUE);
-                return TRUE;
-
-            default:
-                break;
-        }
-    }
-    else if (state_is_alt_shift (state))
-    {
-        switch (keyval)
-        {
-            case GDK_KEY_Return:
-            case GDK_KEY_KP_Enter:
-                fl->show_visible_tree_sizes();
-                return TRUE;
-            default:
-                break;
-        }
-    }
-    else if (state_is_ctrl (state))
-    {
-        switch (keyval)
-        {
-            case GDK_KEY_F3:
-                gnome_cmd_file_list_sort_by (fl, GnomeCmdFileList::COLUMN_NAME);
-                return TRUE;
-
-            case GDK_KEY_F4:
-                gnome_cmd_file_list_sort_by (fl, GnomeCmdFileList::COLUMN_EXT);
-                return TRUE;
-
-            case GDK_KEY_F5:
-                gnome_cmd_file_list_sort_by (fl, GnomeCmdFileList::COLUMN_DATE);
-                return TRUE;
-
-            case GDK_KEY_F6:
-                gnome_cmd_file_list_sort_by (fl, GnomeCmdFileList::COLUMN_SIZE);
-                return TRUE;
-
-            case GDK_KEY_P:
-            case GDK_KEY_p:
-                add_cwd_to_cmdline (fl);
-                return TRUE;
-
-            case GDK_KEY_Return:
-            case GDK_KEY_KP_Enter:
-                add_file_to_cmdline (fl, FALSE);
-                return TRUE;
-
-            default:
-                break;
-        }
-    }
-    if (state_is_ctrl_shift (state))
-    {
-        switch (keyval)
-        {
-            case GDK_KEY_Return:
-            case GDK_KEY_KP_Enter:
-                add_file_to_cmdline (fl, TRUE);
-                return TRUE;
-
-            default:
-                break;
-        }
-    }
-    else if (state_is_blank (state))
-    {
-        switch (keyval)
-        {
-            case GDK_KEY_Return:
-            case GDK_KEY_KP_Enter:
-                {
-                    gboolean event_processed;
-                    g_signal_emit_by_name (fl, CMDLINE_EXECUTE_SIGNAL, &event_processed);
-                    if (!event_processed)
-                        g_signal_emit_by_name (fl, FILE_ACTIVATED_SIGNAL, fl->get_focused_file());
-                }
-                return TRUE;
-
-            case GDK_KEY_space:
-                set_cursor_busy_for_widget (*fl);
-                fl->toggle();
-                if (GnomeCmdFile *selfile = fl->get_selected_file())
-                    fl->show_dir_tree_size(selfile);
-                g_signal_emit_by_name (fl, FILES_CHANGED_SIGNAL);
-                gtk_widget_set_cursor (*fl, nullptr);
-                return TRUE;
-
-            case GDK_KEY_KP_Add:
-            case GDK_KEY_plus:
-            case GDK_KEY_equal:
-                gnome_cmd_file_list_show_selpat_dialog (fl, TRUE);
-                return TRUE;
-
-            case GDK_KEY_KP_Subtract:
-            case GDK_KEY_minus:
-                gnome_cmd_file_list_show_selpat_dialog (fl, FALSE);
-                return TRUE;
-
-            case GDK_KEY_KP_Multiply:
-                gnome_cmd_file_list_invert_selection(fl);
-                return TRUE;
-
-            case GDK_KEY_KP_Divide:
-                gnome_cmd_file_list_restore_selection(fl);
-                return TRUE;
-
-            case GDK_KEY_Insert:
-            case GDK_KEY_KP_Insert:
-                fl->toggle();
-                {
-                    auto store = file_list_store (fl);
-                    auto iter = fl->get_focused_file_iter();
-                    if (iter && gtk_tree_model_iter_next (GTK_TREE_MODEL (store), iter.get()))
-                        fl->focus_file_at_row (iter.get());
-                }
-                return TRUE;
-
-            case GDK_KEY_Delete:
-            case GDK_KEY_KP_Delete:
-                gnome_cmd_file_list_show_delete_dialog (fl);
-                return TRUE;
-
-            case GDK_KEY_Shift_L:
-            case GDK_KEY_Shift_R:
-                if (!priv->shift_down)
-                    set_shift_down_row (fl, fl->get_focused_file_iter().get());
-                return TRUE;
-
-            case GDK_KEY_Menu:
-                gnome_cmd_file_list_show_file_popup (fl, nullptr);
-                return TRUE;
-
-            case GDK_KEY_F3:
-                gtk_widget_activate_action (GTK_WIDGET (fl), "fl.file-view", "mb", nullptr, nullptr);
-                return TRUE;
-
-            case GDK_KEY_F4:
-                gtk_widget_activate_action (GTK_WIDGET (fl), "fl.file-edit", nullptr);
-                return TRUE;
-
-            default:
-                break;
-        }
-    }
-
-    if (is_quicksearch_starting_character (keyval))
-    {
-        GnomeCmdQuickSearchShortcut quick_search_shortcut;
-        g_object_get (fl, "quick-search-shortcut", &quick_search_shortcut, nullptr);
-        if (is_quicksearch_starting_modifier (quick_search_shortcut, state))
-            gnome_cmd_file_list_show_quicksearch (fl, keyval);
-        else
-        {
-            gchar text[2];
-            text[0] = keyval;
-            text[1] = '\0';
-            g_signal_emit_by_name (fl, CMDLINE_APPEND_SIGNAL, text);
-        }
-        return TRUE;
-    }
-
-    return FALSE;
-}
-
-
-static void on_cursor_change(GtkTreeView *tree, GnomeCmdFileList *fl)
-{
-    auto priv = file_list_priv (fl);
-
-    gint shift_down_key = priv->shift_down_key;
-    priv->shift_down_key = 0;
-
-    auto cursor = fl->get_focused_file_iter();
-
-    if (shift_down_key == 3) // page up
-        toggle_file_range (fl, priv->shift_down_row, cursor.get(), false);
-    else if (shift_down_key == 4) // page down
-        toggle_file_range (fl, priv->shift_down_row, cursor.get(), false);
-    else if (shift_down_key == 5) // home
-        toggle_file_range (fl, priv->shift_down_row, cursor.get(), true);
-    else if (shift_down_key == 6) // end
-        toggle_file_range (fl, priv->shift_down_row, cursor.get(), true);
 }
 
 
@@ -2336,4 +1887,19 @@ void gnome_cmd_file_list_focus_prev(GnomeCmdFileList *fl)
 void gnome_cmd_file_list_focus_next(GnomeCmdFileList *fl)
 {
     fl->focus_next();
+}
+
+void gnome_cmd_file_list_show_dir_tree_size(GnomeCmdFileList *fl, GnomeCmdFile *f)
+{
+    fl->show_dir_tree_size(f);
+}
+
+void gnome_cmd_file_list_show_visible_tree_sizes(GnomeCmdFileList *fl)
+{
+    fl->show_visible_tree_sizes();
+}
+
+void gnome_cmd_file_list_toggle_file(GnomeCmdFileList *fl, GtkTreeIter *iter)
+{
+    fl->toggle_file(iter);
 }
