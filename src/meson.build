@@ -21,7 +21,6 @@ sources_headers = files(
   'gnome-cmd-file-collection.h',
   'gnome-cmd-file.h',
   'gnome-cmd-file-list.h',
-  'gnome-cmd-file-list-actions.h',
   'gnome-cmd-file-selector.h',
   'gnome-cmd-includes.h',
   'gnome-cmd-main-win.h',

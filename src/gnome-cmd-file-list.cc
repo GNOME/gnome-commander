@@ -29,7 +29,6 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-file-list.h"
-#include "gnome-cmd-file-list-actions.h"
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-main-win.h"
@@ -158,12 +157,11 @@ static GtkPopover *create_dnd_popup (GnomeCmdFileList *fl, GList *gFileGlist, Gn
 }
 
 
-static void gnome_cmd_file_list_drop_files (GSimpleAction *action, GVariant *parameter, gpointer user_data)
+extern "C" void gnome_cmd_file_list_drop_files (GnomeCmdFileList *fl, gint parameter)
 {
-    auto fl = GNOME_CMD_FILE_LIST (user_data);
     auto priv = file_list_priv (fl);
 
-    auto mode = static_cast<GnomeCmdFileList::DndMode>(g_variant_get_int32 (parameter));
+    auto mode = static_cast<GnomeCmdFileList::DndMode>(parameter);
 
     auto gFileGlist = priv->dropping_files;
     priv->dropping_files = nullptr;
@@ -175,9 +173,8 @@ static void gnome_cmd_file_list_drop_files (GSimpleAction *action, GVariant *par
 }
 
 
-static void gnome_cmd_file_list_drop_files_cancel (GSimpleAction *action, GVariant *parameter, gpointer user_data)
+extern "C" void gnome_cmd_file_list_drop_files_cancel (GnomeCmdFileList *fl)
 {
-    auto fl = GNOME_CMD_FILE_LIST (user_data);
     auto priv = file_list_priv (fl);
 
     g_clear_list (&priv->dropping_files, g_object_unref);
@@ -775,12 +772,6 @@ extern "C" void gnome_cmd_file_list_finalize (GnomeCmdFileList *fl)
 }
 
 
-static void on_refresh (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    GNOME_CMD_FILE_LIST (user_data)->reload();
-}
-
-
 extern "C" void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
 {
     auto view = file_list_view (fl);
@@ -798,25 +789,6 @@ extern "C" void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
     priv->realized = FALSE;
     priv->modifier_click = FALSE;
 
-    auto action_group = g_simple_action_group_new ();
-    static const GActionEntry action_entries[] = {
-        { "refresh",            on_refresh,                                         nullptr, nullptr, nullptr },
-
-        { "file-view",          gnome_cmd_file_list_action_file_view,               "mb",    nullptr, nullptr },
-        { "file-edit",          gnome_cmd_file_list_action_file_edit,               nullptr, nullptr, nullptr },
-
-        { "open-with-default",  gnome_cmd_file_selector_action_open_with_default,   nullptr, nullptr, nullptr },
-        { "open-with-other",    gnome_cmd_file_selector_action_open_with_other,     nullptr, nullptr, nullptr },
-        { "open-with",          gnome_cmd_file_selector_action_open_with,           "(sv)",  nullptr, nullptr },
-        { "execute",            gnome_cmd_file_selector_action_execute,             nullptr, nullptr, nullptr },
-        { "execute-script",     gnome_cmd_file_selector_action_execute_script,      "(sb)",  nullptr, nullptr },
-
-        { "drop-files",         gnome_cmd_file_list_drop_files,                     "i",     nullptr, nullptr },
-        { "drop-files-cancel",  gnome_cmd_file_list_drop_files_cancel,              nullptr, nullptr, nullptr },
-    };
-    g_action_map_add_action_entries (G_ACTION_MAP (action_group), action_entries, G_N_ELEMENTS (action_entries), fl);
-    gtk_widget_insert_action_group (GTK_WIDGET (fl), "fl", G_ACTION_GROUP (action_group));
-
     fl->init_dnd();
 
     GtkGesture *click_controller = gtk_gesture_click_new ();
@@ -829,11 +801,6 @@ extern "C" void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
     g_signal_connect_after (fl, "realize", G_CALLBACK (on_realize), fl);
     g_signal_connect (fl, "file-clicked", G_CALLBACK (on_file_clicked), fl);
     g_signal_connect (fl, "file-released", G_CALLBACK (on_file_released), fl);
-
-    gtk_widget_add_css_class (GTK_WIDGET (view), "gnome-cmd-file-list");
-
-    GtkTreeSelection *selection = gtk_tree_view_get_selection (view);
-    gtk_tree_selection_set_mode (selection, GTK_SELECTION_BROWSE);
 }
 
 

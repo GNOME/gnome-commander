@@ -62,8 +62,14 @@ use std::{collections::HashSet, ffi::c_char, ops::ControlFlow, path::Path};
 mod imp {
     use super::*;
     use crate::{
+        app::App,
         data::ColorOptions,
         dialogs::pattern_selection_dialog::select_by_pattern,
+        file_list::actions::{
+            file_list_action_execute, file_list_action_execute_script, file_list_action_file_edit,
+            file_list_action_file_view, file_list_action_open_with,
+            file_list_action_open_with_default, file_list_action_open_with_other, Script,
+        },
         layout::{
             color_themes::ColorTheme,
             ls_colors::{ls_colors_get, LsPallettePlane},
@@ -162,6 +168,61 @@ mod imp {
         const NAME: &'static str = "GnomeCmdFileList";
         type Type = super::FileList;
         type ParentType = gtk::Widget;
+
+        fn class_init(klass: &mut Self::Class) {
+            klass.install_action("fl.refresh", None, |obj, _, _| obj.reload());
+            klass.install_action_async("fl.file-view", None, |obj, _, parameter| async move {
+                let use_internal_viewer = parameter.and_then(|v| v.get::<bool>());
+                file_list_action_file_view(&obj, use_internal_viewer).await;
+            });
+            klass.install_action_async("fl.file-edit", None, |obj, _, _| async move {
+                file_list_action_file_edit(&obj).await;
+            });
+            klass.install_action_async("fl.open-with-default", None, |obj, _, _| async move {
+                file_list_action_open_with_default(&obj).await;
+            });
+            klass.install_action_async("fl.open-with-other", None, |obj, _, _| async move {
+                file_list_action_open_with_other(&obj).await;
+            });
+            klass.install_action_async(
+                "fl.open-with",
+                Some(&App::static_variant_type()),
+                |obj, _, parameter| async move {
+                    if let Some(app) = parameter.as_ref().and_then(App::from_variant) {
+                        file_list_action_open_with(&obj, app).await;
+                    } else {
+                        eprintln!("Cannot load app from a variant");
+                    }
+                },
+            );
+            klass.install_action_async("fl.execute", None, |obj, _, _| async move {
+                file_list_action_execute(&obj).await;
+            });
+            klass.install_action_async(
+                "fl.execute-script",
+                Some(&Script::static_variant_type()),
+                |obj, _, parameter| async move {
+                    if let Some(script) = parameter.as_ref().and_then(Script::from_variant) {
+                        file_list_action_execute_script(&obj, script).await;
+                    } else {
+                        eprintln!("Cannot load script from a variant");
+                    }
+                },
+            );
+            klass.install_action(
+                "fl.drop-files",
+                Some(&i32::static_variant_type()),
+                |obj, _, parameter| unsafe {
+                    ffi::gnome_cmd_file_list_drop_files(
+                        obj.to_glib_none().0,
+                        parameter.and_then(i32::from_variant).unwrap_or_default(),
+                    );
+                },
+            );
+            klass.install_action("fl.drop-files-cancel", None, |obj, _, _| unsafe {
+                ffi::gnome_cmd_file_list_drop_files_cancel(obj.to_glib_none().0);
+            });
+        }
     }
 
     #[glib::derived_properties]
@@ -177,6 +238,9 @@ mod imp {
                 .replace(load_palette(&ColorOptions::new().0));
 
             let view = gtk::TreeView::builder().build();
+            view.add_css_class("gnome-cmd-file-list");
+            view.selection().set_mode(gtk::SelectionMode::Browse);
+
             let scrolled_window = gtk::ScrolledWindow::builder()
                 .hscrollbar_policy(gtk::PolicyType::Automatic)
                 .vscrollbar_policy(gtk::PolicyType::Automatic)
@@ -986,6 +1050,9 @@ pub mod ffi {
         pub fn gnome_cmd_file_list_show_visible_tree_sizes(fl: *mut GnomeCmdFileList);
 
         pub fn gnome_cmd_file_list_toggle_file(fl: *mut GnomeCmdFileList, iter: *const GtkTreeIter);
+
+        pub fn gnome_cmd_file_list_drop_files(fl: *mut GnomeCmdFileList, parameter: i32);
+        pub fn gnome_cmd_file_list_drop_files_cancel(fl: *mut GnomeCmdFileList);
     }
 }
 
