@@ -309,34 +309,6 @@ void GnomeCmdFileList::focus_file_at_row (GtkTreeIter *row)
 }
 
 
-guint GnomeCmdFileList::size()
-{
-    auto store = file_list_store (this);
-    return gtk_tree_model_iter_n_children (GTK_TREE_MODEL (store), nullptr);
-}
-
-
-void GnomeCmdFileList::toggle_file(GtkTreeIter *iter)
-{
-    auto store = file_list_store (this);
-
-    gboolean selected = FALSE;
-    GnomeCmdFile *file = nullptr;
-    gtk_tree_model_get (GTK_TREE_MODEL (store), iter,
-        DATA_COLUMN_FILE, &file,
-        DATA_COLUMN_SELECTED, &selected,
-        -1);
-
-    if (gnome_cmd_file_is_dotdot (file))
-        return;
-
-    selected = !selected;
-    gtk_list_store_set (store, iter, DATA_COLUMN_SELECTED, selected, -1);
-
-    g_signal_emit_by_name (this, FILES_CHANGED_SIGNAL);
-}
-
-
 static gint iter_compare(GtkListStore *store, GtkTreeIter *iter1, GtkTreeIter *iter2)
 {
     GtkTreePath *path1 = gtk_tree_model_get_path (GTK_TREE_MODEL (store), iter1);
@@ -380,32 +352,6 @@ static GString *build_selected_file_list (GnomeCmdFileList *fl)
 /*******************************
  * Callbacks
  *******************************/
-
-void GnomeCmdFileList::focus_prev()
-{
-    auto view =  file_list_view (this);
-
-    GtkTreePath *path;
-
-    gtk_tree_view_get_cursor (view, &path, nullptr);
-    gtk_tree_path_prev (path);
-    gtk_tree_view_set_cursor (view, path, nullptr, false);
-    gtk_tree_path_free (path);
-}
-
-
-void GnomeCmdFileList::focus_next()
-{
-    auto view =  file_list_view (this);
-
-    GtkTreePath *path;
-
-    gtk_tree_view_get_cursor (view, &path, nullptr);
-    gtk_tree_path_next (path);
-    gtk_tree_view_set_cursor (view, path, nullptr, false);
-    gtk_tree_path_free (path);
-}
-
 
 static void on_realize (GnomeCmdFileList *fl, gpointer user_data)
 {
@@ -585,8 +531,6 @@ extern "C" void gnome_cmd_file_list_finalize (GnomeCmdFileList *fl)
 
 extern "C" void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
 {
-    auto view = file_list_view (fl);
-
     auto priv = g_new0 (GnomeCmdFileListPrivate, 1);
     g_object_set_data_full (G_OBJECT (fl), "priv", priv, g_free);
 
@@ -900,25 +844,6 @@ gboolean GnomeCmdFileList::has_file(const GnomeCmdFile *f)
     return TRAVERSE_BREAK == traverse_files ([f](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
         return file == f ? TRAVERSE_BREAK : TRAVERSE_CONTINUE;
     });
-}
-
-
-void GnomeCmdFileList::toggle()
-{
-    auto iter = get_focused_file_iter();
-    if (iter)
-        toggle_file(iter.get());
-}
-
-
-void GnomeCmdFileList::toggle_and_step()
-{
-    auto store = file_list_store (this);
-    auto iter = get_focused_file_iter();
-    if (iter)
-        toggle_file(iter.get());
-    if (gtk_tree_model_iter_next (GTK_TREE_MODEL (store), iter.get()))
-        focus_file_at_row (iter.get());
 }
 
 
@@ -1550,26 +1475,6 @@ void gnome_cmd_file_list_set_base_dir (GnomeCmdFileList *fl, gchar *dir)
     fl->set_base_dir (dir);
 }
 
-void gnome_cmd_file_list_toggle(GnomeCmdFileList *fl)
-{
-    fl->toggle();
-}
-
-void gnome_cmd_file_list_toggle_and_step(GnomeCmdFileList *fl)
-{
-    fl->toggle_and_step();
-}
-
-void gnome_cmd_file_list_focus_prev(GnomeCmdFileList *fl)
-{
-    fl->focus_prev();
-}
-
-void gnome_cmd_file_list_focus_next(GnomeCmdFileList *fl)
-{
-    fl->focus_next();
-}
-
 void gnome_cmd_file_list_show_dir_tree_size(GnomeCmdFileList *fl, GnomeCmdFile *f)
 {
     fl->show_dir_tree_size(f);
@@ -1578,9 +1483,4 @@ void gnome_cmd_file_list_show_dir_tree_size(GnomeCmdFileList *fl, GnomeCmdFile *
 void gnome_cmd_file_list_show_visible_tree_sizes(GnomeCmdFileList *fl)
 {
     fl->show_visible_tree_sizes();
-}
-
-void gnome_cmd_file_list_toggle_file(GnomeCmdFileList *fl, GtkTreeIter *iter)
-{
-    fl->toggle_file(iter);
 }

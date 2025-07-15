@@ -81,8 +81,6 @@ struct GnomeCmdFileList
         NUM_COLUMNS
     };
 
-    guint size();
-    bool empty()                          {  return size() == 0; }
     void clear();
 
     enum TraverseControl {
@@ -96,22 +94,15 @@ struct GnomeCmdFileList
     gboolean insert_file(GnomeCmdFile *f);      // Returns TRUE if file added to shown file list, FALSE otherwise
     gboolean remove_file(GnomeCmdFile *f);
     void remove_files(GList *files);
-    void remove_all_files()             {  clear();  }
 
     gboolean has_file(const GnomeCmdFile *f);
 
     void focus_file_at_row (GtkTreeIter *row);
 
-    void toggle_file(GtkTreeIter *iter);
-    void toggle();
-    void toggle_and_step();
-
     void select_row(GtkTreeIter *row);
     GnomeCmdFile *get_file_at_row(GtkTreeIter *row);
     GtkTreeIterPtr get_row_from_file(GnomeCmdFile *f);
     void focus_file(const gchar *focus_file, gboolean scroll_to_file=TRUE);
-    void focus_prev();
-    void focus_next();
 
     /**
      * Returns a list with all selected files. The list returned is a
@@ -208,11 +199,5 @@ extern "C" void gnome_cmd_file_list_show_files(GnomeCmdFileList *fl, GnomeCmdDir
 
 extern "C" void gnome_cmd_file_list_set_base_dir (GnomeCmdFileList *fl, gchar *dir);
 
-extern "C" void gnome_cmd_file_list_toggle(GnomeCmdFileList *fl);
-extern "C" void gnome_cmd_file_list_toggle_and_step(GnomeCmdFileList *fl);
-extern "C" void gnome_cmd_file_list_focus_prev(GnomeCmdFileList *fl);
-extern "C" void gnome_cmd_file_list_focus_next(GnomeCmdFileList *fl);
-
-extern "C" void gnome_cmd_file_list_toggle_file(GnomeCmdFileList *fl, GtkTreeIter *iter);
 extern "C" void gnome_cmd_file_list_show_dir_tree_size(GnomeCmdFileList *fl, GnomeCmdFile *f);
 extern "C" void gnome_cmd_file_list_show_visible_tree_sizes(GnomeCmdFileList *fl);

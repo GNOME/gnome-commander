@@ -544,12 +544,17 @@ mod imp {
             selected
         }
 
-        fn cell_data(&self, cell: &gtk::CellRenderer, iter: &gtk::TreeIter, column: i32) {
+        fn file_at_iter(&self, iter: &gtk::TreeIter) -> File {
             let file: File = TreeModelExtManual::get(
                 &self.obj().store(),
                 iter,
                 DataColumns::DATA_COLUMN_FILE as i32,
             );
+            file
+        }
+
+        fn cell_data(&self, cell: &gtk::CellRenderer, iter: &gtk::TreeIter, column: i32) {
+            let file = self.file_at_iter(iter);
             let selected = self.is_selected_iter(iter);
 
             let layout = self.graphical_layout_mode.get();
@@ -1056,12 +1061,11 @@ mod imp {
             popover.popup();
         }
 
-        fn toggle_file(&self, iter: &gtk::TreeIter) {
-            unsafe {
-                ffi::gnome_cmd_file_list_toggle_file(
-                    self.obj().to_glib_none().0,
-                    iter.to_glib_none().0,
-                )
+        pub fn toggle_file(&self, iter: &gtk::TreeIter) {
+            let file = self.file_at_iter(iter);
+            if !file.is_dotdot() {
+                self.set_selected_at_iter(iter, !self.is_selected_iter(iter));
+                self.obj().emit_files_changed();
             }
         }
 
@@ -1166,18 +1170,11 @@ pub mod ffi {
 
         pub fn gnome_cmd_file_list_show_files(fl: *mut GnomeCmdFileList, dir: *mut GnomeCmdDir);
 
-        pub fn gnome_cmd_file_list_toggle(fl: *mut GnomeCmdFileList);
-        pub fn gnome_cmd_file_list_toggle_and_step(fl: *mut GnomeCmdFileList);
-        pub fn gnome_cmd_file_list_focus_prev(fl: *mut GnomeCmdFileList);
-        pub fn gnome_cmd_file_list_focus_next(fl: *mut GnomeCmdFileList);
-
         pub fn gnome_cmd_file_list_show_dir_tree_size(
             fl: *mut GnomeCmdFileList,
             f: *mut GnomeCmdFile,
         );
         pub fn gnome_cmd_file_list_show_visible_tree_sizes(fl: *mut GnomeCmdFileList);
-
-        pub fn gnome_cmd_file_list_toggle_file(fl: *mut GnomeCmdFileList, iter: *const GtkTreeIter);
 
         pub fn gnome_cmd_file_list_drop_files(fl: *mut GnomeCmdFileList, parameter: i32);
         pub fn gnome_cmd_file_list_drop_files_cancel(fl: *mut GnomeCmdFileList);
@@ -1341,11 +1338,18 @@ impl FileList {
     }
 
     pub fn toggle(&self) {
-        unsafe { ffi::gnome_cmd_file_list_toggle(self.to_glib_none().0) }
+        if let Some(iter) = self.focused_file_iter() {
+            self.imp().toggle_file(&iter);
+        }
     }
 
     pub fn toggle_and_step(&self) {
-        unsafe { ffi::gnome_cmd_file_list_toggle_and_step(self.to_glib_none().0) }
+        if let Some(iter) = self.focused_file_iter() {
+            self.imp().toggle_file(&iter);
+            if self.store().iter_next(&iter) {
+                self.focus_file_at_row(&iter);
+            }
+        }
     }
 
     pub fn select_all(&self) {
@@ -1394,11 +1398,20 @@ impl FileList {
     }
 
     pub fn focus_prev(&self) {
-        unsafe { ffi::gnome_cmd_file_list_focus_prev(self.to_glib_none().0) }
+        let view = self.view();
+        if let Some(mut path) = TreeViewExt::cursor(&view).0 {
+            if path.prev() {
+                TreeViewExt::set_cursor(&view, &path, None, false);
+            }
+        }
     }
 
     pub fn focus_next(&self) {
-        unsafe { ffi::gnome_cmd_file_list_focus_next(self.to_glib_none().0) }
+        let view = self.view();
+        if let Some(mut path) = TreeViewExt::cursor(&view).0 {
+            path.next();
+            TreeViewExt::set_cursor(&view, &path, None, false);
+        }
     }
 
     pub fn connection(&self) -> Option<Connection> {
