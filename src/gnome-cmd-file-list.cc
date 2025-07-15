@@ -1141,7 +1141,14 @@ void GnomeCmdFileList::invalidate_tree_size()
 /******************************************************
  * DnD functions
  **/
-/*
+
+// Fake decl. Just to allow D'n'D code to compile
+struct GdkDragContext;
+struct GtkSelectionData;
+static void gtk_selection_data_set (GtkSelectionData *selection_data, const guchar *data, gint length) {}
+static const guchar * gtk_selection_data_get_data (const GtkSelectionData *selection_data) { return nullptr; }
+static GdkDragAction gdk_drag_context_get_selected_action (GdkDragContext *context) { return GDK_ACTION_COPY; }
+
 static void drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *selection_data, guint info, guint32 time, GnomeCmdFileList *fl)
 {
     GList *files = nullptr;
@@ -1160,7 +1167,7 @@ static void drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelect
     {
         case TARGET_URI_LIST:
         case TARGET_TEXT_PLAIN:
-            gtk_selection_data_set (selection_data, gtk_selection_data_get_target (selection_data), 8, (const guchar *) data->str, data->len);
+            gtk_selection_data_set (selection_data, (const guchar *) data->str, data->len);
             break;
 
         case TARGET_URL:
@@ -1171,7 +1178,7 @@ static void drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelect
                 files = g_list_append(files, gFile);
             }
             if (files)
-                gtk_selection_data_set (selection_data, gtk_selection_data_get_target (selection_data), 8, (const guchar *) files->data, strlen ((const char *) files->data));
+                gtk_selection_data_set (selection_data, (const guchar *) files->data, strlen ((const char *) files->data));
             g_list_foreach (files, (GFunc) g_object_unref, nullptr);
             g_strfreev(uriCharList);
             break;
@@ -1188,14 +1195,16 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context,
                                 gint x, gint y, GtkSelectionData *selection_data,
                                 guint info, guint32 time, GnomeCmdFileList *fl)
 {
+    auto priv = file_list_priv (fl);
+
     auto row = fl->get_dest_row_at_pos (x, y);
     GnomeCmdFile *f = fl->get_file_at_row (row.get());
-    GnomeCmdDir *to = fl->cwd;
+    GnomeCmdDir *to = priv->cwd;
 
     // the drop was over a directory in the list, which means that the
     // xfer should be done to that directory instead of the current one in the list
     if (f && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-        to = f->is_dotdot
+        to = gnome_cmd_file_is_dotdot (f)
             ? gnome_cmd_dir_get_parent (to)
             : gnome_cmd_dir_get_child (to, g_file_info_get_display_name(f->get_file_info()));
 
@@ -1206,7 +1215,10 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context,
 
     if (!(mask & (GDK_SHIFT_MASK | GDK_CONTROL_MASK)))
     {
-        switch (gnome_cmd_data.options.mouse_dnd_default)
+        GnomeCmdDefaultDndMode dnd_mode;
+        g_object_get (G_OBJECT (fl), "dnd-mode", &dnd_mode, nullptr);
+
+        switch (dnd_mode)
         {
             case GNOME_CMD_DEFAULT_DND_QUERY:
                 {
@@ -1261,7 +1273,7 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context,
 
 static gboolean drag_motion (GtkWidget *widget, GdkDragContext *context, gint x, gint y, guint time, GnomeCmdFileList *fl)
 {
-    gdk_drag_status (context, gdk_drag_context_get_suggested_action (context), time);
+    // gdk_drag_status (context, gdk_drag_context_get_suggested_action (context), time);
 
     auto row = fl->get_dest_row_at_pos (x, y);
 
@@ -1277,7 +1289,7 @@ static gboolean drag_motion (GtkWidget *widget, GdkDragContext *context, gint x,
 }
 
 
-static void drag_data_delete (GtkWidget *widget, GdkDragContext *drag_context, GnomeCmdFileList *fl)
+static void drag_data_delete (GtkWidget *widget, GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
@@ -1285,12 +1297,13 @@ static void drag_data_delete (GtkWidget *widget, GdkDragContext *drag_context, G
     fl->remove_files(files);
     g_list_free (files);
 }
-*/
+
 
 void GnomeCmdFileList::init_dnd()
 {
-    auto priv = file_list_priv (this);
     auto view = file_list_view (this);
+
+    return; // Do nothing yet. Just let D'n'D code be checked by a compiler
 
     // set up drag source
     GdkContentFormats* drag_formats = gdk_content_formats_new (drag_types, G_N_ELEMENTS (drag_types));
@@ -1299,8 +1312,8 @@ void GnomeCmdFileList::init_dnd()
                                             drag_formats,
                                             (GdkDragAction) (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_ASK));
 
-    // g_signal_connect (this, "drag-data-get", G_CALLBACK (drag_data_get), this);
-    // g_signal_connect (this, "drag-data-delete", G_CALLBACK (drag_data_delete), this);
+    g_signal_connect (this, "drag-data-get", G_CALLBACK (drag_data_get), this);
+    g_signal_connect (this, "drag-data-delete", G_CALLBACK (drag_data_delete), this);
 
     // set up drag destination
     GdkContentFormats* drop_formats = gdk_content_formats_new (drop_types, G_N_ELEMENTS (drop_types));
@@ -1308,8 +1321,8 @@ void GnomeCmdFileList::init_dnd()
                                           drop_formats,
                                           (GdkDragAction) (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_ASK));
 
-    // g_signal_connect (this, "drag-motion", G_CALLBACK (drag_motion), this);
-    // g_signal_connect (this, "drag-data-received", G_CALLBACK (drag_data_received), this);
+    g_signal_connect (this, "drag-motion", G_CALLBACK (drag_motion), this);
+    g_signal_connect (this, "drag-data-received", G_CALLBACK (drag_data_received), this);
 }
 
 

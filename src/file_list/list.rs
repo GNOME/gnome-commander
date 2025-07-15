@@ -45,7 +45,7 @@ use crate::{
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{
-    ffi::{GtkTreeIter, GtkTreeView},
+    ffi::GtkTreeView,
     gdk::{self, ffi::GdkRectangle},
     gio,
     glib::{
@@ -80,8 +80,9 @@ mod imp {
         },
         tags::tags::FileMetadataService,
         types::{
-            ExtensionDisplayMode, GraphicalLayoutMode, LeftMouseButtonMode, MiddleMouseButtonMode,
-            PermissionDisplayMode, QuickSearchShortcut, RightMouseButtonMode,
+            DndMode, ExtensionDisplayMode, GraphicalLayoutMode, LeftMouseButtonMode,
+            MiddleMouseButtonMode, PermissionDisplayMode, QuickSearchShortcut,
+            RightMouseButtonMode,
         },
         utils::{
             get_modifiers_state, ALT, ALT_SHIFT, CONTROL, CONTROL_ALT, CONTROL_SHIFT, NO_MOD, SHIFT,
@@ -145,6 +146,9 @@ mod imp {
 
         #[property(get, set, default = true)]
         left_mouse_button_unselects: Cell<bool>,
+
+        #[property(get, set, builder(DndMode::default()))]
+        dnd_mode: Cell<DndMode>,
 
         #[property(get, set, default = true)]
         select_dirs: Cell<bool>,
@@ -461,6 +465,12 @@ mod imp {
             general_options
                 .0
                 .bind("quick-search", &*fl, "quick-search-shortcut")
+                .build();
+
+            let confirm_options = ConfirmOptions::new();
+            confirm_options
+                .0
+                .bind("mouse-drag-and-drop", &*fl, "dnd-mode")
                 .build();
 
             for (column, key) in fl.view().columns().iter().zip([

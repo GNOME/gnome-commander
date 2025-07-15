@@ -40,7 +40,8 @@ pub enum ConfirmOverwriteMode {
 }
 
 #[repr(C)]
-#[derive(Clone, Copy, Default, strum::FromRepr)]
+#[derive(Clone, Copy, Default, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdDndMode")]
 pub enum DndMode {
     #[default]
     Query = 0,
