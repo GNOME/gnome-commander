@@ -1429,7 +1429,7 @@ impl MainWindow {
             eprintln!("Transfer failed");
         }
 
-        state.source_file_list.reload();
+        state.source_file_list.reload().await;
         dir.relist_files(self.upcast_ref(), false).await;
         self.focus_file_lists();
     }

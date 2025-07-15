@@ -85,8 +85,6 @@ struct GnomeCmdFileList
     bool empty()                          {  return size() == 0; }
     void clear();
 
-    void reload();
-
     enum TraverseControl {
         TRAVERSE_BREAK,
         TRAVERSE_CONTINUE,
@@ -103,11 +101,6 @@ struct GnomeCmdFileList
     gboolean has_file(const GnomeCmdFile *f);
 
     void focus_file_at_row (GtkTreeIter *row);
-
-    void select_all();
-    void unselect_all();
-    void select_all_files();
-    void unselect_all_files();
 
     void toggle_file(GtkTreeIter *iter);
     void toggle();
@@ -193,17 +186,6 @@ inline GnomeCmdFile *GnomeCmdFileList::get_selected_file()
     return !f || gnome_cmd_file_is_dotdot (f) ? nullptr : f;
 }
 
-struct GnomeCmdFileListButtonEvent
-{
-    GtkTreeIter *iter;
-    GnomeCmdFile *file;
-    gint button;
-    gint n_press;
-    double x;
-    double y;
-    gint state;
-};
-
 // FFI
 extern "C" GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl);
 extern "C" GnomeCmdFile *gnome_cmd_file_list_get_focused_file(GnomeCmdFileList *fl);
@@ -212,8 +194,6 @@ extern "C" GnomeCmdDir *gnome_cmd_file_list_get_directory(GnomeCmdFileList *fl);
 extern "C" void gnome_cmd_file_list_set_directory(GnomeCmdFileList *fl, GnomeCmdDir *dir);
 
 extern "C" gint /* ColumnID */ gnome_cmd_file_list_get_sort_column (GnomeCmdFileList *fl);
-
-extern "C" void gnome_cmd_file_list_reload (GnomeCmdFileList *fl);
 
 extern "C" void gnome_cmd_file_list_append_file(GnomeCmdFileList *fl, GnomeCmdFile *f);
 
@@ -230,10 +210,6 @@ extern "C" void gnome_cmd_file_list_set_base_dir (GnomeCmdFileList *fl, gchar *d
 
 extern "C" void gnome_cmd_file_list_toggle(GnomeCmdFileList *fl);
 extern "C" void gnome_cmd_file_list_toggle_and_step(GnomeCmdFileList *fl);
-extern "C" void gnome_cmd_file_list_select_all(GnomeCmdFileList *fl);
-extern "C" void gnome_cmd_file_list_select_all_files(GnomeCmdFileList *fl);
-extern "C" void gnome_cmd_file_list_unselect_all_files(GnomeCmdFileList *fl);
-extern "C" void gnome_cmd_file_list_unselect_all(GnomeCmdFileList *fl);
 extern "C" void gnome_cmd_file_list_focus_prev(GnomeCmdFileList *fl);
 extern "C" void gnome_cmd_file_list_focus_next(GnomeCmdFileList *fl);
 

@@ -139,9 +139,9 @@ extern "C" void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias=NU
 extern "C" GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_default_dir (GnomeCmdCon *con, GnomeCmdDir *dir);
 
-gboolean gnome_cmd_con_should_remember_dir (GnomeCmdCon *con);
-gboolean gnome_cmd_con_needs_open_visprog (GnomeCmdCon *con);
-gboolean gnome_cmd_con_needs_list_visprog (GnomeCmdCon *con);
+extern "C" gboolean gnome_cmd_con_should_remember_dir (GnomeCmdCon *con);
+extern "C" gboolean gnome_cmd_con_needs_open_visprog (GnomeCmdCon *con);
+extern "C" gboolean gnome_cmd_con_needs_list_visprog (GnomeCmdCon *con);
 extern "C" gboolean gnome_cmd_con_can_show_free_space (GnomeCmdCon *con);
 
 extern "C" gboolean gnome_cmd_con_is_local (GnomeCmdCon *con);

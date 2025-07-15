@@ -56,8 +56,6 @@ using namespace std;
 #define FL_PBAR_MAX 50
 
 
-#define FILE_CLICKED_SIGNAL     "file-clicked"
-#define FILE_RELEASED_SIGNAL    "file-released"
 #define LIST_CLICKED_SIGNAL     "list-clicked"
 #define FILES_CHANGED_SIGNAL    "files-changed"
 #define DIR_CHANGED_SIGNAL      "dir-changed"
@@ -379,24 +377,6 @@ static GString *build_selected_file_list (GnomeCmdFileList *fl)
 }
 
 
-extern "C" void gnome_cmd_file_list_show_file_popup (GnomeCmdFileList *fl, GdkRectangle *point_to);
-
-
-struct PopupClosure
-{
-    GnomeCmdFileList *fl;
-    GdkRectangle point_to;
-};
-
-
-static gboolean on_right_mb (PopupClosure *closure)
-{
-    gnome_cmd_file_list_show_file_popup (closure->fl, &closure->point_to);
-    g_free (closure);
-    return G_SOURCE_REMOVE;
-}
-
-
 /*******************************
  * Callbacks
  *******************************/
@@ -424,175 +404,6 @@ void GnomeCmdFileList::focus_next()
     gtk_tree_path_next (path);
     gtk_tree_view_set_cursor (view, path, nullptr, false);
     gtk_tree_path_free (path);
-}
-
-
-extern "C" GMenu *gnome_cmd_list_popmenu_new ();
-
-inline void show_list_popup (GnomeCmdFileList *fl, gint x, gint y)
-{
-    auto menu = gnome_cmd_list_popmenu_new ();
-    GtkWidget *popover = gtk_popover_menu_new_from_model (G_MENU_MODEL (menu));
-    gtk_widget_set_parent (popover, GTK_WIDGET (fl));
-    gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
-    GdkRectangle rect = { x, y, 0, 0 };
-    gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
-    gtk_popover_popup (GTK_POPOVER (popover));
-}
-
-
-extern "C" void gnome_cmd_file_list_select_with_mouse (GnomeCmdFileList *fl, GtkTreeIter *iter);
-
-
-static void on_button_press (GtkGestureClick *gesture, int n_press, double x, double y, GnomeCmdFileList *fl)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    gint button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
-
-    auto row = fl->get_dest_row_at_coords (x, y);
-
-    GnomeCmdFileListButtonEvent event = {
-        .iter = row.get(),
-        .file = nullptr,
-        .button = button,
-        .n_press = n_press,
-        .x = x,
-        .y = y,
-        .state = get_modifiers_state (),
-    };
-
-    if (row)
-    {
-        event.file = fl->get_file_at_row(row.get());
-        g_signal_emit_by_name (fl, LIST_CLICKED_SIGNAL, event.button, event.file);
-        g_signal_emit_by_name (fl, FILE_CLICKED_SIGNAL, &event);
-    }
-    else
-    {
-        g_signal_emit_by_name (fl, LIST_CLICKED_SIGNAL, event.button, event.file);
-        if (n_press == 1 && button == 3) {
-            show_list_popup (fl, x, y);
-        }
-    }
-}
-
-
-static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event, gpointer data)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-    g_return_if_fail (event != nullptr);
-    g_return_if_fail (GNOME_CMD_IS_FILE (event->file));
-    auto priv = file_list_priv (fl);
-    auto store = file_list_store (fl);
-
-    LeftMouseButtonMode left_mouse_button_mode;
-    RightMouseButtonMode right_mouse_button_mode;
-    g_object_get (fl,
-        "left-mouse-button-mode", &left_mouse_button_mode,
-        "right-mouse-button-mode", &right_mouse_button_mode,
-        nullptr);
-
-    priv->modifier_click = event->state & (GDK_CONTROL_MASK | GDK_SHIFT_MASK);
-
-    if (event->n_press == 2 && event->button == 1 && left_mouse_button_mode == LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
-    {
-        g_signal_emit_by_name (fl, FILE_ACTIVATED_SIGNAL, event->file);
-    }
-    else if (event->n_press == 1 && event->button == 1)
-    {
-        if (event->state & GDK_SHIFT_MASK)
-        {
-            gnome_cmd_file_list_select_with_mouse (fl, event->iter);
-        }
-        else if (event->state & GDK_CONTROL_MASK)
-        {
-            fl->toggle_file (event->iter);
-        }
-    }
-    else if (event->n_press == 1 && event->button == 3)
-    {
-        if (!gnome_cmd_file_is_dotdot (event->file))
-        {
-            if (right_mouse_button_mode == RIGHT_BUTTON_SELECTS)
-            {
-                auto focus_iter = fl->get_focused_file_iter();
-                if (iter_compare(store, focus_iter.get(), event->iter) == 0)
-                {
-                    fl->select_iter(event->iter);
-                    g_signal_emit_by_name(fl, FILES_CHANGED_SIGNAL);
-                    gnome_cmd_file_list_show_file_popup (fl, nullptr);
-                }
-                else
-                {
-                    if (!fl->is_selected_iter(event->iter))
-                        fl->select_iter(event->iter);
-                    else
-                        fl->unselect_iter(event->iter);
-                    g_signal_emit_by_name(fl, FILES_CHANGED_SIGNAL);
-                }
-            }
-            else
-            {
-                PopupClosure *closure = g_new0 (PopupClosure, 1);
-                closure->fl = fl;
-                closure->point_to.x = event->x;
-                closure->point_to.y = event->y;
-                closure->point_to.width = 0;
-                closure->point_to.height = 0;
-                g_timeout_add (1, (GSourceFunc) on_right_mb, closure);
-            }
-        }
-    }
-}
-
-
-static void on_file_released (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event, gpointer data)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-    g_return_if_fail (event != nullptr);
-    g_return_if_fail (GNOME_CMD_IS_FILE (event->file));
-    auto priv = file_list_priv (fl);
-
-    LeftMouseButtonMode left_mouse_button_mode;
-    g_object_get (fl, "left-mouse-button-mode", &left_mouse_button_mode, nullptr);
-
-    if (event->n_press == 1 && event->button == 1 && !priv->modifier_click && left_mouse_button_mode == LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
-        g_signal_emit_by_name (fl, FILE_ACTIVATED_SIGNAL, event->file);
-}
-
-
-static void on_button_release (GtkGestureClick *gesture, int n_press, double x, double y, GnomeCmdFileList *fl)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    gint button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
-
-    auto row = fl->get_dest_row_at_coords (x, y);
-    if (!row)
-        return;
-
-    GnomeCmdFile *f = fl->get_file_at_row(row.get());
-
-    GnomeCmdFileListButtonEvent event = {
-        .iter = row.get(),
-        .file = f,
-        .button = button,
-        .n_press = n_press,
-        .x = x,
-        .y = y,
-        .state = get_modifiers_state (),
-    };
-    g_signal_emit_by_name (fl, FILE_RELEASED_SIGNAL, &event);
-
-    if (button == 1 && state_is_blank (event.state))
-    {
-        gboolean left_mouse_button_unselects;
-        g_object_get (fl, "left-mouse-button-unselects", &left_mouse_button_unselects, nullptr);
-
-        if (f && !fl->is_selected_iter(row.get()) && left_mouse_button_unselects)
-            fl->unselect_all();
-    }
 }
 
 
@@ -791,16 +602,7 @@ extern "C" void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
 
     fl->init_dnd();
 
-    GtkGesture *click_controller = gtk_gesture_click_new ();
-    gtk_widget_add_controller (GTK_WIDGET (view), GTK_EVENT_CONTROLLER (click_controller));
-    gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (click_controller), 0);
-
-    g_signal_connect (click_controller, "pressed", G_CALLBACK (on_button_press), fl);
-    g_signal_connect (click_controller, "released", G_CALLBACK (on_button_release), fl);
-
     g_signal_connect_after (fl, "realize", G_CALLBACK (on_realize), fl);
-    g_signal_connect (fl, "file-clicked", G_CALLBACK (on_file_clicked), fl);
-    g_signal_connect (fl, "file-released", G_CALLBACK (on_file_released), fl);
 }
 
 
@@ -1018,16 +820,6 @@ void GnomeCmdFileList::clear()
 }
 
 
-void GnomeCmdFileList::reload()
-{
-    auto priv = file_list_priv (this);
-    g_return_if_fail (GNOME_CMD_IS_DIR (priv->cwd));
-
-    unselect_all();
-    gnome_cmd_dir_relist_files (GTK_WINDOW (gtk_widget_get_root (*this)), priv->cwd, gnome_cmd_con_needs_list_visprog (priv->con));
-}
-
-
 GList *GnomeCmdFileList::get_selected_files()
 {
     GList *files = nullptr;
@@ -1107,59 +899,6 @@ gboolean GnomeCmdFileList::has_file(const GnomeCmdFile *f)
 {
     return TRAVERSE_BREAK == traverse_files ([f](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
         return file == f ? TRAVERSE_BREAK : TRAVERSE_CONTINUE;
-    });
-}
-
-
-void GnomeCmdFileList::select_all_files()
-{
-    traverse_files ([this](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-        if (file && !gnome_cmd_file_is_dotdot (file))
-            set_selected_at_iter (iter, !GNOME_CMD_IS_DIR(file));
-        return TRAVERSE_CONTINUE;
-    });
-}
-
-
-void GnomeCmdFileList::unselect_all_files()
-{
-    traverse_files ([this](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-        if (!GNOME_CMD_IS_DIR(file))
-           unselect_iter(iter);
-        return TRAVERSE_CONTINUE;
-    });
-}
-
-
-void GnomeCmdFileList::select_all()
-{
-    gboolean select_dirs;
-    g_object_get (this, "select-dirs", &select_dirs, nullptr);
-    if (select_dirs)
-    {
-        traverse_files ([this](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-            if (file && !gnome_cmd_file_is_dotdot (file))
-                select_iter(iter);
-            return TRAVERSE_CONTINUE;
-        });
-    }
-    else
-    {
-        traverse_files ([this](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-            if (file && !gnome_cmd_file_is_dotdot (file) && !GNOME_CMD_IS_DIR (file))
-                select_iter(iter);
-            return TRAVERSE_CONTINUE;
-        });
-    }
-    g_signal_emit_by_name (this, FILES_CHANGED_SIGNAL);
-}
-
-
-void GnomeCmdFileList::unselect_all()
-{
-    traverse_files ([this](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-        unselect_iter (iter);
-        return TRAVERSE_CONTINUE;
     });
 }
 
@@ -1771,11 +1510,6 @@ void gnome_cmd_file_list_set_directory(GnomeCmdFileList *fl, GnomeCmdDir *dir)
     fl->set_directory(dir);
 }
 
-void gnome_cmd_file_list_reload (GnomeCmdFileList *fl)
-{
-    fl->reload();
-}
-
 void gnome_cmd_file_list_append_file(GnomeCmdFileList *fl, GnomeCmdFile *f)
 {
     fl->append_file(f);
@@ -1824,26 +1558,6 @@ void gnome_cmd_file_list_toggle(GnomeCmdFileList *fl)
 void gnome_cmd_file_list_toggle_and_step(GnomeCmdFileList *fl)
 {
     fl->toggle_and_step();
-}
-
-void gnome_cmd_file_list_select_all(GnomeCmdFileList *fl)
-{
-    fl->select_all();
-}
-
-void gnome_cmd_file_list_select_all_files(GnomeCmdFileList *fl)
-{
-    fl->select_all_files();
-}
-
-void gnome_cmd_file_list_unselect_all_files(GnomeCmdFileList *fl)
-{
-    fl->unselect_all_files();
-}
-
-void gnome_cmd_file_list_unselect_all(GnomeCmdFileList *fl)
-{
-    fl->unselect_all();
 }
 
 void gnome_cmd_file_list_focus_prev(GnomeCmdFileList *fl)

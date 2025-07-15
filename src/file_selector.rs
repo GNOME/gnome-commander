@@ -146,15 +146,15 @@ mod imp {
                     }
                 },
             );
-            klass.install_action(
+            klass.install_action_async(
                 "fs.refresh-tab",
                 Some(&i32::static_variant_type()),
-                |obj, _, param| {
+                |obj, _, param| async move {
                     if let Some(index) = param
                         .and_then(|p| i32::from_variant(&p))
                         .and_then(|i| i.try_into().ok())
                     {
-                        obj.imp().refresh_tab(index);
+                        obj.imp().refresh_tab(index).await;
                     }
                 },
             );
@@ -445,9 +445,9 @@ mod imp {
             self.update_tab_label(&fl);
         }
 
-        fn refresh_tab(&self, index: u32) {
+        async fn refresh_tab(&self, index: u32) {
             let list = self.obj().file_list_nth(index);
-            list.reload();
+            list.reload().await;
         }
 
         fn find_connection_in_dropdown(&self, con: &Connection) -> Option<u32> {

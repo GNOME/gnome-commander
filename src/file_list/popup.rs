@@ -34,11 +34,7 @@ use crate::{
     utils::MenuBuilderExt,
 };
 use gettextrs::gettext;
-use gtk::{
-    gio::{self, ffi::GMenu},
-    glib::{self, translate::ToGlibPtr},
-    prelude::*,
-};
+use gtk::{gio, glib, prelude::*};
 use std::{
     fs,
     io::{self, BufRead},
@@ -303,9 +299,4 @@ pub fn list_popup_menu() -> gio::Menu {
             GTK_TERMINAL_STOCKID,
         )
         .item(gettext("_Refresh"), "fl.refresh")
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_list_popmenu_new() -> *mut GMenu {
-    list_popup_menu().to_glib_full()
 }

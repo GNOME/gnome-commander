@@ -27,14 +27,14 @@ use super::{
     quick_search::QuickSearch,
 };
 use crate::{
-    connection::connection::Connection,
+    connection::connection::{Connection, ConnectionExt},
     data::{
         ColorOptions, ConfirmOptions, FiltersOptions, FiltersOptionsRead, GeneralOptions,
         GeneralOptionsRead,
     },
     dialogs::{delete_dialog::show_delete_dialog, rename_popover::show_rename_popover},
     dir::Directory,
-    file::{ffi::GnomeCmdFile, File},
+    file::{ffi::GnomeCmdFile, File, GnomeCmdFileExt},
     filter::{fnmatch, Filter},
     layout::{color_themes::ColorThemes, ls_colors_palette::load_palette},
     libgcmd::file_descriptor::FileDescriptorExt,
@@ -65,10 +65,13 @@ mod imp {
         app::App,
         data::ColorOptions,
         dialogs::pattern_selection_dialog::select_by_pattern,
-        file_list::actions::{
-            file_list_action_execute, file_list_action_execute_script, file_list_action_file_edit,
-            file_list_action_file_view, file_list_action_open_with,
-            file_list_action_open_with_default, file_list_action_open_with_other, Script,
+        file_list::{
+            actions::{
+                file_list_action_execute, file_list_action_execute_script,
+                file_list_action_file_edit, file_list_action_file_view, file_list_action_open_with,
+                file_list_action_open_with_default, file_list_action_open_with_other, Script,
+            },
+            popup::list_popup_menu,
         },
         layout::{
             color_themes::ColorTheme,
@@ -80,7 +83,9 @@ mod imp {
             ExtensionDisplayMode, GraphicalLayoutMode, LeftMouseButtonMode, MiddleMouseButtonMode,
             PermissionDisplayMode, QuickSearchShortcut, RightMouseButtonMode,
         },
-        utils::{ALT, ALT_SHIFT, CONTROL, CONTROL_ALT, CONTROL_SHIFT, NO_MOD, SHIFT},
+        utils::{
+            get_modifiers_state, ALT, ALT_SHIFT, CONTROL, CONTROL_ALT, CONTROL_SHIFT, NO_MOD, SHIFT,
+        },
     };
     use std::{
         borrow::Cow,
@@ -88,6 +93,7 @@ mod imp {
         cmp,
         ffi::OsStr,
         sync::OnceLock,
+        time::Duration,
     };
     use strum::VariantArray;
 
@@ -161,6 +167,8 @@ mod imp {
         pub shift_down: Cell<bool>,
         pub shift_down_row: RefCell<Option<gtk::TreeIter>>,
         pub shift_down_key: Cell<Option<gdk::Key>>,
+
+        modifier_click: Cell<Option<gdk::ModifierType>>,
     }
 
     #[glib::object_subclass]
@@ -170,7 +178,9 @@ mod imp {
         type ParentType = gtk::Widget;
 
         fn class_init(klass: &mut Self::Class) {
-            klass.install_action("fl.refresh", None, |obj, _, _| obj.reload());
+            klass.install_action_async("fl.refresh", None, |obj, _, _| async move {
+                obj.reload().await
+            });
             klass.install_action_async("fl.file-view", None, |obj, _, parameter| async move {
                 let use_internal_viewer = parameter.and_then(|v| v.get::<bool>());
                 file_list_action_file_view(&obj, use_internal_viewer).await;
@@ -360,6 +370,29 @@ mod imp {
             ));
             fl.add_controller(key_controller);
 
+            let click_controller = gtk::GestureClick::builder().button(0).build();
+            click_controller.connect_pressed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |gesture, n_press, x, y| imp.on_button_press(
+                    gesture.current_button(),
+                    n_press,
+                    x,
+                    y
+                )
+            ));
+            click_controller.connect_released(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |gesture, n_press, x, y| imp.on_button_release(
+                    gesture.current_button(),
+                    n_press,
+                    x,
+                    y
+                )
+            ));
+            view.add_controller(click_controller);
+
             let general_options = GeneralOptions::new();
             general_options
                 .0
@@ -464,14 +497,6 @@ mod imp {
             static SIGNALS: OnceLock<Vec<glib::subclass::Signal>> = OnceLock::new();
             SIGNALS.get_or_init(|| {
                 vec![
-                    // A file in the list was clicked
-                    glib::subclass::Signal::builder("file-clicked")
-                        .param_types([glib::Pointer::static_type()]) // GnomeCmdFileListButtonEvent
-                        .build(),
-                    // A file in the list has been clicked and mouse button has been released
-                    glib::subclass::Signal::builder("file-released")
-                        .param_types([glib::Pointer::static_type()]) // GnomeCmdFileListButtonEvent
-                        .build(),
                     // The file list widget was clicked
                     glib::subclass::Signal::builder("list-clicked")
                         .param_types([u32::static_type(), Option::<File>::static_type()])
@@ -510,17 +535,22 @@ mod imp {
     }
 
     impl FileList {
+        fn is_selected_iter(&self, iter: &gtk::TreeIter) -> bool {
+            let selected: bool = TreeModelExtManual::get(
+                &self.obj().store(),
+                iter,
+                DataColumns::DATA_COLUMN_SELECTED as i32,
+            );
+            selected
+        }
+
         fn cell_data(&self, cell: &gtk::CellRenderer, iter: &gtk::TreeIter, column: i32) {
             let file: File = TreeModelExtManual::get(
                 &self.obj().store(),
                 iter,
                 DataColumns::DATA_COLUMN_FILE as i32,
             );
-            let selected: bool = TreeModelExtManual::get(
-                &self.obj().store(),
-                iter,
-                DataColumns::DATA_COLUMN_SELECTED as i32,
-            );
+            let selected = self.is_selected_iter(iter);
 
             let layout = self.graphical_layout_mode.get();
 
@@ -628,7 +658,7 @@ mod imp {
             }
         }
 
-        fn set_selected_at_iter(&self, iter: &gtk::TreeIter, selected: bool) {
+        pub fn set_selected_at_iter(&self, iter: &gtk::TreeIter, selected: bool) {
             self.obj().store().set_value(
                 iter,
                 DataColumns::DATA_COLUMN_SELECTED as u32,
@@ -922,6 +952,110 @@ mod imp {
             glib::Propagation::Proceed
         }
 
+        fn get_modifiers_state(&self) -> Option<gdk::ModifierType> {
+            self.obj()
+                .root()
+                .and_downcast::<gtk::Window>()
+                .as_ref()
+                .and_then(get_modifiers_state)
+        }
+
+        fn on_button_press(&self, button: u32, n_press: i32, x: f64, y: f64) {
+            let row = self.row_at_coords(x, y);
+            let row_and_file = row.and_then(|row| Some((row, self.obj().file_at_row(&row)?)));
+
+            self.obj().emit_by_name::<()>(
+                "list-clicked",
+                &[&button, &row_and_file.as_ref().map(|f| &f.1)],
+            );
+
+            if let Some((row, file)) = row_and_file.as_ref() {
+                let state = self.get_modifiers_state();
+
+                self.modifier_click.set(state);
+
+                if n_press == 2
+                    && button == 1
+                    && self.left_mouse_button_mode.get()
+                        == LeftMouseButtonMode::OpensWithDoubleClick
+                {
+                    self.obj().emit_by_name::<()>("file-activated", &[file]);
+                } else if n_press == 1 && button == 1 {
+                    if state == Some(SHIFT) {
+                        self.select_with_mouse(&row);
+                    } else if state == Some(CONTROL) {
+                        self.toggle_file(&row);
+                    }
+                    if state == Some(NO_MOD) {
+                        if !self.is_selected_iter(&row) && self.left_mouse_button_unselects.get() {
+                            self.obj().unselect_all();
+                        }
+                    }
+                } else if n_press == 1 && button == 3 {
+                    if !file.is_dotdot() {
+                        if self.right_mouse_button_mode.get() == RightMouseButtonMode::Selects {
+                            if self.obj().focused_file_iter().map_or(false, |focus_iter| {
+                                iter_compare(&self.obj().store(), &focus_iter, &row)
+                                    == cmp::Ordering::Equal
+                            }) {
+                                self.set_selected_at_iter(&row, true);
+                                self.obj().emit_files_changed();
+                                self.obj().show_file_popup(None);
+                            } else {
+                                if !self.is_selected_iter(&row) {
+                                    self.set_selected_at_iter(&row, true);
+                                } else {
+                                    self.set_selected_at_iter(&row, false);
+                                }
+                                self.obj().emit_files_changed();
+                            }
+                        } else {
+                            let this = self.obj().clone();
+                            glib::timeout_add_local_once(Duration::from_millis(1), move || {
+                                this.show_file_popup(Some(&gdk::Rectangle::new(
+                                    x as i32, y as i32, 0, 0,
+                                )));
+                            });
+                        }
+                    }
+                }
+            } else if n_press == 1 && button == 3 {
+                self.show_list_popup(x, y);
+            }
+        }
+
+        fn on_button_release(&self, button: u32, n_press: i32, x: f64, y: f64) {
+            let Some(row) = self.row_at_coords(x, y) else {
+                return;
+            };
+            if let Some(file) = self.obj().file_at_row(&row) {
+                if n_press == 1
+                    && button == 1
+                    && self.modifier_click.get() == Some(NO_MOD)
+                    && self.left_mouse_button_mode.get()
+                        == LeftMouseButtonMode::OpensWithSingleClick
+                {
+                    self.obj().emit_by_name::<()>("file-activated", &[&file]);
+                }
+            }
+        }
+
+        fn row_at_coords(&self, x: f64, y: f64) -> Option<gtk::TreeIter> {
+            let (path, _) = self.obj().view().dest_row_at_pos(x as i32, y as i32)?;
+            let iter = self.obj().store().iter(&path?)?;
+            Some(iter)
+        }
+
+        fn show_list_popup(&self, x: f64, y: f64) {
+            let menu = list_popup_menu();
+            let popover = gtk::PopoverMenu::from_model(Some(&menu));
+            popover.set_parent(&*self.obj());
+            popover.set_position(gtk::PositionType::Bottom);
+            popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 0, 0)));
+            popover.present();
+            popover.popup();
+        }
+
         fn toggle_file(&self, iter: &gtk::TreeIter) {
             unsafe {
                 ffi::gnome_cmd_file_list_toggle_file(
@@ -1010,8 +1144,6 @@ pub mod ffi {
         pub fn gnome_cmd_file_list_set_directory(fl: *mut GnomeCmdFileList, dir: *mut GnomeCmdDir);
 
         pub fn gnome_cmd_file_list_set_base_dir(fl: *mut GnomeCmdFileList, dir: *mut c_char);
-
-        pub fn gnome_cmd_file_list_reload(fl: *mut GnomeCmdFileList);
         pub fn gnome_cmd_file_list_append_file(fl: *mut GnomeCmdFileList, f: *mut GnomeCmdFile);
 
         pub fn gnome_cmd_file_list_set_connection(
@@ -1036,10 +1168,6 @@ pub mod ffi {
 
         pub fn gnome_cmd_file_list_toggle(fl: *mut GnomeCmdFileList);
         pub fn gnome_cmd_file_list_toggle_and_step(fl: *mut GnomeCmdFileList);
-        pub fn gnome_cmd_file_list_select_all(fl: *mut GnomeCmdFileList);
-        pub fn gnome_cmd_file_list_select_all_files(fl: *mut GnomeCmdFileList);
-        pub fn gnome_cmd_file_list_unselect_all_files(fl: *mut GnomeCmdFileList);
-        pub fn gnome_cmd_file_list_unselect_all(fl: *mut GnomeCmdFileList);
         pub fn gnome_cmd_file_list_focus_prev(fl: *mut GnomeCmdFileList);
         pub fn gnome_cmd_file_list_focus_next(fl: *mut GnomeCmdFileList);
 
@@ -1221,19 +1349,48 @@ impl FileList {
     }
 
     pub fn select_all(&self) {
-        unsafe { ffi::gnome_cmd_file_list_select_all(self.to_glib_none().0) }
+        if self.select_dirs() {
+            let _ = self.traverse_files::<()>(|file, iter, _store| {
+                if !file.is_dotdot() {
+                    self.imp().set_selected_at_iter(iter, true);
+                }
+                ControlFlow::Continue(())
+            });
+        } else {
+            let _ = self.traverse_files::<()>(|file, iter, _store| {
+                if !file.is_dotdot() && !file.is::<Directory>() {
+                    self.imp().set_selected_at_iter(iter, true);
+                }
+                ControlFlow::Continue(())
+            });
+        }
+        self.emit_files_changed();
     }
 
     pub fn select_all_files(&self) {
-        unsafe { ffi::gnome_cmd_file_list_select_all_files(self.to_glib_none().0) }
+        let _ = self.traverse_files::<()>(|file, iter, _store| {
+            if !file.is_dotdot() {
+                self.imp()
+                    .set_selected_at_iter(iter, !file.is::<Directory>());
+            }
+            ControlFlow::Continue(())
+        });
     }
 
     pub fn unselect_all_files(&self) {
-        unsafe { ffi::gnome_cmd_file_list_unselect_all_files(self.to_glib_none().0) }
+        let _ = self.traverse_files::<()>(|file, iter, _store| {
+            if !file.is::<Directory>() {
+                self.imp().set_selected_at_iter(iter, false);
+            }
+            ControlFlow::Continue(())
+        });
     }
 
     pub fn unselect_all(&self) {
-        unsafe { ffi::gnome_cmd_file_list_unselect_all(self.to_glib_none().0) }
+        let _ = self.traverse_files::<()>(|_file, iter, _store| {
+            self.imp().set_selected_at_iter(iter, false);
+            ControlFlow::Continue(())
+        });
     }
 
     pub fn focus_prev(&self) {
@@ -1269,8 +1426,19 @@ impl FileList {
         }
     }
 
-    pub fn reload(&self) {
-        unsafe { ffi::gnome_cmd_file_list_reload(self.to_glib_none().0) }
+    pub async fn reload(&self) {
+        let Some(directory) = self.directory() else {
+            return;
+        };
+        let Some(window) = self.root().and_downcast::<gtk::Window>() else {
+            eprintln!("No window");
+            return;
+        };
+
+        self.unselect_all();
+        directory
+            .relist_files(&window, directory.connection().needs_list_visprog())
+            .await;
     }
 
     pub fn append_file(&self, file: &File) {
@@ -1878,14 +2046,4 @@ pub extern "C" fn update_column_sort_arrows(fl: *mut ffi::GnomeCmdFileList) {
 pub extern "C" fn gnome_cmd_file_list_sort(fl: *mut ffi::GnomeCmdFileList) {
     let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
     fl.sort();
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_select_with_mouse(
-    fl: *mut ffi::GnomeCmdFileList,
-    iter: *mut GtkTreeIter,
-) {
-    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
-    let iter: Borrowed<gtk::TreeIter> = unsafe { from_glib_borrow(iter) };
-    fl.imp().select_with_mouse(&*iter);
 }

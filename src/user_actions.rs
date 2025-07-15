@@ -290,7 +290,7 @@ pub fn file_chmod(
     if !files.is_empty() {
         glib::spawn_future_local(async move {
             if show_chmod_dialog(main_win.upcast_ref(), &files).await {
-                file_list.reload();
+                file_list.reload().await;
             }
         });
     }
@@ -309,7 +309,7 @@ pub fn file_chown(
     if !files.is_empty() {
         glib::spawn_future_local(async move {
             if show_chown_dialog(main_win.upcast_ref(), &files).await {
-                file_list.reload();
+                file_list.reload().await;
             }
         });
     }
@@ -1031,10 +1031,14 @@ pub fn view_refresh(
     _action: &gio::SimpleAction,
     _parameter: Option<&glib::Variant>,
 ) {
-    main_win
-        .file_selector(FileSelectorID::ACTIVE)
-        .file_list()
-        .reload();
+    let main_win = main_win.clone();
+    glib::spawn_future_local(async move {
+        main_win
+            .file_selector(FileSelectorID::ACTIVE)
+            .file_list()
+            .reload()
+            .await;
+    });
 }
 
 pub fn view_in_left_pane(
