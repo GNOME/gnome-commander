@@ -1028,7 +1028,7 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
     switch (gnome_cmd_dir_get_state (dir))
     {
         case GnomeCmdDir::STATE_EMPTY:
-            gnome_cmd_dir_list_files (GTK_WINDOW (gtk_widget_get_root (*this)), dir, gnome_cmd_con_needs_list_visprog (priv->con));
+            gnome_cmd_dir_list_files (GTK_WINDOW (gtk_widget_get_root (*this)), dir, TRUE);
             break;
 
         case GnomeCmdDir::STATE_LISTING:
@@ -1038,7 +1038,7 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
         case GnomeCmdDir::STATE_LISTED:
             // check if the dir has up-to-date file list; if not and it's a local dir - relist it
             if (gnome_cmd_file_is_local (GNOME_CMD_FILE (dir)) && !gnome_cmd_dir_is_monitored (dir) && gnome_cmd_dir_update_mtime (dir))
-                gnome_cmd_dir_relist_files (GTK_WINDOW (gtk_widget_get_root (*this)), dir, gnome_cmd_con_needs_list_visprog (priv->con));
+                gnome_cmd_dir_relist_files (GTK_WINDOW (gtk_widget_get_root (*this)), dir, TRUE);
             else
                 on_dir_list_ok (dir, this);
             break;

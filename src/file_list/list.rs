@@ -27,14 +27,14 @@ use super::{
     quick_search::QuickSearch,
 };
 use crate::{
-    connection::connection::{Connection, ConnectionExt},
+    connection::connection::Connection,
     data::{
         ColorOptions, ConfirmOptions, FiltersOptions, FiltersOptionsRead, GeneralOptions,
         GeneralOptionsRead,
     },
     dialogs::{delete_dialog::show_delete_dialog, rename_popover::show_rename_popover},
     dir::Directory,
-    file::{ffi::GnomeCmdFile, File, GnomeCmdFileExt},
+    file::{ffi::GnomeCmdFile, File},
     filter::{fnmatch, Filter},
     layout::{color_themes::ColorThemes, ls_colors_palette::load_palette},
     libgcmd::file_descriptor::FileDescriptorExt,
@@ -1459,9 +1459,7 @@ impl FileList {
         };
 
         self.unselect_all();
-        directory
-            .relist_files(&window, directory.connection().needs_list_visprog())
-            .await;
+        directory.relist_files(&window, true).await;
     }
 
     pub fn append_file(&self, file: &File) {

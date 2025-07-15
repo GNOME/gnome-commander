@@ -21,7 +21,7 @@
  */
 
 use crate::{
-    connection::connection::Connection,
+    connection::connection::{Connection, ConnectionExt},
     dirlist::list_directory,
     file::{File, GnomeCmdFileExt},
     libgcmd::file_descriptor::FileDescriptor,
@@ -171,11 +171,12 @@ impl Directory {
         unsafe { ffi::gnome_cmd_dir_set_files(self.to_glib_none().0, files.into_raw()) }
     }
 
-    pub async fn relist_files(&self, parent_window: &gtk::Window, visual: bool) {
+    pub async fn relist_files(&self, parent_window: &gtk::Window, mut visual: bool) {
         let Some(lock) = DirectoryLock::try_acquire(self) else {
             return;
         };
 
+        visual &= self.connection().needs_list_visprog();
         let window = if visual { Some(parent_window) } else { None };
         match list_directory(self, window).await {
             Ok(file_infos) => {
@@ -197,7 +198,8 @@ impl Directory {
         lock.release();
     }
 
-    pub async fn list_files(&self, parent_window: &gtk::Window, visual: bool) {
+    pub async fn list_files(&self, parent_window: &gtk::Window, mut visual: bool) {
+        visual &= self.connection().needs_list_visprog();
         let files = self.files();
         if files.is_empty() || self.upcast_ref::<File>().is_local() {
             self.relist_files(parent_window, visual).await;
