@@ -1,6 +1,6 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
-data/org.gnome.gnome-commander.appdata.xml.in
+data/org.gnome.gnome-commander.metainfo.xml.in
 data/org.gnome.gnome-commander.desktop.in
 data/org.gnome.gnome-commander.gschema.xml
 plugins/exiv2/exiv2-plugin.cc

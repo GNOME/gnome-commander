@@ -3,9 +3,9 @@
 cat << EOF > po/POTFILES.in
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
-data/org.gnome.gnome-commander.appdata.xml.in
 data/org.gnome.gnome-commander.desktop.in
 data/org.gnome.gnome-commander.gschema.xml
+data/org.gnome.gnome-commander.metainfo.xml.in
 EOF
 
 {

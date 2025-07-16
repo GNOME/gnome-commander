@@ -138,7 +138,7 @@ configure_file(output : 'config.h', configuration : conf_data)
 meson.add_dist_script(
   find_program('check-news.sh').full_path(),
   '@0@'.format(meson.project_version()),
-  'data/org.gnome.gnome-commander.appdata.xml.in'
+  'data/org.gnome.gnome-commander.metainfo.xml.in'
 )
 
 cargo = find_program('cargo', required: true)

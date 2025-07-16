@@ -42,11 +42,11 @@ gschemas_compiled = custom_target('gschemas.compiled',
 
 po_dir = meson.project_source_root() / 'po'
 
-# Create appdata file
-appdata_file = app_id + '.appdata.xml'
-appdata_file = i18n.merge_file(
-  input: appdata_file + '.in',
-  output: appdata_file,
+# Create metainfo file
+metainfo_file = app_id + '.metainfo.xml'
+metainfo_file = i18n.merge_file(
+  input: metainfo_file + '.in',
+  output: metainfo_file,
   po_dir: po_dir,
   install: true,
   install_dir: metainfodir
@@ -83,12 +83,12 @@ if (desktop_file_validate.found())
   )
 endif
 
-# Validate appdata file
+# Validate metainfo file
 appstreamcli = find_program('appstreamcli', required: false)
 if (appstreamcli.found())
-  test('validate-appdata',
+  test('validate-metainfo',
     appstreamcli,
-    args: ['validate', '--no-net', '--explain', appdata_file.full_path()],
+    args: ['validate', '--no-net', '--explain', metainfo_file.full_path()],
     workdir: meson.current_build_dir()
   )
 endif
