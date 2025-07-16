@@ -19,6 +19,7 @@
 
 use crate::{
     data::{GeneralOptionsRead, GeneralOptionsWrite, ProgramsOptionsRead, WriteResult},
+    debug::debug,
     file::File,
     libgcmd::file_descriptor::FileDescriptorExt,
     spawn::{parse_command_template, spawn_async_command},
@@ -63,6 +64,7 @@ impl AppExt for RegularApp {
 impl RegularApp {
     pub fn launch(&self, files: &glib::List<File>) -> Result<(), ErrorMessage> {
         let files: Vec<_> = files.into_iter().map(|f| f.file()).collect();
+        debug!('g', "Launching {:?}", self.app_info.commandline());
         self.app_info
             .launch(&files, gio::AppLaunchContext::NONE)
             .map_err(|error| {

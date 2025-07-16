@@ -28,7 +28,10 @@ use super::{
     remote::{ffi::GnomeCmdConRemote, ConnectionRemote},
     smb::{ffi::GnomeCmdConSmb, ConnectionSmb},
 };
-use crate::data::{GeneralOptions, GeneralOptionsRead, GeneralOptionsWrite, WriteResult};
+use crate::{
+    data::{GeneralOptions, GeneralOptionsRead, GeneralOptionsWrite, WriteResult},
+    debug::debug,
+};
 use gtk::{
     gio::{
         self,
@@ -445,8 +448,13 @@ impl ConnectionList {
     }
 
     fn add_volume(&self, volume: &gio::Volume) {
+        debug!('m', "volume name = {}", volume.name());
+        debug!('m', "volume uuid = {:?}", volume.uuid());
+
         if let Some(unix_device_string) = volume.identifier(gio::VOLUME_IDENTIFIER_KIND_UNIX_DEVICE)
         {
+            debug!('m', "volume unix device = {:?}", unix_device_string);
+
             // Only create a new device connection if it does not already exist.
             // This can happen if the user manually added the same device in "Options|Devices" menu
             // We have to compare each connection in con_list with the `unix_device_string` for this.
@@ -454,7 +462,8 @@ impl ConnectionList {
                 .find_device_by_mount_point(Path::new(&unix_device_string))
                 .is_some()
             {
-                eprintln!(
+                debug!(
+                    'm',
                     "Device for mountpoint({:?}) already exists. AutoVolume not added",
                     unix_device_string
                 );
@@ -465,7 +474,7 @@ impl ConnectionList {
         if let Some(dev) = ConnectionDevice::new_auto_volume(&volume) {
             self.add(&dev);
         } else {
-            eprintln!("Device does not have a UUID. Skipping");
+            debug!('m', "Device does not have a UUID. Skipping");
         }
     }
 
@@ -483,6 +492,7 @@ impl ConnectionList {
         else {
             return;
         };
+        debug!('m', "Remove Volume: {:?}", device.device_fn());
         self.remove(&device);
     }
 

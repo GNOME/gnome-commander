@@ -45,6 +45,7 @@ mod imp {
         config::{ICONS_DIR, PACKAGE},
         connection::list::ConnectionList,
         data::SearchConfig,
+        debug::set_debug_flags,
         main_win::MainWindow,
     };
     use gtk::glib::translate::ToGlibPtr;
@@ -175,14 +176,17 @@ mod imp {
         }
 
         fn handle_local_options(&self, options: &glib::VariantDict) -> glib::ExitCode {
-            self.debug_flags
-                .replace(get_string_option(options, "debug").map(|flags| {
-                    if flags.contains('a') {
-                        "giklmnpstuvwyzx".to_owned()
-                    } else {
-                        flags
-                    }
-                }));
+            let debug_flags = get_string_option(options, "debug").map(|flags| {
+                if flags.contains('a') {
+                    "giklmnpstuvwyzx".to_owned()
+                } else {
+                    flags
+                }
+            });
+            if let Some(ref debug_flags) = debug_flags {
+                set_debug_flags(debug_flags);
+            }
+            self.debug_flags.replace(debug_flags);
             self.start_left_dir
                 .replace(get_string_option(options, "start-left-dir").map(parse_dir));
             self.start_right_dir

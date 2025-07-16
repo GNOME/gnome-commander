@@ -22,6 +22,7 @@
 
 use crate::{
     data::ProgramsOptionsRead,
+    debug::debug,
     file::File,
     libgcmd::file_descriptor::FileDescriptorExt,
     utils::{make_run_in_terminal_command, ErrorMessage},
@@ -163,6 +164,8 @@ pub fn spawn_async_command(
     command: &OsStr,
 ) -> Result<(), SpawnError> {
     let argv = glib::shell_parse_argv(command).map_err(SpawnError::InvalidCommand)?;
+
+    debug!('g', "running: {}", command.to_string_lossy());
 
     let mut cmd = std::process::Command::new(&argv[0]);
     cmd.args(&argv[1..]);

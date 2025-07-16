@@ -22,6 +22,7 @@ use crate::{
     app::{load_favorite_apps, App, AppTarget, RegularApp, UserDefinedApp},
     config::PACKAGE,
     data::GeneralOptions,
+    debug::debug,
     file::File,
     filter::fnmatch,
     libgcmd::{
@@ -170,6 +171,12 @@ fn add_open_with_entries(menu: &gio::Menu, file_list: &FileList) {
 
         menu.append_item(&item);
     } else {
+        debug!(
+            'u',
+            "No default application found for the MIME type {:?} of {:?}",
+            content_type,
+            first_file.map(|f| f.get_name())
+        );
         menu.append(Some(&gettext("Open Wit_h…")), Some("fl.open-with-other"));
     }
 

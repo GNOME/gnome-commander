@@ -28,6 +28,7 @@ mod connection;
 mod connection_bar;
 mod connection_button;
 mod data;
+mod debug;
 mod dialogs;
 mod dir;
 mod directory_indicator;
