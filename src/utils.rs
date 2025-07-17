@@ -715,3 +715,20 @@ impl<A: PartialOrd> Extend<A> for Max<A> {
         }
     }
 }
+
+pub struct MinMax<A>(Option<(A, A)>);
+
+impl<A> MinMax<A> {
+    pub fn take(self) -> Option<(A, A)> {
+        self.0
+    }
+}
+
+impl<A: PartialOrd + Ord + Clone> FromIterator<A> for MinMax<A> {
+    fn from_iter<T: IntoIterator<Item = A>>(iter: T) -> Self {
+        Self(iter.into_iter().fold(None, |min_max, item| match min_max {
+            Some((min, max)) => Some((A::min(min, item.clone()), A::max(max, item))),
+            None => Some((item.clone(), item)),
+        }))
+    }
+}

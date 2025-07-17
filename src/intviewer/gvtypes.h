@@ -24,14 +24,7 @@
 
 #pragma once
 
-/* TODO: Change these for Big-Endian machines */
-
 #define is_displayable(c) (((c) >= 0x20) && ((c) < 0x7f))
-
-#define GV_FIRST_BYTE(x)  ((unsigned char)(x)&0xFF)
-#define GV_SECOND_BYTE(x) ((unsigned char)((x)>>8)&0xFF)
-#define GV_THIRD_BYTE(x)  ((unsigned char)((x)>>16)&0xFF)
-#define GV_FOURTH_BYTE(x) ((unsigned char)((x)>>24)&0xFF)
 
 /*
  Note:

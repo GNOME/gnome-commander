@@ -25,6 +25,9 @@
 #pragma once
 
 #include "gnome-cmd-includes.h"
+#include "gvtypes.h"
+#include "inputmodes.h"
+
 
 #define G_TYPE_VIEWERSEARCHER         (g_viewer_searcher_get_type ())
 #define G_VIEWERSEARCHER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_VIEWERSEARCHER, GViewerSearcher))

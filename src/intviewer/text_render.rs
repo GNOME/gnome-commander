@@ -19,90 +19,20 @@
 
 use super::{data_presentation::DataPresentation, file_ops::FileOps};
 use crate::{
-    intviewer::{
-        data_presentation::{ffi::GVDataPresentation, DataPresentationMode},
-        file_ops::ffi::ViewerFileOps,
-        input_modes::{ffi::GVInputModesData, InputMode},
-    },
+    intviewer::{data_presentation::DataPresentationMode, input_modes::InputMode},
     utils::Max,
 };
-use gtk::{
-    gdk,
-    glib::{
-        self,
-        ffi::GType,
-        translate::{from_glib_borrow, Borrowed, IntoGlib, ToGlibPtr},
-    },
-    graphene,
-    pango::{self, ffi::PangoFontDescription},
-    prelude::*,
-    subclass::prelude::*,
-};
+use gtk::{gdk, glib, graphene, pango, prelude::*, subclass::prelude::*};
 use std::{num::NonZeroU32, path::Path, rc::Rc};
-
-pub mod ffi {
-    use super::*;
-    use gtk::{ffi::GtkSnapshot, glib::ffi::gboolean};
-
-    pub type TextRender = <super::TextRender as glib::object::ObjectType>::GlibType;
-
-    extern "C" {
-        pub fn text_render_init(w: *mut TextRender);
-        pub fn text_render_finalize(w: *mut TextRender);
-
-        pub fn text_render_filter_undisplayable_chars(w: *mut TextRender);
-
-        pub fn text_mode_display_line(
-            w: *mut TextRender,
-            snapshot: *mut GtkSnapshot,
-            column: i32,
-            start_of_line: u64,
-            end_of_line: u64,
-            marker_start: u64,
-            marker_end: u64,
-        );
-        pub fn binary_mode_display_line(
-            w: *mut TextRender,
-            snapshot: *mut GtkSnapshot,
-            column: i32,
-            start_of_line: u64,
-            end_of_line: u64,
-            marker_start: u64,
-            marker_end: u64,
-        );
-        pub fn hex_mode_display_line(
-            w: *mut TextRender,
-            snapshot: *mut GtkSnapshot,
-            column: i32,
-            start_of_line: u64,
-            end_of_line: u64,
-            marker_start: u64,
-            marker_end: u64,
-        );
-
-        pub fn text_mode_pixel_to_offset(
-            w: *mut TextRender,
-            x: i32,
-            y: i32,
-            start_marker: gboolean,
-        ) -> u64;
-        pub fn hex_mode_pixel_to_offset(
-            w: *mut TextRender,
-            x: i32,
-            y: i32,
-            start_marker: gboolean,
-        ) -> u64;
-
-        pub fn text_mode_copy_to_clipboard(w: *mut TextRender, start_offset: u64, end_offset: u64);
-        pub fn hex_mode_copy_to_clipboard(w: *mut TextRender, start_offset: u64, end_offset: u64);
-    }
-}
 
 const HEXDUMP_FIXED_LIMIT: u32 = 16;
 
 mod imp {
     use super::*;
-    use crate::intviewer::data_presentation::DataPresentationMode;
+    use crate::{
+        intviewer::data_presentation::{next_tab_position, DataPresentationMode},
+        utils::MinMax,
+    };
     use std::{
         cell::{Cell, RefCell},
         sync::OnceLock,
@@ -156,6 +86,7 @@ mod imp {
         pub marker_end: Cell<u64>,
         /// The button pressed to start a selection
         button: Cell<Option<u32>>,
+        hexmode_marker_on_hexdump: Cell<bool>,
 
         pub char_width: Cell<i32>,
         pub char_height: Cell<i32>,
@@ -200,6 +131,7 @@ mod imp {
                 marker_start: Default::default(),
                 marker_end: Default::default(),
                 button: Default::default(),
+                hexmode_marker_on_hexdump: Default::default(),
 
                 char_width: Default::default(),
                 char_height: Default::default(),
@@ -216,9 +148,6 @@ mod imp {
             let this = self.obj();
 
             this.set_focusable(true);
-
-            unsafe { ffi::text_render_init(this.to_glib_none().0) }
-
             this.setup_current_font();
 
             let scroll_controller = gtk::EventControllerScroll::builder()
@@ -271,10 +200,6 @@ mod imp {
                 move |_, key, _, _| imp.key_pressed(key)
             ));
             this.add_controller(key_controller);
-        }
-
-        fn dispose(&self) {
-            unsafe { ffi::text_render_finalize(self.obj().to_glib_none().0) }
         }
 
         fn signals() -> &'static [glib::subclass::Signal] {
@@ -343,6 +268,8 @@ mod imp {
                 std::mem::swap(&mut marker_start, &mut marker_end);
             }
 
+            let display_options = DisplayOptions::default();
+            let display_options_alternate = DisplayOptions::alternate_marker();
             loop {
                 let eol_offset = dp.end_of_line_offset(offset);
                 if eol_offset == offset {
@@ -350,41 +277,36 @@ mod imp {
                 }
 
                 snapshot.save();
-                snapshot.translate(&graphene::Point::new(0.0, y as f32));
+                snapshot.translate(&graphene::Point::new(
+                    -(self.char_width.get() * column) as f32,
+                    y as f32,
+                ));
                 match display_mode {
-                    TextRenderDisplayMode::Text => unsafe {
-                        ffi::text_mode_display_line(
-                            self.obj().to_glib_none().0,
-                            snapshot.to_glib_none().0,
-                            column,
-                            offset,
-                            eol_offset,
-                            marker_start,
-                            marker_end,
-                        )
-                    },
-                    TextRenderDisplayMode::Binary => unsafe {
-                        ffi::binary_mode_display_line(
-                            self.obj().to_glib_none().0,
-                            snapshot.to_glib_none().0,
-                            column,
-                            offset,
-                            eol_offset,
-                            marker_start,
-                            marker_end,
-                        )
-                    },
-                    TextRenderDisplayMode::Hexdump => unsafe {
-                        ffi::hex_mode_display_line(
-                            self.obj().to_glib_none().0,
-                            snapshot.to_glib_none().0,
-                            column,
-                            offset,
-                            eol_offset,
-                            marker_start,
-                            marker_end,
-                        )
-                    },
+                    TextRenderDisplayMode::Text => self.text_mode_display_line(
+                        snapshot,
+                        offset,
+                        eol_offset,
+                        marker_start,
+                        marker_end,
+                        &display_options,
+                    ),
+                    TextRenderDisplayMode::Binary => self.binary_mode_display_line(
+                        snapshot,
+                        offset,
+                        eol_offset,
+                        marker_start,
+                        marker_end,
+                        &display_options,
+                    ),
+                    TextRenderDisplayMode::Hexdump => self.hex_mode_display_line(
+                        snapshot,
+                        offset,
+                        eol_offset,
+                        marker_start,
+                        marker_end,
+                        &display_options,
+                        &display_options_alternate,
+                    ),
                 }
                 snapshot.restore();
 
@@ -621,13 +543,34 @@ mod imp {
                     self.encoding.replace(encoding.clone());
                     if let Some(input_mode) = self.obj().input_mode() {
                         input_mode.set_mode(&encoding);
-                        unsafe {
-                            ffi::text_render_filter_undisplayable_chars(
-                                self.obj().to_glib_none().0,
-                            );
-                        }
+                        self.filter_undisplayable_chars();
                     }
                     self.obj().queue_draw();
+                }
+            }
+        }
+
+        fn filter_undisplayable_chars(&self) {
+            let Some(input_mode) = self.obj().input_mode() else {
+                return;
+            };
+
+            let layout = self.obj().create_pango_layout(None);
+            layout.set_font_description(self.font_desc.borrow().as_ref());
+            for byte in 0..=255 {
+                let displayable = input_mode
+                    .byte_to_utf8(byte)
+                    .filter(|ch| *ch != '\0')
+                    .map(|ch| {
+                        layout.set_text(&ch.to_string());
+                        let (_ink_rect, logical_rect) = layout.pixel_extents();
+                        // Pango displays something
+                        logical_rect.width() > 0
+                    })
+                    .unwrap_or_default();
+
+                if !displayable {
+                    input_mode.update_utf8_translation(byte, '.');
                 }
             }
         }
@@ -671,22 +614,10 @@ mod imp {
             if n_press == 1 && self.button.get().is_none() {
                 self.button.set(Some(button));
                 self.marker_start.set(match self.obj().display_mode() {
-                    TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => unsafe {
-                        ffi::text_mode_pixel_to_offset(
-                            self.obj().to_glib_none().0,
-                            x as i32,
-                            y as i32,
-                            1,
-                        )
-                    },
-                    TextRenderDisplayMode::Hexdump => unsafe {
-                        ffi::hex_mode_pixel_to_offset(
-                            self.obj().to_glib_none().0,
-                            x as i32,
-                            y as i32,
-                            1,
-                        )
-                    },
+                    TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => {
+                        self.text_mode_pixel_to_offset(x, y, true)
+                    }
+                    TextRenderDisplayMode::Hexdump => self.hex_mode_pixel_to_offset(x, y, true),
                 });
             }
         }
@@ -695,22 +626,10 @@ mod imp {
             if self.button.get() == Some(button) {
                 self.button.set(None);
                 self.marker_end.set(match self.obj().display_mode() {
-                    TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => unsafe {
-                        ffi::text_mode_pixel_to_offset(
-                            self.obj().to_glib_none().0,
-                            x as i32,
-                            y as i32,
-                            0,
-                        )
-                    },
-                    TextRenderDisplayMode::Hexdump => unsafe {
-                        ffi::hex_mode_pixel_to_offset(
-                            self.obj().to_glib_none().0,
-                            x as i32,
-                            y as i32,
-                            0,
-                        )
-                    },
+                    TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => {
+                        self.text_mode_pixel_to_offset(x, y, false)
+                    }
+                    TextRenderDisplayMode::Hexdump => self.hex_mode_pixel_to_offset(x, y, false),
                 });
                 self.obj().queue_draw();
             }
@@ -719,22 +638,10 @@ mod imp {
         fn motion_notify(&self, x: f64, y: f64) {
             if self.button.get().is_some() {
                 let new_marker = match self.obj().display_mode() {
-                    TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => unsafe {
-                        ffi::text_mode_pixel_to_offset(
-                            self.obj().to_glib_none().0,
-                            x as i32,
-                            y as i32,
-                            0,
-                        )
-                    },
-                    TextRenderDisplayMode::Hexdump => unsafe {
-                        ffi::hex_mode_pixel_to_offset(
-                            self.obj().to_glib_none().0,
-                            x as i32,
-                            y as i32,
-                            0,
-                        )
-                    },
+                    TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => {
+                        self.text_mode_pixel_to_offset(x, y, false)
+                    }
+                    TextRenderDisplayMode::Hexdump => self.hex_mode_pixel_to_offset(x, y, false),
                 };
                 if new_marker != self.marker_end.get() {
                     self.marker_end.set(new_marker);
@@ -789,6 +696,420 @@ mod imp {
             self.obj().queue_draw();
 
             glib::Propagation::Stop
+        }
+
+        pub fn text_mode_pixel_to_offset(&self, x: f64, y: f64, start_marker: bool) -> u64 {
+            let Some(dp) = self.obj().data_presentation() else {
+                return 0;
+            };
+            let Some(input_mode) = self.obj().input_mode() else {
+                return 0;
+            };
+
+            let char_width = self.char_width.get();
+            let char_height = self.char_height.get();
+            let tab_size = self.tab_size.get();
+
+            let current_offset: u64 = self.obj().current_offset();
+
+            if x < 0.0 || y < 0.0 || char_height <= 0 || char_width <= 0 {
+                return current_offset;
+            }
+
+            let line = (y / char_height as f64) as i32;
+            let column = (x as i32 / char_width + self.obj().column()) as u32;
+
+            let line_offset = dp.scroll_lines(current_offset, line);
+            let next_line_offset = dp.scroll_lines(line_offset, 1);
+
+            let offset = text_mode_line_iter(&input_mode, line_offset, next_line_offset, tab_size)
+                .find_map(move |(offset, c, _)| {
+                    if start_marker {
+                        (c >= column).then_some(offset)
+                    } else {
+                        (c > column).then_some(offset)
+                    }
+                })
+                .unwrap_or(next_line_offset);
+
+            offset
+        }
+
+        pub fn hex_mode_pixel_to_offset(&self, x: f64, y: f64, start_marker: bool) -> u64 {
+            let Some(dp) = self.obj().data_presentation() else {
+                return 0;
+            };
+            let Some(input_mode) = self.obj().input_mode() else {
+                return 0;
+            };
+
+            let char_width = self.char_width.get();
+            let char_height = self.char_height.get();
+
+            let current_offset: u64 = self.obj().current_offset();
+
+            if x < 0.0 || y < 0.0 || char_height <= 0 || char_width <= 0 {
+                return current_offset;
+            }
+
+            let line = (y / char_height as f64) as i32;
+            let column = (x as i32 / char_width + self.obj().column()) as u32;
+
+            let line_offset = dp.scroll_lines(current_offset, line);
+            let next_line_offset = dp.scroll_lines(line_offset, 1);
+
+            let (hex_offset, bin_offset) = hex_mode_column_layout();
+
+            if column < hex_offset {
+                return line_offset;
+            }
+
+            let mut byte_offset = if start_marker {
+                if column < bin_offset {
+                    // the user selected the hex dump portion
+                    self.hexmode_marker_on_hexdump.set(true);
+                    (column - hex_offset + 2) / 3
+                } else {
+                    // the user selected the ascii portion
+                    self.hexmode_marker_on_hexdump.set(false);
+                    column - bin_offset
+                }
+            } else {
+                if self.hexmode_marker_on_hexdump.get() {
+                    if column < bin_offset {
+                        // the user selected the hex dump portion
+                        (column - hex_offset + 2) / 3
+                    } else {
+                        HEXDUMP_FIXED_LIMIT
+                    }
+                } else {
+                    if column < bin_offset {
+                        0
+                    } else {
+                        column - bin_offset
+                    }
+                }
+            };
+
+            let mut offset = line_offset;
+            while byte_offset > 0 && offset < next_line_offset {
+                offset = input_mode.next_char_offset(offset);
+                byte_offset -= 1;
+            }
+
+            offset
+        }
+
+        fn display_line(
+            &self,
+            snapshot: &gtk::Snapshot,
+            chars: &[(u64, u32, char)],
+            marker_start: u64,
+            marker_end: u64,
+            display_options: &DisplayOptions,
+        ) {
+            let layout = self.obj().create_pango_layout(None);
+            layout.set_font_description(self.font_desc.borrow().as_ref());
+
+            let marked: MinMax<u32> = chars
+                .iter()
+                .filter(|(offset, _, _)| *offset >= marker_start && *offset < marker_end)
+                .map(|(_, column, _)| *column)
+                .collect();
+
+            if let Some((start, end)) = marked.take() {
+                snapshot.save();
+                snapshot.translate(&graphene::Point::new(
+                    (self.char_width.get() * (start as i32)) as f32,
+                    0_f32,
+                ));
+                snapshot.append_color(
+                    &display_options.marker_background_color,
+                    &graphene::Rect::new(
+                        0.0,
+                        0.0,
+                        (self.char_width.get() * (end + 1 - start) as i32) as f32,
+                        self.char_height.get() as f32,
+                    ),
+                );
+                snapshot.restore();
+            }
+
+            for (current, column, character) in chars {
+                layout.set_text(&character.to_string());
+                snapshot.save();
+                snapshot.translate(&graphene::Point::new(
+                    (self.char_width.get() * (*column as i32)) as f32,
+                    0_f32,
+                ));
+                if *current >= marker_start && *current < marker_end {
+                    snapshot.append_layout(&layout, &display_options.marker_text_color);
+                } else {
+                    snapshot.append_layout(&layout, &display_options.text_color);
+                }
+                snapshot.restore();
+            }
+
+            let max_column = chars
+                .iter()
+                .map(|(_, column, _)| *column)
+                .max()
+                .unwrap_or_default();
+            if max_column > self.max_column.get() {
+                self.max_column.set(max_column);
+                self.update_adjustments_limits();
+            }
+        }
+
+        fn text_mode_chars(&self, start_of_line: u64, end_of_line: u64) -> Vec<(u64, u32, char)> {
+            let Some(input_mode) = self.obj().input_mode() else {
+                return Vec::new();
+            };
+            text_mode_line_iter(&input_mode, start_of_line, end_of_line, self.tab_size.get())
+                .filter_map(|(offset, column, character)| match character {
+                    Some('\r') | Some('\n') => None,
+                    Some(ch) if ch == '\0' || ch.is_whitespace() => Some((offset, column, ' ')),
+                    Some(ch) => Some((offset, column, ch)),
+                    None => Some((offset, column, '\u{FFFD}')),
+                })
+                .collect::<Vec<_>>()
+        }
+
+        fn text_mode_display_line(
+            &self,
+            snapshot: &gtk::Snapshot,
+            start_of_line: u64,
+            end_of_line: u64,
+            marker_start: u64,
+            marker_end: u64,
+            display_options: &DisplayOptions,
+        ) {
+            let chars = self.text_mode_chars(start_of_line, end_of_line);
+            self.display_line(snapshot, &chars, marker_start, marker_end, display_options);
+        }
+
+        pub fn text_mode_copy_to_clipboard(&self, start_offset: u64, end_offset: u64) {
+            let Some(input_mode) = self.obj().input_mode() else {
+                return;
+            };
+            let text: String = input_mode
+                .offsets(start_offset, end_offset)
+                .filter_map(|offset| input_mode.character(offset))
+                .collect();
+            self.obj().clipboard().set_text(&text);
+        }
+
+        fn binary_mode_chars(&self, start_of_line: u64, end_of_line: u64) -> Vec<(u64, u32, char)> {
+            let Some(input_mode) = self.obj().input_mode() else {
+                return Vec::new();
+            };
+            binary_mode_line_iter(&input_mode, start_of_line, end_of_line)
+                .filter_map(|(offset, column, character)| {
+                    Some((
+                        offset,
+                        column,
+                        character.map_or('.', |c| if c.is_control() { '.' } else { c }),
+                    ))
+                })
+                .collect()
+        }
+
+        fn binary_mode_display_line(
+            &self,
+            snapshot: &gtk::Snapshot,
+            start_of_line: u64,
+            end_of_line: u64,
+            marker_start: u64,
+            marker_end: u64,
+            display_options: &DisplayOptions,
+        ) {
+            let chars = self.binary_mode_chars(start_of_line, end_of_line);
+            self.display_line(snapshot, &chars, marker_start, marker_end, display_options);
+        }
+
+        fn hex_mode_display_line(
+            &self,
+            snapshot: &gtk::Snapshot,
+            start_of_line: u64,
+            end_of_line: u64,
+            marker_start: u64,
+            marker_end: u64,
+            display_options: &DisplayOptions,
+            display_options_alternate: &DisplayOptions,
+        ) {
+            let Some(input_mode) = self.obj().input_mode() else {
+                return;
+            };
+
+            let layout = self.obj().create_pango_layout(None);
+            layout.set_font_description(self.font_desc.borrow().as_ref());
+            layout.set_text(&if self.hexadecimal_offset.get() {
+                format!("{:08X}", start_of_line)
+            } else {
+                format!("{:09}", start_of_line)
+            });
+            snapshot.append_layout(&layout, &display_options.text_color);
+
+            let (display_options, display_options_alternate) =
+                if self.hexmode_marker_on_hexdump.get() {
+                    (display_options, display_options_alternate)
+                } else {
+                    (display_options_alternate, display_options)
+                };
+
+            let hex_chars = hex_mode_line_iter(&input_mode, start_of_line, end_of_line)
+                .flat_map(|(offset, column, byte)| {
+                    match byte {
+                        Some(b) => format!("{:02X}", b)
+                            .chars()
+                            .enumerate()
+                            .map(|(i, c)| (offset, column * 3 + i as u32, c))
+                            .collect(),
+                        None => {
+                            vec![]
+                        }
+                    }
+                    .into_iter()
+                })
+                .collect::<Vec<_>>();
+
+            let bin_chars = hex_mode_line_iter(&input_mode, start_of_line, end_of_line)
+                .filter_map(|(offset, column, byte)| {
+                    Some((
+                        offset,
+                        column,
+                        byte.filter(|b| *b != 0)
+                            .and_then(|b| char::from_u32(b as u32))
+                            .unwrap_or('.'),
+                    ))
+                })
+                .collect::<Vec<_>>();
+
+            let (hex_offset, bin_offset) = hex_mode_column_layout();
+
+            snapshot.save();
+            snapshot.translate(&graphene::Point::new(
+                (self.char_width.get() * hex_offset as i32) as f32,
+                0_f32,
+            ));
+            self.display_line(
+                snapshot,
+                &hex_chars,
+                marker_start,
+                marker_end,
+                display_options,
+            );
+            snapshot.restore();
+
+            snapshot.save();
+            snapshot.translate(&graphene::Point::new(
+                (self.char_width.get() * bin_offset as i32) as f32,
+                0_f32,
+            ));
+            self.display_line(
+                snapshot,
+                &bin_chars,
+                marker_start,
+                marker_end,
+                display_options_alternate,
+            );
+            snapshot.restore();
+        }
+
+        pub fn hex_mode_copy_to_clipboard(&self, start_offset: u64, end_offset: u64) {
+            if self.hexmode_marker_on_hexdump.get() {
+                let Some(input_mode) = self.obj().input_mode() else {
+                    return;
+                };
+                let text = input_mode
+                    .offsets(start_offset, end_offset)
+                    .filter_map(|offset| input_mode.raw_byte(offset))
+                    .map(|b| format!("{:02X}", b))
+                    .collect::<Vec<_>>();
+                self.obj().clipboard().set_text(&text.join(" "));
+            } else {
+                self.text_mode_copy_to_clipboard(start_offset, end_offset);
+            }
+        }
+    }
+
+    fn text_mode_line_iter(
+        input_mode: &InputMode,
+        start: u64,
+        end: u64,
+        tab_size: u32,
+    ) -> impl Iterator<Item = (u64, u32, Option<char>)> + use<'_> {
+        input_mode
+            .offsets(start, end)
+            .scan(0, move |column, offset| {
+                let current = *column;
+                let character = input_mode.character(offset);
+                if character == Some('\t') {
+                    *column = next_tab_position(*column, tab_size);
+                } else {
+                    *column += 1;
+                }
+                Some((offset, current, character))
+            })
+    }
+
+    fn binary_mode_line_iter(
+        input_mode: &InputMode,
+        start: u64,
+        end: u64,
+    ) -> impl Iterator<Item = (u64, u32, Option<char>)> + use<'_> {
+        input_mode
+            .offsets(start, end)
+            .scan(0, move |column, offset| {
+                let current = *column;
+                let character = input_mode.character(offset);
+                *column += 1;
+                Some((offset, current, character))
+            })
+    }
+
+    fn hex_mode_line_iter(
+        input_mode: &InputMode,
+        start: u64,
+        end: u64,
+    ) -> impl Iterator<Item = (u64, u32, Option<u8>)> + use<'_> {
+        input_mode
+            .byte_offsets(start, end)
+            .scan(0, move |column, offset| {
+                let current = *column;
+                let character = input_mode.raw_byte(offset);
+                *column += 1;
+                Some((offset, current, character))
+            })
+    }
+
+    const fn hex_mode_column_layout() -> (u32, u32) {
+        (10, 10 + ((HEXDUMP_FIXED_LIMIT * 3) - 1) + 2)
+    }
+
+    struct DisplayOptions {
+        text_color: gdk::RGBA,
+        marker_text_color: gdk::RGBA,
+        marker_background_color: gdk::RGBA,
+    }
+
+    impl Default for DisplayOptions {
+        fn default() -> Self {
+            Self {
+                text_color: gdk::RGBA::BLACK,
+                marker_text_color: gdk::RGBA::WHITE,
+                marker_background_color: gdk::RGBA::BLUE,
+            }
+        }
+    }
+
+    impl DisplayOptions {
+        fn alternate_marker() -> Self {
+            Self {
+                text_color: gdk::RGBA::BLACK,
+                marker_text_color: gdk::RGBA::BLACK,
+                marker_background_color: gdk::RGBA::new(0_f32, 1_f32, 1_f32, 1_f32),
+            }
         }
     }
 }
@@ -919,12 +1240,12 @@ impl TextRender {
             std::mem::swap(&mut marker_start, &mut marker_end);
         }
         match self.display_mode() {
-            TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => unsafe {
-                ffi::text_mode_copy_to_clipboard(self.to_glib_none().0, marker_start, marker_end)
-            },
-            TextRenderDisplayMode::Hexdump => unsafe {
-                ffi::hex_mode_copy_to_clipboard(self.to_glib_none().0, marker_start, marker_end)
-            },
+            TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => self
+                .imp()
+                .text_mode_copy_to_clipboard(marker_start, marker_end),
+            TextRenderDisplayMode::Hexdump => self
+                .imp()
+                .hex_mode_copy_to_clipboard(marker_start, marker_end),
         }
     }
 
@@ -951,54 +1272,12 @@ impl TextRender {
         &self,
         f: F,
     ) -> glib::SignalHandlerId {
-        unsafe extern "C" fn pressed_trampoline<F: Fn(&TextRender) + 'static>(
-            this: *mut ffi::TextRender,
-            f: glib::ffi::gpointer,
-        ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
-        }
-        unsafe {
-            let f: Box<F> = Box::new(f);
-            glib::signal::connect_raw(
-                self.as_ptr() as *mut _,
-                c"text-status-changed".as_ptr() as *const _,
-                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
-                    pressed_trampoline::<F> as *const (),
-                )),
-                Box::into_raw(f),
-            )
-        }
+        self.connect_closure(
+            "text-status-changed",
+            false,
+            glib::closure_local!(move |this| (f)(this)),
+        )
     }
-}
-
-#[no_mangle]
-pub extern "C" fn text_render_get_type() -> GType {
-    TextRender::static_type().into_glib()
-}
-
-#[no_mangle]
-pub extern "C" fn text_render_get_font_description(
-    w: *mut ffi::TextRender,
-) -> *mut PangoFontDescription {
-    let w: Borrowed<TextRender> = unsafe { from_glib_borrow(w) };
-    let font_desc = w.imp().font_desc.borrow();
-    font_desc.as_ref().map_or_else(
-        || std::ptr::null_mut(),
-        |font_desc| font_desc.to_glib_none().0,
-    )
-}
-
-#[no_mangle]
-pub extern "C" fn text_render_get_char_width(w: *mut ffi::TextRender) -> i32 {
-    let w: Borrowed<TextRender> = unsafe { from_glib_borrow(w) };
-    w.imp().char_width.get()
-}
-
-#[no_mangle]
-pub extern "C" fn text_render_get_char_height(w: *mut ffi::TextRender) -> i32 {
-    let w: Borrowed<TextRender> = unsafe { from_glib_borrow(w) };
-    w.imp().char_height.get()
 }
 
 fn get_max_char_width_and_height(
@@ -1024,36 +1303,6 @@ fn get_max_char_width_and_height(
     )
 }
 
-#[no_mangle]
-pub extern "C" fn text_render_get_file_ops(w: *mut ffi::TextRender) -> *mut ViewerFileOps {
-    let w: Borrowed<TextRender> = unsafe { from_glib_borrow(w) };
-    w.file_ops().map(|f| f.0).unwrap_or(std::ptr::null_mut())
-}
-
-#[no_mangle]
-pub extern "C" fn text_render_get_input_mode_data(
-    w: *mut ffi::TextRender,
-) -> *mut GVInputModesData {
-    let w: Borrowed<TextRender> = unsafe { from_glib_borrow(w) };
-    w.input_mode().map(|f| f.0).unwrap_or(std::ptr::null_mut())
-}
-
-#[no_mangle]
-pub extern "C" fn text_render_get_data_presentation(
-    w: *mut ffi::TextRender,
-) -> *mut GVDataPresentation {
-    let w: Borrowed<TextRender> = unsafe { from_glib_borrow(w) };
-    w.data_presentation()
-        .map(|f| f.0)
-        .unwrap_or(std::ptr::null_mut())
-}
-
-#[no_mangle]
-pub extern "C" fn text_render_update_adjustments_limits(w: *mut ffi::TextRender) {
-    let w: Borrowed<TextRender> = unsafe { from_glib_borrow(w) };
-    w.imp().update_adjustments_limits();
-}
-
 #[derive(Clone, Copy, Default, PartialEq, Eq, Debug, glib::Enum)]
 #[enum_type(name = "GnomeCmdTextRenderDisplayMode")]
 #[repr(C)]
@@ -1067,9 +1316,28 @@ pub enum TextRenderDisplayMode {
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::intviewer::data_presentation::next_tab_position;
     use rusty_fork::rusty_fork_test;
 
     const FILENAME: &str = "./TODO";
+
+    #[test]
+    fn test_scan() {
+        let c = "ab\tcd"
+            .chars()
+            .scan(0, move |column, character| {
+                let current = *column;
+                if character == '\t' {
+                    *column = next_tab_position(*column, 4);
+                } else {
+                    *column += 1;
+                }
+                Some((current, character))
+            })
+            .collect::<Vec<_>>();
+
+        assert_eq!(c, vec![(0, 'a'), (1, 'b'), (2, '\t'), (4, 'c'), (5, 'd')]);
+    }
 
     rusty_fork_test! {
         #[test]

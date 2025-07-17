@@ -119,6 +119,10 @@ pub enum DataPresentationMode {
     BinaryFixed,
 }
 
+pub fn next_tab_position(column: u32, tab_size: u32) -> u32 {
+    (column + tab_size) / tab_size * tab_size
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -134,5 +138,14 @@ mod test {
             dp.set_mode(mode);
             assert_eq!(dp.mode(), mode);
         }
+    }
+
+    #[test]
+    fn test_next_tab_position() {
+        assert_eq!(next_tab_position(0, 8), 8);
+        assert_eq!(next_tab_position(1, 8), 8);
+        assert_eq!(next_tab_position(7, 8), 8);
+        assert_eq!(next_tab_position(8, 8), 16);
+        assert_eq!(next_tab_position(9, 8), 16);
     }
 }

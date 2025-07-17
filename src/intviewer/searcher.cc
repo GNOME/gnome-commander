@@ -24,9 +24,10 @@
 
 #include <config.h>
 #include <string.h>
-#include "libgviewer.h"
+#include "searcher.h"
 #include "bm_chartype.h"
 #include "bm_byte.h"
+#include "viewer-utils.h"
 
 using namespace std;
 
