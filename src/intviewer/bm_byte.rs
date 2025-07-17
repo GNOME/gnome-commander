@@ -29,6 +29,7 @@ pub mod ffi {
         pub fn free_bm_byte_data(d: *mut GViewerBMByteData);
 
         pub fn bm_byte_data_pattern_len(d: *mut GViewerBMByteData) -> i32;
+        pub fn bm_byte_data_pattern_at(d: *mut GViewerBMByteData, index: u32) -> u8;
         pub fn bm_byte_data_good(d: *mut GViewerBMByteData) -> *mut i32;
         pub fn bm_byte_data_bad(d: *mut GViewerBMByteData) -> *mut i32;
     }
@@ -40,20 +41,24 @@ pub struct BMByte(pub *mut ffi::GViewerBMByteData);
 impl BMByte {
     /// Create the Boyer-Moore jump tables.
     /// pattern is the search pattern, UTF8 string (null-terminated)
-    pub fn new(pattern: &[u8]) -> Self {
-        unsafe {
-            Self(ffi::create_bm_byte_data(
-                pattern.as_ptr(),
-                pattern.len() as i32,
-            ))
+    pub fn new(pattern: &[u8]) -> Option<Self> {
+        let ptr = unsafe { ffi::create_bm_byte_data(pattern.as_ptr(), pattern.len() as i32) };
+        if ptr.is_null() {
+            None
+        } else {
+            Some(Self(ptr))
         }
     }
 
-    fn pattern_len(&self) -> usize {
+    pub fn pattern_len(&self) -> usize {
         unsafe { ffi::bm_byte_data_pattern_len(self.0) as usize }
     }
 
-    fn good(&self) -> Vec<i32> {
+    pub fn pattern_at(&self, index: usize) -> u8 {
+        unsafe { ffi::bm_byte_data_pattern_at(self.0, index as u32) }
+    }
+
+    pub fn good(&self) -> Vec<i32> {
         let len = self.pattern_len();
         let s = unsafe { std::slice::from_raw_parts(ffi::bm_byte_data_good(self.0), len) };
         let mut result: Vec<i32> = vec![0; len];
@@ -61,11 +66,35 @@ impl BMByte {
         result
     }
 
-    fn bad(&self) -> [i32; 256] {
+    pub fn bad(&self) -> [i32; 256] {
         let s = unsafe { std::slice::from_raw_parts(ffi::bm_byte_data_bad(self.0), 256) };
         let mut result = [0; 256];
         result.copy_from_slice(s);
         result
+    }
+
+    pub fn advancement(&self, pattern_index: usize, value: u8) -> usize {
+        usize::max(
+            self.good()[pattern_index] as usize,
+            self.bad()[value as usize] as usize + 1 + pattern_index - self.pattern_len(),
+        )
+    }
+
+    pub fn good_match_advancement(&self) -> usize {
+        self.good()[0] as usize
+    }
+
+    pub fn scan(&self, bytes: &[u8]) -> Result<ByteScanResult, ()> {
+        if bytes.len() != self.pattern_len() {
+            return Err(());
+        }
+        for i in (0..self.pattern_len()).rev() {
+            let value = bytes[i];
+            if self.pattern_at(i) != value {
+                return Ok(ByteScanResult::NoMatch(self.advancement(i, value)));
+            }
+        }
+        Ok(ByteScanResult::Match(self.good_match_advancement()))
     }
 }
 
@@ -76,6 +105,15 @@ impl Drop for BMByte {
         }
         self.0 = std::ptr::null_mut();
     }
+}
+
+// Once it is created it is used for reading only, so it is safe to send across threads.
+unsafe impl Send for BMByte {}
+unsafe impl Sync for BMByte {}
+
+pub enum ByteScanResult {
+    Match(usize),
+    NoMatch(usize),
 }
 
 #[cfg(test)]
@@ -107,7 +145,7 @@ mod test {
 
     #[test]
     fn match_test() {
-        let bm = BMByte::new(PATTERN);
+        let bm = BMByte::new(PATTERN).unwrap();
 
         let good = bm.good();
         assert_eq!(good, vec![5, 5, 5, 5, 5, 7, 1]);

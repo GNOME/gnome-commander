@@ -23,7 +23,7 @@ use crate::{
     utils::Max,
 };
 use gtk::{gdk, glib, graphene, pango, prelude::*, subclass::prelude::*};
-use std::{num::NonZeroU32, path::Path, rc::Rc};
+use std::{num::NonZeroU32, path::Path, rc::Rc, sync::Arc};
 
 const HEXDUMP_FIXED_LIMIT: u32 = 16;
 
@@ -72,7 +72,7 @@ mod imp {
         hexadecimal_offset: Cell<bool>,
 
         pub file_ops: RefCell<Option<Rc<FileOps>>>,
-        pub input_mode: RefCell<Option<Rc<InputMode>>>,
+        pub input_mode: RefCell<Option<Arc<InputMode>>>,
         pub data_presentation: RefCell<Option<Rc<DataPresentation>>>,
 
         #[property(get, set)]
@@ -1166,7 +1166,7 @@ impl TextRender {
             .unwrap_or_default()
     }
 
-    pub fn input_mode(&self) -> Option<Rc<InputMode>> {
+    pub fn input_mode(&self) -> Option<Arc<InputMode>> {
         self.imp().input_mode.borrow().clone()
     }
 
@@ -1198,7 +1198,7 @@ impl TextRender {
         self.set_max_column(0);
 
         // Setup the input mode translations
-        let input_mode = Rc::new(InputMode::new());
+        let input_mode = Arc::new(InputMode::new());
         input_mode.init(file_ops.clone());
         input_mode.set_mode(&self.encoding());
 

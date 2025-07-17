@@ -535,42 +535,38 @@ mod imp {
                 return;
             };
 
-            let searcher = Searcher::new();
-
-            match &request {
+            let searcher = match &request {
                 SearchRequest::Text {
                     pattern,
                     case_sensitive,
-                } => {
-                    searcher.setup_new_text_search(
-                        &self.text_render.input_mode().unwrap(),
-                        self.text_render.current_offset(),
-                        self.text_render
-                            .file_ops()
-                            .map(|f| f.max_offset())
-                            .unwrap_or_default(),
-                        pattern,
-                        *case_sensitive,
-                    );
-                }
-                SearchRequest::Binary { pattern, .. } => {
-                    searcher.setup_new_hex_search(
-                        &self.text_render.input_mode().unwrap(),
-                        self.text_render.current_offset(),
-                        self.text_render
-                            .file_ops()
-                            .map(|f| f.max_offset())
-                            .unwrap_or_default(),
-                        pattern,
-                    );
-                }
+                } => Searcher::setup_new_text_search(
+                    self.text_render.input_mode().unwrap(),
+                    self.text_render.current_offset(),
+                    self.text_render
+                        .file_ops()
+                        .map(|f| f.max_offset())
+                        .unwrap_or_default(),
+                    pattern,
+                    *case_sensitive,
+                ),
+                SearchRequest::Binary { pattern, .. } => Searcher::setup_new_hex_search(
+                    self.text_render.input_mode().unwrap(),
+                    self.text_render.current_offset(),
+                    self.text_render
+                        .file_ops()
+                        .map(|f| f.max_offset())
+                        .unwrap_or_default(),
+                    pattern,
+                ),
+            };
+
+            if let Some(searcher) = searcher {
+                self.search.replace(request);
+                self.searcher.replace(Some(searcher));
+
+                // call "find_next" to actually do the search
+                self.find_next().await;
             }
-
-            self.search.replace(request);
-            self.searcher.replace(Some(searcher));
-
-            // call "find_next" to actually do the search
-            self.find_next().await;
         }
 
         async fn find_next(&self) {

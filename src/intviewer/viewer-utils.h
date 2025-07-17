@@ -29,8 +29,6 @@
 void unicode2utf8(unsigned int unicode, char_type *out);
 char_type *convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int &array_length);
 
-guint8 *mem_reverse(const guint8 *buffer, guint buflen);
-
 /*  if "ch" is lower case english letter (a-z), returns UPPER case letter, otherwise returns unmodified "ch" */
 inline char_type chartype_toupper(char_type ch)
 {

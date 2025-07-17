@@ -89,19 +89,3 @@ char_type *convert_utf8_to_chartype_array (const gchar *utf8text, /*out*/ int &a
 
     return result;
 }
-
-
-guint8 *mem_reverse (const guint8 *buffer, guint buflen)
-{
-    g_return_val_if_fail (buffer!=NULL, NULL);
-    g_return_val_if_fail (buflen>0, NULL);
-
-    guint i, j;
-
-    guint8 *result = g_new0 (guint8, buflen);
-
-    for (i=0, j=buflen-1;i<buflen;i++, j--)
-        result[i] = buffer[j];
-
-    return result;
-}

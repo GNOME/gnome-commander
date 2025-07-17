@@ -55,29 +55,45 @@ pub mod ffi {
 pub struct BMCharType(pub *mut ffi::GViewerBMChartypeData);
 
 impl BMCharType {
-    pub fn new(pattern: &str, case_sensitive: bool) -> Self {
-        unsafe {
-            Self(ffi::create_bm_chartype_data(
-                pattern.to_glib_none().0,
-                case_sensitive as gboolean,
-            ))
+    pub fn new(pattern: &str, case_sensitive: bool) -> Option<Self> {
+        let ptr = unsafe {
+            ffi::create_bm_chartype_data(pattern.to_glib_none().0, case_sensitive as gboolean)
+        };
+        if ptr.is_null() {
+            None
+        } else {
+            Some(Self(ptr))
         }
     }
 
-    fn pattern_len(&self) -> usize {
+    pub fn pattern_len(&self) -> usize {
         unsafe { ffi::bm_chartype_data_pattern_len(self.0) as usize }
     }
 
-    fn is_equal(&self, pattern_index: usize, ch: u32) -> bool {
+    pub fn is_equal(&self, pattern_index: usize, ch: u32) -> bool {
         unsafe { ffi::bm_chartype_equal(self.0, pattern_index as i32, ch) != 0 }
     }
 
-    fn advancement(&self, pattern_index: usize, ch: u32) -> usize {
+    pub fn advancement(&self, pattern_index: usize, ch: u32) -> usize {
         unsafe { ffi::bm_chartype_get_advancement(self.0, pattern_index as i32, ch) as usize }
     }
 
-    fn good_match_advancement(&self) -> usize {
+    pub fn good_match_advancement(&self) -> usize {
         unsafe { ffi::bm_chartype_get_good_match_advancement(self.0) as usize }
+    }
+
+    pub fn scan(&self, characters: &[char]) -> Result<CharScanResult, ()> {
+        if characters.len() != self.pattern_len() {
+            return Err(());
+        }
+        for i in (0..self.pattern_len()).rev() {
+            let value = characters[i];
+            if !self.is_equal(i, value as u32) {
+                let adv = self.advancement(i, value as u32);
+                return Ok(CharScanResult::NoMatch(adv));
+            }
+        }
+        Ok(CharScanResult::Match(self.good_match_advancement()))
     }
 }
 
@@ -88,6 +104,15 @@ impl Drop for BMCharType {
         }
         self.0 = std::ptr::null_mut();
     }
+}
+
+// Once it is created it is used for reading only, so it is safe to send across threads.
+unsafe impl Send for BMCharType {}
+unsafe impl Sync for BMCharType {}
+
+pub enum CharScanResult {
+    Match(usize),
+    NoMatch(usize),
 }
 
 fn convert_utf8_to_chartype_array(text: &str) -> Vec<u32> {
@@ -133,7 +158,7 @@ mod test {
 );
         let ct_text = convert_utf8_to_chartype_array(TEXT);
 
-        let bm = BMCharType::new(PATTERN, false);
+        let bm = BMCharType::new(PATTERN, false).unwrap();
 
         // Do the actual search
         let m = bm.pattern_len();

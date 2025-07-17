@@ -137,6 +137,10 @@ int bm_byte_data_pattern_len(GViewerBMByteData *data)
     return data->pattern_len;
 }
 
+guint8 bm_byte_data_pattern_at(GViewerBMByteData *data, guint index)
+{
+    return data->pattern[index];
+}
 
 int *bm_byte_data_good(GViewerBMByteData *data)
 {

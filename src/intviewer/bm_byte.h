@@ -45,6 +45,7 @@ struct GViewerBMByteData
 extern "C" GViewerBMByteData *create_bm_byte_data(const guint8 *pattern, const gint length);
 
 extern "C" int bm_byte_data_pattern_len(GViewerBMByteData *data);
+extern "C" guint8 bm_byte_data_pattern_at(GViewerBMByteData *data, guint index);
 extern "C" int *bm_byte_data_good(GViewerBMByteData *data);
 extern "C" int *bm_byte_data_bad(GViewerBMByteData *data);
 

@@ -49,6 +49,10 @@ pub mod ffi {
             imd: *mut GVInputModesData,
             current_offset: u64,
         ) -> u64;
+        pub fn gv_input_get_previous_char_offset(
+            imd: *mut GVInputModesData,
+            current_offset: u64,
+        ) -> u64;
 
         pub fn gv_input_mode_byte_to_utf8(imd: *mut GVInputModesData, data: u8) -> u32;
 
@@ -108,12 +112,44 @@ impl InputMode {
         char::from_u32(unsafe { ffi::gv_input_mode_get_utf8_char(self.0, offset) })
     }
 
+    pub fn characters(&self, offset: u64, length: usize) -> Vec<char> {
+        std::iter::successors(Some(offset), move |offset| {
+            Some(self.next_char_offset(*offset))
+        })
+        .take(length)
+        .map(|offset| self.character(offset).unwrap_or_default())
+        .collect()
+    }
+
+    pub fn characters_backwards(&self, offset: u64, length: usize) -> Vec<char> {
+        std::iter::successors(Some(offset), move |offset| {
+            Some(self.previous_char_offset(*offset))
+        })
+        .take(length)
+        .map(|offset| self.character(offset).unwrap_or_default())
+        .collect()
+    }
+
     /// returns the RAW Byte at 'offset'.
     /// Does no input mode translations.
     ///
     /// returns `None`` on failure or EOF.
     pub fn raw_byte(&self, offset: u64) -> Option<u8> {
         u8::try_from(unsafe { ffi::gv_input_mode_get_raw_byte(self.0, offset) }).ok()
+    }
+
+    pub fn bytes(&self, offset: u64, length: usize) -> Vec<u8> {
+        std::iter::successors(Some(offset), move |offset| offset.checked_add(1))
+            .take(length)
+            .map(|offset| self.raw_byte(offset).unwrap_or_default())
+            .collect()
+    }
+
+    pub fn bytes_backwards(&self, offset: u64, length: usize) -> Vec<u8> {
+        std::iter::successors(Some(offset), move |offset| offset.checked_sub(1))
+            .take(length)
+            .map(|offset| self.raw_byte(offset).unwrap_or_default())
+            .collect()
     }
 
     /// returns the BYTE offset of the next logical character.
@@ -123,6 +159,11 @@ impl InputMode {
     /// Other input modes can return diferent values.
     pub fn next_char_offset(&self, current_offset: u64) -> u64 {
         unsafe { ffi::gv_input_get_next_char_offset(self.0, current_offset) }
+    }
+
+    /// returns the BYTE offset of the previous logical character.
+    pub fn previous_char_offset(&self, current_offset: u64) -> u64 {
+        unsafe { ffi::gv_input_get_previous_char_offset(self.0, current_offset) }
     }
 
     pub fn byte_offsets(&self, start: u64, end: u64) -> impl Iterator<Item = u64> + use<'_> {
@@ -160,6 +201,10 @@ impl Drop for InputMode {
         self.0 = std::ptr::null_mut();
     }
 }
+
+// Once it is created it is used for reading only, so it is safe to send across threads.
+unsafe impl Send for InputMode {}
+unsafe impl Sync for InputMode {}
 
 pub trait InputSource {
     fn byte(&self, offset: u64) -> Option<u8>;
