@@ -62,6 +62,7 @@ mod imp {
         file_metainfo_view::FileMetainfoView,
         intviewer::{
             image_render::{ImageOperation, ImageRender},
+            input_modes::InputSource,
             search_dialog::{SearchDialog, SearchRequest},
             text_render::TextRenderDisplayMode,
         },

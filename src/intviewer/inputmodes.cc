@@ -38,6 +38,7 @@ struct GVInputModesData
 {
     gchar *input_mode_name;
 
+    offset_type     max_offset;
     get_byte_proc   get_byte;
     void            *get_byte_user_data;
 
@@ -81,7 +82,7 @@ GVInputModesData *gv_input_modes_new()
 /*
   General Input Mode Public Functions
 */
-void gv_init_input_modes(GVInputModesData *imd, get_byte_proc proc, void *get_byte_user_data)
+void gv_init_input_modes(GVInputModesData *imd, offset_type max_offset, get_byte_proc proc, void *get_byte_user_data)
 {
     g_return_if_fail (imd!=NULL);
 
@@ -89,6 +90,7 @@ void gv_init_input_modes(GVInputModesData *imd, get_byte_proc proc, void *get_by
 
     g_return_if_fail (proc!=NULL);
 
+    imd->max_offset = max_offset;
     imd->get_byte = proc;
     imd->get_byte_user_data = get_byte_user_data;
 
@@ -115,6 +117,12 @@ void gv_free_input_modes(GVInputModesData *imd)
     */
 
     g_free (imd);
+}
+
+
+offset_type gv_input_mode_max_offset (GVInputModesData *imd)
+{
+    return imd->max_offset;
 }
 
 

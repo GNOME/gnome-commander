@@ -50,15 +50,6 @@ impl FileOps {
     pub fn open(&self, file: &Path) -> bool {
         unsafe { ffi::gv_file_open(self.0, file.to_glib_none().0) == 0 }
     }
-
-    pub fn max_offset(&self) -> u64 {
-        unsafe { ffi::gv_file_get_max_offset(self.0) }
-    }
-
-    pub fn get_byte(&self, byte_index: u64) -> Option<u8> {
-        let result = unsafe { ffi::gv_file_get_byte(self.0, byte_index) };
-        result.try_into().ok()
-    }
 }
 
 impl Drop for FileOps {
@@ -72,14 +63,23 @@ impl Drop for FileOps {
 }
 
 impl InputSource for FileOps {
+    fn max_offset(&self) -> u64 {
+        unsafe { ffi::gv_file_get_max_offset(self.0) }
+    }
+
     fn byte(&self, offset: u64) -> Option<u8> {
-        self.get_byte(offset)
+        let result = unsafe { ffi::gv_file_get_byte(self.0, offset) };
+        result.try_into().ok()
     }
 }
 
 impl InputSource for Rc<FileOps> {
+    fn max_offset(&self) -> u64 {
+        self.as_ref().max_offset()
+    }
+
     fn byte(&self, offset: u64) -> Option<u8> {
-        self.get_byte(offset)
+        self.as_ref().byte(offset)
     }
 }
 
@@ -98,7 +98,7 @@ mod test {
         let end = fops.max_offset();
 
         for current in 0..end {
-            let value = fops.get_byte(current);
+            let value = fops.byte(current);
             assert!(value.is_some());
         }
 

@@ -35,9 +35,12 @@ pub mod ffi {
 
         pub fn gv_init_input_modes(
             imd: *mut GVInputModesData,
+            max_offset: u64,
             proc: GCallback,
             user_data: gpointer,
         );
+
+        pub fn gv_input_mode_max_offset(imd: *mut GVInputModesData) -> u64;
 
         pub fn gv_get_input_mode(imd: *mut GVInputModesData) -> *const c_char;
         pub fn gv_set_input_mode(imd: *mut GVInputModesData, input_mode: *const c_char);
@@ -72,6 +75,8 @@ impl InputMode {
     }
 
     pub fn init<S: InputSource>(&self, source: S) {
+        let max_offset = source.max_offset();
+
         unsafe extern "C" fn get_byte_trampoline<S: InputSource>(
             source_ptr: glib::ffi::gpointer,
             offset: u64,
@@ -84,12 +89,17 @@ impl InputMode {
         unsafe {
             ffi::gv_init_input_modes(
                 self.0,
+                max_offset,
                 Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     get_byte_trampoline::<S> as *const (),
                 )),
                 Box::into_raw(source) as *mut _,
             )
         }
+    }
+
+    pub fn max_offset(&self) -> u64 {
+        unsafe { ffi::gv_input_mode_max_offset(self.0) }
     }
 
     pub fn mode(&self) -> String {
@@ -207,6 +217,7 @@ unsafe impl Send for InputMode {}
 unsafe impl Sync for InputMode {}
 
 pub trait InputSource {
+    fn max_offset(&self) -> u64;
     fn byte(&self, offset: u64) -> Option<u8>;
 }
 

@@ -50,12 +50,14 @@ extern "C" GVInputModesData *gv_input_modes_new();
 
   Also activates the default ASCII input mode, without any character encodings
 */
-extern "C" void gv_init_input_modes(GVInputModesData *imd, get_byte_proc proc, void *get_byte_user_data);
+extern "C" void gv_init_input_modes(GVInputModesData *imd, offset_type max_offset, get_byte_proc proc, void *get_byte_user_data);
 
 /*
    Free any internal data used by the input mode translators
 */
 extern "C" void gv_free_input_modes(GVInputModesData *imd);
+
+extern "C" offset_type gv_input_mode_max_offset (GVInputModesData *imd);
 
 /*
     returns the current input mode.

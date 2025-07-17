@@ -19,7 +19,10 @@
 
 use super::{data_presentation::DataPresentation, file_ops::FileOps};
 use crate::{
-    intviewer::{data_presentation::DataPresentationMode, input_modes::InputMode},
+    intviewer::{
+        data_presentation::DataPresentationMode,
+        input_modes::{InputMode, InputSource},
+    },
     utils::Max,
 };
 use gtk::{gdk, glib, graphene, pango, prelude::*, subclass::prelude::*};
@@ -1203,9 +1206,7 @@ impl TextRender {
         input_mode.set_mode(&self.encoding());
 
         // Setup the data presentation mode
-        let data_presentation = Rc::new(DataPresentation::new());
-        data_presentation.init(&input_mode, file_ops.max_offset());
-
+        let data_presentation = Rc::new(DataPresentation::new(&input_mode));
         data_presentation.set_wrap_limit(50);
         data_presentation.set_fixed_count(self.fixed_limit());
         data_presentation.set_tab_size(self.tab_size());
