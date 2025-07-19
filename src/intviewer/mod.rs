@@ -17,8 +17,7 @@
  * For more details see the file COPYING.
  */
 
-pub mod bm_byte;
-pub mod bm_chartype;
+pub mod boyer_moore;
 pub mod data_presentation;
 pub mod file_ops;
 pub mod image_render;

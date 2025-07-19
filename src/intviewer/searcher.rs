@@ -18,8 +18,7 @@
  */
 
 use super::{
-    bm_byte::{BMByte, ByteScanResult},
-    bm_chartype::{BMCharType, CharScanResult},
+    boyer_moore::{boyer_moore_bytes_new, boyer_moore_string_new, BoyerMoore, ScanResult},
     input_modes::InputMode,
 };
 use gtk::glib::{self, subclass::prelude::*};
@@ -33,8 +32,8 @@ mod imp {
     };
 
     pub enum SearchMode {
-        Text(BMCharType, BMCharType),
-        Hex(BMByte, BMByte),
+        Text(BoyerMoore<char>, BoyerMoore<char>),
+        Hex(BoyerMoore<u8>, BoyerMoore<u8>),
     }
 
     #[derive(Default)]
@@ -83,8 +82,9 @@ impl Searcher {
             return None;
         }
 
-        let bm = BMCharType::new(text, case_sensitive)?;
-        let bm_reverse = BMCharType::new(&text.chars().rev().collect::<String>(), case_sensitive)?;
+        let bm = boyer_moore_string_new(text, case_sensitive)?;
+        let bm_reverse =
+            boyer_moore_string_new(&text.chars().rev().collect::<String>(), case_sensitive)?;
 
         let this = Self::new();
         this.imp().input_mode.set(imd.clone()).ok().unwrap();
@@ -110,8 +110,9 @@ impl Searcher {
             return None;
         }
 
-        let bm = BMByte::new(buffer)?;
-        let bm_reverse = BMByte::new(&buffer.into_iter().rev().cloned().collect::<Vec<u8>>())?;
+        let bm = boyer_moore_bytes_new(buffer.to_vec())?;
+        let bm_reverse =
+            boyer_moore_bytes_new(buffer.into_iter().rev().cloned().collect::<Vec<u8>>())?;
 
         let this = Self::new();
         this.imp().input_mode.set(imd.clone()).ok().unwrap();
@@ -180,11 +181,11 @@ impl Searcher {
         }
     }
 
-    fn search_text_forward(&self, bm: &BMCharType) -> bool {
+    fn search_text_forward(&self, bm: &BoyerMoore<char>) -> bool {
         let imd = self.imp().input_mode.get().unwrap();
         let update_interval = self.update_interval();
 
-        let m = bm.pattern_len() as u64;
+        let m = bm.pattern.len() as u64;
         let n = self.imp().max_offset.load(Ordering::SeqCst);
         let mut j = self.imp().start_offset.load(Ordering::SeqCst);
         let mut update_counter = update_interval;
@@ -192,7 +193,7 @@ impl Searcher {
         while j <= n - m {
             let chars = imd.characters(j, m as usize);
             match bm.scan(&chars) {
-                Ok(CharScanResult::Match(advancement)) => {
+                Ok(ScanResult::Match(advancement)) => {
                     self.imp().search_result.store(j, Ordering::SeqCst);
                     for _ in 0..advancement {
                         j = imd.next_char_offset(j);
@@ -201,7 +202,7 @@ impl Searcher {
                     self.imp().start_offset.store(j, Ordering::SeqCst);
                     return true;
                 }
-                Ok(CharScanResult::NoMatch(advancement)) => {
+                Ok(ScanResult::NoMatch(advancement)) => {
                     for _ in 0..advancement {
                         j = imd.next_char_offset(j);
                     }
@@ -224,11 +225,11 @@ impl Searcher {
         false
     }
 
-    fn search_text_backward(&self, bm: &BMCharType) -> bool {
+    fn search_text_backward(&self, bm: &BoyerMoore<char>) -> bool {
         let imd = self.imp().input_mode.get().unwrap();
         let update_interval = self.update_interval();
 
-        let m = bm.pattern_len() as u64;
+        let m = bm.pattern.len() as u64;
         let mut j = self.imp().start_offset.load(Ordering::SeqCst);
         let mut update_counter = update_interval;
 
@@ -236,7 +237,7 @@ impl Searcher {
         while j >= m {
             let chars = imd.characters_backwards(j, m as usize);
             match bm.scan(&chars) {
-                Ok(CharScanResult::Match(advancement)) => {
+                Ok(ScanResult::Match(advancement)) => {
                     self.imp()
                         .search_result
                         .store(imd.next_char_offset(j), Ordering::SeqCst);
@@ -247,7 +248,7 @@ impl Searcher {
                     self.imp().start_offset.store(j, Ordering::SeqCst);
                     return true;
                 }
-                Ok(CharScanResult::NoMatch(advancement)) => {
+                Ok(ScanResult::NoMatch(advancement)) => {
                     for _ in 0..advancement {
                         j = imd.previous_char_offset(j);
                     }
@@ -270,11 +271,11 @@ impl Searcher {
         false
     }
 
-    fn search_hex_forward(&self, bm: &BMByte) -> bool {
+    fn search_hex_forward(&self, bm: &BoyerMoore<u8>) -> bool {
         let imd = self.imp().input_mode.get().unwrap();
         let update_interval = self.update_interval();
 
-        let m = bm.pattern_len() as u64;
+        let m = bm.pattern.len() as u64;
         let n = self.imp().max_offset.load(Ordering::SeqCst);
         let mut j = self.imp().start_offset.load(Ordering::SeqCst);
         let mut update_counter = update_interval;
@@ -282,14 +283,14 @@ impl Searcher {
         while j <= n - m {
             let bytes = imd.bytes(j, m as usize);
             match bm.scan(&bytes) {
-                Ok(ByteScanResult::Match(advancement)) => {
+                Ok(ScanResult::Match(advancement)) => {
                     self.imp().search_result.store(j, Ordering::SeqCst);
                     j += advancement as u64;
                     // Store the current offset, we'll use it if the user chooses "find next"
                     self.imp().start_offset.store(j, Ordering::SeqCst);
                     return true;
                 }
-                Ok(ByteScanResult::NoMatch(advancement)) => {
+                Ok(ScanResult::NoMatch(advancement)) => {
                     j += advancement as u64;
                 }
                 _ => {
@@ -310,11 +311,11 @@ impl Searcher {
         false
     }
 
-    fn search_hex_backward(&self, bm: &BMByte) -> bool {
+    fn search_hex_backward(&self, bm: &BoyerMoore<u8>) -> bool {
         let imd = self.imp().input_mode.get().unwrap();
         let update_interval = self.update_interval();
 
-        let m = bm.pattern_len() as u64;
+        let m = bm.pattern.len() as u64;
         let mut j = self.imp().start_offset.load(Ordering::SeqCst);
         let mut update_counter = update_interval;
 
@@ -322,13 +323,13 @@ impl Searcher {
         while j >= m {
             let bytes = imd.bytes_backwards(j, m as usize);
             match bm.scan(&bytes) {
-                Ok(ByteScanResult::Match(advancement)) => {
+                Ok(ScanResult::Match(advancement)) => {
                     self.imp().search_result.store(j + 1, Ordering::SeqCst);
                     j -= advancement as u64;
                     self.imp().start_offset.store(j, Ordering::SeqCst);
                     return true;
                 }
-                Ok(ByteScanResult::NoMatch(advancement)) => {
+                Ok(ScanResult::NoMatch(advancement)) => {
                     j -= advancement as u64;
                 }
                 _ => {

@@ -28,7 +28,6 @@
 #include "gvtypes.h"
 
 #include "inputmodes.h"
-#include "viewer-utils.h"
 #include "cp437.h"
 
 using namespace std;
@@ -232,8 +231,7 @@ static void inputmode_ascii_activate(GVInputModesData *imd, const gchar *encodin
         for (i=0;i<256;i++)
         {
             // these are defined in 'cp437.c'
-            unsigned int unicode = ascii_cp437_to_unicode[i];
-            unicode2utf8(unicode, &imd->ascii_charset_translation[i]);
+            imd->ascii_charset_translation[i] = ascii_cp437_to_unicode[i];
         }
         g_free (imd->input_mode_name);
         imd->input_mode_name = g_strdup ("CP437");
