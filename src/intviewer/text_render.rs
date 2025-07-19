@@ -74,7 +74,7 @@ mod imp {
         #[property(get, set = Self::set_hexadecimal_offset)]
         hexadecimal_offset: Cell<bool>,
 
-        pub file_ops: RefCell<Option<Rc<FileOps>>>,
+        pub file_ops: RefCell<Option<Arc<FileOps>>>,
         pub input_mode: RefCell<Option<Arc<InputMode>>>,
         pub data_presentation: RefCell<Option<Rc<DataPresentation>>>,
 
@@ -562,7 +562,7 @@ mod imp {
             layout.set_font_description(self.font_desc.borrow().as_ref());
             for byte in 0..=255 {
                 let displayable = input_mode
-                    .byte_to_utf8(byte)
+                    .byte_to_char(byte)
                     .filter(|ch| *ch != '\0')
                     .map(|ch| {
                         layout.set_text(&ch.to_string());
@@ -1173,7 +1173,7 @@ impl TextRender {
         self.imp().input_mode.borrow().clone()
     }
 
-    pub fn file_ops(&self) -> Option<Rc<FileOps>> {
+    pub fn file_ops(&self) -> Option<Arc<FileOps>> {
         self.imp().file_ops.borrow().clone()
     }
 
@@ -1186,7 +1186,7 @@ impl TextRender {
         self.imp().file_ops.replace(None);
         self.imp().data_presentation.replace(None);
 
-        let file_ops = Rc::new(FileOps::new());
+        let file_ops = Arc::new(FileOps::new());
         if !file_ops.open(filename) {
             eprintln!("Failed to load file {}", filename.display());
             return;
@@ -1201,8 +1201,7 @@ impl TextRender {
         self.set_max_column(0);
 
         // Setup the input mode translations
-        let input_mode = Arc::new(InputMode::new());
-        input_mode.init(file_ops.clone());
+        let input_mode = Arc::new(InputMode::new(file_ops.clone()));
         input_mode.set_mode(&self.encoding());
 
         // Setup the data presentation mode

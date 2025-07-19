@@ -18,6 +18,7 @@
  */
 
 pub mod boyer_moore;
+pub mod cp437;
 pub mod data_presentation;
 pub mod file_ops;
 pub mod image_render;

@@ -41,8 +41,6 @@
 
 #endif
 
-#include "gvtypes.h"
-
 #include "fileops.h"
 
 #define BUF_MEDIUM 256

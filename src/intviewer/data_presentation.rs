@@ -299,18 +299,56 @@ pub fn next_tab_position(column: u32, tab_size: u32) -> u32 {
 mod test {
     use super::*;
 
-    // #[test]
-    // fn set_data_presentation_mode() {
-    //     let dp = DataPresentation::new();
-    //     for mode in [
-    //         DataPresentationMode::Wrap,
-    //         DataPresentationMode::NoWrap,
-    //         DataPresentationMode::BinaryFixed,
-    //     ] {
-    //         dp.set_mode(mode);
-    //         assert_eq!(dp.mode(), mode);
-    //     }
-    // }
+    #[test]
+    fn set_data_presentation_mode() {
+        let source: &[u8] = &[];
+        let imd = Arc::new(InputMode::new(source));
+        let dp = DataPresentation::new(&imd);
+        for mode in [
+            DataPresentationMode::Wrap,
+            DataPresentationMode::NoWrap,
+            DataPresentationMode::BinaryFixed,
+        ] {
+            dp.set_mode(mode);
+            assert_eq!(dp.mode(), mode);
+        }
+    }
+
+    const ABRACADABRA: &[u8] = br#"
+a
+ab
+abra
+abrac
+abraca
+abracad
+abracada
+abracadab
+abracadabr
+abracadabra
+"#;
+
+    #[test]
+    fn nowrap() {
+        let imd = Arc::new(InputMode::new(ABRACADABRA));
+        let dp = DataPresentation::new(&imd);
+        dp.set_mode(DataPresentationMode::NoWrap);
+
+        assert_eq!(dp.nowrap_align_offset(0), 0);
+        assert_eq!(dp.nowrap_align_offset(1), 1);
+        assert_eq!(dp.nowrap_align_offset(2), 1);
+        assert_eq!(dp.nowrap_align_offset(3), 3);
+        assert_eq!(dp.nowrap_align_offset(4), 3);
+        assert_eq!(dp.nowrap_align_offset(5), 3);
+        assert_eq!(dp.nowrap_align_offset(6), 6);
+
+        assert_eq!(dp.scroll_lines(0, 1), 1);
+        assert_eq!(dp.scroll_lines(1, 1), 3);
+        assert_eq!(dp.scroll_lines(3, 1), 6);
+
+        assert_eq!(dp.scroll_lines(6, -1), 3);
+        assert_eq!(dp.scroll_lines(3, -1), 1);
+        assert_eq!(dp.scroll_lines(1, -1), 0);
+    }
 
     #[test]
     fn test_next_tab_position() {

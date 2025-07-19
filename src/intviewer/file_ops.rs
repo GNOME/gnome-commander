@@ -19,7 +19,10 @@
 
 use crate::intviewer::input_modes::InputSource;
 use glib::translate::ToGlibPtr;
-use std::{path::Path, rc::Rc};
+use std::{
+    path::Path,
+    sync::{Arc, Mutex},
+};
 
 pub mod ffi {
     use std::ffi::c_char;
@@ -38,42 +41,54 @@ pub mod ffi {
         pub fn gv_file_close(ops: *mut ViewerFileOps);
         pub fn gv_file_free(ops: *mut ViewerFileOps);
     }
+
+    pub struct ViewerFileOpsPtr(pub *mut ViewerFileOps);
+
+    unsafe impl Sync for ViewerFileOpsPtr {}
+    unsafe impl Send for ViewerFileOpsPtr {}
 }
 
-pub struct FileOps(pub *mut ffi::ViewerFileOps);
+pub struct FileOps {
+    ptr: Mutex<ffi::ViewerFileOpsPtr>,
+}
 
 impl FileOps {
     pub fn new() -> Self {
-        unsafe { Self(ffi::gv_fileops_new()) }
+        Self {
+            ptr: Mutex::new(unsafe { ffi::ViewerFileOpsPtr(ffi::gv_fileops_new()) }),
+        }
     }
 
     pub fn open(&self, file: &Path) -> bool {
-        unsafe { ffi::gv_file_open(self.0, file.to_glib_none().0) == 0 }
+        let ptr = self.ptr.lock().unwrap();
+        unsafe { ffi::gv_file_open(ptr.0, file.to_glib_none().0) == 0 }
     }
 }
 
 impl Drop for FileOps {
     fn drop(&mut self) {
+        let ptr = self.ptr.lock().unwrap();
         unsafe {
-            ffi::gv_file_close(self.0);
-            ffi::gv_file_free(self.0);
+            ffi::gv_file_close(ptr.0);
+            ffi::gv_file_free(ptr.0);
         }
-        self.0 = std::ptr::null_mut();
     }
 }
 
 impl InputSource for FileOps {
     fn max_offset(&self) -> u64 {
-        unsafe { ffi::gv_file_get_max_offset(self.0) }
+        let ptr = self.ptr.lock().unwrap();
+        unsafe { ffi::gv_file_get_max_offset(ptr.0) }
     }
 
     fn byte(&self, offset: u64) -> Option<u8> {
-        let result = unsafe { ffi::gv_file_get_byte(self.0, offset) };
+        let ptr = self.ptr.lock().unwrap();
+        let result = unsafe { ffi::gv_file_get_byte(ptr.0, offset) };
         result.try_into().ok()
     }
 }
 
-impl InputSource for Rc<FileOps> {
+impl InputSource for Arc<FileOps> {
     fn max_offset(&self) -> u64 {
         self.as_ref().max_offset()
     }

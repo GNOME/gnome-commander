@@ -1,10 +1,7 @@
 sources_headers = files(
   'dialogs/gnome-cmd-delete-dialog.h',
   'dialogs/gnome-cmd-mkdir-dialog.h',
-  'intviewer/cp437.h',
   'intviewer/fileops.h',
-  'intviewer/gvtypes.h',
-  'intviewer/inputmodes.h',
   'gnome-cmd-con-device.h',
   'gnome-cmd-con.h',
   'gnome-cmd-con-home.h',
@@ -29,9 +26,7 @@ sources_headers = files(
 
 sources_sources = files(
   'dialogs/gnome-cmd-mkdir-dialog.cc',
-  'intviewer/cp437.cc',
   'intviewer/fileops.cc',
-  'intviewer/inputmodes.cc',
   'gnome-cmd-application.cc',
   'gnome-cmd-con.cc',
   'gnome-cmd-con-device.cc',

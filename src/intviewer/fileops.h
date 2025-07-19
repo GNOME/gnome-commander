@@ -26,6 +26,11 @@
 
 #pragma once
 
+
+typedef unsigned long offset_type;
+#define INVALID_OFFSET ((offset_type) -1)
+
+
 /*
     File Handling functions (based on Midnight Commander's view.c)
 
