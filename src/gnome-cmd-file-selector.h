@@ -48,5 +48,3 @@ struct GnomeCmdFileSelector
 };
 
 extern "C" GType gnome_cmd_file_selector_get_type ();
-
-extern "C" void gnome_cmd_file_selector_go_to_file(GnomeCmdFileSelector *fs, GnomeCmdFile *f);

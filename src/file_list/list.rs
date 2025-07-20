@@ -328,7 +328,10 @@ pub mod ffi {
             sort_order: c_int,
         );
 
+        pub fn gnome_cmd_file_list_set_base_dir(fl: *mut GnomeCmdFileList, dir: *mut c_char);
+
         pub fn gnome_cmd_file_list_reload(fl: *mut GnomeCmdFileList);
+        pub fn gnome_cmd_file_list_append_file(fl: *mut GnomeCmdFileList, f: *mut GnomeCmdFile);
 
         pub fn gnome_cmd_file_list_set_connection(
             fl: *mut GnomeCmdFileList,
@@ -456,6 +459,10 @@ impl FileList {
         }
     }
 
+    pub fn set_base_dir(&self, dir: &Path) {
+        unsafe { ffi::gnome_cmd_file_list_set_base_dir(self.to_glib_none().0, dir.to_glib_full()) }
+    }
+
     pub fn set_sorting(&self, column: ColumnID, order: gtk::SortType) {
         unsafe {
             ffi::gnome_cmd_file_list_set_sorting(
@@ -561,6 +568,12 @@ impl FileList {
 
     pub fn reload(&self) {
         unsafe { ffi::gnome_cmd_file_list_reload(self.to_glib_none().0) }
+    }
+
+    pub fn append_file(&self, file: &File) {
+        unsafe {
+            ffi::gnome_cmd_file_list_append_file(self.to_glib_none().0, file.to_glib_none().0)
+        }
     }
 
     pub fn set_connection(&self, connection: &impl IsA<Connection>, start_dir: Option<&Directory>) {

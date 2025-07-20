@@ -415,6 +415,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "glob"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a8d1add55171497b4705a648c6b583acafb01d58050a51727785f0b2c8e0a2b2"
+
+[[package]]
 name = "gnome-commander"
 version = "0.1.0"
 dependencies = [
@@ -423,9 +429,11 @@ dependencies = [
  "futures",
  "gettext-rs",
  "glib",
+ "glob",
  "gtk4",
  "indexmap",
  "libc",
+ "regex",
  "rusty-fork",
  "strum",
  "system-deps",
@@ -746,9 +754,9 @@ dependencies = [
 
 [[package]]
 name = "regex"
-version = "1.11.0"
+version = "1.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "38200e5ee88914975b69f657f0801b6f6dccafd44fd9326302a4aaeecfacb1d8"
+checksum = "b544ef1b4eac5dc2db33ea63606ae9ffcfac26c1416a2806ae0bf5f56b201191"
 dependencies = [
  "aho-corasick",
  "memchr",

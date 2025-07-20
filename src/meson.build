@@ -12,8 +12,6 @@ sources_headers = files(
   'intviewer/searcher.h',
   'intviewer/text-render.h',
   'intviewer/viewer-utils.h',
-  'dirlist.h',
-  'filter.h',
   'gnome-cmd-con-device.h',
   'gnome-cmd-con.h',
   'gnome-cmd-con-home.h',
@@ -38,7 +36,6 @@ sources_headers = files(
 
 sources_sources = files(
   'dialogs/gnome-cmd-mkdir-dialog.cc',
-  'dialogs/gnome-cmd-search-dialog.cc',
   'intviewer/bm_byte.cc',
   'intviewer/bm_chartype.cc',
   'intviewer/cp437.cc',
@@ -48,8 +45,6 @@ sources_sources = files(
   'intviewer/searcher.cc',
   'intviewer/text-render.cc',
   'intviewer/viewer-utils.cc',
-  'dirlist.cc',
-  'filter.cc',
   'gnome-cmd-application.cc',
   'gnome-cmd-con.cc',
   'gnome-cmd-con-device.cc',

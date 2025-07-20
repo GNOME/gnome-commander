@@ -21,7 +21,10 @@ use crate::{
     data::SearchConfig,
     file_list::list::{ffi::GnomeCmdFileList, FileList},
     filter::{Filter, PatternType},
-    utils::{channel_send_action, dialog_button_box, handle_escape_key, SenderExt, NO_BUTTONS},
+    utils::{
+        channel_send_action, dialog_button_box, handle_escape_key, ErrorMessage, SenderExt,
+        NO_BUTTONS,
+    },
 };
 use gettextrs::gettext;
 use gtk::{
@@ -188,10 +191,19 @@ pub async fn select_by_pattern(file_list: &FileList, mode: bool) {
             selection_pattern.pattern_type,
         );
 
-        file_list.toggle_with_pattern(&filter, mode);
+        match filter {
+            Ok(filter) => {
+                file_list.toggle_with_pattern(&filter, mode);
 
-        search_config.add_name_pattern(&selection_pattern.pattern);
-        search_config.set_default_profile_syntax(selection_pattern.pattern_type);
+                search_config.add_name_pattern(&selection_pattern.pattern);
+                search_config.set_default_profile_syntax(selection_pattern.pattern_type);
+            }
+            Err(error) => {
+                ErrorMessage::with_error(gettext("Bad expression"), &*error)
+                    .show(&parent_window)
+                    .await;
+            }
+        }
     }
 }
 

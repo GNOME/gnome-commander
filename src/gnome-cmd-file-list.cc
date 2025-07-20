@@ -2718,6 +2718,11 @@ void gnome_cmd_file_list_reload (GnomeCmdFileList *fl)
     fl->reload();
 }
 
+void gnome_cmd_file_list_append_file(GnomeCmdFileList *fl, GnomeCmdFile *f)
+{
+    fl->append_file(f);
+}
+
 void gnome_cmd_file_list_set_connection(GnomeCmdFileList *fl, GnomeCmdCon *con, GnomeCmdDir *start_dir)
 {
     fl->set_connection(con, start_dir);
@@ -2746,6 +2751,11 @@ extern "C" void gnome_cmd_file_list_invalidate_tree_size(GnomeCmdFileList *fl)
 void gnome_cmd_file_list_show_files(GnomeCmdFileList *fl, GnomeCmdDir *dir)
 {
     fl->show_files (dir);
+}
+
+void gnome_cmd_file_list_set_base_dir (GnomeCmdFileList *fl, gchar *dir)
+{
+    fl->set_base_dir (dir);
 }
 
 void gnome_cmd_file_list_show_column(GnomeCmdFileList *fl, GnomeCmdFileList::ColumnID col, gboolean value)

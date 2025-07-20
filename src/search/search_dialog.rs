@@ -18,27 +18,20 @@
  */
 
 use super::{
-    profile::{SearchProfile, SearchProfilePtr},
+    backend::{SearchBackend, SearchMessage},
+    profile::SearchProfile,
     selection_profile_component::SelectionProfileComponent,
 };
 use crate::{
     data::SearchConfig,
     dialogs::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager},
-    dir::{ffi::GnomeCmdDir, Directory},
-    file::ffi::GnomeCmdFile,
+    dir::Directory,
     libgcmd::file_descriptor::FileDescriptorExt,
+    main_win::MainWindow,
     tags::tags::FileMetadataService,
 };
 use gettextrs::{gettext, ngettext};
-use gtk::{
-    gio,
-    glib::{
-        ffi::gboolean,
-        translate::{from_glib_borrow, Borrowed, ToGlibPtr},
-    },
-    prelude::*,
-    subclass::prelude::*,
-};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::rc::Rc;
 
 struct SearchProfiles {
@@ -200,12 +193,14 @@ mod imp {
             connection::{Connection, ConnectionExt},
             list::ConnectionList,
         },
-        data::GeneralOptions,
+        data::{GeneralOptions, GeneralOptionsRead},
         dir::Directory,
-        file::File,
+        file::{File, GnomeCmdFileExt},
         file_list::list::FileList,
         intviewer::search_dialog::gnome_cmd_viewer_search_text_add_to_history,
+        main_win::MainWindow,
         select_directory_button::DirectoryButton,
+        types::FileSelectorID,
         utils::{dialog_button_box, display_help, ErrorMessage},
     };
     use std::cell::{OnceCell, RefCell};
@@ -219,6 +214,8 @@ mod imp {
 
         #[property(get, construct_only)]
         pub file_metadata_service: OnceCell<FileMetadataService>,
+        #[property(get, construct_only)]
+        pub main_window: OnceCell<MainWindow>,
 
         #[property(get, set)]
         pub dir_browser: RefCell<DirectoryButton>,
@@ -226,10 +223,8 @@ mod imp {
         pub profile_component: RefCell<SelectionProfileComponent>,
         #[property(get, set)]
         pub result_list: RefCell<Option<FileList>>,
-        #[property(get, set)]
-        pub status_label: RefCell<gtk::Label>,
-        #[property(get, set)]
-        pub progress_bar: RefCell<gtk::ProgressBar>,
+        pub status_label: gtk::Label,
+        pub progress_bar: gtk::ProgressBar,
         #[property(get, set)]
         pub profile_menu_button: RefCell<gtk::MenuButton>,
 
@@ -239,6 +234,9 @@ mod imp {
 
         #[property(get, set, nullable)]
         start_dir: RefCell<Option<Directory>>,
+
+        #[property(get, set, nullable)]
+        cancellable: RefCell<Option<gio::Cancellable>>,
     }
 
     #[glib::object_subclass]
@@ -270,18 +268,17 @@ mod imp {
             Self {
                 config: Default::default(),
                 file_metadata_service: Default::default(),
+                main_window: Default::default(),
                 dir_browser: Default::default(),
                 profile_component: RefCell::new(SelectionProfileComponent::new(Some(
                     &labels_size_group,
                 ))),
                 result_list: Default::default(),
                 status_label: Default::default(),
-                progress_bar: RefCell::new(
-                    gtk::ProgressBar::builder()
-                        .show_text(false)
-                        .pulse_step(0.02)
-                        .build(),
-                ),
+                progress_bar: gtk::ProgressBar::builder()
+                    .show_text(false)
+                    .pulse_step(0.02)
+                    .build(),
                 profile_menu_button: RefCell::new(
                     gtk::MenuButton::builder()
                         .label(gettext("Profiles…"))
@@ -306,6 +303,8 @@ mod imp {
                 labels_size_group,
 
                 start_dir: Default::default(),
+
+                cancellable: Default::default(),
             }
         }
     }
@@ -367,14 +366,10 @@ mod imp {
                 .orientation(gtk::Orientation::Horizontal)
                 .spacing(6)
                 .build();
-            statusbar.append(&this.status_label());
-            statusbar.append(&this.progress_bar());
-            this.progress_bar().set_visible(false);
+            statusbar.append(&self.status_label);
+            statusbar.append(&self.progress_bar);
+            self.progress_bar.set_visible(false);
             grid.attach(&statusbar, 0, 3, 2, 1);
-
-            unsafe {
-                gnome_cmd_search_dialog_init(this.to_glib_none().0);
-            }
 
             let help_button = gtk::Button::builder()
                 .label(gettext("_Help"))
@@ -459,7 +454,9 @@ mod imp {
         }
 
         fn dispose(&self) {
-            unsafe { gnome_cmd_search_dialog_dispose(self.obj().to_glib_none().0) }
+            if let Some(cancellable) = self.cancellable.replace(None) {
+                cancellable.cancel();
+            }
         }
     }
 
@@ -559,20 +556,24 @@ mod imp {
         }
 
         fn jump(&self) {
-            if let Some(file) = self.selected_file() {
-                self.obj().close();
+            let Some(file) = self.selected_file() else {
+                return;
+            };
+            self.obj().close();
 
-                unsafe {
-                    gnome_cmd_search_dialog_goto(self.obj().to_glib_none().0, file.to_glib_none().0)
-                };
-            }
+            let file_selector = self
+                .obj()
+                .main_window()
+                .file_selector(FileSelectorID::ACTIVE);
+            file_selector.go_to_file(&file);
+            file_selector.grab_focus();
         }
 
         fn stop(&self) {
             self.stop_button.set_sensitive(false);
             self.obj().set_default_widget(Some(&self.find_button));
-            unsafe {
-                gnome_cmd_search_dialog_stop(self.obj().to_glib_none().0);
+            if let Some(cancellable) = self.cancellable.replace(None) {
+                cancellable.cancel();
             }
         }
 
@@ -613,23 +614,77 @@ mod imp {
                 return;
             };
 
-            let search_started = unsafe {
-                gnome_cmd_search_dialog_find(
-                    self.obj().to_glib_none().0,
-                    start_dir.to_glib_none().0,
-                ) != 0
+            let Some(result_list) = self.result_list.borrow().clone() else {
+                return;
             };
 
-            if search_started {
-                self.jump_button.set_sensitive(false);
-                self.stop_button.set_sensitive(true);
-                self.find_button.set_sensitive(false);
-                self.obj().set_default_widget(Some(&self.stop_button));
+            if let Some(cancellable) = self.cancellable.replace(None) {
+                cancellable.cancel();
+            }
+            let cancellable = gio::Cancellable::new();
+            self.cancellable.replace(Some(cancellable.clone()));
+
+            self.save_default_settings();
+            let profile = self.config().default_profile().clone();
+
+            let progress_bar = &self.progress_bar;
+            let update_gui_timeout_id = glib::timeout_add_local(
+                GeneralOptions::new().gui_update_rate(),
+                glib::clone!(
+                    #[weak]
+                    progress_bar,
+                    #[upgrade_or]
+                    glib::ControlFlow::Break,
+                    move || {
+                        progress_bar.pulse();
+                        glib::ControlFlow::Continue
+                    }
+                ),
+            );
+
+            self.status_label.set_text("");
+            self.progress_bar.set_visible(true);
+            self.jump_button.set_sensitive(false);
+            self.stop_button.set_sensitive(true);
+            self.find_button.set_sensitive(false);
+            self.obj().set_default_widget(Some(&self.stop_button));
+
+            result_list.clear();
+            result_list.set_base_dir(&start_dir.upcast_ref::<File>().get_real_path());
+
+            let backend = if start_dir.connection().is_local() {
+                SearchBackend::Local
+            } else {
+                SearchBackend::Generic
+            };
+            let search_result = backend
+                .search(
+                    &profile,
+                    &start_dir,
+                    &|message| match message {
+                        SearchMessage::File(file) => result_list.append_file(&file),
+                        SearchMessage::Status(status) => self.status_label.set_text(&status),
+                    },
+                    &cancellable,
+                )
+                .await;
+
+            update_gui_timeout_id.remove();
+
+            let canceelled = self
+                .cancellable
+                .borrow()
+                .as_ref()
+                .map_or(false, |c| c.is_cancelled());
+            self.search_finished(canceelled);
+
+            if let Err(error) = search_result {
+                error.show(self.obj().upcast_ref()).await;
             }
         }
 
-        pub fn search_finished(&self, stopped: bool) {
-            self.progress_bar.borrow().set_visible(false);
+        fn search_finished(&self, stopped: bool) {
+            self.progress_bar.set_visible(false);
 
             let Some(result_list) = self.obj().result_list() else {
                 return;
@@ -648,7 +703,7 @@ mod imp {
             }
             .replace("{}", count.to_string().as_str());
 
-            self.status_label.borrow().set_label(&status);
+            self.status_label.set_label(&status);
 
             self.jump_button.set_sensitive(count > 0);
             self.stop_button.set_sensitive(false);
@@ -697,12 +752,14 @@ impl SearchDialog {
     pub fn new(
         config: Rc<SearchConfig>,
         file_metadata_service: &FileMetadataService,
-        parent_window: Option<&gtk::Window>,
+        main_window: &MainWindow,
+        transient: bool,
     ) -> Self {
         let this: Self = glib::Object::builder()
             .property("file-metadata-service", file_metadata_service)
+            .property("main-window", main_window)
             .build();
-        this.set_transient_for(parent_window);
+        this.set_transient_for(if transient { Some(main_window) } else { None });
         this.imp().config.set(config.clone()).ok().unwrap();
         this.imp().update_profile_menu();
 
@@ -730,45 +787,6 @@ impl SearchDialog {
             fl.update_style();
         }
     }
-}
-
-pub type GnomeCmdSearchDialog = <SearchDialog as glib::object::ObjectType>::GlibType;
-
-extern "C" {
-    fn gnome_cmd_search_dialog_init(dialog: *mut GnomeCmdSearchDialog);
-    fn gnome_cmd_search_dialog_dispose(dialog: *mut GnomeCmdSearchDialog);
-
-    fn gnome_cmd_search_dialog_goto(dialog: *mut GnomeCmdSearchDialog, file: *mut GnomeCmdFile);
-    fn gnome_cmd_search_dialog_stop(dialog: *mut GnomeCmdSearchDialog);
-    fn gnome_cmd_search_dialog_find(
-        dialog: *mut GnomeCmdSearchDialog,
-        start_dir: *mut GnomeCmdDir,
-    ) -> gboolean;
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_search_dialog_get_default_profile(
-    dialog_ptr: *mut GnomeCmdSearchDialog,
-) -> *mut SearchProfilePtr {
-    let dialog: Borrowed<SearchDialog> = unsafe { from_glib_borrow(dialog_ptr) };
-    dialog.imp().config().default_profile().to_glib_none().0
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_search_dialog_search_finished(
-    dialog_ptr: *mut GnomeCmdSearchDialog,
-    stopped: gboolean,
-) {
-    let dialog: Borrowed<SearchDialog> = unsafe { from_glib_borrow(dialog_ptr) };
-    dialog.imp().search_finished(stopped != 0);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_search_dialog_save_default_settings(
-    dialog_ptr: *mut GnomeCmdSearchDialog,
-) {
-    let dialog: Borrowed<SearchDialog> = unsafe { from_glib_borrow(dialog_ptr) };
-    dialog.imp().save_default_settings();
 }
 
 fn remember_window_size(dialog: &SearchDialog, settings: &gio::Settings) {
