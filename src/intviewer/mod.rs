@@ -20,7 +20,7 @@
 pub mod boyer_moore;
 pub mod cp437;
 pub mod data_presentation;
-pub mod file_ops;
+pub mod file_input_source;
 pub mod image_render;
 pub mod input_modes;
 pub mod search_dialog;

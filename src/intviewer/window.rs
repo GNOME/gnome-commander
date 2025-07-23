@@ -544,7 +544,7 @@ mod imp {
                     self.text_render.input_mode().unwrap(),
                     self.text_render.current_offset(),
                     self.text_render
-                        .file_ops()
+                        .input_mode()
                         .map(|f| f.max_offset())
                         .unwrap_or_default(),
                     pattern,
@@ -554,7 +554,7 @@ mod imp {
                     self.text_render.input_mode().unwrap(),
                     self.text_render.current_offset(),
                     self.text_render
-                        .file_ops()
+                        .input_mode()
                         .map(|f| f.max_offset())
                         .unwrap_or_default(),
                     pattern,

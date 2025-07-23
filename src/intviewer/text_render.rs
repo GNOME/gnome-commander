@@ -17,11 +17,11 @@
  * For more details see the file COPYING.
  */
 
-use super::{data_presentation::DataPresentation, file_ops::FileOps};
+use super::data_presentation::DataPresentation;
 use crate::{
     intviewer::{
-        data_presentation::DataPresentationMode,
-        input_modes::{InputMode, InputSource},
+        data_presentation::DataPresentationMode, file_input_source::FileInputSource,
+        input_modes::InputMode,
     },
     utils::Max,
 };
@@ -74,7 +74,6 @@ mod imp {
         #[property(get, set = Self::set_hexadecimal_offset)]
         hexadecimal_offset: Cell<bool>,
 
-        pub file_ops: RefCell<Option<Arc<FileOps>>>,
         pub input_mode: RefCell<Option<Arc<InputMode>>>,
         pub data_presentation: RefCell<Option<Rc<DataPresentation>>>,
 
@@ -123,7 +122,6 @@ mod imp {
                 fixed_limit: Cell::new(80),
                 hexadecimal_offset: Default::default(),
 
-                file_ops: Default::default(),
                 input_mode: Default::default(),
                 data_presentation: Default::default(),
 
@@ -440,7 +438,7 @@ mod imp {
             adjustment.set_lower(0.0);
             adjustment.set_upper(
                 self.obj()
-                    .file_ops()
+                    .input_mode()
                     .map(|f| f.max_offset().saturating_sub(1))
                     .unwrap_or_default() as f64,
             );
@@ -654,7 +652,7 @@ mod imp {
         }
 
         fn key_pressed(&self, key: gdk::Key) -> glib::Propagation {
-            let Some(fops) = self.obj().file_ops() else {
+            let Some(input_mode) = self.obj().input_mode() else {
                 return glib::Propagation::Proceed;
             };
             let Some(dp) = self.obj().data_presentation() else {
@@ -691,7 +689,7 @@ mod imp {
                 }
                 gdk::Key::Home => vadjustment.set_value(0.0),
                 gdk::Key::End => vadjustment
-                    .set_value(dp.align_offset_to_line_start(fops.max_offset() - 1) as f64),
+                    .set_value(dp.align_offset_to_line_start(input_mode.max_offset() - 1) as f64),
                 _ => return glib::Propagation::Proceed,
             }
 
@@ -1160,7 +1158,9 @@ impl TextRender {
     }
 
     pub fn size(&self) -> u64 {
-        self.file_ops().map(|f| f.max_offset()).unwrap_or_default()
+        self.input_mode()
+            .map(|f| f.max_offset())
+            .unwrap_or_default()
     }
 
     pub fn column(&self) -> i32 {
@@ -1173,24 +1173,21 @@ impl TextRender {
         self.imp().input_mode.borrow().clone()
     }
 
-    pub fn file_ops(&self) -> Option<Arc<FileOps>> {
-        self.imp().file_ops.borrow().clone()
-    }
-
     pub fn data_presentation(&self) -> Option<Rc<DataPresentation>> {
         self.imp().data_presentation.borrow().clone()
     }
 
     pub fn load_file(&self, filename: &Path) {
         self.imp().input_mode.replace(None);
-        self.imp().file_ops.replace(None);
         self.imp().data_presentation.replace(None);
 
-        let file_ops = Arc::new(FileOps::new());
-        if !file_ops.open(filename) {
-            eprintln!("Failed to load file {}", filename.display());
-            return;
-        }
+        let source = match FileInputSource::open(filename) {
+            Ok(source) => source,
+            Err(error) => {
+                eprintln!("Failed to load file {}: {}", filename.display(), error);
+                return;
+            }
+        };
 
         if let Some(hadjustment) = self.hadjustment() {
             hadjustment.set_value(0.0);
@@ -1201,7 +1198,7 @@ impl TextRender {
         self.set_max_column(0);
 
         // Setup the input mode translations
-        let input_mode = Arc::new(InputMode::new(file_ops.clone()));
+        let input_mode = Arc::new(InputMode::new(source));
         input_mode.set_mode(&self.encoding());
 
         // Setup the data presentation mode
@@ -1218,7 +1215,6 @@ impl TextRender {
         self.set_display_mode(TextRenderDisplayMode::Text);
 
         self.imp().input_mode.replace(Some(input_mode));
-        self.imp().file_ops.replace(Some(file_ops));
         self.imp()
             .data_presentation
             .replace(Some(data_presentation));
