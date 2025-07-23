@@ -28,7 +28,6 @@ sources_headers = files(
   'gnome-cmd-types.h',
   'gnome-cmd-xfer.h',
   'utils.h',
-  'text-utils.h',
   'widget-factory.h',
 )
 
@@ -55,7 +54,6 @@ sources_sources = files(
   'gnome-cmd-file-list.cc',
   'gnome-cmd-xfer.cc',
   'utils.cc',
-  'text-utils.cc',
   'widget-factory.cc',
 )
 

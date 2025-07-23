@@ -81,58 +81,7 @@ struct GnomeCmdFileList
         NUM_COLUMNS
     };
 
-    void clear();
-
-    enum TraverseControl {
-        TRAVERSE_BREAK,
-        TRAVERSE_CONTINUE,
-    };
-
-    TraverseControl traverse_files(std::function<TraverseControl (GnomeCmdFile *f, GtkTreeIter *, GtkListStore *)> visitor);
-
-    void append_file(GnomeCmdFile *f);
-    gboolean insert_file(GnomeCmdFile *f);      // Returns TRUE if file added to shown file list, FALSE otherwise
-    gboolean remove_file(GnomeCmdFile *f);
-    void remove_files(GList *files);
-
-    gboolean has_file(const GnomeCmdFile *f);
-
-    void focus_file_at_row (GtkTreeIter *row);
-
-    void select_row(GtkTreeIter *row);
     GnomeCmdFile *get_file_at_row(GtkTreeIter *row);
-    GtkTreeIterPtr get_row_from_file(GnomeCmdFile *f);
-    void focus_file(const gchar *focus_file, gboolean scroll_to_file=TRUE);
-
-    /**
-     * Returns a list with all selected files. The list returned is a
-     * copy and should be freed when no longer needed. The files in the
-     * list is however not refed before returning
-     */
-    GList *get_selected_files();
-
-    GtkTreeIterPtr get_focused_file_iter();
-
-    /**
-     * Returns the currently focused file if any. The returned file is
-     * not reffed. The ".." file is returned if focused
-     */
-    GnomeCmdFile *get_focused_file();
-
-    /**
-     * Returns the currently focused file if any. The returned file is
-     * not reffed. The ".." file is NOT returned if focused
-     */
-    GnomeCmdFile *get_selected_file();
-
-    void update_file(GnomeCmdFile *f);
-    void show_files(GnomeCmdDir *dir);
-    void show_dir_tree_size(GnomeCmdFile *f);
-    void show_visible_tree_sizes();
-
-    void invalidate_tree_size();
-
-    void set_base_dir(gchar *dir);
 
     /**
      * Establish a connection via gnome_cmd_con_open() if it does not
@@ -142,8 +91,6 @@ struct GnomeCmdFileList
     void set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir = nullptr);
     void set_directory(GnomeCmdDir *dir);
     void goto_directory(const gchar *dir);
-
-    void update_style();
 
     enum DndMode
     {
@@ -157,47 +104,16 @@ struct GnomeCmdFileList
 
     GtkTreeIterPtr get_dest_row_at_pos (gint drag_x, gint drag_y);
     GtkTreeIterPtr get_dest_row_at_coords (gdouble x, gdouble y);
-// private:
-    void set_selected_at_iter(GtkTreeIter *iter, gboolean selected);
-    void select_iter(GtkTreeIter *iter);
-    void unselect_iter(GtkTreeIter *iter);
-    bool is_selected_iter(GtkTreeIter *iter);
 };
 
-inline void GnomeCmdFileList::remove_files (GList *files)
-{
-    for (; files; files = files->next)
-        remove_file(static_cast<GnomeCmdFile *>(files->data));
-}
-
-inline GnomeCmdFile *GnomeCmdFileList::get_selected_file()
-{
-    GnomeCmdFile *f = get_focused_file();
-
-    return !f || gnome_cmd_file_is_dotdot (f) ? nullptr : f;
-}
-
 // FFI
-extern "C" GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl);
-extern "C" GnomeCmdFile *gnome_cmd_file_list_get_focused_file(GnomeCmdFileList *fl);
 extern "C" GnomeCmdCon *gnome_cmd_file_list_get_connection(GnomeCmdFileList *fl);
 extern "C" GnomeCmdDir *gnome_cmd_file_list_get_directory(GnomeCmdFileList *fl);
 extern "C" void gnome_cmd_file_list_set_directory(GnomeCmdFileList *fl, GnomeCmdDir *dir);
 
 extern "C" gint /* ColumnID */ gnome_cmd_file_list_get_sort_column (GnomeCmdFileList *fl);
 
-extern "C" void gnome_cmd_file_list_append_file(GnomeCmdFileList *fl, GnomeCmdFile *f);
-
 extern "C" void gnome_cmd_file_list_set_connection(GnomeCmdFileList *fl, GnomeCmdCon *con, GnomeCmdDir *start_dir);
 extern "C" void gnome_cmd_file_list_focus_file(GnomeCmdFileList *fl, const gchar *focus_file, gboolean scroll_to_file);
 
 extern "C" void gnome_cmd_file_list_goto_directory(GnomeCmdFileList *fl, const gchar *dir);
-
-extern "C" void gnome_cmd_file_list_update_style(GnomeCmdFileList *fl);
-
-extern "C" void gnome_cmd_file_list_show_files(GnomeCmdFileList *fl, GnomeCmdDir *dir);
-
-extern "C" void gnome_cmd_file_list_set_base_dir (GnomeCmdFileList *fl, gchar *dir);
-
-extern "C" void gnome_cmd_file_list_show_dir_tree_size(GnomeCmdFileList *fl, GnomeCmdFile *f);
-extern "C" void gnome_cmd_file_list_show_visible_tree_sizes(GnomeCmdFileList *fl);

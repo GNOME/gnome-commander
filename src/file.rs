@@ -71,6 +71,8 @@ pub mod ffi {
             dir: *mut GnomeCmdDir,
         ) -> *mut GnomeCmdFile;
 
+        pub fn gnome_cmd_file_new_dotdot(dir: *mut GnomeCmdDir) -> *mut GnomeCmdFile;
+
         pub fn gnome_cmd_file_get_real_path(f: *const GnomeCmdFile) -> *mut c_char;
         pub fn gnome_cmd_file_get_path_through_parent(f: *const GnomeCmdFile) -> *mut GnomeCmdPath;
         pub fn gnome_cmd_file_get_path_string_through_parent(f: *const GnomeCmdFile)
@@ -106,7 +108,7 @@ pub mod ffi {
 
         pub fn gnome_cmd_file_set_deleted(f: *mut GnomeCmdFile);
 
-        pub fn gnome_cmd_file_get_tree_size(f: *mut GnomeCmdFile) -> u64;
+        pub fn gnome_cmd_file_needs_update(f: *mut GnomeCmdFile) -> gboolean;
     }
 
     #[derive(Copy, Clone)]
@@ -163,6 +165,10 @@ impl File {
         Self::new_full(&file_info, &file, &dir).ok_or_else(|| {
             glib::Error::new(glib::FileError::Failed, "Failed to create File object")
         })
+    }
+
+    pub fn dotdot(dir: &Directory) -> Self {
+        unsafe { from_glib_full(ffi::gnome_cmd_file_new_dotdot(dir.to_glib_none().0)) }
     }
 
     pub fn get_name(&self) -> String {
@@ -356,8 +362,26 @@ impl File {
     }
 
     pub fn tree_size(&self) -> Option<u64> {
-        Some(unsafe { ffi::gnome_cmd_file_get_tree_size(self.to_glib_none().0) })
-            .filter(|v| *v != u64::MAX)
+        match self.file_info().file_type() {
+            gio::FileType::Directory => {
+                match self.file().measure_disk_usage(
+                    gio::FileMeasureFlags::NONE,
+                    gio::Cancellable::NONE,
+                    None,
+                ) {
+                    Ok((size, _, _)) => Some(size),
+                    Err(error) => {
+                        eprintln!(
+                            "calc_tree_size: g_file_measure_disk_usage failed: {}",
+                            error.message()
+                        );
+                        None
+                    }
+                }
+            }
+            gio::FileType::Regular => self.size(),
+            _ => None,
+        }
     }
 
     pub fn free_space(&self) -> Result<u64, glib::Error> {
@@ -365,6 +389,10 @@ impl File {
             .file()
             .query_filesystem_info(gio::FILE_ATTRIBUTE_FILESYSTEM_FREE, gio::Cancellable::NONE)?
             .attribute_uint64(gio::FILE_ATTRIBUTE_FILESYSTEM_FREE))
+    }
+
+    pub fn needs_update(&self) -> bool {
+        unsafe { ffi::gnome_cmd_file_needs_update(self.to_glib_none().0) != 0 }
     }
 }
 

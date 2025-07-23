@@ -571,7 +571,6 @@ mod imp {
                             self.obj().new_tab_with_dir(&parent, true, true);
                         }
                     } else {
-                        fl.invalidate_tree_size();
                         fl.goto_directory(&Path::new(".."));
                     }
                     glib::Propagation::Stop
@@ -959,12 +958,11 @@ impl FileSelector {
         };
         if self.is_current_tab_locked() {
             self.new_tab_with_dir(&dir, true, true);
-            self.file_list()
-                .focus_file(&Path::new(&file.get_name()), true);
+            self.file_list().focus_file(&file.file_info().name(), true);
         } else {
             if let Some(file_list) = self.current_file_list() {
                 file_list.set_connection(&file.connection(), Some(&dir));
-                file_list.focus_file(&Path::new(&file.get_name()), true);
+                file_list.focus_file(&file.file_info().name(), true);
             }
         }
     }
@@ -1347,8 +1345,6 @@ impl FileSelector {
         match file.file_info().file_type() {
             gio::FileType::Directory => {
                 if !self.is_tab_locked(fl) {
-                    fl.invalidate_tree_size();
-
                     if file.is_dotdot() {
                         fl.goto_directory(&Path::new(".."));
                     } else {

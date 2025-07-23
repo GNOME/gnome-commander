@@ -352,7 +352,7 @@ pub fn file_properties(
             .await;
 
             if changed {
-                file_list.focus_file(&Path::new(&file.get_name()), true);
+                file_list.focus_file(&file.file_info().name(), true);
             }
         }
     });

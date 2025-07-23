@@ -33,7 +33,6 @@
 using namespace std;
 
 
-#define MAX_TYPE_LENGTH 2
 #define MAX_NAME_LENGTH 128
 #define MAX_OWNER_LENGTH 128
 #define MAX_GROUP_LENGTH 128
@@ -48,7 +47,6 @@ struct GnomeCmdFilePrivate
     gboolean is_dotdot;
     GnomeCmdDir *parent_dir;
     GTimeVal last_update;
-    guint64 tree_size;
 };
 
 
@@ -93,8 +91,6 @@ inline GnomeCmdDir *get_parent_dir (GnomeCmdFile *f)
 
 static void gnome_cmd_file_init (GnomeCmdFile *f)
 {
-    auto priv = file_private (f);
-    priv->tree_size = -1;
 }
 
 
@@ -570,200 +566,6 @@ gchar *GnomeCmdFile::get_uri_str()
 }
 
 
-const gchar *GnomeCmdFile::get_extension()
-{
-    g_return_val_if_fail (get_file_info() != nullptr, nullptr);
-
-    if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-        return nullptr;
-
-    const char *s = strrchr (g_file_info_get_name(get_file_info()), '.');
-    return s ? s+1 : nullptr;
-}
-
-
-const gchar *GnomeCmdFile::get_owner()
-{
-    g_return_val_if_fail (get_file_info() != nullptr, nullptr);
-
-    const gchar *ownerString = nullptr;
-
-    ownerString = g_file_info_get_attribute_string(get_file_info(), G_FILE_ATTRIBUTE_OWNER_USER);
-
-    if (!ownerString)
-    {
-        static gchar owner_str[MAX_OWNER_LENGTH];
-        g_snprintf (owner_str, MAX_OWNER_LENGTH, "%d",
-            g_file_info_get_attribute_uint32(get_file_info(), G_FILE_ATTRIBUTE_UNIX_UID));
-        return owner_str;
-    }
-
-    return ownerString;
-}
-
-
-const gchar *GnomeCmdFile::get_group()
-{
-    g_return_val_if_fail (get_file_info() != nullptr, nullptr);
-
-    const gchar *groupString = nullptr;
-
-    groupString = g_file_info_get_attribute_string (get_file_info(), G_FILE_ATTRIBUTE_OWNER_GROUP);
-
-    if (!groupString)
-    {
-        static gchar owner_str[MAX_OWNER_LENGTH];
-        g_snprintf (owner_str, MAX_OWNER_LENGTH, "%d",
-            g_file_info_get_attribute_uint32 (get_file_info(), G_FILE_ATTRIBUTE_UNIX_GID));
-        return owner_str;
-    }
-
-    return groupString;
-}
-
-
-inline const gchar *date2string (GDateTime *date, const gchar *date_format)
-{
-    if (!date) return nullptr;
-
-    return time2string (date, date_format);
-}
-
-
-const gchar *GnomeCmdFile::get_adate(const gchar *date_format)
-{
-    g_return_val_if_fail (get_file_info() != nullptr, nullptr);
-
-    return date2string (g_file_info_get_access_date_time(get_file_info()), date_format);
-}
-
-const gchar *GnomeCmdFile::get_mdate(const gchar *date_format)
-{
-    g_return_val_if_fail (get_file_info() != nullptr, nullptr);
-
-    return date2string (g_file_info_get_modification_date_time (get_file_info()), date_format);
-}
-
-
-const gchar *GnomeCmdFile::get_size(GnomeCmdSizeDispMode size_disp_mode)
-{
-    static gchar dir_indicator[] = "<DIR> ";
-
-    if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-        return dir_indicator;
-
-    auto size = GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_STANDARD_SIZE);
-    return size2string (size, size_disp_mode);
-}
-
-
-guint64 GnomeCmdFile::calc_tree_size (gulong *count)
-{
-    g_return_val_if_fail (this->get_file() != NULL, -1);
-
-    guint64 size = 0;
-
-    if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-    {
-        GError *error;
-        error = nullptr;
-
-        g_file_measure_disk_usage (this->get_file(),
-                           G_FILE_MEASURE_NONE,
-                           nullptr,
-                           nullptr,
-                           nullptr,
-                           &size,
-                           nullptr,
-                           nullptr,
-                           &error);
-
-        if (error)
-        {
-            g_message ("calc_tree_size: g_file_measure_disk_usage failed: %s", error->message);
-            g_error_free (error);
-        }
-    }
-    else
-    {
-        size += GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_SIZE);
-        if (count!=NULL) {
-            (*count)++;
-        }
-    }
-    return size;
-}
-
-
-const gchar *GnomeCmdFile::get_tree_size_as_str(GnomeCmdSizeDispMode size_disp_mode)
-{
-    auto priv = file_private (this);
-    if (priv->is_dotdot)
-        return get_size(size_disp_mode);
-
-    if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)
-        return get_size(size_disp_mode);
-
-    priv->tree_size = calc_tree_size (nullptr);
-
-    return size2string (priv->tree_size, size_disp_mode);
-}
-
-
-const gchar *GnomeCmdFile::get_perm(GnomeCmdPermDispMode mode)
-{
-    static gchar perm_str[MAX_PERM_LENGTH];
-
-    perm2string (mode, GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_MODE) & 0xFFF, perm_str, MAX_PERM_LENGTH);
-    return perm_str;
-}
-
-
-const gchar *GnomeCmdFile::get_type_string()
-{
-    static gchar type_str[MAX_TYPE_LENGTH];
-
-    type2string (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE), type_str, MAX_TYPE_LENGTH);
-    return type_str;
-}
-
-
-gboolean GnomeCmdFile::has_content_type(const gchar *contentType)
-{
-    g_return_val_if_fail (contentType != nullptr, FALSE);
-
-    auto actualContentType = GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
-
-    if (!actualContentType)
-    {
-        return false;
-    }
-
-    auto compareValue = strcmp (actualContentType, contentType);
-    g_free(actualContentType);
-
-    return compareValue == 0;
-}
-
-
-gboolean GnomeCmdFile::content_type_begins_with(const gchar *contentTypeStart)
-{
-    g_return_val_if_fail (contentTypeStart != nullptr, FALSE);
-
-    auto actualContentType = GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
-
-    if (!actualContentType)
-    {
-        return false;
-    }
-
-    auto compareValue = strncmp (actualContentType, contentTypeStart, strlen(contentTypeStart));
-    g_free(actualContentType);
-
-    return compareValue == 0;
-}
-
-
 void GnomeCmdFile::update_gFileInfo(GFileInfo *gFileInfo_new)
 {
     g_return_if_fail (gFileInfo_new != nullptr);
@@ -858,20 +660,6 @@ gboolean GnomeCmdFile::needs_update()
     }
 
     return FALSE;
-}
-
-
-void GnomeCmdFile::invalidate_tree_size()
-{
-    auto priv = file_private (this);
-    priv->tree_size = -1;
-}
-
-
-extern "C" guint64 gnome_cmd_file_get_tree_size (GnomeCmdFile *f)
-{
-    auto priv = file_private (f);
-    return priv->tree_size;
 }
 
 GFile *gnome_cmd_file_get_file (GnomeCmdFileDescriptor *fd)
@@ -991,4 +779,9 @@ GnomeCmdFile *gnome_cmd_file_new_dotdot (GnomeCmdDir *dir)
 GnomeCmdDir *gnome_cmd_file_get_parent_dir(GnomeCmdFile *f)
 {
     return f->get_parent_dir();
+}
+
+gboolean gnome_cmd_file_needs_update(GnomeCmdFile *f)
+{
+    return f->needs_update();
 }

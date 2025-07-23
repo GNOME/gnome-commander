@@ -650,7 +650,7 @@ mod imp {
             self.obj().set_default_widget(Some(&self.stop_button));
 
             result_list.clear();
-            result_list.set_base_dir(&start_dir.upcast_ref::<File>().get_real_path());
+            result_list.set_base_dir(Some(start_dir.upcast_ref::<File>().get_real_path()));
 
             let backend = if start_dir.connection().is_local() {
                 SearchBackend::Local

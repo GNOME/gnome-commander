@@ -24,28 +24,12 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
-
 #include <stdio.h>
-
-#include <config.h>
 
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-types.h"
 
 using namespace std;
-
-#define GNOME_CMD_PERM_USER_READ  256 //r--------
-#define GNOME_CMD_PERM_USER_WRITE 128 //-w-------
-#define GNOME_CMD_PERM_USER_EXEC   64 //--x------
-#define GNOME_CMD_PERM_GROUP_READ  32 //---r-----
-#define GNOME_CMD_PERM_GROUP_WRITE 16 //----w----
-#define GNOME_CMD_PERM_GROUP_EXEC   8 //-----x---
-#define GNOME_CMD_PERM_OTHER_READ   4 //------r--
-#define GNOME_CMD_PERM_OTHER_WRITE  2 //-------w-
-#define GNOME_CMD_PERM_OTHER_EXEC   1 //--------x
-#define GNOME_CMD_PERM_USER_ALL   448 //rwx------
-#define GNOME_CMD_PERM_GROUP_ALL   56 //---rwx---
-#define GNOME_CMD_PERM_OTHER_ALL    7 //------rwx
 
 #define TRACE(s)  std::cout << __FILE__ "(" << __LINE__ << ") " << __PRETTY_FUNCTION__ << "\t" #s ": `" << (s) << "'" << std::endl
 
@@ -60,13 +44,6 @@ void DEBUG (gchar flag, const gchar *fmt, ...);
 
 void gnome_cmd_show_message (GtkWindow *parent, const gchar *message, const gchar *secondary_text=NULL);
 void gnome_cmd_error_message (GtkWindow *parent, const gchar *message, GError *error);
-
-const gchar *type2string (guint32 type, gchar *buf, guint max);
-const gchar *perm2string (GnomeCmdPermDispMode mode, guint32 permissions, gchar *buf, guint max);
-const gchar *perm2textstring (guint32 permissions, gchar *buf, guint max);
-const gchar *perm2numstring (guint32 permissions, gchar *buf, guint max);
-const gchar *size2string (guint64 size, GnomeCmdSizeDispMode size_disp_mode);
-const gchar *time2string (GDateTime *gDateTime, const gchar *date_format);
 
 inline GdkModifierType get_modifiers_state()
 {

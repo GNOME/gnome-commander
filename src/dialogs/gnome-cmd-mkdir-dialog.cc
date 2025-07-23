@@ -138,7 +138,7 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdDir *
                             string mkdir_uri_str = stringify (g_file_get_uri (mkdir_gFile));
 
                             gnome_cmd_dir_file_created (dir, mkdir_uri_str.c_str());
-                            main_win->fs(ACTIVE)->file_list()->focus_file(focus_filename.c_str(), TRUE);
+                            gnome_cmd_file_list_focus_file (main_win->fs(ACTIVE)->file_list(), focus_filename.c_str(), TRUE);
                             new_dir_focused = TRUE;
                         }
                         g_object_unref(parentGFile);

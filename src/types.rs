@@ -72,6 +72,7 @@ pub enum GraphicalLayoutMode {
 #[derive(Clone, Copy, Default, PartialEq, Eq, strum::FromRepr, glib::Enum)]
 #[enum_type(name = "GnomeCmdExtensionDisplayMode")]
 pub enum ExtensionDisplayMode {
+    #[enum_value(nick = "with-fname")]
     WithFileName = 0,
     Stripped,
     #[default]
