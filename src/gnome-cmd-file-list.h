@@ -38,26 +38,6 @@
 extern "C" GType gnome_cmd_file_list_get_type ();
 
 
-/* DnD target names */
-#define TARGET_MC_DESKTOP_ICON_TYPE     (gchar*) "application/x-mc-desktop-icon"
-#define TARGET_URI_LIST_TYPE            (gchar*) "text/uri-list"
-#define TARGET_TEXT_PLAIN_TYPE          (gchar*) "text/plain"
-#define TARGET_URL_TYPE                 (gchar*) "_NETSCAPE_URL"
-
-/* Standard DnD types */
-enum TargetType
-{
-    TARGET_MC_DESKTOP_ICON,
-    TARGET_URI_LIST,
-    TARGET_TEXT_PLAIN,
-    TARGET_URL,
-    TARGET_NTARGETS
-};
-
-
-using GtkTreeIterPtr = std::unique_ptr<GtkTreeIter, decltype(&gtk_tree_iter_free)>;
-
-
 struct GnomeCmdFileList
 {
     GtkWidget parent;
@@ -81,8 +61,6 @@ struct GnomeCmdFileList
         NUM_COLUMNS
     };
 
-    GnomeCmdFile *get_file_at_row(GtkTreeIter *row);
-
     /**
      * Establish a connection via gnome_cmd_con_open() if it does not
      * already exist, or just set the file list to the last or the
@@ -91,19 +69,6 @@ struct GnomeCmdFileList
     void set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir = nullptr);
     void set_directory(GnomeCmdDir *dir);
     void goto_directory(const gchar *dir);
-
-    enum DndMode
-    {
-        COPY,
-        MOVE,
-        LINK
-    };
-
-    void init_dnd();
-    void drop_files(DndMode dndMode, GFileCopyFlags gFileCopyFlags, GList *uri_list, GnomeCmdDir *dir);
-
-    GtkTreeIterPtr get_dest_row_at_pos (gint drag_x, gint drag_y);
-    GtkTreeIterPtr get_dest_row_at_coords (gdouble x, gdouble y);
 };
 
 // FFI

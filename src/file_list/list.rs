@@ -45,9 +45,7 @@ use crate::{
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{
-    ffi::{GtkTreeIter, GtkTreeView},
-    gdk::{self, ffi::GdkRectangle},
-    gio,
+    gdk, gio,
     glib::{
         self,
         ffi::{gboolean, GType},
@@ -85,10 +83,11 @@ mod imp {
             ls_colors_palette::LsColorsPalette,
         },
         tags::tags::FileMetadataService,
+        transfer::{gnome_cmd_copy_gfiles, gnome_cmd_link_gfiles, gnome_cmd_move_gfiles},
         types::{
-            DndMode, ExtensionDisplayMode, GraphicalLayoutMode, LeftMouseButtonMode,
-            MiddleMouseButtonMode, PermissionDisplayMode, QuickSearchShortcut,
-            RightMouseButtonMode,
+            ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GnomeCmdTransferType,
+            GraphicalLayoutMode, LeftMouseButtonMode, MiddleMouseButtonMode, PermissionDisplayMode,
+            QuickSearchShortcut, RightMouseButtonMode,
         },
         utils::{
             get_modifiers_state, permissions_to_numbers, permissions_to_text, time_to_string, ALT,
@@ -235,19 +234,17 @@ mod imp {
                     }
                 },
             );
-            klass.install_action(
+            klass.install_action_async(
                 "fl.drop-files",
-                Some(&i32::static_variant_type()),
-                |obj, _, parameter| unsafe {
-                    ffi::gnome_cmd_file_list_drop_files(
-                        obj.to_glib_none().0,
-                        parameter.and_then(i32::from_variant).unwrap_or_default(),
-                    );
+                Some(&DroppingFiles::static_variant_type()),
+                |obj, _, parameter| async move {
+                    if let Some(transfer) = parameter.as_ref().and_then(DroppingFiles::from_variant)
+                    {
+                        obj.imp().drop_files(transfer).await;
+                    }
                 },
             );
-            klass.install_action("fl.drop-files-cancel", None, |obj, _, _| unsafe {
-                ffi::gnome_cmd_file_list_drop_files_cancel(obj.to_glib_none().0);
-            });
+            klass.install_action("fl.drop-files-cancel", None, |_, _, _| { /* do nothing */ });
         }
     }
 
@@ -409,6 +406,33 @@ mod imp {
                 )
             ));
             view.add_controller(click_controller);
+
+            let drag_source = gtk::DragSource::new();
+            drag_source.connect_prepare(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                #[upgrade_or]
+                None,
+                move |_, x, y| imp.drag_prepare(x, y)
+            ));
+            drag_source.connect_drag_end(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_, drag, delete| imp.drag_end(drag, delete)
+            ));
+            // TODO: implement
+            // fl.add_controller(drag_source);
+
+            let drop_target = gtk::DropTarget::new(String::static_type(), gdk::DragAction::all());
+            drop_target.connect_drop(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                #[upgrade_or]
+                false,
+                move |_, value, x, y| imp.drop(value, x, y)
+            ));
+            // TODO: implement
+            // fl.add_controller(drop_target);
 
             let general_options = GeneralOptions::new();
             general_options
@@ -1303,6 +1327,161 @@ mod imp {
                 }
             }
         }
+
+        fn drag_prepare(&self, _x: f64, _y: f64) -> Option<gdk::ContentProvider> {
+            let files = self
+                .obj()
+                .selected_files()
+                .into_iter()
+                .filter_map(|f| f.get_uri_str())
+                .collect::<Vec<_>>();
+            if files.is_empty() {
+                return None;
+            }
+
+            let bytes = glib::Bytes::from_owned(files.join("\r\n"));
+
+            Some(gdk::ContentProvider::for_bytes("text/uri-list", &bytes))
+        }
+
+        fn drag_end(&self, _drag: &gdk::Drag, delete: bool) {
+            if delete {
+                for f in self.obj().selected_files() {
+                    self.obj().remove_file(&f);
+                }
+            }
+        }
+
+        fn drop(&self, value: &glib::Value, x: f64, y: f64) -> bool {
+            let Ok(data) = value.get::<String>() else {
+                return false;
+            };
+
+            let row = self.row_at_coords(x, y);
+            let file = row.and_then(|iter| self.obj().file_at_row(&iter));
+
+            let destination = if file.as_ref().is_some_and(|f| f.is_dotdot()) {
+                DroppingFilesDestination::Parent
+            } else if let Some(dir) = file.and_downcast::<Directory>() {
+                DroppingFilesDestination::Child(dir.file_info().name())
+            } else {
+                DroppingFilesDestination::This
+            };
+
+            // transform the drag data to a list with `gio::File`s
+            let files: Vec<_> = data
+                .split("\r\n")
+                .filter(|s| !s.is_empty())
+                .map(|s| s.to_owned())
+                // .map(|uri| gio::File::for_uri(uri))
+                .collect();
+
+            let mask = self.get_modifiers_state();
+            let shift_or_control = mask
+                .map(|m| m.contains(SHIFT) || m.contains(CONTROL))
+                .unwrap_or_default();
+
+            match (self.dnd_mode.get(), shift_or_control) {
+                (DndMode::Query, _) | (_, true) => {
+                    let menu = create_dnd_popup(&files, &destination);
+
+                    let dnd_popover = gtk::PopoverMenu::from_model(Some(&menu));
+                    dnd_popover.set_parent(&*self.obj());
+                    dnd_popover
+                        .set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 1, 1)));
+                    dnd_popover.present();
+                    dnd_popover.popup();
+                }
+                (DndMode::Copy, false) => {
+                    let this = self.obj().clone();
+                    glib::spawn_future_local(async move {
+                        this.imp()
+                            .drop_files(DroppingFiles {
+                                transfer_type: GnomeCmdTransferType::COPY,
+                                files,
+                                destination,
+                            })
+                            .await;
+                    });
+                }
+                (DndMode::Move, false) => {
+                    let this = self.obj().clone();
+                    glib::spawn_future_local(async move {
+                        this.imp()
+                            .drop_files(DroppingFiles {
+                                transfer_type: GnomeCmdTransferType::MOVE,
+                                files,
+                                destination,
+                            })
+                            .await;
+                    });
+                }
+            }
+
+            true
+        }
+
+        async fn drop_files(&self, data: DroppingFiles) {
+            let Some(window) = self.obj().root().and_downcast::<gtk::Window>() else {
+                return;
+            };
+
+            let files: glib::List<gio::File> = data
+                .files
+                .iter()
+                .map(|uri| gio::File::for_uri(uri))
+                .collect();
+
+            let to = match data.destination {
+                DroppingFilesDestination::Parent => self.obj().directory().and_then(|d| d.parent()),
+                DroppingFilesDestination::Child(name) => self
+                    .obj()
+                    .find_file_by_name(&name)
+                    .and_then(|iter| self.obj().file_at_row(&iter))
+                    .and_downcast::<Directory>(),
+                DroppingFilesDestination::This => self.obj().directory(),
+            };
+            let Some(dir) = to else { return };
+
+            let _result = match data.transfer_type {
+                GnomeCmdTransferType::COPY => {
+                    gnome_cmd_copy_gfiles(
+                        window.clone(),
+                        files,
+                        dir.clone(),
+                        None,
+                        gio::FileCopyFlags::NONE,
+                        ConfirmOverwriteMode::Query,
+                    )
+                    .await
+                }
+                GnomeCmdTransferType::MOVE => {
+                    gnome_cmd_move_gfiles(
+                        window.clone(),
+                        files,
+                        dir.clone(),
+                        None,
+                        gio::FileCopyFlags::NONE,
+                        ConfirmOverwriteMode::Query,
+                    )
+                    .await
+                }
+                GnomeCmdTransferType::LINK => {
+                    gnome_cmd_link_gfiles(
+                        window.clone(),
+                        files,
+                        dir.clone(),
+                        None,
+                        gio::FileCopyFlags::NONE,
+                        ConfirmOverwriteMode::Query,
+                    )
+                    .await
+                }
+            };
+
+            dir.relist_files(&window, false).await;
+            // main_win.focus_file_lists();
+        }
     }
 
     fn iter_compare(
@@ -1354,6 +1533,71 @@ mod imp {
             PermissionDisplayMode::Text => permissions_to_text(permissions),
         }
     }
+
+    #[derive(glib::Variant)]
+    pub struct DroppingFiles {
+        pub transfer_type: GnomeCmdTransferType,
+        pub files: Vec<String>,
+        pub destination: DroppingFilesDestination,
+    }
+
+    #[derive(Clone, glib::Variant)]
+    pub enum DroppingFilesDestination {
+        This,
+        Parent,
+        Child(PathBuf),
+    }
+
+    fn create_dnd_popup(files: &[String], destination: &DroppingFilesDestination) -> gio::Menu {
+        let menu = gio::Menu::new();
+        let section = gio::Menu::new();
+
+        let item = gio::MenuItem::new(Some(&gettext("_Copy here")), None);
+        item.set_action_and_target_value(
+            Some("fl.drop-files"),
+            Some(
+                &DroppingFiles {
+                    transfer_type: GnomeCmdTransferType::COPY,
+                    files: files.to_vec(),
+                    destination: destination.to_owned(),
+                }
+                .to_variant(),
+            ),
+        );
+        section.append_item(&item);
+
+        let item = gio::MenuItem::new(Some(&gettext("_Move here")), None);
+        item.set_action_and_target_value(
+            Some("fl.drop-files"),
+            Some(
+                &DroppingFiles {
+                    transfer_type: GnomeCmdTransferType::MOVE,
+                    files: files.to_vec(),
+                    destination: destination.to_owned(),
+                }
+                .to_variant(),
+            ),
+        );
+        section.append_item(&item);
+
+        let item = gio::MenuItem::new(Some(&gettext("_Link here")), None);
+        item.set_action_and_target_value(
+            Some("fl.drop-files"),
+            Some(
+                &DroppingFiles {
+                    transfer_type: GnomeCmdTransferType::LINK,
+                    files: files.to_vec(),
+                    destination: destination.to_owned(),
+                }
+                .to_variant(),
+            ),
+        );
+        section.append_item(&item);
+
+        menu.append_section(None, &section);
+        menu.append(Some(&gettext("C_ancel")), Some("fl.drop-files-cancel"));
+        menu
+    }
 }
 
 pub mod ffi {
@@ -1378,9 +1622,6 @@ pub mod ffi {
         );
 
         pub fn gnome_cmd_file_list_goto_directory(fl: *mut GnomeCmdFileList, dir: *const c_char);
-
-        pub fn gnome_cmd_file_list_drop_files(fl: *mut GnomeCmdFileList, parameter: i32);
-        pub fn gnome_cmd_file_list_drop_files_cancel(fl: *mut GnomeCmdFileList);
     }
 }
 
@@ -1720,17 +1961,23 @@ impl FileList {
         gtk::prelude::TreeViewExt::set_cursor(&self.view(), &path, None, false);
     }
 
-    pub fn focus_file(&self, focus_file: &Path, scroll_to_file: bool) {
+    fn find_file_by_name(&self, name: &Path) -> Option<gtk::TreeIter> {
         let result = self.traverse_files::<gtk::TreeIter>(|f, iter, _store| {
-            if f.file_info().name() == focus_file {
+            if f.file_info().name() == name {
                 ControlFlow::Break(iter.clone())
             } else {
                 ControlFlow::Continue(())
             }
         });
-
         match result {
-            ControlFlow::Break(iter) => {
+            ControlFlow::Break(iter) => Some(iter),
+            ControlFlow::Continue(()) => None,
+        }
+    }
+
+    pub fn focus_file(&self, focus_file: &Path, scroll_to_file: bool) {
+        match self.find_file_by_name(focus_file) {
+            Some(iter) => {
                 self.focus_file_at_row(&iter);
                 if scroll_to_file {
                     let path = self.store().path(&iter);
@@ -1738,7 +1985,7 @@ impl FileList {
                         .scroll_to_cell(Some(&path), None, false, 0.0, 0.0);
                 }
             }
-            ControlFlow::Continue(()) => {
+            None => {
                 /* The file was not found, remember the filename in case the file gets
                 added to the list in the future (after a FAM event etc). */
                 self.imp().focus_later.replace(Some(focus_file.to_owned()));
@@ -2291,31 +2538,6 @@ fn matches_pattern(file: &str, patterns: &str) -> bool {
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_get_tree_view(
-    fl: *mut ffi::GnomeCmdFileList,
-) -> *mut GtkTreeView {
-    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
-    fl.view().to_glib_none().0
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_is_wanted(f: *mut GnomeCmdFile) -> gboolean {
-    let f: Borrowed<File> = unsafe { from_glib_borrow(f) };
-    let options = FiltersOptions::new();
-    file_is_wanted(&f, &options).into_glib()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_show_file_popup(
-    f: *mut ffi::GnomeCmdFileList,
-    point_to: *mut GdkRectangle,
-) {
-    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(f) };
-    let point_to: Borrowed<Option<gdk::Rectangle>> = unsafe { from_glib_borrow(point_to) };
-    fl.show_file_popup((&*point_to).as_ref());
-}
-
-#[no_mangle]
 pub extern "C" fn gnome_cmd_file_list_get_sort_column(fl: *mut ffi::GnomeCmdFileList) -> i32 {
     let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
     fl.sorting().0 as i32
@@ -2325,38 +2547,6 @@ pub extern "C" fn gnome_cmd_file_list_get_sort_column(fl: *mut ffi::GnomeCmdFile
 pub extern "C" fn gnome_cmd_file_list_sort(fl: *mut ffi::GnomeCmdFileList) {
     let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
     fl.sort();
-}
-
-#[no_mangle]
-pub extern "C" fn build_selected_file_list(fl: *mut ffi::GnomeCmdFileList) -> *mut c_char {
-    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
-    fl.selected_files()
-        .into_iter()
-        .filter_map(|f| f.get_uri_str())
-        .collect::<Vec<_>>()
-        .join("\r\n")
-        .to_glib_full()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_drag_data_delete(fl: *mut ffi::GnomeCmdFileList) {
-    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
-    for f in fl.selected_files() {
-        fl.remove_file(&f);
-    }
-}
-
-#[no_mangle]
-pub extern "C" fn set_model_row(
-    fl: *mut ffi::GnomeCmdFileList,
-    iter: *mut GtkTreeIter,
-    f: *mut GnomeCmdFile,
-    tree_size: gboolean,
-) {
-    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
-    let iter = unsafe { gtk::TreeIter::from_glib_ptr_borrow(iter) };
-    let f: Borrowed<File> = unsafe { from_glib_borrow(f) };
-    fl.imp().set_model_row(iter, &*f, tree_size != 0);
 }
 
 #[no_mangle]

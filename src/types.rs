@@ -51,7 +51,7 @@ pub enum DndMode {
 
 #[repr(C)]
 #[allow(non_camel_case_types)]
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, glib::Variant)]
 pub enum GnomeCmdTransferType {
     COPY = 0,
     MOVE,

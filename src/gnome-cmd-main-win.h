@@ -28,7 +28,6 @@ struct GnomeCmdMainWin;
 
 
 extern "C" GnomeCmdFileSelector *gnome_cmd_main_win_get_fs(GnomeCmdMainWin *main_win, FileSelectorID id);
-extern "C" void gnome_cmd_main_win_focus_file_lists(GnomeCmdMainWin *main_win);
 
 
 struct GnomeCmdMainWin
@@ -42,11 +41,6 @@ struct GnomeCmdMainWin
     GnomeCmdFileSelector *fs(FileSelectorID id)
     {
         return gnome_cmd_main_win_get_fs (this, id);
-    }
-
-    void focus_file_lists()
-    {
-        gnome_cmd_main_win_focus_file_lists (this);
     }
 };
 

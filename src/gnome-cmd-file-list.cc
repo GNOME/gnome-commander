@@ -24,26 +24,9 @@
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-con-list.h"
-#include "gnome-cmd-main-win.h"
 #include "gnome-cmd-path.h"
-#include "gnome-cmd-xfer.h"
-#include "gnome-cmd-file-collection.h"
 
 using namespace std;
-
-
-/* Controls if file-uris should be escaped for local files when drag-N-dropping
- * Setting this seems be more portable when dropping on old file-managers as gmc etc.
- */
-#define UNESCAPE_LOCAL_FILES
-
-/* The time (in ms) it takes from that the right mouse button is clicked on a file until
- * the popup menu appears when the right btn is used to select files.
- */
-#define POPUP_TIMEOUT 750
-
-
-#define FL_PBAR_MAX 50
 
 
 #define LIST_CLICKED_SIGNAL     "list-clicked"
@@ -55,21 +38,6 @@ using namespace std;
 #define CMDLINE_EXECUTE_SIGNAL  "cmdline-execute"
 
 
-static const char *drag_types [] =
-{
-    TARGET_URI_LIST_TYPE,
-    TARGET_TEXT_PLAIN_TYPE,
-    TARGET_URL_TYPE
-};
-
-static const char *drop_types [] =
-{
-    TARGET_URI_LIST_TYPE,
-    TARGET_URL_TYPE
-};
-
-
-extern "C" gboolean gnome_cmd_file_is_wanted(GnomeCmdFile *f);
 extern "C" void gnome_cmd_file_list_sort (GnomeCmdFileList *fl);
 extern "C" gboolean gnome_cmd_file_list_insert_file (GnomeCmdFileList *fl, GnomeCmdFile *f);
 extern "C" gboolean gnome_cmd_file_list_remove_file (GnomeCmdFileList *fl, GnomeCmdFile *f);
@@ -90,10 +58,6 @@ const gint FILE_COLUMN = GnomeCmdFileList::NUM_COLUMNS;
 
 struct GnomeCmdFileListPrivate
 {
-    // dropping files
-    GList *dropping_files;
-    GnomeCmdDir *dropping_to;
-
     GnomeCmdCon *con;
     GnomeCmdDir *cwd;     // current working dir
     GnomeCmdDir *lwd;     // last working dir
@@ -102,101 +66,12 @@ struct GnomeCmdFileListPrivate
 
 
 static GnomeCmdFileListPrivate* file_list_priv (GnomeCmdFileList *fl);
-static GtkListStore* file_list_store (GnomeCmdFileList *fl);
-
-
-static GtkPopover *create_dnd_popup (GnomeCmdFileList *fl, GList *gFileGlist, GnomeCmdDir* to)
-{
-    auto priv = file_list_priv (fl);
-    g_clear_list (&priv->dropping_files, g_object_unref);
-    priv->dropping_files = gFileGlist;
-
-    priv->dropping_to = to;
-
-    GMenu *menu = g_menu_new ();
-
-    GMenu *section = g_menu_new ();
-    {
-        GMenuItem *item = g_menu_item_new (_("_Copy here"), NULL);
-        g_menu_item_set_action_and_target (item, "fl.drop-files", "i", GnomeCmdFileList::DndMode::COPY);
-        g_menu_append_item (section, item);
-    }
-    {
-        GMenuItem *item = g_menu_item_new (_("_Move here"), NULL);
-        g_menu_item_set_action_and_target (item, "fl.drop-files", "i", GnomeCmdFileList::DndMode::MOVE);
-        g_menu_append_item (section, item);
-    }
-    {
-        GMenuItem *item = g_menu_item_new (_("_Link here"), NULL);
-        g_menu_item_set_action_and_target (item, "fl.drop-files", "i", GnomeCmdFileList::DndMode::LINK);
-        g_menu_append_item (section, item);
-    }
-    g_menu_append_section (menu, nullptr, G_MENU_MODEL (section));
-    g_menu_append (menu,  _("C_ancel"), "fl.drop-files-cancel");
-
-    GtkWidget *dnd_popup = gtk_popover_menu_new_from_model (G_MENU_MODEL (menu));
-    gtk_widget_set_parent (dnd_popup, GTK_WIDGET (fl));
-
-    return GTK_POPOVER (dnd_popup);
-}
-
-
-extern "C" void gnome_cmd_file_list_drop_files (GnomeCmdFileList *fl, gint parameter)
-{
-    auto priv = file_list_priv (fl);
-
-    auto mode = static_cast<GnomeCmdFileList::DndMode>(parameter);
-
-    auto gFileGlist = priv->dropping_files;
-    priv->dropping_files = nullptr;
-
-    auto to = priv->dropping_to;
-    priv->dropping_to = nullptr;
-
-    fl->drop_files(mode, G_FILE_COPY_NONE, gFileGlist, to);
-}
-
-
-extern "C" void gnome_cmd_file_list_drop_files_cancel (GnomeCmdFileList *fl)
-{
-    auto priv = file_list_priv (fl);
-
-    g_clear_list (&priv->dropping_files, g_object_unref);
-    priv->dropping_to = nullptr;
-}
-
-
-extern "C" void set_model_row(GnomeCmdFileList *fl, GtkTreeIter *iter, GnomeCmdFile *f, gboolean tree_size);
 
 
 GnomeCmdFileListPrivate* file_list_priv (GnomeCmdFileList *fl)
 {
     return (GnomeCmdFileListPrivate *) g_object_get_data (G_OBJECT (fl), "priv");
 }
-
-
-GtkTreeView* file_list_view (GnomeCmdFileList *fl)
-{
-    GtkTreeView* view;
-    g_object_get (G_OBJECT (fl), "view", &view, nullptr);
-    return view;
-}
-
-
-GtkListStore* file_list_store (GnomeCmdFileList *fl)
-{
-    GtkListStore* store;
-    g_object_get (G_OBJECT (fl), "store", &store, nullptr);
-    return store;
-}
-
-
-/******************************************************
- * DnD functions
- **/
-
-extern "C" gchar *build_selected_file_list (GnomeCmdFileList *fl);
-
 
 /*******************************
  * Callbacks
@@ -363,8 +238,6 @@ extern "C" void gnome_cmd_file_list_finalize (GnomeCmdFileList *fl)
 
     g_clear_object (&priv->cwd);
     g_clear_object (&priv->lwd);
-    g_clear_list (&priv->dropping_files, g_object_unref);
-    priv->dropping_to = nullptr;
 }
 
 
@@ -372,25 +245,12 @@ extern "C" void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
 {
     auto priv = g_new0 (GnomeCmdFileListPrivate, 1);
     g_object_set_data_full (G_OBJECT (fl), "priv", priv, g_free);
-
-    fl->init_dnd();
 }
 
 
 /***********************************
  * Public functions
  ***********************************/
-
-GnomeCmdFile *GnomeCmdFileList::get_file_at_row (GtkTreeIter *iter)
-{
-    auto store = file_list_store (this);
-
-    GnomeCmdFile *file = nullptr;
-    if (iter != nullptr)
-        gtk_tree_model_get (GTK_TREE_MODEL (store), iter, FILE_COLUMN, &file, -1);
-    return file;
-}
-
 
 extern "C" void open_connection_r (GnomeCmdFileList *fl, GtkWindow *parent_window, GnomeCmdCon *con);
 
@@ -564,279 +424,6 @@ void GnomeCmdFileList::goto_directory(const gchar *in_dir)
 
     g_free (dir);
 }
-
-
-/******************************************************
- * DnD functions
- **/
-
-// Fake decl. Just to allow D'n'D code to compile
-struct GdkDragContext;
-struct GtkSelectionData;
-static void gtk_selection_data_set (GtkSelectionData *selection_data, const guchar *data) {}
-static const guchar * gtk_selection_data_get_data (const GtkSelectionData *selection_data) { return nullptr; }
-static GdkDragAction gdk_drag_context_get_selected_action (GdkDragContext *context) { return GDK_ACTION_COPY; }
-
-static void drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *selection_data, guint info, guint32 time, GnomeCmdFileList *fl)
-{
-    GList *files = nullptr;
-
-    gchar *data = build_selected_file_list (fl);
-
-    if (!data)
-        return;
-
-    gchar **uriCharList, **uriCharListTmp = nullptr;
-
-    switch (info)
-    {
-        case TARGET_URI_LIST:
-        case TARGET_TEXT_PLAIN:
-            gtk_selection_data_set (selection_data, (const guchar *) data);
-            break;
-
-        case TARGET_URL:
-            uriCharList = uriCharListTmp = g_uri_list_extract_uris (data);
-            for (auto uriChar = *uriCharListTmp; uriChar; uriChar=*++uriCharListTmp)
-            {
-                auto gFile = g_file_new_for_uri(uriChar);
-                files = g_list_append(files, gFile);
-            }
-            if (files)
-                gtk_selection_data_set (selection_data, (const guchar *) files->data);
-            g_list_foreach (files, (GFunc) g_object_unref, nullptr);
-            g_strfreev(uriCharList);
-            break;
-
-        default:
-            g_assert_not_reached ();
-    }
-
-    g_free (data);
-}
-
-
-static void drag_data_received (GtkWidget *widget, GdkDragContext *context,
-                                gint x, gint y, GtkSelectionData *selection_data,
-                                guint info, guint32 time, GnomeCmdFileList *fl)
-{
-    auto priv = file_list_priv (fl);
-
-    auto row = fl->get_dest_row_at_pos (x, y);
-    GnomeCmdFile *f = fl->get_file_at_row (row.get());
-    GnomeCmdDir *to = priv->cwd;
-
-    // the drop was over a directory in the list, which means that the
-    // xfer should be done to that directory instead of the current one in the list
-    if (f && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-        to = gnome_cmd_file_is_dotdot (f)
-            ? gnome_cmd_dir_get_parent (to)
-            : gnome_cmd_dir_get_child (to, g_file_info_get_display_name(f->get_file_info()));
-
-    // transform the drag data to a list with GFiles
-    GList *gFileGlist = uri_strings_to_gfiles ((gchar *) gtk_selection_data_get_data (selection_data));
-
-    GdkModifierType mask = get_modifiers_state ();
-
-    if (!(mask & (GDK_SHIFT_MASK | GDK_CONTROL_MASK)))
-    {
-        GnomeCmdDefaultDndMode dnd_mode;
-        g_object_get (G_OBJECT (fl), "dnd-mode", &dnd_mode, nullptr);
-
-        switch (dnd_mode)
-        {
-            case GNOME_CMD_DEFAULT_DND_QUERY:
-                {
-                    auto dnd_popover = create_dnd_popup (fl, gFileGlist, to);
-
-                    GdkRectangle rect = { x, y, 1, 1 };
-                    gtk_popover_set_pointing_to (dnd_popover, &rect);
-
-                    gtk_popover_popup (dnd_popover);
-                }
-                break;
-            case GNOME_CMD_DEFAULT_DND_MOVE:
-                fl->drop_files(GnomeCmdFileList::DndMode::MOVE, G_FILE_COPY_NONE, gFileGlist, to);
-                break;
-            case GNOME_CMD_DEFAULT_DND_COPY:
-                fl->drop_files(GnomeCmdFileList::DndMode::COPY, G_FILE_COPY_NONE, gFileGlist, to);
-                break;
-            default:
-                break;
-        }
-        return;
-    }
-
-    // find out what operation to perform if Shift or Control was pressed while DnD
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wswitch-enum"
-#endif
-    switch (gdk_drag_context_get_selected_action (context))
-    {
-        case GDK_ACTION_MOVE:
-            fl->drop_files(GnomeCmdFileList::DndMode::MOVE, G_FILE_COPY_NONE, gFileGlist, to);
-            break;
-
-        case GDK_ACTION_COPY:
-            fl->drop_files(GnomeCmdFileList::DndMode::COPY, G_FILE_COPY_NONE, gFileGlist, to);
-            break;
-
-        case GDK_ACTION_LINK:
-            fl->drop_files(GnomeCmdFileList::DndMode::LINK, G_FILE_COPY_NONE, gFileGlist, to);
-            break;
-
-        default:
-            g_warning ("Unknown context->action in drag_data_received");
-            return;
-    }
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-}
-
-
-static gboolean drag_motion (GtkWidget *widget, GdkDragContext *context, gint x, gint y, guint time, GnomeCmdFileList *fl)
-{
-    // gdk_drag_status (context, gdk_drag_context_get_suggested_action (context), time);
-
-    auto row = fl->get_dest_row_at_pos (x, y);
-
-    if (row)
-    {
-        GnomeCmdFile *f = fl->get_file_at_row(row.get());
-
-        if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)
-            row.reset ();
-    }
-
-    return FALSE;
-}
-
-
-extern "C" void gnome_cmd_file_list_drag_data_delete (GnomeCmdFileList *fl);
-
-
-void GnomeCmdFileList::init_dnd()
-{
-    auto view = file_list_view (this);
-
-    return; // Do nothing yet. Just let D'n'D code be checked by a compiler
-
-    // set up drag source
-    GdkContentFormats* drag_formats = gdk_content_formats_new (drag_types, G_N_ELEMENTS (drag_types));
-    gtk_tree_view_enable_model_drag_source (view,
-                                            GDK_BUTTON1_MASK,
-                                            drag_formats,
-                                            (GdkDragAction) (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_ASK));
-
-    g_signal_connect (this, "drag-data-get", G_CALLBACK (drag_data_get), this);
-    g_signal_connect (this, "drag-data-delete", G_CALLBACK (gnome_cmd_file_list_drag_data_delete), this);
-
-    // set up drag destination
-    GdkContentFormats* drop_formats = gdk_content_formats_new (drop_types, G_N_ELEMENTS (drop_types));
-    gtk_tree_view_enable_model_drag_dest (view,
-                                          drop_formats,
-                                          (GdkDragAction) (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_ASK));
-
-    g_signal_connect (this, "drag-motion", G_CALLBACK (drag_motion), this);
-    g_signal_connect (this, "drag-data-received", G_CALLBACK (drag_data_received), this);
-}
-
-
-struct DropDoneClosure
-{
-    GnomeCmdDir *dir;
-};
-
-
-static void on_drop_done (gboolean success, gpointer user_data)
-{
-    DropDoneClosure *drop_done = (DropDoneClosure *) user_data;
-
-    gnome_cmd_dir_relist_files (GTK_WINDOW (main_win), drop_done->dir, FALSE);
-    main_win->focus_file_lists ();
-
-    g_free (drop_done);
-}
-
-
-void GnomeCmdFileList::drop_files(DndMode dndMode, GFileCopyFlags gFileCopyFlags, GList *gFileGlist, GnomeCmdDir *dir)
-{
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-
-    DropDoneClosure *drop_done;
-
-    switch (dndMode)
-    {
-        case COPY:
-            drop_done = g_new0 (DropDoneClosure, 1);
-            drop_done->dir = dir;
-            gnome_cmd_copy_gfiles_start (GTK_WINDOW (main_win),
-                                         gFileGlist,
-                                         gnome_cmd_dir_ref (dir),
-                                         nullptr,
-                                         gFileCopyFlags,
-                                         GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
-                                         on_drop_done,
-                                         drop_done);
-            break;
-        case MOVE:
-            drop_done = g_new0 (DropDoneClosure, 1);
-            drop_done->dir = dir;
-            gnome_cmd_move_gfiles_start (GTK_WINDOW (main_win),
-                                         gFileGlist,
-                                         gnome_cmd_dir_ref (dir),
-                                         nullptr,
-                                         gFileCopyFlags,
-                                         GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
-                                         on_drop_done,
-                                         drop_done);
-            break;
-        case LINK:
-            drop_done = g_new0 (DropDoneClosure, 1);
-            drop_done->dir = dir;
-            gnome_cmd_link_gfiles_start (GTK_WINDOW (main_win),
-                                         gFileGlist,
-                                         gnome_cmd_dir_ref (dir),
-                                         nullptr,
-                                         gFileCopyFlags,
-                                         GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
-                                         on_drop_done,
-                                         drop_done);
-            break;
-        default:
-            return;
-    }
-}
-
-GtkTreeIterPtr GnomeCmdFileList::get_dest_row_at_pos (gint drag_x, gint drag_y)
-{
-    auto view = file_list_view (this);
-
-    gint wx, wy;
-    gtk_tree_view_convert_bin_window_to_widget_coords (view, drag_x, drag_y, &wx, &wy);
-    return get_dest_row_at_coords (wx, wy);
-}
-
-GtkTreeIterPtr GnomeCmdFileList::get_dest_row_at_coords (gdouble x, gdouble y)
-{
-    auto view = file_list_view (this);
-    auto store = file_list_store (this);
-
-    GtkTreePath *path;
-    if (!gtk_tree_view_get_dest_row_at_pos (view, x, y, &path, nullptr))
-        return GtkTreeIterPtr(nullptr, &gtk_tree_iter_free);
-
-    GtkTreeIter iter;
-    bool found = gtk_tree_model_get_iter (GTK_TREE_MODEL (store), &iter, path);
-    gtk_tree_path_free (path);
-    if (found)
-        return GtkTreeIterPtr(gtk_tree_iter_copy(&iter), &gtk_tree_iter_free);
-    else
-        return GtkTreeIterPtr(nullptr, &gtk_tree_iter_free);
-}
-
 
 // FFI
 GnomeCmdCon *gnome_cmd_file_list_get_connection(GnomeCmdFileList *fl)
