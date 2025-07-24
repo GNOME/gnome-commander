@@ -85,7 +85,7 @@ async fn search_dir_recursive(
     }
 
     let dir_files = dir.files();
-    let files: Vec<DirectoryItem> = if dir_files.is_empty() || dir.connection().is_local() {
+    let files: Vec<DirectoryItem> = if dir_files.n_items() == 0 || dir.connection().is_local() {
         // if list is not available or it's a local directory then create a new list, otherwise use already available list
         // gnome_cmd_dir_list_files is not used for creating a list, because it's tied to the GUI and that's not usable from other threads
         list_directory(dir, None)
@@ -94,7 +94,11 @@ async fn search_dir_recursive(
             .map(DirectoryItem::Info)
             .collect()
     } else {
-        dir_files.into_iter().map(DirectoryItem::File).collect()
+        dir_files
+            .iter::<File>()
+            .flatten()
+            .map(DirectoryItem::File)
+            .collect()
     };
 
     // first process the files

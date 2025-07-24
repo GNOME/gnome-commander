@@ -57,7 +57,8 @@ async fn chmod_recursively(
 
             for child in dir
                 .files()
-                .into_iter()
+                .iter::<File>()
+                .flatten()
                 .filter(|child| {
                     !child.is_dotdot()
                         && child.file_info().display_name() != "."

@@ -43,8 +43,8 @@ pub mod ffi {
         connection::connection::ffi::GnomeCmdCon, file::ffi::GnomeCmdFile, path::GnomeCmdPath,
     };
     use gtk::{
-        gio::ffi::{GFile, GFileInfo},
-        glib::ffi::{gboolean, GList, GType},
+        gio::ffi::{GFile, GFileInfo, GListStore},
+        glib::ffi::{gboolean, GType},
     };
     use std::ffi::c_char;
 
@@ -71,10 +71,9 @@ pub mod ffi {
 
         pub fn gnome_cmd_dir_get_display_path(dir: *mut GnomeCmdDir) -> *const c_char;
 
-        pub fn gnome_cmd_dir_get_files(dir: *mut GnomeCmdDir) -> *const GList;
+        pub fn gnome_cmd_dir_get_files(dir: *mut GnomeCmdDir) -> *const GListStore;
 
         pub fn gnome_cmd_dir_set_state(dir: *mut GnomeCmdDir, state: i32);
-        pub fn gnome_cmd_dir_set_files(dir: *mut GnomeCmdDir, files: *mut GList);
 
         pub fn gnome_cmd_dir_get_child_gfile(
             dir: *mut GnomeCmdDir,
@@ -159,16 +158,20 @@ impl Directory {
         str.to_string()
     }
 
-    pub fn files(&self) -> glib::List<File> {
-        unsafe { glib::List::from_glib_none(ffi::gnome_cmd_dir_get_files(self.to_glib_none().0)) }
+    pub fn files(&self) -> gio::ListStore {
+        unsafe { from_glib_none(ffi::gnome_cmd_dir_get_files(self.to_glib_none().0)) }
     }
 
     fn set_state(&self, state: DirectoryState) {
         unsafe { ffi::gnome_cmd_dir_set_state(self.to_glib_none().0, state as i32) }
     }
 
-    fn set_files(&self, files: glib::List<File>) {
-        unsafe { ffi::gnome_cmd_dir_set_files(self.to_glib_none().0, files.into_raw()) }
+    fn set_files(&self, files: impl IntoIterator<Item = File>) {
+        let store = self.files();
+        store.remove_all();
+        for file in files {
+            store.append(&file);
+        }
     }
 
     pub async fn relist_files(&self, parent_window: &gtk::Window, mut visual: bool) {
@@ -184,8 +187,7 @@ impl Directory {
                 self.set_files(
                     file_infos
                         .into_iter()
-                        .filter_map(|file_info| create_file_from_file_info(&file_info, self))
-                        .collect(),
+                        .filter_map(|file_info| create_file_from_file_info(&file_info, self)),
                 );
                 self.emit_by_name::<()>("list-ok", &[]);
             }
@@ -201,7 +203,7 @@ impl Directory {
     pub async fn list_files(&self, parent_window: &gtk::Window, mut visual: bool) {
         visual &= self.connection().needs_list_visprog();
         let files = self.files();
-        if files.is_empty() || self.upcast_ref::<File>().is_local() {
+        if files.n_items() == 0 || self.upcast_ref::<File>().is_local() {
             self.relist_files(parent_window, visual).await;
         } else {
             self.emit_by_name::<()>("list-ok", &[]);

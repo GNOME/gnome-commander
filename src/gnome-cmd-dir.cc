@@ -19,15 +19,10 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
-
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-con-smb.h"
 #include "gnome-cmd-con.h"
-#include "gnome-cmd-file-collection.h"
-#include "utils.h"
 
 using namespace std;
 
@@ -47,8 +42,7 @@ enum
 struct GnomeCmdDirPrivate
 {
     GnomeCmdDir::State state;
-    GList *files;
-    GnomeCmdFileCollection *file_collection;
+    GListStore *files;
     GnomeCmdCon *con;
     GnomeCmdPath *path;
 
@@ -115,7 +109,7 @@ static void gnome_cmd_dir_init (GnomeCmdDir *dir)
 {
     auto priv = dir_private (dir);
     priv->state = GnomeCmdDir::STATE_EMPTY;
-    priv->file_collection = new GnomeCmdFileCollection;
+    priv->files = g_list_store_new (GNOME_CMD_TYPE_FILE);
 }
 
 
@@ -124,7 +118,7 @@ static void gnome_cmd_dir_dispose (GObject *object)
     GnomeCmdDir *dir = GNOME_CMD_DIR (object);
     auto priv = dir_private (dir);
 
-    priv->file_collection->clear();
+    g_list_store_remove_all (priv->files);
 
     G_OBJECT_CLASS (gnome_cmd_dir_parent_class)->dispose (object);
 }
@@ -137,7 +131,7 @@ static void gnome_cmd_dir_finalize (GObject *object)
 
     gnome_cmd_con_remove_from_cache (priv->con, dir);
 
-    delete priv->file_collection;
+    g_clear_object (&priv->files);
     g_clear_pointer (&priv->path, gnome_cmd_path_free);
 
     G_OBJECT_CLASS (gnome_cmd_dir_parent_class)->finalize (object);
@@ -278,7 +272,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
         gnome_cmd_path_free (dirPath);
         GNOME_CMD_FILE (gnomeCmdDir)->update_gFileInfo(gFileInfo);
         g_free (uriString);
-        return gnomeCmdDir;
+        return g_object_ref (gnomeCmdDir);
     }
 
     gnomeCmdDir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
@@ -323,7 +317,7 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
         GNOME_CMD_FILE (dir)->update_gFileInfo(con_base_file_info);
         g_object_unref (gFile);
         g_free (uriString);
-        return dir;
+        return g_object_ref (dir);
     }
 
     dir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
@@ -367,7 +361,7 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
     {
         g_free (uriString);
         g_object_unref (gFile);
-        return gnomeCmdDir;
+        return g_object_ref (gnomeCmdDir);
     }
 
     gnomeCmdDir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
@@ -426,7 +420,7 @@ void gnome_cmd_dir_unref (GnomeCmdDir *dir)
     GNOME_CMD_FILE (dir)->unref();
 }
 
-GList *gnome_cmd_dir_get_files (GnomeCmdDir *dir)
+GListStore *gnome_cmd_dir_get_files (GnomeCmdDir *dir)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
     auto priv = dir_private (dir);
@@ -446,18 +440,6 @@ extern "C" void gnome_cmd_dir_set_state (GnomeCmdDir *dir, gint state)
 {
     auto priv = dir_private (dir);
     priv->state = (GnomeCmdDir::State) state;
-}
-
-
-extern "C" void gnome_cmd_dir_set_files (GnomeCmdDir *dir, GList *files)
-{
-    auto priv = dir_private (dir);
-
-    if (!priv->file_collection->empty())
-        priv->file_collection->clear();
-
-    priv->files = files;
-    priv->file_collection->add(priv->files);
 }
 
 
@@ -704,13 +686,33 @@ GFile *gnome_cmd_dir_get_absolute_path_gfile (GnomeCmdDir *dir, string absolute_
 }
 
 
+inline GnomeCmdFile *find_file (GnomeCmdDir *dir, const gchar *uri_str, guint *position)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
+    g_return_val_if_fail (uri_str != nullptr, nullptr);
+    auto priv = dir_private (dir);
+    for (guint i = 0; i < g_list_model_get_n_items (G_LIST_MODEL (priv->files)); ++i)
+    {
+        auto f = GNOME_CMD_FILE (g_list_model_get_item (G_LIST_MODEL (priv->files), i));
+        gchar *file_uri_str = f->get_uri_str();
+        auto found = g_strcmp0 (file_uri_str, uri_str) == 0;
+        g_free (file_uri_str);
+        if (found)
+        {
+            if (position)
+                *position = i;
+            return f;
+        }
+    }
+    return nullptr;
+}
+
+
 inline gboolean file_already_exists (GnomeCmdDir *dir, const gchar *uri_str)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), TRUE);
     g_return_val_if_fail (uri_str != nullptr, TRUE);
-    auto priv = dir_private (dir);
-
-    return priv->file_collection->find(uri_str) != nullptr;
+    return find_file (dir, uri_str, nullptr) != nullptr;
 }
 
 
@@ -746,8 +748,7 @@ void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *newDirUriStr)
         return;
     }
 
-    priv->file_collection->add(f);
-    priv->files = priv->file_collection->get_list();
+    g_list_store_append (priv->files, f);
 
     priv->needs_mtime_update = TRUE;
 
@@ -817,7 +818,8 @@ void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *deletedDirUriStr
 
     gnome_cmd_dir_update_file_selector(dir, deletedDirUriString);
 
-    GnomeCmdFile *f = priv->file_collection->find(deletedDirUriString);
+    guint position;
+    GnomeCmdFile *f = find_file (dir, deletedDirUriString, &position);
 
     if (!GNOME_CMD_IS_FILE (f))
         return;
@@ -826,8 +828,7 @@ void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *deletedDirUriStr
 
     g_signal_emit (dir, signals[FILE_DELETED], 0, f);
 
-    priv->file_collection->remove(deletedDirUriString);
-    priv->files = priv->file_collection->get_list();
+    g_list_store_remove (priv->files, position);
 }
 
 
@@ -838,7 +839,7 @@ void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
     g_return_if_fail (uri_str != nullptr);
     auto priv = dir_private (dir);
 
-    GnomeCmdFile *f = priv->file_collection->find(uri_str);
+    GnomeCmdFile *f = find_file (dir, uri_str, nullptr);
 
     if (f == nullptr)
     {
@@ -873,8 +874,6 @@ void gnome_cmd_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *f, const gchar 
 
     priv->needs_mtime_update = TRUE;
 
-    priv->file_collection->remove(old_uri_str);
-    priv->file_collection->add(f);
     g_signal_emit (dir, signals[FILE_RENAMED], 0, f);
 }
 

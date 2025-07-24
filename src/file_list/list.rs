@@ -2309,7 +2309,8 @@ impl FileList {
 
         let mut files: Vec<_> = dir
             .files()
-            .into_iter()
+            .iter::<File>()
+            .flatten()
             .filter(|f| file_is_wanted(f, &options))
             .collect();
         if dir.parent().is_some() {

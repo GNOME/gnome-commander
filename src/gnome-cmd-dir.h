@@ -82,7 +82,7 @@ void gnome_cmd_dir_unref (GnomeCmdDir *dir);
 
 GnomeCmdDir::State gnome_cmd_dir_get_state (GnomeCmdDir *dir);
 
-extern "C" GList *gnome_cmd_dir_get_files (GnomeCmdDir *dir);
+extern "C" GListStore *gnome_cmd_dir_get_files (GnomeCmdDir *dir);
 extern "C" void gnome_cmd_dir_relist_files (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visprog);
 extern "C" void gnome_cmd_dir_list_files (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visprog);
 

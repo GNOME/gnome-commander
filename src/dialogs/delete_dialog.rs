@@ -293,7 +293,7 @@ async fn perform_delete_operation_one(delete_data: &mut DeleteData, file: &File)
             let dir = file.downcast_ref::<Directory>().unwrap();
             dir.list_files(&delete_data.parent_window, false).await;
 
-            for child in dir.files() {
+            for child in dir.files().iter::<File>().flatten() {
                 Box::pin(perform_delete_operation_one(delete_data, &child)).await?;
             }
             // Now remove the directory itself, as it is finally empty
