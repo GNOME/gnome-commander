@@ -17,15 +17,8 @@
  * For more details see the file COPYING.
  */
 
-use super::{
-    ls_colors::{LsPalletteColor, LsPallettePlane},
-    PREF_COLORS,
-};
-use gtk::{
-    gdk::{self, ffi::GdkRGBA},
-    gio,
-    prelude::*,
-};
+use super::ls_colors::{LsPalletteColor, LsPallettePlane};
+use gtk::{gdk, gio, prelude::*};
 use strum::{EnumCount, VariantArray};
 
 type PlaneColors = [gdk::RGBA; LsPalletteColor::COUNT];
@@ -93,45 +86,4 @@ pub fn save_palette(
         }
     }
     Ok(())
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_get_palette() -> *mut LsColorsPalette {
-    let settings = gio::Settings::new(PREF_COLORS);
-    let palette = load_palette(&settings);
-    let palette = Box::new(palette);
-    Box::into_raw(palette)
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_palette_free(palette: *mut LsColorsPalette) {
-    if palette.is_null() {
-        return;
-    }
-    let palette: Box<LsColorsPalette> = unsafe { Box::from_raw(palette) };
-    drop(palette);
-}
-
-#[no_mangle]
-pub unsafe extern "C" fn gnome_cmd_palette_get_color(
-    palette_ptr: *mut LsColorsPalette,
-    plane: i32,
-    palette_color: i32,
-) -> *const GdkRGBA {
-    if palette_ptr.is_null() {
-        return std::ptr::null();
-    }
-    let Some(plane) = plane.try_into().ok().and_then(LsPallettePlane::from_repr) else {
-        return std::ptr::null();
-    };
-    let Some(palette_color) = palette_color
-        .try_into()
-        .ok()
-        .and_then(LsPalletteColor::from_repr)
-    else {
-        return std::ptr::null();
-    };
-
-    let palette: &LsColorsPalette = unsafe { &*palette_ptr };
-    palette.color(plane, palette_color).as_ptr()
 }

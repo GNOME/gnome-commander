@@ -130,10 +130,14 @@ pub fn file_delete(
     _action: &gio::SimpleAction,
     _parameter: Option<&glib::Variant>,
 ) {
-    main_win
-        .file_selector(FileSelectorID::ACTIVE)
-        .file_list()
-        .show_delete_dialog(false);
+    let main_win = main_win.clone();
+    glib::spawn_future_local(async move {
+        main_win
+            .file_selector(FileSelectorID::ACTIVE)
+            .file_list()
+            .show_delete_dialog(false)
+            .await;
+    });
 }
 
 pub fn file_view(
@@ -286,7 +290,7 @@ pub fn file_chmod(
     if !files.is_empty() {
         glib::spawn_future_local(async move {
             if show_chmod_dialog(main_win.upcast_ref(), &files).await {
-                file_list.reload();
+                file_list.reload().await;
             }
         });
     }
@@ -305,7 +309,7 @@ pub fn file_chown(
     if !files.is_empty() {
         glib::spawn_future_local(async move {
             if show_chown_dialog(main_win.upcast_ref(), &files).await {
-                file_list.reload();
+                file_list.reload().await;
             }
         });
     }
@@ -348,7 +352,7 @@ pub fn file_properties(
             .await;
 
             if changed {
-                file_list.focus_file(&Path::new(&file.get_name()), true);
+                file_list.focus_file(&file.file_info().name(), true);
             }
         }
     });
@@ -1027,10 +1031,14 @@ pub fn view_refresh(
     _action: &gio::SimpleAction,
     _parameter: Option<&glib::Variant>,
 ) {
-    main_win
-        .file_selector(FileSelectorID::ACTIVE)
-        .file_list()
-        .reload();
+    let main_win = main_win.clone();
+    glib::spawn_future_local(async move {
+        main_win
+            .file_selector(FileSelectorID::ACTIVE)
+            .file_list()
+            .reload()
+            .await;
+    });
 }
 
 pub fn view_in_left_pane(

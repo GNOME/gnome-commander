@@ -1,5 +1,4 @@
 sources_headers = files(
-  'dialogs/gnome-cmd-delete-dialog.h',
   'dialogs/gnome-cmd-mkdir-dialog.h',
   'intviewer/bm_byte.h',
   'intviewer/bm_chartype.h',
@@ -19,10 +18,8 @@ sources_headers = files(
   'gnome-cmd-con-remote.h',
   'gnome-cmd-con-smb.h',
   'gnome-cmd-dir.h',
-  'gnome-cmd-file-collection.h',
   'gnome-cmd-file.h',
   'gnome-cmd-file-list.h',
-  'gnome-cmd-file-list-actions.h',
   'gnome-cmd-file-selector.h',
   'gnome-cmd-includes.h',
   'gnome-cmd-main-win.h',
@@ -30,7 +27,6 @@ sources_headers = files(
   'gnome-cmd-types.h',
   'gnome-cmd-xfer.h',
   'utils.h',
-  'text-utils.h',
   'widget-factory.h',
 )
 
@@ -53,11 +49,9 @@ sources_sources = files(
   'gnome-cmd-con-smb.cc',
   'gnome-cmd-dir.cc',
   'gnome-cmd-file.cc',
-  'gnome-cmd-file-collection.cc',
   'gnome-cmd-file-list.cc',
   'gnome-cmd-xfer.cc',
   'utils.cc',
-  'text-utils.cc',
   'widget-factory.cc',
 )
 

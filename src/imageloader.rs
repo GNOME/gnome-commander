@@ -18,21 +18,10 @@
  */
 
 use crate::{
-    config::PIXMAPS_DIR,
-    data::GeneralOptions,
-    debug::debug,
-    file::{ffi::GnomeCmdFile, File},
-    libgcmd::file_descriptor::FileDescriptorExt,
-    types::GraphicalLayoutMode,
+    config::PIXMAPS_DIR, data::GeneralOptions, debug::debug, file::File,
+    libgcmd::file_descriptor::FileDescriptorExt, types::GraphicalLayoutMode,
 };
-use gtk::{
-    gio::{self, ffi::GIcon},
-    glib::{
-        object::Cast,
-        translate::{from_glib_borrow, Borrowed, ToGlibPtr},
-    },
-    prelude::*,
-};
+use gtk::{gio, glib, prelude::*};
 use std::{cell::RefCell, collections::HashMap, path::Path, rc::Rc, sync::LazyLock};
 
 const GCMD_SETTINGS_MIME_ICON_DIR: &str = "mime-icon-dir";
@@ -243,14 +232,4 @@ pub fn icon_cache() -> Rc<IconCache> {
     static ICON_CACHE: LazyLock<glib::thread_guard::ThreadGuard<Rc<IconCache>>> =
         LazyLock::new(|| glib::thread_guard::ThreadGuard::new(IconCache::new()));
     ICON_CACHE.get_ref().clone()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_icon_cache_get_file_icon(
-    file: *mut GnomeCmdFile,
-    mode: GraphicalLayoutMode,
-) -> *mut GIcon {
-    let file: Borrowed<File> = unsafe { from_glib_borrow(file) };
-    let icon = icon_cache().file_icon(&*file, mode);
-    icon.to_glib_full()
 }

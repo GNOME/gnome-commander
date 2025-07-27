@@ -146,15 +146,15 @@ mod imp {
                     }
                 },
             );
-            klass.install_action(
+            klass.install_action_async(
                 "fs.refresh-tab",
                 Some(&i32::static_variant_type()),
-                |obj, _, param| {
+                |obj, _, param| async move {
                     if let Some(index) = param
                         .and_then(|p| i32::from_variant(&p))
                         .and_then(|i| i.try_into().ok())
                     {
-                        obj.imp().refresh_tab(index);
+                        obj.imp().refresh_tab(index).await;
                     }
                 },
             );
@@ -445,9 +445,9 @@ mod imp {
             self.update_tab_label(&fl);
         }
 
-        fn refresh_tab(&self, index: u32) {
+        async fn refresh_tab(&self, index: u32) {
             let list = self.obj().file_list_nth(index);
-            list.reload();
+            list.reload().await;
         }
 
         fn find_connection_in_dropdown(&self, con: &Connection) -> Option<u32> {
@@ -571,7 +571,6 @@ mod imp {
                             self.obj().new_tab_with_dir(&parent, true, true);
                         }
                     } else {
-                        fl.invalidate_tree_size();
                         fl.goto_directory(&Path::new(".."));
                     }
                     glib::Propagation::Stop
@@ -678,14 +677,8 @@ impl FileSelector {
     }
 
     pub fn new_tab_with_dir(&self, dir: &Directory, activate: bool, grab_focus: bool) {
-        self.new_tab_full(
-            Some(dir),
-            self.file_list().sort_column(),
-            self.file_list().sort_order(),
-            false,
-            activate,
-            grab_focus,
-        )
+        let (sort_column, order) = self.file_list().sorting();
+        self.new_tab_full(Some(dir), sort_column, order, false, activate, grab_focus)
     }
 
     pub fn new_tab_full(
@@ -965,12 +958,11 @@ impl FileSelector {
         };
         if self.is_current_tab_locked() {
             self.new_tab_with_dir(&dir, true, true);
-            self.file_list()
-                .focus_file(&Path::new(&file.get_name()), true);
+            self.file_list().focus_file(&file.file_info().name(), true);
         } else {
             if let Some(file_list) = self.current_file_list() {
                 file_list.set_connection(&file.connection(), Some(&dir));
-                file_list.focus_file(&Path::new(&file.get_name()), true);
+                file_list.focus_file(&file.file_info().name(), true);
             }
         }
     }
@@ -1135,11 +1127,12 @@ impl FileSelector {
             .filter_map(|file_list| {
                 let directory = file_list.directory()?;
                 let uri = directory.upcast_ref::<File>().get_uri_str()?;
+                let (column, order) = file_list.sorting();
                 Some(TabVariant {
                     uri,
                     file_felector_id: 0,
-                    sort_column: file_list.sort_column() as u8,
-                    sort_order: file_list.sort_order() != gtk::SortType::Ascending,
+                    sort_column: column as u8,
+                    sort_order: order != gtk::SortType::Ascending,
                     locked: self.is_tab_locked(&file_list),
                 })
             })
@@ -1352,8 +1345,6 @@ impl FileSelector {
         match file.file_info().file_type() {
             gio::FileType::Directory => {
                 if !self.is_tab_locked(fl) {
-                    fl.invalidate_tree_size();
-
                     if file.is_dotdot() {
                         fl.goto_directory(&Path::new(".."));
                     } else {

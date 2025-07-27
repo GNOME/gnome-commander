@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use super::list::FileList;
+use super::{actions::Script, list::FileList};
 use crate::{
     app::{load_favorite_apps, App, AppTarget, RegularApp, UserDefinedApp},
     config::PACKAGE,
@@ -34,15 +34,11 @@ use crate::{
     utils::MenuBuilderExt,
 };
 use gettextrs::gettext;
-use gtk::{
-    gio::{self, ffi::GMenu},
-    glib::{self, translate::ToGlibPtr},
-    prelude::*,
-};
+use gtk::{gio, glib, prelude::*};
 use std::{
     fs,
     io::{self, BufRead},
-    path::{Path, PathBuf},
+    path::Path,
 };
 
 const MAX_OPEN_WITH_APPS: usize = 20;
@@ -91,12 +87,6 @@ fn fav_app_matches_files(app: &UserDefinedApp, files: &glib::List<File>) -> bool
     };
 }
 
-#[derive(glib::Variant)]
-struct ScriptInfo {
-    path: PathBuf,
-    in_terminal: bool,
-}
-
 /// Try to get the script info out of the script
 fn extract_script_info(script_path: &Path) -> Option<(String, bool)> {
     let file = fs::File::open(script_path).ok()?;
@@ -125,7 +115,7 @@ fn create_action_script_menu() -> Option<gio::Menu> {
             continue;
         }
 
-        let mut script_info = ScriptInfo {
+        let mut script_info = Script {
             path,
             in_terminal: false,
         };
@@ -309,9 +299,4 @@ pub fn list_popup_menu() -> gio::Menu {
             GTK_TERMINAL_STOCKID,
         )
         .item(gettext("_Refresh"), "fl.refresh")
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_list_popmenu_new() -> *mut GMenu {
-    list_popup_menu().to_glib_full()
 }

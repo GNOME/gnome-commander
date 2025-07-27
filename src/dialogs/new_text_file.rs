@@ -21,12 +21,12 @@ use crate::{
     connection::connection::ConnectionExt,
     dir::Directory,
     file::{File, GnomeCmdFileExt},
-    file_list::list::{ffi::GnomeCmdFileList, FileList},
+    file_list::list::FileList,
     libgcmd::file_descriptor::FileDescriptorExt,
     utils::{dialog_button_box, ErrorMessage, SenderExt, NO_BUTTONS},
 };
 use gettextrs::gettext;
-use gtk::{ffi::GtkWindow, gio, glib::translate::from_glib_none, prelude::*};
+use gtk::{gio, prelude::*};
 use std::path::Path;
 
 fn create_empty_file(name: &str, dir: &Directory) -> Result<gio::File, ErrorMessage> {
@@ -165,16 +165,4 @@ pub async fn show_new_textfile_dialog(parent_window: &gtk::Window, file_list: &F
             }
         }
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_show_new_textfile_dialog(
-    parent_window_ptr: *mut GtkWindow,
-    file_list_ptr: *mut GnomeCmdFileList,
-) {
-    let parent_window: gtk::Window = unsafe { from_glib_none(parent_window_ptr) };
-    let file_list: FileList = unsafe { from_glib_none(file_list_ptr) };
-    glib::spawn_future_local(async move {
-        show_new_textfile_dialog(&parent_window, &file_list).await;
-    });
 }

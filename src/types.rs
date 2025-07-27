@@ -40,7 +40,8 @@ pub enum ConfirmOverwriteMode {
 }
 
 #[repr(C)]
-#[derive(Clone, Copy, Default, strum::FromRepr)]
+#[derive(Clone, Copy, Default, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdDndMode")]
 pub enum DndMode {
     #[default]
     Query = 0,
@@ -50,7 +51,7 @@ pub enum DndMode {
 
 #[repr(C)]
 #[allow(non_camel_case_types)]
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, glib::Variant)]
 pub enum GnomeCmdTransferType {
     COPY = 0,
     MOVE,
@@ -71,6 +72,7 @@ pub enum GraphicalLayoutMode {
 #[derive(Clone, Copy, Default, PartialEq, Eq, strum::FromRepr, glib::Enum)]
 #[enum_type(name = "GnomeCmdExtensionDisplayMode")]
 pub enum ExtensionDisplayMode {
+    #[enum_value(nick = "with-fname")]
     WithFileName = 0,
     Stripped,
     #[default]

@@ -122,6 +122,8 @@ pub mod ffi {
         pub fn gnome_cmd_con_get_go_icon(con: *const GnomeCmdCon) -> *mut GIcon;
         pub fn gnome_cmd_con_get_open_icon(con: *const GnomeCmdCon) -> *mut GIcon;
         pub fn gnome_cmd_con_get_close_icon(con: *const GnomeCmdCon) -> *mut GIcon;
+
+        pub fn gnome_cmd_con_needs_list_visprog(con: *mut GnomeCmdCon) -> gboolean;
     }
 
     #[derive(Copy, Clone)]
@@ -457,6 +459,10 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
                 self.as_ref().to_glib_none().0,
             ))
         }
+    }
+
+    fn needs_list_visprog(&self) -> bool {
+        unsafe { ffi::gnome_cmd_con_needs_list_visprog(self.as_ref().to_glib_none().0) != 0 }
     }
 
     fn open_message(&self) -> String {

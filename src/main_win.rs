@@ -1429,7 +1429,7 @@ impl MainWindow {
             eprintln!("Transfer failed");
         }
 
-        state.source_file_list.reload();
+        state.source_file_list.reload().await;
         dir.relist_files(self.upcast_ref(), false).await;
         self.focus_file_lists();
     }
@@ -1813,10 +1813,4 @@ pub extern "C" fn gnome_cmd_main_win_get_fs(
 ) -> *mut GnomeCmdFileSelector {
     let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
     mw.file_selector(id).to_glib_none().0
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_main_win_focus_file_lists(mw_ptr: *mut ffi::GnomeCmdMainWin) {
-    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
-    mw.focus_file_lists();
 }

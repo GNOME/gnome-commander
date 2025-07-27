@@ -19,7 +19,7 @@
 
 use crate::{
     data::SearchConfig,
-    file_list::list::{ffi::GnomeCmdFileList, FileList},
+    file_list::list::FileList,
     filter::{Filter, PatternType},
     utils::{
         channel_send_action, dialog_button_box, handle_escape_key, ErrorMessage, SenderExt,
@@ -27,10 +27,7 @@ use crate::{
     },
 };
 use gettextrs::gettext;
-use gtk::{
-    glib::{ffi::gboolean, translate::from_glib_none},
-    prelude::*,
-};
+use gtk::prelude::*;
 
 pub struct SelectionPattern {
     pub pattern: String,
@@ -205,12 +202,4 @@ pub async fn select_by_pattern(file_list: &FileList, mode: bool) {
             }
         }
     }
-}
-
-#[no_mangle]
-pub extern "C" fn show_pattern_selection_dialog_r(fl: *mut GnomeCmdFileList, mode: gboolean) {
-    let file_list: FileList = unsafe { from_glib_none(fl) };
-    glib::spawn_future_local(async move {
-        select_by_pattern(&file_list, mode != 0).await;
-    });
 }

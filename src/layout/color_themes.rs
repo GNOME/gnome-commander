@@ -19,8 +19,7 @@
 
 use super::PREF_COLORS;
 use gtk::{
-    gdk::{self, ffi::GdkRGBA},
-    gio,
+    gdk, gio,
     glib::{self, subclass::prelude::*},
     prelude::*,
 };
@@ -51,19 +50,6 @@ impl Default for ColorTheme {
             alt_bg: gdk::RGBA::parse("#000000004444").unwrap(),
         }
     }
-}
-
-#[derive(strum::FromRepr)]
-#[repr(C)]
-enum ThemeItem {
-    SelectionForeground = 0,
-    SelectionBackground,
-    NormalForeground,
-    NormalBackground,
-    CursorForeground,
-    CursorrBackground,
-    AlternateForeground,
-    AlternateBackground,
 }
 
 impl ColorTheme {
@@ -274,7 +260,7 @@ impl ColorThemes {
             .and_then(ColorThemeId::from_repr)
     }
 
-    fn theme(&self) -> Option<Cow<'static, ColorTheme>> {
+    pub fn theme(&self) -> Option<Cow<'static, ColorTheme>> {
         let theme_id = self.theme_id()?;
         Some(theme_by_id(&self.settings(), theme_id))
     }
@@ -319,46 +305,4 @@ pub fn save_custom_theme(
     settings.set_string("custom-curs-fg", &theme.curs_fg.to_str())?;
     settings.set_string("custom-curs-bg", &theme.curs_bg.to_str())?;
     Ok(())
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_get_current_theme() -> *mut Cow<'static, ColorTheme> {
-    let Some(theme) = ColorThemes::new().theme() else {
-        return std::ptr::null_mut();
-    };
-    let theme = Box::new(theme);
-    Box::into_raw(theme)
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_theme_free(theme: *mut Cow<'static, ColorTheme>) {
-    if theme.is_null() {
-        return;
-    }
-    let theme: Box<Cow<'static, ColorTheme>> = unsafe { Box::from_raw(theme) };
-    drop(theme);
-}
-
-#[no_mangle]
-pub unsafe extern "C" fn gnome_cmd_color_get_color(
-    theme_ptr: *const Cow<'static, ColorTheme>,
-    item: i32,
-) -> *mut GdkRGBA {
-    if theme_ptr.is_null() {
-        return std::ptr::null_mut();
-    }
-    let theme: &Cow<'static, ColorTheme> = unsafe { &*theme_ptr };
-    let Some(item) = ThemeItem::from_repr(item as usize) else {
-        return std::ptr::null_mut();
-    };
-    match item {
-        ThemeItem::SelectionForeground => theme.sel_fg.as_ptr(),
-        ThemeItem::SelectionBackground => theme.sel_bg.as_ptr(),
-        ThemeItem::NormalForeground => theme.norm_fg.as_ptr(),
-        ThemeItem::NormalBackground => theme.norm_bg.as_ptr(),
-        ThemeItem::CursorForeground => theme.curs_fg.as_ptr(),
-        ThemeItem::CursorrBackground => theme.curs_bg.as_ptr(),
-        ThemeItem::AlternateForeground => theme.alt_fg.as_ptr(),
-        ThemeItem::AlternateBackground => theme.alt_bg.as_ptr(),
-    }
 }

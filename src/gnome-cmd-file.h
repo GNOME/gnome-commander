@@ -50,31 +50,15 @@ struct GnomeCmdFile
     void unref();
 
     const gchar *get_name();
-    gchar *get_quoted_name();
     GnomeCmdPath *GetPathThroughParent();
     gchar *GetPathStringThroughParent();
     gchar *get_real_path();
-    gchar *get_quoted_real_path();
     gchar *get_dirname();
     gchar *get_unescaped_dirname();
 
     gchar *get_uri_str();
 
-    const gchar *get_extension();
-    const gchar *get_owner();
-    const gchar *get_group();
-    const gchar *get_adate(const gchar *date_format);
-    const gchar *get_mdate(const gchar *date_format);
-    const gchar *get_size(GnomeCmdSizeDispMode size_disp_mode);
-    guint64 calc_tree_size (gulong *count);
-    const gchar *get_tree_size_as_str(GnomeCmdSizeDispMode size_disp_mode);
-    const gchar *get_perm(GnomeCmdPermDispMode mode);
-    gboolean has_content_type(const gchar *contentType);
-    gboolean content_type_begins_with(const gchar *contentTypeStart);
-
     GnomeCmdDir *get_parent_dir();
-
-    const gchar *get_type_string();
 
     gboolean chmod(guint32 permissions, GError **error);
     gboolean chown(uid_t uid, gid_t gid, GError **error);
@@ -84,8 +68,6 @@ struct GnomeCmdFile
     void set_deleted();
 
     gboolean needs_update();
-
-    void invalidate_tree_size();
 
     gboolean GetGfileAttributeBoolean(const char *attribute);
     guint32 GetGfileAttributeUInt32(const char *attribute);
@@ -167,3 +149,5 @@ extern "C" gboolean gnome_cmd_file_is_dotdot(GnomeCmdFile *f);
 extern "C" void gnome_cmd_file_set_deleted(GnomeCmdFile *f);
 
 extern "C" GnomeCmdDir *gnome_cmd_file_get_parent_dir(GnomeCmdFile *f);
+
+extern "C" gboolean gnome_cmd_file_needs_update(GnomeCmdFile *f);

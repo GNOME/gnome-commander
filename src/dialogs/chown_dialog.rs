@@ -52,7 +52,7 @@ async fn chown_recursively(
     if let Some(dir) = file.downcast_ref::<Directory>() {
         dir.list_files(parent_window, false).await;
 
-        for child in dir.files().into_iter().filter(|child| {
+        for child in dir.files().iter::<File>().flatten().filter(|child| {
             !child.is_dotdot()
                 && child.file_info().display_name() != "."
                 && !child.file_info().is_symlink()
