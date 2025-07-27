@@ -1,8 +1,8 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
-data/org.gnome.gnome-commander.metainfo.xml.in
 data/org.gnome.gnome-commander.desktop.in
 data/org.gnome.gnome-commander.gschema.xml
+data/org.gnome.gnome-commander.metainfo.xml.in
 plugins/exiv2/exiv2-plugin.cc
 plugins/fileroller/file-roller-plugin.cc
 plugins/gsf/gsf-plugin.cc
@@ -29,7 +29,6 @@ src/dialogs/delete_dialog.rs
 src/dialogs/edit_bookmark_dialog.rs
 src/dialogs/file_properties_dialog.rs
 src/dialogs/gnome-cmd-mkdir-dialog.cc
-src/dialogs/gnome-cmd-search-dialog.cc
 src/dialogs/make_copy_dialog.rs
 src/dialogs/manage_bookmarks_dialog.rs
 src/dialogs/new_text_file.rs
@@ -75,7 +74,6 @@ src/gnome-cmd-con-device.cc
 src/gnome-cmd-con-home.cc
 src/gnome-cmd-con-remote.cc
 src/gnome-cmd-con-smb.cc
-src/gnome-cmd-file.cc
 src/gnome-cmd-file-list.cc
 src/gnome-cmd-xfer.cc
 src/intviewer/search_dialog.rs
@@ -86,6 +84,8 @@ src/main_win.rs
 src/open_connection.rs
 src/open_file.rs
 src/plugin_manager.rs
+src/search/generic.rs
+src/search/local.rs
 src/search/search_dialog.rs
 src/search/selection_profile_component.rs
 src/select_directory_button.rs
