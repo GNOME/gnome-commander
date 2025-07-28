@@ -901,7 +901,6 @@ mod imp {
                 DataColumns::DATA_COLUMN_SELECTED as u32,
                 &selected.to_value(),
             );
-            self.obj().emit_files_changed();
         }
 
         fn cursor_changed(&self) {
@@ -1855,6 +1854,7 @@ impl FileList {
             }
             ControlFlow::Continue(())
         });
+        self.emit_files_changed();
     }
 
     pub fn unselect_all_files(&self) {
@@ -1864,6 +1864,7 @@ impl FileList {
             }
             ControlFlow::Continue(())
         });
+        self.emit_files_changed();
     }
 
     pub fn unselect_all(&self) {
@@ -1871,6 +1872,7 @@ impl FileList {
             self.imp().set_selected_at_iter(iter, false);
             ControlFlow::Continue(())
         });
+        self.emit_files_changed();
     }
 
     pub fn focus_prev(&self) {
