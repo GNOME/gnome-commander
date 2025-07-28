@@ -370,7 +370,7 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
     {
         if (error && !isStartup)
         {
-            gnome_cmd_error_message (*main_win, uriString, error);
+            gnome_cmd_error_message (GTK_WINDOW (main_win), uriString, error);
         }
         g_object_unref(gFile);
         g_free (uriString);
@@ -638,47 +638,6 @@ GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename)
 
     gchar *path_str = gnome_cmd_path_get_path (path);
     gFile = gnome_cmd_con_create_gfile (priv->con, path_str);
-    gnome_cmd_path_free (path);
-    g_free (path_str);
-
-    return gFile;
-}
-
-
-GFile *gnome_cmd_dir_get_absolute_path_gfile (GnomeCmdDir *dir, string absolute_filename)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
-    auto priv = dir_private (dir);
-
-    // include workgroups and shares for smb uris
-    GFile *dir_gFile = gnome_cmd_dir_get_gfile (dir);
-
-    auto uriScheme = g_file_get_uri_scheme (dir_gFile);
-
-    if (uriScheme && strcmp (uriScheme, "smb") == 0)
-    {
-        g_object_ref (dir_gFile);
-
-        while (get_gfile_attribute_uint32(dir_gFile, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-        {
-            auto gFileParent = g_file_get_parent(dir_gFile);
-            g_object_unref (dir_gFile);
-            dir_gFile = gFileParent;
-        }
-
-        auto server_and_share = g_file_get_uri(dir_gFile);
-        stringify (absolute_filename, g_build_filename (server_and_share, absolute_filename.c_str(), nullptr));
-        g_free (server_and_share);
-
-        g_object_unref (dir_gFile);
-    }
-
-    g_free(uriScheme);
-
-    GnomeCmdPath *path = gnome_cmd_con_create_path (priv->con, absolute_filename.c_str());
-    gchar *path_str = gnome_cmd_path_get_path (path);
-    auto gFile = gnome_cmd_con_create_gfile (priv->con, path_str);
-
     gnome_cmd_path_free (path);
     g_free (path_str);
 

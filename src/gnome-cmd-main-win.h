@@ -21,27 +21,6 @@
 
 #pragma once
 
-#include "gnome-cmd-file-selector.h"
-
-
 struct GnomeCmdMainWin;
-
-
-extern "C" GnomeCmdFileSelector *gnome_cmd_main_win_get_fs(GnomeCmdMainWin *main_win, FileSelectorID id);
-
-
-struct GnomeCmdMainWin
-{
-    GtkApplicationWindow parent;
-
-  public:
-
-    operator GtkWindow * () const       {  return GTK_WINDOW (this);       }
-
-    GnomeCmdFileSelector *fs(FileSelectorID id)
-    {
-        return gnome_cmd_main_win_get_fs (this, id);
-    }
-};
 
 extern GnomeCmdMainWin *main_win;

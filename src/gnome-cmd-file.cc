@@ -168,45 +168,6 @@ GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir)
 }
 
 
-GnomeCmdFile *gnome_cmd_file_new_from_path (const gchar *local_full_path)
-{
-    g_return_val_if_fail (local_full_path != nullptr, nullptr);
-
-    auto gFile = g_file_new_for_path(local_full_path);
-
-    g_return_val_if_fail (gFile != nullptr, nullptr);
-    g_return_val_if_fail (G_IS_FILE(gFile), nullptr);
-    GError *error = nullptr;
-
-    auto gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
-    if (!gFileInfo || error)
-    {
-        g_object_unref (gFileInfo);
-        g_critical ("gnome_cmd_file_new_from_gfile error: %s\n", error->message);
-        g_error_free (error);
-        return nullptr;
-    }
-
-    GnomeCmdCon *con = get_home_con ();
-    GnomeCmdDir *dir;
-
-    auto gFileParent = g_file_get_parent(gFile);
-    if (gFileParent)
-    {
-        auto gFileParentPath = g_file_get_path(gFileParent);
-        dir = gnome_cmd_dir_new (con, gnome_cmd_plain_path_new (gFileParentPath));
-        g_free(gFileParentPath);
-        g_object_unref(gFileParent);
-    }
-    else
-    {
-        dir = gnome_cmd_dir_new (con, gnome_cmd_plain_path_new (G_DIR_SEPARATOR_S));
-    }
-
-    return gnome_cmd_file_new_full (gFileInfo, gFile, dir);
-}
-
-
 gboolean gnome_cmd_file_setup (GObject *gObject, GFile *gFile, GError **error)
 {
     g_return_val_if_fail (gObject != nullptr, FALSE);

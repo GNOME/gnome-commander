@@ -31,7 +31,7 @@ use crate::{
     dir::Directory,
     file::{File, GnomeCmdFileExt},
     file_list::list::FileList,
-    file_selector::{ffi::GnomeCmdFileSelector, FileSelector, TabVariant},
+    file_selector::{FileSelector, TabVariant},
     libgcmd::{
         file_actions::{FileActions, FileActionsExt},
         file_descriptor::FileDescriptorExt,
@@ -49,16 +49,7 @@ use crate::{
     },
 };
 use gettextrs::gettext;
-use gtk::{
-    gdk, gio,
-    glib::{
-        self,
-        translate::{from_glib_borrow, Borrowed, ToGlibPtr},
-    },
-    graphene,
-    prelude::*,
-    subclass::prelude::*,
-};
+use gtk::{gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
 use std::{cell::RefCell, path::Path};
 
 pub mod imp {
@@ -1802,13 +1793,4 @@ fn create_plugins_menu(main_win: &MainWindow) -> gio::Menu {
         }
     }
     menu
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_main_win_get_fs(
-    mw_ptr: *mut ffi::GnomeCmdMainWin,
-    id: FileSelectorID,
-) -> *mut GnomeCmdFileSelector {
-    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
-    mw.file_selector(id).to_glib_none().0
 }
