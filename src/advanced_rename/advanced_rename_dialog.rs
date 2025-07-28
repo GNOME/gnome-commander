@@ -18,12 +18,12 @@
  */
 
 use super::{
-    profile::{load_advrename_profiles, save_advrename_profiles},
+    item::Item,
+    profile::{load_advrename_profiles, save_advrename_profiles, AdvancedRenameProfile},
     profile_component::AdvancedRenameProfileComponent,
     template::{generate_file_name, CounterOptions, Template},
 };
 use crate::{
-    advanced_rename::profile::AdvancedRenameProfile,
     connection::history::History,
     data::{GeneralOptions, GeneralOptionsRead, ProgramsOptions},
     dialogs::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager},
@@ -33,7 +33,7 @@ use crate::{
     utils::{size_to_string, time_to_string},
 };
 use gettextrs::gettext;
-use gtk::{gdk, gio, glib, pango, prelude::*, subclass::prelude::*};
+use gtk::{gdk, gio, glib, graphene, pango, prelude::*, subclass::prelude::*};
 use std::rc::Rc;
 
 const ADVRENAME_HISTORY_SIZE: usize = 10;
@@ -260,10 +260,9 @@ mod imp {
     use super::*;
     use crate::{
         dialogs::file_properties_dialog::FilePropertiesDialog,
-        file::File,
         file_list::list::FileList,
         file_view::file_view,
-        tags::file_metadata::FileMetadata,
+        types::SizeDisplayMode,
         utils::{
             attributes_bold, dialog_button_box, display_help, handle_escape_key, MenuBuilderExt,
         },
@@ -284,8 +283,11 @@ mod imp {
         #[property(get, set)]
         profile_component: OnceCell<AdvancedRenameProfileComponent>,
 
-        pub(super) files: gtk::ListStore,
-        pub(super) files_view: gtk::TreeView,
+        pub(super) files: gio::ListStore,
+        pub(super) file_selection: gtk::SingleSelection,
+        pub(super) file_view: gtk::ColumnView,
+        file_view_popover: gtk::PopoverMenu,
+
         profile_menu_button: gtk::MenuButton,
 
         pub rename_template: RefCell<Option<Rc<Template>>>,
@@ -333,25 +335,22 @@ mod imp {
         }
 
         fn new() -> Self {
+            let files = gio::ListStore::new::<Item>();
+            let file_selection = gtk::SingleSelection::new(Some(files.clone()));
+            let file_view = gtk::ColumnView::builder().model(&file_selection).build();
+
             Self {
                 file_metadata_service: Default::default(),
                 config: Default::default(),
                 profile_component: Default::default(),
 
-                files: gtk::ListStore::new(&[
-                    File::static_type(),
-                    String::static_type(),
-                    String::static_type(),
-                    String::static_type(),
-                    String::static_type(),
-                    bool::static_type(),
-                    glib::Pointer::static_type(),
-                ]),
-                files_view: gtk::TreeView::builder()
-                    .reorderable(true)
-                    .enable_search(true)
-                    .search_column(FileColumns::COL_NAME as i32)
+                files,
+                file_selection,
+                file_view,
+                file_view_popover: gtk::PopoverMenu::builder()
+                    .menu_model(&file_view_popover())
                     .build(),
+
                 profile_menu_button: gtk::MenuButton::builder()
                     .label(gettext("Profiles…"))
                     .build(),
@@ -373,7 +372,7 @@ mod imp {
             this.set_title(Some(&gettext("Advanced Rename Tool")));
             this.set_resizable(true);
 
-            let vbox = gtk::Box::builder()
+            let content_vbox = gtk::Box::builder()
                 .orientation(gtk::Orientation::Vertical)
                 .margin_top(12)
                 .margin_bottom(12)
@@ -381,17 +380,72 @@ mod imp {
                 .margin_end(12)
                 .spacing(6)
                 .build();
-            this.set_child(Some(&vbox));
+            this.set_child(Some(&content_vbox));
+
+            let paned = gtk::Paned::builder()
+                .orientation(gtk::Orientation::Vertical)
+                .build();
+            content_vbox.append(&paned);
+
+            let parameters_vbox = gtk::Box::builder()
+                .orientation(gtk::Orientation::Vertical)
+                .spacing(6)
+                .build();
+            paned.set_start_child(Some(&parameters_vbox));
+            paned.set_shrink_start_child(false);
+            paned.set_resize_start_child(false);
 
             let profile_component =
                 AdvancedRenameProfileComponent::new(&this.file_metadata_service());
             profile_component.set_vexpand(true);
-            vbox.append(&profile_component);
+            parameters_vbox.append(&profile_component);
             self.profile_component
                 .set(profile_component.clone())
                 .unwrap();
 
-            vbox.append(
+            let options = GeneralOptions::new();
+
+            self.file_view.append_column(
+                &gtk::ColumnViewColumn::builder()
+                    .title(gettext("Old name"))
+                    .resizable(true)
+                    .expand(true)
+                    .factory(&old_name_factory())
+                    .build(),
+            );
+            self.file_view.append_column(
+                &gtk::ColumnViewColumn::builder()
+                    .title(gettext("New name"))
+                    .resizable(true)
+                    .expand(true)
+                    .factory(&new_name_factory())
+                    .build(),
+            );
+            self.file_view.append_column(
+                &gtk::ColumnViewColumn::builder()
+                    .title(gettext("Size"))
+                    .resizable(true)
+                    .factory(&size_name_factory(options.size_display_mode()))
+                    .build(),
+            );
+            self.file_view.append_column(
+                &gtk::ColumnViewColumn::builder()
+                    .title(gettext("Date"))
+                    .resizable(true)
+                    .factory(&date_name_factory(options.date_display_format()))
+                    .build(),
+            );
+
+            let results_vbox = gtk::Box::builder()
+                .orientation(gtk::Orientation::Vertical)
+                .margin_top(12)
+                .spacing(6)
+                .vexpand(true)
+                .build();
+            paned.set_end_child(Some(&results_vbox));
+            paned.set_shrink_end_child(false);
+
+            results_vbox.append(
                 &gtk::Label::builder()
                     .label(gettext("Results"))
                     .attributes(&attributes_bold())
@@ -400,41 +454,13 @@ mod imp {
                     .build(),
             );
 
-            self.files_view
-                .selection()
-                .set_mode(gtk::SelectionMode::Browse);
-            self.files_view.append_column(&column(
-                FileColumns::COL_NAME,
-                &gettext("Old name"),
-                &gettext("Current file name"),
-                0.0,
-            ));
-            self.files_view.append_column(&column(
-                FileColumns::COL_NEW_NAME,
-                &gettext("New name"),
-                &gettext("New file name"),
-                0.0,
-            ));
-            self.files_view.append_column(&column(
-                FileColumns::COL_SIZE,
-                &gettext("Size"),
-                &gettext("File size"),
-                1.0,
-            ));
-            self.files_view.append_column(&column(
-                FileColumns::COL_DATE,
-                &gettext("Date"),
-                &gettext("File modification date"),
-                0.0,
-            ));
-
-            vbox.append(
+            results_vbox.append(
                 &gtk::ScrolledWindow::builder()
                     .hscrollbar_policy(gtk::PolicyType::Never)
                     .vscrollbar_policy(gtk::PolicyType::Automatic)
                     .has_frame(true)
                     .vexpand(true)
-                    .child(&self.files_view)
+                    .child(&self.file_view)
                     .build(),
             );
 
@@ -482,19 +508,14 @@ mod imp {
                 ),
             );
 
-            self.files.connect_row_deleted(glib::clone!(
+            self.file_view.connect_activate(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
-                move |_, _| imp.update_new_filenames()
-            ));
-            self.files_view.connect_row_activated(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                move |_, _, _| {
+                move |_, _| {
                     glib::spawn_future_local(async move { imp.file_list_properties().await });
                 }
             ));
-            self.files_view.connect_cursor_changed(glib::clone!(
+            self.file_selection.connect_selected_notify(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
                 move |_| imp.file_list_cursor_changed()
@@ -505,7 +526,7 @@ mod imp {
                 self,
                 move |_, n_press, x, y| imp.file_list_button_pressed(n_press, x, y)
             ));
-            self.files_view.add_controller(button_gesture);
+            self.file_view.add_controller(button_gesture);
 
             let help_button = gtk::Button::builder()
                 .label(gettext("_Help"))
@@ -561,7 +582,7 @@ mod imp {
 
             this.set_default_widget(Some(&apply_button));
 
-            vbox.append(&dialog_button_box(
+            content_vbox.append(&dialog_button_box(
                 &[&help_button],
                 &[
                     self.profile_menu_button.upcast_ref::<gtk::Widget>(),
@@ -570,6 +591,8 @@ mod imp {
                     apply_button.upcast_ref(),
                 ],
             ));
+
+            self.file_view_popover.set_parent(&*this);
 
             handle_escape_key(
                 this.upcast_ref(),
@@ -587,9 +610,11 @@ mod imp {
                 )),
             );
 
-            let options = GeneralOptions::new();
-
             remember_window_size(&*self.obj(), &options.0);
+        }
+
+        fn dispose(&self) {
+            self.file_view_popover.unparent();
         }
     }
 
@@ -622,7 +647,7 @@ mod imp {
             let trim_blanks = profile_component.profile().map(|p| p.trim_blanks());
             let case_convesion = profile_component.profile().map(|p| p.case_conversion());
 
-            let count = self.files.iter_n_children(None) as u64;
+            let count = self.files.n_items();
 
             let rx: Vec<_> = profile_component
                 .valid_regexes()
@@ -643,74 +668,74 @@ mod imp {
                 precision: default_profile.counter_width() as usize,
             };
 
-            let mut index = 0;
-            if let Some(iter) = self.files.iter_first() {
-                loop {
-                    let file = self.files.get::<File>(&iter, FileColumns::COL_FILE as i32);
+            for index in 0..count {
+                let Some(item) = self.files.item(index).and_downcast::<Item>() else {
+                    continue;
+                };
 
-                    let metadata_ptr = self
-                        .files
-                        .get::<glib::Pointer>(&iter, FileColumns::COL_METADATA as i32);
-                    let metadata: &FileMetadata = unsafe { &*(metadata_ptr as *mut FileMetadata) };
+                let file = item.file();
 
-                    let mut file_name = generate_file_name(
-                        &rename_template,
-                        options,
-                        index,
-                        count,
-                        &file,
-                        metadata,
-                    );
+                let metadata = item.metadata();
 
-                    for (r, regex) in &rx {
-                        match regex.replace(
-                            &file_name,
-                            0,
-                            &r.replacement,
-                            glib::RegexMatchFlags::NOTEMPTY,
-                        ) {
-                            Ok(new) => {
-                                file_name = new.to_string();
-                            }
-                            Err(error) => {
-                                eprintln!("{error}")
-                            }
+                let mut file_name = generate_file_name(
+                    &rename_template,
+                    options,
+                    index as u64,
+                    count as u64,
+                    &file,
+                    &metadata,
+                );
+
+                for (r, regex) in &rx {
+                    match regex.replace(
+                        &file_name,
+                        0,
+                        &r.replacement,
+                        glib::RegexMatchFlags::NOTEMPTY,
+                    ) {
+                        Ok(new) => {
+                            file_name = new.to_string();
+                        }
+                        Err(error) => {
+                            eprintln!("{error}")
                         }
                     }
-                    if let Some(case_convesion) = case_convesion {
-                        file_name = case_convesion.apply(&file_name);
-                    }
-                    if let Some(trim_blanks) = trim_blanks {
-                        file_name = trim_blanks.apply(&file_name).to_owned();
-                    }
-
-                    self.files
-                        .set(&iter, &[(FileColumns::COL_NEW_NAME as u32, &file_name)]);
-
-                    if !self.files.iter_next(&iter) {
-                        break;
-                    }
-
-                    index += 1;
                 }
+                if let Some(case_convesion) = case_convesion {
+                    file_name = case_convesion.apply(&file_name);
+                }
+                if let Some(trim_blanks) = trim_blanks {
+                    file_name = trim_blanks.apply(&file_name).to_owned();
+                }
+
+                item.set_new_name(file_name);
+            }
+        }
+
+        fn selected_item(&self) -> Option<(u32, Item)> {
+            let position = self.file_selection.selected();
+            if position != gtk::INVALID_LIST_POSITION {
+                let item = self.files.item(position).and_downcast::<Item>()?;
+                Some((position, item))
+            } else {
+                None
             }
         }
 
         fn file_list_remove(&self) {
-            if let Some((_, iter)) = self.files_view.selection().selected() {
-                self.files.remove(&iter);
+            if let Some((position, _)) = self.selected_item() {
+                self.files.remove(position);
             }
+            self.update_new_filenames();
         }
 
         async fn file_list_view(&self) {
-            if let Some((model, iter)) = self.files_view.selection().selected() {
-                let file = model.get::<File>(&iter, FileColumns::COL_FILE as i32);
-
+            if let Some((_, item)) = self.selected_item() {
                 let options = ProgramsOptions::new();
 
                 if let Err(error) = file_view(
                     self.obj().upcast_ref(),
-                    &file,
+                    &item.file(),
                     None,
                     &options,
                     &self.obj().file_metadata_service(),
@@ -723,13 +748,11 @@ mod imp {
         }
 
         async fn file_list_properties(&self) {
-            if let Some((model, iter)) = self.files_view.selection().selected() {
-                let file = model.get::<File>(&iter, FileColumns::COL_FILE as i32);
-
+            if let Some((_, item)) = self.selected_item() {
                 let file_changed = FilePropertiesDialog::show(
                     self.obj().upcast_ref(),
                     &self.obj().file_metadata_service(),
-                    &file,
+                    &item.file(),
                 )
                 .await;
                 if file_changed {
@@ -739,12 +762,10 @@ mod imp {
         }
 
         fn file_list_cursor_changed(&self) {
-            if let Some((model, iter)) = self.files_view.selection().selected() {
-                let file = model.get::<File>(&iter, FileColumns::COL_FILE as i32);
-
+            if let Some((_, item)) = self.selected_item() {
                 self.obj()
                     .profile_component()
-                    .set_sample_file_name(Some(file.get_name()));
+                    .set_sample_file_name(Some(item.file().get_name()));
             }
         }
 
@@ -752,66 +773,32 @@ mod imp {
             if n_press != 1 {
                 return;
             }
-
-            let menu = gio::Menu::new()
-                .section(
-                    gio::Menu::new()
-                        .item(
-                            gettext("Remove from file list"),
-                            "advrename.file-list-remove",
-                        )
-                        .item(gettext("View file"), "advrename.file-list-view")
-                        .item(gettext("File properties"), "advrename.file-list-properties"),
-                )
-                .item(gettext("Update file list"), "advrename.update-file-list");
-
-            let popover = gtk::PopoverMenu::builder()
-                .menu_model(&menu)
-                .pointing_to(&gdk::Rectangle::new(x as i32, y as i32, 0, 0))
-                .build();
-            popover.set_parent(&self.files_view);
-            popover.present();
-            popover.popup();
+            if let Some(point) = self
+                .file_view
+                .compute_point(&*self.obj(), &graphene::Point::new(x as f32, y as f32))
+            {
+                self.file_view_popover
+                    .set_pointing_to(Some(&gdk::Rectangle::new(
+                        point.x() as i32,
+                        point.y() as i32,
+                        0,
+                        0,
+                    )));
+                self.file_view_popover.popup();
+            }
         }
 
         fn file_list_update_files(&self) {
             let file_metadata_service = self.obj().file_metadata_service();
-            let options = GeneralOptions::new();
+            for index in 0..self.files.n_items() {
+                if let Some(item) = self.files.item(index).and_downcast::<Item>() {
+                    let file = item.file();
+                    let metadata = file_metadata_service.extract_metadata(&file);
 
-            let size_mode = options.size_display_mode();
-            let date_format = options.date_display_format();
-
-            if let Some(iter) = self.files.iter_first() {
-                loop {
-                    let file = self.files.get::<File>(&iter, FileColumns::COL_FILE as i32);
-
-                    let metadata = Box::new(file_metadata_service.extract_metadata(&file));
-
-                    self.files.set(
-                        &iter,
-                        &[
-                            (FileColumns::COL_NAME as u32, &file.get_name()),
-                            (
-                                FileColumns::COL_SIZE as u32,
-                                &file.size().map(|s| size_to_string(s, size_mode)),
-                            ),
-                            (
-                                FileColumns::COL_DATE as u32,
-                                &file
-                                    .modification_date()
-                                    .and_then(|dt| time_to_string(dt, &date_format).ok()),
-                            ),
-                            (FileColumns::COL_RENAME_FAILED as u32, &false),
-                            (
-                                FileColumns::COL_METADATA as u32,
-                                &(Box::leak(metadata) as *mut _ as glib::Pointer),
-                            ),
-                        ],
-                    );
-
-                    if !self.files.iter_next(&iter) {
-                        break;
-                    }
+                    let new_item = item.deep_copy();
+                    new_item.clear_error();
+                    new_item.set_metadata(metadata);
+                    self.files.splice(index, 1, &[new_item]);
                 }
             }
 
@@ -910,38 +897,31 @@ mod imp {
                 .map(|f| f.get_name());
             let mut new_focused_file_name = None;
 
-            if let Some(iter) = self.files.iter_first() {
-                loop {
-                    let file = self.files.get::<File>(&iter, FileColumns::COL_FILE as i32);
-                    let new_name = self
-                        .files
-                        .get::<Option<String>>(&iter, FileColumns::COL_NEW_NAME as i32)
-                        .filter(|n| !n.is_empty());
+            for index in 0..self.files.n_items() {
+                let Some(item) = self.files.item(index).and_downcast::<Item>() else {
+                    continue;
+                };
 
-                    if let Some(new_name) = new_name {
-                        let old_name = file.get_name();
-                        if old_name != new_name {
-                            let result = file.rename(&new_name);
+                let file = item.file();
+                let new_name = item.new_name();
+                if !new_name.is_empty() {
+                    let old_name = file.get_name();
+                    if old_name != new_name {
+                        match file.rename(&new_name) {
+                            Ok(()) => {
+                                item.clear_error();
+                                item.notify_file();
 
-                            self.files.set(
-                                &iter,
-                                &[
-                                    (FileColumns::COL_NAME as u32, &file.get_name()),
-                                    (FileColumns::COL_RENAME_FAILED as u32, &result.is_err()),
-                                ],
-                            );
-
-                            if new_focused_file_name.is_none()
-                                && result.is_ok()
-                                && old_focused_file_name.as_ref() == Some(&old_name)
-                            {
-                                new_focused_file_name = Some(new_name);
+                                if new_focused_file_name.is_none()
+                                    && old_focused_file_name.as_ref() == Some(&old_name)
+                                {
+                                    new_focused_file_name = Some(new_name);
+                                }
+                            }
+                            Err(error) => {
+                                item.set_error(Some(error.to_string()));
                             }
                         }
-                    }
-
-                    if !self.files.iter_next(&iter) {
-                        break;
                     }
                 }
             }
@@ -961,44 +941,136 @@ mod imp {
         }
 
         fn unset(&self) {
-            self.files_view.set_model(gtk::TreeModel::NONE);
-            self.files.clear();
+            self.files.remove_all();
             if let Err(error) = self.config().save() {
                 eprintln!("Failed to save a configuration: {error}");
             }
         }
     }
 
-    #[repr(i32)]
-    pub enum FileColumns {
-        COL_FILE = 0,
-        COL_NAME,
-        COL_NEW_NAME,
-        COL_SIZE,
-        COL_DATE,
-        COL_RENAME_FAILED,
-        COL_METADATA,
+    fn bind(widget: &impl IsA<gtk::Widget>, bindings: impl IntoIterator<Item = glib::Binding>) {
+        unsafe {
+            widget
+                .as_ref()
+                .set_data::<Vec<glib::Binding>>("bindings", bindings.into_iter().collect())
+        }
     }
 
-    fn column(column: FileColumns, title: &str, tooltip: &str, xalign: f32) -> gtk::TreeViewColumn {
-        let renderer = gtk::CellRendererText::new();
-        renderer.set_foreground(Some("red"));
-        renderer.set_style(pango::Style::Italic);
-        renderer.set_xalign(xalign);
+    fn unbind(widget: &impl IsA<gtk::Widget>) {
+        if let Some(bindings) =
+            unsafe { widget.as_ref().steal_data::<Vec<glib::Binding>>("bindings") }
+        {
+            for binding in bindings {
+                binding.unbind();
+            }
+        }
+    }
 
-        let col = gtk::TreeViewColumn::with_attributes(
-            title,
-            &renderer,
-            &[
-                ("text", column as i32),
-                ("foreground-set", FileColumns::COL_RENAME_FAILED as i32),
-                ("style-set", FileColumns::COL_RENAME_FAILED as i32),
-            ],
-        );
-        col.set_clickable(true);
-        col.set_resizable(true);
-        col.button().set_tooltip_text(Some(tooltip));
-        col
+    fn file_cell_factory(
+        xalign: f32,
+        bind_value: impl Fn(&Item, &gtk::Label) -> glib::Binding + 'static,
+    ) -> gtk::ListItemFactory {
+        let factory = gtk::SignalListItemFactory::new();
+        factory.connect_setup(move |_, obj| {
+            let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() else {
+                return;
+            };
+            let label = gtk::Label::builder().xalign(xalign).build();
+            list_item.set_child(Some(&label));
+        });
+        factory.connect_bind(move |_, obj| {
+            let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() else {
+                return;
+            };
+            let Some(label) = list_item.child().and_downcast::<gtk::Label>() else {
+                return;
+            };
+            unbind(&label);
+            match list_item.item().and_downcast::<Item>() {
+                Some(item) => {
+                    let binding1 = (bind_value)(&item, &label);
+
+                    let binding2 = item
+                        .bind_property("error", &label, "attributes")
+                        .transform_to(|_, error: Option<&str>| {
+                            if error.is_some() {
+                                let attrs = pango::AttrList::new();
+                                attrs.insert(pango::AttrInt::new_style(pango::Style::Italic));
+                                attrs.insert(pango::AttrColor::new_foreground(0xFFFF, 0, 0));
+                                Some(attrs.to_value())
+                            } else {
+                                None
+                            }
+                        })
+                        .sync_create()
+                        .build();
+
+                    let binding3 = item
+                        .bind_property("error", &label, "tooltip-text")
+                        .sync_create()
+                        .build();
+
+                    bind(&label, [binding1, binding2, binding3]);
+                }
+                None => {
+                    label.set_label("");
+                    label.set_attributes(None);
+                }
+            }
+        });
+        factory.connect_unbind(|_, obj| {
+            let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() else {
+                return;
+            };
+            let Some(label) = list_item.child().and_downcast::<gtk::Label>() else {
+                return;
+            };
+            unbind(&label);
+            label.set_label("");
+            label.set_attributes(None);
+        });
+        factory.upcast()
+    }
+
+    fn old_name_factory() -> gtk::ListItemFactory {
+        file_cell_factory(0.0, |item, label| {
+            item.bind_property("file", label, "label")
+                .transform_to(|_, file: &File| Some(file.get_name()))
+                .sync_create()
+                .build()
+        })
+    }
+
+    fn new_name_factory() -> gtk::ListItemFactory {
+        file_cell_factory(0.0, |item, label| {
+            item.bind_property("new-name", label, "label")
+                .sync_create()
+                .build()
+        })
+    }
+
+    fn size_name_factory(size_mode: SizeDisplayMode) -> gtk::ListItemFactory {
+        file_cell_factory(1.0, move |item, label| {
+            item.bind_property("file", label, "label")
+                .transform_to(move |_, file: &File| {
+                    file.size().map(|s| size_to_string(s, size_mode))
+                })
+                .sync_create()
+                .build()
+        })
+    }
+
+    fn date_name_factory(date_format: String) -> gtk::ListItemFactory {
+        file_cell_factory(0.0, move |item, label| {
+            let date_format = date_format.clone();
+            item.bind_property("file", label, "label")
+                .transform_to(move |_, file: &File| {
+                    file.modification_date()
+                        .and_then(|dt| time_to_string(dt, &date_format).ok())
+                })
+                .sync_create()
+                .build()
+        })
     }
 
     fn create_profiles_menu(cfg: &AdvRenameConfig) -> gio::Menu {
@@ -1033,6 +1105,20 @@ mod imp {
         }
 
         menu
+    }
+
+    fn file_view_popover() -> gio::Menu {
+        gio::Menu::new()
+            .section(
+                gio::Menu::new()
+                    .item(
+                        gettext("Remove from file list"),
+                        "advrename.file-list-remove",
+                    )
+                    .item(gettext("View file"), "advrename.file-list-view")
+                    .item(gettext("File properties"), "advrename.file-list-properties"),
+            )
+            .item(gettext("Update file list"), "advrename.update-file-list")
     }
 }
 
@@ -1111,40 +1197,16 @@ fn gnome_cmd_advrename_dialog_set(dialog: &AdvancedRenameDialog, file_list: &gli
         .profile_component()
         .set_sample_file_name(file_list.front().map(|f| f.get_name()));
 
-    let options = GeneralOptions::new();
-
-    let size_mode = options.size_display_mode();
-    let date_format = options.date_display_format();
-
     let file_metadata_service = dialog.file_metadata_service();
     let files = &dialog.imp().files;
     for file in file_list {
-        let metadata = Box::new(file_metadata_service.extract_metadata(&file));
+        let metadata = file_metadata_service.extract_metadata(&file);
 
-        let iter = files.append();
-        files.set(
-            &iter,
-            &[
-                (imp::FileColumns::COL_FILE as u32, &file),
-                (imp::FileColumns::COL_NAME as u32, &file.get_name()),
-                (
-                    imp::FileColumns::COL_SIZE as u32,
-                    &file.size().map(|s| size_to_string(s, size_mode)),
-                ),
-                (
-                    imp::FileColumns::COL_DATE as u32,
-                    &file
-                        .modification_date()
-                        .and_then(|dt| time_to_string(dt, &date_format).ok()),
-                ),
-                (imp::FileColumns::COL_RENAME_FAILED as u32, &false),
-                (
-                    imp::FileColumns::COL_METADATA as u32,
-                    &(Box::leak(metadata) as *mut _ as glib::Pointer),
-                ),
-            ],
-        );
+        let item = Item::new(file);
+        item.clear_error();
+        item.set_metadata(metadata);
+
+        files.append(&item);
     }
-    dialog.imp().files_view.set_model(Some(files));
     dialog.imp().update_new_filenames();
 }

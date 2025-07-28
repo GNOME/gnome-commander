@@ -19,6 +19,7 @@
 
 pub mod advanced_rename_dialog;
 pub mod convert;
+pub mod item;
 pub mod profile;
 pub mod profile_component;
 pub mod regex_dialog;
