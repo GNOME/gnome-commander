@@ -108,8 +108,7 @@ pub fn parse_command_template(
                     }
                 }
                 'u' => {
-                    let uris =
-                        uri.get_or_init(|| files.iter().filter_map(|f| f.get_uri_str()).collect());
+                    let uris = uri.get_or_init(|| files.iter().map(|f| f.get_uri_str()).collect());
                     for (i, uri) in uris.iter().enumerate() {
                         if i > 0 {
                             cmd.push(" ");

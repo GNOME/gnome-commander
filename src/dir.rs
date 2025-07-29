@@ -90,6 +90,8 @@ pub mod ffi {
             f: *mut GnomeCmdFile,
             old_uri_str: *const c_char,
         );
+
+        pub fn gnome_cmd_dir_update_path(dir: *mut GnomeCmdDir);
     }
 
     #[derive(Copy, Clone)]
@@ -223,6 +225,10 @@ impl Directory {
         unsafe { &*ffi::gnome_cmd_dir_get_path(self.to_glib_none().0) }
     }
 
+    pub fn update_path(&self) {
+        unsafe { ffi::gnome_cmd_dir_update_path(self.to_glib_none().0) }
+    }
+
     pub fn file_created(&self, uri_str: &str) {
         unsafe { ffi::gnome_cmd_dir_file_created(self.to_glib_none().0, uri_str.to_glib_none().0) }
     }
@@ -280,7 +286,7 @@ fn create_file_from_file_info(file_info: &gio::FileInfo, parent: &Directory) -> 
     if file_info.file_type() == gio::FileType::Directory {
         Directory::new_from_file_info(&file_info, parent).and_upcast::<File>()
     } else {
-        File::new(&file_info, parent)
+        Some(File::new(&file_info, parent))
     }
 }
 

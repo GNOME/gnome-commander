@@ -1332,7 +1332,7 @@ mod imp {
                 .obj()
                 .selected_files()
                 .into_iter()
-                .filter_map(|f| f.get_uri_str())
+                .map(|f| f.get_uri_str())
                 .collect::<Vec<_>>();
             if files.is_empty() {
                 return None;

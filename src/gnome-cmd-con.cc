@@ -89,7 +89,7 @@ static void dispose (GObject *object)
     g_clear_object (&priv->base_gFileInfo);
     g_clear_error (&con->open_failed_error);
 
-    g_clear_pointer (&priv->default_dir, gnome_cmd_dir_unref);
+    g_clear_pointer (&priv->default_dir, g_object_unref);
 
     G_OBJECT_CLASS (gnome_cmd_con_parent_class)->dispose (object);
 }

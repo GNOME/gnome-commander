@@ -23,7 +23,12 @@
 use super::connection::Connection;
 use crate::utils::GnomeCmdFileExt;
 use gtk::{gio, glib, prelude::*};
-use std::{cell::RefCell, fmt, path::PathBuf, sync::LazyLock};
+use std::{
+    cell::RefCell,
+    fmt,
+    path::{Path, PathBuf},
+    sync::LazyLock,
+};
 
 pub mod ffi {
     use crate::connection::remote::ffi::GnomeCmdConRemoteClass;
@@ -120,7 +125,7 @@ impl SmbResource {
         }
     }
 
-    pub fn child(&self, child: &str) -> Self {
+    pub fn child(&self, child: &Path) -> Self {
         match self {
             Self::Root => Self::Workgroup(PathBuf::from(child)),
             Self::Workgroup(workgroup) => {

@@ -1096,7 +1096,7 @@ impl FileSelector {
             })
             .filter_map(|file_list| {
                 let directory = file_list.directory()?;
-                let uri = directory.upcast_ref::<File>().get_uri_str()?;
+                let uri = directory.upcast_ref::<File>().get_uri_str();
                 let (column, order) = file_list.sorting();
                 Some(TabVariant {
                     uri,

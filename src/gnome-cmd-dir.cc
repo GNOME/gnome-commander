@@ -119,6 +119,7 @@ static void gnome_cmd_dir_dispose (GObject *object)
     auto priv = dir_private (dir);
 
     g_list_store_remove_all (priv->files);
+    gnome_cmd_con_remove_from_cache (priv->con, dir);
 
     G_OBJECT_CLASS (gnome_cmd_dir_parent_class)->dispose (object);
 }
@@ -128,8 +129,6 @@ static void gnome_cmd_dir_finalize (GObject *object)
 {
     GnomeCmdDir *dir = GNOME_CMD_DIR (object);
     auto priv = dir_private (dir);
-
-    gnome_cmd_con_remove_from_cache (priv->con, dir);
 
     g_clear_object (&priv->files);
     g_clear_pointer (&priv->path, gnome_cmd_path_free);
@@ -270,7 +269,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
     if (gnomeCmdDir)
     {
         gnome_cmd_path_free (dirPath);
-        GNOME_CMD_FILE (gnomeCmdDir)->update_gFileInfo(gFileInfo);
+        gnome_cmd_file_update_file_info (GNOME_CMD_FILE (gnomeCmdDir), gFileInfo);
         g_free (uriString);
         return g_object_ref (gnomeCmdDir);
     }
@@ -314,7 +313,7 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
 
     if (dir)
     {
-        GNOME_CMD_FILE (dir)->update_gFileInfo(con_base_file_info);
+        gnome_cmd_file_update_file_info (GNOME_CMD_FILE (dir), con_base_file_info);
         g_object_unref (gFile);
         g_free (uriString);
         return g_object_ref (dir);
@@ -413,12 +412,6 @@ static GnomeCmdCon *dir_get_connection (GnomeCmdFile *dir)
     return priv->con;
 }
 
-
-void gnome_cmd_dir_unref (GnomeCmdDir *dir)
-{
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-    GNOME_CMD_FILE (dir)->unref();
-}
 
 GListStore *gnome_cmd_dir_get_files (GnomeCmdDir *dir)
 {
@@ -816,7 +809,7 @@ void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
         return;
     }
 
-    f->update_gFileInfo(gFileInfo);
+    gnome_cmd_file_update_file_info (f, gFileInfo);
     g_signal_emit (dir, signals[FILE_CHANGED], 0, f);
 }
 

@@ -23,7 +23,11 @@ use gtk::{
     glib::translate::{from_glib_borrow, from_glib_none, Borrowed, ToGlibPtr},
     prelude::*,
 };
-use std::{ffi::c_char, fmt, path::PathBuf};
+use std::{
+    ffi::c_char,
+    fmt,
+    path::{Path, PathBuf},
+};
 
 #[derive(Clone)]
 pub enum GnomeCmdPath {
@@ -54,7 +58,7 @@ impl GnomeCmdPath {
         }
     }
 
-    pub fn child(&self, child: &str) -> Self {
+    pub fn child(&self, child: &Path) -> Self {
         match self {
             Self::Plain(path) => Self::Plain(path.join(child)),
             Self::Smb(resource) => Self::Smb(resource.child(child)),
@@ -122,7 +126,7 @@ pub extern "C" fn gnome_cmd_path_get_child(
     child: *const c_char,
 ) -> *mut GnomeCmdPath {
     let path: &GnomeCmdPath = unsafe { &*p };
-    let child: String = unsafe { from_glib_none(child) };
+    let child: PathBuf = unsafe { from_glib_none(child) };
     path.child(&child).into_raw()
 }
 

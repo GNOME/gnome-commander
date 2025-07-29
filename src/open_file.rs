@@ -153,11 +153,7 @@ pub async fn mime_exec_single(
     if file.is_local() {
         app_info.launch(&[file.file()], gio::AppLaunchContext::NONE)
     } else if app.handles_uris() && options.dont_download() {
-        let uri = file.get_uri_str().ok_or_else(|| ErrorMessage {
-            message: gettext("A file {} has no URI").replace("{}", &file.get_name()),
-            secondary_text: None,
-        })?;
-        app_info.launch_uris(&[&uri], gio::AppLaunchContext::NONE)
+        app_info.launch_uris(&[&file.get_uri_str()], gio::AppLaunchContext::NONE)
     } else {
         if !ask_download_tmp(parent_window, &app).await {
             return Ok(());

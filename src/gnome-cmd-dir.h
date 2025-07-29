@@ -71,15 +71,6 @@ extern "C" GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path,
 extern "C" GnomeCmdDir *gnome_cmd_dir_get_parent (GnomeCmdDir *dir);
 GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child);
 
-inline GnomeCmdDir *gnome_cmd_dir_ref (GnomeCmdDir *dir)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
-    GNOME_CMD_FILE (dir)->ref();
-    return dir;
-}
-
-void gnome_cmd_dir_unref (GnomeCmdDir *dir);
-
 GnomeCmdDir::State gnome_cmd_dir_get_state (GnomeCmdDir *dir);
 
 extern "C" GListStore *gnome_cmd_dir_get_files (GnomeCmdDir *dir);
@@ -87,7 +78,7 @@ extern "C" void gnome_cmd_dir_relist_files (GtkWindow *parent_window, GnomeCmdDi
 extern "C" void gnome_cmd_dir_list_files (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visprog);
 
 extern "C" GnomeCmdPath *gnome_cmd_dir_get_path (GnomeCmdDir *dir);
-void gnome_cmd_dir_update_path (GnomeCmdDir *dir);
+extern "C" void gnome_cmd_dir_update_path (GnomeCmdDir *dir);
 extern "C" gchar *gnome_cmd_dir_get_display_path (GnomeCmdDir *dir);
 
 GFile       *gnome_cmd_dir_get_gfile (GnomeCmdDir *dir);
