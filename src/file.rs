@@ -31,7 +31,6 @@ use crate::{
     path::GnomeCmdPath,
     spawn::{app_needs_terminal, run_command_indir, SpawnError},
 };
-use glib::ffi::{gboolean, GError};
 use gtk::{
     gio::{
         self,
@@ -142,7 +141,7 @@ impl File {
         Ok(Self::new_full(&file_info, &file, &dir))
     }
 
-    fn setup(&self, file: &gio::File) -> Result<(), glib::Error> {
+    pub fn setup(&self, file: &gio::File) -> Result<(), glib::Error> {
         let file_info =
             file.query_info("*", gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE)?;
         self.set_file_info(&file_info);
@@ -156,8 +155,16 @@ impl File {
         self.private().file.replace(Some(file.clone()));
     }
 
-    fn set_file_info(&self, file_info: &gio::FileInfo) {
+    pub fn set_file_info(&self, file_info: &gio::FileInfo) {
         self.private().file_info.replace(Some(file_info.clone()));
+    }
+
+    pub fn refresh_file_info(&self) -> Result<(), glib::Error> {
+        let file_info =
+            self.file()
+                .query_info("*", gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE)?;
+        self.set_file_info(&file_info);
+        Ok(())
     }
 
     pub fn dotdot(dir: &Directory) -> Self {
@@ -448,23 +455,6 @@ pub extern "C" fn gnome_cmd_file_new_full(
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_file_setup(
-    dir: *mut ffi::GnomeCmdFile,
-    file: *mut GFile,
-    error: *mut *mut GError,
-) -> gboolean {
-    let object: Borrowed<File> = unsafe { from_glib_borrow(dir) };
-    let file: gio::File = unsafe { from_glib_full(file) };
-    match object.setup(&file) {
-        Ok(()) => 1,
-        Err(e) => unsafe {
-            *error = e.to_glib_full();
-            0
-        },
-    }
-}
-
-#[no_mangle]
 pub extern "C" fn gnome_cmd_file_get_file(fd: *mut GnomeCmdFileDescriptor) -> *mut GFile {
     let fd: Borrowed<FileDescriptor> = unsafe { from_glib_borrow(fd) };
     let file = fd.downcast_ref::<File>().unwrap().private().file.borrow();
@@ -481,16 +471,6 @@ pub extern "C" fn gnome_cmd_file_get_file_info(fd: *mut GnomeCmdFileDescriptor) 
         .file_info
         .borrow();
     info.to_glib_none().0
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_update_file_info(
-    f: *mut ffi::GnomeCmdFile,
-    file_info: *mut GFileInfo,
-) {
-    let f: Borrowed<File> = unsafe { from_glib_borrow(f) };
-    let file_info: Borrowed<gio::FileInfo> = unsafe { from_glib_borrow(file_info) };
-    f.set_file_info(&file_info);
 }
 
 #[no_mangle]

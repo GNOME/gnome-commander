@@ -23,7 +23,7 @@
 use super::{
     bookmark::Bookmark, device::ConnectionDevice, history::History, remote::ConnectionRemote,
 };
-use crate::{dir::Directory, path::GnomeCmdPath};
+use crate::{debug::debug, dir::Directory, file::File, path::GnomeCmdPath};
 use gtk::{
     gio::{
         self,
@@ -32,7 +32,7 @@ use gtk::{
     glib::{self, ffi::GStrv, translate::*},
     prelude::*,
 };
-use std::{ffi::c_char, path::Path, ptr, sync::LazyLock};
+use std::{collections::HashMap, ffi::c_char, path::Path, ptr, sync::LazyLock};
 
 pub mod ffi {
     use super::*;
@@ -143,12 +143,14 @@ glib::wrapper! {
 
 struct ConnectionPrivate {
     history: History<String>, // TODO: consider Rc<GnomeCmdPath>
+    dir_cache: HashMap<String, Directory>,
 }
 
 impl Default for ConnectionPrivate {
     fn default() -> Self {
         Self {
             history: History::new(20),
+            dir_cache: Default::default(),
         }
     }
 }
@@ -185,6 +187,40 @@ impl Connection {
             file.find_enclosing_mount(gio::Cancellable::NONE).ok()
         } else {
             None
+        }
+    }
+
+    pub fn add_to_cache(&self, directory: &Directory, uri: &str) {
+        debug!('k', "ADDING {:?} {} to the cache", directory, uri);
+        self.private()
+            .dir_cache
+            .insert(uri.to_owned(), directory.clone());
+    }
+
+    pub fn remove_from_cache(&self, directory: &Directory) {
+        let uri = directory.upcast_ref::<File>().get_uri_str();
+        debug!('k', "REMOVING {:?} {} from the cache", directory, uri);
+        self.private().dir_cache.remove(&uri);
+    }
+
+    pub fn remove_from_cache_by_uri(&self, uri: &str) {
+        debug!('k', "REMOVING {} from the cache", uri);
+        self.private().dir_cache.remove(uri);
+    }
+
+    pub fn cache_lookup(&self, uri: &str) -> Option<Directory> {
+        match self.private().dir_cache.get(uri) {
+            Some(directory) => {
+                debug!(
+                    'k',
+                    "FOUND {:?} {} in the cache, reusing it!", directory, uri
+                );
+                Some(directory.clone())
+            }
+            None => {
+                debug!('k', "FAILED to find {} in the cache", uri);
+                None
+            }
         }
     }
 }

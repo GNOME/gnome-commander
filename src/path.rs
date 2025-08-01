@@ -115,12 +115,6 @@ pub extern "C" fn gnome_cmd_path_get_path(p: *mut GnomeCmdPath) -> *mut c_char {
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_path_get_display_path(p: *mut GnomeCmdPath) -> *mut c_char {
-    let path: &GnomeCmdPath = unsafe { &*p };
-    path.to_string().to_glib_full()
-}
-
-#[no_mangle]
 pub extern "C" fn gnome_cmd_path_get_child(
     p: *mut GnomeCmdPath,
     child: *const c_char,

@@ -176,7 +176,9 @@ static gboolean set_home_connection (GnomeCmdFileList *fl)
 static void on_directory_deleted (GnomeCmdDir *dir, GnomeCmdFileList *fl)
 {
     auto parentDir = gnome_cmd_dir_get_existing_parent(dir);
-    auto parentDirPath = gnome_cmd_path_get_path (gnome_cmd_dir_get_path (parentDir));
+    auto parentDirGPath = gnome_cmd_dir_get_path (parentDir);
+    auto parentDirPath = gnome_cmd_path_get_path (parentDirGPath);
+    gnome_cmd_path_free (parentDirGPath);
     fl->goto_directory(parentDirPath);
     g_free (parentDirPath);
 }

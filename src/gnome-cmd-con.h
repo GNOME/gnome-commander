@@ -175,13 +175,5 @@ extern "C" gboolean gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const 
 
 extern "C" gboolean gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str, GError *error);
 
-void gnome_cmd_con_add_to_cache (GnomeCmdCon *con, GnomeCmdDir *dir, gchar *uri_str = nullptr);
-
-void gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, GnomeCmdDir *dir);
-
-void gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, const gchar *uri);
-
-GnomeCmdDir *gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri);
-
 
 extern "C" GType gnome_cmd_bookmark_get_type ();

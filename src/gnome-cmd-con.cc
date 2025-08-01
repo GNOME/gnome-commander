@@ -39,8 +39,6 @@ struct GnomeCmdConPrivate
     GUri           *uri;
     GnomeCmdDir    *default_dir;   // the start dir of this connection
     GListModel     *bookmarks;
-    GList          *all_dirs;
-    GHashTable     *all_dirs_map;
 };
 
 enum
@@ -187,8 +185,6 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
     priv->base_path = nullptr;
     priv->default_dir = nullptr;
     priv->bookmarks = G_LIST_MODEL (g_list_store_new (gnome_cmd_bookmark_get_type ()));
-    priv->all_dirs = nullptr;
-    priv->all_dirs_map = nullptr;
 
     g_signal_connect_swapped (priv->bookmarks, "items-changed", G_CALLBACK (gnome_cmd_con_updated), con);
 }
@@ -551,77 +547,6 @@ gboolean gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str, GError *e
     gnome_cmd_path_free (path);
 
     return true;
-}
-
-
-void gnome_cmd_con_add_to_cache (GnomeCmdCon *con, GnomeCmdDir *dir, gchar *uri_str)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-
-    if (!uri_str)
-    {
-        uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
-    }
-
-    if (!uri_str)
-    {
-        return;
-    }
-
-    if (!priv->all_dirs_map)
-        priv->all_dirs_map = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, nullptr);
-
-    DEBUG ('k', "ADDING %p %s to the cache\n", dir, uri_str);
-    g_hash_table_insert (priv->all_dirs_map, uri_str, dir);
-}
-
-
-void gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, GnomeCmdDir *dir)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-
-    gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
-
-    DEBUG ('k', "REMOVING %p %s from the cache\n", dir, uri_str);
-    g_hash_table_remove (priv->all_dirs_map, uri_str);
-    g_free (uri_str);
-}
-
-
-void gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, const gchar *uri_str)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    g_return_if_fail (uri_str != nullptr);
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-
-    DEBUG ('k', "REMOVING %s from the cache\n", uri_str);
-    g_hash_table_remove (priv->all_dirs_map, uri_str);
-}
-
-
-GnomeCmdDir *gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri_str)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    g_return_val_if_fail (uri_str != nullptr, nullptr);
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-
-    GnomeCmdDir *dir = nullptr;
-
-    if (priv->all_dirs_map)
-    {
-        dir = static_cast<GnomeCmdDir*> (g_hash_table_lookup (priv->all_dirs_map, uri_str));
-    }
-
-    if (dir)
-        DEBUG ('k', "FOUND %p %s in the hash-table, reusing it!\n", dir, uri_str);
-    else
-        DEBUG ('k', "FAILED to find %s in the hash-table\n", uri_str);
-
-    return dir;
 }
 
 

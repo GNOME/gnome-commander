@@ -69,11 +69,9 @@ inline const gchar *GnomeCmdFile::get_name()
 
 extern "C" GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir);
 extern "C" GnomeCmdFile *gnome_cmd_file_new_full (GFileInfo *gFileInfo, GFile *gFile, GnomeCmdDir *dir);
-extern "C" gboolean gnome_cmd_file_setup (GObject *gObject, GFile *gFile, GError **error);
 
 extern "C" gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f);
 
 extern "C" gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f);
 extern "C" gboolean gnome_cmd_file_is_local (GnomeCmdFile *f);
 extern "C" GnomeCmdCon *gnome_cmd_file_get_connection (GnomeCmdFile *f);
-extern "C" void gnome_cmd_file_update_file_info(GnomeCmdFile *f, GFileInfo *gFileInfo);
