@@ -31,15 +31,16 @@ const INTVIEWER_HISTORY_SIZE: usize = 16;
 
 mod imp {
     use super::*;
-    use crate::utils::{
-        channel_send_action, dialog_button_box, handle_escape_key, SenderExt, NO_BUTTONS,
+    use crate::{
+        history_entry::HistoryEntry,
+        utils::{channel_send_action, dialog_button_box, handle_escape_key, SenderExt, NO_BUTTONS},
     };
     use std::cell::OnceCell;
 
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::SearchDialog)]
     pub struct SearchDialog {
-        pub search_entry: gtk::ComboBoxText,
+        pub search_entry: HistoryEntry,
         pub text_mode: gtk::CheckButton,
         pub hex_mode: gtk::CheckButton,
         pub case_sensitive: gtk::CheckButton,
@@ -60,7 +61,7 @@ mod imp {
         fn new() -> Self {
             let (sender, receiver) = async_channel::bounded(1);
             Self {
-                search_entry: gtk::ComboBoxText::with_entry(),
+                search_entry: Default::default(),
                 text_mode: gtk::CheckButton::with_mnemonic(&gettext("_Text")),
                 hex_mode: gtk::CheckButton::with_mnemonic(&gettext("_Hexadecimal")),
                 case_sensitive: gtk::CheckButton::with_mnemonic(&gettext("_Match case")),
@@ -90,9 +91,10 @@ mod imp {
                 .build();
             dialog.set_child(Some(&grid));
 
-            if let Some(entry) = self.search_entry.child().and_downcast::<gtk::Entry>() {
-                entry.set_activates_default(true);
-            }
+            self.search_entry
+                .set_max_history_size(INTVIEWER_HISTORY_SIZE);
+            self.search_entry.entry().set_activates_default(true);
+
             let label = gtk::Label::builder()
                 .label(gettext("_Search for:"))
                 .use_underline(true)
@@ -101,7 +103,7 @@ mod imp {
             grid.attach(&label, 0, 0, 1, 1);
             grid.attach(&self.search_entry, 1, 0, 2, 1);
 
-            self.search_entry.connect_changed(glib::clone!(
+            self.search_entry.entry().connect_changed(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
                 move |_| imp.entry_changed()
@@ -164,9 +166,7 @@ mod imp {
         }
 
         fn search_text(&self) -> Option<glib::GString> {
-            self.search_entry
-                .active_text()
-                .filter(|text| !text.is_empty())
+            Some(self.search_entry.text()).filter(|text| !text.is_empty())
         }
 
         fn search_hex(&self) -> Option<Vec<u8>> {
@@ -211,16 +211,15 @@ mod imp {
         }
 
         fn set_history(&self, key: &str) {
-            self.search_entry.remove_all();
-            for item in self
-                .obj()
-                .settings()
-                .strv(key)
-                .into_iter()
-                .take(INTVIEWER_HISTORY_SIZE)
-            {
-                self.search_entry.append_text(&item);
-            }
+            self.search_entry.set_history(
+                &self
+                    .obj()
+                    .settings()
+                    .strv(key)
+                    .into_iter()
+                    .map(|s| s.to_string())
+                    .collect::<Vec<_>>(),
+            );
         }
 
         pub(super) fn init_from_settings(&self) {
@@ -231,11 +230,9 @@ mod imp {
                     self.text_mode.set_active(true);
                     self.case_sensitive
                         .set_active(settings.boolean(GCMD_SETTINGS_IV_CASE_SENSITIVE));
-                    self.search_entry.set_active(Some(0));
                 }
                 Mode::Binary => {
                     self.hex_mode.set_active(true);
-                    self.search_entry.set_active(Some(0));
                 }
             }
         }

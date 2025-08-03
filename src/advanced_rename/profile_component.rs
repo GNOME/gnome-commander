@@ -37,6 +37,7 @@ mod imp {
             regex_dialog::show_advrename_regex_dialog,
         },
         dialogs::order_utils::ordering_buttons,
+        history_entry::HistoryEntry,
         utils::{attributes_bold, MenuBuilderExt},
     };
     use std::{
@@ -52,8 +53,7 @@ mod imp {
         #[property(get, set, nullable)]
         profile: RefCell<Option<AdvancedRenameProfile>>,
 
-        pub template_model: gtk::ListStore,
-        template_combo: gtk::ComboBox,
+        pub template_entry: HistoryEntry,
         metadata_button: gtk::MenuButton,
 
         pub counter_start_spin: gtk::SpinButton,
@@ -104,13 +104,6 @@ mod imp {
         }
 
         fn new() -> Self {
-            let template_model = gtk::ListStore::new(&[String::static_type()]);
-            let template_combo = gtk::ComboBox::builder()
-                .has_entry(true)
-                .model(&template_model)
-                .entry_text_column(0)
-                .build();
-
             let regex_model = gio::ListStore::new::<glib::BoxedAnyObject>();
             let regex_selection_model = gtk::SingleSelection::new(Some(regex_model.clone()));
 
@@ -118,8 +111,7 @@ mod imp {
                 file_metadata_service: OnceCell::new(),
                 profile: Default::default(),
 
-                template_model,
-                template_combo,
+                template_entry: Default::default(),
                 metadata_button: gtk::MenuButton::builder().label(gettext("Metatag")).build(),
 
                 counter_start_spin: gtk::SpinButton::with_range(0.0, 1_000_000.0, 1.0),
@@ -194,12 +186,12 @@ mod imp {
                     .attributes(&attributes_bold())
                     .halign(gtk::Align::Start)
                     .valign(gtk::Align::Center)
-                    .mnemonic_widget(&self.template_combo)
+                    .mnemonic_widget(&self.template_entry)
                     .build();
                 vbox.append(&label);
 
-                self.template_entry().set_activates_default(true);
-                vbox.append(&self.template_combo);
+                self.template_entry.entry().set_activates_default(true);
+                vbox.append(&self.template_entry);
 
                 let bbox = gtk::Box::builder()
                     .orientation(gtk::Orientation::Horizontal)
@@ -395,7 +387,7 @@ mod imp {
                 hbox.append(&self.trim_combo);
             }
 
-            self.template_combo.connect_changed(glib::clone!(
+            self.template_entry.entry().connect_changed(glib::clone!(
                 #[weak]
                 this,
                 move |_| this.emit_by_name::<()>("template-changed", &[])
@@ -535,20 +527,13 @@ mod imp {
 
     impl WidgetImpl for AdvancedRenameProfileComponent {
         fn grab_focus(&self) -> bool {
-            self.template_entry().grab_focus()
+            self.template_entry.grab_focus()
         }
     }
 
     impl AdvancedRenameProfileComponent {
-        pub fn template_entry(&self) -> gtk::Entry {
-            self.template_combo
-                .child()
-                .and_downcast::<gtk::Entry>()
-                .unwrap()
-        }
-
         fn insert_tag(&self, tag: &str) {
-            let entry = self.template_entry();
+            let entry = self.template_entry.entry();
             let position0 = entry.position();
             let mut position = position0;
             entry.insert_text(tag, &mut position);
@@ -913,17 +898,12 @@ impl AdvancedRenameProfileComponent {
         this
     }
 
-    pub fn set_template_history(&self, history: impl IntoIterator<Item = impl AsRef<str>>) {
-        let store = &self.imp().template_model;
-        store.clear();
-        for item in history {
-            let iter = store.append();
-            store.set_value(&iter, 0, &item.as_ref().to_value());
-        }
+    pub fn set_template_history(&self, history: &[String]) {
+        self.imp().template_entry.set_history(history);
     }
 
     pub fn template_entry(&self) -> String {
-        self.imp().template_entry().text().into()
+        self.imp().template_entry.text().into()
     }
 
     pub fn valid_regexes(&self) -> Vec<RegexReplace> {
@@ -948,7 +928,7 @@ impl AdvancedRenameProfileComponent {
             return;
         };
 
-        let template_entry = self.imp().template_entry();
+        let template_entry = self.imp().template_entry.entry();
         let template_string = profile.template_string();
         template_entry.set_text({
             if template_string.is_empty() {

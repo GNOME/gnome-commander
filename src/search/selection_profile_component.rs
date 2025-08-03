@@ -23,7 +23,7 @@ use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
-    use crate::search::profile::SearchProfile;
+    use crate::{history_entry::HistoryEntry, search::profile::SearchProfile};
     use std::cell::{OnceCell, RefCell};
 
     #[derive(glib::Properties)]
@@ -35,15 +35,12 @@ mod imp {
         profile: RefCell<Option<SearchProfile>>,
 
         pub filter_type_drop_down: gtk::DropDown,
-        pub pattern_combo: gtk::ComboBox,
+        pub pattern_entry: HistoryEntry,
         pub recurse_label: gtk::Label,
         pub recurse_drop_down: gtk::DropDown,
-        pub find_text_combo: gtk::ComboBox,
+        pub find_text_entry: HistoryEntry,
         pub find_text_check: gtk::CheckButton,
         pub case_check: gtk::CheckButton,
-
-        pub pattern_model: gtk::ListStore,
-        pub find_text_model: gtk::ListStore,
     }
 
     #[glib::object_subclass]
@@ -53,8 +50,6 @@ mod imp {
         type ParentType = gtk::Widget;
 
         fn new() -> Self {
-            let pattern_model = gtk::ListStore::new(&[String::static_type()]);
-            let find_text_model = gtk::ListStore::new(&[String::static_type()]);
             Self {
                 labels_size_group: Default::default(),
                 profile: Default::default(),
@@ -62,12 +57,7 @@ mod imp {
                     .model(&filter_type_model())
                     .factory(&same_size_labels_factory())
                     .build(),
-                pattern_combo: gtk::ComboBox::builder()
-                    .has_entry(true)
-                    .model(&pattern_model)
-                    .entry_text_column(0)
-                    .hexpand(true)
-                    .build(),
+                pattern_entry: Default::default(),
                 recurse_label: gtk::Label::builder()
                     .label(gettext("Search _recursively:"))
                     .use_underline(true)
@@ -77,14 +67,7 @@ mod imp {
                     .model(&recurse_model())
                     .hexpand(true)
                     .build(),
-                find_text_combo: gtk::ComboBox::builder()
-                    .has_entry(true)
-                    .model(&find_text_model)
-                    .active(0)
-                    .entry_text_column(0)
-                    .hexpand(true)
-                    .sensitive(false)
-                    .build(),
+                find_text_entry: Default::default(),
                 find_text_check: gtk::CheckButton::builder()
                     .label(gettext("Contains _text:"))
                     .use_underline(true)
@@ -94,8 +77,6 @@ mod imp {
                     .use_underline(true)
                     .sensitive(false)
                     .build(),
-                pattern_model,
-                find_text_model,
             }
         }
     }
@@ -116,7 +97,8 @@ mod imp {
 
             // search for
             grid.attach(&self.filter_type_drop_down, 0, 0, 1, 1);
-            grid.attach(&self.pattern_combo, 1, 0, 1, 1);
+            self.pattern_entry.set_hexpand(true);
+            grid.attach(&self.pattern_entry, 1, 0, 1, 1);
 
             // recurse check
             grid.attach(&self.recurse_label, 0, 1, 1, 1);
@@ -124,7 +106,9 @@ mod imp {
 
             // find text
             grid.attach(&self.find_text_check, 0, 2, 1, 1);
-            grid.attach(&self.find_text_combo, 1, 2, 1, 1);
+            self.find_text_entry.set_hexpand(true);
+            self.find_text_entry.set_sensitive(false);
+            grid.attach(&self.find_text_entry, 1, 2, 1, 1);
 
             // case check
             grid.attach(&self.case_check, 1, 3, 1, 1);
@@ -140,7 +124,7 @@ mod imp {
                     #[weak(rename_to = imp)]
                     self,
                     move |_| {
-                        imp.pattern_combo.grab_focus();
+                        imp.pattern_entry.grab_focus();
                     }
                 ));
             self.find_text_check.connect_toggled(glib::clone!(
@@ -148,18 +132,18 @@ mod imp {
                 self,
                 move |cb| {
                     if cb.is_active() {
-                        imp.find_text_combo.set_sensitive(true);
+                        imp.find_text_entry.set_sensitive(true);
                         imp.case_check.set_sensitive(true);
-                        imp.find_text_combo.grab_focus();
+                        imp.find_text_entry.grab_focus();
                     } else {
-                        imp.find_text_combo.set_sensitive(false);
+                        imp.find_text_entry.set_sensitive(false);
                         imp.case_check.set_sensitive(false);
                     }
                 }
             ));
 
-            self.pattern_entry().set_activates_default(true);
-            self.find_text_entry().set_activates_default(true);
+            self.pattern_entry.entry().set_activates_default(true);
+            self.find_text_entry.entry().set_activates_default(true);
         }
 
         fn dispose(&self) {
@@ -171,23 +155,7 @@ mod imp {
 
     impl WidgetImpl for SelectionProfileComponent {
         fn grab_focus(&self) -> bool {
-            self.pattern_combo.grab_focus()
-        }
-    }
-
-    impl SelectionProfileComponent {
-        pub fn pattern_entry(&self) -> gtk::Entry {
-            self.pattern_combo
-                .child()
-                .and_downcast::<gtk::Entry>()
-                .unwrap()
-        }
-
-        pub fn find_text_entry(&self) -> gtk::Entry {
-            self.find_text_combo
-                .child()
-                .and_downcast::<gtk::Entry>()
-                .unwrap()
+            self.pattern_entry.grab_focus()
         }
     }
 
@@ -263,7 +231,7 @@ impl SelectionProfileComponent {
         };
 
         self.imp()
-            .pattern_entry()
+            .pattern_entry
             .set_text(&profile.filename_pattern());
         self.imp()
             .filter_type_drop_down
@@ -271,9 +239,7 @@ impl SelectionProfileComponent {
         self.imp()
             .recurse_drop_down
             .set_selected((profile.max_depth() + 1) as u32);
-        self.imp()
-            .find_text_entry()
-            .set_text(&profile.text_pattern());
+        self.imp().find_text_entry.set_text(&profile.text_pattern());
         self.imp()
             .find_text_check
             .set_active(profile.content_search());
@@ -285,10 +251,10 @@ impl SelectionProfileComponent {
             return;
         };
 
-        let text_pattern = self.imp().find_text_entry().text();
+        let text_pattern = self.imp().find_text_entry.text();
         let content_search = !text_pattern.is_empty() && self.imp().find_text_check.is_active();
 
-        profile.set_filename_pattern(self.imp().pattern_entry().text());
+        profile.set_filename_pattern(self.imp().pattern_entry.text());
         profile.set_max_depth(self.imp().recurse_drop_down.selected() as i32 - 1);
         profile.set_syntax(self.imp().filter_type_drop_down.selected() as i32);
         profile.set_text_pattern(text_pattern);
@@ -297,23 +263,10 @@ impl SelectionProfileComponent {
     }
 
     pub fn set_name_patterns_history(&self, history: &[String]) {
-        let model = &self.imp().pattern_model;
-
-        model.clear();
-        for entry in history {
-            let iter = model.append();
-            model.set_value(&iter, 0, &entry.to_value());
-        }
-        self.imp().pattern_combo.set_active(Some(0));
+        self.imp().pattern_entry.set_history(history);
     }
 
     pub fn set_content_patterns_history(&self, history: &[String]) {
-        let model = &self.imp().find_text_model;
-
-        model.clear();
-        for entry in history {
-            let iter = model.append();
-            model.set_value(&iter, 0, &entry.to_value());
-        }
+        self.imp().find_text_entry.set_history(history);
     }
 }
