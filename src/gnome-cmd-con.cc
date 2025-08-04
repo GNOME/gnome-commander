@@ -35,10 +35,8 @@ struct GnomeCmdConPrivate
     GnomeCmdPath   *base_path;
     GFileInfo      *base_gFileInfo;
 
-    gchar          *uuid;
     GUri           *uri;
     GnomeCmdDir    *default_dir;   // the start dir of this connection
-    GListModel     *bookmarks;
 };
 
 enum
@@ -80,7 +78,6 @@ static void dispose (GObject *object)
     GnomeCmdCon *con = GNOME_CMD_CON (object);
     auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
-    g_clear_pointer (&priv->uuid, g_free);
     g_clear_pointer (&con->alias, g_free);
     g_clear_pointer (&priv->uri, g_uri_unref);
     g_clear_pointer (&priv->base_path, gnome_cmd_path_free);
@@ -164,7 +161,6 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
 {
     auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
-    priv->uuid = g_uuid_string_random ();
     priv->uri = nullptr;
 
     con->alias = nullptr;
@@ -184,23 +180,12 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
 
     priv->base_path = nullptr;
     priv->default_dir = nullptr;
-    priv->bookmarks = G_LIST_MODEL (g_list_store_new (gnome_cmd_bookmark_get_type ()));
-
-    g_signal_connect_swapped (priv->bookmarks, "items-changed", G_CALLBACK (gnome_cmd_con_updated), con);
 }
 
 
 /***********************************
  * Public functions
  ***********************************/
-
-const gchar *gnome_cmd_con_get_uuid (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-    return priv->uuid;
-}
-
 
 static gboolean check_con_open_progress (GnomeCmdCon *con)
 {
@@ -453,34 +438,6 @@ gboolean gnome_cmd_con_is_closeable (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
     return con->is_closeable;
-}
-
-
-GListModel *gnome_cmd_con_get_bookmarks (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-
-    return priv->bookmarks;
-}
-
-
-void gnome_cmd_con_add_bookmark (GnomeCmdCon *con, GnomeCmdBookmark *bookmark)
-{
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-
-    g_list_store_append (G_LIST_STORE (priv->bookmarks), bookmark);
-}
-
-
-void gnome_cmd_con_erase_bookmarks (GnomeCmdCon *con)
-{
-    if (!con)
-        return;
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-
-    g_list_store_remove_all (G_LIST_STORE (priv->bookmarks));
 }
 
 

@@ -102,8 +102,6 @@ struct GnomeCmdConClass
 
 extern "C" GType gnome_cmd_con_get_type ();
 
-extern "C" const gchar *gnome_cmd_con_get_uuid (GnomeCmdCon *con);
-
 extern "C" GnomeCmdPath *gnome_cmd_con_get_base_path(GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path);
 
@@ -163,17 +161,8 @@ extern "C" GIcon *gnome_cmd_con_get_close_icon (GnomeCmdCon *con);
 
 extern "C" GListModel *gnome_cmd_con_get_bookmarks (GnomeCmdCon *con);
 
-struct GnomeCmdBookmark;
-
-extern "C" void gnome_cmd_con_add_bookmark (GnomeCmdCon *con, GnomeCmdBookmark *bookmark);
-
-extern "C" void gnome_cmd_con_erase_bookmarks (GnomeCmdCon *con);
-
 void gnome_cmd_con_updated (GnomeCmdCon *con);
 
 extern "C" gboolean gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path, GFileType *type);
 
 extern "C" gboolean gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str, GError *error);
-
-
-extern "C" GType gnome_cmd_bookmark_get_type ();

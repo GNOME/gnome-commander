@@ -39,7 +39,7 @@ pub mod ffi {
     use crate::dir::ffi::GnomeCmdDir;
     use gtk::{
         ffi::GtkWindow,
-        gio::ffi::{GFile, GFileType, GIcon, GListModel},
+        gio::ffi::{GFile, GFileType, GIcon},
         glib::ffi::{gboolean, GError, GType, GUri},
     };
     use std::ffi::c_char;
@@ -52,7 +52,6 @@ pub mod ffi {
 
     extern "C" {
         pub fn gnome_cmd_con_get_type() -> GType;
-        pub fn gnome_cmd_con_get_uuid(con: *const GnomeCmdCon) -> *const c_char;
 
         pub fn gnome_cmd_con_get_alias(con: *const GnomeCmdCon) -> *const c_char;
         pub fn gnome_cmd_con_set_alias(con: *const GnomeCmdCon, alias: *const c_char);
@@ -83,15 +82,6 @@ pub mod ffi {
         pub fn gnome_cmd_con_is_local(con: *const GnomeCmdCon) -> gboolean;
 
         pub fn gnome_cmd_con_is_open(con: *const GnomeCmdCon) -> gboolean;
-
-        pub fn gnome_cmd_con_add_bookmark(
-            con: *const GnomeCmdCon,
-            bookmark: *const <Bookmark as glib::object::ObjectType>::GlibType,
-        );
-
-        pub fn gnome_cmd_con_erase_bookmarks(con: *mut GnomeCmdCon);
-
-        pub fn gnome_cmd_con_get_bookmarks(con: *mut GnomeCmdCon) -> *const GListModel;
 
         pub fn gnome_cmd_con_get_path_target_type(
             con: *const GnomeCmdCon,
@@ -142,15 +132,25 @@ glib::wrapper! {
 }
 
 struct ConnectionPrivate {
+    uuid: String,
     history: History<String>, // TODO: consider Rc<GnomeCmdPath>
     dir_cache: HashMap<String, Directory>,
+    bookmarks: gio::ListStore,
 }
 
-impl Default for ConnectionPrivate {
-    fn default() -> Self {
+impl ConnectionPrivate {
+    fn new(connection: &Connection) -> Self {
+        let bookmarks = gio::ListStore::new::<Bookmark>();
+        bookmarks.connect_items_changed(glib::clone!(
+            #[weak]
+            connection,
+            move |_, _, _, _| connection.emit_by_name::<()>("updated", &[])
+        ));
         Self {
+            uuid: glib::uuid_string_random().to_string(),
             history: History::new(20),
             dir_cache: Default::default(),
+            bookmarks,
         }
     }
 }
@@ -164,7 +164,7 @@ impl Connection {
             if let Some(mut private) = self.qdata::<ConnectionPrivate>(*QUARK) {
                 private.as_mut()
             } else {
-                self.set_qdata(*QUARK, ConnectionPrivate::default());
+                self.set_qdata(*QUARK, ConnectionPrivate::new(self));
                 self.qdata::<ConnectionPrivate>(*QUARK).unwrap().as_mut()
             }
         }
@@ -227,7 +227,7 @@ impl Connection {
 
 pub trait ConnectionExt: IsA<Connection> + 'static {
     fn uuid(&self) -> String {
-        unsafe { from_glib_none(ffi::gnome_cmd_con_get_uuid(self.as_ref().to_glib_none().0)) }
+        self.as_ref().private().uuid.clone()
     }
 
     fn alias(&self) -> Option<String> {
@@ -323,21 +323,15 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
     }
 
     fn add_bookmark(&self, bookmark: &Bookmark) {
-        unsafe {
-            ffi::gnome_cmd_con_add_bookmark(self.as_ref().to_glib_none().0, bookmark.as_ptr())
-        }
+        self.as_ref().private().bookmarks.append(bookmark)
     }
 
     fn erase_bookmarks(&self) {
-        unsafe { ffi::gnome_cmd_con_erase_bookmarks(self.as_ref().to_glib_none().0) }
+        self.as_ref().private().bookmarks.remove_all()
     }
 
     fn bookmarks(&self) -> gio::ListModel {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_con_get_bookmarks(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        self.as_ref().private().bookmarks.clone().upcast()
     }
 
     fn replace_bookmark(&self, old_bookmark: &Bookmark, new_bookmark: Bookmark) {
