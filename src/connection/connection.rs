@@ -21,7 +21,8 @@
  */
 
 use super::{
-    bookmark::Bookmark, device::ConnectionDevice, history::History, remote::ConnectionRemote,
+    bookmark::Bookmark, device::ConnectionDevice, history::History, home::ConnectionHome,
+    remote::ConnectionRemote, smb::ConnectionSmb,
 };
 use crate::{debug::debug, dir::Directory, file::File, path::GnomeCmdPath};
 use gtk::{
@@ -29,17 +30,21 @@ use gtk::{
         self,
         ffi::{GFileType, G_FILE_TYPE_UNKNOWN},
     },
-    glib::{self, ffi::GStrv, translate::*},
+    glib::{
+        self,
+        ffi::{gboolean, GStrv},
+        translate::*,
+    },
     prelude::*,
 };
-use std::{collections::HashMap, ffi::c_char, path::Path, ptr, sync::LazyLock};
+use std::{collections::HashMap, ffi::c_char, ops::Deref, path::Path, ptr, sync::LazyLock};
 
 pub mod ffi {
     use super::*;
     use crate::dir::ffi::GnomeCmdDir;
     use gtk::{
         ffi::GtkWindow,
-        gio::ffi::{GFile, GFileType, GIcon},
+        gio::ffi::{GFile, GFileType},
         glib::ffi::{gboolean, GError, GType, GUri},
     };
     use std::ffi::c_char;
@@ -75,11 +80,7 @@ pub mod ffi {
         pub fn gnome_cmd_con_get_default_dir(con: *const GnomeCmdCon) -> *const GnomeCmdDir;
         pub fn gnome_cmd_con_set_default_dir(con: *const GnomeCmdCon, dir: *mut GnomeCmdDir);
 
-        pub fn gnome_cmd_con_can_show_free_space(con: *const GnomeCmdCon) -> gboolean;
-
         pub fn gnome_cmd_con_set_base_path(con: *const GnomeCmdCon, path: *mut GnomeCmdPath);
-
-        pub fn gnome_cmd_con_is_local(con: *const GnomeCmdCon) -> gboolean;
 
         pub fn gnome_cmd_con_is_open(con: *const GnomeCmdCon) -> gboolean;
 
@@ -95,25 +96,10 @@ pub mod ffi {
             error: *mut *mut GError,
         ) -> gboolean;
 
-        pub fn gnome_cmd_con_get_open_msg(con: *mut GnomeCmdCon) -> *const c_char;
-        pub fn gnome_cmd_con_set_open_msg(con: *mut GnomeCmdCon, message: *const c_char);
         pub fn gnome_cmd_con_open(con: *mut GnomeCmdCon, parent_window: *mut GtkWindow);
         pub fn gnome_cmd_con_cancel_open(con: *mut GnomeCmdCon);
 
-        pub fn gnome_cmd_con_is_closeable(con: *mut GnomeCmdCon) -> gboolean;
         pub fn gnome_cmd_con_close(con: *mut GnomeCmdCon, parent_window: *mut GtkWindow);
-
-        pub fn gnome_cmd_con_get_go_text(con: *const GnomeCmdCon) -> *const c_char;
-        pub fn gnome_cmd_con_get_open_text(con: *const GnomeCmdCon) -> *const c_char;
-        pub fn gnome_cmd_con_get_close_text(con: *const GnomeCmdCon) -> *const c_char;
-        pub fn gnome_cmd_con_get_go_tooltip(con: *const GnomeCmdCon) -> *const c_char;
-        pub fn gnome_cmd_con_get_open_tooltip(con: *const GnomeCmdCon) -> *const c_char;
-        pub fn gnome_cmd_con_get_close_tooltip(con: *const GnomeCmdCon) -> *const c_char;
-        pub fn gnome_cmd_con_get_go_icon(con: *const GnomeCmdCon) -> *mut GIcon;
-        pub fn gnome_cmd_con_get_open_icon(con: *const GnomeCmdCon) -> *mut GIcon;
-        pub fn gnome_cmd_con_get_close_icon(con: *const GnomeCmdCon) -> *mut GIcon;
-
-        pub fn gnome_cmd_con_needs_list_visprog(con: *mut GnomeCmdCon) -> gboolean;
     }
 
     #[derive(Copy, Clone)]
@@ -297,16 +283,8 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
         unsafe { ffi::gnome_cmd_con_set_base_path(self.as_ref().to_glib_none().0, path.into_raw()) }
     }
 
-    fn is_local(&self) -> bool {
-        unsafe { ffi::gnome_cmd_con_is_local(self.as_ref().to_glib_none().0) != 0 }
-    }
-
     fn is_open(&self) -> bool {
         unsafe { ffi::gnome_cmd_con_is_open(self.as_ref().to_glib_none().0) != 0 }
-    }
-
-    fn is_closeable(&self) -> bool {
-        unsafe { ffi::gnome_cmd_con_is_closeable(self.as_ref().to_glib_none().0) != 0 }
     }
 
     fn close(&self, parent_window: Option<&gtk::Window>) {
@@ -316,10 +294,6 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
                 parent_window.to_glib_none().0,
             )
         }
-    }
-
-    fn can_show_free_space(&self) -> bool {
-        unsafe { ffi::gnome_cmd_con_can_show_free_space(self.as_ref().to_glib_none().0) != 0 }
     }
 
     fn add_bookmark(&self, bookmark: &Bookmark) {
@@ -426,92 +400,6 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
         }
     }
 
-    fn go_text(&self) -> Option<String> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_con_get_go_text(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
-    fn open_text(&self) -> Option<String> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_con_get_open_text(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-    fn close_text(&self) -> Option<String> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_con_get_close_text(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-    fn go_tooltip(&self) -> Option<String> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_con_get_go_tooltip(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-    fn open_tooltip(&self) -> Option<String> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_con_get_open_tooltip(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-    fn close_tooltip(&self) -> Option<String> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_con_get_close_tooltip(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-    fn go_icon(&self) -> Option<gio::Icon> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_con_get_go_icon(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-    fn open_icon(&self) -> Option<gio::Icon> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_con_get_open_icon(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-    fn close_icon(&self) -> Option<gio::Icon> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_con_get_close_icon(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
-    fn needs_list_visprog(&self) -> bool {
-        unsafe { ffi::gnome_cmd_con_needs_list_visprog(self.as_ref().to_glib_none().0) != 0 }
-    }
-
-    fn open_message(&self) -> String {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_con_get_open_msg(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
-    fn set_open_message(&self, message: &str) {
-        unsafe {
-            ffi::gnome_cmd_con_set_open_msg(
-                self.as_ref().to_glib_none().0,
-                message.to_glib_none().0,
-            )
-        }
-    }
-
     fn connect_updated<F: Fn() + 'static>(&self, f: F) -> glib::SignalHandlerId {
         self.connect_local("updated", false, move |_| {
             (f)();
@@ -535,6 +423,90 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
 
 impl<O: IsA<Connection>> ConnectionExt for O {}
 
+impl Deref for Connection {
+    type Target = dyn ConnectionInterface;
+
+    fn deref(&self) -> &Self::Target {
+        if let Some(home) = self.downcast_ref::<ConnectionHome>() {
+            home
+        } else if let Some(device) = self.downcast_ref::<ConnectionDevice>() {
+            device
+        } else if let Some(smb) = self.downcast_ref::<ConnectionSmb>() {
+            smb
+        } else if let Some(remote) = self.downcast_ref::<ConnectionRemote>() {
+            remote
+        } else {
+            unreachable!()
+        }
+    }
+}
+
+pub trait ConnectionInterface {
+    fn is_local(&self) -> bool;
+
+    fn open_is_needed(&self) -> bool;
+
+    fn is_closeable(&self) -> bool;
+
+    fn should_remember_dir(&self) -> bool {
+        true
+    }
+
+    fn needs_open_visprog(&self) -> bool {
+        false
+    }
+
+    /// Defines if a graphical progress bar should be drawn when opening a folder
+    fn needs_list_visprog(&self) -> bool {
+        false
+    }
+
+    fn can_show_free_space(&self) -> bool {
+        false
+    }
+
+    fn open_message(&self) -> Option<String> {
+        None
+    }
+
+    fn go_text(&self) -> Option<String> {
+        None
+    }
+
+    fn open_text(&self) -> Option<String> {
+        None
+    }
+
+    fn close_text(&self) -> Option<String> {
+        None
+    }
+
+    fn go_tooltip(&self) -> Option<String> {
+        None
+    }
+
+    fn open_tooltip(&self) -> Option<String> {
+        None
+    }
+
+    fn close_tooltip(&self) -> Option<String> {
+        None
+    }
+
+    fn go_icon(&self) -> Option<gio::Icon> {
+        self.open_icon()
+    }
+
+    fn open_icon(&self) -> Option<gio::Icon>;
+
+    fn close_icon(&self) -> Option<gio::Icon> {
+        let icon = self.open_icon()?;
+        let unmount = gio::ThemedIcon::new("overlay_umount");
+        let emblem = gio::Emblem::new(&unmount);
+        Some(gio::EmblemedIcon::new(&icon, Some(&emblem)).upcast())
+    }
+}
+
 #[no_mangle]
 pub extern "C" fn gnome_cmd_con_dir_history_add(con: *mut ffi::GnomeCmdCon, entry: *const c_char) {
     let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
@@ -554,4 +526,16 @@ pub extern "C" fn gnome_cmd_con_export_dir_history(con: *mut ffi::GnomeCmdCon) -
         .map(|s| s.into())
         .collect();
     dir_history.to_glib_full()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_is_local(con: *mut ffi::GnomeCmdCon) -> gboolean {
+    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
+    con.is_local().into_glib()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_is_closeable(con: *mut ffi::GnomeCmdCon) -> gboolean {
+    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
+    con.is_closeable().into_glib()
 }

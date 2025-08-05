@@ -141,19 +141,8 @@ static void gnome_cmd_con_class_init (GnomeCmdConClass *klass)
     klass->open = nullptr;
     klass->close = nullptr;
     klass->cancel_open = nullptr;
-    klass->open_is_needed = nullptr;
     klass->create_gfile = nullptr;
     klass->create_path = nullptr;
-
-    klass->get_go_text = nullptr;
-    klass->get_open_text = nullptr;
-    klass->get_close_text = nullptr;
-    klass->get_go_tooltip = nullptr;
-    klass->get_open_tooltip = nullptr;
-    klass->get_close_tooltip = nullptr;
-    klass->get_go_icon = nullptr;
-    klass->get_open_icon = nullptr;
-    klass->get_close_icon = nullptr;
 }
 
 
@@ -164,14 +153,6 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
     priv->uri = nullptr;
 
     con->alias = nullptr;
-
-    con->open_msg = nullptr;
-    con->should_remember_dir = FALSE;
-    con->needs_open_visprog = FALSE;
-    con->needs_list_visprog = FALSE;
-    con->can_show_free_space = FALSE;
-    con->is_local = FALSE;
-    con->is_closeable = FALSE;
 
     con->state = GnomeCmdCon::STATE_CLOSED;
     con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
@@ -315,29 +296,6 @@ void gnome_cmd_con_close (GnomeCmdCon *con, GtkWindow *parent_window)
 }
 
 
-gboolean gnome_cmd_con_open_is_needed (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
-    return klass->open_is_needed (con);
-}
-
-
-const gchar *gnome_cmd_con_get_open_msg (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
-    return con->open_msg;
-}
-
-
-void gnome_cmd_con_set_open_msg (GnomeCmdCon *con, const gchar *msg)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    g_free (con->open_msg);
-    con->open_msg = g_strdup (msg);
-}
-
-
 GUri *gnome_cmd_con_get_uri (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
@@ -406,41 +364,6 @@ GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con)
 }
 
 
-gboolean gnome_cmd_con_should_remember_dir (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    return con->should_remember_dir;
-}
-
-
-gboolean gnome_cmd_con_needs_open_visprog (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    return con->needs_open_visprog;
-}
-
-
-gboolean gnome_cmd_con_needs_list_visprog (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    return con->needs_list_visprog;
-}
-
-
-gboolean gnome_cmd_con_can_show_free_space (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    return con->can_show_free_space;
-}
-
-
-gboolean gnome_cmd_con_is_closeable (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    return con->is_closeable;
-}
-
-
 void gnome_cmd_con_updated (GnomeCmdCon *con)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
@@ -506,100 +429,6 @@ gboolean gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str, GError *e
     return true;
 }
 
-
-gchar *gnome_cmd_con_get_go_text (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
-    if (klass->get_go_text)
-        return klass->get_go_text (con);
-
-    const gchar *alias = con->alias;
-    if (!alias)
-        alias = _("<New connection>");
-
-    return g_strdup_printf (_("Go to: %s"), alias);
-}
-
-
-gchar *gnome_cmd_con_get_go_tooltip (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
-    return klass->get_go_tooltip ? klass->get_go_tooltip (con) : nullptr;
-}
-
-
-GIcon *gnome_cmd_con_get_go_icon (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
-    return klass->get_go_icon ? klass->get_go_icon (con) : nullptr;
-}
-
-
-gchar *gnome_cmd_con_get_open_text (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
-    if (klass->get_open_text)
-        return klass->get_open_text (con);
-
-    const gchar *alias = con->alias;
-    if (!alias)
-        alias = _("<New connection>");
-
-    return g_strdup_printf (_("Connect to: %s"), alias);
-}
-
-
-gchar *gnome_cmd_con_get_open_tooltip (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
-    return klass->get_open_tooltip ? klass->get_open_tooltip (con) : nullptr;
-}
-
-
-GIcon *gnome_cmd_con_get_open_icon (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
-    return klass->get_open_icon ? klass->get_open_icon (con) : nullptr;
-}
-
-
-gchar *gnome_cmd_con_get_close_text (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
-    if (klass->get_close_text)
-        return klass->get_close_text (con);
-
-    const gchar *alias = con->alias;
-    if (!alias)
-        alias = _("<New connection>");
-
-    return g_strdup_printf (_("Disconnect from: %s"), alias);
-}
-
-
-gchar *gnome_cmd_con_get_close_tooltip (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
-    return klass->get_close_tooltip ? klass->get_close_tooltip (con) : nullptr;
-}
-
-
-GIcon *gnome_cmd_con_get_close_icon (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
-    return klass->get_close_icon ? klass->get_close_icon (con) : nullptr;
-}
-
-
 // FFI
 
 const gchar *gnome_cmd_con_get_alias (GnomeCmdCon *con)
@@ -613,10 +442,4 @@ void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias)
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     g_free (con->alias);
     con->alias = g_strdup (alias);
-}
-
-gboolean gnome_cmd_con_is_local (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    return con->is_local;
 }

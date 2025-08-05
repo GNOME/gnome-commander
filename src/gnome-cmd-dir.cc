@@ -211,7 +211,7 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
     GFileInfo *con_base_file_info = gnome_cmd_con_get_base_file_info (con);
     g_return_val_if_fail (con_base_file_info != nullptr, nullptr);
 
-    gchar *path = con->is_local
+    gchar *path = gnome_cmd_con_is_local (con)
         ? gnome_cmd_path_get_path (gnome_cmd_con_get_base_path(con))
         : nullptr;
 

@@ -49,7 +49,7 @@ pub async fn open_connection(file_list: &FileList, parent_window: &gtk::Window, 
         .build();
     dialog.set_child(Some(&grid));
 
-    let label = gtk::Label::builder().label(con.open_message()).build();
+    let label = gtk::Label::new(con.open_message().as_deref());
     grid.attach(&label, 0, 0, 1, 1);
 
     let progress_bar = gtk::ProgressBar::builder()

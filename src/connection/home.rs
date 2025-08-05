@@ -20,8 +20,12 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::Connection;
-use gtk::glib;
+use super::connection::{Connection, ConnectionInterface};
+use gettextrs::gettext;
+use gtk::{
+    gio,
+    glib::{self, prelude::*},
+};
 
 pub mod ffi {
     use crate::connection::connection::ffi::GnomeCmdConClass;
@@ -56,5 +60,31 @@ glib::wrapper! {
 impl Default for ConnectionHome {
     fn default() -> Self {
         glib::Object::builder().build()
+    }
+}
+
+impl ConnectionInterface for ConnectionHome {
+    fn is_local(&self) -> bool {
+        true
+    }
+
+    fn open_is_needed(&self) -> bool {
+        false
+    }
+
+    fn is_closeable(&self) -> bool {
+        false
+    }
+
+    fn can_show_free_space(&self) -> bool {
+        true
+    }
+
+    fn go_text(&self) -> Option<String> {
+        Some(gettext("Go to: Home"))
+    }
+
+    fn open_icon(&self) -> Option<gio::Icon> {
+        Some(gio::ThemedIcon::new("user-home").upcast())
     }
 }

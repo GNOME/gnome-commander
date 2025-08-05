@@ -448,14 +448,6 @@ static void dev_cancel_open (GnomeCmdCon *con)
 }
 
 
-static gboolean dev_open_is_needed (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), FALSE);
-
-    return TRUE;
-}
-
-
 static GFile *dev_create_gfile (GnomeCmdCon *con, const gchar *path)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), nullptr);
@@ -497,51 +489,6 @@ static GnomeCmdPath *dev_create_path (GnomeCmdCon *con, const gchar *path_str)
 }
 
 
-static gchar *dev_get_go_text (GnomeCmdCon *con)
-{
-    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (GNOME_CMD_CON_DEVICE (con)));
-    const gchar *alias = con->alias;
-    if (priv->mountp)
-        return g_strdup_printf (_("Go to: %s (%s)"), alias, priv->mountp);
-    else
-        return g_strdup_printf (_("Go to: %s"), alias);
-}
-
-
-static gchar *dev_get_open_text (GnomeCmdCon *con)
-{
-    const gchar *alias = con->alias;
-    return g_strdup_printf (_("Mount: %s"), alias);
-}
-
-
-static gchar *dev_get_close_text (GnomeCmdCon *con)
-{
-    const gchar *alias = con->alias;
-    return g_strdup_printf (_("Unmount: %s"), alias);
-}
-
-
-static GIcon *dev_get_icon (GnomeCmdCon *con)
-{
-    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (GNOME_CMD_CON_DEVICE (con)));
-    return priv->icon ? g_object_ref (priv->icon) : nullptr;
-}
-
-
-static GIcon *dev_get_close_icon (GnomeCmdCon *con)
-{
-    GIcon *icon = dev_get_icon (con);
-    if (!icon)
-        return nullptr;
-
-    GIcon *unmount = g_themed_icon_new (OVERLAY_UMOUNT_ICON);
-    GEmblem *emblem = g_emblem_new (unmount);
-
-    return g_emblemed_icon_new (icon, emblem);
-}
-
-
 /*******************************
  * Gtk class implementation
  *******************************/
@@ -568,30 +515,13 @@ static void gnome_cmd_con_device_class_init (GnomeCmdConDeviceClass *klass)
     con_class->open = dev_open;
     con_class->close = dev_close;
     con_class->cancel_open = dev_cancel_open;
-    con_class->open_is_needed = dev_open_is_needed;
     con_class->create_gfile = dev_create_gfile;
     con_class->create_path = dev_create_path;
-
-    con_class->get_go_text = dev_get_go_text;
-    con_class->get_open_text = dev_get_open_text;
-    con_class->get_close_text = dev_get_close_text;
-
-    con_class->get_go_icon = dev_get_icon;
-    con_class->get_open_icon = dev_get_icon;
-    con_class->get_close_icon = dev_get_close_icon;
 }
 
 
 static void gnome_cmd_con_device_init (GnomeCmdConDevice *dev_con)
 {
-    GnomeCmdCon *con = GNOME_CMD_CON (dev_con);
-
-    con->should_remember_dir = TRUE;
-    con->needs_open_visprog = FALSE;
-    con->needs_list_visprog = FALSE;
-    con->can_show_free_space = TRUE;
-    con->is_local = TRUE;
-    con->is_closeable = TRUE;
 }
 
 /***********************************
@@ -617,8 +547,6 @@ GnomeCmdConDevice *gnome_cmd_con_device_new (const gchar *alias, const gchar *de
         gnome_cmd_con_set_uri_string (con, uri_string);
         g_free (uri_string);
     }
-
-    con->open_msg = g_strdup_printf (_("Mounting %s"), alias);
 
     return dev;
 }

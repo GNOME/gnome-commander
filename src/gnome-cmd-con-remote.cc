@@ -193,12 +193,6 @@ static void remote_cancel_open (GnomeCmdCon *con)
 }
 
 
-static gboolean remote_open_is_needed (GnomeCmdCon *con)
-{
-    return TRUE;
-}
-
-
 static GFile *create_remote_gfile_with_path(GnomeCmdCon *con, const gchar *path)
 {
     auto uri = gnome_cmd_con_get_uri (con);
@@ -242,50 +236,6 @@ static GnomeCmdPath *remote_create_path (GnomeCmdCon *con, const gchar *path_str
 }
 
 
-static gchar *remote_get_open_tooltip (GnomeCmdCon *con)
-{
-    GUri *uri = gnome_cmd_con_get_uri (con);
-    const gchar *hostname = uri ? g_uri_get_host (uri) : nullptr;
-    return hostname
-        ? g_strdup_printf (_("Opens remote connection to %s"), hostname)
-        : nullptr;
-}
-
-
-static gchar *remote_get_close_tooltip (GnomeCmdCon *con)
-{
-    GUri *uri = gnome_cmd_con_get_uri (con);
-    const gchar *hostname = uri ? g_uri_get_host (uri) : nullptr;
-    return hostname
-        ? g_strdup_printf (_("Closes remote connection to %s"), hostname)
-        : nullptr;
-}
-
-
-extern "C" gchar *gnome_cmd_con_remote_get_icon_name(GnomeCmdConRemote *con);
-
-static GIcon *remote_get_icon (GnomeCmdCon *con)
-{
-    gchar *icon_name = gnome_cmd_con_remote_get_icon_name (GNOME_CMD_CON_REMOTE (con));
-    GIcon *icon = g_themed_icon_new (icon_name);
-    g_free (icon_name);
-    return icon;
-}
-
-
-static GIcon *remote_get_close_icon (GnomeCmdCon *con)
-{
-    GIcon *icon = remote_get_icon (con);
-    if (!icon)
-        return nullptr;
-
-    GIcon *unmount = g_themed_icon_new (OVERLAY_UMOUNT_ICON);
-    GEmblem *emblem = g_emblem_new (unmount);
-
-    return g_emblemed_icon_new (icon, emblem);
-}
-
-
 /*******************************
  * Gtk class implementation
  *******************************/
@@ -297,27 +247,11 @@ static void gnome_cmd_con_remote_class_init (GnomeCmdConRemoteClass *klass)
     con_class->open = remote_open;
     con_class->close = remote_close;
     con_class->cancel_open = remote_cancel_open;
-    con_class->open_is_needed = remote_open_is_needed;
     con_class->create_gfile = remote_create_gfile;
     con_class->create_path = remote_create_path;
-
-    con_class->get_open_tooltip = remote_get_open_tooltip;
-    con_class->get_close_tooltip = remote_get_close_tooltip;
-
-    con_class->get_go_icon = remote_get_icon;
-    con_class->get_open_icon = remote_get_icon;
-    con_class->get_close_icon = remote_get_close_icon;
 }
 
 
 static void gnome_cmd_con_remote_init (GnomeCmdConRemote *remote_con)
 {
-    GnomeCmdCon *con = GNOME_CMD_CON (remote_con);
-
-    con->should_remember_dir = TRUE;
-    con->needs_open_visprog = TRUE;
-    con->needs_list_visprog = TRUE;
-    con->can_show_free_space = FALSE;
-    con->is_local = FALSE;
-    con->is_closeable = TRUE;
 }

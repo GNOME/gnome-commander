@@ -20,7 +20,7 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::{Connection, ConnectionExt};
+use super::connection::{Connection, ConnectionExt, ConnectionInterface};
 use gettextrs::gettext;
 use gtk::{
     gio,
@@ -117,7 +117,6 @@ impl ConnectionDevice {
         this.set_icon(Some(&volume.icon()));
         this.set_autovol(false);
         this.set_alias(Some(&volume.name()));
-        this.set_open_message(&gettext("Mounting %s").replace("%s", &volume.name()));
         this.set_autovol(true);
         this.set_volume(Some(volume));
         Some(this)
@@ -191,5 +190,52 @@ impl ConnectionDevice {
         unsafe {
             ffi::gnome_cmd_con_device_set_gvolume(self.to_glib_none().0, volume.to_glib_none().0);
         }
+    }
+}
+
+impl ConnectionInterface for ConnectionDevice {
+    fn is_local(&self) -> bool {
+        true
+    }
+
+    fn open_is_needed(&self) -> bool {
+        true
+    }
+
+    fn is_closeable(&self) -> bool {
+        true
+    }
+
+    fn can_show_free_space(&self) -> bool {
+        true
+    }
+
+    fn open_message(&self) -> Option<String> {
+        let alias = self.alias()?;
+        Some(gettext("Mounting %s").replace("%s", &alias))
+    }
+
+    fn go_text(&self) -> Option<String> {
+        let alias = self.alias()?;
+        Some(match self.mountp_string() {
+            Some(mount_point) => gettext("Go to: {device_name} ({mount_point})")
+                .replace("{device_name}", &alias)
+                .replace("{mount_point}", &mount_point.display().to_string()),
+            None => gettext("Go to: {device_name}").replace("{device_name}", &alias),
+        })
+    }
+
+    fn open_text(&self) -> Option<String> {
+        let alias = self.alias()?;
+        Some(gettext("Mount: {device_name}").replace("{device_name}", &alias))
+    }
+
+    fn close_text(&self) -> Option<String> {
+        let alias = self.alias()?;
+        Some(gettext("Unmount: {device_name}").replace("{device_name}", &alias))
+    }
+
+    fn open_icon(&self) -> Option<gio::Icon> {
+        self.icon()
     }
 }
