@@ -301,7 +301,7 @@ static void do_mount (GnomeCmdCon *con, GtkWindow *parent_window)
 }
 
 
-static void dev_open (GnomeCmdCon *con, GtkWindow *parent_window)
+static void dev_open (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (con));
 
@@ -442,12 +442,6 @@ static void dev_close (GnomeCmdCon *con, GtkWindow *parent_window)
 }
 
 
-static void dev_cancel_open (GnomeCmdCon *con)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (con));
-}
-
-
 static GFile *dev_create_gfile (GnomeCmdCon *con, const gchar *path)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), nullptr);
@@ -514,7 +508,6 @@ static void gnome_cmd_con_device_class_init (GnomeCmdConDeviceClass *klass)
 
     con_class->open = dev_open;
     con_class->close = dev_close;
-    con_class->cancel_open = dev_cancel_open;
     con_class->create_gfile = dev_create_gfile;
     con_class->create_path = dev_create_path;
 }

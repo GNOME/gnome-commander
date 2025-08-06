@@ -31,17 +31,12 @@ using namespace std;
 G_DEFINE_TYPE (GnomeCmdConHome, gnome_cmd_con_home, GNOME_CMD_TYPE_CON)
 
 
-static void home_open (GnomeCmdCon *con, GtkWindow *parent_window)
+static void home_open (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable)
 {
 }
 
 
 static void home_close (GnomeCmdCon *con, GtkWindow *parent_window)
-{
-}
-
-
-static void home_cancel_open (GnomeCmdCon *con)
 {
 }
 
@@ -68,7 +63,6 @@ static void gnome_cmd_con_home_class_init (GnomeCmdConHomeClass *klass)
 
     con_class->open = home_open;
     con_class->close = home_close;
-    con_class->cancel_open = home_cancel_open;
     con_class->create_gfile = home_create_gfile;
     con_class->create_path = home_create_path;
 }

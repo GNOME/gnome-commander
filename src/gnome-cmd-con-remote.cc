@@ -83,7 +83,7 @@ static void mount_remote_finish_callback(GObject *gobj, GAsyncResult *result, gp
 }
 
 
-static void remote_open (GnomeCmdCon *con, GtkWindow *parent_window)
+static void remote_open (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable)
 {
     DEBUG('m', "Opening remote connection\n");
 
@@ -186,13 +186,6 @@ static void remote_close (GnomeCmdCon *con, GtkWindow *parent_window)
 }
 
 
-static void remote_cancel_open (GnomeCmdCon *con)
-{
-    DEBUG('m', "Setting state CANCELLING\n");
-    con->state = GnomeCmdCon::STATE_CANCELLING;
-}
-
-
 static GFile *create_remote_gfile_with_path(GnomeCmdCon *con, const gchar *path)
 {
     auto uri = gnome_cmd_con_get_uri (con);
@@ -246,7 +239,6 @@ static void gnome_cmd_con_remote_class_init (GnomeCmdConRemoteClass *klass)
 
     con_class->open = remote_open;
     con_class->close = remote_close;
-    con_class->cancel_open = remote_cancel_open;
     con_class->create_gfile = remote_create_gfile;
     con_class->create_path = remote_create_path;
 }

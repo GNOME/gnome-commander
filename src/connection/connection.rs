@@ -44,7 +44,7 @@ pub mod ffi {
     use crate::dir::ffi::GnomeCmdDir;
     use gtk::{
         ffi::GtkWindow,
-        gio::ffi::{GFile, GFileType},
+        gio::ffi::{GCancellable, GFile, GFileType},
         glib::ffi::{gboolean, GError, GType, GUri},
     };
     use std::ffi::c_char;
@@ -96,8 +96,11 @@ pub mod ffi {
             error: *mut *mut GError,
         ) -> gboolean;
 
-        pub fn gnome_cmd_con_open(con: *mut GnomeCmdCon, parent_window: *mut GtkWindow);
-        pub fn gnome_cmd_con_cancel_open(con: *mut GnomeCmdCon);
+        pub fn gnome_cmd_con_open(
+            con: *mut GnomeCmdCon,
+            parent_window: *mut GtkWindow,
+            cancellable: *mut GCancellable,
+        );
 
         pub fn gnome_cmd_con_close(con: *mut GnomeCmdCon, parent_window: *mut GtkWindow);
     }
@@ -407,17 +410,14 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
         })
     }
 
-    fn open(&self, parent_window: &gtk::Window) {
+    fn open(&self, parent_window: &gtk::Window, cancellable: Option<&gio::Cancellable>) {
         unsafe {
             ffi::gnome_cmd_con_open(
                 self.as_ref().to_glib_none().0,
                 parent_window.to_glib_none().0,
+                cancellable.to_glib_none().0,
             )
         };
-    }
-
-    fn cancel_open(&self) {
-        unsafe { ffi::gnome_cmd_con_cancel_open(self.as_ref().to_glib_none().0) };
     }
 }
 

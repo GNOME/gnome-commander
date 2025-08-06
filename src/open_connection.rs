@@ -28,6 +28,7 @@ use async_channel::TryRecvError;
 use gettextrs::gettext;
 use gtk::{
     ffi::GtkWindow,
+    gio,
     glib::{self, translate::from_glib_none},
     prelude::*,
 };
@@ -66,30 +67,31 @@ pub async fn open_connection(file_list: &FileList, parent_window: &gtk::Window, 
         .build();
     grid.attach(&button, 0, 2, 1, 1);
 
+    let cancellable = gio::Cancellable::new();
+
     #[derive(Debug)]
     enum ConnectEvent {
         Done,
         Failure(Option<String>),
-        Cancel,
     }
-    let (sender, receiver) = async_channel::unbounded::<ConnectEvent>();
 
     button.connect_clicked(glib::clone!(
         #[strong]
-        sender,
-        move |_| sender.toss(ConnectEvent::Cancel)
+        cancellable,
+        move |_| cancellable.cancel()
     ));
     dialog.connect_close_request(glib::clone!(
         #[strong]
-        sender,
+        cancellable,
         move |_| {
-            sender.toss(ConnectEvent::Cancel);
+            cancellable.cancel();
             glib::Propagation::Proceed
         }
     ));
 
     dialog.present();
 
+    let (sender, receiver) = async_channel::unbounded::<ConnectEvent>();
     let done = con.connect(
         "open-done",
         false,
@@ -116,7 +118,7 @@ pub async fn open_connection(file_list: &FileList, parent_window: &gtk::Window, 
             }
         ),
     );
-    con.open(parent_window);
+    con.open(parent_window, Some(&cancellable));
 
     let gui_update_rate = GeneralOptions::new().gui_update_rate();
     let result = loop {
@@ -127,7 +129,7 @@ pub async fn open_connection(file_list: &FileList, parent_window: &gtk::Window, 
                 glib::timeout_future(gui_update_rate).await;
             }
             Err(TryRecvError::Closed) => {
-                break ConnectEvent::Cancel;
+                break ConnectEvent::Failure(None);
             }
         }
     };
@@ -144,7 +146,6 @@ pub async fn open_connection(file_list: &FileList, parent_window: &gtk::Window, 
                 .show(parent_window)
                 .await;
         }
-        ConnectEvent::Cancel => con.cancel_open(),
     }
 }
 

@@ -42,8 +42,7 @@ struct GnomeCmdCon
     {
         STATE_CLOSED,
         STATE_OPEN,
-        STATE_OPENING,
-        STATE_CANCELLING
+        STATE_OPENING
     };
 
     enum OpenResult
@@ -73,8 +72,7 @@ struct GnomeCmdConClass
     void (* open_failed) (GnomeCmdCon *con);
 
     /* virtual functions */
-    void (* open) (GnomeCmdCon *con, GtkWindow *parent_window);
-    void (* cancel_open) (GnomeCmdCon *con);
+    void (* open) (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable);
     void (* close) (GnomeCmdCon *con, GtkWindow *parent_window);
     GFile *(* create_gfile) (GnomeCmdCon *con, const gchar *path_str);
     GnomeCmdPath *(* create_path) (GnomeCmdCon *con, const gchar *path_str);
@@ -89,11 +87,9 @@ extern "C" void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path
 extern "C" GFileInfo *gnome_cmd_con_get_base_file_info(GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_base_file_info(GnomeCmdCon *con, GFileInfo *file_info);
 
-extern "C" void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window);
+extern "C" void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable);
 
 extern "C" gboolean gnome_cmd_con_is_open (GnomeCmdCon *con);
-
-extern "C" void gnome_cmd_con_cancel_open (GnomeCmdCon *con);
 
 extern "C" void gnome_cmd_con_close (GnomeCmdCon *con, GtkWindow *parent_window);
 

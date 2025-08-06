@@ -140,7 +140,6 @@ static void gnome_cmd_con_class_init (GnomeCmdConClass *klass)
 
     klass->open = nullptr;
     klass->close = nullptr;
-    klass->cancel_open = nullptr;
     klass->create_gfile = nullptr;
     klass->create_path = nullptr;
 }
@@ -251,7 +250,7 @@ void gnome_cmd_con_set_base_file_info(GnomeCmdCon *con, GFileInfo *file_info)
 }
 
 
-void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window)
+void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     DEBUG ('m', "Opening connection\n");
@@ -259,7 +258,7 @@ void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window)
     GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
 
     if (con->state != GnomeCmdCon::STATE_OPEN)
-        klass->open (con, parent_window);
+        klass->open (con, parent_window, cancellable);
 
     g_timeout_add (gui_update_rate(), (GSourceFunc) check_con_open_progress, con);
 }
@@ -269,18 +268,6 @@ gboolean gnome_cmd_con_is_open (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
     return con->state == GnomeCmdCon::STATE_OPEN;
-}
-
-
-void gnome_cmd_con_cancel_open (GnomeCmdCon *con)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-
-    if (con->state == GnomeCmdCon::STATE_OPENING)
-    {
-        GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
-        klass->cancel_open (con);
-    }
 }
 
 

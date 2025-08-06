@@ -41,9 +41,20 @@ struct GnomeCmdConSmbClass
 G_DEFINE_TYPE (GnomeCmdConSmb, gnome_cmd_con_smb, GNOME_CMD_TYPE_CON)
 
 
-static void mount_func (GnomeCmdCon *con)
+struct MountClosure
 {
-    g_return_if_fail(GNOME_CMD_IS_CON(con));
+    GnomeCmdCon *con;
+    GCancellable *cancellable;
+};
+
+
+static void mount_func (MountClosure *mc)
+{
+    g_return_if_fail (mc != nullptr);
+    GnomeCmdCon *con = mc->con;
+    GCancellable *cancellable = mc->cancellable;
+    g_free (mc);
+    g_return_if_fail (GNOME_CMD_IS_CON(con));
 
     // ToDo: Check if the error block below is executed if samba is not available on the system.
     // ToDo: Check if password is visible in the logs below!
@@ -76,51 +87,35 @@ static void mount_func (GnomeCmdCon *con)
     g_free(uriString);
 
     error = nullptr;
-    auto base_gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
+    auto base_gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, cancellable, &error);
     if (error)
     {
         DEBUG('s', "g_file_query_info error: %s\n", error->message);
     }
     g_object_unref (gFile);
 
-    if (con->state == GnomeCmdCon::STATE_OPENING)
+    if (base_gFileInfo)
     {
-        DEBUG('s', "State was OPENING, setting flags\n");
-
-        if (!error)
-        {
-            con->state = GnomeCmdCon::STATE_OPEN;
-            gnome_cmd_con_set_base_file_info(con, base_gFileInfo);
-            con->open_result = GnomeCmdCon::OPEN_OK;
-        }
-        else
-        {
-            con->state = GnomeCmdCon::STATE_CLOSED;
-            con->open_result = GnomeCmdCon::OPEN_FAILED;
-            con->open_failed_error = error;
-        }
+        con->state = GnomeCmdCon::STATE_OPEN;
+        gnome_cmd_con_set_base_file_info(con, base_gFileInfo);
+        con->open_result = GnomeCmdCon::OPEN_OK;
+    }
+    else if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+    {
+        DEBUG('s', "The open operation was cancelled, doing nothing\n");
+        con->state = GnomeCmdCon::STATE_CLOSED;
+        con->open_result = GnomeCmdCon::OPEN_CANCELLED;
     }
     else
     {
-        if (con->state == GnomeCmdCon::STATE_CANCELLING)
-            DEBUG('s', "The open operation was cancelled, doing nothing\n");
-        else
-            DEBUG('s', "Strange ConState %d\n", con->state);
         con->state = GnomeCmdCon::STATE_CLOSED;
+        con->open_result = GnomeCmdCon::OPEN_FAILED;
+        con->open_failed_error = error;
     }
 }
 
 
-static gboolean
-start_mount_func (GnomeCmdCon *con)
-{
-    g_thread_new (nullptr, (GThreadFunc) mount_func, con);
-
-    return FALSE;
-}
-
-
-static void smb_open (GnomeCmdCon *con, GtkWindow *parent_window)
+static void smb_open (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable)
 {
     if (gnome_cmd_con_get_base_path (con) == nullptr)
         gnome_cmd_con_set_base_path (con, gnome_cmd_smb_path_new (nullptr, nullptr));
@@ -128,8 +123,11 @@ static void smb_open (GnomeCmdCon *con, GtkWindow *parent_window)
     con->state = GnomeCmdCon::STATE_OPENING;
     con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
 
-    g_timeout_add (1, (GSourceFunc) start_mount_func, con);
+    auto mc = g_new0 (MountClosure, 1);
+    mc->con = con;
+    mc->cancellable = cancellable;
 
+    g_thread_new (nullptr, (GThreadFunc) mount_func, mc);
 }
 
 
@@ -140,13 +138,6 @@ static void smb_close (GnomeCmdCon *con, GtkWindow *parent_window)
     gnome_cmd_con_set_base_path (con, nullptr);
     con->state = GnomeCmdCon::STATE_CLOSED;
     con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
-}
-
-
-static void smb_cancel_open (GnomeCmdCon *con)
-{
-    DEBUG('s', "Setting state CANCELLING\n");
-    con->state = GnomeCmdCon::STATE_CANCELLING;
 }
 
 
@@ -189,7 +180,6 @@ static void gnome_cmd_con_smb_class_init (GnomeCmdConSmbClass *klass)
 
     con_class->open = smb_open;
     con_class->close = smb_close;
-    con_class->cancel_open = smb_cancel_open;
     con_class->create_gfile = smb_create_gfile;
     con_class->create_path = smb_create_path;
 }
