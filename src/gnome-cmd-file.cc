@@ -28,7 +28,6 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-xfer.h"
-#include "intviewer/libgviewer.h"
 
 using namespace std;
 

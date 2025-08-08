@@ -29,8 +29,3 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
 #include <libgcmd/libgcmd.h>
-
-typedef void *(*PthreadFunc)(void *);
-
-template <typename T, typename D = gpointer> using GnomeCmdCallback = void (*)(T, D);
-
