@@ -401,15 +401,12 @@ mod imp {
 
     impl FileSelector {
         fn open_connection(&self, con: &Connection, new_tab: bool) {
-            let Some(dir) = con.default_dir() else {
-                eprintln!("Connection has no default directory");
-                return;
+            let fl = if new_tab || self.obj().is_current_tab_locked() {
+                self.obj().new_tab()
+            } else {
+                self.obj().file_list()
             };
-
-            if new_tab || self.obj().is_current_tab_locked() {
-                self.obj().new_tab_with_dir(&dir, true, false);
-            }
-            self.obj().file_list().set_connection(con, Some(&dir));
+            fl.set_connection(con, None);
             self.obj().emit_by_name::<()>("activate-request", &[]);
         }
 
@@ -477,24 +474,13 @@ mod imp {
             if self.select_connection_in_progress.get() {
                 return;
             }
-            let Some(connection) = self
+            if let Some(connection) = self
                 .connection_dropdown
                 .selected_item()
                 .and_downcast::<Connection>()
-            else {
-                return;
-            };
-            let Some(directory) = connection.default_dir() else {
-                return;
-            };
-            if self.is_control_pressed() || self.obj().is_current_tab_locked() {
-                self.obj().new_tab_with_dir(&directory, true, true);
-            } else {
-                self.obj()
-                    .file_list()
-                    .set_connection(&connection, Some(&directory));
+            {
+                self.open_connection(&connection, self.is_control_pressed());
             }
-            self.obj().emit_by_name::<()>("activate-request", &[]);
         }
 
         fn on_navigate(&self, path: &str, new_tab: bool) {
@@ -665,7 +651,7 @@ impl FileSelector {
             .unwrap()
     }
 
-    pub fn new_tab(&self) {
+    pub fn new_tab(&self) -> FileList {
         self.new_tab_full(
             None,
             ColumnID::COLUMN_NAME,
@@ -676,7 +662,7 @@ impl FileSelector {
         )
     }
 
-    pub fn new_tab_with_dir(&self, dir: &Directory, activate: bool, grab_focus: bool) {
+    pub fn new_tab_with_dir(&self, dir: &Directory, activate: bool, grab_focus: bool) -> FileList {
         let (sort_column, order) = self.file_list().sorting();
         self.new_tab_full(Some(dir), sort_column, order, false, activate, grab_focus)
     }
@@ -689,7 +675,7 @@ impl FileSelector {
         locked: bool,
         activate: bool,
         grab_focus: bool,
-    ) {
+    ) -> FileList {
         let fl = FileList::new(&self.file_metadata_service());
         fl.set_sorting(sort_column, sort_order);
 
@@ -781,6 +767,8 @@ impl FileSelector {
                 fl.grab_focus();
             }
         }
+
+        fl
     }
 
     fn on_list_dir_changed(&self, fl: &FileList, dir: &Directory) {
