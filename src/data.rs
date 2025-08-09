@@ -1191,12 +1191,3 @@ impl NetworkOptionsWrite for NetworkOptions {
         self.0.set_string("quick-connect-uri", uri)
     }
 }
-
-#[no_mangle]
-pub extern "C" fn gui_update_rate() -> u32 {
-    GeneralOptions::new()
-        .gui_update_rate()
-        .as_millis()
-        .try_into()
-        .unwrap_or(100)
-}

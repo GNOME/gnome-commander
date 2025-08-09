@@ -36,13 +36,11 @@ using namespace std;
 G_DEFINE_TYPE (GnomeCmdConRemote, gnome_cmd_con_remote, GNOME_CMD_TYPE_CON)
 
 
-static void set_con_mount_failed(GnomeCmdCon *con)
+static void set_con_mount_failed(GnomeCmdCon *con, GError *error)
 {
     g_return_if_fail(GNOME_CMD_IS_CON(con));
     gnome_cmd_con_set_base_file_info(con, nullptr);
-    con->open_result = GnomeCmdCon::OPEN_FAILED;
-    con->state = GnomeCmdCon::STATE_CLOSED;
-    con->open_failed_msg = con->open_failed_error->message;
+    gnome_cmd_con_set_open_state (con, GnomeCmdCon::OPEN_FAILED, error, error->message);
 }
 
 static void mount_remote_finish_callback(GObject *gobj, GAsyncResult *result, gpointer user_data)
@@ -59,9 +57,8 @@ static void mount_remote_finish_callback(GObject *gobj, GAsyncResult *result, gp
     if (error && !g_error_matches(error, G_IO_ERROR, G_IO_ERROR_ALREADY_MOUNTED))
     {
         DEBUG('m', "Unable to mount enclosing volume: %s\n", error->message);
-        con->open_failed_error = g_error_copy(error);
+        set_con_mount_failed(con, error);
         g_error_free(error);
-        set_con_mount_failed(con);
         g_object_unref(gFile);
         return;
     }
@@ -77,8 +74,7 @@ static void mount_remote_finish_callback(GObject *gobj, GAsyncResult *result, gp
         g_error_free(error);
     }
 
-    con->state = GnomeCmdCon::STATE_OPEN;
-    con->open_result = GnomeCmdCon::OPEN_OK;
+    gnome_cmd_con_set_open_state (con, GnomeCmdCon::OPEN_OK, nullptr, nullptr);
     g_object_unref(gFile);
 }
 
@@ -89,9 +85,6 @@ static void remote_open (GnomeCmdCon *con, GtkWindow *parent_window, GCancellabl
 
     GUri *uri = gnome_cmd_con_get_uri (con);
     g_return_if_fail (uri != nullptr);
-
-    con->state = GnomeCmdCon::STATE_OPENING;
-    con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
 
     if (gnome_cmd_con_get_base_path (con) == nullptr)
         gnome_cmd_con_set_base_path (con, gnome_cmd_plain_path_new (G_DIR_SEPARATOR_S));
@@ -143,8 +136,7 @@ static void remote_close_callback(GObject *gobj, GAsyncResult *result, gpointer 
     if (error)
         g_error_free(error);
 
-    con->state = GnomeCmdCon::STATE_CLOSED;
-    con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
+    gnome_cmd_con_set_open_state (con, GnomeCmdCon::OPEN_NOT_STARTED, nullptr, nullptr);
 }
 
 static void remote_close (GnomeCmdCon *con, GtkWindow *parent_window)

@@ -17,6 +17,7 @@ src/application.rs
 src/app.rs
 src/chmod_component.rs
 src/chown_component.rs
+src/connection/connection.rs
 src/connection/device.rs
 src/connection/home.rs
 src/connection/remote.rs

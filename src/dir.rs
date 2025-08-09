@@ -21,7 +21,7 @@
  */
 
 use crate::{
-    connection::connection::{ffi::GnomeCmdCon, Connection, ConnectionExt},
+    connection::connection::{ffi::GnomeCmdCon, Connection},
     debug::debug,
     dirlist::list_directory,
     file::{ffi::GnomeCmdFile, File, GnomeCmdFileExt},
@@ -68,6 +68,8 @@ pub mod ffi {
             path: *const GnomeCmdPath,
             is_startup: gboolean,
         ) -> *mut GnomeCmdDir;
+
+        pub fn gnome_cmd_dir_new_with_con(con: *mut GnomeCmdCon) -> *mut GnomeCmdDir;
 
         pub fn gnome_cmd_dir_get_parent(dir: *mut GnomeCmdDir) -> *mut GnomeCmdDir;
 
@@ -169,6 +171,10 @@ impl Directory {
                 true as gboolean,
             ))
         }
+    }
+
+    pub fn new_with_con(connection: &Connection) -> Option<Self> {
+        unsafe { from_glib_full(ffi::gnome_cmd_dir_new_with_con(connection.to_glib_none().0)) }
     }
 
     fn new_impl(

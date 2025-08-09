@@ -32,19 +32,20 @@ using namespace std;
 
 struct GnomeCmdConPrivate
 {
+    gchar          *alias;                 // coded as UTF-8
     GnomeCmdPath   *base_path;
     GFileInfo      *base_gFileInfo;
 
     GUri           *uri;
     GnomeCmdDir    *default_dir;   // the start dir of this connection
+
+    GnomeCmdCon::State state;
 };
 
 enum
 {
     UPDATED,
     CLOSE,
-    OPEN_DONE,
-    OPEN_FAILED,
     LAST_SIGNAL
 };
 
@@ -52,21 +53,6 @@ static guint signals[LAST_SIGNAL] = { 0 };
 
 
 G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdCon, gnome_cmd_con, G_TYPE_OBJECT)
-
-
-static void on_open_done (GnomeCmdCon *con)
-{
-    gnome_cmd_con_updated (con);
-}
-
-
-static void on_open_failed (GnomeCmdCon *con)
-{
-    // gnome_cmd_con_updated (con);
-    // Free the error because the error handling is done now. (Logging happened already.)
-    g_clear_error (&con->open_failed_error);
-    con->open_failed_msg = nullptr;
-}
 
 
 /*******************************
@@ -78,12 +64,10 @@ static void dispose (GObject *object)
     GnomeCmdCon *con = GNOME_CMD_CON (object);
     auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
-    g_clear_pointer (&con->alias, g_free);
+    g_clear_pointer (&priv->alias, g_free);
     g_clear_pointer (&priv->uri, g_uri_unref);
     g_clear_pointer (&priv->base_path, gnome_cmd_path_free);
     g_clear_object (&priv->base_gFileInfo);
-    g_clear_error (&con->open_failed_error);
-
     g_clear_pointer (&priv->default_dir, g_object_unref);
 
     G_OBJECT_CLASS (gnome_cmd_con_parent_class)->dispose (object);
@@ -112,31 +96,9 @@ static void gnome_cmd_con_class_init (GnomeCmdConClass *klass)
             G_TYPE_NONE,
             1, GTK_TYPE_WINDOW);
 
-    signals[OPEN_DONE] =
-        g_signal_new ("open-done",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdConClass, open_done),
-            nullptr, nullptr,
-            g_cclosure_marshal_VOID__VOID,
-            G_TYPE_NONE,
-            0);
-
-    signals[OPEN_FAILED] =
-        g_signal_new ("open-failed",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdConClass, open_failed),
-            nullptr, nullptr,
-            nullptr,
-            G_TYPE_NONE,
-            1, G_TYPE_STRING);
-
     G_OBJECT_CLASS (klass)->dispose = dispose;
 
     klass->updated = nullptr;
-    klass->open_done = on_open_done;
-    klass->open_failed = on_open_failed;
 
     klass->open = nullptr;
     klass->close = nullptr;
@@ -150,14 +112,8 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
     auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
     priv->uri = nullptr;
-
-    con->alias = nullptr;
-
-    con->state = GnomeCmdCon::STATE_CLOSED;
-    con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
-    con->open_failed_msg = nullptr;
-    con->open_failed_error = nullptr;
-
+    priv->alias = nullptr;
+    priv->state = GnomeCmdCon::STATE_CLOSED;
     priv->base_path = nullptr;
     priv->default_dir = nullptr;
 }
@@ -166,50 +122,6 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
 /***********************************
  * Public functions
  ***********************************/
-
-static gboolean check_con_open_progress (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    g_return_val_if_fail (con->open_result != GnomeCmdCon::OPEN_NOT_STARTED, FALSE);
-
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wswitch-enum"
-#endif
-    switch (con->open_result)
-    {
-        case GnomeCmdCon::OPEN_IN_PROGRESS:
-            return TRUE;
-
-        case GnomeCmdCon::OPEN_OK:
-            {
-                DEBUG('m', "GnomeCmdCon::OPEN_OK detected\n");
-
-                GnomeCmdDir *dir = gnome_cmd_dir_new_with_con (con);
-
-                gnome_cmd_con_set_default_dir (con, dir);
-
-                DEBUG ('m', "Emitting 'open-done' signal\n");
-                g_signal_emit (con, signals[OPEN_DONE], 0);
-            }
-            return FALSE;
-
-        case GnomeCmdCon::OPEN_FAILED:
-            {
-                DEBUG ('m', "GnomeCmdCon::OPEN_FAILED detected\n");
-                DEBUG ('m', "Emitting 'open-failed' signal\n");
-                g_signal_emit (con, signals[OPEN_FAILED], 0, con->open_failed_msg);
-            }
-            return FALSE;
-
-        default:
-            return FALSE;
-    }
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-}
-
 
 GnomeCmdPath *gnome_cmd_con_get_base_path(GnomeCmdCon *con)
 {
@@ -253,21 +165,15 @@ void gnome_cmd_con_set_base_file_info(GnomeCmdCon *con, GFileInfo *file_info)
 void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
-    DEBUG ('m', "Opening connection\n");
-
     GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
-
-    if (con->state != GnomeCmdCon::STATE_OPEN)
-        klass->open (con, parent_window, cancellable);
-
-    g_timeout_add (gui_update_rate(), (GSourceFunc) check_con_open_progress, con);
+    klass->open (con, parent_window, cancellable);
 }
 
 
 gboolean gnome_cmd_con_is_open (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    return con->state == GnomeCmdCon::STATE_OPEN;
+    return gnome_cmd_con_get_state (con) == GnomeCmdCon::STATE_OPEN;
 }
 
 
@@ -351,14 +257,6 @@ GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con)
 }
 
 
-void gnome_cmd_con_updated (GnomeCmdCon *con)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-
-    g_signal_emit (con, signals[UPDATED], 0);
-}
-
-
 /**
  *  Get the type of the file at the specified path.
  *  If the file does not exists, the function will return false.
@@ -421,12 +319,26 @@ gboolean gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str, GError *e
 const gchar *gnome_cmd_con_get_alias (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
-    return con->alias;
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
+    return priv->alias;
 }
 
 void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
-    g_free (con->alias);
-    con->alias = g_strdup (alias);
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
+    g_free (priv->alias);
+    priv->alias = g_strdup (alias);
+}
+
+GnomeCmdCon::State gnome_cmd_con_get_state (GnomeCmdCon *con)
+{
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
+    return priv->state;
+}
+
+void gnome_cmd_con_set_state (GnomeCmdCon *con, GnomeCmdCon::State state)
+{
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
+    priv->state = state;
 }

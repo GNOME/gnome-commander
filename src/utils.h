@@ -45,5 +45,3 @@ void set_cursor_busy_for_widget (GtkWidget *widget);
 gchar *get_gfile_attribute_string(GFileInfo *gFileInfo, const char *attribute);
 
 gchar *get_gfile_attribute_string(GFile *gFile, const char *attribute);
-
-extern "C" guint gui_update_rate();

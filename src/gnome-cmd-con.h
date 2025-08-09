@@ -53,13 +53,6 @@ struct GnomeCmdCon
         OPEN_IN_PROGRESS,
         OPEN_NOT_STARTED
     };
-
-    gchar               *alias;                 // coded as UTF-8
-
-    State               state;
-    OpenResult          open_result;
-    GError              *open_failed_error;
-    gchar               *open_failed_msg;
 };
 
 struct GnomeCmdConClass
@@ -68,8 +61,6 @@ struct GnomeCmdConClass
 
     /* signals */
     void (* updated) (GnomeCmdCon *con);
-    void (* open_done) (GnomeCmdCon *con);
-    void (* open_failed) (GnomeCmdCon *con);
 
     /* virtual functions */
     void (* open) (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable);
@@ -88,6 +79,8 @@ extern "C" GFileInfo *gnome_cmd_con_get_base_file_info(GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_base_file_info(GnomeCmdCon *con, GFileInfo *file_info);
 
 extern "C" void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable);
+extern "C" GnomeCmdCon::State gnome_cmd_con_get_state (GnomeCmdCon *con);
+extern "C" void gnome_cmd_con_set_state (GnomeCmdCon *con, GnomeCmdCon::State state);
 
 extern "C" gboolean gnome_cmd_con_is_open (GnomeCmdCon *con);
 
@@ -121,8 +114,8 @@ extern "C" gboolean gnome_cmd_con_is_closeable (GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_dir_history_add (GnomeCmdCon *con, const gchar *entry);
 extern "C" GStrv gnome_cmd_con_export_dir_history (GnomeCmdCon *con);
 
-void gnome_cmd_con_updated (GnomeCmdCon *con);
-
 extern "C" gboolean gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path, GFileType *type);
 
 extern "C" gboolean gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str, GError *error);
+
+extern "C" void gnome_cmd_con_set_open_state (GnomeCmdCon *con, GnomeCmdCon::OpenResult result, GError *error, const gchar *msg);

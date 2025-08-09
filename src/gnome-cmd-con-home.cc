@@ -72,8 +72,8 @@ static void gnome_cmd_con_home_init (GnomeCmdConHome *home_con)
 {
     GnomeCmdCon *con = GNOME_CMD_CON (home_con);
 
-    con->state = GnomeCmdCon::STATE_OPEN;
-    con->alias = g_strdup (_("Home"));
+    gnome_cmd_con_set_state (con, GnomeCmdCon::STATE_OPEN);
+    gnome_cmd_con_set_alias (con, _("Home"));
 
     GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_plain_path_new (g_get_home_dir ()));
 

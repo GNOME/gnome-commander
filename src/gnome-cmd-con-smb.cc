@@ -63,11 +63,10 @@ static void mount_func (MountClosure *mc)
     if (!gFile)
     {
         DEBUG('s', "gnome_cmd_con_create_gfile returned NULL\n");
-        con->state = GnomeCmdCon::STATE_CLOSED;
-        con->open_result = GnomeCmdCon::OPEN_FAILED;
-        con->open_failed_error = g_error_new(G_IO_ERROR, G_IO_ERROR_INVALID_DATA, "Could not create a GFile object for \"smb:%s\"", path);
-        con->open_failed_msg = g_strdup (_("Failed to browse the network. Is Samba supported on the system?"));
+        auto error = g_error_new(G_IO_ERROR, G_IO_ERROR_INVALID_DATA, "Could not create a GFile object for \"smb:%s\"", path);
+        gnome_cmd_con_set_open_state (con, GnomeCmdCon::OPEN_FAILED, error, _("Failed to browse the network. Is Samba supported on the system?"));
         g_free (path);
+        g_error_free (error);
         return;
     }
     g_free (path);
@@ -96,21 +95,17 @@ static void mount_func (MountClosure *mc)
 
     if (base_gFileInfo)
     {
-        con->state = GnomeCmdCon::STATE_OPEN;
         gnome_cmd_con_set_base_file_info(con, base_gFileInfo);
-        con->open_result = GnomeCmdCon::OPEN_OK;
+        gnome_cmd_con_set_open_state (con, GnomeCmdCon::OPEN_OK, nullptr, nullptr);
     }
     else if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
     {
         DEBUG('s', "The open operation was cancelled, doing nothing\n");
-        con->state = GnomeCmdCon::STATE_CLOSED;
-        con->open_result = GnomeCmdCon::OPEN_CANCELLED;
+        gnome_cmd_con_set_open_state (con, GnomeCmdCon::OPEN_CANCELLED, nullptr, nullptr);
     }
     else
     {
-        con->state = GnomeCmdCon::STATE_CLOSED;
-        con->open_result = GnomeCmdCon::OPEN_FAILED;
-        con->open_failed_error = error;
+        gnome_cmd_con_set_open_state (con, GnomeCmdCon::OPEN_FAILED, error, nullptr);
     }
 }
 
@@ -119,9 +114,6 @@ static void smb_open (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *
 {
     if (gnome_cmd_con_get_base_path (con) == nullptr)
         gnome_cmd_con_set_base_path (con, gnome_cmd_smb_path_new (nullptr, nullptr));
-
-    con->state = GnomeCmdCon::STATE_OPENING;
-    con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
 
     auto mc = g_new0 (MountClosure, 1);
     mc->con = con;
@@ -136,8 +128,7 @@ static void smb_close (GnomeCmdCon *con, GtkWindow *parent_window)
     // Copied from gnome-cmd-con-remote.cc:
     gnome_cmd_con_set_default_dir (con, nullptr);
     gnome_cmd_con_set_base_path (con, nullptr);
-    con->state = GnomeCmdCon::STATE_CLOSED;
-    con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
+    gnome_cmd_con_set_open_state (con, GnomeCmdCon::OPEN_NOT_STARTED, nullptr, nullptr);
 }
 
 
@@ -187,7 +178,5 @@ static void gnome_cmd_con_smb_class_init (GnomeCmdConSmbClass *klass)
 
 static void gnome_cmd_con_smb_init (GnomeCmdConSmb *smb_con)
 {
-    GnomeCmdCon *con = GNOME_CMD_CON (smb_con);
-
-    con->alias = g_strdup (_("SMB"));
+    gnome_cmd_con_set_alias (GNOME_CMD_CON (smb_con), _("SMB"));
 }

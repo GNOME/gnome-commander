@@ -105,9 +105,9 @@ static gboolean is_mounted (GnomeCmdConDevice *dev_con)
 }
 
 
-static void do_legacy_mount(GnomeCmdCon *con)
+static bool do_legacy_mount(GnomeCmdCon *con)
 {
-    g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (con));
+    g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), false);
 
     GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
     auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev_con));
@@ -120,7 +120,7 @@ static void do_legacy_mount(GnomeCmdCon *con)
         gchar *emsg = nullptr;
 
         if (strlen(priv->device_fn) == 0)
-            return;
+            return false;
 
         DEBUG ('m', "mounting %s\n", priv->device_fn);
         if (priv->device_fn[0] == G_DIR_SEPARATOR)
@@ -159,30 +159,32 @@ static void do_legacy_mount(GnomeCmdCon *con)
 
         if (emsg != nullptr)
         {
-            con->open_result = GnomeCmdCon::OPEN_FAILED;
-            con->state = GnomeCmdCon::STATE_CLOSED;
-            con->open_failed_msg = emsg;
-            return;
+            GError *error = g_error_new(G_IO_ERROR, G_IO_ERROR_FAILED, "Unable to mount %s", priv->device_fn);
+            gnome_cmd_con_set_open_state (con, GnomeCmdCon::OPEN_FAILED, error, emsg);
+            g_error_free (error);
+            g_free (emsg);
+            return false;
         }
+        return true;
     }
     else
+    {
         DEBUG('m', "The device was already mounted\n");
+        return true;
+    }
 }
 
 
 static void set_con_mount_succeed(GnomeCmdCon *con)
 {
-    con->state = GnomeCmdCon::STATE_OPEN;
-    con->open_result = GnomeCmdCon::OPEN_OK;
+    gnome_cmd_con_set_open_state (con, GnomeCmdCon::OPEN_OK, nullptr, nullptr);
 }
 
 
-static void set_con_mount_failed(GnomeCmdCon *con)
+static void set_con_mount_failed(GnomeCmdCon *con, GError *error)
 {
     gnome_cmd_con_set_base_file_info(con, nullptr);
-    con->open_result = GnomeCmdCon::OPEN_FAILED;
-    con->state = GnomeCmdCon::STATE_CLOSED;
-    con->open_failed_msg = con->open_failed_error->message;
+    gnome_cmd_con_set_open_state (con, GnomeCmdCon::OPEN_FAILED, error, error->message);
 }
 
 
@@ -197,8 +199,7 @@ static gboolean set_con_base_gfileinfo(GnomeCmdCon *con)
     g_object_unref(gFile);
     if (error)
     {
-        con->open_failed_error = g_error_copy(error);
-        set_con_mount_failed(con);
+        set_con_mount_failed(con, error);
         g_critical("Unable to mount the volume: error: %s", error->message);
         g_error_free(error);
         return FALSE;
@@ -219,8 +220,7 @@ static void mount_finish_callback(GObject *gVol, GAsyncResult *result, gpointer 
     if(!g_volume_mount_finish(gVolume, result, &error))
     {
         g_critical("Unable to mount the volume, error: %s", error->message);
-        con->open_failed_error = g_error_copy(error);
-        set_con_mount_failed(con);
+        set_con_mount_failed(con, error);
         g_error_free(error);
         return;
     }
@@ -250,16 +250,10 @@ static void do_legacy_mount_thread_func(GnomeCmdCon *con)
         gnome_cmd_con_set_base_path (con, gnome_cmd_plain_path_new (priv->mountp));
     }
 
-    do_legacy_mount(con);
-
-    if (con->open_result == GnomeCmdCon::OPEN_FAILED)
-    {
-        con->open_failed_error = g_error_new(G_IO_ERROR, G_IO_ERROR_FAILED, "Unable to mount %s", priv->device_fn);
-        set_con_mount_failed(con);
-        return;
-    }
-
-    set_con_base_gfileinfo(con);
+    if (do_legacy_mount(con))
+        set_con_base_gfileinfo(con);
+    else
+        gnome_cmd_con_set_base_file_info(con, nullptr);
 }
 
 
@@ -275,6 +269,7 @@ static void do_mount (GnomeCmdCon *con, GtkWindow *parent_window)
     {
         auto gThread = g_thread_new (nullptr, (GThreadFunc) do_legacy_mount_thread_func, con);
         g_thread_unref(gThread);
+        return;
     }
 
     // Check if the volume is already mounted:
@@ -304,12 +299,7 @@ static void do_mount (GnomeCmdCon *con, GtkWindow *parent_window)
 static void dev_open (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (con));
-
     DEBUG ('m', "Mounting device\n");
-
-    con->state = GnomeCmdCon::STATE_OPENING;
-    con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
-
     do_mount(con, parent_window);
 }
 
@@ -378,7 +368,7 @@ static void unmount_callback(GObject *gMnt, GAsyncResult *result, gpointer user_
         return;
     }
 
-    con->state = GnomeCmdCon::STATE_CLOSED;
+    gnome_cmd_con_set_state (con, GnomeCmdCon::STATE_CLOSED);
 
     show_message_dialog_volume_unmounted (parent_window);
 }
@@ -433,7 +423,7 @@ static void dev_close (GnomeCmdCon *con, GtkWindow *parent_window)
 
             if (ret == 0)
             {
-                con->state = GnomeCmdCon::STATE_CLOSED;
+                gnome_cmd_con_set_state (con, GnomeCmdCon::STATE_CLOSED);
 
                 show_message_dialog_volume_unmounted (parent_window);
             }
