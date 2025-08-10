@@ -79,7 +79,6 @@ extern "C" GFileInfo *gnome_cmd_con_get_base_file_info(GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_base_file_info(GnomeCmdCon *con, GFileInfo *file_info);
 
 extern "C" void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable);
-extern "C" GnomeCmdCon::State gnome_cmd_con_get_state (GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_state (GnomeCmdCon *con, GnomeCmdCon::State state);
 
 extern "C" gboolean gnome_cmd_con_is_open (GnomeCmdCon *con);
@@ -96,7 +95,6 @@ extern "C" GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, const gchar *pat
 
 extern "C" GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str);
 
-extern "C" const gchar *gnome_cmd_con_get_alias (GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias=NULL);
 
 extern "C" GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con);
@@ -109,13 +107,5 @@ inline gboolean gnome_cmd_con_should_remember_dir (GnomeCmdCon *con)
 
 extern "C" gboolean gnome_cmd_con_is_local (GnomeCmdCon *con);
 
-extern "C" gboolean gnome_cmd_con_is_closeable (GnomeCmdCon *con);
-
-extern "C" void gnome_cmd_con_dir_history_add (GnomeCmdCon *con, const gchar *entry);
-extern "C" GStrv gnome_cmd_con_export_dir_history (GnomeCmdCon *con);
-
-extern "C" gboolean gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path, GFileType *type);
-
-extern "C" gboolean gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str, GError *error);
 
 extern "C" void gnome_cmd_con_set_open_state (GnomeCmdCon *con, GnomeCmdCon::OpenResult result, GError *error, const gchar *msg);

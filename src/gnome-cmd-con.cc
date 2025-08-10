@@ -19,28 +19,9 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
-
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-path.h"
-#include "gnome-cmd-main-win.h"
-#include "gnome-cmd-con-list.h"
-
-using namespace std;
-
-
-struct GnomeCmdConPrivate
-{
-    gchar          *alias;                 // coded as UTF-8
-    GnomeCmdPath   *base_path;
-    GFileInfo      *base_gFileInfo;
-
-    GUri           *uri;
-    GnomeCmdDir    *default_dir;   // the start dir of this connection
-
-    GnomeCmdCon::State state;
-};
 
 enum
 {
@@ -52,7 +33,7 @@ enum
 static guint signals[LAST_SIGNAL] = { 0 };
 
 
-G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdCon, gnome_cmd_con, G_TYPE_OBJECT)
+G_DEFINE_TYPE (GnomeCmdCon, gnome_cmd_con, G_TYPE_OBJECT)
 
 
 /*******************************
@@ -61,15 +42,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdCon, gnome_cmd_con, G_TYPE_OBJECT)
 
 static void dispose (GObject *object)
 {
-    GnomeCmdCon *con = GNOME_CMD_CON (object);
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-
-    g_clear_pointer (&priv->alias, g_free);
-    g_clear_pointer (&priv->uri, g_uri_unref);
-    g_clear_pointer (&priv->base_path, gnome_cmd_path_free);
-    g_clear_object (&priv->base_gFileInfo);
-    g_clear_pointer (&priv->default_dir, g_object_unref);
-
+    gnome_cmd_con_set_default_dir (GNOME_CMD_CON (object), nullptr);
     G_OBJECT_CLASS (gnome_cmd_con_parent_class)->dispose (object);
 }
 
@@ -109,58 +82,12 @@ static void gnome_cmd_con_class_init (GnomeCmdConClass *klass)
 
 static void gnome_cmd_con_init (GnomeCmdCon *con)
 {
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-
-    priv->uri = nullptr;
-    priv->alias = nullptr;
-    priv->state = GnomeCmdCon::STATE_CLOSED;
-    priv->base_path = nullptr;
-    priv->default_dir = nullptr;
 }
 
 
 /***********************************
  * Public functions
  ***********************************/
-
-GnomeCmdPath *gnome_cmd_con_get_base_path(GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-
-    return priv->base_path;
-}
-
-
-void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-
-    if (priv->base_path)
-        gnome_cmd_path_free (priv->base_path);
-
-    priv->base_path = path;
-}
-
-
-GFileInfo *gnome_cmd_con_get_base_file_info(GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-
-    return priv->base_gFileInfo;
-}
-
-
-void gnome_cmd_con_set_base_file_info(GnomeCmdCon *con, GFileInfo *file_info)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-
-    g_set_object (&priv->base_gFileInfo, file_info);
-}
-
 
 void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable)
 {
@@ -170,54 +97,14 @@ void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window, GCancellabl
 }
 
 
-gboolean gnome_cmd_con_is_open (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    return gnome_cmd_con_get_state (con) == GnomeCmdCon::STATE_OPEN;
-}
-
-
 void gnome_cmd_con_close (GnomeCmdCon *con, GtkWindow *parent_window)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
-    if (gnome_cmd_con_is_closeable (con) && gnome_cmd_con_is_open(con))
-    {
-        g_signal_emit (con, signals[CLOSE], 0, parent_window);
-        g_signal_emit (con, signals[UPDATED], 0);
-    }
+    g_signal_emit (con, signals[CLOSE], 0, parent_window);
+    g_signal_emit (con, signals[UPDATED], 0);
 }
 
-
-GUri *gnome_cmd_con_get_uri (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-    return priv->uri;
-}
-
-gchar *gnome_cmd_con_get_uri_string (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-    return priv->uri ? g_uri_to_string (priv->uri) : nullptr;
-}
-
-void gnome_cmd_con_set_uri (GnomeCmdCon *con, GUri *uri)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-    if (uri)
-        g_uri_ref (uri);
-    g_clear_pointer (&priv->uri, g_uri_unref);
-    priv->uri = uri;
-}
-
-void gnome_cmd_con_set_uri_string (GnomeCmdCon *con, const gchar *uri_string)
-{
-    auto uri = g_uri_parse (uri_string, G_URI_FLAGS_NONE, nullptr);
-    gnome_cmd_con_set_uri (con, uri);
-}
 
 GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, const gchar *path)
 {
@@ -236,109 +123,4 @@ GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str
     GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
 
     return klass->create_path (con, path_str);
-}
-
-
-void gnome_cmd_con_set_default_dir (GnomeCmdCon *con, GnomeCmdDir *dir)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-
-    g_set_object(&priv->default_dir, dir);
-}
-
-
-GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-
-    return priv->default_dir;
-}
-
-
-/**
- *  Get the type of the file at the specified path.
- *  If the file does not exists, the function will return false.
- *  If the operation succeeds, true is returned and type is set.
- */
-gboolean gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path_str, GFileType *gFileType)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), false);
-    g_return_val_if_fail (path_str != nullptr, false);
-
-    GnomeCmdPath *path = gnome_cmd_con_create_path (con, path_str);
-    gchar *path_str2 = gnome_cmd_path_get_path (path);
-    auto gFile = gnome_cmd_con_create_gfile(con, path_str2);
-    g_free (path_str2);
-
-    if (!gFile || !g_file_query_exists(gFile, nullptr))
-    {
-        if (gFile)
-            g_object_unref(gFile);
-        *gFileType = G_FILE_TYPE_UNKNOWN;
-        gnome_cmd_path_free (path);
-        return false;
-    }
-
-    *gFileType = g_file_query_file_type(gFile, G_FILE_QUERY_INFO_NONE, nullptr);
-    g_object_unref(gFile);
-    gnome_cmd_path_free (path);
-
-    return true;
-}
-
-
-gboolean gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str, GError *error)
-{
-    GError *tmpError = nullptr;
-
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), false);
-    g_return_val_if_fail (path_str != nullptr, false);
-
-    auto path = gnome_cmd_con_create_path (con, path_str);
-    gchar *path_str2 = gnome_cmd_path_get_path (path);
-    auto gFile = gnome_cmd_con_create_gfile (con, path_str2);
-    g_free (path_str2);
-
-    if (!g_file_make_directory (gFile, nullptr, &tmpError))
-    {
-        g_warning("g_file_make_directory error: %s\n", tmpError ? tmpError->message : "unknown error");
-        g_propagate_error(&error, tmpError);
-        return false;
-    }
-
-    g_object_unref (gFile);
-    gnome_cmd_path_free (path);
-
-    return true;
-}
-
-// FFI
-
-const gchar *gnome_cmd_con_get_alias (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-    return priv->alias;
-}
-
-void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-    g_free (priv->alias);
-    priv->alias = g_strdup (alias);
-}
-
-GnomeCmdCon::State gnome_cmd_con_get_state (GnomeCmdCon *con)
-{
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-    return priv->state;
-}
-
-void gnome_cmd_con_set_state (GnomeCmdCon *con, GnomeCmdCon::State state)
-{
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-    priv->state = state;
 }

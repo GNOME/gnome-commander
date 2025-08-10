@@ -501,11 +501,11 @@ impl ConnectDialog {
             con.set_uri(Some(&uri));
 
             let path = uri.path();
-            con.set_base_path(con.create_path(if path.is_empty() {
+            con.set_base_path(Some(con.create_path(if path.is_empty() {
                 Path::new("/")
             } else {
                 Path::new(&path)
-            }));
+            })));
 
             result = true;
         }

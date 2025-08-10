@@ -27,33 +27,29 @@ use super::{
 use crate::{
     data::{GeneralOptions, GeneralOptionsRead},
     debug::debug,
-    dir::Directory,
+    dir::{ffi::GnomeCmdDir, Directory},
     file::File,
     path::GnomeCmdPath,
     utils::{sleep, ErrorMessage},
 };
 use gettextrs::gettext;
 use gtk::{
-    gio::{
-        self,
-        ffi::{GFileType, G_FILE_TYPE_UNKNOWN},
-    },
+    gio::{self, ffi::GFileInfo},
     glib::{
         self,
-        ffi::{gboolean, GError, GStrv},
+        ffi::{gboolean, GError, GUri},
         translate::*,
     },
     prelude::*,
 };
-use std::{collections::HashMap, ffi::c_char, ops::Deref, path::Path, ptr, sync::LazyLock};
+use std::{collections::HashMap, ffi::c_char, ops::Deref, path::Path, sync::LazyLock};
 
 pub mod ffi {
     use super::*;
-    use crate::dir::ffi::GnomeCmdDir;
     use gtk::{
         ffi::GtkWindow,
-        gio::ffi::{GCancellable, GFile, GFileInfo, GFileType},
-        glib::ffi::{gboolean, GError, GType, GUri},
+        gio::ffi::{GCancellable, GFile},
+        glib::ffi::GType,
     };
     use std::ffi::c_char;
 
@@ -66,18 +62,6 @@ pub mod ffi {
     extern "C" {
         pub fn gnome_cmd_con_get_type() -> GType;
 
-        pub fn gnome_cmd_con_get_alias(con: *const GnomeCmdCon) -> *const c_char;
-        pub fn gnome_cmd_con_set_alias(con: *const GnomeCmdCon, alias: *const c_char);
-
-        pub fn gnome_cmd_con_get_state(con: *const GnomeCmdCon) -> i32;
-        pub fn gnome_cmd_con_set_state(con: *const GnomeCmdCon, state: i32);
-
-        pub fn gnome_cmd_con_get_uri(con: *const GnomeCmdCon) -> *const GUri;
-        pub fn gnome_cmd_con_set_uri(con: *const GnomeCmdCon, uri: *const GUri);
-
-        pub fn gnome_cmd_con_get_uri_string(con: *const GnomeCmdCon) -> *const c_char;
-        pub fn gnome_cmd_con_set_uri_string(con: *const GnomeCmdCon, uri: *const c_char);
-
         pub fn gnome_cmd_con_create_path(
             con: *const GnomeCmdCon,
             path_str: *const c_char,
@@ -87,29 +71,6 @@ pub mod ffi {
             con: *const GnomeCmdCon,
             uri: *const c_char,
         ) -> *mut GFile;
-
-        pub fn gnome_cmd_con_get_default_dir(con: *const GnomeCmdCon) -> *const GnomeCmdDir;
-        pub fn gnome_cmd_con_set_default_dir(con: *const GnomeCmdCon, dir: *mut GnomeCmdDir);
-
-        pub fn gnome_cmd_con_get_base_path(con: *const GnomeCmdCon) -> *mut GnomeCmdPath;
-        pub fn gnome_cmd_con_set_base_path(con: *const GnomeCmdCon, path: *mut GnomeCmdPath);
-
-        pub fn gnome_cmd_con_get_base_file_info(con: *mut GnomeCmdCon) -> *mut GFileInfo;
-        pub fn gnome_cmd_con_set_base_file_info(con: *mut GnomeCmdCon, file_info: *mut GFileInfo);
-
-        pub fn gnome_cmd_con_is_open(con: *const GnomeCmdCon) -> gboolean;
-
-        pub fn gnome_cmd_con_get_path_target_type(
-            con: *const GnomeCmdCon,
-            path: *const c_char,
-            ftype: *mut GFileType,
-        ) -> gboolean;
-
-        pub fn gnome_cmd_con_mkdir(
-            con: *const GnomeCmdCon,
-            path_str: *const c_char,
-            error: *mut *mut GError,
-        ) -> gboolean;
 
         pub fn gnome_cmd_con_open(
             con: *mut GnomeCmdCon,
@@ -141,6 +102,13 @@ struct ConnectionPrivate {
     dir_cache: HashMap<String, Directory>,
     bookmarks: gio::ListStore,
     open_result: OpenResult,
+    alias: Option<String>,
+    state: ConnectionState,
+    /// the start directory of this connection
+    default_dir: Option<Directory>,
+    uri: Option<glib::Uri>,
+    base_file_info: Option<gio::FileInfo>,
+    base_path: Option<GnomeCmdPath>,
 }
 
 impl ConnectionPrivate {
@@ -157,6 +125,12 @@ impl ConnectionPrivate {
             dir_cache: Default::default(),
             bookmarks,
             open_result: OpenResult::NotStarted,
+            alias: None,
+            state: ConnectionState::Closed,
+            default_dir: None,
+            uri: None,
+            base_file_info: None,
+            base_path: None,
         }
     }
 }
@@ -253,48 +227,36 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
     }
 
     fn alias(&self) -> Option<String> {
-        unsafe { from_glib_none(ffi::gnome_cmd_con_get_alias(self.as_ref().to_glib_none().0)) }
+        self.as_ref().private().alias.clone()
     }
 
     fn set_alias(&self, alias: Option<&str>) {
-        unsafe {
-            ffi::gnome_cmd_con_set_alias(self.as_ref().to_glib_none().0, alias.to_glib_none().0)
-        }
+        self.as_ref().private().alias = alias.map(ToOwned::to_owned);
     }
 
     fn state(&self) -> ConnectionState {
-        unsafe {
-            ConnectionState::from_repr(
-                ffi::gnome_cmd_con_get_state(self.as_ref().to_glib_none().0) as usize
-            )
-            .unwrap()
-        }
+        self.as_ref().private().state
     }
 
     fn set_state(&self, state: ConnectionState) {
-        unsafe { ffi::gnome_cmd_con_set_state(self.as_ref().to_glib_none().0, state as i32) }
+        self.as_ref().private().state = state;
     }
 
     fn uri(&self) -> Option<glib::Uri> {
-        unsafe { from_glib_none(ffi::gnome_cmd_con_get_uri(self.as_ref().to_glib_none().0)) }
+        self.as_ref().private().uri.clone()
     }
 
     fn set_uri(&self, uri: Option<&glib::Uri>) {
-        unsafe { ffi::gnome_cmd_con_set_uri(self.as_ref().to_glib_none().0, uri.to_glib_none().0) }
+        self.as_ref().private().uri = uri.map(Clone::clone);
     }
 
     fn uri_string(&self) -> Option<String> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_con_get_uri_string(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        Some(self.uri()?.to_str().to_string())
     }
 
     fn set_uri_string(&self, uri: Option<&str>) {
-        unsafe {
-            ffi::gnome_cmd_con_set_uri_string(self.as_ref().to_glib_none().0, uri.to_glib_none().0)
-        }
+        let uri = uri.and_then(|uri| glib::Uri::parse(uri, glib::UriFlags::NONE).ok());
+        self.set_uri(uri.as_ref());
     }
 
     fn create_path(&self, path: &Path) -> GnomeCmdPath {
@@ -316,52 +278,31 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
     }
 
     fn default_dir(&self) -> Option<Directory> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_con_get_default_dir(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        self.as_ref().private().default_dir.clone()
     }
+
     fn set_default_dir(&self, dir: Option<&Directory>) {
-        unsafe {
-            ffi::gnome_cmd_con_set_default_dir(self.as_ref().to_glib_none().0, dir.to_glib_none().0)
-        }
+        self.as_ref().private().default_dir = dir.map(Clone::clone);
     }
 
     fn base_path(&self) -> Option<&GnomeCmdPath> {
-        unsafe {
-            let ptr = ffi::gnome_cmd_con_get_base_path(self.as_ref().to_glib_none().0);
-            if ptr.is_null() {
-                None
-            } else {
-                Some(&*ptr)
-            }
-        }
+        self.as_ref().private().base_path.as_ref()
     }
 
-    fn set_base_path(&self, path: GnomeCmdPath) {
-        unsafe { ffi::gnome_cmd_con_set_base_path(self.as_ref().to_glib_none().0, path.into_raw()) }
+    fn set_base_path(&self, path: Option<GnomeCmdPath>) {
+        self.as_ref().private().base_path = path;
     }
 
     fn base_file_info(&self) -> Option<gio::FileInfo> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_con_get_base_file_info(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        self.as_ref().private().base_file_info.clone()
     }
 
     fn set_base_file_info(&self, file_info: Option<&gio::FileInfo>) {
-        unsafe {
-            ffi::gnome_cmd_con_set_base_file_info(
-                self.as_ref().to_glib_none().0,
-                file_info.to_glib_none().0,
-            )
-        }
+        self.as_ref().private().base_file_info = file_info.map(Clone::clone);
     }
 
     fn is_open(&self) -> bool {
-        unsafe { ffi::gnome_cmd_con_is_open(self.as_ref().to_glib_none().0) != 0 }
+        self.state() == ConnectionState::Open
     }
 
     fn add_bookmark(&self, bookmark: &Bookmark) {
@@ -436,36 +377,27 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
         bookmarks.remove(position);
     }
 
+    /// Get the type of the file at the specified path.
     fn path_target_type(&self, path: &Path) -> Option<gio::FileType> {
-        let mut file_type: GFileType = G_FILE_TYPE_UNKNOWN;
-        let result = unsafe {
-            ffi::gnome_cmd_con_get_path_target_type(
-                self.as_ref().to_glib_none().0,
-                path.to_glib_none().0,
-                &mut file_type as *mut _,
-            )
-        };
-        if result != 0 {
-            Some(unsafe { gio::FileType::from_glib(file_type) })
+        let path = self.create_path(path).path();
+        let file = self.create_gfile(Some(&path));
+        if file.query_exists(gio::Cancellable::NONE) {
+            let file_type =
+                file.query_file_type(gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE);
+            Some(file_type)
         } else {
             None
         }
     }
 
     fn mkdir(&self, path: &Path) -> Result<(), glib::Error> {
-        unsafe {
-            let mut error = ptr::null_mut();
-            let _is_ok = ffi::gnome_cmd_con_mkdir(
-                self.as_ref().to_glib_none().0,
-                path.to_glib_none().0,
-                &mut error,
-            );
-            if error.is_null() {
-                Ok(())
-            } else {
-                Err(from_glib_full(error))
-            }
-        }
+        let path = self.create_path(path).path();
+        let file = self.create_gfile(Some(&path));
+        file.make_directory(gio::Cancellable::NONE)
+            .map_err(|error| {
+                eprintln!("g_file_make_directory error: {error}");
+                error
+            })
     }
 
     fn connect_updated<F: Fn() + 'static>(&self, f: F) -> glib::SignalHandlerId {
@@ -528,11 +460,13 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
     }
 
     fn close(&self, parent_window: Option<&gtk::Window>) {
-        unsafe {
-            ffi::gnome_cmd_con_close(
-                self.as_ref().to_glib_none().0,
-                parent_window.to_glib_none().0,
-            )
+        if self.as_ref().is_closeable() && self.is_open() {
+            unsafe {
+                ffi::gnome_cmd_con_close(
+                    self.as_ref().to_glib_none().0,
+                    parent_window.to_glib_none().0,
+                )
+            }
         }
     }
 
@@ -628,36 +562,15 @@ pub trait ConnectionInterface {
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_con_dir_history_add(con: *mut ffi::GnomeCmdCon, entry: *const c_char) {
-    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
-    let entry: Option<String> = unsafe { from_glib_none(entry) };
-    if let Some(entry) = entry.filter(|s| !s.is_empty()) {
-        con.dir_history().add(entry);
-    }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_export_dir_history(con: *mut ffi::GnomeCmdCon) -> GStrv {
-    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
-    let dir_history: glib::StrV = con
-        .dir_history()
-        .export()
-        .into_iter()
-        .map(|s| s.into())
-        .collect();
-    dir_history.to_glib_full()
-}
-
-#[no_mangle]
 pub extern "C" fn gnome_cmd_con_is_local(con: *mut ffi::GnomeCmdCon) -> gboolean {
     let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
     con.is_local().into_glib()
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_con_is_closeable(con: *mut ffi::GnomeCmdCon) -> gboolean {
+pub extern "C" fn gnome_cmd_con_is_open(con: *mut ffi::GnomeCmdCon) -> gboolean {
     let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
-    con.is_closeable().into_glib()
+    con.is_open().into_glib()
 }
 
 #[no_mangle]
@@ -677,4 +590,100 @@ pub extern "C" fn gnome_cmd_con_set_open_state(
         3 => OpenResult::InProgress,
         _ => OpenResult::NotStarted,
     };
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_set_alias(con: *mut ffi::GnomeCmdCon, alias: *const c_char) {
+    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
+    let alias: Option<String> = unsafe { from_glib_none(alias) };
+    con.set_alias(alias.as_deref());
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_set_state(con: *mut ffi::GnomeCmdCon, state: i32) {
+    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
+    con.set_state(ConnectionState::from_repr(state as usize).unwrap());
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_get_default_dir(
+    con: *const ffi::GnomeCmdCon,
+) -> *const GnomeCmdDir {
+    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
+    con.default_dir().to_glib_none().0
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_set_default_dir(
+    con: *const ffi::GnomeCmdCon,
+    dir: *mut GnomeCmdDir,
+) {
+    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
+    let dir: Option<Directory> = unsafe { from_glib_none(dir) };
+    con.set_default_dir(dir.as_ref());
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_get_uri(con: *const ffi::GnomeCmdCon) -> *const GUri {
+    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
+    con.uri().to_glib_none().0
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_set_uri(con: *const ffi::GnomeCmdCon, uri: *const GUri) {
+    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
+    let uri: Borrowed<Option<glib::Uri>> = unsafe { from_glib_borrow(uri) };
+    con.set_uri((*uri).as_ref());
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_get_uri_string(con: *const ffi::GnomeCmdCon) -> *mut c_char {
+    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
+    con.uri_string().to_glib_full()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_set_uri_string(con: *const ffi::GnomeCmdCon, uri: *const c_char) {
+    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
+    let uri: Option<String> = unsafe { from_glib_none(uri) };
+    con.set_uri_string(uri.as_deref());
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_get_base_file_info(con: *mut ffi::GnomeCmdCon) -> *mut GFileInfo {
+    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
+    con.base_file_info().to_glib_none().0
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_set_base_file_info(
+    con: *mut ffi::GnomeCmdCon,
+    file_info: *mut GFileInfo,
+) {
+    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
+    let file_info: Option<gio::FileInfo> = unsafe { from_glib_none(file_info) };
+    con.set_base_file_info(file_info.as_ref());
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_get_base_path(con: *const ffi::GnomeCmdCon) -> *const GnomeCmdPath {
+    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
+    match con.base_path() {
+        Some(p) => std::ptr::from_ref(p),
+        None => std::ptr::null_mut(),
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_set_base_path(
+    con: *const ffi::GnomeCmdCon,
+    path: *mut GnomeCmdPath,
+) {
+    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
+    let path = if path.is_null() {
+        None
+    } else {
+        Some(unsafe { GnomeCmdPath::from_raw(path) })
+    };
+    con.set_base_path(path);
 }
