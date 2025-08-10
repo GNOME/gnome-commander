@@ -44,19 +44,9 @@ struct GnomeCmdConDeviceClass
 
 extern "C" GType gnome_cmd_con_device_get_type ();
 
-extern "C" GnomeCmdConDevice *gnome_cmd_con_device_new (const gchar *alias, const gchar *device_fn, const gchar *mountp, GIcon *icon);
-
-extern "C" const gchar *gnome_cmd_con_device_get_device_fn (GnomeCmdConDevice *dev);
-extern "C" void gnome_cmd_con_device_set_device_fn (GnomeCmdConDevice *dev, const gchar *device_fn);
-
-extern "C" const gchar *gnome_cmd_con_device_get_mountp_string (GnomeCmdConDevice *dev);
-extern "C" void gnome_cmd_con_device_set_mountp (GnomeCmdConDevice *dev, const gchar *mountp);
-
-extern "C" GIcon *gnome_cmd_con_device_get_icon (GnomeCmdConDevice *dev);
-extern "C" void gnome_cmd_con_device_set_icon (GnomeCmdConDevice *dev, GIcon *icon);
-
+extern "C" gchar *gnome_cmd_con_device_get_device_fn (GnomeCmdConDevice *dev);
+extern "C" gchar *gnome_cmd_con_device_get_mountp_string (GnomeCmdConDevice *dev);
 extern "C" gboolean gnome_cmd_con_device_get_autovol (GnomeCmdConDevice *dev);
-extern "C" void gnome_cmd_con_device_set_autovol (GnomeCmdConDevice *dev, const gboolean autovol);
 
 extern "C" GMount *gnome_cmd_con_device_get_gmount (GnomeCmdConDevice *dev);
 extern "C" void gnome_cmd_con_device_set_gmount (GnomeCmdConDevice *dev, GMount *gMount);

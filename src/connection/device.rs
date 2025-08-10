@@ -23,24 +23,26 @@
 use super::connection::{Connection, ConnectionExt, ConnectionInterface};
 use gettextrs::gettext;
 use gtk::{
-    gio,
+    gio::{
+        self,
+        ffi::{GMount, GVolume},
+    },
     glib::{
         self,
         ffi::gboolean,
-        translate::{from_glib_full, from_glib_none, ToGlibPtr},
+        translate::{from_glib_borrow, Borrowed, IntoGlib, ToGlibPtr},
     },
     prelude::*,
 };
-use std::path::{Path, PathBuf};
+use std::{
+    ffi::c_char,
+    path::{Path, PathBuf},
+    sync::LazyLock,
+};
 
 pub mod ffi {
-    use super::*;
     use crate::connection::connection::ffi::GnomeCmdConClass;
-    use gtk::{
-        gio::ffi::{GIcon, GMount, GVolume},
-        glib::ffi::GType,
-    };
-    use std::ffi::c_char;
+    use gtk::glib::ffi::GType;
 
     #[repr(C)]
     pub struct GnomeCmdConDevice {
@@ -50,35 +52,6 @@ pub mod ffi {
 
     extern "C" {
         pub fn gnome_cmd_con_device_get_type() -> GType;
-
-        pub fn gnome_cmd_con_device_new(
-            alias: *const c_char,
-            device_fn: *const c_char,
-            mountp: *const c_char,
-            icon: *const GIcon,
-        ) -> *mut GnomeCmdConDevice;
-
-        pub fn gnome_cmd_con_device_get_device_fn(dev: *mut GnomeCmdConDevice) -> *const c_char;
-        pub fn gnome_cmd_con_device_set_device_fn(
-            dev: *mut GnomeCmdConDevice,
-            device_fn: *const c_char,
-        );
-
-        pub fn gnome_cmd_con_device_get_mountp_string(dev: *mut GnomeCmdConDevice)
-            -> *const c_char;
-        pub fn gnome_cmd_con_device_set_mountp(dev: *mut GnomeCmdConDevice, mountp: *const c_char);
-
-        pub fn gnome_cmd_con_device_get_icon(dev: *mut GnomeCmdConDevice) -> *const GIcon;
-        pub fn gnome_cmd_con_device_set_icon(dev: *mut GnomeCmdConDevice, icon: *const GIcon);
-
-        pub fn gnome_cmd_con_device_get_autovol(dev: *mut GnomeCmdConDevice) -> gboolean;
-        pub fn gnome_cmd_con_device_set_autovol(dev: *mut GnomeCmdConDevice, autovol: gboolean);
-
-        pub fn gnome_cmd_con_device_get_gmount(dev: *mut GnomeCmdConDevice) -> *mut GMount;
-        pub fn gnome_cmd_con_device_set_gmount(dev: *mut GnomeCmdConDevice, mount: *mut GMount);
-
-        pub fn gnome_cmd_con_device_get_gvolume(dev: *mut GnomeCmdConDevice) -> *mut GVolume;
-        pub fn gnome_cmd_con_device_set_gvolume(dev: *mut GnomeCmdConDevice, volume: *mut GVolume);
     }
 
     #[derive(Copy, Clone)]
@@ -97,16 +70,47 @@ glib::wrapper! {
     }
 }
 
+#[derive(Default)]
+struct ConnectionDevicePrivate {
+    auto_volume: bool,
+    /// The device identifier (either a linux device string or a uuid)
+    device_fn: Option<String>,
+    mount_point: Option<PathBuf>,
+    icon: Option<gio::Icon>,
+    mount: Option<gio::Mount>,
+    volume: Option<gio::Volume>,
+}
+
 impl ConnectionDevice {
-    pub fn new(alias: &str, device_fn: &str, mountp: &Path, icon: Option<&gio::Icon>) -> Self {
+    fn private(&self) -> &mut ConnectionDevicePrivate {
+        static QUARK: LazyLock<glib::Quark> =
+            LazyLock::new(|| glib::Quark::from_str("connection-device-private"));
+
         unsafe {
-            from_glib_full(ffi::gnome_cmd_con_device_new(
-                alias.to_glib_none().0,
-                device_fn.to_glib_none().0,
-                mountp.to_glib_none().0,
-                icon.to_glib_full(),
-            ))
+            if let Some(mut private) = self.qdata::<ConnectionDevicePrivate>(*QUARK) {
+                private.as_mut()
+            } else {
+                self.set_qdata(*QUARK, ConnectionDevicePrivate::default());
+                self.qdata::<ConnectionDevicePrivate>(*QUARK)
+                    .unwrap()
+                    .as_mut()
+            }
         }
+    }
+
+    pub fn new(alias: &str, device_fn: &str, mountp: &Path, icon: Option<&gio::Icon>) -> Self {
+        let this: Self = glib::Object::builder().build();
+        this.set_device_fn(Some(device_fn));
+        this.set_mountp(Some(mountp));
+        this.set_icon(icon);
+        this.set_autovol(false);
+        this.set_mount(None);
+        this.set_volume(None);
+        this.set_alias(Some(alias));
+        if let Ok(uri_string) = glib::filename_to_uri(mountp, None) {
+            this.set_uri_string(Some(&uri_string));
+        }
+        this
     }
 
     pub fn new_auto_volume(volume: &gio::Volume) -> Option<Self> {
@@ -115,7 +119,6 @@ impl ConnectionDevice {
         this.set_device_fn(Some(&uuid));
         this.set_mountp(None);
         this.set_icon(Some(&volume.icon()));
-        this.set_autovol(false);
         this.set_alias(Some(&volume.name()));
         this.set_autovol(true);
         this.set_volume(Some(volume));
@@ -123,73 +126,51 @@ impl ConnectionDevice {
     }
 
     pub fn device_fn(&self) -> Option<String> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_con_device_get_device_fn(
-                self.to_glib_none().0,
-            ))
-        }
+        self.private().device_fn.clone()
     }
 
     pub fn set_device_fn(&self, device_fn: Option<&str>) {
-        unsafe {
-            ffi::gnome_cmd_con_device_set_device_fn(
-                self.to_glib_none().0,
-                device_fn.to_glib_none().0,
-            )
-        }
+        self.private().device_fn = device_fn.map(ToOwned::to_owned);
     }
 
     pub fn mountp_string(&self) -> Option<PathBuf> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_con_device_get_mountp_string(
-                self.to_glib_none().0,
-            ))
-        }
+        self.private().mount_point.clone()
     }
 
     pub fn set_mountp(&self, mount_point: Option<&Path>) {
-        unsafe {
-            ffi::gnome_cmd_con_device_set_mountp(
-                self.to_glib_none().0,
-                mount_point.to_glib_none().0,
-            )
-        }
+        self.private().mount_point = mount_point.map(ToOwned::to_owned);
     }
 
     pub fn icon(&self) -> Option<gio::Icon> {
-        unsafe { from_glib_none(ffi::gnome_cmd_con_device_get_icon(self.to_glib_none().0)) }
+        self.private().icon.clone()
     }
 
     pub fn set_icon(&self, icon: Option<&gio::Icon>) {
-        unsafe { ffi::gnome_cmd_con_device_set_icon(self.to_glib_none().0, icon.to_glib_full()) }
+        self.private().icon = icon.map(Clone::clone);
     }
 
     pub fn autovol(&self) -> bool {
-        unsafe { ffi::gnome_cmd_con_device_get_autovol(self.to_glib_none().0) != 0 }
+        self.private().auto_volume
     }
 
     pub fn set_autovol(&self, autovol: bool) {
-        unsafe { ffi::gnome_cmd_con_device_set_autovol(self.to_glib_none().0, autovol as gboolean) }
+        self.private().auto_volume = autovol;
     }
 
     pub fn mount(&self) -> Option<gio::Mount> {
-        unsafe { from_glib_none(ffi::gnome_cmd_con_device_get_gmount(self.to_glib_none().0)) }
+        self.private().mount.clone()
     }
 
     pub fn set_mount(&self, mount: Option<&gio::Mount>) {
-        unsafe {
-            ffi::gnome_cmd_con_device_set_gmount(self.to_glib_none().0, mount.to_glib_none().0)
-        }
+        self.private().mount = mount.map(Clone::clone);
     }
 
     pub fn volume(&self) -> Option<gio::Volume> {
-        unsafe { from_glib_none(ffi::gnome_cmd_con_device_get_gvolume(self.to_glib_none().0)) }
+        self.private().volume.clone()
     }
 
     pub fn set_volume(&self, volume: Option<&gio::Volume>) {
-        unsafe {
-            ffi::gnome_cmd_con_device_set_gvolume(self.to_glib_none().0, volume.to_glib_none().0);
-        }
+        self.private().volume = volume.map(Clone::clone);
     }
 }
 
@@ -238,4 +219,60 @@ impl ConnectionInterface for ConnectionDevice {
     fn open_icon(&self) -> Option<gio::Icon> {
         self.icon()
     }
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_device_get_autovol(dev: *mut ffi::GnomeCmdConDevice) -> gboolean {
+    let con: Borrowed<ConnectionDevice> = unsafe { from_glib_borrow(dev) };
+    con.autovol().into_glib()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_device_get_device_fn(
+    dev: *mut ffi::GnomeCmdConDevice,
+) -> *mut c_char {
+    let con: Borrowed<ConnectionDevice> = unsafe { from_glib_borrow(dev) };
+    con.device_fn().to_glib_full()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_device_get_mountp_string(
+    dev: *mut ffi::GnomeCmdConDevice,
+) -> *mut c_char {
+    let con: Borrowed<ConnectionDevice> = unsafe { from_glib_borrow(dev) };
+    con.mountp_string().to_glib_full()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_device_get_gmount(dev: *mut ffi::GnomeCmdConDevice) -> *mut GMount {
+    let con: Borrowed<ConnectionDevice> = unsafe { from_glib_borrow(dev) };
+    con.mount().to_glib_none().0
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_device_set_gmount(
+    dev: *mut ffi::GnomeCmdConDevice,
+    mount: *mut GMount,
+) {
+    let con: Borrowed<ConnectionDevice> = unsafe { from_glib_borrow(dev) };
+    let mount: Borrowed<Option<gio::Mount>> = unsafe { from_glib_borrow(mount) };
+    con.set_mount((*mount).as_ref());
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_device_get_gvolume(
+    dev: *mut ffi::GnomeCmdConDevice,
+) -> *mut GVolume {
+    let con: Borrowed<ConnectionDevice> = unsafe { from_glib_borrow(dev) };
+    con.volume().to_glib_none().0
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_device_set_gvolume(
+    dev: *mut ffi::GnomeCmdConDevice,
+    volume: *mut GVolume,
+) {
+    let con: Borrowed<ConnectionDevice> = unsafe { from_glib_borrow(dev) };
+    let volume: Borrowed<Option<gio::Volume>> = unsafe { from_glib_borrow(volume) };
+    con.set_volume((*volume).as_ref());
 }
