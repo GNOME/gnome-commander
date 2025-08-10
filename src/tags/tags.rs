@@ -83,6 +83,10 @@ mod imp {
 
             self.plugins_changed();
         }
+
+        fn dispose(&self) {
+            self.extractors.borrow_mut().clear();
+        }
     }
 
     impl FileMetadataService {

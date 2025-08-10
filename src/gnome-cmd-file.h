@@ -54,7 +54,6 @@ struct GnomeCmdFile
     gchar *GetPathStringThroughParent();
     gchar *get_real_path();
     gchar *get_dirname();
-    gchar *get_unescaped_dirname();
 
     gchar *get_uri_str();
 
@@ -73,11 +72,6 @@ struct GnomeCmdFile
     guint32 GetGfileAttributeUInt32(const char *attribute);
     guint64 GetGfileAttributeUInt64(const char *attribute);
     gchar *GetGfileAttributeString(const char *attribute);
-    gchar *GetDefaultApplicationNameString();
-    gchar *GetContentType();
-    gchar *get_default_application_action_label(GAppInfo *gAppInfo);
-    gchar *get_default_application_name(GAppInfo *gAppInfo);
-    GAppInfo *GetAppInfoForContentType();
 };
 
 struct GnomeCmdFileClass
@@ -124,8 +118,6 @@ extern "C" gchar *gnome_cmd_file_get_path_string_through_parent (GnomeCmdFile *f
 extern "C" gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f);
 extern "C" gboolean gnome_cmd_file_is_local (GnomeCmdFile *f);
 extern "C" GnomeCmdCon *gnome_cmd_file_get_connection (GnomeCmdFile *f);
-
-extern "C" gchar *gnome_cmd_file_get_free_space (GnomeCmdFile *f);
 
 GList *gnome_cmd_file_list_copy (GList *files);
 void gnome_cmd_file_list_free (GList *files);

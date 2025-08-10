@@ -738,20 +738,3 @@ gboolean gnome_cmd_con_is_local (GnomeCmdCon *con)
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
     return con->is_local;
 }
-
-
-// Bookmark
-
-gchar *gnome_cmd_bookmark_get_name (GnomeCmdBookmark *bookmark)
-{
-    gchar *name;
-    g_object_get(bookmark, "name", &name, nullptr);
-    return name;
-}
-
-gchar *gnome_cmd_bookmark_get_path (GnomeCmdBookmark *bookmark)
-{
-    gchar *path;
-    g_object_get(bookmark, "path", &path, nullptr);
-    return path;
-}

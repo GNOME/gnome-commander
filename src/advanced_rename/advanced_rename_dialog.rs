@@ -963,7 +963,9 @@ mod imp {
         fn unset(&self) {
             self.files_view.set_model(gtk::TreeModel::NONE);
             self.files.clear();
-            self.config().save();
+            if let Err(error) = self.config().save() {
+                eprintln!("Failed to save a configuration: {error}");
+            }
         }
     }
 

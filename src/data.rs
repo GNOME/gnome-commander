@@ -126,16 +126,16 @@ pub trait GeneralOptionsWrite {
 
     fn set_bookmarks(&self, bookmarks: &[BookmarkVariant]) -> WriteResult;
 
-    fn set_symlink_format(&self, symlink_format: &str);
+    fn set_symlink_format(&self, symlink_format: &str) -> WriteResult;
 
     fn set_use_trash(&self, use_trash: bool) -> WriteResult;
 
-    fn set_keybindings(&self, keybindings: &glib::Variant);
+    fn set_keybindings(&self, keybindings: &glib::Variant) -> WriteResult;
 
     fn set_always_show_tabs(&self, always_show_tabs: bool) -> WriteResult;
     fn set_tab_lock_indicator(&self, tab_lock_indicator: TabLockIndicator) -> WriteResult;
 
-    fn set_file_list_tabs(&self, tabs: &[TabVariant]);
+    fn set_file_list_tabs(&self, tabs: &[TabVariant]) -> WriteResult;
 
     fn set_list_font(&self, value: &str) -> WriteResult;
     fn set_list_row_height(&self, value: u32) -> WriteResult;
@@ -470,16 +470,16 @@ impl GeneralOptionsWrite for GeneralOptions {
         self.0.set_value("bookmarks", &bookmarks.to_variant())
     }
 
-    fn set_symlink_format(&self, symlink_format: &str) {
-        self.0.set_string("symlink-string", symlink_format);
+    fn set_symlink_format(&self, symlink_format: &str) -> WriteResult {
+        self.0.set_string("symlink-string", symlink_format)
     }
 
     fn set_use_trash(&self, use_trash: bool) -> WriteResult {
         self.0.set_boolean("delete-to-trash", use_trash)
     }
 
-    fn set_keybindings(&self, keybindings: &glib::Variant) {
-        self.0.set_value("keybindings", keybindings);
+    fn set_keybindings(&self, keybindings: &glib::Variant) -> WriteResult {
+        self.0.set_value("keybindings", keybindings)
     }
 
     fn set_always_show_tabs(&self, always_show_tabs: bool) -> WriteResult {
@@ -491,8 +491,8 @@ impl GeneralOptionsWrite for GeneralOptions {
             .set_enum("tab-lock-indicator", tab_lock_indicator as i32)
     }
 
-    fn set_file_list_tabs(&self, tabs: &[TabVariant]) {
-        self.0.set("file-list-tabs", tabs);
+    fn set_file_list_tabs(&self, tabs: &[TabVariant]) -> WriteResult {
+        self.0.set("file-list-tabs", tabs)
     }
 
     fn set_command_line_history(&self, values: &[String]) -> WriteResult {
@@ -1169,7 +1169,7 @@ pub trait NetworkOptionsRead {
 }
 
 pub trait NetworkOptionsWrite {
-    fn set_quick_connect_uri(&self, uri: &str);
+    fn set_quick_connect_uri(&self, uri: &str) -> WriteResult;
 }
 
 impl NetworkOptions {
@@ -1187,8 +1187,8 @@ impl NetworkOptionsRead for NetworkOptions {
 }
 
 impl NetworkOptionsWrite for NetworkOptions {
-    fn set_quick_connect_uri(&self, uri: &str) {
-        self.0.set_string("quick-connect-uri", uri);
+    fn set_quick_connect_uri(&self, uri: &str) -> WriteResult {
+        self.0.set_string("quick-connect-uri", uri)
     }
 }
 

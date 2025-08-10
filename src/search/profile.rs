@@ -138,8 +138,6 @@ pub struct SearchProfileVariant {
     pub text_pattern: String,
 }
 
-pub type SearchProfilePtr = <SearchProfile as glib::object::ObjectType>::GlibType;
-
 #[cfg(test)]
 mod test {
     use super::*;

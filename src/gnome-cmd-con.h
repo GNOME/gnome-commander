@@ -185,5 +185,3 @@ GnomeCmdDir *gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri);
 
 
 extern "C" GType gnome_cmd_bookmark_get_type ();
-gchar *gnome_cmd_bookmark_get_name (GnomeCmdBookmark *bookmark);
-gchar *gnome_cmd_bookmark_get_path (GnomeCmdBookmark *bookmark);

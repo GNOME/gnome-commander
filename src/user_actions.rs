@@ -1406,7 +1406,9 @@ pub fn connections_new(
             }
             fs.file_list().set_connection(&connection, None);
             if let Some(quick_connect_uri) = connection.uri().map(|uri| uri.to_str()) {
-                options.set_quick_connect_uri(&quick_connect_uri);
+                if let Err(error) = options.set_quick_connect_uri(&quick_connect_uri) {
+                    eprintln!("Failed to save quick connect parameters: {error}");
+                }
             }
         }
     });

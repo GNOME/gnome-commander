@@ -44,6 +44,10 @@
 using namespace std;
 
 
+extern "C" GObject *create_plugin ();
+extern "C" GnomeCmdPluginInfo *get_plugin_info ();
+
+
 #define GNOME_CMD_TYPE_TAGLIB_PLUGIN (gnome_cmd_taglib_plugin_get_type ())
 G_DECLARE_FINAL_TYPE (GnomeCmdTaglibPlugin, gnome_cmd_taglib_plugin, GNOME_CMD, TAGLIB_PLUGIN, GObject)
 
@@ -738,13 +742,13 @@ static void gnome_cmd_taglib_plugin_init (GnomeCmdTaglibPlugin *plugin)
 }
 
 
-extern "C" GObject *create_plugin ()
+GObject *create_plugin ()
 {
     return G_OBJECT (g_object_new (GNOME_CMD_TYPE_TAGLIB_PLUGIN, NULL));
 }
 
 
-extern "C" GnomeCmdPluginInfo *get_plugin_info ()
+GnomeCmdPluginInfo *get_plugin_info ()
 {
     static const char *authors[] = {
         "Andrey Kutejko <andy128k@gmail.com>",

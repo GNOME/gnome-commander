@@ -471,22 +471,6 @@ gchar *GnomeCmdFile::get_dirname()
 }
 
 
-GAppInfo *GnomeCmdFile::GetAppInfoForContentType()
-{
-    auto contentTypeString = GetContentType();
-    GAppInfo *appInfo = nullptr;
-
-    if (g_file_has_uri_scheme(this->get_file(), "file"))
-        appInfo = g_app_info_get_default_for_type (contentTypeString, false);
-    else
-        appInfo = g_app_info_get_default_for_type (contentTypeString, true);
-
-    g_free(contentTypeString);
-
-    return appInfo;
-}
-
-
 gboolean GnomeCmdFile::GetGfileAttributeBoolean(const char *attribute)
 {
     return get_gfile_attribute_boolean(this->get_file_info(), attribute);
@@ -508,54 +492,6 @@ guint32 GnomeCmdFile::GetGfileAttributeUInt32(const char *attribute)
 guint64 GnomeCmdFile::GetGfileAttributeUInt64(const char *attribute)
 {
     return get_gfile_attribute_uint64(this->get_file_info(), attribute);
-}
-
-
-gchar *GnomeCmdFile::GetContentType()
-{
-    auto contentType = GetGfileAttributeString (G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
-
-    if (!contentType)
-        contentType = GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
-
-    return contentType;
-}
-
-
-gchar *GnomeCmdFile::GetDefaultApplicationNameString()
-{
-    auto contentType = GetContentType();
-
-    if (!contentType)
-        return nullptr;
-
-    auto appInfo = g_app_info_get_default_for_type (contentType, false);
-
-    g_free(contentType);
-    return g_strdup(g_app_info_get_name (appInfo));
-}
-
-
-gchar *GnomeCmdFile::get_default_application_action_label(GAppInfo *gAppInfo)
-{
-    gchar *escaped_app_name = get_default_application_name (gAppInfo);
-    if (escaped_app_name == nullptr)
-    {
-        return g_strdup (_("_Open"));
-    }
-
-    gchar *retval = g_strdup_printf (_("_Open with “%s”"), escaped_app_name);
-    g_free (escaped_app_name);
-
-    return retval;
-}
-
-
-gchar *GnomeCmdFile::get_default_application_name(GAppInfo *gAppInfo)
-{
-    gchar *escaped_app_name = string_double_underscores (g_app_info_get_name (gAppInfo));
-
-    return escaped_app_name;
 }
 
 
@@ -723,30 +659,6 @@ gboolean gnome_cmd_file_chown(GnomeCmdFile *f, uid_t uid, gid_t gid, GError **er
 gboolean gnome_cmd_file_chmod(GnomeCmdFile *f, guint32 permissions, GError **error)
 {
     return f->chmod(permissions, error);
-}
-
-gchar *gnome_cmd_file_get_free_space (GnomeCmdFile *f)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_FILE (f), NULL);
-
-    GError *error = nullptr;
-    auto gFileInfo = g_file_query_filesystem_info (f->get_file(),
-                              G_FILE_ATTRIBUTE_FILESYSTEM_FREE,
-                              nullptr,
-                              &error);
-    if (error)
-    {
-        g_warning("Could not g_file_query_filesystem_info %s: %s\n",
-            g_file_peek_path(f->get_file()), error->message);
-        g_error_free(error);
-        return nullptr;
-    }
-
-    auto freeSpace = g_file_info_get_attribute_uint64(gFileInfo, G_FILE_ATTRIBUTE_FILESYSTEM_FREE);
-
-    g_object_unref(gFileInfo);
-
-    return g_format_size (freeSpace);
 }
 
 gboolean gnome_cmd_file_is_dotdot(GnomeCmdFile *f)

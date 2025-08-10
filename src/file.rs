@@ -25,7 +25,7 @@ use crate::{
         connection::{Connection, ConnectionExt},
         list::ConnectionList,
     },
-    data::{ProgramsOptions, ProgramsOptionsRead},
+    data::ProgramsOptionsRead,
     dir::Directory,
     libgcmd::file_descriptor::{FileDescriptor, FileDescriptorExt},
     path::GnomeCmdPath,
@@ -37,7 +37,7 @@ use gtk::{
 };
 use libc::{gid_t, uid_t};
 use std::{
-    ffi::{c_int, CString, OsString},
+    ffi::{CString, OsString},
     path::{Path, PathBuf},
     ptr,
 };
@@ -403,37 +403,5 @@ pub trait GnomeCmdFileExt {
 impl GnomeCmdFileExt for File {
     fn connection(&self) -> Connection {
         unsafe { from_glib_none(ffi::gnome_cmd_file_get_connection(self.to_glib_none().0)) }
-    }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_execute(
-    file_ptr: *const ffi::GnomeCmdFile,
-    error: *mut *mut glib::ffi::GError,
-) -> c_int {
-    let file: File = unsafe { from_glib_none(file_ptr) };
-    let options = ProgramsOptions::new();
-
-    let result = file.execute(&options);
-    match result {
-        Ok(_) => 0,
-        Err(SpawnError::InvalidTemplate) => {
-            unsafe {
-                *error = std::ptr::null_mut();
-            }
-            1
-        }
-        Err(SpawnError::InvalidCommand(e)) => {
-            unsafe {
-                *error = e.into_glib_ptr();
-            }
-            2
-        }
-        Err(SpawnError::Failure(e)) => {
-            unsafe {
-                *error = glib::Error::new(glib::FileError::Failed, &e.to_string()).into_glib_ptr();
-            }
-            3
-        }
     }
 }
