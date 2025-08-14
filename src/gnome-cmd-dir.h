@@ -69,15 +69,9 @@ extern "C" GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, 
 extern "C" GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con);
 extern "C" GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean isStartup = false);
 extern "C" GnomeCmdDir *gnome_cmd_dir_get_parent (GnomeCmdDir *dir);
-GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child);
-
-extern "C" GnomeCmdDir::State gnome_cmd_dir_get_state (GnomeCmdDir *dir);
-
-extern "C" void gnome_cmd_dir_relist_files (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visprog);
-extern "C" void gnome_cmd_dir_list_files (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visprog);
+extern "C" GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child);
 
 extern "C" GnomeCmdPath *gnome_cmd_dir_get_path (GnomeCmdDir *dir);
-extern "C" void gnome_cmd_dir_update_path (GnomeCmdDir *dir);
 
 GFile       *gnome_cmd_dir_get_gfile (GnomeCmdDir *dir);
 
@@ -85,16 +79,5 @@ gchar *gnome_cmd_dir_get_relative_path_string(const char* childPathString, const
 GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gchar *filename);
 extern "C" GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename);
 
-extern "C" GnomeCmdDir *gnome_cmd_dir_get_existing_parent(GnomeCmdDir *dir);
-
-extern "C" void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str);
-extern "C" void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *uri_str);
-extern "C" void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str);
-
-extern "C" void gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir);
-extern "C" void gnome_cmd_dir_cancel_monitoring (GnomeCmdDir *dir);
-extern "C" gboolean gnome_cmd_dir_is_monitored (GnomeCmdDir *dir);
-
 extern "C" gboolean gnome_cmd_dir_update_mtime (GnomeCmdDir *dir);
-extern "C" gboolean gnome_cmd_dir_needs_mtime_update (GnomeCmdDir *dir);
 extern "C" void gnome_cmd_dir_set_needs_mtime_update (GnomeCmdDir *dir, gboolean value);

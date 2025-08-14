@@ -1456,19 +1456,6 @@ pub fn connections_set_current(
 }
 
 fn close_connection(main_win: &MainWindow, con: &Connection) {
-    let active = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
-    let inactive = main_win.file_selector(FileSelectorID::INACTIVE).file_list();
-
-    let home = ConnectionList::get().home();
-
-    if active.connection().as_ref() == Some(con) {
-        active.set_connection(&home, None);
-    }
-
-    if inactive.connection().as_ref() == Some(con) {
-        inactive.set_connection(&home, None);
-    }
-
     con.close(Some(main_win.upcast_ref()));
 }
 

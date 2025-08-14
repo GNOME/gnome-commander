@@ -88,17 +88,6 @@ gchar *unquote_if_needed (const gchar *in)
 }
 
 
-void set_cursor_busy_for_widget (GtkWidget *widget)
-{
-    static GdkCursor *cursor_busy = NULL;
-
-    if (!cursor_busy)
-        cursor_busy = gdk_cursor_new_from_name ("wait", nullptr);
-
-    gtk_widget_set_cursor (widget, cursor_busy);
-}
-
-
 static GtkWidget *create_error_message_dialog (GtkWindow *parent, const gchar *message, const gchar *secondary_text)
 {
     GtkWidget *dlg = gtk_message_dialog_new (parent, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "%s", message);

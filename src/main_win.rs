@@ -1419,7 +1419,9 @@ impl MainWindow {
         }
 
         state.source_file_list.reload().await;
-        dir.relist_files(self.upcast_ref(), false).await;
+        if let Err(error) = dir.relist_files(self.upcast_ref(), false).await {
+            error.show(self.upcast_ref()).await;
+        }
         self.focus_file_lists();
     }
 }

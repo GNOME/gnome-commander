@@ -763,6 +763,9 @@ impl FileSelector {
                 connection.dir_history().add(path.to_owned());
             }
         }
+
+        self.imp().update_tab_label(fl);
+
         if self.current_file_list().as_ref() != Some(fl) {
             return;
         }
@@ -774,7 +777,6 @@ impl FileSelector {
             return;
         }
 
-        self.imp().update_tab_label(fl);
         self.update_files();
         self.imp().update_selected_files_label();
 

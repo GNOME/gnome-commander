@@ -63,6 +63,7 @@ src/dialogs/shortcuts/shortcut_dialog.rs
 src/dialogs/shortcuts/shortcuts_dialog.rs
 src/dialogs/transfer_progress_dialog.rs
 src/dirlist.rs
+src/dir.rs
 src/file_edit.rs
 src/file_list/actions.rs
 src/file_list/list.rs
@@ -76,7 +77,6 @@ src/gnome-cmd-con-device.cc
 src/gnome-cmd-con-home.cc
 src/gnome-cmd-con-remote.cc
 src/gnome-cmd-con-smb.cc
-src/gnome-cmd-file-list.cc
 src/gnome-cmd-xfer.cc
 src/intviewer/search_dialog.rs
 src/intviewer/search_progress_dialog.rs

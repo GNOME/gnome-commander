@@ -233,16 +233,21 @@ async fn confirm_delete_directory(
     }
 }
 
+fn deletion_problem(filename: &str, error: &glib::Error) -> ErrorMessage {
+    ErrorMessage::with_error(
+        gettext("Error while deleting “{file}”").replace("{file}", filename),
+        error,
+    )
+}
+
 async fn ask_delete_problem_action(
     parent_window: &gtk::Window,
-    filename: &str,
-    error: &glib::Error,
+    problem: &ErrorMessage,
 ) -> DeleteErrorAction {
-    let msg = gettext("Error while deleting “{file}”").replace("{file}", filename);
     let action = gtk::AlertDialog::builder()
         .modal(true)
-        .message(msg)
-        .detail(error.message())
+        .message(&problem.message)
+        .detail(problem.secondary_text.as_deref().unwrap_or_default())
         .buttons([gettext("Abort"), gettext("Retry"), gettext("Skip")])
         .cancel_button(0)
         .build()
@@ -257,7 +262,7 @@ async fn ask_delete_problem_action(
 
 enum DeleteBreak {
     Abort,
-    Error(glib::Error),
+    Error(ErrorMessage),
 }
 
 type DeleteResult = std::ops::ControlFlow<DeleteBreak, ()>;
@@ -291,7 +296,9 @@ async fn perform_delete_operation_one(delete_data: &mut DeleteData, file: &File)
         }
         Err(error) if error.matches(gio::IOErrorEnum::NotEmpty) => {
             let dir = file.downcast_ref::<Directory>().unwrap();
-            dir.list_files(&delete_data.parent_window, false).await;
+            if let Err(problem) = dir.list_files(&delete_data.parent_window, false).await {
+                return handle_delete_problem(delete_data, file, problem).await;
+            }
 
             for child in dir.files().iter::<File>().flatten() {
                 Box::pin(perform_delete_operation_one(delete_data, &child)).await?;
@@ -304,18 +311,23 @@ async fn perform_delete_operation_one(delete_data: &mut DeleteData, file: &File)
         }
         Err(error) => {
             eprintln!("Failed to delete {}: {}", filename, error.message());
-
-            let problem_action =
-                ask_delete_problem_action(&delete_data.parent_window, &filename, &error).await;
-
-            return match problem_action {
-                DeleteErrorAction::Abort => DeleteResult::Break(DeleteBreak::Abort),
-                DeleteErrorAction::Retry => {
-                    Box::pin(perform_delete_operation_one(delete_data, file)).await
-                }
-                DeleteErrorAction::Skip => DeleteResult::Break(DeleteBreak::Error(error)),
-            };
+            let problem = deletion_problem(&filename, &error);
+            return handle_delete_problem(delete_data, file, problem).await;
         }
+    }
+}
+
+async fn handle_delete_problem(
+    delete_data: &mut DeleteData,
+    file: &File,
+    problem: ErrorMessage,
+) -> DeleteResult {
+    let problem_action = ask_delete_problem_action(&delete_data.parent_window, &problem).await;
+
+    match problem_action {
+        DeleteErrorAction::Abort => DeleteResult::Break(DeleteBreak::Abort),
+        DeleteErrorAction::Retry => Box::pin(perform_delete_operation_one(delete_data, file)).await,
+        DeleteErrorAction::Skip => DeleteResult::Break(DeleteBreak::Error(problem)),
     }
 }
 
@@ -388,10 +400,8 @@ async fn do_delete(
     let result = perform_delete_operation(&mut delete_data, files).await;
 
     match result {
-        DeleteResult::Break(DeleteBreak::Error(error)) => {
-            ErrorMessage::with_error(gettext("Deletion failed"), &error)
-                .show(&delete_data.parent_window)
-                .await
+        DeleteResult::Break(DeleteBreak::Error(error_message)) => {
+            error_message.show(&delete_data.parent_window).await
         }
         DeleteResult::Break(DeleteBreak::Abort) => {}
         DeleteResult::Continue(()) => {}

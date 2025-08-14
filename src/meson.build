@@ -7,7 +7,6 @@ sources_headers = files(
   'gnome-cmd-con-smb.h',
   'gnome-cmd-dir.h',
   'gnome-cmd-file.h',
-  'gnome-cmd-file-list.h',
   'gnome-cmd-includes.h',
   'gnome-cmd-main-win.h',
   'gnome-cmd-path.h',
@@ -25,7 +24,6 @@ sources_sources = files(
   'gnome-cmd-con-smb.cc',
   'gnome-cmd-dir.cc',
   'gnome-cmd-file.cc',
-  'gnome-cmd-file-list.cc',
   'gnome-cmd-xfer.cc',
   'utils.cc',
 )
