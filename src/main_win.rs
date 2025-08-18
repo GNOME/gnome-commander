@@ -780,7 +780,7 @@ pub mod imp {
             if file_list.connection().map_or(false, |c| c.is_local()) {
                 let working_directory = file_list
                     .directory()
-                    .map(|d| d.upcast_ref::<File>().get_real_path());
+                    .and_then(|d| d.upcast_ref::<File>().get_real_path());
 
                 let command: OsString = command.into();
                 let options = ProgramsOptions::new();

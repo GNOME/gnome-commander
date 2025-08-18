@@ -66,18 +66,10 @@ struct GnomeCmdDirClass
 struct GnomeCmdCon;
 
 extern "C" GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir *parent);
-extern "C" GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con);
 extern "C" GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean isStartup = false);
-extern "C" GnomeCmdDir *gnome_cmd_dir_get_parent (GnomeCmdDir *dir);
-extern "C" GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child);
 
 extern "C" GnomeCmdPath *gnome_cmd_dir_get_path (GnomeCmdDir *dir);
-
-GFile       *gnome_cmd_dir_get_gfile (GnomeCmdDir *dir);
 
 gchar *gnome_cmd_dir_get_relative_path_string(const char* childPathString, const char* basePath);
 GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gchar *filename);
 extern "C" GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename);
-
-extern "C" gboolean gnome_cmd_dir_update_mtime (GnomeCmdDir *dir);
-extern "C" void gnome_cmd_dir_set_needs_mtime_update (GnomeCmdDir *dir, gboolean value);

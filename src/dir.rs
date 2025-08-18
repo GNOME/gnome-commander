@@ -21,7 +21,7 @@
  */
 
 use crate::{
-    connection::connection::{ffi::GnomeCmdCon, Connection},
+    connection::connection::{ffi::GnomeCmdCon, Connection, ConnectionExt},
     debug::debug,
     dirlist::list_directory,
     file::{ffi::GnomeCmdFile, File, GnomeCmdFileExt},
@@ -38,11 +38,11 @@ use gtk::{
     glib::{
         self,
         ffi::{gboolean, GError},
-        translate::{from_glib_borrow, from_glib_full, from_glib_none, Borrowed, ToGlibPtr},
+        translate::{from_glib_borrow, from_glib_full, Borrowed, ToGlibPtr},
     },
     prelude::*,
 };
-use std::{ffi::c_char, path::Path, sync::LazyLock};
+use std::{path::Path, sync::LazyLock};
 
 pub mod ffi {
     use crate::{connection::connection::ffi::GnomeCmdCon, path::GnomeCmdPath};
@@ -71,20 +71,10 @@ pub mod ffi {
             is_startup: gboolean,
         ) -> *mut GnomeCmdDir;
 
-        pub fn gnome_cmd_dir_new_with_con(con: *mut GnomeCmdCon) -> *mut GnomeCmdDir;
-        pub fn gnome_cmd_dir_get_child(
-            dir: *mut GnomeCmdDir,
-            child: *const c_char,
-        ) -> *mut GnomeCmdDir;
-
-        pub fn gnome_cmd_dir_get_parent(dir: *mut GnomeCmdDir) -> *mut GnomeCmdDir;
-
         pub fn gnome_cmd_dir_get_child_gfile(
             dir: *mut GnomeCmdDir,
             filename: *const c_char,
         ) -> *mut GFile;
-
-        pub fn gnome_cmd_dir_update_mtime(dir: *mut GnomeCmdDir) -> gboolean;
     }
 
     #[derive(Copy, Clone)]
@@ -183,7 +173,19 @@ impl Directory {
     }
 
     pub fn new_with_con(connection: &Connection) -> Option<Self> {
-        unsafe { from_glib_full(ffi::gnome_cmd_dir_new_with_con(connection.to_glib_none().0)) }
+        let base_file_info = connection.base_file_info()?;
+        let base_path = connection.base_path()?;
+
+        let path = connection.is_local().then(|| base_path.path());
+        let file = connection.create_gfile(path.as_deref());
+
+        match Self::find_or_create(&connection, &file, Some(&base_file_info), base_path.clone()) {
+            Ok(directory) => Some(directory),
+            Err(error) => {
+                eprintln!("Directory::new_with_con error on {}: {}", file.uri(), error);
+                None
+            }
+        }
     }
 
     fn new_impl(
@@ -225,16 +227,17 @@ impl Directory {
     }
 
     pub fn parent(&self) -> Option<Directory> {
-        unsafe { from_glib_full(ffi::gnome_cmd_dir_get_parent(self.to_glib_none().0)) }
+        if let Some(path) = self.path().parent() {
+            Some(Directory::new(&self.connection(), path))
+        } else {
+            None
+        }
     }
 
     pub fn child(&self, name: &Path) -> Option<Directory> {
-        unsafe {
-            from_glib_full(ffi::gnome_cmd_dir_get_child(
-                self.to_glib_none().0,
-                name.to_glib_none().0,
-            ))
-        }
+        let connection = self.connection();
+        let path = self.path().child(name);
+        Some(Directory::new(&connection, path))
     }
 
     pub fn display_path(&self) -> String {
@@ -443,8 +446,35 @@ impl Directory {
         self.private().needs_mtime_update = value;
     }
 
+    /// This function also determines if cached dir is up-to-date (false=yes)
     pub fn update_mtime(&self) -> bool {
-        unsafe { ffi::gnome_cmd_dir_update_mtime(self.to_glib_none().0) != 0 }
+        let file_info = self.file_info();
+
+        let current_time = self
+            .file()
+            .query_info(
+                gio::FILE_ATTRIBUTE_TIME_MODIFIED,
+                gio::FileQueryInfoFlags::NONE,
+                gio::Cancellable::NONE,
+            )
+            .ok()
+            .and_then(|fi| fi.modification_date_time());
+
+        let cached_time = file_info.modification_date_time();
+
+        let result = match (cached_time, current_time) {
+            (Some(cached_time), Some(current_time)) if current_time != cached_time => {
+                // cache is not up-to-date
+                self.file_info().set_modification_date_time(&current_time);
+                true
+            }
+            _ => false,
+        };
+
+        // after this function we are sure dir's mtime is up-to-date
+        self.set_needs_mtime_update(false);
+
+        result
     }
 
     pub fn start_monitoring(&self) {
@@ -555,15 +585,6 @@ fn create_file_from_file_info(file_info: &gio::FileInfo, parent: &Directory) -> 
     } else {
         Some(File::new(&file_info, parent))
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_dir_set_needs_mtime_update(
-    dir: *mut ffi::GnomeCmdDir,
-    value: gboolean,
-) {
-    let dir: Borrowed<Directory> = unsafe { from_glib_borrow(dir) };
-    dir.set_needs_mtime_update(value != 0);
 }
 
 #[no_mangle]

@@ -1494,7 +1494,7 @@ mod imp {
                 .obj()
                 .directory()
                 .and_upcast::<File>()
-                .map(|d| d.get_real_path())
+                .and_then(|d| d.get_real_path())
             {
                 self.add_to_cmdline(path);
             }
@@ -1503,7 +1503,9 @@ mod imp {
         fn add_file_to_cmdline(&self, fullpath: bool) {
             if let Some(file) = self.obj().selected_file() {
                 if fullpath {
-                    self.add_to_cmdline(file.get_real_path());
+                    if let Some(path) = file.get_real_path() {
+                        self.add_to_cmdline(path);
+                    }
                 } else {
                     self.add_to_cmdline(file.get_name());
                 }

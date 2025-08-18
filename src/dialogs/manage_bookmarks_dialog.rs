@@ -562,7 +562,11 @@ pub async fn bookmark_directory(
     let path = if is_local {
         file.get_real_path()
     } else {
-        file.get_path_string_through_parent()
+        Some(file.get_path_string_through_parent())
+    };
+    let Some(path) = path else {
+        eprintln!("Failed to get path for bookmarking");
+        return;
     };
 
     let Some(path_str) = path.to_str() else {

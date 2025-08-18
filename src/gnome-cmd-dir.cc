@@ -205,33 +205,6 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
 }
 
 
-GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    GFileInfo *con_base_file_info = gnome_cmd_con_get_base_file_info (con);
-    g_return_val_if_fail (con_base_file_info != nullptr, nullptr);
-
-    gchar *path = gnome_cmd_con_is_local (con)
-        ? gnome_cmd_path_get_path (gnome_cmd_con_get_base_path(con))
-        : nullptr;
-
-    auto gFile = gnome_cmd_con_create_gfile (con, path);
-    g_free (path);
-
-    GError *error = nullptr;
-    auto dir = gnome_cmd_dir_find_or_create (con, gFile, con_base_file_info, gnome_cmd_path_clone (gnome_cmd_con_get_base_path (con)), &error);
-    if (!dir)
-    {
-        auto uriString = g_file_get_uri(gFile);
-        g_warning("gnome_cmd_dir_new_with_con error on %s: %s", uriString, error->message);
-        g_free (uriString);
-        g_error_free(error);
-        return nullptr;
-    }
-    return dir;
-}
-
-
 GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean isStartup)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
@@ -259,40 +232,6 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
         return nullptr;
     }
     return gnomeCmdDir;
-}
-
-
-GnomeCmdDir *gnome_cmd_dir_get_parent (GnomeCmdDir *dir)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
-    auto con = dir_get_connection (GNOME_CMD_FILE (dir));
-
-    GnomeCmdPath *self_path = gnome_cmd_dir_get_path (dir);
-    GnomeCmdPath *path = gnome_cmd_path_get_parent (self_path);
-    gnome_cmd_path_free (self_path);
-
-    return path ? gnome_cmd_dir_new (con, path) : nullptr;
-}
-
-
-GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
-    auto con = dir_get_connection (GNOME_CMD_FILE (dir));
-
-    GnomeCmdPath *self_path = gnome_cmd_dir_get_path (dir);
-    GnomeCmdPath *path = gnome_cmd_path_get_child (self_path, child);
-    gnome_cmd_path_free (self_path);
-
-    return path ? gnome_cmd_dir_new (con, path) : nullptr;
-}
-
-
-GFile *gnome_cmd_dir_get_gfile (GnomeCmdDir *dir)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
-
-    return GNOME_CMD_FILE(dir)->get_file();
 }
 
 
@@ -425,35 +364,4 @@ GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename)
     g_free (path_str);
 
     return gFile;
-}
-
-
-gboolean gnome_cmd_dir_update_mtime (GnomeCmdDir *dir)
-{
-    // this function also determines if cached dir is up-to-date (FALSE=yes)
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), FALSE);
-
-    // assume cache is updated
-    gboolean returnValue = FALSE;
-
-    auto uri              = gnome_cmd_file_get_uri_str(GNOME_CMD_FILE(dir));
-    auto tempGFile        = g_file_new_for_uri(uri);
-    auto gFileInfoCurrent = g_file_query_info(tempGFile, G_FILE_ATTRIBUTE_TIME_MODIFIED, G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
-    auto currentMTime     = g_file_info_get_modification_date_time(gFileInfoCurrent);
-
-    auto cachedMTime = g_file_info_get_modification_date_time(GNOME_CMD_FILE(dir)->get_file_info());
-    g_free(uri);
-    g_object_unref(gFileInfoCurrent);
-
-    if (currentMTime && cachedMTime && g_date_time_compare(cachedMTime, currentMTime))
-    {
-        // cache is not up-to-date
-        g_file_info_set_modification_date_time(GNOME_CMD_FILE (dir)->get_file_info(), currentMTime);
-        returnValue = TRUE;
-    }
-
-    // after this function we are sure dir's mtime is up-to-date
-    gnome_cmd_dir_set_needs_mtime_update (dir, FALSE);
-
-    return returnValue;
 }

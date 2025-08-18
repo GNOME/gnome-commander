@@ -246,8 +246,7 @@ impl PrepareTransferDialog {
         let mut dst: Option<String>;
         if !default_dest_dir.connection().is_local() {
             dst = single_source_file.map(|f| f.get_name());
-        } else {
-            let dst_path = default_dest_dir.upcast_ref::<File>().get_real_path();
+        } else if let Some(dst_path) = default_dest_dir.upcast_ref::<File>().get_real_path() {
             dst = Some(dst_path.to_string_lossy().to_string());
 
             if let Some(file) = single_source_file {
@@ -256,6 +255,8 @@ impl PrepareTransferDialog {
                     dst = Some(d.to_string_lossy().to_string());
                 }
             }
+        } else {
+            dst = None;
         }
 
         dialog.imp().src_files.set(src_files).ok().unwrap();

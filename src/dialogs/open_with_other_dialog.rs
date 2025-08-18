@@ -115,13 +115,17 @@ pub async fn show_open_with_other_dialog(
 
         let mut full_command = OsString::from(&command);
         for file in files {
-            full_command.push(" ");
-            full_command.push(&glib::shell_quote(file.get_real_path()));
+            if let Some(path) = file.get_real_path() {
+                full_command.push(" ");
+                full_command.push(&glib::shell_quote(path));
+            } else {
+                eprintln!("Failed to get real path for file: {}", file.get_name());
+            }
         }
 
         let working_directory = working_directory
             .as_ref()
-            .map(|w| w.upcast_ref::<File>().get_real_path());
+            .and_then(|w| w.upcast_ref::<File>().get_real_path());
         match run_command_indir(
             working_directory.as_deref(),
             &full_command,

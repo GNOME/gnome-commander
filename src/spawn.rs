@@ -94,8 +94,8 @@ pub fn parse_command_template(
                 }
                 'p' | 'P' | 's' => {
                     let raw = s == 'p';
-                    let paths =
-                        file_path.get_or_init(|| files.iter().map(|f| f.get_real_path()).collect());
+                    let paths = file_path
+                        .get_or_init(|| files.iter().filter_map(|f| f.get_real_path()).collect());
                     for (i, path) in paths.iter().enumerate() {
                         if i > 0 {
                             cmd.push(" ");
@@ -221,7 +221,9 @@ pub fn app_needs_terminal(file: &File) -> bool {
         .unwrap_or_default();
 
     if is_executable {
-        let app_path = file.get_real_path();
+        let Some(app_path) = file.get_real_path() else {
+            return true;
+        };
         match app_get_linked_libs(&app_path) {
             Ok(libs) => !libs.into_iter().any(|lib| lib.starts_with("libX11")),
             Err(error) => {

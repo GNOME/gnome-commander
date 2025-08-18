@@ -881,7 +881,7 @@ pub fn edit_copy_fnames(
     let names: Vec<String> = match mask {
         Some(gdk::ModifierType::SHIFT_MASK) => files
             .into_iter()
-            .map(|f| f.get_real_path())
+            .filter_map(|f| f.get_real_path())
             .map(|p| p.to_string_lossy().to_string())
             .collect(),
         Some(gdk::ModifierType::ALT_MASK) => files.into_iter().map(|f| f.get_uri_str()).collect(),

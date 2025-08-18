@@ -55,60 +55,8 @@ static void gnome_cmd_file_class_init (GnomeCmdFileClass *klass)
  * Public functions
  ***********************************/
 
-GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir)
-{
-    g_return_val_if_fail (gFileInfo != nullptr, nullptr);
-    g_return_val_if_fail (dir != nullptr, nullptr);
-
-    GFile *gFile = g_file_get_child (
-        gnome_cmd_file_descriptor_get_file (GNOME_CMD_FILE_DESCRIPTOR (dir)),
-        g_file_info_get_name (gFileInfo));
-
-    g_return_val_if_fail (gFile != nullptr, nullptr);
-
-    return gnome_cmd_file_new_full (gFileInfo, gFile, dir);
-}
-
-
-//ToDo: Try to remove usage of this method.
-gchar *GnomeCmdFile::get_real_path()
-{
-    auto gFileTmp = get_file();
-
-    if (!gFileTmp)
-        return nullptr;
-
-    gchar *path = g_file_get_path (gFileTmp);
-
-    return path;
-}
-
-
-gchar *GnomeCmdFile::get_uri_str()
-{
-    return g_file_get_uri(this->get_file());
-}
-
-gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f)
-{
-    g_return_val_if_fail (f != NULL, NULL);
-    return f->get_real_path();
-}
-
-gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f)
-{
-    g_return_val_if_fail (f != NULL, NULL);
-    return f->get_uri_str();
-}
-
 GnomeCmdCon *gnome_cmd_file_get_connection (GnomeCmdFile *f)
 {
     GnomeCmdFileClass *klass = GNOME_CMD_FILE_GET_CLASS (f);
     return klass->get_connection (f);
-}
-
-gboolean gnome_cmd_file_is_local (GnomeCmdFile *f)
-{
-    GnomeCmdCon *con = gnome_cmd_file_get_connection (f);
-    return gnome_cmd_con_is_local (con);
 }

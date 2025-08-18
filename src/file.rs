@@ -26,7 +26,7 @@ use crate::{
         list::ConnectionList,
     },
     data::{GeneralOptions, GeneralOptionsRead, ProgramsOptionsRead},
-    dir::{ffi::GnomeCmdDir, Directory},
+    dir::Directory,
     libgcmd::file_descriptor::{ffi::GnomeCmdFileDescriptor, FileDescriptor, FileDescriptorExt},
     path::GnomeCmdPath,
     spawn::{app_needs_terminal, run_command_indir, SpawnError},
@@ -52,7 +52,6 @@ pub mod ffi {
     use super::*;
     use crate::connection::connection::ffi::GnomeCmdCon;
     use gtk::glib::ffi::GType;
-    use std::ffi::c_char;
 
     #[repr(C)]
     pub struct GnomeCmdFile {
@@ -62,8 +61,6 @@ pub mod ffi {
 
     extern "C" {
         pub fn gnome_cmd_file_get_type() -> GType;
-
-        pub fn gnome_cmd_file_get_real_path(f: *const GnomeCmdFile) -> *mut c_char;
 
         pub fn gnome_cmd_file_get_connection(f: *mut GnomeCmdFile) -> *mut GnomeCmdCon;
     }
@@ -180,8 +177,8 @@ impl File {
         self.file_info().display_name().into()
     }
 
-    pub fn get_real_path(&self) -> PathBuf {
-        unsafe { from_glib_full(ffi::gnome_cmd_file_get_real_path(self.to_glib_none().0)) }
+    pub fn get_real_path(&self) -> Option<PathBuf> {
+        self.file().path()
     }
 
     pub fn get_path_through_parent(&self) -> GnomeCmdPath {
@@ -240,14 +237,11 @@ impl File {
     }
 
     pub fn execute(&self, options: &dyn ProgramsOptionsRead) -> Result<(), SpawnError> {
-        let path = self.get_real_path();
-        let working_directory = path.parent();
-
         let mut command = OsString::from("./");
         command.push(glib::shell_quote(self.file_info().display_name()));
 
         run_command_indir(
-            working_directory,
+            self.get_dirname().as_deref(),
             &command,
             app_needs_terminal(self),
             options,
@@ -440,18 +434,6 @@ impl GnomeCmdFileExt for File {
     fn connection(&self) -> Connection {
         unsafe { from_glib_none(ffi::gnome_cmd_file_get_connection(self.to_glib_none().0)) }
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_new_full(
-    file_info: *mut GFileInfo,
-    file: *mut GFile,
-    dir: *mut GnomeCmdDir,
-) -> *mut ffi::GnomeCmdFile {
-    let file_info: gio::FileInfo = unsafe { from_glib_full(file_info) };
-    let file: gio::File = unsafe { from_glib_full(file) };
-    let dir: Borrowed<Directory> = unsafe { from_glib_borrow(dir) };
-    File::new_full(&file_info, &file, &*dir).to_glib_full()
 }
 
 #[no_mangle]

@@ -363,9 +363,12 @@ mod imp {
 
             if mode == DISP_MODE_IMAGE && !self.img_initialized.get() {
                 // do lazy-initialization of the image render, only when the user first asks to display the file as image
-                self.img_initialized.set(true);
-                self.image_render
-                    .load_file(&self.obj().file().unwrap().get_real_path());
+                if let Some(path) = self.obj().file().and_then(|f| f.get_real_path()) {
+                    self.img_initialized.set(true);
+                    self.image_render.load_file(&path);
+                } else {
+                    eprintln!("ViewerWindow::set_display_mode: file path is None");
+                }
             }
 
             match mode {
@@ -661,9 +664,14 @@ impl ViewerWindow {
     }
 
     fn load_file(&self, file: &File) {
+        let Some(path) = file.get_real_path() else {
+            eprintln!("ViewerWindow::load_file: file path is None");
+            return;
+        };
+
         self.set_file(file);
 
-        self.imp().text_render.load_file(&file.get_real_path());
+        self.imp().text_render.load_file(&path);
         self.set_display_mode(guess_display_mode(file).unwrap_or_default());
 
         self.imp()
@@ -672,7 +680,7 @@ impl ViewerWindow {
             .unwrap()
             .set_property("file", file);
 
-        self.set_title(file.get_real_path().to_str());
+        self.set_title(path.to_str());
     }
 }
 

@@ -19,22 +19,8 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
-#include <errno.h>
-#include <dirent.h>
-#include <stdlib.h>
-
-#include <set>
-
 #include "gnome-cmd-includes.h"
 #include "utils.h"
-#include "gnome-cmd-main-win.h"
-
-using namespace std;
-
-
-#define FIX_PW_HACK
-#define STRINGS_TO_URIS_CHUNK 1024
 
 
 /**
@@ -66,25 +52,6 @@ void DEBUG (gchar flag, const gchar *format, ...)
         vfprintf(stderr, format, ap);
         va_end(ap);
     }
-}
-
-
-gchar *unquote_if_needed (const gchar *in)
-{
-
-    g_return_val_if_fail (in != NULL, NULL);
-
-    gint l = strlen (in);
-
-    // Check if the first and last character is a quote
-    if (l>1 && strchr("'\"",in[0])!=NULL && in[0]==in[l-1])
-    {
-        gchar *out = g_strdup (in+1);
-        out[l-2] = '\0';
-        return out;
-    }
-
-    return g_strdup (in);
 }
 
 
