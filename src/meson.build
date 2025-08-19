@@ -23,7 +23,6 @@ sources_sources = files(
   'gnome-cmd-con-remote.cc',
   'gnome-cmd-con-smb.cc',
   'gnome-cmd-dir.cc',
-  'gnome-cmd-file.cc',
   'gnome-cmd-xfer.cc',
   'utils.cc',
 )

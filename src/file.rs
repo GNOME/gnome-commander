@@ -2,7 +2,7 @@
  * Copyright 2001-2006 Marcus Bjurman
  * Copyright 2007-2012 Piotr Eljasiak
  * Copyright 2013-2024 Uwe Scholz
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2024-2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,87 +22,85 @@
 
 use crate::{
     connection::{
-        connection::{ffi::GnomeCmdCon, Connection, ConnectionExt},
+        connection::{Connection, ConnectionExt},
         list::ConnectionList,
     },
     data::{GeneralOptions, GeneralOptionsRead, ProgramsOptionsRead},
     dir::Directory,
-    libgcmd::file_descriptor::{ffi::GnomeCmdFileDescriptor, FileDescriptor, FileDescriptorExt},
+    libgcmd::file_descriptor::{FileDescriptor, FileDescriptorExt},
     path::GnomeCmdPath,
     spawn::{app_needs_terminal, run_command_indir, SpawnError},
 };
 use gtk::{
-    gio::{
-        self,
-        ffi::{GFile, GFileInfo},
-        prelude::*,
-    },
-    glib::{self, translate::*},
+    gio,
+    glib::{ffi::GType, translate::IntoGlib},
+    prelude::*,
+    subclass::prelude::*,
 };
 use libc::{gid_t, uid_t};
 use std::{
-    cell::RefCell,
     ffi::OsString,
     path::{Path, PathBuf},
-    sync::LazyLock,
     time::Instant,
 };
 
-pub mod ffi {
+mod imp {
     use super::*;
-    use gtk::glib::ffi::GType;
+    use crate::libgcmd::file_descriptor::FileDescriptorImpl;
+    use std::cell::{Cell, RefCell};
 
-    #[repr(C)]
-    pub struct GnomeCmdFile {
-        _data: [u8; 0],
-        _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
+    pub struct File {
+        pub file: RefCell<gio::File>,
+        pub file_info: RefCell<gio::FileInfo>,
+        pub is_dotdot: Cell<bool>,
+        pub parent_dir: RefCell<Option<Directory>>,
+        pub last_update: RefCell<Option<Instant>>,
     }
 
-    extern "C" {
-        pub fn gnome_cmd_file_get_type() -> GType;
+    #[glib::object_subclass]
+    impl ObjectSubclass for File {
+        const NAME: &'static str = "GnomeCmdFile";
+        type Type = super::File;
+        type Interfaces = (FileDescriptor,);
 
-    }
-
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    pub struct GnomeCmdFileClass {
-        pub parent_class: glib::gobject_ffi::GObjectClass,
-    }
-}
-
-glib::wrapper! {
-    pub struct File(Object<ffi::GnomeCmdFile, ffi::GnomeCmdFileClass>)
-        @implements FileDescriptor;
-
-    match fn {
-        type_ => || ffi::gnome_cmd_file_get_type(),
-    }
-}
-
-#[derive(Default)]
-struct FilePrivate {
-    file: RefCell<Option<gio::File>>,
-    file_info: RefCell<Option<gio::FileInfo>>,
-    is_dotdot: bool,
-    parent_dir: RefCell<Option<Directory>>,
-    last_update: Option<Instant>,
-}
-
-impl File {
-    fn private(&self) -> &mut FilePrivate {
-        static QUARK: LazyLock<glib::Quark> =
-            LazyLock::new(|| glib::Quark::from_str("file-private"));
-
-        unsafe {
-            if let Some(mut private) = self.qdata::<FilePrivate>(*QUARK) {
-                private.as_mut()
-            } else {
-                self.set_qdata(*QUARK, FilePrivate::default());
-                self.qdata::<FilePrivate>(*QUARK).unwrap().as_mut()
+        fn new() -> Self {
+            Self {
+                file: RefCell::new(gio::File::for_path("/")),
+                file_info: RefCell::new(gio::FileInfo::new()),
+                is_dotdot: Default::default(),
+                parent_dir: Default::default(),
+                last_update: Default::default(),
             }
         }
     }
 
+    impl ObjectImpl for File {}
+
+    impl FileDescriptorImpl for File {
+        fn file(&self) -> gio::File {
+            self.file.borrow().clone()
+        }
+
+        fn file_info(&self) -> gio::FileInfo {
+            self.file_info.borrow().clone()
+        }
+    }
+}
+
+pub mod ffi {
+    pub type GnomeCmdFile = <super::File as glib::object::ObjectType>::GlibType;
+}
+
+glib::wrapper! {
+    pub struct File(ObjectSubclass<imp::File>)
+        @implements FileDescriptor;
+}
+
+pub trait FileImpl: ObjectImpl {}
+
+unsafe impl<T: FileImpl> IsSubclassable<T> for File {}
+
+impl File {
     pub fn new(file_info: &gio::FileInfo, dir: &Directory) -> Self {
         let file = dir.file().child(file_info.name());
         Self::new_full(file_info, &file, dir)
@@ -112,9 +110,10 @@ impl File {
         let this: Self = glib::Object::builder().build();
         this.set_file_info(file_info);
         this.set_file(file);
-        this.private().parent_dir.replace(Some(dir.clone()));
-        this.private().is_dotdot =
-            file_info.file_type() == gio::FileType::Directory && file_info.display_name() == "..";
+        this.imp().parent_dir.replace(Some(dir.clone()));
+        this.imp().is_dotdot.set(
+            file_info.file_type() == gio::FileType::Directory && file_info.display_name() == "..",
+        );
         this
     }
 
@@ -141,17 +140,18 @@ impl File {
             file.query_info("*", gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE)?;
         self.set_file_info(&file_info);
         self.set_file(&file);
-        self.private().is_dotdot =
-            file_info.file_type() == gio::FileType::Directory && file_info.display_name() == "..";
+        self.imp().is_dotdot.set(
+            file_info.file_type() == gio::FileType::Directory && file_info.display_name() == "..",
+        );
         Ok(())
     }
 
     fn set_file(&self, file: &gio::File) {
-        self.private().file.replace(Some(file.clone()));
+        self.imp().file.replace(file.clone());
     }
 
     pub fn set_file_info(&self, file_info: &gio::FileInfo) {
-        self.private().file_info.replace(Some(file_info.clone()));
+        self.imp().file_info.replace(file_info.clone());
     }
 
     pub fn refresh_file_info(&self) -> Result<(), glib::Error> {
@@ -203,7 +203,7 @@ impl File {
     }
 
     pub fn parent_directory(&self) -> Option<Directory> {
-        self.private().parent_dir.borrow().clone()
+        self.imp().parent_dir.borrow().clone()
     }
 
     pub fn connection(&self) -> Connection {
@@ -320,7 +320,7 @@ impl File {
     }
 
     pub fn is_dotdot(&self) -> bool {
-        self.private().is_dotdot
+        self.imp().is_dotdot.get()
     }
 
     pub fn set_deleted(&self) {
@@ -421,12 +421,12 @@ impl File {
     }
 
     pub fn needs_update(&self) -> bool {
-        let Some(last_update) = self.private().last_update else {
+        let Some(last_update) = self.imp().last_update.borrow().clone() else {
             return true;
         };
         let now = Instant::now();
         if now.duration_since(last_update) > GeneralOptions::new().gui_update_rate() {
-            self.private().last_update = Some(now);
+            self.imp().last_update.replace(Some(now));
             true
         } else {
             false
@@ -435,29 +435,6 @@ impl File {
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_file_get_file(fd: *mut GnomeCmdFileDescriptor) -> *mut GFile {
-    let fd: Borrowed<FileDescriptor> = unsafe { from_glib_borrow(fd) };
-    let file = fd.downcast_ref::<File>().unwrap().private().file.borrow();
-    file.to_glib_none().0
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_get_file_info(fd: *mut GnomeCmdFileDescriptor) -> *mut GFileInfo {
-    let fd: Borrowed<FileDescriptor> = unsafe { from_glib_borrow(fd) };
-    let info = fd
-        .downcast_ref::<File>()
-        .unwrap()
-        .private()
-        .file_info
-        .borrow();
-    info.to_glib_none().0
-}
-
-#[no_mangle]
-pub extern "C" fn file_get_connection(f: *mut ffi::GnomeCmdFile) -> *mut GnomeCmdCon {
-    let f: Borrowed<File> = unsafe { from_glib_borrow(f) };
-    f.parent_directory()
-        .map(|d| d.connection())
-        .to_glib_none()
-        .0
+pub extern "C" fn gnome_cmd_file_get_type() -> GType {
+    File::static_type().into_glib()
 }

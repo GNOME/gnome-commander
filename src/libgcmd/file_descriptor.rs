@@ -18,20 +18,26 @@
  */
 
 use gtk::{
-    gio,
-    glib::{self, prelude::*, translate::*},
+    gio::{
+        self,
+        ffi::{GFile, GFileInfo},
+    },
+    glib::{self, prelude::*, subclass::prelude::*, translate::*},
 };
 
 pub mod ffi {
     use gtk::{
         gio::ffi::{GFile, GFileInfo},
-        glib::ffi::GType,
+        glib::{ffi::GType, gobject_ffi},
     };
 
+    #[derive(Copy, Clone)]
     #[repr(C)]
     pub struct GnomeCmdFileDescriptor {
-        _data: [u8; 0],
-        _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
+        pub g_iface: gobject_ffi::GTypeInterface,
+
+        pub file: Option<unsafe extern "C" fn(*mut GnomeCmdFileDescriptor) -> *mut GFile>,
+        pub file_info: Option<unsafe extern "C" fn(*mut GnomeCmdFileDescriptor) -> *mut GFileInfo>,
     }
 
     extern "C" {
@@ -50,6 +56,35 @@ glib::wrapper! {
     match fn {
         type_ => || ffi::gnome_cmd_file_descriptor_get_type(),
     }
+}
+
+pub trait FileDescriptorImpl: ObjectImpl + ObjectSubclass<Type: IsA<FileDescriptor>> {
+    fn file(&self) -> gio::File;
+    fn file_info(&self) -> gio::FileInfo;
+}
+
+unsafe impl<T: FileDescriptorImpl> IsImplementable<T> for FileDescriptor {
+    fn interface_init(iface: &mut glib::Interface<Self>) {
+        let iface = iface.as_mut();
+        iface.file = Some(file_descriptor_file::<T>);
+        iface.file_info = Some(file_descriptor_file_info::<T>);
+    }
+}
+
+unsafe extern "C" fn file_descriptor_file<T: FileDescriptorImpl>(
+    fd: *mut ffi::GnomeCmdFileDescriptor,
+) -> *mut GFile {
+    let instance = &*(fd as *mut T::Instance);
+    let imp = instance.imp();
+    imp.file().to_glib_none().0
+}
+
+unsafe extern "C" fn file_descriptor_file_info<T: FileDescriptorImpl>(
+    fd: *mut ffi::GnomeCmdFileDescriptor,
+) -> *mut GFileInfo {
+    let instance = &*(fd as *mut T::Instance);
+    let imp = instance.imp();
+    imp.file_info().to_glib_none().0
 }
 
 pub trait FileDescriptorExt: IsA<FileDescriptor> + 'static {

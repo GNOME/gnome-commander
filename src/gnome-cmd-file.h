@@ -34,11 +34,6 @@
 extern "C" GType gnome_cmd_file_get_type ();
 
 
-struct GnomeCmdDir;
-struct GnomeCmdCon;
-struct GnomeCmdPath;
-
-
 struct GnomeCmdFile
 {
     GObject parent;
@@ -48,10 +43,3 @@ struct GnomeCmdFile
 
     gchar *get_uri_str() { return g_file_get_uri(get_file()); }
 };
-
-struct GnomeCmdFileClass
-{
-    GObjectClass parent_class;
-};
-
-

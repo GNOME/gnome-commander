@@ -32,37 +32,18 @@
 extern "C" GType gnome_cmd_dir_get_type ();
 
 
-#include <string>
-
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-path.h"
 
-struct GnomeCmdDir
+enum GnomeCmdDirState
 {
-    GnomeCmdFile parent;
-
-    enum State
-    {
-        STATE_EMPTY,
-        STATE_LISTED,
-        STATE_LISTING,
-        STATE_CANCELING
-    };
+    STATE_EMPTY,
+    STATE_LISTED,
+    STATE_LISTING,
+    STATE_CANCELING
 };
 
-struct GnomeCmdDirClass
-{
-    GnomeCmdFileClass parent_class;
-
-    void (* file_created)       (GnomeCmdDir *dir, GnomeCmdFile *file);
-    void (* file_deleted)       (GnomeCmdDir *dir, GnomeCmdFile *file);
-    void (* file_changed)       (GnomeCmdDir *dir, GnomeCmdFile *file);
-    void (* file_renamed)       (GnomeCmdDir *dir, GnomeCmdFile *file);
-    void (* list_ok)            (GnomeCmdDir *dir, GList *files);
-    void (* list_failed)        (GnomeCmdDir *dir, GError *error);
-    void (* dir_deleted)        (GnomeCmdDir *dir);
-};
-
+struct GnomeCmdDir;
 struct GnomeCmdCon;
 
 extern "C" GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir *parent);
