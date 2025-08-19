@@ -40,29 +40,11 @@ use crate::{
     utils::{ALT, CONTROL, CONTROL_SHIFT, NO_MOD},
 };
 use gettextrs::gettext;
-use gtk::{
-    gdk, gio,
-    glib::{self, translate::IntoGlib},
-    graphene, pango,
-    prelude::*,
-    subclass::prelude::*,
-};
+use gtk::{gdk, gio, glib, graphene, pango, prelude::*, subclass::prelude::*};
 use std::{
     collections::{BTreeSet, HashMap, HashSet},
     path::{Path, PathBuf},
 };
-
-pub mod ffi {
-    use super::*;
-    use gtk::glib::ffi::GType;
-
-    pub type GnomeCmdFileSelector = <super::FileSelector as glib::object::ObjectType>::GlibType;
-
-    #[no_mangle]
-    pub extern "C" fn gnome_cmd_file_selector_get_type() -> GType {
-        super::FileSelector::static_type().into_glib()
-    }
-}
 
 mod imp {
     use super::*;

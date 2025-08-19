@@ -1,5 +1,4 @@
 sources_headers = files(
-  'dialogs/gnome-cmd-mkdir-dialog.h',
   'gnome-cmd-con-device.h',
   'gnome-cmd-con.h',
   'gnome-cmd-con-home.h',
@@ -9,18 +8,15 @@ sources_headers = files(
   'gnome-cmd-dir.h',
   'gnome-cmd-file.h',
   'gnome-cmd-file-list.h',
-  'gnome-cmd-file-selector.h',
   'gnome-cmd-includes.h',
   'gnome-cmd-main-win.h',
   'gnome-cmd-path.h',
   'gnome-cmd-types.h',
   'gnome-cmd-xfer.h',
   'utils.h',
-  'widget-factory.h',
 )
 
 sources_sources = files(
-  'dialogs/gnome-cmd-mkdir-dialog.cc',
   'gnome-cmd-application.cc',
   'gnome-cmd-con.cc',
   'gnome-cmd-con-device.cc',
@@ -32,7 +28,6 @@ sources_sources = files(
   'gnome-cmd-file-list.cc',
   'gnome-cmd-xfer.cc',
   'utils.cc',
-  'widget-factory.cc',
 )
 
 cc_args = [

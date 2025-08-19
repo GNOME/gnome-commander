@@ -29,6 +29,7 @@ pub mod file_properties_dialog;
 
 pub mod create_symlink_dialog;
 pub mod make_copy_dialog;
+pub mod mkdir_dialog;
 
 pub mod delete_dialog;
 

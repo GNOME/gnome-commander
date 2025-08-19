@@ -130,26 +130,6 @@ void set_cursor_busy_for_widget (GtkWidget *widget)
 }
 
 
-void gnome_cmd_help_display (const gchar *file_name, const gchar *link_id)
-{
-    GError *error = NULL;
-    gchar help_uri[256] = "help:";
-
-    strcat(help_uri, PACKAGE_NAME);
-
-    if (link_id != NULL)
-    {
-        strcat(help_uri, "/");
-        strcat(help_uri, link_id);
-    }
-
-    gtk_show_uri (NULL, help_uri, GDK_CURRENT_TIME);
-
-    if (error != NULL)
-        gnome_cmd_error_message (nullptr, _("There was an error displaying help."), error);
-}
-
-
 static GtkWidget *create_error_message_dialog (GtkWindow *parent, const gchar *message, const gchar *secondary_text)
 {
     GtkWidget *dlg = gtk_message_dialog_new (parent, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "%s", message);

@@ -20,17 +20,6 @@
  */
 #pragma once
 
-#include <string>
-#include <vector>
-#include <iostream>
-#include <sstream>
-#include <stdio.h>
-
-#include "gnome-cmd-file.h"
-#include "gnome-cmd-types.h"
-
-using namespace std;
-
 extern gchar *debug_flags;
 
 inline gboolean DEBUG_ENABLED (gchar flag)
@@ -53,46 +42,6 @@ inline gchar *quote_if_needed (const gchar *in)
 gchar *unquote_if_needed (const gchar *in);
 
 void set_cursor_busy_for_widget (GtkWidget *widget);
-
-void gnome_cmd_help_display (const gchar *file_name, const gchar *link_id=NULL);
-
-
-inline std::string &stringify(std::string &s, gchar *val)
-{
-    if (!val)  s.erase();  else
-    {
-        s = val;
-        g_free (val);
-    }
-
-    return s;
-}
-
-template <typename T>
-std::string &stringify(std::string &s, const T &val)
-{
-   std::ostringstream os;
-
-   os << val;
-   s = os.str();
-
-   return s;
-}
-
-inline std::string stringify(gchar *val)
-{
-    std::string s;
-
-    return val ? stringify(s, val) : s;
-}
-
-template <typename T>
-inline std::string stringify(const T &val)
-{
-    std::string s;
-
-    return stringify(s,val);
-}
 
 
 gchar *string_double_underscores (const gchar *string);

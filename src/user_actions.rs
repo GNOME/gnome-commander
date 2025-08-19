@@ -41,6 +41,7 @@ use crate::{
         file_properties_dialog::FilePropertiesDialog,
         make_copy_dialog::make_copy_dialog,
         manage_bookmarks_dialog::{bookmark_directory, BookmarksDialog},
+        mkdir_dialog::show_mkdir_dialog,
         new_text_file::show_new_textfile_dialog,
         options::options_dialog::show_options_dialog,
         pattern_selection_dialog::select_by_pattern,
@@ -49,8 +50,8 @@ use crate::{
         remote_dialog::RemoteDialog,
         shortcuts::shortcuts_dialog::ShortcutsDialog,
     },
-    dir::{ffi::GnomeCmdDir, Directory},
-    file::{ffi::GnomeCmdFile, File},
+    dir::Directory,
+    file::File,
     file_list::list::FileList,
     libgcmd::{
         file_actions::{FileActions, FileActionsExt},
@@ -63,11 +64,7 @@ use crate::{
     utils::{display_help, get_modifiers_state, ErrorMessage},
 };
 use gettextrs::{gettext, ngettext};
-use gtk::{
-    gdk, gio,
-    glib::{self, translate::ToGlibPtr},
-    prelude::*,
-};
+use gtk::{gdk, gio, glib, prelude::*};
 use std::{
     borrow::Cow,
     cmp::Ordering,
@@ -320,17 +317,25 @@ pub fn file_mkdir(
     _action: &gio::SimpleAction,
     _parameter: Option<&glib::Variant>,
 ) {
-    extern "C" {
-        fn gnome_cmd_mkdir_dialog_new(dir: *mut GnomeCmdDir, selected_file: *mut GnomeCmdFile);
-    }
+    let main_win = main_win.clone();
+    glib::spawn_future_local(async move {
+        let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+        let file_list = file_selector.file_list();
 
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
-    let file_list = file_selector.file_list();
+        if let Some(dir) = file_list.directory() {
+            let selected_file = file_list.selected_file();
+            let new_dir =
+                show_mkdir_dialog(main_win.upcast_ref(), &dir.file(), selected_file.as_ref()).await;
 
-    if let Some(dir) = file_list.directory() {
-        let selected_file = file_list.selected_file();
-        unsafe { gnome_cmd_mkdir_dialog_new(dir.to_glib_none().0, selected_file.to_glib_none().0) }
-    }
+            if let Some(new_dir) = new_dir {
+                // focus the created directory (if possible)
+                if new_dir.parent().map_or(false, |p| p.equal(&dir.file())) {
+                    dir.file_created(&new_dir.uri());
+                    file_list.focus_file(&new_dir.basename().unwrap(), true);
+                }
+            }
+        }
+    });
 }
 
 pub fn file_properties(

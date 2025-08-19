@@ -28,9 +28,9 @@ src/dialogs/create_symlink_dialog.rs
 src/dialogs/delete_dialog.rs
 src/dialogs/edit_bookmark_dialog.rs
 src/dialogs/file_properties_dialog.rs
-src/dialogs/gnome-cmd-mkdir-dialog.cc
 src/dialogs/make_copy_dialog.rs
 src/dialogs/manage_bookmarks_dialog.rs
+src/dialogs/mkdir_dialog.rs
 src/dialogs/new_text_file.rs
 src/dialogs/open_with_other_dialog.rs
 src/dialogs/options/app_dialog.rs
@@ -95,5 +95,4 @@ src/tags/basic.rs
 src/tags/image.rs
 src/transfer.rs
 src/user_actions.rs
-src/utils.cc
 src/utils.rs
