@@ -176,7 +176,9 @@ static gboolean set_home_connection (GnomeCmdFileList *fl)
 static void on_directory_deleted (GnomeCmdDir *dir, GnomeCmdFileList *fl)
 {
     auto parentDir = gnome_cmd_dir_get_existing_parent(dir);
-    auto parentDirPath = gnome_cmd_path_get_path (gnome_cmd_dir_get_path (parentDir));
+    auto parentDirGPath = gnome_cmd_dir_get_path (parentDir);
+    auto parentDirPath = gnome_cmd_path_get_path (parentDirGPath);
+    gnome_cmd_path_free (parentDirGPath);
     fl->goto_directory(parentDirPath);
     g_free (parentDirPath);
 }
@@ -197,7 +199,7 @@ static void on_dir_list_failed (GnomeCmdDir *dir, GError *error, GnomeCmdFileLis
 
     g_signal_handlers_disconnect_matched (priv->cwd, G_SIGNAL_MATCH_DATA, 0, 0, nullptr, nullptr, fl);
     priv->connected_dir = nullptr;
-    gnome_cmd_dir_unref (priv->cwd);
+    g_object_unref (priv->cwd);
     gtk_widget_set_cursor (*fl, nullptr);
     // gtk_widget_set_sensitive (*fl, TRUE);
 
@@ -283,14 +285,14 @@ void GnomeCmdFileList::set_connection (GnomeCmdCon *new_con, GnomeCmdDir *start_
     if (priv->lwd)
     {
         gnome_cmd_dir_cancel_monitoring (priv->lwd);
-        gnome_cmd_dir_unref (priv->lwd);
+        g_object_unref (priv->lwd);
         priv->lwd = nullptr;
     }
     if (priv->cwd)
     {
         g_signal_handlers_disconnect_by_func (priv->cwd, (gpointer) on_directory_deleted, this);
         gnome_cmd_dir_cancel_monitoring (priv->cwd);
-        gnome_cmd_dir_unref (priv->cwd);
+        g_object_unref (priv->cwd);
         priv->cwd = nullptr;
     }
 
@@ -321,10 +323,10 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
         set_cursor_busy_for_widget (*this);
     }
 
-    gnome_cmd_dir_ref (dir);
+    g_object_ref (dir);
 
     if (priv->lwd && priv->lwd != dir)
-        gnome_cmd_dir_unref (priv->lwd);
+        g_object_unref (priv->lwd);
 
     if (priv->cwd)
     {

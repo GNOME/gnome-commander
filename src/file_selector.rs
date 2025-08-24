@@ -908,7 +908,7 @@ impl FileSelector {
                     self.file_list().set_connection(con, Some(&dir));
                 }
             } else {
-                con.set_base_path(con.create_path(path));
+                con.set_base_path(Some(con.create_path(path)));
                 if self.is_current_tab_locked() {
                     self.new_tab_with_dir(&con.default_dir().unwrap(), true, true);
                 } else {
@@ -1096,7 +1096,7 @@ impl FileSelector {
             })
             .filter_map(|file_list| {
                 let directory = file_list.directory()?;
-                let uri = directory.upcast_ref::<File>().get_uri_str()?;
+                let uri = directory.upcast_ref::<File>().get_uri_str();
                 let (column, order) = file_list.sorting();
                 Some(TabVariant {
                     uri,

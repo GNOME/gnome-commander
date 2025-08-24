@@ -378,13 +378,13 @@ pub async fn handle_user_input(
         }
     } else {
         if !default_dest_dir.upcast_ref::<File>().is_local() {
-            dest_path = prepend_slash(default_dest_dir.path().child(&user_path).path());
+            dest_path = prepend_slash(default_dest_dir.path().child(&Path::new(user_path)).path());
         } else {
             dest_path = PathBuf::from(
                 src_directory
                     .upcast_ref::<File>()
                     .get_path_through_parent()
-                    .child(&user_path)
+                    .child(&Path::new(user_path))
                     .path(),
             );
         }

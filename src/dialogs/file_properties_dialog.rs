@@ -532,7 +532,7 @@ mod imp {
 
             let (uid, gid) = self.chown_component.ownership();
             if uid != file.uid() || gid != file.gid() {
-                file.chown(uid, gid)?;
+                file.chown(Some(uid), gid)?;
                 changed = true;
             }
 

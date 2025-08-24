@@ -32,7 +32,7 @@ use gtk::{gio, glib, prelude::*};
 async fn chown_recursively(
     parent_window: &gtk::Window,
     file: &File,
-    uid: uid_t,
+    uid: Option<uid_t>,
     gid: gid_t,
     recurse: bool,
 ) {
@@ -65,7 +65,7 @@ async fn chown_recursively(
 async fn chown_files(
     parent_window: &gtk::Window,
     files: &glib::List<File>,
-    uid: uid_t,
+    uid: Option<uid_t>,
     gid: gid_t,
     recursive: bool,
 ) {
@@ -136,10 +136,8 @@ pub async fn show_chown_dialog(parent_window: &gtk::Window, files: &glib::List<F
     let result = receiver.recv().await == Ok(true);
 
     if result {
-        let (mut owner, group) = chown_component.ownership();
-        if uid() != 0 {
-            owner = u32::MAX;
-        }
+        let (owner, group) = chown_component.ownership();
+        let owner = (uid() == 0).then_some(owner);
 
         let recursive = recurse_check.is_active();
 

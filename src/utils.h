@@ -32,8 +32,6 @@ void DEBUG (gchar flag, const gchar *fmt, ...);
 void gnome_cmd_show_message (GtkWindow *parent, const gchar *message, const gchar *secondary_text=NULL);
 void gnome_cmd_error_message (GtkWindow *parent, const gchar *message, GError *error);
 
-GList *uri_strings_to_gfiles (gchar *data);
-
 inline gchar *quote_if_needed (const gchar *in)
 {
     return g_shell_quote (in);
@@ -44,22 +42,6 @@ gchar *unquote_if_needed (const gchar *in);
 void set_cursor_busy_for_widget (GtkWidget *widget);
 
 
-gchar *string_double_underscores (const gchar *string);
-
-gboolean get_gfile_attribute_boolean(GFileInfo *gFileInfo, const char *attribute);
-
-gboolean get_gfile_attribute_boolean(GFile *gFile, const char *attribute);
-
-guint32 get_gfile_attribute_uint32(GFileInfo *gFileInfo, const char *attribute);
-
-guint32 get_gfile_attribute_uint32(GFile *gFile, const char *attribute);
-
-guint64 get_gfile_attribute_uint64(GFileInfo *gFileInfo, const char *attribute);
-
-guint64 get_gfile_attribute_uint64(GFile *gFile, const char *attribute);
-
 gchar *get_gfile_attribute_string(GFileInfo *gFileInfo, const char *attribute);
 
 gchar *get_gfile_attribute_string(GFile *gFile, const char *attribute);
-
-extern "C" guint gui_update_rate();

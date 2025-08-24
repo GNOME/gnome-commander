@@ -19,15 +19,13 @@
 
 use crate::{
     connection::connection::{ffi::GnomeCmdCon, Connection, ConnectionExt},
-    data::{GeneralOptions, GeneralOptionsRead},
     debug::debug,
     file_list::list::{ffi::GnomeCmdFileList, FileList},
-    utils::{ErrorMessage, SenderExt},
 };
-use async_channel::TryRecvError;
 use gettextrs::gettext;
 use gtk::{
     ffi::GtkWindow,
+    gio,
     glib::{self, translate::from_glib_none},
     prelude::*,
 };
@@ -49,7 +47,7 @@ pub async fn open_connection(file_list: &FileList, parent_window: &gtk::Window, 
         .build();
     dialog.set_child(Some(&grid));
 
-    let label = gtk::Label::builder().label(con.open_message()).build();
+    let label = gtk::Label::new(con.open_message().as_deref());
     grid.attach(&label, 0, 0, 1, 1);
 
     let progress_bar = gtk::ProgressBar::builder()
@@ -66,85 +64,34 @@ pub async fn open_connection(file_list: &FileList, parent_window: &gtk::Window, 
         .build();
     grid.attach(&button, 0, 2, 1, 1);
 
-    #[derive(Debug)]
-    enum ConnectEvent {
-        Done,
-        Failure(Option<String>),
-        Cancel,
-    }
-    let (sender, receiver) = async_channel::unbounded::<ConnectEvent>();
+    let cancellable = gio::Cancellable::new();
 
     button.connect_clicked(glib::clone!(
         #[strong]
-        sender,
-        move |_| sender.toss(ConnectEvent::Cancel)
+        cancellable,
+        move |_| cancellable.cancel()
     ));
     dialog.connect_close_request(glib::clone!(
         #[strong]
-        sender,
+        cancellable,
         move |_| {
-            sender.toss(ConnectEvent::Cancel);
+            cancellable.cancel();
             glib::Propagation::Proceed
         }
     ));
 
     dialog.present();
 
-    let done = con.connect(
-        "open-done",
-        false,
-        glib::clone!(
-            #[strong]
-            sender,
-            move |_| {
-                sender.toss(ConnectEvent::Done);
-                None
-            }
-        ),
-    );
-    let failed = con.connect(
-        "open-failed",
-        false,
-        glib::clone!(
-            #[strong]
-            sender,
-            move |values| {
-                let message: Option<String> =
-                    values.get(0).and_then(|v| v.get_owned::<String>().ok());
-                sender.toss(ConnectEvent::Failure(message));
-                None
-            }
-        ),
-    );
-    con.open(parent_window);
+    let result = con.open(parent_window, Some(&cancellable)).await;
 
-    let gui_update_rate = GeneralOptions::new().gui_update_rate();
-    let result = loop {
-        progress_bar.pulse();
-        match receiver.try_recv() {
-            Ok(result) => break result,
-            Err(TryRecvError::Empty) => {
-                glib::timeout_future(gui_update_rate).await;
-            }
-            Err(TryRecvError::Closed) => {
-                break ConnectEvent::Cancel;
-            }
-        }
-    };
-
-    con.disconnect(done);
-    con.disconnect(failed);
     dialog.close();
 
     debug!('m', "connecion open result {:?}", result);
     match result {
-        ConnectEvent::Done => file_list.set_connection(con, None),
-        ConnectEvent::Failure(message) => {
-            ErrorMessage::new(gettext("Failed to open connection."), message)
-                .show(parent_window)
-                .await;
+        Ok(()) => file_list.set_connection(con, None),
+        Err(error) => {
+            error.show(parent_window).await;
         }
-        ConnectEvent::Cancel => con.cancel_open(),
     }
 }
 

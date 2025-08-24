@@ -20,11 +20,15 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::{Connection, ConnectionExt};
+use super::connection::{Connection, ConnectionExt, ConnectionInterface};
 use gettextrs::gettext;
-use gtk::glib::{
-    self,
-    translate::{from_glib_none, ToGlibPtr},
+use glib::object::Cast;
+use gtk::{
+    gio,
+    glib::{
+        self,
+        translate::{from_glib_none, ToGlibPtr},
+    },
 };
 use std::ffi::c_char;
 
@@ -63,10 +67,6 @@ impl ConnectionRemote {
         let con: Self = glib::Object::builder().build();
         con.set_alias(Some(alias));
         con.set_uri(Some(uri));
-        con.set_open_message(
-            &gettext("Connecting to {hostname}")
-                .replace("{hostname}", uri.host().as_deref().unwrap_or("<?>")),
-        );
         con
     }
 
@@ -90,6 +90,62 @@ impl ConnectionRemote {
             Some(_) => "folder-remote",
             _ => "network-workgroup",
         }
+    }
+}
+
+impl ConnectionInterface for ConnectionRemote {
+    fn is_local(&self) -> bool {
+        false
+    }
+
+    fn open_is_needed(&self) -> bool {
+        true
+    }
+
+    fn is_closeable(&self) -> bool {
+        true
+    }
+
+    fn needs_open_visprog(&self) -> bool {
+        true
+    }
+
+    fn needs_list_visprog(&self) -> bool {
+        true
+    }
+
+    fn open_message(&self) -> Option<String> {
+        let host = self.uri().and_then(|u| u.host());
+        Some(
+            gettext("Connecting to {hostname}")
+                .replace("{hostname}", host.as_deref().unwrap_or("<?>")),
+        )
+    }
+
+    fn go_text(&self) -> Option<String> {
+        Some(gettext("Go to: {connection}").replace("{connection}", &self.alias()?))
+    }
+
+    fn open_text(&self) -> Option<String> {
+        Some(gettext("Connect to: {connection}").replace("{connection}", &self.alias()?))
+    }
+
+    fn close_text(&self) -> Option<String> {
+        Some(gettext("Disconnect from: {connection}").replace("{connection}", &self.alias()?))
+    }
+
+    fn open_tooltip(&self) -> Option<String> {
+        let host = self.uri()?.host()?;
+        Some(gettext("Opens remote connection to %s").replace("%s", &host))
+    }
+
+    fn close_tooltip(&self) -> Option<String> {
+        let host = self.uri()?.host()?;
+        Some(gettext("Closes remote connection to %s").replace("%s", &host))
+    }
+
+    fn open_icon(&self) -> Option<gio::Icon> {
+        Some(gio::ThemedIcon::new(&self.icon_name()).upcast())
     }
 }
 

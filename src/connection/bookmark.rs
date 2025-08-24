@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use gtk::glib::{ffi::GType, prelude::*, subclass::prelude::*, translate::IntoGlib};
+use gtk::glib::{prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
@@ -53,11 +53,6 @@ impl Bookmark {
             .property("path", path)
             .build()
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_bookmark_get_type() -> GType {
-    Bookmark::static_type().into_glib()
 }
 
 #[derive(glib::Variant)]

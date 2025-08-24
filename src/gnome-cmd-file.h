@@ -46,32 +46,10 @@ struct GnomeCmdFile
     GFile *get_file() { return gnome_cmd_file_descriptor_get_file (GNOME_CMD_FILE_DESCRIPTOR (this)); }
     GFileInfo *get_file_info() { return gnome_cmd_file_descriptor_get_file_info (GNOME_CMD_FILE_DESCRIPTOR (this)); }
 
-    GnomeCmdFile *ref();
-    void unref();
-
     const gchar *get_name();
-    GnomeCmdPath *GetPathThroughParent();
-    gchar *GetPathStringThroughParent();
     gchar *get_real_path();
-    gchar *get_dirname();
 
     gchar *get_uri_str();
-
-    GnomeCmdDir *get_parent_dir();
-
-    gboolean chmod(guint32 permissions, GError **error);
-    gboolean chown(uid_t uid, gid_t gid, GError **error);
-    gboolean rename(const gchar *new_name, GError **error);
-
-    void update_gFileInfo(GFileInfo *gFileInfo);
-    void set_deleted();
-
-    gboolean needs_update();
-
-    gboolean GetGfileAttributeBoolean(const char *attribute);
-    guint32 GetGfileAttributeUInt32(const char *attribute);
-    guint64 GetGfileAttributeUInt64(const char *attribute);
-    gchar *GetGfileAttributeString(const char *attribute);
 };
 
 struct GnomeCmdFileClass
@@ -91,54 +69,9 @@ inline const gchar *GnomeCmdFile::get_name()
 
 extern "C" GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir);
 extern "C" GnomeCmdFile *gnome_cmd_file_new_full (GFileInfo *gFileInfo, GFile *gFile, GnomeCmdDir *dir);
-gboolean gnome_cmd_file_setup (GObject *gObject, GFile *gFile, GError **error);
-
-extern "C" GnomeCmdFile *gnome_cmd_file_new_dotdot (GnomeCmdDir *dir);
-
-inline GnomeCmdFile *gnome_cmd_file_ref (GnomeCmdFile *f)
-{
-    g_return_val_if_fail (f != NULL, NULL);
-    return f->ref();
-}
-
-inline void gnome_cmd_file_unref (GnomeCmdFile *f)
-{
-    g_return_if_fail (f != NULL);
-    f->unref();
-}
-
-extern "C" const gchar *gnome_cmd_file_get_name (GnomeCmdFile *f);
 
 extern "C" gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f);
-
-extern "C" GnomeCmdPath *gnome_cmd_file_get_path_through_parent (GnomeCmdFile *f);
-extern "C" gchar *gnome_cmd_file_get_path_string_through_parent (GnomeCmdFile *f);
 
 extern "C" gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f);
 extern "C" gboolean gnome_cmd_file_is_local (GnomeCmdFile *f);
 extern "C" GnomeCmdCon *gnome_cmd_file_get_connection (GnomeCmdFile *f);
-
-GList *gnome_cmd_file_list_copy (GList *files);
-void gnome_cmd_file_list_free (GList *files);
-
-inline void gnome_cmd_file_list_ref (GList *files)
-{
-    g_list_foreach (files, (GFunc) gnome_cmd_file_ref, NULL);
-}
-
-inline void gnome_cmd_file_list_unref (GList *files)
-{
-    g_list_foreach (files, (GFunc) gnome_cmd_file_unref, NULL);
-}
-
-extern "C" gboolean gnome_cmd_file_rename(GnomeCmdFile *f, const gchar *new_name, GError **error);
-extern "C" gboolean gnome_cmd_file_chown(GnomeCmdFile *f, uid_t uid, gid_t gid, GError **error);
-extern "C" gboolean gnome_cmd_file_chmod(GnomeCmdFile *f, guint32 permissions, GError **error);
-
-extern "C" gboolean gnome_cmd_file_is_dotdot(GnomeCmdFile *f);
-
-extern "C" void gnome_cmd_file_set_deleted(GnomeCmdFile *f);
-
-extern "C" GnomeCmdDir *gnome_cmd_file_get_parent_dir(GnomeCmdFile *f);
-
-extern "C" gboolean gnome_cmd_file_needs_update(GnomeCmdFile *f);

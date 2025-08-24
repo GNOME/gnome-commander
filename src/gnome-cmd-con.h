@@ -42,8 +42,7 @@ struct GnomeCmdCon
     {
         STATE_CLOSED,
         STATE_OPEN,
-        STATE_OPENING,
-        STATE_CANCELLING
+        STATE_OPENING
     };
 
     enum OpenResult
@@ -54,21 +53,6 @@ struct GnomeCmdCon
         OPEN_IN_PROGRESS,
         OPEN_NOT_STARTED
     };
-
-    gchar               *alias;                 // coded as UTF-8
-
-    gchar               *open_msg;
-    gboolean            should_remember_dir;
-    gboolean            needs_open_visprog;
-    gboolean            needs_list_visprog;     // Defines if a graphical progress bar should be drawn when opening a folder
-    gboolean            can_show_free_space;
-    State               state;
-    gboolean            is_local;
-    gboolean            is_closeable;
-
-    OpenResult          open_result;
-    GError              *open_failed_error;
-    gchar               *open_failed_msg;
 };
 
 struct GnomeCmdConClass
@@ -77,32 +61,16 @@ struct GnomeCmdConClass
 
     /* signals */
     void (* updated) (GnomeCmdCon *con);
-    void (* open_done) (GnomeCmdCon *con);
-    void (* open_failed) (GnomeCmdCon *con);
 
     /* virtual functions */
-    void (* open) (GnomeCmdCon *con, GtkWindow *parent_window);
-    void (* cancel_open) (GnomeCmdCon *con);
+    void (* open) (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable);
     void (* close) (GnomeCmdCon *con, GtkWindow *parent_window);
-    gboolean (* open_is_needed) (GnomeCmdCon *con);
     GFile *(* create_gfile) (GnomeCmdCon *con, const gchar *path_str);
     GnomeCmdPath *(* create_path) (GnomeCmdCon *con, const gchar *path_str);
-
-    gchar *(* get_go_text) (GnomeCmdCon *con);
-    gchar *(* get_open_text) (GnomeCmdCon *con);
-    gchar *(* get_close_text) (GnomeCmdCon *con);
-    gchar *(* get_go_tooltip) (GnomeCmdCon *con);
-    gchar *(* get_open_tooltip) (GnomeCmdCon *con);
-    gchar *(* get_close_tooltip) (GnomeCmdCon *con);
-    GIcon *(* get_go_icon) (GnomeCmdCon *con);
-    GIcon *(* get_open_icon) (GnomeCmdCon *con);
-    GIcon *(* get_close_icon) (GnomeCmdCon *con);
 };
 
 
 extern "C" GType gnome_cmd_con_get_type ();
-
-extern "C" const gchar *gnome_cmd_con_get_uuid (GnomeCmdCon *con);
 
 extern "C" GnomeCmdPath *gnome_cmd_con_get_base_path(GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path);
@@ -110,15 +78,12 @@ extern "C" void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path
 extern "C" GFileInfo *gnome_cmd_con_get_base_file_info(GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_base_file_info(GnomeCmdCon *con, GFileInfo *file_info);
 
-extern "C" void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window);
+extern "C" void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable);
+extern "C" void gnome_cmd_con_set_state (GnomeCmdCon *con, GnomeCmdCon::State state);
 
 extern "C" gboolean gnome_cmd_con_is_open (GnomeCmdCon *con);
 
-extern "C" void gnome_cmd_con_cancel_open (GnomeCmdCon *con);
-
 extern "C" void gnome_cmd_con_close (GnomeCmdCon *con, GtkWindow *parent_window);
-
-gboolean gnome_cmd_con_open_is_needed (GnomeCmdCon *con);
 
 extern "C" GUri *gnome_cmd_con_get_uri (GnomeCmdCon *con);
 extern "C" gchar *gnome_cmd_con_get_uri_string (GnomeCmdCon *con);
@@ -130,58 +95,17 @@ extern "C" GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, const gchar *pat
 
 extern "C" GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str);
 
-extern "C" const gchar *gnome_cmd_con_get_open_msg (GnomeCmdCon *con);
-extern "C" void gnome_cmd_con_set_open_msg (GnomeCmdCon *con, const gchar *msg);
-
-extern "C" const gchar *gnome_cmd_con_get_alias (GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias=NULL);
 
 extern "C" GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_default_dir (GnomeCmdCon *con, GnomeCmdDir *dir);
 
-extern "C" gboolean gnome_cmd_con_should_remember_dir (GnomeCmdCon *con);
-extern "C" gboolean gnome_cmd_con_needs_open_visprog (GnomeCmdCon *con);
-extern "C" gboolean gnome_cmd_con_needs_list_visprog (GnomeCmdCon *con);
-extern "C" gboolean gnome_cmd_con_can_show_free_space (GnomeCmdCon *con);
+inline gboolean gnome_cmd_con_should_remember_dir (GnomeCmdCon *con)
+{
+    return TRUE;
+}
 
 extern "C" gboolean gnome_cmd_con_is_local (GnomeCmdCon *con);
 
-extern "C" gboolean gnome_cmd_con_is_closeable (GnomeCmdCon *con);
 
-extern "C" void gnome_cmd_con_dir_history_add (GnomeCmdCon *con, const gchar *entry);
-extern "C" GStrv gnome_cmd_con_export_dir_history (GnomeCmdCon *con);
-
-extern "C" gchar *gnome_cmd_con_get_go_text (GnomeCmdCon *con);
-extern "C" gchar *gnome_cmd_con_get_open_text (GnomeCmdCon *con);
-extern "C" gchar *gnome_cmd_con_get_close_text (GnomeCmdCon *con);
-extern "C" gchar *gnome_cmd_con_get_go_tooltip (GnomeCmdCon *con);
-extern "C" gchar *gnome_cmd_con_get_open_tooltip (GnomeCmdCon *con);
-extern "C" gchar *gnome_cmd_con_get_close_tooltip (GnomeCmdCon *con);
-extern "C" GIcon *gnome_cmd_con_get_go_icon (GnomeCmdCon *con);
-extern "C" GIcon *gnome_cmd_con_get_open_icon (GnomeCmdCon *con);
-extern "C" GIcon *gnome_cmd_con_get_close_icon (GnomeCmdCon *con);
-
-extern "C" GListModel *gnome_cmd_con_get_bookmarks (GnomeCmdCon *con);
-
-struct GnomeCmdBookmark;
-
-extern "C" void gnome_cmd_con_add_bookmark (GnomeCmdCon *con, GnomeCmdBookmark *bookmark);
-
-extern "C" void gnome_cmd_con_erase_bookmarks (GnomeCmdCon *con);
-
-void gnome_cmd_con_updated (GnomeCmdCon *con);
-
-extern "C" gboolean gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path, GFileType *type);
-
-extern "C" gboolean gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str, GError *error);
-
-void gnome_cmd_con_add_to_cache (GnomeCmdCon *con, GnomeCmdDir *dir, gchar *uri_str = nullptr);
-
-void gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, GnomeCmdDir *dir);
-
-void gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, const gchar *uri);
-
-GnomeCmdDir *gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri);
-
-
-extern "C" GType gnome_cmd_bookmark_get_type ();
+extern "C" void gnome_cmd_con_set_open_state (GnomeCmdCon *con, GnomeCmdCon::OpenResult result, GError *error, const gchar *msg);

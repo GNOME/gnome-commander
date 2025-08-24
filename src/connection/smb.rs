@@ -20,10 +20,16 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::Connection;
+use super::connection::{Connection, ConnectionInterface};
 use crate::utils::GnomeCmdFileExt;
+use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
-use std::{cell::RefCell, fmt, path::PathBuf, sync::LazyLock};
+use std::{
+    cell::RefCell,
+    fmt,
+    path::{Path, PathBuf},
+    sync::LazyLock,
+};
 
 pub mod ffi {
     use crate::connection::remote::ffi::GnomeCmdConRemoteClass;
@@ -77,6 +83,40 @@ impl ConnectionSmb {
     }
 }
 
+impl ConnectionInterface for ConnectionSmb {
+    fn is_local(&self) -> bool {
+        false
+    }
+
+    fn open_is_needed(&self) -> bool {
+        true
+    }
+
+    fn is_closeable(&self) -> bool {
+        false
+    }
+
+    fn needs_open_visprog(&self) -> bool {
+        true
+    }
+
+    fn needs_list_visprog(&self) -> bool {
+        true
+    }
+
+    fn open_message(&self) -> Option<String> {
+        Some(gettext("Searching for workgroups and hosts"))
+    }
+
+    fn go_text(&self) -> Option<String> {
+        Some(gettext("Go to: Samba Network"))
+    }
+
+    fn open_icon(&self) -> Option<gio::Icon> {
+        Some(gio::ThemedIcon::new("folder-remote").upcast())
+    }
+}
+
 fn name_eq_ignore_ascii_case(file_info: &gio::FileInfo, name: &str) -> bool {
     file_info
         .name()
@@ -120,7 +160,7 @@ impl SmbResource {
         }
     }
 
-    pub fn child(&self, child: &str) -> Self {
+    pub fn child(&self, child: &Path) -> Self {
         match self {
             Self::Root => Self::Workgroup(PathBuf::from(child)),
             Self::Workgroup(workgroup) => {

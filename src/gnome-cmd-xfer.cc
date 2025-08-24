@@ -213,7 +213,7 @@ void finish_xfer(XferData *xferData, gboolean threaded, gboolean success)
 
     if (xferData->destGnomeCmdDir)
     {
-        gnome_cmd_dir_unref (xferData->destGnomeCmdDir);
+        g_object_unref (xferData->destGnomeCmdDir);
         xferData->destGnomeCmdDir = nullptr;
     }
 

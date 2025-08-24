@@ -139,9 +139,8 @@ async fn search_dir_recursive(
         match item {
             DirectoryItem::File(file) => (on_message)(SearchMessage::File(file.clone())),
             DirectoryItem::Info(info) => {
-                if let Some(file) = File::new(&info, dir) {
-                    (on_message)(SearchMessage::File(file));
-                }
+                let file = File::new(&info, dir);
+                (on_message)(SearchMessage::File(file));
             }
         }
     }

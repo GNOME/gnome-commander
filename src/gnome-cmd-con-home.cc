@@ -31,24 +31,13 @@ using namespace std;
 G_DEFINE_TYPE (GnomeCmdConHome, gnome_cmd_con_home, GNOME_CMD_TYPE_CON)
 
 
-static void home_open (GnomeCmdCon *con, GtkWindow *parent_window)
+static void home_open (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable)
 {
 }
 
 
 static void home_close (GnomeCmdCon *con, GtkWindow *parent_window)
 {
-}
-
-
-static void home_cancel_open (GnomeCmdCon *con)
-{
-}
-
-
-static gboolean home_open_is_needed (GnomeCmdCon *con)
-{
-    return FALSE;
 }
 
 
@@ -64,30 +53,6 @@ static GnomeCmdPath *home_create_path (GnomeCmdCon *con, const gchar *path_str)
 }
 
 
-static gchar *home_get_go_text (GnomeCmdCon *con)
-{
-    return g_strdup (_("Go to: Home"));
-}
-
-
-static gchar *home_get_open_text (GnomeCmdCon *con)
-{
-    return nullptr;
-}
-
-
-static gchar *home_get_close_text (GnomeCmdCon *con)
-{
-    return nullptr;
-}
-
-
-static GIcon *home_get_icon (GnomeCmdCon *con)
-{
-    return g_themed_icon_new ("user-home");
-}
-
-
 /*******************************
  * Gtk class implementation
  *******************************/
@@ -98,18 +63,8 @@ static void gnome_cmd_con_home_class_init (GnomeCmdConHomeClass *klass)
 
     con_class->open = home_open;
     con_class->close = home_close;
-    con_class->cancel_open = home_cancel_open;
-    con_class->open_is_needed = home_open_is_needed;
     con_class->create_gfile = home_create_gfile;
     con_class->create_path = home_create_path;
-
-    con_class->get_go_text = home_get_go_text;
-    con_class->get_open_text = home_get_open_text;
-    con_class->get_close_text = home_get_close_text;
-
-    con_class->get_go_icon = home_get_icon;
-    con_class->get_open_icon = home_get_icon;
-    con_class->get_close_icon = home_get_icon;
 }
 
 
@@ -117,15 +72,8 @@ static void gnome_cmd_con_home_init (GnomeCmdConHome *home_con)
 {
     GnomeCmdCon *con = GNOME_CMD_CON (home_con);
 
-    con->state = GnomeCmdCon::STATE_OPEN;
-    con->alias = g_strdup (_("Home"));
-    con->open_msg = g_strdup ("This should not be visible anywhere");
-    con->should_remember_dir = TRUE;
-    con->needs_open_visprog = FALSE;
-    con->needs_list_visprog = FALSE;
-    con->can_show_free_space = TRUE;
-    con->is_local = TRUE;
-    con->is_closeable = FALSE;
+    gnome_cmd_con_set_state (con, GnomeCmdCon::STATE_OPEN);
+    gnome_cmd_con_set_alias (con, _("Home"));
 
     GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_plain_path_new (g_get_home_dir ()));
 
