@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
-"POT-Creation-Date: 2025-08-19 20:06+0000\n"
-"PO-Revision-Date: 2025-08-19 23:24+0200\n"
+"POT-Creation-Date: 2025-08-24 17:23+0000\n"
+"PO-Revision-Date: 2025-08-25 17:31+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -237,7 +237,7 @@ msgstr "Hitrost posodabljanja grafičnega vmesnika"
 msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
 msgstr "Hitrost posodabljanja grafičnega vmesnika v tisočinkah sekunde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:198 src/user_actions.rs:1954
+#: data/org.gnome.gnome-commander.gschema.xml:198 src/user_actions.rs:1952
 msgid "Show device buttons"
 msgstr "Pokaži gumbe naprav"
 
@@ -245,7 +245,7 @@ msgstr "Pokaži gumbe naprav"
 msgid "Defines if device buttons are shown."
 msgstr "Nastavitev določa, ali so gumbi naprave prikazane v vmesniku."
 
-#: data/org.gnome.gnome-commander.gschema.xml:203 src/user_actions.rs:1956
+#: data/org.gnome.gnome-commander.gschema.xml:203 src/user_actions.rs:1954
 msgid "Show device list"
 msgstr "Pokaži seznam naprav"
 
@@ -253,7 +253,7 @@ msgstr "Pokaži seznam naprav"
 msgid "Defines if the list of devices is shown."
 msgstr "Nastavitev določa, ali je prikazan seznam razpoložljivih naprav."
 
-#: data/org.gnome.gnome-commander.gschema.xml:208 src/user_actions.rs:1963
+#: data/org.gnome.gnome-commander.gschema.xml:208 src/user_actions.rs:1961
 msgid "Show command line"
 msgstr "Pokaži ukazno vrstico"
 
@@ -261,7 +261,7 @@ msgstr "Pokaži ukazno vrstico"
 msgid "Defines if command line is shown."
 msgstr "Nastavitev določa, ali je prikazana ukazna vrstica."
 
-#: data/org.gnome.gnome-commander.gschema.xml:213 src/user_actions.rs:1957
+#: data/org.gnome.gnome-commander.gschema.xml:213 src/user_actions.rs:1955
 msgid "Show toolbar"
 msgstr "Pokaži orodno vrstico"
 
@@ -269,7 +269,7 @@ msgstr "Pokaži orodno vrstico"
 msgid "Defines if the toolbar is shown."
 msgstr "Nastavitev določa, ali je prikazana orodna vrstica."
 
-#: data/org.gnome.gnome-commander.gschema.xml:218 src/user_actions.rs:1961
+#: data/org.gnome.gnome-commander.gschema.xml:218 src/user_actions.rs:1959
 msgid "Show buttonbar"
 msgstr "Pokaži funkcijske tipke"
 
@@ -3376,8 +3376,8 @@ msgstr "Kakšno ime naj ima nov arhiv?"
 #: src/dialogs/profiles/manage_profiles_dialog.rs:257 src/dialogs/shortcuts/shortcut_dialog.rs:178
 #: src/dialogs/shortcuts/shortcut_dialog.rs:404 src/dialogs/shortcuts/shortcuts_dialog.rs:194
 #: src/dialogs/transfer_progress_dialog.rs:87 src/dirlist.rs:61 src/file_selector.rs:1427
-#: src/intviewer/search_dialog.rs:67 src/open_connection.rs:62 src/open_file.rs:41 src/open_file.rs:63
-#: src/user_actions.rs:1147
+#: src/intviewer/search_dialog.rs:67 src/open_connection.rs:60 src/open_file.rs:41 src/open_file.rs:63
+#: src/user_actions.rs:1145
 msgid "_Cancel"
 msgstr "Pre_kliči"
 
@@ -3393,7 +3393,7 @@ msgstr "Pre_kliči"
 #: src/dialogs/profiles/edit_profile_dialog.rs:119 src/dialogs/profiles/manage_profiles_dialog.rs:267
 #: src/dialogs/shortcuts/shortcut_dialog.rs:190 src/dialogs/shortcuts/shortcuts_dialog.rs:206
 #: src/file_selector.rs:1427 src/intviewer/search_dialog.rs:68 src/intviewer/window.rs:696
-#: src/open_file.rs:41 src/user_actions.rs:1147 src/utils.rs:261
+#: src/open_file.rs:41 src/user_actions.rs:1145 src/utils.rs:262
 msgid "_OK"
 msgstr "V _redu"
 
@@ -5034,7 +5034,7 @@ msgstr "_Upravljaj profile …"
 msgid "Remove from file list"
 msgstr "Odstrani s seznama datotek"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1118 src/user_actions.rs:1748
+#: src/advanced_rename/advanced_rename_dialog.rs:1118 src/user_actions.rs:1746
 msgid "View file"
 msgstr "Pogled datoteke"
 
@@ -5337,7 +5337,7 @@ msgstr "Določite začetno mapo za desno okno"
 msgid "Failed to create the directory {directory}: {error}"
 msgstr "Ustvarjanje mape {directory} je spodletelo: {error}"
 
-#: src/app.rs:72 src/open_file.rs:183
+#: src/app.rs:72 src/open_file.rs:179
 msgid "Launch of {} failed."
 msgstr "Zagon {} ni uspel."
 
@@ -5381,14 +5381,68 @@ msgstr "Pogled besedila:"
 msgid "Number view:"
 msgstr "Pogled številk:"
 
-#: src/connection/device.rs:120 src/gnome-cmd-con-device.cc:621
+#: src/connection/connection.rs:449
+msgid "Failed to open a connection."
+msgstr "Odpiranje povezave je spodletelo."
+
+#: src/connection/device.rs:196
 #, c-format
 msgid "Mounting %s"
 msgstr "Priklop %s"
 
-#: src/connection/remote.rs:67
+#: src/connection/device.rs:202
+msgid "Go to: {device_name} ({mount_point})"
+msgstr "Pojdi na: {device_name} ({mount_point})"
+
+#: src/connection/device.rs:205
+msgid "Go to: {device_name}"
+msgstr "Pojdi na: {device_name}"
+
+#: src/connection/device.rs:211
+msgid "Mount: {device_name}"
+msgstr "Priklopi: {device_name}"
+
+#: src/connection/device.rs:216
+msgid "Unmount: {device_name}"
+msgstr "Odklopi: {device_name}"
+
+#: src/connection/home.rs:84
+msgid "Go to: Home"
+msgstr "Skoči na: domov"
+
+#: src/connection/remote.rs:120
 msgid "Connecting to {hostname}"
 msgstr "Povezovanje z {hostname}"
+
+#: src/connection/remote.rs:126
+msgid "Go to: {connection}"
+msgstr "Pojdi na: {connection}"
+
+#: src/connection/remote.rs:130
+msgid "Connect to: {connection}"
+msgstr "Poveži se z: {connection}"
+
+#: src/connection/remote.rs:134
+msgid "Disconnect from: {connection}"
+msgstr "Prekini povezavo z: {connection}"
+
+#: src/connection/remote.rs:139
+#, c-format
+msgid "Opens remote connection to %s"
+msgstr "Odpre oddaljeno povezavo z %s"
+
+#: src/connection/remote.rs:144
+#, c-format
+msgid "Closes remote connection to %s"
+msgstr "Zapre oddaljeno povezavo z %s"
+
+#: src/connection/smb.rs:108
+msgid "Searching for workgroups and hosts"
+msgstr "Iskanje delovnih skupin in gostiteljev"
+
+#: src/connection/smb.rs:112
+msgid "Go to: Samba Network"
+msgstr "Skoči na: samba omrežje"
 
 #: src/data.rs:1056
 msgid "Default"
@@ -5646,7 +5700,7 @@ msgstr "_Cilj zaznamka:"
 msgid "File Properties"
 msgstr "Lastnosti datoteke"
 
-#: src/dialogs/file_properties_dialog.rs:119 src/user_actions.rs:1797
+#: src/dialogs/file_properties_dialog.rs:119 src/user_actions.rs:1795
 msgid "Properties"
 msgstr "Lastnosti"
 
@@ -5829,7 +5883,7 @@ msgstr "Ikona:"
 
 #: src/dialogs/options/app_dialog.rs:107 src/dialogs/options/options_dialog.rs:35
 #: src/dialogs/prepare_copy_dialog.rs:96 src/dialogs/shortcuts/shortcuts_dialog.rs:109
-#: src/user_actions.rs:2170
+#: src/user_actions.rs:2168
 msgid "Options"
 msgstr "Možnosti"
 
@@ -5922,7 +5976,7 @@ msgid "Confirm mouse operation"
 msgstr "Potrdi delovanje miške"
 
 #: src/dialogs/options/confirmation_tab.rs:149 src/dialogs/prepare_copy_dialog.rs:45
-#: src/file_list/popup.rs:259 src/main_win.rs:578 src/user_actions.rs:1917
+#: src/file_list/popup.rs:259 src/main_win.rs:578 src/user_actions.rs:1915
 msgid "Copy"
 msgstr "Kopiraj povlečeno"
 
@@ -6161,7 +6215,7 @@ msgstr "Enojni klik odstrani izbor"
 msgid "Middle mouse button"
 msgstr "Srednji gumb miške"
 
-#: src/dialogs/options/general_tab.rs:106 src/main_win.rs:541 src/user_actions.rs:1980
+#: src/dialogs/options/general_tab.rs:106 src/main_win.rs:541 src/user_actions.rs:1978
 msgid "Up one directory"
 msgstr "Odpre mapo višje"
 
@@ -6193,7 +6247,7 @@ msgstr "Razvrščanje"
 msgid "Case sensitive"
 msgstr "Upoštevaj velikost črk"
 
-#: src/dialogs/options/general_tab.rs:153 src/user_actions.rs:1773
+#: src/dialogs/options/general_tab.rs:153 src/user_actions.rs:1771
 msgid "Quick search"
 msgstr "Hitro iskanje"
 
@@ -6794,15 +6848,15 @@ msgid "E_xecute"
 msgstr "_Izvedi"
 
 #. Edit actions
-#: src/file_list/popup.rs:258 src/main_win.rs:573 src/user_actions.rs:1916
+#: src/file_list/popup.rs:258 src/main_win.rs:573 src/user_actions.rs:1914
 msgid "Cut"
 msgstr "Izreži"
 
-#: src/file_list/popup.rs:261 src/user_actions.rs:1934
+#: src/file_list/popup.rs:261 src/user_actions.rs:1932
 msgid "Copy file names"
 msgstr "Kopiraj imena datotek"
 
-#: src/file_list/popup.rs:268 src/main_win.rs:598 src/user_actions.rs:1833
+#: src/file_list/popup.rs:268 src/main_win.rs:598 src/user_actions.rs:1831
 msgid "Send files"
 msgstr "Pošlji datoteke"
 
@@ -6834,7 +6888,7 @@ msgstr "_Prilepi"
 msgid "_Refresh"
 msgstr "_Osveži"
 
-#: src/file_list/quick_search.rs:61 src/user_actions.rs:1768
+#: src/file_list/quick_search.rs:61 src/user_actions.rs:1766
 msgid "Search"
 msgstr "Poišči"
 
@@ -6859,7 +6913,7 @@ msgstr "Prosto %s"
 msgid "Unknown disk usage"
 msgstr "Nedoločena zasedenost diska"
 
-#: src/file_selector.rs:1426 src/user_actions.rs:1146
+#: src/file_selector.rs:1426 src/user_actions.rs:1144
 msgid "The tab is locked, close anyway?"
 msgstr "Zavihek je zaklenjen; naj se vseeno zapre?"
 
@@ -6908,47 +6962,28 @@ msgstr "Prejem datoteke ni uspel"
 msgid "The program has now finished. Press Enter to close this window.\n"
 msgstr "Program je končal z opravili. S pritiskom vnosne tipke zaprete okno.\n"
 
-#: src/gnome-cmd-con.cc:637 src/gnome-cmd-con.cc:668 src/gnome-cmd-con.cc:699
-msgid "<New connection>"
-msgstr "<nova povezava>"
-
-#: src/gnome-cmd-con.cc:639 src/gnome-cmd-con-device.cc:507
-#, c-format
-msgid "Go to: %s"
-msgstr "Skoči na: %s"
-
-#: src/gnome-cmd-con.cc:670
-#, c-format
-msgid "Connect to: %s"
-msgstr "Poveži z: %s"
-
-#: src/gnome-cmd-con.cc:701
-#, c-format
-msgid "Disconnect from: %s"
-msgstr "Prekinjanje povezave: %s"
-
-#: src/gnome-cmd-con-device.cc:142
+#: src/gnome-cmd-con-device.cc:121
 msgid "Failed to execute the mount command"
 msgstr "Napaka med izvajanjem ukaza mount"
 
-#: src/gnome-cmd-con-device.cc:150
+#: src/gnome-cmd-con-device.cc:129
 msgid "Mount failed: permission denied"
 msgstr "Priklop je spodletel: ni ustreznih dovoljenj"
 
-#: src/gnome-cmd-con-device.cc:153
+#: src/gnome-cmd-con-device.cc:132
 msgid "Mount failed: no medium found"
 msgstr "Priklop je spodletel: nosilca ni mogoče najti"
 
-#: src/gnome-cmd-con-device.cc:156
+#: src/gnome-cmd-con-device.cc:135
 #, c-format
 msgid "Mount failed: mount exited with exitstatus %d"
 msgstr "Priklop je spodletel: priklop zaključen s stanjem %d"
 
-#: src/gnome-cmd-con-device.cc:323 src/gnome-cmd-con-device.cc:332
+#: src/gnome-cmd-con-device.cc:301 src/gnome-cmd-con-device.cc:310
 msgid "Volume successfully unmounted"
 msgstr "Pogon je uspešno odklopljen"
 
-#: src/gnome-cmd-con-device.cc:362 src/gnome-cmd-con-device.cc:371
+#: src/gnome-cmd-con-device.cc:340 src/gnome-cmd-con-device.cc:349
 #, c-format
 msgid ""
 "Cannot unmount the volume:\n"
@@ -6959,60 +6994,23 @@ msgstr ""
 "%s\n"
 "Koda napake: %d"
 
-#: src/gnome-cmd-con-device.cc:505
-#, c-format
-msgid "Go to: %s (%s)"
-msgstr "Skoči na: %s (%s)"
-
-#: src/gnome-cmd-con-device.cc:514
-#, c-format
-msgid "Mount: %s"
-msgstr "Priklop %s"
-
-#: src/gnome-cmd-con-device.cc:521
-#, c-format
-msgid "Unmount: %s"
-msgstr "Odklapljam: %s"
-
-#: src/gnome-cmd-con-home.cc:69
-msgid "Go to: Home"
-msgstr "Skoči na: domov"
-
-#: src/gnome-cmd-con-home.cc:121
+#: src/gnome-cmd-con-home.cc:76
 msgid "Home"
 msgstr "Domov"
 
-#: src/gnome-cmd-con-remote.cc:138 src/gnome-cmd-con-remote.cc:140
+#: src/gnome-cmd-con-remote.cc:131 src/gnome-cmd-con-remote.cc:133
 msgid "Disconnect error"
 msgstr "Napaka prekinjanja povezave"
 
-#: src/gnome-cmd-con-remote.cc:250
-#, c-format
-msgid "Opens remote connection to %s"
-msgstr "Odpre oddaljeno povezavo z %s"
-
-#: src/gnome-cmd-con-remote.cc:260
-#, c-format
-msgid "Closes remote connection to %s"
-msgstr "Zapre oddaljeno povezavo z %s"
-
-#: src/gnome-cmd-con-smb.cc:58
+#: src/gnome-cmd-con-smb.cc:67
 msgid "Failed to browse the network. Is Samba supported on the system?"
 msgstr "Brskanje po omrežju je spodletelo. Ali sistem podpira možnosti Sambe?"
 
-#: src/gnome-cmd-con-smb.cc:190
-msgid "Go to: Samba Network"
-msgstr "Skoči na: samba omrežje"
-
-#: src/gnome-cmd-con-smb.cc:241
+#: src/gnome-cmd-con-smb.cc:181
 msgid "SMB"
 msgstr "SMB"
 
-#: src/gnome-cmd-con-smb.cc:242
-msgid "Searching for workgroups and hosts"
-msgstr "Iskanje delovnih skupin in gostiteljev"
-
-#: src/gnome-cmd-file-list.cc:196
+#: src/gnome-cmd-file-list.cc:198
 msgid "Directory listing failed."
 msgstr "Izpis map ni uspel."
 
@@ -7352,7 +7350,7 @@ msgstr "F9 Poišči"
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "GNOME Commander - SKRBNIŠKI NAČIN"
 
-#: src/main_win.rs:536 src/user_actions.rs:2009
+#: src/main_win.rs:536 src/user_actions.rs:2007
 msgid "Refresh"
 msgstr "Osveži"
 
@@ -7376,7 +7374,7 @@ msgstr "Skoči na najnovejše"
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr "Kopiraj imena datotek (s tipko SHIFT se kopira celotna pot, z ALT pa naslovi URI)"
 
-#: src/main_win.rs:583 src/user_actions.rs:1922
+#: src/main_win.rs:583 src/user_actions.rs:1920
 msgid "Paste"
 msgstr "Prilepi"
 
@@ -7384,7 +7382,7 @@ msgstr "Prilepi"
 msgid "Edit (SHIFT for new document)"
 msgstr "Uredi (s tipko SHIFT se odpre nov dokument)"
 
-#: src/main_win.rs:603 src/user_actions.rs:1948
+#: src/main_win.rs:603 src/user_actions.rs:1946
 msgid "Open terminal"
 msgstr "Odpri terminal"
 
@@ -7532,7 +7530,7 @@ msgstr "_Enako veliki plošči"
 msgid "Maximize Panel Size"
 msgstr "Razpni velikost plošče"
 
-#: src/main_win.rs:1622 src/user_actions.rs:2120
+#: src/main_win.rs:1622 src/user_actions.rs:2118
 msgid "Horizontal Orientation"
 msgstr "Vodoravna postavitev"
 
@@ -7592,10 +7590,6 @@ msgstr "Prijavi _težavo"
 msgid "_About"
 msgstr "_O Programu"
 
-#: src/open_connection.rs:143
-msgid "Failed to open connection."
-msgstr "Odpiranje povezave je spodletelo."
-
 #: src/open_file.rs:36
 msgid ""
 "“{}” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then "
@@ -7635,10 +7629,6 @@ msgstr "Za vrsto datoteke {} ni določen privzeti program."
 #: src/open_file.rs:144
 msgid "Open the \"Applications\" page in the Control Center to add one."
 msgstr "Odprite stran »Programov« v Nadzornem središču in program dodajte."
-
-#: src/open_file.rs:157
-msgid "A file {} has no URI"
-msgstr "Datoteka {} nima URI-ja"
 
 #: src/plugin_manager.rs:392
 msgid "Available plugins"
@@ -7757,15 +7747,15 @@ msgstr "Izbor slikovne datoteke"
 msgid "Choose Icon"
 msgstr "Izbor ikone"
 
-#: src/spawn.rs:149 src/spawn.rs:153
+#: src/spawn.rs:148 src/spawn.rs:152
 msgid "No valid command given."
 msgstr "Ni navedenega veljavnega ukaza."
 
-#: src/spawn.rs:150
+#: src/spawn.rs:149
 msgid "Bad command template."
 msgstr "Slaba predloga ukaza."
 
-#: src/spawn.rs:156 src/user_actions.rs:249
+#: src/spawn.rs:155 src/user_actions.rs:249
 msgid "Unable to execute command."
 msgstr "Ni mogoče izvesti ukaza."
 
@@ -7976,23 +7966,23 @@ msgstr ""
 "Privzeti ukaz pošiljanja podpira samo eno izbrano datoteko hkrati. Ukaz lahko spremenite v programskih "
 "možnostih."
 
-#: src/user_actions.rs:907
+#: src/user_actions.rs:905
 msgid "No command was given."
 msgstr "Ukaz ni bil dan."
 
-#: src/user_actions.rs:950
+#: src/user_actions.rs:948
 msgid "Terminal command is not configured properly."
 msgstr "Ukaz terminala ni pravilno nastavljen."
 
-#: src/user_actions.rs:1584
+#: src/user_actions.rs:1582
 msgid "There was an error opening home page."
 msgstr "Prišlo je do napake pri odpiranju domače strani."
 
-#: src/user_actions.rs:1602
+#: src/user_actions.rs:1600
 msgid "There was an error reporting problem."
 msgstr "Prišlo je do napake pri poročanju o napaki."
 
-#: src/user_actions.rs:1637
+#: src/user_actions.rs:1635
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it under the terms of the GNU "
 "General Public License as published by the Free Software Foundation; either version 2 of the License, or "
@@ -8001,7 +7991,7 @@ msgstr ""
 "GNOME Terminal je prosti programski paket; lahko ga izmenjujete in spreminjate pod pogoji GNU Splošnega "
 "javnega dovoljenja, kot jo izdaja Free Software Foundation; različica 2 ali kasnejše različice."
 
-#: src/user_actions.rs:1640
+#: src/user_actions.rs:1638
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even "
 "the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public "
@@ -8010,7 +8000,7 @@ msgstr ""
 "GNOME Terminal se širi v upanju, da bo uporaben, vendar brez kakršnekoli garancije. Za več podrobnosti si "
 "oglejte GNU Splošno javno dovoljenje."
 
-#: src/user_actions.rs:1643
+#: src/user_actions.rs:1641
 msgid ""
 "You should have received a copy of the GNU General Public License along with GNOME Commander; if not, "
 "write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
@@ -8019,322 +8009,322 @@ msgstr ""
 "dobili, pišite na Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 "
 "USA"
 
-#: src/user_actions.rs:1652
+#: src/user_actions.rs:1650
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Hiter in zmogljiv urejevalnik datotek za GNOME namizje"
 
-#: src/user_actions.rs:1660
+#: src/user_actions.rs:1658
 msgid "translator-credits"
 msgstr ""
 "Matej Urbančič <mateju@src.gnome.org>\n"
 "Martin Srebotnjak <miles@filmsi.net>"
 
 #. File actions
-#: src/user_actions.rs:1734
+#: src/user_actions.rs:1732
 msgid "Copy files"
 msgstr "Kopiranje datotek"
 
-#: src/user_actions.rs:1739
+#: src/user_actions.rs:1737
 msgid "Copy files with rename"
 msgstr "Kopiraj in preimenuj datoteke"
 
-#: src/user_actions.rs:1741
+#: src/user_actions.rs:1739
 msgid "Move files"
 msgstr "Premakni datoteke"
 
-#: src/user_actions.rs:1746
+#: src/user_actions.rs:1744
 msgid "Delete files"
 msgstr "Izbriši datoteke"
 
-#: src/user_actions.rs:1753
+#: src/user_actions.rs:1751
 msgid "View with internal viewer"
 msgstr "Poglej datoteko z vgrajenim pregledovalnikom"
 
-#: src/user_actions.rs:1759
+#: src/user_actions.rs:1757
 msgid "View with external viewer"
 msgstr "Poglej datoteko z zunanjim pregledovalnikom"
 
-#: src/user_actions.rs:1761
+#: src/user_actions.rs:1759
 msgid "Edit file"
 msgstr "Uredi datoteko"
 
-#: src/user_actions.rs:1766
+#: src/user_actions.rs:1764
 msgid "Edit a new file"
 msgstr "Uredi novo datoteko"
 
-#: src/user_actions.rs:1779
+#: src/user_actions.rs:1777
 msgid "Change permissions"
 msgstr "Spremeni dovoljenja"
 
-#: src/user_actions.rs:1785
+#: src/user_actions.rs:1783
 msgid "Change owner/group"
 msgstr "Spremeni lastništvo"
 
-#: src/user_actions.rs:1791
+#: src/user_actions.rs:1789
 msgid "Create directory"
 msgstr "Ustvari mapo"
 
-#: src/user_actions.rs:1803
+#: src/user_actions.rs:1801
 msgid "Compare files (diff)"
 msgstr "Primerjava datotek (diff)"
 
-#: src/user_actions.rs:1809
+#: src/user_actions.rs:1807
 msgid "Synchronize directories"
 msgstr "Usklajevanje map"
 
-#: src/user_actions.rs:1815
+#: src/user_actions.rs:1813
 msgid "Rename files"
 msgstr "Preimenuj datoteke"
 
-#: src/user_actions.rs:1821
+#: src/user_actions.rs:1819
 msgid "Create symbolic link"
 msgstr "Ustvari simbolično povezavo"
 
-#: src/user_actions.rs:1827
+#: src/user_actions.rs:1825
 msgid "Advanced rename tool"
 msgstr "Napredno preimenovanje"
 
-#: src/user_actions.rs:1835
+#: src/user_actions.rs:1833
 msgid "Quit"
 msgstr "Končaj"
 
-#: src/user_actions.rs:1841
+#: src/user_actions.rs:1839
 msgid "Toggle selection"
 msgstr "Preklopi izbor"
 
-#: src/user_actions.rs:1847
+#: src/user_actions.rs:1845
 msgid "Toggle selection and move cursor downward"
 msgstr "Preklopi izbor in premakni kazalnik nižje"
 
-#: src/user_actions.rs:1853
+#: src/user_actions.rs:1851
 msgid "Select all"
 msgstr "Izberi vse"
 
-#: src/user_actions.rs:1859
+#: src/user_actions.rs:1857
 msgid "Unselect all"
 msgstr "Počisti vse"
 
-#: src/user_actions.rs:1865
+#: src/user_actions.rs:1863
 msgid "Select all files"
 msgstr "Izberi vse datoteke"
 
-#: src/user_actions.rs:1871
+#: src/user_actions.rs:1869
 msgid "Unselect all files"
 msgstr "Počisti izbor vseh datotek"
 
-#: src/user_actions.rs:1877
+#: src/user_actions.rs:1875
 msgid "Select with pattern"
 msgstr "Izberi z vzorcem"
 
-#: src/user_actions.rs:1883
+#: src/user_actions.rs:1881
 msgid "Unselect with pattern"
 msgstr "Počisti izbor z vzorcem"
 
-#: src/user_actions.rs:1889
+#: src/user_actions.rs:1887
 msgid "Invert selection"
 msgstr "Obrni izbor"
 
-#: src/user_actions.rs:1895
+#: src/user_actions.rs:1893
 msgid "Select with same extension"
 msgstr "Izberi z isto pripono"
 
-#: src/user_actions.rs:1901
+#: src/user_actions.rs:1899
 msgid "Unselect with same extension"
 msgstr "Počisti izbor z isto pripono"
 
-#: src/user_actions.rs:1907
+#: src/user_actions.rs:1905
 msgid "Restore selection"
 msgstr "Povrni izbor"
 
-#: src/user_actions.rs:1913
+#: src/user_actions.rs:1911
 msgid "Compare directories"
 msgstr "Primerjava map"
 
-#: src/user_actions.rs:1928
+#: src/user_actions.rs:1926
 msgid "Show user defined files"
 msgstr "Pokaži po meri določene datoteke"
 
-#: src/user_actions.rs:1942
+#: src/user_actions.rs:1940
 msgid "Execute command"
 msgstr "Izvedi ukaz"
 
-#: src/user_actions.rs:1968
+#: src/user_actions.rs:1966
 msgid "Show directory history"
 msgstr "Pokaži zgodovino mape"
 
-#: src/user_actions.rs:1973
+#: src/user_actions.rs:1971
 msgid "Show hidden files"
 msgstr "Pokaži skrite datoteke"
 
-#: src/user_actions.rs:1978
+#: src/user_actions.rs:1976
 msgid "Show backup files"
 msgstr "Pokaži varnostne kopije"
 
-#: src/user_actions.rs:1985
+#: src/user_actions.rs:1983
 msgid "Back to the first directory"
 msgstr "Nazaj na prvo mapo v zgodovini"
 
-#: src/user_actions.rs:1991
+#: src/user_actions.rs:1989
 msgid "Back one directory"
 msgstr "Vrni se na predhodno mapo zgodovine"
 
-#: src/user_actions.rs:1997
+#: src/user_actions.rs:1995
 msgid "Forward one directory"
 msgstr "Naprej na naslednjo mapo zgodovine"
 
-#: src/user_actions.rs:2003
+#: src/user_actions.rs:2001
 msgid "Forward to the last directory"
 msgstr "Naprej na zadnjo mapo v zgodovini"
 
-#: src/user_actions.rs:2014
+#: src/user_actions.rs:2012
 msgid "Equal panel size"
 msgstr "Enako veliki okni"
 
-#: src/user_actions.rs:2019
+#: src/user_actions.rs:2017
 msgid "Maximize panel size"
 msgstr "Razpni velikost okna"
 
-#: src/user_actions.rs:2025
+#: src/user_actions.rs:2023
 msgid "Open directory in the left window"
 msgstr "Odpre mapo v levem oknu"
 
-#: src/user_actions.rs:2031
+#: src/user_actions.rs:2029
 msgid "Open directory in the right window"
 msgstr "Odpre mapo v desnem oknu"
 
-#: src/user_actions.rs:2037
+#: src/user_actions.rs:2035
 msgid "Open directory in the active window"
 msgstr "Odpre mapo v dejavnem oknu"
 
-#: src/user_actions.rs:2043
+#: src/user_actions.rs:2041
 msgid "Open directory in the inactive window"
 msgstr "Odpre mapo v nedejavnem oknu"
 
-#: src/user_actions.rs:2049
+#: src/user_actions.rs:2047
 msgid "Change directory"
 msgstr "Spremeni mapo"
 
-#: src/user_actions.rs:2055
+#: src/user_actions.rs:2053
 msgid "Home directory"
 msgstr "Domači imenik"
 
-#: src/user_actions.rs:2061
+#: src/user_actions.rs:2059
 msgid "Root directory"
 msgstr "Korenska mapa"
 
-#: src/user_actions.rs:2067
+#: src/user_actions.rs:2065
 msgid "Open directory in a new tab"
 msgstr "Odpre mapo v novem zavihku"
 
-#: src/user_actions.rs:2073
+#: src/user_actions.rs:2071
 msgid "Close the current tab"
 msgstr "Zapri trenutni zavihek"
 
-#: src/user_actions.rs:2079
+#: src/user_actions.rs:2077
 msgid "Close all tabs"
 msgstr "Zapri vse zavihke"
 
-#: src/user_actions.rs:2085
+#: src/user_actions.rs:2083
 msgid "Close duplicate tabs"
 msgstr "Zapri podvojene zavihke"
 
-#: src/user_actions.rs:2091
+#: src/user_actions.rs:2089
 msgid "Previous tab"
 msgstr "Predhodni zavihek"
 
-#: src/user_actions.rs:2097
+#: src/user_actions.rs:2095
 msgid "Next tab"
 msgstr "Naslednji zavihek"
 
-#: src/user_actions.rs:2103
+#: src/user_actions.rs:2101
 msgid "Open directory in the new tab"
 msgstr "Odpri mapo v novem zavihku"
 
-#: src/user_actions.rs:2109
+#: src/user_actions.rs:2107
 msgid "Open directory in the new tab (inactive window)"
 msgstr "Odpri mapo v novem zavihku (nedejavno okno)"
 
-#: src/user_actions.rs:2115
+#: src/user_actions.rs:2113
 msgid "Lock/unlock tab"
 msgstr "Zakleni/Odkleni zavihek"
 
-#: src/user_actions.rs:2125
+#: src/user_actions.rs:2123
 msgid "Display main menu"
 msgstr "Pokaži glavni meni"
 
-#: src/user_actions.rs:2131
+#: src/user_actions.rs:2129
 msgid "Move cursor one step up"
 msgstr "Premakni kazalko en korak višje"
 
-#: src/user_actions.rs:2137
+#: src/user_actions.rs:2135
 msgid "Move cursor one step down"
 msgstr "Premakni kazalko en korak nižje"
 
-#: src/user_actions.rs:2144
+#: src/user_actions.rs:2142
 msgid "Bookmark current directory"
 msgstr "Ustvari zaznamek trenutne mape"
 
-#: src/user_actions.rs:2150
+#: src/user_actions.rs:2148
 msgid "Manage bookmarks"
 msgstr "Uredi zaznamke"
 
-#: src/user_actions.rs:2157
+#: src/user_actions.rs:2155
 msgid "Go to bookmarked location"
 msgstr "Skoči na mesto zaznamka"
 
-#: src/user_actions.rs:2163
+#: src/user_actions.rs:2161
 msgid "Show bookmarks of current device"
 msgstr "Pokaži zaznamke trenutne naprave"
 
-#: src/user_actions.rs:2176
+#: src/user_actions.rs:2174
 msgid "Keyboard shortcuts"
 msgstr "Tipkovne bližnjice"
 
-#: src/user_actions.rs:2183
+#: src/user_actions.rs:2181
 msgid "Open connection"
 msgstr "Odpri povezavo"
 
-#: src/user_actions.rs:2189
+#: src/user_actions.rs:2187
 msgid "New connection"
 msgstr "Nova povezava"
 
-#: src/user_actions.rs:2196
+#: src/user_actions.rs:2194
 msgid "Set connection"
 msgstr "Nastavi povezavo"
 
-#: src/user_actions.rs:2202
+#: src/user_actions.rs:2200
 msgid "Change left connection"
 msgstr "Spremeni povezavo na levi"
 
-#: src/user_actions.rs:2208
+#: src/user_actions.rs:2206
 msgid "Change right connection"
 msgstr "Spremeni povezavo na desni"
 
-#: src/user_actions.rs:2215 src/user_actions.rs:2221
+#: src/user_actions.rs:2213 src/user_actions.rs:2219
 msgid "Close connection"
 msgstr "Zapri povezavo"
 
-#: src/user_actions.rs:2228
+#: src/user_actions.rs:2226
 msgid "Configure plugins"
 msgstr "Nastavitve vstavkov"
 
-#: src/user_actions.rs:2242
+#: src/user_actions.rs:2240
 msgid "Help contents"
 msgstr "Vsebina pomoči"
 
-#: src/user_actions.rs:2248
+#: src/user_actions.rs:2246
 msgid "Help on keyboard shortcuts"
 msgstr "Pomoč o tipkovnih bližnjicah"
 
-#: src/user_actions.rs:2254
+#: src/user_actions.rs:2252
 msgid "GNOME Commander on the web"
 msgstr "Program GNOME Commander na spletu"
 
-#: src/user_actions.rs:2260
+#: src/user_actions.rs:2258
 msgid "Report a problem"
 msgstr "Poročilo o napaki"
 
-#: src/user_actions.rs:2266
+#: src/user_actions.rs:2264
 msgid "About GNOME Commander"
 msgstr "O programu GNOME Commander"
 
@@ -8346,11 +8336,11 @@ msgstr "Začasne datoteke ni mogoče ustvariti."
 msgid "Cannot create a file for a path {}."
 msgstr "Ni mogoče ustvariti datoteke za pot {}."
 
-#: src/utils.rs:285
+#: src/utils.rs:286
 msgid "There was an error while opening help uri {uri}."
 msgstr "Pri odpiranju uri {uri} za vsebino pomoči je prišlo do napake."
 
-#: src/utils.rs:388
+#: src/utils.rs:389
 msgid "{} PiB"
 msgid_plural "{} PiB"
 msgstr[0] "{} PiB"
@@ -8358,7 +8348,7 @@ msgstr[1] "{} PiB"
 msgstr[2] "{} PiB"
 msgstr[3] "{} PiB"
 
-#: src/utils.rs:391
+#: src/utils.rs:392
 msgid "{} TiB"
 msgid_plural "{} TiB"
 msgstr[0] "{} PiB"
@@ -8366,7 +8356,7 @@ msgstr[1] "{} PiB"
 msgstr[2] "{} PiB"
 msgstr[3] "{} PiB"
 
-#: src/utils.rs:394
+#: src/utils.rs:395
 msgid "{} GiB"
 msgid_plural "{} GiB"
 msgstr[0] "{} PiB"
@@ -8374,7 +8364,7 @@ msgstr[1] "{} PiB"
 msgstr[2] "{} PiB"
 msgstr[3] "{} PiB"
 
-#: src/utils.rs:397
+#: src/utils.rs:398
 msgid "{} MiB"
 msgid_plural "{} MiB"
 msgstr[0] "{} MiB"
@@ -8382,7 +8372,7 @@ msgstr[1] "{} MiB"
 msgstr[2] "{} MiB"
 msgstr[3] "{} MiB"
 
-#: src/utils.rs:400
+#: src/utils.rs:401
 msgid "{} kiB"
 msgid_plural "{} kiB"
 msgstr[0] "{} kiB"
@@ -8390,7 +8380,7 @@ msgstr[1] "{} kiB"
 msgstr[2] "{} kiB"
 msgstr[3] "{} kiB"
 
-#: src/utils.rs:403 src/utils.rs:414 src/utils.rs:418
+#: src/utils.rs:404 src/utils.rs:415 src/utils.rs:419
 msgid "{} byte"
 msgid_plural "{} bytes"
 msgstr[0] "{} bajtov"
