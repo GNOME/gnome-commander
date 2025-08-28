@@ -21,7 +21,7 @@
  */
 
 use crate::connection::{
-    connection::ConnectionExt,
+    connection::{ConnectionExt, ConnectionInterface},
     remote::{ConnectionMethodID, ConnectionRemote},
 };
 use gettextrs::gettext;

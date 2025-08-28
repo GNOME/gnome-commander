@@ -25,7 +25,7 @@ use crate::{
     config::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_URL, PACKAGE_VERSION},
     connection::{
         bookmark::{Bookmark, BookmarkGoToVariant},
-        connection::{Connection, ConnectionExt},
+        connection::{Connection, ConnectionExt, ConnectionInterface},
         home::ConnectionHome,
         list::ConnectionList,
     },
@@ -1455,8 +1455,8 @@ pub fn connections_set_current(
         .set_connection(&con, None);
 }
 
-fn close_connection(main_win: &MainWindow, con: &Connection) {
-    con.close(Some(main_win.upcast_ref()));
+async fn close_connection(main_win: &MainWindow, con: &Connection) {
+    con.close(Some(main_win.upcast_ref())).await;
 }
 
 pub fn connections_close(
@@ -1475,7 +1475,10 @@ pub fn connections_close(
         return;
     };
 
-    close_connection(&main_win, &con);
+    let main_win = main_win.clone();
+    glib::spawn_future_local(async move {
+        close_connection(&main_win, &con).await;
+    });
 }
 
 pub fn connections_close_current(
@@ -1489,7 +1492,10 @@ pub fn connections_close_current(
         .connection()
         .filter(|c| c.downcast_ref::<ConnectionHome>().is_none())
     {
-        close_connection(&main_win, &con);
+        let main_win = main_win.clone();
+        glib::spawn_future_local(async move {
+            close_connection(&main_win, &con).await;
+        });
     }
 }
 

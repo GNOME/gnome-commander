@@ -61,12 +61,9 @@ struct GnomeCmdConClass
 
     /* signals */
     void (* updated) (GnomeCmdCon *con);
+    void (* close) (GnomeCmdCon *con, GtkWindow *parent_window);
 
     /* virtual functions */
-    void (* open) (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable);
-    void (* close) (GnomeCmdCon *con, GtkWindow *parent_window);
-    GFile *(* create_gfile) (GnomeCmdCon *con, const gchar *path_str);
-    GnomeCmdPath *(* create_path) (GnomeCmdCon *con, const gchar *path_str);
 };
 
 
@@ -78,12 +75,9 @@ extern "C" void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path
 extern "C" GFileInfo *gnome_cmd_con_get_base_file_info(GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_base_file_info(GnomeCmdCon *con, GFileInfo *file_info);
 
-extern "C" void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable);
 extern "C" void gnome_cmd_con_set_state (GnomeCmdCon *con, GnomeCmdCon::State state);
 
 extern "C" gboolean gnome_cmd_con_is_open (GnomeCmdCon *con);
-
-extern "C" void gnome_cmd_con_close (GnomeCmdCon *con, GtkWindow *parent_window);
 
 extern "C" GUri *gnome_cmd_con_get_uri (GnomeCmdCon *con);
 extern "C" gchar *gnome_cmd_con_get_uri_string (GnomeCmdCon *con);
@@ -91,7 +85,7 @@ extern "C" gchar *gnome_cmd_con_get_uri_string (GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_uri (GnomeCmdCon *con, GUri *uri);
 extern "C" void gnome_cmd_con_set_uri_string (GnomeCmdCon *con, const gchar *uri_string);
 
-extern "C" GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, const gchar *path = nullptr);
+extern "C" GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path);
 
 extern "C" GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str);
 
@@ -106,6 +100,3 @@ inline gboolean gnome_cmd_con_should_remember_dir (GnomeCmdCon *con)
 }
 
 extern "C" gboolean gnome_cmd_con_is_local (GnomeCmdCon *con);
-
-
-extern "C" void gnome_cmd_con_set_open_state (GnomeCmdCon *con, GnomeCmdCon::OpenResult result, GError *error, const gchar *msg);

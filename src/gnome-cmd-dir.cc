@@ -62,9 +62,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
             return nullptr;
         }
 
-        gchar *p = gnome_cmd_path_get_path (dirPath);
-        gFile = gnome_cmd_con_create_gfile (con, p);
-        g_free (p);
+        gFile = gnome_cmd_con_create_gfile (con, dirPath);
     }
 
     GError *error = nullptr;
@@ -86,9 +84,7 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
     g_return_val_if_fail (path!=nullptr, nullptr);
 
-    gchar *path_str = gnome_cmd_path_get_path (path);
-    auto gFile = gnome_cmd_con_create_gfile (con, path_str);
-    g_free (path_str);
+    auto gFile = gnome_cmd_con_create_gfile (con, path);
     if (!gFile)
     {
         return nullptr;
@@ -241,10 +237,8 @@ GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename)
         return nullptr;
     }
 
-    gchar *path_str = gnome_cmd_path_get_path (path);
-    gFile = gnome_cmd_con_create_gfile (con, path_str);
+    gFile = gnome_cmd_con_create_gfile (con, path);
     gnome_cmd_path_free (path);
-    g_free (path_str);
 
     return gFile;
 }

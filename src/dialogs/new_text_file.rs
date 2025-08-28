@@ -40,7 +40,7 @@ fn create_empty_file(name: &str, dir: &Directory) -> Result<gio::File, ErrorMess
     let file = if name.starts_with("/") {
         let con = dir.connection();
         let path = con.create_path(Path::new(&name));
-        con.create_gfile(Some(&path.path()))
+        con.create_gfile(&path)
     } else {
         dir.get_child_gfile(&name)
     };

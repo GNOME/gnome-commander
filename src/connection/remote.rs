@@ -21,16 +21,23 @@
  */
 
 use super::connection::{Connection, ConnectionExt, ConnectionInterface};
+use crate::{debug::debug, path::GnomeCmdPath, utils::ErrorMessage};
 use gettextrs::gettext;
-use glib::object::Cast;
 use gtk::{
     gio,
     glib::{
         self,
+        prelude::*,
         translate::{from_glib_none, ToGlibPtr},
     },
+    prelude::*,
 };
-use std::ffi::c_char;
+use std::{
+    ffi::c_char,
+    future::Future,
+    path::{Path, PathBuf},
+    pin::Pin,
+};
 
 pub mod ffi {
     use crate::connection::connection::ffi::GnomeCmdConClass;
@@ -94,6 +101,129 @@ impl ConnectionRemote {
 }
 
 impl ConnectionInterface for ConnectionRemote {
+    fn open_impl(
+        &self,
+        window: gtk::Window,
+    ) -> Pin<Box<dyn Future<Output = Result<(), ErrorMessage>> + '_>> {
+        Box::pin(async move {
+            debug!('m', "Opening remote connection");
+
+            let Some(_uri) = self.uri() else {
+                return Ok(());
+            };
+
+            if self.base_path().is_none() {
+                self.set_base_path(Some(GnomeCmdPath::Plain(PathBuf::from("/"))));
+            }
+
+            let file = self.create_gfile(&GnomeCmdPath::Plain(PathBuf::from("/")));
+            debug!('m', "Connecting to {}", file.uri());
+
+            let mount_operation = gtk::MountOperation::new(Some(&window));
+
+            let result = file
+                .mount_enclosing_volume_future(gio::MountMountFlags::NONE, Some(&mount_operation))
+                .await
+                .or_else(|error| {
+                    if error.matches(gio::IOErrorEnum::AlreadyMounted) {
+                        Ok(())
+                    } else {
+                        Err(error)
+                    }
+                });
+
+            match result {
+                Ok(()) => {}
+                Err(error) => {
+                    debug!('m', "Unable to mount enclosing volume: {}", error);
+                    self.set_base_file_info(None);
+                    return Err(ErrorMessage::with_error(
+                        gettext("Cannot connect to a remote location"),
+                        &error,
+                    ));
+                }
+            }
+
+            let base_file = self.create_gfile(&GnomeCmdPath::Plain(PathBuf::from("/")));
+            match base_file
+                .query_info_future("*", gio::FileQueryInfoFlags::NONE, glib::Priority::DEFAULT)
+                .await
+            {
+                Ok(base_file_info) => {
+                    self.set_base_file_info(Some(&base_file_info));
+                }
+                Err(error) => {
+                    self.set_base_file_info(None);
+                    return Err(ErrorMessage::with_error(
+                        gettext("Cannot query remote location information"),
+                        &error,
+                    ));
+                }
+            }
+
+            Ok(())
+        })
+    }
+
+    fn close_impl(
+        &self,
+        _window: Option<gtk::Window>,
+    ) -> Pin<Box<dyn Future<Output = Result<(), ErrorMessage>> + '_>> {
+        Box::pin(async {
+            self.set_default_dir(None);
+            self.set_base_path(None);
+
+            let Some(uri) = self.uri_string() else {
+                return Ok(());
+            };
+            debug!('m', "Closing connection to {}", uri);
+
+            let file = gio::File::for_uri(&uri);
+
+            let mount = file
+                .find_enclosing_mount(gio::Cancellable::NONE)
+                .map_err(|error| {
+                    ErrorMessage::with_error(gettext("Cannot find an enclosing mount"), &error)
+                })?;
+
+            mount
+                .unmount_with_operation_future(
+                    gio::MountUnmountFlags::NONE,
+                    gio::MountOperation::NONE,
+                )
+                .await
+                .or_else(|error| {
+                    if error.matches(gio::IOErrorEnum::Closed) {
+                        Ok(())
+                    } else {
+                        Err(error)
+                    }
+                })
+                .map_err(|error| ErrorMessage::with_error(gettext("Disconnect error"), &error))?;
+
+            Ok(())
+        })
+    }
+
+    fn create_gfile(&self, path: &GnomeCmdPath) -> gio::File {
+        let connection_uri = self.uri().unwrap();
+        let uri = glib::Uri::build(
+            glib::UriFlags::NONE,
+            &connection_uri.scheme(),
+            connection_uri.userinfo().as_deref(),
+            connection_uri.host().as_deref(),
+            connection_uri.port(),
+            path.path().to_str().unwrap_or_default(),
+            None,
+            None,
+        );
+        gio::File::for_uri(&uri.to_str())
+    }
+
+    fn create_path(&self, path: &Path) -> GnomeCmdPath {
+        GnomeCmdPath::Plain(path.to_owned())
+    }
+
     fn is_local(&self) -> bool {
         false
     }

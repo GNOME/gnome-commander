@@ -431,10 +431,10 @@ impl ConnectionList {
         }
     }
 
-    fn remove_mount(&self, mount: &gio::Mount) {
+    async fn remove_mount(&self, mount: &gio::Mount) {
         let file = mount.root();
         if let Some(con) = self.find_remote_by_root(&file) {
-            con.close(None);
+            con.close(None).await;
         }
     }
 
@@ -506,7 +506,12 @@ impl ConnectionList {
         monitor.connect_mount_removed(glib::clone!(
             #[weak(rename_to = this)]
             self,
-            move |_, mount| this.remove_mount(mount)
+            move |_, mount| {
+                let mount = mount.clone();
+                glib::spawn_future_local(async move {
+                    this.remove_mount(&mount).await;
+                });
+            }
         ));
         monitor.connect_volume_added(glib::clone!(
             #[weak(rename_to = this)]

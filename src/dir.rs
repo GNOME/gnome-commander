@@ -211,10 +211,7 @@ impl Directory {
     pub fn new_with_con(connection: &Connection) -> Option<Self> {
         let base_file_info = connection.base_file_info()?;
         let base_path = connection.base_path()?;
-
-        let path = connection.is_local().then(|| base_path.path());
-        let file = connection.create_gfile(path.as_deref());
-
+        let file = connection.create_gfile(base_path);
         match Self::find_or_create(&connection, &file, Some(&base_file_info), base_path.clone()) {
             Ok(directory) => Some(directory),
             Err(error) => {

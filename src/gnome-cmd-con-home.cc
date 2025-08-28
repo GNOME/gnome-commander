@@ -19,38 +19,11 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
-
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-con-home.h"
-#include "gnome-cmd-path.h"
-
-using namespace std;
 
 
 G_DEFINE_TYPE (GnomeCmdConHome, gnome_cmd_con_home, GNOME_CMD_TYPE_CON)
-
-
-static void home_open (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable)
-{
-}
-
-
-static void home_close (GnomeCmdCon *con, GtkWindow *parent_window)
-{
-}
-
-
-static GFile *home_create_gfile (GnomeCmdCon *con, const gchar *path)
-{
-    return g_file_new_for_path(path);
-}
-
-
-static GnomeCmdPath *home_create_path (GnomeCmdCon *con, const gchar *path_str)
-{
-    return gnome_cmd_plain_path_new (path_str);
-}
 
 
 /*******************************
@@ -59,12 +32,6 @@ static GnomeCmdPath *home_create_path (GnomeCmdCon *con, const gchar *path_str)
 
 static void gnome_cmd_con_home_class_init (GnomeCmdConHomeClass *klass)
 {
-    GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
-
-    con_class->open = home_open;
-    con_class->close = home_close;
-    con_class->create_gfile = home_create_gfile;
-    con_class->create_path = home_create_path;
 }
 
 

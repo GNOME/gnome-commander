@@ -20,14 +20,20 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::{Connection, ConnectionInterface};
-use crate::utils::GnomeCmdFileExt;
+use super::connection::{Connection, ConnectionExt, ConnectionInterface};
+use crate::{
+    debug::debug,
+    path::GnomeCmdPath,
+    utils::{ErrorMessage, GnomeCmdFileExt},
+};
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
 use std::{
     cell::RefCell,
     fmt,
+    future::Future,
     path::{Path, PathBuf},
+    pin::Pin,
     sync::LazyLock,
 };
 
@@ -84,6 +90,80 @@ impl ConnectionSmb {
 }
 
 impl ConnectionInterface for ConnectionSmb {
+    fn open_impl(
+        &self,
+        _window: gtk::Window,
+    ) -> Pin<Box<dyn Future<Output = Result<(), ErrorMessage>> + '_>> {
+        Box::pin(async move {
+            if self.base_path().is_none() {
+                self.set_base_path(Some(GnomeCmdPath::Smb(SmbResource::Root)));
+            }
+
+            let path = self.base_path().unwrap();
+            let file = self.create_gfile(&path);
+
+            let uri_string = file.uri();
+            if self.uri().is_none() {
+                match glib::Uri::parse(&uri_string, glib::UriFlags::NON_DNS) {
+                    Ok(uri) => {
+                        self.set_uri(Some(&uri));
+                    }
+                    Err(error) => {
+                        debug!('s', "g_uri_parse error: {}", error);
+                    }
+                }
+            }
+            debug!('s', "Connecting to {}", uri_string);
+            match file
+                .query_info_future("*", gio::FileQueryInfoFlags::NONE, glib::Priority::DEFAULT)
+                .await
+            {
+                Ok(file_info) => {
+                    self.set_base_file_info(Some(&file_info));
+                    Ok(())
+                }
+                Err(error) => {
+                    self.set_base_file_info(None);
+                    Err(ErrorMessage::with_error(
+                        gettext("Failed to browse the network. Is Samba supported on the system?"),
+                        &error,
+                    ))
+                }
+            }
+        })
+    }
+
+    fn close_impl(
+        &self,
+        _window: Option<gtk::Window>,
+    ) -> Pin<Box<dyn Future<Output = Result<(), ErrorMessage>> + '_>> {
+        Box::pin(async move {
+            self.set_default_dir(None);
+            self.set_base_path(None);
+            Ok(())
+        })
+    }
+
+    fn create_gfile(&self, path: &GnomeCmdPath) -> gio::File {
+        let root = gio::File::for_uri("smb:");
+        root.resolve_relative_path(path.path())
+    }
+
+    fn create_path(&self, path: &Path) -> GnomeCmdPath {
+        if path.components().count() == 0 {
+            return GnomeCmdPath::Smb(SmbResource::Root);
+        }
+        if let Some(smb_resource) = path
+            .to_str()
+            .and_then(|p| SmbResource::from_str(p, self.smb_discovery()))
+        {
+            GnomeCmdPath::Smb(smb_resource)
+        } else {
+            eprintln!("Can't find a host or workgroup for path {}", path.display());
+            GnomeCmdPath::Smb(SmbResource::Root)
+        }
+    }
+
     fn is_local(&self) -> bool {
         false
     }

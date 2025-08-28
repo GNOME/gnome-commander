@@ -21,11 +21,13 @@
  */
 
 use super::connection::{Connection, ConnectionInterface};
+use crate::{path::GnomeCmdPath, utils::ErrorMessage};
 use gettextrs::gettext;
 use gtk::{
     gio,
     glib::{self, prelude::*},
 };
+use std::{future::Future, path::Path, pin::Pin};
 
 pub mod ffi {
     use crate::connection::connection::ffi::GnomeCmdConClass;
@@ -64,6 +66,28 @@ impl Default for ConnectionHome {
 }
 
 impl ConnectionInterface for ConnectionHome {
+    fn open_impl(
+        &self,
+        _window: gtk::Window,
+    ) -> Pin<Box<dyn Future<Output = Result<(), ErrorMessage>> + '_>> {
+        Box::pin(async { Ok(()) })
+    }
+
+    fn close_impl(
+        &self,
+        _window: Option<gtk::Window>,
+    ) -> Pin<Box<dyn Future<Output = Result<(), ErrorMessage>> + '_>> {
+        Box::pin(async { Ok(()) })
+    }
+
+    fn create_gfile(&self, path: &GnomeCmdPath) -> gio::File {
+        gio::File::for_path(path.path())
+    }
+
+    fn create_path(&self, path: &Path) -> GnomeCmdPath {
+        GnomeCmdPath::Plain(path.to_owned())
+    }
+
     fn is_local(&self) -> bool {
         true
     }

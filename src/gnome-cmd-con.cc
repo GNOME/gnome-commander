@@ -72,11 +72,8 @@ static void gnome_cmd_con_class_init (GnomeCmdConClass *klass)
     G_OBJECT_CLASS (klass)->dispose = dispose;
 
     klass->updated = nullptr;
-
-    klass->open = nullptr;
     klass->close = nullptr;
-    klass->create_gfile = nullptr;
-    klass->create_path = nullptr;
+
 }
 
 
@@ -84,43 +81,3 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
 {
 }
 
-
-/***********************************
- * Public functions
- ***********************************/
-
-void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window, GCancellable *cancellable)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
-    klass->open (con, parent_window, cancellable);
-}
-
-
-void gnome_cmd_con_close (GnomeCmdCon *con, GtkWindow *parent_window)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-
-    g_signal_emit (con, signals[CLOSE], 0, parent_window);
-    g_signal_emit (con, signals[UPDATED], 0);
-}
-
-
-GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, const gchar *path)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-
-    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
-
-    return klass->create_gfile (con, path);
-}
-
-
-GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-
-    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
-
-    return klass->create_path (con, path_str);
-}

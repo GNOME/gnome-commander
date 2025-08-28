@@ -190,7 +190,7 @@ mod imp {
     use super::*;
     use crate::{
         connection::{
-            connection::{Connection, ConnectionExt},
+            connection::{Connection, ConnectionInterface},
             list::ConnectionList,
         },
         data::{GeneralOptions, GeneralOptionsRead},
