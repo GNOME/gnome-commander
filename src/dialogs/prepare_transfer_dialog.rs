@@ -18,11 +18,7 @@
  */
 
 use crate::{
-    connection::{
-        connection::{Connection, ConnectionExt},
-        device::ConnectionDevice,
-        list::ConnectionList,
-    },
+    connection::{connection::Connection, device::ConnectionDevice, list::ConnectionList},
     dir::Directory,
     file::File,
     file_selector::FileSelector,

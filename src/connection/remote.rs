@@ -23,50 +23,38 @@
 use super::connection::{Connection, ConnectionExt, ConnectionInterface};
 use crate::{debug::debug, path::GnomeCmdPath, utils::ErrorMessage};
 use gettextrs::gettext;
-use gtk::{
-    gio,
-    glib::{
-        self,
-        prelude::*,
-        translate::{from_glib_none, ToGlibPtr},
-    },
-    prelude::*,
-};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::{
-    ffi::c_char,
     future::Future,
     path::{Path, PathBuf},
     pin::Pin,
 };
 
+mod imp {
+    use super::*;
+    use crate::connection::connection::ConnectionImpl;
+
+    #[derive(Default)]
+    pub struct ConnectionRemote {}
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for ConnectionRemote {
+        const NAME: &'static str = "GnomeCmdConRemote";
+        type Type = super::ConnectionRemote;
+        type ParentType = Connection;
+    }
+
+    impl ObjectImpl for ConnectionRemote {}
+    impl ConnectionImpl for ConnectionRemote {}
+}
+
 pub mod ffi {
-    use crate::connection::connection::ffi::GnomeCmdConClass;
-    use glib::ffi::GType;
-
-    #[repr(C)]
-    pub struct GnomeCmdConRemote {
-        _data: [u8; 0],
-        _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
-    }
-
-    extern "C" {
-        pub fn gnome_cmd_con_remote_get_type() -> GType;
-    }
-
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    pub struct GnomeCmdConRemoteClass {
-        pub parent_class: GnomeCmdConClass,
-    }
+    pub type GnomeCmdConRemote = <super::ConnectionRemote as glib::object::ObjectType>::GlibType;
 }
 
 glib::wrapper! {
-    pub struct ConnectionRemote(Object<ffi::GnomeCmdConRemote, ffi::GnomeCmdConRemoteClass>)
+    pub struct ConnectionRemote(ObjectSubclass<imp::ConnectionRemote>)
         @extends Connection;
-
-    match fn {
-        type_ => || ffi::gnome_cmd_con_remote_get_type(),
-    }
 }
 
 impl ConnectionRemote {
@@ -308,13 +296,4 @@ impl ConnectionMethodID {
             _ => None,
         }
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_remote_get_icon_name(
-    con_ptr: *mut ffi::GnomeCmdConRemote,
-) -> *mut c_char {
-    let con: ConnectionRemote = unsafe { from_glib_none(con_ptr) };
-    let icon_name = con.icon_name();
-    icon_name.to_glib_full()
 }

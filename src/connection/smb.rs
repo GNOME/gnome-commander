@@ -27,44 +27,52 @@ use crate::{
     utils::{ErrorMessage, GnomeCmdFileExt},
 };
 use gettextrs::gettext;
-use gtk::{gio, glib, prelude::*};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::{
     cell::RefCell,
     fmt,
     future::Future,
     path::{Path, PathBuf},
     pin::Pin,
-    sync::LazyLock,
 };
 
+mod imp {
+    use super::*;
+    use crate::connection::connection::ConnectionImpl;
+
+    #[derive(Default)]
+    pub struct ConnectionSmb {
+        pub entities: SmbEntities,
+    }
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for ConnectionSmb {
+        const NAME: &'static str = "GnomeCmdConSmb";
+        type Type = super::ConnectionSmb;
+        type ParentType = Connection;
+    }
+
+    impl ObjectImpl for ConnectionSmb {
+        fn constructed(&self) {
+            self.parent_constructed();
+            self.obj().set_alias(Some(&gettext("SMB")));
+        }
+    }
+    impl ConnectionImpl for ConnectionSmb {}
+}
+
 pub mod ffi {
-    use crate::connection::remote::ffi::GnomeCmdConRemoteClass;
-    use gtk::glib::ffi::GType;
-
-    #[repr(C)]
-    pub struct GnomeCmdConSmb {
-        _data: [u8; 0],
-        _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
-    }
-
-    extern "C" {
-        pub fn gnome_cmd_con_smb_get_type() -> GType;
-    }
-
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    pub struct GnomeCmdConSmbClass {
-        pub parent_class: GnomeCmdConRemoteClass,
-    }
+    pub type GnomeCmdConSmb = <super::ConnectionSmb as glib::object::ObjectType>::GlibType;
 }
 
 glib::wrapper! {
-    pub struct ConnectionSmb(Object<ffi::GnomeCmdConSmb, ffi::GnomeCmdConSmbClass>)
+    /// @brief Class for connecting to samba and show available workgroups
+    ///
+    /// This class is _not_ meant to be used when connecting to a single samba remote, e.g. to smb://server/share.
+    /// Instead, it is used to search workgroups, therefore it will list available workgroubs through the connection
+    /// to smb:///.
+    pub struct ConnectionSmb(ObjectSubclass<imp::ConnectionSmb>)
         @extends Connection;
-
-    match fn {
-        type_ => || ffi::gnome_cmd_con_smb_get_type(),
-    }
 }
 
 impl Default for ConnectionSmb {
@@ -75,17 +83,7 @@ impl Default for ConnectionSmb {
 
 impl ConnectionSmb {
     pub fn smb_discovery(&self) -> &SmbEntities {
-        static QUARK: LazyLock<glib::Quark> =
-            LazyLock::new(|| glib::Quark::from_str("smb-discovery"));
-
-        unsafe {
-            if let Some(discovery) = self.qdata::<SmbEntities>(*QUARK) {
-                discovery.as_ref()
-            } else {
-                self.set_qdata(*QUARK, SmbEntities::default());
-                self.qdata::<SmbEntities>(*QUARK).unwrap().as_ref()
-            }
-        }
+        &self.imp().entities
     }
 }
 

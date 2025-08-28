@@ -18,7 +18,6 @@
  */
 
 use crate::{
-    connection::connection::ConnectionExt,
     dir::Directory,
     file::File,
     file_list::list::FileList,

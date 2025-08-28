@@ -22,8 +22,6 @@
 #pragma once
 
 #include "gnome-cmd-con.h"
-#include "gnome-cmd-con-remote.h"
-#include "gnome-cmd-con-device.h"
 
 
 struct GnomeCmdConList;
@@ -31,19 +29,11 @@ struct GnomeCmdConList;
 
 extern "C" GnomeCmdConList *gnome_cmd_con_list_get ();
 
-extern "C" GListModel *gnome_cmd_con_list_get_all (GnomeCmdConList *list);
-
 extern "C" GnomeCmdCon *gnome_cmd_con_list_get_home (GnomeCmdConList *con_list);
-extern "C" GnomeCmdCon *gnome_cmd_con_list_get_smb (GnomeCmdConList *con_list);
 
 inline GnomeCmdCon *get_home_con ()
 {
     return gnome_cmd_con_list_get_home (gnome_cmd_con_list_get());
-}
-
-inline GnomeCmdCon *get_smb_con ()
-{
-    return gnome_cmd_con_list_get_smb (gnome_cmd_con_list_get());
 }
 
 extern "C" GnomeCmdCon *get_remote_con_for_gfile (GnomeCmdConList *list, GFile *gFile);

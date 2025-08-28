@@ -25,38 +25,51 @@ use crate::{path::GnomeCmdPath, utils::ErrorMessage};
 use gettextrs::gettext;
 use gtk::{
     gio,
-    glib::{self, prelude::*},
+    glib::{self, prelude::*, subclass::prelude::*},
 };
 use std::{future::Future, path::Path, pin::Pin};
 
+mod imp {
+    use super::*;
+    use crate::{
+        connection::connection::{ConnectionExt, ConnectionImpl, ConnectionState},
+        dir::Directory,
+    };
+
+    #[derive(Default)]
+    pub struct ConnectionHome {}
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for ConnectionHome {
+        const NAME: &'static str = "GnomeCmdConHome";
+        type Type = super::ConnectionHome;
+        type ParentType = Connection;
+    }
+
+    impl ObjectImpl for ConnectionHome {
+        fn constructed(&self) {
+            self.parent_constructed();
+            let home = self.obj();
+
+            home.set_state(ConnectionState::Open);
+            home.set_alias(Some(&gettext("Home")));
+
+            let dir = Directory::new(&*home, GnomeCmdPath::Plain(glib::home_dir()));
+            home.set_default_dir(Some(&dir));
+            home.set_uri_string(Some("file:"));
+        }
+    }
+
+    impl ConnectionImpl for ConnectionHome {}
+}
+
 pub mod ffi {
-    use crate::connection::connection::ffi::GnomeCmdConClass;
-    use gtk::glib::ffi::GType;
-
-    #[repr(C)]
-    pub struct GnomeCmdConHome {
-        _data: [u8; 0],
-        _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
-    }
-
-    extern "C" {
-        pub fn gnome_cmd_con_home_get_type() -> GType;
-    }
-
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    pub struct GnomeCmdConHomeClass {
-        pub parent_class: GnomeCmdConClass,
-    }
+    pub type GnomeCmdConHome = <super::ConnectionHome as glib::object::ObjectType>::GlibType;
 }
 
 glib::wrapper! {
-    pub struct ConnectionHome(Object<ffi::GnomeCmdConHome, ffi::GnomeCmdConHomeClass>)
+    pub struct ConnectionHome(ObjectSubclass<imp::ConnectionHome>)
         @extends Connection;
-
-    match fn {
-        type_ => || ffi::gnome_cmd_con_home_get_type(),
-    }
 }
 
 impl Default for ConnectionHome {

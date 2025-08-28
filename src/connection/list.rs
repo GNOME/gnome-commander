@@ -26,17 +26,14 @@ use super::{
     device::ConnectionDevice,
     home::{ffi::GnomeCmdConHome, ConnectionHome},
     remote::{ffi::GnomeCmdConRemote, ConnectionRemote},
-    smb::{ffi::GnomeCmdConSmb, ConnectionSmb},
+    smb::ConnectionSmb,
 };
 use crate::{
     data::{GeneralOptions, GeneralOptionsRead, GeneralOptionsWrite, WriteResult},
     debug::debug,
 };
 use gtk::{
-    gio::{
-        self,
-        ffi::{GFile, GListModel},
-    },
+    gio::{self, ffi::GFile},
     glib::{
         self,
         subclass::prelude::*,
@@ -544,27 +541,11 @@ impl ConnectionList {
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_con_list_get_all(
-    list_ptr: *mut <ConnectionList as glib::object::ObjectType>::GlibType,
-) -> *mut GListModel {
-    let list: Borrowed<ConnectionList> = unsafe { from_glib_borrow(list_ptr) };
-    list.all().to_glib_none().0
-}
-
-#[no_mangle]
 pub extern "C" fn gnome_cmd_con_list_get_home(
     list_ptr: *mut <ConnectionList as glib::object::ObjectType>::GlibType,
 ) -> *mut GnomeCmdConHome {
     let list: Borrowed<ConnectionList> = unsafe { from_glib_borrow(list_ptr) };
     list.home().to_glib_none().0
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_list_get_smb(
-    list_ptr: *mut <ConnectionList as glib::object::ObjectType>::GlibType,
-) -> *mut GnomeCmdConSmb {
-    let list: Borrowed<ConnectionList> = unsafe { from_glib_borrow(list_ptr) };
-    list.smb().to_glib_none().0
 }
 
 #[no_mangle]
