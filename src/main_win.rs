@@ -1223,7 +1223,7 @@ impl MainWindow {
             .set_max_history_size(options.command_line_history_length());
         self.imp()
             .cmdline
-            .set_history(options.command_line_history());
+            .set_history(&options.command_line_history());
     }
 
     pub fn save_command_line_history(&self, options: &GeneralOptions) -> WriteResult {

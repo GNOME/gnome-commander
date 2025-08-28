@@ -41,6 +41,7 @@ mod file_selector;
 mod file_view;
 mod filter;
 mod hintbox;
+mod history_entry;
 mod i18n;
 mod imageloader;
 mod intviewer;

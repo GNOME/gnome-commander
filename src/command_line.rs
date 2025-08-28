@@ -17,22 +17,16 @@
  * For more details see the file COPYING.
  */
 
+use crate::history_entry::HistoryEntry;
 use gtk::{gdk, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
-    use std::{
-        cell::{Cell, RefCell},
-        sync::OnceLock,
-    };
+    use std::sync::OnceLock;
 
     pub struct CommandLine {
         pub cwd: gtk::Label,
-        pub store: gtk::ListStore,
-        pub combo: gtk::ComboBox,
-        pub history: RefCell<Vec<String>>,
-        pub max_history_size: Cell<usize>,
-        select_in_progress: Cell<bool>,
+        pub entry: HistoryEntry,
     }
 
     #[glib::object_subclass]
@@ -42,23 +36,9 @@ mod imp {
         type ParentType = gtk::Widget;
 
         fn new() -> Self {
-            let store = gtk::ListStore::new(&[String::static_type()]);
-
-            let combo = gtk::ComboBox::builder()
-                .has_entry(true)
-                .hexpand(true)
-                .model(&store)
-                .id_column(0)
-                .entry_text_column(0)
-                .build();
-
             Self {
                 cwd: gtk::Label::builder().selectable(true).build(),
-                combo,
-                store,
-                history: Default::default(),
-                max_history_size: Cell::new(16),
-                select_in_progress: Default::default(),
+                entry: HistoryEntry::default(),
             }
         }
     }
@@ -83,35 +63,9 @@ mod imp {
 
             gtk::Label::new(Some("#")).set_parent(&*obj);
 
-            let entry = self.entry();
-            entry.set_editable(true);
-            entry.set_can_focus(true);
-            entry.set_size_request(60, -1);
-
-            self.combo.connect_changed(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                move |cb| {
-                    if !imp.select_in_progress.get() {
-                        if let Some(item) = cb
-                            .active_iter()
-                            .and_then(|iter| imp.store.get_value(&iter, 0).get::<String>().ok())
-                        {
-                            let entry = imp.entry();
-                            entry.set_text(&item);
-                            entry.grab_focus();
-                        }
-                    }
-                }
-            ));
-            self.combo.connect_popup_shown_notify(|cb| {
-                if !cb.is_popup_shown() {
-                    let entry = cb.child().unwrap();
-                    entry.grab_focus();
-                }
-            });
-
-            self.combo.set_parent(&*obj);
+            self.entry.set_hexpand(true);
+            self.entry.set_position(gtk::PositionType::Top);
+            self.entry.set_parent(&*obj);
 
             let key_controller = gtk::EventControllerKey::new();
             key_controller.set_propagation_phase(gtk::PropagationPhase::Capture);
@@ -122,7 +76,7 @@ mod imp {
                 glib::Propagation::Proceed,
                 move |_, key, _, state| imp.on_key_pressed(key, state)
             ));
-            entry.add_controller(key_controller);
+            self.entry.add_controller(key_controller);
         }
 
         fn signals() -> &'static [glib::subclass::Signal] {
@@ -149,25 +103,16 @@ mod imp {
 
     impl WidgetImpl for CommandLine {
         fn grab_focus(&self) -> bool {
-            let entry = self.entry();
-            let result = entry.grab_focus();
-            entry.set_position(-1);
+            let result = self.entry.grab_focus();
+            self.entry.entry().set_position(-1);
             result
         }
     }
 
     impl CommandLine {
-        pub fn entry(&self) -> gtk::Entry {
-            self.combo.child().and_downcast::<gtk::Entry>().unwrap()
-        }
-
         fn on_key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
             const NO_MODIFIER_MASK: gdk::ModifierType = gdk::ModifierType::empty();
             match (state, key) {
-                (gdk::ModifierType::CONTROL_MASK, gdk::Key::Down) => {
-                    self.obj().show_history();
-                    glib::Propagation::Stop
-                }
                 (gdk::ModifierType::SHIFT_MASK, gdk::Key::Return) => {
                     if self.obj().exec(true) {
                         glib::Propagation::Stop
@@ -183,7 +128,7 @@ mod imp {
                     }
                 }
                 (NO_MODIFIER_MASK, gdk::Key::Escape) => {
-                    self.entry().set_text("");
+                    self.entry.set_text("");
                     self.obj().emit_lose_focus();
                     glib::Propagation::Stop
                 }
@@ -193,30 +138,6 @@ mod imp {
                 }
                 _ => glib::Propagation::Proceed,
             }
-        }
-
-        pub fn add_to_history(&self, value: &str) {
-            let mut history = self.history.borrow_mut();
-            if let Some(position) = history.iter().position(|i| i == value) {
-                // if the same value has been given before move it first in the list
-                let item = history.remove(position);
-                history.insert(0, item);
-            } else {
-                // or if its new just add it
-                history.insert(0, value.to_owned());
-            }
-            // don't let the history get too long
-            history.truncate(self.max_history_size.get());
-        }
-
-        pub fn update_history_combo(&self) {
-            self.select_in_progress.set(true);
-            self.store.clear();
-            for item in self.history.borrow().iter() {
-                let iter = self.store.append();
-                self.store.set(&iter, &[(0, item)]);
-            }
-            self.select_in_progress.set(false);
         }
     }
 }
@@ -241,7 +162,7 @@ impl CommandLine {
             entry.insert_text(text, &mut position);
         }
 
-        let entry = self.imp().entry();
+        let entry = &self.imp().entry.entry();
         let current_text = entry.text();
         if !current_text.ends_with(' ') && !current_text.is_empty() {
             append(&entry, " ");
@@ -250,19 +171,11 @@ impl CommandLine {
     }
 
     pub fn set_text(&self, text: &str) {
-        let entry = self.imp().entry();
-        entry.set_text(text);
+        self.imp().entry.set_text(text);
     }
 
     pub fn is_empty(&self) -> bool {
-        let entry = self.imp().entry();
-        entry.text().is_empty()
-    }
-
-    pub fn focus(&self) {
-        let entry = self.imp().entry();
-        entry.grab_focus();
-        entry.set_position(-1);
+        self.imp().entry.text().is_empty()
     }
 
     fn emit_lose_focus(&self) {
@@ -312,7 +225,7 @@ impl CommandLine {
     }
 
     pub fn exec(&self, in_terminal: bool) -> bool {
-        let command = self.imp().entry().text().trim().to_owned();
+        let command = self.imp().entry.text().trim().to_owned();
 
         if command.is_empty() {
             return false;
@@ -326,31 +239,26 @@ impl CommandLine {
             self.emit_execute(&command, in_terminal);
         }
 
-        self.imp().add_to_history(&command);
-        self.imp().update_history_combo();
+        self.imp().entry.add_to_history(&command);
         self.set_text("");
 
         true
     }
 
     pub fn history(&self) -> Vec<String> {
-        self.imp().history.borrow().clone()
+        self.imp().entry.history()
     }
 
-    pub fn set_history(&self, mut items: Vec<String>) {
-        items.truncate(self.imp().max_history_size.get());
-        self.imp().history.replace(items);
-        self.imp().update_history_combo();
+    pub fn set_history(&self, items: &[String]) {
+        self.imp().entry.set_history(items);
     }
 
     pub fn set_max_history_size(&self, max_history_size: usize) {
-        self.imp().history.borrow_mut().truncate(max_history_size);
-        self.imp().max_history_size.set(max_history_size);
-        self.imp().update_history_combo();
+        self.imp().entry.set_max_history_size(max_history_size);
     }
 
     pub fn show_history(&self) {
-        self.imp().combo.popup();
+        self.imp().entry.show_history();
     }
 
     pub fn update_style(&self) {}

@@ -234,7 +234,7 @@ impl ProfileManager for AdvRenameProfileManager {
     ) -> gtk::Widget {
         let component = AdvancedRenameProfileComponent::new(&self.file_metadata_service);
         component.set_profile(Some(self.profiles.profile(profile_index)));
-        component.set_template_history(self.config.template_history().iter().map(|s| s.as_str()));
+        component.set_template_history(&self.config.template_history());
         component.update();
         component.grab_focus();
         component.upcast()
@@ -244,7 +244,7 @@ impl ProfileManager for AdvRenameProfileManager {
         let component = component
             .downcast_ref::<AdvancedRenameProfileComponent>()
             .unwrap();
-        component.set_template_history(self.config.template_history().iter().map(|s| s.as_str()));
+        component.set_template_history(&self.config.template_history());
         component.update();
     }
 
@@ -553,7 +553,7 @@ mod imp {
                     let config = this.imp().config();
                     config.default_profile().reset();
                     this.profile_component()
-                        .set_template_history(config.template_history().iter().map(|s| s.as_str()));
+                        .set_template_history(&config.template_history());
                     this.profile_component().update();
                 }
             ));
@@ -883,7 +883,7 @@ mod imp {
 
             self.obj()
                 .profile_component()
-                .set_template_history(cfg.template_history().iter().map(|i| i.as_str()));
+                .set_template_history(&cfg.template_history());
             self.obj().profile_component().update();
 
             self.update_new_filenames();
@@ -937,7 +937,7 @@ mod imp {
             self.config().template_history_add(&template_entry);
             self.obj()
                 .profile_component()
-                .set_template_history(self.config().template_history().iter().map(|i| i.as_str()));
+                .set_template_history(&self.config().template_history());
         }
 
         fn unset(&self) {
@@ -1182,7 +1182,7 @@ pub fn advanced_rename_dialog_show(
     dialog.imp().update_template();
     dialog
         .profile_component()
-        .set_template_history(cfg.template_history().iter().map(|s| s.as_str()));
+        .set_template_history(&cfg.template_history());
     dialog.profile_component().update();
 
     dialog.profile_component().grab_focus();

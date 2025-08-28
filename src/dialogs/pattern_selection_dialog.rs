@@ -21,6 +21,7 @@ use crate::{
     data::SearchConfig,
     file_list::list::FileList,
     filter::{Filter, PatternType},
+    history_entry::HistoryEntry,
     utils::{
         channel_send_action, dialog_button_box, handle_escape_key, ErrorMessage, SenderExt,
         NO_BUTTONS,
@@ -62,29 +63,20 @@ pub async fn show_pattern_selection_dialog(
         .build();
     dialog.set_child(Some(&grid));
 
-    let pattern_combo = gtk::ComboBoxText::builder()
-        .has_entry(true)
-        .hexpand(true)
-        .build();
-    for pattern in &patterns {
-        pattern_combo.append_text(pattern.as_str());
-    }
-    if !patterns.is_empty() {
-        pattern_combo.set_active(Some(0));
-    }
-    if let Some(entry) = pattern_combo.child().and_downcast::<gtk::Entry>() {
-        entry.set_activates_default(true);
-        entry.select_region(0, -1);
-    }
+    let pattern_entry = HistoryEntry::default();
+    pattern_entry.set_hexpand(true);
+    pattern_entry.set_history(&patterns);
+    pattern_entry.entry().set_activates_default(true);
+    pattern_entry.entry().select_region(0, -1);
 
     let label = gtk::Label::builder()
         .label(gettext("_Pattern:"))
         .use_underline(true)
-        .mnemonic_widget(&pattern_combo)
+        .mnemonic_widget(&pattern_entry)
         .build();
 
     grid.attach(&label, 0, 0, 1, 1);
-    grid.attach(&pattern_combo, 1, 0, 1, 1);
+    grid.attach(&pattern_entry, 1, 0, 1, 1);
 
     let case_sens = gtk::CheckButton::with_mnemonic(&gettext("Case _sensitive"));
     grid.attach(&case_sens, 0, 1, 2, 1);
@@ -143,12 +135,13 @@ pub async fn show_pattern_selection_dialog(
     dialog.set_default_widget(Some(&ok_btn));
 
     dialog.present();
-    pattern_combo.grab_focus();
+    pattern_entry.grab_focus();
 
     let mut result = None;
     let response = receiver.recv().await;
     if response == Ok(true) {
-        if let Some(pattern) = pattern_combo.active_text().filter(|p| !p.is_empty()) {
+        let pattern = pattern_entry.text();
+        if !pattern.is_empty() {
             let case_sensitive = case_sens.is_active();
             let filter_type = if regex_check.is_active() {
                 PatternType::Regex
