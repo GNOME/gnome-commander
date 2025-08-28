@@ -20,10 +20,19 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::{Connection, ConnectionExt, ConnectionInterface};
+use super::connection::{ffi::GnomeCmdCon, Connection, ConnectionExt, ConnectionInterface};
 use crate::{debug::debug, path::GnomeCmdPath, utils::ErrorMessage};
 use gettextrs::gettext;
-use gtk::{gio, glib, prelude::*, subclass::prelude::*};
+use gtk::{
+    gio,
+    glib::{
+        self,
+        ffi::GUri,
+        translate::{from_glib_borrow, Borrowed, ToGlibPtr},
+    },
+    prelude::*,
+    subclass::prelude::*,
+};
 use std::{
     future::Future,
     path::{Path, PathBuf},
@@ -33,9 +42,12 @@ use std::{
 mod imp {
     use super::*;
     use crate::connection::connection::ConnectionImpl;
+    use std::cell::RefCell;
 
     #[derive(Default)]
-    pub struct ConnectionRemote {}
+    pub struct ConnectionRemote {
+        pub uri: RefCell<Option<glib::Uri>>,
+    }
 
     #[glib::object_subclass]
     impl ObjectSubclass for ConnectionRemote {
@@ -56,6 +68,27 @@ glib::wrapper! {
     pub struct ConnectionRemote(ObjectSubclass<imp::ConnectionRemote>)
         @extends Connection;
 }
+
+pub trait ConnectionRemoteExt: IsA<ConnectionRemote> + 'static {
+    fn uri(&self) -> Option<glib::Uri> {
+        self.as_ref().imp().uri.borrow().clone()
+    }
+
+    fn set_uri(&self, uri: Option<&glib::Uri>) {
+        self.as_ref().imp().uri.replace(uri.map(Clone::clone));
+    }
+
+    fn uri_string(&self) -> Option<String> {
+        Some(self.uri()?.to_str().to_string())
+    }
+
+    fn set_uri_string(&self, uri: Option<&str>) {
+        let uri = uri.and_then(|uri| glib::Uri::parse(uri, glib::UriFlags::NONE).ok());
+        self.set_uri(uri.as_ref());
+    }
+}
+
+impl<O: IsA<ConnectionRemote>> ConnectionRemoteExt for O {}
 
 impl ConnectionRemote {
     pub fn new(alias: &str, uri: &glib::Uri) -> Self {
@@ -296,4 +329,13 @@ impl ConnectionMethodID {
             _ => None,
         }
     }
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_remote_get_uri(con: *const GnomeCmdCon) -> *const GUri {
+    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
+    con.downcast_ref::<ConnectionRemote>()
+        .and_then(|c| c.uri())
+        .to_glib_none()
+        .0
 }

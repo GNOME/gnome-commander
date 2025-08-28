@@ -22,14 +22,14 @@
 
 use super::{
     bookmark::Bookmark, device::ConnectionDevice, history::History, home::ConnectionHome,
-    remote::ConnectionRemote, smb::ConnectionSmb,
+    remote::ConnectionRemote, remote::ConnectionRemoteExt, smb::ConnectionSmb,
 };
 use crate::{debug::debug, dir::Directory, file::File, path::GnomeCmdPath, utils::ErrorMessage};
 use gtk::{
     gio::{self, ffi::GFile},
     glib::{
         self,
-        ffi::{gboolean, GType, GUri},
+        ffi::{gboolean, GType},
         translate::*,
     },
     prelude::*,
@@ -60,7 +60,6 @@ mod imp {
         pub state: Cell<ConnectionState>,
         /// the start directory of this connection
         pub default_dir: RefCell<Option<Directory>>,
-        pub uri: RefCell<Option<glib::Uri>>,
         pub base_file_info: RefCell<Option<gio::FileInfo>>,
         pub base_path: RefCell<Option<GnomeCmdPath>>,
     }
@@ -79,7 +78,6 @@ mod imp {
                 alias: Default::default(),
                 state: Cell::new(ConnectionState::Closed),
                 default_dir: Default::default(),
-                uri: Default::default(),
                 base_file_info: Default::default(),
                 base_path: Default::default(),
             }
@@ -213,23 +211,6 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
 
     fn set_state(&self, state: ConnectionState) {
         self.as_ref().imp().state.set(state);
-    }
-
-    fn uri(&self) -> Option<glib::Uri> {
-        self.as_ref().imp().uri.borrow().clone()
-    }
-
-    fn set_uri(&self, uri: Option<&glib::Uri>) {
-        self.as_ref().imp().uri.replace(uri.map(Clone::clone));
-    }
-
-    fn uri_string(&self) -> Option<String> {
-        Some(self.uri()?.to_str().to_string())
-    }
-
-    fn set_uri_string(&self, uri: Option<&str>) {
-        let uri = uri.and_then(|uri| glib::Uri::parse(uri, glib::UriFlags::NONE).ok());
-        self.set_uri(uri.as_ref());
     }
 
     fn default_dir(&self) -> Option<Directory> {
@@ -533,18 +514,6 @@ pub extern "C" fn gnome_cmd_con_get_type() -> GType {
 pub extern "C" fn gnome_cmd_con_is_local(con: *mut ffi::GnomeCmdCon) -> gboolean {
     let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
     con.is_local().into_glib()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_get_uri(con: *const ffi::GnomeCmdCon) -> *const GUri {
-    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
-    con.uri().to_glib_none().0
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_get_uri_string(con: *const ffi::GnomeCmdCon) -> *mut c_char {
-    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
-    con.uri_string().to_glib_full()
 }
 
 #[no_mangle]

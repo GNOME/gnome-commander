@@ -56,7 +56,6 @@ mod imp {
 
             let dir = Directory::new(&*home, GnomeCmdPath::Plain(glib::home_dir()));
             home.set_default_dir(Some(&dir));
-            home.set_uri_string(Some("file:"));
         }
     }
 

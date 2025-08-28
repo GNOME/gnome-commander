@@ -145,9 +145,7 @@ gchar *gnome_cmd_dir_get_relative_path_string(const char* childPath, const char*
 
 static gchar *gnome_cmd_dir_get_mount_uri(GnomeCmdCon *con)
 {
-    auto conUri = gnome_cmd_con_get_uri_string (con);
-    auto gFileConTmp = g_file_new_for_uri(conUri);
-    g_free (conUri);
+    auto gFileConTmp = gnome_cmd_con_create_gfile (con, nullptr);
     do
     {
         auto gFileConParent = g_file_get_parent(gFileConTmp);
@@ -161,6 +159,9 @@ static gchar *gnome_cmd_dir_get_mount_uri(GnomeCmdCon *con)
     return conUriBase;
 }
 
+
+extern "C" GUri *gnome_cmd_con_remote_get_uri (GnomeCmdCon *con);
+
 /**
  * This function returns a GFile object which is the result of the URI construction of
  * two URI's and a path: the connection URI, which is the private member of GnomeCmdDir,
@@ -170,7 +171,7 @@ GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gcha
 {
     auto con = gnome_cmd_dir_get_connection (dir);
 
-    auto conUri = gnome_cmd_con_get_uri(con);
+    auto conUri = gnome_cmd_con_remote_get_uri (con);
     if (!conUri) // is usually set for a remote connection
     {
         return nullptr;

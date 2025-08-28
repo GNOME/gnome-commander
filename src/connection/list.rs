@@ -25,7 +25,7 @@ use super::{
     connection::{Connection, ConnectionExt},
     device::ConnectionDevice,
     home::{ffi::GnomeCmdConHome, ConnectionHome},
-    remote::{ffi::GnomeCmdConRemote, ConnectionRemote},
+    remote::{ffi::GnomeCmdConRemote, ConnectionRemote, ConnectionRemoteExt},
     smb::ConnectionSmb,
 };
 use crate::{

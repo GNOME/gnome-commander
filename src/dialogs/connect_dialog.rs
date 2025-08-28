@@ -22,7 +22,7 @@
 
 use crate::connection::{
     connection::{ConnectionExt, ConnectionInterface},
-    remote::{ConnectionMethodID, ConnectionRemote},
+    remote::{ConnectionMethodID, ConnectionRemote, ConnectionRemoteExt},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};

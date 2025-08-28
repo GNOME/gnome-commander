@@ -28,6 +28,7 @@ use crate::{
         connection::{Connection, ConnectionExt, ConnectionInterface},
         home::ConnectionHome,
         list::ConnectionList,
+        remote::ConnectionRemoteExt,
     },
     data::{
         ConfirmOptions, GeneralOptions, GeneralOptionsRead, NetworkOptions, NetworkOptionsRead,

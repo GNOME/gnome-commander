@@ -77,9 +77,6 @@ impl ConnectionDevice {
         this.set_mount(None);
         this.set_volume(None);
         this.set_alias(Some(alias));
-        if let Ok(uri_string) = glib::filename_to_uri(mountp, None) {
-            this.set_uri_string(Some(&uri_string));
-        }
         this
     }
 

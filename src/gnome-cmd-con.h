@@ -35,9 +35,6 @@ struct GnomeCmdCon;
 
 extern "C" GType gnome_cmd_con_get_type ();
 
-extern "C" GUri *gnome_cmd_con_get_uri (GnomeCmdCon *con);
-extern "C" gchar *gnome_cmd_con_get_uri_string (GnomeCmdCon *con);
-
 extern "C" GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path);
 
 extern "C" GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str);

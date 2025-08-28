@@ -101,16 +101,6 @@ impl ConnectionInterface for ConnectionSmb {
             let file = self.create_gfile(&path);
 
             let uri_string = file.uri();
-            if self.uri().is_none() {
-                match glib::Uri::parse(&uri_string, glib::UriFlags::NON_DNS) {
-                    Ok(uri) => {
-                        self.set_uri(Some(&uri));
-                    }
-                    Err(error) => {
-                        debug!('s', "g_uri_parse error: {}", error);
-                    }
-                }
-            }
             debug!('s', "Connecting to {}", uri_string);
             match file
                 .query_info_future("*", gio::FileQueryInfoFlags::NONE, glib::Priority::DEFAULT)
