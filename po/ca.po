@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
 "POT-Creation-Date: 2020-07-20 08:22+0000\n"
-"PO-Revision-Date: 2025-02-28 16:47+0000\n"
+"PO-Revision-Date: 2025-08-29 16:47+0000\n"
 "Last-Translator: Miquel-Àngel Burgos i Fradeja <miquel.angel.burgos@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
@@ -7175,7 +7175,7 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:320
 msgid "Accessed"
-msgstr "Accés"
+msgstr "Accedit"
 
 #: src/tags/gnome-cmd-tags.cc:320
 msgid "Last access datetime."
@@ -7213,7 +7213,7 @@ msgstr "URI del destí de l'enllaç."
 
 #: src/tags/gnome-cmd-tags.cc:326
 msgid "Modified"
-msgstr "Modificació"
+msgstr "Modificat"
 
 #: src/tags/gnome-cmd-tags.cc:326
 msgid "Last modified datetime."
