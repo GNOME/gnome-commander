@@ -20,11 +20,12 @@
 use super::prepare_transfer_dialog::PrepareTransferDialog;
 use crate::{
     data::ConfirmOptionsRead, file_selector::FileSelector,
-    libgcmd::file_descriptor::FileDescriptorExt, main_win::MainWindow,
-    transfer::gnome_cmd_move_gfiles, types::ConfirmOverwriteMode, utils::bold,
+    libgcmd::file_descriptor::FileDescriptorExt, main_win::MainWindow, transfer::move_files,
+    types::ConfirmOverwriteMode, utils::bold,
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gio, prelude::*};
+use std::path::PathBuf;
 
 pub async fn prepare_move_dialog_show(
     main_win: &MainWindow,
@@ -109,11 +110,11 @@ pub async fn prepare_move_dialog_show(
         overwrite_mode = ConfirmOverwriteMode::SkipAll;
     }
 
-    let _transfer_result = gnome_cmd_move_gfiles(
+    let _transfer_result = move_files(
         main_win.clone().upcast(),
         src_files.iter().map(|f| f.file()).collect(),
         dest_dir.clone(),
-        dest_fn,
+        dest_fn.map(PathBuf::from),
         copy_flags,
         overwrite_mode,
     )

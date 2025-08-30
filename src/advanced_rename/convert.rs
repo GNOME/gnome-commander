@@ -21,7 +21,7 @@ use unicode_segmentation::UnicodeSegmentation;
 
 /// Quick roman numeral check (non-roman numerals may also return true)
 ///
-/// (http://home.hiwaay.net/~lkseitz/math/roman/numerals.shtml)
+/// (<http://home.hiwaay.net/~lkseitz/math/roman/numerals.shtml>)
 ///
 /// ```text
 ///    I = 1    (one)
@@ -39,7 +39,7 @@ fn word_is_roman_numeral(text: &str) -> bool {
     text.chars().all(|c| ROMAN.contains(&c))
 }
 
-/// Chicago Manual of Style "Heading caps" Capitalization Rules (CMS 1993, 282) (http://www.docstyles.com/cmscrib.htm#Note2)
+/// Chicago Manual of Style "Heading caps" Capitalization Rules (CMS 1993, 282) (<http://www.docstyles.com/cmscrib.htm#Note2>)
 pub fn sentence_case(string: &str) -> String {
     const EXEMPTS: &[&str] = &[
         "a", "against", "an", "and", "at", "between", "but", "for", "in", "nor", "of", "on", "or",

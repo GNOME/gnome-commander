@@ -23,15 +23,10 @@ use gtk::{gdk, gio, glib, prelude::*, subclass::prelude::*};
 
 pub mod ffi {
     use crate::main_win::ffi::GnomeCmdMainWin;
-    use std::ffi::c_char;
 
     pub type GnomeCmdApplication = <super::Application as glib::object::ObjectType>::GlibType;
 
     extern "C" {
-        pub fn gnome_cmd_application_startup(
-            application: *mut GnomeCmdApplication,
-            debug_option: *mut c_char,
-        );
         pub fn gnome_cmd_application_activate(
             application: *mut GnomeCmdApplication,
             main_win: *mut GnomeCmdMainWin,
@@ -121,15 +116,6 @@ mod imp {
             let options = GeneralOptions::new();
             ConnectionList::create(options.show_samba_workgroups_button());
             SearchConfig::get().load(&options);
-
-            let debug_flags = self.debug_flags.borrow().clone();
-            unsafe {
-                ffi::gnome_cmd_application_startup(
-                    self.obj().to_glib_none().0,
-                    debug_flags.to_glib_none().0,
-                );
-            }
-
             ConnectionList::get().load(&options);
             ConnectionList::get().set_volume_monitor();
         }

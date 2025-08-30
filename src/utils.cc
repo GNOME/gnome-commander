@@ -23,38 +23,6 @@
 #include "utils.h"
 
 
-/**
- * The already reserved debug flags:
- * --------------------------------
- * a: set all debug flags\n
- * g: run_command debugging\n
- * i: imageloader\n
- * k: directory pool\n
- * l: directory listings\n
- * m: connection debugging\n
- * n: directory monitoring\n
- * s: smb network browser\n
- * t: metadata tags\n
- * u: user actions debugging\n
- * v: internal viewer\n
- * w: widget_lookup\n
- * y: brief mime-based imageload\n
- * z: detailed mime-based imageload\n
- * x: xfer
- */
-void DEBUG (gchar flag, const gchar *format, ...)
-{
-    if (DEBUG_ENABLED (flag))
-    {
-        va_list ap;
-        va_start(ap, format);
-        fprintf (stderr, "[%c%c] ", flag-32, flag-32);
-        vfprintf(stderr, format, ap);
-        va_end(ap);
-    }
-}
-
-
 static GtkWidget *create_error_message_dialog (GtkWindow *parent, const gchar *message, const gchar *secondary_text)
 {
     GtkWidget *dlg = gtk_message_dialog_new (parent, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "%s", message);
@@ -65,49 +33,9 @@ static GtkWidget *create_error_message_dialog (GtkWindow *parent, const gchar *m
 }
 
 
-void gnome_cmd_show_message (GtkWindow *parent, const gchar *message, const gchar *secondary_text)
-{
-    GtkWidget *dlg = create_error_message_dialog (parent, message, secondary_text);
-    gtk_window_present (GTK_WINDOW (dlg));
-}
-
 void gnome_cmd_error_message (GtkWindow *parent, const gchar *message, GError *error)
 {
     GtkWidget *dlg = create_error_message_dialog (parent, message, error->message);
     g_error_free (error);
     gtk_window_present (GTK_WINDOW (dlg));
-}
-
-
-gchar *get_gfile_attribute_string(GFileInfo *gFileInfo, const char *attribute)
-{
-    g_return_val_if_fail(gFileInfo != nullptr, nullptr);
-    g_return_val_if_fail(G_IS_FILE_INFO(gFileInfo), nullptr);
-
-    return g_strdup(g_file_info_get_attribute_string (gFileInfo, attribute));
-}
-
-gchar *get_gfile_attribute_string(GFile *gFile, const char *attribute)
-{
-    GError *error;
-    error = nullptr;
-    auto gcmdFileInfo = g_file_query_info(gFile,
-                                   attribute,
-                                   G_FILE_QUERY_INFO_NONE,
-                                   nullptr,
-                                   &error);
-    if (gcmdFileInfo && error)
-    {
-        auto gFileUri = g_file_get_uri(gFile);
-        g_message ("get_gfile_attribute_string: retrieving file info for %s failed: %s",
-                    gFileUri, error->message);
-        g_free(gFileUri);
-        g_error_free (error);
-        return nullptr;
-    }
-
-    auto gFileAttributeString = get_gfile_attribute_string (gcmdFileInfo, attribute);
-    g_object_unref(gcmdFileInfo);
-
-    return gFileAttributeString;
 }

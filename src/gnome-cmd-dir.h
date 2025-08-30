@@ -32,7 +32,6 @@
 extern "C" GType gnome_cmd_dir_get_type ();
 
 
-#include "gnome-cmd-file.h"
 #include "gnome-cmd-path.h"
 
 enum GnomeCmdDirState

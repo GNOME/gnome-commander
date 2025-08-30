@@ -24,8 +24,8 @@ use super::{
     bookmark::Bookmark,
     connection::{Connection, ConnectionExt},
     device::ConnectionDevice,
-    home::{ffi::GnomeCmdConHome, ConnectionHome},
-    remote::{ffi::GnomeCmdConRemote, ConnectionRemote, ConnectionRemoteExt},
+    home::ConnectionHome,
+    remote::{ConnectionRemote, ConnectionRemoteExt},
     smb::ConnectionSmb,
 };
 use crate::{
@@ -33,12 +33,8 @@ use crate::{
     debug::debug,
 };
 use gtk::{
-    gio::{self, ffi::GFile},
-    glib::{
-        self,
-        subclass::prelude::*,
-        translate::{from_glib_borrow, Borrowed, ToGlibPtr},
-    },
+    gio,
+    glib::{self, subclass::prelude::*},
     prelude::*,
 };
 use std::{path::Path, sync::OnceLock};
@@ -540,24 +536,6 @@ impl ConnectionList {
     }
 }
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_list_get_home(
-    list_ptr: *mut <ConnectionList as glib::object::ObjectType>::GlibType,
-) -> *mut GnomeCmdConHome {
-    let list: Borrowed<ConnectionList> = unsafe { from_glib_borrow(list_ptr) };
-    list.home().to_glib_none().0
-}
-
-#[no_mangle]
-pub extern "C" fn get_remote_con_for_gfile(
-    list_ptr: *mut <ConnectionList as glib::object::ObjectType>::GlibType,
-    file_ptr: *mut GFile,
-) -> *mut GnomeCmdConRemote {
-    let list: Borrowed<ConnectionList> = unsafe { from_glib_borrow(list_ptr) };
-    let file: Borrowed<gio::File> = unsafe { from_glib_borrow(file_ptr) };
-    list.get_remote_con_for_file(&*file).to_glib_none().0
-}
-
 #[derive(glib::Variant)]
 pub struct BookmarkVariant {
     pub is_remote: bool,
@@ -578,12 +556,6 @@ pub struct CustomDeviceVariant {
 pub struct ConnectionVariant {
     pub alias: String,
     pub uri: String,
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_list_get(
-) -> *mut <ConnectionList as glib::object::ObjectType>::GlibType {
-    ConnectionList::get().to_glib_none().0
 }
 
 #[cfg(test)]

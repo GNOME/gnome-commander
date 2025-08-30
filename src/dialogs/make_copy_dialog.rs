@@ -25,13 +25,13 @@ use crate::{
     file::File,
     libgcmd::file_descriptor::FileDescriptorExt,
     main_win::MainWindow,
-    transfer::gnome_cmd_copy_gfiles,
+    transfer::copy_files,
     types::ConfirmOverwriteMode,
     utils::{channel_send_action, dialog_button_box, handle_escape_key, SenderExt, NO_BUTTONS},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) {
     let dialog = gtk::Window::builder()
@@ -134,11 +134,11 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         dest_fn = filename;
     }
 
-    let success = gnome_cmd_copy_gfiles(
+    let success = copy_files(
         main_win.clone().upcast(),
         [f.file().clone()].into_iter().collect(),
         dest_dir,
-        Some(dest_fn.to_owned()),
+        Some(PathBuf::from(dest_fn)),
         gio::FileCopyFlags::NONE,
         ConfirmOverwriteMode::Query,
     )

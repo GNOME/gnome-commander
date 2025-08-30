@@ -24,16 +24,7 @@
 #include "gnome-cmd-main-win.h"
 
 
-using namespace std;
-
-
 GnomeCmdMainWin *main_win = nullptr;
-gchar *debug_flags = nullptr;
-
-extern "C" void gnome_cmd_application_startup(GApplication *application, gchar *debug_option)
-{
-    debug_flags = debug_option;
-}
 
 
 extern "C" void gnome_cmd_application_activate(GApplication *application, GnomeCmdMainWin *mw)

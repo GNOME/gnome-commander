@@ -20,18 +20,4 @@
  */
 #pragma once
 
-extern gchar *debug_flags;
-
-inline gboolean DEBUG_ENABLED (gchar flag)
-{
-    return debug_flags ? strchr(debug_flags, flag) != 0 : FALSE;
-}
-
-void DEBUG (gchar flag, const gchar *fmt, ...);
-
-void gnome_cmd_show_message (GtkWindow *parent, const gchar *message, const gchar *secondary_text=NULL);
 void gnome_cmd_error_message (GtkWindow *parent, const gchar *message, GError *error);
-
-gchar *get_gfile_attribute_string(GFileInfo *gFileInfo, const char *attribute);
-
-gchar *get_gfile_attribute_string(GFile *gFile, const char *attribute);
