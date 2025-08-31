@@ -20,7 +20,6 @@
 use crate::{
     dir::Directory,
     file::File,
-    libgcmd::file_descriptor::FileDescriptorExt,
     utils::{dialog_button_box, ErrorMessage, NO_BUTTONS},
 };
 use gettextrs::gettext;

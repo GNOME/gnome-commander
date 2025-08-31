@@ -25,10 +25,7 @@ use crate::{
     debug::debug,
     file::File,
     filter::fnmatch,
-    libgcmd::{
-        file_actions::{FileActions, FileActionsExt},
-        file_descriptor::FileDescriptorExt,
-    },
+    libgcmd::file_actions::{FileActions, FileActionsExt},
     main_win::MainWindow,
     plugin_manager::wrap_plugin_menu,
     utils::MenuBuilderExt,

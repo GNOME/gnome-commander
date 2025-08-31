@@ -32,7 +32,6 @@ mod imp {
         connection::{connection::ConnectionExt, device::ConnectionDevice},
         dir::Directory,
         file_metainfo_view::FileMetainfoView,
-        libgcmd::file_descriptor::FileDescriptorExt,
         tags::{file_metadata::FileMetadata, tags::FileMetadataService},
         types::SizeDisplayMode,
         utils::{

@@ -21,7 +21,6 @@ use crate::{
     data::ProgramsOptionsRead,
     file::File,
     intviewer::window::ViewerWindow,
-    libgcmd::file_descriptor::FileDescriptorExt,
     spawn::{spawn_async, SpawnError},
     tags::tags::FileMetadataService,
     transfer::download_to_temporary,

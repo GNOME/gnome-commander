@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::{file::File, libgcmd::file_descriptor::FileDescriptorExt};
+use crate::file::File;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::cmp;
 

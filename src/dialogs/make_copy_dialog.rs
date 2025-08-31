@@ -23,7 +23,6 @@
 use crate::{
     dir::Directory,
     file::File,
-    libgcmd::file_descriptor::FileDescriptorExt,
     main_win::MainWindow,
     transfer::copy_files,
     types::ConfirmOverwriteMode,

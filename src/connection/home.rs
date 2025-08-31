@@ -62,10 +62,6 @@ mod imp {
     impl ConnectionImpl for ConnectionHome {}
 }
 
-pub mod ffi {
-    pub type GnomeCmdConHome = <super::ConnectionHome as glib::object::ObjectType>::GlibType;
-}
-
 glib::wrapper! {
     pub struct ConnectionHome(ObjectSubclass<imp::ConnectionHome>)
         @extends Connection;

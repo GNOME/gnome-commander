@@ -21,7 +21,6 @@ use crate::{
     dir::Directory,
     file::File,
     file_list::list::FileList,
-    libgcmd::file_descriptor::FileDescriptorExt,
     utils::{dialog_button_box, ErrorMessage, SenderExt, NO_BUTTONS},
 };
 use gettextrs::gettext;

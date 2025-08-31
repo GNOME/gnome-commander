@@ -31,7 +31,6 @@ use crate::{
     dir::Directory,
     file::File,
     file_list::list::{ColumnID, FileList},
-    libgcmd::file_descriptor::FileDescriptorExt,
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
     open_file::mime_exec_single,
     tab_label::TabLabel,
@@ -55,7 +54,6 @@ mod imp {
         data::{GeneralOptions, GeneralOptionsRead},
         dialogs::manage_bookmarks_dialog::bookmark_directory,
         directory_indicator::DirectoryIndicator,
-        libgcmd::file_descriptor::FileDescriptorExt,
         tab_label::TabLabel,
         utils::get_modifiers_state,
     };
@@ -1137,19 +1135,24 @@ impl FileSelector {
             // Fallback to home directory
             let con = connection_list.home();
             let path = PathBuf::from(glib::home_dir());
-            if let Some(directory) =
-                Directory::new_startup(con.upcast_ref(), con.create_path(&path))
-            {
-                self.new_tab_full(
-                    Some(&directory),
-                    ColumnID::COLUMN_NAME,
-                    gtk::SortType::Ascending,
-                    false,
-                    true,
-                    false,
-                );
-            } else {
-                eprintln!("Stored path {} is invalid. Skipping", path.display());
+            match Directory::try_new(&con, con.create_path(&path)) {
+                Ok(directory) => {
+                    self.new_tab_full(
+                        Some(&directory),
+                        ColumnID::COLUMN_NAME,
+                        gtk::SortType::Ascending,
+                        false,
+                        true,
+                        false,
+                    );
+                }
+                Err(error) => {
+                    eprintln!(
+                        "Stored path {} is invalid: {}. Skipping",
+                        path.display(),
+                        error
+                    );
+                }
             }
         }
     }
@@ -1414,11 +1417,16 @@ fn restore_directory(connection_list: &ConnectionList, stored_uri: &str) -> Opti
         }
     };
 
-    if let Some(directory) = Directory::new_startup(&con, con.create_path(&path)) {
-        Some(directory)
-    } else {
-        eprintln!("Stored path {} is invalid. Skipping", path.display());
-        None
+    match Directory::try_new(&con, con.create_path(&path)) {
+        Ok(directory) => Some(directory),
+        Err(error) => {
+            eprintln!(
+                "Stored path {} is invalid: {}. Skipping",
+                path.display(),
+                error
+            );
+            None
+        }
     }
 }
 

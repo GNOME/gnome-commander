@@ -18,8 +18,7 @@
  */
 
 use crate::{
-    config::PIXMAPS_DIR, data::GeneralOptions, debug::debug, file::File,
-    libgcmd::file_descriptor::FileDescriptorExt, types::GraphicalLayoutMode,
+    config::PIXMAPS_DIR, data::GeneralOptions, debug::debug, file::File, types::GraphicalLayoutMode,
 };
 use gtk::{gio, glib, prelude::*};
 use std::{cell::RefCell, collections::HashMap, path::Path, rc::Rc, sync::LazyLock};

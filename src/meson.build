@@ -1,37 +1,12 @@
-sources_headers = files(
-  'gnome-cmd-con.h',
-  'gnome-cmd-dir.h',
-  'gnome-cmd-includes.h',
-  'gnome-cmd-main-win.h',
-  'gnome-cmd-path.h',
-  'gnome-cmd-types.h',
-  'utils.h',
-)
-
-sources_sources = files(
-  'gnome-cmd-application.cc',
-  'gnome-cmd-dir.cc',
-  'utils.cc',
-)
-
 cc_args = [
   '-DGNOMELOCALEDIR="' + datadir + '/locale"',
   '-DSHARE_DIR="' + pkgdatadir + '"',
-  '-DG_DISABLE_SINGLE_INCLUDES',
-  '-DGDK_PIXBUF_DISABLE_SINGLE_INCLUDES',
-  '-DGTK_DISABLE_SINGLE_INCLUDES'
 ]
 
 rpath = get_option('prefix') / get_option('libdir')
 
-libgcmdmain = static_library('gcmd-main',
-  c_args: cc_args,
-  sources: [sources_headers, sources_sources],
-  dependencies: [common_deps],
-  include_directories: [configuration_inc, sources_inc, libgcmd_inc],
-)
-
 executable('gcmd-block', 'gnome-cmd-block.cc',
+  c_args: cc_args,
   include_directories: [configuration_inc],
   install: true,
   install_rpath: rpath
@@ -79,7 +54,7 @@ commander = custom_target(
   'gnome-commander',
   build_by_default: true,
   build_always_stale: true,
-  input: [config_rs, libgcmdmain],
+  input: [config_rs],
   output: meson.project_name(),
   console: true,
   install: true,

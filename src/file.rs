@@ -31,12 +31,7 @@ use crate::{
     path::GnomeCmdPath,
     spawn::{app_needs_terminal, run_command_indir, SpawnError},
 };
-use gtk::{
-    gio,
-    glib::{ffi::GType, translate::IntoGlib},
-    prelude::*,
-    subclass::prelude::*,
-};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use libc::{gid_t, uid_t};
 use std::{
     ffi::OsString,
@@ -49,8 +44,12 @@ mod imp {
     use crate::libgcmd::file_descriptor::FileDescriptorImpl;
     use std::cell::{Cell, RefCell};
 
+    #[derive(glib::Properties)]
+    #[properties(wrapper_type = super::File)]
     pub struct File {
+        #[property(get, set)]
         pub file: RefCell<gio::File>,
+        #[property(get, set=Self::set_file_info)]
         pub file_info: RefCell<gio::FileInfo>,
         pub is_dotdot: Cell<bool>,
         pub parent_dir: RefCell<Option<Directory>>,
@@ -74,6 +73,7 @@ mod imp {
         }
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for File {}
 
     impl FileDescriptorImpl for File {
@@ -85,10 +85,16 @@ mod imp {
             self.file_info.borrow().clone()
         }
     }
-}
 
-pub mod ffi {
-    pub type GnomeCmdFile = <super::File as glib::object::ObjectType>::GlibType;
+    impl File {
+        fn set_file_info(&self, file_info: gio::FileInfo) {
+            self.is_dotdot.set(
+                file_info.file_type() == gio::FileType::Directory
+                    && file_info.display_name() == "..",
+            );
+            self.file_info.replace(file_info);
+        }
+    }
 }
 
 glib::wrapper! {
@@ -107,13 +113,11 @@ impl File {
     }
 
     pub fn new_full(file_info: &gio::FileInfo, file: &gio::File, dir: &Directory) -> Self {
-        let this: Self = glib::Object::builder().build();
-        this.set_file_info(file_info);
-        this.set_file(file);
+        let this: Self = glib::Object::builder()
+            .property("file", file)
+            .property("file-info", file_info)
+            .build();
         this.imp().parent_dir.replace(Some(dir.clone()));
-        this.imp().is_dotdot.set(
-            file_info.file_type() == gio::FileType::Directory && file_info.display_name() == "..",
-        );
         this
     }
 
@@ -133,25 +137,6 @@ impl File {
         let dir = Directory::new(&home, dir_path);
 
         Ok(Self::new_full(&file_info, &file, &dir))
-    }
-
-    pub fn setup(&self, file: &gio::File) -> Result<(), glib::Error> {
-        let file_info =
-            file.query_info("*", gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE)?;
-        self.set_file_info(&file_info);
-        self.set_file(&file);
-        self.imp().is_dotdot.set(
-            file_info.file_type() == gio::FileType::Directory && file_info.display_name() == "..",
-        );
-        Ok(())
-    }
-
-    fn set_file(&self, file: &gio::File) {
-        self.imp().file.replace(file.clone());
-    }
-
-    pub fn set_file_info(&self, file_info: &gio::FileInfo) {
-        self.imp().file_info.replace(file_info.clone());
     }
 
     pub fn refresh_file_info(&self) -> Result<(), glib::Error> {
@@ -432,9 +417,4 @@ impl File {
             false
         }
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_get_type() -> GType {
-    File::static_type().into_glib()
 }

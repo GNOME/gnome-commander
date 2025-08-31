@@ -21,19 +21,6 @@ use crate::data::{GeneralOptions, GeneralOptionsRead};
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, prelude::*, subclass::prelude::*};
 
-pub mod ffi {
-    use crate::main_win::ffi::GnomeCmdMainWin;
-
-    pub type GnomeCmdApplication = <super::Application as glib::object::ObjectType>::GlibType;
-
-    extern "C" {
-        pub fn gnome_cmd_application_activate(
-            application: *mut GnomeCmdApplication,
-            main_win: *mut GnomeCmdMainWin,
-        );
-    }
-}
-
 mod imp {
     use super::*;
     use crate::{
@@ -43,7 +30,6 @@ mod imp {
         debug::set_debug_flags,
         main_win::MainWindow,
     };
-    use gtk::glib::translate::ToGlibPtr;
     use std::{cell::RefCell, path::PathBuf};
 
     #[derive(Default, glib::Properties)]
@@ -136,14 +122,6 @@ mod imp {
             );
             let options = GeneralOptions::new();
             main_win.load_command_line_history(&options);
-
-            unsafe {
-                ffi::gnome_cmd_application_activate(
-                    self.obj().to_glib_none().0,
-                    main_win.to_glib_none().0,
-                );
-            }
-
             main_win.present();
             main_win.set_current_panel(0);
         }

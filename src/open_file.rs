@@ -24,7 +24,6 @@ use crate::{
     app::{App, RegularApp},
     data::ProgramsOptionsRead,
     file::File,
-    libgcmd::file_descriptor::FileDescriptorExt,
     spawn::SpawnError,
     transfer::download_to_temporary,
     utils::{temp_file, ErrorMessage, GNOME_CMD_PERM_USER_EXEC},
