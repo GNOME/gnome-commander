@@ -881,7 +881,7 @@ pub fn edit_copy_fnames(
     let names: Vec<String> = match mask {
         Some(gdk::ModifierType::SHIFT_MASK) => files
             .into_iter()
-            .map(|f| f.get_real_path())
+            .filter_map(|f| f.get_real_path())
             .map(|p| p.to_string_lossy().to_string())
             .collect(),
         Some(gdk::ModifierType::ALT_MASK) => files.into_iter().map(|f| f.get_uri_str()).collect(),
@@ -1456,19 +1456,6 @@ pub fn connections_set_current(
 }
 
 fn close_connection(main_win: &MainWindow, con: &Connection) {
-    let active = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
-    let inactive = main_win.file_selector(FileSelectorID::INACTIVE).file_list();
-
-    let home = ConnectionList::get().home();
-
-    if active.connection().as_ref() == Some(con) {
-        active.set_connection(&home, None);
-    }
-
-    if inactive.connection().as_ref() == Some(con) {
-        inactive.set_connection(&home, None);
-    }
-
     con.close(Some(main_win.upcast_ref()));
 }
 

@@ -158,9 +158,7 @@ impl UserDefinedApp {
                     .replace("{}", &self.name),
                 secondary_text: None,
             })?
-            .get_real_path()
-            .parent()
-            .map(|d| d.to_path_buf());
+            .get_dirname();
 
         let command = self
             .build_command_line(files, options)

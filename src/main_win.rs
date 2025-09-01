@@ -29,7 +29,7 @@ use crate::{
     },
     data::{GeneralOptions, GeneralOptionsRead, GeneralOptionsWrite, SearchConfig, WriteResult},
     dir::Directory,
-    file::{File, GnomeCmdFileExt},
+    file::File,
     file_list::list::FileList,
     file_selector::{FileSelector, TabVariant},
     libgcmd::{
@@ -780,7 +780,7 @@ pub mod imp {
             if file_list.connection().map_or(false, |c| c.is_local()) {
                 let working_directory = file_list
                     .directory()
-                    .map(|d| d.upcast_ref::<File>().get_real_path());
+                    .and_then(|d| d.upcast_ref::<File>().get_real_path());
 
                 let command: OsString = command.into();
                 let options = ProgramsOptions::new();
@@ -1419,7 +1419,9 @@ impl MainWindow {
         }
 
         state.source_file_list.reload().await;
-        dir.relist_files(self.upcast_ref(), false).await;
+        if let Err(error) = dir.relist_files(self.upcast_ref(), false).await {
+            error.show(self.upcast_ref()).await;
+        }
         self.focus_file_lists();
     }
 }

@@ -31,7 +31,6 @@ mod imp {
         chown_component::ChownComponent,
         connection::{connection::ConnectionExt, device::ConnectionDevice},
         dir::Directory,
-        file::GnomeCmdFileExt,
         file_metainfo_view::FileMetainfoView,
         libgcmd::file_descriptor::FileDescriptorExt,
         tags::{file_metadata::FileMetadata, tags::FileMetadataService},

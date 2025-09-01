@@ -27,46 +27,37 @@ use super::{
     quick_search::QuickSearch,
 };
 use crate::{
-    connection::connection::Connection,
+    connection::{
+        connection::{Connection, ConnectionExt},
+        list::ConnectionList,
+    },
     data::{
         ColorOptions, ConfirmOptions, FiltersOptions, FiltersOptionsRead, GeneralOptions,
         GeneralOptionsRead,
     },
     dialogs::{delete_dialog::show_delete_dialog, rename_popover::show_rename_popover},
-    dir::Directory,
-    file::{ffi::GnomeCmdFile, File},
+    dir::{Directory, DirectoryState},
+    file::File,
     filter::{fnmatch, Filter},
     layout::{color_themes::ColorThemes, ls_colors_palette::load_palette},
     libgcmd::file_descriptor::FileDescriptorExt,
     main_win::MainWindow,
+    open_connection::open_connection,
     tags::tags::FileMetadataService,
     types::{ExtensionDisplayMode, SizeDisplayMode},
     utils::{size_to_string, ErrorMessage},
 };
 use gettextrs::{gettext, ngettext};
-use gtk::{
-    gdk, gio,
-    glib::{
-        self,
-        ffi::{gboolean, GType},
-        translate::{from_glib_borrow, from_glib_none, Borrowed, IntoGlib, ToGlibPtr},
-    },
-    pango,
-    prelude::*,
-    subclass::prelude::*,
-};
-use std::{
-    collections::HashSet,
-    ffi::c_char,
-    ops::ControlFlow,
-    path::{Path, PathBuf},
-};
+use gtk::{gdk, gio, glib, pango, prelude::*, subclass::prelude::*};
+use std::{collections::HashSet, ops::ControlFlow, path::Path};
 
 mod imp {
     use super::*;
     use crate::{
         app::App,
+        connection::list::ConnectionList,
         data::ColorOptions,
+        debug::debug,
         dialogs::pattern_selection_dialog::select_by_pattern,
         file_list::{
             actions::{
@@ -184,6 +175,12 @@ mod imp {
         modifier_click: Cell<Option<gdk::ModifierType>>,
 
         pub focus_later: RefCell<Option<PathBuf>>,
+
+        pub connection: RefCell<Option<Connection>>,
+        pub connection_handlers: RefCell<Vec<glib::SignalHandlerId>>,
+
+        pub directory: RefCell<Option<Directory>>,
+        pub directory_handlers: RefCell<Vec<glib::SignalHandlerId>>,
     }
 
     #[glib::object_subclass]
@@ -360,10 +357,6 @@ mod imp {
                 ));
             }
 
-            unsafe {
-                ffi::gnome_cmd_file_list_init(fl.to_glib_none().0);
-            }
-
             view.set_model(Some(&store));
 
             view.connect_cursor_changed(glib::clone!(
@@ -535,8 +528,15 @@ mod imp {
             while let Some(child) = self.obj().first_child() {
                 child.unparent();
             }
-            unsafe {
-                ffi::gnome_cmd_file_list_finalize(self.obj().to_glib_none().0);
+            if let Some(directory) = self.directory.take() {
+                for handler_id in self.directory_handlers.take() {
+                    directory.disconnect(handler_id);
+                }
+            }
+            if let Some(connection) = self.connection.take() {
+                for handler_id in self.connection_handlers.take() {
+                    connection.disconnect(handler_id);
+                }
             }
         }
 
@@ -587,6 +587,189 @@ mod imp {
     }
 
     impl FileList {
+        pub fn set_connection(&self, connection: &Connection) {
+            if Some(connection) == self.connection.borrow().as_ref() {
+                return;
+            }
+
+            let previous_connection = self.connection.replace(Some(connection.clone()));
+
+            if let Some(previous_connection) = previous_connection {
+                for handler_id in self.connection_handlers.take() {
+                    previous_connection.disconnect(handler_id);
+                }
+            }
+
+            self.connection_handlers
+                .borrow_mut()
+                .push(connection.connect_closure(
+                    "close",
+                    false,
+                    glib::closure_local!(
+                        #[weak(rename_to = imp)]
+                        self,
+                        move |c: &Connection| {
+                            if Some(c) == imp.connection.borrow().as_ref() {
+                                imp.obj()
+                                    .set_connection(&ConnectionList::get().home(), None);
+                            }
+                        }
+                    ),
+                ));
+
+            self.obj().emit_by_name::<()>("con-changed", &[&connection]);
+        }
+
+        pub fn set_directory(&self, directory: &Directory) {
+            if Some(directory) == self.directory.borrow().as_ref() {
+                return;
+            }
+
+            let previous_directory = self.directory.replace(Some(directory.clone()));
+            if let Some(previous_directory) = previous_directory {
+                previous_directory.cancel_monitoring();
+                for handler_id in self.directory_handlers.take() {
+                    previous_directory.disconnect(handler_id);
+                }
+                if previous_directory.upcast_ref::<File>().is_local()
+                    && !previous_directory.is_monitored()
+                    && previous_directory.needs_mtime_update()
+                {
+                    previous_directory.update_mtime();
+                }
+            }
+
+            self.directory_handlers
+                .borrow_mut()
+                .push(directory.connect_closure(
+                    "list-ok",
+                    false,
+                    glib::closure_local!(
+                        #[weak(rename_to = imp)]
+                        self,
+                        move |d: &Directory| imp.on_dir_list_ok(d)
+                    ),
+                ));
+            self.directory_handlers
+                .borrow_mut()
+                .push(directory.connect_closure(
+                    "list-failed",
+                    false,
+                    glib::closure_local!(
+                        #[weak(rename_to = imp)]
+                        self,
+                        move |d: &Directory, e: &glib::Error| imp.on_dir_list_failed(d, e)
+                    ),
+                ));
+            self.directory_handlers
+                .borrow_mut()
+                .push(directory.connect_closure(
+                    "dir-deleted",
+                    false,
+                    glib::closure_local!(
+                        #[weak(rename_to = imp)]
+                        self,
+                        move |d: &Directory| imp.on_directory_deleted(d)
+                    ),
+                ));
+            self.directory_handlers
+                .borrow_mut()
+                .push(directory.connect_closure(
+                    "file-created",
+                    false,
+                    glib::closure_local!(
+                        #[weak(rename_to = imp)]
+                        self,
+                        move |_: &Directory, f: &File| imp.on_dir_file_created(f)
+                    ),
+                ));
+            self.directory_handlers
+                .borrow_mut()
+                .push(directory.connect_closure(
+                    "file-deleted",
+                    false,
+                    glib::closure_local!(
+                        #[weak(rename_to = imp)]
+                        self,
+                        move |d: &Directory, f: &File| imp.on_dir_file_deleted(d, f)
+                    ),
+                ));
+            self.directory_handlers
+                .borrow_mut()
+                .push(directory.connect_closure(
+                    "file-changed",
+                    false,
+                    glib::closure_local!(
+                        #[weak(rename_to = imp)]
+                        self,
+                        move |_: &Directory, f: &File| imp.on_dir_file_changed(f)
+                    ),
+                ));
+            self.directory_handlers
+                .borrow_mut()
+                .push(directory.connect_closure(
+                    "file-renamed",
+                    false,
+                    glib::closure_local!(
+                        #[weak(rename_to = imp)]
+                        self,
+                        move |_: &Directory, f: &File| imp.on_dir_file_renamed(f)
+                    ),
+                ));
+
+            directory.start_monitoring();
+
+            self.obj().emit_by_name::<()>("dir-changed", &[directory]);
+        }
+
+        fn on_dir_list_ok(&self, dir: &Directory) {
+            debug!('l', "on_dir_list_ok");
+            self.obj().emit_by_name::<()>("dir-changed", &[dir]);
+        }
+
+        fn on_dir_list_failed(&self, _dir: &Directory, error: &glib::Error) {
+            debug!('l', "on_dir_list_failed: {}", error);
+        }
+
+        fn on_directory_deleted(&self, dir: &Directory) {
+            if let Some(parent_dir) = dir.existing_parent() {
+                self.obj().goto_directory(&parent_dir.path().path());
+            } else {
+                self.obj().goto_directory(&Path::new("~"));
+            }
+        }
+
+        fn on_dir_file_created(&self, f: &File) {
+            if self.insert_file(&*f) {
+                self.obj().emit_files_changed();
+            }
+        }
+
+        fn on_dir_file_deleted(&self, dir: &Directory, f: &File) {
+            if self.directory.borrow().as_ref() == Some(dir) {
+                if self.obj().remove_file(&*f) {
+                    self.obj().emit_files_changed();
+                }
+            }
+        }
+
+        fn on_dir_file_changed(&self, f: &File) {
+            if self.obj().has_file(&*f) {
+                self.update_file(&*f);
+                self.obj().emit_files_changed();
+            }
+        }
+
+        fn on_dir_file_renamed(&self, f: &File) {
+            if self.obj().has_file(&*f) {
+                self.update_file(&*f);
+                let (sort_col, _) = self.obj().sorting();
+                if sort_col == ColumnID::COLUMN_NAME || sort_col == ColumnID::COLUMN_EXT {
+                    self.obj().sort();
+                }
+            }
+        }
+
         pub fn is_selected_iter(&self, iter: &gtk::TreeIter) -> bool {
             let selected: bool = TreeModelExtManual::get(
                 &self.obj().store(),
@@ -1311,7 +1494,7 @@ mod imp {
                 .obj()
                 .directory()
                 .and_upcast::<File>()
-                .map(|d| d.get_real_path())
+                .and_then(|d| d.get_real_path())
             {
                 self.add_to_cmdline(path);
             }
@@ -1320,7 +1503,9 @@ mod imp {
         fn add_file_to_cmdline(&self, fullpath: bool) {
             if let Some(file) = self.obj().selected_file() {
                 if fullpath {
-                    self.add_to_cmdline(file.get_real_path());
+                    if let Some(path) = file.get_real_path() {
+                        self.add_to_cmdline(path);
+                    }
                 } else {
                     self.add_to_cmdline(file.get_name());
                 }
@@ -1478,7 +1663,9 @@ mod imp {
                 }
             };
 
-            dir.relist_files(&window, false).await;
+            if let Err(error) = dir.relist_files(&window, false).await {
+                error.show(&window).await;
+            }
             // main_win.focus_file_lists();
         }
     }
@@ -1596,31 +1783,6 @@ mod imp {
         menu.append_section(None, &section);
         menu.append(Some(&gettext("C_ancel")), Some("fl.drop-files-cancel"));
         menu
-    }
-}
-
-pub mod ffi {
-    use super::*;
-    use crate::{connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir};
-
-    pub type GnomeCmdFileList = <super::FileList as glib::object::ObjectType>::GlibType;
-
-    extern "C" {
-        pub fn gnome_cmd_file_list_init(fl: *mut GnomeCmdFileList);
-        pub fn gnome_cmd_file_list_finalize(fl: *mut GnomeCmdFileList);
-
-        pub fn gnome_cmd_file_list_get_connection(fl: *mut GnomeCmdFileList) -> *mut GnomeCmdCon;
-
-        pub fn gnome_cmd_file_list_get_directory(fl: *mut GnomeCmdFileList) -> *mut GnomeCmdDir;
-        pub fn gnome_cmd_file_list_set_directory(fl: *mut GnomeCmdFileList, dir: *mut GnomeCmdDir);
-
-        pub fn gnome_cmd_file_list_set_connection(
-            fl: *mut GnomeCmdFileList,
-            con: *mut GnomeCmdCon,
-            start_dir: *mut GnomeCmdDir,
-        );
-
-        pub fn gnome_cmd_file_list_goto_directory(fl: *mut GnomeCmdFileList, dir: *const c_char);
     }
 }
 
@@ -1893,28 +2055,106 @@ impl FileList {
     }
 
     pub fn connection(&self) -> Option<Connection> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_file_list_get_connection(
-                self.to_glib_none().0,
-            ))
+        self.imp().connection.borrow().clone()
+    }
+
+    pub fn set_connection(&self, connection: &impl IsA<Connection>, start_dir: Option<&Directory>) {
+        let this = self.clone();
+        let connection = connection.as_ref().clone();
+        let start_dir = start_dir.cloned();
+        glib::spawn_future_local(async move {
+            this.set_connection_async(&connection, start_dir).await;
+        });
+    }
+
+    pub async fn set_connection_async(
+        &self,
+        connection: &impl IsA<Connection>,
+        start_dir: Option<Directory>,
+    ) {
+        let connection = connection.as_ref();
+        if self.connection().as_ref() == Some(connection) {
+            let directory = if !connection.should_remember_dir() {
+                connection.default_dir()
+            } else {
+                start_dir
+            };
+            if let Some(directory) = directory {
+                self.set_directory_async(&directory).await;
+            }
+            return;
+        }
+
+        let opened = if connection.is_open() {
+            true
+        } else {
+            if let Some(window) = self.root().and_downcast::<gtk::Window>() {
+                open_connection(&window, connection).await
+            } else {
+                eprintln!("No window");
+                false
+            }
+        };
+
+        if opened {
+            self.imp().set_connection(connection);
+        }
+
+        if let Some(directory) = start_dir.or_else(|| connection.default_dir()) {
+            self.set_directory_async(&directory).await;
         }
     }
 
     pub fn directory(&self) -> Option<Directory> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_file_list_get_directory(
-                self.to_glib_none().0,
-            ))
-        }
+        self.imp().directory.borrow().clone()
     }
 
     pub fn set_directory(&self, directory: &Directory) {
-        unsafe {
-            ffi::gnome_cmd_file_list_set_directory(
-                self.to_glib_none().0,
-                directory.to_glib_none().0,
-            )
+        let this = self.clone();
+        let directory = directory.clone();
+        glib::spawn_future_local(async move {
+            this.set_directory_async(&directory).await;
+        });
+    }
+
+    pub async fn set_directory_async(&self, directory: &Directory) {
+        if Some(directory) == self.directory().as_ref() {
+            return;
         }
+
+        let Some(window) = self.root().and_downcast::<gtk::Window>() else {
+            return;
+        };
+
+        // this.set_sensitive(false);
+        self.set_cursor(gdk::Cursor::from_name("wait", None).as_ref());
+
+        let result = match directory.state() {
+            DirectoryState::Empty => directory.list_files(&window, true).await,
+            DirectoryState::Listing | DirectoryState::Canceling => Ok(()),
+            DirectoryState::Listed => {
+                // check if the dir has up-to-date file list; if not and it's a local dir - relist it
+                if directory.upcast_ref::<File>().is_local()
+                    && !directory.is_monitored()
+                    && directory.update_mtime()
+                {
+                    directory.relist_files(&window, true).await
+                } else {
+                    Ok(())
+                }
+            }
+        };
+
+        self.set_cursor(None);
+        // self.set_sensitive(true);
+
+        if let Err(error) = result {
+            error.show(&window).await;
+            // g_timeout_add (1, (GSourceFunc) set_home_connection, fl);
+            return;
+        }
+
+        self.imp().set_directory(directory);
     }
 
     pub async fn reload(&self) {
@@ -1927,21 +2167,13 @@ impl FileList {
         };
 
         self.unselect_all();
-        directory.relist_files(&window, true).await;
+        if let Err(error) = directory.relist_files(&window, true).await {
+            error.show(&window).await;
+        }
     }
 
     pub fn append_file(&self, file: &File) {
         self.imp().add_file(file, None);
-    }
-
-    pub fn set_connection(&self, connection: &impl IsA<Connection>, start_dir: Option<&Directory>) {
-        unsafe {
-            ffi::gnome_cmd_file_list_set_connection(
-                self.to_glib_none().0,
-                connection.as_ref().to_glib_none().0,
-                start_dir.to_glib_none().0,
-            )
-        }
     }
 
     pub(super) fn get_row_from_file(&self, f: &File) -> Option<gtk::TreeIter> {
@@ -2016,9 +2248,76 @@ impl FileList {
     }
 
     pub fn goto_directory(&self, dir: &Path) {
-        unsafe {
-            ffi::gnome_cmd_file_list_goto_directory(self.to_glib_none().0, dir.to_glib_none().0)
+        let this = self.clone();
+        let dir = dir.to_path_buf();
+        glib::spawn_future_local(async move {
+            this.goto_directory_async(&dir).await;
+        });
+    }
+
+    pub async fn goto_directory_async(&self, dir: &Path) {
+        if let Err(error) = self.goto_directory_actual(dir).await {
+            match self.root().and_downcast::<gtk::Window>() {
+                Some(window) => error.show(&window).await,
+                None => eprintln!("{error}"),
+            }
         }
+    }
+
+    pub async fn goto_directory_actual(&self, dir: &Path) -> Result<(), ErrorMessage> {
+        let dir = if let Ok(relative) = dir.strip_prefix("~") {
+            glib::home_dir().join(relative)
+        } else {
+            glib::shell_unquote(dir)
+                .as_ref()
+                .map(|q| Path::new(q))
+                .unwrap_or(dir)
+                .to_path_buf()
+        };
+
+        let new_dir;
+        let focus_dir;
+        if dir == Path::new("..") {
+            let cwd = self
+                .directory()
+                .ok_or_else(|| ErrorMessage::brief(gettext("Current directory is not set.")))?;
+
+            // let's get the parent directory
+            new_dir = Some(
+                cwd.parent()
+                    .ok_or_else(|| ErrorMessage::brief(gettext("No parent directory")))?,
+            );
+            focus_dir = Some(cwd);
+        } else {
+            focus_dir = None;
+            if dir.is_absolute() {
+                let connection = self
+                    .connection()
+                    .unwrap_or_else(|| ConnectionList::get().home().upcast());
+                new_dir = Some(Directory::new(&connection, connection.create_path(&dir)));
+            } else if dir.starts_with("\\\\") {
+                let connection = ConnectionList::get().smb().ok_or_else(|| {
+                    ErrorMessage::brief(gettext("No SAMBA connection is available"))
+                })?;
+                new_dir = Some(Directory::new(&connection, connection.create_path(&dir)));
+            } else {
+                let cwd = self
+                    .directory()
+                    .ok_or_else(|| ErrorMessage::brief(gettext("Current directory is not set.")))?;
+                new_dir = cwd.child(&dir);
+            }
+        }
+
+        if let Some(new_dir) = new_dir {
+            self.set_directory_async(&new_dir).await;
+        }
+
+        // focus the current dir when going back to the parent dir
+        if let Some(focus_dir) = focus_dir {
+            self.focus_file(&focus_dir.file_info().name(), false);
+        }
+
+        Ok(())
     }
 
     pub fn traverse_files<T>(
@@ -2467,11 +2766,6 @@ pub struct FileListStats {
     pub selected: Stats,
 }
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_get_type() -> GType {
-    FileList::static_type().into_glib()
-}
-
 fn file_is_wanted(file: &File, options: &dyn FiltersOptionsRead) -> bool {
     match file.file().query_info(
         "standard::*",
@@ -2538,67 +2832,4 @@ fn matches_pattern(file: &str, patterns: &str) -> bool {
     patterns
         .split(';')
         .any(|pattern| fnmatch(pattern, file, false))
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_get_sort_column(fl: *mut ffi::GnomeCmdFileList) -> i32 {
-    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
-    fl.sorting().0 as i32
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_sort(fl: *mut ffi::GnomeCmdFileList) {
-    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
-    fl.sort();
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_insert_file(
-    fl: *mut ffi::GnomeCmdFileList,
-    f: *mut GnomeCmdFile,
-) -> gboolean {
-    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
-    let f: Borrowed<File> = unsafe { from_glib_borrow(f) };
-    fl.imp().insert_file(&*f).into_glib()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_focus_file(
-    fl: *mut ffi::GnomeCmdFileList,
-    f: *const c_char,
-    scroll: gboolean,
-) {
-    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
-    let f: PathBuf = unsafe { from_glib_none(f) };
-    fl.focus_file(&f, scroll != 0);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_remove_file(
-    fl: *mut ffi::GnomeCmdFileList,
-    f: *mut GnomeCmdFile,
-) -> gboolean {
-    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
-    let f: Borrowed<File> = unsafe { from_glib_borrow(f) };
-    fl.remove_file(&*f).into_glib()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_has_file(
-    fl: *mut ffi::GnomeCmdFileList,
-    f: *mut GnomeCmdFile,
-) -> gboolean {
-    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
-    let f: Borrowed<File> = unsafe { from_glib_borrow(f) };
-    fl.has_file(&*f).into_glib()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_list_update_file(
-    fl: *mut ffi::GnomeCmdFileList,
-    f: *mut GnomeCmdFile,
-) {
-    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
-    let f: Borrowed<File> = unsafe { from_glib_borrow(f) };
-    fl.imp().update_file(&*f);
 }

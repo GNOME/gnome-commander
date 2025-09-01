@@ -34,11 +34,6 @@
 extern "C" GType gnome_cmd_file_get_type ();
 
 
-struct GnomeCmdDir;
-struct GnomeCmdCon;
-struct GnomeCmdPath;
-
-
 struct GnomeCmdFile
 {
     GObject parent;
@@ -46,32 +41,5 @@ struct GnomeCmdFile
     GFile *get_file() { return gnome_cmd_file_descriptor_get_file (GNOME_CMD_FILE_DESCRIPTOR (this)); }
     GFileInfo *get_file_info() { return gnome_cmd_file_descriptor_get_file_info (GNOME_CMD_FILE_DESCRIPTOR (this)); }
 
-    const gchar *get_name();
-    gchar *get_real_path();
-
-    gchar *get_uri_str();
+    gchar *get_uri_str() { return g_file_get_uri(get_file()); }
 };
-
-struct GnomeCmdFileClass
-{
-    GObjectClass parent_class;
-
-    /* virtual functions */
-    GnomeCmdCon *(* get_connection) (GnomeCmdFile *f);
-};
-
-
-inline const gchar *GnomeCmdFile::get_name()
-{
-    g_return_val_if_fail (get_file_info () != NULL, NULL);
-    return g_file_info_get_display_name (get_file_info ());
-}
-
-extern "C" GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir);
-extern "C" GnomeCmdFile *gnome_cmd_file_new_full (GFileInfo *gFileInfo, GFile *gFile, GnomeCmdDir *dir);
-
-extern "C" gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f);
-
-extern "C" gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f);
-extern "C" gboolean gnome_cmd_file_is_local (GnomeCmdFile *f);
-extern "C" GnomeCmdCon *gnome_cmd_file_get_connection (GnomeCmdFile *f);

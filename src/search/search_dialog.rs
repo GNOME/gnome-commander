@@ -195,7 +195,7 @@ mod imp {
         },
         data::{GeneralOptions, GeneralOptionsRead},
         dir::Directory,
-        file::{File, GnomeCmdFileExt},
+        file::File,
         file_list::list::FileList,
         intviewer::search_dialog::gnome_cmd_viewer_search_text_add_to_history,
         main_win::MainWindow,
@@ -650,7 +650,7 @@ mod imp {
             self.obj().set_default_widget(Some(&self.stop_button));
 
             result_list.clear();
-            result_list.set_base_dir(Some(start_dir.upcast_ref::<File>().get_real_path()));
+            result_list.set_base_dir(start_dir.upcast_ref::<File>().get_real_path());
 
             let backend = if start_dir.connection().is_local() {
                 SearchBackend::Local

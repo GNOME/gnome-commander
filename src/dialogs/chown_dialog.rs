@@ -50,7 +50,10 @@ async fn chown_recursively(
     }
 
     if let Some(dir) = file.downcast_ref::<Directory>() {
-        dir.list_files(parent_window, false).await;
+        if let Err(error) = dir.list_files(parent_window, false).await {
+            error.show(parent_window).await;
+            return;
+        }
 
         for child in dir.files().iter::<File>().flatten().filter(|child| {
             !child.is_dotdot()

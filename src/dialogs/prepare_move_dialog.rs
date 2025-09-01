@@ -118,6 +118,10 @@ pub async fn prepare_move_dialog_show(
         overwrite_mode,
     )
     .await;
-    dest_dir.relist_files(main_win.upcast_ref(), false).await;
+
+    if let Err(error) = dest_dir.relist_files(main_win.upcast_ref(), false).await {
+        error.show(main_win.upcast_ref()).await;
+    }
+
     main_win.focus_file_lists();
 }

@@ -24,130 +24,6 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-con.h"
 
-using namespace std;
-
-
-enum
-{
-    FILE_CREATED,
-    FILE_DELETED,
-    FILE_CHANGED,
-    FILE_RENAMED,
-    LIST_OK,
-    LIST_FAILED,
-    DIR_DELETED,
-    LAST_SIGNAL
-};
-
-G_DEFINE_TYPE (GnomeCmdDir, gnome_cmd_dir, GNOME_CMD_TYPE_FILE)
-
-
-static guint signals[LAST_SIGNAL] = { 0 };
-
-
-extern "C" GnomeCmdCon *dir_get_connection (GnomeCmdFile *dir);
-extern "C" void gnome_cmd_dir_on_dispose (GnomeCmdDir *dir);
-
-
-static void gnome_cmd_dir_init (GnomeCmdDir *dir)
-{
-}
-
-
-static void gnome_cmd_dir_dispose (GObject *object)
-{
-    gnome_cmd_dir_on_dispose (GNOME_CMD_DIR (object));
-    G_OBJECT_CLASS (gnome_cmd_dir_parent_class)->dispose (object);
-}
-
-
-static void gnome_cmd_dir_class_init (GnomeCmdDirClass *klass)
-{
-    GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-    signals[FILE_CREATED] =
-        g_signal_new ("file-created",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdDirClass, file_created),
-            nullptr, nullptr,
-            g_cclosure_marshal_VOID__POINTER,
-            G_TYPE_NONE,
-            1, GNOME_CMD_TYPE_FILE);
-
-    signals[FILE_DELETED] =
-        g_signal_new ("file-deleted",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdDirClass, file_deleted),
-            nullptr, nullptr,
-            g_cclosure_marshal_VOID__POINTER,
-            G_TYPE_NONE,
-            1, GNOME_CMD_TYPE_FILE);
-
-    signals[FILE_CHANGED] =
-        g_signal_new ("file-changed",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdDirClass, file_changed),
-            nullptr, nullptr,
-            g_cclosure_marshal_VOID__POINTER,
-            G_TYPE_NONE,
-            1, GNOME_CMD_TYPE_FILE);
-
-    signals[FILE_RENAMED] =
-        g_signal_new ("file-renamed",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdDirClass, file_renamed),
-            nullptr, nullptr,
-            g_cclosure_marshal_VOID__POINTER,
-            G_TYPE_NONE,
-            1, GNOME_CMD_TYPE_FILE);
-
-    signals[LIST_OK] =
-        g_signal_new ("list-ok",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdDirClass, list_ok),
-            nullptr, nullptr,
-            nullptr,
-            G_TYPE_NONE,
-            0);
-
-    signals[LIST_FAILED] =
-        g_signal_new ("list-failed",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdDirClass, list_failed),
-            nullptr, nullptr,
-            nullptr,
-            G_TYPE_NONE,
-            1, G_TYPE_ERROR);
-
-    signals[DIR_DELETED] =
-        g_signal_new ("dir-deleted",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdDirClass, dir_deleted),
-            nullptr, nullptr,
-            nullptr,
-            G_TYPE_NONE,
-            0);
-
-    object_class->dispose = gnome_cmd_dir_dispose;
-
-    GNOME_CMD_FILE_CLASS (klass)->get_connection = dir_get_connection;
-
-    klass->file_created = nullptr;
-    klass->file_deleted = nullptr;
-    klass->file_changed = nullptr;
-    klass->file_renamed = nullptr;
-    klass->list_ok = nullptr;
-    klass->list_failed = nullptr;
-    klass->dir_deleted = nullptr;
-}
-
 
 /***********************************
  * Public functions
@@ -161,7 +37,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
     g_return_val_if_fail (gFileInfo != nullptr, nullptr);
     g_return_val_if_fail (GNOME_CMD_IS_DIR (gnomeCmdDirParent), nullptr);
 
-    GnomeCmdCon *con = gnome_cmd_file_get_connection (GNOME_CMD_FILE (gnomeCmdDirParent));
+    GnomeCmdCon *con = gnome_cmd_dir_get_connection (gnomeCmdDirParent);
     auto dirName = g_file_info_get_name(gFileInfo);
 
     GFile *gFile = nullptr;
@@ -205,33 +81,6 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
 }
 
 
-GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    GFileInfo *con_base_file_info = gnome_cmd_con_get_base_file_info (con);
-    g_return_val_if_fail (con_base_file_info != nullptr, nullptr);
-
-    gchar *path = gnome_cmd_con_is_local (con)
-        ? gnome_cmd_path_get_path (gnome_cmd_con_get_base_path(con))
-        : nullptr;
-
-    auto gFile = gnome_cmd_con_create_gfile (con, path);
-    g_free (path);
-
-    GError *error = nullptr;
-    auto dir = gnome_cmd_dir_find_or_create (con, gFile, con_base_file_info, gnome_cmd_path_clone (gnome_cmd_con_get_base_path (con)), &error);
-    if (!dir)
-    {
-        auto uriString = g_file_get_uri(gFile);
-        g_warning("gnome_cmd_dir_new_with_con error on %s: %s", uriString, error->message);
-        g_free (uriString);
-        g_error_free(error);
-        return nullptr;
-    }
-    return dir;
-}
-
-
 GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean isStartup)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
@@ -262,37 +111,10 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
 }
 
 
-GnomeCmdDir *gnome_cmd_dir_get_parent (GnomeCmdDir *dir)
+gboolean gnome_cmd_dir_is_local (GnomeCmdDir *dir)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
-    auto con = dir_get_connection (GNOME_CMD_FILE (dir));
-
-    GnomeCmdPath *self_path = gnome_cmd_dir_get_path (dir);
-    GnomeCmdPath *path = gnome_cmd_path_get_parent (self_path);
-    gnome_cmd_path_free (self_path);
-
-    return path ? gnome_cmd_dir_new (con, path) : nullptr;
-}
-
-
-GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
-    auto con = dir_get_connection (GNOME_CMD_FILE (dir));
-
-    GnomeCmdPath *self_path = gnome_cmd_dir_get_path (dir);
-    GnomeCmdPath *path = gnome_cmd_path_get_child (self_path, child);
-    gnome_cmd_path_free (self_path);
-
-    return path ? gnome_cmd_dir_new (con, path) : nullptr;
-}
-
-
-GFile *gnome_cmd_dir_get_gfile (GnomeCmdDir *dir)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
-
-    return GNOME_CMD_FILE(dir)->get_file();
+    GnomeCmdCon *con = gnome_cmd_dir_get_connection (dir);
+    return gnome_cmd_con_is_local (con);
 }
 
 
@@ -349,7 +171,7 @@ static gchar *gnome_cmd_dir_get_mount_uri(GnomeCmdCon *con)
  */
 GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gchar *filename)
 {
-    auto con = dir_get_connection (GNOME_CMD_FILE (dir));
+    auto con = gnome_cmd_dir_get_connection (dir);
 
     auto conUri = gnome_cmd_con_get_uri(con);
     if (!conUri) // is usually set for a remote connection
@@ -402,7 +224,7 @@ GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gcha
 GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
-    auto con = dir_get_connection (GNOME_CMD_FILE (dir));
+    auto con = gnome_cmd_dir_get_connection (dir);
 
     GFile *gFile = gnome_cmd_dir_get_gfile_for_con_and_filename(dir, filename);
 
@@ -425,35 +247,4 @@ GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename)
     g_free (path_str);
 
     return gFile;
-}
-
-
-gboolean gnome_cmd_dir_update_mtime (GnomeCmdDir *dir)
-{
-    // this function also determines if cached dir is up-to-date (FALSE=yes)
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), FALSE);
-
-    // assume cache is updated
-    gboolean returnValue = FALSE;
-
-    auto uri              = gnome_cmd_file_get_uri_str(GNOME_CMD_FILE(dir));
-    auto tempGFile        = g_file_new_for_uri(uri);
-    auto gFileInfoCurrent = g_file_query_info(tempGFile, G_FILE_ATTRIBUTE_TIME_MODIFIED, G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
-    auto currentMTime     = g_file_info_get_modification_date_time(gFileInfoCurrent);
-
-    auto cachedMTime = g_file_info_get_modification_date_time(GNOME_CMD_FILE(dir)->get_file_info());
-    g_free(uri);
-    g_object_unref(gFileInfoCurrent);
-
-    if (currentMTime && cachedMTime && g_date_time_compare(cachedMTime, currentMTime))
-    {
-        // cache is not up-to-date
-        g_file_info_set_modification_date_time(GNOME_CMD_FILE (dir)->get_file_info(), currentMTime);
-        returnValue = TRUE;
-    }
-
-    // after this function we are sure dir's mtime is up-to-date
-    gnome_cmd_dir_set_needs_mtime_update (dir, FALSE);
-
-    return returnValue;
 }

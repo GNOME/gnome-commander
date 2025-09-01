@@ -25,6 +25,7 @@ use gettextrs::{gettext, ngettext};
 use gtk::{gdk, gio, glib, pango, prelude::*};
 use std::{
     ffi::{OsStr, OsString},
+    fmt,
     mem::swap,
     sync::OnceLock,
     time::Duration,
@@ -269,6 +270,16 @@ impl ErrorMessage {
         if let Err(error) = alert.choose_future(Some(parent)).await {
             eprintln!("{error}");
         }
+    }
+}
+
+impl fmt::Display for ErrorMessage {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        writeln!(f, "{}", self.message)?;
+        if let Some(ref secondary_text) = self.secondary_text {
+            writeln!(f, "  {}", secondary_text)?;
+        }
+        Ok(())
     }
 }
 

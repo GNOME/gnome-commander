@@ -20,7 +20,7 @@
 use crate::{
     connection::connection::ConnectionExt,
     dir::Directory,
-    file::{File, GnomeCmdFileExt},
+    file::File,
     libgcmd::file_descriptor::FileDescriptorExt,
     utils::{dialog_button_box, ErrorMessage, NO_BUTTONS},
 };

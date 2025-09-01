@@ -23,7 +23,7 @@
 use crate::{
     connection::connection::ConnectionExt,
     dir::Directory,
-    file::{File, GnomeCmdFileExt},
+    file::File,
     libgcmd::file_descriptor::FileDescriptorExt,
     main_win::MainWindow,
     transfer::gnome_cmd_copy_gfiles,
@@ -146,7 +146,9 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
     .await;
 
     if success {
-        dir.relist_files(main_win.upcast_ref(), false).await;
+        if let Err(error) = dir.relist_files(main_win.upcast_ref(), false).await {
+            error.show(main_win.upcast_ref()).await;
+        }
         main_win.focus_file_lists();
     }
 }

@@ -21,13 +21,15 @@
  */
 
 use crate::{
-    connection::connection::{ffi::GnomeCmdCon, Connection},
+    connection::connection::{ffi::GnomeCmdCon, Connection, ConnectionExt},
     debug::debug,
     dirlist::list_directory,
-    file::{ffi::GnomeCmdFile, File, GnomeCmdFileExt},
+    file::{ffi::GnomeCmdFile, File},
     libgcmd::file_descriptor::{FileDescriptor, FileDescriptorExt},
     path::GnomeCmdPath,
+    utils::ErrorMessage,
 };
+use gettextrs::gettext;
 use gtk::{
     gio::{
         self,
@@ -35,30 +37,114 @@ use gtk::{
     },
     glib::{
         self,
-        ffi::{gboolean, GError},
-        translate::{from_glib_borrow, from_glib_full, from_glib_none, Borrowed, ToGlibPtr},
+        ffi::{gboolean, GError, GType},
+        translate::{from_glib_borrow, from_glib_full, Borrowed, IntoGlib, ToGlibPtr},
     },
     prelude::*,
+    subclass::prelude::*,
 };
-use std::{ffi::c_char, sync::LazyLock};
+use std::path::Path;
+
+mod imp {
+    use super::*;
+    use crate::file::FileImpl;
+    use std::{
+        cell::{Cell, RefCell},
+        sync::OnceLock,
+    };
+
+    pub const SIGNAL_FILE_CREATED: &str = "file-created";
+    pub const SIGNAL_FILE_DELETED: &str = "file-deleted";
+    pub const SIGNAL_FILE_CHANGED: &str = "file-changed";
+    pub const SIGNAL_FILE_RENAMED: &str = "file-renamed";
+    pub const SIGNAL_LIST_OK: &str = "list-ok";
+    pub const SIGNAL_LIST_FAILED: &str = "list-failed";
+    pub const SIGNAL_DIR_DELETED: &str = "dir-deleted";
+
+    #[derive(glib::Properties)]
+    #[properties(wrapper_type = super::Directory)]
+    pub struct Directory {
+        pub connection: RefCell<Option<Connection>>,
+        pub path: RefCell<Option<GnomeCmdPath>>,
+        pub state: Cell<DirectoryState>,
+        pub files: gio::ListStore,
+        #[property(get, set)]
+        pub needs_mtime_update: Cell<bool>,
+        pub file_monitor: RefCell<Option<gio::FileMonitor>>,
+        pub monitor_users: Cell<u32>,
+    }
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for Directory {
+        const NAME: &'static str = "GnomeCmdDir";
+        type Type = super::Directory;
+        type ParentType = File;
+
+        fn new() -> Self {
+            Self {
+                connection: Default::default(),
+                path: Default::default(),
+                state: Cell::new(DirectoryState::Empty),
+                files: gio::ListStore::new::<File>(),
+                needs_mtime_update: Default::default(),
+                file_monitor: Default::default(),
+                monitor_users: Default::default(),
+            }
+        }
+    }
+
+    #[glib::derived_properties]
+    impl ObjectImpl for Directory {
+        fn constructed(&self) {
+            self.parent_constructed();
+        }
+
+        fn dispose(&self) {
+            if let Some(connection) = self.connection.take() {
+                connection.remove_from_cache(&*self.obj());
+            }
+        }
+
+        fn signals() -> &'static [glib::subclass::Signal] {
+            static SIGNALS: OnceLock<Vec<glib::subclass::Signal>> = OnceLock::new();
+            SIGNALS.get_or_init(|| {
+                vec![
+                    glib::subclass::Signal::builder(SIGNAL_FILE_CREATED)
+                        .param_types([File::static_type()])
+                        .build(),
+                    glib::subclass::Signal::builder(SIGNAL_FILE_DELETED)
+                        .param_types([File::static_type()])
+                        .build(),
+                    glib::subclass::Signal::builder(SIGNAL_FILE_CHANGED)
+                        .param_types([File::static_type()])
+                        .build(),
+                    glib::subclass::Signal::builder(SIGNAL_FILE_RENAMED)
+                        .param_types([File::static_type()])
+                        .build(),
+                    glib::subclass::Signal::builder(SIGNAL_LIST_OK).build(),
+                    glib::subclass::Signal::builder(SIGNAL_LIST_FAILED)
+                        .param_types([glib::Error::static_type()])
+                        .build(),
+                    glib::subclass::Signal::builder(SIGNAL_DIR_DELETED).build(),
+                ]
+            })
+        }
+    }
+
+    impl FileImpl for Directory {}
+}
 
 pub mod ffi {
     use crate::{connection::connection::ffi::GnomeCmdCon, path::GnomeCmdPath};
     use gtk::{
         gio::ffi::{GFile, GFileInfo},
-        glib::ffi::{gboolean, GType},
+        glib::ffi::gboolean,
     };
     use std::ffi::c_char;
 
-    #[repr(C)]
-    pub struct GnomeCmdDir {
-        _data: [u8; 0],
-        _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
-    }
+    pub type GnomeCmdDir = <super::Directory as glib::object::ObjectType>::GlibType;
 
     extern "C" {
-        pub fn gnome_cmd_dir_get_type() -> GType;
-
         pub fn gnome_cmd_dir_new_from_gfileinfo(
             file_info: *mut GFileInfo,
             parent: *mut GnomeCmdDir,
@@ -69,81 +155,30 @@ pub mod ffi {
             is_startup: gboolean,
         ) -> *mut GnomeCmdDir;
 
-        pub fn gnome_cmd_dir_new_with_con(con: *mut GnomeCmdCon) -> *mut GnomeCmdDir;
-
-        pub fn gnome_cmd_dir_get_parent(dir: *mut GnomeCmdDir) -> *mut GnomeCmdDir;
-
         pub fn gnome_cmd_dir_get_child_gfile(
             dir: *mut GnomeCmdDir,
             filename: *const c_char,
         ) -> *mut GFile;
     }
-
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    pub struct GnomeCmdDirClass {
-        pub parent_class: crate::file::ffi::GnomeCmdFileClass,
-    }
 }
 
 glib::wrapper! {
-    pub struct Directory(Object<ffi::GnomeCmdDir, ffi::GnomeCmdDirClass>)
+    pub struct Directory(ObjectSubclass<imp::Directory>)
         @extends File,
         @implements FileDescriptor;
-
-    match fn {
-        type_ => || ffi::gnome_cmd_dir_get_type(),
-    }
 }
 
 #[repr(C)]
-#[derive(Clone, Copy)]
-enum DirectoryState {
+#[derive(Clone, Copy, strum::FromRepr, Default, PartialEq, Eq)]
+pub enum DirectoryState {
+    #[default]
     Empty = 0,
     Listed,
     Listing,
     Canceling,
 }
 
-struct DirectoryPrivate {
-    connection: Option<Connection>,
-    path: Option<GnomeCmdPath>,
-    state: DirectoryState,
-    files: gio::ListStore,
-    needs_mtime_update: bool,
-    file_monitor: Option<gio::FileMonitor>,
-    monitor_users: u32,
-}
-
-impl Default for DirectoryPrivate {
-    fn default() -> Self {
-        Self {
-            connection: None,
-            path: None,
-            state: DirectoryState::Empty,
-            files: gio::ListStore::new::<File>(),
-            needs_mtime_update: false,
-            file_monitor: None,
-            monitor_users: 0,
-        }
-    }
-}
-
 impl Directory {
-    fn private(&self) -> &mut DirectoryPrivate {
-        static QUARK: LazyLock<glib::Quark> =
-            LazyLock::new(|| glib::Quark::from_str("directory-private"));
-
-        unsafe {
-            if let Some(mut private) = self.qdata::<DirectoryPrivate>(*QUARK) {
-                private.as_mut()
-            } else {
-                self.set_qdata(*QUARK, DirectoryPrivate::default());
-                self.qdata::<DirectoryPrivate>(*QUARK).unwrap().as_mut()
-            }
-        }
-    }
-
     pub fn new_from_file_info(file_info: &gio::FileInfo, parent: &Directory) -> Option<Self> {
         unsafe {
             from_glib_full(ffi::gnome_cmd_dir_new_from_gfileinfo(
@@ -174,7 +209,19 @@ impl Directory {
     }
 
     pub fn new_with_con(connection: &Connection) -> Option<Self> {
-        unsafe { from_glib_full(ffi::gnome_cmd_dir_new_with_con(connection.to_glib_none().0)) }
+        let base_file_info = connection.base_file_info()?;
+        let base_path = connection.base_path()?;
+
+        let path = connection.is_local().then(|| base_path.path());
+        let file = connection.create_gfile(path.as_deref());
+
+        match Self::find_or_create(&connection, &file, Some(&base_file_info), base_path.clone()) {
+            Ok(directory) => Some(directory),
+            Err(error) => {
+                eprintln!("Directory::new_with_con error on {}: {}", file.uri(), error);
+                None
+            }
+        }
     }
 
     fn new_impl(
@@ -185,8 +232,8 @@ impl Directory {
     ) -> Result<Self, glib::Error> {
         let this: Self = glib::Object::builder().build();
         this.upcast_ref::<File>().setup(file)?;
-        this.private().connection = Some(connection.clone());
-        this.private().path = Some(path);
+        this.imp().connection.replace(Some(connection.clone()));
+        this.imp().path.replace(Some(path));
         Ok(this)
     }
 
@@ -209,14 +256,26 @@ impl Directory {
         }
     }
 
-    fn on_dispose(&self) {
-        if let Some(connection) = self.private().connection.take() {
-            connection.remove_from_cache(self);
-        }
+    pub fn connection(&self) -> Connection {
+        self.imp().connection.borrow().clone().unwrap()
+    }
+
+    pub fn is_local(&self) -> bool {
+        self.connection().is_local()
     }
 
     pub fn parent(&self) -> Option<Directory> {
-        unsafe { from_glib_full(ffi::gnome_cmd_dir_get_parent(self.to_glib_none().0)) }
+        if let Some(path) = self.path().parent() {
+            Some(Directory::new(&self.connection(), path))
+        } else {
+            None
+        }
+    }
+
+    pub fn child(&self, name: &Path) -> Option<Directory> {
+        let connection = self.connection();
+        let path = self.path().child(name);
+        Some(Directory::new(&connection, path))
     }
 
     pub fn display_path(&self) -> String {
@@ -224,15 +283,15 @@ impl Directory {
     }
 
     pub fn files(&self) -> gio::ListStore {
-        self.private().files.clone()
+        self.imp().files.clone()
     }
 
-    fn state(&self) -> DirectoryState {
-        self.private().state
+    pub fn state(&self) -> DirectoryState {
+        self.imp().state.get()
     }
 
     fn set_state(&self, state: DirectoryState) {
-        self.private().state = state;
+        self.imp().state.set(state);
     }
 
     fn set_files(&self, files: impl IntoIterator<Item = File>) {
@@ -243,14 +302,18 @@ impl Directory {
         }
     }
 
-    pub async fn relist_files(&self, parent_window: &gtk::Window, mut visual: bool) {
+    pub async fn relist_files(
+        &self,
+        parent_window: &gtk::Window,
+        mut visual: bool,
+    ) -> Result<(), ErrorMessage> {
         let Some(lock) = DirectoryLock::try_acquire(self) else {
-            return;
+            return Ok(());
         };
 
         visual &= self.connection().needs_list_visprog();
         let window = if visual { Some(parent_window) } else { None };
-        match list_directory(self, window).await {
+        let result = match list_directory(self, window).await {
             Ok(file_infos) => {
                 self.set_state(DirectoryState::Listed);
                 self.set_files(
@@ -259,23 +322,35 @@ impl Directory {
                         .filter_map(|file_info| create_file_from_file_info(&file_info, self)),
                 );
                 self.emit_by_name::<()>("list-ok", &[]);
+                Ok(())
             }
             Err(error) => {
                 self.set_state(DirectoryState::Empty);
                 self.emit_by_name::<()>("list-failed", &[&error]);
+                Err(ErrorMessage::with_error(
+                    gettext("Directory listing failed."),
+                    &error,
+                ))
             }
-        }
+        };
 
         lock.release();
+
+        result
     }
 
-    pub async fn list_files(&self, parent_window: &gtk::Window, mut visual: bool) {
+    pub async fn list_files(
+        &self,
+        parent_window: &gtk::Window,
+        mut visual: bool,
+    ) -> Result<(), ErrorMessage> {
         visual &= self.connection().needs_list_visprog();
         let files = self.files();
-        if files.n_items() == 0 || self.upcast_ref::<File>().is_local() {
-            self.relist_files(parent_window, visual).await;
+        if files.n_items() == 0 || self.is_local() {
+            self.relist_files(parent_window, visual).await
         } else {
             self.emit_by_name::<()>("list-ok", &[]);
+            Ok(())
         }
     }
 
@@ -288,8 +363,8 @@ impl Directory {
         }
     }
 
-    pub fn path(&self) -> &GnomeCmdPath {
-        self.private().path.as_ref().unwrap()
+    pub fn path(&self) -> GnomeCmdPath {
+        self.imp().path.borrow().clone().unwrap()
     }
 
     pub fn update_path(&self) {
@@ -297,7 +372,7 @@ impl Directory {
             let path = parent
                 .path()
                 .child(&self.upcast_ref::<File>().file_info().name());
-            self.private().path = Some(path);
+            self.imp().path.replace(Some(path));
         }
     }
 
@@ -401,17 +476,39 @@ impl Directory {
         self.emit_by_name::<()>("file-renamed", &[file]);
     }
 
-    fn needs_mtime_update(&self) -> bool {
-        self.private().needs_mtime_update
+    /// This function also determines if cached dir is up-to-date (false=yes)
+    pub fn update_mtime(&self) -> bool {
+        let file_info = self.file_info();
+
+        let current_time = self
+            .file()
+            .query_info(
+                gio::FILE_ATTRIBUTE_TIME_MODIFIED,
+                gio::FileQueryInfoFlags::NONE,
+                gio::Cancellable::NONE,
+            )
+            .ok()
+            .and_then(|fi| fi.modification_date_time());
+
+        let cached_time = file_info.modification_date_time();
+
+        let result = match (cached_time, current_time) {
+            (Some(cached_time), Some(current_time)) if current_time != cached_time => {
+                // cache is not up-to-date
+                self.file_info().set_modification_date_time(&current_time);
+                true
+            }
+            _ => false,
+        };
+
+        // after this function we are sure dir's mtime is up-to-date
+        self.set_needs_mtime_update(false);
+
+        result
     }
 
-    fn set_needs_mtime_update(&self, value: bool) {
-        self.private().needs_mtime_update = value;
-    }
-
-    fn start_monitoring(&self) {
-        let private = self.private();
-        if private.monitor_users != 0 {
+    pub fn start_monitoring(&self) {
+        if self.imp().monitor_users.get() != 0 {
             return;
         }
 
@@ -443,8 +540,10 @@ impl Directory {
                     self.upcast_ref::<File>().get_uri_str()
                 );
 
-                private.file_monitor = Some(file_monitor);
-                private.monitor_users += 1;
+                self.imp().file_monitor.replace(Some(file_monitor));
+                self.imp()
+                    .monitor_users
+                    .set(self.imp().monitor_users.get() + 1);
             }
             Err(error) => {
                 debug!(
@@ -457,14 +556,15 @@ impl Directory {
         }
     }
 
-    fn cancel_monitoring(&self) {
-        let private = self.private();
-        if private.monitor_users < 1 {
+    pub fn cancel_monitoring(&self) {
+        let mut monitor_users = self.imp().monitor_users.get();
+        if monitor_users < 1 {
             return;
         }
-        private.monitor_users -= 1;
-        if private.monitor_users == 0 {
-            if let Some(file_monitor) = private.file_monitor.take() {
+        monitor_users -= 1;
+        self.imp().monitor_users.set(monitor_users);
+        if monitor_users == 0 {
+            if let Some(file_monitor) = self.imp().file_monitor.take() {
                 file_monitor.cancel();
                 debug!(
                     'n',
@@ -475,9 +575,8 @@ impl Directory {
         }
     }
 
-    fn is_monitored(&self) -> bool {
-        let private = self.private();
-        private.monitor_users > 0
+    pub fn is_monitored(&self) -> bool {
+        self.imp().monitor_users.get() > 0
     }
 }
 
@@ -520,99 +619,8 @@ fn create_file_from_file_info(file_info: &gio::FileInfo, parent: &Directory) -> 
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_dir_relist_files(
-    parent_window_ptr: *const gtk::ffi::GtkWindow,
-    dir_ptr: *const ffi::GnomeCmdDir,
-    visual: gboolean,
-) {
-    let dir: Directory = unsafe { from_glib_none(dir_ptr) };
-    let parent_window: gtk::Window = unsafe { from_glib_none(parent_window_ptr) };
-
-    glib::spawn_future_local(async move {
-        dir.relist_files(&parent_window, visual != 0).await;
-    });
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_dir_list_files(
-    parent_window_ptr: *const gtk::ffi::GtkWindow,
-    dir_ptr: *const ffi::GnomeCmdDir,
-    visual: gboolean,
-) {
-    let dir: Directory = unsafe { from_glib_none(dir_ptr) };
-    let parent_window: gtk::Window = unsafe { from_glib_none(parent_window_ptr) };
-
-    glib::spawn_future_local(async move {
-        dir.list_files(&parent_window, visual != 0).await;
-    });
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_dir_file_created(dir: *mut ffi::GnomeCmdDir, uri_str: *const c_char) {
-    let dir: Borrowed<Directory> = unsafe { from_glib_borrow(dir) };
-    let uri_str: String = unsafe { from_glib_none(uri_str) };
-    dir.file_created(&uri_str);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_dir_file_changed(dir: *mut ffi::GnomeCmdDir, uri_str: *const c_char) {
-    let dir: Borrowed<Directory> = unsafe { from_glib_borrow(dir) };
-    let uri_str: String = unsafe { from_glib_none(uri_str) };
-    dir.file_changed(&uri_str);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_dir_file_deleted(dir: *mut ffi::GnomeCmdDir, uri_str: *const c_char) {
-    let dir: Borrowed<Directory> = unsafe { from_glib_borrow(dir) };
-    let uri_str: String = unsafe { from_glib_none(uri_str) };
-    dir.file_deleted(&uri_str);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_dir_get_existing_parent(
-    dir: *mut ffi::GnomeCmdDir,
-) -> *mut ffi::GnomeCmdDir {
-    let dir: Borrowed<Directory> = unsafe { from_glib_borrow(dir) };
-    dir.existing_parent().to_glib_full()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_dir_start_monitoring(dir: *mut ffi::GnomeCmdDir) {
-    let dir: Borrowed<Directory> = unsafe { from_glib_borrow(dir) };
-    dir.start_monitoring()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_dir_cancel_monitoring(dir: *mut ffi::GnomeCmdDir) {
-    let dir: Borrowed<Directory> = unsafe { from_glib_borrow(dir) };
-    dir.cancel_monitoring()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_dir_is_monitored(dir: *mut ffi::GnomeCmdDir) -> gboolean {
-    let dir: Borrowed<Directory> = unsafe { from_glib_borrow(dir) };
-    dir.is_monitored() as gboolean
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_dir_needs_mtime_update(dir: *mut ffi::GnomeCmdDir) -> gboolean {
-    let dir: Borrowed<Directory> = unsafe { from_glib_borrow(dir) };
-    dir.needs_mtime_update() as gboolean
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_dir_set_needs_mtime_update(
-    dir: *mut ffi::GnomeCmdDir,
-    value: gboolean,
-) {
-    let dir: Borrowed<Directory> = unsafe { from_glib_borrow(dir) };
-    dir.set_needs_mtime_update(value != 0);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_dir_get_state(dir: *mut ffi::GnomeCmdDir) -> i32 {
-    let dir: Borrowed<Directory> = unsafe { from_glib_borrow(dir) };
-    dir.state() as i32
+pub extern "C" fn gnome_cmd_dir_get_type() -> GType {
+    Directory::static_type().into_glib()
 }
 
 #[no_mangle]
@@ -639,12 +647,11 @@ pub extern "C" fn gnome_cmd_dir_find_or_create(
 }
 
 #[no_mangle]
-pub extern "C" fn dir_get_connection(file: *mut GnomeCmdFile) -> *mut GnomeCmdCon {
+pub extern "C" fn gnome_cmd_dir_get_connection(file: *mut GnomeCmdFile) -> *mut GnomeCmdCon {
     let file: Borrowed<File> = unsafe { from_glib_borrow(file) };
     file.downcast_ref::<Directory>()
         .unwrap()
-        .private()
-        .connection
+        .connection()
         .to_glib_none()
         .0
 }
@@ -652,20 +659,5 @@ pub extern "C" fn dir_get_connection(file: *mut GnomeCmdFile) -> *mut GnomeCmdCo
 #[no_mangle]
 pub extern "C" fn gnome_cmd_dir_get_path(dir: *mut ffi::GnomeCmdDir) -> *mut GnomeCmdPath {
     let dir: Borrowed<Directory> = unsafe { from_glib_borrow(dir) };
-    dir.private()
-        .path
-        .clone()
-        .map_or(std::ptr::null_mut(), |p| p.into_raw())
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_dir_on_dispose(dir: *mut ffi::GnomeCmdDir) {
-    let dir: Borrowed<Directory> = unsafe { from_glib_borrow(dir) };
-    dir.on_dispose();
-}
-
-impl GnomeCmdFileExt for Directory {
-    fn connection(&self) -> Connection {
-        self.upcast_ref::<File>().connection()
-    }
+    dir.path().into_raw()
 }

@@ -29,7 +29,7 @@ use crate::{
     },
     data::ProgramsOptions,
     dir::Directory,
-    file::{File, GnomeCmdFileExt},
+    file::File,
     file_list::list::{ColumnID, FileList},
     libgcmd::file_descriptor::FileDescriptorExt,
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
@@ -763,6 +763,9 @@ impl FileSelector {
                 connection.dir_history().add(path.to_owned());
             }
         }
+
+        self.imp().update_tab_label(fl);
+
         if self.current_file_list().as_ref() != Some(fl) {
             return;
         }
@@ -774,7 +777,6 @@ impl FileSelector {
             return;
         }
 
-        self.imp().update_tab_label(fl);
         self.update_files();
         self.imp().update_selected_files_label();
 

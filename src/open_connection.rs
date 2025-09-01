@@ -18,19 +18,13 @@
  */
 
 use crate::{
-    connection::connection::{ffi::GnomeCmdCon, Connection, ConnectionExt},
+    connection::connection::{Connection, ConnectionExt},
     debug::debug,
-    file_list::list::{ffi::GnomeCmdFileList, FileList},
 };
 use gettextrs::gettext;
-use gtk::{
-    ffi::GtkWindow,
-    gio,
-    glib::{self, translate::from_glib_none},
-    prelude::*,
-};
+use gtk::{gio, glib, prelude::*};
 
-pub async fn open_connection(file_list: &FileList, parent_window: &gtk::Window, con: &Connection) {
+pub async fn open_connection(parent_window: &gtk::Window, con: &Connection) -> bool {
     let dialog = gtk::Window::builder()
         .transient_for(parent_window)
         .modal(true)
@@ -88,23 +82,10 @@ pub async fn open_connection(file_list: &FileList, parent_window: &gtk::Window, 
 
     debug!('m', "connecion open result {:?}", result);
     match result {
-        Ok(()) => file_list.set_connection(con, None),
+        Ok(()) => true,
         Err(error) => {
             error.show(parent_window).await;
+            false
         }
     }
-}
-
-#[no_mangle]
-pub extern "C" fn open_connection_r(
-    fl: *mut GnomeCmdFileList,
-    parent_window: *mut GtkWindow,
-    con: *mut GnomeCmdCon,
-) {
-    let file_list: FileList = unsafe { from_glib_none(fl) };
-    let parent_window: gtk::Window = unsafe { from_glib_none(parent_window) };
-    let con: Connection = unsafe { from_glib_none(con) };
-    glib::spawn_future_local(async move {
-        open_connection(&file_list, &parent_window, &con).await;
-    });
 }
