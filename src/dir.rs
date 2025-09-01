@@ -63,6 +63,7 @@ mod imp {
         pub needs_mtime_update: Cell<bool>,
         pub file_monitor: RefCell<Option<gio::FileMonitor>>,
         pub monitor_users: Cell<u32>,
+        pub lock: Cell<bool>,
     }
 
     #[glib::object_subclass]
@@ -80,6 +81,7 @@ mod imp {
                 needs_mtime_update: Default::default(),
                 file_monitor: Default::default(),
                 monitor_users: Default::default(),
+                lock: Default::default(),
             }
         }
     }
@@ -622,10 +624,10 @@ struct DirectoryLock<'d>(&'d Directory);
 
 impl<'d> DirectoryLock<'d> {
     fn try_acquire(dir: &'d Directory) -> Option<Self> {
-        if unsafe { dir.data::<bool>("lock") }.is_some() {
+        if dir.imp().lock.get() {
             None
         } else {
-            unsafe { dir.set_data::<bool>("lock", true) }
+            dir.imp().lock.set(true);
             Some(Self(dir))
         }
     }
@@ -637,9 +639,7 @@ impl<'d> DirectoryLock<'d> {
 
 impl<'d> Drop for DirectoryLock<'d> {
     fn drop(&mut self) {
-        unsafe {
-            self.0.steal_data::<bool>("lock");
-        }
+        self.0.imp().lock.set(false);
     }
 }
 
