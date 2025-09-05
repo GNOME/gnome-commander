@@ -2145,7 +2145,7 @@ pub const USER_ACTIONS: LazyLock<Vec<UserAction>> = LazyLock::new(|| {
         UserAction::with_param(
             "bookmarks-goto",
             bookmarks_goto,
-            unsafe { glib::VariantTy::from_str_unchecked("(ss)") }.into(),
+            BookmarkGoToVariant::static_variant_type(),
             "bookmarks.goto",
             gettext("Go to bookmarked location"),
         ),
@@ -2184,7 +2184,7 @@ pub const USER_ACTIONS: LazyLock<Vec<UserAction>> = LazyLock::new(|| {
         UserAction::with_param(
             "connections-set-current",
             connections_set_current,
-            unsafe { glib::VariantTy::from_str_unchecked("s") }.into(),
+            glib::VariantTy::STRING.into(),
             "connections.set-uuid",
             gettext("Set connection"),
         ),
@@ -2203,7 +2203,7 @@ pub const USER_ACTIONS: LazyLock<Vec<UserAction>> = LazyLock::new(|| {
         UserAction::with_param(
             "connections-close",
             connections_close,
-            unsafe { glib::VariantTy::from_str_unchecked("s") }.into(),
+            glib::VariantTy::STRING.into(),
             "connections.close-uuid",
             gettext("Close connection"),
         ),
