@@ -56,6 +56,7 @@ mod imp {
         directory_indicator::DirectoryIndicator,
         tab_label::TabLabel,
         utils::get_modifiers_state,
+        weak_set::WeakSet,
     };
     use std::{
         cell::{Cell, OnceCell, RefCell},
@@ -93,6 +94,7 @@ mod imp {
         list: RefCell<Option<FileList>>,
 
         select_connection_in_progress: Cell<bool>,
+        pub locked_tabs: WeakSet<FileList>,
     }
 
     #[glib::object_subclass]
@@ -204,6 +206,7 @@ mod imp {
                 list: Default::default(),
 
                 select_connection_in_progress: Default::default(),
+                locked_tabs: Default::default(),
             }
         }
     }
@@ -836,16 +839,14 @@ impl FileSelector {
     }
 
     pub fn is_tab_locked(&self, fl: &FileList) -> bool {
-        unsafe { fl.data::<()>("file-list-locked").is_some() }
+        self.imp().locked_tabs.contains(fl)
     }
 
     pub fn set_tab_locked(&self, fl: &FileList, lock: bool) {
-        unsafe {
-            if lock {
-                fl.set_data::<()>("file-list-locked", ());
-            } else {
-                fl.steal_data::<()>("file-list-locked");
-            }
+        if lock {
+            self.imp().locked_tabs.insert(fl);
+        } else {
+            self.imp().locked_tabs.remove(fl);
         }
     }
 
