@@ -95,6 +95,8 @@ mod imp {
 
         select_connection_in_progress: Cell<bool>,
         pub locked_tabs: WeakSet<FileList>,
+
+        pub tab_popover: gtk::PopoverMenu,
     }
 
     #[glib::object_subclass]
@@ -207,6 +209,10 @@ mod imp {
 
                 select_connection_in_progress: Default::default(),
                 locked_tabs: Default::default(),
+
+                tab_popover: gtk::PopoverMenu::builder()
+                    .position(gtk::PositionType::Bottom)
+                    .build(),
             }
         }
     }
@@ -271,6 +277,8 @@ mod imp {
             this.attach(&self.notebook, 0, 3, 2, 1);
             this.attach(&self.info_label, 0, 4, 1, 1);
             this.attach(&self.filter_box, 0, 5, 2, 1);
+
+            self.tab_popover.set_parent(&self.notebook);
 
             self.connection_dropdown
                 .connect_selected_item_notify(glib::clone!(
@@ -351,6 +359,7 @@ mod imp {
         }
 
         fn dispose(&self) {
+            self.tab_popover.unparent();
             while let Some(child) = self.obj().first_child() {
                 child.unparent();
             }
@@ -1523,11 +1532,10 @@ async fn on_notebook_button_pressed(
                 Some("win.view-close-duplicate-tabs"),
             );
 
-            let popover = gtk::PopoverMenu::from_model(Some(&menu));
-            popover.set_parent(notebook);
-            popover.set_position(gtk::PositionType::Bottom);
-            popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 0, 0)));
-            popover.popup();
+            let tab_popover = &file_selector.imp().tab_popover;
+            tab_popover.set_menu_model(Some(&menu));
+            tab_popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 0, 0)));
+            tab_popover.popup();
         }
         (2, 1, TabClick::Area) => {
             // double-click on a tabs area
