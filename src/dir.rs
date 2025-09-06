@@ -171,11 +171,18 @@ impl Directory {
     pub fn try_new(
         connection: &impl IsA<Connection>,
         path: GnomeCmdPath,
-    ) -> Result<Self, glib::Error> {
+    ) -> Result<Self, ErrorMessage> {
         let connection = connection.as_ref();
         let file = connection.create_gfile(&path);
-        let file_info =
-            file.query_info("*", gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE)?;
+        let file_info = file
+            .query_info("*", gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE)
+            .map_err(|error| {
+                ErrorMessage::with_error(
+                    gettext("Failed to get directory info for {path}.")
+                        .replace("{path}", &path.to_string()),
+                    &error,
+                )
+            })?;
         Ok(Self::find_or_create(connection, &file, &file_info, path))
     }
 
@@ -239,10 +246,10 @@ impl Directory {
         }
     }
 
-    pub fn child(&self, name: &Path) -> Option<Directory> {
+    pub fn child(&self, name: &Path) -> Result<Directory, ErrorMessage> {
         let connection = self.connection();
         let path = self.path().child(name);
-        Some(Directory::new(&connection, path))
+        Directory::try_new(&connection, path)
     }
 
     pub fn display_path(&self) -> String {

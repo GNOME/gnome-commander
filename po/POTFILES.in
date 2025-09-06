@@ -69,6 +69,7 @@ src/file_list/list.rs
 src/file_list/popup.rs
 src/file_list/quick_search.rs
 src/file_metainfo_view.rs
+src/file.rs
 src/file_selector.rs
 src/file_view.rs
 src/gnome-cmd-block.cc

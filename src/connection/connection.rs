@@ -240,7 +240,7 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
     }
 
     fn replace_bookmark(&self, old_bookmark: &Bookmark, new_bookmark: Bookmark) {
-        let bookmarks = self.bookmarks().downcast::<gio::ListStore>().unwrap();
+        let bookmarks = &self.as_ref().imp().bookmarks;
         let Some(position): Option<u32> = bookmarks
             .iter()
             .position(|b| b.as_ref() == Ok(old_bookmark))
@@ -252,7 +252,7 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
     }
 
     fn move_bookmark_up(&self, bookmark: &Bookmark) -> Option<u32> {
-        let bookmarks = self.bookmarks().downcast::<gio::ListStore>().unwrap();
+        let bookmarks = &self.as_ref().imp().bookmarks;
         let Some(position): Option<u32> = bookmarks
             .iter()
             .position(|b| b.as_ref() == Ok(bookmark))
@@ -270,7 +270,7 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
     }
 
     fn move_bookmark_down(&self, bookmark: &Bookmark) -> Option<u32> {
-        let bookmarks = self.bookmarks().downcast::<gio::ListStore>().unwrap();
+        let bookmarks = &self.as_ref().imp().bookmarks;
         let Some(position): Option<u32> = bookmarks
             .iter()
             .position(|b| b.as_ref() == Ok(bookmark))
@@ -288,7 +288,7 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
     }
 
     fn remove_bookmark(&self, bookmark: &Bookmark) {
-        let bookmarks = self.bookmarks().downcast::<gio::ListStore>().unwrap();
+        let bookmarks = &self.as_ref().imp().bookmarks;
         let Some(position): Option<u32> = bookmarks
             .iter()
             .position(|b| b.as_ref() == Ok(bookmark))

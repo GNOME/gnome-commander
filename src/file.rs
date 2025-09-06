@@ -30,7 +30,9 @@ use crate::{
     libgcmd::file_descriptor::{FileDescriptor, FileDescriptorExt},
     path::GnomeCmdPath,
     spawn::{app_needs_terminal, run_command_indir, SpawnError},
+    utils::ErrorMessage,
 };
+use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use libc::{gid_t, uid_t};
 use std::{
@@ -121,11 +123,18 @@ impl File {
         this
     }
 
-    pub fn new_from_path(path: &Path) -> Result<Self, glib::Error> {
+    pub fn new_from_path(path: &Path) -> Result<Self, ErrorMessage> {
         let file = gio::File::for_path(path);
 
-        let file_info =
-            file.query_info("*", gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE)?;
+        let file_info = file
+            .query_info("*", gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE)
+            .map_err(|error| {
+                ErrorMessage::with_error(
+                    gettext("Failed to get file info for {path}.")
+                        .replace("{path}", &path.display().to_string()),
+                    &error,
+                )
+            })?;
 
         let parent_path = file
             .parent()
@@ -134,7 +143,7 @@ impl File {
 
         let home = ConnectionList::get().home();
         let dir_path = home.create_path(&parent_path);
-        let dir = Directory::new(&home, dir_path);
+        let dir = Directory::try_new(&home, dir_path)?;
 
         Ok(Self::new_full(&file_info, &file, &dir))
     }
