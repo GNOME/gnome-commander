@@ -143,9 +143,11 @@ gchar *gnome_cmd_dir_get_relative_path_string(const char* childPath, const char*
     return relPath ? relPath : g_strdup(G_DIR_SEPARATOR_S);
 }
 
-static gchar *gnome_cmd_dir_get_mount_uri(GnomeCmdCon *con)
+static gchar *gnome_cmd_dir_get_mount_uri(GnomeCmdCon *con, GUri *conUri)
 {
-    auto gFileConTmp = gnome_cmd_con_create_gfile (con, nullptr);
+    gchar *conUriStr = g_uri_to_string (conUri);
+    auto gFileConTmp = g_file_new_for_uri (conUriStr);
+    g_free (conUriStr);
     do
     {
         auto gFileConParent = g_file_get_parent(gFileConTmp);
@@ -178,7 +180,7 @@ GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gcha
     }
 
     // Get the Uri for the mount which belongs to the GnomeCmdCon object
-    auto mountUri = gnome_cmd_dir_get_mount_uri(con);
+    auto mountUri = gnome_cmd_dir_get_mount_uri(con, conUri);
 
     // Always let the connection URI to end with '/' because the last entry should be a directory
     auto conLastCharacter = mountUri[strlen(mountUri)-1];
