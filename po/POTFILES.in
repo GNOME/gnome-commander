@@ -17,7 +17,6 @@ src/application.rs
 src/app.rs
 src/chmod_component.rs
 src/chown_component.rs
-src/connection/connection.rs
 src/connection/device.rs
 src/connection/home.rs
 src/connection/remote.rs
@@ -73,10 +72,6 @@ src/file_metainfo_view.rs
 src/file_selector.rs
 src/file_view.rs
 src/gnome-cmd-block.cc
-src/gnome-cmd-con-device.cc
-src/gnome-cmd-con-home.cc
-src/gnome-cmd-con-remote.cc
-src/gnome-cmd-con-smb.cc
 src/gnome-cmd-xfer.cc
 src/intviewer/search_dialog.rs
 src/intviewer/search_progress_dialog.rs

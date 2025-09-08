@@ -20,84 +20,54 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::{Connection, ConnectionExt, ConnectionInterface};
+use super::connection::{Connection, ConnectionExt, ConnectionInterface, ConnectionState};
+use crate::{
+    debug::debug,
+    path::GnomeCmdPath,
+    utils::{ErrorMessage, SenderExt},
+};
 use gettextrs::gettext;
-use gtk::{
-    gio::{
-        self,
-        ffi::{GMount, GVolume},
-    },
-    glib::{
-        self,
-        ffi::gboolean,
-        translate::{from_glib_borrow, Borrowed, IntoGlib, ToGlibPtr},
-    },
-    prelude::*,
-};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::{
-    ffi::c_char,
-    path::{Path, PathBuf},
-    sync::LazyLock,
+    future::Future,
+    path::{Path, PathBuf, MAIN_SEPARATOR_STR},
+    pin::Pin,
+    process::Command,
 };
 
-pub mod ffi {
-    use crate::connection::connection::ffi::GnomeCmdConClass;
-    use gtk::glib::ffi::GType;
+mod imp {
+    use super::*;
+    use crate::connection::connection::ConnectionImpl;
+    use std::cell::{Cell, RefCell};
 
-    #[repr(C)]
-    pub struct GnomeCmdConDevice {
-        _data: [u8; 0],
-        _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
+    #[derive(Default)]
+    pub struct ConnectionDevice {
+        pub auto_volume: Cell<bool>,
+        /// The device identifier (either a linux device string or a uuid)
+        pub device_fn: RefCell<Option<String>>,
+        pub mount_point: RefCell<Option<PathBuf>>,
+        pub icon: RefCell<Option<gio::Icon>>,
+        pub mount: RefCell<Option<gio::Mount>>,
+        pub volume: RefCell<Option<gio::Volume>>,
     }
 
-    extern "C" {
-        pub fn gnome_cmd_con_device_get_type() -> GType;
+    #[glib::object_subclass]
+    impl ObjectSubclass for ConnectionDevice {
+        const NAME: &'static str = "GnomeCmdConDevice";
+        type Type = super::ConnectionDevice;
+        type ParentType = Connection;
     }
 
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    pub struct GnomeCmdConDeviceClass {
-        pub parent_class: GnomeCmdConClass,
-    }
+    impl ObjectImpl for ConnectionDevice {}
+    impl ConnectionImpl for ConnectionDevice {}
 }
 
 glib::wrapper! {
-    pub struct ConnectionDevice(Object<ffi::GnomeCmdConDevice, ffi::GnomeCmdConDeviceClass>)
+    pub struct ConnectionDevice(ObjectSubclass<imp::ConnectionDevice>)
         @extends Connection;
-
-    match fn {
-        type_ => || ffi::gnome_cmd_con_device_get_type(),
-    }
-}
-
-#[derive(Default)]
-struct ConnectionDevicePrivate {
-    auto_volume: bool,
-    /// The device identifier (either a linux device string or a uuid)
-    device_fn: Option<String>,
-    mount_point: Option<PathBuf>,
-    icon: Option<gio::Icon>,
-    mount: Option<gio::Mount>,
-    volume: Option<gio::Volume>,
 }
 
 impl ConnectionDevice {
-    fn private(&self) -> &mut ConnectionDevicePrivate {
-        static QUARK: LazyLock<glib::Quark> =
-            LazyLock::new(|| glib::Quark::from_str("connection-device-private"));
-
-        unsafe {
-            if let Some(mut private) = self.qdata::<ConnectionDevicePrivate>(*QUARK) {
-                private.as_mut()
-            } else {
-                self.set_qdata(*QUARK, ConnectionDevicePrivate::default());
-                self.qdata::<ConnectionDevicePrivate>(*QUARK)
-                    .unwrap()
-                    .as_mut()
-            }
-        }
-    }
-
     pub fn new(alias: &str, device_fn: &str, mountp: &Path, icon: Option<&gio::Icon>) -> Self {
         let this: Self = glib::Object::builder().build();
         this.set_device_fn(Some(device_fn));
@@ -107,9 +77,6 @@ impl ConnectionDevice {
         this.set_mount(None);
         this.set_volume(None);
         this.set_alias(Some(alias));
-        if let Ok(uri_string) = glib::filename_to_uri(mountp, None) {
-            this.set_uri_string(Some(&uri_string));
-        }
         this
     }
 
@@ -126,55 +93,242 @@ impl ConnectionDevice {
     }
 
     pub fn device_fn(&self) -> Option<String> {
-        self.private().device_fn.clone()
+        self.imp().device_fn.borrow().clone()
     }
 
     pub fn set_device_fn(&self, device_fn: Option<&str>) {
-        self.private().device_fn = device_fn.map(ToOwned::to_owned);
+        self.imp()
+            .device_fn
+            .replace(device_fn.map(ToOwned::to_owned));
     }
 
     pub fn mountp_string(&self) -> Option<PathBuf> {
-        self.private().mount_point.clone()
+        self.imp().mount_point.borrow().clone()
     }
 
     pub fn set_mountp(&self, mount_point: Option<&Path>) {
-        self.private().mount_point = mount_point.map(ToOwned::to_owned);
+        self.imp()
+            .mount_point
+            .replace(mount_point.map(ToOwned::to_owned));
     }
 
     pub fn icon(&self) -> Option<gio::Icon> {
-        self.private().icon.clone()
+        self.imp().icon.borrow().clone()
     }
 
     pub fn set_icon(&self, icon: Option<&gio::Icon>) {
-        self.private().icon = icon.map(Clone::clone);
+        self.imp().icon.replace(icon.map(Clone::clone));
     }
 
     pub fn autovol(&self) -> bool {
-        self.private().auto_volume
+        self.imp().auto_volume.get()
     }
 
     pub fn set_autovol(&self, autovol: bool) {
-        self.private().auto_volume = autovol;
+        self.imp().auto_volume.set(autovol);
     }
 
     pub fn mount(&self) -> Option<gio::Mount> {
-        self.private().mount.clone()
+        self.imp().mount.borrow().clone()
     }
 
     pub fn set_mount(&self, mount: Option<&gio::Mount>) {
-        self.private().mount = mount.map(Clone::clone);
+        self.imp().mount.replace(mount.map(Clone::clone));
     }
 
     pub fn volume(&self) -> Option<gio::Volume> {
-        self.private().volume.clone()
+        self.imp().volume.borrow().clone()
     }
 
     pub fn set_volume(&self, volume: Option<&gio::Volume>) {
-        self.private().volume = volume.map(Clone::clone);
+        self.imp().volume.replace(volume.map(Clone::clone));
+    }
+
+    async fn legacy_mount(&self) -> Result<(), ErrorMessage> {
+        let Some(device) = self.device_fn() else {
+            return Ok(());
+        };
+        let Some(mount_point) = self.mountp_string() else {
+            return Ok(());
+        };
+
+        if self.base_path().is_none() {
+            self.set_base_path(Some(GnomeCmdPath::Plain(mount_point.clone())));
+        }
+
+        let (sender, receiver) = async_channel::bounded(1);
+        let _join_handle = std::thread::spawn({
+            let device = device.clone();
+            let mount_point = mount_point.clone();
+            move || {
+                let result = legacy_mount(&device, &mount_point);
+                sender.toss(result);
+            }
+        });
+
+        match receiver.recv().await {
+            Ok(Ok(())) => {
+                match gio::File::for_path(&mount_point)
+                    .query_info_future("*", gio::FileQueryInfoFlags::NONE, glib::Priority::DEFAULT)
+                    .await
+                {
+                    Ok(file_info) => {
+                        self.set_base_file_info(Some(&file_info));
+                        self.set_state(ConnectionState::Open);
+                        Ok(())
+                    }
+                    Err(error) => {
+                        self.set_base_file_info(None);
+                        self.set_state(ConnectionState::Closed);
+                        Err(ErrorMessage::with_error(
+                            gettext("Unable to mount the volume {}").replace("{}", &device),
+                            &error,
+                        ))
+                    }
+                }
+            }
+            Ok(Err(error)) => {
+                self.set_base_file_info(None);
+                self.set_state(ConnectionState::Closed);
+                Err(error)
+            }
+            Err(error) => {
+                self.set_base_file_info(None);
+                self.set_state(ConnectionState::Closed);
+                eprintln!("Channel error: {error}");
+                Err(ErrorMessage::brief(
+                    gettext("Unable to mount the volume {}").replace("{}", &device),
+                ))
+            }
+        }
     }
 }
 
 impl ConnectionInterface for ConnectionDevice {
+    fn open_impl(
+        &self,
+        window: gtk::Window,
+    ) -> Pin<Box<dyn Future<Output = Result<(), ErrorMessage>> + '_>> {
+        Box::pin(async move {
+            debug!('m', "Mounting device");
+            let is_legacy = self.mountp_string().is_some();
+            if is_legacy {
+                // This is a legacy-mount: If mount point is given, we mount the device with system calls ('mount')
+                self.legacy_mount().await?;
+            } else if let Some(volume) = self.volume() {
+                // Check if the volume is already mounted:
+                let mount = if let Some(mount) = volume.get_mount() {
+                    mount
+                } else {
+                    let mount_operation = gtk::MountOperation::new(Some(&window));
+                    volume
+                        .mount_future(gio::MountMountFlags::NONE, Some(&mount_operation))
+                        .await
+                        .map_err(|error| {
+                            eprintln!("Unable to mount the volume, error: {error}");
+                            self.set_base_file_info(None);
+                            ErrorMessage::with_error(
+                                gettext("Unable to mount the volume {}")
+                                    .replace("{}", &self.alias().unwrap_or_default()),
+                                &error,
+                            )
+                        })?;
+                    self.set_mount(volume.get_mount().as_ref());
+                    self.mount().unwrap()
+                };
+
+                let file = mount.default_location();
+                let path = file.path().unwrap();
+                self.set_base_path(Some(GnomeCmdPath::Plain(path)));
+
+                match file
+                    .query_info_future("*", gio::FileQueryInfoFlags::NONE, glib::Priority::DEFAULT)
+                    .await
+                {
+                    Ok(file_info) => {
+                        self.set_base_file_info(Some(&file_info));
+                    }
+                    Err(error) => {
+                        self.set_base_file_info(None);
+                        eprintln!("Unable to mount the volume: error: {error}");
+                        Err(ErrorMessage::with_error(
+                            gettext("Unable to mount the volume {}")
+                                .replace("{}", &self.alias().unwrap_or_default()),
+                            &error,
+                        ))?;
+                    }
+                }
+
+                // if let Some(base_path) = self.base_path()                                 {
+                //     let path = base_path.path();
+                //     let uri_string = glib::filename_to_uri(path, None);
+                //     self.set_uri_string(uri_string);
+                // }
+            }
+            Ok(())
+        })
+    }
+
+    fn close_impl(
+        &self,
+        window: Option<gtk::Window>,
+    ) -> Pin<Box<dyn Future<Output = Result<(), ErrorMessage>> + '_>> {
+        Box::pin(async {
+            self.set_default_dir(None);
+
+            if let Err(error) = std::env::set_current_dir(glib::home_dir()) {
+                debug!(
+                    'm',
+                    "Could not go back to home directory before unmounting: {error}"
+                );
+            }
+
+            if self.autovol() {
+                if let Some(mount) = self.mount().filter(|m| m.can_unmount()) {
+                    debug!('m', "umounting GIO mount \"{}\"", mount.name());
+
+                    match mount
+                        .unmount_with_operation_future(
+                            gio::MountUnmountFlags::NONE,
+                            gio::MountOperation::NONE,
+                        )
+                        .await
+                    {
+                        Ok(()) => {
+                            self.set_state(ConnectionState::Closed);
+                            show_message_dialog_volume_unmounted(window);
+                            Ok(())
+                        }
+                        Err(error) => Err(ErrorMessage::with_error(
+                            gettext("Cannot unmount the volume"),
+                            &error,
+                        )),
+                    }
+                } else {
+                    Ok(())
+                }
+            } else {
+                if let Some(mount_point) = self.mountp_string() {
+                    legacy_umount(&mount_point)
+                } else {
+                    Ok(())
+                }
+            }
+        })
+    }
+
+    fn create_gfile(&self, path: &GnomeCmdPath) -> gio::File {
+        if let Some(mount) = self.mount() {
+            mount.default_location().resolve_relative_path(path.path())
+        } else {
+            gio::File::for_path(path.path())
+        }
+    }
+
+    fn create_path(&self, path: &Path) -> GnomeCmdPath {
+        GnomeCmdPath::Plain(path.to_owned())
+    }
+
     fn is_local(&self) -> bool {
         true
     }
@@ -221,58 +375,140 @@ impl ConnectionInterface for ConnectionDevice {
     }
 }
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_device_get_autovol(dev: *mut ffi::GnomeCmdConDevice) -> gboolean {
-    let con: Borrowed<ConnectionDevice> = unsafe { from_glib_borrow(dev) };
-    con.autovol().into_glib()
+fn show_message_dialog_volume_unmounted(window: Option<gtk::Window>) {
+    debug!('m', "unmount succeeded");
+    let message = gettext("Volume successfully unmounted");
+    match window {
+        Some(window) => {
+            gtk::AlertDialog::builder()
+                .modal(true)
+                .message(message)
+                .buttons([gettext("OK")])
+                .cancel_button(0)
+                .default_button(0)
+                .build()
+                .show(Some(&window));
+        }
+        None => {
+            eprintln!("{message}");
+        }
+    }
 }
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_device_get_device_fn(
-    dev: *mut ffi::GnomeCmdConDevice,
-) -> *mut c_char {
-    let con: Borrowed<ConnectionDevice> = unsafe { from_glib_borrow(dev) };
-    con.device_fn().to_glib_full()
+#[cfg(target_os = "linux")]
+fn is_mounted(mount_point: &Path) -> bool {
+    use libc::{endmntent, getmntent, setmntent};
+    use std::ffi::CStr;
+    unsafe {
+        let f = setmntent(c"/etc/mtab".as_ptr(), c"r".as_ptr());
+        if f.is_null() {
+            eprintln!("Failed to read /etc/mtab");
+            return false;
+        }
+        let found = loop {
+            let entry = getmntent(f);
+            if entry.is_null() {
+                break false;
+            }
+            if CStr::from_ptr((*entry).mnt_dir).to_str().ok() == mount_point.to_str() {
+                break true;
+            }
+        };
+        endmntent(f);
+        found
+    }
 }
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_device_get_mountp_string(
-    dev: *mut ffi::GnomeCmdConDevice,
-) -> *mut c_char {
-    let con: Borrowed<ConnectionDevice> = unsafe { from_glib_borrow(dev) };
-    con.mountp_string().to_glib_full()
+#[cfg(not(target_os = "linux"))]
+fn is_mounted(mount_point: &Path) -> bool {
+    fn str_compress(value: &str) -> String {
+        unsafe { from_glib_full(glib::ffi::g_strcompress(value.to_glib_none().0)) }
+    }
+
+    fn parse_mtab(mtab: &str) -> impl Iterator<Item = Vec<String>> + use<'_> {
+        mtab.lines()
+            .map(|line| {
+                if let Some((before_comment, _)) = line.split_once('#') {
+                    before_comment
+                } else {
+                    line
+                }
+            })
+            .map(|line| {
+                line.split_ascii_whitespace()
+                    .map(|path| str_compress(path))
+                    .collect::<Vec<_>>()
+            })
+    }
+
+    match std::fs::read_to_string("/etc/mtab") {
+        Ok(mtab) => parse_mtab(&mtab)
+            .filter_map(|line| line.get(1).cloned())
+            .any(|path| Path::new(&path) == mount_point),
+        Err(error) => {
+            eprintln!("Failed to read /etc/mtab: {error}");
+            return false;
+        }
+    }
 }
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_device_get_gmount(dev: *mut ffi::GnomeCmdConDevice) -> *mut GMount {
-    let con: Borrowed<ConnectionDevice> = unsafe { from_glib_borrow(dev) };
-    con.mount().to_glib_none().0
+fn legacy_mount(device: &str, mount_point: &Path) -> Result<(), ErrorMessage> {
+    if is_mounted(mount_point) {
+        debug!('m', "The device was already mounted at");
+        return Ok(());
+    }
+    if device.is_empty() {
+        return Ok(());
+    }
+
+    debug!('m', "mounting {device}");
+    let mut command = Command::new("mount");
+    if !device.starts_with(MAIN_SEPARATOR_STR) {
+        command.arg("-L");
+    }
+    command.arg(device);
+    command.arg(mount_point);
+    debug!('m', "Mount command: {:?}", command);
+    let status = command.status().map_err(|e| {
+        ErrorMessage::new(
+            gettext("Failed to execute the mount command"),
+            Some(e.to_string()),
+        )
+    })?;
+
+    debug!('m', "mount returned {:?}", status.code());
+
+    match status.code() {
+        Some(0) => Ok(()),
+        Some(1) => Err(ErrorMessage::brief(gettext(
+            "Mount failed: permission denied",
+        ))),
+        Some(32) => Err(ErrorMessage::brief(gettext(
+            "Mount failed: no medium found",
+        ))),
+        Some(code) => Err(ErrorMessage::brief(
+            gettext("Mount failed: mount exited with exitstatus {}")
+                .replace("{}", &code.to_string()),
+        )),
+        _ => Err(ErrorMessage::brief(gettext(
+            "Mount failed: mount exited without an exitstatus",
+        ))),
+    }
 }
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_device_set_gmount(
-    dev: *mut ffi::GnomeCmdConDevice,
-    mount: *mut GMount,
-) {
-    let con: Borrowed<ConnectionDevice> = unsafe { from_glib_borrow(dev) };
-    let mount: Borrowed<Option<gio::Mount>> = unsafe { from_glib_borrow(mount) };
-    con.set_mount((*mount).as_ref());
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_device_get_gvolume(
-    dev: *mut ffi::GnomeCmdConDevice,
-) -> *mut GVolume {
-    let con: Borrowed<ConnectionDevice> = unsafe { from_glib_borrow(dev) };
-    con.volume().to_glib_none().0
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_device_set_gvolume(
-    dev: *mut ffi::GnomeCmdConDevice,
-    volume: *mut GVolume,
-) {
-    let con: Borrowed<ConnectionDevice> = unsafe { from_glib_borrow(dev) };
-    let volume: Borrowed<Option<gio::Volume>> = unsafe { from_glib_borrow(volume) };
-    con.set_volume((*volume).as_ref());
+fn legacy_umount(mount_point: &Path) -> Result<(), ErrorMessage> {
+    debug!('m', "umounting {}", mount_point.display());
+    let ret = Command::new("umount").arg(mount_point).status();
+    debug!('m', "umount returned {ret:?}");
+    match ret {
+        Ok(status) if status.success() => Ok(()),
+        Ok(status) => Err(ErrorMessage::brief(
+            gettext("Unmount failed: umount exited with exitstatus {}")
+                .replace("{}", &status.to_string()),
+        )),
+        Err(error) => Err(ErrorMessage::new(
+            gettext("Failed to execute the umount command"),
+            Some(error.to_string()),
+        )),
+    }
 }

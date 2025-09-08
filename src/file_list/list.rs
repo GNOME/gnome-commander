@@ -28,7 +28,7 @@ use super::{
 };
 use crate::{
     connection::{
-        connection::{Connection, ConnectionExt},
+        connection::{Connection, ConnectionExt, ConnectionInterface},
         list::ConnectionList,
     },
     data::{

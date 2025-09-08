@@ -21,7 +21,6 @@
  */
 
 use crate::{
-    connection::connection::ConnectionExt,
     dir::Directory,
     file::File,
     libgcmd::file_descriptor::FileDescriptorExt,

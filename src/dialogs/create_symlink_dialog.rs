@@ -18,7 +18,6 @@
  */
 
 use crate::{
-    connection::connection::ConnectionExt,
     dir::Directory,
     file::File,
     libgcmd::file_descriptor::FileDescriptorExt,
@@ -189,7 +188,7 @@ pub async fn show_create_symlink_dialog(
         let symlink_file: gio::File = if link_name.starts_with('/') {
             let con = directory.connection();
             let path = con.create_path(&Path::new(&link_name));
-            con.create_gfile(Some(&path.path()))
+            con.create_gfile(&path)
         } else {
             directory.get_child_gfile(&link_name)
         };

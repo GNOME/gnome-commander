@@ -20,45 +20,59 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::{Connection, ConnectionInterface};
-use crate::utils::GnomeCmdFileExt;
+use super::connection::{Connection, ConnectionExt, ConnectionInterface};
+use crate::{
+    debug::debug,
+    path::GnomeCmdPath,
+    utils::{ErrorMessage, GnomeCmdFileExt},
+};
 use gettextrs::gettext;
-use gtk::{gio, glib, prelude::*};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::{
     cell::RefCell,
     fmt,
+    future::Future,
     path::{Path, PathBuf},
-    sync::LazyLock,
+    pin::Pin,
 };
 
+mod imp {
+    use super::*;
+    use crate::connection::connection::ConnectionImpl;
+
+    #[derive(Default)]
+    pub struct ConnectionSmb {
+        pub entities: SmbEntities,
+    }
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for ConnectionSmb {
+        const NAME: &'static str = "GnomeCmdConSmb";
+        type Type = super::ConnectionSmb;
+        type ParentType = Connection;
+    }
+
+    impl ObjectImpl for ConnectionSmb {
+        fn constructed(&self) {
+            self.parent_constructed();
+            self.obj().set_alias(Some(&gettext("SMB")));
+        }
+    }
+    impl ConnectionImpl for ConnectionSmb {}
+}
+
 pub mod ffi {
-    use crate::connection::remote::ffi::GnomeCmdConRemoteClass;
-    use gtk::glib::ffi::GType;
-
-    #[repr(C)]
-    pub struct GnomeCmdConSmb {
-        _data: [u8; 0],
-        _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
-    }
-
-    extern "C" {
-        pub fn gnome_cmd_con_smb_get_type() -> GType;
-    }
-
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    pub struct GnomeCmdConSmbClass {
-        pub parent_class: GnomeCmdConRemoteClass,
-    }
+    pub type GnomeCmdConSmb = <super::ConnectionSmb as glib::object::ObjectType>::GlibType;
 }
 
 glib::wrapper! {
-    pub struct ConnectionSmb(Object<ffi::GnomeCmdConSmb, ffi::GnomeCmdConSmbClass>)
+    /// @brief Class for connecting to samba and show available workgroups
+    ///
+    /// This class is _not_ meant to be used when connecting to a single samba remote, e.g. to smb://server/share.
+    /// Instead, it is used to search workgroups, therefore it will list available workgroubs through the connection
+    /// to smb:///.
+    pub struct ConnectionSmb(ObjectSubclass<imp::ConnectionSmb>)
         @extends Connection;
-
-    match fn {
-        type_ => || ffi::gnome_cmd_con_smb_get_type(),
-    }
 }
 
 impl Default for ConnectionSmb {
@@ -69,21 +83,75 @@ impl Default for ConnectionSmb {
 
 impl ConnectionSmb {
     pub fn smb_discovery(&self) -> &SmbEntities {
-        static QUARK: LazyLock<glib::Quark> =
-            LazyLock::new(|| glib::Quark::from_str("smb-discovery"));
-
-        unsafe {
-            if let Some(discovery) = self.qdata::<SmbEntities>(*QUARK) {
-                discovery.as_ref()
-            } else {
-                self.set_qdata(*QUARK, SmbEntities::default());
-                self.qdata::<SmbEntities>(*QUARK).unwrap().as_ref()
-            }
-        }
+        &self.imp().entities
     }
 }
 
 impl ConnectionInterface for ConnectionSmb {
+    fn open_impl(
+        &self,
+        _window: gtk::Window,
+    ) -> Pin<Box<dyn Future<Output = Result<(), ErrorMessage>> + '_>> {
+        Box::pin(async move {
+            if self.base_path().is_none() {
+                self.set_base_path(Some(GnomeCmdPath::Smb(SmbResource::Root)));
+            }
+
+            let path = self.base_path().unwrap();
+            let file = self.create_gfile(&path);
+
+            let uri_string = file.uri();
+            debug!('s', "Connecting to {}", uri_string);
+            match file
+                .query_info_future("*", gio::FileQueryInfoFlags::NONE, glib::Priority::DEFAULT)
+                .await
+            {
+                Ok(file_info) => {
+                    self.set_base_file_info(Some(&file_info));
+                    Ok(())
+                }
+                Err(error) => {
+                    self.set_base_file_info(None);
+                    Err(ErrorMessage::with_error(
+                        gettext("Failed to browse the network. Is Samba supported on the system?"),
+                        &error,
+                    ))
+                }
+            }
+        })
+    }
+
+    fn close_impl(
+        &self,
+        _window: Option<gtk::Window>,
+    ) -> Pin<Box<dyn Future<Output = Result<(), ErrorMessage>> + '_>> {
+        Box::pin(async move {
+            self.set_default_dir(None);
+            self.set_base_path(None);
+            Ok(())
+        })
+    }
+
+    fn create_gfile(&self, path: &GnomeCmdPath) -> gio::File {
+        let root = gio::File::for_uri("smb:");
+        root.resolve_relative_path(path.path())
+    }
+
+    fn create_path(&self, path: &Path) -> GnomeCmdPath {
+        if path.components().count() == 0 {
+            return GnomeCmdPath::Smb(SmbResource::Root);
+        }
+        if let Some(smb_resource) = path
+            .to_str()
+            .and_then(|p| SmbResource::from_str(p, self.smb_discovery()))
+        {
+            GnomeCmdPath::Smb(smb_resource)
+        } else {
+            eprintln!("Can't find a host or workgroup for path {}", path.display());
+            GnomeCmdPath::Smb(SmbResource::Root)
+        }
+    }
+
     fn is_local(&self) -> bool {
         false
     }

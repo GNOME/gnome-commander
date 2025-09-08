@@ -23,7 +23,7 @@
 use crate::{
     connection::{
         bookmark::Bookmark,
-        connection::{Connection, ConnectionExt},
+        connection::{Connection, ConnectionExt, ConnectionInterface},
         list::ConnectionList,
         remote::ConnectionRemote,
     },

@@ -1,10 +1,6 @@
 sources_headers = files(
-  'gnome-cmd-con-device.h',
   'gnome-cmd-con.h',
-  'gnome-cmd-con-home.h',
   'gnome-cmd-con-list.h',
-  'gnome-cmd-con-remote.h',
-  'gnome-cmd-con-smb.h',
   'gnome-cmd-dir.h',
   'gnome-cmd-file.h',
   'gnome-cmd-includes.h',
@@ -17,11 +13,6 @@ sources_headers = files(
 
 sources_sources = files(
   'gnome-cmd-application.cc',
-  'gnome-cmd-con.cc',
-  'gnome-cmd-con-device.cc',
-  'gnome-cmd-con-home.cc',
-  'gnome-cmd-con-remote.cc',
-  'gnome-cmd-con-smb.cc',
   'gnome-cmd-dir.cc',
   'gnome-cmd-xfer.cc',
   'utils.cc',
