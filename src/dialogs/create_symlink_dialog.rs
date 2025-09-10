@@ -190,7 +190,7 @@ pub async fn show_create_symlink_dialog(
             let path = con.create_path(&Path::new(&link_name));
             con.create_gfile(&path)
         } else {
-            directory.get_child_gfile(&link_name)
+            directory.get_child_gfile(&Path::new(&link_name))
         };
         let absolute_path = file.file().parse_name();
 

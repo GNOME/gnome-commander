@@ -41,7 +41,7 @@ use crate::{
     search::search_dialog::SearchDialog,
     shortcuts::Shortcuts,
     tags::tags::FileMetadataService,
-    transfer::{gnome_cmd_copy_gfiles, gnome_cmd_move_gfiles},
+    transfer::{copy_files, move_files},
     types::{ConfirmOverwriteMode, FileSelectorID},
     utils::{
         extract_menu_shortcuts, MenuBuilderExt, ALT, ALT_SHIFT, CONTROL, CONTROL_ALT,
@@ -762,7 +762,7 @@ pub mod imp {
 
             if dest_dir == "-"
                 && !file_selector.file_list().directory().map_or(false, |d| {
-                    d.get_child_gfile(dest_dir)
+                    d.get_child_gfile(Path::new(dest_dir))
                         .query_exists(gio::Cancellable::NONE)
                 })
             {
@@ -1392,7 +1392,7 @@ impl MainWindow {
         let files = state.files.iter().map(|f| f.file()).collect();
         let success = match state.operation {
             CutAndPasteOperation::Cut => {
-                gnome_cmd_move_gfiles(
+                move_files(
                     self.clone().upcast(),
                     files,
                     dir.clone(),
@@ -1403,7 +1403,7 @@ impl MainWindow {
                 .await
             }
             CutAndPasteOperation::Copy => {
-                gnome_cmd_copy_gfiles(
+                copy_files(
                     self.clone().upcast(),
                     files,
                     dir.clone(),

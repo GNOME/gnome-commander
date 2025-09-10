@@ -74,7 +74,7 @@ mod imp {
             ls_colors_palette::LsColorsPalette,
         },
         tags::tags::FileMetadataService,
-        transfer::{gnome_cmd_copy_gfiles, gnome_cmd_link_gfiles, gnome_cmd_move_gfiles},
+        transfer::{copy_files, link_files, move_files},
         types::{
             ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GnomeCmdTransferType,
             GraphicalLayoutMode, LeftMouseButtonMode, MiddleMouseButtonMode, PermissionDisplayMode,
@@ -1610,7 +1610,7 @@ mod imp {
                 return;
             };
 
-            let files: glib::List<gio::File> = data
+            let files: Vec<gio::File> = data
                 .files
                 .iter()
                 .map(|uri| gio::File::for_uri(uri))
@@ -1629,7 +1629,7 @@ mod imp {
 
             let _result = match data.transfer_type {
                 GnomeCmdTransferType::COPY => {
-                    gnome_cmd_copy_gfiles(
+                    copy_files(
                         window.clone(),
                         files,
                         dir.clone(),
@@ -1640,7 +1640,7 @@ mod imp {
                     .await
                 }
                 GnomeCmdTransferType::MOVE => {
-                    gnome_cmd_move_gfiles(
+                    move_files(
                         window.clone(),
                         files,
                         dir.clone(),
@@ -1651,7 +1651,7 @@ mod imp {
                     .await
                 }
                 GnomeCmdTransferType::LINK => {
-                    gnome_cmd_link_gfiles(
+                    link_files(
                         window.clone(),
                         files,
                         dir.clone(),

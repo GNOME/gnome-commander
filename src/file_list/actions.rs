@@ -27,7 +27,7 @@ use crate::{
     file_view::file_view,
     libgcmd::file_descriptor::FileDescriptorExt,
     spawn::run_command_indir,
-    transfer::gnome_cmd_tmp_download,
+    transfer::download_to_temporary,
     utils::{get_modifiers_state, temp_file, ErrorMessage},
 };
 use gettextrs::{gettext, ngettext};
@@ -132,7 +132,7 @@ async fn mime_exec_multiple(
                 }
             };
 
-            if gnome_cmd_tmp_download(
+            if download_to_temporary(
                 parent_window.clone(),
                 remote.iter().map(|f| f.file()).collect(),
                 tmp_files.iter().map(|f| f.file()).collect(),

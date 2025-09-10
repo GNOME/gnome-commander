@@ -351,7 +351,7 @@ impl Directory {
         }
     }
 
-    pub fn get_child_gfile(&self, filename: &str) -> gio::File {
+    pub fn get_child_gfile(&self, filename: &Path) -> gio::File {
         unsafe {
             from_glib_full(ffi::gnome_cmd_dir_get_child_gfile(
                 self.to_glib_none().0,

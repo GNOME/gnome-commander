@@ -26,11 +26,11 @@ use crate::{
     file::File,
     libgcmd::file_descriptor::FileDescriptorExt,
     spawn::SpawnError,
-    transfer::gnome_cmd_tmp_download,
+    transfer::download_to_temporary,
     utils::{temp_file, ErrorMessage, GNOME_CMD_PERM_USER_EXEC},
 };
 use gettextrs::gettext;
-use gtk::{gio, glib, prelude::*};
+use gtk::{gio, prelude::*};
 
 async fn ask_make_executable(parent_window: &gtk::Window, file: &File) -> bool {
     let msg = gettext("“{}” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?")
@@ -160,10 +160,10 @@ pub async fn mime_exec_single(
         }
 
         let tmp_file = temp_file(file)?;
-        if !gnome_cmd_tmp_download(
+        if !download_to_temporary(
             parent_window.clone(),
-            single_file_list(file.file()),
-            single_file_list(tmp_file.file()),
+            vec![file.file()],
+            vec![tmp_file.file()],
             gio::FileCopyFlags::OVERWRITE,
         )
         .await
@@ -182,10 +182,4 @@ pub async fn mime_exec_single(
     })?;
 
     Ok(())
-}
-
-fn single_file_list(file: gio::File) -> glib::List<gio::File> {
-    let mut list = glib::List::new();
-    list.push_back(file);
-    list
 }

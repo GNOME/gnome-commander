@@ -1,20 +1,16 @@
 sources_headers = files(
   'gnome-cmd-con.h',
-  'gnome-cmd-con-list.h',
   'gnome-cmd-dir.h',
-  'gnome-cmd-file.h',
   'gnome-cmd-includes.h',
   'gnome-cmd-main-win.h',
   'gnome-cmd-path.h',
   'gnome-cmd-types.h',
-  'gnome-cmd-xfer.h',
   'utils.h',
 )
 
 sources_sources = files(
   'gnome-cmd-application.cc',
   'gnome-cmd-dir.cc',
-  'gnome-cmd-xfer.cc',
   'utils.cc',
 )
 

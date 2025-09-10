@@ -17,6 +17,25 @@
  * For more details see the file COPYING.
  */
 
+//! ## The already reserved debug flags:
+//!
+//! | Flag | Description                   |
+//! |------|-------------------------------|
+//! | a    | set all debug flags           |
+//! | g    | run command debugging         |
+//! | i    | imageloader                   |
+//! | k    | directory pool                |
+//! | l    | directory listings            |
+//! | m    | connection debugging          |
+//! | n    | directory monitoring          |
+//! | s    | smb network browser           |
+//! | t    | metadata tags                 |
+//! | u    | user actions debugging        |
+//! | v    | internal viewer               |
+//! | y    | brief mime-based imageload    |
+//! | z    | detailed mime-based imageload |
+//! | x    | file transfer                 |
+
 use std::{
     collections::HashSet,
     sync::{LazyLock, Mutex},

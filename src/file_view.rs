@@ -24,17 +24,11 @@ use crate::{
     libgcmd::file_descriptor::FileDescriptorExt,
     spawn::{spawn_async, SpawnError},
     tags::tags::FileMetadataService,
-    transfer::gnome_cmd_tmp_download,
+    transfer::download_to_temporary,
     utils::{temp_file, ErrorMessage},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
-
-fn single_file_list(file: gio::File) -> glib::List<gio::File> {
-    let mut list = glib::List::new();
-    list.push_back(file);
-    list
-}
 
 pub async fn file_view_internal(
     parent_window: &gtk::Window,
@@ -47,10 +41,10 @@ pub async fn file_view_internal(
     } else {
         // The file is remote, let's download it to a temporary file first
         let tmp_file = temp_file(f)?;
-        if !gnome_cmd_tmp_download(
+        if !download_to_temporary(
             parent_window.clone(),
-            single_file_list(f.file()),
-            single_file_list(tmp_file.file()),
+            vec![f.file()],
+            vec![tmp_file.file()],
             gio::FileCopyFlags::OVERWRITE,
         )
         .await

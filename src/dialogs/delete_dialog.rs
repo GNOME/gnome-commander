@@ -28,14 +28,10 @@ use crate::{
     utils::ErrorMessage,
 };
 use gettextrs::{gettext, ngettext};
-use glib::{
-    ffi::{gboolean, GList},
-    translate::from_glib_none,
-};
-use gtk::{ffi::GtkWindow, gio, glib, prelude::*, subclass::prelude::*};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
 #[derive(Clone, Copy)]
-enum DeleteAction {
+pub enum DeleteAction {
     DeleteToTrash,
     DeletePermanently,
 }
@@ -355,7 +351,7 @@ async fn count_total_items(files: &glib::List<File>) -> Option<u64> {
     Some(total)
 }
 
-async fn do_delete(
+pub async fn do_delete(
     parent_window: &gtk::Window,
     delete_action: DeleteAction,
     files: &glib::List<File>,
@@ -595,24 +591,4 @@ pub async fn show_delete_dialog(
     }
 
     do_delete(parent_window, delete_action, &files, true).await;
-}
-
-#[no_mangle]
-pub extern "C" fn do_delete_files_for_move(
-    parent_window: *mut GtkWindow,
-    files: *mut GList,
-    show_progress: gboolean,
-) {
-    let parent_window: gtk::Window = unsafe { from_glib_none(parent_window) };
-    let files: glib::List<File> = unsafe { glib::List::from_glib_none(files) };
-
-    glib::spawn_future_local(async move {
-        do_delete(
-            &parent_window,
-            DeleteAction::DeletePermanently,
-            &files,
-            show_progress != 0,
-        )
-        .await;
-    });
 }

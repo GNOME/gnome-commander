@@ -495,7 +495,8 @@ async fn create_symlinks(
     for file in files {
         let target_absolute_name = file.file().parse_name();
 
-        let symlink_file = directory.get_child_gfile(&symlink_name(&file.get_name(), options));
+        let symlink_file =
+            directory.get_child_gfile(Path::new(&symlink_name(&file.get_name(), options)));
 
         loop {
             match symlink_file.make_symbolic_link(&target_absolute_name, gio::Cancellable::NONE) {

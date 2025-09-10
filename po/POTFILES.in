@@ -72,7 +72,6 @@ src/file_metainfo_view.rs
 src/file_selector.rs
 src/file_view.rs
 src/gnome-cmd-block.cc
-src/gnome-cmd-xfer.cc
 src/intviewer/search_dialog.rs
 src/intviewer/search_progress_dialog.rs
 src/intviewer/window.rs

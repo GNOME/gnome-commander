@@ -41,7 +41,7 @@ fn create_empty_file(name: &str, dir: &Directory) -> Result<gio::File, ErrorMess
         let path = con.create_path(Path::new(&name));
         con.create_gfile(&path)
     } else {
-        dir.get_child_gfile(&name)
+        dir.get_child_gfile(Path::new(&name))
     };
 
     if let Err(error) = file.create(gio::FileCreateFlags::NONE, gio::Cancellable::NONE) {
