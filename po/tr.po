@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/"
 "issues/\n"
-"POT-Creation-Date: 2025-09-08 21:13+0000\n"
+"POT-Creation-Date: 2025-09-12 07:21+0000\n"
 "PO-Revision-Date: 2025-09-10 08:00+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Turkish <takim@gnome.org.tr>\n"
@@ -277,7 +277,7 @@ msgstr "Arayüz güncelleme hızı"
 msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
 msgstr "Kullanıcı arayüzünün güncellenme hızı (ms. türünden)"
 
-#: data/org.gnome.gnome-commander.gschema.xml:198 src/user_actions.rs:1946
+#: data/org.gnome.gnome-commander.gschema.xml:198 src/user_actions.rs:1947
 msgid "Show device buttons"
 msgstr "Aygıt düğmelerini göster"
 
@@ -285,7 +285,7 @@ msgstr "Aygıt düğmelerini göster"
 msgid "Defines if device buttons are shown."
 msgstr "Aygıt düğmelerinin gösterim durumunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:203 src/user_actions.rs:1948
+#: data/org.gnome.gnome-commander.gschema.xml:203 src/user_actions.rs:1949
 msgid "Show device list"
 msgstr "Aygıt listesini göster"
 
@@ -293,7 +293,7 @@ msgstr "Aygıt listesini göster"
 msgid "Defines if the list of devices is shown."
 msgstr "Aygıt listesinin gösterim durumunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:208 src/user_actions.rs:1955
+#: data/org.gnome.gnome-commander.gschema.xml:208 src/user_actions.rs:1956
 msgid "Show command line"
 msgstr "Komut satırını göster"
 
@@ -301,7 +301,7 @@ msgstr "Komut satırını göster"
 msgid "Defines if command line is shown."
 msgstr "Komut satırının gösterim durumunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:213 src/user_actions.rs:1949
+#: data/org.gnome.gnome-commander.gschema.xml:213 src/user_actions.rs:1950
 msgid "Show toolbar"
 msgstr "Araç çubuğunu göster"
 
@@ -309,7 +309,7 @@ msgstr "Araç çubuğunu göster"
 msgid "Defines if the toolbar is shown."
 msgstr "Araç çubuğunun gösterim durumunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:218 src/user_actions.rs:1953
+#: data/org.gnome.gnome-commander.gschema.xml:218 src/user_actions.rs:1954
 msgid "Show buttonbar"
 msgstr "Düğme çubuğunu göster"
 
@@ -487,7 +487,7 @@ msgid ""
 "etc. and is calculated internally."
 msgstr ""
 "Bu sayı, ana pencere durumunu, örn. “maximized”, “fullscreen”, vb. temsil "
-"eder ve dahili olarak hesaplanır."
+"eder ve içsel olarak hesaplanır."
 
 #: data/org.gnome.gnome-commander.gschema.xml:366
 msgid "Middle mouse button mode"
@@ -814,7 +814,7 @@ msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "copy command."
 msgstr ""
-"Bu seçenek, nesnelerin bir kopyalama komutu tarafından üzerine yazılacağı "
+"Bu seçenek, nesnelerin bir kopyalama komutunca üzerine yazılacağı "
 "öntanımlı davranışı tanımlar."
 
 #: data/org.gnome.gnome-commander.gschema.xml:608
@@ -826,7 +826,7 @@ msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "move command."
 msgstr ""
-"Bu seçenek, nesnelerin bir taşıma komutu tarafından üzerine yazılacağı "
+"Bu seçenek, nesnelerin bir taşıma komutunca üzerine yazılacağı "
 "öntanımlı davranışı tanımlar."
 
 #: data/org.gnome.gnome-commander.gschema.xml:615
@@ -913,17 +913,17 @@ msgid ""
 "This option defines if remote files should be downloaded before opened by "
 "external programs."
 msgstr ""
-"Bu seçenek, uzak dosyaların harici programlar tarafından açılmadan önce "
+"Bu seçenek, uzak dosyaların dış programlarca açılmadan önce "
 "indirilmesi durumunu tanımlar."
 
 #: data/org.gnome.gnome-commander.gschema.xml:687
 msgid "Use internal viewer"
-msgstr "Dahili görüntüleyiciyi kullan"
+msgstr "İç görüntüleyiciyi kullan"
 
 #: data/org.gnome.gnome-commander.gschema.xml:688
 msgid "This option defines if the internal viewer should be used by default."
 msgstr ""
-"Bu seçenek, dahili görüntüleyicinin öntanımlı kullanım davranışını tanımlar."
+"Bu seçenek, iç görüntüleyicinin öntanımlı kullanım davranışını tanımlar."
 
 #: data/org.gnome.gnome-commander.gschema.xml:694
 msgid "Viewer command"
@@ -931,7 +931,7 @@ msgstr "Görüntüleyici komutu"
 
 #: data/org.gnome.gnome-commander.gschema.xml:695
 msgid "This string defines the command for starting the (external) viewer."
-msgstr "Bu dizge, (dahili) görüntüleyicinin başlatılma komutunu tanımlar."
+msgstr "Bu dizge, (dış) görüntüleyicinin başlatılma komutunu tanımlar."
 
 #: data/org.gnome.gnome-commander.gschema.xml:701
 msgid "Editor command"
@@ -943,19 +943,19 @@ msgstr "Bu dizge, düzenleyicinin başlatılma komutunu tanımlar."
 
 #: data/org.gnome.gnome-commander.gschema.xml:708
 msgid "Differ command"
-msgstr "Kıyaslayıcı komutu"
+msgstr "Karşılaştırıcı komutu"
 
 #: data/org.gnome.gnome-commander.gschema.xml:709
 msgid "This string defines the command for starting the diff tool."
-msgstr "Bu dizge, kıyaslama aracını başlatma komutunu tanımlar."
+msgstr "Bu dizge, karşılaştırma aracını başlatma komutunu tanımlar."
 
 #: data/org.gnome.gnome-commander.gschema.xml:715
 msgid "Use internal search"
-msgstr "Dahili aramayı kullan"
+msgstr "İç aramayı kullan"
 
 #: data/org.gnome.gnome-commander.gschema.xml:716
 msgid "This option defines if the internal search should be used by default."
-msgstr "Bu seçenek, dahili aramanın öntanımlı kullanım davranışını tanımlar."
+msgstr "Bu seçenek, iç aramanın öntanımlı kullanım davranışını tanımlar."
 
 # Arama işlemi için kullanılacak komut anlamında
 #: data/org.gnome.gnome-commander.gschema.xml:722
@@ -1252,7 +1252,7 @@ msgstr "Arama kipi"
 
 #: data/org.gnome.gnome-commander.gschema.xml:952
 msgid "This option defines the search mode of the internal viewer."
-msgstr "Bu seçenek, dahili görüntüleyicinin arama kipini tanımlar."
+msgstr "Bu seçenek, iç görüntüleyicinin arama kipini tanımlar."
 
 #. Translators: This is the default string of encoding used by the internal viewer
 #. for displaying the file in the given encoding. You may want to customize it by using
@@ -1354,7 +1354,7 @@ msgstr "Pencere genişliği"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1027
 msgid "The width of the internal file viewer window."
-msgstr "Dahili görüntüleyici penceresi genişliği."
+msgstr "İç görüntüleyici penceresi genişliği."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1033
 msgid "Window height"
@@ -1362,7 +1362,7 @@ msgstr "Pencere yüksekliği"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1034
 msgid "The height of the internal file viewer window."
-msgstr "Dahili dosya görüntüleyici penceresi yüksekliği."
+msgstr "İç dosya görüntüleyici penceresi yüksekliği."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1040
 msgid "Search pattern for text"
@@ -1373,7 +1373,7 @@ msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
 msgstr ""
-"Bu dizge dizisi, metin aramaların geçmişini dahili dosya görüntüleyide "
+"Bu dizge dizisi, metin aramaların geçmişini iç dosya görüntüleyide "
 "saklar."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1047
@@ -1385,7 +1385,7 @@ msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
 msgstr ""
-"Bu dizge dizisi, onaltılık değer aramaların geçmişini dahili dosya "
+"Bu dizge dizisi, onaltılık değer aramaların geçmişini iç dosya "
 "görüntüleyicide saklar."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1056
@@ -1534,7 +1534,7 @@ msgid ""
 "The program used by the camera to set exposure when the picture is taken. EG "
 "Manual, Normal, Aperture priority etc."
 msgstr ""
-"Resim çekildiğinde, pozun ayarlandığı kamera tarafından kullanılan program. "
+"Resim çekildiğinde, pozun ayarlandığı kameraca kullanılan program. "
 "Örneğin Elle, Normal, Açıklık önceliği vs."
 
 #: plugins/exiv2/exiv2-plugin.cc:90 plugins/exiv2/exiv2-plugin.cc:145
@@ -1679,7 +1679,7 @@ msgstr ""
 "Telif hakkı bilgisi. Etiket, hem fotoğrafçı hem de düzenleyici için telif "
 "haklarını belirtmek için kullanılır. Bu, bir kişi veya kurum için resim "
 "hakkında hak iddia etmek için bir telif hakkı uyarısıdır. Birlikte "
-"çalışabilirlik üzerine telif hakkı uyarısı, tarih ve haklar da dahil olmak "
+"çalışabilirlik üzerine telif hakkı uyarısı, tarih ve haklar da içerilmek "
 "üzere bu alanda yazılmalıdır; örn. “Telif Hakkı, John Smith, 19xx. Tüm "
 "hakları saklıdır.”. Bu alan beyanı ayrı bir bölümde kaydedilen her bir "
 "fotoğrafçı ve düzenleyicinin telif haklarını barındırır. Fotoğrafçı ve "
@@ -1730,7 +1730,7 @@ msgid ""
 "The class of the program used by the camera to set exposure when the picture "
 "is taken."
 msgstr ""
-"Fotoğraf çekilirken yapılan pozlandırmayı belirlemek için kamera tarafından "
+"Fotoğraf çekilirken yapılan pozlandırmayı belirlemek için kameraca "
 "kullanılan program."
 
 #: plugins/exiv2/exiv2-plugin.cc:109
@@ -1913,7 +1913,7 @@ msgid ""
 "used, Uncalibrated is set. Image data recorded as Uncalibrated can be "
 "treated as sRGB when it is converted to FlashPix."
 msgstr ""
-"Renk aralığı bilgisi etiketi, her zaman renk alanı belirteci tarafından "
+"Renk aralığı bilgisi etiketi, her zaman renk alanı belirtecince "
 "kaydedilir. Normal olarak sRGB, PC ekran durumları ve ortamında renk alanı "
 "tabanını belirtmek için kullanılır. Renk alanı SRGB den farklı ise, kalibre "
 "edilmemiş olarak ayarlanır. Görüntü verisi kalibre edilmemiş olarak "
@@ -2104,7 +2104,7 @@ msgid ""
 "The direction of contrast processing applied by the camera when the image "
 "was shot."
 msgstr ""
-"Görüntü çekildiğinde, kamera tarafından uygulanan kontrast işleminin "
+"Görüntü çekildiğinde, kameraca uygulanan kontrast işleminin "
 "denetimi."
 
 #: plugins/exiv2/exiv2-plugin.cc:139
@@ -2206,7 +2206,7 @@ msgstr "FlashPix Sürümü"
 
 #: plugins/exiv2/exiv2-plugin.cc:148
 msgid "The FlashPix format version supported by a FPXR file."
-msgstr "FPXR dosyası tarafından desteklenen FlashPix biçimini sürümü."
+msgstr "FPXR dosyasınca desteklenen FlashPix biçimini sürümü."
 
 #: plugins/exiv2/exiv2-plugin.cc:149
 msgid "Focal Length In 35mm Film"
@@ -2488,7 +2488,7 @@ msgstr ""
 "verileri için kullanılmaz. JPEG küçük resimleri bölünmüş değildir, ancak EOI "
 "için SOI sürekli bir JPEG bit akışı olarak kaydedilirler. Appn ve COM "
 "belirteçlerinin kayıtlı olması gerekir. Sıkıştırılmış küçük resimler, 64 "
-"kbayttan fazla olamaz ve tüm diğer APP1 içine kaydedilmiş veriyi içerir."
+"kbayttan çok olamaz ve tüm diğer APP1 içine kaydedilmiş veriyi içerir."
 
 #: plugins/exiv2/exiv2-plugin.cc:172
 msgid "JPEG Procedure"
@@ -2681,7 +2681,7 @@ msgstr ""
 "veri olarak APP2 içinde ses gibi verileri depolaması için izin verilir. Ses "
 "dosyaları Exif ses formatı uygun olarak kaydedilmiş olması gerekir. Birden "
 "çok dosya bir dosya eşlenen ise, yukarıda biçimi yalnızca tek bir ses "
-"dosyası adını kaydetmek için kullanılır. Birden fazla ses dosyaları varsa, "
+"dosyası adını kaydetmek için kullanılır. Birden çok ses dosyaları varsa, "
 "ilk kaydedilen dosya verilir. Üç Exif ses dosyası, “SND00001.WAV”, "
 "“SND00002.WAV” ve “SND00003.WAV” olduğunda, bunların her biri için Exif "
 "görüntü dosya adı, “DSC00001.JPG” olarak gösterilir. Birden çok ilişki "
@@ -2743,7 +2743,7 @@ msgid ""
 "The direction of saturation processing applied by the camera when the image "
 "was shot."
 msgstr ""
-"Görüntü çekildiğinde, kamera tarafından uygulanan doygunluk işleminin yönü."
+"Görüntü çekildiğinde, kameraca uygulanan doygunluk işleminin yönü."
 
 #: plugins/exiv2/exiv2-plugin.cc:193
 msgid "Scene Capture Type"
@@ -2786,7 +2786,7 @@ msgid ""
 "The direction of sharpness processing applied by the camera when the image "
 "was shot."
 msgstr ""
-"Görüntü çekildiği andaki, kamera tarafından uygulanan keskinliğin yönü."
+"Görüntü çekildiği andaki, kameraca uygulanan keskinliğin yönü."
 
 #: plugins/exiv2/exiv2-plugin.cc:197
 msgid ""
@@ -3015,7 +3015,7 @@ msgstr ""
 "öntanımlı (merkezi) tavsiye edilir. Okuyucu <Exif.YCbCrPositioning> için her "
 "iki çeşit destekleme yeteneğine sahip değilse, ne olursa olsun bu alandaki "
 "TIFF değeri öntanımlı olarak belirlenir. Bu okuyucu her iki merkezi ve "
-"birlikte oturtulmuş konumlandırma desteği mümkün olması için tercih edilir."
+"birlikte oturtulmuş konumlandırma desteği olduğu için yeğlenir."
 
 #: plugins/exiv2/exiv2-plugin.cc:217
 msgid "YCbCr Sub-Sampling"
@@ -3299,7 +3299,7 @@ msgid ""
 "The code of a country/geographical location referenced by the content of the "
 "object (multiple values allowed)."
 msgstr ""
-"Nesnenin içeriği tarafından sunulan, ülke/coğrafik konum kodu (birden çok "
+"Nesnenin içeriğince sunulan, ülke/coğrafik konum kodu (birden çok "
 "değer verilebilir)."
 
 #: plugins/exiv2/exiv2-plugin.cc:249
@@ -3311,7 +3311,7 @@ msgid ""
 "A full, publishable name of a country/geographical location referenced by "
 "the content of the object (multiple values allowed)."
 msgstr ""
-"Nesnenin içeriği tarafından sunulan, ülke/coğrafik konumun yayınlanabilir "
+"Nesnenin içeriğince sunulan, ülke/coğrafik konumun yayınlanabilir "
 "tam adı (birden çok değer verilebilir)."
 
 #: plugins/exiv2/exiv2-plugin.cc:250 plugins/gsf/gsf-plugin.cc:99
@@ -3407,7 +3407,7 @@ msgstr "Dosya Biçimi"
 
 #: plugins/exiv2/exiv2-plugin.cc:259
 msgid "File format of the data described by this metadata."
-msgstr "Üst veri tarafından sağlanan, tanımlanmış verinin, dosya biçimi."
+msgstr "Üst verice sağlanan, tanımlanmış verinin dosya biçimi."
 
 #: plugins/exiv2/exiv2-plugin.cc:260
 msgid "File Version"
@@ -3701,7 +3701,7 @@ msgstr "Tamamlayıcı Kategori"
 
 #: plugins/exiv2/exiv2-plugin.cc:291
 msgid "Further refines the subject of the object (Deprecated)."
-msgstr "Daha fazla nesne öznesi geliştirir (Kullanımdan Kalkmış)."
+msgstr "Daha çok nesne öznesi geliştirir (Kullanımdan Kalkmış)."
 
 #: plugins/exiv2/exiv2-plugin.cc:292
 msgid "Time Created"
@@ -3785,7 +3785,7 @@ msgstr "Yeni arşivin dosya adı ne olmalıdır?"
 #: src/advanced_rename/profile_component.rs:1044
 #: src/advanced_rename/regex_dialog.rs:114 src/dialogs/chmod_dialog.rs:147
 #: src/dialogs/chown_dialog.rs:115 src/dialogs/connect_dialog.rs:190
-#: src/dialogs/create_symlink_dialog.rs:53 src/dialogs/delete_dialog.rs:92
+#: src/dialogs/create_symlink_dialog.rs:53 src/dialogs/delete_dialog.rs:88
 #: src/dialogs/edit_bookmark_dialog.rs:94
 #: src/dialogs/file_properties_dialog.rs:142 src/dialogs/make_copy_dialog.rs:77
 #: src/dialogs/mkdir_dialog.rs:110 src/dialogs/new_text_file.rs:93
@@ -3804,7 +3804,7 @@ msgstr "Yeni arşivin dosya adı ne olmalıdır?"
 #: src/dialogs/transfer_progress_dialog.rs:87 src/dirlist.rs:61
 #: src/file_selector.rs:1429 src/intviewer/search_dialog.rs:68
 #: src/open_connection.rs:54 src/open_file.rs:41 src/open_file.rs:63
-#: src/user_actions.rs:1146
+#: src/user_actions.rs:1147
 msgid "_Cancel"
 msgstr "İ_ptal"
 
@@ -3829,7 +3829,7 @@ msgstr "İ_ptal"
 #: src/dialogs/shortcuts/shortcut_dialog.rs:190
 #: src/dialogs/shortcuts/shortcuts_dialog.rs:206 src/file_selector.rs:1429
 #: src/intviewer/search_dialog.rs:69 src/intviewer/window.rs:704
-#: src/open_file.rs:41 src/user_actions.rs:1146 src/utils.rs:263
+#: src/open_file.rs:41 src/user_actions.rs:1147 src/utils.rs:263
 msgid "_OK"
 msgstr "_Tamam"
 
@@ -4062,7 +4062,7 @@ msgstr "İlk Oluşturan"
 
 #: plugins/gsf/gsf-plugin.cc:106
 msgid "Specifies the name of the person who created the document initially."
-msgstr "Belgenin ilk kimin tarafından oluşturulduğunu belirtir."
+msgstr "Belgeyi ilk kimin oluşturduğunu belirtir."
 
 #: plugins/gsf/gsf-plugin.cc:107 plugins/taglib/taglib-plugin.cc:205
 msgid "Language"
@@ -4153,7 +4153,7 @@ msgstr "Yazdıran"
 
 #: plugins/gsf/gsf-plugin.cc:117
 msgid "Specifies the name of the last person who printed the document."
-msgstr "Belgenin en son kimin tarafından yazdırıldığını gösteren tarih."
+msgstr "Belgeyi en son kimin yazdırdığını gösteren tarih."
 
 #: plugins/gsf/gsf-plugin.cc:118
 msgid "Scale"
@@ -4789,8 +4789,8 @@ msgid ""
 "Person or organisation that encoded the audio file. This field may contain a "
 "copyright message, if the audio file also is copyrighted by the encoder."
 msgstr ""
-"Ses dosyasını kodlayan kişi veya kurum. Bu alan, ses dosyası zaten kodlayıcı "
-"tarafından teliflenmişse, bir telif hakkı iletisi içerebilir."
+"Ses dosyasını kodlayan kişi veya kurum. Bu alan, ses dosyası zaten kodlayıcıca "
+"teliflenmişse, bir telif hakkı iletisi içerebilir."
 
 #: plugins/taglib/taglib-plugin.cc:193
 msgid "Encoder Settings"
@@ -5513,7 +5513,7 @@ msgstr "Profilleri _Yönet…"
 msgid "Remove from file list"
 msgstr "Dosya listesinden kaldır"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1118 src/user_actions.rs:1740
+#: src/advanced_rename/advanced_rename_dialog.rs:1118 src/user_actions.rs:1741
 msgid "View file"
 msgstr "Dosyayı görüntüle"
 
@@ -5819,19 +5819,19 @@ msgstr "Şunun için _değiştir:"
 msgid "_Match case"
 msgstr "_Büyük/küçük duyarlı"
 
-#: src/application.rs:82
+#: src/application.rs:77
 msgid "Specify debug flags to use"
 msgstr "Kullanım için hata ayıklama bayraklarını belirt"
 
-#: src/application.rs:90
+#: src/application.rs:85
 msgid "Specify the start directory for the left pane"
 msgstr "Sol bölüm için başlangıç dizinini belirt"
 
-#: src/application.rs:98
+#: src/application.rs:93
 msgid "Specify the start directory for the right pane"
 msgstr "Sağ bölüm için başlangıç dizinini belirt"
 
-#: src/application.rs:218
+#: src/application.rs:204
 msgid "Failed to create the directory {directory}: {error}"
 msgstr "{directory} dizini oluşturulamadı: {error}"
 
@@ -6098,7 +6098,7 @@ msgstr "Hizmet _türü:"
 
 #: src/dialogs/connect_dialog.rs:149
 msgid "_Alias:"
-msgstr "_Rumuz:"
+msgstr "_Takma Ad:"
 
 #: src/dialogs/connect_dialog.rs:150
 msgid "_Location (URI):"
@@ -6161,89 +6161,89 @@ msgstr "Sembolik bağlantı adı:"
 msgid "Making a symbolic link failed"
 msgstr "Sembolik bağlantı oluşturulamadı"
 
-#: src/dialogs/delete_dialog.rs:107
+#: src/dialogs/delete_dialog.rs:103
 msgid "Deleting…"
 msgstr "Siliniyor…"
 
-#: src/dialogs/delete_dialog.rs:176
+#: src/dialogs/delete_dialog.rs:172
 msgid "Deleted {count} of {total} file"
 msgid_plural "Deleted {count} of {total} files"
 msgstr[0] "{count} / {total} dosya silindi"
 
-#: src/dialogs/delete_dialog.rs:200
+#: src/dialogs/delete_dialog.rs:196
 msgid "The directory “{}” is not empty. Do you really want to delete it?"
 msgstr "“{}” dizini boş değil. Gerçekten silmek istiyor musunuz?"
 
-#: src/dialogs/delete_dialog.rs:203
+#: src/dialogs/delete_dialog.rs:199
 msgid "Do you really want to delete “{}”?"
 msgstr "“{}” gerçekten silmek istiyor musunuz?"
 
-#: src/dialogs/delete_dialog.rs:210 src/dialogs/delete_dialog.rs:540
-#: src/user_actions.rs:516 src/user_actions.rs:569
+#: src/dialogs/delete_dialog.rs:206 src/dialogs/delete_dialog.rs:536
+#: src/user_actions.rs:517 src/user_actions.rs:570
 msgid "Cancel"
 msgstr "İptal"
 
-#: src/dialogs/delete_dialog.rs:211 src/dialogs/delete_dialog.rs:251
+#: src/dialogs/delete_dialog.rs:207 src/dialogs/delete_dialog.rs:247
 #: src/dialogs/options/confirmation_tab.rs:96
 #: src/dialogs/options/confirmation_tab.rs:125
-#: src/dialogs/prepare_copy_dialog.rs:75 src/dialogs/prepare_move_dialog.rs:75
-#: src/transfer.rs:285 src/transfer.rs:325 src/transfer.rs:379
-#: src/transfer.rs:495 src/user_actions.rs:514
+#: src/dialogs/prepare_copy_dialog.rs:76 src/dialogs/prepare_move_dialog.rs:76
+#: src/transfer.rs:473 src/transfer.rs:513 src/transfer.rs:574
+#: src/transfer.rs:687 src/user_actions.rs:515
 msgid "Skip"
 msgstr "Atla"
 
-#: src/dialogs/delete_dialog.rs:213
+#: src/dialogs/delete_dialog.rs:209
 msgid "Delete All"
 msgstr "Tümünü Sil"
 
-#: src/dialogs/delete_dialog.rs:215
+#: src/dialogs/delete_dialog.rs:211
 msgid "Delete Remaining"
 msgstr "Kalanı Sil"
 
-#: src/dialogs/delete_dialog.rs:217 src/dialogs/delete_dialog.rs:540
+#: src/dialogs/delete_dialog.rs:213 src/dialogs/delete_dialog.rs:536
 #: src/dialogs/options/confirmation_tab.rs:79 src/file_list/popup.rs:265
 #: src/main_win.rs:588
 msgid "Delete"
 msgstr "Sil"
 
-#: src/dialogs/delete_dialog.rs:238
+#: src/dialogs/delete_dialog.rs:234
 msgid "Error while deleting “{file}”"
 msgstr "“{file}” silinirken hata oluştu"
 
-#: src/dialogs/delete_dialog.rs:251 src/dialogs/delete_dialog.rs:583
-#: src/transfer.rs:285 src/transfer.rs:302 src/transfer.rs:320
-#: src/transfer.rs:337 src/transfer.rs:375 src/transfer.rs:393
-#: src/transfer.rs:491 src/transfer.rs:509
+#: src/dialogs/delete_dialog.rs:247 src/dialogs/delete_dialog.rs:579
+#: src/transfer.rs:473 src/transfer.rs:490 src/transfer.rs:508
+#: src/transfer.rs:525 src/transfer.rs:570 src/transfer.rs:588
+#: src/transfer.rs:683 src/transfer.rs:701
 msgid "Abort"
 msgstr "Vazgeç"
 
-#: src/dialogs/delete_dialog.rs:251 src/transfer.rs:285 src/transfer.rs:321
-#: src/transfer.rs:338 src/transfer.rs:376 src/transfer.rs:394
-#: src/transfer.rs:492 src/transfer.rs:510 src/user_actions.rs:517
+#: src/dialogs/delete_dialog.rs:247 src/transfer.rs:473 src/transfer.rs:509
+#: src/transfer.rs:526 src/transfer.rs:571 src/transfer.rs:589
+#: src/transfer.rs:684 src/transfer.rs:702 src/user_actions.rs:518
 msgid "Retry"
 msgstr "Yeniden Dene"
 
-#: src/dialogs/delete_dialog.rs:515
+#: src/dialogs/delete_dialog.rs:511
 msgid "Do you want to permanently delete “{}”?"
 msgstr "“{}” kalıcı olarak silmek istiyor musunuz?"
 
-#: src/dialogs/delete_dialog.rs:517
+#: src/dialogs/delete_dialog.rs:513
 msgid "Do you want to move “{}” to the trash can?"
 msgstr "“{}” çöp kutusuna taşımak istiyor musunuz?"
 
-#: src/dialogs/delete_dialog.rs:523
+#: src/dialogs/delete_dialog.rs:519
 #, c-format
 msgid "Do you want to permanently delete the selected file?"
 msgid_plural "Do you want to permanently delete the %d selected files?"
 msgstr[0] "Seçilmiş %d dosyayı kalıcı olarak silmek istiyor musunuz?"
 
-#: src/dialogs/delete_dialog.rs:529
+#: src/dialogs/delete_dialog.rs:525
 #, c-format
 msgid "Do you want to move the selected file to the trash can?"
 msgid_plural "Do you want to move the %d selected files to the trash can?"
 msgstr[0] "Seçilen %d dosyayı çöpe taşımak istiyor musunuz?"
 
-#: src/dialogs/delete_dialog.rs:581
+#: src/dialogs/delete_dialog.rs:577
 msgid "Error while deleting"
 msgstr "Silme sırasında hata oluştu"
 
@@ -6259,7 +6259,7 @@ msgstr "Yer imi _hedefi:"
 msgid "File Properties"
 msgstr "Dosya Özellikleri"
 
-#: src/dialogs/file_properties_dialog.rs:118 src/user_actions.rs:1789
+#: src/dialogs/file_properties_dialog.rs:118 src/user_actions.rs:1790
 msgid "Properties"
 msgstr "Özellikler"
 
@@ -6339,7 +6339,7 @@ msgstr "Değişiklikler uygulanamadı."
 msgid "Copy File"
 msgstr "Dosyayı Kopyala"
 
-#: src/dialogs/make_copy_dialog.rs:59 src/dialogs/prepare_copy_dialog.rs:48
+#: src/dialogs/make_copy_dialog.rs:59 src/dialogs/prepare_copy_dialog.rs:49
 msgid "Copy “{}” to"
 msgstr "“{}” şuraya kopyala"
 
@@ -6446,8 +6446,8 @@ msgstr "Simge:"
 
 #: src/dialogs/options/app_dialog.rs:107
 #: src/dialogs/options/options_dialog.rs:35
-#: src/dialogs/prepare_copy_dialog.rs:96
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:109 src/user_actions.rs:2162
+#: src/dialogs/prepare_copy_dialog.rs:97
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:109 src/user_actions.rs:2163
 msgid "Options"
 msgstr "Seçenekler"
 
@@ -6518,16 +6518,16 @@ msgstr "Önce sorgu"
 
 #: src/dialogs/options/confirmation_tab.rs:91
 #: src/dialogs/options/confirmation_tab.rs:120
-#: src/dialogs/prepare_copy_dialog.rs:69 src/dialogs/prepare_move_dialog.rs:69
-#: src/file_list/popup.rs:266 src/transfer.rs:323 src/transfer.rs:340
-#: src/transfer.rs:378 src/transfer.rs:396 src/transfer.rs:494
-#: src/transfer.rs:512
+#: src/dialogs/prepare_copy_dialog.rs:70 src/dialogs/prepare_move_dialog.rs:70
+#: src/file_list/popup.rs:266 src/transfer.rs:511 src/transfer.rs:528
+#: src/transfer.rs:573 src/transfer.rs:591 src/transfer.rs:686
+#: src/transfer.rs:704
 msgid "Rename"
 msgstr "Yeniden Adlandır"
 
 #: src/dialogs/options/confirmation_tab.rs:101
 #: src/dialogs/options/confirmation_tab.rs:130
-#: src/dialogs/prepare_copy_dialog.rs:81 src/dialogs/prepare_move_dialog.rs:81
+#: src/dialogs/prepare_copy_dialog.rs:82 src/dialogs/prepare_move_dialog.rs:82
 msgid "Overwrite silently"
 msgstr "Sessizce üstüne yaz"
 
@@ -6544,13 +6544,13 @@ msgid "Confirm mouse operation"
 msgstr "Fare işlemlerini onayla"
 
 #: src/dialogs/options/confirmation_tab.rs:149
-#: src/dialogs/prepare_copy_dialog.rs:45 src/file_list/popup.rs:259
-#: src/main_win.rs:578 src/user_actions.rs:1909
+#: src/dialogs/prepare_copy_dialog.rs:46 src/file_list/popup.rs:259
+#: src/main_win.rs:578 src/user_actions.rs:1910
 msgid "Copy"
 msgstr "Kopyala"
 
 #: src/dialogs/options/confirmation_tab.rs:154
-#: src/dialogs/prepare_move_dialog.rs:45
+#: src/dialogs/prepare_move_dialog.rs:46
 msgid "Move"
 msgstr "Taşı"
 
@@ -6568,7 +6568,7 @@ msgstr "Aygıtı Düzenle"
 
 #: src/dialogs/options/device_dialog.rs:59
 msgid "Alias:"
-msgstr "Takma ad:"
+msgstr "Takma Ad:"
 
 #: src/dialogs/options/device_dialog.rs:69
 msgid "Device/Label:"
@@ -6604,7 +6604,7 @@ msgstr "Yalnızca simgeleri göster"
 
 #: src/dialogs/options/devices_widget.rs:53
 msgid "Alias"
-msgstr "Rumuz"
+msgstr "Takma Ad"
 
 #: src/dialogs/options/edit_colors_dialog.rs:28
 msgid "Edit Colors…"
@@ -6793,7 +6793,7 @@ msgid "Middle mouse button"
 msgstr "Orta fare düğmesi"
 
 #: src/dialogs/options/general_tab.rs:106 src/main_win.rs:541
-#: src/user_actions.rs:1972
+#: src/user_actions.rs:1973
 msgid "Up one directory"
 msgstr "Üst dizine"
 
@@ -6825,7 +6825,7 @@ msgstr "Sıralama"
 msgid "Case sensitive"
 msgstr "Büyük/küçük harf duyarlı"
 
-#: src/dialogs/options/general_tab.rs:153 src/user_actions.rs:1765
+#: src/dialogs/options/general_tab.rs:153 src/user_actions.rs:1766
 msgid "Quick search"
 msgstr "Hızlı arama"
 
@@ -7032,7 +7032,7 @@ msgstr "Aygıtlar"
 
 #: src/dialogs/options/programs_tab.rs:66
 msgid "Always download remote files before opening in external programs"
-msgstr "Uzak dosyaları, harici programlarla açmadan önce her zaman indir"
+msgstr "Uzak dosyaları, dış programlarla açmadan önce her zaman indir"
 
 #: src/dialogs/options/programs_tab.rs:70
 msgid "MIME applications"
@@ -7048,7 +7048,7 @@ msgstr "Görüntüleyici:"
 
 #: src/dialogs/options/programs_tab.rs:85
 msgid "Use Internal Viewer"
-msgstr "Dahili Görüntüleyiciyi Kullan"
+msgstr "İç Görüntüleyiciyi Kullan"
 
 #: src/dialogs/options/programs_tab.rs:89
 msgid "Editor:"
@@ -7056,7 +7056,7 @@ msgstr "Düzenleyici:"
 
 #: src/dialogs/options/programs_tab.rs:94
 msgid "Differ:"
-msgstr "Kıyaslayıcı:"
+msgstr "Karşılaştırıcı:"
 
 #: src/dialogs/options/programs_tab.rs:99
 msgid "Search:"
@@ -7064,7 +7064,7 @@ msgstr "Ara:"
 
 #: src/dialogs/options/programs_tab.rs:104
 msgid "Use Internal Search"
-msgstr "Dahili Aramayı Kullan"
+msgstr "İç Aramayı Kullan"
 
 #: src/dialogs/options/programs_tab.rs:108
 msgid "Send files:"
@@ -7138,28 +7138,28 @@ msgstr "Düzen_li ifade söz dizimi"
 msgid "Bad expression"
 msgstr "Kötü ifade"
 
-#: src/dialogs/prepare_copy_dialog.rs:50
+#: src/dialogs/prepare_copy_dialog.rs:51
 msgid "copy {} file to"
 msgid_plural "copy {} files to"
 msgstr[0] "{} dosyasını şuraya kopyala"
 
-#: src/dialogs/prepare_copy_dialog.rs:57 src/dialogs/prepare_move_dialog.rs:57
+#: src/dialogs/prepare_copy_dialog.rs:58 src/dialogs/prepare_move_dialog.rs:58
 msgid "Overwrite Files"
 msgstr "Dosyaların Üstüne Yaz"
 
-#: src/dialogs/prepare_copy_dialog.rs:64 src/dialogs/prepare_move_dialog.rs:64
+#: src/dialogs/prepare_copy_dialog.rs:65 src/dialogs/prepare_move_dialog.rs:65
 msgid "Query First"
 msgstr "Önce Sorgu"
 
-#: src/dialogs/prepare_copy_dialog.rs:103
+#: src/dialogs/prepare_copy_dialog.rs:104
 msgid "Follow Links"
 msgstr "Bağlantıları Takip Et"
 
-#: src/dialogs/prepare_move_dialog.rs:48
+#: src/dialogs/prepare_move_dialog.rs:49
 msgid "Move “{}” to"
 msgstr "“{}” ögesini şuraya taşı"
 
-#: src/dialogs/prepare_move_dialog.rs:50
+#: src/dialogs/prepare_move_dialog.rs:51
 msgid "move {} file to"
 msgid_plural "move {} files to"
 msgstr[0] "{} dosyasını şuraya taşı"
@@ -7242,7 +7242,7 @@ msgstr "Hiçbir kısayol tanımlanmamış."
 
 #: src/dialogs/shortcuts/shortcut_dialog.rs:396
 msgid "Shortcut “{shortcut}” is already taken by “{action}”."
-msgstr "“{shortcut}” kısayolu, “{action}” tarafından zaten alınmış."
+msgstr "“{action}”, “{shortcut}” kısayolunu zaten alınmış."
 
 #: src/dialogs/shortcuts/shortcut_dialog.rs:401
 msgid "Reassigning the shortcut will cause it to be removed from “{action}”."
@@ -7297,7 +7297,7 @@ msgstr[0] "{} dosya listelendi"
 msgid "Directory listing failed."
 msgstr "Dizin listeleme başarısız."
 
-#: src/file_edit.rs:37 src/file_view.rs:89
+#: src/file_edit.rs:37 src/file_view.rs:83
 msgid "Not an ordinary file."
 msgstr "Normal bir dosya değil."
 
@@ -7424,15 +7424,15 @@ msgid "E_xecute"
 msgstr "Y_ürüt"
 
 #. Edit actions
-#: src/file_list/popup.rs:258 src/main_win.rs:573 src/user_actions.rs:1908
+#: src/file_list/popup.rs:258 src/main_win.rs:573 src/user_actions.rs:1909
 msgid "Cut"
 msgstr "Kes"
 
-#: src/file_list/popup.rs:261 src/user_actions.rs:1926
+#: src/file_list/popup.rs:261 src/user_actions.rs:1927
 msgid "Copy file names"
 msgstr "Dosya adlarını kopyala"
 
-#: src/file_list/popup.rs:268 src/main_win.rs:598 src/user_actions.rs:1825
+#: src/file_list/popup.rs:268 src/main_win.rs:598 src/user_actions.rs:1826
 msgid "Send files"
 msgstr "Dosyaları gönder"
 
@@ -7464,7 +7464,7 @@ msgstr "_Yapıştır"
 msgid "_Refresh"
 msgstr "_Tazele"
 
-#: src/file_list/quick_search.rs:61 src/user_actions.rs:1760
+#: src/file_list/quick_search.rs:61 src/user_actions.rs:1761
 msgid "Search"
 msgstr "Ara"
 
@@ -7489,7 +7489,7 @@ msgstr "%s boş"
 msgid "Unknown disk usage"
 msgstr "Bilinmeyen disk kullanımı"
 
-#: src/file_selector.rs:1428 src/user_actions.rs:1145
+#: src/file_selector.rs:1428 src/user_actions.rs:1146
 msgid "The tab is locked, close anyway?"
 msgstr "Sekme kilitli, yinede kapansın mı?"
 
@@ -7529,7 +7529,7 @@ msgstr "_Yinelenen Sekmeleri Kapat"
 msgid "Filter:"
 msgstr "Süzgeç:"
 
-#: src/file_view.rs:59
+#: src/file_view.rs:53
 msgid "Failed to download a file"
 msgstr "Dosya indirilemedi"
 
@@ -7537,44 +7537,6 @@ msgstr "Dosya indirilemedi"
 #, c-format
 msgid "The program has now finished. Press Enter to close this window.\n"
 msgstr "Program tamamlandı. Pencereyi kapatmak için Enter tuşuna basın.\n"
-
-#: src/gnome-cmd-xfer.cc:318
-msgid "Copying a directory into itself is a bad idea."
-msgstr "Bir dizini kendi içine kopyalamak kötü bir fikir."
-
-#: src/gnome-cmd-xfer.cc:318 src/gnome-cmd-xfer.cc:400
-#: src/gnome-cmd-xfer.cc:483
-msgid "The whole operation was cancelled."
-msgstr "Tüm işlem iptal edildi."
-
-#: src/gnome-cmd-xfer.cc:366 src/gnome-cmd-xfer.cc:448
-#: src/gnome-cmd-xfer.cc:531
-msgid "preparing…"
-msgstr "hazırlanıyor…"
-
-#: src/gnome-cmd-xfer.cc:400 src/gnome-cmd-xfer.cc:483
-msgid "Moving a directory into itself is a bad idea."
-msgstr "Bir dizini kendi içine taşımak kötü bir fikir."
-
-#: src/gnome-cmd-xfer.cc:564
-msgid "downloading to /tmp"
-msgstr "/tmp hedefine indiriliyor"
-
-#. Translators: Translate 'Copy' as a noun here
-#: src/gnome-cmd-xfer.cc:747
-msgctxt "Filename suffix"
-msgid "Copy"
-msgstr "Kopyala"
-
-#: src/gnome-cmd-xfer.cc:818 src/gnome-cmd-xfer.cc:828
-#, c-format
-msgid "Source “%s” could not be deleted. Aborting!"
-msgstr "Kaynak “%s” silinemedi. İptal ediliyor!"
-
-#: src/gnome-cmd-xfer.cc:869
-#, c-format
-msgid "Source “%s” could not be copied. Aborting!"
-msgstr "Kaynak “%s” kopyalanamadı. İptal ediliyor!"
 
 #: src/intviewer/search_dialog.rs:65 src/intviewer/window.rs:786
 #: src/intviewer/window.rs:819
@@ -7871,7 +7833,7 @@ msgstr "F9 Ara"
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "GNOME Commander — YÖNETİCİ HAKLARIYLA"
 
-#: src/main_win.rs:536 src/user_actions.rs:2001
+#: src/main_win.rs:536 src/user_actions.rs:2002
 msgid "Refresh"
 msgstr "Tazele"
 
@@ -7895,7 +7857,7 @@ msgstr "En sonuncuya git"
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr "Dosya adlarını kopyala (Tüm yollar için SHIFT, URI için ALT)"
 
-#: src/main_win.rs:583 src/user_actions.rs:1914
+#: src/main_win.rs:583 src/user_actions.rs:1915
 msgid "Paste"
 msgstr "Yapıştır"
 
@@ -7903,7 +7865,7 @@ msgstr "Yapıştır"
 msgid "Edit (SHIFT for new document)"
 msgstr "Düzenle (Yeni belge için SHIFT)"
 
-#: src/main_win.rs:603 src/user_actions.rs:1940
+#: src/main_win.rs:603 src/user_actions.rs:1941
 msgid "Open terminal"
 msgstr "Uçbirim aç"
 
@@ -7937,7 +7899,7 @@ msgstr "Süzgeçi _Etkinleştir…"
 
 #: src/main_win.rs:1502
 msgid "_Diff"
-msgstr "_Kıyasla"
+msgstr "_Karşılaştır"
 
 #: src/main_win.rs:1503
 msgid "S_ynchronize Directories"
@@ -8051,7 +8013,7 @@ msgstr "_Eşit Bölme Boyutu"
 msgid "Maximize Panel Size"
 msgstr "Bölme Boyutunu Azami Yap"
 
-#: src/main_win.rs:1624 src/user_actions.rs:2112
+#: src/main_win.rs:1624 src/user_actions.rs:2113
 msgid "Horizontal Orientation"
 msgstr "Yatay Yönelim"
 
@@ -8371,28 +8333,40 @@ msgstr "Görüntü boyutu"
 msgid "Width and height in pixels."
 msgstr "Piksel türünden genişlik ve yükseklik."
 
-#: src/transfer.rs:233
-msgid ""
-"<b>{name}</b>\n"
-"<span color='dimgray' size='smaller'>{size}, {time}</span>"
-msgstr ""
-"<b>{name}</b>\n"
-"<span color='dimgray' size='smaller'>{size}, {time}</span>"
+#: src/transfer.rs:114
+msgid "Copying a directory into itself is a bad idea."
+msgstr "Bir dizini kendi içine kopyalamak kötü bir fikir."
 
-#: src/transfer.rs:322 src/transfer.rs:339
+#: src/transfer.rs:115 src/transfer.rs:186 src/transfer.rs:257
+msgid "The whole operation was cancelled."
+msgstr "Tüm işlem iptal edildi."
+
+#: src/transfer.rs:149 src/transfer.rs:220 src/transfer.rs:291
+msgid "preparing…"
+msgstr "hazırlanıyor…"
+
+#: src/transfer.rs:185 src/transfer.rs:256
+msgid "Moving a directory into itself is a bad idea."
+msgstr "Bir dizini kendi içine taşımak kötü bir fikir."
+
+#: src/transfer.rs:323
+msgid "downloading to /tmp"
+msgstr "/tmp hedefine indiriliyor"
+
+#: src/transfer.rs:510 src/transfer.rs:527
 msgid "Copy into"
 msgstr "Şuraya kopyala"
 
-#: src/transfer.rs:324 src/transfer.rs:381 src/transfer.rs:497
+#: src/transfer.rs:512 src/transfer.rs:576 src/transfer.rs:689
 msgid "Rename all"
 msgstr "Tümünü yeniden adlandır"
 
-#: src/transfer.rs:326 src/transfer.rs:382 src/transfer.rs:498
-#: src/user_actions.rs:515
+#: src/transfer.rs:514 src/transfer.rs:577 src/transfer.rs:690
+#: src/user_actions.rs:516
 msgid "Skip all"
 msgstr "Tümünü atla"
 
-#: src/transfer.rs:366 src/transfer.rs:482
+#: src/transfer.rs:555 src/transfer.rs:668
 msgid ""
 "Overwrite file:\n"
 "\n"
@@ -8410,38 +8384,67 @@ msgstr ""
 "\n"
 "{src}"
 
-#: src/transfer.rs:377 src/transfer.rs:395 src/transfer.rs:493
-#: src/transfer.rs:511
+#: src/transfer.rs:572 src/transfer.rs:590 src/transfer.rs:685
+#: src/transfer.rs:703
 msgid "Replace"
 msgstr "Değiştir"
 
-#: src/transfer.rs:380 src/transfer.rs:496
+#: src/transfer.rs:575 src/transfer.rs:688
 msgid "Replace all"
 msgstr "Tümünü değiştir"
 
-#: src/transfer.rs:434 src/transfer.rs:542
+#: src/transfer.rs:627 src/transfer.rs:732
 msgid "Error while transferring “{file}”"
 msgstr "“{file}” dosyası aktarılırken hata oluştu"
 
-#: src/transfer.rs:581
+#: src/transfer.rs:764
 msgid "Error while creating symlink “{file}”"
 msgstr "“{file}” sembolik bağlantısı oluşturulurken hata oluştu"
 
-#: src/transfer.rs:589
+#: src/transfer.rs:772
 msgid "Ignore"
 msgstr "Yok say"
 
-#: src/transfer.rs:665
+#: src/transfer.rs:831
+msgid "Unrecoverable error"
+msgstr "Kurtarılamaz hata"
+
+#: src/transfer.rs:909
+msgid "File enumeration error"
+msgstr "Dosya sayım hatası"
+
+#: src/transfer.rs:1000 src/transfer.rs:1012
+#, c-format
+msgid "Source “%s” could not be deleted. Aborting!"
+msgstr "Kaynak “%s” silinemedi. İptal ediliyor!"
+
+#: src/transfer.rs:1039
+#, c-format
+msgid ""
+"Cannot detect a connection for a source “%s”. It could not be deleted. "
+"Aborting!"
+msgstr ""
+"“%s” kaynağı için bağlantı saptanamadı. Silinemiyor! "
+"İptal ediliyor!"
+
+#: src/transfer.rs:1062
+#, c-format
+msgid "Source “%s” could not be copied. Aborting!"
+msgstr "Kaynak “%s” kopyalanamadı. İptal ediliyor!"
+
+#: src/transfer.rs:1109
 msgid "copying…"
 msgstr "kopyalanıyor…"
 
-#: src/transfer.rs:669
+#: src/transfer.rs:1128
 msgid "[file {index} of {count}] “{file}”"
 msgstr "[dosya {index} / {count}] “{file}”"
 
-#: src/transfer.rs:738
-msgid "Unrecoverable error"
-msgstr "Kurtarılamaz hata"
+#: src/transfer.rs:1187
+msgctxt ""
+"A template for a file name. In a case of a conflict with an existing one."
+msgid "{name} (Copy {number})"
+msgstr "{name} (Kopya {number})"
 
 #: src/user_actions.rs:237
 msgid "No search command given."
@@ -8472,21 +8475,21 @@ msgstr "Karşılaştırılacak bir şey yok"
 msgid "link to %s"
 msgstr "şuraya bağlantılı: %s"
 
-#: src/user_actions.rs:559
+#: src/user_actions.rs:560
 msgid "Create symbolic links of {count} file in {dir}?"
 msgid_plural "Create symbolic links of {count} files in {dir}?"
 msgstr[0] ""
 "{dir} içindeki {count} dosyanın sembolik bağlantısı oluşturulsun mu?"
 
-#: src/user_actions.rs:569
+#: src/user_actions.rs:570
 msgid "Create"
 msgstr "Oluştur"
 
-#: src/user_actions.rs:623
+#: src/user_actions.rs:624
 msgid "Warning"
 msgstr "Uyarı"
 
-#: src/user_actions.rs:623
+#: src/user_actions.rs:624
 msgid ""
 "The default send-to command only supports one selected file at a time. You "
 "can change the command in the program options."
@@ -8494,23 +8497,23 @@ msgstr ""
 "Öntanımlı gönder komutu, tek seferde yalnızca bir seçili dosyayı destekler. "
 "Komutu program seçeneklerinden değiştirebilirsiniz."
 
-#: src/user_actions.rs:906
+#: src/user_actions.rs:907
 msgid "No command was given."
 msgstr "Komut verilmedi."
 
-#: src/user_actions.rs:949
+#: src/user_actions.rs:950
 msgid "Terminal command is not configured properly."
 msgstr "Uçbirim komutu düzgün yapılandırılmamış."
 
-#: src/user_actions.rs:1576
+#: src/user_actions.rs:1577
 msgid "There was an error opening home page."
 msgstr "Ana sayfa açılırken bir hata oluştu."
 
-#: src/user_actions.rs:1594
+#: src/user_actions.rs:1595
 msgid "There was an error reporting problem."
 msgstr "Hata raporlanırken hata oluştu."
 
-#: src/user_actions.rs:1629
+#: src/user_actions.rs:1630
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -8521,7 +8524,7 @@ msgstr ""
 "yayınlanan GNU Genel Kamu Lisansı sürüm 2 veya daha sonraki bir sürümün "
 "şartları altında yeniden dağıtabilir ve/veya değiştirebilirsiniz."
 
-#: src/user_actions.rs:1632
+#: src/user_actions.rs:1633
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -8530,10 +8533,10 @@ msgid ""
 msgstr ""
 "GNOME Commander kullanışlı olması amacıyla dağıtılmıştır, ancak HİÇBİR "
 "GARANTİSİ YOKTUR; hatta SATILABİLİRLİK ya da BİR AMACA HİZMET gibi garantisi "
-"de yoktur.  Daha fazla ayrıntı için GNU Genel Kamu Lisansı'na bakın."
+"de yoktur.  Daha çok ayrıntı için GNU Genel Kamu Lisansı'na bakın."
 
 # Link koymak, mektup yazmaktan daha faydalı.
-#: src/user_actions.rs:1635
+#: src/user_actions.rs:1636
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -8543,11 +8546,11 @@ msgstr ""
 "birlikte almış olmalısınız; almadıysanız, <https://www.gnu.org/licenses/> "
 "adresine bakınız."
 
-#: src/user_actions.rs:1644
+#: src/user_actions.rs:1645
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "GNOME masaüstü için hızlı ve güçlü bir dosya yöneticisi"
 
-#: src/user_actions.rs:1652
+#: src/user_actions.rs:1653
 msgid "translator-credits"
 msgstr ""
 "Muhammet Kara <muhammetk@gmail.com>\n"
@@ -8558,311 +8561,311 @@ msgstr ""
 "Gökhan Gurbetoğlu <ggurbet@gmail.com>"
 
 #. File actions
-#: src/user_actions.rs:1726
+#: src/user_actions.rs:1727
 msgid "Copy files"
 msgstr "Dosyaları kopyala"
 
-#: src/user_actions.rs:1731
+#: src/user_actions.rs:1732
 msgid "Copy files with rename"
 msgstr "Dosyaları yeniden adlandırarak kopyala"
 
-#: src/user_actions.rs:1733
+#: src/user_actions.rs:1734
 msgid "Move files"
 msgstr "Dosyaları taşı"
 
-#: src/user_actions.rs:1738
+#: src/user_actions.rs:1739
 msgid "Delete files"
 msgstr "Dosyaları sil"
 
-#: src/user_actions.rs:1745
+#: src/user_actions.rs:1746
 msgid "View with internal viewer"
-msgstr "Dahili görüntüleyici ile görüntüle"
+msgstr "İç görüntüleyiciyle görüntüle"
 
-#: src/user_actions.rs:1751
+#: src/user_actions.rs:1752
 msgid "View with external viewer"
-msgstr "Harici görüntüleyici ile görüntüle"
+msgstr "Dış görüntüleyiciyle görüntüle"
 
-#: src/user_actions.rs:1753
+#: src/user_actions.rs:1754
 msgid "Edit file"
 msgstr "Dosya düzenle"
 
-#: src/user_actions.rs:1758
+#: src/user_actions.rs:1759
 msgid "Edit a new file"
 msgstr "Yeni bir dosya düzenle"
 
-#: src/user_actions.rs:1771
+#: src/user_actions.rs:1772
 msgid "Change permissions"
 msgstr "İzinleri değiştir"
 
-#: src/user_actions.rs:1777
+#: src/user_actions.rs:1778
 msgid "Change owner/group"
 msgstr "Sahibi/grubu değiştir"
 
-#: src/user_actions.rs:1783
+#: src/user_actions.rs:1784
 msgid "Create directory"
 msgstr "Dizin oluştur"
 
-#: src/user_actions.rs:1795
+#: src/user_actions.rs:1796
 msgid "Compare files (diff)"
-msgstr "Dosyaları kıyasla (kıyasla)"
+msgstr "Dosyaları karşılaştır (diff)"
 
-#: src/user_actions.rs:1801
+#: src/user_actions.rs:1802
 msgid "Synchronize directories"
 msgstr "Dizinleri eşitle"
 
-#: src/user_actions.rs:1807
+#: src/user_actions.rs:1808
 msgid "Rename files"
 msgstr "Dosyaları yeniden adlandır"
 
-#: src/user_actions.rs:1813
+#: src/user_actions.rs:1814
 msgid "Create symbolic link"
 msgstr "Sembolik bağlantı oluştur"
 
-#: src/user_actions.rs:1819
+#: src/user_actions.rs:1820
 msgid "Advanced rename tool"
 msgstr "Gelişmiş yeniden adlandırma aracı"
 
-#: src/user_actions.rs:1827
+#: src/user_actions.rs:1828
 msgid "Quit"
 msgstr "Çık"
 
-#: src/user_actions.rs:1833
+#: src/user_actions.rs:1834
 msgid "Toggle selection"
 msgstr "Seçimi değiştir"
 
-#: src/user_actions.rs:1839
+#: src/user_actions.rs:1840
 msgid "Toggle selection and move cursor downward"
 msgstr "Seçimi değiştir ve imleçi aşağı taşı"
 
-#: src/user_actions.rs:1845
+#: src/user_actions.rs:1846
 msgid "Select all"
 msgstr "Tümünü seç"
 
-#: src/user_actions.rs:1851
+#: src/user_actions.rs:1852
 msgid "Unselect all"
 msgstr "Tüm seçimleri kaldır"
 
-#: src/user_actions.rs:1857
+#: src/user_actions.rs:1858
 msgid "Select all files"
 msgstr "Tüm dosyaları seç"
 
-#: src/user_actions.rs:1863
+#: src/user_actions.rs:1864
 msgid "Unselect all files"
 msgstr "Tüm dosya seçimlerini kaldır"
 
-#: src/user_actions.rs:1869
+#: src/user_actions.rs:1870
 msgid "Select with pattern"
 msgstr "Örüntü ile seç"
 
-#: src/user_actions.rs:1875
+#: src/user_actions.rs:1876
 msgid "Unselect with pattern"
 msgstr "Örüntü ile seçimleri kaldır"
 
-#: src/user_actions.rs:1881
+#: src/user_actions.rs:1882
 msgid "Invert selection"
 msgstr "Seçimi ters çevir"
 
-#: src/user_actions.rs:1887
+#: src/user_actions.rs:1888
 msgid "Select with same extension"
 msgstr "Aynı uzantı ile seç"
 
-#: src/user_actions.rs:1893
+#: src/user_actions.rs:1894
 msgid "Unselect with same extension"
 msgstr "Aynı Uzantı ile seçimleri kaldır"
 
-#: src/user_actions.rs:1899
+#: src/user_actions.rs:1900
 msgid "Restore selection"
 msgstr "Seçimi geri yükle"
 
-#: src/user_actions.rs:1905
+#: src/user_actions.rs:1906
 msgid "Compare directories"
-msgstr "Dizinleri kıyasla"
+msgstr "Dizinleri karşılaştır"
 
-#: src/user_actions.rs:1920
+#: src/user_actions.rs:1921
 msgid "Show user defined files"
 msgstr "Kullanıcı tanımlı dosyaları göster"
 
-#: src/user_actions.rs:1934
+#: src/user_actions.rs:1935
 msgid "Execute command"
 msgstr "Komut çalıştır"
 
-#: src/user_actions.rs:1960
+#: src/user_actions.rs:1961
 msgid "Show directory history"
 msgstr "Dizin geçmişini göster"
 
-#: src/user_actions.rs:1965
+#: src/user_actions.rs:1966
 msgid "Show hidden files"
 msgstr "Gizli dosyaları göster"
 
-#: src/user_actions.rs:1970
+#: src/user_actions.rs:1971
 msgid "Show backup files"
 msgstr "Yedek dosyalarını göster"
 
-#: src/user_actions.rs:1977
+#: src/user_actions.rs:1978
 msgid "Back to the first directory"
 msgstr "İlk dizine geri dön"
 
-#: src/user_actions.rs:1983
+#: src/user_actions.rs:1984
 msgid "Back one directory"
 msgstr "Bir dizin geriye"
 
-#: src/user_actions.rs:1989
+#: src/user_actions.rs:1990
 msgid "Forward one directory"
 msgstr "Bir dizin ilerle"
 
-#: src/user_actions.rs:1995
+#: src/user_actions.rs:1996
 msgid "Forward to the last directory"
 msgstr "Son dizine ilerle"
 
-#: src/user_actions.rs:2006
+#: src/user_actions.rs:2007
 msgid "Equal panel size"
 msgstr "Eşit bölme boyutu"
 
-#: src/user_actions.rs:2011
+#: src/user_actions.rs:2012
 msgid "Maximize panel size"
 msgstr "Bölme boyutunu azami yap"
 
-#: src/user_actions.rs:2017
+#: src/user_actions.rs:2018
 msgid "Open directory in the left window"
 msgstr "Dizini, sol pencerede aç"
 
-#: src/user_actions.rs:2023
+#: src/user_actions.rs:2024
 msgid "Open directory in the right window"
 msgstr "Dizini, sağ pencerede aç"
 
-#: src/user_actions.rs:2029
+#: src/user_actions.rs:2030
 msgid "Open directory in the active window"
 msgstr "Dizini, etkin bir pencerede aç"
 
-#: src/user_actions.rs:2035
+#: src/user_actions.rs:2036
 msgid "Open directory in the inactive window"
 msgstr "Dizini, etkin olmayan bir pencerede aç"
 
-#: src/user_actions.rs:2041
+#: src/user_actions.rs:2042
 msgid "Change directory"
 msgstr "Dizini değiştir"
 
-#: src/user_actions.rs:2047
+#: src/user_actions.rs:2048
 msgid "Home directory"
 msgstr "Ev dizini"
 
-#: src/user_actions.rs:2053
+#: src/user_actions.rs:2054
 msgid "Root directory"
 msgstr "Kök dizini"
 
-#: src/user_actions.rs:2059
+#: src/user_actions.rs:2060
 msgid "Open directory in a new tab"
 msgstr "Dizini, yeni bir sekmede aç"
 
-#: src/user_actions.rs:2065
+#: src/user_actions.rs:2066
 msgid "Close the current tab"
 msgstr "Geçerli sekmeyi kapat"
 
-#: src/user_actions.rs:2071
+#: src/user_actions.rs:2072
 msgid "Close all tabs"
 msgstr "Tüm sekmeleri kapat"
 
-#: src/user_actions.rs:2077
+#: src/user_actions.rs:2078
 msgid "Close duplicate tabs"
 msgstr "Aynı olan sekmeleri kapat"
 
-#: src/user_actions.rs:2083
+#: src/user_actions.rs:2084
 msgid "Previous tab"
 msgstr "Önceki sekme"
 
-#: src/user_actions.rs:2089
+#: src/user_actions.rs:2090
 msgid "Next tab"
 msgstr "Sonraki sekme"
 
-#: src/user_actions.rs:2095
+#: src/user_actions.rs:2096
 msgid "Open directory in the new tab"
 msgstr "Dizini, yeni bir sekmede aç"
 
-#: src/user_actions.rs:2101
+#: src/user_actions.rs:2102
 msgid "Open directory in the new tab (inactive window)"
 msgstr "Dizini, yeni bir sekmede aç (etkin olmayan pencere)"
 
-#: src/user_actions.rs:2107
+#: src/user_actions.rs:2108
 msgid "Lock/unlock tab"
 msgstr "Sekmeye kilitle/aç"
 
-#: src/user_actions.rs:2117
+#: src/user_actions.rs:2118
 msgid "Display main menu"
 msgstr "Ana menüyü göster"
 
-#: src/user_actions.rs:2123
+#: src/user_actions.rs:2124
 msgid "Move cursor one step up"
 msgstr "İmleci bir üst satıra taşı"
 
-#: src/user_actions.rs:2129
+#: src/user_actions.rs:2130
 msgid "Move cursor one step down"
 msgstr "İmleci bir alt satıra taşı"
 
-#: src/user_actions.rs:2136
+#: src/user_actions.rs:2137
 msgid "Bookmark current directory"
 msgstr "Geçerli dizini yer imlerine ekle"
 
-#: src/user_actions.rs:2142
+#: src/user_actions.rs:2143
 msgid "Manage bookmarks"
 msgstr "Yer imlerini yönet"
 
-#: src/user_actions.rs:2149
+#: src/user_actions.rs:2150
 msgid "Go to bookmarked location"
 msgstr "Yer imlerindeki konuma git"
 
-#: src/user_actions.rs:2155
+#: src/user_actions.rs:2156
 msgid "Show bookmarks of current device"
 msgstr "Geçerli aygıtın yer imlerini göster"
 
-#: src/user_actions.rs:2168
+#: src/user_actions.rs:2169
 msgid "Keyboard shortcuts"
 msgstr "Klavye kısayolları"
 
-#: src/user_actions.rs:2175
+#: src/user_actions.rs:2176
 msgid "Open connection"
 msgstr "Bağlantı aç"
 
-#: src/user_actions.rs:2181
+#: src/user_actions.rs:2182
 msgid "New connection"
 msgstr "Yeni bağlantı"
 
-#: src/user_actions.rs:2188
+#: src/user_actions.rs:2189
 msgid "Set connection"
 msgstr "Bağlantıyı ayarla"
 
-#: src/user_actions.rs:2194
+#: src/user_actions.rs:2195
 msgid "Change left connection"
 msgstr "Sol bağlantıyı değiştir"
 
-#: src/user_actions.rs:2200
+#: src/user_actions.rs:2201
 msgid "Change right connection"
 msgstr "Sağ bağlantıyı değiştir"
 
-#: src/user_actions.rs:2207 src/user_actions.rs:2213
+#: src/user_actions.rs:2208 src/user_actions.rs:2214
 msgid "Close connection"
 msgstr "Bağlantıyı kapat"
 
-#: src/user_actions.rs:2220
+#: src/user_actions.rs:2221
 msgid "Configure plugins"
 msgstr "Eklentileri yapılandır"
 
-#: src/user_actions.rs:2234
+#: src/user_actions.rs:2235
 msgid "Help contents"
 msgstr "Yardım içeriği"
 
-#: src/user_actions.rs:2240
+#: src/user_actions.rs:2241
 msgid "Help on keyboard shortcuts"
 msgstr "Klavye kısayolları yardımı"
 
-#: src/user_actions.rs:2246
+#: src/user_actions.rs:2247
 msgid "GNOME Commander on the web"
 msgstr "GNOME Commander web sayfası"
 
-#: src/user_actions.rs:2252
+#: src/user_actions.rs:2253
 msgid "Report a problem"
 msgstr "Bir hata raporla"
 
-#: src/user_actions.rs:2258
+#: src/user_actions.rs:2259
 msgid "About GNOME Commander"
 msgstr "GNOME Commander Hakkında"
 
@@ -8907,3 +8910,14 @@ msgstr[0] "{} kiB"
 msgid "{} byte"
 msgid_plural "{} bytes"
 msgstr[0] "{} bayt"
+
+#~ msgctxt "Filename suffix"
+#~ msgid "Copy"
+#~ msgstr "Kopyala"
+
+#~ msgid ""
+#~ "<b>{name}</b>\n"
+#~ "<span color='dimgray' size='smaller'>{size}, {time}</span>"
+#~ msgstr ""
+#~ "<b>{name}</b>\n"
+#~ "<span color='dimgray' size='smaller'>{size}, {time}</span>"
