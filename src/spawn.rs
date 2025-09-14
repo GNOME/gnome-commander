@@ -24,7 +24,6 @@ use crate::{
     data::ProgramsOptionsRead,
     debug::debug,
     file::File,
-    libgcmd::file_descriptor::FileDescriptorExt,
     utils::{make_run_in_terminal_command, ErrorMessage},
 };
 use gettextrs::gettext;

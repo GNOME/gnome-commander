@@ -21,7 +21,6 @@ use crate::{
     data::{GeneralOptionsRead, GeneralOptionsWrite, ProgramsOptionsRead, WriteResult},
     debug::debug,
     file::File,
-    libgcmd::file_descriptor::FileDescriptorExt,
     spawn::{parse_command_template, spawn_async_command},
     utils::{make_run_in_terminal_command, ErrorMessage},
 };
@@ -180,11 +179,6 @@ pub enum App {
 }
 
 impl App {
-    pub unsafe fn into_raw(self) -> *mut App {
-        let app = Box::new(self);
-        Box::leak(app) as *mut App
-    }
-
     pub fn name(&self) -> String {
         match self {
             App::Regular(app) => app.name(),

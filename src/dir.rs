@@ -21,29 +21,20 @@
  */
 
 use crate::{
-    connection::connection::{ffi::GnomeCmdCon, Connection, ConnectionExt},
+    connection::{
+        connection::{Connection, ConnectionExt},
+        remote::{ConnectionRemote, ConnectionRemoteExt},
+    },
     debug::debug,
     dirlist::list_directory,
-    file::{ffi::GnomeCmdFile, File},
+    file::File,
     libgcmd::file_descriptor::{FileDescriptor, FileDescriptorExt},
     path::GnomeCmdPath,
     utils::ErrorMessage,
 };
 use gettextrs::gettext;
-use gtk::{
-    gio::{
-        self,
-        ffi::{GFile, GFileInfo},
-    },
-    glib::{
-        self,
-        ffi::{gboolean, GError, GType},
-        translate::{from_glib_borrow, from_glib_full, Borrowed, IntoGlib, ToGlibPtr},
-    },
-    prelude::*,
-    subclass::prelude::*,
-};
-use std::path::Path;
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
+use std::path::{Path, PathBuf};
 
 mod imp {
     use super::*;
@@ -72,6 +63,7 @@ mod imp {
         pub needs_mtime_update: Cell<bool>,
         pub file_monitor: RefCell<Option<gio::FileMonitor>>,
         pub monitor_users: Cell<u32>,
+        pub lock: Cell<bool>,
     }
 
     #[glib::object_subclass]
@@ -89,6 +81,7 @@ mod imp {
                 needs_mtime_update: Default::default(),
                 file_monitor: Default::default(),
                 monitor_users: Default::default(),
+                lock: Default::default(),
             }
         }
     }
@@ -134,34 +127,6 @@ mod imp {
     impl FileImpl for Directory {}
 }
 
-pub mod ffi {
-    use crate::{connection::connection::ffi::GnomeCmdCon, path::GnomeCmdPath};
-    use gtk::{
-        gio::ffi::{GFile, GFileInfo},
-        glib::ffi::gboolean,
-    };
-    use std::ffi::c_char;
-
-    pub type GnomeCmdDir = <super::Directory as glib::object::ObjectType>::GlibType;
-
-    extern "C" {
-        pub fn gnome_cmd_dir_new_from_gfileinfo(
-            file_info: *mut GFileInfo,
-            parent: *mut GnomeCmdDir,
-        ) -> *mut GnomeCmdDir;
-        pub fn gnome_cmd_dir_new(
-            dir: *mut GnomeCmdCon,
-            path: *const GnomeCmdPath,
-            is_startup: gboolean,
-        ) -> *mut GnomeCmdDir;
-
-        pub fn gnome_cmd_dir_get_child_gfile(
-            dir: *mut GnomeCmdDir,
-            filename: *const c_char,
-        ) -> *mut GFile;
-    }
-}
-
 glib::wrapper! {
     pub struct Directory(ObjectSubclass<imp::Directory>)
         @extends File,
@@ -180,76 +145,88 @@ pub enum DirectoryState {
 
 impl Directory {
     pub fn new_from_file_info(file_info: &gio::FileInfo, parent: &Directory) -> Option<Self> {
-        unsafe {
-            from_glib_full(ffi::gnome_cmd_dir_new_from_gfileinfo(
-                file_info.to_glib_full(),
-                parent.to_glib_none().0,
-            ))
-        }
+        let connection = parent.connection();
+        let dir_name = file_info.name();
+
+        let (file, path) = if let Some(file) = file_for_connection_and_filename(parent, &dir_name) {
+            let uri = glib::Uri::parse(&file.uri(), glib::UriFlags::NONE).ok()?;
+            let path = connection.create_path(Path::new(&uri.path()));
+            (file, path)
+        } else {
+            let parent_path = parent.path();
+            let path = parent_path.child(&dir_name);
+            let file = connection.create_gfile(&path);
+            (file, path)
+        };
+        Some(Self::find_or_create(&connection, &file, file_info, path))
     }
 
+    #[deprecated(
+        note = "This function panics when file info query fails. Prefer Self::try_new instead."
+    )]
     pub fn new(connection: &impl IsA<Connection>, path: GnomeCmdPath) -> Self {
-        unsafe {
-            from_glib_full(ffi::gnome_cmd_dir_new(
-                connection.as_ref().to_glib_none().0,
-                path.into_raw(),
-                false as gboolean,
-            ))
-        }
+        Self::try_new(connection, path).expect("directory file info")
     }
 
-    pub fn new_startup(connection: &Connection, path: GnomeCmdPath) -> Option<Self> {
-        unsafe {
-            from_glib_full(ffi::gnome_cmd_dir_new(
-                connection.to_glib_none().0,
-                path.into_raw(),
-                true as gboolean,
-            ))
-        }
+    pub fn try_new(
+        connection: &impl IsA<Connection>,
+        path: GnomeCmdPath,
+    ) -> Result<Self, ErrorMessage> {
+        let connection = connection.as_ref();
+        let file = connection.create_gfile(&path);
+        let file_info = file
+            .query_info("*", gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE)
+            .map_err(|error| {
+                ErrorMessage::with_error(
+                    gettext("Failed to get directory info for {path}.")
+                        .replace("{path}", &path.to_string()),
+                    &error,
+                )
+            })?;
+        Ok(Self::find_or_create(connection, &file, &file_info, path))
     }
 
     pub fn new_with_con(connection: &Connection) -> Option<Self> {
         let base_file_info = connection.base_file_info()?;
         let base_path = connection.base_path()?;
         let file = connection.create_gfile(&base_path);
-        match Self::find_or_create(&connection, &file, Some(&base_file_info), base_path.clone()) {
-            Ok(directory) => Some(directory),
-            Err(error) => {
-                eprintln!("Directory::new_with_con error on {}: {}", file.uri(), error);
-                None
-            }
-        }
+        Some(Self::find_or_create(
+            &connection,
+            &file,
+            &base_file_info,
+            base_path.clone(),
+        ))
     }
 
-    fn new_impl(
+    fn new_full(
         connection: &Connection,
         file: &gio::File,
-        _file_info: Option<&gio::FileInfo>,
+        file_info: &gio::FileInfo,
         path: GnomeCmdPath,
-    ) -> Result<Self, glib::Error> {
-        let this: Self = glib::Object::builder().build();
-        this.upcast_ref::<File>().setup(file)?;
+    ) -> Self {
+        let this: Self = glib::Object::builder()
+            .property("file", file)
+            .property("file-info", file_info)
+            .build();
         this.imp().connection.replace(Some(connection.clone()));
         this.imp().path.replace(Some(path));
-        Ok(this)
+        this
     }
 
-    fn find_or_create(
+    pub fn find_or_create(
         connection: &Connection,
         file: &gio::File,
-        file_info: Option<&gio::FileInfo>,
+        file_info: &gio::FileInfo,
         path: GnomeCmdPath,
-    ) -> Result<Self, glib::Error> {
+    ) -> Self {
         let uri = file.uri();
         if let Some(directory) = connection.cache_lookup(&uri) {
-            if let Some(file_info) = file_info {
-                directory.upcast_ref::<File>().set_file_info(file_info);
-            }
-            Ok(directory)
+            directory.upcast_ref::<File>().set_file_info(file_info);
+            directory
         } else {
-            let directory = Self::new_impl(connection, file, file_info, path)?;
+            let directory = Self::new_full(connection, file, file_info, path);
             connection.add_to_cache(&directory, &uri);
-            Ok(directory)
+            directory
         }
     }
 
@@ -269,10 +246,10 @@ impl Directory {
         }
     }
 
-    pub fn child(&self, name: &Path) -> Option<Directory> {
+    pub fn child(&self, name: &Path) -> Result<Directory, ErrorMessage> {
         let connection = self.connection();
         let path = self.path().child(name);
-        Some(Directory::new(&connection, path))
+        Directory::try_new(&connection, path)
     }
 
     pub fn display_path(&self) -> String {
@@ -352,12 +329,9 @@ impl Directory {
     }
 
     pub fn get_child_gfile(&self, filename: &Path) -> gio::File {
-        unsafe {
-            from_glib_full(ffi::gnome_cmd_dir_get_child_gfile(
-                self.to_glib_none().0,
-                filename.to_glib_none().0,
-            ))
-        }
+        let connection = self.connection();
+        file_for_connection_and_filename(self, filename)
+            .unwrap_or_else(|| connection.create_gfile(&self.path().child(filename)))
     }
 
     pub fn path(&self) -> GnomeCmdPath {
@@ -577,14 +551,90 @@ impl Directory {
     }
 }
 
+/// Get the relative directory path string for the given base path
+///
+/// For example, let childPath be "/tmp/abc" and basePath is the path "/tmp/"
+/// (from the original URI smb://localhost/tmp/). Then the return would be
+/// the the address pointing to "/" (which is the second slash from "/tmp/").
+/// If childPath is pointing to "/tmp/abc" and the basePath points
+/// to "/xyz", then the return points to "/" because /xzy is relative
+/// to the /tmp on the same directory level.
+fn get_relative_path_string(child: Option<&Path>, base: &Path) -> PathBuf {
+    let Some(child) = child else {
+        return base.to_path_buf();
+    };
+
+    if base == Path::new("/") {
+        return child.to_path_buf();
+    }
+
+    if let Ok(tail) = child.strip_prefix(base) {
+        tail.to_path_buf()
+    } else {
+        PathBuf::from("/")
+    }
+}
+
+fn remote_connection_mount(con: &ConnectionRemote) -> Option<gio::File> {
+    let mut file = gio::File::for_uri(&con.uri_string()?);
+    loop {
+        if let Some(parent) = file.parent() {
+            file = parent;
+        } else {
+            break;
+        }
+        if file.find_enclosing_mount(gio::Cancellable::NONE).is_err() {
+            break;
+        }
+    }
+    Some(file)
+}
+
+/// This function returns a GFile object which is the result of the URI construction of
+/// two URI's and a path: the connection URI, which is the private member of GnomeCmdDir,
+/// the directory path inside of that connection, and the given filename string.
+fn file_for_connection_and_filename(dir: &Directory, filename: &Path) -> Option<gio::File> {
+    let Ok(con) = dir.connection().downcast::<ConnectionRemote>() else {
+        return None;
+    };
+
+    // Get the Uri for the mount which belongs to the GnomeCmdCon object
+    let mount_file = remote_connection_mount(&con)?;
+    let mut mount_uri = mount_file.uri().to_string();
+
+    // Always let the connection URI to end with '/' because the last entry should be a directory
+    if mount_uri.ends_with('/') {
+        mount_uri.push('/')
+    }
+
+    // Create the merged URI out of the connection URI, the directory path and the filename
+    let dir_path = dir.path().path();
+
+    let rel_dir_to_uri_path =
+        get_relative_path_string(Some(&dir_path), &mount_file.path().unwrap());
+    let merged_dir_and_filename = Path::new(".").join(rel_dir_to_uri_path).join(filename);
+
+    match glib::Uri::resolve_relative(
+        Some(&mount_uri),
+        &merged_dir_and_filename.to_str().unwrap_or_default(),
+        glib::UriFlags::NONE,
+    ) {
+        Ok(uri) => Some(gio::File::for_uri(&uri)),
+        Err(error) => {
+            eprintln!("Could not resolve relative URI: {error}");
+            None
+        }
+    }
+}
+
 struct DirectoryLock<'d>(&'d Directory);
 
 impl<'d> DirectoryLock<'d> {
     fn try_acquire(dir: &'d Directory) -> Option<Self> {
-        if unsafe { dir.data::<bool>("lock") }.is_some() {
+        if dir.imp().lock.get() {
             None
         } else {
-            unsafe { dir.set_data::<bool>("lock", true) }
+            dir.imp().lock.set(true);
             Some(Self(dir))
         }
     }
@@ -596,9 +646,7 @@ impl<'d> DirectoryLock<'d> {
 
 impl<'d> Drop for DirectoryLock<'d> {
     fn drop(&mut self) {
-        unsafe {
-            self.0.steal_data::<bool>("lock");
-        }
+        self.0.imp().lock.set(false);
     }
 }
 
@@ -613,48 +661,4 @@ fn create_file_from_file_info(file_info: &gio::FileInfo, parent: &Directory) -> 
     } else {
         Some(File::new(&file_info, parent))
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_dir_get_type() -> GType {
-    Directory::static_type().into_glib()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_dir_find_or_create(
-    con: *mut GnomeCmdCon,
-    file: *mut GFile,
-    file_info: *mut GFileInfo,
-    path: *mut GnomeCmdPath,
-    error: *mut *mut GError,
-) -> *mut ffi::GnomeCmdDir {
-    let connection: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
-    let file: gio::File = unsafe { from_glib_full(file) };
-    let file_info: Option<gio::FileInfo> = unsafe { from_glib_full(file_info) };
-    let path = unsafe { GnomeCmdPath::from_raw(path) };
-    match Directory::find_or_create(&connection, &file, file_info.as_ref(), path) {
-        Ok(directory) => directory.to_glib_full(),
-        Err(e) => {
-            unsafe {
-                *error = e.to_glib_full();
-            }
-            std::ptr::null_mut()
-        }
-    }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_dir_get_connection(file: *mut GnomeCmdFile) -> *mut GnomeCmdCon {
-    let file: Borrowed<File> = unsafe { from_glib_borrow(file) };
-    file.downcast_ref::<Directory>()
-        .unwrap()
-        .connection()
-        .to_glib_none()
-        .0
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_dir_get_path(dir: *mut ffi::GnomeCmdDir) -> *mut GnomeCmdPath {
-    let dir: Borrowed<Directory> = unsafe { from_glib_borrow(dir) };
-    dir.path().into_raw()
 }

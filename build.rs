@@ -1,8 +1,4 @@
 fn main() {
-    for dep in ["gcmd-main", "stdc++", "gcmd"] {
-        println!("cargo:rustc-link-lib={dep}");
-    }
-    // allow plugins to see symbols
-    println!("cargo:rustc-link-arg=-rdynamic");
+    println!("cargo:rustc-link-lib=gcmd");
     system_deps::Config::new().probe().unwrap();
 }

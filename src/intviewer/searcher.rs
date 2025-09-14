@@ -67,12 +67,24 @@ pub enum SearchProgress {
 }
 
 impl Searcher {
-    pub fn new() -> Self {
-        glib::Object::builder().build()
+    fn new(
+        input_mode: Arc<InputMode>,
+        search_mode: imp::SearchMode,
+        start_offset: u64,
+        max_offset: u64,
+    ) -> Self {
+        let this: Self = glib::Object::builder().build();
+        this.imp().input_mode.set(input_mode).ok().unwrap();
+        this.imp().search_mode.set(search_mode).ok().unwrap();
+        this.imp()
+            .start_offset
+            .store(start_offset, Ordering::SeqCst);
+        this.imp().max_offset.store(max_offset, Ordering::SeqCst);
+        this
     }
 
-    pub fn setup_new_text_search(
-        imd: Arc<InputMode>,
+    pub fn new_text_search(
+        input_mode: Arc<InputMode>,
         start_offset: u64,
         max_offset: u64,
         text: &str,
@@ -86,22 +98,16 @@ impl Searcher {
         let bm_reverse =
             boyer_moore_string_new(&text.chars().rev().collect::<String>(), case_sensitive)?;
 
-        let this = Self::new();
-        this.imp().input_mode.set(imd.clone()).ok().unwrap();
-        this.imp()
-            .search_mode
-            .set(imp::SearchMode::Text(bm, bm_reverse))
-            .ok()
-            .unwrap();
-        this.imp()
-            .start_offset
-            .store(start_offset, Ordering::SeqCst);
-        this.imp().max_offset.store(max_offset, Ordering::SeqCst);
-        Some(this)
+        Some(Self::new(
+            input_mode,
+            imp::SearchMode::Text(bm, bm_reverse),
+            start_offset,
+            max_offset,
+        ))
     }
 
-    pub fn setup_new_hex_search(
-        imd: Arc<InputMode>,
+    pub fn new_hex_search(
+        input_mode: Arc<InputMode>,
         start_offset: u64,
         max_offset: u64,
         buffer: &[u8],
@@ -114,18 +120,16 @@ impl Searcher {
         let bm_reverse =
             boyer_moore_bytes_new(buffer.into_iter().rev().cloned().collect::<Vec<u8>>())?;
 
-        let this = Self::new();
-        this.imp().input_mode.set(imd.clone()).ok().unwrap();
-        this.imp()
-            .search_mode
-            .set(imp::SearchMode::Hex(bm, bm_reverse))
-            .ok()
-            .unwrap();
-        this.imp()
-            .start_offset
-            .store(start_offset, Ordering::SeqCst);
-        this.imp().max_offset.store(max_offset, Ordering::SeqCst);
-        Some(this)
+        Some(Self::new(
+            input_mode,
+            imp::SearchMode::Hex(bm, bm_reverse),
+            start_offset,
+            max_offset,
+        ))
+    }
+
+    fn input_mode(&self) -> Arc<InputMode> {
+        self.imp().input_mode.get().unwrap().clone()
     }
 
     pub fn search<F: Fn(u32) + Send + Sync + 'static>(&self, forward: bool, f: F) -> Option<u64> {
@@ -182,7 +186,7 @@ impl Searcher {
     }
 
     fn search_text_forward(&self, bm: &BoyerMoore<char>) -> bool {
-        let imd = self.imp().input_mode.get().unwrap();
+        let imd = self.input_mode();
         let update_interval = self.update_interval();
 
         let m = bm.pattern.len() as u64;
@@ -226,7 +230,7 @@ impl Searcher {
     }
 
     fn search_text_backward(&self, bm: &BoyerMoore<char>) -> bool {
-        let imd = self.imp().input_mode.get().unwrap();
+        let imd = self.input_mode();
         let update_interval = self.update_interval();
 
         let m = bm.pattern.len() as u64;
@@ -272,7 +276,7 @@ impl Searcher {
     }
 
     fn search_hex_forward(&self, bm: &BoyerMoore<u8>) -> bool {
-        let imd = self.imp().input_mode.get().unwrap();
+        let imd = self.input_mode();
         let update_interval = self.update_interval();
 
         let m = bm.pattern.len() as u64;
@@ -312,7 +316,7 @@ impl Searcher {
     }
 
     fn search_hex_backward(&self, bm: &BoyerMoore<u8>) -> bool {
-        let imd = self.imp().input_mode.get().unwrap();
+        let imd = self.input_mode();
         let update_interval = self.update_interval();
 
         let m = bm.pattern.len() as u64;

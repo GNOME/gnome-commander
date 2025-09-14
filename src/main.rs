@@ -66,6 +66,7 @@ mod transfer;
 mod types;
 mod user_actions;
 mod utils;
+mod weak_set;
 
 mod gmodule;
 

@@ -21,7 +21,6 @@ use crate::{
     chown_component::ChownComponent,
     dir::Directory,
     file::File,
-    libgcmd::file_descriptor::FileDescriptorExt,
     pwd::{gid_t, uid, uid_t},
     utils::{dialog_button_box, ErrorMessage, SenderExt, NO_BUTTONS},
 };

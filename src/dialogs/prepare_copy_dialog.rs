@@ -19,9 +19,8 @@
 
 use super::prepare_transfer_dialog::PrepareTransferDialog;
 use crate::{
-    data::ConfirmOptionsRead, file_selector::FileSelector,
-    libgcmd::file_descriptor::FileDescriptorExt, main_win::MainWindow, transfer::copy_files,
-    types::ConfirmOverwriteMode, utils::bold,
+    data::ConfirmOptionsRead, file_selector::FileSelector, main_win::MainWindow,
+    transfer::copy_files, types::ConfirmOverwriteMode, utils::bold,
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gio, prelude::*};

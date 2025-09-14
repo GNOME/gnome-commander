@@ -25,24 +25,8 @@ use super::{
     remote::ConnectionRemote, remote::ConnectionRemoteExt, smb::ConnectionSmb,
 };
 use crate::{debug::debug, dir::Directory, file::File, path::GnomeCmdPath, utils::ErrorMessage};
-use gtk::{
-    gio::{self, ffi::GFile},
-    glib::{
-        self,
-        ffi::{gboolean, GType},
-        translate::*,
-    },
-    prelude::*,
-    subclass::prelude::*,
-};
-use std::{
-    collections::HashMap,
-    ffi::c_char,
-    future::Future,
-    ops::Deref,
-    path::{Path, PathBuf},
-    pin::Pin,
-};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
+use std::{collections::HashMap, future::Future, ops::Deref, path::Path, pin::Pin};
 
 mod imp {
     use super::*;
@@ -115,10 +99,6 @@ mod imp {
 pub trait ConnectionImpl: ObjectImpl {}
 
 unsafe impl<T: ConnectionImpl> IsSubclassable<T> for Connection {}
-
-pub mod ffi {
-    pub type GnomeCmdCon = <super::Connection as glib::object::ObjectType>::GlibType;
-}
 
 glib::wrapper! {
     pub struct Connection(ObjectSubclass<imp::Connection>);
@@ -260,7 +240,7 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
     }
 
     fn replace_bookmark(&self, old_bookmark: &Bookmark, new_bookmark: Bookmark) {
-        let bookmarks = self.bookmarks().downcast::<gio::ListStore>().unwrap();
+        let bookmarks = &self.as_ref().imp().bookmarks;
         let Some(position): Option<u32> = bookmarks
             .iter()
             .position(|b| b.as_ref() == Ok(old_bookmark))
@@ -272,7 +252,7 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
     }
 
     fn move_bookmark_up(&self, bookmark: &Bookmark) -> Option<u32> {
-        let bookmarks = self.bookmarks().downcast::<gio::ListStore>().unwrap();
+        let bookmarks = &self.as_ref().imp().bookmarks;
         let Some(position): Option<u32> = bookmarks
             .iter()
             .position(|b| b.as_ref() == Ok(bookmark))
@@ -290,7 +270,7 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
     }
 
     fn move_bookmark_down(&self, bookmark: &Bookmark) -> Option<u32> {
-        let bookmarks = self.bookmarks().downcast::<gio::ListStore>().unwrap();
+        let bookmarks = &self.as_ref().imp().bookmarks;
         let Some(position): Option<u32> = bookmarks
             .iter()
             .position(|b| b.as_ref() == Ok(bookmark))
@@ -308,7 +288,7 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
     }
 
     fn remove_bookmark(&self, bookmark: &Bookmark) {
-        let bookmarks = self.bookmarks().downcast::<gio::ListStore>().unwrap();
+        let bookmarks = &self.as_ref().imp().bookmarks;
         let Some(position): Option<u32> = bookmarks
             .iter()
             .position(|b| b.as_ref() == Ok(bookmark))
@@ -503,35 +483,4 @@ pub trait ConnectionInterface {
                 error
             })
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_get_type() -> GType {
-    Connection::static_type().into_glib()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_is_local(con: *mut ffi::GnomeCmdCon) -> gboolean {
-    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
-    con.is_local().into_glib()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_create_gfile(
-    con: *const ffi::GnomeCmdCon,
-    path: *mut GnomeCmdPath,
-) -> *mut GFile {
-    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
-    let path: &GnomeCmdPath = unsafe { &*path };
-    con.create_gfile(path).to_glib_full()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_create_path(
-    con: *const ffi::GnomeCmdCon,
-    path_str: *const c_char,
-) -> *mut GnomeCmdPath {
-    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
-    let path: PathBuf = unsafe { from_glib_none(path_str) };
-    con.create_path(&path).into_raw()
 }

@@ -587,18 +587,22 @@ mod imp {
                 .map(move |con| (con, mount))
         }
 
-        fn start_directory(&self, file: &gio::File) -> Option<Directory> {
+        fn start_directory(&self, file: &gio::File) -> Result<Directory, ErrorMessage> {
             if let Some((connection, mount)) = self.find_connection_and_mount(file) {
-                let path = mount.root().relative_path(file)?;
-                Some(Directory::new(&connection, connection.create_path(&path)))
+                let path = mount.root().relative_path(file).ok_or_else(|| {
+                    ErrorMessage::brief(gettext("Cannot extract a relative file path"))
+                })?;
+                Directory::try_new(&connection, connection.create_path(&path))
             } else if file.uri_scheme().as_deref() == Some("file") {
                 let connection = ConnectionList::get().home();
-                Some(Directory::new(
-                    &connection,
-                    connection.create_path(&file.path()?),
-                ))
+                let path = file
+                    .path()
+                    .ok_or_else(|| ErrorMessage::brief(gettext("Cannot extract a file path")))?;
+                Directory::try_new(&connection, connection.create_path(&path))
             } else {
-                None
+                Err(ErrorMessage::brief(gettext(
+                    "Failed to detect a start directory",
+                )))
             }
         }
 
@@ -607,11 +611,12 @@ mod imp {
                 return;
             };
 
-            let Some(start_dir) = self.start_directory(&file) else {
-                ErrorMessage::brief(gettext("Failed to detect a start directory"))
-                    .show(self.obj().upcast_ref())
-                    .await;
-                return;
+            let start_dir = match self.start_directory(&file) {
+                Ok(dir) => dir,
+                Err(error) => {
+                    error.show(self.obj().upcast_ref()).await;
+                    return;
+                }
             };
 
             let Some(result_list) = self.result_list.borrow().clone() else {

@@ -2294,17 +2294,24 @@ impl FileList {
                 let connection = self
                     .connection()
                     .unwrap_or_else(|| ConnectionList::get().home().upcast());
-                new_dir = Some(Directory::new(&connection, connection.create_path(&dir)));
+                new_dir = Some(Directory::try_new(
+                    &connection,
+                    connection.create_path(&dir),
+                )?);
             } else if dir.starts_with("\\\\") {
                 let connection = ConnectionList::get().smb().ok_or_else(|| {
                     ErrorMessage::brief(gettext("No SAMBA connection is available"))
                 })?;
-                new_dir = Some(Directory::new(&connection, connection.create_path(&dir)));
+                new_dir = Some(Directory::try_new(
+                    &connection,
+                    connection.create_path(&dir),
+                )?);
             } else {
-                let cwd = self
+                let child_dir = self
                     .directory()
-                    .ok_or_else(|| ErrorMessage::brief(gettext("Current directory is not set.")))?;
-                new_dir = cwd.child(&dir);
+                    .ok_or_else(|| ErrorMessage::brief(gettext("Current directory is not set.")))
+                    .and_then(|cwd| cwd.child(&dir))?;
+                new_dir = Some(child_dir);
             }
         }
 

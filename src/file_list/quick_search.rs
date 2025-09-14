@@ -24,7 +24,7 @@ use gtk::{gdk, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
-    use crate::{data::GeneralOptionsRead, libgcmd::file_descriptor::FileDescriptorExt};
+    use crate::data::GeneralOptionsRead;
     use std::cell::{Cell, OnceCell, RefCell};
 
     #[derive(Default, glib::Properties)]

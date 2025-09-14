@@ -19,7 +19,6 @@
 
 use crate::{
     file::File,
-    libgcmd::file_descriptor::FileDescriptorExt,
     tags::{file_metadata::FileMetadata, tags::GnomeCmdTag},
 };
 use std::rc::Rc;

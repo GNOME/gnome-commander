@@ -25,7 +25,6 @@ use crate::{
     file::File,
     file_edit::file_edit,
     file_view::file_view,
-    libgcmd::file_descriptor::FileDescriptorExt,
     spawn::run_command_indir,
     transfer::download_to_temporary,
     utils::{get_modifiers_state, temp_file, ErrorMessage},

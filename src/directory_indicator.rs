@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::{dir::Directory, file::File, libgcmd::file_descriptor::FileDescriptorExt};
+use crate::{dir::Directory, file::File};
 use gtk::{gdk, glib, pango, prelude::*, subclass::prelude::*};
 use winnow::{
     combinator::{alt, opt, preceded, separated, terminated},

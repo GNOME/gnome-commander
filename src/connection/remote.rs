@@ -20,19 +20,10 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::{ffi::GnomeCmdCon, Connection, ConnectionExt, ConnectionInterface};
+use super::connection::{Connection, ConnectionExt, ConnectionInterface};
 use crate::{debug::debug, path::GnomeCmdPath, utils::ErrorMessage};
 use gettextrs::gettext;
-use gtk::{
-    gio,
-    glib::{
-        self,
-        ffi::GUri,
-        translate::{from_glib_borrow, Borrowed, ToGlibPtr},
-    },
-    prelude::*,
-    subclass::prelude::*,
-};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::{
     future::Future,
     path::{Path, PathBuf},
@@ -60,10 +51,6 @@ mod imp {
     impl ConnectionImpl for ConnectionRemote {}
 }
 
-pub mod ffi {
-    pub type GnomeCmdConRemote = <super::ConnectionRemote as glib::object::ObjectType>::GlibType;
-}
-
 glib::wrapper! {
     pub struct ConnectionRemote(ObjectSubclass<imp::ConnectionRemote>)
         @extends Connection;
@@ -80,11 +67,6 @@ pub trait ConnectionRemoteExt: IsA<ConnectionRemote> + 'static {
 
     fn uri_string(&self) -> Option<String> {
         Some(self.uri()?.to_str().to_string())
-    }
-
-    fn set_uri_string(&self, uri: Option<&str>) {
-        let uri = uri.and_then(|uri| glib::Uri::parse(uri, glib::UriFlags::NONE).ok());
-        self.set_uri(uri.as_ref());
     }
 }
 
@@ -329,13 +311,4 @@ impl ConnectionMethodID {
             _ => None,
         }
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_con_remote_get_uri(con: *const GnomeCmdCon) -> *const GUri {
-    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
-    con.downcast_ref::<ConnectionRemote>()
-        .and_then(|c| c.uri())
-        .to_glib_none()
-        .0
 }

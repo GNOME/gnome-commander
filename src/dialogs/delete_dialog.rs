@@ -24,7 +24,6 @@ use crate::{
     data::{ConfirmOptionsRead, DeleteDefault, GeneralOptionsRead},
     dir::Directory,
     file::File,
-    libgcmd::file_descriptor::FileDescriptorExt,
     utils::ErrorMessage,
 };
 use gettextrs::{gettext, ngettext};

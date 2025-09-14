@@ -31,7 +31,6 @@ use crate::{
     dir::Directory,
     file::File,
     file_list::list::{ColumnID, FileList},
-    libgcmd::file_descriptor::FileDescriptorExt,
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
     open_file::mime_exec_single,
     tab_label::TabLabel,
@@ -55,9 +54,9 @@ mod imp {
         data::{GeneralOptions, GeneralOptionsRead},
         dialogs::manage_bookmarks_dialog::bookmark_directory,
         directory_indicator::DirectoryIndicator,
-        libgcmd::file_descriptor::FileDescriptorExt,
         tab_label::TabLabel,
         utils::get_modifiers_state,
+        weak_set::WeakSet,
     };
     use std::{
         cell::{Cell, OnceCell, RefCell},
@@ -95,6 +94,7 @@ mod imp {
         list: RefCell<Option<FileList>>,
 
         select_connection_in_progress: Cell<bool>,
+        pub locked_tabs: WeakSet<FileList>,
     }
 
     #[glib::object_subclass]
@@ -206,6 +206,7 @@ mod imp {
                 list: Default::default(),
 
                 select_connection_in_progress: Default::default(),
+                locked_tabs: Default::default(),
             }
         }
     }
@@ -838,16 +839,14 @@ impl FileSelector {
     }
 
     pub fn is_tab_locked(&self, fl: &FileList) -> bool {
-        unsafe { fl.data::<()>("file-list-locked").is_some() }
+        self.imp().locked_tabs.contains(fl)
     }
 
     pub fn set_tab_locked(&self, fl: &FileList, lock: bool) {
-        unsafe {
-            if lock {
-                fl.set_data::<()>("file-list-locked", ());
-            } else {
-                fl.steal_data::<()>("file-list-locked");
-            }
+        if lock {
+            self.imp().locked_tabs.insert(fl);
+        } else {
+            self.imp().locked_tabs.remove(fl);
         }
     }
 
@@ -1137,19 +1136,24 @@ impl FileSelector {
             // Fallback to home directory
             let con = connection_list.home();
             let path = PathBuf::from(glib::home_dir());
-            if let Some(directory) =
-                Directory::new_startup(con.upcast_ref(), con.create_path(&path))
-            {
-                self.new_tab_full(
-                    Some(&directory),
-                    ColumnID::COLUMN_NAME,
-                    gtk::SortType::Ascending,
-                    false,
-                    true,
-                    false,
-                );
-            } else {
-                eprintln!("Stored path {} is invalid. Skipping", path.display());
+            match Directory::try_new(&con, con.create_path(&path)) {
+                Ok(directory) => {
+                    self.new_tab_full(
+                        Some(&directory),
+                        ColumnID::COLUMN_NAME,
+                        gtk::SortType::Ascending,
+                        false,
+                        true,
+                        false,
+                    );
+                }
+                Err(error) => {
+                    eprintln!(
+                        "Stored path {} is invalid: {}. Skipping",
+                        path.display(),
+                        error
+                    );
+                }
             }
         }
     }
@@ -1414,11 +1418,16 @@ fn restore_directory(connection_list: &ConnectionList, stored_uri: &str) -> Opti
         }
     };
 
-    if let Some(directory) = Directory::new_startup(&con, con.create_path(&path)) {
-        Some(directory)
-    } else {
-        eprintln!("Stored path {} is invalid. Skipping", path.display());
-        None
+    match Directory::try_new(&con, con.create_path(&path)) {
+        Ok(directory) => Some(directory),
+        Err(error) => {
+            eprintln!(
+                "Stored path {} is invalid: {}. Skipping",
+                path.display(),
+                error
+            );
+            None
+        }
     }
 }
 

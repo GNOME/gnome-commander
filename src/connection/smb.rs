@@ -61,10 +61,6 @@ mod imp {
     impl ConnectionImpl for ConnectionSmb {}
 }
 
-pub mod ffi {
-    pub type GnomeCmdConSmb = <super::ConnectionSmb as glib::object::ObjectType>::GlibType;
-}
-
 glib::wrapper! {
     /// @brief Class for connecting to samba and show available workgroups
     ///

@@ -24,10 +24,7 @@ use imp::TagNode;
 
 mod imp {
     use super::*;
-    use crate::{
-        libgcmd::file_descriptor::FileDescriptorExt,
-        tags::tags::{FileMetadataService, GnomeCmdTag},
-    };
+    use crate::tags::tags::{FileMetadataService, GnomeCmdTag};
     use std::cell::{OnceCell, RefCell};
 
     pub struct TagNode {

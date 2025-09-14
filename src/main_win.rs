@@ -34,7 +34,6 @@ use crate::{
     file_selector::{FileSelector, TabVariant},
     libgcmd::{
         file_actions::{FileActions, FileActionsExt},
-        file_descriptor::FileDescriptorExt,
         state::{State, StateExt},
     },
     plugin_manager::{wrap_plugin_menu, PluginManager},
@@ -1060,10 +1059,6 @@ pub mod imp {
         menu.append(Some("0 - 100"), Some("win.view-slide(0)"));
         menu
     }
-}
-
-pub mod ffi {
-    pub type GnomeCmdMainWin = <super::MainWindow as glib::object::ObjectType>::GlibType;
 }
 
 glib::wrapper! {
