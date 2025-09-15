@@ -45,7 +45,7 @@ pub mod ffi {
     pub const G_MODULE_ERROR_FAILED: GModuleError = 0;
     pub const G_MODULE_ERROR_CHECK_FAILED: GModuleError = 1;
 
-    extern "C" {
+    unsafe extern "C" {
         pub fn g_module_supported() -> gboolean;
 
         pub fn g_module_open_full(

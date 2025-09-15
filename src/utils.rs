@@ -695,8 +695,14 @@ impl GnomeCmdFileExt for gio::File {
         };
         let close_result = enumerator.close(cancellable);
         let _ = result?;
-        let _ = close_result?;
-        Ok(vec)
+        match close_result {
+            (true, None) => Ok(vec),
+            (false, None) => Err(glib::Error::new(
+                gio::IOErrorEnum::Failed,
+                &gettext("Closing of a file enumerator failed"),
+            )),
+            (_, Some(error)) => Err(error),
+        }
     }
 }
 

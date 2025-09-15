@@ -1064,7 +1064,8 @@ pub mod imp {
 glib::wrapper! {
     pub struct MainWindow(ObjectSubclass<imp::MainWindow>)
         @extends gtk::ApplicationWindow, gtk::Window, gtk::Widget,
-        @implements gio::ActionMap, gio::ActionGroup, gtk::Root;
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Root, gtk::Native,
+        gio::ActionMap, gio::ActionGroup;
 }
 
 impl MainWindow {

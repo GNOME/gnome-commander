@@ -462,7 +462,6 @@ mod imp {
 
     impl WidgetImpl for SearchDialog {}
     impl WindowImpl for SearchDialog {}
-    impl DialogImpl for SearchDialog {}
 
     impl SearchDialog {
         pub fn config(&self) -> Rc<SearchConfig> {
@@ -750,7 +749,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct SearchDialog(ObjectSubclass<imp::SearchDialog>)
-        @extends gtk::Widget, gtk::Window;
+        @extends gtk::Widget, gtk::Window,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Root, gtk::Native;
 }
 
 impl SearchDialog {

@@ -525,7 +525,7 @@ pub mod imp {
 glib::wrapper! {
     pub struct ImageRender(ObjectSubclass<imp::ImageRender>)
         @extends gtk::Widget,
-        @implements gtk::Scrollable;
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::Scrollable;
 }
 
 impl ImageRender {

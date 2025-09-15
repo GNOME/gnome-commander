@@ -144,7 +144,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct DeleteProgressDialog(ObjectSubclass<imp::DeleteProgressDialog>)
-        @extends gtk::Window, gtk::Widget;
+        @extends gtk::Window, gtk::Widget,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Root, gtk::Native;
 }
 
 impl DeleteProgressDialog {

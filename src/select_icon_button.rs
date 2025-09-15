@@ -113,7 +113,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct IconButton(ObjectSubclass<imp::IconButton>)
-        @extends gtk::Widget;
+        @extends gtk::Widget,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 }
 
 impl Default for IconButton {

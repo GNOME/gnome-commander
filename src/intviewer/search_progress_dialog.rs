@@ -89,7 +89,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct SearchProgressDialog(ObjectSubclass<imp::SearchProgressDialog>)
-        @extends gtk::Window, gtk::Widget;
+        @extends gtk::Window, gtk::Widget,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Native, gtk::Root;
 }
 
 impl SearchProgressDialog {

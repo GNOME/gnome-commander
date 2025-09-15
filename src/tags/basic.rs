@@ -78,19 +78,27 @@ impl FileTag {
 
     fn description(self) -> String {
         match self {
-            Self::Name => gettext("File name excluding path but including the file extension." ),
-            Self::Path => gettext("Full file path of file excluding the file name." ),
-            Self::Link => gettext("URI of link target." ),
-            Self::Size => gettext("Size of the file in bytes or if a directory number of items it contains." ),
-            Self::Modified => gettext("Last modified datetime." ),
-            Self::Accessed => gettext("Last access datetime." ),
-            Self::Permissions => gettext("Permission string in unix format eg “-rw-r--r--”." ),
-            Self::Format => gettext("MIME type of the file or if a directory it should contain value “Folder”." ),
-            Self::Publisher => gettext("Editable DC type for the name of the publisher of the file (EG dc:publisher field in RSS feed)." ),
-            Self::Description => gettext("Editable free text/notes." ),
-            Self::Keywords => gettext("Editable array of keywords." ),
-            Self::Rank => gettext("Editable file rank for grading favourites. Value should be in the range 1..10." ),
-            Self::Content => gettext("File’s contents filtered as plain text." ),
+            Self::Name => gettext("File name excluding path but including the file extension."),
+            Self::Path => gettext("Full file path of file excluding the file name."),
+            Self::Link => gettext("URI of link target."),
+            Self::Size => {
+                gettext("Size of the file in bytes or if a directory number of items it contains.")
+            }
+            Self::Modified => gettext("Last modified datetime."),
+            Self::Accessed => gettext("Last access datetime."),
+            Self::Permissions => gettext("Permission string in unix format eg “-rw-r--r--”."),
+            Self::Format => {
+                gettext("MIME type of the file or if a directory it should contain value “Folder”.")
+            }
+            Self::Publisher => gettext(
+                "Editable DC type for the name of the publisher of the file (EG dc:publisher field in RSS feed).",
+            ),
+            Self::Description => gettext("Editable free text/notes."),
+            Self::Keywords => gettext("Editable array of keywords."),
+            Self::Rank => gettext(
+                "Editable file rank for grading favourites. Value should be in the range 1..10.",
+            ),
+            Self::Content => gettext("File’s contents filtered as plain text."),
         }
     }
 }

@@ -205,7 +205,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct SelectionProfileComponent(ObjectSubclass<imp::SelectionProfileComponent>)
-        @extends gtk::Widget;
+        @extends gtk::Widget,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 }
 
 impl SelectionProfileComponent {

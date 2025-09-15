@@ -645,7 +645,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct ViewerWindow(ObjectSubclass<imp::ViewerWindow>)
-        @extends gtk::Widget, gtk::Window;
+        @extends gtk::Widget, gtk::Window,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Native, gtk::Root;
 }
 
 const DISP_MODE_TEXT_FIXED: &str = "text";

@@ -38,7 +38,7 @@ pub mod ffi {
         _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
     }
 
-    extern "C" {
+    unsafe extern "C" {
         pub fn gnome_cmd_file_actions_get_type() -> GType;
 
         pub fn gnome_cmd_file_actions_create_main_menu(

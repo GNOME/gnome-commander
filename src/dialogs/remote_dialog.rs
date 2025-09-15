@@ -334,7 +334,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct RemoteDialog(ObjectSubclass<imp::RemoteDialog>)
-        @extends gtk::Window, gtk::Widget;
+        @extends gtk::Window, gtk::Widget,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Root, gtk::Native;
 }
 
 impl RemoteDialog {

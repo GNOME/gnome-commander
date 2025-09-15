@@ -1118,7 +1118,7 @@ mod imp {
 glib::wrapper! {
     pub struct TextRender(ObjectSubclass<imp::TextRender>)
         @extends gtk::Widget,
-        @implements gtk::Scrollable;
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::Scrollable;
 }
 
 impl TextRender {

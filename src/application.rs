@@ -30,7 +30,7 @@ mod imp {
         debug::set_debug_flags,
         main_win::MainWindow,
     };
-    use std::{cell::RefCell, path::PathBuf};
+    use std::{cell::RefCell, ops::ControlFlow, path::PathBuf};
 
     #[derive(Default, glib::Properties)]
     #[properties(wrapper_type = super::Application)]
@@ -139,7 +139,7 @@ mod imp {
             self.parent_shutdown();
         }
 
-        fn handle_local_options(&self, options: &glib::VariantDict) -> glib::ExitCode {
+        fn handle_local_options(&self, options: &glib::VariantDict) -> ControlFlow<glib::ExitCode> {
             let debug_flags = get_string_option(options, "debug").map(|flags| {
                 if flags.contains('a') {
                     "giklmnpstuvwyzx".to_owned()
@@ -203,7 +203,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct Application(ObjectSubclass<imp::Application>)
-        @extends gtk::Application, gio::Application;
+        @extends gtk::Application, gio::Application,
+        @implements gio::ActionMap, gio::ActionGroup;
 }
 
 impl Application {

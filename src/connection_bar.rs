@@ -152,7 +152,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct ConnectionBar(ObjectSubclass<imp::ConnectionBar>)
-        @extends gtk::Widget;
+        @extends gtk::Widget,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 }
 
 impl ConnectionBar {
