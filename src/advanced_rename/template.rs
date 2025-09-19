@@ -29,6 +29,7 @@ use winnow::{
     seq,
     stream::Accumulate,
     token::{any, one_of, take_until, take_while},
+    Result as PResult,
 };
 
 const MAX_PRECISION: usize = 16;

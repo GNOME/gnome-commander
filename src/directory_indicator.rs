@@ -24,7 +24,7 @@ use winnow::{
     prelude::*,
     seq,
     token::{take_till, take_while},
-    PResult,
+    Result as PResult,
 };
 
 mod imp {
@@ -257,7 +257,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct DirectoryIndicator(ObjectSubclass<imp::DirectoryrIndicator>)
-        @extends gtk::Widget;
+        @extends gtk::Widget,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 }
 
 impl Default for DirectoryIndicator {

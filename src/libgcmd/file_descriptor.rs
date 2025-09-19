@@ -40,7 +40,7 @@ pub mod ffi {
         pub file_info: Option<unsafe extern "C" fn(*mut GnomeCmdFileDescriptor) -> *mut GFileInfo>,
     }
 
-    extern "C" {
+    unsafe extern "C" {
         pub fn gnome_cmd_file_descriptor_get_type() -> GType;
 
         pub fn gnome_cmd_file_descriptor_get_file(fb: *mut GnomeCmdFileDescriptor) -> *const GFile;

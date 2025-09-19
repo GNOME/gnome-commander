@@ -278,14 +278,23 @@ fn load_plugin(path: PathBuf) -> Result<PluginData, String> {
     // Try to get the plugin info
     let info = unsafe { info_func() };
     if info.is_null() {
-        return Err(format!("The plugin-file '{}' did not return valid plugin info. The function '{}' returned NULL.", path.display(), MODULE_INFO_FUNC));
+        return Err(format!(
+            "The plugin-file '{}' did not return valid plugin info. The function '{}' returned NULL.",
+            path.display(),
+            MODULE_INFO_FUNC
+        ));
     }
 
     // Check that the plugin is compatible
     let plugin_system_version = unsafe { (*info).plugin_system_version };
     if plugin_system_version != GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION {
         return Err(format!(
-        "The plugin '{}' is not compatible with this version of {}: Plugin system supported by the plugin is {}, it should be {}.", path.display(), PACKAGE, plugin_system_version, GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION));
+            "The plugin '{}' is not compatible with this version of {}: Plugin system supported by the plugin is {}, it should be {}.",
+            path.display(),
+            PACKAGE,
+            plugin_system_version,
+            GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION
+        ));
     }
 
     let info = PluginInfoOwned::from(unsafe { &*info });

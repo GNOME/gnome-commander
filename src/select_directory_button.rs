@@ -100,7 +100,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct DirectoryButton(ObjectSubclass<imp::DirectoryButton>)
-        @extends gtk::Widget;
+        @extends gtk::Widget,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 }
 
 impl Default for DirectoryButton {

@@ -180,7 +180,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct PrepareTransferDialog(ObjectSubclass<imp::PrepareTransferDialog>)
-        @extends gtk::Window, gtk::Widget;
+        @extends gtk::Window, gtk::Widget,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Root, gtk::Native;
 }
 
 fn prepend_slash(path: PathBuf) -> PathBuf {

@@ -608,7 +608,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct FileSelector(ObjectSubclass<imp::FileSelector>)
-        @extends gtk::Grid, gtk::Widget;
+        @extends gtk::Grid, gtk::Widget,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::Orientable;
 }
 
 impl FileSelector {

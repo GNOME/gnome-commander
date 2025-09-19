@@ -81,7 +81,7 @@ pub mod ffi {
     pub type GnomeCmdFileMetadataExtractorAddTag =
         Option<unsafe extern "C" fn(tag: *const c_char, value: *const c_char, user_data: gpointer)>;
 
-    extern "C" {
+    unsafe extern "C" {
         pub fn gnome_cmd_file_metadata_extractor_get_type() -> GType;
 
         pub fn gnome_cmd_file_metadata_extractor_supported_tags(

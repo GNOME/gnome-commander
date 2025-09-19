@@ -132,7 +132,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct TabLabel(ObjectSubclass<imp::TabLabel>)
-        @extends gtk::Widget;
+        @extends gtk::Widget,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 }
 
 impl Default for TabLabel {

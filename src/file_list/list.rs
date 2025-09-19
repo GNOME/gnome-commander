@@ -1788,7 +1788,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct FileList(ObjectSubclass<imp::FileList>)
-        @extends gtk::Widget;
+        @extends gtk::Widget,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 }
 
 #[allow(non_camel_case_types)]

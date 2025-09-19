@@ -28,7 +28,7 @@ pub mod ffi {
         _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
     }
 
-    extern "C" {
+    unsafe extern "C" {
         pub fn gnome_cmd_configurable_get_type() -> GType;
 
         pub fn gnome_cmd_configurable_configure(

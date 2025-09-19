@@ -323,18 +323,19 @@ mod test {
         const PATTERN: &str = "I \u{5D0}\u{5D5}\u{5D4}\u{5D1} you";
 
         // This is a valid UTF8 text, with pangrams in several languages (I hope I got it right...)
-        const TEXT: &str = concat!("English:",
-"The quick brown fox jumps over the lazy dog",
-"Irish:",
-"An \u{1E03} fuil do \u{010B}ro\u{00ED} ag buala\u{1E0B} \u{00F3} \u{1E1F} ait\u{00ED}os an \u{0121}r\u{00E1} a \u{1E41} eall lena \u{1E57}\u{00F3}g \u{00E9} ada \u{00F3} \u{1E61}l\u{00ED} do leasa \u{1E6B}\u{00FA}?",
-"Swedish:",
-"Flygande b\u{00E4} ckasiner s\u{00F6}ka strax hwila p\u{00E5} mjuka tuvor",
-"(our match: I \u{5D0}\u{5D5}\u{5D4}\u{5D1} You)",
-"Hebrew:",
-"\u{05D6}\u{05D4} \u{05DB}\u{05D9}\u{05E3} \u{05E1}\u{05EA}\u{05DD} \u{05DC}\u{05E9}\u{05DE}\u{05D5}\u{05E2} \u{05D0}\u{05D9}\u{05DA} \u{05EA}\u{05E0}\u{05E6}\u{05D7} \u{05E7}\u{05E8}\u{05E4}\u{05D3} \u{05E2}\u{05E5} \u{05D8}\u{05D5}\u{05D1} \u{05D1}\u{05D2}\u{05DF}",
-"French:",
- "Les na\u{00EF} fs \u{00E6}githales h\u{00E2}tifs pondant \u{00E0} No\u{00EB}l o\u{00F9} il g\u{00E8}le sont s\u{00FB}rs d'\u{00EA}tre d\u{00E9}\u{00E7}us et de voir leurs dr\u{00F4}les d'\u{0153}ufs ab\u{00EE}m\u{00E9}s.",
-);
+        const TEXT: &str = concat!(
+            "English:",
+            "The quick brown fox jumps over the lazy dog",
+            "Irish:",
+            "An \u{1E03} fuil do \u{010B}ro\u{00ED} ag buala\u{1E0B} \u{00F3} \u{1E1F} ait\u{00ED}os an \u{0121}r\u{00E1} a \u{1E41} eall lena \u{1E57}\u{00F3}g \u{00E9} ada \u{00F3} \u{1E61}l\u{00ED} do leasa \u{1E6B}\u{00FA}?",
+            "Swedish:",
+            "Flygande b\u{00E4} ckasiner s\u{00F6}ka strax hwila p\u{00E5} mjuka tuvor",
+            "(our match: I \u{5D0}\u{5D5}\u{5D4}\u{5D1} You)",
+            "Hebrew:",
+            "\u{05D6}\u{05D4} \u{05DB}\u{05D9}\u{05E3} \u{05E1}\u{05EA}\u{05DD} \u{05DC}\u{05E9}\u{05DE}\u{05D5}\u{05E2} \u{05D0}\u{05D9}\u{05DA} \u{05EA}\u{05E0}\u{05E6}\u{05D7} \u{05E7}\u{05E8}\u{05E4}\u{05D3} \u{05E2}\u{05E5} \u{05D8}\u{05D5}\u{05D1} \u{05D1}\u{05D2}\u{05DF}",
+            "French:",
+            "Les na\u{00EF} fs \u{00E6}githales h\u{00E2}tifs pondant \u{00E0} No\u{00EB}l o\u{00F9} il g\u{00E8}le sont s\u{00FB}rs d'\u{00EA}tre d\u{00E9}\u{00E7}us et de voir leurs dr\u{00F4}les d'\u{0153}ufs ab\u{00EE}m\u{00E9}s.",
+        );
         let ct_text: Vec<char> = TEXT.chars().collect();
 
         let bm = boyer_moore_string_new(PATTERN, false).unwrap();

@@ -393,7 +393,7 @@ mod imp {
                     return Err(ErrorMessage {
                         message: "Unsupported connection method".to_string(),
                         secondary_text: None,
-                    })
+                    });
                 }
             };
             Ok(uri)
@@ -420,7 +420,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct ConnectDialog(ObjectSubclass<imp::ConnectDialog>)
-        @extends gtk::Window, gtk::Widget;
+        @extends gtk::Window, gtk::Widget,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Root, gtk::Native;
 }
 
 /*

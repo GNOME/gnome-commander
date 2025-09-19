@@ -204,7 +204,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct QuickSearch(ObjectSubclass<imp::QuickSearch>)
-        @extends gtk::Popover, gtk::Widget;
+        @extends gtk::Popover, gtk::Widget,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Native;
 }
 
 impl QuickSearch {

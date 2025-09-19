@@ -12,7 +12,6 @@ variables:
     desktop-file-utils
     build-essential
     meson
-    rust-1.82-all
     gettext
     yelp-tools
     gi-docgen
@@ -22,6 +21,7 @@ variables:
     libgtk-4-dev
     libpoppler-glib-dev
     libtag1-dev
+    curl
 
 include:
   - component: "gitlab.gnome.org/GNOME/citemplates/release-service@master"
@@ -32,13 +32,16 @@ include:
 
 before_script:
   - export DEBIAN_FRONTEND=noninteractive
-  - export PATH=/usr/lib/rust-1.82/bin:$PATH
+  - export RUSTUP_HOME=/usr/local
+  - export CARGO_HOME=/usr/local
 
 build_and_test:
   stage: build
   script:
     - apt-get update
     - apt-get install -y $UBUNTU_DEPS xvfb
+    - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    - rustup install stable
     - mkdir ${MESON_BUILD_DIR}
     - meson setup ${MESON_BUILD_DIR}
     - meson compile -C ${MESON_BUILD_DIR}
@@ -50,6 +53,8 @@ create_tarball:
   script:
     - apt-get update
     - apt-get install -y $UBUNTU_DEPS git-core
+    - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    - rustup install stable
     - mkdir ${MESON_BUILD_DIR}
     - meson setup ${MESON_BUILD_DIR}
     - meson compile -C ${MESON_BUILD_DIR}

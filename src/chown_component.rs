@@ -167,7 +167,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct ChownComponent(ObjectSubclass<imp::ChownComponent>)
-        @extends gtk::Widget;
+        @extends gtk::Widget,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 }
 
 impl Default for ChownComponent {

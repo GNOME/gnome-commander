@@ -1124,7 +1124,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct AdvancedRenameDialog(ObjectSubclass<imp::AdvancedRenameDialog>)
-        @extends gtk::Widget, gtk::Window;
+        @extends gtk::Widget, gtk::Window,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Root, gtk::Native;
 }
 
 fn remember_window_size(dialog: &AdvancedRenameDialog, settings: &gio::Settings) {
