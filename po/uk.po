@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander 1.3.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/"
 "\n"
-"POT-Creation-Date: 2025-09-15 09:48+0000\n"
-"PO-Revision-Date: 2025-09-16 17:03+0300\n"
+"POT-Creation-Date: 2025-09-19 22:30+0000\n"
+"PO-Revision-Date: 2025-09-20 19:56+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -3849,7 +3849,7 @@ msgid "What file name should the new archive have?"
 msgstr "Який назву файлу повинен мати новий архів?"
 
 #: plugins/fileroller/file-roller-plugin.cc:441
-#: src/advanced_rename/profile_component.rs:1044
+#: src/advanced_rename/profile_component.rs:1045
 #: src/advanced_rename/regex_dialog.rs:114 src/dialogs/chmod_dialog.rs:146
 #: src/dialogs/chown_dialog.rs:114 src/dialogs/connect_dialog.rs:190
 #: src/dialogs/create_symlink_dialog.rs:52 src/dialogs/delete_dialog.rs:87
@@ -3866,10 +3866,10 @@ msgstr "Який назву файлу повинен мати новий арх
 #: src/dialogs/profiles/edit_profile_dialog.rs:109
 #: src/dialogs/profiles/manage_profiles_dialog.rs:257
 #: src/dialogs/shortcuts/shortcut_dialog.rs:178
-#: src/dialogs/shortcuts/shortcut_dialog.rs:404
+#: src/dialogs/shortcuts/shortcut_dialog.rs:405
 #: src/dialogs/shortcuts/shortcuts_dialog.rs:194
 #: src/dialogs/transfer_progress_dialog.rs:87 src/dirlist.rs:61
-#: src/file_selector.rs:1438 src/intviewer/search_dialog.rs:68
+#: src/file_selector.rs:1439 src/intviewer/search_dialog.rs:68
 #: src/open_connection.rs:54 src/open_file.rs:40 src/open_file.rs:62
 #: src/user_actions.rs:1147
 msgid "_Cancel"
@@ -3877,7 +3877,7 @@ msgstr "_Скасувати"
 
 #: plugins/fileroller/file-roller-plugin.cc:448
 #: plugins/fileroller/file-roller-plugin.cc:692
-#: src/advanced_rename/profile_component.rs:1058
+#: src/advanced_rename/profile_component.rs:1059
 #: src/advanced_rename/regex_dialog.rs:124 src/dialogs/chmod_dialog.rs:156
 #: src/dialogs/chown_dialog.rs:124 src/dialogs/connect_dialog.rs:200
 #: src/dialogs/create_symlink_dialog.rs:56
@@ -3894,8 +3894,8 @@ msgstr "_Скасувати"
 #: src/dialogs/profiles/edit_profile_dialog.rs:119
 #: src/dialogs/profiles/manage_profiles_dialog.rs:267
 #: src/dialogs/shortcuts/shortcut_dialog.rs:190
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:206 src/file_selector.rs:1438
-#: src/intviewer/search_dialog.rs:69 src/intviewer/window.rs:704
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:206 src/file_selector.rs:1439
+#: src/intviewer/search_dialog.rs:69 src/intviewer/window.rs:705
 #: src/open_file.rs:40 src/user_actions.rs:1147 src/utils.rs:257
 msgid "_OK"
 msgstr "_Гаразд"
@@ -3916,7 +3916,7 @@ msgid "Extract to “%s”"
 msgstr "Розпакувати до «%s»"
 
 #: plugins/fileroller/file-roller-plugin.cc:617
-#: src/advanced_rename/profile_component.rs:211 src/tags/basic.rs:137
+#: src/advanced_rename/profile_component.rs:211 src/tags/basic.rs:145
 msgid "File"
 msgstr "Файл"
 
@@ -5541,7 +5541,7 @@ msgstr "Результат"
 #: src/dialogs/profiles/edit_profile_dialog.rs:75
 #: src/dialogs/profiles/manage_profiles_dialog.rs:235
 #: src/dialogs/remote_dialog.rs:173
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:180 src/intviewer/window.rs:976
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:180 src/intviewer/window.rs:977
 #: src/search/search_dialog.rs:375
 msgid "_Help"
 msgstr "_Довідка"
@@ -5554,8 +5554,8 @@ msgstr "Скинути"
 #: src/advanced_rename/advanced_rename_dialog.rs:561
 #: src/dialogs/about_plugin.rs:137 src/dialogs/manage_bookmarks_dialog.rs:216
 #: src/dialogs/options/edit_colors_dialog.rs:165
-#: src/dialogs/remote_dialog.rs:185 src/intviewer/window.rs:781
-#: src/plugin_manager.rs:423 src/search/search_dialog.rs:389
+#: src/dialogs/remote_dialog.rs:185 src/intviewer/window.rs:782
+#: src/plugin_manager.rs:432 src/search/search_dialog.rs:389
 msgid "_Close"
 msgstr "_Закрити"
 
@@ -5564,23 +5564,23 @@ msgid "_Apply"
 msgstr "_Застосувати"
 
 #: src/advanced_rename/advanced_rename_dialog.rs:822
-#: src/search/search_dialog.rs:519
+#: src/search/search_dialog.rs:518
 msgid "New profile"
 msgstr "Новий профіль"
 
 #: src/advanced_rename/advanced_rename_dialog.rs:833
 #: src/advanced_rename/advanced_rename_dialog.rs:859
-#: src/search/search_dialog.rs:527
+#: src/search/search_dialog.rs:526
 msgid "Profiles"
 msgstr "Профілі"
 
 #: src/advanced_rename/advanced_rename_dialog.rs:1080
-#: src/search/search_dialog.rs:475
+#: src/search/search_dialog.rs:474
 msgid "_Save Profile As…"
 msgstr "_Зберегти профіль як…"
 
 #: src/advanced_rename/advanced_rename_dialog.rs:1087
-#: src/search/search_dialog.rs:484
+#: src/search/search_dialog.rs:483
 msgid "_Manage Profiles…"
 msgstr "_Керування профілями…"
 
@@ -5617,7 +5617,7 @@ msgstr "_Додати"
 #: src/dialogs/options/devices_widget.rs:79
 #: src/dialogs/profiles/manage_profiles_dialog.rs:179
 #: src/dialogs/remote_dialog.rs:72
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:156 src/main_win.rs:1502
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:156 src/main_win.rs:1503
 msgid "_Edit"
 msgstr "_Правка"
 
@@ -5811,12 +5811,12 @@ msgid "Match case"
 msgstr "Враховуючи регістр"
 
 #: src/advanced_rename/profile_component.rs:855
-#: src/dialogs/prepare_transfer_dialog.rs:220 src/file_list/actions.rs:86
+#: src/dialogs/prepare_transfer_dialog.rs:221 src/file_list/actions.rs:86
 msgid "Yes"
 msgstr "Так"
 
 #: src/advanced_rename/profile_component.rs:857
-#: src/dialogs/prepare_transfer_dialog.rs:220 src/file_list/actions.rs:86
+#: src/dialogs/prepare_transfer_dialog.rs:221 src/file_list/actions.rs:86
 msgid "No"
 msgstr "Ні"
 
@@ -5870,15 +5870,15 @@ msgstr "замикаючий"
 msgid "leading and trailing"
 msgstr "початкові і завершальні"
 
-#: src/advanced_rename/profile_component.rs:1004
+#: src/advanced_rename/profile_component.rs:1005
 msgid "Range Selection"
 msgstr "Позначення діапазону"
 
-#: src/advanced_rename/profile_component.rs:1027
+#: src/advanced_rename/profile_component.rs:1028
 msgid "_Select range:"
 msgstr "П_означити діапазон:"
 
-#: src/advanced_rename/profile_component.rs:1036
+#: src/advanced_rename/profile_component.rs:1037
 msgid "_Inverse selection"
 msgstr "_Інвертувати позначення"
 
@@ -6234,7 +6234,7 @@ msgstr "Створення символічного посилання"
 msgid "Symbolic link name:"
 msgstr "Назва символічного посилання:"
 
-#: src/dialogs/create_symlink_dialog.rs:206
+#: src/dialogs/create_symlink_dialog.rs:207
 msgid "Making a symbolic link failed"
 msgstr "Не вдалося створити символічне посилання"
 
@@ -6242,7 +6242,7 @@ msgstr "Не вдалося створити символічне посилан
 msgid "Deleting…"
 msgstr "Вилучення…"
 
-#: src/dialogs/delete_dialog.rs:171
+#: src/dialogs/delete_dialog.rs:172
 msgid "Deleted {count} of {total} file"
 msgid_plural "Deleted {count} of {total} files"
 msgstr[0] "Вилучено {count} з {total} файла"
@@ -6250,20 +6250,20 @@ msgstr[1] "Вилучено {count} з {total} файлів"
 msgstr[2] "Вилучено {count} з {total} файлів"
 msgstr[3] "Вилучено {count} з {total} файла"
 
-#: src/dialogs/delete_dialog.rs:195
+#: src/dialogs/delete_dialog.rs:196
 msgid "The directory “{}” is not empty. Do you really want to delete it?"
 msgstr "Каталог «{}» містить дані. Ви справді хочете його вилучити?"
 
-#: src/dialogs/delete_dialog.rs:198
+#: src/dialogs/delete_dialog.rs:199
 msgid "Do you really want to delete “{}”?"
 msgstr "Хочете справді вилучити «{}»?"
 
-#: src/dialogs/delete_dialog.rs:205 src/dialogs/delete_dialog.rs:535
+#: src/dialogs/delete_dialog.rs:206 src/dialogs/delete_dialog.rs:536
 #: src/user_actions.rs:517 src/user_actions.rs:570
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: src/dialogs/delete_dialog.rs:206 src/dialogs/delete_dialog.rs:246
+#: src/dialogs/delete_dialog.rs:207 src/dialogs/delete_dialog.rs:247
 #: src/dialogs/options/confirmation_tab.rs:96
 #: src/dialogs/options/confirmation_tab.rs:125
 #: src/dialogs/prepare_copy_dialog.rs:75 src/dialogs/prepare_move_dialog.rs:75
@@ -6272,46 +6272,46 @@ msgstr "Скасувати"
 msgid "Skip"
 msgstr "Пропустити"
 
-#: src/dialogs/delete_dialog.rs:208
+#: src/dialogs/delete_dialog.rs:209
 msgid "Delete All"
 msgstr "Вилучити все"
 
-#: src/dialogs/delete_dialog.rs:210
+#: src/dialogs/delete_dialog.rs:211
 msgid "Delete Remaining"
 msgstr "Вилучити решту"
 
-#: src/dialogs/delete_dialog.rs:212 src/dialogs/delete_dialog.rs:535
+#: src/dialogs/delete_dialog.rs:213 src/dialogs/delete_dialog.rs:536
 #: src/dialogs/options/confirmation_tab.rs:79 src/file_list/popup.rs:262
 #: src/main_win.rs:587
 msgid "Delete"
 msgstr "Видалити"
 
-#: src/dialogs/delete_dialog.rs:233
+#: src/dialogs/delete_dialog.rs:234
 msgid "Error while deleting “{file}”"
 msgstr "Помилка при вилученні «{file}»"
 
-#: src/dialogs/delete_dialog.rs:246 src/dialogs/delete_dialog.rs:578
+#: src/dialogs/delete_dialog.rs:247 src/dialogs/delete_dialog.rs:579
 #: src/transfer.rs:473 src/transfer.rs:490 src/transfer.rs:508
 #: src/transfer.rs:525 src/transfer.rs:570 src/transfer.rs:588
 #: src/transfer.rs:683 src/transfer.rs:701
 msgid "Abort"
 msgstr "Перервати"
 
-#: src/dialogs/delete_dialog.rs:246 src/transfer.rs:473 src/transfer.rs:509
+#: src/dialogs/delete_dialog.rs:247 src/transfer.rs:473 src/transfer.rs:509
 #: src/transfer.rs:526 src/transfer.rs:571 src/transfer.rs:589
 #: src/transfer.rs:684 src/transfer.rs:702 src/user_actions.rs:518
 msgid "Retry"
 msgstr "Повторити"
 
-#: src/dialogs/delete_dialog.rs:510
+#: src/dialogs/delete_dialog.rs:511
 msgid "Do you want to permanently delete “{}”?"
 msgstr "Хочете остаточно вилучити «{}»?"
 
-#: src/dialogs/delete_dialog.rs:512
+#: src/dialogs/delete_dialog.rs:513
 msgid "Do you want to move “{}” to the trash can?"
 msgstr "Хочете пересунути «{}» до смітника?"
 
-#: src/dialogs/delete_dialog.rs:518
+#: src/dialogs/delete_dialog.rs:519
 #, c-format
 msgid "Do you want to permanently delete the selected file?"
 msgid_plural "Do you want to permanently delete the %d selected files?"
@@ -6320,7 +6320,7 @@ msgstr[1] "Бажаєте остаточно вилучити %d вибрані 
 msgstr[2] "Бажаєте остаточно вилучити %d вибраних файлів?"
 msgstr[3] "Бажаєте остаточно вилучити вибраний файл?"
 
-#: src/dialogs/delete_dialog.rs:524
+#: src/dialogs/delete_dialog.rs:525
 #, c-format
 msgid "Do you want to move the selected file to the trash can?"
 msgid_plural "Do you want to move the %d selected files to the trash can?"
@@ -6329,7 +6329,7 @@ msgstr[1] "Бажаєте пересунути %d вибрані файли до
 msgstr[2] "Бажаєте пересунути %d вибраних файлів до смітника?"
 msgstr[3] "Бажаєте пересунути вибраний файл до смітника?"
 
-#: src/dialogs/delete_dialog.rs:576
+#: src/dialogs/delete_dialog.rs:577
 msgid "Error while deleting"
 msgstr "Помилка під час вилучення"
 
@@ -6462,7 +6462,7 @@ msgstr "Шлях"
 msgid "Edit Bookmark"
 msgstr "Редагування закладки"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:573
+#: src/dialogs/manage_bookmarks_dialog.rs:574
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding"
@@ -6470,7 +6470,7 @@ msgstr ""
 "Щоб додати закладку на теку, повний шлях до теки має бути у коректному "
 "кодуванні UTF-8"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:586
+#: src/dialogs/manage_bookmarks_dialog.rs:587
 msgid "New Bookmark"
 msgstr "Нова закладка"
 
@@ -7258,11 +7258,11 @@ msgstr[1] "пересунути {} файли до"
 msgstr[2] "пересунути {} файлів до"
 msgstr[3] "пересунути один файл до"
 
-#: src/dialogs/prepare_transfer_dialog.rs:210
+#: src/dialogs/prepare_transfer_dialog.rs:211
 msgid "The directory “{}” doesn’t exist, do you want to create it?"
 msgstr "Каталогу «{}» не існує, створити його?"
 
-#: src/dialogs/prepare_transfer_dialog.rs:474
+#: src/dialogs/prepare_transfer_dialog.rs:475
 msgid "Directory {} cannot be created."
 msgstr "Не вдалося створити каталог {}."
 
@@ -7334,17 +7334,17 @@ msgstr "Не вибрано жодної дії."
 msgid "No shortcut is defined."
 msgstr "Скорочення не визначено."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:396
+#: src/dialogs/shortcuts/shortcut_dialog.rs:397
 msgid "Shortcut “{shortcut}” is already taken by “{action}”."
 msgstr "Клавіатурне скорочення «{shortcut}» вже використано для «{action}»."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:401
+#: src/dialogs/shortcuts/shortcut_dialog.rs:402
 msgid "Reassigning the shortcut will cause it to be removed from “{action}”."
 msgstr ""
 "Зміна призначення цього скорочення призведе до його вилучення з дії "
 "«{action}»."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:404
+#: src/dialogs/shortcuts/shortcut_dialog.rs:405
 msgid "_Reassign shortcut"
 msgstr "_Перепризначити клавіші"
 
@@ -7368,12 +7368,12 @@ msgstr "Ход виконання"
 msgid "stopping…"
 msgstr "зупинення…"
 
-#: src/dialogs/transfer_progress_dialog.rs:150
+#: src/dialogs/transfer_progress_dialog.rs:151
 msgctxt "size copied"
 msgid "{copied} of {total} copied"
 msgstr "Скопійовано {copied} з {total}"
 
-#: src/dialogs/transfer_progress_dialog.rs:156
+#: src/dialogs/transfer_progress_dialog.rs:157
 #, no-c-format
 msgctxt "percentage copied"
 msgid "{}% copied"
@@ -7392,7 +7392,6 @@ msgstr[2] "{} файлів у списку"
 msgstr[3] "{} файл у списку"
 
 #: src/dir.rs:181
-#| msgid "Failed to change directory outside of %s"
 msgid "Failed to get directory info for {path}."
 msgstr "Не вдалося отримати відомості щодо каталогу для {path}."
 
@@ -7456,55 +7455,55 @@ msgstr "_Створити посилання тут"
 msgid "C_ancel"
 msgstr "_Скасувати"
 
-#: src/file_list/list.rs:1813
+#: src/file_list/list.rs:1814
 msgid "name"
 msgstr "назва"
 
-#: src/file_list/list.rs:1814
+#: src/file_list/list.rs:1815
 msgid "ext"
 msgstr "розш."
 
-#: src/file_list/list.rs:1815
+#: src/file_list/list.rs:1816
 msgid "dir"
 msgstr "каталог"
 
-#: src/file_list/list.rs:1816
+#: src/file_list/list.rs:1817
 msgid "size"
 msgstr "розмір"
 
-#: src/file_list/list.rs:1817
+#: src/file_list/list.rs:1818
 msgid "date"
 msgstr "дата"
 
-#: src/file_list/list.rs:1818
+#: src/file_list/list.rs:1819
 msgid "perm"
 msgstr "права"
 
-#: src/file_list/list.rs:1819
+#: src/file_list/list.rs:1820
 msgid "uid"
 msgstr "власник"
 
-#: src/file_list/list.rs:1820
+#: src/file_list/list.rs:1821
 msgid "gid"
 msgstr "група"
 
-#: src/file_list/list.rs:2283 src/file_list/list.rs:2312
+#: src/file_list/list.rs:2284 src/file_list/list.rs:2313
 msgid "Current directory is not set."
 msgstr "Поточний каталог не встановлено."
 
-#: src/file_list/list.rs:2288
+#: src/file_list/list.rs:2289
 msgid "No parent directory"
 msgstr "Немає батьківського каталогу"
 
-#: src/file_list/list.rs:2303
+#: src/file_list/list.rs:2304
 msgid "No SAMBA connection is available"
 msgstr "Немає доступних з'єднань SAMBA"
 
-#: src/file_list/list.rs:2439
+#: src/file_list/list.rs:2440
 msgid "A total of {selected_bytes} has been selected."
 msgstr "Загалом було позначено {selected_bytes}."
 
-#: src/file_list/list.rs:2445
+#: src/file_list/list.rs:2446
 msgid "{selected_files} file selected."
 msgid_plural "{selected_files} files selected."
 msgstr[0] "позначено {selected_files} файл."
@@ -7512,7 +7511,7 @@ msgstr[1] "позначено {selected_files} файли."
 msgstr[2] "позначено {selected_files} файлів."
 msgstr[3] "позначено {selected_files} файл."
 
-#: src/file_list/list.rs:2452
+#: src/file_list/list.rs:2453
 msgid "{selected_dirs} directory selected."
 msgid_plural "{selected_dirs} directories selected."
 msgstr[0] "Позначено {selected_dirs} каталог."
@@ -7520,7 +7519,7 @@ msgstr[1] "Позначено {selected_dirs} каталоги."
 msgstr[2] "Позначено {selected_dirs} каталогів."
 msgstr[3] "Позначено {selected_dirs} каталог."
 
-#: src/file_list/list.rs:2495
+#: src/file_list/list.rs:2496
 msgid "Cannot rename a file to {new_name}"
 msgstr "Не вдалося перейменувати файл на {new_name}"
 
@@ -7558,7 +7557,7 @@ msgstr "Відправити файли"
 msgid "Open _terminal here"
 msgstr "Запустити у _терміналі"
 
-#: src/file_list/popup.rs:276 src/main_win.rs:1484
+#: src/file_list/popup.rs:276 src/main_win.rs:1485
 msgid "_Properties…"
 msgstr "В_ластивості…"
 
@@ -7574,11 +7573,11 @@ msgstr "_Каталог"
 msgid "_Text File"
 msgstr "_Текстовий файл"
 
-#: src/file_list/popup.rs:292 src/main_win.rs:1508
+#: src/file_list/popup.rs:292 src/main_win.rs:1509
 msgid "_Paste"
 msgstr "Вст_авити"
 
-#: src/file_list/popup.rs:298 src/main_win.rs:1575
+#: src/file_list/popup.rs:298 src/main_win.rs:1576
 msgid "_Refresh"
 msgstr "_Оновити"
 
@@ -7591,64 +7590,63 @@ msgid "Value"
 msgstr "Значення"
 
 #: src/file.rs:133
-#| msgid "Cannot create a file for a path {}."
 msgid "Failed to get file info for {path}."
 msgstr "Не вдалося отримати відомості щодо файла для {path}."
 
-#: src/file_selector.rs:1214
+#: src/file_selector.rs:1215
 msgid "Add current dir"
 msgstr "Додати поточний каталог"
 
-#: src/file_selector.rs:1216
+#: src/file_selector.rs:1217
 msgid "Manage bookmarks…"
 msgstr "Керування закладками…"
 
-#: src/file_selector.rs:1309
+#: src/file_selector.rs:1310
 #, c-format
 msgid "%s free"
 msgstr "%s вільно"
 
-#: src/file_selector.rs:1315
+#: src/file_selector.rs:1316
 msgid "Unknown disk usage"
 msgstr "Невідоме використання диску"
 
-#: src/file_selector.rs:1437 src/user_actions.rs:1146
+#: src/file_selector.rs:1438 src/user_actions.rs:1146
 msgid "The tab is locked, close anyway?"
 msgstr "Вкладку заблоковано. Закрити її попри це?"
 
-#: src/file_selector.rs:1480 src/main_win.rs:1580
+#: src/file_selector.rs:1481 src/main_win.rs:1581
 msgid "Open in New _Tab"
 msgstr "_Відкрити на новій вкладці"
 
-#: src/file_selector.rs:1487
+#: src/file_selector.rs:1488
 msgid "_Unlock Tab"
 msgstr "Р_озблокувати вкладку"
 
-#: src/file_selector.rs:1489
+#: src/file_selector.rs:1490
 msgid "_Lock Tab"
 msgstr "За_блокувати вкладку"
 
-#: src/file_selector.rs:1501
+#: src/file_selector.rs:1502
 msgid "_Refresh Tab"
 msgstr "_Оновити вкладку"
 
-#: src/file_selector.rs:1510
+#: src/file_selector.rs:1511
 msgid "Copy Tab to Other _Pane"
 msgstr "Копіювати вкладку у іншу _панель"
 
-#: src/file_selector.rs:1515 src/main_win.rs:1584
+#: src/file_selector.rs:1516 src/main_win.rs:1585
 msgid "_Close Tab"
 msgstr "_Закрити вкладки"
 
-#: src/file_selector.rs:1517 src/main_win.rs:1586
+#: src/file_selector.rs:1518 src/main_win.rs:1587
 msgid "Close _All Tabs"
 msgstr "_Закрити всі вкладки"
 
-#: src/file_selector.rs:1521
+#: src/file_selector.rs:1522
 msgid "Close _Duplicate Tabs"
 msgstr "Закрити _дублювати вкладок"
 
-#: src/file_selector.rs:1550
+#: src/file_selector.rs:1551
 msgid "Filter:"
 msgstr "Фільтр:"
 
@@ -7661,16 +7659,16 @@ msgstr "Не вдалося отримати файл"
 msgid "The program has now finished. Press Enter to close this window.\n"
 msgstr "Роботу програми завершено. Натисніть Enter, щоб закрити це вікно.\n"
 
-#: src/intviewer/search_dialog.rs:65 src/intviewer/window.rs:786
-#: src/intviewer/window.rs:819
+#: src/intviewer/search_dialog.rs:65 src/intviewer/window.rs:787
+#: src/intviewer/window.rs:820
 msgid "_Text"
 msgstr "_Текст"
 
-#: src/intviewer/search_dialog.rs:66 src/intviewer/window.rs:788
+#: src/intviewer/search_dialog.rs:66 src/intviewer/window.rs:789
 msgid "_Hexadecimal"
 msgstr "_Шістнадцяткове"
 
-#: src/intviewer/search_dialog.rs:250
+#: src/intviewer/search_dialog.rs:251
 msgid "Find"
 msgstr "Пошук"
 
@@ -7682,7 +7680,7 @@ msgstr "З_упинити"
 msgid "Searching…"
 msgstr "Пошук…"
 
-#: src/intviewer/search_progress_dialog.rs:101
+#: src/intviewer/search_progress_dialog.rs:102
 msgid "Searching for “{}”"
 msgstr "Шукаємо «{}»"
 
@@ -7722,207 +7720,207 @@ msgstr "(до розміру вікна)"
 msgid "_Copy selection"
 msgstr "_Копіювати позначене"
 
-#: src/intviewer/window.rs:703
+#: src/intviewer/window.rs:704
 msgid "Pattern “{}” was not found"
 msgstr "Взірець «{}» не знайдено"
 
-#: src/intviewer/window.rs:780 src/main_win.rs:1467
+#: src/intviewer/window.rs:781 src/main_win.rs:1468
 msgid "_File"
 msgstr "_Файл"
 
-#: src/intviewer/window.rs:784 src/main_win.rs:1565
+#: src/intviewer/window.rs:785 src/main_win.rs:1566
 msgid "_View"
 msgstr "_Вигляд"
 
-#: src/intviewer/window.rs:787
+#: src/intviewer/window.rs:788
 msgid "_Binary"
 msgstr "_Бінарний"
 
-#: src/intviewer/window.rs:789 src/intviewer/window.rs:909
+#: src/intviewer/window.rs:790 src/intviewer/window.rs:910
 msgid "_Image"
 msgstr "_Зображення"
 
-#: src/intviewer/window.rs:793
+#: src/intviewer/window.rs:794
 msgid "_Zoom In"
 msgstr "_Збільшити"
 
-#: src/intviewer/window.rs:799
+#: src/intviewer/window.rs:800
 msgid "_Zoom Out"
 msgstr "З_меншити"
 
-#: src/intviewer/window.rs:805
+#: src/intviewer/window.rs:806
 msgid "_Normal Size"
 msgstr "_Нормальний розмір"
 
-#: src/intviewer/window.rs:811
+#: src/intviewer/window.rs:812
 msgid "_Best Fit"
 msgstr "_Оптимізувати"
 
-#: src/intviewer/window.rs:822
+#: src/intviewer/window.rs:823
 msgid "_Copy Text Selection"
 msgstr "_Копіювати позначений текст"
 
-#: src/intviewer/window.rs:826
+#: src/intviewer/window.rs:827
 msgid "Find…"
 msgstr "Знайти…"
 
-#: src/intviewer/window.rs:827
+#: src/intviewer/window.rs:828
 msgid "Find Next"
 msgstr "Знайти далі"
 
-#: src/intviewer/window.rs:829
+#: src/intviewer/window.rs:830
 msgid "Find Previous"
 msgstr "Знайти позаду"
 
-#: src/intviewer/window.rs:834
+#: src/intviewer/window.rs:835
 msgid "_Wrap lines"
 msgstr "_Згорнути рядки"
 
-#: src/intviewer/window.rs:839
+#: src/intviewer/window.rs:840
 msgid "_Encoding"
 msgstr "_Кодування"
 
-#: src/intviewer/window.rs:841
+#: src/intviewer/window.rs:842
 msgid "_UTF-8"
 msgstr "_UTF-8"
 
-#: src/intviewer/window.rs:843
+#: src/intviewer/window.rs:844
 msgid "English (US-_ASCII)"
 msgstr "Англійське (US-_ASCII)"
 
-#: src/intviewer/window.rs:847
+#: src/intviewer/window.rs:848
 msgid "Terminal (CP437)"
 msgstr "Термінал (CP437)"
 
-#: src/intviewer/window.rs:849
+#: src/intviewer/window.rs:850
 msgid "Arabic (ISO-8859-6)"
 msgstr "Арабське (ISO-8859-6)"
 
-#: src/intviewer/window.rs:853
+#: src/intviewer/window.rs:854
 msgid "Arabic ( Windows, CP1256)"
 msgstr "Арабське (Windows, CP1256)"
 
-#: src/intviewer/window.rs:856
+#: src/intviewer/window.rs:857
 msgid "Arabic (Dos, CP864)"
 msgstr "Арабське (DOS, CP864)"
 
-#: src/intviewer/window.rs:858
+#: src/intviewer/window.rs:859
 msgid "Baltic (ISO-8859-4)"
 msgstr "Балтійське (ISO-8859-4)"
 
-#: src/intviewer/window.rs:862
+#: src/intviewer/window.rs:863
 msgid "Central European (ISO-8859-2)"
 msgstr "Центральноєвропейське (ISO-8859-2)"
 
-#: src/intviewer/window.rs:866
+#: src/intviewer/window.rs:867
 msgid "Central European (CP1250)"
 msgstr "Центральноєвропейське (CP1250)"
 
-#: src/intviewer/window.rs:870
+#: src/intviewer/window.rs:871
 msgid "Cyrillic (ISO-8859-5)"
 msgstr "Кирилиця (ISO-8859-5)"
 
-#: src/intviewer/window.rs:873
+#: src/intviewer/window.rs:874
 msgid "Cyrillic (CP1251)"
 msgstr "Кирилиця (CP1251)"
 
-#: src/intviewer/window.rs:875
+#: src/intviewer/window.rs:876
 msgid "Greek (ISO-8859-7)"
 msgstr "Грецьке (ISO 8859-7)"
 
-#: src/intviewer/window.rs:878
+#: src/intviewer/window.rs:879
 msgid "Greek (CP1253)"
 msgstr "Грецьке (CP1253)"
 
-#: src/intviewer/window.rs:880
+#: src/intviewer/window.rs:881
 msgid "Hebrew (Windows, CP1255)"
 msgstr "Іврит (Windows, CP1255)"
 
-#: src/intviewer/window.rs:883
+#: src/intviewer/window.rs:884
 msgid "Hebrew (Dos, CP862)"
 msgstr "Іврит (DOS, CP862)"
 
-#: src/intviewer/window.rs:885
+#: src/intviewer/window.rs:886
 msgid "Hebrew (ISO-8859-8)"
 msgstr "Іврит (ISO-8859-8)"
 
-#: src/intviewer/window.rs:889
+#: src/intviewer/window.rs:890
 msgid "Latin 9 (ISO-8859-15)"
 msgstr "Латиниця 9 (ISO-8859-15)"
 
-#: src/intviewer/window.rs:893
+#: src/intviewer/window.rs:894
 msgid "Maltese (ISO-8859-3)"
 msgstr "Мальтійська (ISO-8859-3)"
 
-#: src/intviewer/window.rs:897
+#: src/intviewer/window.rs:898
 msgid "Turkish (ISO-8859-9)"
 msgstr "Турецьке (ISO 8859-9)"
 
-#: src/intviewer/window.rs:900
+#: src/intviewer/window.rs:901
 msgid "Turkish (CP1254)"
 msgstr "Турецьке (CP1254)"
 
-#: src/intviewer/window.rs:901
+#: src/intviewer/window.rs:902
 msgid "Western (CP1252)"
 msgstr "Західноєвропейське (CP1252)"
 
-#: src/intviewer/window.rs:903
+#: src/intviewer/window.rs:904
 msgid "Western (ISO-8859-1)"
 msgstr "Західне (ISO-8859-1)"
 
-#: src/intviewer/window.rs:912
+#: src/intviewer/window.rs:913
 msgid "Rotate Clockwise"
 msgstr "Обернути за годинниковою стрілкою"
 
-#: src/intviewer/window.rs:918
+#: src/intviewer/window.rs:919
 msgid "Rotate Counter Clockwis_e"
 msgstr "Розвернути _проти годинника"
 
-#: src/intviewer/window.rs:923
+#: src/intviewer/window.rs:924
 msgid "Rotate 180\\u{00B0}"
 msgstr "Обернути на 180\\u{00B0}"
 
-#: src/intviewer/window.rs:929
+#: src/intviewer/window.rs:930
 msgid "Flip _Vertical"
 msgstr "Відобразити _вертикально"
 
-#: src/intviewer/window.rs:934
+#: src/intviewer/window.rs:935
 msgid "Flip _Horizontal"
 msgstr "Відобразити _горизонтально"
 
-#: src/intviewer/window.rs:940 src/main_win.rs:1625 src/main_win.rs:1678
+#: src/intviewer/window.rs:941 src/main_win.rs:1626 src/main_win.rs:1679
 msgid "_Settings"
 msgstr "Н_астройки"
 
-#: src/intviewer/window.rs:943
+#: src/intviewer/window.rs:944
 msgid "_Binary Mode"
 msgstr "_Бінарний режим"
 
-#: src/intviewer/window.rs:946
+#: src/intviewer/window.rs:947
 msgid "_20 chars/line"
 msgstr "_20 символів на лінію"
 
-#: src/intviewer/window.rs:951
+#: src/intviewer/window.rs:952
 msgid "_40 chars/line"
 msgstr "_40 символів на лінію"
 
-#: src/intviewer/window.rs:956
+#: src/intviewer/window.rs:957
 msgid "_80 chars/line"
 msgstr "_80 символів на лінію"
 
-#: src/intviewer/window.rs:964
+#: src/intviewer/window.rs:965
 msgid "Show Metadata _Tags"
 msgstr "Показати _теги метаданих"
 
-#: src/intviewer/window.rs:969
+#: src/intviewer/window.rs:970
 msgid "_Hexadecimal Offset"
 msgstr "_Шістнадцятковий зсув"
 
-#: src/intviewer/window.rs:978
+#: src/intviewer/window.rs:979
 msgid "Quick _Help"
 msgstr "Швидка _довідка"
 
-#: src/intviewer/window.rs:979 src/main_win.rs:1683
+#: src/intviewer/window.rs:980 src/main_win.rs:1684
 msgid "_Keyboard Shortcuts"
 msgstr "_Комбінації клавіш"
 
@@ -7998,207 +7996,207 @@ msgstr "Редагувати (SHIFT для нового документа)"
 msgid "Open terminal"
 msgstr "Відкрити термінал"
 
-#: src/main_win.rs:1471
+#: src/main_win.rs:1472
 msgid "Change _Owner/Group"
 msgstr "Змінити _власника/групу"
 
-#: src/main_win.rs:1472
+#: src/main_win.rs:1473
 msgid "Change Per_missions"
 msgstr "Змінити _права доступу"
 
-#: src/main_win.rs:1474
+#: src/main_win.rs:1475
 msgid "Advanced _Rename Tool"
 msgstr "_Розширений інструмент перейменування"
 
-#: src/main_win.rs:1479
+#: src/main_win.rs:1480
 msgid "Create _Symbolic Link"
 msgstr "Створити _символічне посилання"
 
-#: src/main_win.rs:1491
+#: src/main_win.rs:1492
 msgid "_Search…"
 msgstr "З_найти…"
 
-#: src/main_win.rs:1492
+#: src/main_win.rs:1493
 msgid "_Quick Search…"
 msgstr "_Швидкий пошук…"
 
-#: src/main_win.rs:1493
+#: src/main_win.rs:1494
 msgid "_Enable Filter…"
 msgstr "_Увімкнути фільтр…"
 
-#: src/main_win.rs:1497
+#: src/main_win.rs:1498
 msgid "_Diff"
 msgstr "Показати ві_дміни"
 
-#: src/main_win.rs:1498
+#: src/main_win.rs:1499
 msgid "S_ynchronize Directories"
 msgstr "С_инхронізувати каталоги"
 
-#: src/main_win.rs:1506
+#: src/main_win.rs:1507
 msgid "Cu_t"
 msgstr "_Вирізати"
 
-#: src/main_win.rs:1507
+#: src/main_win.rs:1508
 msgid "_Copy"
 msgstr "_Копіювати"
 
-#: src/main_win.rs:1509
+#: src/main_win.rs:1510
 msgid "_Delete"
 msgstr "В_идалити"
 
-#: src/main_win.rs:1511
+#: src/main_win.rs:1512
 msgid "Copy _File Names"
 msgstr "Копіювати назву _файлу"
 
-#: src/main_win.rs:1514
+#: src/main_win.rs:1515
 msgid "_Mark"
 msgstr "В_ідмітка"
 
-#: src/main_win.rs:1519
+#: src/main_win.rs:1520
 msgid "_Select All"
 msgstr "Виді_лити все"
 
-#: src/main_win.rs:1524
+#: src/main_win.rs:1525
 msgid "_Unselect All"
 msgstr "_Зняти все позначення"
 
-#: src/main_win.rs:1528
+#: src/main_win.rs:1529
 msgid "Select all _Files"
 msgstr "Позначити усі _файли"
 
-#: src/main_win.rs:1530
+#: src/main_win.rs:1531
 msgid "Unselect all Fi_les"
 msgstr "Зняти позначення з усіх ф_айлів"
 
-#: src/main_win.rs:1534
+#: src/main_win.rs:1535
 msgid "Select with _Pattern"
 msgstr "Позначити за вз_ірцем"
 
-#: src/main_win.rs:1539
+#: src/main_win.rs:1540
 msgid "Unselect with P_attern"
 msgstr "З_няти позначення за взірцем"
 
-#: src/main_win.rs:1544
+#: src/main_win.rs:1545
 msgid "Select with same _Extension"
 msgstr "Позначити файли з тим самим су_фіксом"
 
-#: src/main_win.rs:1548
+#: src/main_win.rs:1549
 msgid "Unselect with same E_xtension"
 msgstr "Зняти позначення з файлів з тим самим с_уфіксом"
 
-#: src/main_win.rs:1552
+#: src/main_win.rs:1553
 msgid "_Invert Selection"
 msgstr "_Інвертувати позначення"
 
-#: src/main_win.rs:1556
+#: src/main_win.rs:1557
 msgid "_Restore Selection"
 msgstr "_Відновити позначення"
 
-#: src/main_win.rs:1559
+#: src/main_win.rs:1560
 msgid "_Compare Directories"
 msgstr "_Порівняти каталоги"
 
-#: src/main_win.rs:1569
+#: src/main_win.rs:1570
 msgid "_Back"
 msgstr "Н_азад"
 
-#: src/main_win.rs:1571
+#: src/main_win.rs:1572
 msgid "_Forward"
 msgstr "В_перед"
 
-#: src/main_win.rs:1593
+#: src/main_win.rs:1594
 msgid "Show Toolbar"
 msgstr "Панель інструментів"
 
-#: src/main_win.rs:1594
+#: src/main_win.rs:1595
 msgid "Show Device Buttons"
 msgstr "Показати кнопки пристроїв"
 
-#: src/main_win.rs:1595
+#: src/main_win.rs:1596
 msgid "Show Device List"
 msgstr "Показати список пристроїв"
 
-#: src/main_win.rs:1596
+#: src/main_win.rs:1597
 msgid "Show Command Line"
 msgstr "Показати командний рядок"
 
-#: src/main_win.rs:1597
+#: src/main_win.rs:1598
 msgid "Show Buttonbar"
 msgstr "Показати панель кнопок"
 
-#: src/main_win.rs:1602
+#: src/main_win.rs:1603
 msgid "Show Hidden Files"
 msgstr "Показати приховані файли"
 
-#: src/main_win.rs:1606
+#: src/main_win.rs:1607
 msgid "Show Backup Files"
 msgstr "Показати резервні файли"
 
-#: src/main_win.rs:1611
+#: src/main_win.rs:1612
 msgid "_Equal Panel Size"
 msgstr "З_рівняти розмір панелей"
 
-#: src/main_win.rs:1615
+#: src/main_win.rs:1616
 msgid "Maximize Panel Size"
 msgstr "Максимізувати розмір панелі"
 
-#: src/main_win.rs:1619 src/user_actions.rs:2113
+#: src/main_win.rs:1620 src/user_actions.rs:2113
 msgid "Horizontal Orientation"
 msgstr "Горизонтальна орієнтація"
 
-#: src/main_win.rs:1627
+#: src/main_win.rs:1628
 msgid "_Options…"
 msgstr "П_араметри…"
 
-#: src/main_win.rs:1629
+#: src/main_win.rs:1630
 msgid "_Keyboard Shortcuts…"
 msgstr "_Клавіатурні скорочення…"
 
-#: src/main_win.rs:1634
+#: src/main_win.rs:1635
 msgid "_Connections"
 msgstr "З'_єднання"
 
-#: src/main_win.rs:1639
+#: src/main_win.rs:1640
 msgid "_Remote Server…"
 msgstr "_Віддалений сервер…"
 
-#: src/main_win.rs:1644
+#: src/main_win.rs:1645
 msgid "New Connection…"
 msgstr "Нове з'єднання…"
 
-#: src/main_win.rs:1653
+#: src/main_win.rs:1654
 msgid "_Bookmarks"
 msgstr "_Закладки"
 
-#: src/main_win.rs:1658
+#: src/main_win.rs:1659
 msgid "_Bookmark this Directory…"
 msgstr "_Закладка на поточний каталог…"
 
-#: src/main_win.rs:1662
+#: src/main_win.rs:1663
 msgid "_Manage Bookmarks…"
 msgstr "_Керування закладками…"
 
-#: src/main_win.rs:1670
+#: src/main_win.rs:1671
 msgid "_Plugins"
 msgstr "_Модулі"
 
-#: src/main_win.rs:1673
+#: src/main_win.rs:1674
 msgid "_Configure Plugins…"
 msgstr "_Налаштувати додатки…"
 
-#: src/main_win.rs:1682
+#: src/main_win.rs:1683
 msgid "_Documentation"
 msgstr "_Документація"
 
-#: src/main_win.rs:1684
+#: src/main_win.rs:1685
 msgid "GNOME Commander on the _Web"
 msgstr "GNOME Commander у _веб"
 
-#: src/main_win.rs:1685
+#: src/main_win.rs:1686
 msgid "Report a _Problem"
 msgstr "Сповістити про _проблему"
 
-#: src/main_win.rs:1687
+#: src/main_win.rs:1688
 msgid "_About"
 msgstr "_Про модуль"
 
@@ -8247,23 +8245,23 @@ msgid "Open the \"Applications\" page in the Control Center to add one."
 msgstr ""
 "Відкрийте сторінку «програми» у Центрі керування, щоб додати прив'язку."
 
-#: src/plugin_manager.rs:392
+#: src/plugin_manager.rs:401
 msgid "Available plugins"
 msgstr "Наявні модулі"
 
-#: src/plugin_manager.rs:472
+#: src/plugin_manager.rs:481
 msgid "Version: {}"
 msgstr "Версія: {}"
 
-#: src/plugin_manager.rs:479
+#: src/plugin_manager.rs:488
 msgid "File: {}"
 msgstr "Файл: {}"
 
-#: src/plugin_manager.rs:489
+#: src/plugin_manager.rs:498
 msgid "About"
 msgstr "Про програму"
 
-#: src/plugin_manager.rs:500
+#: src/plugin_manager.rs:509
 msgid "Configure"
 msgstr "Налаштувати"
 
@@ -8291,21 +8289,19 @@ msgstr "Шукати…"
 msgid "_Look in folder:"
 msgstr "_Шукати у теці:"
 
-#: src/search/search_dialog.rs:593
-#| msgid "Cannot create a file for a path {}."
+#: src/search/search_dialog.rs:592
 msgid "Cannot extract a relative file path"
 msgstr "Не вдалося видобути відносний шлях до файла"
 
-#: src/search/search_dialog.rs:600
-#| msgid "Cannot create a file"
+#: src/search/search_dialog.rs:599
 msgid "Cannot extract a file path"
 msgstr "Не вдалося видобути шлях до файла"
 
-#: src/search/search_dialog.rs:604
+#: src/search/search_dialog.rs:603
 msgid "Failed to detect a start directory"
 msgstr "Не вдалося визначити початковий каталог"
 
-#: src/search/search_dialog.rs:702
+#: src/search/search_dialog.rs:701
 msgid "Found {} match — search aborted"
 msgid_plural "Found {} matches — search aborted"
 msgstr[0] "Знайдено {} відповідність — пошук перервано"
@@ -8313,7 +8309,7 @@ msgstr[1] "Знайдено {} відповідності — пошук пер�
 msgstr[2] "Знайдено {} відповідностей — пошук перервано"
 msgstr[3] "Знайдено {} відповідність — пошук перервано"
 
-#: src/search/search_dialog.rs:707
+#: src/search/search_dialog.rs:706
 msgid "Found {} match"
 msgid_plural "Found {} matches"
 msgstr[0] "Знайдено {} відповідність"
@@ -8418,31 +8414,31 @@ msgstr "Повний шлях до файлу за виключенням йог
 msgid "URI of link target."
 msgstr "URI  символічного посилання."
 
-#: src/tags/basic.rs:84
+#: src/tags/basic.rs:85
 msgid ""
 "Size of the file in bytes or if a directory number of items it contains."
 msgstr ""
 "Розмір файлу в байтах або для каталогу - кількість елементів, що вона "
 "містить."
 
-#: src/tags/basic.rs:85
+#: src/tags/basic.rs:87
 msgid "Last modified datetime."
 msgstr "Дата і час останньої модифікації."
 
-#: src/tags/basic.rs:86
+#: src/tags/basic.rs:88
 msgid "Last access datetime."
 msgstr "Дата і час останнього доступу."
 
-#: src/tags/basic.rs:87
+#: src/tags/basic.rs:89
 msgid "Permission string in unix format eg “-rw-r--r--”."
 msgstr "Рядок прав доступу в форматі unix (наприклад, «-rw-r--r--»)."
 
-#: src/tags/basic.rs:88
+#: src/tags/basic.rs:91
 msgid ""
 "MIME type of the file or if a directory it should contain value “Folder”."
 msgstr "Для файла містить тип MIME. Для каталогу містить значення «Folder»."
 
-#: src/tags/basic.rs:89
+#: src/tags/basic.rs:94
 msgid ""
 "Editable DC type for the name of the publisher of the file (EG dc:publisher "
 "field in RSS feed)."
@@ -8450,15 +8446,15 @@ msgstr ""
 "DC тип імені видавця файлу, що доступний для редагування (наприклад поле "
 "dc:publisher в RSS каналі)."
 
-#: src/tags/basic.rs:90
+#: src/tags/basic.rs:96
 msgid "Editable free text/notes."
 msgstr "Текст/примітки що вільно редагуються"
 
-#: src/tags/basic.rs:91
+#: src/tags/basic.rs:97
 msgid "Editable array of keywords."
 msgstr "Масив ключових слів, доступний для редагування."
 
-#: src/tags/basic.rs:92
+#: src/tags/basic.rs:99
 msgid ""
 "Editable file rank for grading favourites. Value should be in the range "
 "1..10."
@@ -8466,11 +8462,11 @@ msgstr ""
 "Доступний для редагування рейтинг файлу для класифікації обраного. Значення "
 "повинно бути в межах 1..10."
 
-#: src/tags/basic.rs:93
+#: src/tags/basic.rs:101
 msgid "File’s contents filtered as plain text."
 msgstr "Вміст файла фільтрований як звичайний текст."
 
-#: src/tags/basic.rs:205
+#: src/tags/basic.rs:213
 msgid "Folder"
 msgstr "Тека"
 
@@ -9072,6 +9068,11 @@ msgstr[0] "{} байт"
 msgstr[1] "{} байти"
 msgstr[2] "{} байтів"
 msgstr[3] "{} байт"
+
+#: src/utils.rs:702
+#| msgid "Change of a file mode failed"
+msgid "Closing of a file enumerator failed"
+msgstr "Не вдалося завершити відлік за нумерацією файлів"
 
 #~ msgctxt "Filename suffix"
 #~ msgid "Copy"
