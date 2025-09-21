@@ -20,7 +20,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::pwd::{gid_t, uid_t, SystemGroup, SystemUser};
+use crate::pwd::{SystemGroup, SystemUser, gid_t, uid_t};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::ffi::CString;
 

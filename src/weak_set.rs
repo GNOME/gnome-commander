@@ -17,11 +17,12 @@
  * For more details see the file COPYING.
  */
 
-use gtk::glib::{self, prelude::*};
-use std::cell::RefCell;
+use crate::weak_ref::IdentityWeakRef;
+use gtk::glib::prelude::*;
+use std::{cell::RefCell, collections::HashSet};
 
 pub struct WeakSet<T: ObjectType> {
-    weak_refs: RefCell<Vec<glib::WeakRef<T>>>,
+    weak_refs: RefCell<HashSet<IdentityWeakRef<T>>>,
 }
 
 impl<T: ObjectType> WeakSet<T> {
@@ -30,16 +31,18 @@ impl<T: ObjectType> WeakSet<T> {
     }
 
     pub fn insert(&self, obj: &T) {
-        self.clean();
-        self.weak_refs.borrow_mut().push(obj.downgrade());
+        self.clean_expired();
+        self.weak_refs
+            .borrow_mut()
+            .insert(IdentityWeakRef::new(obj));
     }
 
     pub fn remove(&self, obj: &T) {
-        self.clean();
+        self.clean_expired();
         self.weak_refs.borrow_mut().retain(|t| t != obj);
     }
 
-    fn clean(&self) {
+    fn clean_expired(&self) {
         self.weak_refs
             .borrow_mut()
             .retain(|t| t.upgrade().is_some());

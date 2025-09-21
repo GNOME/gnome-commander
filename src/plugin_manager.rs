@@ -22,10 +22,10 @@ use crate::{
     dialogs::about_plugin::about_plugin_dialog,
     gmodule::{self, GModule, GModuleFlags},
     libgcmd::{
+        GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION, PluginInfo,
         configurable::{Configurable, ConfigurableExt},
-        PluginInfo, GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION,
     },
-    utils::{dialog_button_box, handle_escape_key, NO_BUTTONS},
+    utils::{NO_BUTTONS, dialog_button_box, handle_escape_key},
 };
 use gettextrs::gettext;
 use gtk::{

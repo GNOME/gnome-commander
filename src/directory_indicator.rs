@@ -20,11 +20,11 @@
 use crate::{dir::Directory, file::File};
 use gtk::{gdk, glib, pango, prelude::*, subclass::prelude::*};
 use winnow::{
+    Result as PResult,
     combinator::{alt, opt, preceded, separated, terminated},
     prelude::*,
     seq,
     token::{take_till, take_while},
-    Result as PResult,
 };
 
 mod imp {
@@ -74,9 +74,11 @@ mod imp {
         fn signals() -> &'static [glib::subclass::Signal] {
             static SIGNALS: OnceLock<Vec<glib::subclass::Signal>> = OnceLock::new();
             SIGNALS.get_or_init(|| {
-                vec![glib::subclass::Signal::builder("navigate")
-                    .param_types([String::static_type(), bool::static_type()])
-                    .build()]
+                vec![
+                    glib::subclass::Signal::builder("navigate")
+                        .param_types([String::static_type(), bool::static_type()])
+                        .build(),
+                ]
             })
         }
 

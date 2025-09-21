@@ -21,7 +21,7 @@ use crate::{
     chmod_component::ChmodComponent,
     dir::Directory,
     file::File,
-    utils::{dialog_button_box, ErrorMessage, SenderExt, NO_BUTTONS},
+    utils::{ErrorMessage, NO_BUTTONS, SenderExt, dialog_button_box},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};

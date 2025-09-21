@@ -20,7 +20,7 @@
 use crate::{
     i18n::I18N_CONTEXT_SINGULAR,
     plugin_manager::PluginInfoOwned,
-    utils::{dialog_button_box, handle_escape_key, NO_BUTTONS},
+    utils::{NO_BUTTONS, dialog_button_box, handle_escape_key},
 };
 use gettextrs::{gettext, pgettext};
 use gtk::{glib, pango, prelude::*};

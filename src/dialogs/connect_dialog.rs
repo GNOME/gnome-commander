@@ -30,7 +30,7 @@ use std::path::Path;
 
 mod imp {
     use super::*;
-    use crate::utils::{dialog_button_box, display_help, ErrorMessage, SenderExt};
+    use crate::utils::{ErrorMessage, SenderExt, dialog_button_box, display_help};
 
     fn create_methods_model() -> gio::ListModel {
         gtk::StringList::new(&[

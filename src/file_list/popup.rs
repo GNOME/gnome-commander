@@ -19,7 +19,7 @@
 
 use super::{actions::Script, list::FileList};
 use crate::{
-    app::{load_favorite_apps, App, AppTarget, RegularApp, UserDefinedApp},
+    app::{App, AppTarget, RegularApp, UserDefinedApp, load_favorite_apps},
     config::PACKAGE,
     data::GeneralOptions,
     debug::debug,

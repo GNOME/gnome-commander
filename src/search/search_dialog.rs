@@ -201,7 +201,7 @@ mod imp {
         main_win::MainWindow,
         select_directory_button::DirectoryButton,
         types::FileSelectorID,
-        utils::{dialog_button_box, display_help, ErrorMessage},
+        utils::{ErrorMessage, dialog_button_box, display_help},
     };
     use std::cell::{OnceCell, RefCell};
 
@@ -717,7 +717,7 @@ mod imp {
             if count > 0 {
                 result_list.grab_focus();
                 if result_list.focused_file().is_none() {
-                    result_list.select_row(None);
+                    result_list.select_row(0);
                 }
             }
         }

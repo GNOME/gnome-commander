@@ -1281,7 +1281,7 @@ impl FileSelector {
             self.imp().update_selected_files_label();
         }
         if self.active() {
-            file_list.select_row(None);
+            file_list.select_row(0);
         }
     }
 

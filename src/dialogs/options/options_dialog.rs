@@ -24,7 +24,7 @@ use super::{
 };
 use crate::{
     data::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions, ProgramsOptions},
-    utils::{dialog_button_box, display_help, SenderExt},
+    utils::{SenderExt, dialog_button_box, display_help},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};

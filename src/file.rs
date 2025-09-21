@@ -29,7 +29,7 @@ use crate::{
     dir::Directory,
     libgcmd::file_descriptor::{FileDescriptor, FileDescriptorExt},
     path::GnomeCmdPath,
-    spawn::{app_needs_terminal, run_command_indir, SpawnError},
+    spawn::{SpawnError, app_needs_terminal, run_command_indir},
     utils::ErrorMessage,
 };
 use gettextrs::gettext;

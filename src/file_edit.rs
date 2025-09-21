@@ -20,7 +20,7 @@
 use crate::{
     data::ProgramsOptionsRead,
     file::File,
-    spawn::{spawn_async, SpawnError},
+    spawn::{SpawnError, spawn_async},
     utils::ErrorMessage,
 };
 use gettextrs::gettext;

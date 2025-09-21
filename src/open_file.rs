@@ -26,7 +26,7 @@ use crate::{
     file::File,
     spawn::SpawnError,
     transfer::download_to_temporary,
-    utils::{temp_file, ErrorMessage, GNOME_CMD_PERM_USER_EXEC},
+    utils::{ErrorMessage, GNOME_CMD_PERM_USER_EXEC, temp_file},
 };
 use gettextrs::gettext;
 use gtk::{gio, prelude::*};

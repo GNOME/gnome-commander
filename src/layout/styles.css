@@ -1,0 +1,25 @@
+columnview.gnome-cmd-file-list listview row cell {
+  padding: 0;
+}
+
+columnview.gnome-cmd-file-list listview row cell .cell {
+  padding: 4px 6px;
+}
+
+columnview.gnome-cmd-file-list listview row .fg-black   { color: var(--ls-color-fg-black,   #000); }
+columnview.gnome-cmd-file-list listview row .fg-red     { color: var(--ls-color-fg-red,     #f00); }
+columnview.gnome-cmd-file-list listview row .fg-green   { color: var(--ls-color-fg-green,   #0f0); }
+columnview.gnome-cmd-file-list listview row .fg-yellow  { color: var(--ls-color-fg-yellow,  #ff0); }
+columnview.gnome-cmd-file-list listview row .fg-blue    { color: var(--ls-color-fg-blue,    #00f); }
+columnview.gnome-cmd-file-list listview row .fg-magenta { color: var(--ls-color-fg-magenta, #f0f); }
+columnview.gnome-cmd-file-list listview row .fg-cyan    { color: var(--ls-color-fg-cyan,    #0ff); }
+columnview.gnome-cmd-file-list listview row .fg-white   { color: var(--ls-color-fg-white,   #fff); }
+
+columnview.gnome-cmd-file-list listview row .bg-black   { background-color: var(--ls-color-bg-black,   #000); }
+columnview.gnome-cmd-file-list listview row .bg-red     { background-color: var(--ls-color-bg-red,     #f00); }
+columnview.gnome-cmd-file-list listview row .bg-green   { background-color: var(--ls-color-bg-green,   #0f0); }
+columnview.gnome-cmd-file-list listview row .bg-yellow  { background-color: var(--ls-color-bg-yellow,  #ff0); }
+columnview.gnome-cmd-file-list listview row .bg-blue    { background-color: var(--ls-color-bg-blue,    #00f); }
+columnview.gnome-cmd-file-list listview row .bg-magenta { background-color: var(--ls-color-bg-magenta, #f0f); }
+columnview.gnome-cmd-file-list listview row .bg-cyan    { background-color: var(--ls-color-bg-cyan,    #0ff); }
+columnview.gnome-cmd-file-list listview row .bg-white   { background-color: var(--ls-color-bg-white,   #fff); }

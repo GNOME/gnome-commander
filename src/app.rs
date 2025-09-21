@@ -22,7 +22,7 @@ use crate::{
     debug::debug,
     file::File,
     spawn::{parse_command_template, spawn_async_command},
-    utils::{make_run_in_terminal_command, ErrorMessage},
+    utils::{ErrorMessage, make_run_in_terminal_command},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};

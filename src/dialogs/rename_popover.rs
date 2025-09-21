@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::utils::{toggle_file_name_selection, SenderExt};
+use crate::utils::{SenderExt, toggle_file_name_selection};
 use gtk::{gdk, glib, prelude::*};
 
 pub async fn show_rename_popover(

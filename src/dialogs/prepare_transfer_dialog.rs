@@ -22,7 +22,7 @@ use crate::{
     dir::Directory,
     file::File,
     file_selector::FileSelector,
-    utils::{bold, pending, ErrorMessage},
+    utils::{ErrorMessage, bold, pending},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, prelude::*, subclass::prelude::*};
@@ -33,7 +33,7 @@ mod imp {
     use crate::{
         dir::Directory,
         file_selector::FileSelector,
-        utils::{dialog_button_box, toggle_file_name_selection, SenderExt, NO_BUTTONS},
+        utils::{NO_BUTTONS, SenderExt, dialog_button_box, toggle_file_name_selection},
     };
     use std::cell::OnceCell;
 

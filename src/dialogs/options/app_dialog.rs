@@ -21,8 +21,8 @@ use crate::{
     app::{AppExt, AppTarget, UserDefinedApp},
     select_icon_button::IconButton,
     utils::{
-        attributes_bold, channel_send_action, dialog_button_box, handle_escape_key, ErrorMessage,
-        SenderExt, NO_BUTTONS,
+        ErrorMessage, NO_BUTTONS, SenderExt, attributes_bold, channel_send_action,
+        dialog_button_box, handle_escape_key,
     },
 };
 use gettextrs::gettext;

@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::utils::{dialog_button_box, SenderExt, NO_BUTTONS};
+use crate::utils::{NO_BUTTONS, SenderExt, dialog_button_box};
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
 

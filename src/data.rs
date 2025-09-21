@@ -26,9 +26,9 @@ use crate::{
     file_selector::TabVariant,
     filter::PatternType,
     layout::{
-        color_themes::{load_custom_theme, save_custom_theme, ColorTheme, ColorThemeId},
-        ls_colors_palette::{load_palette, save_palette, LsColorsPalette},
         PREF_COLORS,
+        color_themes::{ColorTheme, ColorThemeId, load_custom_theme, save_custom_theme},
+        ls_colors_palette::{LsColorsPalette, load_palette, save_palette},
     },
     search::profile::{SearchProfile, SearchProfileVariant},
     tab_label::TabLockIndicator,

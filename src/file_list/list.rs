@@ -21,10 +21,8 @@
  */
 
 use super::{
-    file_attr_sorter::{reverse_sorter, FileAttrSorter},
-    file_type_sorter::FileTypeSorter,
-    popup::file_popup_menu,
-    quick_search::QuickSearch,
+    cell::FileListCell, file_attr_sorter::FileAttrSorter, file_type_sorter::FileTypeSorter,
+    item::FileListItem, popup::file_popup_menu, quick_search::QuickSearch,
 };
 use crate::{
     connection::{
@@ -32,24 +30,30 @@ use crate::{
         list::ConnectionList,
     },
     data::{
-        ColorOptions, ConfirmOptions, FiltersOptions, FiltersOptionsRead, GeneralOptions,
-        GeneralOptionsRead,
+        ConfirmOptions, FiltersOptions, FiltersOptionsRead, GeneralOptions, GeneralOptionsRead,
     },
     dialogs::{delete_dialog::show_delete_dialog, rename_popover::show_rename_popover},
     dir::{Directory, DirectoryState},
     file::File,
-    filter::{fnmatch, Filter},
-    layout::{color_themes::ColorThemes, ls_colors_palette::load_palette},
+    filter::{Filter, fnmatch},
+    imageloader::icon_cache,
+    layout::{
+        PREF_COLORS,
+        ls_colors::{LsPalletteColor, ls_colors_get},
+    },
     libgcmd::file_descriptor::FileDescriptorExt,
     main_win::MainWindow,
     open_connection::open_connection,
     tags::tags::FileMetadataService,
-    types::{ExtensionDisplayMode, SizeDisplayMode},
-    utils::{size_to_string, ErrorMessage},
+    types::{ExtensionDisplayMode, GraphicalLayoutMode, PermissionDisplayMode, SizeDisplayMode},
+    utils::{
+        ErrorMessage, permissions_to_numbers, permissions_to_text, size_to_string, time_to_string,
+    },
 };
 use gettextrs::{gettext, ngettext};
-use gtk::{gdk, gio, glib, pango, prelude::*, subclass::prelude::*};
-use std::{collections::HashSet, ops::ControlFlow, path::Path};
+use gtk::{gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
+use std::{collections::HashSet, path::Path};
+use strum::VariantArray;
 
 mod imp {
     use super::*;
@@ -61,17 +65,11 @@ mod imp {
         dialogs::pattern_selection_dialog::select_by_pattern,
         file_list::{
             actions::{
-                file_list_action_execute, file_list_action_execute_script,
+                Script, file_list_action_execute, file_list_action_execute_script,
                 file_list_action_file_edit, file_list_action_file_view, file_list_action_open_with,
-                file_list_action_open_with_default, file_list_action_open_with_other, Script,
+                file_list_action_open_with_default, file_list_action_open_with_other,
             },
             popup::list_popup_menu,
-        },
-        imageloader::icon_cache,
-        layout::{
-            color_themes::ColorTheme,
-            ls_colors::{ls_colors_get, LsPallettePlane},
-            ls_colors_palette::LsColorsPalette,
         },
         tags::tags::FileMetadataService,
         transfer::{copy_files, link_files, move_files},
@@ -81,22 +79,24 @@ mod imp {
             QuickSearchShortcut, RightMouseButtonMode,
         },
         utils::{
-            get_modifiers_state, permissions_to_numbers, permissions_to_text, time_to_string, ALT,
-            ALT_SHIFT, CONTROL, CONTROL_ALT, CONTROL_SHIFT, NO_MOD, SHIFT,
+            ALT, ALT_SHIFT, CONTROL, CONTROL_ALT, CONTROL_SHIFT, NO_MOD, SHIFT,
+            get_modifiers_state, permissions_to_numbers, permissions_to_text,
         },
+        weak_map::WeakMap,
     };
     use std::{
-        borrow::Cow,
         cell::{Cell, OnceCell, RefCell},
-        cmp,
+        collections::BTreeMap,
         ffi::OsStr,
         path::PathBuf,
+        rc::Rc,
         sync::OnceLock,
         time::Duration,
     };
-    use strum::VariantArray;
 
-    #[derive(Default, glib::Properties)]
+    pub type CellsMap = Rc<WeakMap<FileListItem, FileListCell>>;
+
+    #[derive(glib::Properties)]
     #[properties(wrapper_type = super::FileList)]
     pub struct FileList {
         pub quick_search: glib::WeakRef<QuickSearch>,
@@ -156,20 +156,22 @@ mod imp {
         #[property(get, set, builder(QuickSearchShortcut::default()))]
         quick_search_shortcut: Cell<QuickSearchShortcut>,
 
-        pub color_theme: RefCell<Option<Cow<'static, ColorTheme>>>,
-        pub ls_palette: RefCell<LsColorsPalette>,
-
         #[property(get)]
-        view: OnceCell<gtk::TreeView>,
-        #[property(get)]
-        store: OnceCell<gtk::ListStore>,
+        pub store: gio::ListStore,
 
+        pub sort_model: gtk::SortListModel,
         pub sorting: Cell<Option<(ColumnID, gtk::SortType)>>,
-        #[property(get, set)]
-        pub sorter: RefCell<Option<gtk::Sorter>>,
+
+        #[property(get)]
+        pub selection: gtk::SingleSelection,
+        #[property(get)]
+        pub view: gtk::ColumnView,
+        pub columns: RefCell<Vec<gtk::ColumnViewColumn>>,
+
+        pub cells_map: BTreeMap<ColumnID, CellsMap>,
 
         pub shift_down: Cell<bool>,
-        pub shift_down_row: RefCell<Option<gtk::TreeIter>>,
+        pub shift_down_row: Cell<Option<u32>>,
         pub shift_down_key: Cell<Option<gdk::Key>>,
 
         modifier_click: Cell<Option<gdk::ModifierType>>,
@@ -243,6 +245,62 @@ mod imp {
             );
             klass.install_action("fl.drop-files-cancel", None, |_, _, _| { /* do nothing */ });
         }
+
+        fn new() -> Self {
+            Self {
+                quick_search: Default::default(),
+                file_metadata_service: Default::default(),
+                base_dir: Default::default(),
+
+                font_name: Default::default(),
+                row_height: Default::default(),
+                extension_display_mode: Default::default(),
+                graphical_layout_mode: Default::default(),
+                size_display_mode: Default::default(),
+                permissions_display_mode: Default::default(),
+                date_display_format: Default::default(),
+                use_ls_colors: Default::default(),
+                case_sensitive: Default::default(),
+                symbolic_links_as_regular_files: Default::default(),
+                left_mouse_button_mode: Default::default(),
+                middle_mouse_button_mode: Default::default(),
+                right_mouse_button_mode: Default::default(),
+                left_mouse_button_unselects: Default::default(),
+                dnd_mode: Default::default(),
+                select_dirs: Default::default(),
+                quick_search_shortcut: Default::default(),
+
+                store: gio::ListStore::new::<FileListItem>(),
+
+                sort_model: Default::default(),
+                sorting: Default::default(),
+
+                selection: Default::default(),
+                view: gtk::ColumnView::builder()
+                    .show_column_separators(false)
+                    .show_row_separators(false)
+                    .build(),
+                columns: Default::default(),
+
+                cells_map: ColumnID::VARIANTS
+                    .iter()
+                    .map(|c| (*c, Default::default()))
+                    .collect(),
+
+                shift_down: Default::default(),
+                shift_down_row: Default::default(),
+                shift_down_key: Default::default(),
+                modifier_click: Default::default(),
+
+                focus_later: Default::default(),
+
+                connection: Default::default(),
+                connection_handlers: Default::default(),
+
+                directory: Default::default(),
+                directory_handlers: Default::default(),
+            }
+        }
     }
 
     #[glib::derived_properties]
@@ -253,113 +311,98 @@ mod imp {
             let fl = self.obj();
             fl.set_layout_manager(Some(gtk::BinLayout::new()));
 
-            self.color_theme.replace(ColorThemes::new().theme());
-            self.ls_palette
-                .replace(load_palette(&ColorOptions::new().0));
-
-            let view = gtk::TreeView::builder().build();
-            view.add_css_class("gnome-cmd-file-list");
-            view.selection().set_mode(gtk::SelectionMode::Browse);
+            self.sort_model.set_model(Some(&self.store));
+            self.selection.set_model(Some(&self.sort_model));
+            self.view.set_model(Some(&self.selection));
+            self.view.add_css_class("gnome-cmd-file-list");
 
             let scrolled_window = gtk::ScrolledWindow::builder()
                 .hscrollbar_policy(gtk::PolicyType::Automatic)
                 .vscrollbar_policy(gtk::PolicyType::Automatic)
                 .hexpand(true)
                 .vexpand(true)
-                .child(&view)
+                .child(&self.view)
                 .build();
             scrolled_window.set_parent(&*fl);
-            self.view.set(view.clone()).unwrap();
 
-            let store = gtk::ListStore::new(&[
-                gio::Icon::static_type(), // COLUMN_ICON
-                String::static_type(),    // COLUMN_NAME
-                String::static_type(),    // COLUMN_EXT
-                String::static_type(),    // COLUMN_DIR
-                String::static_type(),    // COLUMN_SIZE
-                String::static_type(),    // COLUMN_DATE
-                String::static_type(),    // COLUMN_PERM
-                String::static_type(),    // COLUMN_OWNER
-                String::static_type(),    // COLUMN_GROUP
-                File::static_type(),      // DATA_COLUMN_FILE
-                String::static_type(),    // DATA_COLUMN_ICON_NAME
-                bool::static_type(),      // DATA_COLUMN_SELECTED
-                u64::static_type(),       // DATA_COLUMN_SIZE
-            ]);
-            self.store.set(store.clone()).unwrap();
-
-            self.sorting
-                .set(Some((ColumnID::COLUMN_NAME, gtk::SortType::Ascending)));
-            fl.update_sorter();
-
-            for (i, column_id) in ColumnID::VARIANTS.iter().cloned().enumerate() {
-                let column = gtk::TreeViewColumn::builder()
-                    .title(column_id.title().unwrap_or_default())
-                    .sizing(gtk::TreeViewColumnSizing::Fixed)
+            for (column_id, title, factory, sorter) in [
+                (ColumnID::COLUMN_ICON, "", create_icon_factory(), None),
+                (
+                    ColumnID::COLUMN_NAME,
+                    &gettext("name"),
+                    create_name_factory(&self.cells_map[&ColumnID::COLUMN_NAME]),
+                    Some(FileAttrSorter::by_name()),
+                ),
+                (
+                    ColumnID::COLUMN_EXT,
+                    &gettext("ext"),
+                    create_ext_factory(&self.cells_map[&ColumnID::COLUMN_EXT]),
+                    Some(FileAttrSorter::by_ext()),
+                ),
+                (
+                    ColumnID::COLUMN_DIR,
+                    &gettext("dir"),
+                    create_dir_factory(&self.cells_map[&ColumnID::COLUMN_DIR]),
+                    Some(FileAttrSorter::by_dir()),
+                ),
+                (
+                    ColumnID::COLUMN_SIZE,
+                    &gettext("size"),
+                    create_size_factory(&self.cells_map[&ColumnID::COLUMN_SIZE]),
+                    Some(FileAttrSorter::by_size()),
+                ),
+                (
+                    ColumnID::COLUMN_DATE,
+                    &gettext("date"),
+                    create_date_factory(&self.cells_map[&ColumnID::COLUMN_DATE]),
+                    Some(FileAttrSorter::by_date()),
+                ),
+                (
+                    ColumnID::COLUMN_PERM,
+                    &gettext("perm"),
+                    create_perm_factory(&self.cells_map[&ColumnID::COLUMN_PERM]),
+                    Some(FileAttrSorter::by_perm()),
+                ),
+                (
+                    ColumnID::COLUMN_OWNER,
+                    &gettext("uid"),
+                    create_owner_factory(&self.cells_map[&ColumnID::COLUMN_OWNER]),
+                    Some(FileAttrSorter::by_owner()),
+                ),
+                (
+                    ColumnID::COLUMN_GROUP,
+                    &gettext("gid"),
+                    create_group_factory(&self.cells_map[&ColumnID::COLUMN_GROUP]),
+                    Some(FileAttrSorter::by_group()),
+                ),
+            ] {
+                let column = gtk::ColumnViewColumn::builder()
+                    .title(title)
+                    .factory(&factory)
                     .resizable(true)
+                    .expand(column_id != ColumnID::COLUMN_ICON)
                     .build();
-
-                view.insert_column(&column, i as i32);
-
-                match column_id {
-                    ColumnID::COLUMN_ICON => {
-                        column.set_clickable(false);
-
-                        let renderer = gtk::CellRendererPixbuf::new();
-                        column.pack_start(&renderer, true);
-                        column.set_cell_data_func(
-                            &renderer,
-                            glib::clone!(
-                                #[weak(rename_to = imp)]
-                                self,
-                                move |_, cell, _, iter| imp.cell_data(cell, iter, column_id as i32)
-                            ),
-                        );
-
-                        let renderer = gtk::CellRendererText::new();
-                        column.pack_start(&renderer, true);
-                        column.set_cell_data_func(
-                            &renderer,
-                            glib::clone!(
-                                #[weak(rename_to = imp)]
-                                self,
-                                move |_, cell, _, iter| imp.cell_data(
-                                    cell,
-                                    iter,
-                                    DataColumns::DATA_COLUMN_ICON_NAME as i32
-                                )
-                            ),
-                        );
-                    }
-                    _ => {
-                        column.set_clickable(true);
-                        // column.set_sort_column_id(i);
-                        column.set_sort_indicator(true);
-
-                        let renderer = gtk::CellRendererText::new();
-                        renderer.set_xalign(column_id.xalign());
-                        column.pack_start(&renderer, true);
-                        column.set_cell_data_func(
-                            &renderer,
-                            glib::clone!(
-                                #[weak(rename_to = imp)]
-                                self,
-                                move |_, cell, _, iter| imp.cell_data(cell, iter, column_id as i32)
-                            ),
-                        );
-                    }
-                }
-
-                column.connect_clicked(glib::clone!(
-                    #[weak]
-                    fl,
-                    move |_| fl.sort_by(column_id)
-                ));
+                column.set_sorter(sorter.as_ref());
+                self.view.append_column(&column);
+                self.columns.borrow_mut().push(column);
             }
 
-            view.set_model(Some(&store));
+            let sorter = gtk::MultiSorter::new();
+            sorter.append(FileTypeSorter::default());
+            sorter.append(
+                self.view
+                    .sorter()
+                    .and_downcast::<gtk::ColumnViewSorter>()
+                    .unwrap(),
+            );
 
-            view.connect_cursor_changed(glib::clone!(
+            self.sort_model.set_sorter(Some(&sorter));
+            self.view
+                .sort_by_column(self.columns.borrow().get(1), gtk::SortType::Ascending);
+            self.sorting
+                .set(Some((ColumnID::COLUMN_NAME, gtk::SortType::Ascending)));
+
+            self.selection.connect_selected_notify(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
                 move |_| imp.cursor_changed()
@@ -377,7 +420,10 @@ mod imp {
             ));
             fl.add_controller(key_controller);
 
-            let click_controller = gtk::GestureClick::builder().button(0).build();
+            let click_controller = gtk::GestureClick::builder()
+                .button(0)
+                .propagation_phase(gtk::PropagationPhase::Capture)
+                .build();
             click_controller.connect_pressed(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
@@ -398,7 +444,7 @@ mod imp {
                     y
                 )
             ));
-            view.add_controller(click_controller);
+            self.view.add_controller(click_controller);
 
             let drag_source = gtk::DragSource::new();
             drag_source.connect_prepare(glib::clone!(
@@ -503,7 +549,7 @@ mod imp {
                 .bind("mouse-drag-and-drop", &*fl, "dnd-mode")
                 .build();
 
-            for (column, key) in fl.view().columns().iter().zip([
+            for (column, key) in self.columns.borrow().iter().zip([
                 "column-width-icon",
                 "column-width-name",
                 "column-width-ext",
@@ -577,12 +623,7 @@ mod imp {
 
     impl WidgetImpl for FileList {
         fn grab_focus(&self) -> bool {
-            self.obj().view().grab_focus()
-        }
-
-        fn realize(&self) {
-            self.parent_realize();
-            self.update_column_sort_arrows();
+            self.view.grab_focus()
         }
     }
 
@@ -761,414 +802,104 @@ mod imp {
         }
 
         fn on_dir_file_renamed(&self, f: &File) {
-            if self.obj().has_file(&*f) {
-                self.update_file(&*f);
-                let (sort_col, _) = self.obj().sorting();
-                if sort_col == ColumnID::COLUMN_NAME || sort_col == ColumnID::COLUMN_EXT {
-                    self.obj().sort();
-                }
+            if let Some(item) = self.obj().get_row_from_file(&*f) {
+                item.update();
             }
         }
 
-        pub fn is_selected_iter(&self, iter: &gtk::TreeIter) -> bool {
-            let selected: bool = TreeModelExtManual::get(
-                &self.obj().store(),
-                iter,
-                DataColumns::DATA_COLUMN_SELECTED as i32,
-            );
-            selected
+        pub fn items_iter(&self) -> impl Iterator<Item = FileListItem> + use<'_> {
+            self.selection
+                .iter::<glib::Object>()
+                .flatten()
+                .filter_map(|o| o.downcast::<FileListItem>().ok())
         }
 
-        fn file_at_iter(&self, iter: &gtk::TreeIter) -> File {
-            let file: File = TreeModelExtManual::get(
-                &self.obj().store(),
-                iter,
-                DataColumns::DATA_COLUMN_FILE as i32,
-            );
-            file
+        pub fn item_at(&self, position: u32) -> Option<FileListItem> {
+            self.selection.item(position).and_downcast::<FileListItem>()
         }
 
-        pub fn set_model_row(&self, iter: &gtk::TreeIter, f: &File, tree_size: bool) {
-            let model = self.obj().store();
-
-            match self.graphical_layout_mode.get() {
-                GraphicalLayoutMode::Text => {
-                    model.set(
-                        iter,
-                        &[(DataColumns::DATA_COLUMN_ICON_NAME as u32, &type_string(f))],
-                    );
-                }
-                mode => {
-                    let icon = icon_cache().file_icon(f, mode);
-                    model.set(iter, &[(ColumnID::COLUMN_ICON as u32, &icon)]);
-                }
-            }
-
-            let file_name = f.file_info().name();
-            let name = match self.extension_display_mode.get() {
-                ExtensionDisplayMode::Stripped
-                    if f.file_info().file_type() == gio::FileType::Regular =>
-                {
-                    file_name
-                        .file_stem()
-                        .map(|n| n.to_string_lossy().to_string())
-                }
-                _ => Some(file_name.to_string_lossy().to_string()),
-            };
-            let ext = match self.extension_display_mode.get() {
-                ExtensionDisplayMode::Stripped | ExtensionDisplayMode::Both
-                    if f.file_info().file_type() == gio::FileType::Regular =>
-                {
-                    file_name
-                        .extension()
-                        .map(|n| n.to_string_lossy().to_string())
-                }
-                _ => None,
-            };
-            model.set(
-                iter,
-                &[
-                    (ColumnID::COLUMN_NAME as u32, &name),
-                    (ColumnID::COLUMN_EXT as u32, &ext),
-                ],
-            );
-
-            let path = f.get_path_string_through_parent();
-            let dir = path.parent();
-            if let Some(relative) = self
-                .obj()
-                .base_dir()
-                .and_then(|b| dir.and_then(|t| t.strip_prefix(b).ok()))
-                .map(|r| Path::new(".").join(r))
-            {
-                model.set(iter, &[(ColumnID::COLUMN_DIR as u32, &relative)]);
-            } else {
-                model.set(iter, &[(ColumnID::COLUMN_DIR as u32, &dir)]);
-            }
-
-            if f.is_dotdot() {
-                model.set(
-                    iter,
-                    &[
-                        (DataColumns::DATA_COLUMN_SIZE as u32, &u64::MAX),
-                        (ColumnID::COLUMN_SIZE as u32, &gettext("<DIR>")),
-                    ],
-                );
-            } else if f.file_info().file_type() == gio::FileType::Directory {
-                let dir_size = tree_size.then(|| f.tree_size()).flatten();
-                let size_str = Some(
-                    dir_size
-                        .map(|size| size_to_string(size, self.size_display_mode.get()))
-                        .unwrap_or_else(|| gettext("<DIR>")),
-                );
-                model.set(
-                    iter,
-                    &[
-                        (
-                            DataColumns::DATA_COLUMN_SIZE as u32,
-                            &dir_size.unwrap_or(u64::MAX),
-                        ),
-                        (ColumnID::COLUMN_SIZE as u32, &size_str),
-                    ],
-                );
-            } else {
-                let file_size = f.size();
-                let size_str =
-                    file_size.map(|size| size_to_string(size, self.size_display_mode.get()));
-                model.set(
-                    iter,
-                    &[
-                        (
-                            DataColumns::DATA_COLUMN_SIZE as u32,
-                            &file_size.unwrap_or(u64::MAX),
-                        ),
-                        (ColumnID::COLUMN_SIZE as u32, &size_str),
-                    ],
-                );
-            }
-
-            if f.file_info().file_type() != gio::FileType::Directory || !f.is_dotdot() {
-                model.set(
-                    iter,
-                    &[(
-                        ColumnID::COLUMN_DATE as u32,
-                        &f.modification_date().and_then(|dt| {
-                            time_to_string(dt, &self.date_display_format.borrow()).ok()
-                        }),
-                    )],
-                );
-                model.set(
-                    iter,
-                    &[(
-                        ColumnID::COLUMN_PERM as u32,
-                        &display_permissions(f.permissions(), self.permissions_display_mode.get()),
-                    )],
-                );
-                model.set(iter, &[(ColumnID::COLUMN_OWNER as u32, &f.owner())]);
-                model.set(iter, &[(ColumnID::COLUMN_GROUP as u32, &f.group())]);
-            }
-
-            model.set(
-                iter,
-                &[
-                    (DataColumns::DATA_COLUMN_FILE as u32, f),
-                    (DataColumns::DATA_COLUMN_SELECTED as u32, &false),
-                ],
-            );
-        }
-
-        pub fn add_file(&self, f: &File, next: Option<&gtk::TreeIter>) {
-            let iter = if let Some(next) = next {
-                self.obj().store().insert_before(Some(next))
-            } else {
-                self.obj().store().append()
-            };
-            self.set_model_row(&iter, f, false);
+        pub fn add_file(&self, f: &File) {
+            let item = FileListItem::new(f);
+            self.store.append(&item);
 
             // If we have been waiting for this file to show up, focus it
             if self.focus_later.borrow().as_ref() == Some(&f.file_info().name()) {
                 self.focus_later.replace(None);
-                self.obj().focus_file_at_row(&iter);
+                self.obj().focus_file_at_row(&item);
             }
         }
 
         pub fn insert_file(&self, f: &File) -> bool {
             let options = FiltersOptions::new();
-            if !file_is_wanted(f, &options) {
-                return false;
-            }
-
-            let next_iter = if let Some(sorter) = self.obj().sorter() {
-                let result = self
-                    .obj()
-                    .traverse_files::<gtk::TreeIter>(|f2, iter, _store| {
-                        if sorter.compare(f2, f) == gtk::Ordering::Larger {
-                            ControlFlow::Break(iter.clone())
-                        } else {
-                            ControlFlow::Continue(())
-                        }
-                    });
-                match result {
-                    ControlFlow::Break(iter) => Some(iter),
-                    ControlFlow::Continue(()) => None,
-                }
+            if file_is_wanted(f, &options) {
+                self.add_file(f);
+                true
             } else {
-                None
-            };
-
-            self.add_file(f, next_iter.as_ref());
-            true
+                false
+            }
         }
 
         pub fn update_file(&self, f: &File) {
             if f.needs_update() {
-                if let Some(row) = self.obj().get_row_from_file(f) {
-                    self.set_model_row(&row, f, false);
+                if let Some(item) = self.obj().get_row_from_file(f) {
+                    item.update();
                 }
             }
-        }
-
-        fn cell_data(&self, cell: &gtk::CellRenderer, iter: &gtk::TreeIter, column: i32) {
-            let file = self.file_at_iter(iter);
-            let selected = self.is_selected_iter(iter);
-
-            let layout = self.graphical_layout_mode.get();
-
-            let has_foreground;
-            if column == ColumnID::COLUMN_ICON as i32 {
-                match layout {
-                    GraphicalLayoutMode::Text => {
-                        cell.set_property("gicon", gio::Icon::NONE);
-                    }
-                    _ => {
-                        let icon: Option<gio::Icon> =
-                            TreeModelExtManual::get(&self.obj().store(), iter, column);
-                        cell.set_property("gicon", icon);
-                    }
-                }
-                has_foreground = false;
-            } else if column == DataColumns::DATA_COLUMN_ICON_NAME as i32 {
-                match layout {
-                    GraphicalLayoutMode::Text => {
-                        cell.set_property("text", None::<String>);
-                    }
-                    _ => {
-                        let icon: Option<String> =
-                            TreeModelExtManual::get(&self.obj().store(), iter, column);
-                        cell.set_property("text", icon);
-                    }
-                }
-                has_foreground = false;
-            } else {
-                let value: Option<String> =
-                    TreeModelExtManual::get(&self.obj().store(), iter, column);
-                cell.set_property("text", value);
-                has_foreground = true;
-            }
-
-            if selected {
-                if let Some(color_theme) = self.color_theme.borrow().as_ref() {
-                    if has_foreground {
-                        cell.set_property("foreground-rgba", color_theme.sel_fg);
-                        cell.set_property("foreground-set", true);
-                    }
-                    cell.set_property("cell-background-rgba", color_theme.sel_bg);
-                    cell.set_property("cell-background-set", true);
-                } else {
-                    // TODO: Consider better ways to highlight selected files
-                    cell.set_property("weight-rgba", pango::Weight::Bold);
-                    cell.set_property("weight-set", true);
-                }
-            } else {
-                if let Some(color_theme) = self.color_theme.borrow().as_ref() {
-                    if has_foreground {
-                        cell.set_property("foreground-rgba", color_theme.norm_fg);
-                        cell.set_property("foreground-set", true);
-                    }
-                    cell.set_property("cell-background-rgba", color_theme.norm_bg);
-                    cell.set_property("cell-background-set", true);
-                }
-
-                self.paint_cell_with_ls_colors(cell, &file, has_foreground);
-            }
-        }
-
-        fn paint_cell_with_ls_colors(
-            &self,
-            cell: &gtk::CellRenderer,
-            file: &File,
-            has_foreground: bool,
-        ) {
-            if !self.use_ls_colors.get() {
-                return;
-            }
-            if let Some(colors) = ls_colors_get(&file.file_info()) {
-                if has_foreground {
-                    if let Some(fg) = colors.fg {
-                        cell.set_property(
-                            "foreground-rgba",
-                            self.ls_palette
-                                .borrow()
-                                .color(LsPallettePlane::Foreground, fg),
-                        );
-                        cell.set_property("foreground-set", true);
-                    }
-                }
-                if let Some(bg) = colors.bg {
-                    cell.set_property(
-                        "cell-background-rgba",
-                        self.ls_palette
-                            .borrow()
-                            .color(LsPallettePlane::Background, bg),
-                    );
-                    cell.set_property("cell-background-set", true);
-                }
-            }
-        }
-
-        pub fn update_column_sort_arrows(&self) {
-            let (col, order) = self.obj().sorting();
-            for (i, column) in self.obj().view().columns().into_iter().enumerate() {
-                if i == col as usize {
-                    column.set_sort_indicator(true);
-                    column.set_sort_order(order);
-                } else {
-                    column.set_sort_indicator(false);
-                }
-            }
-        }
-
-        pub fn set_selected_at_iter(&self, iter: &gtk::TreeIter, selected: bool) {
-            self.obj().store().set_value(
-                iter,
-                DataColumns::DATA_COLUMN_SELECTED as u32,
-                &selected.to_value(),
-            );
         }
 
         fn cursor_changed(&self) {
-            let Some(cursor) = self.obj().focused_file_iter() else {
+            let Some(cursor) = self.obj().focused_file_position() else {
                 return;
             };
             let shift_down_key = self.shift_down_key.take();
-            let Some(shift_down_row) = self.shift_down_row.borrow().clone() else {
+            let Some(shift_down_row) = self.shift_down_row.get() else {
                 return;
             };
 
             match shift_down_key {
                 Some(gdk::Key::Page_Up) => {
-                    self.toggle_file_range(&shift_down_row, &cursor, false);
+                    self.toggle_file_range(shift_down_row, cursor, false);
                 }
                 Some(gdk::Key::Page_Down) => {
-                    self.toggle_file_range(&shift_down_row, &cursor, false);
+                    self.toggle_file_range(shift_down_row, cursor, false);
                 }
                 Some(gdk::Key::Home) => {
-                    self.toggle_file_range(&shift_down_row, &cursor, true);
+                    self.toggle_file_range(shift_down_row, cursor, true);
                 }
                 Some(gdk::Key::End) => {
-                    self.toggle_file_range(&shift_down_row, &cursor, true);
+                    self.toggle_file_range(shift_down_row, cursor, true);
                 }
                 _ => {}
             }
         }
 
-        fn toggle_file_range(
-            &self,
-            start_row: &gtk::TreeIter,
-            end_row: &gtk::TreeIter,
-            closed_end: bool,
-        ) {
-            let mut state = 0;
-            let _ = self.obj().traverse_files(|_file, iter, store| {
-                let matchez = iter_compare(store, iter, start_row) == cmp::Ordering::Equal
-                    || iter_compare(store, iter, end_row) == cmp::Ordering::Equal;
-                if state == 0 {
-                    if matchez {
-                        self.toggle_file(iter);
-                        state = 1;
-                    }
-                } else if state == 1 {
-                    if matchez {
-                        if closed_end {
-                            self.toggle_file(iter);
-                        }
-                        return ControlFlow::Break(());
-                    } else {
-                        self.toggle_file(iter);
-                    }
-                }
-                ControlFlow::Continue(())
-            });
+        fn toggle_file_range(&self, start_row: u32, end_row: u32, closed_end: bool) {
+            let start = u32::min(start_row, end_row);
+            let end = u32::max(start_row, end_row);
+            let range = if closed_end {
+                start..(end + 1)
+            } else {
+                start..end
+            };
+            for position in range {
+                self.toggle_file(position);
+            }
         }
 
-        fn select_file_range(&self, start_row: &gtk::TreeIter, end_row: &gtk::TreeIter) {
-            let mut state = 0;
-            let _ = self.obj().traverse_files(|file, iter, store| {
-                let matchez = iter_compare(store, iter, start_row) == cmp::Ordering::Equal
-                    || iter_compare(store, iter, end_row) == cmp::Ordering::Equal;
-                if state == 0 {
-                    if matchez {
-                        state = 1;
-                        if !file.is_dotdot() {
-                            self.set_selected_at_iter(iter, true);
-                        }
-                    }
-                } else {
-                    if !file.is_dotdot() {
-                        self.set_selected_at_iter(iter, true);
-                    }
-                    if matchez {
-                        return ControlFlow::Break(());
-                    }
+        fn select_file_range(&self, start_row: u32, end_row: u32) {
+            let start = u32::min(start_row, end_row);
+            let end = u32::max(start_row, end_row);
+            for position in start..=end {
+                if let Some(item) = self.item_at(position).filter(|f| !f.file().is_dotdot()) {
+                    item.set_selected(true);
                 }
-                ControlFlow::Continue(())
-            });
+            }
             self.obj().emit_files_changed();
         }
 
-        pub fn select_with_mouse(&self, iter: &gtk::TreeIter) {
-            if let Some(start_iter) = self.shift_down_row.borrow().clone() {
-                self.select_file_range(&start_iter, iter);
+        pub fn select_with_mouse(&self, positions: u32) {
+            if let Some(start_row) = self.shift_down_row.get() {
+                self.select_file_range(start_row, positions);
                 self.shift_down.set(false);
                 self.shift_down_key.set(None);
             }
@@ -1207,12 +938,14 @@ mod imp {
                 }
                 (SHIFT, gdk::Key::Page_Up | gdk::Key::KP_Page_Up | gdk::Key::KP_9) => {
                     self.shift_down_key.set(Some(gdk::Key::Page_Up));
-                    self.shift_down_row.replace(self.obj().focused_file_iter());
+                    self.shift_down_row
+                        .replace(self.obj().focused_file_position());
                     return glib::Propagation::Proceed;
                 }
                 (SHIFT, gdk::Key::Page_Down | gdk::Key::KP_Page_Down | gdk::Key::KP_3) => {
                     self.shift_down_key.set(Some(gdk::Key::Page_Down));
-                    self.shift_down_row.replace(self.obj().focused_file_iter());
+                    self.shift_down_row
+                        .replace(self.obj().focused_file_position());
                     return glib::Propagation::Proceed;
                 }
                 (
@@ -1225,19 +958,21 @@ mod imp {
                     | gdk::Key::KP_2,
                 ) => {
                     self.shift_down_key.set(Some(gdk::Key::Up));
-                    if let Some(focused) = self.obj().focused_file_iter() {
-                        self.toggle_file(&focused);
+                    if let Some(focused) = self.obj().focused_file_position() {
+                        self.toggle_file(focused);
                     }
                     return glib::Propagation::Proceed;
                 }
                 (SHIFT, gdk::Key::Home | gdk::Key::KP_Home | gdk::Key::KP_7) => {
                     self.shift_down_key.set(Some(gdk::Key::Home));
-                    self.shift_down_row.replace(self.obj().focused_file_iter());
+                    self.shift_down_row
+                        .replace(self.obj().focused_file_position());
                     return glib::Propagation::Proceed;
                 }
                 (SHIFT, gdk::Key::End | gdk::Key::KP_End | gdk::Key::KP_1) => {
                     self.shift_down_key.set(Some(gdk::Key::End));
-                    self.shift_down_row.replace(self.obj().focused_file_iter());
+                    self.shift_down_row
+                        .replace(self.obj().focused_file_position());
                     return glib::Propagation::Proceed;
                 }
                 (SHIFT, gdk::Key::Delete | gdk::Key::KP_Delete) => {
@@ -1293,8 +1028,8 @@ mod imp {
                         .set_cursor(gdk::Cursor::from_name("wait", None).as_ref());
 
                     self.obj().toggle();
-                    if let Some(file) = self.obj().selected_file() {
-                        self.obj().show_dir_tree_size(&file);
+                    if let Some(position) = self.obj().focused_file_position() {
+                        self.obj().show_dir_tree_size(position);
                     }
                     self.obj().emit_files_changed();
 
@@ -1325,9 +1060,9 @@ mod imp {
                 }
                 (NO_MOD, gdk::Key::Insert | gdk::Key::KP_Insert) => {
                     self.obj().toggle();
-                    if let Some(iter) = self.obj().focused_file_iter() {
-                        if self.obj().store().iter_next(&iter) {
-                            self.obj().focus_file_at_row(&iter);
+                    if let Some(position) = self.obj().focused_file_position() {
+                        if position + 1 < self.selection.n_items() {
+                            self.obj().select_row(position + 1);
                         }
                     }
                     return glib::Propagation::Stop;
@@ -1341,7 +1076,8 @@ mod imp {
                 }
                 (NO_MOD, gdk::Key::Shift_L | gdk::Key::Shift_R) => {
                     if !self.shift_down.get() {
-                        self.shift_down_row.replace(self.obj().focused_file_iter());
+                        self.shift_down_row
+                            .replace(self.obj().focused_file_position());
                     }
                     return glib::Propagation::Stop;
                 }
@@ -1380,15 +1116,14 @@ mod imp {
         }
 
         fn on_button_press(&self, button: u32, n_press: i32, x: f64, y: f64) {
-            let row = self.row_at_coords(x, y);
-            let row_and_file = row.and_then(|row| Some((row, self.obj().file_at_row(&row)?)));
+            let cell = self.row_at_coords(x, y);
 
             self.obj().emit_by_name::<()>(
                 "list-clicked",
-                &[&button, &row_and_file.as_ref().map(|f| &f.1)],
+                &[&button, &cell.as_ref().map(|f| f.1.file())],
             );
 
-            if let Some((row, file)) = row_and_file.as_ref() {
+            if let Some((_, item)) = cell.as_ref() {
                 let state = self.get_modifiers_state();
 
                 self.modifier_click.set(state);
@@ -1398,34 +1133,38 @@ mod imp {
                     && self.left_mouse_button_mode.get()
                         == LeftMouseButtonMode::OpensWithDoubleClick
                 {
-                    self.obj().emit_by_name::<()>("file-activated", &[file]);
+                    self.obj()
+                        .emit_by_name::<()>("file-activated", &[&item.file()]);
                 } else if n_press == 1 && button == 1 {
                     if state == Some(SHIFT) {
-                        self.select_with_mouse(&row);
+                        if let Some(position) = self
+                            .items_iter()
+                            .position(|i| &i == item)
+                            .and_then(|p| p.try_into().ok())
+                        {
+                            self.select_with_mouse(position);
+                        }
                     } else if state == Some(CONTROL) {
-                        self.toggle_file(&row);
+                        item.toggle_selected();
                     }
                     if state == Some(NO_MOD) {
-                        if !self.is_selected_iter(&row) && self.left_mouse_button_unselects.get() {
+                        if !item.selected() && self.left_mouse_button_unselects.get() {
                             self.obj().unselect_all();
                         }
                     }
                 } else if n_press == 1 && button == 3 {
-                    if !file.is_dotdot() {
+                    if !item.file().is_dotdot() {
                         if self.right_mouse_button_mode.get() == RightMouseButtonMode::Selects {
-                            if self.obj().focused_file_iter().map_or(false, |focus_iter| {
-                                iter_compare(&self.obj().store(), &focus_iter, &row)
-                                    == cmp::Ordering::Equal
-                            }) {
-                                self.set_selected_at_iter(&row, true);
+                            if self
+                                .selection
+                                .selected_item()
+                                .map_or(false, |focused| &focused == item)
+                            {
+                                item.set_selected(true);
                                 self.obj().emit_files_changed();
                                 self.obj().show_file_popup(None);
                             } else {
-                                if !self.is_selected_iter(&row) {
-                                    self.set_selected_at_iter(&row, true);
-                                } else {
-                                    self.set_selected_at_iter(&row, false);
-                                }
+                                item.toggle_selected();
                                 self.obj().emit_files_changed();
                             }
                         } else {
@@ -1444,25 +1183,36 @@ mod imp {
         }
 
         fn on_button_release(&self, button: u32, n_press: i32, x: f64, y: f64) {
-            let Some(row) = self.row_at_coords(x, y) else {
+            let Some((_, item)) = self.row_at_coords(x, y) else {
                 return;
             };
-            if let Some(file) = self.obj().file_at_row(&row) {
-                if n_press == 1
-                    && button == 1
-                    && self.modifier_click.get() == Some(NO_MOD)
-                    && self.left_mouse_button_mode.get()
-                        == LeftMouseButtonMode::OpensWithSingleClick
-                {
-                    self.obj().emit_by_name::<()>("file-activated", &[&file]);
-                }
+            if n_press == 1
+                && button == 1
+                && self.modifier_click.get() == Some(NO_MOD)
+                && self.left_mouse_button_mode.get() == LeftMouseButtonMode::OpensWithSingleClick
+            {
+                self.obj()
+                    .emit_by_name::<()>("file-activated", &[&item.file()]);
             }
         }
 
-        fn row_at_coords(&self, x: f64, y: f64) -> Option<gtk::TreeIter> {
-            let (path, _) = self.obj().view().dest_row_at_pos(x as i32, y as i32)?;
-            let iter = self.obj().store().iter(&path?)?;
-            Some(iter)
+        fn row_at_coords(&self, x: f64, y: f64) -> Option<(ColumnID, FileListItem)> {
+            let mut widget = self.view.pick(x, y, gtk::PickFlags::DEFAULT)?;
+            let cell = loop {
+                match widget.downcast_ref::<FileListCell>() {
+                    Some(cell) => break Some(cell.clone()),
+                    None => match widget.parent() {
+                        Some(parent) => widget = parent,
+                        None => break None,
+                    },
+                }
+            }?;
+            for (column_id, cells_map) in &self.cells_map {
+                if let Some(item) = cells_map.find_by_value(&cell) {
+                    return Some((*column_id, item.clone()));
+                }
+            }
+            None
         }
 
         fn show_list_popup(&self, x: f64, y: f64) {
@@ -1475,10 +1225,13 @@ mod imp {
             popover.popup();
         }
 
-        pub fn toggle_file(&self, iter: &gtk::TreeIter) {
-            let file = self.file_at_iter(iter);
-            if !file.is_dotdot() {
-                self.set_selected_at_iter(iter, !self.is_selected_iter(iter));
+        pub fn toggle_file(&self, position: u32) {
+            if position == gtk::INVALID_LIST_POSITION {
+                return;
+            }
+            if let Some(item) = self.item_at(position).filter(|i| !i.file().is_dotdot()) {
+                item.toggle_selected();
+                self.selection.items_changed(position, 1, 1);
                 self.obj().emit_files_changed();
             }
         }
@@ -1542,7 +1295,7 @@ mod imp {
             };
 
             let row = self.row_at_coords(x, y);
-            let file = row.and_then(|iter| self.obj().file_at_row(&iter));
+            let file = row.map(|(_, item)| item.file());
 
             let destination = if file.as_ref().is_some_and(|f| f.is_dotdot()) {
                 DroppingFilesDestination::Parent
@@ -1621,7 +1374,8 @@ mod imp {
                 DroppingFilesDestination::Child(name) => self
                     .obj()
                     .find_file_by_name(&name)
-                    .and_then(|iter| self.obj().file_at_row(&iter))
+                    .and_then(|position| self.item_at(position))
+                    .map(|item| item.file())
                     .and_downcast::<Directory>(),
                 DroppingFilesDestination::This => self.obj().directory(),
             };
@@ -1668,16 +1422,6 @@ mod imp {
             }
             // main_win.focus_file_lists();
         }
-    }
-
-    fn iter_compare(
-        store: &gtk::ListStore,
-        iter1: &gtk::TreeIter,
-        iter2: &gtk::TreeIter,
-    ) -> cmp::Ordering {
-        let path1 = store.path(iter1);
-        let path2 = store.path(iter2);
-        path1.cmp(&path2)
     }
 
     fn is_quicksearch_starting_character(key: gdk::Key) -> bool {
@@ -1793,7 +1537,7 @@ glib::wrapper! {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Clone, Copy, PartialEq, Eq, strum::FromRepr, strum::VariantArray)]
+#[derive(Clone, Copy, PartialOrd, Ord, PartialEq, Eq, strum::FromRepr, strum::VariantArray)]
 #[repr(C)]
 pub enum ColumnID {
     COLUMN_ICON = 0,
@@ -1845,14 +1589,6 @@ impl ColumnID {
     }
 }
 
-#[allow(non_camel_case_types)]
-enum DataColumns {
-    DATA_COLUMN_FILE = 9,
-    DATA_COLUMN_ICON_NAME,
-    DATA_COLUMN_SELECTED,
-    DATA_COLUMN_SIZE,
-}
-
 impl FileList {
     pub fn new(file_metadata_service: &FileMetadataService) -> Self {
         glib::Object::builder()
@@ -1861,60 +1597,71 @@ impl FileList {
     }
 
     pub fn size(&self) -> usize {
-        self.store()
-            .iter_n_children(None)
+        self.imp()
+            .selection
+            .n_items()
             .try_into()
             .ok()
             .unwrap_or_default()
     }
 
-    pub fn show_dir_tree_size(&self, f: &File) {
-        if let Some(iter) = self.get_row_from_file(f) {
-            self.imp().set_model_row(&iter, f, true);
+    pub fn show_dir_tree_size(&self, position: u32) {
+        if let Some(item) = self.imp().item_at(position) {
+            item.set_size(
+                item.file()
+                    .tree_size()
+                    .and_then(|s| s.try_into().ok())
+                    .unwrap_or(-1),
+            );
         }
     }
 
     pub fn show_visible_tree_sizes(&self) {
-        let _ = self.traverse_files::<()>(|file, iter, _store| {
-            self.imp().set_model_row(iter, file, true);
-            ControlFlow::Continue(())
-        });
+        for item in self.imp().items_iter() {
+            item.set_size(
+                item.file()
+                    .tree_size()
+                    .and_then(|s| s.try_into().ok())
+                    .unwrap_or(-1),
+            );
+        }
         self.emit_files_changed();
     }
 
     fn remove_file(&self, f: &File) -> bool {
-        match self.get_row_from_file(f) {
-            Some(iter) => {
-                if self.store().remove(&iter) {
-                    self.focus_file_at_row(&iter);
-                }
-                true
-            }
-            None => false,
+        let Some(store_position) = self
+            .imp()
+            .store
+            .iter::<FileListItem>()
+            .flatten()
+            .position(|item| item.file() == *f)
+        else {
+            return false;
+        };
+        let view_position = self.imp().items_iter().position(|item| item.file() == *f);
+
+        self.imp().store.remove(store_position as u32);
+        if let Some(view_position) = view_position {
+            self.select_row(view_position as u32);
         }
+        true
     }
 
     pub fn clear(&self) {
-        self.store().clear();
+        self.imp().store.remove_all();
     }
 
     pub fn visible_files(&self) -> glib::List<File> {
-        let mut files = glib::List::new();
-        let _ = self.traverse_files::<()>(|file, _iter, _store| {
-            files.push_back(file.clone());
-            ControlFlow::Continue(())
-        });
-        files
+        self.imp().items_iter().map(|item| item.file()).collect()
     }
 
     pub fn selected_files(&self) -> glib::List<File> {
-        let mut list = glib::List::<File>::new();
-        let _ = self.traverse_files::<()>(|file, iter, _store| {
-            if self.imp().is_selected_iter(iter) {
-                list.push_back(file.clone());
-            }
-            ControlFlow::Continue(())
-        });
+        let mut list: glib::List<File> = self
+            .imp()
+            .items_iter()
+            .filter(|item| item.selected())
+            .map(|item| item.file())
+            .collect();
         if list.is_empty() {
             if let Some(file) = self.selected_file() {
                 list.push_back(file);
@@ -1924,50 +1671,45 @@ impl FileList {
     }
 
     pub fn sorting(&self) -> (ColumnID, gtk::SortType) {
-        self.imp()
-            .sorting
-            .get()
-            .unwrap_or((ColumnID::COLUMN_NAME, gtk::SortType::Ascending))
+        let cv_sorter = self
+            .view()
+            .sorter()
+            .and_downcast::<gtk::ColumnViewSorter>()
+            .unwrap();
+        let col = self
+            .imp()
+            .columns
+            .borrow()
+            .iter()
+            .position(|c| Some(c) == cv_sorter.primary_sort_column().as_ref())
+            .and_then(ColumnID::from_repr)
+            .unwrap_or(ColumnID::COLUMN_NAME);
+        (col, cv_sorter.primary_sort_order())
     }
 
     pub fn set_sorting(&self, column: ColumnID, order: gtk::SortType) {
-        self.imp().sorting.set(Some((column, order)));
-        self.update_sorter();
+        if let Some(column) = self.imp().columns.borrow().get(column as usize) {
+            self.view().sort_by_column(Some(column), order);
+        }
     }
 
     pub fn show_column(&self, col: ColumnID, value: bool) {
-        if let Some(column) = self.view().column(col as i32) {
+        if let Some(column) = self.imp().columns.borrow().get(col as usize) {
             column.set_visible(value);
         }
     }
 
     pub fn has_file(&self, f: &File) -> bool {
-        self.traverse_files::<()>(|file, _iter, _store| {
-            if file == f {
-                ControlFlow::Break(())
-            } else {
-                ControlFlow::Continue(())
-            }
-        })
-        .is_break()
+        self.imp().items_iter().any(|item| item.file() == *f)
     }
 
-    pub fn file_at_row(&self, iter: &gtk::TreeIter) -> Option<File> {
-        self.store()
-            .get_value(iter, DataColumns::DATA_COLUMN_FILE as i32)
-            .get()
-            .ok()
-    }
-
-    pub fn focused_file_iter(&self) -> Option<gtk::TreeIter> {
-        let path = TreeViewExt::cursor(&self.view()).0?;
-        let iter = self.store().iter(&path)?;
-        Some(iter)
+    fn focused_file_position(&self) -> Option<u32> {
+        Some(self.imp().selection.selected()).filter(|p| *p != gtk::INVALID_LIST_POSITION)
     }
 
     pub fn focused_file(&self) -> Option<File> {
-        let iter = self.focused_file_iter()?;
-        let file = self.file_at_row(&iter)?;
+        let position = self.focused_file_position()?;
+        let file = self.imp().item_at(position)?.file();
         Some(file)
     }
 
@@ -1976,83 +1718,76 @@ impl FileList {
     }
 
     pub fn toggle(&self) {
-        if let Some(iter) = self.focused_file_iter() {
-            self.imp().toggle_file(&iter);
+        if let Some(position) = self.focused_file_position() {
+            self.imp().toggle_file(position);
         }
     }
 
     pub fn toggle_and_step(&self) {
-        if let Some(iter) = self.focused_file_iter() {
-            self.imp().toggle_file(&iter);
-            if self.store().iter_next(&iter) {
-                self.focus_file_at_row(&iter);
+        if let Some(position) = self.focused_file_position() {
+            self.imp().toggle_file(position);
+            if position + 1 < self.imp().selection.n_items() {
+                self.select_row(position + 1);
             }
         }
     }
 
     pub fn select_all(&self) {
         if self.select_dirs() {
-            let _ = self.traverse_files::<()>(|file, iter, _store| {
-                if !file.is_dotdot() {
-                    self.imp().set_selected_at_iter(iter, true);
+            for item in self.imp().items_iter() {
+                if !item.file().is_dotdot() {
+                    item.set_selected(true);
                 }
-                ControlFlow::Continue(())
-            });
+            }
         } else {
-            let _ = self.traverse_files::<()>(|file, iter, _store| {
+            for item in self.imp().items_iter() {
+                let file = item.file();
                 if !file.is_dotdot() && !file.is::<Directory>() {
-                    self.imp().set_selected_at_iter(iter, true);
+                    item.set_selected(true);
                 }
-                ControlFlow::Continue(())
-            });
+            }
         }
         self.emit_files_changed();
     }
 
     pub fn select_all_files(&self) {
-        let _ = self.traverse_files::<()>(|file, iter, _store| {
+        for item in self.imp().items_iter() {
+            let file = item.file();
             if !file.is_dotdot() {
-                self.imp()
-                    .set_selected_at_iter(iter, !file.is::<Directory>());
+                item.set_selected(!file.is::<Directory>());
             }
-            ControlFlow::Continue(())
-        });
+        }
         self.emit_files_changed();
     }
 
     pub fn unselect_all_files(&self) {
-        let _ = self.traverse_files::<()>(|file, iter, _store| {
-            if !file.is::<Directory>() {
-                self.imp().set_selected_at_iter(iter, false);
+        for item in self.imp().items_iter() {
+            if !item.file().is::<Directory>() {
+                item.set_selected(false);
             }
-            ControlFlow::Continue(())
-        });
+        }
         self.emit_files_changed();
     }
 
     pub fn unselect_all(&self) {
-        let _ = self.traverse_files::<()>(|_file, iter, _store| {
-            self.imp().set_selected_at_iter(iter, false);
-            ControlFlow::Continue(())
-        });
+        for item in self.imp().items_iter() {
+            item.set_selected(false);
+        }
         self.emit_files_changed();
     }
 
     pub fn focus_prev(&self) {
-        let view = self.view();
-        if let Some(mut path) = TreeViewExt::cursor(&view).0 {
-            if path.prev() {
-                TreeViewExt::set_cursor(&view, &path, None, false);
-            }
+        let position = self.imp().selection.selected();
+        if position > 0 {
+            self.select_row(position - 1);
         }
     }
 
     pub fn focus_next(&self) {
-        let view = self.view();
-        if let Some(mut path) = TreeViewExt::cursor(&view).0 {
-            path.next();
-            TreeViewExt::set_cursor(&view, &path, None, false);
-        }
+        let position = self.imp().selection.selected();
+        if position + 1 < self.imp().selection.n_items() {
+            self.select_row(position + 1)
+        };
     }
 
     pub fn connection(&self) -> Option<Connection> {
@@ -2174,51 +1909,38 @@ impl FileList {
     }
 
     pub fn append_file(&self, file: &File) {
-        self.imp().add_file(file, None);
+        self.imp().add_file(file);
     }
 
-    pub(super) fn get_row_from_file(&self, f: &File) -> Option<gtk::TreeIter> {
-        let result = self.traverse_files::<gtk::TreeIter>(|file, iter, _store| {
-            if file == f {
-                ControlFlow::Break(iter.clone())
-            } else {
-                ControlFlow::Continue(())
+    pub(super) fn get_row_from_file(&self, f: &File) -> Option<FileListItem> {
+        for item in self.imp().items_iter() {
+            if item.file() == *f {
+                return Some(item);
             }
-        });
-        match result {
-            ControlFlow::Break(iter) => Some(iter),
-            ControlFlow::Continue(()) => None,
+        }
+        None
+    }
+
+    pub(super) fn focus_file_at_row(&self, row: &FileListItem) {
+        for (pos, item) in self.imp().items_iter().enumerate() {
+            if item == *row {
+                self.select_row(pos as u32);
+                break;
+            }
         }
     }
 
-    pub(super) fn focus_file_at_row(&self, row: &gtk::TreeIter) {
-        let path = self.store().path(row);
-        gtk::prelude::TreeViewExt::set_cursor(&self.view(), &path, None, false);
+    pub fn find_file_by_name(&self, name: &Path) -> Option<u32> {
+        self.imp()
+            .items_iter()
+            .position(|item| item.file().file_info().name() == name)
+            .and_then(|p| p.try_into().ok())
     }
 
-    fn find_file_by_name(&self, name: &Path) -> Option<gtk::TreeIter> {
-        let result = self.traverse_files::<gtk::TreeIter>(|f, iter, _store| {
-            if f.file_info().name() == name {
-                ControlFlow::Break(iter.clone())
-            } else {
-                ControlFlow::Continue(())
-            }
-        });
-        match result {
-            ControlFlow::Break(iter) => Some(iter),
-            ControlFlow::Continue(()) => None,
-        }
-    }
-
-    pub fn focus_file(&self, focus_file: &Path, scroll_to_file: bool) {
+    pub fn focus_file(&self, focus_file: &Path, _scroll_to_file: bool) {
         match self.find_file_by_name(focus_file) {
-            Some(iter) => {
-                self.focus_file_at_row(&iter);
-                if scroll_to_file {
-                    let path = self.store().path(&iter);
-                    self.view()
-                        .scroll_to_cell(Some(&path), None, false, 0.0, 0.0);
-                }
+            Some(position) => {
+                self.select_row(position);
             }
             None => {
                 /* The file was not found, remember the filename in case the file gets
@@ -2228,23 +1950,28 @@ impl FileList {
         }
     }
 
-    pub fn select_row(&self, row: Option<gtk::TreeIter>) {
-        if let Some(row) = row.or_else(|| self.store().iter_first()) {
-            self.focus_file_at_row(&row);
+    pub fn select_row(&self, pos: u32) {
+        if pos != gtk::INVALID_LIST_POSITION {
+            self.imp().view.scroll_to(
+                pos,
+                None,
+                gtk::ListScrollFlags::FOCUS | gtk::ListScrollFlags::SELECT,
+                None,
+            );
         }
     }
 
     pub fn toggle_with_pattern(&self, pattern: &Filter, mode: bool) {
         let select_dirs = self.select_dirs();
-        let _ = self.traverse_files::<()>(|file, iter, store| {
+        for item in self.imp().items_iter() {
+            let file = item.file();
             if !file.is_dotdot()
                 && (select_dirs || file.downcast_ref::<Directory>().is_none())
                 && pattern.matches(&file.file_info().display_name())
             {
-                store.set(iter, &[(DataColumns::DATA_COLUMN_SELECTED as u32, &mode)]);
+                item.set_selected(mode);
             }
-            ControlFlow::Continue(())
-        });
+        }
         self.emit_files_changed();
     }
 
@@ -2328,37 +2055,14 @@ impl FileList {
         Ok(())
     }
 
-    pub fn traverse_files<T>(
-        &self,
-        mut visitor: impl FnMut(&File, &gtk::TreeIter, &gtk::ListStore) -> ControlFlow<T>,
-    ) -> ControlFlow<T> {
-        let store = self.store();
-        if let Some(iter) = store.iter_first() {
-            loop {
-                let file: File =
-                    TreeModelExtManual::get(&store, &iter, DataColumns::DATA_COLUMN_FILE as i32);
-                (visitor)(&file, &iter, &store)?;
-                if !store.iter_next(&iter) {
-                    break;
-                }
-            }
-        }
-        ControlFlow::Continue(())
-    }
-
     fn emit_files_changed(&self) {
         self.emit_by_name::<()>("files-changed", &[]);
     }
 
     pub fn set_selected_files(&self, files: &HashSet<File>) {
-        let _ = self.traverse_files::<()>(|file, iter, store| {
-            let selected = files.contains(file);
-            store.set(
-                iter,
-                &[(DataColumns::DATA_COLUMN_SELECTED as u32, &selected)],
-            );
-            ControlFlow::Continue(())
-        });
+        for item in self.imp().items_iter() {
+            item.set_selected(files.contains(&item.file()));
+        }
         self.emit_files_changed();
     }
 
@@ -2366,28 +2070,24 @@ impl FileList {
         let Some(ext) = self.selected_file().and_then(|f| f.extension()) else {
             return;
         };
-        let _ = self.traverse_files::<()>(|file, iter, store| {
+        for item in self.imp().items_iter() {
+            let file = item.file();
             if !file.is_dotdot() && file.extension().as_ref() == Some(&ext) {
-                store.set(iter, &[(DataColumns::DATA_COLUMN_SELECTED as u32, &select)]);
+                item.set_selected(select);
             }
-            ControlFlow::Continue(())
-        });
+        }
         self.emit_files_changed();
     }
 
     pub fn invert_selection(&self) {
         let select_dirs = self.select_dirs();
-        let _ = self.traverse_files::<()>(|file, iter, store| {
+        for item in self.imp().items_iter() {
+            let file = item.file();
             if !file.is_dotdot() && (select_dirs || file.downcast_ref::<Directory>().is_none()) {
-                let selected: bool =
-                    TreeModelExtManual::get(store, iter, DataColumns::DATA_COLUMN_SELECTED as i32);
-                store.set(
-                    iter,
-                    &[(DataColumns::DATA_COLUMN_SELECTED as u32, &!selected)],
-                );
+                item.set_selected(!item.selected());
             }
-            ControlFlow::Continue(())
-        });
+        }
+        self.emit_files_changed();
     }
 
     pub fn restore_selection(&self) {
@@ -2396,13 +2096,12 @@ impl FileList {
 
     pub fn stats(&self) -> FileListStats {
         let mut stats = FileListStats::default();
-        let _ = self.traverse_files::<()>(|file, iter, store| {
+        for item in self.imp().items_iter() {
+            let file = item.file();
             if !file.is_dotdot() {
                 let info = file.file_info();
-                let selected: bool =
-                    TreeModelExtManual::get(store, iter, DataColumns::DATA_COLUMN_SELECTED as i32);
-                let cached_size: u64 =
-                    TreeModelExtManual::get(store, iter, DataColumns::DATA_COLUMN_SIZE as i32);
+                let selected = item.selected();
+                let cached_size: Option<u64> = item.size().try_into().ok();
 
                 match info.file_type() {
                     gio::FileType::Directory => {
@@ -2410,7 +2109,7 @@ impl FileList {
                         if selected {
                             stats.selected.directories += 1;
                         }
-                        if cached_size != u64::MAX {
+                        if let Some(cached_size) = cached_size {
                             stats.total.bytes += cached_size;
                             if selected {
                                 stats.selected.bytes += cached_size;
@@ -2429,8 +2128,7 @@ impl FileList {
                     _ => {}
                 }
             }
-            ControlFlow::Continue(())
-        });
+        }
         stats
     }
 
@@ -2525,13 +2223,6 @@ impl FileList {
     }
 
     pub fn update_style(&self) {
-        self.imp().color_theme.replace(ColorThemes::new().theme());
-        self.imp()
-            .ls_palette
-            .replace(load_palette(&ColorOptions::new().0));
-
-        self.update_sorter();
-
         // TODO: Maybe??? gtk_cell_renderer_set_fixed_size (priv->columns[1], )
         // gtk_clist_set_row_height (*this, gnome_cmd_data.options.list_row_height);
 
@@ -2541,99 +2232,57 @@ impl FileList {
         self.queue_draw();
     }
 
-    fn update_sorter(&self) {
-        let (column, sort_type) = self.sorting();
-
-        let file_sorter = match column {
-            ColumnID::COLUMN_ICON => return,
-            ColumnID::COLUMN_NAME => FileAttrSorter::by_name(),
-            ColumnID::COLUMN_EXT => FileAttrSorter::by_ext(),
-            ColumnID::COLUMN_DIR => FileAttrSorter::by_dir(),
-            ColumnID::COLUMN_SIZE => FileAttrSorter::by_size(),
-            ColumnID::COLUMN_DATE => FileAttrSorter::by_date(),
-            ColumnID::COLUMN_PERM => FileAttrSorter::by_perm(),
-            ColumnID::COLUMN_OWNER => FileAttrSorter::by_owner(),
-            ColumnID::COLUMN_GROUP => FileAttrSorter::by_group(),
-        };
-
-        let full_sorter = gtk::MultiSorter::new();
-        full_sorter.append(FileTypeSorter::default());
-        if sort_type == gtk::SortType::Descending {
-            full_sorter.append(reverse_sorter(file_sorter));
-        } else {
-            full_sorter.append(file_sorter);
-        }
-
-        self.set_sorter(full_sorter);
-    }
-
     fn sort_by(&self, col: ColumnID) {
-        let (column, order) = self.sorting();
-        let sort_type = if column == col {
-            match order {
-                gtk::SortType::Ascending => gtk::SortType::Descending,
-                _ => gtk::SortType::Ascending,
-            }
-        } else {
-            col.default_sort_direction()
-        };
-        self.set_sorting(col, sort_type);
-        self.imp().update_column_sort_arrows();
-        self.sort();
-    }
-
-    fn sort(&self) {
-        let selfile = self.selected_file();
-
-        let store = self.store();
-        let sorter = self.sorter().unwrap();
-
-        let size = store.iter_n_children(None) as u32;
-        let mut indexes: Vec<u32> = (0..size).collect();
-        indexes.sort_by(|index1, index2| {
-            let iter1 = store.iter_nth_child(None, *index1 as i32).unwrap();
-            let iter2 = store.iter_nth_child(None, *index2 as i32).unwrap();
-
-            let file1: File =
-                TreeModelExtManual::get(&store, &iter1, DataColumns::DATA_COLUMN_FILE as i32);
-            let file2: File =
-                TreeModelExtManual::get(&store, &iter2, DataColumns::DATA_COLUMN_FILE as i32);
-
-            sorter.compare(&file1, &file2).into()
-        });
-        store.reorder(&indexes);
-
-        // refocus the previously selected file if this file list has the focus
-        if self.has_focus() {
-            if let Some(row) = selfile.and_then(|f| self.get_row_from_file(&f)) {
-                self.focus_file_at_row(&row);
-            }
+        if let Some(column) = self.imp().columns.borrow().get(col as usize) {
+            let cv_sorter = self
+                .view()
+                .sorter()
+                .and_downcast::<gtk::ColumnViewSorter>()
+                .unwrap();
+            let direction = if cv_sorter.primary_sort_column().as_ref() == Some(column) {
+                match cv_sorter.primary_sort_order() {
+                    gtk::SortType::Ascending => gtk::SortType::Descending,
+                    _ => gtk::SortType::Ascending,
+                }
+            } else {
+                col.default_sort_direction()
+            };
+            self.view().sort_by_column(Some(column), direction);
         }
     }
 
     pub fn show_files(&self, dir: &Directory) {
-        self.clear();
-
         let options = FiltersOptions::new();
 
-        let mut files: Vec<_> = dir
+        let mut items: Vec<_> = dir
             .files()
             .iter::<File>()
             .flatten()
             .filter(|f| file_is_wanted(f, &options))
+            .map(|f| FileListItem::new(&f))
             .collect();
         if dir.parent().is_some() {
-            files.insert(0, File::dotdot(dir));
-        }
-        if let Some(sorter) = self.sorter() {
-            files.sort_by(|a, b| sorter.compare(a, b).into());
-        }
-        for f in files {
-            self.append_file(&f);
+            items.insert(0, FileListItem::new(&File::dotdot(dir)));
         }
 
+        self.imp().sort_model.set_model(gio::ListModel::NONE);
+        let store = &self.imp().store;
+        store.remove_all();
+        store.splice(0, 0, &items);
+        self.imp().sort_model.set_model(Some(store));
+
         if self.is_realized() {
-            self.view().scroll_to_point(0, 0);
+            // If we have been waiting for this file to show up, focus it
+            let focus_later = self.imp().focus_later.take();
+            let focus_later_item = items
+                .into_iter()
+                .find(|item| focus_later.as_ref() == Some(&item.file().file_info().name()));
+
+            if let Some(item) = focus_later_item {
+                self.focus_file_at_row(&item);
+            } else {
+                self.select_row(0);
+            }
         }
     }
 
@@ -2714,28 +2363,37 @@ impl FileList {
         )
     }
 
-    fn focus_row_coordinates(&self) -> Option<gdk::Rectangle> {
-        let options = GeneralOptions::new();
+    fn item_rect(&self, item: &FileListItem, column: ColumnID) -> Option<graphene::Rect> {
+        self.imp()
+            .cells_map
+            .get(&column)?
+            .find_by_key(item)
+            .and_then(|c| c.compute_bounds(self))
+    }
 
-        let view = self.view();
-        let path = gtk::prelude::TreeViewExt::cursor(&view).0?;
-        let name_rect = view.cell_area(
-            Some(&path),
-            Some(&view.column(ColumnID::COLUMN_NAME as i32)?),
-        );
-        let mut rect = if options.extension_display_mode() != ExtensionDisplayMode::Both {
-            let ext_rect = view.cell_area(
-                Some(&path),
-                Some(&view.column(ColumnID::COLUMN_EXT as i32)?),
-            );
-            name_rect.union(&ext_rect)
+    fn focus_row_coordinates(&self) -> Option<gdk::Rectangle> {
+        let selected = self
+            .selection()
+            .selected_item()
+            .and_downcast::<FileListItem>()?;
+
+        let name_rect = self.item_rect(&selected, ColumnID::COLUMN_NAME)?;
+        let rect = if self.extension_display_mode() != ExtensionDisplayMode::Both {
+            if let Some(ext_rect) = self.item_rect(&selected, ColumnID::COLUMN_EXT) {
+                name_rect.union(&ext_rect)
+            } else {
+                name_rect
+            }
         } else {
             name_rect
         };
-        let (x, y) = view.convert_bin_window_to_widget_coords(rect.x(), rect.y());
-        rect.set_x(x);
-        rect.set_y(y);
-        Some(rect)
+
+        Some(gdk::Rectangle::new(
+            rect.x() as i32,
+            rect.y() as i32,
+            rect.width() as i32,
+            rect.height() as i32,
+        ))
     }
 
     fn show_file_popup(&self, point_to: Option<&gdk::Rectangle>) {
@@ -2840,4 +2498,305 @@ fn matches_pattern(file: &str, patterns: &str) -> bool {
     patterns
         .split(';')
         .any(|pattern| fnmatch(pattern, file, false))
+}
+fn create_icon_factory() -> gtk::ListItemFactory {
+    let icon_cache = icon_cache();
+
+    let color_settings = gio::Settings::new(PREF_COLORS);
+
+    let global_options = GeneralOptions::new();
+
+    let factory = gtk::SignalListItemFactory::new();
+    factory.connect_setup(|_, obj| {
+        if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() {
+            let stack = gtk::Stack::builder().hexpand(true).build();
+            stack.add_css_class("cell");
+
+            let image = gtk::Image::builder()
+                .hexpand(true)
+                .halign(gtk::Align::Center)
+                .build();
+            stack.add_named(&image, Some("image"));
+
+            let label = gtk::Label::builder()
+                .hexpand(true)
+                .halign(gtk::Align::Center)
+                .xalign(0.5)
+                .build();
+            stack.add_named(&label, Some("label"));
+
+            list_item.set_child(Some(&stack));
+        }
+    });
+    factory.connect_bind(move |_, obj| {
+        let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() else {
+            return;
+        };
+        let Some(stack) = list_item.child().and_downcast::<gtk::Stack>() else {
+            return;
+        };
+        let Some(item) = list_item.item().and_downcast::<FileListItem>() else {
+            return;
+        };
+        let image = stack
+            .child_by_name("image")
+            .and_downcast::<gtk::Image>()
+            .unwrap();
+        let label = stack
+            .child_by_name("label")
+            .and_downcast::<gtk::Label>()
+            .unwrap();
+
+        image.clear();
+        label.set_text("");
+
+        let file = item.file();
+        let file_type = file.file_info().file_type();
+
+        let use_ls_colors = color_settings.boolean("use-ls-colors");
+        apply_css(&item, use_ls_colors, label.upcast_ref());
+
+        match global_options.graphical_layout_mode() {
+            GraphicalLayoutMode::Text => {
+                let type_str = match file_type {
+                    gio::FileType::Regular => " ",
+                    gio::FileType::Directory => "/",
+                    gio::FileType::SymbolicLink => "@",
+                    gio::FileType::Special => "S",
+                    gio::FileType::Shortcut => "L",
+                    gio::FileType::Mountable => "M",
+                    _ => "?",
+                };
+                label.set_text(type_str);
+                stack.set_visible_child(&label);
+            }
+            GraphicalLayoutMode::TypeIcons | GraphicalLayoutMode::MimeIcons => {
+                if let Some(icon) =
+                    icon_cache.file_icon(&file, global_options.graphical_layout_mode())
+                {
+                    image.set_from_gicon(&icon);
+                }
+                stack.set_visible_child(&image);
+            }
+        }
+    });
+    factory.upcast()
+}
+
+fn create_name_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
+    let global_options = GeneralOptions::new();
+    create_text_cell_factory(0.0, cells, move |cell, item| {
+        let prop = if matches!(
+            global_options.extension_display_mode(),
+            ExtensionDisplayMode::Stripped
+        ) {
+            "stem"
+        } else {
+            "name"
+        };
+        cell.bind(&item);
+        cell.add_binding(
+            item.bind_property(prop, &cell, "text")
+                .sync_create()
+                .build(),
+        );
+    })
+}
+
+fn create_ext_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
+    let global_options = GeneralOptions::new();
+    create_text_cell_factory(0.0, cells, move |cell, item| {
+        let prop = if matches!(
+            global_options.extension_display_mode(),
+            ExtensionDisplayMode::WithFileName
+        ) {
+            "empty"
+        } else {
+            "extension"
+        };
+        cell.bind(&item);
+        cell.add_binding(
+            item.bind_property(prop, &cell, "text")
+                .sync_create()
+                .build(),
+        );
+    })
+}
+
+fn create_dir_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
+    create_text_cell_factory(0.0, cells, move |cell, item| {
+        cell.bind(&item);
+        cell.add_binding(
+            item.bind_property("directory", &cell, "text")
+                .sync_create()
+                .build(),
+        );
+    })
+}
+
+fn create_size_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
+    let global_options = GeneralOptions::new();
+    create_text_cell_factory(1.0, cells, move |cell, item| {
+        let mode = global_options.size_display_mode();
+        let is_directory = item.file().file_info().file_type() == gio::FileType::Directory;
+        cell.bind(&item);
+        cell.add_binding(
+            item.bind_property("size", &cell, "text")
+                .transform_to(move |_, size: i64| {
+                    if size >= 0 {
+                        Some(size_to_string(size as u64, mode))
+                    } else if is_directory {
+                        Some(gettext("<DIR>"))
+                    } else {
+                        None
+                    }
+                })
+                .sync_create()
+                .build(),
+        );
+    })
+}
+
+fn create_date_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
+    let global_options = GeneralOptions::new();
+    create_text_cell_factory(0.0, cells, move |cell, item| {
+        let format = global_options.date_display_format();
+
+        cell.bind(&item);
+        cell.add_binding(
+            item.bind_property("modification-time", &cell, "text")
+                .transform_to(move |_, dt: Option<glib::DateTime>| {
+                    time_to_string(dt?, &format).ok()
+                })
+                .sync_create()
+                .build(),
+        );
+        cell.bind(&item);
+    })
+}
+
+fn create_perm_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
+    let global_options = GeneralOptions::new();
+    create_text_cell_factory(0.0, cells, move |cell, item| {
+        let mode = global_options.permissions_display_mode();
+
+        cell.bind(&item);
+        cell.add_binding(
+            item.bind_property("permissions", &cell, "text")
+                .transform_to(move |_, permissions: u32| {
+                    if permissions != u32::MAX {
+                        Some(match mode {
+                            PermissionDisplayMode::Number => permissions_to_numbers(permissions),
+                            _ => permissions_to_text(permissions),
+                        })
+                    } else {
+                        None
+                    }
+                })
+                .sync_create()
+                .build(),
+        );
+        cell.bind(&item);
+    })
+}
+
+fn create_owner_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
+    create_text_cell_factory(0.0, cells, move |cell, item| {
+        cell.bind(&item);
+        cell.add_binding(
+            item.bind_property("owner", &cell, "text")
+                .transform_to(|_, v: Option<String>| v)
+                .sync_create()
+                .build(),
+        );
+        cell.bind(&item);
+    })
+}
+
+fn create_group_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
+    create_text_cell_factory(0.0, cells, move |cell, item| {
+        cell.bind(&item);
+        cell.add_binding(
+            item.bind_property("group", &cell, "text")
+                .transform_to(|_, v: Option<String>| v)
+                .sync_create()
+                .build(),
+        );
+        cell.bind(&item);
+    })
+}
+
+fn create_text_cell_factory(
+    alignment: f32,
+    cells: &imp::CellsMap,
+    bind: impl Fn(FileListCell, FileListItem) + 'static,
+) -> gtk::ListItemFactory {
+    let color_settings = gio::Settings::new(PREF_COLORS);
+
+    let factory = gtk::SignalListItemFactory::new();
+    factory.connect_setup(move |_, obj| {
+        if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() {
+            let cell = FileListCell::default();
+            cell.set_xalign(alignment);
+
+            color_settings
+                .bind("use-ls-colors", &cell, "use-ls-colors")
+                .build();
+
+            list_item.set_child(Some(&cell));
+        }
+    });
+    factory.connect_bind(glib::clone!(
+        #[strong]
+        cells,
+        move |_, obj| {
+            let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() else {
+                return;
+            };
+            let Some(cell) = list_item.child().and_downcast::<FileListCell>() else {
+                return;
+            };
+            let Some(item) = list_item.item().and_downcast::<FileListItem>() else {
+                return;
+            };
+            cells.add(&item, &cell);
+            (bind)(cell, item);
+        }
+    ));
+    factory.connect_unbind(glib::clone!(
+        #[strong]
+        cells,
+        move |_, obj| {
+            if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() {
+                if let Some(cell) = list_item.child().and_downcast::<FileListCell>() {
+                    cell.unbind();
+                    cells.remove_value(&cell);
+                }
+            }
+        }
+    ));
+    factory.upcast()
+}
+
+fn apply_css(item: &FileListItem, use_ls_colors: bool, widget: &gtk::Widget) {
+    for c in LsPalletteColor::VARIANTS {
+        widget.remove_css_class(&format!("fg-{}", c.as_ref()));
+        widget.remove_css_class(&format!("bg-{}", c.as_ref()));
+    }
+
+    if item.selected() {
+        widget.add_css_class("sel");
+    } else {
+        widget.remove_css_class("sel");
+        if use_ls_colors {
+            if let Some(colors) = ls_colors_get(&item.file().file_info()) {
+                if let Some(class) = colors.fg.map(|fg| format!("fg-{}", fg.as_ref())) {
+                    widget.add_css_class(&class);
+                }
+                if let Some(class) = colors.bg.map(|fg| format!("bg-{}", fg.as_ref())) {
+                    widget.add_css_class(&class);
+                }
+            }
+        }
+    }
 }

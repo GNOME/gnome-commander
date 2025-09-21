@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use super::user_action::{action_description, ShortcutAction};
+use super::user_action::{ShortcutAction, action_description};
 use crate::{
     shortcuts::{Call, Shortcut},
     user_actions::USER_ACTIONS,
@@ -30,7 +30,7 @@ mod imp {
     use super::*;
     use crate::{
         hintbox::hintbox,
-        utils::{dialog_button_box, SenderExt, NO_BUTTONS},
+        utils::{NO_BUTTONS, SenderExt, dialog_button_box},
     };
     use std::cell::Cell;
 

@@ -23,8 +23,8 @@ use crate::{
     filter::{Filter, PatternType},
     history_entry::HistoryEntry,
     utils::{
-        channel_send_action, dialog_button_box, handle_escape_key, ErrorMessage, SenderExt,
-        NO_BUTTONS,
+        ErrorMessage, NO_BUTTONS, SenderExt, channel_send_action, dialog_button_box,
+        handle_escape_key,
     },
 };
 use gettextrs::gettext;
