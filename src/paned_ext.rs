@@ -40,6 +40,6 @@ impl GnomeCmdPanedExt for gtk::Paned {
         let y1 = f32::min(start.y(), end.y());
         let y2 = f32::max(start.y(), end.y());
 
-        Some(graphene::Rect::new(x1, y1, x2 - x2, y2 - y1))
+        Some(graphene::Rect::new(x1, y1, x2 - x1, y2 - y1))
     }
 }
