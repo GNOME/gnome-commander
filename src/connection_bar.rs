@@ -88,9 +88,11 @@ mod imp {
         fn signals() -> &'static [glib::subclass::Signal] {
             static SIGNALS: OnceLock<Vec<glib::subclass::Signal>> = OnceLock::new();
             SIGNALS.get_or_init(|| {
-                vec![glib::subclass::Signal::builder("clicked")
-                    .param_types([Connection::static_type(), bool::static_type()])
-                    .build()]
+                vec![
+                    glib::subclass::Signal::builder("clicked")
+                        .param_types([Connection::static_type(), bool::static_type()])
+                        .build(),
+                ]
             })
         }
 

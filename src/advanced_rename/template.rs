@@ -23,13 +23,13 @@ use crate::{
 };
 use std::rc::Rc;
 use winnow::{
+    Result as PResult,
     ascii::{dec_int, dec_uint},
     combinator::{alt, delimited, opt, preceded, repeat},
     prelude::*,
     seq,
     stream::Accumulate,
     token::{any, one_of, take_until, take_while},
-    Result as PResult,
 };
 
 const MAX_PRECISION: usize = 16;

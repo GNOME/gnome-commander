@@ -19,7 +19,7 @@
 
 use super::app_dialog::edit_app_dialog;
 use crate::{
-    app::{load_favorite_apps, save_favorite_apps, AppExt, AppTarget, UserDefinedApp},
+    app::{AppExt, AppTarget, UserDefinedApp, load_favorite_apps, save_favorite_apps},
     data::{GeneralOptionsRead, GeneralOptionsWrite, WriteResult},
     dialogs::order_utils::ordering_buttons,
 };

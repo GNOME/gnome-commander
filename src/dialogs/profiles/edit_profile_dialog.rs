@@ -18,7 +18,7 @@
  */
 
 use super::profiles::ProfileManager;
-use crate::utils::{dialog_button_box, display_help, SenderExt};
+use crate::utils::{SenderExt, dialog_button_box, display_help};
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
 use std::rc::Rc;

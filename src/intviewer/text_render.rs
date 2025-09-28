@@ -33,7 +33,7 @@ const HEXDUMP_FIXED_LIMIT: u32 = 16;
 mod imp {
     use super::*;
     use crate::{
-        intviewer::data_presentation::{next_tab_position, DataPresentationMode},
+        intviewer::data_presentation::{DataPresentationMode, next_tab_position},
         utils::MinMax,
     };
     use std::{

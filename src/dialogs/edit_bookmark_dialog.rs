@@ -22,7 +22,7 @@
 
 use crate::{
     connection::bookmark::Bookmark,
-    utils::{dialog_button_box, SenderExt, NO_BUTTONS},
+    utils::{NO_BUTTONS, SenderExt, dialog_button_box},
 };
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};

@@ -41,7 +41,7 @@ use crate::{
         create_symlink_dialog::show_create_symlink_dialog,
         file_properties_dialog::FilePropertiesDialog,
         make_copy_dialog::make_copy_dialog,
-        manage_bookmarks_dialog::{bookmark_directory, BookmarksDialog},
+        manage_bookmarks_dialog::{BookmarksDialog, bookmark_directory},
         mkdir_dialog::show_mkdir_dialog,
         new_text_file::show_new_textfile_dialog,
         options::options_dialog::show_options_dialog,
@@ -59,10 +59,10 @@ use crate::{
         file_descriptor::FileDescriptorExt,
     },
     main_win::MainWindow,
-    plugin_manager::{show_plugin_manager, PluginActionVariant},
-    spawn::{spawn_async, spawn_async_command, SpawnError},
+    plugin_manager::{PluginActionVariant, show_plugin_manager},
+    spawn::{SpawnError, spawn_async, spawn_async_command},
     types::FileSelectorID,
-    utils::{display_help, get_modifiers_state, ErrorMessage},
+    utils::{ErrorMessage, display_help, get_modifiers_state},
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gdk, gio, glib, prelude::*};

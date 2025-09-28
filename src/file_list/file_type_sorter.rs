@@ -23,7 +23,7 @@ use std::cmp;
 
 mod imp {
     use super::*;
-    use crate::data::GeneralOptions;
+    use crate::{data::GeneralOptions, file_list::item::FileListItem};
     use std::cell::Cell;
 
     #[derive(Default, glib::Properties)]
@@ -59,16 +59,19 @@ mod imp {
 
     impl SorterImpl for FileTypeSorter {
         fn compare(&self, obj1: &glib::Object, obj2: &glib::Object) -> gtk::Ordering {
-            let (file1, file2) = match (obj1.downcast_ref::<File>(), obj2.downcast_ref::<File>()) {
+            let (file1, file2) = match (
+                obj1.downcast_ref::<FileListItem>(),
+                obj2.downcast_ref::<FileListItem>(),
+            ) {
                 (None, None) => return gtk::Ordering::Equal,
                 (None, Some(_)) => return gtk::Ordering::Larger,
                 (Some(_), None) => return gtk::Ordering::Smaller,
-                (Some(file1), Some(file2)) => (file1, file2),
+                (Some(item1), Some(item2)) => (item1.file(), item2.file()),
             };
 
             let symbolic_links_as_regular_files = self.symbolic_links_as_regular_files.get();
-            let file_type_key1 = file_type_key(file1, symbolic_links_as_regular_files);
-            let file_type_key2 = file_type_key(file2, symbolic_links_as_regular_files);
+            let file_type_key1 = file_type_key(&file1, symbolic_links_as_regular_files);
+            let file_type_key2 = file_type_key(&file2, symbolic_links_as_regular_files);
 
             file_type_key1.cmp(&file_type_key2).into()
         }

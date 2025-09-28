@@ -18,17 +18,17 @@
  */
 
 use super::{
-    boyer_moore::{boyer_moore_bytes_new, boyer_moore_string_new, BoyerMoore, ScanResult},
+    boyer_moore::{BoyerMoore, ScanResult, boyer_moore_bytes_new, boyer_moore_string_new},
     input_modes::InputMode,
 };
 use gtk::glib::{self, subclass::prelude::*};
-use std::sync::{atomic::Ordering, Arc};
+use std::sync::{Arc, atomic::Ordering};
 
 mod imp {
     use super::*;
     use std::sync::{
-        atomic::{AtomicBool, AtomicU64},
         Mutex, OnceLock,
+        atomic::{AtomicBool, AtomicU64},
     };
 
     pub enum SearchMode {

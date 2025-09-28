@@ -35,8 +35,8 @@ mod imp {
         tags::{file_metadata::FileMetadata, tags::FileMetadataService},
         types::SizeDisplayMode,
         utils::{
-            attributes_bold, dialog_button_box, display_help, handle_escape_key, nice_size,
-            time_to_string, ErrorMessage,
+            ErrorMessage, attributes_bold, dialog_button_box, display_help, handle_escape_key,
+            nice_size, time_to_string,
         },
     };
     use futures::StreamExt;
@@ -184,9 +184,11 @@ mod imp {
         fn signals() -> &'static [glib::subclass::Signal] {
             static SIGNALS: OnceLock<Vec<glib::subclass::Signal>> = OnceLock::new();
             SIGNALS.get_or_init(|| {
-                vec![glib::subclass::Signal::builder(SIGNAL_DIALOG_RESPONSE)
-                    .param_types([bool::static_type()])
-                    .build()]
+                vec![
+                    glib::subclass::Signal::builder(SIGNAL_DIALOG_RESPONSE)
+                        .param_types([bool::static_type()])
+                        .build(),
+                ]
             })
         }
     }

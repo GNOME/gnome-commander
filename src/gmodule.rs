@@ -22,12 +22,12 @@
 use gtk::glib::{
     self,
     ffi::gpointer,
-    translate::{from_glib_full, ToGlibPtr},
+    translate::{ToGlibPtr, from_glib_full},
 };
 use std::path::Path;
 
 pub mod ffi {
-    use glib::ffi::{gboolean, gpointer, GError, GQuark};
+    use glib::ffi::{GError, GQuark, gboolean, gpointer};
     use std::ffi::{c_char, c_uint};
 
     pub type GModuleFlags = c_uint;
@@ -97,11 +97,7 @@ impl GModule {
         let mut symbol = std::ptr::null_mut();
         let result =
             unsafe { ffi::g_module_symbol(self.0, symbol_name.to_glib_none().0, &mut symbol) != 0 };
-        if result {
-            Some(symbol)
-        } else {
-            None
-        }
+        if result { Some(symbol) } else { None }
     }
 
     pub fn leak(mut self) -> *mut ffi::GModule {

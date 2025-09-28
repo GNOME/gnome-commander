@@ -24,8 +24,8 @@ use crate::{
     dir::Directory,
     file::File,
     utils::{
-        channel_send_action, dialog_button_box, display_help, handle_escape_key, ErrorMessage,
-        SenderExt,
+        ErrorMessage, SenderExt, channel_send_action, dialog_button_box, display_help,
+        handle_escape_key,
     },
 };
 use gettextrs::gettext;

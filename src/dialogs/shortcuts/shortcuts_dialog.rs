@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use super::user_action::{action_description, ShortcutAction};
+use super::user_action::{ShortcutAction, action_description};
 use crate::shortcuts::Shortcuts;
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
@@ -27,7 +27,7 @@ mod imp {
     use super::*;
     use crate::{
         dialogs::shortcuts::shortcut_dialog::ShortcutDialog,
-        utils::{dialog_button_box, display_help, key_sorter, SenderExt},
+        utils::{SenderExt, dialog_button_box, display_help, key_sorter},
     };
 
     pub struct ShortcutsDialog {

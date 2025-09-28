@@ -17,11 +17,11 @@
  * For more details see the file COPYING.
  */
 
-use super::file_descriptor::{ffi::GnomeCmdFileDescriptor, FileDescriptor};
+use super::file_descriptor::{FileDescriptor, ffi::GnomeCmdFileDescriptor};
 use crate::tags::tags::{GnomeCmdTag, GnomeCmdTagClass};
 use gtk::glib::{
     self,
-    ffi::{gpointer, GStrv},
+    ffi::{GStrv, gpointer},
     prelude::*,
     subclass::{object::ObjectImpl, prelude::*},
     translate::*,
@@ -32,7 +32,7 @@ pub mod ffi {
     use super::*;
     use crate::libgcmd::file_descriptor::ffi::GnomeCmdFileDescriptor;
     use gtk::glib::{
-        ffi::{gpointer, GStrv, GType},
+        ffi::{GStrv, GType, gpointer},
         gobject_ffi,
     };
 

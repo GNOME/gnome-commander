@@ -22,7 +22,7 @@ use crate::{
         ls_colors::{LsPalletteColor, LsPallettePlane},
         ls_colors_palette::LsColorsPalette,
     },
-    utils::{dialog_button_box, SenderExt},
+    utils::{SenderExt, dialog_button_box},
 };
 use gettextrs::gettext;
 use gtk::prelude::*;

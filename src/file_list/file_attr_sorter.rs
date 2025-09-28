@@ -17,20 +17,10 @@
  * For more details see the file COPYING.
  */
 
+use super::item::FileListItem;
 use crate::file::File;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::cmp;
-
-pub fn reverse_sorter(next_sorter: impl IsA<gtk::Sorter>) -> gtk::Sorter {
-    gtk::CustomSorter::new(move |obj1: &glib::Object, obj2: &glib::Object| {
-        match next_sorter.compare(obj1, obj2) {
-            gtk::Ordering::Larger => gtk::Ordering::Smaller,
-            gtk::Ordering::Smaller => gtk::Ordering::Larger,
-            ordering => ordering,
-        }
-    })
-    .upcast()
-}
 
 mod imp {
     use super::*;
@@ -68,12 +58,15 @@ mod imp {
 
     impl SorterImpl for FileAttrSorter {
         fn compare(&self, obj1: &glib::Object, obj2: &glib::Object) -> gtk::Ordering {
-            match (obj1.downcast_ref::<File>(), obj2.downcast_ref::<File>()) {
+            match (
+                obj1.downcast_ref::<FileListItem>(),
+                obj2.downcast_ref::<FileListItem>(),
+            ) {
                 (None, None) => gtk::Ordering::Equal,
                 (None, Some(_)) => gtk::Ordering::Larger,
                 (Some(_), None) => gtk::Ordering::Smaller,
-                (Some(file1), Some(file2)) => {
-                    (self.compare.get().unwrap())(&file1, &file2, &*self.obj())
+                (Some(item1), Some(item2)) => {
+                    (self.compare.get().unwrap())(&item1.file(), &item2.file(), &*self.obj())
                 }
             }
         }

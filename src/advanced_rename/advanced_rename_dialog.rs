@@ -19,9 +19,9 @@
 
 use super::{
     item::Item,
-    profile::{load_advrename_profiles, save_advrename_profiles, AdvancedRenameProfile},
+    profile::{AdvancedRenameProfile, load_advrename_profiles, save_advrename_profiles},
     profile_component::AdvancedRenameProfileComponent,
-    template::{generate_file_name, CounterOptions, Template},
+    template::{CounterOptions, Template, generate_file_name},
 };
 use crate::{
     connection::history::History,
@@ -264,7 +264,7 @@ mod imp {
         file_view::file_view,
         types::SizeDisplayMode,
         utils::{
-            attributes_bold, dialog_button_box, display_help, handle_escape_key, MenuBuilderExt,
+            MenuBuilderExt, attributes_bold, dialog_button_box, display_help, handle_escape_key,
         },
     };
     use std::{

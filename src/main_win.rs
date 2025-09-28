@@ -36,15 +36,15 @@ use crate::{
         file_actions::{FileActions, FileActionsExt},
         state::{State, StateExt},
     },
-    plugin_manager::{wrap_plugin_menu, PluginManager},
+    plugin_manager::{PluginManager, wrap_plugin_menu},
     search::search_dialog::SearchDialog,
     shortcuts::Shortcuts,
     tags::tags::FileMetadataService,
     transfer::{copy_files, move_files},
     types::{ConfirmOverwriteMode, FileSelectorID},
     utils::{
-        extract_menu_shortcuts, MenuBuilderExt, ALT, ALT_SHIFT, CONTROL, CONTROL_ALT,
-        CONTROL_SHIFT, NO_MOD,
+        ALT, ALT_SHIFT, CONTROL, CONTROL_ALT, CONTROL_SHIFT, MenuBuilderExt, NO_MOD,
+        extract_menu_shortcuts,
     },
 };
 use gettextrs::gettext;
@@ -57,11 +57,11 @@ pub mod imp {
         command_line::CommandLine,
         data::{FiltersOptions, ProgramsOptions},
         dir::Directory,
-        layout::color_themes::ColorThemes,
+        layout::{color_themes::ColorThemes, ls_colors_palette::LsColorPalettes},
         paned_ext::GnomeCmdPanedExt,
         pwd::uid,
         shortcuts::Shortcut,
-        spawn::{run_command_indir, SpawnError},
+        spawn::{SpawnError, run_command_indir},
         types::QuickSearchShortcut,
         user_actions,
         utils::sleep,
@@ -104,6 +104,7 @@ pub mod imp {
         pub cut_and_paste_state: RefCell<Option<CutAndPasteState>>,
 
         color_themes: ColorThemes,
+        ls_color_palettes: LsColorPalettes,
 
         #[property(get, set)]
         menu_visible: Cell<bool>,
@@ -231,6 +232,7 @@ pub mod imp {
                 cut_and_paste_state: Default::default(),
 
                 color_themes: ColorThemes::new(),
+                ls_color_palettes: LsColorPalettes::new(),
 
                 current_panel: Cell::new(0),
 
@@ -481,6 +483,20 @@ pub mod imp {
 
             self.color_themes.connect_local(
                 "theme-changed",
+                false,
+                glib::clone!(
+                    #[weak(rename_to = this)]
+                    self.obj(),
+                    #[upgrade_or]
+                    None,
+                    move |_| {
+                        this.update_view();
+                        None
+                    }
+                ),
+            );
+            self.ls_color_palettes.connect_local(
+                "palette-changed",
                 false,
                 glib::clone!(
                     #[weak(rename_to = this)]

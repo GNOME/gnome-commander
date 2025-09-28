@@ -26,7 +26,7 @@ use crate::{
     main_win::MainWindow,
     transfer::copy_files,
     types::ConfirmOverwriteMode,
-    utils::{channel_send_action, dialog_button_box, handle_escape_key, SenderExt, NO_BUTTONS},
+    utils::{NO_BUTTONS, SenderExt, channel_send_action, dialog_button_box, handle_escape_key},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};

@@ -25,16 +25,16 @@ use crate::{
     data::{GeneralOptions, GeneralOptionsRead},
     debug::debug,
     dialogs::{
-        delete_dialog::{do_delete, DeleteAction},
+        delete_dialog::{DeleteAction, do_delete},
         transfer_progress_dialog::TransferProgressWindow,
     },
     dir::Directory,
     libgcmd::file_descriptor::FileDescriptorExt,
     path::GnomeCmdPath,
     types::{ConfirmOverwriteMode, GnomeCmdTransferType, SizeDisplayMode},
-    utils::{nice_size, pending, time_to_string, ErrorMessage},
+    utils::{ErrorMessage, nice_size, pending, time_to_string},
 };
-use futures::{select, FutureExt, StreamExt};
+use futures::{FutureExt, StreamExt, select};
 use gettextrs::{gettext, pgettext};
 use gtk::{gio, glib, prelude::*};
 use std::{

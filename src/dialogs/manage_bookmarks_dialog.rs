@@ -28,14 +28,14 @@ use crate::{
     dir::Directory,
     file::File,
     shortcuts::Shortcuts,
-    utils::{bold, ErrorMessage},
+    utils::{ErrorMessage, bold},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
-    use crate::utils::{dialog_button_box, display_help, remember_window_size, SenderExt};
+    use crate::utils::{SenderExt, dialog_button_box, display_help, remember_window_size};
     use std::cell::RefCell;
 
     pub struct BookmarksDialog {

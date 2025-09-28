@@ -21,10 +21,10 @@ use crate::{
     data::ProgramsOptionsRead,
     file::File,
     intviewer::window::ViewerWindow,
-    spawn::{spawn_async, SpawnError},
+    spawn::{SpawnError, spawn_async},
     tags::tags::FileMetadataService,
     transfer::download_to_temporary,
-    utils::{temp_file, ErrorMessage},
+    utils::{ErrorMessage, temp_file},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};

@@ -25,7 +25,7 @@ use super::{
 use crate::{
     file::File,
     tags::tags::FileMetadataService,
-    utils::{extract_menu_shortcuts, pending, MenuBuilderExt},
+    utils::{MenuBuilderExt, extract_menu_shortcuts, pending},
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{

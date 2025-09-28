@@ -21,7 +21,7 @@ use super::{edit_profile_dialog::edit_profile, profiles::ProfileManager};
 use crate::{
     dialogs::order_utils::ordering_buttons,
     hintbox::hintbox,
-    utils::{dialog_button_box, display_help, SenderExt},
+    utils::{SenderExt, dialog_button_box, display_help},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, pango, prelude::*};

@@ -20,7 +20,7 @@
 use crate::{
     dir::Directory,
     file::File,
-    utils::{dialog_button_box, ErrorMessage, NO_BUTTONS},
+    utils::{ErrorMessage, NO_BUTTONS, dialog_button_box},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, prelude::*, subclass::prelude::*};

@@ -24,7 +24,7 @@ use crate::{
     data::ProgramsOptionsRead,
     debug::debug,
     file::File,
-    utils::{make_run_in_terminal_command, ErrorMessage},
+    utils::{ErrorMessage, make_run_in_terminal_command},
 };
 use gettextrs::gettext;
 use gtk::{gio::prelude::*, glib};

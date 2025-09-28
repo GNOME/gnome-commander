@@ -21,7 +21,7 @@ use crate::{
     dir::Directory,
     file::File,
     file_list::list::FileList,
-    utils::{dialog_button_box, ErrorMessage, SenderExt, NO_BUTTONS},
+    utils::{ErrorMessage, NO_BUTTONS, SenderExt, dialog_button_box},
 };
 use gettextrs::gettext;
 use gtk::{gio, prelude::*};

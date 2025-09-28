@@ -24,7 +24,7 @@ use super::regex_dialog::RegexReplace;
 use crate::{
     advanced_rename::profile::AdvancedRenameProfile,
     tags::tags::FileMetadataService,
-    utils::{dialog_button_box, NO_BUTTONS},
+    utils::{NO_BUTTONS, dialog_button_box},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, pango, prelude::*, subclass::prelude::*};
@@ -38,7 +38,7 @@ mod imp {
         },
         dialogs::order_utils::ordering_buttons,
         history_entry::HistoryEntry,
-        utils::{attributes_bold, MenuBuilderExt},
+        utils::{MenuBuilderExt, attributes_bold},
     };
     use std::{
         cell::{Cell, OnceCell, RefCell},
