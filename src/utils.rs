@@ -20,7 +20,9 @@
  * For more details see the file COPYING.
  */
 
-use crate::{config::PREFIX, data::ProgramsOptionsRead, file::File, types::SizeDisplayMode};
+use crate::{
+    config::PREFIX, file::File, options::options::ProgramsOptions, types::SizeDisplayMode,
+};
 use gettextrs::{gettext, ngettext};
 use gtk::{gdk, gio, glib, pango, prelude::*};
 use std::{
@@ -128,11 +130,8 @@ fn substitute_command_argument(command_template: &str, arg: &OsStr) -> OsString 
     cmd
 }
 
-pub fn make_run_in_terminal_command(
-    command: &OsStr,
-    options: &dyn ProgramsOptionsRead,
-) -> OsString {
-    let arg = if options.use_gcmd_block() {
+pub fn make_run_in_terminal_command(command: &OsStr, options: &ProgramsOptions) -> OsString {
+    let arg = if options.use_gcmd_block.get() {
         glib::shell_quote(substitute_command_argument(
             &format!("bash -c \"%s; {PREFIX}/bin/gcmd-block\""),
             command,
@@ -140,7 +139,7 @@ pub fn make_run_in_terminal_command(
     } else {
         glib::shell_quote(command)
     };
-    substitute_command_argument(&options.terminal_exec_cmd(), &arg)
+    substitute_command_argument(&options.terminal_exec_cmd.get(), &arg)
 }
 
 pub trait SenderExt<T> {
@@ -472,43 +471,6 @@ where
         key_a.cmp(&key_b).into()
     })
     .upcast()
-}
-
-pub fn remember_window_size(
-    window: &gtk::Window,
-    settings: &gio::Settings,
-    width_key: &'static str,
-    height_key: &'static str,
-) {
-    let width = settings.uint(width_key) as i32;
-    let height = settings.uint(height_key) as i32;
-    window.set_default_size(width, height);
-
-    fn save_window_size(
-        window: &gtk::Window,
-        settings: &gio::Settings,
-        width_key: &'static str,
-        height_key: &'static str,
-    ) {
-        let (width, height) = window.default_size();
-        if let Err(error) = settings
-            .set_uint(width_key, width.max(0) as u32)
-            .and_then(|_| settings.set_uint(height_key, height.max(0) as u32))
-        {
-            eprintln!("Failed to save window size: {error}");
-        }
-    }
-
-    window.connect_default_width_notify(glib::clone!(
-        #[strong]
-        settings,
-        move |window| save_window_size(window, &settings, width_key, height_key)
-    ));
-    window.connect_default_height_notify(glib::clone!(
-        #[strong]
-        settings,
-        move |window| save_window_size(window, &settings, width_key, height_key)
-    ));
 }
 
 pub fn grid_attach(

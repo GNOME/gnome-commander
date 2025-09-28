@@ -18,8 +18,8 @@
  */
 
 use crate::{
-    data::ProgramsOptionsRead,
     file::File,
+    options::options::ProgramsOptions,
     spawn::{SpawnError, spawn_async},
     utils::ErrorMessage,
 };
@@ -28,7 +28,7 @@ use gtk::gio;
 
 pub async fn file_edit(
     files: &glib::List<File>,
-    options: &dyn ProgramsOptionsRead,
+    options: &ProgramsOptions,
 ) -> Result<(), ErrorMessage> {
     for file in files {
         if file.file_info().file_type() == gio::FileType::Directory {
@@ -42,6 +42,6 @@ pub async fn file_edit(
         }
     }
 
-    spawn_async(None, files, &options.editor_cmd()).map_err(SpawnError::into_message)?;
+    spawn_async(None, files, &options.editor_cmd.get()).map_err(SpawnError::into_message)?;
     Ok(())
 }

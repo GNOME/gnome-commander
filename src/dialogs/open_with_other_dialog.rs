@@ -18,9 +18,9 @@
  */
 
 use crate::{
-    data::ProgramsOptionsRead,
     dir::Directory,
     file::File,
+    options::options::ProgramsOptions,
     spawn::run_command_indir,
     utils::{
         ErrorMessage, NO_BUTTONS, SenderExt, channel_send_action, dialog_button_box,
@@ -35,7 +35,7 @@ pub async fn show_open_with_other_dialog(
     parent_window: &gtk::Window,
     files: &glib::List<File>,
     working_directory: Option<Directory>,
-    options: Rc<dyn ProgramsOptionsRead>,
+    options: Rc<ProgramsOptions>,
 ) {
     let dialog = gtk::Window::builder()
         .transient_for(parent_window)

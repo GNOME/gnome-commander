@@ -23,11 +23,11 @@ use super::{
     selection_profile_component::SelectionProfileComponent,
 };
 use crate::{
-    data::SearchConfig,
     dialogs::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager},
     dir::Directory,
     libgcmd::file_descriptor::FileDescriptorExt,
     main_win::MainWindow,
+    options::options::SearchConfig,
     tags::tags::FileMetadataService,
 };
 use gettextrs::{gettext, ngettext};
@@ -193,12 +193,12 @@ mod imp {
             connection::{Connection, ConnectionInterface},
             list::ConnectionList,
         },
-        data::{GeneralOptions, GeneralOptionsRead},
         dir::Directory,
         file::File,
         file_list::list::FileList,
         intviewer::search_dialog::gnome_cmd_viewer_search_text_add_to_history,
         main_win::MainWindow,
+        options::{options::GeneralOptions, utils::remember_window_size},
         select_directory_button::DirectoryButton,
         types::FileSelectorID,
         utils::{ErrorMessage, dialog_button_box, display_help},
@@ -449,8 +449,11 @@ mod imp {
             ));
 
             let options = GeneralOptions::new();
-
-            remember_window_size(&*this, &options.0);
+            remember_window_size(
+                &*this,
+                &options.search_window_width,
+                &options.search_window_height,
+            );
         }
 
         fn dispose(&self) {
@@ -633,7 +636,7 @@ mod imp {
 
             let progress_bar = &self.progress_bar;
             let update_gui_timeout_id = glib::timeout_add_local(
-                GeneralOptions::new().gui_update_rate(),
+                GeneralOptions::new().gui_update_rate.get(),
                 glib::clone!(
                     #[weak]
                     progress_bar,
@@ -792,30 +795,4 @@ impl SearchDialog {
             fl.update_style();
         }
     }
-}
-
-fn remember_window_size(dialog: &SearchDialog, settings: &gio::Settings) {
-    settings
-        .bind("search-win-width", dialog, "default-width")
-        .mapping(|v, _| {
-            let width: i32 = v.get::<u32>()?.try_into().ok()?;
-            Some(width.to_value())
-        })
-        .set_mapping(|v, _| {
-            let width: u32 = v.get::<i32>().ok()?.try_into().ok()?;
-            Some(width.to_variant())
-        })
-        .build();
-
-    settings
-        .bind("search-win-height", dialog, "default-height")
-        .mapping(|v, _| {
-            let height: i32 = v.get::<u32>()?.try_into().ok()?;
-            Some(height.to_value())
-        })
-        .set_mapping(|v, _| {
-            let height: u32 = v.get::<i32>().ok()?.try_into().ok()?;
-            Some(height.to_variant())
-        })
-        .build();
 }

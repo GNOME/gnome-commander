@@ -25,9 +25,9 @@ use crate::{
         connection::{Connection, ConnectionInterface},
         list::ConnectionList,
     },
-    data::{GeneralOptions, GeneralOptionsRead, ProgramsOptionsRead},
     dir::Directory,
     libgcmd::file_descriptor::{FileDescriptor, FileDescriptorExt},
+    options::options::{GeneralOptions, ProgramsOptions},
     path::GnomeCmdPath,
     spawn::{SpawnError, app_needs_terminal, run_command_indir},
     utils::ErrorMessage,
@@ -238,7 +238,7 @@ impl File {
         }
     }
 
-    pub fn execute(&self, options: &dyn ProgramsOptionsRead) -> Result<(), SpawnError> {
+    pub fn execute(&self, options: &ProgramsOptions) -> Result<(), SpawnError> {
         let mut command = OsString::from("./");
         command.push(glib::shell_quote(self.file_info().display_name()));
 
@@ -419,7 +419,7 @@ impl File {
             return true;
         };
         let now = Instant::now();
-        if now.duration_since(last_update) > GeneralOptions::new().gui_update_rate() {
+        if now.duration_since(last_update) > GeneralOptions::new().gui_update_rate.get() {
             self.imp().last_update.replace(Some(now));
             true
         } else {

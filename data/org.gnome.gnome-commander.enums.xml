@@ -1,0 +1,71 @@
+<schemalist>
+  <enum id="org.gnome.gnome-commander.GnomeCmdGraphicalLayoutMode">
+    <value nick="text" value="0"/>
+    <value nick="type-icons" value="1"/>
+    <value nick="mime-icons" value="2"/>
+  </enum>
+  <enum id="org.gnome.gnome-commander.GnomeCmdSizeDisplayMode">
+    <value nick="plain" value="0"/>
+    <value nick="locale" value="1"/>
+    <value nick="grouped" value="2"/>
+    <value nick="powered" value="3"/>
+  </enum>
+  <enum id="org.gnome.gnome-commander.GnomeCmdTransferType">
+    <value nick="copy" value="0"/>
+    <value nick="move" value="1"/>
+    <value nick="link" value="2"/>
+  </enum>
+  <enum id="org.gnome.gnome-commander.GnomeCmdPermissionDisplayMode">
+    <value nick="text" value="0"/>
+    <value nick="number" value="1"/>
+  </enum>
+  <enum id="org.gnome.gnome-commander.GnomeCmdQuickSearchShortcut">
+    <value nick="ctrl-alt" value="0"/>
+    <value nick="alt" value="1"/>
+    <value nick="just-a-character" value="2"/>
+  </enum>
+  <enum id="org.gnome.gnome-commander.GnomeCmdExtensionDisplayMode">
+    <value nick="with-fname" value="0"/>
+    <value nick="stripped" value="1"/>
+    <value nick="both" value="2"/>
+  </enum>
+  <enum id="org.gnome.gnome-commander.GnomeCmdConfirmOverwriteMode">
+    <value nick="silently" value="0"/>
+    <value nick="skip-all" value="1"/>
+    <value nick="rename-all" value="2"/>
+    <value nick="query" value="3"/>
+  </enum>
+  <enum id="org.gnome.gnome-commander.GnomeCmdDndMode">
+    <value nick="query" value="0"/>
+    <value nick="copy" value="1"/>
+    <value nick="move" value="2"/>
+  </enum>
+  <enum id="org.gnome.gnome-commander.GnomeCmdLeftMouseButtonMode">
+    <value nick="single-click" value="0"/>
+    <value nick="double-click" value="1"/>
+  </enum>
+  <enum id="org.gnome.gnome-commander.GnomeCmdMiddleMouseButtonMode">
+    <value nick="goes-up-dir" value="0"/>
+    <value nick="opens-new-tab" value="1"/>
+  </enum>
+  <enum id="org.gnome.gnome-commander.GnomeCmdRightMouseButtonMode">
+    <value nick="popups-menu" value="0"/>
+    <value nick="selects" value="1"/>
+  </enum>
+  <enum id="org.gnome.gnome-commander.GnomeCmdTabLockIndicator">
+    <value nick="icon" value="0"/>
+    <value nick="asterisk" value="1"/>
+    <value nick="styled-text" value="2"/>
+  </enum>
+  <enum id="org.gnome.gnome-commander.GnomeCmdColorMode">
+    <value nick="none" value="0"/>
+    <value nick="modern" value="1"/>
+    <value nick="fusion" value="2"/>
+    <value nick="classic" value="3"/>
+    <value nick="deep-blue" value="4"/>
+    <value nick="cafezinho" value="5"/>
+    <value nick="green-tiger" value="6"/>
+    <value nick="winter" value="7"/>
+    <value nick="custom" value="8"/>
+  </enum>
+</schemalist>

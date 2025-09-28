@@ -30,10 +30,6 @@ use crate::{
         list::ConnectionList,
         remote::ConnectionRemoteExt,
     },
-    data::{
-        ConfirmOptions, GeneralOptions, GeneralOptionsRead, NetworkOptions, NetworkOptionsRead,
-        NetworkOptionsWrite, ProgramsOptions, ProgramsOptionsRead,
-    },
     dialogs::{
         chmod_dialog::show_chmod_dialog,
         chown_dialog::show_chown_dialog,
@@ -59,6 +55,7 @@ use crate::{
         file_descriptor::FileDescriptorExt,
     },
     main_win::MainWindow,
+    options::options::{ConfirmOptions, GeneralOptions, NetworkOptions, ProgramsOptions},
     plugin_manager::{PluginActionVariant, show_plugin_manager},
     spawn::{SpawnError, spawn_async, spawn_async_command},
     types::FileSelectorID,
@@ -226,7 +223,7 @@ pub fn file_search(
         let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
         let file_list = file_selector.file_list();
 
-        if options.use_internal_search() {
+        if options.use_internal_search.get() {
             let start_dir = file_list.directory();
             let dlg = main_win.get_or_create_search_dialog();
             dlg.show_and_set_focus(start_dir.as_ref());
@@ -240,7 +237,7 @@ pub fn file_search(
             }
 
             let files = file_list.selected_files();
-            let error_message = match spawn_async(None, &files, &options.search_cmd()) {
+            let error_message = match spawn_async(None, &files, &options.search_cmd.get()) {
                 Ok(_) => return,
                 Err(SpawnError::InvalidTemplate) => ErrorMessage::brief(no_search_command_error()),
                 Err(SpawnError::InvalidCommand(e)) => {
@@ -376,7 +373,7 @@ fn ensure_file_list_is_local(file_list: &FileList) -> Result<(), ErrorMessage> {
 
 async fn do_file_diff(
     main_win: &MainWindow,
-    options: &dyn ProgramsOptionsRead,
+    options: &ProgramsOptions,
 ) -> Result<(), ErrorMessage> {
     let active_fl = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
     let inactive_fl = main_win.file_selector(FileSelectorID::INACTIVE).file_list();
@@ -401,9 +398,9 @@ async fn do_file_diff(
             files.push_back(active_file);
             files.push_back(inactive_file);
 
-            spawn_async(None, &files, &options.differ_cmd()).map_err(SpawnError::into_message)
+            spawn_async(None, &files, &options.differ_cmd.get()).map_err(SpawnError::into_message)
         }
-        2 | 3 => spawn_async(None, &selected_files, &options.differ_cmd())
+        2 | 3 => spawn_async(None, &selected_files, &options.differ_cmd.get())
             .map_err(SpawnError::into_message),
 
         _ => Err(ErrorMessage::brief(gettext("Too many selected files"))),
@@ -426,7 +423,7 @@ pub fn file_diff(
 
 async fn do_file_sync_dirs(
     main_win: &MainWindow,
-    options: &dyn ProgramsOptionsRead,
+    options: &ProgramsOptions,
 ) -> Result<(), ErrorMessage> {
     let active_fl = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
     let inactive_fl = main_win.file_selector(FileSelectorID::INACTIVE).file_list();
@@ -443,7 +440,7 @@ async fn do_file_sync_dirs(
     files.push_back(active_dir.upcast());
     files.push_back(inactive_dir.upcast());
 
-    spawn_async(None, &files, &options.differ_cmd()).map_err(SpawnError::into_message)
+    spawn_async(None, &files, &options.differ_cmd.get()).map_err(SpawnError::into_message)
 }
 
 pub fn file_sync_dirs(
@@ -473,8 +470,8 @@ pub fn file_rename(
     });
 }
 
-fn symlink_name(file_name: &str, options: &dyn GeneralOptionsRead) -> String {
-    let mut format = options.symlink_format();
+fn symlink_name(file_name: &str, options: &GeneralOptions) -> String {
+    let mut format = options.symlink_format.get();
     if format.is_empty() {
         format = gettext("link to %s");
     }
@@ -488,7 +485,7 @@ async fn create_symlinks(
     parent_window: &gtk::Window,
     files: &glib::List<File>,
     directory: &Directory,
-    options: &dyn GeneralOptionsRead,
+    options: &GeneralOptions,
 ) {
     let mut skip_all = false;
 
@@ -618,7 +615,7 @@ pub fn file_sendto(
         let file_list = file_selector.file_list();
         let files = file_list.selected_files();
 
-        let command_template = options.sendto_cmd();
+        let command_template = options.sendto_cmd.get();
 
         if command_template == "xdg-email --attach %s" && files.len() > 1 {
             ErrorMessage::new(gettext("Warning"), Some(gettext("The default send-to command only supports one selected file at a time. You can change the command in the program options."))).show(main_win.upcast_ref()).await;
@@ -934,17 +931,14 @@ pub fn command_execute(
     });
 }
 
-pub fn open_terminal(
-    main_win: &MainWindow,
-    options: &dyn ProgramsOptionsRead,
-) -> Result<(), ErrorMessage> {
+pub fn open_terminal(main_win: &MainWindow, options: &ProgramsOptions) -> Result<(), ErrorMessage> {
     let dpath = main_win
         .file_selector(FileSelectorID::ACTIVE)
         .file_list()
         .directory()
         .and_then(|d| d.file().path());
 
-    let command = OsString::from(options.terminal_cmd());
+    let command = OsString::from(options.terminal_cmd.get());
     if command.is_empty() {
         return Err(ErrorMessage {
             message: gettext("Terminal command is not configured properly."),
@@ -1401,7 +1395,7 @@ pub fn connections_new(
     let main_win = main_win.clone();
     let options = NetworkOptions::new();
     glib::spawn_future_local(async move {
-        let uri = glib::Uri::parse(&options.quick_connect_uri(), glib::UriFlags::NONE).ok();
+        let uri = glib::Uri::parse(&options.quick_connect_uri.get(), glib::UriFlags::NONE).ok();
         if let Some(connection) =
             ConnectDialog::new_connection(main_win.upcast_ref(), false, uri).await
         {
@@ -1411,7 +1405,7 @@ pub fn connections_new(
             }
             fs.file_list().set_connection(&connection, None);
             if let Some(quick_connect_uri) = connection.uri().map(|uri| uri.to_str()) {
-                if let Err(error) = options.set_quick_connect_uri(&quick_connect_uri) {
+                if let Err(error) = options.quick_connect_uri.set(quick_connect_uri) {
                     eprintln!("Failed to save quick connect parameters: {error}");
                 }
             }

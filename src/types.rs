@@ -31,7 +31,8 @@ pub enum FileSelectorID {
 
 /// The (reversed) order of following enums compared to the occurrence in the GUI is significant
 #[repr(C)]
-#[derive(Clone, Copy, strum::FromRepr)]
+#[derive(Clone, Copy, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdConfirmOverwriteMode")]
 pub enum ConfirmOverwriteMode {
     Silently = 0,
     SkipAll,
@@ -51,7 +52,8 @@ pub enum DndMode {
 
 #[repr(C)]
 #[allow(non_camel_case_types)]
-#[derive(Clone, Copy, glib::Variant)]
+#[derive(Clone, Copy, glib::Variant, glib::Enum)]
+#[enum_type(name = "GnomeCmdTransferType")]
 pub enum GnomeCmdTransferType {
     COPY = 0,
     MOVE,

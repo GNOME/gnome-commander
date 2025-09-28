@@ -18,13 +18,13 @@
  */
 
 use super::list::FileList;
-use crate::{data::GeneralOptions, file::File, filter::fnmatch};
+use crate::{file::File, filter::fnmatch, options::options::GeneralOptions};
 use gettextrs::gettext;
 use gtk::{gdk, glib, prelude::*, subclass::prelude::*};
+use std::rc::Rc;
 
 mod imp {
     use super::*;
-    use crate::data::GeneralOptionsRead;
     use std::cell::{Cell, OnceCell, RefCell};
 
     #[derive(Default, glib::Properties)]
@@ -36,7 +36,7 @@ mod imp {
         matches: RefCell<Vec<File>>,
         position: Cell<Option<usize>>,
         last_focused_file: RefCell<Option<File>>,
-        pub options: OnceCell<Box<dyn GeneralOptionsRead>>,
+        pub options: OnceCell<Rc<GeneralOptions>>,
     }
 
     #[glib::object_subclass]
@@ -90,8 +90,8 @@ mod imp {
     impl PopoverImpl for QuickSearch {}
 
     impl QuickSearch {
-        fn options(&self) -> &dyn GeneralOptionsRead {
-            self.options.get().unwrap().as_ref()
+        fn options(&self) -> Rc<GeneralOptions> {
+            self.options.get().unwrap().clone()
         }
 
         fn hide_popup(&self) {
@@ -173,14 +173,14 @@ mod imp {
             let options = self.options();
 
             let mut pattern = text.to_owned();
-            if !options.quick_search_exact_match_begin() && !pattern.starts_with("*") {
+            if !options.quick_search_exact_match_begin.get() && !pattern.starts_with("*") {
                 pattern.insert(0, '*');
             }
-            if !options.quick_search_exact_match_end() && !pattern.ends_with("*") {
+            if !options.quick_search_exact_match_end.get() && !pattern.ends_with("*") {
                 pattern.push('*');
             }
 
-            let case_sensitive = options.case_sensitive();
+            let case_sensitive = options.case_sensitive.get();
 
             let mut matching_files: Vec<File> = self
                 .obj()
@@ -216,7 +216,7 @@ impl QuickSearch {
         this.set_parent(file_list);
         this.imp()
             .options
-            .set(Box::new(GeneralOptions::new()))
+            .set(Rc::new(GeneralOptions::new()))
             .ok()
             .unwrap();
         this

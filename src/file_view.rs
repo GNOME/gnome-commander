@@ -18,9 +18,9 @@
  */
 
 use crate::{
-    data::ProgramsOptionsRead,
     file::File,
     intviewer::window::ViewerWindow,
+    options::options::ProgramsOptions,
     spawn::{SpawnError, spawn_async},
     tags::tags::FileMetadataService,
     transfer::download_to_temporary,
@@ -63,18 +63,18 @@ pub async fn file_view_internal(
 
 pub async fn file_view_external(
     file: &File,
-    options: &dyn ProgramsOptionsRead,
+    options: &ProgramsOptions,
 ) -> Result<(), ErrorMessage> {
     let mut files = glib::List::new();
     files.push_back(file.clone());
-    spawn_async(None, &files, &options.viewer_cmd()).map_err(SpawnError::into_message)
+    spawn_async(None, &files, &options.viewer_cmd.get()).map_err(SpawnError::into_message)
 }
 
 pub async fn file_view(
     parent_window: &gtk::Window,
     file: &File,
     use_internal_viewer: Option<bool>,
-    options: &dyn ProgramsOptionsRead,
+    options: &ProgramsOptions,
     file_metadata_service: &FileMetadataService,
 ) -> Result<(), ErrorMessage> {
     if file.file_info().file_type() == gio::FileType::Directory {
@@ -84,7 +84,8 @@ pub async fn file_view(
         ));
     }
 
-    let use_internal_viewer = use_internal_viewer.unwrap_or_else(|| options.use_internal_viewer());
+    let use_internal_viewer =
+        use_internal_viewer.unwrap_or_else(|| options.use_internal_viewer.get());
 
     if use_internal_viewer {
         file_view_internal(&parent_window, &file, &file_metadata_service).await?;

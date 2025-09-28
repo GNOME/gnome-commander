@@ -18,9 +18,12 @@
  */
 
 use crate::{
-    data::{GeneralOptionsRead, GeneralOptionsWrite, ProgramsOptionsRead, WriteResult},
     debug::debug,
     file::File,
+    options::{
+        options::{GeneralOptions, ProgramsOptions},
+        types::WriteResult,
+    },
     spawn::{parse_command_template, spawn_async_command},
     utils::{ErrorMessage, make_run_in_terminal_command},
 };
@@ -136,7 +139,7 @@ impl UserDefinedApp {
     pub fn build_command_line(
         &self,
         files: &glib::List<File>,
-        options: &dyn ProgramsOptionsRead,
+        options: &ProgramsOptions,
     ) -> Option<OsString> {
         let mut commandline = parse_command_template(files, &self.command_template)?;
         if self.requires_terminal {
@@ -148,7 +151,7 @@ impl UserDefinedApp {
     pub fn launch(
         &self,
         files: &glib::List<File>,
-        options: &dyn ProgramsOptionsRead,
+        options: &ProgramsOptions,
     ) -> Result<(), ErrorMessage> {
         let working_directory: Option<PathBuf> = files
             .front()
@@ -245,7 +248,7 @@ impl App {
     pub fn launch(
         &self,
         files: &glib::List<File>,
-        options: &dyn ProgramsOptionsRead,
+        options: &ProgramsOptions,
     ) -> Result<(), ErrorMessage> {
         match self {
             App::Regular(app) => app.launch(files),
@@ -266,10 +269,7 @@ pub struct FavoriteAppVariant {
     pub requires_terminal: bool,
 }
 
-pub fn save_favorite_apps(
-    apps: &[UserDefinedApp],
-    options: &dyn GeneralOptionsWrite,
-) -> WriteResult {
+pub fn save_favorite_apps(apps: &[UserDefinedApp], options: &GeneralOptions) -> WriteResult {
     let variants = apps
         .iter()
         .map(|app| FavoriteAppVariant {
@@ -287,12 +287,13 @@ pub fn save_favorite_apps(
             requires_terminal: app.requires_terminal,
         })
         .collect::<Vec<_>>();
-    options.set_favorite_apps(&variants)
+    options.favorite_apps.set(variants)
 }
 
-pub fn load_favorite_apps(options: &dyn GeneralOptionsRead) -> Vec<UserDefinedApp> {
+pub fn load_favorite_apps(options: &GeneralOptions) -> Vec<UserDefinedApp> {
     options
-        .favorite_apps()
+        .favorite_apps
+        .get()
         .into_iter()
         .map(|app| UserDefinedApp {
             name: app.name,

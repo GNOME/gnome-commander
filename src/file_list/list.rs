@@ -29,9 +29,6 @@ use crate::{
         connection::{Connection, ConnectionExt, ConnectionInterface},
         list::ConnectionList,
     },
-    data::{
-        ConfirmOptions, FiltersOptions, FiltersOptionsRead, GeneralOptions, GeneralOptionsRead,
-    },
     dialogs::{delete_dialog::show_delete_dialog, rename_popover::show_rename_popover},
     dir::{Directory, DirectoryState},
     file::File,
@@ -44,6 +41,7 @@ use crate::{
     libgcmd::file_descriptor::FileDescriptorExt,
     main_win::MainWindow,
     open_connection::open_connection,
+    options::options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
     tags::tags::FileMetadataService,
     types::{ExtensionDisplayMode, GraphicalLayoutMode, PermissionDisplayMode, SizeDisplayMode},
     utils::{
@@ -60,7 +58,6 @@ mod imp {
     use crate::{
         app::App,
         connection::list::ConnectionList,
-        data::ColorOptions,
         debug::debug,
         dialogs::pattern_selection_dialog::select_by_pattern,
         file_list::{
@@ -474,99 +471,81 @@ mod imp {
             // fl.add_controller(drop_target);
 
             let general_options = GeneralOptions::new();
+            general_options.list_font.bind(&*fl, "font-name").build();
             general_options
-                .0
-                .bind("list-font", &*fl, "font-name")
+                .list_row_height
+                .bind(&*fl, "row-height")
                 .build();
             general_options
-                .0
-                .bind("list-row-height", &*fl, "row-height")
+                .extension_display_mode
+                .bind(&*fl, "extension-display-mode")
                 .build();
             general_options
-                .0
-                .bind("extension-display-mode", &*fl, "extension-display-mode")
+                .graphical_layout_mode
+                .bind(&*fl, "graphical-layout-mode")
                 .build();
             general_options
-                .0
-                .bind("graphical-layout-mode", &*fl, "graphical-layout-mode")
+                .size_display_mode
+                .bind(&*fl, "size-display-mode")
                 .build();
             general_options
-                .0
-                .bind("size-display-mode", &*fl, "size-display-mode")
+                .permissions_display_mode
+                .bind(&*fl, "permissions-display-mode")
                 .build();
             general_options
-                .0
-                .bind("perm-display-mode", &*fl, "permissions-display-mode")
+                .date_display_format
+                .bind(&*fl, "date-display-format")
                 .build();
             general_options
-                .0
-                .bind("date-disp-format", &*fl, "date-display-format")
+                .case_sensitive
+                .bind(&*fl, "case-sensitive")
                 .build();
             general_options
-                .0
-                .bind("case-sensitive", &*fl, "case-sensitive")
+                .symbolic_links_as_regular_files
+                .bind(&*fl, "symbolic-links-as-regular-files")
                 .build();
             general_options
-                .0
-                .bind(
-                    "symbolic-links-as-regular-files",
-                    &*fl,
-                    "symbolic-links-as-regular-files",
-                )
+                .left_mouse_button_mode
+                .bind(&*fl, "left-mouse-button-mode")
                 .build();
             general_options
-                .0
-                .bind("clicks-to-open-item", &*fl, "left-mouse-button-mode")
+                .middle_mouse_button_mode
+                .bind(&*fl, "middle-mouse-button-mode")
                 .build();
             general_options
-                .0
-                .bind("middle-mouse-btn-mode", &*fl, "middle-mouse-button-mode")
+                .right_mouse_button_mode
+                .bind(&*fl, "right-mouse-button-mode")
                 .build();
             general_options
-                .0
-                .bind("right-mouse-btn-mode", &*fl, "right-mouse-button-mode")
+                .left_mouse_button_unselects
+                .bind(&*fl, "left-mouse-button-unselects")
                 .build();
             general_options
-                .0
-                .bind(
-                    "left-mouse-btn-unselects",
-                    &*fl,
-                    "left-mouse-button-unselects",
-                )
+                .select_dirs
+                .bind(&*fl, "select-dirs")
                 .build();
             general_options
-                .0
-                .bind("select-dirs", &*fl, "select-dirs")
-                .build();
-            general_options
-                .0
-                .bind("quick-search", &*fl, "quick-search-shortcut")
+                .quick_search_shortcut
+                .bind(&*fl, "quick-search-shortcut")
                 .build();
 
             let confirm_options = ConfirmOptions::new();
-            confirm_options
-                .0
-                .bind("mouse-drag-and-drop", &*fl, "dnd-mode")
-                .build();
+            confirm_options.dnd_mode.bind(&*fl, "dnd-mode").build();
 
-            for (column, key) in self.columns.borrow().iter().zip([
-                "column-width-icon",
-                "column-width-name",
-                "column-width-ext",
-                "column-width-dir",
-                "column-width-size",
-                "column-width-date",
-                "column-width-perm",
-                "column-width-owner",
-                "column-width-group",
-            ]) {
-                general_options.0.bind(key, column, "fixed-width").build();
+            for (column, key) in fl
+                .view()
+                .columns()
+                .iter::<gtk::ColumnViewColumn>()
+                .flatten()
+                .zip(&general_options.list_column_width)
+            {
+                key.bind(&column, "fixed-width").build();
             }
 
             let color_options = ColorOptions::new();
             color_options
-                .0
-                .bind("use-ls-colors", &*fl, "use-ls-colors")
+                .use_ls_colors
+                .bind(&*fl, "use-ls-colors")
                 .build();
         }
 
@@ -2432,7 +2411,7 @@ pub struct FileListStats {
     pub selected: Stats,
 }
 
-fn file_is_wanted(file: &File, options: &dyn FiltersOptionsRead) -> bool {
+fn file_is_wanted(file: &File, options: &FiltersOptions) -> bool {
     match file.file().query_info(
         "standard::*",
         gio::FileQueryInfoFlags::NOFOLLOW_SYMLINKS,
@@ -2451,34 +2430,36 @@ fn file_is_wanted(file: &File, options: &dyn FiltersOptionsRead) -> bool {
                 return false;
             }
             let hide = match file_info.file_type() {
-                gio::FileType::Unknown => options.hide_unknown(),
-                gio::FileType::Regular => options.hide_regular(),
-                gio::FileType::Directory => options.hide_directory(),
-                gio::FileType::SymbolicLink => options.hide_symlink(),
-                gio::FileType::Special => options.hide_special(),
-                gio::FileType::Shortcut => options.hide_shortcut(),
-                gio::FileType::Mountable => options.hide_mountable(),
+                gio::FileType::Unknown => options.hide_unknown.get(),
+                gio::FileType::Regular => options.hide_regular.get(),
+                gio::FileType::Directory => options.hide_directory.get(),
+                gio::FileType::SymbolicLink => options.hide_symlink.get(),
+                gio::FileType::Special => options.hide_special.get(),
+                gio::FileType::Shortcut => options.hide_shortcut.get(),
+                gio::FileType::Mountable => options.hide_mountable.get(),
                 _ => false,
             };
             if hide {
                 return false;
             }
-            if options.hide_symlink() && file_info.is_symlink() {
+            if options.hide_symlink.get() && file_info.is_symlink() {
                 return false;
             }
-            if options.hide_hidden() && file_info.is_hidden() {
+            if options.hide_hidden.get() && file_info.is_hidden() {
                 return false;
             }
-            if options.hide_virtual() && file_info.boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL)
+            if options.hide_virtual.get()
+                && file_info.boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL)
             {
                 return false;
             }
-            if options.hide_volatile()
+            if options.hide_volatile.get()
                 && file_info.boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VOLATILE)
             {
                 return false;
             }
-            if options.hide_backup() && matches_pattern(basename, &options.backup_pattern()) {
+            if options.hide_backup.get() && matches_pattern(basename, &options.backup_pattern.get())
+            {
                 return false;
             }
             true
@@ -2556,7 +2537,7 @@ fn create_icon_factory() -> gtk::ListItemFactory {
         let use_ls_colors = color_settings.boolean("use-ls-colors");
         apply_css(&item, use_ls_colors, label.upcast_ref());
 
-        match global_options.graphical_layout_mode() {
+        match global_options.graphical_layout_mode.get() {
             GraphicalLayoutMode::Text => {
                 let type_str = match file_type {
                     gio::FileType::Regular => " ",
@@ -2572,7 +2553,7 @@ fn create_icon_factory() -> gtk::ListItemFactory {
             }
             GraphicalLayoutMode::TypeIcons | GraphicalLayoutMode::MimeIcons => {
                 if let Some(icon) =
-                    icon_cache.file_icon(&file, global_options.graphical_layout_mode())
+                    icon_cache.file_icon(&file, global_options.graphical_layout_mode.get())
                 {
                     image.set_from_gicon(&icon);
                 }
@@ -2587,7 +2568,7 @@ fn create_name_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
     let global_options = GeneralOptions::new();
     create_text_cell_factory(0.0, cells, move |cell, item| {
         let prop = if matches!(
-            global_options.extension_display_mode(),
+            global_options.extension_display_mode.get(),
             ExtensionDisplayMode::Stripped
         ) {
             "stem"
@@ -2607,7 +2588,7 @@ fn create_ext_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
     let global_options = GeneralOptions::new();
     create_text_cell_factory(0.0, cells, move |cell, item| {
         let prop = if matches!(
-            global_options.extension_display_mode(),
+            global_options.extension_display_mode.get(),
             ExtensionDisplayMode::WithFileName
         ) {
             "empty"
@@ -2637,7 +2618,7 @@ fn create_dir_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
 fn create_size_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
     let global_options = GeneralOptions::new();
     create_text_cell_factory(1.0, cells, move |cell, item| {
-        let mode = global_options.size_display_mode();
+        let mode = global_options.size_display_mode.get();
         let is_directory = item.file().file_info().file_type() == gio::FileType::Directory;
         cell.bind(&item);
         cell.add_binding(
@@ -2660,7 +2641,7 @@ fn create_size_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
 fn create_date_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
     let global_options = GeneralOptions::new();
     create_text_cell_factory(0.0, cells, move |cell, item| {
-        let format = global_options.date_display_format();
+        let format = global_options.date_display_format.get();
 
         cell.bind(&item);
         cell.add_binding(
@@ -2678,7 +2659,7 @@ fn create_date_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
 fn create_perm_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
     let global_options = GeneralOptions::new();
     create_text_cell_factory(0.0, cells, move |cell, item| {
-        let mode = global_options.permissions_display_mode();
+        let mode = global_options.permissions_display_mode.get();
 
         cell.bind(&item);
         cell.add_binding(

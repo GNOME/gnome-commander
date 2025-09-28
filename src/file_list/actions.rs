@@ -20,11 +20,11 @@
 use super::list::FileList;
 use crate::{
     app::{App, RegularApp},
-    data::{ProgramsOptions, ProgramsOptionsRead},
     dialogs::open_with_other_dialog::show_open_with_other_dialog,
     file::File,
     file_edit::file_edit,
     file_view::file_view,
+    options::options::ProgramsOptions,
     spawn::run_command_indir,
     transfer::download_to_temporary,
     utils::{ErrorMessage, get_modifiers_state, temp_file},
@@ -107,7 +107,7 @@ async fn mime_exec_multiple(
     files: glib::List<File>,
     app: App,
     parent_window: &gtk::Window,
-    options: &dyn ProgramsOptionsRead,
+    options: &ProgramsOptions,
 ) {
     if files.is_empty() {
         ErrorMessage::new(gettext("No files were given to open."), None::<String>)
@@ -116,7 +116,7 @@ async fn mime_exec_multiple(
         return;
     }
 
-    let files_to_open = if app.handles_uris() && options.dont_download() {
+    let files_to_open = if app.handles_uris() && options.dont_download.get() {
         files
     } else {
         let (mut local, remote): (Vec<File>, Vec<File>) =

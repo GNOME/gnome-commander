@@ -22,8 +22,8 @@
 
 use crate::{
     app::{App, RegularApp},
-    data::ProgramsOptionsRead,
     file::File,
+    options::options::ProgramsOptions,
     spawn::SpawnError,
     transfer::download_to_temporary,
     utils::{ErrorMessage, GNOME_CMD_PERM_USER_EXEC, temp_file},
@@ -89,7 +89,7 @@ async fn ask_download_tmp(parent_window: &gtk::Window, app: &App) -> bool {
 pub async fn mime_exec_single(
     parent_window: &gtk::Window,
     file: &File,
-    options: &dyn ProgramsOptionsRead,
+    options: &ProgramsOptions,
 ) -> Result<(), ErrorMessage> {
     // Check if the file is a binary executable that lacks the executable bit
 
@@ -151,7 +151,7 @@ pub async fn mime_exec_single(
 
     if file.is_local() {
         app_info.launch(&[file.file()], gio::AppLaunchContext::NONE)
-    } else if app.handles_uris() && options.dont_download() {
+    } else if app.handles_uris() && options.dont_download.get() {
         app_info.launch_uris(&[&file.get_uri_str()], gio::AppLaunchContext::NONE)
     } else {
         if !ask_download_tmp(parent_window, &app).await {

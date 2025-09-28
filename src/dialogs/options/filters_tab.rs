@@ -18,7 +18,7 @@
  */
 
 use super::common::create_category;
-use crate::data::{FiltersOptionsRead, FiltersOptionsWrite, WriteResult};
+use crate::options::{options::FiltersOptions, types::WriteResult};
 use gettextrs::gettext;
 use gtk::prelude::*;
 
@@ -134,34 +134,38 @@ impl FiltersTab {
         self.vbox.clone().upcast()
     }
 
-    pub fn read(&self, options: &dyn FiltersOptionsRead) {
-        self.hide_unknown.set_active(options.hide_unknown());
-        self.hide_regular.set_active(options.hide_regular());
-        self.hide_directory.set_active(options.hide_directory());
-        self.hide_special.set_active(options.hide_special());
-        self.hide_shortcut.set_active(options.hide_shortcut());
-        self.hide_mountable.set_active(options.hide_mountable());
-        self.hide_virtual.set_active(options.hide_virtual());
-        self.hide_volatile.set_active(options.hide_volatile());
-        self.hide_hidden.set_active(options.hide_hidden());
-        self.hide_backup.set_active(options.hide_backup());
-        self.hide_symlink.set_active(options.hide_symlink());
-        self.backup_pattern.set_text(&options.backup_pattern());
+    pub fn read(&self, options: &FiltersOptions) {
+        self.hide_unknown.set_active(options.hide_unknown.get());
+        self.hide_regular.set_active(options.hide_regular.get());
+        self.hide_directory.set_active(options.hide_directory.get());
+        self.hide_special.set_active(options.hide_special.get());
+        self.hide_shortcut.set_active(options.hide_shortcut.get());
+        self.hide_mountable.set_active(options.hide_mountable.get());
+        self.hide_virtual.set_active(options.hide_virtual.get());
+        self.hide_volatile.set_active(options.hide_volatile.get());
+        self.hide_hidden.set_active(options.hide_hidden.get());
+        self.hide_backup.set_active(options.hide_backup.get());
+        self.hide_symlink.set_active(options.hide_symlink.get());
+        self.backup_pattern.set_text(&options.backup_pattern.get());
     }
 
-    pub fn write(&self, options: &dyn FiltersOptionsWrite) -> WriteResult {
-        options.set_hide_unknown(self.hide_unknown.is_active())?;
-        options.set_hide_regular(self.hide_regular.is_active())?;
-        options.set_hide_directory(self.hide_directory.is_active())?;
-        options.set_hide_special(self.hide_special.is_active())?;
-        options.set_hide_shortcut(self.hide_shortcut.is_active())?;
-        options.set_hide_mountable(self.hide_mountable.is_active())?;
-        options.set_hide_virtual(self.hide_virtual.is_active())?;
-        options.set_hide_volatile(self.hide_volatile.is_active())?;
-        options.set_hide_hidden(self.hide_hidden.is_active())?;
-        options.set_hide_backup(self.hide_backup.is_active())?;
-        options.set_hide_symlink(self.hide_symlink.is_active())?;
-        options.set_backup_pattern(&self.backup_pattern.text())?;
+    pub fn write(&self, options: &FiltersOptions) -> WriteResult {
+        options.hide_unknown.set(self.hide_unknown.is_active())?;
+        options.hide_regular.set(self.hide_regular.is_active())?;
+        options
+            .hide_directory
+            .set(self.hide_directory.is_active())?;
+        options.hide_special.set(self.hide_special.is_active())?;
+        options.hide_shortcut.set(self.hide_shortcut.is_active())?;
+        options
+            .hide_mountable
+            .set(self.hide_mountable.is_active())?;
+        options.hide_virtual.set(self.hide_virtual.is_active())?;
+        options.hide_volatile.set(self.hide_volatile.is_active())?;
+        options.hide_hidden.set(self.hide_hidden.is_active())?;
+        options.hide_backup.set(self.hide_backup.is_active())?;
+        options.hide_symlink.set(self.hide_symlink.is_active())?;
+        options.backup_pattern.set(self.backup_pattern.text())?;
         Ok(())
     }
 }

@@ -23,11 +23,14 @@ use super::{
     programs_tab::ProgramsTab, tabs_tab::TabsTab,
 };
 use crate::{
-    data::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions, ProgramsOptions},
+    options::{
+        options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions, ProgramsOptions},
+        utils::remember_window_size,
+    },
     utils::{SenderExt, dialog_button_box, display_help},
 };
 use gettextrs::gettext;
-use gtk::{gio, glib, prelude::*};
+use gtk::{glib, prelude::*};
 use std::sync::Mutex;
 
 pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool {
@@ -53,7 +56,11 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
     let filters_options = FiltersOptions::new();
     let programs_options = ProgramsOptions::new();
 
-    remember_window_size(&dialog, &general_options.0);
+    remember_window_size(
+        &dialog,
+        &general_options.options_window_width,
+        &general_options.options_window_height,
+    );
 
     let notebook = gtk::Notebook::builder().hexpand(true).vexpand(true).build();
     content_area.append(&notebook);
@@ -213,30 +220,4 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
     dialog.close();
 
     result
-}
-
-fn remember_window_size(dialog: &gtk::Window, settings: &gio::Settings) {
-    settings
-        .bind("opts-dialog-width", &*dialog, "default-width")
-        .mapping(|v, _| {
-            let width: i32 = v.get::<u32>()?.try_into().ok()?;
-            Some(width.to_value())
-        })
-        .set_mapping(|v, _| {
-            let width: u32 = v.get::<i32>().ok()?.try_into().ok()?;
-            Some(width.to_variant())
-        })
-        .build();
-
-    settings
-        .bind("opts-dialog-height", &*dialog, "default-height")
-        .mapping(|v, _| {
-            let height: i32 = v.get::<u32>()?.try_into().ok()?;
-            Some(height.to_value())
-        })
-        .set_mapping(|v, _| {
-            let height: u32 = v.get::<i32>().ok()?.try_into().ok()?;
-            Some(height.to_variant())
-        })
-        .build();
 }

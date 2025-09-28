@@ -28,10 +28,7 @@ use super::{
     remote::{ConnectionRemote, ConnectionRemoteExt},
     smb::ConnectionSmb,
 };
-use crate::{
-    data::{GeneralOptions, GeneralOptionsRead, GeneralOptionsWrite, WriteResult},
-    debug::debug,
-};
+use crate::{debug::debug, options::options::GeneralOptions, options::types::WriteResult};
 use gtk::{
     gio,
     glib::{self, subclass::prelude::*},
@@ -237,16 +234,16 @@ impl ConnectionList {
             })
     }
 
-    pub fn load(&self, options: &dyn GeneralOptionsRead) {
+    pub fn load(&self, options: &GeneralOptions) {
         self.lock();
 
-        self.load_devices(&options.device_list());
-        self.load_connections(&options.connections());
-        self.load_bookmarks(&options.bookmarks());
+        self.load_devices(&options.device_list.get());
+        self.load_connections(&options.connections.get());
+        self.load_bookmarks(&options.bookmarks.get());
 
         let home = self.home();
         let dir_history = home.upcast_ref::<Connection>().dir_history();
-        for item in options.directory_history().into_iter().rev() {
+        for item in options.directory_history.get().into_iter().rev() {
             dir_history.add(item);
         }
 
@@ -254,17 +251,19 @@ impl ConnectionList {
     }
 
     pub fn save(&self, options: &GeneralOptions) -> WriteResult {
-        options.set_device_list(&self.save_devices())?;
-        options.set_directory_history(&if options.save_directory_history_on_exit() {
-            self.home()
-                .upcast_ref::<Connection>()
-                .dir_history()
-                .export()
-        } else {
-            Vec::new()
-        })?;
-        options.set_connections(&self.save_connections())?;
-        options.set_bookmarks(&self.save_bookmarks())?;
+        options.device_list.set(self.save_devices())?;
+        options
+            .directory_history
+            .set(if options.save_directory_history_on_exit.get() {
+                self.home()
+                    .upcast_ref::<Connection>()
+                    .dir_history()
+                    .export()
+            } else {
+                Vec::new()
+            })?;
+        options.connections.set(self.save_connections())?;
+        options.bookmarks.set(self.save_bookmarks())?;
         Ok(())
     }
 

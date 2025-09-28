@@ -21,9 +21,9 @@
  */
 
 use crate::{
-    data::ProgramsOptionsRead,
     debug::debug,
     file::File,
+    options::options::ProgramsOptions,
     utils::{ErrorMessage, make_run_in_terminal_command},
 };
 use gettextrs::gettext;
@@ -191,7 +191,7 @@ pub fn run_command_indir(
     working_directory: Option<&Path>,
     command: &OsStr,
     in_terminal: bool,
-    options: &dyn ProgramsOptionsRead,
+    options: &ProgramsOptions,
 ) -> Result<(), SpawnError> {
     let actual_command = if in_terminal {
         make_run_in_terminal_command(command, options)
