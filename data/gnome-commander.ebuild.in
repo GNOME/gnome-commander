@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -23,6 +23,7 @@ RDEPEND="
 	pdf? ( app-text/poppler:=[cairo] )
 	samba? ( gnome-base/gvfs[samba] )
 	taglib? ( >=media-libs/taglib-@TAGLIB_REQ@:= )
+	x11-libs/gdk-pixbuf
 "
 BDEPEND="
 	doc? ( app-text/yelp-tools )
@@ -55,12 +56,11 @@ src_test() {
 }
 
 pkg_postinst() {
-	xdg_pkg_postinst
 	gnome2_pkg_postinst
 	optfeature "synchronizing files and directories" dev-util/meld
 }
 
 pkg_postrm() {
-	xdg_pkg_postrm
+	gnome2_pkg_postrm
 	gnome2_schemas_update
 }
