@@ -65,14 +65,14 @@
   </suggests>
 
   <releases>
-    <release type="stable" version="1.18.4" date="2025-12-31">
+    <release type="stable" version="1.18.4" date="2025-09-28">
       <description>
         <p>This release fixes the following bugs:</p>
         <ul>
-          <li>...</li>
+          <li>Issue #191: Test failures with googletest 1.17 (Andrey Kutejko)</li>
+          <li>Update in metainfo.xml to adapt to the renamed Yelp ID (Jeremy Bicha)</li>
         </ul>
-        <p>New or updated translations: ...</p>
-        <p>New or updated docs: ...</p>
+        <p>New or updated docs: sv (Anders Jonsson)</p>
       </description>
     </release>
     <release type="stable" version="1.18.3" date="2025-06-22">
