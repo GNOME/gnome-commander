@@ -43,10 +43,8 @@ use crate::{
     open_connection::open_connection,
     options::options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
     tags::tags::FileMetadataService,
-    types::{ExtensionDisplayMode, GraphicalLayoutMode, PermissionDisplayMode, SizeDisplayMode},
-    utils::{
-        ErrorMessage, permissions_to_numbers, permissions_to_text, size_to_string, time_to_string,
-    },
+    types::{ExtensionDisplayMode, GraphicalLayoutMode, SizeDisplayMode},
+    utils::{ErrorMessage, size_to_string, time_to_string},
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
@@ -1424,8 +1422,8 @@ mod imp {
         }
     }
 
-    fn type_string(file: &File) -> &'static str {
-        match file.file_info().file_type() {
+    pub fn type_string(file_type: gio::FileType) -> &'static str {
+        match file_type {
             gio::FileType::Regular => " ",
             gio::FileType::Directory => "/",
             gio::FileType::SymbolicLink => "@",
@@ -1436,7 +1434,7 @@ mod imp {
         }
     }
 
-    fn display_permissions(permissions: u32, mode: PermissionDisplayMode) -> String {
+    pub fn display_permissions(permissions: u32, mode: PermissionDisplayMode) -> String {
         match mode {
             PermissionDisplayMode::Number => permissions_to_numbers(permissions),
             PermissionDisplayMode::Text => permissions_to_text(permissions),
@@ -2532,29 +2530,17 @@ fn create_icon_factory() -> gtk::ListItemFactory {
         label.set_text("");
 
         let file = item.file();
-        let file_type = file.file_info().file_type();
 
         let use_ls_colors = color_settings.boolean("use-ls-colors");
         apply_css(&item, use_ls_colors, label.upcast_ref());
 
         match global_options.graphical_layout_mode.get() {
             GraphicalLayoutMode::Text => {
-                let type_str = match file_type {
-                    gio::FileType::Regular => " ",
-                    gio::FileType::Directory => "/",
-                    gio::FileType::SymbolicLink => "@",
-                    gio::FileType::Special => "S",
-                    gio::FileType::Shortcut => "L",
-                    gio::FileType::Mountable => "M",
-                    _ => "?",
-                };
-                label.set_text(type_str);
+                label.set_text(imp::type_string(file.file_info().file_type()));
                 stack.set_visible_child(&label);
             }
-            GraphicalLayoutMode::TypeIcons | GraphicalLayoutMode::MimeIcons => {
-                if let Some(icon) =
-                    icon_cache.file_icon(&file, global_options.graphical_layout_mode.get())
-                {
+            mode => {
+                if let Some(icon) = icon_cache.file_icon(&file, mode) {
                     image.set_from_gicon(&icon);
                 }
                 stack.set_visible_child(&image);
@@ -2666,10 +2652,7 @@ fn create_perm_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
             item.bind_property("permissions", &cell, "text")
                 .transform_to(move |_, permissions: u32| {
                     if permissions != u32::MAX {
-                        Some(match mode {
-                            PermissionDisplayMode::Number => permissions_to_numbers(permissions),
-                            _ => permissions_to_text(permissions),
-                        })
+                        Some(imp::display_permissions(permissions, mode))
                     } else {
                         None
                     }
