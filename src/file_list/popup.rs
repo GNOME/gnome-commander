@@ -21,12 +21,12 @@ use super::{actions::Script, list::FileList};
 use crate::{
     app::{App, AppTarget, RegularApp, UserDefinedApp, load_favorite_apps},
     config::PACKAGE,
-    data::GeneralOptions,
     debug::debug,
     file::File,
     filter::fnmatch,
     libgcmd::file_actions::{FileActions, FileActionsExt},
     main_win::MainWindow,
+    options::options::GeneralOptions,
     plugin_manager::wrap_plugin_menu,
     utils::MenuBuilderExt,
 };

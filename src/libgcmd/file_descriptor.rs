@@ -74,7 +74,7 @@ unsafe impl<T: FileDescriptorImpl> IsImplementable<T> for FileDescriptor {
 unsafe extern "C" fn file_descriptor_file<T: FileDescriptorImpl>(
     fd: *mut ffi::GnomeCmdFileDescriptor,
 ) -> *mut GFile {
-    let instance = &*(fd as *mut T::Instance);
+    let instance = unsafe { &*(fd as *mut T::Instance) };
     let imp = instance.imp();
     imp.file().to_glib_none().0
 }
@@ -82,7 +82,7 @@ unsafe extern "C" fn file_descriptor_file<T: FileDescriptorImpl>(
 unsafe extern "C" fn file_descriptor_file_info<T: FileDescriptorImpl>(
     fd: *mut ffi::GnomeCmdFileDescriptor,
 ) -> *mut GFileInfo {
-    let instance = &*(fd as *mut T::Instance);
+    let instance = unsafe { &*(fd as *mut T::Instance) };
     let imp = instance.imp();
     imp.file_info().to_glib_none().0
 }

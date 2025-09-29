@@ -25,10 +25,10 @@ use super::{
 };
 use crate::{
     connection::history::History,
-    data::{GeneralOptions, GeneralOptionsRead, ProgramsOptions},
     dialogs::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager},
     file::File,
     file_list::list::FileList,
+    options::options::{GeneralOptions, ProgramsOptions},
     tags::tags::FileMetadataService,
     utils::{size_to_string, time_to_string},
 };
@@ -58,31 +58,32 @@ impl AdvRenameConfig {
 
     fn load(&self) {
         let options = GeneralOptions::new();
-
-        let variant = options.0.value("advrename-profiles");
-        load_advrename_profiles(&variant, &self.0.default_profile, &self.0.profiles);
-
-        let entries: Vec<_> = options
-            .0
-            .strv("advrename-template-history")
-            .iter()
-            .map(|entry| entry.to_string())
-            .collect();
-        for entry in entries.into_iter().rev() {
+        load_advrename_profiles(
+            options.advanced_rename_profiles.get(),
+            &self.0.default_profile,
+            &self.0.profiles,
+        );
+        for entry in options
+            .advanced_rename_template_history
+            .get()
+            .into_iter()
+            .rev()
+        {
             self.0.templates.add(entry);
         }
     }
 
     fn save(&self) -> Result<(), glib::BoolError> {
         let options = GeneralOptions::new();
-
-        let variant =
-            save_advrename_profiles(&self.0.default_profile, self.0.profiles.upcast_ref());
-        options.0.set_value("advrename-profiles", &variant)?;
-
         options
-            .0
-            .set_strv("advrename-template-history", self.0.templates.export())?;
+            .advanced_rename_profiles
+            .set(save_advrename_profiles(
+                &self.0.default_profile,
+                self.0.profiles.upcast_ref(),
+            ))?;
+        options
+            .advanced_rename_template_history
+            .set(self.0.templates.export())?;
         Ok(())
     }
 
@@ -262,6 +263,7 @@ mod imp {
         dialogs::file_properties_dialog::FilePropertiesDialog,
         file_list::list::FileList,
         file_view::file_view,
+        options::utils::remember_window_size,
         types::SizeDisplayMode,
         utils::{
             MenuBuilderExt, attributes_bold, dialog_button_box, display_help, handle_escape_key,
@@ -425,14 +427,14 @@ mod imp {
                 &gtk::ColumnViewColumn::builder()
                     .title(gettext("Size"))
                     .resizable(true)
-                    .factory(&size_name_factory(options.size_display_mode()))
+                    .factory(&size_name_factory(options.size_display_mode.get()))
                     .build(),
             );
             self.file_view.append_column(
                 &gtk::ColumnViewColumn::builder()
                     .title(gettext("Date"))
                     .resizable(true)
-                    .factory(&date_name_factory(options.date_display_format()))
+                    .factory(&date_name_factory(options.date_display_format.get()))
                     .build(),
             );
 
@@ -610,7 +612,11 @@ mod imp {
                 )),
             );
 
-            remember_window_size(&*self.obj(), &options.0);
+            remember_window_size(
+                &*this,
+                &options.advanced_rename_window_width,
+                &options.advanced_rename_window_height,
+            );
         }
 
         fn dispose(&self) {
@@ -1126,32 +1132,6 @@ glib::wrapper! {
     pub struct AdvancedRenameDialog(ObjectSubclass<imp::AdvancedRenameDialog>)
         @extends gtk::Widget, gtk::Window,
         @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Root, gtk::Native;
-}
-
-fn remember_window_size(dialog: &AdvancedRenameDialog, settings: &gio::Settings) {
-    settings
-        .bind("advrename-win-width", &*dialog, "default-width")
-        .mapping(|v, _| {
-            let width: i32 = v.get::<u32>()?.try_into().ok()?;
-            Some(width.to_value())
-        })
-        .set_mapping(|v, _| {
-            let width: u32 = v.get::<i32>().ok()?.try_into().ok()?;
-            Some(width.to_variant())
-        })
-        .build();
-
-    settings
-        .bind("advrename-win-height", &*dialog, "default-height")
-        .mapping(|v, _| {
-            let height: i32 = v.get::<u32>()?.try_into().ok()?;
-            Some(height.to_value())
-        })
-        .set_mapping(|v, _| {
-            let height: u32 = v.get::<i32>().ok()?.try_into().ok()?;
-            Some(height.to_variant())
-        })
-        .build();
 }
 
 pub fn advanced_rename_dialog_show(

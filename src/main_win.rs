@@ -27,7 +27,6 @@ use crate::{
         list::ConnectionList,
         remote::ConnectionRemote,
     },
-    data::{GeneralOptions, GeneralOptionsRead, GeneralOptionsWrite, SearchConfig, WriteResult},
     dir::Directory,
     file::File,
     file_list::list::FileList,
@@ -35,6 +34,10 @@ use crate::{
     libgcmd::{
         file_actions::{FileActions, FileActionsExt},
         state::{State, StateExt},
+    },
+    options::{
+        options::{GeneralOptions, SearchConfig},
+        types::WriteResult,
     },
     plugin_manager::{PluginManager, wrap_plugin_menu},
     search::search_dialog::SearchDialog,
@@ -55,9 +58,12 @@ pub mod imp {
     use super::*;
     use crate::{
         command_line::CommandLine,
-        data::{FiltersOptions, ProgramsOptions},
         dir::Directory,
         layout::{color_themes::ColorThemes, ls_colors_palette::LsColorPalettes},
+        options::{
+            options::{FiltersOptions, ProgramsOptions},
+            utils::remember_window_state,
+        },
         paned_ext::GnomeCmdPanedExt,
         pwd::uid,
         shortcuts::Shortcut,
@@ -444,42 +450,44 @@ pub mod imp {
             ));
 
             let options = GeneralOptions::new();
-            remember_window_size(&*mw, &options.0);
+            remember_window_state(
+                &*mw,
+                &options.main_window_width,
+                &options.main_window_height,
+                &options.main_window_state,
+            );
 
+            options.menu_visible.bind(&*mw, "menu-visible").build();
             options
-                .0
-                .bind("mainmenu-visibility", &*mw, "menu-visible")
+                .toolbar_visible
+                .bind(&*mw, "toolbar-visible")
                 .build();
             options
-                .0
-                .bind("show-toolbar", &*mw, "toolbar-visible")
+                .horizontal_orientation
+                .bind(&*mw, "horizontal-orientation")
                 .build();
             options
-                .0
-                .bind("horizontal-orientation", &*mw, "horizontal-orientation")
+                .command_line_visible
+                .bind(&*mw, "command-line-visible")
                 .build();
             options
-                .0
-                .bind("show-cmdline", &*mw, "command-line-visible")
+                .buttonbar_visible
+                .bind(&*mw, "buttonbar-visible")
                 .build();
             options
-                .0
-                .bind("show-buttonbar", &*mw, "buttonbar-visible")
+                .connection_buttons_visible
+                .bind(&*mw, "connection-buttons-visible")
                 .build();
             options
-                .0
-                .bind("show-devbuttons", &*mw, "connection-buttons-visible")
+                .connection_list_visible
+                .bind(&*mw, "connection-list-visible")
                 .build();
             options
-                .0
-                .bind("show-devlist", &*mw, "connection-list-visible")
-                .build();
-            options
-                .0
-                .bind("quick-search", &*mw, "quick-search-shortcut")
+                .quick_search_shortcut
+                .bind(&*mw, "quick-search-shortcut")
                 .build();
 
-            self.shortcuts.load(options.keybindings());
+            self.shortcuts.load(options.keybindings.get());
 
             self.color_themes.connect_local(
                 "theme-changed",
@@ -512,13 +520,13 @@ pub mod imp {
 
             let filters_options = FiltersOptions::new();
             filters_options
-                .0
-                .bind("hide-dotfile", &*mw, "view-hidden-files")
+                .hide_hidden
+                .bind(&*mw, "view-hidden-files")
                 .invert_boolean()
                 .build();
             filters_options
-                .0
-                .bind("hide-backupfiles", &*mw, "view-backup-files")
+                .hide_backup
+                .bind(&*mw, "view-backup-files")
                 .invert_boolean()
                 .build();
         }
@@ -1184,7 +1192,8 @@ impl MainWindow {
         let options = GeneralOptions::new();
 
         let (mut left_tabs, mut right_tabs): (Vec<_>, Vec<_>) = options
-            .file_list_tabs()
+            .file_list_tabs
+            .get()
             .into_iter()
             .partition(|t| t.file_felector_id == 0);
 
@@ -1226,23 +1235,25 @@ impl MainWindow {
                 }),
         );
 
-        options.set_file_list_tabs(&tabs)
+        options.file_list_tabs.set(tabs)
     }
 
-    pub fn load_command_line_history(&self, options: &dyn GeneralOptionsRead) {
+    pub fn load_command_line_history(&self, options: &GeneralOptions) {
         self.imp()
             .cmdline
-            .set_max_history_size(options.command_line_history_length());
+            .set_max_history_size(options.command_line_history_length.get() as usize);
         self.imp()
             .cmdline
-            .set_history(&options.command_line_history());
+            .set_history(&options.command_line_history.get());
     }
 
     pub fn save_command_line_history(&self, options: &GeneralOptions) -> WriteResult {
-        if options.save_command_line_history_on_exit() {
-            options.set_command_line_history(&self.imp().cmdline.history())
+        if options.save_command_line_history_on_exit.get() {
+            options
+                .command_line_history
+                .set(self.imp().cmdline.history())
         } else {
-            options.set_command_line_history(&[])
+            options.command_line_history.set(&[])
         }
     }
 
@@ -1251,8 +1262,11 @@ impl MainWindow {
 
         self.imp().plugin_manager.save();
 
-        options.set_keybindings(&self.imp().shortcuts.save())?;
-        self.save_tabs(options.save_tabs_on_exit(), options.save_dirs_on_exit())?;
+        options.keybindings.set(&self.imp().shortcuts.save())?;
+        self.save_tabs(
+            options.save_tabs_on_exit.get(),
+            options.save_dirs_on_exit.get(),
+        )?;
         self.save_command_line_history(&options)?;
 
         gio::Settings::sync();
@@ -1317,7 +1331,7 @@ impl MainWindow {
                 search_config,
                 &self.file_metadata_service(),
                 self,
-                options.search_window_is_transient(),
+                options.search_window_is_transient.get(),
             );
             self.imp().search_dialog.set(Some(&dialog));
 
@@ -1436,46 +1450,6 @@ impl MainWindow {
         }
         self.focus_file_lists();
     }
-}
-
-fn remember_window_size(mw: &MainWindow, settings: &gio::Settings) {
-    settings
-        .bind("main-win-width", &*mw, "default-width")
-        .mapping(|v, _| {
-            let width: i32 = v.get::<u32>()?.try_into().ok()?;
-            Some(width.to_value())
-        })
-        .set_mapping(|v, _| {
-            let width: u32 = v.get::<i32>().ok()?.try_into().ok()?;
-            Some(width.to_variant())
-        })
-        .build();
-
-    settings
-        .bind("main-win-height", &*mw, "default-height")
-        .mapping(|v, _| {
-            let height: i32 = v.get::<u32>()?.try_into().ok()?;
-            Some(height.to_value())
-        })
-        .set_mapping(|v, _| {
-            let height: u32 = v.get::<i32>().ok()?.try_into().ok()?;
-            Some(height.to_variant())
-        })
-        .build();
-
-    settings
-        .bind("main-win-state", &*mw, "maximized")
-        .mapping(|v, _| {
-            let state = v.get::<u32>()?;
-            let maximized: bool = state == 4;
-            Some(maximized.to_value())
-        })
-        .set_mapping(|v, _| {
-            let maximized = v.get::<bool>().ok()?;
-            let state: u32 = if maximized { 4_u32 } else { 0_u32 };
-            Some(state.to_variant())
-        })
-        .build();
 }
 
 fn main_menu(main_win: &MainWindow) -> gio::Menu {

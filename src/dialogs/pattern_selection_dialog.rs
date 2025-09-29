@@ -18,10 +18,10 @@
  */
 
 use crate::{
-    data::SearchConfig,
     file_list::list::FileList,
     filter::{Filter, PatternType},
     history_entry::HistoryEntry,
+    options::options::SearchConfig,
     utils::{
         ErrorMessage, NO_BUTTONS, SenderExt, channel_send_action, dialog_button_box,
         handle_escape_key,

@@ -254,20 +254,20 @@ impl AdvancedRenameProfile {
 }
 
 #[derive(glib::Variant)]
-struct ProfileVariant {
-    name: String,
-    template_string: String,
-    counter_start: u32,
-    counter_step: i32,
-    counter_width: u32,
-    case_conversion: CaseConversion,
-    trim_blanks: TrimBlanks,
-    patterns: Vec<String>,
-    replacements: Vec<String>,
-    match_cases: Vec<bool>,
+pub struct AdvancedRenameProfileVariant {
+    pub name: String,
+    pub template_string: String,
+    pub counter_start: u32,
+    pub counter_step: i32,
+    pub counter_width: u32,
+    pub case_conversion: CaseConversion,
+    pub trim_blanks: TrimBlanks,
+    pub patterns: Vec<String>,
+    pub replacements: Vec<String>,
+    pub match_cases: Vec<bool>,
 }
 
-impl From<&AdvancedRenameProfile> for ProfileVariant {
+impl From<&AdvancedRenameProfile> for AdvancedRenameProfileVariant {
     fn from(value: &AdvancedRenameProfile) -> Self {
         let patterns = value.patterns();
         Self {
@@ -285,7 +285,7 @@ impl From<&AdvancedRenameProfile> for ProfileVariant {
     }
 }
 
-impl Into<AdvancedRenameProfile> for ProfileVariant {
+impl Into<AdvancedRenameProfile> for AdvancedRenameProfileVariant {
     fn into(self) -> AdvancedRenameProfile {
         let profile = AdvancedRenameProfile::default();
         profile.set_name(self.name);
@@ -312,11 +312,10 @@ impl Into<AdvancedRenameProfile> for ProfileVariant {
 }
 
 pub fn load_advrename_profiles(
-    variant: &glib::Variant,
+    profile_variants: Vec<AdvancedRenameProfileVariant>,
     default_profile: &AdvancedRenameProfile,
     profiles: &gio::ListStore,
 ) {
-    let profile_variants = Vec::<ProfileVariant>::from_variant(variant).unwrap();
     let mut loaded_profiles: Vec<AdvancedRenameProfile> =
         profile_variants.into_iter().map(|p| p.into()).collect();
     if loaded_profiles.is_empty() {
@@ -337,13 +336,13 @@ pub fn load_advrename_profiles(
 pub fn save_advrename_profiles(
     default_profile: &AdvancedRenameProfile,
     profiles: &gio::ListModel,
-) -> glib::Variant {
-    let mut profile_variants = Vec::<ProfileVariant>::new();
+) -> Vec<AdvancedRenameProfileVariant> {
+    let mut profile_variants = Vec::<AdvancedRenameProfileVariant>::new();
     profile_variants.push(default_profile.into());
     for profile in profiles.iter::<AdvancedRenameProfile>().flatten() {
         profile_variants.push((&profile).into());
     }
-    profile_variants.to_variant()
+    profile_variants
 }
 
 #[cfg(test)]
@@ -353,7 +352,7 @@ mod test {
     #[test]
     fn test_variant_type() {
         assert_eq!(
-            ProfileVariant::static_variant_type().as_str(),
+            AdvancedRenameProfileVariant::static_variant_type().as_str(),
             "(ssuiuuuasasab)"
         );
     }

@@ -19,8 +19,8 @@
 
 use super::common::create_category;
 use crate::{
-    data::{GeneralOptionsRead, GeneralOptionsWrite, WriteResult},
     dialogs::options::common::{radio_group_get_value, radio_group_set_value},
+    options::{options::GeneralOptions, types::WriteResult},
     types::{LeftMouseButtonMode, MiddleMouseButtonMode, QuickSearchShortcut},
 };
 use gettextrs::gettext;
@@ -262,7 +262,7 @@ impl GeneralTab {
         self.scrolled_window.clone().upcast()
     }
 
-    pub fn read(&self, options: &dyn GeneralOptionsRead) {
+    pub fn read(&self, options: &GeneralOptions) {
         radio_group_set_value(
             [
                 (
@@ -274,22 +274,22 @@ impl GeneralTab {
                     LeftMouseButtonMode::OpensWithDoubleClick,
                 ),
             ],
-            options.left_mouse_button_mode(),
+            options.left_mouse_button_mode.get(),
         );
         self.lmb_unselects
-            .set_active(options.left_mouse_button_unselects());
+            .set_active(options.left_mouse_button_unselects.get());
         radio_group_set_value(
             [
                 (&self.mmb_cd_up, MiddleMouseButtonMode::GoesUpDir),
                 (&self.mmb_new_tab, MiddleMouseButtonMode::OpensNewTab),
             ],
-            options.middle_mouse_button_mode(),
+            options.middle_mouse_button_mode.get(),
         );
-        self.delete_to_trash.set_active(options.use_trash());
-        self.select_dirs.set_active(options.select_dirs());
-        self.case_sensitive.set_active(options.case_sensitive());
+        self.delete_to_trash.set_active(options.use_trash.get());
+        self.select_dirs.set_active(options.select_dirs.get());
+        self.case_sensitive.set_active(options.case_sensitive.get());
         self.symbolic_links_as_regular_files
-            .set_active(options.symbolic_links_as_regular_files());
+            .set_active(options.symbolic_links_as_regular_files.get());
         radio_group_set_value(
             [
                 (&self.quick_search_ctrl_alt, QuickSearchShortcut::CtrlAlt),
@@ -299,28 +299,28 @@ impl GeneralTab {
                     QuickSearchShortcut::JustACharacter,
                 ),
             ],
-            options.quick_search_shortcut(),
+            options.quick_search_shortcut.get(),
         );
         self.quick_search_exact_match_begin
-            .set_active(options.quick_search_exact_match_begin());
+            .set_active(options.quick_search_exact_match_begin.get());
         self.quick_search_exact_match_end
-            .set_active(options.quick_search_exact_match_end());
+            .set_active(options.quick_search_exact_match_end.get());
         self.search_window_is_minimizable
-            .set_active(!options.search_window_is_transient());
+            .set_active(!options.search_window_is_transient.get());
         self.single_instance
-            .set_active(!options.allow_multiple_instances());
-        self.save_dirs.set_active(options.save_dirs_on_exit());
-        self.save_tabs.set_active(options.save_tabs_on_exit());
+            .set_active(!options.allow_multiple_instances.get());
+        self.save_dirs.set_active(options.save_dirs_on_exit.get());
+        self.save_tabs.set_active(options.save_tabs_on_exit.get());
         self.save_dir_history
-            .set_active(options.save_directory_history_on_exit());
+            .set_active(options.save_directory_history_on_exit.get());
         self.save_cmdline_history
-            .set_active(options.save_command_line_history_on_exit());
+            .set_active(options.save_command_line_history_on_exit.get());
         self.save_search_history
-            .set_active(options.save_search_history());
+            .set_active(options.save_search_history.get());
     }
 
-    pub fn write(&self, options: &dyn GeneralOptionsWrite) -> WriteResult {
-        options.set_left_mouse_button_mode(radio_group_get_value([
+    pub fn write(&self, options: &GeneralOptions) -> WriteResult {
+        options.left_mouse_button_mode.set(radio_group_get_value([
             (
                 &self.lmb_single_click,
                 LeftMouseButtonMode::OpensWithSingleClick,
@@ -330,18 +330,24 @@ impl GeneralTab {
                 LeftMouseButtonMode::OpensWithDoubleClick,
             ),
         ]))?;
-        options.set_left_mouse_button_unselects(self.lmb_unselects.is_active())?;
-        options.set_middle_mouse_button_mode(radio_group_get_value([
-            (&self.mmb_cd_up, MiddleMouseButtonMode::GoesUpDir),
-            (&self.mmb_new_tab, MiddleMouseButtonMode::OpensNewTab),
-        ]))?;
-        options.set_use_trash(self.delete_to_trash.is_active())?;
-        options.set_select_dirs(self.select_dirs.is_active())?;
-        options.set_case_sensitive(self.case_sensitive.is_active())?;
-        options.set_symbolic_links_as_regular_files(
-            self.symbolic_links_as_regular_files.is_active(),
-        )?;
-        options.set_quick_search_shortcut(radio_group_get_value([
+        options
+            .left_mouse_button_unselects
+            .set(self.lmb_unselects.is_active())?;
+        options
+            .middle_mouse_button_mode
+            .set(radio_group_get_value([
+                (&self.mmb_cd_up, MiddleMouseButtonMode::GoesUpDir),
+                (&self.mmb_new_tab, MiddleMouseButtonMode::OpensNewTab),
+            ]))?;
+        options.use_trash.set(self.delete_to_trash.is_active())?;
+        options.select_dirs.set(self.select_dirs.is_active())?;
+        options
+            .case_sensitive
+            .set(self.case_sensitive.is_active())?;
+        options
+            .symbolic_links_as_regular_files
+            .set(self.symbolic_links_as_regular_files.is_active())?;
+        options.quick_search_shortcut.set(radio_group_get_value([
             (&self.quick_search_ctrl_alt, QuickSearchShortcut::CtrlAlt),
             (&self.quick_search_alt, QuickSearchShortcut::Alt),
             (
@@ -350,15 +356,28 @@ impl GeneralTab {
             ),
         ]))?;
         options
-            .set_quick_search_exact_match_begin(self.quick_search_exact_match_begin.is_active())?;
-        options.set_quick_search_exact_match_end(self.quick_search_exact_match_end.is_active())?;
-        options.set_search_window_is_transient(!self.search_window_is_minimizable.is_active())?;
-        options.set_allow_multiple_instances(!self.single_instance.is_active())?;
-        options.set_save_dirs_on_exit(self.save_dirs.is_active())?;
-        options.set_save_tabs_on_exit(self.save_tabs.is_active())?;
-        options.set_save_directory_history_on_exit(self.save_dir_history.is_active())?;
-        options.set_save_command_line_history_on_exit(self.save_cmdline_history.is_active())?;
-        options.set_save_search_history(self.save_search_history.is_active())?;
+            .quick_search_exact_match_begin
+            .set(self.quick_search_exact_match_begin.is_active())?;
+        options
+            .quick_search_exact_match_end
+            .set(self.quick_search_exact_match_end.is_active())?;
+        options
+            .search_window_is_transient
+            .set(!self.search_window_is_minimizable.is_active())?;
+        options
+            .allow_multiple_instances
+            .set(!self.single_instance.is_active())?;
+        options.save_dirs_on_exit.set(self.save_dirs.is_active())?;
+        options.save_tabs_on_exit.set(self.save_tabs.is_active())?;
+        options
+            .save_directory_history_on_exit
+            .set(self.save_dir_history.is_active())?;
+        options
+            .save_command_line_history_on_exit
+            .set(self.save_cmdline_history.is_active())?;
+        options
+            .save_search_history
+            .set(self.save_search_history.is_active())?;
         Ok(())
     }
 }

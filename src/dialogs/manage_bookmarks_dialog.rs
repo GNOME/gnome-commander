@@ -24,9 +24,9 @@ use crate::{
         connection::{Connection, ConnectionExt},
         list::ConnectionList,
     },
-    data::{GeneralOptions, GeneralOptionsWrite},
     dir::Directory,
     file::File,
+    options::options::GeneralOptions,
     shortcuts::Shortcuts,
     utils::{ErrorMessage, bold},
 };
@@ -35,7 +35,10 @@ use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
-    use crate::utils::{SenderExt, dialog_button_box, display_help, remember_window_size};
+    use crate::{
+        options::utils::remember_window_size,
+        utils::{SenderExt, dialog_button_box, display_help},
+    };
     use std::cell::RefCell;
 
     pub struct BookmarksDialog {
@@ -113,11 +116,11 @@ mod imp {
             dialog.set_resizable(true);
             dialog.set_destroy_with_parent(true);
 
+            let options = GeneralOptions::new();
             remember_window_size(
-                dialog.upcast_ref(),
-                &GeneralOptions::new().0,
-                "bookmarks-win-width",
-                "bookmarks-win-height",
+                &*dialog,
+                &options.bookmarks_window_width,
+                &options.bookmarks_window_height,
             );
 
             let grid = gtk::Grid::builder()
@@ -553,11 +556,7 @@ impl TaggedBookmark {
     }
 }
 
-pub async fn bookmark_directory(
-    window: &gtk::Window,
-    dir: &Directory,
-    options: &dyn GeneralOptionsWrite,
-) {
+pub async fn bookmark_directory(window: &gtk::Window, dir: &Directory, options: &GeneralOptions) {
     let file = dir.upcast_ref::<File>();
     let is_local = file.is_local();
     let path = if is_local {
@@ -595,7 +594,7 @@ pub async fn bookmark_directory(
         };
         con.add_bookmark(&changed_bookmark);
 
-        if let Err(error) = options.set_bookmarks(&connection_list.save_bookmarks()) {
+        if let Err(error) = options.bookmarks.set(connection_list.save_bookmarks()) {
             eprintln!("Failed to save bookmarks: {error}");
         }
     }

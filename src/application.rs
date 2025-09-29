@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::data::{GeneralOptions, GeneralOptionsRead};
+use crate::options::options::GeneralOptions;
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, prelude::*, subclass::prelude::*};
 
@@ -26,9 +26,9 @@ mod imp {
     use crate::{
         config::{ICONS_DIR, PACKAGE},
         connection::list::ConnectionList,
-        data::SearchConfig,
         debug::set_debug_flags,
         main_win::MainWindow,
+        options::options::SearchConfig,
     };
     use std::{cell::RefCell, ops::ControlFlow, path::PathBuf};
 
@@ -100,7 +100,7 @@ mod imp {
             create_config_directory();
 
             let options = GeneralOptions::new();
-            ConnectionList::create(options.show_samba_workgroups_button());
+            ConnectionList::create(options.show_samba_workgroups_button.get());
             SearchConfig::get().load(&options);
             ConnectionList::get().load(&options);
             ConnectionList::get().set_volume_monitor();
@@ -128,7 +128,9 @@ mod imp {
 
         fn shutdown(&self) {
             let options = GeneralOptions::new();
-            if let Err(error) = SearchConfig::get().save(&options, options.save_search_history()) {
+            if let Err(error) =
+                SearchConfig::get().save(&options, options.save_search_history.get())
+            {
                 eprintln!("Failed to save search profiles: {}", error.message);
             }
             if let Err(error) = ConnectionList::get().save(&options) {
@@ -224,6 +226,6 @@ impl Application {
 
 impl Default for Application {
     fn default() -> Self {
-        Self::new(GeneralOptions::new().allow_multiple_instances())
+        Self::new(GeneralOptions::new().allow_multiple_instances.get())
     }
 }

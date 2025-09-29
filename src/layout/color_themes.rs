@@ -176,7 +176,17 @@ static COLOR_THEME_WINTER: LazyLock<ColorTheme> = LazyLock::new(|| ColorTheme {
     curs_bg: gdk::RGBA::parse("#0000ffffffff").unwrap(),
 });
 
-#[derive(Clone, Copy, strum::FromRepr, Default, Debug, PartialEq, Eq)]
+#[derive(
+    Clone,
+    Copy,
+    Default,
+    Debug,
+    PartialEq,
+    Eq,
+    strum::FromRepr,
+    strum::VariantArray,
+    strum::VariantNames,
+)]
 pub enum ColorThemeId {
     Modern = 1,
     #[default]

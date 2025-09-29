@@ -19,7 +19,7 @@
 
 use super::common::create_category;
 use crate::{
-    data::{GeneralOptionsRead, GeneralOptionsWrite, WriteResult},
+    options::{options::GeneralOptions, types::WriteResult},
     types::{PermissionDisplayMode, SizeDisplayMode},
 };
 use gettextrs::{gettext, pgettext};
@@ -174,8 +174,8 @@ impl FormatTab {
         self.vbox.clone().upcast()
     }
 
-    pub fn read(&self, options: &dyn GeneralOptionsRead) {
-        match options.size_display_mode() {
+    pub fn read(&self, options: &GeneralOptions) {
+        match options.size_display_mode.get() {
             SizeDisplayMode::Powered => &self.size_powered,
             SizeDisplayMode::Locale => &self.size_locale,
             SizeDisplayMode::Grouped => &self.size_grouped,
@@ -183,37 +183,42 @@ impl FormatTab {
         }
         .set_active(true);
 
-        match options.permissions_display_mode() {
+        match options.permissions_display_mode.get() {
             PermissionDisplayMode::Text => &self.permissions_text,
             PermissionDisplayMode::Number => &self.permissions_number,
         }
         .set_active(true);
 
-        self.date_format.set_text(&options.date_display_format());
+        self.date_format
+            .set_text(&options.date_display_format.get());
     }
 
-    pub fn write(&self, options: &dyn GeneralOptionsWrite) -> WriteResult {
-        options.set_size_display_mode(if self.size_powered.is_active() {
-            SizeDisplayMode::Powered
-        } else if self.size_locale.is_active() {
-            SizeDisplayMode::Locale
-        } else if self.size_grouped.is_active() {
-            SizeDisplayMode::Grouped
-        } else if self.size_plain.is_active() {
-            SizeDisplayMode::Plain
-        } else {
-            SizeDisplayMode::default()
-        })?;
+    pub fn write(&self, options: &GeneralOptions) -> WriteResult {
+        options
+            .size_display_mode
+            .set(if self.size_powered.is_active() {
+                SizeDisplayMode::Powered
+            } else if self.size_locale.is_active() {
+                SizeDisplayMode::Locale
+            } else if self.size_grouped.is_active() {
+                SizeDisplayMode::Grouped
+            } else if self.size_plain.is_active() {
+                SizeDisplayMode::Plain
+            } else {
+                SizeDisplayMode::default()
+            })?;
 
-        options.set_permissions_display_mode(if self.permissions_text.is_active() {
-            PermissionDisplayMode::Text
-        } else if self.permissions_number.is_active() {
-            PermissionDisplayMode::Number
-        } else {
-            PermissionDisplayMode::default()
-        })?;
+        options
+            .permissions_display_mode
+            .set(if self.permissions_text.is_active() {
+                PermissionDisplayMode::Text
+            } else if self.permissions_number.is_active() {
+                PermissionDisplayMode::Number
+            } else {
+                PermissionDisplayMode::default()
+            })?;
 
-        options.set_date_display_format(&self.date_format.text())?;
+        options.date_display_format.set(self.date_format.text())?;
 
         Ok(())
     }

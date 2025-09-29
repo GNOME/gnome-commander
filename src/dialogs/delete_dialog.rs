@@ -21,9 +21,9 @@
  */
 
 use crate::{
-    data::{ConfirmOptionsRead, DeleteDefault, GeneralOptionsRead},
     dir::Directory,
     file::File,
+    options::options::{ConfirmOptions, DeleteDefault, GeneralOptions},
     utils::ErrorMessage,
 };
 use gettextrs::{gettext, ngettext};
@@ -190,7 +190,7 @@ async fn confirm_delete_directory(
     file: &File,
     can_measure: bool,
     first_confirmation: bool,
-    options: &dyn ConfirmOptionsRead,
+    options: &ConfirmOptions,
 ) -> DeleteNonEmpty {
     let msg = if can_measure {
         gettext("The directory “{}” is not empty. Do you really want to delete it?")
@@ -213,7 +213,7 @@ async fn confirm_delete_directory(
             gettext("Delete"),
         ])
         .cancel_button(0)
-        .default_button(match options.confirm_delete_default() {
+        .default_button(match options.confirm_delete_default.get() {
             DeleteDefault::Cancel => 0,
             DeleteDefault::Delete => 1,
         })
@@ -438,9 +438,9 @@ async fn measure_directory(file: &File) -> Result<(bool, bool), glib::Error> {
 async fn remove_items_from_list_to_be_deleted(
     parent_window: &gtk::Window,
     files: glib::List<File>,
-    options: &dyn ConfirmOptionsRead,
+    options: &ConfirmOptions,
 ) -> Result<glib::List<File>, glib::Error> {
-    if !options.confirm_delete() {
+    if !options.confirm_delete.get() {
         return Ok(files);
     };
 
@@ -497,9 +497,9 @@ async fn confirm_delete(
     parent_window: &gtk::Window,
     files: &glib::List<File>,
     delete_action: DeleteAction,
-    options: &dyn ConfirmOptionsRead,
+    options: &ConfirmOptions,
 ) -> bool {
-    if !options.confirm_delete() {
+    if !options.confirm_delete.get() {
         return true;
     }
 
@@ -535,7 +535,7 @@ async fn confirm_delete(
         .message(text)
         .buttons([gettext("Cancel"), gettext("Delete")])
         .cancel_button(0)
-        .default_button(match options.confirm_delete_default() {
+        .default_button(match options.confirm_delete_default.get() {
             DeleteDefault::Cancel => 0,
             DeleteDefault::Delete => 1,
         })
@@ -549,15 +549,15 @@ pub async fn show_delete_dialog(
     parent_window: &gtk::Window,
     files: &glib::List<File>,
     force_delete: bool,
-    general_options: &dyn GeneralOptionsRead,
-    confirm_options: &dyn ConfirmOptionsRead,
+    general_options: &GeneralOptions,
+    confirm_options: &ConfirmOptions,
 ) {
     let files: glib::List<File> = files.iter().filter(|f| !f.is_dotdot()).cloned().collect();
     if files.is_empty() {
         return;
     }
 
-    let permanent_delete = force_delete || !general_options.use_trash();
+    let permanent_delete = force_delete || !general_options.use_trash.get();
     let delete_action = if permanent_delete {
         DeleteAction::DeletePermanently
     } else {

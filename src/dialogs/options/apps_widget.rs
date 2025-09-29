@@ -20,8 +20,8 @@
 use super::app_dialog::edit_app_dialog;
 use crate::{
     app::{AppExt, AppTarget, UserDefinedApp, load_favorite_apps, save_favorite_apps},
-    data::{GeneralOptionsRead, GeneralOptionsWrite, WriteResult},
     dialogs::order_utils::ordering_buttons,
+    options::{options::GeneralOptions, types::WriteResult},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
@@ -184,7 +184,7 @@ impl FavoriteApps {
         self.hbox.clone().upcast()
     }
 
-    pub fn read(&self, options: &dyn GeneralOptionsRead) {
+    pub fn read(&self, options: &GeneralOptions) {
         let model: gio::ListStore = load_favorite_apps(options)
             .into_iter()
             .map(|app| glib::BoxedAnyObject::new(app))
@@ -192,7 +192,7 @@ impl FavoriteApps {
         self.selection.set_model(Some(&model));
     }
 
-    pub fn write(&self, options: &dyn GeneralOptionsWrite) -> WriteResult {
+    pub fn write(&self, options: &GeneralOptions) -> WriteResult {
         if let Some(model) = self.selection.model() {
             let apps: Vec<UserDefinedApp> = model
                 .iter::<glib::BoxedAnyObject>()

@@ -24,7 +24,7 @@ use std::cmp;
 
 mod imp {
     use super::*;
-    use crate::data::GeneralOptions;
+    use crate::options::options::GeneralOptions;
     use std::cell::{Cell, OnceCell};
 
     #[derive(Default, glib::Properties)]
@@ -50,8 +50,8 @@ mod imp {
 
             let general_options = GeneralOptions::new();
             general_options
-                .0
-                .bind("case-sensitive", &*self.obj(), "case-sensitive")
+                .case_sensitive
+                .bind(&*self.obj(), "case-sensitive")
                 .build();
         }
     }

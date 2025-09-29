@@ -18,8 +18,11 @@
  */
 
 use crate::{
-    data::{ConfirmOptionsRead, ConfirmOptionsWrite, DeleteDefault, WriteResult},
     dialogs::options::common::create_category,
+    options::{
+        options::{ConfirmOptions, DeleteDefault},
+        types::WriteResult,
+    },
     types::{ConfirmOverwriteMode, DndMode},
 };
 use gettextrs::gettext;
@@ -182,13 +185,13 @@ impl CondifrmationTab {
         self.vbox.clone().upcast()
     }
 
-    pub fn read(&self, options: &dyn ConfirmOptionsRead) {
+    pub fn read(&self, options: &ConfirmOptions) {
         self.confirm_delete_check
-            .set_active(options.confirm_delete());
+            .set_active(options.confirm_delete.get());
         self.delete_default_check
-            .set_active(options.confirm_delete_default() != DeleteDefault::Cancel);
+            .set_active(options.confirm_delete_default.get() != DeleteDefault::Cancel);
 
-        match options.confirm_copy_overwrite() {
+        match options.confirm_copy_overwrite.get() {
             ConfirmOverwriteMode::Query => &self.copy_overwrite_query,
             ConfirmOverwriteMode::RenameAll => &self.copy_rename_all,
             ConfirmOverwriteMode::SkipAll => &self.copy_overwrite_skip_all,
@@ -196,7 +199,7 @@ impl CondifrmationTab {
         }
         .set_active(true);
 
-        match options.confirm_move_overwrite() {
+        match options.confirm_move_overwrite.get() {
             ConfirmOverwriteMode::Query => &self.move_overwrite_query,
             ConfirmOverwriteMode::RenameAll => &self.move_rename_all,
             ConfirmOverwriteMode::SkipAll => &self.move_overwrite_skip_all,
@@ -204,7 +207,7 @@ impl CondifrmationTab {
         }
         .set_active(true);
 
-        match options.dnd_mode() {
+        match options.dnd_mode.get() {
             DndMode::Query => &self.dnd_query,
             DndMode::Copy => &self.dnd_copy,
             DndMode::Move => &self.dnd_move,
@@ -212,39 +215,47 @@ impl CondifrmationTab {
         .set_active(true);
     }
 
-    pub fn write(&self, options: &dyn ConfirmOptionsWrite) -> WriteResult {
-        options.set_confirm_delete(self.confirm_delete_check.is_active())?;
-        options.set_confirm_delete_default(if self.delete_default_check.is_active() {
-            DeleteDefault::Delete
-        } else {
-            DeleteDefault::Cancel
-        })?;
+    pub fn write(&self, options: &ConfirmOptions) -> WriteResult {
+        options
+            .confirm_delete
+            .set(self.confirm_delete_check.is_active())?;
+        options
+            .confirm_delete_default
+            .set(if self.delete_default_check.is_active() {
+                DeleteDefault::Delete
+            } else {
+                DeleteDefault::Cancel
+            })?;
 
-        options.set_confirm_copy_overwrite(if self.copy_overwrite_query.is_active() {
-            ConfirmOverwriteMode::Query
-        } else if self.copy_rename_all.is_active() {
-            ConfirmOverwriteMode::RenameAll
-        } else if self.copy_overwrite_skip_all.is_active() {
-            ConfirmOverwriteMode::SkipAll
-        } else if self.copy_overwrite_silently.is_active() {
-            ConfirmOverwriteMode::Silently
-        } else {
-            ConfirmOverwriteMode::Query
-        })?;
+        options
+            .confirm_copy_overwrite
+            .set(if self.copy_overwrite_query.is_active() {
+                ConfirmOverwriteMode::Query
+            } else if self.copy_rename_all.is_active() {
+                ConfirmOverwriteMode::RenameAll
+            } else if self.copy_overwrite_skip_all.is_active() {
+                ConfirmOverwriteMode::SkipAll
+            } else if self.copy_overwrite_silently.is_active() {
+                ConfirmOverwriteMode::Silently
+            } else {
+                ConfirmOverwriteMode::Query
+            })?;
 
-        options.set_confirm_move_overwrite(if self.move_overwrite_query.is_active() {
-            ConfirmOverwriteMode::Query
-        } else if self.move_rename_all.is_active() {
-            ConfirmOverwriteMode::RenameAll
-        } else if self.move_overwrite_skip_all.is_active() {
-            ConfirmOverwriteMode::SkipAll
-        } else if self.move_overwrite_silently.is_active() {
-            ConfirmOverwriteMode::Silently
-        } else {
-            ConfirmOverwriteMode::Query
-        })?;
+        options
+            .confirm_move_overwrite
+            .set(if self.move_overwrite_query.is_active() {
+                ConfirmOverwriteMode::Query
+            } else if self.move_rename_all.is_active() {
+                ConfirmOverwriteMode::RenameAll
+            } else if self.move_overwrite_skip_all.is_active() {
+                ConfirmOverwriteMode::SkipAll
+            } else if self.move_overwrite_silently.is_active() {
+                ConfirmOverwriteMode::Silently
+            } else {
+                ConfirmOverwriteMode::Query
+            })?;
 
-        options.set_dnd_mode(if self.dnd_query.is_active() {
+        options.dnd_mode.set(if self.dnd_query.is_active() {
             DndMode::Query
         } else if self.dnd_copy.is_active() {
             DndMode::Copy

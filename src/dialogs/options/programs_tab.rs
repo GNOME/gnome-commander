@@ -18,8 +18,9 @@
  */
 
 use super::{apps_widget::FavoriteApps, common::create_category};
-use crate::data::{
-    GeneralOptionsRead, GeneralOptionsWrite, ProgramsOptionsRead, ProgramsOptionsWrite, WriteResult,
+use crate::options::{
+    options::{GeneralOptions, ProgramsOptions},
+    types::WriteResult,
 };
 use gettextrs::gettext;
 use gtk::prelude::*;
@@ -159,47 +160,53 @@ impl ProgramsTab {
         self.scrolled_window.clone().upcast()
     }
 
-    pub fn read(
-        &self,
-        general_options: &dyn GeneralOptionsRead,
-        programs_options: &dyn ProgramsOptionsRead,
-    ) {
+    pub fn read(&self, general_options: &GeneralOptions, programs_options: &ProgramsOptions) {
         self.honor_expect_uris
-            .set_active(!programs_options.dont_download());
-        self.viewer.set_text(&programs_options.viewer_cmd());
+            .set_active(!programs_options.dont_download.get());
+        self.viewer.set_text(&programs_options.viewer_cmd.get());
         self.use_internal_viewer
-            .set_active(programs_options.use_internal_viewer());
-        self.editor.set_text(&programs_options.editor_cmd());
-        self.differ.set_text(&programs_options.differ_cmd());
-        self.search.set_text(&programs_options.search_cmd());
+            .set_active(programs_options.use_internal_viewer.get());
+        self.editor.set_text(&programs_options.editor_cmd.get());
+        self.differ.set_text(&programs_options.differ_cmd.get());
+        self.search.set_text(&programs_options.search_cmd.get());
         self.use_internal_search
-            .set_active(programs_options.use_internal_search());
-        self.send_to.set_text(&programs_options.sendto_cmd());
-        self.termopen.set_text(&programs_options.terminal_cmd());
+            .set_active(programs_options.use_internal_search.get());
+        self.send_to.set_text(&programs_options.sendto_cmd.get());
+        self.termopen.set_text(&programs_options.terminal_cmd.get());
         self.fav_apps.read(general_options);
         self.termexec
-            .set_text(&programs_options.terminal_exec_cmd());
+            .set_text(&programs_options.terminal_exec_cmd.get());
         self.use_gcmd_block
-            .set_active(programs_options.use_gcmd_block());
+            .set_active(programs_options.use_gcmd_block.get());
     }
 
     pub fn write(
         &self,
-        general_options: &dyn GeneralOptionsWrite,
-        programs_options: &dyn ProgramsOptionsWrite,
+        general_options: &GeneralOptions,
+        programs_options: &ProgramsOptions,
     ) -> WriteResult {
-        programs_options.set_dont_download(!self.honor_expect_uris.is_active())?;
-        programs_options.set_viewer_cmd(&self.viewer.text())?;
-        programs_options.set_use_internal_viewer(self.use_internal_viewer.is_active())?;
-        programs_options.set_editor_cmd(&self.editor.text())?;
-        programs_options.set_differ_cmd(&self.differ.text())?;
-        programs_options.set_search_cmd(&self.search.text())?;
-        programs_options.set_use_internal_search(self.use_internal_search.is_active())?;
-        programs_options.set_sendto_cmd(&self.send_to.text())?;
-        programs_options.set_terminal_cmd(&self.termopen.text())?;
+        programs_options
+            .dont_download
+            .set(!self.honor_expect_uris.is_active())?;
+        programs_options.viewer_cmd.set(self.viewer.text())?;
+        programs_options
+            .use_internal_viewer
+            .set(self.use_internal_viewer.is_active())?;
+        programs_options.editor_cmd.set(self.editor.text())?;
+        programs_options.differ_cmd.set(self.differ.text())?;
+        programs_options.search_cmd.set(self.search.text())?;
+        programs_options
+            .use_internal_search
+            .set(self.use_internal_search.is_active())?;
+        programs_options.sendto_cmd.set(self.send_to.text())?;
+        programs_options.terminal_cmd.set(self.termopen.text())?;
         self.fav_apps.write(general_options)?;
-        programs_options.set_terminal_exec_cmd(&self.termexec.text())?;
-        programs_options.set_use_gcmd_block(self.use_gcmd_block.is_active())?;
+        programs_options
+            .terminal_exec_cmd
+            .set(self.termexec.text())?;
+        programs_options
+            .use_gcmd_block
+            .set(self.use_gcmd_block.is_active())?;
         Ok(())
     }
 }

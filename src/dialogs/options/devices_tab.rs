@@ -18,7 +18,7 @@
  */
 
 use super::devices_widget::devices_widget;
-use crate::data::{GeneralOptionsRead, GeneralOptionsWrite, WriteResult};
+use crate::options::{options::GeneralOptions, types::WriteResult};
 use gettextrs::gettext;
 use gtk::prelude::*;
 
@@ -66,15 +66,20 @@ impl DevicesTab {
         self.vbox.clone().upcast()
     }
 
-    pub fn read(&self, options: &dyn GeneralOptionsRead) {
+    pub fn read(&self, options: &GeneralOptions) {
         self.samba_workgroups_button
-            .set_active(options.show_samba_workgroups_button());
-        self.device_only_icon.set_active(options.device_only_icon());
+            .set_active(options.show_samba_workgroups_button.get());
+        self.device_only_icon
+            .set_active(options.device_only_icon.get());
     }
 
-    pub fn write(&self, options: &dyn GeneralOptionsWrite) -> WriteResult {
-        options.set_show_samba_workgroups_button(self.samba_workgroups_button.is_active())?;
-        options.set_device_only_icon(self.device_only_icon.is_active())?;
+    pub fn write(&self, options: &GeneralOptions) -> WriteResult {
+        options
+            .show_samba_workgroups_button
+            .set(self.samba_workgroups_button.is_active())?;
+        options
+            .device_only_icon
+            .set(self.device_only_icon.is_active())?;
         Ok(())
     }
 }

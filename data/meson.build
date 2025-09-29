@@ -1,25 +1,7 @@
-gsettings_enum_files = [
-  '../src/gnome-cmd-types.h',
+gschema_files = [
+  'org.gnome.gnome-commander.gschema.xml',
+  'org.gnome.gnome-commander.enums.xml',
 ]
-
-gsettings_enum_file_ready = 'org.gnome.gnome-commander.enums.xml'
-glib_mkenums = find_program('glib-mkenums')
-
-# Generate gschema enums file
-schemas = custom_target(
-  gsettings_enum_file_ready,
-  input: gsettings_enum_files,
-  output: gsettings_enum_file_ready,
-  command: [glib_mkenums,
-            '--comments', '<!-- @comment@ -->',
-            '--fhead', '<schemalist>',
-            '--vhead', '<@type@ id="org.gnome.gnome-commander.@EnumName@">',
-            '--vprod', '    <value nick="@valuenick@" value="@valuenum@"/>',
-            '--vtail', '  </@type@>',
-            '--ftail', '</schemalist>', '@INPUT@'],
-  capture: true,
-  install: true,
-  install_dir: join_paths(datadir, 'glib-2.0', 'schemas'))
 
 glib_compile_schemas = find_program(
   'glib-compile-schemas',
@@ -27,17 +9,14 @@ glib_compile_schemas = find_program(
 )
 
 # Compile enums and schema into gschemas.compiled
-gschemas_compiled = custom_target('gschemas.compiled',
-  input: [
-    'org.gnome.gnome-commander.gschema.xml',
-    schemas
-  ],
+custom_target('gschemas.compiled',
+  input: gschema_files,
   output: 'gschemas.compiled',
   command: [
     glib_compile_schemas,
+    '--strict',
     '--targetdir=' + meson.current_build_dir(),
     meson.current_source_dir()],
-  depends: schemas
 )
 
 po_dir = meson.project_source_root() / 'po'
@@ -93,4 +72,4 @@ if (appstreamcli.found())
   )
 endif
 
-install_data(app_id + '.gschema.xml', install_dir: schemadir)
+install_data(gschema_files, install_dir: schemadir)

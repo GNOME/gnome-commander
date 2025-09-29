@@ -18,17 +18,16 @@
  */
 
 use crate::{
-    config::PIXMAPS_DIR, data::GeneralOptions, debug::debug, file::File, types::GraphicalLayoutMode,
+    config::PIXMAPS_DIR, debug::debug, file::File, options::options::GeneralOptions,
+    types::GraphicalLayoutMode,
 };
 use gtk::{gio, glib, prelude::*};
 use std::{cell::RefCell, collections::HashMap, path::Path, rc::Rc, sync::LazyLock};
 
-const GCMD_SETTINGS_MIME_ICON_DIR: &str = "mime-icon-dir";
-
 pub struct IconCache {
     file_type_icons: HashMap<gio::FileType, gio::Icon>,
     symlink: gio::Emblem,
-    settings: gio::Settings,
+    options: GeneralOptions,
     cache: RefCell<HashMap<IconCacheKey, Option<gio::Icon>>>,
 }
 
@@ -61,25 +60,22 @@ impl IconCache {
             file_type_icons.insert(gio::FileType::Mountable, icon);
         }
 
-        let settings = GeneralOptions::new().0;
+        let options = GeneralOptions::new();
 
         let this = Rc::new(Self {
             file_type_icons,
             symlink: gio::Emblem::new(&gio::ThemedIcon::new("overlay_symlink")),
-            settings: settings.clone(),
+            options,
             cache: Default::default(),
         });
 
-        settings.connect_changed(
-            Some(GCMD_SETTINGS_MIME_ICON_DIR),
-            glib::clone!(
-                #[weak]
-                this,
-                move |_, _| {
-                    this.cache.borrow_mut().clear();
-                }
-            ),
-        );
+        this.options.mime_icon_dir.connect_changed(glib::clone!(
+            #[weak]
+            this,
+            move |_| {
+                this.cache.borrow_mut().clear();
+            }
+        ));
 
         this
     }
@@ -99,9 +95,8 @@ impl IconCache {
             .borrow_mut()
             .entry(cache_key)
             .or_insert_with(|| {
-                let theme_icon_dir = self.settings.string(GCMD_SETTINGS_MIME_ICON_DIR);
-                let icon: gio::Icon =
-                    self.mime_icon_in_dir(&Path::new(&theme_icon_dir), file_type, mime_type)?;
+                let theme_icon_dir = self.options.mime_icon_dir.get()?;
+                let icon = self.mime_icon_in_dir(&theme_icon_dir, file_type, mime_type)?;
                 Some(self.maybe_symlink(&icon, symlink))
             })
             .clone()

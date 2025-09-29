@@ -27,12 +27,12 @@ use crate::{
         list::ConnectionList,
         remote::ConnectionRemote,
     },
-    data::ProgramsOptions,
     dir::Directory,
     file::File,
     file_list::list::{ColumnID, FileList},
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
     open_file::mime_exec_single,
+    options::options::ProgramsOptions,
     tab_label::TabLabel,
     tags::tags::FileMetadataService,
     types::MiddleMouseButtonMode,
@@ -51,9 +51,9 @@ mod imp {
         command_line::CommandLine,
         connection::{device::ConnectionDevice, smb::ConnectionSmb},
         connection_bar::ConnectionBar,
-        data::{GeneralOptions, GeneralOptionsRead},
         dialogs::manage_bookmarks_dialog::bookmark_directory,
         directory_indicator::DirectoryIndicator,
+        options::options::GeneralOptions,
         tab_label::TabLabel,
         utils::get_modifiers_state,
         weak_set::WeakSet,
@@ -353,8 +353,8 @@ mod imp {
 
             let options = GeneralOptions::new();
             options
-                .0
-                .bind("always-show-tabs", &*this, "always-show-tabs")
+                .always_show_tabs
+                .bind(&*this, "always-show-tabs")
                 .build();
         }
 
@@ -503,13 +503,13 @@ mod imp {
                     .unwrap_or_default(),
             );
             tab_label.set_locked(self.obj().is_tab_locked(fl));
-            tab_label.set_indicator(options.tab_lock_indicator());
+            tab_label.set_indicator(options.tab_lock_indicator.get());
         }
 
         pub fn update_selected_files_label(&self) {
             let options = GeneralOptions::new();
             if let Some(file_list) = self.obj().current_file_list() {
-                let stats = file_list.stats_str(options.size_display_mode());
+                let stats = file_list.stats_str(options.size_display_mode.get());
                 self.info_label.set_text(&stats);
             }
         }

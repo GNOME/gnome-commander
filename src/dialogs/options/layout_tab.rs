@@ -19,13 +19,14 @@
 
 use super::common::create_category;
 use crate::{
-    data::{
-        ColorOptionsRead, ColorOptionsWrite, GeneralOptionsRead, GeneralOptionsWrite, WriteResult,
-    },
     dialogs::options::{edit_colors_dialog::edit_colors, edit_palette_dialog::edit_palette},
     layout::{
         color_themes::{ColorTheme, ColorThemeId},
         ls_colors_palette::LsColorsPalette,
+    },
+    options::{
+        options::{ColorOptions, GeneralOptions},
+        types::WriteResult,
     },
     select_directory_button::DirectoryButton,
     types::{ExtensionDisplayMode, GraphicalLayoutMode, IconScaleQuality},
@@ -329,50 +330,50 @@ impl LayoutTab {
         self.vbox.clone().upcast()
     }
 
-    pub fn read(
-        &self,
-        general_options: &dyn GeneralOptionsRead,
-        color_options: &dyn ColorOptionsRead,
-    ) {
+    pub fn read(&self, general_options: &GeneralOptions, color_options: &ColorOptions) {
         self.list_font
             .set_font_desc(&pango::FontDescription::from_string(
-                &general_options.list_font(),
+                &general_options.list_font.get(),
             ));
         self.row_height
-            .set_value(general_options.list_row_height() as f64);
+            .set_value(general_options.list_row_height.get() as f64);
         self.extension_display_mode
-            .set_selected(general_options.extension_display_mode() as u32);
+            .set_selected(general_options.extension_display_mode.get() as u32);
         self.graphical_layout_mode
-            .set_selected(general_options.graphical_layout_mode() as u32);
-        self.color_theme
-            .set_selected(color_options.theme().map(|t| t as u32).unwrap_or_default());
+            .set_selected(general_options.graphical_layout_mode.get() as u32);
+        self.color_theme.set_selected(
+            color_options
+                .theme
+                .get()
+                .map(|t| t as u32)
+                .unwrap_or_default(),
+        );
         self.custom_color_theme
             .replace(color_options.custom_theme());
-        self.use_ls_colors.set_active(color_options.use_ls_colors());
+        self.use_ls_colors
+            .set_active(color_options.use_ls_colors.get());
         self.ls_color_palette
             .replace(color_options.ls_color_palette());
-        self.icon_size.set_value(general_options.icon_size() as f64);
+        self.icon_size
+            .set_value(general_options.icon_size.get() as f64);
         self.icon_scale_quality
-            .set_value(general_options.icon_scale_quality() as i32 as f64);
+            .set_value(general_options.icon_scale_quality.get() as i32 as f64);
         self.mime_icon_dir
-            .set_file(general_options.mime_icon_dir().map(gio::File::for_path));
+            .set_file(general_options.mime_icon_dir.get().map(gio::File::for_path));
     }
 
     pub fn write(
         &self,
-        general_options: &dyn GeneralOptionsWrite,
-        color_options: &dyn ColorOptionsWrite,
+        general_options: &GeneralOptions,
+        color_options: &ColorOptions,
     ) -> WriteResult {
         if let Some(font_desc) = self.list_font.font_desc() {
-            general_options.set_list_font(&font_desc.to_str())?;
+            general_options.list_font.set(font_desc.to_str())?;
         }
-        general_options.set_list_row_height(
-            self.row_height
-                .value_as_int()
-                .try_into()
-                .unwrap_or_default(),
+        general_options.list_row_height.set(
+            <i32 as TryInto<u32>>::try_into(self.row_height.value_as_int()).unwrap_or_default(),
         )?;
-        general_options.set_extension_display_mode(
+        general_options.extension_display_mode.set(
             self.extension_display_mode
                 .selected()
                 .try_into()
@@ -380,7 +381,7 @@ impl LayoutTab {
                 .and_then(ExtensionDisplayMode::from_repr)
                 .unwrap_or_default(),
         )?;
-        general_options.set_graphical_layout_mode(
+        general_options.graphical_layout_mode.set(
             self.graphical_layout_mode
                 .selected()
                 .try_into()
@@ -388,7 +389,7 @@ impl LayoutTab {
                 .and_then(GraphicalLayoutMode::from_repr)
                 .unwrap_or_default(),
         )?;
-        color_options.set_theme(
+        color_options.theme.set(
             self.color_theme
                 .selected()
                 .try_into()
@@ -396,15 +397,20 @@ impl LayoutTab {
                 .and_then(ColorThemeId::from_repr),
         )?;
         color_options.set_custom_theme(&*self.custom_color_theme.borrow())?;
-        color_options.set_use_ls_colors(self.use_ls_colors.is_active())?;
+        color_options
+            .use_ls_colors
+            .set(self.use_ls_colors.is_active())?;
         color_options.set_ls_color_palette(&*self.ls_color_palette.borrow())?;
-        general_options.set_icon_size(self.icon_size.value_as_int() as u32)?;
-        general_options.set_icon_scale_quality(
+        general_options
+            .icon_size
+            .set(self.icon_size.value_as_int() as u32)?;
+        general_options.icon_scale_quality.set(
             IconScaleQuality::from_repr(self.icon_scale_quality.value() as usize)
                 .unwrap_or_default(),
         )?;
         general_options
-            .set_mime_icon_dir(self.mime_icon_dir.file().and_then(|f| f.path()).as_deref())?;
+            .mime_icon_dir
+            .set(self.mime_icon_dir.file().and_then(|f| f.path()))?;
         Ok(())
     }
 }

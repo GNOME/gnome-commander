@@ -35,23 +35,6 @@ use gtk::{
     subclass::prelude::*,
 };
 
-const GCMD_INTERNAL_VIEWER: &str = "org.gnome.gnome-commander.preferences.internal-viewer";
-const GCMD_SETTINGS_IV_WINDOW_WIDTH: &str = "window-width";
-const GCMD_SETTINGS_IV_WINDOW_HEIGHT: &str = "window-height";
-const GCMD_SETTINGS_IV_CHARSET: &str = "charset";
-const GCMD_SETTINGS_IV_FIXED_FONT_NAME: &str = "fixed-font-name";
-const GCMD_SETTINGS_IV_VARIABLE_FONT_NAME: &str = "variable-font-name";
-const GCMD_SETTINGS_IV_DISPLAY_HEX_OFFSET: &str = "display-hex-offset";
-const GCMD_SETTINGS_IV_WRAP_MODE: &str = "wrap-mode";
-const GCMD_SETTINGS_IV_FONT_SIZE: &str = "font-size";
-const GCMD_SETTINGS_IV_TAB_SIZE: &str = "tab-size";
-const GCMD_SETTINGS_IV_BINARY_BYTES_PER_LINE: &str = "binary-bytes-per-line";
-const GCMD_SETTINGS_IV_METADATA_VISIBLE: &str = "metadata-visible";
-const GCMD_SETTINGS_IV_CASE_SENSITIVE: &str = "case-sensitive-search";
-const GCMD_SETTINGS_IV_SEARCH_MODE: &str = "search-mode";
-const GCMD_SETTINGS_IV_SEARCH_PATTERN_TEXT: &str = "search-pattern-text";
-const GCMD_SETTINGS_IV_SEARCH_PATTERN_HEX: &str = "search-pattern-hex";
-
 const IMAGE_SCALE_FACTORS: &[f64] = &[
     0.1, 0.2, 0.33, 0.5, 0.67, 1.0, 1.25, 1.50, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0,
 ];
@@ -65,6 +48,7 @@ mod imp {
             search_dialog::{SearchDialog, SearchRequest},
             text_render::TextRenderDisplayMode,
         },
+        options::{options::ViewerOptions, utils::remember_window_size},
         utils::display_help,
     };
     use gtk::gdk;
@@ -263,49 +247,33 @@ mod imp {
             vbox.append(&metadata_view);
             self.metadata_view.set(metadata_view).ok().unwrap();
 
-            let settings = gio::Settings::new(GCMD_INTERNAL_VIEWER);
+            let options = ViewerOptions::new();
 
-            settings
-                .bind(GCMD_SETTINGS_IV_WINDOW_WIDTH, &*window, "default-width")
-                .build();
-            settings
-                .bind(GCMD_SETTINGS_IV_WINDOW_HEIGHT, &*window, "default-height")
-                .build();
+            remember_window_size(&*window, &options.window_width, &options.window_height);
 
-            // fixed_font_name = settings.string(GCMD_SETTINGS_IV_FIXED_FONT_NAME);
-            // variable_font_name = settings.string(GCMD_SETTINGS_IV_VARIABLE_FONT_NAME);
+            options
+                .font_size
+                .bind(&self.text_render, "font-size")
+                .build();
+            options.tab_size.bind(&self.text_render, "tab-size").build();
 
-            settings
-                .bind(GCMD_SETTINGS_IV_FONT_SIZE, &self.text_render, "font-size")
-                .build();
-            settings
-                .bind(GCMD_SETTINGS_IV_TAB_SIZE, &self.text_render, "tab-size")
-                .build();
-
-            settings
-                .bind(GCMD_SETTINGS_IV_WRAP_MODE, &*window, "wrap-lines")
-                .build();
+            options.wrap_mode.bind(&*window, "wrap-lines").build();
             window
                 .bind_property("wrap-lines", &self.text_render, "wrap-mode")
                 .bidirectional()
                 .sync_create()
                 .build();
 
-            settings
-                .bind(GCMD_SETTINGS_IV_CHARSET, &*window, "encoding")
-                .build();
+            options.encoding.bind(&*window, "encoding").build();
             window
                 .bind_property("encoding", &self.text_render, "encoding")
                 .bidirectional()
                 .sync_create()
                 .build();
 
-            settings
-                .bind(
-                    GCMD_SETTINGS_IV_BINARY_BYTES_PER_LINE,
-                    &*window,
-                    "chars-per-line",
-                )
+            options
+                .binary_bytes_per_line
+                .bind(&*window, "chars-per-line")
                 .build();
             window
                 .bind_property("chars-per-line", &self.text_render, "fixed-limit")
@@ -313,20 +281,14 @@ mod imp {
                 .sync_create()
                 .build();
 
-            settings
-                .bind(
-                    GCMD_SETTINGS_IV_METADATA_VISIBLE,
-                    &*window,
-                    "metadata-visible",
-                )
+            options
+                .metadata_visible
+                .bind(&*window, "metadata-visible")
                 .build();
 
-            settings
-                .bind(
-                    GCMD_SETTINGS_IV_DISPLAY_HEX_OFFSET,
-                    &*window,
-                    "hexadecimal-offset",
-                )
+            options
+                .display_hex_offset
+                .bind(&*window, "hexadecimal-offset")
                 .build();
             window
                 .bind_property(

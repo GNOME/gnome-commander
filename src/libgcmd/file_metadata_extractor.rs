@@ -285,7 +285,7 @@ pub trait FileMetadataExtractorImplExt: FileMetadataExtractorImpl {
             ) {
                 let tag: String = unsafe { from_glib_none(tag) };
                 let value: Option<String> = unsafe { from_glib_none(value) };
-                let add: &mut F = &mut *(user_data as *mut F);
+                let add: &mut F = unsafe { &mut *(user_data as *mut F) };
                 add(GnomeCmdTag(tag.into()), value.as_deref());
             }
 
@@ -322,7 +322,7 @@ unsafe impl<T: FileMetadataExtractorImpl> IsImplementable<T> for FileMetadataExt
 unsafe extern "C" fn file_metadata_extractor_supported_tags<T: FileMetadataExtractorImpl>(
     fme: *mut ffi::GnomeCmdFileMetadataExtractor,
 ) -> GStrv {
-    let instance = &*(fme as *mut T::Instance);
+    let instance = unsafe { &*(fme as *mut T::Instance) };
     let imp = instance.imp();
     let tags: glib::StrV = imp
         .supported_tags()
@@ -335,7 +335,7 @@ unsafe extern "C" fn file_metadata_extractor_supported_tags<T: FileMetadataExtra
 unsafe extern "C" fn file_metadata_extractor_summary_tags<T: FileMetadataExtractorImpl>(
     fme: *mut ffi::GnomeCmdFileMetadataExtractor,
 ) -> GStrv {
-    let instance = &*(fme as *mut T::Instance);
+    let instance = unsafe { &*(fme as *mut T::Instance) };
     let imp = instance.imp();
     let tags: glib::StrV = imp.summary_tags().into_iter().map(|t| t.0.into()).collect();
     tags.to_glib_full()
@@ -345,7 +345,7 @@ unsafe extern "C" fn file_metadata_extractor_class_name<T: FileMetadataExtractor
     fme: *mut ffi::GnomeCmdFileMetadataExtractor,
     tag: *const c_char,
 ) -> *mut c_char {
-    let instance = &*(fme as *mut T::Instance);
+    let instance = unsafe { &*(fme as *mut T::Instance) };
     let tag = GnomeCmdTagClass(unsafe { String::from_glib_none(tag) }.into());
     let imp = instance.imp();
     imp.class_name(&tag).to_glib_full()
@@ -355,7 +355,7 @@ unsafe extern "C" fn file_metadata_extractor_tag_name<T: FileMetadataExtractorIm
     fme: *mut ffi::GnomeCmdFileMetadataExtractor,
     tag: *const c_char,
 ) -> *mut c_char {
-    let instance = &*(fme as *mut T::Instance);
+    let instance = unsafe { &*(fme as *mut T::Instance) };
     let tag = GnomeCmdTag(unsafe { String::from_glib_none(tag) }.into());
     let imp = instance.imp();
     imp.tag_name(&tag).to_glib_full()
@@ -365,7 +365,7 @@ unsafe extern "C" fn file_metadata_extractor_tag_description<T: FileMetadataExtr
     fme: *mut ffi::GnomeCmdFileMetadataExtractor,
     tag: *const c_char,
 ) -> *mut c_char {
-    let instance = &*(fme as *mut T::Instance);
+    let instance = unsafe { &*(fme as *mut T::Instance) };
     let tag = GnomeCmdTag(unsafe { String::from_glib_none(tag) }.into());
     let imp = instance.imp();
     imp.tag_description(&tag).to_glib_full()
@@ -377,12 +377,14 @@ unsafe extern "C" fn file_metadata_extractor_extract_metadata<T: FileMetadataExt
     add: ffi::GnomeCmdFileMetadataExtractorAddTag,
     user_data: gpointer,
 ) {
-    let instance = &*(fme as *mut T::Instance);
+    let instance = unsafe { &*(fme as *mut T::Instance) };
     let fd: Borrowed<FileDescriptor> = unsafe { from_glib_borrow(fd) };
     let imp = instance.imp();
     imp.extract_metadata(&*fd, |tag, value| {
         if let Some(add) = add {
-            (add)(tag.0.to_glib_none().0, value.to_glib_none().0, user_data);
+            unsafe {
+                (add)(tag.0.to_glib_none().0, value.to_glib_none().0, user_data);
+            }
         }
     });
 }
@@ -449,7 +451,7 @@ pub trait FileMetadataExtractorExt: IsA<FileMetadataExtractor> + 'static {
         ) {
             let tag: String = unsafe { from_glib_none(tag) };
             let value: Option<String> = unsafe { from_glib_none(value) };
-            let add: &mut F = &mut *(user_data as *mut F);
+            let add: &mut F = unsafe { &mut *(user_data as *mut F) };
             add(GnomeCmdTag(tag.into()), value.as_deref());
         }
 

@@ -19,7 +19,7 @@
 
 use super::common::create_category;
 use crate::{
-    data::{GeneralOptionsRead, GeneralOptionsWrite, WriteResult},
+    options::{options::GeneralOptions, types::WriteResult},
     tab_label::TabLockIndicator,
 };
 use gettextrs::gettext;
@@ -88,9 +88,10 @@ impl TabsTab {
         self.vbox.clone().upcast()
     }
 
-    pub fn read(&self, options: &dyn GeneralOptionsRead) {
-        self.always_show_tabs.set_active(options.always_show_tabs());
-        match options.tab_lock_indicator() {
+    pub fn read(&self, options: &GeneralOptions) {
+        self.always_show_tabs
+            .set_active(options.always_show_tabs.get());
+        match options.tab_lock_indicator.get() {
             TabLockIndicator::Icon => &self.icon,
             TabLockIndicator::Asterisk => &self.asterisk,
             TabLockIndicator::StyledText => &self.styled_text,
@@ -98,8 +99,10 @@ impl TabsTab {
         .set_active(true);
     }
 
-    pub fn write(&self, options: &dyn GeneralOptionsWrite) -> WriteResult {
-        options.set_always_show_tabs(self.always_show_tabs.is_active())?;
+    pub fn write(&self, options: &GeneralOptions) -> WriteResult {
+        options
+            .always_show_tabs
+            .set(self.always_show_tabs.is_active())?;
 
         let tab_lock_indicator = if self.icon.is_active() {
             TabLockIndicator::Icon
@@ -110,7 +113,7 @@ impl TabsTab {
         } else {
             TabLockIndicator::Icon
         };
-        options.set_tab_lock_indicator(tab_lock_indicator)?;
+        options.tab_lock_indicator.set(tab_lock_indicator)?;
         Ok(())
     }
 }

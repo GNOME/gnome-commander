@@ -17,15 +17,13 @@
  * For more details see the file COPYING.
  */
 
+use crate::options::{
+    options::ViewerOptions,
+    types::{StrvOption, WriteResult},
+};
 use gettextrs::gettext;
-use gtk::{gio, glib, prelude::*, subclass::prelude::*};
+use gtk::{glib, prelude::*, subclass::prelude::*};
 use std::fmt;
-
-const GCMD_INTERNAL_VIEWER: &str = "org.gnome.gnome-commander.preferences.internal-viewer";
-const GCMD_SETTINGS_IV_CASE_SENSITIVE: &str = "case-sensitive-search";
-const GCMD_SETTINGS_IV_SEARCH_MODE: &str = "search-mode";
-const GCMD_SETTINGS_IV_SEARCH_PATTERN_TEXT: &str = "search-pattern-text";
-const GCMD_SETTINGS_IV_SEARCH_PATTERN_HEX: &str = "search-pattern-hex";
 
 const INTVIEWER_HISTORY_SIZE: usize = 16;
 
@@ -37,8 +35,6 @@ mod imp {
     };
     use std::cell::OnceCell;
 
-    #[derive(glib::Properties)]
-    #[properties(wrapper_type = super::SearchDialog)]
     pub struct SearchDialog {
         pub search_entry: HistoryEntry,
         pub text_mode: gtk::CheckButton,
@@ -46,8 +42,7 @@ mod imp {
         pub case_sensitive: gtk::CheckButton,
         pub cancel_button: gtk::Button,
         pub ok_button: gtk::Button,
-        #[property(get, construct_only)]
-        pub settings: OnceCell<gio::Settings>,
+        pub options: OnceCell<ViewerOptions>,
         pub sender: async_channel::Sender<bool>,
         pub receiver: async_channel::Receiver<bool>,
     }
@@ -67,14 +62,13 @@ mod imp {
                 case_sensitive: gtk::CheckButton::with_mnemonic(&gettext("_Match case")),
                 cancel_button: gtk::Button::with_mnemonic(&gettext("_Cancel")),
                 ok_button: gtk::Button::with_mnemonic(&gettext("_OK")),
-                settings: Default::default(),
+                options: Default::default(),
                 sender,
                 receiver,
             }
         }
     }
 
-    #[glib::derived_properties]
     impl ObjectImpl for SearchDialog {
         fn constructed(&self) {
             self.parent_constructed();
@@ -195,41 +189,35 @@ mod imp {
                 .set_sensitive(self.search_request().is_some());
         }
 
+        pub(super) fn options(&self) -> &ViewerOptions {
+            self.options.get().unwrap()
+        }
+
         fn change_search_mode(&self) {
+            let options = self.options();
             match self.search_mode() {
                 Mode::Text => {
                     self.case_sensitive.set_sensitive(true);
-                    self.set_history(GCMD_SETTINGS_IV_SEARCH_PATTERN_TEXT);
+                    self.search_entry
+                        .set_history(&options.search_pattern_text.get());
                 }
                 Mode::Binary => {
                     self.case_sensitive.set_sensitive(false);
-                    self.set_history(GCMD_SETTINGS_IV_SEARCH_PATTERN_HEX);
+                    self.search_entry
+                        .set_history(&options.search_pattern_hex.get());
                 }
             }
             self.entry_changed();
             self.search_entry.grab_focus();
         }
 
-        fn set_history(&self, key: &str) {
-            self.search_entry.set_history(
-                &self
-                    .obj()
-                    .settings()
-                    .strv(key)
-                    .into_iter()
-                    .map(|s| s.to_string())
-                    .collect::<Vec<_>>(),
-            );
-        }
-
         pub(super) fn init_from_settings(&self) {
-            let settings = self.obj().settings();
-            match Mode::from_repr(settings.enum_(GCMD_SETTINGS_IV_SEARCH_MODE)).unwrap_or_default()
-            {
+            let options = self.options();
+            match options.search_mode.get() {
                 Mode::Text => {
                     self.text_mode.set_active(true);
                     self.case_sensitive
-                        .set_active(settings.boolean(GCMD_SETTINGS_IV_CASE_SENSITIVE));
+                        .set_active(options.case_sensitive_search.get());
                 }
                 Mode::Binary => {
                     self.hex_mode.set_active(true);
@@ -246,19 +234,20 @@ glib::wrapper! {
 }
 
 impl SearchDialog {
-    pub fn new(parent: &gtk::Window, settings: &gio::Settings) -> Self {
-        glib::Object::builder()
+    pub fn new(parent: &gtk::Window, options: ViewerOptions) -> Self {
+        let this: Self = glib::Object::builder()
             .property("title", gettext("Find"))
             .property("modal", true)
             .property("transient-for", parent)
             .property("resizable", false)
-            .property("settings", settings)
-            .build()
+            .build();
+        this.imp().options.set(options).ok().unwrap();
+        this
     }
 
     pub async fn show(parent: &gtk::Window) -> Option<SearchRequest> {
-        let settings = gio::Settings::new(GCMD_INTERNAL_VIEWER);
-        let dialog = Self::new(parent, &settings);
+        let options = ViewerOptions::new();
+        let dialog = Self::new(parent, options);
 
         dialog.imp().init_from_settings();
 
@@ -274,7 +263,7 @@ impl SearchDialog {
 
         let result = dialog.imp().search_request()?;
 
-        if let Err(error) = result.save(&settings) {
+        if let Err(error) = result.save(dialog.imp().options()) {
             eprintln!("Failed to save search parameters: {error}")
         }
 
@@ -284,7 +273,7 @@ impl SearchDialog {
 
 #[derive(Clone, Copy, strum::FromRepr, Default)]
 #[repr(i32)]
-enum Mode {
+pub enum Mode {
     #[default]
     Text = 0,
     Binary,
@@ -310,19 +299,19 @@ impl SearchRequest {
         }
     }
 
-    fn save(&self, settings: &gio::Settings) -> Result<(), glib::BoolError> {
+    fn save(&self, options: &ViewerOptions) -> WriteResult {
         match self {
             SearchRequest::Binary { query, .. } => {
-                settings.set_enum(GCMD_SETTINGS_IV_SEARCH_MODE, Mode::Binary as i32)?;
-                add_to_history(&settings, GCMD_SETTINGS_IV_SEARCH_PATTERN_HEX, query)?;
+                options.search_mode.set(Mode::Binary)?;
+                add_to_history(&options.search_pattern_hex, query)?;
             }
             SearchRequest::Text {
                 pattern,
                 case_sensitive,
             } => {
-                settings.set_enum(GCMD_SETTINGS_IV_SEARCH_MODE, Mode::Text as i32)?;
-                settings.set_boolean(GCMD_SETTINGS_IV_CASE_SENSITIVE, *case_sensitive)?;
-                add_to_history(&settings, GCMD_SETTINGS_IV_SEARCH_PATTERN_TEXT, &pattern)?;
+                options.search_mode.set(Mode::Text)?;
+                options.case_sensitive_search.set(*case_sensitive)?;
+                add_to_history(&options.search_pattern_text, pattern)?;
             }
         }
         Ok(())
@@ -363,17 +352,16 @@ fn hex_to_bytes(text: &str) -> Option<Vec<u8>> {
     )
 }
 
-fn add_to_history(settings: &gio::Settings, key: &str, value: &str) -> Result<(), glib::BoolError> {
-    let history = std::iter::once(glib::GString::from(value))
-        .chain(settings.strv(key).into_iter().filter(|p| *p != value))
-        .take(INTVIEWER_HISTORY_SIZE)
-        .collect::<glib::StrV>();
-    settings.set_strv(key, history)
+fn add_to_history(option: &StrvOption, value: &str) -> WriteResult {
+    let mut history = option.get();
+    history.insert(0, value.to_owned());
+    history.truncate(INTVIEWER_HISTORY_SIZE);
+    option.set(history)
 }
 
 pub fn gnome_cmd_viewer_search_text_add_to_history(value: &str) {
-    let settings = gio::Settings::new(GCMD_INTERNAL_VIEWER);
-    if let Err(error) = add_to_history(&settings, GCMD_SETTINGS_IV_SEARCH_PATTERN_TEXT, value) {
+    let options = ViewerOptions::new();
+    if let Err(error) = add_to_history(&options.search_pattern_text, value) {
         eprintln!("Failed to save search history: {error}");
     }
 }
