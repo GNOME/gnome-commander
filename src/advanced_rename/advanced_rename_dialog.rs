@@ -458,7 +458,7 @@ mod imp {
 
             results_vbox.append(
                 &gtk::ScrolledWindow::builder()
-                    .hscrollbar_policy(gtk::PolicyType::Never)
+                    .hscrollbar_policy(gtk::PolicyType::Automatic)
                     .vscrollbar_policy(gtk::PolicyType::Automatic)
                     .has_frame(true)
                     .vexpand(true)
