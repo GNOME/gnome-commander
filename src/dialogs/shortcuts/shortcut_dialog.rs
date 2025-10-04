@@ -37,7 +37,7 @@ mod imp {
     fn actions_model() -> gio::ListStore {
         let actions_model = gio::ListStore::new::<glib::BoxedAnyObject>();
         for user_action in &*USER_ACTIONS {
-            if user_action.parameter_type.is_none() {
+            if !user_action.has_parameter() {
                 // skip parametrized actions
                 actions_model.append(&glib::BoxedAnyObject::new(Call {
                     action_name: user_action.action_name.to_owned(),
