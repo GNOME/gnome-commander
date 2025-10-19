@@ -45,6 +45,7 @@ use crate::{
     tags::tags::FileMetadataService,
     transfer::{copy_files, move_files},
     types::{ConfirmOverwriteMode, FileSelectorID},
+    user_actions::{ActionCode, USER_ACTIONS},
     utils::{
         ALT, ALT_SHIFT, CONTROL, CONTROL_ALT, CONTROL_SHIFT, MenuBuilderExt, NO_MOD,
         extract_menu_shortcuts,
@@ -69,7 +70,6 @@ pub mod imp {
         shortcuts::Shortcut,
         spawn::{SpawnError, run_command_indir},
         types::QuickSearchShortcut,
-        user_actions,
         utils::sleep,
     };
     use std::{
@@ -375,11 +375,37 @@ pub mod imp {
             shortcuts_controller.set_propagation_phase(gtk::PropagationPhase::Capture);
             mw.add_controller(shortcuts_controller);
 
-            mw.add_action_entries(
-                user_actions::USER_ACTIONS
-                    .iter()
-                    .filter_map(|a| a.action_entry()),
-            );
+            for user_action in &*USER_ACTIONS {
+                match &user_action.action_code {
+                    ActionCode::Plain { activate } => {
+                        let action = gio::SimpleAction::new(&user_action.action_name, None);
+                        action.connect_activate(glib::clone!(
+                            #[weak]
+                            mw,
+                            #[strong]
+                            activate,
+                            move |_, _| (activate)(mw)
+                        ));
+                        mw.add_action(&action);
+                    }
+                    ActionCode::WithParameter {
+                        activate,
+                        parameter_type,
+                    } => {
+                        let action =
+                            gio::SimpleAction::new(&user_action.action_name, Some(parameter_type));
+                        action.connect_activate(glib::clone!(
+                            #[weak]
+                            mw,
+                            #[strong]
+                            activate,
+                            move |_, p| (activate)(mw, p)
+                        ));
+                        mw.add_action(&action);
+                    }
+                    ActionCode::Predefined => {}
+                }
+            }
 
             self.update_drop_con_button(None);
 

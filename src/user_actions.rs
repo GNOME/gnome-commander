@@ -25,7 +25,7 @@ use crate::{
     config::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_URL, PACKAGE_VERSION},
     connection::{
         bookmark::{Bookmark, BookmarkGoToVariant},
-        connection::{Connection, ConnectionExt, ConnectionInterface},
+        connection::{ConnectionExt, ConnectionInterface},
         home::ConnectionHome,
         list::ConnectionList,
         remote::ConnectionRemoteExt,
@@ -69,29 +69,18 @@ use std::{
     collections::{HashMap, HashSet},
     ffi::OsString,
     path::{Path, PathBuf},
+    rc::Rc,
     sync::LazyLock,
 };
 
-pub fn file_copy(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
+async fn file_copy(main_win: MainWindow) {
     let src_fs = main_win.file_selector(FileSelectorID::ACTIVE);
     let dst_fs = main_win.file_selector(FileSelectorID::INACTIVE);
     let options = ConfirmOptions::new();
-    glib::spawn_future_local(async move {
-        prepare_copy_dialog_show(&main_win, &src_fs, &dst_fs, &options).await;
-    });
+    prepare_copy_dialog_show(&main_win, &src_fs, &dst_fs, &options).await;
 }
 
-pub fn file_copy_as(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
+async fn file_copy_as(main_win: MainWindow) {
     let file_list = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
 
     let Some(file) = file_list.selected_file() else {
@@ -101,45 +90,25 @@ pub fn file_copy_as(
         return;
     };
 
-    glib::spawn_future_local(async move {
-        make_copy_dialog(&file, &dir, &main_win).await;
-    });
+    make_copy_dialog(&file, &dir, &main_win).await;
 }
 
-pub fn file_move(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
+async fn file_move(main_win: MainWindow) {
     let src_fs = main_win.file_selector(FileSelectorID::ACTIVE);
     let dst_fs = main_win.file_selector(FileSelectorID::INACTIVE);
     let options = ConfirmOptions::new();
-    glib::spawn_future_local(async move {
-        prepare_move_dialog_show(&main_win, &src_fs, &dst_fs, &options).await;
-    });
+    prepare_move_dialog_show(&main_win, &src_fs, &dst_fs, &options).await;
 }
 
-pub fn file_delete(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
-    glib::spawn_future_local(async move {
-        main_win
-            .file_selector(FileSelectorID::ACTIVE)
-            .file_list()
-            .show_delete_dialog(false)
-            .await;
-    });
+async fn file_delete(main_win: MainWindow) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .show_delete_dialog(false)
+        .await;
 }
 
-pub fn file_view(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn file_view(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
 
@@ -149,11 +118,7 @@ pub fn file_view(
     }
 }
 
-pub fn file_internal_view(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn file_internal_view(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
 
@@ -162,11 +127,7 @@ pub fn file_internal_view(
     }
 }
 
-pub fn file_external_view(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn file_external_view(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
 
@@ -175,190 +136,135 @@ pub fn file_external_view(
     }
 }
 
-pub fn file_edit(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
+async fn file_edit(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
 
     let mask = get_modifiers_state(main_win.upcast_ref());
 
-    glib::spawn_future_local(async move {
-        if mask.map_or(false, |m| m.contains(gdk::ModifierType::SHIFT_MASK)) {
-            show_new_textfile_dialog(main_win.upcast_ref(), &file_list).await;
-        } else {
-            if let Err(error) = file_list.activate_action("fl.file-edit", None) {
-                eprintln!("Cannot activate action `file-edit`: {}", error);
-            }
+    if mask.map_or(false, |m| m.contains(gdk::ModifierType::SHIFT_MASK)) {
+        show_new_textfile_dialog(main_win.upcast_ref(), &file_list).await;
+    } else {
+        if let Err(error) = file_list.activate_action("fl.file-edit", None) {
+            eprintln!("Cannot activate action `file-edit`: {}", error);
         }
-    });
+    }
 }
 
-pub fn file_edit_new_doc(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
+async fn file_edit_new_doc(main_win: MainWindow) {
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+    show_new_textfile_dialog(main_win.upcast_ref(), &file_list).await;
+}
+
+async fn file_search(main_win: MainWindow) {
+    let options = ProgramsOptions::new();
+
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
 
-    glib::spawn_future_local(async move {
-        show_new_textfile_dialog(main_win.upcast_ref(), &file_list).await;
-    });
-}
-
-pub fn file_search(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
-    let options = ProgramsOptions::new();
-
-    glib::spawn_future_local(async move {
-        let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
-        let file_list = file_selector.file_list();
-
-        if options.use_internal_search.get() {
-            let start_dir = file_list.directory();
-            let dlg = main_win.get_or_create_search_dialog();
-            dlg.show_and_set_focus(start_dir.as_ref());
-        } else {
-            fn no_search_command_error() -> String {
-                format!(
-                    "{}\n{}",
-                    gettext("No search command given."),
-                    gettext("You can set a command for a search tool in the program options.")
-                )
-            }
-
-            let files = file_list.selected_files();
-            let error_message = match spawn_async(None, &files, &options.search_cmd.get()) {
-                Ok(_) => return,
-                Err(SpawnError::InvalidTemplate) => ErrorMessage::brief(no_search_command_error()),
-                Err(SpawnError::InvalidCommand(e)) => {
-                    ErrorMessage::with_error(no_search_command_error(), &e)
-                }
-                Err(SpawnError::Failure(e)) => {
-                    ErrorMessage::with_error(gettext("Unable to execute command."), &e)
-                }
-            };
-            if let Some(window) = main_win.root().and_downcast::<gtk::Window>() {
-                error_message.show(&window).await;
-            } else {
-                eprintln!(
-                    "No window. Search failed: {}\n{}",
-                    error_message.message,
-                    error_message.secondary_text.unwrap_or_default()
-                );
-            }
+    if options.use_internal_search.get() {
+        let start_dir = file_list.directory();
+        let dlg = main_win.get_or_create_search_dialog();
+        dlg.show_and_set_focus(start_dir.as_ref());
+    } else {
+        fn no_search_command_error() -> String {
+            format!(
+                "{}\n{}",
+                gettext("No search command given."),
+                gettext("You can set a command for a search tool in the program options.")
+            )
         }
-    });
+
+        let files = file_list.selected_files();
+        let error_message = match spawn_async(None, &files, &options.search_cmd.get()) {
+            Ok(_) => return,
+            Err(SpawnError::InvalidTemplate) => ErrorMessage::brief(no_search_command_error()),
+            Err(SpawnError::InvalidCommand(e)) => {
+                ErrorMessage::with_error(no_search_command_error(), &e)
+            }
+            Err(SpawnError::Failure(e)) => {
+                ErrorMessage::with_error(gettext("Unable to execute command."), &e)
+            }
+        };
+        if let Some(window) = main_win.root().and_downcast::<gtk::Window>() {
+            error_message.show(&window).await;
+        } else {
+            eprintln!(
+                "No window. Search failed: {}\n{}",
+                error_message.message,
+                error_message.secondary_text.unwrap_or_default()
+            );
+        }
+    }
 }
 
-pub fn file_quick_search(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
+pub async fn file_quick_search(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
 
     file_list.show_quick_search(None);
 }
 
-pub fn file_chmod(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
+async fn file_chmod(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
 
     let files = file_list.selected_files();
     if !files.is_empty() {
-        glib::spawn_future_local(async move {
-            if show_chmod_dialog(main_win.upcast_ref(), &files).await {
-                file_list.reload().await;
-            }
-        });
+        if show_chmod_dialog(main_win.upcast_ref(), &files).await {
+            file_list.reload().await;
+        }
     }
 }
 
-pub fn file_chown(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
+async fn file_chown(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
 
     let files = file_list.selected_files();
     if !files.is_empty() {
-        glib::spawn_future_local(async move {
-            if show_chown_dialog(main_win.upcast_ref(), &files).await {
-                file_list.reload().await;
-            }
-        });
+        if show_chown_dialog(main_win.upcast_ref(), &files).await {
+            file_list.reload().await;
+        }
     }
 }
 
-pub fn file_mkdir(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
-    glib::spawn_future_local(async move {
-        let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
-        let file_list = file_selector.file_list();
+async fn file_mkdir(main_win: MainWindow) {
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
 
-        if let Some(dir) = file_list.directory() {
-            let selected_file = file_list.selected_file();
-            let new_dir =
-                show_mkdir_dialog(main_win.upcast_ref(), &dir.file(), selected_file.as_ref()).await;
+    if let Some(dir) = file_list.directory() {
+        let selected_file = file_list.selected_file();
+        let new_dir =
+            show_mkdir_dialog(main_win.upcast_ref(), &dir.file(), selected_file.as_ref()).await;
 
-            if let Some(new_dir) = new_dir {
-                // focus the created directory (if possible)
-                if new_dir.parent().map_or(false, |p| p.equal(&dir.file())) {
-                    dir.file_created(&new_dir.uri());
-                    file_list.focus_file(&new_dir.basename().unwrap(), true);
-                }
+        if let Some(new_dir) = new_dir {
+            // focus the created directory (if possible)
+            if new_dir.parent().map_or(false, |p| p.equal(&dir.file())) {
+                dir.file_created(&new_dir.uri());
+                file_list.focus_file(&new_dir.basename().unwrap(), true);
             }
         }
-    });
+    }
 }
 
-pub fn file_properties(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
-    glib::spawn_future_local(async move {
-        let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
-        let file_list = file_selector.file_list();
+async fn file_properties(main_win: MainWindow) {
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
 
-        if let Some(file) = file_list.selected_file() {
-            let changed = FilePropertiesDialog::show(
-                main_win.upcast_ref(),
-                &main_win.file_metadata_service(),
-                &file,
-            )
-            .await;
+    if let Some(file) = file_list.selected_file() {
+        let changed = FilePropertiesDialog::show(
+            main_win.upcast_ref(),
+            &main_win.file_metadata_service(),
+            &file,
+        )
+        .await;
 
-            if changed {
-                file_list.focus_file(&file.file_info().name(), true);
-            }
+        if changed {
+            file_list.focus_file(&file.file_info().name(), true);
         }
-    });
+    }
 }
 
 fn ensure_file_list_is_local(file_list: &FileList) -> Result<(), ErrorMessage> {
@@ -407,18 +313,11 @@ async fn do_file_diff(
     }
 }
 
-pub fn file_diff(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
+async fn file_diff(main_win: MainWindow) {
     let options = ProgramsOptions::new();
-    glib::spawn_future_local(async move {
-        if let Err(error) = do_file_diff(&main_win, &options).await {
-            error.show(main_win.upcast_ref()).await;
-        }
-    });
+    if let Err(error) = do_file_diff(&main_win, &options).await {
+        error.show(main_win.upcast_ref()).await;
+    }
 }
 
 async fn do_file_sync_dirs(
@@ -443,31 +342,17 @@ async fn do_file_sync_dirs(
     spawn_async(None, &files, &options.differ_cmd.get()).map_err(SpawnError::into_message)
 }
 
-pub fn file_sync_dirs(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
+async fn file_sync_dirs(main_win: MainWindow) {
     let options = ProgramsOptions::new();
-    glib::spawn_future_local(async move {
-        if let Err(error) = do_file_sync_dirs(&main_win, &options).await {
-            error.show(main_win.upcast_ref()).await;
-        }
-    });
+    if let Err(error) = do_file_sync_dirs(&main_win, &options).await {
+        error.show(main_win.upcast_ref()).await;
+    }
 }
 
-pub fn file_rename(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
+pub async fn file_rename(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
-    glib::spawn_future_local(async move {
-        file_list.show_rename_dialog().await;
-    });
+    file_list.show_rename_dialog().await;
 }
 
 fn symlink_name(file_name: &str, options: &GeneralOptions) -> String {
@@ -531,251 +416,171 @@ async fn create_symlinks(
     }
 }
 
-pub fn file_create_symlink(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
+async fn file_create_symlink(main_win: MainWindow) {
     let options = GeneralOptions::new();
 
-    glib::spawn_future_local(async move {
-        let active_fs = main_win.file_selector(FileSelectorID::ACTIVE);
-        let inactive_fs = main_win.file_selector(FileSelectorID::INACTIVE);
+    let active_fs = main_win.file_selector(FileSelectorID::ACTIVE);
+    let inactive_fs = main_win.file_selector(FileSelectorID::INACTIVE);
 
-        let Some(dest_directory) = inactive_fs.file_list().directory() else {
-            eprintln!("Cannot create symlinks: No destination directory.");
-            return;
-        };
+    let Some(dest_directory) = inactive_fs.file_list().directory() else {
+        eprintln!("Cannot create symlinks: No destination directory.");
+        return;
+    };
 
-        let active_fl = active_fs.file_list();
-        let selected_files = active_fl.selected_files();
-        let selected_files_len = selected_files.len();
+    let active_fl = active_fs.file_list();
+    let selected_files = active_fl.selected_files();
+    let selected_files_len = selected_files.len();
 
-        if selected_files_len > 1 {
-            let message = ngettext(
-                "Create symbolic links of {count} file in {dir}?",
-                "Create symbolic links of {count} files in {dir}?",
-                selected_files_len as u32,
-            )
-            .replace("{count}", &selected_files_len.to_string())
-            .replace("{dir}", &dest_directory.display_path());
+    if selected_files_len > 1 {
+        let message = ngettext(
+            "Create symbolic links of {count} file in {dir}?",
+            "Create symbolic links of {count} files in {dir}?",
+            selected_files_len as u32,
+        )
+        .replace("{count}", &selected_files_len.to_string())
+        .replace("{dir}", &dest_directory.display_path());
 
-            let choice = gtk::AlertDialog::builder()
-                .modal(true)
-                .message(message)
-                .buttons([gettext("Cancel"), gettext("Create")])
-                .cancel_button(0)
-                .default_button(1)
-                .build()
-                .choose_future(Some(&main_win))
-                .await;
-            if choice == Ok(1) {
-                create_symlinks(
-                    main_win.upcast_ref(),
-                    &selected_files,
-                    &dest_directory,
-                    &options,
-                )
-                .await;
-            }
-        } else if let Some(focused_file) = active_fl.focused_file() {
-            show_create_symlink_dialog(
+        let choice = gtk::AlertDialog::builder()
+            .modal(true)
+            .message(message)
+            .buttons([gettext("Cancel"), gettext("Create")])
+            .cancel_button(0)
+            .default_button(1)
+            .build()
+            .choose_future(Some(&main_win))
+            .await;
+        if choice == Ok(1) {
+            create_symlinks(
                 main_win.upcast_ref(),
-                &focused_file,
+                &selected_files,
                 &dest_directory,
-                &symlink_name(&focused_file.get_name(), &options),
+                &options,
             )
             .await;
         }
-    });
+    } else if let Some(focused_file) = active_fl.focused_file() {
+        show_create_symlink_dialog(
+            main_win.upcast_ref(),
+            &focused_file,
+            &dest_directory,
+            &symlink_name(&focused_file.get_name(), &options),
+        )
+        .await;
+    }
 }
 
-pub fn file_advrename(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn file_advrename(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
     let file_metadata_service = main_win.file_metadata_service();
     advanced_rename_dialog_show(main_win.upcast_ref(), &file_list, &file_metadata_service);
 }
 
-pub fn file_sendto(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
+async fn file_sendto(main_win: MainWindow) {
     let options = ProgramsOptions::new();
 
-    glib::spawn_future_local(async move {
-        let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
-        let file_list = file_selector.file_list();
-        let files = file_list.selected_files();
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+    let files = file_list.selected_files();
 
-        let command_template = options.sendto_cmd.get();
+    let command_template = options.sendto_cmd.get();
 
-        if command_template == "xdg-email --attach %s" && files.len() > 1 {
-            ErrorMessage::new(gettext("Warning"), Some(gettext("The default send-to command only supports one selected file at a time. You can change the command in the program options."))).show(main_win.upcast_ref()).await;
-        }
+    if command_template == "xdg-email --attach %s" && files.len() > 1 {
+        ErrorMessage::new(gettext("Warning"), Some(gettext("The default send-to command only supports one selected file at a time. You can change the command in the program options."))).show(main_win.upcast_ref()).await;
+    }
 
-        if let Err(error) = spawn_async(None, &files, &command_template) {
-            error.into_message().show(main_win.upcast_ref()).await;
-        }
-    });
+    if let Err(error) = spawn_async(None, &files, &command_template) {
+        error.into_message().show(main_win.upcast_ref()).await;
+    }
 }
 
-pub fn file_exit(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn file_exit(main_win: MainWindow) {
     main_win.close();
 }
 
 /************** Mark Menu **************/
 
-pub fn mark_toggle(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn mark_toggle(main_win: MainWindow) {
     main_win
         .file_selector(FileSelectorID::ACTIVE)
         .file_list()
         .toggle()
 }
 
-pub fn mark_toggle_and_step(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn mark_toggle_and_step(main_win: MainWindow) {
     main_win
         .file_selector(FileSelectorID::ACTIVE)
         .file_list()
         .toggle_and_step()
 }
 
-pub fn mark_select_all(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn mark_select_all(main_win: MainWindow) {
     main_win
         .file_selector(FileSelectorID::ACTIVE)
         .file_list()
         .select_all()
 }
 
-pub fn mark_unselect_all(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn mark_unselect_all(main_win: MainWindow) {
     main_win
         .file_selector(FileSelectorID::ACTIVE)
         .file_list()
         .unselect_all()
 }
 
-pub fn mark_select_all_files(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn mark_select_all_files(main_win: MainWindow) {
     main_win
         .file_selector(FileSelectorID::ACTIVE)
         .file_list()
         .select_all_files()
 }
 
-pub fn mark_unselect_all_files(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn mark_unselect_all_files(main_win: MainWindow) {
     main_win
         .file_selector(FileSelectorID::ACTIVE)
         .file_list()
         .unselect_all_files()
 }
 
-pub fn mark_select_with_pattern(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn mark_select_with_pattern(main_win: MainWindow) {
     let file_list = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
-    glib::spawn_future_local(async move {
-        select_by_pattern(&file_list, true).await;
-    });
+    select_by_pattern(&file_list, true).await;
 }
 
-pub fn mark_unselect_with_pattern(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn mark_unselect_with_pattern(main_win: MainWindow) {
     let file_list = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
-    glib::spawn_future_local(async move {
-        select_by_pattern(&file_list, false).await;
-    });
+    select_by_pattern(&file_list, false).await;
 }
 
-pub fn mark_invert_selection(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn mark_invert_selection(main_win: MainWindow) {
     main_win
         .file_selector(FileSelectorID::ACTIVE)
         .file_list()
         .invert_selection();
 }
 
-pub fn mark_select_all_with_same_extension(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn mark_select_all_with_same_extension(main_win: MainWindow) {
     main_win
         .file_selector(FileSelectorID::ACTIVE)
         .file_list()
         .toggle_files_with_same_extension(true);
 }
 
-pub fn mark_unselect_all_with_same_extension(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn mark_unselect_all_with_same_extension(main_win: MainWindow) {
     main_win
         .file_selector(FileSelectorID::ACTIVE)
         .file_list()
         .toggle_files_with_same_extension(false);
 }
 
-pub fn mark_restore_selection(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn mark_restore_selection(main_win: MainWindow) {
     main_win
         .file_selector(FileSelectorID::ACTIVE)
         .file_list()
         .restore_selection();
 }
 
-pub fn mark_compare_directories(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
-
+async fn mark_compare_directories(main_win: MainWindow) {
     let fl1 = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
     let fl2 = main_win.file_selector(FileSelectorID::INACTIVE).file_list();
 
@@ -830,46 +635,23 @@ pub fn mark_compare_directories(
 
 /************** Edit Menu **************/
 
-pub fn edit_cap_cut(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn edit_cap_cut(main_win: MainWindow) {
     main_win.cut_files();
 }
 
-pub fn edit_cap_copy(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn edit_cap_copy(main_win: MainWindow) {
     main_win.copy_files();
 }
 
-pub fn edit_cap_paste(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
-    glib::spawn_future_local(async move {
-        main_win.paste_files().await;
-    });
+async fn edit_cap_paste(main_win: MainWindow) {
+    main_win.paste_files().await;
 }
 
-pub fn edit_filter(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn edit_filter(main_win: MainWindow) {
     main_win.file_selector(FileSelectorID::ACTIVE).show_filter();
 }
 
-pub fn edit_copy_fnames(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn edit_copy_fnames(main_win: MainWindow) {
     let mask = get_modifiers_state(main_win.upcast_ref());
 
     let files = main_win
@@ -892,46 +674,31 @@ pub fn edit_copy_fnames(
 
 /************** Command Menu **************/
 
-pub fn command_execute(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
-    let parameter = parameter.cloned();
-    glib::spawn_future_local(async move {
-        let Some(command_template) = parameter.as_ref().and_then(|p| p.str()) else {
-            ErrorMessage::new(gettext("No command was given."), None::<String>)
-                .show(main_win.upcast_ref())
-                .await;
-            return;
-        };
+async fn command_execute(main_win: MainWindow, command_template: String) {
+    let fs = main_win.file_selector(FileSelectorID::ACTIVE);
+    let fl = fs.file_list();
 
-        let fs = main_win.file_selector(FileSelectorID::ACTIVE);
-        let fl = fs.file_list();
+    let sfl = fl.selected_files();
 
-        let sfl = fl.selected_files();
+    let grouped = sfl
+        .iter()
+        .map(|f| f.file().parent().and_then(|p| p.path()))
+        .collect::<HashSet<Option<PathBuf>>>();
+    let dir_path = if grouped.len() == 1 {
+        grouped.into_iter().next().flatten()
+    } else {
+        None
+    };
+    // TODO: gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : nullptr
 
-        let grouped = sfl
-            .iter()
-            .map(|f| f.file().parent().and_then(|p| p.path()))
-            .collect::<HashSet<Option<PathBuf>>>();
-        let dir_path = if grouped.len() == 1 {
-            grouped.into_iter().next().flatten()
-        } else {
-            None
-        };
-        // TODO: gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : nullptr
-
-        if let Err(error_message) = spawn_async(dir_path.as_deref(), &sfl, command_template)
-            .map_err(SpawnError::into_message)
-        {
-            error_message.show(main_win.upcast_ref()).await;
-        }
-    });
+    if let Err(error_message) =
+        spawn_async(dir_path.as_deref(), &sfl, &command_template).map_err(SpawnError::into_message)
+    {
+        error_message.show(main_win.upcast_ref()).await;
+    }
 }
 
-pub fn open_terminal(main_win: &MainWindow, options: &ProgramsOptions) -> Result<(), ErrorMessage> {
+fn open_terminal(main_win: &MainWindow, options: &ProgramsOptions) -> Result<(), ErrorMessage> {
     let dpath = main_win
         .file_selector(FileSelectorID::ACTIVE)
         .file_list()
@@ -950,37 +717,22 @@ pub fn open_terminal(main_win: &MainWindow, options: &ProgramsOptions) -> Result
 }
 
 /// Executes the command stored in `terminal-cmd` in the active directory.
-pub fn command_open_terminal(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
+async fn command_open_terminal(main_win: MainWindow) {
     let options = ProgramsOptions::new();
-    glib::spawn_future_local(async move {
-        if let Err(error_message) = open_terminal(&main_win, &options) {
-            error_message.show(main_win.upcast_ref()).await;
-        }
-    });
+    if let Err(error_message) = open_terminal(&main_win, &options) {
+        error_message.show(main_win.upcast_ref()).await;
+    }
 }
 
 /* ***************************** View Menu ****************************** */
 
-pub fn view_dir_history(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_dir_history(main_win: MainWindow) {
     main_win
         .file_selector(FileSelectorID::ACTIVE)
         .show_history();
 }
 
-pub fn view_up(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_up(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
 
@@ -993,90 +745,47 @@ pub fn view_up(
     }
 }
 
-pub fn view_first(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_first(main_win: MainWindow) {
     main_win.file_selector(FileSelectorID::ACTIVE).first();
 }
 
-pub fn view_back(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_back(main_win: MainWindow) {
     main_win.file_selector(FileSelectorID::ACTIVE).back();
 }
 
-pub fn view_forward(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_forward(main_win: MainWindow) {
     main_win.file_selector(FileSelectorID::ACTIVE).forward();
 }
 
-pub fn view_last(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_last(main_win: MainWindow) {
     main_win.file_selector(FileSelectorID::ACTIVE).last();
 }
 
-pub fn view_refresh(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
-    glib::spawn_future_local(async move {
-        main_win
-            .file_selector(FileSelectorID::ACTIVE)
-            .file_list()
-            .reload()
-            .await;
-    });
+async fn view_refresh(main_win: MainWindow) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .reload()
+        .await;
 }
 
-pub fn view_in_left_pane(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_in_left_pane(main_win: MainWindow) {
     main_win.set_directory_to_opposite(FileSelectorID::LEFT);
 }
 
-pub fn view_in_right_pane(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_in_right_pane(main_win: MainWindow) {
     main_win.set_directory_to_opposite(FileSelectorID::RIGHT);
 }
 
-pub fn view_in_active_pane(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_in_active_pane(main_win: MainWindow) {
     main_win.set_directory_to_opposite(FileSelectorID::ACTIVE);
 }
 
-pub fn view_in_inactive_pane(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_in_inactive_pane(main_win: MainWindow) {
     main_win.set_directory_to_opposite(FileSelectorID::INACTIVE);
 }
 
-pub fn view_directory(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_directory(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
     if let Some(file) = file_list.selected_file() {
@@ -1086,11 +795,7 @@ pub fn view_directory(
     }
 }
 
-pub fn view_home(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_home(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
 
@@ -1104,11 +809,7 @@ pub fn view_home(
     }
 }
 
-pub fn view_root(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_root(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
 
@@ -1122,11 +823,7 @@ pub fn view_root(
     }
 }
 
-pub fn view_new_tab(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_new_tab(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
     if let Some(directory) = file_list.directory() {
@@ -1147,63 +844,36 @@ async fn ask_close_locked_tab(parent_window: &gtk::Window) -> bool {
         == Ok(1)
 }
 
-pub fn view_close_tab(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
-    glib::spawn_future_local(async move {
-        let fs = main_win.file_selector(FileSelectorID::ACTIVE);
-        if fs.tab_count() > 1 {
-            if !fs.is_current_tab_locked() || ask_close_locked_tab(main_win.upcast_ref()).await {
-                fs.close_tab();
-            }
+async fn view_close_tab(main_win: MainWindow) {
+    let fs = main_win.file_selector(FileSelectorID::ACTIVE);
+    if fs.tab_count() > 1 {
+        if !fs.is_current_tab_locked() || ask_close_locked_tab(main_win.upcast_ref()).await {
+            fs.close_tab();
         }
-    });
+    }
 }
 
-pub fn view_close_all_tabs(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_close_all_tabs(main_win: MainWindow) {
     main_win
         .file_selector(FileSelectorID::ACTIVE)
         .close_all_tabs();
 }
 
-pub fn view_close_duplicate_tabs(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_close_duplicate_tabs(main_win: MainWindow) {
     main_win
         .file_selector(FileSelectorID::ACTIVE)
         .close_duplicate_tabs();
 }
 
-pub fn view_prev_tab(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_prev_tab(main_win: MainWindow) {
     main_win.file_selector(FileSelectorID::ACTIVE).prev_tab();
 }
 
-pub fn view_next_tab(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_next_tab(main_win: MainWindow) {
     main_win.file_selector(FileSelectorID::ACTIVE).next_tab();
 }
 
-pub fn view_in_new_tab(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_in_new_tab(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     if let Some(dir) = file_selector
         .file_list()
@@ -1215,11 +885,7 @@ pub fn view_in_new_tab(
     }
 }
 
-pub fn view_in_inactive_tab(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_in_inactive_tab(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     if let Some(dir) = file_selector
         .file_list()
@@ -1233,32 +899,20 @@ pub fn view_in_inactive_tab(
     }
 }
 
-pub fn view_toggle_tab_lock(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_toggle_tab_lock(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
     file_selector.toggle_tab_lock(&file_list);
 }
 
-pub fn view_step_up(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_step_up(main_win: MainWindow) {
     main_win
         .file_selector(FileSelectorID::ACTIVE)
         .file_list()
         .focus_prev();
 }
 
-pub fn view_step_down(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn view_step_down(main_win: MainWindow) {
     main_win
         .file_selector(FileSelectorID::ACTIVE)
         .file_list()
@@ -1267,50 +921,27 @@ pub fn view_step_down(
 
 /************** Bookmarks Menu **************/
 
-pub fn bookmarks_add_current(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
+async fn bookmarks_add_current(main_win: MainWindow) {
     let fs = main_win.file_selector(FileSelectorID::ACTIVE);
     let Some(dir) = fs.file_list().directory() else {
         eprintln!("No directory. Nothing to bookmark.");
         return;
     };
     let options = GeneralOptions::new();
-
-    glib::spawn_future_local(async move {
-        bookmark_directory(main_win.upcast_ref(), &dir, &options).await;
-    });
+    bookmark_directory(main_win.upcast_ref(), &dir, &options).await;
 }
 
-pub fn bookmarks_edit(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
+async fn bookmarks_edit(main_win: MainWindow) {
     let connection_list = ConnectionList::get();
-    glib::spawn_future_local(async move {
-        let shortcuts = main_win.shortcuts();
-        let result =
-            BookmarksDialog::show(main_win.upcast_ref(), &connection_list, shortcuts).await;
-        if let Some(bookmark) = result {
-            let fs = main_win.file_selector(FileSelectorID::ACTIVE);
-            fs.goto_directory(&bookmark.connection, Path::new(&bookmark.bookmark.path()));
-        }
-    });
+    let shortcuts = main_win.shortcuts();
+    let result = BookmarksDialog::show(main_win.upcast_ref(), &connection_list, shortcuts).await;
+    if let Some(bookmark) = result {
+        let fs = main_win.file_selector(FileSelectorID::ACTIVE);
+        fs.goto_directory(&bookmark.connection, Path::new(&bookmark.bookmark.path()));
+    }
 }
 
-pub fn bookmarks_goto(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    parameter: Option<&glib::Variant>,
-) {
-    let Some(goto) = parameter.and_then(BookmarkGoToVariant::from_variant) else {
-        return;
-    };
+async fn bookmarks_goto(main_win: MainWindow, goto: BookmarkGoToVariant) {
     let Some(connection) = ConnectionList::get().find_by_uuid(&goto.connection_uuid) else {
         eprintln!(
             "[{}] Unsupported bookmark group: '{}' - ignored",
@@ -1339,11 +970,7 @@ pub fn bookmarks_goto(
     fs.goto_directory(&connection, Path::new(&bookmark.path()));
 }
 
-pub fn bookmarks_view(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn bookmarks_view(main_win: MainWindow) {
     main_win
         .file_selector(FileSelectorID::ACTIVE)
         .show_bookmarks();
@@ -1351,96 +978,53 @@ pub fn bookmarks_view(
 
 /************** Options Menu **************/
 
-pub fn options_edit(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
-    glib::spawn_future_local(async move {
-        if show_options_dialog(&main_win).await {
-            main_win.update_view();
-        }
-    });
+async fn options_edit(main_win: MainWindow) {
+    if show_options_dialog(&main_win).await {
+        main_win.update_view();
+    }
 }
 
-pub fn options_edit_shortcuts(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
-    glib::spawn_future_local(async move {
-        let shortcuts = main_win.shortcuts();
-        ShortcutsDialog::run(main_win.upcast_ref(), shortcuts).await;
-    });
+async fn options_edit_shortcuts(main_win: MainWindow) {
+    let shortcuts = main_win.shortcuts();
+    ShortcutsDialog::run(main_win.upcast_ref(), shortcuts).await;
 }
 
 /************** Connections Menu **************/
 
-pub fn connections_open(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let dialog = RemoteDialog::new(main_win);
+async fn connections_open(main_win: MainWindow) {
+    let dialog = RemoteDialog::new(&main_win);
     dialog.present();
 }
 
-pub fn connections_new(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
+async fn connections_new(main_win: MainWindow) {
     let options = NetworkOptions::new();
-    glib::spawn_future_local(async move {
-        let uri = glib::Uri::parse(&options.quick_connect_uri.get(), glib::UriFlags::NONE).ok();
-        if let Some(connection) =
-            ConnectDialog::new_connection(main_win.upcast_ref(), false, uri).await
-        {
-            let fs = main_win.file_selector(FileSelectorID::ACTIVE);
-            if fs.is_current_tab_locked() {
-                fs.new_tab();
-            }
-            fs.file_list().set_connection(&connection, None);
-            if let Some(quick_connect_uri) = connection.uri().map(|uri| uri.to_str()) {
-                if let Err(error) = options.quick_connect_uri.set(quick_connect_uri) {
-                    eprintln!("Failed to save quick connect parameters: {error}");
-                }
+    let uri = glib::Uri::parse(&options.quick_connect_uri.get(), glib::UriFlags::NONE).ok();
+    if let Some(connection) = ConnectDialog::new_connection(main_win.upcast_ref(), false, uri).await
+    {
+        let fs = main_win.file_selector(FileSelectorID::ACTIVE);
+        if fs.is_current_tab_locked() {
+            fs.new_tab();
+        }
+        fs.file_list().set_connection(&connection, None);
+        if let Some(quick_connect_uri) = connection.uri().map(|uri| uri.to_str()) {
+            if let Err(error) = options.quick_connect_uri.set(quick_connect_uri) {
+                eprintln!("Failed to save quick connect parameters: {error}");
             }
         }
-    });
+    }
 }
 
-pub fn connections_change_left(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn connections_change_left(main_win: MainWindow) {
     main_win.change_connection(FileSelectorID::LEFT);
 }
 
-pub fn connections_change_right(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn connections_change_right(main_win: MainWindow) {
     main_win.change_connection(FileSelectorID::RIGHT);
 }
 
-pub fn connections_set_current(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    parameter: Option<&glib::Variant>,
-) {
-    let Some(uuid) = parameter.and_then(|p| p.str()) else {
-        eprintln!("No connection uuid was given.");
-        return;
-    };
-
+async fn connections_set_current(main_win: MainWindow, uuid: String) {
     let con_list = ConnectionList::get();
-    let Some(con) = con_list.find_by_uuid(uuid) else {
+    let Some(con) = con_list.find_by_uuid(&uuid) else {
         eprintln!("No connection corresponds to {uuid}");
         return;
     };
@@ -1451,71 +1035,35 @@ pub fn connections_set_current(
         .set_connection(&con, None);
 }
 
-async fn close_connection(main_win: &MainWindow, con: &Connection) {
-    con.close(Some(main_win.upcast_ref())).await;
-}
-
-pub fn connections_close(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    parameter: Option<&glib::Variant>,
-) {
-    let Some(uuid) = parameter.and_then(|p| p.str()) else {
-        eprintln!("No connection uuid was given.");
-        return;
-    };
-
+async fn connections_close(main_win: MainWindow, uuid: String) {
     let con_list = ConnectionList::get();
-    let Some(con) = con_list.find_by_uuid(uuid) else {
+    let Some(con) = con_list.find_by_uuid(&uuid) else {
         eprintln!("No connection corresponds to {uuid}");
         return;
     };
 
-    let main_win = main_win.clone();
-    glib::spawn_future_local(async move {
-        close_connection(&main_win, &con).await;
-    });
+    con.close(Some(main_win.upcast_ref())).await;
 }
 
-pub fn connections_close_current(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn connections_close_current(main_win: MainWindow) {
     if let Some(con) = main_win
         .file_selector(FileSelectorID::ACTIVE)
         .file_list()
         .connection()
         .filter(|c| c.downcast_ref::<ConnectionHome>().is_none())
     {
-        let main_win = main_win.clone();
-        glib::spawn_future_local(async move {
-            close_connection(&main_win, &con).await;
-        });
+        con.close(Some(main_win.upcast_ref())).await;
     }
 }
 
 /************** Plugins Menu ***********/
 
-pub fn plugins_configure(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn plugins_configure(main_win: MainWindow) {
     let plugin_manager = main_win.plugin_manager();
     show_plugin_manager(&plugin_manager, main_win.upcast_ref());
 }
 
-pub fn plugin_action(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    parameter: Option<&glib::Variant>,
-) {
-    let Some(plugin_action) = parameter.and_then(PluginActionVariant::from_variant) else {
-        eprintln!("Unknown plugin action. Nothing to do.");
-        return;
-    };
-
+async fn plugin_action(main_win: MainWindow, plugin_action: PluginActionVariant) {
     if let Some(plugin) = main_win
         .plugin_manager()
         .active_plugins()
@@ -1535,69 +1083,37 @@ pub fn plugin_action(
 
 /************** Help Menu **************/
 
-pub fn help_help(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
-    glib::spawn_future_local(async move {
-        display_help(main_win.upcast_ref(), None).await;
-    });
+async fn help_help(main_win: MainWindow) {
+    display_help(main_win.upcast_ref(), None).await;
 }
 
-pub fn help_keyboard(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
-    glib::spawn_future_local(async move {
-        display_help(main_win.upcast_ref(), Some("gnome-commander-keyboard")).await;
-    });
+async fn help_keyboard(main_win: MainWindow) {
+    display_help(main_win.upcast_ref(), Some("gnome-commander-keyboard")).await;
 }
 
-pub fn help_web(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
-    glib::spawn_future_local(async move {
-        if let Err(error) = gtk::UriLauncher::new(PACKAGE_URL)
-            .launch_future(Some(&main_win))
-            .await
-        {
-            ErrorMessage::with_error(gettext("There was an error opening home page."), &error)
-                .show(main_win.upcast_ref())
-                .await;
-        }
-    });
+async fn help_web(main_win: MainWindow) {
+    if let Err(error) = gtk::UriLauncher::new(PACKAGE_URL)
+        .launch_future(Some(&main_win))
+        .await
+    {
+        ErrorMessage::with_error(gettext("There was an error opening home page."), &error)
+            .show(main_win.upcast_ref())
+            .await;
+    }
 }
 
-pub fn help_problem(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
-    let main_win = main_win.clone();
-    glib::spawn_future_local(async move {
-        if let Err(error) = gtk::UriLauncher::new(PACKAGE_BUGREPORT)
-            .launch_future(Some(&main_win))
-            .await
-        {
-            ErrorMessage::with_error(gettext("There was an error reporting problem."), &error)
-                .show(main_win.upcast_ref())
-                .await;
-        }
-    });
+async fn help_problem(main_win: MainWindow) {
+    if let Err(error) = gtk::UriLauncher::new(PACKAGE_BUGREPORT)
+        .launch_future(Some(&main_win))
+        .await
+    {
+        ErrorMessage::with_error(gettext("There was an error reporting problem."), &error)
+            .show(main_win.upcast_ref())
+            .await;
+    }
 }
 
-pub fn help_about(
-    main_win: &MainWindow,
-    _action: &gio::SimpleAction,
-    _parameter: Option<&glib::Variant>,
-) {
+async fn help_about(main_win: MainWindow) {
     let authors = [
         "Marcus Bjurman <marbj499@student.liu.se>",
         "Piotr Eljasiak <epiotr@use.pl>",
@@ -1632,7 +1148,7 @@ Copyright \u{00A9} 2024 Andrey Kuteiko";
     );
 
     gtk::AboutDialog::builder()
-        .transient_for(main_win)
+        .transient_for(&main_win)
         .name("GNOME Commander")
         .version(PACKAGE_VERSION)
         .comments(gettext(
@@ -1653,39 +1169,70 @@ Copyright \u{00A9} 2024 Andrey Kuteiko";
 
 pub struct UserAction {
     pub action_name: &'static str,
-    pub activate: Option<fn(&MainWindow, &gio::SimpleAction, Option<&glib::Variant>)>,
-    pub parameter_type: Option<Cow<'static, glib::VariantTy>>,
+    pub action_code: ActionCode,
     pub name: &'static str,
     pub description: String,
 }
 
+pub enum ActionCode {
+    Plain {
+        activate: Rc<dyn Fn(MainWindow)>,
+    },
+    WithParameter {
+        activate: Rc<dyn Fn(MainWindow, Option<&glib::Variant>)>,
+        parameter_type: Cow<'static, glib::VariantTy>,
+    },
+    Predefined,
+}
+
 impl UserAction {
-    const fn new(
+    fn new<F: std::future::Future<Output = ()> + 'static>(
         action_name: &'static str,
-        activate: fn(&MainWindow, &gio::SimpleAction, Option<&glib::Variant>),
+        activate: impl Fn(MainWindow) -> F + 'static,
         name: &'static str,
         description: String,
     ) -> Self {
+        let activate = Rc::new(activate);
         Self {
             action_name,
-            activate: Some(activate),
-            parameter_type: None,
+            action_code: ActionCode::Plain {
+                activate: Rc::new(move |mw| {
+                    let activate = activate.clone();
+                    glib::spawn_future_local(async move {
+                        activate(mw).await;
+                    });
+                }),
+            },
             name,
             description,
         }
     }
 
-    const fn with_param(
+    fn with_param<T: FromVariant + 'static, F: std::future::Future<Output = ()> + 'static>(
         action_name: &'static str,
-        activate: fn(&MainWindow, &gio::SimpleAction, Option<&glib::Variant>),
-        parameter_type: Cow<'static, glib::VariantTy>,
+        activate: impl Fn(MainWindow, T) -> F + 'static,
         name: &'static str,
         description: String,
     ) -> Self {
+        let activate = Rc::new(activate);
         Self {
             action_name,
-            activate: Some(activate),
-            parameter_type: Some(parameter_type),
+            action_code: ActionCode::WithParameter {
+                activate: Rc::new(move |mw, parameter: Option<&glib::Variant>| {
+                    if let Some(param) = parameter.and_then(|v| v.get::<T>()) {
+                        let activate = activate.clone();
+                        glib::spawn_future_local(async move {
+                            activate(mw, param).await;
+                        });
+                    } else {
+                        eprintln!(
+                            "Invalid parameter {:?} for action '{}'",
+                            parameter, action_name
+                        );
+                    }
+                }),
+                parameter_type: T::static_variant_type(),
+            },
             name,
             description,
         }
@@ -1698,20 +1245,14 @@ impl UserAction {
     ) -> Self {
         Self {
             action_name,
-            activate: None,
-            parameter_type: None,
+            action_code: ActionCode::Predefined,
             name,
             description,
         }
     }
 
-    pub fn action_entry(&self) -> Option<gio::ActionEntry<MainWindow>> {
-        Some(
-            gio::ActionEntry::builder(&self.action_name)
-                .activate(self.activate?)
-                .parameter_type(self.parameter_type.as_deref())
-                .build(),
-        )
+    pub fn has_parameter(&self) -> bool {
+        matches!(self.action_code, ActionCode::WithParameter { .. })
     }
 }
 
@@ -1924,7 +1465,6 @@ pub const USER_ACTIONS: LazyLock<Vec<UserAction>> = LazyLock::new(|| {
         UserAction::with_param(
             "command-execute",
             command_execute,
-            glib::VariantTy::STRING.into(),
             "command.execute",
             gettext("Execute command"),
         ),
@@ -2139,7 +1679,6 @@ pub const USER_ACTIONS: LazyLock<Vec<UserAction>> = LazyLock::new(|| {
         UserAction::with_param(
             "bookmarks-goto",
             bookmarks_goto,
-            BookmarkGoToVariant::static_variant_type(),
             "bookmarks.goto",
             gettext("Go to bookmarked location"),
         ),
@@ -2178,7 +1717,6 @@ pub const USER_ACTIONS: LazyLock<Vec<UserAction>> = LazyLock::new(|| {
         UserAction::with_param(
             "connections-set-current",
             connections_set_current,
-            glib::VariantTy::STRING.into(),
             "connections.set-uuid",
             gettext("Set connection"),
         ),
@@ -2197,7 +1735,6 @@ pub const USER_ACTIONS: LazyLock<Vec<UserAction>> = LazyLock::new(|| {
         UserAction::with_param(
             "connections-close",
             connections_close,
-            glib::VariantTy::STRING.into(),
             "connections.close-uuid",
             gettext("Close connection"),
         ),
@@ -2217,7 +1754,6 @@ pub const USER_ACTIONS: LazyLock<Vec<UserAction>> = LazyLock::new(|| {
         UserAction::with_param(
             "plugin-action",
             plugin_action,
-            PluginActionVariant::static_variant_type(),
             "plugin.action",
             String::new(), // invisible to users
         ),
