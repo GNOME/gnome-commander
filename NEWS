@@ -1,8 +1,8 @@
-Starting after version 1.14.0, we provide release notes through the AppData file. As such, app stores (like GNOME Software) can show release notes to users.
+Starting after version 1.14.0, we provide release notes through the metainfo file. As such, app stores (like GNOME Software) can show release notes to users.
 
 Human-readable textual output can easily be generated with the following command:
 
-$ appstream-util appdata-to-news /usr/share/metainfo/org.gnome.gnome-commander.appdata.xml
+$ appstream-util appdata-to-news /usr/share/metainfo/org.gnome.gnome-commander.metainfo.xml
 
 ===================================
 gnome-commander 1.14.0
