@@ -12,11 +12,11 @@ Gnome Commander is released under the GNU General Public License (GPL) version 2
 see the file ``COPYING`` for more information.
 
 The online available Git log contains a detailed description on what has changed
-in each version. For program users the AppData file might be a better place to
+in each version. For program users the metainfo file might be a better place to
 look since it contains change summaries between the different versions.
 
-Generate a human readable version of the appdata file with the following command:
-  `appstream-util appdata-to-news data/org.gnome.gnome-commander.appdata.xml`
+Generate a human readable version of the metainfo file with the following command:
+  `appstream-util appdata-to-news data/org.gnome.gnome-commander.metainfo.xml`
 
 * Website with more information: https://gcmd.github.io/
 
