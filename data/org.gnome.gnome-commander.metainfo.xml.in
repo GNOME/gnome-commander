@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2014-2024 Uwe Scholz <u.scholz83@gmx.de> -->
-<component type="desktop">
+<component type="desktop-application">
   <id>org.gnome.gnome-commander</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
@@ -31,11 +31,8 @@
     <keyword>WebDAV</keyword>
   </keywords>
   <screenshots>
-    <screenshot type="default" width="1280" height="720">
-      <image>https://gcmd.github.io/ss/MainWin-Classic.png</image>
-    </screenshot>
-    <screenshot width="950" height="540">
-      <image>https://gcmd.github.io/ss/adv_ren.png</image>
+    <screenshot type="default">
+      <image>https://gitlab.gnome.org/GNOME/gnome-commander/-/raw/master/doc/C/figures/gnome-commander_window.png</image>
     </screenshot>
   </screenshots>
   <url type="homepage">https://gcmd.github.io/index.html</url>
@@ -49,7 +46,7 @@
   <project_group>GNOME</project_group>
   <!-- developer_name tag deprecated with Appstream 1.0 -->
   <developer_name>The GNOME Project</developer_name>
-  <developer id="gnome.org">
+  <developer id="org.gnome">
     <name>The GNOME Project</name>
   </developer>
   <translation type="gettext">gnome-commander</translation>
