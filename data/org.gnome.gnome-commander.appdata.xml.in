@@ -69,7 +69,7 @@
       <description>
         <p>This release fixes the following bugs:</p>
         <ul>
-          <li>...</li>
+          <li>Issue #201: Crash when trying to enter a directory where user doesn't have permission </li>
         </ul>
         <p>New or updated translations: ...</p>
         <p>New or updated docs: ...</p>
