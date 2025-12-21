@@ -580,7 +580,7 @@ impl MenuBuilderExt for gio::Menu {
     }
 }
 
-pub fn extract_menu_shortcuts(menu: &gio::MenuModel) -> gio::ListModel {
+pub fn extract_menu_shortcuts(menu: &gio::MenuModel) -> gio::ListStore {
     fn collect(menu: &gio::MenuModel, item_index: i32, accel: &str, store: &gio::ListStore) {
         let Some(trigger) = gtk::ShortcutTrigger::parse_string(accel) else {
             eprintln!("Failed to parse '{}' as an accelerator.", accel);
@@ -621,7 +621,7 @@ pub fn extract_menu_shortcuts(menu: &gio::MenuModel) -> gio::ListModel {
 
     let store = gio::ListStore::new::<gtk::Shortcut>();
     traverse(&store, menu);
-    store.upcast()
+    store
 }
 
 pub trait GnomeCmdFileExt {

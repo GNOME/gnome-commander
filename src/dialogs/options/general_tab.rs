@@ -169,12 +169,10 @@ impl GeneralTab {
         quick_search.append(&quick_search_just_char);
         let quick_search_exact_match_begin = gtk::CheckButton::builder()
             .label(gettext("Match beginning of the file name"))
-            .group(&quick_search_ctrl_alt)
             .build();
         quick_search.append(&quick_search_exact_match_begin);
         let quick_search_exact_match_end = gtk::CheckButton::builder()
             .label(gettext("Match end of the file name"))
-            .group(&quick_search_ctrl_alt)
             .build();
         quick_search.append(&quick_search_exact_match_end);
 

@@ -159,6 +159,10 @@ pub mod imp {
             klass.install_property_action("win.view-hidden-files", "view-hidden-files");
             klass.install_property_action("win.view-backup-files", "view-backup-files");
 
+            klass.install_action("win.swap-panes", None, |obj, _, _| obj.swap_panels());
+            klass.install_action("win.show-slide-popup", None, |obj, _, _| {
+                obj.imp().show_slide_popup()
+            });
             klass.install_action(
                 "win.view-slide",
                 Some(&i32::static_variant_type()),
@@ -371,8 +375,20 @@ pub mod imp {
             vbox.append(&self.buttonbar);
 
             let shortcuts = extract_menu_shortcuts(menu.upcast_ref());
+            shortcuts.append(&gtk::Shortcut::new(
+                gtk::ShortcutTrigger::parse_string("<Control>s"),
+                Some(gtk::NamedAction::new("win.show-slide-popup")),
+            ));
+            shortcuts.append(&gtk::Shortcut::new(
+                gtk::ShortcutTrigger::parse_string("<Control>u"),
+                Some(gtk::NamedAction::new("win.swap-panes")),
+            ));
+            shortcuts.append(&gtk::Shortcut::new(
+                gtk::ShortcutTrigger::parse_string("<Alt><Shift>p"),
+                Some(gtk::NamedAction::new("win.plugins-configure")),
+            ));
+
             let shortcuts_controller = gtk::ShortcutController::for_model(&shortcuts);
-            shortcuts_controller.set_propagation_phase(gtk::PropagationPhase::Capture);
             mw.add_controller(shortcuts_controller);
 
             for user_action in &*USER_ACTIONS {
@@ -442,9 +458,19 @@ pub mod imp {
             self.file_selector_left.borrow().update_connections();
             self.file_selector_right.borrow().update_connections();
 
-            let key_controller = gtk::EventControllerKey::builder()
+            let key_capture_controller = gtk::EventControllerKey::builder()
                 .propagation_phase(gtk::PropagationPhase::Capture)
                 .build();
+            key_capture_controller.connect_key_pressed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                #[upgrade_or]
+                glib::Propagation::Proceed,
+                move |_, key, _, state| imp.on_key_pressed_capture(key, state)
+            ));
+            mw.add_controller(key_capture_controller);
+
+            let key_controller = gtk::EventControllerKey::new();
             key_controller.connect_key_pressed(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
@@ -947,53 +973,16 @@ pub mod imp {
             self.cmdline.set_directory(&directory);
         }
 
-        fn on_key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
-            fn activate_local_action(mw: &MainWindow, action: &str) {
-                gio::prelude::ActionGroupExt::activate_action(&*mw.obj(), action, None);
-            }
-
+        fn on_key_pressed_capture(
+            &self,
+            key: gdk::Key,
+            state: gdk::ModifierType,
+        ) -> glib::Propagation {
             match (state, key) {
-                (CONTROL_ALT, gdk::Key::c | gdk::Key::C) => {
-                    if self.cmdline.is_visible()
-                        && self.quick_search_shortcut.get() == QuickSearchShortcut::JustACharacter
-                    {
-                        self.cmdline.grab_focus();
-                    }
-                    return glib::Propagation::Stop;
-                }
                 (ALT, gdk::Key::F8) | (CONTROL, gdk::Key::e | gdk::Key::E | gdk::Key::Down) => {
                     if self.cmdline.is_visible() {
                         self.cmdline.show_history();
                     }
-                    return glib::Propagation::Stop;
-                }
-                (CONTROL_SHIFT, gdk::Key::h | gdk::Key::H) => {
-                    self.obj()
-                        .set_view_hidden_files(!self.obj().view_hidden_files());
-                    return glib::Propagation::Stop;
-                }
-                (CONTROL, gdk::Key::x | gdk::Key::X) => {
-                    activate_local_action(self, "edit-cap-cut");
-                    return glib::Propagation::Stop;
-                }
-                (CONTROL, gdk::Key::c | gdk::Key::C) => {
-                    activate_local_action(self, "edit-cap-copy");
-                    return glib::Propagation::Stop;
-                }
-                (CONTROL, gdk::Key::v | gdk::Key::V) => {
-                    activate_local_action(self, "edit-cap-paste");
-                    return glib::Propagation::Stop;
-                }
-                (CONTROL, gdk::Key::s | gdk::Key::S) => {
-                    self.show_slide_popup();
-                    return glib::Propagation::Stop;
-                }
-                (CONTROL, gdk::Key::u | gdk::Key::U) => {
-                    self.obj().swap_panels();
-                    return glib::Propagation::Stop;
-                }
-                (ALT_SHIFT, gdk::Key::p | gdk::Key::P) => {
-                    activate_local_action(self, "plugins-configure");
                     return glib::Propagation::Stop;
                 }
                 (ALT_SHIFT, gdk::Key::f | gdk::Key::F) => {
@@ -1010,52 +999,6 @@ pub mod imp {
                     }
                     return glib::Propagation::Stop;
                 }
-                (NO_MOD, gdk::Key::Tab | gdk::Key::ISO_Left_Tab) => {
-                    self.obj().switch_to_opposite();
-                    return glib::Propagation::Stop;
-                }
-                (NO_MOD, gdk::Key::F1) => {
-                    activate_local_action(self, "help-help");
-                    return glib::Propagation::Stop;
-                }
-                (NO_MOD, gdk::Key::F2) => {
-                    activate_local_action(self, "file-rename");
-                    return glib::Propagation::Stop;
-                }
-                (NO_MOD, gdk::Key::F3) => {
-                    activate_local_action(self, "file-view");
-                    return glib::Propagation::Stop;
-                }
-                (NO_MOD, gdk::Key::F4) => {
-                    activate_local_action(self, "file-edit");
-                    return glib::Propagation::Stop;
-                }
-                (NO_MOD, gdk::Key::F5) => {
-                    activate_local_action(self, "file-copy");
-                    return glib::Propagation::Stop;
-                }
-                (NO_MOD, gdk::Key::F6) => {
-                    activate_local_action(self, "file-move");
-                    return glib::Propagation::Stop;
-                }
-                (NO_MOD, gdk::Key::F7) => {
-                    activate_local_action(self, "file-mkdir");
-                    return glib::Propagation::Stop;
-                }
-                (NO_MOD, gdk::Key::F8) => {
-                    activate_local_action(self, "file-delete");
-                    return glib::Propagation::Stop;
-                }
-                (NO_MOD, gdk::Key::F9) => {
-                    activate_local_action(self, "file-search");
-                    return glib::Propagation::Stop;
-                }
-                (NO_MOD, gdk::Key::Escape) => {
-                    if self.cmdline.is_visible() {
-                        self.cmdline.set_text("");
-                    }
-                    return glib::Propagation::Stop;
-                }
                 _ => {}
             }
 
@@ -1066,6 +1009,113 @@ pub mod imp {
                 glib::Propagation::Stop
             } else {
                 glib::Propagation::Proceed
+            }
+        }
+
+        fn on_key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
+            fn activate_local_action(mw: &MainWindow, action: &str) {
+                gio::prelude::ActionGroupExt::activate_action(&*mw.obj(), action, None);
+            }
+
+            match (state, key) {
+                (CONTROL_ALT, gdk::Key::c | gdk::Key::C) => {
+                    if self.cmdline.is_visible()
+                        && self.quick_search_shortcut.get() == QuickSearchShortcut::JustACharacter
+                    {
+                        self.cmdline.grab_focus();
+                    }
+                    glib::Propagation::Stop
+                }
+                (CONTROL_SHIFT, gdk::Key::h | gdk::Key::H) => {
+                    self.obj()
+                        .set_view_hidden_files(!self.obj().view_hidden_files());
+                    glib::Propagation::Stop
+                }
+                (CONTROL, gdk::Key::x | gdk::Key::X) => {
+                    activate_local_action(self, "edit-cap-cut");
+                    glib::Propagation::Stop
+                }
+                (CONTROL, gdk::Key::c | gdk::Key::C) => {
+                    activate_local_action(self, "edit-cap-copy");
+                    glib::Propagation::Stop
+                }
+                (CONTROL, gdk::Key::v | gdk::Key::V) => {
+                    activate_local_action(self, "edit-cap-paste");
+                    glib::Propagation::Stop
+                }
+                (CONTROL, gdk::Key::s | gdk::Key::S) => {
+                    self.show_slide_popup();
+                    glib::Propagation::Stop
+                }
+                (CONTROL, gdk::Key::u | gdk::Key::U) => {
+                    self.obj().swap_panels();
+                    glib::Propagation::Stop
+                }
+                (ALT_SHIFT, gdk::Key::p | gdk::Key::P) => {
+                    activate_local_action(self, "plugins-configure");
+                    glib::Propagation::Stop
+                }
+                (ALT_SHIFT, gdk::Key::f | gdk::Key::F) => {
+                    if let Some(remote_con) = ConnectionList::get()
+                        .all()
+                        .iter::<Connection>()
+                        .flatten()
+                        .find_map(|c| c.downcast::<ConnectionRemote>().ok())
+                    {
+                        self.obj()
+                            .file_selector(FileSelectorID::ACTIVE)
+                            .file_list()
+                            .set_connection(&remote_con, None);
+                    }
+                    glib::Propagation::Stop
+                }
+                (NO_MOD, gdk::Key::Tab | gdk::Key::ISO_Left_Tab) => {
+                    self.obj().switch_to_opposite();
+                    glib::Propagation::Stop
+                }
+                (NO_MOD, gdk::Key::F1) => {
+                    activate_local_action(self, "help-help");
+                    glib::Propagation::Stop
+                }
+                (NO_MOD, gdk::Key::F2) => {
+                    activate_local_action(self, "file-rename");
+                    glib::Propagation::Stop
+                }
+                (NO_MOD, gdk::Key::F3) => {
+                    activate_local_action(self, "file-view");
+                    glib::Propagation::Stop
+                }
+                (NO_MOD, gdk::Key::F4) => {
+                    activate_local_action(self, "file-edit");
+                    glib::Propagation::Stop
+                }
+                (NO_MOD, gdk::Key::F5) => {
+                    activate_local_action(self, "file-copy");
+                    glib::Propagation::Stop
+                }
+                (NO_MOD, gdk::Key::F6) => {
+                    activate_local_action(self, "file-move");
+                    glib::Propagation::Stop
+                }
+                (NO_MOD, gdk::Key::F7) => {
+                    activate_local_action(self, "file-mkdir");
+                    glib::Propagation::Stop
+                }
+                (NO_MOD, gdk::Key::F8) => {
+                    activate_local_action(self, "file-delete");
+                    glib::Propagation::Stop
+                }
+                (NO_MOD, gdk::Key::F9) => {
+                    activate_local_action(self, "file-search");
+                    glib::Propagation::Stop
+                }
+                (NO_MOD, gdk::Key::Escape) => {
+                    if self.cmdline.is_visible() {
+                        self.cmdline.set_text("");
+                    }
+                    glib::Propagation::Stop
+                }
+                _ => glib::Propagation::Proceed,
             }
         }
     }
