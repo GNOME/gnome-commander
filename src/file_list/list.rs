@@ -318,7 +318,12 @@ mod imp {
                 .vexpand(true)
                 .child(&self.view)
                 .build();
-            scrolled_window.set_parent(&*fl);
+
+            let capture_event_box = gtk::Box::builder()
+                .orientation(gtk::Orientation::Vertical)
+                .build();
+            capture_event_box.append(&scrolled_window);
+            capture_event_box.set_parent(&*fl);
 
             for (column_id, title, factory, sorter) in [
                 (ColumnID::COLUMN_ICON, "", create_icon_factory(), None),
@@ -403,9 +408,19 @@ mod imp {
                 move |_| imp.cursor_changed()
             ));
 
-            let key_controller = gtk::EventControllerKey::builder()
+            let key_capture_controller = gtk::EventControllerKey::builder()
                 .propagation_phase(gtk::PropagationPhase::Capture)
                 .build();
+            key_capture_controller.connect_key_pressed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                #[upgrade_or]
+                glib::Propagation::Proceed,
+                move |_, key, _, state| imp.key_pressed_capture(key, state)
+            ));
+            capture_event_box.add_controller(key_capture_controller);
+
+            let key_controller = gtk::EventControllerKey::new();
             key_controller.connect_key_pressed(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
@@ -413,7 +428,7 @@ mod imp {
                 glib::Propagation::Proceed,
                 move |_, key, _, state| imp.key_pressed(key, state)
             ));
-            fl.add_controller(key_controller);
+            capture_event_box.add_controller(key_controller);
 
             let click_controller = gtk::GestureClick::builder()
                 .button(0)
@@ -882,6 +897,117 @@ mod imp {
             }
         }
 
+        fn key_pressed_capture(
+            &self,
+            key: gdk::Key,
+            state: gdk::ModifierType,
+        ) -> glib::Propagation {
+            match (state, key) {
+                (SHIFT, gdk::Key::Page_Up | gdk::Key::KP_Page_Up | gdk::Key::KP_9) => {
+                    self.shift_down_key.set(Some(gdk::Key::Page_Up));
+                    self.shift_down_row
+                        .replace(self.obj().focused_file_position());
+                    glib::Propagation::Proceed
+                }
+                (SHIFT, gdk::Key::Page_Down | gdk::Key::KP_Page_Down | gdk::Key::KP_3) => {
+                    self.shift_down_key.set(Some(gdk::Key::Page_Down));
+                    self.shift_down_row
+                        .replace(self.obj().focused_file_position());
+                    glib::Propagation::Proceed
+                }
+                (
+                    SHIFT,
+                    gdk::Key::Up
+                    | gdk::Key::KP_Up
+                    | gdk::Key::KP_8
+                    | gdk::Key::Down
+                    | gdk::Key::KP_Down
+                    | gdk::Key::KP_2,
+                ) => {
+                    self.shift_down_key.set(Some(gdk::Key::Up));
+                    if let Some(focused) = self.obj().focused_file_position() {
+                        self.toggle_file(focused);
+                    }
+                    glib::Propagation::Proceed
+                }
+                (SHIFT, gdk::Key::Home | gdk::Key::KP_Home | gdk::Key::KP_7) => {
+                    self.shift_down_key.set(Some(gdk::Key::Home));
+                    self.shift_down_row
+                        .replace(self.obj().focused_file_position());
+                    glib::Propagation::Proceed
+                }
+                (SHIFT, gdk::Key::End | gdk::Key::KP_End | gdk::Key::KP_1) => {
+                    self.shift_down_key.set(Some(gdk::Key::End));
+                    self.shift_down_row
+                        .replace(self.obj().focused_file_position());
+                    glib::Propagation::Proceed
+                }
+                (CONTROL, gdk::Key::P | gdk::Key::p) => {
+                    self.add_cwd_to_cmdline();
+                    glib::Propagation::Stop
+                }
+                (CONTROL, gdk::Key::Return | gdk::Key::KP_Enter) => {
+                    self.add_file_to_cmdline(false);
+                    glib::Propagation::Stop
+                }
+                (CONTROL_SHIFT, gdk::Key::Return | gdk::Key::KP_Enter) => {
+                    self.add_file_to_cmdline(true);
+                    glib::Propagation::Stop
+                }
+                (NO_MOD, gdk::Key::Return | gdk::Key::KP_Enter) => {
+                    let event_processed = self.obj().emit_by_name::<bool>("cmdline-execute", &[]);
+                    if !event_processed {
+                        if let Some(file) = self.obj().focused_file() {
+                            self.obj().emit_by_name::<()>("file-activated", &[&file]);
+                        }
+                    }
+                    glib::Propagation::Stop
+                }
+                (NO_MOD, gdk::Key::space) => {
+                    self.obj()
+                        .set_cursor(gdk::Cursor::from_name("wait", None).as_ref());
+
+                    self.obj().toggle();
+                    if let Some(position) = self.obj().focused_file_position() {
+                        self.obj().show_dir_tree_size(position);
+                    }
+                    self.obj().emit_files_changed();
+
+                    self.obj().set_cursor(None);
+                    glib::Propagation::Stop
+                }
+                (NO_MOD, gdk::Key::Left | gdk::Key::KP_Left) => {
+                    if let Some(dotdot) = self
+                        .items_iter()
+                        .map(|item| item.file())
+                        .find(|f| f.is_dotdot())
+                    {
+                        self.obj().emit_by_name::<()>("file-activated", &[&dotdot]);
+                    }
+                    glib::Propagation::Stop
+                }
+                (NO_MOD, gdk::Key::Right | gdk::Key::KP_Right) => {
+                    if let Some(directory) = self
+                        .obj()
+                        .selected_file()
+                        .filter(|f| f.file_info().file_type() == gio::FileType::Directory)
+                    {
+                        self.obj()
+                            .emit_by_name::<()>("file-activated", &[&directory]);
+                    }
+                    glib::Propagation::Stop
+                }
+                (NO_MOD, gdk::Key::Shift_L | gdk::Key::Shift_R) => {
+                    if !self.shift_down.get() {
+                        self.shift_down_row
+                            .replace(self.obj().focused_file_position());
+                    }
+                    glib::Propagation::Stop
+                }
+                _ => glib::Propagation::Proceed,
+            }
+        }
+
         fn key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
             match (state, key) {
                 (ALT, gdk::Key::Return | gdk::Key::KP_Enter) => {
@@ -906,51 +1032,6 @@ mod imp {
                 (SHIFT, gdk::Key::F10) => {
                     self.obj().show_file_popup(None);
                     return glib::Propagation::Stop;
-                }
-                (
-                    SHIFT,
-                    gdk::Key::Left | gdk::Key::KP_Left | gdk::Key::Right | gdk::Key::KP_Right,
-                ) => {
-                    return glib::Propagation::Proceed;
-                }
-                (SHIFT, gdk::Key::Page_Up | gdk::Key::KP_Page_Up | gdk::Key::KP_9) => {
-                    self.shift_down_key.set(Some(gdk::Key::Page_Up));
-                    self.shift_down_row
-                        .replace(self.obj().focused_file_position());
-                    return glib::Propagation::Proceed;
-                }
-                (SHIFT, gdk::Key::Page_Down | gdk::Key::KP_Page_Down | gdk::Key::KP_3) => {
-                    self.shift_down_key.set(Some(gdk::Key::Page_Down));
-                    self.shift_down_row
-                        .replace(self.obj().focused_file_position());
-                    return glib::Propagation::Proceed;
-                }
-                (
-                    SHIFT,
-                    gdk::Key::Up
-                    | gdk::Key::KP_Up
-                    | gdk::Key::KP_8
-                    | gdk::Key::Down
-                    | gdk::Key::KP_Down
-                    | gdk::Key::KP_2,
-                ) => {
-                    self.shift_down_key.set(Some(gdk::Key::Up));
-                    if let Some(focused) = self.obj().focused_file_position() {
-                        self.toggle_file(focused);
-                    }
-                    return glib::Propagation::Proceed;
-                }
-                (SHIFT, gdk::Key::Home | gdk::Key::KP_Home | gdk::Key::KP_7) => {
-                    self.shift_down_key.set(Some(gdk::Key::Home));
-                    self.shift_down_row
-                        .replace(self.obj().focused_file_position());
-                    return glib::Propagation::Proceed;
-                }
-                (SHIFT, gdk::Key::End | gdk::Key::KP_End | gdk::Key::KP_1) => {
-                    self.shift_down_key.set(Some(gdk::Key::End));
-                    self.shift_down_row
-                        .replace(self.obj().focused_file_position());
-                    return glib::Propagation::Proceed;
                 }
                 (SHIFT, gdk::Key::Delete | gdk::Key::KP_Delete) => {
                     let this = self.obj().clone();
@@ -977,40 +1058,6 @@ mod imp {
                 }
                 (CONTROL, gdk::Key::F6) => {
                     self.obj().sort_by(ColumnID::COLUMN_SIZE);
-                    return glib::Propagation::Stop;
-                }
-                (CONTROL, gdk::Key::P | gdk::Key::p) => {
-                    self.add_cwd_to_cmdline();
-                    return glib::Propagation::Stop;
-                }
-                (CONTROL, gdk::Key::Return | gdk::Key::KP_Enter) => {
-                    self.add_file_to_cmdline(false);
-                    return glib::Propagation::Stop;
-                }
-                (CONTROL_SHIFT, gdk::Key::Return | gdk::Key::KP_Enter) => {
-                    self.add_file_to_cmdline(true);
-                    return glib::Propagation::Stop;
-                }
-                (NO_MOD, gdk::Key::Return | gdk::Key::KP_Enter) => {
-                    let event_processed = self.obj().emit_by_name::<bool>("cmdline-execute", &[]);
-                    if !event_processed {
-                        if let Some(file) = self.obj().focused_file() {
-                            self.obj().emit_by_name::<()>("file-activated", &[&file]);
-                        }
-                    }
-                    return glib::Propagation::Stop;
-                }
-                (NO_MOD, gdk::Key::space) => {
-                    self.obj()
-                        .set_cursor(gdk::Cursor::from_name("wait", None).as_ref());
-
-                    self.obj().toggle();
-                    if let Some(position) = self.obj().focused_file_position() {
-                        self.obj().show_dir_tree_size(position);
-                    }
-                    self.obj().emit_files_changed();
-
-                    self.obj().set_cursor(None);
                     return glib::Propagation::Stop;
                 }
                 (NO_MOD, gdk::Key::KP_Add | gdk::Key::plus | gdk::Key::equal) => {
@@ -1051,23 +1098,8 @@ mod imp {
                     });
                     return glib::Propagation::Stop;
                 }
-                (NO_MOD, gdk::Key::Shift_L | gdk::Key::Shift_R) => {
-                    if !self.shift_down.get() {
-                        self.shift_down_row
-                            .replace(self.obj().focused_file_position());
-                    }
-                    return glib::Propagation::Stop;
-                }
                 (NO_MOD, gdk::Key::Menu) => {
                     self.obj().show_file_popup(None);
-                    return glib::Propagation::Stop;
-                }
-                (NO_MOD, gdk::Key::F3) => {
-                    let _ = self.obj().activate_action("fl.file-view", None);
-                    return glib::Propagation::Stop;
-                }
-                (NO_MOD, gdk::Key::F4) => {
-                    let _ = self.obj().activate_action("fl.file-edit", None);
                     return glib::Propagation::Stop;
                 }
                 _ => {}
@@ -1076,10 +1108,11 @@ mod imp {
             if is_quicksearch_starting_character(key) {
                 if is_quicksearch_starting_modifier(self.quick_search_shortcut.get(), state) {
                     self.obj().show_quick_search(Some(key));
-                } else if let Some(text) = key.to_unicode().map(|c| c.to_string()) {
+                    return glib::Propagation::Stop;
+                } else if let Some(text) = text_typing(key, state) {
                     self.obj().emit_by_name::<()>("cmdline-append", &[&text]);
+                    return glib::Propagation::Stop;
                 }
-                return glib::Propagation::Stop;
             }
             glib::Propagation::Proceed
         }
@@ -1420,6 +1453,12 @@ mod imp {
             QuickSearchShortcut::Alt => state == ALT,
             QuickSearchShortcut::JustACharacter => state == NO_MOD,
         }
+    }
+
+    fn text_typing(key: gdk::Key, state: gdk::ModifierType) -> Option<String> {
+        (state.difference(SHIFT) == NO_MOD)
+            .then(|| key.to_unicode().map(|c| c.to_string()))
+            .flatten()
     }
 
     pub fn type_string(file_type: gio::FileType) -> &'static str {
@@ -2478,6 +2517,7 @@ fn matches_pattern(file: &str, patterns: &str) -> bool {
         .split(';')
         .any(|pattern| fnmatch(pattern, file, false))
 }
+
 fn create_icon_factory() -> gtk::ListItemFactory {
     let icon_cache = icon_cache();
 
