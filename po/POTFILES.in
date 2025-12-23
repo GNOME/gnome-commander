@@ -21,7 +21,6 @@ src/connection/device.rs
 src/connection/home.rs
 src/connection/remote.rs
 src/connection/smb.rs
-src/data.rs
 src/dialogs/about_plugin.rs
 src/dialogs/chmod_dialog.rs
 src/dialogs/chown_dialog.rs
