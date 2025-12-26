@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2025-04-10 23:17+0000\n"
-"PO-Revision-Date: 2025-04-12 19:20+0200\n"
+"POT-Creation-Date: 2025-12-23 23:24+0000\n"
+"PO-Revision-Date: 2025-12-24 00:57+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.8\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -16312,12 +16312,12 @@ msgstr "Versionsöversikt"
 #. (itstool) path: sect1/para
 #: C/releases.xml:10
 msgid ""
-"Starting after version 1.14.0, we provide release notes through the AppData "
+"Starting after version 1.14.0, we provide release notes through the metainfo "
 "file. As such, app stores (like GNOME Software) can show release notes to "
 "users."
 msgstr ""
 "Med start efter version 1.14.0 kommer vi tillhandahålla kommentarer till "
-"utgåvor genom AppData-filen. På så sätt kan programbutiker (som GNOME "
+"utgåvor genom metainfo-filen. På så sätt kan programbutiker (som GNOME "
 "Programvara) visa kommentarer till utgåvor för användare."
 
 #. (itstool) path: sect1/para
@@ -16333,10 +16333,10 @@ msgstr ""
 #: C/releases.xml:12
 msgid ""
 "appstream-util appdata-to-news /usr/share/metainfo/org.gnome.gnome-"
-"commander.appdata.xml"
+"commander.metainfo.xml"
 msgstr ""
 "appstream-util appdata-to-news /usr/share/metainfo/org.gnome.gnome-"
-"commander.appdata.xml"
+"commander.metainfo.xml"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:20
