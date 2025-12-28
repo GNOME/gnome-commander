@@ -2191,19 +2191,24 @@ impl FileList {
             eprintln!("No window");
             return;
         };
-        let Some(file) = self.selected_file() else {
+        let Some(selected) = self
+            .selection()
+            .selected_item()
+            .and_downcast::<FileListItem>()
+        else {
             return;
         };
-        let Some(rect) = self.focus_row_coordinates() else {
+        let Some(rect) = self.focus_row_coordinates(&selected) else {
             eprintln!("Selected file is not visible");
             return;
         };
 
+        let file = selected.file();
         if let Some(new_name) = show_rename_popover(&file.get_name(), self, &rect).await {
             match file.rename(&new_name) {
                 Ok(_) => {
+                    selected.update();
                     self.focus_file(&Path::new(&new_name), true);
-                    self.grab_focus();
                 }
                 Err(error) => {
                     ErrorMessage::with_error(
@@ -2387,15 +2392,10 @@ impl FileList {
             .and_then(|c| c.compute_bounds(self))
     }
 
-    fn focus_row_coordinates(&self) -> Option<gdk::Rectangle> {
-        let selected = self
-            .selection()
-            .selected_item()
-            .and_downcast::<FileListItem>()?;
-
-        let name_rect = self.item_rect(&selected, ColumnID::COLUMN_NAME)?;
+    fn focus_row_coordinates(&self, item: &FileListItem) -> Option<gdk::Rectangle> {
+        let name_rect = self.item_rect(&item, ColumnID::COLUMN_NAME)?;
         let rect = if self.extension_display_mode() != ExtensionDisplayMode::Both {
-            if let Some(ext_rect) = self.item_rect(&selected, ColumnID::COLUMN_EXT) {
+            if let Some(ext_rect) = self.item_rect(&item, ColumnID::COLUMN_EXT) {
                 name_rect.union(&ext_rect)
             } else {
                 name_rect
@@ -2427,7 +2427,13 @@ impl FileList {
         popover.set_pointing_to(
             point_to
                 .cloned()
-                .or_else(|| self.focus_row_coordinates())
+                .or_else(|| {
+                    let selected = self
+                        .selection()
+                        .selected_item()
+                        .and_downcast::<FileListItem>()?;
+                    self.focus_row_coordinates(&selected)
+                })
                 .as_ref(),
         );
         popover.present();

@@ -140,8 +140,17 @@ impl Connection {
     }
 
     pub fn remove_from_cache_by_uri(&self, uri: &str) {
-        debug!('k', "REMOVING {} from the cache", uri);
-        self.imp().dir_cache.borrow_mut().remove(uri);
+        let removed: Vec<String> = self
+            .imp()
+            .dir_cache
+            .borrow_mut()
+            .extract_if(|u, _| u.starts_with(uri))
+            .map(|(uri, _dir)| uri)
+            .collect();
+        debug!(
+            'k',
+            "REMOVING {} from the cache together with {:?}", uri, removed
+        );
     }
 
     pub fn cache_lookup(&self, uri: &str) -> Option<Directory> {
