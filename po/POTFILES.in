@@ -79,6 +79,7 @@ src/main.rs
 src/main_win.rs
 src/open_connection.rs
 src/open_file.rs
+src/options/options.rs
 src/plugin_manager.rs
 src/search/generic.rs
 src/search/local.rs
