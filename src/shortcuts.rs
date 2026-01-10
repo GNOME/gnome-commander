@@ -159,7 +159,6 @@ impl Shortcuts {
         self.register(Shortcut::sup(Key::_2), "connections-change-right");
         self.register(Shortcut::ctrl_shift(Key::C), "edit-copy-fnames");
         self.register(Shortcut::ctrl(Key::F12), "edit-filter");
-        self.register(Shortcut::alt(Key::F7), "file-search");
         self.register(Shortcut::sup(Key::F), "file-search");
         self.register(Shortcut::ctrl(Key::M), "file-advrename");
         self.register(Shortcut::shift(Key::F5), "file-copy-as");
