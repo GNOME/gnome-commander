@@ -979,7 +979,7 @@ pub mod imp {
             state: gdk::ModifierType,
         ) -> glib::Propagation {
             match (state, key) {
-                (ALT, gdk::Key::F8) | (CONTROL, gdk::Key::e | gdk::Key::E | gdk::Key::Down) => {
+                (CONTROL, gdk::Key::e | gdk::Key::E | gdk::Key::Down) => {
                     if self.cmdline.is_visible() {
                         self.cmdline.show_history();
                     }
@@ -1555,7 +1555,7 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
             })
             .section({
                 gio::Menu::new()
-                    .item_accel(gettext("_Search…"), "win.file-search", "<Alt>F7")
+                    .item_accel(gettext("_Search…"), "win.file-search", "F9")
                     .item(gettext("_Quick Search…"), "win.file-quick-search")
                     .item(gettext("_Enable Filter…"), "win.edit-filter")
             })
