@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNOME Commander Manual\n"
-"POT-Creation-Date: 2025-04-10 23:17+0000\n"
-"PO-Revision-Date: 2025-04-12 22:44+1000\n"
+"POT-Creation-Date: 2025-12-26 17:08+0000\n"
+"PO-Revision-Date: 2025-12-28 18:59+1000\n"
 "Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
@@ -16305,11 +16305,11 @@ msgstr "Обзор выпусков"
 #. (itstool) path: sect1/para
 #: C/releases.xml:10
 msgid ""
-"Starting after version 1.14.0, we provide release notes through the AppData "
+"Starting after version 1.14.0, we provide release notes through the metainfo "
 "file. As such, app stores (like GNOME Software) can show release notes to "
 "users."
 msgstr ""
-"Начиная с версии 1.14.0, в файле AppData предоставляются заметки о выпуске. "
+"Начиная с версии 1.14.0, в файле metainfo предоставляются заметки о выпуске. "
 "Благодаря этому магазины приложений (например, GNOME Software) могут "
 "показывать заметки о выпуске пользователям."
 
@@ -16324,12 +16324,15 @@ msgstr ""
 
 #. (itstool) path: para/command
 #: C/releases.xml:12
+#| msgid ""
+#| "appstream-util appdata-to-news /usr/share/metainfo/org.gnome.gnome-"
+#| "commander.appdata.xml"
 msgid ""
 "appstream-util appdata-to-news /usr/share/metainfo/org.gnome.gnome-commander."
-"appdata.xml"
+"metainfo.xml"
 msgstr ""
 "appstream-util appdata-to-news /usr/share/metainfo/org.gnome.gnome-commander."
-"appdata.xml"
+"metainfo.xml"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:20
