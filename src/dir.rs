@@ -344,6 +344,7 @@ impl Directory {
                 .path()
                 .child(&self.upcast_ref::<File>().file_info().name());
             self.imp().path.replace(Some(path));
+            self.imp().files.remove_all();
         }
     }
 
@@ -438,11 +439,7 @@ impl Directory {
         }
     }
 
-    pub fn file_renamed(&self, file: &File, old_uri_str: &str) {
-        if let Some(_dir) = file.downcast_ref::<Directory>() {
-            self.connection().remove_from_cache_by_uri(old_uri_str);
-        }
-
+    pub fn file_renamed(&self, file: &File) {
         self.set_needs_mtime_update(true);
         self.emit_by_name::<()>("file-renamed", &[file]);
     }

@@ -261,11 +261,15 @@ impl File {
             new_file.query_info("*", gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE)?;
         self.set_file_info(&new_file_info);
 
+        if let Some(directory) = self.downcast_ref::<Directory>() {
+            self.connection().remove_from_cache_by_uri(&old_uri_str);
+            self.connection()
+                .add_to_cache(directory, &self.get_uri_str());
+
+            directory.update_path();
+        }
         if let Some(parent) = self.parent_directory() {
-            parent.file_renamed(self, &old_uri_str);
-            if let Some(directory) = self.downcast_ref::<Directory>() {
-                directory.update_path();
-            }
+            parent.file_renamed(self);
         }
         Ok(())
     }
