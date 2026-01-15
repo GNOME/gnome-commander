@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
-"POT-Creation-Date: 2025-12-23 22:08+0000\n"
-"PO-Revision-Date: 2025-12-24 00:22+0100\n"
+"POT-Creation-Date: 2026-01-12 20:19+0000\n"
+"PO-Revision-Date: 2026-01-15 09:49+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -6931,12 +6931,12 @@ msgstr[1] "Izbrana {selected_dirs} mapa."
 msgstr[2] "Izbrani {selected_dirs} mapi."
 msgstr[3] "Izbrane {selected_dirs} mape."
 
-#: src/file_list/list.rs:2210
+#: src/file_list/list.rs:2215
 #, rust-format
 msgid "Cannot rename a file to {new_name}"
 msgstr "Datoteke ni mogoče preimenovati v {new_name}"
 
-#: src/file_list/list.rs:2656
+#: src/file_list/list.rs:2662
 msgid "<DIR>"
 msgstr "<MAPA>"
 
@@ -7665,6 +7665,10 @@ msgstr "Za vrsto datoteke {} ni določen privzeti program."
 #: src/open_file.rs:143
 msgid "Open the \"Applications\" page in the Control Center to add one."
 msgstr "Odprite stran »Programov« v Nadzornem središču in program dodajte."
+
+#: src/options/options.rs:454
+msgid "Default"
+msgstr "Privzeto"
 
 #: src/plugin_manager.rs:401
 msgid "Available plugins"
