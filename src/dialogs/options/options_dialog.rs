@@ -27,7 +27,7 @@ use crate::{
         options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions, ProgramsOptions},
         utils::remember_window_size,
     },
-    utils::{SenderExt, dialog_button_box, display_help},
+    utils::{SenderExt, channel_send_action, dialog_button_box, display_help, handle_escape_key},
 };
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
@@ -177,6 +177,8 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
         sender,
         move |_| sender.toss(true)
     ));
+
+    handle_escape_key(&dialog, &channel_send_action(&sender, false));
 
     static LAST_ACTIVE_TAB: Mutex<u32> = Mutex::new(0);
 

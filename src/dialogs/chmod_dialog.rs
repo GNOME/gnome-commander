@@ -21,7 +21,10 @@ use crate::{
     chmod_component::ChmodComponent,
     dir::Directory,
     file::File,
-    utils::{ErrorMessage, NO_BUTTONS, SenderExt, dialog_button_box},
+    utils::{
+        ErrorMessage, NO_BUTTONS, SenderExt, channel_send_action, dialog_button_box,
+        handle_escape_key,
+    },
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
@@ -163,6 +166,8 @@ pub async fn show_chmod_dialog(parent_window: &gtk::Window, files: &glib::List<F
     ));
 
     content_area.append(&dialog_button_box(NO_BUTTONS, &[&cancel_btn, &ok_btn]));
+
+    handle_escape_key(&dialog, &channel_send_action(&sender, false));
 
     dialog.set_default_widget(Some(&ok_btn));
     dialog.present();

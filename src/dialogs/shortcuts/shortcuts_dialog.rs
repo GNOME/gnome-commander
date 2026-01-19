@@ -18,7 +18,10 @@
  */
 
 use super::user_action::{ShortcutAction, action_description};
-use crate::shortcuts::Shortcuts;
+use crate::{
+    shortcuts::Shortcuts,
+    utils::{channel_send_action, handle_escape_key},
+};
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::error::Error;
@@ -221,6 +224,10 @@ mod imp {
             );
 
             dialog.set_default_widget(Some(&ok_button));
+            handle_escape_key(
+                dialog.upcast_ref(),
+                &channel_send_action(&self.sender, false),
+            );
         }
     }
 
