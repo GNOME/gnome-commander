@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/"
 "issues/\n"
-"POT-Creation-Date: 2025-12-23 22:08+0000\n"
+"POT-Creation-Date: 2026-01-12 20:19+0000\n"
 "PO-Revision-Date: 2025-12-24 01:07+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -5856,14 +5856,17 @@ msgid "Specify the start directory for the right pane"
 msgstr "Ange startkatalog för den högra fillistan"
 
 #: src/application.rs:184
+#, rust-format
 msgid "Failed to create the directory {directory}: {error}"
 msgstr "Kunde inte skapa katalogen {directory}: {error}"
 
 #: src/app.rs:74 src/open_file.rs:178
+#, rust-format
 msgid "Launch of {} failed."
 msgstr "Körning av {} misslyckades."
 
 #: src/app.rs:159
+#, rust-format
 msgid "Cannot launch an app {}. No files were given."
 msgstr "Kan inte köra programmet {}. Inga filer angavs."
 
@@ -5905,6 +5908,7 @@ msgstr "Nummervy:"
 
 #: src/connection/device.rs:184 src/connection/device.rs:200
 #: src/connection/device.rs:231 src/connection/device.rs:255
+#, rust-format
 msgid "Unable to mount the volume {}"
 msgstr "Kunde inte montera volymen {}"
 
@@ -5917,18 +5921,22 @@ msgid "Mounting %s"
 msgstr "Monterar %s"
 
 #: src/connection/device.rs:356
+#, rust-format
 msgid "Go to: {device_name} ({mount_point})"
 msgstr "Gå till: {device_name} ({mount_point})"
 
 #: src/connection/device.rs:359
+#, rust-format
 msgid "Go to: {device_name}"
 msgstr "Gå till: {device_name}"
 
 #: src/connection/device.rs:365
+#, rust-format
 msgid "Mount: {device_name}"
 msgstr "Montera: {device_name}"
 
 #: src/connection/device.rs:370
+#, rust-format
 msgid "Unmount: {device_name}"
 msgstr "Avmontera: {device_name}"
 
@@ -5953,6 +5961,7 @@ msgid "Mount failed: no medium found"
 msgstr "Monteringen misslyckades: Inget medium funnet"
 
 #: src/connection/device.rs:490
+#, rust-format
 msgid "Mount failed: mount exited with exitstatus {}"
 msgstr "Monteringen misslyckades: mount avslutades med returstatusen {}"
 
@@ -5961,6 +5970,7 @@ msgid "Mount failed: mount exited without an exitstatus"
 msgstr "Monteringen misslyckades: mount avslutades utan någon returstatus"
 
 #: src/connection/device.rs:506
+#, rust-format
 msgid "Unmount failed: umount exited with exitstatus {}"
 msgstr "Avmonteringen misslyckades: umount avslutades med returstatusen {}"
 
@@ -5993,18 +6003,22 @@ msgid "Disconnect error"
 msgstr "Fel vid frånkoppling"
 
 #: src/connection/remote.rs:253
+#, rust-format
 msgid "Connecting to {hostname}"
 msgstr "Ansluter till {hostname}"
 
 #: src/connection/remote.rs:259
+#, rust-format
 msgid "Go to: {connection}"
 msgstr "Gå till: {connection}"
 
 #: src/connection/remote.rs:263
+#, rust-format
 msgid "Connect to: {connection}"
 msgstr "Anslut till: {connection}"
 
 #: src/connection/remote.rs:267
+#, rust-format
 msgid "Disconnect from: {connection}"
 msgstr "Koppla ner från: {connection}"
 
@@ -6049,6 +6063,7 @@ msgid "Translated by"
 msgstr "Översatt av"
 
 #: src/dialogs/chmod_dialog.rs:45
+#, rust-format
 msgid "Could not chmod {}"
 msgstr "Kunde inte köra chmod på {}"
 
@@ -6069,6 +6084,7 @@ msgid "Directories only"
 msgstr "Endast kataloger"
 
 #: src/dialogs/chown_dialog.rs:40
+#, rust-format
 msgid "Could not chown {}"
 msgstr "Kunde inte köra chown på {}"
 
@@ -6158,6 +6174,7 @@ msgid "Connection method is not selected"
 msgstr "Anslutningsmetod har inte valts"
 
 #: src/dialogs/connect_dialog.rs:388
+#, rust-format
 msgid "“{}” is not a valid location"
 msgstr "”{}” är inte en giltig plats"
 
@@ -6182,16 +6199,19 @@ msgid "Deleting…"
 msgstr "Tar bort…"
 
 #: src/dialogs/delete_dialog.rs:172
+#, rust-format
 msgid "Deleted {count} of {total} file"
 msgid_plural "Deleted {count} of {total} files"
 msgstr[0] "Tog bort {count} av {total} fil"
 msgstr[1] "Tog bort {count} av {total} filer"
 
 #: src/dialogs/delete_dialog.rs:196
+#, rust-format
 msgid "The directory “{}” is not empty. Do you really want to delete it?"
 msgstr "Katalogen ”{}” är inte tom. Vill du verkligen ta bort den?"
 
 #: src/dialogs/delete_dialog.rs:199
+#, rust-format
 msgid "Do you really want to delete “{}”?"
 msgstr "Vill du verkligen ta bort ”{}”?"
 
@@ -6224,6 +6244,7 @@ msgid "Delete"
 msgstr "Ta bort"
 
 #: src/dialogs/delete_dialog.rs:234
+#, rust-format
 msgid "Error while deleting “{file}”"
 msgstr "Fel vid borttagning av ”{file}”"
 
@@ -6241,10 +6262,12 @@ msgid "Retry"
 msgstr "Försök igen"
 
 #: src/dialogs/delete_dialog.rs:511
+#, rust-format
 msgid "Do you want to permanently delete “{}”?"
 msgstr "Vill du ta bort ”{}” permanent?"
 
 #: src/dialogs/delete_dialog.rs:513
+#, rust-format
 msgid "Do you want to move “{}” to the trash can?"
 msgstr "Vill du flytta ”{}” till papperskorgen?"
 
@@ -6357,6 +6380,7 @@ msgid "Copy File"
 msgstr "Kopiera fil"
 
 #: src/dialogs/make_copy_dialog.rs:58 src/dialogs/prepare_copy_dialog.rs:48
+#, rust-format
 msgid "Copy “{}” to"
 msgstr "Kopiera ”{}” till"
 
@@ -7154,6 +7178,7 @@ msgid "Bad expression"
 msgstr "Felaktigt uttryck"
 
 #: src/dialogs/prepare_copy_dialog.rs:50
+#, rust-format
 msgid "copy {} file to"
 msgid_plural "copy {} files to"
 msgstr[0] "kopiera {} fil till"
@@ -7172,20 +7197,24 @@ msgid "Follow Links"
 msgstr "Följ länkar"
 
 #: src/dialogs/prepare_move_dialog.rs:48
+#, rust-format
 msgid "Move “{}” to"
 msgstr "Flytta ”{}” till"
 
 #: src/dialogs/prepare_move_dialog.rs:50
+#, rust-format
 msgid "move {} file to"
 msgid_plural "move {} files to"
 msgstr[0] "flytta {} fil till"
 msgstr[1] "flytta {} filer till"
 
 #: src/dialogs/prepare_transfer_dialog.rs:211
+#, rust-format
 msgid "The directory “{}” doesn’t exist, do you want to create it?"
 msgstr "Katalogen ”{}” finns inte. Vill du skapa den?"
 
 #: src/dialogs/prepare_transfer_dialog.rs:475
+#, rust-format
 msgid "Directory {} cannot be created."
 msgstr "Katalogen {} kan inte skapas."
 
@@ -7258,10 +7287,12 @@ msgid "No shortcut is defined."
 msgstr "Inget kortkommando är definierat."
 
 #: src/dialogs/shortcuts/shortcut_dialog.rs:397
+#, rust-format
 msgid "Shortcut “{shortcut}” is already taken by “{action}”."
 msgstr "Kortkommandot ”{shortcut}” används redan för ”{action}”."
 
 #: src/dialogs/shortcuts/shortcut_dialog.rs:402
+#, rust-format
 msgid "Reassigning the shortcut will cause it to be removed from “{action}”."
 msgstr "Att omtilldela kortkommandot medför att det tas bort från ”{action}”."
 
@@ -7286,12 +7317,13 @@ msgid "Progress"
 msgstr "Förlopp"
 
 #: src/dialogs/transfer_progress_dialog.rs:151
+#, rust-format
 msgctxt "size copied"
 msgid "{copied} of {total} copied"
 msgstr "{copied} av {total} kopierat"
 
 #: src/dialogs/transfer_progress_dialog.rs:157
-#, no-c-format
+#, no-c-format, rust-format
 msgctxt "percentage copied"
 msgid "{}% copied"
 msgstr "{}% kopierat"
@@ -7301,12 +7333,14 @@ msgid "Waiting for file list"
 msgstr "Väntar på fillistan"
 
 #: src/dirlist.rs:119
+#, rust-format
 msgid "{} file listed"
 msgid_plural "{} files listed"
 msgstr[0] "{} fil listad"
 msgstr[1] "{} filer listade"
 
 #: src/dir.rs:181
+#, rust-format
 msgid "Failed to get directory info for {path}."
 msgstr "Kunde inte erhålla kataloginfo för {path}."
 
@@ -7319,6 +7353,7 @@ msgid "Not an ordinary file."
 msgstr "Inte en vanlig fil."
 
 #: src/file_list/actions.rs:80 src/open_file.rs:75
+#, rust-format
 msgid ""
 "{} does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
@@ -7406,31 +7441,36 @@ msgstr "Ingen SAMBA-anslutning finns tillgänglig"
 
 # TODO: Should the word bytes be added? Plural?
 #: src/file_list/list.rs:2154
+#, rust-format
 msgid "A total of {selected_bytes} has been selected."
 msgstr "Totalt {selected_bytes} har markerats."
 
 #: src/file_list/list.rs:2160
+#, rust-format
 msgid "{selected_files} file selected."
 msgid_plural "{selected_files} files selected."
 msgstr[0] "{selected_files} fil markerad."
 msgstr[1] "{selected_files} filer markerade."
 
 #: src/file_list/list.rs:2167
+#, rust-format
 msgid "{selected_dirs} directory selected."
 msgid_plural "{selected_dirs} directories selected."
 msgstr[0] "{selected_dirs} katalog markerad."
 msgstr[1] "{selected_dirs} kataloger markerade."
 
-#: src/file_list/list.rs:2210
+#: src/file_list/list.rs:2215
+#, rust-format
 msgid "Cannot rename a file to {new_name}"
 msgstr "Kan inte byta namn på en fil till {new_name}"
 
-#: src/file_list/list.rs:2656
+#: src/file_list/list.rs:2662
 msgid "<DIR>"
 msgstr "<KAT>"
 
 #. Add the default "Open" menu entry at the top of the popup
 #: src/file_list/popup.rs:153
+#, rust-format
 msgid "_Open with “{}”"
 msgstr "Ö_ppna med ”{}”"
 
@@ -7496,6 +7536,7 @@ msgid "Value"
 msgstr "Värde"
 
 #: src/file.rs:133
+#, rust-format
 msgid "Failed to get file info for {path}."
 msgstr "Kunde inte erhålla filinfo för {path}."
 
@@ -7586,14 +7627,17 @@ msgid "Searching…"
 msgstr "Söker…"
 
 #: src/intviewer/search_progress_dialog.rs:102
+#, rust-format
 msgid "Searching for “{}”"
 msgstr "Söker efter ”{}”"
 
 #: src/intviewer/window.rs:364
+#, rust-format
 msgid "Position: {offset} of {size}"
 msgstr "Position: {offset} av {size}"
 
 #: src/intviewer/window.rs:369
+#, rust-format
 msgid "Column: {}"
 msgstr "Kolumn: {}"
 
@@ -7602,12 +7646,14 @@ msgid "Wrap"
 msgstr "Radbryt"
 
 #: src/intviewer/window.rs:392
+#, rust-format
 msgid "{width} x {height} pixel"
 msgid_plural "{width} x {height} pixels"
 msgstr[0] "{width} x {height} bildpunkt"
 msgstr[1] "{width} x {height} bildpunkter"
 
 #: src/intviewer/window.rs:399
+#, rust-format
 msgid "{} bit/sample"
 msgid_plural "{} bits/sample"
 msgstr[0] "{} bit/sampling"
@@ -7622,6 +7668,7 @@ msgid "_Copy selection"
 msgstr "_Kopiera markering"
 
 #: src/intviewer/window.rs:666
+#, rust-format
 msgid "Pattern “{}” was not found"
 msgstr "Sökmönstret ”{}” hittades inte"
 
@@ -8102,6 +8149,7 @@ msgid "_About"
 msgstr "_Om"
 
 #: src/open_file.rs:35
+#, rust-format
 msgid ""
 "“{}” seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
@@ -8110,6 +8158,7 @@ msgstr ""
 "du sätta den och sedan köra filen?"
 
 #: src/open_file.rs:57
+#, rust-format
 msgid ""
 "“{}” is an executable text file. Do you want to run it, or display its "
 "contents?"
@@ -8136,6 +8185,7 @@ msgid "Change of a file mode failed"
 msgstr "Ändring av ett filläge misslyckades"
 
 #: src/open_file.rs:140
+#, rust-format
 msgid "No default application found for the file type {}."
 msgstr "Inget standardprogram hittades för filtypen {}."
 
@@ -8143,15 +8193,21 @@ msgstr "Inget standardprogram hittades för filtypen {}."
 msgid "Open the \"Applications\" page in the Control Center to add one."
 msgstr "Öppna sidan ”Program” i Kontrollpanelen för att lägga till ett."
 
+#: src/options/options.rs:454
+msgid "Default"
+msgstr "Standard"
+
 #: src/plugin_manager.rs:401
 msgid "Available plugins"
 msgstr "Tillgängliga insticksmoduler"
 
 #: src/plugin_manager.rs:481
+#, rust-format
 msgid "Version: {}"
 msgstr "Version: {}"
 
 #: src/plugin_manager.rs:488
+#, rust-format
 msgid "File: {}"
 msgstr "Fil: {}"
 
@@ -8168,6 +8224,7 @@ msgid "Search failed"
 msgstr "Sökning misslyckades"
 
 #: src/search/generic.rs:74
+#, rust-format
 msgid "Searching in: {}"
 msgstr "Söker i: {}"
 
@@ -8200,12 +8257,14 @@ msgid "Failed to detect a start directory"
 msgstr "Kunde inte identifiera en startkatalog"
 
 #: src/search/search_dialog.rs:704
+#, rust-format
 msgid "Found {} match — search aborted"
 msgid_plural "Found {} matches — search aborted"
 msgstr[0] "Hittade {} träff — sökning avbruten"
 msgstr[1] "Hittade {} träffar — sökning avbruten"
 
 #: src/search/search_dialog.rs:709
+#, rust-format
 msgid "Found {} match"
 msgid_plural "Found {} matches"
 msgstr[0] "Hittade {} träff"
@@ -8404,6 +8463,7 @@ msgid "Skip all"
 msgstr "Hoppa över alla"
 
 #: src/transfer.rs:555 src/transfer.rs:668
+#, rust-format
 msgid ""
 "Overwrite file:\n"
 "\n"
@@ -8431,10 +8491,12 @@ msgid "Replace all"
 msgstr "Ersätt alla"
 
 #: src/transfer.rs:627 src/transfer.rs:732
+#, rust-format
 msgid "Error while transferring “{file}”"
 msgstr "Fel vid överföring av ”{file}”"
 
 #: src/transfer.rs:764
+#, rust-format
 msgid "Error while creating symlink “{file}”"
 msgstr "Fel vid skapande av symboliska länken ”{file}”"
 
@@ -8471,10 +8533,12 @@ msgid "copying…"
 msgstr "kopierar…"
 
 #: src/transfer.rs:1128
+#, rust-format
 msgid "[file {index} of {count}] “{file}”"
 msgstr "[fil {index} av {count}] ”{file}”"
 
 #: src/transfer.rs:1187
+#, rust-format
 msgctxt ""
 "A template for a file name. In a case of a conflict with an existing one."
 msgid "{name} (Copy {number})"
@@ -8510,6 +8574,7 @@ msgid "link to %s"
 msgstr "länk till %s"
 
 #: src/user_actions.rs:436
+#, rust-format
 msgid "Create symbolic links of {count} file in {dir}?"
 msgid_plural "Create symbolic links of {count} files in {dir}?"
 msgstr[0] "Skapa symbolisk länk för {count} fil i {dir}?"
@@ -8908,40 +8973,47 @@ msgid "Cannot create a temporary file."
 msgstr "Kan inte skapa en temporär fil."
 
 #: src/utils.rs:290
+#, rust-format
 msgid "There was an error while opening help uri {uri}."
 msgstr "Ett fel uppstod vid öppnandet av hjälp-URI {uri}."
 
 #: src/utils.rs:393
+#, rust-format
 msgid "{} PiB"
 msgid_plural "{} PiB"
 msgstr[0] "{} PiB"
 msgstr[1] "{} PiB"
 
 #: src/utils.rs:396
+#, rust-format
 msgid "{} TiB"
 msgid_plural "{} TiB"
 msgstr[0] "{} TiB"
 msgstr[1] "{} TiB"
 
 #: src/utils.rs:399
+#, rust-format
 msgid "{} GiB"
 msgid_plural "{} GiB"
 msgstr[0] "{} GiB"
 msgstr[1] "{} GiB"
 
 #: src/utils.rs:402
+#, rust-format
 msgid "{} MiB"
 msgid_plural "{} MiB"
 msgstr[0] "{} MiB"
 msgstr[1] "{} MiB"
 
 #: src/utils.rs:405
+#, rust-format
 msgid "{} kiB"
 msgid_plural "{} kiB"
 msgstr[0] "{} kiB"
 msgstr[1] "{} kiB"
 
 #: src/utils.rs:408 src/utils.rs:419 src/utils.rs:423
+#, rust-format
 msgid "{} byte"
 msgid_plural "{} bytes"
 msgstr[0] "{} byte"
@@ -8950,9 +9022,6 @@ msgstr[1] "{} byte"
 #: src/utils.rs:664
 msgid "Closing of a file enumerator failed"
 msgstr "Stängning av en filuppräknare misslyckades"
-
-#~ msgid "Default"
-#~ msgstr "Standard"
 
 #~ msgid "stopping…"
 #~ msgstr "avbryter…"
