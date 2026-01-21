@@ -1742,7 +1742,7 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
             .section(create_plugins_menu(main_win))
     });
 
-    menu.append_submenu(Some(&gettext("_Settings")), &{
+    menu.append_submenu(Some(&gettext("_Help")), &{
         gio::Menu::new()
             .section({
                 gio::Menu::new()
