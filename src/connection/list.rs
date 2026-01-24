@@ -284,7 +284,7 @@ impl ConnectionList {
             };
 
             if let Some(con) = con {
-                con.add_bookmark(&Bookmark::new(&bookmark.name, &bookmark.path));
+                con.add_bookmark(Bookmark::new(&bookmark.name, &bookmark.path));
             } else {
                 eprintln!(
                     "<Bookmarks> unknown connection: '{}' - ignored",

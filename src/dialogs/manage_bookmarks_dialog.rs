@@ -592,7 +592,7 @@ pub async fn bookmark_directory(window: &gtk::Window, dir: &Directory, options: 
         } else {
             dir.connection()
         };
-        con.add_bookmark(&changed_bookmark);
+        con.add_bookmark(changed_bookmark);
 
         if let Err(error) = options.bookmarks.set(connection_list.save_bookmarks()) {
             eprintln!("Failed to save bookmarks: {error}");

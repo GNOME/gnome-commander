@@ -236,8 +236,8 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
         self.state() == ConnectionState::Open
     }
 
-    fn add_bookmark(&self, bookmark: &Bookmark) {
-        self.as_ref().imp().bookmarks.append(bookmark)
+    fn add_bookmark(&self, bookmark: Bookmark) {
+        self.as_ref().imp().bookmarks.append(&bookmark)
     }
 
     fn erase_bookmarks(&self) {
