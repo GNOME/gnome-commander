@@ -21,7 +21,7 @@ testplugin = shared_module('testplugin',
 )
 
 pixmaps = [
-    'test-plugin.xpm'
+    'test-plugin.png'
 ]
 
 install_data(

@@ -98,10 +98,6 @@ common_deps = [
   glib, gmodule, gio, gobject, gtk
 ]
 
-# Require that gdk-pixbuf can load xpm files
-pixbuf_module_dir = pixbuf.get_variable(pkgconfig: 'gdk_pixbuf_moduledir')
-cpp.find_library('pixbufloader-xpm', dirs: pixbuf_module_dir, required: true)
-
 ##### Optional dependencies #####
 EXIV2_REQ = '0.14'
 conf_data.set('EXIV2_REQ', EXIV2_REQ, description: 'Required version of exiv2 library')

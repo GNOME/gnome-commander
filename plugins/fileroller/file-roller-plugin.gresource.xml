@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/file-roller-plugin">
+    <file>file-roller.png</file>
+  </gresource>
+</gresources>

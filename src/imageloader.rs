@@ -42,21 +42,21 @@ impl IconCache {
     fn new() -> Rc<Self> {
         let mut file_type_icons = HashMap::new();
         let file_icons_dir = Path::new(PIXMAPS_DIR).join("file-type-icons");
-        if let Some(icon) = load_icon(&file_icons_dir.join("file_type_regular.xpm")) {
+        if let Some(icon) = load_icon(&file_icons_dir.join("file_type_regular.png")) {
             file_type_icons.insert(gio::FileType::Unknown, icon.clone());
             file_type_icons.insert(gio::FileType::Regular, icon);
         }
-        if let Some(icon) = load_icon(&file_icons_dir.join("file_type_dir.xpm")) {
+        if let Some(icon) = load_icon(&file_icons_dir.join("file_type_dir.png")) {
             file_type_icons.insert(gio::FileType::Directory, icon);
         }
-        if let Some(icon) = load_icon(&file_icons_dir.join("file_type_symlink.xpm")) {
+        if let Some(icon) = load_icon(&file_icons_dir.join("file_type_symlink.png")) {
             file_type_icons.insert(gio::FileType::SymbolicLink, icon.clone());
             file_type_icons.insert(gio::FileType::Shortcut, icon);
         }
-        if let Some(icon) = load_icon(&file_icons_dir.join("file_type_socket.xpm")) {
+        if let Some(icon) = load_icon(&file_icons_dir.join("file_type_socket.png")) {
             file_type_icons.insert(gio::FileType::Special, icon);
         }
-        if let Some(icon) = load_icon(&file_icons_dir.join("file_type_block_device.xpm")) {
+        if let Some(icon) = load_icon(&file_icons_dir.join("file_type_block_device.png")) {
             file_type_icons.insert(gio::FileType::Mountable, icon);
         }
 

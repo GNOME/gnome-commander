@@ -1,9 +1,9 @@
 file_type_icons = [
-  'file_type_dir.xpm',
-  'file_type_socket.xpm',
-  'file_type_block_device.xpm',
-  'file_type_symlink.xpm',
-  'file_type_regular.xpm'
+  'file_type_dir.png',
+  'file_type_socket.png',
+  'file_type_block_device.png',
+  'file_type_symlink.png',
+  'file_type_regular.png'
 ]
 
 install_data(file_type_icons,

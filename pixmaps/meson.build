@@ -3,8 +3,8 @@ subdir('file-type-icons')
 subdir('mime-icons')
 
 pixmaps = [
-  'overlay_symlink.xpm',
-  'overlay_umount.xpm',
+  'overlay_symlink.png',
+  'overlay_umount.png',
   'pin.png',
   'unpin.png'
 ]
@@ -14,14 +14,14 @@ install_data(pixmaps,
 )
 
 icons_16x16 = [
-  'gnome-commander-rotate-180.xpm',
-  'gnome-commander-rotate-270.xpm',
-  'gnome-commander-rotate-90.xpm',
-  'gnome-commander-flip-horizontal.xpm',
-  'gnome-commander-flip-vertical.xpm',
-  'overlay_symlink.xpm',
-  'overlay_umount.xpm',
-  'gnome-commander-copy-file-names.xpm',
+  'gnome-commander-rotate-180.png',
+  'gnome-commander-rotate-270.png',
+  'gnome-commander-rotate-90.png',
+  'gnome-commander-flip-horizontal.png',
+  'gnome-commander-flip-vertical.png',
+  'overlay_symlink.png',
+  'overlay_umount.png',
+  'gnome-commander-copy-file-names.png',
 ]
 
 install_data(icons_16x16,
