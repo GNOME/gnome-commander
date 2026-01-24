@@ -65,14 +65,13 @@
   </suggests>
 
   <releases>
-    <release type="stable" version="1.18.5" date="2025-12-31">
+    <release type="stable" version="1.18.5" date="2026-01-24">
       <description>
         <p>This release fixes the following bugs:</p>
         <ul>
           <li>Issue #201: Crash when trying to enter a directory where user doesn't have permission </li>
         </ul>
-        <p>New or updated translations: ...</p>
-        <p>New or updated docs: ...</p>
+        <p>New or updated docs: sv (Anders Jonsson)</p>
       </description>
     </release>
     <release type="stable" version="1.18.4" date="2025-09-28">
