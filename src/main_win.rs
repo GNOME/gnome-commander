@@ -175,6 +175,31 @@ pub mod imp {
                 obj.imp()
                     .spawn_ensure_slide_position(if obj.current_panel() == 0 { 100 } else { 0 })
             });
+
+            for user_action in &*USER_ACTIONS {
+                match &user_action.action_code {
+                    ActionCode::Plain { activate } => {
+                        let activate = activate.clone();
+                        klass.install_action(
+                            &format!("win.{}", user_action.action_name),
+                            None,
+                            move |obj, _, _| (activate)(obj.clone()),
+                        );
+                    }
+                    ActionCode::WithParameter {
+                        activate,
+                        parameter_type,
+                    } => {
+                        let activate = activate.clone();
+                        klass.install_action(
+                            &format!("win.{}", user_action.action_name),
+                            Some(parameter_type),
+                            move |obj, _, param| (activate)(obj.clone(), param),
+                        );
+                    }
+                    ActionCode::Predefined => {}
+                }
+            }
         }
 
         fn new() -> Self {
@@ -390,38 +415,6 @@ pub mod imp {
 
             let shortcuts_controller = gtk::ShortcutController::for_model(&shortcuts);
             mw.add_controller(shortcuts_controller);
-
-            for user_action in &*USER_ACTIONS {
-                match &user_action.action_code {
-                    ActionCode::Plain { activate } => {
-                        let action = gio::SimpleAction::new(&user_action.action_name, None);
-                        action.connect_activate(glib::clone!(
-                            #[weak]
-                            mw,
-                            #[strong]
-                            activate,
-                            move |_, _| (activate)(mw)
-                        ));
-                        mw.add_action(&action);
-                    }
-                    ActionCode::WithParameter {
-                        activate,
-                        parameter_type,
-                    } => {
-                        let action =
-                            gio::SimpleAction::new(&user_action.action_name, Some(parameter_type));
-                        action.connect_activate(glib::clone!(
-                            #[weak]
-                            mw,
-                            #[strong]
-                            activate,
-                            move |_, p| (activate)(mw, p)
-                        ));
-                        mw.add_action(&action);
-                    }
-                    ActionCode::Predefined => {}
-                }
-            }
 
             self.update_drop_con_button(None);
 
@@ -690,15 +683,10 @@ pub mod imp {
         }
 
         pub fn update_drop_con_button(&self, connection: Option<&Connection>) {
-            let action = self
-                .obj()
-                .lookup_action("connections-close-current")
-                .and_downcast::<gio::SimpleAction>()
-                .unwrap();
-
             if let Some(connection) = connection {
                 let closeable = connection.is_closeable();
-                action.set_enabled(closeable);
+                self.obj()
+                    .action_set_enabled("win.connections-close-current", closeable);
 
                 if closeable {
                     self.con_drop
@@ -718,7 +706,8 @@ pub mod imp {
                 }
             }
 
-            action.set_enabled(false);
+            self.obj()
+                .action_set_enabled("win.connections-close-current", false);
             self.con_drop.set_icon_name(REMOTE_DISCONNECT_ICON);
             self.con_drop.set_tooltip_text(None);
         }
@@ -941,24 +930,14 @@ pub mod imp {
         }
 
         fn update_browse_buttons(&self, fs: &FileSelector) {
-            fn enable_action(imp: &MainWindow, action: &str, enabled: bool) {
-                if let Some(action) = imp
-                    .obj()
-                    .lookup_action(action)
-                    .and_downcast::<gio::SimpleAction>()
-                {
-                    action.set_enabled(enabled);
-                } else {
-                    eprintln!("Action {action} does not exist.");
-                }
-            }
             if *fs == self.obj().file_selector(FileSelectorID::ACTIVE) {
                 let can_back = fs.can_back();
                 let can_forward = fs.can_forward();
-                enable_action(self, "view-first", can_back);
-                enable_action(self, "view-back", can_back);
-                enable_action(self, "view-forward", can_forward);
-                enable_action(self, "view-last", can_forward);
+                self.obj().action_set_enabled("win.view-first", can_back);
+                self.obj().action_set_enabled("win.view-back", can_back);
+                self.obj()
+                    .action_set_enabled("win.view-forward", can_forward);
+                self.obj().action_set_enabled("win.view-last", can_forward);
             }
         }
 
@@ -1438,12 +1417,7 @@ pub struct CutAndPasteState {
 
 impl MainWindow {
     fn set_cap_state(&self, state: bool) {
-        if let Some(action) = self
-            .lookup_action("edit-cap-paste")
-            .and_downcast::<gio::SimpleAction>()
-        {
-            action.set_enabled(state);
-        }
+        self.action_set_enabled("win.edit-cap-paste", state);
     }
 
     pub fn cut_files(&self) {

@@ -61,7 +61,6 @@ mod imp {
         pub text_render: TextRender,
         pub image_render: ImageRender,
         pub status_label: gtk::Label,
-        pub action_group: gio::SimpleActionGroup,
         pub metadata_view: OnceCell<FileMetainfoView>,
 
         #[property(get, construct_only)]
@@ -150,7 +149,6 @@ mod imp {
                 text_render: TextRender::new(),
                 image_render,
                 status_label: gtk::Label::default(),
-                action_group: gio::SimpleActionGroup::default(),
                 metadata_view: Default::default(),
 
                 file_metadata_service: Default::default(),
