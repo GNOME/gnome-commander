@@ -129,7 +129,7 @@ mod imp {
                 self,
                 #[upgrade_or]
                 glib::Propagation::Proceed,
-                move |_, keyval, _, _| imp.dst_entry_key_pressed(keyval)
+                move |_, keyval, _, modifier| imp.dst_entry_key_pressed(keyval, modifier)
             ));
             self.dst_entry.add_controller(key_controller);
 
@@ -164,9 +164,16 @@ mod imp {
     impl WindowImpl for PrepareTransferDialog {}
 
     impl PrepareTransferDialog {
-        fn dst_entry_key_pressed(&self, keyval: gdk::Key) -> glib::Propagation {
+        fn dst_entry_key_pressed(
+            &self,
+            keyval: gdk::Key,
+            modifier: gdk::ModifierType,
+        ) -> glib::Propagation {
             if keyval == gdk::Key::Return || keyval == gdk::Key::KP_Enter {
                 self.sender.toss(true);
+                glib::Propagation::Stop
+            } else if keyval == gdk::Key::Escape && modifier.is_empty() {
+                self.sender.toss(false);
                 glib::Propagation::Stop
             } else if keyval == gdk::Key::F5 || keyval == gdk::Key::F6 {
                 toggle_file_name_selection(&self.dst_entry);

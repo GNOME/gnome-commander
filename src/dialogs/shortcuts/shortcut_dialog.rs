@@ -21,7 +21,7 @@ use super::user_action::{ShortcutAction, action_description};
 use crate::{
     shortcuts::{Call, Shortcut},
     user_actions::USER_ACTIONS,
-    utils::ErrorMessage,
+    utils::{ErrorMessage, channel_send_action, handle_escape_key},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, pango, prelude::*, subclass::prelude::*};
@@ -218,21 +218,10 @@ mod imp {
             dialog.add_controller(key_controller);
 
             dialog.set_default_widget(Some(&ok_button));
-
-            let key_controller = gtk::EventControllerKey::new();
-            key_controller.connect_key_pressed(glib::clone!(
-                #[strong(rename_to = sender)]
-                self.sender,
-                move |_, key, _, modifier| {
-                    if key == gdk::Key::Escape && modifier.is_empty() {
-                        sender.toss(None);
-                        glib::Propagation::Stop
-                    } else {
-                        glib::Propagation::Proceed
-                    }
-                }
-            ));
-            dialog.add_controller(key_controller);
+            handle_escape_key(
+                dialog.upcast_ref(),
+                &channel_send_action(&self.sender, None),
+            );
         }
     }
 

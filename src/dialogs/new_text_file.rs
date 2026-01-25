@@ -21,7 +21,10 @@ use crate::{
     dir::Directory,
     file::File,
     file_list::list::FileList,
-    utils::{ErrorMessage, NO_BUTTONS, SenderExt, dialog_button_box},
+    utils::{
+        ErrorMessage, NO_BUTTONS, SenderExt, channel_send_action, dialog_button_box,
+        handle_escape_key,
+    },
 };
 use gettextrs::gettext;
 use gtk::{gio, prelude::*};
@@ -124,6 +127,8 @@ pub async fn show_new_textfile_dialog(parent_window: &gtk::Window, file_list: &F
     ));
 
     dialog.set_default_widget(Some(&ok_btn));
+
+    handle_escape_key(&dialog, &channel_send_action(&sender, false));
 
     if let Some(f) = file_list.selected_file() {
         entry.set_text(&f.file_info().display_name());

@@ -20,9 +20,12 @@
  * For more details see the file COPYING.
  */
 
-use crate::connection::{
-    connection::{ConnectionExt, ConnectionInterface},
-    remote::{ConnectionMethodID, ConnectionRemote, ConnectionRemoteExt},
+use crate::{
+    connection::{
+        connection::{ConnectionExt, ConnectionInterface},
+        remote::{ConnectionMethodID, ConnectionRemote, ConnectionRemoteExt},
+    },
+    utils::{channel_send_action, handle_escape_key},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
@@ -217,6 +220,8 @@ mod imp {
             );
 
             obj.set_default_widget(Some(&ok_btn));
+
+            handle_escape_key(obj.upcast_ref(), &channel_send_action(&self.sender, None));
         }
     }
 
