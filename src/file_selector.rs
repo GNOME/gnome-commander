@@ -1080,9 +1080,7 @@ impl FileSelector {
         };
         let history = connection.dir_history();
         if let Some(dir) = history.first() {
-            history.lock();
             self.goto(&connection, &dir);
-            history.unlock();
         }
     }
 
@@ -1092,9 +1090,7 @@ impl FileSelector {
         };
         let history = connection.dir_history();
         if let Some(dir) = history.back() {
-            history.lock();
             self.goto(&connection, &dir);
-            history.unlock();
         }
     }
 
@@ -1104,9 +1100,7 @@ impl FileSelector {
         };
         let history = connection.dir_history();
         if let Some(dir) = history.forward() {
-            history.lock();
             self.goto(&connection, &dir);
-            history.unlock();
         }
     }
 
@@ -1116,9 +1110,7 @@ impl FileSelector {
         };
         let history = connection.dir_history();
         if let Some(dir) = history.last() {
-            history.lock();
             self.goto(&connection, &dir);
-            history.unlock();
         }
     }
 
