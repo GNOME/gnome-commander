@@ -21,7 +21,6 @@ use std::cell::{Cell, RefCell};
 
 pub struct History<T> {
     max: usize,
-    is_locked: Cell<bool>,
     entries: RefCell<Vec<T>>,
     position: Cell<usize>,
 }
@@ -30,14 +29,14 @@ impl<T: PartialEq + Clone> History<T> {
     pub fn new(max: usize) -> Self {
         Self {
             max,
-            is_locked: Default::default(),
             entries: Default::default(),
             position: Default::default(),
         }
     }
 
     pub fn add(&self, item: T) {
-        if self.is_locked() {
+        if self.current().as_ref() == Some(&item) {
+            // ignore addition due to history navigation
             return;
         }
 
@@ -53,18 +52,6 @@ impl<T: PartialEq + Clone> History<T> {
         // don't let the history get too long
         entries.truncate(self.max);
         self.position.set(0);
-    }
-
-    pub fn is_locked(&self) -> bool {
-        self.is_locked.get()
-    }
-
-    pub fn lock(&self) {
-        self.is_locked.set(true);
-    }
-
-    pub fn unlock(&self) {
-        self.is_locked.set(false);
     }
 
     fn current(&self) -> Option<T> {
