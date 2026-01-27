@@ -1023,18 +1023,48 @@ async fn move_file_recursively(
 
                 if schema.as_deref() == Some("file") {
                     let home = connection_list.home();
-                    parent_dir =
-                        Directory::new(&home, GnomeCmdPath::Plain(parent_file.path().unwrap()));
+                    parent_dir = match parent_file
+                        .path()
+                        .and_then(|path| Directory::try_new(&home, GnomeCmdPath::Plain(path)).ok())
+                    {
+                        Some(parent_dir) => parent_dir,
+                        None => {
+                            run_failure_dialog(
+                                window.upcast_ref(),
+                                &gettext("Source “%s” could not be deleted. Aborting!")
+                                    .replace("%s", &src.parse_name()),
+                                &error,
+                            )
+                            .await;
+                            return ControlFlow::Break(BreakReason::Failed);
+                        }
+                    }
                 } else if schema.as_deref() == Some("smb") {
                     unimplemented!()
                 } else if let Some(ref connection) =
                     connection_list.get_remote_con_for_file(&parent_file)
                 {
-                    let path = glib::Uri::parse(&parent_file.uri(), glib::UriFlags::NONE)
-                        .unwrap()
-                        .path();
-                    parent_dir =
-                        Directory::new(connection, GnomeCmdPath::Plain(PathBuf::from(path)));
+                    parent_dir = match glib::Uri::parse(&parent_file.uri(), glib::UriFlags::NONE)
+                        .ok()
+                        .and_then(|uri| {
+                            Directory::try_new(
+                                connection,
+                                GnomeCmdPath::Plain(PathBuf::from(uri.path())),
+                            )
+                            .ok()
+                        }) {
+                        Some(parent_dir) => parent_dir,
+                        None => {
+                            run_failure_dialog(
+                                window.upcast_ref(),
+                                &gettext("Source “%s” could not be deleted. Aborting!")
+                                    .replace("%s", &src.parse_name()),
+                                &error,
+                            )
+                            .await;
+                            return ControlFlow::Break(BreakReason::Failed);
+                        }
+                    }
                 } else {
                     run_failure_dialog(window.upcast_ref(), &gettext("Cannot detect a connection for a source “%s”. It could not be deleted. Aborting!")
                             .replace("%s", &src.parse_name()),

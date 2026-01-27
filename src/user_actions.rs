@@ -804,7 +804,13 @@ async fn view_home(main_win: MainWindow) {
         file_list.set_connection(&home, None);
         file_list.goto_directory(&Path::new("~"));
     } else {
-        let directory = Directory::new(&home, home.create_path(&glib::home_dir()));
+        let directory = match Directory::try_new(&home, home.create_path(&glib::home_dir())) {
+            Ok(directory) => directory,
+            Err(_) => {
+                eprintln!("Unexpected: could not get home directory");
+                return;
+            }
+        };
         file_selector.new_tab_with_dir(&directory, true, true);
     }
 }
@@ -815,7 +821,14 @@ async fn view_root(main_win: MainWindow) {
 
     if file_selector.is_tab_locked(&file_list) {
         if let Some(connection) = file_list.connection() {
-            let directory = Directory::new(&connection, connection.create_path(&Path::new("/")));
+            let directory =
+                match Directory::try_new(&connection, connection.create_path(&Path::new("/"))) {
+                    Ok(directory) => directory,
+                    Err(_) => {
+                        eprintln!("Unexpected: could not get root directory");
+                        return;
+                    }
+                };
             file_selector.new_tab_with_dir(&directory, true, true);
         }
     } else {

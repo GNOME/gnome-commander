@@ -492,7 +492,13 @@ mod imp {
                     eprintln!("Cannot navigate to {path}. No connection.");
                     return;
                 };
-                let dir = Directory::new(&con, con.create_path(&Path::new(path)));
+                let dir = match Directory::try_new(&con, con.create_path(&Path::new(path))) {
+                    Ok(dir) => dir,
+                    Err(_) => {
+                        eprintln!("Unexpected: could not get navigation target directory");
+                        return;
+                    }
+                };
                 self.obj().new_tab_with_dir(&dir, true, true);
             } else {
                 fl.goto_directory(&Path::new(path));
@@ -918,14 +924,26 @@ impl FileSelector {
     pub fn goto_directory(&self, con: &Connection, path: &Path) {
         if self.file_list().connection().as_ref() == Some(&con) {
             if self.is_current_tab_locked() {
-                let dir = Directory::new(con, con.create_path(path));
+                let dir = match Directory::try_new(con, con.create_path(path)) {
+                    Ok(dir) => dir,
+                    Err(_) => {
+                        eprintln!("Unexpected: could not get navigation target directory");
+                        return;
+                    }
+                };
                 self.new_tab_with_dir(&dir, true, true);
             } else {
                 self.file_list().goto_directory(path);
             }
         } else {
             if con.is_open() {
-                let dir = Directory::new(con, con.create_path(path));
+                let dir = match Directory::try_new(con, con.create_path(path)) {
+                    Ok(dir) => dir,
+                    Err(_) => {
+                        eprintln!("Unexpected: could not get navigation target directory");
+                        return;
+                    }
+                };
 
                 if self.is_current_tab_locked() {
                     self.new_tab_with_dir(&dir, true, true);
@@ -1023,7 +1041,15 @@ impl FileSelector {
     fn on_navigate(&self, path: &str, new_tab: bool) {
         if new_tab || self.is_current_tab_locked() {
             if let Some(connection) = self.current_file_list().and_then(|fl| fl.connection()) {
-                let dir = Directory::new(&connection, connection.create_path(&Path::new(path)));
+                let dir =
+                    match Directory::try_new(&connection, connection.create_path(&Path::new(path)))
+                    {
+                        Ok(dir) => dir,
+                        Err(_) => {
+                            eprintln!("Unexpected: could not get navigation target directory");
+                            return;
+                        }
+                    };
                 self.new_tab_with_dir(&dir, true, true);
             }
         } else {
@@ -1032,15 +1058,19 @@ impl FileSelector {
         self.emit_by_name::<()>("activate-request", &[]);
     }
 
-    fn goto(&self, connection: &Connection, dir: &str) {
+    fn goto(&self, connection: &Connection, path: &str) {
         if self.is_current_tab_locked() {
-            self.new_tab_with_dir(
-                &Directory::new(connection, connection.create_path(&Path::new(&dir))),
-                true,
-                true,
-            );
+            let dir =
+                match Directory::try_new(connection, connection.create_path(&Path::new(&path))) {
+                    Ok(dir) => dir,
+                    Err(_) => {
+                        eprintln!("Unexpected: could not get navigation target directory");
+                        return;
+                    }
+                };
+            self.new_tab_with_dir(&dir, true, true);
         } else {
-            self.goto_directory(connection, &Path::new(&dir));
+            self.goto_directory(connection, &Path::new(&path));
         }
     }
 

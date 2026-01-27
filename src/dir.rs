@@ -240,7 +240,7 @@ impl Directory {
 
     pub fn parent(&self) -> Option<Directory> {
         if let Some(path) = self.path().parent() {
-            Some(Directory::new(&self.connection(), path))
+            Directory::try_new(&self.connection(), path).ok()
         } else {
             None
         }

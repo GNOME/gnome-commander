@@ -54,8 +54,9 @@ mod imp {
             home.set_state(ConnectionState::Open);
             home.set_alias(Some(&gettext("Home")));
 
-            let dir = Directory::new(&*home, GnomeCmdPath::Plain(glib::home_dir()));
-            home.set_default_dir(Some(&dir));
+            if let Ok(dir) = Directory::try_new(&*home, GnomeCmdPath::Plain(glib::home_dir())) {
+                home.set_default_dir(Some(&dir));
+            }
         }
     }
 

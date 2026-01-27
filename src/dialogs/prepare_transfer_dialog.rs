@@ -406,14 +406,13 @@ pub async fn handle_user_input(
 
         if file_type == Some(gio::FileType::Directory) {
             // There exists a directory, copy into it using the original filename
-            dest_dir = Some(Directory::new(&con, con.create_path(&dest_path)));
+            dest_dir = Directory::try_new(&con, con.create_path(&dest_path)).ok();
             dest_fn = Some(single_source_file.get_name());
         } else if file_type.is_some() {
-            // There exists something else, asume that the user wants to overwrite it for now
-            dest_dir = Some(Directory::new(
-                &con,
-                con.create_path(dest_path.parent().unwrap()),
-            ));
+            // There exists something else, assume that the user wants to overwrite it for now
+            dest_dir = dest_path
+                .parent()
+                .and_then(|parent| Directory::try_new(&con, con.create_path(parent)).ok());
             dest_fn = dest_path
                 .file_name()
                 .map(|n| n.to_string_lossy().to_string());
@@ -423,10 +422,7 @@ pub async fn handle_user_input(
             let file_type = con.path_target_type(parent_dir);
             if file_type == Some(gio::FileType::Directory) {
                 // yup, xfer to it
-                dest_dir = Some(Directory::new(
-                    &con,
-                    con.create_path(Path::new(&parent_dir)),
-                ));
+                dest_dir = Directory::try_new(&con, con.create_path(Path::new(&parent_dir))).ok();
                 dest_fn = dest_path
                     .file_name()
                     .map(|n| n.to_string_lossy().to_string());
@@ -444,10 +440,7 @@ pub async fn handle_user_input(
                     return None;
                 }
 
-                dest_dir = Some(Directory::new(
-                    &con,
-                    con.create_path(Path::new(&parent_dir)),
-                ));
+                dest_dir = Directory::try_new(&con, con.create_path(Path::new(&parent_dir))).ok();
                 dest_fn = dest_path
                     .file_name()
                     .map(|n| n.to_string_lossy().to_string());
@@ -456,7 +449,7 @@ pub async fn handle_user_input(
     } else {
         if file_type == Some(gio::FileType::Directory) {
             // There exists a directory, copy to it
-            dest_dir = Some(Directory::new(&con, con.create_path(&dest_path)));
+            dest_dir = Directory::try_new(&con, con.create_path(&dest_path)).ok();
         } else if file_type.is_some() {
             // There exists something which is not a directory, abort!
             return None;
@@ -470,7 +463,7 @@ pub async fn handle_user_input(
             } else {
                 return None;
             }
-            dest_dir = Some(Directory::new(&con, con.create_path(&dest_path)));
+            dest_dir = Directory::try_new(&con, con.create_path(&dest_path)).ok();
         }
     }
 
