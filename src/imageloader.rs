@@ -139,14 +139,7 @@ impl IconCache {
         }
 
         debug!('y', "Looking up pixmap for: {mime_type}");
-
-        let icon = try_load_icon(&icon_dir.join(mime_icon_name(mime_type)))
-            .or_else(|| {
-                category_icon_path(mime_type)
-                    .and_then(|file_name| try_load_icon(&icon_dir.join(file_name)))
-            })
-            .or_else(|| try_load_icon(&icon_dir.join(type_icon_name(file_type))));
-
+        let icon = find_file_icon(icon_dir, file_type, mime_type);
         debug!('z', "Icon for {} found: {}", mime_type, icon.is_some());
 
         icon
@@ -167,6 +160,44 @@ impl IconCache {
     }
 }
 
+/// Looks in the directory for any icon matching the MIME type. If not found will fall back to
+/// generic icons.
+fn find_file_icon(icon_dir: &Path, file_type: gio::FileType, mime_type: &str) -> Option<gio::Icon> {
+    const EXTENSIONS: &[&str] = &["png", "svg"];
+    const PREFIXES: &[&str] = &["", "gnome-"];
+
+    for ext in EXTENSIONS {
+        for prefix in PREFIXES {
+            let file_name = format!("{prefix}{}.{ext}", mime_type.replace('/', "-"));
+            let icon = try_load_icon(&icon_dir.join(file_name));
+            if icon.is_some() {
+                return icon;
+            }
+        }
+    }
+
+    if let Some(category_name) = category_icon_path(mime_type) {
+        for ext in EXTENSIONS {
+            let file_name = format!("{category_name}.{ext}");
+            let icon = try_load_icon(&icon_dir.join(file_name));
+            if icon.is_some() {
+                return icon;
+            }
+        }
+    }
+
+    let type_name = type_icon_name(file_type);
+    for ext in EXTENSIONS {
+        let file_name = format!("{type_name}.{ext}");
+        let icon = try_load_icon(&icon_dir.join(file_name));
+        if icon.is_some() {
+            return icon;
+        }
+    }
+
+    None
+}
+
 fn try_load_icon(path: &Path) -> Option<gio::Icon> {
     debug!('z', "Trying {}", path.display());
     if path.exists() {
@@ -184,20 +215,14 @@ fn load_icon(path: &Path) -> Option<gio::Icon> {
     })
 }
 
-/// Takes a mime-type as argument and returns the filename
-/// of the image representing it.
-fn mime_icon_name(mime_type: &str) -> String {
-    format!("gnome-{}.png", mime_type.replace('/', "-"))
-}
-
 /// Returns the file name that an image representing the given filetype should have.
 fn type_icon_name(file_type: gio::FileType) -> &'static str {
     match file_type {
-        gio::FileType::Directory => "i-directory.png",
-        gio::FileType::Regular => "i-regular.png",
-        gio::FileType::SymbolicLink => "i-symlink.png",
+        gio::FileType::Directory => "i-directory",
+        gio::FileType::Regular => "i-regular",
+        gio::FileType::SymbolicLink => "i-symlink",
         // TODO: Add filetype names for G_FILE_TYPE_SHORTCUT and G_FILE_TYPE_MOUNTABLE
-        _ => "i-regular.png",
+        _ => "i-regular",
     }
 }
 
@@ -206,17 +231,17 @@ fn type_icon_name(file_type: gio::FileType) -> &'static str {
 /// icons for 20 different video formats etc.
 fn category_icon_path(mime_type: &str) -> Option<&str> {
     if mime_type.starts_with("text") {
-        Some("gnome-text-plain.png")
+        Some("gnome-text-plain")
     } else if mime_type.starts_with("video") {
-        Some("gnome-video-plain.png")
+        Some("gnome-video-plain")
     } else if mime_type.starts_with("image") {
-        Some("gnome-image-plain.png")
+        Some("gnome-image-plain")
     } else if mime_type.starts_with("audio") {
-        Some("gnome-audio-plain.png")
+        Some("gnome-audio-plain")
     } else if mime_type.starts_with("pack") {
-        Some("gnome-pack-plain.png")
+        Some("gnome-pack-plain")
     } else if mime_type.starts_with("font") {
-        Some("gnome-font-plain.png")
+        Some("gnome-font-plain")
     } else {
         None
     }
