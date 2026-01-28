@@ -340,7 +340,7 @@ impl ConnectionList {
             self.add(&ConnectionDevice::new(
                 &v.alias,
                 &v.device_fn,
-                &Path::new(&v.mount_point),
+                Path::new(&v.mount_point),
                 gio::Icon::deserialize(&v.icon).as_ref(),
             ));
         }
@@ -463,7 +463,7 @@ impl ConnectionList {
             }
         }
         // If it does not exist already and a UUID is available, create the new device connection
-        if let Some(dev) = ConnectionDevice::new_auto_volume(&volume) {
+        if let Some(dev) = ConnectionDevice::new_auto_volume(volume) {
             self.add(&dev);
         } else {
             debug!('m', "Device does not have a UUID. Skipping");
@@ -508,12 +508,12 @@ impl ConnectionList {
         monitor.connect_volume_added(glib::clone!(
             #[weak(rename_to = this)]
             self,
-            move |_, volume| this.add_volume(&volume)
+            move |_, volume| this.add_volume(volume)
         ));
         monitor.connect_volume_removed(glib::clone!(
             #[weak(rename_to = this)]
             self,
-            move |_, volume| this.remove_volume(&volume)
+            move |_, volume| this.remove_volume(volume)
         ));
     }
 

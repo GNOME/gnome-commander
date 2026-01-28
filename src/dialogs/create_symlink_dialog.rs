@@ -187,10 +187,10 @@ pub async fn show_create_symlink_dialog(
 
         let symlink_file: gio::File = if link_name.starts_with('/') {
             let con = directory.connection();
-            let path = con.create_path(&Path::new(&link_name));
+            let path = con.create_path(Path::new(&link_name));
             con.create_gfile(&path)
         } else {
-            directory.get_child_gfile(&Path::new(&link_name))
+            directory.get_child_gfile(Path::new(&link_name))
         };
         let absolute_path = file.file().parse_name();
 

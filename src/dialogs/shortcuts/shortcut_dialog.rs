@@ -175,7 +175,7 @@ mod imp {
             );
 
             let cancel_button = gtk::Button::builder()
-                .label(&gettext("_Cancel"))
+                .label(gettext("_Cancel"))
                 .use_underline(true)
                 .hexpand(true)
                 .halign(gtk::Align::End)
@@ -187,7 +187,7 @@ mod imp {
             ));
 
             let ok_button = gtk::Button::builder()
-                .label(&gettext("_OK"))
+                .label(gettext("_OK"))
                 .use_underline(true)
                 .build();
             ok_button.connect_clicked(glib::clone!(

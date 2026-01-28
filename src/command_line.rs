@@ -166,9 +166,9 @@ impl CommandLine {
         let entry = &self.imp().entry.entry();
         let current_text = entry.text();
         if !current_text.ends_with(' ') && !current_text.is_empty() {
-            append(&entry, " ");
+            append(entry, " ");
         }
-        append(&entry, text);
+        append(entry, text);
     }
 
     pub fn set_text(&self, text: &str) {

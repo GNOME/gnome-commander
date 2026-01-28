@@ -56,9 +56,9 @@ impl CaseConversion {
             Self::Unchanged => string.to_owned(),
             Self::LowerCase => string.to_lowercase(),
             Self::UpperCase => string.to_uppercase(),
-            Self::SentenceCase => sentence_case(&string),
-            Self::InitialCaps => initial_caps(&string),
-            Self::ToggleCase => toggle_case(&string),
+            Self::SentenceCase => sentence_case(string),
+            Self::InitialCaps => initial_caps(string),
+            Self::ToggleCase => toggle_case(string),
         }
     }
 }

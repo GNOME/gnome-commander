@@ -161,7 +161,7 @@ impl GeneralOptions {
             buttonbar_visible: AppOption::simple(&settings, "show-buttonbar"),
             connection_buttons_visible: AppOption::simple(&settings, "show-devbuttons"),
             connection_list_visible: AppOption::simple(&settings, "show-devlist"),
-            always_show_tabs: BoolOption::simple(&&settings, "always-show-tabs"),
+            always_show_tabs: BoolOption::simple(&settings, "always-show-tabs"),
             tab_lock_indicator: AppOption::new(
                 &settings,
                 "tab-lock-indicator",
@@ -316,7 +316,7 @@ impl ColorOptions {
     }
 
     pub fn set_custom_theme(&self, theme: &ColorTheme) -> WriteResult {
-        save_custom_theme(&theme, &self.settings)
+        save_custom_theme(theme, &self.settings)
     }
 
     pub fn ls_color_palette(&self) -> LsColorsPalette {

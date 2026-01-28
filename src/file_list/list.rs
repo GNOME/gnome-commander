@@ -768,7 +768,7 @@ mod imp {
             if let Some(parent_dir) = dir.existing_parent() {
                 self.obj().goto_directory(&parent_dir.path().path());
             } else {
-                self.obj().goto_directory(&Path::new("~"));
+                self.obj().goto_directory(Path::new("~"));
             }
         }
 
@@ -2208,7 +2208,7 @@ impl FileList {
             match file.rename(&new_name) {
                 Ok(_) => {
                     selected.update();
-                    self.focus_file(&Path::new(&new_name), true);
+                    self.focus_file(Path::new(&new_name), true);
                 }
                 Err(error) => {
                     ErrorMessage::with_error(
@@ -2393,9 +2393,9 @@ impl FileList {
     }
 
     fn focus_row_coordinates(&self, item: &FileListItem) -> Option<gdk::Rectangle> {
-        let name_rect = self.item_rect(&item, ColumnID::COLUMN_NAME)?;
+        let name_rect = self.item_rect(item, ColumnID::COLUMN_NAME)?;
         let rect = if self.extension_display_mode() != ExtensionDisplayMode::Both {
-            if let Some(ext_rect) = self.item_rect(&item, ColumnID::COLUMN_EXT) {
+            if let Some(ext_rect) = self.item_rect(item, ColumnID::COLUMN_EXT) {
                 name_rect.union(&ext_rect)
             } else {
                 name_rect

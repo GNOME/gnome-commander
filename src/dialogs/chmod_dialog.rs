@@ -48,7 +48,7 @@ async fn chmod_recursively(
             gettext("Could not chmod {}").replace("{}", &file.get_name()),
             &error,
         )
-        .show(&parent_window)
+        .show(parent_window)
         .await;
         return;
     }
@@ -183,7 +183,7 @@ pub async fn show_chmod_dialog(parent_window: &gtk::Window, files: &glib::List<F
                 _ => ChmodRecursiveMode::DirectoriesOnly,
             });
 
-        chmod_files(dialog.upcast_ref(), &files, permissions, recursive).await;
+        chmod_files(dialog.upcast_ref(), files, permissions, recursive).await;
     }
 
     dialog.close();

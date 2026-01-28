@@ -117,7 +117,7 @@ pub async fn show_open_with_other_dialog(
         for file in files {
             if let Some(path) = file.get_real_path() {
                 full_command.push(" ");
-                full_command.push(&glib::shell_quote(path));
+                full_command.push(glib::shell_quote(path));
             } else {
                 eprintln!("Failed to get real path for file: {}", file.get_name());
             }

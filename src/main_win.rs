@@ -423,14 +423,14 @@ pub mod imp {
                 .connect_directory_changed(glib::clone!(
                     #[weak(rename_to = imp)]
                     self,
-                    move |fs, dir| imp.on_fs_dir_changed(&fs, dir)
+                    move |fs, dir| imp.on_fs_dir_changed(fs, dir)
                 ));
             self.file_selector_right
                 .borrow()
                 .connect_directory_changed(glib::clone!(
                     #[weak(rename_to = imp)]
                     self,
-                    move |fs, dir| imp.on_fs_dir_changed(&fs, dir)
+                    move |fs, dir| imp.on_fs_dir_changed(fs, dir)
                 ));
 
             self.file_selector_left
@@ -834,7 +834,7 @@ pub mod imp {
             } else {
                 file_selector
                     .file_list()
-                    .goto_directory(&Path::new(dest_dir));
+                    .goto_directory(Path::new(dest_dir));
             }
         }
 
@@ -1317,7 +1317,7 @@ impl MainWindow {
 
         self.imp().plugin_manager.save();
 
-        options.keybindings.set(&self.imp().shortcuts.save())?;
+        options.keybindings.set(self.imp().shortcuts.save())?;
         self.save_tabs(
             options.save_tabs_on_exit.get(),
             options.save_dirs_on_exit.get(),

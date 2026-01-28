@@ -275,7 +275,7 @@ mod imp {
                             attach_labels(
                                 &tab,
                                 gettext("Free space:"),
-                                &glib::format_size(free_space),
+                                glib::format_size(free_space),
                                 &mut y,
                             );
                         }
@@ -295,8 +295,7 @@ mod imp {
                 attach_labels(
                     &tab,
                     gettext("Opens with:"),
-                    &file
-                        .app_info_for_content_type()
+                    file.app_info_for_content_type()
                         .map(|app| app.name().to_string())
                         .unwrap_or_else(|| gettext("No default application registered")),
                     &mut y,
@@ -341,7 +340,7 @@ mod imp {
             let size_label = attach_labels(
                 &tab,
                 gettext("Size:"),
-                &nice_size(file_info.size() as u64, SizeDisplayMode::Grouped),
+                nice_size(file_info.size() as u64, SizeDisplayMode::Grouped),
                 &mut y,
             );
             if file_type == gio::FileType::Directory {
@@ -507,7 +506,7 @@ mod imp {
                     self.emit_response(changed);
                 }
                 Err(error) => {
-                    ErrorMessage::with_error(&gettext("Failed to apply changes."), &error)
+                    ErrorMessage::with_error(gettext("Failed to apply changes."), &error)
                         .show(self.obj().upcast_ref())
                         .await;
                 }

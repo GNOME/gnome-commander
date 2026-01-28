@@ -70,15 +70,15 @@ mod imp {
                     .height_request(250)
                     .build(),
                 edit_button: gtk::Button::builder()
-                    .label(&gettext("_Edit"))
+                    .label(gettext("_Edit"))
                     .use_underline(true)
                     .build(),
                 remove_button: gtk::Button::builder()
-                    .label(&gettext("_Remove"))
+                    .label(gettext("_Remove"))
                     .use_underline(true)
                     .build(),
                 connect_button: gtk::Button::builder()
-                    .label(&pgettext(I18N_CONTEXT_ACTION, "C_onnect"))
+                    .label(pgettext(I18N_CONTEXT_ACTION, "C_onnect"))
                     .use_underline(true)
                     .build(),
                 main_window: Default::default(),
@@ -138,7 +138,7 @@ mod imp {
             grid.attach(&bbox, 1, 0, 1, 1);
 
             let add_button = gtk::Button::builder()
-                .label(&gettext("_Add"))
+                .label(gettext("_Add"))
                 .use_underline(true)
                 .build();
             add_button.connect_clicked(glib::clone!(
@@ -171,7 +171,7 @@ mod imp {
             bbox.append(&down_button);
 
             let help_button = gtk::Button::builder()
-                .label(&gettext("_Help"))
+                .label(gettext("_Help"))
                 .use_underline(true)
                 .build();
             help_button.connect_clicked(glib::clone!(
@@ -183,7 +183,7 @@ mod imp {
             ));
 
             let close_button = gtk::Button::builder()
-                .label(&gettext("_Close"))
+                .label(gettext("_Close"))
                 .use_underline(true)
                 .build();
             close_button.connect_clicked(glib::clone!(

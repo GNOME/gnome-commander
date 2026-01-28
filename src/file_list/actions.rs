@@ -271,7 +271,7 @@ pub async fn file_list_action_execute_script(
         for file in files {
             let mut command = OsString::from(&path);
             command.push(" ");
-            command.push(&glib::shell_quote(file.file_info().display_name()));
+            command.push(glib::shell_quote(file.file_info().display_name()));
 
             let working_directory = file.file().parent().and_then(|p| p.path());
             if let Err(error) = run_command_indir(
@@ -288,7 +288,7 @@ pub async fn file_list_action_execute_script(
         let mut command = OsString::from(path);
         for file in &files {
             command.push(" ");
-            command.push(&glib::shell_quote(file.file_info().display_name()));
+            command.push(glib::shell_quote(file.file_info().display_name()));
         }
 
         let working_directory = files

@@ -167,7 +167,7 @@ mod imp {
     fn load_application_css() {
         if let Some(display) = gdk::Display::default() {
             let provider = gtk::CssProvider::new();
-            provider.load_from_string(&include_str!("application.css"));
+            provider.load_from_string(include_str!("application.css"));
             gtk::style_context_add_provider_for_display(
                 &display,
                 &provider,

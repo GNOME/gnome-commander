@@ -57,7 +57,7 @@ pub async fn edit_bookmark_dialog(
         .build();
 
     let name_label = gtk::Label::builder()
-        .label(&gettext("Bookmark _name:"))
+        .label(gettext("Bookmark _name:"))
         .use_underline(true)
         .halign(gtk::Align::Start)
         .valign(gtk::Align::Center)
@@ -76,7 +76,7 @@ pub async fn edit_bookmark_dialog(
         .build();
 
     let path_label = gtk::Label::builder()
-        .label(&gettext("Bookmark _target:"))
+        .label(gettext("Bookmark _target:"))
         .use_underline(true)
         .halign(gtk::Align::Start)
         .valign(gtk::Align::Center)

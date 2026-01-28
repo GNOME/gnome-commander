@@ -327,7 +327,7 @@ impl Shortcuts {
 
                 self.register_full(
                     shortcut,
-                    &user_action.action_name,
+                    user_action.action_name,
                     Some(sv.action_data.as_str()).filter(|d| !d.is_empty()),
                 );
             }

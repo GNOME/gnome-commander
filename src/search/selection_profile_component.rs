@@ -259,7 +259,7 @@ impl SelectionProfileComponent {
         profile.set_max_depth(self.imp().recurse_drop_down.selected() as i32 - 1);
         profile.set_syntax(self.imp().filter_type_drop_down.selected() as i32);
         profile.set_text_pattern(text_pattern);
-        profile.set_content_search(&content_search);
+        profile.set_content_search(content_search);
         profile.set_match_case(content_search && self.imp().case_check.is_active());
     }
 

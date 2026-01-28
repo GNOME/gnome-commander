@@ -95,8 +95,8 @@ impl FileAttrSorter {
         this.imp()
             .compare
             .set(Box::new(move |file1, file2, sorter| {
-                let file_key1 = (key_fn)(sorter, &file1);
-                let file_key2 = (key_fn)(sorter, &file2);
+                let file_key1 = (key_fn)(sorter, file1);
+                let file_key2 = (key_fn)(sorter, file2);
                 file_key1.cmp(&file_key2).into()
             }))
             .ok()
@@ -114,7 +114,7 @@ impl FileAttrSorter {
                 file.extension()
                     .as_ref()
                     .and_then(|e| e.to_str())
-                    .map(|e| collate_key(&e, this.case_sensitive())),
+                    .map(|e| collate_key(e, this.case_sensitive())),
                 collate_key(&file.get_name(), this.case_sensitive()),
             )
         })
@@ -126,7 +126,7 @@ impl FileAttrSorter {
                 file.get_dirname()
                     .as_ref()
                     .and_then(|d| d.to_str())
-                    .map(|d| collate_key(&d, this.case_sensitive())),
+                    .map(|d| collate_key(d, this.case_sensitive())),
                 collate_key(&file.get_name(), this.case_sensitive()),
             )
         })

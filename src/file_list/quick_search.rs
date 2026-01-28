@@ -58,7 +58,7 @@ mod imp {
                 .spacing(6)
                 .build();
 
-            let label = gtk::Label::builder().label(&gettext("Search")).build();
+            let label = gtk::Label::builder().label(gettext("Search")).build();
             bx.append(&label);
             bx.append(&self.entry);
             self.obj().set_child(Some(&bx));

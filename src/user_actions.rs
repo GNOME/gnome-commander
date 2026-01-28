@@ -741,7 +741,7 @@ async fn view_up(main_win: MainWindow) {
             file_selector.new_tab_with_dir(&directory, true, true);
         }
     } else {
-        file_list.goto_directory(&Path::new(".."));
+        file_list.goto_directory(Path::new(".."));
     }
 }
 
@@ -802,7 +802,7 @@ async fn view_home(main_win: MainWindow) {
     let home = ConnectionList::get().home();
     if !file_selector.is_tab_locked(&file_list) {
         file_list.set_connection(&home, None);
-        file_list.goto_directory(&Path::new("~"));
+        file_list.goto_directory(Path::new("~"));
     } else {
         let directory = match Directory::try_new(&home, home.create_path(&glib::home_dir())) {
             Ok(directory) => directory,
@@ -822,7 +822,7 @@ async fn view_root(main_win: MainWindow) {
     if file_selector.is_tab_locked(&file_list) {
         if let Some(connection) = file_list.connection() {
             let directory =
-                match Directory::try_new(&connection, connection.create_path(&Path::new("/"))) {
+                match Directory::try_new(&connection, connection.create_path(Path::new("/"))) {
                     Ok(directory) => directory,
                     Err(_) => {
                         eprintln!("Unexpected: could not get root directory");
@@ -832,7 +832,7 @@ async fn view_root(main_win: MainWindow) {
             file_selector.new_tab_with_dir(&directory, true, true);
         }
     } else {
-        file_list.goto_directory(&Path::new("/"));
+        file_list.goto_directory(Path::new("/"));
     }
 }
 
@@ -947,7 +947,7 @@ async fn bookmarks_add_current(main_win: MainWindow) {
 async fn bookmarks_edit(main_win: MainWindow) {
     let connection_list = ConnectionList::get();
     let shortcuts = main_win.shortcuts();
-    let result = BookmarksDialog::show(main_win.upcast_ref(), &connection_list, shortcuts).await;
+    let result = BookmarksDialog::show(main_win.upcast_ref(), connection_list, shortcuts).await;
     if let Some(bookmark) = result {
         let fs = main_win.file_selector(FileSelectorID::ACTIVE);
         fs.goto_directory(&bookmark.connection, Path::new(&bookmark.bookmark.path()));
