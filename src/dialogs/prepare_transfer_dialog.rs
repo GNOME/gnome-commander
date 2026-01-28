@@ -370,8 +370,8 @@ pub async fn handle_user_input(
             .connection()
             .map_or(false, |c| c.is_local())
         {
-            if let Some((dev, path)) = con_device_has_path(&dst_fs, &dest_path)
-                .or_else(|| con_device_has_path(&src_fs, &dest_path))
+            if let Some((dev, path)) = con_device_has_path(dst_fs, &dest_path)
+                .or_else(|| con_device_has_path(src_fs, &dest_path))
             {
                 // if LEFT or RIGHT device (connection) points to user_path then adjust user_path and set con to the found device
                 con = dev;
@@ -383,13 +383,13 @@ pub async fn handle_user_input(
         }
     } else {
         if !default_dest_dir.upcast_ref::<File>().is_local() {
-            dest_path = prepend_slash(default_dest_dir.path().child(&Path::new(user_path)).path());
+            dest_path = prepend_slash(default_dest_dir.path().child(Path::new(user_path)).path());
         } else {
             dest_path = PathBuf::from(
                 src_directory
                     .upcast_ref::<File>()
                     .get_path_through_parent()
-                    .child(&Path::new(user_path))
+                    .child(Path::new(user_path))
                     .path(),
             );
         }

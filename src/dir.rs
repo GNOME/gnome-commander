@@ -191,7 +191,7 @@ impl Directory {
         let base_path = connection.base_path()?;
         let file = connection.create_gfile(&base_path);
         Some(Self::find_or_create(
-            &connection,
+            connection,
             &file,
             &base_file_info,
             base_path.clone(),
@@ -613,7 +613,7 @@ fn file_for_connection_and_filename(dir: &Directory, filename: &Path) -> Option<
 
     match glib::Uri::resolve_relative(
         Some(&mount_uri),
-        &merged_dir_and_filename.to_str().unwrap_or_default(),
+        merged_dir_and_filename.to_str().unwrap_or_default(),
         glib::UriFlags::NONE,
     ) {
         Ok(uri) => Some(gio::File::for_uri(&uri)),
@@ -654,8 +654,8 @@ fn create_file_from_file_info(file_info: &gio::FileInfo, parent: &Directory) -> 
     }
 
     if file_info.file_type() == gio::FileType::Directory {
-        Directory::new_from_file_info(&file_info, parent).and_upcast::<File>()
+        Directory::new_from_file_info(file_info, parent).and_upcast::<File>()
     } else {
-        Some(File::new(&file_info, parent))
+        Some(File::new(file_info, parent))
     }
 }

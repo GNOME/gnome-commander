@@ -124,7 +124,7 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginInfoOwned) -> gtk:
 
         if let Some(ref translator) = info.translator {
             notebook.append_page(
-                &text_content(&translator, false),
+                &text_content(translator, false),
                 Some(
                     &gtk::Label::builder()
                         .label(gettext("Translated by"))

@@ -815,7 +815,7 @@ mod imp {
         pub fn update_profile_menu(&self) {
             if let Some(config) = self.config.get() {
                 self.profile_menu_button
-                    .set_menu_model(Some(&create_profiles_menu(&config)));
+                    .set_menu_model(Some(&create_profiles_menu(config)));
             }
         }
 
@@ -934,7 +934,7 @@ mod imp {
 
             if let Some(new_focused_file_name) = new_focused_file_name {
                 if let Some(fl) = self.obj().file_list() {
-                    fl.focus_file(&Path::new(&new_focused_file_name), true);
+                    fl.focus_file(Path::new(&new_focused_file_name), true);
                 }
             }
 
@@ -1091,7 +1091,7 @@ mod imp {
         if profiles.n_items() > 0 {
             menu.append(
                 Some(&gettext("_Manage Profiles…")),
-                Some(&"advrename.manage-profiles"),
+                Some("advrename.manage-profiles"),
             );
 
             let profiles_menu = gio::Menu::new();
@@ -1181,7 +1181,7 @@ fn gnome_cmd_advrename_dialog_set(dialog: &AdvancedRenameDialog, file_list: &gli
     let file_metadata_service = dialog.file_metadata_service();
     let files = &dialog.imp().files;
     for file in file_list {
-        let metadata = file_metadata_service.extract_metadata(&file);
+        let metadata = file_metadata_service.extract_metadata(file);
 
         let item = Item::new(file);
         item.clear_error();

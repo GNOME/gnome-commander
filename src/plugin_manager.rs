@@ -96,7 +96,7 @@ impl PluginManager {
                 error
             );
         }
-        if let Err(error) = self.scan_plugins_in_dir(&Path::new(PLUGIN_DIR)) {
+        if let Err(error) = self.scan_plugins_in_dir(Path::new(PLUGIN_DIR)) {
             eprintln!(
                 "ERROR: Failed to load plugins from {}: {}",
                 PLUGIN_DIR, error

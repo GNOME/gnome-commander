@@ -126,7 +126,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         dest_fn = base;
 
         let con = dir.connection();
-        let con_path = con.create_path(&Path::new(parent));
+        let con_path = con.create_path(Path::new(parent));
         dest_dir = match Directory::try_new(&con, con_path) {
             Ok(dest_dir) => dest_dir,
             Err(_) => {

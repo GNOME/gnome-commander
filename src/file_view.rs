@@ -88,9 +88,9 @@ pub async fn file_view(
         use_internal_viewer.unwrap_or_else(|| options.use_internal_viewer.get());
 
     if use_internal_viewer {
-        file_view_internal(&parent_window, &file, &file_metadata_service).await?;
+        file_view_internal(parent_window, file, file_metadata_service).await?;
     } else {
-        file_view_external(&file, options).await?;
+        file_view_external(file, options).await?;
     }
     Ok(())
 }

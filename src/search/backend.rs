@@ -40,11 +40,9 @@ impl SearchBackend {
         cancellable: &gio::Cancellable,
     ) -> Result<(), ErrorMessage> {
         match self {
-            SearchBackend::Local => {
-                local_search(&profile, start_dir, on_message, cancellable).await
-            }
+            SearchBackend::Local => local_search(profile, start_dir, on_message, cancellable).await,
             SearchBackend::Generic => {
-                generic_search(&profile, start_dir, on_message, cancellable).await
+                generic_search(profile, start_dir, on_message, cancellable).await
             }
         }
     }

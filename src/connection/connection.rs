@@ -361,7 +361,7 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
             if let Err(error_message) = self.as_ref().close_impl(window.cloned()).await {
                 debug!('m', "unmount failed {error_message}");
                 match window {
-                    Some(window) => error_message.show(&window).await,
+                    Some(window) => error_message.show(window).await,
                     None => eprintln!("{error_message}"),
                 }
             }

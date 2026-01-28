@@ -241,7 +241,7 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
     let fav_menu = gio::Menu::new();
     for app in load_favorite_apps(&options) {
         if fav_app_matches_files(&app, &files) {
-            fav_menu.append_item(&fav_app_menu_item(&&App::UserDefined(app)));
+            fav_menu.append_item(&fav_app_menu_item(&App::UserDefined(app)));
         }
     }
     menu.append_section(None, &fav_menu);

@@ -43,7 +43,7 @@ async fn chown_recursively(
             gettext("Could not chown {}").replace("{}", &file.get_name()),
             &error,
         )
-        .show(&parent_window)
+        .show(parent_window)
         .await;
     }
 
@@ -148,7 +148,7 @@ pub async fn show_chown_dialog(parent_window: &gtk::Window, files: &glib::List<F
 
         let recursive = recurse_check.is_active();
 
-        chown_files(dialog.upcast_ref(), &files, owner, group, recursive).await;
+        chown_files(dialog.upcast_ref(), files, owner, group, recursive).await;
     }
 
     dialog.close();

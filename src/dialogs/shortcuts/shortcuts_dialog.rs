@@ -143,7 +143,7 @@ mod imp {
             grid.attach(&actions_box, 1, 0, 1, 1);
 
             let add_button = gtk::Button::builder()
-                .label(&gettext("_Add"))
+                .label(gettext("_Add"))
                 .use_underline(true)
                 .build();
             actions_box.append(&add_button);
@@ -156,7 +156,7 @@ mod imp {
             ));
 
             let edit_button = gtk::Button::builder()
-                .label(&gettext("_Edit"))
+                .label(gettext("_Edit"))
                 .use_underline(true)
                 .build();
             actions_box.append(&edit_button);
@@ -169,7 +169,7 @@ mod imp {
             ));
 
             let remove_button = gtk::Button::builder()
-                .label(&gettext("_Remove"))
+                .label(gettext("_Remove"))
                 .use_underline(true)
                 .build();
             actions_box.append(&remove_button);
@@ -180,7 +180,7 @@ mod imp {
             ));
 
             let help_button = gtk::Button::builder()
-                .label(&gettext("_Help"))
+                .label(gettext("_Help"))
                 .use_underline(true)
                 .build();
             help_button.connect_clicked(glib::clone!(
@@ -194,7 +194,7 @@ mod imp {
             ));
 
             let cancel_button = gtk::Button::builder()
-                .label(&gettext("_Cancel"))
+                .label(gettext("_Cancel"))
                 .use_underline(true)
                 .hexpand(true)
                 .halign(gtk::Align::End)
@@ -206,7 +206,7 @@ mod imp {
             ));
 
             let ok_button = gtk::Button::builder()
-                .label(&gettext("_OK"))
+                .label(gettext("_OK"))
                 .use_underline(true)
                 .build();
             ok_button.connect_clicked(glib::clone!(
@@ -412,7 +412,7 @@ fn shortcuts_from_model(
         let action_data = &user_action.call.action_data;
 
         if !action_name.is_empty() {
-            shortcuts.register_full(shortcut, &action_name, action_data.as_deref());
+            shortcuts.register_full(shortcut, action_name, action_data.as_deref());
         }
     }
 

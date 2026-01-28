@@ -80,7 +80,7 @@ pub async fn local_search(
         if cancellable.is_cancelled() {
             break;
         }
-        match File::new_from_path(&Path::new(&line)) {
+        match File::new_from_path(Path::new(&line)) {
             Ok(file) => (on_message)(SearchMessage::File(file)),
             Err(error) => eprintln!("Cannot create a file for a path '{line}': {error}"),
         }

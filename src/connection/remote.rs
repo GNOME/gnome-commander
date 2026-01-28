@@ -278,7 +278,7 @@ impl ConnectionInterface for ConnectionRemote {
     }
 
     fn open_icon(&self) -> Option<gio::Icon> {
-        Some(gio::ThemedIcon::new(&self.icon_name()).upcast())
+        Some(gio::ThemedIcon::new(self.icon_name()).upcast())
     }
 }
 

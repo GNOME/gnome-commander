@@ -134,7 +134,7 @@ async fn search_dir_recursive(
         match item {
             DirectoryItem::File(file) => (on_message)(SearchMessage::File(file.clone())),
             DirectoryItem::Info(info) => {
-                let file = File::new(&info, dir);
+                let file = File::new(info, dir);
                 (on_message)(SearchMessage::File(file));
             }
         }
@@ -161,7 +161,7 @@ async fn search_dir_recursive(
         if display_name != "." && display_name != ".." && !info.is_symlink() {
             let new_dir = match item {
                 DirectoryItem::File(file) => file.downcast_ref::<Directory>().cloned(),
-                DirectoryItem::Info(info) => Directory::new_from_file_info(&info, dir),
+                DirectoryItem::Info(info) => Directory::new_from_file_info(info, dir),
             };
             if let Some(new_dir) = new_dir {
                 Box::pin(search_dir_recursive(

@@ -552,7 +552,7 @@ mod imp {
                 .sample_file_name
                 .borrow()
                 .as_ref()
-                .map(|name| if tag == "$n" { take_stem(&name) } else { name }.to_owned());
+                .map(|name| if tag == "$n" { take_stem(name) } else { name }.to_owned());
 
             if let Some(rtag) = get_selected_range(&parent_window, tag, filename.as_deref()).await {
                 self.insert_tag(&rtag);
