@@ -993,7 +993,7 @@ pub mod imp {
 
         fn on_key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
             fn activate_local_action(mw: &MainWindow, action: &str) {
-                gio::prelude::ActionGroupExt::activate_action(&*mw.obj(), action, None);
+                let _ = gtk::prelude::WidgetExt::activate_action(&*mw.obj(), action, None);
             }
 
             match (state, key) {
@@ -1011,15 +1011,15 @@ pub mod imp {
                     glib::Propagation::Stop
                 }
                 (CONTROL, gdk::Key::x | gdk::Key::X) => {
-                    activate_local_action(self, "edit-cap-cut");
+                    activate_local_action(self, "win.edit-cap-cut");
                     glib::Propagation::Stop
                 }
                 (CONTROL, gdk::Key::c | gdk::Key::C) => {
-                    activate_local_action(self, "edit-cap-copy");
+                    activate_local_action(self, "win.edit-cap-copy");
                     glib::Propagation::Stop
                 }
                 (CONTROL, gdk::Key::v | gdk::Key::V) => {
-                    activate_local_action(self, "edit-cap-paste");
+                    activate_local_action(self, "win.edit-cap-paste");
                     glib::Propagation::Stop
                 }
                 (CONTROL, gdk::Key::s | gdk::Key::S) => {
@@ -1031,7 +1031,7 @@ pub mod imp {
                     glib::Propagation::Stop
                 }
                 (ALT_SHIFT, gdk::Key::p | gdk::Key::P) => {
-                    activate_local_action(self, "plugins-configure");
+                    activate_local_action(self, "win.plugins-configure");
                     glib::Propagation::Stop
                 }
                 (ALT_SHIFT, gdk::Key::f | gdk::Key::F) => {
@@ -1053,39 +1053,39 @@ pub mod imp {
                     glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::F1) => {
-                    activate_local_action(self, "help-help");
+                    activate_local_action(self, "win.help-help");
                     glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::F2) => {
-                    activate_local_action(self, "file-rename");
+                    activate_local_action(self, "win.file-rename");
                     glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::F3) => {
-                    activate_local_action(self, "file-view");
+                    activate_local_action(self, "win.file-view");
                     glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::F4) => {
-                    activate_local_action(self, "file-edit");
+                    activate_local_action(self, "win.file-edit");
                     glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::F5) => {
-                    activate_local_action(self, "file-copy");
+                    activate_local_action(self, "win.file-copy");
                     glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::F6) => {
-                    activate_local_action(self, "file-move");
+                    activate_local_action(self, "win.file-move");
                     glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::F7) => {
-                    activate_local_action(self, "file-mkdir");
+                    activate_local_action(self, "win.file-mkdir");
                     glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::F8) => {
-                    activate_local_action(self, "file-delete");
+                    activate_local_action(self, "win.file-delete");
                     glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::F9) => {
-                    activate_local_action(self, "file-search");
+                    activate_local_action(self, "win.file-search");
                     glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::Escape) => {
