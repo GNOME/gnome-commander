@@ -205,9 +205,9 @@ macro_rules! enum_convert_strum {
         enum_convert_strum!($t, <$t>::default())
     };
     ($t:ty, $d:expr) => {
-        crate::options::types::TypeConvertCallback::<$t, crate::options::types::EnumRepr> {
+        $crate::options::types::TypeConvertCallback::<$t, $crate::options::types::EnumRepr> {
             from_repr: |e| e.0.try_into().ok().and_then(<$t>::from_repr).unwrap_or($d),
-            to_repr: |e| crate::options::types::EnumRepr(e as i32),
+            to_repr: |e| $crate::options::types::EnumRepr(e as i32),
         }
     };
 }

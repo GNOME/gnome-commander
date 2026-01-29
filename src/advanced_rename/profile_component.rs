@@ -485,11 +485,11 @@ mod imp {
                 #[weak]
                 this,
                 move |dropdown| {
-                    if let Some(case_conversion) = CaseConversion::from_repr(dropdown.selected()) {
-                        if let Some(profile) = this.profile() {
-                            profile.set_case_conversion(case_conversion);
-                            this.emit_by_name::<()>("regex-changed", &[]);
-                        }
+                    if let Some(case_conversion) = CaseConversion::from_repr(dropdown.selected())
+                        && let Some(profile) = this.profile()
+                    {
+                        profile.set_case_conversion(case_conversion);
+                        this.emit_by_name::<()>("regex-changed", &[]);
                     }
                 }
             ));
@@ -497,11 +497,11 @@ mod imp {
                 #[weak]
                 this,
                 move |dropdown| {
-                    if let Some(trim_blanks) = TrimBlanks::from_repr(dropdown.selected()) {
-                        if let Some(profile) = this.profile() {
-                            profile.set_trim_blanks(trim_blanks);
-                            this.emit_by_name::<()>("regex-changed", &[]);
-                        }
+                    if let Some(trim_blanks) = TrimBlanks::from_repr(dropdown.selected())
+                        && let Some(profile) = this.profile()
+                    {
+                        profile.set_trim_blanks(trim_blanks);
+                        this.emit_by_name::<()>("regex-changed", &[]);
                     }
                 }
             ));
@@ -1081,7 +1081,7 @@ async fn get_selected_range(
     let result = receiver.recv().await.unwrap_or_default();
     dialog.close();
 
-    let range = if result {
+    if result {
         let inversed = option.is_active();
 
         if let Some((begin, end)) = entry.selection_bounds() {
@@ -1101,16 +1101,12 @@ async fn get_selected_range(
                     e.unwrap_or_default()
                 ))
             }
+        } else if !inversed {
+            None
         } else {
-            if !inversed {
-                None
-            } else {
-                Some(placeholder.to_owned())
-            }
+            Some(placeholder.to_owned())
         }
     } else {
         None
-    };
-
-    range
+    }
 }

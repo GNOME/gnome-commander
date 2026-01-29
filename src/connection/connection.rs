@@ -207,10 +207,7 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
     }
 
     fn set_default_dir(&self, dir: Option<&Directory>) {
-        self.as_ref()
-            .imp()
-            .default_dir
-            .replace(dir.map(Clone::clone));
+        self.as_ref().imp().default_dir.replace(dir.cloned());
     }
 
     fn base_path(&self) -> Option<GnomeCmdPath> {
@@ -229,7 +226,7 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
         self.as_ref()
             .imp()
             .base_file_info
-            .replace(file_info.map(Clone::clone));
+            .replace(file_info.cloned());
     }
 
     fn is_open(&self) -> bool {
@@ -262,13 +259,11 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
 
     fn move_bookmark_up(&self, bookmark: &Bookmark) -> Option<u32> {
         let bookmarks = &self.as_ref().imp().bookmarks;
-        let Some(position): Option<u32> = bookmarks
+        let position: u32 = bookmarks
             .iter()
-            .position(|b| b.as_ref() == Ok(bookmark))
-            .and_then(|p| p.try_into().ok())
-        else {
-            return None;
-        };
+            .position(|b| b.as_ref() == Ok(bookmark))?
+            .try_into()
+            .ok()?;
         if position > 0 {
             bookmarks.remove(position);
             bookmarks.insert(position - 1, bookmark);
@@ -280,13 +275,11 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
 
     fn move_bookmark_down(&self, bookmark: &Bookmark) -> Option<u32> {
         let bookmarks = &self.as_ref().imp().bookmarks;
-        let Some(position): Option<u32> = bookmarks
+        let position: u32 = bookmarks
             .iter()
-            .position(|b| b.as_ref() == Ok(bookmark))
-            .and_then(|p| p.try_into().ok())
-        else {
-            return None;
-        };
+            .position(|b| b.as_ref() == Ok(bookmark))?
+            .try_into()
+            .ok()?;
         if position + 1 < bookmarks.n_items() {
             bookmarks.remove(position);
             bookmarks.insert(position + 1, bookmark);

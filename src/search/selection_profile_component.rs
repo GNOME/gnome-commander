@@ -189,13 +189,13 @@ mod imp {
             }
         ));
         factory.connect_bind(move |_, item| {
-            if let Some(item) = item.downcast_ref::<gtk::ListItem>() {
-                if let Some(label) = item.child().and_downcast::<gtk::Label>() {
-                    if let Some(text) = item.item().and_downcast::<gtk::StringObject>() {
-                        label.set_label(&text.string());
-                    } else {
-                        label.set_label("");
-                    }
+            if let Some(item) = item.downcast_ref::<gtk::ListItem>()
+                && let Some(label) = item.child().and_downcast::<gtk::Label>()
+            {
+                if let Some(text) = item.item().and_downcast::<gtk::StringObject>() {
+                    label.set_label(&text.string());
+                } else {
+                    label.set_label("");
                 }
             }
         });

@@ -218,14 +218,13 @@ mod imp {
             let char_width = self.char_width.get();
             let char_height = self.char_height.get();
 
-            if let Some(dp) = self.obj().data_presentation() {
-                if let Some(chars) =
+            if let Some(dp) = self.obj().data_presentation()
+                && let Some(chars) =
                     (width > 0 && char_width > 0).then(|| (width / char_width) as u32)
-                {
-                    self.chars_per_line.set(chars);
-                    dp.set_wrap_limit(chars);
-                    self.obj().queue_draw();
-                }
+            {
+                self.chars_per_line.set(chars);
+                dp.set_wrap_limit(chars);
+                self.obj().queue_draw();
             }
 
             self.lines_displayed.set(if char_height > 0 {
@@ -392,13 +391,13 @@ mod imp {
         }
 
         fn vadjustment_update(&self) {
-            if let Some(vadjustment) = self.obj().vadjustment() {
-                if let Some(dp) = self.obj().data_presentation() {
-                    let value = vadjustment.value() as u64;
-                    let new_value = dp.align_offset_to_line_start(value);
-                    if new_value != value {
-                        vadjustment.set_value(new_value as f64);
-                    }
+            if let Some(vadjustment) = self.obj().vadjustment()
+                && let Some(dp) = self.obj().data_presentation()
+            {
+                let value = vadjustment.value() as u64;
+                let new_value = dp.align_offset_to_line_start(value);
+                if new_value != value {
+                    vadjustment.set_value(new_value as f64);
                 }
             }
 
@@ -421,7 +420,7 @@ mod imp {
                 if self
                     .obj()
                     .data_presentation()
-                    .map_or(false, |dp| dp.mode() == DataPresentationMode::NoWrap)
+                    .is_some_and(|dp| dp.mode() == DataPresentationMode::NoWrap)
                 {
                     // TODO: find our the real horz limit
                     self.max_column.get() as f64
@@ -672,7 +671,7 @@ mod imp {
                 gdk::Key::Up => vadjustment.set_value(dp.scroll_lines(current_offset, -1) as f64),
                 gdk::Key::Down => vadjustment.set_value(dp.scroll_lines(current_offset, 1) as f64),
                 gdk::Key::Page_Up => vadjustment.set_value(
-                    dp.scroll_lines(current_offset, -1 * (self.lines_displayed.get() - 1)) as f64,
+                    dp.scroll_lines(current_offset, -(self.lines_displayed.get() - 1)) as f64,
                 ),
                 gdk::Key::Page_Down => vadjustment.set_value(
                     dp.scroll_lines(current_offset, self.lines_displayed.get() - 1) as f64,
@@ -723,7 +722,7 @@ mod imp {
             let line_offset = dp.scroll_lines(current_offset, line);
             let next_line_offset = dp.scroll_lines(line_offset, 1);
 
-            let offset = text_mode_line_iter(&input_mode, line_offset, next_line_offset, tab_size)
+            text_mode_line_iter(&input_mode, line_offset, next_line_offset, tab_size)
                 .find_map(move |(offset, c, _)| {
                     if start_marker {
                         (c >= column).then_some(offset)
@@ -731,9 +730,7 @@ mod imp {
                         (c > column).then_some(offset)
                     }
                 })
-                .unwrap_or(next_line_offset);
-
-            offset
+                .unwrap_or(next_line_offset)
         }
 
         pub fn hex_mode_pixel_to_offset(&self, x: f64, y: f64, start_marker: bool) -> u64 {
@@ -769,27 +766,21 @@ mod imp {
                 if column < bin_offset {
                     // the user selected the hex dump portion
                     self.hexmode_marker_on_hexdump.set(true);
-                    (column - hex_offset + 2) / 3
+                    (column - hex_offset).div_ceil(3)
                 } else {
                     // the user selected the ascii portion
                     self.hexmode_marker_on_hexdump.set(false);
                     column - bin_offset
                 }
-            } else {
-                if self.hexmode_marker_on_hexdump.get() {
-                    if column < bin_offset {
-                        // the user selected the hex dump portion
-                        (column - hex_offset + 2) / 3
-                    } else {
-                        HEXDUMP_FIXED_LIMIT
-                    }
+            } else if self.hexmode_marker_on_hexdump.get() {
+                if column < bin_offset {
+                    // the user selected the hex dump portion
+                    (column - hex_offset).div_ceil(3)
                 } else {
-                    if column < bin_offset {
-                        0
-                    } else {
-                        column - bin_offset
-                    }
+                    HEXDUMP_FIXED_LIMIT
                 }
+            } else {
+                column.saturating_sub(bin_offset)
             };
 
             let mut offset = line_offset;
@@ -905,12 +896,12 @@ mod imp {
                 return Vec::new();
             };
             binary_mode_line_iter(&input_mode, start_of_line, end_of_line)
-                .filter_map(|(offset, column, character)| {
-                    Some((
+                .map(|(offset, column, character)| {
+                    (
                         offset,
                         column,
                         character.map_or('.', |c| if c.is_control() { '.' } else { c }),
-                    ))
+                    )
                 })
                 .collect()
         }
@@ -975,14 +966,14 @@ mod imp {
                 .collect::<Vec<_>>();
 
             let bin_chars = hex_mode_line_iter(&input_mode, start_of_line, end_of_line)
-                .filter_map(|(offset, column, byte)| {
-                    Some((
+                .map(|(offset, column, byte)| {
+                    (
                         offset,
                         column,
                         byte.filter(|b| *b != 0)
                             .and_then(|b| char::from_u32(b as u32))
                             .unwrap_or('.'),
-                    ))
+                    )
                 })
                 .collect::<Vec<_>>();
 

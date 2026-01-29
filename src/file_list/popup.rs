@@ -56,7 +56,7 @@ fn fav_app_menu_item(app: &App) -> gio::MenuItem {
 }
 
 fn fav_app_matches_files(app: &UserDefinedApp, files: &glib::List<File>) -> bool {
-    return match app.target {
+    match app.target {
         AppTarget::AllFiles => files
             .iter()
             .all(|file| file.file_info().file_type() == gio::FileType::Regular),
@@ -81,7 +81,7 @@ fn fav_app_matches_files(app: &UserDefinedApp, files: &glib::List<File>) -> bool
                     .any(|pattern| fnmatch(pattern, &name, false))
             })
         }
-    };
+    }
 }
 
 /// Try to get the script info out of the script
@@ -210,9 +210,7 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
     let menu = gio::Menu::new();
 
     // Add execute menu entry
-    let Some(first_file) = files.front() else {
-        return None;
-    };
+    let first_file = files.front()?;
     if first_file.is_executable() && files.len() == 1 {
         let item = gio::MenuItem::new(Some(&gettext("E_xecute")), Some("fl.execute"));
         item.set_icon(&gio::ThemedIcon::new("system-run"));
@@ -228,11 +226,11 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
 
     // Add plugin popup entries
     for (action_group_name, plugin) in main_win.plugin_manager().active_plugins() {
-        if let Some(file_actions) = plugin.downcast_ref::<FileActions>() {
-            if let Some(plugin_menu) = file_actions.create_popup_menu_items(&main_win.state()) {
-                let plugin_menu = wrap_plugin_menu(&action_group_name, &plugin_menu);
-                menu.append_section(None, &plugin_menu);
-            }
+        if let Some(file_actions) = plugin.downcast_ref::<FileActions>()
+            && let Some(plugin_menu) = file_actions.create_popup_menu_items(&main_win.state())
+        {
+            let plugin_menu = wrap_plugin_menu(&action_group_name, &plugin_menu);
+            menu.append_section(None, &plugin_menu);
         }
     }
 

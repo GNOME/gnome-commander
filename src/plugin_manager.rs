@@ -531,10 +531,10 @@ fn create_plugin_widget(plugin_manager: &PluginManager, plugin_data: &PluginData
         #[strong]
         plugin,
         move |btn| {
-            if let Some(window) = btn.root().and_downcast::<gtk::Window>() {
-                if let Some(cfg) = plugin.downcast_ref::<Configurable>() {
-                    cfg.configure(&window);
-                }
+            if let Some(window) = btn.root().and_downcast::<gtk::Window>()
+                && let Some(cfg) = plugin.downcast_ref::<Configurable>()
+            {
+                cfg.configure(&window);
             }
         }
     ));

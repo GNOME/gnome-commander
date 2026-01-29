@@ -196,9 +196,10 @@ pub async fn show_create_symlink_dialog(
 
         match symlink_file.make_symbolic_link(absolute_path, gio::Cancellable::NONE) {
             Ok(_) => {
-                if symlink_file.parent().map_or(false, |parent| {
-                    parent.equal(&directory.upcast_ref::<File>().file())
-                }) {
+                if symlink_file
+                    .parent()
+                    .is_some_and(|parent| parent.equal(&directory.upcast_ref::<File>().file()))
+                {
                     directory.file_created(&symlink_file.uri());
                 }
                 break;

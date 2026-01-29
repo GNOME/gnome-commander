@@ -341,7 +341,7 @@ fn hex_to_bytes(text: &str) -> Option<Vec<u8>> {
         .map(|ch| ch.to_digit(16).map(|d| d as u8))
         .collect::<Option<Vec<u8>>>()?;
 
-    if nibs.is_empty() || nibs.len() % 2 != 0 {
+    if nibs.is_empty() || !nibs.len().is_multiple_of(2) {
         return None;
     }
 

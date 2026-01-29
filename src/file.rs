@@ -419,7 +419,7 @@ impl File {
     }
 
     pub fn needs_update(&self) -> bool {
-        let Some(last_update) = self.imp().last_update.borrow().clone() else {
+        let Some(last_update) = *self.imp().last_update.borrow() else {
             return true;
         };
         let now = Instant::now();

@@ -187,7 +187,7 @@ impl FavoriteApps {
     pub fn read(&self, options: &GeneralOptions) {
         let model: gio::ListStore = load_favorite_apps(options)
             .into_iter()
-            .map(|app| glib::BoxedAnyObject::new(app))
+            .map(glib::BoxedAnyObject::new)
             .collect();
         self.selection.set_model(Some(&model));
     }

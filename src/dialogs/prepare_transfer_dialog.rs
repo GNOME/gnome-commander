@@ -344,7 +344,7 @@ pub async fn handle_user_input(
     user_path: &str,
 ) -> Option<(Directory, Option<String>)> {
     let Some(src_directory) = src_fs.file_list().directory() else {
-        eprintln!("");
+        eprintln!("No current directory");
         return None;
     };
 
@@ -368,7 +368,7 @@ pub async fn handle_user_input(
         if dst_fs
             .file_list()
             .connection()
-            .map_or(false, |c| c.is_local())
+            .is_some_and(|c| c.is_local())
         {
             if let Some((dev, path)) = con_device_has_path(dst_fs, &dest_path)
                 .or_else(|| con_device_has_path(src_fs, &dest_path))
@@ -381,18 +381,14 @@ pub async fn handle_user_input(
                 con = ConnectionList::get().home().upcast();
             }
         }
+    } else if !default_dest_dir.upcast_ref::<File>().is_local() {
+        dest_path = prepend_slash(default_dest_dir.path().child(Path::new(user_path)).path());
     } else {
-        if !default_dest_dir.upcast_ref::<File>().is_local() {
-            dest_path = prepend_slash(default_dest_dir.path().child(Path::new(user_path)).path());
-        } else {
-            dest_path = PathBuf::from(
-                src_directory
-                    .upcast_ref::<File>()
-                    .get_path_through_parent()
-                    .child(Path::new(user_path))
-                    .path(),
-            );
-        }
+        dest_path = src_directory
+            .upcast_ref::<File>()
+            .get_path_through_parent()
+            .child(Path::new(user_path))
+            .path();
     }
 
     // Check if something exists at the given path and find out what it is
@@ -446,25 +442,23 @@ pub async fn handle_user_input(
                     .map(|n| n.to_string_lossy().to_string());
             }
         }
+    } else if file_type == Some(gio::FileType::Directory) {
+        // There exists a directory, copy to it
+        dest_dir = Directory::try_new(&con, con.create_path(&dest_path)).ok();
+    } else if file_type.is_some() {
+        // There exists something which is not a directory, abort!
+        return None;
     } else {
-        if file_type == Some(gio::FileType::Directory) {
-            // There exists a directory, copy to it
-            dest_dir = Directory::try_new(&con, con.create_path(&dest_path)).ok();
-        } else if file_type.is_some() {
-            // There exists something which is not a directory, abort!
-            return None;
-        } else {
-            // Nothing exists, ask the user if a new directory might be suitable in the path that he specified
-            if ask_create_directory(parent_window, &dest_path).await {
-                if let Err(error) = con.mkdir(&dest_path) {
-                    say_mkdir_failed(parent_window, &dest_path, &error).await;
-                    return None;
-                }
-            } else {
+        // Nothing exists, ask the user if a new directory might be suitable in the path that he specified
+        if ask_create_directory(parent_window, &dest_path).await {
+            if let Err(error) = con.mkdir(&dest_path) {
+                say_mkdir_failed(parent_window, &dest_path, &error).await;
                 return None;
             }
-            dest_dir = Directory::try_new(&con, con.create_path(&dest_path)).ok();
+        } else {
+            return None;
         }
+        dest_dir = Directory::try_new(&con, con.create_path(&dest_path)).ok();
     }
 
     Some((dest_dir?, dest_fn))

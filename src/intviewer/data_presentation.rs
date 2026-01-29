@@ -124,18 +124,17 @@ impl DataPresentation {
         }
 
         for _ in 0..delta {
-            let temp;
-            if forward {
-                temp = self.nowrap_get_eol(current_offset);
+            let temp = if forward {
+                self.nowrap_get_eol(current_offset)
             } else {
-                let Some(temp1) = self
+                let Some(temp) = self
                     .find_previous_crlf(current_offset)
                     .map(|t| self.nowrap_align_offset(t))
                 else {
                     break;
                 };
-                temp = temp1;
-            }
+                temp
+            };
 
             // Offset didn't changed ? we've reached eof
             if temp == current_offset {
@@ -198,7 +197,7 @@ impl DataPresentation {
             line_start = temp;
             temp = self.wrap_scroll_lines(temp, 1)
         }
-        return line_start;
+        line_start
     }
 
     fn wrap_scroll_lines(&self, mut current_offset: u64, mut delta: i32) -> u64 {

@@ -238,7 +238,7 @@ fn template(input: &mut &str) -> PResult<Template> {
             metatag,
             preceded('$', '$').value(Chunk::Char('$')),
             escape_blocked_date_formats,
-            any.map(|c| Chunk::Char(c)),
+            any.map(Chunk::Char),
         )),
     )
     .parse_next(input)

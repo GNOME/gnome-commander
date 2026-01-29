@@ -130,7 +130,7 @@ pub async fn show_open_with_other_dialog(
             working_directory.as_deref(),
             &full_command,
             needs_terminal.is_active(),
-            &*options,
+            &options,
         ) {
             Ok(_) => break,
             Err(error) => {

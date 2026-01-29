@@ -773,28 +773,26 @@ mod imp {
         }
 
         fn on_dir_file_created(&self, f: &File) {
-            if self.insert_file(&*f) {
+            if self.insert_file(f) {
                 self.obj().emit_files_changed();
             }
         }
 
         fn on_dir_file_deleted(&self, dir: &Directory, f: &File) {
-            if self.directory.borrow().as_ref() == Some(dir) {
-                if self.obj().remove_file(&*f) {
-                    self.obj().emit_files_changed();
-                }
+            if self.directory.borrow().as_ref() == Some(dir) && self.obj().remove_file(f) {
+                self.obj().emit_files_changed();
             }
         }
 
         fn on_dir_file_changed(&self, f: &File) {
-            if self.obj().has_file(&*f) {
-                self.update_file(&*f);
+            if self.obj().has_file(f) {
+                self.update_file(f);
                 self.obj().emit_files_changed();
             }
         }
 
         fn on_dir_file_renamed(&self, f: &File) {
-            if let Some(item) = self.obj().get_row_from_file(&*f) {
+            if let Some(item) = self.obj().get_row_from_file(f) {
                 item.update();
             }
         }
@@ -832,10 +830,10 @@ mod imp {
         }
 
         pub fn update_file(&self, f: &File) {
-            if f.needs_update() {
-                if let Some(item) = self.obj().get_row_from_file(f) {
-                    item.update();
-                }
+            if f.needs_update()
+                && let Some(item) = self.obj().get_row_from_file(f)
+            {
+                item.update();
             }
         }
 
@@ -956,10 +954,8 @@ mod imp {
                 }
                 (NO_MOD, gdk::Key::Return | gdk::Key::KP_Enter) => {
                     let event_processed = self.obj().emit_by_name::<bool>("cmdline-execute", &[]);
-                    if !event_processed {
-                        if let Some(file) = self.obj().focused_file() {
-                            self.obj().emit_by_name::<()>("file-activated", &[&file]);
-                        }
+                    if !event_processed && let Some(file) = self.obj().focused_file() {
+                        self.obj().emit_by_name::<()>("file-activated", &[&file]);
                     }
                     glib::Propagation::Stop
                 }
@@ -1084,10 +1080,10 @@ mod imp {
                 }
                 (NO_MOD, gdk::Key::Insert | gdk::Key::KP_Insert) => {
                     self.obj().toggle();
-                    if let Some(position) = self.obj().focused_file_position() {
-                        if position + 1 < self.selection.n_items() {
-                            self.obj().select_row(position + 1);
-                        }
+                    if let Some(position) = self.obj().focused_file_position()
+                        && position + 1 < self.selection.n_items()
+                    {
+                        self.obj().select_row(position + 1);
                     }
                     return glib::Propagation::Stop;
                 }
@@ -1156,35 +1152,32 @@ mod imp {
                         }
                     } else if state == Some(CONTROL) {
                         item.toggle_selected();
-                    }
-                    if state == Some(NO_MOD) {
+                    } else if state == Some(NO_MOD) {
                         if !item.selected() && self.left_mouse_button_unselects.get() {
                             self.obj().unselect_all();
                         }
                     }
-                } else if n_press == 1 && button == 3 {
-                    if !item.file().is_dotdot() {
-                        if self.right_mouse_button_mode.get() == RightMouseButtonMode::Selects {
-                            if self
-                                .selection
-                                .selected_item()
-                                .map_or(false, |focused| &focused == item)
-                            {
-                                item.set_selected(true);
-                                self.obj().emit_files_changed();
-                                self.obj().show_file_popup(None);
-                            } else {
-                                item.toggle_selected();
-                                self.obj().emit_files_changed();
-                            }
+                } else if n_press == 1 && button == 3 && !item.file().is_dotdot() {
+                    if self.right_mouse_button_mode.get() == RightMouseButtonMode::Selects {
+                        if self
+                            .selection
+                            .selected_item()
+                            .is_some_and(|focused| &focused == item)
+                        {
+                            item.set_selected(true);
+                            self.obj().emit_files_changed();
+                            self.obj().show_file_popup(None);
                         } else {
-                            let this = self.obj().clone();
-                            glib::timeout_add_local_once(Duration::from_millis(1), move || {
-                                this.show_file_popup(Some(&gdk::Rectangle::new(
-                                    x as i32, y as i32, 0, 0,
-                                )));
-                            });
+                            item.toggle_selected();
+                            self.obj().emit_files_changed();
                         }
+                    } else {
+                        let this = self.obj().clone();
+                        glib::timeout_add_local_once(Duration::from_millis(1), move || {
+                            this.show_file_popup(Some(&gdk::Rectangle::new(
+                                x as i32, y as i32, 0, 0,
+                            )));
+                        });
                     }
                 }
             } else if n_press == 1 && button == 3 {
@@ -1678,10 +1671,10 @@ impl FileList {
             .filter(|item| item.selected())
             .map(|item| item.file())
             .collect();
-        if list.is_empty() {
-            if let Some(file) = self.selected_file() {
-                list.push_back(file);
-            }
+        if list.is_empty()
+            && let Some(file) = self.selected_file()
+        {
+            list.push_back(file);
         }
         list
     }
@@ -1839,13 +1832,11 @@ impl FileList {
 
         let opened = if connection.is_open() {
             true
+        } else if let Some(window) = self.root().and_downcast::<gtk::Window>() {
+            open_connection(&window, connection).await
         } else {
-            if let Some(window) = self.root().and_downcast::<gtk::Window>() {
-                open_connection(&window, connection).await
-            } else {
-                eprintln!("No window");
-                false
-            }
+            eprintln!("No window");
+            false
         };
 
         if opened {
@@ -1929,20 +1920,12 @@ impl FileList {
     }
 
     pub(super) fn get_row_from_file(&self, f: &File) -> Option<FileListItem> {
-        for item in self.imp().items_iter() {
-            if item.file() == *f {
-                return Some(item);
-            }
-        }
-        None
+        self.imp().items_iter().find(|item| item.file() == *f)
     }
 
     pub(super) fn focus_file_at_row(&self, row: &FileListItem) {
-        for (pos, item) in self.imp().items_iter().enumerate() {
-            if item == *row {
-                self.select_row(pos as u32);
-                break;
-            }
+        if let Some(pos) = self.imp().items_iter().position(|item| item == *row) {
+            self.select_row(pos as u32);
         }
     }
 
@@ -2014,7 +1997,7 @@ impl FileList {
         } else {
             glib::shell_unquote(dir)
                 .as_ref()
-                .map(|q| Path::new(q))
+                .map(Path::new)
                 .unwrap_or(dir)
                 .to_path_buf()
         };
@@ -2777,11 +2760,11 @@ fn create_text_cell_factory(
         #[strong]
         cells,
         move |_, obj| {
-            if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() {
-                if let Some(cell) = list_item.child().and_downcast::<FileListCell>() {
-                    cell.unbind();
-                    cells.remove_value(&cell);
-                }
+            if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>()
+                && let Some(cell) = list_item.child().and_downcast::<FileListCell>()
+            {
+                cell.unbind();
+                cells.remove_value(&cell);
             }
         }
     ));
@@ -2798,14 +2781,12 @@ fn apply_css(item: &FileListItem, use_ls_colors: bool, widget: &gtk::Widget) {
         widget.add_css_class("sel");
     } else {
         widget.remove_css_class("sel");
-        if use_ls_colors {
-            if let Some(colors) = ls_colors_get(&item.file().file_info()) {
-                if let Some(class) = colors.fg.map(|fg| format!("fg-{}", fg.as_ref())) {
-                    widget.add_css_class(&class);
-                }
-                if let Some(class) = colors.bg.map(|fg| format!("bg-{}", fg.as_ref())) {
-                    widget.add_css_class(&class);
-                }
+        if use_ls_colors && let Some(colors) = ls_colors_get(&item.file().file_info()) {
+            if let Some(class) = colors.fg.map(|fg| format!("fg-{}", fg.as_ref())) {
+                widget.add_css_class(&class);
+            }
+            if let Some(class) = colors.bg.map(|fg| format!("bg-{}", fg.as_ref())) {
+                widget.add_css_class(&class);
             }
         }
     }

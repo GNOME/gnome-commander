@@ -396,11 +396,11 @@ impl LayoutTab {
                 .ok()
                 .and_then(ColorThemeId::from_repr),
         )?;
-        color_options.set_custom_theme(&*self.custom_color_theme.borrow())?;
+        color_options.set_custom_theme(&self.custom_color_theme.borrow())?;
         color_options
             .use_ls_colors
             .set(self.use_ls_colors.is_active())?;
-        color_options.set_ls_color_palette(&*self.ls_color_palette.borrow())?;
+        color_options.set_ls_color_palette(&self.ls_color_palette.borrow())?;
         general_options
             .icon_size
             .set(self.icon_size.value_as_int() as u32)?;

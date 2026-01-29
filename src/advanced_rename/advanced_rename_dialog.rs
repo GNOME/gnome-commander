@@ -932,10 +932,10 @@ mod imp {
                 }
             }
 
-            if let Some(new_focused_file_name) = new_focused_file_name {
-                if let Some(fl) = self.obj().file_list() {
-                    fl.focus_file(Path::new(&new_focused_file_name), true);
-                }
+            if let Some(new_focused_file_name) = new_focused_file_name
+                && let Some(fl) = self.obj().file_list()
+            {
+                fl.focus_file(Path::new(&new_focused_file_name), true);
             }
 
             self.update_new_filenames();

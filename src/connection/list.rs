@@ -416,10 +416,10 @@ impl ConnectionList {
         if file.uri_scheme().as_deref() == Some("file") {
             return;
         }
-        if self.find_remote_by_root(&file).is_none() {
-            if let Ok(connection) = ConnectionRemote::try_from_string(&mount.name(), &file.uri()) {
-                self.add(&connection);
-            }
+        if self.find_remote_by_root(&file).is_none()
+            && let Ok(connection) = ConnectionRemote::try_from_string(&mount.name(), &file.uri())
+        {
+            self.add(&connection);
         }
     }
 

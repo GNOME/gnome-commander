@@ -33,8 +33,8 @@ use gtk::{gio, glib, prelude::*};
 use std::path::PathBuf;
 
 fn make_path(parent: &gio::File, filename: &str) -> PathBuf {
-    let path = if filename.starts_with("~/") {
-        glib::home_dir().join(&filename[2..])
+    let path = if let Some(rel_path) = filename.strip_prefix("~/") {
+        glib::home_dir().join(rel_path)
     } else {
         PathBuf::from(filename)
     };
@@ -86,10 +86,10 @@ pub async fn show_mkdir_dialog(
 
     if let Some(file) = selected_file {
         let mut value = file.get_name();
-        if !file.is::<Directory>() {
-            if let Some((p, _)) = value.rsplit_once('.') {
-                value = p.to_string();
-            }
+        if !file.is::<Directory>()
+            && let Some((p, _)) = value.rsplit_once('.')
+        {
+            value = p.to_string();
         }
         entry.set_text(&value);
     }

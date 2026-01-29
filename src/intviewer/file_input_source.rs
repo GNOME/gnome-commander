@@ -93,7 +93,7 @@ impl FileBuffer {
 
     fn page(&mut self, page: usize) -> io::Result<&[u8]> {
         let size = self.size()?;
-        let total_pages = (size + PAGE_SIZE - 1) / PAGE_SIZE;
+        let total_pages = size.div_ceil(PAGE_SIZE);
         let pages = &mut self.pages;
         if pages.len() < page + 1 {
             pages.resize(page + 1, None);

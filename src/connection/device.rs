@@ -117,7 +117,7 @@ impl ConnectionDevice {
     }
 
     pub fn set_icon(&self, icon: Option<&gio::Icon>) {
-        self.imp().icon.replace(icon.map(Clone::clone));
+        self.imp().icon.replace(icon.cloned());
     }
 
     pub fn autovol(&self) -> bool {
@@ -133,7 +133,7 @@ impl ConnectionDevice {
     }
 
     pub fn set_mount(&self, mount: Option<&gio::Mount>) {
-        self.imp().mount.replace(mount.map(Clone::clone));
+        self.imp().mount.replace(mount.cloned());
     }
 
     pub fn volume(&self) -> Option<gio::Volume> {
@@ -141,7 +141,7 @@ impl ConnectionDevice {
     }
 
     pub fn set_volume(&self, volume: Option<&gio::Volume>) {
-        self.imp().volume.replace(volume.map(Clone::clone));
+        self.imp().volume.replace(volume.cloned());
     }
 
     async fn legacy_mount(&self) -> Result<(), ErrorMessage> {
@@ -307,12 +307,10 @@ impl ConnectionInterface for ConnectionDevice {
                 } else {
                     Ok(())
                 }
+            } else if let Some(mount_point) = self.mountp_string() {
+                legacy_umount(&mount_point)
             } else {
-                if let Some(mount_point) = self.mountp_string() {
-                    legacy_umount(&mount_point)
-                } else {
-                    Ok(())
-                }
+                Ok(())
             }
         })
     }

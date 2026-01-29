@@ -126,14 +126,14 @@ mod imp {
                 self.obj().add_css_class("sel");
             } else {
                 self.obj().remove_css_class("sel");
-                if self.use_ls_colors.get() {
-                    if let Some(colors) = self.file().and_then(|f| ls_colors_get(&f.file_info())) {
-                        if let Some(class) = colors.fg.map(|fg| format!("fg-{}", fg.as_ref())) {
-                            self.obj().add_css_class(&class);
-                        }
-                        if let Some(class) = colors.bg.map(|fg| format!("bg-{}", fg.as_ref())) {
-                            self.obj().add_css_class(&class);
-                        }
+                if self.use_ls_colors.get()
+                    && let Some(colors) = self.file().and_then(|f| ls_colors_get(&f.file_info()))
+                {
+                    if let Some(class) = colors.fg.map(|fg| format!("fg-{}", fg.as_ref())) {
+                        self.obj().add_css_class(&class);
+                    }
+                    if let Some(class) = colors.bg.map(|fg| format!("bg-{}", fg.as_ref())) {
+                        self.obj().add_css_class(&class);
                     }
                 }
             }

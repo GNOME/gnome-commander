@@ -184,7 +184,7 @@ pub fn handle_escape_key(window: &gtk::Window, action: &impl IsA<gtk::ShortcutAc
     }
 }
 
-pub const NO_BUTTONS: &'static [&'static gtk::Button] = &[];
+pub const NO_BUTTONS: &[&gtk::Button] = &[];
 
 pub fn dialog_button_box(
     buttons_start: &[impl AsRef<gtk::Widget>],
@@ -322,10 +322,8 @@ pub fn toggle_file_name_selection(entry: &gtk::Entry) {
         } else {
             if beg != base {
                 beg = if beg > base { base } else { 0 };
-            } else {
-                if end != ext || end == text_len {
-                    beg = 0;
-                }
+            } else if end != ext || end == text_len {
+                beg = 0;
             }
 
             entry.select_region(beg, -1);
@@ -656,7 +654,7 @@ impl GnomeCmdFileExt for gio::File {
             };
         };
         let close_result = enumerator.close(cancellable);
-        let _ = result?;
+        result?;
         match close_result {
             (true, None) => Ok(vec),
             (false, None) => Err(glib::Error::new(

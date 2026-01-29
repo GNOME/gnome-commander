@@ -185,7 +185,7 @@ fn name_eq_ignore_ascii_case(file_info: &gio::FileInfo, name: &str) -> bool {
     file_info
         .name()
         .to_str()
-        .map_or(false, |n| n.eq_ignore_ascii_case(name))
+        .is_some_and(|n| n.eq_ignore_ascii_case(name))
 }
 
 #[derive(Clone, PartialEq, Debug)]
@@ -304,7 +304,7 @@ pub struct SmbEntities {
 }
 
 impl SmbEntities {
-    fn find<'a>(&'a self, name: &str) -> Option<SmbEntity> {
+    fn find(&self, name: &str) -> Option<SmbEntity> {
         for entity in self.entities.borrow().iter() {
             let file_info = match entity {
                 SmbEntity::Workgroup(file_info, _) => file_info,
@@ -319,7 +319,7 @@ impl SmbEntities {
 
     pub fn get(&self, name: &str) -> Option<SmbEntity> {
         if let Some(entity) = self.find(name) {
-            return Some(entity);
+            Some(entity)
         } else {
             // Entity not found, rebuilding the database
             match discover_smb_entities() {

@@ -159,7 +159,7 @@ mod imp {
                 .root()
                 .and_downcast::<gtk::Window>()
                 .and_then(|window| get_modifiers_state(&window))
-                .map_or(false, |state| state == gdk::ModifierType::CONTROL_MASK)
+                .is_some_and(|state| state == gdk::ModifierType::CONTROL_MASK)
         }
     }
 }

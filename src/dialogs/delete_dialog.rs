@@ -334,7 +334,7 @@ async fn perform_delete_operation(
     for file in files {
         perform_delete_operation_one(delete_data, file).await?;
     }
-    return DeleteResult::Continue(());
+    DeleteResult::Continue(())
 }
 
 async fn count_total_items(files: &glib::List<File>) -> Option<u64> {

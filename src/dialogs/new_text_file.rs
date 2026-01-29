@@ -156,16 +156,15 @@ pub async fn show_new_textfile_dialog(parent_window: &gtk::Window, file_list: &F
     dialog.close();
 
     // focus the created file (if possible)
-    if let Some(file) = file {
-        if file
+    if let Some(file) = file
+        && file
             .parent()
-            .map_or(false, |d| dir.upcast_ref::<File>().file().equal(&d))
-        {
-            dir.file_created(&file.uri());
-            if let Some(focus_filename) = file.basename() {
-                file_list.grab_focus();
-                file_list.focus_file(&focus_filename, true);
-            }
+            .is_some_and(|d| dir.upcast_ref::<File>().file().equal(&d))
+    {
+        dir.file_created(&file.uri());
+        if let Some(focus_filename) = file.basename() {
+            file_list.grab_focus();
+            file_list.focus_file(&focus_filename, true);
         }
     }
 }

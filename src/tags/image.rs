@@ -110,10 +110,8 @@ mod imp {
             fd: &impl IsA<FileDescriptor>,
             mut add: F,
         ) {
-            if let Some((_format, width, height)) = fd
-                .file()
-                .path()
-                .and_then(|p| gdk_pixbuf::Pixbuf::file_info(p))
+            if let Some((_format, width, height)) =
+                fd.file().path().and_then(gdk_pixbuf::Pixbuf::file_info)
             {
                 (add)(ImageTag::Width.tag(), Some(&width.to_string()));
                 (add)(ImageTag::Height.tag(), Some(&height.to_string()));

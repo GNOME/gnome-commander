@@ -260,7 +260,7 @@ pub async fn file_list_action_execute_script(
     let files = file_list.selected_files();
 
     let mask = get_modifiers_state(&parent_window);
-    let is_shift_pressed = mask.map_or(false, |m| {
+    let is_shift_pressed = mask.is_some_and(|m| {
         m.contains(gdk::ModifierType::SHIFT_MASK)
             && !m.contains(gdk::ModifierType::CONTROL_MASK)
             && !m.contains(gdk::ModifierType::ALT_MASK)

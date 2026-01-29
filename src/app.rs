@@ -300,7 +300,7 @@ pub fn load_favorite_apps(options: &GeneralOptions) -> Vec<UserDefinedApp> {
             command_template: app.command_template,
             icon_path: Some(app.icon_path)
                 .filter(|p| !p.is_empty())
-                .map(|p| PathBuf::from(p)),
+                .map(PathBuf::from),
             pattern_string: app.pattern_string,
             target: app
                 .target

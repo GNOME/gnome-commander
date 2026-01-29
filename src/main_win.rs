@@ -47,7 +47,7 @@ use crate::{
     types::{ConfirmOverwriteMode, FileSelectorID},
     user_actions::{ActionCode, USER_ACTIONS},
     utils::{
-        ALT, ALT_SHIFT, CONTROL, CONTROL_ALT, CONTROL_SHIFT, MenuBuilderExt, NO_MOD,
+        ALT_SHIFT, CONTROL, CONTROL_ALT, CONTROL_SHIFT, MenuBuilderExt, NO_MOD,
         extract_menu_shortcuts,
     },
 };
@@ -314,7 +314,7 @@ pub mod imp {
                 .build();
             mw.set_child(Some(&vbox));
 
-            let menu = main_menu(&*mw);
+            let menu = main_menu(&mw);
 
             self.menubar.set_menu_model(Some(&menu));
             mw.bind_property("menu-visible", &self.menubar, "visible")
@@ -595,7 +595,7 @@ pub mod imp {
 
     impl MainWindow {
         pub fn update_menu(&self) {
-            let menu = main_menu(&*self.obj());
+            let menu = main_menu(&self.obj());
             self.menubar.set_menu_model(Some(&menu));
         }
 
@@ -745,7 +745,7 @@ pub mod imp {
             if self
                 .paned
                 .handle_rect()
-                .map_or(false, |r| r.contains_point(&point))
+                .is_some_and(|r| r.contains_point(&point))
             {
                 self.show_slide_popup_at(&point);
             }
@@ -825,7 +825,7 @@ pub mod imp {
             let file_selector = self.obj().file_selector(FileSelectorID::ACTIVE);
 
             if dest_dir == "-"
-                && !file_selector.file_list().directory().map_or(false, |d| {
+                && !file_selector.file_list().directory().is_some_and(|d| {
                     d.get_child_gfile(Path::new(dest_dir))
                         .query_exists(gio::Cancellable::NONE)
                 })
@@ -841,7 +841,7 @@ pub mod imp {
         async fn on_cmdline_execute(&self, command: &str, in_terminal: bool) {
             let file_list = self.obj().file_selector(FileSelectorID::ACTIVE).file_list();
 
-            if file_list.connection().map_or(false, |c| c.is_local()) {
+            if file_list.connection().is_some_and(|c| c.is_local()) {
                 let working_directory = file_list
                     .directory()
                     .and_then(|d| d.upcast_ref::<File>().get_real_path());
@@ -877,7 +877,7 @@ pub mod imp {
                     self.file_selector_right.borrow()
                 }
             };
-            self.update_browse_buttons(&*fs);
+            self.update_browse_buttons(&fs);
             self.update_drop_con_button(fs.file_list().connection().as_ref());
             self.update_cmdline();
             fs.file_list().grab_focus();
@@ -983,7 +983,7 @@ pub mod imp {
 
             if self
                 .shortcuts
-                .handle_key_event(&*self.obj(), Shortcut { key, state })
+                .handle_key_event(&self.obj(), Shortcut { key, state })
             {
                 glib::Propagation::Stop
             } else {
@@ -1823,11 +1823,11 @@ fn create_bookmarks_menu() -> gio::Menu {
 fn create_plugins_menu(main_win: &MainWindow) -> gio::Menu {
     let menu = gio::Menu::new();
     for (action_group_name, plugin) in main_win.plugin_manager().active_plugins() {
-        if let Some(file_actions) = plugin.downcast_ref::<FileActions>() {
-            if let Some(plugin_menu) = file_actions.create_main_menu() {
-                let plugin_menu = wrap_plugin_menu(&action_group_name, &plugin_menu);
-                menu.append_section(None, &plugin_menu);
-            }
+        if let Some(file_actions) = plugin.downcast_ref::<FileActions>()
+            && let Some(plugin_menu) = file_actions.create_main_menu()
+        {
+            let plugin_menu = wrap_plugin_menu(&action_group_name, &plugin_menu);
+            menu.append_section(None, &plugin_menu);
         }
     }
     menu

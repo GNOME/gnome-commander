@@ -87,22 +87,22 @@ impl Shortcut {
 
     pub fn is_mandatory(self) -> bool {
         self.state.is_empty()
-            && match self.key {
+            && matches!(
+                self.key,
                 gdk::Key::F3
-                | gdk::Key::F4
-                | gdk::Key::F5
-                | gdk::Key::F6
-                | gdk::Key::F7
-                | gdk::Key::F8
-                | gdk::Key::F9 => true,
-                _ => false,
-            }
+                    | gdk::Key::F4
+                    | gdk::Key::F5
+                    | gdk::Key::F6
+                    | gdk::Key::F7
+                    | gdk::Key::F8
+                    | gdk::Key::F9
+            )
     }
 }
 
 impl PartialOrd for Shortcut {
     fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
-        (self.state.bits(), self.key).partial_cmp(&(other.state.bits(), other.key))
+        Some(self.cmp(other))
     }
 }
 

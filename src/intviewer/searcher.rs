@@ -117,8 +117,7 @@ impl Searcher {
         }
 
         let bm = boyer_moore_bytes_new(buffer.to_vec())?;
-        let bm_reverse =
-            boyer_moore_bytes_new(buffer.into_iter().rev().cloned().collect::<Vec<u8>>())?;
+        let bm_reverse = boyer_moore_bytes_new(buffer.iter().rev().cloned().collect::<Vec<u8>>())?;
 
         Some(Self::new(
             input_mode,
@@ -162,14 +161,9 @@ impl Searcher {
 
     fn update_progress_indicator(&self, position: u64) {
         let value = ((position * 1000) / self.imp().max_offset.load(Ordering::SeqCst)) as u32;
-        self.imp()
-            .progress_callback
-            .lock()
-            .unwrap()
-            .as_ref()
-            .map(|cb| {
-                (cb)(value);
-            });
+        if let Some(cb) = self.imp().progress_callback.lock().unwrap().as_ref() {
+            (cb)(value);
+        }
     }
 
     fn check_abort_request(&self) -> bool {

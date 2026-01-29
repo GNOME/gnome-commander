@@ -99,7 +99,7 @@ mod imp {
             match self.indicator.get() {
                 TabLockIndicator::Icon => {
                     self.tab_label_pin.set_visible(locked);
-                    self.tab_label_text.set_text(&*label);
+                    self.tab_label_text.set_text(&label);
                     self.tab_label_text.set_attributes(None);
                 }
                 TabLockIndicator::Asterisk => {
@@ -113,7 +113,7 @@ mod imp {
                 }
                 TabLockIndicator::StyledText => {
                     self.tab_label_pin.set_visible(false);
-                    self.tab_label_text.set_text(&*label);
+                    self.tab_label_text.set_text(&label);
                     self.tab_label_text.set_attributes(
                         if locked {
                             let attrs = pango::AttrList::new();

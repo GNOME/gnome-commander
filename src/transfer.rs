@@ -401,7 +401,7 @@ fn file_is_parent_to_dir_or_equal(file: &gio::File, dir: &Directory) -> bool {
 
 fn file_is_already_in_dir(file: &gio::File, dir: &Directory) -> bool {
     file.parent()
-        .map_or(false, |parent| parent.equal(&dir.file()))
+        .is_some_and(|parent| parent.equal(&dir.file()))
 }
 
 fn file_details(

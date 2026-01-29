@@ -183,10 +183,10 @@ impl InputMode {
 
     fn inputmode_utf8_get_previous_offset(&self, offset: u64) -> u64 {
         for len in 1..=4 {
-            if let Some(probe) = offset.checked_sub(len) {
-                if self.get_utf8_value(probe).is_some() {
-                    return probe;
-                }
+            if let Some(probe) = offset.checked_sub(len)
+                && self.get_utf8_value(probe).is_some()
+            {
+                return probe;
             }
         }
         offset.saturating_sub(1)
@@ -287,7 +287,7 @@ static DEFAULT_ASCII_TABLE: LazyLock<[char; 256]> = LazyLock::new(|| {
     for b in 0..0x80_u8 {
         table[b as usize] = b as char
     }
-    return table;
+    table
 });
 
 fn create_encoding_table(encoding: &str) -> Option<[char; 256]> {

@@ -486,7 +486,7 @@ mod imp {
 
         fn copy_clicked(&self) {
             if let Some(metadata) = self.file_metadata.borrow().as_ref() {
-                let tsv = self.obj().file_metadata_service().to_tsv(&*metadata);
+                let tsv = self.obj().file_metadata_service().to_tsv(metadata);
                 self.obj().clipboard().set_text(&tsv);
             }
         }

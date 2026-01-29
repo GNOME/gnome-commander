@@ -81,11 +81,11 @@ mod imp {
 
             let check_categories = [gettext("Owner:"), gettext("Group:"), gettext("Others:")];
 
-            for y in 0..3 {
+            for (y, check_category) in check_categories.iter().enumerate() {
                 grid_attach(
                     &*this,
                     &gtk::Label::builder()
-                        .label(&check_categories[y])
+                        .label(check_category)
                         .halign(gtk::Align::Start)
                         .build(),
                     0,
@@ -93,8 +93,7 @@ mod imp {
                     1,
                     1,
                 );
-                for x in 0..3 {
-                    let cb = &self.check_boxes[y][x];
+                for (x, cb) in self.check_boxes[y].iter().enumerate() {
                     cb.connect_toggled(glib::clone!(
                         #[weak(rename_to = imp)]
                         self,
@@ -181,9 +180,9 @@ impl ChmodComponent {
     pub fn permissions(&self) -> u32 {
         let mut permissions = 0;
 
-        for y in 0..3 {
-            for x in 0..3 {
-                if self.imp().check_boxes[y][x].is_active() {
+        for (y, cb_group) in self.imp().check_boxes.iter().enumerate() {
+            for (x, cb) in cb_group.iter().enumerate() {
+                if cb.is_active() {
                     permissions |= PERMISSION_MASKS[y][x];
                 }
             }
@@ -192,10 +191,9 @@ impl ChmodComponent {
     }
 
     pub fn set_permissions(&self, permissions: u32) {
-        for y in 0..3 {
-            for x in 0..3 {
-                self.imp().check_boxes[y][x]
-                    .set_active((permissions & PERMISSION_MASKS[y][x]) != 0);
+        for (y, cb_group) in self.imp().check_boxes.iter().enumerate() {
+            for (x, cb) in cb_group.iter().enumerate() {
+                cb.set_active((permissions & PERMISSION_MASKS[y][x]) != 0);
             }
         }
     }

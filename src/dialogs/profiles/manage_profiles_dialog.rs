@@ -63,10 +63,10 @@ async fn edit_clicked_callback<M: ProfileManager + 'static>(
     manager: &Rc<M>,
     help_id: Option<&str>,
 ) {
-    if let Some((store, pos, profile_index)) = selected(view) {
-        if edit_profile(dialog.upcast_ref(), profile_index, help_id, manager.clone()).await {
-            store.items_changed(pos, 1, 1);
-        }
+    if let Some((store, pos, profile_index)) = selected(view)
+        && edit_profile(dialog.upcast_ref(), profile_index, help_id, manager.clone()).await
+    {
+        store.items_changed(pos, 1, 1);
     }
 }
 
@@ -322,17 +322,17 @@ fn profile_name_factory<M: ProfileManager + 'static>(manager: &Rc<M>) -> gtk::Li
         #[strong]
         manager,
         move |_, obj| {
-            if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() {
-                if let Some(label) = list_item.child().and_downcast::<gtk::Label>() {
-                    if let Some(profile_index) = list_item
-                        .item()
-                        .and_downcast_ref::<glib::BoxedAnyObject>()
-                        .map(|b| *b.borrow::<usize>())
-                    {
-                        label.set_text(&manager.profile_name(profile_index));
-                    } else {
-                        label.set_text("");
-                    }
+            if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>()
+                && let Some(label) = list_item.child().and_downcast::<gtk::Label>()
+            {
+                if let Some(profile_index) = list_item
+                    .item()
+                    .and_downcast_ref::<glib::BoxedAnyObject>()
+                    .map(|b| *b.borrow::<usize>())
+                {
+                    label.set_text(&manager.profile_name(profile_index));
+                } else {
+                    label.set_text("");
                 }
             }
         }
@@ -356,17 +356,17 @@ fn profile_description_factory<M: ProfileManager + 'static>(
         #[strong]
         manager,
         move |_, obj| {
-            if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() {
-                if let Some(label) = list_item.child().and_downcast::<gtk::Label>() {
-                    if let Some(profile_index) = list_item
-                        .item()
-                        .and_downcast_ref::<glib::BoxedAnyObject>()
-                        .map(|b| *b.borrow::<usize>())
-                    {
-                        label.set_text(&manager.profile_description(profile_index));
-                    } else {
-                        label.set_text("");
-                    }
+            if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>()
+                && let Some(label) = list_item.child().and_downcast::<gtk::Label>()
+            {
+                if let Some(profile_index) = list_item
+                    .item()
+                    .and_downcast_ref::<glib::BoxedAnyObject>()
+                    .map(|b| *b.borrow::<usize>())
+                {
+                    label.set_text(&manager.profile_description(profile_index));
+                } else {
+                    label.set_text("");
                 }
             }
         }
