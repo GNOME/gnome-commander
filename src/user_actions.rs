@@ -74,14 +74,14 @@ use std::{
 };
 
 async fn file_copy(main_win: MainWindow) {
-    let src_fs = main_win.file_selector(FileSelectorID::ACTIVE);
-    let dst_fs = main_win.file_selector(FileSelectorID::INACTIVE);
+    let src_fs = main_win.file_selector(FileSelectorID::Active);
+    let dst_fs = main_win.file_selector(FileSelectorID::Inactive);
     let options = ConfirmOptions::new();
     prepare_copy_dialog_show(&main_win, &src_fs, &dst_fs, &options).await;
 }
 
 async fn file_copy_as(main_win: MainWindow) {
-    let file_list = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
+    let file_list = main_win.file_selector(FileSelectorID::Active).file_list();
 
     let Some(file) = file_list.selected_file() else {
         return;
@@ -94,22 +94,22 @@ async fn file_copy_as(main_win: MainWindow) {
 }
 
 async fn file_move(main_win: MainWindow) {
-    let src_fs = main_win.file_selector(FileSelectorID::ACTIVE);
-    let dst_fs = main_win.file_selector(FileSelectorID::INACTIVE);
+    let src_fs = main_win.file_selector(FileSelectorID::Active);
+    let dst_fs = main_win.file_selector(FileSelectorID::Inactive);
     let options = ConfirmOptions::new();
     prepare_move_dialog_show(&main_win, &src_fs, &dst_fs, &options).await;
 }
 
 async fn file_delete(main_win: MainWindow) {
     main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .file_list()
         .show_delete_dialog(false)
         .await;
 }
 
 async fn file_view(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
 
     if let Err(error) = file_list.activate_action("fl.file-view", Some(&None::<bool>.to_variant()))
@@ -119,7 +119,7 @@ async fn file_view(main_win: MainWindow) {
 }
 
 async fn file_internal_view(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
 
     if let Err(error) = file_list.activate_action("fl.file-view", Some(&true.to_variant())) {
@@ -128,7 +128,7 @@ async fn file_internal_view(main_win: MainWindow) {
 }
 
 async fn file_external_view(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
 
     if let Err(error) = file_list.activate_action("fl.file-view", Some(&false.to_variant())) {
@@ -137,7 +137,7 @@ async fn file_external_view(main_win: MainWindow) {
 }
 
 async fn file_edit(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
 
     let mask = get_modifiers_state(main_win.upcast_ref());
@@ -150,7 +150,7 @@ async fn file_edit(main_win: MainWindow) {
 }
 
 async fn file_edit_new_doc(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
     show_new_textfile_dialog(main_win.upcast_ref(), &file_list).await;
 }
@@ -158,7 +158,7 @@ async fn file_edit_new_doc(main_win: MainWindow) {
 async fn file_search(main_win: MainWindow) {
     let options = ProgramsOptions::new();
 
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
 
     if options.use_internal_search.get() {
@@ -198,14 +198,14 @@ async fn file_search(main_win: MainWindow) {
 }
 
 pub async fn file_quick_search(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
 
     file_list.show_quick_search(None);
 }
 
 async fn file_chmod(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
 
     let files = file_list.selected_files();
@@ -215,7 +215,7 @@ async fn file_chmod(main_win: MainWindow) {
 }
 
 async fn file_chown(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
 
     let files = file_list.selected_files();
@@ -225,7 +225,7 @@ async fn file_chown(main_win: MainWindow) {
 }
 
 async fn file_mkdir(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
 
     if let Some(dir) = file_list.directory() {
@@ -244,7 +244,7 @@ async fn file_mkdir(main_win: MainWindow) {
 }
 
 async fn file_properties(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
 
     if let Some(file) = file_list.selected_file() {
@@ -275,8 +275,8 @@ async fn do_file_diff(
     main_win: &MainWindow,
     options: &ProgramsOptions,
 ) -> Result<(), ErrorMessage> {
-    let active_fl = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
-    let inactive_fl = main_win.file_selector(FileSelectorID::INACTIVE).file_list();
+    let active_fl = main_win.file_selector(FileSelectorID::Active).file_list();
+    let inactive_fl = main_win.file_selector(FileSelectorID::Inactive).file_list();
 
     ensure_file_list_is_local(&active_fl)?;
 
@@ -318,8 +318,8 @@ async fn do_file_sync_dirs(
     main_win: &MainWindow,
     options: &ProgramsOptions,
 ) -> Result<(), ErrorMessage> {
-    let active_fl = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
-    let inactive_fl = main_win.file_selector(FileSelectorID::INACTIVE).file_list();
+    let active_fl = main_win.file_selector(FileSelectorID::Active).file_list();
+    let inactive_fl = main_win.file_selector(FileSelectorID::Inactive).file_list();
 
     ensure_file_list_is_local(&active_fl)?;
     ensure_file_list_is_local(&inactive_fl)?;
@@ -344,7 +344,7 @@ async fn file_sync_dirs(main_win: MainWindow) {
 }
 
 pub async fn file_rename(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
     file_list.show_rename_dialog().await;
 }
@@ -413,8 +413,8 @@ async fn create_symlinks(
 async fn file_create_symlink(main_win: MainWindow) {
     let options = GeneralOptions::new();
 
-    let active_fs = main_win.file_selector(FileSelectorID::ACTIVE);
-    let inactive_fs = main_win.file_selector(FileSelectorID::INACTIVE);
+    let active_fs = main_win.file_selector(FileSelectorID::Active);
+    let inactive_fs = main_win.file_selector(FileSelectorID::Inactive);
 
     let Some(dest_directory) = inactive_fs.file_list().directory() else {
         eprintln!("Cannot create symlinks: No destination directory.");
@@ -464,7 +464,7 @@ async fn file_create_symlink(main_win: MainWindow) {
 }
 
 async fn file_advrename(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
     let file_metadata_service = main_win.file_metadata_service();
     advanced_rename_dialog_show(main_win.upcast_ref(), &file_list, &file_metadata_service);
@@ -473,7 +473,7 @@ async fn file_advrename(main_win: MainWindow) {
 async fn file_sendto(main_win: MainWindow) {
     let options = ProgramsOptions::new();
 
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
     let files = file_list.selected_files();
 
@@ -496,87 +496,87 @@ async fn file_exit(main_win: MainWindow) {
 
 async fn mark_toggle(main_win: MainWindow) {
     main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .file_list()
         .toggle()
 }
 
 async fn mark_toggle_and_step(main_win: MainWindow) {
     main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .file_list()
         .toggle_and_step()
 }
 
 async fn mark_select_all(main_win: MainWindow) {
     main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .file_list()
         .select_all()
 }
 
 async fn mark_unselect_all(main_win: MainWindow) {
     main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .file_list()
         .unselect_all()
 }
 
 async fn mark_select_all_files(main_win: MainWindow) {
     main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .file_list()
         .select_all_files()
 }
 
 async fn mark_unselect_all_files(main_win: MainWindow) {
     main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .file_list()
         .unselect_all_files()
 }
 
 async fn mark_select_with_pattern(main_win: MainWindow) {
-    let file_list = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
+    let file_list = main_win.file_selector(FileSelectorID::Active).file_list();
     select_by_pattern(&file_list, true).await;
 }
 
 async fn mark_unselect_with_pattern(main_win: MainWindow) {
-    let file_list = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
+    let file_list = main_win.file_selector(FileSelectorID::Active).file_list();
     select_by_pattern(&file_list, false).await;
 }
 
 async fn mark_invert_selection(main_win: MainWindow) {
     main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .file_list()
         .invert_selection();
 }
 
 async fn mark_select_all_with_same_extension(main_win: MainWindow) {
     main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .file_list()
         .toggle_files_with_same_extension(true);
 }
 
 async fn mark_unselect_all_with_same_extension(main_win: MainWindow) {
     main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .file_list()
         .toggle_files_with_same_extension(false);
 }
 
 async fn mark_restore_selection(main_win: MainWindow) {
     main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .file_list()
         .restore_selection();
 }
 
 async fn mark_compare_directories(main_win: MainWindow) {
-    let fl1 = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
-    let fl2 = main_win.file_selector(FileSelectorID::INACTIVE).file_list();
+    let fl1 = main_win.file_selector(FileSelectorID::Active).file_list();
+    let fl2 = main_win.file_selector(FileSelectorID::Inactive).file_list();
 
     let mut files2: HashMap<String, File> = fl2
         .visible_files()
@@ -642,14 +642,14 @@ async fn edit_cap_paste(main_win: MainWindow) {
 }
 
 async fn edit_filter(main_win: MainWindow) {
-    main_win.file_selector(FileSelectorID::ACTIVE).show_filter();
+    main_win.file_selector(FileSelectorID::Active).show_filter();
 }
 
 async fn edit_copy_fnames(main_win: MainWindow) {
     let mask = get_modifiers_state(main_win.upcast_ref());
 
     let files = main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .file_list()
         .selected_files();
 
@@ -669,7 +669,7 @@ async fn edit_copy_fnames(main_win: MainWindow) {
 /************** Command Menu **************/
 
 async fn command_execute(main_win: MainWindow, command_template: String) {
-    let fs = main_win.file_selector(FileSelectorID::ACTIVE);
+    let fs = main_win.file_selector(FileSelectorID::Active);
     let fl = fs.file_list();
 
     let sfl = fl.selected_files();
@@ -694,7 +694,7 @@ async fn command_execute(main_win: MainWindow, command_template: String) {
 
 fn open_terminal(main_win: &MainWindow, options: &ProgramsOptions) -> Result<(), ErrorMessage> {
     let dpath = main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .file_list()
         .directory()
         .and_then(|d| d.file().path());
@@ -722,12 +722,12 @@ async fn command_open_terminal(main_win: MainWindow) {
 
 async fn view_dir_history(main_win: MainWindow) {
     main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .show_history();
 }
 
 async fn view_up(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
 
     if file_selector.is_tab_locked(&file_list) {
@@ -740,47 +740,47 @@ async fn view_up(main_win: MainWindow) {
 }
 
 async fn view_first(main_win: MainWindow) {
-    main_win.file_selector(FileSelectorID::ACTIVE).first();
+    main_win.file_selector(FileSelectorID::Active).first();
 }
 
 async fn view_back(main_win: MainWindow) {
-    main_win.file_selector(FileSelectorID::ACTIVE).back();
+    main_win.file_selector(FileSelectorID::Active).back();
 }
 
 async fn view_forward(main_win: MainWindow) {
-    main_win.file_selector(FileSelectorID::ACTIVE).forward();
+    main_win.file_selector(FileSelectorID::Active).forward();
 }
 
 async fn view_last(main_win: MainWindow) {
-    main_win.file_selector(FileSelectorID::ACTIVE).last();
+    main_win.file_selector(FileSelectorID::Active).last();
 }
 
 async fn view_refresh(main_win: MainWindow) {
     main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .file_list()
         .reload()
         .await;
 }
 
 async fn view_in_left_pane(main_win: MainWindow) {
-    main_win.set_directory_to_opposite(FileSelectorID::LEFT);
+    main_win.set_directory_to_opposite(FileSelectorID::Left);
 }
 
 async fn view_in_right_pane(main_win: MainWindow) {
-    main_win.set_directory_to_opposite(FileSelectorID::RIGHT);
+    main_win.set_directory_to_opposite(FileSelectorID::Right);
 }
 
 async fn view_in_active_pane(main_win: MainWindow) {
-    main_win.set_directory_to_opposite(FileSelectorID::ACTIVE);
+    main_win.set_directory_to_opposite(FileSelectorID::Active);
 }
 
 async fn view_in_inactive_pane(main_win: MainWindow) {
-    main_win.set_directory_to_opposite(FileSelectorID::INACTIVE);
+    main_win.set_directory_to_opposite(FileSelectorID::Inactive);
 }
 
 async fn view_directory(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
     if let Some(file) = file_list.selected_file()
         && file.file_info().file_type() == gio::FileType::Directory
@@ -790,7 +790,7 @@ async fn view_directory(main_win: MainWindow) {
 }
 
 async fn view_home(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
 
     let home = ConnectionList::get().home();
@@ -810,7 +810,7 @@ async fn view_home(main_win: MainWindow) {
 }
 
 async fn view_root(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
 
     if file_selector.is_tab_locked(&file_list) {
@@ -831,7 +831,7 @@ async fn view_root(main_win: MainWindow) {
 }
 
 async fn view_new_tab(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
     if let Some(directory) = file_list.directory() {
         file_selector.new_tab_with_dir(&directory, true, true);
@@ -852,7 +852,7 @@ async fn ask_close_locked_tab(parent_window: &gtk::Window) -> bool {
 }
 
 async fn view_close_tab(main_win: MainWindow) {
-    let fs = main_win.file_selector(FileSelectorID::ACTIVE);
+    let fs = main_win.file_selector(FileSelectorID::Active);
     if fs.tab_count() > 1
         && (!fs.is_current_tab_locked() || ask_close_locked_tab(main_win.upcast_ref()).await)
     {
@@ -862,26 +862,26 @@ async fn view_close_tab(main_win: MainWindow) {
 
 async fn view_close_all_tabs(main_win: MainWindow) {
     main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .close_all_tabs();
 }
 
 async fn view_close_duplicate_tabs(main_win: MainWindow) {
     main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .close_duplicate_tabs();
 }
 
 async fn view_prev_tab(main_win: MainWindow) {
-    main_win.file_selector(FileSelectorID::ACTIVE).prev_tab();
+    main_win.file_selector(FileSelectorID::Active).prev_tab();
 }
 
 async fn view_next_tab(main_win: MainWindow) {
-    main_win.file_selector(FileSelectorID::ACTIVE).next_tab();
+    main_win.file_selector(FileSelectorID::Active).next_tab();
 }
 
 async fn view_in_new_tab(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     if let Some(dir) = file_selector
         .file_list()
         .selected_file()
@@ -893,7 +893,7 @@ async fn view_in_new_tab(main_win: MainWindow) {
 }
 
 async fn view_in_inactive_tab(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     if let Some(dir) = file_selector
         .file_list()
         .selected_file()
@@ -901,27 +901,27 @@ async fn view_in_inactive_tab(main_win: MainWindow) {
         .or_else(|| file_selector.file_list().directory())
     {
         main_win
-            .file_selector(FileSelectorID::INACTIVE)
+            .file_selector(FileSelectorID::Inactive)
             .new_tab_with_dir(&dir, false, false);
     }
 }
 
 async fn view_toggle_tab_lock(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
     file_selector.toggle_tab_lock(&file_list);
 }
 
 async fn view_step_up(main_win: MainWindow) {
     main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .file_list()
         .focus_prev();
 }
 
 async fn view_step_down(main_win: MainWindow) {
     main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .file_list()
         .focus_next();
 }
@@ -929,7 +929,7 @@ async fn view_step_down(main_win: MainWindow) {
 /************** Bookmarks Menu **************/
 
 async fn bookmarks_add_current(main_win: MainWindow) {
-    let fs = main_win.file_selector(FileSelectorID::ACTIVE);
+    let fs = main_win.file_selector(FileSelectorID::Active);
     let Some(dir) = fs.file_list().directory() else {
         eprintln!("No directory. Nothing to bookmark.");
         return;
@@ -943,7 +943,7 @@ async fn bookmarks_edit(main_win: MainWindow) {
     let shortcuts = main_win.shortcuts();
     let result = BookmarksDialog::show(main_win.upcast_ref(), connection_list, shortcuts).await;
     if let Some(bookmark) = result {
-        let fs = main_win.file_selector(FileSelectorID::ACTIVE);
+        let fs = main_win.file_selector(FileSelectorID::Active);
         fs.goto_directory(&bookmark.connection, Path::new(&bookmark.bookmark.path()));
     }
 }
@@ -973,13 +973,13 @@ async fn bookmarks_goto(main_win: MainWindow, goto: BookmarkGoToVariant) {
         return;
     };
 
-    let fs = main_win.file_selector(FileSelectorID::ACTIVE);
+    let fs = main_win.file_selector(FileSelectorID::Active);
     fs.goto_directory(&connection, Path::new(&bookmark.path()));
 }
 
 async fn bookmarks_view(main_win: MainWindow) {
     main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .show_bookmarks();
 }
 
@@ -1008,7 +1008,7 @@ async fn connections_new(main_win: MainWindow) {
     let uri = glib::Uri::parse(&options.quick_connect_uri.get(), glib::UriFlags::NONE).ok();
     if let Some(connection) = ConnectDialog::new_connection(main_win.upcast_ref(), false, uri).await
     {
-        let fs = main_win.file_selector(FileSelectorID::ACTIVE);
+        let fs = main_win.file_selector(FileSelectorID::Active);
         if fs.is_current_tab_locked() {
             fs.new_tab();
         }
@@ -1022,11 +1022,11 @@ async fn connections_new(main_win: MainWindow) {
 }
 
 async fn connections_change_left(main_win: MainWindow) {
-    main_win.change_connection(FileSelectorID::LEFT);
+    main_win.change_connection(FileSelectorID::Left);
 }
 
 async fn connections_change_right(main_win: MainWindow) {
-    main_win.change_connection(FileSelectorID::RIGHT);
+    main_win.change_connection(FileSelectorID::Right);
 }
 
 async fn connections_set_current(main_win: MainWindow, uuid: String) {
@@ -1037,7 +1037,7 @@ async fn connections_set_current(main_win: MainWindow, uuid: String) {
     };
 
     main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .file_list()
         .set_connection(&con, None);
 }
@@ -1054,7 +1054,7 @@ async fn connections_close(main_win: MainWindow, uuid: String) {
 
 async fn connections_close_current(main_win: MainWindow) {
     if let Some(con) = main_win
-        .file_selector(FileSelectorID::ACTIVE)
+        .file_selector(FileSelectorID::Active)
         .file_list()
         .connection()
         .filter(|c| c.downcast_ref::<ConnectionHome>().is_none())

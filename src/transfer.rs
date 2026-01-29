@@ -149,7 +149,7 @@ pub async fn copy_files(
     win.set_title(Some(&gettext("preparing…")));
 
     let xfer_data = create_xfer_data(
-        GnomeCmdTransferType::COPY,
+        GnomeCmdTransferType::Copy,
         copy_flags,
         overwrite_mode,
         src_files,
@@ -220,7 +220,7 @@ pub async fn move_files(
     win.set_title(Some(&gettext("preparing…")));
 
     let xfer_data = create_xfer_data(
-        GnomeCmdTransferType::MOVE,
+        GnomeCmdTransferType::Move,
         copy_flags,
         overwrite_mode,
         src_files,
@@ -291,7 +291,7 @@ pub async fn link_files(
     win.set_title(Some(&gettext("preparing…")));
 
     let xfer_data = create_xfer_data(
-        GnomeCmdTransferType::LINK,
+        GnomeCmdTransferType::Link,
         copy_flags,
         overwrite_mode,
         src_files,
@@ -323,7 +323,7 @@ pub async fn download_to_temporary(
     win.set_title(Some(&gettext("downloading to /tmp")));
 
     let xfer_data = create_xfer_data(
-        GnomeCmdTransferType::COPY,
+        GnomeCmdTransferType::Copy,
         copy_flags,
         ConfirmOverwriteMode::Query,
         src_files,
@@ -370,13 +370,13 @@ async fn transfer_files(
         }
 
         match xfer_data.transfer_type {
-            GnomeCmdTransferType::COPY => {
+            GnomeCmdTransferType::Copy => {
                 copy_file_recursively(xfer_data, window, src, dst, xfer_data.copy_flags).await?;
             }
-            GnomeCmdTransferType::MOVE => {
+            GnomeCmdTransferType::Move => {
                 move_file_recursively(xfer_data, window, src, dst, xfer_data.copy_flags).await?;
             }
-            GnomeCmdTransferType::LINK => {
+            GnomeCmdTransferType::Link => {
                 let symlink_src_path = src.path().unwrap();
 
                 match dst.make_symbolic_link(symlink_src_path, gio::Cancellable::NONE) {
@@ -789,7 +789,7 @@ async fn report_transfer_problem(
         Ok(problem_action)
     } else {
         match xfer_data.transfer_type {
-            GnomeCmdTransferType::COPY => {
+            GnomeCmdTransferType::Copy => {
                 update_transfer_gui_error_copy(
                     window.upcast_ref(),
                     src,
@@ -800,7 +800,7 @@ async fn report_transfer_problem(
                 )
                 .await
             }
-            GnomeCmdTransferType::MOVE => {
+            GnomeCmdTransferType::Move => {
                 update_transfer_gui_error_move(
                     window.upcast_ref(),
                     src,
@@ -811,7 +811,7 @@ async fn report_transfer_problem(
                 )
                 .await
             }
-            GnomeCmdTransferType::LINK => {
+            GnomeCmdTransferType::Link => {
                 update_transfer_gui_error_link(window.upcast_ref(), src, dst, error).await
             }
         }

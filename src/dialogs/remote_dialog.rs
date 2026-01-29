@@ -333,7 +333,7 @@ mod imp {
             let fs = self
                 .obj()
                 .main_window()
-                .file_selector(FileSelectorID::ACTIVE);
+                .file_selector(FileSelectorID::Active);
 
             self.obj().close();
 
