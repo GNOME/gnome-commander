@@ -245,35 +245,29 @@ mod imp {
         }
 
         async fn edit_selected(&self) {
-            if let Some(selected) = self.selection.selected_item() {
-                if let Some(position) = self.store.find(&selected) {
-                    let action = selected
-                        .downcast::<glib::BoxedAnyObject>()
-                        .map(|o| o.borrow::<ShortcutAction>().clone())
-                        .ok();
+            if let Some(selected) = self.selection.selected_item()
+                && let Some(position) = self.store.find(&selected)
+            {
+                let action = selected
+                    .downcast::<glib::BoxedAnyObject>()
+                    .map(|o| o.borrow::<ShortcutAction>().clone())
+                    .ok();
 
-                    if let Some(shortcut_action) = ShortcutDialog::run(
-                        self.obj().upcast_ref(),
-                        action,
-                        self.store.upcast_ref(),
-                    )
-                    .await
-                    {
-                        self.store.splice(
-                            position,
-                            1,
-                            &[glib::BoxedAnyObject::new(shortcut_action)],
-                        );
-                    }
+                if let Some(shortcut_action) =
+                    ShortcutDialog::run(self.obj().upcast_ref(), action, self.store.upcast_ref())
+                        .await
+                {
+                    self.store
+                        .splice(position, 1, &[glib::BoxedAnyObject::new(shortcut_action)]);
                 }
             }
         }
 
         fn remove_selected(&self) {
-            if let Some(selected) = self.selection.selected_item() {
-                if let Some(position) = self.store.find(&selected) {
-                    self.store.remove(position);
-                }
+            if let Some(selected) = self.selection.selected_item()
+                && let Some(position) = self.store.find(&selected)
+            {
+                self.store.remove(position);
             }
         }
     }
@@ -301,10 +295,10 @@ impl ShortcutsDialog {
         dialog.imp().view.grab_focus();
 
         let response = dialog.imp().receiver.recv().await;
-        if response == Ok(true) {
-            if let Err(error) = shortcuts_from_model(&dialog.imp().store, shortcuts) {
-                eprintln!("Failed to save shortcuts: {}", error);
-            }
+        if response == Ok(true)
+            && let Err(error) = shortcuts_from_model(&dialog.imp().store, shortcuts)
+        {
+            eprintln!("Failed to save shortcuts: {}", error);
         }
         dialog.close();
     }

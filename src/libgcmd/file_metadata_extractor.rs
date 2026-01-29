@@ -346,7 +346,7 @@ unsafe extern "C" fn file_metadata_extractor_class_name<T: FileMetadataExtractor
     tag: *const c_char,
 ) -> *mut c_char {
     let instance = unsafe { &*(fme as *mut T::Instance) };
-    let tag = GnomeCmdTagClass(unsafe { String::from_glib_none(tag) }.into());
+    let tag = GnomeCmdTagClass(unsafe { String::from_glib_none(tag) });
     let imp = instance.imp();
     imp.class_name(&tag).to_glib_full()
 }

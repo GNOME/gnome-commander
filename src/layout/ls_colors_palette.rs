@@ -76,7 +76,7 @@ impl LsColorsPalette {
                 ));
             }
         }
-        css.push_str("}");
+        css.push('}');
         css
     }
 }

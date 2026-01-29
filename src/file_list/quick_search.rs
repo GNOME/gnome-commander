@@ -191,10 +191,10 @@ mod imp {
                 .collect();
 
             // If no file matches the new filter, focus on the last file that matched a previous filter
-            if matching_files.is_empty() {
-                if let Some(file) = self.last_focused_file.borrow().clone() {
-                    matching_files.push(file);
-                }
+            if matching_files.is_empty()
+                && let Some(file) = self.last_focused_file.borrow().clone()
+            {
+                matching_files.push(file);
             }
 
             self.matches.replace(matching_files);

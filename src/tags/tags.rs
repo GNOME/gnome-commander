@@ -147,7 +147,7 @@ impl FileMetadataService {
     pub fn extract_metadata(&self, file: &File) -> FileMetadata {
         let mut metadata = FileMetadata::default();
         for extractor in self.imp().extractors.borrow().iter() {
-            extractor.extract_metadata(file, |tag, value| metadata.add(tag, value.as_deref()));
+            extractor.extract_metadata(file, |tag, value| metadata.add(tag, value));
         }
         metadata
     }

@@ -166,13 +166,13 @@ mod imp {
             }
         });
         factory.connect_bind(|_, obj| {
-            if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() {
-                if let Some(label) = list_item.child().and_downcast::<gtk::Label>() {
-                    if let Some(item) = list_item.item().and_downcast::<gtk::StringObject>() {
-                        label.set_label(&item.string());
-                    } else {
-                        label.set_label("");
-                    }
+            if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>()
+                && let Some(label) = list_item.child().and_downcast::<gtk::Label>()
+            {
+                if let Some(item) = list_item.item().and_downcast::<gtk::StringObject>() {
+                    label.set_label(&item.string());
+                } else {
+                    label.set_label("");
                 }
             }
         });

@@ -177,6 +177,6 @@ fn code_to_type(key: &str) -> Option<gio::FileType> {
 
 pub fn ls_colors_get(file_info: &gio::FileInfo) -> Option<Colors> {
     static LS_COLORS: OnceLock<LsColors> = OnceLock::new();
-    let ls_colors = LS_COLORS.get_or_init(|| LsColors::from_env());
+    let ls_colors = LS_COLORS.get_or_init(LsColors::from_env);
     ls_colors.get(file_info)
 }

@@ -41,7 +41,7 @@ use std::{
     sync::{LazyLock, Mutex},
 };
 
-static DEBUG_FLAGS: LazyLock<Mutex<HashSet<char>>> = LazyLock::new(|| Mutex::default());
+static DEBUG_FLAGS: LazyLock<Mutex<HashSet<char>>> = LazyLock::new(Mutex::default);
 
 pub fn set_debug_flags(flags: &str) {
     if let Ok(mut guard) = DEBUG_FLAGS.lock() {

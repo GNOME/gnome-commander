@@ -53,31 +53,31 @@ async fn chmod_recursively(
         return;
     }
 
-    if let Some(mode) = recursive {
-        if let Some(dir) = file.downcast_ref::<Directory>() {
-            if let Err(error) = dir.list_files(parent_window, false).await {
-                error.show(parent_window).await;
-                return;
-            }
+    if let Some(mode) = recursive
+        && let Some(dir) = file.downcast_ref::<Directory>()
+    {
+        if let Err(error) = dir.list_files(parent_window, false).await {
+            error.show(parent_window).await;
+            return;
+        }
 
-            for child in dir
-                .files()
-                .iter::<File>()
-                .flatten()
-                .filter(|child| {
-                    !child.is_dotdot()
-                        && child.file_info().display_name() != "."
-                        && !child.file_info().is_symlink()
-                })
-                .filter(|child| match mode {
-                    ChmodRecursiveMode::AllFiles => true,
-                    ChmodRecursiveMode::DirectoriesOnly => {
-                        child.file_info().file_type() == gio::FileType::Directory
-                    }
-                })
-            {
-                chmod_recursively(parent_window, &child, permissions, recursive).await;
-            }
+        for child in dir
+            .files()
+            .iter::<File>()
+            .flatten()
+            .filter(|child| {
+                !child.is_dotdot()
+                    && child.file_info().display_name() != "."
+                    && !child.file_info().is_symlink()
+            })
+            .filter(|child| match mode {
+                ChmodRecursiveMode::AllFiles => true,
+                ChmodRecursiveMode::DirectoriesOnly => {
+                    child.file_info().file_type() == gio::FileType::Directory
+                }
+            })
+        {
+            chmod_recursively(parent_window, &child, permissions, recursive).await;
         }
     }
 }

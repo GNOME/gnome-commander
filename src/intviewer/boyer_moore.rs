@@ -143,8 +143,8 @@ fn good_suffix_table<T>(pattern: &[T], eq: &dyn Fn(&T, &T) -> bool) -> Vec<usize
 fn compute_bad_map<T: Eq + Hash>(pattern: &[T], eq_class: &dyn EqClass<T>) -> HashMap<T, usize> {
     let m = pattern.len();
     let mut bad = HashMap::new();
-    for i in 0..(m - 1) {
-        bad.insert(eq_class.normal(&pattern[i]), m - i - 1);
+    for (i, el) in pattern[..m - 1].iter().enumerate() {
+        bad.insert(eq_class.normal(el), m - i - 1);
     }
     bad
 }

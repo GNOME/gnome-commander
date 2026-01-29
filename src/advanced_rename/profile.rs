@@ -285,21 +285,22 @@ impl From<&AdvancedRenameProfile> for AdvancedRenameProfileVariant {
     }
 }
 
-impl Into<AdvancedRenameProfile> for AdvancedRenameProfileVariant {
-    fn into(self) -> AdvancedRenameProfile {
-        let profile = AdvancedRenameProfile::default();
-        profile.set_name(self.name);
-        profile.set_template_string(self.template_string);
-        profile.set_counter_start(self.counter_start);
-        profile.set_counter_step(self.counter_step);
-        profile.set_counter_width(self.counter_width);
-        profile.set_case_conversion(self.case_conversion);
-        profile.set_trim_blanks(self.trim_blanks);
+impl From<AdvancedRenameProfileVariant> for AdvancedRenameProfile {
+    fn from(variant: AdvancedRenameProfileVariant) -> Self {
+        let profile = Self::default();
+        profile.set_name(variant.name);
+        profile.set_template_string(variant.template_string);
+        profile.set_counter_start(variant.counter_start);
+        profile.set_counter_step(variant.counter_step);
+        profile.set_counter_width(variant.counter_width);
+        profile.set_case_conversion(variant.case_conversion);
+        profile.set_trim_blanks(variant.trim_blanks);
         profile.set_patterns(
-            self.patterns
+            variant
+                .patterns
                 .into_iter()
-                .zip(self.replacements.into_iter())
-                .zip(self.match_cases.into_iter())
+                .zip(variant.replacements)
+                .zip(variant.match_cases)
                 .map(|((pattern, replacement), match_case)| RegexReplace {
                     pattern,
                     replacement,

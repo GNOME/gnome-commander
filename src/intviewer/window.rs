@@ -541,7 +541,7 @@ mod imp {
                 // if no search is active, call "menu_edit_find". (which will call "menu_edit_find_next" again
                 self.find().await;
             } else {
-                start_search(&*self.obj(), true).await;
+                start_search(&self.obj(), true).await;
             }
         }
 
@@ -551,7 +551,7 @@ mod imp {
             }
 
             if self.searcher.borrow().is_some() {
-                start_search(&*self.obj(), false).await;
+                start_search(&self.obj(), false).await;
             }
         }
 

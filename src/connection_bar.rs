@@ -67,7 +67,7 @@ mod imp {
             let model = gtk::FilterListModel::new(
                 Some(obj.connection_list().all()),
                 Some(gtk::CustomFilter::new(|item| {
-                    item.downcast_ref::<Connection>().map_or(false, |con| {
+                    item.downcast_ref::<Connection>().is_some_and(|con| {
                         con.is_open()
                             || con.downcast_ref::<ConnectionDevice>().is_some()
                             || con.downcast_ref::<ConnectionSmb>().is_some()

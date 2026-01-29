@@ -697,7 +697,7 @@ mod imp {
                 .cancellable
                 .borrow()
                 .as_ref()
-                .map_or(false, |c| c.is_cancelled());
+                .is_some_and(gio::Cancellable::is_cancelled);
             self.search_finished(canceelled);
 
             if let Err(error) = search_result {

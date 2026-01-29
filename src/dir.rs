@@ -94,7 +94,7 @@ mod imp {
 
         fn dispose(&self) {
             if let Some(connection) = self.connection.take() {
-                connection.remove_from_cache(&*self.obj());
+                connection.remove_from_cache(&self.obj());
             }
         }
 
@@ -239,11 +239,9 @@ impl Directory {
     }
 
     pub fn parent(&self) -> Option<Directory> {
-        if let Some(path) = self.path().parent() {
-            Directory::try_new(&self.connection(), path).ok()
-        } else {
-            None
-        }
+        self.path()
+            .parent()
+            .and_then(|path| Directory::try_new(&self.connection(), path).ok())
     }
 
     pub fn child(&self, name: &Path) -> Result<Directory, ErrorMessage> {
@@ -531,15 +529,15 @@ impl Directory {
         }
         monitor_users -= 1;
         self.imp().monitor_users.set(monitor_users);
-        if monitor_users == 0 {
-            if let Some(file_monitor) = self.imp().file_monitor.take() {
-                file_monitor.cancel();
-                debug!(
-                    'n',
-                    "Removed monitor from {}",
-                    self.upcast_ref::<File>().get_uri_str()
-                );
-            }
+        if monitor_users == 0
+            && let Some(file_monitor) = self.imp().file_monitor.take()
+        {
+            file_monitor.cancel();
+            debug!(
+                'n',
+                "Removed monitor from {}",
+                self.upcast_ref::<File>().get_uri_str()
+            );
         }
     }
 

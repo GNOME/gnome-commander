@@ -192,7 +192,7 @@ mod imp {
 
             for (index, label) in self.path_labels.borrow().iter().enumerate() {
                 label.set_attributes(Some(&make_attributes(
-                    up_to.map_or(false, |c| c >= index),
+                    up_to.is_some_and(|c| c >= index),
                     self.active.get(),
                 )));
             }
@@ -289,7 +289,7 @@ fn split_path(path: &str) -> Vec<String> {
         take_till(1.., '/').parse_next(input)
     }
 
-    fn unix_path<'s>(input: &mut &str) -> PResult<Vec<String>> {
+    fn unix_path(input: &mut &str) -> PResult<Vec<String>> {
         seq!(
             '/',
             separated(0.., unix_path_segment, '/'),
@@ -321,7 +321,7 @@ fn split_path(path: &str) -> Vec<String> {
         .parse_next(input)
     }
 
-    fn unc_path<'s>(input: &mut &str) -> PResult<Vec<String>> {
+    fn unc_path(input: &mut &str) -> PResult<Vec<String>> {
         seq!(unc_host_and_share, opt(preceded('\\', unc_path_segments)))
             .map(|(host_and_share, path)| {
                 let mut full_path = Vec::new();
@@ -336,7 +336,7 @@ fn split_path(path: &str) -> Vec<String> {
             .parse_next(input)
     }
 
-    fn path_parser<'s>(input: &mut &str) -> PResult<Vec<String>> {
+    fn path_parser(input: &mut &str) -> PResult<Vec<String>> {
         alt((unix_path, unc_path)).parse_next(input)
     }
 

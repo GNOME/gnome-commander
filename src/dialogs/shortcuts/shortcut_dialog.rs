@@ -353,12 +353,11 @@ impl ShortcutDialog {
                 break None;
             };
 
-            if Some(shortcut) != current_shortcut.as_ref().map(|s| s.shortcut) {
-                if let Some(existing_action) = find_action(shortcut, existing_actions) {
-                    if !conflict_confirm(dialog.upcast_ref(), &existing_action, shortcut).await {
-                        continue;
-                    }
-                }
+            if Some(shortcut) != current_shortcut.as_ref().map(|s| s.shortcut)
+                && let Some(existing_action) = find_action(shortcut, existing_actions)
+                && !conflict_confirm(dialog.upcast_ref(), &existing_action, shortcut).await
+            {
+                continue;
             }
 
             break Some(ShortcutAction { shortcut, call });

@@ -73,7 +73,7 @@ impl FileMetadata {
     pub fn dump(&self) -> impl Iterator<Item = (GnomeCmdTag, String)> + '_ {
         self.tags
             .values()
-            .flat_map(|m| m.into_iter())
-            .flat_map(|(tag, values)| values.into_iter().map(|v| (tag.clone(), v.clone())))
+            .flat_map(|m| m.iter())
+            .flat_map(|(tag, values)| values.iter().map(|v| (tag.clone(), v.clone())))
     }
 }

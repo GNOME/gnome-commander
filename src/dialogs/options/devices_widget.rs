@@ -112,7 +112,7 @@ pub fn devices_widget() -> gtk::Widget {
         Some(list.all()),
         Some(gtk::CustomFilter::new(|item| {
             item.downcast_ref::<ConnectionDevice>()
-                .map_or(false, |d| !d.autovol())
+                .is_some_and(|d| !d.autovol())
         })),
     );
     selection.set_model(Some(&filter));
@@ -144,12 +144,11 @@ pub fn devices_widget() -> gtk::Widget {
                 return;
             };
             glib::spawn_future_local(async move {
-                if let Some(device) = selection.selected_item().and_downcast::<ConnectionDevice>() {
-                    if let Some(new_device) =
+                if let Some(device) = selection.selected_item().and_downcast::<ConnectionDevice>()
+                    && let Some(new_device) =
                         edit_device_dialog(&parent_window, Some(&device)).await
-                    {
-                        list.replace(&device, &new_device);
-                    }
+                {
+                    list.replace(&device, &new_device);
                 }
             });
         }

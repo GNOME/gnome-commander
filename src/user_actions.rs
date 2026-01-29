@@ -142,12 +142,10 @@ async fn file_edit(main_win: MainWindow) {
 
     let mask = get_modifiers_state(main_win.upcast_ref());
 
-    if mask.map_or(false, |m| m.contains(gdk::ModifierType::SHIFT_MASK)) {
+    if mask.is_some_and(|m| m.contains(gdk::ModifierType::SHIFT_MASK)) {
         show_new_textfile_dialog(main_win.upcast_ref(), &file_list).await;
-    } else {
-        if let Err(error) = file_list.activate_action("fl.file-edit", None) {
-            eprintln!("Cannot activate action `file-edit`: {}", error);
-        }
+    } else if let Err(error) = file_list.activate_action("fl.file-edit", None) {
+        eprintln!("Cannot activate action `file-edit`: {}", error);
     }
 }
 
@@ -211,10 +209,8 @@ async fn file_chmod(main_win: MainWindow) {
     let file_list = file_selector.file_list();
 
     let files = file_list.selected_files();
-    if !files.is_empty() {
-        if show_chmod_dialog(main_win.upcast_ref(), &files).await {
-            file_list.reload().await;
-        }
+    if !files.is_empty() && show_chmod_dialog(main_win.upcast_ref(), &files).await {
+        file_list.reload().await;
     }
 }
 
@@ -223,10 +219,8 @@ async fn file_chown(main_win: MainWindow) {
     let file_list = file_selector.file_list();
 
     let files = file_list.selected_files();
-    if !files.is_empty() {
-        if show_chown_dialog(main_win.upcast_ref(), &files).await {
-            file_list.reload().await;
-        }
+    if !files.is_empty() && show_chown_dialog(main_win.upcast_ref(), &files).await {
+        file_list.reload().await;
     }
 }
 
@@ -241,7 +235,7 @@ async fn file_mkdir(main_win: MainWindow) {
 
         if let Some(new_dir) = new_dir {
             // focus the created directory (if possible)
-            if new_dir.parent().map_or(false, |p| p.equal(&dir.file())) {
+            if new_dir.parent().is_some_and(|p| p.equal(&dir.file())) {
                 dir.file_created(&new_dir.uri());
                 file_list.focus_file(&new_dir.basename().unwrap(), true);
             }
@@ -268,7 +262,7 @@ async fn file_properties(main_win: MainWindow) {
 }
 
 fn ensure_file_list_is_local(file_list: &FileList) -> Result<(), ErrorMessage> {
-    if file_list.connection().map_or(false, |c| c.is_local()) {
+    if file_list.connection().is_some_and(|c| c.is_local()) {
         Ok(())
     } else {
         Err(ErrorMessage::brief(gettext(
@@ -788,10 +782,10 @@ async fn view_in_inactive_pane(main_win: MainWindow) {
 async fn view_directory(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
-    if let Some(file) = file_list.selected_file() {
-        if file.file_info().file_type() == gio::FileType::Directory {
-            file_selector.do_file_specific_action(&file_list, &file);
-        }
+    if let Some(file) = file_list.selected_file()
+        && file.file_info().file_type() == gio::FileType::Directory
+    {
+        file_selector.do_file_specific_action(&file_list, &file);
     }
 }
 
@@ -859,10 +853,10 @@ async fn ask_close_locked_tab(parent_window: &gtk::Window) -> bool {
 
 async fn view_close_tab(main_win: MainWindow) {
     let fs = main_win.file_selector(FileSelectorID::ACTIVE);
-    if fs.tab_count() > 1 {
-        if !fs.is_current_tab_locked() || ask_close_locked_tab(main_win.upcast_ref()).await {
-            fs.close_tab();
-        }
+    if fs.tab_count() > 1
+        && (!fs.is_current_tab_locked() || ask_close_locked_tab(main_win.upcast_ref()).await)
+    {
+        fs.close_tab();
     }
 }
 
@@ -1019,10 +1013,10 @@ async fn connections_new(main_win: MainWindow) {
             fs.new_tab();
         }
         fs.file_list().set_connection(&connection, None);
-        if let Some(quick_connect_uri) = connection.uri().map(|uri| uri.to_str()) {
-            if let Err(error) = options.quick_connect_uri.set(quick_connect_uri) {
-                eprintln!("Failed to save quick connect parameters: {error}");
-            }
+        if let Some(quick_connect_uri) = connection.uri().map(|uri| uri.to_str())
+            && let Err(error) = options.quick_connect_uri.set(quick_connect_uri)
+        {
+            eprintln!("Failed to save quick connect parameters: {error}");
         }
     }
 }
@@ -1082,15 +1076,14 @@ async fn plugin_action(main_win: MainWindow, plugin_action: PluginActionVariant)
         .active_plugins()
         .into_iter()
         .find_map(|(name, plugin)| (name == plugin_action.plugin).then_some(plugin))
+        && let Some(file_actions) = plugin.downcast_ref::<FileActions>()
     {
-        if let Some(file_actions) = plugin.downcast_ref::<FileActions>() {
-            file_actions.execute(
-                &plugin_action.action,
-                Some(&plugin_action.parameter),
-                main_win.upcast_ref(),
-                &main_win.state(),
-            );
-        }
+        file_actions.execute(
+            &plugin_action.action,
+            Some(&plugin_action.parameter),
+            main_win.upcast_ref(),
+            &main_win.state(),
+        );
     }
 }
 

@@ -66,7 +66,7 @@ mod imp {
                 (None, Some(_)) => gtk::Ordering::Larger,
                 (Some(_), None) => gtk::Ordering::Smaller,
                 (Some(item1), Some(item2)) => {
-                    (self.compare.get().unwrap())(&item1.file(), &item2.file(), &*self.obj())
+                    (self.compare.get().unwrap())(&item1.file(), &item2.file(), &self.obj())
                 }
             }
         }

@@ -445,18 +445,17 @@ mod imp {
         }
 
         async fn edit_clicked(&self) {
-            if let Some(bookmark) = self.selected() {
-                if let Some(changed_bookmark) = edit_bookmark_dialog(
+            if let Some(bookmark) = self.selected()
+                && let Some(changed_bookmark) = edit_bookmark_dialog(
                     self.obj().upcast_ref(),
                     &gettext("Edit Bookmark"),
                     &bookmark.bookmark,
                 )
                 .await
-                {
-                    bookmark
-                        .connection
-                        .replace_bookmark(&bookmark.bookmark, changed_bookmark);
-                }
+            {
+                bookmark
+                    .connection
+                    .replace_bookmark(&bookmark.bookmark, changed_bookmark);
             }
         }
 
@@ -468,20 +467,20 @@ mod imp {
         }
 
         fn up_clicked(&self) {
-            if let Some(bookmark) = self.selected() {
-                if let Some(position) = bookmark.connection.move_bookmark_up(&bookmark.bookmark) {
-                    self.selection_model.set_selected(position);
-                    self.selection_changed();
-                }
+            if let Some(bookmark) = self.selected()
+                && let Some(position) = bookmark.connection.move_bookmark_up(&bookmark.bookmark)
+            {
+                self.selection_model.set_selected(position);
+                self.selection_changed();
             }
         }
 
         fn down_clicked(&self) {
-            if let Some(bookmark) = self.selected() {
-                if let Some(position) = bookmark.connection.move_bookmark_down(&bookmark.bookmark) {
-                    self.selection_model.set_selected(position);
-                    self.selection_changed();
-                }
+            if let Some(bookmark) = self.selected()
+                && let Some(position) = bookmark.connection.move_bookmark_down(&bookmark.bookmark)
+            {
+                self.selection_model.set_selected(position);
+                self.selection_changed();
             }
         }
 

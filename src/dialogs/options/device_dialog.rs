@@ -170,7 +170,7 @@ pub async fn edit_device_dialog(
     if let Some(device) = device {
         alias_entry.set_text(&device.alias().unwrap_or_default());
         device_entry.set_text(&device.device_fn().unwrap_or_default());
-        mount_point_entry.set_file(device.mountp_string().map(|p| gio::File::for_path(p)));
+        mount_point_entry.set_file(device.mountp_string().map(gio::File::for_path));
         icon_entry.set_path(
             device
                 .icon()

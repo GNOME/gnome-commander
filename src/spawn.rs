@@ -235,6 +235,6 @@ pub fn app_needs_terminal(file: &File) -> bool {
             }
         }
     } else {
-        return true;
+        true
     }
 }

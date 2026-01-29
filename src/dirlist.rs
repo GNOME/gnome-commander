@@ -84,11 +84,7 @@ pub async fn list_directory(
 ) -> Result<glib::List<gio::FileInfo>, glib::Error> {
     let file = dir.file();
 
-    let dialog = if let Some(parent_window) = parent_window {
-        Some(create_list_progress_dialog(parent_window))
-    } else {
-        None
-    };
+    let dialog = parent_window.map(create_list_progress_dialog);
 
     let mut files = Vec::new();
 

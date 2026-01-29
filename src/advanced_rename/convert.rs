@@ -49,7 +49,7 @@ pub fn sentence_case(string: &str) -> String {
     let mut result = String::with_capacity(string.len());
 
     let first_word_index = string.unicode_word_indices().next().map(|p| p.0);
-    let last_word_index = string.unicode_word_indices().rev().next().map(|p| p.0);
+    let last_word_index = string.unicode_word_indices().next_back().map(|p| p.0);
 
     for (index, word_or_space) in string.split_word_bound_indices() {
         if word_is_roman_numeral(word_or_space) {

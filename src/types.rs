@@ -22,6 +22,7 @@
 
 #[repr(C)]
 #[allow(non_camel_case_types)]
+#[allow(clippy::upper_case_acronyms)]
 pub enum FileSelectorID {
     LEFT = 0,
     RIGHT,
@@ -52,6 +53,7 @@ pub enum DndMode {
 
 #[repr(C)]
 #[allow(non_camel_case_types)]
+#[allow(clippy::upper_case_acronyms)]
 #[derive(Clone, Copy, glib::Variant, glib::Enum)]
 #[enum_type(name = "GnomeCmdTransferType")]
 pub enum GnomeCmdTransferType {

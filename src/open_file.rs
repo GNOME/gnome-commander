@@ -94,9 +94,9 @@ pub async fn mime_exec_single(
     // Check if the file is a binary executable that lacks the executable bit
 
     let content_type = file.content_type();
-    let is_executable_content_type = content_type.as_ref().map_or(false, |c| {
-        c == "application/x-executable" || c == "application/x-executable-binary"
-    });
+    let is_executable_content_type = content_type
+        .as_ref()
+        .is_some_and(|c| c == "application/x-executable" || c == "application/x-executable-binary");
 
     if !file.is_executable() && is_executable_content_type {
         if !ask_make_executable(parent_window, file).await {
@@ -122,7 +122,7 @@ pub async fn mime_exec_single(
             return Ok(());
         } else if content_type
             .as_ref()
-            .map_or(false, |c| c.starts_with("text/"))
+            .is_some_and(|c| c.starts_with("text/"))
         {
             match ask_open_text(parent_window, file).await {
                 OpenText::Cancel => return Ok(()),

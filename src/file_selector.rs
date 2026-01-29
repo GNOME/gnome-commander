@@ -110,7 +110,7 @@ mod imp {
                 "fs.select-path",
                 Some(&String::static_variant_type()),
                 |obj, _, param| {
-                    if let Some(path) = param.and_then(|p| String::from_variant(p)) {
+                    if let Some(path) = param.and_then(String::from_variant) {
                         obj.imp().select_path(&path);
                     }
                 },
@@ -123,7 +123,7 @@ mod imp {
                 Some(&i32::static_variant_type()),
                 |obj, _, param| {
                     if let Some(index) = param
-                        .and_then(|p| i32::from_variant(p))
+                        .and_then(i32::from_variant)
                         .and_then(|i| i.try_into().ok())
                     {
                         obj.imp().toggle_tab_lock(index);
@@ -150,7 +150,7 @@ mod imp {
             let model = gtk::FilterListModel::new(
                 Some(connection_list.all()),
                 Some(gtk::CustomFilter::new(|item| {
-                    item.downcast_ref::<Connection>().map_or(false, |con| {
+                    item.downcast_ref::<Connection>().is_some_and(|con| {
                         con.is_open()
                             || con.downcast_ref::<ConnectionDevice>().is_some()
                             || con.downcast_ref::<ConnectionSmb>().is_some()
@@ -419,7 +419,7 @@ mod imp {
                 .and_downcast::<gtk::Window>()
                 .as_ref()
                 .and_then(get_modifiers_state);
-            mask.map_or(false, |m| m.contains(gdk::ModifierType::CONTROL_MASK))
+            mask.is_some_and(|m| m.contains(gdk::ModifierType::CONTROL_MASK))
         }
 
         fn select_path(&self, path: &str) {
@@ -451,14 +451,9 @@ mod imp {
 
         fn find_connection_in_dropdown(&self, con: &Connection) -> Option<u32> {
             let model = self.connection_dropdown.model()?;
-            for position in 0..model.n_items() {
-                if let Some(item) = model.item(position).and_downcast::<Connection>() {
-                    if item == *con {
-                        return Some(position);
-                    }
-                }
-            }
-            None
+            (0..model.n_items()).find(|position| {
+                model.item(*position).and_downcast::<Connection>().as_ref() == Some(con)
+            })
         }
 
         pub fn select_connection(&self, con: &Connection) -> bool {
@@ -785,14 +780,13 @@ impl FileSelector {
     }
 
     fn on_list_dir_changed(&self, fl: &FileList, dir: &Directory) {
-        if let Some(connection) = fl.connection() {
-            if let Some(path) = dir
+        if let Some(connection) = fl.connection()
+            && let Some(path) = dir
                 .upcast_ref::<File>()
                 .get_path_string_through_parent()
                 .to_str()
-            {
-                connection.dir_history().add(path.to_owned());
-            }
+        {
+            connection.dir_history().add(path.to_owned());
         }
 
         self.imp().update_tab_label(fl);
@@ -820,7 +814,7 @@ impl FileSelector {
 
             2 => {
                 if fl.middle_mouse_button_mode() == MiddleMouseButtonMode::GoesUpDir
-                    || file.as_ref().map_or(false, |f| f.is_dotdot())
+                    || file.as_ref().is_some_and(|f| f.is_dotdot())
                 {
                     if self.is_tab_locked(fl) {
                         if let Some(directory) = fl.directory().and_then(|d| d.parent()) {
@@ -829,12 +823,10 @@ impl FileSelector {
                     } else {
                         fl.goto_directory(Path::new(".."));
                     }
-                } else {
-                    if let Some(directory) =
-                        file.and_downcast::<Directory>().or_else(|| fl.directory())
-                    {
-                        self.new_tab_with_dir(&directory, true, true);
-                    }
+                } else if let Some(directory) =
+                    file.and_downcast::<Directory>().or_else(|| fl.directory())
+                {
+                    self.new_tab_with_dir(&directory, true, true);
                 }
             }
             6 | 8 => self.back(),
@@ -896,19 +888,19 @@ impl FileSelector {
         self.layout_manager()
             .map(|lm| lm.layout_child(&self.imp().volume_size_label))
             .and_downcast::<gtk::GridLayoutChild>()
-            .map(|lc| lc.set_row(if visible { 1 } else { 4 }));
+            .inspect(|lc| lc.set_row(if visible { 1 } else { 4 }));
     }
 
     pub fn update_connections(&self) {
-        if self.is_realized() {
-            if let Some(list) = self.current_file_list() {
-                // If the connection is no longer available use the home connection
-                if !list
-                    .connection()
-                    .map_or(false, |c| self.imp().select_connection(&c))
-                {
-                    list.set_connection(&self.imp().connection_list.home(), None);
-                }
+        if self.is_realized()
+            && let Some(list) = self.current_file_list()
+        {
+            // If the connection is no longer available use the home connection
+            if !list
+                .connection()
+                .is_some_and(|c| self.imp().select_connection(&c))
+            {
+                list.set_connection(&self.imp().connection_list.home(), None);
             }
         }
     }
@@ -935,28 +927,26 @@ impl FileSelector {
             } else {
                 self.file_list().goto_directory(path);
             }
-        } else {
-            if con.is_open() {
-                let dir = match Directory::try_new(con, con.create_path(path)) {
-                    Ok(dir) => dir,
-                    Err(_) => {
-                        eprintln!("Unexpected: could not get navigation target directory");
-                        return;
-                    }
-                };
+        } else if con.is_open() {
+            let dir = match Directory::try_new(con, con.create_path(path)) {
+                Ok(dir) => dir,
+                Err(_) => {
+                    eprintln!("Unexpected: could not get navigation target directory");
+                    return;
+                }
+            };
 
-                if self.is_current_tab_locked() {
-                    self.new_tab_with_dir(&dir, true, true);
-                } else {
-                    self.file_list().set_connection(con, Some(&dir));
-                }
+            if self.is_current_tab_locked() {
+                self.new_tab_with_dir(&dir, true, true);
             } else {
-                con.set_base_path(Some(con.create_path(path)));
-                if self.is_current_tab_locked() {
-                    self.new_tab_with_dir(&con.default_dir().unwrap(), true, true);
-                } else {
-                    self.file_list().set_connection(con, None);
-                }
+                self.file_list().set_connection(con, Some(&dir));
+            }
+        } else {
+            con.set_base_path(Some(con.create_path(path)));
+            if self.is_current_tab_locked() {
+                self.new_tab_with_dir(&con.default_dir().unwrap(), true, true);
+            } else {
+                self.file_list().set_connection(con, None);
             }
         }
     }
@@ -972,11 +962,9 @@ impl FileSelector {
         if self.is_current_tab_locked() {
             self.new_tab_with_dir(&dir, true, true);
             self.file_list().focus_file(&file.file_info().name(), true);
-        } else {
-            if let Some(file_list) = self.current_file_list() {
-                file_list.set_connection(&file.connection(), Some(&dir));
-                file_list.focus_file(&file.file_info().name(), true);
-            }
+        } else if let Some(file_list) = self.current_file_list() {
+            file_list.set_connection(&file.connection(), Some(&dir));
+            file_list.focus_file(&file.file_info().name(), true);
         }
     }
 
@@ -995,10 +983,10 @@ impl FileSelector {
         let mut dirs = HashMap::<Directory, BTreeSet<u32>>::new();
         for index in 0..self.tab_count() {
             let file_list = self.file_list_nth(index);
-            if !self.is_tab_locked(&file_list) {
-                if let Some(directory) = file_list.directory() {
-                    dirs.entry(directory).or_default().insert(index);
-                }
+            if !self.is_tab_locked(&file_list)
+                && let Some(directory) = file_list.directory()
+            {
+                dirs.entry(directory).or_default().insert(index);
             }
         }
 
@@ -1011,7 +999,7 @@ impl FileSelector {
         }
 
         for indexes in dirs.values() {
-            duplicates.extend(indexes.into_iter().skip(1));
+            duplicates.extend(indexes.iter().skip(1));
         }
 
         for index in duplicates.into_iter().rev() {
@@ -1021,7 +1009,7 @@ impl FileSelector {
 
     pub fn prev_tab(&self) {
         let notebook = &self.imp().notebook;
-        if notebook.current_page().map_or(false, |p| p > 0) {
+        if notebook.current_page().is_some_and(|p| p > 0) {
             notebook.prev_page();
         } else if notebook.n_pages() > 1 {
             notebook.set_current_page(None);
@@ -1031,7 +1019,7 @@ impl FileSelector {
     pub fn next_tab(&self) {
         let notebook = &self.imp().notebook;
         let n = notebook.n_pages();
-        if notebook.current_page().map_or(false, |p| p + 1 < n) {
+        if notebook.current_page().is_some_and(|p| p + 1 < n) {
             notebook.next_page();
         } else if n > 1 {
             notebook.set_current_page(Some(0));
@@ -1041,15 +1029,16 @@ impl FileSelector {
     fn on_navigate(&self, path: &str, new_tab: bool) {
         if new_tab || self.is_current_tab_locked() {
             if let Some(connection) = self.current_file_list().and_then(|fl| fl.connection()) {
-                let dir =
-                    match Directory::try_new(&connection, connection.create_path(Path::new(path)))
-                    {
-                        Ok(dir) => dir,
-                        Err(_) => {
-                            eprintln!("Unexpected: could not get navigation target directory");
-                            return;
-                        }
-                    };
+                let dir = match Directory::try_new(
+                    &connection,
+                    connection.create_path(Path::new(path)),
+                ) {
+                    Ok(dir) => dir,
+                    Err(_) => {
+                        eprintln!("Unexpected: could not get navigation target directory");
+                        return;
+                    }
+                };
                 self.new_tab_with_dir(&dir, true, true);
             }
         } else {
@@ -1060,17 +1049,17 @@ impl FileSelector {
 
     fn goto(&self, connection: &Connection, path: &str) {
         if self.is_current_tab_locked() {
-            let dir =
-                match Directory::try_new(connection, connection.create_path(Path::new(&path))) {
-                    Ok(dir) => dir,
-                    Err(_) => {
-                        eprintln!("Unexpected: could not get navigation target directory");
-                        return;
-                    }
-                };
+            let dir = match Directory::try_new(connection, connection.create_path(Path::new(path)))
+            {
+                Ok(dir) => dir,
+                Err(_) => {
+                    eprintln!("Unexpected: could not get navigation target directory");
+                    return;
+                }
+            };
             self.new_tab_with_dir(&dir, true, true);
         } else {
-            self.goto_directory(connection, Path::new(&path));
+            self.goto_directory(connection, Path::new(path));
         }
     }
 
@@ -1181,7 +1170,7 @@ impl FileSelector {
         if self.tab_count() == 0 {
             // Fallback to home directory
             let con = connection_list.home();
-            let path = PathBuf::from(glib::home_dir());
+            let path = glib::home_dir();
             match Directory::try_new(&con, con.create_path(&path)) {
                 Ok(directory) => {
                     self.new_tab_full(
@@ -1338,10 +1327,9 @@ impl FileSelector {
         let Some(file_list) = self.current_file_list() else {
             return;
         };
-        if !file_list
+        if file_list
             .connection()
-            .filter(|c| c.can_show_free_space())
-            .is_some()
+            .is_none_or(|c| !c.can_show_free_space())
         {
             return;
         }
@@ -1369,21 +1357,15 @@ impl FileSelector {
                 if !self.is_tab_locked(fl) {
                     if file.is_dotdot() {
                         fl.goto_directory(Path::new(".."));
-                    } else {
-                        if let Some(directory) = file.downcast_ref::<Directory>() {
-                            fl.set_directory(directory);
-                        }
+                    } else if let Some(directory) = file.downcast_ref::<Directory>() {
+                        fl.set_directory(directory);
                     }
-                } else {
-                    if file.is_dotdot() {
-                        if let Some(parent) = fl.directory().and_then(|d| d.parent()) {
-                            self.new_tab_with_dir(&parent, true, true);
-                        }
-                    } else {
-                        if let Some(directory) = file.downcast_ref::<Directory>() {
-                            self.new_tab_with_dir(directory, true, true);
-                        }
+                } else if file.is_dotdot() {
+                    if let Some(parent) = fl.directory().and_then(|d| d.parent()) {
+                        self.new_tab_with_dir(&parent, true, true);
                     }
+                } else if let Some(directory) = file.downcast_ref::<Directory>() {
+                    self.new_tab_with_dir(directory, true, true);
                 }
             }
             gio::FileType::Regular => {
@@ -1429,11 +1411,7 @@ impl TabVariant {
     }
 
     pub fn sort_column_id(&self) -> ColumnID {
-        self.sort_column
-            .try_into()
-            .ok()
-            .and_then(ColumnID::from_repr)
-            .unwrap_or(ColumnID::COLUMN_NAME)
+        ColumnID::from_repr(self.sort_column.into()).unwrap_or(ColumnID::COLUMN_NAME)
     }
 
     pub fn sort_type(&self) -> gtk::SortType {
@@ -1511,9 +1489,7 @@ async fn on_notebook_button_pressed(
         (1, 2, TabClick::Tab(index)) | (2, 1, TabClick::Tab(index)) => {
             // mid-click or double-click on a label
             let fl = file_selector.file_list_nth(index);
-            if !file_selector.is_tab_locked(&fl) {
-                file_selector.close_tab_nth(index);
-            } else if ask_close_locked_tab(&window).await {
+            if !file_selector.is_tab_locked(&fl) || ask_close_locked_tab(&window).await {
                 file_selector.close_tab_nth(index);
             }
         }

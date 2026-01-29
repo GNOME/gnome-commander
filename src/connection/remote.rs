@@ -62,7 +62,7 @@ pub trait ConnectionRemoteExt: IsA<ConnectionRemote> + 'static {
     }
 
     fn set_uri(&self, uri: Option<&glib::Uri>) {
-        self.as_ref().imp().uri.replace(uri.map(Clone::clone));
+        self.as_ref().imp().uri.replace(uri.cloned());
     }
 
     fn uri_string(&self) -> Option<String> {
