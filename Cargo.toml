@@ -39,3 +39,6 @@ rpath = true
 strip = true
 lto = true
 codegen-units = 1
+
+[lints.clippy]
+new_without_default = "allow"
