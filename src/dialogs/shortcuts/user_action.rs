@@ -29,10 +29,14 @@ pub struct ShortcutAction {
 }
 
 pub fn action_description(action_name: &str) -> String {
-    for user_action in &*USER_ACTIONS {
-        if user_action.action_name == action_name {
-            return user_action.description.clone();
-        }
-    }
-    action_name.to_owned()
+    USER_ACTIONS
+        .with(|user_actions| {
+            for user_action in user_actions {
+                if user_action.action_name == action_name {
+                    return Some(user_action.description.clone());
+                }
+            }
+            None
+        })
+        .unwrap_or_else(|| action_name.to_owned())
 }

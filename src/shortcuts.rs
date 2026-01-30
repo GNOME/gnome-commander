@@ -206,8 +206,9 @@ impl Shortcuts {
     }
 
     pub fn register_full(&self, key: Shortcut, action_name: &str, data: Option<&str>) -> bool {
-        let user_actions = &USER_ACTIONS;
-        if !user_actions.iter().any(|a| a.action_name == action_name) {
+        if !USER_ACTIONS
+            .with(|user_actions| user_actions.iter().any(|a| a.action_name == action_name))
+        {
             eprintln!("Unknown user action: '{}' - ignored", action_name);
             return false;
         }
@@ -296,41 +297,42 @@ impl Shortcuts {
         if variant.n_children() == 0 {
             self.set_default();
         } else {
-            let user_actions = &*USER_ACTIONS;
-            for keybinding in variant.iter() {
-                let Some(sv) = ShortcutVariant::from_variant(&keybinding) else {
-                    eprintln!(
-                        "Wrong variant type of a shortcut: {}. Skipping",
-                        keybinding.type_()
-                    );
-                    continue;
-                };
+            USER_ACTIONS.with(|user_actions| {
+                for keybinding in variant.iter() {
+                    let Some(sv) = ShortcutVariant::from_variant(&keybinding) else {
+                        eprintln!(
+                            "Wrong variant type of a shortcut: {}. Skipping",
+                            keybinding.type_()
+                        );
+                        continue;
+                    };
 
-                let Some(user_action) = user_actions
-                    .iter()
-                    .find(|a| a.name == sv.action_name || a.action_name == sv.action_name)
-                else {
-                    eprintln!(
-                        "<KeyBindings> unknown user action: '{}' - ignored",
-                        sv.action_name
-                    );
-                    continue;
-                };
+                    let Some(user_action) = user_actions
+                        .iter()
+                        .find(|a| a.name == sv.action_name || a.action_name == sv.action_name)
+                    else {
+                        eprintln!(
+                            "<KeyBindings> unknown user action: '{}' - ignored",
+                            sv.action_name
+                        );
+                        continue;
+                    };
 
-                let Some(shortcut) = sv.shortcut() else {
-                    eprintln!(
-                        "<KeyBindings> invalid key name: '{}' - ignored",
-                        sv.key_name
-                    );
-                    continue;
-                };
+                    let Some(shortcut) = sv.shortcut() else {
+                        eprintln!(
+                            "<KeyBindings> invalid key name: '{}' - ignored",
+                            sv.key_name
+                        );
+                        continue;
+                    };
 
-                self.register_full(
-                    shortcut,
-                    user_action.action_name,
-                    Some(sv.action_data.as_str()).filter(|d| !d.is_empty()),
-                );
-            }
+                    self.register_full(
+                        shortcut,
+                        user_action.action_name,
+                        Some(sv.action_data.as_str()).filter(|d| !d.is_empty()),
+                    );
+                }
+            });
         }
         self.set_mandatory();
     }

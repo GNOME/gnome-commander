@@ -70,7 +70,7 @@ use std::{
     ffi::OsString,
     path::{Path, PathBuf},
     rc::Rc,
-    sync::LazyLock,
+    thread_local,
 };
 
 async fn file_copy(main_win: MainWindow) {
@@ -1262,8 +1262,8 @@ impl UserAction {
     }
 }
 
-pub const USER_ACTIONS: LazyLock<Vec<UserAction>> = LazyLock::new(|| {
-    vec![
+thread_local! {
+    pub static USER_ACTIONS: Vec<UserAction> = vec![
         // File actions
         UserAction::new("file-copy", file_copy, "file.copy", gettext("Copy files")),
         UserAction::new(
@@ -1794,5 +1794,5 @@ pub const USER_ACTIONS: LazyLock<Vec<UserAction>> = LazyLock::new(|| {
             "help.about",
             gettext("About GNOME Commander"),
         ),
-    ]
-});
+    ];
+}

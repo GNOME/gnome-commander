@@ -35,17 +35,19 @@ mod imp {
     use std::cell::Cell;
 
     fn actions_model() -> gio::ListStore {
-        let actions_model = gio::ListStore::new::<glib::BoxedAnyObject>();
-        for user_action in &*USER_ACTIONS {
-            if !user_action.has_parameter() {
-                // skip parametrized actions
-                actions_model.append(&glib::BoxedAnyObject::new(Call {
-                    action_name: user_action.action_name.to_owned(),
-                    action_data: None,
-                }));
+        USER_ACTIONS.with(|user_actions| {
+            let actions_model = gio::ListStore::new::<glib::BoxedAnyObject>();
+            for user_action in user_actions {
+                if !user_action.has_parameter() {
+                    // skip parametrized actions
+                    actions_model.append(&glib::BoxedAnyObject::new(Call {
+                        action_name: user_action.action_name.to_owned(),
+                        action_data: None,
+                    }));
+                }
             }
-        }
-        actions_model
+            actions_model
+        })
     }
 
     fn action_factory(ellipsize: bool) -> gtk::ListItemFactory {
