@@ -1337,7 +1337,7 @@ mod imp {
                     glib::spawn_future_local(async move {
                         this.imp()
                             .drop_files(DroppingFiles {
-                                transfer_type: GnomeCmdTransferType::COPY,
+                                transfer_type: GnomeCmdTransferType::Copy,
                                 files,
                                 destination,
                             })
@@ -1349,7 +1349,7 @@ mod imp {
                     glib::spawn_future_local(async move {
                         this.imp()
                             .drop_files(DroppingFiles {
-                                transfer_type: GnomeCmdTransferType::MOVE,
+                                transfer_type: GnomeCmdTransferType::Move,
                                 files,
                                 destination,
                             })
@@ -1385,7 +1385,7 @@ mod imp {
             let Some(dir) = to else { return };
 
             let _result = match data.transfer_type {
-                GnomeCmdTransferType::COPY => {
+                GnomeCmdTransferType::Copy => {
                     copy_files(
                         window.clone(),
                         files,
@@ -1396,7 +1396,7 @@ mod imp {
                     )
                     .await
                 }
-                GnomeCmdTransferType::MOVE => {
+                GnomeCmdTransferType::Move => {
                     move_files(
                         window.clone(),
                         files,
@@ -1407,7 +1407,7 @@ mod imp {
                     )
                     .await
                 }
-                GnomeCmdTransferType::LINK => {
+                GnomeCmdTransferType::Link => {
                     link_files(
                         window.clone(),
                         files,
@@ -1496,7 +1496,7 @@ mod imp {
             Some("fl.drop-files"),
             Some(
                 &DroppingFiles {
-                    transfer_type: GnomeCmdTransferType::COPY,
+                    transfer_type: GnomeCmdTransferType::Copy,
                     files: files.to_vec(),
                     destination: destination.to_owned(),
                 }
@@ -1510,7 +1510,7 @@ mod imp {
             Some("fl.drop-files"),
             Some(
                 &DroppingFiles {
-                    transfer_type: GnomeCmdTransferType::MOVE,
+                    transfer_type: GnomeCmdTransferType::Move,
                     files: files.to_vec(),
                     destination: destination.to_owned(),
                 }
@@ -1524,7 +1524,7 @@ mod imp {
             Some("fl.drop-files"),
             Some(
                 &DroppingFiles {
-                    transfer_type: GnomeCmdTransferType::LINK,
+                    transfer_type: GnomeCmdTransferType::Link,
                     files: files.to_vec(),
                     destination: destination.to_owned(),
                 }

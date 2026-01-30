@@ -822,7 +822,7 @@ pub mod imp {
         }
 
         fn on_cmdline_change_directory(&self, dest_dir: &str) {
-            let file_selector = self.obj().file_selector(FileSelectorID::ACTIVE);
+            let file_selector = self.obj().file_selector(FileSelectorID::Active);
 
             if dest_dir == "-"
                 && !file_selector.file_list().directory().is_some_and(|d| {
@@ -839,7 +839,7 @@ pub mod imp {
         }
 
         async fn on_cmdline_execute(&self, command: &str, in_terminal: bool) {
-            let file_list = self.obj().file_selector(FileSelectorID::ACTIVE).file_list();
+            let file_list = self.obj().file_selector(FileSelectorID::Active).file_list();
 
             if file_list.connection().is_some_and(|c| c.is_local()) {
                 let working_directory = file_list
@@ -930,7 +930,7 @@ pub mod imp {
         }
 
         fn update_browse_buttons(&self, fs: &FileSelector) {
-            if *fs == self.obj().file_selector(FileSelectorID::ACTIVE) {
+            if *fs == self.obj().file_selector(FileSelectorID::Active) {
                 let can_back = fs.can_back();
                 let can_forward = fs.can_forward();
                 self.obj().action_set_enabled("win.view-first", can_back);
@@ -944,7 +944,7 @@ pub mod imp {
         fn update_cmdline(&self) {
             let directory = self
                 .obj()
-                .file_selector(FileSelectorID::ACTIVE)
+                .file_selector(FileSelectorID::Active)
                 .file_list()
                 .directory()
                 .map(|d| d.display_path())
@@ -972,7 +972,7 @@ pub mod imp {
                         .find_map(|c| c.downcast::<ConnectionRemote>().ok())
                     {
                         self.obj()
-                            .file_selector(FileSelectorID::ACTIVE)
+                            .file_selector(FileSelectorID::Active)
                             .file_list()
                             .set_connection(&remote_con, None);
                     }
@@ -1042,7 +1042,7 @@ pub mod imp {
                         .find_map(|c| c.downcast::<ConnectionRemote>().ok())
                     {
                         self.obj()
-                            .file_selector(FileSelectorID::ACTIVE)
+                            .file_selector(FileSelectorID::Active)
                             .file_list()
                             .set_connection(&remote_con, None);
                     }
@@ -1169,13 +1169,13 @@ impl MainWindow {
 
     pub fn file_selector(&self, id: FileSelectorID) -> FileSelector {
         match id {
-            FileSelectorID::LEFT => self.left_panel(),
-            FileSelectorID::RIGHT => self.right_panel(),
-            FileSelectorID::ACTIVE => match self.current_panel() {
+            FileSelectorID::Left => self.left_panel(),
+            FileSelectorID::Right => self.right_panel(),
+            FileSelectorID::Active => match self.current_panel() {
                 0 => self.left_panel(),
                 _ => self.right_panel(),
             },
-            FileSelectorID::INACTIVE => match self.current_panel() {
+            FileSelectorID::Inactive => match self.current_panel() {
                 0 => self.right_panel(),
                 _ => self.left_panel(),
             },
@@ -1201,7 +1201,7 @@ impl MainWindow {
     }
 
     fn switch_to_fs(&self, file_selector: &FileSelector) {
-        if file_selector != &self.file_selector(FileSelectorID::ACTIVE) {
+        if file_selector != &self.file_selector(FileSelectorID::Active) {
             self.switch_to_opposite();
         }
     }
@@ -1212,10 +1212,10 @@ impl MainWindow {
 
     pub fn set_directory_to_opposite(&self, id: FileSelectorID) {
         let (dst, src) = match id {
-            FileSelectorID::LEFT => (self.left_panel(), self.right_panel()),
-            FileSelectorID::RIGHT => (self.right_panel(), self.left_panel()),
-            FileSelectorID::ACTIVE => self.file_selectors(),
-            FileSelectorID::INACTIVE => {
+            FileSelectorID::Left => (self.left_panel(), self.right_panel()),
+            FileSelectorID::Right => (self.right_panel(), self.left_panel()),
+            FileSelectorID::Active => self.file_selectors(),
+            FileSelectorID::Inactive => {
                 let (active, inactive) = self.file_selectors();
                 (inactive, active)
             }
@@ -1260,10 +1260,10 @@ impl MainWindow {
             right_tabs.push(TabVariant::new(dir));
         }
 
-        self.file_selector(FileSelectorID::LEFT)
+        self.file_selector(FileSelectorID::Left)
             .open_tabs(left_tabs);
 
-        self.file_selector(FileSelectorID::RIGHT)
+        self.file_selector(FileSelectorID::Right)
             .open_tabs(right_tabs);
     }
 
@@ -1272,7 +1272,7 @@ impl MainWindow {
 
         let mut tabs = Vec::<TabVariant>::new();
         tabs.extend(
-            self.file_selector(FileSelectorID::LEFT)
+            self.file_selector(FileSelectorID::Left)
                 .save_tabs(save_all, save_current)
                 .into_iter()
                 .map(|tab| TabVariant {
@@ -1281,7 +1281,7 @@ impl MainWindow {
                 }),
         );
         tabs.extend(
-            self.file_selector(FileSelectorID::RIGHT)
+            self.file_selector(FileSelectorID::Right)
                 .save_tabs(save_all, save_current)
                 .into_iter()
                 .map(|tab| TabVariant {
@@ -1351,8 +1351,8 @@ impl MainWindow {
     }
 
     pub fn state(&self) -> State {
-        let fl1 = self.file_selector(FileSelectorID::ACTIVE).file_list();
-        let fl2 = self.file_selector(FileSelectorID::INACTIVE).file_list();
+        let fl1 = self.file_selector(FileSelectorID::Active).file_list();
+        let fl2 = self.file_selector(FileSelectorID::Inactive).file_list();
         let dir1 = fl1.directory();
         let dir2 = fl2.directory();
 
@@ -1421,7 +1421,7 @@ impl MainWindow {
     }
 
     pub fn cut_files(&self) {
-        let source_file_list = self.file_selector(FileSelectorID::ACTIVE).file_list();
+        let source_file_list = self.file_selector(FileSelectorID::Active).file_list();
         let files = source_file_list.selected_files();
         if files.is_empty() {
             return;
@@ -1438,7 +1438,7 @@ impl MainWindow {
     }
 
     pub fn copy_files(&self) {
-        let source_file_list = self.file_selector(FileSelectorID::ACTIVE).file_list();
+        let source_file_list = self.file_selector(FileSelectorID::Active).file_list();
         let files = source_file_list.selected_files();
         if files.is_empty() {
             return;
@@ -1455,7 +1455,7 @@ impl MainWindow {
     }
 
     pub async fn paste_files(&self) {
-        let destination_file_list = self.file_selector(FileSelectorID::ACTIVE).file_list();
+        let destination_file_list = self.file_selector(FileSelectorID::Active).file_list();
         let Some(dir) = destination_file_list.directory() else {
             return;
         };

@@ -21,13 +21,11 @@
  */
 
 #[repr(C)]
-#[allow(non_camel_case_types)]
-#[allow(clippy::upper_case_acronyms)]
 pub enum FileSelectorID {
-    LEFT = 0,
-    RIGHT,
-    ACTIVE,
-    INACTIVE,
+    Left = 0,
+    Right,
+    Active,
+    Inactive,
 }
 
 /// The (reversed) order of following enums compared to the occurrence in the GUI is significant
@@ -52,14 +50,12 @@ pub enum DndMode {
 }
 
 #[repr(C)]
-#[allow(non_camel_case_types)]
-#[allow(clippy::upper_case_acronyms)]
 #[derive(Clone, Copy, glib::Variant, glib::Enum)]
 #[enum_type(name = "GnomeCmdTransferType")]
 pub enum GnomeCmdTransferType {
-    COPY = 0,
-    MOVE,
-    LINK,
+    Copy = 0,
+    Move,
+    Link,
 }
 
 #[repr(C)]

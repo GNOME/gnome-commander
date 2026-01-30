@@ -581,7 +581,7 @@ mod imp {
             let file_selector = self
                 .obj()
                 .main_window()
-                .file_selector(FileSelectorID::ACTIVE);
+                .file_selector(FileSelectorID::Active);
             file_selector.go_to_file(&file);
             file_selector.grab_focus();
         }
