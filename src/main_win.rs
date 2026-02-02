@@ -634,7 +634,7 @@ pub mod imp {
                 .append(&gtk::Separator::new(gtk::Orientation::Vertical));
             self.toolbar.append(&toolbar_button(
                 &gettext("Copy file names (SHIFT for full paths, ALT for URIs)"),
-                COPYFILENAMES_STOCKID,
+                COPY_FILE_NAMES_ICON,
                 "win.edit-copy-fnames",
             ));
             self.toolbar.append(&toolbar_button(
@@ -1119,7 +1119,7 @@ pub mod imp {
             .build()
     }
 
-    const COPYFILENAMES_STOCKID: &str = "gnome-commander-copy-file-names";
+    const COPY_FILE_NAMES_ICON: &str = "gnome-commander-copy-file-names-symbolic";
     const DELETE_FILE_ICON: &str = "gnome-commander-recycling-bin-symbolic";
     const EDIT_FILE_ICON: &str = "gnome-commander-edit-symbolic";
     const GTK_MAILSEND_STOCKID: &str = "mail-send";

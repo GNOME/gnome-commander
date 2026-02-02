@@ -21,7 +21,6 @@ icons_16x16 = [
   'gnome-commander-flip-vertical.png',
   'overlay_symlink.png',
   'overlay_umount.png',
-  'gnome-commander-copy-file-names.png',
 ]
 
 install_data(icons_16x16,
@@ -32,6 +31,7 @@ icons_scalable = [
   'gnome-commander-internal-viewer.svg',
   'gnome-commander-down-symbolic.svg',
   'gnome-commander-bookmark-outline-symbolic.svg',
+  'gnome-commander-copy-file-names-symbolic.svg',
   'gnome-commander-info-outline-symbolic.svg',
   'gnome-commander-settings-symbolic.svg',
   'gnome-commander-recycling-bin-symbolic.svg',
