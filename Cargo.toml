@@ -21,6 +21,8 @@ regex = "1.11.1"
 glob = "0.3.2"
 memmap2 = "0.9.7"
 bimap = "0.6.3"
+grep = "0.4.1"
+walkdir = "2.5.0"
 
 [build-dependencies]
 system-deps = "7"
