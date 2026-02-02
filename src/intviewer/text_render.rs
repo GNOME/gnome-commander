@@ -268,8 +268,15 @@ mod imp {
                 std::mem::swap(&mut marker_start, &mut marker_end);
             }
 
-            let display_options = DisplayOptions::default();
-            let display_options_alternate = DisplayOptions::alternate_marker();
+            let text_color = self.obj().color();
+            let display_options = DisplayOptions {
+                text_color,
+                ..Default::default()
+            };
+            let display_options_alternate = DisplayOptions {
+                text_color,
+                ..DisplayOptions::alternate_marker()
+            };
             loop {
                 let eol_offset = dp.end_of_line_offset(offset);
                 if eol_offset == offset {
