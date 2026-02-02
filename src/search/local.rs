@@ -27,7 +27,12 @@ use grep::{
     searcher::{Searcher, SearcherBuilder, Sink, SinkMatch},
 };
 use gtk::gio::{self, prelude::*};
-use std::cell::Cell;
+use std::{
+    cell::Cell,
+    io::{Error, ErrorKind, Read},
+    path::Path,
+    path::PathBuf,
+};
 use walkdir::WalkDir;
 
 struct SearchSink<'a> {
@@ -41,11 +46,35 @@ impl<'a> SearchSink<'a> {
 }
 
 impl Sink for SearchSink<'_> {
-    type Error = std::io::Error;
+    type Error = Error;
 
     fn matched(&mut self, _searcher: &Searcher, _mat: &SinkMatch<'_>) -> Result<bool, Self::Error> {
         self.match_found.replace(true);
         Ok(false)
+    }
+}
+
+struct CancellableReader {
+    file: std::fs::File,
+    cancellable: gio::Cancellable,
+}
+
+impl CancellableReader {
+    pub fn new(path: &Path, cancellable: &gio::Cancellable) -> Result<Self, Error> {
+        Ok(Self {
+            file: std::fs::File::open(path)?,
+            cancellable: cancellable.clone(),
+        })
+    }
+}
+
+impl Read for CancellableReader {
+    fn read(&mut self, buf: &mut [u8]) -> Result<usize, Error> {
+        if self.cancellable.is_cancelled() {
+            Err(Error::new(ErrorKind::Interrupted, "Cancelled"))
+        } else {
+            self.file.read(buf)
+        }
     }
 }
 
@@ -125,7 +154,7 @@ pub async fn local_search(
     };
 
     let cancellable = cancellable.clone();
-    let (sender, receiver) = async_channel::unbounded::<std::path::PathBuf>();
+    let (sender, receiver) = async_channel::unbounded::<PathBuf>();
     std::thread::spawn(move || {
         let walker = WalkDir::new(start_dir);
         let walker = if max_depth != -1 {
@@ -180,9 +209,13 @@ pub async fn local_search(
 
                 let match_found = Cell::new(false);
                 if let Err(error) =
-                    searcher.search_path(matcher, entry.path(), SearchSink::new(&match_found))
+                    CancellableReader::new(entry.path(), &cancellable).and_then(|reader| {
+                        searcher.search_reader(matcher, reader, SearchSink::new(&match_found))
+                    })
                 {
-                    eprintln!("{error}");
+                    if error.kind() != ErrorKind::Interrupted {
+                        eprintln!("{error}");
+                    }
                     continue;
                 }
                 if !match_found.into_inner() {
