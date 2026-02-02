@@ -18,15 +18,42 @@
  */
 
 use super::{backend::SearchMessage, profile::SearchProfile};
-use crate::{debug::debug, dir::Directory, file::File, filter::PatternType, utils::ErrorMessage};
+use crate::{dir::Directory, file::File, filter::PatternType, utils::ErrorMessage};
 use gettextrs::gettext;
-use gtk::gio::{self, prelude::*};
-use std::{
-    io::{self, BufRead},
-    path::Path,
-    process::{Command, Stdio},
-    thread::JoinHandle,
+use glob::{MatchOptions, Pattern};
+use grep::{
+    matcher::Matcher,
+    regex::{RegexMatcher, RegexMatcherBuilder},
+    searcher::{Searcher, SearcherBuilder, Sink, SinkMatch},
 };
+use gtk::gio::{self, prelude::*};
+use std::cell::Cell;
+use walkdir::WalkDir;
+
+struct SearchSink<'a> {
+    match_found: &'a Cell<bool>,
+}
+
+impl<'a> SearchSink<'a> {
+    pub fn new(match_found: &'a Cell<bool>) -> Self {
+        Self { match_found }
+    }
+}
+
+impl Sink for SearchSink<'_> {
+    type Error = std::io::Error;
+
+    fn matched(&mut self, _searcher: &Searcher, _mat: &SinkMatch<'_>) -> Result<bool, Self::Error> {
+        self.match_found.replace(true);
+        Ok(false)
+    }
+}
+
+enum FilenamePattern {
+    Regex(RegexMatcher),
+    Glob(Pattern),
+    None,
+}
 
 pub async fn local_search(
     profile: &SearchProfile,
@@ -34,190 +61,148 @@ pub async fn local_search(
     on_message: &dyn Fn(SearchMessage),
     cancellable: &gio::Cancellable,
 ) -> Result<(), ErrorMessage> {
-    let mut command = build_search_command(profile, &start_dir.path().path());
-    debug!('g', "running: {command:?}");
-
-    let mut child = command.stdout(Stdio::piped()).spawn().map_err(|error| {
-        ErrorMessage::with_error(gettext("Error running the search command."), &error)
-    })?;
-
-    let stdout = child
-        .stdout
-        .take()
-        .ok_or_else(|| ErrorMessage::brief("Child process has no stdout stream"))?;
-
-    let (sender, receiver) = async_channel::unbounded::<String>();
-    let handle: JoinHandle<Result<(), ErrorMessage>> = std::thread::spawn(move || {
-        let buf_reader = io::BufReader::new(stdout);
-        for line in buf_reader.lines() {
-            match line {
-                Ok(line) => {
-                    if let Err(error) = sender.send_blocking(line) {
-                        eprintln!("Send to a channel failed: {error}");
-                        break;
-                    }
-                }
-                Err(error) => {
-                    debug!('g', "search command error: {error}");
-                }
-            }
-        }
-        match child.wait() {
-            Ok(status) if status.success() => {
-                debug!('g', "search command finished successfully")
-            }
-            Ok(status) => {
-                eprintln!("search command finished with a status {status}")
-            }
-            Err(error) => {
-                eprintln!("search command failed with an error: {error}")
-            }
-        }
-        Ok(())
-    });
-
-    while let Ok(line) = receiver.recv().await {
-        if cancellable.is_cancelled() {
-            break;
-        }
-        match File::new_from_path(Path::new(&line)) {
-            Ok(file) => (on_message)(SearchMessage::File(file)),
-            Err(error) => eprintln!("Cannot create a file for a path '{line}': {error}"),
-        }
-    }
-    match handle.join() {
-        Ok(Ok(_)) => Ok(()),
-        Ok(Err(error)) => Err(error),
-        Err(error) => Err(ErrorMessage::brief(format!(
-            "Thread join failure: {:?}",
-            error.type_id()
-        ))),
-    }
-}
-
-fn build_search_command(profile: &SearchProfile, start_dir: &Path) -> Command {
-    const FIND_COMMAND: &str = "find";
-    const GREP_COMMAND: &str = "grep";
-
-    let mut command = Command::new(FIND_COMMAND);
-
-    command.arg(start_dir).args(["-mindepth", "1"]); // exclude the directory itself
-
+    let start_dir = start_dir.path().path();
     let max_depth = profile.max_depth();
-    if max_depth != -1 {
-        command.arg("-maxdepth").arg((max_depth + 1).to_string());
-    }
 
     let filename_pattern = profile.filename_pattern();
-    if !filename_pattern.is_empty() {
+    let filename_pattern = if !filename_pattern.is_empty() {
         match profile.pattern_type() {
+            PatternType::Regex => FilenamePattern::Regex(
+                RegexMatcherBuilder::new()
+                    .case_smart(true)
+                    .build(&filename_pattern)
+                    .map_err(|error| {
+                        ErrorMessage::with_error(
+                            gettext("Invalid file name regular expression."),
+                            &error,
+                        )
+                    })?,
+            ),
             PatternType::FnMatch => {
-                if filename_pattern.contains('*') || filename_pattern.contains('?') {
-                    command.arg("-iname").arg(filename_pattern);
+                let filename_pattern =
+                    if !filename_pattern.contains('*') && !filename_pattern.contains('?') {
+                        format!("*{filename_pattern}*")
+                    } else {
+                        filename_pattern
+                    };
+
+                let filename_pattern = if filename_pattern.starts_with('/') {
+                    format!("**{filename_pattern}")
                 } else {
-                    command.arg("-iname").arg(format!("*{filename_pattern}*"));
+                    format!("**/{filename_pattern}")
+                };
+
+                FilenamePattern::Glob(Pattern::new(&filename_pattern).map_err(|error| {
+                    ErrorMessage::with_error(gettext("Invalid file name pattern."), &error)
+                })?)
+            }
+        }
+    } else {
+        FilenamePattern::None
+    };
+
+    let (matcher, mut searcher) = if profile.content_search() {
+        let matcher = RegexMatcherBuilder::new()
+            .fixed_strings(true)
+            .case_insensitive(!profile.match_case())
+            .dot_matches_new_line(true)
+            .build(&profile.text_pattern())
+            .map_err(|error| {
+                ErrorMessage::with_error(
+                    gettext("Invalid text content regular expression."),
+                    &error,
+                )
+            })?;
+        let searcher = SearcherBuilder::new()
+            .line_number(false)
+            .multi_line(true)
+            .max_matches(Some(1))
+            .build();
+
+        (Some(matcher), Some(searcher))
+    } else {
+        (None, None)
+    };
+
+    let cancellable = cancellable.clone();
+    let (sender, receiver) = async_channel::unbounded::<std::path::PathBuf>();
+    std::thread::spawn(move || {
+        let walker = WalkDir::new(start_dir);
+        let walker = if max_depth != -1 {
+            walker.max_depth((max_depth + 1) as usize)
+        } else {
+            walker
+        };
+
+        for entry in walker {
+            if cancellable.is_cancelled() {
+                break;
+            }
+
+            let entry = match entry {
+                Ok(entry) => entry,
+                Err(error) => {
+                    eprintln!("{error}");
+                    continue;
+                }
+            };
+
+            match &filename_pattern {
+                FilenamePattern::Regex(regex) => {
+                    if !regex
+                        .is_match(entry.path().as_os_str().as_encoded_bytes())
+                        .unwrap_or_default()
+                    {
+                        continue;
+                    }
+                }
+                FilenamePattern::Glob(glob) => {
+                    if !glob.matches_path_with(
+                        entry.path(),
+                        MatchOptions {
+                            case_sensitive: false,
+                            require_literal_separator: true,
+                            require_literal_leading_dot: false,
+                        },
+                    ) {
+                        continue;
+                    }
+                }
+                FilenamePattern::None => {}
+            }
+
+            if let Some(matcher) = matcher.as_ref()
+                && let Some(searcher) = searcher.as_mut()
+            {
+                if !entry.file_type().is_file() {
+                    continue;
+                }
+
+                let match_found = Cell::new(false);
+                if let Err(error) =
+                    searcher.search_path(matcher, entry.path(), SearchSink::new(&match_found))
+                {
+                    eprintln!("{error}");
+                    continue;
+                }
+                if !match_found.into_inner() {
+                    continue;
                 }
             }
-            PatternType::Regex => {
-                command
-                    .arg("-regextype")
-                    .arg("posix-extended")
-                    .arg("-iregex")
-                    .arg(format!(".*/.*{filename_pattern}.*"));
+
+            if let Err(error) = sender.send_blocking(entry.path().to_owned()) {
+                eprintln!("Sending search result to channel failed: {error}");
+                break;
             }
         }
+    });
+
+    while let Ok(path) = receiver.recv().await {
+        match File::new_from_path(&path) {
+            Ok(file) => (on_message)(SearchMessage::File(file)),
+            Err(error) => eprintln!("Cannot create a file for a path: {error}"),
+        };
     }
 
-    if profile.content_search() {
-        command
-            .arg("!")
-            .arg("-type")
-            .arg("p")
-            .arg("-exec")
-            .arg(GREP_COMMAND)
-            .arg("-E")
-            .arg("-q");
-        if !profile.match_case() {
-            command.arg("-i");
-        }
-        command.arg(profile.text_pattern()).arg("{}").arg(";");
-    }
-
-    command.arg("-print");
-
-    command
-}
-
-#[cfg(test)]
-mod test {
-    use super::*;
-
-    #[test]
-    fn test_build_search_command_default() {
-        let profile = SearchProfile::default();
-        let command = build_search_command(&profile, &Path::new("/home/user/Documents"));
-        assert_eq!(
-            format!("{command:?}"),
-            r#""find" "/home/user/Documents" "-mindepth" "1" "-maxdepth" "1" "-print""#
-        );
-    }
-
-    #[test]
-    fn test_build_search_command_glob_pattern() {
-        let profile = SearchProfile::default();
-        profile.set_filename_pattern("*.jp?g");
-        profile.set_pattern_type(PatternType::FnMatch);
-        let command = build_search_command(&profile, &Path::new("/home/user/Documents"));
-        assert_eq!(
-            format!("{command:?}"),
-            r#""find" "/home/user/Documents" "-mindepth" "1" "-maxdepth" "1" "-iname" "*.jp?g" "-print""#
-        );
-    }
-
-    #[test]
-    fn test_build_search_command_glob_pattern_substring() {
-        let profile = SearchProfile::default();
-        profile.set_filename_pattern("cat");
-        profile.set_pattern_type(PatternType::FnMatch);
-        let command = build_search_command(&profile, &Path::new("/home/user/Documents"));
-        assert_eq!(
-            format!("{command:?}"),
-            r#""find" "/home/user/Documents" "-mindepth" "1" "-maxdepth" "1" "-iname" "*cat*" "-print""#
-        );
-    }
-
-    #[test]
-    fn test_build_search_command_regex_pattern() {
-        let profile = SearchProfile::default();
-        profile.set_filename_pattern("\\.jpg");
-        profile.set_pattern_type(PatternType::Regex);
-        let command = build_search_command(&profile, &Path::new("/home/user/Documents"));
-        assert_eq!(
-            format!("{command:?}"),
-            r#""find" "/home/user/Documents" "-mindepth" "1" "-maxdepth" "1" "-regextype" "posix-extended" "-iregex" ".*/.*\\.jpg.*" "-print""#
-        );
-    }
-
-    #[test]
-    fn test_build_search_command_content_search() {
-        let profile = SearchProfile::default();
-        profile.set_filename_pattern("*.txt");
-        profile.set_pattern_type(PatternType::FnMatch);
-        profile.set_content_search(true);
-        profile.set_text_pattern("GNOME");
-
-        let command = build_search_command(&profile, &Path::new("/home/user/Documents"));
-        assert_eq!(
-            format!("{command:?}"),
-            r#""find" "/home/user/Documents" "-mindepth" "1" "-maxdepth" "1" "-iname" "*.txt" "!" "-type" "p" "-exec" "grep" "-E" "-q" "-i" "GNOME" "{}" ";" "-print""#
-        );
-
-        profile.set_match_case(true);
-
-        let command = build_search_command(&profile, &Path::new("/home/user/Documents"));
-        assert_eq!(
-            format!("{command:?}"),
-            r#""find" "/home/user/Documents" "-mindepth" "1" "-maxdepth" "1" "-iname" "*.txt" "!" "-type" "p" "-exec" "grep" "-E" "-q" "GNOME" "{}" ";" "-print""#
-        );
-    }
+    Ok(())
 }
