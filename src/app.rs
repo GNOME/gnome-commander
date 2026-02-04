@@ -28,7 +28,7 @@ use crate::{
     utils::{ErrorMessage, make_run_in_terminal_command},
 };
 use gettextrs::gettext;
-use gtk::{gio, glib, prelude::*};
+use gtk::{gdk, gio, glib, prelude::*};
 use std::{borrow::Cow, ffi::OsString, path::PathBuf};
 
 #[repr(i32)]
@@ -68,7 +68,12 @@ impl RegularApp {
         let files: Vec<_> = files.into_iter().map(|f| f.file()).collect();
         debug!('g', "Launching {:?}", self.app_info.commandline());
         self.app_info
-            .launch(&files, gio::AppLaunchContext::NONE)
+            .launch(
+                &files,
+                gdk::Display::default()
+                    .map(|display| display.app_launch_context())
+                    .as_ref(),
+            )
             .map_err(|error| {
                 ErrorMessage::with_error(
                     gettext("Launch of {} failed.").replace("{}", &self.app_info.name()),
