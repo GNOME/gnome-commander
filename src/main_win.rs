@@ -46,10 +46,7 @@ use crate::{
     transfer::{copy_files, move_files},
     types::{ConfirmOverwriteMode, FileSelectorID},
     user_actions::{ActionCode, USER_ACTIONS},
-    utils::{
-        ALT_SHIFT, CONTROL, CONTROL_ALT, CONTROL_SHIFT, MenuBuilderExt, NO_MOD,
-        extract_menu_shortcuts,
-    },
+    utils::{ALT_SHIFT, CONTROL, CONTROL_ALT, MenuBuilderExt, NO_MOD, extract_menu_shortcuts},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
@@ -399,20 +396,73 @@ pub mod imp {
             vbox.append(&self.buttonbar_sep);
             vbox.append(&self.buttonbar);
 
-            let shortcuts = extract_menu_shortcuts(menu.upcast_ref());
-            shortcuts.append(&gtk::Shortcut::new(
-                gtk::ShortcutTrigger::parse_string("<Control>s"),
-                Some(gtk::NamedAction::new("win.show-slide-popup")),
-            ));
-            shortcuts.append(&gtk::Shortcut::new(
-                gtk::ShortcutTrigger::parse_string("<Control>u"),
-                Some(gtk::NamedAction::new("win.swap-panes")),
-            ));
-            shortcuts.append(&gtk::Shortcut::new(
-                gtk::ShortcutTrigger::parse_string("<Alt><Shift>p"),
-                Some(gtk::NamedAction::new("win.plugins-configure")),
-            ));
-
+            let mut shortcuts = extract_menu_shortcuts(menu.upcast_ref());
+            shortcuts.extend([
+                gtk::Shortcut::new(
+                    gtk::ShortcutTrigger::parse_string("<Control>x"),
+                    Some(gtk::NamedAction::new("win.edit-cap-cut")),
+                ),
+                gtk::Shortcut::new(
+                    gtk::ShortcutTrigger::parse_string("<Control>x"),
+                    Some(gtk::NamedAction::new("win.edit-cap-copy")),
+                ),
+                gtk::Shortcut::new(
+                    gtk::ShortcutTrigger::parse_string("<Control>v"),
+                    Some(gtk::NamedAction::new("win.edit-cap-paste")),
+                ),
+                gtk::Shortcut::new(
+                    gtk::ShortcutTrigger::parse_string("<Control>s"),
+                    Some(gtk::NamedAction::new("win.show-slide-popup")),
+                ),
+                gtk::Shortcut::new(
+                    gtk::ShortcutTrigger::parse_string("<Control>u"),
+                    Some(gtk::NamedAction::new("win.swap-panes")),
+                ),
+                gtk::Shortcut::new(
+                    gtk::ShortcutTrigger::parse_string("<Alt><Shift>p"),
+                    Some(gtk::NamedAction::new("win.plugins-configure")),
+                ),
+                gtk::Shortcut::new(
+                    gtk::ShortcutTrigger::parse_string("<Control><Shift>h"),
+                    Some(gtk::NamedAction::new("win.view-hidden-files")),
+                ),
+                gtk::Shortcut::new(
+                    gtk::ShortcutTrigger::parse_string("F1"),
+                    Some(gtk::NamedAction::new("win.help-help")),
+                ),
+                gtk::Shortcut::new(
+                    gtk::ShortcutTrigger::parse_string("F2"),
+                    Some(gtk::NamedAction::new("win.file-rename")),
+                ),
+                gtk::Shortcut::new(
+                    gtk::ShortcutTrigger::parse_string("F3"),
+                    Some(gtk::NamedAction::new("win.file-view")),
+                ),
+                gtk::Shortcut::new(
+                    gtk::ShortcutTrigger::parse_string("F4"),
+                    Some(gtk::NamedAction::new("win.file-edit")),
+                ),
+                gtk::Shortcut::new(
+                    gtk::ShortcutTrigger::parse_string("F5"),
+                    Some(gtk::NamedAction::new("win.file-copy")),
+                ),
+                gtk::Shortcut::new(
+                    gtk::ShortcutTrigger::parse_string("F6"),
+                    Some(gtk::NamedAction::new("win.file-move")),
+                ),
+                gtk::Shortcut::new(
+                    gtk::ShortcutTrigger::parse_string("F7"),
+                    Some(gtk::NamedAction::new("win.file-mkdir")),
+                ),
+                gtk::Shortcut::new(
+                    gtk::ShortcutTrigger::parse_string("F8"),
+                    Some(gtk::NamedAction::new("win.file-delete")),
+                ),
+                gtk::Shortcut::new(
+                    gtk::ShortcutTrigger::parse_string("F9"),
+                    Some(gtk::NamedAction::new("win.file-search")),
+                ),
+            ]);
             let shortcuts_controller = gtk::ShortcutController::for_model(&shortcuts);
             mw.add_controller(shortcuts_controller);
 
@@ -992,10 +1042,6 @@ pub mod imp {
         }
 
         fn on_key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
-            fn activate_local_action(mw: &MainWindow, action: &str) {
-                gio::prelude::ActionGroupExt::activate_action(&*mw.obj(), action, None);
-            }
-
             match (state, key) {
                 (CONTROL_ALT, gdk::Key::c | gdk::Key::C) => {
                     if self.cmdline.is_visible()
@@ -1003,35 +1049,6 @@ pub mod imp {
                     {
                         self.cmdline.grab_focus();
                     }
-                    glib::Propagation::Stop
-                }
-                (CONTROL_SHIFT, gdk::Key::h | gdk::Key::H) => {
-                    self.obj()
-                        .set_view_hidden_files(!self.obj().view_hidden_files());
-                    glib::Propagation::Stop
-                }
-                (CONTROL, gdk::Key::x | gdk::Key::X) => {
-                    activate_local_action(self, "edit-cap-cut");
-                    glib::Propagation::Stop
-                }
-                (CONTROL, gdk::Key::c | gdk::Key::C) => {
-                    activate_local_action(self, "edit-cap-copy");
-                    glib::Propagation::Stop
-                }
-                (CONTROL, gdk::Key::v | gdk::Key::V) => {
-                    activate_local_action(self, "edit-cap-paste");
-                    glib::Propagation::Stop
-                }
-                (CONTROL, gdk::Key::s | gdk::Key::S) => {
-                    self.show_slide_popup();
-                    glib::Propagation::Stop
-                }
-                (CONTROL, gdk::Key::u | gdk::Key::U) => {
-                    self.obj().swap_panels();
-                    glib::Propagation::Stop
-                }
-                (ALT_SHIFT, gdk::Key::p | gdk::Key::P) => {
-                    activate_local_action(self, "plugins-configure");
                     glib::Propagation::Stop
                 }
                 (ALT_SHIFT, gdk::Key::f | gdk::Key::F) => {
@@ -1050,42 +1067,6 @@ pub mod imp {
                 }
                 (NO_MOD, gdk::Key::Tab | gdk::Key::ISO_Left_Tab) => {
                     self.obj().switch_to_opposite();
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::F1) => {
-                    activate_local_action(self, "help-help");
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::F2) => {
-                    activate_local_action(self, "file-rename");
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::F3) => {
-                    activate_local_action(self, "file-view");
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::F4) => {
-                    activate_local_action(self, "file-edit");
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::F5) => {
-                    activate_local_action(self, "file-copy");
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::F6) => {
-                    activate_local_action(self, "file-move");
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::F7) => {
-                    activate_local_action(self, "file-mkdir");
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::F8) => {
-                    activate_local_action(self, "file-delete");
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::F9) => {
-                    activate_local_action(self, "file-search");
                     glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::Escape) => {

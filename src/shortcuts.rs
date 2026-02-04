@@ -139,7 +139,7 @@ impl Shortcuts {
         self.register(Shortcut::key(gdk::Key::F3), "file-view");
         self.register(Shortcut::key(gdk::Key::F4), "file-edit");
         self.register(Shortcut::key(gdk::Key::F5), "file-copy");
-        self.register(Shortcut::key(gdk::Key::F6), "file-rename");
+        self.register(Shortcut::key(gdk::Key::F6), "file-move");
         self.register(Shortcut::key(gdk::Key::F7), "file-mkdir");
         self.register(Shortcut::key(gdk::Key::F8), "file-delete");
         self.register(Shortcut::key(gdk::Key::F9), "file-search");
