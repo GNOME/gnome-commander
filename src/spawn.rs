@@ -27,7 +27,7 @@ use crate::{
     utils::{ErrorMessage, make_run_in_terminal_command},
 };
 use gettextrs::gettext;
-use gtk::{gio::prelude::*, glib};
+use gtk::{gdk, gio, gio::prelude::*, glib, prelude::DisplayExt};
 use std::{
     cell::OnceCell,
     ffi::{OsStr, OsString},
@@ -169,6 +169,17 @@ pub fn spawn_async_command(
     cmd.args(&argv[1..]);
     if let Some(d) = working_directory {
         cmd.current_dir(d);
+    }
+
+    // Make sure the application can gain focus on Wayland
+    if let Some(sn_id) = gdk::Display::default().and_then(|display| {
+        display
+            .app_launch_context()
+            // These parameters are ignored for Wayland, on X11 this will
+            // always return None without an AppInfo - which is what we want.
+            .startup_notify_id(gio::AppInfo::NONE, &[])
+    }) {
+        cmd.env("XDG_ACTIVATION_TOKEN", &sn_id);
     }
 
     cmd.spawn().map_err(SpawnError::Failure)?;

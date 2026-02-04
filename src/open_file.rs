@@ -29,7 +29,7 @@ use crate::{
     utils::{ErrorMessage, GNOME_CMD_PERM_USER_EXEC, temp_file},
 };
 use gettextrs::gettext;
-use gtk::{gio, prelude::*};
+use gtk::{gdk, gio, prelude::*};
 
 async fn ask_make_executable(parent_window: &gtk::Window, file: &File) -> bool {
     let msg = gettext("“{}” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?")
@@ -149,10 +149,11 @@ pub async fn mime_exec_single(
         app_info: app_info.clone(),
     });
 
+    let context = gdk::Display::default().map(|display| display.app_launch_context());
     if file.is_local() {
-        app_info.launch(&[file.file()], gio::AppLaunchContext::NONE)
+        app_info.launch(&[file.file()], context.as_ref())
     } else if app.handles_uris() && options.dont_download.get() {
-        app_info.launch_uris(&[&file.get_uri_str()], gio::AppLaunchContext::NONE)
+        app_info.launch_uris(&[&file.get_uri_str()], context.as_ref())
     } else {
         if !ask_download_tmp(parent_window, &app).await {
             return Ok(());
@@ -171,7 +172,7 @@ pub async fn mime_exec_single(
             return Ok(());
         }
 
-        app_info.launch(&[tmp_file.file()], gio::AppLaunchContext::NONE)
+        app_info.launch(&[tmp_file.file()], context.as_ref())
     }
     .map_err(|error| {
         ErrorMessage::with_error(
