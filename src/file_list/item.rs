@@ -93,7 +93,10 @@ impl FileListItem {
 
         self.set_name(file_info.display_name());
 
-        if file_info.file_type() == gio::FileType::Regular {
+        if is_dotdot {
+            self.set_stem(file_info.display_name());
+            self.set_extension("");
+        } else if file_info.file_type() == gio::FileType::Regular {
             let name = file_info.name();
             self.set_stem({
                 name.file_stem()
