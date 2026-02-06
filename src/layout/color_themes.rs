@@ -67,7 +67,7 @@ impl ColorTheme {
                     background-color: {norm_bg};
                 }}
                 columnview.gnome-cmd-file-list listview row {{
-                    background-color: {norm_bg};
+                    background-color: unset;
                     color: {norm_fg};
                 }}
                 columnview.gnome-cmd-file-list listview row:nth-child(2n),
