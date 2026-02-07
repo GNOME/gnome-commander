@@ -23,7 +23,52 @@ use gtk::{
     glib::{self, subclass::prelude::*},
     prelude::*,
 };
-use std::{borrow::Cow, cell::RefCell, sync::LazyLock};
+use std::{borrow::Cow, cell::RefCell};
+
+const fn from_hex(color: &'static str) -> gdk::RGBA {
+    const fn strip_prefix(input: &str, prefix: char) -> Option<&str> {
+        if let Some((actual_prefix, bytes)) = input.as_bytes().split_first()
+            && prefix == *actual_prefix as char
+            && let Ok(result) = str::from_utf8(bytes)
+        {
+            Some(result)
+        } else {
+            None
+        }
+    }
+
+    const fn parse_hex(input: &str) -> u32 {
+        match u32::from_str_radix(input, 16) {
+            Ok(result) => result,
+            Err(_) => panic!("Invalid hex value"),
+        }
+    }
+
+    const fn convert_16bit_color(color: u32) -> u32 {
+        // 0000ABCD => 0A0B0C0D
+        (((color & 0xF000) << 12) | ((color & 0xF00) << 8) | ((color & 0xF0) << 4) | (color & 0xF))
+            // 0A0B0C0D => AABBCCDD
+            * 0x11
+    }
+
+    let color = strip_prefix(color, '#').expect("Colors should start with #");
+
+    let color = match color.len() {
+        3 => convert_16bit_color((parse_hex(color) << 4) | 0xF),
+        4 => convert_16bit_color(parse_hex(color)),
+        6 => (parse_hex(color) << 8) | 0xFF,
+        8 => parse_hex(color),
+        _ => panic!("Invalid color length"),
+    }
+    .to_be_bytes();
+
+    gdk::RGBA::new(
+        (color[0] as f32) / 255.0,
+        (color[1] as f32) / 255.0,
+        (color[2] as f32) / 255.0,
+        (color[3] as f32) / 255.0,
+    )
+}
 
 #[derive(Clone)]
 pub struct ColorTheme {
@@ -39,16 +84,7 @@ pub struct ColorTheme {
 
 impl Default for ColorTheme {
     fn default() -> Self {
-        Self {
-            sel_fg: gdk::RGBA::parse("#ffff00000000").unwrap(),
-            sel_bg: gdk::RGBA::parse("#000000004444").unwrap(),
-            norm_fg: gdk::RGBA::parse("#ffffffffffff").unwrap(),
-            norm_bg: gdk::RGBA::parse("#000000004444").unwrap(),
-            curs_fg: gdk::RGBA::parse("#000000000000").unwrap(),
-            curs_bg: gdk::RGBA::parse("#aaaaaaaaaaaa").unwrap(),
-            alt_fg: gdk::RGBA::parse("#ffffffffffff").unwrap(),
-            alt_bg: gdk::RGBA::parse("#000000004444").unwrap(),
-        }
+        COLOR_THEME_DEFAULT.clone()
     }
 }
 
@@ -99,82 +135,93 @@ impl ColorTheme {
     }
 }
 
-static COLOR_THEME_MODERN: LazyLock<ColorTheme> = LazyLock::new(|| ColorTheme {
-    norm_fg: gdk::RGBA::parse("#000000000000").unwrap(),
-    norm_bg: gdk::RGBA::parse("#dddddddddddd").unwrap(),
-    alt_fg: gdk::RGBA::parse("#000000000000").unwrap(),
-    alt_bg: gdk::RGBA::parse("#dddddddddddd").unwrap(),
-    sel_fg: gdk::RGBA::parse("#ffff00000000").unwrap(),
-    sel_bg: gdk::RGBA::parse("#dddddddddddd").unwrap(),
-    curs_fg: gdk::RGBA::parse("#ffffffffffff").unwrap(),
-    curs_bg: gdk::RGBA::parse("#000000004444").unwrap(),
-});
+const COLOR_THEME_DEFAULT: ColorTheme = ColorTheme {
+    sel_fg: from_hex("#ff0000"),
+    sel_bg: from_hex("#000044"),
+    norm_fg: from_hex("#ffffff"),
+    norm_bg: from_hex("#000044"),
+    curs_fg: from_hex("#000000"),
+    curs_bg: from_hex("#aaaaaa"),
+    alt_fg: from_hex("#ffffff"),
+    alt_bg: from_hex("#000044"),
+};
 
-static COLOR_THEME_FUSION: LazyLock<ColorTheme> = LazyLock::new(|| ColorTheme {
-    norm_fg: gdk::RGBA::parse("#8080ffffffff").unwrap(),
-    norm_bg: gdk::RGBA::parse("#000040408080").unwrap(),
-    alt_fg: gdk::RGBA::parse("#8080ffffffff").unwrap(),
-    alt_bg: gdk::RGBA::parse("#000040408080").unwrap(),
-    sel_fg: gdk::RGBA::parse("#ffffffff0000").unwrap(),
-    sel_bg: gdk::RGBA::parse("#000040408080").unwrap(),
-    curs_fg: gdk::RGBA::parse("#000000008080").unwrap(),
-    curs_bg: gdk::RGBA::parse("#000080808080").unwrap(),
-});
+const COLOR_THEME_MODERN: ColorTheme = ColorTheme {
+    norm_fg: from_hex("#000000"),
+    norm_bg: from_hex("#dddddd"),
+    alt_fg: from_hex("#000000"),
+    alt_bg: from_hex("#dddddd"),
+    sel_fg: from_hex("#ff0000"),
+    sel_bg: from_hex("#dddddd"),
+    curs_fg: from_hex("#ffffff"),
+    curs_bg: from_hex("#000044"),
+};
 
-static COLOR_THEME_CLASSIC: LazyLock<ColorTheme> = LazyLock::new(|| ColorTheme {
-    norm_fg: gdk::RGBA::parse("#ffffffffffff").unwrap(),
-    norm_bg: gdk::RGBA::parse("#000000004444").unwrap(),
-    alt_fg: gdk::RGBA::parse("#ffffffffffff").unwrap(),
-    alt_bg: gdk::RGBA::parse("#000000004444").unwrap(),
-    sel_fg: gdk::RGBA::parse("#ffffffff0000").unwrap(),
-    sel_bg: gdk::RGBA::parse("#000000004444").unwrap(),
-    curs_fg: gdk::RGBA::parse("#000000000000").unwrap(),
-    curs_bg: gdk::RGBA::parse("#aaaaaaaaaaaa").unwrap(),
-});
+const COLOR_THEME_FUSION: ColorTheme = ColorTheme {
+    norm_fg: from_hex("#80ffff"),
+    norm_bg: from_hex("#004080"),
+    alt_fg: from_hex("#80ffff"),
+    alt_bg: from_hex("#004080"),
+    sel_fg: from_hex("#ffff00"),
+    sel_bg: from_hex("#004080"),
+    curs_fg: from_hex("#000080"),
+    curs_bg: from_hex("#008080"),
+};
 
-static COLOR_THEME_DEEP_BLUE: LazyLock<ColorTheme> = LazyLock::new(|| ColorTheme {
-    norm_fg: gdk::RGBA::parse("#0000ffffffff").unwrap(),
-    norm_bg: gdk::RGBA::parse("#000000008080").unwrap(),
-    alt_fg: gdk::RGBA::parse("#0000ffffffff").unwrap(),
-    alt_bg: gdk::RGBA::parse("#000000008080").unwrap(),
-    sel_fg: gdk::RGBA::parse("#ffffffff0000").unwrap(),
-    sel_bg: gdk::RGBA::parse("#000000008080").unwrap(),
-    curs_fg: gdk::RGBA::parse("#000000000000").unwrap(),
-    curs_bg: gdk::RGBA::parse("#aaaaaaaaaaaa").unwrap(),
-});
+const COLOR_THEME_CLASSIC: ColorTheme = ColorTheme {
+    norm_fg: from_hex("#ffffff"),
+    norm_bg: from_hex("#000044"),
+    alt_fg: from_hex("#ffffff"),
+    alt_bg: from_hex("#000044"),
+    sel_fg: from_hex("#ffff00"),
+    sel_bg: from_hex("#000044"),
+    curs_fg: from_hex("#000000"),
+    curs_bg: from_hex("#aaaaaa"),
+};
 
-static COLOR_THEME_CAFEZINHO: LazyLock<ColorTheme> = LazyLock::new(|| ColorTheme {
-    norm_fg: gdk::RGBA::parse("#e4e4deded5d5").unwrap(),
-    norm_bg: gdk::RGBA::parse("#199a153011a8").unwrap(),
-    alt_fg: gdk::RGBA::parse("#e4e4deded5d5").unwrap(),
-    alt_bg: gdk::RGBA::parse("#199a153011a8").unwrap(),
-    sel_fg: gdk::RGBA::parse("#ffffcfcf3636").unwrap(),
-    sel_bg: gdk::RGBA::parse("#199a153011a8").unwrap(),
-    curs_fg: gdk::RGBA::parse("#e4e4deded5d5").unwrap(),
-    curs_bg: gdk::RGBA::parse("#4d4d4d4d4d4d").unwrap(),
-});
+const COLOR_THEME_DEEP_BLUE: ColorTheme = ColorTheme {
+    norm_fg: from_hex("#00ffff"),
+    norm_bg: from_hex("#000080"),
+    alt_fg: from_hex("#00ffff"),
+    alt_bg: from_hex("#000080"),
+    sel_fg: from_hex("#ffff00"),
+    sel_bg: from_hex("#000080"),
+    curs_fg: from_hex("#000000"),
+    curs_bg: from_hex("#aaaaaa"),
+};
 
-static COLOR_THEME_GREEN_TIGER: LazyLock<ColorTheme> = LazyLock::new(|| ColorTheme {
-    norm_fg: gdk::RGBA::parse("#ffffc6440000").unwrap(),
-    norm_bg: gdk::RGBA::parse("#19192e2e0000").unwrap(),
-    alt_fg: gdk::RGBA::parse("#ffffc6c60000").unwrap(),
-    alt_bg: gdk::RGBA::parse("#1f1f39390101").unwrap(),
-    sel_fg: gdk::RGBA::parse("#ffffffffffff").unwrap(),
-    sel_bg: gdk::RGBA::parse("#000000004444").unwrap(),
-    curs_fg: gdk::RGBA::parse("#000000000000").unwrap(),
-    curs_bg: gdk::RGBA::parse("#aaaaaaaaaaaa").unwrap(),
-});
+const COLOR_THEME_CAFEZINHO: ColorTheme = ColorTheme {
+    norm_fg: from_hex("#e4ded5"),
+    norm_bg: from_hex("#191511"),
+    alt_fg: from_hex("#e4ded5"),
+    alt_bg: from_hex("#191511"),
+    sel_fg: from_hex("#ffcf36"),
+    sel_bg: from_hex("#191511"),
+    curs_fg: from_hex("#e4ded5"),
+    curs_bg: from_hex("#4d4d4d"),
+};
 
-static COLOR_THEME_WINTER: LazyLock<ColorTheme> = LazyLock::new(|| ColorTheme {
-    norm_fg: gdk::RGBA::parse("#000000000000").unwrap(),
-    norm_bg: gdk::RGBA::parse("#ffffffffffff").unwrap(),
-    alt_fg: gdk::RGBA::parse("#000000000000").unwrap(),
-    alt_bg: gdk::RGBA::parse("#f0f0f0f0f0f0").unwrap(),
-    sel_fg: gdk::RGBA::parse("#00000000ffff").unwrap(),
-    sel_bg: gdk::RGBA::parse("#c8c8c8c8c8c8").unwrap(),
-    curs_fg: gdk::RGBA::parse("#000000000000").unwrap(),
-    curs_bg: gdk::RGBA::parse("#0000ffffffff").unwrap(),
-});
+const COLOR_THEME_GREEN_TIGER: ColorTheme = ColorTheme {
+    norm_fg: from_hex("#ffc600"),
+    norm_bg: from_hex("#192e00"),
+    alt_fg: from_hex("#ffc600"),
+    alt_bg: from_hex("#1f3901"),
+    sel_fg: from_hex("#ffffff"),
+    sel_bg: from_hex("#000044"),
+    curs_fg: from_hex("#000000"),
+    curs_bg: from_hex("#aaaaaa"),
+};
+
+const COLOR_THEME_WINTER: ColorTheme = ColorTheme {
+    norm_fg: from_hex("#000000"),
+    norm_bg: from_hex("#ffffff"),
+    alt_fg: from_hex("#000000"),
+    alt_bg: from_hex("#f0f0f0"),
+    sel_fg: from_hex("#0000ff"),
+    sel_bg: from_hex("#c8c8c8"),
+    curs_fg: from_hex("#000000"),
+    curs_bg: from_hex("#00ffff"),
+};
 
 #[derive(
     Clone,
@@ -315,13 +362,13 @@ impl ColorThemes {
 
 fn theme_by_id(settings: &gio::Settings, theme_id: ColorThemeId) -> Cow<'static, ColorTheme> {
     match theme_id {
-        ColorThemeId::Modern => Cow::Borrowed(&*COLOR_THEME_MODERN),
-        ColorThemeId::Fusion => Cow::Borrowed(&*COLOR_THEME_FUSION),
-        ColorThemeId::Classic => Cow::Borrowed(&*COLOR_THEME_CLASSIC),
-        ColorThemeId::DeepBlue => Cow::Borrowed(&*COLOR_THEME_DEEP_BLUE),
-        ColorThemeId::Cafezinho => Cow::Borrowed(&*COLOR_THEME_CAFEZINHO),
-        ColorThemeId::GreenTiger => Cow::Borrowed(&*COLOR_THEME_GREEN_TIGER),
-        ColorThemeId::Winter => Cow::Borrowed(&*COLOR_THEME_WINTER),
+        ColorThemeId::Modern => Cow::Borrowed(&COLOR_THEME_MODERN),
+        ColorThemeId::Fusion => Cow::Borrowed(&COLOR_THEME_FUSION),
+        ColorThemeId::Classic => Cow::Borrowed(&COLOR_THEME_CLASSIC),
+        ColorThemeId::DeepBlue => Cow::Borrowed(&COLOR_THEME_DEEP_BLUE),
+        ColorThemeId::Cafezinho => Cow::Borrowed(&COLOR_THEME_CAFEZINHO),
+        ColorThemeId::GreenTiger => Cow::Borrowed(&COLOR_THEME_GREEN_TIGER),
+        ColorThemeId::Winter => Cow::Borrowed(&COLOR_THEME_WINTER),
         ColorThemeId::Custom => Cow::Owned(load_custom_theme(settings)),
     }
 }
@@ -352,4 +399,20 @@ pub fn save_custom_theme(
     settings.set_string("custom-curs-fg", &theme.curs_fg.to_str())?;
     settings.set_string("custom-curs-bg", &theme.curs_bg.to_str())?;
     Ok(())
+}
+
+#[cfg(test)]
+mod test {
+    use super::from_hex;
+
+    #[test]
+    fn test_color_parsing() {
+        assert_eq!(&from_hex("#abc").to_str(), "rgb(170,187,204)");
+        assert_eq!(&from_hex("#ABCD").to_str(), "rgba(170,187,204,0.866667)");
+        assert_eq!(&from_hex("#123def").to_str(), "rgb(18,61,239)");
+        assert_eq!(
+            &from_hex("#456def01").to_str(),
+            "rgba(69,109,239,0.00392157)"
+        );
+    }
 }
