@@ -18,16 +18,12 @@
  */
 
 use super::item::FileListItem;
+use super::list::apply_css;
 use gtk::{glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
-    use crate::{
-        file::File,
-        layout::ls_colors::{LsPalletteColor, ls_colors_get},
-    };
     use std::cell::{Cell, RefCell};
-    use strum::VariantArray;
 
     #[derive(glib::Properties, Default)]
     #[properties(wrapper_type = super::FileListCell)]
@@ -113,29 +109,13 @@ mod imp {
             self.apply_css();
         }
 
-        fn file(&self) -> Option<File> {
-            Some(self.obj().item()?.file())
-        }
-
         fn apply_css(&self) {
-            for c in LsPalletteColor::VARIANTS {
-                self.obj().remove_css_class(&format!("fg-{}", c.as_ref()));
-                self.obj().remove_css_class(&format!("bg-{}", c.as_ref()));
-            }
-            if self.selected.get() {
-                self.obj().add_css_class("sel");
-            } else {
-                self.obj().remove_css_class("sel");
-                if self.use_ls_colors.get()
-                    && let Some(colors) = self.file().and_then(|f| ls_colors_get(&f.file_info()))
-                {
-                    if let Some(class) = colors.fg.map(|fg| format!("fg-{}", fg.as_ref())) {
-                        self.obj().add_css_class(&class);
-                    }
-                    if let Some(class) = colors.bg.map(|fg| format!("bg-{}", fg.as_ref())) {
-                        self.obj().add_css_class(&class);
-                    }
-                }
+            if let Some(item) = &*self.item.borrow() {
+                apply_css(
+                    item,
+                    self.use_ls_colors.get(),
+                    self.obj().upcast_ref::<gtk::Widget>(),
+                );
             }
         }
     }
