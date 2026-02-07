@@ -2771,10 +2771,26 @@ fn create_text_cell_factory(
     factory.upcast()
 }
 
-fn apply_css(item: &FileListItem, use_ls_colors: bool, widget: &gtk::Widget) {
+pub fn apply_css(item: &FileListItem, use_ls_colors: bool, widget: &gtk::Widget) {
     for c in LsPalletteColor::VARIANTS {
         widget.remove_css_class(&format!("fg-{}", c.as_ref()));
         widget.remove_css_class(&format!("bg-{}", c.as_ref()));
+    }
+
+    let mut current_parent = widget.clone().upcast::<gtk::Accessible>();
+    while let Some(parent) = current_parent.accessible_parent() {
+        current_parent = parent;
+        if current_parent.accessible_role() == gtk::AccessibleRole::Row {
+            break;
+        }
+    }
+
+    if let Ok(parent_widget) = current_parent.downcast::<gtk::Widget>() {
+        if item.selected() {
+            parent_widget.add_css_class("sel");
+        } else {
+            parent_widget.remove_css_class("sel");
+        }
     }
 
     if item.selected() {

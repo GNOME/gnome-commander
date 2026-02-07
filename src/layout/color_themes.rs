@@ -89,8 +89,11 @@ impl Default for ColorTheme {
 }
 
 const NO_THEME_CSS: &str = r#"
-    columnview.gnome-cmd-file-list listview .sel {
+    .gnome-cmd-file-list .sel {
         font-weight: bold;
+    }
+    .gnome-cmd-file-list row.sel:not(:focus) {
+        background-color: rgba(128, 128, 128, 0.3);
     }
 "#;
 
