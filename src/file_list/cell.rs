@@ -145,4 +145,10 @@ impl FileListCell {
     pub fn add_binding(&self, binding: glib::Binding) {
         self.imp().bindings.borrow_mut().push(binding);
     }
+
+    pub fn clear_bindings(&self) {
+        for binding in self.imp().bindings.borrow_mut().drain(..) {
+            binding.unbind();
+        }
+    }
 }

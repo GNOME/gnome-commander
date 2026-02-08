@@ -2602,20 +2602,17 @@ fn create_name_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
 fn create_ext_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
     let global_options = GeneralOptions::new();
     create_text_cell_factory(0.0, cells, move |cell, item| {
-        let prop = if matches!(
+        cell.bind(&item);
+        if !matches!(
             global_options.extension_display_mode.get(),
             ExtensionDisplayMode::WithFileName
         ) {
-            "empty"
-        } else {
-            "extension"
-        };
-        cell.bind(&item);
-        cell.add_binding(
-            item.bind_property(prop, &cell, "text")
-                .sync_create()
-                .build(),
-        );
+            cell.add_binding(
+                item.bind_property("extension", &cell, "text")
+                    .sync_create()
+                    .build(),
+            );
+        }
     })
 }
 
@@ -2764,6 +2761,7 @@ fn create_text_cell_factory(
                 && let Some(cell) = list_item.child().and_downcast::<FileListCell>()
             {
                 cell.unbind();
+                cell.clear_bindings();
                 cells.remove_value(&cell);
             }
         }
