@@ -32,6 +32,10 @@ use crate::{
     spawn::{SpawnError, app_needs_terminal, run_command_indir},
     utils::ErrorMessage,
 };
+use futures::{
+    future::{Either, select},
+    stream::StreamExt,
+};
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use libc::{gid_t, uid_t};
@@ -388,22 +392,41 @@ impl File {
         self.file_info().modification_date_time()
     }
 
-    pub fn tree_size(&self) -> Option<u64> {
+    pub async fn tree_size(
+        &self,
+        progress_callback: impl Fn(u64) + 'static,
+        cancellable: gio::Cancellable,
+    ) -> Option<u64> {
         match self.file_info().file_type() {
             gio::FileType::Directory => {
-                match self.file().measure_disk_usage(
+                let (result, stream) = self.file().measure_disk_usage_future(
                     gio::FileMeasureFlags::NONE,
-                    gio::Cancellable::NONE,
-                    None,
-                ) {
-                    Ok((size, _, _)) => Some(size),
-                    Err(error) => {
-                        eprintln!(
-                            "calc_tree_size: g_file_measure_disk_usage failed: {}",
-                            error.message()
-                        );
-                        None
-                    }
+                    glib::Priority::DEFAULT,
+                );
+
+                let callback = &progress_callback;
+                let mut stream =
+                    stream.take_until(select(cancellable.clone().into_future(), result));
+                stream
+                    .by_ref()
+                    .for_each(|(_, size, _, _)| async move { callback(size) })
+                    .await;
+
+                match stream.take_result() {
+                    // Stream done but the terminating future isn’t, should not happen
+                    None => None,
+                    // Cancelled
+                    Some(Either::Left((_, _))) => None,
+                    // Done
+                    Some(Either::Right((result, _))) => match result {
+                        Ok((size, _, _)) => Some(size),
+                        Err(error) => {
+                            eprintln!(
+                                "calc_tree_size: g_file_measure_disk_usage_async failed: {error}",
+                            );
+                            None
+                        }
+                    },
                 }
             }
             gio::FileType::Regular => self.size(),

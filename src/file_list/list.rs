@@ -178,6 +178,8 @@ mod imp {
 
         pub directory: RefCell<Option<Directory>>,
         pub directory_handlers: RefCell<Vec<glib::SignalHandlerId>>,
+
+        pub current_size_calculation: Cell<Option<gio::Cancellable>>,
     }
 
     #[glib::object_subclass]
@@ -294,6 +296,8 @@ mod imp {
 
                 directory: Default::default(),
                 directory_handlers: Default::default(),
+
+                current_size_calculation: Default::default(),
             }
         }
     }
@@ -563,6 +567,9 @@ mod imp {
         }
 
         fn dispose(&self) {
+            if let Some(prev_value) = self.current_size_calculation.take() {
+                prev_value.cancel();
+            }
             while let Some(child) = self.obj().first_child() {
                 child.unparent();
             }
@@ -838,6 +845,9 @@ mod imp {
         }
 
         fn cursor_changed(&self) {
+            if let Some(prev_value) = self.current_size_calculation.take() {
+                prev_value.cancel();
+            }
             let Some(cursor) = self.obj().focused_file_position() else {
                 return;
             };
@@ -1614,27 +1624,76 @@ impl FileList {
             .unwrap_or_default()
     }
 
+    fn new_size_calculation_cancellable(&self) -> gio::Cancellable {
+        let cancellable = gio::Cancellable::new();
+        if let Some(prev_value) = self
+            .imp()
+            .current_size_calculation
+            .replace(Some(cancellable.clone()))
+        {
+            prev_value.cancel();
+        }
+        cancellable
+    }
+
     pub fn show_dir_tree_size(&self, position: u32) {
         if let Some(item) = self.imp().item_at(position) {
-            item.set_size(
-                item.file()
-                    .tree_size()
-                    .and_then(|s| s.try_into().ok())
-                    .unwrap_or(-1),
-            );
+            let cancellable = self.new_size_calculation_cancellable();
+            glib::spawn_future_local(async move {
+                item.set_size(
+                    item.file()
+                        .tree_size(
+                            glib::clone!(
+                                #[weak]
+                                item,
+                                move |size| {
+                                    if let Ok(size) = i64::try_from(size) {
+                                        item.set_size(size)
+                                    }
+                                }
+                            ),
+                            cancellable,
+                        )
+                        .await
+                        .and_then(|s| s.try_into().ok())
+                        .unwrap_or(-1),
+                );
+            });
         }
     }
 
     pub fn show_visible_tree_sizes(&self) {
-        for item in self.imp().items_iter() {
-            item.set_size(
-                item.file()
-                    .tree_size()
-                    .and_then(|s| s.try_into().ok())
-                    .unwrap_or(-1),
-            );
-        }
-        self.emit_files_changed();
+        let this = self.clone();
+        let cancellable = self.new_size_calculation_cancellable();
+        glib::spawn_future_local(async move {
+            for item in this.imp().items_iter() {
+                if cancellable.is_cancelled() {
+                    break;
+                }
+                if item.file().is_dotdot() {
+                    continue;
+                }
+                item.set_size(
+                    item.file()
+                        .tree_size(
+                            glib::clone!(
+                                #[weak]
+                                item,
+                                move |size| {
+                                    if let Ok(size) = i64::try_from(size) {
+                                        item.set_size(size)
+                                    }
+                                }
+                            ),
+                            cancellable.clone(),
+                        )
+                        .await
+                        .and_then(|s| s.try_into().ok())
+                        .unwrap_or(-1),
+                );
+            }
+            this.emit_files_changed();
+        });
     }
 
     fn remove_file(&self, f: &File) -> bool {
