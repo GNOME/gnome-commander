@@ -216,7 +216,7 @@ impl File {
 
     pub fn content_type(&self) -> Option<glib::GString> {
         if self.is_dotdot() {
-            return None;
+            return Some("inode/directory".into());
         }
         let file_info = self.file_info();
         file_info
