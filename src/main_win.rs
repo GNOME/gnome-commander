@@ -46,7 +46,9 @@ use crate::{
     transfer::{copy_files, move_files},
     types::{ConfirmOverwriteMode, FileSelectorID},
     user_actions::{ActionCode, USER_ACTIONS},
-    utils::{ALT_SHIFT, CONTROL, CONTROL_ALT, MenuBuilderExt, NO_MOD, extract_menu_shortcuts},
+    utils::{
+        ALT_SHIFT, CONTROL, CONTROL_ALT, MenuBuilderExt, NO_MOD, SHIFT, extract_menu_shortcuts,
+    },
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
@@ -1090,6 +1092,7 @@ pub mod imp {
                     self.obj().switch_to_opposite();
                     glib::Propagation::Stop
                 }
+                (SHIFT, gdk::Key::Tab | gdk::Key::ISO_Left_Tab) => glib::Propagation::Stop,
                 (NO_MOD, gdk::Key::Escape) => {
                     if self.cmdline.is_visible() {
                         self.cmdline.set_text("");
