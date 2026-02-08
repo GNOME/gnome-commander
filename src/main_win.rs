@@ -319,6 +319,15 @@ pub mod imp {
                 .build();
             vbox.append(&self.menubar);
 
+            mw.connect_focus_widget_notify(|mw| {
+                if gtk::prelude::GtkWindowExt::focus(mw)
+                    .is_some_and(|widget| widget.widget_name() == "GtkPopoverMenuBarItem")
+                {
+                    // Individual menu bar items should never be focused, return focus to the file list
+                    mw.focus_file_lists();
+                }
+            });
+
             self.create_toolbar();
             mw.bind_property("toolbar-visible", &self.toolbar, "visible")
                 .sync_create()
@@ -818,6 +827,18 @@ pub mod imp {
                 ))
                 .build();
             popover.set_parent(&self.paned);
+            popover.connect_closed(glib::clone!(
+                #[weak(rename_to = this)]
+                self,
+                move |popover| {
+                    // Delay removing the menu to allow the selected action to be handled first.
+                    let popover = popover.clone();
+                    glib::spawn_future_local(async move {
+                        popover.unparent();
+                        this.obj().focus_file_lists();
+                    });
+                }
+            ));
             popover.present();
             popover.popup();
         }
