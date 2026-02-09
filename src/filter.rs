@@ -21,11 +21,30 @@ use glob::{MatchOptions, Pattern};
 use regex::{Regex, RegexBuilder};
 use std::error::Error;
 
-#[derive(Clone, Copy)]
+#[derive(Default, Clone, Copy)]
 #[repr(C)]
 pub enum PatternType {
     Regex = 0,
+    #[default]
     FnMatch,
+}
+
+impl From<PatternType> for i32 {
+    fn from(pattern_type: PatternType) -> Self {
+        pattern_type as Self
+    }
+}
+
+impl TryFrom<i32> for PatternType {
+    type Error = ();
+
+    fn try_from(value: i32) -> Result<Self, Self::Error> {
+        match value {
+            v if v == i32::from(PatternType::Regex) => Ok(PatternType::Regex),
+            v if v == i32::from(PatternType::FnMatch) => Ok(PatternType::FnMatch),
+            _ => Err(()),
+        }
+    }
 }
 
 pub enum Filter {
