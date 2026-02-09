@@ -156,7 +156,7 @@ pub async fn local_search(
     let cancellable = cancellable.clone();
     let (sender, receiver) = async_channel::unbounded::<PathBuf>();
     std::thread::spawn(move || {
-        let walker = WalkDir::new(start_dir);
+        let walker = WalkDir::new(start_dir).min_depth(1);
         let walker = if max_depth != -1 {
             walker.max_depth((max_depth + 1) as usize)
         } else {
