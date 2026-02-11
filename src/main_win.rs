@@ -175,30 +175,32 @@ pub mod imp {
                     .spawn_ensure_slide_position(if obj.current_panel() == 0 { 100 } else { 0 })
             });
 
-            for user_action in &*USER_ACTIONS {
-                match &user_action.action_code {
-                    ActionCode::Plain { activate } => {
-                        let activate = activate.clone();
-                        klass.install_action(
-                            &format!("win.{}", user_action.action_name),
-                            None,
-                            move |obj, _, _| (activate)(obj.clone()),
-                        );
+            USER_ACTIONS.with(|user_actions| {
+                for user_action in user_actions {
+                    match &user_action.action_code {
+                        ActionCode::Plain { activate } => {
+                            let activate = activate.clone();
+                            klass.install_action(
+                                &format!("win.{}", user_action.action_name),
+                                None,
+                                move |obj, _, _| (activate)(obj.clone()),
+                            );
+                        }
+                        ActionCode::WithParameter {
+                            activate,
+                            parameter_type,
+                        } => {
+                            let activate = activate.clone();
+                            klass.install_action(
+                                &format!("win.{}", user_action.action_name),
+                                Some(parameter_type),
+                                move |obj, _, param| (activate)(obj.clone(), param),
+                            );
+                        }
+                        ActionCode::Predefined => {}
                     }
-                    ActionCode::WithParameter {
-                        activate,
-                        parameter_type,
-                    } => {
-                        let activate = activate.clone();
-                        klass.install_action(
-                            &format!("win.{}", user_action.action_name),
-                            Some(parameter_type),
-                            move |obj, _, param| (activate)(obj.clone(), param),
-                        );
-                    }
-                    ActionCode::Predefined => {}
                 }
-            }
+            });
         }
 
         fn new() -> Self {
