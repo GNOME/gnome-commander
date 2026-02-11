@@ -346,6 +346,22 @@ pub mod imp {
             self.paned
                 .set_end_child(Some(&*self.file_selector_right.borrow()));
 
+            let focus_controller = gtk::EventControllerFocus::new();
+            focus_controller.connect_enter(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.obj().set_current_panel(0),
+            ));
+            self.file_selector_left.borrow().add_controller(focus_controller);
+
+            let focus_controller = gtk::EventControllerFocus::new();
+            focus_controller.connect_enter(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.obj().set_current_panel(1),
+            ));
+            self.file_selector_right.borrow().add_controller(focus_controller);
+
             mw.bind_property(
                 "connection-buttons-visible",
                 &mw.imp().file_selector_left.borrow().connection_bar(),
