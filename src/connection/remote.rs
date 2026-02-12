@@ -21,14 +21,14 @@
  */
 
 use super::connection::{Connection, ConnectionExt, ConnectionInterface};
-use crate::{debug::debug, path::GnomeCmdPath, utils::ErrorMessage};
+use crate::{
+    debug::debug,
+    path::{GnomeCmdPath, resolve_relative_uri},
+    utils::ErrorMessage,
+};
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
-use std::{
-    future::Future,
-    path::{Path, PathBuf},
-    pin::Pin,
-};
+use std::{future::Future, path::Path, pin::Pin};
 
 mod imp {
     use super::*;
@@ -101,6 +101,17 @@ impl ConnectionRemote {
             _ => "network-workgroup",
         }
     }
+
+    fn uri_for_path(&self, path: &Path) -> glib::Uri {
+        self.uri()
+            .and_then(|connection_uri| {
+                resolve_relative_uri(&path.to_string_lossy(), &connection_uri)
+            })
+            .unwrap_or_else(|| {
+                // This should never happen but use file:/// as fallback
+                glib::Uri::build(glib::UriFlags::NONE, "file", None, None, 0, "/", None, None)
+            })
+    }
 }
 
 impl ConnectionInterface for ConnectionRemote {
@@ -111,15 +122,20 @@ impl ConnectionInterface for ConnectionRemote {
         Box::pin(async move {
             debug!('m', "Opening remote connection");
 
-            let Some(_uri) = self.uri() else {
+            let Some(uri) = self.uri() else {
                 return Ok(());
             };
 
-            if self.base_path().is_none() {
-                self.set_base_path(Some(GnomeCmdPath::Plain(PathBuf::from("/"))));
-            }
+            let base_path = match self.base_path() {
+                Some(base_path) => base_path,
+                None => {
+                    let base_path = GnomeCmdPath::Uri(uri.clone());
+                    self.set_base_path(Some(base_path.clone()));
+                    base_path
+                }
+            };
 
-            let file = self.create_gfile(&GnomeCmdPath::Plain(PathBuf::from("/")));
+            let file = self.create_gfile(&GnomeCmdPath::Uri(uri));
             debug!('m', "Connecting to {}", file.uri());
 
             let mount_operation = gtk::MountOperation::new(Some(&window));
@@ -147,7 +163,7 @@ impl ConnectionInterface for ConnectionRemote {
                 }
             }
 
-            let base_file = self.create_gfile(&GnomeCmdPath::Plain(PathBuf::from("/")));
+            let base_file = self.create_gfile(&base_path);
             match base_file
                 .query_info_future("*", gio::FileQueryInfoFlags::NONE, glib::Priority::DEFAULT)
                 .await
@@ -209,22 +225,16 @@ impl ConnectionInterface for ConnectionRemote {
     }
 
     fn create_gfile(&self, path: &GnomeCmdPath) -> gio::File {
-        let connection_uri = self.uri().unwrap();
-        let uri = glib::Uri::build(
-            glib::UriFlags::NONE,
-            &connection_uri.scheme(),
-            connection_uri.userinfo().as_deref(),
-            connection_uri.host().as_deref(),
-            connection_uri.port(),
-            path.path().to_str().unwrap_or_default(),
-            None,
-            None,
-        );
+        let uri = if let GnomeCmdPath::Uri(uri) = path {
+            uri
+        } else {
+            &self.uri_for_path(&path.path())
+        };
         gio::File::for_uri(&uri.to_str())
     }
 
     fn create_path(&self, path: &Path) -> GnomeCmdPath {
-        GnomeCmdPath::Plain(path.to_owned())
+        GnomeCmdPath::Uri(self.uri_for_path(path))
     }
 
     fn is_local(&self) -> bool {

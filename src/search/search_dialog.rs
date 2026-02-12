@@ -191,8 +191,9 @@ mod imp {
     use super::*;
     use crate::{
         connection::{
-            connection::{Connection, ConnectionInterface},
+            connection::Connection,
             list::ConnectionList,
+            remote::{ConnectionRemote, ConnectionRemoteExt},
         },
         dir::Directory,
         file::File,
@@ -589,33 +590,36 @@ mod imp {
             }
         }
 
-        fn find_connection_and_mount(&self, file: &gio::File) -> Option<(Connection, gio::Mount)> {
-            let mount = file.find_enclosing_mount(gio::Cancellable::NONE).ok()?;
+        fn find_connection(&self, file: &gio::File) -> Option<Connection> {
+            let uri = file.uri();
             ConnectionList::get()
                 .all()
                 .iter::<Connection>()
                 .flatten()
-                .find(|con| con.find_mount().as_ref() == Some(&mount))
-                .map(move |con| (con, mount))
+                .find(|con| {
+                    con.downcast_ref::<ConnectionRemote>()
+                        .and_then(|con| con.uri())
+                        .is_some_and(|con_uri| uri.starts_with(&*con_uri.to_str()))
+                })
         }
 
         fn start_directory(&self, file: &gio::File) -> Result<Directory, ErrorMessage> {
-            if let Some((connection, mount)) = self.find_connection_and_mount(file) {
-                let path = mount.root().relative_path(file).ok_or_else(|| {
-                    ErrorMessage::brief(gettext("Cannot extract a relative file path"))
-                })?;
-                Directory::try_new(&connection, connection.create_path(&path))
+            let (connection, path) = if let Some(connection) = self.find_connection(file) {
+                let path: std::path::PathBuf = glib::Uri::parse(&file.uri(), glib::UriFlags::NONE)
+                    .map(|uri| uri.path().into())
+                    .unwrap_or("/".into());
+                (connection, path)
             } else if file.uri_scheme().as_deref() == Some("file") {
-                let connection = ConnectionList::get().home();
                 let path = file
                     .path()
                     .ok_or_else(|| ErrorMessage::brief(gettext("Cannot extract a file path")))?;
-                Directory::try_new(&connection, connection.create_path(&path))
+                (ConnectionList::get().home().into(), path)
             } else {
-                Err(ErrorMessage::brief(gettext(
+                return Err(ErrorMessage::brief(gettext(
                     "Failed to detect a start directory",
-                )))
-            }
+                )));
+            };
+            Directory::try_new(&connection, connection.create_path(&path))
         }
 
         async fn find(&self) {

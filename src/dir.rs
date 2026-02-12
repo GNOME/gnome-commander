@@ -21,10 +21,7 @@
  */
 
 use crate::{
-    connection::{
-        connection::{Connection, ConnectionExt},
-        remote::{ConnectionRemote, ConnectionRemoteExt},
-    },
+    connection::connection::{Connection, ConnectionExt},
     debug::debug,
     dirlist::list_directory,
     file::File,
@@ -34,7 +31,7 @@ use crate::{
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
-use std::path::{Path, PathBuf};
+use std::path::Path;
 
 mod imp {
     use super::*;
@@ -148,16 +145,10 @@ impl Directory {
         let connection = parent.connection();
         let dir_name = file_info.name();
 
-        let (file, path) = if let Some(file) = file_for_connection_and_filename(parent, &dir_name) {
-            let uri = glib::Uri::parse(&file.uri(), glib::UriFlags::NONE).ok()?;
-            let path = connection.create_path(Path::new(&uri.path()));
-            (file, path)
-        } else {
-            let parent_path = parent.path();
-            let path = parent_path.child(&dir_name);
-            let file = connection.create_gfile(&path);
-            (file, path)
-        };
+        let parent_path = parent.path();
+        let path = parent_path.child(&dir_name);
+        let file = connection.create_gfile(&path);
+
         Some(Self::find_or_create(&connection, &file, file_info, path))
     }
 
@@ -251,7 +242,7 @@ impl Directory {
     }
 
     pub fn display_path(&self) -> String {
-        self.path().to_string()
+        self.path().path().to_string_lossy().to_string()
     }
 
     pub fn files(&self) -> gio::ListStore {
@@ -327,9 +318,7 @@ impl Directory {
     }
 
     pub fn get_child_gfile(&self, filename: &Path) -> gio::File {
-        let connection = self.connection();
-        file_for_connection_and_filename(self, filename)
-            .unwrap_or_else(|| connection.create_gfile(&self.path().child(filename)))
+        self.connection().create_gfile(&self.path().child(filename))
     }
 
     pub fn path(&self) -> GnomeCmdPath {
@@ -543,82 +532,6 @@ impl Directory {
 
     pub fn is_monitored(&self) -> bool {
         self.imp().monitor_users.get() > 0
-    }
-}
-
-/// Get the relative directory path string for the given base path
-///
-/// For example, let childPath be "/tmp/abc" and basePath is the path "/tmp/"
-/// (from the original URI smb://localhost/tmp/). Then the return would be
-/// the the address pointing to "/" (which is the second slash from "/tmp/").
-/// If childPath is pointing to "/tmp/abc" and the basePath points
-/// to "/xyz", then the return points to "/" because /xzy is relative
-/// to the /tmp on the same directory level.
-fn get_relative_path_string(child: Option<&Path>, base: &Path) -> PathBuf {
-    let Some(child) = child else {
-        return base.to_path_buf();
-    };
-
-    if base == Path::new("/") {
-        return child.to_path_buf();
-    }
-
-    if let Ok(tail) = child.strip_prefix(base) {
-        tail.to_path_buf()
-    } else {
-        PathBuf::from("/")
-    }
-}
-
-fn remote_connection_mount(con: &ConnectionRemote) -> Option<gio::File> {
-    let mut file = gio::File::for_uri(&con.uri_string()?);
-    loop {
-        if let Some(parent) = file.parent() {
-            file = parent;
-        } else {
-            break;
-        }
-        if file.find_enclosing_mount(gio::Cancellable::NONE).is_err() {
-            break;
-        }
-    }
-    Some(file)
-}
-
-/// This function returns a GFile object which is the result of the URI construction of
-/// two URI's and a path: the connection URI, which is the private member of GnomeCmdDir,
-/// the directory path inside of that connection, and the given filename string.
-fn file_for_connection_and_filename(dir: &Directory, filename: &Path) -> Option<gio::File> {
-    let Ok(con) = dir.connection().downcast::<ConnectionRemote>() else {
-        return None;
-    };
-
-    // Get the Uri for the mount which belongs to the GnomeCmdCon object
-    let mount_file = remote_connection_mount(&con)?;
-    let mut mount_uri = mount_file.uri().to_string();
-
-    // Always let the connection URI to end with '/' because the last entry should be a directory
-    if mount_uri.ends_with('/') {
-        mount_uri.push('/')
-    }
-
-    // Create the merged URI out of the connection URI, the directory path and the filename
-    let dir_path = dir.path().path();
-
-    let rel_dir_to_uri_path =
-        get_relative_path_string(Some(&dir_path), &mount_file.path().unwrap());
-    let merged_dir_and_filename = Path::new(".").join(rel_dir_to_uri_path).join(filename);
-
-    match glib::Uri::resolve_relative(
-        Some(&mount_uri),
-        merged_dir_and_filename.to_str().unwrap_or_default(),
-        glib::UriFlags::NONE,
-    ) {
-        Ok(uri) => Some(gio::File::for_uri(&uri)),
-        Err(error) => {
-            eprintln!("Could not resolve relative URI: {error}");
-            None
-        }
     }
 }
 
