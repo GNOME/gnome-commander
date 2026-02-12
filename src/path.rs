@@ -24,16 +24,33 @@ use std::{
     path::{Path, PathBuf},
 };
 
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub enum GnomeCmdPath {
     Plain(PathBuf),
+    Uri(glib::Uri),
     Smb(SmbResource),
+}
+
+pub fn resolve_relative_uri(uri: &str, parent: &glib::Uri) -> Option<glib::Uri> {
+    let parent_path = parent.path();
+    let parent = if parent_path.ends_with("/") {
+        std::borrow::Cow::Borrowed(parent)
+    } else {
+        let parent_path = parent_path.as_str().to_owned() + "/";
+        std::borrow::Cow::Owned(
+            parent
+                .parse_relative(&parent_path, glib::UriFlags::NONE)
+                .ok()?,
+        )
+    };
+    parent.parse_relative(uri, glib::UriFlags::NONE).ok()
 }
 
 impl GnomeCmdPath {
     pub fn path(&self) -> PathBuf {
         match self {
             Self::Plain(path) => path.clone(),
+            Self::Uri(uri) => uri.path().into(),
             Self::Smb(resource) => resource.path(),
         }
     }
@@ -49,6 +66,7 @@ impl GnomeCmdPath {
                 let parent_path = gio::File::for_path(&absolute_path).parent()?.path()?;
                 Some(Self::Plain(parent_path))
             }
+            Self::Uri(uri) => Some(Self::Uri(resolve_relative_uri("..", uri)?)),
             Self::Smb(resource) => Some(Self::Smb(resource.parent()?)),
         }
     }
@@ -56,6 +74,9 @@ impl GnomeCmdPath {
     pub fn child(&self, child: &Path) -> Self {
         match self {
             Self::Plain(path) => Self::Plain(path.join(child)),
+            Self::Uri(uri) => Self::Uri(
+                resolve_relative_uri(&child.to_string_lossy(), uri).unwrap_or_else(|| uri.clone()),
+            ),
             Self::Smb(resource) => Self::Smb(resource.child(child)),
         }
     }
@@ -65,6 +86,7 @@ impl fmt::Display for GnomeCmdPath {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Self::Plain(path) => write!(f, "{}", path.to_string_lossy()),
+            Self::Uri(uri) => write!(f, "{uri}"),
             Self::Smb(resource) => write!(f, "{resource}"),
         }
     }
