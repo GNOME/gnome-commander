@@ -371,16 +371,12 @@ mod imp {
 
             let this = self.obj();
 
+            this.add_css_class("dialog");
             this.set_title(Some(&gettext("Advanced Rename Tool")));
             this.set_resizable(true);
 
             let content_vbox = gtk::Box::builder()
                 .orientation(gtk::Orientation::Vertical)
-                .margin_top(12)
-                .margin_bottom(12)
-                .margin_start(12)
-                .margin_end(12)
-                .spacing(6)
                 .build();
             this.set_child(Some(&content_vbox));
 

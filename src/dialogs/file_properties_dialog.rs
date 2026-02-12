@@ -97,16 +97,12 @@ mod imp {
             self.parent_constructed();
 
             let dlg = self.obj();
+            dlg.add_css_class("dialog");
             dlg.set_title(Some(&gettext("File Properties")));
             dlg.set_modal(true);
 
             let content = gtk::Box::builder()
                 .orientation(gtk::Orientation::Vertical)
-                .margin_top(12)
-                .margin_bottom(12)
-                .margin_start(12)
-                .margin_end(12)
-                .spacing(6)
                 .build();
             dlg.set_child(Some(&content));
 

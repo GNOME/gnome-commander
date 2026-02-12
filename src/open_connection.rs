@@ -30,15 +30,9 @@ pub async fn open_connection(parent_window: &gtk::Window, con: &Connection) -> b
         .modal(true)
         .resizable(false)
         .build();
+    dialog.add_css_class("dialog");
 
-    let grid = gtk::Grid::builder()
-        .margin_start(12)
-        .margin_end(12)
-        .margin_top(12)
-        .margin_bottom(12)
-        .row_spacing(6)
-        .column_spacing(12)
-        .build();
+    let grid = gtk::Grid::builder().build();
     dialog.set_child(Some(&grid));
 
     let label = gtk::Label::new(con.open_message().as_deref());

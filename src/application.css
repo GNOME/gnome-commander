@@ -1,3 +1,50 @@
+/* General */
+
+.dialog > grid, .dialog > box {
+    margin: 12px;
+}
+
+.dialog > grid {
+    border-spacing: 12px 6px;
+}
+
+.dialog > box.vertical {
+    border-spacing: 6px;
+}
+
+.dialog > box.horizontal {
+    border-spacing: 12px;
+}
+
+/* Main window */
+
 listview.gcmd-toolbar {
     background-color: transparent; /* reset background to make GtkListView to look like a GtkBox */
+}
+
+.main-toolbar {
+    border-spacing: 6px;
+}
+
+.main-box > separator {
+    margin: 0 3px;
+}
+
+.buttonbar > separator {
+    margin: 3px 0;
+}
+
+.command-line {
+    margin: 1px 2px;
+    border-spacing: 4px;
+}
+
+/* Search dialog */
+
+.search-profile-grid {
+    border-spacing: 12px 6px;
+}
+
+.search-statusbar {
+    border-spacing: 6px;
 }

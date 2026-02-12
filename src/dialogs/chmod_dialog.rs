@@ -107,14 +107,10 @@ pub async fn show_chmod_dialog(parent_window: &gtk::Window, files: &glib::List<F
         .title(gettext("Access Permissions"))
         .resizable(false)
         .build();
+    dialog.add_css_class("dialog");
 
     let content_area = gtk::Box::builder()
         .orientation(gtk::Orientation::Vertical)
-        .margin_top(12)
-        .margin_bottom(12)
-        .margin_start(12)
-        .margin_end(12)
-        .spacing(6)
         .build();
     dialog.set_child(Some(&content_area));
 

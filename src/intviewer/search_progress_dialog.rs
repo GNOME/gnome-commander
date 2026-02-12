@@ -57,18 +57,12 @@ mod imp {
             self.parent_constructed();
 
             let dlg = self.obj();
+            dlg.add_css_class("dialog");
             dlg.set_title(Some(&gettext("Searching…")));
             dlg.set_modal(true);
             dlg.set_resizable(false);
 
-            let grid = gtk::Grid::builder()
-                .margin_top(12)
-                .margin_bottom(12)
-                .margin_start(12)
-                .margin_end(12)
-                .row_spacing(6)
-                .column_spacing(12)
-                .build();
+            let grid = gtk::Grid::builder().build();
             dlg.set_child(Some(&grid));
 
             grid.attach(&self.label, 0, 0, 1, 1);

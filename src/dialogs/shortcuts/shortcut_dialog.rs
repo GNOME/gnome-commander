@@ -126,18 +126,12 @@ mod imp {
 
             let dialog = self.obj();
 
+            dialog.add_css_class("dialog");
             dialog.set_title(Some(&gettext("Keyboard Shortcut")));
             dialog.set_resizable(false);
             dialog.set_modal(true);
 
-            let grid = gtk::Grid::builder()
-                .margin_top(12)
-                .margin_bottom(12)
-                .margin_start(12)
-                .margin_end(12)
-                .row_spacing(6)
-                .column_spacing(6)
-                .build();
+            let grid = gtk::Grid::builder().build();
             dialog.set_child(Some(&grid));
 
             let action_label = gtk::Label::builder()

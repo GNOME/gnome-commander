@@ -112,6 +112,7 @@ mod imp {
 
             let dialog = self.obj();
 
+            dialog.add_css_class("dialog");
             dialog.set_title(Some(&gettext("Bookmarks")));
             dialog.set_resizable(true);
             dialog.set_destroy_with_parent(true);
@@ -123,14 +124,7 @@ mod imp {
                 &options.bookmarks_window_height,
             );
 
-            let grid = gtk::Grid::builder()
-                .margin_top(12)
-                .margin_bottom(12)
-                .margin_start(12)
-                .margin_end(12)
-                .row_spacing(6)
-                .column_spacing(12)
-                .build();
+            let grid = gtk::Grid::builder().build();
             dialog.set_child(Some(&grid));
 
             self.view.set_header_factory(Some(&self.header_factory()));

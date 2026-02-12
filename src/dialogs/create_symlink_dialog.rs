@@ -69,18 +69,12 @@ mod imp {
 
             let dialog = self.obj();
 
+            dialog.add_css_class("dialog");
             dialog.set_title(Some(&gettext("Create Symbolic Link")));
             dialog.set_resizable(false);
             dialog.set_modal(true);
 
-            let grid = gtk::Grid::builder()
-                .margin_top(12)
-                .margin_bottom(12)
-                .margin_start(12)
-                .margin_end(12)
-                .column_spacing(12)
-                .row_spacing(6)
-                .build();
+            let grid = gtk::Grid::builder().build();
             dialog.set_child(Some(&grid));
 
             let label = gtk::Label::builder()

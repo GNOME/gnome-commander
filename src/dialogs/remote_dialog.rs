@@ -93,17 +93,11 @@ mod imp {
             self.parent_constructed();
 
             let obj = self.obj();
+            obj.add_css_class("dialog");
             obj.set_title(Some(&gettext("Remote Connections")));
             obj.set_resizable(true);
 
-            let grid = gtk::Grid::builder()
-                .margin_top(12)
-                .margin_bottom(12)
-                .margin_start(12)
-                .margin_end(12)
-                .row_spacing(6)
-                .column_spacing(12)
-                .build();
+            let grid = gtk::Grid::builder().build();
             obj.set_child(Some(&grid));
 
             self.view.append_column(

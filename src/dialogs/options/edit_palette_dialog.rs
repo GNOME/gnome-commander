@@ -39,15 +39,9 @@ pub async fn edit_palette(
         .title(gettext("Edit LS_COLORS Palette"))
         .resizable(false)
         .build();
+    dialog.add_css_class("dialog");
 
-    let grid = gtk::Grid::builder()
-        .margin_top(12)
-        .margin_bottom(12)
-        .margin_start(12)
-        .margin_end(12)
-        .row_spacing(6)
-        .column_spacing(12)
-        .build();
+    let grid = gtk::Grid::builder().build();
     dialog.set_child(Some(&grid));
 
     let color_dialog = gtk::ColorDialog::builder().modal(true).build();

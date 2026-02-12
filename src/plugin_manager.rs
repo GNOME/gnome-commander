@@ -404,15 +404,9 @@ pub fn show_plugin_manager(plugin_manager: &PluginManager, parent_window: &gtk::
         .height_request(300)
         .resizable(true)
         .build();
+    dialog.add_css_class("dialog");
 
-    let grid = gtk::Grid::builder()
-        .margin_top(12)
-        .margin_bottom(12)
-        .margin_start(12)
-        .margin_end(12)
-        .row_spacing(6)
-        .column_spacing(12)
-        .build();
+    let grid = gtk::Grid::builder().build();
     dialog.set_child(Some(&grid));
 
     let view = gtk::ListBox::builder()

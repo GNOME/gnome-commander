@@ -65,19 +65,13 @@ mod imp {
 
             let dialog = self.obj();
 
+            dialog.add_css_class("dialog");
             dialog.set_title(Some(&gettext("Keyboard Shortcuts")));
             dialog.set_destroy_with_parent(true);
             dialog.set_size_request(800, 600);
             dialog.set_resizable(true);
 
-            let grid = gtk::Grid::builder()
-                .margin_top(12)
-                .margin_bottom(12)
-                .margin_start(12)
-                .margin_end(12)
-                .row_spacing(6)
-                .column_spacing(6)
-                .build();
+            let grid = gtk::Grid::builder().build();
             dialog.set_child(Some(&grid));
 
             let sort_model = gtk::SortListModel::new(Some(self.store.clone()), self.view.sorter());

@@ -48,16 +48,12 @@ mod imp {
             self.parent_constructed();
 
             let obj = self.obj();
+            obj.add_css_class("command-line");
             obj.set_layout_manager(Some(
                 gtk::BoxLayout::builder()
                     .orientation(gtk::Orientation::Horizontal)
-                    .spacing(4)
                     .build(),
             ));
-            obj.set_margin_top(1);
-            obj.set_margin_bottom(1);
-            obj.set_margin_start(2);
-            obj.set_margin_end(2);
 
             self.cwd.set_parent(&*obj);
 
