@@ -35,15 +35,9 @@ fn create_list_progress_dialog(parent_window: &gtk::Window) -> ProgressDialog {
         .resizable(false)
         .modal(true)
         .build();
+    dialog.add_css_class("dialog");
 
-    let grid = gtk::Grid::builder()
-        .margin_top(12)
-        .margin_bottom(12)
-        .margin_start(12)
-        .margin_end(12)
-        .row_spacing(6)
-        .column_spacing(12)
-        .build();
+    let grid = gtk::Grid::builder().build();
     dialog.set_child(Some(&grid));
 
     let label = gtk::Label::builder()

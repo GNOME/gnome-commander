@@ -92,14 +92,7 @@ mod imp {
         fn new() -> Self {
             let (sender, receiver) = async_channel::bounded(1);
             Self {
-                grid: gtk::Grid::builder()
-                    .margin_top(12)
-                    .margin_bottom(12)
-                    .margin_start(12)
-                    .margin_end(12)
-                    .row_spacing(6)
-                    .column_spacing(12)
-                    .build(),
+                grid: gtk::Grid::builder().build(),
                 type_combo: gtk::DropDown::builder()
                     .model(&create_methods_model())
                     .build(),
@@ -121,6 +114,7 @@ mod imp {
 
             let obj = self.obj();
 
+            obj.add_css_class("dialog");
             obj.set_title(Some(&gettext("Remote Server")));
             obj.set_resizable(false);
 

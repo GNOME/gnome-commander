@@ -66,15 +66,9 @@ pub async fn show_new_textfile_dialog(parent_window: &gtk::Window, file_list: &F
         .transient_for(parent_window)
         .title(gettext("New Text File"))
         .build();
+    dialog.add_css_class("dialog");
 
-    let grid = gtk::Grid::builder()
-        .margin_top(12)
-        .margin_bottom(12)
-        .margin_start(12)
-        .margin_end(12)
-        .column_spacing(12)
-        .row_spacing(6)
-        .build();
+    let grid = gtk::Grid::builder().build();
     dialog.set_child(Some(&grid));
 
     let entry = gtk::Entry::builder()

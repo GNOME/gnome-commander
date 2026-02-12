@@ -316,18 +316,12 @@ mod imp {
             self.parent_constructed();
 
             let this = self.obj();
+            this.add_css_class("dialog");
 
             this.set_title(Some(&gettext("Search…")));
             this.set_resizable(true);
 
-            let grid = gtk::Grid::builder()
-                .margin_top(12)
-                .margin_bottom(12)
-                .margin_start(12)
-                .margin_end(12)
-                .row_spacing(6)
-                .column_spacing(12)
-                .build();
+            let grid = gtk::Grid::builder().css_classes(["search-grid"]).build();
             this.set_child(Some(&grid));
 
             // search in
@@ -364,8 +358,8 @@ mod imp {
 
             // status & progress
             let statusbar = gtk::Box::builder()
+                .css_classes(["search-statusbar"])
                 .orientation(gtk::Orientation::Horizontal)
-                .spacing(6)
                 .build();
             statusbar.append(&self.status_label);
             statusbar.append(&self.progress_bar);

@@ -31,14 +31,10 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginInfoOwned) -> gtk:
         .transient_for(parent)
         .resizable(false)
         .build();
+    dialog.add_css_class("dialog");
 
     let content_area = gtk::Box::builder()
         .orientation(gtk::Orientation::Vertical)
-        .margin_top(12)
-        .margin_bottom(12)
-        .margin_start(12)
-        .margin_end(12)
-        .spacing(6)
         .build();
     dialog.set_child(Some(&content_area));
 

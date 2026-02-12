@@ -90,8 +90,7 @@ mod imp {
             obj.set_layout_manager(Some(gtk::BinLayout::new()));
 
             let grid = gtk::Grid::builder()
-                .row_spacing(6)
-                .column_spacing(12)
+                .css_classes(["search-profile-grid"])
                 .build();
             grid.set_parent(&*self.obj());
 

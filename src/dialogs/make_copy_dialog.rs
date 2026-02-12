@@ -39,17 +39,9 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         .modal(true)
         .transient_for(main_win)
         .build();
+    dialog.add_css_class("dialog");
 
-    let grid = gtk::Grid::builder()
-        .hexpand(true)
-        .vexpand(true)
-        .margin_top(12)
-        .margin_bottom(12)
-        .margin_start(12)
-        .margin_end(12)
-        .row_spacing(6)
-        .column_spacing(12)
-        .build();
+    let grid = gtk::Grid::builder().hexpand(true).vexpand(true).build();
     dialog.set_child(Some(&grid));
 
     let initial_value = f.file_info().display_name();

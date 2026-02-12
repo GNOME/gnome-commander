@@ -42,15 +42,9 @@ pub async fn show_open_with_other_dialog(
         .title(gettext("Open with other…"))
         .resizable(false)
         .build();
+    dialog.add_css_class("dialog");
 
-    let grid = gtk::Grid::builder()
-        .margin_top(12)
-        .margin_bottom(12)
-        .margin_start(12)
-        .margin_end(12)
-        .row_spacing(6)
-        .column_spacing(12)
-        .build();
+    let grid = gtk::Grid::builder().build();
     dialog.set_child(Some(&grid));
 
     let command_entry = gtk::Entry::builder().activates_default(true).build();

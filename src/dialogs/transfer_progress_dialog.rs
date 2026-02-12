@@ -58,17 +58,13 @@ mod imp {
 
             let win = self.obj();
 
+            win.add_css_class("dialog");
             win.set_title(Some(&gettext("Progress")));
             win.set_resizable(false);
             win.set_size_request(300, -1);
 
             let vbox = gtk::Box::builder()
                 .orientation(gtk::Orientation::Vertical)
-                .spacing(6)
-                .margin_top(12)
-                .margin_bottom(12)
-                .margin_start(12)
-                .margin_end(12)
                 .build();
             win.set_child(Some(&vbox));
 

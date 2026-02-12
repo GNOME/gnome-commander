@@ -218,7 +218,7 @@ pub mod imp {
 
                 toolbar: gtk::Box::builder()
                     .orientation(gtk::Orientation::Horizontal)
-                    .spacing(6)
+                    .css_classes(["main-toolbar"])
                     .build(),
                 con_drop: toolbar_button(
                     &gettext("Drop connection"),
@@ -227,8 +227,6 @@ pub mod imp {
                 ),
                 toolbar_sep: gtk::Separator::builder()
                     .orientation(gtk::Orientation::Vertical)
-                    .margin_start(3)
-                    .margin_end(3)
                     .build(),
 
                 paned: gtk::Paned::builder()
@@ -242,16 +240,13 @@ pub mod imp {
                 cmdline,
                 cmdline_sep: gtk::Separator::builder()
                     .orientation(gtk::Orientation::Vertical)
-                    .margin_start(3)
-                    .margin_end(3)
                     .build(),
                 buttonbar: gtk::Box::builder()
                     .orientation(gtk::Orientation::Horizontal)
+                    .css_classes(["buttonbar"])
                     .build(),
                 buttonbar_sep: gtk::Separator::builder()
                     .orientation(gtk::Orientation::Vertical)
-                    .margin_start(3)
-                    .margin_end(3)
                     .build(),
                 view_btn: buttonbar_button(&gettext("F3 View"), "win.file-view"),
                 edit_btn: buttonbar_button(&gettext("F4 Edit"), "win.file-edit"),
@@ -310,6 +305,7 @@ pub mod imp {
 
             let vbox = gtk::Box::builder()
                 .orientation(gtk::Orientation::Vertical)
+                .css_classes(["main-box"])
                 .build();
             mw.set_child(Some(&vbox));
 
@@ -777,8 +773,6 @@ pub mod imp {
             fn separator() -> gtk::Separator {
                 gtk::Separator::builder()
                     .orientation(gtk::Orientation::Vertical)
-                    .margin_top(3)
-                    .margin_bottom(3)
                     .build()
             }
 

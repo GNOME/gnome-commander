@@ -39,14 +39,10 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
         .transient_for(parent_window)
         .modal(true)
         .build();
+    dialog.add_css_class("dialog");
 
     let content_area = gtk::Box::builder()
         .orientation(gtk::Orientation::Vertical)
-        .margin_top(10)
-        .margin_bottom(10)
-        .margin_start(10)
-        .margin_end(10)
-        .spacing(6)
         .build();
     dialog.set_child(Some(&content_area));
 
