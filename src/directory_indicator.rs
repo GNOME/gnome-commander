@@ -37,7 +37,7 @@ mod imp {
 
     #[derive(Default, glib::Properties)]
     #[properties(wrapper_type = super::DirectoryIndicator)]
-    pub struct DirectoryrIndicator {
+    pub struct DirectoryIndicator {
         path_inits: RefCell<Vec<String>>,
 
         #[property(get, set = Self::set_directory, nullable)]
@@ -50,14 +50,14 @@ mod imp {
     }
 
     #[glib::object_subclass]
-    impl ObjectSubclass for DirectoryrIndicator {
+    impl ObjectSubclass for DirectoryIndicator {
         const NAME: &'static str = "GnomeCmdDirectoryIndicator";
         type Type = super::DirectoryIndicator;
         type ParentType = gtk::Widget;
     }
 
     #[glib::derived_properties]
-    impl ObjectImpl for DirectoryrIndicator {
+    impl ObjectImpl for DirectoryIndicator {
         fn constructed(&self) {
             self.parent_constructed();
 
@@ -89,9 +89,9 @@ mod imp {
         }
     }
 
-    impl WidgetImpl for DirectoryrIndicator {}
+    impl WidgetImpl for DirectoryIndicator {}
 
-    impl DirectoryrIndicator {
+    impl DirectoryIndicator {
         pub fn set_path(&self, path: &str) {
             for child in self.path_labels.borrow().iter() {
                 child.unparent();
@@ -258,7 +258,7 @@ mod imp {
 }
 
 glib::wrapper! {
-    pub struct DirectoryIndicator(ObjectSubclass<imp::DirectoryrIndicator>)
+    pub struct DirectoryIndicator(ObjectSubclass<imp::DirectoryIndicator>)
         @extends gtk::Widget,
         @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 }
