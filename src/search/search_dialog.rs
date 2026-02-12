@@ -282,7 +282,8 @@ mod imp {
                     .build(),
                 profile_menu_button: RefCell::new(
                     gtk::MenuButton::builder()
-                        .label(gettext("Profiles…"))
+                        .label(gettext("Pr_ofiles…"))
+                        .use_underline(true)
                         .build(),
                 ),
 

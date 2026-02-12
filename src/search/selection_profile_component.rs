@@ -36,7 +36,6 @@ mod imp {
 
         pub filter_type_drop_down: gtk::DropDown,
         pub pattern_entry: HistoryEntry,
-        pub recurse_label: gtk::Label,
         pub recurse_drop_down: gtk::DropDown,
         pub find_text_entry: HistoryEntry,
         pub find_text_check: gtk::CheckButton,
@@ -58,11 +57,6 @@ mod imp {
                     .factory(&same_size_labels_factory())
                     .build(),
                 pattern_entry: Default::default(),
-                recurse_label: gtk::Label::builder()
-                    .label(gettext("Search _recursively:"))
-                    .use_underline(true)
-                    .xalign(0.0)
-                    .build(),
                 recurse_drop_down: gtk::DropDown::builder()
                     .model(&recurse_model())
                     .hexpand(true)
@@ -100,7 +94,13 @@ mod imp {
             grid.attach(&self.pattern_entry, 1, 0, 1, 1);
 
             // recurse check
-            grid.attach(&self.recurse_label, 0, 1, 1, 1);
+            let recurse_label = gtk::Label::builder()
+                    .label(gettext("Search _recursively:"))
+                    .use_underline(true)
+                    .mnemonic_widget(&self.recurse_drop_down)
+                    .xalign(0.0)
+                    .build();
+            grid.attach(&recurse_label, 0, 1, 1, 1);
             grid.attach(&self.recurse_drop_down, 1, 1, 1, 1);
 
             // find text
@@ -114,7 +114,7 @@ mod imp {
 
             if let Some(labels_size_group) = self.obj().labels_size_group() {
                 labels_size_group.add_widget(&self.filter_type_drop_down);
-                labels_size_group.add_widget(&self.recurse_label);
+                labels_size_group.add_widget(&recurse_label);
                 labels_size_group.add_widget(&self.find_text_check);
             }
 
