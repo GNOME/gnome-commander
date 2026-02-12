@@ -108,6 +108,7 @@ mod imp {
             dlg.add_css_class("dialog");
             dlg.set_width_request(500);
             dlg.set_resizable(false);
+            dlg.set_modal(true);
 
             let grid = gtk::Grid::builder().build();
             dlg.set_child(Some(&grid));
