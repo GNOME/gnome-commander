@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
 "POT-Creation-Date: 2020-07-20 08:22+0000\n"
-"PO-Revision-Date: 2025-08-29 16:47+0000\n"
+"PO-Revision-Date: 2026-02-15 16:47+0000\n"
 "Last-Translator: Miquel-Àngel Burgos i Fradeja <miquel.angel.burgos@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
@@ -517,11 +517,11 @@ msgstr "Aquesta opció defineix l'amplada de la columna de permisos."
 
 #: data/org.gnome.gnome-commander.gschema.xml:350
 msgid "Width of owner column"
-msgstr "Amplada de la columna pròpia"
+msgstr "Amplada de la columna del propietari"
 
 #: data/org.gnome.gnome-commander.gschema.xml:351
 msgid "This option defines the width of the owner column."
-msgstr "Aquesta opció defineix l'amplada de la columna de pròpia."
+msgstr "Aquesta opció defineix l'amplada de la columna del propietari."
 
 #: data/org.gnome.gnome-commander.gschema.xml:357
 msgid "Width of group column"
@@ -1073,7 +1073,7 @@ msgstr "Alterna color del fons de pantalla en mode personalitzat."
 
 #: data/org.gnome.gnome-commander.gschema.xml:773
 msgid "Selection foreground color"
-msgstr "Seleccionar color de primer pla"
+msgstr "Color de primer pla de la selecció"
 
 #: data/org.gnome.gnome-commander.gschema.xml:774
 msgid "Foreground color for selections in custom mode."
@@ -1081,7 +1081,7 @@ msgstr "Color de primer pla per a seleccions en mode personalitzat."
 
 #: data/org.gnome.gnome-commander.gschema.xml:780
 msgid "Selection background color"
-msgstr "Selecciona el color de fons"
+msgstr "Color de fons de la selecció"
 
 #: data/org.gnome.gnome-commander.gschema.xml:781
 msgid "Background color for selections in custom mode."
@@ -1325,7 +1325,7 @@ msgstr "'UTF8'"
 
 #: data/org.gnome.gnome-commander.gschema.xml:942
 msgid "Character set"
-msgstr "Dispositiu de caràcters"
+msgstr "Joc de caràcters"
 
 #: data/org.gnome.gnome-commander.gschema.xml:943
 msgid "This option defines the default character encoding."
@@ -5735,7 +5735,7 @@ msgstr "El nivell de la bateria."
 
 #: src/tags/gnome-cmd-tags.cc:207
 msgid "Bits per Sample"
-msgstr "Bits per Exemple"
+msgstr "Bits per mostra"
 
 #: src/tags/gnome-cmd-tags.cc:207
 msgid ""
