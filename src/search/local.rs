@@ -18,12 +18,15 @@
  */
 
 use super::{backend::SearchMessage, profile::SearchProfile};
-use crate::{dir::Directory, file::File, filter::PatternType, utils::ErrorMessage};
+use crate::{
+    dir::Directory,
+    file::File,
+    filter::{Filter, PatternType},
+    utils::ErrorMessage,
+};
 use gettextrs::gettext;
-use glob::{MatchOptions, Pattern};
 use grep::{
-    matcher::Matcher,
-    regex::{RegexMatcher, RegexMatcherBuilder},
+    regex::RegexMatcherBuilder,
     searcher::{Searcher, SearcherBuilder, Sink, SinkMatch},
 };
 use gtk::gio::{self, prelude::*};
@@ -78,12 +81,6 @@ impl Read for CancellableReader {
     }
 }
 
-enum FilenamePattern {
-    Regex(RegexMatcher),
-    Glob(Pattern),
-    None,
-}
-
 pub async fn local_search(
     profile: &SearchProfile,
     start_dir: &Directory,
@@ -93,41 +90,26 @@ pub async fn local_search(
     let start_dir = start_dir.path().path();
     let max_depth = profile.max_depth();
 
-    let filename_pattern = profile.filename_pattern();
-    let filename_pattern = if !filename_pattern.is_empty() {
-        match profile.pattern_type() {
-            PatternType::Regex => FilenamePattern::Regex(
-                RegexMatcherBuilder::new()
-                    .case_smart(true)
-                    .build(&filename_pattern)
-                    .map_err(|error| {
-                        ErrorMessage::with_error(
-                            gettext("Invalid file name regular expression."),
-                            &error,
-                        )
-                    })?,
-            ),
-            PatternType::FnMatch => {
-                let filename_pattern =
-                    if !filename_pattern.contains('*') && !filename_pattern.contains('?') {
-                        format!("*{filename_pattern}*")
-                    } else {
-                        filename_pattern
-                    };
-
-                let filename_pattern = if filename_pattern.starts_with('/') {
-                    format!("**{filename_pattern}")
-                } else {
-                    format!("**/{filename_pattern}")
-                };
-
-                FilenamePattern::Glob(Pattern::new(&filename_pattern).map_err(|error| {
-                    ErrorMessage::with_error(gettext("Invalid file name pattern."), &error)
-                })?)
+    let mut filename_pattern = profile.filename_pattern();
+    let filename_filter = if !filename_pattern.is_empty() {
+        if matches!(profile.pattern_type(), PatternType::FnMatch) {
+            if !filename_pattern.contains('*') && !filename_pattern.contains('?') {
+                filename_pattern = format!("*{filename_pattern}*")
             }
+            filename_pattern = if filename_pattern.starts_with('/') {
+                format!("**{filename_pattern}")
+            } else {
+                format!("**/{filename_pattern}")
+            };
         }
+
+        Some(
+            Filter::new(&filename_pattern, false, profile.pattern_type()).map_err(|error| {
+                ErrorMessage::with_error(gettext("Invalid file name pattern."), &*error)
+            })?,
+        )
     } else {
-        FilenamePattern::None
+        None
     };
 
     let (matcher, mut searcher) = if profile.content_search() {
@@ -176,28 +158,10 @@ pub async fn local_search(
                 }
             };
 
-            match &filename_pattern {
-                FilenamePattern::Regex(regex) => {
-                    if !regex
-                        .is_match(entry.path().as_os_str().as_encoded_bytes())
-                        .unwrap_or_default()
-                    {
-                        continue;
-                    }
-                }
-                FilenamePattern::Glob(glob) => {
-                    if !glob.matches_path_with(
-                        entry.path(),
-                        MatchOptions {
-                            case_sensitive: false,
-                            require_literal_separator: true,
-                            require_literal_leading_dot: false,
-                        },
-                    ) {
-                        continue;
-                    }
-                }
-                FilenamePattern::None => {}
+            if let Some(ref filter) = filename_filter
+                && !filter.matches(entry.path().to_str().unwrap_or_default())
+            {
+                continue;
             }
 
             if let Some(matcher) = matcher.as_ref()
