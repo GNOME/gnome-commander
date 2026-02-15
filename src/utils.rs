@@ -132,9 +132,13 @@ fn substitute_command_argument(command_template: &str, arg: &OsStr) -> OsString 
 
 pub fn make_run_in_terminal_command(command: &OsStr, options: &ProgramsOptions) -> OsString {
     let arg = if options.use_gcmd_block.get() {
+        let mut command = command.to_owned();
+        command.push(format!("; {PREFIX}/bin/gcmd-block"));
+
+        let shell = std::env::var("SHELL").unwrap_or_else(|_| "/bin/sh".to_owned());
         glib::shell_quote(substitute_command_argument(
-            &format!("bash -c \"%s; {PREFIX}/bin/gcmd-block\""),
-            command,
+            &format!("{shell} -c %s"),
+            &glib::shell_quote(command),
         ))
     } else {
         glib::shell_quote(command)
