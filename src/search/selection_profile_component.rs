@@ -95,11 +95,11 @@ mod imp {
 
             // recurse check
             let recurse_label = gtk::Label::builder()
-                    .label(gettext("Search _recursively:"))
-                    .use_underline(true)
-                    .mnemonic_widget(&self.recurse_drop_down)
-                    .xalign(0.0)
-                    .build();
+                .label(gettext("Search _recursively:"))
+                .use_underline(true)
+                .mnemonic_widget(&self.recurse_drop_down)
+                .xalign(0.0)
+                .build();
             grid.attach(&recurse_label, 0, 1, 1, 1);
             grid.attach(&self.recurse_drop_down, 1, 1, 1, 1);
 
