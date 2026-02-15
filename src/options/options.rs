@@ -34,8 +34,9 @@ use crate::{
         ls_colors_palette::{LsColorsPalette, load_palette, save_palette},
     },
     options::types::{
-        AppOption, BoolOption, DURATION_MILLIS_TYPE, EnumOption, EnumRepr, OPTIONAL_PATH_TYPE,
-        StringOption, StrvOption, TypeConvertCallback, U32Option, VariantOption, WriteResult,
+        AppOption, BoolOption, DURATION_MILLIS_TYPE, EnumOption, EnumRepr, I32Option,
+        OPTIONAL_PATH_TYPE, StringOption, StrvOption, TypeConvertCallback, U32Option,
+        VariantOption, WriteResult,
     },
     search::profile::{SearchProfile, SearchProfileVariant},
     tab_label::TabLockIndicator,
@@ -106,6 +107,7 @@ pub struct GeneralOptions {
 
     pub command_line_history: StrvOption,
     pub command_line_history_length: U32Option,
+    pub command_line_split: I32Option,
 
     pub save_tabs_on_exit: BoolOption,
     pub save_dirs_on_exit: BoolOption,
@@ -251,6 +253,7 @@ impl GeneralOptions {
             device_only_icon: BoolOption::simple(&settings, "dev-only-icon"),
             command_line_history: StrvOption::simple(&settings, "cmdline-history"),
             command_line_history_length: U32Option::simple(&settings, "cmdline-history-length"),
+            command_line_split: I32Option::simple(&settings, "cmdline-split"),
             save_tabs_on_exit: BoolOption::simple(&settings, "save-tabs-on-exit"),
             save_dirs_on_exit: BoolOption::simple(&settings, "save-dirs-on-exit"),
             save_directory_history_on_exit: BoolOption::simple(

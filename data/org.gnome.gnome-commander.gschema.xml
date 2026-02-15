@@ -180,6 +180,13 @@
       <range min="0" max="16"/>
       <summary>Command line history length</summary>
     </key>
+    <key name="cmdline-split" type="i">
+      <default>-1</default>
+      <summary>Split between panels and command line</summary>
+      <description>
+          Determines the height of file panels in pixels. Remaining vertical space is allocated for the command line.
+      </description>
+    </key>
     <key name="horizontal-orientation" type="b">
       <default>false</default>
       <summary>Horizontal orientation</summary>

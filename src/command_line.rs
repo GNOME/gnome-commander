@@ -17,14 +17,21 @@
  * For more details see the file COPYING.
  */
 
-use crate::history_entry::HistoryEntry;
-use gtk::{gdk, glib, prelude::*, subclass::prelude::*};
+use crate::{
+    history_entry::HistoryEntry,
+    utils::{ALT, NO_MOD, SHIFT},
+};
+use gettextrs::gettext;
+use gtk::{gdk, gio, glib, prelude::*, subclass::prelude::*};
+use vte::prelude::*;
 
 mod imp {
     use super::*;
-    use std::sync::OnceLock;
+    use std::{sync::OnceLock, time::Duration};
 
     pub struct CommandLine {
+        pub action_group: gio::SimpleActionGroup,
+        pub terminal: vte::Terminal,
         pub cwd: gtk::Label,
         pub entry: HistoryEntry,
     }
@@ -37,6 +44,29 @@ mod imp {
 
         fn new() -> Self {
             Self {
+                action_group: gio::SimpleActionGroup::new(),
+                terminal: vte::Terminal::builder()
+                    .allow_hyperlink(true)
+                    .audible_bell(false)
+                    .enable_fallback_scrolling(false)
+                    .input_enabled(true)
+                    .scroll_on_keystroke(true)
+                    .scroll_unit_is_pixels(true)
+                    .can_focus(true)
+                    .can_target(true)
+                    .focus_on_click(true)
+                    .vexpand(true)
+                    .context_menu_model(&{
+                        let menu = gio::Menu::new();
+                        menu.append(Some(&gettext("_Copy")), Some("cmdline.term-copy"));
+                        menu.append(Some(&gettext("_Paste")), Some("cmdline.term-paste"));
+                        menu.append(
+                            Some(&gettext("_Select all")),
+                            Some("cmdline.term-select-all"),
+                        );
+                        menu
+                    })
+                    .build(),
                 cwd: gtk::Label::builder().selectable(true).build(),
                 entry: HistoryEntry::default(),
             }
@@ -51,17 +81,111 @@ mod imp {
             obj.add_css_class("command-line");
             obj.set_layout_manager(Some(
                 gtk::BoxLayout::builder()
-                    .orientation(gtk::Orientation::Horizontal)
+                    .orientation(gtk::Orientation::Vertical)
                     .build(),
             ));
 
-            self.cwd.set_parent(&*obj);
+            self.setup_actions();
 
-            gtk::Label::new(Some("#")).set_parent(&*obj);
+            let scrolled_window = gtk::ScrolledWindow::builder().child(&self.terminal).build();
+            scrolled_window.set_parent(&*obj);
 
+            self.terminal.connect_child_exited(glib::clone!(
+                #[weak]
+                obj,
+                move |_, _| obj.exec_done(),
+            ));
+            self.terminal.connect_selection_changed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| {
+                    if let Some(action) = imp
+                        .action_group
+                        .lookup_action("term-copy")
+                        .and_downcast::<gio::SimpleAction>()
+                    {
+                        action.set_enabled(
+                            imp.terminal
+                                .text_selected(vte::Format::Text)
+                                .is_some_and(|s| !s.is_empty()),
+                        );
+                    }
+                }
+            ));
+            self.terminal
+                .connect_current_directory_uri_notify(glib::clone!(
+                    #[weak(rename_to = imp)]
+                    self,
+                    move |_| {
+                        if let Some(dest_dir) = imp
+                            .terminal
+                            .current_directory_uri()
+                            .map(|uri| gio::File::for_uri(&uri))
+                            .and_then(|file| file.path())
+                            .as_deref()
+                            .and_then(|path| path.to_str())
+                        {
+                            imp.obj().emit_change_directory(dest_dir);
+                        }
+                    }
+                ));
+            self.terminal
+                .feed(gettext("If you run a command its output will appear here.\r\n").as_bytes());
+
+            let entry_box = gtk::Box::builder()
+                .orientation(gtk::Orientation::Horizontal)
+                .build();
+            entry_box.add_css_class("command-line-entry");
+            entry_box.set_parent(&*obj);
+
+            entry_box.append(&self.cwd);
+            entry_box.append(&gtk::Label::new(Some("#")));
+
+            self.entry.add_css_class("command-line-entry-field");
             self.entry.set_hexpand(true);
             self.entry.set_position(gtk::PositionType::Top);
-            self.entry.set_parent(&*obj);
+            entry_box.append(&self.entry);
+
+            self.terminal.connect_bell(glib::clone!(
+                #[weak(rename_to = entry)]
+                self.entry,
+                move |_| {
+                    entry.add_css_class("bell");
+                    glib::timeout_add_local_once(Duration::from_millis(500), move || {
+                        entry.remove_css_class("bell")
+                    });
+                }
+            ));
+
+            let button_box = gtk::Box::builder()
+                .orientation(gtk::Orientation::Horizontal)
+                .build();
+
+            let run_button = gtk::Button::builder()
+                .label(&gettext("_Run"))
+                .use_underline(true)
+                .action_name("cmdline.run")
+                .build();
+            button_box.append(&run_button);
+
+            let run_menu = gtk::MenuButton::builder()
+                .direction(gtk::ArrowType::Up)
+                .menu_model(&{
+                    let menu = gio::Menu::new();
+                    menu.append(
+                        Some(&gettext("Run in _terminal")),
+                        Some("cmdline.run-external-terminal"),
+                    );
+                    menu.append(
+                        Some(&gettext("Run _ignoring output")),
+                        Some("cmdline.run-nocapture"),
+                    );
+                    menu
+                })
+                .build();
+            button_box.append(&run_menu);
+
+            entry_box.append(&button_box);
 
             let key_controller = gtk::EventControllerKey::new();
             key_controller.set_propagation_phase(gtk::PropagationPhase::Capture);
@@ -107,33 +231,110 @@ mod imp {
 
     impl CommandLine {
         fn on_key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
-            const NO_MODIFIER_MASK: gdk::ModifierType = gdk::ModifierType::empty();
             match (state, key) {
-                (gdk::ModifierType::SHIFT_MASK, gdk::Key::Return) => {
-                    if self.obj().exec(true) {
-                        glib::Propagation::Stop
-                    } else {
-                        glib::Propagation::Proceed
-                    }
+                (NO_MOD | SHIFT | ALT, gdk::Key::Return) => {
+                    self.action_group.activate_action(
+                        if state == SHIFT {
+                            "run-external-terminal"
+                        } else if state == ALT {
+                            "run-nocapture"
+                        } else {
+                            "run"
+                        },
+                        None,
+                    );
+                    glib::Propagation::Stop
                 }
-                (NO_MODIFIER_MASK, gdk::Key::Return) => {
-                    if self.obj().exec(false) {
-                        glib::Propagation::Stop
-                    } else {
-                        glib::Propagation::Proceed
-                    }
-                }
-                (NO_MODIFIER_MASK, gdk::Key::Escape) => {
+                (NO_MOD, gdk::Key::Escape) => {
                     self.entry.set_text("");
                     self.obj().emit_lose_focus();
                     glib::Propagation::Stop
                 }
-                (NO_MODIFIER_MASK, gdk::Key::Up | gdk::Key::Down) => {
+                (NO_MOD, gdk::Key::Up | gdk::Key::Down) => {
                     self.obj().emit_lose_focus();
                     glib::Propagation::Stop
                 }
                 _ => glib::Propagation::Proceed,
             }
+        }
+
+        fn setup_actions(&self) {
+            let obj = self.obj();
+
+            let action = gio::SimpleAction::new("run", None);
+            action.connect_activate(glib::clone!(
+                #[weak]
+                obj,
+                move |_, _| obj.exec(false, false),
+            ));
+            self.action_group.add_action(&action);
+
+            let action = gio::SimpleAction::new("run-nocapture", None);
+            action.connect_activate(glib::clone!(
+                #[weak]
+                obj,
+                move |_, _| obj.exec(true, false),
+            ));
+            self.action_group.add_action(&action);
+
+            let action = gio::SimpleAction::new("run-external-terminal", None);
+            action.connect_activate(glib::clone!(
+                #[weak]
+                obj,
+                move |_, _| obj.exec(true, true),
+            ));
+            self.action_group.add_action(&action);
+
+            let action = gio::SimpleAction::new("term-copy", None);
+            action.set_enabled(false);
+            action.connect_activate(glib::clone!(
+                #[weak]
+                obj,
+                move |_, _| obj.imp().terminal.copy_clipboard_format(vte::Format::Text),
+            ));
+            self.action_group.add_action(&action);
+
+            let action = gio::SimpleAction::new("term-paste", None);
+            action.set_enabled(false);
+            action.connect_activate(glib::clone!(
+                #[weak]
+                obj,
+                move |_, _| obj.imp().terminal.paste_clipboard(),
+            ));
+            self.action_group.add_action(&action);
+
+            let action = gio::SimpleAction::new("term-select-all", None);
+            action.connect_activate(glib::clone!(
+                #[weak]
+                obj,
+                move |_, _| obj.imp().terminal.select_all(),
+            ));
+            self.action_group.add_action(&action);
+
+            obj.connect_realize(|obj| {
+                if let Some(application) = obj
+                    .root()
+                    .and_downcast::<gtk::ApplicationWindow>()
+                    .and_then(|w| w.application())
+                {
+                    application.set_accels_for_action("cmdline.run-nocapture", &["<Alt>Return"]);
+                    application
+                        .set_accels_for_action("cmdline.run-external-terminal", &["<Shift>Return"]);
+                }
+            });
+
+            obj.insert_action_group("cmdline", Some(&self.action_group));
+
+            let shortcuts = gtk::ShortcutController::new();
+            shortcuts.add_shortcut(gtk::Shortcut::new(
+                gtk::ShortcutTrigger::parse_string("<Ctrl><Shift>c"),
+                Some(gtk::NamedAction::new("cmdline.term-copy")),
+            ));
+            shortcuts.add_shortcut(gtk::Shortcut::new(
+                gtk::ShortcutTrigger::parse_string("<Ctrl><Shift>v"),
+                Some(gtk::NamedAction::new("cmdline.term-paste")),
+            ));
+            obj.imp().terminal.add_controller(shortcuts);
         }
     }
 }
@@ -221,25 +422,95 @@ impl CommandLine {
         )
     }
 
-    pub fn exec(&self, in_terminal: bool) -> bool {
+    pub fn exec(&self, externally: bool, in_terminal: bool) {
         let command = self.imp().entry.text().trim().to_owned();
 
         if command.is_empty() {
-            return false;
+            return;
         }
 
         if let Some(dest_dir) = command.strip_prefix("cd ").map(|d| d.trim_start()) {
             self.emit_change_directory(dest_dir);
         } else if command == "cd" {
             self.emit_change_directory("~");
-        } else {
+        } else if externally {
             self.emit_execute(&command, in_terminal);
+        } else {
+            let cwd = self.imp().cwd.text();
+            self.imp().terminal.feed(b"\x1B[1m"); // bold
+            self.imp().terminal.feed(cwd.as_bytes());
+            self.imp().terminal.feed(b"# \x1B[0m");
+            self.imp().terminal.feed(command.as_bytes());
+            self.imp().terminal.feed(b"\r\n");
+
+            let shell = std::env::var("SHELL").unwrap_or_else(|_| "/bin/sh".to_owned());
+            self.imp().terminal.spawn_async(
+                vte::PtyFlags::DEFAULT,
+                Some(&cwd),
+                &[&shell, "-i", "-c", &command],
+                &[],
+                glib::SpawnFlags::DEFAULT,
+                || {},
+                i32::MAX,
+                gio::Cancellable::NONE,
+                glib::clone!(
+                    #[weak(rename_to = this)]
+                    self,
+                    move |result| {
+                        if result.is_err() {
+                            this.exec_done();
+                        }
+                    }
+                ),
+            );
+
+            self.imp().terminal.grab_focus();
+
+            if let Some(action) = self
+                .imp()
+                .action_group
+                .lookup_action("run")
+                .and_downcast::<gio::SimpleAction>()
+            {
+                action.set_enabled(false);
+            }
+
+            if let Some(action) = self
+                .imp()
+                .action_group
+                .lookup_action("term-paste")
+                .and_downcast::<gio::SimpleAction>()
+            {
+                action.set_enabled(true);
+            }
         }
 
         self.imp().entry.add_to_history(&command);
         self.set_text("");
+    }
 
-        true
+    pub fn exec_done(&self) {
+        if self.imp().terminal.is_focus() {
+            self.grab_focus();
+        }
+
+        if let Some(action) = self
+            .imp()
+            .action_group
+            .lookup_action("run")
+            .and_downcast::<gio::SimpleAction>()
+        {
+            action.set_enabled(true);
+        }
+
+        if let Some(action) = self
+            .imp()
+            .action_group
+            .lookup_action("term-paste")
+            .and_downcast::<gio::SimpleAction>()
+        {
+            action.set_enabled(false);
+        }
     }
 
     pub fn history(&self) -> Vec<String> {

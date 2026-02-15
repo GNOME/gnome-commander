@@ -750,7 +750,7 @@ impl FileSelector {
                     .command_line()
                     .filter(|cl| cl.is_visible() && !cl.is_empty())
                 {
-                    command_line.exec(false);
+                    command_line.exec(true, false);
                     true
                 } else {
                     false

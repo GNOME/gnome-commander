@@ -21,6 +21,7 @@ variables:
     libgtk-4-dev
     libpoppler-glib-dev
     libtag1-dev
+    libvte-2.91-gtk4-dev
     curl
 
 include:

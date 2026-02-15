@@ -86,16 +86,18 @@ GMODULE_REQ = '2.0.0'
 GTK_REQ = '4.12.0'
 conf_data.set('GTK_REQ', GTK_REQ, description: 'Required version of gtk library')
 GIO_REQ = '2.0'
+VTE_REQ = '0.76'
 
 gobject   = dependency('gobject-2.0', version: '>=' + GLIB_REQ)
 glib      = dependency('glib-2.0', version: '>=' + GLIB_REQ)
 gmodule   = dependency('gmodule-2.0', version: '>=' + GMODULE_REQ)
 gio       = dependency('gio-2.0', version: '>=' + GIO_REQ)
 gtk       = dependency('gtk4', version: '>=' + GTK_REQ)
+vte       = dependency('vte-2.91-gtk4', version: '>=' + VTE_REQ)
 pixbuf    = dependency('gdk-pixbuf-2.0')
 
 common_deps = [
-  glib, gmodule, gio, gobject, gtk
+  glib, gmodule, gio, gobject, gtk, vte
 ]
 
 ##### Optional dependencies #####

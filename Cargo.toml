@@ -23,6 +23,7 @@ memmap2 = "0.9.7"
 bimap = "0.6.3"
 grep = "0.4.1"
 walkdir = "2.5.0"
+vte = { package = "vte4", version = "0.9.0", features = ["v0_76"] }
 
 [build-dependencies]
 system-deps = "7"

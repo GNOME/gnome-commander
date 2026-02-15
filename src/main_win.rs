@@ -86,8 +86,8 @@ pub mod imp {
         toolbar: gtk::Box,
         con_drop: gtk::Button,
         toolbar_sep: gtk::Separator,
+        cmdline_paned: gtk::Paned,
         pub cmdline: CommandLine,
-        cmdline_sep: gtk::Separator,
         buttonbar: gtk::Box,
         buttonbar_sep: gtk::Separator,
         view_btn: gtk::Button,
@@ -239,10 +239,13 @@ pub mod imp {
                     .build(),
                 file_selector_left: RefCell::new(file_selector_left),
                 file_selector_right: RefCell::new(file_selector_right),
-                cmdline,
-                cmdline_sep: gtk::Separator::builder()
+                cmdline_paned: gtk::Paned::builder()
                     .orientation(gtk::Orientation::Vertical)
+                    .vexpand(true)
+                    .shrink_start_child(false)
+                    .shrink_end_child(false)
                     .build(),
+                cmdline,
                 buttonbar: gtk::Box::builder()
                     .orientation(gtk::Orientation::Horizontal)
                     .css_classes(["buttonbar"])
@@ -338,7 +341,8 @@ pub mod imp {
             vbox.append(&self.toolbar);
             vbox.append(&self.toolbar_sep);
 
-            vbox.append(&self.paned);
+            vbox.append(&self.cmdline_paned);
+
             self.paned
                 .set_start_child(Some(&*self.file_selector_left.borrow()));
             self.paned
@@ -405,11 +409,8 @@ pub mod imp {
             mw.bind_property("command-line-visible", &self.cmdline, "visible")
                 .sync_create()
                 .build();
-            mw.bind_property("command-line-visible", &self.cmdline_sep, "visible")
-                .sync_create()
-                .build();
-            vbox.append(&self.cmdline_sep);
-            vbox.append(&self.cmdline);
+            self.cmdline_paned.set_start_child(Some(&self.paned));
+            self.cmdline_paned.set_end_child(Some(&self.cmdline));
 
             self.create_buttonbar();
             mw.bind_property("buttonbar-visible", &self.buttonbar, "visible")
@@ -605,6 +606,30 @@ pub mod imp {
             options
                 .quick_search_shortcut
                 .bind(&*mw, "quick-search-shortcut")
+                .build();
+
+            let command_line_split = options.command_line_split.get();
+            if command_line_split > 0 {
+                self.cmdline_paned.set_position(command_line_split);
+            } else {
+                // Allocate 10% of the overall height for the command line by default
+                let handler_id = std::rc::Rc::new(Cell::new(None));
+                let handler_id_cloned = handler_id.clone();
+                handler_id.replace(Some(self.cmdline_paned.connect_position_notify(
+                    move |this| {
+                        if let Some(handler_id) = handler_id_cloned.take() {
+                            this.disconnect(handler_id);
+                        }
+                        if let Some(rect) = this.compute_bounds(this) {
+                            this.set_position((rect.height() * 0.9) as i32);
+                        }
+                    },
+                )));
+            }
+            options
+                .command_line_split
+                .bind(&self.cmdline_paned, "position")
+                .set_only()
                 .build();
 
             self.shortcuts.load(options.keybindings.get());
