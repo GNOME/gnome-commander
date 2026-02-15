@@ -71,6 +71,8 @@ mod imp {
         pub connection_bar: ConnectionBar,
         pub connection_dropdown: gtk::DropDown,
         pub volume_size_label: gtk::Label,
+        pub bookmark_button: gtk::ToggleButton,
+        pub history_button: gtk::ToggleButton,
         pub directory_indicator_box: gtk::Box,
         pub directory_indicator: DirectoryIndicator,
         pub notebook: gtk::Notebook,
@@ -176,6 +178,17 @@ mod imp {
                     .margin_end(6)
                     .build(),
 
+                bookmark_button: gtk::ToggleButton::builder()
+                    .icon_name("gnome-commander-bookmark-outline")
+                    .can_focus(false)
+                    .has_frame(false)
+                    .build(),
+                history_button: gtk::ToggleButton::builder()
+                    .icon_name("gnome-commander-down")
+                    .can_focus(false)
+                    .has_frame(false)
+                    .build(),
+
                 directory_indicator_box: gtk::Box::builder()
                     .orientation(gtk::Orientation::Horizontal)
                     .build(),
@@ -247,28 +260,18 @@ mod imp {
                 .build();
             self.directory_indicator_box.append(&scrolled_window);
 
-            let bookmark_button = gtk::Button::builder()
-                .icon_name("gnome-commander-bookmark-outline")
-                .can_focus(false)
-                .has_frame(false)
-                .build();
-            self.directory_indicator_box.append(&bookmark_button);
+            self.directory_indicator_box.append(&self.bookmark_button);
 
-            let history_button = gtk::Button::builder()
-                .icon_name("gnome-commander-down")
-                .can_focus(false)
-                .has_frame(false)
-                .build();
-            self.directory_indicator_box.append(&history_button);
+            self.directory_indicator_box.append(&self.history_button);
 
             this.attach(&self.directory_indicator_box, 0, 2, 2, 1);
 
-            bookmark_button.connect_clicked(glib::clone!(
+            self.bookmark_button.connect_clicked(glib::clone!(
                 #[weak]
                 this,
                 move |_| this.show_bookmarks()
             ));
-            history_button.connect_clicked(glib::clone!(
+            self.history_button.connect_clicked(glib::clone!(
                 #[weak]
                 this,
                 move |_| this.show_history()
@@ -1258,11 +1261,33 @@ impl FileSelector {
             .position(gtk::PositionType::Bottom)
             .build();
         popover.set_parent(&self.imp().directory_indicator_box);
-        let width = self.width();
-        if width > 100 {
-            popover.set_width_request(width);
-        }
+        popover.connect_closed(glib::clone!(
+            #[weak(rename_to = button)]
+            self.imp().bookmark_button,
+            move |this| {
+                let this = this.clone();
+                glib::spawn_future_local(async move {
+                    this.unparent();
+                });
+                button.set_active(false);
+            }
+        ));
+        popover.set_pointing_to(
+            self.imp()
+                .bookmark_button
+                .compute_bounds(&self.imp().directory_indicator_box)
+                .map(|rect| {
+                    gdk::Rectangle::new(
+                        rect.x() as i32,
+                        rect.y() as i32,
+                        rect.width() as i32,
+                        rect.height() as i32,
+                    )
+                })
+                .as_ref(),
+        );
         popover.popup();
+        self.imp().bookmark_button.set_active(true);
     }
 
     pub fn show_history(&self) {
@@ -1287,11 +1312,33 @@ impl FileSelector {
             .position(gtk::PositionType::Bottom)
             .build();
         popover.set_parent(&self.imp().directory_indicator_box);
-        let width = self.width();
-        if width > 100 {
-            popover.set_width_request(width);
-        }
+        popover.connect_closed(glib::clone!(
+            #[weak(rename_to = button)]
+            self.imp().history_button,
+            move |this| {
+                let this = this.clone();
+                glib::spawn_future_local(async move {
+                    this.unparent();
+                });
+                button.set_active(false);
+            }
+        ));
+        popover.set_pointing_to(
+            self.imp()
+                .history_button
+                .compute_bounds(&self.imp().directory_indicator_box)
+                .map(|rect| {
+                    gdk::Rectangle::new(
+                        rect.x() as i32,
+                        rect.y() as i32,
+                        rect.width() as i32,
+                        rect.height() as i32,
+                    )
+                })
+                .as_ref(),
+        );
         popover.popup();
+        self.imp().history_button.set_active(true);
     }
 
     fn update_files(&self) {
