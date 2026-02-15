@@ -160,7 +160,17 @@ impl ConnectionList {
         let handler_id = connection.connect_updated(glib::clone!(
             #[weak(rename_to = this)]
             self,
-            move || this.mark_changed()
+            #[weak]
+            connection,
+            move || {
+                this.mark_changed();
+
+                // Normally we would use watch-items feature of FilterListModel but it requires
+                // Gtk 4.20. Propagate changes to connections "manually."
+                if let Some(pos) = this.imp().connections.find(&connection) {
+                    this.imp().connections.items_changed(pos, 1, 1);
+                }
+            }
         ));
         self.imp()
             .connection_handlers

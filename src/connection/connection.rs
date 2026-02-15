@@ -184,6 +184,7 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
 
     fn set_state(&self, state: ConnectionState) {
         self.as_ref().imp().state.set(state);
+        self.emit_by_name::<()>("updated", &[]);
     }
 
     fn default_dir(&self) -> Option<Directory> {
@@ -342,8 +343,8 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
                     None => eprintln!("{error_message}"),
                 }
             }
+            self.set_state(ConnectionState::Closed);
             self.emit_by_name::<()>("close", &[]);
-            self.emit_by_name::<()>("updated", &[]);
         }
     }
 }
