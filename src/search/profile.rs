@@ -33,7 +33,7 @@ mod imp {
         pub filename_pattern: RefCell<String>,
         #[property(get, set)]
         pub syntax: Cell<i32>,
-        #[property(get, set, default_value=-1)]
+        #[property(get, set)]
         pub max_depth: Cell<i32>,
         #[property(get, set)]
         pub text_pattern: RefCell<String>,
@@ -59,7 +59,10 @@ glib::wrapper! {
 
 impl Default for SearchProfile {
     fn default() -> Self {
-        glib::Object::builder().build()
+        // Builder seems to ignore default property values, reset before returning.
+        let profile: Self = glib::Object::builder().build();
+        profile.reset();
+        profile
     }
 }
 
@@ -67,7 +70,7 @@ impl SearchProfile {
     pub fn reset(&self) {
         self.set_name("");
         self.set_filename_pattern("");
-        self.set_syntax(0);
+        self.set_syntax(i32::from(PatternType::default()));
         self.set_max_depth(-1);
         self.set_text_pattern("");
         self.set_content_search(false);
@@ -91,17 +94,11 @@ impl SearchProfile {
     }
 
     pub fn pattern_type(&self) -> PatternType {
-        match self.syntax() {
-            0 => PatternType::Regex,
-            _ => PatternType::FnMatch,
-        }
+        self.syntax().try_into().unwrap_or_default()
     }
 
     pub fn set_pattern_type(&self, pattern_type: PatternType) {
-        self.set_syntax(match pattern_type {
-            PatternType::Regex => 0,
-            PatternType::FnMatch => 1,
-        });
+        self.set_syntax(i32::from(pattern_type));
     }
 
     pub fn save(&self) -> SearchProfileVariant {
