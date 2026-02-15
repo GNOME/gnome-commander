@@ -39,6 +39,16 @@ impl SettingsRepr for bool {
     }
 }
 
+impl SettingsRepr for i32 {
+    fn value(settings: &gio::Settings, key: &str) -> i32 {
+        settings.int(key)
+    }
+
+    fn set_value(settings: &gio::Settings, key: &str, value: i32) -> WriteResult {
+        settings.set_int(key, value)
+    }
+}
+
 impl SettingsRepr for u32 {
     fn value(settings: &gio::Settings, key: &str) -> u32 {
         settings.uint(key)
@@ -161,6 +171,7 @@ impl<T: FromVariant + ToVariant + Default + 'static> AppOption<T, glib::Variant>
 }
 
 pub type BoolOption = AppOption<bool>;
+pub type I32Option = AppOption<i32>;
 pub type U32Option = AppOption<u32>;
 pub type StringOption = AppOption<String>;
 pub type StrvOption = AppOption<Vec<String>>;
