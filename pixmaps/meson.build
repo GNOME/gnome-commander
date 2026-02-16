@@ -14,11 +14,6 @@ install_data(pixmaps,
 )
 
 icons_16x16 = [
-  'gnome-commander-rotate-180.png',
-  'gnome-commander-rotate-270.png',
-  'gnome-commander-rotate-90.png',
-  'gnome-commander-flip-horizontal.png',
-  'gnome-commander-flip-vertical.png',
   'overlay_symlink.png',
   'overlay_umount.png',
 ]

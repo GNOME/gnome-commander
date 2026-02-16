@@ -40,18 +40,9 @@ use std::{
 
 const MAX_OPEN_WITH_APPS: usize = 20;
 
-const COPYFILENAMES_STOCKID: &str = "gnome-commander-copy-file-names";
-const GTK_MAILSEND_STOCKID: &str = "mail-send";
-const GTK_TERMINAL_STOCKID: &str = "utilities-terminal";
-const FILETYPEDIR_STOCKID: &str = "file_type_dir";
-const FILETYPEREGULARFILE_STOCKID: &str = "file_type_regular";
-
 fn fav_app_menu_item(app: &App) -> gio::MenuItem {
     let item = gio::MenuItem::new(Some(&app.name()), None);
     item.set_action_and_target_value(Some("fl.open-with"), Some(&app.to_variant()));
-    if let Some(icon) = app.icon() {
-        item.set_icon(&icon);
-    }
     item
 }
 
@@ -151,12 +142,7 @@ fn add_open_with_entries(menu: &gio::Menu, file_list: &FileList) {
     if let Some(ref app_info) = default_app_info {
         // Add the default "Open" menu entry at the top of the popup
         let label = gettext("_Open with “{}”").replace("{}", &app_info.name().replace("_", "__"));
-        let item = gio::MenuItem::new(Some(&label), Some("fl.open-with-default"));
-        if let Some(icon) = app_info.icon() {
-            item.set_icon(&icon);
-        }
-
-        menu.append_item(&item);
+        menu.append(Some(&label), Some("fl.open-with-default"));
     } else {
         debug!(
             'u',
@@ -187,10 +173,6 @@ fn add_open_with_entries(menu: &gio::Menu, file_list: &FileList) {
     for app in app_infos {
         let item = gio::MenuItem::new(Some(&app.name()), None);
         item.set_action_and_target_value(Some("fl.open-with"), Some(&app.to_variant()));
-        if let Some(icon) = app.icon() {
-            item.set_icon(&icon);
-        }
-
         submenu.append_item(&item);
     }
 
@@ -212,11 +194,11 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
     // Add execute menu entry
     let first_file = files.front()?;
     if first_file.is_executable() && files.len() == 1 {
-        let item = gio::MenuItem::new(Some(&gettext("E_xecute")), Some("fl.execute"));
-        item.set_icon(&gio::ThemedIcon::new("system-run"));
-
         let section = gio::Menu::new();
-        section.append_item(&item);
+        section.append_item(&gio::MenuItem::new(
+            Some(&gettext("E_xecute")),
+            Some("fl.execute"),
+        ));
 
         menu.append_section(None, &section);
     }
@@ -252,23 +234,11 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
         gio::Menu::new()
             .item(gettext("Cut"), "win.edit-cap-cut")
             .item(gettext("Copy"), "win.edit-cap-copy")
-            .item_icon(
-                gettext("Copy file names"),
-                "win.edit-copy-fnames",
-                COPYFILENAMES_STOCKID,
-            )
+            .item(gettext("Copy file names"), "win.edit-copy-fnames")
             .item(gettext("Delete"), "win.file-delete")
             .item(gettext("Rename"), "win.file-rename")
-            .item_icon(
-                gettext("Send files"),
-                "win.file-sendto",
-                GTK_MAILSEND_STOCKID,
-            )
-            .item_icon(
-                gettext("Open _terminal here"),
-                "win.command-open-terminal",
-                GTK_TERMINAL_STOCKID,
-            )
+            .item(gettext("Send files"), "win.file-sendto")
+            .item(gettext("Open _terminal here"), "win.command-open-terminal")
     });
 
     menu.append(Some(&gettext("_Properties…")), Some("win.file-properties"));
@@ -280,18 +250,10 @@ pub fn list_popup_menu() -> gio::Menu {
     gio::Menu::new()
         .submenu(gettext("New"), {
             gio::Menu::new()
-                .item_icon(gettext("_Directory"), "win.file-mkdir", FILETYPEDIR_STOCKID)
-                .item_icon(
-                    gettext("_Text File"),
-                    "win.file-edit-new-doc",
-                    FILETYPEREGULARFILE_STOCKID,
-                )
+                .item(gettext("_Directory"), "win.file-mkdir")
+                .item(gettext("_Text File"), "win.file-edit-new-doc")
         })
         .item(gettext("_Paste"), "win.edit-cap-paste")
-        .item_icon(
-            gettext("Open _terminal here"),
-            "win.command-open-terminal",
-            GTK_TERMINAL_STOCKID,
-        )
+        .item(gettext("Open _terminal here"), "win.command-open-terminal")
         .item(gettext("_Refresh"), "fl.refresh")
 }
