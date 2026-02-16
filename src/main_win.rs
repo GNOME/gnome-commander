@@ -354,7 +354,9 @@ pub mod imp {
                 self,
                 move |_| imp.obj().set_current_panel(0),
             ));
-            self.file_selector_left.borrow().add_controller(focus_controller);
+            self.file_selector_left
+                .borrow()
+                .add_controller(focus_controller);
 
             let focus_controller = gtk::EventControllerFocus::new();
             focus_controller.connect_enter(glib::clone!(
@@ -362,7 +364,9 @@ pub mod imp {
                 self,
                 move |_| imp.obj().set_current_panel(1),
             ));
-            self.file_selector_right.borrow().add_controller(focus_controller);
+            self.file_selector_right
+                .borrow()
+                .add_controller(focus_controller);
 
             mw.bind_property(
                 "connection-buttons-visible",
@@ -1785,9 +1789,6 @@ fn local_connections_menu() -> gio::Menu {
             .unwrap_or(true)
         {
             let item = gio::MenuItem::new(con.go_text().as_deref(), None);
-            if let Some(icon) = con.go_icon() {
-                item.set_icon(&icon);
-            }
             item.set_action_and_target_value(
                 Some("win.connections-set-current"),
                 Some(&con.uuid().to_variant()),
@@ -1809,9 +1810,6 @@ fn connections_menu() -> gio::Menu {
     for con in all_cons.iter::<Connection>().flatten() {
         if con.is_closeable() && con.is_open() {
             let item = gio::MenuItem::new(con.close_text().as_deref(), None);
-            if let Some(icon) = con.close_icon() {
-                item.set_icon(&icon);
-            }
             item.set_action_and_target_value(
                 Some("win.connections-close"),
                 Some(&con.uuid().to_variant()),
@@ -1851,11 +1849,10 @@ fn create_bookmarks_menu() -> gio::Menu {
                 group_items.append_item(&item);
             }
 
-            let group_item = gio::MenuItem::new_submenu(con.alias().as_deref(), &group_items);
-            if let Some(icon) = con.go_icon() {
-                group_item.set_icon(&icon);
-            }
-            menu.append_item(&group_item);
+            menu.append_item(&gio::MenuItem::new_submenu(
+                con.alias().as_deref(),
+                &group_items,
+            ));
         }
     }
 

@@ -729,12 +729,6 @@ async fn start_search(window: &ViewerWindow, forward: bool) {
     }
 }
 
-const ROTATE_90_STOCKID: &str = "gnome-commander-rotate-90";
-const ROTATE_270_STOCKID: &str = "gnome-commander-rotate-270";
-const ROTATE_180_STOCKID: &str = "gnome-commander-rotate-180";
-const FLIP_VERTICAL_STOCKID: &str = "gnome-commander-flip-vertical";
-const FLIP_HORIZONTAL_STOCKID: &str = "gnome-commander-flip-horizontal";
-
 fn create_menu() -> gio::Menu {
     gio::Menu::new()
         .submenu(
@@ -750,30 +744,10 @@ fn create_menu() -> gio::Menu {
                 .item_accel(gettext("_Image"), "viewer.display-mode('image')", "4")
                 .section(
                     gio::Menu::new()
-                        .item_accel_and_icon(
-                            gettext("_Zoom In"),
-                            "viewer.zoom-in",
-                            "<Control>plus",
-                            "zoom-in",
-                        )
-                        .item_accel_and_icon(
-                            gettext("_Zoom Out"),
-                            "viewer.zoom-out",
-                            "<Control>minus",
-                            "zoom-out",
-                        )
-                        .item_accel_and_icon(
-                            gettext("_Normal Size"),
-                            "viewer.normal-size",
-                            "<Control>0",
-                            "zoom-original",
-                        )
-                        .item_accel_and_icon(
-                            gettext("_Best Fit"),
-                            "viewer.best-fit",
-                            "<Control>period",
-                            "zoom-fit-best",
-                        ),
+                        .item_accel(gettext("_Zoom In"), "viewer.zoom-in", "<Control>plus")
+                        .item_accel(gettext("_Zoom Out"), "viewer.zoom-out", "<Control>minus")
+                        .item_accel(gettext("_Normal Size"), "viewer.normal-size", "<Control>0")
+                        .item_accel(gettext("_Best Fit"), "viewer.best-fit", "<Control>period"),
                 ),
         )
         .submenu(
@@ -869,33 +843,19 @@ fn create_menu() -> gio::Menu {
         .submenu(
             gettext("_Image"),
             gio::Menu::new()
-                .item_accel_and_icon(
+                .item_accel(
                     gettext("Rotate Clockwise"),
                     "viewer.imageop(0)",
                     "<Control>R",
-                    ROTATE_90_STOCKID,
                 )
-                .item_icon(
-                    gettext("Rotate Counter Clockwis_e"),
-                    "viewer.imageop(1)",
-                    ROTATE_270_STOCKID,
-                )
-                .item_accel_and_icon(
+                .item(gettext("Rotate Counter Clockwis_e"), "viewer.imageop(1)")
+                .item_accel(
                     gettext("Rotate 180\u{00B0}"),
                     "viewer.imageop(2)",
                     "<Control><Shift>R",
-                    ROTATE_180_STOCKID,
                 )
-                .item_icon(
-                    gettext("Flip _Vertical"),
-                    "viewer.imageop(3)",
-                    FLIP_VERTICAL_STOCKID,
-                )
-                .item_icon(
-                    gettext("Flip _Horizontal"),
-                    "viewer.imageop(4)",
-                    FLIP_HORIZONTAL_STOCKID,
-                ),
+                .item(gettext("Flip _Vertical"), "viewer.imageop(3)")
+                .item(gettext("Flip _Horizontal"), "viewer.imageop(4)"),
         )
         .submenu(
             gettext("_Settings"),
