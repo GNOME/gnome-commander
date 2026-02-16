@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
 "POT-Creation-Date: 2020-07-20 08:22+0000\n"
-"PO-Revision-Date: 2026-02-15 16:47+0000\n"
+"PO-Revision-Date: 2026-02-16 16:47+0000\n"
 "Last-Translator: Miquel-Àngel Burgos i Fradeja <miquel.angel.burgos@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
@@ -4112,7 +4112,7 @@ msgstr "Edita (SHIFT per a document nou)"
 
 #: src/gnome-cmd-main-win.cc:246
 msgid "Open terminal (SHIFT for root privileges)"
-msgstr "Terminal obert (SHIFT per a privilegis de root)"
+msgstr "Obre un terminal (SHIFT per a privilegis de root)"
 
 #: src/gnome-cmd-main-win.cc:248
 msgid "Drop connection"
@@ -4217,7 +4217,7 @@ msgstr "Executa l'ordre"
 
 #: src/gnome-cmd-user-actions.cc:202
 msgid "Open terminal"
-msgstr "Terminal obert"
+msgstr "Obre un terminal"
 
 #: src/gnome-cmd-user-actions.cc:203
 msgid "Open terminal as root"
