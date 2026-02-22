@@ -38,7 +38,7 @@ use crate::{
         OPTIONAL_PATH_TYPE, StringOption, StrvOption, TypeConvertCallback, U32Option,
         VariantOption, WriteResult,
     },
-    search::profile::{SearchProfile, SearchProfileVariant},
+    search::profile::{LegacySearchProfileVariant, SearchProfile, SearchProfileVariant},
     tab_label::TabLockIndicator,
     types::{
         ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GraphicalLayoutMode, IconScaleQuality,
@@ -122,6 +122,7 @@ pub struct GeneralOptions {
 
     pub search_window_is_transient: BoolOption,
     pub search_profiles: VariantOption<Vec<SearchProfileVariant>>,
+    pub legacy_search_profiles: VariantOption<Vec<LegacySearchProfileVariant>>,
     pub search_pattern_history: StrvOption,
     pub search_text_history: StrvOption,
 
@@ -147,6 +148,7 @@ pub struct GeneralOptions {
 impl GeneralOptions {
     pub fn new() -> Self {
         let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.general");
+
         Self {
             allow_multiple_instances: BoolOption::simple(&settings, "allow-multiple-instances"),
             device_list: VariantOption::variant(&settings, "device-list"),
@@ -272,7 +274,8 @@ impl GeneralOptions {
                 "advrename-template-history",
             ),
             search_window_is_transient: BoolOption::simple(&settings, "search-win-is-transient"),
-            search_profiles: VariantOption::variant(&settings, "search-profiles"),
+            search_profiles: VariantOption::variant(&settings, "search-profiles-v2"),
+            legacy_search_profiles: VariantOption::variant(&settings, "search-profiles"),
             search_pattern_history: StrvOption::simple(&settings, "search-pattern-history"),
             search_text_history: StrvOption::simple(&settings, "search-text-history"),
             main_window_width: U32Option::simple(&settings, "main-win-width"),
@@ -527,6 +530,12 @@ impl SearchConfig {
         );
         settings.search_profiles.set(vs)?;
 
+        // Reset legacy setting, making sure we won’t keep adding legacy profiles if the user
+        // doesn’t have any search profiles.
+        let _ = settings
+            .legacy_search_profiles
+            .set(Vec::<LegacySearchProfileVariant>::new());
+
         if save_search_history {
             settings.search_pattern_history.set(self.name_patterns())?;
             settings.search_text_history.set(self.content_patterns())?;
@@ -544,17 +553,33 @@ impl SearchConfig {
         let mut iter = settings.search_profiles.get().into_iter();
         if let Some(v) = iter.next() {
             self.default_profile().load(v);
+            for v in iter {
+                let p = SearchProfile::default();
+                p.load(v);
+                self.profiles().append(&p);
+            }
+        } else {
+            // No search profiles, we might have the legacy setting to migrate.
+            self.load_legacy(settings);
         }
-        for v in iter {
-            let p = SearchProfile::default();
-            p.load(v);
-            self.profiles().append(&p);
-        }
+
         for item in settings.search_pattern_history.get().iter().rev() {
             self.name_patterns.add(item.to_string());
         }
         for item in settings.search_text_history.get().iter().rev() {
             self.content_patterns.add(item.to_string());
+        }
+    }
+
+    fn load_legacy(&self, settings: &GeneralOptions) {
+        let mut iter = settings.legacy_search_profiles.get().into_iter();
+        if let Some(v) = iter.next() {
+            self.default_profile().load_legacy(v);
+            for v in iter {
+                let p = SearchProfile::default();
+                p.load_legacy(v);
+                self.profiles().append(&p);
+            }
         }
     }
 }

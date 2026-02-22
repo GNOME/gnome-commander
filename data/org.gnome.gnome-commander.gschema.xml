@@ -561,6 +561,13 @@
     </key>
     <key name="search-profiles" type="a(siisbbs)">
       <default>[]</default>
+      <summary>Legacy search tool profiles</summary>
+      <description>
+          This setting is only present for backwards compatibility and will be removed in future.
+      </description>
+    </key>
+    <key name="search-profiles-v2" type="aa{sv}">
+      <default>[]</default>
       <summary>List of search tool profiles</summary>
       <description>
           The entries in this array represent the profiles in the search tool with specific settings for each profile.
