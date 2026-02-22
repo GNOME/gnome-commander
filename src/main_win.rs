@@ -39,15 +39,17 @@ use crate::{
         options::{GeneralOptions, SearchConfig},
         types::WriteResult,
     },
+    paned_ext::GnomeCmdPanedExt,
     plugin_manager::{PluginManager, wrap_plugin_menu},
     search::search_dialog::SearchDialog,
     shortcuts::Shortcuts,
     tags::tags::FileMetadataService,
     transfer::{copy_files, move_files},
     types::{ConfirmOverwriteMode, FileSelectorID},
-    user_actions::{ActionCode, USER_ACTIONS},
+    user_actions::UserAction,
     utils::{
         ALT_SHIFT, CONTROL, CONTROL_ALT, MenuBuilderExt, NO_MOD, SHIFT, extract_menu_shortcuts,
+        sleep,
     },
 };
 use gettextrs::gettext;
@@ -64,12 +66,10 @@ pub mod imp {
             options::{FiltersOptions, ProgramsOptions},
             utils::remember_window_state,
         },
-        paned_ext::GnomeCmdPanedExt,
         pwd::uid,
         shortcuts::Shortcut,
         spawn::{SpawnError, run_command_indir},
         types::QuickSearchShortcut,
-        utils::sleep,
     };
     use std::{
         cell::{Cell, RefCell},
@@ -144,63 +144,17 @@ pub mod imp {
         type ParentType = gtk::ApplicationWindow;
 
         fn class_init(klass: &mut Self::Class) {
-            klass.install_property_action("win.view-main-menu", "menu-visible");
-            klass.install_property_action("win.view-toolbar", "toolbar-visible");
-            klass.install_property_action(
-                "win.view-horizontal-orientation",
-                "horizontal-orientation",
-            );
-            klass.install_property_action("win.view-cmdline", "command-line-visible");
-            klass.install_property_action("win.view-buttonbar", "buttonbar-visible");
-
-            klass.install_property_action("win.view-conbuttons", "connection-buttons-visible");
-            klass.install_property_action("win.view-devlist", "connection-list-visible");
-            klass.install_property_action("win.view-hidden-files", "view-hidden-files");
-            klass.install_property_action("win.view-backup-files", "view-backup-files");
-
-            klass.install_action("win.swap-panes", None, |obj, _, _| obj.swap_panels());
-            klass.install_action("win.show-slide-popup", None, |obj, _, _| {
-                obj.imp().show_slide_popup()
-            });
-            klass.install_action(
-                "win.view-slide",
-                Some(&i32::static_variant_type()),
-                |obj, _, p| obj.imp().view_slide(p),
-            );
-            klass.install_action("win.view-equal-panes", None, |obj, _, _| {
-                obj.imp().spawn_ensure_slide_position(50)
-            });
-            klass.install_action("win.view-maximize-pane", None, |obj, _, _| {
-                obj.imp()
-                    .spawn_ensure_slide_position(if obj.current_panel() == 0 { 100 } else { 0 })
-            });
-
-            USER_ACTIONS.with(|user_actions| {
-                for user_action in user_actions {
-                    match &user_action.action_code {
-                        ActionCode::Plain { activate } => {
-                            let activate = activate.clone();
-                            klass.install_action(
-                                &format!("win.{}", user_action.action_name),
-                                None,
-                                move |obj, _, _| (activate)(obj.clone()),
-                            );
-                        }
-                        ActionCode::WithParameter {
-                            activate,
-                            parameter_type,
-                        } => {
-                            let activate = activate.clone();
-                            klass.install_action(
-                                &format!("win.{}", user_action.action_name),
-                                Some(parameter_type),
-                                move |obj, _, param| (activate)(obj.clone(), param),
-                            );
-                        }
-                        ActionCode::Predefined => {}
-                    }
+            for user_action in UserAction::all() {
+                if let Some(property) = user_action.bound_property() {
+                    klass.install_property_action(user_action.name(), property);
+                } else {
+                    klass.install_action(
+                        user_action.name(),
+                        user_action.parameter_type().as_deref(),
+                        move |obj, _, param| user_action.activate(obj.clone(), param),
+                    );
                 }
-            });
+            }
         }
 
         fn new() -> Self {
@@ -223,9 +177,8 @@ pub mod imp {
                     .css_classes(["main-toolbar"])
                     .build(),
                 con_drop: toolbar_button(
-                    &gettext("Drop connection"),
+                    UserAction::ConnectionsCloseCurrent,
                     REMOTE_DISCONNECT_ICON,
-                    "win.connections-close-current",
                 ),
                 toolbar_sep: gtk::Separator::builder()
                     .orientation(gtk::Orientation::Vertical)
@@ -253,13 +206,13 @@ pub mod imp {
                 buttonbar_sep: gtk::Separator::builder()
                     .orientation(gtk::Orientation::Vertical)
                     .build(),
-                view_btn: buttonbar_button(&gettext("F3 View"), "win.file-view"),
-                edit_btn: buttonbar_button(&gettext("F4 Edit"), "win.file-edit"),
-                copy_btn: buttonbar_button(&gettext("F5 Copy"), "win.file-copy"),
-                move_btn: buttonbar_button(&gettext("F6 Move"), "win.file-move"),
-                mkdir_btn: buttonbar_button(&gettext("F7 Mkdir"), "win.file-mkdir"),
-                delete_btn: buttonbar_button(&gettext("F8 Delete"), "win.file-delete"),
-                find_btn: buttonbar_button(&gettext("F9 Search"), "win.file-search"),
+                view_btn: buttonbar_button(&gettext("F3 View"), UserAction::FileView.name()),
+                edit_btn: buttonbar_button(&gettext("F4 Edit"), UserAction::FileEdit.name()),
+                copy_btn: buttonbar_button(&gettext("F5 Copy"), UserAction::FileCopy.name()),
+                move_btn: buttonbar_button(&gettext("F6 Move"), UserAction::FileMove.name()),
+                mkdir_btn: buttonbar_button(&gettext("F7 Mkdir"), UserAction::FileMkdir.name()),
+                delete_btn: buttonbar_button(&gettext("F8 Delete"), UserAction::FileDelete.name()),
+                find_btn: buttonbar_button(&gettext("F9 Search"), UserAction::FileSearch.name()),
 
                 plugin_manager,
                 file_metadata_service,
@@ -430,67 +383,67 @@ pub mod imp {
             shortcuts.extend([
                 gtk::Shortcut::new(
                     gtk::ShortcutTrigger::parse_string("<Control>x"),
-                    Some(gtk::NamedAction::new("win.edit-cap-cut")),
+                    Some(gtk::NamedAction::new(UserAction::EditCapCut.name())),
                 ),
                 gtk::Shortcut::new(
-                    gtk::ShortcutTrigger::parse_string("<Control>x"),
-                    Some(gtk::NamedAction::new("win.edit-cap-copy")),
+                    gtk::ShortcutTrigger::parse_string("<Control>c"),
+                    Some(gtk::NamedAction::new(UserAction::EditCapCopy.name())),
                 ),
                 gtk::Shortcut::new(
                     gtk::ShortcutTrigger::parse_string("<Control>v"),
-                    Some(gtk::NamedAction::new("win.edit-cap-paste")),
+                    Some(gtk::NamedAction::new(UserAction::EditCapPaste.name())),
                 ),
                 gtk::Shortcut::new(
                     gtk::ShortcutTrigger::parse_string("<Control>s"),
-                    Some(gtk::NamedAction::new("win.show-slide-popup")),
+                    Some(gtk::NamedAction::new(UserAction::ShowSlidePopup.name())),
                 ),
                 gtk::Shortcut::new(
                     gtk::ShortcutTrigger::parse_string("<Control>u"),
-                    Some(gtk::NamedAction::new("win.swap-panes")),
+                    Some(gtk::NamedAction::new(UserAction::SwapPanes.name())),
                 ),
                 gtk::Shortcut::new(
                     gtk::ShortcutTrigger::parse_string("<Alt><Shift>p"),
-                    Some(gtk::NamedAction::new("win.plugins-configure")),
+                    Some(gtk::NamedAction::new(UserAction::PluginsConfigure.name())),
                 ),
                 gtk::Shortcut::new(
                     gtk::ShortcutTrigger::parse_string("<Control><Shift>h"),
-                    Some(gtk::NamedAction::new("win.view-hidden-files")),
+                    Some(gtk::NamedAction::new(UserAction::ViewHiddenFiles.name())),
                 ),
                 gtk::Shortcut::new(
                     gtk::ShortcutTrigger::parse_string("F1"),
-                    Some(gtk::NamedAction::new("win.help-help")),
+                    Some(gtk::NamedAction::new(UserAction::HelpHelp.name())),
                 ),
                 gtk::Shortcut::new(
                     gtk::ShortcutTrigger::parse_string("F2"),
-                    Some(gtk::NamedAction::new("win.file-rename")),
+                    Some(gtk::NamedAction::new(UserAction::FileRename.name())),
                 ),
                 gtk::Shortcut::new(
                     gtk::ShortcutTrigger::parse_string("F3"),
-                    Some(gtk::NamedAction::new("win.file-view")),
+                    Some(gtk::NamedAction::new(UserAction::FileView.name())),
                 ),
                 gtk::Shortcut::new(
                     gtk::ShortcutTrigger::parse_string("F4"),
-                    Some(gtk::NamedAction::new("win.file-edit")),
+                    Some(gtk::NamedAction::new(UserAction::FileEdit.name())),
                 ),
                 gtk::Shortcut::new(
                     gtk::ShortcutTrigger::parse_string("F5"),
-                    Some(gtk::NamedAction::new("win.file-copy")),
+                    Some(gtk::NamedAction::new(UserAction::FileCopy.name())),
                 ),
                 gtk::Shortcut::new(
                     gtk::ShortcutTrigger::parse_string("F6"),
-                    Some(gtk::NamedAction::new("win.file-move")),
+                    Some(gtk::NamedAction::new(UserAction::FileMove.name())),
                 ),
                 gtk::Shortcut::new(
                     gtk::ShortcutTrigger::parse_string("F7"),
-                    Some(gtk::NamedAction::new("win.file-mkdir")),
+                    Some(gtk::NamedAction::new(UserAction::FileMkdir.name())),
                 ),
                 gtk::Shortcut::new(
                     gtk::ShortcutTrigger::parse_string("F8"),
-                    Some(gtk::NamedAction::new("win.file-delete")),
+                    Some(gtk::NamedAction::new(UserAction::FileDelete.name())),
                 ),
                 gtk::Shortcut::new(
                     gtk::ShortcutTrigger::parse_string("F9"),
-                    Some(gtk::NamedAction::new("win.file-search")),
+                    Some(gtk::NamedAction::new(UserAction::FileSearch.name())),
                 ),
             ]);
             let shortcuts_controller = gtk::ShortcutController::for_model(&shortcuts);
@@ -690,7 +643,8 @@ pub mod imp {
     impl WidgetImpl for MainWindow {
         fn realize(&self) {
             self.parent_realize();
-            self.spawn_ensure_slide_position(50);
+            let _ =
+                WidgetExt::activate_action(&*self.obj(), UserAction::ViewEqualPanes.name(), None);
         }
     }
 
@@ -704,84 +658,47 @@ pub mod imp {
         }
 
         fn create_toolbar(&self) {
-            self.toolbar.append(&toolbar_button(
-                &gettext("Refresh"),
-                "view-refresh",
-                "win.view-refresh",
-            ));
-            self.toolbar.append(&toolbar_button(
-                &gettext("Up one directory"),
-                "go-up",
-                "win.view-up",
-            ));
-            self.toolbar.append(&toolbar_button(
-                &gettext("Go to the oldest"),
-                "go-first",
-                "win.view-first",
-            ));
-            self.toolbar.append(&toolbar_button(
-                &gettext("Go back"),
-                "go-previous",
-                "win.view-back",
-            ));
-            self.toolbar.append(&toolbar_button(
-                &gettext("Go forward"),
-                "go-next",
-                "win.view-forward",
-            ));
-            self.toolbar.append(&toolbar_button(
-                &gettext("Go to the latest"),
-                "go-last",
-                "win.view-last",
-            ));
+            self.toolbar
+                .append(&toolbar_button(UserAction::ViewRefresh, "view-refresh"));
+            self.toolbar
+                .append(&toolbar_button(UserAction::ViewUp, "go-up"));
+            self.toolbar
+                .append(&toolbar_button(UserAction::ViewFirst, "go-first"));
+            self.toolbar
+                .append(&toolbar_button(UserAction::ViewBack, "go-previous"));
+            self.toolbar
+                .append(&toolbar_button(UserAction::ViewForward, "go-next"));
+            self.toolbar
+                .append(&toolbar_button(UserAction::ViewLast, "go-last"));
             self.toolbar
                 .append(&gtk::Separator::new(gtk::Orientation::Vertical));
             self.toolbar.append(&toolbar_button(
-                &gettext("Copy file names (SHIFT for full paths, ALT for URIs)"),
+                UserAction::EditCopyNames,
                 COPY_FILE_NAMES_ICON,
-                "win.edit-copy-fnames",
             ));
+            self.toolbar
+                .append(&toolbar_button(UserAction::EditCapCut, "edit-cut"));
+            self.toolbar
+                .append(&toolbar_button(UserAction::EditCapCopy, "edit-copy"));
+            self.toolbar
+                .append(&toolbar_button(UserAction::EditCapPaste, "edit-paste"));
+            self.toolbar
+                .append(&toolbar_button(UserAction::FileDelete, DELETE_FILE_ICON));
+            self.toolbar
+                .append(&toolbar_button(UserAction::FileEdit, EDIT_FILE_ICON));
             self.toolbar.append(&toolbar_button(
-                &gettext("Cut"),
-                "edit-cut",
-                "win.edit-cap-cut",
-            ));
-            self.toolbar.append(&toolbar_button(
-                &gettext("Copy"),
-                "edit-copy",
-                "win.edit-cap-copy",
-            ));
-            self.toolbar.append(&toolbar_button(
-                &gettext("Paste"),
-                "edit-paste",
-                "win.edit-cap-paste",
-            ));
-            self.toolbar.append(&toolbar_button(
-                &gettext("Delete"),
-                DELETE_FILE_ICON,
-                "win.file-delete",
-            ));
-            self.toolbar.append(&toolbar_button(
-                &gettext("Edit (SHIFT for new document)"),
-                EDIT_FILE_ICON,
-                "win.file-edit",
-            ));
-            self.toolbar.append(&toolbar_button(
-                &gettext("Send files"),
+                UserAction::FileSendto,
                 GTK_MAILSEND_STOCKID,
-                "win.file-sendto",
             ));
             self.toolbar.append(&toolbar_button(
-                &gettext("Open terminal"),
+                UserAction::CommandOpenTerminal,
                 GTK_TERMINAL_STOCKID,
-                "win.command-open-terminal",
             ));
             self.toolbar
                 .append(&gtk::Separator::new(gtk::Orientation::Vertical));
             self.toolbar.append(&toolbar_button(
-                &gettext("Remote Server"),
+                UserAction::ConnectionsOpen,
                 REMOTE_CONNECT_ICON,
-                "win.connections-open",
             ));
             self.toolbar.append(&self.con_drop);
         }
@@ -790,7 +707,7 @@ pub mod imp {
             if let Some(connection) = connection {
                 let closeable = connection.is_closeable();
                 self.obj()
-                    .action_set_enabled("win.connections-close-current", closeable);
+                    .action_set_enabled(UserAction::ConnectionsCloseCurrent.name(), closeable);
 
                 if closeable {
                     self.con_drop
@@ -811,7 +728,7 @@ pub mod imp {
             }
 
             self.obj()
-                .action_set_enabled("win.connections-close-current", false);
+                .action_set_enabled(UserAction::ConnectionsCloseCurrent.name(), false);
             self.con_drop.set_icon_name(REMOTE_DISCONNECT_ICON);
             self.con_drop.set_tooltip_text(None);
         }
@@ -853,13 +770,7 @@ pub mod imp {
             }
         }
 
-        pub fn show_slide_popup(&self) {
-            if let Some(handle_rect) = self.paned.handle_rect() {
-                self.show_slide_popup_at(&handle_rect.center());
-            }
-        }
-
-        fn show_slide_popup_at(&self, point: &graphene::Point) {
+        pub fn show_slide_popup_at(&self, point: &graphene::Point) {
             let popover = gtk::PopoverMenu::builder()
                 .menu_model(&create_slide_popup())
                 .pointing_to(&gdk::Rectangle::new(
@@ -886,27 +797,6 @@ pub mod imp {
             popover.popup();
         }
 
-        fn view_slide(&self, parameter: Option<&glib::Variant>) {
-            let percentage: i32 = parameter.and_then(|v| v.get()).unwrap_or(50);
-            let _ = self.set_slide(percentage);
-        }
-
-        fn set_slide(&self, percentage: i32) -> bool {
-            let dimension = if self.horizontal_orientation.get() {
-                self.paned.height()
-            } else {
-                self.paned.width()
-            };
-            let new_dimension = dimension * percentage / 100;
-
-            if self.paned.is_position_set() && self.paned.position() == new_dimension {
-                true
-            } else {
-                self.paned.set_position(new_dimension);
-                false
-            }
-        }
-
         fn set_horizontal_orientation(&self, horizontal_orientation: bool) {
             self.horizontal_orientation.set(horizontal_orientation);
             self.paned.set_orientation(if horizontal_orientation {
@@ -915,24 +805,9 @@ pub mod imp {
                 gtk::Orientation::Horizontal
             });
 
-            self.spawn_ensure_slide_position(50);
+            let _ =
+                WidgetExt::activate_action(&*self.obj(), UserAction::ViewEqualPanes.name(), None);
             self.obj().focus_file_lists();
-        }
-
-        async fn ensure_slide_position(&self, percentage: i32) {
-            loop {
-                sleep(10).await;
-                if self.set_slide(percentage) {
-                    break;
-                }
-            }
-        }
-
-        fn spawn_ensure_slide_position(&self, percentage: i32) {
-            let this = self.obj().clone();
-            glib::spawn_future_local(async move {
-                this.imp().ensure_slide_position(percentage).await;
-            });
         }
 
         fn on_cmdline_change_directory(&self, dest_dir: &str) {
@@ -1047,11 +922,14 @@ pub mod imp {
             if *fs == self.obj().file_selector(FileSelectorID::Active) {
                 let can_back = fs.can_back();
                 let can_forward = fs.can_forward();
-                self.obj().action_set_enabled("win.view-first", can_back);
-                self.obj().action_set_enabled("win.view-back", can_back);
                 self.obj()
-                    .action_set_enabled("win.view-forward", can_forward);
-                self.obj().action_set_enabled("win.view-last", can_forward);
+                    .action_set_enabled(UserAction::ViewFirst.name(), can_back);
+                self.obj()
+                    .action_set_enabled(UserAction::ViewBack.name(), can_back);
+                self.obj()
+                    .action_set_enabled(UserAction::ViewForward.name(), can_forward);
+                self.obj()
+                    .action_set_enabled(UserAction::ViewLast.name(), can_forward);
             }
         }
 
@@ -1145,11 +1023,11 @@ pub mod imp {
         }
     }
 
-    fn toolbar_button(label: &str, icon: &str, action: &str) -> gtk::Button {
+    fn toolbar_button(action: UserAction, icon: &str) -> gtk::Button {
         let button = gtk::Button::builder()
             .icon_name(icon)
-            .tooltip_text(label)
-            .action_name(action)
+            .tooltip_text(&action.description())
+            .action_name(action.name())
             .build();
         button.add_css_class("flat");
         button
@@ -1175,13 +1053,23 @@ pub mod imp {
 
     fn create_slide_popup() -> gio::Menu {
         let menu = gio::Menu::new();
-        menu.append(Some("100 - 0"), Some("win.view-slide(100)"));
-        menu.append(Some("80 - 20"), Some("win.view-slide(80)"));
-        menu.append(Some("60 - 40"), Some("win.view-slide(60)"));
-        menu.append(Some("50 - 50"), Some("win.view-slide(50)"));
-        menu.append(Some("40 - 60"), Some("win.view-slide(40)"));
-        menu.append(Some("20 - 80"), Some("win.view-slide(20)"));
-        menu.append(Some("0 - 100"), Some("win.view-slide(0)"));
+
+        for (label, value) in [
+            ("100 - 0", 100),
+            ("80 - 20", 80),
+            ("60 - 40", 60),
+            ("50 - 50", 50),
+            ("40 - 60", 40),
+            ("20 - 80", 20),
+            ("0 - 100", 0),
+        ] {
+            let item = gio::MenuItem::new(Some(label), None);
+            item.set_action_and_target_value(
+                Some(UserAction::ViewSlide.name()),
+                Some(&value.to_variant()),
+            );
+            menu.append_item(&item);
+        }
         menu
     }
 }
@@ -1463,7 +1351,7 @@ pub struct CutAndPasteState {
 
 impl MainWindow {
     fn set_cap_state(&self, state: bool) {
-        self.action_set_enabled("win.edit-cap-paste", state);
+        self.action_set_enabled(UserAction::EditCapPaste.name(), state);
     }
 
     pub fn cut_files(&self) {
@@ -1546,6 +1434,38 @@ impl MainWindow {
         }
         self.focus_file_lists();
     }
+
+    pub fn set_slide(&self, percentage: i32) -> bool {
+        let paned = &self.imp().paned;
+        let dimension = if self.horizontal_orientation() {
+            paned.height()
+        } else {
+            paned.width()
+        };
+        let new_dimension = dimension * percentage / 100;
+
+        if paned.is_position_set() && paned.position() == new_dimension {
+            true
+        } else {
+            paned.set_position(new_dimension);
+            false
+        }
+    }
+
+    pub async fn ensure_slide_position(&self, percentage: i32) {
+        loop {
+            sleep(10).await;
+            if self.set_slide(percentage) {
+                break;
+            }
+        }
+    }
+
+    pub fn show_slide_popup(&self) {
+        if let Some(handle_rect) = self.imp().paned.handle_rect() {
+            self.imp().show_slide_popup_at(&handle_rect.center());
+        }
+    }
 }
 
 fn main_menu(main_win: &MainWindow) -> gio::Menu {
@@ -1555,34 +1475,22 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
         gio::Menu::new()
             .section({
                 gio::Menu::new()
-                    .item(gettext("Change _Owner/Group"), "win.file-chown")
-                    .item(gettext("Change Per_missions"), "win.file-chmod")
-                    .item_accel(
-                        gettext("Advanced _Rename Tool"),
-                        "win.file-advrename",
-                        "<Control>M",
-                    )
-                    .item_accel(
-                        gettext("Create _Symbolic Link"),
-                        "win.file-create-symlink",
-                        "<Control><shift>F5",
-                    )
-                    .item_accel(
-                        gettext("_Properties…"),
-                        "win.file-properties",
-                        "<Alt>KP_Enter",
-                    )
+                    .action(UserAction::FileChown)
+                    .action(UserAction::FileChmod)
+                    .action_accel(UserAction::FileAdvrename, "<Control>M")
+                    .action_accel(UserAction::FileCreateSymlink, "<Control><shift>F5")
+                    .action_accel(UserAction::FileProperties, "<Alt>KP_Enter")
             })
             .section({
                 gio::Menu::new()
-                    .item_accel(gettext("_Search…"), "win.file-search", "F9")
-                    .item(gettext("_Quick Search…"), "win.file-quick-search")
-                    .item(gettext("_Enable Filter…"), "win.edit-filter")
+                    .action_accel(UserAction::FileSearch, "F9")
+                    .action(UserAction::FileQuickSearch)
+                    .action(UserAction::EditFilter)
             })
             .section({
                 gio::Menu::new()
-                    .item(gettext("_Diff"), "win.file-diff")
-                    .item(gettext("S_ynchronize Directories"), "win.file-sync-dirs")
+                    .action(UserAction::FileDiff)
+                    .action(UserAction::FileSyncDirs)
             })
     });
 
@@ -1590,148 +1498,79 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
         gio::Menu::new()
             .section({
                 gio::Menu::new()
-                    .item_accel(gettext("Cu_t"), "win.edit-cap-cut", "<Control>X")
-                    .item_accel(gettext("_Copy"), "win.edit-cap-copy", "<Control>C")
-                    .item_accel(gettext("_Paste"), "win.edit-cap-paste", "<Control>V")
-                    .item_accel(gettext("_Delete"), "win.file-delete", "Delete")
+                    .action_accel(UserAction::EditCapCut, "<Control>X")
+                    .action_accel(UserAction::EditCapCopy, "<Control>C")
+                    .action_accel(UserAction::EditCapPaste, "<Control>V")
+                    .action_accel(UserAction::FileDelete, "Delete")
             })
-            .item(gettext("Copy _File Names"), "win.edit-copy-fnames")
+            .action(UserAction::EditCopyNames)
     });
 
     menu.append_submenu(Some(&gettext("_Mark")), &{
         gio::Menu::new()
             .section({
                 gio::Menu::new()
-                    .item_accel(
-                        gettext("_Select All"),
-                        "win.mark-select-all",
-                        "<Control>KP_Add",
-                    )
-                    .item_accel(
-                        gettext("_Unselect All"),
-                        "win.mark-unselect-all",
-                        "<Control>KP_Subtract",
-                    )
-                    .item(gettext("Select all _Files"), "win.mark-select-all-files")
-                    .item(
-                        gettext("Unselect all Fi_les"),
-                        "win.mark-unselect-all-files",
-                    )
-                    .item_accel(
-                        gettext("Select with _Pattern"),
-                        "win.mark-select-with-pattern",
-                        "KP_Add",
-                    )
-                    .item_accel(
-                        gettext("Unselect with P_attern"),
-                        "win.mark-unselect-with-pattern",
-                        "KP_Subtract",
-                    )
-                    .item(
-                        gettext("Select with same _Extension"),
-                        "win.mark-select-all-with-same-extension",
-                    )
-                    .item(
-                        gettext("Unselect with same E_xtension"),
-                        "win.mark-unselect-all-with-same-extension",
-                    )
-                    .item_accel(
-                        gettext("_Invert Selection"),
-                        "win.mark-invert-selection",
-                        "KP_Multiply",
-                    )
-                    .item(gettext("_Restore Selection"), "win.mark-restore-selection")
+                    .action_accel(UserAction::MarkSelectAll, "<Control>KP_Add")
+                    .action_accel(UserAction::MarkUnselectAll, "<Control>KP_Subtract")
+                    .action(UserAction::MarkSelectAllFiles)
+                    .action(UserAction::MarkUnselectAllFiles)
+                    .action_accel(UserAction::MarkSelectWithPattern, "KP_Add")
+                    .action_accel(UserAction::MarkUnselectWithPattern, "KP_Subtract")
+                    .action(UserAction::MarkSelectAllWithSameExtension)
+                    .action(UserAction::MarkUnselectAllWithSameExtension)
+                    .action_accel(UserAction::MarkInvertSelection, "KP_Multiply")
+                    .action(UserAction::MarkRestoreSelection)
             })
-            .item_accel(
-                gettext("_Compare Directories"),
-                "win.mark-compare-directories",
-                "<Shift>F2",
-            )
+            .action_accel(UserAction::MarkCompareDirectories, "<Shift>F2")
     });
 
     menu.append_submenu(Some(&gettext("_View")), &{
         gio::Menu::new()
             .section({
                 gio::Menu::new()
-                    .item_accel(gettext("_Back"), "win.view-back", "<Alt>Pointer_Left")
-                    .item_accel(
-                        gettext("_Forward"),
-                        "win.view-forward",
-                        "<Alt>Pointer_Right",
-                    )
-                    .item_accel(gettext("_Refresh"), "win.view-refresh", "<Control>R")
+                    .action_accel(UserAction::ViewBack, "<Alt>Pointer_Left")
+                    .action_accel(UserAction::ViewForward, "<Alt>Pointer_Right")
+                    .action_accel(UserAction::ViewRefresh, "<Control>R")
             })
             .section({
                 gio::Menu::new()
-                    .item_accel(
-                        gettext("Open in New _Tab"),
-                        "win.view-new-tab",
-                        "<Control>T",
-                    )
-                    .item_accel(gettext("_Close Tab"), "win.view-close-tab", "<Control>W")
-                    .item_accel(
-                        gettext("Close _All Tabs"),
-                        "win.view-close-all-tabs",
-                        "<Control><Shift>W",
-                    )
+                    .action_accel(UserAction::ViewNewTab, "<Control>T")
+                    .action_accel(UserAction::ViewCloseTab, "<Control>W")
+                    .action_accel(UserAction::ViewCloseAllTabs, "<Control><Shift>W")
             })
             .section({
                 gio::Menu::new()
-                    .item(gettext("Show Toolbar"), "win.view-toolbar")
-                    .item(gettext("Show Device Buttons"), "win.view-conbuttons")
-                    .item(gettext("Show Device List"), "win.view-devlist")
-                    .item(gettext("Show Command Line"), "win.view-cmdline")
-                    .item(gettext("Show Buttonbar"), "win.view-buttonbar")
+                    .action(UserAction::ViewToolbar)
+                    .action(UserAction::ViewConbuttons)
+                    .action(UserAction::ViewDevlist)
+                    .action(UserAction::ViewCmdline)
+                    .action(UserAction::ViewButtonbar)
             })
             .section({
                 gio::Menu::new()
-                    .item_accel(
-                        gettext("Show Hidden Files"),
-                        "win.view-hidden-files",
-                        "<Control><Shift>H",
-                    )
-                    .item(gettext("Show Backup Files"), "win.view-backup-files")
+                    .action_accel(UserAction::ViewHiddenFiles, "<Control><Shift>H")
+                    .action(UserAction::ViewBackupFiles)
             })
             .section({
                 gio::Menu::new()
-                    .item_accel(
-                        gettext("_Equal Panel Size"),
-                        "win.view-equal-panes",
-                        "<Control><Shift>KP_Equal",
-                    )
-                    .item(gettext("Maximize Panel Size"), "win.view-maximize-pane")
+                    .action_accel(UserAction::ViewEqualPanes, "<Control><Shift>KP_Equal")
+                    .action(UserAction::ViewMaximizePane)
             })
-            .section({
-                gio::Menu::new().item(
-                    gettext("Horizontal Orientation"),
-                    "win.view-horizontal-orientation",
-                )
-            })
+            .section(gio::Menu::new().action(UserAction::ViewHorizontalOrientation))
     });
 
     menu.append_submenu(Some(&gettext("_Settings")), &{
         gio::Menu::new()
-            .item_accel(gettext("_Options…"), "win.options-edit", "<Control>O")
-            .item(
-                gettext("_Keyboard Shortcuts…"),
-                "win.options-edit-shortcuts",
-            )
+            .action_accel(UserAction::OptionsEdit, "<Control>O")
+            .action(UserAction::OptionsEditShortcuts)
     });
 
     menu.append_submenu(Some(&gettext("_Connections")), &{
         gio::Menu::new()
             .section({
                 gio::Menu::new()
-                    .item_accel(
-                        gettext("_Remote Server…"),
-                        "win.connections-open",
-                        "<Control>F",
-                    )
-                    .item_accel(
-                        gettext("New Connection…"),
-                        "win.connections-new",
-                        "<Control>N",
-                    )
+                    .action_accel(UserAction::ConnectionsOpen, "<Control>F")
+                    .action_accel(UserAction::ConnectionsNew, "<Control>N")
             })
             .section(local_connections_menu())
             .section(connections_menu())
@@ -1741,24 +1580,15 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
         gio::Menu::new()
             .section({
                 gio::Menu::new()
-                    .item(
-                        gettext("_Bookmark this Directory…"),
-                        "win.bookmarks-add-current",
-                    )
-                    .item_accel(
-                        gettext("_Manage Bookmarks…"),
-                        "win.bookmarks-edit",
-                        "<Control>D",
-                    )
+                    .action(UserAction::BookmarksAddCurrent)
+                    .action_accel(UserAction::BookmarksEdit, "<Control>D")
             })
             .section(create_bookmarks_menu())
     });
 
     menu.append_submenu(Some(&gettext("_Plugins")), &{
         gio::Menu::new()
-            .section({
-                gio::Menu::new().item(gettext("_Configure Plugins…"), "win.plugins-configure")
-            })
+            .section(gio::Menu::new().action(UserAction::PluginsConfigure))
             .section(create_plugins_menu(main_win))
     });
 
@@ -1766,12 +1596,12 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
         gio::Menu::new()
             .section({
                 gio::Menu::new()
-                    .item_accel(gettext("_Documentation"), "win.help-help", "F1")
-                    .item(gettext("_Keyboard Shortcuts"), "win.help-keyboard")
-                    .item(gettext("GNOME Commander on the _Web"), "win.help-web")
-                    .item(gettext("Report a _Problem"), "win.help-problem")
+                    .action_accel(UserAction::HelpHelp, "F1")
+                    .action(UserAction::HelpKeyboard)
+                    .action(UserAction::HelpWeb)
+                    .action(UserAction::HelpProblem)
             })
-            .item(gettext("_About"), "win.help-about")
+            .action(UserAction::HelpAbout)
     });
 
     menu
@@ -1790,7 +1620,7 @@ fn local_connections_menu() -> gio::Menu {
         {
             let item = gio::MenuItem::new(con.go_text().as_deref(), None);
             item.set_action_and_target_value(
-                Some("win.connections-set-current"),
+                Some(UserAction::ConnectionsSetCurrent.name()),
                 Some(&con.uuid().to_variant()),
             );
 
@@ -1811,7 +1641,7 @@ fn connections_menu() -> gio::Menu {
         if con.is_closeable() && con.is_open() {
             let item = gio::MenuItem::new(con.close_text().as_deref(), None);
             item.set_action_and_target_value(
-                Some("win.connections-close"),
+                Some(UserAction::ConnectionsClose.name()),
                 Some(&con.uuid().to_variant()),
             );
             menu.append_item(&item);
@@ -1837,7 +1667,7 @@ fn create_bookmarks_menu() -> gio::Menu {
                 let name = bookmark.name();
                 let item = gio::MenuItem::new(Some(&name), None);
                 item.set_action_and_target_value(
-                    Some("win.bookmarks-goto"),
+                    Some(UserAction::BookmarksGoto.name()),
                     Some(
                         &BookmarkGoToVariant {
                             connection_uuid: con_uuid.clone(),

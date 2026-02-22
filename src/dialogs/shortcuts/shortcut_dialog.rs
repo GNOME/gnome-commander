@@ -17,10 +17,10 @@
  * For more details see the file COPYING.
  */
 
-use super::user_action::{ShortcutAction, action_description};
+use super::user_action::ShortcutAction;
 use crate::{
     shortcuts::{Call, Shortcut},
-    user_actions::USER_ACTIONS,
+    user_actions::UserAction,
     utils::{ErrorMessage, channel_send_action, handle_escape_key},
 };
 use gettextrs::gettext;
@@ -35,19 +35,17 @@ mod imp {
     use std::cell::Cell;
 
     fn actions_model() -> gio::ListStore {
-        USER_ACTIONS.with(|user_actions| {
-            let actions_model = gio::ListStore::new::<glib::BoxedAnyObject>();
-            for user_action in user_actions {
-                if !user_action.has_parameter() {
-                    // skip parametrized actions
-                    actions_model.append(&glib::BoxedAnyObject::new(Call {
-                        action_name: user_action.action_name.to_owned(),
-                        action_data: None,
-                    }));
-                }
+        let actions_model = gio::ListStore::new::<glib::BoxedAnyObject>();
+        for user_action in UserAction::all() {
+            // TODO: Action parameters cannot currently be configured
+            if !user_action.has_parameter() {
+                actions_model.append(&glib::BoxedAnyObject::new(Call {
+                    action: user_action,
+                    action_data: None,
+                }));
             }
-            actions_model
-        })
+        }
+        actions_model
     }
 
     fn action_factory(ellipsize: bool) -> gtk::ListItemFactory {
@@ -79,7 +77,7 @@ mod imp {
             let Some(label) = list_item.child().and_downcast::<gtk::Label>() else {
                 return;
             };
-            label.set_label(&action_description(&action.borrow::<Call>().action_name));
+            label.set_label(&action.borrow::<Call>().action.description());
         });
         factory.upcast()
     }
@@ -242,7 +240,7 @@ mod imp {
             if let Some(position) = position {
                 self.action_widget.set_selected(position);
             } else {
-                eprintln!("Unknown action {}", call.action_name);
+                eprintln!("Unknown action {}", call.action.name());
             }
             self.action_widget.set_sensitive(false);
         }
@@ -305,7 +303,7 @@ mod imp {
             };
 
             let call = Call {
-                action_name: action.action_name,
+                action: action.action,
                 action_data: None,
             };
             self.sender.toss(Some((shortcut, call)));
@@ -370,7 +368,7 @@ fn find_action(shortcut: Shortcut, existing: &gio::ListModel) -> Option<String> 
             .and_downcast::<glib::BoxedAnyObject>()
             .map(|o| o.borrow::<ShortcutAction>().clone())
             .filter(|ua| ua.shortcut == shortcut)
-            .map(|ua| action_description(&ua.call.action_name))
+            .map(|ua| ua.call.action.description())
     })
 }
 

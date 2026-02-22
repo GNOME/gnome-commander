@@ -28,6 +28,7 @@ use crate::{
     main_win::MainWindow,
     options::options::GeneralOptions,
     plugin_manager::wrap_plugin_menu,
+    user_actions::UserAction,
     utils::MenuBuilderExt,
 };
 use gettextrs::gettext;
@@ -232,16 +233,16 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
 
     menu.append_section(None, &{
         gio::Menu::new()
-            .item(gettext("Cut"), "win.edit-cap-cut")
-            .item(gettext("Copy"), "win.edit-cap-copy")
-            .item(gettext("Copy file names"), "win.edit-copy-fnames")
-            .item(gettext("Delete"), "win.file-delete")
-            .item(gettext("Rename"), "win.file-rename")
-            .item(gettext("Send files"), "win.file-sendto")
-            .item(gettext("Open _terminal here"), "win.command-open-terminal")
+            .action(UserAction::EditCapCut)
+            .action(UserAction::EditCapCopy)
+            .action(UserAction::EditCopyNames)
+            .action(UserAction::FileDelete)
+            .action(UserAction::FileRename)
+            .action(UserAction::FileSendto)
+            .action(UserAction::CommandOpenTerminal)
     });
 
-    menu.append(Some(&gettext("_Properties…")), Some("win.file-properties"));
+    let menu = menu.action(UserAction::FileProperties);
 
     Some(menu)
 }
@@ -250,10 +251,10 @@ pub fn list_popup_menu() -> gio::Menu {
     gio::Menu::new()
         .submenu(gettext("New"), {
             gio::Menu::new()
-                .item(gettext("_Directory"), "win.file-mkdir")
-                .item(gettext("_Text File"), "win.file-edit-new-doc")
+                .action(UserAction::FileMkdir)
+                .action(UserAction::FileEditNewDoc)
         })
-        .item(gettext("_Paste"), "win.edit-cap-paste")
-        .item(gettext("Open _terminal here"), "win.command-open-terminal")
-        .item(gettext("_Refresh"), "fl.refresh")
+        .action(UserAction::EditCapPaste)
+        .action(UserAction::CommandOpenTerminal)
+        .action(UserAction::ViewRefresh)
 }

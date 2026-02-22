@@ -25,6 +25,7 @@ use crate::{
         GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION, PluginInfo,
         configurable::{Configurable, ConfigurableExt},
     },
+    user_actions::UserAction,
     utils::{NO_BUTTONS, dialog_button_box, handle_escape_key},
 };
 use gettextrs::gettext;
@@ -377,7 +378,7 @@ pub fn wrap_plugin_menu(plugin: &str, menu: &gio::MenuModel) -> gio::Menu {
                 parameter: target,
             };
             item.set_action_and_target_value(
-                Some("win.plugin-action"),
+                Some(UserAction::PluginAction.name()),
                 Some(&plugin_action_target.to_variant()),
             );
         } else {
