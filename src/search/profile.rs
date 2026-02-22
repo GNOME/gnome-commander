@@ -19,6 +19,7 @@
 
 use crate::filter::PatternType;
 use gtk::{glib, prelude::*, subclass::prelude::*};
+use std::collections::HashMap;
 
 mod imp {
     use super::*;
@@ -101,19 +102,84 @@ impl SearchProfile {
         self.set_syntax(i32::from(pattern_type));
     }
 
+    const SETTING_NAME: &str = "name";
+    const SETTING_MAX_DEPTH: &str = "max-depth";
+    const SETTING_PATH_SYNTAX: &str = "path-syntax";
+    const SETTING_PATH_PATTERN: &str = "path-pattern";
+    const SETTING_CONTENT_SEARCH: &str = "content-search";
+    const SETTING_CONTENT_MATCH_CASE: &str = "content-match-case";
+    const SETTING_CONTENT_PATTERN: &str = "content-pattern";
+
     pub fn save(&self) -> SearchProfileVariant {
-        SearchProfileVariant {
-            name: self.name(),
-            max_depth: self.max_depth(),
-            syntax: self.syntax(),
-            filename_pattern: self.filename_pattern(),
-            content_search: self.content_search(),
-            match_case: self.match_case(),
-            text_pattern: self.text_pattern(),
-        }
+        let mut v = SearchProfileVariant::new();
+        v.insert(Self::SETTING_NAME.to_string(), self.name().into());
+        v.insert(Self::SETTING_MAX_DEPTH.to_string(), self.max_depth().into());
+        v.insert(Self::SETTING_PATH_SYNTAX.to_string(), self.syntax().into());
+        v.insert(
+            Self::SETTING_PATH_PATTERN.to_string(),
+            self.filename_pattern().into(),
+        );
+        v.insert(
+            Self::SETTING_CONTENT_SEARCH.to_string(),
+            self.content_search().into(),
+        );
+        v.insert(
+            Self::SETTING_CONTENT_MATCH_CASE.to_string(),
+            self.match_case().into(),
+        );
+        v.insert(
+            Self::SETTING_CONTENT_PATTERN.to_string(),
+            self.text_pattern().into(),
+        );
+        v
     }
 
     pub fn load(&self, variant: SearchProfileVariant) {
+        if let Some(name) = variant
+            .get(Self::SETTING_NAME)
+            .and_then(String::from_variant)
+        {
+            self.set_name(name);
+        }
+        if let Some(max_depth) = variant
+            .get(Self::SETTING_MAX_DEPTH)
+            .and_then(i32::from_variant)
+        {
+            self.set_max_depth(max_depth);
+        }
+        if let Some(path_syntax) = variant
+            .get(Self::SETTING_PATH_SYNTAX)
+            .and_then(i32::from_variant)
+        {
+            self.set_syntax(path_syntax);
+        }
+        if let Some(path_pattern) = variant
+            .get(Self::SETTING_PATH_PATTERN)
+            .and_then(String::from_variant)
+        {
+            self.set_filename_pattern(path_pattern);
+        }
+        if let Some(content_search) = variant
+            .get(Self::SETTING_CONTENT_SEARCH)
+            .and_then(bool::from_variant)
+        {
+            self.set_content_search(content_search);
+        }
+        if let Some(content_match_case) = variant
+            .get(Self::SETTING_CONTENT_MATCH_CASE)
+            .and_then(bool::from_variant)
+        {
+            self.set_match_case(content_match_case);
+        }
+        if let Some(content_pattern) = variant
+            .get(Self::SETTING_CONTENT_PATTERN)
+            .and_then(String::from_variant)
+        {
+            self.set_text_pattern(content_pattern);
+        }
+    }
+
+    pub fn load_legacy(&self, variant: LegacySearchProfileVariant) {
         self.set_name(variant.name);
         self.set_max_depth(variant.max_depth);
         self.set_syntax(variant.syntax);
@@ -124,8 +190,10 @@ impl SearchProfile {
     }
 }
 
+pub type SearchProfileVariant = HashMap<String, glib::Variant>;
+
 #[derive(glib::Variant)]
-pub struct SearchProfileVariant {
+pub struct LegacySearchProfileVariant {
     pub name: String,
     pub max_depth: i32,
     pub syntax: i32,
@@ -141,6 +209,35 @@ mod test {
 
     #[test]
     fn test_variant_type() {
-        assert_eq!(&*SearchProfileVariant::static_variant_type(), "(siisbbs)");
+        assert_eq!(&*SearchProfileVariant::static_variant_type(), "a{sv}");
+        assert_eq!(
+            &*LegacySearchProfileVariant::static_variant_type(),
+            "(siisbbs)"
+        );
+    }
+
+    #[test]
+    fn test_variant_roundtrip() {
+        let profile = SearchProfile::default();
+        profile.set_name("name");
+        profile.set_max_depth(3);
+        profile.set_syntax(1);
+        profile.set_filename_pattern("path");
+        profile.set_content_search(true);
+        profile.set_match_case(true);
+        profile.set_text_pattern("text");
+
+        let variant = profile.save();
+
+        let profile = SearchProfile::default();
+        profile.load(variant);
+
+        assert_eq!(profile.name(), "name");
+        assert_eq!(profile.max_depth(), 3);
+        assert_eq!(profile.syntax(), 1);
+        assert_eq!(profile.filename_pattern(), "path");
+        assert_eq!(profile.content_search(), true);
+        assert_eq!(profile.match_case(), true);
+        assert_eq!(profile.text_pattern(), "text");
     }
 }
