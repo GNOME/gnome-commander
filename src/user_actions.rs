@@ -68,9 +68,8 @@ use std::{
     cmp::Ordering,
     collections::{HashMap, HashSet},
     ffi::OsString,
+    iter::Iterator,
     path::{Path, PathBuf},
-    rc::Rc,
-    thread_local,
 };
 
 async fn file_copy(main_win: MainWindow) {
@@ -763,6 +762,20 @@ async fn view_refresh(main_win: MainWindow) {
         .await;
 }
 
+async fn view_equal_panes(main_win: MainWindow) {
+    main_win.ensure_slide_position(50).await
+}
+
+async fn view_maximize_pane(main_win: MainWindow) {
+    main_win
+        .ensure_slide_position(if main_win.current_panel() == 0 {
+            100
+        } else {
+            0
+        })
+        .await
+}
+
 async fn view_in_left_pane(main_win: MainWindow) {
     main_win.set_directory_to_opposite(FileSelectorID::Left);
 }
@@ -924,6 +937,18 @@ async fn view_step_down(main_win: MainWindow) {
         .file_selector(FileSelectorID::Active)
         .file_list()
         .focus_next();
+}
+
+async fn swap_panels(main_win: MainWindow) {
+    main_win.swap_panels();
+}
+
+async fn show_slide_popup(main_win: MainWindow) {
+    main_win.show_slide_popup();
+}
+
+async fn view_slide(main_win: MainWindow, percentage: i32) {
+    main_win.set_slide(percentage);
 }
 
 /************** Bookmarks Menu **************/
@@ -1173,626 +1198,819 @@ Copyright \u{00A9} 2024 Andrey Kuteiko";
         .present();
 }
 
-pub struct UserAction {
-    pub action_name: &'static str,
-    pub action_code: ActionCode,
-    pub name: &'static str,
-    pub description: String,
+trait Activatable {
+    fn activate(self, action: &UserAction, mw: MainWindow, parameter: Option<&glib::Variant>);
+    fn parameter_type(self) -> Option<Cow<'static, glib::VariantTy>>;
+    fn bound_property(self) -> Option<&'static str>;
 }
 
-pub enum ActionCode {
-    Plain {
-        activate: Rc<dyn Fn(MainWindow)>,
-    },
-    WithParameter {
-        activate: Rc<dyn Fn(MainWindow, Option<&glib::Variant>)>,
-        parameter_type: Cow<'static, glib::VariantTy>,
-    },
-    Predefined,
+// It would have been easier to implement Activatable directly for the actual handler function.
+// However, this results in "unbound type" compilation errors. In order to make parameter type
+// "bound" we need ActionHandler as intermediate type as well as marker types.
+struct NoParameter {}
+struct BoundProperty {}
+
+struct ActionHandler<Handler, T> {
+    handler: Handler,
+    _data: std::marker::PhantomData<T>,
+}
+
+// User actions without parameter, handler is a function taking MainWindow parameter only.
+
+impl<Handler: AsyncFnOnce(MainWindow)> From<Handler> for ActionHandler<Handler, NoParameter> {
+    fn from(handler: Handler) -> Self {
+        Self {
+            handler,
+            _data: std::marker::PhantomData,
+        }
+    }
+}
+
+impl<Handler: AsyncFnOnce(MainWindow) + 'static> Activatable
+    for ActionHandler<Handler, NoParameter>
+{
+    fn activate(self, action: &UserAction, mw: MainWindow, parameter: Option<&glib::Variant>) {
+        if parameter.is_some() {
+            eprintln!(
+                "Unexpected parameter {parameter:?} for action {}",
+                action.name()
+            );
+        }
+        glib::spawn_future_local((self.handler)(mw));
+    }
+
+    fn parameter_type(self) -> Option<Cow<'static, glib::VariantTy>> {
+        None
+    }
+
+    fn bound_property(self) -> Option<&'static str> {
+        None
+    }
+}
+
+// User actions with parameter, handler is a function taking MainWindow and a generic parameter.
+
+impl<T: FromVariant, Handler: AsyncFnOnce(MainWindow, T)> From<Handler>
+    for ActionHandler<Handler, T>
+{
+    fn from(handler: Handler) -> Self {
+        Self {
+            handler,
+            _data: std::marker::PhantomData,
+        }
+    }
+}
+
+impl<T: FromVariant + 'static, Handler: AsyncFnOnce(MainWindow, T) + 'static> Activatable
+    for ActionHandler<Handler, T>
+{
+    fn activate(self, action: &UserAction, mw: MainWindow, parameter: Option<&glib::Variant>) {
+        if let Some(param) = parameter.and_then(|v| v.get::<T>()) {
+            glib::spawn_future_local((self.handler)(mw, param));
+        } else {
+            eprintln!(
+                "Invalid parameter {parameter:?} for action {}",
+                action.name()
+            );
+        }
+    }
+
+    fn parameter_type(self) -> Option<Cow<'static, glib::VariantTy>> {
+        Some(T::static_variant_type())
+    }
+
+    fn bound_property(self) -> Option<&'static str> {
+        None
+    }
+}
+
+// User actions bound to a property, handler is a string (property name).
+
+impl From<&'static str> for ActionHandler<&'static str, BoundProperty> {
+    fn from(handler: &'static str) -> Self {
+        Self {
+            handler,
+            _data: std::marker::PhantomData,
+        }
+    }
+}
+
+impl Activatable for ActionHandler<&'static str, BoundProperty> {
+    fn activate(self, _action: &UserAction, _mw: MainWindow, _parameter: Option<&glib::Variant>) {}
+
+    fn parameter_type(self) -> Option<Cow<'static, glib::VariantTy>> {
+        None
+    }
+
+    fn bound_property(self) -> Option<&'static str> {
+        Some(self.handler)
+    }
+}
+
+macro_rules! user_actions {
+    (
+        $(
+            $(#[$meta:meta])*
+            $id:ident($name:literal $(| $($legacy_name:literal)|+)?, $description:expr, $handler:expr$(,)?),
+        )+
+    ) => {
+        #[derive(Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
+        pub enum UserAction {
+            $($(#[$meta])* $id,)*
+        }
+
+        impl UserAction {
+            pub fn from_name(name: &str) -> Option<Self> {
+                match name {
+                    $($name $(| $($legacy_name)|+)? => Some(Self::$id),)*
+                    _ => None,
+                }
+            }
+
+            pub fn all() -> impl Iterator<Item=Self> {
+                $(
+                    let _max_index = Self::$id as usize;
+                )*
+                (0..=_max_index).map(|n| Self::try_from(n).unwrap_or_default())
+            }
+
+            pub fn name(&self) -> &'static str {
+                match self {
+                    $(Self::$id => $name,)*
+                }
+            }
+
+            pub fn menu_description(&self) -> String {
+                match self {
+                    $(Self::$id => $description,)*
+                }
+            }
+
+            pub fn activate(&self, mw: MainWindow, parameter: Option<&glib::Variant>) {
+                match self {
+                    $(Self::$id => {
+                        ActionHandler::from($handler).activate(self, mw, parameter);
+                    })*
+                }
+            }
+
+            pub fn parameter_type(&self) -> Option<Cow<'static, glib::VariantTy>> {
+                match self {
+                    $(Self::$id => {
+                        ActionHandler::from($handler).parameter_type()
+                    })*
+                }
+            }
+
+            pub fn bound_property(&self) -> Option<&'static str> {
+                match self {
+                    $(Self::$id => {
+                        ActionHandler::from($handler).bound_property()
+                    })*
+                }
+            }
+        }
+
+        impl TryFrom<usize> for UserAction {
+            type Error = ();
+
+            fn try_from(value: usize) -> Result<Self, Self::Error> {
+                match value {
+                    $(value if value == Self::$id as usize => Ok(Self::$id),)*
+                    _ => Err(()),
+                }
+            }
+        }
+    }
 }
 
 impl UserAction {
-    fn new<F: std::future::Future<Output = ()> + 'static>(
-        action_name: &'static str,
-        activate: impl Fn(MainWindow) -> F + 'static,
-        name: &'static str,
-        description: String,
-    ) -> Self {
-        let activate = Rc::new(activate);
-        Self {
-            action_name,
-            action_code: ActionCode::Plain {
-                activate: Rc::new(move |mw| {
-                    let activate = activate.clone();
-                    glib::spawn_future_local(async move {
-                        activate(mw).await;
-                    });
-                }),
-            },
-            name,
-            description,
-        }
-    }
-
-    fn with_param<T: FromVariant + 'static, F: std::future::Future<Output = ()> + 'static>(
-        action_name: &'static str,
-        activate: impl Fn(MainWindow, T) -> F + 'static,
-        name: &'static str,
-        description: String,
-    ) -> Self {
-        let activate = Rc::new(activate);
-        Self {
-            action_name,
-            action_code: ActionCode::WithParameter {
-                activate: Rc::new(move |mw, parameter: Option<&glib::Variant>| {
-                    if let Some(param) = parameter.and_then(|v| v.get::<T>()) {
-                        let activate = activate.clone();
-                        glib::spawn_future_local(async move {
-                            activate(mw, param).await;
-                        });
-                    } else {
-                        eprintln!(
-                            "Invalid parameter {:?} for action '{}'",
-                            parameter, action_name
-                        );
-                    }
-                }),
-                parameter_type: T::static_variant_type(),
-            },
-            name,
-            description,
-        }
-    }
-
-    const fn predefined(
-        action_name: &'static str,
-        name: &'static str,
-        description: String,
-    ) -> Self {
-        Self {
-            action_name,
-            action_code: ActionCode::Predefined,
-            name,
-            description,
-        }
+    pub fn description(&self) -> String {
+        let mut description = self.menu_description();
+        description.retain(|c| c != '_' && c != '…');
+        description
     }
 
     pub fn has_parameter(&self) -> bool {
-        matches!(self.action_code, ActionCode::WithParameter { .. })
+        self.parameter_type().is_some()
     }
 }
 
-thread_local! {
-    pub static USER_ACTIONS: Vec<UserAction> = vec![
-        // File actions
-        UserAction::new("file-copy", file_copy, "file.copy", gettext("Copy files")),
-        UserAction::new(
-            "file-copy-as",
-            file_copy_as,
-            "file.copy_as",
-            gettext("Copy files with rename"),
-        ),
-        UserAction::new("file-move", file_move, "file.move", gettext("Move files")),
-        UserAction::new(
-            "file-delete",
-            file_delete,
-            "file.delete",
-            gettext("Delete files"),
-        ),
-        UserAction::new("file-view", file_view, "file.view", gettext("View file")),
-        UserAction::new(
-            "file-internal-view",
-            file_internal_view,
-            "file.internal_view",
-            gettext("View with internal viewer"),
-        ),
-        UserAction::new(
-            "file-external-view",
-            file_external_view,
-            "file.external_view",
-            gettext("View with external viewer"),
-        ),
-        UserAction::new("file-edit", file_edit, "file.edit", gettext("Edit file")),
-        UserAction::new(
-            "file-edit-new-doc",
-            file_edit_new_doc,
-            "file.edit_new_doc",
-            gettext("Edit a new file"),
-        ),
-        UserAction::new("file-search", file_search, "file.search", gettext("Search")),
-        UserAction::new(
-            "file-quick-search",
-            file_quick_search,
-            "file.quick_search",
-            gettext("Quick search"),
-        ),
-        UserAction::new(
-            "file-chmod",
-            file_chmod,
-            "file.chmod",
-            gettext("Change permissions"),
-        ),
-        UserAction::new(
-            "file-chown",
-            file_chown,
-            "file.chown",
-            gettext("Change owner/group"),
-        ),
-        UserAction::new(
-            "file-mkdir",
-            file_mkdir,
-            "file.mkdir",
-            gettext("Create directory"),
-        ),
-        UserAction::new(
-            "file-properties",
-            file_properties,
-            "file.properties",
-            gettext("Properties"),
-        ),
-        UserAction::new(
-            "file-diff",
-            file_diff,
-            "file.diff",
-            gettext("Compare files (diff)"),
-        ),
-        UserAction::new(
-            "file-sync-dirs",
-            file_sync_dirs,
-            "file.synchronize_directories",
-            gettext("Synchronize directories"),
-        ),
-        UserAction::new(
-            "file-rename",
-            file_rename,
-            "file.rename",
-            gettext("Rename files"),
-        ),
-        UserAction::new(
-            "file-create-symlink",
-            file_create_symlink,
-            "file.create_symlink",
-            gettext("Create symbolic link"),
-        ),
-        UserAction::new(
-            "file-advrename",
-            file_advrename,
-            "file.advrename",
-            gettext("Advanced rename tool"),
-        ),
-        UserAction::new(
-            "file-sendto",
-            file_sendto,
-            "file.sendto",
-            gettext("Send files"),
-        ),
-        UserAction::new("file-exit", file_exit, "file.exit", gettext("Quit")),
-        // Mark actions
-        UserAction::new(
-            "mark-toggle",
-            mark_toggle,
-            "mark.toggle",
-            gettext("Toggle selection"),
-        ),
-        UserAction::new(
-            "mark-toggle-and-step",
-            mark_toggle_and_step,
-            "mark.toggle_and_step",
-            gettext("Toggle selection and move cursor downward"),
-        ),
-        UserAction::new(
-            "mark-select-all",
-            mark_select_all,
-            "mark.select_all",
-            gettext("Select all"),
-        ),
-        UserAction::new(
-            "mark-unselect-all",
-            mark_unselect_all,
-            "mark.unselect_all",
-            gettext("Unselect all"),
-        ),
-        UserAction::new(
-            "mark-select-all-files",
-            mark_select_all_files,
-            "mark.select_all_files",
-            gettext("Select all files"),
-        ),
-        UserAction::new(
-            "mark-unselect-all-files",
-            mark_unselect_all_files,
-            "mark.unselect_all_files",
-            gettext("Unselect all files"),
-        ),
-        UserAction::new(
-            "mark-select-with-pattern",
-            mark_select_with_pattern,
-            "mark.select_with_pattern",
-            gettext("Select with pattern"),
-        ),
-        UserAction::new(
-            "mark-unselect-with-pattern",
-            mark_unselect_with_pattern,
-            "mark.unselect_with_pattern",
-            gettext("Unselect with pattern"),
-        ),
-        UserAction::new(
-            "mark-invert-selection",
-            mark_invert_selection,
-            "mark.invert",
-            gettext("Invert selection"),
-        ),
-        UserAction::new(
-            "mark-select-all-with-same-extension",
-            mark_select_all_with_same_extension,
-            "mark.select_all_with_same_extension",
-            gettext("Select with same extension"),
-        ),
-        UserAction::new(
-            "mark-unselect-all-with-same-extension",
-            mark_unselect_all_with_same_extension,
-            "mark.unselect_all_with_same_extension",
-            gettext("Unselect with same extension"),
-        ),
-        UserAction::new(
-            "mark-restore-selection",
-            mark_restore_selection,
-            "mark.restore_selection",
-            gettext("Restore selection"),
-        ),
-        UserAction::new(
-            "mark-compare-directories",
-            mark_compare_directories,
-            "mark.compare_directories",
-            gettext("Compare directories"),
-        ),
-        // Edit actions
-        UserAction::new("edit-cap-cut", edit_cap_cut, "edit.cut", gettext("Cut")),
-        UserAction::new("edit-cap-copy", edit_cap_copy, "edit.copy", gettext("Copy")),
-        UserAction::new(
-            "edit-cap-paste",
-            edit_cap_paste,
-            "edit.paste",
-            gettext("Paste"),
-        ),
-        UserAction::new(
-            "edit-filter",
-            edit_filter,
-            "edit.filter",
-            gettext("Show user defined files"),
-        ),
-        UserAction::new(
-            "edit-copy-fnames",
-            edit_copy_fnames,
-            "edit.copy_filenames",
-            gettext("Copy file names"),
-        ),
-        // Command actions
-        UserAction::with_param(
-            "command-execute",
-            command_execute,
-            "command.execute",
-            gettext("Execute command"),
-        ),
-        UserAction::new(
-            "command-open-terminal",
-            command_open_terminal,
-            "command.open_terminal",
-            gettext("Open terminal"),
-        ),
-        // View actions
-        UserAction::predefined(
-            "view-conbuttons",
-            "view.conbuttons",
-            gettext("Show device buttons"),
-        ),
-        UserAction::predefined("view-devlist", "view.devlist", gettext("Show device list")),
-        UserAction::predefined("view-toolbar", "view.toolbar", gettext("Show toolbar")),
-        UserAction::predefined(
-            "view-buttonbar",
-            "view.buttonbar",
-            gettext("Show buttonbar"),
-        ),
-        UserAction::predefined("view-cmdline", "view.cmdline", gettext("Show command line")),
-        UserAction::new(
-            "view-dir-history",
-            view_dir_history,
-            "view.dir_history",
-            gettext("Show directory history"),
-        ),
-        UserAction::predefined(
-            "view-hidden-files",
-            "view.hidden_files",
-            gettext("Show hidden files"),
-        ),
-        UserAction::predefined(
-            "view-backup-files",
-            "view.backup_files",
-            gettext("Show backup files"),
-        ),
-        UserAction::new("view-up", view_up, "view.up", gettext("Up one directory")),
-        UserAction::new(
-            "view-first",
-            view_first,
-            "view.first",
-            gettext("Back to the first directory"),
-        ),
-        UserAction::new(
-            "view-back",
-            view_back,
-            "view.back",
-            gettext("Back one directory"),
-        ),
-        UserAction::new(
-            "view-forward",
-            view_forward,
-            "view.forward",
-            gettext("Forward one directory"),
-        ),
-        UserAction::new(
-            "view-last",
-            view_last,
-            "view.last",
-            gettext("Forward to the last directory"),
-        ),
-        UserAction::new(
-            "view-refresh",
-            view_refresh,
-            "view.refresh",
-            gettext("Refresh"),
-        ),
-        UserAction::predefined(
-            "view-equal-panes",
-            "view.equal_panes",
-            gettext("Equal panel size"),
-        ),
-        UserAction::predefined(
-            "view-maximize-pane",
-            "view.maximize_pane",
-            gettext("Maximize panel size"),
-        ),
-        UserAction::new(
-            "view-in-left-pane",
-            view_in_left_pane,
-            "view.in_left_pane",
-            gettext("Open directory in the left window"),
-        ),
-        UserAction::new(
-            "view-in-right-pane",
-            view_in_right_pane,
-            "view.in_right_pane",
-            gettext("Open directory in the right window"),
-        ),
-        UserAction::new(
-            "view-in-active-pane",
-            view_in_active_pane,
-            "view.in_active_pane",
-            gettext("Open directory in the active window"),
-        ),
-        UserAction::new(
-            "view-in-inactive-pane",
-            view_in_inactive_pane,
-            "view.in_inactive_pane",
-            gettext("Open directory in the inactive window"),
-        ),
-        UserAction::new(
-            "view-directory",
-            view_directory,
-            "view.directory",
-            gettext("Change directory"),
-        ),
-        UserAction::new(
-            "view-home",
-            view_home,
-            "view.home",
-            gettext("Home directory"),
-        ),
-        UserAction::new(
-            "view-root",
-            view_root,
-            "view.root",
-            gettext("Root directory"),
-        ),
-        UserAction::new(
-            "view-new-tab",
-            view_new_tab,
-            "view.new_tab",
-            gettext("Open directory in a new tab"),
-        ),
-        UserAction::new(
-            "view-close-tab",
-            view_close_tab,
-            "view.close_tab",
-            gettext("Close the current tab"),
-        ),
-        UserAction::new(
-            "view-close-all-tabs",
-            view_close_all_tabs,
-            "view.close_all_tabs",
-            gettext("Close all tabs"),
-        ),
-        UserAction::new(
-            "view-close-duplicate-tabs",
-            view_close_duplicate_tabs,
-            "view.close_duplicate_tabs",
-            gettext("Close duplicate tabs"),
-        ),
-        UserAction::new(
-            "view-prev-tab",
-            view_prev_tab,
-            "view.prev_tab",
-            gettext("Previous tab"),
-        ),
-        UserAction::new(
-            "view-next-tab",
-            view_next_tab,
-            "view.next_tab",
-            gettext("Next tab"),
-        ),
-        UserAction::new(
-            "view-in-new-tab",
-            view_in_new_tab,
-            "view.in_new_tab",
-            gettext("Open directory in the new tab"),
-        ),
-        UserAction::new(
-            "view-in-inactive-tab",
-            view_in_inactive_tab,
-            "view.in_inactive_tab",
-            gettext("Open directory in the new tab (inactive window)"),
-        ),
-        UserAction::new(
-            "view-toggle-tab-lock",
-            view_toggle_tab_lock,
-            "view.toggle_lock_tab",
-            gettext("Lock/unlock tab"),
-        ),
-        UserAction::predefined(
-            "view-horizontal-orientation",
-            "view.horizontal-orientation",
-            gettext("Horizontal Orientation"),
-        ),
-        UserAction::predefined(
-            "view-main-menu",
-            "view.main_menu",
-            gettext("Display main menu"),
-        ),
-        UserAction::new(
-            "view-step-up",
-            view_step_up,
-            "view.step_up",
-            gettext("Move cursor one step up"),
-        ),
-        UserAction::new(
-            "view-step-down",
-            view_step_down,
-            "view.step_down",
-            gettext("Move cursor one step down"),
-        ),
-        // Bookmark actions
-        UserAction::new(
-            "bookmarks-add-current",
-            bookmarks_add_current,
-            "bookmarks.add_current",
-            gettext("Bookmark current directory"),
-        ),
-        UserAction::new(
-            "bookmarks-edit",
-            bookmarks_edit,
-            "bookmarks.edit",
-            gettext("Manage bookmarks"),
-        ),
-        UserAction::with_param(
-            "bookmarks-goto",
-            bookmarks_goto,
-            "bookmarks.goto",
-            gettext("Go to bookmarked location"),
-        ),
-        UserAction::new(
-            "bookmarks-view",
-            bookmarks_view,
-            "bookmarks.view",
-            gettext("Show bookmarks of current device"),
-        ),
-        // Option actions
-        UserAction::new(
-            "options-edit",
-            options_edit,
-            "options.edit",
-            gettext("Options"),
-        ),
-        UserAction::new(
-            "options-edit-shortcuts",
-            options_edit_shortcuts,
-            "options.shortcuts",
-            gettext("Keyboard shortcuts"),
-        ),
-        // Connections actions
-        UserAction::new(
-            "connections-open",
-            connections_open,
-            "connections.open",
-            gettext("Open connection"),
-        ),
-        UserAction::new(
-            "connections-new",
-            connections_new,
-            "connections.new",
-            gettext("New connection"),
-        ),
-        UserAction::with_param(
-            "connections-set-current",
-            connections_set_current,
-            "connections.set-uuid",
-            gettext("Set connection"),
-        ),
-        UserAction::new(
-            "connections-change-left",
-            connections_change_left,
-            "connections.change_left",
-            gettext("Change left connection"),
-        ),
-        UserAction::new(
-            "connections-change-right",
-            connections_change_right,
-            "connections.change_right",
-            gettext("Change right connection"),
-        ),
-        UserAction::with_param(
-            "connections-close",
-            connections_close,
-            "connections.close-uuid",
-            gettext("Close connection"),
-        ),
-        UserAction::new(
-            "connections-close-current",
-            connections_close_current,
-            "connections.close",
-            gettext("Close connection"),
-        ),
-        // Plugin actions
-        UserAction::new(
-            "plugins-configure",
-            plugins_configure,
-            "plugins.configure",
-            gettext("Configure plugins"),
-        ),
-        UserAction::with_param(
-            "plugin-action",
-            plugin_action,
-            "plugin.action",
-            String::new(), // invisible to users
-        ),
-        // Help actions
-        UserAction::new(
-            "help-help",
-            help_help,
-            "help.help",
-            gettext("Help contents"),
-        ),
-        UserAction::new(
-            "help-keyboard",
-            help_keyboard,
-            "help.keyboard",
-            gettext("Help on keyboard shortcuts"),
-        ),
-        UserAction::new(
-            "help-web",
-            help_web,
-            "help.web",
-            gettext("GNOME Commander on the web"),
-        ),
-        UserAction::new(
-            "help-problem",
-            help_problem,
-            "help.problem",
-            gettext("Report a problem"),
-        ),
-        UserAction::new(
-            "help-about",
-            help_about,
-            "help.about",
-            gettext("About GNOME Commander"),
-        ),
-    ];
+user_actions! {
+    // File actions
+    #[default]
+    FileCopy(
+        "file-copy" | "file.copy",
+        gettext("Copy Files"),
+        file_copy,
+    ),
+
+    FileCopyAs(
+        "file-copy-as" | "file.copy_as",
+        gettext("Copy files with rename"),
+        file_copy_as,
+    ),
+
+    FileMove(
+        "file-move" | "file.move",
+        gettext("Move Files"),
+        file_move,
+    ),
+
+    FileDelete(
+        "file-delete" | "file.delete",
+        gettext("_Delete"),
+        file_delete,
+    ),
+
+    FileView(
+        "file-view" | "file.view",
+        gettext("View File"),
+        file_view,
+    ),
+
+    FileInternalView(
+        "file-internal-view" | "file.internal_view",
+        gettext("View with internal viewer"),
+        file_internal_view,
+    ),
+
+    FileExternalView(
+        "file-external-view" | "file.external_view",
+        gettext("View with external viewer"),
+        file_external_view,
+    ),
+
+    FileEdit(
+        "file-edit" | "file.edit",
+        gettext("Edit (SHIFT for new document)"),
+        file_edit,
+    ),
+
+    FileEditNewDoc(
+        "file-edit-new-doc" | "file.edit_new_doc",
+        gettext("New _Text File"),
+        file_edit_new_doc,
+    ),
+
+    FileSearch(
+        "file-search" | "file.search",
+        gettext("_Search…"),
+        file_search,
+    ),
+
+    FileQuickSearch(
+        "file-quick-search" | "file.quick_search",
+        gettext("_Quick Search…"),
+        file_quick_search,
+    ),
+
+    FileChmod(
+        "file-chmod" | "file.chmod",
+        gettext("Change Per_missions"),
+        file_chmod,
+    ),
+
+    FileChown(
+        "file-chown" | "file.chown",
+        gettext("Change _Owner/Group"),
+        file_chown,
+    ),
+
+    FileMkdir(
+        "file-mkdir" | "file.mkdir",
+        gettext("New _Directory"),
+        file_mkdir,
+    ),
+
+    FileProperties(
+        "file-properties" | "file.properties",
+        gettext("_Properties…"),
+        file_properties,
+    ),
+
+    FileDiff(
+        "file-diff" | "file.diff",
+        gettext("_Diff"),
+        file_diff,
+    ),
+
+    FileSyncDirs(
+        "file-sync-dirs" | "file.synchronize_directories",
+        gettext("S_ynchronize Directories"),
+        file_sync_dirs,
+    ),
+
+    FileRename(
+        "file-rename" | "file.rename",
+        gettext("_Rename"),
+        file_rename,
+    ),
+
+    FileCreateSymlink(
+        "file-create-symlink" | "file.create_symlink",
+        gettext("Create _Symbolic Link"),
+        file_create_symlink,
+    ),
+
+    FileAdvrename(
+        "file-advrename" | "file.advrename",
+        gettext("Advanced _Rename Tool"),
+        file_advrename,
+    ),
+
+    FileSendto(
+        "file-sendto" | "file.sendto",
+        gettext("_Send Files"),
+        file_sendto,
+    ),
+
+    FileExit(
+        "file-exit" | "file.exit",
+        gettext("Quit"),
+        file_exit,
+    ),
+
+    // Mark actions
+    MarkToggle(
+        "mark-toggle" | "mark.toggle",
+        gettext("Toggle selection"),
+        mark_toggle,
+    ),
+
+    MarkToggleAndStep(
+        "mark-toggle-and-step" | "mark.toggle_and_step",
+        gettext("Toggle selection and move cursor downward"),
+        mark_toggle_and_step,
+    ),
+
+    MarkSelectAll(
+        "mark-select-all" | "mark.select_all",
+        gettext("_Select All"),
+        mark_select_all,
+    ),
+
+    MarkUnselectAll(
+        "mark-unselect-all" | "mark.unselect_all",
+        gettext("_Unselect All"),
+        mark_unselect_all,
+    ),
+
+    MarkSelectAllFiles(
+        "mark-select-all-files" | "mark.select_all_files",
+        gettext("Select all _Files"),
+        mark_select_all_files,
+    ),
+
+    MarkUnselectAllFiles(
+        "mark-unselect-all-files" | "mark.unselect_all_files",
+        gettext("Unselect all Fi_les"),
+        mark_unselect_all_files,
+    ),
+
+    MarkSelectWithPattern(
+        "mark-select-with-pattern" | "mark.select_with_pattern",
+        gettext("Select with _Pattern"),
+        mark_select_with_pattern,
+    ),
+
+    MarkUnselectWithPattern(
+        "mark-unselect-with-pattern" | "mark.unselect_with_pattern",
+        gettext("Unselect with P_attern"),
+        mark_unselect_with_pattern,
+    ),
+
+    MarkInvertSelection(
+        "mark-invert-selection" | "mark.invert",
+        gettext("_Invert Selection"),
+        mark_invert_selection,
+    ),
+
+    MarkSelectAllWithSameExtension(
+        "mark-select-all-with-same-extension" | "mark.select_all_with_same_extension",
+        gettext("Select with same _Extension"),
+        mark_select_all_with_same_extension,
+    ),
+
+    MarkUnselectAllWithSameExtension(
+        "mark-unselect-all-with-same-extension" | "mark.unselect_all_with_same_extension",
+        gettext("Unselect with same E_xtension"),
+        mark_unselect_all_with_same_extension,
+    ),
+
+    MarkRestoreSelection(
+        "mark-restore-selection" | "mark.restore_selection",
+        gettext("_Restore Selection"),
+        mark_restore_selection,
+    ),
+
+    MarkCompareDirectories(
+        "mark-compare-directories" | "mark.compare_directories",
+        gettext("_Compare Directories"),
+        mark_compare_directories,
+    ),
+
+    // Edit actions
+    EditCapCut(
+        "edit-cap-cut" | "edit.cut",
+        gettext("Cu_t"),
+        edit_cap_cut,
+    ),
+
+    EditCapCopy(
+        "edit-cap-copy" | "edit.copy",
+        gettext("_Copy"),
+        edit_cap_copy,
+    ),
+
+    EditCapPaste(
+        "edit-cap-paste" | "edit.paste",
+        gettext("_Paste"),
+        edit_cap_paste,
+    ),
+
+    EditFilter(
+        "edit-filter" | "edit.filter",
+        gettext("_Enable Filter…"),
+        edit_filter,
+    ),
+
+    EditCopyNames(
+        "edit-copy-fnames" | "edit.copy_filenames",
+        gettext("Copy _File Names (SHIFT for full paths, ALT for URIs)"),
+        edit_copy_fnames,
+    ),
+
+    // Command actions
+    CommandExecute(
+        "command-execute" | "command.execute",
+        gettext("Execute command"),
+        command_execute,
+    ),
+
+    CommandOpenTerminal(
+        "command-open-terminal" | "command.open_terminal",
+        gettext("Open _Terminal"),
+        command_open_terminal,
+    ),
+
+    // View actions
+    ViewConbuttons(
+        "view-conbuttons" | "view.conbuttons",
+        gettext("Show Device Buttons"),
+        "connection-buttons-visible",
+    ),
+
+    ViewDevlist(
+        "view-devlist" | "view.devlist",
+        gettext("Show Device List"),
+        "connection-list-visible",
+    ),
+
+    ViewToolbar(
+        "view-toolbar" | "view.toolbar",
+        gettext("Show Toolbar"),
+        "toolbar-visible",
+    ),
+
+    ViewButtonbar(
+        "view-buttonbar" | "view.buttonbar",
+        gettext("Show Buttonbar"),
+        "buttonbar-visible",
+    ),
+
+    ViewCmdline(
+        "view-cmdline" | "view.cmdline",
+        gettext("Show Command Line"),
+        "command-line-visible",
+    ),
+
+    ViewDirHistory(
+        "view-dir-history" | "view.dir_history",
+        gettext("Show directory history"),
+        view_dir_history,
+    ),
+
+    ViewHiddenFiles(
+        "view-hidden-files" | "view.hidden_files",
+        gettext("Show Hidden Files"),
+        "view-hidden-files",
+    ),
+
+    ViewBackupFiles(
+        "view-backup-files" | "view.backup_files",
+        gettext("Show Backup Files"),
+        "view-backup-files",
+    ),
+
+    ViewUp(
+        "view-up" | "view.up",
+        gettext("Up one directory"),
+        view_up,
+    ),
+
+    ViewFirst(
+        "view-first" | "view.first",
+        gettext("Back to oldest"),
+        view_first,
+    ),
+
+    ViewBack(
+        "view-back" | "view.back",
+        gettext("_Back"),
+        view_back,
+    ),
+
+    ViewForward(
+        "view-forward" | "view.forward",
+        gettext("_Forward"),
+        view_forward,
+    ),
+
+    ViewLast(
+        "view-last" | "view.last",
+        gettext("Forward to latest"),
+        view_last,
+    ),
+
+    ViewRefresh(
+        "view-refresh" | "view.refresh",
+        gettext("_Refresh"),
+        view_refresh,
+    ),
+
+    ViewEqualPanes(
+        "view-equal-panes" | "view.equal_panes",
+        gettext("_Equal Panel Size"),
+        view_equal_panes,
+    ),
+
+    ViewMaximizePane(
+        "view-maximize-pane" | "view.maximize_pane",
+        gettext("Maximize Panel Size"),
+        view_maximize_pane,
+    ),
+
+    ViewInLeftPane(
+        "view-in-left-pane" | "view.in_left_pane",
+        gettext("Open directory in the left window"),
+        view_in_left_pane,
+    ),
+
+    ViewInRightPane(
+        "view-in-right-pane" | "view.in_right_pane",
+        gettext("Open directory in the right window"),
+        view_in_right_pane,
+    ),
+
+    ViewInActivePane(
+        "view-in-active-pane" | "view.in_active_pane",
+        gettext("Open directory in the active window"),
+        view_in_active_pane,
+    ),
+
+    ViewInInactivePane(
+        "view-in-inactive-pane" | "view.in_inactive_pane",
+        gettext("Open directory in the inactive window"),
+        view_in_inactive_pane,
+    ),
+
+    ViewDirectory(
+        "view-directory" | "view.directory",
+        gettext("Change directory"),
+        view_directory,
+    ),
+
+    ViewHome(
+        "view-home" | "view.home",
+        gettext("Home directory"),
+        view_home,
+    ),
+
+    ViewRoot(
+        "view-root" | "view.root",
+        gettext("Root directory"),
+        view_root,
+    ),
+
+    ViewNewTab(
+        "view-new-tab" | "view.new_tab",
+        gettext("Open in New _Tab"),
+        view_new_tab,
+    ),
+
+    ViewCloseTab(
+        "view-close-tab" | "view.close_tab",
+        gettext("_Close Tab"),
+        view_close_tab,
+    ),
+
+    ViewCloseAllTabs(
+        "view-close-all-tabs" | "view.close_all_tabs",
+        gettext("Close _All Tabs"),
+        view_close_all_tabs,
+    ),
+
+    ViewCloseDuplicateTabs(
+        "view-close-duplicate-tabs" | "view.close_duplicate_tabs",
+        gettext("Close duplicate tabs"),
+        view_close_duplicate_tabs,
+    ),
+
+    ViewPrevTab(
+        "view-prev-tab" | "view.prev_tab",
+        gettext("Previous tab"),
+        view_prev_tab,
+    ),
+
+    ViewNextTab(
+        "view-next-tab" | "view.next_tab",
+        gettext("Next tab"),
+        view_next_tab,
+    ),
+
+    ViewInNewTab(
+        "view-in-new-tab" | "view.in_new_tab",
+        gettext("Open directory in the new tab"),
+        view_in_new_tab,
+    ),
+
+    ViewInInactiveTab(
+        "view-in-inactive-tab" | "view.in_inactive_tab",
+        gettext("Open directory in the new tab (inactive window)"),
+        view_in_inactive_tab,
+    ),
+
+    ViewToggleTabLock(
+        "view-toggle-tab-lock" | "view.toggle_lock_tab",
+        gettext("Lock/unlock tab"),
+        view_toggle_tab_lock,
+    ),
+
+    ViewHorizontalOrientation(
+        "view-horizontal-orientation" | "view.horizontal-orientation",
+        gettext("Horizontal Orientation"),
+        "horizontal-orientation",
+    ),
+
+    ViewMainMenu(
+        "view-main-menu" | "view.main_menu",
+        gettext("Display main menu"),
+        "menu-visible",
+    ),
+
+    ViewStepUp(
+        "view-step-up" | "view.step_up",
+        gettext("Move cursor one step up"),
+        view_step_up,
+    ),
+
+    ViewStepDown(
+        "view-step-down" | "view.step_down",
+        gettext("Move cursor one step down"),
+        view_step_down,
+    ),
+
+    SwapPanes(
+        "swap-panes",
+        gettext("Swap panels"),
+        swap_panels,
+    ),
+
+    ShowSlidePopup(
+        "show-slide-popup",
+        gettext("Show panel size selector"),
+        show_slide_popup,
+    ),
+
+    ViewSlide(
+        "view-slide",
+        String::new(), // invisible to users
+        view_slide,
+    ),
+
+    // Bookmark actions
+    BookmarksAddCurrent(
+        "bookmarks-add-current" | "bookmarks.add_current",
+        gettext("_Bookmark this Directory…"),
+        bookmarks_add_current,
+    ),
+
+    BookmarksEdit(
+        "bookmarks-edit" | "bookmarks.edit",
+        gettext("_Manage Bookmarks…"),
+        bookmarks_edit,
+    ),
+
+    BookmarksGoto(
+        "bookmarks-goto" | "bookmarks.goto",
+        gettext("Go to bookmarked location"),
+        bookmarks_goto,
+    ),
+
+    BookmarksView(
+        "bookmarks-view" | "bookmarks.view",
+        gettext("Show bookmarks of current device"),
+        bookmarks_view,
+    ),
+
+    // Option actions
+    OptionsEdit(
+        "options-edit" | "options.edit",
+        gettext("_Options…"),
+        options_edit,
+    ),
+
+    OptionsEditShortcuts(
+        "options-edit-shortcuts" | "options.shortcuts",
+        gettext("_Keyboard Shortcuts…"),
+        options_edit_shortcuts,
+    ),
+
+    // Connections actions
+    ConnectionsOpen(
+        "connections-open" | "connections.open",
+        gettext("_Remote Server…"),
+        connections_open,
+    ),
+
+    ConnectionsNew(
+        "connections-new" | "connections.new",
+        gettext("New Connection…"),
+        connections_new,
+    ),
+
+    ConnectionsSetCurrent(
+        "connections-set-current" | "connections.set-uuid",
+        gettext("Set connection"),
+        connections_set_current,
+    ),
+
+    ConnectionsChangeLeft(
+        "connections-change-left" | "connections.change_left",
+        gettext("Change left connection"),
+        connections_change_left,
+    ),
+
+    ConnectionsChangeRight(
+        "connections-change-right" | "connections.change_right",
+        gettext("Change right connection"),
+        connections_change_right,
+    ),
+
+    ConnectionsClose(
+        "connections-close" | "connections.close-uuid",
+        gettext("Close connection"),
+        connections_close,
+    ),
+
+    ConnectionsCloseCurrent(
+        "connections-close-current" | "connections.close",
+        gettext("Drop Connection"),
+        connections_close_current,
+    ),
+
+    // Plugin actions
+    PluginsConfigure(
+        "plugins-configure" | "plugins.configure",
+        gettext("_Configure Plugins…"),
+        plugins_configure,
+    ),
+
+    PluginAction(
+        "plugin-action" | "plugin.action",
+        String::new(), // invisible to users
+        plugin_action,
+    ),
+
+    // Help actions
+    HelpHelp(
+        "help-help" | "help.help",
+        gettext("_Documentation"),
+        help_help,
+    ),
+
+    HelpKeyboard(
+        "help-keyboard" | "help.keyboard",
+        gettext("_Keyboard Shortcuts"),
+        help_keyboard,
+    ),
+
+    HelpWeb(
+        "help-web" | "help.web",
+        gettext("GNOME Commander on the _Web"),
+        help_web,
+    ),
+
+    HelpProblem(
+        "help-problem" | "help.problem",
+        gettext("Report a _Problem"),
+        help_problem,
+    ),
+
+    HelpAbout(
+        "help-about" | "help.about",
+        gettext("_About"),
+        help_about,
+    ),
 }

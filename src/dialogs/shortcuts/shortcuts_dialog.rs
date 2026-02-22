@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use super::user_action::{ShortcutAction, action_description};
+use super::user_action::ShortcutAction;
 use crate::{
     shortcuts::Shortcuts,
     utils::{channel_send_action, handle_escape_key},
@@ -96,7 +96,7 @@ mod imp {
                 .sorter(&key_sorter(|obj| {
                     obj.downcast_ref::<glib::BoxedAnyObject>()
                         .map(|o| o.borrow::<ShortcutAction>())
-                        .map(|u| u.call.action_name.clone())
+                        .map(|u| u.call.action.description())
                 }))
                 .factory(&create_action_factory())
                 .expand(true)
@@ -343,7 +343,7 @@ fn create_action_factory() -> gtk::ListItemFactory {
         let Some(label) = list_item.child().and_downcast::<gtk::Label>() else {
             return;
         };
-        label.set_label(&action_description(&user_action.call.action_name));
+        label.set_label(&user_action.call.action.description());
     });
     factory.upcast()
 }
@@ -396,12 +396,10 @@ fn shortcuts_from_model(
         let user_action = obj.borrow::<ShortcutAction>();
 
         let shortcut = user_action.shortcut;
-        let action_name = &user_action.call.action_name;
+        let action = user_action.call.action;
         let action_data = &user_action.call.action_data;
 
-        if !action_name.is_empty() {
-            shortcuts.register_full(shortcut, action_name, action_data.as_deref());
-        }
+        shortcuts.register_full(shortcut, action, action_data.as_deref());
     }
 
     shortcuts.set_mandatory();

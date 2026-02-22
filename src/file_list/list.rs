@@ -44,6 +44,7 @@ use crate::{
     options::options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
     tags::tags::FileMetadataService,
     types::{ExtensionDisplayMode, GraphicalLayoutMode, SizeDisplayMode},
+    user_actions::UserAction,
     utils::{ErrorMessage, size_to_string, time_to_string},
 };
 use gettextrs::{gettext, ngettext};
@@ -189,9 +190,6 @@ mod imp {
         type ParentType = gtk::Widget;
 
         fn class_init(klass: &mut Self::Class) {
-            klass.install_action_async("fl.refresh", None, |obj, _, _| async move {
-                obj.reload().await
-            });
             klass.install_action_async("fl.file-view", None, |obj, _, parameter| async move {
                 let use_internal_viewer = parameter.and_then(|v| v.get::<bool>());
                 file_list_action_file_view(&obj, use_internal_viewer).await;
@@ -1017,7 +1015,9 @@ mod imp {
         fn key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
             match (state, key) {
                 (ALT, gdk::Key::Return | gdk::Key::KP_Enter) => {
-                    let _ = self.obj().activate_action("win.file-properties", None);
+                    let _ = self
+                        .obj()
+                        .activate_action(UserAction::FileProperties.name(), None);
                     return glib::Propagation::Stop;
                 }
                 (ALT, gdk::Key::KP_Add) => {

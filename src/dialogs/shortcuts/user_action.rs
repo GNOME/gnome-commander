@@ -17,26 +17,10 @@
  * For more details see the file COPYING.
  */
 
-use crate::{
-    shortcuts::{Call, Shortcut},
-    user_actions::USER_ACTIONS,
-};
+use crate::shortcuts::{Call, Shortcut};
 
 #[derive(Clone)]
 pub struct ShortcutAction {
     pub shortcut: Shortcut,
     pub call: Call,
-}
-
-pub fn action_description(action_name: &str) -> String {
-    USER_ACTIONS
-        .with(|user_actions| {
-            for user_action in user_actions {
-                if user_action.action_name == action_name {
-                    return Some(user_action.description.clone());
-                }
-            }
-            None
-        })
-        .unwrap_or_else(|| action_name.to_owned())
 }

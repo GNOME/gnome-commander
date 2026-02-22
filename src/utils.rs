@@ -22,6 +22,7 @@
 
 use crate::{
     config::PREFIX, file::File, options::options::ProgramsOptions, types::SizeDisplayMode,
+    user_actions::UserAction,
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gdk, gio, glib, pango, prelude::*};
@@ -507,6 +508,10 @@ pub trait MenuBuilderExt {
         accel: &str,
     ) -> Self;
 
+    fn action(self, action: UserAction) -> Self;
+
+    fn action_accel(self, action: UserAction, accel: &str) -> Self;
+
     fn section(self, section: gio::Menu) -> Self;
 
     fn submenu(self, label: impl Into<String>, section: gio::Menu) -> Self;
@@ -528,6 +533,14 @@ impl MenuBuilderExt for gio::Menu {
         item.set_attribute_value("accel", Some(&accel.to_variant()));
         self.append_item(&item);
         self
+    }
+
+    fn action(self, action: UserAction) -> Self {
+        self.item(action.menu_description(), action.name())
+    }
+
+    fn action_accel(self, action: UserAction, accel: &str) -> Self {
+        self.item_accel(action.menu_description(), action.name(), accel)
     }
 
     fn section(self, section: gio::Menu) -> Self {

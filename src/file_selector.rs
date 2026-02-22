@@ -36,6 +36,7 @@ use crate::{
     tab_label::TabLabel,
     tags::tags::FileMetadataService,
     types::MiddleMouseButtonMode,
+    user_actions::UserAction,
     utils::{ALT, CONTROL, CONTROL_SHIFT, NO_MOD},
 };
 use gettextrs::gettext;
@@ -1252,7 +1253,7 @@ impl FileSelector {
         manage_section.append(Some(&gettext("Add current dir")), Some("fs.add-bookmark"));
         manage_section.append(
             Some(&gettext("Manage bookmarks…")),
-            Some("win.bookmarks-edit"),
+            Some(UserAction::BookmarksEdit.name()),
         );
         menu.append_section(None, &manage_section);
 
@@ -1546,7 +1547,10 @@ async fn on_notebook_button_pressed(
             let fl = file_selector.file_list_nth(index);
 
             let menu = gio::Menu::new();
-            menu.append(Some(&gettext("Open in New _Tab")), Some("win.view-new-tab"));
+            menu.append(
+                Some(&gettext("Open in New _Tab")),
+                Some(UserAction::ViewNewTab.name()),
+            );
 
             let section = gio::Menu::new();
 
@@ -1577,18 +1581,21 @@ async fn on_notebook_button_pressed(
 
             section.append(
                 Some(&gettext("Copy Tab to Other _Pane")),
-                Some("win.view-in-inactive-tab"),
+                Some(UserAction::ViewInInactiveTab.name()),
             );
             menu.append_section(None, &section);
 
-            menu.append(Some(&gettext("_Close Tab")), Some("win.view-close-tab"));
+            menu.append(
+                Some(&gettext("_Close Tab")),
+                Some(UserAction::ViewCloseTab.name()),
+            );
             menu.append(
                 Some(&gettext("Close _All Tabs")),
-                Some("win.view-close-all-tabs"),
+                Some(UserAction::ViewCloseAllTabs.name()),
             );
             menu.append(
                 Some(&gettext("Close _Duplicate Tabs")),
-                Some("win.view-close-duplicate-tabs"),
+                Some(UserAction::ViewCloseDuplicateTabs.name()),
             );
 
             let tab_popover = &file_selector.imp().tab_popover;
