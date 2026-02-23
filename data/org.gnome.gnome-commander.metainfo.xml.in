@@ -5,11 +5,11 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>GNOME Commander</name>
-  <summary>Two-pane file manager</summary>
+  <summary>Dual-panel file manager</summary>
   <description>
     <p>
-      GNOME Commander is a “two-pane” graphical file manager for the GNOME
-      desktop environment. It features separate tabs for each pane,
+      GNOME Commander is a “dual-panel” graphical file manager for the GNOME
+      desktop environment. It features separate tabs for each panel,
       setting up custom device buttons, bookmark manager, fully integrated
       commandline, file quick search, an internal image viewer, a powerful
       batch renaming tool, and FTP and Samba access.
@@ -95,7 +95,7 @@
         </ul>
         <p>Other changes in this release:</p>
         <ul>
-          <li>Shortcut for opening the file pane splitter: Ctrl+s</li>
+          <li>Shortcut for opening the file panel splitter: Ctrl+s</li>
           <li>File-Roller plugin: Forbid free-form editing of an archive extension</li>
         </ul>
         <p>This release fixes the following bugs:</p>

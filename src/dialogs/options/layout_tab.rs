@@ -61,13 +61,13 @@ impl LayoutTab {
             .margin_end(6)
             .build();
 
-        // File panes
+        // File panels
 
         let grid = gtk::Grid::builder()
             .column_spacing(12)
             .row_spacing(6)
             .build();
-        vbox.append(&create_category(&gettext("File panes"), &grid));
+        vbox.append(&create_category(&gettext("File panels"), &grid));
 
         grid.attach(
             &gtk::Label::builder()
