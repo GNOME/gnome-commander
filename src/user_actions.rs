@@ -1230,9 +1230,9 @@ impl<Handler: AsyncFnOnce(MainWindow) + 'static> Activatable
     for ActionHandler<Handler, NoParameter>
 {
     fn activate(self, action: &UserAction, mw: MainWindow, parameter: Option<&glib::Variant>) {
-        if parameter.is_some() {
+        if let Some(parameter) = parameter {
             eprintln!(
-                "Unexpected parameter {parameter:?} for action {}",
+                "Unexpected parameter {parameter} for action {}",
                 action.name()
             );
         }
@@ -1265,13 +1265,12 @@ impl<T: FromVariant + 'static, Handler: AsyncFnOnce(MainWindow, T) + 'static> Ac
     for ActionHandler<Handler, T>
 {
     fn activate(self, action: &UserAction, mw: MainWindow, parameter: Option<&glib::Variant>) {
-        if let Some(param) = parameter.and_then(|v| v.get::<T>()) {
-            glib::spawn_future_local((self.handler)(mw, param));
+        if let Some(parameter) = parameter.and_then(|v| v.get::<T>()) {
+            glib::spawn_future_local((self.handler)(mw, parameter));
+        } else if let Some(parameter) = parameter {
+            eprintln!("Invalid parameter {parameter} for action {}", action.name());
         } else {
-            eprintln!(
-                "Invalid parameter {parameter:?} for action {}",
-                action.name()
-            );
+            eprintln!("Missing parameter for action {}", action.name());
         }
     }
 

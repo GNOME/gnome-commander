@@ -121,8 +121,11 @@ async fn search_dir_recursive(
                 Ok(false) => continue,
                 Err(error) => {
                     eprintln!(
-                        "Content matching for a file '{:?}' failed: {}",
-                        file.path(),
+                        "Content matching for file '{}' failed: {}",
+                        file.path()
+                            .unwrap_or_default()
+                            .as_os_str()
+                            .to_string_lossy(),
                         error
                     );
                     continue;

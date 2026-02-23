@@ -350,7 +350,10 @@ impl Shortcuts {
                     )
                     .map(|sv| sv.to_variant())
                     .or_else(|| {
-                        eprintln!("Shortcut {:?} cannot be saved. Skipping", shortcut);
+                        eprintln!(
+                            "Shortcut {} cannot be saved. Skipping",
+                            gtk::accelerator_name(shortcut.key, shortcut.state)
+                        );
                         None
                     })
                 }),
