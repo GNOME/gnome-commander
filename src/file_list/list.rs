@@ -155,6 +155,8 @@ mod imp {
         pub sort_model: gtk::SortListModel,
         pub sorting: Cell<Option<(ColumnID, gtk::SortType)>>,
 
+        focus_controller: gtk::EventControllerFocus,
+
         #[property(get)]
         pub selection: gtk::SingleSelection,
         #[property(get)]
@@ -267,6 +269,8 @@ mod imp {
                 sort_model: Default::default(),
                 sorting: Default::default(),
 
+                focus_controller: gtk::EventControllerFocus::new(),
+
                 selection: Default::default(),
                 view: gtk::ColumnView::builder()
                     .show_column_separators(false)
@@ -323,6 +327,7 @@ mod imp {
                 .build();
             capture_event_box.append(&scrolled_window);
             capture_event_box.set_parent(&*fl);
+            capture_event_box.add_controller(self.focus_controller.clone());
 
             for (column_id, title, factory, sorter) in [
                 (ColumnID::COLUMN_ICON, "", create_icon_factory(), None),
@@ -406,6 +411,22 @@ mod imp {
                 self,
                 move |_| imp.cursor_changed()
             ));
+
+            let quick_search_controller = gtk::EventControllerKey::builder()
+                .propagation_phase(gtk::PropagationPhase::Capture)
+                .build();
+            quick_search_controller.connect_key_pressed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                #[upgrade_or]
+                glib::Propagation::Proceed,
+                move |_, key, _, state| imp.key_pressed_quick_search(key, state)
+            ));
+            capture_event_box.connect_root_notify(move |this| {
+                if let Some(root) = this.root() {
+                    root.add_controller(quick_search_controller.clone());
+                }
+            });
 
             let key_capture_controller = gtk::EventControllerKey::builder()
                 .propagation_phase(gtk::PropagationPhase::Capture)
@@ -900,6 +921,24 @@ mod imp {
             }
         }
 
+        fn key_pressed_quick_search(
+            &self,
+            key: gdk::Key,
+            state: gdk::ModifierType,
+        ) -> glib::Propagation {
+            if self.focus_controller.contains_focus() && is_quicksearch_starting_character(key) {
+                if is_quicksearch_starting_modifier(self.quick_search_shortcut.get(), state) {
+                    self.obj().show_quick_search(Some(key));
+                    return glib::Propagation::Stop;
+                } else if let Some(text) = text_typing(key, state) {
+                    self.obj().emit_by_name::<()>("cmdline-append", &[&text]);
+                    return glib::Propagation::Stop;
+                }
+            }
+
+            glib::Propagation::Proceed
+        }
+
         fn key_pressed_capture(
             &self,
             key: gdk::Key,
@@ -1015,75 +1054,75 @@ mod imp {
                     let _ = self
                         .obj()
                         .activate_action(UserAction::FileProperties.name(), None);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (ALT, gdk::Key::KP_Add) => {
                     self.obj().toggle_files_with_same_extension(true);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (ALT, gdk::Key::KP_Subtract) => {
                     self.obj().toggle_files_with_same_extension(false);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (SHIFT, gdk::Key::F6) => {
                     let this = self.obj().clone();
                     glib::spawn_future_local(async move {
                         this.show_rename_dialog().await;
                     });
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (SHIFT, gdk::Key::F10) => {
                     self.obj().show_file_popup(None);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (SHIFT, gdk::Key::Delete | gdk::Key::KP_Delete) => {
                     let this = self.obj().clone();
                     glib::spawn_future_local(async move {
                         this.show_delete_dialog(true).await;
                     });
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (ALT_SHIFT, gdk::Key::Return | gdk::Key::KP_Enter) => {
                     self.obj().show_visible_tree_sizes();
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (CONTROL, gdk::Key::F3) => {
                     self.obj().sort_by(ColumnID::COLUMN_NAME);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (CONTROL, gdk::Key::F4) => {
                     self.obj().sort_by(ColumnID::COLUMN_EXT);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (CONTROL, gdk::Key::F5) => {
                     self.obj().sort_by(ColumnID::COLUMN_DATE);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (CONTROL, gdk::Key::F6) => {
                     self.obj().sort_by(ColumnID::COLUMN_SIZE);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::KP_Add | gdk::Key::plus | gdk::Key::equal) => {
                     let this = self.obj().clone();
                     glib::spawn_future_local(async move {
                         select_by_pattern(&this, true).await;
                     });
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::KP_Subtract | gdk::Key::minus) => {
                     let this = self.obj().clone();
                     glib::spawn_future_local(async move {
                         select_by_pattern(&this, false).await;
                     });
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::KP_Multiply) => {
                     self.obj().invert_selection();
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::KP_Divide) => {
                     self.obj().restore_selection();
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::Insert | gdk::Key::KP_Insert) => {
                     self.obj().toggle();
@@ -1092,32 +1131,21 @@ mod imp {
                     {
                         self.obj().select_row(position + 1);
                     }
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::Delete | gdk::Key::KP_Delete) => {
                     let this = self.obj().clone();
                     glib::spawn_future_local(async move {
                         this.show_delete_dialog(false).await;
                     });
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::Menu) => {
                     self.obj().show_file_popup(None);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
-                _ => {}
+                _ => glib::Propagation::Proceed,
             }
-
-            if is_quicksearch_starting_character(key) {
-                if is_quicksearch_starting_modifier(self.quick_search_shortcut.get(), state) {
-                    self.obj().show_quick_search(Some(key));
-                    return glib::Propagation::Stop;
-                } else if let Some(text) = text_typing(key, state) {
-                    self.obj().emit_by_name::<()>("cmdline-append", &[&text]);
-                    return glib::Propagation::Stop;
-                }
-            }
-            glib::Propagation::Proceed
         }
 
         fn get_modifiers_state(&self) -> Option<gdk::ModifierType> {
