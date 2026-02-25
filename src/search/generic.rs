@@ -34,15 +34,15 @@ pub async fn generic_search(
     cancellable: &gio::Cancellable,
 ) -> Result<(), ErrorMessage> {
     let name_filter = Filter::new(
-        &profile.filename_pattern(),
-        profile.match_case(),
-        profile.pattern_type(),
+        &profile.path_pattern(),
+        profile.content_match_case(),
+        profile.path_syntax(),
     )
     .map_err(|error| ErrorMessage::with_error(gettext("Bad expression"), &*error))?;
 
     let content_search = profile
         .content_search()
-        .then(|| (profile.text_pattern(), profile.match_case()));
+        .then(|| (profile.content_pattern(), profile.content_match_case()));
 
     search_dir_recursive(
         start_dir,

@@ -90,9 +90,9 @@ pub async fn local_search(
     let start_dir = start_dir.path().path();
     let max_depth = profile.max_depth();
 
-    let mut filename_pattern = profile.filename_pattern();
+    let mut filename_pattern = profile.path_pattern();
     let filename_filter = if !filename_pattern.is_empty() {
-        if matches!(profile.pattern_type(), PatternType::FnMatch) {
+        if matches!(profile.path_syntax(), PatternType::FnMatch) {
             if !filename_pattern.contains('*') && !filename_pattern.contains('?') {
                 filename_pattern = format!("*{filename_pattern}*")
             }
@@ -104,7 +104,7 @@ pub async fn local_search(
         }
 
         Some(
-            Filter::new(&filename_pattern, false, profile.pattern_type()).map_err(|error| {
+            Filter::new(&filename_pattern, false, profile.path_syntax()).map_err(|error| {
                 ErrorMessage::with_error(gettext("Invalid file name pattern."), &*error)
             })?,
         )
@@ -115,9 +115,9 @@ pub async fn local_search(
     let (matcher, mut searcher) = if profile.content_search() {
         let matcher = RegexMatcherBuilder::new()
             .fixed_strings(true)
-            .case_insensitive(!profile.match_case())
+            .case_insensitive(!profile.content_match_case())
             .dot_matches_new_line(true)
-            .build(&profile.text_pattern())
+            .build(&profile.content_pattern())
             .map_err(|error| {
                 ErrorMessage::with_error(
                     gettext("Invalid text content regular expression."),
