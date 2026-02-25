@@ -328,7 +328,7 @@ mod imp {
                 let Ok(node) = obj.try_borrow::<TaggedBookmark>() else {
                     return;
                 };
-                label.set_text(&node.bookmark.name());
+                label.set_text(node.bookmark.name());
             });
             factory.upcast()
         }
@@ -368,7 +368,7 @@ mod imp {
                     let shortcuts = imp.shortcuts.borrow();
                     if let Some(shortcuts) = shortcuts
                         .as_ref()
-                        .map(|s| s.bookmark_shortcuts(&node.bookmark.name()))
+                        .map(|s| s.bookmark_shortcuts(node.bookmark.name()))
                     {
                         for shortcut in shortcuts {
                             bx.append(
@@ -405,8 +405,8 @@ mod imp {
                 let Ok(node) = obj.try_borrow::<TaggedBookmark>() else {
                     return;
                 };
-                label.set_text(&node.bookmark.path());
-                label.set_tooltip_text(Some(&node.bookmark.path()));
+                label.set_text(node.bookmark.path());
+                label.set_tooltip_text(Some(node.bookmark.path()));
             });
             factory.upcast()
         }
@@ -438,43 +438,74 @@ mod imp {
             }
         }
 
+        fn select(&self, position: u32) {
+            // Returning from Edit dialog, we need this minimal delay or focus won't be set.
+            glib::timeout_add_local_once(
+                std::time::Duration::from_millis(1),
+                glib::clone!(
+                    #[weak(rename_to = imp)]
+                    self,
+                    move || {
+                        imp.view.scroll_to(
+                            position,
+                            None,
+                            gtk::ListScrollFlags::FOCUS | gtk::ListScrollFlags::SELECT,
+                            None,
+                        );
+                        imp.selection_changed();
+                    }
+                ),
+            );
+        }
+
         async fn edit_clicked(&self) {
             if let Some(bookmark) = self.selected()
                 && let Some(changed_bookmark) = edit_bookmark_dialog(
                     self.obj().upcast_ref(),
                     &gettext("Edit Bookmark"),
+                    &bookmark.connection,
                     &bookmark.bookmark,
                 )
                 .await
             {
-                bookmark
+                let old_position = self.selection_model.selected();
+                if bookmark
                     .connection
-                    .replace_bookmark(&bookmark.bookmark, changed_bookmark);
+                    .replace_bookmark(&bookmark.bookmark, changed_bookmark)
+                {
+                    self.select(old_position);
+                }
             }
         }
 
         fn remove_clicked(&self) {
             if let Some(bookmark) = self.selected() {
-                bookmark.connection.remove_bookmark(&bookmark.bookmark);
-                self.selection_changed();
+                let old_position = self.selection_model.selected();
+                if bookmark.connection.remove_bookmark(&bookmark.bookmark) {
+                    if old_position > 0 {
+                        self.select(old_position - 1);
+                    } else {
+                        self.selection_changed();
+                    }
+                }
             }
         }
 
         fn up_clicked(&self) {
+            let old_position = self.selection_model.selected();
             if let Some(bookmark) = self.selected()
-                && let Some(position) = bookmark.connection.move_bookmark_up(&bookmark.bookmark)
+                && bookmark.connection.move_bookmark_up(&bookmark.bookmark)
             {
-                self.selection_model.set_selected(position);
-                self.selection_changed();
+                self.select(old_position - 1);
             }
         }
 
         fn down_clicked(&self) {
+            let old_position = self.selection_model.selected();
             if let Some(bookmark) = self.selected()
-                && let Some(position) = bookmark.connection.move_bookmark_down(&bookmark.bookmark)
+                && bookmark.connection.move_bookmark_down(&bookmark.bookmark)
             {
-                self.selection_model.set_selected(position);
-                self.selection_changed();
+                self.select(old_position + 1);
             }
         }
 
@@ -502,24 +533,36 @@ impl BookmarksDialog {
             .property("transient-for", parent_window)
             .build();
         *dialog.imp().shortcuts.borrow_mut() = Some(shortcuts.clone());
-        dialog.update_model(connection_list);
+        dialog.set_model(connection_list);
         dialog
     }
 
-    fn update_model(&self, connection_list: &ConnectionList) {
+    fn set_model(&self, connection_list: &ConnectionList) {
         let model = gtk::MapListModel::new(Some(connection_list.all()), move |connection| {
-            let connection: Connection = connection.clone().downcast().unwrap();
-            gtk::MapListModel::new(Some(connection.bookmarks()), move |bookmark| {
-                let bookmark: Bookmark = bookmark.clone().downcast().unwrap();
-                glib::BoxedAnyObject::new(TaggedBookmark {
-                    connection: connection.clone(),
-                    bookmark,
-                })
-                .upcast()
-            })
-            .upcast()
+            let model = gio::ListStore::new::<glib::BoxedAnyObject>();
+            if let Some(connection) = connection.downcast_ref::<Connection>() {
+                Self::update_connection_bookmarks(connection, &model);
+                connection.connect_updated(glib::clone!(
+                    #[weak]
+                    connection,
+                    #[weak]
+                    model,
+                    move || Self::update_connection_bookmarks(&connection, &model)
+                ));
+            }
+            model.upcast()
         });
         self.imp().flatten_model.set_model(Some(&model));
+    }
+
+    fn update_connection_bookmarks(connection: &Connection, model: &gio::ListStore) {
+        model.remove_all();
+        for bookmark in &*connection.bookmarks() {
+            model.append(&glib::BoxedAnyObject::new(TaggedBookmark {
+                connection: connection.clone(),
+                bookmark: bookmark.clone(),
+            }));
+        }
     }
 
     pub async fn show(
@@ -544,13 +587,17 @@ pub struct TaggedBookmark {
 
 impl TaggedBookmark {
     fn is_first(&self) -> bool {
-        self.connection.bookmarks().item(0).as_ref() == Some(self.bookmark.upcast_ref())
+        self.connection
+            .bookmarks()
+            .first()
+            .is_some_and(|b| b == &self.bookmark)
     }
 
     fn is_last(&self) -> bool {
-        let bookmarks = self.connection.bookmarks();
-        let last_index = bookmarks.n_items().saturating_sub(1);
-        bookmarks.item(last_index).as_ref() == Some(self.bookmark.upcast_ref())
+        self.connection
+            .bookmarks()
+            .last()
+            .is_some_and(|b| b == &self.bookmark)
     }
 }
 
@@ -573,23 +620,34 @@ pub async fn bookmark_directory(window: &gtk::Window, dir: &Directory, options: 
         return;
     };
 
-    let bookmark = Bookmark::new(
-        path.file_name()
-            .and_then(|n| n.to_str())
-            .unwrap_or_default(),
-        path_str,
-    );
+    let connection_list = ConnectionList::get();
+
+    let con = if is_local {
+        connection_list.home().upcast()
+    } else {
+        dir.connection()
+    };
+
+    let mut name = path
+        .file_name()
+        .and_then(|n| n.to_str())
+        .unwrap_or_default()
+        .to_string();
+    let name_len = name.len();
+    let mut index = 1;
+
+    // Choose a name that doesn't exist already
+    while con.bookmarks().iter().any(|b| b.name() == name) {
+        index += 1;
+        name.truncate(name_len);
+        name.push_str(&format!(" ({index})"));
+    }
+
+    let bookmark = Bookmark::new(&name, path_str);
 
     if let Some(changed_bookmark) =
-        edit_bookmark_dialog(window, &gettext("New Bookmark"), &bookmark).await
+        edit_bookmark_dialog(window, &gettext("New Bookmark"), &con, &bookmark).await
     {
-        let connection_list = ConnectionList::get();
-
-        let con = if is_local {
-            connection_list.home().upcast()
-        } else {
-            dir.connection()
-        };
         con.add_bookmark(changed_bookmark);
 
         if let Err(error) = options.bookmarks.set(connection_list.save_bookmarks()) {

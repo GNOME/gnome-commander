@@ -26,7 +26,7 @@ use super::{
 };
 use crate::{debug::debug, dir::Directory, file::File, path::GnomeCmdPath, utils::ErrorMessage};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
-use std::{collections::HashMap, future::Future, ops::Deref, path::Path, pin::Pin};
+use std::{cell::Ref, collections::HashMap, future::Future, ops::Deref, path::Path, pin::Pin};
 
 mod imp {
     use super::*;
@@ -39,7 +39,7 @@ mod imp {
         pub uuid: String,
         pub history: History<String>, // TODO: consider Rc<GnomeCmdPath>
         pub dir_cache: RefCell<HashMap<String, Directory>>,
-        pub bookmarks: gio::ListStore,
+        pub bookmarks: RefCell<Vec<Bookmark>>,
         pub alias: RefCell<Option<String>>,
         pub state: Cell<ConnectionState>,
         /// the start directory of this connection
@@ -58,7 +58,7 @@ mod imp {
                 uuid: glib::uuid_string_random().to_string(),
                 history: History::new(20),
                 dir_cache: Default::default(),
-                bookmarks: gio::ListStore::new::<Bookmark>(),
+                bookmarks: RefCell::new(Vec::new()),
                 alias: Default::default(),
                 state: Cell::new(ConnectionState::Closed),
                 default_dir: Default::default(),
@@ -71,13 +71,6 @@ mod imp {
     impl ObjectImpl for Connection {
         fn constructed(&self) {
             self.parent_constructed();
-
-            let connection = self.obj();
-            self.bookmarks.connect_items_changed(glib::clone!(
-                #[weak]
-                connection,
-                move |_, _, _, _| connection.emit_by_name::<()>("updated", &[])
-            ));
         }
 
         fn dispose(&self) {
@@ -105,6 +98,10 @@ glib::wrapper! {
 }
 
 impl Connection {
+    fn emit_updated(&self) {
+        self.emit_by_name::<()>("updated", &[]);
+    }
+
     pub fn dir_history(&self) -> &History<String> {
         &self.imp().history
     }
@@ -219,71 +216,81 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
     }
 
     fn add_bookmark(&self, bookmark: Bookmark) {
-        self.as_ref().imp().bookmarks.append(&bookmark)
+        self.as_ref().imp().bookmarks.borrow_mut().push(bookmark);
+        self.as_ref().emit_updated();
     }
 
     fn erase_bookmarks(&self) {
-        self.as_ref().imp().bookmarks.remove_all()
+        self.as_ref().imp().bookmarks.borrow_mut().clear();
+        self.as_ref().emit_updated();
     }
 
-    fn bookmarks(&self) -> gio::ListModel {
-        self.as_ref().imp().bookmarks.clone().upcast()
+    fn bookmarks(&self) -> Ref<'_, Vec<Bookmark>> {
+        self.as_ref().imp().bookmarks.borrow()
     }
 
-    fn replace_bookmark(&self, old_bookmark: &Bookmark, new_bookmark: Bookmark) {
-        let bookmarks = &self.as_ref().imp().bookmarks;
-        let Some(position): Option<u32> = bookmarks
-            .iter()
-            .position(|b| b.as_ref() == Ok(old_bookmark))
-            .and_then(|p| p.try_into().ok())
-        else {
-            return;
-        };
-        bookmarks.splice(position, 1, &[new_bookmark]);
-    }
-
-    fn move_bookmark_up(&self, bookmark: &Bookmark) -> Option<u32> {
-        let bookmarks = &self.as_ref().imp().bookmarks;
-        let position: u32 = bookmarks
-            .iter()
-            .position(|b| b.as_ref() == Ok(bookmark))?
-            .try_into()
-            .ok()?;
-        if position > 0 {
-            bookmarks.remove(position);
-            bookmarks.insert(position - 1, bookmark);
-            Some(position - 1)
-        } else {
-            None
+    fn replace_bookmark(&self, old_bookmark: &Bookmark, new_bookmark: Bookmark) -> bool {
+        {
+            let mut bookmarks = self.as_ref().imp().bookmarks.borrow_mut();
+            if let Some(position) = bookmarks.iter().position(|b| b == old_bookmark) {
+                bookmarks.splice(position..=position, [new_bookmark]);
+            } else {
+                return false;
+            }
         }
+
+        // Important: trigger signal outside the block with our mutable bookmarks reference. Signal
+        // handlers might want to borrow bookmarks, causing panic if it is already mutably borrowed.
+        self.as_ref().emit_updated();
+        true
     }
 
-    fn move_bookmark_down(&self, bookmark: &Bookmark) -> Option<u32> {
-        let bookmarks = &self.as_ref().imp().bookmarks;
-        let position: u32 = bookmarks
-            .iter()
-            .position(|b| b.as_ref() == Ok(bookmark))?
-            .try_into()
-            .ok()?;
-        if position + 1 < bookmarks.n_items() {
-            bookmarks.remove(position);
-            bookmarks.insert(position + 1, bookmark);
-            Some(position + 1)
-        } else {
-            None
+    fn move_bookmark_up(&self, bookmark: &Bookmark) -> bool {
+        {
+            let mut bookmarks = self.as_ref().imp().bookmarks.borrow_mut();
+            if let Some(position) = bookmarks.iter().position(|b| b == bookmark)
+                && position > 0
+            {
+                let bookmark = bookmarks.remove(position);
+                bookmarks.insert(position - 1, bookmark);
+            } else {
+                return false;
+            }
         }
+
+        self.as_ref().emit_updated();
+        true
     }
 
-    fn remove_bookmark(&self, bookmark: &Bookmark) {
-        let bookmarks = &self.as_ref().imp().bookmarks;
-        let Some(position): Option<u32> = bookmarks
-            .iter()
-            .position(|b| b.as_ref() == Ok(bookmark))
-            .and_then(|p| p.try_into().ok())
-        else {
-            return;
-        };
-        bookmarks.remove(position);
+    fn move_bookmark_down(&self, bookmark: &Bookmark) -> bool {
+        {
+            let mut bookmarks = self.as_ref().imp().bookmarks.borrow_mut();
+            if let Some(position) = bookmarks.iter().position(|b| b == bookmark)
+                && position + 1 < bookmarks.len()
+            {
+                let bookmark = bookmarks.remove(position);
+                bookmarks.insert(position + 1, bookmark);
+            } else {
+                return false;
+            }
+        }
+
+        self.as_ref().emit_updated();
+        true
+    }
+
+    fn remove_bookmark(&self, bookmark: &Bookmark) -> bool {
+        {
+            let mut bookmarks = self.as_ref().imp().bookmarks.borrow_mut();
+            if let Some(position) = bookmarks.iter().position(|b| b == bookmark) {
+                bookmarks.remove(position);
+            } else {
+                return false;
+            }
+        }
+
+        self.as_ref().emit_updated();
+        true
     }
 
     fn connect_updated<F: Fn() + 'static>(&self, f: F) -> glib::SignalHandlerId {

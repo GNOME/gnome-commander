@@ -17,41 +17,26 @@
  * For more details see the file COPYING.
  */
 
-use gtk::glib::{prelude::*, subclass::prelude::*};
-
-mod imp {
-    use super::*;
-    use std::cell::OnceCell;
-
-    #[derive(glib::Properties, Default)]
-    #[properties(wrapper_type = super::Bookmark)]
-    pub struct Bookmark {
-        #[property(get, construct_only)]
-        name: OnceCell<String>,
-        #[property(get, construct_only)]
-        path: OnceCell<String>,
-    }
-
-    #[glib::object_subclass]
-    impl ObjectSubclass for Bookmark {
-        const NAME: &'static str = "GnomeCmdBookmark";
-        type Type = super::Bookmark;
-    }
-
-    #[glib::derived_properties]
-    impl ObjectImpl for Bookmark {}
-}
-
-glib::wrapper! {
-    pub struct Bookmark(ObjectSubclass<imp::Bookmark>);
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct Bookmark {
+    name: String,
+    path: String,
 }
 
 impl Bookmark {
     pub fn new(name: &str, path: &str) -> Self {
-        glib::Object::builder()
-            .property("name", name)
-            .property("path", path)
-            .build()
+        Self {
+            name: name.to_string(),
+            path: path.to_string(),
+        }
+    }
+
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+
+    pub fn path(&self) -> &str {
+        &self.path
     }
 }
 
