@@ -20,10 +20,7 @@
 use crate::{
     app::{AppExt, AppTarget, UserDefinedApp},
     select_icon_button::IconButton,
-    utils::{
-        ErrorMessage, NO_BUTTONS, SenderExt, attributes_bold, channel_send_action,
-        dialog_button_box, handle_escape_key,
-    },
+    utils::{ErrorMessage, NO_BUTTONS, SenderExt, WindowExt, attributes_bold, dialog_button_box},
 };
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
@@ -221,7 +218,7 @@ pub async fn edit_app_dialog(
             glib::Propagation::Proceed
         }
     ));
-    handle_escape_key(&dialog, &channel_send_action(&sender, false));
+    dialog.set_cancel_widget(&cancel_button);
 
     {
         name_entry.set_text(&user_app.name());

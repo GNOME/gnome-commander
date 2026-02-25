@@ -22,7 +22,7 @@
 
 use crate::{
     connection::bookmark::Bookmark,
-    utils::{NO_BUTTONS, SenderExt, channel_send_action, dialog_button_box, handle_escape_key},
+    utils::{NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
 };
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
@@ -131,9 +131,8 @@ pub async fn edit_bookmark_dialog(
         1,
     );
 
-    handle_escape_key(&dialog, &channel_send_action(&sender, false));
-
     dialog.set_default_widget(Some(&ok_btn));
+    dialog.set_cancel_widget(&cancel_btn);
 
     name_entry.set_text(&bookmark.name());
     path_entry.set_text(&bookmark.path());

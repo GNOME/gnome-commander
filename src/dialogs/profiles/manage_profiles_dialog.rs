@@ -21,7 +21,7 @@ use super::{edit_profile_dialog::edit_profile, profiles::ProfileManager};
 use crate::{
     dialogs::order_utils::ordering_buttons,
     hintbox::hintbox,
-    utils::{SenderExt, dialog_button_box, display_help},
+    utils::{SenderExt, WindowExt, dialog_button_box, display_help},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, pango, prelude::*};
@@ -276,6 +276,7 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
     );
 
     dialog.set_default_widget(Some(&ok_button));
+    dialog.set_cancel_widget(&cancel_button);
 
     for profile_index in 0..manager.len() {
         store.append(&glib::BoxedAnyObject::new(profile_index));

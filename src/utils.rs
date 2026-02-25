@@ -159,33 +159,24 @@ impl<T> SenderExt<T> for async_channel::Sender<T> {
     }
 }
 
-pub fn channel_send_action<T>(sender: &async_channel::Sender<T>, message: T) -> gtk::ShortcutAction
-where
-    T: Clone + 'static,
-{
-    gtk::CallbackAction::new(glib::clone!(
-        #[strong]
-        sender,
-        move |_, _| {
-            sender.toss(message.clone());
-            glib::Propagation::Proceed
-        }
-    ))
-    .upcast()
+pub trait WindowExt {
+    fn set_cancel_widget(&self, cancel_widget: &impl IsA<gtk::Widget>);
 }
 
-pub fn handle_escape_key(window: &gtk::Window, action: &impl IsA<gtk::ShortcutAction>) {
-    if let Some(trigger) = gtk::ShortcutTrigger::parse_string("Escape") {
+impl<T: IsA<gtk::Window> + WidgetExt> WindowExt for T {
+    fn set_cancel_widget(&self, cancel_widget: &impl IsA<gtk::Widget>) {
+        let cancel_widget = cancel_widget.upcast_ref::<gtk::Widget>().clone();
         let controller = gtk::ShortcutController::new();
         controller.add_shortcut(
             gtk::Shortcut::builder()
-                .trigger(&trigger)
-                .action(action)
+                .trigger(&gtk::KeyvalTrigger::new(gdk::Key::Escape, NO_MOD))
+                .action(&gtk::CallbackAction::new(move |_, _| {
+                    cancel_widget.activate();
+                    glib::Propagation::Stop
+                }))
                 .build(),
         );
-        window.add_controller(controller);
-    } else {
-        eprintln!("\"Escape\" wasn't recognized as a legit shortcut.");
+        self.add_controller(controller);
     }
 }
 

@@ -24,7 +24,7 @@ use crate::{
     dir::Directory,
     file::File,
     options::options::{ConfirmOptions, DeleteDefault, GeneralOptions},
-    utils::ErrorMessage,
+    utils::{ErrorMessage, WindowExt},
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
@@ -129,6 +129,7 @@ mod imp {
                     glib::Propagation::Proceed
                 }
             ));
+            dlg.set_cancel_widget(&self.stop_button);
         }
     }
 

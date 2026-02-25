@@ -35,8 +35,8 @@ mod imp {
         tags::{file_metadata::FileMetadata, tags::FileMetadataService},
         types::SizeDisplayMode,
         utils::{
-            ErrorMessage, attributes_bold, dialog_button_box, display_help, handle_escape_key,
-            nice_size, time_to_string,
+            ErrorMessage, WindowExt, attributes_bold, dialog_button_box, display_help, nice_size,
+            time_to_string,
         },
     };
     use futures::StreamExt;
@@ -143,6 +143,7 @@ mod imp {
                 .build();
 
             self.obj().set_default_widget(Some(&ok_button));
+            self.obj().set_cancel_widget(&cancel_button);
 
             cancel_button.connect_clicked(glib::clone!(
                 #[weak(rename_to = imp)]
@@ -161,20 +162,6 @@ mod imp {
                 &[&help_button],
                 &[&cancel_button, &ok_button],
             ));
-
-            handle_escape_key(
-                self.obj().upcast_ref(),
-                &gtk::CallbackAction::new(glib::clone!(
-                    #[weak(rename_to = imp)]
-                    self,
-                    #[upgrade_or]
-                    glib::Propagation::Proceed,
-                    move |_, _| {
-                        imp.obj().close();
-                        glib::Propagation::Proceed
-                    }
-                )),
-            );
         }
 
         fn signals() -> &'static [glib::subclass::Signal] {

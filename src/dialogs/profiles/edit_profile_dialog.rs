@@ -18,7 +18,7 @@
  */
 
 use super::profiles::ProfileManager;
-use crate::utils::{SenderExt, dialog_button_box, display_help};
+use crate::utils::{SenderExt, WindowExt, dialog_button_box, display_help};
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
 use std::rc::Rc;
@@ -137,6 +137,7 @@ pub async fn edit_profile(
     );
 
     dialog.set_default_widget(Some(&ok_button));
+    dialog.set_cancel_widget(&cancel_button);
 
     dialog.present();
     let result = receiver.recv().await;

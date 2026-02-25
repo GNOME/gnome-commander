@@ -26,7 +26,7 @@ use crate::{
     main_win::MainWindow,
     transfer::copy_files,
     types::ConfirmOverwriteMode,
-    utils::{NO_BUTTONS, SenderExt, channel_send_action, dialog_button_box, handle_escape_key},
+    utils::{NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
@@ -62,8 +62,6 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
 
     let (sender, receiver) = async_channel::bounded::<bool>(1);
 
-    handle_escape_key(&dialog, &channel_send_action(&sender, false));
-
     let cancel_btn = gtk::Button::builder()
         .label(gettext("_Cancel"))
         .use_underline(true)
@@ -84,6 +82,8 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         sender,
         move |_| sender.toss(true)
     ));
+
+    dialog.set_cancel_widget(&cancel_btn);
 
     grid.attach(
         &dialog_button_box(NO_BUTTONS, &[&cancel_btn, &ok_btn]),

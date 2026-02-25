@@ -265,9 +265,7 @@ mod imp {
         file_view::file_view,
         options::utils::remember_window_size,
         types::SizeDisplayMode,
-        utils::{
-            MenuBuilderExt, attributes_bold, dialog_button_box, display_help, handle_escape_key,
-        },
+        utils::{MenuBuilderExt, WindowExt, attributes_bold, dialog_button_box, display_help},
     };
     use std::{
         cell::{OnceCell, RefCell},
@@ -579,6 +577,7 @@ mod imp {
             ));
 
             this.set_default_widget(Some(&apply_button));
+            this.set_cancel_widget(&close_button);
 
             content_vbox.append(&dialog_button_box(
                 &[&help_button],
@@ -591,22 +590,6 @@ mod imp {
             ));
 
             self.file_view_popover.set_parent(&*this);
-
-            handle_escape_key(
-                this.upcast_ref(),
-                &gtk::CallbackAction::new(glib::clone!(
-                    #[weak]
-                    this,
-                    #[upgrade_or]
-                    glib::Propagation::Proceed,
-                    move |_, _| {
-                        this.profile_component().copy();
-                        this.close();
-                        this.imp().unset();
-                        glib::Propagation::Proceed
-                    }
-                )),
-            );
 
             remember_window_size(
                 &*this,

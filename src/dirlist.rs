@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::{dir::Directory, libgcmd::file_descriptor::FileDescriptorExt};
+use crate::{dir::Directory, libgcmd::file_descriptor::FileDescriptorExt, utils::WindowExt};
 use gettextrs::{gettext, ngettext};
 use gtk::{gio, glib, prelude::*};
 
@@ -58,6 +58,7 @@ fn create_list_progress_dialog(parent_window: &gtk::Window) -> ProgressDialog {
         .halign(gtk::Align::Center)
         .build();
     grid.attach(&button, 0, 2, 1, 1);
+    dialog.set_cancel_widget(&button);
 
     button.connect_clicked(glib::clone!(
         #[weak]

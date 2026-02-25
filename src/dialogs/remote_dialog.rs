@@ -29,7 +29,7 @@ use crate::{
     i18n::I18N_CONTEXT_ACTION,
     main_win::MainWindow,
     types::FileSelectorID,
-    utils::handle_escape_key,
+    utils::WindowExt,
 };
 use gettextrs::{gettext, pgettext};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
@@ -185,20 +185,7 @@ mod imp {
                 self,
                 move |_| imp.on_close_btn_clicked()
             ));
-
-            handle_escape_key(
-                obj.upcast_ref(),
-                &gtk::CallbackAction::new(glib::clone!(
-                    #[weak(rename_to = imp)]
-                    self,
-                    #[upgrade_or]
-                    glib::Propagation::Proceed,
-                    move |_, _| {
-                        imp.on_close_btn_clicked();
-                        glib::Propagation::Proceed
-                    }
-                )),
-            );
+            obj.set_cancel_widget(&close_button);
 
             self.connect_button.connect_clicked(glib::clone!(
                 #[weak(rename_to = imp)]

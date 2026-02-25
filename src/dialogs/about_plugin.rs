@@ -20,7 +20,7 @@
 use crate::{
     i18n::I18N_CONTEXT_SINGULAR,
     plugin_manager::PluginInfoOwned,
-    utils::{NO_BUTTONS, dialog_button_box, handle_escape_key},
+    utils::{NO_BUTTONS, WindowExt, dialog_button_box},
 };
 use gettextrs::{gettext, pgettext};
 use gtk::{glib, pango, prelude::*};
@@ -138,21 +138,8 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginInfoOwned) -> gtk:
     ));
     content_area.append(&dialog_button_box(NO_BUTTONS, &[&close_button]));
 
-    handle_escape_key(
-        &dialog,
-        &gtk::CallbackAction::new(glib::clone!(
-            #[weak]
-            dialog,
-            #[upgrade_or]
-            glib::Propagation::Proceed,
-            move |_, _| {
-                dialog.close();
-                glib::Propagation::Proceed
-            }
-        )),
-    );
-
     dialog.set_default_widget(Some(&close_button));
+    dialog.set_cancel_widget(&close_button);
     close_button.grab_focus();
 
     dialog

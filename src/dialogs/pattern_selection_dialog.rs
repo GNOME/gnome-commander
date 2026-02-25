@@ -22,10 +22,7 @@ use crate::{
     filter::{Filter, PatternType},
     history_entry::HistoryEntry,
     options::options::SearchConfig,
-    utils::{
-        ErrorMessage, NO_BUTTONS, SenderExt, channel_send_action, dialog_button_box,
-        handle_escape_key,
-    },
+    utils::{ErrorMessage, NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
 };
 use gettextrs::gettext;
 use gtk::prelude::*;
@@ -116,7 +113,6 @@ pub async fn show_pattern_selection_dialog(
         1,
     );
 
-    handle_escape_key(&dialog, &channel_send_action(&sender, false));
     dialog.connect_close_request(glib::clone!(
         #[strong]
         sender,
@@ -127,6 +123,7 @@ pub async fn show_pattern_selection_dialog(
     ));
 
     dialog.set_default_widget(Some(&ok_btn));
+    dialog.set_cancel_widget(&cancel_btn);
 
     dialog.present();
     pattern_entry.grab_focus();
