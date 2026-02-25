@@ -423,7 +423,6 @@ pub struct ProgramsOptions {
     pub sendto_cmd: StringOption,
     pub terminal_cmd: StringOption,
     pub terminal_exec_cmd: StringOption,
-    pub use_gcmd_block: BoolOption,
 }
 
 impl ProgramsOptions {
@@ -440,7 +439,6 @@ impl ProgramsOptions {
             sendto_cmd: StringOption::simple(&settings, "sendto-cmd"),
             terminal_cmd: StringOption::simple(&settings, "terminal-cmd"),
             terminal_exec_cmd: StringOption::simple(&settings, "terminal-exec-cmd"),
-            use_gcmd_block: BoolOption::simple(&settings, "use-gcmd-block"),
         }
     }
 }

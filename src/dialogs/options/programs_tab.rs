@@ -38,7 +38,6 @@ pub struct ProgramsTab {
     termopen: gtk::Entry,
     fav_apps: FavoriteApps,
     termexec: gtk::Entry,
-    use_gcmd_block: gtk::CheckButton,
 }
 
 impl ProgramsTab {
@@ -134,10 +133,6 @@ impl ProgramsTab {
         grid.attach(&label, 0, 0, 1, 1);
         let termexec = gtk::Entry::builder().hexpand(true).build();
         grid.attach(&termexec, 1, 0, 1, 1);
-        let use_gcmd_block = gtk::CheckButton::builder()
-            .label(gettext("Leave terminal window open"))
-            .build();
-        grid.attach(&use_gcmd_block, 0, 2, 1, 1);
 
         Self {
             scrolled_window,
@@ -152,7 +147,6 @@ impl ProgramsTab {
             termopen,
             fav_apps,
             termexec,
-            use_gcmd_block,
         }
     }
 
@@ -176,8 +170,6 @@ impl ProgramsTab {
         self.fav_apps.read(general_options);
         self.termexec
             .set_text(&programs_options.terminal_exec_cmd.get());
-        self.use_gcmd_block
-            .set_active(programs_options.use_gcmd_block.get());
     }
 
     pub fn write(
@@ -204,9 +196,6 @@ impl ProgramsTab {
         programs_options
             .terminal_exec_cmd
             .set(self.termexec.text())?;
-        programs_options
-            .use_gcmd_block
-            .set(self.use_gcmd_block.is_active())?;
         Ok(())
     }
 }

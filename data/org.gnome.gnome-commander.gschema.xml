@@ -738,13 +738,6 @@
           This string defines the command for starting an external file search tool.
       </description>
     </key>
-    <key name="use-gcmd-block" type="b">
-      <default>true</default>
-      <summary>Leave terminal open</summary>
-      <description>
-          This option defines if a terminal window should stay open after a command finishes inside of it.
-      </description>
-    </key>
     <key name="terminal-cmd" type="s">
       <default>'xdg-terminal-exec'</default>
       <summary>Command for opening a terminal</summary>
