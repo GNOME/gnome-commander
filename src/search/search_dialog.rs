@@ -592,15 +592,11 @@ mod imp {
 
         fn find_connection(&self, file: &gio::File) -> Option<Connection> {
             let uri = file.uri();
-            ConnectionList::get()
-                .all()
-                .iter::<Connection>()
-                .flatten()
-                .find(|con| {
-                    con.downcast_ref::<ConnectionRemote>()
-                        .and_then(|con| con.uri())
-                        .is_some_and(|con_uri| uri.starts_with(&*con_uri.to_str()))
-                })
+            ConnectionList::get().iter().find(|con| {
+                con.downcast_ref::<ConnectionRemote>()
+                    .and_then(|con| con.uri())
+                    .is_some_and(|con_uri| uri.starts_with(&*con_uri.to_str()))
+            })
         }
 
         fn start_directory(&self, file: &gio::File) -> Result<Directory, ErrorMessage> {
