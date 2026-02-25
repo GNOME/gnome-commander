@@ -1579,7 +1579,7 @@ async fn on_notebook_button_pressed(
             }
 
             section.append(
-                Some(&gettext("Copy Tab to Other _Pane")),
+                Some(&gettext("Copy Tab to Other _Panel")),
                 Some(UserAction::ViewInInactiveTab.name()),
             );
             menu.append_section(None, &section);

@@ -1753,25 +1753,25 @@ user_actions! {
 
     ViewInLeftPane(
         "view-in-left-pane" | "view.in_left_pane",
-        gettext("Open directory in the left window"),
+        gettext("Open directory in the left panel"),
         view_in_left_pane,
     ),
 
     ViewInRightPane(
         "view-in-right-pane" | "view.in_right_pane",
-        gettext("Open directory in the right window"),
+        gettext("Open directory in the right panel"),
         view_in_right_pane,
     ),
 
     ViewInActivePane(
         "view-in-active-pane" | "view.in_active_pane",
-        gettext("Open directory in the active window"),
+        gettext("Open directory in the active panel"),
         view_in_active_pane,
     ),
 
     ViewInInactivePane(
         "view-in-inactive-pane" | "view.in_inactive_pane",
-        gettext("Open directory in the inactive window"),
+        gettext("Open directory in the inactive panel"),
         view_in_inactive_pane,
     ),
 
@@ -1837,7 +1837,7 @@ user_actions! {
 
     ViewInInactiveTab(
         "view-in-inactive-tab" | "view.in_inactive_tab",
-        gettext("Open directory in the new tab (inactive window)"),
+        gettext("Open directory in the new tab (inactive panel)"),
         view_in_inactive_tab,
     ),
 
