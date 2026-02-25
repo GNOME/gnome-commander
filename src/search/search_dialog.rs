@@ -91,7 +91,7 @@ impl SearchProfiles {
 
     fn profile_description(&self, profile_index: usize) -> String {
         self.profile(profile_index)
-            .map(|p| p.filename_pattern())
+            .map(|p| p.path_pattern())
             .unwrap_or_default()
     }
 
@@ -746,14 +746,14 @@ mod imp {
 
             profile_component.copy();
 
-            let filename_pattern = default_profile.filename_pattern();
+            let filename_pattern = default_profile.path_pattern();
             if !filename_pattern.is_empty() {
                 config.add_name_pattern(&filename_pattern);
                 profile_component.set_name_patterns_history(&config.name_patterns());
             }
 
             if default_profile.content_search() {
-                let text_pattern = default_profile.text_pattern();
+                let text_pattern = default_profile.content_pattern();
                 if !text_pattern.is_empty() {
                     config.add_content_pattern(&text_pattern);
                     gnome_cmd_viewer_search_text_add_to_history(&text_pattern);

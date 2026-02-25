@@ -508,11 +508,11 @@ impl SearchConfig {
     }
 
     pub fn default_profile_syntax(&self) -> PatternType {
-        self.default_profile().pattern_type()
+        self.default_profile().path_syntax()
     }
 
     pub fn set_default_profile_syntax(&self, pattern_type: PatternType) {
-        self.default_profile().set_pattern_type(pattern_type)
+        self.default_profile().set_path_syntax(pattern_type)
     }
 
     pub fn save(&self, settings: &GeneralOptions, save_search_history: bool) -> WriteResult {

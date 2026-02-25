@@ -31,17 +31,17 @@ mod imp {
         #[property(get, set)]
         pub name: RefCell<String>,
         #[property(get, set)]
-        pub filename_pattern: RefCell<String>,
+        pub path_pattern: RefCell<String>,
         #[property(get, set)]
-        pub syntax: Cell<i32>,
+        pub path_syntax: Cell<PatternType>,
         #[property(get, set)]
         pub max_depth: Cell<i32>,
         #[property(get, set)]
-        pub text_pattern: RefCell<String>,
+        pub content_pattern: RefCell<String>,
         #[property(get, set)]
         pub content_search: Cell<bool>,
         #[property(get, set)]
-        pub match_case: Cell<bool>,
+        pub content_match_case: Cell<bool>,
     }
 
     #[glib::object_subclass]
@@ -70,36 +70,28 @@ impl Default for SearchProfile {
 impl SearchProfile {
     pub fn reset(&self) {
         self.set_name("");
-        self.set_filename_pattern("");
-        self.set_syntax(i32::from(PatternType::default()));
+        self.set_path_pattern("");
+        self.set_path_syntax(PatternType::default());
         self.set_max_depth(-1);
-        self.set_text_pattern("");
+        self.set_content_pattern("");
         self.set_content_search(false);
-        self.set_match_case(false);
+        self.set_content_match_case(false);
     }
 
     pub fn copy_from(&self, other: &Self) {
         self.set_name(other.name());
-        self.set_filename_pattern(other.filename_pattern());
-        self.set_syntax(other.syntax());
+        self.set_path_pattern(other.path_pattern());
+        self.set_path_syntax(other.path_syntax());
         self.set_max_depth(other.max_depth());
-        self.set_text_pattern(other.text_pattern());
+        self.set_content_pattern(other.content_pattern());
         self.set_content_search(other.content_search());
-        self.set_match_case(other.match_case());
+        self.set_content_match_case(other.content_match_case());
     }
 
     pub fn deep_clone(&self) -> Self {
         let clone = Self::default();
         clone.copy_from(self);
         clone
-    }
-
-    pub fn pattern_type(&self) -> PatternType {
-        self.syntax().try_into().unwrap_or_default()
-    }
-
-    pub fn set_pattern_type(&self, pattern_type: PatternType) {
-        self.set_syntax(i32::from(pattern_type));
     }
 
     const SETTING_NAME: &str = "name";
@@ -114,10 +106,13 @@ impl SearchProfile {
         let mut v = SearchProfileVariant::new();
         v.insert(Self::SETTING_NAME.to_string(), self.name().into());
         v.insert(Self::SETTING_MAX_DEPTH.to_string(), self.max_depth().into());
-        v.insert(Self::SETTING_PATH_SYNTAX.to_string(), self.syntax().into());
+        v.insert(
+            Self::SETTING_PATH_SYNTAX.to_string(),
+            u32::from(self.path_syntax()).into(),
+        );
         v.insert(
             Self::SETTING_PATH_PATTERN.to_string(),
-            self.filename_pattern().into(),
+            self.path_pattern().into(),
         );
         v.insert(
             Self::SETTING_CONTENT_SEARCH.to_string(),
@@ -125,11 +120,11 @@ impl SearchProfile {
         );
         v.insert(
             Self::SETTING_CONTENT_MATCH_CASE.to_string(),
-            self.match_case().into(),
+            self.content_match_case().into(),
         );
         v.insert(
             Self::SETTING_CONTENT_PATTERN.to_string(),
-            self.text_pattern().into(),
+            self.content_pattern().into(),
         );
         v
     }
@@ -149,15 +144,15 @@ impl SearchProfile {
         }
         if let Some(path_syntax) = variant
             .get(Self::SETTING_PATH_SYNTAX)
-            .and_then(i32::from_variant)
+            .and_then(u32::from_variant)
         {
-            self.set_syntax(path_syntax);
+            self.set_path_syntax(PatternType::from(path_syntax));
         }
         if let Some(path_pattern) = variant
             .get(Self::SETTING_PATH_PATTERN)
             .and_then(String::from_variant)
         {
-            self.set_filename_pattern(path_pattern);
+            self.set_path_pattern(path_pattern);
         }
         if let Some(content_search) = variant
             .get(Self::SETTING_CONTENT_SEARCH)
@@ -169,24 +164,24 @@ impl SearchProfile {
             .get(Self::SETTING_CONTENT_MATCH_CASE)
             .and_then(bool::from_variant)
         {
-            self.set_match_case(content_match_case);
+            self.set_content_match_case(content_match_case);
         }
         if let Some(content_pattern) = variant
             .get(Self::SETTING_CONTENT_PATTERN)
             .and_then(String::from_variant)
         {
-            self.set_text_pattern(content_pattern);
+            self.set_content_pattern(content_pattern);
         }
     }
 
     pub fn load_legacy(&self, variant: LegacySearchProfileVariant) {
         self.set_name(variant.name);
         self.set_max_depth(variant.max_depth);
-        self.set_syntax(variant.syntax);
-        self.set_filename_pattern(variant.filename_pattern);
+        self.set_path_syntax(PatternType::from(variant.path_syntax as u32));
+        self.set_path_pattern(variant.path_pattern);
         self.set_content_search(variant.content_search);
-        self.set_match_case(variant.match_case);
-        self.set_text_pattern(variant.text_pattern);
+        self.set_content_match_case(variant.content_match_case);
+        self.set_content_pattern(variant.content_pattern);
     }
 }
 
@@ -196,11 +191,11 @@ pub type SearchProfileVariant = HashMap<String, glib::Variant>;
 pub struct LegacySearchProfileVariant {
     pub name: String,
     pub max_depth: i32,
-    pub syntax: i32,
-    pub filename_pattern: String,
+    pub path_syntax: i32,
+    pub path_pattern: String,
     pub content_search: bool,
-    pub match_case: bool,
-    pub text_pattern: String,
+    pub content_match_case: bool,
+    pub content_pattern: String,
 }
 
 #[cfg(test)]
@@ -221,11 +216,11 @@ mod test {
         let profile = SearchProfile::default();
         profile.set_name("name");
         profile.set_max_depth(3);
-        profile.set_syntax(1);
-        profile.set_filename_pattern("path");
+        profile.set_path_syntax(PatternType::Regex);
+        profile.set_path_pattern("path");
         profile.set_content_search(true);
-        profile.set_match_case(true);
-        profile.set_text_pattern("text");
+        profile.set_content_match_case(true);
+        profile.set_content_pattern("text");
 
         let variant = profile.save();
 
@@ -234,10 +229,10 @@ mod test {
 
         assert_eq!(profile.name(), "name");
         assert_eq!(profile.max_depth(), 3);
-        assert_eq!(profile.syntax(), 1);
-        assert_eq!(profile.filename_pattern(), "path");
+        assert_eq!(profile.path_syntax(), PatternType::Regex);
+        assert_eq!(profile.path_pattern(), "path");
         assert_eq!(profile.content_search(), true);
-        assert_eq!(profile.match_case(), true);
-        assert_eq!(profile.text_pattern(), "text");
+        assert_eq!(profile.content_match_case(), true);
+        assert_eq!(profile.content_pattern(), "text");
     }
 }

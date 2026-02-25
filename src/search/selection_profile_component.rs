@@ -18,6 +18,7 @@
  */
 
 use super::profile::SearchProfile;
+use crate::filter::PatternType;
 use gettextrs::{gettext, ngettext};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
@@ -230,20 +231,22 @@ impl SelectionProfileComponent {
             return;
         };
 
-        self.imp()
-            .pattern_entry
-            .set_text(&profile.filename_pattern());
+        self.imp().pattern_entry.set_text(&profile.path_pattern());
         self.imp()
             .filter_type_drop_down
-            .set_selected(profile.syntax() as u32);
+            .set_selected(profile.path_syntax().into());
         self.imp()
             .recurse_drop_down
             .set_selected((profile.max_depth() + 1) as u32);
-        self.imp().find_text_entry.set_text(&profile.text_pattern());
+        self.imp()
+            .find_text_entry
+            .set_text(&profile.content_pattern());
         self.imp()
             .find_text_check
             .set_active(profile.content_search());
-        self.imp().case_check.set_active(profile.match_case());
+        self.imp()
+            .case_check
+            .set_active(profile.content_match_case());
     }
 
     pub fn copy(&self) {
@@ -254,12 +257,14 @@ impl SelectionProfileComponent {
         let text_pattern = self.imp().find_text_entry.text();
         let content_search = !text_pattern.is_empty() && self.imp().find_text_check.is_active();
 
-        profile.set_filename_pattern(self.imp().pattern_entry.text());
+        profile.set_path_pattern(self.imp().pattern_entry.text());
         profile.set_max_depth(self.imp().recurse_drop_down.selected() as i32 - 1);
-        profile.set_syntax(self.imp().filter_type_drop_down.selected() as i32);
-        profile.set_text_pattern(text_pattern);
+        profile.set_path_syntax(PatternType::from(
+            self.imp().filter_type_drop_down.selected(),
+        ));
+        profile.set_content_pattern(text_pattern);
         profile.set_content_search(content_search);
-        profile.set_match_case(content_search && self.imp().case_check.is_active());
+        profile.set_content_match_case(content_search && self.imp().case_check.is_active());
     }
 
     pub fn set_name_patterns_history(&self, history: &[String]) {
