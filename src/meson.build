@@ -1,16 +1,4 @@
-cc_args = [
-  '-DGNOMELOCALEDIR="' + datadir + '/locale"',
-  '-DSHARE_DIR="' + pkgdatadir + '"',
-]
-
 rpath = get_option('prefix') / get_option('libdir')
-
-executable('gcmd-block', 'gnome-cmd-block.cc',
-  c_args: cc_args,
-  include_directories: [configuration_inc],
-  install: true,
-  install_rpath: rpath
-)
 
 config_rs = configure_file(
   input: 'config.rs.in',

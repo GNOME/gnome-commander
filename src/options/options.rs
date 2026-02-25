@@ -421,7 +421,6 @@ pub struct ProgramsOptions {
     pub sendto_cmd: StringOption,
     pub terminal_cmd: StringOption,
     pub terminal_exec_cmd: StringOption,
-    pub use_gcmd_block: BoolOption,
 }
 
 impl ProgramsOptions {
@@ -438,7 +437,6 @@ impl ProgramsOptions {
             sendto_cmd: StringOption::simple(&settings, "sendto-cmd"),
             terminal_cmd: StringOption::simple(&settings, "terminal-cmd"),
             terminal_exec_cmd: StringOption::simple(&settings, "terminal-exec-cmd"),
-            use_gcmd_block: BoolOption::simple(&settings, "use-gcmd-block"),
         }
     }
 }
@@ -506,11 +504,11 @@ impl SearchConfig {
     }
 
     pub fn default_profile_syntax(&self) -> PatternType {
-        self.default_profile().pattern_type()
+        self.default_profile().path_syntax()
     }
 
     pub fn set_default_profile_syntax(&self, pattern_type: PatternType) {
-        self.default_profile().set_pattern_type(pattern_type)
+        self.default_profile().set_path_syntax(pattern_type)
     }
 
     pub fn save(&self, settings: &GeneralOptions, save_search_history: bool) -> WriteResult {

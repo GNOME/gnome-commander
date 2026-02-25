@@ -22,7 +22,6 @@
 
 use crate::{
     connection::{
-        bookmark::Bookmark,
         connection::{Connection, ConnectionExt, ConnectionInterface},
         home::ConnectionHome,
         list::ConnectionList,
@@ -1226,8 +1225,8 @@ impl FileSelector {
 
         if let Some(connection) = self.file_list().connection() {
             let bookmarks_section = gio::Menu::new();
-            for bookmark in connection.bookmarks().iter::<Bookmark>().flatten() {
-                let item = gio::MenuItem::new(Some(&bookmark.name()), None);
+            for bookmark in &*connection.bookmarks() {
+                let item = gio::MenuItem::new(Some(bookmark.name()), None);
                 item.set_action_and_target_value(
                     Some("fs.select-path"),
                     Some(&bookmark.path().to_variant()),
@@ -1578,7 +1577,7 @@ async fn on_notebook_button_pressed(
             }
 
             section.append(
-                Some(&gettext("Copy Tab to Other _Pane")),
+                Some(&gettext("Copy Tab to Other _Panel")),
                 Some(UserAction::ViewInInactiveTab.name()),
             );
             menu.append_section(None, &section);

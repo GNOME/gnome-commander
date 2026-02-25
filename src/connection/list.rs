@@ -126,7 +126,7 @@ impl ConnectionList {
         self.imp().connections.clone().upcast()
     }
 
-    fn iter(&self) -> impl Iterator<Item = Connection> + '_ {
+    pub fn iter(&self) -> impl Iterator<Item = Connection> + '_ {
         self.imp().connections.iter::<Connection>().flatten()
     }
 
@@ -291,22 +291,22 @@ impl ConnectionList {
     pub fn save_bookmarks(&self) -> Vec<BookmarkVariant> {
         let mut bookmarks = Vec::<BookmarkVariant>::new();
 
-        for bookmark in self.home().bookmarks().iter::<Bookmark>().flatten() {
+        for bookmark in &*self.home().bookmarks() {
             bookmarks.push(BookmarkVariant {
                 is_remote: false,
                 group_name: "Home".to_owned(),
-                name: bookmark.name(),
-                path: bookmark.path(),
+                name: bookmark.name().to_owned(),
+                path: bookmark.path().to_owned(),
             });
         }
 
         if let Some(smb) = self.smb() {
-            for bookmark in smb.bookmarks().iter::<Bookmark>().flatten() {
+            for bookmark in &*smb.bookmarks() {
                 bookmarks.push(BookmarkVariant {
                     is_remote: false,
                     group_name: "SMB".to_owned(),
-                    name: bookmark.name(),
-                    path: bookmark.path(),
+                    name: bookmark.name().to_owned(),
+                    path: bookmark.path().to_owned(),
                 });
             }
         }
@@ -316,12 +316,12 @@ impl ConnectionList {
             .filter_map(|c| c.downcast::<ConnectionRemote>().ok())
         {
             let alias = con.alias().unwrap_or_default();
-            for bookmark in con.bookmarks().iter::<Bookmark>().flatten() {
+            for bookmark in &*con.bookmarks() {
                 bookmarks.push(BookmarkVariant {
                     is_remote: true,
                     group_name: alias.clone(),
-                    name: bookmark.name(),
-                    path: bookmark.path(),
+                    name: bookmark.name().to_owned(),
+                    path: bookmark.path().to_owned(),
                 });
             }
         }
@@ -388,9 +388,7 @@ impl ConnectionList {
     }
 
     fn find_remote_by_root(&self, root_file: &gio::File) -> Option<ConnectionRemote> {
-        self.all()
-            .iter::<Connection>()
-            .flatten()
+        self.iter()
             .filter_map(|c| c.downcast::<ConnectionRemote>().ok())
             .find(|c| {
                 c.uri_string()
@@ -425,9 +423,7 @@ impl ConnectionList {
     }
 
     fn find_device_by_mount_point(&self, mount_point: &Path) -> Option<ConnectionDevice> {
-        self.all()
-            .iter::<Connection>()
-            .flatten()
+        self.iter()
             .filter_map(|c| c.downcast::<ConnectionDevice>().ok())
             .filter(|d| !d.autovol())
             .find(|d| d.mountp_string().as_deref() == Some(mount_point))
@@ -469,9 +465,7 @@ impl ConnectionList {
             return;
         };
         let Some(device) = self
-            .all()
-            .iter::<Connection>()
-            .flatten()
+            .iter()
             .filter_map(|c| c.downcast::<ConnectionDevice>().ok())
             .filter(|d| d.autovol())
             .find(|d| d.device_fn().as_deref() == Some(&uuid))

@@ -21,8 +21,7 @@
  */
 
 use crate::{
-    config::PREFIX, file::File, options::options::ProgramsOptions, types::SizeDisplayMode,
-    user_actions::UserAction,
+    file::File, options::options::ProgramsOptions, types::SizeDisplayMode, user_actions::UserAction,
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gdk, gio, glib, pango, prelude::*};
@@ -132,18 +131,11 @@ fn substitute_command_argument(command_template: &str, arg: &OsStr) -> OsString 
 }
 
 pub fn make_run_in_terminal_command(command: &OsStr, options: &ProgramsOptions) -> OsString {
-    let arg = if options.use_gcmd_block.get() {
-        let mut command = command.to_owned();
-        command.push(format!("; {PREFIX}/bin/gcmd-block"));
-
-        let shell = std::env::var("SHELL").unwrap_or_else(|_| "/bin/sh".to_owned());
-        glib::shell_quote(substitute_command_argument(
-            &format!("{shell} -c %s"),
-            &glib::shell_quote(command),
-        ))
-    } else {
-        glib::shell_quote(command)
-    };
+    let shell = std::env::var("SHELL").unwrap_or_else(|_| "/bin/sh".to_owned());
+    let arg = glib::shell_quote(substitute_command_argument(
+        &format!("{shell} -c %s"),
+        &glib::shell_quote(command),
+    ));
     substitute_command_argument(&options.terminal_exec_cmd.get(), &arg)
 }
 

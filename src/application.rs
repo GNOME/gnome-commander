@@ -68,7 +68,7 @@ mod imp {
                 b'l'.into(),
                 glib::OptionFlags::NONE,
                 glib::OptionArg::String,
-                &gettext("Specify the start directory for the left pane"),
+                &gettext("Specify the start directory for the left panel"),
                 None,
             );
             app.add_main_option(
@@ -76,7 +76,7 @@ mod imp {
                 b'r'.into(),
                 glib::OptionFlags::NONE,
                 glib::OptionArg::String,
-                &gettext("Specify the start directory for the right pane"),
+                &gettext("Specify the start directory for the right panel"),
                 None,
             );
         }

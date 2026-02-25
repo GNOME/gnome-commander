@@ -91,7 +91,7 @@ impl SearchProfiles {
 
     fn profile_description(&self, profile_index: usize) -> String {
         self.profile(profile_index)
-            .map(|p| p.filename_pattern())
+            .map(|p| p.path_pattern())
             .unwrap_or_default()
     }
 
@@ -592,15 +592,11 @@ mod imp {
 
         fn find_connection(&self, file: &gio::File) -> Option<Connection> {
             let uri = file.uri();
-            ConnectionList::get()
-                .all()
-                .iter::<Connection>()
-                .flatten()
-                .find(|con| {
-                    con.downcast_ref::<ConnectionRemote>()
-                        .and_then(|con| con.uri())
-                        .is_some_and(|con_uri| uri.starts_with(&*con_uri.to_str()))
-                })
+            ConnectionList::get().iter().find(|con| {
+                con.downcast_ref::<ConnectionRemote>()
+                    .and_then(|con| con.uri())
+                    .is_some_and(|con_uri| uri.starts_with(&*con_uri.to_str()))
+            })
         }
 
         fn start_directory(&self, file: &gio::File) -> Result<Directory, ErrorMessage> {
@@ -746,14 +742,14 @@ mod imp {
 
             profile_component.copy();
 
-            let filename_pattern = default_profile.filename_pattern();
+            let filename_pattern = default_profile.path_pattern();
             if !filename_pattern.is_empty() {
                 config.add_name_pattern(&filename_pattern);
                 profile_component.set_name_patterns_history(&config.name_patterns());
             }
 
             if default_profile.content_search() {
-                let text_pattern = default_profile.text_pattern();
+                let text_pattern = default_profile.content_pattern();
                 if !text_pattern.is_empty() {
                     config.add_content_pattern(&text_pattern);
                     gnome_cmd_viewer_search_text_add_to_history(&text_pattern);
