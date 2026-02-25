@@ -20,13 +20,11 @@
 use crate::{
     advanced_rename::profile::AdvancedRenameProfileVariant,
     app::FavoriteAppVariant,
-    connection::{
-        history::History,
-        list::{BookmarkVariant, ConnectionVariant, CustomDeviceVariant},
-    },
+    connection::list::{BookmarkVariant, ConnectionVariant, CustomDeviceVariant},
     enum_convert_strum,
     file_selector::TabVariant,
     filter::PatternType,
+    history::History,
     intviewer::search_dialog::Mode,
     layout::{
         PREF_COLORS,

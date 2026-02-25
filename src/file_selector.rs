@@ -24,6 +24,7 @@ use crate::{
     connection::{
         bookmark::Bookmark,
         connection::{Connection, ConnectionExt, ConnectionInterface},
+        home::ConnectionHome,
         list::ConnectionList,
         remote::ConnectionRemote,
     },
@@ -33,6 +34,7 @@ use crate::{
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
     open_file::mime_exec_single,
     options::options::ProgramsOptions,
+    path::GnomeCmdPath,
     tab_label::TabLabel,
     tags::tags::FileMetadataService,
     types::MiddleMouseButtonMode,
@@ -114,7 +116,20 @@ mod imp {
                 Some(&String::static_variant_type()),
                 |obj, _, param| {
                     if let Some(path) = param.and_then(String::from_variant) {
-                        obj.imp().select_path(&path);
+                        obj.on_navigate(&path, obj.imp().is_control_pressed());
+                    }
+                },
+            );
+            klass.install_action(
+                "fs.select-history-entry",
+                Some(&u32::static_variant_type()),
+                |obj, _, param| {
+                    let file_list = obj.file_list();
+                    if let Some(index) = param.and_then(u32::from_variant)
+                        && let Some((connection, path)) =
+                            file_list.dir_history().get(index as usize)
+                    {
+                        obj.goto(&connection, &path);
                     }
                 },
             );
@@ -416,7 +431,7 @@ mod imp {
             self.obj().emit_by_name::<()>("activate-request", &[]);
         }
 
-        fn is_control_pressed(&self) -> bool {
+        pub fn is_control_pressed(&self) -> bool {
             let mask = self
                 .obj()
                 .root()
@@ -424,10 +439,6 @@ mod imp {
                 .as_ref()
                 .and_then(get_modifiers_state);
             mask.is_some_and(|m| m.contains(gdk::ModifierType::CONTROL_MASK))
-        }
-
-        fn select_path(&self, path: &str) {
-            self.on_navigate(path, self.is_control_pressed());
         }
 
         async fn add_bookmark(&self) {
@@ -482,27 +493,6 @@ mod imp {
             {
                 self.open_connection(&connection, self.is_control_pressed());
             }
-        }
-
-        fn on_navigate(&self, path: &str, new_tab: bool) {
-            let fl = self.obj().file_list();
-            if new_tab || self.obj().is_current_tab_locked() {
-                let Some(con) = fl.connection() else {
-                    eprintln!("Cannot navigate to {path}. No connection.");
-                    return;
-                };
-                let dir = match Directory::try_new(&con, con.create_path(Path::new(path))) {
-                    Ok(dir) => dir,
-                    Err(_) => {
-                        eprintln!("Unexpected: could not get navigation target directory");
-                        return;
-                    }
-                };
-                self.obj().new_tab_with_dir(&dir, true, true);
-            } else {
-                fl.goto_directory(Path::new(path));
-            }
-            self.obj().emit_by_name::<()>("activate-request", &[]);
         }
 
         pub fn update_tab_label(&self, fl: &FileList) {
@@ -784,15 +774,6 @@ impl FileSelector {
     }
 
     fn on_list_dir_changed(&self, fl: &FileList, dir: &Directory) {
-        if let Some(connection) = fl.connection()
-            && let Some(path) = dir
-                .upcast_ref::<File>()
-                .get_path_string_through_parent()
-                .to_str()
-        {
-            connection.dir_history().add(path.to_owned());
-        }
-
         self.imp().update_tab_label(fl);
 
         if self.current_file_list().as_ref() != Some(fl) {
@@ -1051,74 +1032,81 @@ impl FileSelector {
         self.emit_by_name::<()>("activate-request", &[]);
     }
 
-    fn goto(&self, connection: &Connection, path: &str) {
-        if self.is_current_tab_locked() {
-            let dir = match Directory::try_new(connection, connection.create_path(Path::new(path)))
-            {
+    fn goto(&self, connection: &Connection, path: &GnomeCmdPath) {
+        if self.file_list().connection().as_ref() == Some(connection) {
+            let dir = match Directory::try_new(connection, path.clone()) {
                 Ok(dir) => dir,
                 Err(_) => {
                     eprintln!("Unexpected: could not get navigation target directory");
                     return;
                 }
             };
-            self.new_tab_with_dir(&dir, true, true);
+            if self.is_current_tab_locked() {
+                self.new_tab_with_dir(&dir, true, true);
+            } else {
+                self.file_list().set_directory(&dir);
+            }
+        } else if connection.is_open() {
+            let dir = match Directory::try_new(connection, path.clone()) {
+                Ok(dir) => dir,
+                Err(_) => {
+                    eprintln!("Unexpected: could not get navigation target directory");
+                    return;
+                }
+            };
+            if self.is_current_tab_locked() {
+                self.new_tab_with_dir(&dir, true, true);
+            } else {
+                self.file_list().set_connection(connection, Some(&dir));
+            }
         } else {
-            self.goto_directory(connection, Path::new(path));
+            connection.set_base_path(Some(path.clone()));
+            if self.is_current_tab_locked() {
+                self.new_tab_with_dir(&connection.default_dir().unwrap(), true, true);
+            } else {
+                self.file_list().set_connection(connection, None);
+            }
         }
     }
 
     pub fn first(&self) {
-        let Some(connection) = self.file_list().connection() else {
-            return;
-        };
-        let history = connection.dir_history();
-        if let Some(dir) = history.first() {
+        let file_list = self.file_list();
+        let history = file_list.dir_history();
+        if let Some((connection, dir)) = history.first() {
             self.goto(&connection, &dir);
         }
     }
 
     pub fn back(&self) {
-        let Some(connection) = self.file_list().connection() else {
-            return;
-        };
-        let history = connection.dir_history();
-        if let Some(dir) = history.back() {
+        let file_list = self.file_list();
+        let history = file_list.dir_history();
+        if let Some((connection, dir)) = history.back() {
             self.goto(&connection, &dir);
         }
     }
 
     pub fn forward(&self) {
-        let Some(connection) = self.file_list().connection() else {
-            return;
-        };
-        let history = connection.dir_history();
-        if let Some(dir) = history.forward() {
+        let file_list = self.file_list();
+        let history = file_list.dir_history();
+        if let Some((connection, dir)) = history.forward() {
             self.goto(&connection, &dir);
         }
     }
 
     pub fn last(&self) {
-        let Some(connection) = self.file_list().connection() else {
-            return;
-        };
-        let history = connection.dir_history();
-        if let Some(dir) = history.last() {
+        let file_list = self.file_list();
+        let history = file_list.dir_history();
+        if let Some((connection, dir)) = history.last() {
             self.goto(&connection, &dir);
         }
     }
 
     pub fn can_back(&self) -> bool {
-        let Some(connection) = self.file_list().connection() else {
-            return false;
-        };
-        connection.dir_history().can_back()
+        self.file_list().dir_history().can_back()
     }
 
     pub fn can_forward(&self) -> bool {
-        let Some(connection) = self.file_list().connection() else {
-            return false;
-        };
-        connection.dir_history().can_forward()
+        self.file_list().dir_history().can_forward()
     }
 
     pub fn save_tabs(&self, save_all_tabs: bool, save_current: bool) -> Vec<TabVariant> {
@@ -1292,19 +1280,29 @@ impl FileSelector {
     }
 
     pub fn show_history(&self) {
-        let Some(dir_history) = self
-            .file_list()
-            .connection()
-            .map(|connection| connection.dir_history().export())
-            .filter(|history| !history.is_empty())
-        else {
+        let dir_history = self.file_list().dir_history().export();
+        if dir_history.is_empty() {
             return;
-        };
+        }
 
         let menu = gio::Menu::new();
-        for path in dir_history {
+        for (index, (connection, path)) in dir_history.into_iter().enumerate() {
+            let Some(path) = path.path().to_str().map(|path| path.to_string()) else {
+                continue;
+            };
+            let path = if connection.downcast_ref::<ConnectionHome>().is_none()
+                && let Some(alias) = connection.alias()
+            {
+                format!("{alias}: {path}")
+            } else {
+                path
+            };
+
             let item = gio::MenuItem::new(Some(&path), None);
-            item.set_action_and_target_value(Some("fs.select-path"), Some(&path.to_variant()));
+            item.set_action_and_target_value(
+                Some("fs.select-history-entry"),
+                Some(&(index as u32).to_variant()),
+            );
             menu.append_item(&item);
         }
 

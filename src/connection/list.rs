@@ -251,27 +251,11 @@ impl ConnectionList {
         self.load_connections(&options.connections.get());
         self.load_bookmarks(&options.bookmarks.get());
 
-        let home = self.home();
-        let dir_history = home.upcast_ref::<Connection>().dir_history();
-        for item in options.directory_history.get().into_iter().rev() {
-            dir_history.add(item);
-        }
-
         self.unlock();
     }
 
     pub fn save(&self, options: &GeneralOptions) -> WriteResult {
         options.device_list.set(self.save_devices())?;
-        options
-            .directory_history
-            .set(if options.save_directory_history_on_exit.get() {
-                self.home()
-                    .upcast_ref::<Connection>()
-                    .dir_history()
-                    .export()
-            } else {
-                Vec::new()
-            })?;
         options.connections.set(self.save_connections())?;
         options.bookmarks.set(self.save_bookmarks())?;
         Ok(())

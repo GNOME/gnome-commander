@@ -112,6 +112,10 @@ impl<T: PartialEq + Clone> History<T> {
         self.current()
     }
 
+    pub fn get(&self, index: usize) -> Option<T> {
+        self.entries.borrow().get(index).cloned()
+    }
+
     pub fn export(&self) -> Vec<T> {
         self.entries.borrow().clone()
     }

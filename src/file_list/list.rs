@@ -33,6 +33,7 @@ use crate::{
     dir::{Directory, DirectoryState},
     file::File,
     filter::{Filter, fnmatch},
+    history::History,
     imageloader::icon_cache,
     layout::{
         PREF_COLORS,
@@ -42,6 +43,7 @@ use crate::{
     main_win::MainWindow,
     open_connection::open_connection,
     options::options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
+    path::GnomeCmdPath,
     tags::tags::FileMetadataService,
     types::{ExtensionDisplayMode, GraphicalLayoutMode, SizeDisplayMode},
     user_actions::UserAction,
@@ -179,6 +181,7 @@ mod imp {
 
         pub directory: RefCell<Option<Directory>>,
         pub directory_handlers: RefCell<Vec<glib::SignalHandlerId>>,
+        pub history: History<(Connection, GnomeCmdPath)>,
 
         pub current_size_calculation: Cell<Option<gio::Cancellable>>,
     }
@@ -294,6 +297,7 @@ mod imp {
 
                 directory: Default::default(),
                 directory_handlers: Default::default(),
+                history: History::new(20),
 
                 current_size_calculation: Default::default(),
             }
@@ -658,6 +662,14 @@ mod imp {
             self.obj().emit_by_name::<()>("con-changed", &[&connection]);
         }
 
+        fn add_to_history(&self, directory: &Directory) {
+            if let Some(connection) = &*self.connection.borrow() {
+                self.history.add((connection.clone(), directory.path()));
+            }
+
+            self.obj().emit_by_name::<()>("dir-changed", &[directory]);
+        }
+
         pub fn set_directory(&self, directory: &Directory) {
             if Some(directory) == self.directory.borrow().as_ref() {
                 return;
@@ -756,13 +768,12 @@ mod imp {
                 ));
 
             directory.start_monitoring();
-
-            self.obj().emit_by_name::<()>("dir-changed", &[directory]);
+            self.add_to_history(directory);
         }
 
         fn on_dir_list_ok(&self, dir: &Directory) {
             debug!('l', "on_dir_list_ok");
-            self.obj().emit_by_name::<()>("dir-changed", &[dir]);
+            self.add_to_history(dir);
         }
 
         fn on_dir_list_failed(&self, _dir: &Directory, error: &glib::Error) {
@@ -1957,6 +1968,10 @@ impl FileList {
         }
 
         self.imp().set_directory(directory);
+    }
+
+    pub fn dir_history(&self) -> &History<(Connection, GnomeCmdPath)> {
+        &self.imp().history
     }
 
     pub async fn reload(&self) {

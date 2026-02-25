@@ -24,7 +24,7 @@ use std::{
     path::{Path, PathBuf},
 };
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum GnomeCmdPath {
     Plain(PathBuf),
     Uri(glib::Uri),
