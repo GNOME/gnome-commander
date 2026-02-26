@@ -1205,7 +1205,7 @@ impl MainWindow {
             .open_tabs(right_tabs);
     }
 
-    fn save_tabs(&self, save_all: bool, save_current: bool) -> WriteResult {
+    fn save_tabs(&self, save_all: bool, save_current: bool, save_history: bool) -> WriteResult {
         let options = GeneralOptions::new();
 
         let mut tabs = Vec::<TabVariant>::new();
@@ -1213,11 +1213,13 @@ impl MainWindow {
             TabPosition::LeftOrTop,
             save_all,
             save_current,
+            save_history,
         ));
         tabs.extend(self.file_selector(FileSelectorID::Right).save_tabs(
             TabPosition::RightOrBottom,
             save_all,
             save_current,
+            save_history,
         ));
 
         // Reset legacy option, making sure we don't import it more than once
@@ -1254,6 +1256,7 @@ impl MainWindow {
         self.save_tabs(
             options.save_tabs_on_exit.get(),
             options.save_dirs_on_exit.get(),
+            options.save_directory_history_on_exit.get(),
         )?;
         self.save_command_line_history(&options)?;
 

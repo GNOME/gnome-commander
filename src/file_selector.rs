@@ -658,6 +658,7 @@ impl FileSelector {
             ColumnID::COLUMN_NAME,
             gtk::SortType::Ascending,
             false,
+            None,
             true,
             true,
         )
@@ -665,7 +666,15 @@ impl FileSelector {
 
     pub fn new_tab_with_dir(&self, dir: &Directory, activate: bool, grab_focus: bool) -> FileList {
         let (sort_column, order) = self.file_list().sorting();
-        self.new_tab_full(Some(dir), sort_column, order, false, activate, grab_focus)
+        self.new_tab_full(
+            Some(dir),
+            sort_column,
+            order,
+            false,
+            None,
+            activate,
+            grab_focus,
+        )
     }
 
     pub fn new_tab_full(
@@ -674,6 +683,7 @@ impl FileSelector {
         sort_column: ColumnID,
         sort_order: gtk::SortType,
         locked: bool,
+        history: Option<(Vec<(String, String)>, (String, String))>,
         activate: bool,
         grab_focus: bool,
     ) -> FileList {
@@ -687,6 +697,38 @@ impl FileSelector {
         self.set_tab_locked(&fl, locked);
         fl.update_style();
         fl.show_column(ColumnID::COLUMN_DIR, false);
+
+        if let Some((history_entries, current_entry)) = history {
+            let connection_list = ConnectionList::get();
+            let mut selected_entry = None;
+            for (connection_alias, stored_uri) in history_entries.into_iter().rev() {
+                let Ok(uri) = glib::Uri::parse(&stored_uri, glib::UriFlags::NONE) else {
+                    continue;
+                };
+
+                let connection: Connection =
+                    if connection_alias.is_empty() && uri.scheme() == "file" {
+                        connection_list.home().upcast()
+                    } else {
+                        if !connection_alias.is_empty() {
+                            connection_list.find_by_alias(&connection_alias)
+                        } else {
+                            None
+                        }
+                        .unwrap_or_else(|| ConnectionRemote::new(&stored_uri, &uri).upcast())
+                    };
+
+                let path = connection.create_path(&PathBuf::from(uri.path()));
+                if (connection_alias, stored_uri) == current_entry {
+                    selected_entry = Some((connection.clone(), path.clone()));
+                }
+                fl.dir_history().add((connection, path));
+            }
+
+            if let Some(selected_entry) = selected_entry {
+                fl.dir_history().set_current(selected_entry);
+            }
+        }
 
         let n = self
             .imp()
@@ -1113,7 +1155,16 @@ impl FileSelector {
         position: TabPosition,
         save_all_tabs: bool,
         save_current: bool,
+        save_history: bool,
     ) -> Vec<TabVariant> {
+        fn get_alias(connection: &Connection) -> String {
+            if connection.downcast_ref::<ConnectionHome>().is_some() {
+                String::new()
+            } else {
+                connection.alias().unwrap_or_default()
+            }
+        }
+
         self.imp()
             .notebook
             .pages()
@@ -1128,7 +1179,7 @@ impl FileSelector {
             })
             .filter_map(|file_list| {
                 let directory = file_list.directory()?;
-                let connection = directory.connection().alias().unwrap_or_default();
+                let connection = get_alias(&directory.connection());
                 let uri = directory.upcast_ref::<File>().get_uri_str();
                 let (column, order) = file_list.sorting();
 
@@ -1137,6 +1188,21 @@ impl FileSelector {
                 variant.set_sort_column(column);
                 variant.set_sort_direction(order);
                 variant.set_locked(self.is_tab_locked(&file_list));
+                if save_history {
+                    variant.set_history(
+                        file_list
+                            .dir_history()
+                            .export()
+                            .into_iter()
+                            .map(|(connection, path)| {
+                                (
+                                    get_alias(&connection),
+                                    connection.create_gfile(&path).uri().into(),
+                                )
+                            })
+                            .collect(),
+                    );
+                }
                 Some(variant)
             })
             .collect()
@@ -1152,6 +1218,7 @@ impl FileSelector {
                     tab.sort_column(),
                     tab.sort_direction(),
                     tab.locked(),
+                    Some((tab.history(), tab.current_location())),
                     true,
                     false,
                 );
@@ -1169,6 +1236,7 @@ impl FileSelector {
                         ColumnID::COLUMN_NAME,
                         gtk::SortType::Ascending,
                         false,
+                        None,
                         true,
                         false,
                     );
@@ -1479,6 +1547,7 @@ impl TabVariant {
     const SETTING_SORT_COLUMN: &str = "sort-column";
     const SETTING_SORT_DIRECTION: &str = "sort-direction";
     const SETTING_LOCKED: &str = "locked";
+    const SETTING_HISTORY: &str = "history";
 
     const SORT_DIRECTION_ASCENDING: &str = "asc";
     const SORT_DIRECTION_DESCENDING: &str = "desc";
@@ -1561,6 +1630,18 @@ impl TabVariant {
     pub fn set_locked(&mut self, locked: bool) {
         self.0
             .insert(Self::SETTING_LOCKED.to_string(), locked.into());
+    }
+
+    pub fn history(&self) -> Vec<(String, String)> {
+        self.0
+            .get(Self::SETTING_HISTORY)
+            .and_then(Vec::from_variant)
+            .unwrap_or_default()
+    }
+
+    pub fn set_history(&mut self, history: Vec<(String, String)>) {
+        self.0
+            .insert(Self::SETTING_HISTORY.to_string(), history.into());
     }
 }
 

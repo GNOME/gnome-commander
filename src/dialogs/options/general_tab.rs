@@ -224,11 +224,33 @@ impl GeneralTab {
             .label(gettext("Search history"))
             .build();
         save_on_exit.append(&save_search_history);
-        save_tabs
-            .bind_property("active", &save_dirs, "sensitive")
-            .invert_boolean()
-            .sync_create()
-            .build();
+
+        // Saving directories is implied if we are saving tabs or directory history
+        fn update_state(
+            save_dirs: &gtk::CheckButton,
+            save_tabs: &gtk::CheckButton,
+            save_dir_history: &gtk::CheckButton,
+        ) {
+            if save_tabs.is_active() || save_dir_history.is_active() {
+                save_dirs.set_active(true);
+            }
+            save_dirs.set_sensitive(!(save_tabs.is_active() || save_dir_history.is_active()));
+        }
+
+        save_tabs.connect_active_notify(glib::clone!(
+            #[weak]
+            save_dirs,
+            #[weak]
+            save_dir_history,
+            move |save_tabs| update_state(&save_dirs, save_tabs, &save_dir_history)
+        ));
+        save_dir_history.connect_active_notify(glib::clone!(
+            #[weak]
+            save_dirs,
+            #[weak]
+            save_tabs,
+            move |save_dir_history| update_state(&save_dirs, &save_tabs, save_dir_history)
+        ));
 
         Self {
             scrolled_window,
