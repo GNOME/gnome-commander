@@ -21,7 +21,10 @@
  */
 
 use crate::{
-    connection::bookmark::Bookmark,
+    connection::{
+        bookmark::Bookmark,
+        connection::{Connection, ConnectionExt},
+    },
     utils::{NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
 };
 use gettextrs::gettext;
@@ -30,6 +33,7 @@ use gtk::{glib, prelude::*};
 pub async fn edit_bookmark_dialog(
     parent: &gtk::Window,
     title: &str,
+    connection: &Connection,
     bookmark: &Bookmark,
 ) -> Option<Bookmark> {
     let dialog = gtk::Window::builder()
@@ -100,10 +104,38 @@ pub async fn edit_bookmark_dialog(
         .receives_default(true)
         .sensitive(false)
         .build();
+    let original_name = bookmark.name().to_string();
     ok_btn.connect_clicked(glib::clone!(
         #[strong]
         sender,
-        move |_| sender.toss(true)
+        #[weak]
+        dialog,
+        #[weak]
+        name_entry,
+        #[weak]
+        connection,
+        move |_| {
+            if name_entry.text() != original_name
+                && connection
+                    .bookmarks()
+                    .iter()
+                    .any(|b| b.name() == name_entry.text())
+            {
+                glib::spawn_future_local(async move {
+                    gtk::AlertDialog::builder()
+                        .modal(true)
+                        .message(gettext("A bookmark with this name already exists. Please choose a different name."))
+                        .buttons([gettext("OK")])
+                        .cancel_button(0)
+                        .default_button(0)
+                        .build()
+                        .choose_future(Some(&dialog))
+                        .await
+                });
+            } else {
+                sender.toss(true);
+            }
+        }
     ));
 
     name_entry.connect_changed(glib::clone!(
@@ -134,8 +166,8 @@ pub async fn edit_bookmark_dialog(
     dialog.set_default_widget(Some(&ok_btn));
     dialog.set_cancel_widget(&cancel_btn);
 
-    name_entry.set_text(&bookmark.name());
-    path_entry.set_text(&bookmark.path());
+    name_entry.set_text(bookmark.name());
+    path_entry.set_text(bookmark.path());
 
     dialog.present();
 

@@ -70,35 +70,35 @@
       <default>'DejaVu Sans Mono 8'</default>
       <summary>Panel font</summary>
       <description>
-          A custom font that will be used for the file panes if the “Use default font” option is turned off.
+          A custom font that will be used for the file panels if the “Use default font” option is turned off.
       </description>
     </key>
     <key name='size-display-mode' enum='org.gnome.gnome-commander.GnomeCmdSizeDisplayMode'>
       <default>'powered'</default>
       <summary>Filesize display mode</summary>
       <description>
-        Defines how the filesize will be displayed in the associated pane column.
+        Defines how the filesize will be displayed in the associated panel column.
       </description>
     </key>
     <key name='perm-display-mode' enum='org.gnome.gnome-commander.GnomeCmdPermissionDisplayMode'>
       <default>'text'</default>
       <summary>Permission display mode</summary>
       <description>
-        Defines how the file permission will be displayed in the associated pane column.
+        Defines how the file permission will be displayed in the associated panel column.
       </description>
     </key>
     <key name='graphical-layout-mode' enum='org.gnome.gnome-commander.GnomeCmdGraphicalLayoutMode'>
       <default>'mime-icons'</default>
       <summary>Graphical layout mode</summary>
       <description>
-        Defines the icon style of files and folders in the file panes.
+        Defines the icon style of files and folders in the file panels.
       </description>
     </key>
     <key name="list-row-height" type="u">
       <default>16</default>
       <summary>List row height</summary>
       <description>
-        Defines the height of a row in the file pane.
+        Defines the height of a row in the file panel.
       </description>
     </key>
     <key name="date-disp-format" type="s">
@@ -110,13 +110,13 @@
       <default l10n="messages">'%F %R'</default>
       <summary>Date format</summary>
       <description>
-          Format of the date in the file pane.
+          Format of the date in the file panel.
       </description>
     </key>
     <key name="list-font" type="s">
       <default>'DejaVu Sans Mono 8'</default>
       <summary>List font</summary>
-      <description>The font in the file panes.</description>
+      <description>The font in the file panels.</description>
     </key>
     <key name='extension-display-mode' enum='org.gnome.gnome-commander.GnomeCmdExtensionDisplayMode'>
       <default>'both'</default>
@@ -156,7 +156,7 @@
     <key name="icon-size" type="u">
       <default>16</default>
       <summary>Icon size</summary>
-      <description>Size of icons in the file pane.</description>
+      <description>Size of icons in the file panel.</description>
     </key>
     <key name="icon-scale-quality" enum='org.gnome.gnome-commander.preferences.general.icon-scale-quality-enum'>
       <default>'GDK_INTERP_HYPER'</default>
@@ -191,7 +191,7 @@
       <default>false</default>
       <summary>Horizontal orientation</summary>
       <description>
-          Defines if the orientation of the file panes should be horizontal or not.
+          Defines if the orientation of the file panels should be horizontal or not.
       </description>
     </key>
     <key name="gui-update-rate" type="u">
@@ -436,14 +436,14 @@
         <summary>Treat symbolic links as regular files</summary>
         <description>
             This option defines if symbolic links should be treated as regular files.
-            In the file pane they are listed between other files and not at the top if their target is not existing.
+            In the file panel they are listed between other files and not at the top if their target is not existing.
         </description>
     </key>
     <key name="select-dirs" type="b">
         <default>true</default>
         <summary>Select directories when all is marked</summary>
         <description>
-            This option defines if directories will be marked when all items in a file pane should be marked.
+            This option defines if directories will be marked when all items in a file panel should be marked.
         </description>
     </key>
     <key name="allow-multiple-instances" type="b">
@@ -736,13 +736,6 @@
       <summary>Search command</summary>
       <description>
           This string defines the command for starting an external file search tool.
-      </description>
-    </key>
-    <key name="use-gcmd-block" type="b">
-      <default>true</default>
-      <summary>Leave terminal open</summary>
-      <description>
-          This option defines if a terminal window should stay open after a command finishes inside of it.
       </description>
     </key>
     <key name="terminal-cmd" type="s">

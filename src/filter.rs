@@ -21,7 +21,8 @@ use glob::{MatchOptions, Pattern};
 use regex::{Regex, RegexBuilder};
 use std::error::Error;
 
-#[derive(Default, Clone, Copy)]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, glib::ValueDelegate)]
+#[value_delegate(from = u32)]
 #[repr(C)]
 pub enum PatternType {
     Regex = 0,
@@ -29,20 +30,24 @@ pub enum PatternType {
     FnMatch,
 }
 
-impl From<PatternType> for i32 {
+impl From<PatternType> for u32 {
     fn from(pattern_type: PatternType) -> Self {
         pattern_type as Self
     }
 }
 
-impl TryFrom<i32> for PatternType {
-    type Error = ();
+impl From<&PatternType> for u32 {
+    fn from(pattern_type: &PatternType) -> Self {
+        *pattern_type as Self
+    }
+}
 
-    fn try_from(value: i32) -> Result<Self, Self::Error> {
+impl From<u32> for PatternType {
+    fn from(value: u32) -> Self {
         match value {
-            v if v == i32::from(PatternType::Regex) => Ok(PatternType::Regex),
-            v if v == i32::from(PatternType::FnMatch) => Ok(PatternType::FnMatch),
-            _ => Err(()),
+            v if v == u32::from(PatternType::Regex) => PatternType::Regex,
+            v if v == u32::from(PatternType::FnMatch) => PatternType::FnMatch,
+            _ => Default::default(),
         }
     }
 }

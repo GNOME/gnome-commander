@@ -24,7 +24,7 @@ use crate::{
     advanced_rename::advanced_rename_dialog::advanced_rename_dialog_show,
     config::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_URL, PACKAGE_VERSION},
     connection::{
-        bookmark::{Bookmark, BookmarkGoToVariant},
+        bookmark::BookmarkGoToVariant,
         connection::{ConnectionExt, ConnectionInterface},
         home::ConnectionHome,
         list::ConnectionList,
@@ -982,10 +982,10 @@ async fn bookmarks_goto(main_win: MainWindow, goto: BookmarkGoToVariant) {
         return;
     };
 
-    let Some(bookmark) = connection.bookmarks().iter().find_map(|b| {
-        let bookmark: Bookmark = b.ok()?;
+    let bookmarks = connection.bookmarks();
+    let Some(path) = bookmarks.iter().find_map(|bookmark| {
         if bookmark.name() == goto.bookmark_name {
-            Some(bookmark)
+            Some(Path::new(bookmark.path()))
         } else {
             None
         }
@@ -999,7 +999,7 @@ async fn bookmarks_goto(main_win: MainWindow, goto: BookmarkGoToVariant) {
     };
 
     let fs = main_win.file_selector(FileSelectorID::Active);
-    fs.goto_directory(&connection, Path::new(&bookmark.path()));
+    fs.goto_directory(&connection, path);
 }
 
 async fn bookmarks_view(main_win: MainWindow) {
@@ -1753,25 +1753,25 @@ user_actions! {
 
     ViewInLeftPane(
         "view-in-left-pane" | "view.in_left_pane",
-        gettext("Open directory in the left window"),
+        gettext("Open directory in the left panel"),
         view_in_left_pane,
     ),
 
     ViewInRightPane(
         "view-in-right-pane" | "view.in_right_pane",
-        gettext("Open directory in the right window"),
+        gettext("Open directory in the right panel"),
         view_in_right_pane,
     ),
 
     ViewInActivePane(
         "view-in-active-pane" | "view.in_active_pane",
-        gettext("Open directory in the active window"),
+        gettext("Open directory in the active panel"),
         view_in_active_pane,
     ),
 
     ViewInInactivePane(
         "view-in-inactive-pane" | "view.in_inactive_pane",
-        gettext("Open directory in the inactive window"),
+        gettext("Open directory in the inactive panel"),
         view_in_inactive_pane,
     ),
 
@@ -1837,7 +1837,7 @@ user_actions! {
 
     ViewInInactiveTab(
         "view-in-inactive-tab" | "view.in_inactive_tab",
-        gettext("Open directory in the new tab (inactive window)"),
+        gettext("Open directory in the new tab (inactive panel)"),
         view_in_inactive_tab,
     ),
 

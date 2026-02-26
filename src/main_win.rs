@@ -22,7 +22,7 @@
 
 use crate::{
     connection::{
-        bookmark::{Bookmark, BookmarkGoToVariant},
+        bookmark::BookmarkGoToVariant,
         connection::{Connection, ConnectionExt},
         list::ConnectionList,
         remote::ConnectionRemote,
@@ -958,9 +958,7 @@ pub mod imp {
                 }
                 (ALT_SHIFT, gdk::Key::f | gdk::Key::F) => {
                     if let Some(remote_con) = ConnectionList::get()
-                        .all()
-                        .iter::<Connection>()
-                        .flatten()
+                        .iter()
                         .find_map(|c| c.downcast::<ConnectionRemote>().ok())
                     {
                         self.obj()
@@ -995,9 +993,7 @@ pub mod imp {
                 }
                 (ALT_SHIFT, gdk::Key::f | gdk::Key::F) => {
                     if let Some(remote_con) = ConnectionList::get()
-                        .all()
-                        .iter::<Connection>()
-                        .flatten()
+                        .iter()
                         .find_map(|c| c.downcast::<ConnectionRemote>().ok())
                     {
                         self.obj()
@@ -1608,11 +1604,8 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
 }
 
 fn local_connections_menu() -> gio::Menu {
-    let con_list = ConnectionList::get();
-    let all_cons = con_list.all();
-
     let menu = gio::Menu::new();
-    for con in all_cons.iter::<Connection>().flatten() {
+    for con in ConnectionList::get().iter() {
         if con
             .downcast_ref::<ConnectionRemote>()
             .map(|c| c.is_open())
@@ -1631,13 +1624,10 @@ fn local_connections_menu() -> gio::Menu {
 }
 
 fn connections_menu() -> gio::Menu {
-    let con_list = ConnectionList::get();
-    let all_cons = con_list.all();
-
     let menu = gio::Menu::new();
 
     // Add all open connections that are not permanent
-    for con in all_cons.iter::<Connection>().flatten() {
+    for con in ConnectionList::get().iter() {
         if con.is_closeable() && con.is_open() {
             let item = gio::MenuItem::new(con.close_text().as_deref(), None);
             item.set_action_and_target_value(
@@ -1653,25 +1643,21 @@ fn connections_menu() -> gio::Menu {
 fn create_bookmarks_menu() -> gio::Menu {
     let menu = gio::Menu::new();
 
-    let con_list = ConnectionList::get();
-    let all_cons = con_list.all();
-
-    for con in all_cons.iter::<Connection>().flatten() {
+    for con in ConnectionList::get().iter() {
         let bookmarks = con.bookmarks();
-        if bookmarks.n_items() > 0 {
+        if !bookmarks.is_empty() {
             let con_uuid = con.uuid();
 
             // Add bookmarks for this group
             let group_items = gio::Menu::new();
-            for bookmark in bookmarks.iter::<Bookmark>().flatten() {
-                let name = bookmark.name();
-                let item = gio::MenuItem::new(Some(&name), None);
+            for bookmark in &*bookmarks {
+                let item = gio::MenuItem::new(Some(bookmark.name()), None);
                 item.set_action_and_target_value(
                     Some(UserAction::BookmarksGoto.name()),
                     Some(
                         &BookmarkGoToVariant {
                             connection_uuid: con_uuid.clone(),
-                            bookmark_name: name.clone(),
+                            bookmark_name: bookmark.name().to_owned(),
                         }
                         .to_variant(),
                     ),
