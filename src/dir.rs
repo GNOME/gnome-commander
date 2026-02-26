@@ -178,7 +178,14 @@ impl Directory {
     }
 
     pub fn new_with_con(connection: &Connection) -> Option<Self> {
-        let base_file_info = connection.base_file_info()?;
+        let base_file_info = connection.base_file_info().unwrap_or_else(|| {
+            // HACK: On startup we might get here with a connection that was never open, so it
+            // doesn’t have a file info. Create a bogus FileInfo instance for now.
+            let file_info = gio::FileInfo::new();
+            file_info.set_display_name(".");
+            file_info.set_file_type(gio::FileType::Directory);
+            file_info
+        });
         let base_path = connection.base_path()?;
         let file = connection.create_gfile(&base_path);
         Some(Self::find_or_create(
