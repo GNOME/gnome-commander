@@ -30,7 +30,7 @@ use crate::{
     dir::Directory,
     file::File,
     file_list::list::FileList,
-    file_selector::{FileSelector, TabVariant},
+    file_selector::{FileSelector, TabPosition, TabVariant},
     libgcmd::{
         file_actions::{FileActions, FileActionsExt},
         state::{State, StateExt},
@@ -1176,18 +1176,26 @@ impl MainWindow {
     pub fn load_tabs(&self, start_left_dir: Option<&Path>, start_right_dir: Option<&Path>) {
         let options = GeneralOptions::new();
 
-        let (mut left_tabs, mut right_tabs): (Vec<_>, Vec<_>) = options
-            .file_list_tabs
-            .get()
+        let mut tabs = options.file_list_tabs.get();
+        if tabs.is_empty() {
+            tabs = options
+                .legacy_file_list_tabs
+                .get()
+                .into_iter()
+                .map(TabVariant::from)
+                .collect();
+        }
+
+        let (mut left_tabs, mut right_tabs): (Vec<_>, Vec<_>) = tabs
             .into_iter()
-            .partition(|t| t.file_felector_id == 0);
+            .partition(|t| t.position() == TabPosition::LeftOrTop);
 
         if let Some(dir) = start_left_dir.and_then(|d| d.to_str()) {
-            left_tabs.push(TabVariant::new(dir));
+            left_tabs.push(TabVariant::new(dir.to_string()));
         }
 
         if let Some(dir) = start_right_dir.and_then(|d| d.to_str()) {
-            right_tabs.push(TabVariant::new(dir));
+            right_tabs.push(TabVariant::new(dir.to_string()));
         }
 
         self.file_selector(FileSelectorID::Left)
@@ -1201,24 +1209,19 @@ impl MainWindow {
         let options = GeneralOptions::new();
 
         let mut tabs = Vec::<TabVariant>::new();
-        tabs.extend(
-            self.file_selector(FileSelectorID::Left)
-                .save_tabs(save_all, save_current)
-                .into_iter()
-                .map(|tab| TabVariant {
-                    file_felector_id: 0,
-                    ..tab
-                }),
-        );
-        tabs.extend(
-            self.file_selector(FileSelectorID::Right)
-                .save_tabs(save_all, save_current)
-                .into_iter()
-                .map(|tab| TabVariant {
-                    file_felector_id: 1,
-                    ..tab
-                }),
-        );
+        tabs.extend(self.file_selector(FileSelectorID::Left).save_tabs(
+            TabPosition::LeftOrTop,
+            save_all,
+            save_current,
+        ));
+        tabs.extend(self.file_selector(FileSelectorID::Right).save_tabs(
+            TabPosition::RightOrBottom,
+            save_all,
+            save_current,
+        ));
+
+        // Reset legacy option, making sure we don't import it more than once
+        let _ = options.legacy_file_list_tabs.set(Vec::new());
 
         options.file_list_tabs.set(tabs)
     }

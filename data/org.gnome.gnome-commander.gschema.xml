@@ -497,9 +497,16 @@
     </key>
     <key name="file-list-tabs" type="a(syybb)">
       <default>[]</default>
+      <summary>Legacy list of file tabs</summary>
+      <description>
+          This setting is only present for backwards compatibility and will be removed in future.
+      </description>
+    </key>
+    <key name="file-list-tabs-v2" type="aa{sv}">
+      <default>[]</default>
       <summary>List of file tabs</summary>
       <description>
-          The entries in this list are used for restoring the tabs from the last session.
+          The entries in this list are used for restoring the tabs and their history from the last session.
       </description>
     </key>
     <!-- Deprecated after v1.18.0 -->

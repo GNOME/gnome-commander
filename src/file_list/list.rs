@@ -1582,6 +1582,35 @@ pub enum ColumnID {
 }
 
 impl ColumnID {
+    pub fn name(&self) -> &'static str {
+        match self {
+            Self::COLUMN_ICON => "icon",
+            Self::COLUMN_NAME => "name",
+            Self::COLUMN_EXT => "ext",
+            Self::COLUMN_DIR => "dir",
+            Self::COLUMN_SIZE => "size",
+            Self::COLUMN_DATE => "date",
+            Self::COLUMN_PERM => "perm",
+            Self::COLUMN_OWNER => "uid",
+            Self::COLUMN_GROUP => "gid",
+        }
+    }
+
+    pub fn from_name(name: &str) -> Option<Self> {
+        match name {
+            "icon" => Some(Self::COLUMN_ICON),
+            "name" => Some(Self::COLUMN_NAME),
+            "ext" => Some(Self::COLUMN_EXT),
+            "dir" => Some(Self::COLUMN_DIR),
+            "size" => Some(Self::COLUMN_SIZE),
+            "date" => Some(Self::COLUMN_DATE),
+            "perm" => Some(Self::COLUMN_PERM),
+            "uid" => Some(Self::COLUMN_OWNER),
+            "gid" => Some(Self::COLUMN_GROUP),
+            _ => None,
+        }
+    }
+
     pub fn title(self) -> Option<String> {
         match self {
             Self::COLUMN_ICON => None,

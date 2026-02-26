@@ -38,12 +38,12 @@ use crate::{
     tags::tags::FileMetadataService,
     types::MiddleMouseButtonMode,
     user_actions::UserAction,
-    utils::{ALT, CONTROL, CONTROL_SHIFT, NO_MOD},
+    utils::{ALT, CONTROL, CONTROL_SHIFT, NO_MOD, u32_enum},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, graphene, pango, prelude::*, subclass::prelude::*};
 use std::{
-    collections::{BTreeSet, HashMap, HashSet},
+    collections::{BTreeMap, BTreeSet, HashMap},
     path::{Path, PathBuf},
 };
 
@@ -1108,7 +1108,12 @@ impl FileSelector {
         self.file_list().dir_history().can_forward()
     }
 
-    pub fn save_tabs(&self, save_all_tabs: bool, save_current: bool) -> Vec<TabVariant> {
+    pub fn save_tabs(
+        &self,
+        position: TabPosition,
+        save_all_tabs: bool,
+        save_current: bool,
+    ) -> Vec<TabVariant> {
         self.imp()
             .notebook
             .pages()
@@ -1125,13 +1130,13 @@ impl FileSelector {
                 let directory = file_list.directory()?;
                 let uri = directory.upcast_ref::<File>().get_uri_str();
                 let (column, order) = file_list.sorting();
-                Some(TabVariant {
-                    uri,
-                    file_felector_id: 0,
-                    sort_column: column as u8,
-                    sort_order: order != gtk::SortType::Ascending,
-                    locked: self.is_tab_locked(&file_list),
-                })
+
+                let mut variant = TabVariant::new(uri);
+                variant.set_position(position);
+                variant.set_sort_column(column);
+                variant.set_sort_direction(order);
+                variant.set_locked(self.is_tab_locked(&file_list));
+                Some(variant)
             })
             .collect()
     }
@@ -1139,23 +1144,17 @@ impl FileSelector {
     pub fn open_tabs(&self, tabs: Vec<TabVariant>) {
         let connection_list = ConnectionList::get();
 
-        let mut visited: HashSet<TabVariant> = Default::default();
-        for mut stored_tab in tabs {
-            stored_tab.file_felector_id = 0;
-            if visited.contains(&stored_tab) {
-                continue;
-            }
-            if let Some(directory) = restore_directory(connection_list, &stored_tab.uri) {
+        for tab in tabs {
+            if let Some(directory) = restore_directory(connection_list, &tab.current_location()) {
                 self.new_tab_full(
                     Some(&directory),
-                    stored_tab.sort_column_id(),
-                    stored_tab.sort_type(),
-                    stored_tab.locked,
+                    tab.sort_column(),
+                    tab.sort_direction(),
+                    tab.locked(),
                     true,
                     false,
                 );
             }
-            visited.insert(stored_tab);
         }
 
         if self.tab_count() == 0 {
@@ -1445,8 +1444,127 @@ impl FileSelector {
     }
 }
 
+u32_enum! {
+    pub enum TabPosition {
+        #[default]
+        LeftOrTop,
+        RightOrBottom,
+    }
+}
+
+pub struct TabVariant(BTreeMap<String, glib::Variant>);
+
+impl ToVariant for TabVariant {
+    fn to_variant(&self) -> glib::Variant {
+        self.0.to_variant()
+    }
+}
+
+impl FromVariant for TabVariant {
+    fn from_variant(variant: &glib::Variant) -> Option<Self> {
+        BTreeMap::from_variant(variant).map(Self)
+    }
+}
+
+impl StaticVariantType for TabVariant {
+    fn static_variant_type() -> std::borrow::Cow<'static, glib::VariantTy> {
+        BTreeMap::<String, glib::Variant>::static_variant_type()
+    }
+}
+
+impl TabVariant {
+    const SETTING_CURRENT_LOCATION: &str = "current-location";
+    const SETTING_POSITION: &str = "position";
+    const SETTING_SORT_COLUMN: &str = "sort-column";
+    const SETTING_SORT_DIRECTION: &str = "sort-direction";
+    const SETTING_LOCKED: &str = "locked";
+
+    const SORT_DIRECTION_ASCENDING: &str = "asc";
+    const SORT_DIRECTION_DESCENDING: &str = "desc";
+
+    pub fn new(uri: String) -> Self {
+        let mut inner = BTreeMap::new();
+        inner.insert(
+            Self::SETTING_CURRENT_LOCATION.to_string(),
+            (String::new(), uri).into(),
+        );
+        Self(inner)
+    }
+
+    pub fn current_location(&self) -> String {
+        self.0
+            .get(Self::SETTING_CURRENT_LOCATION)
+            .and_then(<(String, String)>::from_variant)
+            .map(|(_con, uri)| uri)
+            .unwrap_or_default()
+    }
+
+    pub fn position(&self) -> TabPosition {
+        self.0
+            .get(Self::SETTING_POSITION)
+            .and_then(TabPosition::from_variant)
+            .unwrap_or_default()
+    }
+
+    pub fn set_position(&mut self, position: TabPosition) {
+        self.0
+            .insert(Self::SETTING_POSITION.to_string(), position.into());
+    }
+
+    pub fn sort_column(&self) -> ColumnID {
+        self.0
+            .get(Self::SETTING_SORT_COLUMN)
+            .and_then(String::from_variant)
+            .as_deref()
+            .and_then(ColumnID::from_name)
+            .unwrap_or(ColumnID::COLUMN_NAME)
+    }
+
+    pub fn set_sort_column(&mut self, column: ColumnID) {
+        self.0
+            .insert(Self::SETTING_SORT_COLUMN.to_string(), column.name().into());
+    }
+
+    pub fn sort_direction(&self) -> gtk::SortType {
+        self.0
+            .get(Self::SETTING_SORT_DIRECTION)
+            .and_then(String::from_variant)
+            .map(|dir| {
+                if dir == Self::SORT_DIRECTION_DESCENDING {
+                    gtk::SortType::Descending
+                } else {
+                    gtk::SortType::Ascending
+                }
+            })
+            .unwrap_or(gtk::SortType::Ascending)
+    }
+
+    pub fn set_sort_direction(&mut self, direction: gtk::SortType) {
+        self.0.insert(
+            Self::SETTING_SORT_DIRECTION.to_string(),
+            if direction == gtk::SortType::Descending {
+                Self::SORT_DIRECTION_DESCENDING
+            } else {
+                Self::SORT_DIRECTION_ASCENDING
+            }.into(),
+        );
+    }
+
+    pub fn locked(&self) -> bool {
+        self.0
+            .get(Self::SETTING_LOCKED)
+            .and_then(bool::from_variant)
+            .unwrap_or_default()
+    }
+
+    pub fn set_locked(&mut self, locked: bool) {
+        self.0
+            .insert(Self::SETTING_LOCKED.to_string(), locked.into());
+    }
+}
+
 #[derive(PartialEq, Eq, Hash, glib::Variant)]
-pub struct TabVariant {
+pub struct LegacyTabVariant {
     pub uri: String,
     pub file_felector_id: u8,
     pub sort_column: u8,
@@ -1454,26 +1572,19 @@ pub struct TabVariant {
     pub locked: bool,
 }
 
-impl TabVariant {
-    pub fn new(uri: impl Into<String>) -> Self {
-        Self {
-            uri: uri.into(),
-            file_felector_id: 0,
-            sort_column: ColumnID::COLUMN_NAME as u8,
-            sort_order: false,
-            locked: false,
+impl From<LegacyTabVariant> for TabVariant {
+    fn from(legacy: LegacyTabVariant) -> Self {
+        let mut result = Self::new(legacy.uri);
+        result.set_position((legacy.file_felector_id as u32).into());
+        if let Some(column) = ColumnID::from_repr(legacy.sort_column.into()) {
+            result.set_sort_column(column);
         }
-    }
-
-    pub fn sort_column_id(&self) -> ColumnID {
-        ColumnID::from_repr(self.sort_column.into()).unwrap_or(ColumnID::COLUMN_NAME)
-    }
-
-    pub fn sort_type(&self) -> gtk::SortType {
-        match self.sort_order {
+        result.set_sort_direction(match legacy.sort_order {
             false => gtk::SortType::Ascending,
             true => gtk::SortType::Descending,
-        }
+        });
+        result.set_locked(legacy.locked);
+        result
     }
 }
 
@@ -1669,6 +1780,7 @@ mod test {
 
     #[test]
     fn test_variant_type() {
-        assert_eq!(*TabVariant::static_variant_type(), "(syybb)");
+        assert_eq!(*TabVariant::static_variant_type(), "a{sv}");
+        assert_eq!(*LegacyTabVariant::static_variant_type(), "(syybb)");
     }
 }

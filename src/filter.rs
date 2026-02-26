@@ -17,38 +17,16 @@
  * For more details see the file COPYING.
  */
 
+use crate::utils::u32_enum;
 use glob::{MatchOptions, Pattern};
 use regex::{Regex, RegexBuilder};
 use std::error::Error;
 
-#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, glib::ValueDelegate)]
-#[value_delegate(from = u32)]
-#[repr(C)]
-pub enum PatternType {
-    Regex = 0,
-    #[default]
-    FnMatch,
-}
-
-impl From<PatternType> for u32 {
-    fn from(pattern_type: PatternType) -> Self {
-        pattern_type as Self
-    }
-}
-
-impl From<&PatternType> for u32 {
-    fn from(pattern_type: &PatternType) -> Self {
-        *pattern_type as Self
-    }
-}
-
-impl From<u32> for PatternType {
-    fn from(value: u32) -> Self {
-        match value {
-            v if v == u32::from(PatternType::Regex) => PatternType::Regex,
-            v if v == u32::from(PatternType::FnMatch) => PatternType::FnMatch,
-            _ => Default::default(),
-        }
+u32_enum! {
+    pub enum PatternType {
+        Regex,
+        #[default]
+        FnMatch,
     }
 }
 

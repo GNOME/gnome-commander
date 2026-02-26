@@ -22,7 +22,7 @@ use crate::{
     app::FavoriteAppVariant,
     connection::list::{BookmarkVariant, ConnectionVariant, CustomDeviceVariant},
     enum_convert_strum,
-    file_selector::TabVariant,
+    file_selector::{LegacyTabVariant, TabVariant},
     filter::PatternType,
     history::History,
     intviewer::search_dialog::Mode,
@@ -71,6 +71,7 @@ pub struct GeneralOptions {
     pub tab_lock_indicator: EnumOption<TabLockIndicator>,
 
     pub file_list_tabs: VariantOption<Vec<TabVariant>>,
+    pub legacy_file_list_tabs: VariantOption<Vec<LegacyTabVariant>>,
 
     pub list_font: StringOption,
     pub list_row_height: U32Option,
@@ -169,7 +170,8 @@ impl GeneralOptions {
                 "tab-lock-indicator",
                 enum_convert_strum!(TabLockIndicator),
             ),
-            file_list_tabs: VariantOption::variant(&settings, "file-list-tabs"),
+            file_list_tabs: VariantOption::variant(&settings, "file-list-tabs-v2"),
+            legacy_file_list_tabs: VariantOption::variant(&settings, "file-list-tabs"),
             list_font: StringOption::simple(&settings, "list-font"),
             list_row_height: U32Option::simple(&settings, "list-row-height"),
             list_column_width: [
