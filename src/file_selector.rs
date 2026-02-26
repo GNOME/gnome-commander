@@ -25,7 +25,7 @@ use crate::{
         connection::{Connection, ConnectionExt, ConnectionInterface},
         home::ConnectionHome,
         list::ConnectionList,
-        remote::ConnectionRemote,
+        remote::{ConnectionRemote, ConnectionRemoteExt},
     },
     dir::Directory,
     file::File,
@@ -1286,16 +1286,26 @@ impl FileSelector {
 
         let menu = gio::Menu::new();
         for (index, (connection, path)) in dir_history.into_iter().enumerate() {
-            let Some(path) = path.path().to_str().map(|path| path.to_string()) else {
+            let Some(mut path) = path.path().to_str().map(|path| path.to_string()) else {
                 continue;
             };
-            let path = if connection.downcast_ref::<ConnectionHome>().is_none()
-                && let Some(alias) = connection.alias()
+            if connection.downcast_ref::<ConnectionHome>().is_none()
+                && let Some(mut alias) = connection.alias()
             {
-                format!("{alias}: {path}")
-            } else {
-                path
-            };
+                if alias.is_empty() {
+                    // Temporary connection, try URI
+                    if let Some(uri) = connection
+                        .downcast_ref::<ConnectionRemote>()
+                        .and_then(|con| con.uri())
+                    {
+                        alias = uri.to_str().into();
+                    }
+                }
+
+                if !alias.is_empty() {
+                    path = format!("{alias}: {path}");
+                }
+            }
 
             let item = gio::MenuItem::new(Some(&path), None);
             item.set_action_and_target_value(
