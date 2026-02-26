@@ -198,7 +198,7 @@
       <default>100</default>
       <range min="10" max="1000"/>
       <summary>GUI update rate</summary>
-      <description>Update rate of the graphical user interphase in 1/1000ths of a second.</description>
+      <description>Update rate of the graphical user interface in 1/1000ths of a second.</description>
     </key>
     <key name="show-devbuttons" type="b">
       <default>true</default>
