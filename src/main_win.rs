@@ -1191,11 +1191,11 @@ impl MainWindow {
             .partition(|t| t.position() == TabPosition::LeftOrTop);
 
         if let Some(dir) = start_left_dir.and_then(|d| d.to_str()) {
-            left_tabs.push(TabVariant::new(dir.to_string()));
+            left_tabs.push(TabVariant::new(Default::default(), dir.to_string()));
         }
 
         if let Some(dir) = start_right_dir.and_then(|d| d.to_str()) {
-            right_tabs.push(TabVariant::new(dir.to_string()));
+            right_tabs.push(TabVariant::new(Default::default(), dir.to_string()));
         }
 
         self.file_selector(FileSelectorID::Left)

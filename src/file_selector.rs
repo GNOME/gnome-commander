@@ -1128,10 +1128,11 @@ impl FileSelector {
             })
             .filter_map(|file_list| {
                 let directory = file_list.directory()?;
+                let connection = directory.connection().alias().unwrap_or_default();
                 let uri = directory.upcast_ref::<File>().get_uri_str();
                 let (column, order) = file_list.sorting();
 
-                let mut variant = TabVariant::new(uri);
+                let mut variant = TabVariant::new(connection, uri);
                 variant.set_position(position);
                 variant.set_sort_column(column);
                 variant.set_sort_direction(order);
@@ -1145,7 +1146,7 @@ impl FileSelector {
         let connection_list = ConnectionList::get();
 
         for tab in tabs {
-            if let Some(directory) = restore_directory(connection_list, &tab.current_location()) {
+            if let Some(directory) = restore_directory(connection_list, tab.current_location()) {
                 self.new_tab_full(
                     Some(&directory),
                     tab.sort_column(),
@@ -1482,20 +1483,19 @@ impl TabVariant {
     const SORT_DIRECTION_ASCENDING: &str = "asc";
     const SORT_DIRECTION_DESCENDING: &str = "desc";
 
-    pub fn new(uri: String) -> Self {
+    pub fn new(connection: String, uri: String) -> Self {
         let mut inner = BTreeMap::new();
         inner.insert(
             Self::SETTING_CURRENT_LOCATION.to_string(),
-            (String::new(), uri).into(),
+            (connection, uri).into(),
         );
         Self(inner)
     }
 
-    pub fn current_location(&self) -> String {
+    pub fn current_location(&self) -> (String, String) {
         self.0
             .get(Self::SETTING_CURRENT_LOCATION)
             .and_then(<(String, String)>::from_variant)
-            .map(|(_con, uri)| uri)
             .unwrap_or_default()
     }
 
@@ -1546,7 +1546,8 @@ impl TabVariant {
                 Self::SORT_DIRECTION_DESCENDING
             } else {
                 Self::SORT_DIRECTION_ASCENDING
-            }.into(),
+            }
+            .into(),
         );
     }
 
@@ -1574,7 +1575,7 @@ pub struct LegacyTabVariant {
 
 impl From<LegacyTabVariant> for TabVariant {
     fn from(legacy: LegacyTabVariant) -> Self {
-        let mut result = Self::new(legacy.uri);
+        let mut result = Self::new(Default::default(), legacy.uri);
         result.set_position((legacy.file_felector_id as u32).into());
         if let Some(column) = ColumnID::from_repr(legacy.sort_column.into()) {
             result.set_sort_column(column);
@@ -1588,14 +1589,22 @@ impl From<LegacyTabVariant> for TabVariant {
     }
 }
 
-fn restore_directory(connection_list: &ConnectionList, stored_uri: &str) -> Option<Directory> {
-    let (con, path) = match glib::Uri::parse(stored_uri, glib::UriFlags::NONE) {
+fn restore_directory(
+    connection_list: &ConnectionList,
+    location: (String, String),
+) -> Option<Directory> {
+    let (connection_alias, stored_uri) = location;
+    let (con, path) = match glib::Uri::parse(&stored_uri, glib::UriFlags::NONE) {
         Ok(uri) => {
-            let con: Connection = if uri.scheme() == "file" {
+            let con: Connection = if connection_alias.is_empty() && uri.scheme() == "file" {
                 connection_list.home().upcast()
             } else {
-                // TODO: use connection_list to find or register a connection
-                ConnectionRemote::new(stored_uri, &uri).upcast()
+                if !connection_alias.is_empty() {
+                    connection_list.find_by_alias(&connection_alias)
+                } else {
+                    None
+                }
+                .unwrap_or_else(|| ConnectionRemote::new(&stored_uri, &uri).upcast())
             };
             let path = PathBuf::from(uri.path());
             (con, path)
@@ -1608,16 +1617,26 @@ fn restore_directory(connection_list: &ConnectionList, stored_uri: &str) -> Opti
         }
     };
 
-    match Directory::try_new(&con, con.create_path(&path)) {
-        Ok(directory) => Some(directory),
-        Err(error) => {
-            eprintln!(
-                "Stored path {} is invalid: {}. Skipping",
-                path.display(),
-                error
-            );
-            None
+    if con.is_open() {
+        match Directory::try_new(&con, con.create_path(&path)) {
+            Ok(directory) => Some(directory),
+            Err(error) => {
+                eprintln!(
+                    "Stored path {} is invalid: {}. Skipping",
+                    path.display(),
+                    error
+                );
+                None
+            }
         }
+    } else {
+        let file_info = gio::FileInfo::new();
+        file_info.set_display_name(".");
+        file_info.set_file_type(gio::FileType::Directory);
+
+        con.set_base_path(Some(con.create_path(&path)));
+        con.set_base_file_info(Some(&file_info));
+        Directory::new_with_con(&con)
     }
 }
 
