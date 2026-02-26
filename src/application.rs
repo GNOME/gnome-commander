@@ -55,6 +55,7 @@ mod imp {
             self.parent_constructed();
 
             let app = self.obj();
+            #[cfg(debug_assertions)]
             app.add_main_option(
                 "debug",
                 b'd'.into(),

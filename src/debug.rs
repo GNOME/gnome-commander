@@ -36,20 +36,24 @@
 //! | z    | detailed mime-based imageload |
 //! | x    | file transfer                 |
 
+#[cfg(debug_assertions)]
 use std::{
     collections::HashSet,
     sync::{LazyLock, Mutex},
 };
 
+#[cfg(debug_assertions)]
 static DEBUG_FLAGS: LazyLock<Mutex<HashSet<char>>> = LazyLock::new(Mutex::default);
 
-pub fn set_debug_flags(flags: &str) {
+pub fn set_debug_flags(_flags: &str) {
+    #[cfg(debug_assertions)]
     if let Ok(mut guard) = DEBUG_FLAGS.lock() {
         guard.clear();
-        guard.extend(flags.chars());
+        guard.extend(_flags.chars());
     }
 }
 
+#[cfg(debug_assertions)]
 pub fn is_debug_enabled(flag: char) -> bool {
     if let Ok(guard) = DEBUG_FLAGS.lock() {
         guard.contains(&flag)
@@ -58,6 +62,7 @@ pub fn is_debug_enabled(flag: char) -> bool {
     }
 }
 
+#[cfg(debug_assertions)]
 macro_rules! debug {
     ($flag:literal, $fmt:expr) => {
         if crate::debug::is_debug_enabled($flag) {
@@ -69,6 +74,11 @@ macro_rules! debug {
             eprintln!($fmt, $($args)*);
         }
     };
+}
+
+#[cfg(not(debug_assertions))]
+macro_rules! debug {
+    ($($args:tt)*) => {};
 }
 
 pub(crate) use debug;
