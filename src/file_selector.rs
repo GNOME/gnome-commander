@@ -1630,6 +1630,9 @@ fn restore_directory(
             }
         }
     } else {
+        // HACK: On startup neither connection.default_dir() nor connection.base_file_info() will be
+        // set. So we create a bogus FileInfo instance that allows us to create a Directory for the
+        // connection.
         let file_info = gio::FileInfo::new();
         file_info.set_display_name(".");
         file_info.set_file_type(gio::FileType::Directory);
