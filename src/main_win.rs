@@ -60,6 +60,7 @@ pub mod imp {
     use super::*;
     use crate::{
         command_line::CommandLine,
+        config::PIXMAPS_DIR,
         dir::Directory,
         layout::{color_themes::ColorThemes, ls_colors_palette::LsColorPalettes},
         options::{
@@ -85,6 +86,7 @@ pub mod imp {
 
         toolbar: gtk::Box,
         con_drop: gtk::Button,
+        con_drop_image: gtk::Image,
         toolbar_sep: gtk::Separator,
         cmdline_paned: gtk::Paned,
         pub cmdline: CommandLine,
@@ -161,6 +163,8 @@ pub mod imp {
             let plugin_manager = PluginManager::new();
             let file_metadata_service = FileMetadataService::new(&plugin_manager);
 
+            let (con_drop, con_drop_image) = build_con_drop_button();
+
             let cmdline = CommandLine::new();
 
             let file_selector_left = FileSelector::new(&file_metadata_service);
@@ -176,10 +180,8 @@ pub mod imp {
                     .orientation(gtk::Orientation::Horizontal)
                     .css_classes(["main-toolbar"])
                     .build(),
-                con_drop: toolbar_button(
-                    UserAction::ConnectionsCloseCurrent,
-                    REMOTE_DISCONNECT_ICON,
-                ),
+                con_drop,
+                con_drop_image,
                 toolbar_sep: gtk::Separator::builder()
                     .orientation(gtk::Orientation::Vertical)
                     .build(),
@@ -700,6 +702,7 @@ pub mod imp {
                 UserAction::ConnectionsOpen,
                 REMOTE_CONNECT_ICON,
             ));
+
             self.toolbar.append(&self.con_drop);
         }
 
@@ -713,9 +716,8 @@ pub mod imp {
                     self.con_drop
                         .set_tooltip_text(connection.close_tooltip().as_deref());
 
-                    if let Some(icon) = connection.close_icon() {
-                        self.con_drop
-                            .set_child(Some(&gtk::Image::from_gicon(&icon)));
+                    if let Some(icon) = connection.open_icon() {
+                        self.con_drop_image.set_from_gicon(&icon);
                     } else {
                         self.con_drop.set_label(
                             &connection
@@ -729,7 +731,8 @@ pub mod imp {
 
             self.obj()
                 .action_set_enabled(UserAction::ConnectionsCloseCurrent.name(), false);
-            self.con_drop.set_icon_name(REMOTE_DISCONNECT_ICON);
+            self.con_drop_image
+                .set_icon_name(Some(REMOTE_DISCONNECT_ICON));
             self.con_drop.set_tooltip_text(None);
         }
 
@@ -1027,6 +1030,23 @@ pub mod imp {
             .build();
         button.add_css_class("flat");
         button
+    }
+
+    fn build_con_drop_button() -> (gtk::Button, gtk::Image) {
+        let button = toolbar_button(UserAction::ConnectionsCloseCurrent, REMOTE_DISCONNECT_ICON);
+
+        let image = gtk::Image::new();
+        let overlay = gtk::Overlay::builder().child(&image).build();
+        let overlay_image = gtk::Image::builder()
+            .pixel_size(9)
+            .halign(gtk::Align::End)
+            .valign(gtk::Align::End)
+            .build();
+        overlay_image.set_from_file(Some(Path::new(PIXMAPS_DIR).join("overlay_umount.png")));
+        overlay.add_overlay(&overlay_image);
+
+        button.set_child(Some(&overlay));
+        (button, image)
     }
 
     fn buttonbar_button(label: &str, action_name: &str) -> gtk::Button {

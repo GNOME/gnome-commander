@@ -26,7 +26,7 @@ use std::{cell::RefCell, collections::HashMap, path::Path, rc::Rc, sync::LazyLoc
 
 pub struct IconCache {
     file_type_icons: HashMap<gio::FileType, gio::Icon>,
-    symlink: gio::Emblem,
+    symlink: gio::ThemedIcon,
     options: GeneralOptions,
     cache: RefCell<HashMap<IconCacheKey, Option<gio::Icon>>>,
 }
@@ -35,7 +35,6 @@ pub struct IconCache {
 struct IconCacheKey {
     mime_type: Option<String>,
     file_type: gio::FileType,
-    symlink: bool,
 }
 
 impl IconCache {
@@ -64,7 +63,7 @@ impl IconCache {
 
         let this = Rc::new(Self {
             file_type_icons,
-            symlink: gio::Emblem::new(&gio::ThemedIcon::new("overlay_symlink")),
+            symlink: gio::ThemedIcon::new("overlay_symlink"),
             options,
             cache: Default::default(),
         });
@@ -80,54 +79,34 @@ impl IconCache {
         this
     }
 
-    pub fn mime_type_icon(
-        &self,
-        file_type: gio::FileType,
-        mime_type: &str,
-        symlink: bool,
-    ) -> Option<gio::Icon> {
+    pub fn mime_type_icon(&self, file_type: gio::FileType, mime_type: &str) -> Option<gio::Icon> {
         let cache_key = IconCacheKey {
             mime_type: Some(mime_type.to_owned()),
             file_type,
-            symlink,
         };
         self.cache
             .borrow_mut()
             .entry(cache_key)
             .or_insert_with(|| {
                 let theme_icon_dir = self.options.mime_icon_dir.get()?;
-                let icon = self.mime_icon_in_dir(&theme_icon_dir, file_type, mime_type)?;
-                Some(self.maybe_symlink(&icon, symlink))
+                self.mime_icon_in_dir(&theme_icon_dir, file_type, mime_type)
             })
             .clone()
     }
 
-    pub fn file_type_icon(&self, file_type: gio::FileType, symlink: bool) -> Option<gio::Icon> {
+    pub fn file_type_icon(&self, file_type: gio::FileType) -> Option<gio::Icon> {
         let cache_key = IconCacheKey {
             mime_type: None,
             file_type,
-            symlink,
         };
         self.cache
             .borrow_mut()
             .entry(cache_key)
-            .or_insert_with(|| {
-                let icon = self.file_type_icons.get(&file_type)?;
-                Some(self.maybe_symlink(icon, symlink))
-            })
+            .or_insert_with(|| self.file_type_icons.get(&file_type).cloned())
             .clone()
     }
 
-    fn maybe_symlink(&self, icon: &gio::Icon, symlink: bool) -> gio::Icon {
-        if symlink {
-            gio::EmblemedIcon::new(icon, Some(&self.symlink)).upcast()
-        } else {
-            icon.clone()
-        }
-    }
-
     /// Tries to load an image for the specified mime-type in the specified directory.
-    /// If symlink is true a smaller symlink image is painted over the image to indicate this.
     fn mime_icon_in_dir(
         &self,
         icon_dir: &Path,
@@ -147,16 +126,19 @@ impl IconCache {
 
     pub fn file_icon(&self, file: &File, mode: GraphicalLayoutMode) -> Option<gio::Icon> {
         let file_type = file.file_info().file_type();
-        let is_symlink = !file.is_dotdot() && file.file_info().is_symlink();
 
         match mode {
             GraphicalLayoutMode::MimeIcons => file
                 .content_type()
-                .and_then(|mime_type| self.mime_type_icon(file_type, &mime_type, is_symlink))
-                .or_else(|| self.file_type_icon(file_type, is_symlink)),
-            GraphicalLayoutMode::TypeIcons => self.file_type_icon(file_type, is_symlink),
+                .and_then(|mime_type| self.mime_type_icon(file_type, &mime_type))
+                .or_else(|| self.file_type_icon(file_type)),
+            GraphicalLayoutMode::TypeIcons => self.file_type_icon(file_type),
             GraphicalLayoutMode::Text => None,
         }
+    }
+
+    pub fn symlink_overlay(&self) -> &gio::Icon {
+        self.symlink.upcast_ref()
     }
 }
 

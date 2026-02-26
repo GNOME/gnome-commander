@@ -2579,11 +2579,13 @@ fn create_icon_factory() -> gtk::ListItemFactory {
             let stack = gtk::Stack::builder().hexpand(true).build();
             stack.add_css_class("cell");
 
-            let image = gtk::Image::builder()
+            let image = gtk::Image::builder().build();
+            let overlay = gtk::Overlay::builder()
+                .child(&image)
                 .hexpand(true)
                 .halign(gtk::Align::Center)
                 .build();
-            stack.add_named(&image, Some("image"));
+            stack.add_named(&overlay, Some("overlay"));
 
             let label = gtk::Label::builder()
                 .hexpand(true)
@@ -2596,42 +2598,61 @@ fn create_icon_factory() -> gtk::ListItemFactory {
         }
     });
     factory.connect_bind(move |_, obj| {
-        let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() else {
-            return;
-        };
-        let Some(stack) = list_item.child().and_downcast::<gtk::Stack>() else {
-            return;
-        };
-        let Some(item) = list_item.item().and_downcast::<FileListItem>() else {
-            return;
-        };
-        let image = stack
-            .child_by_name("image")
-            .and_downcast::<gtk::Image>()
-            .unwrap();
-        let label = stack
-            .child_by_name("label")
-            .and_downcast::<gtk::Label>()
-            .unwrap();
+        if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>()
+            && let Some(stack) = list_item.child().and_downcast::<gtk::Stack>()
+            && let Some(item) = list_item.item().and_downcast::<FileListItem>()
+            && let Some(overlay) = stack
+                .child_by_name("overlay")
+                .and_downcast::<gtk::Overlay>()
+            && let Some(image) = overlay.child().and_downcast::<gtk::Image>()
+            && let Some(label) = stack.child_by_name("label").and_downcast::<gtk::Label>()
+        {
+            image.clear();
+            label.set_text("");
 
-        image.clear();
-        label.set_text("");
+            // Remove existing overlay image if any
+            if let Some(mut child) = overlay.first_accessible_child() {
+                loop {
+                    if let Some(widget) = child.downcast_ref::<gtk::Widget>()
+                        && widget != &image
+                    {
+                        overlay.remove_overlay(widget);
+                        break;
+                    }
 
-        let file = item.file();
-
-        let use_ls_colors = color_settings.boolean("use-ls-colors");
-        apply_css(&item, use_ls_colors, label.upcast_ref());
-
-        match global_options.graphical_layout_mode.get() {
-            GraphicalLayoutMode::Text => {
-                label.set_text(imp::type_string(file.file_info().file_type()));
-                stack.set_visible_child(&label);
-            }
-            mode => {
-                if let Some(icon) = icon_cache.file_icon(&file, mode) {
-                    image.set_from_gicon(&icon);
+                    child = match child.next_accessible_sibling() {
+                        Some(child) => child,
+                        None => break,
+                    }
                 }
-                stack.set_visible_child(&image);
+            }
+
+            let file = item.file();
+            if !file.is_dotdot() && file.file_info().is_symlink() {
+                overlay.add_overlay(
+                    &gtk::Image::builder()
+                        .gicon(icon_cache.symlink_overlay())
+                        .pixel_size(9)
+                        .halign(gtk::Align::End)
+                        .valign(gtk::Align::End)
+                        .build(),
+                );
+            }
+
+            let use_ls_colors = color_settings.boolean("use-ls-colors");
+            apply_css(&item, use_ls_colors, label.upcast_ref());
+
+            match global_options.graphical_layout_mode.get() {
+                GraphicalLayoutMode::Text => {
+                    label.set_text(imp::type_string(file.file_info().file_type()));
+                    stack.set_visible_child(&label);
+                }
+                mode => {
+                    if let Some(icon) = icon_cache.file_icon(&file, mode) {
+                        image.set_from_gicon(&icon);
+                    }
+                    stack.set_visible_child(&overlay);
+                }
             }
         }
     });
