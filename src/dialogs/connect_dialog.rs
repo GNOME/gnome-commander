@@ -22,7 +22,7 @@
 
 use crate::{
     connection::{
-        connection::{ConnectionExt, ConnectionInterface},
+        ConnectionExt, ConnectionInterface,
         remote::{ConnectionMethodID, ConnectionRemote, ConnectionRemoteExt},
     },
     utils::{channel_send_action, handle_escape_key},

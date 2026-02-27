@@ -18,10 +18,7 @@
  */
 
 use super::{apps_widget::FavoriteApps, common::create_category};
-use crate::options::{
-    options::{GeneralOptions, ProgramsOptions},
-    types::WriteResult,
-};
+use crate::options::{GeneralOptions, ProgramsOptions, types::WriteResult};
 use gettextrs::gettext;
 use gtk::prelude::*;
 

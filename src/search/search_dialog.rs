@@ -23,12 +23,12 @@ use super::{
     selection_profile_component::SelectionProfileComponent,
 };
 use crate::{
-    dialogs::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager},
+    dialogs::profiles::{ProfileManager, manage_profiles_dialog::manage_profiles},
     dir::Directory,
     libgcmd::file_descriptor::FileDescriptorExt,
     main_win::MainWindow,
-    options::options::SearchConfig,
-    tags::tags::FileMetadataService,
+    options::SearchConfig,
+    tags::FileMetadataService,
     utils::handle_escape_key,
 };
 use gettextrs::{gettext, ngettext};
@@ -191,7 +191,7 @@ mod imp {
     use super::*;
     use crate::{
         connection::{
-            connection::Connection,
+            Connection,
             list::ConnectionList,
             remote::{ConnectionRemote, ConnectionRemoteExt},
         },
@@ -200,7 +200,7 @@ mod imp {
         file_list::list::FileList,
         intviewer::search_dialog::gnome_cmd_viewer_search_text_add_to_history,
         main_win::MainWindow,
-        options::{options::GeneralOptions, utils::remember_window_size},
+        options::{GeneralOptions, utils::remember_window_size},
         select_directory_button::DirectoryButton,
         types::FileSelectorID,
         utils::{ErrorMessage, dialog_button_box, display_help},

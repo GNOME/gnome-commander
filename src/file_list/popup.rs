@@ -26,7 +26,7 @@ use crate::{
     filter::fnmatch,
     libgcmd::file_actions::{FileActions, FileActionsExt},
     main_win::MainWindow,
-    options::options::GeneralOptions,
+    options::GeneralOptions,
     plugin_manager::wrap_plugin_menu,
     user_actions::UserAction,
     utils::MenuBuilderExt,
@@ -75,7 +75,7 @@ fn extract_script_info(script_path: &Path) -> Option<(String, bool)> {
 
     let mut script_name = None;
     let mut in_terminal = false;
-    for line in io::BufReader::new(file).lines().flatten() {
+    for line in io::BufReader::new(file).lines().map_while(Result::ok) {
         if let Some(name) = line.strip_prefix("#name:") {
             script_name = Some(name.trim().to_string());
         }

@@ -24,7 +24,7 @@ use std::cmp;
 
 mod imp {
     use super::*;
-    use crate::options::options::GeneralOptions;
+    use crate::options::GeneralOptions;
     use std::cell::{Cell, OnceCell};
 
     #[derive(Default, glib::Properties)]

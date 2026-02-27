@@ -178,6 +178,8 @@ impl PluginManager {
     }
 
     pub fn connect_plugins_changed<F: Fn(&Self) + 'static>(&self, f: F) -> glib::SignalHandlerId {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "plugins-changed",
             false,

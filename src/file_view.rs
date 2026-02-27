@@ -20,9 +20,9 @@
 use crate::{
     file::File,
     intviewer::window::ViewerWindow,
-    options::options::ProgramsOptions,
+    options::ProgramsOptions,
     spawn::{SpawnError, spawn_async},
-    tags::tags::FileMetadataService,
+    tags::FileMetadataService,
     transfer::download_to_temporary,
     utils::{ErrorMessage, temp_file},
 };

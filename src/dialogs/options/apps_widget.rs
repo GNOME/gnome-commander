@@ -21,7 +21,7 @@ use super::app_dialog::edit_app_dialog;
 use crate::{
     app::{AppExt, AppTarget, UserDefinedApp, load_favorite_apps, save_favorite_apps},
     dialogs::order_utils::ordering_buttons,
-    options::{options::GeneralOptions, types::WriteResult},
+    options::{GeneralOptions, types::WriteResult},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};

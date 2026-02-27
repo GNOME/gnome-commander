@@ -17,14 +17,14 @@
  * For more details see the file COPYING.
  */
 
-use crate::{file::File, tags::tags::FileMetadataService, utils::bold};
+use crate::{file::File, tags::FileMetadataService, utils::bold};
 use gettextrs::gettext;
 use gtk::{gio, glib, pango, prelude::*, subclass::prelude::*};
 use imp::TagNode;
 
 mod imp {
     use super::*;
-    use crate::tags::tags::{FileMetadataService, GnomeCmdTag};
+    use crate::tags::{FileMetadataService, GnomeCmdTag};
     use std::cell::{OnceCell, RefCell};
 
     pub struct TagNode {

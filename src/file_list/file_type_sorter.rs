@@ -23,7 +23,7 @@ use std::cmp;
 
 mod imp {
     use super::*;
-    use crate::{file_list::item::FileListItem, options::options::GeneralOptions};
+    use crate::{file_list::item::FileListItem, options::GeneralOptions};
     use std::cell::Cell;
 
     #[derive(Default, glib::Properties)]

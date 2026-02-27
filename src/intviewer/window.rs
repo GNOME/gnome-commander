@@ -24,7 +24,7 @@ use super::{
 };
 use crate::{
     file::File,
-    tags::tags::FileMetadataService,
+    tags::FileMetadataService,
     utils::{MenuBuilderExt, extract_menu_shortcuts, pending},
 };
 use gettextrs::{gettext, ngettext};
@@ -48,7 +48,7 @@ mod imp {
             search_dialog::{SearchDialog, SearchRequest},
             text_render::TextRenderDisplayMode,
         },
-        options::{options::ViewerOptions, utils::remember_window_size},
+        options::{ViewerOptions, utils::remember_window_size},
         utils::display_help,
     };
     use gtk::gdk;

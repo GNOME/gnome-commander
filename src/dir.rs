@@ -21,7 +21,7 @@
  */
 
 use crate::{
-    connection::connection::{Connection, ConnectionExt},
+    connection::{Connection, ConnectionExt},
     debug::debug,
     dirlist::list_directory,
     file::File,

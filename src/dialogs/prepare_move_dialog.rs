@@ -19,7 +19,7 @@
 
 use super::prepare_transfer_dialog::PrepareTransferDialog;
 use crate::{
-    file_selector::FileSelector, main_win::MainWindow, options::options::ConfirmOptions,
+    file_selector::FileSelector, main_win::MainWindow, options::ConfirmOptions,
     transfer::move_files, types::ConfirmOverwriteMode, utils::bold,
 };
 use gettextrs::{gettext, ngettext};

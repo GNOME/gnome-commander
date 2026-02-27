@@ -19,7 +19,7 @@
 
 use super::common::create_category;
 use crate::{
-    options::{options::GeneralOptions, types::WriteResult},
+    options::{GeneralOptions, types::WriteResult},
     tab_label::TabLockIndicator,
 };
 use gettextrs::gettext;

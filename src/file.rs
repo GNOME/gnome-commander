@@ -21,13 +21,10 @@
  */
 
 use crate::{
-    connection::{
-        connection::{Connection, ConnectionInterface},
-        list::ConnectionList,
-    },
+    connection::{Connection, ConnectionInterface, list::ConnectionList},
     dir::Directory,
     libgcmd::file_descriptor::{FileDescriptor, FileDescriptorExt},
-    options::options::{GeneralOptions, ProgramsOptions},
+    options::{GeneralOptions, ProgramsOptions},
     spawn::{SpawnError, app_needs_terminal, run_command_indir},
     utils::ErrorMessage,
 };

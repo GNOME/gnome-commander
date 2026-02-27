@@ -19,7 +19,7 @@
 
 use crate::{
     file::File,
-    options::options::ProgramsOptions,
+    options::ProgramsOptions,
     spawn::{SpawnError, spawn_async},
     utils::ErrorMessage,
 };

@@ -17,20 +17,18 @@
  * For more details see the file COPYING.
  */
 
-use crate::connection::{connection::Connection, list::ConnectionList};
+use crate::connection::{Connection, list::ConnectionList};
 use gtk::{glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
     use crate::{
         connection::{
-            connection::{Connection, ConnectionExt},
-            device::ConnectionDevice,
-            list::ConnectionList,
+            Connection, ConnectionExt, device::ConnectionDevice, list::ConnectionList,
             smb::ConnectionSmb,
         },
         connection_button::ConnectionButton,
-        options::options::GeneralOptions,
+        options::GeneralOptions,
     };
     use std::{cell::OnceCell, rc::Rc, sync::OnceLock};
 
