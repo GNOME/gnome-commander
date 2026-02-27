@@ -79,7 +79,7 @@ pub async fn show_mkdir_dialog(
     grid.attach(&entry, 1, 0, 1, 1);
 
     if let Some(file) = selected_file {
-        let mut value = file.get_name();
+        let mut value = file.name();
         if !file.is::<Directory>()
             && let Some((p, _)) = value.rsplit_once('.')
         {

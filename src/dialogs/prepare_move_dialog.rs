@@ -45,7 +45,7 @@ pub async fn prepare_move_dialog_show(
     dialog.set_title(Some(&gettext("Move")));
 
     let label = if let Some(file) = single_source_file {
-        gettext("Move “{}” to").replace("{}", &file.get_name())
+        gettext("Move “{}” to").replace("{}", &file.name())
     } else {
         ngettext("move {} file to", "move {} files to", num_files as u32)
             .replace("{}", &num_files.to_string())

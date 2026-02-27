@@ -24,17 +24,16 @@ use crate::{
     utils::ErrorMessage,
 };
 use gettextrs::gettext;
-use gtk::gio;
 
 pub async fn file_edit(
     files: &glib::List<File>,
     options: &ProgramsOptions,
 ) -> Result<(), ErrorMessage> {
     for file in files {
-        if file.file_info().file_type() == gio::FileType::Directory {
+        if file.is_directory() {
             return Err(ErrorMessage::new(
                 gettext("Not an ordinary file."),
-                Some(file.file_info().display_name().as_str()),
+                Some(&file.name()),
             ));
         }
         if !file.is_local() {

@@ -1156,7 +1156,7 @@ impl MainWindow {
             .then(|| {
                 src.file_list()
                     .selected_file()
-                    .filter(|f| f.file_info().file_type() == gio::FileType::Directory)
+                    .filter(|f| f.is_directory())
                     .and_downcast::<Directory>()
             })
             .flatten()

@@ -165,12 +165,26 @@ impl File {
         info.set_name("..");
         info.set_display_name("..");
         info.set_file_type(gio::FileType::Directory);
+        info.set_is_symlink(false);
         info.set_size(0);
+        info.set_attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE, 0xFFF);
         Self::new(&info, dir)
     }
 
-    pub fn get_name(&self) -> String {
+    /// Returns the visible name of the file. This is only meant to be displayed in the user
+    /// interface and in messages to the user, not in any file operations.
+    pub fn name(&self) -> String {
         self.file_info().display_name().into()
+    }
+
+    /// Returns the name of the file as a path, suitable for file operations.
+    pub fn path_name(&self) -> PathBuf {
+        self.file_info().name()
+    }
+
+    /// Returns a file name which can be used in a text field when the file is being renamed.
+    pub fn edit_name(&self) -> String {
+        self.file_info().edit_name().into()
     }
 
     /// Returns the local filesystem path of the file if any. A path isn't only being returned for
@@ -239,11 +253,11 @@ impl File {
     }
 
     pub fn is_executable(&self) -> bool {
-        self.is_local() && {
-            let file_info = self.file_info();
-            file_info.file_type() == gio::FileType::Regular
-                && file_info.boolean(gio::FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE)
-        }
+        self.is_local()
+            && self.is_regular()
+            && self
+                .file_info()
+                .boolean(gio::FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE)
     }
 
     pub fn execute(&self, options: &ProgramsOptions) -> Result<(), SpawnError> {
@@ -335,8 +349,36 @@ impl File {
         }
     }
 
+    pub fn file_type(&self) -> gio::FileType {
+        self.file_info().file_type()
+    }
+
+    pub fn is_directory(&self) -> bool {
+        self.file_type() == gio::FileType::Directory
+    }
+
+    pub fn is_regular(&self) -> bool {
+        self.file_type() == gio::FileType::Regular
+    }
+
+    pub fn is_special(&self) -> bool {
+        self.file_type() == gio::FileType::Special
+    }
+
+    pub fn is_symlink(&self) -> bool {
+        self.file_info().is_symlink()
+    }
+
+    pub fn symlink_target(&self) -> Option<PathBuf> {
+        if self.is_symlink() {
+            self.file_info().symlink_target()
+        } else {
+            None
+        }
+    }
+
     pub fn extension(&self) -> Option<OsString> {
-        if self.file_info().file_type() == gio::FileType::Directory {
+        if self.is_directory() {
             None
         } else {
             Some(self.file_info().name().extension()?.to_owned())
@@ -384,11 +426,10 @@ impl File {
     }
 
     pub fn size(&self) -> Option<u64> {
-        let file_info = self.file_info();
-        if file_info.file_type() == gio::FileType::Directory {
+        if self.is_directory() {
             None
         } else {
-            file_info.size().try_into().ok()
+            self.file_info().size().try_into().ok()
         }
     }
 
@@ -396,12 +437,16 @@ impl File {
         self.file_info().modification_date_time()
     }
 
+    pub fn access_date(&self) -> Option<glib::DateTime> {
+        self.file_info().access_date_time()
+    }
+
     pub async fn tree_size(
         &self,
         progress_callback: impl Fn(u64) + 'static,
         cancellable: gio::Cancellable,
     ) -> Option<u64> {
-        match self.file_info().file_type() {
+        match self.file_type() {
             gio::FileType::Directory => {
                 let (result, stream) = self.file().measure_disk_usage_future(
                     gio::FileMeasureFlags::NONE,

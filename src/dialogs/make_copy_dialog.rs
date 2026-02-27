@@ -44,7 +44,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
     let grid = gtk::Grid::builder().hexpand(true).vexpand(true).build();
     dialog.set_child(Some(&grid));
 
-    let initial_value = f.file_info().display_name();
+    let initial_value = f.name();
 
     let label = gtk::Label::builder()
         .label(gettext("Copy “{}” to").replace("{}", &initial_value))

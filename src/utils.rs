@@ -97,7 +97,7 @@ pub fn temp_directory() -> &'static tempfile::TempDir {
 }
 
 pub fn temp_file(f: &File) -> Result<File, ErrorMessage> {
-    let name = f.get_name();
+    let name = f.name();
     let name_parts = name.rsplit_once('.');
 
     let temp_file = tempfile::Builder::new()

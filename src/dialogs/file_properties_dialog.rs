@@ -201,7 +201,6 @@ mod imp {
     impl FilePropertiesDialog {
         fn properties_tab(&self) -> gtk::Widget {
             let file = self.obj().file();
-            let file_info = file.file_info();
 
             let tab = gtk::Grid::builder()
                 .margin_top(6)
@@ -218,17 +217,13 @@ mod imp {
                 } else {
                     gettext("File name:")
                 });
-            self.filename_entry.set_text(&file.file_info().edit_name());
+            self.filename_entry.set_text(&file.edit_name());
 
             tab.attach(&self.filename_label, 0, 0, 1, 1);
             tab.attach(&self.filename_entry, 1, 0, 1, 1);
 
             let mut y = 1;
-            if let Some(symlink_target) = file_info
-                .is_symlink()
-                .then(|| file_info.symlink_target())
-                .flatten()
-            {
+            if let Some(symlink_target) = file.symlink_target() {
                 attach_labels(
                     &tab,
                     gettext("Symlink target:"),
@@ -286,8 +281,7 @@ mod imp {
                 attach_labels(&tab, gettext("Content type:"), &content_type, &mut y);
             }
 
-            let file_type = file_info.file_type();
-            if file_type != gio::FileType::Directory {
+            if !file.is_directory() {
                 attach_labels(
                     &tab,
                     gettext("Opens with:"),
@@ -307,7 +301,7 @@ mod imp {
             );
             y += 1;
 
-            if let Some(dt) = file_info.modification_date_time() {
+            if let Some(dt) = file.modification_date() {
                 match time_to_string(dt, "%c") {
                     Ok(str) => {
                         attach_labels(&tab, gettext("Modified:"), &str, &mut y);
@@ -315,7 +309,7 @@ mod imp {
                     Err(error) => eprintln!("Failed to format file modification time: {error}"),
                 }
             }
-            if let Some(dt) = file_info.access_date_time() {
+            if let Some(dt) = file.access_date() {
                 match time_to_string(dt, "%c") {
                     Ok(str) => {
                         attach_labels(&tab, gettext("Accessed:"), &str, &mut y);
@@ -336,14 +330,14 @@ mod imp {
             let size_label = attach_labels(
                 &tab,
                 gettext("Size:"),
-                nice_size(file_info.size() as u64, SizeDisplayMode::Grouped),
+                nice_size(file.size().unwrap_or_default(), SizeDisplayMode::Grouped),
                 &mut y,
             );
-            if file_type == gio::FileType::Directory {
+            if file.is_directory() {
                 self.do_calc_tree_size(size_label);
             }
 
-            if file_type != gio::FileType::Special {
+            if !file.is_special() {
                 let file_metadata_service = self.obj().file_metadata_service();
 
                 let metadata = file_metadata_service.extract_metadata(&file);
@@ -359,7 +353,7 @@ mod imp {
         }
 
         fn permissions_tab(&self) -> gtk::Widget {
-            let file_info = self.obj().file().file_info();
+            let file = self.obj().file();
 
             let tab = gtk::Grid::builder()
                 .margin_top(6)
@@ -382,10 +376,7 @@ mod imp {
                 1,
             );
 
-            self.chown_component.set_ownership(
-                file_info.attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_UID),
-                file_info.attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_GID),
-            );
+            self.chown_component.set_ownership(file.uid(), file.gid());
             self.chown_component.set_hexpand(true);
             tab.attach(&self.chown_component, 0, 1, 1, 1);
 
@@ -402,8 +393,7 @@ mod imp {
                 1,
             );
 
-            self.chmod_component
-                .set_permissions(file_info.attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE));
+            self.chmod_component.set_permissions(file.permissions());
             self.chmod_component.set_hexpand(true);
             tab.attach(&self.chmod_component, 0, 3, 1, 1);
 
@@ -514,7 +504,7 @@ mod imp {
             let mut changed = false;
 
             let filename = self.filename_entry.text();
-            if filename != file.get_name() {
+            if filename != file.name() {
                 file.rename(&filename)?;
                 changed = true;
             }

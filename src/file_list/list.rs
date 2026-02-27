@@ -818,7 +818,7 @@ mod imp {
             self.store.append(&item);
 
             // If we have been waiting for this file to show up, focus it
-            if self.focus_later.borrow().as_ref() == Some(&f.file_info().name()) {
+            if self.focus_later.borrow().as_ref() == Some(&f.path_name()) {
                 self.focus_later.replace(None);
                 self.obj().focus_file_at_row(&item);
             }
@@ -991,10 +991,7 @@ mod imp {
                     glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::Right | gdk::Key::KP_Right) => {
-                    if let Some(directory) = self
-                        .obj()
-                        .selected_file()
-                        .filter(|f| f.file_info().file_type() == gio::FileType::Directory)
+                    if let Some(directory) = self.obj().selected_file().filter(|f| f.is_directory())
                     {
                         self.obj()
                             .emit_by_name::<()>("file-activated", &[&directory]);
@@ -1273,7 +1270,7 @@ mod imp {
                         self.add_to_cmdline(path);
                     }
                 } else {
-                    self.add_to_cmdline(file.get_name());
+                    self.add_to_cmdline(file.name());
                 }
             }
         }
@@ -1991,7 +1988,7 @@ impl FileList {
     pub fn find_file_by_name(&self, name: &Path) -> Option<u32> {
         self.imp()
             .items_iter()
-            .position(|item| item.file().file_info().name() == name)
+            .position(|item| item.file().path_name() == name)
             .and_then(|p| p.try_into().ok())
     }
 
@@ -2025,7 +2022,7 @@ impl FileList {
             let file = item.file();
             if !file.is_dotdot()
                 && (select_dirs || file.downcast_ref::<Directory>().is_none())
-                && pattern.matches(&file.file_info().display_name())
+                && pattern.matches(&file.name())
             {
                 item.set_selected(mode);
             }
@@ -2157,11 +2154,10 @@ impl FileList {
         for item in self.imp().items_iter() {
             let file = item.file();
             if !file.is_dotdot() {
-                let info = file.file_info();
                 let selected = item.selected();
                 let cached_size: Option<u64> = item.size().try_into().ok();
 
-                match info.file_type() {
+                match file.file_type() {
                     gio::FileType::Directory => {
                         stats.total.directories += 1;
                         if selected {
@@ -2175,7 +2171,7 @@ impl FileList {
                         }
                     }
                     gio::FileType::Regular => {
-                        let size: u64 = info.size().try_into().unwrap_or_default();
+                        let size = file.size().unwrap_or_default();
                         stats.total.files += 1;
                         stats.total.bytes += size;
                         if selected {
@@ -2246,7 +2242,7 @@ impl FileList {
         };
 
         let file = selected.file();
-        if let Some(new_name) = show_rename_popover(&file.get_name(), self, &rect).await {
+        if let Some(new_name) = show_rename_popover(&file.name(), self, &rect).await {
             match file.rename(&new_name) {
                 Ok(_) => {
                     selected.update();
@@ -2339,7 +2335,7 @@ impl FileList {
             let focus_later = self.imp().focus_later.take();
             let focus_later_item = items
                 .into_iter()
-                .find(|item| focus_later.as_ref() == Some(&item.file().file_info().name()));
+                .find(|item| focus_later.as_ref() == Some(&item.file().path_name()));
 
             if let Some(item) = focus_later_item {
                 self.focus_file_at_row(&item);
@@ -2624,7 +2620,7 @@ fn create_icon_factory() -> gtk::ListItemFactory {
 
         match global_options.graphical_layout_mode.get() {
             GraphicalLayoutMode::Text => {
-                label.set_text(imp::type_string(file.file_info().file_type()));
+                label.set_text(imp::type_string(file.file_type()));
                 stack.set_visible_child(&label);
             }
             mode => {
@@ -2690,7 +2686,7 @@ fn create_size_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
     let global_options = GeneralOptions::new();
     create_text_cell_factory(1.0, cells, move |cell, item| {
         let mode = global_options.size_display_mode.get();
-        let is_directory = item.file().file_info().file_type() == gio::FileType::Directory;
+        let is_directory = item.file().is_directory();
         cell.bind(&item);
         cell.add_binding(
             item.bind_property("size", &cell, "text")

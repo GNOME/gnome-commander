@@ -27,7 +27,7 @@ use crate::{
     },
 };
 use gettextrs::gettext;
-use gtk::{gio, glib, prelude::*};
+use gtk::{glib, prelude::*};
 
 #[repr(C)]
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -45,7 +45,7 @@ async fn chmod_recursively(
 ) {
     if let Err(error) = file.chmod(permissions) {
         ErrorMessage::with_error(
-            gettext("Could not chmod {}").replace("{}", &file.get_name()),
+            gettext("Could not chmod {}").replace("{}", &file.name()),
             &error,
         )
         .show(parent_window)
@@ -65,16 +65,10 @@ async fn chmod_recursively(
             .files()
             .iter::<File>()
             .flatten()
-            .filter(|child| {
-                !child.is_dotdot()
-                    && child.file_info().display_name() != "."
-                    && !child.file_info().is_symlink()
-            })
+            .filter(|child| !child.is_dotdot() && child.name() != "." && !child.is_symlink())
             .filter(|child| match mode {
                 ChmodRecursiveMode::AllFiles => true,
-                ChmodRecursiveMode::DirectoriesOnly => {
-                    child.file_info().file_type() == gio::FileType::Directory
-                }
+                ChmodRecursiveMode::DirectoriesOnly => child.is_directory(),
             })
         {
             chmod_recursively(parent_window, &child, permissions, recursive).await;
@@ -97,10 +91,6 @@ pub async fn show_chmod_dialog(parent_window: &gtk::Window, files: &glib::List<F
     let Some(file) = files.front() else {
         return false;
     };
-    let permissions = file
-        .file_info()
-        .attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE)
-        & 0xFFF;
 
     let dialog = gtk::Window::builder()
         .transient_for(parent_window)
@@ -114,7 +104,7 @@ pub async fn show_chmod_dialog(parent_window: &gtk::Window, files: &glib::List<F
         .build();
     dialog.set_child(Some(&content_area));
 
-    let chmod_component = ChmodComponent::new(permissions);
+    let chmod_component = ChmodComponent::new(file.permissions());
     content_area.append(&chmod_component);
 
     content_area.append(&gtk::Separator::new(gtk::Orientation::Horizontal));

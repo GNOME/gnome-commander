@@ -113,7 +113,7 @@ pub async fn show_open_with_other_dialog(
                 full_command.push(" ");
                 full_command.push(glib::shell_quote(path));
             } else {
-                eprintln!("Failed to get real path for file: {}", file.get_name());
+                eprintln!("Failed to get real path for file: {}", file.name());
             }
         }
 

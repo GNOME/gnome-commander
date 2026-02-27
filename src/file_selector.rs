@@ -513,7 +513,7 @@ mod imp {
 
             tab_label.set_label(
                 fl.directory()
-                    .map(|d| d.upcast::<File>().get_name())
+                    .map(|d| d.upcast::<File>().name())
                     .unwrap_or_default(),
             );
             tab_label.set_locked(self.obj().is_tab_locked(fl));
@@ -958,16 +958,16 @@ impl FileSelector {
         let Some(dir) = file.parent_directory() else {
             eprintln!(
                 "Cannot go to a file {}. It has no parent directory.",
-                file.get_name()
+                file.name()
             );
             return;
         };
         if self.is_current_tab_locked() {
             self.new_tab_with_dir(&dir, true, true);
-            self.file_list().focus_file(&file.file_info().name(), true);
+            self.file_list().focus_file(&file.path_name(), true);
         } else if let Some(file_list) = self.current_file_list() {
             file_list.set_connection(&file.connection(), Some(&dir));
-            file_list.focus_file(&file.file_info().name(), true);
+            file_list.focus_file(&file.path_name(), true);
         }
     }
 
@@ -1399,7 +1399,7 @@ impl FileSelector {
     }
 
     pub fn do_file_specific_action(&self, fl: &FileList, file: &File) {
-        match file.file_info().file_type() {
+        match file.file_type() {
             gio::FileType::Directory => {
                 if !self.is_tab_locked(fl) {
                     if file.is_dotdot() {

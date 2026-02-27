@@ -187,7 +187,7 @@ mod imp {
                 .file_list()
                 .visible_files()
                 .into_iter()
-                .filter(|f| fnmatch(&pattern, &f.file_info().display_name(), case_sensitive))
+                .filter(|f| fnmatch(&pattern, &f.name(), case_sensitive))
                 .collect();
 
             // If no file matches the new filter, focus on the last file that matched a previous filter

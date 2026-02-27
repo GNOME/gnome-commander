@@ -33,7 +33,7 @@ use gtk::{gdk, gio, prelude::*};
 
 async fn ask_make_executable(parent_window: &gtk::Window, file: &File) -> bool {
     let msg = gettext("“{}” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?")
-        .replace("{}", &file.get_name());
+        .replace("{}", &file.name());
     gtk::AlertDialog::builder()
         .modal(true)
         .message(msg)
@@ -55,7 +55,7 @@ enum OpenText {
 async fn ask_open_text(parent_window: &gtk::Window, file: &File) -> OpenText {
     let msg =
         gettext("“{}” is an executable text file. Do you want to run it, or display its contents?")
-            .replace("{}", &file.get_name());
+            .replace("{}", &file.name());
     let response = gtk::AlertDialog::builder()
         .modal(true)
         .message(msg)
@@ -103,15 +103,11 @@ pub async fn mime_exec_single(
             return Ok(());
         }
 
-        file.chmod(
-            file.file_info()
-                .attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE)
-                | GNOME_CMD_PERM_USER_EXEC,
-        )
-        .map_err(|error| ErrorMessage {
-            message: gettext("Change of a file mode failed"),
-            secondary_text: Some(error.to_string()),
-        })?;
+        file.chmod(file.permissions() | GNOME_CMD_PERM_USER_EXEC)
+            .map_err(|error| ErrorMessage {
+                message: gettext("Change of a file mode failed"),
+                secondary_text: Some(error.to_string()),
+            })?;
     }
 
     // If the file is executable but not a binary file, check if the user wants to exec it or open it

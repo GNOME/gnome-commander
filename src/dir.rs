@@ -327,9 +327,7 @@ impl Directory {
 
     pub fn update_path(&self) {
         if let Some(parent) = self.parent() {
-            let path = parent
-                .path()
-                .child(&self.upcast_ref::<File>().file_info().name());
+            let path = parent.path().child(&self.upcast_ref::<File>().path_name());
             self.imp().path.replace(Some(path));
             self.imp().files.remove_all();
         }
@@ -433,8 +431,6 @@ impl Directory {
 
     /// This function also determines if cached dir is up-to-date (false=yes)
     pub fn update_mtime(&self) -> bool {
-        let file_info = self.file_info();
-
         let current_time = self
             .file()
             .query_info(
@@ -445,15 +441,17 @@ impl Directory {
             .ok()
             .and_then(|fi| fi.modification_date_time());
 
-        let cached_time = file_info.modification_date_time();
+        let cached_time = self.file_info().modification_date_time();
 
-        let result = match (cached_time, current_time) {
-            (Some(cached_time), Some(current_time)) if current_time != cached_time => {
-                // cache is not up-to-date
-                self.file_info().set_modification_date_time(&current_time);
-                true
-            }
-            _ => false,
+        let result = if let Some(cached_time) = cached_time
+            && let Some(current_time) = current_time
+            && current_time != cached_time
+        {
+            // cache is not up-to-date
+            self.file_info().set_modification_date_time(&current_time);
+            true
+        } else {
+            false
         };
 
         // after this function we are sure dir's mtime is up-to-date

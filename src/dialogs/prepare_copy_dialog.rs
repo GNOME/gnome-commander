@@ -45,7 +45,7 @@ pub async fn prepare_copy_dialog_show(
     dialog.set_title(Some(&gettext("Copy")));
 
     let label = if let Some(file) = single_source_file {
-        gettext("Copy “{}” to").replace("{}", &file.get_name())
+        gettext("Copy “{}” to").replace("{}", &file.name())
     } else {
         ngettext("copy {} file to", "copy {} files to", num_files as u32)
             .replace("{}", &num_files.to_string())

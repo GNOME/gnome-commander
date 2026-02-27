@@ -88,16 +88,13 @@ impl FileListItem {
     }
 
     pub fn update(&self) {
-        let is_dotdot = self.file().is_dotdot();
-        let file_info = self.file().file_info();
+        let file = self.file();
+        let is_dotdot = file.is_dotdot();
 
-        self.set_name(file_info.display_name());
+        self.set_name(file.name());
 
-        if is_dotdot {
-            self.set_stem(file_info.display_name());
-            self.set_extension("");
-        } else if file_info.file_type() == gio::FileType::Regular {
-            let name = file_info.name();
+        if file.is_regular() {
+            let name = file.path_name();
             self.set_stem({
                 name.file_stem()
                     .map(|n| n.to_string_lossy().to_string())
@@ -109,13 +106,7 @@ impl FileListItem {
                     .unwrap_or_default(),
             );
         } else {
-            self.set_stem({
-                file_info
-                    .name()
-                    .file_name()
-                    .map(|n| n.to_string_lossy().to_string())
-                    .unwrap_or_default()
-            });
+            self.set_stem(file.name());
             self.set_extension("");
         }
 
@@ -130,23 +121,15 @@ impl FileListItem {
                 .unwrap_or_default()
         });
 
-        if file_info.file_type() == gio::FileType::Directory {
-            self.set_size(-1);
-        } else {
-            self.set_size(file_info.size());
-        }
+        self.set_size(
+            file.size()
+                .and_then(|size| i64::try_from(size).ok())
+                .unwrap_or(-1),
+        );
 
-        self.set_modification_time(if is_dotdot {
-            None
-        } else {
-            file_info.modification_date_time()
-        });
+        self.set_modification_time(file.modification_date());
 
-        self.set_permissions(if is_dotdot {
-            u32::MAX
-        } else {
-            self.file().permissions()
-        });
+        self.set_permissions(file.permissions());
 
         self.set_owner(if is_dotdot {
             None

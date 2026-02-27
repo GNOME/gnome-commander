@@ -244,12 +244,12 @@ impl PrepareTransferDialog {
 
         let mut dst: Option<String>;
         if !default_dest_dir.connection().is_local() {
-            dst = single_source_file.map(|f| f.get_name());
+            dst = single_source_file.map(|f| f.name());
         } else if let Some(dst_path) = default_dest_dir.upcast_ref::<File>().get_real_path() {
             dst = Some(dst_path.to_string_lossy().to_string());
 
             if let Some(file) = single_source_file {
-                let d = dst_path.join(file.get_name());
+                let d = dst_path.join(file.name());
                 if !path_points_at_directory(to, &d) {
                     dst = Some(d.to_string_lossy().to_string());
                 }
@@ -398,7 +398,7 @@ pub async fn handle_user_input(
         if file_type == Some(gio::FileType::Directory) {
             // There exists a directory, copy into it using the original filename
             dest_dir = Directory::try_new(&con, con.create_path(&dest_path)).ok();
-            dest_fn = Some(single_source_file.get_name());
+            dest_fn = Some(single_source_file.name());
         } else if file_type.is_some() {
             // There exists something else, assume that the user wants to overwrite it for now
             dest_dir = dest_path

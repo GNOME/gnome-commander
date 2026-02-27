@@ -188,9 +188,9 @@ async fn confirm_delete_directory(
 ) -> DeleteNonEmpty {
     let msg = if can_measure {
         gettext("The directory “{}” is not empty. Do you really want to delete it?")
-            .replace("{}", &file.get_name())
+            .replace("{}", &file.name())
     } else {
-        gettext("Do you really want to delete “{}”?").replace("{}", &file.get_name())
+        gettext("Do you really want to delete “{}”?").replace("{}", &file.name())
     };
 
     let answer = gtk::AlertDialog::builder()
@@ -263,9 +263,7 @@ async fn perform_delete_operation_one(delete_data: &mut DeleteData, file: &File)
         return DeleteResult::Break(DeleteBreak::Abort);
     }
 
-    let filename = file.get_name();
-
-    if file.is_dotdot() || filename == "." {
+    if file.is_dotdot() || file.name() == "." {
         return DeleteResult::Continue(());
     }
 
@@ -300,8 +298,8 @@ async fn perform_delete_operation_one(delete_data: &mut DeleteData, file: &File)
             return DeleteResult::Break(DeleteBreak::Abort);
         }
         Err(error) => {
-            eprintln!("Failed to delete {}: {}", filename, error.message());
-            let problem = deletion_problem(&filename, &error);
+            eprintln!("Failed to delete {}: {}", file.name(), error.message());
+            let problem = deletion_problem(&file.name(), &error);
             return handle_delete_problem(delete_data, file, problem).await;
         }
     }
@@ -448,9 +446,7 @@ async fn remove_items_from_list_to_be_deleted(
             continue;
         }
 
-        if !file.file_info().is_symlink()
-            && file.file_info().file_type() == gio::FileType::Directory
-        {
+        if !file.is_symlink() && file.is_directory() {
             let (confirm_needed, can_measure) = measure_directory(&file).await?;
             if confirm_needed {
                 let response = confirm_delete_directory(
@@ -502,10 +498,11 @@ async fn confirm_delete(
         let file = files.front().unwrap();
         match delete_action {
             DeleteAction::DeletePermanently => {
-                gettext("Do you want to permanently delete “{}”?").replace("{}", &file.get_name())
+                gettext("Do you want to permanently delete “{}”?").replace("{}", &file.name())
             }
-            DeleteAction::DeleteToTrash => gettext("Do you want to move “{}” to the trash can?")
-                .replace("{}", &file.get_name()),
+            DeleteAction::DeleteToTrash => {
+                gettext("Do you want to move “{}” to the trash can?").replace("{}", &file.name())
+            }
         }
     } else {
         match delete_action {

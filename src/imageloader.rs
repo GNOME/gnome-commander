@@ -146,8 +146,8 @@ impl IconCache {
     }
 
     pub fn file_icon(&self, file: &File, mode: GraphicalLayoutMode) -> Option<gio::Icon> {
-        let file_type = file.file_info().file_type();
-        let is_symlink = !file.is_dotdot() && file.file_info().is_symlink();
+        let file_type = file.file_type();
+        let is_symlink = file.is_symlink();
 
         match mode {
             GraphicalLayoutMode::MimeIcons => file

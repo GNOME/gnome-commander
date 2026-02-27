@@ -255,7 +255,7 @@ async fn file_properties(main_win: MainWindow) {
         .await;
 
         if changed {
-            file_list.focus_file(&file.file_info().name(), true);
+            file_list.focus_file(&file.path_name(), true);
         }
     }
 }
@@ -371,7 +371,7 @@ async fn create_symlinks(
         let target_absolute_name = file.file().parse_name();
 
         let symlink_file =
-            directory.get_child_gfile(Path::new(&symlink_name(&file.get_name(), options)));
+            directory.get_child_gfile(Path::new(&symlink_name(&file.name(), options)));
 
         loop {
             match symlink_file.make_symbolic_link(&target_absolute_name, gio::Cancellable::NONE) {
@@ -456,7 +456,7 @@ async fn file_create_symlink(main_win: MainWindow) {
             main_win.upcast_ref(),
             &focused_file,
             &dest_directory,
-            &symlink_name(&focused_file.get_name(), &options),
+            &symlink_name(&focused_file.name(), &options),
         )
         .await;
     }
@@ -580,22 +580,21 @@ async fn mark_compare_directories(main_win: MainWindow) {
     let mut files2: HashMap<String, File> = fl2
         .visible_files()
         .into_iter()
-        .filter(|f| !f.is_dotdot())
-        .filter(|f| f.file_info().file_type() != gio::FileType::Directory)
-        .map(|f| (f.get_name(), f))
+        .filter(|f| !f.is_directory())
+        .map(|f| (f.name(), f))
         .collect();
 
     let mut selection1 = HashSet::new();
     for f1 in fl1.visible_files() {
-        if f1.is_dotdot() || f1.file_info().file_type() == gio::FileType::Directory {
+        if f1.is_directory() {
             continue;
         }
 
-        let name = f1.get_name();
+        let name = f1.name();
 
         if let Some(f2) = files2.get(&name) {
-            let date1 = f1.file_info().modification_date_time();
-            let date2 = f2.file_info().modification_date_time();
+            let date1 = f1.modification_date();
+            let date2 = f2.modification_date();
 
             // select the younger one
             match date1.cmp(&date2) {
@@ -603,7 +602,7 @@ async fn mark_compare_directories(main_win: MainWindow) {
                     // f2 stays selected
                 }
                 Ordering::Equal => {
-                    if f1.file_info().size() == f2.file_info().size() {
+                    if f1.size() == f2.size() {
                         // no selection
                         files2.remove(&name);
                     } else {
@@ -659,7 +658,7 @@ async fn edit_copy_fnames(main_win: MainWindow) {
             .map(|p| p.to_string_lossy().to_string())
             .collect(),
         Some(gdk::ModifierType::ALT_MASK) => files.into_iter().map(|f| f.get_uri_str()).collect(),
-        _ => files.into_iter().map(|f| f.get_name()).collect(),
+        _ => files.into_iter().map(|f| f.name()).collect(),
     };
 
     main_win.clipboard().set_text(&names.join(" "));
@@ -796,7 +795,7 @@ async fn view_directory(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
     if let Some(file) = file_list.selected_file()
-        && file.file_info().file_type() == gio::FileType::Directory
+        && file.is_directory()
     {
         file_selector.do_file_specific_action(&file_list, &file);
     }

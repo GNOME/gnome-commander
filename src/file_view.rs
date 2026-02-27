@@ -77,10 +77,10 @@ pub async fn file_view(
     options: &ProgramsOptions,
     file_metadata_service: &FileMetadataService,
 ) -> Result<(), ErrorMessage> {
-    if file.file_info().file_type() == gio::FileType::Directory {
+    if file.is_directory() {
         return Err(ErrorMessage::new(
             gettext("Not an ordinary file."),
-            Some(file.file_info().display_name().as_str()),
+            Some(&file.name()),
         ));
     }
 

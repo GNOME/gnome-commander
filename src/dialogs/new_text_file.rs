@@ -125,7 +125,7 @@ pub async fn show_new_textfile_dialog(parent_window: &gtk::Window, file_list: &F
     handle_escape_key(&dialog, &channel_send_action(&sender, false));
 
     if let Some(f) = file_list.selected_file() {
-        entry.set_text(&f.file_info().display_name());
+        entry.set_text(&f.name());
     }
 
     dialog.present();
