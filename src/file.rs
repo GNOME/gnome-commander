@@ -112,6 +112,9 @@ pub trait FileImpl: ObjectImpl {}
 unsafe impl<T: FileImpl> IsSubclassable<T> for File {}
 
 impl File {
+    pub const DEFAULT_ATTRIBUTES: &str =
+        "standard::*,access::*,time::*,owner::*,unix::uid,unix::gid,unix::mode";
+
     pub fn new(file_info: &gio::FileInfo, dir: &Directory) -> Self {
         let file = dir.file().child(file_info.name());
         Self::new_full(file_info, &file, dir)
@@ -130,7 +133,11 @@ impl File {
         let file = gio::File::for_path(path);
 
         let file_info = file
-            .query_info("*", gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE)
+            .query_info(
+                Self::DEFAULT_ATTRIBUTES,
+                gio::FileQueryInfoFlags::NONE,
+                gio::Cancellable::NONE,
+            )
             .map_err(|error| {
                 ErrorMessage::with_error(
                     gettext("Failed to get file info for {path}.")
@@ -152,9 +159,11 @@ impl File {
     }
 
     pub fn refresh_file_info(&self) -> Result<(), glib::Error> {
-        let file_info =
-            self.file()
-                .query_info("*", gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE)?;
+        let file_info = self.file().query_info(
+            Self::DEFAULT_ATTRIBUTES,
+            gio::FileQueryInfoFlags::NONE,
+            gio::Cancellable::NONE,
+        )?;
         self.set_file_info(&file_info);
         Ok(())
     }
@@ -277,8 +286,11 @@ impl File {
             .file()
             .set_display_name(new_name, gio::Cancellable::NONE)?;
         self.set_file(&new_file);
-        let new_file_info =
-            new_file.query_info("*", gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE)?;
+        let new_file_info = new_file.query_info(
+            Self::DEFAULT_ATTRIBUTES,
+            gio::FileQueryInfoFlags::NONE,
+            gio::Cancellable::NONE,
+        )?;
         self.set_file_info(&new_file_info);
 
         if let Some(directory) = self.downcast_ref::<Directory>() {

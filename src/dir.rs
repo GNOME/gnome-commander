@@ -166,7 +166,11 @@ impl Directory {
         let connection = connection.as_ref();
         let file = connection.create_gfile(&path);
         let file_info = file
-            .query_info("*", gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE)
+            .query_info(
+                File::DEFAULT_ATTRIBUTES,
+                gio::FileQueryInfoFlags::NONE,
+                gio::Cancellable::NONE,
+            )
             .map_err(|error| {
                 ErrorMessage::with_error(
                     gettext("Failed to get directory info for {path}.")
