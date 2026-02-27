@@ -381,9 +381,8 @@ pub async fn handle_user_input(
     } else {
         dest_path = src_directory
             .upcast_ref::<File>()
-            .get_path_through_parent()
-            .child(Path::new(user_path))
-            .path();
+            .path_from_root()
+            .join(user_path)
     }
 
     // Check if something exists at the given path and find out what it is

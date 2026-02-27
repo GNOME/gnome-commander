@@ -115,7 +115,7 @@ impl FileListItem {
                 .map(|p| format!(".{}", p.display()))
                 .unwrap_or_default()
         } else {
-            let path = self.file().get_path_string_through_parent();
+            let path = self.file().path_from_root();
             path.parent()
                 .map(|p| p.display().to_string())
                 .unwrap_or_default()

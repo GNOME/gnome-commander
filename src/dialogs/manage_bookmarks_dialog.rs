@@ -604,15 +604,7 @@ impl TaggedBookmark {
 pub async fn bookmark_directory(window: &gtk::Window, dir: &Directory, options: &GeneralOptions) {
     let file = dir.upcast_ref::<File>();
     let is_local = file.is_local();
-    let path = if is_local {
-        file.get_real_path()
-    } else {
-        Some(file.get_path_string_through_parent())
-    };
-    let Some(path) = path else {
-        eprintln!("Failed to get path for bookmarking");
-        return;
-    };
+    let path = file.path_from_root();
 
     let Some(path_str) = path.to_str() else {
         ErrorMessage::new(gettext("To bookmark a directory the whole search path to the directory must be in valid UTF-8 encoding"), None::<String>)

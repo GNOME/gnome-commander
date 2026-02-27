@@ -360,7 +360,7 @@ pub fn generate_file_name(
             }
             Chunk::ParentDir(range) => {
                 if let Some(s) = file
-                    .get_path_string_through_parent()
+                    .path_from_root()
                     .parent()
                     .and_then(|p| p.file_name())
                     .and_then(|d| d.to_str())
@@ -371,7 +371,7 @@ pub fn generate_file_name(
             }
             Chunk::GrandparentDir(range) => {
                 if let Some(s) = file
-                    .get_path_string_through_parent()
+                    .path_from_root()
                     .parent()
                     .and_then(|p| p.parent())
                     .and_then(|p| p.file_name())

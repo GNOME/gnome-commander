@@ -28,7 +28,6 @@ use crate::{
     dir::Directory,
     libgcmd::file_descriptor::{FileDescriptor, FileDescriptorExt},
     options::options::{GeneralOptions, ProgramsOptions},
-    path::GnomeCmdPath,
     spawn::{SpawnError, app_needs_terminal, run_command_indir},
     utils::ErrorMessage,
 };
@@ -193,19 +192,18 @@ impl File {
         self.file().path()
     }
 
-    pub fn get_path_through_parent(&self) -> GnomeCmdPath {
-        let filename = self.file_info().name();
-        if let Some(parent) = self.parent_directory() {
-            parent.path().child(&filename)
-        } else if let Some(directory) = self.downcast_ref::<Directory>() {
-            directory.path().clone()
-        } else {
-            panic!("Non directory file without owning directory")
-        }
-    }
-
-    pub fn get_path_string_through_parent(&self) -> PathBuf {
-        self.get_path_through_parent().path()
+    /// Returns the absolute file path. For remote files that path will be relative to server root.
+    pub fn path_from_root(&self) -> PathBuf {
+        self.is_local()
+            .then(|| self.get_real_path())
+            .flatten()
+            .or_else(|| {
+                // No local path, fall back to URI path
+                glib::Uri::parse(&self.file().uri(), glib::UriFlags::NONE)
+                    .ok()
+                    .map(|uri| uri.path().into())
+            })
+            .unwrap_or_default()
     }
 
     pub fn get_dirname(&self) -> Option<PathBuf> {

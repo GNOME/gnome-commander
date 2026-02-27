@@ -784,10 +784,7 @@ impl FileSelector {
 
     fn on_list_dir_changed(&self, fl: &FileList, dir: &Directory) {
         if let Some(connection) = fl.connection()
-            && let Some(path) = dir
-                .upcast_ref::<File>()
-                .get_path_string_through_parent()
-                .to_str()
+            && let Some(path) = dir.upcast_ref::<File>().path_from_root().to_str()
         {
             connection.dir_history().add(path.to_owned());
         }
