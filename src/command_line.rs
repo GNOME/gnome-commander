@@ -162,7 +162,7 @@ mod imp {
                 .build();
 
             let run_button = gtk::Button::builder()
-                .label(&gettext("_Run"))
+                .label(gettext("_Run"))
                 .use_underline(true)
                 .action_name("cmdline.run")
                 .build();

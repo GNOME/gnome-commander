@@ -24,7 +24,7 @@ use crate::{
     file::File,
     file_edit::file_edit,
     file_view::file_view,
-    options::options::ProgramsOptions,
+    options::ProgramsOptions,
     spawn::run_command_indir,
     transfer::download_to_temporary,
     utils::{ErrorMessage, get_modifiers_state, temp_file},

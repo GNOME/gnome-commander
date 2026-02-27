@@ -18,7 +18,7 @@
  */
 
 use super::list::FileList;
-use crate::{file::File, filter::fnmatch, options::options::GeneralOptions};
+use crate::{file::File, filter::fnmatch, options::GeneralOptions};
 use gettextrs::gettext;
 use gtk::{gdk, glib, prelude::*, subclass::prelude::*};
 use std::rc::Rc;

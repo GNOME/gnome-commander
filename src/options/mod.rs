@@ -18,6 +18,9 @@
  */
 
 pub mod enums;
-pub mod options;
 pub mod types;
 pub mod utils;
+
+#[path = "options.rs"]
+mod options_inner;
+pub use options_inner::*;

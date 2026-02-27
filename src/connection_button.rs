@@ -17,12 +17,12 @@
  * For more details see the file COPYING.
  */
 
-use crate::connection::connection::Connection;
+use crate::connection::Connection;
 use gtk::{gdk, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
-    use crate::{connection::connection::ConnectionExt, utils::get_modifiers_state};
+    use crate::{connection::ConnectionExt, utils::get_modifiers_state};
     use std::{
         cell::{Cell, RefCell},
         sync::OnceLock,

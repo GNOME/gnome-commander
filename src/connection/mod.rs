@@ -17,7 +17,6 @@
  * For more details see the file COPYING.
  */
 
-pub mod connection;
 pub mod device;
 pub mod home;
 pub mod list;
@@ -26,3 +25,7 @@ pub mod smb;
 
 pub mod bookmark;
 pub mod history;
+
+#[path = "connection.rs"]
+pub mod connection_inner;
+pub use connection_inner::*;

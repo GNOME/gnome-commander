@@ -23,7 +23,7 @@
 use crate::{
     dir::Directory,
     file::File,
-    options::options::{ConfirmOptions, DeleteDefault, GeneralOptions},
+    options::{ConfirmOptions, DeleteDefault, GeneralOptions},
     utils::ErrorMessage,
 };
 use gettextrs::{gettext, ngettext};

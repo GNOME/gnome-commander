@@ -23,7 +23,7 @@
 use super::regex_dialog::RegexReplace;
 use crate::{
     advanced_rename::profile::AdvancedRenameProfile,
-    tags::tags::FileMetadataService,
+    tags::FileMetadataService,
     utils::{NO_BUTTONS, dialog_button_box},
 };
 use gettextrs::gettext;

@@ -22,9 +22,7 @@
 
 use crate::{
     connection::{
-        bookmark::BookmarkGoToVariant,
-        connection::{Connection, ConnectionExt},
-        list::ConnectionList,
+        Connection, ConnectionExt, bookmark::BookmarkGoToVariant, list::ConnectionList,
         remote::ConnectionRemote,
     },
     dir::Directory,
@@ -35,15 +33,12 @@ use crate::{
         file_actions::{FileActions, FileActionsExt},
         state::{State, StateExt},
     },
-    options::{
-        options::{GeneralOptions, SearchConfig},
-        types::WriteResult,
-    },
+    options::{GeneralOptions, SearchConfig, types::WriteResult},
     paned_ext::GnomeCmdPanedExt,
     plugin_manager::{PluginManager, wrap_plugin_menu},
     search::search_dialog::SearchDialog,
     shortcuts::Shortcuts,
-    tags::tags::FileMetadataService,
+    tags::FileMetadataService,
     transfer::{copy_files, move_files},
     types::{ConfirmOverwriteMode, FileSelectorID},
     user_actions::UserAction,
@@ -62,10 +57,7 @@ pub mod imp {
         command_line::CommandLine,
         dir::Directory,
         layout::{color_themes::ColorThemes, ls_colors_palette::LsColorPalettes},
-        options::{
-            options::{FiltersOptions, ProgramsOptions},
-            utils::remember_window_state,
-        },
+        options::{FiltersOptions, ProgramsOptions, utils::remember_window_state},
         pwd::uid,
         shortcuts::Shortcut,
         spawn::{SpawnError, run_command_indir},
@@ -1022,7 +1014,7 @@ pub mod imp {
     fn toolbar_button(action: UserAction, icon: &str) -> gtk::Button {
         let button = gtk::Button::builder()
             .icon_name(icon)
-            .tooltip_text(&action.description())
+            .tooltip_text(action.description())
             .action_name(action.name())
             .build();
         button.add_css_class("flat");

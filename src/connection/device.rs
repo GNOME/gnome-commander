@@ -20,7 +20,7 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::{Connection, ConnectionExt, ConnectionInterface, ConnectionState};
+use super::{Connection, ConnectionExt, ConnectionInterface, ConnectionState};
 use crate::{
     debug::debug,
     path::GnomeCmdPath,
@@ -37,7 +37,7 @@ use std::{
 
 mod imp {
     use super::*;
-    use crate::connection::connection::ConnectionImpl;
+    use crate::connection::ConnectionImpl;
     use std::cell::{Cell, RefCell};
 
     #[derive(Default)]

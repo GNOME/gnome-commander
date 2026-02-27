@@ -22,8 +22,7 @@
 
 use crate::{
     connection::{
-        connection::{Connection, ConnectionExt, ConnectionInterface},
-        list::ConnectionList,
+        Connection, ConnectionExt, ConnectionInterface, list::ConnectionList,
         remote::ConnectionRemote,
     },
     dir::Directory,
@@ -31,9 +30,9 @@ use crate::{
     file_list::list::{ColumnID, FileList},
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
     open_file::mime_exec_single,
-    options::options::ProgramsOptions,
+    options::ProgramsOptions,
     tab_label::TabLabel,
-    tags::tags::FileMetadataService,
+    tags::FileMetadataService,
     types::MiddleMouseButtonMode,
     user_actions::UserAction,
     utils::{ALT, CONTROL, CONTROL_SHIFT, NO_MOD},
@@ -53,7 +52,7 @@ mod imp {
         connection_bar::ConnectionBar,
         dialogs::manage_bookmarks_dialog::bookmark_directory,
         directory_indicator::DirectoryIndicator,
-        options::options::GeneralOptions,
+        options::GeneralOptions,
         tab_label::TabLabel,
         utils::get_modifiers_state,
         weak_set::WeakSet,

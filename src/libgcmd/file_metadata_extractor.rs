@@ -18,7 +18,7 @@
  */
 
 use super::file_descriptor::{FileDescriptor, ffi::GnomeCmdFileDescriptor};
-use crate::tags::tags::{GnomeCmdTag, GnomeCmdTagClass};
+use crate::tags::{GnomeCmdTag, GnomeCmdTagClass};
 use gtk::glib::{
     self,
     ffi::{GStrv, gpointer},

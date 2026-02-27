@@ -24,7 +24,7 @@ use super::{
 };
 use crate::{
     options::{
-        options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions, ProgramsOptions},
+        ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions, ProgramsOptions,
         utils::remember_window_size,
     },
     utils::{SenderExt, channel_send_action, dialog_button_box, display_help, handle_escape_key},

@@ -19,10 +19,7 @@
 
 use crate::{
     dialogs::options::common::create_category,
-    options::{
-        options::{ConfirmOptions, DeleteDefault},
-        types::WriteResult,
-    },
+    options::{ConfirmOptions, DeleteDefault, types::WriteResult},
     types::{ConfirmOverwriteMode, DndMode},
 };
 use gettextrs::gettext;

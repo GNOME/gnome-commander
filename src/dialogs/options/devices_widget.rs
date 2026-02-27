@@ -19,11 +19,7 @@
 
 use super::device_dialog::edit_device_dialog;
 use crate::{
-    connection::{
-        connection::{Connection, ConnectionExt},
-        device::ConnectionDevice,
-        list::ConnectionList,
-    },
+    connection::{Connection, ConnectionExt, device::ConnectionDevice, list::ConnectionList},
     dialogs::order_utils::ordering_buttons,
 };
 use gettextrs::gettext;

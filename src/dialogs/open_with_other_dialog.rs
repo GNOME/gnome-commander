@@ -20,7 +20,7 @@
 use crate::{
     dir::Directory,
     file::File,
-    options::options::ProgramsOptions,
+    options::ProgramsOptions,
     spawn::run_command_indir,
     utils::{
         ErrorMessage, NO_BUTTONS, SenderExt, channel_send_action, dialog_button_box,

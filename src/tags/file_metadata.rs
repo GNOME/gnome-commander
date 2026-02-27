@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use super::tags::{GnomeCmdTag, GnomeCmdTagClass};
+use super::{GnomeCmdTag, GnomeCmdTagClass};
 use indexmap::IndexMap;
 
 #[derive(Default)]

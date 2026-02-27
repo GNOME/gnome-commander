@@ -23,7 +23,7 @@
 use crate::{
     debug::debug,
     file::File,
-    options::options::ProgramsOptions,
+    options::ProgramsOptions,
     utils::{ErrorMessage, make_run_in_terminal_command},
 };
 use gettextrs::gettext;

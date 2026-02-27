@@ -18,7 +18,7 @@
  */
 
 use crate::{
-    config::PIXMAPS_DIR, debug::debug, file::File, options::options::GeneralOptions,
+    config::PIXMAPS_DIR, debug::debug, file::File, options::GeneralOptions,
     types::GraphicalLayoutMode,
 };
 use gtk::{gio, glib, prelude::*};

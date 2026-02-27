@@ -20,7 +20,7 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::{Connection, ConnectionInterface};
+use super::{Connection, ConnectionInterface};
 use crate::{path::GnomeCmdPath, utils::ErrorMessage};
 use gettextrs::gettext;
 use gtk::{
@@ -32,7 +32,7 @@ use std::{future::Future, path::Path, pin::Pin};
 mod imp {
     use super::*;
     use crate::{
-        connection::connection::{ConnectionExt, ConnectionImpl, ConnectionState},
+        connection::{ConnectionExt, ConnectionImpl, ConnectionState},
         dir::Directory,
     };
 

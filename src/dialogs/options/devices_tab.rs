@@ -18,7 +18,7 @@
  */
 
 use super::devices_widget::devices_widget;
-use crate::options::{options::GeneralOptions, types::WriteResult};
+use crate::options::{GeneralOptions, types::WriteResult};
 use gettextrs::gettext;
 use gtk::prelude::*;
 
