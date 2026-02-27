@@ -21,11 +21,7 @@
  */
 
 use crate::{
-    connection::{
-        connection::{Connection, ConnectionExt},
-        list::ConnectionList,
-        remote::ConnectionRemote,
-    },
+    connection::{Connection, ConnectionExt, list::ConnectionList, remote::ConnectionRemote},
     i18n::I18N_CONTEXT_ACTION,
     main_win::MainWindow,
     types::FileSelectorID,

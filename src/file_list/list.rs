@@ -25,10 +25,7 @@ use super::{
     item::FileListItem, popup::file_popup_menu, quick_search::QuickSearch,
 };
 use crate::{
-    connection::{
-        connection::{Connection, ConnectionExt, ConnectionInterface},
-        list::ConnectionList,
-    },
+    connection::{Connection, ConnectionExt, ConnectionInterface, list::ConnectionList},
     dialogs::{delete_dialog::show_delete_dialog, rename_popover::show_rename_popover},
     dir::{Directory, DirectoryState},
     file::File,
@@ -41,8 +38,8 @@ use crate::{
     libgcmd::file_descriptor::FileDescriptorExt,
     main_win::MainWindow,
     open_connection::open_connection,
-    options::options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
-    tags::tags::FileMetadataService,
+    options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
+    tags::FileMetadataService,
     types::{ExtensionDisplayMode, GraphicalLayoutMode, SizeDisplayMode},
     user_actions::UserAction,
     utils::{ErrorMessage, size_to_string, time_to_string},
@@ -67,7 +64,7 @@ mod imp {
             },
             popup::list_popup_menu,
         },
-        tags::tags::FileMetadataService,
+        tags::FileMetadataService,
         transfer::{copy_files, link_files, move_files},
         types::{
             ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GnomeCmdTransferType,
@@ -1152,20 +1149,23 @@ mod imp {
                     self.obj()
                         .emit_by_name::<()>("file-activated", &[&item.file()]);
                 } else if n_press == 1 && button == 1 {
-                    if state == Some(SHIFT) {
-                        if let Some(position) = self
-                            .items_iter()
-                            .position(|i| &i == item)
-                            .and_then(|p| p.try_into().ok())
-                        {
-                            self.select_with_mouse(position);
+                    match state {
+                        Some(SHIFT) => {
+                            if let Some(position) = self
+                                .items_iter()
+                                .position(|i| &i == item)
+                                .and_then(|p| p.try_into().ok())
+                            {
+                                self.select_with_mouse(position);
+                            }
                         }
-                    } else if state == Some(CONTROL) {
-                        item.toggle_selected();
-                    } else if state == Some(NO_MOD) {
-                        if !item.selected() && self.left_mouse_button_unselects.get() {
-                            self.obj().unselect_all();
+                        Some(CONTROL) => item.toggle_selected(),
+                        Some(NO_MOD) => {
+                            if !item.selected() && self.left_mouse_button_unselects.get() {
+                                self.obj().unselect_all();
+                            }
                         }
+                        _ => {}
                     }
                 } else if n_press == 1 && button == 3 && !item.file().is_dotdot() {
                     if self.right_mouse_button_mode.get() == RightMouseButtonMode::Selects {
@@ -2353,6 +2353,8 @@ impl FileList {
     where
         F: Fn(&Self, &Connection) + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "con-changed",
             false,
@@ -2364,6 +2366,8 @@ impl FileList {
     where
         F: Fn(&Self, &Directory) + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "dir-changed",
             false,
@@ -2375,6 +2379,8 @@ impl FileList {
     where
         F: Fn(&Self) + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "files-changed",
             false,
@@ -2386,6 +2392,8 @@ impl FileList {
     where
         F: Fn(&Self, &File) + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "file-activated",
             false,
@@ -2397,6 +2405,8 @@ impl FileList {
     where
         F: Fn(&Self, &str) + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "cmdline-append",
             false,
@@ -2408,6 +2418,8 @@ impl FileList {
     where
         F: Fn(&Self) -> bool + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "cmdline-execute",
             false,
@@ -2419,6 +2431,8 @@ impl FileList {
     where
         F: Fn(&Self, u32, Option<File>) + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "list-clicked",
             false,

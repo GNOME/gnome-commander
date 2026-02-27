@@ -19,14 +19,10 @@
 
 use super::edit_bookmark_dialog::edit_bookmark_dialog;
 use crate::{
-    connection::{
-        bookmark::Bookmark,
-        connection::{Connection, ConnectionExt},
-        list::ConnectionList,
-    },
+    connection::{Connection, ConnectionExt, bookmark::Bookmark, list::ConnectionList},
     dir::Directory,
     file::File,
-    options::options::GeneralOptions,
+    options::GeneralOptions,
     shortcuts::Shortcuts,
     utils::{ErrorMessage, bold, channel_send_action, handle_escape_key},
 };

@@ -20,10 +20,7 @@
 use crate::{
     debug::debug,
     file::File,
-    options::{
-        options::{GeneralOptions, ProgramsOptions},
-        types::WriteResult,
-    },
+    options::{GeneralOptions, ProgramsOptions, types::WriteResult},
     spawn::{parse_command_template, spawn_async_command},
     utils::{ErrorMessage, make_run_in_terminal_command},
 };

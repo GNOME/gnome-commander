@@ -23,7 +23,7 @@
 use crate::{
     app::{App, RegularApp},
     file::File,
-    options::options::ProgramsOptions,
+    options::ProgramsOptions,
     spawn::SpawnError,
     transfer::download_to_temporary,
     utils::{ErrorMessage, GNOME_CMD_PERM_USER_EXEC, temp_file},

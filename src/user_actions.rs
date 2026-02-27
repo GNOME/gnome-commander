@@ -24,11 +24,8 @@ use crate::{
     advanced_rename::advanced_rename_dialog::advanced_rename_dialog_show,
     config::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_URL, PACKAGE_VERSION},
     connection::{
-        bookmark::BookmarkGoToVariant,
-        connection::{ConnectionExt, ConnectionInterface},
-        home::ConnectionHome,
-        list::ConnectionList,
-        remote::ConnectionRemoteExt,
+        ConnectionExt, ConnectionInterface, bookmark::BookmarkGoToVariant, home::ConnectionHome,
+        list::ConnectionList, remote::ConnectionRemoteExt,
     },
     dialogs::{
         chmod_dialog::show_chmod_dialog,
@@ -55,7 +52,7 @@ use crate::{
         file_descriptor::FileDescriptorExt,
     },
     main_win::MainWindow,
-    options::options::{ConfirmOptions, GeneralOptions, NetworkOptions, ProgramsOptions},
+    options::{ConfirmOptions, GeneralOptions, NetworkOptions, ProgramsOptions},
     plugin_manager::{PluginActionVariant, show_plugin_manager},
     spawn::{SpawnError, spawn_async, spawn_async_command},
     types::FileSelectorID,

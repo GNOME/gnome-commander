@@ -21,7 +21,7 @@ use crate::libgcmd::file_metadata_extractor::FileMetadataExtractor;
 use gettextrs::gettext;
 use gtk::{gdk_pixbuf, glib::subclass::prelude::*, prelude::*};
 
-use super::tags::GnomeCmdTag;
+use super::GnomeCmdTag;
 
 #[derive(Clone, Copy, strum::VariantArray, strum::IntoStaticStr, strum::EnumString)]
 enum ImageTag {
@@ -63,7 +63,7 @@ mod imp {
             file_descriptor::{FileDescriptor, FileDescriptorExt},
             file_metadata_extractor::FileMetadataExtractorImpl,
         },
-        tags::tags::GnomeCmdTagClass,
+        tags::GnomeCmdTagClass,
     };
     use std::str::FromStr;
     use strum::VariantArray;

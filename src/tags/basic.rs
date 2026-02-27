@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use super::tags::GnomeCmdTag;
+use super::GnomeCmdTag;
 use crate::libgcmd::file_metadata_extractor::FileMetadataExtractor;
 use gettextrs::gettext;
 use gtk::{gio, glib::subclass::prelude::*, prelude::*};
@@ -110,7 +110,7 @@ mod imp {
             file_descriptor::{FileDescriptor, FileDescriptorExt},
             file_metadata_extractor::FileMetadataExtractorImpl,
         },
-        tags::tags::{GnomeCmdTag, GnomeCmdTagClass},
+        tags::{GnomeCmdTag, GnomeCmdTagClass},
         utils::permissions_to_text,
     };
     use std::str::FromStr;

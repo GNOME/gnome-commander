@@ -24,10 +24,7 @@ use crate::{
         color_themes::{ColorTheme, ColorThemeId},
         ls_colors_palette::LsColorsPalette,
     },
-    options::{
-        options::{ColorOptions, GeneralOptions},
-        types::WriteResult,
-    },
+    options::{ColorOptions, GeneralOptions, types::WriteResult},
     select_directory_button::DirectoryButton,
     types::{ExtensionDisplayMode, GraphicalLayoutMode, IconScaleQuality},
 };

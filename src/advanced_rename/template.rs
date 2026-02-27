@@ -19,7 +19,7 @@
 
 use crate::{
     file::File,
-    tags::{file_metadata::FileMetadata, tags::GnomeCmdTag},
+    tags::{GnomeCmdTag, file_metadata::FileMetadata},
 };
 use std::rc::Rc;
 use winnow::{

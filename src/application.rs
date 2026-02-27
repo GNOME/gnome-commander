@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::options::options::GeneralOptions;
+use crate::options::GeneralOptions;
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, prelude::*, subclass::prelude::*};
 
@@ -28,7 +28,7 @@ mod imp {
         connection::list::ConnectionList,
         debug::set_debug_flags,
         main_win::MainWindow,
-        options::options::SearchConfig,
+        options::SearchConfig,
     };
     use std::{cell::RefCell, ops::ControlFlow, path::PathBuf};
 
