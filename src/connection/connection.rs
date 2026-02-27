@@ -448,13 +448,6 @@ pub trait ConnectionInterface {
 
     fn open_icon(&self) -> Option<gio::Icon>;
 
-    fn close_icon(&self) -> Option<gio::Icon> {
-        let icon = self.open_icon()?;
-        let unmount = gio::ThemedIcon::new("overlay_umount");
-        let emblem = gio::Emblem::new(&unmount);
-        Some(gio::EmblemedIcon::new(&icon, Some(&emblem)).upcast())
-    }
-
     /// Get the type of the file at the specified path.
     fn path_target_type(&self, path: &Path) -> Option<gio::FileType> {
         let path = self.create_path(path);
