@@ -173,6 +173,8 @@ impl File {
         self.file_info().display_name().into()
     }
 
+    /// Returns the local filesystem path of the file if any. A path isn't only being returned for
+    /// local files but also for files available locally via GVFS.
     pub fn get_real_path(&self) -> Option<PathBuf> {
         self.file().path()
     }
@@ -214,8 +216,10 @@ impl File {
         }
     }
 
+    /// Checks whether a file is local. This will include files on locally mounted remote
+    /// filesystems but exclude files available via GVFS.
     pub fn is_local(&self) -> bool {
-        self.connection().is_local()
+        self.file().is_native()
     }
 
     pub fn content_type(&self) -> Option<glib::GString> {
