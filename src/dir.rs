@@ -149,7 +149,9 @@ impl Directory {
         let path = parent_path.child(&dir_name);
         let file = connection.create_gfile(&path);
 
-        Some(Self::find_or_create(&connection, &file, file_info, path))
+        let dir = Self::find_or_create(&connection, &file, file_info, path);
+        dir.upcast_ref::<File>().set_parent_directory(Some(parent));
+        Some(dir)
     }
 
     #[deprecated(
@@ -428,7 +430,14 @@ impl Directory {
         }
     }
 
-    pub fn file_renamed(&self, file: &File) {
+    pub fn file_renamed(&self, file: &File, old_uri_str: &str) {
+        if file.is_directory()
+            && let Some(directory) = self.connection().cache_lookup(old_uri_str)
+        {
+            self.connection().remove_from_cache_by_uri(old_uri_str);
+            self.connection()
+                .add_to_cache(&directory, &file.get_uri_str());
+        }
         self.set_needs_mtime_update(true);
         self.emit_by_name::<()>("file-renamed", &[file]);
     }

@@ -248,6 +248,7 @@ async fn file_properties(main_win: MainWindow) {
             main_win.upcast_ref(),
             &main_win.file_metadata_service(),
             &file,
+            file_list.connection(),
         )
         .await;
 

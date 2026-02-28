@@ -21,7 +21,7 @@
  */
 
 use crate::{
-    connection::{Connection, ConnectionInterface, list::ConnectionList},
+    connection::{ConnectionInterface, list::ConnectionList},
     dir::Directory,
     libgcmd::file_descriptor::{FileDescriptor, FileDescriptorExt},
     options::{GeneralOptions, ProgramsOptions},
@@ -122,7 +122,7 @@ impl File {
             .property("file", file)
             .property("file-info", file_info)
             .build();
-        this.imp().parent_dir.set(Some(dir));
+        this.set_parent_directory(Some(dir));
         this
     }
 
@@ -224,14 +224,8 @@ impl File {
         self.imp().parent_dir.upgrade()
     }
 
-    pub fn connection(&self) -> Connection {
-        if let Some(dir) = self.downcast_ref::<Directory>() {
-            dir.connection()
-        } else {
-            self.parent_directory()
-                .expect("File should always have a parent directory")
-                .connection()
-        }
+    pub fn set_parent_directory(&self, dir: Option<&Directory>) {
+        self.imp().parent_dir.set(dir);
     }
 
     /// Checks whether a file is local. This will include files on locally mounted remote
@@ -290,15 +284,8 @@ impl File {
         )?;
         self.set_file_info(&new_file_info);
 
-        if let Some(directory) = self.downcast_ref::<Directory>() {
-            self.connection().remove_from_cache_by_uri(&old_uri_str);
-            self.connection()
-                .add_to_cache(directory, &self.get_uri_str());
-
-            directory.update_path();
-        }
         if let Some(parent) = self.parent_directory() {
-            parent.file_renamed(self);
+            parent.file_renamed(self, &old_uri_str);
         }
         Ok(())
     }

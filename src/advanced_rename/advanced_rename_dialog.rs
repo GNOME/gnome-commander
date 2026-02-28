@@ -751,10 +751,15 @@ mod imp {
 
         async fn file_list_properties(&self) {
             if let Some((_, item)) = self.selected_item() {
+                let connection = self
+                    .obj()
+                    .file_list()
+                    .and_then(|file_list| file_list.connection());
                 let file_changed = FilePropertiesDialog::show(
                     self.obj().upcast_ref(),
                     &self.obj().file_metadata_service(),
                     &item.file(),
+                    connection,
                 )
                 .await;
                 if file_changed {

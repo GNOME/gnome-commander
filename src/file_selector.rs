@@ -950,7 +950,7 @@ impl FileSelector {
         }
     }
 
-    pub fn go_to_file(&self, file: &File) {
+    pub fn go_to_file(&self, file: &File, connection: Option<Connection>) {
         let Some(dir) = file.parent_directory() else {
             eprintln!(
                 "Cannot go to a file {}. It has no parent directory.",
@@ -962,7 +962,11 @@ impl FileSelector {
             self.new_tab_with_dir(&dir, true, true);
             self.file_list().focus_file(&file.path_name(), true);
         } else if let Some(file_list) = self.current_file_list() {
-            file_list.set_connection(&file.connection(), Some(&dir));
+            if let Some(connection) = connection {
+                file_list.set_connection(&connection, Some(&dir));
+            } else {
+                file_list.set_directory(&dir);
+            }
             file_list.focus_file(&file.path_name(), true);
         }
     }

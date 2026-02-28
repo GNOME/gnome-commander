@@ -20,7 +20,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::{file::File, tags::FileMetadataService, utils::SenderExt};
+use crate::{connection::Connection, file::File, tags::FileMetadataService, utils::SenderExt};
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
@@ -60,6 +60,8 @@ mod imp {
         file_metadata: RefCell<Option<FileMetadata>>,
         #[property(get, construct_only)]
         file_metadata_service: OnceCell<FileMetadataService>,
+        #[property(get, construct_only)]
+        connection: OnceCell<Option<Connection>>,
     }
 
     #[glib::object_subclass]
@@ -87,6 +89,7 @@ mod imp {
                 file: Default::default(),
                 file_metadata: Default::default(),
                 file_metadata_service: Default::default(),
+                connection: Default::default(),
             }
         }
     }
@@ -246,9 +249,9 @@ mod imp {
                     attach_labels(&tab, gettext("Location:"), dir, &mut y);
                 }
 
-                let connection = file.connection();
+                let connection = self.obj().connection();
                 let uuid = connection
-                    .downcast_ref::<ConnectionDevice>()
+                    .and_downcast_ref::<ConnectionDevice>()
                     .and_then(|d| d.mount())
                     .and_then(|m| m.uuid())
                     .map(|u| format!(" ({})", u))
@@ -256,11 +259,18 @@ mod imp {
                 attach_labels(
                     &tab,
                     gettext("Volume:"),
-                    format!("{}{}", connection.alias().unwrap_or_default(), uuid),
+                    format!(
+                        "{}{}",
+                        connection
+                            .as_ref()
+                            .and_then(|c| c.alias())
+                            .unwrap_or_default(),
+                        uuid
+                    ),
                     &mut y,
                 );
 
-                if connection.can_show_free_space() {
+                if connection.is_some_and(|c| c.can_show_free_space()) {
                     match file.free_space() {
                         Ok(free_space) => {
                             attach_labels(
@@ -559,11 +569,13 @@ impl FilePropertiesDialog {
         parent_window: &gtk::Window,
         file_metadata_service: &FileMetadataService,
         file: &File,
+        connection: Option<Connection>,
     ) -> Self {
         glib::Object::builder()
             .property("transient-for", parent_window)
             .property("file-metadata-service", file_metadata_service)
             .property("file", file)
+            .property("connection", connection)
             .build()
     }
 
@@ -571,12 +583,13 @@ impl FilePropertiesDialog {
         parent_window: &gtk::Window,
         file_metadata_service: &FileMetadataService,
         file: &File,
+        connection: Option<Connection>,
     ) -> bool {
         if file.is_dotdot() {
             return false;
         }
 
-        let dialog = Self::new(parent_window, file_metadata_service, file);
+        let dialog = Self::new(parent_window, file_metadata_service, file, connection);
 
         let (sender, receiver) = async_channel::bounded::<bool>(1);
         dialog.connect(

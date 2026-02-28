@@ -578,7 +578,12 @@ mod imp {
                 .obj()
                 .main_window()
                 .file_selector(FileSelectorID::Active);
-            file_selector.go_to_file(&file);
+            file_selector.go_to_file(
+                &file,
+                self.obj()
+                    .result_list()
+                    .and_then(|result_list| result_list.connection()),
+            );
             file_selector.grab_focus();
         }
 
@@ -667,6 +672,9 @@ mod imp {
             self.obj().set_default_widget(Some(&self.stop_button));
 
             result_list.clear();
+            result_list
+                .set_connection_async(&start_dir.connection(), None)
+                .await;
             result_list.set_base_dir(start_dir.upcast_ref::<File>().get_real_path());
 
             let backend = if start_dir.connection().is_local() {
@@ -688,12 +696,12 @@ mod imp {
 
             update_gui_timeout_id.remove();
 
-            let canceelled = self
+            let cancelled = self
                 .cancellable
                 .borrow()
                 .as_ref()
                 .is_some_and(gio::Cancellable::is_cancelled);
-            self.search_finished(canceelled);
+            self.search_finished(cancelled);
 
             if let Err(error) = search_result {
                 error.show(self.obj().upcast_ref()).await;
