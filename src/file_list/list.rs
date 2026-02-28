@@ -153,7 +153,6 @@ mod imp {
         pub store: gio::ListStore,
 
         pub sort_model: gtk::SortListModel,
-        pub sorting: Cell<Option<(ColumnID, gtk::SortType)>>,
 
         #[property(get)]
         pub selection: gtk::SingleSelection,
@@ -265,7 +264,6 @@ mod imp {
                 store: gio::ListStore::new::<FileListItem>(),
 
                 sort_model: Default::default(),
-                sorting: Default::default(),
 
                 selection: Default::default(),
                 view: gtk::ColumnView::builder()
@@ -396,10 +394,7 @@ mod imp {
             );
 
             self.sort_model.set_sorter(Some(&sorter));
-            self.view
-                .sort_by_column(self.columns.borrow().get(1), gtk::SortType::Ascending);
-            self.sorting
-                .set(Some((ColumnID::COLUMN_NAME, gtk::SortType::Ascending)));
+            fl.set_sorting(ColumnID::COLUMN_NAME, gtk::SortType::Ascending);
 
             self.selection.connect_selected_notify(glib::clone!(
                 #[weak(rename_to = imp)]
@@ -1739,24 +1734,28 @@ impl FileList {
     }
 
     pub fn sorting(&self) -> (ColumnID, gtk::SortType) {
-        let cv_sorter = self
-            .view()
-            .sorter()
-            .and_downcast::<gtk::ColumnViewSorter>()
-            .unwrap();
+        let cv_sorter = self.view().sorter().and_downcast::<gtk::ColumnViewSorter>();
+        let sort_column = cv_sorter
+            .as_ref()
+            .and_then(|sorter| sorter.primary_sort_column());
+
         let col = self
             .imp()
             .columns
             .borrow()
             .iter()
-            .position(|c| Some(c) == cv_sorter.primary_sort_column().as_ref())
+            .position(|c| sort_column.as_ref() == Some(c))
             .and_then(ColumnID::from_repr)
             .unwrap_or(ColumnID::COLUMN_NAME);
-        (col, cv_sorter.primary_sort_order())
+        let direction = cv_sorter
+            .map(|sorter| sorter.primary_sort_order())
+            .unwrap_or(col.default_sort_direction());
+        (col, direction)
     }
 
     pub fn set_sorting(&self, column: ColumnID, order: gtk::SortType) {
         if let Some(column) = self.imp().columns.borrow().get(column as usize) {
+            self.view().sort_by_column(None, order);
             self.view().sort_by_column(Some(column), order);
         }
     }
@@ -2296,22 +2295,16 @@ impl FileList {
     }
 
     fn sort_by(&self, col: ColumnID) {
-        if let Some(column) = self.imp().columns.borrow().get(col as usize) {
-            let cv_sorter = self
-                .view()
-                .sorter()
-                .and_downcast::<gtk::ColumnViewSorter>()
-                .unwrap();
-            let direction = if cv_sorter.primary_sort_column().as_ref() == Some(column) {
-                match cv_sorter.primary_sort_order() {
-                    gtk::SortType::Ascending => gtk::SortType::Descending,
-                    _ => gtk::SortType::Ascending,
-                }
-            } else {
-                col.default_sort_direction()
-            };
-            self.view().sort_by_column(Some(column), direction);
-        }
+        let (current_col, current_direction) = self.sorting();
+        let direction = if current_col == col {
+            match current_direction {
+                gtk::SortType::Ascending => gtk::SortType::Descending,
+                _ => gtk::SortType::Ascending,
+            }
+        } else {
+            col.default_sort_direction()
+        };
+        self.set_sorting(col, direction);
     }
 
     pub fn show_files(&self, dir: &Directory) {
