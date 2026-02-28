@@ -33,7 +33,7 @@ use futures::{
     stream::StreamExt,
 };
 use gettextrs::gettext;
-use gtk::{gio, glib, prelude::*, subclass::prelude::*};
+use gtk::{gio, glib, glib::object::WeakRef, prelude::*, subclass::prelude::*};
 use libc::{gid_t, uid_t};
 use std::{
     ffi::OsString,
@@ -54,7 +54,7 @@ mod imp {
         #[property(get, set=Self::set_file_info)]
         pub file_info: RefCell<gio::FileInfo>,
         pub is_dotdot: Cell<bool>,
-        pub parent_dir: RefCell<Option<Directory>>,
+        pub parent_dir: WeakRef<Directory>,
         pub last_update: RefCell<Option<Instant>>,
     }
 
@@ -122,7 +122,7 @@ impl File {
             .property("file", file)
             .property("file-info", file_info)
             .build();
-        this.imp().parent_dir.replace(Some(dir.clone()));
+        this.imp().parent_dir.set(Some(dir));
         this
     }
 
@@ -221,7 +221,7 @@ impl File {
     }
 
     pub fn parent_directory(&self) -> Option<Directory> {
-        self.imp().parent_dir.borrow().clone()
+        self.imp().parent_dir.upgrade()
     }
 
     pub fn connection(&self) -> Connection {
