@@ -24,7 +24,7 @@ use super::{
     bookmark::Bookmark, device::ConnectionDevice, history::History, home::ConnectionHome,
     remote::ConnectionRemote, smb::ConnectionSmb,
 };
-use crate::{debug::debug, dir::Directory, utils::ErrorMessage};
+use crate::{debug::debug, dir::Directory, file::FileOps, utils::ErrorMessage};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::{
     cell::Ref,

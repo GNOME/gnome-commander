@@ -23,7 +23,7 @@
 use crate::{
     connection::{Connection, list::ConnectionList},
     dir::Directory,
-    file::File,
+    file::{File, FileOps},
     options::{ConfirmOptions, DeleteDefault, GeneralOptions},
     utils::ErrorMessage,
 };
@@ -290,7 +290,7 @@ async fn perform_delete_operation_one(delete_data: &mut DeleteData, file: &File)
                     .connection
                     .clone()
                     .unwrap_or_else(|| ConnectionList::get().home().upcast()),
-                file.file(),
+                &*file.file(),
             );
             if let Err(problem) = dir.list_files(&delete_data.parent_window, false).await {
                 return handle_delete_problem(delete_data, file, problem).await;
@@ -340,8 +340,8 @@ async fn perform_delete_operation(
 async fn count_total_items(files: &glib::List<File>) -> Option<u64> {
     let mut total = 0;
     for file in files {
+        let file = file.file().clone();
         let (_, num_dirs, num_files) = file
-            .file()
             .measure_disk_usage_future(gio::FileMeasureFlags::NONE, glib::Priority::DEFAULT)
             .0
             .await
@@ -407,7 +407,7 @@ pub async fn do_delete(
 
     for file in delete_data.deleted_files {
         if !file.file().query_exists(gio::Cancellable::NONE) {
-            file.set_deleted();
+            file.on_deleted();
         }
     }
 
@@ -417,8 +417,8 @@ pub async fn do_delete(
 }
 
 async fn measure_directory(file: &File) -> Result<(bool, bool), glib::Error> {
+    let file = file.file().clone();
     match file
-        .file()
         .measure_disk_usage_future(gio::FileMeasureFlags::NONE, glib::Priority::DEFAULT)
         .0
         .await

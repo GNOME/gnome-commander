@@ -21,7 +21,7 @@
  */
 
 use crate::{
-    file::File,
+    file::{File, FileOps},
     utils::{
         ErrorMessage, SenderExt, channel_send_action, dialog_button_box, display_help,
         handle_escape_key,

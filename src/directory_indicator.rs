@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::dir::Directory;
+use crate::{dir::Directory, file::FileOps};
 use gtk::{gdk, glib, pango, prelude::*, subclass::prelude::*};
 use winnow::{
     Result as PResult,

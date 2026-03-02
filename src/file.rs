@@ -35,6 +35,7 @@ use gettextrs::gettext;
 use gtk::{gio, glib, glib::object::WeakRef, prelude::*, subclass::prelude::*};
 use libc::{gid_t, uid_t};
 use std::{
+    cell::Ref,
     ffi::OsString,
     path::{Path, PathBuf},
     time::Instant,
@@ -48,7 +49,6 @@ mod imp {
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::File)]
     pub struct File {
-        #[property(get, set)]
         pub file: RefCell<gio::File>,
         #[property(get, set=Self::set_file_info)]
         pub file_info: RefCell<gio::FileInfo>,
@@ -107,15 +107,19 @@ impl File {
     pub const DEFAULT_ATTRIBUTES: &str =
         "standard::*,access::*,time::*,owner::*,unix::uid,unix::gid,unix::mode";
 
-    pub fn new(uri: &str, file_info: &gio::FileInfo) -> Self {
+    pub fn new(uri: &str, file_info: impl AsRef<gio::FileInfo>) -> Self {
         Self::new_from_file(gio::File::for_uri(uri), file_info)
     }
 
-    pub fn new_from_file(file: gio::File, file_info: &gio::FileInfo) -> Self {
-        glib::Object::builder()
-            .property("file", file)
-            .property("file-info", file_info)
-            .build()
+    pub fn new_from_file(
+        file: impl AsRef<gio::File>,
+        file_info: impl AsRef<gio::FileInfo>,
+    ) -> Self {
+        let this: Self = glib::Object::builder()
+            .property("file-info", file_info.as_ref())
+            .build();
+        this.set_file(file.as_ref().clone());
+        this
     }
 
     pub fn new_from_path(path: &Path) -> Result<Self, ErrorMessage> {
@@ -155,51 +159,15 @@ impl File {
         info.set_is_symlink(false);
         info.set_size(0);
         info.set_attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE, 0xFFF);
-        Self::new_from_file(dir.file().parent().unwrap_or_else(|| dir.file()), &info)
-    }
-
-    /// Returns the visible name of the file. This is only meant to be displayed in the user
-    /// interface and in messages to the user, not in any file operations.
-    pub fn name(&self) -> String {
-        self.file_info().display_name().into()
-    }
-
-    /// Returns the name of the file as a path, suitable for file operations.
-    pub fn path_name(&self) -> PathBuf {
-        self.file_info().name()
+        Self::new_from_file(
+            dir.file().parent().unwrap_or_else(|| dir.file().clone()),
+            &info,
+        )
     }
 
     /// Returns a file name which can be used in a text field when the file is being renamed.
     pub fn edit_name(&self) -> String {
         self.file_info().edit_name().into()
-    }
-
-    /// Returns the local filesystem path of the file if any. A path isn't only being returned for
-    /// local files but also for files available locally via GVFS.
-    pub fn get_real_path(&self) -> Option<PathBuf> {
-        self.file().path()
-    }
-
-    /// Returns the absolute file path. For remote files that path will be relative to server root.
-    pub fn path_from_root(&self) -> PathBuf {
-        self.is_local()
-            .then(|| self.get_real_path())
-            .flatten()
-            .or_else(|| {
-                // No local path, fall back to URI path
-                glib::Uri::parse(&self.file().uri(), glib::UriFlags::NONE)
-                    .ok()
-                    .map(|uri| uri.path().into())
-            })
-            .unwrap_or_default()
-    }
-
-    pub fn get_dirname(&self) -> Option<PathBuf> {
-        self.file().parent()?.path()
-    }
-
-    pub fn get_uri_str(&self) -> String {
-        self.file().uri().into()
     }
 
     pub fn parent_directory(&self) -> Option<Directory> {
@@ -208,12 +176,6 @@ impl File {
 
     pub fn set_parent_directory(&self, dir: Option<&Directory>) {
         self.imp().parent_dir.set(dir);
-    }
-
-    /// Checks whether a file is local. This will include files on locally mounted remote
-    /// filesystems but exclude files available via GVFS.
-    pub fn is_local(&self) -> bool {
-        self.file().is_native()
     }
 
     pub fn content_type(&self) -> Option<glib::GString> {
@@ -245,84 +207,15 @@ impl File {
         command.push(glib::shell_quote(self.file_info().display_name()));
 
         run_command_indir(
-            self.get_dirname().as_deref(),
+            self.parent_path().as_deref(),
             &command,
             app_needs_terminal(self),
             options,
         )
     }
 
-    pub fn rename(&self, new_name: &str) -> Result<(), glib::Error> {
-        let old_uri_str = self.get_uri_str();
-
-        let new_file = self
-            .file()
-            .set_display_name(new_name, gio::Cancellable::NONE)?;
-        self.set_file(&new_file);
-        let new_file_info = new_file.query_info(
-            Self::DEFAULT_ATTRIBUTES,
-            gio::FileQueryInfoFlags::NONE,
-            gio::Cancellable::NONE,
-        )?;
-        self.set_file_info(&new_file_info);
-
-        if let Some(parent) = self.parent_directory() {
-            parent.file_renamed(self, &old_uri_str);
-        }
-        Ok(())
-    }
-
-    pub fn chown(&self, uid: Option<uid_t>, gid: gid_t) -> Result<(), glib::Error> {
-        let file_info = self.file().query_info(
-            &format!(
-                "{},{}",
-                gio::FILE_ATTRIBUTE_UNIX_UID,
-                gio::FILE_ATTRIBUTE_UNIX_GID
-            ),
-            gio::FileQueryInfoFlags::NONE,
-            gio::Cancellable::NONE,
-        )?;
-        if let Some(uid) = uid {
-            file_info.set_attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_UID, uid);
-        }
-        file_info.set_attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_GID, gid);
-        self.file().set_attributes_from_info(
-            &file_info,
-            gio::FileQueryInfoFlags::NONE,
-            gio::Cancellable::NONE,
-        )?;
-        if let Some(parent) = self.parent_directory() {
-            parent.file_changed(&self.get_uri_str());
-        }
-        Ok(())
-    }
-
-    pub fn chmod(&self, permissions: u32) -> Result<(), glib::Error> {
-        let file_info = self.file().query_info(
-            gio::FILE_ATTRIBUTE_UNIX_MODE,
-            gio::FileQueryInfoFlags::NONE,
-            gio::Cancellable::NONE,
-        )?;
-        file_info.set_attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE, permissions);
-        self.file().set_attributes_from_info(
-            &file_info,
-            gio::FileQueryInfoFlags::NONE,
-            gio::Cancellable::NONE,
-        )?;
-        if let Some(parent) = self.parent_directory() {
-            parent.file_changed(&self.get_uri_str());
-        }
-        Ok(())
-    }
-
     pub fn is_dotdot(&self) -> bool {
         self.imp().is_dotdot.get()
-    }
-
-    pub fn set_deleted(&self) {
-        if let Some(parent) = self.parent_directory() {
-            parent.file_deleted(&self.get_uri_str());
-        }
     }
 
     pub fn file_type(&self) -> gio::FileType {
@@ -459,13 +352,6 @@ impl File {
         }
     }
 
-    pub fn free_space(&self) -> Result<u64, glib::Error> {
-        Ok(self
-            .file()
-            .query_filesystem_info(gio::FILE_ATTRIBUTE_FILESYSTEM_FREE, gio::Cancellable::NONE)?
-            .attribute_uint64(gio::FILE_ATTRIBUTE_FILESYSTEM_FREE))
-    }
-
     pub fn needs_update(&self) -> bool {
         let Some(last_update) = *self.imp().last_update.borrow() else {
             return true;
@@ -476,6 +362,159 @@ impl File {
             true
         } else {
             false
+        }
+    }
+}
+
+/// Trait implemented by File and Directory types, providing various operations on the underlying
+/// gio::File instance.
+pub trait FileOps {
+    fn file(&self) -> Ref<'_, gio::File>;
+    fn set_file(&self, file: gio::File);
+
+    fn on_deleted(&self) {}
+    fn on_renamed(&self, _old_uri_str: &str) {}
+    fn on_changed(&self) {}
+
+    fn uri(&self) -> String {
+        self.file().uri().into()
+    }
+
+    /// Checks whether a file is local. This will include files on locally mounted remote
+    /// filesystems but exclude files available via GVFS.
+    fn is_local(&self) -> bool {
+        self.file().is_native()
+    }
+
+    /// Returns the local filesystem path of the file if any. A path isn't only being returned for
+    /// local files but also for files available locally via GVFS.
+    fn local_path(&self) -> Option<PathBuf> {
+        self.file().path()
+    }
+
+    /// Local filesystem path to the parent directory if any.
+    fn parent_path(&self) -> Option<PathBuf> {
+        Some(self.local_path()?.parent()?.to_path_buf())
+    }
+
+    /// Returns the absolute file path. For remote files that path will be relative to server root.
+    fn path_from_root(&self) -> PathBuf {
+        self.is_local()
+            .then(|| self.local_path())
+            .flatten()
+            .or_else(|| {
+                // No local path, fall back to URI path
+                glib::Uri::parse(&self.file().uri(), glib::UriFlags::NONE)
+                    .ok()
+                    .map(|uri| uri.path().into())
+            })
+            .unwrap_or_default()
+    }
+
+    /// Returns the visible name of the file. This is only meant to be displayed in the user
+    /// interface and in messages to the user, not in any file operations.
+    fn name(&self) -> String {
+        self.path_name().to_string_lossy().to_string()
+    }
+
+    /// Returns the name of the file as a path, suitable for file operations.
+    fn path_name(&self) -> PathBuf {
+        self.local_path()
+            .and_then(|path| path.file_name().map(PathBuf::from))
+            .unwrap_or_else(|| self.file().basename().unwrap_or_default())
+    }
+
+    fn rename(&self, new_name: &str) -> Result<(), glib::Error> {
+        let old_uri_str = self.uri();
+
+        let new_file = self.file()
+            .set_display_name(new_name, gio::Cancellable::NONE)?;
+        self.set_file(new_file);
+
+        self.on_renamed(&old_uri_str);
+        Ok(())
+    }
+
+    fn chown(&self, uid: Option<uid_t>, gid: gid_t) -> Result<(), glib::Error> {
+        let file_info = self.file().query_info(
+            &format!(
+                "{},{}",
+                gio::FILE_ATTRIBUTE_UNIX_UID,
+                gio::FILE_ATTRIBUTE_UNIX_GID
+            ),
+            gio::FileQueryInfoFlags::NONE,
+            gio::Cancellable::NONE,
+        )?;
+        if let Some(uid) = uid {
+            file_info.set_attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_UID, uid);
+        }
+        file_info.set_attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_GID, gid);
+        self.file().set_attributes_from_info(
+            &file_info,
+            gio::FileQueryInfoFlags::NONE,
+            gio::Cancellable::NONE,
+        )?;
+        self.on_changed();
+        Ok(())
+    }
+
+    fn chmod(&self, permissions: u32) -> Result<(), glib::Error> {
+        let file_info = self.file().query_info(
+            gio::FILE_ATTRIBUTE_UNIX_MODE,
+            gio::FileQueryInfoFlags::NONE,
+            gio::Cancellable::NONE,
+        )?;
+        file_info.set_attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE, permissions);
+        self.file().set_attributes_from_info(
+            &file_info,
+            gio::FileQueryInfoFlags::NONE,
+            gio::Cancellable::NONE,
+        )?;
+        self.on_changed();
+        Ok(())
+    }
+
+    fn free_space(&self) -> Result<u64, glib::Error> {
+        Ok(self
+            .file()
+            .query_filesystem_info(gio::FILE_ATTRIBUTE_FILESYSTEM_FREE, gio::Cancellable::NONE)?
+            .attribute_uint64(gio::FILE_ATTRIBUTE_FILESYSTEM_FREE))
+    }
+}
+
+impl FileOps for File {
+    fn file(&self) -> Ref<'_, gio::File> {
+        self.imp().file.borrow()
+    }
+
+    fn name(&self) -> String {
+        self.file_info().display_name().into()
+    }
+
+    fn path_name(&self) -> PathBuf {
+        self.file_info().name()
+    }
+
+    fn set_file(&self, file: gio::File) {
+        self.imp().file.replace(file);
+    }
+
+    fn on_deleted(&self) {
+        if let Some(parent) = self.parent_directory() {
+            parent.file_deleted(&self.uri());
+        }
+    }
+
+    fn on_renamed(&self, old_uri_str: &str) {
+        let _ = self.refresh_file_info();
+        if let Some(parent) = self.parent_directory() {
+            parent.file_renamed(self, old_uri_str);
+        }
+    }
+
+    fn on_changed(&self) {
+        if let Some(parent) = self.parent_directory() {
+            parent.file_changed(&self.uri());
         }
     }
 }

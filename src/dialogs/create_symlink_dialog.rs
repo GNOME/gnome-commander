@@ -19,7 +19,7 @@
 
 use crate::{
     dir::Directory,
-    file::File,
+    file::{File, FileOps},
     utils::{ErrorMessage, NO_BUTTONS, dialog_button_box},
 };
 use gettextrs::gettext;
@@ -191,7 +191,7 @@ pub async fn show_create_symlink_dialog(
             Ok(_) => {
                 if symlink_file
                     .parent()
-                    .is_some_and(|parent| parent.equal(&directory.file()))
+                    .is_some_and(|parent| directory.file().equal(&parent))
                 {
                     directory.file_created(&symlink_file.uri());
                 }

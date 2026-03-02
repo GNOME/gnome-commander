@@ -21,7 +21,7 @@ use crate::{
     chmod_component::ChmodComponent,
     connection::Connection,
     dir::Directory,
-    file::File,
+    file::{File, FileOps},
     utils::{
         ErrorMessage, NO_BUTTONS, SenderExt, channel_send_action, dialog_button_box,
         handle_escape_key,
@@ -59,7 +59,7 @@ async fn chmod_recursively(
         && file.is_directory()
         && let Some(connection) = connection
     {
-        let dir = Directory::new_from_file(connection, file.file());
+        let dir = Directory::new_from_file(connection, &*file.file());
         if let Err(error) = dir.list_files(parent_window, false).await {
             error.show(parent_window).await;
             return;

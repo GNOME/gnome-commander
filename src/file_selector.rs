@@ -26,7 +26,7 @@ use crate::{
         remote::ConnectionRemote,
     },
     dir::Directory,
-    file::File,
+    file::{File, FileOps},
     file_list::list::{ColumnID, FileList},
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
     open_file::mime_exec_single,
@@ -504,12 +504,7 @@ mod imp {
 
             let options = GeneralOptions::new();
 
-            tab_label.set_label(
-                fl.directory()
-                    .and_then(|d| d.name())
-                    .unwrap_or_default()
-                    .to_string_lossy(),
-            );
+            tab_label.set_label(fl.directory().map(|d| d.name()).unwrap_or_default());
             tab_label.set_locked(self.obj().is_tab_locked(fl));
             tab_label.set_indicator(options.tab_lock_indicator.get());
         }
@@ -820,7 +815,7 @@ impl FileSelector {
                 } else if let Some(directory) = file
                     .filter(|file| file.is_directory())
                     .and_then(|file| fl.connection().map(|connection| (file, connection)))
-                    .map(|(file, connection)| Directory::new_from_file(&connection, file.file()))
+                    .map(|(file, connection)| Directory::new_from_file(&connection, &*file.file()))
                     .or_else(|| fl.directory())
                 {
                     self.new_tab_with_dir(&directory, true, true);
@@ -1342,7 +1337,7 @@ impl FileSelector {
         let Some(directory) = file_list.directory() else {
             return;
         };
-        match directory.to_file().free_space() {
+        match directory.free_space() {
             Ok(free_space) => {
                 self.imp()
                     .volume_size_label

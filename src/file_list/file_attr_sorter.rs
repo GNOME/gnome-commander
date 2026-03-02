@@ -18,7 +18,7 @@
  */
 
 use super::item::FileListItem;
-use crate::file::File;
+use crate::file::{File, FileOps};
 use gtk::{glib, prelude::*, subclass::prelude::*};
 use std::cmp;
 
@@ -123,7 +123,7 @@ impl FileAttrSorter {
     pub fn by_dir() -> Self {
         Self::by_key(|this, file| {
             (
-                file.get_dirname()
+                file.parent_path()
                     .as_ref()
                     .and_then(|d| d.to_str())
                     .map(|d| collate_key(d, this.case_sensitive())),

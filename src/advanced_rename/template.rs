@@ -18,7 +18,7 @@
  */
 
 use crate::{
-    file::File,
+    file::{File, FileOps},
     tags::{GnomeCmdTag, file_metadata::FileMetadata},
 };
 use std::rc::Rc;

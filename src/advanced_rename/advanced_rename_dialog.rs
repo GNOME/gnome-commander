@@ -26,7 +26,7 @@ use super::{
 use crate::{
     connection::history::History,
     dialogs::profiles::{ProfileManager, manage_profiles_dialog::manage_profiles},
-    file::File,
+    file::{File, FileOps},
     file_list::list::FileList,
     options::{GeneralOptions, ProgramsOptions},
     tags::FileMetadataService,

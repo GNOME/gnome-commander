@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::file::File;
+use crate::file::{File, FileOps};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
@@ -111,7 +111,7 @@ impl FileListItem {
         }
 
         self.set_directory(if let Some(ref base) = self.base_dir() {
-            base.relative_path(&self.file().file())
+            base.relative_path(&*self.file().file())
                 .map(|p| format!(".{}", p.display()))
                 .unwrap_or_default()
         } else {

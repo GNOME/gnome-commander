@@ -25,6 +25,7 @@ use super::{
 use crate::{
     dialogs::profiles::{ProfileManager, manage_profiles_dialog::manage_profiles},
     dir::Directory,
+    file::FileOps,
     main_win::MainWindow,
     options::SearchConfig,
     tags::FileMetadataService,
@@ -641,7 +642,7 @@ mod imp {
             result_list
                 .set_connection_async(&start_dir.connection(), None)
                 .await;
-            result_list.set_base_dir(start_dir.path());
+            result_list.set_base_dir(start_dir.local_path());
 
             let backend = if start_dir.connection().is_local() {
                 SearchBackend::Local
@@ -771,7 +772,8 @@ impl SearchDialog {
         self.profile_component().update();
         self.set_start_dir(start_dir);
 
-        self.dir_browser().set_file(start_dir.map(|d| d.file()));
+        self.dir_browser()
+            .set_file(start_dir.map(|d| d.file().clone()));
     }
 
     pub fn update_style(&self) {

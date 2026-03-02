@@ -19,7 +19,7 @@
 
 use crate::{
     dir::Directory,
-    file::File,
+    file::{File, FileOps},
     options::ProgramsOptions,
     spawn::run_command_indir,
     utils::{
@@ -109,7 +109,7 @@ pub async fn show_open_with_other_dialog(
 
         let mut full_command = OsString::from(&command);
         for file in files {
-            if let Some(path) = file.get_real_path() {
+            if let Some(path) = file.local_path() {
                 full_command.push(" ");
                 full_command.push(glib::shell_quote(path));
             } else {
@@ -117,7 +117,7 @@ pub async fn show_open_with_other_dialog(
             }
         }
 
-        let working_directory = working_directory.as_ref().and_then(|w| w.path());
+        let working_directory = working_directory.as_ref().and_then(|w| w.local_path());
         match run_command_indir(
             working_directory.as_deref(),
             &full_command,

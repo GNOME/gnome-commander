@@ -22,7 +22,7 @@
 
 use crate::{
     debug::debug,
-    file::File,
+    file::{File, FileOps},
     options::ProgramsOptions,
     utils::{ErrorMessage, make_run_in_terminal_command},
 };
@@ -49,16 +49,13 @@ use std::{
 /// - `%d` - full path to the directory containing file
 /// - `%D` - quoted full path to the directory containg file
 /// - `%%` - percent sign
-pub fn parse_command_template(
-    files: &glib::List<File>,
-    command_template: &str,
-) -> Option<OsString> {
+pub fn parse_command_template(files: &[impl FileOps], command_template: &str) -> Option<OsString> {
     let filename: OnceCell<Vec<String>> = OnceCell::new();
     let file_path: OnceCell<Vec<PathBuf>> = OnceCell::new();
     let uri: OnceCell<Vec<String>> = OnceCell::new();
     let mut cmd = OsString::new();
 
-    let first_file = files.front()?;
+    let first_file = files.first()?;
     let directory = first_file.file().parent()?;
     let dir_path: OsString = if first_file.is_local() {
         directory.path()?.into_os_string()
@@ -93,7 +90,7 @@ pub fn parse_command_template(
                 'p' | 'P' | 's' => {
                     let raw = s == 'p';
                     let paths = file_path
-                        .get_or_init(|| files.iter().filter_map(|f| f.get_real_path()).collect());
+                        .get_or_init(|| files.iter().filter_map(|f| f.local_path()).collect());
                     for (i, path) in paths.iter().enumerate() {
                         if i > 0 {
                             cmd.push(" ");
@@ -106,7 +103,7 @@ pub fn parse_command_template(
                     }
                 }
                 'u' => {
-                    let uris = uri.get_or_init(|| files.iter().map(|f| f.get_uri_str()).collect());
+                    let uris = uri.get_or_init(|| files.iter().map(|f| f.uri()).collect());
                     for (i, uri) in uris.iter().enumerate() {
                         if i > 0 {
                             cmd.push(" ");
@@ -188,7 +185,7 @@ pub fn spawn_async_command(
 
 pub fn spawn_async(
     working_directory: Option<&Path>,
-    files: &glib::List<File>,
+    files: &[impl FileOps],
     command_template: &str,
 ) -> Result<(), SpawnError> {
     let Some(cmd) = parse_command_template(files, command_template) else {
@@ -230,7 +227,7 @@ pub fn app_needs_terminal(file: &File) -> bool {
         .unwrap_or_default();
 
     if is_executable {
-        let Some(app_path) = file.get_real_path() else {
+        let Some(app_path) = file.local_path() else {
             return true;
         };
         match app_get_linked_libs(&app_path) {

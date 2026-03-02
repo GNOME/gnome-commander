@@ -19,6 +19,7 @@
 
 use crate::{
     dir::Directory,
+    file::FileOps,
     file_list::list::FileList,
     utils::{
         ErrorMessage, NO_BUTTONS, SenderExt, channel_send_action, dialog_button_box,

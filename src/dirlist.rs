@@ -17,7 +17,10 @@
  * For more details see the file COPYING.
  */
 
-use crate::{dir::Directory, file::File};
+use crate::{
+    dir::Directory,
+    file::{File, FileOps},
+};
 use gettextrs::{gettext, ngettext};
 use gtk::{gio, glib, prelude::*};
 
@@ -76,7 +79,7 @@ pub async fn list_directory(
     dir: &Directory,
     parent_window: Option<&gtk::Window>,
 ) -> Result<glib::List<gio::FileInfo>, glib::Error> {
-    let file = dir.file();
+    let file = dir.file().clone();
 
     let dialog = parent_window.map(create_list_progress_dialog);
 

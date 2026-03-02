@@ -21,7 +21,10 @@
  */
 
 use crate::{
-    file::File, options::ProgramsOptions, types::SizeDisplayMode, user_actions::UserAction,
+    file::{File, FileOps},
+    options::ProgramsOptions,
+    types::SizeDisplayMode,
+    user_actions::UserAction,
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gdk, gio, glib, pango, prelude::*};

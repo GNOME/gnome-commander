@@ -22,7 +22,7 @@
 
 use crate::{
     dir::Directory,
-    file::File,
+    file::{File, FileOps},
     main_win::MainWindow,
     transfer::copy_files,
     types::ConfirmOverwriteMode,
@@ -124,9 +124,10 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         dest_fn = filename;
     }
 
+    let src_files = vec![f.file().clone()];
     let success = copy_files(
         main_win.clone().upcast(),
-        [f.file().clone()].into_iter().collect(),
+        src_files,
         dest_dir,
         Some(PathBuf::from(dest_fn)),
         gio::FileCopyFlags::NONE,

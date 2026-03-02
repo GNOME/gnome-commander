@@ -22,7 +22,7 @@ use crate::{
     app::{App, AppTarget, RegularApp, UserDefinedApp, load_favorite_apps},
     config::PACKAGE,
     debug::debug,
-    file::File,
+    file::{File, FileOps},
     filter::fnmatch,
     libgcmd::file_actions::{FileActions, FileActionsExt},
     main_win::MainWindow,

@@ -20,7 +20,7 @@
 use crate::{
     connection::{Connection, device::ConnectionDevice, list::ConnectionList},
     dir::Directory,
-    file::File,
+    file::{File, FileOps},
     file_selector::FileSelector,
     utils::{ErrorMessage, bold, pending},
 };
@@ -239,7 +239,7 @@ impl PrepareTransferDialog {
         let mut dst: Option<String>;
         if !default_dest_dir.connection().is_local() {
             dst = single_source_file.map(|f| f.name());
-        } else if let Some(dst_path) = default_dest_dir.path() {
+        } else if let Some(dst_path) = default_dest_dir.local_path() {
             dst = Some(dst_path.to_string_lossy().to_string());
 
             if let Some(file) = single_source_file {

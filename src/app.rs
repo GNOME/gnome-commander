@@ -19,7 +19,7 @@
 
 use crate::{
     debug::debug,
-    file::File,
+    file::FileOps,
     options::{GeneralOptions, ProgramsOptions, types::WriteResult},
     spawn::{parse_command_template, spawn_async_command},
     utils::{ErrorMessage, make_run_in_terminal_command},
@@ -61,8 +61,8 @@ impl AppExt for RegularApp {
 }
 
 impl RegularApp {
-    pub fn launch(&self, files: &glib::List<File>) -> Result<(), ErrorMessage> {
-        let files: Vec<_> = files.into_iter().map(|f| f.file()).collect();
+    pub fn launch(&self, files: &[impl FileOps]) -> Result<(), ErrorMessage> {
+        let files: Vec<_> = files.iter().map(|f| f.file().clone()).collect();
         debug!('g', "Launching {:?}", self.app_info.commandline());
         self.app_info
             .launch(
@@ -140,7 +140,7 @@ impl UserDefinedApp {
 
     pub fn build_command_line(
         &self,
-        files: &glib::List<File>,
+        files: &[impl FileOps],
         options: &ProgramsOptions,
     ) -> Option<OsString> {
         let mut commandline = parse_command_template(files, &self.command_template)?;
@@ -152,17 +152,17 @@ impl UserDefinedApp {
 
     pub fn launch(
         &self,
-        files: &glib::List<File>,
+        files: &[impl FileOps],
         options: &ProgramsOptions,
     ) -> Result<(), ErrorMessage> {
         let working_directory: Option<PathBuf> = files
-            .front()
+            .first()
             .ok_or_else(|| ErrorMessage {
                 message: gettext("Cannot launch an app {}. No files were given.")
                     .replace("{}", &self.name),
                 secondary_text: None,
             })?
-            .get_dirname();
+            .parent_path();
 
         let command = self
             .build_command_line(files, options)
@@ -249,7 +249,7 @@ impl App {
 
     pub fn launch(
         &self,
-        files: &glib::List<File>,
+        files: &[impl FileOps],
         options: &ProgramsOptions,
     ) -> Result<(), ErrorMessage> {
         match self {

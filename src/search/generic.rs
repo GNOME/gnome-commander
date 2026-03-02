@@ -19,7 +19,11 @@
 
 use super::{backend::SearchMessage, profile::SearchProfile};
 use crate::{
-    dir::Directory, dirlist::list_directory, file::File, filter::Filter, utils::ErrorMessage,
+    dir::Directory,
+    dirlist::list_directory,
+    file::{File, FileOps},
+    filter::Filter,
+    utils::ErrorMessage,
 };
 use gettextrs::gettext;
 use gtk::gio::{self, prelude::*};

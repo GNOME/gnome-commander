@@ -20,7 +20,12 @@
  * For more details see the file COPYING.
  */
 
-use crate::{connection::Connection, file::File, tags::FileMetadataService, utils::SenderExt};
+use crate::{
+    connection::Connection,
+    file::{File, FileOps},
+    tags::FileMetadataService,
+    utils::SenderExt,
+};
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
@@ -243,7 +248,7 @@ mod imp {
             y += 1;
 
             if file.is_local() {
-                if let Some(dir) = file.get_dirname().as_ref().and_then(|p| p.to_str()) {
+                if let Some(dir) = file.parent_path().as_ref().and_then(|p| p.to_str()) {
                     attach_labels(&tab, gettext("Location:"), dir, &mut y);
                 }
 

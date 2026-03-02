@@ -45,7 +45,7 @@ use crate::{
         shortcuts::shortcuts_dialog::ShortcutsDialog,
     },
     dir::Directory,
-    file::File,
+    file::{File, FileOps},
     file_list::list::FileList,
     libgcmd::file_actions::{FileActions, FileActionsExt},
     main_win::MainWindow,
@@ -167,7 +167,7 @@ async fn file_search(main_win: MainWindow) {
             )
         }
 
-        let files = file_list.selected_files();
+        let files = file_list.selected_files().into_iter().collect::<Vec<_>>();
         let error_message = match spawn_async(None, &files, &options.search_cmd.get()) {
             Ok(_) => return,
             Err(SpawnError::InvalidTemplate) => ErrorMessage::brief(no_search_command_error()),
@@ -237,12 +237,13 @@ async fn file_mkdir(main_win: MainWindow) {
 
     if let Some(dir) = file_list.directory() {
         let selected_file = file_list.selected_file();
+        let dir_file = dir.file().clone();
         let new_dir =
-            show_mkdir_dialog(main_win.upcast_ref(), &dir.file(), selected_file.as_ref()).await;
+            show_mkdir_dialog(main_win.upcast_ref(), &dir_file, selected_file.as_ref()).await;
 
         if let Some(new_dir) = new_dir {
             // focus the created directory (if possible)
-            if new_dir.parent().is_some_and(|p| p.equal(&dir.file())) {
+            if new_dir.parent().is_some_and(|p| p.equal(&*dir.file())) {
                 dir.file_created(&new_dir.uri());
                 file_list.focus_file(&new_dir.basename().unwrap(), true);
             }
@@ -288,13 +289,13 @@ async fn do_file_diff(
 
     ensure_file_list_is_local(&active_fl)?;
 
-    let selected_files = active_fl.selected_files();
+    let selected_files = active_fl.selected_files().into_iter().collect::<Vec<_>>();
     match selected_files.len() {
         0 => Ok(()),
         1 => {
             ensure_file_list_is_local(&inactive_fl)?;
 
-            let active_file = selected_files.front().unwrap().clone();
+            let active_file = selected_files.first().unwrap().clone();
 
             let inactive_file = inactive_fl
                 .selected_files()
@@ -302,11 +303,12 @@ async fn do_file_diff(
                 .ok_or_else(|| ErrorMessage::new(gettext("No file selected"), None::<String>))?
                 .clone();
 
-            let mut files = glib::List::new();
-            files.push_back(active_file);
-            files.push_back(inactive_file);
-
-            spawn_async(None, &files, &options.differ_cmd.get()).map_err(SpawnError::into_message)
+            spawn_async(
+                None,
+                &[active_file, inactive_file],
+                &options.differ_cmd.get(),
+            )
+            .map_err(SpawnError::into_message)
         }
         2 | 3 => spawn_async(None, &selected_files, &options.differ_cmd.get())
             .map_err(SpawnError::into_message),
@@ -337,11 +339,8 @@ async fn do_file_sync_dirs(
         .zip(inactive_fl.directory())
         .ok_or_else(|| ErrorMessage::brief(gettext("Nothing to compare")))?;
 
-    let mut files = glib::List::new();
-    files.push_back(active_dir.to_file());
-    files.push_back(inactive_dir.to_file());
-
-    spawn_async(None, &files, &options.differ_cmd.get()).map_err(SpawnError::into_message)
+    spawn_async(None, &[active_dir, inactive_dir], &options.differ_cmd.get())
+        .map_err(SpawnError::into_message)
 }
 
 async fn file_sync_dirs(main_win: MainWindow) {
@@ -483,7 +482,7 @@ async fn file_sendto(main_win: MainWindow) {
 
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
-    let files = file_list.selected_files();
+    let files = file_list.selected_files().into_iter().collect::<Vec<_>>();
 
     let command_template = options.sendto_cmd.get();
 
@@ -663,10 +662,10 @@ async fn edit_copy_fnames(main_win: MainWindow) {
     let names: Vec<String> = match mask {
         Some(gdk::ModifierType::SHIFT_MASK) => files
             .into_iter()
-            .filter_map(|f| f.get_real_path())
+            .filter_map(|f| f.local_path())
             .map(|p| p.to_string_lossy().to_string())
             .collect(),
-        Some(gdk::ModifierType::ALT_MASK) => files.into_iter().map(|f| f.get_uri_str()).collect(),
+        Some(gdk::ModifierType::ALT_MASK) => files.into_iter().map(|f| f.uri()).collect(),
         _ => files.into_iter().map(|f| f.name()).collect(),
     };
 
@@ -679,7 +678,7 @@ async fn command_execute(main_win: MainWindow, command_template: String) {
     let fs = main_win.file_selector(FileSelectorID::Active);
     let fl = fs.file_list();
 
-    let sfl = fl.selected_files();
+    let sfl = fl.selected_files().into_iter().collect::<Vec<_>>();
 
     let grouped = sfl
         .iter()

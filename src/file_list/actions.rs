@@ -21,7 +21,7 @@ use super::list::FileList;
 use crate::{
     app::{App, RegularApp},
     dialogs::open_with_other_dialog::show_open_with_other_dialog,
-    file::File,
+    file::{File, FileOps},
     file_edit::file_edit,
     file_view::file_view,
     options::ProgramsOptions,
@@ -65,7 +65,7 @@ pub async fn file_list_action_file_edit(file_list: &FileList) {
         return;
     };
     let files = file_list.selected_files();
-    if let Err(error) = file_edit(&files, &options).await {
+    if let Err(error) = file_edit(files, &options).await {
         error.show(&parent_window).await;
     }
 }
@@ -116,8 +116,8 @@ async fn mime_exec_multiple(
         return;
     }
 
-    let files_to_open = if app.handles_uris() && options.dont_download.get() {
-        files
+    let files_to_open: Vec<_> = if app.handles_uris() && options.dont_download.get() {
+        files.into_iter().collect()
     } else {
         let (mut local, remote): (Vec<File>, Vec<File>) =
             files.into_iter().partition(|f| f.is_local());
@@ -133,8 +133,8 @@ async fn mime_exec_multiple(
 
             if download_to_temporary(
                 parent_window.clone(),
-                remote.iter().map(|f| f.file()).collect(),
-                tmp_files.iter().map(|f| f.file()).collect(),
+                remote.iter().map(|f| f.file().clone()).collect(),
+                tmp_files.iter().map(|f| f.file().clone()).collect(),
                 gio::FileCopyFlags::OVERWRITE,
             )
             .await
@@ -148,7 +148,7 @@ async fn mime_exec_multiple(
             }
         }
 
-        local.into_iter().collect()
+        local
     };
 
     if let Err(error) = app.launch(&files_to_open, options) {

@@ -22,7 +22,7 @@
 
 use crate::{
     app::{App, RegularApp},
-    file::File,
+    file::{File, FileOps},
     options::ProgramsOptions,
     spawn::SpawnError,
     transfer::download_to_temporary,
@@ -147,19 +147,21 @@ pub async fn mime_exec_single(
 
     let context = gdk::Display::default().map(|display| display.app_launch_context());
     if file.is_local() {
-        app_info.launch(&[file.file()], context.as_ref())
+        app_info.launch(&[file.file().clone()], context.as_ref())
     } else if app.handles_uris() && options.dont_download.get() {
-        app_info.launch_uris(&[&file.get_uri_str()], context.as_ref())
+        app_info.launch_uris(&[&file.uri()], context.as_ref())
     } else {
         if !ask_download_tmp(parent_window, &app).await {
             return Ok(());
         }
 
         let tmp_file = temp_file(file)?;
+        let src_files = vec![file.file().clone()];
+        let dst_files = vec![tmp_file.file().clone()];
         if !download_to_temporary(
             parent_window.clone(),
-            vec![file.file()],
-            vec![tmp_file.file()],
+            src_files,
+            dst_files,
             gio::FileCopyFlags::OVERWRITE,
         )
         .await
@@ -168,7 +170,7 @@ pub async fn mime_exec_single(
             return Ok(());
         }
 
-        app_info.launch(&[tmp_file.file()], context.as_ref())
+        app_info.launch(&[tmp_file.file().clone()], context.as_ref())
     }
     .map_err(|error| {
         ErrorMessage::with_error(

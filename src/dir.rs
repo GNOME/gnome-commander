@@ -21,11 +21,15 @@
  */
 
 use crate::{
-    connection::Connection, debug::debug, dirlist::list_directory, file::File, utils::ErrorMessage,
+    connection::Connection,
+    debug::debug,
+    dirlist::list_directory,
+    file::{File, FileOps},
+    utils::ErrorMessage,
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
-use std::path::{Path, PathBuf};
+use std::{cell::Ref, path::Path};
 
 mod imp {
     use super::*;
@@ -47,7 +51,6 @@ mod imp {
     pub struct Directory {
         #[property(get)]
         pub connection: RefCell<Connection>,
-        #[property(get)]
         pub file: RefCell<gio::File>,
         pub state: Cell<DirectoryState>,
         pub files: gio::ListStore,
@@ -140,50 +143,17 @@ impl Directory {
         Self::new_from_file(connection, gio::File::for_uri(uri))
     }
 
-    pub fn new_from_file(connection: &impl IsA<Connection>, file: gio::File) -> Self {
+    pub fn new_from_file(connection: &impl IsA<Connection>, file: impl AsRef<gio::File>) -> Self {
+        let file = file.as_ref();
         if let Some(directory) = connection.as_ref().cache_lookup(&file.uri()) {
             directory
         } else {
             let this: Self = glib::Object::builder().build();
             this.imp().connection.replace(connection.as_ref().clone());
-            this.imp().file.replace(file);
+            this.imp().file.replace(file.clone());
             connection.as_ref().add_to_cache(&this, &file.uri());
             this
         }
-    }
-
-    /// Converts this Directory instance into a File instance holding a very limited gio::FileInfo.
-    /// Useful for a handful of instances when some operation has to be performed on the directory
-    /// file.
-    pub fn to_file(&self) -> File {
-        let name = self.name().unwrap_or_default();
-
-        let info = gio::FileInfo::new();
-        info.set_display_name(&name.to_string_lossy());
-        info.set_name(name);
-        info.set_file_type(gio::FileType::Directory);
-        File::new_from_file(self.file(), &info)
-    }
-
-    pub fn uri(&self) -> String {
-        self.file().uri().into()
-    }
-
-    pub fn is_local(&self) -> bool {
-        self.file().is_native()
-    }
-
-    pub fn path(&self) -> Option<PathBuf> {
-        self.file().path()
-    }
-
-    pub fn path_from_root(&self) -> PathBuf {
-        self.to_file().path_from_root()
-    }
-
-    pub fn name(&self) -> Option<PathBuf> {
-        self.path()
-            .and_then(|path| path.file_name().map(PathBuf::from))
     }
 
     pub fn parent(&self) -> Option<Directory> {
@@ -293,7 +263,7 @@ impl Directory {
     fn find_file(&self, uri_str: &str) -> Option<(u32, File)> {
         let files = self.files();
         for (i, f) in files.iter::<File>().flatten().enumerate() {
-            if f.get_uri_str() == uri_str {
+            if f.uri() == uri_str {
                 return Some((i as u32, f));
             }
         }
@@ -365,8 +335,7 @@ impl Directory {
             && let Some(directory) = self.connection().cache_lookup(old_uri_str)
         {
             self.connection().remove_from_cache_by_uri(old_uri_str);
-            self.connection()
-                .add_to_cache(&directory, &file.get_uri_str());
+            self.connection().add_to_cache(&directory, &file.uri());
         }
         self.set_needs_mtime_update(true);
         self.emit_by_name::<()>("file-renamed", &[file]);
@@ -460,6 +429,16 @@ impl Directory {
 
     pub fn is_monitored(&self) -> bool {
         self.imp().monitor_users.get() > 0
+    }
+}
+
+impl FileOps for Directory {
+    fn file(&self) -> Ref<'_, gio::File> {
+        self.imp().file.borrow()
+    }
+
+    fn set_file(&self, file: gio::File) {
+        self.imp().file.replace(file);
     }
 }
 

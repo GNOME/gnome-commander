@@ -28,7 +28,7 @@ use crate::{
     connection::{Connection, ConnectionExt, ConnectionInterface, list::ConnectionList},
     dialogs::{delete_dialog::show_delete_dialog, rename_popover::show_rename_popover},
     dir::{Directory, DirectoryState},
-    file::File,
+    file::{File, FileOps},
     filter::{Filter, fnmatch},
     imageloader::icon_cache,
     layout::{
@@ -767,7 +767,7 @@ mod imp {
 
         fn on_directory_deleted(&self, dir: &Directory) {
             if let Some(parent_dir) = dir.existing_parent()
-                && let Some(path) = parent_dir.path()
+                && let Some(path) = parent_dir.local_path()
             {
                 self.obj().goto_directory(&path);
             } else {
@@ -1254,7 +1254,7 @@ mod imp {
         }
 
         fn add_cwd_to_cmdline(&self) {
-            if let Some(path) = self.obj().directory().and_then(|d| d.path()) {
+            if let Some(path) = self.obj().directory().and_then(|d| d.local_path()) {
                 self.add_to_cmdline(path);
             }
         }
@@ -1262,7 +1262,7 @@ mod imp {
         fn add_file_to_cmdline(&self, fullpath: bool) {
             if let Some(file) = self.obj().selected_file() {
                 if fullpath {
-                    if let Some(path) = file.get_real_path() {
+                    if let Some(path) = file.local_path() {
                         self.add_to_cmdline(path);
                     }
                 } else {
@@ -1276,7 +1276,7 @@ mod imp {
                 .obj()
                 .selected_files()
                 .into_iter()
-                .map(|f| f.get_uri_str())
+                .map(|f| f.uri())
                 .collect::<Vec<_>>();
             if files.is_empty() {
                 return None;
@@ -2087,10 +2087,8 @@ impl FileList {
         self.set_directory_async(&new_dir).await;
 
         // focus the current dir when going back to the parent dir
-        if let Some(focus_dir) = focus_dir
-            && let Some(name) = focus_dir.name()
-        {
-            self.focus_file(&name, false);
+        if let Some(focus_dir) = focus_dir {
+            self.focus_file(&focus_dir.path_name(), false);
         }
 
         Ok(())

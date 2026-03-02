@@ -26,7 +26,7 @@ use crate::{
         remote::ConnectionRemote,
     },
     dir::Directory,
-    file::File,
+    file::{File, FileOps},
     file_list::list::FileList,
     file_selector::{FileSelector, TabVariant},
     libgcmd::{
@@ -826,7 +826,7 @@ pub mod imp {
             let file_list = self.obj().file_selector(FileSelectorID::Active).file_list();
 
             if file_list.connection().is_some_and(|c| c.is_local()) {
-                let working_directory = file_list.directory().and_then(|d| d.path());
+                let working_directory = file_list.directory().and_then(|d| d.local_path());
 
                 let command: OsString = command.into();
                 let options = ProgramsOptions::new();
@@ -1172,7 +1172,7 @@ impl MainWindow {
                             .connection()
                             .map(|connection| (connection, file))
                     })
-                    .map(|(connection, file)| Directory::new_from_file(&connection, file.file()))
+                    .map(|(connection, file)| Directory::new_from_file(&connection, &*file.file()))
             })
             .flatten()
             .or_else(|| src.file_list().directory())
@@ -1301,9 +1301,17 @@ impl MainWindow {
         let dir1 = fl1.directory();
         let dir2 = fl2.directory();
 
+        pub fn to_file(directory: &Directory) -> File {
+            let info = gio::FileInfo::new();
+            info.set_display_name(&directory.name());
+            info.set_name(directory.path_name());
+            info.set_file_type(gio::FileType::Directory);
+            File::new_from_file(&*directory.file(), &info)
+        }
+
         let state = State::new();
-        state.set_active_dir(dir1.as_ref().map(Directory::to_file).and_upcast_ref());
-        state.set_inactive_dir(dir2.as_ref().map(Directory::to_file).and_upcast_ref());
+        state.set_active_dir(dir1.as_ref().map(to_file).and_upcast_ref());
+        state.set_inactive_dir(dir2.as_ref().map(to_file).and_upcast_ref());
         state.set_active_dir_files(&fl1.visible_files());
         state.set_inactive_dir_files(&fl2.visible_files());
         state.set_active_dir_selected_files(&fl1.selected_files());
@@ -1410,7 +1418,7 @@ impl MainWindow {
             return;
         };
 
-        let files = state.files.iter().map(|f| f.file()).collect();
+        let files = state.files.iter().map(|f| f.file().clone()).collect();
         let success = match state.operation {
             CutAndPasteOperation::Cut => {
                 move_files(
