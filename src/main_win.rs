@@ -33,23 +33,62 @@ use crate::{
         file_actions::{FileActions, FileActionsExt},
         state::{State, StateExt},
     },
-    options::{GeneralOptions, SearchConfig, types::WriteResult},
+    options::{GeneralOptions, ProgramsOptions, SearchConfig, types::WriteResult},
     paned_ext::GnomeCmdPanedExt,
     plugin_manager::{PluginManager, wrap_plugin_menu},
     search::search_dialog::SearchDialog,
     shortcuts::Shortcuts,
+    spawn::{SpawnError, app_needs_terminal, run_command_indir},
     tags::FileMetadataService,
     transfer::{copy_files, move_files},
     types::{ConfirmOverwriteMode, FileSelectorID},
     user_actions::UserAction,
     utils::{
-        ALT_SHIFT, CONTROL, CONTROL_ALT, MenuBuilderExt, NO_MOD, SHIFT, extract_menu_shortcuts,
-        sleep,
+        ALT_SHIFT, CONTROL, CONTROL_ALT, ErrorMessage, MenuBuilderExt, NO_MOD, SHIFT,
+        extract_menu_shortcuts, sleep,
     },
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
-use std::{cell::RefCell, path::Path};
+use std::{cell::RefCell, ffi::OsString, path::Path};
+
+#[derive(Debug, Default, Copy, Clone, PartialEq, Eq, glib::ValueDelegate)]
+#[value_delegate(from = u32)]
+pub enum ExecutionTarget {
+    #[default]
+    Background,
+    AnyTerminal,
+    EmbeddedTerminal,
+    ExternalTerminal,
+}
+
+impl From<ExecutionTarget> for u32 {
+    fn from(value: ExecutionTarget) -> Self {
+        value as Self
+    }
+}
+
+impl From<&ExecutionTarget> for u32 {
+    fn from(value: &ExecutionTarget) -> Self {
+        *value as Self
+    }
+}
+
+impl From<u32> for ExecutionTarget {
+    fn from(value: u32) -> Self {
+        match value {
+            v if v == u32::from(ExecutionTarget::Background) => ExecutionTarget::Background,
+            v if v == u32::from(ExecutionTarget::AnyTerminal) => ExecutionTarget::AnyTerminal,
+            v if v == u32::from(ExecutionTarget::EmbeddedTerminal) => {
+                ExecutionTarget::EmbeddedTerminal
+            }
+            v if v == u32::from(ExecutionTarget::ExternalTerminal) => {
+                ExecutionTarget::ExternalTerminal
+            }
+            _ => Default::default(),
+        }
+    }
+}
 
 pub mod imp {
     use super::*;
@@ -58,15 +97,13 @@ pub mod imp {
         config::PIXMAPS_DIR,
         dir::Directory,
         layout::{color_themes::ColorThemes, ls_colors_palette::LsColorPalettes},
-        options::{FiltersOptions, ProgramsOptions, utils::remember_window_state},
+        options::{FiltersOptions, utils::remember_window_state},
         pwd::uid,
         shortcuts::Shortcut,
-        spawn::{SpawnError, run_command_indir},
         types::QuickSearchShortcut,
     };
     use std::{
         cell::{Cell, RefCell},
-        ffi::OsString,
         path::Path,
         time::Duration,
     };
@@ -349,10 +386,10 @@ pub mod imp {
             self.cmdline.connect_execute(glib::clone!(
                 #[weak]
                 mw,
-                move |_, command, in_terminal| {
+                move |_, command, target| {
                     let command = command.to_owned();
                     glib::spawn_future_local(async move {
-                        mw.imp().on_cmdline_execute(&command, in_terminal).await;
+                        mw.execute_command(&command, target).await;
                     });
                 }
             ));
@@ -819,31 +856,6 @@ pub mod imp {
                 file_selector
                     .file_list()
                     .goto_directory(Path::new(dest_dir));
-            }
-        }
-
-        async fn on_cmdline_execute(&self, command: &str, in_terminal: bool) {
-            let file_list = self.obj().file_selector(FileSelectorID::Active).file_list();
-
-            if file_list.connection().is_some_and(|c| c.is_local()) {
-                let working_directory = file_list
-                    .directory()
-                    .and_then(|d| d.upcast_ref::<File>().get_real_path());
-
-                let command: OsString = command.into();
-                let options = ProgramsOptions::new();
-
-                let result = run_command_indir(
-                    working_directory.as_deref(),
-                    &command,
-                    in_terminal,
-                    &options,
-                )
-                .map_err(SpawnError::into_message);
-
-                if let Err(error) = result {
-                    error.show(self.obj().upcast_ref()).await;
-                }
             }
         }
 
@@ -1343,6 +1355,67 @@ impl MainWindow {
         if let Some(dialog) = self.imp().search_dialog.upgrade() {
             dialog.update_style();
         }
+    }
+
+    pub async fn execute_command(&self, command: &str, mut target: ExecutionTarget) -> bool {
+        let file_list = self.file_selector(FileSelectorID::Active).file_list();
+
+        let working_directory = if file_list.connection().is_some_and(|c| c.is_local()) {
+            file_list
+                .directory()
+                .and_then(|d| d.upcast_ref::<File>().get_real_path())
+        } else {
+            None
+        };
+
+        if target == ExecutionTarget::AnyTerminal {
+            target = if self.imp().cmdline.terminal_available() {
+                ExecutionTarget::EmbeddedTerminal
+            } else {
+                ExecutionTarget::ExternalTerminal
+            };
+        }
+
+        if target == ExecutionTarget::EmbeddedTerminal {
+            if let Err(error) = self
+                .imp()
+                .cmdline
+                .exec(working_directory.as_deref(), command)
+                .await
+                .map_err(|error| ErrorMessage::with_error(gettext("Failed starting shell"), &error))
+            {
+                error.show(self.upcast_ref()).await;
+                false
+            } else {
+                true
+            }
+        } else if let Err(error) = run_command_indir(
+            working_directory.as_deref(),
+            &OsString::from(command),
+            target == ExecutionTarget::ExternalTerminal,
+            &ProgramsOptions::new(),
+        )
+        .map_err(SpawnError::into_message)
+        {
+            error.show(self.upcast_ref()).await;
+            false
+        } else {
+            true
+        }
+    }
+
+    pub async fn execute_file(&self, file: &File) -> bool {
+        let mut command = String::from("./");
+        command.push_str(&glib::shell_quote(file.file_info().display_name()).to_string_lossy());
+        self.execute_command(
+            &command,
+            if app_needs_terminal(file) {
+                ExecutionTarget::AnyTerminal
+            } else {
+                ExecutionTarget::Background
+            },
+        )
+        .await
     }
 }
 

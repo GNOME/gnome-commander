@@ -23,8 +23,8 @@
 use crate::{
     app::{App, RegularApp},
     file::File,
+    main_win::MainWindow,
     options::ProgramsOptions,
-    spawn::SpawnError,
     transfer::download_to_temporary,
     utils::{ErrorMessage, GNOME_CMD_PERM_USER_EXEC, temp_file},
 };
@@ -116,23 +116,32 @@ pub async fn mime_exec_single(
 
     // If the file is executable but not a binary file, check if the user wants to exec it or open it
 
-    if file.is_executable() {
+    let execute = file.is_executable() && {
         if is_executable_content_type {
-            file.execute(options).map_err(SpawnError::into_message)?;
-            return Ok(());
+            true
         } else if content_type
             .as_ref()
-            .is_some_and(|c| c.starts_with("text/"))
+            .is_some_and(|c| c.starts_with("text/") || c.starts_with("application/"))
         {
             match ask_open_text(parent_window, file).await {
                 OpenText::Cancel => return Ok(()),
-                OpenText::Display => {}
-                OpenText::Run => {
-                    file.execute(options).map_err(SpawnError::into_message)?;
-                    return Ok(());
-                }
+                OpenText::Display => false,
+                OpenText::Run => true,
             }
+        } else {
+            false
         }
+    };
+    if execute {
+        if let Some(win) = parent_window.downcast_ref::<MainWindow>().cloned() {
+            let file = file.clone();
+            glib::spawn_future_local(async move {
+                win.execute_file(&file).await;
+            });
+        } else {
+            eprintln!("Unexpected: parent window isn't the main window");
+        }
+        return Ok(());
     }
 
     let Some(app_info) = file.app_info_for_content_type() else {
