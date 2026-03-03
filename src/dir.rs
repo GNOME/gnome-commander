@@ -388,6 +388,10 @@ impl Directory {
                     self,
                     move |_, file, _, event| {
                         let uri = file.uri();
+                        if uri == this.uri() {
+                            // We don't care about changes to directory itself, only its contents
+                            return;
+                        }
                         debug!('n', "{:?} for {}", event, uri);
                         match event {
                             gio::FileMonitorEvent::Changed
