@@ -19,10 +19,12 @@
 
 use crate::{
     history_entry::HistoryEntry,
-    utils::{ALT, NO_MOD, SHIFT},
+    main_win::ExecutionTarget,
+    utils::{ALT, NO_MOD, SHIFT, SenderExt},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, prelude::*, subclass::prelude::*};
+use std::path::Path;
 use vte::prelude::*;
 
 mod imp {
@@ -90,11 +92,6 @@ mod imp {
             let scrolled_window = gtk::ScrolledWindow::builder().child(&self.terminal).build();
             scrolled_window.set_parent(&*obj);
 
-            self.terminal.connect_child_exited(glib::clone!(
-                #[weak]
-                obj,
-                move |_, _| obj.exec_done(),
-            ));
             self.terminal.connect_selection_changed(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
@@ -207,7 +204,7 @@ mod imp {
                         .param_types([String::static_type()])
                         .build(),
                     glib::subclass::Signal::builder("execute")
-                        .param_types([String::static_type(), bool::static_type()])
+                        .param_types([String::static_type(), ExecutionTarget::static_type()])
                         .build(),
                     glib::subclass::Signal::builder("lose-focus").build(),
                 ]
@@ -265,7 +262,7 @@ mod imp {
             action.connect_activate(glib::clone!(
                 #[weak]
                 obj,
-                move |_, _| obj.exec(false, false),
+                move |_, _| obj.process_command(ExecutionTarget::EmbeddedTerminal),
             ));
             self.action_group.add_action(&action);
 
@@ -273,7 +270,7 @@ mod imp {
             action.connect_activate(glib::clone!(
                 #[weak]
                 obj,
-                move |_, _| obj.exec(true, false),
+                move |_, _| obj.process_command(ExecutionTarget::Background),
             ));
             self.action_group.add_action(&action);
 
@@ -281,7 +278,7 @@ mod imp {
             action.connect_activate(glib::clone!(
                 #[weak]
                 obj,
-                move |_, _| obj.exec(true, true),
+                move |_, _| obj.process_command(ExecutionTarget::ExternalTerminal),
             ));
             self.action_group.add_action(&action);
 
@@ -373,7 +370,7 @@ impl CommandLine {
     }
 
     pub fn is_empty(&self) -> bool {
-        self.imp().entry.text().is_empty()
+        self.imp().entry.text().trim().is_empty()
     }
 
     fn emit_lose_focus(&self) {
@@ -384,8 +381,8 @@ impl CommandLine {
         self.emit_by_name::<()>("change-directory", &[&directory]);
     }
 
-    fn emit_execute(&self, command: &str, in_terminal: bool) {
-        self.emit_by_name::<()>("execute", &[&command, &in_terminal]);
+    fn emit_execute(&self, command: &str, target: ExecutionTarget) {
+        self.emit_by_name::<()>("execute", &[&command, &target]);
     }
 
     pub fn connect_lose_focus<F: Fn(&Self) + 'static>(&self, f: F) -> glib::SignalHandlerId {
@@ -407,24 +404,19 @@ impl CommandLine {
         )
     }
 
-    pub fn connect_execute<F: Fn(&Self, &str, bool) + 'static>(
+    pub fn connect_execute<F: Fn(&Self, &str, ExecutionTarget) + 'static>(
         &self,
         f: F,
     ) -> glib::SignalHandlerId {
         self.connect_closure(
             "execute",
             false,
-            glib::closure_local!(move |self_: &Self, command: &str, in_terminal: bool| (f)(
-                self_,
-                command,
-                in_terminal
-            )),
+            glib::closure_local!(move |self_, command, target| (f)(self_, command, target)),
         )
     }
 
-    pub fn exec(&self, externally: bool, in_terminal: bool) {
+    pub fn process_command(&self, target: ExecutionTarget) {
         let command = self.imp().entry.text().trim().to_owned();
-
         if command.is_empty() {
             return;
         }
@@ -433,63 +425,84 @@ impl CommandLine {
             self.emit_change_directory(dest_dir);
         } else if command == "cd" {
             self.emit_change_directory("~");
-        } else if externally {
-            self.emit_execute(&command, in_terminal);
         } else {
-            let cwd = self.imp().cwd.text();
-            self.imp().terminal.feed(b"\x1B[1m"); // bold
-            self.imp().terminal.feed(cwd.as_bytes());
-            self.imp().terminal.feed(b"# \x1B[0m");
-            self.imp().terminal.feed(command.as_bytes());
-            self.imp().terminal.feed(b"\r\n");
-
-            let shell = std::env::var("SHELL").unwrap_or_else(|_| "/bin/sh".to_owned());
-            self.imp().terminal.spawn_async(
-                vte::PtyFlags::DEFAULT,
-                Some(&cwd),
-                &[&shell, "-i", "-c", &command],
-                &[],
-                glib::SpawnFlags::DEFAULT,
-                || {},
-                i32::MAX,
-                gio::Cancellable::NONE,
-                glib::clone!(
-                    #[weak(rename_to = this)]
-                    self,
-                    move |result| {
-                        if result.is_err() {
-                            this.exec_done();
-                        }
-                    }
-                ),
-            );
-
-            self.imp().terminal.grab_focus();
-
-            if let Some(action) = self
-                .imp()
-                .action_group
-                .lookup_action("run")
-                .and_downcast::<gio::SimpleAction>()
-            {
-                action.set_enabled(false);
-            }
-
-            if let Some(action) = self
-                .imp()
-                .action_group
-                .lookup_action("term-paste")
-                .and_downcast::<gio::SimpleAction>()
-            {
-                action.set_enabled(true);
-            }
+            self.emit_execute(&command, target);
         }
 
         self.imp().entry.add_to_history(&command);
         self.set_text("");
     }
 
-    pub fn exec_done(&self) {
+    pub async fn exec(
+        &self,
+        working_directory: Option<&Path>,
+        command: &str,
+    ) -> Result<(), glib::Error> {
+        self.imp().terminal.feed(b"\x1B[1m"); // bold
+        if let Some(cwd) = working_directory {
+            self.imp().terminal.feed(cwd.as_os_str().as_encoded_bytes());
+        }
+        self.imp().terminal.feed(b"# \x1B[0m");
+        self.imp().terminal.feed(command.as_bytes());
+        self.imp().terminal.feed(b"\r\n");
+
+        let shell = std::env::var("SHELL").unwrap_or_else(|_| "/bin/sh".to_owned());
+
+        self.pre_exec();
+        let result = match self
+            .imp()
+            .terminal
+            .spawn_future(
+                vte::PtyFlags::DEFAULT,
+                working_directory.and_then(|p| p.to_str()),
+                &[&shell, "-i", "-c", command],
+                &[],
+                glib::SpawnFlags::DEFAULT,
+                || {},
+                i32::MAX,
+            )
+            .await
+        {
+            Ok(_) => {
+                // Child started successfully, wait for it to exit
+                let (sender, receiver) = async_channel::bounded(1);
+                let handler = self.imp().terminal.connect_child_exited(move |_, _| {
+                    sender.toss(());
+                });
+                let _ = receiver.recv().await;
+                self.imp().terminal.disconnect(handler);
+                Ok(())
+            }
+            Err(error) => Err(error),
+        };
+        self.post_exec();
+
+        result
+    }
+
+    fn pre_exec(&self) {
+        self.imp().terminal.grab_focus();
+
+        if let Some(action) = self
+            .imp()
+            .action_group
+            .lookup_action("run")
+            .and_downcast::<gio::SimpleAction>()
+        {
+            action.set_enabled(false);
+        }
+
+        if let Some(action) = self
+            .imp()
+            .action_group
+            .lookup_action("term-paste")
+            .and_downcast::<gio::SimpleAction>()
+        {
+            action.set_enabled(true);
+        }
+    }
+
+    fn post_exec(&self) {
         if self.imp().terminal.is_focus() {
             self.grab_focus();
         }
@@ -511,6 +524,16 @@ impl CommandLine {
         {
             action.set_enabled(false);
         }
+    }
+
+    pub fn terminal_available(&self) -> bool {
+        self.is_visible()
+            && self
+                .imp()
+                .action_group
+                .lookup_action("run")
+                .and_downcast::<gio::SimpleAction>()
+                .is_some_and(|action| action.is_enabled())
     }
 
     pub fn history(&self) -> Vec<String> {
