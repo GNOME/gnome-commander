@@ -21,6 +21,7 @@
  */
 
 use crate::{
+    connection::{Connection, list::ConnectionList},
     dir::Directory,
     file::File,
     options::{ConfirmOptions, DeleteDefault, GeneralOptions},
@@ -51,6 +52,7 @@ enum DeleteErrorAction {
 struct DeleteData {
     parent_window: gtk::Window,
     progress_dialog: Option<DeleteProgressDialog>,
+    connection: Option<Connection>,
     /// this is the real list of deleted files
     deleted_files: glib::List<File>,
     delete_action: DeleteAction,
@@ -283,7 +285,13 @@ async fn perform_delete_operation_one(delete_data: &mut DeleteData, file: &File)
             return DeleteResult::Continue(());
         }
         Err(error) if error.matches(gio::IOErrorEnum::NotEmpty) => {
-            let dir = file.downcast_ref::<Directory>().unwrap();
+            let dir = Directory::new_from_file(
+                &delete_data
+                    .connection
+                    .clone()
+                    .unwrap_or_else(|| ConnectionList::get().home().upcast()),
+                file.file(),
+            );
             if let Err(problem) = dir.list_files(&delete_data.parent_window, false).await {
                 return handle_delete_problem(delete_data, file, problem).await;
             }
@@ -346,6 +354,7 @@ async fn count_total_items(files: &glib::List<File>) -> Option<u64> {
 pub async fn do_delete(
     parent_window: &gtk::Window,
     delete_action: DeleteAction,
+    connection: Option<&Connection>,
     files: &glib::List<File>,
     mut show_progress: bool,
 ) {
@@ -380,6 +389,7 @@ pub async fn do_delete(
             .map_or(parent_window, |p| p.upcast_ref())
             .clone(),
         progress_dialog,
+        connection: connection.cloned(),
         deleted_files: glib::List::new(),
         delete_action,
         cancellable,
@@ -538,6 +548,7 @@ async fn confirm_delete(
 
 pub async fn show_delete_dialog(
     parent_window: &gtk::Window,
+    connection: Option<&Connection>,
     files: &glib::List<File>,
     force_delete: bool,
     general_options: &GeneralOptions,
@@ -581,5 +592,5 @@ pub async fn show_delete_dialog(
         return;
     }
 
-    do_delete(parent_window, delete_action, &files, true).await;
+    do_delete(parent_window, delete_action, connection, &files, true).await;
 }

@@ -30,7 +30,6 @@ mod imp {
         chmod_component::ChmodComponent,
         chown_component::ChownComponent,
         connection::{ConnectionExt, device::ConnectionDevice},
-        dir::Directory,
         file_metainfo_view::FileMetainfoView,
         tags::file_metadata::FileMetadata,
         types::SizeDisplayMode,
@@ -214,12 +213,11 @@ mod imp {
                 .row_spacing(6)
                 .build();
 
-            self.filename_label
-                .set_label(&if file.downcast_ref::<Directory>().is_some() {
-                    gettext("Directory name:")
-                } else {
-                    gettext("File name:")
-                });
+            self.filename_label.set_label(&if file.is_directory() {
+                gettext("Directory name:")
+            } else {
+                gettext("File name:")
+            });
             self.filename_entry.set_text(&file.edit_name());
 
             tab.attach(&self.filename_label, 0, 0, 1, 1);

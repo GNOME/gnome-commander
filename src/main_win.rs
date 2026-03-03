@@ -826,9 +826,7 @@ pub mod imp {
             let file_list = self.obj().file_selector(FileSelectorID::Active).file_list();
 
             if file_list.connection().is_some_and(|c| c.is_local()) {
-                let working_directory = file_list
-                    .directory()
-                    .and_then(|d| d.upcast_ref::<File>().get_real_path());
+                let working_directory = file_list.directory().and_then(|d| d.path());
 
                 let command: OsString = command.into();
                 let options = ProgramsOptions::new();
@@ -1168,8 +1166,13 @@ impl MainWindow {
             .then(|| {
                 src.file_list()
                     .selected_file()
-                    .filter(|f| f.is_directory())
-                    .and_downcast::<Directory>()
+                    .filter(|file| file.is_directory())
+                    .and_then(|file| {
+                        src.file_list()
+                            .connection()
+                            .map(|connection| (connection, file))
+                    })
+                    .map(|(connection, file)| Directory::new_from_file(&connection, file.file()))
             })
             .flatten()
             .or_else(|| src.file_list().directory())
@@ -1299,8 +1302,8 @@ impl MainWindow {
         let dir2 = fl2.directory();
 
         let state = State::new();
-        state.set_active_dir(dir1.and_upcast_ref());
-        state.set_inactive_dir(dir2.and_upcast_ref());
+        state.set_active_dir(dir1.as_ref().map(Directory::to_file).and_upcast_ref());
+        state.set_inactive_dir(dir2.as_ref().map(Directory::to_file).and_upcast_ref());
         state.set_active_dir_files(&fl1.visible_files());
         state.set_inactive_dir_files(&fl2.visible_files());
         state.set_active_dir_selected_files(&fl1.selected_files());

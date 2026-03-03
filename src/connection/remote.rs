@@ -21,14 +21,14 @@
  */
 
 use super::{Connection, ConnectionExt, ConnectionInterface};
-use crate::{
-    debug::debug,
-    path::{GnomeCmdPath, resolve_relative_uri},
-    utils::ErrorMessage,
-};
+use crate::{debug::debug, utils::ErrorMessage};
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
-use std::{future::Future, path::Path, pin::Pin};
+use std::{
+    future::Future,
+    path::{Path, PathBuf},
+    pin::Pin,
+};
 
 mod imp {
     use super::*;
@@ -129,13 +129,13 @@ impl ConnectionInterface for ConnectionRemote {
             let base_path = match self.base_path() {
                 Some(base_path) => base_path,
                 None => {
-                    let base_path = GnomeCmdPath::Uri(uri.clone());
+                    let base_path = PathBuf::from(uri.path());
                     self.set_base_path(Some(base_path.clone()));
                     base_path
                 }
             };
 
-            let file = self.create_gfile(&GnomeCmdPath::Uri(uri));
+            let file = gio::File::for_uri(&uri.to_str());
             debug!('m', "Connecting to {}", file.uri());
 
             let mount_operation = gtk::MountOperation::new(Some(&window));
@@ -155,7 +155,6 @@ impl ConnectionInterface for ConnectionRemote {
                 Ok(()) => {}
                 Err(error) => {
                     debug!('m', "Unable to mount enclosing volume: {}", error);
-                    self.set_base_file_info(None);
                     return Err(ErrorMessage::with_error(
                         gettext("Cannot connect to a remote location"),
                         &error,
@@ -163,16 +162,17 @@ impl ConnectionInterface for ConnectionRemote {
                 }
             }
 
-            let base_file = self.create_gfile(&base_path);
+            let base_file = gio::File::for_uri(&self.create_uri(&base_path));
             match base_file
-                .query_info_future("*", gio::FileQueryInfoFlags::NONE, glib::Priority::DEFAULT)
+                .query_info_future(
+                    "standard::*",
+                    gio::FileQueryInfoFlags::NONE,
+                    glib::Priority::DEFAULT,
+                )
                 .await
             {
-                Ok(base_file_info) => {
-                    self.set_base_file_info(Some(&base_file_info));
-                }
+                Ok(_) => {}
                 Err(error) => {
-                    self.set_base_file_info(None);
                     return Err(ErrorMessage::with_error(
                         gettext("Cannot query remote location information"),
                         &error,
@@ -224,17 +224,8 @@ impl ConnectionInterface for ConnectionRemote {
         })
     }
 
-    fn create_gfile(&self, path: &GnomeCmdPath) -> gio::File {
-        let uri = if let GnomeCmdPath::Uri(uri) = path {
-            uri
-        } else {
-            &self.uri_for_path(&path.path())
-        };
-        gio::File::for_uri(&uri.to_str())
-    }
-
-    fn create_path(&self, path: &Path) -> GnomeCmdPath {
-        GnomeCmdPath::Uri(self.uri_for_path(path))
+    fn create_uri(&self, path: &Path) -> String {
+        self.uri_for_path(path).to_str().to_string()
     }
 
     fn is_local(&self) -> bool {
@@ -321,4 +312,19 @@ impl ConnectionMethodID {
             _ => None,
         }
     }
+}
+
+fn resolve_relative_uri(uri: &str, parent: &glib::Uri) -> Option<glib::Uri> {
+    let parent_path = parent.path();
+    let parent = if parent_path.ends_with("/") {
+        std::borrow::Cow::Borrowed(parent)
+    } else {
+        let parent_path = parent_path.as_str().to_owned() + "/";
+        std::borrow::Cow::Owned(
+            parent
+                .parse_relative(&parent_path, glib::UriFlags::NONE)
+                .ok()?,
+        )
+    };
+    parent.parse_relative(uri, glib::UriFlags::NONE).ok()
 }

@@ -21,9 +21,8 @@
  */
 
 use crate::{
-    connection::{ConnectionInterface, list::ConnectionList},
     dir::Directory,
-    libgcmd::file_descriptor::{FileDescriptor, FileDescriptorExt},
+    libgcmd::file_descriptor::FileDescriptor,
     options::{GeneralOptions, ProgramsOptions},
     spawn::{SpawnError, app_needs_terminal, run_command_indir},
     utils::ErrorMessage,
@@ -104,26 +103,19 @@ glib::wrapper! {
         @implements FileDescriptor;
 }
 
-pub trait FileImpl: ObjectImpl {}
-
-unsafe impl<T: FileImpl> IsSubclassable<T> for File {}
-
 impl File {
     pub const DEFAULT_ATTRIBUTES: &str =
         "standard::*,access::*,time::*,owner::*,unix::uid,unix::gid,unix::mode";
 
-    pub fn new(file_info: &gio::FileInfo, dir: &Directory) -> Self {
-        let file = dir.file().child(file_info.name());
-        Self::new_full(file_info, &file, dir)
+    pub fn new(uri: &str, file_info: &gio::FileInfo) -> Self {
+        Self::new_from_file(gio::File::for_uri(uri), file_info)
     }
 
-    pub fn new_full(file_info: &gio::FileInfo, file: &gio::File, dir: &Directory) -> Self {
-        let this: Self = glib::Object::builder()
+    pub fn new_from_file(file: gio::File, file_info: &gio::FileInfo) -> Self {
+        glib::Object::builder()
             .property("file", file)
             .property("file-info", file_info)
-            .build();
-        this.set_parent_directory(Some(dir));
-        this
+            .build()
     }
 
     pub fn new_from_path(path: &Path) -> Result<Self, ErrorMessage> {
@@ -142,17 +134,7 @@ impl File {
                     &error,
                 )
             })?;
-
-        let parent_path = file
-            .parent()
-            .and_then(|p| p.path())
-            .unwrap_or_else(|| PathBuf::from("/"));
-
-        let home = ConnectionList::get().home();
-        let dir_path = home.create_path(&parent_path);
-        let dir = Directory::try_new(&home, dir_path)?;
-
-        Ok(Self::new_full(&file_info, &file, &dir))
+        Ok(Self::new_from_file(file, &file_info))
     }
 
     pub fn refresh_file_info(&self) -> Result<(), glib::Error> {
@@ -173,7 +155,7 @@ impl File {
         info.set_is_symlink(false);
         info.set_size(0);
         info.set_attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE, 0xFFF);
-        Self::new(&info, dir)
+        Self::new_from_file(dir.file().parent().unwrap_or_else(|| dir.file()), &info)
     }
 
     /// Returns the visible name of the file. This is only meant to be displayed in the user

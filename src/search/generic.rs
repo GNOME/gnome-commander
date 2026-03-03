@@ -19,8 +19,7 @@
 
 use super::{backend::SearchMessage, profile::SearchProfile};
 use crate::{
-    dir::Directory, dirlist::list_directory, file::File, filter::Filter,
-    libgcmd::file_descriptor::FileDescriptorExt, utils::ErrorMessage,
+    dir::Directory, dirlist::list_directory, file::File, filter::Filter, utils::ErrorMessage,
 };
 use gettextrs::gettext;
 use gtk::gio::{self, prelude::*};
@@ -74,48 +73,33 @@ async fn search_dir_recursive(
         gettext("Searching in: {}").replace("{}", &dir.display_path()),
     ));
 
-    enum DirectoryItem {
-        File(File),
-        Info(gio::FileInfo),
-    }
-
     let dir_files = dir.files();
-    let files: Vec<DirectoryItem> = if dir_files.n_items() == 0 || dir.connection().is_local() {
+    let files: Vec<_> = if dir_files.n_items() == 0 || dir.connection().is_local() {
         // if list is not available or it's a local directory then create a new list, otherwise use already available list
         // gnome_cmd_dir_list_files is not used for creating a list, because it's tied to the GUI and that's not usable from other threads
-        list_directory(dir, None)
-            .await?
-            .into_iter()
-            .map(DirectoryItem::Info)
-            .collect()
+        list_directory(dir, None).await?.into_iter().collect()
     } else {
         dir_files
             .iter::<File>()
             .flatten()
-            .map(DirectoryItem::File)
+            .map(|file| file.file_info())
             .collect()
     };
 
     // first process the files
-    for item in &files {
+    for info in &files {
         if cancellable.is_cancelled() {
             return Ok(());
         }
-        let info = match item {
-            DirectoryItem::File(file) => file.file_info(),
-            DirectoryItem::Info(info) => info.clone(),
-        };
         if info.file_type() != gio::FileType::Regular {
             continue;
         }
         if !name_filter.matches(&info.display_name()) {
             continue;
         }
+
+        let file = dir.file().child(info.name());
         if let Some((pattern, match_case)) = content_search {
-            let file = match item {
-                DirectoryItem::File(file) => file.file(),
-                DirectoryItem::Info(info) => dir.file().child(info.name()),
-            };
             match content_matches(&file, pattern, *match_case).await {
                 Ok(true) => {}
                 Ok(false) => continue,
@@ -134,13 +118,7 @@ async fn search_dir_recursive(
         }
 
         // the file matched the search criteria, let's add it to the list
-        match item {
-            DirectoryItem::File(file) => (on_message)(SearchMessage::File(file.clone())),
-            DirectoryItem::Info(info) => {
-                let file = File::new(info, dir);
-                (on_message)(SearchMessage::File(file));
-            }
-        }
+        (on_message)(SearchMessage::File(File::new_from_file(file, info)));
     }
 
     if level == 0 {
@@ -148,35 +126,25 @@ async fn search_dir_recursive(
     }
 
     // then process the directories
-    for item in &files {
+    for info in &files {
         if cancellable.is_cancelled() {
             return Ok(());
         }
-        let info = match item {
-            DirectoryItem::File(file) => file.file_info(),
-            DirectoryItem::Info(info) => info.clone(),
-        };
         if info.file_type() != gio::FileType::Directory {
             continue;
         }
         // we don't want to go backwards or to follow symlinks
         let display_name = info.display_name();
         if display_name != "." && display_name != ".." && !info.is_symlink() {
-            let new_dir = match item {
-                DirectoryItem::File(file) => file.downcast_ref::<Directory>().cloned(),
-                DirectoryItem::Info(info) => Directory::new_from_file_info(info, dir),
-            };
-            if let Some(new_dir) = new_dir {
-                Box::pin(search_dir_recursive(
-                    &new_dir,
-                    level - 1,
-                    name_filter,
-                    content_search,
-                    on_message,
-                    cancellable,
-                ))
-                .await?;
-            }
+            Box::pin(search_dir_recursive(
+                &dir.child(info.name()),
+                level - 1,
+                name_filter,
+                content_search,
+                on_message,
+                cancellable,
+            ))
+            .await?;
         }
     }
 

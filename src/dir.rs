@@ -21,21 +21,14 @@
  */
 
 use crate::{
-    connection::{Connection, ConnectionExt},
-    debug::debug,
-    dirlist::list_directory,
-    file::File,
-    libgcmd::file_descriptor::{FileDescriptor, FileDescriptorExt},
-    path::GnomeCmdPath,
-    utils::ErrorMessage,
+    connection::Connection, debug::debug, dirlist::list_directory, file::File, utils::ErrorMessage,
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 mod imp {
     use super::*;
-    use crate::file::FileImpl;
     use std::{
         cell::{Cell, RefCell},
         sync::OnceLock,
@@ -52,10 +45,14 @@ mod imp {
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::Directory)]
     pub struct Directory {
-        pub connection: RefCell<Option<Connection>>,
-        pub path: RefCell<Option<GnomeCmdPath>>,
+        #[property(get)]
+        pub connection: RefCell<Connection>,
+        #[property(get)]
+        pub file: RefCell<gio::File>,
         pub state: Cell<DirectoryState>,
         pub files: gio::ListStore,
+        #[property(get, set)]
+        pub mtime: RefCell<Option<glib::DateTime>>,
         #[property(get, set)]
         pub needs_mtime_update: Cell<bool>,
         pub file_monitor: RefCell<Option<gio::FileMonitor>>,
@@ -63,18 +60,22 @@ mod imp {
         pub lock: Cell<bool>,
     }
 
+    thread_local! {
+        static DUMMY_CONNECTION: RefCell<Connection> = RefCell::new(glib::Object::builder().build());
+    }
+
     #[glib::object_subclass]
     impl ObjectSubclass for Directory {
         const NAME: &'static str = "GnomeCmdDir";
         type Type = super::Directory;
-        type ParentType = File;
 
         fn new() -> Self {
             Self {
-                connection: Default::default(),
-                path: Default::default(),
+                connection: DUMMY_CONNECTION.with(|con| con.clone()),
+                file: RefCell::new(gio::File::for_path("/")),
                 state: Cell::new(DirectoryState::Empty),
                 files: gio::ListStore::new::<File>(),
+                mtime: Default::default(),
                 needs_mtime_update: Default::default(),
                 file_monitor: Default::default(),
                 monitor_users: Default::default(),
@@ -90,9 +91,7 @@ mod imp {
         }
 
         fn dispose(&self) {
-            if let Some(connection) = self.connection.take() {
-                connection.remove_from_cache(&self.obj());
-            }
+            self.connection.borrow().remove_from_cache(&self.obj());
         }
 
         fn signals() -> &'static [glib::subclass::Signal] {
@@ -120,14 +119,10 @@ mod imp {
             })
         }
     }
-
-    impl FileImpl for Directory {}
 }
 
 glib::wrapper! {
-    pub struct Directory(ObjectSubclass<imp::Directory>)
-        @extends File,
-        @implements FileDescriptor;
+    pub struct Directory(ObjectSubclass<imp::Directory>);
 }
 
 #[repr(C)]
@@ -141,114 +136,68 @@ pub enum DirectoryState {
 }
 
 impl Directory {
-    pub fn new_from_file_info(file_info: &gio::FileInfo, parent: &Directory) -> Option<Self> {
-        let connection = parent.connection();
-        let dir_name = file_info.name();
-
-        let parent_path = parent.path();
-        let path = parent_path.child(&dir_name);
-        let file = connection.create_gfile(&path);
-
-        let dir = Self::find_or_create(&connection, &file, file_info, path);
-        dir.upcast_ref::<File>().set_parent_directory(Some(parent));
-        Some(dir)
+    pub fn new(connection: &impl IsA<Connection>, uri: &str) -> Self {
+        Self::new_from_file(connection, gio::File::for_uri(uri))
     }
 
-    #[deprecated(
-        note = "This function panics when file info query fails. Prefer Self::try_new instead."
-    )]
-    pub fn new(connection: &impl IsA<Connection>, path: GnomeCmdPath) -> Self {
-        Self::try_new(connection, path).expect("directory file info")
-    }
-
-    pub fn try_new(
-        connection: &impl IsA<Connection>,
-        path: GnomeCmdPath,
-    ) -> Result<Self, ErrorMessage> {
-        let connection = connection.as_ref();
-        let file = connection.create_gfile(&path);
-        let file_info = file
-            .query_info(
-                File::DEFAULT_ATTRIBUTES,
-                gio::FileQueryInfoFlags::NONE,
-                gio::Cancellable::NONE,
-            )
-            .map_err(|error| {
-                ErrorMessage::with_error(
-                    gettext("Failed to get directory info for {path}.")
-                        .replace("{path}", &path.to_string()),
-                    &error,
-                )
-            })?;
-        Ok(Self::find_or_create(connection, &file, &file_info, path))
-    }
-
-    pub fn new_with_con(connection: &Connection) -> Option<Self> {
-        let base_file_info = connection.base_file_info()?;
-        let base_path = connection.base_path()?;
-        let file = connection.create_gfile(&base_path);
-        Some(Self::find_or_create(
-            connection,
-            &file,
-            &base_file_info,
-            base_path.clone(),
-        ))
-    }
-
-    fn new_full(
-        connection: &Connection,
-        file: &gio::File,
-        file_info: &gio::FileInfo,
-        path: GnomeCmdPath,
-    ) -> Self {
-        let this: Self = glib::Object::builder()
-            .property("file", file)
-            .property("file-info", file_info)
-            .build();
-        this.imp().connection.replace(Some(connection.clone()));
-        this.imp().path.replace(Some(path));
-        this
-    }
-
-    pub fn find_or_create(
-        connection: &Connection,
-        file: &gio::File,
-        file_info: &gio::FileInfo,
-        path: GnomeCmdPath,
-    ) -> Self {
-        let uri = file.uri();
-        if let Some(directory) = connection.cache_lookup(&uri) {
-            directory.upcast_ref::<File>().set_file_info(file_info);
+    pub fn new_from_file(connection: &impl IsA<Connection>, file: gio::File) -> Self {
+        if let Some(directory) = connection.as_ref().cache_lookup(&file.uri()) {
             directory
         } else {
-            let directory = Self::new_full(connection, file, file_info, path);
-            connection.add_to_cache(&directory, &uri);
-            directory
+            let this: Self = glib::Object::builder().build();
+            this.imp().connection.replace(connection.as_ref().clone());
+            this.imp().file.replace(file);
+            connection.as_ref().add_to_cache(&this, &file.uri());
+            this
         }
     }
 
-    pub fn connection(&self) -> Connection {
-        self.imp().connection.borrow().clone().unwrap()
+    /// Converts this Directory instance into a File instance holding a very limited gio::FileInfo.
+    /// Useful for a handful of instances when some operation has to be performed on the directory
+    /// file.
+    pub fn to_file(&self) -> File {
+        let name = self.name().unwrap_or_default();
+
+        let info = gio::FileInfo::new();
+        info.set_display_name(&name.to_string_lossy());
+        info.set_name(name);
+        info.set_file_type(gio::FileType::Directory);
+        File::new_from_file(self.file(), &info)
+    }
+
+    pub fn uri(&self) -> String {
+        self.file().uri().into()
     }
 
     pub fn is_local(&self) -> bool {
-        self.connection().is_local()
+        self.file().is_native()
+    }
+
+    pub fn path(&self) -> Option<PathBuf> {
+        self.file().path()
+    }
+
+    pub fn path_from_root(&self) -> PathBuf {
+        self.to_file().path_from_root()
+    }
+
+    pub fn name(&self) -> Option<PathBuf> {
+        self.path()
+            .and_then(|path| path.file_name().map(PathBuf::from))
     }
 
     pub fn parent(&self) -> Option<Directory> {
-        self.path()
+        self.file()
             .parent()
-            .and_then(|path| Directory::try_new(&self.connection(), path).ok())
+            .map(|parent| Directory::new_from_file(&self.connection(), parent))
     }
 
-    pub fn child(&self, name: &Path) -> Result<Directory, ErrorMessage> {
-        let connection = self.connection();
-        let path = self.path().child(name);
-        Directory::try_new(&connection, path)
+    pub fn child(&self, name: impl AsRef<Path>) -> Directory {
+        Directory::new_from_file(&self.connection(), self.file().child(name))
     }
 
     pub fn display_path(&self) -> String {
-        self.path().path().to_string_lossy().to_string()
+        self.path_from_root().to_string_lossy().to_string()
     }
 
     pub fn files(&self) -> gio::ListStore {
@@ -324,19 +273,7 @@ impl Directory {
     }
 
     pub fn get_child_gfile(&self, filename: &Path) -> gio::File {
-        self.connection().create_gfile(&self.path().child(filename))
-    }
-
-    pub fn path(&self) -> GnomeCmdPath {
-        self.imp().path.borrow().clone().unwrap()
-    }
-
-    pub fn update_path(&self) {
-        if let Some(parent) = self.parent() {
-            let path = parent.path().child(&self.upcast_ref::<File>().path_name());
-            self.imp().path.replace(Some(path));
-            self.imp().files.remove_all();
-        }
+        self.file().child(filename)
     }
 
     /// This function will search in the file tree to retrieve the first
@@ -344,11 +281,7 @@ impl Directory {
     pub fn existing_parent(&self) -> Option<Directory> {
         let mut directory = self.parent()?;
         loop {
-            if directory
-                .upcast_ref::<File>()
-                .file()
-                .query_exists(gio::Cancellable::NONE)
-            {
+            if directory.file().query_exists(gio::Cancellable::NONE) {
                 break Some(directory);
             }
 
@@ -373,35 +306,32 @@ impl Directory {
         }
 
         let file = gio::File::for_uri(uri_str);
-        let file_info =
-            match file.query_info("*", gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE) {
-                Ok(file_info) => file_info,
-                Err(error) => {
-                    debug!(
-                        't',
-                        "Could not retrieve file information for {}, error: {}", uri_str, error
-                    );
-                    return;
-                }
-            };
-
-        let f = if file_info.file_type() == gio::FileType::Directory {
-            Directory::new_from_file_info(&file_info, self).and_upcast()
-        } else {
-            Some(File::new(&file_info, self))
+        let file_info = match file.query_info(
+            File::DEFAULT_ATTRIBUTES,
+            gio::FileQueryInfoFlags::NONE,
+            gio::Cancellable::NONE,
+        ) {
+            Ok(file_info) => file_info,
+            Err(error) => {
+                debug!(
+                    't',
+                    "Could not retrieve file information for {}, error: {}", uri_str, error
+                );
+                return;
+            }
         };
 
-        if let Some(f) = f {
-            self.files().append(&f);
-            self.set_needs_mtime_update(true);
-            self.emit_by_name::<()>("file-created", &[&f]);
-        }
+        let f = File::new_from_file(file, &file_info);
+        f.set_parent_directory(Some(self));
+        self.files().append(&f);
+        self.set_needs_mtime_update(true);
+        self.emit_by_name::<()>("file-created", &[&f]);
     }
 
     pub fn file_deleted(&self, uri_str: &str) {
-        if uri_str == self.upcast_ref::<File>().get_uri_str() {
-            self.connection().remove_from_cache(self);
-            self.emit_by_name::<()>("dir-deleted", &[]);
+        if let Some(directory) = self.connection().cache_lookup(uri_str) {
+            self.connection().remove_from_cache_by_uri(uri_str);
+            directory.emit_by_name::<()>("dir-deleted", &[]);
         }
 
         if let Some((position, file)) = self.find_file(uri_str) {
@@ -454,14 +384,14 @@ impl Directory {
             .ok()
             .and_then(|fi| fi.modification_date_time());
 
-        let cached_time = self.file_info().modification_date_time();
+        let cached_time = self.mtime();
 
         let result = if let Some(cached_time) = cached_time
             && let Some(current_time) = current_time
             && current_time != cached_time
         {
             // cache is not up-to-date
-            self.file_info().set_modification_date_time(&current_time);
+            self.set_mtime(&current_time);
             true
         } else {
             false
@@ -500,11 +430,7 @@ impl Directory {
                     }
                 ));
 
-                debug!(
-                    'n',
-                    "Added monitor to {}",
-                    self.upcast_ref::<File>().get_uri_str()
-                );
+                debug!('n', "Added monitor to {}", self.uri());
 
                 self.imp().file_monitor.replace(Some(file_monitor));
                 self.imp()
@@ -512,12 +438,7 @@ impl Directory {
                     .set(self.imp().monitor_users.get() + 1);
             }
             Err(error) => {
-                debug!(
-                    'n',
-                    "Failed to add monitor to {}: {}",
-                    self.upcast_ref::<File>().get_uri_str(),
-                    error
-                );
+                debug!('n', "Failed to add monitor to {}: {}", self.uri(), error);
             }
         }
     }
@@ -533,11 +454,7 @@ impl Directory {
             && let Some(file_monitor) = self.imp().file_monitor.take()
         {
             file_monitor.cancel();
-            debug!(
-                'n',
-                "Removed monitor from {}",
-                self.upcast_ref::<File>().get_uri_str()
-            );
+            debug!('n', "Removed monitor from {}", self.uri());
         }
     }
 
@@ -572,12 +489,10 @@ impl<'d> Drop for DirectoryLock<'d> {
 fn create_file_from_file_info(file_info: &gio::FileInfo, parent: &Directory) -> Option<File> {
     let name = file_info.display_name();
     if name == "." || name == ".." {
-        return None;
-    }
-
-    if file_info.file_type() == gio::FileType::Directory {
-        Directory::new_from_file_info(file_info, parent).and_upcast::<File>()
+        None
     } else {
-        Some(File::new(file_info, parent))
+        let file = File::new_from_file(parent.get_child_gfile(&file_info.name()), file_info);
+        file.set_parent_directory(Some(parent));
+        Some(file)
     }
 }

@@ -117,9 +117,7 @@ pub async fn show_open_with_other_dialog(
             }
         }
 
-        let working_directory = working_directory
-            .as_ref()
-            .and_then(|w| w.upcast_ref::<File>().get_real_path());
+        let working_directory = working_directory.as_ref().and_then(|w| w.path());
         match run_command_indir(
             working_directory.as_deref(),
             &full_command,

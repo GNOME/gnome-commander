@@ -41,7 +41,7 @@ use gettextrs::gettext;
 use gtk::{gdk, gio, glib, graphene, pango, prelude::*, subclass::prelude::*};
 use std::{
     collections::{BTreeSet, HashMap, HashSet},
-    path::{Path, PathBuf},
+    path::Path,
 };
 
 mod imp {
@@ -489,13 +489,7 @@ mod imp {
                     eprintln!("Cannot navigate to {path}. No connection.");
                     return;
                 };
-                let dir = match Directory::try_new(&con, con.create_path(Path::new(path))) {
-                    Ok(dir) => dir,
-                    Err(_) => {
-                        eprintln!("Unexpected: could not get navigation target directory");
-                        return;
-                    }
-                };
+                let dir = Directory::new(&con, &con.create_uri(Path::new(path)));
                 self.obj().new_tab_with_dir(&dir, true, true);
             } else {
                 fl.goto_directory(Path::new(path));
@@ -512,8 +506,9 @@ mod imp {
 
             tab_label.set_label(
                 fl.directory()
-                    .map(|d| d.upcast::<File>().name())
-                    .unwrap_or_default(),
+                    .and_then(|d| d.name())
+                    .unwrap_or_default()
+                    .to_string_lossy(),
             );
             tab_label.set_locked(self.obj().is_tab_locked(fl));
             tab_label.set_indicator(options.tab_lock_indicator.get());
@@ -783,7 +778,7 @@ impl FileSelector {
 
     fn on_list_dir_changed(&self, fl: &FileList, dir: &Directory) {
         if let Some(connection) = fl.connection()
-            && let Some(path) = dir.upcast_ref::<File>().path_from_root().to_str()
+            && let Some(path) = dir.path_from_root().to_str()
         {
             connection.dir_history().add(path.to_owned());
         }
@@ -822,8 +817,11 @@ impl FileSelector {
                     } else {
                         fl.goto_directory(Path::new(".."));
                     }
-                } else if let Some(directory) =
-                    file.and_downcast::<Directory>().or_else(|| fl.directory())
+                } else if let Some(directory) = file
+                    .filter(|file| file.is_directory())
+                    .and_then(|file| fl.connection().map(|connection| (file, connection)))
+                    .map(|(file, connection)| Directory::new_from_file(&connection, file.file()))
+                    .or_else(|| fl.directory())
                 {
                     self.new_tab_with_dir(&directory, true, true);
                 }
@@ -915,25 +913,13 @@ impl FileSelector {
     pub fn goto_directory(&self, con: &Connection, path: &Path) {
         if self.file_list().connection().as_ref() == Some(con) {
             if self.is_current_tab_locked() {
-                let dir = match Directory::try_new(con, con.create_path(path)) {
-                    Ok(dir) => dir,
-                    Err(_) => {
-                        eprintln!("Unexpected: could not get navigation target directory");
-                        return;
-                    }
-                };
+                let dir = Directory::new(con, &con.create_uri(path));
                 self.new_tab_with_dir(&dir, true, true);
             } else {
                 self.file_list().goto_directory(path);
             }
         } else if con.is_open() {
-            let dir = match Directory::try_new(con, con.create_path(path)) {
-                Ok(dir) => dir,
-                Err(_) => {
-                    eprintln!("Unexpected: could not get navigation target directory");
-                    return;
-                }
-            };
+            let dir = Directory::new(con, &con.create_uri(path));
 
             if self.is_current_tab_locked() {
                 self.new_tab_with_dir(&dir, true, true);
@@ -941,7 +927,7 @@ impl FileSelector {
                 self.file_list().set_connection(con, Some(&dir));
             }
         } else {
-            con.set_base_path(Some(con.create_path(path)));
+            con.set_base_path(Some(path.to_path_buf()));
             if self.is_current_tab_locked() {
                 self.new_tab_with_dir(&con.default_dir().unwrap(), true, true);
             } else {
@@ -1032,16 +1018,7 @@ impl FileSelector {
     fn on_navigate(&self, path: &str, new_tab: bool) {
         if new_tab || self.is_current_tab_locked() {
             if let Some(connection) = self.current_file_list().and_then(|fl| fl.connection()) {
-                let dir = match Directory::try_new(
-                    &connection,
-                    connection.create_path(Path::new(path)),
-                ) {
-                    Ok(dir) => dir,
-                    Err(_) => {
-                        eprintln!("Unexpected: could not get navigation target directory");
-                        return;
-                    }
-                };
+                let dir = Directory::new(&connection, &connection.create_uri(Path::new(path)));
                 self.new_tab_with_dir(&dir, true, true);
             }
         } else {
@@ -1052,14 +1029,7 @@ impl FileSelector {
 
     fn goto(&self, connection: &Connection, path: &str) {
         if self.is_current_tab_locked() {
-            let dir = match Directory::try_new(connection, connection.create_path(Path::new(path)))
-            {
-                Ok(dir) => dir,
-                Err(_) => {
-                    eprintln!("Unexpected: could not get navigation target directory");
-                    return;
-                }
-            };
+            let dir = Directory::new(connection, &connection.create_uri(Path::new(path)));
             self.new_tab_with_dir(&dir, true, true);
         } else {
             self.goto_directory(connection, Path::new(path));
@@ -1135,7 +1105,7 @@ impl FileSelector {
             })
             .filter_map(|file_list| {
                 let directory = file_list.directory()?;
-                let uri = directory.upcast_ref::<File>().get_uri_str();
+                let uri = directory.uri();
                 let (column, order) = file_list.sorting();
                 Some(TabVariant {
                     uri,
@@ -1157,16 +1127,15 @@ impl FileSelector {
             if visited.contains(&stored_tab) {
                 continue;
             }
-            if let Some(directory) = restore_directory(connection_list, &stored_tab.uri) {
-                self.new_tab_full(
-                    Some(&directory),
-                    stored_tab.sort_column_id(),
-                    stored_tab.sort_type(),
-                    stored_tab.locked,
-                    true,
-                    false,
-                );
-            }
+            let directory = restore_directory(connection_list, &stored_tab.uri);
+            self.new_tab_full(
+                Some(&directory),
+                stored_tab.sort_column_id(),
+                stored_tab.sort_type(),
+                stored_tab.locked,
+                true,
+                false,
+            );
             visited.insert(stored_tab);
         }
 
@@ -1174,25 +1143,15 @@ impl FileSelector {
             // Fallback to home directory
             let con = connection_list.home();
             let path = glib::home_dir();
-            match Directory::try_new(&con, con.create_path(&path)) {
-                Ok(directory) => {
-                    self.new_tab_full(
-                        Some(&directory),
-                        ColumnID::COLUMN_NAME,
-                        gtk::SortType::Ascending,
-                        false,
-                        true,
-                        false,
-                    );
-                }
-                Err(error) => {
-                    eprintln!(
-                        "Stored path {} is invalid: {}. Skipping",
-                        path.display(),
-                        error
-                    );
-                }
-            }
+            let directory = Directory::new(&con, &con.create_uri(&path));
+            self.new_tab_full(
+                Some(&directory),
+                ColumnID::COLUMN_NAME,
+                gtk::SortType::Ascending,
+                false,
+                true,
+                false,
+            );
         }
     }
 
@@ -1383,7 +1342,7 @@ impl FileSelector {
         let Some(directory) = file_list.directory() else {
             return;
         };
-        match directory.upcast_ref::<File>().free_space() {
+        match directory.to_file().free_space() {
             Ok(free_space) => {
                 self.imp()
                     .volume_size_label
@@ -1404,15 +1363,15 @@ impl FileSelector {
                 if !self.is_tab_locked(fl) {
                     if file.is_dotdot() {
                         fl.goto_directory(Path::new(".."));
-                    } else if let Some(directory) = file.downcast_ref::<Directory>() {
-                        fl.set_directory(directory);
+                    } else if let Some(dir) = fl.directory() {
+                        fl.set_directory(&dir.child(file.path_name()));
                     }
                 } else if file.is_dotdot() {
                     if let Some(parent) = fl.directory().and_then(|d| d.parent()) {
                         self.new_tab_with_dir(&parent, true, true);
                     }
-                } else if let Some(directory) = file.downcast_ref::<Directory>() {
-                    self.new_tab_with_dir(directory, true, true);
+                } else if let Some(dir) = fl.directory() {
+                    self.new_tab_with_dir(&dir.child(file.path_name()), true, true);
                 }
             }
             gio::FileType::Regular => {
@@ -1469,37 +1428,23 @@ impl TabVariant {
     }
 }
 
-fn restore_directory(connection_list: &ConnectionList, stored_uri: &str) -> Option<Directory> {
-    let (con, path) = match glib::Uri::parse(stored_uri, glib::UriFlags::NONE) {
+fn restore_directory(connection_list: &ConnectionList, stored_uri: &str) -> Directory {
+    let con: Connection = match glib::Uri::parse(stored_uri, glib::UriFlags::NONE) {
         Ok(uri) => {
-            let con: Connection = if uri.scheme() == "file" {
+            if uri.scheme() == "file" {
                 connection_list.home().upcast()
             } else {
                 // TODO: use connection_list to find or register a connection
                 ConnectionRemote::new(stored_uri, &uri).upcast()
-            };
-            let path = PathBuf::from(uri.path());
-            (con, path)
+            }
         }
         Err(error) => {
             eprintln!("Stored URI is invalid: {}", error.message());
-            let con = connection_list.home().upcast();
-            let path = PathBuf::from(stored_uri);
-            (con, path)
+            connection_list.home().upcast()
         }
     };
 
-    match Directory::try_new(&con, con.create_path(&path)) {
-        Ok(directory) => Some(directory),
-        Err(error) => {
-            eprintln!(
-                "Stored path {} is invalid: {}. Skipping",
-                path.display(),
-                error
-            );
-            None
-        }
-    }
+    Directory::new(&con, stored_uri)
 }
 
 async fn ask_close_locked_tab(parent: &gtk::Window) -> bool {

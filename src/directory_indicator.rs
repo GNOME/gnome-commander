@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::{dir::Directory, file::File};
+use crate::dir::Directory;
 use gtk::{gdk, glib, pango, prelude::*, subclass::prelude::*};
 use winnow::{
     Result as PResult,
@@ -150,12 +150,10 @@ mod imp {
             if let Some(dir) = directory {
                 let path = dir.display_path();
 
-                let as_file = dir.upcast_ref::<File>();
-
                 let mut host = None;
                 if !dir.is_local() {
                     // show host in dir indicator if we are not on a local connection
-                    let uri = as_file.file().uri();
+                    let uri = dir.uri();
                     match glib::Uri::parse(&uri, glib::UriFlags::NONE) {
                         Err(error) => {
                             eprintln!("g_uri_parse error {}: {}", uri, error.message());

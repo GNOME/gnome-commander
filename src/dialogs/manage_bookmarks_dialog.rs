@@ -21,7 +21,6 @@ use super::edit_bookmark_dialog::edit_bookmark_dialog;
 use crate::{
     connection::{Connection, ConnectionExt, bookmark::Bookmark, list::ConnectionList},
     dir::Directory,
-    file::File,
     options::GeneralOptions,
     shortcuts::Shortcuts,
     utils::{ErrorMessage, bold, channel_send_action, handle_escape_key},
@@ -598,9 +597,8 @@ impl TaggedBookmark {
 }
 
 pub async fn bookmark_directory(window: &gtk::Window, dir: &Directory, options: &GeneralOptions) {
-    let file = dir.upcast_ref::<File>();
-    let is_local = file.is_local();
-    let path = file.path_from_root();
+    let is_local = dir.is_local();
+    let path = dir.path_from_root();
 
     let Some(path_str) = path.to_str() else {
         ErrorMessage::new(gettext("To bookmark a directory the whole search path to the directory must be in valid UTF-8 encoding"), None::<String>)

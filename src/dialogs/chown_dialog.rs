@@ -19,6 +19,7 @@
 
 use crate::{
     chown_component::ChownComponent,
+    connection::Connection,
     dir::Directory,
     file::File,
     pwd::{gid_t, uid, uid_t},
@@ -33,6 +34,7 @@ use gtk::{glib, prelude::*};
 #[async_recursion::async_recursion(?Send)]
 async fn chown_recursively(
     parent_window: &gtk::Window,
+    connection: Option<&Connection>,
     file: &File,
     uid: Option<uid_t>,
     gid: gid_t,
@@ -51,7 +53,10 @@ async fn chown_recursively(
         return;
     }
 
-    if let Some(dir) = file.downcast_ref::<Directory>() {
+    if file.is_directory()
+        && let Some(connection) = connection
+    {
+        let dir = Directory::new_from_file(connection, file.file());
         if let Err(error) = dir.list_files(parent_window, false).await {
             error.show(parent_window).await;
             return;
@@ -63,24 +68,29 @@ async fn chown_recursively(
             .flatten()
             .filter(|child| !child.is_dotdot() && child.name() != "." && !child.is_symlink())
         {
-            chown_recursively(parent_window, &child, uid, gid, recurse).await;
+            chown_recursively(parent_window, Some(connection), &child, uid, gid, recurse).await;
         }
     }
 }
 
 async fn chown_files(
     parent_window: &gtk::Window,
+    connection: Option<&Connection>,
     files: &glib::List<File>,
     uid: Option<uid_t>,
     gid: gid_t,
     recursive: bool,
 ) {
     for file in files {
-        chown_recursively(parent_window, file, uid, gid, recursive).await;
+        chown_recursively(parent_window, connection, file, uid, gid, recursive).await;
     }
 }
 
-pub async fn show_chown_dialog(parent_window: &gtk::Window, files: &glib::List<File>) -> bool {
+pub async fn show_chown_dialog(
+    parent_window: &gtk::Window,
+    connection: Option<&Connection>,
+    files: &glib::List<File>,
+) -> bool {
     let Some(file) = files.front() else {
         return false;
     };
@@ -143,7 +153,15 @@ pub async fn show_chown_dialog(parent_window: &gtk::Window, files: &glib::List<F
 
         let recursive = recurse_check.is_active();
 
-        chown_files(dialog.upcast_ref(), files, owner, group, recursive).await;
+        chown_files(
+            dialog.upcast_ref(),
+            connection,
+            files,
+            owner,
+            group,
+            recursive,
+        )
+        .await;
     }
 
     dialog.close();

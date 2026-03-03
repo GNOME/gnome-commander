@@ -21,7 +21,6 @@
  */
 
 use crate::{
-    dir::Directory,
     file::File,
     utils::{
         ErrorMessage, SenderExt, channel_send_action, dialog_button_box, display_help,
@@ -80,7 +79,7 @@ pub async fn show_mkdir_dialog(
 
     if let Some(file) = selected_file {
         let mut value = file.name();
-        if !file.is::<Directory>()
+        if !file.is_directory()
             && let Some((p, _)) = value.rsplit_once('.')
         {
             value = p.to_string();

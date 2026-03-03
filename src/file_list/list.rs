@@ -35,7 +35,6 @@ use crate::{
         PREF_COLORS,
         ls_colors::{LsPalletteColor, ls_colors_get},
     },
-    libgcmd::file_descriptor::FileDescriptorExt,
     main_win::MainWindow,
     open_connection::open_connection,
     options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
@@ -666,7 +665,7 @@ mod imp {
                 for handler_id in self.directory_handlers.take() {
                     previous_directory.disconnect(handler_id);
                 }
-                if previous_directory.upcast_ref::<File>().is_local()
+                if previous_directory.is_local()
                     && !previous_directory.is_monitored()
                     && previous_directory.needs_mtime_update()
                 {
@@ -767,8 +766,10 @@ mod imp {
         }
 
         fn on_directory_deleted(&self, dir: &Directory) {
-            if let Some(parent_dir) = dir.existing_parent() {
-                self.obj().goto_directory(&parent_dir.path().path());
+            if let Some(parent_dir) = dir.existing_parent()
+                && let Some(path) = parent_dir.path()
+            {
+                self.obj().goto_directory(&path);
             } else {
                 self.obj().goto_directory(Path::new("~"));
             }
@@ -1253,12 +1254,7 @@ mod imp {
         }
 
         fn add_cwd_to_cmdline(&self) {
-            if let Some(path) = self
-                .obj()
-                .directory()
-                .and_upcast::<File>()
-                .and_then(|d| d.get_real_path())
-            {
+            if let Some(path) = self.obj().directory().and_then(|d| d.path()) {
                 self.add_to_cmdline(path);
             }
         }
@@ -1309,8 +1305,10 @@ mod imp {
 
             let destination = if file.as_ref().is_some_and(|f| f.is_dotdot()) {
                 DroppingFilesDestination::Parent
-            } else if let Some(dir) = file.and_downcast::<Directory>() {
-                DroppingFilesDestination::Child(dir.file_info().name())
+            } else if let Some(file) = &file
+                && file.is_directory()
+            {
+                DroppingFilesDestination::Child(file.path_name())
             } else {
                 DroppingFilesDestination::This
             };
@@ -1381,12 +1379,9 @@ mod imp {
 
             let to = match data.destination {
                 DroppingFilesDestination::Parent => self.obj().directory().and_then(|d| d.parent()),
-                DroppingFilesDestination::Child(name) => self
-                    .obj()
-                    .find_file_by_name(&name)
-                    .and_then(|position| self.item_at(position))
-                    .map(|item| item.file())
-                    .and_downcast::<Directory>(),
+                DroppingFilesDestination::Child(name) => {
+                    self.obj().directory().map(|d| d.child(&name))
+                }
                 DroppingFilesDestination::This => self.obj().directory(),
             };
             let Some(dir) = to else { return };
@@ -1807,7 +1802,7 @@ impl FileList {
         } else {
             for item in self.imp().items_iter() {
                 let file = item.file();
-                if !file.is_dotdot() && !file.is::<Directory>() {
+                if !file.is_dotdot() && !file.is_directory() {
                     item.set_selected(true);
                 }
             }
@@ -1819,7 +1814,7 @@ impl FileList {
         for item in self.imp().items_iter() {
             let file = item.file();
             if !file.is_dotdot() {
-                item.set_selected(!file.is::<Directory>());
+                item.set_selected(!file.is_directory());
             }
         }
         self.emit_files_changed();
@@ -1827,7 +1822,7 @@ impl FileList {
 
     pub fn unselect_all_files(&self) {
         for item in self.imp().items_iter() {
-            if !item.file().is::<Directory>() {
+            if !item.file().is_directory() {
                 item.set_selected(false);
             }
         }
@@ -1933,10 +1928,7 @@ impl FileList {
             DirectoryState::Listing | DirectoryState::Canceling => Ok(()),
             DirectoryState::Listed => {
                 // check if the dir has up-to-date file list; if not and it's a local dir - relist it
-                if directory.upcast_ref::<File>().is_local()
-                    && !directory.is_monitored()
-                    && directory.update_mtime()
-                {
+                if directory.is_local() && !directory.is_monitored() && directory.update_mtime() {
                     directory.relist_files(&window, true).await
                 } else {
                     Ok(())
@@ -2021,7 +2013,7 @@ impl FileList {
         for item in self.imp().items_iter() {
             let file = item.file();
             if !file.is_dotdot()
-                && (select_dirs || file.downcast_ref::<Directory>().is_none())
+                && (select_dirs || !file.is_directory())
                 && pattern.matches(&file.name())
             {
                 item.set_selected(mode);
@@ -2058,53 +2050,47 @@ impl FileList {
                 .to_path_buf()
         };
 
-        let new_dir;
-        let focus_dir;
-        if dir == Path::new("..") {
+        let (new_dir, focus_dir) = if dir == Path::new("..") {
             let cwd = self
                 .directory()
                 .ok_or_else(|| ErrorMessage::brief(gettext("Current directory is not set.")))?;
 
             // let's get the parent directory
-            new_dir = Some(
+            (
                 cwd.parent()
                     .ok_or_else(|| ErrorMessage::brief(gettext("No parent directory")))?,
-            );
-            focus_dir = Some(cwd);
+                Some(cwd),
+            )
         } else {
-            focus_dir = None;
-            if dir.is_absolute() {
-                let connection = self
-                    .connection()
-                    .unwrap_or_else(|| ConnectionList::get().home().upcast());
-                new_dir = Some(Directory::try_new(
-                    &connection,
-                    connection.create_path(&dir),
-                )?);
-            } else if dir.starts_with("\\\\") {
-                let connection = ConnectionList::get().smb().ok_or_else(|| {
-                    ErrorMessage::brief(gettext("No SAMBA connection is available"))
-                })?;
-                new_dir = Some(Directory::try_new(
-                    &connection,
-                    connection.create_path(&dir),
-                )?);
-            } else {
-                let child_dir = self
-                    .directory()
-                    .ok_or_else(|| ErrorMessage::brief(gettext("Current directory is not set.")))
-                    .and_then(|cwd| cwd.child(&dir))?;
-                new_dir = Some(child_dir);
-            }
-        }
+            (
+                if dir.is_absolute() {
+                    let connection = self
+                        .connection()
+                        .unwrap_or_else(|| ConnectionList::get().home().upcast());
+                    Directory::new(&connection, &connection.create_uri(&dir))
+                } else if dir.starts_with("\\\\") {
+                    let connection = ConnectionList::get().smb().ok_or_else(|| {
+                        ErrorMessage::brief(gettext("No SAMBA connection is available"))
+                    })?;
+                    Directory::new(&connection, &connection.create_uri(&dir))
+                } else {
+                    self.directory()
+                        .ok_or_else(|| {
+                            ErrorMessage::brief(gettext("Current directory is not set."))
+                        })
+                        .map(|cwd| cwd.child(&dir))?
+                },
+                None,
+            )
+        };
 
-        if let Some(new_dir) = new_dir {
-            self.set_directory_async(&new_dir).await;
-        }
+        self.set_directory_async(&new_dir).await;
 
         // focus the current dir when going back to the parent dir
-        if let Some(focus_dir) = focus_dir {
-            self.focus_file(&focus_dir.file_info().name(), false);
+        if let Some(focus_dir) = focus_dir
+            && let Some(name) = focus_dir.name()
+        {
+            self.focus_file(&name, false);
         }
 
         Ok(())
@@ -2138,7 +2124,7 @@ impl FileList {
         let select_dirs = self.select_dirs();
         for item in self.imp().items_iter() {
             let file = item.file();
-            if !file.is_dotdot() && (select_dirs || file.downcast_ref::<Directory>().is_none()) {
+            if !file.is_dotdot() && (select_dirs || !file.is_directory()) {
                 item.set_selected(!item.selected());
             }
         }
@@ -2220,7 +2206,15 @@ impl FileList {
         if !files.is_empty() {
             let general_options = GeneralOptions::new();
             let confirm_options = ConfirmOptions::new();
-            show_delete_dialog(&window, &files, force, &general_options, &confirm_options).await;
+            show_delete_dialog(
+                &window,
+                self.connection().as_ref(),
+                &files,
+                force,
+                &general_options,
+                &confirm_options,
+            )
+            .await;
         }
     }
 

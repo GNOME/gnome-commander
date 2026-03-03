@@ -19,7 +19,6 @@
 
 use crate::{
     dir::Directory,
-    file::File,
     file_list::list::FileList,
     utils::{
         ErrorMessage, NO_BUTTONS, SenderExt, channel_send_action, dialog_button_box,
@@ -40,8 +39,7 @@ fn create_empty_file(name: &str, dir: &Directory) -> Result<gio::File, ErrorMess
 
     let file = if name.starts_with("/") {
         let con = dir.connection();
-        let path = con.create_path(Path::new(&name));
-        con.create_gfile(&path)
+        gio::File::for_uri(&con.create_uri(Path::new(&name)))
     } else {
         dir.get_child_gfile(Path::new(&name))
     };
@@ -151,9 +149,7 @@ pub async fn show_new_textfile_dialog(parent_window: &gtk::Window, file_list: &F
 
     // focus the created file (if possible)
     if let Some(file) = file
-        && file
-            .parent()
-            .is_some_and(|d| dir.upcast_ref::<File>().file().equal(&d))
+        && file.parent().is_some_and(|d| dir.file().equal(&d))
     {
         dir.file_created(&file.uri());
         if let Some(focus_filename) = file.basename() {

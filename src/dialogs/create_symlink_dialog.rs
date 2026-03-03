@@ -181,8 +181,7 @@ pub async fn show_create_symlink_dialog(
 
         let symlink_file: gio::File = if link_name.starts_with('/') {
             let con = directory.connection();
-            let path = con.create_path(Path::new(&link_name));
-            con.create_gfile(&path)
+            gio::File::for_uri(&con.create_uri(Path::new(&link_name)))
         } else {
             directory.get_child_gfile(Path::new(&link_name))
         };
@@ -192,7 +191,7 @@ pub async fn show_create_symlink_dialog(
             Ok(_) => {
                 if symlink_file
                     .parent()
-                    .is_some_and(|parent| parent.equal(&directory.upcast_ref::<File>().file()))
+                    .is_some_and(|parent| parent.equal(&directory.file()))
                 {
                     directory.file_created(&symlink_file.uri());
                 }

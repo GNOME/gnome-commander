@@ -47,10 +47,7 @@ use crate::{
     dir::Directory,
     file::File,
     file_list::list::FileList,
-    libgcmd::{
-        file_actions::{FileActions, FileActionsExt},
-        file_descriptor::FileDescriptorExt,
-    },
+    libgcmd::file_actions::{FileActions, FileActionsExt},
     main_win::MainWindow,
     options::{ConfirmOptions, GeneralOptions, NetworkOptions, ProgramsOptions},
     plugin_manager::{PluginActionVariant, show_plugin_manager},
@@ -205,7 +202,14 @@ async fn file_chmod(main_win: MainWindow) {
     let file_list = file_selector.file_list();
 
     let files = file_list.selected_files();
-    if !files.is_empty() && show_chmod_dialog(main_win.upcast_ref(), &files).await {
+    if !files.is_empty()
+        && show_chmod_dialog(
+            main_win.upcast_ref(),
+            file_list.connection().as_ref(),
+            &files,
+        )
+        .await
+    {
         file_list.reload().await;
     }
 }
@@ -215,7 +219,14 @@ async fn file_chown(main_win: MainWindow) {
     let file_list = file_selector.file_list();
 
     let files = file_list.selected_files();
-    if !files.is_empty() && show_chown_dialog(main_win.upcast_ref(), &files).await {
+    if !files.is_empty()
+        && show_chown_dialog(
+            main_win.upcast_ref(),
+            file_list.connection().as_ref(),
+            &files,
+        )
+        .await
+    {
         file_list.reload().await;
     }
 }
@@ -327,8 +338,8 @@ async fn do_file_sync_dirs(
         .ok_or_else(|| ErrorMessage::brief(gettext("Nothing to compare")))?;
 
     let mut files = glib::List::new();
-    files.push_back(active_dir.upcast());
-    files.push_back(inactive_dir.upcast());
+    files.push_back(active_dir.to_file());
+    files.push_back(inactive_dir.to_file());
 
     spawn_async(None, &files, &options.differ_cmd.get()).map_err(SpawnError::into_message)
 }
@@ -808,13 +819,7 @@ async fn view_home(main_win: MainWindow) {
         file_list.set_connection(&home, None);
         file_list.goto_directory(Path::new("~"));
     } else {
-        let directory = match Directory::try_new(&home, home.create_path(&glib::home_dir())) {
-            Ok(directory) => directory,
-            Err(_) => {
-                eprintln!("Unexpected: could not get home directory");
-                return;
-            }
-        };
+        let directory = Directory::new(&home, &home.create_uri(&glib::home_dir()));
         file_selector.new_tab_with_dir(&directory, true, true);
     }
 }
@@ -825,14 +830,7 @@ async fn view_root(main_win: MainWindow) {
 
     if file_selector.is_tab_locked(&file_list) {
         if let Some(connection) = file_list.connection() {
-            let directory =
-                match Directory::try_new(&connection, connection.create_path(Path::new("/"))) {
-                    Ok(directory) => directory,
-                    Err(_) => {
-                        eprintln!("Unexpected: could not get root directory");
-                        return;
-                    }
-                };
+            let directory = Directory::new(&connection, &connection.create_uri(Path::new("/")));
             file_selector.new_tab_with_dir(&directory, true, true);
         }
     } else {
@@ -895,7 +893,13 @@ async fn view_in_new_tab(main_win: MainWindow) {
     if let Some(dir) = file_selector
         .file_list()
         .selected_file()
-        .and_downcast::<Directory>()
+        .filter(|file| file.is_directory())
+        .and_then(|file| {
+            file_selector
+                .file_list()
+                .directory()
+                .map(|parent| parent.child(file.name()))
+        })
         .or_else(|| file_selector.file_list().directory())
     {
         file_selector.new_tab_with_dir(&dir, false, false);
@@ -907,7 +911,13 @@ async fn view_in_inactive_tab(main_win: MainWindow) {
     if let Some(dir) = file_selector
         .file_list()
         .selected_file()
-        .and_downcast::<Directory>()
+        .filter(|file| file.is_directory())
+        .and_then(|file| {
+            file_selector
+                .file_list()
+                .directory()
+                .map(|parent| parent.child(file.name()))
+        })
         .or_else(|| file_selector.file_list().directory())
     {
         main_win

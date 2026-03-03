@@ -25,7 +25,6 @@ use super::{
 use crate::{
     dialogs::profiles::{ProfileManager, manage_profiles_dialog::manage_profiles},
     dir::Directory,
-    libgcmd::file_descriptor::FileDescriptorExt,
     main_win::MainWindow,
     options::SearchConfig,
     tags::FileMetadataService,
@@ -190,11 +189,7 @@ impl ProfileManager for SearchProfileManager {
 mod imp {
     use super::*;
     use crate::{
-        connection::{
-            Connection,
-            list::ConnectionList,
-            remote::{ConnectionRemote, ConnectionRemoteExt},
-        },
+        connection::list::ConnectionList,
         dir::Directory,
         file::File,
         file_list::list::FileList,
@@ -203,7 +198,7 @@ mod imp {
         options::{GeneralOptions, utils::remember_window_size},
         select_directory_button::DirectoryButton,
         types::FileSelectorID,
-        utils::{ErrorMessage, dialog_button_box, display_help},
+        utils::{dialog_button_box, display_help},
     };
     use std::cell::{OnceCell, RefCell};
 
@@ -595,32 +590,9 @@ mod imp {
             }
         }
 
-        fn find_connection(&self, file: &gio::File) -> Option<Connection> {
-            let uri = file.uri();
-            ConnectionList::get().iter().find(|con| {
-                con.downcast_ref::<ConnectionRemote>()
-                    .and_then(|con| con.uri())
-                    .is_some_and(|con_uri| uri.starts_with(&*con_uri.to_str()))
-            })
-        }
-
-        fn start_directory(&self, file: &gio::File) -> Result<Directory, ErrorMessage> {
-            let (connection, path) = if let Some(connection) = self.find_connection(file) {
-                let path: std::path::PathBuf = glib::Uri::parse(&file.uri(), glib::UriFlags::NONE)
-                    .map(|uri| uri.path().into())
-                    .unwrap_or("/".into());
-                (connection, path)
-            } else if file.uri_scheme().as_deref() == Some("file") {
-                let path = file
-                    .path()
-                    .ok_or_else(|| ErrorMessage::brief(gettext("Cannot extract a file path")))?;
-                (ConnectionList::get().home().into(), path)
-            } else {
-                return Err(ErrorMessage::brief(gettext(
-                    "Failed to detect a start directory",
-                )));
-            };
-            Directory::try_new(&connection, connection.create_path(&path))
+        fn start_directory(&self, file: &gio::File) -> Directory {
+            let connection = ConnectionList::get().find_by_file(file);
+            Directory::new_from_file(&connection, file.clone())
         }
 
         async fn find(&self) {
@@ -628,13 +600,7 @@ mod imp {
                 return;
             };
 
-            let start_dir = match self.start_directory(&file) {
-                Ok(dir) => dir,
-                Err(error) => {
-                    error.show(self.obj().upcast_ref()).await;
-                    return;
-                }
-            };
+            let start_dir = self.start_directory(&file);
 
             let Some(result_list) = self.result_list.borrow().clone() else {
                 return;
@@ -675,7 +641,7 @@ mod imp {
             result_list
                 .set_connection_async(&start_dir.connection(), None)
                 .await;
-            result_list.set_base_dir(start_dir.upcast_ref::<File>().get_real_path());
+            result_list.set_base_dir(start_dir.path());
 
             let backend = if start_dir.connection().is_local() {
                 SearchBackend::Local
