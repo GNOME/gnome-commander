@@ -709,6 +709,17 @@ mod imp {
             self.directory_handlers
                 .borrow_mut()
                 .push(directory.connect_closure(
+                    "dir-renamed",
+                    false,
+                    glib::closure_local!(
+                        #[weak(rename_to = imp)]
+                        self,
+                        move |d: &Directory| imp.on_directory_renamed(d)
+                    ),
+                ));
+            self.directory_handlers
+                .borrow_mut()
+                .push(directory.connect_closure(
                     "file-created",
                     false,
                     glib::closure_local!(
@@ -773,6 +784,10 @@ mod imp {
             } else {
                 self.obj().goto_directory(Path::new("~"));
             }
+        }
+
+        fn on_directory_renamed(&self, dir: &Directory) {
+            self.obj().emit_by_name::<()>("dir-changed", &[dir]);
         }
 
         fn on_dir_file_created(&self, f: &File) {

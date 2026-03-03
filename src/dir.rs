@@ -31,20 +31,21 @@ use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::{cell::Ref, path::Path};
 
+const SIGNAL_FILE_CREATED: &str = "file-created";
+const SIGNAL_FILE_DELETED: &str = "file-deleted";
+const SIGNAL_FILE_CHANGED: &str = "file-changed";
+const SIGNAL_FILE_RENAMED: &str = "file-renamed";
+const SIGNAL_LIST_OK: &str = "list-ok";
+const SIGNAL_LIST_FAILED: &str = "list-failed";
+const SIGNAL_DIR_DELETED: &str = "dir-deleted";
+const SIGNAL_DIR_RENAMED: &str = "dir-renamed";
+
 mod imp {
     use super::*;
     use std::{
         cell::{Cell, RefCell},
         sync::OnceLock,
     };
-
-    pub const SIGNAL_FILE_CREATED: &str = "file-created";
-    pub const SIGNAL_FILE_DELETED: &str = "file-deleted";
-    pub const SIGNAL_FILE_CHANGED: &str = "file-changed";
-    pub const SIGNAL_FILE_RENAMED: &str = "file-renamed";
-    pub const SIGNAL_LIST_OK: &str = "list-ok";
-    pub const SIGNAL_LIST_FAILED: &str = "list-failed";
-    pub const SIGNAL_DIR_DELETED: &str = "dir-deleted";
 
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::Directory)]
@@ -118,6 +119,7 @@ mod imp {
                         .param_types([glib::Error::static_type()])
                         .build(),
                     glib::subclass::Signal::builder(SIGNAL_DIR_DELETED).build(),
+                    glib::subclass::Signal::builder(SIGNAL_DIR_RENAMED).build(),
                 ]
             })
         }
@@ -209,12 +211,12 @@ impl Directory {
                         .into_iter()
                         .filter_map(|file_info| create_file_from_file_info(&file_info, self)),
                 );
-                self.emit_by_name::<()>("list-ok", &[]);
+                self.emit_by_name::<()>(SIGNAL_LIST_OK, &[]);
                 Ok(())
             }
             Err(error) => {
                 self.set_state(DirectoryState::Empty);
-                self.emit_by_name::<()>("list-failed", &[&error]);
+                self.emit_by_name::<()>(SIGNAL_LIST_FAILED, &[&error]);
                 Err(ErrorMessage::with_error(
                     gettext("Directory listing failed."),
                     &error,
@@ -237,7 +239,7 @@ impl Directory {
         if files.n_items() == 0 || self.is_local() {
             self.relist_files(parent_window, visual).await
         } else {
-            self.emit_by_name::<()>("list-ok", &[]);
+            self.emit_by_name::<()>(SIGNAL_LIST_OK, &[]);
             Ok(())
         }
     }
@@ -295,18 +297,18 @@ impl Directory {
         f.set_parent_directory(Some(self));
         self.files().append(&f);
         self.set_needs_mtime_update(true);
-        self.emit_by_name::<()>("file-created", &[&f]);
+        self.emit_by_name::<()>(SIGNAL_FILE_CREATED, &[&f]);
     }
 
     pub fn file_deleted(&self, uri_str: &str) {
         if let Some(directory) = self.connection().cache_lookup(uri_str) {
             self.connection().remove_from_cache_by_uri(uri_str);
-            directory.emit_by_name::<()>("dir-deleted", &[]);
+            directory.emit_by_name::<()>(SIGNAL_DIR_DELETED, &[]);
         }
 
         if let Some((position, file)) = self.find_file(uri_str) {
             self.set_needs_mtime_update(true);
-            self.emit_by_name::<()>("file-deleted", &[&file]);
+            self.emit_by_name::<()>(SIGNAL_FILE_DELETED, &[&file]);
             self.files().remove(position);
         }
     }
@@ -316,7 +318,7 @@ impl Directory {
             self.set_needs_mtime_update(true);
             match file.refresh_file_info() {
                 Ok(()) => {
-                    self.emit_by_name::<()>("file-changed", &[&file]);
+                    self.emit_by_name::<()>(SIGNAL_FILE_CHANGED, &[&file]);
                 }
                 Err(error) => {
                     debug!(
@@ -334,11 +336,27 @@ impl Directory {
         if file.is_directory()
             && let Some(directory) = self.connection().cache_lookup(old_uri_str)
         {
+            // Reattach monitoring if necessary
+            let monitor_users = directory.imp().monitor_users.get();
+            for _ in 0..monitor_users {
+                directory.cancel_monitoring();
+            }
+            directory.set_file(file.file().clone());
+            for _ in 0..monitor_users {
+                directory.start_monitoring();
+            }
+
+            // Update listed files
+            for file in directory.imp().files.iter::<File>().flatten() {
+                file.set_file(directory.get_child_gfile(&file.path_name()));
+            }
+
             self.connection().remove_from_cache_by_uri(old_uri_str);
             self.connection().add_to_cache(&directory, &file.uri());
+            directory.emit_by_name::<()>(SIGNAL_DIR_RENAMED, &[]);
         }
         self.set_needs_mtime_update(true);
-        self.emit_by_name::<()>("file-renamed", &[file]);
+        self.emit_by_name::<()>(SIGNAL_FILE_RENAMED, &[file]);
     }
 
     /// This function also determines if cached dir is up-to-date (false=yes)

@@ -427,7 +427,8 @@ pub trait FileOps {
     fn rename(&self, new_name: &str) -> Result<(), glib::Error> {
         let old_uri_str = self.uri();
 
-        let new_file = self.file()
+        let new_file = self
+            .file()
             .set_display_name(new_name, gio::Cancellable::NONE)?;
         self.set_file(new_file);
 
