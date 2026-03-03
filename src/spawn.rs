@@ -214,8 +214,7 @@ fn app_get_linked_libs(app_path: &Path) -> std::io::Result<Vec<String>> {
         .output()?
         .stdout
         .lines()
-        .collect::<Result<Vec<String>, _>>()?
-        .into_iter()
+        .map_while(Result::ok)
         .filter_map(|line| line.split_once(' ').map(|p| p.0.trim().to_owned()))
         .collect())
 }
@@ -226,10 +225,7 @@ pub fn app_needs_terminal(file: &File) -> bool {
         .map(|c| c == "application/x-executable" || c == "application/x-executable-binary")
         .unwrap_or_default();
 
-    if is_executable {
-        let Some(app_path) = file.local_path() else {
-            return true;
-        };
+    if is_executable && let Some(app_path) = file.local_path() {
         match app_get_linked_libs(&app_path) {
             Ok(libs) => !libs.into_iter().any(|lib| lib.starts_with("libX11")),
             Err(error) => {

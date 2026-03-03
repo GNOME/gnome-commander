@@ -28,6 +28,7 @@ use crate::{
     dir::Directory,
     file::{File, FileOps},
     file_list::list::{ColumnID, FileList},
+    main_win::ExecutionTarget,
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
     open_file::mime_exec_single,
     options::ProgramsOptions,
@@ -740,9 +741,9 @@ impl FileSelector {
             move |_| {
                 if let Some(command_line) = this
                     .command_line()
-                    .filter(|cl| cl.is_visible() && !cl.is_empty())
+                    .filter(|cl| !cl.is_empty() && cl.terminal_available())
                 {
-                    command_line.exec(true, false);
+                    command_line.process_command(ExecutionTarget::EmbeddedTerminal);
                     true
                 } else {
                     false

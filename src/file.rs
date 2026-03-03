@@ -21,10 +21,7 @@
  */
 
 use crate::{
-    dir::Directory,
-    libgcmd::file_descriptor::FileDescriptor,
-    options::{GeneralOptions, ProgramsOptions},
-    spawn::{SpawnError, app_needs_terminal, run_command_indir},
+    dir::Directory, libgcmd::file_descriptor::FileDescriptor, options::GeneralOptions,
     utils::ErrorMessage,
 };
 use futures::{
@@ -200,18 +197,6 @@ impl File {
             && self
                 .file_info()
                 .boolean(gio::FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE)
-    }
-
-    pub fn execute(&self, options: &ProgramsOptions) -> Result<(), SpawnError> {
-        let mut command = OsString::from("./");
-        command.push(glib::shell_quote(self.file_info().display_name()));
-
-        run_command_indir(
-            self.parent_path().as_deref(),
-            &command,
-            app_needs_terminal(self),
-            options,
-        )
     }
 
     pub fn is_dotdot(&self) -> bool {
