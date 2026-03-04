@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use super::profiles::ProfileManager;
+use super::ProfileManager;
 use crate::utils::{SenderExt, WindowExt, dialog_button_box, display_help};
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};

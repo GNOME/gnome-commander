@@ -22,18 +22,18 @@
 
 use crate::{
     connection::{
-        connection::{Connection, ConnectionExt, ConnectionInterface},
-        list::ConnectionList,
+        Connection, ConnectionExt, ConnectionInterface, list::ConnectionList,
         remote::ConnectionRemote,
     },
     dir::Directory,
     file::File,
     file_list::list::{ColumnID, FileList},
+    main_win::ExecutionTarget,
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
     open_file::mime_exec_single,
-    options::options::ProgramsOptions,
+    options::ProgramsOptions,
     tab_label::TabLabel,
-    tags::tags::FileMetadataService,
+    tags::FileMetadataService,
     types::MiddleMouseButtonMode,
     user_actions::UserAction,
     utils::{ALT, CONTROL, CONTROL_SHIFT, NO_MOD},
@@ -53,7 +53,7 @@ mod imp {
         connection_bar::ConnectionBar,
         dialogs::manage_bookmarks_dialog::bookmark_directory,
         directory_indicator::DirectoryIndicator,
-        options::options::GeneralOptions,
+        options::GeneralOptions,
         tab_label::TabLabel,
         utils::get_modifiers_state,
         weak_set::WeakSet,
@@ -751,9 +751,9 @@ impl FileSelector {
             move |_| {
                 if let Some(command_line) = this
                     .command_line()
-                    .filter(|cl| cl.is_visible() && !cl.is_empty())
+                    .filter(|cl| !cl.is_empty() && cl.terminal_available())
                 {
-                    command_line.exec(true, false);
+                    command_line.process_command(ExecutionTarget::EmbeddedTerminal);
                     true
                 } else {
                     false

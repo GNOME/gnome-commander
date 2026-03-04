@@ -66,6 +66,8 @@ fn create_list_progress_dialog(parent_window: &gtk::Window) -> ProgressDialog {
         move |_| dialog.close()
     ));
 
+    dialog.present();
+
     ProgressDialog {
         dialog,
         label,

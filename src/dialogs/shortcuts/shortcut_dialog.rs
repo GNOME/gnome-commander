@@ -270,7 +270,7 @@ mod imp {
                 // Cancel capturing
             } else {
                 self.set_shortcut(Shortcut {
-                    key,
+                    key: key.to_upper(),
                     state: modifier,
                 });
             }

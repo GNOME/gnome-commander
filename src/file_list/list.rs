@@ -25,10 +25,7 @@ use super::{
     item::FileListItem, popup::file_popup_menu, quick_search::QuickSearch,
 };
 use crate::{
-    connection::{
-        connection::{Connection, ConnectionExt, ConnectionInterface},
-        list::ConnectionList,
-    },
+    connection::{Connection, ConnectionExt, ConnectionInterface, list::ConnectionList},
     dialogs::{delete_dialog::show_delete_dialog, rename_popover::show_rename_popover},
     dir::{Directory, DirectoryState},
     file::File,
@@ -41,8 +38,8 @@ use crate::{
     libgcmd::file_descriptor::FileDescriptorExt,
     main_win::MainWindow,
     open_connection::open_connection,
-    options::options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
-    tags::tags::FileMetadataService,
+    options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
+    tags::FileMetadataService,
     types::{ExtensionDisplayMode, GraphicalLayoutMode, SizeDisplayMode},
     user_actions::UserAction,
     utils::{ErrorMessage, size_to_string, time_to_string},
@@ -67,7 +64,7 @@ mod imp {
             },
             popup::list_popup_menu,
         },
-        tags::tags::FileMetadataService,
+        tags::FileMetadataService,
         transfer::{copy_files, link_files, move_files},
         types::{
             ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GnomeCmdTransferType,
@@ -156,7 +153,8 @@ mod imp {
         pub store: gio::ListStore,
 
         pub sort_model: gtk::SortListModel,
-        pub sorting: Cell<Option<(ColumnID, gtk::SortType)>>,
+
+        focus_controller: gtk::EventControllerFocus,
 
         #[property(get)]
         pub selection: gtk::SingleSelection,
@@ -268,7 +266,8 @@ mod imp {
                 store: gio::ListStore::new::<FileListItem>(),
 
                 sort_model: Default::default(),
-                sorting: Default::default(),
+
+                focus_controller: gtk::EventControllerFocus::new(),
 
                 selection: Default::default(),
                 view: gtk::ColumnView::builder()
@@ -326,6 +325,7 @@ mod imp {
                 .build();
             capture_event_box.append(&scrolled_window);
             capture_event_box.set_parent(&*fl);
+            capture_event_box.add_controller(self.focus_controller.clone());
 
             for (column_id, title, factory, sorter) in [
                 (ColumnID::COLUMN_ICON, "", create_icon_factory(), None),
@@ -399,16 +399,29 @@ mod imp {
             );
 
             self.sort_model.set_sorter(Some(&sorter));
-            self.view
-                .sort_by_column(self.columns.borrow().get(1), gtk::SortType::Ascending);
-            self.sorting
-                .set(Some((ColumnID::COLUMN_NAME, gtk::SortType::Ascending)));
+            fl.set_sorting(ColumnID::COLUMN_NAME, gtk::SortType::Ascending);
 
             self.selection.connect_selected_notify(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
                 move |_| imp.cursor_changed()
             ));
+
+            let quick_search_controller = gtk::EventControllerKey::builder()
+                .propagation_phase(gtk::PropagationPhase::Capture)
+                .build();
+            quick_search_controller.connect_key_pressed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                #[upgrade_or]
+                glib::Propagation::Proceed,
+                move |_, key, _, state| imp.key_pressed_quick_search(key, state)
+            ));
+            capture_event_box.connect_root_notify(move |this| {
+                if let Some(root) = this.root() {
+                    root.add_controller(quick_search_controller.clone());
+                }
+            });
 
             let key_capture_controller = gtk::EventControllerKey::builder()
                 .propagation_phase(gtk::PropagationPhase::Capture)
@@ -903,6 +916,24 @@ mod imp {
             }
         }
 
+        fn key_pressed_quick_search(
+            &self,
+            key: gdk::Key,
+            state: gdk::ModifierType,
+        ) -> glib::Propagation {
+            if self.focus_controller.contains_focus() && is_quicksearch_starting_character(key) {
+                if is_quicksearch_starting_modifier(self.quick_search_shortcut.get(), state) {
+                    self.obj().show_quick_search(Some(key));
+                    return glib::Propagation::Stop;
+                } else if let Some(text) = text_typing(key, state) {
+                    self.obj().emit_by_name::<()>("cmdline-append", &[&text]);
+                    return glib::Propagation::Stop;
+                }
+            }
+
+            glib::Propagation::Proceed
+        }
+
         fn key_pressed_capture(
             &self,
             key: gdk::Key,
@@ -1018,75 +1049,75 @@ mod imp {
                     let _ = self
                         .obj()
                         .activate_action(UserAction::FileProperties.name(), None);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (ALT, gdk::Key::KP_Add) => {
                     self.obj().toggle_files_with_same_extension(true);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (ALT, gdk::Key::KP_Subtract) => {
                     self.obj().toggle_files_with_same_extension(false);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (SHIFT, gdk::Key::F6) => {
                     let this = self.obj().clone();
                     glib::spawn_future_local(async move {
                         this.show_rename_dialog().await;
                     });
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (SHIFT, gdk::Key::F10) => {
                     self.obj().show_file_popup(None);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (SHIFT, gdk::Key::Delete | gdk::Key::KP_Delete) => {
                     let this = self.obj().clone();
                     glib::spawn_future_local(async move {
                         this.show_delete_dialog(true).await;
                     });
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (ALT_SHIFT, gdk::Key::Return | gdk::Key::KP_Enter) => {
                     self.obj().show_visible_tree_sizes();
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (CONTROL, gdk::Key::F3) => {
                     self.obj().sort_by(ColumnID::COLUMN_NAME);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (CONTROL, gdk::Key::F4) => {
                     self.obj().sort_by(ColumnID::COLUMN_EXT);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (CONTROL, gdk::Key::F5) => {
                     self.obj().sort_by(ColumnID::COLUMN_DATE);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (CONTROL, gdk::Key::F6) => {
                     self.obj().sort_by(ColumnID::COLUMN_SIZE);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::KP_Add | gdk::Key::plus | gdk::Key::equal) => {
                     let this = self.obj().clone();
                     glib::spawn_future_local(async move {
                         select_by_pattern(&this, true).await;
                     });
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::KP_Subtract | gdk::Key::minus) => {
                     let this = self.obj().clone();
                     glib::spawn_future_local(async move {
                         select_by_pattern(&this, false).await;
                     });
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::KP_Multiply) => {
                     self.obj().invert_selection();
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::KP_Divide) => {
                     self.obj().restore_selection();
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::Insert | gdk::Key::KP_Insert) => {
                     self.obj().toggle();
@@ -1095,32 +1126,21 @@ mod imp {
                     {
                         self.obj().select_row(position + 1);
                     }
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::Delete | gdk::Key::KP_Delete) => {
                     let this = self.obj().clone();
                     glib::spawn_future_local(async move {
                         this.show_delete_dialog(false).await;
                     });
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::Menu) => {
                     self.obj().show_file_popup(None);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
-                _ => {}
+                _ => glib::Propagation::Proceed,
             }
-
-            if is_quicksearch_starting_character(key) {
-                if is_quicksearch_starting_modifier(self.quick_search_shortcut.get(), state) {
-                    self.obj().show_quick_search(Some(key));
-                    return glib::Propagation::Stop;
-                } else if let Some(text) = text_typing(key, state) {
-                    self.obj().emit_by_name::<()>("cmdline-append", &[&text]);
-                    return glib::Propagation::Stop;
-                }
-            }
-            glib::Propagation::Proceed
         }
 
         fn get_modifiers_state(&self) -> Option<gdk::ModifierType> {
@@ -1152,20 +1172,23 @@ mod imp {
                     self.obj()
                         .emit_by_name::<()>("file-activated", &[&item.file()]);
                 } else if n_press == 1 && button == 1 {
-                    if state == Some(SHIFT) {
-                        if let Some(position) = self
-                            .items_iter()
-                            .position(|i| &i == item)
-                            .and_then(|p| p.try_into().ok())
-                        {
-                            self.select_with_mouse(position);
+                    match state {
+                        Some(SHIFT) => {
+                            if let Some(position) = self
+                                .items_iter()
+                                .position(|i| &i == item)
+                                .and_then(|p| p.try_into().ok())
+                            {
+                                self.select_with_mouse(position);
+                            }
                         }
-                    } else if state == Some(CONTROL) {
-                        item.toggle_selected();
-                    } else if state == Some(NO_MOD) {
-                        if !item.selected() && self.left_mouse_button_unselects.get() {
-                            self.obj().unselect_all();
+                        Some(CONTROL) => item.toggle_selected(),
+                        Some(NO_MOD) => {
+                            if !item.selected() && self.left_mouse_button_unselects.get() {
+                                self.obj().unselect_all();
+                            }
                         }
+                        _ => {}
                     }
                 } else if n_press == 1 && button == 3 && !item.file().is_dotdot() {
                     if self.right_mouse_button_mode.get() == RightMouseButtonMode::Selects {
@@ -1739,24 +1762,28 @@ impl FileList {
     }
 
     pub fn sorting(&self) -> (ColumnID, gtk::SortType) {
-        let cv_sorter = self
-            .view()
-            .sorter()
-            .and_downcast::<gtk::ColumnViewSorter>()
-            .unwrap();
+        let cv_sorter = self.view().sorter().and_downcast::<gtk::ColumnViewSorter>();
+        let sort_column = cv_sorter
+            .as_ref()
+            .and_then(|sorter| sorter.primary_sort_column());
+
         let col = self
             .imp()
             .columns
             .borrow()
             .iter()
-            .position(|c| Some(c) == cv_sorter.primary_sort_column().as_ref())
+            .position(|c| sort_column.as_ref() == Some(c))
             .and_then(ColumnID::from_repr)
             .unwrap_or(ColumnID::COLUMN_NAME);
-        (col, cv_sorter.primary_sort_order())
+        let direction = cv_sorter
+            .map(|sorter| sorter.primary_sort_order())
+            .unwrap_or(col.default_sort_direction());
+        (col, direction)
     }
 
     pub fn set_sorting(&self, column: ColumnID, order: gtk::SortType) {
         if let Some(column) = self.imp().columns.borrow().get(column as usize) {
+            self.view().sort_by_column(None, order);
             self.view().sort_by_column(Some(column), order);
         }
     }
@@ -2296,22 +2323,16 @@ impl FileList {
     }
 
     fn sort_by(&self, col: ColumnID) {
-        if let Some(column) = self.imp().columns.borrow().get(col as usize) {
-            let cv_sorter = self
-                .view()
-                .sorter()
-                .and_downcast::<gtk::ColumnViewSorter>()
-                .unwrap();
-            let direction = if cv_sorter.primary_sort_column().as_ref() == Some(column) {
-                match cv_sorter.primary_sort_order() {
-                    gtk::SortType::Ascending => gtk::SortType::Descending,
-                    _ => gtk::SortType::Ascending,
-                }
-            } else {
-                col.default_sort_direction()
-            };
-            self.view().sort_by_column(Some(column), direction);
-        }
+        let (current_col, current_direction) = self.sorting();
+        let direction = if current_col == col {
+            match current_direction {
+                gtk::SortType::Ascending => gtk::SortType::Descending,
+                _ => gtk::SortType::Ascending,
+            }
+        } else {
+            col.default_sort_direction()
+        };
+        self.set_sorting(col, direction);
     }
 
     pub fn show_files(&self, dir: &Directory) {
@@ -2353,6 +2374,8 @@ impl FileList {
     where
         F: Fn(&Self, &Connection) + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "con-changed",
             false,
@@ -2364,6 +2387,8 @@ impl FileList {
     where
         F: Fn(&Self, &Directory) + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "dir-changed",
             false,
@@ -2375,6 +2400,8 @@ impl FileList {
     where
         F: Fn(&Self) + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "files-changed",
             false,
@@ -2386,6 +2413,8 @@ impl FileList {
     where
         F: Fn(&Self, &File) + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "file-activated",
             false,
@@ -2397,6 +2426,8 @@ impl FileList {
     where
         F: Fn(&Self, &str) + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "cmdline-append",
             false,
@@ -2408,6 +2439,8 @@ impl FileList {
     where
         F: Fn(&Self) -> bool + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "cmdline-execute",
             false,
@@ -2419,6 +2452,8 @@ impl FileList {
     where
         F: Fn(&Self, u32, Option<File>) + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "list-clicked",
             false,
@@ -2579,11 +2614,13 @@ fn create_icon_factory() -> gtk::ListItemFactory {
             let stack = gtk::Stack::builder().hexpand(true).build();
             stack.add_css_class("cell");
 
-            let image = gtk::Image::builder()
+            let image = gtk::Image::builder().build();
+            let overlay = gtk::Overlay::builder()
+                .child(&image)
                 .hexpand(true)
                 .halign(gtk::Align::Center)
                 .build();
-            stack.add_named(&image, Some("image"));
+            stack.add_named(&overlay, Some("overlay"));
 
             let label = gtk::Label::builder()
                 .hexpand(true)
@@ -2596,42 +2633,61 @@ fn create_icon_factory() -> gtk::ListItemFactory {
         }
     });
     factory.connect_bind(move |_, obj| {
-        let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() else {
-            return;
-        };
-        let Some(stack) = list_item.child().and_downcast::<gtk::Stack>() else {
-            return;
-        };
-        let Some(item) = list_item.item().and_downcast::<FileListItem>() else {
-            return;
-        };
-        let image = stack
-            .child_by_name("image")
-            .and_downcast::<gtk::Image>()
-            .unwrap();
-        let label = stack
-            .child_by_name("label")
-            .and_downcast::<gtk::Label>()
-            .unwrap();
+        if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>()
+            && let Some(stack) = list_item.child().and_downcast::<gtk::Stack>()
+            && let Some(item) = list_item.item().and_downcast::<FileListItem>()
+            && let Some(overlay) = stack
+                .child_by_name("overlay")
+                .and_downcast::<gtk::Overlay>()
+            && let Some(image) = overlay.child().and_downcast::<gtk::Image>()
+            && let Some(label) = stack.child_by_name("label").and_downcast::<gtk::Label>()
+        {
+            image.clear();
+            label.set_text("");
 
-        image.clear();
-        label.set_text("");
+            // Remove existing overlay image if any
+            if let Some(mut child) = overlay.first_accessible_child() {
+                loop {
+                    if let Some(widget) = child.downcast_ref::<gtk::Widget>()
+                        && widget != &image
+                    {
+                        overlay.remove_overlay(widget);
+                        break;
+                    }
 
-        let file = item.file();
-
-        let use_ls_colors = color_settings.boolean("use-ls-colors");
-        apply_css(&item, use_ls_colors, label.upcast_ref());
-
-        match global_options.graphical_layout_mode.get() {
-            GraphicalLayoutMode::Text => {
-                label.set_text(imp::type_string(file.file_info().file_type()));
-                stack.set_visible_child(&label);
-            }
-            mode => {
-                if let Some(icon) = icon_cache.file_icon(&file, mode) {
-                    image.set_from_gicon(&icon);
+                    child = match child.next_accessible_sibling() {
+                        Some(child) => child,
+                        None => break,
+                    }
                 }
-                stack.set_visible_child(&image);
+            }
+
+            let file = item.file();
+            if !file.is_dotdot() && file.file_info().is_symlink() {
+                overlay.add_overlay(
+                    &gtk::Image::builder()
+                        .gicon(icon_cache.symlink_overlay())
+                        .pixel_size(9)
+                        .halign(gtk::Align::End)
+                        .valign(gtk::Align::End)
+                        .build(),
+                );
+            }
+
+            let use_ls_colors = color_settings.boolean("use-ls-colors");
+            apply_css(&item, use_ls_colors, label.upcast_ref());
+
+            match global_options.graphical_layout_mode.get() {
+                GraphicalLayoutMode::Text => {
+                    label.set_text(imp::type_string(file.file_info().file_type()));
+                    stack.set_visible_child(&label);
+                }
+                mode => {
+                    if let Some(icon) = icon_cache.file_icon(&file, mode) {
+                        image.set_from_gicon(&icon);
+                    }
+                    stack.set_visible_child(&overlay);
+                }
             }
         }
     });

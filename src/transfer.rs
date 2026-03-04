@@ -29,7 +29,7 @@ use crate::{
     },
     dir::Directory,
     libgcmd::file_descriptor::FileDescriptorExt,
-    options::options::GeneralOptions,
+    options::GeneralOptions,
     path::GnomeCmdPath,
     types::{ConfirmOverwriteMode, GnomeCmdTransferType, SizeDisplayMode},
     utils::{ErrorMessage, nice_size, pending, time_to_string},

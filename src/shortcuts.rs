@@ -21,7 +21,7 @@
  */
 
 use crate::{debug::debug, main_win::MainWindow, user_actions::UserAction};
-use gtk::{gdk, glib::translate::FromGlib, prelude::*};
+use gtk::{gdk, prelude::*};
 use std::{
     cell::RefCell,
     collections::{BTreeMap, BTreeSet},
@@ -340,7 +340,6 @@ impl Shortcuts {
                 .borrow()
                 .action
                 .iter()
-                .filter(|(shortcut, _call)| shortcut.key.is_upper())
                 .filter(|(shortcut, _call)| !shortcut.is_mandatory())
                 .filter_map(|(shortcut, call)| {
                     ShortcutVariant::from_shortcut(
@@ -350,7 +349,10 @@ impl Shortcuts {
                     )
                     .map(|sv| sv.to_variant())
                     .or_else(|| {
-                        eprintln!("Shortcut {:?} cannot be saved. Skipping", shortcut);
+                        eprintln!(
+                            "Shortcut {} cannot be saved. Skipping",
+                            gtk::accelerator_name(shortcut.key, shortcut.state)
+                        );
                         None
                     })
                 }),
@@ -444,16 +446,6 @@ fn parse_key(name: &str) -> Option<gdk::Key> {
     }
     // Old name
     if let Some(key) = parse_key_from_old_name(name) {
-        return Some(key);
-    }
-    // Single ASCII character
-    if let Some(key) = Some(name)
-        .map(|s| s.as_bytes())
-        .filter(|b| b.len() == 1)
-        .and_then(|b| b.first())
-        .filter(|b| b.is_ascii_alphanumeric())
-        .map(|b| unsafe { gdk::Key::from_glib(*b as u32) })
-    {
         return Some(key);
     }
     None

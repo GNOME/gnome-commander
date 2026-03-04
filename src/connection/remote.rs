@@ -20,7 +20,7 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::{Connection, ConnectionExt, ConnectionInterface};
+use super::{Connection, ConnectionExt, ConnectionInterface};
 use crate::{
     debug::debug,
     path::{GnomeCmdPath, resolve_relative_uri},
@@ -32,7 +32,7 @@ use std::{future::Future, path::Path, pin::Pin};
 
 mod imp {
     use super::*;
-    use crate::connection::connection::ConnectionImpl;
+    use crate::connection::ConnectionImpl;
     use std::cell::RefCell;
 
     #[derive(Default)]

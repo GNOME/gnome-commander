@@ -21,7 +21,7 @@ use crate::{
     file_list::list::FileList,
     filter::{Filter, PatternType},
     history_entry::HistoryEntry,
-    options::options::SearchConfig,
+    options::SearchConfig,
     utils::{ErrorMessage, NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
 };
 use gettextrs::gettext;

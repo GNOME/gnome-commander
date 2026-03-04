@@ -21,15 +21,11 @@
  */
 
 use crate::{
-    connection::{
-        connection::{Connection, ConnectionInterface},
-        list::ConnectionList,
-    },
+    connection::{Connection, ConnectionInterface, list::ConnectionList},
     dir::Directory,
     libgcmd::file_descriptor::{FileDescriptor, FileDescriptorExt},
-    options::options::{GeneralOptions, ProgramsOptions},
+    options::GeneralOptions,
     path::GnomeCmdPath,
-    spawn::{SpawnError, app_needs_terminal, run_command_indir},
     utils::ErrorMessage,
 };
 use futures::{
@@ -240,18 +236,6 @@ impl File {
             file_info.file_type() == gio::FileType::Regular
                 && file_info.boolean(gio::FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE)
         }
-    }
-
-    pub fn execute(&self, options: &ProgramsOptions) -> Result<(), SpawnError> {
-        let mut command = OsString::from("./");
-        command.push(glib::shell_quote(self.file_info().display_name()));
-
-        run_command_indir(
-            self.get_dirname().as_deref(),
-            &command,
-            app_needs_terminal(self),
-            options,
-        )
     }
 
     pub fn rename(&self, new_name: &str) -> Result<(), glib::Error> {

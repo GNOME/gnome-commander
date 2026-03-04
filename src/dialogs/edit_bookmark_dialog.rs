@@ -21,10 +21,7 @@
  */
 
 use crate::{
-    connection::{
-        bookmark::Bookmark,
-        connection::{Connection, ConnectionExt},
-    },
+    connection::{Connection, ConnectionExt, bookmark::Bookmark},
     utils::{NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
 };
 use gettextrs::gettext;

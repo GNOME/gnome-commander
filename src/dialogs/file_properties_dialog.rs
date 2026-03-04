@@ -20,7 +20,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::{file::File, tags::tags::FileMetadataService, utils::SenderExt};
+use crate::{file::File, tags::FileMetadataService, utils::SenderExt};
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
@@ -29,10 +29,10 @@ mod imp {
     use crate::{
         chmod_component::ChmodComponent,
         chown_component::ChownComponent,
-        connection::{connection::ConnectionExt, device::ConnectionDevice},
+        connection::{ConnectionExt, device::ConnectionDevice},
         dir::Directory,
         file_metainfo_view::FileMetainfoView,
-        tags::{file_metadata::FileMetadata, tags::FileMetadataService},
+        tags::file_metadata::FileMetadata,
         types::SizeDisplayMode,
         utils::{
             ErrorMessage, WindowExt, attributes_bold, dialog_button_box, display_help, nice_size,

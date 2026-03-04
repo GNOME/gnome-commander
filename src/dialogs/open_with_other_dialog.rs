@@ -18,22 +18,15 @@
  */
 
 use crate::{
-    dir::Directory,
     file::File,
-    options::options::ProgramsOptions,
-    spawn::run_command_indir,
+    main_win::{ExecutionTarget, MainWindow},
     utils::{ErrorMessage, NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
 };
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
-use std::{ffi::OsString, rc::Rc};
+use std::ffi::OsString;
 
-pub async fn show_open_with_other_dialog(
-    parent_window: &gtk::Window,
-    files: &glib::List<File>,
-    working_directory: Option<Directory>,
-    options: Rc<ProgramsOptions>,
-) {
+pub async fn show_open_with_other_dialog(parent_window: &MainWindow, files: &glib::List<File>) {
     let dialog = gtk::Window::builder()
         .transient_for(parent_window)
         .title(gettext("Open with other…"))
@@ -115,19 +108,18 @@ pub async fn show_open_with_other_dialog(
             }
         }
 
-        let working_directory = working_directory
-            .as_ref()
-            .and_then(|w| w.upcast_ref::<File>().get_real_path());
-        match run_command_indir(
-            working_directory.as_deref(),
-            &full_command,
-            needs_terminal.is_active(),
-            &options,
-        ) {
-            Ok(_) => break,
-            Err(error) => {
-                error.into_message().show(dialog.upcast_ref()).await;
-            }
+        if parent_window
+            .execute_command(
+                &full_command.to_string_lossy(),
+                if needs_terminal.is_active() {
+                    ExecutionTarget::AnyTerminal
+                } else {
+                    ExecutionTarget::Background
+                },
+            )
+            .await
+        {
+            break;
         }
     }
     dialog.close();

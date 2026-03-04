@@ -21,14 +21,14 @@
  */
 
 use super::{
+    Connection, ConnectionExt,
     bookmark::Bookmark,
-    connection::{Connection, ConnectionExt},
     device::ConnectionDevice,
     home::ConnectionHome,
     remote::{ConnectionRemote, ConnectionRemoteExt},
     smb::ConnectionSmb,
 };
-use crate::{debug::debug, options::options::GeneralOptions, options::types::WriteResult};
+use crate::{debug::debug, options::GeneralOptions, options::types::WriteResult};
 use gtk::{
     gio,
     glib::{self, subclass::prelude::*},

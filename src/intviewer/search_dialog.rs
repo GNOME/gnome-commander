@@ -18,7 +18,7 @@
  */
 
 use crate::options::{
-    options::ViewerOptions,
+    ViewerOptions,
     types::{StrvOption, WriteResult},
 };
 use gettextrs::gettext;

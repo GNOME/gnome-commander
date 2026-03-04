@@ -25,11 +25,11 @@ use super::{
 };
 use crate::{
     connection::history::History,
-    dialogs::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager},
+    dialogs::profiles::{ProfileManager, manage_profiles_dialog::manage_profiles},
     file::File,
     file_list::list::FileList,
-    options::options::{GeneralOptions, ProgramsOptions},
-    tags::tags::FileMetadataService,
+    options::{GeneralOptions, ProgramsOptions},
+    tags::FileMetadataService,
     utils::{size_to_string, time_to_string},
 };
 use gettextrs::gettext;

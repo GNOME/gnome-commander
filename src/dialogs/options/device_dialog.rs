@@ -18,7 +18,7 @@
  */
 
 use crate::{
-    connection::{connection::ConnectionExt, device::ConnectionDevice},
+    connection::{ConnectionExt, device::ConnectionDevice},
     select_directory_button::DirectoryButton,
     select_icon_button::IconButton,
     utils::{ErrorMessage, SenderExt, WindowExt, dialog_button_box, display_help},

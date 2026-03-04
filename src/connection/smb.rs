@@ -20,7 +20,7 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::{Connection, ConnectionExt, ConnectionInterface};
+use super::{Connection, ConnectionExt, ConnectionInterface};
 use crate::{
     debug::debug,
     path::GnomeCmdPath,
@@ -38,7 +38,7 @@ use std::{
 
 mod imp {
     use super::*;
-    use crate::connection::connection::ConnectionImpl;
+    use crate::connection::ConnectionImpl;
 
     #[derive(Default)]
     pub struct ConnectionSmb {
