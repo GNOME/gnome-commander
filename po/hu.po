@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
 "POT-Creation-Date: 2026-03-03 06:31+0000\n"
-"PO-Revision-Date: 2026-03-05 23:57+0100\n"
+"PO-Revision-Date: 2026-03-06 12:00+0100\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -95,9 +95,6 @@ msgid "Panel font"
 msgstr "Panel betűkészlete"
 
 #: data/org.gnome.gnome-commander.gschema.xml:72
-#| msgid ""
-#| "A custom font that will be used for the file panes if the “Use default "
-#| "font” option is turned off."
 msgid ""
 "A custom font that will be used for the file panels if the “Use default "
 "font” option is turned off."
@@ -110,8 +107,6 @@ msgid "Filesize display mode"
 msgstr "Fájlméretek megjelenítési módja"
 
 #: data/org.gnome.gnome-commander.gschema.xml:79
-#| msgid ""
-#| "Defines how the filesize will be displayed in the associated pane column."
 msgid ""
 "Defines how the filesize will be displayed in the associated panel column."
 msgstr ""
@@ -124,9 +119,6 @@ msgid "Permission display mode"
 msgstr "A jogosultságok megjelenítési módja"
 
 #: data/org.gnome.gnome-commander.gschema.xml:86
-#| msgid ""
-#| "Defines how the file permission will be displayed in the associated pane "
-#| "column."
 msgid ""
 "Defines how the file permission will be displayed in the associated panel "
 "column."
@@ -139,7 +131,6 @@ msgid "Graphical layout mode"
 msgstr "Grafikus elrendezési mód"
 
 #: data/org.gnome.gnome-commander.gschema.xml:93
-#| msgid "Defines the icon style of files and folders in the file panes."
 msgid "Defines the icon style of files and folders in the file panels."
 msgstr "Meghatározza a fájlok és mappák ikonstílusát a fájlpaneleken."
 
@@ -148,7 +139,6 @@ msgid "List row height"
 msgstr "Lista sormagassága"
 
 #: data/org.gnome.gnome-commander.gschema.xml:100
-#| msgid "Defines the height of a row in the file pane."
 msgid "Defines the height of a row in the file panel."
 msgstr "Meghatározza a sorok magasságát a fájlpanelen."
 
@@ -167,7 +157,6 @@ msgid "Date format"
 msgstr "Dátumformátum"
 
 #: data/org.gnome.gnome-commander.gschema.xml:112
-#| msgid "Format of the date in the file pane."
 msgid "Format of the date in the file panel."
 msgstr "A dátumformátum a fájlpanelen."
 
@@ -176,7 +165,6 @@ msgid "List font"
 msgstr "Lista betűkészlete"
 
 #: data/org.gnome.gnome-commander.gschema.xml:119
-#| msgid "The font in the file panes."
 msgid "The font in the file panels."
 msgstr "A betűkészlet a fájlpaneleken."
 
@@ -233,7 +221,6 @@ msgid "Icon size"
 msgstr "Ikonméret"
 
 #: data/org.gnome.gnome-commander.gschema.xml:159
-#| msgid "Size of icons in the file pane."
 msgid "Size of icons in the file panel."
 msgstr "Az ikonok mérete a fájlpanelen."
 
@@ -282,16 +269,14 @@ msgid ""
 "Determines the height of file panels in pixels. Remaining vertical space is "
 "allocated for the command line."
 msgstr ""
-"Meghatározza a fájlpanelek magasságát képpontokban. A fennmaradó függőleges he"
-"ly a parancssor számára van lefoglalva."
+"Meghatározza a fájlpanelek magasságát képpontokban. A fennmaradó függőleges "
+"hely a parancssor számára van lefoglalva."
 
 #: data/org.gnome.gnome-commander.gschema.xml:192
 msgid "Horizontal orientation"
 msgstr "Vízszintes elhelyezés"
 
 #: data/org.gnome.gnome-commander.gschema.xml:193
-#| msgid ""
-#| "Defines if the orientation of the file panes should be horizontal or not."
 msgid ""
 "Defines if the orientation of the file panels should be horizontal or not."
 msgstr ""
@@ -614,10 +599,6 @@ msgid "Treat symbolic links as regular files"
 msgstr "Szimbolikus hivatkozások szabályos fájlokként való kezelése"
 
 #: data/org.gnome.gnome-commander.gschema.xml:437
-#| msgid ""
-#| "This option defines if symbolic links should be treated as regular files. "
-#| "In the file pane they are listed between other files and not at the top "
-#| "if their target is not existing."
 msgid ""
 "This option defines if symbolic links should be treated as regular files. In "
 "the file panel they are listed between other files and not at the top if "
@@ -632,9 +613,6 @@ msgid "Select directories when all is marked"
 msgstr "Könyvtárak kijelölése az összes kijelölésekor"
 
 #: data/org.gnome.gnome-commander.gschema.xml:445
-#| msgid ""
-#| "This option defines if directories will be marked when all items in a "
-#| "file pane should be marked."
 msgid ""
 "This option defines if directories will be marked when all items in a file "
 "panel should be marked."
@@ -802,7 +780,6 @@ msgstr ""
 "kifejezés keresések előzményeit."
 
 #: data/org.gnome.gnome-commander.gschema.xml:564
-#| msgid "List of search tool profiles"
 msgid "Legacy search tool profiles"
 msgstr "Örökölt keresőeszköz-profilok"
 
@@ -811,8 +788,8 @@ msgid ""
 "This setting is only present for backwards compatibility and will be removed "
 "in future."
 msgstr ""
-"Ez a beállítás csak a visszafelé kompatibilitás miatt van jelen, és a jövőben "
-"eltávolításra kerül."
+"Ez a beállítás csak a visszafelé kompatibilitás miatt van jelen, és a "
+"jövőben eltávolításra kerül."
 
 #: data/org.gnome.gnome-commander.gschema.xml:571
 msgid "List of search tool profiles"
@@ -1485,17 +1462,10 @@ msgstr ""
 "bejegyzés a bővítmény fájlnevét jelenti."
 
 #: data/org.gnome.gnome-commander.metainfo.xml.in:8
-#| msgid "Two-pane file manager"
 msgid "Dual-panel file manager"
 msgstr "Kétpaneles fájlkezelő"
 
 #: data/org.gnome.gnome-commander.metainfo.xml.in:10
-#| msgid ""
-#| "GNOME Commander is a “two-pane” graphical file manager for the GNOME "
-#| "desktop environment. It features separate tabs for each pane, setting up "
-#| "custom device buttons, bookmark manager, fully integrated commandline, "
-#| "file quick search, an internal image viewer, a powerful batch renaming "
-#| "tool, and FTP and Samba access."
 msgid ""
 "GNOME Commander is a “dual-panel” graphical file manager for the GNOME "
 "desktop environment. It features separate tabs for each panel, setting up "
@@ -3865,8 +3835,8 @@ msgstr "Kép"
 #: plugins/exiv2/exiv2-plugin.cc:789
 msgid "A plugin for extracting metadata from images using libexiv2 library."
 msgstr ""
-"Egy bővítmény a képekből származó metaadatok kinyeréséhez a libexiv2 programkö"
-"nyvtár használatával."
+"Egy bővítmény a képekből származó metaadatok kinyeréséhez a libexiv2 "
+"programkönyvtár használatával."
 
 #: plugins/fileroller/file-roller-plugin.cc:113
 #, c-format
@@ -4345,8 +4315,8 @@ msgstr "Dokumentum"
 msgid ""
 "A plugin for extracting metadata from document files using libgsf library."
 msgstr ""
-"Egy bővítmény a dokumentumfájlokból származó metaadatok kinyeréséhez a libgsf "
-"programkönyvtár használatával."
+"Egy bővítmény a dokumentumfájlokból származó metaadatok kinyeréséhez a "
+"libgsf programkönyvtár használatával."
 
 #: plugins/poppler/poppler-plugin.cc:83
 msgid "Page Size"
@@ -4491,8 +4461,8 @@ msgstr "%s, fekvő"
 #: plugins/poppler/poppler-plugin.cc:439
 msgid "A plugin for extracting metadata from PDF files using Poppler library."
 msgstr ""
-"Egy bővítmény a PDF-fájlokból származó metaadatok kinyeréséhez a Poppler progr"
-"amkönyvtár használatával."
+"Egy bővítmény a PDF-fájlokból származó metaadatok kinyeréséhez a Poppler "
+"programkönyvtár használatával."
 
 #: plugins/taglib/taglib-plugin.cc:84
 msgid "Album Artist"
@@ -4543,7 +4513,6 @@ msgid "Bitrate in kbps."
 msgstr "Bitsebesség kbps-ban."
 
 #: plugins/taglib/taglib-plugin.cc:91
-#| msgid "Bitrate in kbps."
 msgid "Bitrate with units (kbps)."
 msgstr "Bitsebesség mértékegységgel (kbps)."
 
@@ -5000,7 +4969,6 @@ msgid "Involved people list."
 msgstr "A résztvevő személyek listája."
 
 #: plugins/taglib/taglib-plugin.cc:204
-#| msgid "Involved People"
 msgid "Involved People 2"
 msgstr "Résztvevő személyek 2"
 
@@ -5552,8 +5520,8 @@ msgstr "Hang"
 #: plugins/taglib/taglib-plugin.cc:771
 msgid "A plugin for extracting metadata using TagLib library."
 msgstr ""
-"Egy bővítmény a metaadatok kinyeréséhez a TagLib programkönyvtár használatával"
-"."
+"Egy bővítmény a metaadatok kinyeréséhez a TagLib programkönyvtár "
+"használatával."
 
 #: plugins/test/test-plugin.cc:149
 msgid ""
@@ -5953,18 +5921,15 @@ msgid "Specify debug flags to use"
 msgstr "Adja meg a használandó hibakeresési jelölőket"
 
 #: src/application.rs:72
-#| msgid "Specify the start directory for the left pane"
 msgid "Specify the start directory for the left panel"
 msgstr "A kiindulási könyvtárat a bal oldali panelen határozza meg"
 
 #: src/application.rs:80
-#| msgid "Specify the start directory for the right pane"
 msgid "Specify the start directory for the right panel"
 msgstr "A kiindulási könyvtárat a jobb oldali panelen határozza meg"
 
 #: src/application.rs:185
 #, rust-format
-#| msgid "Failed to create the directory %s: %s"
 msgid "Failed to create the directory {directory}: {error}"
 msgstr "Nem sikerült létrehozni a(z) {directory} könyvtárat: {error}"
 
@@ -6021,10 +5986,6 @@ msgid "Unable to mount the volume {}"
 msgstr "Nem lehet csatolni a(z) {} kötetet"
 
 #: src/connection/device.rs:303
-#| msgid ""
-#| "Cannot unmount the volume:\n"
-#| "%s\n"
-#| "Error code: %d"
 msgid "Cannot unmount the volume"
 msgstr "Nem lehet leválasztani a kötetet"
 
@@ -6057,7 +6018,6 @@ msgid "Volume successfully unmounted"
 msgstr "A kötet sikeresen leválasztva"
 
 #: src/connection/device.rs:384
-#| msgid "_OK"
 msgid "OK"
 msgstr "Rendben"
 
@@ -6075,24 +6035,20 @@ msgstr "A csatolás nem sikerült: nem található adathordozó"
 
 #: src/connection/device.rs:488
 #, rust-format
-#| msgid "Mount failed: mount exited with exitstatus %d"
 msgid "Mount failed: mount exited with exitstatus {}"
 msgstr "A csatolás nem sikerült: a mount kilépett a(z) {} kilépési állapottal"
 
 #: src/connection/device.rs:492
-#| msgid "Mount failed: mount exited with exitstatus %d"
 msgid "Mount failed: mount exited without an exitstatus"
 msgstr "A csatolás nem sikerült: a mount kilépési állapot nélkül lépett ki"
 
 #: src/connection/device.rs:504
 #, rust-format
-#| msgid "Mount failed: mount exited with exitstatus %d"
 msgid "Unmount failed: umount exited with exitstatus {}"
 msgstr ""
 "A leválasztás nem sikerült: az umount kilépett a(z) {} kilépési állapottal"
 
 #: src/connection/device.rs:508
-#| msgid "Failed to execute the mount command"
 msgid "Failed to execute the umount command"
 msgstr "Nem sikerült végrehajtani a leválasztási parancsot"
 
@@ -6122,25 +6078,21 @@ msgstr "Leválasztási hiba"
 
 #: src/connection/remote.rs:263
 #, rust-format
-#| msgid "Connecting to %s\n"
 msgid "Connecting to {hostname}"
 msgstr "Kapcsolódás ehhez: {hostname}"
 
 #: src/connection/remote.rs:269
 #, rust-format
-#| msgid "Set connection"
 msgid "Go to: {connection}"
 msgstr "Ugrás ide: {connection}"
 
 #: src/connection/remote.rs:273
 #, rust-format
-#| msgid "Close connection"
 msgid "Connect to: {connection}"
 msgstr "Kapcsolódás ide: {connection}"
 
 #: src/connection/remote.rs:277
 #, rust-format
-#| msgid "Disconnect from: %s"
 msgid "Disconnect from: {connection}"
 msgstr "Leválasztás innen: {connection}"
 
@@ -6457,7 +6409,6 @@ msgid "Free space:"
 msgstr "Szabad hely:"
 
 #: src/dialogs/file_properties_dialog.rs:286
-#| msgid "Content Type:"
 msgid "Content type:"
 msgstr "Tartalom típusa:"
 
@@ -6494,7 +6445,6 @@ msgid "Co_py"
 msgstr "_Másolás"
 
 #: src/dialogs/file_properties_dialog.rs:505
-#| msgid "Failed to open connection."
 msgid "Failed to apply changes."
 msgstr "Nem sikerült alkalmazni a változtatásokat."
 
@@ -6561,7 +6511,6 @@ msgid "A directory name must be entered"
 msgstr "A könyvtárnevet meg kell adni"
 
 #: src/dialogs/mkdir_dialog.rs:159
-#| msgid "Make directory failed: %s\n"
 msgid "Make directory failed"
 msgstr "A könyvtár létrehozása nem sikerült"
 
@@ -6892,15 +6841,13 @@ msgid "Also hide"
 msgstr "Szintén rejtse el"
 
 #: src/dialogs/options/format_tab.rs:57
-#| msgid "Powered"
 msgctxt ""
 "'Powered' refers to the mode of file size display (here - display using "
 "units of data: kB, MB, GB, ...)"
 msgid "Powered"
-msgstr ""
+msgstr "Hatvány"
 
 #: src/dialogs/options/format_tab.rs:62
-#| msgid "<locale>"
 msgctxt ""
 "'<locale>' refers to the mode of file size display (here - use current "
 "locale settings)"
@@ -6982,7 +6929,6 @@ msgid "Select directories"
 msgstr "Könyvtárak kijelölése"
 
 #: src/dialogs/options/general_tab.rs:139
-#| msgid "Printing"
 msgid "Sorting"
 msgstr "Rendezés"
 
@@ -7056,7 +7002,6 @@ msgid "Search history"
 msgstr "Keresési előzmények"
 
 #: src/dialogs/options/layout_tab.rs:67
-#| msgid "File panes"
 msgid "File panels"
 msgstr "Fájlpanelek"
 
@@ -7298,7 +7243,6 @@ msgid "Rege_x syntax"
 msgstr "Rege_x szintaxis"
 
 #: src/dialogs/pattern_selection_dialog.rs:186 src/search/generic.rs:41
-#| msgid "Compression"
 msgid "Bad expression"
 msgstr "Hibás kifejezés"
 
@@ -7470,7 +7414,6 @@ msgstr[1] "{} fájl listázva"
 
 #: src/dir.rs:172
 #, rust-format
-#| msgid "Failed to change directory outside of %s"
 msgid "Failed to get directory info for {path}."
 msgstr "Nem sikerült lekérni a könyvtár információit ennél: {path}."
 
@@ -7484,12 +7427,6 @@ msgstr "Nem közönséges fájl."
 
 #: src/file_list/actions.rs:80 src/open_file.rs:75
 #, rust-format
-#| msgid ""
-#| "{} does not know how to open remote file. Do you want to download the "
-#| "file to a temporary location and then open it?"
-#| msgid_plural ""
-#| "{} does not know how to open remote files. Do you want to download the "
-#| "files to a temporary location and then open them?"
 msgid ""
 "{} does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
@@ -7500,8 +7437,8 @@ msgstr[0] ""
 "A(z) {} nem tudja, hogyan nyissa meg a távoli fájlt. Szeretné letölteni a "
 "fájlt egy átmeneti helyre, és azután megnyitni azt?"
 msgstr[1] ""
-"A(z) {} nem tudja, hogyan nyissa meg a távoli fájlokat. Szeretné letölteni a f"
-"ájlokat egy átmeneti helyre, és azután megnyitni azokat?"
+"A(z) {} nem tudja, hogyan nyissa meg a távoli fájlokat. Szeretné letölteni a "
+"fájlokat egy átmeneti helyre, és azután megnyitni azokat?"
 
 #: src/file_list/actions.rs:113
 msgid "No files were given to open."
@@ -7564,12 +7501,10 @@ msgid "C_ancel"
 msgstr "Még_se"
 
 #: src/file_list/list.rs:2096 src/file_list/list.rs:2125
-#| msgid "Current directory only"
 msgid "Current directory is not set."
 msgstr "A jelenlegi könyvtár nincs beállítva."
 
 #: src/file_list/list.rs:2101
-#| msgid "Create directory"
 msgid "No parent directory"
 msgstr "Nincs szülőkönyvtár"
 
@@ -7584,8 +7519,6 @@ msgstr "Összesen {selected_bytes} lett kijelölve."
 
 #: src/file_list/list.rs:2229
 #, rust-format
-#| msgid "{}, {selected_dirs} of {total_dirs} dir selected"
-#| msgid_plural "{}, {selected_dirs} of {total_dirs} dirs selected"
 msgid "{selected_files} file selected."
 msgid_plural "{selected_files} files selected."
 msgstr[0] "{selected_files} fájl kijelölve."
@@ -7593,8 +7526,6 @@ msgstr[1] "{selected_files} fájl kijelölve."
 
 #: src/file_list/list.rs:2236
 #, rust-format
-#| msgid "{}, {selected_dirs} of {total_dirs} dir selected"
-#| msgid_plural "{}, {selected_dirs} of {total_dirs} dirs selected"
 msgid "{selected_dirs} directory selected."
 msgid_plural "{selected_dirs} directories selected."
 msgstr[0] "{selected_dirs} könyvtár kijelölve."
@@ -7602,7 +7533,6 @@ msgstr[1] "{selected_dirs} könyvtár kijelölve."
 
 #: src/file_list/list.rs:2284
 #, rust-format
-#| msgid "Cannot create a file for a path {}."
 msgid "Cannot rename a file to {new_name}"
 msgstr "Nem lehet átnevezni egy fájlt erre: {new_name}."
 
@@ -7642,7 +7572,6 @@ msgstr "Érték"
 
 #: src/file.rs:133
 #, rust-format
-#| msgid "Cannot create a file for a path {}."
 msgid "Failed to get file info for {path}."
 msgstr "Nem sikerült lekérni a fájl információit ennél: {path}."
 
@@ -7683,7 +7612,6 @@ msgid "_Refresh Tab"
 msgstr "Lap _frissítése"
 
 #: src/file_selector.rs:1582
-#| msgid "Copy Tab to Other _Pane"
 msgid "Copy Tab to Other _Panel"
 msgstr "Lap másolása a másik _panelre"
 
@@ -7927,7 +7855,6 @@ msgid "Rotate Counter Clockwis_e"
 msgstr "Forgatás _balra"
 
 #: src/intviewer/window.rs:853
-#| msgid "Rotate 180\\u{00B0}"
 msgid "Rotate 180°"
 msgstr "Forgatás 180°-kal"
 
@@ -8079,7 +8006,6 @@ msgid "Open the \"Applications\" page in the Control Center to add one."
 msgstr "Nyissa meg az „Alkalmazások” oldalt a vezérlőpulton a hozzáadásához."
 
 #: src/options/options.rs:458
-#| msgid "Default:"
 msgid "Default"
 msgstr "Alapértelmezett"
 
@@ -8106,18 +8032,15 @@ msgid "Configure"
 msgstr "Beállítás"
 
 #: src/search/generic.rs:56
-#| msgid "Search for"
 msgid "Search failed"
 msgstr "A keresés sikertelen"
 
 #: src/search/generic.rs:74
 #, rust-format
-#| msgid "Searching in: %s"
 msgid "Searching in: {}"
 msgstr "Keresés ebben: {}"
 
 #: src/search/local.rs:108
-#| msgid "Backup file pattern"
 msgid "Invalid file name pattern."
 msgstr "Érvénytelen fájlnévminta."
 
@@ -8126,7 +8049,6 @@ msgid "Invalid text content regular expression."
 msgstr "Érvénytelen szövegtartalom reguláris kifejezés."
 
 #: src/search/search_dialog.rs:286
-#| msgid "Profiles…"
 msgid "Pr_ofiles…"
 msgstr "Pr_ofilok…"
 
@@ -8143,19 +8065,15 @@ msgid "_Look in folder:"
 msgstr "_Keresés mappában:"
 
 #: src/search/search_dialog.rs:611
-#| msgid "Cannot create a file"
 msgid "Cannot extract a file path"
 msgstr "Nem lehet kinyerni egy fájl útvonalát"
 
 #: src/search/search_dialog.rs:615
-#| msgid "Forward to the last directory"
 msgid "Failed to detect a start directory"
 msgstr "Nem sikerült felismerni egy kezdési könyvtárat"
 
 #: src/search/search_dialog.rs:714
 #, rust-format
-#| msgid "Found %d match — search aborted"
-#| msgid_plural "Found %d matches — search aborted"
 msgid "Found {} match — search aborted"
 msgid_plural "Found {} matches — search aborted"
 msgstr[0] "{} egyezés található – keresés megszakítva"
@@ -8163,8 +8081,6 @@ msgstr[1] "{} egyezés található – keresés megszakítva"
 
 #: src/search/search_dialog.rs:719
 #, rust-format
-#| msgid "Found %d match"
-#| msgid_plural "Found %d matches"
 msgid "Found {} match"
 msgid_plural "Found {} matches"
 msgstr[0] "{} egyezés található"
@@ -8318,17 +8234,14 @@ msgid "File’s contents filtered as plain text."
 msgstr "Fájl tartalma egyszerű szövegként szűrve."
 
 #: src/tags/basic.rs:213
-#| msgid "_Folder:"
 msgid "Folder"
 msgstr "Mappa"
 
 #: src/tags/image.rs:46
-#| msgid "Page Size"
 msgid "Image size"
 msgstr "Képméret"
 
 #: src/tags/image.rs:54
-#| msgid "Width in pixels."
 msgid "Width and height in pixels."
 msgstr "Szélesség és magasság képpontban."
 
@@ -8412,7 +8325,6 @@ msgid "Unrecoverable error"
 msgstr "Helyrehozhatatlan hiba"
 
 #: src/transfer.rs:909
-#| msgid "File name (range)"
 msgid "File enumeration error"
 msgstr "Fájlfelsorolási hiba"
 
@@ -8422,13 +8334,12 @@ msgid "Source “%s” could not be deleted. Aborting!"
 msgstr "A(z) „%s” forrást nem sikerült törölni. Megszakítás!"
 
 #: src/transfer.rs:1069
-#| msgid "Source “%s” could not be deleted. Aborting!"
 msgid ""
 "Cannot detect a connection for a source “%s”. It could not be deleted. "
 "Aborting!"
 msgstr ""
-"Nem lehet felismerni egy kapcsolatot egy „%s” forráshoz. Nem sikerült törölni."
-" Megszakítás!"
+"Nem lehet felismerni egy kapcsolatot egy „%s” forráshoz. Nem sikerült "
+"törölni. Megszakítás!"
 
 #: src/transfer.rs:1092
 msgid "Source “%s” could not be copied. Aborting!"
@@ -8566,7 +8477,6 @@ msgstr ""
 "Úr Balázs <ur.balazs@fsf.hu>"
 
 #: src/user_actions.rs:1400
-#| msgid "Copy File"
 msgid "Copy Files"
 msgstr "Fájlok másolása"
 
@@ -8575,7 +8485,6 @@ msgid "Copy files with rename"
 msgstr "Fájlok másolása átnevezéssel"
 
 #: src/user_actions.rs:1412
-#| msgid "Move files"
 msgid "Move Files"
 msgstr "Fájlok áthelyezése"
 
@@ -8584,7 +8493,6 @@ msgid "_Delete"
 msgstr "_Törlés"
 
 #: src/user_actions.rs:1424
-#| msgid "View file"
 msgid "View File"
 msgstr "Fájl megtekintése"
 
@@ -8601,7 +8509,6 @@ msgid "Edit (SHIFT for new document)"
 msgstr "Szerkesztés (a SHIFT lenyomásával új dokumentum)"
 
 #: src/user_actions.rs:1448
-#| msgid "New Text File"
 msgid "New _Text File"
 msgstr "Következő _szöveges fájl"
 
@@ -8622,7 +8529,6 @@ msgid "Change _Owner/Group"
 msgstr "Tulajdonos/_csoport módosítása"
 
 #: src/user_actions.rs:1478
-#| msgid "_Directory"
 msgid "New _Directory"
 msgstr "Új _könyvtár"
 
@@ -8639,7 +8545,6 @@ msgid "S_ynchronize Directories"
 msgstr "Könyvtárak s_zinkronizálása"
 
 #: src/user_actions.rs:1502
-#| msgid "Rename"
 msgid "_Rename"
 msgstr "Át_nevezés"
 
@@ -8652,7 +8557,6 @@ msgid "Advanced _Rename Tool"
 msgstr "Speciális át_nevezőeszköz"
 
 #: src/user_actions.rs:1520
-#| msgid "Send files"
 msgid "_Send Files"
 msgstr "Fájlok _küldése"
 
@@ -8729,7 +8633,6 @@ msgid "_Enable Filter…"
 msgstr "Szűrő _engedélyezése…"
 
 #: src/user_actions.rs:1636
-#| msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgid "Copy _File Names (SHIFT for full paths, ALT for URIs)"
 msgstr ""
 "_Fájlnevek másolása (a Shift a teljes útvonalakhoz, az Alt a URI címekhez)"
@@ -8739,7 +8642,6 @@ msgid "Execute command"
 msgstr "Parancs végrehajtása"
 
 #: src/user_actions.rs:1649
-#| msgid "Open terminal"
 msgid "Open _Terminal"
 msgstr "_Terminál megnyitása"
 
@@ -8776,7 +8678,6 @@ msgid "Show Backup Files"
 msgstr "Másolatfájlok megjelenítése"
 
 #: src/user_actions.rs:1710
-#| msgid "Go to the oldest"
 msgid "Back to oldest"
 msgstr "Vissza a legrégebbire"
 
@@ -8789,7 +8690,6 @@ msgid "_Forward"
 msgstr "_Előre"
 
 #: src/user_actions.rs:1728
-#| msgid "Forward to the last directory"
 msgid "Forward to latest"
 msgstr "Előre a legújabbra"
 
@@ -8806,22 +8706,18 @@ msgid "Maximize Panel Size"
 msgstr "Panelméret maximalizálása"
 
 #: src/user_actions.rs:1752
-#| msgid "Open directory in the left window"
 msgid "Open directory in the left panel"
 msgstr "Könyvtár megnyitása a bal oldali panelen"
 
 #: src/user_actions.rs:1758
-#| msgid "Open directory in the right window"
 msgid "Open directory in the right panel"
 msgstr "Könyvtár megnyitása a jobb oldali panelen"
 
 #: src/user_actions.rs:1764
-#| msgid "Open directory in the active window"
 msgid "Open directory in the active panel"
 msgstr "Könyvtár megnyitása az aktív panelen"
 
 #: src/user_actions.rs:1770
-#| msgid "Open directory in the inactive window"
 msgid "Open directory in the inactive panel"
 msgstr "Könyvtár megnyitása az inaktív panelen"
 
@@ -8854,7 +8750,6 @@ msgid "Open directory in the new tab"
 msgstr "Könyvtár megnyitása új lapon"
 
 #: src/user_actions.rs:1836
-#| msgid "Open directory in the new tab (inactive window)"
 msgid "Open directory in the new tab (inactive panel)"
 msgstr "Könyvtár megnyitása új lapon (inaktív panelen)"
 
@@ -8935,7 +8830,6 @@ msgid "Close connection"
 msgstr "Kapcsolat lezárása"
 
 #: src/user_actions.rs:1965
-#| msgid "Drop connection"
 msgid "Drop Connection"
 msgstr "Kapcsolat eldobása"
 
@@ -9011,6 +8905,5 @@ msgstr[0] "{} bájt"
 msgstr[1] "{} bájt"
 
 #: src/utils.rs:630
-#| msgid "Change of a file mode failed"
 msgid "Closing of a file enumerator failed"
 msgstr "Egy fájlfelsoroló bezárása nem sikerült"
