@@ -51,11 +51,14 @@ impl RegexReplace {
 
 pub async fn show_advrename_regex_dialog(
     parent_window: &gtk::Window,
-    title: &str,
     rx: Option<&RegexReplace>,
 ) -> Option<RegexReplace> {
     let dialog = gtk::Window::builder()
-        .title(title)
+        .title(if rx.is_none() {
+            gettext("Add Rule")
+        } else {
+            gettext("Edit Rule")
+        })
         .transient_for(parent_window)
         .modal(true)
         .destroy_with_parent(true)
@@ -121,7 +124,11 @@ pub async fn show_advrename_regex_dialog(
     ));
 
     let ok_btn = gtk::Button::builder()
-        .label(gettext("_OK"))
+        .label(if rx.is_none() {
+            gettext("_Add Rule")
+        } else {
+            gettext("_Update Rule")
+        })
         .use_underline(true)
         .receives_default(true)
         .build();

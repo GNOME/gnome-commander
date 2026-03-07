@@ -855,7 +855,7 @@ async fn ask_close_locked_tab(parent_window: &gtk::Window) -> bool {
     gtk::AlertDialog::builder()
         .modal(true)
         .message(gettext("The tab is locked, close anyway?"))
-        .buttons([gettext("_Cancel"), gettext("_OK")])
+        .buttons([gettext("_Cancel"), gettext("C_lose Tab")])
         .cancel_button(0)
         .default_button(1)
         .build()

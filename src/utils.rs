@@ -250,7 +250,7 @@ impl ErrorMessage {
         let alert = gtk::AlertDialog::builder()
             .modal(true)
             .message(&self.message)
-            .buttons([gettext("_OK")])
+            .buttons([gettext("_Dismiss")])
             .cancel_button(0)
             .default_button(0)
             .build();

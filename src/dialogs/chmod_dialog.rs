@@ -152,7 +152,7 @@ pub async fn show_chmod_dialog(parent_window: &gtk::Window, files: &glib::List<F
     ));
 
     let ok_btn = gtk::Button::builder()
-        .label(gettext("_OK"))
+        .label(gettext("C_hange Permissions"))
         .use_underline(true)
         .build();
     ok_btn.connect_clicked(glib::clone!(

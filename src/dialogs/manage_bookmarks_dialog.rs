@@ -462,7 +462,7 @@ mod imp {
             if let Some(bookmark) = self.selected()
                 && let Some(changed_bookmark) = edit_bookmark_dialog(
                     self.obj().upcast_ref(),
-                    &gettext("Edit Bookmark"),
+                    false,
                     &bookmark.connection,
                     &bookmark.bookmark,
                 )
@@ -645,9 +645,7 @@ pub async fn bookmark_directory(window: &gtk::Window, dir: &Directory, options: 
 
     let bookmark = Bookmark::new(&name, path_str);
 
-    if let Some(changed_bookmark) =
-        edit_bookmark_dialog(window, &gettext("New Bookmark"), &con, &bookmark).await
-    {
+    if let Some(changed_bookmark) = edit_bookmark_dialog(window, true, &con, &bookmark).await {
         con.add_bookmark(changed_bookmark);
 
         if let Err(error) = options.bookmarks.set(connection_list.save_bookmarks()) {

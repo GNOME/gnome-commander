@@ -37,7 +37,7 @@ async fn ask_make_executable(parent_window: &gtk::Window, file: &File) -> bool {
     gtk::AlertDialog::builder()
         .modal(true)
         .message(msg)
-        .buttons([gettext("_Cancel"), gettext("_OK")])
+        .buttons([gettext("_Cancel"), gettext("_Mark as Executable")])
         .cancel_button(0)
         .default_button(1)
         .build()

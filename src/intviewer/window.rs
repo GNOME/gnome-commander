@@ -662,7 +662,7 @@ async fn say_not_found(parent: &gtk::Window, search_pattern: &str) {
     let _answer = gtk::AlertDialog::builder()
         .modal(true)
         .message(gettext("Pattern “{}” was not found").replace("{}", search_pattern))
-        .buttons([gettext("_OK")])
+        .buttons([gettext("_Dismiss")])
         .cancel_button(0)
         .default_button(0)
         .build()

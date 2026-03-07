@@ -116,7 +116,11 @@ pub async fn edit_device_dialog(
         .use_underline(true)
         .build();
     let ok_button = gtk::Button::builder()
-        .label(gettext("_OK"))
+        .label(if device.is_none() {
+            gettext("_Add Device")
+        } else {
+            gettext("_Update Device")
+        })
         .use_underline(true)
         .receives_default(true)
         .build();

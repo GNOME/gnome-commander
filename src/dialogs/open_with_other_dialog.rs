@@ -66,7 +66,7 @@ pub async fn show_open_with_other_dialog(
         .build();
 
     let ok_button = gtk::Button::builder()
-        .label(gettext("_OK"))
+        .label(gettext("_Open"))
         .use_underline(true)
         .build();
 

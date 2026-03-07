@@ -564,9 +564,7 @@ mod imp {
                 eprintln!("No window");
                 return;
             };
-            if let Some(rx) =
-                show_advrename_regex_dialog(&parent_window, &gettext("Add Rule"), None).await
-            {
+            if let Some(rx) = show_advrename_regex_dialog(&parent_window, None).await {
                 self.regex_model.append(&glib::BoxedAnyObject::new(rx));
             }
         }
@@ -588,9 +586,7 @@ mod imp {
             else {
                 return;
             };
-            if let Some(rr) =
-                show_advrename_regex_dialog(&parent_window, &gettext("Edit Rule"), Some(&rx)).await
-            {
+            if let Some(rr) = show_advrename_regex_dialog(&parent_window, Some(&rx)).await {
                 self.regex_model
                     .splice(position, 1, &[glib::BoxedAnyObject::new(rr)]);
             }
@@ -1056,7 +1052,7 @@ async fn get_selected_range(
     ));
 
     let ok_button = gtk::Button::builder()
-        .label(gettext("_OK"))
+        .label(gettext("_Insert"))
         .use_underline(true)
         .build();
     ok_button.connect_clicked(glib::clone!(

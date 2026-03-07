@@ -43,6 +43,7 @@ pub async fn prepare_copy_dialog_show(
     let dialog = PrepareTransferDialog::new(from, to);
     dialog.set_transient_for(Some(main_win));
     dialog.set_title(Some(&gettext("Copy")));
+    dialog.set_accept_label(&gettext("C_opy"));
 
     let label = if let Some(file) = single_source_file {
         gettext("Copy “{}” to").replace("{}", &file.get_name())

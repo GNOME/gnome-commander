@@ -381,7 +381,7 @@ fn show_message_dialog_volume_unmounted(window: Option<gtk::Window>) {
             gtk::AlertDialog::builder()
                 .modal(true)
                 .message(message)
-                .buttons([gettext("OK")])
+                .buttons([gettext("_Dismiss")])
                 .cancel_button(0)
                 .default_button(0)
                 .build()

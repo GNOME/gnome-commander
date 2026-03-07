@@ -88,7 +88,7 @@ pub async fn show_chown_dialog(parent_window: &gtk::Window, files: &glib::List<F
 
     let dialog = gtk::Window::builder()
         .transient_for(parent_window)
-        .title(gettext("Access Permissions"))
+        .title(gettext("File Owner"))
         .resizable(false)
         .build();
     dialog.add_css_class("dialog");
@@ -120,7 +120,7 @@ pub async fn show_chown_dialog(parent_window: &gtk::Window, files: &glib::List<F
     ));
 
     let ok_btn = gtk::Button::builder()
-        .label(gettext("_OK"))
+        .label(gettext("C_hange Owner"))
         .use_underline(true)
         .build();
     ok_btn.connect_clicked(glib::clone!(
