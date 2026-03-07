@@ -22,7 +22,7 @@ use crate::{
     app::{App, AppTarget, RegularApp, UserDefinedApp, load_favorite_apps},
     config::PACKAGE,
     debug::debug,
-    file::File,
+    file::{File, FileOps},
     filter::fnmatch,
     libgcmd::file_actions::{FileActions, FileActionsExt},
     main_win::MainWindow,
@@ -49,25 +49,18 @@ fn fav_app_menu_item(app: &App) -> gio::MenuItem {
 
 fn fav_app_matches_files(app: &UserDefinedApp, files: &glib::List<File>) -> bool {
     match app.target {
-        AppTarget::AllFiles => files
+        AppTarget::AllFiles => files.iter().all(|file| file.is_regular()),
+        AppTarget::AllDirs => files.iter().all(|file| file.is_directory()),
+        AppTarget::AllDirsAndFiles => files
             .iter()
-            .all(|file| file.file_info().file_type() == gio::FileType::Regular),
-        AppTarget::AllDirs => files
-            .iter()
-            .all(|file| file.file_info().file_type() == gio::FileType::Directory),
-        AppTarget::AllDirsAndFiles => files.iter().all(|file| {
-            matches!(
-                file.file_info().file_type(),
-                gio::FileType::Regular | gio::FileType::Directory
-            )
-        }),
+            .all(|file| file.is_regular() || file.is_directory()),
         AppTarget::SomeFiles => {
-            files.iter().map(|f| f.file_info()).all(|file_info| {
-                if file_info.file_type() != gio::FileType::Regular {
+            files.iter().all(|file| {
+                if !file.is_regular() {
                     return false;
                 }
                 // Check that the file matches at least one pattern
-                let name = file_info.display_name();
+                let name = file.name();
                 app.pattern_list()
                     .iter()
                     .any(|pattern| fnmatch(pattern, &name, false))
@@ -149,7 +142,7 @@ fn add_open_with_entries(menu: &gio::Menu, file_list: &FileList) {
             'u',
             "No default application found for the MIME type {:?} of {:?}",
             content_type,
-            first_file.map(|f| f.get_name())
+            first_file.map(|f| f.name())
         );
         menu.append(Some(&gettext("Open Wit_h…")), Some("fl.open-with-other"));
     }

@@ -23,7 +23,7 @@ use super::{
     text_render::TextRender,
 };
 use crate::{
-    file::File,
+    file::{File, FileOps},
     tags::FileMetadataService,
     utils::{MenuBuilderExt, extract_menu_shortcuts, pending},
 };
@@ -323,7 +323,7 @@ mod imp {
 
             if mode == DISP_MODE_IMAGE && !self.img_initialized.get() {
                 // do lazy-initialization of the image render, only when the user first asks to display the file as image
-                if let Some(path) = self.obj().file().and_then(|f| f.get_real_path()) {
+                if let Some(path) = self.obj().file().and_then(|f| f.local_path()) {
                     self.img_initialized.set(true);
                     self.image_render.load_file(&path);
                 } else {
@@ -625,7 +625,7 @@ impl ViewerWindow {
     }
 
     fn load_file(&self, file: &File) {
-        let Some(path) = file.get_real_path() else {
+        let Some(path) = file.local_path() else {
             eprintln!("ViewerWindow::load_file: file path is None");
             return;
         };

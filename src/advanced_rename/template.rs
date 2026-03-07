@@ -18,7 +18,7 @@
  */
 
 use crate::{
-    file::File,
+    file::{File, FileOps},
     tags::{GnomeCmdTag, file_metadata::FileMetadata},
 };
 use std::rc::Rc;
@@ -320,10 +320,7 @@ pub fn generate_file_name(
         match chunk {
             Chunk::Char(ch) => result.push(*ch),
             Chunk::String(str) => {
-                if let Some(formatted) = file
-                    .file_info()
-                    .modification_date_time()
-                    .and_then(|dt| dt.format(str).ok())
+                if let Some(formatted) = file.modification_date().and_then(|dt| dt.format(str).ok())
                 {
                     result.push_str(&formatted);
                 } else {
@@ -338,8 +335,7 @@ pub fn generate_file_name(
             }
             Chunk::Name(range) => {
                 if let Some(s) = file
-                    .file_info()
-                    .name()
+                    .path_name()
                     .file_stem()
                     .and_then(|n| n.to_str())
                     .and_then(|n| range.substr(n))
@@ -349,8 +345,7 @@ pub fn generate_file_name(
             }
             Chunk::Extension(range) => {
                 if let Some(s) = file
-                    .file_info()
-                    .name()
+                    .path_name()
                     .extension()
                     .and_then(|e| e.to_str())
                     .and_then(|e| range.substr(e))
@@ -359,18 +354,13 @@ pub fn generate_file_name(
                 }
             }
             Chunk::FullName(range) => {
-                if let Some(s) = file
-                    .file_info()
-                    .name()
-                    .to_str()
-                    .and_then(|n| range.substr(n))
-                {
+                if let Some(s) = file.path_name().to_str().and_then(|n| range.substr(n)) {
                     result.push_str(&s);
                 }
             }
             Chunk::ParentDir(range) => {
                 if let Some(s) = file
-                    .get_path_string_through_parent()
+                    .path_from_root()
                     .parent()
                     .and_then(|p| p.file_name())
                     .and_then(|d| d.to_str())
@@ -381,7 +371,7 @@ pub fn generate_file_name(
             }
             Chunk::GrandparentDir(range) => {
                 if let Some(s) = file
-                    .get_path_string_through_parent()
+                    .path_from_root()
                     .parent()
                     .and_then(|p| p.parent())
                     .and_then(|p| p.file_name())

@@ -18,7 +18,7 @@
  */
 
 use crate::{
-    file::File,
+    file::{File, FileOps},
     main_win::{ExecutionTarget, MainWindow},
     utils::{ErrorMessage, NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
 };
@@ -100,11 +100,11 @@ pub async fn show_open_with_other_dialog(parent_window: &MainWindow, files: &gli
 
         let mut full_command = OsString::from(&command);
         for file in files {
-            if let Some(path) = file.get_real_path() {
+            if let Some(path) = file.local_path() {
                 full_command.push(" ");
                 full_command.push(glib::shell_quote(path));
             } else {
-                eprintln!("Failed to get real path for file: {}", file.get_name());
+                eprintln!("Failed to get real path for file: {}", file.name());
             }
         }
 

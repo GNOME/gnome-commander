@@ -125,7 +125,7 @@ impl IconCache {
     }
 
     pub fn file_icon(&self, file: &File, mode: GraphicalLayoutMode) -> Option<gio::Icon> {
-        let file_type = file.file_info().file_type();
+        let file_type = file.file_type();
 
         match mode {
             GraphicalLayoutMode::MimeIcons => file

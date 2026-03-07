@@ -21,7 +21,7 @@
  */
 
 use super::{Connection, ConnectionInterface};
-use crate::{path::GnomeCmdPath, utils::ErrorMessage};
+use crate::utils::ErrorMessage;
 use gettextrs::gettext;
 use gtk::{
     gio,
@@ -54,9 +54,8 @@ mod imp {
             home.set_state(ConnectionState::Open);
             home.set_alias(Some(&gettext("Home")));
 
-            if let Ok(dir) = Directory::try_new(&*home, GnomeCmdPath::Plain(glib::home_dir())) {
-                home.set_default_dir(Some(&dir));
-            }
+            let dir = Directory::new(&*home, &home.create_uri(&glib::home_dir()));
+            home.set_default_dir(Some(&dir));
         }
     }
 
@@ -89,12 +88,10 @@ impl ConnectionInterface for ConnectionHome {
         Box::pin(async { Ok(()) })
     }
 
-    fn create_gfile(&self, path: &GnomeCmdPath) -> gio::File {
-        gio::File::for_path(path.path())
-    }
-
-    fn create_path(&self, path: &Path) -> GnomeCmdPath {
-        GnomeCmdPath::Plain(path.to_owned())
+    fn create_uri(&self, path: &Path) -> String {
+        glib::filename_to_uri(path, None)
+            .map(|uri| uri.into())
+            .unwrap_or_else(|_| "file:///".to_string())
     }
 
     fn is_local(&self) -> bool {

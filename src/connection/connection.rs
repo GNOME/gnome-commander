@@ -24,9 +24,16 @@ use super::{
     bookmark::Bookmark, device::ConnectionDevice, history::History, home::ConnectionHome,
     remote::ConnectionRemote, smb::ConnectionSmb,
 };
-use crate::{debug::debug, dir::Directory, file::File, path::GnomeCmdPath, utils::ErrorMessage};
+use crate::{debug::debug, dir::Directory, file::FileOps, utils::ErrorMessage};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
-use std::{cell::Ref, collections::HashMap, future::Future, ops::Deref, path::Path, pin::Pin};
+use std::{
+    cell::Ref,
+    collections::HashMap,
+    future::Future,
+    ops::Deref,
+    path::{Path, PathBuf},
+    pin::Pin,
+};
 
 mod imp {
     use super::*;
@@ -44,8 +51,7 @@ mod imp {
         pub state: Cell<ConnectionState>,
         /// the start directory of this connection
         pub default_dir: RefCell<Option<Directory>>,
-        pub base_file_info: RefCell<Option<gio::FileInfo>>,
-        pub base_path: RefCell<Option<GnomeCmdPath>>,
+        pub base_path: RefCell<Option<PathBuf>>,
     }
 
     #[glib::object_subclass]
@@ -62,7 +68,6 @@ mod imp {
                 alias: Default::default(),
                 state: Cell::new(ConnectionState::Closed),
                 default_dir: Default::default(),
-                base_file_info: Default::default(),
                 base_path: Default::default(),
             }
         }
@@ -115,7 +120,7 @@ impl Connection {
     }
 
     pub fn remove_from_cache(&self, directory: &Directory) {
-        let uri = directory.upcast_ref::<File>().get_uri_str();
+        let uri = directory.uri();
         debug!('k', "REMOVING {:?} {} from the cache", directory, uri);
         self.imp().dir_cache.borrow_mut().remove(&uri);
     }
@@ -192,23 +197,12 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
         self.as_ref().imp().default_dir.replace(dir.cloned());
     }
 
-    fn base_path(&self) -> Option<GnomeCmdPath> {
+    fn base_path(&self) -> Option<PathBuf> {
         self.as_ref().imp().base_path.borrow().clone()
     }
 
-    fn set_base_path(&self, path: Option<GnomeCmdPath>) {
+    fn set_base_path(&self, path: Option<PathBuf>) {
         self.as_ref().imp().base_path.replace(path);
-    }
-
-    fn base_file_info(&self) -> Option<gio::FileInfo> {
-        self.as_ref().imp().base_file_info.borrow().clone()
-    }
-
-    fn set_base_file_info(&self, file_info: Option<&gio::FileInfo>) {
-        self.as_ref()
-            .imp()
-            .base_file_info
-            .replace(file_info.cloned());
     }
 
     fn is_open(&self) -> bool {
@@ -323,7 +317,9 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
         match open_result {
             Ok(Ok(())) => {
                 debug!('m', "OPEN_OK detected");
-                let dir = Directory::new_with_con(self.as_ref());
+                let dir = self
+                    .base_path()
+                    .map(|base_path| Directory::new(self, &self.as_ref().create_uri(&base_path)));
                 self.as_ref().set_default_dir(dir.as_ref());
                 self.set_state(ConnectionState::Open);
                 Ok(())
@@ -387,9 +383,7 @@ pub trait ConnectionInterface {
         window: Option<gtk::Window>,
     ) -> Pin<Box<dyn Future<Output = Result<(), ErrorMessage>> + '_>>;
 
-    fn create_gfile(&self, path: &GnomeCmdPath) -> gio::File;
-
-    fn create_path(&self, path: &Path) -> GnomeCmdPath;
+    fn create_uri(&self, path: &Path) -> String;
 
     fn is_local(&self) -> bool;
 
@@ -447,27 +441,4 @@ pub trait ConnectionInterface {
     }
 
     fn open_icon(&self) -> Option<gio::Icon>;
-
-    /// Get the type of the file at the specified path.
-    fn path_target_type(&self, path: &Path) -> Option<gio::FileType> {
-        let path = self.create_path(path);
-        let file = self.create_gfile(&path);
-        if file.query_exists(gio::Cancellable::NONE) {
-            let file_type =
-                file.query_file_type(gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE);
-            Some(file_type)
-        } else {
-            None
-        }
-    }
-
-    fn mkdir(&self, path: &Path) -> Result<(), glib::Error> {
-        let path = self.create_path(path);
-        let file = self.create_gfile(&path);
-        file.make_directory(gio::Cancellable::NONE)
-            .map_err(|error| {
-                eprintln!("g_file_make_directory error: {error}");
-                error
-            })
-    }
 }

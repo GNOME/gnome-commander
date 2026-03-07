@@ -19,12 +19,13 @@
 
 use crate::{
     chmod_component::ChmodComponent,
+    connection::Connection,
     dir::Directory,
-    file::File,
+    file::{File, FileOps},
     utils::{ErrorMessage, NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
 };
 use gettextrs::gettext;
-use gtk::{gio, glib, prelude::*};
+use gtk::{glib, prelude::*};
 
 #[repr(C)]
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -36,13 +37,14 @@ pub enum ChmodRecursiveMode {
 #[async_recursion::async_recursion(?Send)]
 async fn chmod_recursively(
     parent_window: &gtk::Window,
+    connection: Option<&Connection>,
     file: &File,
     permissions: u32,
     recursive: Option<ChmodRecursiveMode>,
 ) {
     if let Err(error) = file.chmod(permissions) {
         ErrorMessage::with_error(
-            gettext("Could not chmod {}").replace("{}", &file.get_name()),
+            gettext("Could not chmod {}").replace("{}", &file.name()),
             &error,
         )
         .show(parent_window)
@@ -51,8 +53,10 @@ async fn chmod_recursively(
     }
 
     if let Some(mode) = recursive
-        && let Some(dir) = file.downcast_ref::<Directory>()
+        && file.is_directory()
+        && let Some(connection) = connection
     {
+        let dir = Directory::new_from_file(connection, &*file.file());
         if let Err(error) = dir.list_files(parent_window, false).await {
             error.show(parent_window).await;
             return;
@@ -62,42 +66,44 @@ async fn chmod_recursively(
             .files()
             .iter::<File>()
             .flatten()
-            .filter(|child| {
-                !child.is_dotdot()
-                    && child.file_info().display_name() != "."
-                    && !child.file_info().is_symlink()
-            })
+            .filter(|child| !child.is_dotdot() && child.name() != "." && !child.is_symlink())
             .filter(|child| match mode {
                 ChmodRecursiveMode::AllFiles => true,
-                ChmodRecursiveMode::DirectoriesOnly => {
-                    child.file_info().file_type() == gio::FileType::Directory
-                }
+                ChmodRecursiveMode::DirectoriesOnly => child.is_directory(),
             })
         {
-            chmod_recursively(parent_window, &child, permissions, recursive).await;
+            chmod_recursively(
+                parent_window,
+                Some(connection),
+                &child,
+                permissions,
+                recursive,
+            )
+            .await;
         }
     }
 }
 
 async fn chmod_files(
     parent_window: &gtk::Window,
+    connection: Option<&Connection>,
     files: &glib::List<File>,
     permissions: u32,
     recursive: Option<ChmodRecursiveMode>,
 ) {
     for file in files {
-        chmod_recursively(parent_window, file, permissions, recursive).await;
+        chmod_recursively(parent_window, connection, file, permissions, recursive).await;
     }
 }
 
-pub async fn show_chmod_dialog(parent_window: &gtk::Window, files: &glib::List<File>) -> bool {
+pub async fn show_chmod_dialog(
+    parent_window: &gtk::Window,
+    connection: Option<&Connection>,
+    files: &glib::List<File>,
+) -> bool {
     let Some(file) = files.front() else {
         return false;
     };
-    let permissions = file
-        .file_info()
-        .attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE)
-        & 0xFFF;
 
     let dialog = gtk::Window::builder()
         .transient_for(parent_window)
@@ -111,7 +117,7 @@ pub async fn show_chmod_dialog(parent_window: &gtk::Window, files: &glib::List<F
         .build();
     dialog.set_child(Some(&content_area));
 
-    let chmod_component = ChmodComponent::new(permissions);
+    let chmod_component = ChmodComponent::new(file.permissions());
     content_area.append(&chmod_component);
 
     content_area.append(&gtk::Separator::new(gtk::Orientation::Horizontal));
@@ -175,7 +181,14 @@ pub async fn show_chmod_dialog(parent_window: &gtk::Window, files: &glib::List<F
                 _ => ChmodRecursiveMode::DirectoriesOnly,
             });
 
-        chmod_files(dialog.upcast_ref(), files, permissions, recursive).await;
+        chmod_files(
+            dialog.upcast_ref(),
+            connection,
+            files,
+            permissions,
+            recursive,
+        )
+        .await;
     }
 
     dialog.close();

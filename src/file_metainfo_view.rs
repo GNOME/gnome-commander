@@ -109,7 +109,7 @@ mod imp {
                 return;
             };
 
-            if file.file_info().file_type() == gio::FileType::Special {
+            if file.is_special() {
                 return;
             }
 

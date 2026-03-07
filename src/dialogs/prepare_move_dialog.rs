@@ -19,7 +19,7 @@
 
 use super::prepare_transfer_dialog::PrepareTransferDialog;
 use crate::{
-    file_selector::FileSelector, main_win::MainWindow, options::ConfirmOptions,
+    file::FileOps, file_selector::FileSelector, main_win::MainWindow, options::ConfirmOptions,
     transfer::move_files, types::ConfirmOverwriteMode, utils::bold,
 };
 use gettextrs::{gettext, ngettext};
@@ -45,7 +45,7 @@ pub async fn prepare_move_dialog_show(
     dialog.set_title(Some(&gettext("Move")));
 
     let label = if let Some(file) = single_source_file {
-        gettext("Move “{}” to").replace("{}", &file.get_name())
+        gettext("Move “{}” to").replace("{}", &file.name())
     } else {
         ngettext("move {} file to", "move {} files to", num_files as u32)
             .replace("{}", &num_files.to_string())
@@ -111,7 +111,7 @@ pub async fn prepare_move_dialog_show(
 
     let _transfer_result = move_files(
         main_win.clone().upcast(),
-        src_files.iter().map(|f| f.file()).collect(),
+        src_files.iter().map(|f| f.file().clone()).collect(),
         dest_dir.clone(),
         dest_fn.map(PathBuf::from),
         copy_flags,
