@@ -43,6 +43,7 @@ pub async fn prepare_move_dialog_show(
     let dialog = PrepareTransferDialog::new(from, to);
     dialog.set_transient_for(Some(main_win));
     dialog.set_title(Some(&gettext("Move")));
+    dialog.set_accept_label(&gettext("_Move"));
 
     let label = if let Some(file) = single_source_file {
         gettext("Move “{}” to").replace("{}", &file.name())

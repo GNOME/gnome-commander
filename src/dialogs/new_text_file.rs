@@ -95,7 +95,7 @@ pub async fn show_new_textfile_dialog(parent_window: &gtk::Window, file_list: &F
     ));
 
     let ok_btn = gtk::Button::builder()
-        .label(gettext("_OK"))
+        .label(gettext("Create _File"))
         .use_underline(true)
         .receives_default(true)
         .build();

@@ -75,7 +75,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
     ));
 
     let ok_btn = gtk::Button::builder()
-        .label(gettext("_OK"))
+        .label(gettext("C_opy"))
         .use_underline(true)
         .receives_default(true)
         .build();

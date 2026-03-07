@@ -53,7 +53,7 @@ mod imp {
                     .use_underline(true)
                     .build(),
                 ok_button: gtk::Button::builder()
-                    .label(gettext("_OK"))
+                    .label(gettext("C_reate"))
                     .use_underline(true)
                     .sensitive(false)
                     .build(),

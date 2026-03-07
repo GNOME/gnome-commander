@@ -193,7 +193,7 @@ mod imp {
             ));
 
             let ok_btn = gtk::Button::builder()
-                .label(gettext("_OK"))
+                .label(gettext("C_onnect"))
                 .use_underline(true)
                 .build();
             ok_btn.connect_clicked(glib::clone!(
