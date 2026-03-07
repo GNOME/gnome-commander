@@ -26,7 +26,7 @@ use super::{
 use crate::{
     connection::history::History,
     dialogs::profiles::{ProfileManager, manage_profiles_dialog::manage_profiles},
-    file::File,
+    file::{File, FileOps},
     file_list::list::FileList,
     options::{GeneralOptions, ProgramsOptions},
     tags::FileMetadataService,
@@ -751,10 +751,15 @@ mod imp {
 
         async fn file_list_properties(&self) {
             if let Some((_, item)) = self.selected_item() {
+                let connection = self
+                    .obj()
+                    .file_list()
+                    .and_then(|file_list| file_list.connection());
                 let file_changed = FilePropertiesDialog::show(
                     self.obj().upcast_ref(),
                     &self.obj().file_metadata_service(),
                     &item.file(),
+                    connection,
                 )
                 .await;
                 if file_changed {
@@ -767,7 +772,7 @@ mod imp {
             if let Some((_, item)) = self.selected_item() {
                 self.obj()
                     .profile_component()
-                    .set_sample_file_name(Some(item.file().get_name()));
+                    .set_sample_file_name(Some(item.file().name()));
             }
         }
 
@@ -896,7 +901,7 @@ mod imp {
                 .obj()
                 .file_list()
                 .and_then(|fl| fl.focused_file())
-                .map(|f| f.get_name());
+                .map(|f| f.name());
             let mut new_focused_file_name = None;
 
             for index in 0..self.files.n_items() {
@@ -907,7 +912,7 @@ mod imp {
                 let file = item.file();
                 let new_name = item.new_name();
                 if !new_name.is_empty() {
-                    let old_name = file.get_name();
+                    let old_name = file.name();
                     if old_name != new_name {
                         match file.rename(&new_name) {
                             Ok(()) => {
@@ -1037,7 +1042,7 @@ mod imp {
     fn old_name_factory() -> gtk::ListItemFactory {
         file_cell_factory(0.0, |item, label| {
             item.bind_property("file", label, "label")
-                .transform_to(|_, file: &File| Some(file.get_name()))
+                .transform_to(|_, file: &File| Some(file.name()))
                 .sync_create()
                 .build()
         })
@@ -1172,7 +1177,7 @@ pub fn advanced_rename_dialog_show(
 fn gnome_cmd_advrename_dialog_set(dialog: &AdvancedRenameDialog, file_list: &glib::List<File>) {
     dialog
         .profile_component()
-        .set_sample_file_name(file_list.front().map(|f| f.get_name()));
+        .set_sample_file_name(file_list.front().map(|f| f.name()));
 
     let file_metadata_service = dialog.file_metadata_service();
     let files = &dialog.imp().files;

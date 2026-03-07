@@ -28,14 +28,13 @@ use crate::{
     connection::{Connection, ConnectionExt, ConnectionInterface, list::ConnectionList},
     dialogs::{delete_dialog::show_delete_dialog, rename_popover::show_rename_popover},
     dir::{Directory, DirectoryState},
-    file::File,
+    file::{File, FileOps},
     filter::{Filter, fnmatch},
     imageloader::icon_cache,
     layout::{
         PREF_COLORS,
         ls_colors::{LsPalletteColor, ls_colors_get},
     },
-    libgcmd::file_descriptor::FileDescriptorExt,
     main_win::MainWindow,
     open_connection::open_connection,
     options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
@@ -682,7 +681,7 @@ mod imp {
                 for handler_id in self.directory_handlers.take() {
                     previous_directory.disconnect(handler_id);
                 }
-                if previous_directory.upcast_ref::<File>().is_local()
+                if previous_directory.is_local()
                     && !previous_directory.is_monitored()
                     && previous_directory.needs_mtime_update()
                 {
@@ -721,6 +720,17 @@ mod imp {
                         #[weak(rename_to = imp)]
                         self,
                         move |d: &Directory| imp.on_directory_deleted(d)
+                    ),
+                ));
+            self.directory_handlers
+                .borrow_mut()
+                .push(directory.connect_closure(
+                    "dir-renamed",
+                    false,
+                    glib::closure_local!(
+                        #[weak(rename_to = imp)]
+                        self,
+                        move |d: &Directory| imp.on_directory_renamed(d)
                     ),
                 ));
             self.directory_handlers
@@ -783,11 +793,17 @@ mod imp {
         }
 
         fn on_directory_deleted(&self, dir: &Directory) {
-            if let Some(parent_dir) = dir.existing_parent() {
-                self.obj().goto_directory(&parent_dir.path().path());
+            if let Some(parent_dir) = dir.existing_parent()
+                && let Some(path) = parent_dir.local_path()
+            {
+                self.obj().goto_directory(&path);
             } else {
                 self.obj().goto_directory(Path::new("~"));
             }
+        }
+
+        fn on_directory_renamed(&self, dir: &Directory) {
+            self.obj().emit_by_name::<()>("dir-changed", &[dir]);
         }
 
         fn on_dir_file_created(&self, f: &File) {
@@ -831,7 +847,7 @@ mod imp {
             self.store.append(&item);
 
             // If we have been waiting for this file to show up, focus it
-            if self.focus_later.borrow().as_ref() == Some(&f.file_info().name()) {
+            if self.focus_later.borrow().as_ref() == Some(&f.path_name()) {
                 self.focus_later.replace(None);
                 self.obj().focus_file_at_row(&item);
             }
@@ -1022,10 +1038,7 @@ mod imp {
                     glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::Right | gdk::Key::KP_Right) => {
-                    if let Some(directory) = self
-                        .obj()
-                        .selected_file()
-                        .filter(|f| f.file_info().file_type() == gio::FileType::Directory)
+                    if let Some(directory) = self.obj().selected_file().filter(|f| f.is_directory())
                     {
                         self.obj()
                             .emit_by_name::<()>("file-activated", &[&directory]);
@@ -1279,12 +1292,7 @@ mod imp {
         }
 
         fn add_cwd_to_cmdline(&self) {
-            if let Some(path) = self
-                .obj()
-                .directory()
-                .and_upcast::<File>()
-                .and_then(|d| d.get_real_path())
-            {
+            if let Some(path) = self.obj().directory().and_then(|d| d.local_path()) {
                 self.add_to_cmdline(path);
             }
         }
@@ -1292,11 +1300,11 @@ mod imp {
         fn add_file_to_cmdline(&self, fullpath: bool) {
             if let Some(file) = self.obj().selected_file() {
                 if fullpath {
-                    if let Some(path) = file.get_real_path() {
+                    if let Some(path) = file.local_path() {
                         self.add_to_cmdline(path);
                     }
                 } else {
-                    self.add_to_cmdline(file.get_name());
+                    self.add_to_cmdline(file.name());
                 }
             }
         }
@@ -1306,7 +1314,7 @@ mod imp {
                 .obj()
                 .selected_files()
                 .into_iter()
-                .map(|f| f.get_uri_str())
+                .map(|f| f.uri())
                 .collect::<Vec<_>>();
             if files.is_empty() {
                 return None;
@@ -1335,8 +1343,10 @@ mod imp {
 
             let destination = if file.as_ref().is_some_and(|f| f.is_dotdot()) {
                 DroppingFilesDestination::Parent
-            } else if let Some(dir) = file.and_downcast::<Directory>() {
-                DroppingFilesDestination::Child(dir.file_info().name())
+            } else if let Some(file) = &file
+                && file.is_directory()
+            {
+                DroppingFilesDestination::Child(file.path_name())
             } else {
                 DroppingFilesDestination::This
             };
@@ -1407,12 +1417,9 @@ mod imp {
 
             let to = match data.destination {
                 DroppingFilesDestination::Parent => self.obj().directory().and_then(|d| d.parent()),
-                DroppingFilesDestination::Child(name) => self
-                    .obj()
-                    .find_file_by_name(&name)
-                    .and_then(|position| self.item_at(position))
-                    .map(|item| item.file())
-                    .and_downcast::<Directory>(),
+                DroppingFilesDestination::Child(name) => {
+                    self.obj().directory().map(|d| d.child(&name))
+                }
                 DroppingFilesDestination::This => self.obj().directory(),
             };
             let Some(dir) = to else { return };
@@ -1837,7 +1844,7 @@ impl FileList {
         } else {
             for item in self.imp().items_iter() {
                 let file = item.file();
-                if !file.is_dotdot() && !file.is::<Directory>() {
+                if !file.is_dotdot() && !file.is_directory() {
                     item.set_selected(true);
                 }
             }
@@ -1849,7 +1856,7 @@ impl FileList {
         for item in self.imp().items_iter() {
             let file = item.file();
             if !file.is_dotdot() {
-                item.set_selected(!file.is::<Directory>());
+                item.set_selected(!file.is_directory());
             }
         }
         self.emit_files_changed();
@@ -1857,7 +1864,7 @@ impl FileList {
 
     pub fn unselect_all_files(&self) {
         for item in self.imp().items_iter() {
-            if !item.file().is::<Directory>() {
+            if !item.file().is_directory() {
                 item.set_selected(false);
             }
         }
@@ -1963,10 +1970,7 @@ impl FileList {
             DirectoryState::Listing | DirectoryState::Canceling => Ok(()),
             DirectoryState::Listed => {
                 // check if the dir has up-to-date file list; if not and it's a local dir - relist it
-                if directory.upcast_ref::<File>().is_local()
-                    && !directory.is_monitored()
-                    && directory.update_mtime()
-                {
+                if directory.is_local() && !directory.is_monitored() && directory.update_mtime() {
                     directory.relist_files(&window, true).await
                 } else {
                     Ok(())
@@ -2018,7 +2022,7 @@ impl FileList {
     pub fn find_file_by_name(&self, name: &Path) -> Option<u32> {
         self.imp()
             .items_iter()
-            .position(|item| item.file().file_info().name() == name)
+            .position(|item| item.file().path_name() == name)
             .and_then(|p| p.try_into().ok())
     }
 
@@ -2051,8 +2055,8 @@ impl FileList {
         for item in self.imp().items_iter() {
             let file = item.file();
             if !file.is_dotdot()
-                && (select_dirs || file.downcast_ref::<Directory>().is_none())
-                && pattern.matches(&file.file_info().display_name())
+                && (select_dirs || !file.is_directory())
+                && pattern.matches(&file.name())
             {
                 item.set_selected(mode);
             }
@@ -2088,53 +2092,45 @@ impl FileList {
                 .to_path_buf()
         };
 
-        let new_dir;
-        let focus_dir;
-        if dir == Path::new("..") {
+        let (new_dir, focus_dir) = if dir == Path::new("..") {
             let cwd = self
                 .directory()
                 .ok_or_else(|| ErrorMessage::brief(gettext("Current directory is not set.")))?;
 
             // let's get the parent directory
-            new_dir = Some(
+            (
                 cwd.parent()
                     .ok_or_else(|| ErrorMessage::brief(gettext("No parent directory")))?,
-            );
-            focus_dir = Some(cwd);
+                Some(cwd),
+            )
         } else {
-            focus_dir = None;
-            if dir.is_absolute() {
-                let connection = self
-                    .connection()
-                    .unwrap_or_else(|| ConnectionList::get().home().upcast());
-                new_dir = Some(Directory::try_new(
-                    &connection,
-                    connection.create_path(&dir),
-                )?);
-            } else if dir.starts_with("\\\\") {
-                let connection = ConnectionList::get().smb().ok_or_else(|| {
-                    ErrorMessage::brief(gettext("No SAMBA connection is available"))
-                })?;
-                new_dir = Some(Directory::try_new(
-                    &connection,
-                    connection.create_path(&dir),
-                )?);
-            } else {
-                let child_dir = self
-                    .directory()
-                    .ok_or_else(|| ErrorMessage::brief(gettext("Current directory is not set.")))
-                    .and_then(|cwd| cwd.child(&dir))?;
-                new_dir = Some(child_dir);
-            }
-        }
+            (
+                if dir.is_absolute() {
+                    let connection = self
+                        .connection()
+                        .unwrap_or_else(|| ConnectionList::get().home().upcast());
+                    Directory::new(&connection, &connection.create_uri(&dir))
+                } else if dir.starts_with("\\\\") {
+                    let connection = ConnectionList::get().smb().ok_or_else(|| {
+                        ErrorMessage::brief(gettext("No SAMBA connection is available"))
+                    })?;
+                    Directory::new(&connection, &connection.create_uri(&dir))
+                } else {
+                    self.directory()
+                        .ok_or_else(|| {
+                            ErrorMessage::brief(gettext("Current directory is not set."))
+                        })
+                        .map(|cwd| cwd.child(&dir))?
+                },
+                None,
+            )
+        };
 
-        if let Some(new_dir) = new_dir {
-            self.set_directory_async(&new_dir).await;
-        }
+        self.set_directory_async(&new_dir).await;
 
         // focus the current dir when going back to the parent dir
         if let Some(focus_dir) = focus_dir {
-            self.focus_file(&focus_dir.file_info().name(), false);
+            self.focus_file(&focus_dir.path_name(), false);
         }
 
         Ok(())
@@ -2168,7 +2164,7 @@ impl FileList {
         let select_dirs = self.select_dirs();
         for item in self.imp().items_iter() {
             let file = item.file();
-            if !file.is_dotdot() && (select_dirs || file.downcast_ref::<Directory>().is_none()) {
+            if !file.is_dotdot() && (select_dirs || !file.is_directory()) {
                 item.set_selected(!item.selected());
             }
         }
@@ -2184,11 +2180,10 @@ impl FileList {
         for item in self.imp().items_iter() {
             let file = item.file();
             if !file.is_dotdot() {
-                let info = file.file_info();
                 let selected = item.selected();
                 let cached_size: Option<u64> = item.size().try_into().ok();
 
-                match info.file_type() {
+                match file.file_type() {
                     gio::FileType::Directory => {
                         stats.total.directories += 1;
                         if selected {
@@ -2202,7 +2197,7 @@ impl FileList {
                         }
                     }
                     gio::FileType::Regular => {
-                        let size: u64 = info.size().try_into().unwrap_or_default();
+                        let size = file.size().unwrap_or_default();
                         stats.total.files += 1;
                         stats.total.bytes += size;
                         if selected {
@@ -2251,7 +2246,15 @@ impl FileList {
         if !files.is_empty() {
             let general_options = GeneralOptions::new();
             let confirm_options = ConfirmOptions::new();
-            show_delete_dialog(&window, &files, force, &general_options, &confirm_options).await;
+            show_delete_dialog(
+                &window,
+                self.connection().as_ref(),
+                &files,
+                force,
+                &general_options,
+                &confirm_options,
+            )
+            .await;
         }
     }
 
@@ -2273,7 +2276,7 @@ impl FileList {
         };
 
         let file = selected.file();
-        if let Some(new_name) = show_rename_popover(&file.get_name(), self, &rect).await {
+        if let Some(new_name) = show_rename_popover(&file.name(), self, &rect).await {
             match file.rename(&new_name) {
                 Ok(_) => {
                     selected.update();
@@ -2360,7 +2363,7 @@ impl FileList {
             let focus_later = self.imp().focus_later.take();
             let focus_later_item = items
                 .into_iter()
-                .find(|item| focus_later.as_ref() == Some(&item.file().file_info().name()));
+                .find(|item| focus_later.as_ref() == Some(&item.file().path_name()));
 
             if let Some(item) = focus_later_item {
                 self.focus_file_at_row(&item);
@@ -2679,7 +2682,7 @@ fn create_icon_factory() -> gtk::ListItemFactory {
 
             match global_options.graphical_layout_mode.get() {
                 GraphicalLayoutMode::Text => {
-                    label.set_text(imp::type_string(file.file_info().file_type()));
+                    label.set_text(imp::type_string(file.file_type()));
                     stack.set_visible_child(&label);
                 }
                 mode => {
@@ -2746,7 +2749,7 @@ fn create_size_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
     let global_options = GeneralOptions::new();
     create_text_cell_factory(1.0, cells, move |cell, item| {
         let mode = global_options.size_display_mode.get();
-        let is_directory = item.file().file_info().file_type() == gio::FileType::Directory;
+        let is_directory = item.file().is_directory();
         cell.bind(&item);
         cell.add_binding(
             item.bind_property("size", &cell, "text")

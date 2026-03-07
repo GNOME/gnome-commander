@@ -21,7 +21,10 @@
  */
 
 use crate::{
-    file::File, options::ProgramsOptions, types::SizeDisplayMode, user_actions::UserAction,
+    file::{File, FileOps},
+    options::ProgramsOptions,
+    types::SizeDisplayMode,
+    user_actions::UserAction,
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gdk, gio, glib, pango, prelude::*};
@@ -97,7 +100,7 @@ pub fn temp_directory() -> &'static tempfile::TempDir {
 }
 
 pub fn temp_file(f: &File) -> Result<File, ErrorMessage> {
-    let name = f.get_name();
+    let name = f.name();
     let name_parts = name.rsplit_once('.');
 
     let temp_file = tempfile::Builder::new()

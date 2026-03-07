@@ -45,12 +45,9 @@ use crate::{
         shortcuts::shortcuts_dialog::ShortcutsDialog,
     },
     dir::Directory,
-    file::File,
+    file::{File, FileOps},
     file_list::list::FileList,
-    libgcmd::{
-        file_actions::{FileActions, FileActionsExt},
-        file_descriptor::FileDescriptorExt,
-    },
+    libgcmd::file_actions::{FileActions, FileActionsExt},
     main_win::MainWindow,
     options::{ConfirmOptions, GeneralOptions, NetworkOptions, ProgramsOptions},
     plugin_manager::{PluginActionVariant, show_plugin_manager},
@@ -170,7 +167,7 @@ async fn file_search(main_win: MainWindow) {
             )
         }
 
-        let files = file_list.selected_files();
+        let files = file_list.selected_files().into_iter().collect::<Vec<_>>();
         let error_message = match spawn_async(None, &files, &options.search_cmd.get()) {
             Ok(_) => return,
             Err(SpawnError::InvalidTemplate) => ErrorMessage::brief(no_search_command_error()),
@@ -205,7 +202,14 @@ async fn file_chmod(main_win: MainWindow) {
     let file_list = file_selector.file_list();
 
     let files = file_list.selected_files();
-    if !files.is_empty() && show_chmod_dialog(main_win.upcast_ref(), &files).await {
+    if !files.is_empty()
+        && show_chmod_dialog(
+            main_win.upcast_ref(),
+            file_list.connection().as_ref(),
+            &files,
+        )
+        .await
+    {
         file_list.reload().await;
     }
 }
@@ -215,7 +219,14 @@ async fn file_chown(main_win: MainWindow) {
     let file_list = file_selector.file_list();
 
     let files = file_list.selected_files();
-    if !files.is_empty() && show_chown_dialog(main_win.upcast_ref(), &files).await {
+    if !files.is_empty()
+        && show_chown_dialog(
+            main_win.upcast_ref(),
+            file_list.connection().as_ref(),
+            &files,
+        )
+        .await
+    {
         file_list.reload().await;
     }
 }
@@ -226,12 +237,13 @@ async fn file_mkdir(main_win: MainWindow) {
 
     if let Some(dir) = file_list.directory() {
         let selected_file = file_list.selected_file();
+        let dir_file = dir.file().clone();
         let new_dir =
-            show_mkdir_dialog(main_win.upcast_ref(), &dir.file(), selected_file.as_ref()).await;
+            show_mkdir_dialog(main_win.upcast_ref(), &dir_file, selected_file.as_ref()).await;
 
         if let Some(new_dir) = new_dir {
             // focus the created directory (if possible)
-            if new_dir.parent().is_some_and(|p| p.equal(&dir.file())) {
+            if new_dir.parent().is_some_and(|p| p.equal(&*dir.file())) {
                 dir.file_created(&new_dir.uri());
                 file_list.focus_file(&new_dir.basename().unwrap(), true);
             }
@@ -248,11 +260,12 @@ async fn file_properties(main_win: MainWindow) {
             main_win.upcast_ref(),
             &main_win.file_metadata_service(),
             &file,
+            file_list.connection(),
         )
         .await;
 
         if changed {
-            file_list.focus_file(&file.file_info().name(), true);
+            file_list.focus_file(&file.path_name(), true);
         }
     }
 }
@@ -276,13 +289,13 @@ async fn do_file_diff(
 
     ensure_file_list_is_local(&active_fl)?;
 
-    let selected_files = active_fl.selected_files();
+    let selected_files = active_fl.selected_files().into_iter().collect::<Vec<_>>();
     match selected_files.len() {
         0 => Ok(()),
         1 => {
             ensure_file_list_is_local(&inactive_fl)?;
 
-            let active_file = selected_files.front().unwrap().clone();
+            let active_file = selected_files.first().unwrap().clone();
 
             let inactive_file = inactive_fl
                 .selected_files()
@@ -290,11 +303,12 @@ async fn do_file_diff(
                 .ok_or_else(|| ErrorMessage::new(gettext("No file selected"), None::<String>))?
                 .clone();
 
-            let mut files = glib::List::new();
-            files.push_back(active_file);
-            files.push_back(inactive_file);
-
-            spawn_async(None, &files, &options.differ_cmd.get()).map_err(SpawnError::into_message)
+            spawn_async(
+                None,
+                &[active_file, inactive_file],
+                &options.differ_cmd.get(),
+            )
+            .map_err(SpawnError::into_message)
         }
         2 | 3 => spawn_async(None, &selected_files, &options.differ_cmd.get())
             .map_err(SpawnError::into_message),
@@ -325,11 +339,8 @@ async fn do_file_sync_dirs(
         .zip(inactive_fl.directory())
         .ok_or_else(|| ErrorMessage::brief(gettext("Nothing to compare")))?;
 
-    let mut files = glib::List::new();
-    files.push_back(active_dir.upcast());
-    files.push_back(inactive_dir.upcast());
-
-    spawn_async(None, &files, &options.differ_cmd.get()).map_err(SpawnError::into_message)
+    spawn_async(None, &[active_dir, inactive_dir], &options.differ_cmd.get())
+        .map_err(SpawnError::into_message)
 }
 
 async fn file_sync_dirs(main_win: MainWindow) {
@@ -368,7 +379,7 @@ async fn create_symlinks(
         let target_absolute_name = file.file().parse_name();
 
         let symlink_file =
-            directory.get_child_gfile(Path::new(&symlink_name(&file.get_name(), options)));
+            directory.get_child_gfile(Path::new(&symlink_name(&file.name(), options)));
 
         loop {
             match symlink_file.make_symbolic_link(&target_absolute_name, gio::Cancellable::NONE) {
@@ -453,7 +464,7 @@ async fn file_create_symlink(main_win: MainWindow) {
             main_win.upcast_ref(),
             &focused_file,
             &dest_directory,
-            &symlink_name(&focused_file.get_name(), &options),
+            &symlink_name(&focused_file.name(), &options),
         )
         .await;
     }
@@ -471,7 +482,7 @@ async fn file_sendto(main_win: MainWindow) {
 
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
-    let files = file_list.selected_files();
+    let files = file_list.selected_files().into_iter().collect::<Vec<_>>();
 
     let command_template = options.sendto_cmd.get();
 
@@ -577,22 +588,21 @@ async fn mark_compare_directories(main_win: MainWindow) {
     let mut files2: HashMap<String, File> = fl2
         .visible_files()
         .into_iter()
-        .filter(|f| !f.is_dotdot())
-        .filter(|f| f.file_info().file_type() != gio::FileType::Directory)
-        .map(|f| (f.get_name(), f))
+        .filter(|f| !f.is_directory())
+        .map(|f| (f.name(), f))
         .collect();
 
     let mut selection1 = HashSet::new();
     for f1 in fl1.visible_files() {
-        if f1.is_dotdot() || f1.file_info().file_type() == gio::FileType::Directory {
+        if f1.is_directory() {
             continue;
         }
 
-        let name = f1.get_name();
+        let name = f1.name();
 
         if let Some(f2) = files2.get(&name) {
-            let date1 = f1.file_info().modification_date_time();
-            let date2 = f2.file_info().modification_date_time();
+            let date1 = f1.modification_date();
+            let date2 = f2.modification_date();
 
             // select the younger one
             match date1.cmp(&date2) {
@@ -600,7 +610,7 @@ async fn mark_compare_directories(main_win: MainWindow) {
                     // f2 stays selected
                 }
                 Ordering::Equal => {
-                    if f1.file_info().size() == f2.file_info().size() {
+                    if f1.size() == f2.size() {
                         // no selection
                         files2.remove(&name);
                     } else {
@@ -652,11 +662,11 @@ async fn edit_copy_fnames(main_win: MainWindow) {
     let names: Vec<String> = match mask {
         Some(gdk::ModifierType::SHIFT_MASK) => files
             .into_iter()
-            .filter_map(|f| f.get_real_path())
+            .filter_map(|f| f.local_path())
             .map(|p| p.to_string_lossy().to_string())
             .collect(),
-        Some(gdk::ModifierType::ALT_MASK) => files.into_iter().map(|f| f.get_uri_str()).collect(),
-        _ => files.into_iter().map(|f| f.get_name()).collect(),
+        Some(gdk::ModifierType::ALT_MASK) => files.into_iter().map(|f| f.uri()).collect(),
+        _ => files.into_iter().map(|f| f.name()).collect(),
     };
 
     main_win.clipboard().set_text(&names.join(" "));
@@ -668,7 +678,7 @@ async fn command_execute(main_win: MainWindow, command_template: String) {
     let fs = main_win.file_selector(FileSelectorID::Active);
     let fl = fs.file_list();
 
-    let sfl = fl.selected_files();
+    let sfl = fl.selected_files().into_iter().collect::<Vec<_>>();
 
     let grouped = sfl
         .iter()
@@ -793,7 +803,7 @@ async fn view_directory(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
     if let Some(file) = file_list.selected_file()
-        && file.file_info().file_type() == gio::FileType::Directory
+        && file.is_directory()
     {
         file_selector.do_file_specific_action(&file_list, &file);
     }
@@ -808,13 +818,7 @@ async fn view_home(main_win: MainWindow) {
         file_list.set_connection(&home, None);
         file_list.goto_directory(Path::new("~"));
     } else {
-        let directory = match Directory::try_new(&home, home.create_path(&glib::home_dir())) {
-            Ok(directory) => directory,
-            Err(_) => {
-                eprintln!("Unexpected: could not get home directory");
-                return;
-            }
-        };
+        let directory = Directory::new(&home, &home.create_uri(&glib::home_dir()));
         file_selector.new_tab_with_dir(&directory, true, true);
     }
 }
@@ -825,14 +829,7 @@ async fn view_root(main_win: MainWindow) {
 
     if file_selector.is_tab_locked(&file_list) {
         if let Some(connection) = file_list.connection() {
-            let directory =
-                match Directory::try_new(&connection, connection.create_path(Path::new("/"))) {
-                    Ok(directory) => directory,
-                    Err(_) => {
-                        eprintln!("Unexpected: could not get root directory");
-                        return;
-                    }
-                };
+            let directory = Directory::new(&connection, &connection.create_uri(Path::new("/")));
             file_selector.new_tab_with_dir(&directory, true, true);
         }
     } else {
@@ -895,7 +892,13 @@ async fn view_in_new_tab(main_win: MainWindow) {
     if let Some(dir) = file_selector
         .file_list()
         .selected_file()
-        .and_downcast::<Directory>()
+        .filter(|file| file.is_directory())
+        .and_then(|file| {
+            file_selector
+                .file_list()
+                .directory()
+                .map(|parent| parent.child(file.name()))
+        })
         .or_else(|| file_selector.file_list().directory())
     {
         file_selector.new_tab_with_dir(&dir, false, false);
@@ -907,7 +910,13 @@ async fn view_in_inactive_tab(main_win: MainWindow) {
     if let Some(dir) = file_selector
         .file_list()
         .selected_file()
-        .and_downcast::<Directory>()
+        .filter(|file| file.is_directory())
+        .and_then(|file| {
+            file_selector
+                .file_list()
+                .directory()
+                .map(|parent| parent.child(file.name()))
+        })
         .or_else(|| file_selector.file_list().directory())
     {
         main_win

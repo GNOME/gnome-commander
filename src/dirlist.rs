@@ -17,7 +17,10 @@
  * For more details see the file COPYING.
  */
 
-use crate::{dir::Directory, libgcmd::file_descriptor::FileDescriptorExt};
+use crate::{
+    dir::Directory,
+    file::{File, FileOps},
+};
 use gettextrs::{gettext, ngettext};
 use gtk::{gio, glib, prelude::*};
 
@@ -78,14 +81,18 @@ pub async fn list_directory(
     dir: &Directory,
     parent_window: Option<&gtk::Window>,
 ) -> Result<glib::List<gio::FileInfo>, glib::Error> {
-    let file = dir.file();
+    let file = dir.file().clone();
 
     let dialog = parent_window.map(create_list_progress_dialog);
 
     let mut files = Vec::new();
 
     let enumerator = file
-        .enumerate_children_future("*", gio::FileQueryInfoFlags::NONE, glib::Priority::DEFAULT)
+        .enumerate_children_future(
+            File::DEFAULT_ATTRIBUTES,
+            gio::FileQueryInfoFlags::NONE,
+            glib::Priority::DEFAULT,
+        )
         .await?;
 
     let mut error = None;

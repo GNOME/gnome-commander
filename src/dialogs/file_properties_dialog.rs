@@ -20,7 +20,12 @@
  * For more details see the file COPYING.
  */
 
-use crate::{file::File, tags::FileMetadataService, utils::SenderExt};
+use crate::{
+    connection::Connection,
+    file::{File, FileOps},
+    tags::FileMetadataService,
+    utils::SenderExt,
+};
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
@@ -30,7 +35,6 @@ mod imp {
         chmod_component::ChmodComponent,
         chown_component::ChownComponent,
         connection::{ConnectionExt, device::ConnectionDevice},
-        dir::Directory,
         file_metainfo_view::FileMetainfoView,
         tags::file_metadata::FileMetadata,
         types::SizeDisplayMode,
@@ -60,6 +64,8 @@ mod imp {
         file_metadata: RefCell<Option<FileMetadata>>,
         #[property(get, construct_only)]
         file_metadata_service: OnceCell<FileMetadataService>,
+        #[property(get, construct_only)]
+        connection: OnceCell<Option<Connection>>,
     }
 
     #[glib::object_subclass]
@@ -87,6 +93,7 @@ mod imp {
                 file: Default::default(),
                 file_metadata: Default::default(),
                 file_metadata_service: Default::default(),
+                connection: Default::default(),
             }
         }
     }
@@ -201,7 +208,6 @@ mod imp {
     impl FilePropertiesDialog {
         fn properties_tab(&self) -> gtk::Widget {
             let file = self.obj().file();
-            let file_info = file.file_info();
 
             let tab = gtk::Grid::builder()
                 .margin_top(6)
@@ -212,23 +218,18 @@ mod imp {
                 .row_spacing(6)
                 .build();
 
-            self.filename_label
-                .set_label(&if file.downcast_ref::<Directory>().is_some() {
-                    gettext("Directory name:")
-                } else {
-                    gettext("File name:")
-                });
-            self.filename_entry.set_text(&file.file_info().edit_name());
+            self.filename_label.set_label(&if file.is_directory() {
+                gettext("Directory name:")
+            } else {
+                gettext("File name:")
+            });
+            self.filename_entry.set_text(&file.edit_name());
 
             tab.attach(&self.filename_label, 0, 0, 1, 1);
             tab.attach(&self.filename_entry, 1, 0, 1, 1);
 
             let mut y = 1;
-            if let Some(symlink_target) = file_info
-                .is_symlink()
-                .then(|| file_info.symlink_target())
-                .flatten()
-            {
+            if let Some(symlink_target) = file.symlink_target() {
                 attach_labels(
                     &tab,
                     gettext("Symlink target:"),
@@ -247,13 +248,13 @@ mod imp {
             y += 1;
 
             if file.is_local() {
-                if let Some(dir) = file.get_dirname().as_ref().and_then(|p| p.to_str()) {
+                if let Some(dir) = file.parent_path().as_ref().and_then(|p| p.to_str()) {
                     attach_labels(&tab, gettext("Location:"), dir, &mut y);
                 }
 
-                let connection = file.connection();
+                let connection = self.obj().connection();
                 let uuid = connection
-                    .downcast_ref::<ConnectionDevice>()
+                    .and_downcast_ref::<ConnectionDevice>()
                     .and_then(|d| d.mount())
                     .and_then(|m| m.uuid())
                     .map(|u| format!(" ({})", u))
@@ -261,11 +262,18 @@ mod imp {
                 attach_labels(
                     &tab,
                     gettext("Volume:"),
-                    format!("{}{}", connection.alias().unwrap_or_default(), uuid),
+                    format!(
+                        "{}{}",
+                        connection
+                            .as_ref()
+                            .and_then(|c| c.alias())
+                            .unwrap_or_default(),
+                        uuid
+                    ),
                     &mut y,
                 );
 
-                if connection.can_show_free_space() {
+                if connection.is_some_and(|c| c.can_show_free_space()) {
                     match file.free_space() {
                         Ok(free_space) => {
                             attach_labels(
@@ -286,8 +294,7 @@ mod imp {
                 attach_labels(&tab, gettext("Content type:"), &content_type, &mut y);
             }
 
-            let file_type = file_info.file_type();
-            if file_type != gio::FileType::Directory {
+            if !file.is_directory() {
                 attach_labels(
                     &tab,
                     gettext("Opens with:"),
@@ -307,7 +314,7 @@ mod imp {
             );
             y += 1;
 
-            if let Some(dt) = file_info.modification_date_time() {
+            if let Some(dt) = file.modification_date() {
                 match time_to_string(dt, "%c") {
                     Ok(str) => {
                         attach_labels(&tab, gettext("Modified:"), &str, &mut y);
@@ -315,7 +322,7 @@ mod imp {
                     Err(error) => eprintln!("Failed to format file modification time: {error}"),
                 }
             }
-            if let Some(dt) = file_info.access_date_time() {
+            if let Some(dt) = file.access_date() {
                 match time_to_string(dt, "%c") {
                     Ok(str) => {
                         attach_labels(&tab, gettext("Accessed:"), &str, &mut y);
@@ -336,14 +343,14 @@ mod imp {
             let size_label = attach_labels(
                 &tab,
                 gettext("Size:"),
-                nice_size(file_info.size() as u64, SizeDisplayMode::Grouped),
+                nice_size(file.size().unwrap_or_default(), SizeDisplayMode::Grouped),
                 &mut y,
             );
-            if file_type == gio::FileType::Directory {
+            if file.is_directory() {
                 self.do_calc_tree_size(size_label);
             }
 
-            if file_type != gio::FileType::Special {
+            if !file.is_special() {
                 let file_metadata_service = self.obj().file_metadata_service();
 
                 let metadata = file_metadata_service.extract_metadata(&file);
@@ -359,7 +366,7 @@ mod imp {
         }
 
         fn permissions_tab(&self) -> gtk::Widget {
-            let file_info = self.obj().file().file_info();
+            let file = self.obj().file();
 
             let tab = gtk::Grid::builder()
                 .margin_top(6)
@@ -382,10 +389,7 @@ mod imp {
                 1,
             );
 
-            self.chown_component.set_ownership(
-                file_info.attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_UID),
-                file_info.attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_GID),
-            );
+            self.chown_component.set_ownership(file.uid(), file.gid());
             self.chown_component.set_hexpand(true);
             tab.attach(&self.chown_component, 0, 1, 1, 1);
 
@@ -402,8 +406,7 @@ mod imp {
                 1,
             );
 
-            self.chmod_component
-                .set_permissions(file_info.attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE));
+            self.chmod_component.set_permissions(file.permissions());
             self.chmod_component.set_hexpand(true);
             tab.attach(&self.chmod_component, 0, 3, 1, 1);
 
@@ -514,7 +517,7 @@ mod imp {
             let mut changed = false;
 
             let filename = self.filename_entry.text();
-            if filename != file.get_name() {
+            if filename != file.name() {
                 file.rename(&filename)?;
                 changed = true;
             }
@@ -569,11 +572,13 @@ impl FilePropertiesDialog {
         parent_window: &gtk::Window,
         file_metadata_service: &FileMetadataService,
         file: &File,
+        connection: Option<Connection>,
     ) -> Self {
         glib::Object::builder()
             .property("transient-for", parent_window)
             .property("file-metadata-service", file_metadata_service)
             .property("file", file)
+            .property("connection", connection)
             .build()
     }
 
@@ -581,12 +586,13 @@ impl FilePropertiesDialog {
         parent_window: &gtk::Window,
         file_metadata_service: &FileMetadataService,
         file: &File,
+        connection: Option<Connection>,
     ) -> bool {
         if file.is_dotdot() {
             return false;
         }
 
-        let dialog = Self::new(parent_window, file_metadata_service, file);
+        let dialog = Self::new(parent_window, file_metadata_service, file, connection);
 
         let (sender, receiver) = async_channel::bounded::<bool>(1);
         dialog.connect(

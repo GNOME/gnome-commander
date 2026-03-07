@@ -22,7 +22,7 @@
 
 use crate::{
     dir::Directory,
-    file::File,
+    file::{File, FileOps},
     main_win::MainWindow,
     transfer::copy_files,
     types::ConfirmOverwriteMode,
@@ -44,7 +44,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
     let grid = gtk::Grid::builder().hexpand(true).vexpand(true).build();
     dialog.set_child(Some(&grid));
 
-    let initial_value = f.file_info().display_name();
+    let initial_value = f.name();
 
     let label = gtk::Label::builder()
         .label(gettext("Copy “{}” to").replace("{}", &initial_value))
@@ -118,22 +118,16 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         dest_fn = base;
 
         let con = dir.connection();
-        let con_path = con.create_path(Path::new(parent));
-        dest_dir = match Directory::try_new(&con, con_path) {
-            Ok(dest_dir) => dest_dir,
-            Err(_) => {
-                eprintln!("Unexpected: could not get destination directory");
-                return;
-            }
-        };
+        dest_dir = Directory::new(&con, &con.create_uri(Path::new(parent)));
     } else {
         dest_dir = dir.clone();
         dest_fn = filename;
     }
 
+    let src_files = vec![f.file().clone()];
     let success = copy_files(
         main_win.clone().upcast(),
-        [f.file().clone()].into_iter().collect(),
+        src_files,
         dest_dir,
         Some(PathBuf::from(dest_fn)),
         gio::FileCopyFlags::NONE,

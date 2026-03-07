@@ -28,9 +28,8 @@ use crate::{
         transfer_progress_dialog::TransferProgressWindow,
     },
     dir::Directory,
-    libgcmd::file_descriptor::FileDescriptorExt,
+    file::{File, FileOps},
     options::GeneralOptions,
-    path::GnomeCmdPath,
     types::{ConfirmOverwriteMode, GnomeCmdTransferType, SizeDisplayMode},
     utils::{ErrorMessage, nice_size, pending, time_to_string},
 };
@@ -401,7 +400,7 @@ fn file_is_parent_to_dir_or_equal(file: &gio::File, dir: &Directory) -> bool {
 
 fn file_is_already_in_dir(file: &gio::File, dir: &Directory) -> bool {
     file.parent()
-        .is_some_and(|parent| parent.equal(&dir.file()))
+        .is_some_and(|parent| parent.equal(&*dir.file()))
 }
 
 fn file_details(
@@ -988,98 +987,19 @@ async fn move_file_recursively(
                 .is_continue()
             {
                 // Folder was copied, now delete the source for completing the move operation
-                let file_info = match src.query_info(
-                    "*",
-                    gio::FileQueryInfoFlags::NONE,
-                    gio::Cancellable::NONE,
-                ) {
-                    Ok(file_info) => file_info,
-                    Err(error) => {
-                        run_failure_dialog(
-                            window.upcast_ref(),
-                            &gettext("Source “%s” could not be deleted. Aborting!")
-                                .replace("%s", &src.parse_name()),
-                            &error,
-                        )
-                        .await;
-                        return ControlFlow::Break(BreakReason::Failed);
-                    }
-                };
-
-                let Some(parent_file) = src.parent() else {
-                    run_failure_dialog(
-                        window.upcast_ref(),
-                        &gettext("Source “%s” could not be deleted. Aborting!")
-                            .replace("%s", &src.parse_name()),
-                        &error,
-                    )
-                    .await;
-                    return ControlFlow::Break(BreakReason::Failed);
-                };
-
-                let connection_list = ConnectionList::get();
-                let parent_dir: Directory;
-                let schema = parent_file.uri_scheme();
-
-                if schema.as_deref() == Some("file") {
-                    let home = connection_list.home();
-                    parent_dir = match parent_file
-                        .path()
-                        .and_then(|path| Directory::try_new(&home, GnomeCmdPath::Plain(path)).ok())
-                    {
-                        Some(parent_dir) => parent_dir,
-                        None => {
-                            run_failure_dialog(
-                                window.upcast_ref(),
-                                &gettext("Source “%s” could not be deleted. Aborting!")
-                                    .replace("%s", &src.parse_name()),
-                                &error,
-                            )
-                            .await;
-                            return ControlFlow::Break(BreakReason::Failed);
-                        }
-                    }
-                } else if schema.as_deref() == Some("smb") {
-                    unimplemented!()
-                } else if let Some(ref connection) =
-                    connection_list.get_remote_con_for_file(&parent_file)
-                {
-                    parent_dir = match glib::Uri::parse(&parent_file.uri(), glib::UriFlags::NONE)
-                        .ok()
-                        .and_then(|uri| {
-                            Directory::try_new(
-                                connection,
-                                GnomeCmdPath::Plain(PathBuf::from(uri.path())),
-                            )
-                            .ok()
-                        }) {
-                        Some(parent_dir) => parent_dir,
-                        None => {
-                            run_failure_dialog(
-                                window.upcast_ref(),
-                                &gettext("Source “%s” could not be deleted. Aborting!")
-                                    .replace("%s", &src.parse_name()),
-                                &error,
-                            )
-                            .await;
-                            return ControlFlow::Break(BreakReason::Failed);
-                        }
-                    }
-                } else {
-                    run_failure_dialog(window.upcast_ref(), &gettext("Cannot detect a connection for a source “%s”. It could not be deleted. Aborting!")
-                            .replace("%s", &src.parse_name()),
-                    &error).await;
-                    return ControlFlow::Break(BreakReason::Failed);
-                }
-
-                let directory = Directory::new_from_file_info(&file_info, &parent_dir).unwrap();
+                // do_delete() only really needs the file name, none of the other info.
+                let name = src.basename().unwrap_or_default();
+                let file_info = gio::FileInfo::new();
+                file_info.set_display_name(&name.to_string_lossy());
+                file_info.set_name(name);
 
                 let mut files = glib::List::new();
-                files.push_back(directory.upcast());
+                files.push_back(File::new_from_file(src.clone(), &file_info));
 
                 do_delete(
                     window.upcast_ref(),
                     DeleteAction::DeletePermanently,
+                    Some(&ConnectionList::get().find_by_file(src)),
                     &files,
                     false, // do not show progress window
                 )

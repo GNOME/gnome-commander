@@ -223,6 +223,24 @@ impl ConnectionList {
         self.iter().find(|c| c.alias().as_deref() == Some(alias))
     }
 
+    /// This can be used to match externally received files to a connection.
+    pub fn find_by_file(&self, file: &gio::File) -> Connection {
+        self.iter()
+            .find(|con| {
+                if file.has_uri_scheme("file") {
+                    con.downcast_ref::<ConnectionDevice>()
+                        .and_then(|con| con.mountp_string())
+                        .and_then(|mount_path| file.path().map(|path| (mount_path, path)))
+                        .is_some_and(|(mount_path, path)| path.starts_with(mount_path))
+                } else {
+                    con.downcast_ref::<ConnectionRemote>()
+                        .and_then(|con| con.uri())
+                        .is_some_and(|con_uri| file.uri().starts_with(&*con_uri.to_str()))
+                }
+            })
+            .unwrap_or_else(|| self.home().upcast())
+    }
+
     pub fn home(&self) -> ConnectionHome {
         self.imp().home.clone()
     }
