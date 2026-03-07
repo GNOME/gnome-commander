@@ -680,7 +680,7 @@ impl FileSelector {
         sort_column: ColumnID,
         sort_order: gtk::SortType,
         locked: bool,
-        history: Option<(Vec<(String, String)>, (String, String))>,
+        history: Option<(Vec<StoredHistoryEntry>, StoredHistoryEntry)>,
         activate: bool,
         grab_focus: bool,
     ) -> FileList {
@@ -1515,10 +1515,10 @@ impl TabVariant {
         Self(inner)
     }
 
-    pub fn current_location(&self) -> (String, String) {
+    pub fn current_location(&self) -> StoredHistoryEntry {
         self.0
             .get(Self::SETTING_CURRENT_LOCATION)
-            .and_then(<(String, String)>::from_variant)
+            .and_then(<StoredHistoryEntry>::from_variant)
             .unwrap_or_default()
     }
 
@@ -1586,18 +1586,20 @@ impl TabVariant {
             .insert(Self::SETTING_LOCKED.to_string(), locked.into());
     }
 
-    pub fn history(&self) -> Vec<(String, String)> {
+    pub fn history(&self) -> Vec<StoredHistoryEntry> {
         self.0
             .get(Self::SETTING_HISTORY)
             .and_then(Vec::from_variant)
             .unwrap_or_default()
     }
 
-    pub fn set_history(&mut self, history: Vec<(String, String)>) {
+    pub fn set_history(&mut self, history: Vec<StoredHistoryEntry>) {
         self.0
             .insert(Self::SETTING_HISTORY.to_string(), history.into());
     }
 }
+
+type StoredHistoryEntry = (String, String);
 
 #[derive(PartialEq, Eq, Hash, glib::Variant)]
 pub struct LegacyTabVariant {
@@ -1624,7 +1626,7 @@ impl From<LegacyTabVariant> for TabVariant {
     }
 }
 
-fn restore_directory(connection_list: &ConnectionList, location: (String, String)) -> Directory {
+fn restore_directory(connection_list: &ConnectionList, location: StoredHistoryEntry) -> Directory {
     let (connection_alias, stored_uri) = location;
     let con: Connection = match glib::Uri::parse(&stored_uri, glib::UriFlags::NONE) {
         Ok(uri) => {
