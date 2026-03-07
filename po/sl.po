@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
-"POT-Creation-Date: 2026-03-03 06:31+0000\n"
-"PO-Revision-Date: 2026-03-03 08:21+0100\n"
+"POT-Creation-Date: 2026-03-07 21:19+0000\n"
+"PO-Revision-Date: 2026-03-08 00:51+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: data/org.gnome.gnome-commander.desktop.in:2 data/org.gnome.gnome-commander.metainfo.xml.in:7
 #: src/main_win.rs:284
@@ -244,8 +244,8 @@ msgid "GUI update rate"
 msgstr "Hitrost posodabljanja grafičnega vmesnika"
 
 #: data/org.gnome.gnome-commander.gschema.xml:201
-msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
-msgstr "Hitrost posodabljanja grafičnega vmesnika v tisočinkah sekunde."
+msgid "Update rate of the graphical user interface in 1/1000ths of a second."
+msgstr "Posodobite hitrost posodabljanja grafičnega vmesnika v tisočinkah sekunde."
 
 #: data/org.gnome.gnome-commander.gschema.xml:205
 msgid "Show device buttons"
@@ -1343,7 +1343,7 @@ msgstr "Ime avtorja."
 
 #: plugins/exiv2/exiv2-plugin.cc:87 plugins/taglib/taglib-plugin.cc:191
 #: src/advanced_rename/advanced_rename_dialog.rs:431 src/advanced_rename/profile_component.rs:225
-#: src/advanced_rename/profile_component.rs:683
+#: src/advanced_rename/profile_component.rs:679
 msgid "Date"
 msgstr "Datum"
 
@@ -1720,13 +1720,13 @@ msgid ""
 "not necessary. The ID code for the <Exif.UserComment> area may be a Defined code such as JIS or ASCII, or "
 "may be Undefined. The Undefined name is UndefinedText, and the ID code is filled with 8 bytes of all "
 "“NULL” (“00.H”). An Exif reader that reads the <Exif.UserComment> tag must have a function for "
-"determining the ID code. This function is not required in Exif readers that do not use the "
-"<Exif.UserComment> tag. When a <Exif.UserComment> area is set aside, it is recommended that the ID code "
-"be ASCII and that the following user comment part be filled with blank characters [20.H]."
+"determining the ID code. This function is not required in Exif readers that do not use the <Exif."
+"UserComment> tag. When a <Exif.UserComment> area is set aside, it is recommended that the ID code be "
+"ASCII and that the following user comment part be filled with blank characters [20.H]."
 msgstr ""
 "Oznaka za uporabnike določil Exif, s katerimi je mogoče ob ključnih besedah in komentarjih k sliki "
-"zapisati tudi druge oznake <Exif.ImageDescription> in brez omejitev znakovne kode oznake "
-"<Exif.ImageDescription>. Znakovna koda, uporabljena v oznaki <Exif.UserComment>, je določena na podlagi "
+"zapisati tudi druge oznake <Exif.ImageDescription> in brez omejitev znakovne kode oznake <Exif."
+"ImageDescription>. Znakovna koda, uporabljena v oznaki <Exif.UserComment>, je določena na podlagi "
 "identifikacijske kode v stalnem 8-bajtnem območju na začetku podatkovnega območja oznake. Neizkoriščeni "
 "del območja je zapolnjen z NULL (\"00.h\"). ID določila se dodelijo z registracijo. Vrednost CountN se "
 "določi na podlagi 8 bajtov v območju kod znakov in števila bajtov v delu z uporabniškim komentarjem. Ker "
@@ -1815,10 +1815,10 @@ msgstr "Nastavitev enot"
 #: plugins/exiv2/exiv2-plugin.cc:135
 msgid ""
 "Information specific to compressed data. The channels of each component are arranged in order from the "
-"1st component to the 4th. For uncompressed data the data arrangement is given in the "
-"<Exif.PhotometricInterpretation> tag. However, since <Exif.PhotometricInterpretation> can only express "
-"the order of Y, Cb and Cr, this tag is provided for cases when compressed data uses components other than "
-"Y, Cb, and Cr and to enable support of other sequences."
+"1st component to the 4th. For uncompressed data the data arrangement is given in the <Exif."
+"PhotometricInterpretation> tag. However, since <Exif.PhotometricInterpretation> can only express the "
+"order of Y, Cb and Cr, this tag is provided for cases when compressed data uses components other than Y, "
+"Cb, and Cr and to enable support of other sequences."
 msgstr ""
 "Podrobnosti značilne za stisnjene podatke. Vrednosti posamezne barve so urejene v vrsti od prve do "
 "četrte. Nestisnjeni podatki so urejeni v oznaki <Exif.PhotometricInterpretation>, vendar pa so urejeni le "
@@ -2054,8 +2054,8 @@ msgid ""
 "places, the format is dd/1,mmmm/100,0/1."
 msgstr ""
 "Določa geografsko širino, ki je izražena s tremi racionalnimi vrednostmi ločeno za stopinje, minute in "
-"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,mmmm/"
-"100,0/1."
+"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,"
+"mmmm/100,0/1."
 
 #: plugins/exiv2/exiv2-plugin.cc:159
 msgid "North or South Latitude"
@@ -2076,13 +2076,13 @@ msgstr "Zemljepisna dolžina"
 #: plugins/exiv2/exiv2-plugin.cc:160
 msgid ""
 "Indicates the longitude. The longitude is expressed as three RATIONAL values giving the degrees, minutes, "
-"and seconds, respectively. When degrees, minutes and seconds are expressed, the format is ddd/1,mm/1,ss/"
-"1. When degrees and minutes are used and, for example, fractions of minutes are given up to two decimal "
-"places, the format is ddd/1,mmmm/100,0/1."
+"and seconds, respectively. When degrees, minutes and seconds are expressed, the format is ddd/1,mm/1,"
+"ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up to two "
+"decimal places, the format is ddd/1,mmmm/100,0/1."
 msgstr ""
 "Določa geografsko dolžino, ki je izražena s tremi racionalnimi vrednostmi ločeno za stopinje, minute in "
-"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,mmmm/"
-"100,0/1."
+"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,"
+"mmmm/100,0/1."
 
 #: plugins/exiv2/exiv2-plugin.cc:161
 msgid "East or West Longitude"
@@ -2104,8 +2104,8 @@ msgstr "Različica oznake GPS"
 msgid ""
 "Indicates the version of <Exif.GPS.InfoIFD>. This tag is mandatory when <Exif.GPS.Info> tag is present."
 msgstr ""
-"Določa različico <Exif.GPS.InfoIFD>. Oznaka je obvezna v primeru, če je določena tudi vrednost "
-"<Exif.GPS.Info>."
+"Določa različico <Exif.GPS.InfoIFD>. Oznaka je obvezna v primeru, če je določena tudi vrednost <Exif.GPS."
+"Info>."
 
 #: plugins/exiv2/exiv2-plugin.cc:163
 msgid "Image Description"
@@ -2383,8 +2383,8 @@ msgstr "Enota ločljivosti"
 
 #: plugins/exiv2/exiv2-plugin.cc:189
 msgid ""
-"The unit for measuring <Exif.XResolution> and <Exif.YResolution>. The same unit is used for both "
-"<Exif.XResolution> and <Exif.YResolution>. If the image resolution is unknown, 2 (inches) is designated."
+"The unit for measuring <Exif.XResolution> and <Exif.YResolution>. The same unit is used for both <Exif."
+"XResolution> and <Exif.YResolution>. If the image resolution is unknown, 2 (inches) is designated."
 msgstr ""
 "Enota za merjenje <Exif.XResolution> in <Exif.YResolution>. Enaka enota je določena za obe vrednosti. V "
 "primeru, da ločljivost slike ni znana, je določena vrednost 5.1 centimetra."
@@ -2430,8 +2430,8 @@ msgid ""
 "The type of scene that was shot. It can also be used to record the mode in which the image was shot. Note "
 "that this differs from <Exif.SceneType> tag."
 msgstr ""
-"Vrsta slikane scene. Lahko se uporablja kot oznaka načina zajemanja slike. Oznaka ni enaka oznaki "
-"<Exif.SceneType>."
+"Vrsta slikane scene. Lahko se uporablja kot oznaka načina zajemanja slike. Oznaka ni enaka oznaki <Exif."
+"SceneType>."
 
 #: plugins/exiv2/exiv2-plugin.cc:194
 msgid "Scene Type"
@@ -2619,8 +2619,8 @@ msgid ""
 "The chromaticity of the white point of the image. Normally this tag is not necessary, since color space "
 "is specified in <Exif.ColorSpace> tag."
 msgstr ""
-"Barvitost belih točk na sliki. Običajno oznaka ni zahtevana, saj je barvni prostor določen v oznaki "
-"<Exif.ColorSpace>."
+"Barvitost belih točk na sliki. Običajno oznaka ni zahtevana, saj je barvni prostor določen v oznaki <Exif."
+"ColorSpace>."
 
 #: plugins/exiv2/exiv2-plugin.cc:214
 msgid "XML Packet"
@@ -2652,8 +2652,8 @@ msgstr "YCbCr prilagajanje"
 #: plugins/exiv2/exiv2-plugin.cc:216
 msgid ""
 "The position of chrominance components in relation to the luminance component. This field is designated "
-"only for JPEG compressed data or uncompressed YCbCr data. The TIFF default is 1 (centered); but when "
-"Y:Cb:Cr = 4:2:2 it is recommended that 2 (co-sited) be used to record data, in order to improve the image "
+"only for JPEG compressed data or uncompressed YCbCr data. The TIFF default is 1 (centered); but when Y:Cb:"
+"Cr = 4:2:2 it is recommended that 2 (co-sited) be used to record data, in order to improve the image "
 "quality when viewed on TV systems. When this field does not exist, the reader shall assume the TIFF "
 "default. In the case of Y:Cb:Cr = 4:2:0, the TIFF default (centered) is recommended. If the reader does "
 "not have the capability of supporting both kinds of <Exif.YCbCrPositioning>, it shall follow the TIFF "
@@ -2661,8 +2661,8 @@ msgid ""
 "centered and co-sited positioning."
 msgstr ""
 "Lega barvitosti v povezavi z osvetljenostjo slike. Polje določa vrednost le za stisnjene JPEG podatke ali "
-"nestisnjene podatke YCbCr. Privzeta TIFF vrednosti je 1 (sredinjeno); vendar je priporočena za razmerje "
-"Y:Cb:Cr = 4:2:2 vrednost 2 za shranjevanje podatkov, z namenom izboljšanja kakovosti slike pri "
+"nestisnjene podatke YCbCr. Privzeta TIFF vrednosti je 1 (sredinjeno); vendar je priporočena za razmerje Y:"
+"Cb:Cr = 4:2:2 vrednost 2 za shranjevanje podatkov, z namenom izboljšanja kakovosti slike pri "
 "pregledovanju preko TV zaslonov. V primeru, da polje ne obstaja, bralnik slik privzame vrednost 1. V "
 "primeru razmerja Y:Cb:Cr = 4:2:0, je prav tako priporočena vrednost 1. V primeru, da bralnik slik ne "
 "podpira obeh vrst podatkov <Exif.YCbCrPositioning>, sledi privzeti TIFF vrednosti neodvisno od vrednosti "
@@ -3378,36 +3378,24 @@ msgstr "Ustvari arhiv"
 msgid "What file name should the new archive have?"
 msgstr "Kakšno ime naj ima nov arhiv?"
 
-#: plugins/fileroller/file-roller-plugin.cc:443 src/advanced_rename/profile_component.rs:1045
-#: src/advanced_rename/regex_dialog.rs:114 src/dialogs/chmod_dialog.rs:145 src/dialogs/chown_dialog.rs:113
-#: src/dialogs/connect_dialog.rs:187 src/dialogs/create_symlink_dialog.rs:52 src/dialogs/delete_dialog.rs:87
-#: src/dialogs/edit_bookmark_dialog.rs:89 src/dialogs/file_properties_dialog.rs:137
-#: src/dialogs/make_copy_dialog.rs:68 src/dialogs/mkdir_dialog.rs:104 src/dialogs/new_text_file.rs:89
+#: plugins/fileroller/file-roller-plugin.cc:443 src/advanced_rename/profile_component.rs:1041
+#: src/advanced_rename/regex_dialog.rs:117 src/dialogs/chmod_dialog.rs:151 src/dialogs/chown_dialog.rs:122
+#: src/dialogs/connect_dialog.rs:186 src/dialogs/create_symlink_dialog.rs:52 src/dialogs/delete_dialog.rs:89
+#: src/dialogs/edit_bookmark_dialog.rs:93 src/dialogs/file_properties_dialog.rs:144
+#: src/dialogs/make_copy_dialog.rs:68 src/dialogs/mkdir_dialog.rs:103 src/dialogs/new_text_file.rs:88
 #: src/dialogs/open_with_other_dialog.rs:57 src/dialogs/options/app_dialog.rs:186
 #: src/dialogs/options/device_dialog.rs:115 src/dialogs/options/edit_palette_dialog.rs:172
 #: src/dialogs/options/options_dialog.rs:119 src/dialogs/pattern_selection_dialog.rs:91
-#: src/dialogs/prepare_transfer_dialog.rs:87 src/dialogs/profiles/edit_profile_dialog.rs:103
+#: src/dialogs/prepare_transfer_dialog.rs:86 src/dialogs/profiles/edit_profile_dialog.rs:103
 #: src/dialogs/profiles/manage_profiles_dialog.rs:251 src/dialogs/shortcuts/shortcut_dialog.rs:172
 #: src/dialogs/shortcuts/shortcut_dialog.rs:387 src/dialogs/shortcuts/shortcuts_dialog.rs:191
-#: src/dialogs/transfer_progress_dialog.rs:83 src/dirlist.rs:55 src/file_selector.rs:1509
+#: src/dialogs/transfer_progress_dialog.rs:83 src/dirlist.rs:58 src/file_selector.rs:1450
 #: src/intviewer/search_dialog.rs:63 src/open_connection.rs:48 src/open_file.rs:40 src/open_file.rs:62
-#: src/user_actions.rs:855
+#: src/user_actions.rs:852
 msgid "_Cancel"
 msgstr "Pre_kliči"
 
 #: plugins/fileroller/file-roller-plugin.cc:450 plugins/fileroller/file-roller-plugin.cc:694
-#: src/advanced_rename/profile_component.rs:1059 src/advanced_rename/regex_dialog.rs:124
-#: src/dialogs/chmod_dialog.rs:155 src/dialogs/chown_dialog.rs:123 src/dialogs/connect_dialog.rs:197
-#: src/dialogs/create_symlink_dialog.rs:56 src/dialogs/edit_bookmark_dialog.rs:99
-#: src/dialogs/file_properties_dialog.rs:141 src/dialogs/make_copy_dialog.rs:78
-#: src/dialogs/mkdir_dialog.rs:114 src/dialogs/new_text_file.rs:99 src/dialogs/open_with_other_dialog.rs:62
-#: src/dialogs/options/app_dialog.rs:190 src/dialogs/options/device_dialog.rs:119
-#: src/dialogs/options/edit_palette_dialog.rs:176 src/dialogs/options/options_dialog.rs:123
-#: src/dialogs/pattern_selection_dialog.rs:101 src/dialogs/prepare_transfer_dialog.rs:80
-#: src/dialogs/profiles/edit_profile_dialog.rs:113 src/dialogs/profiles/manage_profiles_dialog.rs:261
-#: src/dialogs/shortcuts/shortcut_dialog.rs:184 src/dialogs/shortcuts/shortcuts_dialog.rs:203
-#: src/file_selector.rs:1509 src/intviewer/search_dialog.rs:64 src/intviewer/window.rs:665
-#: src/open_file.rs:40 src/user_actions.rs:855 src/utils.rs:253
 msgid "_OK"
 msgstr "V _redu"
 
@@ -4379,7 +4367,7 @@ msgstr "Časovno usklajevanje dogodkov"
 msgid "Event timing codes."
 msgstr "Kode časovnega usklajevanja"
 
-#: plugins/taglib/taglib-plugin.cc:198
+#: plugins/taglib/taglib-plugin.cc:198 src/dialogs/chown_dialog.rs:100
 msgid "File Owner"
 msgstr "Lastnik datoteke"
 
@@ -4735,7 +4723,7 @@ msgstr "Pogoji uporabe"
 msgid "Terms of use."
 msgstr "Dokumentacija pogojev uporabe."
 
-#: plugins/taglib/taglib-plugin.cc:244 src/advanced_rename/profile_component.rs:714
+#: plugins/taglib/taglib-plugin.cc:244 src/advanced_rename/profile_component.rs:710
 msgid "Time"
 msgstr "Čas"
 
@@ -5003,13 +4991,13 @@ msgstr "Velikost"
 msgid "Results"
 msgstr "Rezultati"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:530 src/dialogs/connect_dialog.rs:169
-#: src/dialogs/file_properties_dialog.rs:125 src/dialogs/manage_bookmarks_dialog.rs:205
-#: src/dialogs/mkdir_dialog.rs:94 src/dialogs/options/device_dialog.rs:111
+#: src/advanced_rename/advanced_rename_dialog.rs:530 src/dialogs/connect_dialog.rs:168
+#: src/dialogs/file_properties_dialog.rs:132 src/dialogs/manage_bookmarks_dialog.rs:205
+#: src/dialogs/mkdir_dialog.rs:93 src/dialogs/options/device_dialog.rs:111
 #: src/dialogs/options/options_dialog.rs:115 src/dialogs/profiles/edit_profile_dialog.rs:69
 #: src/dialogs/profiles/manage_profiles_dialog.rs:229 src/dialogs/remote_dialog.rs:164
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:177 src/intviewer/window.rs:897 src/main_win.rs:1676
-#: src/search/search_dialog.rs:372
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:177 src/intviewer/window.rs:897 src/main_win.rs:1685
+#: src/search/search_dialog.rs:368
 msgid "_Help"
 msgstr "Pomo_č"
 
@@ -5020,7 +5008,7 @@ msgstr "Ponastavi"
 #: src/advanced_rename/advanced_rename_dialog.rs:559 src/dialogs/about_plugin.rs:133
 #: src/dialogs/manage_bookmarks_dialog.rs:209 src/dialogs/options/edit_colors_dialog.rs:159
 #: src/dialogs/remote_dialog.rs:176 src/intviewer/window.rs:736 src/plugin_manager.rs:429
-#: src/search/search_dialog.rs:386
+#: src/search/search_dialog.rs:382
 msgid "_Close"
 msgstr "_Zapri"
 
@@ -5028,36 +5016,36 @@ msgstr "_Zapri"
 msgid "_Apply"
 msgstr "_Uveljavi"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:824 src/search/search_dialog.rs:532
+#: src/advanced_rename/advanced_rename_dialog.rs:829 src/search/search_dialog.rs:528
 msgid "New profile"
 msgstr "Nov profil"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:835 src/advanced_rename/advanced_rename_dialog.rs:861
-#: src/search/search_dialog.rs:540
+#: src/advanced_rename/advanced_rename_dialog.rs:840 src/advanced_rename/advanced_rename_dialog.rs:866
+#: src/search/search_dialog.rs:536
 msgid "Profiles"
 msgstr "Profili"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1082 src/search/search_dialog.rs:488
+#: src/advanced_rename/advanced_rename_dialog.rs:1087 src/search/search_dialog.rs:484
 msgid "_Save Profile As…"
 msgstr "_Shrani profil kot …"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1089 src/search/search_dialog.rs:497
+#: src/advanced_rename/advanced_rename_dialog.rs:1094 src/search/search_dialog.rs:493
 msgid "_Manage Profiles…"
 msgstr "_Upravljaj profile …"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1117
+#: src/advanced_rename/advanced_rename_dialog.rs:1122
 msgid "Remove from file list"
 msgstr "Odstrani s seznama datotek"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1120
+#: src/advanced_rename/advanced_rename_dialog.rs:1125
 msgid "View file"
 msgstr "Pogled datoteke"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1121
+#: src/advanced_rename/advanced_rename_dialog.rs:1126
 msgid "File properties"
 msgstr "Lastnosti datoteke"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1123
+#: src/advanced_rename/advanced_rename_dialog.rs:1128
 msgid "Update file list"
 msgstr "Posodobi seznam datotek"
 
@@ -5074,7 +5062,7 @@ msgstr "_Dodaj"
 #: src/advanced_rename/profile_component.rs:135 src/dialogs/manage_bookmarks_dialog.rs:75
 #: src/dialogs/options/apps_widget.rs:88 src/dialogs/options/devices_widget.rs:75
 #: src/dialogs/profiles/manage_profiles_dialog.rs:173 src/dialogs/remote_dialog.rs:69
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:153 src/main_win.rs:1578
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:153 src/main_win.rs:1587
 msgid "_Edit"
 msgstr "_Uredi"
 
@@ -5098,7 +5086,7 @@ msgid "Directory"
 msgstr "Mapa"
 
 #: src/advanced_rename/profile_component.rs:218 src/advanced_rename/profile_component.rs:258
-#: src/advanced_rename/profile_component.rs:665
+#: src/advanced_rename/profile_component.rs:661
 msgid "Counter"
 msgstr "Števec"
 
@@ -5126,215 +5114,227 @@ msgstr "Velikost črk"
 msgid "Trim blanks"
 msgstr "Obreži presledne znake"
 
-#: src/advanced_rename/profile_component.rs:568
-msgid "Add Rule"
-msgstr "Dodaj pravilo"
-
-#: src/advanced_rename/profile_component.rs:592
-msgid "Edit Rule"
-msgstr "Uredi pravilo"
-
-#: src/advanced_rename/profile_component.rs:638
+#: src/advanced_rename/profile_component.rs:634
 msgid "Grandparent"
 msgstr "Nadnadrejeno"
 
-#: src/advanced_rename/profile_component.rs:639
+#: src/advanced_rename/profile_component.rs:635
 msgid "Parent"
 msgstr "Nadrejeno"
 
-#: src/advanced_rename/profile_component.rs:644
+#: src/advanced_rename/profile_component.rs:640
 msgid "File name"
 msgstr "Ime datoteke"
 
-#: src/advanced_rename/profile_component.rs:646
+#: src/advanced_rename/profile_component.rs:642
 msgid "File name (range)"
 msgstr "Ime datoteke (območje)"
 
-#: src/advanced_rename/profile_component.rs:650
+#: src/advanced_rename/profile_component.rs:646
 msgid "File name without extension"
 msgstr "Ime datoteke brez pripone"
 
-#: src/advanced_rename/profile_component.rs:654
+#: src/advanced_rename/profile_component.rs:650
 msgid "File name without extension (range)"
 msgstr "Ime datoteke brez pripone (območje)"
 
-#: src/advanced_rename/profile_component.rs:658
+#: src/advanced_rename/profile_component.rs:654
 msgid "File extension"
 msgstr "Pripona datoteke"
 
-#: src/advanced_rename/profile_component.rs:667
+#: src/advanced_rename/profile_component.rs:663
 msgid "Counter (width)"
 msgstr "Števec (širina)"
 
-#: src/advanced_rename/profile_component.rs:671
+#: src/advanced_rename/profile_component.rs:667
 msgid "Counter (auto)"
 msgstr "Števec (samodejno)"
 
-#: src/advanced_rename/profile_component.rs:675
+#: src/advanced_rename/profile_component.rs:671
 msgid "Hexadecimal random number (width)"
 msgstr "Šestnajstiško naključno število (širina)"
 
-#: src/advanced_rename/profile_component.rs:685 src/advanced_rename/profile_component.rs:716
+#: src/advanced_rename/profile_component.rs:681 src/advanced_rename/profile_component.rs:712
 msgid "<locale>"
 msgstr "Sistemsko"
 
-#: src/advanced_rename/profile_component.rs:687
+#: src/advanced_rename/profile_component.rs:683
 msgid "yyyy-mm-dd"
 msgstr "llll-mm-dd"
 
-#: src/advanced_rename/profile_component.rs:691
+#: src/advanced_rename/profile_component.rs:687
 msgid "yy-mm-dd"
 msgstr "ll-mm-dd"
 
-#: src/advanced_rename/profile_component.rs:695
+#: src/advanced_rename/profile_component.rs:691
 msgid "yy.mm.dd"
 msgstr "ll.mm.dd"
 
-#: src/advanced_rename/profile_component.rs:698
+#: src/advanced_rename/profile_component.rs:694
 msgid "yymmdd"
 msgstr "llmmdd"
 
-#: src/advanced_rename/profile_component.rs:700
+#: src/advanced_rename/profile_component.rs:696
 msgid "dd.mm.yy"
 msgstr "dd.mm.ll"
 
-#: src/advanced_rename/profile_component.rs:704
+#: src/advanced_rename/profile_component.rs:700
 msgid "mm-dd-yy"
 msgstr "mm-dd-ll"
 
-#: src/advanced_rename/profile_component.rs:707
+#: src/advanced_rename/profile_component.rs:703
 msgid "yyyy"
 msgstr "llll"
 
-#: src/advanced_rename/profile_component.rs:708
+#: src/advanced_rename/profile_component.rs:704
 msgid "yy"
 msgstr "ll"
 
-#: src/advanced_rename/profile_component.rs:709
+#: src/advanced_rename/profile_component.rs:705
 msgid "mm"
 msgstr "mm"
 
-#: src/advanced_rename/profile_component.rs:710
+#: src/advanced_rename/profile_component.rs:706
 msgid "mmm"
 msgstr "mmm"
 
-#: src/advanced_rename/profile_component.rs:711
+#: src/advanced_rename/profile_component.rs:707
 msgid "dd"
 msgstr "dd"
 
-#: src/advanced_rename/profile_component.rs:718
+#: src/advanced_rename/profile_component.rs:714
 msgid "HH.MM.SS"
 msgstr "UU.MM.SS"
 
-#: src/advanced_rename/profile_component.rs:722
+#: src/advanced_rename/profile_component.rs:718
 msgid "HH-MM-SS"
 msgstr "UU-MM-SS"
 
-#: src/advanced_rename/profile_component.rs:725
+#: src/advanced_rename/profile_component.rs:721
 msgid "HHMMSS"
 msgstr "UUMMSS"
 
-#: src/advanced_rename/profile_component.rs:726
+#: src/advanced_rename/profile_component.rs:722
 msgid "HH"
 msgstr "UU"
 
-#: src/advanced_rename/profile_component.rs:727
+#: src/advanced_rename/profile_component.rs:723
 msgid "MM"
 msgstr "MM"
 
-#: src/advanced_rename/profile_component.rs:728
+#: src/advanced_rename/profile_component.rs:724
 msgid "SS"
 msgstr "SS"
 
-#: src/advanced_rename/profile_component.rs:733
+#: src/advanced_rename/profile_component.rs:729
 msgid "auto"
 msgstr "samd"
 
-#: src/advanced_rename/profile_component.rs:753
+#: src/advanced_rename/profile_component.rs:749
 msgid "Search for"
 msgstr "Poišči"
 
-#: src/advanced_rename/profile_component.rs:762
+#: src/advanced_rename/profile_component.rs:758
 msgid "Replace with"
 msgstr "Zamenjaj z"
 
-#: src/advanced_rename/profile_component.rs:771
+#: src/advanced_rename/profile_component.rs:767
 msgid "Match case"
 msgstr "Razlikuj velike in male črke"
 
-#: src/advanced_rename/profile_component.rs:855 src/dialogs/prepare_transfer_dialog.rs:223
+#: src/advanced_rename/profile_component.rs:851 src/dialogs/prepare_transfer_dialog.rs:216
 #: src/file_list/actions.rs:86
 msgid "Yes"
 msgstr "Da"
 
-#: src/advanced_rename/profile_component.rs:857 src/dialogs/prepare_transfer_dialog.rs:223
+#: src/advanced_rename/profile_component.rs:853 src/dialogs/prepare_transfer_dialog.rs:216
 #: src/file_list/actions.rs:86
 msgid "No"
 msgstr "Ne"
 
-#: src/advanced_rename/profile_component.rs:869 src/advanced_rename/profile.rs:69
+#: src/advanced_rename/profile_component.rs:865 src/advanced_rename/profile.rs:69
 msgid "<unchanged>"
 msgstr "<nespremenjeno>"
 
-#: src/advanced_rename/profile_component.rs:870 src/advanced_rename/profile.rs:70
+#: src/advanced_rename/profile_component.rs:866 src/advanced_rename/profile.rs:70
 msgid "lowercase"
 msgstr "male črke"
 
-#: src/advanced_rename/profile_component.rs:871 src/advanced_rename/profile.rs:71
+#: src/advanced_rename/profile_component.rs:867 src/advanced_rename/profile.rs:71
 msgid "UPPERCASE"
 msgstr "VELIKE ČRKE"
 
-#: src/advanced_rename/profile_component.rs:872 src/advanced_rename/profile.rs:72
+#: src/advanced_rename/profile_component.rs:868 src/advanced_rename/profile.rs:72
 msgid "Sentence case"
 msgstr "Stavčni zapis"
 
-#: src/advanced_rename/profile_component.rs:873 src/advanced_rename/profile.rs:73
+#: src/advanced_rename/profile_component.rs:869 src/advanced_rename/profile.rs:73
 msgid "Initial Caps"
 msgstr "Velike Začetnice Besed"
 
-#: src/advanced_rename/profile_component.rs:874 src/advanced_rename/profile.rs:74
+#: src/advanced_rename/profile_component.rs:870 src/advanced_rename/profile.rs:74
 msgid "tOGGLE cASE"
 msgstr "pREKLOPI vELIKOST"
 
-#: src/advanced_rename/profile_component.rs:880 src/advanced_rename/profile.rs:117
+#: src/advanced_rename/profile_component.rs:876 src/advanced_rename/profile.rs:117
 msgid "<none>"
 msgstr "<brez>"
 
-#: src/advanced_rename/profile_component.rs:881 src/advanced_rename/profile.rs:118
+#: src/advanced_rename/profile_component.rs:877 src/advanced_rename/profile.rs:118
 msgid "leading"
 msgstr "začetne"
 
-#: src/advanced_rename/profile_component.rs:882 src/advanced_rename/profile.rs:119
+#: src/advanced_rename/profile_component.rs:878 src/advanced_rename/profile.rs:119
 msgid "trailing"
 msgstr "končne"
 
-#: src/advanced_rename/profile_component.rs:883 src/advanced_rename/profile.rs:120
+#: src/advanced_rename/profile_component.rs:879 src/advanced_rename/profile.rs:120
 msgid "leading and trailing"
 msgstr "začetne in končne"
 
-#: src/advanced_rename/profile_component.rs:1005
+#: src/advanced_rename/profile_component.rs:1001
 msgid "Range Selection"
 msgstr "Izbor območja"
 
-#: src/advanced_rename/profile_component.rs:1028
+#: src/advanced_rename/profile_component.rs:1024
 msgid "_Select range:"
 msgstr "Izberite _območje:"
 
-#: src/advanced_rename/profile_component.rs:1037
+#: src/advanced_rename/profile_component.rs:1033
 msgid "_Inverse selection"
 msgstr "_Obrni izbor"
 
-#: src/advanced_rename/regex_dialog.rs:77 src/intviewer/search_dialog.rs:87
+#: src/advanced_rename/profile_component.rs:1055
+msgid "_Insert"
+msgstr "_Vstavi"
+
+#: src/advanced_rename/regex_dialog.rs:58
+msgid "Add Rule"
+msgstr "Dodaj pravilo"
+
+#: src/advanced_rename/regex_dialog.rs:60
+msgid "Edit Rule"
+msgstr "Uredi pravilo"
+
+#: src/advanced_rename/regex_dialog.rs:80 src/intviewer/search_dialog.rs:87
 msgid "_Search for:"
 msgstr "_Poišči:"
 
-#: src/advanced_rename/regex_dialog.rs:88
+#: src/advanced_rename/regex_dialog.rs:91
 msgid "_Replace for:"
 msgstr "_Zamenjaj za:"
 
-#: src/advanced_rename/regex_dialog.rs:98 src/intviewer/search_dialog.rs:62
+#: src/advanced_rename/regex_dialog.rs:101 src/intviewer/search_dialog.rs:62
 msgid "_Match case"
 msgstr "_Upoštevaj velikost črk"
+
+#: src/advanced_rename/regex_dialog.rs:128
+msgid "_Add Rule"
+msgstr "_Dodaj pravilo"
+
+#: src/advanced_rename/regex_dialog.rs:130
+msgid "_Update Rule"
+msgstr "Posodo_bi pravilo"
 
 #: src/application.rs:64
 msgid "Specify debug flags to use"
@@ -5349,17 +5349,14 @@ msgid "Specify the start directory for the right panel"
 msgstr "Določite začetno mapo za desno podokno"
 
 #: src/application.rs:185
-#, rust-format
 msgid "Failed to create the directory {directory}: {error}"
 msgstr "Ustvarjanje mape {directory} je spodletelo: {error}"
 
-#: src/app.rs:76 src/open_file.rs:188
-#, rust-format
+#: src/app.rs:76 src/open_file.rs:186
 msgid "Launch of {} failed."
 msgstr "Zagon {} ni uspel."
 
 #: src/app.rs:161
-#, rust-format
 msgid "Cannot launch an app {}. No files were given."
 msgstr "Programa {} ni mogoče zagnati. Datoteke niso bile podane."
 
@@ -5399,75 +5396,68 @@ msgstr "Pogled besedila:"
 msgid "Number view:"
 msgstr "Pogled številk:"
 
-#: src/connection/device.rs:184 src/connection/device.rs:200 src/connection/device.rs:231
-#: src/connection/device.rs:255
-#, rust-format
+#: src/connection/device.rs:185 src/connection/device.rs:199 src/connection/device.rs:229
+#: src/connection/device.rs:254
 msgid "Unable to mount the volume {}"
 msgstr "Nosilca {} ni mogoče priklopiti"
 
-#: src/connection/device.rs:303
+#: src/connection/device.rs:296
 msgid "Cannot unmount the volume"
 msgstr "Ni mogoče odklopiti nosilca"
 
-#: src/connection/device.rs:348
+#: src/connection/device.rs:335
 msgid "Mounting %s"
 msgstr "Priklop %s"
 
-#: src/connection/device.rs:354
-#, rust-format
+#: src/connection/device.rs:341
 msgid "Go to: {device_name} ({mount_point})"
 msgstr "Pojdi na: {device_name} ({mount_point})"
 
-#: src/connection/device.rs:357
-#, rust-format
+#: src/connection/device.rs:344
 msgid "Go to: {device_name}"
 msgstr "Pojdi na: {device_name}"
 
-#: src/connection/device.rs:363
-#, rust-format
+#: src/connection/device.rs:350
 msgid "Mount: {device_name}"
 msgstr "Priklopi: {device_name}"
 
-#: src/connection/device.rs:368
-#, rust-format
+#: src/connection/device.rs:355
 msgid "Unmount: {device_name}"
 msgstr "Odklopi: {device_name}"
 
-#: src/connection/device.rs:378
+#: src/connection/device.rs:365
 msgid "Volume successfully unmounted"
 msgstr "Pogon je uspešno odklopljen"
 
-#: src/connection/device.rs:384
-msgid "OK"
-msgstr "V redu"
+#: src/connection/device.rs:371 src/intviewer/window.rs:665 src/utils.rs:256
+msgid "_Dismiss"
+msgstr "_Opusti"
 
-#: src/connection/device.rs:472
+#: src/connection/device.rs:459
 msgid "Failed to execute the mount command"
 msgstr "Napaka med izvajanjem ukaza mount"
 
-#: src/connection/device.rs:482
+#: src/connection/device.rs:469
 msgid "Mount failed: permission denied"
 msgstr "Priklop je spodletel: ni ustreznih dovoljenj"
 
-#: src/connection/device.rs:485
+#: src/connection/device.rs:472
 msgid "Mount failed: no medium found"
 msgstr "Priklop je spodletel: nosilca ni mogoče najti"
 
-#: src/connection/device.rs:488
-#, rust-format
+#: src/connection/device.rs:475
 msgid "Mount failed: mount exited with exitstatus {}"
 msgstr "Priklop je spodletel: priklop zaključen s stanjem izhoda {}"
 
-#: src/connection/device.rs:492
+#: src/connection/device.rs:479
 msgid "Mount failed: mount exited without an exitstatus"
 msgstr "Priklop je spodletel: priklop zaključen brez stanja izhoda"
 
-#: src/connection/device.rs:504
-#, rust-format
+#: src/connection/device.rs:491
 msgid "Unmount failed: umount exited with exitstatus {}"
 msgstr "Priklop je spodletel: odklop umount zaključen s stanjem izhoda {}"
 
-#: src/connection/device.rs:508
+#: src/connection/device.rs:495
 msgid "Failed to execute the umount command"
 msgstr "Napaka med izvajanjem ukaza umount"
 
@@ -5475,11 +5465,11 @@ msgstr "Napaka med izvajanjem ukaza umount"
 msgid "Home"
 msgstr "Domov"
 
-#: src/connection/home.rs:117
+#: src/connection/home.rs:114
 msgid "Go to: Home"
 msgstr "Skoči na: domov"
 
-#: src/connection/remote.rs:160
+#: src/connection/remote.rs:159
 msgid "Cannot connect to a remote location"
 msgstr "Povezava z oddaljenim mestom ni možna"
 
@@ -5495,35 +5485,31 @@ msgstr "Ni mogoče najti zaobjetega priklopa"
 msgid "Disconnect error"
 msgstr "Napaka prekinjanja povezave"
 
-#: src/connection/remote.rs:263
-#, rust-format
+#: src/connection/remote.rs:254
 msgid "Connecting to {hostname}"
 msgstr "Povezovanje z {hostname}"
 
-#: src/connection/remote.rs:269
-#, rust-format
+#: src/connection/remote.rs:260
 msgid "Go to: {connection}"
 msgstr "Pojdi na: {connection}"
 
-#: src/connection/remote.rs:273
-#, rust-format
+#: src/connection/remote.rs:264
 msgid "Connect to: {connection}"
 msgstr "Poveži se z: {connection}"
 
-#: src/connection/remote.rs:277
-#, rust-format
+#: src/connection/remote.rs:268
 msgid "Disconnect from: {connection}"
 msgstr "Prekini povezavo z: {connection}"
 
-#: src/connection/remote.rs:282
+#: src/connection/remote.rs:273
 msgid "Opens remote connection to %s"
 msgstr "Odpre oddaljeno povezavo z %s"
 
-#: src/connection/remote.rs:287
+#: src/connection/remote.rs:278
 msgid "Closes remote connection to %s"
 msgstr "Zapre oddaljeno povezavo z %s"
 
-#: src/connection/smb.rs:58
+#: src/connection/smb.rs:56
 msgid "SMB"
 msgstr "SMB"
 
@@ -5555,125 +5541,138 @@ msgstr "Dokumentacija"
 msgid "Translated by"
 msgstr "Prevod"
 
-#: src/dialogs/chmod_dialog.rs:48
-#, rust-format
+#: src/dialogs/chmod_dialog.rs:50
 msgid "Could not chmod {}"
 msgstr "Ni možno spremeniti lastnosti {} s chmod"
 
-#: src/dialogs/chmod_dialog.rs:107 src/dialogs/chown_dialog.rs:91
+#: src/dialogs/chmod_dialog.rs:113
 msgid "Access Permissions"
 msgstr "Dovoljenja"
 
-#: src/dialogs/chmod_dialog.rs:122
+#: src/dialogs/chmod_dialog.rs:128
 msgid "Apply Recursively for"
 msgstr "Uporabi po strukturi map"
 
-#: src/dialogs/chmod_dialog.rs:126 src/dialogs/options/app_dialog.rs:139
+#: src/dialogs/chmod_dialog.rs:132 src/dialogs/options/app_dialog.rs:139
 msgid "All files"
 msgstr "Vse datoteke"
 
-#: src/dialogs/chmod_dialog.rs:126
+#: src/dialogs/chmod_dialog.rs:132
 msgid "Directories only"
 msgstr "Samo mape"
 
-#: src/dialogs/chown_dialog.rs:43
-#, rust-format
+#: src/dialogs/chmod_dialog.rs:161
+msgid "C_hange Permissions"
+msgstr "Spremeni d_ovoljenja"
+
+#: src/dialogs/chown_dialog.rs:45
 msgid "Could not chown {}"
 msgstr "Ni možno spremeniti lastništva {} s chown"
 
-#: src/dialogs/chown_dialog.rs:107
+#: src/dialogs/chown_dialog.rs:116
 msgid "Apply Recursively"
 msgstr "Uporabi po strukturi map"
 
-#: src/dialogs/connect_dialog.rs:40
+#: src/dialogs/chown_dialog.rs:132
+msgid "C_hange Owner"
+msgstr "Spremeni _lastništvo"
+
+#: src/dialogs/connect_dialog.rs:39
 msgid "SSH"
 msgstr "SSH"
 
-#: src/dialogs/connect_dialog.rs:41
+#: src/dialogs/connect_dialog.rs:40
 msgid "FTP (with login)"
 msgstr "FTP (s prijavo)"
 
-#: src/dialogs/connect_dialog.rs:42
+#: src/dialogs/connect_dialog.rs:41
 msgid "Public FTP"
 msgstr "Javni FTP"
 
-#: src/dialogs/connect_dialog.rs:43
+#: src/dialogs/connect_dialog.rs:42
 msgid "Windows share"
 msgstr "Souporaba z Windows sistemom"
 
-#: src/dialogs/connect_dialog.rs:44
+#: src/dialogs/connect_dialog.rs:43
 msgid "WebDAV (HTTP)"
 msgstr "WebDAV (HTTP)"
 
-#: src/dialogs/connect_dialog.rs:45
+#: src/dialogs/connect_dialog.rs:44
 msgid "Secure WebDAV (HTTPS)"
 msgstr "Varen WebDAV (HTTPS)"
 
-#: src/dialogs/connect_dialog.rs:46
+#: src/dialogs/connect_dialog.rs:45
 msgid "Custom location"
 msgstr "Mesto po meri"
 
-#: src/dialogs/connect_dialog.rs:118
+#: src/dialogs/connect_dialog.rs:117
 msgid "Remote Server"
 msgstr "Oddaljeni strežnik"
 
-#: src/dialogs/connect_dialog.rs:124
+#: src/dialogs/connect_dialog.rs:123
 msgid "Service _type:"
 msgstr "_Vrsta storitve:"
 
-#: src/dialogs/connect_dialog.rs:146
+#: src/dialogs/connect_dialog.rs:145
 msgid "_Alias:"
 msgstr "_Vzdevek:"
 
-#: src/dialogs/connect_dialog.rs:147
+#: src/dialogs/connect_dialog.rs:146
 msgid "_Location (URI):"
 msgstr "_Mesto (naslov URI):"
 
-#: src/dialogs/connect_dialog.rs:148
+#: src/dialogs/connect_dialog.rs:147
 msgid "_Server:"
 msgstr "_Strežnik:"
 
-#: src/dialogs/connect_dialog.rs:151
+#: src/dialogs/connect_dialog.rs:150
 msgid "Optional information"
 msgstr "Dodatne podrobnosti"
 
-#: src/dialogs/connect_dialog.rs:159
+#: src/dialogs/connect_dialog.rs:158
 msgid "_Port:"
 msgstr "_Vrata:"
 
 #. g_signal_connect (dialog.imp().port_entry, "insert-text", G_CALLBACK (port_insert_text), NULL);
-#: src/dialogs/connect_dialog.rs:161
+#: src/dialogs/connect_dialog.rs:160
 msgid "_Folder:"
 msgstr "_Mapa:"
 
-#: src/dialogs/connect_dialog.rs:163
+#: src/dialogs/connect_dialog.rs:162
 msgid "_Domain name:"
 msgstr "Ime _domene:"
 
-#: src/dialogs/connect_dialog.rs:281
+#: src/dialogs/connect_dialog.rs:196
+msgid "C_onnect"
+msgstr "_Poveži"
+
+#: src/dialogs/connect_dialog.rs:280
 msgid "You must enter a name for the server"
 msgstr "Vpisati je treba ime strežnika."
 
-#: src/dialogs/connect_dialog.rs:282
+#: src/dialogs/connect_dialog.rs:281
 msgid "Please enter a name and try again."
 msgstr "Vpišite ime in poskusite znova."
 
-#: src/dialogs/connect_dialog.rs:296
+#: src/dialogs/connect_dialog.rs:295
 msgid "You must enter a number for the port"
 msgstr "Vnesti morate številko vrat"
 
-#: src/dialogs/connect_dialog.rs:324
+#: src/dialogs/connect_dialog.rs:323
 msgid "Connection method is not selected"
 msgstr "Način povezave ni izbran"
 
-#: src/dialogs/connect_dialog.rs:387
-#, rust-format
+#: src/dialogs/connect_dialog.rs:386
 msgid "“{}” is not a valid location"
 msgstr "»{}« ni veljavno mesto"
 
-#: src/dialogs/connect_dialog.rs:388
+#: src/dialogs/connect_dialog.rs:387
 msgid "Please check spelling and try again."
 msgstr "Preverite črkovanje in poskusite znova."
+
+#: src/dialogs/create_symlink_dialog.rs:56
+msgid "C_reate"
+msgstr "_Ustvari"
 
 #: src/dialogs/create_symlink_dialog.rs:73
 msgid "Create Symbolic Link"
@@ -5683,16 +5682,15 @@ msgstr "Ustvari simbolno povezavo"
 msgid "Symbolic link name:"
 msgstr "Ime simbolne povezave:"
 
-#: src/dialogs/create_symlink_dialog.rs:202
+#: src/dialogs/create_symlink_dialog.rs:201
 msgid "Making a symbolic link failed"
 msgstr "Izdelava simbolične povezave ni uspela"
 
-#: src/dialogs/delete_dialog.rs:103
+#: src/dialogs/delete_dialog.rs:105
 msgid "Deleting…"
 msgstr "Poteka brisanje …"
 
-#: src/dialogs/delete_dialog.rs:166
-#, rust-format
+#: src/dialogs/delete_dialog.rs:168
 msgid "Deleted {count} of {total} file"
 msgid_plural "Deleted {count} of {total} files"
 msgstr[0] "Izbrisanih {count} od {total} datotek"
@@ -5700,68 +5698,63 @@ msgstr[1] "Izbrisana {count} od {total} datotek"
 msgstr[2] "Izbrisani {count} od {total} datotek"
 msgstr[3] "Izbrisane {count} od {total} datotek"
 
-#: src/dialogs/delete_dialog.rs:190
-#, rust-format
+#: src/dialogs/delete_dialog.rs:192
 msgid "The directory “{}” is not empty. Do you really want to delete it?"
 msgstr "Mapa »{}« ni prazna. Ali jo res želite izbrisati?"
 
-#: src/dialogs/delete_dialog.rs:193
-#, rust-format
+#: src/dialogs/delete_dialog.rs:195
 msgid "Do you really want to delete “{}”?"
 msgstr "Ali res želite izbrisati »{}«?"
 
-#: src/dialogs/delete_dialog.rs:200 src/dialogs/delete_dialog.rs:530 src/user_actions.rs:389
-#: src/user_actions.rs:436
+#: src/dialogs/delete_dialog.rs:202 src/dialogs/delete_dialog.rs:537 src/user_actions.rs:400
+#: src/user_actions.rs:447
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: src/dialogs/delete_dialog.rs:201 src/dialogs/delete_dialog.rs:241
+#: src/dialogs/delete_dialog.rs:203 src/dialogs/delete_dialog.rs:243
 #: src/dialogs/options/confirmation_tab.rs:96 src/dialogs/options/confirmation_tab.rs:125
-#: src/dialogs/prepare_copy_dialog.rs:75 src/dialogs/prepare_move_dialog.rs:75 src/transfer.rs:473
-#: src/transfer.rs:513 src/transfer.rs:574 src/transfer.rs:687 src/user_actions.rs:387
+#: src/dialogs/prepare_copy_dialog.rs:76 src/dialogs/prepare_move_dialog.rs:76 src/transfer.rs:472
+#: src/transfer.rs:512 src/transfer.rs:573 src/transfer.rs:686 src/user_actions.rs:398
 msgid "Skip"
 msgstr "Preskoči"
 
-#: src/dialogs/delete_dialog.rs:203
+#: src/dialogs/delete_dialog.rs:205
 msgid "Delete All"
 msgstr "Izbriši vse"
 
-#: src/dialogs/delete_dialog.rs:205
+#: src/dialogs/delete_dialog.rs:207
 msgid "Delete Remaining"
 msgstr "Izbriši preostale"
 
-#: src/dialogs/delete_dialog.rs:207 src/dialogs/delete_dialog.rs:530
+#: src/dialogs/delete_dialog.rs:209 src/dialogs/delete_dialog.rs:537
 #: src/dialogs/options/confirmation_tab.rs:79
 msgid "Delete"
 msgstr "Izbriši"
 
-#: src/dialogs/delete_dialog.rs:228
-#, rust-format
+#: src/dialogs/delete_dialog.rs:230
 msgid "Error while deleting “{file}”"
 msgstr "Napaka pri brisanju »{file}«"
 
-#: src/dialogs/delete_dialog.rs:241 src/dialogs/delete_dialog.rs:573 src/transfer.rs:473 src/transfer.rs:490
-#: src/transfer.rs:508 src/transfer.rs:525 src/transfer.rs:570 src/transfer.rs:588 src/transfer.rs:683
-#: src/transfer.rs:701
+#: src/dialogs/delete_dialog.rs:243 src/dialogs/delete_dialog.rs:581 src/transfer.rs:472 src/transfer.rs:489
+#: src/transfer.rs:507 src/transfer.rs:524 src/transfer.rs:569 src/transfer.rs:587 src/transfer.rs:682
+#: src/transfer.rs:700
 msgid "Abort"
 msgstr "Prekliči"
 
-#: src/dialogs/delete_dialog.rs:241 src/transfer.rs:473 src/transfer.rs:509 src/transfer.rs:526
-#: src/transfer.rs:571 src/transfer.rs:589 src/transfer.rs:684 src/transfer.rs:702 src/user_actions.rs:390
+#: src/dialogs/delete_dialog.rs:243 src/transfer.rs:472 src/transfer.rs:508 src/transfer.rs:525
+#: src/transfer.rs:570 src/transfer.rs:588 src/transfer.rs:683 src/transfer.rs:701 src/user_actions.rs:401
 msgid "Retry"
 msgstr "Poskusi znova"
 
-#: src/dialogs/delete_dialog.rs:505
-#, rust-format
+#: src/dialogs/delete_dialog.rs:511
 msgid "Do you want to permanently delete “{}”?"
 msgstr "Ali želite trajno izbrisati »{}«?"
 
-#: src/dialogs/delete_dialog.rs:507
-#, rust-format
+#: src/dialogs/delete_dialog.rs:514
 msgid "Do you want to move “{}” to the trash can?"
 msgstr "Ali želite premakniti »{}« v koš?"
 
-#: src/dialogs/delete_dialog.rs:513
+#: src/dialogs/delete_dialog.rs:520
 msgid "Do you want to permanently delete the selected file?"
 msgid_plural "Do you want to permanently delete the %d selected files?"
 msgstr[0] "Ali želite trajno izbrisati %d izbranih datotek?"
@@ -5769,7 +5762,7 @@ msgstr[1] "Ali želite trajno izbrisati %d izbrano datoteko?"
 msgstr[2] "Ali želite trajno izbrisati %d izbrani datoteki?"
 msgstr[3] "Ali želite trajno izbrisati %d izbrane datoteke?"
 
-#: src/dialogs/delete_dialog.rs:519
+#: src/dialogs/delete_dialog.rs:526
 msgid "Do you want to move the selected file to the trash can?"
 msgid_plural "Do you want to move the %d selected files to the trash can?"
 msgstr[0] "Ali želite premakniti %d izbranih datotek v smeti?"
@@ -5777,95 +5770,116 @@ msgstr[1] "Ali želite premakniti %d izbrano datoteko v smeti?"
 msgstr[2] "Ali želite premakniti %d izbrani datoteki v smeti?"
 msgstr[3] "Ali želite premakniti %d izbrane datoteke v smeti?"
 
-#: src/dialogs/delete_dialog.rs:571
+#: src/dialogs/delete_dialog.rs:579
 msgid "Error while deleting"
 msgstr "Napaka pri brisanju"
 
-#: src/dialogs/edit_bookmark_dialog.rs:55
+#: src/dialogs/edit_bookmark_dialog.rs:38
+msgid "New Bookmark"
+msgstr "Nov zaznamek"
+
+#: src/dialogs/edit_bookmark_dialog.rs:40
+msgid "Edit Bookmark"
+msgstr "Uredi zaznamke"
+
+#: src/dialogs/edit_bookmark_dialog.rs:59
 msgid "Bookmark _name:"
 msgstr "_Ime zaznamka:"
 
-#: src/dialogs/edit_bookmark_dialog.rs:74
+#: src/dialogs/edit_bookmark_dialog.rs:78
 msgid "Bookmark _target:"
 msgstr "_Cilj zaznamka:"
 
-#: src/dialogs/file_properties_dialog.rs:101
+#: src/dialogs/edit_bookmark_dialog.rs:104
+msgid "_Add Bookmark"
+msgstr "_Dodaj zaznamek"
+
+#: src/dialogs/edit_bookmark_dialog.rs:106
+msgid "_Update Bookmark"
+msgstr "Posodobi zaznamek"
+
+#: src/dialogs/file_properties_dialog.rs:108
 msgid "File Properties"
 msgstr "Lastnosti datoteke"
 
-#: src/dialogs/file_properties_dialog.rs:113
+#: src/dialogs/file_properties_dialog.rs:120
 msgid "Properties"
 msgstr "Lastnosti"
 
-#: src/dialogs/file_properties_dialog.rs:117 src/tags/basic.rs:69
+#: src/dialogs/file_properties_dialog.rs:124 src/tags/basic.rs:69
 msgid "Permissions"
 msgstr "Dovoljenja"
 
-#: src/dialogs/file_properties_dialog.rs:121
+#: src/dialogs/file_properties_dialog.rs:128
 msgid "Metadata"
 msgstr "Metapodatki"
 
-#: src/dialogs/file_properties_dialog.rs:217 src/dialogs/mkdir_dialog.rs:71
+#: src/dialogs/file_properties_dialog.rs:148 src/dialogs/options/edit_palette_dialog.rs:176
+#: src/dialogs/options/options_dialog.rs:123 src/dialogs/profiles/manage_profiles_dialog.rs:261
+msgid "_Save"
+msgstr "_Shrani"
+
+#: src/dialogs/file_properties_dialog.rs:222 src/dialogs/mkdir_dialog.rs:70
 msgid "Directory name:"
 msgstr "Ime mape:"
 
-#: src/dialogs/file_properties_dialog.rs:219 src/dialogs/new_text_file.rs:79
+#: src/dialogs/file_properties_dialog.rs:224 src/dialogs/new_text_file.rs:78
 msgid "File name:"
 msgstr "Ime datoteke:"
 
-#: src/dialogs/file_properties_dialog.rs:234
+#: src/dialogs/file_properties_dialog.rs:235
 msgid "Symlink target:"
 msgstr "Cilj simbolne povezave:"
 
-#: src/dialogs/file_properties_dialog.rs:251
+#: src/dialogs/file_properties_dialog.rs:252
 msgid "Location:"
 msgstr "Mesto:"
 
-#: src/dialogs/file_properties_dialog.rs:263
+#: src/dialogs/file_properties_dialog.rs:264
 msgid "Volume:"
 msgstr "Nosilec:"
 
-#: src/dialogs/file_properties_dialog.rs:273
+#: src/dialogs/file_properties_dialog.rs:281
 msgid "Free space:"
 msgstr "Nezaseden prostor:"
 
-#: src/dialogs/file_properties_dialog.rs:286
+#: src/dialogs/file_properties_dialog.rs:294
 msgid "Content type:"
 msgstr "Vrsta vsebine:"
 
-#: src/dialogs/file_properties_dialog.rs:293
+#: src/dialogs/file_properties_dialog.rs:300
 msgid "Opens with:"
 msgstr "Program:"
 
-#: src/dialogs/file_properties_dialog.rs:296
+#: src/dialogs/file_properties_dialog.rs:303
 msgid "No default application registered"
 msgstr "Ni vpisane privzete aplikacije"
 
-#: src/dialogs/file_properties_dialog.rs:313
+#: src/dialogs/file_properties_dialog.rs:320
 msgid "Modified:"
 msgstr "Spremenjeno:"
 
-#: src/dialogs/file_properties_dialog.rs:321
+#: src/dialogs/file_properties_dialog.rs:328
 msgid "Accessed:"
 msgstr "Zadnji dostop:"
 
-#: src/dialogs/file_properties_dialog.rs:338
+#: src/dialogs/file_properties_dialog.rs:345
 msgid "Size:"
 msgstr "Velikost:"
 
-#: src/dialogs/file_properties_dialog.rs:374
+#: src/dialogs/file_properties_dialog.rs:381
 msgid "Owner and group"
 msgstr "Lastnik in skupina"
 
-#: src/dialogs/file_properties_dialog.rs:394
+#: src/dialogs/file_properties_dialog.rs:398
 msgid "Access permissions"
 msgstr "Dovoljenja dostopa"
 
-#: src/dialogs/file_properties_dialog.rs:423
+#: src/dialogs/file_properties_dialog.rs:426
 msgid "Co_py"
 msgstr "Ko_piraj …"
 
-#: src/dialogs/file_properties_dialog.rs:505
+#: src/dialogs/file_properties_dialog.rs:508
 msgid "Failed to apply changes."
 msgstr "Sprememb ni bilo možno uveljaviti."
 
@@ -5873,10 +5887,13 @@ msgstr "Sprememb ni bilo možno uveljaviti."
 msgid "Copy File"
 msgstr "Kopiraj datoteko"
 
-#: src/dialogs/make_copy_dialog.rs:50 src/dialogs/prepare_copy_dialog.rs:48
-#, rust-format
+#: src/dialogs/make_copy_dialog.rs:50 src/dialogs/prepare_copy_dialog.rs:49
 msgid "Copy “{}” to"
 msgstr "Kopirajte »{}« v"
+
+#: src/dialogs/make_copy_dialog.rs:78 src/dialogs/prepare_copy_dialog.rs:46
+msgid "C_opy"
+msgstr "K_opiraj"
 
 #: src/dialogs/manage_bookmarks_dialog.rs:85 src/dialogs/order_utils.rs:26
 msgid "_Up"
@@ -5886,7 +5903,7 @@ msgstr "Navz_gor"
 msgid "_Down"
 msgstr "Navz_dol"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:95 src/search/search_dialog.rs:292
+#: src/dialogs/manage_bookmarks_dialog.rs:95 src/search/search_dialog.rs:288
 msgid "_Jump to"
 msgstr "_Skoči na"
 
@@ -5907,27 +5924,23 @@ msgstr "Bližnjica"
 msgid "Path"
 msgstr "Pot"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:461
-msgid "Edit Bookmark"
-msgstr "Uredi zaznamke"
-
-#: src/dialogs/manage_bookmarks_dialog.rs:614
+#: src/dialogs/manage_bookmarks_dialog.rs:605
 msgid "To bookmark a directory the whole search path to the directory must be in valid UTF-8 encoding"
 msgstr "Za ustvarjanje zaznamka mape mora biti celotna iskalna pot v veljavnem UTF-8 kodnem naboru"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:645
-msgid "New Bookmark"
-msgstr "Nov zaznamek"
-
-#: src/dialogs/mkdir_dialog.rs:56
+#: src/dialogs/mkdir_dialog.rs:55
 msgid "Make Directory"
 msgstr "Ustvari mapo"
 
-#: src/dialogs/mkdir_dialog.rs:148
+#: src/dialogs/mkdir_dialog.rs:113
+msgid "_Make Directory"
+msgstr "Us_tvari mapo"
+
+#: src/dialogs/mkdir_dialog.rs:147
 msgid "A directory name must be entered"
 msgstr "Ime mape mora biti vpisano"
 
-#: src/dialogs/mkdir_dialog.rs:159
+#: src/dialogs/mkdir_dialog.rs:158
 msgid "Make directory failed"
 msgstr "Ustvarjanje mape je spodletelo"
 
@@ -5935,13 +5948,17 @@ msgstr "Ustvarjanje mape je spodletelo"
 msgid "No file name entered"
 msgstr "Ime datoteke ni vneseno"
 
-#: src/dialogs/new_text_file.rs:51
+#: src/dialogs/new_text_file.rs:50
 msgid "Cannot create a file"
 msgstr "Datoteke ni mogoče ustvariti"
 
-#: src/dialogs/new_text_file.rs:67
+#: src/dialogs/new_text_file.rs:66
 msgid "New Text File"
 msgstr "Nova besedilna datoteka"
+
+#: src/dialogs/new_text_file.rs:98
+msgid "Create _File"
+msgstr "Ustvari _datoteko"
 
 #: src/dialogs/open_with_other_dialog.rs:35
 msgid "Open with other…"
@@ -5950,6 +5967,10 @@ msgstr "Odpri s programom …"
 #: src/dialogs/open_with_other_dialog.rs:45
 msgid "Application:"
 msgstr "Program:"
+
+#: src/dialogs/open_with_other_dialog.rs:62
+msgid "_Open"
+msgstr "_Odpri "
 
 #: src/dialogs/open_with_other_dialog.rs:97
 msgid "Invalid command"
@@ -5976,7 +5997,7 @@ msgid "Icon:"
 msgstr "Ikona:"
 
 #: src/dialogs/options/app_dialog.rs:101 src/dialogs/options/options_dialog.rs:38
-#: src/dialogs/prepare_copy_dialog.rs:96 src/dialogs/shortcuts/shortcuts_dialog.rs:106
+#: src/dialogs/prepare_copy_dialog.rs:97 src/dialogs/shortcuts/shortcuts_dialog.rs:106
 msgid "Options"
 msgstr "Možnosti"
 
@@ -6012,11 +6033,19 @@ msgstr "Nekatere datoteke"
 msgid "File patterns"
 msgstr "Vzorci datotek"
 
-#: src/dialogs/options/app_dialog.rs:255
+#: src/dialogs/options/app_dialog.rs:191
+msgid "_Add Application"
+msgstr ":Dodaj program"
+
+#: src/dialogs/options/app_dialog.rs:193
+msgid "_Update Application"
+msgstr "Posodo_bi program"
+
+#: src/dialogs/options/app_dialog.rs:259
 msgid "An app needs to have a non-empty label"
 msgstr "Program mora imeti neprazno oznako"
 
-#: src/dialogs/options/app_dialog.rs:262
+#: src/dialogs/options/app_dialog.rs:266
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
@@ -6045,13 +6074,13 @@ msgid "Query first"
 msgstr "Najprej izvedi poizvedbo"
 
 #: src/dialogs/options/confirmation_tab.rs:91 src/dialogs/options/confirmation_tab.rs:120
-#: src/dialogs/prepare_copy_dialog.rs:69 src/dialogs/prepare_move_dialog.rs:69 src/transfer.rs:511
-#: src/transfer.rs:528 src/transfer.rs:573 src/transfer.rs:591 src/transfer.rs:686 src/transfer.rs:704
+#: src/dialogs/prepare_copy_dialog.rs:70 src/dialogs/prepare_move_dialog.rs:70 src/transfer.rs:510
+#: src/transfer.rs:527 src/transfer.rs:572 src/transfer.rs:590 src/transfer.rs:685 src/transfer.rs:703
 msgid "Rename"
 msgstr "Preimenuj"
 
 #: src/dialogs/options/confirmation_tab.rs:101 src/dialogs/options/confirmation_tab.rs:130
-#: src/dialogs/prepare_copy_dialog.rs:81 src/dialogs/prepare_move_dialog.rs:81
+#: src/dialogs/prepare_copy_dialog.rs:82 src/dialogs/prepare_move_dialog.rs:82
 msgid "Overwrite silently"
 msgstr "Samodejno prepiši"
 
@@ -6099,15 +6128,23 @@ msgstr "Naprava/Oznaka:"
 msgid "Mount point:"
 msgstr "Priklopna točka:"
 
-#: src/dialogs/options/device_dialog.rs:186
+#: src/dialogs/options/device_dialog.rs:120
+msgid "_Add Device"
+msgstr "_Dodaj napravo"
+
+#: src/dialogs/options/device_dialog.rs:122
+msgid "_Update Device"
+msgstr "Posodo_bi napravo"
+
+#: src/dialogs/options/device_dialog.rs:190
 msgid "A device needs to have a non-empty alias"
 msgstr "Naprava mora imeti neprazen vzdevek"
 
-#: src/dialogs/options/device_dialog.rs:193
+#: src/dialogs/options/device_dialog.rs:197
 msgid "A device needs to have a non-empty path/label"
 msgstr "Naprava mora imeti neprazno pot/oznako"
 
-#: src/dialogs/options/device_dialog.rs:200
+#: src/dialogs/options/device_dialog.rs:204
 msgid "A device needs to have a non-empty mount point"
 msgstr "Naprava mora imeti neprazno mesto priklopa"
 
@@ -6306,7 +6343,7 @@ msgstr "Enojni klik odstrani izbor"
 msgid "Middle mouse button"
 msgstr "Srednji gumb miške"
 
-#: src/dialogs/options/general_tab.rs:106 src/user_actions.rs:1704
+#: src/dialogs/options/general_tab.rs:106 src/user_actions.rs:1713
 msgid "Up one directory"
 msgstr "Odpre mapo višje"
 
@@ -6642,12 +6679,19 @@ msgstr "L_upinska skladnja"
 msgid "Rege_x syntax"
 msgstr "_Logična skladnja"
 
-#: src/dialogs/pattern_selection_dialog.rs:186 src/search/generic.rs:41
+#: src/dialogs/pattern_selection_dialog.rs:102
+msgid "S_elect"
+msgstr "_Izberi"
+
+#: src/dialogs/pattern_selection_dialog.rs:104
+msgid "Uns_elect"
+msgstr "Pre_kliči izbor"
+
+#: src/dialogs/pattern_selection_dialog.rs:190 src/search/generic.rs:44
 msgid "Bad expression"
 msgstr "Napačen izraz"
 
-#: src/dialogs/prepare_copy_dialog.rs:50
-#, rust-format
+#: src/dialogs/prepare_copy_dialog.rs:51
 msgid "copy {} file to"
 msgid_plural "copy {} files to"
 msgstr[0] "kopiraj {} datotek v"
@@ -6655,25 +6699,27 @@ msgstr[1] "kopiraj {} datoteko v"
 msgstr[2] "kopiraj {} datoteki v"
 msgstr[3] "kopiraj {} datoteke v"
 
-#: src/dialogs/prepare_copy_dialog.rs:57 src/dialogs/prepare_move_dialog.rs:57
+#: src/dialogs/prepare_copy_dialog.rs:58 src/dialogs/prepare_move_dialog.rs:58
 msgid "Overwrite Files"
 msgstr "Prepiši datoteke"
 
-#: src/dialogs/prepare_copy_dialog.rs:64 src/dialogs/prepare_move_dialog.rs:64
+#: src/dialogs/prepare_copy_dialog.rs:65 src/dialogs/prepare_move_dialog.rs:65
 msgid "Query First"
 msgstr "Predhodno izvedi poizvedbo"
 
-#: src/dialogs/prepare_copy_dialog.rs:103
+#: src/dialogs/prepare_copy_dialog.rs:104
 msgid "Follow Links"
 msgstr "Sledi povezavam"
 
-#: src/dialogs/prepare_move_dialog.rs:48
-#, rust-format
+#: src/dialogs/prepare_move_dialog.rs:46
+msgid "_Move"
+msgstr "Pre_makni"
+
+#: src/dialogs/prepare_move_dialog.rs:49
 msgid "Move “{}” to"
 msgstr "Premakni »{}« v"
 
-#: src/dialogs/prepare_move_dialog.rs:50
-#, rust-format
+#: src/dialogs/prepare_move_dialog.rs:51
 msgid "move {} file to"
 msgid_plural "move {} files to"
 msgstr[0] "premakni {} datotek v"
@@ -6681,13 +6727,11 @@ msgstr[1] "premakni {} datoteko v"
 msgstr[2] "premakni {} datoteki v"
 msgstr[3] "premakni {} datoteke v"
 
-#: src/dialogs/prepare_transfer_dialog.rs:213
-#, rust-format
+#: src/dialogs/prepare_transfer_dialog.rs:205
 msgid "The directory “{}” doesn’t exist, do you want to create it?"
 msgstr "Mapa »{}« ne obstaja, jo želite ustvariti?"
 
-#: src/dialogs/prepare_transfer_dialog.rs:464
-#, rust-format
+#: src/dialogs/prepare_transfer_dialog.rs:463
 msgid "Directory {} cannot be created."
 msgstr "Mape {} ni mogoče ustvariti."
 
@@ -6698,6 +6742,10 @@ msgstr "Uredi profil"
 #: src/dialogs/profiles/edit_profile_dialog.rs:52
 msgid "_Name"
 msgstr "_Ime"
+
+#: src/dialogs/profiles/edit_profile_dialog.rs:113
+msgid "_Update Profile"
+msgstr "Posodo_bi profil"
 
 #: src/dialogs/profiles/manage_profiles_dialog.rs:109
 msgid "Profile"
@@ -6739,6 +6787,10 @@ msgstr ""
 "Za urejanje tipkovne bližnjice kliknite gumb »Dodeli« in vnesite novo bližnjico, sicer pritisnite "
 "ubežnico za preklic."
 
+#: src/dialogs/shortcuts/shortcut_dialog.rs:184
+msgid "_Update Shortcut"
+msgstr "Posodo_bi tipkovno bližnjico"
+
 #: src/dialogs/shortcuts/shortcut_dialog.rs:255
 msgid "New shortcut..."
 msgstr "Nova bližnjica ..."
@@ -6756,12 +6808,10 @@ msgid "No shortcut is defined."
 msgstr "Nobena bližnjica ni določena."
 
 #: src/dialogs/shortcuts/shortcut_dialog.rs:379
-#, rust-format
 msgid "Shortcut “{shortcut}” is already taken by “{action}”."
 msgstr "Tipkovna bližnjica »{shortcut}« se že uporablja za »{action}«."
 
 #: src/dialogs/shortcuts/shortcut_dialog.rs:384
-#, rust-format
 msgid "Reassigning the shortcut will cause it to be removed from “{action}”."
 msgstr "Če bližnjico znova dodelite, bo odvzeta »{action}«."
 
@@ -6781,28 +6831,30 @@ msgstr "Tipkovna bližnjica"
 msgid "Action"
 msgstr "Dejanje"
 
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:203
+msgid "_Save Shortcuts"
+msgstr "Shrani tipke za _bližnjice"
+
 #: src/dialogs/transfer_progress_dialog.rs:62
 msgid "Progress"
 msgstr "Napredek"
 
 #: src/dialogs/transfer_progress_dialog.rs:147
-#, rust-format
 msgctxt "size copied"
 msgid "{copied} of {total} copied"
 msgstr "kopirano {copied} od {total}"
 
 #: src/dialogs/transfer_progress_dialog.rs:153
-#, no-c-format, rust-format
+#, no-c-format
 msgctxt "percentage copied"
 msgid "{}% copied"
 msgstr "Kopirano {}% c"
 
-#: src/dirlist.rs:44
+#: src/dirlist.rs:47
 msgid "Waiting for file list"
 msgstr "Čakanje na izpis datotek"
 
-#: src/dirlist.rs:111
-#, rust-format
+#: src/dirlist.rs:118
 msgid "{} file listed"
 msgid_plural "{} files listed"
 msgstr[0] "{} izpisanih datotek"
@@ -6810,21 +6862,15 @@ msgstr[1] "{} izpisana datoteka"
 msgstr[2] "{} izpisani datoteki"
 msgstr[3] "{} izpisane datoteke"
 
-#: src/dir.rs:172
-#, rust-format
-msgid "Failed to get directory info for {path}."
-msgstr "Pridobivanje podatkov o mapi za {path} ni uspelo."
-
-#: src/dir.rs:294
+#: src/dir.rs:221
 msgid "Directory listing failed."
 msgstr "Izpis map ni uspel."
 
-#: src/file_edit.rs:36 src/file_view.rs:82
+#: src/file_edit.rs:37 src/file_view.rs:83
 msgid "Not an ordinary file."
 msgstr "Ni običajna datoteka."
 
 #: src/file_list/actions.rs:80 src/open_file.rs:75
-#, rust-format
 msgid ""
 "{} does not know how to open remote file. Do you want to download the file to a temporary location and "
 "then open it?"
@@ -6856,73 +6902,71 @@ msgstr "Prenos ni uspel."
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Ni mogoče pridobiti vrste MIME za datoteko."
 
-#: src/file_list/list.rs:334 src/file_list/list.rs:1600
+#: src/file_list/list.rs:333 src/file_list/list.rs:1607
 msgid "name"
 msgstr "ime"
 
-#: src/file_list/list.rs:340 src/file_list/list.rs:1601
+#: src/file_list/list.rs:339 src/file_list/list.rs:1608
 msgid "ext"
 msgstr "pri"
 
-#: src/file_list/list.rs:346 src/file_list/list.rs:1602
+#: src/file_list/list.rs:345 src/file_list/list.rs:1609
 msgid "dir"
 msgstr "mapa"
 
-#: src/file_list/list.rs:352 src/file_list/list.rs:1603
+#: src/file_list/list.rs:351 src/file_list/list.rs:1610
 msgid "size"
 msgstr "velikost"
 
-#: src/file_list/list.rs:358 src/file_list/list.rs:1604
+#: src/file_list/list.rs:357 src/file_list/list.rs:1611
 msgid "date"
 msgstr "datum"
 
-#: src/file_list/list.rs:364 src/file_list/list.rs:1605
+#: src/file_list/list.rs:363 src/file_list/list.rs:1612
 msgid "perm"
 msgstr "dov"
 
-#: src/file_list/list.rs:370 src/file_list/list.rs:1606
+#: src/file_list/list.rs:369 src/file_list/list.rs:1613
 msgid "uid"
 msgstr "uid"
 
-#: src/file_list/list.rs:376 src/file_list/list.rs:1607
+#: src/file_list/list.rs:375 src/file_list/list.rs:1614
 msgid "gid"
 msgstr "gid"
 
-#: src/file_list/list.rs:1527
+#: src/file_list/list.rs:1534
 msgid "_Copy here"
 msgstr "_Kopiraj sem"
 
-#: src/file_list/list.rs:1541
+#: src/file_list/list.rs:1548
 msgid "_Move here"
 msgstr "_Premakni sem"
 
-#: src/file_list/list.rs:1555
+#: src/file_list/list.rs:1562
 msgid "_Link here"
 msgstr "_Poveži sem"
 
-#: src/file_list/list.rs:1570
+#: src/file_list/list.rs:1577
 msgid "C_ancel"
 msgstr "Pre_kliči"
 
-#: src/file_list/list.rs:2096 src/file_list/list.rs:2125
+#: src/file_list/list.rs:2098 src/file_list/list.rs:2121
 msgid "Current directory is not set."
 msgstr "Trenutna mapa ni nastavljena."
 
-#: src/file_list/list.rs:2101
+#: src/file_list/list.rs:2103
 msgid "No parent directory"
 msgstr "Ni nadrejene mape"
 
-#: src/file_list/list.rs:2116
+#: src/file_list/list.rs:2115
 msgid "No SAMBA connection is available"
 msgstr "Povezava SAMBA ni na voljo"
 
-#: src/file_list/list.rs:2223
-#, rust-format
+#: src/file_list/list.rs:2218
 msgid "A total of {selected_bytes} has been selected."
 msgstr "Skupaj je bilo izbranih {selected_bytes}."
 
-#: src/file_list/list.rs:2229
-#, rust-format
+#: src/file_list/list.rs:2224
 msgid "{selected_files} file selected."
 msgid_plural "{selected_files} files selected."
 msgstr[0] "Izbranih {selected_files} datotek."
@@ -6930,8 +6974,7 @@ msgstr[1] "Izbrana {selected_files} datoteka."
 msgstr[2] "Izbrani {selected_files} datoteki."
 msgstr[3] "Izbrane {selected_files} datoteke."
 
-#: src/file_list/list.rs:2236
-#, rust-format
+#: src/file_list/list.rs:2231
 msgid "{selected_dirs} directory selected."
 msgid_plural "{selected_dirs} directories selected."
 msgstr[0] "Izbranih {selected_dirs} map."
@@ -6939,38 +6982,36 @@ msgstr[1] "Izbrana {selected_dirs} mapa."
 msgstr[2] "Izbrani {selected_dirs} mapi."
 msgstr[3] "Izbrane {selected_dirs} mape."
 
-#: src/file_list/list.rs:2284
-#, rust-format
+#: src/file_list/list.rs:2287
 msgid "Cannot rename a file to {new_name}"
 msgstr "Datoteke ni mogoče preimenovati v {new_name}"
 
-#: src/file_list/list.rs:2757
+#: src/file_list/list.rs:2760
 msgid "<DIR>"
 msgstr "<MAPA>"
 
 #. Add the default "Open" menu entry at the top of the popup
-#: src/file_list/popup.rs:145
-#, rust-format
+#: src/file_list/popup.rs:138
 msgid "_Open with “{}”"
 msgstr "_Odpri s programom »{}«"
 
-#: src/file_list/popup.rs:154 src/file_list/popup.rs:182
+#: src/file_list/popup.rs:147 src/file_list/popup.rs:175
 msgid "Open Wit_h…"
 msgstr "Odpri _s programom …"
 
-#: src/file_list/popup.rs:186
+#: src/file_list/popup.rs:179
 msgid "Open Wit_h"
 msgstr "Odpri _z"
 
-#: src/file_list/popup.rs:200
+#: src/file_list/popup.rs:193
 msgid "E_xecute"
 msgstr "_Izvedi"
 
-#: src/file_list/popup.rs:252
+#: src/file_list/popup.rs:245
 msgid "New"
 msgstr "Novo"
 
-#: src/file_list/quick_search.rs:61
+#: src/file_list/quick_search.rs:65
 msgid "Search"
 msgstr "Poišči"
 
@@ -6979,67 +7020,70 @@ msgid "Value"
 msgstr "Vrednost"
 
 #: src/file.rs:133
-#, rust-format
 msgid "Failed to get file info for {path}."
 msgstr "Pridobivanje podatkov o datoteki za {path} ni uspelo."
 
-#: src/file_selector.rs:1252
+#: src/file_selector.rs:1207
 msgid "Add current dir"
 msgstr "Dodaj trenutno mapo"
 
-#: src/file_selector.rs:1254
+#: src/file_selector.rs:1209
 msgid "Manage bookmarks…"
 msgstr "Upravljanje zaznamkov …"
 
-#: src/file_selector.rs:1390
+#: src/file_selector.rs:1345
 msgid "%s free"
 msgstr "Prosto %s"
 
-#: src/file_selector.rs:1396
+#: src/file_selector.rs:1351
 msgid "Unknown disk usage"
 msgstr "Nedoločena zasedenost diska"
 
-#: src/file_selector.rs:1508 src/user_actions.rs:854
+#: src/file_selector.rs:1449 src/user_actions.rs:851
 msgid "The tab is locked, close anyway?"
 msgstr "Zavihek je zaklenjen; naj se vseeno zapre?"
 
-#: src/file_selector.rs:1550 src/user_actions.rs:1794
+#: src/file_selector.rs:1450 src/user_actions.rs:852
+msgid "C_lose Tab"
+msgstr "_Zapri zavihek"
+
+#: src/file_selector.rs:1491 src/user_actions.rs:1803
 msgid "Open in New _Tab"
 msgstr "Odpri v novem _zavihku"
 
-#: src/file_selector.rs:1559
+#: src/file_selector.rs:1500
 msgid "_Unlock Tab"
 msgstr "_Odkleni zavihek"
 
-#: src/file_selector.rs:1561
+#: src/file_selector.rs:1502
 msgid "_Lock Tab"
 msgstr "_Zakleni zavihek"
 
-#: src/file_selector.rs:1573
+#: src/file_selector.rs:1514
 msgid "_Refresh Tab"
 msgstr "O_sveži zavihek"
 
-#: src/file_selector.rs:1582
+#: src/file_selector.rs:1523
 msgid "Copy Tab to Other _Panel"
 msgstr "Kopiraj zavihek v drugo _ploščo"
 
-#: src/file_selector.rs:1588 src/user_actions.rs:1800
+#: src/file_selector.rs:1529 src/user_actions.rs:1809
 msgid "_Close Tab"
 msgstr "_Zapri zavihek"
 
-#: src/file_selector.rs:1592 src/user_actions.rs:1806
+#: src/file_selector.rs:1533 src/user_actions.rs:1815
 msgid "Close _All Tabs"
 msgstr "Zapri _vse zavihke"
 
-#: src/file_selector.rs:1596
+#: src/file_selector.rs:1537
 msgid "Close _Duplicate Tabs"
 msgstr "Zapri po_dvojene zavihke"
 
-#: src/file_selector.rs:1624
+#: src/file_selector.rs:1565
 msgid "Filter:"
 msgstr "Filter:"
 
-#: src/file_view.rs:52
+#: src/file_view.rs:54
 msgid "Failed to download a file"
 msgstr "Prejem datoteke ni uspel"
 
@@ -7051,11 +7095,15 @@ msgstr "_Besedilo"
 msgid "_Hexadecimal"
 msgstr "_Šestnajstiško"
 
+#: src/intviewer/search_dialog.rs:64
+msgid "Sea_rch"
+msgstr "Poi_šči"
+
 #: src/intviewer/search_dialog.rs:233
 msgid "Find"
 msgstr "Najdi"
 
-#: src/intviewer/search_progress_dialog.rs:46 src/search/search_dialog.rs:297
+#: src/intviewer/search_progress_dialog.rs:46 src/search/search_dialog.rs:293
 msgid "_Stop"
 msgstr "_Ustavi"
 
@@ -7064,17 +7112,14 @@ msgid "Searching…"
 msgstr "Poteka iskanje …"
 
 #: src/intviewer/search_progress_dialog.rs:96
-#, rust-format
 msgid "Searching for “{}”"
 msgstr "Iskanje »{}«"
 
 #: src/intviewer/window.rs:362
-#, rust-format
 msgid "Position: {offset} of {size}"
 msgstr "Položaj: {offset} / {size}"
 
 #: src/intviewer/window.rs:367
-#, rust-format
 msgid "Column: {}"
 msgstr "Stolpec: {}"
 
@@ -7083,7 +7128,6 @@ msgid "Wrap"
 msgstr "Prelomi"
 
 #: src/intviewer/window.rs:390
-#, rust-format
 msgid "{width} x {height} pixel"
 msgid_plural "{width} x {height} pixels"
 msgstr[0] "{width} x {height} sl. točk"
@@ -7092,7 +7136,6 @@ msgstr[2] "{width} x {height} sl. točki"
 msgstr[3] "{width} x {height} sl. točke"
 
 #: src/intviewer/window.rs:397
-#, rust-format
 msgid "{} bit/sample"
 msgid_plural "{} bits/sample"
 msgstr[0] "{} bitov/vzorec"
@@ -7109,15 +7152,14 @@ msgid "_Copy selection"
 msgstr "_Kopiraj izbor"
 
 #: src/intviewer/window.rs:664
-#, rust-format
 msgid "Pattern “{}” was not found"
 msgstr "Vzorca »{}« ni mogoče najti"
 
-#: src/intviewer/window.rs:735 src/main_win.rs:1555
+#: src/intviewer/window.rs:735 src/main_win.rs:1564
 msgid "_File"
 msgstr "_Datoteka"
 
-#: src/intviewer/window.rs:739 src/main_win.rs:1608
+#: src/intviewer/window.rs:739 src/main_win.rs:1617
 msgid "_View"
 msgstr "Po_gled"
 
@@ -7277,7 +7319,7 @@ msgstr "Obrni _navpično"
 msgid "Flip _Horizontal"
 msgstr "Obrni _vodoravno"
 
-#: src/intviewer/window.rs:861 src/main_win.rs:1643
+#: src/intviewer/window.rs:861 src/main_win.rs:1652
 msgid "_Settings"
 msgstr "_Nastavitve"
 
@@ -7309,7 +7351,7 @@ msgstr "_Šestnajstiški odmik"
 msgid "Quick _Help"
 msgstr "Hitra po_moč"
 
-#: src/intviewer/window.rs:900 src/user_actions.rs:1991
+#: src/intviewer/window.rs:900 src/user_actions.rs:2000
 msgid "_Keyboard Shortcuts"
 msgstr "_Tipkovne bližnjice"
 
@@ -7349,28 +7391,27 @@ msgstr "GNOME Commander - SKRBNIŠKI NAČIN"
 msgid "Drop connection"
 msgstr "Prekini povezavo"
 
-#: src/main_win.rs:1385
+#: src/main_win.rs:1394
 msgid "Failed starting shell"
 msgstr "Neuspeli zagon lupine"
 
-#: src/main_win.rs:1590
+#: src/main_win.rs:1599
 msgid "_Mark"
 msgstr "_Označi"
 
-#: src/main_win.rs:1649
+#: src/main_win.rs:1658
 msgid "_Connections"
 msgstr "_Povezave"
 
-#: src/main_win.rs:1660
+#: src/main_win.rs:1669
 msgid "_Bookmarks"
 msgstr "_Zaznamki"
 
-#: src/main_win.rs:1670
+#: src/main_win.rs:1679
 msgid "_Plugins"
 msgstr "_Vstavki"
 
 #: src/open_file.rs:35
-#, rust-format
 msgid ""
 "“{}” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then "
 "run the file?"
@@ -7378,8 +7419,11 @@ msgstr ""
 "Datoteka »{}« je videti kot izvršljiva datoteka, vendar nima določenega bita izvršljivosti. Ali ga želite "
 "nastaviti in nato zagnati program?"
 
+#: src/open_file.rs:40
+msgid "_Mark as Executable"
+msgstr "_Označi kot izvršljivo"
+
 #: src/open_file.rs:57
-#, rust-format
 msgid "“{}” is an executable text file. Do you want to run it, or display its contents?"
 msgstr "Datoteka »{}« je izršljiva besedilna datoteka. Ali jo želite zagnati ali pregledati njeno vsebino?"
 
@@ -7399,16 +7443,15 @@ msgstr "_Ne"
 msgid "_Yes"
 msgstr "_Da"
 
-#: src/open_file.rs:112
+#: src/open_file.rs:108
 msgid "Change of a file mode failed"
 msgstr "Spreminjanje datotečnega načina ni uspelo"
 
-#: src/open_file.rs:149
-#, rust-format
+#: src/open_file.rs:145
 msgid "No default application found for the file type {}."
 msgstr "Za vrsto datoteke {} ni določen privzeti program."
 
-#: src/open_file.rs:152
+#: src/open_file.rs:148
 msgid "Open the \"Applications\" page in the Control Center to add one."
 msgstr "Odprite stran »Programov« v Nadzornem središču in program dodajte."
 
@@ -7421,12 +7464,10 @@ msgid "Available plugins"
 msgstr "Razpoložljivi vstavki"
 
 #: src/plugin_manager.rs:478
-#, rust-format
 msgid "Version: {}"
 msgstr "Različica: {}"
 
 #: src/plugin_manager.rs:485
-#, rust-format
 msgid "File: {}"
 msgstr "Datoteka: {}"
 
@@ -7438,49 +7479,43 @@ msgstr "O programu"
 msgid "Configure"
 msgstr "Prilagodi"
 
-#: src/search/generic.rs:56
+#: src/search/generic.rs:59
 msgid "Search failed"
 msgstr "Iskanje je spodletelo"
 
-#: src/search/generic.rs:74
-#, rust-format
+#: src/search/generic.rs:77
 msgid "Searching in: {}"
 msgstr "Iskanje v: {}"
 
-#: src/search/local.rs:108
+#: src/search/local.rs:92
+msgid "Something went wrong, cannot get start directory."
+msgstr "Nekaj je šlo narobe, ni možno pridobiti začetne mape."
+
+#: src/search/local.rs:112
 msgid "Invalid file name pattern."
 msgstr "Neveljaven vzorec imena datoteke."
 
-#: src/search/local.rs:123
+#: src/search/local.rs:127
 msgid "Invalid text content regular expression."
 msgstr "Neveljaven regularni izraz vsebine besedila."
 
-#: src/search/search_dialog.rs:286
+#: src/search/search_dialog.rs:282
 msgid "Pr_ofiles…"
 msgstr "Pr_ofili …"
 
-#: src/search/search_dialog.rs:302
+#: src/search/search_dialog.rs:298
 msgid "_Find"
 msgstr "_Najdi"
 
-#: src/search/search_dialog.rs:323
+#: src/search/search_dialog.rs:319
 msgid "Search…"
 msgstr "Poišči …"
 
-#: src/search/search_dialog.rs:331
+#: src/search/search_dialog.rs:327
 msgid "_Look in folder:"
 msgstr "_Preišči v mapi:"
 
-#: src/search/search_dialog.rs:611
-msgid "Cannot extract a file path"
-msgstr "Poti do datoteke ni mogoče izluščiti"
-
-#: src/search/search_dialog.rs:615
-msgid "Failed to detect a start directory"
-msgstr "Začetne mape ni bilo mogoče zaznati"
-
-#: src/search/search_dialog.rs:714
-#, rust-format
+#: src/search/search_dialog.rs:689
 msgid "Found {} match — search aborted"
 msgid_plural "Found {} matches — search aborted"
 msgstr[0] "Najdenih {} zadetkov - iskanje preklicano"
@@ -7488,8 +7523,7 @@ msgstr[1] "Najden {} zadetek - iskanje preklicano"
 msgstr[2] "Najdena {} zadetka - iskanje preklicano"
 msgstr[3] "Najdeni {} zadetki - iskanje preklicano"
 
-#: src/search/search_dialog.rs:719
-#, rust-format
+#: src/search/search_dialog.rs:694
 msgid "Found {} match"
 msgid_plural "Found {} matches"
 msgstr[0] "Najdenih {} zadetkov"
@@ -7549,15 +7583,15 @@ msgstr "Izbor slikovne datoteke"
 msgid "Choose Icon"
 msgstr "Izbor ikone"
 
-#: src/spawn.rs:147 src/spawn.rs:151
+#: src/spawn.rs:143 src/spawn.rs:147
 msgid "No valid command given."
 msgstr "Ni navedenega veljavnega ukaza."
 
-#: src/spawn.rs:148
+#: src/spawn.rs:144
 msgid "Bad command template."
 msgstr "Slaba predloga ukaza."
 
-#: src/spawn.rs:154 src/user_actions.rs:181
+#: src/spawn.rs:150 src/user_actions.rs:178
 msgid "Unable to execute command."
 msgstr "Ni mogoče izvesti ukaza."
 
@@ -7645,40 +7679,39 @@ msgstr "Velikost slike"
 msgid "Width and height in pixels."
 msgstr "Širina in višina v slikovnih točkah."
 
-#: src/transfer.rs:114
+#: src/transfer.rs:113
 msgid "Copying a directory into itself is a bad idea."
 msgstr "Kopiranje mape v samo sebe ni mogoče."
 
-#: src/transfer.rs:115 src/transfer.rs:186 src/transfer.rs:257
+#: src/transfer.rs:114 src/transfer.rs:185 src/transfer.rs:256
 msgid "The whole operation was cancelled."
 msgstr "Celotno opravilo je preklicano."
 
-#: src/transfer.rs:149 src/transfer.rs:220 src/transfer.rs:291
+#: src/transfer.rs:148 src/transfer.rs:219 src/transfer.rs:290
 msgid "preparing…"
 msgstr "poteka pripravljanje …"
 
-#: src/transfer.rs:185 src/transfer.rs:256
+#: src/transfer.rs:184 src/transfer.rs:255
 msgid "Moving a directory into itself is a bad idea."
 msgstr "Premikanje mape samo vase ni dobra zamisel."
 
-#: src/transfer.rs:323
+#: src/transfer.rs:322
 msgid "downloading to /tmp"
 msgstr "prejmi v /tmp"
 
-#: src/transfer.rs:510 src/transfer.rs:527
+#: src/transfer.rs:509 src/transfer.rs:526
 msgid "Copy into"
 msgstr "Kopiraj v"
 
-#: src/transfer.rs:512 src/transfer.rs:576 src/transfer.rs:689
+#: src/transfer.rs:511 src/transfer.rs:575 src/transfer.rs:688
 msgid "Rename all"
 msgstr "Preimenuj vse"
 
-#: src/transfer.rs:514 src/transfer.rs:577 src/transfer.rs:690 src/user_actions.rs:388
+#: src/transfer.rs:513 src/transfer.rs:576 src/transfer.rs:689 src/user_actions.rs:399
 msgid "Skip all"
 msgstr "Preskoči vse"
 
-#: src/transfer.rs:555 src/transfer.rs:668
-#, rust-format
+#: src/transfer.rs:554 src/transfer.rs:667
 msgid ""
 "Overwrite file:\n"
 "\n"
@@ -7696,93 +7729,80 @@ msgstr ""
 "\n"
 "{src}"
 
-#: src/transfer.rs:572 src/transfer.rs:590 src/transfer.rs:685 src/transfer.rs:703
+#: src/transfer.rs:571 src/transfer.rs:589 src/transfer.rs:684 src/transfer.rs:702
 msgid "Replace"
 msgstr "Zamenjaj"
 
-#: src/transfer.rs:575 src/transfer.rs:688
+#: src/transfer.rs:574 src/transfer.rs:687
 msgid "Replace all"
 msgstr "Zamenjaj vse"
 
-#: src/transfer.rs:627 src/transfer.rs:732
-#, rust-format
+#: src/transfer.rs:626 src/transfer.rs:731
 msgid "Error while transferring “{file}”"
 msgstr "Napaka pri prenosu »{file}«"
 
-#: src/transfer.rs:764
-#, rust-format
+#: src/transfer.rs:763
 msgid "Error while creating symlink “{file}”"
 msgstr "Napaka pri ustvarjanju simbolne povezave »{file}«"
 
-#: src/transfer.rs:772
+#: src/transfer.rs:771
 msgid "Ignore"
 msgstr "Prezri"
 
-#: src/transfer.rs:831
+#: src/transfer.rs:830
 msgid "Unrecoverable error"
 msgstr "Nepopravljiva napaka"
 
-#: src/transfer.rs:909
+#: src/transfer.rs:908
 msgid "File enumeration error"
 msgstr "Napaka pri oštevilčevanju datotek"
 
-#: src/transfer.rs:1000 src/transfer.rs:1012 src/transfer.rs:1034 src/transfer.rs:1060
-msgid "Source “%s” could not be deleted. Aborting!"
-msgstr "Vira »%s« ni mogoče izbrisati. Opravilo je preklicano!"
-
-#: src/transfer.rs:1069
-msgid "Cannot detect a connection for a source “%s”. It could not be deleted. Aborting!"
-msgstr "Povezave za vir »%s« ni mogoče zaznati. Ni ga bilo mogoče izbrisati. Sledi prekinitev!"
-
-#: src/transfer.rs:1092
+#: src/transfer.rs:1012
 msgid "Source “%s” could not be copied. Aborting!"
 msgstr "Vira »%s« ni mogoče kopirati. Opravilo je preklicano!"
 
-#: src/transfer.rs:1139
+#: src/transfer.rs:1059
 msgid "copying…"
 msgstr "Kopiranje ..."
 
-#: src/transfer.rs:1158
-#, rust-format
+#: src/transfer.rs:1078
 msgid "[file {index} of {count}] “{file}”"
 msgstr "[datoteka {index} / {count}] »{file}«"
 
-#: src/transfer.rs:1217
-#, rust-format
+#: src/transfer.rs:1137
 msgctxt "A template for a file name. In a case of a conflict with an existing one."
 msgid "{name} (Copy {number})"
 msgstr "{name} (kopija {number})"
 
-#: src/user_actions.rs:168
+#: src/user_actions.rs:165
 msgid "No search command given."
 msgstr "Ni podanega veljavnega ukaza za iskanje."
 
-#: src/user_actions.rs:169
+#: src/user_actions.rs:166
 msgid "You can set a command for a search tool in the program options."
 msgstr "Ukaz za iskalnik je mogoče nastaviti med možnostmi programa."
 
-#: src/user_actions.rs:265
+#: src/user_actions.rs:278
 msgid "Operation not supported on remote file systems"
 msgstr "Dejanje pri delu z oddaljenimi sistemi ni podprto"
 
-#: src/user_actions.rs:290
+#: src/user_actions.rs:303
 msgid "No file selected"
 msgstr "Ni izbrane datoteke"
 
-#: src/user_actions.rs:302
+#: src/user_actions.rs:316
 msgid "Too many selected files"
 msgstr "Preveč izbranih datotek"
 
-#: src/user_actions.rs:326
+#: src/user_actions.rs:340
 msgid "Nothing to compare"
 msgstr "Ničesar ni za primerjavo"
 
-#: src/user_actions.rs:351
+#: src/user_actions.rs:362
 msgid "link to %s"
 msgstr "povezava do %s"
 
-#: src/user_actions.rs:426
-#, rust-format
+#: src/user_actions.rs:437
 msgid "Create symbolic links of {count} file in {dir}?"
 msgid_plural "Create symbolic links of {count} files in {dir}?"
 msgstr[0] "Želite ustvariti simbolne povezave {count} datotek v {dir}?"
@@ -7790,15 +7810,15 @@ msgstr[1] "Želite ustvariti simbolno povezavo {count} datoteke v {dir}?"
 msgstr[2] "Želite ustvariti simbolne povezave {count} datotek v {dir}?"
 msgstr[3] "Želite ustvariti simbolne povezave {count} datotek v {dir}?"
 
-#: src/user_actions.rs:436
+#: src/user_actions.rs:447
 msgid "Create"
 msgstr "Ustvari"
 
-#: src/user_actions.rs:479
+#: src/user_actions.rs:490
 msgid "Warning"
 msgstr "Opozorilo"
 
-#: src/user_actions.rs:479
+#: src/user_actions.rs:490
 msgid ""
 "The default send-to command only supports one selected file at a time. You can change the command in the "
 "program options."
@@ -7806,19 +7826,19 @@ msgstr ""
 "Privzeti ukaz pošiljanja podpira samo eno izbrano datoteko hkrati. Ukaz lahko spremenite v programskih "
 "možnostih."
 
-#: src/user_actions.rs:701
+#: src/user_actions.rs:711
 msgid "Terminal command is not configured properly."
 msgstr "Ukaz terminala ni pravilno nastavljen."
 
-#: src/user_actions.rs:1127
+#: src/user_actions.rs:1136
 msgid "There was an error opening home page."
 msgstr "Prišlo je do napake pri odpiranju domače strani."
 
-#: src/user_actions.rs:1138
+#: src/user_actions.rs:1147
 msgid "There was an error reporting problem."
 msgstr "Prišlo je do napake pri poročanju o napaki."
 
-#: src/user_actions.rs:1168
+#: src/user_actions.rs:1177
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it under the terms of the GNU "
 "General Public License as published by the Free Software Foundation; either version 2 of the License, or "
@@ -7827,7 +7847,7 @@ msgstr ""
 "GNOME Terminal je prosti programski paket; lahko ga izmenjujete in spreminjate pod pogoji GNU Splošnega "
 "javnega dovoljenja, kot jo izdaja Free Software Foundation; različica 2 ali kasnejše različice."
 
-#: src/user_actions.rs:1171
+#: src/user_actions.rs:1180
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even "
 "the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public "
@@ -7836,7 +7856,7 @@ msgstr ""
 "GNOME Terminal se širi v upanju, da bo uporaben, vendar brez kakršnekoli garancije. Za več podrobnosti si "
 "oglejte GNU Splošno javno dovoljenje."
 
-#: src/user_actions.rs:1174
+#: src/user_actions.rs:1183
 msgid ""
 "You should have received a copy of the GNU General Public License along with GNOME Commander; if not, "
 "write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
@@ -7845,403 +7865,401 @@ msgstr ""
 "dobili, pišite na Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 "
 "USA"
 
-#: src/user_actions.rs:1183
+#: src/user_actions.rs:1192
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Hiter in zmogljiv urejevalnik datotek za GNOME namizje"
 
-#: src/user_actions.rs:1191
+#: src/user_actions.rs:1200
 msgid "translator-credits"
 msgstr ""
 "Matej Urbančič <mateju@src.gnome.org>\n"
 "Martin Srebotnjak <miles@filmsi.net>"
 
-#: src/user_actions.rs:1400
+#: src/user_actions.rs:1409
 msgid "Copy Files"
 msgstr "Kopiraj datoteke"
 
-#: src/user_actions.rs:1406
+#: src/user_actions.rs:1415
 msgid "Copy files with rename"
 msgstr "Kopiraj in preimenuj datoteke"
 
-#: src/user_actions.rs:1412
+#: src/user_actions.rs:1421
 msgid "Move Files"
 msgstr "Premakni datoteke"
 
-#: src/user_actions.rs:1418
+#: src/user_actions.rs:1427
 msgid "_Delete"
 msgstr "_Izbriši"
 
-#: src/user_actions.rs:1424
+#: src/user_actions.rs:1433
 msgid "View File"
 msgstr "Pokaži datoteko"
 
-#: src/user_actions.rs:1430
+#: src/user_actions.rs:1439
 msgid "View with internal viewer"
 msgstr "Poglej datoteko z vgrajenim pregledovalnikom"
 
-#: src/user_actions.rs:1436
+#: src/user_actions.rs:1445
 msgid "View with external viewer"
 msgstr "Poglej datoteko z zunanjim pregledovalnikom"
 
-#: src/user_actions.rs:1442
+#: src/user_actions.rs:1451
 msgid "Edit (SHIFT for new document)"
 msgstr "Uredi (s tipko SHIFT se odpre nov dokument)"
 
-#: src/user_actions.rs:1448
+#: src/user_actions.rs:1457
 msgid "New _Text File"
 msgstr "Nova _besedilna datoteka"
 
-#: src/user_actions.rs:1454
+#: src/user_actions.rs:1463
 msgid "_Search…"
 msgstr "_Poišči …"
 
-#: src/user_actions.rs:1460
+#: src/user_actions.rs:1469
 msgid "_Quick Search…"
 msgstr "_Hitro iskanje …"
 
-#: src/user_actions.rs:1466
+#: src/user_actions.rs:1475
 msgid "Change Per_missions"
 msgstr "Spremeni _dovoljenja"
 
-#: src/user_actions.rs:1472
+#: src/user_actions.rs:1481
 msgid "Change _Owner/Group"
 msgstr "Spremeni _lastništvo"
 
-#: src/user_actions.rs:1478
+#: src/user_actions.rs:1487
 msgid "New _Directory"
 msgstr "Nova _mapa"
 
-#: src/user_actions.rs:1484
+#: src/user_actions.rs:1493
 msgid "_Properties…"
 msgstr "_Lastnosti …"
 
-#: src/user_actions.rs:1490
+#: src/user_actions.rs:1499
 msgid "_Diff"
 msgstr "_Primerjava"
 
-#: src/user_actions.rs:1496
+#: src/user_actions.rs:1505
 msgid "S_ynchronize Directories"
 msgstr "_Uskladi mapi"
 
-#: src/user_actions.rs:1502
+#: src/user_actions.rs:1511
 msgid "_Rename"
 msgstr "P_reimenuj"
 
-#: src/user_actions.rs:1508
+#: src/user_actions.rs:1517
 msgid "Create _Symbolic Link"
 msgstr "_Ustvari simbolno povezavo"
 
-#: src/user_actions.rs:1514
+#: src/user_actions.rs:1523
 msgid "Advanced _Rename Tool"
 msgstr "Napre_dno preimenovanje"
 
-#: src/user_actions.rs:1520
+#: src/user_actions.rs:1529
 msgid "_Send Files"
 msgstr "Pošlji _datoteke"
 
-#: src/user_actions.rs:1526
+#: src/user_actions.rs:1535
 msgid "Quit"
 msgstr "Končaj"
 
-#: src/user_actions.rs:1533
+#: src/user_actions.rs:1542
 msgid "Toggle selection"
 msgstr "Preklopi izbor"
 
-#: src/user_actions.rs:1539
+#: src/user_actions.rs:1548
 msgid "Toggle selection and move cursor downward"
 msgstr "Preklopi izbor in premakni kazalnik nižje"
 
-#: src/user_actions.rs:1545
+#: src/user_actions.rs:1554
 msgid "_Select All"
 msgstr "Izberi _vse"
 
-#: src/user_actions.rs:1551
+#: src/user_actions.rs:1560
 msgid "_Unselect All"
 msgstr "P_očisti vse"
 
-#: src/user_actions.rs:1557
+#: src/user_actions.rs:1566
 msgid "Select all _Files"
 msgstr "Izberi _vse datoteke"
 
-#: src/user_actions.rs:1563
+#: src/user_actions.rs:1572
 msgid "Unselect all Fi_les"
 msgstr "Počisti izbor vse_h datotek"
 
-#: src/user_actions.rs:1569
+#: src/user_actions.rs:1578
 msgid "Select with _Pattern"
 msgstr "Izberi z _vzorcem"
 
-#: src/user_actions.rs:1575
+#: src/user_actions.rs:1584
 msgid "Unselect with P_attern"
 msgstr "Počisti izbor z v_zorcem"
 
-#: src/user_actions.rs:1581
+#: src/user_actions.rs:1590
 msgid "_Invert Selection"
 msgstr "Preo_brni izbor"
 
-#: src/user_actions.rs:1587
+#: src/user_actions.rs:1596
 msgid "Select with same _Extension"
 msgstr "Izberi vse z iso _pripono"
 
-#: src/user_actions.rs:1593
+#: src/user_actions.rs:1602
 msgid "Unselect with same E_xtension"
 msgstr "Počisti izbor datotek z isto _pripono"
 
-#: src/user_actions.rs:1599
+#: src/user_actions.rs:1608
 msgid "_Restore Selection"
 msgstr "_Povrni izbor"
 
-#: src/user_actions.rs:1605
+#: src/user_actions.rs:1614
 msgid "_Compare Directories"
 msgstr "_Primerjava map"
 
-#: src/user_actions.rs:1612
+#: src/user_actions.rs:1621
 msgid "Cu_t"
 msgstr "I_zreži"
 
-#: src/user_actions.rs:1618
+#: src/user_actions.rs:1627
 msgid "_Copy"
 msgstr "_Kopiraj"
 
-#: src/user_actions.rs:1624
+#: src/user_actions.rs:1633
 msgid "_Paste"
 msgstr "_Prilepi"
 
-#: src/user_actions.rs:1630
+#: src/user_actions.rs:1639
 msgid "_Enable Filter…"
 msgstr "_Omogoči filter …"
 
-#: src/user_actions.rs:1636
+#: src/user_actions.rs:1645
 msgid "Copy _File Names (SHIFT for full paths, ALT for URIs)"
 msgstr "Kopiraj imena _datotek (s tipko SHIFT kopirate celotna pot, z ALT pa naslove URI)"
 
-#: src/user_actions.rs:1643
+#: src/user_actions.rs:1652
 msgid "Execute command"
 msgstr "Izvedi ukaz"
 
-#: src/user_actions.rs:1649
+#: src/user_actions.rs:1658
 msgid "Open _Terminal"
 msgstr "Odpri _terminal"
 
-#: src/user_actions.rs:1656
+#: src/user_actions.rs:1665
 msgid "Show Device Buttons"
 msgstr "Pokaži gumbe naprav"
 
-#: src/user_actions.rs:1662
+#: src/user_actions.rs:1671
 msgid "Show Device List"
 msgstr "Pokaži seznam naprav"
 
-#: src/user_actions.rs:1668
+#: src/user_actions.rs:1677
 msgid "Show Toolbar"
 msgstr "Pokaži orodno vrstico"
 
-#: src/user_actions.rs:1674
+#: src/user_actions.rs:1683
 msgid "Show Buttonbar"
 msgstr "Pokaži funkcijske tipke"
 
-#: src/user_actions.rs:1680
+#: src/user_actions.rs:1689
 msgid "Show Command Line"
 msgstr "Pokaži ukazno vrstico"
 
-#: src/user_actions.rs:1686
+#: src/user_actions.rs:1695
 msgid "Show directory history"
 msgstr "Pokaži zgodovino mape"
 
-#: src/user_actions.rs:1692
+#: src/user_actions.rs:1701
 msgid "Show Hidden Files"
 msgstr "Pokaži skrite datoteke"
 
-#: src/user_actions.rs:1698
+#: src/user_actions.rs:1707
 msgid "Show Backup Files"
 msgstr "Pokaži varnostne kopije"
 
-#: src/user_actions.rs:1710
+#: src/user_actions.rs:1719
 msgid "Back to oldest"
 msgstr "Nazaj na najstarejše"
 
-#: src/user_actions.rs:1716
+#: src/user_actions.rs:1725
 msgid "_Back"
 msgstr "_Nazaj"
 
-#: src/user_actions.rs:1722
+#: src/user_actions.rs:1731
 msgid "_Forward"
 msgstr "_Naprej"
 
-#: src/user_actions.rs:1728
+#: src/user_actions.rs:1737
 msgid "Forward to latest"
 msgstr "Naprej na najnovejše"
 
-#: src/user_actions.rs:1734
+#: src/user_actions.rs:1743
 msgid "_Refresh"
 msgstr "_Osveži"
 
-#: src/user_actions.rs:1740
+#: src/user_actions.rs:1749
 msgid "_Equal Panel Size"
 msgstr "_Enako veliki plošči"
 
-#: src/user_actions.rs:1746
+#: src/user_actions.rs:1755
 msgid "Maximize Panel Size"
 msgstr "Razpni velikost plošče"
 
-#: src/user_actions.rs:1752
+#: src/user_actions.rs:1761
 msgid "Open directory in the left panel"
 msgstr "Odpre mapo v levem podoknu"
 
-#: src/user_actions.rs:1758
+#: src/user_actions.rs:1767
 msgid "Open directory in the right panel"
 msgstr "Odpre mapo v desnem podoknu"
 
-#: src/user_actions.rs:1764
+#: src/user_actions.rs:1773
 msgid "Open directory in the active panel"
 msgstr "Odpre mapo v dejavnem podoknu"
 
-#: src/user_actions.rs:1770
+#: src/user_actions.rs:1779
 msgid "Open directory in the inactive panel"
 msgstr "Odpre mapo v nedejavnem podoknu"
 
-#: src/user_actions.rs:1776
+#: src/user_actions.rs:1785
 msgid "Change directory"
 msgstr "Spremeni mapo"
 
-#: src/user_actions.rs:1782
+#: src/user_actions.rs:1791
 msgid "Home directory"
 msgstr "Domači imenik"
 
-#: src/user_actions.rs:1788
+#: src/user_actions.rs:1797
 msgid "Root directory"
 msgstr "Korenska mapa"
 
-#: src/user_actions.rs:1812
+#: src/user_actions.rs:1821
 msgid "Close duplicate tabs"
 msgstr "Zapri podvojene zavihke"
 
-#: src/user_actions.rs:1818
+#: src/user_actions.rs:1827
 msgid "Previous tab"
 msgstr "Predhodni zavihek"
 
-#: src/user_actions.rs:1824
+#: src/user_actions.rs:1833
 msgid "Next tab"
 msgstr "Naslednji zavihek"
 
-#: src/user_actions.rs:1830
+#: src/user_actions.rs:1839
 msgid "Open directory in the new tab"
 msgstr "Odpri mapo v novem zavihku"
 
-#: src/user_actions.rs:1836
+#: src/user_actions.rs:1845
 msgid "Open directory in the new tab (inactive panel)"
 msgstr "Odpri mapo v novem zavihku (nedejavno podokno)"
 
-#: src/user_actions.rs:1842
+#: src/user_actions.rs:1851
 msgid "Lock/unlock tab"
 msgstr "Zakleni/Odkleni zavihek"
 
-#: src/user_actions.rs:1848
+#: src/user_actions.rs:1857
 msgid "Horizontal Orientation"
 msgstr "Vodoravna postavitev"
 
-#: src/user_actions.rs:1854
+#: src/user_actions.rs:1863
 msgid "Display main menu"
 msgstr "Pokaži glavni meni"
 
-#: src/user_actions.rs:1860
+#: src/user_actions.rs:1869
 msgid "Move cursor one step up"
 msgstr "Premakni kazalko en korak višje"
 
-#: src/user_actions.rs:1866
+#: src/user_actions.rs:1875
 msgid "Move cursor one step down"
 msgstr "Premakni kazalko en korak nižje"
 
-#: src/user_actions.rs:1872
+#: src/user_actions.rs:1881
 msgid "Swap panels"
 msgstr "Zamenjaj plošče"
 
-#: src/user_actions.rs:1878
+#: src/user_actions.rs:1887
 msgid "Show panel size selector"
 msgstr "Prikaži izbirnik velikosti plošče"
 
-#: src/user_actions.rs:1891
+#: src/user_actions.rs:1900
 msgid "_Bookmark this Directory…"
 msgstr "_Ustvari zaznamek mape …"
 
-#: src/user_actions.rs:1897
+#: src/user_actions.rs:1906
 msgid "_Manage Bookmarks…"
 msgstr "_Upravljaj zaznamke …"
 
-#: src/user_actions.rs:1903
+#: src/user_actions.rs:1912
 msgid "Go to bookmarked location"
 msgstr "Skoči na mesto zaznamka"
 
-#: src/user_actions.rs:1909
+#: src/user_actions.rs:1918
 msgid "Show bookmarks of current device"
 msgstr "Pokaži zaznamke trenutne naprave"
 
-#: src/user_actions.rs:1916
+#: src/user_actions.rs:1925
 msgid "_Options…"
 msgstr "_Možnosti …"
 
-#: src/user_actions.rs:1922
+#: src/user_actions.rs:1931
 msgid "_Keyboard Shortcuts…"
 msgstr "_Tipkovne bližnjice …"
 
-#: src/user_actions.rs:1929
+#: src/user_actions.rs:1938
 msgid "_Remote Server…"
 msgstr "_Oddaljeni strežnik …"
 
-#: src/user_actions.rs:1935
+#: src/user_actions.rs:1944
 msgid "New Connection…"
 msgstr "Nova povezava …"
 
-#: src/user_actions.rs:1941
+#: src/user_actions.rs:1950
 msgid "Set connection"
 msgstr "Nastavi povezavo"
 
-#: src/user_actions.rs:1947
+#: src/user_actions.rs:1956
 msgid "Change left connection"
 msgstr "Spremeni povezavo na levi"
 
-#: src/user_actions.rs:1953
+#: src/user_actions.rs:1962
 msgid "Change right connection"
 msgstr "Spremeni povezavo na desni"
 
-#: src/user_actions.rs:1959
+#: src/user_actions.rs:1968
 msgid "Close connection"
 msgstr "Zapri povezavo"
 
-#: src/user_actions.rs:1965
+#: src/user_actions.rs:1974
 msgid "Drop Connection"
 msgstr "Prekini povezavo"
 
-#: src/user_actions.rs:1972
+#: src/user_actions.rs:1981
 msgid "_Configure Plugins…"
 msgstr "_Prilagodi vstavke …"
 
-#: src/user_actions.rs:1985
+#: src/user_actions.rs:1994
 msgid "_Documentation"
 msgstr "_Dokumentacija"
 
-#: src/user_actions.rs:1997
+#: src/user_actions.rs:2006
 msgid "GNOME Commander on the _Web"
 msgstr "Program GNOME _Commander na spletu"
 
-#: src/user_actions.rs:2003
+#: src/user_actions.rs:2012
 msgid "Report a _Problem"
 msgstr "Prijavi _težavo"
 
-#: src/user_actions.rs:2009
+#: src/user_actions.rs:2018
 msgid "_About"
 msgstr "_O Programu"
 
-#: src/utils.rs:108
+#: src/utils.rs:111
 msgid "Cannot create a temporary file."
 msgstr "Začasne datoteke ni mogoče ustvariti."
 
-#: src/utils.rs:287
-#, rust-format
+#: src/utils.rs:290
 msgid "There was an error while opening help uri {uri}."
 msgstr "Pri odpiranju uri {uri} za vsebino pomoči je prišlo do napake."
 
-#: src/utils.rs:388
-#, rust-format
+#: src/utils.rs:391
 msgid "{} PiB"
 msgid_plural "{} PiB"
 msgstr[0] "{} PiB"
@@ -8249,8 +8267,7 @@ msgstr[1] "{} PiB"
 msgstr[2] "{} PiB"
 msgstr[3] "{} PiB"
 
-#: src/utils.rs:391
-#, rust-format
+#: src/utils.rs:394
 msgid "{} TiB"
 msgid_plural "{} TiB"
 msgstr[0] "{} PiB"
@@ -8258,8 +8275,7 @@ msgstr[1] "{} PiB"
 msgstr[2] "{} PiB"
 msgstr[3] "{} PiB"
 
-#: src/utils.rs:394
-#, rust-format
+#: src/utils.rs:397
 msgid "{} GiB"
 msgid_plural "{} GiB"
 msgstr[0] "{} PiB"
@@ -8267,8 +8283,7 @@ msgstr[1] "{} PiB"
 msgstr[2] "{} PiB"
 msgstr[3] "{} PiB"
 
-#: src/utils.rs:397
-#, rust-format
+#: src/utils.rs:400
 msgid "{} MiB"
 msgid_plural "{} MiB"
 msgstr[0] "{} MiB"
@@ -8276,8 +8291,7 @@ msgstr[1] "{} MiB"
 msgstr[2] "{} MiB"
 msgstr[3] "{} MiB"
 
-#: src/utils.rs:400
-#, rust-format
+#: src/utils.rs:403
 msgid "{} kiB"
 msgid_plural "{} kiB"
 msgstr[0] "{} kiB"
@@ -8285,8 +8299,7 @@ msgstr[1] "{} kiB"
 msgstr[2] "{} kiB"
 msgstr[3] "{} kiB"
 
-#: src/utils.rs:403 src/utils.rs:414 src/utils.rs:418
-#, rust-format
+#: src/utils.rs:406 src/utils.rs:417 src/utils.rs:421
 msgid "{} byte"
 msgid_plural "{} bytes"
 msgstr[0] "{} bajtov"
@@ -8294,6 +8307,6 @@ msgstr[1] "{} bajt"
 msgstr[2] "{} bajta"
 msgstr[3] "{} bajti"
 
-#: src/utils.rs:630
+#: src/utils.rs:633
 msgid "Closing of a file enumerator failed"
 msgstr "Zapiranje oštevilčevalnika datotek ni uspelo"
