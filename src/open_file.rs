@@ -22,9 +22,9 @@
 
 use crate::{
     app::{App, RegularApp},
-    file::File,
-    options::options::ProgramsOptions,
-    spawn::SpawnError,
+    file::{File, FileOps},
+    main_win::MainWindow,
+    options::ProgramsOptions,
     transfer::download_to_temporary,
     utils::{ErrorMessage, GNOME_CMD_PERM_USER_EXEC, temp_file},
 };
@@ -33,7 +33,7 @@ use gtk::{gdk, gio, prelude::*};
 
 async fn ask_make_executable(parent_window: &gtk::Window, file: &File) -> bool {
     let msg = gettext("“{}” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?")
-        .replace("{}", &file.get_name());
+        .replace("{}", &file.name());
     gtk::AlertDialog::builder()
         .modal(true)
         .message(msg)
@@ -55,7 +55,7 @@ enum OpenText {
 async fn ask_open_text(parent_window: &gtk::Window, file: &File) -> OpenText {
     let msg =
         gettext("“{}” is an executable text file. Do you want to run it, or display its contents?")
-            .replace("{}", &file.get_name());
+            .replace("{}", &file.name());
     let response = gtk::AlertDialog::builder()
         .modal(true)
         .message(msg)
@@ -103,36 +103,41 @@ pub async fn mime_exec_single(
             return Ok(());
         }
 
-        file.chmod(
-            file.file_info()
-                .attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE)
-                | GNOME_CMD_PERM_USER_EXEC,
-        )
-        .map_err(|error| ErrorMessage {
-            message: gettext("Change of a file mode failed"),
-            secondary_text: Some(error.to_string()),
-        })?;
+        file.chmod(file.permissions() | GNOME_CMD_PERM_USER_EXEC)
+            .map_err(|error| ErrorMessage {
+                message: gettext("Change of a file mode failed"),
+                secondary_text: Some(error.to_string()),
+            })?;
     }
 
     // If the file is executable but not a binary file, check if the user wants to exec it or open it
 
-    if file.is_executable() {
+    let execute = file.is_executable() && {
         if is_executable_content_type {
-            file.execute(options).map_err(SpawnError::into_message)?;
-            return Ok(());
+            true
         } else if content_type
             .as_ref()
-            .is_some_and(|c| c.starts_with("text/"))
+            .is_some_and(|c| c.starts_with("text/") || c.starts_with("application/"))
         {
             match ask_open_text(parent_window, file).await {
                 OpenText::Cancel => return Ok(()),
-                OpenText::Display => {}
-                OpenText::Run => {
-                    file.execute(options).map_err(SpawnError::into_message)?;
-                    return Ok(());
-                }
+                OpenText::Display => false,
+                OpenText::Run => true,
             }
+        } else {
+            false
         }
+    };
+    if execute {
+        if let Some(win) = parent_window.downcast_ref::<MainWindow>().cloned() {
+            let file = file.clone();
+            glib::spawn_future_local(async move {
+                win.execute_file(&file).await;
+            });
+        } else {
+            eprintln!("Unexpected: parent window isn't the main window");
+        }
+        return Ok(());
     }
 
     let Some(app_info) = file.app_info_for_content_type() else {
@@ -151,19 +156,21 @@ pub async fn mime_exec_single(
 
     let context = gdk::Display::default().map(|display| display.app_launch_context());
     if file.is_local() {
-        app_info.launch(&[file.file()], context.as_ref())
+        app_info.launch(&[file.file().clone()], context.as_ref())
     } else if app.handles_uris() && options.dont_download.get() {
-        app_info.launch_uris(&[&file.get_uri_str()], context.as_ref())
+        app_info.launch_uris(&[&file.uri()], context.as_ref())
     } else {
         if !ask_download_tmp(parent_window, &app).await {
             return Ok(());
         }
 
         let tmp_file = temp_file(file)?;
+        let src_files = vec![file.file().clone()];
+        let dst_files = vec![tmp_file.file().clone()];
         if !download_to_temporary(
             parent_window.clone(),
-            vec![file.file()],
-            vec![tmp_file.file()],
+            src_files,
+            dst_files,
             gio::FileCopyFlags::OVERWRITE,
         )
         .await
@@ -172,7 +179,7 @@ pub async fn mime_exec_single(
             return Ok(());
         }
 
-        app_info.launch(&[tmp_file.file()], context.as_ref())
+        app_info.launch(&[tmp_file.file().clone()], context.as_ref())
     }
     .map_err(|error| {
         ErrorMessage::with_error(

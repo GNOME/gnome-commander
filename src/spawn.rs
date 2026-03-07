@@ -22,8 +22,8 @@
 
 use crate::{
     debug::debug,
-    file::File,
-    options::options::ProgramsOptions,
+    file::{File, FileOps},
+    options::ProgramsOptions,
     utils::{ErrorMessage, make_run_in_terminal_command},
 };
 use gettextrs::gettext;
@@ -49,16 +49,13 @@ use std::{
 /// - `%d` - full path to the directory containing file
 /// - `%D` - quoted full path to the directory containg file
 /// - `%%` - percent sign
-pub fn parse_command_template(
-    files: &glib::List<File>,
-    command_template: &str,
-) -> Option<OsString> {
+pub fn parse_command_template(files: &[impl FileOps], command_template: &str) -> Option<OsString> {
     let filename: OnceCell<Vec<String>> = OnceCell::new();
     let file_path: OnceCell<Vec<PathBuf>> = OnceCell::new();
     let uri: OnceCell<Vec<String>> = OnceCell::new();
     let mut cmd = OsString::new();
 
-    let first_file = files.front()?;
+    let first_file = files.first()?;
     let directory = first_file.file().parent()?;
     let dir_path: OsString = if first_file.is_local() {
         directory.path()?.into_os_string()
@@ -78,8 +75,7 @@ pub fn parse_command_template(
             match s {
                 'f' | 'F' => {
                     let raw = s == 'f';
-                    let names =
-                        filename.get_or_init(|| files.iter().map(|f| f.get_name()).collect());
+                    let names = filename.get_or_init(|| files.iter().map(|f| f.name()).collect());
                     for (i, name) in names.iter().enumerate() {
                         if i > 0 {
                             cmd.push(" ");
@@ -94,7 +90,7 @@ pub fn parse_command_template(
                 'p' | 'P' | 's' => {
                     let raw = s == 'p';
                     let paths = file_path
-                        .get_or_init(|| files.iter().filter_map(|f| f.get_real_path()).collect());
+                        .get_or_init(|| files.iter().filter_map(|f| f.local_path()).collect());
                     for (i, path) in paths.iter().enumerate() {
                         if i > 0 {
                             cmd.push(" ");
@@ -107,7 +103,7 @@ pub fn parse_command_template(
                     }
                 }
                 'u' => {
-                    let uris = uri.get_or_init(|| files.iter().map(|f| f.get_uri_str()).collect());
+                    let uris = uri.get_or_init(|| files.iter().map(|f| f.uri()).collect());
                     for (i, uri) in uris.iter().enumerate() {
                         if i > 0 {
                             cmd.push(" ");
@@ -189,7 +185,7 @@ pub fn spawn_async_command(
 
 pub fn spawn_async(
     working_directory: Option<&Path>,
-    files: &glib::List<File>,
+    files: &[impl FileOps],
     command_template: &str,
 ) -> Result<(), SpawnError> {
     let Some(cmd) = parse_command_template(files, command_template) else {
@@ -218,8 +214,7 @@ fn app_get_linked_libs(app_path: &Path) -> std::io::Result<Vec<String>> {
         .output()?
         .stdout
         .lines()
-        .collect::<Result<Vec<String>, _>>()?
-        .into_iter()
+        .map_while(Result::ok)
         .filter_map(|line| line.split_once(' ').map(|p| p.0.trim().to_owned()))
         .collect())
 }
@@ -230,10 +225,7 @@ pub fn app_needs_terminal(file: &File) -> bool {
         .map(|c| c == "application/x-executable" || c == "application/x-executable-binary")
         .unwrap_or_default();
 
-    if is_executable {
-        let Some(app_path) = file.get_real_path() else {
-            return true;
-        };
+    if is_executable && let Some(app_path) = file.local_path() {
         match app_get_linked_libs(&app_path) {
             Ok(libs) => !libs.into_iter().any(|lib| lib.starts_with("libX11")),
             Err(error) => {

@@ -20,17 +20,15 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::{Connection, ConnectionExt, ConnectionInterface};
+use super::{Connection, ConnectionExt, ConnectionInterface};
 use crate::{
     debug::debug,
-    path::GnomeCmdPath,
     utils::{ErrorMessage, GnomeCmdFileExt},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::{
     cell::RefCell,
-    fmt,
     future::Future,
     path::{Path, PathBuf},
     pin::Pin,
@@ -38,7 +36,7 @@ use std::{
 
 mod imp {
     use super::*;
-    use crate::connection::connection::ConnectionImpl;
+    use crate::connection::ConnectionImpl;
 
     #[derive(Default)]
     pub struct ConnectionSmb {
@@ -89,30 +87,31 @@ impl ConnectionInterface for ConnectionSmb {
         _window: gtk::Window,
     ) -> Pin<Box<dyn Future<Output = Result<(), ErrorMessage>> + '_>> {
         Box::pin(async move {
-            if self.base_path().is_none() {
-                self.set_base_path(Some(GnomeCmdPath::Smb(SmbResource::Root)));
-            }
+            let path = if let Some(path) = self.base_path() {
+                path
+            } else {
+                let path = PathBuf::from("/");
+                self.set_base_path(Some(path.clone()));
+                path
+            };
 
-            let path = self.base_path().unwrap();
-            let file = self.create_gfile(&path);
+            let file = gio::File::for_uri(&self.create_uri(&path));
 
             let uri_string = file.uri();
             debug!('s', "Connecting to {}", uri_string);
             match file
-                .query_info_future("*", gio::FileQueryInfoFlags::NONE, glib::Priority::DEFAULT)
+                .query_info_future(
+                    "standard::*",
+                    gio::FileQueryInfoFlags::NONE,
+                    glib::Priority::DEFAULT,
+                )
                 .await
             {
-                Ok(file_info) => {
-                    self.set_base_file_info(Some(&file_info));
-                    Ok(())
-                }
-                Err(error) => {
-                    self.set_base_file_info(None);
-                    Err(ErrorMessage::with_error(
-                        gettext("Failed to browse the network. Is Samba supported on the system?"),
-                        &error,
-                    ))
-                }
+                Ok(_) => Ok(()),
+                Err(error) => Err(ErrorMessage::with_error(
+                    gettext("Failed to browse the network. Is Samba supported on the system?"),
+                    &error,
+                )),
             }
         })
     }
@@ -128,24 +127,25 @@ impl ConnectionInterface for ConnectionSmb {
         })
     }
 
-    fn create_gfile(&self, path: &GnomeCmdPath) -> gio::File {
-        let root = gio::File::for_uri("smb:");
-        root.resolve_relative_path(path.path())
-    }
+    fn create_uri(&self, path: &Path) -> String {
+        let smb_resource = {
+            if path.components().count() == 0 {
+                SmbResource::Root
+            } else if let Some(smb_resource) = path
+                .to_str()
+                .and_then(|p| SmbResource::from_str(p, self.smb_discovery()))
+            {
+                smb_resource
+            } else {
+                eprintln!("Can't find a host or workgroup for path {}", path.display());
+                SmbResource::Root
+            }
+        };
 
-    fn create_path(&self, path: &Path) -> GnomeCmdPath {
-        if path.components().count() == 0 {
-            return GnomeCmdPath::Smb(SmbResource::Root);
-        }
-        if let Some(smb_resource) = path
-            .to_str()
-            .and_then(|p| SmbResource::from_str(p, self.smb_discovery()))
-        {
-            GnomeCmdPath::Smb(smb_resource)
-        } else {
-            eprintln!("Can't find a host or workgroup for path {}", path.display());
-            GnomeCmdPath::Smb(SmbResource::Root)
-        }
+        gio::File::for_uri("smb:")
+            .resolve_relative_path(smb_resource.path())
+            .uri()
+            .to_string()
     }
 
     fn is_local(&self) -> bool {
@@ -208,41 +208,6 @@ impl SmbResource {
         }
     }
 
-    pub fn parent(&self) -> Option<Self> {
-        match self {
-            Self::Root => None,
-            Self::Workgroup(..) => Some(Self::Root),
-            Self::Resource(workgroup, ..) => Some(Self::Workgroup(workgroup.clone())),
-            Self::Path(workgroup, resource, resource_path) => match resource_path.parent() {
-                Some(parent) => Some(Self::Path(
-                    workgroup.to_owned(),
-                    resource.to_owned(),
-                    parent.to_owned(),
-                )),
-                None => Some(Self::Resource(workgroup.clone(), resource.clone())),
-            },
-        }
-    }
-
-    pub fn child(&self, child: &Path) -> Self {
-        match self {
-            Self::Root => Self::Workgroup(PathBuf::from(child)),
-            Self::Workgroup(workgroup) => {
-                Self::Resource(workgroup.to_owned(), PathBuf::from(child))
-            }
-            Self::Resource(workgroup, resource) => Self::Path(
-                workgroup.to_owned(),
-                resource.to_owned(),
-                PathBuf::from(child),
-            ),
-            Self::Path(workgroup, resource, resource_path) => Self::Path(
-                workgroup.clone(),
-                resource.clone(),
-                resource_path.join(child),
-            ),
-        }
-    }
-
     pub fn from_str(s: &str, discovery: &SmbEntities) -> Option<Self> {
         let mut iter = s.split('\\').filter(|p| !p.is_empty()).fuse();
         let Some(first_item) = iter.next() else {
@@ -275,25 +240,6 @@ impl SmbResource {
                 }
             }
             None => None,
-        }
-    }
-}
-
-impl fmt::Display for SmbResource {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self {
-            Self::Root => write!(f, "\\\\"),
-            Self::Workgroup(workgroup) => write!(f, "\\\\{}", workgroup.display()),
-            Self::Resource(workgroup, resource) => {
-                write!(f, "\\\\{}\\{}", workgroup.display(), resource.display())
-            }
-            Self::Path(workgroup, resource, resource_path) => {
-                write!(f, "\\\\{}\\{}", workgroup.display(), resource.display())?;
-                for part in resource_path {
-                    write!(f, "\\{}", part.to_string_lossy())?;
-                }
-                Ok(())
-            }
         }
     }
 }

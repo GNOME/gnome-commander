@@ -20,10 +20,9 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::{Connection, ConnectionExt, ConnectionInterface, ConnectionState};
+use super::{Connection, ConnectionExt, ConnectionInterface, ConnectionState};
 use crate::{
     debug::debug,
-    path::GnomeCmdPath,
     utils::{ErrorMessage, SenderExt},
 };
 use gettextrs::gettext;
@@ -37,7 +36,7 @@ use std::{
 
 mod imp {
     use super::*;
-    use crate::connection::connection::ConnectionImpl;
+    use crate::connection::ConnectionImpl;
     use std::cell::{Cell, RefCell};
 
     #[derive(Default)]
@@ -153,7 +152,7 @@ impl ConnectionDevice {
         };
 
         if self.base_path().is_none() {
-            self.set_base_path(Some(GnomeCmdPath::Plain(mount_point.clone())));
+            self.set_base_path(Some(mount_point.clone()));
         }
 
         let (sender, receiver) = async_channel::bounded(1);
@@ -169,16 +168,18 @@ impl ConnectionDevice {
         match receiver.recv().await {
             Ok(Ok(())) => {
                 match gio::File::for_path(&mount_point)
-                    .query_info_future("*", gio::FileQueryInfoFlags::NONE, glib::Priority::DEFAULT)
+                    .query_info_future(
+                        "standard::*",
+                        gio::FileQueryInfoFlags::NONE,
+                        glib::Priority::DEFAULT,
+                    )
                     .await
                 {
-                    Ok(file_info) => {
-                        self.set_base_file_info(Some(&file_info));
+                    Ok(_) => {
                         self.set_state(ConnectionState::Open);
                         Ok(())
                     }
                     Err(error) => {
-                        self.set_base_file_info(None);
                         self.set_state(ConnectionState::Closed);
                         Err(ErrorMessage::with_error(
                             gettext("Unable to mount the volume {}").replace("{}", &device),
@@ -188,12 +189,10 @@ impl ConnectionDevice {
                 }
             }
             Ok(Err(error)) => {
-                self.set_base_file_info(None);
                 self.set_state(ConnectionState::Closed);
                 Err(error)
             }
             Err(error) => {
-                self.set_base_file_info(None);
                 self.set_state(ConnectionState::Closed);
                 eprintln!("Channel error: {error}");
                 Err(ErrorMessage::brief(
@@ -226,7 +225,6 @@ impl ConnectionInterface for ConnectionDevice {
                         .await
                         .map_err(|error| {
                             eprintln!("Unable to mount the volume, error: {error}");
-                            self.set_base_file_info(None);
                             ErrorMessage::with_error(
                                 gettext("Unable to mount the volume {}")
                                     .replace("{}", &self.alias().unwrap_or_default()),
@@ -239,17 +237,18 @@ impl ConnectionInterface for ConnectionDevice {
 
                 let file = mount.default_location();
                 let path = file.path().unwrap();
-                self.set_base_path(Some(GnomeCmdPath::Plain(path)));
+                self.set_base_path(Some(path));
 
                 match file
-                    .query_info_future("*", gio::FileQueryInfoFlags::NONE, glib::Priority::DEFAULT)
+                    .query_info_future(
+                        "standard::*",
+                        gio::FileQueryInfoFlags::NONE,
+                        glib::Priority::DEFAULT,
+                    )
                     .await
                 {
-                    Ok(file_info) => {
-                        self.set_base_file_info(Some(&file_info));
-                    }
+                    Ok(_) => {}
                     Err(error) => {
-                        self.set_base_file_info(None);
                         eprintln!("Unable to mount the volume: error: {error}");
                         Err(ErrorMessage::with_error(
                             gettext("Unable to mount the volume {}")
@@ -258,12 +257,6 @@ impl ConnectionInterface for ConnectionDevice {
                         ))?;
                     }
                 }
-
-                // if let Some(base_path) = self.base_path()                                 {
-                //     let path = base_path.path();
-                //     let uri_string = glib::filename_to_uri(path, None);
-                //     self.set_uri_string(uri_string);
-                // }
             }
             Ok(())
         })
@@ -315,16 +308,10 @@ impl ConnectionInterface for ConnectionDevice {
         })
     }
 
-    fn create_gfile(&self, path: &GnomeCmdPath) -> gio::File {
-        if let Some(mount) = self.mount() {
-            mount.default_location().resolve_relative_path(path.path())
-        } else {
-            gio::File::for_path(path.path())
-        }
-    }
-
-    fn create_path(&self, path: &Path) -> GnomeCmdPath {
-        GnomeCmdPath::Plain(path.to_owned())
+    fn create_uri(&self, path: &Path) -> String {
+        glib::filename_to_uri(path, None)
+            .map(|uri| uri.into())
+            .unwrap_or_else(|_| "file:///".to_string())
     }
 
     fn is_local(&self) -> bool {

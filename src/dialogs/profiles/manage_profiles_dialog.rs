@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use super::{edit_profile_dialog::edit_profile, profiles::ProfileManager};
+use super::{ProfileManager, edit_profile_dialog::edit_profile};
 use crate::{
     dialogs::order_utils::ordering_buttons,
     hintbox::hintbox,

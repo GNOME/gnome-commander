@@ -19,4 +19,7 @@
 
 pub mod edit_profile_dialog;
 pub mod manage_profiles_dialog;
-pub mod profiles;
+
+#[path = "profiles.rs"]
+mod profiles_inner;
+pub use profiles_inner::*;

@@ -23,7 +23,7 @@ use std::cmp;
 
 mod imp {
     use super::*;
-    use crate::{file_list::item::FileListItem, options::options::GeneralOptions};
+    use crate::{file_list::item::FileListItem, options::GeneralOptions};
     use std::cell::Cell;
 
     #[derive(Default, glib::Properties)]
@@ -96,33 +96,14 @@ fn file_type_key(file: &File, symbolic_links_as_regular_files: bool) -> impl cmp
     if file.is_dotdot() {
         return 0;
     }
-    let file_info = if file.is_local() {
-        Some(file.file_info())
-    } else {
-        match file
-            .file()
-            .query_info("*", gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE)
-        {
-            Ok(info) => Some(info),
-            Err(error) => {
-                eprintln!(
-                    "Could not retrieve file information for {}, error: {}",
-                    file.get_name(),
-                    error.message()
-                );
-                None
-            }
-        }
-    };
-    let file_type = file_info.map(|i| i.file_type());
-    match file_type {
-        Some(gio::FileType::Mountable) => 1,
-        Some(gio::FileType::Shortcut) => 2,
-        Some(gio::FileType::Special) => 3,
-        Some(gio::FileType::SymbolicLink) if symbolic_links_as_regular_files => 6,
-        Some(gio::FileType::SymbolicLink) => 4,
-        Some(gio::FileType::Directory) => 5,
-        Some(gio::FileType::Regular) => 6,
+    match file.file_type() {
+        gio::FileType::Mountable => 1,
+        gio::FileType::Shortcut => 2,
+        gio::FileType::Special => 3,
+        gio::FileType::SymbolicLink if symbolic_links_as_regular_files => 6,
+        gio::FileType::SymbolicLink => 4,
+        gio::FileType::Directory => 5,
+        gio::FileType::Regular => 6,
         _ => 8,
     }
 }

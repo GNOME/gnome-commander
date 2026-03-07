@@ -64,6 +64,12 @@ impl<T: PartialEq + Clone> History<T> {
         }
     }
 
+    pub fn set_current_position(&self, position: usize) {
+        if position < self.entries.borrow().len() {
+            self.position.set(position);
+        }
+    }
+
     pub fn can_back(&self) -> bool {
         self.position.get() + 1 < self.entries.borrow().len()
     }

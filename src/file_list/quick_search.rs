@@ -18,7 +18,11 @@
  */
 
 use super::list::FileList;
-use crate::{file::File, filter::fnmatch, options::options::GeneralOptions};
+use crate::{
+    file::{File, FileOps},
+    filter::fnmatch,
+    options::GeneralOptions,
+};
 use gettextrs::gettext;
 use gtk::{gdk, glib, prelude::*, subclass::prelude::*};
 use std::rc::Rc;
@@ -187,7 +191,7 @@ mod imp {
                 .file_list()
                 .visible_files()
                 .into_iter()
-                .filter(|f| fnmatch(&pattern, &f.file_info().display_name(), case_sensitive))
+                .filter(|f| fnmatch(&pattern, &f.name(), case_sensitive))
                 .collect();
 
             // If no file matches the new filter, focus on the last file that matched a previous filter

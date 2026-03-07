@@ -18,16 +18,16 @@
  */
 
 use crate::{
-    file::File,
+    file::{File, FileOps},
     intviewer::window::ViewerWindow,
-    options::options::ProgramsOptions,
+    options::ProgramsOptions,
     spawn::{SpawnError, spawn_async},
-    tags::tags::FileMetadataService,
+    tags::FileMetadataService,
     transfer::download_to_temporary,
     utils::{ErrorMessage, temp_file},
 };
 use gettextrs::gettext;
-use gtk::{gio, glib, prelude::*};
+use gtk::{gio, prelude::*};
 
 pub async fn file_view_internal(
     parent_window: &gtk::Window,
@@ -40,10 +40,12 @@ pub async fn file_view_internal(
     } else {
         // The file is remote, let's download it to a temporary file first
         let tmp_file = temp_file(f)?;
+        let src_files = vec![f.file().clone()];
+        let dst_files = vec![tmp_file.file().clone()];
         if !download_to_temporary(
             parent_window.clone(),
-            vec![f.file()],
-            vec![tmp_file.file()],
+            src_files,
+            dst_files,
             gio::FileCopyFlags::OVERWRITE,
         )
         .await
@@ -65,9 +67,8 @@ pub async fn file_view_external(
     file: &File,
     options: &ProgramsOptions,
 ) -> Result<(), ErrorMessage> {
-    let mut files = glib::List::new();
-    files.push_back(file.clone());
-    spawn_async(None, &files, &options.viewer_cmd.get()).map_err(SpawnError::into_message)
+    spawn_async(None, std::slice::from_ref(file), &options.viewer_cmd.get())
+        .map_err(SpawnError::into_message)
 }
 
 pub async fn file_view(
@@ -77,10 +78,10 @@ pub async fn file_view(
     options: &ProgramsOptions,
     file_metadata_service: &FileMetadataService,
 ) -> Result<(), ErrorMessage> {
-    if file.file_info().file_type() == gio::FileType::Directory {
+    if file.is_directory() {
         return Err(ErrorMessage::new(
             gettext("Not an ordinary file."),
-            Some(file.file_info().display_name().as_str()),
+            Some(&file.name()),
         ));
     }
 

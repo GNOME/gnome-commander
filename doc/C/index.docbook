@@ -689,7 +689,7 @@
     <note>
       <para>If you are using code from git repository, it is possible that the latest new features are not yet in
         this manual. Please read the
-        <ulink type="http" url="https://gitlab.gnome.org/GNOME/gnome-commander/-/commits/master">detailed ChangeLog
+        <ulink type="http" url="https://gitlab.gnome.org/GNOME/gnome-commander/-/commits/main">detailed ChangeLog
         online</ulink> or in the &app; sources to find out more about the new features.
       </para>
     </note>
@@ -7435,7 +7435,7 @@
     </sect2>
     <sect2 id="popup-menu-actions-examples">
         <title>Example Pop-up menu scripts</title>
-        <para>Some example scripts can be found <ulink url="https://gitlab.gnome.org/GNOME/gnome-commander/tree/master/gcmd-scripts" type="https">online</ulink> in
+        <para>Some example scripts can be found <ulink url="https://gitlab.gnome.org/GNOME/gnome-commander/tree/main/gcmd-scripts" type="https">online</ulink> in
         the &app; git repository.</para>
     </sect2>
   </sect1>

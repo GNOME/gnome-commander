@@ -22,20 +22,20 @@
 
 use crate::{
     connection::{
-        connection::{Connection, ConnectionExt, ConnectionInterface},
+        Connection, ConnectionExt, ConnectionInterface,
         home::ConnectionHome,
         list::ConnectionList,
         remote::{ConnectionRemote, ConnectionRemoteExt},
     },
     dir::Directory,
-    file::File,
+    file::{File, FileOps},
     file_list::list::{ColumnID, FileList},
+    main_win::ExecutionTarget,
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
     open_file::mime_exec_single,
-    options::options::ProgramsOptions,
-    path::GnomeCmdPath,
+    options::ProgramsOptions,
     tab_label::TabLabel,
-    tags::tags::FileMetadataService,
+    tags::FileMetadataService,
     types::MiddleMouseButtonMode,
     user_actions::UserAction,
     utils::{ALT, CONTROL, CONTROL_SHIFT, NO_MOD, u32_enum},
@@ -55,7 +55,7 @@ mod imp {
         connection_bar::ConnectionBar,
         dialogs::manage_bookmarks_dialog::bookmark_directory,
         directory_indicator::DirectoryIndicator,
-        options::options::GeneralOptions,
+        options::GeneralOptions,
         tab_label::TabLabel,
         utils::get_modifiers_state,
         weak_set::WeakSet,
@@ -128,6 +128,7 @@ mod imp {
                         && let Some((connection, path)) =
                             file_list.dir_history().get(index as usize)
                     {
+                        file_list.dir_history().set_current_position(index as usize);
                         obj.goto(&connection, &path);
                     }
                 },
@@ -501,11 +502,7 @@ mod imp {
 
             let options = GeneralOptions::new();
 
-            tab_label.set_label(
-                fl.directory()
-                    .map(|d| d.upcast::<File>().get_name())
-                    .unwrap_or_default(),
-            );
+            tab_label.set_label(fl.directory().map(|d| d.name()).unwrap_or_default());
             tab_label.set_locked(self.obj().is_tab_locked(fl));
             tab_label.set_indicator(options.tab_lock_indicator.get());
         }
@@ -698,7 +695,7 @@ impl FileSelector {
         fl.update_style();
         fl.show_column(ColumnID::COLUMN_DIR, false);
 
-        if let Some((history_entries, current_entry)) = history {
+        if let Some((history_entries, (current_connection, current_uri))) = history {
             let connection_list = ConnectionList::get();
             let mut selected_entry = None;
             for (connection_alias, stored_uri) in history_entries.into_iter().rev() {
@@ -715,11 +712,11 @@ impl FileSelector {
                         } else {
                             None
                         }
-                        .unwrap_or_else(|| ConnectionRemote::new(&stored_uri, &uri).upcast())
+                        .unwrap_or_else(|| ConnectionRemote::new("", &uri).upcast())
                     };
 
-                let path = connection.create_path(&PathBuf::from(uri.path()));
-                if (connection_alias, stored_uri) == current_entry {
+                let path = Directory::new(&connection, &stored_uri).path_from_root();
+                if connection_alias == current_connection && stored_uri == current_uri {
                     selected_entry = Some((connection.clone(), path.clone()));
                 }
                 fl.dir_history().add((connection, path));
@@ -783,9 +780,9 @@ impl FileSelector {
             move |_| {
                 if let Some(command_line) = this
                     .command_line()
-                    .filter(|cl| cl.is_visible() && !cl.is_empty())
+                    .filter(|cl| !cl.is_empty() && cl.terminal_available())
                 {
-                    command_line.exec(true, false);
+                    command_line.process_command(ExecutionTarget::EmbeddedTerminal);
                     true
                 } else {
                     false
@@ -849,8 +846,11 @@ impl FileSelector {
                     } else {
                         fl.goto_directory(Path::new(".."));
                     }
-                } else if let Some(directory) =
-                    file.and_downcast::<Directory>().or_else(|| fl.directory())
+                } else if let Some(directory) = file
+                    .filter(|file| file.is_directory())
+                    .and_then(|file| fl.connection().map(|connection| (file, connection)))
+                    .map(|(file, connection)| Directory::new_from_file(&connection, &*file.file()))
+                    .or_else(|| fl.directory())
                 {
                     self.new_tab_with_dir(&directory, true, true);
                 }
@@ -942,25 +942,13 @@ impl FileSelector {
     pub fn goto_directory(&self, con: &Connection, path: &Path) {
         if self.file_list().connection().as_ref() == Some(con) {
             if self.is_current_tab_locked() {
-                let dir = match Directory::try_new(con, con.create_path(path)) {
-                    Ok(dir) => dir,
-                    Err(_) => {
-                        eprintln!("Unexpected: could not get navigation target directory");
-                        return;
-                    }
-                };
+                let dir = Directory::new(con, &con.create_uri(path));
                 self.new_tab_with_dir(&dir, true, true);
             } else {
                 self.file_list().goto_directory(path);
             }
         } else if con.is_open() {
-            let dir = match Directory::try_new(con, con.create_path(path)) {
-                Ok(dir) => dir,
-                Err(_) => {
-                    eprintln!("Unexpected: could not get navigation target directory");
-                    return;
-                }
-            };
+            let dir = Directory::new(con, &con.create_uri(path));
 
             if self.is_current_tab_locked() {
                 self.new_tab_with_dir(&dir, true, true);
@@ -968,7 +956,7 @@ impl FileSelector {
                 self.file_list().set_connection(con, Some(&dir));
             }
         } else {
-            con.set_base_path(Some(con.create_path(path)));
+            con.set_base_path(Some(path.to_path_buf()));
             if self.is_current_tab_locked() {
                 self.new_tab_with_dir(&con.default_dir().unwrap(), true, true);
             } else {
@@ -977,20 +965,24 @@ impl FileSelector {
         }
     }
 
-    pub fn go_to_file(&self, file: &File) {
+    pub fn go_to_file(&self, file: &File, connection: Option<Connection>) {
         let Some(dir) = file.parent_directory() else {
             eprintln!(
                 "Cannot go to a file {}. It has no parent directory.",
-                file.get_name()
+                file.name()
             );
             return;
         };
         if self.is_current_tab_locked() {
             self.new_tab_with_dir(&dir, true, true);
-            self.file_list().focus_file(&file.file_info().name(), true);
+            self.file_list().focus_file(&file.path_name(), true);
         } else if let Some(file_list) = self.current_file_list() {
-            file_list.set_connection(&file.connection(), Some(&dir));
-            file_list.focus_file(&file.file_info().name(), true);
+            if let Some(connection) = connection {
+                file_list.set_connection(&connection, Some(&dir));
+            } else {
+                file_list.set_directory(&dir);
+            }
+            file_list.focus_file(&file.path_name(), true);
         }
     }
 
@@ -1055,16 +1047,7 @@ impl FileSelector {
     fn on_navigate(&self, path: &str, new_tab: bool) {
         if new_tab || self.is_current_tab_locked() {
             if let Some(connection) = self.current_file_list().and_then(|fl| fl.connection()) {
-                let dir = match Directory::try_new(
-                    &connection,
-                    connection.create_path(Path::new(path)),
-                ) {
-                    Ok(dir) => dir,
-                    Err(_) => {
-                        eprintln!("Unexpected: could not get navigation target directory");
-                        return;
-                    }
-                };
+                let dir = Directory::new(&connection, &connection.create_uri(Path::new(path)));
                 self.new_tab_with_dir(&dir, true, true);
             }
         } else {
@@ -1073,35 +1056,23 @@ impl FileSelector {
         self.emit_by_name::<()>("activate-request", &[]);
     }
 
-    fn goto(&self, connection: &Connection, path: &GnomeCmdPath) {
+    fn goto(&self, connection: &Connection, path: &Path) {
         if self.file_list().connection().as_ref() == Some(connection) {
-            let dir = match Directory::try_new(connection, path.clone()) {
-                Ok(dir) => dir,
-                Err(_) => {
-                    eprintln!("Unexpected: could not get navigation target directory");
-                    return;
-                }
-            };
+            let dir = Directory::new(connection, &connection.create_uri(path));
             if self.is_current_tab_locked() {
                 self.new_tab_with_dir(&dir, true, true);
             } else {
                 self.file_list().set_directory(&dir);
             }
         } else if connection.is_open() {
-            let dir = match Directory::try_new(connection, path.clone()) {
-                Ok(dir) => dir,
-                Err(_) => {
-                    eprintln!("Unexpected: could not get navigation target directory");
-                    return;
-                }
-            };
+            let dir = Directory::new(connection, &connection.create_uri(path));
             if self.is_current_tab_locked() {
                 self.new_tab_with_dir(&dir, true, true);
             } else {
                 self.file_list().set_connection(connection, Some(&dir));
             }
         } else {
-            connection.set_base_path(Some(path.clone()));
+            connection.set_base_path(Some(PathBuf::from(path)));
             if self.is_current_tab_locked() {
                 self.new_tab_with_dir(&connection.default_dir().unwrap(), true, true);
             } else {
@@ -1180,7 +1151,7 @@ impl FileSelector {
             .filter_map(|file_list| {
                 let directory = file_list.directory()?;
                 let connection = get_alias(&directory.connection());
-                let uri = directory.upcast_ref::<File>().get_uri_str();
+                let uri = directory.uri();
                 let (column, order) = file_list.sorting();
 
                 let mut variant = TabVariant::new(connection, uri);
@@ -1195,10 +1166,7 @@ impl FileSelector {
                             .export()
                             .into_iter()
                             .map(|(connection, path)| {
-                                (
-                                    get_alias(&connection),
-                                    connection.create_gfile(&path).uri().into(),
-                                )
+                                (get_alias(&connection), connection.create_uri(&path))
                             })
                             .collect(),
                     );
@@ -1212,43 +1180,32 @@ impl FileSelector {
         let connection_list = ConnectionList::get();
 
         for tab in tabs {
-            if let Some(directory) = restore_directory(connection_list, tab.current_location()) {
-                self.new_tab_full(
-                    Some(&directory),
-                    tab.sort_column(),
-                    tab.sort_direction(),
-                    tab.locked(),
-                    Some((tab.history(), tab.current_location())),
-                    true,
-                    false,
-                );
-            }
+            let directory = restore_directory(connection_list, tab.current_location());
+            self.new_tab_full(
+                Some(&directory),
+                tab.sort_column(),
+                tab.sort_direction(),
+                tab.locked(),
+                Some((tab.history(), tab.current_location())),
+                true,
+                false,
+            );
         }
 
         if self.tab_count() == 0 {
             // Fallback to home directory
             let con = connection_list.home();
             let path = glib::home_dir();
-            match Directory::try_new(&con, con.create_path(&path)) {
-                Ok(directory) => {
-                    self.new_tab_full(
-                        Some(&directory),
-                        ColumnID::COLUMN_NAME,
-                        gtk::SortType::Ascending,
-                        false,
-                        None,
-                        true,
-                        false,
-                    );
-                }
-                Err(error) => {
-                    eprintln!(
-                        "Stored path {} is invalid: {}. Skipping",
-                        path.display(),
-                        error
-                    );
-                }
-            }
+            let directory = Directory::new(&con, &con.create_uri(&path));
+            self.new_tab_full(
+                Some(&directory),
+                ColumnID::COLUMN_NAME,
+                gtk::SortType::Ascending,
+                false,
+                None,
+                true,
+                false,
+            );
         }
     }
 
@@ -1354,26 +1311,23 @@ impl FileSelector {
 
         let menu = gio::Menu::new();
         for (index, (connection, path)) in dir_history.into_iter().enumerate() {
-            let Some(mut path) = path.path().to_str().map(|path| path.to_string()) else {
-                continue;
-            };
-            if connection.downcast_ref::<ConnectionHome>().is_none()
-                && let Some(mut alias) = connection.alias()
-            {
-                if alias.is_empty() {
-                    // Temporary connection, try URI
-                    if let Some(uri) = connection
+            let path = if let Some(alias) = connection
+                .downcast_ref::<ConnectionHome>()
+                .is_none()
+                .then(|| connection.alias())
+                .flatten()
+                .filter(|alias| !alias.is_empty())
+                .or_else(|| {
+                    // Temporary connections don't have aliases, use URI as fallback.
+                    connection
                         .downcast_ref::<ConnectionRemote>()
                         .and_then(|con| con.uri())
-                    {
-                        alias = uri.to_str().into();
-                    }
-                }
-
-                if !alias.is_empty() {
-                    path = format!("{alias}: {path}");
-                }
-            }
+                        .map(|uri| uri.to_str().to_string())
+                }) {
+                std::borrow::Cow::Owned(format!("{alias}: {}", path.display()))
+            } else {
+                path.to_string_lossy()
+            };
 
             let item = gio::MenuItem::new(Some(&path), None);
             item.set_action_and_target_value(
@@ -1459,7 +1413,7 @@ impl FileSelector {
         let Some(directory) = file_list.directory() else {
             return;
         };
-        match directory.upcast_ref::<File>().free_space() {
+        match directory.free_space() {
             Ok(free_space) => {
                 self.imp()
                     .volume_size_label
@@ -1475,20 +1429,20 @@ impl FileSelector {
     }
 
     pub fn do_file_specific_action(&self, fl: &FileList, file: &File) {
-        match file.file_info().file_type() {
+        match file.file_type() {
             gio::FileType::Directory => {
                 if !self.is_tab_locked(fl) {
                     if file.is_dotdot() {
                         fl.goto_directory(Path::new(".."));
-                    } else if let Some(directory) = file.downcast_ref::<Directory>() {
-                        fl.set_directory(directory);
+                    } else if let Some(dir) = fl.directory() {
+                        fl.set_directory(&dir.child(file.path_name()));
                     }
                 } else if file.is_dotdot() {
                     if let Some(parent) = fl.directory().and_then(|d| d.parent()) {
                         self.new_tab_with_dir(&parent, true, true);
                     }
-                } else if let Some(directory) = file.downcast_ref::<Directory>() {
-                    self.new_tab_with_dir(directory, true, true);
+                } else if let Some(dir) = fl.directory() {
+                    self.new_tab_with_dir(&dir.child(file.path_name()), true, true);
                 }
             }
             gio::FileType::Regular => {
@@ -1670,14 +1624,11 @@ impl From<LegacyTabVariant> for TabVariant {
     }
 }
 
-fn restore_directory(
-    connection_list: &ConnectionList,
-    location: (String, String),
-) -> Option<Directory> {
+fn restore_directory(connection_list: &ConnectionList, location: (String, String)) -> Directory {
     let (connection_alias, stored_uri) = location;
-    let (con, path) = match glib::Uri::parse(&stored_uri, glib::UriFlags::NONE) {
+    let con: Connection = match glib::Uri::parse(&stored_uri, glib::UriFlags::NONE) {
         Ok(uri) => {
-            let con: Connection = if connection_alias.is_empty() && uri.scheme() == "file" {
+            if uri.scheme() == "file" {
                 connection_list.home().upcast()
             } else {
                 if !connection_alias.is_empty() {
@@ -1685,35 +1636,16 @@ fn restore_directory(
                 } else {
                     None
                 }
-                .unwrap_or_else(|| ConnectionRemote::new(&stored_uri, &uri).upcast())
-            };
-            let path = PathBuf::from(uri.path());
-            (con, path)
+                .unwrap_or_else(|| ConnectionRemote::new("", &uri).upcast())
+            }
         }
         Err(error) => {
             eprintln!("Stored URI is invalid: {}", error.message());
-            let con = connection_list.home().upcast();
-            let path = PathBuf::from(stored_uri);
-            (con, path)
+            connection_list.home().upcast()
         }
     };
 
-    if con.is_open() {
-        match Directory::try_new(&con, con.create_path(&path)) {
-            Ok(directory) => Some(directory),
-            Err(error) => {
-                eprintln!(
-                    "Stored path {} is invalid: {}. Skipping",
-                    path.display(),
-                    error
-                );
-                None
-            }
-        }
-    } else {
-        con.set_base_path(Some(con.create_path(&path)));
-        Directory::new_with_con(&con)
-    }
+    Directory::new(&con, &stored_uri)
 }
 
 async fn ask_close_locked_tab(parent: &gtk::Window) -> bool {

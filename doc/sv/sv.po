@@ -1,13 +1,13 @@
 # Swedish translation for gnome-commander.
-# Copyright © 2019-2025 gnome-commander's COPYRIGHT HOLDER
+# Copyright © 2019-2026 gnome-commander's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-commander package.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2025-12-23 23:24+0000\n"
-"PO-Revision-Date: 2025-12-24 00:57+0100\n"
+"POT-Creation-Date: 2026-02-26 22:20+0000\n"
+"PO-Revision-Date: 2026-02-27 10:25+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -768,14 +768,14 @@ msgid ""
 "If you are using code from git repository, it is possible that the latest "
 "new features are not yet in this manual. Please read the <ulink "
 "type=\"http\" url=\"https://gitlab.gnome.org/GNOME/gnome-commander/-/commits/"
-"master\">detailed ChangeLog online</ulink> or in the GNOME Commander sources "
+"main\">detailed ChangeLog online</ulink> or in the GNOME Commander sources "
 "to find out more about the new features."
 msgstr ""
 "Om du använder kod från git-arkivet är det möjligt att de senaste "
 "funktionerna inte ännu finns i denna handbok. Läs den <ulink type=\"http\" "
 "url=\"https://gitlab.gnome.org/GNOME/gnome-commander/-/commits/"
-"master\">detaljerade ändringsloggen på nätet</ulink> eller i GNOME "
-"Commanders källkod för att få veta mer om de nya funktionerna."
+"main\">detaljerade ändringsloggen på nätet</ulink> eller i GNOME Commanders "
+"källkod för att få veta mer om de nya funktionerna."
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:707
@@ -15583,11 +15583,11 @@ msgstr "Exempelskript för poppuppmeny"
 #: C/index.docbook:7438
 msgid ""
 "Some example scripts can be found <ulink url=\"https://gitlab.gnome.org/"
-"GNOME/gnome-commander/tree/master/gcmd-scripts\" type=\"https\">online</"
-"ulink> in the GNOME Commander git repository."
+"GNOME/gnome-commander/tree/main/gcmd-scripts\" type=\"https\">online</ulink> "
+"in the GNOME Commander git repository."
 msgstr ""
 "Några exempelskript kan hittas <ulink url=\"https://gitlab.gnome.org/GNOME/"
-"gnome-commander/tree/master/gcmd-scripts\" type=\"https\">på nätet</ulink> i "
+"gnome-commander/tree/main/gcmd-scripts\" type=\"https\">på nätet</ulink> i "
 "GNOME Commanders git-arkiv."
 
 #. (itstool) path: sect1/title

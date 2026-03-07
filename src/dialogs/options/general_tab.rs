@@ -20,7 +20,7 @@
 use super::common::create_category;
 use crate::{
     dialogs::options::common::{radio_group_get_value, radio_group_set_value},
-    options::{options::GeneralOptions, types::WriteResult},
+    options::{GeneralOptions, types::WriteResult},
     types::{LeftMouseButtonMode, MiddleMouseButtonMode, QuickSearchShortcut},
 };
 use gettextrs::gettext;

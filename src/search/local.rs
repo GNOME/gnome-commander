@@ -20,7 +20,7 @@
 use super::{backend::SearchMessage, profile::SearchProfile};
 use crate::{
     dir::Directory,
-    file::File,
+    file::{File, FileOps},
     filter::{Filter, PatternType},
     utils::ErrorMessage,
 };
@@ -87,7 +87,11 @@ pub async fn local_search(
     on_message: &dyn Fn(SearchMessage),
     cancellable: &gio::Cancellable,
 ) -> Result<(), ErrorMessage> {
-    let start_dir = start_dir.path().path();
+    let Some(start_dir) = start_dir.local_path() else {
+        return Err(ErrorMessage::brief(gettext(
+            "Something went wrong, cannot get start directory.",
+        )));
+    };
     let max_depth = profile.max_depth();
 
     let mut filename_pattern = profile.path_pattern();

@@ -18,7 +18,7 @@
  */
 
 use crate::{
-    connection::connection::{Connection, ConnectionExt},
+    connection::{Connection, ConnectionExt},
     debug::debug,
 };
 use gettextrs::gettext;

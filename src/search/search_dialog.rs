@@ -23,12 +23,12 @@ use super::{
     selection_profile_component::SelectionProfileComponent,
 };
 use crate::{
-    dialogs::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager},
+    dialogs::profiles::{ProfileManager, manage_profiles_dialog::manage_profiles},
     dir::Directory,
-    libgcmd::file_descriptor::FileDescriptorExt,
+    file::FileOps,
     main_win::MainWindow,
-    options::options::SearchConfig,
-    tags::tags::FileMetadataService,
+    options::SearchConfig,
+    tags::FileMetadataService,
     utils::handle_escape_key,
 };
 use gettextrs::{gettext, ngettext};
@@ -190,20 +190,16 @@ impl ProfileManager for SearchProfileManager {
 mod imp {
     use super::*;
     use crate::{
-        connection::{
-            connection::Connection,
-            list::ConnectionList,
-            remote::{ConnectionRemote, ConnectionRemoteExt},
-        },
+        connection::list::ConnectionList,
         dir::Directory,
         file::File,
         file_list::list::FileList,
         intviewer::search_dialog::gnome_cmd_viewer_search_text_add_to_history,
         main_win::MainWindow,
-        options::{options::GeneralOptions, utils::remember_window_size},
+        options::{GeneralOptions, utils::remember_window_size},
         select_directory_button::DirectoryButton,
         types::FileSelectorID,
-        utils::{ErrorMessage, dialog_button_box, display_help},
+        utils::{dialog_button_box, display_help},
     };
     use std::cell::{OnceCell, RefCell};
 
@@ -578,7 +574,12 @@ mod imp {
                 .obj()
                 .main_window()
                 .file_selector(FileSelectorID::Active);
-            file_selector.go_to_file(&file);
+            file_selector.go_to_file(
+                &file,
+                self.obj()
+                    .result_list()
+                    .and_then(|result_list| result_list.connection()),
+            );
             file_selector.grab_focus();
         }
 
@@ -590,32 +591,9 @@ mod imp {
             }
         }
 
-        fn find_connection(&self, file: &gio::File) -> Option<Connection> {
-            let uri = file.uri();
-            ConnectionList::get().iter().find(|con| {
-                con.downcast_ref::<ConnectionRemote>()
-                    .and_then(|con| con.uri())
-                    .is_some_and(|con_uri| uri.starts_with(&*con_uri.to_str()))
-            })
-        }
-
-        fn start_directory(&self, file: &gio::File) -> Result<Directory, ErrorMessage> {
-            let (connection, path) = if let Some(connection) = self.find_connection(file) {
-                let path: std::path::PathBuf = glib::Uri::parse(&file.uri(), glib::UriFlags::NONE)
-                    .map(|uri| uri.path().into())
-                    .unwrap_or("/".into());
-                (connection, path)
-            } else if file.uri_scheme().as_deref() == Some("file") {
-                let path = file
-                    .path()
-                    .ok_or_else(|| ErrorMessage::brief(gettext("Cannot extract a file path")))?;
-                (ConnectionList::get().home().into(), path)
-            } else {
-                return Err(ErrorMessage::brief(gettext(
-                    "Failed to detect a start directory",
-                )));
-            };
-            Directory::try_new(&connection, connection.create_path(&path))
+        fn start_directory(&self, file: &gio::File) -> Directory {
+            let connection = ConnectionList::get().find_by_file(file);
+            Directory::new_from_file(&connection, file.clone())
         }
 
         async fn find(&self) {
@@ -623,13 +601,7 @@ mod imp {
                 return;
             };
 
-            let start_dir = match self.start_directory(&file) {
-                Ok(dir) => dir,
-                Err(error) => {
-                    error.show(self.obj().upcast_ref()).await;
-                    return;
-                }
-            };
+            let start_dir = self.start_directory(&file);
 
             let Some(result_list) = self.result_list.borrow().clone() else {
                 return;
@@ -667,7 +639,10 @@ mod imp {
             self.obj().set_default_widget(Some(&self.stop_button));
 
             result_list.clear();
-            result_list.set_base_dir(start_dir.upcast_ref::<File>().get_real_path());
+            result_list
+                .set_connection_async(&start_dir.connection(), None)
+                .await;
+            result_list.set_base_dir(start_dir.local_path());
 
             let backend = if start_dir.connection().is_local() {
                 SearchBackend::Local
@@ -688,12 +663,12 @@ mod imp {
 
             update_gui_timeout_id.remove();
 
-            let canceelled = self
+            let cancelled = self
                 .cancellable
                 .borrow()
                 .as_ref()
                 .is_some_and(gio::Cancellable::is_cancelled);
-            self.search_finished(canceelled);
+            self.search_finished(cancelled);
 
             if let Err(error) = search_result {
                 error.show(self.obj().upcast_ref()).await;
@@ -797,7 +772,8 @@ impl SearchDialog {
         self.profile_component().update();
         self.set_start_dir(start_dir);
 
-        self.dir_browser().set_file(start_dir.map(|d| d.file()));
+        self.dir_browser()
+            .set_file(start_dir.map(|d| d.file().clone()));
     }
 
     pub fn update_style(&self) {

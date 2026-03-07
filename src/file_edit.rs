@@ -18,30 +18,35 @@
  */
 
 use crate::{
-    file::File,
-    options::options::ProgramsOptions,
+    file::{File, FileOps},
+    options::ProgramsOptions,
     spawn::{SpawnError, spawn_async},
     utils::ErrorMessage,
 };
 use gettextrs::gettext;
-use gtk::gio;
 
 pub async fn file_edit(
-    files: &glib::List<File>,
+    files: glib::List<File>,
     options: &ProgramsOptions,
 ) -> Result<(), ErrorMessage> {
-    for file in files {
-        if file.file_info().file_type() == gio::FileType::Directory {
-            return Err(ErrorMessage::new(
-                gettext("Not an ordinary file."),
-                Some(file.file_info().display_name().as_str()),
-            ));
-        }
-        if !file.is_local() {
-            return Ok(());
-        }
-    }
+    let files = files
+        .into_iter()
+        .filter_map(|file| {
+            if file.is_directory() {
+                return Some(Err(ErrorMessage::new(
+                    gettext("Not an ordinary file."),
+                    Some(&file.name()),
+                )));
+            }
+            if !file.is_local() {
+                return None;
+            }
+            Some(Ok(file))
+        })
+        .collect::<Result<Vec<_>, _>>()?;
 
-    spawn_async(None, files, &options.editor_cmd.get()).map_err(SpawnError::into_message)?;
+    if !files.is_empty() {
+        spawn_async(None, &files, &options.editor_cmd.get()).map_err(SpawnError::into_message)?;
+    }
     Ok(())
 }

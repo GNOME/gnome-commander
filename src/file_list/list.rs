@@ -25,13 +25,10 @@ use super::{
     item::FileListItem, popup::file_popup_menu, quick_search::QuickSearch,
 };
 use crate::{
-    connection::{
-        connection::{Connection, ConnectionExt, ConnectionInterface},
-        list::ConnectionList,
-    },
+    connection::{Connection, ConnectionExt, ConnectionInterface, list::ConnectionList},
     dialogs::{delete_dialog::show_delete_dialog, rename_popover::show_rename_popover},
     dir::{Directory, DirectoryState},
-    file::File,
+    file::{File, FileOps},
     filter::{Filter, fnmatch},
     history::History,
     imageloader::icon_cache,
@@ -39,19 +36,20 @@ use crate::{
         PREF_COLORS,
         ls_colors::{LsPalletteColor, ls_colors_get},
     },
-    libgcmd::file_descriptor::FileDescriptorExt,
     main_win::MainWindow,
     open_connection::open_connection,
-    options::options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
-    path::GnomeCmdPath,
-    tags::tags::FileMetadataService,
+    options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
+    tags::FileMetadataService,
     types::{ExtensionDisplayMode, GraphicalLayoutMode, SizeDisplayMode},
     user_actions::UserAction,
     utils::{ErrorMessage, size_to_string, time_to_string},
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
-use std::{collections::HashSet, path::Path};
+use std::{
+    collections::HashSet,
+    path::{Path, PathBuf},
+};
 use strum::VariantArray;
 
 mod imp {
@@ -69,7 +67,7 @@ mod imp {
             },
             popup::list_popup_menu,
         },
-        tags::tags::FileMetadataService,
+        tags::FileMetadataService,
         transfer::{copy_files, link_files, move_files},
         types::{
             ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GnomeCmdTransferType,
@@ -86,7 +84,6 @@ mod imp {
         cell::{Cell, OnceCell, RefCell},
         collections::BTreeMap,
         ffi::OsStr,
-        path::PathBuf,
         rc::Rc,
         sync::OnceLock,
         time::Duration,
@@ -158,7 +155,8 @@ mod imp {
         pub store: gio::ListStore,
 
         pub sort_model: gtk::SortListModel,
-        pub sorting: Cell<Option<(ColumnID, gtk::SortType)>>,
+
+        focus_controller: gtk::EventControllerFocus,
 
         #[property(get)]
         pub selection: gtk::SingleSelection,
@@ -181,7 +179,7 @@ mod imp {
 
         pub directory: RefCell<Option<Directory>>,
         pub directory_handlers: RefCell<Vec<glib::SignalHandlerId>>,
-        pub history: History<(Connection, GnomeCmdPath)>,
+        pub history: History<(Connection, PathBuf)>,
 
         pub current_size_calculation: Cell<Option<gio::Cancellable>>,
     }
@@ -271,7 +269,8 @@ mod imp {
                 store: gio::ListStore::new::<FileListItem>(),
 
                 sort_model: Default::default(),
-                sorting: Default::default(),
+
+                focus_controller: gtk::EventControllerFocus::new(),
 
                 selection: Default::default(),
                 view: gtk::ColumnView::builder()
@@ -330,6 +329,7 @@ mod imp {
                 .build();
             capture_event_box.append(&scrolled_window);
             capture_event_box.set_parent(&*fl);
+            capture_event_box.add_controller(self.focus_controller.clone());
 
             for (column_id, title, factory, sorter) in [
                 (ColumnID::COLUMN_ICON, "", create_icon_factory(), None),
@@ -403,16 +403,29 @@ mod imp {
             );
 
             self.sort_model.set_sorter(Some(&sorter));
-            self.view
-                .sort_by_column(self.columns.borrow().get(1), gtk::SortType::Ascending);
-            self.sorting
-                .set(Some((ColumnID::COLUMN_NAME, gtk::SortType::Ascending)));
+            fl.set_sorting(ColumnID::COLUMN_NAME, gtk::SortType::Ascending);
 
             self.selection.connect_selected_notify(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
                 move |_| imp.cursor_changed()
             ));
+
+            let quick_search_controller = gtk::EventControllerKey::builder()
+                .propagation_phase(gtk::PropagationPhase::Capture)
+                .build();
+            quick_search_controller.connect_key_pressed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                #[upgrade_or]
+                glib::Propagation::Proceed,
+                move |_, key, _, state| imp.key_pressed_quick_search(key, state)
+            ));
+            capture_event_box.connect_root_notify(move |this| {
+                if let Some(root) = this.root() {
+                    root.add_controller(quick_search_controller.clone());
+                }
+            });
 
             let key_capture_controller = gtk::EventControllerKey::builder()
                 .propagation_phase(gtk::PropagationPhase::Capture)
@@ -664,7 +677,8 @@ mod imp {
 
         fn add_to_history(&self, directory: &Directory) {
             if let Some(connection) = &*self.connection.borrow() {
-                self.history.add((connection.clone(), directory.path()));
+                self.history
+                    .add((connection.clone(), directory.path_from_root()));
             }
 
             self.obj().emit_by_name::<()>("dir-changed", &[directory]);
@@ -681,7 +695,7 @@ mod imp {
                 for handler_id in self.directory_handlers.take() {
                     previous_directory.disconnect(handler_id);
                 }
-                if previous_directory.upcast_ref::<File>().is_local()
+                if previous_directory.is_local()
                     && !previous_directory.is_monitored()
                     && previous_directory.needs_mtime_update()
                 {
@@ -720,6 +734,17 @@ mod imp {
                         #[weak(rename_to = imp)]
                         self,
                         move |d: &Directory| imp.on_directory_deleted(d)
+                    ),
+                ));
+            self.directory_handlers
+                .borrow_mut()
+                .push(directory.connect_closure(
+                    "dir-renamed",
+                    false,
+                    glib::closure_local!(
+                        #[weak(rename_to = imp)]
+                        self,
+                        move |d: &Directory| imp.on_directory_renamed(d)
                     ),
                 ));
             self.directory_handlers
@@ -781,11 +806,17 @@ mod imp {
         }
 
         fn on_directory_deleted(&self, dir: &Directory) {
-            if let Some(parent_dir) = dir.existing_parent() {
-                self.obj().goto_directory(&parent_dir.path().path());
+            if let Some(parent_dir) = dir.existing_parent()
+                && let Some(path) = parent_dir.local_path()
+            {
+                self.obj().goto_directory(&path);
             } else {
                 self.obj().goto_directory(Path::new("~"));
             }
+        }
+
+        fn on_directory_renamed(&self, dir: &Directory) {
+            self.obj().emit_by_name::<()>("dir-changed", &[dir]);
         }
 
         fn on_dir_file_created(&self, f: &File) {
@@ -829,7 +860,7 @@ mod imp {
             self.store.append(&item);
 
             // If we have been waiting for this file to show up, focus it
-            if self.focus_later.borrow().as_ref() == Some(&f.file_info().name()) {
+            if self.focus_later.borrow().as_ref() == Some(&f.path_name()) {
                 self.focus_later.replace(None);
                 self.obj().focus_file_at_row(&item);
             }
@@ -912,6 +943,24 @@ mod imp {
                 self.shift_down.set(false);
                 self.shift_down_key.set(None);
             }
+        }
+
+        fn key_pressed_quick_search(
+            &self,
+            key: gdk::Key,
+            state: gdk::ModifierType,
+        ) -> glib::Propagation {
+            if self.focus_controller.contains_focus() && is_quicksearch_starting_character(key) {
+                if is_quicksearch_starting_modifier(self.quick_search_shortcut.get(), state) {
+                    self.obj().show_quick_search(Some(key));
+                    return glib::Propagation::Stop;
+                } else if let Some(text) = text_typing(key, state) {
+                    self.obj().emit_by_name::<()>("cmdline-append", &[&text]);
+                    return glib::Propagation::Stop;
+                }
+            }
+
+            glib::Propagation::Proceed
         }
 
         fn key_pressed_capture(
@@ -1002,10 +1051,7 @@ mod imp {
                     glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::Right | gdk::Key::KP_Right) => {
-                    if let Some(directory) = self
-                        .obj()
-                        .selected_file()
-                        .filter(|f| f.file_info().file_type() == gio::FileType::Directory)
+                    if let Some(directory) = self.obj().selected_file().filter(|f| f.is_directory())
                     {
                         self.obj()
                             .emit_by_name::<()>("file-activated", &[&directory]);
@@ -1029,75 +1075,75 @@ mod imp {
                     let _ = self
                         .obj()
                         .activate_action(UserAction::FileProperties.name(), None);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (ALT, gdk::Key::KP_Add) => {
                     self.obj().toggle_files_with_same_extension(true);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (ALT, gdk::Key::KP_Subtract) => {
                     self.obj().toggle_files_with_same_extension(false);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (SHIFT, gdk::Key::F6) => {
                     let this = self.obj().clone();
                     glib::spawn_future_local(async move {
                         this.show_rename_dialog().await;
                     });
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (SHIFT, gdk::Key::F10) => {
                     self.obj().show_file_popup(None);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (SHIFT, gdk::Key::Delete | gdk::Key::KP_Delete) => {
                     let this = self.obj().clone();
                     glib::spawn_future_local(async move {
                         this.show_delete_dialog(true).await;
                     });
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (ALT_SHIFT, gdk::Key::Return | gdk::Key::KP_Enter) => {
                     self.obj().show_visible_tree_sizes();
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (CONTROL, gdk::Key::F3) => {
                     self.obj().sort_by(ColumnID::COLUMN_NAME);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (CONTROL, gdk::Key::F4) => {
                     self.obj().sort_by(ColumnID::COLUMN_EXT);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (CONTROL, gdk::Key::F5) => {
                     self.obj().sort_by(ColumnID::COLUMN_DATE);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (CONTROL, gdk::Key::F6) => {
                     self.obj().sort_by(ColumnID::COLUMN_SIZE);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::KP_Add | gdk::Key::plus | gdk::Key::equal) => {
                     let this = self.obj().clone();
                     glib::spawn_future_local(async move {
                         select_by_pattern(&this, true).await;
                     });
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::KP_Subtract | gdk::Key::minus) => {
                     let this = self.obj().clone();
                     glib::spawn_future_local(async move {
                         select_by_pattern(&this, false).await;
                     });
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::KP_Multiply) => {
                     self.obj().invert_selection();
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::KP_Divide) => {
                     self.obj().restore_selection();
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::Insert | gdk::Key::KP_Insert) => {
                     self.obj().toggle();
@@ -1106,32 +1152,21 @@ mod imp {
                     {
                         self.obj().select_row(position + 1);
                     }
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::Delete | gdk::Key::KP_Delete) => {
                     let this = self.obj().clone();
                     glib::spawn_future_local(async move {
                         this.show_delete_dialog(false).await;
                     });
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::Menu) => {
                     self.obj().show_file_popup(None);
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
-                _ => {}
+                _ => glib::Propagation::Proceed,
             }
-
-            if is_quicksearch_starting_character(key) {
-                if is_quicksearch_starting_modifier(self.quick_search_shortcut.get(), state) {
-                    self.obj().show_quick_search(Some(key));
-                    return glib::Propagation::Stop;
-                } else if let Some(text) = text_typing(key, state) {
-                    self.obj().emit_by_name::<()>("cmdline-append", &[&text]);
-                    return glib::Propagation::Stop;
-                }
-            }
-            glib::Propagation::Proceed
         }
 
         fn get_modifiers_state(&self) -> Option<gdk::ModifierType> {
@@ -1163,20 +1198,23 @@ mod imp {
                     self.obj()
                         .emit_by_name::<()>("file-activated", &[&item.file()]);
                 } else if n_press == 1 && button == 1 {
-                    if state == Some(SHIFT) {
-                        if let Some(position) = self
-                            .items_iter()
-                            .position(|i| &i == item)
-                            .and_then(|p| p.try_into().ok())
-                        {
-                            self.select_with_mouse(position);
+                    match state {
+                        Some(SHIFT) => {
+                            if let Some(position) = self
+                                .items_iter()
+                                .position(|i| &i == item)
+                                .and_then(|p| p.try_into().ok())
+                            {
+                                self.select_with_mouse(position);
+                            }
                         }
-                    } else if state == Some(CONTROL) {
-                        item.toggle_selected();
-                    } else if state == Some(NO_MOD) {
-                        if !item.selected() && self.left_mouse_button_unselects.get() {
-                            self.obj().unselect_all();
+                        Some(CONTROL) => item.toggle_selected(),
+                        Some(NO_MOD) => {
+                            if !item.selected() && self.left_mouse_button_unselects.get() {
+                                self.obj().unselect_all();
+                            }
                         }
+                        _ => {}
                     }
                 } else if n_press == 1 && button == 3 && !item.file().is_dotdot() {
                     if self.right_mouse_button_mode.get() == RightMouseButtonMode::Selects {
@@ -1267,12 +1305,7 @@ mod imp {
         }
 
         fn add_cwd_to_cmdline(&self) {
-            if let Some(path) = self
-                .obj()
-                .directory()
-                .and_upcast::<File>()
-                .and_then(|d| d.get_real_path())
-            {
+            if let Some(path) = self.obj().directory().and_then(|d| d.local_path()) {
                 self.add_to_cmdline(path);
             }
         }
@@ -1280,11 +1313,11 @@ mod imp {
         fn add_file_to_cmdline(&self, fullpath: bool) {
             if let Some(file) = self.obj().selected_file() {
                 if fullpath {
-                    if let Some(path) = file.get_real_path() {
+                    if let Some(path) = file.local_path() {
                         self.add_to_cmdline(path);
                     }
                 } else {
-                    self.add_to_cmdline(file.get_name());
+                    self.add_to_cmdline(file.name());
                 }
             }
         }
@@ -1294,7 +1327,7 @@ mod imp {
                 .obj()
                 .selected_files()
                 .into_iter()
-                .map(|f| f.get_uri_str())
+                .map(|f| f.uri())
                 .collect::<Vec<_>>();
             if files.is_empty() {
                 return None;
@@ -1323,8 +1356,10 @@ mod imp {
 
             let destination = if file.as_ref().is_some_and(|f| f.is_dotdot()) {
                 DroppingFilesDestination::Parent
-            } else if let Some(dir) = file.and_downcast::<Directory>() {
-                DroppingFilesDestination::Child(dir.file_info().name())
+            } else if let Some(file) = &file
+                && file.is_directory()
+            {
+                DroppingFilesDestination::Child(file.path_name())
             } else {
                 DroppingFilesDestination::This
             };
@@ -1395,12 +1430,9 @@ mod imp {
 
             let to = match data.destination {
                 DroppingFilesDestination::Parent => self.obj().directory().and_then(|d| d.parent()),
-                DroppingFilesDestination::Child(name) => self
-                    .obj()
-                    .find_file_by_name(&name)
-                    .and_then(|position| self.item_at(position))
-                    .map(|item| item.file())
-                    .and_downcast::<Directory>(),
+                DroppingFilesDestination::Child(name) => {
+                    self.obj().directory().map(|d| d.child(&name))
+                }
                 DroppingFilesDestination::This => self.obj().directory(),
             };
             let Some(dir) = to else { return };
@@ -1779,24 +1811,28 @@ impl FileList {
     }
 
     pub fn sorting(&self) -> (ColumnID, gtk::SortType) {
-        let cv_sorter = self
-            .view()
-            .sorter()
-            .and_downcast::<gtk::ColumnViewSorter>()
-            .unwrap();
+        let cv_sorter = self.view().sorter().and_downcast::<gtk::ColumnViewSorter>();
+        let sort_column = cv_sorter
+            .as_ref()
+            .and_then(|sorter| sorter.primary_sort_column());
+
         let col = self
             .imp()
             .columns
             .borrow()
             .iter()
-            .position(|c| Some(c) == cv_sorter.primary_sort_column().as_ref())
+            .position(|c| sort_column.as_ref() == Some(c))
             .and_then(ColumnID::from_repr)
             .unwrap_or(ColumnID::COLUMN_NAME);
-        (col, cv_sorter.primary_sort_order())
+        let direction = cv_sorter
+            .map(|sorter| sorter.primary_sort_order())
+            .unwrap_or(col.default_sort_direction());
+        (col, direction)
     }
 
     pub fn set_sorting(&self, column: ColumnID, order: gtk::SortType) {
         if let Some(column) = self.imp().columns.borrow().get(column as usize) {
+            self.view().sort_by_column(None, order);
             self.view().sort_by_column(Some(column), order);
         }
     }
@@ -1850,7 +1886,7 @@ impl FileList {
         } else {
             for item in self.imp().items_iter() {
                 let file = item.file();
-                if !file.is_dotdot() && !file.is::<Directory>() {
+                if !file.is_dotdot() && !file.is_directory() {
                     item.set_selected(true);
                 }
             }
@@ -1862,7 +1898,7 @@ impl FileList {
         for item in self.imp().items_iter() {
             let file = item.file();
             if !file.is_dotdot() {
-                item.set_selected(!file.is::<Directory>());
+                item.set_selected(!file.is_directory());
             }
         }
         self.emit_files_changed();
@@ -1870,7 +1906,7 @@ impl FileList {
 
     pub fn unselect_all_files(&self) {
         for item in self.imp().items_iter() {
-            if !item.file().is::<Directory>() {
+            if !item.file().is_directory() {
                 item.set_selected(false);
             }
         }
@@ -1976,10 +2012,7 @@ impl FileList {
             DirectoryState::Listing | DirectoryState::Canceling => Ok(()),
             DirectoryState::Listed => {
                 // check if the dir has up-to-date file list; if not and it's a local dir - relist it
-                if directory.upcast_ref::<File>().is_local()
-                    && !directory.is_monitored()
-                    && directory.update_mtime()
-                {
+                if directory.is_local() && !directory.is_monitored() && directory.update_mtime() {
                     directory.relist_files(&window, true).await
                 } else {
                     Ok(())
@@ -1999,7 +2032,7 @@ impl FileList {
         self.imp().set_directory(directory);
     }
 
-    pub fn dir_history(&self) -> &History<(Connection, GnomeCmdPath)> {
+    pub fn dir_history(&self) -> &History<(Connection, PathBuf)> {
         &self.imp().history
     }
 
@@ -2035,7 +2068,7 @@ impl FileList {
     pub fn find_file_by_name(&self, name: &Path) -> Option<u32> {
         self.imp()
             .items_iter()
-            .position(|item| item.file().file_info().name() == name)
+            .position(|item| item.file().path_name() == name)
             .and_then(|p| p.try_into().ok())
     }
 
@@ -2068,8 +2101,8 @@ impl FileList {
         for item in self.imp().items_iter() {
             let file = item.file();
             if !file.is_dotdot()
-                && (select_dirs || file.downcast_ref::<Directory>().is_none())
-                && pattern.matches(&file.file_info().display_name())
+                && (select_dirs || !file.is_directory())
+                && pattern.matches(&file.name())
             {
                 item.set_selected(mode);
             }
@@ -2105,53 +2138,45 @@ impl FileList {
                 .to_path_buf()
         };
 
-        let new_dir;
-        let focus_dir;
-        if dir == Path::new("..") {
+        let (new_dir, focus_dir) = if dir == Path::new("..") {
             let cwd = self
                 .directory()
                 .ok_or_else(|| ErrorMessage::brief(gettext("Current directory is not set.")))?;
 
             // let's get the parent directory
-            new_dir = Some(
+            (
                 cwd.parent()
                     .ok_or_else(|| ErrorMessage::brief(gettext("No parent directory")))?,
-            );
-            focus_dir = Some(cwd);
+                Some(cwd),
+            )
         } else {
-            focus_dir = None;
-            if dir.is_absolute() {
-                let connection = self
-                    .connection()
-                    .unwrap_or_else(|| ConnectionList::get().home().upcast());
-                new_dir = Some(Directory::try_new(
-                    &connection,
-                    connection.create_path(&dir),
-                )?);
-            } else if dir.starts_with("\\\\") {
-                let connection = ConnectionList::get().smb().ok_or_else(|| {
-                    ErrorMessage::brief(gettext("No SAMBA connection is available"))
-                })?;
-                new_dir = Some(Directory::try_new(
-                    &connection,
-                    connection.create_path(&dir),
-                )?);
-            } else {
-                let child_dir = self
-                    .directory()
-                    .ok_or_else(|| ErrorMessage::brief(gettext("Current directory is not set.")))
-                    .and_then(|cwd| cwd.child(&dir))?;
-                new_dir = Some(child_dir);
-            }
-        }
+            (
+                if dir.is_absolute() {
+                    let connection = self
+                        .connection()
+                        .unwrap_or_else(|| ConnectionList::get().home().upcast());
+                    Directory::new(&connection, &connection.create_uri(&dir))
+                } else if dir.starts_with("\\\\") {
+                    let connection = ConnectionList::get().smb().ok_or_else(|| {
+                        ErrorMessage::brief(gettext("No SAMBA connection is available"))
+                    })?;
+                    Directory::new(&connection, &connection.create_uri(&dir))
+                } else {
+                    self.directory()
+                        .ok_or_else(|| {
+                            ErrorMessage::brief(gettext("Current directory is not set."))
+                        })
+                        .map(|cwd| cwd.child(&dir))?
+                },
+                None,
+            )
+        };
 
-        if let Some(new_dir) = new_dir {
-            self.set_directory_async(&new_dir).await;
-        }
+        self.set_directory_async(&new_dir).await;
 
         // focus the current dir when going back to the parent dir
         if let Some(focus_dir) = focus_dir {
-            self.focus_file(&focus_dir.file_info().name(), false);
+            self.focus_file(&focus_dir.path_name(), false);
         }
 
         Ok(())
@@ -2185,7 +2210,7 @@ impl FileList {
         let select_dirs = self.select_dirs();
         for item in self.imp().items_iter() {
             let file = item.file();
-            if !file.is_dotdot() && (select_dirs || file.downcast_ref::<Directory>().is_none()) {
+            if !file.is_dotdot() && (select_dirs || !file.is_directory()) {
                 item.set_selected(!item.selected());
             }
         }
@@ -2201,11 +2226,10 @@ impl FileList {
         for item in self.imp().items_iter() {
             let file = item.file();
             if !file.is_dotdot() {
-                let info = file.file_info();
                 let selected = item.selected();
                 let cached_size: Option<u64> = item.size().try_into().ok();
 
-                match info.file_type() {
+                match file.file_type() {
                     gio::FileType::Directory => {
                         stats.total.directories += 1;
                         if selected {
@@ -2219,7 +2243,7 @@ impl FileList {
                         }
                     }
                     gio::FileType::Regular => {
-                        let size: u64 = info.size().try_into().unwrap_or_default();
+                        let size = file.size().unwrap_or_default();
                         stats.total.files += 1;
                         stats.total.bytes += size;
                         if selected {
@@ -2268,7 +2292,15 @@ impl FileList {
         if !files.is_empty() {
             let general_options = GeneralOptions::new();
             let confirm_options = ConfirmOptions::new();
-            show_delete_dialog(&window, &files, force, &general_options, &confirm_options).await;
+            show_delete_dialog(
+                &window,
+                self.connection().as_ref(),
+                &files,
+                force,
+                &general_options,
+                &confirm_options,
+            )
+            .await;
         }
     }
 
@@ -2290,7 +2322,7 @@ impl FileList {
         };
 
         let file = selected.file();
-        if let Some(new_name) = show_rename_popover(&file.get_name(), self, &rect).await {
+        if let Some(new_name) = show_rename_popover(&file.name(), self, &rect).await {
             match file.rename(&new_name) {
                 Ok(_) => {
                     selected.update();
@@ -2340,22 +2372,16 @@ impl FileList {
     }
 
     fn sort_by(&self, col: ColumnID) {
-        if let Some(column) = self.imp().columns.borrow().get(col as usize) {
-            let cv_sorter = self
-                .view()
-                .sorter()
-                .and_downcast::<gtk::ColumnViewSorter>()
-                .unwrap();
-            let direction = if cv_sorter.primary_sort_column().as_ref() == Some(column) {
-                match cv_sorter.primary_sort_order() {
-                    gtk::SortType::Ascending => gtk::SortType::Descending,
-                    _ => gtk::SortType::Ascending,
-                }
-            } else {
-                col.default_sort_direction()
-            };
-            self.view().sort_by_column(Some(column), direction);
-        }
+        let (current_col, current_direction) = self.sorting();
+        let direction = if current_col == col {
+            match current_direction {
+                gtk::SortType::Ascending => gtk::SortType::Descending,
+                _ => gtk::SortType::Ascending,
+            }
+        } else {
+            col.default_sort_direction()
+        };
+        self.set_sorting(col, direction);
     }
 
     pub fn show_files(&self, dir: &Directory) {
@@ -2383,7 +2409,7 @@ impl FileList {
             let focus_later = self.imp().focus_later.take();
             let focus_later_item = items
                 .into_iter()
-                .find(|item| focus_later.as_ref() == Some(&item.file().file_info().name()));
+                .find(|item| focus_later.as_ref() == Some(&item.file().path_name()));
 
             if let Some(item) = focus_later_item {
                 self.focus_file_at_row(&item);
@@ -2397,6 +2423,8 @@ impl FileList {
     where
         F: Fn(&Self, &Connection) + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "con-changed",
             false,
@@ -2408,6 +2436,8 @@ impl FileList {
     where
         F: Fn(&Self, &Directory) + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "dir-changed",
             false,
@@ -2419,6 +2449,8 @@ impl FileList {
     where
         F: Fn(&Self) + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "files-changed",
             false,
@@ -2430,6 +2462,8 @@ impl FileList {
     where
         F: Fn(&Self, &File) + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "file-activated",
             false,
@@ -2441,6 +2475,8 @@ impl FileList {
     where
         F: Fn(&Self, &str) + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "cmdline-append",
             false,
@@ -2452,6 +2488,8 @@ impl FileList {
     where
         F: Fn(&Self) -> bool + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "cmdline-execute",
             false,
@@ -2463,6 +2501,8 @@ impl FileList {
     where
         F: Fn(&Self, u32, Option<File>) + 'static,
     {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "list-clicked",
             false,
@@ -2623,11 +2663,13 @@ fn create_icon_factory() -> gtk::ListItemFactory {
             let stack = gtk::Stack::builder().hexpand(true).build();
             stack.add_css_class("cell");
 
-            let image = gtk::Image::builder()
+            let image = gtk::Image::builder().build();
+            let overlay = gtk::Overlay::builder()
+                .child(&image)
                 .hexpand(true)
                 .halign(gtk::Align::Center)
                 .build();
-            stack.add_named(&image, Some("image"));
+            stack.add_named(&overlay, Some("overlay"));
 
             let label = gtk::Label::builder()
                 .hexpand(true)
@@ -2640,42 +2682,61 @@ fn create_icon_factory() -> gtk::ListItemFactory {
         }
     });
     factory.connect_bind(move |_, obj| {
-        let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() else {
-            return;
-        };
-        let Some(stack) = list_item.child().and_downcast::<gtk::Stack>() else {
-            return;
-        };
-        let Some(item) = list_item.item().and_downcast::<FileListItem>() else {
-            return;
-        };
-        let image = stack
-            .child_by_name("image")
-            .and_downcast::<gtk::Image>()
-            .unwrap();
-        let label = stack
-            .child_by_name("label")
-            .and_downcast::<gtk::Label>()
-            .unwrap();
+        if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>()
+            && let Some(stack) = list_item.child().and_downcast::<gtk::Stack>()
+            && let Some(item) = list_item.item().and_downcast::<FileListItem>()
+            && let Some(overlay) = stack
+                .child_by_name("overlay")
+                .and_downcast::<gtk::Overlay>()
+            && let Some(image) = overlay.child().and_downcast::<gtk::Image>()
+            && let Some(label) = stack.child_by_name("label").and_downcast::<gtk::Label>()
+        {
+            image.clear();
+            label.set_text("");
 
-        image.clear();
-        label.set_text("");
+            // Remove existing overlay image if any
+            if let Some(mut child) = overlay.first_accessible_child() {
+                loop {
+                    if let Some(widget) = child.downcast_ref::<gtk::Widget>()
+                        && widget != &image
+                    {
+                        overlay.remove_overlay(widget);
+                        break;
+                    }
 
-        let file = item.file();
-
-        let use_ls_colors = color_settings.boolean("use-ls-colors");
-        apply_css(&item, use_ls_colors, label.upcast_ref());
-
-        match global_options.graphical_layout_mode.get() {
-            GraphicalLayoutMode::Text => {
-                label.set_text(imp::type_string(file.file_info().file_type()));
-                stack.set_visible_child(&label);
-            }
-            mode => {
-                if let Some(icon) = icon_cache.file_icon(&file, mode) {
-                    image.set_from_gicon(&icon);
+                    child = match child.next_accessible_sibling() {
+                        Some(child) => child,
+                        None => break,
+                    }
                 }
-                stack.set_visible_child(&image);
+            }
+
+            let file = item.file();
+            if !file.is_dotdot() && file.file_info().is_symlink() {
+                overlay.add_overlay(
+                    &gtk::Image::builder()
+                        .gicon(icon_cache.symlink_overlay())
+                        .pixel_size(9)
+                        .halign(gtk::Align::End)
+                        .valign(gtk::Align::End)
+                        .build(),
+                );
+            }
+
+            let use_ls_colors = color_settings.boolean("use-ls-colors");
+            apply_css(&item, use_ls_colors, label.upcast_ref());
+
+            match global_options.graphical_layout_mode.get() {
+                GraphicalLayoutMode::Text => {
+                    label.set_text(imp::type_string(file.file_type()));
+                    stack.set_visible_child(&label);
+                }
+                mode => {
+                    if let Some(icon) = icon_cache.file_icon(&file, mode) {
+                        image.set_from_gicon(&icon);
+                    }
+                    stack.set_visible_child(&overlay);
+                }
             }
         }
     });
@@ -2734,7 +2795,7 @@ fn create_size_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
     let global_options = GeneralOptions::new();
     create_text_cell_factory(1.0, cells, move |cell, item| {
         let mode = global_options.size_display_mode.get();
-        let is_directory = item.file().file_info().file_type() == gio::FileType::Directory;
+        let is_directory = item.file().is_directory();
         cell.bind(&item);
         cell.add_binding(
             item.bind_property("size", &cell, "text")

@@ -22,14 +22,13 @@
 
 use crate::{
     connection::{
-        connection::{ConnectionExt, ConnectionInterface},
+        ConnectionExt,
         remote::{ConnectionMethodID, ConnectionRemote, ConnectionRemoteExt},
     },
     utils::{channel_send_action, handle_escape_key},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
-use std::path::Path;
 
 mod imp {
     use super::*;
@@ -501,11 +500,7 @@ impl ConnectDialog {
             con.set_uri(Some(&uri));
 
             let path = uri.path();
-            con.set_base_path(Some(con.create_path(if path.is_empty() {
-                Path::new("/")
-            } else {
-                Path::new(&path)
-            })));
+            con.set_base_path(Some(if path.is_empty() { "/" } else { &path }.into()));
 
             result = true;
         }

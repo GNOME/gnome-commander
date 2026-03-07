@@ -21,17 +21,17 @@ use super::list::FileList;
 use crate::{
     app::{App, RegularApp},
     dialogs::open_with_other_dialog::show_open_with_other_dialog,
-    file::File,
+    file::{File, FileOps},
     file_edit::file_edit,
     file_view::file_view,
-    options::options::ProgramsOptions,
-    spawn::run_command_indir,
+    main_win::{ExecutionTarget, MainWindow},
+    options::ProgramsOptions,
     transfer::download_to_temporary,
     utils::{ErrorMessage, get_modifiers_state, temp_file},
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gdk, gio, glib, prelude::*};
-use std::{ffi::OsString, path::PathBuf, rc::Rc};
+use std::path::PathBuf;
 
 pub async fn file_list_action_file_view(file_list: &FileList, use_internal_viewer: Option<bool>) {
     let options = ProgramsOptions::new();
@@ -65,7 +65,7 @@ pub async fn file_list_action_file_edit(file_list: &FileList) {
         return;
     };
     let files = file_list.selected_files();
-    if let Err(error) = file_edit(&files, &options).await {
+    if let Err(error) = file_edit(files, &options).await {
         error.show(&parent_window).await;
     }
 }
@@ -116,8 +116,8 @@ async fn mime_exec_multiple(
         return;
     }
 
-    let files_to_open = if app.handles_uris() && options.dont_download.get() {
-        files
+    let files_to_open: Vec<_> = if app.handles_uris() && options.dont_download.get() {
+        files.into_iter().collect()
     } else {
         let (mut local, remote): (Vec<File>, Vec<File>) =
             files.into_iter().partition(|f| f.is_local());
@@ -133,8 +133,8 @@ async fn mime_exec_multiple(
 
             if download_to_temporary(
                 parent_window.clone(),
-                remote.iter().map(|f| f.file()).collect(),
-                tmp_files.iter().map(|f| f.file()).collect(),
+                remote.iter().map(|f| f.file().clone()).collect(),
+                tmp_files.iter().map(|f| f.file().clone()).collect(),
                 gio::FileCopyFlags::OVERWRITE,
             )
             .await
@@ -148,7 +148,7 @@ async fn mime_exec_multiple(
             }
         }
 
-        local.into_iter().collect()
+        local
     };
 
     if let Err(error) = app.launch(&files_to_open, options) {
@@ -194,7 +194,7 @@ pub async fn file_list_action_open_with_default(file_list: &FileList) {
             grouped[pos].1.push_back(file);
         } else {
             ErrorMessage::new(
-                file.file_info().display_name(),
+                file.name(),
                 Some(&gettext("Couldn’t retrieve MIME type of the file.")),
             )
             .show(&parent_window)
@@ -209,37 +209,24 @@ pub async fn file_list_action_open_with_default(file_list: &FileList) {
 }
 
 pub async fn file_list_action_open_with_other(file_list: &FileList) {
-    let Some(parent_window) = file_list.root().and_downcast() else {
-        eprintln!("No window");
+    let Some(parent_window) = file_list.root().and_downcast::<MainWindow>() else {
+        eprintln!("Unexpected: parent window isn't the main window");
         return;
     };
-    let options = Rc::new(ProgramsOptions::new());
-    show_open_with_other_dialog(
-        &parent_window,
-        &file_list.selected_files(),
-        file_list.directory(),
-        options,
-    )
-    .await;
+    show_open_with_other_dialog(&parent_window, &file_list.selected_files()).await;
 }
 
 pub async fn file_list_action_execute(file_list: &FileList) {
-    let Some(parent_window) = file_list.root().and_downcast() else {
-        eprintln!("No window");
+    let Some(parent_window) = file_list.root().and_downcast::<MainWindow>() else {
+        eprintln!("Unexpected: parent window isn't the main window");
         return;
     };
-    let options = ProgramsOptions::new();
     let Some(file) = file_list.selected_files().front().cloned() else {
         eprintln!("No file selected");
         return;
     };
 
-    match file.execute(&options) {
-        Ok(_) => {}
-        Err(error) => {
-            error.into_message().show(&parent_window).await;
-        }
-    }
+    parent_window.execute_file(&file).await;
 }
 
 #[derive(glib::Variant)]
@@ -252,14 +239,13 @@ pub async fn file_list_action_execute_script(
     file_list: &FileList,
     Script { path, in_terminal }: Script,
 ) {
-    let Some(parent_window) = file_list.root().and_downcast() else {
-        eprintln!("No window");
+    let Some(parent_window) = file_list.root().and_downcast::<MainWindow>() else {
+        eprintln!("Unexpected: parent window isn't the main window");
         return;
     };
-    let options = ProgramsOptions::new();
     let files = file_list.selected_files();
 
-    let mask = get_modifiers_state(&parent_window);
+    let mask = get_modifiers_state(parent_window.upcast_ref());
     let is_shift_pressed = mask.is_some_and(|m| {
         m.contains(gdk::ModifierType::SHIFT_MASK)
             && !m.contains(gdk::ModifierType::CONTROL_MASK)
@@ -269,39 +255,37 @@ pub async fn file_list_action_execute_script(
     if is_shift_pressed {
         // Run script per file
         for file in files {
-            let mut command = OsString::from(&path);
+            let mut command = glib::shell_quote(&path);
             command.push(" ");
-            command.push(glib::shell_quote(file.file_info().display_name()));
-
-            let working_directory = file.file().parent().and_then(|p| p.path());
-            if let Err(error) = run_command_indir(
-                working_directory.as_deref(),
-                &command,
-                in_terminal,
-                &options,
-            ) {
-                error.into_message().show(&parent_window).await;
-            }
+            command.push(glib::shell_quote(file.path_name()));
+            parent_window
+                .execute_command(
+                    &command.to_string_lossy(),
+                    if in_terminal {
+                        ExecutionTarget::AnyTerminal
+                    } else {
+                        ExecutionTarget::Background
+                    },
+                )
+                .await;
         }
     } else {
         // Run script with list of files
-        let mut command = OsString::from(path);
+        let mut command = glib::shell_quote(&path);
         for file in &files {
             command.push(" ");
-            command.push(glib::shell_quote(file.file_info().display_name()));
+            command.push(glib::shell_quote(file.path_name()));
         }
 
-        let working_directory = files
-            .front()
-            .and_then(|f| f.file().parent())
-            .and_then(|p| p.path());
-        if let Err(error) = run_command_indir(
-            working_directory.as_deref(),
-            &command,
-            in_terminal,
-            &options,
-        ) {
-            error.into_message().show(&parent_window).await;
-        }
+        parent_window
+            .execute_command(
+                &command.to_string_lossy(),
+                if in_terminal {
+                    ExecutionTarget::AnyTerminal
+                } else {
+                    ExecutionTarget::Background
+                },
+            )
+            .await;
     }
 }

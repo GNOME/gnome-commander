@@ -18,13 +18,13 @@
  */
 
 use super::item::FileListItem;
-use crate::file::File;
-use gtk::{gio, glib, prelude::*, subclass::prelude::*};
+use crate::file::{File, FileOps};
+use gtk::{glib, prelude::*, subclass::prelude::*};
 use std::cmp;
 
 mod imp {
     use super::*;
-    use crate::options::options::GeneralOptions;
+    use crate::options::GeneralOptions;
     use std::cell::{Cell, OnceCell};
 
     #[derive(Default, glib::Properties)]
@@ -105,7 +105,7 @@ impl FileAttrSorter {
     }
 
     pub fn by_name() -> Self {
-        Self::by_key(|this, file| collate_key(&file.get_name(), this.case_sensitive()))
+        Self::by_key(|this, file| collate_key(&file.name(), this.case_sensitive()))
     }
 
     pub fn by_ext() -> Self {
@@ -115,7 +115,7 @@ impl FileAttrSorter {
                     .as_ref()
                     .and_then(|e| e.to_str())
                     .map(|e| collate_key(e, this.case_sensitive())),
-                collate_key(&file.get_name(), this.case_sensitive()),
+                collate_key(&file.name(), this.case_sensitive()),
             )
         })
     }
@@ -123,11 +123,11 @@ impl FileAttrSorter {
     pub fn by_dir() -> Self {
         Self::by_key(|this, file| {
             (
-                file.get_dirname()
+                file.parent_path()
                     .as_ref()
                     .and_then(|d| d.to_str())
                     .map(|d| collate_key(d, this.case_sensitive())),
-                collate_key(&file.get_name(), this.case_sensitive()),
+                collate_key(&file.name(), this.case_sensitive()),
             )
         })
     }
@@ -135,8 +135,8 @@ impl FileAttrSorter {
     pub fn by_size() -> Self {
         Self::by_key(|this, file| {
             (
-                file.file_info().size(),
-                collate_key(&file.get_name(), this.case_sensitive()),
+                file.size(),
+                collate_key(&file.name(), this.case_sensitive()),
             )
         })
     }
@@ -144,9 +144,8 @@ impl FileAttrSorter {
     pub fn by_perm() -> Self {
         Self::by_key(|this, file| {
             (
-                file.file_info()
-                    .attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE),
-                collate_key(&file.get_name(), this.case_sensitive()),
+                file.permissions(),
+                collate_key(&file.name(), this.case_sensitive()),
             )
         })
     }
@@ -154,8 +153,8 @@ impl FileAttrSorter {
     pub fn by_date() -> Self {
         Self::by_key(|this, file| {
             (
-                file.file_info().modification_date_time(),
-                collate_key(&file.get_name(), this.case_sensitive()),
+                file.modification_date(),
+                collate_key(&file.name(), this.case_sensitive()),
             )
         })
     }
@@ -163,11 +162,9 @@ impl FileAttrSorter {
     pub fn by_owner() -> Self {
         Self::by_key(|this, file| {
             (
-                file.file_info()
-                    .attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_UID),
-                file.file_info()
-                    .attribute_string(gio::FILE_ATTRIBUTE_OWNER_USER),
-                collate_key(&file.get_name(), this.case_sensitive()),
+                file.uid(),
+                file.owner(),
+                collate_key(&file.name(), this.case_sensitive()),
             )
         })
     }
@@ -175,11 +172,9 @@ impl FileAttrSorter {
     pub fn by_group() -> Self {
         Self::by_key(|this, file| {
             (
-                file.file_info()
-                    .attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_GID),
-                file.file_info()
-                    .attribute_string(gio::FILE_ATTRIBUTE_OWNER_GROUP),
-                collate_key(&file.get_name(), this.case_sensitive()),
+                file.gid(),
+                file.group(),
+                collate_key(&file.name(), this.case_sensitive()),
             )
         })
     }
