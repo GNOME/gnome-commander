@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
-"POT-Creation-Date: 2026-03-03 06:31+0000\n"
-"PO-Revision-Date: 2026-03-06 12:00+0100\n"
+"POT-Creation-Date: 2026-03-07 21:19+0000\n"
+"PO-Revision-Date: 2026-03-08 13:21+0100\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -287,7 +287,9 @@ msgid "GUI update rate"
 msgstr "GUI frissítési gyakoriság"
 
 #: data/org.gnome.gnome-commander.gschema.xml:201
-msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
+#| msgid ""
+#| "Update rate of the graphical user interphase in 1/1000ths of a second."
+msgid "Update rate of the graphical user interface in 1/1000ths of a second."
 msgstr "A grafikus felület frissítési gyakorisága ezredmásodpercekben."
 
 #: data/org.gnome.gnome-commander.gschema.xml:205
@@ -1547,7 +1549,7 @@ msgstr "A szerző neve."
 #: plugins/exiv2/exiv2-plugin.cc:87 plugins/taglib/taglib-plugin.cc:191
 #: src/advanced_rename/advanced_rename_dialog.rs:431
 #: src/advanced_rename/profile_component.rs:225
-#: src/advanced_rename/profile_component.rs:683
+#: src/advanced_rename/profile_component.rs:679
 msgid "Date"
 msgstr "Dátum"
 
@@ -3863,54 +3865,34 @@ msgid "What file name should the new archive have?"
 msgstr "Mi legyen az új archívum neve?"
 
 #: plugins/fileroller/file-roller-plugin.cc:443
-#: src/advanced_rename/profile_component.rs:1045
-#: src/advanced_rename/regex_dialog.rs:114 src/dialogs/chmod_dialog.rs:145
-#: src/dialogs/chown_dialog.rs:113 src/dialogs/connect_dialog.rs:187
-#: src/dialogs/create_symlink_dialog.rs:52 src/dialogs/delete_dialog.rs:87
-#: src/dialogs/edit_bookmark_dialog.rs:89
-#: src/dialogs/file_properties_dialog.rs:137 src/dialogs/make_copy_dialog.rs:68
-#: src/dialogs/mkdir_dialog.rs:104 src/dialogs/new_text_file.rs:89
+#: src/advanced_rename/profile_component.rs:1041
+#: src/advanced_rename/regex_dialog.rs:117 src/dialogs/chmod_dialog.rs:151
+#: src/dialogs/chown_dialog.rs:122 src/dialogs/connect_dialog.rs:186
+#: src/dialogs/create_symlink_dialog.rs:52 src/dialogs/delete_dialog.rs:89
+#: src/dialogs/edit_bookmark_dialog.rs:93
+#: src/dialogs/file_properties_dialog.rs:144 src/dialogs/make_copy_dialog.rs:68
+#: src/dialogs/mkdir_dialog.rs:103 src/dialogs/new_text_file.rs:88
 #: src/dialogs/open_with_other_dialog.rs:57
 #: src/dialogs/options/app_dialog.rs:186
 #: src/dialogs/options/device_dialog.rs:115
 #: src/dialogs/options/edit_palette_dialog.rs:172
 #: src/dialogs/options/options_dialog.rs:119
 #: src/dialogs/pattern_selection_dialog.rs:91
-#: src/dialogs/prepare_transfer_dialog.rs:87
+#: src/dialogs/prepare_transfer_dialog.rs:86
 #: src/dialogs/profiles/edit_profile_dialog.rs:103
 #: src/dialogs/profiles/manage_profiles_dialog.rs:251
 #: src/dialogs/shortcuts/shortcut_dialog.rs:172
 #: src/dialogs/shortcuts/shortcut_dialog.rs:387
 #: src/dialogs/shortcuts/shortcuts_dialog.rs:191
-#: src/dialogs/transfer_progress_dialog.rs:83 src/dirlist.rs:55
-#: src/file_selector.rs:1509 src/intviewer/search_dialog.rs:63
+#: src/dialogs/transfer_progress_dialog.rs:83 src/dirlist.rs:58
+#: src/file_selector.rs:1450 src/intviewer/search_dialog.rs:63
 #: src/open_connection.rs:48 src/open_file.rs:40 src/open_file.rs:62
-#: src/user_actions.rs:855
+#: src/user_actions.rs:852
 msgid "_Cancel"
 msgstr "_Mégse"
 
 #: plugins/fileroller/file-roller-plugin.cc:450
 #: plugins/fileroller/file-roller-plugin.cc:694
-#: src/advanced_rename/profile_component.rs:1059
-#: src/advanced_rename/regex_dialog.rs:124 src/dialogs/chmod_dialog.rs:155
-#: src/dialogs/chown_dialog.rs:123 src/dialogs/connect_dialog.rs:197
-#: src/dialogs/create_symlink_dialog.rs:56
-#: src/dialogs/edit_bookmark_dialog.rs:99
-#: src/dialogs/file_properties_dialog.rs:141 src/dialogs/make_copy_dialog.rs:78
-#: src/dialogs/mkdir_dialog.rs:114 src/dialogs/new_text_file.rs:99
-#: src/dialogs/open_with_other_dialog.rs:62
-#: src/dialogs/options/app_dialog.rs:190
-#: src/dialogs/options/device_dialog.rs:119
-#: src/dialogs/options/edit_palette_dialog.rs:176
-#: src/dialogs/options/options_dialog.rs:123
-#: src/dialogs/pattern_selection_dialog.rs:101
-#: src/dialogs/prepare_transfer_dialog.rs:80
-#: src/dialogs/profiles/edit_profile_dialog.rs:113
-#: src/dialogs/profiles/manage_profiles_dialog.rs:261
-#: src/dialogs/shortcuts/shortcut_dialog.rs:184
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:203 src/file_selector.rs:1509
-#: src/intviewer/search_dialog.rs:64 src/intviewer/window.rs:665
-#: src/open_file.rs:40 src/user_actions.rs:855 src/utils.rs:253
 msgid "_OK"
 msgstr "_OK"
 
@@ -4920,7 +4902,7 @@ msgstr "Esemény időzítés"
 msgid "Event timing codes."
 msgstr "Esemény időzítési kódok."
 
-#: plugins/taglib/taglib-plugin.cc:198
+#: plugins/taglib/taglib-plugin.cc:198 src/dialogs/chown_dialog.rs:100
 msgid "File Owner"
 msgstr "Fájltulajdonos"
 
@@ -5277,7 +5259,7 @@ msgid "Terms of use."
 msgstr "A használat feltételei."
 
 #: plugins/taglib/taglib-plugin.cc:244
-#: src/advanced_rename/profile_component.rs:714
+#: src/advanced_rename/profile_component.rs:710
 msgid "Time"
 msgstr "Idő"
 
@@ -5556,15 +5538,15 @@ msgid "Results"
 msgstr "Eredmények"
 
 #: src/advanced_rename/advanced_rename_dialog.rs:530
-#: src/dialogs/connect_dialog.rs:169 src/dialogs/file_properties_dialog.rs:125
-#: src/dialogs/manage_bookmarks_dialog.rs:205 src/dialogs/mkdir_dialog.rs:94
+#: src/dialogs/connect_dialog.rs:168 src/dialogs/file_properties_dialog.rs:132
+#: src/dialogs/manage_bookmarks_dialog.rs:205 src/dialogs/mkdir_dialog.rs:93
 #: src/dialogs/options/device_dialog.rs:111
 #: src/dialogs/options/options_dialog.rs:115
 #: src/dialogs/profiles/edit_profile_dialog.rs:69
 #: src/dialogs/profiles/manage_profiles_dialog.rs:229
 #: src/dialogs/remote_dialog.rs:164
 #: src/dialogs/shortcuts/shortcuts_dialog.rs:177 src/intviewer/window.rs:897
-#: src/main_win.rs:1676 src/search/search_dialog.rs:372
+#: src/main_win.rs:1685 src/search/search_dialog.rs:368
 msgid "_Help"
 msgstr "_Súgó"
 
@@ -5577,7 +5559,7 @@ msgstr "Visszaállítás"
 #: src/dialogs/about_plugin.rs:133 src/dialogs/manage_bookmarks_dialog.rs:209
 #: src/dialogs/options/edit_colors_dialog.rs:159
 #: src/dialogs/remote_dialog.rs:176 src/intviewer/window.rs:736
-#: src/plugin_manager.rs:429 src/search/search_dialog.rs:386
+#: src/plugin_manager.rs:429 src/search/search_dialog.rs:382
 msgid "_Close"
 msgstr "_Bezárás"
 
@@ -5585,40 +5567,40 @@ msgstr "_Bezárás"
 msgid "_Apply"
 msgstr "_Alkalmaz"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:824
-#: src/search/search_dialog.rs:532
+#: src/advanced_rename/advanced_rename_dialog.rs:829
+#: src/search/search_dialog.rs:528
 msgid "New profile"
 msgstr "Új profil"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:835
-#: src/advanced_rename/advanced_rename_dialog.rs:861
-#: src/search/search_dialog.rs:540
+#: src/advanced_rename/advanced_rename_dialog.rs:840
+#: src/advanced_rename/advanced_rename_dialog.rs:866
+#: src/search/search_dialog.rs:536
 msgid "Profiles"
 msgstr "Profilok"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1082
-#: src/search/search_dialog.rs:488
+#: src/advanced_rename/advanced_rename_dialog.rs:1087
+#: src/search/search_dialog.rs:484
 msgid "_Save Profile As…"
 msgstr "Profil mentése _másként…"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1089
-#: src/search/search_dialog.rs:497
+#: src/advanced_rename/advanced_rename_dialog.rs:1094
+#: src/search/search_dialog.rs:493
 msgid "_Manage Profiles…"
 msgstr "Profilok _kezelése…"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1117
+#: src/advanced_rename/advanced_rename_dialog.rs:1122
 msgid "Remove from file list"
 msgstr "Eltávolítás a fájllistából"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1120
+#: src/advanced_rename/advanced_rename_dialog.rs:1125
 msgid "View file"
 msgstr "Fájl megtekintése"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1121
+#: src/advanced_rename/advanced_rename_dialog.rs:1126
 msgid "File properties"
 msgstr "Fájl tulajdonságai"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1123
+#: src/advanced_rename/advanced_rename_dialog.rs:1128
 msgid "Update file list"
 msgstr "Fájllista frissítése"
 
@@ -5639,7 +5621,7 @@ msgstr "_Hozzáadás"
 #: src/dialogs/options/devices_widget.rs:75
 #: src/dialogs/profiles/manage_profiles_dialog.rs:173
 #: src/dialogs/remote_dialog.rs:69
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:153 src/main_win.rs:1578
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:153 src/main_win.rs:1587
 msgid "_Edit"
 msgstr "S_zerkesztés"
 
@@ -5667,7 +5649,7 @@ msgstr "Könyvtár"
 
 #: src/advanced_rename/profile_component.rs:218
 #: src/advanced_rename/profile_component.rs:258
-#: src/advanced_rename/profile_component.rs:665
+#: src/advanced_rename/profile_component.rs:661
 msgid "Counter"
 msgstr "Számláló"
 
@@ -5695,226 +5677,240 @@ msgstr "Betű"
 msgid "Trim blanks"
 msgstr "Üresek levágása"
 
-#: src/advanced_rename/profile_component.rs:568
-msgid "Add Rule"
-msgstr "Szabály hozzáadása"
-
-#: src/advanced_rename/profile_component.rs:592
-msgid "Edit Rule"
-msgstr "Szabály szerkesztése"
-
-#: src/advanced_rename/profile_component.rs:638
+#: src/advanced_rename/profile_component.rs:634
 msgid "Grandparent"
 msgstr "Nagyszülő"
 
-#: src/advanced_rename/profile_component.rs:639
+#: src/advanced_rename/profile_component.rs:635
 msgid "Parent"
 msgstr "Szülő"
 
-#: src/advanced_rename/profile_component.rs:644
+#: src/advanced_rename/profile_component.rs:640
 msgid "File name"
 msgstr "Fájlnév"
 
-#: src/advanced_rename/profile_component.rs:646
+#: src/advanced_rename/profile_component.rs:642
 msgid "File name (range)"
 msgstr "Fájlnév (tartomány)"
 
-#: src/advanced_rename/profile_component.rs:650
+#: src/advanced_rename/profile_component.rs:646
 msgid "File name without extension"
 msgstr "Fájlnév kiterjesztés nélkül"
 
-#: src/advanced_rename/profile_component.rs:654
+#: src/advanced_rename/profile_component.rs:650
 msgid "File name without extension (range)"
 msgstr "Fájlnév kiterjesztés nélkül (tartomány)"
 
-#: src/advanced_rename/profile_component.rs:658
+#: src/advanced_rename/profile_component.rs:654
 msgid "File extension"
 msgstr "Fájlkiterjesztés"
 
-#: src/advanced_rename/profile_component.rs:667
+#: src/advanced_rename/profile_component.rs:663
 msgid "Counter (width)"
 msgstr "Számláló (szélesség)"
 
-#: src/advanced_rename/profile_component.rs:671
+#: src/advanced_rename/profile_component.rs:667
 msgid "Counter (auto)"
 msgstr "Számláló (automatikus)"
 
-#: src/advanced_rename/profile_component.rs:675
+#: src/advanced_rename/profile_component.rs:671
 msgid "Hexadecimal random number (width)"
 msgstr "Hexadecimális véletlen szám (szélesség)"
 
-#: src/advanced_rename/profile_component.rs:685
-#: src/advanced_rename/profile_component.rs:716
+#: src/advanced_rename/profile_component.rs:681
+#: src/advanced_rename/profile_component.rs:712
 msgid "<locale>"
 msgstr "<területi beállítás>"
 
-#: src/advanced_rename/profile_component.rs:687
+#: src/advanced_rename/profile_component.rs:683
 msgid "yyyy-mm-dd"
 msgstr "éééé-hh-nn"
 
-#: src/advanced_rename/profile_component.rs:691
+#: src/advanced_rename/profile_component.rs:687
 msgid "yy-mm-dd"
 msgstr "éé-hh-nn"
 
-#: src/advanced_rename/profile_component.rs:695
+#: src/advanced_rename/profile_component.rs:691
 msgid "yy.mm.dd"
 msgstr "éé.hh.nn"
 
-#: src/advanced_rename/profile_component.rs:698
+#: src/advanced_rename/profile_component.rs:694
 msgid "yymmdd"
 msgstr "ééhhnn"
 
-#: src/advanced_rename/profile_component.rs:700
+#: src/advanced_rename/profile_component.rs:696
 msgid "dd.mm.yy"
 msgstr "nn.hh.éé"
 
-#: src/advanced_rename/profile_component.rs:704
+#: src/advanced_rename/profile_component.rs:700
 msgid "mm-dd-yy"
 msgstr "hh-nn-éé"
 
-#: src/advanced_rename/profile_component.rs:707
+#: src/advanced_rename/profile_component.rs:703
 msgid "yyyy"
 msgstr "éééé"
 
-#: src/advanced_rename/profile_component.rs:708
+#: src/advanced_rename/profile_component.rs:704
 msgid "yy"
 msgstr "éé"
 
-#: src/advanced_rename/profile_component.rs:709
+#: src/advanced_rename/profile_component.rs:705
 msgid "mm"
 msgstr "hh"
 
-#: src/advanced_rename/profile_component.rs:710
+#: src/advanced_rename/profile_component.rs:706
 msgid "mmm"
 msgstr "hhh"
 
-#: src/advanced_rename/profile_component.rs:711
+#: src/advanced_rename/profile_component.rs:707
 msgid "dd"
 msgstr "nn"
 
-#: src/advanced_rename/profile_component.rs:718
+#: src/advanced_rename/profile_component.rs:714
 msgid "HH.MM.SS"
 msgstr "ÓÓ.PP.MM"
 
-#: src/advanced_rename/profile_component.rs:722
+#: src/advanced_rename/profile_component.rs:718
 msgid "HH-MM-SS"
 msgstr "ÓÓ-PP-MM"
 
-#: src/advanced_rename/profile_component.rs:725
+#: src/advanced_rename/profile_component.rs:721
 msgid "HHMMSS"
 msgstr "ÓÓPPMM"
 
-#: src/advanced_rename/profile_component.rs:726
+#: src/advanced_rename/profile_component.rs:722
 msgid "HH"
 msgstr "ÓÓ"
 
-#: src/advanced_rename/profile_component.rs:727
+#: src/advanced_rename/profile_component.rs:723
 msgid "MM"
 msgstr "PP"
 
-#: src/advanced_rename/profile_component.rs:728
+#: src/advanced_rename/profile_component.rs:724
 msgid "SS"
 msgstr "MM"
 
-#: src/advanced_rename/profile_component.rs:733
+#: src/advanced_rename/profile_component.rs:729
 msgid "auto"
 msgstr "automatikus"
 
-#: src/advanced_rename/profile_component.rs:753
+#: src/advanced_rename/profile_component.rs:749
 msgid "Search for"
 msgstr "Keresés erre:"
 
-#: src/advanced_rename/profile_component.rs:762
+#: src/advanced_rename/profile_component.rs:758
 msgid "Replace with"
 msgstr "Csere ezzel:"
 
-#: src/advanced_rename/profile_component.rs:771
+#: src/advanced_rename/profile_component.rs:767
 msgid "Match case"
 msgstr "Kis- és nagybetűk megkülönböztetése"
 
-#: src/advanced_rename/profile_component.rs:855
-#: src/dialogs/prepare_transfer_dialog.rs:223 src/file_list/actions.rs:86
+#: src/advanced_rename/profile_component.rs:851
+#: src/dialogs/prepare_transfer_dialog.rs:216 src/file_list/actions.rs:86
 msgid "Yes"
 msgstr "Igen"
 
-#: src/advanced_rename/profile_component.rs:857
-#: src/dialogs/prepare_transfer_dialog.rs:223 src/file_list/actions.rs:86
+#: src/advanced_rename/profile_component.rs:853
+#: src/dialogs/prepare_transfer_dialog.rs:216 src/file_list/actions.rs:86
 msgid "No"
 msgstr "Nem"
 
-#: src/advanced_rename/profile_component.rs:869
+#: src/advanced_rename/profile_component.rs:865
 #: src/advanced_rename/profile.rs:69
 msgid "<unchanged>"
 msgstr "<változatlan>"
 
-#: src/advanced_rename/profile_component.rs:870
+#: src/advanced_rename/profile_component.rs:866
 #: src/advanced_rename/profile.rs:70
 msgid "lowercase"
 msgstr "kisbetű"
 
-#: src/advanced_rename/profile_component.rs:871
+#: src/advanced_rename/profile_component.rs:867
 #: src/advanced_rename/profile.rs:71
 msgid "UPPERCASE"
 msgstr "NAGYBETŰ"
 
-#: src/advanced_rename/profile_component.rs:872
+#: src/advanced_rename/profile_component.rs:868
 #: src/advanced_rename/profile.rs:72
 msgid "Sentence case"
 msgstr "Mondatkezdő nagybetű"
 
-#: src/advanced_rename/profile_component.rs:873
+#: src/advanced_rename/profile_component.rs:869
 #: src/advanced_rename/profile.rs:73
 msgid "Initial Caps"
 msgstr "Kezdeti Nagybetűk"
 
-#: src/advanced_rename/profile_component.rs:874
+#: src/advanced_rename/profile_component.rs:870
 #: src/advanced_rename/profile.rs:74
 msgid "tOGGLE cASE"
 msgstr "bETŰK áTVÁLTÁSA"
 
-#: src/advanced_rename/profile_component.rs:880
+#: src/advanced_rename/profile_component.rs:876
 #: src/advanced_rename/profile.rs:117
 msgid "<none>"
 msgstr "<nincs>"
 
-#: src/advanced_rename/profile_component.rs:881
+#: src/advanced_rename/profile_component.rs:877
 #: src/advanced_rename/profile.rs:118
 msgid "leading"
 msgstr "nyitó"
 
-#: src/advanced_rename/profile_component.rs:882
+#: src/advanced_rename/profile_component.rs:878
 #: src/advanced_rename/profile.rs:119
 msgid "trailing"
 msgstr "záró"
 
-#: src/advanced_rename/profile_component.rs:883
+#: src/advanced_rename/profile_component.rs:879
 #: src/advanced_rename/profile.rs:120
 msgid "leading and trailing"
 msgstr "nyitó és záró"
 
-#: src/advanced_rename/profile_component.rs:1005
+#: src/advanced_rename/profile_component.rs:1001
 msgid "Range Selection"
 msgstr "Tartomány kijelölés"
 
-#: src/advanced_rename/profile_component.rs:1028
+#: src/advanced_rename/profile_component.rs:1024
 msgid "_Select range:"
 msgstr "_Tartomány kijelölése:"
 
-#: src/advanced_rename/profile_component.rs:1037
+#: src/advanced_rename/profile_component.rs:1033
 msgid "_Inverse selection"
 msgstr "Kijelölés _megfordítása"
 
-#: src/advanced_rename/regex_dialog.rs:77 src/intviewer/search_dialog.rs:87
+#: src/advanced_rename/profile_component.rs:1055
+msgid "_Insert"
+msgstr "_Beszúrás"
+
+#: src/advanced_rename/regex_dialog.rs:58
+msgid "Add Rule"
+msgstr "Szabály hozzáadása"
+
+#: src/advanced_rename/regex_dialog.rs:60
+msgid "Edit Rule"
+msgstr "Szabály szerkesztése"
+
+#: src/advanced_rename/regex_dialog.rs:80 src/intviewer/search_dialog.rs:87
 msgid "_Search for:"
 msgstr "_Keresés erre:"
 
-#: src/advanced_rename/regex_dialog.rs:88
+#: src/advanced_rename/regex_dialog.rs:91
 msgid "_Replace for:"
 msgstr "_Csere erre:"
 
-#: src/advanced_rename/regex_dialog.rs:98 src/intviewer/search_dialog.rs:62
+#: src/advanced_rename/regex_dialog.rs:101 src/intviewer/search_dialog.rs:62
 msgid "_Match case"
 msgstr "Kis- és nagybetűk mege_gyeznek"
+
+#: src/advanced_rename/regex_dialog.rs:128
+#| msgid "Add Rule"
+msgid "_Add Rule"
+msgstr "Szabály _hozzáadása"
+
+#: src/advanced_rename/regex_dialog.rs:130
+#| msgid "Edit Rule"
+msgid "_Update Rule"
+msgstr "Szabály _frissítése"
 
 #: src/application.rs:64
 msgid "Specify debug flags to use"
@@ -5933,7 +5929,7 @@ msgstr "A kiindulási könyvtárat a jobb oldali panelen határozza meg"
 msgid "Failed to create the directory {directory}: {error}"
 msgstr "Nem sikerült létrehozni a(z) {directory} könyvtárat: {error}"
 
-#: src/app.rs:76 src/open_file.rs:188
+#: src/app.rs:76 src/open_file.rs:186
 #, rust-format
 msgid "Launch of {} failed."
 msgstr "A(z) {} elindítása nem sikerült."
@@ -5979,76 +5975,76 @@ msgstr "Szöveges nézet:"
 msgid "Number view:"
 msgstr "Numerikus nézet:"
 
-#: src/connection/device.rs:184 src/connection/device.rs:200
-#: src/connection/device.rs:231 src/connection/device.rs:255
+#: src/connection/device.rs:185 src/connection/device.rs:199
+#: src/connection/device.rs:229 src/connection/device.rs:254
 #, rust-format
 msgid "Unable to mount the volume {}"
 msgstr "Nem lehet csatolni a(z) {} kötetet"
 
-#: src/connection/device.rs:303
+#: src/connection/device.rs:296
 msgid "Cannot unmount the volume"
 msgstr "Nem lehet leválasztani a kötetet"
 
-#: src/connection/device.rs:348
+#: src/connection/device.rs:335
 msgid "Mounting %s"
 msgstr "%s csatolása"
 
-#: src/connection/device.rs:354
+#: src/connection/device.rs:341
 #, rust-format
 msgid "Go to: {device_name} ({mount_point})"
 msgstr "Ugrás ide: {device_name} ({mount_point})"
 
-#: src/connection/device.rs:357
+#: src/connection/device.rs:344
 #, rust-format
 msgid "Go to: {device_name}"
 msgstr "Ugrás ide: {device_name}"
 
-#: src/connection/device.rs:363
+#: src/connection/device.rs:350
 #, rust-format
 msgid "Mount: {device_name}"
 msgstr "Csatolás: {device_name}"
 
-#: src/connection/device.rs:368
+#: src/connection/device.rs:355
 #, rust-format
 msgid "Unmount: {device_name}"
 msgstr "Leválasztás: {device_name}"
 
-#: src/connection/device.rs:378
+#: src/connection/device.rs:365
 msgid "Volume successfully unmounted"
 msgstr "A kötet sikeresen leválasztva"
 
-#: src/connection/device.rs:384
-msgid "OK"
-msgstr "Rendben"
+#: src/connection/device.rs:371 src/intviewer/window.rs:665 src/utils.rs:256
+msgid "_Dismiss"
+msgstr "_Eltüntetés"
 
-#: src/connection/device.rs:472
+#: src/connection/device.rs:459
 msgid "Failed to execute the mount command"
 msgstr "Nem sikerült végrehajtani a csatolási parancsot"
 
-#: src/connection/device.rs:482
+#: src/connection/device.rs:469
 msgid "Mount failed: permission denied"
 msgstr "A csatolás nem sikerült: hozzáférés megtagadva"
 
-#: src/connection/device.rs:485
+#: src/connection/device.rs:472
 msgid "Mount failed: no medium found"
 msgstr "A csatolás nem sikerült: nem található adathordozó"
 
-#: src/connection/device.rs:488
+#: src/connection/device.rs:475
 #, rust-format
 msgid "Mount failed: mount exited with exitstatus {}"
 msgstr "A csatolás nem sikerült: a mount kilépett a(z) {} kilépési állapottal"
 
-#: src/connection/device.rs:492
+#: src/connection/device.rs:479
 msgid "Mount failed: mount exited without an exitstatus"
 msgstr "A csatolás nem sikerült: a mount kilépési állapot nélkül lépett ki"
 
-#: src/connection/device.rs:504
+#: src/connection/device.rs:491
 #, rust-format
 msgid "Unmount failed: umount exited with exitstatus {}"
 msgstr ""
 "A leválasztás nem sikerült: az umount kilépett a(z) {} kilépési állapottal"
 
-#: src/connection/device.rs:508
+#: src/connection/device.rs:495
 msgid "Failed to execute the umount command"
 msgstr "Nem sikerült végrehajtani a leválasztási parancsot"
 
@@ -6056,11 +6052,11 @@ msgstr "Nem sikerült végrehajtani a leválasztási parancsot"
 msgid "Home"
 msgstr "Saját mappa"
 
-#: src/connection/home.rs:117
+#: src/connection/home.rs:114
 msgid "Go to: Home"
 msgstr "Ugrás a Saját mappába"
 
-#: src/connection/remote.rs:160
+#: src/connection/remote.rs:159
 msgid "Cannot connect to a remote location"
 msgstr "Nem lehet kapcsolódni egy távoli helyre"
 
@@ -6076,35 +6072,35 @@ msgstr "Nem található befoglaló csatolás"
 msgid "Disconnect error"
 msgstr "Leválasztási hiba"
 
-#: src/connection/remote.rs:263
+#: src/connection/remote.rs:254
 #, rust-format
 msgid "Connecting to {hostname}"
 msgstr "Kapcsolódás ehhez: {hostname}"
 
-#: src/connection/remote.rs:269
+#: src/connection/remote.rs:260
 #, rust-format
 msgid "Go to: {connection}"
 msgstr "Ugrás ide: {connection}"
 
-#: src/connection/remote.rs:273
+#: src/connection/remote.rs:264
 #, rust-format
 msgid "Connect to: {connection}"
 msgstr "Kapcsolódás ide: {connection}"
 
-#: src/connection/remote.rs:277
+#: src/connection/remote.rs:268
 #, rust-format
 msgid "Disconnect from: {connection}"
 msgstr "Leválasztás innen: {connection}"
 
-#: src/connection/remote.rs:282
+#: src/connection/remote.rs:273
 msgid "Opens remote connection to %s"
 msgstr "Távoli kapcsolatot nyit a(z) %s kiszolgálóhoz"
 
-#: src/connection/remote.rs:287
+#: src/connection/remote.rs:278
 msgid "Closes remote connection to %s"
 msgstr "Lezárja a távoli kapcsolatot a(z) %s kiszolgálóval"
 
-#: src/connection/smb.rs:58
+#: src/connection/smb.rs:56
 msgid "SMB"
 msgstr "SMB"
 
@@ -6136,125 +6132,145 @@ msgstr "Dokumentálta"
 msgid "Translated by"
 msgstr "Fordította"
 
-#: src/dialogs/chmod_dialog.rs:48
+#: src/dialogs/chmod_dialog.rs:50
 #, rust-format
 msgid "Could not chmod {}"
 msgstr "Nem sikerült a chmod {} futtatása"
 
-#: src/dialogs/chmod_dialog.rs:107 src/dialogs/chown_dialog.rs:91
+#: src/dialogs/chmod_dialog.rs:113
 msgid "Access Permissions"
 msgstr "Hozzáférési jogok"
 
-#: src/dialogs/chmod_dialog.rs:122
+#: src/dialogs/chmod_dialog.rs:128
 msgid "Apply Recursively for"
 msgstr "Rekurzív alkalmazás"
 
-#: src/dialogs/chmod_dialog.rs:126 src/dialogs/options/app_dialog.rs:139
+#: src/dialogs/chmod_dialog.rs:132 src/dialogs/options/app_dialog.rs:139
 msgid "All files"
 msgstr "Minden fájl"
 
-#: src/dialogs/chmod_dialog.rs:126
+#: src/dialogs/chmod_dialog.rs:132
 msgid "Directories only"
 msgstr "Csak könyvtárak"
 
-#: src/dialogs/chown_dialog.rs:43
+#: src/dialogs/chmod_dialog.rs:161
+#| msgid "Change Per_missions"
+msgid "C_hange Permissions"
+msgstr "Jogosultságok meg_változtatása"
+
+#: src/dialogs/chown_dialog.rs:45
 #, rust-format
 msgid "Could not chown {}"
 msgstr "Nem sikerült a chown {} futtatása"
 
-#: src/dialogs/chown_dialog.rs:107
+#: src/dialogs/chown_dialog.rs:116
 msgid "Apply Recursively"
 msgstr "Alkalmazás rekurzívan"
 
-#: src/dialogs/connect_dialog.rs:40
+#: src/dialogs/chown_dialog.rs:132
+#| msgid "Change _Owner/Group"
+msgid "C_hange Owner"
+msgstr "Tulajdonos meg_változtatása"
+
+#: src/dialogs/connect_dialog.rs:39
 msgid "SSH"
 msgstr "SSH"
 
-#: src/dialogs/connect_dialog.rs:41
+#: src/dialogs/connect_dialog.rs:40
 msgid "FTP (with login)"
 msgstr "FTP (bejelentkezéssel)"
 
-#: src/dialogs/connect_dialog.rs:42
+#: src/dialogs/connect_dialog.rs:41
 msgid "Public FTP"
 msgstr "Nyilvános FTP"
 
-#: src/dialogs/connect_dialog.rs:43
+#: src/dialogs/connect_dialog.rs:42
 msgid "Windows share"
 msgstr "Windows megosztás"
 
-#: src/dialogs/connect_dialog.rs:44
+#: src/dialogs/connect_dialog.rs:43
 msgid "WebDAV (HTTP)"
 msgstr "WebDAV (HTTP)"
 
-#: src/dialogs/connect_dialog.rs:45
+#: src/dialogs/connect_dialog.rs:44
 msgid "Secure WebDAV (HTTPS)"
 msgstr "Biztonságos WebDAV (HTTPS)"
 
-#: src/dialogs/connect_dialog.rs:46
+#: src/dialogs/connect_dialog.rs:45
 msgid "Custom location"
 msgstr "Egyéni hely"
 
-#: src/dialogs/connect_dialog.rs:118
+#: src/dialogs/connect_dialog.rs:117
 msgid "Remote Server"
 msgstr "Távoli kiszolgáló"
 
-#: src/dialogs/connect_dialog.rs:124
+#: src/dialogs/connect_dialog.rs:123
 msgid "Service _type:"
 msgstr "Szolgáltatás _típusa:"
 
-#: src/dialogs/connect_dialog.rs:146
+#: src/dialogs/connect_dialog.rs:145
 msgid "_Alias:"
 msgstr "Á_lnév:"
 
-#: src/dialogs/connect_dialog.rs:147
+#: src/dialogs/connect_dialog.rs:146
 msgid "_Location (URI):"
 msgstr "_Hely (URI):"
 
-#: src/dialogs/connect_dialog.rs:148
+#: src/dialogs/connect_dialog.rs:147
 msgid "_Server:"
 msgstr "_Kiszolgáló:"
 
-#: src/dialogs/connect_dialog.rs:151
+#: src/dialogs/connect_dialog.rs:150
 msgid "Optional information"
 msgstr "Opcionális információ"
 
-#: src/dialogs/connect_dialog.rs:159
+#: src/dialogs/connect_dialog.rs:158
 msgid "_Port:"
 msgstr "_Port:"
 
 #. g_signal_connect (dialog.imp().port_entry, "insert-text", G_CALLBACK (port_insert_text), NULL);
-#: src/dialogs/connect_dialog.rs:161
+#: src/dialogs/connect_dialog.rs:160
 msgid "_Folder:"
 msgstr "_Mappa:"
 
-#: src/dialogs/connect_dialog.rs:163
+#: src/dialogs/connect_dialog.rs:162
 msgid "_Domain name:"
 msgstr "_Tartománynév:"
 
-#: src/dialogs/connect_dialog.rs:281
+#: src/dialogs/connect_dialog.rs:196
+#| msgid "_Connections"
+msgid "C_onnect"
+msgstr "Kapcs_olódás"
+
+#: src/dialogs/connect_dialog.rs:280
 msgid "You must enter a name for the server"
 msgstr "Meg kell adnia egy nevet a kiszolgálóhoz"
 
-#: src/dialogs/connect_dialog.rs:282
+#: src/dialogs/connect_dialog.rs:281
 msgid "Please enter a name and try again."
 msgstr "Adjon meg egy nevet, és próbálja újra."
 
-#: src/dialogs/connect_dialog.rs:296
+#: src/dialogs/connect_dialog.rs:295
 msgid "You must enter a number for the port"
 msgstr "Meg kell adnia egy számot a porthoz"
 
-#: src/dialogs/connect_dialog.rs:324
+#: src/dialogs/connect_dialog.rs:323
 msgid "Connection method is not selected"
 msgstr "A kapcsolódási módszer nincs kiválasztva"
 
-#: src/dialogs/connect_dialog.rs:387
+#: src/dialogs/connect_dialog.rs:386
 #, rust-format
 msgid "“{}” is not a valid location"
 msgstr "A(z) „{}” nem érvényes hely"
 
-#: src/dialogs/connect_dialog.rs:388
+#: src/dialogs/connect_dialog.rs:387
 msgid "Please check spelling and try again."
 msgstr "Ellenőrizze a helyesírást és próbálja újra."
+
+#: src/dialogs/create_symlink_dialog.rs:56
+#| msgid "Create"
+msgid "C_reate"
+msgstr "Lét_rehozás"
 
 #: src/dialogs/create_symlink_dialog.rs:73
 msgid "Create Symbolic Link"
@@ -6264,187 +6280,212 @@ msgstr "Szimbolikus hivatkozás létrehozása"
 msgid "Symbolic link name:"
 msgstr "Szimbolikus hivatkozás neve:"
 
-#: src/dialogs/create_symlink_dialog.rs:202
+#: src/dialogs/create_symlink_dialog.rs:201
 msgid "Making a symbolic link failed"
 msgstr "Egy szimbolikus hivatkozás készítése nem sikerült"
 
-#: src/dialogs/delete_dialog.rs:103
+#: src/dialogs/delete_dialog.rs:105
 msgid "Deleting…"
 msgstr "Törlés…"
 
-#: src/dialogs/delete_dialog.rs:166
+#: src/dialogs/delete_dialog.rs:168
 #, rust-format
 msgid "Deleted {count} of {total} file"
 msgid_plural "Deleted {count} of {total} files"
 msgstr[0] "{count} / {total} fájl törölve"
 msgstr[1] "{count} / {total} fájl törölve"
 
-#: src/dialogs/delete_dialog.rs:190
+#: src/dialogs/delete_dialog.rs:192
 #, rust-format
 msgid "The directory “{}” is not empty. Do you really want to delete it?"
 msgstr "A(z) „{}” könyvtár nem üres. Valóban törölni szeretné?"
 
-#: src/dialogs/delete_dialog.rs:193
+#: src/dialogs/delete_dialog.rs:195
 #, rust-format
 msgid "Do you really want to delete “{}”?"
 msgstr "Valóban törölni szeretné a következőt: „{}”?"
 
-#: src/dialogs/delete_dialog.rs:200 src/dialogs/delete_dialog.rs:530
-#: src/user_actions.rs:389 src/user_actions.rs:436
+#: src/dialogs/delete_dialog.rs:202 src/dialogs/delete_dialog.rs:537
+#: src/user_actions.rs:400 src/user_actions.rs:447
 msgid "Cancel"
 msgstr "Mégse"
 
-#: src/dialogs/delete_dialog.rs:201 src/dialogs/delete_dialog.rs:241
+#: src/dialogs/delete_dialog.rs:203 src/dialogs/delete_dialog.rs:243
 #: src/dialogs/options/confirmation_tab.rs:96
 #: src/dialogs/options/confirmation_tab.rs:125
-#: src/dialogs/prepare_copy_dialog.rs:75 src/dialogs/prepare_move_dialog.rs:75
-#: src/transfer.rs:473 src/transfer.rs:513 src/transfer.rs:574
-#: src/transfer.rs:687 src/user_actions.rs:387
+#: src/dialogs/prepare_copy_dialog.rs:76 src/dialogs/prepare_move_dialog.rs:76
+#: src/transfer.rs:472 src/transfer.rs:512 src/transfer.rs:573
+#: src/transfer.rs:686 src/user_actions.rs:398
 msgid "Skip"
 msgstr "Kihagyás"
 
-#: src/dialogs/delete_dialog.rs:203
+#: src/dialogs/delete_dialog.rs:205
 msgid "Delete All"
 msgstr "Összes törlése"
 
-#: src/dialogs/delete_dialog.rs:205
+#: src/dialogs/delete_dialog.rs:207
 msgid "Delete Remaining"
 msgstr "Hátralévők törlése"
 
-#: src/dialogs/delete_dialog.rs:207 src/dialogs/delete_dialog.rs:530
+#: src/dialogs/delete_dialog.rs:209 src/dialogs/delete_dialog.rs:537
 #: src/dialogs/options/confirmation_tab.rs:79
 msgid "Delete"
 msgstr "Törlés"
 
-#: src/dialogs/delete_dialog.rs:228
+#: src/dialogs/delete_dialog.rs:230
 #, rust-format
 msgid "Error while deleting “{file}”"
 msgstr "Hiba a(z) „{file}” törlése közben"
 
-#: src/dialogs/delete_dialog.rs:241 src/dialogs/delete_dialog.rs:573
-#: src/transfer.rs:473 src/transfer.rs:490 src/transfer.rs:508
-#: src/transfer.rs:525 src/transfer.rs:570 src/transfer.rs:588
-#: src/transfer.rs:683 src/transfer.rs:701
+#: src/dialogs/delete_dialog.rs:243 src/dialogs/delete_dialog.rs:581
+#: src/transfer.rs:472 src/transfer.rs:489 src/transfer.rs:507
+#: src/transfer.rs:524 src/transfer.rs:569 src/transfer.rs:587
+#: src/transfer.rs:682 src/transfer.rs:700
 msgid "Abort"
 msgstr "Megszakítás"
 
-#: src/dialogs/delete_dialog.rs:241 src/transfer.rs:473 src/transfer.rs:509
-#: src/transfer.rs:526 src/transfer.rs:571 src/transfer.rs:589
-#: src/transfer.rs:684 src/transfer.rs:702 src/user_actions.rs:390
+#: src/dialogs/delete_dialog.rs:243 src/transfer.rs:472 src/transfer.rs:508
+#: src/transfer.rs:525 src/transfer.rs:570 src/transfer.rs:588
+#: src/transfer.rs:683 src/transfer.rs:701 src/user_actions.rs:401
 msgid "Retry"
 msgstr "Újra"
 
-#: src/dialogs/delete_dialog.rs:505
+#: src/dialogs/delete_dialog.rs:511
 #, rust-format
 msgid "Do you want to permanently delete “{}”?"
 msgstr "Valóban véglegesen törölni szeretné a következőt: „{}”?"
 
-#: src/dialogs/delete_dialog.rs:507
+#: src/dialogs/delete_dialog.rs:514
 #, rust-format
 msgid "Do you want to move “{}” to the trash can?"
 msgstr "Valóban át szeretné helyezni a kukába a következőt: „{}”?"
 
-#: src/dialogs/delete_dialog.rs:513
+#: src/dialogs/delete_dialog.rs:520
 msgid "Do you want to permanently delete the selected file?"
 msgid_plural "Do you want to permanently delete the %d selected files?"
 msgstr[0] "Valóban véglegesen törölni szeretné a kijelölt fájlt?"
 msgstr[1] "Valóban véglegesen törölni szeretné a kijelölt %d fájlt?"
 
-#: src/dialogs/delete_dialog.rs:519
+#: src/dialogs/delete_dialog.rs:526
 msgid "Do you want to move the selected file to the trash can?"
 msgid_plural "Do you want to move the %d selected files to the trash can?"
 msgstr[0] "Valóban át szeretné helyezni a kijelölt fájlt a kukába?"
 msgstr[1] "Valóban át szeretné helyezni a kijelölt %d fájlt a kukába?"
 
-#: src/dialogs/delete_dialog.rs:571
+#: src/dialogs/delete_dialog.rs:579
 msgid "Error while deleting"
 msgstr "Hiba a törlés közben"
 
-#: src/dialogs/edit_bookmark_dialog.rs:55
+#: src/dialogs/edit_bookmark_dialog.rs:38
+msgid "New Bookmark"
+msgstr "Új könyvjelző"
+
+#: src/dialogs/edit_bookmark_dialog.rs:40
+msgid "Edit Bookmark"
+msgstr "Könyvjelző szerkesztése"
+
+#: src/dialogs/edit_bookmark_dialog.rs:59
 msgid "Bookmark _name:"
 msgstr "Könyvjel_ző neve:"
 
-#: src/dialogs/edit_bookmark_dialog.rs:74
+#: src/dialogs/edit_bookmark_dialog.rs:78
 msgid "Bookmark _target:"
 msgstr "Könyvjelző _hivatkozása:"
 
-#: src/dialogs/file_properties_dialog.rs:101
+#: src/dialogs/edit_bookmark_dialog.rs:104
+#| msgid "_Bookmarks"
+msgid "_Add Bookmark"
+msgstr "Könyvjelző _hozzáadása"
+
+#: src/dialogs/edit_bookmark_dialog.rs:106
+#| msgid "Edit Bookmark"
+msgid "_Update Bookmark"
+msgstr "Könyvjelző _frissítése"
+
+#: src/dialogs/file_properties_dialog.rs:108
 msgid "File Properties"
 msgstr "Fájl tulajdonságai"
 
-#: src/dialogs/file_properties_dialog.rs:113
+#: src/dialogs/file_properties_dialog.rs:120
 msgid "Properties"
 msgstr "Tulajdonságok"
 
-#: src/dialogs/file_properties_dialog.rs:117 src/tags/basic.rs:69
+#: src/dialogs/file_properties_dialog.rs:124 src/tags/basic.rs:69
 msgid "Permissions"
 msgstr "Jogok"
 
-#: src/dialogs/file_properties_dialog.rs:121
+#: src/dialogs/file_properties_dialog.rs:128
 msgid "Metadata"
 msgstr "Metaadat"
 
-#: src/dialogs/file_properties_dialog.rs:217 src/dialogs/mkdir_dialog.rs:71
+#: src/dialogs/file_properties_dialog.rs:148
+#: src/dialogs/options/edit_palette_dialog.rs:176
+#: src/dialogs/options/options_dialog.rs:123
+#: src/dialogs/profiles/manage_profiles_dialog.rs:261
+msgid "_Save"
+msgstr "_Mentés"
+
+#: src/dialogs/file_properties_dialog.rs:222 src/dialogs/mkdir_dialog.rs:70
 msgid "Directory name:"
 msgstr "Könyvtárnév:"
 
-#: src/dialogs/file_properties_dialog.rs:219 src/dialogs/new_text_file.rs:79
+#: src/dialogs/file_properties_dialog.rs:224 src/dialogs/new_text_file.rs:78
 msgid "File name:"
 msgstr "Fájlnév:"
 
-#: src/dialogs/file_properties_dialog.rs:234
+#: src/dialogs/file_properties_dialog.rs:235
 msgid "Symlink target:"
 msgstr "Szimbolikus hivatkozás célja:"
 
-#: src/dialogs/file_properties_dialog.rs:251
+#: src/dialogs/file_properties_dialog.rs:252
 msgid "Location:"
 msgstr "Hely:"
 
-#: src/dialogs/file_properties_dialog.rs:263
+#: src/dialogs/file_properties_dialog.rs:264
 msgid "Volume:"
 msgstr "Kötet:"
 
-#: src/dialogs/file_properties_dialog.rs:273
+#: src/dialogs/file_properties_dialog.rs:281
 msgid "Free space:"
 msgstr "Szabad hely:"
 
-#: src/dialogs/file_properties_dialog.rs:286
+#: src/dialogs/file_properties_dialog.rs:294
 msgid "Content type:"
 msgstr "Tartalom típusa:"
 
-#: src/dialogs/file_properties_dialog.rs:293
+#: src/dialogs/file_properties_dialog.rs:300
 msgid "Opens with:"
 msgstr "Megnyitja ezzel:"
 
-#: src/dialogs/file_properties_dialog.rs:296
+#: src/dialogs/file_properties_dialog.rs:303
 msgid "No default application registered"
 msgstr "Nincs alapértelmezett alkalmazás regisztrálva"
 
-#: src/dialogs/file_properties_dialog.rs:313
+#: src/dialogs/file_properties_dialog.rs:320
 msgid "Modified:"
 msgstr "Módosítva:"
 
-#: src/dialogs/file_properties_dialog.rs:321
+#: src/dialogs/file_properties_dialog.rs:328
 msgid "Accessed:"
 msgstr "Hozzáférve:"
 
-#: src/dialogs/file_properties_dialog.rs:338
+#: src/dialogs/file_properties_dialog.rs:345
 msgid "Size:"
 msgstr "Méret:"
 
-#: src/dialogs/file_properties_dialog.rs:374
+#: src/dialogs/file_properties_dialog.rs:381
 msgid "Owner and group"
 msgstr "Tulajdonos és csoport"
 
-#: src/dialogs/file_properties_dialog.rs:394
+#: src/dialogs/file_properties_dialog.rs:398
 msgid "Access permissions"
 msgstr "Hozzáférési jogok"
 
-#: src/dialogs/file_properties_dialog.rs:423
+#: src/dialogs/file_properties_dialog.rs:426
 msgid "Co_py"
 msgstr "_Másolás"
 
-#: src/dialogs/file_properties_dialog.rs:505
+#: src/dialogs/file_properties_dialog.rs:508
 msgid "Failed to apply changes."
 msgstr "Nem sikerült alkalmazni a változtatásokat."
 
@@ -6452,10 +6493,14 @@ msgstr "Nem sikerült alkalmazni a változtatásokat."
 msgid "Copy File"
 msgstr "Fájl másolása"
 
-#: src/dialogs/make_copy_dialog.rs:50 src/dialogs/prepare_copy_dialog.rs:48
+#: src/dialogs/make_copy_dialog.rs:50 src/dialogs/prepare_copy_dialog.rs:49
 #, rust-format
 msgid "Copy “{}” to"
 msgstr "A(z) „{}” másolása ide"
+
+#: src/dialogs/make_copy_dialog.rs:78 src/dialogs/prepare_copy_dialog.rs:46
+msgid "C_opy"
+msgstr "Más_olás"
 
 #: src/dialogs/manage_bookmarks_dialog.rs:85 src/dialogs/order_utils.rs:26
 msgid "_Up"
@@ -6465,7 +6510,7 @@ msgstr "_Fel"
 msgid "_Down"
 msgstr "_Le"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:95 src/search/search_dialog.rs:292
+#: src/dialogs/manage_bookmarks_dialog.rs:95 src/search/search_dialog.rs:288
 msgid "_Jump to"
 msgstr "_Ugrás ide"
 
@@ -6486,11 +6531,7 @@ msgstr "Gyorsbillentyű"
 msgid "Path"
 msgstr "Útvonal"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:461
-msgid "Edit Bookmark"
-msgstr "Könyvjelző szerkesztése"
-
-#: src/dialogs/manage_bookmarks_dialog.rs:614
+#: src/dialogs/manage_bookmarks_dialog.rs:605
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding"
@@ -6498,19 +6539,20 @@ msgstr ""
 "Egy könyvtár felvételéhez a könyvjelzők közé a könyvtár teljes elérési "
 "útjának érvényes UTF-8 kódolásúnak kell lennie"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:645
-msgid "New Bookmark"
-msgstr "Új könyvjelző"
-
-#: src/dialogs/mkdir_dialog.rs:56
+#: src/dialogs/mkdir_dialog.rs:55
 msgid "Make Directory"
 msgstr "Könyvtár létrehozása"
 
-#: src/dialogs/mkdir_dialog.rs:148
+#: src/dialogs/mkdir_dialog.rs:113
+#| msgid "Make Directory"
+msgid "_Make Directory"
+msgstr "Könyvtár _létrehozása"
+
+#: src/dialogs/mkdir_dialog.rs:147
 msgid "A directory name must be entered"
 msgstr "A könyvtárnevet meg kell adni"
 
-#: src/dialogs/mkdir_dialog.rs:159
+#: src/dialogs/mkdir_dialog.rs:158
 msgid "Make directory failed"
 msgstr "A könyvtár létrehozása nem sikerült"
 
@@ -6518,13 +6560,18 @@ msgstr "A könyvtár létrehozása nem sikerült"
 msgid "No file name entered"
 msgstr "Nem adott meg fájlnevet"
 
-#: src/dialogs/new_text_file.rs:51
+#: src/dialogs/new_text_file.rs:50
 msgid "Cannot create a file"
 msgstr "Nem lehet létrehozni fájlt"
 
-#: src/dialogs/new_text_file.rs:67
+#: src/dialogs/new_text_file.rs:66
 msgid "New Text File"
 msgstr "Új szöveges fájl"
+
+#: src/dialogs/new_text_file.rs:98
+#| msgid "Create Archive"
+msgid "Create _File"
+msgstr "_Fájl létrehozása"
 
 #: src/dialogs/open_with_other_dialog.rs:35
 msgid "Open with other…"
@@ -6533,6 +6580,10 @@ msgstr "Megnyitás mással…"
 #: src/dialogs/open_with_other_dialog.rs:45
 msgid "Application:"
 msgstr "Alkalmazás:"
+
+#: src/dialogs/open_with_other_dialog.rs:62
+msgid "_Open"
+msgstr "_Megnyitás"
 
 #: src/dialogs/open_with_other_dialog.rs:97
 msgid "Invalid command"
@@ -6560,7 +6611,7 @@ msgstr "Ikon:"
 
 #: src/dialogs/options/app_dialog.rs:101
 #: src/dialogs/options/options_dialog.rs:38
-#: src/dialogs/prepare_copy_dialog.rs:96
+#: src/dialogs/prepare_copy_dialog.rs:97
 #: src/dialogs/shortcuts/shortcuts_dialog.rs:106
 msgid "Options"
 msgstr "Beállítások"
@@ -6597,11 +6648,21 @@ msgstr "Néhány fájl esetében"
 msgid "File patterns"
 msgstr "Fájl minták"
 
-#: src/dialogs/options/app_dialog.rs:255
+#: src/dialogs/options/app_dialog.rs:191
+#| msgid "Edit Application"
+msgid "_Add Application"
+msgstr "Alkalmazás _hozzáadása"
+
+#: src/dialogs/options/app_dialog.rs:193
+#| msgid "Edit Application"
+msgid "_Update Application"
+msgstr "Alkalmazás _frissítése"
+
+#: src/dialogs/options/app_dialog.rs:259
 msgid "An app needs to have a non-empty label"
 msgstr "Egy alkalmazásnak nem üres címkével kell rendelkeznie"
 
-#: src/dialogs/options/app_dialog.rs:262
+#: src/dialogs/options/app_dialog.rs:266
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
@@ -6632,15 +6693,15 @@ msgstr "Kérdezzen rá"
 
 #: src/dialogs/options/confirmation_tab.rs:91
 #: src/dialogs/options/confirmation_tab.rs:120
-#: src/dialogs/prepare_copy_dialog.rs:69 src/dialogs/prepare_move_dialog.rs:69
-#: src/transfer.rs:511 src/transfer.rs:528 src/transfer.rs:573
-#: src/transfer.rs:591 src/transfer.rs:686 src/transfer.rs:704
+#: src/dialogs/prepare_copy_dialog.rs:70 src/dialogs/prepare_move_dialog.rs:70
+#: src/transfer.rs:510 src/transfer.rs:527 src/transfer.rs:572
+#: src/transfer.rs:590 src/transfer.rs:685 src/transfer.rs:703
 msgid "Rename"
 msgstr "Átnevezés"
 
 #: src/dialogs/options/confirmation_tab.rs:101
 #: src/dialogs/options/confirmation_tab.rs:130
-#: src/dialogs/prepare_copy_dialog.rs:81 src/dialogs/prepare_move_dialog.rs:81
+#: src/dialogs/prepare_copy_dialog.rs:82 src/dialogs/prepare_move_dialog.rs:82
 msgid "Overwrite silently"
 msgstr "Felülírás csendesen"
 
@@ -6690,15 +6751,25 @@ msgstr "Eszköz/címke:"
 msgid "Mount point:"
 msgstr "Csatolási pont:"
 
-#: src/dialogs/options/device_dialog.rs:186
+#: src/dialogs/options/device_dialog.rs:120
+#| msgid "Edit Device"
+msgid "_Add Device"
+msgstr "Eszköz _hozzáadása"
+
+#: src/dialogs/options/device_dialog.rs:122
+#| msgid "Edit Device"
+msgid "_Update Device"
+msgstr "Eszköz _frissítése"
+
+#: src/dialogs/options/device_dialog.rs:190
 msgid "A device needs to have a non-empty alias"
 msgstr "Egy eszköznek nem üres álnévvel kell rendelkeznie"
 
-#: src/dialogs/options/device_dialog.rs:193
+#: src/dialogs/options/device_dialog.rs:197
 msgid "A device needs to have a non-empty path/label"
 msgstr "Egy eszköznek nem üres útvonallal vagy címkével kell rendelkeznie"
 
-#: src/dialogs/options/device_dialog.rs:200
+#: src/dialogs/options/device_dialog.rs:204
 msgid "A device needs to have a non-empty mount point"
 msgstr "Egy eszköznek nem üres csatolási ponttal kell rendelkeznie"
 
@@ -6904,7 +6975,7 @@ msgstr "Egy kattintás megszünteti a fájlok kijelölését"
 msgid "Middle mouse button"
 msgstr "Középső egérgomb"
 
-#: src/dialogs/options/general_tab.rs:106 src/user_actions.rs:1704
+#: src/dialogs/options/general_tab.rs:106 src/user_actions.rs:1713
 msgid "Up one directory"
 msgstr "Egy könyvtárral feljebb"
 
@@ -7242,47 +7313,62 @@ msgstr "She_ll szintaxis"
 msgid "Rege_x syntax"
 msgstr "Rege_x szintaxis"
 
-#: src/dialogs/pattern_selection_dialog.rs:186 src/search/generic.rs:41
+#: src/dialogs/pattern_selection_dialog.rs:102
+#| msgid "Selection"
+msgid "S_elect"
+msgstr "_Kijelölés"
+
+#: src/dialogs/pattern_selection_dialog.rs:104
+#| msgid "_Unselect All"
+msgid "Uns_elect"
+msgstr "Kijelölés _megszüntetése"
+
+#: src/dialogs/pattern_selection_dialog.rs:190 src/search/generic.rs:44
 msgid "Bad expression"
 msgstr "Hibás kifejezés"
 
-#: src/dialogs/prepare_copy_dialog.rs:50
+#: src/dialogs/prepare_copy_dialog.rs:51
 #, rust-format
 msgid "copy {} file to"
 msgid_plural "copy {} files to"
 msgstr[0] "{} fájl másolása ide"
 msgstr[1] "{} fájl másolása ide"
 
-#: src/dialogs/prepare_copy_dialog.rs:57 src/dialogs/prepare_move_dialog.rs:57
+#: src/dialogs/prepare_copy_dialog.rs:58 src/dialogs/prepare_move_dialog.rs:58
 msgid "Overwrite Files"
 msgstr "Fájlok felülírása"
 
-#: src/dialogs/prepare_copy_dialog.rs:64 src/dialogs/prepare_move_dialog.rs:64
+#: src/dialogs/prepare_copy_dialog.rs:65 src/dialogs/prepare_move_dialog.rs:65
 msgid "Query First"
 msgstr "Kérdezzen rá"
 
-#: src/dialogs/prepare_copy_dialog.rs:103
+#: src/dialogs/prepare_copy_dialog.rs:104
 msgid "Follow Links"
 msgstr "Hivatkozások követése"
 
-#: src/dialogs/prepare_move_dialog.rs:48
+#: src/dialogs/prepare_move_dialog.rs:46
+#| msgid "Move"
+msgid "_Move"
+msgstr "Á_thelyezés"
+
+#: src/dialogs/prepare_move_dialog.rs:49
 #, rust-format
 msgid "Move “{}” to"
 msgstr "A(z) „{}” áthelyezése ide"
 
-#: src/dialogs/prepare_move_dialog.rs:50
+#: src/dialogs/prepare_move_dialog.rs:51
 #, rust-format
 msgid "move {} file to"
 msgid_plural "move {} files to"
 msgstr[0] "{} fájl áthelyezése ide"
 msgstr[1] "{} fájl áthelyezése ide"
 
-#: src/dialogs/prepare_transfer_dialog.rs:213
+#: src/dialogs/prepare_transfer_dialog.rs:205
 #, rust-format
 msgid "The directory “{}” doesn’t exist, do you want to create it?"
 msgstr "A(z) „{}” könyvtár nem létezik, szeretné létrehozni?"
 
-#: src/dialogs/prepare_transfer_dialog.rs:464
+#: src/dialogs/prepare_transfer_dialog.rs:463
 #, rust-format
 msgid "Directory {} cannot be created."
 msgstr "A(z) „{}” könyvtárat nem lehet létrehozni."
@@ -7294,6 +7380,11 @@ msgstr "Profil szerkesztése"
 #: src/dialogs/profiles/edit_profile_dialog.rs:52
 msgid "_Name"
 msgstr "_Név"
+
+#: src/dialogs/profiles/edit_profile_dialog.rs:113
+#| msgid "Edit Profile"
+msgid "_Update Profile"
+msgstr "Profil _frissítése"
 
 #: src/dialogs/profiles/manage_profiles_dialog.rs:109
 msgid "Profile"
@@ -7340,6 +7431,11 @@ msgstr ""
 "gépelje be az új gyorsbillentyűt, vagy a megszakításhoz nyomja meg az Esc "
 "billentyűt."
 
+#: src/dialogs/shortcuts/shortcut_dialog.rs:184
+#| msgid "_Shortcut"
+msgid "_Update Shortcut"
+msgstr "Gyorsbillentyű _frissítése"
+
 #: src/dialogs/shortcuts/shortcut_dialog.rs:255
 msgid "New shortcut..."
 msgstr "Új gyorsbillentyű…"
@@ -7385,6 +7481,11 @@ msgstr "Gyorsbillentyű gomb"
 msgid "Action"
 msgstr "Művelet"
 
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:203
+#| msgid "_Shortcut"
+msgid "_Save Shortcuts"
+msgstr "Gyorsbillentyűk _mentése"
+
 #: src/dialogs/transfer_progress_dialog.rs:62
 msgid "Progress"
 msgstr "Folyamat"
@@ -7401,27 +7502,22 @@ msgctxt "percentage copied"
 msgid "{}% copied"
 msgstr "{}% másolva"
 
-#: src/dirlist.rs:44
+#: src/dirlist.rs:47
 msgid "Waiting for file list"
 msgstr "Várakozás a fájllistára"
 
-#: src/dirlist.rs:111
+#: src/dirlist.rs:118
 #, rust-format
 msgid "{} file listed"
 msgid_plural "{} files listed"
 msgstr[0] "{} fájl listázva"
 msgstr[1] "{} fájl listázva"
 
-#: src/dir.rs:172
-#, rust-format
-msgid "Failed to get directory info for {path}."
-msgstr "Nem sikerült lekérni a könyvtár információit ennél: {path}."
-
-#: src/dir.rs:294
+#: src/dir.rs:221
 msgid "Directory listing failed."
 msgstr "A könyvtárlistázás nem sikerült."
 
-#: src/file_edit.rs:36 src/file_view.rs:82
+#: src/file_edit.rs:37 src/file_view.rs:83
 msgid "Not an ordinary file."
 msgstr "Nem közönséges fájl."
 
@@ -7452,117 +7548,117 @@ msgstr "A letöltés nem sikerült."
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Nem sikerült lekérni a fájl MIME-típusát."
 
-#: src/file_list/list.rs:334 src/file_list/list.rs:1600
+#: src/file_list/list.rs:333 src/file_list/list.rs:1607
 msgid "name"
 msgstr "név"
 
-#: src/file_list/list.rs:340 src/file_list/list.rs:1601
+#: src/file_list/list.rs:339 src/file_list/list.rs:1608
 msgid "ext"
 msgstr "kit."
 
-#: src/file_list/list.rs:346 src/file_list/list.rs:1602
+#: src/file_list/list.rs:345 src/file_list/list.rs:1609
 msgid "dir"
 msgstr "kvt"
 
-#: src/file_list/list.rs:352 src/file_list/list.rs:1603
+#: src/file_list/list.rs:351 src/file_list/list.rs:1610
 msgid "size"
 msgstr "méret"
 
-#: src/file_list/list.rs:358 src/file_list/list.rs:1604
+#: src/file_list/list.rs:357 src/file_list/list.rs:1611
 msgid "date"
 msgstr "dátum"
 
-#: src/file_list/list.rs:364 src/file_list/list.rs:1605
+#: src/file_list/list.rs:363 src/file_list/list.rs:1612
 msgid "perm"
 msgstr "jog"
 
-#: src/file_list/list.rs:370 src/file_list/list.rs:1606
+#: src/file_list/list.rs:369 src/file_list/list.rs:1613
 msgid "uid"
 msgstr "UID"
 
-#: src/file_list/list.rs:376 src/file_list/list.rs:1607
+#: src/file_list/list.rs:375 src/file_list/list.rs:1614
 msgid "gid"
 msgstr "GID"
 
-#: src/file_list/list.rs:1527
+#: src/file_list/list.rs:1534
 msgid "_Copy here"
 msgstr "_Másolás ide"
 
-#: src/file_list/list.rs:1541
+#: src/file_list/list.rs:1548
 msgid "_Move here"
 msgstr "Á_thelyezés ide"
 
-#: src/file_list/list.rs:1555
+#: src/file_list/list.rs:1562
 msgid "_Link here"
 msgstr "_Hivatkozás erre"
 
-#: src/file_list/list.rs:1570
+#: src/file_list/list.rs:1577
 msgid "C_ancel"
 msgstr "Még_se"
 
-#: src/file_list/list.rs:2096 src/file_list/list.rs:2125
+#: src/file_list/list.rs:2098 src/file_list/list.rs:2121
 msgid "Current directory is not set."
 msgstr "A jelenlegi könyvtár nincs beállítva."
 
-#: src/file_list/list.rs:2101
+#: src/file_list/list.rs:2103
 msgid "No parent directory"
 msgstr "Nincs szülőkönyvtár"
 
-#: src/file_list/list.rs:2116
+#: src/file_list/list.rs:2115
 msgid "No SAMBA connection is available"
 msgstr "Nem érhető el SAMBA-kapcsolat"
 
-#: src/file_list/list.rs:2223
+#: src/file_list/list.rs:2218
 #, rust-format
 msgid "A total of {selected_bytes} has been selected."
 msgstr "Összesen {selected_bytes} lett kijelölve."
 
-#: src/file_list/list.rs:2229
+#: src/file_list/list.rs:2224
 #, rust-format
 msgid "{selected_files} file selected."
 msgid_plural "{selected_files} files selected."
 msgstr[0] "{selected_files} fájl kijelölve."
 msgstr[1] "{selected_files} fájl kijelölve."
 
-#: src/file_list/list.rs:2236
+#: src/file_list/list.rs:2231
 #, rust-format
 msgid "{selected_dirs} directory selected."
 msgid_plural "{selected_dirs} directories selected."
 msgstr[0] "{selected_dirs} könyvtár kijelölve."
 msgstr[1] "{selected_dirs} könyvtár kijelölve."
 
-#: src/file_list/list.rs:2284
+#: src/file_list/list.rs:2287
 #, rust-format
 msgid "Cannot rename a file to {new_name}"
 msgstr "Nem lehet átnevezni egy fájlt erre: {new_name}."
 
-#: src/file_list/list.rs:2757
+#: src/file_list/list.rs:2760
 msgid "<DIR>"
 msgstr "<KÖNYVTÁR>"
 
 #. Add the default "Open" menu entry at the top of the popup
-#: src/file_list/popup.rs:145
+#: src/file_list/popup.rs:138
 #, rust-format
 msgid "_Open with “{}”"
 msgstr "Megnyitás _ezzel: „{}”"
 
-#: src/file_list/popup.rs:154 src/file_list/popup.rs:182
+#: src/file_list/popup.rs:147 src/file_list/popup.rs:175
 msgid "Open Wit_h…"
 msgstr "Megnyitás e_zzel…"
 
-#: src/file_list/popup.rs:186
+#: src/file_list/popup.rs:179
 msgid "Open Wit_h"
 msgstr "Megnyitás e_zzel"
 
-#: src/file_list/popup.rs:200
+#: src/file_list/popup.rs:193
 msgid "E_xecute"
 msgstr "_Végrehajtás"
 
-#: src/file_list/popup.rs:252
+#: src/file_list/popup.rs:245
 msgid "New"
 msgstr "Új"
 
-#: src/file_list/quick_search.rs:61
+#: src/file_list/quick_search.rs:65
 msgid "Search"
 msgstr "Keresés"
 
@@ -7575,63 +7671,68 @@ msgstr "Érték"
 msgid "Failed to get file info for {path}."
 msgstr "Nem sikerült lekérni a fájl információit ennél: {path}."
 
-#: src/file_selector.rs:1252
+#: src/file_selector.rs:1207
 msgid "Add current dir"
 msgstr "Jelenlegi könyvtár hozzáadása"
 
-#: src/file_selector.rs:1254
+#: src/file_selector.rs:1209
 msgid "Manage bookmarks…"
 msgstr "Könyvjelzők kezelése…"
 
-#: src/file_selector.rs:1390
+#: src/file_selector.rs:1345
 msgid "%s free"
 msgstr "%s szabad"
 
-#: src/file_selector.rs:1396
+#: src/file_selector.rs:1351
 msgid "Unknown disk usage"
 msgstr "Ismeretlen lemezhasználat"
 
-#: src/file_selector.rs:1508 src/user_actions.rs:854
+#: src/file_selector.rs:1449 src/user_actions.rs:851
 msgid "The tab is locked, close anyway?"
 msgstr "A lap zárolva van, mindenképp bezárja?"
 
-#: src/file_selector.rs:1550 src/user_actions.rs:1794
+#: src/file_selector.rs:1450 src/user_actions.rs:852
+#| msgid "_Close Tab"
+msgid "C_lose Tab"
+msgstr "Lap _bezárása"
+
+#: src/file_selector.rs:1491 src/user_actions.rs:1803
 msgid "Open in New _Tab"
 msgstr "Megnyitás új _lapon"
 
-#: src/file_selector.rs:1559
+#: src/file_selector.rs:1500
 msgid "_Unlock Tab"
 msgstr "Lap _feloldása"
 
-#: src/file_selector.rs:1561
+#: src/file_selector.rs:1502
 msgid "_Lock Tab"
 msgstr "Lap _zárolása"
 
-#: src/file_selector.rs:1573
+#: src/file_selector.rs:1514
 msgid "_Refresh Tab"
 msgstr "Lap _frissítése"
 
-#: src/file_selector.rs:1582
+#: src/file_selector.rs:1523
 msgid "Copy Tab to Other _Panel"
 msgstr "Lap másolása a másik _panelre"
 
-#: src/file_selector.rs:1588 src/user_actions.rs:1800
+#: src/file_selector.rs:1529 src/user_actions.rs:1809
 msgid "_Close Tab"
 msgstr "Lap _bezárása"
 
-#: src/file_selector.rs:1592 src/user_actions.rs:1806
+#: src/file_selector.rs:1533 src/user_actions.rs:1815
 msgid "Close _All Tabs"
 msgstr "_Minden lap bezárása"
 
-#: src/file_selector.rs:1596
+#: src/file_selector.rs:1537
 msgid "Close _Duplicate Tabs"
 msgstr "_Kettőzött lapok bezárása"
 
-#: src/file_selector.rs:1624
+#: src/file_selector.rs:1565
 msgid "Filter:"
 msgstr "Szűrő:"
 
-#: src/file_view.rs:52
+#: src/file_view.rs:54
 msgid "Failed to download a file"
 msgstr "Nem sikerült letölteni egy fájlt"
 
@@ -7644,11 +7745,15 @@ msgstr "_Szöveg"
 msgid "_Hexadecimal"
 msgstr "_Hexadecimális"
 
+#: src/intviewer/search_dialog.rs:64
+msgid "Sea_rch"
+msgstr "Ke_resés"
+
 #: src/intviewer/search_dialog.rs:233
 msgid "Find"
 msgstr "Keresés"
 
-#: src/intviewer/search_progress_dialog.rs:46 src/search/search_dialog.rs:297
+#: src/intviewer/search_progress_dialog.rs:46 src/search/search_dialog.rs:293
 msgid "_Stop"
 msgstr "_Leállítás"
 
@@ -7702,11 +7807,11 @@ msgstr "_Kijelölés másolása"
 msgid "Pattern “{}” was not found"
 msgstr "A(z) „{}” minta nem található"
 
-#: src/intviewer/window.rs:735 src/main_win.rs:1555
+#: src/intviewer/window.rs:735 src/main_win.rs:1564
 msgid "_File"
 msgstr "_Fájl"
 
-#: src/intviewer/window.rs:739 src/main_win.rs:1608
+#: src/intviewer/window.rs:739 src/main_win.rs:1617
 msgid "_View"
 msgstr "_Nézet"
 
@@ -7866,7 +7971,7 @@ msgstr "_Függőleges tükrözés"
 msgid "Flip _Horizontal"
 msgstr "_Vízszintes tükrözés"
 
-#: src/intviewer/window.rs:861 src/main_win.rs:1643
+#: src/intviewer/window.rs:861 src/main_win.rs:1652
 msgid "_Settings"
 msgstr "_Beállítások"
 
@@ -7898,7 +8003,7 @@ msgstr "_Hexadecimális eltolás"
 msgid "Quick _Help"
 msgstr "Gyors _súgó"
 
-#: src/intviewer/window.rs:900 src/user_actions.rs:1991
+#: src/intviewer/window.rs:900 src/user_actions.rs:2000
 msgid "_Keyboard Shortcuts"
 msgstr "_Gyorsbillentyűk"
 
@@ -7938,23 +8043,23 @@ msgstr "GNOME Commander — RENDSZERGAZDAI JOGOSULTSÁGOK"
 msgid "Drop connection"
 msgstr "Kapcsolat eldobása"
 
-#: src/main_win.rs:1385
+#: src/main_win.rs:1394
 msgid "Failed starting shell"
 msgstr "Nem sikerült elindítani a parancsértelmezőt"
 
-#: src/main_win.rs:1590
+#: src/main_win.rs:1599
 msgid "_Mark"
 msgstr "_Kijelölés"
 
-#: src/main_win.rs:1649
+#: src/main_win.rs:1658
 msgid "_Connections"
 msgstr "Kap_csolatok"
 
-#: src/main_win.rs:1660
+#: src/main_win.rs:1669
 msgid "_Bookmarks"
 msgstr "Könyvj_elzők"
 
-#: src/main_win.rs:1670
+#: src/main_win.rs:1679
 msgid "_Plugins"
 msgstr "Bő_vítmények"
 
@@ -7966,6 +8071,10 @@ msgid ""
 msgstr ""
 "A(z) „{}” bináris végrehajtható fájlnak tűnik, de hiányzik róla a "
 "végrehajtható bit. Szeretné ezt beállítani, és azután futtatni a fájlt?"
+
+#: src/open_file.rs:40
+msgid "_Mark as Executable"
+msgstr "_Megjelölés futtathatóként"
 
 #: src/open_file.rs:57
 #, rust-format
@@ -7992,16 +8101,16 @@ msgstr "_Nem"
 msgid "_Yes"
 msgstr "_Igen"
 
-#: src/open_file.rs:112
+#: src/open_file.rs:108
 msgid "Change of a file mode failed"
 msgstr "Egy fájlmód megváltoztatása nem sikerült"
 
-#: src/open_file.rs:149
+#: src/open_file.rs:145
 #, rust-format
 msgid "No default application found for the file type {}."
 msgstr "Nem található alapértelmezett alkalmazás a(z) {} fájltípushoz."
 
-#: src/open_file.rs:152
+#: src/open_file.rs:148
 msgid "Open the \"Applications\" page in the Control Center to add one."
 msgstr "Nyissa meg az „Alkalmazások” oldalt a vezérlőpulton a hozzáadásához."
 
@@ -8031,55 +8140,51 @@ msgstr "Névjegy"
 msgid "Configure"
 msgstr "Beállítás"
 
-#: src/search/generic.rs:56
+#: src/search/generic.rs:59
 msgid "Search failed"
 msgstr "A keresés sikertelen"
 
-#: src/search/generic.rs:74
+#: src/search/generic.rs:77
 #, rust-format
 msgid "Searching in: {}"
 msgstr "Keresés ebben: {}"
 
-#: src/search/local.rs:108
+#: src/search/local.rs:92
+msgid "Something went wrong, cannot get start directory."
+msgstr "Valami probléma történt, nem lehet lekérni a kezdési könyvtárat."
+
+#: src/search/local.rs:112
 msgid "Invalid file name pattern."
 msgstr "Érvénytelen fájlnévminta."
 
-#: src/search/local.rs:123
+#: src/search/local.rs:127
 msgid "Invalid text content regular expression."
 msgstr "Érvénytelen szövegtartalom reguláris kifejezés."
 
-#: src/search/search_dialog.rs:286
+#: src/search/search_dialog.rs:282
 msgid "Pr_ofiles…"
 msgstr "Pr_ofilok…"
 
-#: src/search/search_dialog.rs:302
+#: src/search/search_dialog.rs:298
 msgid "_Find"
 msgstr "_Keresés"
 
-#: src/search/search_dialog.rs:323
+#: src/search/search_dialog.rs:319
 msgid "Search…"
 msgstr "Keresés…"
 
-#: src/search/search_dialog.rs:331
+#: src/search/search_dialog.rs:327
 msgid "_Look in folder:"
 msgstr "_Keresés mappában:"
 
-#: src/search/search_dialog.rs:611
-msgid "Cannot extract a file path"
-msgstr "Nem lehet kinyerni egy fájl útvonalát"
-
-#: src/search/search_dialog.rs:615
-msgid "Failed to detect a start directory"
-msgstr "Nem sikerült felismerni egy kezdési könyvtárat"
-
-#: src/search/search_dialog.rs:714
+#: src/search/search_dialog.rs:689
 #, rust-format
 msgid "Found {} match — search aborted"
 msgid_plural "Found {} matches — search aborted"
 msgstr[0] "{} egyezés található – keresés megszakítva"
 msgstr[1] "{} egyezés található – keresés megszakítva"
 
-#: src/search/search_dialog.rs:719
+#: src/search/search_dialog.rs:694
 #, rust-format
 msgid "Found {} match"
 msgid_plural "Found {} matches"
@@ -8136,15 +8241,15 @@ msgstr "Válasszon képfájlt"
 msgid "Choose Icon"
 msgstr "Válasszon ikont"
 
-#: src/spawn.rs:147 src/spawn.rs:151
+#: src/spawn.rs:143 src/spawn.rs:147
 msgid "No valid command given."
 msgstr "Nem adott meg érvényes parancsot."
 
-#: src/spawn.rs:148
+#: src/spawn.rs:144
 msgid "Bad command template."
 msgstr "Hibás parancssablon."
 
-#: src/spawn.rs:154 src/user_actions.rs:181
+#: src/spawn.rs:150 src/user_actions.rs:178
 msgid "Unable to execute command."
 msgstr "A parancs nem hajtható végre."
 
@@ -8245,40 +8350,40 @@ msgstr "Képméret"
 msgid "Width and height in pixels."
 msgstr "Szélesség és magasság képpontban."
 
-#: src/transfer.rs:114
+#: src/transfer.rs:113
 msgid "Copying a directory into itself is a bad idea."
 msgstr "Egy könyvtár önmagába másolása értelmetlen."
 
-#: src/transfer.rs:115 src/transfer.rs:186 src/transfer.rs:257
+#: src/transfer.rs:114 src/transfer.rs:185 src/transfer.rs:256
 msgid "The whole operation was cancelled."
 msgstr "Az egész művelet megszakítva."
 
-#: src/transfer.rs:149 src/transfer.rs:220 src/transfer.rs:291
+#: src/transfer.rs:148 src/transfer.rs:219 src/transfer.rs:290
 msgid "preparing…"
 msgstr "előkészítés…"
 
-#: src/transfer.rs:185 src/transfer.rs:256
+#: src/transfer.rs:184 src/transfer.rs:255
 msgid "Moving a directory into itself is a bad idea."
 msgstr "Egy könyvtár önmagába áthelyezése értelmetlen."
 
-#: src/transfer.rs:323
+#: src/transfer.rs:322
 msgid "downloading to /tmp"
 msgstr "letöltés a /tmp könyvtárba"
 
-#: src/transfer.rs:510 src/transfer.rs:527
+#: src/transfer.rs:509 src/transfer.rs:526
 msgid "Copy into"
 msgstr "Másolás ebbe"
 
-#: src/transfer.rs:512 src/transfer.rs:576 src/transfer.rs:689
+#: src/transfer.rs:511 src/transfer.rs:575 src/transfer.rs:688
 msgid "Rename all"
 msgstr "Összes átnevezése"
 
-#: src/transfer.rs:514 src/transfer.rs:577 src/transfer.rs:690
-#: src/user_actions.rs:388
+#: src/transfer.rs:513 src/transfer.rs:576 src/transfer.rs:689
+#: src/user_actions.rs:399
 msgid "Skip all"
 msgstr "Összes kihagyása"
 
-#: src/transfer.rs:555 src/transfer.rs:668
+#: src/transfer.rs:554 src/transfer.rs:667
 #, rust-format
 msgid ""
 "Overwrite file:\n"
@@ -8297,100 +8402,87 @@ msgstr ""
 "\n"
 "{src}"
 
-#: src/transfer.rs:572 src/transfer.rs:590 src/transfer.rs:685
-#: src/transfer.rs:703
+#: src/transfer.rs:571 src/transfer.rs:589 src/transfer.rs:684
+#: src/transfer.rs:702
 msgid "Replace"
 msgstr "Csere"
 
-#: src/transfer.rs:575 src/transfer.rs:688
+#: src/transfer.rs:574 src/transfer.rs:687
 msgid "Replace all"
 msgstr "Összes cseréje"
 
-#: src/transfer.rs:627 src/transfer.rs:732
+#: src/transfer.rs:626 src/transfer.rs:731
 #, rust-format
 msgid "Error while transferring “{file}”"
 msgstr "Hiba a(z) „{file}” átvitele közben"
 
-#: src/transfer.rs:764
+#: src/transfer.rs:763
 #, rust-format
 msgid "Error while creating symlink “{file}”"
 msgstr "Hiba a(z) „{file}” szimbolikus hivatkozás létrehozása közben"
 
-#: src/transfer.rs:772
+#: src/transfer.rs:771
 msgid "Ignore"
 msgstr "Mellőzés"
 
-#: src/transfer.rs:831
+#: src/transfer.rs:830
 msgid "Unrecoverable error"
 msgstr "Helyrehozhatatlan hiba"
 
-#: src/transfer.rs:909
+#: src/transfer.rs:908
 msgid "File enumeration error"
 msgstr "Fájlfelsorolási hiba"
 
-#: src/transfer.rs:1000 src/transfer.rs:1012 src/transfer.rs:1034
-#: src/transfer.rs:1060
-msgid "Source “%s” could not be deleted. Aborting!"
-msgstr "A(z) „%s” forrást nem sikerült törölni. Megszakítás!"
-
-#: src/transfer.rs:1069
-msgid ""
-"Cannot detect a connection for a source “%s”. It could not be deleted. "
-"Aborting!"
-msgstr ""
-"Nem lehet felismerni egy kapcsolatot egy „%s” forráshoz. Nem sikerült "
-"törölni. Megszakítás!"
-
-#: src/transfer.rs:1092
+#: src/transfer.rs:1012
 msgid "Source “%s” could not be copied. Aborting!"
 msgstr "A(z) „%s” forrást nem sikerült másolni. Megszakítás!"
 
-#: src/transfer.rs:1139
+#: src/transfer.rs:1059
 msgid "copying…"
 msgstr "másolás…"
 
-#: src/transfer.rs:1158
+#: src/transfer.rs:1078
 #, rust-format
 msgid "[file {index} of {count}] “{file}”"
 msgstr "[fájl {index} / {count}] „{file}”"
 
-#: src/transfer.rs:1217
+#: src/transfer.rs:1137
 #, rust-format
 msgctxt ""
 "A template for a file name. In a case of a conflict with an existing one."
 msgid "{name} (Copy {number})"
 msgstr "{name} ({number}. másolat)"
 
-#: src/user_actions.rs:168
+#: src/user_actions.rs:165
 msgid "No search command given."
 msgstr "Nincs keresési parancs megadva."
 
-#: src/user_actions.rs:169
+#: src/user_actions.rs:166
 msgid "You can set a command for a search tool in the program options."
 msgstr ""
 "A program beállításaiban beállíthat egy parancsot egy keresési eszközhöz."
 
-#: src/user_actions.rs:265
+#: src/user_actions.rs:278
 msgid "Operation not supported on remote file systems"
 msgstr "A művelet nem támogatott távoli fájlrendszeren"
 
-#: src/user_actions.rs:290
+#: src/user_actions.rs:303
 msgid "No file selected"
 msgstr "Nincs fájl kiválasztva"
 
-#: src/user_actions.rs:302
+#: src/user_actions.rs:316
 msgid "Too many selected files"
 msgstr "Túl sok fájl van kijelölve"
 
-#: src/user_actions.rs:326
+#: src/user_actions.rs:340
 msgid "Nothing to compare"
 msgstr "Nincs mit összehasonlítani"
 
-#: src/user_actions.rs:351
+#: src/user_actions.rs:362
 msgid "link to %s"
 msgstr "hivatkozás erre: %s"
 
-#: src/user_actions.rs:426
+#: src/user_actions.rs:437
 #, rust-format
 msgid "Create symbolic links of {count} file in {dir}?"
 msgid_plural "Create symbolic links of {count} files in {dir}?"
@@ -8399,15 +8491,15 @@ msgstr[0] ""
 msgstr[1] ""
 "Létrehozza {count} fájl szimbolikus hivatkozását a(z) {dir} könyvtárban?"
 
-#: src/user_actions.rs:436
+#: src/user_actions.rs:447
 msgid "Create"
 msgstr "Létrehozás"
 
-#: src/user_actions.rs:479
+#: src/user_actions.rs:490
 msgid "Warning"
 msgstr "Figyelmeztetés"
 
-#: src/user_actions.rs:479
+#: src/user_actions.rs:490
 msgid ""
 "The default send-to command only supports one selected file at a time. You "
 "can change the command in the program options."
@@ -8415,19 +8507,19 @@ msgstr ""
 "Az alapértelmezett küldés parancs egyszerre csak egy kiválasztott fájlt "
 "támogat. A parancsot a program beállításaiban módosíthatja."
 
-#: src/user_actions.rs:701
+#: src/user_actions.rs:711
 msgid "Terminal command is not configured properly."
 msgstr "A terminálparancs nincs megfelelően beállítva."
 
-#: src/user_actions.rs:1127
+#: src/user_actions.rs:1136
 msgid "There was an error opening home page."
 msgstr "Hiba történt a honlap megnyitása közben."
 
-#: src/user_actions.rs:1138
+#: src/user_actions.rs:1147
 msgid "There was an error reporting problem."
 msgstr "Hiba történt a probléma jelentése közben."
 
-#: src/user_actions.rs:1168
+#: src/user_actions.rs:1177
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -8438,7 +8530,7 @@ msgstr ""
 "Software Foundation által kiadott GNU General Public License második (vagy "
 "bármely későbbi) változatában foglaltak alapján."
 
-#: src/user_actions.rs:1171
+#: src/user_actions.rs:1180
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -8450,7 +8542,7 @@ msgstr ""
 "program alkalmas-e a KÖZREADÁSRA vagy EGY BIZONYOS FELADAT ELVÉGZÉSÉRE. "
 "További részletekért tanulmányozza a GNU GPL licencet."
 
-#: src/user_actions.rs:1174
+#: src/user_actions.rs:1183
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -8460,11 +8552,11 @@ msgstr ""
 "jár, ha nem kapta meg, írjon a Free Software Foundation Inc.-nek. "
 "Levélcímük: 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA."
 
-#: src/user_actions.rs:1183
+#: src/user_actions.rs:1192
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Gyors és hatékony fájlkezelő a GNOME asztali környezethez"
 
-#: src/user_actions.rs:1191
+#: src/user_actions.rs:1200
 msgid "translator-credits"
 msgstr ""
 "Csimbi <csimbi@gmail.com>\n"
@@ -8476,434 +8568,434 @@ msgstr ""
 "Tímár András <timar@gnome.hu>\n"
 "Úr Balázs <ur.balazs@fsf.hu>"
 
-#: src/user_actions.rs:1400
+#: src/user_actions.rs:1409
 msgid "Copy Files"
 msgstr "Fájlok másolása"
 
-#: src/user_actions.rs:1406
+#: src/user_actions.rs:1415
 msgid "Copy files with rename"
 msgstr "Fájlok másolása átnevezéssel"
 
-#: src/user_actions.rs:1412
+#: src/user_actions.rs:1421
 msgid "Move Files"
 msgstr "Fájlok áthelyezése"
 
-#: src/user_actions.rs:1418
+#: src/user_actions.rs:1427
 msgid "_Delete"
 msgstr "_Törlés"
 
-#: src/user_actions.rs:1424
+#: src/user_actions.rs:1433
 msgid "View File"
 msgstr "Fájl megtekintése"
 
-#: src/user_actions.rs:1430
+#: src/user_actions.rs:1439
 msgid "View with internal viewer"
 msgstr "Megtekintés beépített megjelenítővel"
 
-#: src/user_actions.rs:1436
+#: src/user_actions.rs:1445
 msgid "View with external viewer"
 msgstr "Megtekintés külső megjelenítővel"
 
-#: src/user_actions.rs:1442
+#: src/user_actions.rs:1451
 msgid "Edit (SHIFT for new document)"
 msgstr "Szerkesztés (a SHIFT lenyomásával új dokumentum)"
 
-#: src/user_actions.rs:1448
+#: src/user_actions.rs:1457
 msgid "New _Text File"
 msgstr "Következő _szöveges fájl"
 
-#: src/user_actions.rs:1454
+#: src/user_actions.rs:1463
 msgid "_Search…"
 msgstr "_Keresés…"
 
-#: src/user_actions.rs:1460
+#: src/user_actions.rs:1469
 msgid "_Quick Search…"
 msgstr "_Gyors keresés…"
 
-#: src/user_actions.rs:1466
+#: src/user_actions.rs:1475
 msgid "Change Per_missions"
 msgstr "_Jogosultságok módosítása"
 
-#: src/user_actions.rs:1472
+#: src/user_actions.rs:1481
 msgid "Change _Owner/Group"
 msgstr "Tulajdonos/_csoport módosítása"
 
-#: src/user_actions.rs:1478
+#: src/user_actions.rs:1487
 msgid "New _Directory"
 msgstr "Új _könyvtár"
 
-#: src/user_actions.rs:1484
+#: src/user_actions.rs:1493
 msgid "_Properties…"
 msgstr "_Tulajdonságok…"
 
-#: src/user_actions.rs:1490
+#: src/user_actions.rs:1499
 msgid "_Diff"
 msgstr "_Eltérés"
 
-#: src/user_actions.rs:1496
+#: src/user_actions.rs:1505
 msgid "S_ynchronize Directories"
 msgstr "Könyvtárak s_zinkronizálása"
 
-#: src/user_actions.rs:1502
+#: src/user_actions.rs:1511
 msgid "_Rename"
 msgstr "Át_nevezés"
 
-#: src/user_actions.rs:1508
+#: src/user_actions.rs:1517
 msgid "Create _Symbolic Link"
 msgstr "_Szimbolikus hivatkozás létrehozása"
 
-#: src/user_actions.rs:1514
+#: src/user_actions.rs:1523
 msgid "Advanced _Rename Tool"
 msgstr "Speciális át_nevezőeszköz"
 
-#: src/user_actions.rs:1520
+#: src/user_actions.rs:1529
 msgid "_Send Files"
 msgstr "Fájlok _küldése"
 
-#: src/user_actions.rs:1526
+#: src/user_actions.rs:1535
 msgid "Quit"
 msgstr "Kilépés"
 
-#: src/user_actions.rs:1533
+#: src/user_actions.rs:1542
 msgid "Toggle selection"
 msgstr "Kijelölés átváltása"
 
-#: src/user_actions.rs:1539
+#: src/user_actions.rs:1548
 msgid "Toggle selection and move cursor downward"
 msgstr "Kijelölés átváltása és a kurzor mozgatás alulra"
 
-#: src/user_actions.rs:1545
+#: src/user_actions.rs:1554
 msgid "_Select All"
 msgstr "Összes _kijelölése"
 
-#: src/user_actions.rs:1551
+#: src/user_actions.rs:1560
 msgid "_Unselect All"
 msgstr "Kijelölés _megszüntetése"
 
-#: src/user_actions.rs:1557
+#: src/user_actions.rs:1566
 msgid "Select all _Files"
 msgstr "Összes _fájl kijelölése"
 
-#: src/user_actions.rs:1563
+#: src/user_actions.rs:1572
 msgid "Unselect all Fi_les"
 msgstr "Összes fájl kijelölésének _megszüntetése"
 
-#: src/user_actions.rs:1569
+#: src/user_actions.rs:1578
 msgid "Select with _Pattern"
 msgstr "Kijelölés minta ala_pján"
 
-#: src/user_actions.rs:1575
+#: src/user_actions.rs:1584
 msgid "Unselect with P_attern"
 msgstr "Kijelölés megszüntetése mint_a alapján"
 
-#: src/user_actions.rs:1581
+#: src/user_actions.rs:1590
 msgid "_Invert Selection"
 msgstr "K_ijelölés megfordítása"
 
-#: src/user_actions.rs:1587
+#: src/user_actions.rs:1596
 msgid "Select with same _Extension"
 msgstr "Kijelölés azonos _kiterjesztés alapján"
 
-#: src/user_actions.rs:1593
+#: src/user_actions.rs:1602
 msgid "Unselect with same E_xtension"
 msgstr "Kijelölés megszüntetése azonos ki_terjesztés alapján"
 
-#: src/user_actions.rs:1599
+#: src/user_actions.rs:1608
 msgid "_Restore Selection"
 msgstr "Kijelölés visszaállí_tása"
 
-#: src/user_actions.rs:1605
+#: src/user_actions.rs:1614
 msgid "_Compare Directories"
 msgstr "Könyvtárak össze_hasonlítása"
 
-#: src/user_actions.rs:1612
+#: src/user_actions.rs:1621
 msgid "Cu_t"
 msgstr "_Kivágás"
 
-#: src/user_actions.rs:1618
+#: src/user_actions.rs:1627
 msgid "_Copy"
 msgstr "_Másolás"
 
-#: src/user_actions.rs:1624
+#: src/user_actions.rs:1633
 msgid "_Paste"
 msgstr "_Beillesztés"
 
-#: src/user_actions.rs:1630
+#: src/user_actions.rs:1639
 msgid "_Enable Filter…"
 msgstr "Szűrő _engedélyezése…"
 
-#: src/user_actions.rs:1636
+#: src/user_actions.rs:1645
 msgid "Copy _File Names (SHIFT for full paths, ALT for URIs)"
 msgstr ""
 "_Fájlnevek másolása (a Shift a teljes útvonalakhoz, az Alt a URI címekhez)"
 
-#: src/user_actions.rs:1643
+#: src/user_actions.rs:1652
 msgid "Execute command"
 msgstr "Parancs végrehajtása"
 
-#: src/user_actions.rs:1649
+#: src/user_actions.rs:1658
 msgid "Open _Terminal"
 msgstr "_Terminál megnyitása"
 
-#: src/user_actions.rs:1656
+#: src/user_actions.rs:1665
 msgid "Show Device Buttons"
 msgstr "Eszközgombok megjelenítése"
 
-#: src/user_actions.rs:1662
+#: src/user_actions.rs:1671
 msgid "Show Device List"
 msgstr "Eszközlista megjelenítése"
 
-#: src/user_actions.rs:1668
+#: src/user_actions.rs:1677
 msgid "Show Toolbar"
 msgstr "Eszköztár megjelenítése"
 
-#: src/user_actions.rs:1674
+#: src/user_actions.rs:1683
 msgid "Show Buttonbar"
 msgstr "Gombsor megjelenítése"
 
-#: src/user_actions.rs:1680
+#: src/user_actions.rs:1689
 msgid "Show Command Line"
 msgstr "Parancssor megjelenítése"
 
-#: src/user_actions.rs:1686
+#: src/user_actions.rs:1695
 msgid "Show directory history"
 msgstr "Könyvtár előzmények megjelenítése"
 
-#: src/user_actions.rs:1692
+#: src/user_actions.rs:1701
 msgid "Show Hidden Files"
 msgstr "Rejtett fájlok megjelenítése"
 
-#: src/user_actions.rs:1698
+#: src/user_actions.rs:1707
 msgid "Show Backup Files"
 msgstr "Másolatfájlok megjelenítése"
 
-#: src/user_actions.rs:1710
+#: src/user_actions.rs:1719
 msgid "Back to oldest"
 msgstr "Vissza a legrégebbire"
 
-#: src/user_actions.rs:1716
+#: src/user_actions.rs:1725
 msgid "_Back"
 msgstr "_Vissza"
 
-#: src/user_actions.rs:1722
+#: src/user_actions.rs:1731
 msgid "_Forward"
 msgstr "_Előre"
 
-#: src/user_actions.rs:1728
+#: src/user_actions.rs:1737
 msgid "Forward to latest"
 msgstr "Előre a legújabbra"
 
-#: src/user_actions.rs:1734
+#: src/user_actions.rs:1743
 msgid "_Refresh"
 msgstr "_Frissítés"
 
-#: src/user_actions.rs:1740
+#: src/user_actions.rs:1749
 msgid "_Equal Panel Size"
 msgstr "_Azonos panelméret"
 
-#: src/user_actions.rs:1746
+#: src/user_actions.rs:1755
 msgid "Maximize Panel Size"
 msgstr "Panelméret maximalizálása"
 
-#: src/user_actions.rs:1752
+#: src/user_actions.rs:1761
 msgid "Open directory in the left panel"
 msgstr "Könyvtár megnyitása a bal oldali panelen"
 
-#: src/user_actions.rs:1758
+#: src/user_actions.rs:1767
 msgid "Open directory in the right panel"
 msgstr "Könyvtár megnyitása a jobb oldali panelen"
 
-#: src/user_actions.rs:1764
+#: src/user_actions.rs:1773
 msgid "Open directory in the active panel"
 msgstr "Könyvtár megnyitása az aktív panelen"
 
-#: src/user_actions.rs:1770
+#: src/user_actions.rs:1779
 msgid "Open directory in the inactive panel"
 msgstr "Könyvtár megnyitása az inaktív panelen"
 
-#: src/user_actions.rs:1776
+#: src/user_actions.rs:1785
 msgid "Change directory"
 msgstr "Könyvtár váltása"
 
-#: src/user_actions.rs:1782
+#: src/user_actions.rs:1791
 msgid "Home directory"
 msgstr "Saját könyvtár"
 
-#: src/user_actions.rs:1788
+#: src/user_actions.rs:1797
 msgid "Root directory"
 msgstr "Gyökérkönyvtár"
 
-#: src/user_actions.rs:1812
+#: src/user_actions.rs:1821
 msgid "Close duplicate tabs"
 msgstr "Kettőzött lapok bezárása"
 
-#: src/user_actions.rs:1818
+#: src/user_actions.rs:1827
 msgid "Previous tab"
 msgstr "Előző lap"
 
-#: src/user_actions.rs:1824
+#: src/user_actions.rs:1833
 msgid "Next tab"
 msgstr "Következő lap"
 
-#: src/user_actions.rs:1830
+#: src/user_actions.rs:1839
 msgid "Open directory in the new tab"
 msgstr "Könyvtár megnyitása új lapon"
 
-#: src/user_actions.rs:1836
+#: src/user_actions.rs:1845
 msgid "Open directory in the new tab (inactive panel)"
 msgstr "Könyvtár megnyitása új lapon (inaktív panelen)"
 
-#: src/user_actions.rs:1842
+#: src/user_actions.rs:1851
 msgid "Lock/unlock tab"
 msgstr "Lap zárolása/feloldása"
 
-#: src/user_actions.rs:1848
+#: src/user_actions.rs:1857
 msgid "Horizontal Orientation"
 msgstr "Vízszintes elhelyezés"
 
-#: src/user_actions.rs:1854
+#: src/user_actions.rs:1863
 msgid "Display main menu"
 msgstr "Főmenü megjelenítése"
 
-#: src/user_actions.rs:1860
+#: src/user_actions.rs:1869
 msgid "Move cursor one step up"
 msgstr "A kurzor mozgatása egy lépéssel fel"
 
-#: src/user_actions.rs:1866
+#: src/user_actions.rs:1875
 msgid "Move cursor one step down"
 msgstr "A kurzor mozgatása egy lépéssel le"
 
-#: src/user_actions.rs:1872
+#: src/user_actions.rs:1881
 msgid "Swap panels"
 msgstr "Panelek felcserélése"
 
-#: src/user_actions.rs:1878
+#: src/user_actions.rs:1887
 msgid "Show panel size selector"
 msgstr "Panelméret kiválasztójának megjelenítése"
 
-#: src/user_actions.rs:1891
+#: src/user_actions.rs:1900
 msgid "_Bookmark this Directory…"
 msgstr "_Könyvjelző erre a könyvtárra…"
 
-#: src/user_actions.rs:1897
+#: src/user_actions.rs:1906
 msgid "_Manage Bookmarks…"
 msgstr "Könyvjel_zők kezelése…"
 
-#: src/user_actions.rs:1903
+#: src/user_actions.rs:1912
 msgid "Go to bookmarked location"
 msgstr "Ugrás a könyvjelzőbeli helyre"
 
-#: src/user_actions.rs:1909
+#: src/user_actions.rs:1918
 msgid "Show bookmarks of current device"
 msgstr "A jelenlegi eszköz könyvjelzőinek megjelenítése"
 
-#: src/user_actions.rs:1916
+#: src/user_actions.rs:1925
 msgid "_Options…"
 msgstr "_Beállítások…"
 
-#: src/user_actions.rs:1922
+#: src/user_actions.rs:1931
 msgid "_Keyboard Shortcuts…"
 msgstr "_Gyorsbillentyűk…"
 
-#: src/user_actions.rs:1929
+#: src/user_actions.rs:1938
 msgid "_Remote Server…"
 msgstr "_Távoli kiszolgáló…"
 
-#: src/user_actions.rs:1935
+#: src/user_actions.rs:1944
 msgid "New Connection…"
 msgstr "Új kapcsolat…"
 
-#: src/user_actions.rs:1941
+#: src/user_actions.rs:1950
 msgid "Set connection"
 msgstr "Kapcsolat beállítása"
 
-#: src/user_actions.rs:1947
+#: src/user_actions.rs:1956
 msgid "Change left connection"
 msgstr "Bal kapcsolat módosítása"
 
-#: src/user_actions.rs:1953
+#: src/user_actions.rs:1962
 msgid "Change right connection"
 msgstr "Jobb kapcsolat módosítása"
 
-#: src/user_actions.rs:1959
+#: src/user_actions.rs:1968
 msgid "Close connection"
 msgstr "Kapcsolat lezárása"
 
-#: src/user_actions.rs:1965
+#: src/user_actions.rs:1974
 msgid "Drop Connection"
 msgstr "Kapcsolat eldobása"
 
-#: src/user_actions.rs:1972
+#: src/user_actions.rs:1981
 msgid "_Configure Plugins…"
 msgstr "_Bővítmények beállítása…"
 
-#: src/user_actions.rs:1985
+#: src/user_actions.rs:1994
 msgid "_Documentation"
 msgstr "_Dokumentáció"
 
-#: src/user_actions.rs:1997
+#: src/user_actions.rs:2006
 msgid "GNOME Commander on the _Web"
 msgstr "GNOME Commander a _weben"
 
-#: src/user_actions.rs:2003
+#: src/user_actions.rs:2012
 msgid "Report a _Problem"
 msgstr "_Hiba jelentése"
 
-#: src/user_actions.rs:2009
+#: src/user_actions.rs:2018
 msgid "_About"
 msgstr "_Névjegy"
 
-#: src/utils.rs:108
+#: src/utils.rs:111
 msgid "Cannot create a temporary file."
 msgstr "Nem lehet létrehozni átmeneti fájlt."
 
-#: src/utils.rs:287
+#: src/utils.rs:290
 #, rust-format
 msgid "There was an error while opening help uri {uri}."
 msgstr "Hiba történt a(z) {uri} súgó URI megnyitása közben."
 
-#: src/utils.rs:388
+#: src/utils.rs:391
 #, rust-format
 msgid "{} PiB"
 msgid_plural "{} PiB"
 msgstr[0] "{} PiB"
 msgstr[1] "{} PiB"
 
-#: src/utils.rs:391
+#: src/utils.rs:394
 #, rust-format
 msgid "{} TiB"
 msgid_plural "{} TiB"
 msgstr[0] "{} TiB"
 msgstr[1] "{} TiB"
 
-#: src/utils.rs:394
+#: src/utils.rs:397
 #, rust-format
 msgid "{} GiB"
 msgid_plural "{} GiB"
 msgstr[0] "{} GiB"
 msgstr[1] "{} GiB"
 
-#: src/utils.rs:397
+#: src/utils.rs:400
 #, rust-format
 msgid "{} MiB"
 msgid_plural "{} MiB"
 msgstr[0] "{} MiB"
 msgstr[1] "{} MiB"
 
-#: src/utils.rs:400
+#: src/utils.rs:403
 #, rust-format
 msgid "{} kiB"
 msgid_plural "{} kiB"
 msgstr[0] "{} kiB"
 msgstr[1] "{} kiB"
 
-#: src/utils.rs:403 src/utils.rs:414 src/utils.rs:418
+#: src/utils.rs:406 src/utils.rs:417 src/utils.rs:421
 #, rust-format
 msgid "{} byte"
 msgid_plural "{} bytes"
 msgstr[0] "{} bájt"
 msgstr[1] "{} bájt"
 
-#: src/utils.rs:630
+#: src/utils.rs:633
 msgid "Closing of a file enumerator failed"
 msgstr "Egy fájlfelsoroló bezárása nem sikerült"
