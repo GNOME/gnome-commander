@@ -30,6 +30,7 @@ use crate::{
     dir::{Directory, DirectoryState},
     file::{File, FileOps},
     filter::{Filter, fnmatch},
+    history::History,
     imageloader::icon_cache,
     layout::{
         PREF_COLORS,
@@ -45,7 +46,10 @@ use crate::{
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
-use std::{collections::HashSet, path::Path};
+use std::{
+    collections::HashSet,
+    path::{Path, PathBuf},
+};
 use strum::VariantArray;
 
 mod imp {
@@ -80,7 +84,6 @@ mod imp {
         cell::{Cell, OnceCell, RefCell},
         collections::BTreeMap,
         ffi::OsStr,
-        path::PathBuf,
         rc::Rc,
         sync::OnceLock,
         time::Duration,
@@ -176,6 +179,7 @@ mod imp {
 
         pub directory: RefCell<Option<Directory>>,
         pub directory_handlers: RefCell<Vec<glib::SignalHandlerId>>,
+        pub history: History<(Connection, PathBuf)>,
 
         pub current_size_calculation: Cell<Option<gio::Cancellable>>,
     }
@@ -292,6 +296,7 @@ mod imp {
 
                 directory: Default::default(),
                 directory_handlers: Default::default(),
+                history: History::new(20),
 
                 current_size_calculation: Default::default(),
             }
@@ -670,6 +675,15 @@ mod imp {
             self.obj().emit_by_name::<()>("con-changed", &[&connection]);
         }
 
+        fn add_to_history(&self, directory: &Directory) {
+            if let Some(connection) = &*self.connection.borrow() {
+                self.history
+                    .add((connection.clone(), directory.path_from_root()));
+            }
+
+            self.obj().emit_by_name::<()>("dir-changed", &[directory]);
+        }
+
         pub fn set_directory(&self, directory: &Directory) {
             if Some(directory) == self.directory.borrow().as_ref() {
                 return;
@@ -779,13 +793,12 @@ mod imp {
                 ));
 
             directory.start_monitoring();
-
-            self.obj().emit_by_name::<()>("dir-changed", &[directory]);
+            self.add_to_history(directory);
         }
 
         fn on_dir_list_ok(&self, dir: &Directory) {
             debug!('l', "on_dir_list_ok");
-            self.obj().emit_by_name::<()>("dir-changed", &[dir]);
+            self.add_to_history(dir);
         }
 
         fn on_dir_list_failed(&self, _dir: &Directory, error: &glib::Error) {
@@ -1601,6 +1614,35 @@ pub enum ColumnID {
 }
 
 impl ColumnID {
+    pub fn name(&self) -> &'static str {
+        match self {
+            Self::COLUMN_ICON => "icon",
+            Self::COLUMN_NAME => "name",
+            Self::COLUMN_EXT => "ext",
+            Self::COLUMN_DIR => "dir",
+            Self::COLUMN_SIZE => "size",
+            Self::COLUMN_DATE => "date",
+            Self::COLUMN_PERM => "perm",
+            Self::COLUMN_OWNER => "uid",
+            Self::COLUMN_GROUP => "gid",
+        }
+    }
+
+    pub fn from_name(name: &str) -> Option<Self> {
+        match name {
+            "icon" => Some(Self::COLUMN_ICON),
+            "name" => Some(Self::COLUMN_NAME),
+            "ext" => Some(Self::COLUMN_EXT),
+            "dir" => Some(Self::COLUMN_DIR),
+            "size" => Some(Self::COLUMN_SIZE),
+            "date" => Some(Self::COLUMN_DATE),
+            "perm" => Some(Self::COLUMN_PERM),
+            "uid" => Some(Self::COLUMN_OWNER),
+            "gid" => Some(Self::COLUMN_GROUP),
+            _ => None,
+        }
+    }
+
     pub fn title(self) -> Option<String> {
         match self {
             Self::COLUMN_ICON => None,
@@ -1988,6 +2030,10 @@ impl FileList {
         }
 
         self.imp().set_directory(directory);
+    }
+
+    pub fn dir_history(&self) -> &History<(Connection, PathBuf)> {
+        &self.imp().history
     }
 
     pub async fn reload(&self) {

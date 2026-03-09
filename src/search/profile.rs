@@ -19,7 +19,7 @@
 
 use crate::filter::PatternType;
 use gtk::{glib, prelude::*, subclass::prelude::*};
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 mod imp {
     use super::*;
@@ -185,7 +185,7 @@ impl SearchProfile {
     }
 }
 
-pub type SearchProfileVariant = HashMap<String, glib::Variant>;
+pub type SearchProfileVariant = BTreeMap<String, glib::Variant>;
 
 #[derive(glib::Variant)]
 pub struct LegacySearchProfileVariant {

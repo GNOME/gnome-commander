@@ -22,8 +22,10 @@
 
 use crate::{
     connection::{
-        Connection, ConnectionExt, ConnectionInterface, list::ConnectionList,
-        remote::ConnectionRemote,
+        Connection, ConnectionExt, ConnectionInterface,
+        home::ConnectionHome,
+        list::ConnectionList,
+        remote::{ConnectionRemote, ConnectionRemoteExt},
     },
     dir::Directory,
     file::{File, FileOps},
@@ -36,13 +38,13 @@ use crate::{
     tags::FileMetadataService,
     types::MiddleMouseButtonMode,
     user_actions::UserAction,
-    utils::{ALT, CONTROL, CONTROL_SHIFT, NO_MOD},
+    utils::{ALT, CONTROL, CONTROL_SHIFT, NO_MOD, u32_enum},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, graphene, pango, prelude::*, subclass::prelude::*};
 use std::{
-    collections::{BTreeSet, HashMap, HashSet},
-    path::Path,
+    collections::{BTreeMap, BTreeSet, HashMap},
+    path::{Path, PathBuf},
 };
 
 mod imp {
@@ -113,7 +115,21 @@ mod imp {
                 Some(&String::static_variant_type()),
                 |obj, _, param| {
                     if let Some(path) = param.and_then(String::from_variant) {
-                        obj.imp().select_path(&path);
+                        obj.on_navigate(&path, obj.imp().is_control_pressed());
+                    }
+                },
+            );
+            klass.install_action(
+                "fs.select-history-entry",
+                Some(&u32::static_variant_type()),
+                |obj, _, param| {
+                    let file_list = obj.file_list();
+                    if let Some(index) = param.and_then(u32::from_variant)
+                        && let Some((connection, path)) =
+                            file_list.dir_history().get(index as usize)
+                    {
+                        file_list.dir_history().set_current_position(index as usize);
+                        obj.goto(&connection, &path);
                     }
                 },
             );
@@ -415,7 +431,7 @@ mod imp {
             self.obj().emit_by_name::<()>("activate-request", &[]);
         }
 
-        fn is_control_pressed(&self) -> bool {
+        pub fn is_control_pressed(&self) -> bool {
             let mask = self
                 .obj()
                 .root()
@@ -423,10 +439,6 @@ mod imp {
                 .as_ref()
                 .and_then(get_modifiers_state);
             mask.is_some_and(|m| m.contains(gdk::ModifierType::CONTROL_MASK))
-        }
-
-        fn select_path(&self, path: &str) {
-            self.on_navigate(path, self.is_control_pressed());
         }
 
         async fn add_bookmark(&self) {
@@ -481,21 +493,6 @@ mod imp {
             {
                 self.open_connection(&connection, self.is_control_pressed());
             }
-        }
-
-        fn on_navigate(&self, path: &str, new_tab: bool) {
-            let fl = self.obj().file_list();
-            if new_tab || self.obj().is_current_tab_locked() {
-                let Some(con) = fl.connection() else {
-                    eprintln!("Cannot navigate to {path}. No connection.");
-                    return;
-                };
-                let dir = Directory::new(&con, &con.create_uri(Path::new(path)));
-                self.obj().new_tab_with_dir(&dir, true, true);
-            } else {
-                fl.goto_directory(Path::new(path));
-            }
-            self.obj().emit_by_name::<()>("activate-request", &[]);
         }
 
         pub fn update_tab_label(&self, fl: &FileList) {
@@ -658,6 +655,7 @@ impl FileSelector {
             ColumnID::COLUMN_NAME,
             gtk::SortType::Ascending,
             false,
+            None,
             true,
             true,
         )
@@ -665,7 +663,15 @@ impl FileSelector {
 
     pub fn new_tab_with_dir(&self, dir: &Directory, activate: bool, grab_focus: bool) -> FileList {
         let (sort_column, order) = self.file_list().sorting();
-        self.new_tab_full(Some(dir), sort_column, order, false, activate, grab_focus)
+        self.new_tab_full(
+            Some(dir),
+            sort_column,
+            order,
+            false,
+            None,
+            activate,
+            grab_focus,
+        )
     }
 
     pub fn new_tab_full(
@@ -674,6 +680,7 @@ impl FileSelector {
         sort_column: ColumnID,
         sort_order: gtk::SortType,
         locked: bool,
+        history: Option<(Vec<StoredHistoryEntry>, StoredHistoryEntry)>,
         activate: bool,
         grab_focus: bool,
     ) -> FileList {
@@ -687,6 +694,38 @@ impl FileSelector {
         self.set_tab_locked(&fl, locked);
         fl.update_style();
         fl.show_column(ColumnID::COLUMN_DIR, false);
+
+        if let Some((history_entries, (current_connection, current_uri))) = history {
+            let connection_list = ConnectionList::get();
+            let mut selected_entry = None;
+            for (connection_alias, stored_uri) in history_entries.into_iter().rev() {
+                let Ok(uri) = glib::Uri::parse(&stored_uri, glib::UriFlags::NONE) else {
+                    continue;
+                };
+
+                let connection: Connection =
+                    if connection_alias.is_empty() && uri.scheme() == "file" {
+                        connection_list.home().upcast()
+                    } else {
+                        if !connection_alias.is_empty() {
+                            connection_list.find_by_alias(&connection_alias)
+                        } else {
+                            None
+                        }
+                        .unwrap_or_else(|| ConnectionRemote::new("", &uri).upcast())
+                    };
+
+                let path = Directory::new(&connection, &stored_uri).path_from_root();
+                if connection_alias == current_connection && stored_uri == current_uri {
+                    selected_entry = Some((connection.clone(), path.clone()));
+                }
+                fl.dir_history().add((connection, path));
+            }
+
+            if let Some(selected_entry) = selected_entry {
+                fl.dir_history().set_current(selected_entry);
+            }
+        }
 
         let n = self
             .imp()
@@ -773,12 +812,6 @@ impl FileSelector {
     }
 
     fn on_list_dir_changed(&self, fl: &FileList, dir: &Directory) {
-        if let Some(connection) = fl.connection()
-            && let Some(path) = dir.path_from_root().to_str()
-        {
-            connection.dir_history().add(path.to_owned());
-        }
-
         self.imp().update_tab_label(fl);
 
         if self.current_file_list().as_ref() != Some(fl) {
@@ -1023,70 +1056,86 @@ impl FileSelector {
         self.emit_by_name::<()>("activate-request", &[]);
     }
 
-    fn goto(&self, connection: &Connection, path: &str) {
-        if self.is_current_tab_locked() {
-            let dir = Directory::new(connection, &connection.create_uri(Path::new(path)));
-            self.new_tab_with_dir(&dir, true, true);
+    fn goto(&self, connection: &Connection, path: &Path) {
+        if self.file_list().connection().as_ref() == Some(connection) {
+            let dir = Directory::new(connection, &connection.create_uri(path));
+            if self.is_current_tab_locked() {
+                self.new_tab_with_dir(&dir, true, true);
+            } else {
+                self.file_list().set_directory(&dir);
+            }
+        } else if connection.is_open() {
+            let dir = Directory::new(connection, &connection.create_uri(path));
+            if self.is_current_tab_locked() {
+                self.new_tab_with_dir(&dir, true, true);
+            } else {
+                self.file_list().set_connection(connection, Some(&dir));
+            }
         } else {
-            self.goto_directory(connection, Path::new(path));
+            connection.set_base_path(Some(PathBuf::from(path)));
+            if self.is_current_tab_locked() {
+                self.new_tab_with_dir(&connection.default_dir().unwrap(), true, true);
+            } else {
+                self.file_list().set_connection(connection, None);
+            }
         }
     }
 
     pub fn first(&self) {
-        let Some(connection) = self.file_list().connection() else {
-            return;
-        };
-        let history = connection.dir_history();
-        if let Some(dir) = history.first() {
+        let file_list = self.file_list();
+        let history = file_list.dir_history();
+        if let Some((connection, dir)) = history.first() {
             self.goto(&connection, &dir);
         }
     }
 
     pub fn back(&self) {
-        let Some(connection) = self.file_list().connection() else {
-            return;
-        };
-        let history = connection.dir_history();
-        if let Some(dir) = history.back() {
+        let file_list = self.file_list();
+        let history = file_list.dir_history();
+        if let Some((connection, dir)) = history.back() {
             self.goto(&connection, &dir);
         }
     }
 
     pub fn forward(&self) {
-        let Some(connection) = self.file_list().connection() else {
-            return;
-        };
-        let history = connection.dir_history();
-        if let Some(dir) = history.forward() {
+        let file_list = self.file_list();
+        let history = file_list.dir_history();
+        if let Some((connection, dir)) = history.forward() {
             self.goto(&connection, &dir);
         }
     }
 
     pub fn last(&self) {
-        let Some(connection) = self.file_list().connection() else {
-            return;
-        };
-        let history = connection.dir_history();
-        if let Some(dir) = history.last() {
+        let file_list = self.file_list();
+        let history = file_list.dir_history();
+        if let Some((connection, dir)) = history.last() {
             self.goto(&connection, &dir);
         }
     }
 
     pub fn can_back(&self) -> bool {
-        let Some(connection) = self.file_list().connection() else {
-            return false;
-        };
-        connection.dir_history().can_back()
+        self.file_list().dir_history().can_back()
     }
 
     pub fn can_forward(&self) -> bool {
-        let Some(connection) = self.file_list().connection() else {
-            return false;
-        };
-        connection.dir_history().can_forward()
+        self.file_list().dir_history().can_forward()
     }
 
-    pub fn save_tabs(&self, save_all_tabs: bool, save_current: bool) -> Vec<TabVariant> {
+    pub fn save_tabs(
+        &self,
+        position: TabPosition,
+        save_all_tabs: bool,
+        save_current: bool,
+        save_history: bool,
+    ) -> Vec<TabVariant> {
+        fn get_alias(connection: &Connection) -> String {
+            if connection.downcast_ref::<ConnectionHome>().is_some() {
+                String::new()
+            } else {
+                connection.alias().unwrap_or_default()
+            }
+        }
+
         self.imp()
             .notebook
             .pages()
@@ -1101,15 +1150,28 @@ impl FileSelector {
             })
             .filter_map(|file_list| {
                 let directory = file_list.directory()?;
+                let connection = get_alias(&directory.connection());
                 let uri = directory.uri();
                 let (column, order) = file_list.sorting();
-                Some(TabVariant {
-                    uri,
-                    file_felector_id: 0,
-                    sort_column: column as u8,
-                    sort_order: order != gtk::SortType::Ascending,
-                    locked: self.is_tab_locked(&file_list),
-                })
+
+                let mut variant = TabVariant::new(connection, uri);
+                variant.set_position(position);
+                variant.set_sort_column(column);
+                variant.set_sort_direction(order);
+                variant.set_locked(self.is_tab_locked(&file_list));
+                if save_history {
+                    variant.set_history(
+                        file_list
+                            .dir_history()
+                            .export()
+                            .into_iter()
+                            .map(|(connection, path)| {
+                                (get_alias(&connection), connection.create_uri(&path))
+                            })
+                            .collect(),
+                    );
+                }
+                Some(variant)
             })
             .collect()
     }
@@ -1117,22 +1179,17 @@ impl FileSelector {
     pub fn open_tabs(&self, tabs: Vec<TabVariant>) {
         let connection_list = ConnectionList::get();
 
-        let mut visited: HashSet<TabVariant> = Default::default();
-        for mut stored_tab in tabs {
-            stored_tab.file_felector_id = 0;
-            if visited.contains(&stored_tab) {
-                continue;
-            }
-            let directory = restore_directory(connection_list, &stored_tab.uri);
+        for tab in tabs {
+            let directory = restore_directory(connection_list, tab.current_location());
             self.new_tab_full(
                 Some(&directory),
-                stored_tab.sort_column_id(),
-                stored_tab.sort_type(),
-                stored_tab.locked,
+                tab.sort_column(),
+                tab.sort_direction(),
+                tab.locked(),
+                Some((tab.history(), tab.current_location())),
                 true,
                 false,
             );
-            visited.insert(stored_tab);
         }
 
         if self.tab_count() == 0 {
@@ -1145,6 +1202,7 @@ impl FileSelector {
                 ColumnID::COLUMN_NAME,
                 gtk::SortType::Ascending,
                 false,
+                None,
                 true,
                 false,
             );
@@ -1246,19 +1304,36 @@ impl FileSelector {
     }
 
     pub fn show_history(&self) {
-        let Some(dir_history) = self
-            .file_list()
-            .connection()
-            .map(|connection| connection.dir_history().export())
-            .filter(|history| !history.is_empty())
-        else {
+        let dir_history = self.file_list().dir_history().export();
+        if dir_history.is_empty() {
             return;
-        };
+        }
 
         let menu = gio::Menu::new();
-        for path in dir_history {
+        for (index, (connection, path)) in dir_history.into_iter().enumerate() {
+            let path = if let Some(alias) = connection
+                .downcast_ref::<ConnectionHome>()
+                .is_none()
+                .then(|| connection.alias())
+                .flatten()
+                .filter(|alias| !alias.is_empty())
+                .or_else(|| {
+                    // Temporary connections don't have aliases, use URI as fallback.
+                    connection
+                        .downcast_ref::<ConnectionRemote>()
+                        .and_then(|con| con.uri())
+                        .map(|uri| uri.to_str().to_string())
+                }) {
+                std::borrow::Cow::Owned(format!("{alias}: {}", path.display()))
+            } else {
+                path.to_string_lossy()
+            };
+
             let item = gio::MenuItem::new(Some(&path), None);
-            item.set_action_and_target_value(Some("fs.select-path"), Some(&path.to_variant()));
+            item.set_action_and_target_value(
+                Some("fs.select-history-entry"),
+                Some(&(index as u32).to_variant()),
+            );
             menu.append_item(&item);
         }
 
@@ -1392,8 +1467,142 @@ impl FileSelector {
     }
 }
 
+u32_enum! {
+    pub enum TabPosition {
+        #[default]
+        LeftOrTop,
+        RightOrBottom,
+    }
+}
+
+pub struct TabVariant(BTreeMap<String, glib::Variant>);
+
+impl ToVariant for TabVariant {
+    fn to_variant(&self) -> glib::Variant {
+        self.0.to_variant()
+    }
+}
+
+impl FromVariant for TabVariant {
+    fn from_variant(variant: &glib::Variant) -> Option<Self> {
+        BTreeMap::from_variant(variant).map(Self)
+    }
+}
+
+impl StaticVariantType for TabVariant {
+    fn static_variant_type() -> std::borrow::Cow<'static, glib::VariantTy> {
+        BTreeMap::<String, glib::Variant>::static_variant_type()
+    }
+}
+
+impl TabVariant {
+    const SETTING_CURRENT_LOCATION: &str = "current-location";
+    const SETTING_POSITION: &str = "position";
+    const SETTING_SORT_COLUMN: &str = "sort-column";
+    const SETTING_SORT_DIRECTION: &str = "sort-direction";
+    const SETTING_LOCKED: &str = "locked";
+    const SETTING_HISTORY: &str = "history";
+
+    const SORT_DIRECTION_ASCENDING: &str = "asc";
+    const SORT_DIRECTION_DESCENDING: &str = "desc";
+
+    pub fn new(connection: String, uri: String) -> Self {
+        let mut inner = BTreeMap::new();
+        inner.insert(
+            Self::SETTING_CURRENT_LOCATION.to_string(),
+            (connection, uri).into(),
+        );
+        Self(inner)
+    }
+
+    pub fn current_location(&self) -> StoredHistoryEntry {
+        self.0
+            .get(Self::SETTING_CURRENT_LOCATION)
+            .and_then(<StoredHistoryEntry>::from_variant)
+            .unwrap_or_default()
+    }
+
+    pub fn position(&self) -> TabPosition {
+        self.0
+            .get(Self::SETTING_POSITION)
+            .and_then(TabPosition::from_variant)
+            .unwrap_or_default()
+    }
+
+    pub fn set_position(&mut self, position: TabPosition) {
+        self.0
+            .insert(Self::SETTING_POSITION.to_string(), position.into());
+    }
+
+    pub fn sort_column(&self) -> ColumnID {
+        self.0
+            .get(Self::SETTING_SORT_COLUMN)
+            .and_then(String::from_variant)
+            .as_deref()
+            .and_then(ColumnID::from_name)
+            .unwrap_or(ColumnID::COLUMN_NAME)
+    }
+
+    pub fn set_sort_column(&mut self, column: ColumnID) {
+        self.0
+            .insert(Self::SETTING_SORT_COLUMN.to_string(), column.name().into());
+    }
+
+    pub fn sort_direction(&self) -> gtk::SortType {
+        self.0
+            .get(Self::SETTING_SORT_DIRECTION)
+            .and_then(String::from_variant)
+            .map(|dir| {
+                if dir == Self::SORT_DIRECTION_DESCENDING {
+                    gtk::SortType::Descending
+                } else {
+                    gtk::SortType::Ascending
+                }
+            })
+            .unwrap_or(gtk::SortType::Ascending)
+    }
+
+    pub fn set_sort_direction(&mut self, direction: gtk::SortType) {
+        self.0.insert(
+            Self::SETTING_SORT_DIRECTION.to_string(),
+            if direction == gtk::SortType::Descending {
+                Self::SORT_DIRECTION_DESCENDING
+            } else {
+                Self::SORT_DIRECTION_ASCENDING
+            }
+            .into(),
+        );
+    }
+
+    pub fn locked(&self) -> bool {
+        self.0
+            .get(Self::SETTING_LOCKED)
+            .and_then(bool::from_variant)
+            .unwrap_or_default()
+    }
+
+    pub fn set_locked(&mut self, locked: bool) {
+        self.0
+            .insert(Self::SETTING_LOCKED.to_string(), locked.into());
+    }
+
+    pub fn history(&self) -> Vec<StoredHistoryEntry> {
+        self.0
+            .get(Self::SETTING_HISTORY)
+            .and_then(Vec::from_variant)
+            .unwrap_or_default()
+    }
+
+    pub fn set_history(&mut self, history: Vec<StoredHistoryEntry>) {
+        self.0
+            .insert(Self::SETTING_HISTORY.to_string(), history.into());
+    }
+}
+
+type StoredHistoryEntry = (String, String);
+
 #[derive(PartialEq, Eq, Hash, glib::Variant)]
-pub struct TabVariant {
+pub struct LegacyTabVariant {
     pub uri: String,
     pub file_felector_id: u8,
     pub sort_column: u8,
@@ -1401,37 +1610,35 @@ pub struct TabVariant {
     pub locked: bool,
 }
 
-impl TabVariant {
-    pub fn new(uri: impl Into<String>) -> Self {
-        Self {
-            uri: uri.into(),
-            file_felector_id: 0,
-            sort_column: ColumnID::COLUMN_NAME as u8,
-            sort_order: false,
-            locked: false,
+impl From<LegacyTabVariant> for TabVariant {
+    fn from(legacy: LegacyTabVariant) -> Self {
+        let mut result = Self::new(Default::default(), legacy.uri);
+        result.set_position((legacy.file_felector_id as u32).into());
+        if let Some(column) = ColumnID::from_repr(legacy.sort_column.into()) {
+            result.set_sort_column(column);
         }
-    }
-
-    pub fn sort_column_id(&self) -> ColumnID {
-        ColumnID::from_repr(self.sort_column.into()).unwrap_or(ColumnID::COLUMN_NAME)
-    }
-
-    pub fn sort_type(&self) -> gtk::SortType {
-        match self.sort_order {
+        result.set_sort_direction(match legacy.sort_order {
             false => gtk::SortType::Ascending,
             true => gtk::SortType::Descending,
-        }
+        });
+        result.set_locked(legacy.locked);
+        result
     }
 }
 
-fn restore_directory(connection_list: &ConnectionList, stored_uri: &str) -> Directory {
-    let con: Connection = match glib::Uri::parse(stored_uri, glib::UriFlags::NONE) {
+fn restore_directory(connection_list: &ConnectionList, location: StoredHistoryEntry) -> Directory {
+    let (connection_alias, stored_uri) = location;
+    let con: Connection = match glib::Uri::parse(&stored_uri, glib::UriFlags::NONE) {
         Ok(uri) => {
             if uri.scheme() == "file" {
                 connection_list.home().upcast()
             } else {
-                // TODO: use connection_list to find or register a connection
-                ConnectionRemote::new(stored_uri, &uri).upcast()
+                if !connection_alias.is_empty() {
+                    connection_list.find_by_alias(&connection_alias)
+                } else {
+                    None
+                }
+                .unwrap_or_else(|| ConnectionRemote::new("", &uri).upcast())
             }
         }
         Err(error) => {
@@ -1440,7 +1647,7 @@ fn restore_directory(connection_list: &ConnectionList, stored_uri: &str) -> Dire
         }
     };
 
-    Directory::new(&con, stored_uri)
+    Directory::new(&con, &stored_uri)
 }
 
 async fn ask_close_locked_tab(parent: &gtk::Window) -> bool {
@@ -1602,6 +1809,7 @@ mod test {
 
     #[test]
     fn test_variant_type() {
-        assert_eq!(*TabVariant::static_variant_type(), "(syybb)");
+        assert_eq!(*TabVariant::static_variant_type(), "a{sv}");
+        assert_eq!(*LegacyTabVariant::static_variant_type(), "(syybb)");
     }
 }
