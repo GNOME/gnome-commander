@@ -839,8 +839,11 @@ mod imp {
         }
 
         fn on_dir_file_renamed(&self, f: &File) {
-            if let Some(item) = self.obj().get_row_from_file(f) {
-                item.update();
+            for (position, item) in self.store.iter::<FileListItem>().flatten().enumerate() {
+                if &item.file() == f {
+                    item.update();
+                    self.store.items_changed(position as u32, 1, 1);
+                }
             }
         }
 
