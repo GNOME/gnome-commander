@@ -21,10 +21,7 @@ use crate::{
     connection::{ConnectionExt, device::ConnectionDevice},
     select_directory_button::DirectoryButton,
     select_icon_button::IconButton,
-    utils::{
-        ErrorMessage, SenderExt, channel_send_action, dialog_button_box, display_help,
-        handle_escape_key,
-    },
+    utils::{ErrorMessage, SenderExt, WindowExt, dialog_button_box, display_help},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
@@ -163,7 +160,7 @@ pub async fn edit_device_dialog(
             glib::Propagation::Proceed
         }
     ));
-    handle_escape_key(&dialog, &channel_send_action(&sender, false));
+    dialog.set_cancel_widget(&cancel_button);
 
     if let Some(device) = device {
         alias_entry.set_text(&device.alias().unwrap_or_default());

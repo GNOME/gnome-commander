@@ -29,7 +29,7 @@ use crate::{
     main_win::MainWindow,
     options::SearchConfig,
     tags::FileMetadataService,
-    utils::handle_escape_key,
+    utils::WindowExt,
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
@@ -409,20 +409,7 @@ mod imp {
             ));
 
             this.set_default_widget(Some(&self.find_button));
-
-            handle_escape_key(
-                this.upcast_ref(),
-                &gtk::CallbackAction::new(glib::clone!(
-                    #[weak]
-                    this,
-                    #[upgrade_or]
-                    glib::Propagation::Proceed,
-                    move |_, _| {
-                        this.close();
-                        glib::Propagation::Proceed
-                    }
-                )),
-            );
+            this.set_cancel_widget(&close_button);
 
             grid.attach(
                 &dialog_button_box(

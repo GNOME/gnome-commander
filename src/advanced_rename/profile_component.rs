@@ -24,7 +24,7 @@ use super::regex_dialog::RegexReplace;
 use crate::{
     advanced_rename::profile::AdvancedRenameProfile,
     tags::FileMetadataService,
-    utils::{NO_BUTTONS, dialog_button_box},
+    utils::{NO_BUTTONS, WindowExt, dialog_button_box},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, pango, prelude::*, subclass::prelude::*};
@@ -1072,6 +1072,7 @@ async fn get_selected_range(
     );
 
     dialog.set_default_widget(Some(&ok_button));
+    dialog.set_cancel_widget(&cancel_button);
 
     dialog.present();
     let result = receiver.recv().await.unwrap_or_default();

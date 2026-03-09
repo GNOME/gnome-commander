@@ -17,7 +17,10 @@
  * For more details see the file COPYING.
  */
 
-use crate::{types::SizeDisplayMode, utils::size_to_string};
+use crate::{
+    types::SizeDisplayMode,
+    utils::{WindowExt, size_to_string},
+};
 use gettextrs::{gettext, pgettext};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
@@ -88,6 +91,7 @@ mod imp {
             bbox.append(&button);
 
             win.set_default_widget(Some(&button));
+            win.set_cancel_widget(&button);
 
             button.connect_clicked(glib::clone!(
                 #[weak]

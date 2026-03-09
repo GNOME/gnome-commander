@@ -21,7 +21,7 @@ use super::user_action::ShortcutAction;
 use crate::{
     shortcuts::{Call, Shortcut},
     user_actions::UserAction,
-    utils::{ErrorMessage, channel_send_action, handle_escape_key},
+    utils::{ErrorMessage, WindowExt},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, pango, prelude::*, subclass::prelude::*};
@@ -212,10 +212,7 @@ mod imp {
             dialog.add_controller(key_controller);
 
             dialog.set_default_widget(Some(&ok_button));
-            handle_escape_key(
-                dialog.upcast_ref(),
-                &channel_send_action(&self.sender, None),
-            );
+            dialog.set_cancel_widget(&cancel_button);
         }
     }
 

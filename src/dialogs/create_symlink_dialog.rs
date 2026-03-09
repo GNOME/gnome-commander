@@ -20,10 +20,10 @@
 use crate::{
     dir::Directory,
     file::{File, FileOps},
-    utils::{ErrorMessage, NO_BUTTONS, dialog_button_box},
+    utils::{ErrorMessage, NO_BUTTONS, WindowExt, dialog_button_box},
 };
 use gettextrs::gettext;
-use gtk::{gdk, gio, glib, prelude::*, subclass::prelude::*};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::path::Path;
 
 mod imp {
@@ -110,24 +110,8 @@ mod imp {
                 move |_| imp.ok_clicked()
             ));
 
-            let key_controller = gtk::EventControllerKey::new();
-            key_controller.connect_key_pressed(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                #[upgrade_or]
-                glib::Propagation::Proceed,
-                move |_, key, _, modifier| {
-                    if key == gdk::Key::Escape && modifier.is_empty() {
-                        imp.sender.toss(None);
-                        glib::Propagation::Stop
-                    } else {
-                        glib::Propagation::Proceed
-                    }
-                }
-            ));
-            dialog.add_controller(key_controller);
-
             dialog.set_default_widget(Some(&self.ok_button));
+            dialog.set_cancel_widget(&self.cancel_button);
         }
     }
 

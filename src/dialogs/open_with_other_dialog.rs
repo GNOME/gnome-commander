@@ -20,10 +20,7 @@
 use crate::{
     file::{File, FileOps},
     main_win::{ExecutionTarget, MainWindow},
-    utils::{
-        ErrorMessage, NO_BUTTONS, SenderExt, channel_send_action, dialog_button_box,
-        handle_escape_key,
-    },
+    utils::{ErrorMessage, NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
 };
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
@@ -81,8 +78,9 @@ pub async fn show_open_with_other_dialog(parent_window: &MainWindow, files: &gli
         sender,
         move |_| sender.toss(true)
     ));
-    handle_escape_key(&dialog, &channel_send_action(&sender, false));
+
     dialog.set_default_widget(Some(&ok_button));
+    dialog.set_cancel_widget(&cancel_button);
 
     dialog.present();
     loop {

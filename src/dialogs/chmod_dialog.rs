@@ -22,10 +22,7 @@ use crate::{
     connection::Connection,
     dir::Directory,
     file::{File, FileOps},
-    utils::{
-        ErrorMessage, NO_BUTTONS, SenderExt, channel_send_action, dialog_button_box,
-        handle_escape_key,
-    },
+    utils::{ErrorMessage, NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
 };
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
@@ -169,9 +166,8 @@ pub async fn show_chmod_dialog(
 
     content_area.append(&dialog_button_box(NO_BUTTONS, &[&cancel_btn, &ok_btn]));
 
-    handle_escape_key(&dialog, &channel_send_action(&sender, false));
-
     dialog.set_default_widget(Some(&ok_btn));
+    dialog.set_cancel_widget(&cancel_btn);
     dialog.present();
 
     let result = receiver.recv().await == Ok(true);

@@ -20,6 +20,7 @@
 use crate::{
     connection::{Connection, ConnectionExt},
     debug::debug,
+    utils::WindowExt,
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
@@ -51,6 +52,7 @@ pub async fn open_connection(parent_window: &gtk::Window, con: &Connection) -> b
         .halign(gtk::Align::Center)
         .build();
     grid.attach(&button, 0, 2, 1, 1);
+    dialog.set_cancel_widget(&button);
 
     let cancellable = gio::Cancellable::new();
 

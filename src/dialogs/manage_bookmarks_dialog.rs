@@ -24,7 +24,7 @@ use crate::{
     file::FileOps,
     options::GeneralOptions,
     shortcuts::Shortcuts,
-    utils::{ErrorMessage, bold, channel_send_action, handle_escape_key},
+    utils::{ErrorMessage, WindowExt, bold},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
@@ -249,12 +249,8 @@ mod imp {
                 }
             ));
 
-            handle_escape_key(
-                dialog.upcast_ref(),
-                &channel_send_action(&self.sender, None),
-            );
-
             dialog.set_default_widget(Some(&self.jump_button));
+            dialog.set_cancel_widget(&close_button);
         }
     }
 

@@ -31,7 +31,7 @@ mod imp {
     use super::*;
     use crate::{
         history_entry::HistoryEntry,
-        utils::{NO_BUTTONS, SenderExt, channel_send_action, dialog_button_box, handle_escape_key},
+        utils::{NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
     };
     use std::cell::OnceCell;
 
@@ -134,10 +134,7 @@ mod imp {
             ));
 
             dialog.set_default_widget(Some(&self.ok_button));
-            handle_escape_key(
-                dialog.upcast_ref(),
-                &channel_send_action(&self.sender, false),
-            );
+            dialog.set_cancel_widget(&self.cancel_button);
         }
     }
 

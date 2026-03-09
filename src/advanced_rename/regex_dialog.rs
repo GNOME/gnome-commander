@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::utils::{NO_BUTTONS, SenderExt, dialog_button_box};
+use crate::utils::{NO_BUTTONS, SenderExt, WindowExt, dialog_button_box};
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
 
@@ -147,6 +147,7 @@ pub async fn show_advrename_regex_dialog(
     );
 
     dialog.set_default_widget(Some(&ok_btn));
+    dialog.set_cancel_widget(&cancel_btn);
 
     dialog.present();
     pattern.grab_focus();

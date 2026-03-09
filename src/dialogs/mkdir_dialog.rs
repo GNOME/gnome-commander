@@ -22,10 +22,7 @@
 
 use crate::{
     file::{File, FileOps},
-    utils::{
-        ErrorMessage, SenderExt, channel_send_action, dialog_button_box, display_help,
-        handle_escape_key,
-    },
+    utils::{ErrorMessage, SenderExt, WindowExt, dialog_button_box, display_help},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
@@ -128,10 +125,7 @@ pub async fn show_mkdir_dialog(
     );
 
     dialog.set_default_widget(Some(&ok_button));
-    handle_escape_key(
-        &dialog,
-        &channel_send_action(&sender, gtk::ResponseType::Cancel),
-    );
+    dialog.set_cancel_widget(&cancel_button);
 
     dialog.present();
 

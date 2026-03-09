@@ -26,7 +26,7 @@ use crate::{
         configurable::{Configurable, ConfigurableExt},
     },
     user_actions::UserAction,
-    utils::{NO_BUTTONS, dialog_button_box, handle_escape_key},
+    utils::{NO_BUTTONS, WindowExt, dialog_button_box},
 };
 use gettextrs::gettext;
 use gtk::{
@@ -434,21 +434,8 @@ pub fn show_plugin_manager(plugin_manager: &PluginManager, parent_window: &gtk::
         dialog,
         move |_| dialog.close()
     ));
+    dialog.set_cancel_widget(&close_button);
     grid.attach(&dialog_button_box(NO_BUTTONS, &[close_button]), 0, 1, 1, 1);
-
-    handle_escape_key(
-        &dialog,
-        &gtk::CallbackAction::new(glib::clone!(
-            #[weak]
-            dialog,
-            #[upgrade_or]
-            glib::Propagation::Proceed,
-            move |_, _| {
-                dialog.close();
-                glib::Propagation::Proceed
-            }
-        )),
-    );
 
     for plugin_data in plugin_manager.imp().plugins.borrow().iter() {
         view.append(&create_plugin_widget(plugin_manager, plugin_data));

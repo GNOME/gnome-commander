@@ -17,7 +17,10 @@
  * For more details see the file COPYING.
  */
 
-use crate::{layout::color_themes::ColorTheme, utils::SenderExt};
+use crate::{
+    layout::color_themes::ColorTheme,
+    utils::{SenderExt, WindowExt},
+};
 use gettextrs::gettext;
 use gtk::prelude::*;
 
@@ -177,6 +180,7 @@ pub async fn edit_colors(parent_window: &gtk::Window, theme: ColorTheme) -> Opti
             glib::Propagation::Proceed
         }
     ));
+    dialog.set_cancel_widget(&close_button);
 
     dialog.present();
     let ok = receiver.recv().await == Ok(());

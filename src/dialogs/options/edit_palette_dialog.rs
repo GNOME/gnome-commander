@@ -22,7 +22,7 @@ use crate::{
         ls_colors::{LsPalletteColor, LsPallettePlane},
         ls_colors_palette::LsColorsPalette,
     },
-    utils::{SenderExt, dialog_button_box},
+    utils::{SenderExt, WindowExt, dialog_button_box},
 };
 use gettextrs::gettext;
 use gtk::prelude::*;
@@ -218,6 +218,8 @@ pub async fn edit_palette(
             glib::Propagation::Proceed
         }
     ));
+    dialog.set_default_widget(Some(&ok_button));
+    dialog.set_cancel_widget(&cancel_button);
 
     dialog.present();
     let result = receiver.recv().await;
