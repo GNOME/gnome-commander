@@ -184,7 +184,11 @@ pub async fn edit_app_dialog(
         .use_underline(true)
         .build();
     let ok_button = gtk::Button::builder()
-        .label(gettext("_OK"))
+        .label(if is_new {
+            gettext("_Add Application")
+        } else {
+            gettext("_Update Application")
+        })
         .use_underline(true)
         .receives_default(true)
         .build();

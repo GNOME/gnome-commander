@@ -95,7 +95,11 @@ pub async fn show_pattern_selection_dialog(
     ));
 
     let ok_btn = gtk::Button::builder()
-        .label(gettext("_OK"))
+        .label(if mode {
+            gettext("S_elect")
+        } else {
+            gettext("Uns_elect")
+        })
         .use_underline(true)
         .receives_default(true)
         .build();

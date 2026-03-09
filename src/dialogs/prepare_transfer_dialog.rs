@@ -77,7 +77,6 @@ mod imp {
                     .hexpand(true)
                     .build(),
                 ok_button: gtk::Button::builder()
-                    .label(gettext("_OK"))
                     .use_underline(true)
                     .hexpand(true)
                     .halign(gtk::Align::Start)
@@ -261,6 +260,10 @@ impl PrepareTransferDialog {
         dialog.imp().dst_entry.grab_focus();
 
         dialog
+    }
+
+    pub fn set_accept_label(&self, label: &str) {
+        self.imp().ok_button.set_label(label);
     }
 
     pub fn set_dst_label(&self, label: &str) {

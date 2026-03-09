@@ -120,7 +120,7 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
         .use_underline(true)
         .build();
     let ok_button = gtk::Button::builder()
-        .label(gettext("_OK"))
+        .label(gettext("_Save"))
         .use_underline(true)
         .build();
 

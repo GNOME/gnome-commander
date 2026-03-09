@@ -110,7 +110,7 @@ pub async fn edit_profile(
     ));
 
     let ok_button = gtk::Button::builder()
-        .label(gettext("_OK"))
+        .label(gettext("_Update Profile"))
         .use_underline(true)
         .build();
     ok_button.connect_clicked(glib::clone!(

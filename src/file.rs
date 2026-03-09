@@ -309,7 +309,7 @@ impl File {
 
                 let callback = &progress_callback;
                 let mut stream =
-                    stream.take_until(select(cancellable.clone().into_future(), result));
+                    stream.take_until(select(cancellable.into_future(), result));
                 stream
                     .by_ref()
                     .for_each(|(_, size, _, _)| async move { callback(size) })

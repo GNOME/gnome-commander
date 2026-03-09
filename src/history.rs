@@ -41,7 +41,7 @@ impl<T: PartialEq + Clone> History<T> {
         }
 
         let mut entries = self.entries.borrow_mut();
-        if let Some(position) = entries.iter().position(|i| *i == item) {
+        if let Some(position) = entries.iter().position(|i| i == &item) {
             // if the same value has been given before move it first in the list
             let item = entries.remove(position);
             entries.insert(0, item);
@@ -56,6 +56,18 @@ impl<T: PartialEq + Clone> History<T> {
 
     fn current(&self) -> Option<T> {
         self.entries.borrow().get(self.position.get()).cloned()
+    }
+
+    pub fn set_current(&self, item: T) {
+        if let Some(position) = self.entries.borrow().iter().position(|i| i == &item) {
+            self.position.set(position);
+        }
+    }
+
+    pub fn set_current_position(&self, position: usize) {
+        if position < self.entries.borrow().len() {
+            self.position.set(position);
+        }
     }
 
     pub fn can_back(&self) -> bool {
@@ -110,6 +122,10 @@ impl<T: PartialEq + Clone> History<T> {
         }
         self.position.set(0);
         self.current()
+    }
+
+    pub fn get(&self, index: usize) -> Option<T> {
+        self.entries.borrow().get(index).cloned()
     }
 
     pub fn export(&self) -> Vec<T> {

@@ -29,12 +29,16 @@ use gtk::{glib, prelude::*};
 
 pub async fn edit_bookmark_dialog(
     parent: &gtk::Window,
-    title: &str,
+    is_new: bool,
     connection: &Connection,
     bookmark: &Bookmark,
 ) -> Option<Bookmark> {
     let dialog = gtk::Window::builder()
-        .title(title)
+        .title(if is_new {
+            gettext("New Bookmark")
+        } else {
+            gettext("Edit Bookmark")
+        })
         .transient_for(parent)
         .modal(true)
         .destroy_with_parent(true)
@@ -96,7 +100,11 @@ pub async fn edit_bookmark_dialog(
     ));
 
     let ok_btn = gtk::Button::builder()
-        .label(gettext("_OK"))
+        .label(if is_new {
+            gettext("_Add Bookmark")
+        } else {
+            gettext("_Update Bookmark")
+        })
         .use_underline(true)
         .receives_default(true)
         .sensitive(false)

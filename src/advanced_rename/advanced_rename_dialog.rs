@@ -24,10 +24,10 @@ use super::{
     template::{CounterOptions, Template, generate_file_name},
 };
 use crate::{
-    connection::history::History,
     dialogs::profiles::{ProfileManager, manage_profiles_dialog::manage_profiles},
     file::{File, FileOps},
     file_list::list::FileList,
+    history::History,
     options::{GeneralOptions, ProgramsOptions},
     tags::FileMetadataService,
     utils::{size_to_string, time_to_string},

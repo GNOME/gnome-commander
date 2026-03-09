@@ -258,7 +258,7 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
     ));
 
     let ok_button = gtk::Button::builder()
-        .label(gettext("_OK"))
+        .label(gettext("_Save"))
         .use_underline(true)
         .build();
     ok_button.connect_clicked(glib::clone!(

@@ -145,7 +145,7 @@ mod imp {
                 .use_underline(true)
                 .build();
             let ok_button = gtk::Button::builder()
-                .label(gettext("_OK"))
+                .label(gettext("_Save"))
                 .use_underline(true)
                 .build();
 

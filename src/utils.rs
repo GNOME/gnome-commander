@@ -244,7 +244,7 @@ impl ErrorMessage {
         let alert = gtk::AlertDialog::builder()
             .modal(true)
             .message(&self.message)
-            .buttons([gettext("_OK")])
+            .buttons([gettext("_Dismiss")])
             .cancel_button(0)
             .default_button(0)
             .build();
@@ -667,3 +667,44 @@ impl<A: PartialOrd + Ord + Clone> FromIterator<A> for MinMax<A> {
         }))
     }
 }
+
+/// Defines an enum type that can be represented as a u32 value. One of the enum variants has to
+/// be marked with #[default], it will be used when converting numeric values that don't map to any
+/// of the enum variants.
+macro_rules! u32_enum {
+    ($vis:vis enum $type:ident {
+        $($(#[$meta:meta])* $variant:ident,)+
+    }) => {
+        #[derive(Debug, Copy, Clone, PartialEq, Eq, Default)]
+        #[derive(::gtk::glib::ValueDelegate, ::gtk::glib::Variant)]
+        #[value_delegate(from = u32)]
+        #[variant_enum(repr)]
+        #[repr(u32)]
+        $vis enum $type {
+            $($(#[$meta])* $variant,)+
+        }
+
+        impl From<$type> for u32 {
+            fn from(value: $type) -> Self {
+                value as Self
+            }
+        }
+
+        impl From<&$type> for u32 {
+            fn from(value: &$type) -> Self {
+                *value as Self
+            }
+        }
+
+        impl From<u32> for $type {
+            fn from(value: u32) -> Self {
+                match value {
+                    $(v if v == u32::from($type::$variant) => $type::$variant,)+
+                    _ => Default::default(),
+                }
+            }
+        }
+    }
+}
+
+pub(crate) use u32_enum;

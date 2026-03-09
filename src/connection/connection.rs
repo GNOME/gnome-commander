@@ -21,8 +21,8 @@
  */
 
 use super::{
-    bookmark::Bookmark, device::ConnectionDevice, history::History, home::ConnectionHome,
-    remote::ConnectionRemote, smb::ConnectionSmb,
+    bookmark::Bookmark, device::ConnectionDevice, home::ConnectionHome, remote::ConnectionRemote,
+    smb::ConnectionSmb,
 };
 use crate::{debug::debug, dir::Directory, file::FileOps, utils::ErrorMessage};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
@@ -44,7 +44,6 @@ mod imp {
 
     pub struct Connection {
         pub uuid: String,
-        pub history: History<String>, // TODO: consider Rc<GnomeCmdPath>
         pub dir_cache: RefCell<HashMap<String, Directory>>,
         pub bookmarks: RefCell<Vec<Bookmark>>,
         pub alias: RefCell<Option<String>>,
@@ -62,7 +61,6 @@ mod imp {
         fn new() -> Self {
             Self {
                 uuid: glib::uuid_string_random().to_string(),
-                history: History::new(20),
                 dir_cache: Default::default(),
                 bookmarks: RefCell::new(Vec::new()),
                 alias: Default::default(),
@@ -105,10 +103,6 @@ glib::wrapper! {
 impl Connection {
     fn emit_updated(&self) {
         self.emit_by_name::<()>("updated", &[]);
-    }
-
-    pub fn dir_history(&self) -> &History<String> {
-        &self.imp().history
     }
 
     pub fn add_to_cache(&self, directory: &Directory, uri: &str) {

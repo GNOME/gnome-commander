@@ -61,7 +61,7 @@ mod imp {
                 hex_mode: gtk::CheckButton::with_mnemonic(&gettext("_Hexadecimal")),
                 case_sensitive: gtk::CheckButton::with_mnemonic(&gettext("_Match case")),
                 cancel_button: gtk::Button::with_mnemonic(&gettext("_Cancel")),
-                ok_button: gtk::Button::with_mnemonic(&gettext("_OK")),
+                ok_button: gtk::Button::with_mnemonic(&gettext("Sea_rch")),
                 options: Default::default(),
                 sender,
                 receiver,

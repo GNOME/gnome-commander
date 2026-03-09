@@ -181,7 +181,7 @@ mod imp {
             ));
 
             let ok_button = gtk::Button::builder()
-                .label(gettext("_OK"))
+                .label(gettext("_Update Shortcut"))
                 .use_underline(true)
                 .build();
             ok_button.connect_clicked(glib::clone!(
