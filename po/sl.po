@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
-"POT-Creation-Date: 2026-03-07 21:19+0000\n"
-"PO-Revision-Date: 2026-03-08 00:51+0100\n"
+"POT-Creation-Date: 2026-03-09 21:58+0000\n"
+"PO-Revision-Date: 2026-03-10 11:14+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.8\n"
 
 #: data/org.gnome.gnome-commander.desktop.in:2 data/org.gnome.gnome-commander.metainfo.xml.in:7
 #: src/main_win.rs:284
@@ -607,207 +607,211 @@ msgid "This option defines the shortcut for quick search."
 msgstr "Možnost določa tipkovno bližnjico za hitro iskanje."
 
 #: data/org.gnome.gnome-commander.gschema.xml:500
-msgid "List of file tabs"
-msgstr "Seznam zavihkov"
+msgid "Legacy list of file tabs"
+msgstr "Stari seznam zavihkov datotek"
 
-#: data/org.gnome.gnome-commander.gschema.xml:501
-msgid "The entries in this list are used for restoring the tabs from the last session."
-msgstr "Vpisi tega seznama so namenjeni obnovitvi zavihkov, odprtih v zadnji seji."
-
-#: data/org.gnome.gnome-commander.gschema.xml:508
-msgid "List of devices - deprecated"
-msgstr "Seznam naprav - opuščeno"
-
-#: data/org.gnome.gnome-commander.gschema.xml:509 data/org.gnome.gnome-commander.gschema.xml:516
-msgid "The entries in this list represent the devices configured by the user."
-msgstr "Vnosi na seznamu pomenijo naprave, ki jih je nastavil uporabnik."
-
-#: data/org.gnome.gnome-commander.gschema.xml:515
-msgid "List of devices"
-msgstr "Seznam naprav"
-
-#: data/org.gnome.gnome-commander.gschema.xml:522
-msgid "List of favorite apps"
-msgstr "Seznam programov"
-
-#: data/org.gnome.gnome-commander.gschema.xml:523
-msgid "The entries in this list represent the favorite apps configured by the user."
-msgstr "Vnosi na seznamu pomenijo priljubljene programe, ki jih je nastavil uporabnik."
-
-#: data/org.gnome.gnome-commander.gschema.xml:529
-msgid "Search window width"
-msgstr "Širina iskalnega okna"
-
-#: data/org.gnome.gnome-commander.gschema.xml:530
-msgid "This option defines the width of the search window."
-msgstr "Ta možnost določa širino okna za iskanje."
-
-#: data/org.gnome.gnome-commander.gschema.xml:536
-msgid "Search window height"
-msgstr "Višina iskalnega okna"
-
-#: data/org.gnome.gnome-commander.gschema.xml:537
-msgid "This option defines the height of the search window."
-msgstr "Ta možnost določa višino okna za iskanje."
-
-#: data/org.gnome.gnome-commander.gschema.xml:543
-msgid "Search window is transient"
-msgstr "Iskalno okno je prehodno"
-
-#: data/org.gnome.gnome-commander.gschema.xml:544
-msgid ""
-"Defines if the search window is transient or if it can be minimized and moved behind the main window."
-msgstr "Določa, ali je iskalno okno prehodno ali ga je mogoče minimizirati in premakniti za glavnim oknom."
-
-#: data/org.gnome.gnome-commander.gschema.xml:550
-msgid "Search text history"
-msgstr "Zgodovina iskanega besedila"
-
-#: data/org.gnome.gnome-commander.gschema.xml:551
-msgid "This string array represents the history of text searches in the search tool."
-msgstr "To polje nizov predstavlja zgodovino iskanja po besedilu v orodju za iskanje."
-
-#: data/org.gnome.gnome-commander.gschema.xml:557
-msgid "Search pattern history"
-msgstr "Zgodovina iskalnih nizov"
-
-#: data/org.gnome.gnome-commander.gschema.xml:558
-msgid "This string array represents the history of regular expression searches in the search tool."
-msgstr "Niz predstavlja zgodovino iskanj z logičnimi izrazov v orodju za iskanje."
-
-#: data/org.gnome.gnome-commander.gschema.xml:564
-msgid "Legacy search tool profiles"
-msgstr "Profili opuščenega orodja za iskanje"
-
-#: data/org.gnome.gnome-commander.gschema.xml:565
+#: data/org.gnome.gnome-commander.gschema.xml:501 data/org.gnome.gnome-commander.gschema.xml:572
 msgid "This setting is only present for backwards compatibility and will be removed in future."
 msgstr ""
 "Ta nastavitev je prisotna le zaradi združljivosti s starejšimi različicami in bo v prihodnosti "
 "odstranjena."
 
+#: data/org.gnome.gnome-commander.gschema.xml:507
+msgid "List of file tabs"
+msgstr "Seznam zavihkov"
+
+#: data/org.gnome.gnome-commander.gschema.xml:508
+msgid "The entries in this list are used for restoring the tabs and their history from the last session."
+msgstr "Vpisi tega seznama so namenjeni obnovitvi zavihkov in njihove zgodovine iz zadnje seje."
+
+#: data/org.gnome.gnome-commander.gschema.xml:515
+msgid "List of devices - deprecated"
+msgstr "Seznam naprav - opuščeno"
+
+#: data/org.gnome.gnome-commander.gschema.xml:516 data/org.gnome.gnome-commander.gschema.xml:523
+msgid "The entries in this list represent the devices configured by the user."
+msgstr "Vnosi na seznamu pomenijo naprave, ki jih je nastavil uporabnik."
+
+#: data/org.gnome.gnome-commander.gschema.xml:522
+msgid "List of devices"
+msgstr "Seznam naprav"
+
+#: data/org.gnome.gnome-commander.gschema.xml:529
+msgid "List of favorite apps"
+msgstr "Seznam programov"
+
+#: data/org.gnome.gnome-commander.gschema.xml:530
+msgid "The entries in this list represent the favorite apps configured by the user."
+msgstr "Vnosi na seznamu pomenijo priljubljene programe, ki jih je nastavil uporabnik."
+
+#: data/org.gnome.gnome-commander.gschema.xml:536
+msgid "Search window width"
+msgstr "Širina iskalnega okna"
+
+#: data/org.gnome.gnome-commander.gschema.xml:537
+msgid "This option defines the width of the search window."
+msgstr "Ta možnost določa širino okna za iskanje."
+
+#: data/org.gnome.gnome-commander.gschema.xml:543
+msgid "Search window height"
+msgstr "Višina iskalnega okna"
+
+#: data/org.gnome.gnome-commander.gschema.xml:544
+msgid "This option defines the height of the search window."
+msgstr "Ta možnost določa višino okna za iskanje."
+
+#: data/org.gnome.gnome-commander.gschema.xml:550
+msgid "Search window is transient"
+msgstr "Iskalno okno je prehodno"
+
+#: data/org.gnome.gnome-commander.gschema.xml:551
+msgid ""
+"Defines if the search window is transient or if it can be minimized and moved behind the main window."
+msgstr "Določa, ali je iskalno okno prehodno ali ga je mogoče minimizirati in premakniti za glavnim oknom."
+
+#: data/org.gnome.gnome-commander.gschema.xml:557
+msgid "Search text history"
+msgstr "Zgodovina iskanega besedila"
+
+#: data/org.gnome.gnome-commander.gschema.xml:558
+msgid "This string array represents the history of text searches in the search tool."
+msgstr "To polje nizov predstavlja zgodovino iskanja po besedilu v orodju za iskanje."
+
+#: data/org.gnome.gnome-commander.gschema.xml:564
+msgid "Search pattern history"
+msgstr "Zgodovina iskalnih nizov"
+
+#: data/org.gnome.gnome-commander.gschema.xml:565
+msgid "This string array represents the history of regular expression searches in the search tool."
+msgstr "Niz predstavlja zgodovino iskanj z logičnimi izrazov v orodju za iskanje."
+
 #: data/org.gnome.gnome-commander.gschema.xml:571
+msgid "Legacy search tool profiles"
+msgstr "Profili opuščenega orodja za iskanje"
+
+#: data/org.gnome.gnome-commander.gschema.xml:578
 msgid "List of search tool profiles"
 msgstr "Seznam profilov iskanja"
 
-#: data/org.gnome.gnome-commander.gschema.xml:572
+#: data/org.gnome.gnome-commander.gschema.xml:579
 msgid ""
 "The entries in this array represent the profiles in the search tool with specific settings for each "
 "profile."
 msgstr "Vnosi matrike predstavljajo profile v iskalnem orodju z določenimi nastavitvami za vsak profil."
 
-#: data/org.gnome.gnome-commander.gschema.xml:580
+#: data/org.gnome.gnome-commander.gschema.xml:587
 msgid "Quick connect URI"
 msgstr "Določilo URI za hitro povezavo"
 
-#: data/org.gnome.gnome-commander.gschema.xml:581
+#: data/org.gnome.gnome-commander.gschema.xml:588
 msgid "Unified resource identifier for quick connections."
 msgstr "Določilo URI za vzpostavljanje hitre povezave."
 
-#: data/org.gnome.gnome-commander.gschema.xml:592
+#: data/org.gnome.gnome-commander.gschema.xml:599
 msgid "Password for anonymous FTP connections"
 msgstr "Geslo za brezimno povezavo FTP"
 
-#: data/org.gnome.gnome-commander.gschema.xml:593
+#: data/org.gnome.gnome-commander.gschema.xml:600
 msgid "This string defines the password for anonymous FTP connections."
 msgstr "Niz predstavlja geslo za anonimno povezavo na strežnik FTP."
 
-#: data/org.gnome.gnome-commander.gschema.xml:601
+#: data/org.gnome.gnome-commander.gschema.xml:608
 msgid "Confirm delete"
 msgstr "Zahtevaj potrditev pred brisanjem"
 
-#: data/org.gnome.gnome-commander.gschema.xml:602
+#: data/org.gnome.gnome-commander.gschema.xml:609
 msgid "Defines if deletion of an item should be confirmed."
 msgstr "Možnost določa, ali naj se brisanje predmetov uporabniško potrjuje."
 
-#: data/org.gnome.gnome-commander.gschema.xml:608
+#: data/org.gnome.gnome-commander.gschema.xml:615
 msgid "Delete default"
 msgstr "Privzeto izbriši"
 
-#: data/org.gnome.gnome-commander.gschema.xml:609
+#: data/org.gnome.gnome-commander.gschema.xml:616
 msgid "This setting defines the default active option in the delete confirmation dialog."
 msgstr "Nastavitev določa privzeto izbiro dejanja v pogovornem oknu brisanja."
 
-#: data/org.gnome.gnome-commander.gschema.xml:615
+#: data/org.gnome.gnome-commander.gschema.xml:622
 msgid "Confirm copy overwrite"
 msgstr "Zahtevaj potrditev prepisa vsebine med kopiranjem"
 
-#: data/org.gnome.gnome-commander.gschema.xml:616
+#: data/org.gnome.gnome-commander.gschema.xml:623
 msgid "This option defines the default behavior when items will be overwritten by a copy command."
 msgstr "Možnost določa privzeto dejanje, ko naj bi bili predmeti prepisani z ukazom kopiranja."
 
-#: data/org.gnome.gnome-commander.gschema.xml:622
+#: data/org.gnome.gnome-commander.gschema.xml:629
 msgid "Confirm move overwrite"
 msgstr "Zahtevaj potrditev premikanja s prepisom"
 
-#: data/org.gnome.gnome-commander.gschema.xml:623
+#: data/org.gnome.gnome-commander.gschema.xml:630
 msgid "This option defines the default behavior when items will be overwritten by a move command."
 msgstr "Možnost določa privzeto dejanje prepisovanja predmetov pri izvajanju premikanja."
 
-#: data/org.gnome.gnome-commander.gschema.xml:629
+#: data/org.gnome.gnome-commander.gschema.xml:636
 msgid "Confirm mouse drag and drop"
 msgstr "Zahtevaj potrditev dejanja povleci in spusti"
 
-#: data/org.gnome.gnome-commander.gschema.xml:630
+#: data/org.gnome.gnome-commander.gschema.xml:637
 msgid "This option defines the behavior of mouse drag and drop operations."
 msgstr "Možnost določa obnašanje miške pri uporabi opravil povleci in spusti."
 
-#: data/org.gnome.gnome-commander.gschema.xml:638
+#: data/org.gnome.gnome-commander.gschema.xml:645
 msgid "Hide unknown filetypes"
 msgstr "Skrij neznane vrste datotek"
 
-#: data/org.gnome.gnome-commander.gschema.xml:639
+#: data/org.gnome.gnome-commander.gschema.xml:646
 msgid "Hide files which type does not match to one of the other types."
 msgstr "Skrij datoteke, ki niso skladne z nobeno izmed določenih vrst."
 
-#: data/org.gnome.gnome-commander.gschema.xml:643
+#: data/org.gnome.gnome-commander.gschema.xml:650
 msgid "Hide regular files"
 msgstr "Skrij običajne datoteke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:647
+#: data/org.gnome.gnome-commander.gschema.xml:654
 msgid "Hide directories"
 msgstr "Skrij mape"
 
-#: data/org.gnome.gnome-commander.gschema.xml:651
+#: data/org.gnome.gnome-commander.gschema.xml:658
 msgid "Hide symbolic links"
 msgstr "Skrij simbolne povezave"
 
-#: data/org.gnome.gnome-commander.gschema.xml:655
+#: data/org.gnome.gnome-commander.gschema.xml:662
 msgid "Hide special files, such as a socket, fifo, block devices, or character devices."
 msgstr "Skrij posebne datoteke, kot so vtiči, bločne naprave, znakovne naprave, datoteke fifo ..."
 
-#: data/org.gnome.gnome-commander.gschema.xml:659
+#: data/org.gnome.gnome-commander.gschema.xml:666
 msgid "Hide shortcut files (Windows systems)"
 msgstr "Skrij datoteke bližnjic (Sistem Windows)"
 
-#: data/org.gnome.gnome-commander.gschema.xml:663
+#: data/org.gnome.gnome-commander.gschema.xml:670
 msgid "Hide mountable locations"
 msgstr "Skrij priklopljiva mesta"
 
-#: data/org.gnome.gnome-commander.gschema.xml:667
+#: data/org.gnome.gnome-commander.gschema.xml:674
 msgid "Hide virtual files"
 msgstr "Skrij navidezne datoteke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:671
+#: data/org.gnome.gnome-commander.gschema.xml:678
 msgid "Hide volatile files"
 msgstr "Skrij spremenljive datoteke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:675
+#: data/org.gnome.gnome-commander.gschema.xml:682
 msgid "Hide files and folders starting with a dot"
 msgstr "Skrij datoteke in mape, ki se začnejo s piko"
 
-#: data/org.gnome.gnome-commander.gschema.xml:679
+#: data/org.gnome.gnome-commander.gschema.xml:686
 msgid "Hide backup files"
 msgstr "Skrij datoteke varnostnih kopij"
 
-#: data/org.gnome.gnome-commander.gschema.xml:680
+#: data/org.gnome.gnome-commander.gschema.xml:687
 msgid "Hide all files with a suffix defined as the backup pattern."
 msgstr "Skrij datoteke s pripono, opredeljeno kot vzorec za varnostne kopije."
 
-#: data/org.gnome.gnome-commander.gschema.xml:684
+#: data/org.gnome.gnome-commander.gschema.xml:691
 msgid "Backup file pattern"
 msgstr "Vzorec datotek varnostnih kopij"
 
-#: data/org.gnome.gnome-commander.gschema.xml:685
+#: data/org.gnome.gnome-commander.gschema.xml:692
 msgid ""
 "The given string defines suffixes (separated by semicolon) for files which should be filtered out if "
 "backup files should be hidden."
@@ -815,163 +819,163 @@ msgstr ""
 "Podan niz določa pripone (ločene s podpičjem) datotek, ki so skrite, če je določena možnost skrivanja "
 "datotek varnostnih kopij."
 
-#: data/org.gnome.gnome-commander.gschema.xml:694
+#: data/org.gnome.gnome-commander.gschema.xml:701
 msgid "Do not download files"
 msgstr "Ne prejemaj datotek"
 
-#: data/org.gnome.gnome-commander.gschema.xml:695
+#: data/org.gnome.gnome-commander.gschema.xml:702
 msgid "This option defines if remote files should be downloaded before opened by external programs."
 msgstr "Možnost določa, ali naj bodo oddaljene datoteke pred odpiranjem najprej prejete krajevno."
 
-#: data/org.gnome.gnome-commander.gschema.xml:701
+#: data/org.gnome.gnome-commander.gschema.xml:708
 msgid "Use internal viewer"
 msgstr "Uporabi notranji pregledovalnik"
 
-#: data/org.gnome.gnome-commander.gschema.xml:702
+#: data/org.gnome.gnome-commander.gschema.xml:709
 msgid "This option defines if the internal viewer should be used by default."
 msgstr "Možnost določa, ali naj bo privzeto uporabljen notranji pregledovalnik."
 
-#: data/org.gnome.gnome-commander.gschema.xml:708
+#: data/org.gnome.gnome-commander.gschema.xml:715
 msgid "Viewer command"
 msgstr "Ukaz za zagon pregledovalnika"
 
-#: data/org.gnome.gnome-commander.gschema.xml:709
+#: data/org.gnome.gnome-commander.gschema.xml:716
 msgid "This string defines the command for starting the (external) viewer."
 msgstr "Niz določa ukaz za zagon (zunanjega) pregledovalnika."
 
-#: data/org.gnome.gnome-commander.gschema.xml:715
+#: data/org.gnome.gnome-commander.gschema.xml:722
 msgid "Editor command"
 msgstr "Ukaz za zagon urejevalnika"
 
-#: data/org.gnome.gnome-commander.gschema.xml:716
+#: data/org.gnome.gnome-commander.gschema.xml:723
 msgid "This string defines the command for starting the editor."
 msgstr "Niz določa ukaz, ki izvede zagon urejevalnika."
 
-#: data/org.gnome.gnome-commander.gschema.xml:722
+#: data/org.gnome.gnome-commander.gschema.xml:729
 msgid "Differ command"
 msgstr "Ukaz za primerjavo datotek"
 
-#: data/org.gnome.gnome-commander.gschema.xml:723
+#: data/org.gnome.gnome-commander.gschema.xml:730
 msgid "This string defines the command for starting the diff tool."
 msgstr "Niz določa ukaz za zagon orodja za primerjavo."
 
-#: data/org.gnome.gnome-commander.gschema.xml:729
+#: data/org.gnome.gnome-commander.gschema.xml:736
 msgid "Use internal search"
 msgstr "Uporabi notranje iskanje"
 
-#: data/org.gnome.gnome-commander.gschema.xml:730
+#: data/org.gnome.gnome-commander.gschema.xml:737
 msgid "This option defines if the internal search should be used by default."
 msgstr "Možnost določa, ali naj se privzeto uporablja notranje iskanje."
 
-#: data/org.gnome.gnome-commander.gschema.xml:736
+#: data/org.gnome.gnome-commander.gschema.xml:743
 msgid "Search command"
 msgstr "Iskalni ukaz"
 
-#: data/org.gnome.gnome-commander.gschema.xml:737
+#: data/org.gnome.gnome-commander.gschema.xml:744
 msgid "This string defines the command for starting an external file search tool."
 msgstr "Niz določa ukaz za zagon zunanjega orodja za iskanje."
 
-#: data/org.gnome.gnome-commander.gschema.xml:743
+#: data/org.gnome.gnome-commander.gschema.xml:750
 msgid "Command for opening a terminal"
 msgstr "Ukaz za odpiranje terminala"
 
-#: data/org.gnome.gnome-commander.gschema.xml:744
+#: data/org.gnome.gnome-commander.gschema.xml:751
 msgid "This string defines the command for opening a terminal."
 msgstr "Možnost določa ukaz za zagon terminala."
 
-#: data/org.gnome.gnome-commander.gschema.xml:750
+#: data/org.gnome.gnome-commander.gschema.xml:757
 msgid "Command for execution in terminal"
 msgstr "Ukaz za izvedbo v terminalu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:751
+#: data/org.gnome.gnome-commander.gschema.xml:758
 msgid "This string defines the command for executing another command in a terminal."
 msgstr "Niz določa ukaz, ki izvede drug ukaz v oknu terminala."
 
-#: data/org.gnome.gnome-commander.gschema.xml:757
+#: data/org.gnome.gnome-commander.gschema.xml:764
 msgid "Send to command"
 msgstr "Ukaz za pošiljanje"
 
-#: data/org.gnome.gnome-commander.gschema.xml:758
+#: data/org.gnome.gnome-commander.gschema.xml:765
 msgid "This string defines the command for sending files to a receiver."
 msgstr "Niz določa ukaz za pošiljanje datotek na prejemnik."
 
-#: data/org.gnome.gnome-commander.gschema.xml:766
+#: data/org.gnome.gnome-commander.gschema.xml:773
 msgid "Color theme"
 msgstr "Barvna tema"
 
-#: data/org.gnome.gnome-commander.gschema.xml:767
+#: data/org.gnome.gnome-commander.gschema.xml:774
 msgid "This option defines the current color theme."
 msgstr "Možnost določa trenutno barvno temo."
 
-#: data/org.gnome.gnome-commander.gschema.xml:773
+#: data/org.gnome.gnome-commander.gschema.xml:780
 msgid "Normal foreground color"
 msgstr "Običajna barva pisave"
 
-#: data/org.gnome.gnome-commander.gschema.xml:774
+#: data/org.gnome.gnome-commander.gschema.xml:781
 msgid "Normal foreground color in custom mode."
 msgstr "Običajna barva pisave pri uporabi sheme po meri."
 
-#: data/org.gnome.gnome-commander.gschema.xml:780
+#: data/org.gnome.gnome-commander.gschema.xml:787
 msgid "Normal background color"
 msgstr "Običajna barva ozadja"
 
-#: data/org.gnome.gnome-commander.gschema.xml:781
+#: data/org.gnome.gnome-commander.gschema.xml:788
 msgid "Normal background color in custom mode."
 msgstr "Običajna barva ozadja pri uporabi sheme po meri."
 
-#: data/org.gnome.gnome-commander.gschema.xml:787
+#: data/org.gnome.gnome-commander.gschema.xml:794
 msgid "Alternate foreground color"
 msgstr "Druga barva pisave"
 
-#: data/org.gnome.gnome-commander.gschema.xml:788
+#: data/org.gnome.gnome-commander.gschema.xml:795
 msgid "Alternate foreground color in custom mode."
 msgstr "Druga barva pisave pri uporabi sheme po meri."
 
-#: data/org.gnome.gnome-commander.gschema.xml:794
+#: data/org.gnome.gnome-commander.gschema.xml:801
 msgid "Alternate background color"
 msgstr "Druga barva ozadja"
 
-#: data/org.gnome.gnome-commander.gschema.xml:795
+#: data/org.gnome.gnome-commander.gschema.xml:802
 msgid "Alternate background color in custom mode."
 msgstr "Druga barva ozadja pri uporabi sheme po meri."
 
-#: data/org.gnome.gnome-commander.gschema.xml:801
+#: data/org.gnome.gnome-commander.gschema.xml:808
 msgid "Selection foreground color"
 msgstr "Barva ospredja izbora"
 
-#: data/org.gnome.gnome-commander.gschema.xml:802
+#: data/org.gnome.gnome-commander.gschema.xml:809
 msgid "Foreground color for selections in custom mode."
 msgstr "Barva pisave izbora v seznamu pri uporabi sheme po meri."
 
-#: data/org.gnome.gnome-commander.gschema.xml:808
+#: data/org.gnome.gnome-commander.gschema.xml:815
 msgid "Selection background color"
 msgstr "Barva ozadja izbora"
 
-#: data/org.gnome.gnome-commander.gschema.xml:809
+#: data/org.gnome.gnome-commander.gschema.xml:816
 msgid "Background color for selections in custom mode."
 msgstr "Barva ozadja izbora v seznamu pri uporabi sheme po meri."
 
-#: data/org.gnome.gnome-commander.gschema.xml:815
+#: data/org.gnome.gnome-commander.gschema.xml:822
 msgid "Cursor foreground color"
 msgstr "Barva ospredja kazalke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:816
+#: data/org.gnome.gnome-commander.gschema.xml:823
 msgid "Cursor foreground color in custom mode."
 msgstr "Barva ospredja kazalke v shemi po meri."
 
-#: data/org.gnome.gnome-commander.gschema.xml:822
+#: data/org.gnome.gnome-commander.gschema.xml:829
 msgid "Cursor background color"
 msgstr "Barva ozadja kazalke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:823
+#: data/org.gnome.gnome-commander.gschema.xml:830
 msgid "Cursor background color in custom mode."
 msgstr "Barva ozadja kazalke v shemi po meri."
 
-#: data/org.gnome.gnome-commander.gschema.xml:829
+#: data/org.gnome.gnome-commander.gschema.xml:836
 msgid "Use LS colors"
 msgstr "Uporabi barvno paleto LS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:830
+#: data/org.gnome.gnome-commander.gschema.xml:837
 msgid ""
 "This option triggers if the value of the environment variable LS_COLORS should be used to dye files and "
 "folders."
@@ -979,147 +983,147 @@ msgstr ""
 "Možnost sproži izbor vrednosti okoljske spremenljivke LS_COLORS, ki je nato uporabljena za barvo datotek "
 "in map."
 
-#: data/org.gnome.gnome-commander.gschema.xml:837
+#: data/org.gnome.gnome-commander.gschema.xml:844
 msgid "LS_COLORS black foreground mapping"
 msgstr "Preslikava črnega ospredja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:838
+#: data/org.gnome.gnome-commander.gschema.xml:845
 msgid "This option adjusts the foreground color mapping for LS_COLORS black value."
 msgstr "Možnost prilagodi preslikavo vrednosti črne barve v shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:844
+#: data/org.gnome.gnome-commander.gschema.xml:851
 msgid "LS_COLORS black background mapping"
 msgstr "Preslikava črnega ozadja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:845
+#: data/org.gnome.gnome-commander.gschema.xml:852
 msgid "This option adjusts the background color mapping for LS_COLORS black value."
 msgstr "Možnost prilagodi preslikavo vrednosti črne barve ozadja shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:851
+#: data/org.gnome.gnome-commander.gschema.xml:858
 msgid "LS_COLORS red foreground mapping"
 msgstr "Preslikava rdečega ospredja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:852
+#: data/org.gnome.gnome-commander.gschema.xml:859
 msgid "This option adjusts the foreground color mapping for LS_COLORS red value."
 msgstr "Možnost prilagodi preslikavo vrednosti rdeče barve v shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:858
+#: data/org.gnome.gnome-commander.gschema.xml:865
 msgid "LS_COLORS red background mapping"
 msgstr "Preslikava rdečega ozadja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:859
+#: data/org.gnome.gnome-commander.gschema.xml:866
 msgid "This option adjusts the background color mapping for LS_COLORS red value."
 msgstr "Možnost prilagodi preslikavo vrednosti rdeče barve ozadja shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:865
+#: data/org.gnome.gnome-commander.gschema.xml:872
 msgid "LS_COLORS green foreground mapping"
 msgstr "Preslikava zelenega ospredja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:866
+#: data/org.gnome.gnome-commander.gschema.xml:873
 msgid "This option adjusts the foreground color mapping for LS_COLORS green value."
 msgstr "Možnost prilagodi preslikavo vrednosti zelene barve v shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:872
+#: data/org.gnome.gnome-commander.gschema.xml:879
 msgid "LS_COLORS green background mapping"
 msgstr "Preslikava zelenega ozadja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:873
+#: data/org.gnome.gnome-commander.gschema.xml:880
 msgid "This option adjusts the background color mapping for LS_COLORS green value."
 msgstr "Možnost prilagodi preslikavo vrednosti zelene barve ozadja shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:879
+#: data/org.gnome.gnome-commander.gschema.xml:886
 msgid "LS_COLORS yellow foreground mapping"
 msgstr "Preslikava rumenega ospredja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:880
+#: data/org.gnome.gnome-commander.gschema.xml:887
 msgid "This option adjusts the foreground color mapping for LS_COLORS yellow value."
 msgstr "Možnost prilagodi preslikavo vrednosti rumene barve v shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:886
+#: data/org.gnome.gnome-commander.gschema.xml:893
 msgid "LS_COLORS yellow background mapping"
 msgstr "Preslikava rumenega ozadja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:887
+#: data/org.gnome.gnome-commander.gschema.xml:894
 msgid "This option adjusts the background color mapping for LS_COLORS yellow value."
 msgstr "Možnost prilagodi preslikavo vrednosti rumene barve ozadja shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:893
+#: data/org.gnome.gnome-commander.gschema.xml:900
 msgid "LS_COLORS blue foreground mapping"
 msgstr "Preslikava modrega ospredja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:894
+#: data/org.gnome.gnome-commander.gschema.xml:901
 msgid "This option adjusts the foreground color mapping for LS_COLORS blue value."
 msgstr "Možnost prilagodi preslikavo vrednosti modre barve v shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:900
+#: data/org.gnome.gnome-commander.gschema.xml:907
 msgid "LS_COLORS blue background mapping"
 msgstr "Preslikava modrega ozadja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:901
+#: data/org.gnome.gnome-commander.gschema.xml:908
 msgid "This option adjusts the background color mapping for LS_COLORS blue value."
 msgstr "Možnost prilagodi preslikavo vrednosti modre barve ozadja shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:907
+#: data/org.gnome.gnome-commander.gschema.xml:914
 msgid "LS_COLORS magenta foreground mapping"
 msgstr "Preslikava škrlatnega ospredja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:908
+#: data/org.gnome.gnome-commander.gschema.xml:915
 msgid "This option adjusts the foreground color mapping for LS_COLORS magenta value."
 msgstr "Možnost prilagodi preslikavo vrednosti škrlatne barve v shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:914
+#: data/org.gnome.gnome-commander.gschema.xml:921
 msgid "LS_COLORS magenta background mapping"
 msgstr "Preslikava škrlatnega ozadja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:915
+#: data/org.gnome.gnome-commander.gschema.xml:922
 msgid "This option adjusts the background color mapping for LS_COLORS magenta value."
 msgstr "Možnost prilagodi preslikavo vrednosti škrlatne barve ozadja shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:921
+#: data/org.gnome.gnome-commander.gschema.xml:928
 msgid "LS_COLORS cyan foreground mapping"
 msgstr "Preslikava sinjeg ospredja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:922
+#: data/org.gnome.gnome-commander.gschema.xml:929
 msgid "This option adjusts the foreground color mapping for LS_COLORS cyan value."
 msgstr "Možnost prilagodi preslikavo vrednosti sinje barve v shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:928
+#: data/org.gnome.gnome-commander.gschema.xml:935
 msgid "LS_COLORS cyan background mapping"
 msgstr "Preslikava sinjega ozadja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:929
+#: data/org.gnome.gnome-commander.gschema.xml:936
 msgid "This option adjusts the background color mapping for LS_COLORS cyan value."
 msgstr "Možnost prilagodi preslikavo vrednosti sinje barve ozadja shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:935
+#: data/org.gnome.gnome-commander.gschema.xml:942
 msgid "LS_COLORS white foreground mapping"
 msgstr "Preslikava belega ospredja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:936
+#: data/org.gnome.gnome-commander.gschema.xml:943
 msgid "This option adjusts the foreground color mapping for LS_COLORS white value."
 msgstr "Možnost prilagodi preslikavo vrednosti bele barve v shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:942
+#: data/org.gnome.gnome-commander.gschema.xml:949
 msgid "LS_COLORS white background mapping"
 msgstr "Preslikava belega ozadja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:943
+#: data/org.gnome.gnome-commander.gschema.xml:950
 msgid "This option adjusts the background color mapping for LS_COLORS white value."
 msgstr "Možnost prilagodi preslikavo vrednosti bele barve ozadja shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:951
+#: data/org.gnome.gnome-commander.gschema.xml:958
 msgid "Case sensitive search"
 msgstr "Išči z upoštevanjem velikosti črk"
 
-#: data/org.gnome.gnome-commander.gschema.xml:952
+#: data/org.gnome.gnome-commander.gschema.xml:959
 msgid "This option defines if searching within the internal viewer is case sensitive."
 msgstr "Možnost določa, ali naj iskanje v notranjem pregledovalniku upošteva velikost črk."
 
-#: data/org.gnome.gnome-commander.gschema.xml:958
+#: data/org.gnome.gnome-commander.gschema.xml:965
 msgid "Search mode"
 msgstr "Iskalni način"
 
-#: data/org.gnome.gnome-commander.gschema.xml:959
+#: data/org.gnome.gnome-commander.gschema.xml:966
 msgid "This option defines the search mode of the internal viewer."
 msgstr "Možnost določa iskalni način notranjega pregledovalnika."
 
@@ -1128,136 +1132,136 @@ msgstr "Možnost določa iskalni način notranjega pregledovalnika."
 #. an encoding that is common in your country.
 #. See https://gitlab.gnome.org/GNOME/gnome-commander/-/blob/main/src/intviewer/window.rs#L776 for
 #. a list of supported encodings.
-#: data/org.gnome.gnome-commander.gschema.xml:969
+#: data/org.gnome.gnome-commander.gschema.xml:976
 msgid "'UTF8'"
 msgstr "'UTF8'"
 
-#: data/org.gnome.gnome-commander.gschema.xml:970
+#: data/org.gnome.gnome-commander.gschema.xml:977
 msgid "Character set"
 msgstr "Znakovni nabor"
 
-#: data/org.gnome.gnome-commander.gschema.xml:971
+#: data/org.gnome.gnome-commander.gschema.xml:978
 msgid "This option defines the default character encoding."
 msgstr "Možnost določa privzet kodni nabor znakov."
 
-#: data/org.gnome.gnome-commander.gschema.xml:977
+#: data/org.gnome.gnome-commander.gschema.xml:984
 msgid "Fixed font name"
 msgstr "Pisava določene širine"
 
-#: data/org.gnome.gnome-commander.gschema.xml:978
+#: data/org.gnome.gnome-commander.gschema.xml:985
 msgid "Name of the default font with fixed character width."
 msgstr "Ime privzete pisave določene širine."
 
-#: data/org.gnome.gnome-commander.gschema.xml:984
+#: data/org.gnome.gnome-commander.gschema.xml:991
 msgid "Variable font name"
 msgstr "Pisava spremenljive širine"
 
-#: data/org.gnome.gnome-commander.gschema.xml:985
+#: data/org.gnome.gnome-commander.gschema.xml:992
 msgid "Name of the default font with variable character width."
 msgstr "Ime privzete pisave spremenljive širine."
 
-#: data/org.gnome.gnome-commander.gschema.xml:991
+#: data/org.gnome.gnome-commander.gschema.xml:998
 msgid "Display hex offset"
 msgstr "Pokaži šestnajstiški zamik"
 
-#: data/org.gnome.gnome-commander.gschema.xml:992
+#: data/org.gnome.gnome-commander.gschema.xml:999
 msgid "This option defines if the hexadecimal offset should be displayed in hex mode."
 msgstr "Možnost določa šestnajstiški odmik notranjega pregledovalnika v šestnajstiškem načinu pogleda."
 
-#: data/org.gnome.gnome-commander.gschema.xml:998
+#: data/org.gnome.gnome-commander.gschema.xml:1005
 msgid "Wrap mode"
 msgstr "Način preloma"
 
-#: data/org.gnome.gnome-commander.gschema.xml:999
+#: data/org.gnome.gnome-commander.gschema.xml:1006
 msgid "This option defines if too long text lines should be wrapped."
 msgstr "Možnost določa, ali naj se predolge besedilne vrstice prelomijo po določenem številu znakov."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1005
+#: data/org.gnome.gnome-commander.gschema.xml:1012
 msgid "Font size"
 msgstr "Velikost pisave"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1006
+#: data/org.gnome.gnome-commander.gschema.xml:1013
 msgid "This option defines the default font size."
 msgstr "Možnost določa privzeto velikost pisave."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1012
+#: data/org.gnome.gnome-commander.gschema.xml:1019
 msgid "Tab size"
 msgstr "Velikost zamika tabulatorja"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1013
+#: data/org.gnome.gnome-commander.gschema.xml:1020
 msgid "This option defines the indentation width in terms of characters for a tabulator character."
 msgstr "Možnost določa širino zamika kot število znakov za znake tabulatorja."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1019
+#: data/org.gnome.gnome-commander.gschema.xml:1026
 msgid "Bytes per line in binary mode"
 msgstr "Število bajtov v vrstici v dvojiškem načinu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1020
+#: data/org.gnome.gnome-commander.gschema.xml:1027
 msgid "This option defines how many bytes should be displayed in one line in binary mode."
 msgstr "Možnost določa velikost prikazane vrstice dvojiškega izpisa v bajtih."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1026
+#: data/org.gnome.gnome-commander.gschema.xml:1033
 msgid "Metadata view"
 msgstr "Metapodatkovni pogled"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1027
+#: data/org.gnome.gnome-commander.gschema.xml:1034
 msgid "This option defines if metadata should be visible."
 msgstr "Možnost določa, ali naj bodo metapodatki prikazani."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1033
+#: data/org.gnome.gnome-commander.gschema.xml:1040
 msgid "Window width"
 msgstr "Širina okna"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1034
+#: data/org.gnome.gnome-commander.gschema.xml:1041
 msgid "The width of the internal file viewer window."
 msgstr "Določa širino okna notranjega pregledovalnika."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1040
+#: data/org.gnome.gnome-commander.gschema.xml:1047
 msgid "Window height"
 msgstr "Višina okna"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1041
+#: data/org.gnome.gnome-commander.gschema.xml:1048
 msgid "The height of the internal file viewer window."
 msgstr "Določa višino okna notranjega pregledovalnika."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1047
+#: data/org.gnome.gnome-commander.gschema.xml:1054
 msgid "Search pattern for text"
 msgstr "Iskalni niz besedila"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1048
+#: data/org.gnome.gnome-commander.gschema.xml:1055
 msgid "This string array stores the history of text searches within the internal file viewer."
 msgstr "Niz določa shranjeno zgodovino besedilnih iskanj v notranjem pregledovalniku datotek."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1054
+#: data/org.gnome.gnome-commander.gschema.xml:1061
 msgid "Search pattern for hex values"
 msgstr "Iskalni niz šestnajstiške vrednosti"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1055
+#: data/org.gnome.gnome-commander.gschema.xml:1062
 msgid "This string array stores the history of searches for hex values within the internal file viewer."
 msgstr ""
 "Niz določa shranjeno zgodovina iskanj za šestnajstiške vrednosti v notranjem pregledovalniku datotek."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1063
+#: data/org.gnome.gnome-commander.gschema.xml:1070
 msgid "File suffix"
 msgstr "Pripona datoteke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1064
+#: data/org.gnome.gnome-commander.gschema.xml:1071
 msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr "Privzeta pripona arhivov, ki so ustvarjeni z vstavkom File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1070
+#: data/org.gnome.gnome-commander.gschema.xml:1077
 msgid "Prefix pattern"
 msgstr "Vzorec predpone"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1071
+#: data/org.gnome.gnome-commander.gschema.xml:1078
 msgid "The prefix pattern is used to build up the name for an archive created with the File Roller plugin."
 msgstr "Vzorec predpone se uporablja za izgradnjo imena arhiva, ustvarjenega z vstavkom File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1079
+#: data/org.gnome.gnome-commander.gschema.xml:1086
 msgid "Automatically loaded plugins"
 msgstr "Samodejno naloži vstavke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1080
+#: data/org.gnome.gnome-commander.gschema.xml:1087
 msgid ""
 "This is the list of automatically loaded plugins, whereas each entry represents the file name of the "
 "plugin."
@@ -1342,7 +1346,7 @@ msgid "Name of the author."
 msgstr "Ime avtorja."
 
 #: plugins/exiv2/exiv2-plugin.cc:87 plugins/taglib/taglib-plugin.cc:191
-#: src/advanced_rename/advanced_rename_dialog.rs:431 src/advanced_rename/profile_component.rs:225
+#: src/advanced_rename/advanced_rename_dialog.rs:429 src/advanced_rename/profile_component.rs:225
 #: src/advanced_rename/profile_component.rs:679
 msgid "Date"
 msgstr "Datum"
@@ -1720,13 +1724,13 @@ msgid ""
 "not necessary. The ID code for the <Exif.UserComment> area may be a Defined code such as JIS or ASCII, or "
 "may be Undefined. The Undefined name is UndefinedText, and the ID code is filled with 8 bytes of all "
 "“NULL” (“00.H”). An Exif reader that reads the <Exif.UserComment> tag must have a function for "
-"determining the ID code. This function is not required in Exif readers that do not use the <Exif."
-"UserComment> tag. When a <Exif.UserComment> area is set aside, it is recommended that the ID code be "
-"ASCII and that the following user comment part be filled with blank characters [20.H]."
+"determining the ID code. This function is not required in Exif readers that do not use the "
+"<Exif.UserComment> tag. When a <Exif.UserComment> area is set aside, it is recommended that the ID code "
+"be ASCII and that the following user comment part be filled with blank characters [20.H]."
 msgstr ""
 "Oznaka za uporabnike določil Exif, s katerimi je mogoče ob ključnih besedah in komentarjih k sliki "
-"zapisati tudi druge oznake <Exif.ImageDescription> in brez omejitev znakovne kode oznake <Exif."
-"ImageDescription>. Znakovna koda, uporabljena v oznaki <Exif.UserComment>, je določena na podlagi "
+"zapisati tudi druge oznake <Exif.ImageDescription> in brez omejitev znakovne kode oznake "
+"<Exif.ImageDescription>. Znakovna koda, uporabljena v oznaki <Exif.UserComment>, je določena na podlagi "
 "identifikacijske kode v stalnem 8-bajtnem območju na začetku podatkovnega območja oznake. Neizkoriščeni "
 "del območja je zapolnjen z NULL (\"00.h\"). ID določila se dodelijo z registracijo. Vrednost CountN se "
 "določi na podlagi 8 bajtov v območju kod znakov in števila bajtov v delu z uporabniškim komentarjem. Ker "
@@ -1815,10 +1819,10 @@ msgstr "Nastavitev enot"
 #: plugins/exiv2/exiv2-plugin.cc:135
 msgid ""
 "Information specific to compressed data. The channels of each component are arranged in order from the "
-"1st component to the 4th. For uncompressed data the data arrangement is given in the <Exif."
-"PhotometricInterpretation> tag. However, since <Exif.PhotometricInterpretation> can only express the "
-"order of Y, Cb and Cr, this tag is provided for cases when compressed data uses components other than Y, "
-"Cb, and Cr and to enable support of other sequences."
+"1st component to the 4th. For uncompressed data the data arrangement is given in the "
+"<Exif.PhotometricInterpretation> tag. However, since <Exif.PhotometricInterpretation> can only express "
+"the order of Y, Cb and Cr, this tag is provided for cases when compressed data uses components other than "
+"Y, Cb, and Cr and to enable support of other sequences."
 msgstr ""
 "Podrobnosti značilne za stisnjene podatke. Vrednosti posamezne barve so urejene v vrsti od prve do "
 "četrte. Nestisnjeni podatki so urejeni v oznaki <Exif.PhotometricInterpretation>, vendar pa so urejeni le "
@@ -2054,8 +2058,8 @@ msgid ""
 "places, the format is dd/1,mmmm/100,0/1."
 msgstr ""
 "Določa geografsko širino, ki je izražena s tremi racionalnimi vrednostmi ločeno za stopinje, minute in "
-"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,"
-"mmmm/100,0/1."
+"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,mmmm/"
+"100,0/1."
 
 #: plugins/exiv2/exiv2-plugin.cc:159
 msgid "North or South Latitude"
@@ -2076,13 +2080,13 @@ msgstr "Zemljepisna dolžina"
 #: plugins/exiv2/exiv2-plugin.cc:160
 msgid ""
 "Indicates the longitude. The longitude is expressed as three RATIONAL values giving the degrees, minutes, "
-"and seconds, respectively. When degrees, minutes and seconds are expressed, the format is ddd/1,mm/1,"
-"ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up to two "
-"decimal places, the format is ddd/1,mmmm/100,0/1."
+"and seconds, respectively. When degrees, minutes and seconds are expressed, the format is ddd/1,mm/1,ss/"
+"1. When degrees and minutes are used and, for example, fractions of minutes are given up to two decimal "
+"places, the format is ddd/1,mmmm/100,0/1."
 msgstr ""
 "Določa geografsko dolžino, ki je izražena s tremi racionalnimi vrednostmi ločeno za stopinje, minute in "
-"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,"
-"mmmm/100,0/1."
+"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,mmmm/"
+"100,0/1."
 
 #: plugins/exiv2/exiv2-plugin.cc:161
 msgid "East or West Longitude"
@@ -2104,8 +2108,8 @@ msgstr "Različica oznake GPS"
 msgid ""
 "Indicates the version of <Exif.GPS.InfoIFD>. This tag is mandatory when <Exif.GPS.Info> tag is present."
 msgstr ""
-"Določa različico <Exif.GPS.InfoIFD>. Oznaka je obvezna v primeru, če je določena tudi vrednost <Exif.GPS."
-"Info>."
+"Določa različico <Exif.GPS.InfoIFD>. Oznaka je obvezna v primeru, če je določena tudi vrednost "
+"<Exif.GPS.Info>."
 
 #: plugins/exiv2/exiv2-plugin.cc:163
 msgid "Image Description"
@@ -2383,8 +2387,8 @@ msgstr "Enota ločljivosti"
 
 #: plugins/exiv2/exiv2-plugin.cc:189
 msgid ""
-"The unit for measuring <Exif.XResolution> and <Exif.YResolution>. The same unit is used for both <Exif."
-"XResolution> and <Exif.YResolution>. If the image resolution is unknown, 2 (inches) is designated."
+"The unit for measuring <Exif.XResolution> and <Exif.YResolution>. The same unit is used for both "
+"<Exif.XResolution> and <Exif.YResolution>. If the image resolution is unknown, 2 (inches) is designated."
 msgstr ""
 "Enota za merjenje <Exif.XResolution> in <Exif.YResolution>. Enaka enota je določena za obe vrednosti. V "
 "primeru, da ločljivost slike ni znana, je določena vrednost 5.1 centimetra."
@@ -2430,8 +2434,8 @@ msgid ""
 "The type of scene that was shot. It can also be used to record the mode in which the image was shot. Note "
 "that this differs from <Exif.SceneType> tag."
 msgstr ""
-"Vrsta slikane scene. Lahko se uporablja kot oznaka načina zajemanja slike. Oznaka ni enaka oznaki <Exif."
-"SceneType>."
+"Vrsta slikane scene. Lahko se uporablja kot oznaka načina zajemanja slike. Oznaka ni enaka oznaki "
+"<Exif.SceneType>."
 
 #: plugins/exiv2/exiv2-plugin.cc:194
 msgid "Scene Type"
@@ -2619,8 +2623,8 @@ msgid ""
 "The chromaticity of the white point of the image. Normally this tag is not necessary, since color space "
 "is specified in <Exif.ColorSpace> tag."
 msgstr ""
-"Barvitost belih točk na sliki. Običajno oznaka ni zahtevana, saj je barvni prostor določen v oznaki <Exif."
-"ColorSpace>."
+"Barvitost belih točk na sliki. Običajno oznaka ni zahtevana, saj je barvni prostor določen v oznaki "
+"<Exif.ColorSpace>."
 
 #: plugins/exiv2/exiv2-plugin.cc:214
 msgid "XML Packet"
@@ -2652,8 +2656,8 @@ msgstr "YCbCr prilagajanje"
 #: plugins/exiv2/exiv2-plugin.cc:216
 msgid ""
 "The position of chrominance components in relation to the luminance component. This field is designated "
-"only for JPEG compressed data or uncompressed YCbCr data. The TIFF default is 1 (centered); but when Y:Cb:"
-"Cr = 4:2:2 it is recommended that 2 (co-sited) be used to record data, in order to improve the image "
+"only for JPEG compressed data or uncompressed YCbCr data. The TIFF default is 1 (centered); but when "
+"Y:Cb:Cr = 4:2:2 it is recommended that 2 (co-sited) be used to record data, in order to improve the image "
 "quality when viewed on TV systems. When this field does not exist, the reader shall assume the TIFF "
 "default. In the case of Y:Cb:Cr = 4:2:0, the TIFF default (centered) is recommended. If the reader does "
 "not have the capability of supporting both kinds of <Exif.YCbCrPositioning>, it shall follow the TIFF "
@@ -2661,8 +2665,8 @@ msgid ""
 "centered and co-sited positioning."
 msgstr ""
 "Lega barvitosti v povezavi z osvetljenostjo slike. Polje določa vrednost le za stisnjene JPEG podatke ali "
-"nestisnjene podatke YCbCr. Privzeta TIFF vrednosti je 1 (sredinjeno); vendar je priporočena za razmerje Y:"
-"Cb:Cr = 4:2:2 vrednost 2 za shranjevanje podatkov, z namenom izboljšanja kakovosti slike pri "
+"nestisnjene podatke YCbCr. Privzeta TIFF vrednosti je 1 (sredinjeno); vendar je priporočena za razmerje "
+"Y:Cb:Cr = 4:2:2 vrednost 2 za shranjevanje podatkov, z namenom izboljšanja kakovosti slike pri "
 "pregledovanju preko TV zaslonov. V primeru, da polje ne obstaja, bralnik slik privzame vrednost 1. V "
 "primeru razmerja Y:Cb:Cr = 4:2:0, je prav tako priporočena vrednost 1. V primeru, da bralnik slik ne "
 "podpira obeh vrst podatkov <Exif.YCbCrPositioning>, sledi privzeti TIFF vrednosti neodvisno od vrednosti "
@@ -3379,18 +3383,18 @@ msgid "What file name should the new archive have?"
 msgstr "Kakšno ime naj ima nov arhiv?"
 
 #: plugins/fileroller/file-roller-plugin.cc:443 src/advanced_rename/profile_component.rs:1041
-#: src/advanced_rename/regex_dialog.rs:117 src/dialogs/chmod_dialog.rs:151 src/dialogs/chown_dialog.rs:122
+#: src/advanced_rename/regex_dialog.rs:117 src/dialogs/chmod_dialog.rs:148 src/dialogs/chown_dialog.rs:119
 #: src/dialogs/connect_dialog.rs:186 src/dialogs/create_symlink_dialog.rs:52 src/dialogs/delete_dialog.rs:89
 #: src/dialogs/edit_bookmark_dialog.rs:93 src/dialogs/file_properties_dialog.rs:144
-#: src/dialogs/make_copy_dialog.rs:68 src/dialogs/mkdir_dialog.rs:103 src/dialogs/new_text_file.rs:88
-#: src/dialogs/open_with_other_dialog.rs:57 src/dialogs/options/app_dialog.rs:186
-#: src/dialogs/options/device_dialog.rs:115 src/dialogs/options/edit_palette_dialog.rs:172
-#: src/dialogs/options/options_dialog.rs:119 src/dialogs/pattern_selection_dialog.rs:91
+#: src/dialogs/make_copy_dialog.rs:66 src/dialogs/mkdir_dialog.rs:100 src/dialogs/new_text_file.rs:85
+#: src/dialogs/open_with_other_dialog.rs:54 src/dialogs/options/app_dialog.rs:183
+#: src/dialogs/options/device_dialog.rs:112 src/dialogs/options/edit_palette_dialog.rs:172
+#: src/dialogs/options/options_dialog.rs:119 src/dialogs/pattern_selection_dialog.rs:88
 #: src/dialogs/prepare_transfer_dialog.rs:86 src/dialogs/profiles/edit_profile_dialog.rs:103
 #: src/dialogs/profiles/manage_profiles_dialog.rs:251 src/dialogs/shortcuts/shortcut_dialog.rs:172
-#: src/dialogs/shortcuts/shortcut_dialog.rs:387 src/dialogs/shortcuts/shortcuts_dialog.rs:191
-#: src/dialogs/transfer_progress_dialog.rs:83 src/dirlist.rs:58 src/file_selector.rs:1450
-#: src/intviewer/search_dialog.rs:63 src/open_connection.rs:48 src/open_file.rs:40 src/open_file.rs:62
+#: src/dialogs/shortcuts/shortcut_dialog.rs:384 src/dialogs/shortcuts/shortcuts_dialog.rs:188
+#: src/dialogs/transfer_progress_dialog.rs:86 src/dirlist.rs:59 src/file_selector.rs:1657
+#: src/intviewer/search_dialog.rs:63 src/open_connection.rs:49 src/open_file.rs:40 src/open_file.rs:62
 #: src/user_actions.rs:852
 msgid "_Cancel"
 msgstr "Pre_kliči"
@@ -4367,7 +4371,7 @@ msgstr "Časovno usklajevanje dogodkov"
 msgid "Event timing codes."
 msgstr "Kode časovnega usklajevanja"
 
-#: plugins/taglib/taglib-plugin.cc:198 src/dialogs/chown_dialog.rs:100
+#: plugins/taglib/taglib-plugin.cc:198 src/dialogs/chown_dialog.rs:97
 msgid "File Owner"
 msgstr "Lastnik datoteke"
 
@@ -4967,85 +4971,85 @@ msgstr "Vstavek za pridobivanje metapodatkov z uporabo knjižnice TagLib."
 msgid "This is an example plugin that is mostly useful as a simple example for aspiring plugin hackers"
 msgstr "To je preizkusni vstavek za prikaz delovanja"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:357
+#: src/advanced_rename/advanced_rename_dialog.rs:355
 msgid "Profiles…"
 msgstr "Profili …"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:375
+#: src/advanced_rename/advanced_rename_dialog.rs:373
 msgid "Advanced Rename Tool"
 msgstr "Napredno preimenovanje"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:408
+#: src/advanced_rename/advanced_rename_dialog.rs:406
 msgid "Old name"
 msgstr "Staro ime"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:416
+#: src/advanced_rename/advanced_rename_dialog.rs:414
 msgid "New name"
 msgstr "Novo ime"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:424 src/tags/basic.rs:66
+#: src/advanced_rename/advanced_rename_dialog.rs:422 src/tags/basic.rs:66
 msgid "Size"
 msgstr "Velikost"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:448
+#: src/advanced_rename/advanced_rename_dialog.rs:446
 msgid "Results"
 msgstr "Rezultati"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:530 src/dialogs/connect_dialog.rs:168
+#: src/advanced_rename/advanced_rename_dialog.rs:528 src/dialogs/connect_dialog.rs:168
 #: src/dialogs/file_properties_dialog.rs:132 src/dialogs/manage_bookmarks_dialog.rs:205
-#: src/dialogs/mkdir_dialog.rs:93 src/dialogs/options/device_dialog.rs:111
+#: src/dialogs/mkdir_dialog.rs:90 src/dialogs/options/device_dialog.rs:108
 #: src/dialogs/options/options_dialog.rs:115 src/dialogs/profiles/edit_profile_dialog.rs:69
 #: src/dialogs/profiles/manage_profiles_dialog.rs:229 src/dialogs/remote_dialog.rs:164
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:177 src/intviewer/window.rs:897 src/main_win.rs:1685
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:174 src/intviewer/window.rs:897 src/main_win.rs:1689
 #: src/search/search_dialog.rs:368
 msgid "_Help"
 msgstr "Pomo_č"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:544 src/dialogs/profiles/edit_profile_dialog.rs:88
+#: src/advanced_rename/advanced_rename_dialog.rs:542 src/dialogs/profiles/edit_profile_dialog.rs:88
 msgid "Reset"
 msgstr "Ponastavi"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:559 src/dialogs/about_plugin.rs:133
-#: src/dialogs/manage_bookmarks_dialog.rs:209 src/dialogs/options/edit_colors_dialog.rs:159
+#: src/advanced_rename/advanced_rename_dialog.rs:557 src/dialogs/about_plugin.rs:133
+#: src/dialogs/manage_bookmarks_dialog.rs:209 src/dialogs/options/edit_colors_dialog.rs:162
 #: src/dialogs/remote_dialog.rs:176 src/intviewer/window.rs:736 src/plugin_manager.rs:429
 #: src/search/search_dialog.rs:382
 msgid "_Close"
 msgstr "_Zapri"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:572
+#: src/advanced_rename/advanced_rename_dialog.rs:570
 msgid "_Apply"
 msgstr "_Uveljavi"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:829 src/search/search_dialog.rs:528
+#: src/advanced_rename/advanced_rename_dialog.rs:812 src/search/search_dialog.rs:515
 msgid "New profile"
 msgstr "Nov profil"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:840 src/advanced_rename/advanced_rename_dialog.rs:866
-#: src/search/search_dialog.rs:536
+#: src/advanced_rename/advanced_rename_dialog.rs:823 src/advanced_rename/advanced_rename_dialog.rs:849
+#: src/search/search_dialog.rs:523
 msgid "Profiles"
 msgstr "Profili"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1087 src/search/search_dialog.rs:484
+#: src/advanced_rename/advanced_rename_dialog.rs:1070 src/search/search_dialog.rs:471
 msgid "_Save Profile As…"
 msgstr "_Shrani profil kot …"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1094 src/search/search_dialog.rs:493
+#: src/advanced_rename/advanced_rename_dialog.rs:1077 src/search/search_dialog.rs:480
 msgid "_Manage Profiles…"
 msgstr "_Upravljaj profile …"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1122
+#: src/advanced_rename/advanced_rename_dialog.rs:1105
 msgid "Remove from file list"
 msgstr "Odstrani s seznama datotek"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1125
+#: src/advanced_rename/advanced_rename_dialog.rs:1108
 msgid "View file"
 msgstr "Pogled datoteke"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1126
+#: src/advanced_rename/advanced_rename_dialog.rs:1109
 msgid "File properties"
 msgstr "Lastnosti datoteke"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1128
+#: src/advanced_rename/advanced_rename_dialog.rs:1111
 msgid "Update file list"
 msgstr "Posodobi seznam datotek"
 
@@ -5055,21 +5059,21 @@ msgstr "Metaoznaka"
 
 #: src/advanced_rename/profile_component.rs:131 src/dialogs/options/apps_widget.rs:82
 #: src/dialogs/options/devices_widget.rs:68 src/dialogs/remote_dialog.rs:131
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:140
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:137
 msgid "_Add"
 msgstr "_Dodaj"
 
 #: src/advanced_rename/profile_component.rs:135 src/dialogs/manage_bookmarks_dialog.rs:75
 #: src/dialogs/options/apps_widget.rs:88 src/dialogs/options/devices_widget.rs:75
 #: src/dialogs/profiles/manage_profiles_dialog.rs:173 src/dialogs/remote_dialog.rs:69
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:153 src/main_win.rs:1587
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:150 src/main_win.rs:1591
 msgid "_Edit"
 msgstr "_Uredi"
 
 #: src/advanced_rename/profile_component.rs:139 src/dialogs/manage_bookmarks_dialog.rs:80
 #: src/dialogs/options/apps_widget.rs:94 src/dialogs/options/devices_widget.rs:82
 #: src/dialogs/profiles/manage_profiles_dialog.rs:198 src/dialogs/remote_dialog.rs:73
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:166
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:163
 msgid "_Remove"
 msgstr "_Odstrani"
 
@@ -5242,12 +5246,12 @@ msgstr "Zamenjaj z"
 msgid "Match case"
 msgstr "Razlikuj velike in male črke"
 
-#: src/advanced_rename/profile_component.rs:851 src/dialogs/prepare_transfer_dialog.rs:216
+#: src/advanced_rename/profile_component.rs:851 src/dialogs/prepare_transfer_dialog.rs:210
 #: src/file_list/actions.rs:86
 msgid "Yes"
 msgstr "Da"
 
-#: src/advanced_rename/profile_component.rs:853 src/dialogs/prepare_transfer_dialog.rs:216
+#: src/advanced_rename/profile_component.rs:853 src/dialogs/prepare_transfer_dialog.rs:210
 #: src/file_list/actions.rs:86
 msgid "No"
 msgstr "Ne"
@@ -5349,14 +5353,17 @@ msgid "Specify the start directory for the right panel"
 msgstr "Določite začetno mapo za desno podokno"
 
 #: src/application.rs:185
+#, rust-format
 msgid "Failed to create the directory {directory}: {error}"
 msgstr "Ustvarjanje mape {directory} je spodletelo: {error}"
 
 #: src/app.rs:76 src/open_file.rs:186
+#, rust-format
 msgid "Launch of {} failed."
 msgstr "Zagon {} ni uspel."
 
 #: src/app.rs:161
+#, rust-format
 msgid "Cannot launch an app {}. No files were given."
 msgstr "Programa {} ni mogoče zagnati. Datoteke niso bile podane."
 
@@ -5398,6 +5405,7 @@ msgstr "Pogled številk:"
 
 #: src/connection/device.rs:185 src/connection/device.rs:199 src/connection/device.rs:229
 #: src/connection/device.rs:254
+#, rust-format
 msgid "Unable to mount the volume {}"
 msgstr "Nosilca {} ni mogoče priklopiti"
 
@@ -5410,18 +5418,22 @@ msgid "Mounting %s"
 msgstr "Priklop %s"
 
 #: src/connection/device.rs:341
+#, rust-format
 msgid "Go to: {device_name} ({mount_point})"
 msgstr "Pojdi na: {device_name} ({mount_point})"
 
 #: src/connection/device.rs:344
+#, rust-format
 msgid "Go to: {device_name}"
 msgstr "Pojdi na: {device_name}"
 
 #: src/connection/device.rs:350
+#, rust-format
 msgid "Mount: {device_name}"
 msgstr "Priklopi: {device_name}"
 
 #: src/connection/device.rs:355
+#, rust-format
 msgid "Unmount: {device_name}"
 msgstr "Odklopi: {device_name}"
 
@@ -5429,7 +5441,7 @@ msgstr "Odklopi: {device_name}"
 msgid "Volume successfully unmounted"
 msgstr "Pogon je uspešno odklopljen"
 
-#: src/connection/device.rs:371 src/intviewer/window.rs:665 src/utils.rs:256
+#: src/connection/device.rs:371 src/intviewer/window.rs:665 src/utils.rs:247
 msgid "_Dismiss"
 msgstr "_Opusti"
 
@@ -5446,6 +5458,7 @@ msgid "Mount failed: no medium found"
 msgstr "Priklop je spodletel: nosilca ni mogoče najti"
 
 #: src/connection/device.rs:475
+#, rust-format
 msgid "Mount failed: mount exited with exitstatus {}"
 msgstr "Priklop je spodletel: priklop zaključen s stanjem izhoda {}"
 
@@ -5454,6 +5467,7 @@ msgid "Mount failed: mount exited without an exitstatus"
 msgstr "Priklop je spodletel: priklop zaključen brez stanja izhoda"
 
 #: src/connection/device.rs:491
+#, rust-format
 msgid "Unmount failed: umount exited with exitstatus {}"
 msgstr "Priklop je spodletel: odklop umount zaključen s stanjem izhoda {}"
 
@@ -5486,18 +5500,22 @@ msgid "Disconnect error"
 msgstr "Napaka prekinjanja povezave"
 
 #: src/connection/remote.rs:254
+#, rust-format
 msgid "Connecting to {hostname}"
 msgstr "Povezovanje z {hostname}"
 
 #: src/connection/remote.rs:260
+#, rust-format
 msgid "Go to: {connection}"
 msgstr "Pojdi na: {connection}"
 
 #: src/connection/remote.rs:264
+#, rust-format
 msgid "Connect to: {connection}"
 msgstr "Poveži se z: {connection}"
 
 #: src/connection/remote.rs:268
+#, rust-format
 msgid "Disconnect from: {connection}"
 msgstr "Prekini povezavo z: {connection}"
 
@@ -5541,39 +5559,41 @@ msgstr "Dokumentacija"
 msgid "Translated by"
 msgstr "Prevod"
 
-#: src/dialogs/chmod_dialog.rs:50
+#: src/dialogs/chmod_dialog.rs:47
+#, rust-format
 msgid "Could not chmod {}"
 msgstr "Ni možno spremeniti lastnosti {} s chmod"
 
-#: src/dialogs/chmod_dialog.rs:113
+#: src/dialogs/chmod_dialog.rs:110
 msgid "Access Permissions"
 msgstr "Dovoljenja"
 
-#: src/dialogs/chmod_dialog.rs:128
+#: src/dialogs/chmod_dialog.rs:125
 msgid "Apply Recursively for"
 msgstr "Uporabi po strukturi map"
 
-#: src/dialogs/chmod_dialog.rs:132 src/dialogs/options/app_dialog.rs:139
+#: src/dialogs/chmod_dialog.rs:129 src/dialogs/options/app_dialog.rs:136
 msgid "All files"
 msgstr "Vse datoteke"
 
-#: src/dialogs/chmod_dialog.rs:132
+#: src/dialogs/chmod_dialog.rs:129
 msgid "Directories only"
 msgstr "Samo mape"
 
-#: src/dialogs/chmod_dialog.rs:161
+#: src/dialogs/chmod_dialog.rs:158
 msgid "C_hange Permissions"
 msgstr "Spremeni d_ovoljenja"
 
-#: src/dialogs/chown_dialog.rs:45
+#: src/dialogs/chown_dialog.rs:42
+#, rust-format
 msgid "Could not chown {}"
 msgstr "Ni možno spremeniti lastništva {} s chown"
 
-#: src/dialogs/chown_dialog.rs:116
+#: src/dialogs/chown_dialog.rs:113
 msgid "Apply Recursively"
 msgstr "Uporabi po strukturi map"
 
-#: src/dialogs/chown_dialog.rs:132
+#: src/dialogs/chown_dialog.rs:129
 msgid "C_hange Owner"
 msgstr "Spremeni _lastništvo"
 
@@ -5646,27 +5666,28 @@ msgstr "Ime _domene:"
 msgid "C_onnect"
 msgstr "_Poveži"
 
-#: src/dialogs/connect_dialog.rs:280
+#: src/dialogs/connect_dialog.rs:279
 msgid "You must enter a name for the server"
 msgstr "Vpisati je treba ime strežnika."
 
-#: src/dialogs/connect_dialog.rs:281
+#: src/dialogs/connect_dialog.rs:280
 msgid "Please enter a name and try again."
 msgstr "Vpišite ime in poskusite znova."
 
-#: src/dialogs/connect_dialog.rs:295
+#: src/dialogs/connect_dialog.rs:294
 msgid "You must enter a number for the port"
 msgstr "Vnesti morate številko vrat"
 
-#: src/dialogs/connect_dialog.rs:323
+#: src/dialogs/connect_dialog.rs:322
 msgid "Connection method is not selected"
 msgstr "Način povezave ni izbran"
 
-#: src/dialogs/connect_dialog.rs:386
+#: src/dialogs/connect_dialog.rs:385
+#, rust-format
 msgid "“{}” is not a valid location"
 msgstr "»{}« ni veljavno mesto"
 
-#: src/dialogs/connect_dialog.rs:387
+#: src/dialogs/connect_dialog.rs:386
 msgid "Please check spelling and try again."
 msgstr "Preverite črkovanje in poskusite znova."
 
@@ -5682,7 +5703,7 @@ msgstr "Ustvari simbolno povezavo"
 msgid "Symbolic link name:"
 msgstr "Ime simbolne povezave:"
 
-#: src/dialogs/create_symlink_dialog.rs:201
+#: src/dialogs/create_symlink_dialog.rs:185
 msgid "Making a symbolic link failed"
 msgstr "Izdelava simbolične povezave ni uspela"
 
@@ -5690,7 +5711,8 @@ msgstr "Izdelava simbolične povezave ni uspela"
 msgid "Deleting…"
 msgstr "Poteka brisanje …"
 
-#: src/dialogs/delete_dialog.rs:168
+#: src/dialogs/delete_dialog.rs:169
+#, rust-format
 msgid "Deleted {count} of {total} file"
 msgid_plural "Deleted {count} of {total} files"
 msgstr[0] "Izbrisanih {count} od {total} datotek"
@@ -5698,63 +5720,68 @@ msgstr[1] "Izbrisana {count} od {total} datotek"
 msgstr[2] "Izbrisani {count} od {total} datotek"
 msgstr[3] "Izbrisane {count} od {total} datotek"
 
-#: src/dialogs/delete_dialog.rs:192
+#: src/dialogs/delete_dialog.rs:193
+#, rust-format
 msgid "The directory “{}” is not empty. Do you really want to delete it?"
 msgstr "Mapa »{}« ni prazna. Ali jo res želite izbrisati?"
 
-#: src/dialogs/delete_dialog.rs:195
+#: src/dialogs/delete_dialog.rs:196
+#, rust-format
 msgid "Do you really want to delete “{}”?"
 msgstr "Ali res želite izbrisati »{}«?"
 
-#: src/dialogs/delete_dialog.rs:202 src/dialogs/delete_dialog.rs:537 src/user_actions.rs:400
+#: src/dialogs/delete_dialog.rs:203 src/dialogs/delete_dialog.rs:538 src/user_actions.rs:400
 #: src/user_actions.rs:447
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: src/dialogs/delete_dialog.rs:203 src/dialogs/delete_dialog.rs:243
+#: src/dialogs/delete_dialog.rs:204 src/dialogs/delete_dialog.rs:244
 #: src/dialogs/options/confirmation_tab.rs:96 src/dialogs/options/confirmation_tab.rs:125
 #: src/dialogs/prepare_copy_dialog.rs:76 src/dialogs/prepare_move_dialog.rs:76 src/transfer.rs:472
 #: src/transfer.rs:512 src/transfer.rs:573 src/transfer.rs:686 src/user_actions.rs:398
 msgid "Skip"
 msgstr "Preskoči"
 
-#: src/dialogs/delete_dialog.rs:205
+#: src/dialogs/delete_dialog.rs:206
 msgid "Delete All"
 msgstr "Izbriši vse"
 
-#: src/dialogs/delete_dialog.rs:207
+#: src/dialogs/delete_dialog.rs:208
 msgid "Delete Remaining"
 msgstr "Izbriši preostale"
 
-#: src/dialogs/delete_dialog.rs:209 src/dialogs/delete_dialog.rs:537
+#: src/dialogs/delete_dialog.rs:210 src/dialogs/delete_dialog.rs:538
 #: src/dialogs/options/confirmation_tab.rs:79
 msgid "Delete"
 msgstr "Izbriši"
 
-#: src/dialogs/delete_dialog.rs:230
+#: src/dialogs/delete_dialog.rs:231
+#, rust-format
 msgid "Error while deleting “{file}”"
 msgstr "Napaka pri brisanju »{file}«"
 
-#: src/dialogs/delete_dialog.rs:243 src/dialogs/delete_dialog.rs:581 src/transfer.rs:472 src/transfer.rs:489
+#: src/dialogs/delete_dialog.rs:244 src/dialogs/delete_dialog.rs:582 src/transfer.rs:472 src/transfer.rs:489
 #: src/transfer.rs:507 src/transfer.rs:524 src/transfer.rs:569 src/transfer.rs:587 src/transfer.rs:682
 #: src/transfer.rs:700
 msgid "Abort"
 msgstr "Prekliči"
 
-#: src/dialogs/delete_dialog.rs:243 src/transfer.rs:472 src/transfer.rs:508 src/transfer.rs:525
+#: src/dialogs/delete_dialog.rs:244 src/transfer.rs:472 src/transfer.rs:508 src/transfer.rs:525
 #: src/transfer.rs:570 src/transfer.rs:588 src/transfer.rs:683 src/transfer.rs:701 src/user_actions.rs:401
 msgid "Retry"
 msgstr "Poskusi znova"
 
-#: src/dialogs/delete_dialog.rs:511
+#: src/dialogs/delete_dialog.rs:512
+#, rust-format
 msgid "Do you want to permanently delete “{}”?"
 msgstr "Ali želite trajno izbrisati »{}«?"
 
-#: src/dialogs/delete_dialog.rs:514
+#: src/dialogs/delete_dialog.rs:515
+#, rust-format
 msgid "Do you want to move “{}” to the trash can?"
 msgstr "Ali želite premakniti »{}« v koš?"
 
-#: src/dialogs/delete_dialog.rs:520
+#: src/dialogs/delete_dialog.rs:521
 msgid "Do you want to permanently delete the selected file?"
 msgid_plural "Do you want to permanently delete the %d selected files?"
 msgstr[0] "Ali želite trajno izbrisati %d izbranih datotek?"
@@ -5762,7 +5789,7 @@ msgstr[1] "Ali želite trajno izbrisati %d izbrano datoteko?"
 msgstr[2] "Ali želite trajno izbrisati %d izbrani datoteki?"
 msgstr[3] "Ali želite trajno izbrisati %d izbrane datoteke?"
 
-#: src/dialogs/delete_dialog.rs:526
+#: src/dialogs/delete_dialog.rs:527
 msgid "Do you want to move the selected file to the trash can?"
 msgid_plural "Do you want to move the %d selected files to the trash can?"
 msgstr[0] "Ali želite premakniti %d izbranih datotek v smeti?"
@@ -5770,7 +5797,7 @@ msgstr[1] "Ali želite premakniti %d izbrano datoteko v smeti?"
 msgstr[2] "Ali želite premakniti %d izbrani datoteki v smeti?"
 msgstr[3] "Ali želite premakniti %d izbrane datoteke v smeti?"
 
-#: src/dialogs/delete_dialog.rs:579
+#: src/dialogs/delete_dialog.rs:580
 msgid "Error while deleting"
 msgstr "Napaka pri brisanju"
 
@@ -5819,67 +5846,67 @@ msgstr "Metapodatki"
 msgid "_Save"
 msgstr "_Shrani"
 
-#: src/dialogs/file_properties_dialog.rs:222 src/dialogs/mkdir_dialog.rs:70
+#: src/dialogs/file_properties_dialog.rs:209 src/dialogs/mkdir_dialog.rs:67
 msgid "Directory name:"
 msgstr "Ime mape:"
 
-#: src/dialogs/file_properties_dialog.rs:224 src/dialogs/new_text_file.rs:78
+#: src/dialogs/file_properties_dialog.rs:211 src/dialogs/new_text_file.rs:75
 msgid "File name:"
 msgstr "Ime datoteke:"
 
-#: src/dialogs/file_properties_dialog.rs:235
+#: src/dialogs/file_properties_dialog.rs:222
 msgid "Symlink target:"
 msgstr "Cilj simbolne povezave:"
 
-#: src/dialogs/file_properties_dialog.rs:252
+#: src/dialogs/file_properties_dialog.rs:239
 msgid "Location:"
 msgstr "Mesto:"
 
-#: src/dialogs/file_properties_dialog.rs:264
+#: src/dialogs/file_properties_dialog.rs:251
 msgid "Volume:"
 msgstr "Nosilec:"
 
-#: src/dialogs/file_properties_dialog.rs:281
+#: src/dialogs/file_properties_dialog.rs:268
 msgid "Free space:"
 msgstr "Nezaseden prostor:"
 
-#: src/dialogs/file_properties_dialog.rs:294
+#: src/dialogs/file_properties_dialog.rs:281
 msgid "Content type:"
 msgstr "Vrsta vsebine:"
 
-#: src/dialogs/file_properties_dialog.rs:300
+#: src/dialogs/file_properties_dialog.rs:287
 msgid "Opens with:"
 msgstr "Program:"
 
-#: src/dialogs/file_properties_dialog.rs:303
+#: src/dialogs/file_properties_dialog.rs:290
 msgid "No default application registered"
 msgstr "Ni vpisane privzete aplikacije"
 
-#: src/dialogs/file_properties_dialog.rs:320
+#: src/dialogs/file_properties_dialog.rs:307
 msgid "Modified:"
 msgstr "Spremenjeno:"
 
-#: src/dialogs/file_properties_dialog.rs:328
+#: src/dialogs/file_properties_dialog.rs:315
 msgid "Accessed:"
 msgstr "Zadnji dostop:"
 
-#: src/dialogs/file_properties_dialog.rs:345
+#: src/dialogs/file_properties_dialog.rs:332
 msgid "Size:"
 msgstr "Velikost:"
 
-#: src/dialogs/file_properties_dialog.rs:381
+#: src/dialogs/file_properties_dialog.rs:368
 msgid "Owner and group"
 msgstr "Lastnik in skupina"
 
-#: src/dialogs/file_properties_dialog.rs:398
+#: src/dialogs/file_properties_dialog.rs:385
 msgid "Access permissions"
 msgstr "Dovoljenja dostopa"
 
-#: src/dialogs/file_properties_dialog.rs:426
+#: src/dialogs/file_properties_dialog.rs:413
 msgid "Co_py"
 msgstr "Ko_piraj …"
 
-#: src/dialogs/file_properties_dialog.rs:508
+#: src/dialogs/file_properties_dialog.rs:495
 msgid "Failed to apply changes."
 msgstr "Sprememb ni bilo možno uveljaviti."
 
@@ -5888,10 +5915,11 @@ msgid "Copy File"
 msgstr "Kopiraj datoteko"
 
 #: src/dialogs/make_copy_dialog.rs:50 src/dialogs/prepare_copy_dialog.rs:49
+#, rust-format
 msgid "Copy “{}” to"
 msgstr "Kopirajte »{}« v"
 
-#: src/dialogs/make_copy_dialog.rs:78 src/dialogs/prepare_copy_dialog.rs:46
+#: src/dialogs/make_copy_dialog.rs:76 src/dialogs/prepare_copy_dialog.rs:46
 msgid "C_opy"
 msgstr "K_opiraj"
 
@@ -5924,128 +5952,128 @@ msgstr "Bližnjica"
 msgid "Path"
 msgstr "Pot"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:605
+#: src/dialogs/manage_bookmarks_dialog.rs:601
 msgid "To bookmark a directory the whole search path to the directory must be in valid UTF-8 encoding"
 msgstr "Za ustvarjanje zaznamka mape mora biti celotna iskalna pot v veljavnem UTF-8 kodnem naboru"
 
-#: src/dialogs/mkdir_dialog.rs:55
+#: src/dialogs/mkdir_dialog.rs:52
 msgid "Make Directory"
 msgstr "Ustvari mapo"
 
-#: src/dialogs/mkdir_dialog.rs:113
+#: src/dialogs/mkdir_dialog.rs:110
 msgid "_Make Directory"
 msgstr "Us_tvari mapo"
 
-#: src/dialogs/mkdir_dialog.rs:147
+#: src/dialogs/mkdir_dialog.rs:141
 msgid "A directory name must be entered"
 msgstr "Ime mape mora biti vpisano"
 
-#: src/dialogs/mkdir_dialog.rs:158
+#: src/dialogs/mkdir_dialog.rs:152
 msgid "Make directory failed"
 msgstr "Ustvarjanje mape je spodletelo"
 
-#: src/dialogs/new_text_file.rs:36
+#: src/dialogs/new_text_file.rs:33
 msgid "No file name entered"
 msgstr "Ime datoteke ni vneseno"
 
-#: src/dialogs/new_text_file.rs:50
+#: src/dialogs/new_text_file.rs:47
 msgid "Cannot create a file"
 msgstr "Datoteke ni mogoče ustvariti"
 
-#: src/dialogs/new_text_file.rs:66
+#: src/dialogs/new_text_file.rs:63
 msgid "New Text File"
 msgstr "Nova besedilna datoteka"
 
-#: src/dialogs/new_text_file.rs:98
+#: src/dialogs/new_text_file.rs:95
 msgid "Create _File"
 msgstr "Ustvari _datoteko"
 
-#: src/dialogs/open_with_other_dialog.rs:35
+#: src/dialogs/open_with_other_dialog.rs:32
 msgid "Open with other…"
 msgstr "Odpri s programom …"
 
-#: src/dialogs/open_with_other_dialog.rs:45
+#: src/dialogs/open_with_other_dialog.rs:42
 msgid "Application:"
 msgstr "Program:"
 
-#: src/dialogs/open_with_other_dialog.rs:62
+#: src/dialogs/open_with_other_dialog.rs:59
 msgid "_Open"
 msgstr "_Odpri "
 
-#: src/dialogs/open_with_other_dialog.rs:97
+#: src/dialogs/open_with_other_dialog.rs:95
 msgid "Invalid command"
 msgstr "Neveljaven ukaz"
 
-#: src/dialogs/options/app_dialog.rs:43
+#: src/dialogs/options/app_dialog.rs:40
 msgid "New Application"
 msgstr "Nov program"
 
-#: src/dialogs/options/app_dialog.rs:45
+#: src/dialogs/options/app_dialog.rs:42
 msgid "Edit Application"
 msgstr "Uredi program"
 
-#: src/dialogs/options/app_dialog.rs:55
+#: src/dialogs/options/app_dialog.rs:52
 msgid "Label:"
 msgstr "Naziv:"
 
-#: src/dialogs/options/app_dialog.rs:65
+#: src/dialogs/options/app_dialog.rs:62
 msgid "Command:"
 msgstr "Ukaz:"
 
-#: src/dialogs/options/app_dialog.rs:75 src/dialogs/options/device_dialog.rs:83
+#: src/dialogs/options/app_dialog.rs:72 src/dialogs/options/device_dialog.rs:80
 msgid "Icon:"
 msgstr "Ikona:"
 
-#: src/dialogs/options/app_dialog.rs:101 src/dialogs/options/options_dialog.rs:38
-#: src/dialogs/prepare_copy_dialog.rs:97 src/dialogs/shortcuts/shortcuts_dialog.rs:106
+#: src/dialogs/options/app_dialog.rs:98 src/dialogs/options/options_dialog.rs:38
+#: src/dialogs/prepare_copy_dialog.rs:97 src/dialogs/shortcuts/shortcuts_dialog.rs:103
 msgid "Options"
 msgstr "Možnosti"
 
-#: src/dialogs/options/app_dialog.rs:112
+#: src/dialogs/options/app_dialog.rs:109
 msgid "Can handle multiple files"
 msgstr "Lahko upravlja z več datotekami hkrati"
 
-#: src/dialogs/options/app_dialog.rs:117
+#: src/dialogs/options/app_dialog.rs:114
 msgid "Can handle URIs"
 msgstr "Lahko upravlja z URI naslovi"
 
-#: src/dialogs/options/app_dialog.rs:122
+#: src/dialogs/options/app_dialog.rs:119
 msgid "Requires terminal"
 msgstr "Zahteva terminal"
 
-#: src/dialogs/options/app_dialog.rs:128
+#: src/dialogs/options/app_dialog.rs:125
 msgid "Show for"
 msgstr "Pokaži za"
 
-#: src/dialogs/options/app_dialog.rs:144
+#: src/dialogs/options/app_dialog.rs:141
 msgid "All directories"
 msgstr "Vse mape"
 
-#: src/dialogs/options/app_dialog.rs:150
+#: src/dialogs/options/app_dialog.rs:147
 msgid "All directories and files"
 msgstr "Vse mape in datoteke"
 
-#: src/dialogs/options/app_dialog.rs:156
+#: src/dialogs/options/app_dialog.rs:153
 msgid "Some files"
 msgstr "Nekatere datoteke"
 
-#: src/dialogs/options/app_dialog.rs:162
+#: src/dialogs/options/app_dialog.rs:159
 msgid "File patterns"
 msgstr "Vzorci datotek"
 
-#: src/dialogs/options/app_dialog.rs:191
+#: src/dialogs/options/app_dialog.rs:188
 msgid "_Add Application"
 msgstr ":Dodaj program"
 
-#: src/dialogs/options/app_dialog.rs:193
+#: src/dialogs/options/app_dialog.rs:190
 msgid "_Update Application"
 msgstr "Posodo_bi program"
 
-#: src/dialogs/options/app_dialog.rs:259
+#: src/dialogs/options/app_dialog.rs:256
 msgid "An app needs to have a non-empty label"
 msgstr "Program mora imeti neprazno oznako"
 
-#: src/dialogs/options/app_dialog.rs:266
+#: src/dialogs/options/app_dialog.rs:263
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
@@ -6108,43 +6136,43 @@ msgstr "Premakni povlečeno"
 msgid "Default Drag and Drop Action"
 msgstr "Privzeto dejanje za Povleci in Spusti"
 
-#: src/dialogs/options/device_dialog.rs:41
+#: src/dialogs/options/device_dialog.rs:38
 msgid "New Device"
 msgstr "Nova naprava"
 
-#: src/dialogs/options/device_dialog.rs:43
+#: src/dialogs/options/device_dialog.rs:40
 msgid "Edit Device"
 msgstr "Uredi napravo"
 
-#: src/dialogs/options/device_dialog.rs:53
+#: src/dialogs/options/device_dialog.rs:50
 msgid "Alias:"
 msgstr "Vzdevek:"
 
-#: src/dialogs/options/device_dialog.rs:63
+#: src/dialogs/options/device_dialog.rs:60
 msgid "Device/Label:"
 msgstr "Naprava/Oznaka:"
 
-#: src/dialogs/options/device_dialog.rs:73
+#: src/dialogs/options/device_dialog.rs:70
 msgid "Mount point:"
 msgstr "Priklopna točka:"
 
-#: src/dialogs/options/device_dialog.rs:120
+#: src/dialogs/options/device_dialog.rs:117
 msgid "_Add Device"
 msgstr "_Dodaj napravo"
 
-#: src/dialogs/options/device_dialog.rs:122
+#: src/dialogs/options/device_dialog.rs:119
 msgid "_Update Device"
 msgstr "Posodo_bi napravo"
 
-#: src/dialogs/options/device_dialog.rs:190
+#: src/dialogs/options/device_dialog.rs:187
 msgid "A device needs to have a non-empty alias"
 msgstr "Naprava mora imeti neprazen vzdevek"
 
-#: src/dialogs/options/device_dialog.rs:197
+#: src/dialogs/options/device_dialog.rs:194
 msgid "A device needs to have a non-empty path/label"
 msgstr "Naprava mora imeti neprazno pot/oznako"
 
-#: src/dialogs/options/device_dialog.rs:204
+#: src/dialogs/options/device_dialog.rs:201
 msgid "A device needs to have a non-empty mount point"
 msgstr "Naprava mora imeti neprazno mesto priklopa"
 
@@ -6164,31 +6192,31 @@ msgstr "Pokaži le ikone"
 msgid "Alias"
 msgstr "Privzeto ime"
 
-#: src/dialogs/options/edit_colors_dialog.rs:28
+#: src/dialogs/options/edit_colors_dialog.rs:31
 msgid "Edit Colors…"
 msgstr "Uredi barve …"
 
-#: src/dialogs/options/edit_colors_dialog.rs:96 src/dialogs/options/edit_palette_dialog.rs:65
+#: src/dialogs/options/edit_colors_dialog.rs:99 src/dialogs/options/edit_palette_dialog.rs:65
 msgid "Foreground"
 msgstr "Pisava"
 
-#: src/dialogs/options/edit_colors_dialog.rs:107 src/dialogs/options/edit_palette_dialog.rs:76
+#: src/dialogs/options/edit_colors_dialog.rs:110 src/dialogs/options/edit_palette_dialog.rs:76
 msgid "Background"
 msgstr "Ozadje"
 
-#: src/dialogs/options/edit_colors_dialog.rs:119
+#: src/dialogs/options/edit_colors_dialog.rs:122
 msgid "Default:"
 msgstr "Privzeto:"
 
-#: src/dialogs/options/edit_colors_dialog.rs:129
+#: src/dialogs/options/edit_colors_dialog.rs:132
 msgid "Alternate:"
 msgstr "Izmenično:"
 
-#: src/dialogs/options/edit_colors_dialog.rs:139
+#: src/dialogs/options/edit_colors_dialog.rs:142
 msgid "Selected file:"
 msgstr "Izbrana datoteka:"
 
-#: src/dialogs/options/edit_colors_dialog.rs:149
+#: src/dialogs/options/edit_colors_dialog.rs:152
 msgid "Cursor:"
 msgstr "Tipalo miške:"
 
@@ -6655,43 +6683,44 @@ msgstr "* (zvezdica)"
 msgid "Styled text"
 msgstr "Oblikovano besedilo"
 
-#: src/dialogs/pattern_selection_dialog.rs:50
+#: src/dialogs/pattern_selection_dialog.rs:47
 msgid "Select Using Pattern"
 msgstr "Izberi skupino"
 
-#: src/dialogs/pattern_selection_dialog.rs:52
+#: src/dialogs/pattern_selection_dialog.rs:49
 msgid "Unselect Using Pattern"
 msgstr "Počisti skupino"
 
-#: src/dialogs/pattern_selection_dialog.rs:67
+#: src/dialogs/pattern_selection_dialog.rs:64
 msgid "_Pattern:"
 msgstr "_Vzorec:"
 
-#: src/dialogs/pattern_selection_dialog.rs:75
+#: src/dialogs/pattern_selection_dialog.rs:72
 msgid "Case _sensitive"
 msgstr "Razlikovanje _velikosti črk"
 
-#: src/dialogs/pattern_selection_dialog.rs:78
+#: src/dialogs/pattern_selection_dialog.rs:75
 msgid "She_ll syntax"
 msgstr "L_upinska skladnja"
 
-#: src/dialogs/pattern_selection_dialog.rs:79
+#: src/dialogs/pattern_selection_dialog.rs:76
 msgid "Rege_x syntax"
 msgstr "_Logična skladnja"
 
-#: src/dialogs/pattern_selection_dialog.rs:102
+#: src/dialogs/pattern_selection_dialog.rs:99
 msgid "S_elect"
 msgstr "_Izberi"
 
-#: src/dialogs/pattern_selection_dialog.rs:104
+#: src/dialogs/pattern_selection_dialog.rs:101
 msgid "Uns_elect"
 msgstr "Pre_kliči izbor"
 
-#: src/dialogs/pattern_selection_dialog.rs:190 src/search/generic.rs:44
+#: src/dialogs/pattern_selection_dialog.rs:187 src/search/generic.rs:44
 msgid "Bad expression"
 msgstr "Napačen izraz"
 
 #: src/dialogs/prepare_copy_dialog.rs:51
+#, rust-format
 msgid "copy {} file to"
 msgid_plural "copy {} files to"
 msgstr[0] "kopiraj {} datotek v"
@@ -6716,10 +6745,12 @@ msgid "_Move"
 msgstr "Pre_makni"
 
 #: src/dialogs/prepare_move_dialog.rs:49
+#, rust-format
 msgid "Move “{}” to"
 msgstr "Premakni »{}« v"
 
 #: src/dialogs/prepare_move_dialog.rs:51
+#, rust-format
 msgid "move {} file to"
 msgid_plural "move {} files to"
 msgstr[0] "premakni {} datotek v"
@@ -6727,11 +6758,13 @@ msgstr[1] "premakni {} datoteko v"
 msgstr[2] "premakni {} datoteki v"
 msgstr[3] "premakni {} datoteke v"
 
-#: src/dialogs/prepare_transfer_dialog.rs:205
+#: src/dialogs/prepare_transfer_dialog.rs:199
+#, rust-format
 msgid "The directory “{}” doesn’t exist, do you want to create it?"
 msgstr "Mapa »{}« ne obstaja, jo želite ustvariti?"
 
-#: src/dialogs/prepare_transfer_dialog.rs:463
+#: src/dialogs/prepare_transfer_dialog.rs:457
+#, rust-format
 msgid "Directory {} cannot be created."
 msgstr "Mape {} ni mogoče ustvariti."
 
@@ -6763,7 +6796,7 @@ msgstr "Za preimenovanje profila kliknite ustrezno vrstico in vnesite novo ime a
 msgid "Remote Connections"
 msgstr "Oddaljene povezave"
 
-#: src/dialogs/remote_dialog.rs:295 src/dialogs/remote_dialog.rs:319
+#: src/dialogs/remote_dialog.rs:282 src/dialogs/remote_dialog.rs:306
 msgid "No server selected"
 msgstr "Ni izbranega strežnika"
 
@@ -6791,70 +6824,74 @@ msgstr ""
 msgid "_Update Shortcut"
 msgstr "Posodo_bi tipkovno bližnjico"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:255
+#: src/dialogs/shortcuts/shortcut_dialog.rs:252
 msgid "New shortcut..."
 msgstr "Nova bližnjica ..."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:260
+#: src/dialogs/shortcuts/shortcut_dialog.rs:257
 msgid "Assign"
 msgstr "Dodeli"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:292
+#: src/dialogs/shortcuts/shortcut_dialog.rs:289
 msgid "No action is selected."
 msgstr "Nobeno dejanje ni izbrano."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:299
+#: src/dialogs/shortcuts/shortcut_dialog.rs:296
 msgid "No shortcut is defined."
 msgstr "Nobena bližnjica ni določena."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:379
+#: src/dialogs/shortcuts/shortcut_dialog.rs:376
+#, rust-format
 msgid "Shortcut “{shortcut}” is already taken by “{action}”."
 msgstr "Tipkovna bližnjica »{shortcut}« se že uporablja za »{action}«."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:384
+#: src/dialogs/shortcuts/shortcut_dialog.rs:381
+#, rust-format
 msgid "Reassigning the shortcut will cause it to be removed from “{action}”."
 msgstr "Če bližnjico znova dodelite, bo odvzeta »{action}«."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:387
+#: src/dialogs/shortcuts/shortcut_dialog.rs:384
 msgid "_Reassign shortcut"
 msgstr "_Ponovno določi bližnjico"
 
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:69
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:66
 msgid "Keyboard Shortcuts"
 msgstr "Tipkovne bližnjice"
 
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:83
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:80
 msgid "Shortcut Key"
 msgstr "Tipkovna bližnjica"
 
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:94
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:91
 msgid "Action"
 msgstr "Dejanje"
 
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:203
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:200
 msgid "_Save Shortcuts"
 msgstr "Shrani tipke za _bližnjice"
 
-#: src/dialogs/transfer_progress_dialog.rs:62
+#: src/dialogs/transfer_progress_dialog.rs:65
 msgid "Progress"
 msgstr "Napredek"
 
-#: src/dialogs/transfer_progress_dialog.rs:147
+#: src/dialogs/transfer_progress_dialog.rs:151
+#, rust-format
 msgctxt "size copied"
 msgid "{copied} of {total} copied"
 msgstr "kopirano {copied} od {total}"
 
-#: src/dialogs/transfer_progress_dialog.rs:153
-#, no-c-format
+#: src/dialogs/transfer_progress_dialog.rs:157
+#, no-c-format, rust-format
 msgctxt "percentage copied"
 msgid "{}% copied"
 msgstr "Kopirano {}% c"
 
-#: src/dirlist.rs:47
+#: src/dirlist.rs:48
 msgid "Waiting for file list"
 msgstr "Čakanje na izpis datotek"
 
-#: src/dirlist.rs:118
+#: src/dirlist.rs:120
+#, rust-format
 msgid "{} file listed"
 msgid_plural "{} files listed"
 msgstr[0] "{} izpisanih datotek"
@@ -6871,6 +6908,7 @@ msgid "Not an ordinary file."
 msgstr "Ni običajna datoteka."
 
 #: src/file_list/actions.rs:80 src/open_file.rs:75
+#, rust-format
 msgid ""
 "{} does not know how to open remote file. Do you want to download the file to a temporary location and "
 "then open it?"
@@ -6902,71 +6940,73 @@ msgstr "Prenos ni uspel."
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Ni mogoče pridobiti vrste MIME za datoteko."
 
-#: src/file_list/list.rs:333 src/file_list/list.rs:1607
+#: src/file_list/list.rs:338 src/file_list/list.rs:1652
 msgid "name"
 msgstr "ime"
 
-#: src/file_list/list.rs:339 src/file_list/list.rs:1608
+#: src/file_list/list.rs:344 src/file_list/list.rs:1653
 msgid "ext"
 msgstr "pri"
 
-#: src/file_list/list.rs:345 src/file_list/list.rs:1609
+#: src/file_list/list.rs:350 src/file_list/list.rs:1654
 msgid "dir"
 msgstr "mapa"
 
-#: src/file_list/list.rs:351 src/file_list/list.rs:1610
+#: src/file_list/list.rs:356 src/file_list/list.rs:1655
 msgid "size"
 msgstr "velikost"
 
-#: src/file_list/list.rs:357 src/file_list/list.rs:1611
+#: src/file_list/list.rs:362 src/file_list/list.rs:1656
 msgid "date"
 msgstr "datum"
 
-#: src/file_list/list.rs:363 src/file_list/list.rs:1612
+#: src/file_list/list.rs:368 src/file_list/list.rs:1657
 msgid "perm"
 msgstr "dov"
 
-#: src/file_list/list.rs:369 src/file_list/list.rs:1613
+#: src/file_list/list.rs:374 src/file_list/list.rs:1658
 msgid "uid"
 msgstr "uid"
 
-#: src/file_list/list.rs:375 src/file_list/list.rs:1614
+#: src/file_list/list.rs:380 src/file_list/list.rs:1659
 msgid "gid"
 msgstr "gid"
 
-#: src/file_list/list.rs:1534
+#: src/file_list/list.rs:1550
 msgid "_Copy here"
 msgstr "_Kopiraj sem"
 
-#: src/file_list/list.rs:1548
+#: src/file_list/list.rs:1564
 msgid "_Move here"
 msgstr "_Premakni sem"
 
-#: src/file_list/list.rs:1562
+#: src/file_list/list.rs:1578
 msgid "_Link here"
 msgstr "_Poveži sem"
 
-#: src/file_list/list.rs:1577
+#: src/file_list/list.rs:1593
 msgid "C_ancel"
 msgstr "Pre_kliči"
 
-#: src/file_list/list.rs:2098 src/file_list/list.rs:2121
+#: src/file_list/list.rs:2147 src/file_list/list.rs:2170
 msgid "Current directory is not set."
 msgstr "Trenutna mapa ni nastavljena."
 
-#: src/file_list/list.rs:2103
+#: src/file_list/list.rs:2152
 msgid "No parent directory"
 msgstr "Ni nadrejene mape"
 
-#: src/file_list/list.rs:2115
+#: src/file_list/list.rs:2164
 msgid "No SAMBA connection is available"
 msgstr "Povezava SAMBA ni na voljo"
 
-#: src/file_list/list.rs:2218
+#: src/file_list/list.rs:2267
+#, rust-format
 msgid "A total of {selected_bytes} has been selected."
 msgstr "Skupaj je bilo izbranih {selected_bytes}."
 
-#: src/file_list/list.rs:2224
+#: src/file_list/list.rs:2273
+#, rust-format
 msgid "{selected_files} file selected."
 msgid_plural "{selected_files} files selected."
 msgstr[0] "Izbranih {selected_files} datotek."
@@ -6974,7 +7014,8 @@ msgstr[1] "Izbrana {selected_files} datoteka."
 msgstr[2] "Izbrani {selected_files} datoteki."
 msgstr[3] "Izbrane {selected_files} datoteke."
 
-#: src/file_list/list.rs:2231
+#: src/file_list/list.rs:2280
+#, rust-format
 msgid "{selected_dirs} directory selected."
 msgid_plural "{selected_dirs} directories selected."
 msgstr[0] "Izbranih {selected_dirs} map."
@@ -6982,16 +7023,18 @@ msgstr[1] "Izbrana {selected_dirs} mapa."
 msgstr[2] "Izbrani {selected_dirs} mapi."
 msgstr[3] "Izbrane {selected_dirs} mape."
 
-#: src/file_list/list.rs:2287
+#: src/file_list/list.rs:2336
+#, rust-format
 msgid "Cannot rename a file to {new_name}"
 msgstr "Datoteke ni mogoče preimenovati v {new_name}"
 
-#: src/file_list/list.rs:2760
+#: src/file_list/list.rs:2809
 msgid "<DIR>"
 msgstr "<MAPA>"
 
 #. Add the default "Open" menu entry at the top of the popup
 #: src/file_list/popup.rs:138
+#, rust-format
 msgid "_Open with “{}”"
 msgstr "_Odpri s programom »{}«"
 
@@ -7020,66 +7063,67 @@ msgid "Value"
 msgstr "Vrednost"
 
 #: src/file.rs:133
+#, rust-format
 msgid "Failed to get file info for {path}."
 msgstr "Pridobivanje podatkov o datoteki za {path} ni uspelo."
 
-#: src/file_selector.rs:1207
+#: src/file_selector.rs:1265
 msgid "Add current dir"
 msgstr "Dodaj trenutno mapo"
 
-#: src/file_selector.rs:1209
+#: src/file_selector.rs:1267
 msgid "Manage bookmarks…"
 msgstr "Upravljanje zaznamkov …"
 
-#: src/file_selector.rs:1345
+#: src/file_selector.rs:1420
 msgid "%s free"
 msgstr "Prosto %s"
 
-#: src/file_selector.rs:1351
+#: src/file_selector.rs:1426
 msgid "Unknown disk usage"
 msgstr "Nedoločena zasedenost diska"
 
-#: src/file_selector.rs:1449 src/user_actions.rs:851
+#: src/file_selector.rs:1656 src/user_actions.rs:851
 msgid "The tab is locked, close anyway?"
 msgstr "Zavihek je zaklenjen; naj se vseeno zapre?"
 
-#: src/file_selector.rs:1450 src/user_actions.rs:852
+#: src/file_selector.rs:1657 src/user_actions.rs:852
 msgid "C_lose Tab"
 msgstr "_Zapri zavihek"
 
-#: src/file_selector.rs:1491 src/user_actions.rs:1803
+#: src/file_selector.rs:1698 src/user_actions.rs:1803
 msgid "Open in New _Tab"
 msgstr "Odpri v novem _zavihku"
 
-#: src/file_selector.rs:1500
+#: src/file_selector.rs:1707
 msgid "_Unlock Tab"
 msgstr "_Odkleni zavihek"
 
-#: src/file_selector.rs:1502
+#: src/file_selector.rs:1709
 msgid "_Lock Tab"
 msgstr "_Zakleni zavihek"
 
-#: src/file_selector.rs:1514
+#: src/file_selector.rs:1721
 msgid "_Refresh Tab"
 msgstr "O_sveži zavihek"
 
-#: src/file_selector.rs:1523
+#: src/file_selector.rs:1730
 msgid "Copy Tab to Other _Panel"
 msgstr "Kopiraj zavihek v drugo _ploščo"
 
-#: src/file_selector.rs:1529 src/user_actions.rs:1809
+#: src/file_selector.rs:1736 src/user_actions.rs:1809
 msgid "_Close Tab"
 msgstr "_Zapri zavihek"
 
-#: src/file_selector.rs:1533 src/user_actions.rs:1815
+#: src/file_selector.rs:1740 src/user_actions.rs:1815
 msgid "Close _All Tabs"
 msgstr "Zapri _vse zavihke"
 
-#: src/file_selector.rs:1537
+#: src/file_selector.rs:1744
 msgid "Close _Duplicate Tabs"
 msgstr "Zapri po_dvojene zavihke"
 
-#: src/file_selector.rs:1565
+#: src/file_selector.rs:1772
 msgid "Filter:"
 msgstr "Filter:"
 
@@ -7099,7 +7143,7 @@ msgstr "_Šestnajstiško"
 msgid "Sea_rch"
 msgstr "Poi_šči"
 
-#: src/intviewer/search_dialog.rs:233
+#: src/intviewer/search_dialog.rs:230
 msgid "Find"
 msgstr "Najdi"
 
@@ -7112,14 +7156,17 @@ msgid "Searching…"
 msgstr "Poteka iskanje …"
 
 #: src/intviewer/search_progress_dialog.rs:96
+#, rust-format
 msgid "Searching for “{}”"
 msgstr "Iskanje »{}«"
 
 #: src/intviewer/window.rs:362
+#, rust-format
 msgid "Position: {offset} of {size}"
 msgstr "Položaj: {offset} / {size}"
 
 #: src/intviewer/window.rs:367
+#, rust-format
 msgid "Column: {}"
 msgstr "Stolpec: {}"
 
@@ -7128,6 +7175,7 @@ msgid "Wrap"
 msgstr "Prelomi"
 
 #: src/intviewer/window.rs:390
+#, rust-format
 msgid "{width} x {height} pixel"
 msgid_plural "{width} x {height} pixels"
 msgstr[0] "{width} x {height} sl. točk"
@@ -7136,6 +7184,7 @@ msgstr[2] "{width} x {height} sl. točki"
 msgstr[3] "{width} x {height} sl. točke"
 
 #: src/intviewer/window.rs:397
+#, rust-format
 msgid "{} bit/sample"
 msgid_plural "{} bits/sample"
 msgstr[0] "{} bitov/vzorec"
@@ -7152,14 +7201,15 @@ msgid "_Copy selection"
 msgstr "_Kopiraj izbor"
 
 #: src/intviewer/window.rs:664
+#, rust-format
 msgid "Pattern “{}” was not found"
 msgstr "Vzorca »{}« ni mogoče najti"
 
-#: src/intviewer/window.rs:735 src/main_win.rs:1564
+#: src/intviewer/window.rs:735 src/main_win.rs:1568
 msgid "_File"
 msgstr "_Datoteka"
 
-#: src/intviewer/window.rs:739 src/main_win.rs:1617
+#: src/intviewer/window.rs:739 src/main_win.rs:1621
 msgid "_View"
 msgstr "Po_gled"
 
@@ -7319,7 +7369,7 @@ msgstr "Obrni _navpično"
 msgid "Flip _Horizontal"
 msgstr "Obrni _vodoravno"
 
-#: src/intviewer/window.rs:861 src/main_win.rs:1652
+#: src/intviewer/window.rs:861 src/main_win.rs:1656
 msgid "_Settings"
 msgstr "_Nastavitve"
 
@@ -7391,27 +7441,28 @@ msgstr "GNOME Commander - SKRBNIŠKI NAČIN"
 msgid "Drop connection"
 msgstr "Prekini povezavo"
 
-#: src/main_win.rs:1394
+#: src/main_win.rs:1398
 msgid "Failed starting shell"
 msgstr "Neuspeli zagon lupine"
 
-#: src/main_win.rs:1599
+#: src/main_win.rs:1603
 msgid "_Mark"
 msgstr "_Označi"
 
-#: src/main_win.rs:1658
+#: src/main_win.rs:1662
 msgid "_Connections"
 msgstr "_Povezave"
 
-#: src/main_win.rs:1669
+#: src/main_win.rs:1673
 msgid "_Bookmarks"
 msgstr "_Zaznamki"
 
-#: src/main_win.rs:1679
+#: src/main_win.rs:1683
 msgid "_Plugins"
 msgstr "_Vstavki"
 
 #: src/open_file.rs:35
+#, rust-format
 msgid ""
 "“{}” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then "
 "run the file?"
@@ -7424,6 +7475,7 @@ msgid "_Mark as Executable"
 msgstr "_Označi kot izvršljivo"
 
 #: src/open_file.rs:57
+#, rust-format
 msgid "“{}” is an executable text file. Do you want to run it, or display its contents?"
 msgstr "Datoteka »{}« je izršljiva besedilna datoteka. Ali jo želite zagnati ali pregledati njeno vsebino?"
 
@@ -7448,6 +7500,7 @@ msgid "Change of a file mode failed"
 msgstr "Spreminjanje datotečnega načina ni uspelo"
 
 #: src/open_file.rs:145
+#, rust-format
 msgid "No default application found for the file type {}."
 msgstr "Za vrsto datoteke {} ni določen privzeti program."
 
@@ -7463,19 +7516,21 @@ msgstr "Privzeto"
 msgid "Available plugins"
 msgstr "Razpoložljivi vstavki"
 
-#: src/plugin_manager.rs:478
+#: src/plugin_manager.rs:465
+#, rust-format
 msgid "Version: {}"
 msgstr "Različica: {}"
 
-#: src/plugin_manager.rs:485
+#: src/plugin_manager.rs:472
+#, rust-format
 msgid "File: {}"
 msgstr "Datoteka: {}"
 
-#: src/plugin_manager.rs:495
+#: src/plugin_manager.rs:482
 msgid "About"
 msgstr "O programu"
 
-#: src/plugin_manager.rs:506
+#: src/plugin_manager.rs:493
 msgid "Configure"
 msgstr "Prilagodi"
 
@@ -7484,6 +7539,7 @@ msgid "Search failed"
 msgstr "Iskanje je spodletelo"
 
 #: src/search/generic.rs:77
+#, rust-format
 msgid "Searching in: {}"
 msgstr "Iskanje v: {}"
 
@@ -7515,7 +7571,8 @@ msgstr "Poišči …"
 msgid "_Look in folder:"
 msgstr "_Preišči v mapi:"
 
-#: src/search/search_dialog.rs:689
+#: src/search/search_dialog.rs:676
+#, rust-format
 msgid "Found {} match — search aborted"
 msgid_plural "Found {} matches — search aborted"
 msgstr[0] "Najdenih {} zadetkov - iskanje preklicano"
@@ -7523,7 +7580,8 @@ msgstr[1] "Najden {} zadetek - iskanje preklicano"
 msgstr[2] "Najdena {} zadetka - iskanje preklicano"
 msgstr[3] "Najdeni {} zadetki - iskanje preklicano"
 
-#: src/search/search_dialog.rs:694
+#: src/search/search_dialog.rs:681
+#, rust-format
 msgid "Found {} match"
 msgid_plural "Found {} matches"
 msgstr[0] "Najdenih {} zadetkov"
@@ -7712,6 +7770,7 @@ msgid "Skip all"
 msgstr "Preskoči vse"
 
 #: src/transfer.rs:554 src/transfer.rs:667
+#, rust-format
 msgid ""
 "Overwrite file:\n"
 "\n"
@@ -7738,10 +7797,12 @@ msgid "Replace all"
 msgstr "Zamenjaj vse"
 
 #: src/transfer.rs:626 src/transfer.rs:731
+#, rust-format
 msgid "Error while transferring “{file}”"
 msgstr "Napaka pri prenosu »{file}«"
 
 #: src/transfer.rs:763
+#, rust-format
 msgid "Error while creating symlink “{file}”"
 msgstr "Napaka pri ustvarjanju simbolne povezave »{file}«"
 
@@ -7766,10 +7827,12 @@ msgid "copying…"
 msgstr "Kopiranje ..."
 
 #: src/transfer.rs:1078
+#, rust-format
 msgid "[file {index} of {count}] “{file}”"
 msgstr "[datoteka {index} / {count}] »{file}«"
 
 #: src/transfer.rs:1137
+#, rust-format
 msgctxt "A template for a file name. In a case of a conflict with an existing one."
 msgid "{name} (Copy {number})"
 msgstr "{name} (kopija {number})"
@@ -7803,6 +7866,7 @@ msgid "link to %s"
 msgstr "povezava do %s"
 
 #: src/user_actions.rs:437
+#, rust-format
 msgid "Create symbolic links of {count} file in {dir}?"
 msgid_plural "Create symbolic links of {count} files in {dir}?"
 msgstr[0] "Želite ustvariti simbolne povezave {count} datotek v {dir}?"
@@ -8255,11 +8319,13 @@ msgstr "_O Programu"
 msgid "Cannot create a temporary file."
 msgstr "Začasne datoteke ni mogoče ustvariti."
 
-#: src/utils.rs:290
+#: src/utils.rs:281
+#, rust-format
 msgid "There was an error while opening help uri {uri}."
 msgstr "Pri odpiranju uri {uri} za vsebino pomoči je prišlo do napake."
 
-#: src/utils.rs:391
+#: src/utils.rs:382
+#, rust-format
 msgid "{} PiB"
 msgid_plural "{} PiB"
 msgstr[0] "{} PiB"
@@ -8267,7 +8333,8 @@ msgstr[1] "{} PiB"
 msgstr[2] "{} PiB"
 msgstr[3] "{} PiB"
 
-#: src/utils.rs:394
+#: src/utils.rs:385
+#, rust-format
 msgid "{} TiB"
 msgid_plural "{} TiB"
 msgstr[0] "{} PiB"
@@ -8275,7 +8342,8 @@ msgstr[1] "{} PiB"
 msgstr[2] "{} PiB"
 msgstr[3] "{} PiB"
 
-#: src/utils.rs:397
+#: src/utils.rs:388
+#, rust-format
 msgid "{} GiB"
 msgid_plural "{} GiB"
 msgstr[0] "{} PiB"
@@ -8283,7 +8351,8 @@ msgstr[1] "{} PiB"
 msgstr[2] "{} PiB"
 msgstr[3] "{} PiB"
 
-#: src/utils.rs:400
+#: src/utils.rs:391
+#, rust-format
 msgid "{} MiB"
 msgid_plural "{} MiB"
 msgstr[0] "{} MiB"
@@ -8291,7 +8360,8 @@ msgstr[1] "{} MiB"
 msgstr[2] "{} MiB"
 msgstr[3] "{} MiB"
 
-#: src/utils.rs:403
+#: src/utils.rs:394
+#, rust-format
 msgid "{} kiB"
 msgid_plural "{} kiB"
 msgstr[0] "{} kiB"
@@ -8299,7 +8369,8 @@ msgstr[1] "{} kiB"
 msgstr[2] "{} kiB"
 msgstr[3] "{} kiB"
 
-#: src/utils.rs:406 src/utils.rs:417 src/utils.rs:421
+#: src/utils.rs:397 src/utils.rs:408 src/utils.rs:412
+#, rust-format
 msgid "{} byte"
 msgid_plural "{} bytes"
 msgstr[0] "{} bajtov"
@@ -8307,6 +8378,6 @@ msgstr[1] "{} bajt"
 msgstr[2] "{} bajta"
 msgstr[3] "{} bajti"
 
-#: src/utils.rs:633
+#: src/utils.rs:624
 msgid "Closing of a file enumerator failed"
 msgstr "Zapiranje oštevilčevalnika datotek ni uspelo"
