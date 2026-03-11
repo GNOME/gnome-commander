@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/"
 "issues/\n"
-"POT-Creation-Date: 2026-02-16 00:35+0000\n"
-"PO-Revision-Date: 2026-02-22 14:38+0100\n"
+"POT-Creation-Date: 2026-03-09 21:58+0000\n"
+"PO-Revision-Date: 2026-03-11 21:57+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -25,13 +25,13 @@ msgstr ""
 "X-Project-Style: gnome\n"
 
 #: data/org.gnome.gnome-commander.desktop.in:2
-#: data/org.gnome.gnome-commander.metainfo.xml.in:7 src/main_win.rs:300
+#: data/org.gnome.gnome-commander.metainfo.xml.in:7 src/main_win.rs:284
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
 #: data/org.gnome.gnome-commander.desktop.in:3
-msgid "A two paned file manager"
-msgstr "En tvåpanelers filhanterare"
+msgid "A file manager using dual-panel layout"
+msgstr "En filhanterare som använder en layout med två paneler"
 
 #. TRANSLATORS: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.gnome-commander.desktop.in:5
@@ -96,10 +96,10 @@ msgstr "Paneltypsnitt"
 
 #: data/org.gnome.gnome-commander.gschema.xml:72
 msgid ""
-"A custom font that will be used for the file panes if the “Use default font” "
-"option is turned off."
+"A custom font that will be used for the file panels if the “Use default "
+"font” option is turned off."
 msgstr ""
-"Ett anpassningsbart typsnitt som kommer att användas för filpanelerna om "
+"Ett anpassat typsnitt som kommer att användas för filpanelerna om "
 "alternativet ”Använd standardtypsnitt” är inaktiverat."
 
 #: data/org.gnome.gnome-commander.gschema.xml:78
@@ -108,7 +108,7 @@ msgstr "Visningsläge för filstorlek"
 
 #: data/org.gnome.gnome-commander.gschema.xml:79
 msgid ""
-"Defines how the filesize will be displayed in the associated pane column."
+"Defines how the filesize will be displayed in the associated panel column."
 msgstr "Definierar hur filstorleken visas i den associerade panelkolumnen."
 
 #: data/org.gnome.gnome-commander.gschema.xml:85
@@ -118,7 +118,7 @@ msgstr "Visa filrättigheter som"
 
 #: data/org.gnome.gnome-commander.gschema.xml:86
 msgid ""
-"Defines how the file permission will be displayed in the associated pane "
+"Defines how the file permission will be displayed in the associated panel "
 "column."
 msgstr "Definierar hur filrättigheter visas i den associerade panelkolumnen."
 
@@ -127,7 +127,7 @@ msgid "Graphical layout mode"
 msgstr "Grafiskt layoutläge"
 
 #: data/org.gnome.gnome-commander.gschema.xml:93
-msgid "Defines the icon style of files and folders in the file panes."
+msgid "Defines the icon style of files and folders in the file panels."
 msgstr "Definierar ikonstilen för filer och mappar i filpanelerna."
 
 #: data/org.gnome.gnome-commander.gschema.xml:99
@@ -135,7 +135,7 @@ msgid "List row height"
 msgstr "Listradhöjd"
 
 #: data/org.gnome.gnome-commander.gschema.xml:100
-msgid "Defines the height of a row in the file pane."
+msgid "Defines the height of a row in the file panel."
 msgstr "Definierar höjden för en rad i filpanelen."
 
 #. Translators: Feel free to replace the default date format to a common value
@@ -153,7 +153,7 @@ msgid "Date format"
 msgstr "Datumformat"
 
 #: data/org.gnome.gnome-commander.gschema.xml:112
-msgid "Format of the date in the file pane."
+msgid "Format of the date in the file panel."
 msgstr "Datumformatet i filpanelen."
 
 #: data/org.gnome.gnome-commander.gschema.xml:118
@@ -161,7 +161,7 @@ msgid "List font"
 msgstr "Listtypsnitt"
 
 #: data/org.gnome.gnome-commander.gschema.xml:119
-msgid "The font in the file panes."
+msgid "The font in the file panels."
 msgstr "Typsnittet i filpanelerna."
 
 #: data/org.gnome.gnome-commander.gschema.xml:123
@@ -217,7 +217,7 @@ msgid "Icon size"
 msgstr "Ikonstorlek"
 
 #: data/org.gnome.gnome-commander.gschema.xml:159
-msgid "Size of icons in the file pane."
+msgid "Size of icons in the file panel."
 msgstr "Ikonstorlekar i filpanelen."
 
 #: data/org.gnome.gnome-commander.gschema.xml:163
@@ -274,7 +274,7 @@ msgstr "Horisontell orientering"
 
 #: data/org.gnome.gnome-commander.gschema.xml:193
 msgid ""
-"Defines if the orientation of the file panes should be horizontal or not."
+"Defines if the orientation of the file panels should be horizontal or not."
 msgstr ""
 "Definierar om orienteringen för filpanelerna ska vara horisontell eller ej."
 
@@ -283,12 +283,12 @@ msgid "GUI update rate"
 msgstr "GUI-uppdateringshastighet"
 
 #: data/org.gnome.gnome-commander.gschema.xml:201
-msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
+msgid "Update rate of the graphical user interface in 1/1000ths of a second."
 msgstr ""
-"Uppdateringshastigheten för det grafiska gränssnittets interfas i tusendels "
+"Uppdateringshastigheten för det grafiska användargränssnittet i tusendels "
 "sekunder."
 
-#: data/org.gnome.gnome-commander.gschema.xml:205 src/user_actions.rs:1487
+#: data/org.gnome.gnome-commander.gschema.xml:205
 msgid "Show device buttons"
 msgstr "Visa enhetsknappar"
 
@@ -296,7 +296,7 @@ msgstr "Visa enhetsknappar"
 msgid "Defines if device buttons are shown."
 msgstr "Definierar om enhetsknapparna visas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:210 src/user_actions.rs:1489
+#: data/org.gnome.gnome-commander.gschema.xml:210
 msgid "Show device list"
 msgstr "Visa enhetslista"
 
@@ -304,7 +304,7 @@ msgstr "Visa enhetslista"
 msgid "Defines if the list of devices is shown."
 msgstr "Definierar om enhetslistan visas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:215 src/user_actions.rs:1496
+#: data/org.gnome.gnome-commander.gschema.xml:215
 msgid "Show command line"
 msgstr "Visa kommandorad"
 
@@ -312,7 +312,7 @@ msgstr "Visa kommandorad"
 msgid "Defines if command line is shown."
 msgstr "Definierar om kommandoraden visas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:220 src/user_actions.rs:1490
+#: data/org.gnome.gnome-commander.gschema.xml:220
 msgid "Show toolbar"
 msgstr "Visa verktygsfält"
 
@@ -320,7 +320,7 @@ msgstr "Visa verktygsfält"
 msgid "Defines if the toolbar is shown."
 msgstr "Definierar om verktygsfältet visas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:225 src/user_actions.rs:1494
+#: data/org.gnome.gnome-commander.gschema.xml:225
 msgid "Show buttonbar"
 msgstr "Visa knapprad"
 
@@ -590,7 +590,7 @@ msgstr "Behandla symboliska länkar som vanliga filer"
 #: data/org.gnome.gnome-commander.gschema.xml:437
 msgid ""
 "This option defines if symbolic links should be treated as regular files. In "
-"the file pane they are listed between other files and not at the top if "
+"the file panel they are listed between other files and not at the top if "
 "their target is not existing."
 msgstr ""
 "Detta alternativ definierar om symboliska länkar ska behandlas som vanliga "
@@ -604,7 +604,7 @@ msgstr "Välj kataloger när allt är markerat"
 #: data/org.gnome.gnome-commander.gschema.xml:445
 msgid ""
 "This option defines if directories will be marked when all items in a file "
-"pane should be marked."
+"panel should be marked."
 msgstr ""
 "Detta alternativ definierar huruvida kataloger kommer att markeras när alla "
 "objekt i en filpanel markeras."
@@ -682,64 +682,77 @@ msgid "This option defines the shortcut for quick search."
 msgstr "Detta alternativ definierar kortkommandot för snabbsökningen."
 
 #: data/org.gnome.gnome-commander.gschema.xml:500
+msgid "Legacy list of file tabs"
+msgstr "Gammal lista över filflikar"
+
+#: data/org.gnome.gnome-commander.gschema.xml:501
+#: data/org.gnome.gnome-commander.gschema.xml:572
+msgid ""
+"This setting is only present for backwards compatibility and will be removed "
+"in future."
+msgstr ""
+"Denna inställning finns endast för bakåtkompatibilitet och kommer tas bort i "
+"framtiden."
+
+#: data/org.gnome.gnome-commander.gschema.xml:507
 msgid "List of file tabs"
 msgstr "Lista över filflikar"
 
-#: data/org.gnome.gnome-commander.gschema.xml:501
+#: data/org.gnome.gnome-commander.gschema.xml:508
 msgid ""
-"The entries in this list are used for restoring the tabs from the last "
-"session."
+"The entries in this list are used for restoring the tabs and their history "
+"from the last session."
 msgstr ""
 "Posterna i denna lista används för att återställa flikarna från föregående "
-"session."
+"session och deras historik."
 
-#: data/org.gnome.gnome-commander.gschema.xml:508
+#: data/org.gnome.gnome-commander.gschema.xml:515
 msgid "List of devices - deprecated"
 msgstr "Lista över enheter - föråldrad"
 
-#: data/org.gnome.gnome-commander.gschema.xml:509
 #: data/org.gnome.gnome-commander.gschema.xml:516
+#: data/org.gnome.gnome-commander.gschema.xml:523
 msgid "The entries in this list represent the devices configured by the user."
 msgstr ""
 "Posterna i denna lista representerar enheterna som konfigurerats av "
 "användaren."
 
-#: data/org.gnome.gnome-commander.gschema.xml:515
+#: data/org.gnome.gnome-commander.gschema.xml:522
 msgid "List of devices"
 msgstr "Lista över enheter"
 
-#: data/org.gnome.gnome-commander.gschema.xml:522
+#: data/org.gnome.gnome-commander.gschema.xml:529
 msgid "List of favorite apps"
 msgstr "Lista över favoritprogram"
 
-#: data/org.gnome.gnome-commander.gschema.xml:523
+#: data/org.gnome.gnome-commander.gschema.xml:530
 msgid ""
 "The entries in this list represent the favorite apps configured by the user."
 msgstr ""
 "Posterna i denna lista representerar favoritprogrammen som konfigurerats av "
 "användaren."
 
-#: data/org.gnome.gnome-commander.gschema.xml:529
+#: data/org.gnome.gnome-commander.gschema.xml:536
 msgid "Search window width"
 msgstr "Sökfönstrets bredd"
 
-#: data/org.gnome.gnome-commander.gschema.xml:530
+#: data/org.gnome.gnome-commander.gschema.xml:537
 msgid "This option defines the width of the search window."
 msgstr "Detta alternativ definierar bredden på sökfönstret."
 
-#: data/org.gnome.gnome-commander.gschema.xml:536
+#: data/org.gnome.gnome-commander.gschema.xml:543
 msgid "Search window height"
 msgstr "Sökfönstrets höjd"
 
-#: data/org.gnome.gnome-commander.gschema.xml:537
+#: data/org.gnome.gnome-commander.gschema.xml:544
 msgid "This option defines the height of the search window."
 msgstr "Detta alternativ definierar höjden på sökfönstret."
 
-#: data/org.gnome.gnome-commander.gschema.xml:543
+#: data/org.gnome.gnome-commander.gschema.xml:550
 msgid "Search window is transient"
 msgstr "Sökfönstret är tillfälligt"
 
-#: data/org.gnome.gnome-commander.gschema.xml:544
+#: data/org.gnome.gnome-commander.gschema.xml:551
 msgid ""
 "Defines if the search window is transient or if it can be minimized and "
 "moved behind the main window."
@@ -747,21 +760,21 @@ msgstr ""
 "Definierar om sökfönstret är tillfälligt eller om det kan minimeras och "
 "flyttas bakom huvudfönstret."
 
-#: data/org.gnome.gnome-commander.gschema.xml:550
+#: data/org.gnome.gnome-commander.gschema.xml:557
 msgid "Search text history"
 msgstr "Söktexthistorik"
 
-#: data/org.gnome.gnome-commander.gschema.xml:551
+#: data/org.gnome.gnome-commander.gschema.xml:558
 msgid ""
 "This string array represents the history of text searches in the search tool."
 msgstr ""
 "Denna strängvektor representerar historiken för textsökningar i sökverktyget."
 
-#: data/org.gnome.gnome-commander.gschema.xml:557
+#: data/org.gnome.gnome-commander.gschema.xml:564
 msgid "Search pattern history"
 msgstr "Sökmönsterhistorik"
 
-#: data/org.gnome.gnome-commander.gschema.xml:558
+#: data/org.gnome.gnome-commander.gschema.xml:565
 msgid ""
 "This string array represents the history of regular expression searches in "
 "the search tool."
@@ -769,11 +782,15 @@ msgstr ""
 "Denna strängvektor representerar historiken för sökningar med reguljära "
 "uttryck i sökverktyget."
 
-#: data/org.gnome.gnome-commander.gschema.xml:564
+#: data/org.gnome.gnome-commander.gschema.xml:571
+msgid "Legacy search tool profiles"
+msgstr "Gamla sökverktygsprofiler"
+
+#: data/org.gnome.gnome-commander.gschema.xml:578
 msgid "List of search tool profiles"
 msgstr "Lista över sökverktygsprofiler"
 
-#: data/org.gnome.gnome-commander.gschema.xml:565
+#: data/org.gnome.gnome-commander.gschema.xml:579
 msgid ""
 "The entries in this array represent the profiles in the search tool with "
 "specific settings for each profile."
@@ -781,35 +798,35 @@ msgstr ""
 "Posterna i denna vektor representerar profilerna i sökverktyget med "
 "specifika inställningar för varje profil."
 
-#: data/org.gnome.gnome-commander.gschema.xml:573
+#: data/org.gnome.gnome-commander.gschema.xml:587
 msgid "Quick connect URI"
 msgstr "Snabbanslutnings-URI"
 
-#: data/org.gnome.gnome-commander.gschema.xml:574
+#: data/org.gnome.gnome-commander.gschema.xml:588
 msgid "Unified resource identifier for quick connections."
 msgstr "Enad resursidentifierare för snabba anslutningar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:585
+#: data/org.gnome.gnome-commander.gschema.xml:599
 msgid "Password for anonymous FTP connections"
 msgstr "Lösenord för anonyma FTP-anslutningar"
 
-#: data/org.gnome.gnome-commander.gschema.xml:586
+#: data/org.gnome.gnome-commander.gschema.xml:600
 msgid "This string defines the password for anonymous FTP connections."
 msgstr "Denna sträng definierar lösenordet för anonyma FTP-anslutningar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:594
+#: data/org.gnome.gnome-commander.gschema.xml:608
 msgid "Confirm delete"
 msgstr "Bekräfta borttagning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:595
+#: data/org.gnome.gnome-commander.gschema.xml:609
 msgid "Defines if deletion of an item should be confirmed."
 msgstr "Definierar om borttagning av ett objekt ska bekräftas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:601
+#: data/org.gnome.gnome-commander.gschema.xml:615
 msgid "Delete default"
 msgstr "Standard för borttagning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:602
+#: data/org.gnome.gnome-commander.gschema.xml:616
 msgid ""
 "This setting defines the default active option in the delete confirmation "
 "dialog."
@@ -817,11 +834,11 @@ msgstr ""
 "Denna inställning definierar standardalternativet i dialogen "
 "borttagningsbekräftelse."
 
-#: data/org.gnome.gnome-commander.gschema.xml:608
+#: data/org.gnome.gnome-commander.gschema.xml:622
 msgid "Confirm copy overwrite"
 msgstr "Bekräfta skriv över vid kopiering"
 
-#: data/org.gnome.gnome-commander.gschema.xml:609
+#: data/org.gnome.gnome-commander.gschema.xml:623
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "copy command."
@@ -829,11 +846,11 @@ msgstr ""
 "Detta alternativ definierar standardbeteendet för när objekt kommer att "
 "skrivas över av ett kopieringskommando."
 
-#: data/org.gnome.gnome-commander.gschema.xml:615
+#: data/org.gnome.gnome-commander.gschema.xml:629
 msgid "Confirm move overwrite"
 msgstr "Bekräfta skriv över vid flytt"
 
-#: data/org.gnome.gnome-commander.gschema.xml:616
+#: data/org.gnome.gnome-commander.gschema.xml:630
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "move command."
@@ -841,35 +858,35 @@ msgstr ""
 "Detta alternativ definierar standardbeteendet för när objekt kommer att "
 "skrivas över av ett flyttkommando."
 
-#: data/org.gnome.gnome-commander.gschema.xml:622
+#: data/org.gnome.gnome-commander.gschema.xml:636
 msgid "Confirm mouse drag and drop"
 msgstr "Bekräfta musåtgärderna dra-och-släpp"
 
-#: data/org.gnome.gnome-commander.gschema.xml:623
+#: data/org.gnome.gnome-commander.gschema.xml:637
 msgid "This option defines the behavior of mouse drag and drop operations."
 msgstr "Detta alternativ definierar beteendet för musåtgärderna dra-och-släpp."
 
-#: data/org.gnome.gnome-commander.gschema.xml:631
+#: data/org.gnome.gnome-commander.gschema.xml:645
 msgid "Hide unknown filetypes"
 msgstr "Dölj okända filtyper"
 
-#: data/org.gnome.gnome-commander.gschema.xml:632
+#: data/org.gnome.gnome-commander.gschema.xml:646
 msgid "Hide files which type does not match to one of the other types."
 msgstr "Dölj filer vars typ inte matcher mot en av de andra typerna."
 
-#: data/org.gnome.gnome-commander.gschema.xml:636
+#: data/org.gnome.gnome-commander.gschema.xml:650
 msgid "Hide regular files"
 msgstr "Dölj vanliga filer"
 
-#: data/org.gnome.gnome-commander.gschema.xml:640
+#: data/org.gnome.gnome-commander.gschema.xml:654
 msgid "Hide directories"
 msgstr "Dölj kataloger"
 
-#: data/org.gnome.gnome-commander.gschema.xml:644
+#: data/org.gnome.gnome-commander.gschema.xml:658
 msgid "Hide symbolic links"
 msgstr "Dölj symboliska länkar"
 
-#: data/org.gnome.gnome-commander.gschema.xml:648
+#: data/org.gnome.gnome-commander.gschema.xml:662
 msgid ""
 "Hide special files, such as a socket, fifo, block devices, or character "
 "devices."
@@ -877,40 +894,40 @@ msgstr ""
 "Dölj specialfiler, till exempel uttag, fifo, blockenheter eller "
 "teckenenheter."
 
-#: data/org.gnome.gnome-commander.gschema.xml:652
+#: data/org.gnome.gnome-commander.gschema.xml:666
 msgid "Hide shortcut files (Windows systems)"
 msgstr "Dölj genvägsfiler (Windows-system)"
 
-#: data/org.gnome.gnome-commander.gschema.xml:656
+#: data/org.gnome.gnome-commander.gschema.xml:670
 msgid "Hide mountable locations"
 msgstr "Dölj monterbara platser"
 
-#: data/org.gnome.gnome-commander.gschema.xml:660
+#: data/org.gnome.gnome-commander.gschema.xml:674
 msgid "Hide virtual files"
 msgstr "Dölj virtuella filer"
 
-#: data/org.gnome.gnome-commander.gschema.xml:664
+#: data/org.gnome.gnome-commander.gschema.xml:678
 msgid "Hide volatile files"
 msgstr "Dölj flyktiga filer"
 
-#: data/org.gnome.gnome-commander.gschema.xml:668
+#: data/org.gnome.gnome-commander.gschema.xml:682
 msgid "Hide files and folders starting with a dot"
 msgstr "Dölj filer och mappar som börjar med en punkt"
 
-#: data/org.gnome.gnome-commander.gschema.xml:672
+#: data/org.gnome.gnome-commander.gschema.xml:686
 msgid "Hide backup files"
 msgstr "Dölj säkerhetskopior"
 
-#: data/org.gnome.gnome-commander.gschema.xml:673
+#: data/org.gnome.gnome-commander.gschema.xml:687
 msgid "Hide all files with a suffix defined as the backup pattern."
 msgstr ""
 "Dölj alla filer med ett suffix definierat som mönstret för säkerhetskopior."
 
-#: data/org.gnome.gnome-commander.gschema.xml:677
+#: data/org.gnome.gnome-commander.gschema.xml:691
 msgid "Backup file pattern"
 msgstr "Mönster för säkerhetskopior"
 
-#: data/org.gnome.gnome-commander.gschema.xml:678
+#: data/org.gnome.gnome-commander.gschema.xml:692
 msgid ""
 "The given string defines suffixes (separated by semicolon) for files which "
 "should be filtered out if backup files should be hidden."
@@ -918,11 +935,11 @@ msgstr ""
 "Den givna strängen definierar suffix (separerat av semikolon) för filer som "
 "ska filtreras bort om säkerhetskopior döljs."
 
-#: data/org.gnome.gnome-commander.gschema.xml:687
+#: data/org.gnome.gnome-commander.gschema.xml:701
 msgid "Do not download files"
 msgstr "Hämta inte filer"
 
-#: data/org.gnome.gnome-commander.gschema.xml:688
+#: data/org.gnome.gnome-commander.gschema.xml:702
 msgid ""
 "This option defines if remote files should be downloaded before opened by "
 "external programs."
@@ -930,179 +947,167 @@ msgstr ""
 "Detta alternativ definierar om fjärrfiler ska hämtas innan de öppnas av "
 "externa program."
 
-#: data/org.gnome.gnome-commander.gschema.xml:694
+#: data/org.gnome.gnome-commander.gschema.xml:708
 msgid "Use internal viewer"
 msgstr "Använd intern visare"
 
-#: data/org.gnome.gnome-commander.gschema.xml:695
+#: data/org.gnome.gnome-commander.gschema.xml:709
 msgid "This option defines if the internal viewer should be used by default."
 msgstr ""
 "Detta alternativ definierar huruvida den interna visaren ska användas som "
 "standard."
 
-#: data/org.gnome.gnome-commander.gschema.xml:701
+#: data/org.gnome.gnome-commander.gschema.xml:715
 msgid "Viewer command"
 msgstr "Visarkommando"
 
-#: data/org.gnome.gnome-commander.gschema.xml:702
+#: data/org.gnome.gnome-commander.gschema.xml:716
 msgid "This string defines the command for starting the (external) viewer."
 msgstr ""
 "Denna sträng definierar kommandot för att starta (den externa) visaren."
 
-#: data/org.gnome.gnome-commander.gschema.xml:708
+#: data/org.gnome.gnome-commander.gschema.xml:722
 msgid "Editor command"
 msgstr "Redigerarkommando"
 
-#: data/org.gnome.gnome-commander.gschema.xml:709
+#: data/org.gnome.gnome-commander.gschema.xml:723
 msgid "This string defines the command for starting the editor."
 msgstr "Denna sträng definierar kommandot för att starta redigeraren."
 
-#: data/org.gnome.gnome-commander.gschema.xml:715
+#: data/org.gnome.gnome-commander.gschema.xml:729
 msgid "Differ command"
 msgstr "Skillnadskommando"
 
-#: data/org.gnome.gnome-commander.gschema.xml:716
+#: data/org.gnome.gnome-commander.gschema.xml:730
 msgid "This string defines the command for starting the diff tool."
 msgstr "Denna sträng definierar kommandot för att starta diff-verktyget."
 
-#: data/org.gnome.gnome-commander.gschema.xml:722
+#: data/org.gnome.gnome-commander.gschema.xml:736
 msgid "Use internal search"
 msgstr "Använd intern sökning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:723
+#: data/org.gnome.gnome-commander.gschema.xml:737
 msgid "This option defines if the internal search should be used by default."
 msgstr ""
 "Detta alternativ definierar huruvida den interna sökningen ska användas som "
 "standard."
 
-#: data/org.gnome.gnome-commander.gschema.xml:729
+#: data/org.gnome.gnome-commander.gschema.xml:743
 msgid "Search command"
 msgstr "Sökkommando"
 
-#: data/org.gnome.gnome-commander.gschema.xml:730
+#: data/org.gnome.gnome-commander.gschema.xml:744
 msgid ""
 "This string defines the command for starting an external file search tool."
 msgstr ""
 "Denna sträng definierar kommandot för att starta ett externt "
 "filsökningsverktyg."
 
-#: data/org.gnome.gnome-commander.gschema.xml:736
-msgid "Leave terminal open"
-msgstr "Lämna terminal öppen"
-
-#: data/org.gnome.gnome-commander.gschema.xml:737
-msgid ""
-"This option defines if a terminal window should stay open after a command "
-"finishes inside of it."
-msgstr ""
-"Detta alternativ definierar huruvida ett terminalfönster ska fortsätta vara "
-"öppet efter att ett kommando avslutats i det."
-
-#: data/org.gnome.gnome-commander.gschema.xml:743
+#: data/org.gnome.gnome-commander.gschema.xml:750
 msgid "Command for opening a terminal"
 msgstr "Kommando för att öppna en terminal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:744
+#: data/org.gnome.gnome-commander.gschema.xml:751
 msgid "This string defines the command for opening a terminal."
 msgstr "Denna sträng definierar kommandot för att öppna en terminal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:750
+#: data/org.gnome.gnome-commander.gschema.xml:757
 msgid "Command for execution in terminal"
 msgstr "Kommando för exekvering i terminal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:751
+#: data/org.gnome.gnome-commander.gschema.xml:758
 msgid ""
 "This string defines the command for executing another command in a terminal."
 msgstr ""
 "Denna sträng definierar kommandot för att exekvera ett annat kommando i en "
 "terminal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:757
+#: data/org.gnome.gnome-commander.gschema.xml:764
 msgid "Send to command"
 msgstr "”Skicka till”-kommando"
 
-#: data/org.gnome.gnome-commander.gschema.xml:758
+#: data/org.gnome.gnome-commander.gschema.xml:765
 msgid "This string defines the command for sending files to a receiver."
 msgstr ""
 "Denna sträng definierar kommandot för att sända filer till en mottagare."
 
-#: data/org.gnome.gnome-commander.gschema.xml:766
+#: data/org.gnome.gnome-commander.gschema.xml:773
 msgid "Color theme"
 msgstr "Färgschema"
 
-#: data/org.gnome.gnome-commander.gschema.xml:767
+#: data/org.gnome.gnome-commander.gschema.xml:774
 msgid "This option defines the current color theme."
 msgstr "Detta alternativ definierar det aktuella färgtemat."
 
-#: data/org.gnome.gnome-commander.gschema.xml:773
+#: data/org.gnome.gnome-commander.gschema.xml:780
 msgid "Normal foreground color"
 msgstr "Normal förgrundsfärg"
 
-#: data/org.gnome.gnome-commander.gschema.xml:774
+#: data/org.gnome.gnome-commander.gschema.xml:781
 msgid "Normal foreground color in custom mode."
 msgstr "Normal förgrundsfärg i anpassat läge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:780
+#: data/org.gnome.gnome-commander.gschema.xml:787
 msgid "Normal background color"
 msgstr "Normal bakgrundsfärg"
 
-#: data/org.gnome.gnome-commander.gschema.xml:781
+#: data/org.gnome.gnome-commander.gschema.xml:788
 msgid "Normal background color in custom mode."
 msgstr "Normal bakgrundsfärg i anpassat läge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:787
+#: data/org.gnome.gnome-commander.gschema.xml:794
 msgid "Alternate foreground color"
 msgstr "Alternativ förgrundsfärg"
 
-#: data/org.gnome.gnome-commander.gschema.xml:788
+#: data/org.gnome.gnome-commander.gschema.xml:795
 msgid "Alternate foreground color in custom mode."
 msgstr "Alternativ förgrundsfärg i anpassat läge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:794
+#: data/org.gnome.gnome-commander.gschema.xml:801
 msgid "Alternate background color"
 msgstr "Alternativ bakgrundsfärg"
 
-#: data/org.gnome.gnome-commander.gschema.xml:795
+#: data/org.gnome.gnome-commander.gschema.xml:802
 msgid "Alternate background color in custom mode."
 msgstr "Alternativ bakgrundsfärg i anpassat läge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:801
+#: data/org.gnome.gnome-commander.gschema.xml:808
 msgid "Selection foreground color"
 msgstr "Förgrundsfärg för markeringar"
 
-#: data/org.gnome.gnome-commander.gschema.xml:802
+#: data/org.gnome.gnome-commander.gschema.xml:809
 msgid "Foreground color for selections in custom mode."
 msgstr "Förgrundsfärg för markeringar i anpassat läge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:808
+#: data/org.gnome.gnome-commander.gschema.xml:815
 msgid "Selection background color"
 msgstr "Bakgrundsfärg för markeringar"
 
-#: data/org.gnome.gnome-commander.gschema.xml:809
+#: data/org.gnome.gnome-commander.gschema.xml:816
 msgid "Background color for selections in custom mode."
 msgstr "Bakgrundsfärg för markeringar i anpassat läge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:815
+#: data/org.gnome.gnome-commander.gschema.xml:822
 msgid "Cursor foreground color"
 msgstr "Markörförgrundsfärg"
 
-#: data/org.gnome.gnome-commander.gschema.xml:816
+#: data/org.gnome.gnome-commander.gschema.xml:823
 msgid "Cursor foreground color in custom mode."
 msgstr "Markörförgrundsfärg i anpassat läge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:822
+#: data/org.gnome.gnome-commander.gschema.xml:829
 msgid "Cursor background color"
 msgstr "Markörbakgrundsfärg"
 
-#: data/org.gnome.gnome-commander.gschema.xml:823
+#: data/org.gnome.gnome-commander.gschema.xml:830
 msgid "Cursor background color in custom mode."
 msgstr "Markörbakgrundsfärg i anpassat läge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:829
+#: data/org.gnome.gnome-commander.gschema.xml:836
 msgid "Use LS colors"
 msgstr "Använd LS-färger"
 
-#: data/org.gnome.gnome-commander.gschema.xml:830
+#: data/org.gnome.gnome-commander.gschema.xml:837
 msgid ""
 "This option triggers if the value of the environment variable LS_COLORS "
 "should be used to dye files and folders."
@@ -1110,173 +1115,173 @@ msgstr ""
 "Detta alternativ styr om värdet för miljövariabeln LS_COLORS ska användas "
 "för att färga filer och mappar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:837
+#: data/org.gnome.gnome-commander.gschema.xml:844
 msgid "LS_COLORS black foreground mapping"
 msgstr "LS_COLORS svart förgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:838
+#: data/org.gnome.gnome-commander.gschema.xml:845
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS black value."
 msgstr ""
 "Detta alternativ justerar förgrundsfärgmappningen för LS_COLORS svarta värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:844
+#: data/org.gnome.gnome-commander.gschema.xml:851
 msgid "LS_COLORS black background mapping"
 msgstr "LS_COLORS svart bakgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:845
+#: data/org.gnome.gnome-commander.gschema.xml:852
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS black value."
 msgstr ""
 "Detta alternativ justerar bakgrundsfärgmappningen för LS_COLORS svarta värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:851
+#: data/org.gnome.gnome-commander.gschema.xml:858
 msgid "LS_COLORS red foreground mapping"
 msgstr "LS_COLORS röd förgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:852
+#: data/org.gnome.gnome-commander.gschema.xml:859
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS red value."
 msgstr ""
 "Detta alternativ justerar förgrundsfärgmappningen för LS_COLORS röda värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:858
+#: data/org.gnome.gnome-commander.gschema.xml:865
 msgid "LS_COLORS red background mapping"
 msgstr "LS_COLORS röd bakgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:859
+#: data/org.gnome.gnome-commander.gschema.xml:866
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS red value."
 msgstr ""
 "Detta alternativ justerar bakgrundsfärgmappningen för LS_COLORS röda värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:865
+#: data/org.gnome.gnome-commander.gschema.xml:872
 msgid "LS_COLORS green foreground mapping"
 msgstr "LS_COLORS grön förgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:866
+#: data/org.gnome.gnome-commander.gschema.xml:873
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS green value."
 msgstr ""
 "Detta alternativ justerar förgrundsfärgmappningen för LS_COLORS gröna värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:872
+#: data/org.gnome.gnome-commander.gschema.xml:879
 msgid "LS_COLORS green background mapping"
 msgstr "LS_COLORS grön bakgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:873
+#: data/org.gnome.gnome-commander.gschema.xml:880
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS green value."
 msgstr ""
 "Detta alternativ justerar bakgrundsfärgmappningen för LS_COLORS gröna värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:879
+#: data/org.gnome.gnome-commander.gschema.xml:886
 msgid "LS_COLORS yellow foreground mapping"
 msgstr "LS_COLORS gul förgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:880
+#: data/org.gnome.gnome-commander.gschema.xml:887
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS yellow value."
 msgstr ""
 "Detta alternativ justerar förgrundsfärgmappningen för LS_COLORS gula värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:886
+#: data/org.gnome.gnome-commander.gschema.xml:893
 msgid "LS_COLORS yellow background mapping"
 msgstr "LS_COLORS gul bakgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:887
+#: data/org.gnome.gnome-commander.gschema.xml:894
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS yellow value."
 msgstr ""
 "Detta alternativ justerar bakgrundsfärgmappningen för LS_COLORS gula värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:893
+#: data/org.gnome.gnome-commander.gschema.xml:900
 msgid "LS_COLORS blue foreground mapping"
 msgstr "LS_COLORS blå förgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:894
+#: data/org.gnome.gnome-commander.gschema.xml:901
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS blue value."
 msgstr ""
 "Detta alternativ justerar förgrundsfärgmappningen för LS_COLORS blåa värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:900
+#: data/org.gnome.gnome-commander.gschema.xml:907
 msgid "LS_COLORS blue background mapping"
 msgstr "LS_COLORS blå bakgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:901
+#: data/org.gnome.gnome-commander.gschema.xml:908
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS blue value."
 msgstr ""
 "Detta alternativ justerar bakgrundsfärgmappningen för LS_COLORS blåa värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:907
+#: data/org.gnome.gnome-commander.gschema.xml:914
 msgid "LS_COLORS magenta foreground mapping"
 msgstr "LS_COLORS magenta förgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:908
+#: data/org.gnome.gnome-commander.gschema.xml:915
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS magenta value."
 msgstr ""
 "Detta alternativ justerar förgrundsfärgmappningen för LS_COLORS magenta-"
 "värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:914
+#: data/org.gnome.gnome-commander.gschema.xml:921
 msgid "LS_COLORS magenta background mapping"
 msgstr "LS_COLORS magenta bakgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:915
+#: data/org.gnome.gnome-commander.gschema.xml:922
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS magenta value."
 msgstr ""
 "Detta alternativ justerar bakgrundsfärgmappningen för LS_COLORS magenta-"
 "värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:921
+#: data/org.gnome.gnome-commander.gschema.xml:928
 msgid "LS_COLORS cyan foreground mapping"
 msgstr "LS_COLORS cyan förgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:922
+#: data/org.gnome.gnome-commander.gschema.xml:929
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS cyan value."
 msgstr ""
 "Detta alternativ justerar förgrundsfärgmappningen för LS_COLORS cyan-värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:928
+#: data/org.gnome.gnome-commander.gschema.xml:935
 msgid "LS_COLORS cyan background mapping"
 msgstr "LS_COLORS cyan bakgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:929
+#: data/org.gnome.gnome-commander.gschema.xml:936
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS cyan value."
 msgstr ""
 "Detta alternativ justerar bakgrundsfärgmappningen för LS_COLORS cyan-värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:935
+#: data/org.gnome.gnome-commander.gschema.xml:942
 msgid "LS_COLORS white foreground mapping"
 msgstr "LS_COLORS vit förgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:936
+#: data/org.gnome.gnome-commander.gschema.xml:943
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS white value."
 msgstr ""
 "Detta alternativ justerar förgrundsfärgmappningen för LS_COLORS vita värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:942
+#: data/org.gnome.gnome-commander.gschema.xml:949
 msgid "LS_COLORS white background mapping"
 msgstr "LS_COLORS vit bakgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:943
+#: data/org.gnome.gnome-commander.gschema.xml:950
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS white value."
 msgstr ""
 "Detta alternativ justerar bakgrundsfärgmappningen för LS_COLORS vita värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:951
+#: data/org.gnome.gnome-commander.gschema.xml:958
 msgid "Case sensitive search"
 msgstr "Skiftlägeskänslig sökning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:952
+#: data/org.gnome.gnome-commander.gschema.xml:959
 msgid ""
 "This option defines if searching within the internal viewer is case "
 "sensitive."
@@ -1284,52 +1289,52 @@ msgstr ""
 "Detta alternativ definierar om sökning inom den interna visaren är "
 "skiftlägeskänslig."
 
-#: data/org.gnome.gnome-commander.gschema.xml:958
+#: data/org.gnome.gnome-commander.gschema.xml:965
 msgid "Search mode"
 msgstr "Sökläge"
 
-#: data/org.gnome.gnome-commander.gschema.xml:959
+#: data/org.gnome.gnome-commander.gschema.xml:966
 msgid "This option defines the search mode of the internal viewer."
 msgstr "Detta alternativ definierar sökläget för den interna visaren."
 
 #. Translators: This is the default string of encoding used by the internal viewer
 #. for displaying the file in the given encoding. You may want to customize it by using
 #. an encoding that is common in your country.
-#. See https://gitlab.gnome.org/GNOME/gnome-commander/blob/master/src/intviewer/viewer-window.cc#L360 for
+#. See https://gitlab.gnome.org/GNOME/gnome-commander/-/blob/main/src/intviewer/window.rs#L776 for
 #. a list of supported encodings.
-#: data/org.gnome.gnome-commander.gschema.xml:969
+#: data/org.gnome.gnome-commander.gschema.xml:976
 msgid "'UTF8'"
 msgstr "'UTF8'"
 
-#: data/org.gnome.gnome-commander.gschema.xml:970
+#: data/org.gnome.gnome-commander.gschema.xml:977
 msgid "Character set"
 msgstr "Teckenuppsättning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:971
+#: data/org.gnome.gnome-commander.gschema.xml:978
 msgid "This option defines the default character encoding."
 msgstr "Detta alternativ definierar standardteckenkodningen."
 
-#: data/org.gnome.gnome-commander.gschema.xml:977
+#: data/org.gnome.gnome-commander.gschema.xml:984
 msgid "Fixed font name"
 msgstr "Fast typsnittsnamn"
 
-#: data/org.gnome.gnome-commander.gschema.xml:978
+#: data/org.gnome.gnome-commander.gschema.xml:985
 msgid "Name of the default font with fixed character width."
 msgstr "Namnet på standardtypsnittet med fast teckenbredd."
 
-#: data/org.gnome.gnome-commander.gschema.xml:984
+#: data/org.gnome.gnome-commander.gschema.xml:991
 msgid "Variable font name"
 msgstr "Variabelt typsnittsnamn"
 
-#: data/org.gnome.gnome-commander.gschema.xml:985
+#: data/org.gnome.gnome-commander.gschema.xml:992
 msgid "Name of the default font with variable character width."
 msgstr "Namnet på standardtypsnittet med variabel teckenbredd."
 
-#: data/org.gnome.gnome-commander.gschema.xml:991
+#: data/org.gnome.gnome-commander.gschema.xml:998
 msgid "Display hex offset"
 msgstr "Visa hexförskjutning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:992
+#: data/org.gnome.gnome-commander.gschema.xml:999
 msgid ""
 "This option defines if the hexadecimal offset should be displayed in hex "
 "mode."
@@ -1337,27 +1342,27 @@ msgstr ""
 "Detta alternativ definierar om den hexadecimala förskjutningen ska visas i "
 "hexläge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:998
+#: data/org.gnome.gnome-commander.gschema.xml:1005
 msgid "Wrap mode"
 msgstr "Radbrytsläge"
 
-#: data/org.gnome.gnome-commander.gschema.xml:999
+#: data/org.gnome.gnome-commander.gschema.xml:1006
 msgid "This option defines if too long text lines should be wrapped."
 msgstr "Detta alternativ definierar om för långa textrader ska radbrytas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1005
+#: data/org.gnome.gnome-commander.gschema.xml:1012
 msgid "Font size"
 msgstr "Teckenstorlek"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1006
+#: data/org.gnome.gnome-commander.gschema.xml:1013
 msgid "This option defines the default font size."
 msgstr "Detta alternativ definierar storleken på standardtypsnittet."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1012
+#: data/org.gnome.gnome-commander.gschema.xml:1019
 msgid "Tab size"
 msgstr "Tabbstorlek"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1013
+#: data/org.gnome.gnome-commander.gschema.xml:1020
 msgid ""
 "This option defines the indentation width in terms of characters for a "
 "tabulator character."
@@ -1365,11 +1370,11 @@ msgstr ""
 "Detta alternativ definierar indenteringsbredden i formen av antal tecken för "
 "ett tabulatortecken."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1019
+#: data/org.gnome.gnome-commander.gschema.xml:1026
 msgid "Bytes per line in binary mode"
 msgstr "Byte per rad i binärt läge"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1020
+#: data/org.gnome.gnome-commander.gschema.xml:1027
 msgid ""
 "This option defines how many bytes should be displayed in one line in binary "
 "mode."
@@ -1377,35 +1382,35 @@ msgstr ""
 "Detta alternativ definierar hur många byte som ska visas på en rad i binärt "
 "läge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1026
+#: data/org.gnome.gnome-commander.gschema.xml:1033
 msgid "Metadata view"
 msgstr "Metadatavy"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1027
+#: data/org.gnome.gnome-commander.gschema.xml:1034
 msgid "This option defines if metadata should be visible."
 msgstr "Detta alternativ definierar om metadata ska vara synliga."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1033
+#: data/org.gnome.gnome-commander.gschema.xml:1040
 msgid "Window width"
 msgstr "Fönsterbredd"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1034
+#: data/org.gnome.gnome-commander.gschema.xml:1041
 msgid "The width of the internal file viewer window."
 msgstr "Bredden på det interna filvisarfönstret."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1040
+#: data/org.gnome.gnome-commander.gschema.xml:1047
 msgid "Window height"
 msgstr "Fönsterhöjd"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1041
+#: data/org.gnome.gnome-commander.gschema.xml:1048
 msgid "The height of the internal file viewer window."
 msgstr "Höjden på det interna filvisarfönstret."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1047
+#: data/org.gnome.gnome-commander.gschema.xml:1054
 msgid "Search pattern for text"
 msgstr "Sökmönster för text"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1048
+#: data/org.gnome.gnome-commander.gschema.xml:1055
 msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
@@ -1413,11 +1418,11 @@ msgstr ""
 "Denna strängvektor lagrar historiken för textsökningar inuti den interna "
 "filvisaren."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1054
+#: data/org.gnome.gnome-commander.gschema.xml:1061
 msgid "Search pattern for hex values"
 msgstr "Sökmönster för hexvärden"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1055
+#: data/org.gnome.gnome-commander.gschema.xml:1062
 msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
@@ -1425,19 +1430,19 @@ msgstr ""
 "Denna strängvektor lagrar historiken för sökningar av hexvärden inuti den "
 "interna filvisaren."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1063
+#: data/org.gnome.gnome-commander.gschema.xml:1070
 msgid "File suffix"
 msgstr "Filsuffix"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1064
+#: data/org.gnome.gnome-commander.gschema.xml:1071
 msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr "Standardfilsuffix för arkiv skapade med insticksmodulen File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1070
+#: data/org.gnome.gnome-commander.gschema.xml:1077
 msgid "Prefix pattern"
 msgstr "Prefixmönster"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1071
+#: data/org.gnome.gnome-commander.gschema.xml:1078
 msgid ""
 "The prefix pattern is used to build up the name for an archive created with "
 "the File Roller plugin."
@@ -1445,11 +1450,11 @@ msgstr ""
 "Prefixmönstret används för att bygga upp namnet för ett arkiv skapat med "
 "insticksmodulen File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1079
+#: data/org.gnome.gnome-commander.gschema.xml:1086
 msgid "Automatically loaded plugins"
 msgstr "Automatiskt inlästa insticksmoduler"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1080
+#: data/org.gnome.gnome-commander.gschema.xml:1087
 msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
@@ -1458,16 +1463,16 @@ msgstr ""
 "representerar filnamnet för insticket."
 
 #: data/org.gnome.gnome-commander.metainfo.xml.in:8
-msgid "Two-pane file manager"
+msgid "Dual-panel file manager"
 msgstr "Tvåpanelers filhanterare"
 
 #: data/org.gnome.gnome-commander.metainfo.xml.in:10
 msgid ""
-"GNOME Commander is a “two-pane” graphical file manager for the GNOME desktop "
-"environment. It features separate tabs for each pane, setting up custom "
-"device buttons, bookmark manager, fully integrated commandline, file quick "
-"search, an internal image viewer, a powerful batch renaming tool, and FTP "
-"and Samba access."
+"GNOME Commander is a “dual-panel” graphical file manager for the GNOME "
+"desktop environment. It features separate tabs for each panel, setting up "
+"custom device buttons, bookmark manager, fully integrated commandline, file "
+"quick search, an internal image viewer, a powerful batch renaming tool, and "
+"FTP and Samba access."
 msgstr ""
 "GNOME Commander är en grafisk filhanterare med två paneler för "
 "skrivbordsmiljön GNOME. Dess egenskaper är separata flikar för varje panel, "
@@ -1541,9 +1546,9 @@ msgid "Name of the author."
 msgstr "Upphovsmannens namn."
 
 #: plugins/exiv2/exiv2-plugin.cc:87 plugins/taglib/taglib-plugin.cc:191
-#: src/advanced_rename/advanced_rename_dialog.rs:431
+#: src/advanced_rename/advanced_rename_dialog.rs:429
 #: src/advanced_rename/profile_component.rs:225
-#: src/advanced_rename/profile_component.rs:683
+#: src/advanced_rename/profile_component.rs:679
 msgid "Date"
 msgstr "Datum"
 
@@ -3813,54 +3818,34 @@ msgid "What file name should the new archive have?"
 msgstr "Vilket filnamn ska det nya arkivet ha?"
 
 #: plugins/fileroller/file-roller-plugin.cc:443
-#: src/advanced_rename/profile_component.rs:1045
-#: src/advanced_rename/regex_dialog.rs:114 src/dialogs/chmod_dialog.rs:145
-#: src/dialogs/chown_dialog.rs:113 src/dialogs/connect_dialog.rs:187
-#: src/dialogs/create_symlink_dialog.rs:52 src/dialogs/delete_dialog.rs:87
-#: src/dialogs/edit_bookmark_dialog.rs:88
-#: src/dialogs/file_properties_dialog.rs:137 src/dialogs/make_copy_dialog.rs:68
-#: src/dialogs/mkdir_dialog.rs:104 src/dialogs/new_text_file.rs:89
-#: src/dialogs/open_with_other_dialog.rs:64
-#: src/dialogs/options/app_dialog.rs:186
-#: src/dialogs/options/device_dialog.rs:115
+#: src/advanced_rename/profile_component.rs:1041
+#: src/advanced_rename/regex_dialog.rs:117 src/dialogs/chmod_dialog.rs:148
+#: src/dialogs/chown_dialog.rs:119 src/dialogs/connect_dialog.rs:186
+#: src/dialogs/create_symlink_dialog.rs:52 src/dialogs/delete_dialog.rs:89
+#: src/dialogs/edit_bookmark_dialog.rs:93
+#: src/dialogs/file_properties_dialog.rs:144 src/dialogs/make_copy_dialog.rs:66
+#: src/dialogs/mkdir_dialog.rs:100 src/dialogs/new_text_file.rs:85
+#: src/dialogs/open_with_other_dialog.rs:54
+#: src/dialogs/options/app_dialog.rs:183
+#: src/dialogs/options/device_dialog.rs:112
 #: src/dialogs/options/edit_palette_dialog.rs:172
 #: src/dialogs/options/options_dialog.rs:119
-#: src/dialogs/pattern_selection_dialog.rs:91
-#: src/dialogs/prepare_transfer_dialog.rs:87
+#: src/dialogs/pattern_selection_dialog.rs:88
+#: src/dialogs/prepare_transfer_dialog.rs:86
 #: src/dialogs/profiles/edit_profile_dialog.rs:103
 #: src/dialogs/profiles/manage_profiles_dialog.rs:251
-#: src/dialogs/shortcuts/shortcut_dialog.rs:174
-#: src/dialogs/shortcuts/shortcut_dialog.rs:389
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:191
-#: src/dialogs/transfer_progress_dialog.rs:83 src/dirlist.rs:55
-#: src/file_selector.rs:1509 src/intviewer/search_dialog.rs:63
-#: src/open_connection.rs:48 src/open_file.rs:40 src/open_file.rs:62
-#: src/user_actions.rs:845
+#: src/dialogs/shortcuts/shortcut_dialog.rs:172
+#: src/dialogs/shortcuts/shortcut_dialog.rs:384
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:188
+#: src/dialogs/transfer_progress_dialog.rs:86 src/dirlist.rs:59
+#: src/file_selector.rs:1657 src/intviewer/search_dialog.rs:63
+#: src/open_connection.rs:49 src/open_file.rs:40 src/open_file.rs:62
+#: src/user_actions.rs:852
 msgid "_Cancel"
 msgstr "A_vbryt"
 
 #: plugins/fileroller/file-roller-plugin.cc:450
 #: plugins/fileroller/file-roller-plugin.cc:694
-#: src/advanced_rename/profile_component.rs:1059
-#: src/advanced_rename/regex_dialog.rs:124 src/dialogs/chmod_dialog.rs:155
-#: src/dialogs/chown_dialog.rs:123 src/dialogs/connect_dialog.rs:197
-#: src/dialogs/create_symlink_dialog.rs:56
-#: src/dialogs/edit_bookmark_dialog.rs:98
-#: src/dialogs/file_properties_dialog.rs:141 src/dialogs/make_copy_dialog.rs:78
-#: src/dialogs/mkdir_dialog.rs:114 src/dialogs/new_text_file.rs:99
-#: src/dialogs/open_with_other_dialog.rs:69
-#: src/dialogs/options/app_dialog.rs:190
-#: src/dialogs/options/device_dialog.rs:119
-#: src/dialogs/options/edit_palette_dialog.rs:176
-#: src/dialogs/options/options_dialog.rs:123
-#: src/dialogs/pattern_selection_dialog.rs:101
-#: src/dialogs/prepare_transfer_dialog.rs:80
-#: src/dialogs/profiles/edit_profile_dialog.rs:113
-#: src/dialogs/profiles/manage_profiles_dialog.rs:261
-#: src/dialogs/shortcuts/shortcut_dialog.rs:186
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:203 src/file_selector.rs:1509
-#: src/intviewer/search_dialog.rs:64 src/intviewer/window.rs:665
-#: src/open_file.rs:40 src/user_actions.rs:845 src/utils.rs:260
 msgid "_OK"
 msgstr "_OK"
 
@@ -4862,7 +4847,7 @@ msgstr "Händelsetid"
 msgid "Event timing codes."
 msgstr "Händelsetidkoder."
 
-#: plugins/taglib/taglib-plugin.cc:198
+#: plugins/taglib/taglib-plugin.cc:198 src/dialogs/chown_dialog.rs:97
 msgid "File Owner"
 msgstr "Filägare"
 
@@ -5219,7 +5204,7 @@ msgid "Terms of use."
 msgstr "Användningsvillkor."
 
 #: plugins/taglib/taglib-plugin.cc:244
-#: src/advanced_rename/profile_component.rs:714
+#: src/advanced_rename/profile_component.rs:710
 msgid "Time"
 msgstr "Tid"
 
@@ -5469,94 +5454,94 @@ msgstr ""
 "Ett exempel på insticksmodul som kan vara lämplig att titta på när man vill "
 "utveckla en ny insticksmodul"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:357
+#: src/advanced_rename/advanced_rename_dialog.rs:355
 msgid "Profiles…"
 msgstr "Profiler…"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:375
+#: src/advanced_rename/advanced_rename_dialog.rs:373
 msgid "Advanced Rename Tool"
 msgstr "Avancerat namnbytesverktyg"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:408
+#: src/advanced_rename/advanced_rename_dialog.rs:406
 msgid "Old name"
 msgstr "Gammalt namn"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:416
+#: src/advanced_rename/advanced_rename_dialog.rs:414
 msgid "New name"
 msgstr "Nytt namn"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:424 src/tags/basic.rs:66
+#: src/advanced_rename/advanced_rename_dialog.rs:422 src/tags/basic.rs:66
 msgid "Size"
 msgstr "Storlek"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:448
+#: src/advanced_rename/advanced_rename_dialog.rs:446
 msgid "Results"
 msgstr "Resultat"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:530
-#: src/dialogs/connect_dialog.rs:169 src/dialogs/file_properties_dialog.rs:125
-#: src/dialogs/manage_bookmarks_dialog.rs:209 src/dialogs/mkdir_dialog.rs:94
-#: src/dialogs/options/device_dialog.rs:111
+#: src/advanced_rename/advanced_rename_dialog.rs:528
+#: src/dialogs/connect_dialog.rs:168 src/dialogs/file_properties_dialog.rs:132
+#: src/dialogs/manage_bookmarks_dialog.rs:205 src/dialogs/mkdir_dialog.rs:90
+#: src/dialogs/options/device_dialog.rs:108
 #: src/dialogs/options/options_dialog.rs:115
 #: src/dialogs/profiles/edit_profile_dialog.rs:69
 #: src/dialogs/profiles/manage_profiles_dialog.rs:229
-#: src/dialogs/remote_dialog.rs:168
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:177 src/intviewer/window.rs:897
-#: src/main_win.rs:1765 src/search/search_dialog.rs:372
+#: src/dialogs/remote_dialog.rs:164
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:174 src/intviewer/window.rs:897
+#: src/main_win.rs:1689 src/search/search_dialog.rs:368
 msgid "_Help"
 msgstr "_Hjälp"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:544
+#: src/advanced_rename/advanced_rename_dialog.rs:542
 #: src/dialogs/profiles/edit_profile_dialog.rs:88
 msgid "Reset"
 msgstr "Återställ"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:559
-#: src/dialogs/about_plugin.rs:133 src/dialogs/manage_bookmarks_dialog.rs:213
-#: src/dialogs/options/edit_colors_dialog.rs:159
-#: src/dialogs/remote_dialog.rs:180 src/intviewer/window.rs:736
-#: src/plugin_manager.rs:426 src/search/search_dialog.rs:386
+#: src/advanced_rename/advanced_rename_dialog.rs:557
+#: src/dialogs/about_plugin.rs:133 src/dialogs/manage_bookmarks_dialog.rs:209
+#: src/dialogs/options/edit_colors_dialog.rs:162
+#: src/dialogs/remote_dialog.rs:176 src/intviewer/window.rs:736
+#: src/plugin_manager.rs:429 src/search/search_dialog.rs:382
 msgid "_Close"
 msgstr "_Stäng"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:572
+#: src/advanced_rename/advanced_rename_dialog.rs:570
 msgid "_Apply"
 msgstr "_Verkställ"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:824
-#: src/search/search_dialog.rs:532
+#: src/advanced_rename/advanced_rename_dialog.rs:812
+#: src/search/search_dialog.rs:515
 msgid "New profile"
 msgstr "Ny profil"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:835
-#: src/advanced_rename/advanced_rename_dialog.rs:861
-#: src/search/search_dialog.rs:540
+#: src/advanced_rename/advanced_rename_dialog.rs:823
+#: src/advanced_rename/advanced_rename_dialog.rs:849
+#: src/search/search_dialog.rs:523
 msgid "Profiles"
 msgstr "Profiler"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1082
-#: src/search/search_dialog.rs:488
+#: src/advanced_rename/advanced_rename_dialog.rs:1070
+#: src/search/search_dialog.rs:471
 msgid "_Save Profile As…"
 msgstr "_Spara profil som…"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1089
-#: src/search/search_dialog.rs:497
+#: src/advanced_rename/advanced_rename_dialog.rs:1077
+#: src/search/search_dialog.rs:480
 msgid "_Manage Profiles…"
 msgstr "_Hantera profiler…"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1117
+#: src/advanced_rename/advanced_rename_dialog.rs:1105
 msgid "Remove from file list"
 msgstr "Ta bort från fillista"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1120 src/user_actions.rs:1282
+#: src/advanced_rename/advanced_rename_dialog.rs:1108
 msgid "View file"
 msgstr "Visa fil"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1121
+#: src/advanced_rename/advanced_rename_dialog.rs:1109
 msgid "File properties"
 msgstr "Filegenskaper"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1123
+#: src/advanced_rename/advanced_rename_dialog.rs:1111
 msgid "Update file list"
 msgstr "Uppdatera fillista"
 
@@ -5566,28 +5551,28 @@ msgstr "Metatagg"
 
 #: src/advanced_rename/profile_component.rs:131
 #: src/dialogs/options/apps_widget.rs:82
-#: src/dialogs/options/devices_widget.rs:72 src/dialogs/remote_dialog.rs:135
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:140
+#: src/dialogs/options/devices_widget.rs:68 src/dialogs/remote_dialog.rs:131
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:137
 msgid "_Add"
 msgstr "_Lägg till"
 
 #: src/advanced_rename/profile_component.rs:135
-#: src/dialogs/manage_bookmarks_dialog.rs:79
+#: src/dialogs/manage_bookmarks_dialog.rs:75
 #: src/dialogs/options/apps_widget.rs:88
-#: src/dialogs/options/devices_widget.rs:79
+#: src/dialogs/options/devices_widget.rs:75
 #: src/dialogs/profiles/manage_profiles_dialog.rs:173
-#: src/dialogs/remote_dialog.rs:73
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:153 src/main_win.rs:1589
+#: src/dialogs/remote_dialog.rs:69
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:150 src/main_win.rs:1591
 msgid "_Edit"
 msgstr "R_edigera"
 
 #: src/advanced_rename/profile_component.rs:139
-#: src/dialogs/manage_bookmarks_dialog.rs:84
+#: src/dialogs/manage_bookmarks_dialog.rs:80
 #: src/dialogs/options/apps_widget.rs:94
-#: src/dialogs/options/devices_widget.rs:86
+#: src/dialogs/options/devices_widget.rs:82
 #: src/dialogs/profiles/manage_profiles_dialog.rs:198
-#: src/dialogs/remote_dialog.rs:77
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:166
+#: src/dialogs/remote_dialog.rs:73
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:163
 msgid "_Remove"
 msgstr "Ta _bort"
 
@@ -5605,7 +5590,7 @@ msgstr "Katalog"
 
 #: src/advanced_rename/profile_component.rs:218
 #: src/advanced_rename/profile_component.rs:258
-#: src/advanced_rename/profile_component.rs:665
+#: src/advanced_rename/profile_component.rs:661
 msgid "Counter"
 msgstr "Räknare"
 
@@ -5633,252 +5618,264 @@ msgstr "Skiftläge"
 msgid "Trim blanks"
 msgstr "Trimma tomt utrymme"
 
-#: src/advanced_rename/profile_component.rs:568
-msgid "Add Rule"
-msgstr "Lägg till regel"
-
-#: src/advanced_rename/profile_component.rs:592
-msgid "Edit Rule"
-msgstr "Redigera regel"
-
-#: src/advanced_rename/profile_component.rs:638
+#: src/advanced_rename/profile_component.rs:634
 msgid "Grandparent"
 msgstr "Farförälder"
 
-#: src/advanced_rename/profile_component.rs:639
+#: src/advanced_rename/profile_component.rs:635
 msgid "Parent"
 msgstr "Förälder"
 
-#: src/advanced_rename/profile_component.rs:644
+#: src/advanced_rename/profile_component.rs:640
 msgid "File name"
 msgstr "Filnamn"
 
-#: src/advanced_rename/profile_component.rs:646
+#: src/advanced_rename/profile_component.rs:642
 msgid "File name (range)"
 msgstr "Filnamn (intervall)"
 
-#: src/advanced_rename/profile_component.rs:650
+#: src/advanced_rename/profile_component.rs:646
 msgid "File name without extension"
 msgstr "Filnamn utan filändelse"
 
-#: src/advanced_rename/profile_component.rs:654
+#: src/advanced_rename/profile_component.rs:650
 msgid "File name without extension (range)"
 msgstr "Filnamn utan filändelse (intervall)"
 
-#: src/advanced_rename/profile_component.rs:658
+#: src/advanced_rename/profile_component.rs:654
 msgid "File extension"
 msgstr "Filändelse"
 
-#: src/advanced_rename/profile_component.rs:667
+#: src/advanced_rename/profile_component.rs:663
 msgid "Counter (width)"
 msgstr "Räknare (bredd)"
 
-#: src/advanced_rename/profile_component.rs:671
+#: src/advanced_rename/profile_component.rs:667
 msgid "Counter (auto)"
 msgstr "Räknare (auto)"
 
-#: src/advanced_rename/profile_component.rs:675
+#: src/advanced_rename/profile_component.rs:671
 msgid "Hexadecimal random number (width)"
 msgstr "Hexadecimalt slumptal (bredd)"
 
-#: src/advanced_rename/profile_component.rs:685
-#: src/advanced_rename/profile_component.rs:716
+#: src/advanced_rename/profile_component.rs:681
+#: src/advanced_rename/profile_component.rs:712
 msgid "<locale>"
 msgstr "<locale>"
 
-#: src/advanced_rename/profile_component.rs:687
+#: src/advanced_rename/profile_component.rs:683
 msgid "yyyy-mm-dd"
 msgstr "åååå-mm-dd"
 
-#: src/advanced_rename/profile_component.rs:691
+#: src/advanced_rename/profile_component.rs:687
 msgid "yy-mm-dd"
 msgstr "åå-mm-dd"
 
-#: src/advanced_rename/profile_component.rs:695
+#: src/advanced_rename/profile_component.rs:691
 msgid "yy.mm.dd"
 msgstr "åå.mm.dd"
 
-#: src/advanced_rename/profile_component.rs:698
+#: src/advanced_rename/profile_component.rs:694
 msgid "yymmdd"
 msgstr "ååmmdd"
 
-#: src/advanced_rename/profile_component.rs:700
+#: src/advanced_rename/profile_component.rs:696
 msgid "dd.mm.yy"
 msgstr "dd.mm.åå"
 
-#: src/advanced_rename/profile_component.rs:704
+#: src/advanced_rename/profile_component.rs:700
 msgid "mm-dd-yy"
 msgstr "mm-dd-åå"
 
-#: src/advanced_rename/profile_component.rs:707
+#: src/advanced_rename/profile_component.rs:703
 msgid "yyyy"
 msgstr "åååå"
 
-#: src/advanced_rename/profile_component.rs:708
+#: src/advanced_rename/profile_component.rs:704
 msgid "yy"
 msgstr "åå"
 
-#: src/advanced_rename/profile_component.rs:709
+#: src/advanced_rename/profile_component.rs:705
 msgid "mm"
 msgstr "mm"
 
-#: src/advanced_rename/profile_component.rs:710
+#: src/advanced_rename/profile_component.rs:706
 msgid "mmm"
 msgstr "mmm"
 
-#: src/advanced_rename/profile_component.rs:711
+#: src/advanced_rename/profile_component.rs:707
 msgid "dd"
 msgstr "dd"
 
-#: src/advanced_rename/profile_component.rs:718
+#: src/advanced_rename/profile_component.rs:714
 msgid "HH.MM.SS"
 msgstr "TT.MM.SS"
 
-#: src/advanced_rename/profile_component.rs:722
+#: src/advanced_rename/profile_component.rs:718
 msgid "HH-MM-SS"
 msgstr "TT-MM-SS"
 
-#: src/advanced_rename/profile_component.rs:725
+#: src/advanced_rename/profile_component.rs:721
 msgid "HHMMSS"
 msgstr "TTMMSS"
 
-#: src/advanced_rename/profile_component.rs:726
+#: src/advanced_rename/profile_component.rs:722
 msgid "HH"
 msgstr "TT"
 
-#: src/advanced_rename/profile_component.rs:727
+#: src/advanced_rename/profile_component.rs:723
 msgid "MM"
 msgstr "MM"
 
-#: src/advanced_rename/profile_component.rs:728
+#: src/advanced_rename/profile_component.rs:724
 msgid "SS"
 msgstr "SS"
 
-#: src/advanced_rename/profile_component.rs:733
+#: src/advanced_rename/profile_component.rs:729
 msgid "auto"
 msgstr "auto"
 
-#: src/advanced_rename/profile_component.rs:753
+#: src/advanced_rename/profile_component.rs:749
 msgid "Search for"
 msgstr "Sök efter"
 
-#: src/advanced_rename/profile_component.rs:762
+#: src/advanced_rename/profile_component.rs:758
 msgid "Replace with"
 msgstr "Ersätt med"
 
-#: src/advanced_rename/profile_component.rs:771
+#: src/advanced_rename/profile_component.rs:767
 msgid "Match case"
 msgstr "Matcha skiftläge"
 
-#: src/advanced_rename/profile_component.rs:855
-#: src/dialogs/prepare_transfer_dialog.rs:223 src/file_list/actions.rs:86
+#: src/advanced_rename/profile_component.rs:851
+#: src/dialogs/prepare_transfer_dialog.rs:210 src/file_list/actions.rs:86
 msgid "Yes"
 msgstr "Ja"
 
-#: src/advanced_rename/profile_component.rs:857
-#: src/dialogs/prepare_transfer_dialog.rs:223 src/file_list/actions.rs:86
+#: src/advanced_rename/profile_component.rs:853
+#: src/dialogs/prepare_transfer_dialog.rs:210 src/file_list/actions.rs:86
 msgid "No"
 msgstr "Nej"
 
-#: src/advanced_rename/profile_component.rs:869
+#: src/advanced_rename/profile_component.rs:865
 #: src/advanced_rename/profile.rs:69
 msgid "<unchanged>"
 msgstr "<oförändrad>"
 
-#: src/advanced_rename/profile_component.rs:870
+#: src/advanced_rename/profile_component.rs:866
 #: src/advanced_rename/profile.rs:70
 msgid "lowercase"
 msgstr "gemener"
 
-#: src/advanced_rename/profile_component.rs:871
+#: src/advanced_rename/profile_component.rs:867
 #: src/advanced_rename/profile.rs:71
 msgid "UPPERCASE"
 msgstr "VERSAL"
 
-#: src/advanced_rename/profile_component.rs:872
+#: src/advanced_rename/profile_component.rs:868
 #: src/advanced_rename/profile.rs:72
 msgid "Sentence case"
 msgstr "Skiftläge"
 
-#: src/advanced_rename/profile_component.rs:873
+#: src/advanced_rename/profile_component.rs:869
 #: src/advanced_rename/profile.rs:73
 msgid "Initial Caps"
 msgstr "Inledande versal"
 
-#: src/advanced_rename/profile_component.rs:874
+#: src/advanced_rename/profile_component.rs:870
 #: src/advanced_rename/profile.rs:74
 msgid "tOGGLE cASE"
 msgstr "vÄXLA sKIFTLÄGE"
 
-#: src/advanced_rename/profile_component.rs:880
+#: src/advanced_rename/profile_component.rs:876
 #: src/advanced_rename/profile.rs:117
 msgid "<none>"
 msgstr "<ingen>"
 
-#: src/advanced_rename/profile_component.rs:881
+#: src/advanced_rename/profile_component.rs:877
 #: src/advanced_rename/profile.rs:118
 msgid "leading"
 msgstr "inledande"
 
-#: src/advanced_rename/profile_component.rs:882
+#: src/advanced_rename/profile_component.rs:878
 #: src/advanced_rename/profile.rs:119
 msgid "trailing"
 msgstr "efterföljande"
 
-#: src/advanced_rename/profile_component.rs:883
+#: src/advanced_rename/profile_component.rs:879
 #: src/advanced_rename/profile.rs:120
 msgid "leading and trailing"
 msgstr "inledande och efterföljande"
 
-#: src/advanced_rename/profile_component.rs:1005
+#: src/advanced_rename/profile_component.rs:1001
 msgid "Range Selection"
 msgstr "Intervallmarkering"
 
-#: src/advanced_rename/profile_component.rs:1028
+#: src/advanced_rename/profile_component.rs:1024
 msgid "_Select range:"
 msgstr "_Välj intervall:"
 
-#: src/advanced_rename/profile_component.rs:1037
+#: src/advanced_rename/profile_component.rs:1033
 msgid "_Inverse selection"
 msgstr "_Invertera markering"
 
-#: src/advanced_rename/regex_dialog.rs:77 src/intviewer/search_dialog.rs:87
+#: src/advanced_rename/profile_component.rs:1055
+msgid "_Insert"
+msgstr "_Infoga"
+
+#: src/advanced_rename/regex_dialog.rs:58
+msgid "Add Rule"
+msgstr "Lägg till regel"
+
+#: src/advanced_rename/regex_dialog.rs:60
+msgid "Edit Rule"
+msgstr "Redigera regel"
+
+#: src/advanced_rename/regex_dialog.rs:80 src/intviewer/search_dialog.rs:87
 msgid "_Search for:"
 msgstr "_Sök efter:"
 
-#: src/advanced_rename/regex_dialog.rs:88
+#: src/advanced_rename/regex_dialog.rs:91
 msgid "_Replace for:"
 msgstr "_Ersätt för:"
 
-#: src/advanced_rename/regex_dialog.rs:98 src/intviewer/search_dialog.rs:62
+#: src/advanced_rename/regex_dialog.rs:101 src/intviewer/search_dialog.rs:62
 msgid "_Match case"
 msgstr "_Matcha skiftläge"
 
-#: src/application.rs:63
+#: src/advanced_rename/regex_dialog.rs:128
+msgid "_Add Rule"
+msgstr "_Lägg till regel"
+
+#: src/advanced_rename/regex_dialog.rs:130
+msgid "_Update Rule"
+msgstr "_Uppdatera regel"
+
+#: src/application.rs:64
 msgid "Specify debug flags to use"
 msgstr "Ange de felsökningsparametrar som ska användas"
 
-#: src/application.rs:71
-msgid "Specify the start directory for the left pane"
-msgstr "Ange startkatalog för den vänstra fillistan"
+#: src/application.rs:72
+msgid "Specify the start directory for the left panel"
+msgstr "Ange startkatalog för den vänstra panelen"
 
-#: src/application.rs:79
-msgid "Specify the start directory for the right pane"
-msgstr "Ange startkatalog för den högra fillistan"
+#: src/application.rs:80
+msgid "Specify the start directory for the right panel"
+msgstr "Ange startkatalog för den högra panelen"
 
-#: src/application.rs:184
+#: src/application.rs:185
 msgid "Failed to create the directory {directory}: {error}"
 msgstr "Kunde inte skapa katalogen {directory}: {error}"
 
-#: src/app.rs:79 src/open_file.rs:179
+#: src/app.rs:76 src/open_file.rs:186
 msgid "Launch of {} failed."
 msgstr "Körning av {} misslyckades."
 
-#: src/app.rs:164
+#: src/app.rs:161
 msgid "Cannot launch an app {}. No files were given."
 msgstr "Kan inte köra programmet {}. Inga filer angavs."
 
-#: src/app.rs:173
+#: src/app.rs:170
 msgid "Cannot build a command line."
 msgstr "Kan inte bygga en kommandorad."
 
@@ -5914,68 +5911,68 @@ msgstr "Textvy:"
 msgid "Number view:"
 msgstr "Nummervy:"
 
-#: src/connection/device.rs:184 src/connection/device.rs:200
-#: src/connection/device.rs:231 src/connection/device.rs:255
+#: src/connection/device.rs:185 src/connection/device.rs:199
+#: src/connection/device.rs:229 src/connection/device.rs:254
 msgid "Unable to mount the volume {}"
 msgstr "Kunde inte montera volymen {}"
 
-#: src/connection/device.rs:303
+#: src/connection/device.rs:296
 msgid "Cannot unmount the volume"
 msgstr "Kan inte avmontera volymen"
 
-#: src/connection/device.rs:348
+#: src/connection/device.rs:335
 msgid "Mounting %s"
 msgstr "Monterar %s"
 
-#: src/connection/device.rs:354
+#: src/connection/device.rs:341
 msgid "Go to: {device_name} ({mount_point})"
 msgstr "Gå till: {device_name} ({mount_point})"
 
-#: src/connection/device.rs:357
+#: src/connection/device.rs:344
 msgid "Go to: {device_name}"
 msgstr "Gå till: {device_name}"
 
-#: src/connection/device.rs:363
+#: src/connection/device.rs:350
 msgid "Mount: {device_name}"
 msgstr "Montera: {device_name}"
 
-#: src/connection/device.rs:368
+#: src/connection/device.rs:355
 msgid "Unmount: {device_name}"
 msgstr "Avmontera: {device_name}"
 
-#: src/connection/device.rs:378
+#: src/connection/device.rs:365
 msgid "Volume successfully unmounted"
 msgstr "Volymen avmonterades"
 
-#: src/connection/device.rs:384
-msgid "OK"
-msgstr "OK"
+#: src/connection/device.rs:371 src/intviewer/window.rs:665 src/utils.rs:247
+msgid "_Dismiss"
+msgstr "A_vfärda"
 
-#: src/connection/device.rs:472
+#: src/connection/device.rs:459
 msgid "Failed to execute the mount command"
 msgstr "Kunde inte exekvera monteringskommandot"
 
-#: src/connection/device.rs:482
+#: src/connection/device.rs:469
 msgid "Mount failed: permission denied"
 msgstr "Monteringen misslyckades: Åtkomst nekad"
 
-#: src/connection/device.rs:485
+#: src/connection/device.rs:472
 msgid "Mount failed: no medium found"
 msgstr "Monteringen misslyckades: Inget medium funnet"
 
-#: src/connection/device.rs:488
+#: src/connection/device.rs:475
 msgid "Mount failed: mount exited with exitstatus {}"
 msgstr "Monteringen misslyckades: mount avslutades med returstatusen {}"
 
-#: src/connection/device.rs:492
+#: src/connection/device.rs:479
 msgid "Mount failed: mount exited without an exitstatus"
 msgstr "Monteringen misslyckades: mount avslutades utan någon returstatus"
 
-#: src/connection/device.rs:504
+#: src/connection/device.rs:491
 msgid "Unmount failed: umount exited with exitstatus {}"
 msgstr "Avmonteringen misslyckades: umount avslutades med returstatusen {}"
 
-#: src/connection/device.rs:508
+#: src/connection/device.rs:495
 msgid "Failed to execute the umount command"
 msgstr "Kunde inte exekvera umount-kommandot"
 
@@ -5983,11 +5980,11 @@ msgstr "Kunde inte exekvera umount-kommandot"
 msgid "Home"
 msgstr "Hem"
 
-#: src/connection/home.rs:117
+#: src/connection/home.rs:114
 msgid "Go to: Home"
 msgstr "Gå till: Hem"
 
-#: src/connection/remote.rs:160
+#: src/connection/remote.rs:159
 msgid "Cannot connect to a remote location"
 msgstr "Kan inte ansluta till fjärrplats"
 
@@ -6003,31 +6000,31 @@ msgstr "Kan inte hitta en inneslutande montering"
 msgid "Disconnect error"
 msgstr "Fel vid frånkoppling"
 
-#: src/connection/remote.rs:263
+#: src/connection/remote.rs:254
 msgid "Connecting to {hostname}"
 msgstr "Ansluter till {hostname}"
 
-#: src/connection/remote.rs:269
+#: src/connection/remote.rs:260
 msgid "Go to: {connection}"
 msgstr "Gå till: {connection}"
 
-#: src/connection/remote.rs:273
+#: src/connection/remote.rs:264
 msgid "Connect to: {connection}"
 msgstr "Anslut till: {connection}"
 
-#: src/connection/remote.rs:277
+#: src/connection/remote.rs:268
 msgid "Disconnect from: {connection}"
 msgstr "Koppla ner från: {connection}"
 
-#: src/connection/remote.rs:282
+#: src/connection/remote.rs:273
 msgid "Opens remote connection to %s"
 msgstr "Öppnar fjärranslutning till %s"
 
-#: src/connection/remote.rs:287
+#: src/connection/remote.rs:278
 msgid "Closes remote connection to %s"
 msgstr "Stänger fjärranslutning mot %s"
 
-#: src/connection/smb.rs:58
+#: src/connection/smb.rs:56
 msgid "SMB"
 msgstr "SMB"
 
@@ -6059,122 +6056,138 @@ msgstr "Dokumenterat av"
 msgid "Translated by"
 msgstr "Översatt av"
 
-#: src/dialogs/chmod_dialog.rs:48
+#: src/dialogs/chmod_dialog.rs:47
 msgid "Could not chmod {}"
 msgstr "Kunde inte köra chmod på {}"
 
-#: src/dialogs/chmod_dialog.rs:107 src/dialogs/chown_dialog.rs:91
+#: src/dialogs/chmod_dialog.rs:110
 msgid "Access Permissions"
 msgstr "Rättigheter"
 
-#: src/dialogs/chmod_dialog.rs:122
+#: src/dialogs/chmod_dialog.rs:125
 msgid "Apply Recursively for"
 msgstr "Tillämpa rekursivt för"
 
-#: src/dialogs/chmod_dialog.rs:126 src/dialogs/options/app_dialog.rs:139
+#: src/dialogs/chmod_dialog.rs:129 src/dialogs/options/app_dialog.rs:136
 msgid "All files"
 msgstr "Alla filer"
 
-#: src/dialogs/chmod_dialog.rs:126
+#: src/dialogs/chmod_dialog.rs:129
 msgid "Directories only"
 msgstr "Endast kataloger"
 
-#: src/dialogs/chown_dialog.rs:43
+#: src/dialogs/chmod_dialog.rs:158
+msgid "C_hange Permissions"
+msgstr "Ä_ndra rättigheter"
+
+#: src/dialogs/chown_dialog.rs:42
 msgid "Could not chown {}"
 msgstr "Kunde inte köra chown på {}"
 
-#: src/dialogs/chown_dialog.rs:107
+#: src/dialogs/chown_dialog.rs:113
 msgid "Apply Recursively"
 msgstr "Tillämpa rekursivt"
 
-#: src/dialogs/connect_dialog.rs:40
+#: src/dialogs/chown_dialog.rs:129
+msgid "C_hange Owner"
+msgstr "Ä_ndra ägare"
+
+#: src/dialogs/connect_dialog.rs:39
 msgid "SSH"
 msgstr "SSH"
 
-#: src/dialogs/connect_dialog.rs:41
+#: src/dialogs/connect_dialog.rs:40
 msgid "FTP (with login)"
 msgstr "FTP (med inloggning)"
 
-#: src/dialogs/connect_dialog.rs:42
+#: src/dialogs/connect_dialog.rs:41
 msgid "Public FTP"
 msgstr "Offentlig FTP"
 
-#: src/dialogs/connect_dialog.rs:43
+#: src/dialogs/connect_dialog.rs:42
 msgid "Windows share"
 msgstr "Windows-utdelning"
 
-#: src/dialogs/connect_dialog.rs:44
+#: src/dialogs/connect_dialog.rs:43
 msgid "WebDAV (HTTP)"
 msgstr "WebDAV (HTTP)"
 
-#: src/dialogs/connect_dialog.rs:45
+#: src/dialogs/connect_dialog.rs:44
 msgid "Secure WebDAV (HTTPS)"
 msgstr "Säker WebDAV (HTTPS)"
 
-#: src/dialogs/connect_dialog.rs:46
+#: src/dialogs/connect_dialog.rs:45
 msgid "Custom location"
 msgstr "Anpassad plats"
 
-#: src/dialogs/connect_dialog.rs:118 src/main_win.rs:782
+#: src/dialogs/connect_dialog.rs:117
 msgid "Remote Server"
 msgstr "Fjärrserver"
 
-#: src/dialogs/connect_dialog.rs:124
+#: src/dialogs/connect_dialog.rs:123
 msgid "Service _type:"
 msgstr "Tjänste_typ:"
 
-#: src/dialogs/connect_dialog.rs:146
+#: src/dialogs/connect_dialog.rs:145
 msgid "_Alias:"
 msgstr "_Alias:"
 
-#: src/dialogs/connect_dialog.rs:147
+#: src/dialogs/connect_dialog.rs:146
 msgid "_Location (URI):"
 msgstr "_Plats (URI):"
 
-#: src/dialogs/connect_dialog.rs:148
+#: src/dialogs/connect_dialog.rs:147
 msgid "_Server:"
 msgstr "_Server:"
 
-#: src/dialogs/connect_dialog.rs:151
+#: src/dialogs/connect_dialog.rs:150
 msgid "Optional information"
 msgstr "Ytterligare information"
 
-#: src/dialogs/connect_dialog.rs:159
+#: src/dialogs/connect_dialog.rs:158
 msgid "_Port:"
 msgstr "_Port:"
 
 #. g_signal_connect (dialog.imp().port_entry, "insert-text", G_CALLBACK (port_insert_text), NULL);
-#: src/dialogs/connect_dialog.rs:161
+#: src/dialogs/connect_dialog.rs:160
 msgid "_Folder:"
 msgstr "_Mapp:"
 
-#: src/dialogs/connect_dialog.rs:163
+#: src/dialogs/connect_dialog.rs:162
 msgid "_Domain name:"
 msgstr "_Domännamn:"
 
-#: src/dialogs/connect_dialog.rs:281
+#: src/dialogs/connect_dialog.rs:196
+msgid "C_onnect"
+msgstr "_Anslut"
+
+#: src/dialogs/connect_dialog.rs:279
 msgid "You must enter a name for the server"
 msgstr "Du måste ange ett namn för servern"
 
-#: src/dialogs/connect_dialog.rs:282
+#: src/dialogs/connect_dialog.rs:280
 msgid "Please enter a name and try again."
 msgstr "Ange ett namn och försök igen."
 
-#: src/dialogs/connect_dialog.rs:296
+#: src/dialogs/connect_dialog.rs:294
 msgid "You must enter a number for the port"
 msgstr "Du måste ange ett nummer för porten"
 
-#: src/dialogs/connect_dialog.rs:324
+#: src/dialogs/connect_dialog.rs:322
 msgid "Connection method is not selected"
 msgstr "Anslutningsmetod har inte valts"
 
-#: src/dialogs/connect_dialog.rs:387
+#: src/dialogs/connect_dialog.rs:385
 msgid "“{}” is not a valid location"
 msgstr "”{}” är inte en giltig plats"
 
-#: src/dialogs/connect_dialog.rs:388
+#: src/dialogs/connect_dialog.rs:386
 msgid "Please check spelling and try again."
 msgstr "Kontrollera stavning och försök igen."
+
+#: src/dialogs/create_symlink_dialog.rs:56
+msgid "C_reate"
+msgstr "S_kapa"
 
 #: src/dialogs/create_symlink_dialog.rs:73
 msgid "Create Symbolic Link"
@@ -6184,182 +6197,204 @@ msgstr "Skapa symbolisk länk"
 msgid "Symbolic link name:"
 msgstr "Symboliskt länknamn:"
 
-#: src/dialogs/create_symlink_dialog.rs:202
+#: src/dialogs/create_symlink_dialog.rs:185
 msgid "Making a symbolic link failed"
 msgstr "Skapande av symbolisk länk misslyckades"
 
-#: src/dialogs/delete_dialog.rs:103
+#: src/dialogs/delete_dialog.rs:105
 msgid "Deleting…"
 msgstr "Tar bort…"
 
-#: src/dialogs/delete_dialog.rs:166
+#: src/dialogs/delete_dialog.rs:169
 msgid "Deleted {count} of {total} file"
 msgid_plural "Deleted {count} of {total} files"
 msgstr[0] "Tog bort {count} av {total} fil"
 msgstr[1] "Tog bort {count} av {total} filer"
 
-#: src/dialogs/delete_dialog.rs:190
+#: src/dialogs/delete_dialog.rs:193
 msgid "The directory “{}” is not empty. Do you really want to delete it?"
 msgstr "Katalogen ”{}” är inte tom. Vill du verkligen ta bort den?"
 
-#: src/dialogs/delete_dialog.rs:193
+#: src/dialogs/delete_dialog.rs:196
 msgid "Do you really want to delete “{}”?"
 msgstr "Vill du verkligen ta bort ”{}”?"
 
-#: src/dialogs/delete_dialog.rs:200 src/dialogs/delete_dialog.rs:530
-#: src/user_actions.rs:393 src/user_actions.rs:440
+#: src/dialogs/delete_dialog.rs:203 src/dialogs/delete_dialog.rs:538
+#: src/user_actions.rs:400 src/user_actions.rs:447
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: src/dialogs/delete_dialog.rs:201 src/dialogs/delete_dialog.rs:241
-#: src/dialogs/options/confirmation_tab.rs:99
-#: src/dialogs/options/confirmation_tab.rs:128
-#: src/dialogs/prepare_copy_dialog.rs:75 src/dialogs/prepare_move_dialog.rs:75
-#: src/transfer.rs:473 src/transfer.rs:513 src/transfer.rs:574
-#: src/transfer.rs:687 src/user_actions.rs:391
+#: src/dialogs/delete_dialog.rs:204 src/dialogs/delete_dialog.rs:244
+#: src/dialogs/options/confirmation_tab.rs:96
+#: src/dialogs/options/confirmation_tab.rs:125
+#: src/dialogs/prepare_copy_dialog.rs:76 src/dialogs/prepare_move_dialog.rs:76
+#: src/transfer.rs:472 src/transfer.rs:512 src/transfer.rs:573
+#: src/transfer.rs:686 src/user_actions.rs:398
 msgid "Skip"
 msgstr "Hoppa över"
 
-#: src/dialogs/delete_dialog.rs:203
+#: src/dialogs/delete_dialog.rs:206
 msgid "Delete All"
 msgstr "Ta bort alla"
 
-#: src/dialogs/delete_dialog.rs:205
+#: src/dialogs/delete_dialog.rs:208
 msgid "Delete Remaining"
 msgstr "Ta bort kvarvarande"
 
-#: src/dialogs/delete_dialog.rs:207 src/dialogs/delete_dialog.rs:530
-#: src/dialogs/options/confirmation_tab.rs:82 src/file_list/popup.rs:238
-#: src/main_win.rs:760
+#: src/dialogs/delete_dialog.rs:210 src/dialogs/delete_dialog.rs:538
+#: src/dialogs/options/confirmation_tab.rs:79
 msgid "Delete"
 msgstr "Ta bort"
 
-#: src/dialogs/delete_dialog.rs:228
+#: src/dialogs/delete_dialog.rs:231
 msgid "Error while deleting “{file}”"
 msgstr "Fel vid borttagning av ”{file}”"
 
-#: src/dialogs/delete_dialog.rs:241 src/dialogs/delete_dialog.rs:573
-#: src/transfer.rs:473 src/transfer.rs:490 src/transfer.rs:508
-#: src/transfer.rs:525 src/transfer.rs:570 src/transfer.rs:588
-#: src/transfer.rs:683 src/transfer.rs:701
+#: src/dialogs/delete_dialog.rs:244 src/dialogs/delete_dialog.rs:582
+#: src/transfer.rs:472 src/transfer.rs:489 src/transfer.rs:507
+#: src/transfer.rs:524 src/transfer.rs:569 src/transfer.rs:587
+#: src/transfer.rs:682 src/transfer.rs:700
 msgid "Abort"
 msgstr "Avbryt"
 
-#: src/dialogs/delete_dialog.rs:241 src/transfer.rs:473 src/transfer.rs:509
-#: src/transfer.rs:526 src/transfer.rs:571 src/transfer.rs:589
-#: src/transfer.rs:684 src/transfer.rs:702 src/user_actions.rs:394
+#: src/dialogs/delete_dialog.rs:244 src/transfer.rs:472 src/transfer.rs:508
+#: src/transfer.rs:525 src/transfer.rs:570 src/transfer.rs:588
+#: src/transfer.rs:683 src/transfer.rs:701 src/user_actions.rs:401
 msgid "Retry"
 msgstr "Försök igen"
 
-#: src/dialogs/delete_dialog.rs:505
+#: src/dialogs/delete_dialog.rs:512
 msgid "Do you want to permanently delete “{}”?"
 msgstr "Vill du ta bort ”{}” permanent?"
 
-#: src/dialogs/delete_dialog.rs:507
+#: src/dialogs/delete_dialog.rs:515
 msgid "Do you want to move “{}” to the trash can?"
 msgstr "Vill du flytta ”{}” till papperskorgen?"
 
-#: src/dialogs/delete_dialog.rs:513
+#: src/dialogs/delete_dialog.rs:521
 msgid "Do you want to permanently delete the selected file?"
 msgid_plural "Do you want to permanently delete the %d selected files?"
 msgstr[0] "Vill du ta bort den markerade filen permanent?"
 msgstr[1] "Vill du ta bort de %d markerade filerna permanent?"
 
-#: src/dialogs/delete_dialog.rs:519
+#: src/dialogs/delete_dialog.rs:527
 msgid "Do you want to move the selected file to the trash can?"
 msgid_plural "Do you want to move the %d selected files to the trash can?"
 msgstr[0] "Vill du flytta den markerade filen till papperskorgen?"
 msgstr[1] "Vill du flytta de %d markerade filerna till papperskorgen?"
 
-#: src/dialogs/delete_dialog.rs:571
+#: src/dialogs/delete_dialog.rs:580
 msgid "Error while deleting"
 msgstr "Fel vid borttagning"
 
-#: src/dialogs/edit_bookmark_dialog.rs:54
+#: src/dialogs/edit_bookmark_dialog.rs:38
+msgid "New Bookmark"
+msgstr "Nytt bokmärke"
+
+#: src/dialogs/edit_bookmark_dialog.rs:40
+msgid "Edit Bookmark"
+msgstr "Redigera bokmärke"
+
+#: src/dialogs/edit_bookmark_dialog.rs:59
 msgid "Bookmark _name:"
 msgstr "_Namn för bokmärket:"
 
-#: src/dialogs/edit_bookmark_dialog.rs:73
+#: src/dialogs/edit_bookmark_dialog.rs:78
 msgid "Bookmark _target:"
 msgstr "_Mål för bokmärket:"
 
-#: src/dialogs/file_properties_dialog.rs:101
+#: src/dialogs/edit_bookmark_dialog.rs:104
+msgid "_Add Bookmark"
+msgstr "_Lägg till bokmärke"
+
+#: src/dialogs/edit_bookmark_dialog.rs:106
+msgid "_Update Bookmark"
+msgstr "_Uppdatera bokmärke"
+
+#: src/dialogs/file_properties_dialog.rs:108
 msgid "File Properties"
 msgstr "Filegenskaper"
 
-#: src/dialogs/file_properties_dialog.rs:113 src/user_actions.rs:1331
+#: src/dialogs/file_properties_dialog.rs:120
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: src/dialogs/file_properties_dialog.rs:117 src/tags/basic.rs:69
+#: src/dialogs/file_properties_dialog.rs:124 src/tags/basic.rs:69
 msgid "Permissions"
 msgstr "Rättigheter"
 
-#: src/dialogs/file_properties_dialog.rs:121
+#: src/dialogs/file_properties_dialog.rs:128
 msgid "Metadata"
 msgstr "Metadata"
 
-#: src/dialogs/file_properties_dialog.rs:217 src/dialogs/mkdir_dialog.rs:71
+#: src/dialogs/file_properties_dialog.rs:148
+#: src/dialogs/options/edit_palette_dialog.rs:176
+#: src/dialogs/options/options_dialog.rs:123
+#: src/dialogs/profiles/manage_profiles_dialog.rs:261
+msgid "_Save"
+msgstr "_Spara"
+
+#: src/dialogs/file_properties_dialog.rs:209 src/dialogs/mkdir_dialog.rs:67
 msgid "Directory name:"
 msgstr "Katalognamn:"
 
-#: src/dialogs/file_properties_dialog.rs:219 src/dialogs/new_text_file.rs:79
+#: src/dialogs/file_properties_dialog.rs:211 src/dialogs/new_text_file.rs:75
 msgid "File name:"
 msgstr "Filnamn:"
 
-#: src/dialogs/file_properties_dialog.rs:234
+#: src/dialogs/file_properties_dialog.rs:222
 msgid "Symlink target:"
 msgstr "Mål för symboliska länkar:"
 
-#: src/dialogs/file_properties_dialog.rs:251
+#: src/dialogs/file_properties_dialog.rs:239
 msgid "Location:"
 msgstr "Plats:"
 
-#: src/dialogs/file_properties_dialog.rs:263
+#: src/dialogs/file_properties_dialog.rs:251
 msgid "Volume:"
 msgstr "Volym:"
 
-#: src/dialogs/file_properties_dialog.rs:273
+#: src/dialogs/file_properties_dialog.rs:268
 msgid "Free space:"
 msgstr "Ledigt utrymme:"
 
-#: src/dialogs/file_properties_dialog.rs:286
+#: src/dialogs/file_properties_dialog.rs:281
 msgid "Content type:"
 msgstr "Innehållstyp:"
 
-#: src/dialogs/file_properties_dialog.rs:293
+#: src/dialogs/file_properties_dialog.rs:287
 msgid "Opens with:"
 msgstr "Öppnas med:"
 
-#: src/dialogs/file_properties_dialog.rs:296
+#: src/dialogs/file_properties_dialog.rs:290
 msgid "No default application registered"
 msgstr "Inget standardprogram registrerat"
 
-#: src/dialogs/file_properties_dialog.rs:313
+#: src/dialogs/file_properties_dialog.rs:307
 msgid "Modified:"
 msgstr "Ändrad:"
 
-#: src/dialogs/file_properties_dialog.rs:321
+#: src/dialogs/file_properties_dialog.rs:315
 msgid "Accessed:"
 msgstr "Använd:"
 
-#: src/dialogs/file_properties_dialog.rs:338
+#: src/dialogs/file_properties_dialog.rs:332
 msgid "Size:"
 msgstr "Storlek:"
 
-#: src/dialogs/file_properties_dialog.rs:374
+#: src/dialogs/file_properties_dialog.rs:368
 msgid "Owner and group"
 msgstr "Ägare och grupp"
 
-#: src/dialogs/file_properties_dialog.rs:394
+#: src/dialogs/file_properties_dialog.rs:385
 msgid "Access permissions"
 msgstr "Rättigheter"
 
-#: src/dialogs/file_properties_dialog.rs:423
+#: src/dialogs/file_properties_dialog.rs:413
 msgid "Co_py"
 msgstr "Ko_piera"
 
-#: src/dialogs/file_properties_dialog.rs:505
+#: src/dialogs/file_properties_dialog.rs:495
 msgid "Failed to apply changes."
 msgstr "Kunde inte tillämpa ändringar."
 
@@ -6367,44 +6402,44 @@ msgstr "Kunde inte tillämpa ändringar."
 msgid "Copy File"
 msgstr "Kopiera fil"
 
-#: src/dialogs/make_copy_dialog.rs:50 src/dialogs/prepare_copy_dialog.rs:48
+#: src/dialogs/make_copy_dialog.rs:50 src/dialogs/prepare_copy_dialog.rs:49
 msgid "Copy “{}” to"
 msgstr "Kopiera ”{}” till"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:89 src/dialogs/order_utils.rs:26
+#: src/dialogs/make_copy_dialog.rs:76 src/dialogs/prepare_copy_dialog.rs:46
+msgid "C_opy"
+msgstr "K_opiera"
+
+#: src/dialogs/manage_bookmarks_dialog.rs:85 src/dialogs/order_utils.rs:26
 msgid "_Up"
 msgstr "_Upp"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:94 src/dialogs/order_utils.rs:31
+#: src/dialogs/manage_bookmarks_dialog.rs:90 src/dialogs/order_utils.rs:31
 msgid "_Down"
 msgstr "_Ner"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:99 src/search/search_dialog.rs:292
+#: src/dialogs/manage_bookmarks_dialog.rs:95 src/search/search_dialog.rs:288
 msgid "_Jump to"
 msgstr "_Hoppa till"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:116
+#: src/dialogs/manage_bookmarks_dialog.rs:112
 msgid "Bookmarks"
 msgstr "Bokmärken"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:133 src/dialogs/remote_dialog.rs:110
+#: src/dialogs/manage_bookmarks_dialog.rs:129 src/dialogs/remote_dialog.rs:106
 #: src/file_metainfo_view.rs:66 src/tags/basic.rs:63
 msgid "Name"
 msgstr "Namn"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:140
+#: src/dialogs/manage_bookmarks_dialog.rs:136
 msgid "Shortcut"
 msgstr "Kortkommando"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:147 src/tags/basic.rs:64
+#: src/dialogs/manage_bookmarks_dialog.rs:143 src/tags/basic.rs:64
 msgid "Path"
 msgstr "Sökväg"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:445
-msgid "Edit Bookmark"
-msgstr "Redigera bokmärke"
-
-#: src/dialogs/manage_bookmarks_dialog.rs:571
+#: src/dialogs/manage_bookmarks_dialog.rs:601
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding"
@@ -6412,110 +6447,126 @@ msgstr ""
 "För att bokmärka en katalog måste hela dess sökväg vara i giltig UTF-8-"
 "kodning"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:584
-msgid "New Bookmark"
-msgstr "Nytt bokmärke"
-
-#: src/dialogs/mkdir_dialog.rs:56
+#: src/dialogs/mkdir_dialog.rs:52
 msgid "Make Directory"
 msgstr "Skapa katalog"
 
-#: src/dialogs/mkdir_dialog.rs:148
+#: src/dialogs/mkdir_dialog.rs:110
+msgid "_Make Directory"
+msgstr "S_kapa katalog"
+
+#: src/dialogs/mkdir_dialog.rs:141
 msgid "A directory name must be entered"
 msgstr "Katalognamn måste anges"
 
-#: src/dialogs/mkdir_dialog.rs:159
+#: src/dialogs/mkdir_dialog.rs:152
 msgid "Make directory failed"
 msgstr "Skapande av katalog misslyckades"
 
-#: src/dialogs/new_text_file.rs:36
+#: src/dialogs/new_text_file.rs:33
 msgid "No file name entered"
 msgstr "Inget filnamn angivet"
 
-#: src/dialogs/new_text_file.rs:51
+#: src/dialogs/new_text_file.rs:47
 msgid "Cannot create a file"
 msgstr "Kan inte skapa en fil"
 
-#: src/dialogs/new_text_file.rs:67
+#: src/dialogs/new_text_file.rs:63
 msgid "New Text File"
 msgstr "Ny textfil"
 
-#: src/dialogs/open_with_other_dialog.rs:42
+#: src/dialogs/new_text_file.rs:95
+msgid "Create _File"
+msgstr "Skapa _fil"
+
+#: src/dialogs/open_with_other_dialog.rs:32
 msgid "Open with other…"
 msgstr "Öppna med annat…"
 
-#: src/dialogs/open_with_other_dialog.rs:52
+#: src/dialogs/open_with_other_dialog.rs:42
 msgid "Application:"
 msgstr "Program:"
 
-#: src/dialogs/open_with_other_dialog.rs:104
+#: src/dialogs/open_with_other_dialog.rs:59
+msgid "_Open"
+msgstr "Ö_ppna"
+
+#: src/dialogs/open_with_other_dialog.rs:95
 msgid "Invalid command"
 msgstr "Ogiltigt kommando"
 
-#: src/dialogs/options/app_dialog.rs:43
+#: src/dialogs/options/app_dialog.rs:40
 msgid "New Application"
 msgstr "Nytt program"
 
-#: src/dialogs/options/app_dialog.rs:45
+#: src/dialogs/options/app_dialog.rs:42
 msgid "Edit Application"
 msgstr "Redigera program"
 
-#: src/dialogs/options/app_dialog.rs:55
+#: src/dialogs/options/app_dialog.rs:52
 msgid "Label:"
 msgstr "Etikett:"
 
-#: src/dialogs/options/app_dialog.rs:65
+#: src/dialogs/options/app_dialog.rs:62
 msgid "Command:"
 msgstr "Kommando:"
 
-#: src/dialogs/options/app_dialog.rs:75 src/dialogs/options/device_dialog.rs:83
+#: src/dialogs/options/app_dialog.rs:72 src/dialogs/options/device_dialog.rs:80
 msgid "Icon:"
 msgstr "Ikon:"
 
-#: src/dialogs/options/app_dialog.rs:101
+#: src/dialogs/options/app_dialog.rs:98
 #: src/dialogs/options/options_dialog.rs:38
-#: src/dialogs/prepare_copy_dialog.rs:96
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:106 src/user_actions.rs:1702
+#: src/dialogs/prepare_copy_dialog.rs:97
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:103
 msgid "Options"
 msgstr "Alternativ"
 
-#: src/dialogs/options/app_dialog.rs:112
+#: src/dialogs/options/app_dialog.rs:109
 msgid "Can handle multiple files"
 msgstr "Kan hantera flera filer"
 
-#: src/dialogs/options/app_dialog.rs:117
+#: src/dialogs/options/app_dialog.rs:114
 msgid "Can handle URIs"
 msgstr "Kan hantera sökvägar i URI-form"
 
-#: src/dialogs/options/app_dialog.rs:122
+#: src/dialogs/options/app_dialog.rs:119
 msgid "Requires terminal"
 msgstr "Kräver terminal"
 
-#: src/dialogs/options/app_dialog.rs:128
+#: src/dialogs/options/app_dialog.rs:125
 msgid "Show for"
 msgstr "Visa för"
 
-#: src/dialogs/options/app_dialog.rs:144
+#: src/dialogs/options/app_dialog.rs:141
 msgid "All directories"
 msgstr "Alla kataloger"
 
-#: src/dialogs/options/app_dialog.rs:150
+#: src/dialogs/options/app_dialog.rs:147
 msgid "All directories and files"
 msgstr "Alla kataloger och filer"
 
-#: src/dialogs/options/app_dialog.rs:156
+#: src/dialogs/options/app_dialog.rs:153
 msgid "Some files"
 msgstr "Vissa filer"
 
-#: src/dialogs/options/app_dialog.rs:162
+#: src/dialogs/options/app_dialog.rs:159
 msgid "File patterns"
 msgstr "Filnamnsmönster"
 
-#: src/dialogs/options/app_dialog.rs:255
+#: src/dialogs/options/app_dialog.rs:188
+msgid "_Add Application"
+msgstr "_Lägg till program"
+
+#: src/dialogs/options/app_dialog.rs:190
+msgid "_Update Application"
+msgstr "_Uppdatera program"
+
+#: src/dialogs/options/app_dialog.rs:256
 msgid "An app needs to have a non-empty label"
 msgstr "Ett program behöver ha en icke-tom etikett"
 
-#: src/dialogs/options/app_dialog.rs:262
+#: src/dialogs/options/app_dialog.rs:263
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
@@ -6531,90 +6582,96 @@ msgstr "Etikett"
 msgid "Command"
 msgstr "Kommando"
 
-#: src/dialogs/options/confirmation_tab.rs:71
+#: src/dialogs/options/confirmation_tab.rs:68
 msgid "Confirm before delete"
 msgstr "Bekräfta före borttagning"
 
-#: src/dialogs/options/confirmation_tab.rs:75
+#: src/dialogs/options/confirmation_tab.rs:72
 msgid "Confirm defaults to OK"
 msgstr "Bekräfta är som standard OK"
 
-#: src/dialogs/options/confirmation_tab.rs:90
-#: src/dialogs/options/confirmation_tab.rs:119
+#: src/dialogs/options/confirmation_tab.rs:87
+#: src/dialogs/options/confirmation_tab.rs:116
 msgid "Query first"
 msgstr "Fråga först"
 
-#: src/dialogs/options/confirmation_tab.rs:94
-#: src/dialogs/options/confirmation_tab.rs:123
-#: src/dialogs/prepare_copy_dialog.rs:69 src/dialogs/prepare_move_dialog.rs:69
-#: src/file_list/popup.rs:239 src/transfer.rs:511 src/transfer.rs:528
-#: src/transfer.rs:573 src/transfer.rs:591 src/transfer.rs:686
-#: src/transfer.rs:704
+#: src/dialogs/options/confirmation_tab.rs:91
+#: src/dialogs/options/confirmation_tab.rs:120
+#: src/dialogs/prepare_copy_dialog.rs:70 src/dialogs/prepare_move_dialog.rs:70
+#: src/transfer.rs:510 src/transfer.rs:527 src/transfer.rs:572
+#: src/transfer.rs:590 src/transfer.rs:685 src/transfer.rs:703
 msgid "Rename"
 msgstr "Byt namn"
 
-#: src/dialogs/options/confirmation_tab.rs:104
-#: src/dialogs/options/confirmation_tab.rs:133
-#: src/dialogs/prepare_copy_dialog.rs:81 src/dialogs/prepare_move_dialog.rs:81
+#: src/dialogs/options/confirmation_tab.rs:101
+#: src/dialogs/options/confirmation_tab.rs:130
+#: src/dialogs/prepare_copy_dialog.rs:82 src/dialogs/prepare_move_dialog.rs:82
 msgid "Overwrite silently"
 msgstr "Skriv över tyst"
 
-#: src/dialogs/options/confirmation_tab.rs:109
+#: src/dialogs/options/confirmation_tab.rs:106
 msgid "Preselected overwrite action in copy dialog"
 msgstr "Förvald överskrivningsåtgärd i kopieringsdialogen"
 
-#: src/dialogs/options/confirmation_tab.rs:138
+#: src/dialogs/options/confirmation_tab.rs:135
 msgid "Preselected overwrite action in move dialog"
 msgstr "Förvald överskrivningsåtgärd i flyttdialogen"
 
-#: src/dialogs/options/confirmation_tab.rs:148
+#: src/dialogs/options/confirmation_tab.rs:145
 msgid "Confirm mouse operation"
 msgstr "Bekräfta musåtgärd"
 
-#: src/dialogs/options/confirmation_tab.rs:152
-#: src/dialogs/prepare_copy_dialog.rs:45 src/file_list/popup.rs:236
-#: src/main_win.rs:750 src/user_actions.rs:1451
+#: src/dialogs/options/confirmation_tab.rs:149
+#: src/dialogs/prepare_copy_dialog.rs:45
 msgid "Copy"
 msgstr "Kopiera"
 
-#: src/dialogs/options/confirmation_tab.rs:157
+#: src/dialogs/options/confirmation_tab.rs:154
 #: src/dialogs/prepare_move_dialog.rs:45
 msgid "Move"
 msgstr "Flytta"
 
-#: src/dialogs/options/confirmation_tab.rs:162
+#: src/dialogs/options/confirmation_tab.rs:159
 msgid "Default Drag and Drop Action"
 msgstr "Standardåtgärd för dra-och-släpp"
 
-#: src/dialogs/options/device_dialog.rs:41
+#: src/dialogs/options/device_dialog.rs:38
 msgid "New Device"
 msgstr "Ny enhet"
 
-#: src/dialogs/options/device_dialog.rs:43
+#: src/dialogs/options/device_dialog.rs:40
 msgid "Edit Device"
 msgstr "Redigera enhet"
 
-#: src/dialogs/options/device_dialog.rs:53
+#: src/dialogs/options/device_dialog.rs:50
 msgid "Alias:"
 msgstr "Namn:"
 
-#: src/dialogs/options/device_dialog.rs:63
+#: src/dialogs/options/device_dialog.rs:60
 msgid "Device/Label:"
 msgstr "Enhet/Etikett:"
 
-#: src/dialogs/options/device_dialog.rs:73
+#: src/dialogs/options/device_dialog.rs:70
 msgid "Mount point:"
 msgstr "Monteringspunkt:"
 
-#: src/dialogs/options/device_dialog.rs:186
+#: src/dialogs/options/device_dialog.rs:117
+msgid "_Add Device"
+msgstr "_Lägg till enhet"
+
+#: src/dialogs/options/device_dialog.rs:119
+msgid "_Update Device"
+msgstr "_Uppdatera enhet"
+
+#: src/dialogs/options/device_dialog.rs:187
 msgid "A device needs to have a non-empty alias"
 msgstr "En enhet behöver ha ett icke-tomt alias"
 
-#: src/dialogs/options/device_dialog.rs:193
+#: src/dialogs/options/device_dialog.rs:194
 msgid "A device needs to have a non-empty path/label"
 msgstr "En enhet behöver ha en icke-tom sökväg/etikett"
 
-#: src/dialogs/options/device_dialog.rs:200
+#: src/dialogs/options/device_dialog.rs:201
 msgid "A device needs to have a non-empty mount point"
 msgstr "En enhet behöver ha en icke-tom monteringspunkt"
 
@@ -6630,37 +6687,37 @@ msgstr ""
 msgid "Show only the icons"
 msgstr "Visa endast ikonerna"
 
-#: src/dialogs/options/devices_widget.rs:53
+#: src/dialogs/options/devices_widget.rs:49
 msgid "Alias"
 msgstr "Namn"
 
-#: src/dialogs/options/edit_colors_dialog.rs:28
+#: src/dialogs/options/edit_colors_dialog.rs:31
 msgid "Edit Colors…"
 msgstr "Redigera färger…"
 
-#: src/dialogs/options/edit_colors_dialog.rs:96
+#: src/dialogs/options/edit_colors_dialog.rs:99
 #: src/dialogs/options/edit_palette_dialog.rs:65
 msgid "Foreground"
 msgstr "Förgrund"
 
-#: src/dialogs/options/edit_colors_dialog.rs:107
+#: src/dialogs/options/edit_colors_dialog.rs:110
 #: src/dialogs/options/edit_palette_dialog.rs:76
 msgid "Background"
 msgstr "Bakgrund"
 
-#: src/dialogs/options/edit_colors_dialog.rs:119
+#: src/dialogs/options/edit_colors_dialog.rs:122
 msgid "Default:"
 msgstr "Standard:"
 
-#: src/dialogs/options/edit_colors_dialog.rs:129
+#: src/dialogs/options/edit_colors_dialog.rs:132
 msgid "Alternate:"
 msgstr "Alternera:"
 
-#: src/dialogs/options/edit_colors_dialog.rs:139
+#: src/dialogs/options/edit_colors_dialog.rs:142
 msgid "Selected file:"
 msgstr "Markerad fil:"
 
-#: src/dialogs/options/edit_colors_dialog.rs:149
+#: src/dialogs/options/edit_colors_dialog.rs:152
 msgid "Cursor:"
 msgstr "Markör:"
 
@@ -6818,8 +6875,7 @@ msgstr "Enkelklick avmarkerar filer"
 msgid "Middle mouse button"
 msgstr "Mittenmusknappen"
 
-#: src/dialogs/options/general_tab.rs:106 src/main_win.rs:713
-#: src/user_actions.rs:1513
+#: src/dialogs/options/general_tab.rs:106 src/user_actions.rs:1713
 msgid "Up one directory"
 msgstr "Upp en katalog"
 
@@ -6851,7 +6907,7 @@ msgstr "Sortera"
 msgid "Case sensitive"
 msgstr "Skilj på stora och små bokstäver"
 
-#: src/dialogs/options/general_tab.rs:153 src/user_actions.rs:1307
+#: src/dialogs/options/general_tab.rs:153
 msgid "Quick search"
 msgstr "Snabbsök"
 
@@ -6916,115 +6972,115 @@ msgstr "Kommandoradshistorik"
 msgid "Search history"
 msgstr "Sökhistorik"
 
-#: src/dialogs/options/layout_tab.rs:70
-msgid "File panes"
+#: src/dialogs/options/layout_tab.rs:67
+msgid "File panels"
 msgstr "Filpaneler"
 
-#: src/dialogs/options/layout_tab.rs:74
+#: src/dialogs/options/layout_tab.rs:71
 msgid "Font:"
 msgstr "Typsnitt:"
 
-#: src/dialogs/options/layout_tab.rs:88
+#: src/dialogs/options/layout_tab.rs:85
 msgid "Row height:"
 msgstr "Radhöjd:"
 
-#: src/dialogs/options/layout_tab.rs:114
+#: src/dialogs/options/layout_tab.rs:111
 msgid "Display file extensions:"
 msgstr "Visa filändelser:"
 
-#: src/dialogs/options/layout_tab.rs:124
+#: src/dialogs/options/layout_tab.rs:121
 msgid "With file name"
 msgstr "Med filnamn"
 
-#: src/dialogs/options/layout_tab.rs:125
+#: src/dialogs/options/layout_tab.rs:122
 msgid "In separate column"
 msgstr "I en egen kolumn"
 
-#: src/dialogs/options/layout_tab.rs:126
+#: src/dialogs/options/layout_tab.rs:123
 msgid "In both columns"
 msgstr "I båda kolumnerna"
 
-#: src/dialogs/options/layout_tab.rs:134
+#: src/dialogs/options/layout_tab.rs:131
 msgid "Graphical mode:"
 msgstr "Grafiskt läge:"
 
-#: src/dialogs/options/layout_tab.rs:144
+#: src/dialogs/options/layout_tab.rs:141
 msgid "No icons"
 msgstr "Inga ikoner"
 
-#: src/dialogs/options/layout_tab.rs:145
+#: src/dialogs/options/layout_tab.rs:142
 msgid "File type icons"
 msgstr "Filtypsikoner"
 
-#: src/dialogs/options/layout_tab.rs:146
+#: src/dialogs/options/layout_tab.rs:143
 msgid "MIME icons"
 msgstr "MIME-ikoner"
 
-#: src/dialogs/options/layout_tab.rs:154
+#: src/dialogs/options/layout_tab.rs:151
 msgid "Color scheme:"
 msgstr "Färgschema:"
 
-#: src/dialogs/options/layout_tab.rs:164
+#: src/dialogs/options/layout_tab.rs:161
 msgid "Respect theme colors"
 msgstr "Respektera skrivbordets temafärger"
 
-#: src/dialogs/options/layout_tab.rs:165
+#: src/dialogs/options/layout_tab.rs:162
 msgid "Modern"
 msgstr "Modern"
 
-#: src/dialogs/options/layout_tab.rs:166
+#: src/dialogs/options/layout_tab.rs:163
 msgid "Fusion"
 msgstr "Fusion"
 
-#: src/dialogs/options/layout_tab.rs:167
+#: src/dialogs/options/layout_tab.rs:164
 msgid "Classic"
 msgstr "Klassisk"
 
-#: src/dialogs/options/layout_tab.rs:168
+#: src/dialogs/options/layout_tab.rs:165
 msgid "Deep blue"
 msgstr "Mörkblå"
 
-#: src/dialogs/options/layout_tab.rs:169
+#: src/dialogs/options/layout_tab.rs:166
 msgid "Cafezinho"
 msgstr "Cafezinho"
 
-#: src/dialogs/options/layout_tab.rs:170
+#: src/dialogs/options/layout_tab.rs:167
 msgid "Green tiger"
 msgstr "Grön tiger"
 
-#: src/dialogs/options/layout_tab.rs:171
+#: src/dialogs/options/layout_tab.rs:168
 msgid "Winter"
 msgstr "Vinter"
 
-#: src/dialogs/options/layout_tab.rs:172
+#: src/dialogs/options/layout_tab.rs:169
 msgid "Custom"
 msgstr "Anpassad"
 
-#: src/dialogs/options/layout_tab.rs:178
+#: src/dialogs/options/layout_tab.rs:175
 msgid "Edit…"
 msgstr "Redigera…"
 
-#: src/dialogs/options/layout_tab.rs:202
+#: src/dialogs/options/layout_tab.rs:199
 msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "Använd färgerna i miljövariabeln LS_COLORS"
 
-#: src/dialogs/options/layout_tab.rs:209
+#: src/dialogs/options/layout_tab.rs:206
 msgid "Edit colors…"
 msgstr "Redigera färger…"
 
-#: src/dialogs/options/layout_tab.rs:235
+#: src/dialogs/options/layout_tab.rs:232
 msgid "MIME icon settings"
 msgstr "Inställningar för MIME-ikoner"
 
-#: src/dialogs/options/layout_tab.rs:240
+#: src/dialogs/options/layout_tab.rs:237
 msgid "Icon size:"
 msgstr "Ikonstorlek:"
 
-#: src/dialogs/options/layout_tab.rs:266
+#: src/dialogs/options/layout_tab.rs:263
 msgid "Scaling quality:"
 msgstr "Skalningskvalitet:"
 
-#: src/dialogs/options/layout_tab.rs:283
+#: src/dialogs/options/layout_tab.rs:280
 msgid "Theme icon directory:"
 msgstr "Katalog med ikontema:"
 
@@ -7056,65 +7112,61 @@ msgstr "Program"
 msgid "Devices"
 msgstr "Enheter"
 
-#: src/dialogs/options/programs_tab.rs:67
+#: src/dialogs/options/programs_tab.rs:63
 msgid "Always download remote files before opening in external programs"
 msgstr "Hämta alltid ner icke-lokala filer innan de öppnas i externa program"
 
-#: src/dialogs/options/programs_tab.rs:71
+#: src/dialogs/options/programs_tab.rs:67
 msgid "MIME applications"
 msgstr "MIME-program"
 
-#: src/dialogs/options/programs_tab.rs:79
+#: src/dialogs/options/programs_tab.rs:75
 msgid "Standard programs"
 msgstr "Standardprogram"
 
-#: src/dialogs/options/programs_tab.rs:81
+#: src/dialogs/options/programs_tab.rs:77
 msgid "Viewer:"
 msgstr "Visare:"
 
-#: src/dialogs/options/programs_tab.rs:86
+#: src/dialogs/options/programs_tab.rs:82
 msgid "Use Internal Viewer"
 msgstr "Använd intern visare"
 
-#: src/dialogs/options/programs_tab.rs:90
+#: src/dialogs/options/programs_tab.rs:86
 msgid "Editor:"
 msgstr "Redigerare:"
 
-#: src/dialogs/options/programs_tab.rs:95
+#: src/dialogs/options/programs_tab.rs:91
 msgid "Differ:"
 msgstr "Jämförare (diff):"
 
-#: src/dialogs/options/programs_tab.rs:100
+#: src/dialogs/options/programs_tab.rs:96
 msgid "Search:"
 msgstr "Sök:"
 
-#: src/dialogs/options/programs_tab.rs:105
+#: src/dialogs/options/programs_tab.rs:101
 msgid "Use Internal Search"
 msgstr "Använd intern sökning"
 
-#: src/dialogs/options/programs_tab.rs:109
+#: src/dialogs/options/programs_tab.rs:105
 msgid "Send files:"
 msgstr "Skicka filer:"
 
-#: src/dialogs/options/programs_tab.rs:114
+#: src/dialogs/options/programs_tab.rs:110
 msgid "Terminal:"
 msgstr "Terminal:"
 
-#: src/dialogs/options/programs_tab.rs:121
+#: src/dialogs/options/programs_tab.rs:117
 msgid "Other favourite apps"
 msgstr "Andra favoritprogram"
 
-#: src/dialogs/options/programs_tab.rs:129
+#: src/dialogs/options/programs_tab.rs:125
 msgid "Global app options"
 msgstr "Globala programalternativ"
 
-#: src/dialogs/options/programs_tab.rs:132
+#: src/dialogs/options/programs_tab.rs:128
 msgid "Terminal command for apps in the list above:"
 msgstr "Terminalkommando för program i listan ovan:"
-
-#: src/dialogs/options/programs_tab.rs:138
-msgid "Leave terminal window open"
-msgstr "Lämna terminalfönster öppet"
 
 #: src/dialogs/options/tabs_tab.rs:50
 msgid "Always show the tab bar"
@@ -7136,67 +7188,79 @@ msgstr "* (asterisk)"
 msgid "Styled text"
 msgstr "Formaterad text"
 
-#: src/dialogs/pattern_selection_dialog.rs:50
+#: src/dialogs/pattern_selection_dialog.rs:47
 msgid "Select Using Pattern"
 msgstr "Markera med mönster"
 
-#: src/dialogs/pattern_selection_dialog.rs:52
+#: src/dialogs/pattern_selection_dialog.rs:49
 msgid "Unselect Using Pattern"
 msgstr "Avmarkera med mönster"
 
-#: src/dialogs/pattern_selection_dialog.rs:67
+#: src/dialogs/pattern_selection_dialog.rs:64
 msgid "_Pattern:"
 msgstr "_Mönster:"
 
-#: src/dialogs/pattern_selection_dialog.rs:75
+#: src/dialogs/pattern_selection_dialog.rs:72
 msgid "Case _sensitive"
 msgstr "_Skiftlägeskänslig"
 
-#: src/dialogs/pattern_selection_dialog.rs:78
+#: src/dialogs/pattern_selection_dialog.rs:75
 msgid "She_ll syntax"
 msgstr "Ska_l-syntax"
 
-#: src/dialogs/pattern_selection_dialog.rs:79
+#: src/dialogs/pattern_selection_dialog.rs:76
 msgid "Rege_x syntax"
 msgstr "Rege_x-syntax"
 
-#: src/dialogs/pattern_selection_dialog.rs:186 src/search/generic.rs:41
+#: src/dialogs/pattern_selection_dialog.rs:99
+msgid "S_elect"
+msgstr "Ma_rkera"
+
+#: src/dialogs/pattern_selection_dialog.rs:101
+msgid "Uns_elect"
+msgstr "_Avmarkera"
+
+#: src/dialogs/pattern_selection_dialog.rs:187 src/search/generic.rs:44
 msgid "Bad expression"
 msgstr "Felaktigt uttryck"
 
-#: src/dialogs/prepare_copy_dialog.rs:50
+#: src/dialogs/prepare_copy_dialog.rs:51
 msgid "copy {} file to"
 msgid_plural "copy {} files to"
 msgstr[0] "kopiera {} fil till"
 msgstr[1] "kopiera {} filer till"
 
-#: src/dialogs/prepare_copy_dialog.rs:57 src/dialogs/prepare_move_dialog.rs:57
+#: src/dialogs/prepare_copy_dialog.rs:58 src/dialogs/prepare_move_dialog.rs:58
 msgid "Overwrite Files"
 msgstr "Skriv över befintliga filer"
 
-#: src/dialogs/prepare_copy_dialog.rs:64 src/dialogs/prepare_move_dialog.rs:64
+#: src/dialogs/prepare_copy_dialog.rs:65 src/dialogs/prepare_move_dialog.rs:65
 msgid "Query First"
 msgstr "Fråga först"
 
-#: src/dialogs/prepare_copy_dialog.rs:103
+#: src/dialogs/prepare_copy_dialog.rs:104
 msgid "Follow Links"
 msgstr "Följ länkar"
 
-#: src/dialogs/prepare_move_dialog.rs:48
+#: src/dialogs/prepare_move_dialog.rs:46
+msgid "_Move"
+msgstr "_Flytta"
+
+#: src/dialogs/prepare_move_dialog.rs:49
 msgid "Move “{}” to"
 msgstr "Flytta ”{}” till"
 
-#: src/dialogs/prepare_move_dialog.rs:50
+#: src/dialogs/prepare_move_dialog.rs:51
 msgid "move {} file to"
 msgid_plural "move {} files to"
 msgstr[0] "flytta {} fil till"
 msgstr[1] "flytta {} filer till"
 
-#: src/dialogs/prepare_transfer_dialog.rs:213
+#: src/dialogs/prepare_transfer_dialog.rs:199
 msgid "The directory “{}” doesn’t exist, do you want to create it?"
 msgstr "Katalogen ”{}” finns inte. Vill du skapa den?"
 
-#: src/dialogs/prepare_transfer_dialog.rs:464
+#: src/dialogs/prepare_transfer_dialog.rs:457
 msgid "Directory {} cannot be created."
 msgstr "Katalogen {} kan inte skapas."
 
@@ -7207,6 +7271,10 @@ msgstr "Redigera profil"
 #: src/dialogs/profiles/edit_profile_dialog.rs:52
 msgid "_Name"
 msgstr "_Namn"
+
+#: src/dialogs/profiles/edit_profile_dialog.rs:113
+msgid "_Update Profile"
+msgstr "_Uppdatera profil"
 
 #: src/dialogs/profiles/manage_profiles_dialog.rs:109
 msgid "Profile"
@@ -7224,27 +7292,27 @@ msgstr ""
 "För att byta namn på en profil, klicka på motsvarande rad och ange ett nytt "
 "namn eller tryck escape för att avbryta."
 
-#: src/dialogs/remote_dialog.rs:97
+#: src/dialogs/remote_dialog.rs:93
 msgid "Remote Connections"
 msgstr "Fjärranslutningar"
 
-#: src/dialogs/remote_dialog.rs:299 src/dialogs/remote_dialog.rs:323
+#: src/dialogs/remote_dialog.rs:282 src/dialogs/remote_dialog.rs:306
 msgid "No server selected"
 msgstr "Ingen server är vald"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:130
+#: src/dialogs/shortcuts/shortcut_dialog.rs:128
 msgid "Keyboard Shortcut"
 msgstr "Tangentbordsgenväg"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:138
+#: src/dialogs/shortcuts/shortcut_dialog.rs:136
 msgid "_Action"
 msgstr "Å_tgärd"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:148
+#: src/dialogs/shortcuts/shortcut_dialog.rs:146
 msgid "_Shortcut"
 msgstr "_Kortkommando"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:166
+#: src/dialogs/shortcuts/shortcut_dialog.rs:164
 msgid ""
 "To edit a shortcut key, click on the \"Assign\" button and type a new "
 "accelerator, or press escape to cancel."
@@ -7252,80 +7320,84 @@ msgstr ""
 "För att redigera ett kortkommando, klicka på knappen ”Tilldela” och ange en "
 "ny snabbtangent eller tryck esc för att avbryta."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:257
+#: src/dialogs/shortcuts/shortcut_dialog.rs:184
+msgid "_Update Shortcut"
+msgstr "_Uppdatera kortkommando"
+
+#: src/dialogs/shortcuts/shortcut_dialog.rs:252
 msgid "New shortcut..."
 msgstr "Nytt kortkommando…"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:262
+#: src/dialogs/shortcuts/shortcut_dialog.rs:257
 msgid "Assign"
 msgstr "Tilldela"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:294
+#: src/dialogs/shortcuts/shortcut_dialog.rs:289
 msgid "No action is selected."
 msgstr "Ingen åtgärd är vald."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:301
+#: src/dialogs/shortcuts/shortcut_dialog.rs:296
 msgid "No shortcut is defined."
 msgstr "Inget kortkommando är definierat."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:381
+#: src/dialogs/shortcuts/shortcut_dialog.rs:376
 msgid "Shortcut “{shortcut}” is already taken by “{action}”."
 msgstr "Kortkommandot ”{shortcut}” används redan för ”{action}”."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:386
+#: src/dialogs/shortcuts/shortcut_dialog.rs:381
 msgid "Reassigning the shortcut will cause it to be removed from “{action}”."
 msgstr "Att omtilldela kortkommandot medför att det tas bort från ”{action}”."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:389
+#: src/dialogs/shortcuts/shortcut_dialog.rs:384
 msgid "_Reassign shortcut"
-msgstr "_Ändra kortkommando"
+msgstr "Änd_ra kortkommando"
 
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:69
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:66
 msgid "Keyboard Shortcuts"
 msgstr "Tangentbordsgenvägar"
 
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:83
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:80
 msgid "Shortcut Key"
 msgstr "Kortkommando"
 
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:94
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:91
 msgid "Action"
 msgstr "Åtgärd"
 
-#: src/dialogs/transfer_progress_dialog.rs:62
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:200
+msgid "_Save Shortcuts"
+msgstr "_Spara kortkommandon"
+
+#: src/dialogs/transfer_progress_dialog.rs:65
 msgid "Progress"
 msgstr "Förlopp"
 
-#: src/dialogs/transfer_progress_dialog.rs:147
+#: src/dialogs/transfer_progress_dialog.rs:151
 msgctxt "size copied"
 msgid "{copied} of {total} copied"
 msgstr "{copied} av {total} kopierat"
 
-#: src/dialogs/transfer_progress_dialog.rs:153
+#: src/dialogs/transfer_progress_dialog.rs:157
 #, no-c-format
 msgctxt "percentage copied"
 msgid "{}% copied"
 msgstr "{}% kopierat"
 
-#: src/dirlist.rs:44
+#: src/dirlist.rs:48
 msgid "Waiting for file list"
 msgstr "Väntar på fillistan"
 
-#: src/dirlist.rs:109
+#: src/dirlist.rs:120
 msgid "{} file listed"
 msgid_plural "{} files listed"
 msgstr[0] "{} fil listad"
 msgstr[1] "{} filer listade"
 
-#: src/dir.rs:172
-msgid "Failed to get directory info for {path}."
-msgstr "Kunde inte erhålla kataloginfo för {path}."
-
-#: src/dir.rs:294
+#: src/dir.rs:221
 msgid "Directory listing failed."
 msgstr "Kataloglistningen misslyckades."
 
-#: src/file_edit.rs:36 src/file_view.rs:82
+#: src/file_edit.rs:37 src/file_view.rs:83
 msgid "Not an ordinary file."
 msgstr "Inte en vanlig fil."
 
@@ -7355,150 +7427,113 @@ msgstr "Hämtning misslyckades."
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Kunde inte hämta MIME-typen för filen."
 
-#: src/file_list/list.rs:336 src/file_list/list.rs:1577
+#: src/file_list/list.rs:338 src/file_list/list.rs:1652
 msgid "name"
 msgstr "namn"
 
-#: src/file_list/list.rs:342 src/file_list/list.rs:1578
+#: src/file_list/list.rs:344 src/file_list/list.rs:1653
 msgid "ext"
 msgstr "ext"
 
-#: src/file_list/list.rs:348 src/file_list/list.rs:1579
+#: src/file_list/list.rs:350 src/file_list/list.rs:1654
 msgid "dir"
 msgstr "katalog"
 
-#: src/file_list/list.rs:354 src/file_list/list.rs:1580
+#: src/file_list/list.rs:356 src/file_list/list.rs:1655
 msgid "size"
 msgstr "storlek"
 
-#: src/file_list/list.rs:360 src/file_list/list.rs:1581
+#: src/file_list/list.rs:362 src/file_list/list.rs:1656
 msgid "date"
 msgstr "datum"
 
-#: src/file_list/list.rs:366 src/file_list/list.rs:1582
+#: src/file_list/list.rs:368 src/file_list/list.rs:1657
 msgid "perm"
 msgstr "rättigheter"
 
-#: src/file_list/list.rs:372 src/file_list/list.rs:1583
+#: src/file_list/list.rs:374 src/file_list/list.rs:1658
 msgid "uid"
 msgstr "uid"
 
-#: src/file_list/list.rs:378 src/file_list/list.rs:1584
+#: src/file_list/list.rs:380 src/file_list/list.rs:1659
 msgid "gid"
 msgstr "gid"
 
-#: src/file_list/list.rs:1504
+#: src/file_list/list.rs:1550
 msgid "_Copy here"
 msgstr "_Kopiera hit"
 
-#: src/file_list/list.rs:1518
+#: src/file_list/list.rs:1564
 msgid "_Move here"
 msgstr "_Flytta hit"
 
-#: src/file_list/list.rs:1532
+#: src/file_list/list.rs:1578
 msgid "_Link here"
 msgstr "_Länka hit"
 
-#: src/file_list/list.rs:1547
+#: src/file_list/list.rs:1593
 msgid "C_ancel"
 msgstr "A_vbryt"
 
-#: src/file_list/list.rs:2069 src/file_list/list.rs:2098
+#: src/file_list/list.rs:2147 src/file_list/list.rs:2170
 msgid "Current directory is not set."
 msgstr "Aktuell katalog har inte ställts in."
 
-#: src/file_list/list.rs:2074
+#: src/file_list/list.rs:2152
 msgid "No parent directory"
 msgstr "Ingen föräldrakatalog"
 
-#: src/file_list/list.rs:2089
+#: src/file_list/list.rs:2164
 msgid "No SAMBA connection is available"
 msgstr "Ingen SAMBA-anslutning finns tillgänglig"
 
 # TODO: Should the word bytes be added? Plural?
-#: src/file_list/list.rs:2196
+#: src/file_list/list.rs:2267
 msgid "A total of {selected_bytes} has been selected."
 msgstr "Totalt {selected_bytes} har markerats."
 
-#: src/file_list/list.rs:2202
+#: src/file_list/list.rs:2273
 msgid "{selected_files} file selected."
 msgid_plural "{selected_files} files selected."
 msgstr[0] "{selected_files} fil markerad."
 msgstr[1] "{selected_files} filer markerade."
 
-#: src/file_list/list.rs:2209
+#: src/file_list/list.rs:2280
 msgid "{selected_dirs} directory selected."
 msgid_plural "{selected_dirs} directories selected."
 msgstr[0] "{selected_dirs} katalog markerad."
 msgstr[1] "{selected_dirs} kataloger markerade."
 
-#: src/file_list/list.rs:2257
+#: src/file_list/list.rs:2336
 msgid "Cannot rename a file to {new_name}"
 msgstr "Kan inte byta namn på en fil till {new_name}"
 
-#: src/file_list/list.rs:2701
+#: src/file_list/list.rs:2809
 msgid "<DIR>"
 msgstr "<KAT>"
 
 #. Add the default "Open" menu entry at the top of the popup
-#: src/file_list/popup.rs:144
+#: src/file_list/popup.rs:138
 msgid "_Open with “{}”"
 msgstr "Ö_ppna med ”{}”"
 
-#: src/file_list/popup.rs:153 src/file_list/popup.rs:181
+#: src/file_list/popup.rs:147 src/file_list/popup.rs:175
 msgid "Open Wit_h…"
 msgstr "Öppna m_ed…"
 
-#: src/file_list/popup.rs:185
+#: src/file_list/popup.rs:179
 msgid "Open Wit_h"
 msgstr "Öppna m_ed"
 
-#: src/file_list/popup.rs:199
+#: src/file_list/popup.rs:193
 msgid "E_xecute"
 msgstr "_Kör"
 
-#. Edit actions
-#: src/file_list/popup.rs:235 src/main_win.rs:745 src/user_actions.rs:1450
-msgid "Cut"
-msgstr "Klipp ut"
-
-#: src/file_list/popup.rs:237 src/user_actions.rs:1468
-msgid "Copy file names"
-msgstr "Kopiera filnamn"
-
-#: src/file_list/popup.rs:240 src/main_win.rs:770 src/user_actions.rs:1367
-msgid "Send files"
-msgstr "Skicka filer"
-
-#: src/file_list/popup.rs:241 src/file_list/popup.rs:257
-msgid "Open _terminal here"
-msgstr "Öppna _terminalfönster här"
-
-#: src/file_list/popup.rs:244 src/main_win.rs:1571
-msgid "_Properties…"
-msgstr "_Egenskaper…"
-
-#: src/file_list/popup.rs:251
+#: src/file_list/popup.rs:245
 msgid "New"
 msgstr "Ny"
 
-#: src/file_list/popup.rs:253
-msgid "_Directory"
-msgstr "_Katalog"
-
-#: src/file_list/popup.rs:254
-msgid "_Text File"
-msgstr "_Textfil"
-
-#: src/file_list/popup.rs:256 src/main_win.rs:1595
-msgid "_Paste"
-msgstr "Klistra _in"
-
-#: src/file_list/popup.rs:258 src/main_win.rs:1662
-msgid "_Refresh"
-msgstr "U_ppdatera"
-
-#: src/file_list/quick_search.rs:61 src/user_actions.rs:1302
+#: src/file_list/quick_search.rs:65
 msgid "Search"
 msgstr "Sök"
 
@@ -7506,74 +7541,73 @@ msgstr "Sök"
 msgid "Value"
 msgstr "Värde"
 
-#: src/file.rs:137
+#: src/file.rs:133
 msgid "Failed to get file info for {path}."
 msgstr "Kunde inte erhålla filinfo för {path}."
 
-#: src/file_selector.rs:1252
+#: src/file_selector.rs:1265
 msgid "Add current dir"
 msgstr "Lägg till aktuell katalog"
 
-#: src/file_selector.rs:1254
+#: src/file_selector.rs:1267
 msgid "Manage bookmarks…"
 msgstr "Hantera bokmärken…"
 
-#: src/file_selector.rs:1390
+#: src/file_selector.rs:1420
 msgid "%s free"
 msgstr "%s ledigt"
 
-#: src/file_selector.rs:1396
+#: src/file_selector.rs:1426
 msgid "Unknown disk usage"
 msgstr "Okänd diskanvändning"
 
-#: src/file_selector.rs:1508 src/user_actions.rs:844
+#: src/file_selector.rs:1656 src/user_actions.rs:851
 msgid "The tab is locked, close anyway?"
 msgstr "Fliken är låst, stäng ändå?"
 
-#: src/file_selector.rs:1549 src/main_win.rs:1667
+#: src/file_selector.rs:1657 src/user_actions.rs:852
+msgid "C_lose Tab"
+msgstr "S_täng flik"
+
+#: src/file_selector.rs:1698 src/user_actions.rs:1803
 msgid "Open in New _Tab"
 msgstr "Öppna i ny fli_k"
 
-#: src/file_selector.rs:1556
+#: src/file_selector.rs:1707
 msgid "_Unlock Tab"
 msgstr "Lås _upp flik"
 
-#: src/file_selector.rs:1558
+#: src/file_selector.rs:1709
 msgid "_Lock Tab"
 msgstr "_Lås flik"
 
-#: src/file_selector.rs:1570
+#: src/file_selector.rs:1721
 msgid "_Refresh Tab"
 msgstr "_Uppdatera flik"
 
-#: src/file_selector.rs:1579
-msgid "Copy Tab to Other _Pane"
+#: src/file_selector.rs:1730
+msgid "Copy Tab to Other _Panel"
 msgstr "Kopiera flik till andra _panelen"
 
-#: src/file_selector.rs:1584 src/main_win.rs:1671
+#: src/file_selector.rs:1736 src/user_actions.rs:1809
 msgid "_Close Tab"
 msgstr "_Stäng flik"
 
-#: src/file_selector.rs:1586 src/main_win.rs:1673
+#: src/file_selector.rs:1740 src/user_actions.rs:1815
 msgid "Close _All Tabs"
 msgstr "Stäng _alla flikar"
 
-#: src/file_selector.rs:1590
+#: src/file_selector.rs:1744
 msgid "Close _Duplicate Tabs"
 msgstr "Stäng _duplicerade flikar"
 
-#: src/file_selector.rs:1618
+#: src/file_selector.rs:1772
 msgid "Filter:"
 msgstr "Filter:"
 
-#: src/file_view.rs:52
+#: src/file_view.rs:54
 msgid "Failed to download a file"
 msgstr "Kunde inte hämta en fil"
-
-#: src/gnome-cmd-block.cc:37
-#, c-format
-msgid "The program has now finished. Press Enter to close this window.\n"
-msgstr "Programmet är nu klart. Tryck Retur för att stänga detta fönster.\n"
 
 #: src/intviewer/search_dialog.rs:60 src/intviewer/window.rs:741
 #: src/intviewer/window.rs:754
@@ -7584,11 +7618,15 @@ msgstr "_Text"
 msgid "_Hexadecimal"
 msgstr "_Hexadecimal"
 
-#: src/intviewer/search_dialog.rs:233
+#: src/intviewer/search_dialog.rs:64
+msgid "Sea_rch"
+msgstr "Sö_k"
+
+#: src/intviewer/search_dialog.rs:230
 msgid "Find"
 msgstr "Sök"
 
-#: src/intviewer/search_progress_dialog.rs:46 src/search/search_dialog.rs:297
+#: src/intviewer/search_progress_dialog.rs:46 src/search/search_dialog.rs:293
 msgid "_Stop"
 msgstr "S_toppa"
 
@@ -7636,11 +7674,11 @@ msgstr "_Kopiera markering"
 msgid "Pattern “{}” was not found"
 msgstr "Sökmönstret ”{}” hittades inte"
 
-#: src/intviewer/window.rs:735 src/main_win.rs:1554
+#: src/intviewer/window.rs:735 src/main_win.rs:1568
 msgid "_File"
 msgstr "_Arkiv"
 
-#: src/intviewer/window.rs:739 src/main_win.rs:1652
+#: src/intviewer/window.rs:739 src/main_win.rs:1621
 msgid "_View"
 msgstr "_Visa"
 
@@ -7800,7 +7838,7 @@ msgstr "Vänd _vertikalt"
 msgid "Flip _Horizontal"
 msgstr "Vänd _horisontellt"
 
-#: src/intviewer/window.rs:861 src/main_win.rs:1712
+#: src/intviewer/window.rs:861 src/main_win.rs:1656
 msgid "_Settings"
 msgstr "In_ställningar"
 
@@ -7832,285 +7870,65 @@ msgstr "_Hexadecimal förskjutning"
 msgid "Quick _Help"
 msgstr "Snabb_hjälp"
 
-#: src/intviewer/window.rs:900 src/main_win.rs:1770
+#: src/intviewer/window.rs:900 src/user_actions.rs:2000
 msgid "_Keyboard Shortcuts"
 msgstr "_Tangentbordsgenvägar"
 
-#: src/main_win.rs:226 src/main_win.rs:806
-msgid "Drop connection"
-msgstr "Bryt anslutningen"
-
-#: src/main_win.rs:256
+#: src/main_win.rs:240
 msgid "F3 View"
 msgstr "F3 Visa"
 
-#: src/main_win.rs:257
+#: src/main_win.rs:241
 msgid "F4 Edit"
 msgstr "F4 Redigera"
 
-#: src/main_win.rs:258
+#: src/main_win.rs:242
 msgid "F5 Copy"
 msgstr "F5 Kopiera"
 
-#: src/main_win.rs:259
+#: src/main_win.rs:243
 msgid "F6 Move"
 msgstr "F6 Flytta"
 
-#: src/main_win.rs:260
+#: src/main_win.rs:244
 msgid "F7 Mkdir"
 msgstr "F7 Ny katalog"
 
-#: src/main_win.rs:261
+#: src/main_win.rs:245
 msgid "F8 Delete"
 msgstr "F8 Ta bort"
 
-#: src/main_win.rs:262
+#: src/main_win.rs:246
 msgid "F9 Search"
 msgstr "F9 Sök"
 
-#: src/main_win.rs:298
+#: src/main_win.rs:282
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "GNOME Commander — ROOT-PRIVILEGIER"
 
-#: src/main_win.rs:708 src/user_actions.rs:1542
-msgid "Refresh"
-msgstr "Uppdatera"
+#: src/main_win.rs:754
+msgid "Drop connection"
+msgstr "Bryt anslutningen"
 
-#: src/main_win.rs:718
-msgid "Go to the oldest"
-msgstr "Gå till äldsta"
+#: src/main_win.rs:1398
+msgid "Failed starting shell"
+msgstr "Misslyckades med att starta skal"
 
-#: src/main_win.rs:723
-msgid "Go back"
-msgstr "Gå bakåt"
-
-#: src/main_win.rs:728
-msgid "Go forward"
-msgstr "Gå framåt"
-
-#: src/main_win.rs:733
-msgid "Go to the latest"
-msgstr "Gå till senaste"
-
-#: src/main_win.rs:740
-msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
-msgstr "Kopiera filnamn (SKIFT för fullständiga sökvägar, ALT för URI:er)"
-
-#: src/main_win.rs:755 src/user_actions.rs:1456
-msgid "Paste"
-msgstr "Klistra in"
-
-#: src/main_win.rs:765
-msgid "Edit (SHIFT for new document)"
-msgstr "Redigera (SKIFT för nytt dokument)"
-
-#: src/main_win.rs:775 src/user_actions.rs:1481
-msgid "Open terminal"
-msgstr "Öppna terminalfönster"
-
-#: src/main_win.rs:1558
-msgid "Change _Owner/Group"
-msgstr "Ändra _ägare/grupp"
-
-#: src/main_win.rs:1559
-msgid "Change Per_missions"
-msgstr "Ändra _rättigheter"
-
-#: src/main_win.rs:1561
-msgid "Advanced _Rename Tool"
-msgstr "_Namnbytesverktyg för flera filer"
-
-#: src/main_win.rs:1566
-msgid "Create _Symbolic Link"
-msgstr "Ny _symbolisk länk"
-
-#: src/main_win.rs:1578
-msgid "_Search…"
-msgstr "_Sök…"
-
-#: src/main_win.rs:1579
-msgid "_Quick Search…"
-msgstr "S_nabbsök…"
-
-#: src/main_win.rs:1580
-msgid "_Enable Filter…"
-msgstr "_Aktivera filter…"
-
-#: src/main_win.rs:1584
-msgid "_Diff"
-msgstr "_Diff"
-
-#: src/main_win.rs:1585
-msgid "S_ynchronize Directories"
-msgstr "S_ynkronisera kataloger"
-
-#: src/main_win.rs:1593
-msgid "Cu_t"
-msgstr "Klipp _ut"
-
-#: src/main_win.rs:1594
-msgid "_Copy"
-msgstr "_Kopiera"
-
-#: src/main_win.rs:1596
-msgid "_Delete"
-msgstr "_Ta bort"
-
-#: src/main_win.rs:1598
-msgid "Copy _File Names"
-msgstr "Kopiera _filnamn"
-
-#: src/main_win.rs:1601
+#: src/main_win.rs:1603
 msgid "_Mark"
 msgstr "_Markera"
 
-#: src/main_win.rs:1606
-msgid "_Select All"
-msgstr "_Markera alla"
-
-#: src/main_win.rs:1611
-msgid "_Unselect All"
-msgstr "_Avmarkera alla"
-
-#: src/main_win.rs:1615
-msgid "Select all _Files"
-msgstr "Markera alla _filer"
-
-#: src/main_win.rs:1617
-msgid "Unselect all Fi_les"
-msgstr "Avmarkera alla fi_ler"
-
-#: src/main_win.rs:1621
-msgid "Select with _Pattern"
-msgstr "Markera med m_önster"
-
-#: src/main_win.rs:1626
-msgid "Unselect with P_attern"
-msgstr "Avmarkera med mö_nster"
-
-#: src/main_win.rs:1631
-msgid "Select with same _Extension"
-msgstr "Markera med samma f_iländelse"
-
-#: src/main_win.rs:1635
-msgid "Unselect with same E_xtension"
-msgstr "Avmarkera med samma fi_ländelse"
-
-#: src/main_win.rs:1639
-msgid "_Invert Selection"
-msgstr "_Invertera markering"
-
-#: src/main_win.rs:1643
-msgid "_Restore Selection"
-msgstr "_Återställ markering"
-
-#: src/main_win.rs:1646
-msgid "_Compare Directories"
-msgstr "_Jämför kataloger"
-
-#: src/main_win.rs:1656
-msgid "_Back"
-msgstr "_Bakåt"
-
-#: src/main_win.rs:1658
-msgid "_Forward"
-msgstr "_Framåt"
-
-#: src/main_win.rs:1680
-msgid "Show Toolbar"
-msgstr "Visa verktygsfält"
-
-#: src/main_win.rs:1681
-msgid "Show Device Buttons"
-msgstr "Visa enhetsknappar"
-
-#: src/main_win.rs:1682
-msgid "Show Device List"
-msgstr "Visa enhetslista"
-
-#: src/main_win.rs:1683
-msgid "Show Command Line"
-msgstr "Visa kommandorad"
-
-#: src/main_win.rs:1684
-msgid "Show Buttonbar"
-msgstr "Visa knapprad"
-
-#: src/main_win.rs:1689
-msgid "Show Hidden Files"
-msgstr "Visa dolda filer"
-
-#: src/main_win.rs:1693
-msgid "Show Backup Files"
-msgstr "Visa säkerhetskopior"
-
-#: src/main_win.rs:1698
-msgid "_Equal Panel Size"
-msgstr "_Samma panelstorlekar"
-
-#: src/main_win.rs:1702
-msgid "Maximize Panel Size"
-msgstr "Maximera panelstorlek"
-
-#: src/main_win.rs:1706 src/user_actions.rs:1653
-msgid "Horizontal Orientation"
-msgstr "Horisontell orientering"
-
-#: src/main_win.rs:1714
-msgid "_Options…"
-msgstr "_Alternativ…"
-
-#: src/main_win.rs:1716
-msgid "_Keyboard Shortcuts…"
-msgstr "_Tangentbordsgenvägar…"
-
-#: src/main_win.rs:1721
+#: src/main_win.rs:1662
 msgid "_Connections"
 msgstr "_Anslutningar"
 
-#: src/main_win.rs:1726
-msgid "_Remote Server…"
-msgstr "Fjä_rrserver…"
-
-#: src/main_win.rs:1731
-msgid "New Connection…"
-msgstr "Ny anslutning…"
-
-#: src/main_win.rs:1740
+#: src/main_win.rs:1673
 msgid "_Bookmarks"
 msgstr "_Bokmärken"
 
-#: src/main_win.rs:1745
-msgid "_Bookmark this Directory…"
-msgstr "_Bokmärk denna katalog…"
-
-#: src/main_win.rs:1749
-msgid "_Manage Bookmarks…"
-msgstr "_Hantera bokmärken…"
-
-#: src/main_win.rs:1757
+#: src/main_win.rs:1683
 msgid "_Plugins"
 msgstr "_Insticksmoduler"
-
-#: src/main_win.rs:1760
-msgid "_Configure Plugins…"
-msgstr "Konfigurera _insticksmoduler…"
-
-#: src/main_win.rs:1769
-msgid "_Documentation"
-msgstr "_Dokumentation"
-
-#: src/main_win.rs:1771
-msgid "GNOME Commander on the _Web"
-msgstr "GNOME Commander på _webben"
-
-#: src/main_win.rs:1772
-msgid "Report a _Problem"
-msgstr "Rapportera ett _problem"
-
-#: src/main_win.rs:1774
-msgid "_About"
-msgstr "_Om"
 
 #: src/open_file.rs:35
 msgid ""
@@ -8119,6 +7937,10 @@ msgid ""
 msgstr ""
 "”{}” verkar vara en binär körbar fil men exekveringsbiten är inte satt. Vill "
 "du sätta den och sedan köra filen?"
+
+#: src/open_file.rs:40
+msgid "_Mark as Executable"
+msgstr "_Markera som körbar"
 
 #: src/open_file.rs:57
 msgid ""
@@ -8142,123 +7964,119 @@ msgstr "_Nej"
 msgid "_Yes"
 msgstr "_Ja"
 
-#: src/open_file.rs:112
+#: src/open_file.rs:108
 msgid "Change of a file mode failed"
 msgstr "Ändring av ett filläge misslyckades"
 
-#: src/open_file.rs:140
+#: src/open_file.rs:145
 msgid "No default application found for the file type {}."
 msgstr "Inget standardprogram hittades för filtypen {}."
 
-#: src/open_file.rs:143
+#: src/open_file.rs:148
 msgid "Open the \"Applications\" page in the Control Center to add one."
 msgstr "Öppna sidan ”Program” i Kontrollpanelen för att lägga till ett."
 
-#: src/options/options.rs:457
+#: src/options/options.rs:458
 msgid "Default"
 msgstr "Standard"
 
-#: src/plugin_manager.rs:401
+#: src/plugin_manager.rs:404
 msgid "Available plugins"
 msgstr "Tillgängliga insticksmoduler"
 
-#: src/plugin_manager.rs:475
+#: src/plugin_manager.rs:465
 msgid "Version: {}"
 msgstr "Version: {}"
 
-#: src/plugin_manager.rs:482
+#: src/plugin_manager.rs:472
 msgid "File: {}"
 msgstr "Fil: {}"
 
-#: src/plugin_manager.rs:492
+#: src/plugin_manager.rs:482
 msgid "About"
 msgstr "Om"
 
-#: src/plugin_manager.rs:503
+#: src/plugin_manager.rs:493
 msgid "Configure"
 msgstr "Konfigurera"
 
-#: src/search/generic.rs:56
+#: src/search/generic.rs:59
 msgid "Search failed"
 msgstr "Sökning misslyckades"
 
-#: src/search/generic.rs:74
+#: src/search/generic.rs:77
 msgid "Searching in: {}"
 msgstr "Söker i: {}"
 
-#: src/search/local.rs:108
+#: src/search/local.rs:92
+msgid "Something went wrong, cannot get start directory."
+msgstr "Något gick fel, kan inte erhålla startkatalogen."
+
+#: src/search/local.rs:112
 msgid "Invalid file name pattern."
 msgstr "Ogiltigt filnamnsmönster."
 
-#: src/search/local.rs:123
+#: src/search/local.rs:127
 msgid "Invalid text content regular expression."
 msgstr "Ogiltigt reguljärt uttryck för textinnehåll."
 
-#: src/search/search_dialog.rs:286
+#: src/search/search_dialog.rs:282
 msgid "Pr_ofiles…"
 msgstr "Pr_ofiler…"
 
-#: src/search/search_dialog.rs:302
+#: src/search/search_dialog.rs:298
 msgid "_Find"
 msgstr "_Sök"
 
-#: src/search/search_dialog.rs:323
+#: src/search/search_dialog.rs:319
 msgid "Search…"
 msgstr "Sök…"
 
-#: src/search/search_dialog.rs:331
+#: src/search/search_dialog.rs:327
 msgid "_Look in folder:"
 msgstr "Sök i _mapp:"
 
-#: src/search/search_dialog.rs:615
-msgid "Cannot extract a file path"
-msgstr "Kan inte extrahera en filsökväg"
-
-#: src/search/search_dialog.rs:619
-msgid "Failed to detect a start directory"
-msgstr "Kunde inte identifiera en startkatalog"
-
-#: src/search/search_dialog.rs:718
+#: src/search/search_dialog.rs:676
 msgid "Found {} match — search aborted"
 msgid_plural "Found {} matches — search aborted"
 msgstr[0] "Hittade {} träff — sökning avbruten"
 msgstr[1] "Hittade {} träffar — sökning avbruten"
 
-#: src/search/search_dialog.rs:723
+#: src/search/search_dialog.rs:681
 msgid "Found {} match"
 msgid_plural "Found {} matches"
 msgstr[0] "Hittade {} träff"
 msgstr[1] "Hittade {} träffar"
 
-#: src/search/selection_profile_component.rs:66
+#: src/search/selection_profile_component.rs:67
 msgid "Contains _text:"
 msgstr "Innehåller _text:"
 
-#: src/search/selection_profile_component.rs:70
+#: src/search/selection_profile_component.rs:71
 msgid "Case sensiti_ve"
-msgstr "Skilj på stora och sm_å bokstäver"
+msgstr "Skilj på stora och s_må bokstäver"
 
-#: src/search/selection_profile_component.rs:98
+#: src/search/selection_profile_component.rs:99
 msgid "Search _recursively:"
 msgstr "Sök _rekursivt:"
 
-#: src/search/selection_profile_component.rs:162
+#: src/search/selection_profile_component.rs:163
 msgid "Path matches regex:"
 msgstr "Sökväg matchar regex:"
 
-#: src/search/selection_profile_component.rs:162
+#: src/search/selection_profile_component.rs:163
 msgid "Name contains:"
 msgstr "Namn innehåller:"
 
-#: src/search/selection_profile_component.rs:167
+#: src/search/selection_profile_component.rs:168
 msgid "Unlimited depth"
 msgstr "Obegränsat djup"
 
-#: src/search/selection_profile_component.rs:168
+#: src/search/selection_profile_component.rs:169
 msgid "Current directory only"
 msgstr "Endast aktuell katalog"
 
-#: src/search/selection_profile_component.rs:171
+#: src/search/selection_profile_component.rs:172
 msgid "%i level"
 msgid_plural "%i levels"
 msgstr[0] "%i nivå"
@@ -8280,15 +8098,15 @@ msgstr "Välj en bildfil"
 msgid "Choose Icon"
 msgstr "Välj ikon"
 
-#: src/spawn.rs:147 src/spawn.rs:151
+#: src/spawn.rs:143 src/spawn.rs:147
 msgid "No valid command given."
 msgstr "Inget giltigt kommando angivet."
 
-#: src/spawn.rs:148
+#: src/spawn.rs:144
 msgid "Bad command template."
 msgstr "Felaktig kommandomall."
 
-#: src/spawn.rs:154 src/user_actions.rs:185
+#: src/spawn.rs:150 src/user_actions.rs:178
 msgid "Unable to execute command."
 msgstr "Kunde inte köra kommando."
 
@@ -8389,40 +8207,40 @@ msgstr "Bildstorlek"
 msgid "Width and height in pixels."
 msgstr "Bredd och höjd i bildpunkter."
 
-#: src/transfer.rs:114
+#: src/transfer.rs:113
 msgid "Copying a directory into itself is a bad idea."
 msgstr "Kopiera en katalog in i sig själv är ingen bra idé."
 
-#: src/transfer.rs:115 src/transfer.rs:186 src/transfer.rs:257
+#: src/transfer.rs:114 src/transfer.rs:185 src/transfer.rs:256
 msgid "The whole operation was cancelled."
 msgstr "Hela åtgärden avbröts."
 
-#: src/transfer.rs:149 src/transfer.rs:220 src/transfer.rs:291
+#: src/transfer.rs:148 src/transfer.rs:219 src/transfer.rs:290
 msgid "preparing…"
 msgstr "förbereder…"
 
-#: src/transfer.rs:185 src/transfer.rs:256
+#: src/transfer.rs:184 src/transfer.rs:255
 msgid "Moving a directory into itself is a bad idea."
 msgstr "Att flytta en katalog in i sig själv är ingen bra idé."
 
-#: src/transfer.rs:323
+#: src/transfer.rs:322
 msgid "downloading to /tmp"
 msgstr "hämtar till /tmp"
 
-#: src/transfer.rs:510 src/transfer.rs:527
+#: src/transfer.rs:509 src/transfer.rs:526
 msgid "Copy into"
 msgstr "Kopiera till"
 
-#: src/transfer.rs:512 src/transfer.rs:576 src/transfer.rs:689
+#: src/transfer.rs:511 src/transfer.rs:575 src/transfer.rs:688
 msgid "Rename all"
 msgstr "Byt namn på alla"
 
-#: src/transfer.rs:514 src/transfer.rs:577 src/transfer.rs:690
-#: src/user_actions.rs:392
+#: src/transfer.rs:513 src/transfer.rs:576 src/transfer.rs:689
+#: src/user_actions.rs:399
 msgid "Skip all"
 msgstr "Hoppa över alla"
 
-#: src/transfer.rs:555 src/transfer.rs:668
+#: src/transfer.rs:554 src/transfer.rs:667
 msgid ""
 "Overwrite file:\n"
 "\n"
@@ -8440,110 +8258,97 @@ msgstr ""
 "\n"
 "{src}"
 
-#: src/transfer.rs:572 src/transfer.rs:590 src/transfer.rs:685
-#: src/transfer.rs:703
+#: src/transfer.rs:571 src/transfer.rs:589 src/transfer.rs:684
+#: src/transfer.rs:702
 msgid "Replace"
 msgstr "Skriv över"
 
-#: src/transfer.rs:575 src/transfer.rs:688
+#: src/transfer.rs:574 src/transfer.rs:687
 msgid "Replace all"
 msgstr "Ersätt alla"
 
-#: src/transfer.rs:627 src/transfer.rs:732
+#: src/transfer.rs:626 src/transfer.rs:731
 msgid "Error while transferring “{file}”"
 msgstr "Fel vid överföring av ”{file}”"
 
-#: src/transfer.rs:764
+#: src/transfer.rs:763
 msgid "Error while creating symlink “{file}”"
 msgstr "Fel vid skapande av symboliska länken ”{file}”"
 
-#: src/transfer.rs:772
+#: src/transfer.rs:771
 msgid "Ignore"
 msgstr "Ignorera"
 
-#: src/transfer.rs:831
+#: src/transfer.rs:830
 msgid "Unrecoverable error"
 msgstr "Oåterkalleligt fel"
 
-#: src/transfer.rs:909
+#: src/transfer.rs:908
 msgid "File enumeration error"
 msgstr "Filuppräkningsfel"
 
-#: src/transfer.rs:1000 src/transfer.rs:1012 src/transfer.rs:1034
-#: src/transfer.rs:1060
-msgid "Source “%s” could not be deleted. Aborting!"
-msgstr "Källan ”%s” kunde inte tas bort. Avbryter!"
-
-#: src/transfer.rs:1069
-msgid ""
-"Cannot detect a connection for a source “%s”. It could not be deleted. "
-"Aborting!"
-msgstr ""
-"Kan inte identifiera någon anslutning för en källa ”%s”. Den kunde inte tas "
-"bort. Avbryter!"
-
-#: src/transfer.rs:1092
+#: src/transfer.rs:1012
 msgid "Source “%s” could not be copied. Aborting!"
 msgstr "Källan ”%s” kunde inte kopieras. Avbryter!"
 
-#: src/transfer.rs:1139
+#: src/transfer.rs:1059
 msgid "copying…"
 msgstr "kopierar…"
 
-#: src/transfer.rs:1158
+#: src/transfer.rs:1078
 msgid "[file {index} of {count}] “{file}”"
 msgstr "[fil {index} av {count}] ”{file}”"
 
-#: src/transfer.rs:1217
+#: src/transfer.rs:1137
 msgctxt ""
 "A template for a file name. In a case of a conflict with an existing one."
 msgid "{name} (Copy {number})"
 msgstr "{name} (kopia {number})"
 
-#: src/user_actions.rs:172
+#: src/user_actions.rs:165
 msgid "No search command given."
 msgstr "Inget sökkommando angivet."
 
-#: src/user_actions.rs:173
+#: src/user_actions.rs:166
 msgid "You can set a command for a search tool in the program options."
 msgstr ""
 "Du kan ställa in ett kommando för ett sökverktyg i programalternativen."
 
-#: src/user_actions.rs:269
+#: src/user_actions.rs:278
 msgid "Operation not supported on remote file systems"
 msgstr "Operationen stöds ej i fjärranslutna filsystem"
 
-#: src/user_actions.rs:294
+#: src/user_actions.rs:303
 msgid "No file selected"
 msgstr "Ingen fil är vald"
 
-#: src/user_actions.rs:306
+#: src/user_actions.rs:316
 msgid "Too many selected files"
 msgstr "För många markerade filer"
 
-#: src/user_actions.rs:330
+#: src/user_actions.rs:340
 msgid "Nothing to compare"
 msgstr "Inget att jämföra"
 
-#: src/user_actions.rs:355
+#: src/user_actions.rs:362
 msgid "link to %s"
 msgstr "länk till %s"
 
-#: src/user_actions.rs:430
+#: src/user_actions.rs:437
 msgid "Create symbolic links of {count} file in {dir}?"
 msgid_plural "Create symbolic links of {count} files in {dir}?"
 msgstr[0] "Skapa symbolisk länk för {count} fil i {dir}?"
 msgstr[1] "Skapa symboliska länkar för {count} filer i {dir}?"
 
-#: src/user_actions.rs:440
+#: src/user_actions.rs:447
 msgid "Create"
 msgstr "Skapa"
 
-#: src/user_actions.rs:483
+#: src/user_actions.rs:490
 msgid "Warning"
 msgstr "Varning"
 
-#: src/user_actions.rs:483
+#: src/user_actions.rs:490
 msgid ""
 "The default send-to command only supports one selected file at a time. You "
 "can change the command in the program options."
@@ -8551,19 +8356,19 @@ msgstr ""
 "Standardkommandot för skicka-till stöder endast en vald fil åt gången. Du "
 "kan ändra kommandot i programalternativen."
 
-#: src/user_actions.rs:705
+#: src/user_actions.rs:711
 msgid "Terminal command is not configured properly."
 msgstr "Terminalkommandot har inte konfigurerats korrekt."
 
-#: src/user_actions.rs:1105
+#: src/user_actions.rs:1136
 msgid "There was an error opening home page."
 msgstr "Ett fel uppstod vid öppnandet av hemsidan."
 
-#: src/user_actions.rs:1116
+#: src/user_actions.rs:1147
 msgid "There was an error reporting problem."
 msgstr "Ett fel uppstod vid rapportering av ett problem."
 
-#: src/user_actions.rs:1146
+#: src/user_actions.rs:1177
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -8575,7 +8380,7 @@ msgstr ""
 "av Free Software Foundation; antingen version 2 av licensen, eller (om Ni så "
 "vill) någon senare version."
 
-#: src/user_actions.rs:1149
+#: src/user_actions.rs:1180
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -8587,7 +8392,7 @@ msgstr ""
 "LÄMPLIGHET FÖR NÅGOT SPECIELLT ÄNDAMÅL.  Se GNU General Public License för "
 "ytterligare information."
 
-#: src/user_actions.rs:1152
+#: src/user_actions.rs:1183
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -8597,11 +8402,11 @@ msgstr ""
 "webbläsaren. Om inte, skriv till Free Software Foundation, Inc., 51 Franklin "
 "Street, Fifth Floor, Boston, MA 02110-1301 USA."
 
-#: src/user_actions.rs:1161
+#: src/user_actions.rs:1192
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "En snabb och kraftfull filhanterare för GNOME-skrivbordet"
 
-#: src/user_actions.rs:1169
+#: src/user_actions.rs:1200
 msgid "translator-credits"
 msgstr ""
 "Josef Andersson <josef.andersson@fripost.org>\n"
@@ -8614,362 +8419,633 @@ msgstr ""
 "Skicka synpunkter på översättningen till:\n"
 "<tp-sv@listor.tp-sv.se>."
 
-#. File actions
-#: src/user_actions.rs:1268
-msgid "Copy files"
+#: src/user_actions.rs:1409
+msgid "Copy Files"
 msgstr "Kopiera filer"
 
-#: src/user_actions.rs:1273
+#: src/user_actions.rs:1415
 msgid "Copy files with rename"
 msgstr "Kopiera filer med namnbyte"
 
-#: src/user_actions.rs:1275
-msgid "Move files"
+#: src/user_actions.rs:1421
+msgid "Move Files"
 msgstr "Flytta filer"
 
-#: src/user_actions.rs:1280
-msgid "Delete files"
-msgstr "Ta bort filer"
+#: src/user_actions.rs:1427
+msgid "_Delete"
+msgstr "_Ta bort"
 
-#: src/user_actions.rs:1287
+#: src/user_actions.rs:1433
+msgid "View File"
+msgstr "Visa fil"
+
+#: src/user_actions.rs:1439
 msgid "View with internal viewer"
 msgstr "Visa med internt visningsprogram"
 
-#: src/user_actions.rs:1293
+#: src/user_actions.rs:1445
 msgid "View with external viewer"
 msgstr "Visa med externt visningsprogram"
 
-#: src/user_actions.rs:1295
-msgid "Edit file"
-msgstr "Redigera fil"
+#: src/user_actions.rs:1451
+msgid "Edit (SHIFT for new document)"
+msgstr "Redigera (SKIFT för nytt dokument)"
 
-#: src/user_actions.rs:1300
-msgid "Edit a new file"
-msgstr "Redigera en ny fil"
+#: src/user_actions.rs:1457
+msgid "New _Text File"
+msgstr "Ny _textfil"
 
-#: src/user_actions.rs:1313
-msgid "Change permissions"
-msgstr "Ändra rättigheter"
+#: src/user_actions.rs:1463
+msgid "_Search…"
+msgstr "_Sök…"
 
-#: src/user_actions.rs:1319
-msgid "Change owner/group"
-msgstr "Ändra ägare/grupp"
+#: src/user_actions.rs:1469
+msgid "_Quick Search…"
+msgstr "S_nabbsök…"
 
-#: src/user_actions.rs:1325
-msgid "Create directory"
-msgstr "Skapa katalog"
+#: src/user_actions.rs:1475
+msgid "Change Per_missions"
+msgstr "Ändra _rättigheter"
 
-#: src/user_actions.rs:1337
-msgid "Compare files (diff)"
-msgstr "Jämför filer (diff)"
+#: src/user_actions.rs:1481
+msgid "Change _Owner/Group"
+msgstr "Ändra ä_gare/grupp"
 
-#: src/user_actions.rs:1343
-msgid "Synchronize directories"
-msgstr "Synkronisera kataloger"
+#: src/user_actions.rs:1487
+msgid "New _Directory"
+msgstr "Ny _katalog"
 
-#: src/user_actions.rs:1349
-msgid "Rename files"
-msgstr "Byt namn på filer"
+#: src/user_actions.rs:1493
+msgid "_Properties…"
+msgstr "_Egenskaper…"
 
-#: src/user_actions.rs:1355
-msgid "Create symbolic link"
-msgstr "Skapa symbolisk länk"
+#: src/user_actions.rs:1499
+msgid "_Diff"
+msgstr "_Diff"
 
-#: src/user_actions.rs:1361
-msgid "Advanced rename tool"
-msgstr "Avancerat namnbytesverktyg"
+#: src/user_actions.rs:1505
+msgid "S_ynchronize Directories"
+msgstr "S_ynkronisera kataloger"
 
-#: src/user_actions.rs:1369
+#: src/user_actions.rs:1511
+msgid "_Rename"
+msgstr "_Byt namn"
+
+#: src/user_actions.rs:1517
+msgid "Create _Symbolic Link"
+msgstr "Ny _symbolisk länk"
+
+#: src/user_actions.rs:1523
+msgid "Advanced _Rename Tool"
+msgstr "_Namnbytesverktyg för flera filer"
+
+#: src/user_actions.rs:1529
+msgid "_Send Files"
+msgstr "_Skicka filer"
+
+#: src/user_actions.rs:1535
 msgid "Quit"
 msgstr "Avsluta"
 
-#: src/user_actions.rs:1375
+#: src/user_actions.rs:1542
 msgid "Toggle selection"
 msgstr "Växla markering"
 
-#: src/user_actions.rs:1381
+#: src/user_actions.rs:1548
 msgid "Toggle selection and move cursor downward"
 msgstr "Växla markering och flytta markören nedåt"
 
-#: src/user_actions.rs:1387
-msgid "Select all"
-msgstr "Markera allt"
+#: src/user_actions.rs:1554
+msgid "_Select All"
+msgstr "_Markera alla"
 
-#: src/user_actions.rs:1393
-msgid "Unselect all"
-msgstr "Avmarkera allt"
+#: src/user_actions.rs:1560
+msgid "_Unselect All"
+msgstr "_Avmarkera alla"
 
-#: src/user_actions.rs:1399
-msgid "Select all files"
-msgstr "Markera alla filer"
+#: src/user_actions.rs:1566
+msgid "Select all _Files"
+msgstr "Markera alla _filer"
 
-#: src/user_actions.rs:1405
-msgid "Unselect all files"
-msgstr "Avmarkera alla filer"
+#: src/user_actions.rs:1572
+msgid "Unselect all Fi_les"
+msgstr "Avmarkera alla fi_ler"
 
-#: src/user_actions.rs:1411
-msgid "Select with pattern"
-msgstr "Markera med mönster"
+#: src/user_actions.rs:1578
+msgid "Select with _Pattern"
+msgstr "Markera med möns_ter"
 
-#: src/user_actions.rs:1417
-msgid "Unselect with pattern"
-msgstr "Avmarkera med mönster"
+#: src/user_actions.rs:1584
+msgid "Unselect with P_attern"
+msgstr "Avmarkera med mö_nster"
 
-#: src/user_actions.rs:1423
-msgid "Invert selection"
-msgstr "Invertera markering"
+#: src/user_actions.rs:1590
+msgid "_Invert Selection"
+msgstr "_Invertera markering"
 
-#: src/user_actions.rs:1429
-msgid "Select with same extension"
-msgstr "Markera med samma filändelse"
+#: src/user_actions.rs:1596
+msgid "Select with same _Extension"
+msgstr "Markera med samma filänd_else"
 
-#: src/user_actions.rs:1435
-msgid "Unselect with same extension"
-msgstr "Avmarkera med samma filändelse"
+#: src/user_actions.rs:1602
+msgid "Unselect with same E_xtension"
+msgstr "Avmarkera med samma filän_delse"
 
-#: src/user_actions.rs:1441
-msgid "Restore selection"
-msgstr "Återställ markering"
+#: src/user_actions.rs:1608
+msgid "_Restore Selection"
+msgstr "Å_terställ markering"
 
-#: src/user_actions.rs:1447
-msgid "Compare directories"
-msgstr "Jämför kataloger"
+#: src/user_actions.rs:1614
+msgid "_Compare Directories"
+msgstr "_Jämför kataloger"
 
-#: src/user_actions.rs:1462
-msgid "Show user defined files"
-msgstr "Visa användardefinierade filer"
+#: src/user_actions.rs:1621
+msgid "Cu_t"
+msgstr "Klipp _ut"
 
-#: src/user_actions.rs:1475
+#: src/user_actions.rs:1627
+msgid "_Copy"
+msgstr "_Kopiera"
+
+#: src/user_actions.rs:1633
+msgid "_Paste"
+msgstr "Klistra _in"
+
+#: src/user_actions.rs:1639
+msgid "_Enable Filter…"
+msgstr "_Aktivera filter…"
+
+#: src/user_actions.rs:1645
+msgid "Copy _File Names (SHIFT for full paths, ALT for URIs)"
+msgstr "Kopiera _filnamn (SKIFT för fullständiga sökvägar, ALT för URI:er)"
+
+#: src/user_actions.rs:1652
 msgid "Execute command"
 msgstr "Kör kommando"
 
-#: src/user_actions.rs:1501
+#: src/user_actions.rs:1658
+msgid "Open _Terminal"
+msgstr "Öppna _terminal"
+
+#: src/user_actions.rs:1665
+msgid "Show Device Buttons"
+msgstr "Visa enhetsknappar"
+
+#: src/user_actions.rs:1671
+msgid "Show Device List"
+msgstr "Visa enhetslista"
+
+#: src/user_actions.rs:1677
+msgid "Show Toolbar"
+msgstr "Visa verktygsfält"
+
+#: src/user_actions.rs:1683
+msgid "Show Buttonbar"
+msgstr "Visa knapprad"
+
+#: src/user_actions.rs:1689
+msgid "Show Command Line"
+msgstr "Visa kommandorad"
+
+#: src/user_actions.rs:1695
 msgid "Show directory history"
 msgstr "Visa kataloghistorik"
 
-#: src/user_actions.rs:1506
-msgid "Show hidden files"
+#: src/user_actions.rs:1701
+msgid "Show Hidden Files"
 msgstr "Visa dolda filer"
 
-#: src/user_actions.rs:1511
-msgid "Show backup files"
+#: src/user_actions.rs:1707
+msgid "Show Backup Files"
 msgstr "Visa säkerhetskopior"
 
-#: src/user_actions.rs:1518
-msgid "Back to the first directory"
-msgstr "Tillbaka till första katalogen"
+#: src/user_actions.rs:1719
+msgid "Back to oldest"
+msgstr "Tillbaka till äldsta"
 
-#: src/user_actions.rs:1524
-msgid "Back one directory"
-msgstr "Bakåt en katalog"
+#: src/user_actions.rs:1725
+msgid "_Back"
+msgstr "_Bakåt"
 
-#: src/user_actions.rs:1530
-msgid "Forward one directory"
-msgstr "Framåt en katalog"
+#: src/user_actions.rs:1731
+msgid "_Forward"
+msgstr "_Framåt"
 
-#: src/user_actions.rs:1536
-msgid "Forward to the last directory"
-msgstr "Framåt till sista katalogen"
+#: src/user_actions.rs:1737
+msgid "Forward to latest"
+msgstr "Framåt till senaste"
 
-#: src/user_actions.rs:1547
-msgid "Equal panel size"
-msgstr "Samma panelstorlek"
+#: src/user_actions.rs:1743
+msgid "_Refresh"
+msgstr "U_ppdatera"
 
-#: src/user_actions.rs:1552
-msgid "Maximize panel size"
+#: src/user_actions.rs:1749
+msgid "_Equal Panel Size"
+msgstr "_Samma panelstorlekar"
+
+#: src/user_actions.rs:1755
+msgid "Maximize Panel Size"
 msgstr "Maximera panelstorlek"
 
-#: src/user_actions.rs:1558
-msgid "Open directory in the left window"
-msgstr "Öppna katalog i vänstra fönstret"
+#: src/user_actions.rs:1761
+msgid "Open directory in the left panel"
+msgstr "Öppna katalog i vänstra panelen"
 
-#: src/user_actions.rs:1564
-msgid "Open directory in the right window"
-msgstr "Öppna katalog i högra fönstret"
+#: src/user_actions.rs:1767
+msgid "Open directory in the right panel"
+msgstr "Öppna katalog i högra panelen"
 
-#: src/user_actions.rs:1570
-msgid "Open directory in the active window"
-msgstr "Öppna katalogen i aktivt fönster"
+#: src/user_actions.rs:1773
+msgid "Open directory in the active panel"
+msgstr "Öppna katalog i den aktiva panelen"
 
-#: src/user_actions.rs:1576
-msgid "Open directory in the inactive window"
-msgstr "Öppna katalogen i inaktivt fönster"
+#: src/user_actions.rs:1779
+msgid "Open directory in the inactive panel"
+msgstr "Öppna katalog i den inaktiva panelen"
 
-#: src/user_actions.rs:1582
+#: src/user_actions.rs:1785
 msgid "Change directory"
 msgstr "Ändra katalog"
 
-#: src/user_actions.rs:1588
+#: src/user_actions.rs:1791
 msgid "Home directory"
 msgstr "Hemkatalog"
 
-#: src/user_actions.rs:1594
+#: src/user_actions.rs:1797
 msgid "Root directory"
 msgstr "Rotkatalog"
 
-#: src/user_actions.rs:1600
-msgid "Open directory in a new tab"
-msgstr "Öppna katalogen i en ny flik"
-
-#: src/user_actions.rs:1606
-msgid "Close the current tab"
-msgstr "Stäng aktuell flik"
-
-#: src/user_actions.rs:1612
-msgid "Close all tabs"
-msgstr "Stäng alla flikar"
-
-#: src/user_actions.rs:1618
+#: src/user_actions.rs:1821
 msgid "Close duplicate tabs"
 msgstr "Stäng dubblerade flikar"
 
-#: src/user_actions.rs:1624
+#: src/user_actions.rs:1827
 msgid "Previous tab"
 msgstr "Föregående flik"
 
-#: src/user_actions.rs:1630
+#: src/user_actions.rs:1833
 msgid "Next tab"
 msgstr "Nästa flik"
 
-#: src/user_actions.rs:1636
+#: src/user_actions.rs:1839
 msgid "Open directory in the new tab"
 msgstr "Öppna katalogen i nya fliken"
 
-#: src/user_actions.rs:1642
-msgid "Open directory in the new tab (inactive window)"
-msgstr "Öppna katalogen i nya fliken (inaktivt fönster)"
+#: src/user_actions.rs:1845
+msgid "Open directory in the new tab (inactive panel)"
+msgstr "Öppna katalogen i nya fliken (inaktiv panel)"
 
-#: src/user_actions.rs:1648
+#: src/user_actions.rs:1851
 msgid "Lock/unlock tab"
 msgstr "Lås/Lås upp flik"
 
-#: src/user_actions.rs:1658
+#: src/user_actions.rs:1857
+msgid "Horizontal Orientation"
+msgstr "Horisontell orientering"
+
+#: src/user_actions.rs:1863
 msgid "Display main menu"
 msgstr "Visa huvudmeny"
 
-#: src/user_actions.rs:1664
+#: src/user_actions.rs:1869
 msgid "Move cursor one step up"
 msgstr "Flytta markören ett steg upp"
 
-#: src/user_actions.rs:1670
+#: src/user_actions.rs:1875
 msgid "Move cursor one step down"
 msgstr "Flytta markören ett steg ned"
 
-#: src/user_actions.rs:1677
-msgid "Bookmark current directory"
-msgstr "Bokmärk aktuell katalog"
+#: src/user_actions.rs:1881
+msgid "Swap panels"
+msgstr "Växla paneler"
 
-#: src/user_actions.rs:1683
-msgid "Manage bookmarks"
-msgstr "Hantera bokmärken"
+#: src/user_actions.rs:1887
+msgid "Show panel size selector"
+msgstr "Visa panelstorleksväljare"
 
-#: src/user_actions.rs:1689
+#: src/user_actions.rs:1900
+msgid "_Bookmark this Directory…"
+msgstr "_Bokmärk denna katalog…"
+
+#: src/user_actions.rs:1906
+msgid "_Manage Bookmarks…"
+msgstr "_Hantera bokmärken…"
+
+#: src/user_actions.rs:1912
 msgid "Go to bookmarked location"
 msgstr "Gå till bokmärkt plats"
 
-#: src/user_actions.rs:1695
+#: src/user_actions.rs:1918
 msgid "Show bookmarks of current device"
 msgstr "Visa bokmärken för aktuell enhet"
 
-#: src/user_actions.rs:1708
-msgid "Keyboard shortcuts"
-msgstr "Tangentbordsgenvägar"
+#: src/user_actions.rs:1925
+msgid "_Options…"
+msgstr "_Alternativ…"
 
-#: src/user_actions.rs:1715
-msgid "Open connection"
-msgstr "Öppna anslutning"
+#: src/user_actions.rs:1931
+msgid "_Keyboard Shortcuts…"
+msgstr "_Tangentbordsgenvägar…"
 
-#: src/user_actions.rs:1721
-msgid "New connection"
-msgstr "Ny anslutning"
+#: src/user_actions.rs:1938
+msgid "_Remote Server…"
+msgstr "Fjä_rrserver…"
 
-#: src/user_actions.rs:1727
+#: src/user_actions.rs:1944
+msgid "New Connection…"
+msgstr "Ny anslutning…"
+
+#: src/user_actions.rs:1950
 msgid "Set connection"
 msgstr "Ställ in anslutning"
 
-#: src/user_actions.rs:1733
+#: src/user_actions.rs:1956
 msgid "Change left connection"
 msgstr "Ändra vänster anslutning"
 
-#: src/user_actions.rs:1739
+#: src/user_actions.rs:1962
 msgid "Change right connection"
 msgstr "Ändra höger anslutning"
 
-#: src/user_actions.rs:1745 src/user_actions.rs:1751
+#: src/user_actions.rs:1968
 msgid "Close connection"
 msgstr "Stäng anslutning"
 
-#: src/user_actions.rs:1758
-msgid "Configure plugins"
-msgstr "Konfigurera insticksmoduler"
+#: src/user_actions.rs:1974
+msgid "Drop Connection"
+msgstr "Bryt anslutningen"
 
-#: src/user_actions.rs:1771
-msgid "Help contents"
-msgstr "Innehåll"
+#: src/user_actions.rs:1981
+msgid "_Configure Plugins…"
+msgstr "Konfigurera _insticksmoduler…"
 
-#: src/user_actions.rs:1777
-msgid "Help on keyboard shortcuts"
-msgstr "Hjälp för tangentbordsgenvägar"
+#: src/user_actions.rs:1994
+msgid "_Documentation"
+msgstr "_Dokumentation"
 
-#: src/user_actions.rs:1783
-msgid "GNOME Commander on the web"
-msgstr "GNOME Commander på webben"
+#: src/user_actions.rs:2006
+msgid "GNOME Commander on the _Web"
+msgstr "GNOME Commander på _webben"
 
-#: src/user_actions.rs:1789
-msgid "Report a problem"
-msgstr "Rapportera ett problem"
+#: src/user_actions.rs:2012
+msgid "Report a _Problem"
+msgstr "Rapportera ett _problem"
 
-#: src/user_actions.rs:1795
-msgid "About GNOME Commander"
-msgstr "Om GNOME Commander"
+#: src/user_actions.rs:2018
+msgid "_About"
+msgstr "_Om"
 
-#: src/utils.rs:108
+#: src/utils.rs:111
 msgid "Cannot create a temporary file."
 msgstr "Kan inte skapa en temporär fil."
 
-#: src/utils.rs:294
+#: src/utils.rs:281
 msgid "There was an error while opening help uri {uri}."
 msgstr "Ett fel uppstod vid öppnandet av hjälp-URI {uri}."
 
-#: src/utils.rs:395
+#: src/utils.rs:382
 msgid "{} PiB"
 msgid_plural "{} PiB"
 msgstr[0] "{} PiB"
 msgstr[1] "{} PiB"
 
-#: src/utils.rs:398
+#: src/utils.rs:385
 msgid "{} TiB"
 msgid_plural "{} TiB"
 msgstr[0] "{} TiB"
 msgstr[1] "{} TiB"
 
-#: src/utils.rs:401
+#: src/utils.rs:388
 msgid "{} GiB"
 msgid_plural "{} GiB"
 msgstr[0] "{} GiB"
 msgstr[1] "{} GiB"
 
-#: src/utils.rs:404
+#: src/utils.rs:391
 msgid "{} MiB"
 msgid_plural "{} MiB"
 msgstr[0] "{} MiB"
 msgstr[1] "{} MiB"
 
-#: src/utils.rs:407
+#: src/utils.rs:394
 msgid "{} kiB"
 msgid_plural "{} kiB"
 msgstr[0] "{} kiB"
 msgstr[1] "{} kiB"
 
-#: src/utils.rs:410 src/utils.rs:421 src/utils.rs:425
+#: src/utils.rs:397 src/utils.rs:408 src/utils.rs:412
 msgid "{} byte"
 msgid_plural "{} bytes"
 msgstr[0] "{} byte"
 msgstr[1] "{} byte"
 
-#: src/utils.rs:625
+#: src/utils.rs:624
 msgid "Closing of a file enumerator failed"
 msgstr "Stängning av en filuppräknare misslyckades"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid "Failed to get directory info for {path}."
+#~ msgstr "Kunde inte erhålla kataloginfo för {path}."
+
+#~ msgid "Cannot extract a file path"
+#~ msgstr "Kan inte extrahera en filsökväg"
+
+#~ msgid "Failed to detect a start directory"
+#~ msgstr "Kunde inte identifiera en startkatalog"
+
+#~ msgid "Source “%s” could not be deleted. Aborting!"
+#~ msgstr "Källan ”%s” kunde inte tas bort. Avbryter!"
+
+#~ msgid ""
+#~ "Cannot detect a connection for a source “%s”. It could not be deleted. "
+#~ "Aborting!"
+#~ msgstr ""
+#~ "Kan inte identifiera någon anslutning för en källa ”%s”. Den kunde inte "
+#~ "tas bort. Avbryter!"
+
+#~ msgid "A two paned file manager"
+#~ msgstr "En tvåpanelers filhanterare"
+
+#~ msgid "Leave terminal open"
+#~ msgstr "Lämna terminal öppen"
+
+#~ msgid ""
+#~ "This option defines if a terminal window should stay open after a command "
+#~ "finishes inside of it."
+#~ msgstr ""
+#~ "Detta alternativ definierar huruvida ett terminalfönster ska fortsätta "
+#~ "vara öppet efter att ett kommando avslutats i det."
+
+#~ msgid "Leave terminal window open"
+#~ msgstr "Lämna terminalfönster öppet"
+
+#, c-format
+#~ msgid "The program has now finished. Press Enter to close this window.\n"
+#~ msgstr "Programmet är nu klart. Tryck Retur för att stänga detta fönster.\n"
+
+#~ msgid "Cut"
+#~ msgstr "Klipp ut"
+
+#~ msgid "Copy file names"
+#~ msgstr "Kopiera filnamn"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "Öppna _terminalfönster här"
+
+#~ msgid "_Text File"
+#~ msgstr "_Textfil"
+
+#~ msgid "Refresh"
+#~ msgstr "Uppdatera"
+
+#~ msgid "Go back"
+#~ msgstr "Gå bakåt"
+
+#~ msgid "Go forward"
+#~ msgstr "Gå framåt"
+
+#~ msgid "Go to the latest"
+#~ msgstr "Gå till senaste"
+
+#~ msgid "Paste"
+#~ msgstr "Klistra in"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "Kopiera _filnamn"
+
+#~ msgid "Copy files"
+#~ msgstr "Kopiera filer"
+
+#~ msgid "Delete files"
+#~ msgstr "Ta bort filer"
+
+#~ msgid "Edit file"
+#~ msgstr "Redigera fil"
+
+#~ msgid "Edit a new file"
+#~ msgstr "Redigera en ny fil"
+
+#~ msgid "Change permissions"
+#~ msgstr "Ändra rättigheter"
+
+#~ msgid "Change owner/group"
+#~ msgstr "Ändra ägare/grupp"
+
+#~ msgid "Create directory"
+#~ msgstr "Skapa katalog"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "Jämför filer (diff)"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "Synkronisera kataloger"
+
+#~ msgid "Rename files"
+#~ msgstr "Byt namn på filer"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "Skapa symbolisk länk"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "Avancerat namnbytesverktyg"
+
+#~ msgid "Select all"
+#~ msgstr "Markera allt"
+
+#~ msgid "Select all files"
+#~ msgstr "Markera alla filer"
+
+#~ msgid "Unselect all files"
+#~ msgstr "Avmarkera alla filer"
+
+#~ msgid "Select with pattern"
+#~ msgstr "Markera med mönster"
+
+#~ msgid "Unselect with pattern"
+#~ msgstr "Avmarkera med mönster"
+
+#~ msgid "Invert selection"
+#~ msgstr "Invertera markering"
+
+#~ msgid "Select with same extension"
+#~ msgstr "Markera med samma filändelse"
+
+#~ msgid "Unselect with same extension"
+#~ msgstr "Avmarkera med samma filändelse"
+
+#~ msgid "Restore selection"
+#~ msgstr "Återställ markering"
+
+#~ msgid "Compare directories"
+#~ msgstr "Jämför kataloger"
+
+#~ msgid "Show user defined files"
+#~ msgstr "Visa användardefinierade filer"
+
+#~ msgid "Show hidden files"
+#~ msgstr "Visa dolda filer"
+
+#~ msgid "Show backup files"
+#~ msgstr "Visa säkerhetskopior"
+
+#~ msgid "Back to the first directory"
+#~ msgstr "Tillbaka till första katalogen"
+
+#~ msgid "Back one directory"
+#~ msgstr "Bakåt en katalog"
+
+#~ msgid "Forward one directory"
+#~ msgstr "Framåt en katalog"
+
+#~ msgid "Equal panel size"
+#~ msgstr "Samma panelstorlek"
+
+#~ msgid "Maximize panel size"
+#~ msgstr "Maximera panelstorlek"
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "Öppna katalogen i en ny flik"
+
+#~ msgid "Close the current tab"
+#~ msgstr "Stäng aktuell flik"
+
+#~ msgid "Close all tabs"
+#~ msgstr "Stäng alla flikar"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr "Bokmärk aktuell katalog"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "Hantera bokmärken"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Tangentbordsgenvägar"
+
+#~ msgid "Open connection"
+#~ msgstr "Öppna anslutning"
+
+#~ msgid "New connection"
+#~ msgstr "Ny anslutning"
+
+#~ msgid "Configure plugins"
+#~ msgstr "Konfigurera insticksmoduler"
+
+#~ msgid "Help contents"
+#~ msgstr "Innehåll"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "Hjälp för tangentbordsgenvägar"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr "GNOME Commander på webben"
+
+#~ msgid "Report a problem"
+#~ msgstr "Rapportera ett problem"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr "Om GNOME Commander"
 
 #~ msgid "Invalid file name regular expression."
 #~ msgstr "Ogiltigt reguljärt uttryck för filnamn."
@@ -9064,9 +9140,6 @@ msgstr "Stängning av en filuppräknare misslyckades"
 
 #~ msgid "Error parsing the search command."
 #~ msgstr "Fel vid tolkning av sökkommandot."
-
-#~ msgid "_Open"
-#~ msgstr "Ö_ppna"
 
 #, c-format
 #~ msgid "_Open with “%s”"
@@ -9397,9 +9470,6 @@ msgstr "Stängning av en filuppräknare misslyckades"
 #~ msgid "Conflicting Shortcuts"
 #~ msgstr "Kortkommandon i konflikt"
 
-#~ msgid "Make Executable?"
-#~ msgstr "Gör körbar?"
-
 #~ msgid "Run or Display"
 #~ msgstr "Kör eller visa"
 
@@ -9493,9 +9563,6 @@ msgstr "Stängning av en filuppräknare misslyckades"
 
 #~ msgid "Connections"
 #~ msgstr "Anslutningar"
-
-#~ msgid "C_onnect"
-#~ msgstr "_Anslut"
 
 #~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
 #~ msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu eller beesu hittades inte"
@@ -9770,9 +9837,6 @@ msgstr "Stängning av en filuppräknare misslyckades"
 
 #~ msgid "Swiss Italian"
 #~ msgstr "Italienska (schweizisk)"
-
-#~ msgid "Japanese"
-#~ msgstr "Japanska"
 
 #~ msgid "Korean"
 #~ msgstr "Koreanska"
@@ -10334,9 +10398,6 @@ msgstr "Stängning av en filuppräknare misslyckades"
 
 #~ msgid "Program name"
 #~ msgstr "Programnamn"
-
-#~ msgid "File listings"
-#~ msgstr "Fillistor"
 
 #~ msgid ""
 #~ "Do you want to overwrite the file:\n"
