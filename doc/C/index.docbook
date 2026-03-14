@@ -13,13 +13,6 @@
        Use the manrevision entity to specify the revision number of this manual.
        Use the date entity to specify the release date of this manual.
        Use the app entity to specify the name of the application. -->
-<!--
-      (Do not remove this comment block.)
-  Maintained by the GNOME Documentation Project
-  http://developer.gnome.org/projects/gdp
-  Template version: 2.0 beta
-  Template last modified Apr 11, 2002
--->
 <!-- =============Document Header ============================= -->
 <article id="index" lang="en">
 <!-- please do not change the id; for translations, change lang to -->
@@ -39,6 +32,9 @@
       <holder>Piotr Eljasiak</holder>
     </copyright>
     <copyright>
+      <year>2026</year>
+      <year>2025</year>
+      <year>2024</year>
       <year>2023</year>
       <year>2022</year>
       <year>2021</year>
