@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+SPDX-FileCopyrightText: 2026 Uwe Scholz <u.scholz83@gmx.de>
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
 <gresources>
   <gresource prefix="/file-roller-plugin">
     <file>file-roller.png</file>

@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2014-2024 Uwe Scholz <u.scholz83@gmx.de> -->
+<!--
+     SPDX-FileCopyrightText: 2014 Uwe Scholz <u.scholz83@gmx.de>
+     SPDX-FileCopyrightText: 2016 Piotr Drąg
+     SPDX-FileCopyrightText: 2022 Sabri Ünal
+     SPDX-FileCopyrightText: 2025 Jeremy Bícha
+     SPDX-FileCopyrightText: 2025 Daniel Rusek
+     SPDX-FileCopyrightText: 2026 Wladimir Palant https://palant.info/
+
+     SPDX-License-Identifier: GPL-3.0-or-later
+-->
 <component type="desktop-application">
   <id>org.gnome.gnome-commander</id>
   <metadata_license>CC0-1.0</metadata_license>
-  <project_license>GPL-2.0+</project_license>
+  <project_license>GPL-3.0+</project_license>
   <name>GNOME Commander</name>
   <summary>Dual-panel file manager</summary>
   <description>

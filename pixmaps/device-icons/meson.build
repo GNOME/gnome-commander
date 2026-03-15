@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2014 Uwe Scholz <u.scholz83@gmx.de>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 device_icons = [
   'bluetooth.png',
   'burner.png',

@@ -1,4 +1,11 @@
-  <legalnotice id="legalnotice">
+<!--
+SPDX-FileCopyrightText: 2007 Piotr Eljasiak
+SPDX-FileCopyrightText: 2017 Uwe Scholz <u.scholz83@gmx.de>
+
+SPDX-License-Identifier: GFDL-1.3-or-later
+-->
+
+<legalnotice id="legalnotice">
 	<para>
 	  Permission is granted to copy, distribute and/or modify this
 	  documentation under the terms of the GNU Free Documentation

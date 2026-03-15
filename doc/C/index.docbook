@@ -2,9 +2,9 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY author "Uwe Scholz">
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "1.17.0">
-  <!ENTITY manrevision "1.17.0">
-  <!ENTITY date "??? 2023">
+  <!ENTITY appversion "1.19.0">
+  <!ENTITY manrevision "1.19.0">
+  <!ENTITY date "??? 2026">
   <!ENTITY app "GNOME Commander">
 ]>
 <!-- Information about the entities
@@ -7706,11 +7706,11 @@
     </sect2>
     <sect2 id="gnome-commander-License">
       <title>License</title>
-      <para> This program is distributed under the terms of the GNU
-      General Public license as published by the Free Software
-      Foundation; either version 2 of the License, or (at your option)
+      <para> This program is free software: you can redistribute it and/or modify it under
+      the terms of the GNU General Public License as published by the Free
+      Software Foundation, either version 3 of the License, or (at your option)
       any later version. A copy of this license can be found at this
-      <ulink type="http" url="https://www.gnu.org/licenses/gpl-2.0.html">link</ulink>,
+      <ulink type="http" url="https://www.gnu.org/licenses/gpl-3.0">link</ulink>,
       or in the file COPYING included with the source code of this program.</para>
     </sect2>
   </sect1>

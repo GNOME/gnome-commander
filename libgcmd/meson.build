@@ -1,4 +1,9 @@
-libgcmd_headers = files(
+# SPDX-FileCopyrightText: 2014 Uwe Scholz <u.scholz83@gmx.de>
+# SPDX-FileCopyrightText: 2024 Andrey Kutejko <andy128k@gmail.com>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+ibgcmd_headers = files(
   'gnome-cmd-configurable.h',
   'gnome-cmd-file-descriptor.h',
   'gnome-cmd-file-actions.h',

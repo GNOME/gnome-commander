@@ -1,6 +1,6 @@
 # Gnome Commander #
 
-[![GitHub license](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://gitlab.gnome.org/GNOME/gnome-commander/-/raw/main/COPYING)
+[![GitHub license](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://gitlab.gnome.org/GNOME/gnome-commander/-/raw/main/COPYING)
 
 ## Introduction ##
 
@@ -8,7 +8,7 @@ Gnome Commander is a fast and powerful twin-panel file manager for the Linux des
 
 ![ScreenShot](https://gitlab.gnome.org/GNOME/gnome-commander/-/raw/main/doc/C/figures/gnome-commander_window.png)
 
-Gnome Commander is released under the GNU General Public License (GPL) version 2,
+Gnome Commander is released under the GNU General Public License (GPL) version 3,
 see the file ``COPYING`` for more information.
 
 The online available Git log contains a detailed description on what has changed

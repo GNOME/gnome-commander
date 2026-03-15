@@ -1,3 +1,9 @@
+# SPDX-FileCopyrightText: 2022 Uwe Scholz <u.scholz83@gmx.de>
+# SPDX-FileCopyrightText: 2024 Andrey Kutejko <andy128k@gmail.com>
+# SPDX-FileCopyrightText: 2026 Wladimir Palant https://palant.info/
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 rpath = get_option('prefix') / get_option('libdir')
 
 config_rs = configure_file(

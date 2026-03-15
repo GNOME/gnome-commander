@@ -1,6 +1,9 @@
 #!/bin/sh
-
-# This script was written by Jonh Wendell <jwendell gnome org>
+#
+# SPDX-FileCopyrightText: 2022 Jonh Wendell <jwendell@gnome.org>
+# SPDX-FileCopyrightText: 2022 Uwe Scholz <u.scholz83@gmx.de>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 # usage: translators.sh <LAST_COMMIT_ID>
 

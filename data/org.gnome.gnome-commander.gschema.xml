@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+SPDX-FileCopyrightText: 2015 Uwe Scholz <u.scholz83@gmx.de>
+SPDX-FileCopyrightText: 2016 Piotr Drąg
+SPDX-FileCopyrightText: 2019 Sabri Ünal
+SPDX-FileCopyrightText: 2022 Roman Pauer
+SPDX-FileCopyrightText: 2024 Andrey Kutejko <andy128k@gmail.com>
+SPDX-FileCopyrightText: 2026 Wladimir Palant https://palant.info/
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
 <schemalist>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander" path="/org/gnome/gnome-commander/">
     <child name="preferences" schema="org.gnome.gnome-commander.preferences"/>

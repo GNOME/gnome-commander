@@ -1,4 +1,8 @@
 #!/bin/sh
+#
+# SPDX-FileCopyrightText: 2019 Uwe Scholz <u.scholz83@gmx.de>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 git-scripts/update-project-status.sh && meson compile -C builddir && meson test -C builddir
 

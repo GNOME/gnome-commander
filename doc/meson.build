@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Uwe Scholz <u.scholz83@gmx.de>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 sources = [
   'index.docbook',
   'legal.xml',

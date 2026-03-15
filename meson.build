@@ -1,6 +1,12 @@
+# SPDX-FileCopyrightText: 2022 Uwe Scholz
+# SPDX-FileCopyrightText: 2024 Andrey Kutejko
+# SPDX-FileCopyrightText: 2026 Wladimir Palant https://palant.info/
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 project('gnome-commander', ['C', 'cpp', 'rust'],
   version: '1.19.0',
-  license: 'GPLv2',
+  license: 'GPLv3',
   meson_version: '>= 0.59',
   default_options: ['cpp_std=c++17', 'build.cpp_std=c++17']
 )
