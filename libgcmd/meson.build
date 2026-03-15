@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-ibgcmd_headers = files(
+libgcmd_headers = files(
   'gnome-cmd-configurable.h',
   'gnome-cmd-file-descriptor.h',
   'gnome-cmd-file-actions.h',
