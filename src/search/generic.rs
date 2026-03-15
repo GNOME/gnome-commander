@@ -29,9 +29,11 @@ pub async fn generic_search(
     )
     .map_err(|error| ErrorMessage::with_error(gettext("Bad expression"), &*error))?;
 
-    let content_search = profile
-        .content_search()
-        .then(|| (profile.content_pattern(), profile.content_match_case()));
+    let content_search = if !profile.content_pattern().is_empty() {
+        Some((profile.content_pattern(), profile.content_match_case()))
+    } else {
+        None
+    };
 
     search_dir_recursive(
         start_dir,

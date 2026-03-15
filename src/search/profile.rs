@@ -25,8 +25,6 @@ mod imp {
         #[property(get, set)]
         pub content_pattern: RefCell<String>,
         #[property(get, set)]
-        pub content_search: Cell<bool>,
-        #[property(get, set)]
         pub content_match_case: Cell<bool>,
     }
 
@@ -60,7 +58,6 @@ impl SearchProfile {
         self.set_path_syntax(PatternType::default());
         self.set_max_depth(-1);
         self.set_content_pattern("");
-        self.set_content_search(false);
         self.set_content_match_case(false);
     }
 
@@ -70,7 +67,6 @@ impl SearchProfile {
         self.set_path_syntax(other.path_syntax());
         self.set_max_depth(other.max_depth());
         self.set_content_pattern(other.content_pattern());
-        self.set_content_search(other.content_search());
         self.set_content_match_case(other.content_match_case());
     }
 
@@ -84,7 +80,6 @@ impl SearchProfile {
     const SETTING_MAX_DEPTH: &str = "max-depth";
     const SETTING_PATH_SYNTAX: &str = "path-syntax";
     const SETTING_PATH_PATTERN: &str = "path-pattern";
-    const SETTING_CONTENT_SEARCH: &str = "content-search";
     const SETTING_CONTENT_MATCH_CASE: &str = "content-match-case";
     const SETTING_CONTENT_PATTERN: &str = "content-pattern";
 
@@ -99,10 +94,6 @@ impl SearchProfile {
         v.insert(
             Self::SETTING_PATH_PATTERN.to_string(),
             self.path_pattern().into(),
-        );
-        v.insert(
-            Self::SETTING_CONTENT_SEARCH.to_string(),
-            self.content_search().into(),
         );
         v.insert(
             Self::SETTING_CONTENT_MATCH_CASE.to_string(),
@@ -140,12 +131,6 @@ impl SearchProfile {
         {
             self.set_path_pattern(path_pattern);
         }
-        if let Some(content_search) = variant
-            .get(Self::SETTING_CONTENT_SEARCH)
-            .and_then(bool::from_variant)
-        {
-            self.set_content_search(content_search);
-        }
         if let Some(content_match_case) = variant
             .get(Self::SETTING_CONTENT_MATCH_CASE)
             .and_then(bool::from_variant)
@@ -165,7 +150,6 @@ impl SearchProfile {
         self.set_max_depth(variant.max_depth);
         self.set_path_syntax(PatternType::from(variant.path_syntax as u32));
         self.set_path_pattern(variant.path_pattern);
-        self.set_content_search(variant.content_search);
         self.set_content_match_case(variant.content_match_case);
         self.set_content_pattern(variant.content_pattern);
     }
@@ -204,7 +188,6 @@ mod test {
         profile.set_max_depth(3);
         profile.set_path_syntax(PatternType::Regex);
         profile.set_path_pattern("path");
-        profile.set_content_search(true);
         profile.set_content_match_case(true);
         profile.set_content_pattern("text");
 
@@ -217,7 +200,6 @@ mod test {
         assert_eq!(profile.max_depth(), 3);
         assert_eq!(profile.path_syntax(), PatternType::Regex);
         assert_eq!(profile.path_pattern(), "path");
-        assert_eq!(profile.content_search(), true);
         assert_eq!(profile.content_match_case(), true);
         assert_eq!(profile.content_pattern(), "text");
     }

@@ -102,7 +102,7 @@ pub async fn local_search(
         None
     };
 
-    let (matcher, mut searcher) = if profile.content_search() {
+    let (matcher, mut searcher) = if !profile.content_pattern().is_empty() {
         let matcher = RegexMatcherBuilder::new()
             .fixed_strings(true)
             .case_insensitive(!profile.content_match_case())
