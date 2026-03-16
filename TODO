@@ -52,20 +52,16 @@
 * The working status may depend on the window manager shortcuts!
 * = does not select files with a pattern, instead "+" does this now
 * CTRL+= does not work
-* It is unclear what SHIFT+ENTER does (It should "Execute command 
-  line in the defined terminal and leaves the terminal window open")
 * CTRL+` (Go to home directory) is not working
-* SUPER+1 (Change left connection) and SUPER+2 (Change right connection 
+* SUPER+1 (Change left connection) and SUPER+2 (Change right connection)
   show no reaction, ALT+1 and ALT+2 do
-* CTRL+SHIFT+C seams not to copy anything...
-* CTRL+SHIFT+. (Copy the current working directory from the active file 
+* CTRL+SHIFT+C seems not to copy anything...
+* CTRL+SHIFT+. (Copy the current working directory from the active file
   list to the inactive one) -> nothing happens
-* CTRL+5 (Create MD5 checksum) -> Error message "Python module gnomevfs 
-  ('gnome.vfs') could not be loaded"
 * CTRL+K (Delete to the end of the command line) -> no reaction
 * CTRL+W (Delete the word to the left of the cursor) -> no reaction
 * CTRL+T (Delete the word to the right of the cursor) -> no reaction
-* ALT+F8 (A list with the latest command lines (history list) is opened... -> no reaction 
+* ALT+F8 (A list with the latest command lines (history list) is opened... -> no reaction
 
 
 // Internal viewer
@@ -80,5 +76,3 @@ Discussed stuff
 -----------------------------------------------
 
 * Toolbar configuration - OO.org like
-* Light version of gc (based on gtk+ only - not depending on GNOME)
-* Even lighter version of gc (statically linked, based on FLTK http://fltk.org/)
