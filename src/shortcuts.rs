@@ -21,7 +21,7 @@ impl Shortcut {
     pub fn key(key: gdk::Key) -> Self {
         Self {
             key,
-            state: gdk::ModifierType::empty(),
+            state: gdk::ModifierType::NO_MODIFIER_MASK,
         }
     }
 
