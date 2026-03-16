@@ -3,7 +3,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::{backend::SearchMessage, profile::SearchProfile};
+use super::{backend::SearchMessage, content_search::ContentSearch, profile::SearchProfile};
 use crate::{
     dir::Directory,
     file::{File, FileOps},
@@ -11,61 +11,9 @@ use crate::{
     utils::ErrorMessage,
 };
 use gettextrs::gettext;
-use grep::{
-    regex::RegexMatcherBuilder,
-    searcher::{Searcher, SearcherBuilder, Sink, SinkMatch},
-};
 use gtk::gio::{self, prelude::*};
-use std::{
-    cell::Cell,
-    io::{Error, ErrorKind, Read},
-    path::Path,
-    path::PathBuf,
-};
+use std::path::PathBuf;
 use walkdir::WalkDir;
-
-struct SearchSink<'a> {
-    match_found: &'a Cell<bool>,
-}
-
-impl<'a> SearchSink<'a> {
-    pub fn new(match_found: &'a Cell<bool>) -> Self {
-        Self { match_found }
-    }
-}
-
-impl Sink for SearchSink<'_> {
-    type Error = Error;
-
-    fn matched(&mut self, _searcher: &Searcher, _mat: &SinkMatch<'_>) -> Result<bool, Self::Error> {
-        self.match_found.replace(true);
-        Ok(false)
-    }
-}
-
-struct CancellableReader {
-    file: std::fs::File,
-    cancellable: gio::Cancellable,
-}
-
-impl CancellableReader {
-    pub fn new(path: &Path, cancellable: &gio::Cancellable) -> Result<Self, Error> {
-        Ok(Self {
-            file: std::fs::File::open(path)?,
-            cancellable: cancellable.clone(),
-        })
-    }
-}
-
-impl Read for CancellableReader {
-    fn read(&mut self, buf: &mut [u8]) -> Result<usize, Error> {
-        if self.cancellable.is_cancelled() {
-            Err(Error::new(ErrorKind::Interrupted, "Cancelled"))
-        } else {
-            self.file.read(buf)
-        }
-    }
-}
 
 pub async fn local_search(
     profile: &SearchProfile,
@@ -102,27 +50,13 @@ pub async fn local_search(
         None
     };
 
-    let (matcher, mut searcher) = if !profile.content_pattern().is_empty() {
-        let matcher = RegexMatcherBuilder::new()
-            .fixed_strings(true)
-            .case_insensitive(!profile.content_match_case())
-            .dot_matches_new_line(true)
-            .build(&profile.content_pattern())
-            .map_err(|error| {
-                ErrorMessage::with_error(
-                    gettext("Invalid text content regular expression."),
-                    &error,
-                )
-            })?;
-        let searcher = SearcherBuilder::new()
-            .line_number(false)
-            .multi_line(true)
-            .max_matches(Some(1))
-            .build();
-
-        (Some(matcher), Some(searcher))
+    let mut content_search = if !profile.content_pattern().is_empty() {
+        Some(ContentSearch::new(
+            &profile.content_pattern(),
+            profile.content_match_case(),
+        )?)
     } else {
-        (None, None)
+        None
     };
 
     let cancellable = cancellable.clone();
@@ -154,27 +88,11 @@ pub async fn local_search(
                 continue;
             }
 
-            if let Some(matcher) = matcher.as_ref()
-                && let Some(searcher) = searcher.as_mut()
+            if let Some(content_search) = content_search.as_mut()
+                && (!entry.file_type().is_file()
+                    || !content_search.check(&gio::File::for_path(entry.path()), &cancellable))
             {
-                if !entry.file_type().is_file() {
-                    continue;
-                }
-
-                let match_found = Cell::new(false);
-                if let Err(error) =
-                    CancellableReader::new(entry.path(), &cancellable).and_then(|reader| {
-                        searcher.search_reader(matcher, reader, SearchSink::new(&match_found))
-                    })
-                {
-                    if error.kind() != ErrorKind::Interrupted {
-                        eprintln!("{error}");
-                    }
-                    continue;
-                }
-                if !match_found.into_inner() {
-                    continue;
-                }
+                continue;
             }
 
             if let Err(error) = sender.send_blocking(entry.path().to_owned()) {

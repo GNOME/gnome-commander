@@ -3,7 +3,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::{backend::SearchMessage, profile::SearchProfile};
+use super::{backend::SearchMessage, content_search::ContentSearch, profile::SearchProfile};
 use crate::{
     dir::Directory,
     dirlist::list_directory,
@@ -13,7 +13,6 @@ use crate::{
 };
 use gettextrs::gettext;
 use gtk::gio::{self, prelude::*};
-use regex::RegexBuilder;
 use std::error::Error;
 
 pub async fn generic_search(
@@ -29,8 +28,11 @@ pub async fn generic_search(
     )
     .map_err(|error| ErrorMessage::with_error(gettext("Bad expression"), &*error))?;
 
-    let content_search = if !profile.content_pattern().is_empty() {
-        Some((profile.content_pattern(), profile.content_match_case()))
+    let mut content_search = if !profile.content_pattern().is_empty() {
+        Some(ContentSearch::new(
+            &profile.content_pattern(),
+            profile.content_match_case(),
+        )?)
     } else {
         None
     };
@@ -39,7 +41,7 @@ pub async fn generic_search(
         start_dir,
         profile.max_depth(),
         &name_filter,
-        content_search.as_ref(),
+        &mut content_search,
         on_message,
         cancellable,
     )
@@ -53,7 +55,7 @@ async fn search_dir_recursive(
     dir: &Directory,
     level: i32,
     name_filter: &Filter,
-    content_search: Option<&(String, bool)>,
+    content_search: &mut Option<ContentSearch>,
     on_message: &dyn Fn(SearchMessage),
     cancellable: &gio::Cancellable,
 ) -> Result<(), Box<dyn Error>> {
@@ -91,22 +93,10 @@ async fn search_dir_recursive(
         }
 
         let file = dir.file().child(info.name());
-        if let Some((pattern, match_case)) = content_search {
-            match content_matches(&file, pattern, *match_case).await {
-                Ok(true) => {}
-                Ok(false) => continue,
-                Err(error) => {
-                    eprintln!(
-                        "Content matching for file '{}' failed: {}",
-                        file.path()
-                            .unwrap_or_default()
-                            .as_os_str()
-                            .to_string_lossy(),
-                        error
-                    );
-                    continue;
-                }
-            }
+        if let Some(content_search) = content_search
+            && !content_search.check(&file, cancellable)
+        {
+            continue;
         }
 
         // the file matched the search criteria, let's add it to the list
@@ -141,50 +131,4 @@ async fn search_dir_recursive(
     }
 
     Ok(())
-}
-
-async fn content_matches(
-    file: &gio::File,
-    pattern: &str,
-    match_case: bool,
-) -> Result<bool, Box<dyn Error>> {
-    const IO_PRIORITY: glib::Priority = glib::Priority::DEFAULT;
-    const OVERLAP_SIZE: usize = 4096;
-    const BUFFER_SIZE: usize = 4096 * 10;
-
-    let regex = RegexBuilder::new(pattern)
-        .case_insensitive(!match_case)
-        .build()?;
-
-    let stream = file.read_future(IO_PRIORITY).await?;
-
-    let mut buffer: [u8; OVERLAP_SIZE + BUFFER_SIZE] = [0; OVERLAP_SIZE + BUFFER_SIZE];
-    let mut buffer_start = 0;
-    let result = loop {
-        let (input, size) = stream
-            .read_future([0; BUFFER_SIZE], IO_PRIORITY)
-            .await
-            .map_err(|e| e.1)?;
-        if size == 0 {
-            break false;
-        }
-        buffer[buffer_start..buffer_start + size].copy_from_slice(&input[0..size]);
-        let len = buffer_start + size;
-
-        // ToDo: this only works on text files
-        let data = String::from_utf8_lossy(&buffer[0..len]);
-        if regex.is_match(&data) {
-            break true;
-        }
-
-        if len < OVERLAP_SIZE {
-            buffer_start = len;
-        } else {
-            buffer.copy_within(len - OVERLAP_SIZE..len, 0);
-            buffer_start = OVERLAP_SIZE;
-        }
-    };
-    stream.close_future(IO_PRIORITY).await?;
-
-    Ok(result)
 }
