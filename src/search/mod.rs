@@ -3,11 +3,8 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+pub mod backend;
 pub mod content_search;
 pub mod profile;
 pub mod search_dialog;
 pub mod selection_profile_component;
-
-pub mod backend;
-pub mod generic;
-pub mod local;

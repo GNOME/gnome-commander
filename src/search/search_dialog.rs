@@ -4,8 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::{
-    backend::{SearchBackend, SearchMessage},
-    profile::SearchProfile,
+    backend, backend::SearchMessage, profile::SearchProfile,
     selection_profile_component::SelectionProfileComponent,
 };
 use crate::{
@@ -617,22 +616,16 @@ mod imp {
                 .await;
             result_list.set_base_dir(start_dir.local_path());
 
-            let backend = if start_dir.connection().is_local() {
-                SearchBackend::Local
-            } else {
-                SearchBackend::Generic
-            };
-            let search_result = backend
-                .search(
-                    &profile,
-                    &start_dir,
-                    &|message| match message {
-                        SearchMessage::File(file) => result_list.append_file(&file),
-                        SearchMessage::Status(status) => self.status_label.set_text(&status),
-                    },
-                    &cancellable,
-                )
-                .await;
+            let search_result = backend::search(
+                &profile,
+                &start_dir,
+                &|message| match message {
+                    SearchMessage::File(file) => result_list.append_file(&file),
+                    SearchMessage::Status(status) => self.status_label.set_text(&status),
+                },
+                &cancellable,
+            )
+            .await;
 
             update_gui_timeout_id.remove();
 

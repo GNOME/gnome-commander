@@ -10,7 +10,31 @@ use grep::{
     searcher::{Searcher, SearcherBuilder, Sink, SinkMatch},
 };
 use gtk::gio::{self, prelude::*};
-use std::io::{Error, ErrorKind};
+use std::io::{Error, ErrorKind, Read};
+
+struct CancellableRead<R> {
+    inner: R,
+    cancellable: gio::Cancellable,
+}
+
+impl<R> CancellableRead<R> {
+    pub fn new(inner: R, cancellable: &gio::Cancellable) -> Self {
+        Self {
+            inner,
+            cancellable: cancellable.clone(),
+        }
+    }
+}
+
+impl<R: Read> Read for CancellableRead<R> {
+    fn read(&mut self, buf: &mut [u8]) -> Result<usize, Error> {
+        if self.cancellable.is_cancelled() {
+            Err(Error::new(ErrorKind::Interrupted, "Cancelled"))
+        } else {
+            self.inner.read(buf)
+        }
+    }
+}
 
 struct SearchSink<'a> {
     match_found: &'a mut bool,
@@ -62,17 +86,24 @@ impl ContentSearch {
         let mut match_found = false;
         if let Err(error) = file
             .read(Some(cancellable))
-            .map_err(std::io::Error::other)
+            .map_err(|error| {
+                let kind = if error.matches(gio::IOErrorEnum::Cancelled) {
+                    ErrorKind::Interrupted
+                } else {
+                    ErrorKind::Other
+                };
+                Error::new(kind, error)
+            })
             .and_then(|stream| {
                 self.searcher.search_reader(
                     &self.matcher,
-                    stream.into_read(),
+                    CancellableRead::new(stream.into_read(), cancellable),
                     SearchSink::new(&mut match_found),
                 )
             })
         {
             if error.kind() != ErrorKind::Interrupted {
-                eprintln!("Content matching for file '{}' failed: {error}", file.uri(),);
+                eprintln!("Content matching for file '{}' failed: {error}", file.uri());
             }
             false
         } else {
