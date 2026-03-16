@@ -95,8 +95,15 @@ mod test {
         ];
         let schemalist = format!("<schemalist>\n{}</schemalist>\n", enum_types.join(""));
 
-        let expected = include_str!("../../data/org.gnome.gnome-commander.enums.xml");
+        let mut expected =
+            include_str!("../../data/org.gnome.gnome-commander.enums.xml").to_owned();
+        while let Some((before_comment, rest)) = expected.split_once("<!--") {
+            let Some((_, after_comment)) = rest.split_once("-->") else {
+                break;
+            };
+            expected = before_comment.to_owned() + after_comment;
+        }
 
-        assert_eq!(schemalist, expected);
+        assert_eq!(schemalist.trim(), expected.trim());
     }
 }
