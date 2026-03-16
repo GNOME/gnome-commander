@@ -4,8 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::{
-    backend::{SearchBackend, SearchMessage},
-    profile::SearchProfile,
+    backend, backend::SearchMessage, profile::SearchProfile,
     selection_profile_component::SelectionProfileComponent,
 };
 use crate::{
@@ -617,22 +616,16 @@ mod imp {
                 .await;
             result_list.set_base_dir(start_dir.local_path());
 
-            let backend = if start_dir.connection().is_local() {
-                SearchBackend::Local
-            } else {
-                SearchBackend::Generic
-            };
-            let search_result = backend
-                .search(
-                    &profile,
-                    &start_dir,
-                    &|message| match message {
-                        SearchMessage::File(file) => result_list.append_file(&file),
-                        SearchMessage::Status(status) => self.status_label.set_text(&status),
-                    },
-                    &cancellable,
-                )
-                .await;
+            let search_result = backend::search(
+                &profile,
+                &start_dir,
+                &|message| match message {
+                    SearchMessage::File(file) => result_list.append_file(&file),
+                    SearchMessage::Status(status) => self.status_label.set_text(&status),
+                },
+                &cancellable,
+            )
+            .await;
 
             update_gui_timeout_id.remove();
 
@@ -696,13 +689,11 @@ mod imp {
                 profile_component.set_name_patterns_history(&config.name_patterns());
             }
 
-            if default_profile.content_search() {
-                let text_pattern = default_profile.content_pattern();
-                if !text_pattern.is_empty() {
-                    config.add_content_pattern(&text_pattern);
-                    gnome_cmd_viewer_search_text_add_to_history(&text_pattern);
-                    profile_component.set_content_patterns_history(&config.content_patterns());
-                }
+            let text_pattern = default_profile.content_pattern();
+            if !text_pattern.is_empty() {
+                config.add_content_pattern(&text_pattern);
+                gnome_cmd_viewer_search_text_add_to_history(&text_pattern);
+                profile_component.set_content_patterns_history(&config.content_patterns());
             }
         }
     }
