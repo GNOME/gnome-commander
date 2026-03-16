@@ -12,6 +12,7 @@ use crate::{
     file::{File, FileOps},
     file_list::list::FileList,
     file_selector::{FileSelector, TabPosition, TabVariant},
+    layout::color_themes::ColorThemes,
     libgcmd::{
         file_actions::{FileActions, FileActionsExt},
         state::{State, StateExt},
@@ -79,7 +80,7 @@ pub mod imp {
         command_line::CommandLine,
         config::PIXMAPS_DIR,
         dir::Directory,
-        layout::{color_themes::ColorThemes, ls_colors_palette::LsColorPalettes},
+        layout::ls_colors_palette::LsColorPalettes,
         options::{FiltersOptions, utils::remember_window_state},
         pwd::uid,
         shortcuts::Shortcut,
@@ -122,7 +123,7 @@ pub mod imp {
         pub file_metadata_service: FileMetadataService,
         pub cut_and_paste_state: RefCell<Option<CutAndPasteState>>,
 
-        color_themes: ColorThemes,
+        pub color_themes: ColorThemes,
         ls_color_palettes: LsColorPalettes,
 
         #[property(get, set)]
@@ -1542,6 +1543,10 @@ impl MainWindow {
         if let Some(handle_rect) = self.imp().paned.handle_rect() {
             self.imp().show_slide_popup_at(&handle_rect.center());
         }
+    }
+
+    pub fn color_themes(&self) -> &ColorThemes {
+        &self.imp().color_themes
     }
 }
 

@@ -74,42 +74,19 @@ impl Default for ColorTheme {
     }
 }
 
-const NO_THEME_CSS: &str = r#"
-    .gnome-cmd-file-list .sel {
-        font-weight: bold;
-    }
-    .gnome-cmd-file-list row.sel:not(:focus) {
-        background-color: rgba(128, 128, 128, 0.3);
-    }
-"#;
-
 impl ColorTheme {
     fn create_css(&self) -> String {
         format!(
             r#"
-                columnview.gnome-cmd-file-list,
-                columnview.gnome-cmd-file-list listview {{
-                    background-color: {norm_bg};
-                }}
-                columnview.gnome-cmd-file-list listview row {{
-                    background-color: unset;
-                    color: {norm_fg};
-                }}
-                columnview.gnome-cmd-file-list listview row:nth-child(2n),
-                columnview.gnome-cmd-file-list listview row:nth-child(2n):selected {{
-                    background-color: {alt_bg};
-                    color: {alt_fg};
-                }}
-                columnview.gnome-cmd-file-list listview row .sel {{
-                    background-color: {sel_bg};
-                    color: {sel_fg};
-                }}
-                columnview.gnome-cmd-file-list listview row:focus:selected .cell {{
-                    background-color: {curs_bg};
-                    color: {curs_fg};
-                }}
-                columnview.gnome-cmd-file-list listview row:selected .cell.sel {{
-                    color: {sel_fg};
+                .gnome-cmd-file-list {{
+                    --color-norm-bg: {norm_bg};
+                    --color-norm-fg: {norm_fg};
+                    --color-alt-bg: {alt_bg};
+                    --color-alt-fg: {alt_fg};
+                    --color-sel-bg: {sel_bg};
+                    --color-sel-fg: {sel_fg};
+                    --color-curs-bg: {curs_bg};
+                    --color-curs-fg: {curs_fg};
                 }}
             "#,
             norm_bg = self.norm_bg,
@@ -313,24 +290,21 @@ impl ColorThemes {
 
         if let Some(css_provider) = self.css_provider() {
             gtk::style_context_remove_provider_for_display(&display, &css_provider);
+            self.set_css_provider(None::<gtk::CssProvider>);
         }
 
-        let style: Cow<'static, str> = if let Some(theme) = self.theme() {
-            theme.create_css().into()
-        } else {
-            NO_THEME_CSS.into()
-        };
+        if let Some(theme) = self.theme() {
+            let css_provider = gtk::CssProvider::new();
+            css_provider.load_from_string(&theme.create_css());
 
-        let css_provider = gtk::CssProvider::new();
-        css_provider.load_from_string(&style);
+            gtk::style_context_add_provider_for_display(
+                &display,
+                &css_provider,
+                gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
+            );
 
-        gtk::style_context_add_provider_for_display(
-            &display,
-            &css_provider,
-            gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
-        );
-
-        self.set_css_provider(Some(css_provider));
+            self.set_css_provider(Some(css_provider));
+        }
 
         self.emit_by_name::<()>("theme-changed", &[]);
     }
@@ -341,6 +315,10 @@ impl ColorThemes {
             .try_into()
             .ok()
             .and_then(ColorThemeId::from_repr)
+    }
+
+    pub fn has_theme(&self) -> bool {
+        self.theme_id().is_some()
     }
 
     pub fn theme(&self) -> Option<Cow<'static, ColorTheme>> {
