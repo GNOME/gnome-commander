@@ -2354,6 +2354,14 @@ impl FileList {
         // let font_desc = pango::FontDescription::from_string(&self.font_name());
         // gtk_widget_override_font (*this, font_desc);
 
+        if let Some(main_win) = self.root().and_downcast::<MainWindow>()
+            && main_win.color_themes().has_theme()
+        {
+            self.view().add_css_class("themed");
+        } else {
+            self.view().remove_css_class("themed");
+        }
+
         self.queue_draw();
     }
 
@@ -2941,17 +2949,15 @@ pub fn apply_css(item: &FileListItem, use_ls_colors: bool, widget: &gtk::Widget)
         }
     }
 
-    if item.selected() {
-        widget.add_css_class("sel");
-    } else {
-        widget.remove_css_class("sel");
-        if use_ls_colors && let Some(colors) = ls_colors_get(&item.file().file_info()) {
-            if let Some(class) = colors.fg.map(|fg| format!("fg-{}", fg.as_ref())) {
-                widget.add_css_class(&class);
-            }
-            if let Some(class) = colors.bg.map(|fg| format!("bg-{}", fg.as_ref())) {
-                widget.add_css_class(&class);
-            }
+    if !item.selected()
+        && use_ls_colors
+        && let Some(colors) = ls_colors_get(&item.file().file_info())
+    {
+        if let Some(class) = colors.fg.map(|fg| format!("fg-{}", fg.as_ref())) {
+            widget.add_css_class(&class);
+        }
+        if let Some(class) = colors.bg.map(|fg| format!("bg-{}", fg.as_ref())) {
+            widget.add_css_class(&class);
         }
     }
 }

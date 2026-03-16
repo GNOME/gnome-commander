@@ -1,31 +1,66 @@
 /*
  * SPDX-FileCopyrightText: 2025 Andrey Kutejko <andy128k@gmail.com>
+ * SPDX-FileCopyrightText: 2026 Wladimir Palant https://palant.info/
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-columnview.gnome-cmd-file-list listview row cell {
+.gnome-cmd-file-list cell {
   padding: 0;
 }
 
-columnview.gnome-cmd-file-list listview row cell .cell {
+.gnome-cmd-file-list .cell {
   padding: 4px 6px;
 }
 
-columnview.gnome-cmd-file-list listview row .fg-black   { color: var(--ls-color-fg-black,   #000); }
-columnview.gnome-cmd-file-list listview row .fg-red     { color: var(--ls-color-fg-red,     #f00); }
-columnview.gnome-cmd-file-list listview row .fg-green   { color: var(--ls-color-fg-green,   #0f0); }
-columnview.gnome-cmd-file-list listview row .fg-yellow  { color: var(--ls-color-fg-yellow,  #ff0); }
-columnview.gnome-cmd-file-list listview row .fg-blue    { color: var(--ls-color-fg-blue,    #00f); }
-columnview.gnome-cmd-file-list listview row .fg-magenta { color: var(--ls-color-fg-magenta, #f0f); }
-columnview.gnome-cmd-file-list listview row .fg-cyan    { color: var(--ls-color-fg-cyan,    #0ff); }
-columnview.gnome-cmd-file-list listview row .fg-white   { color: var(--ls-color-fg-white,   #fff); }
+.gnome-cmd-file-list:not(.themed) .sel {
+  font-weight: bold;
+}
+.gnome-cmd-file-list:not(.themed) .sel:not(:focus) {
+  background-color: rgba(128, 128, 128, 0.3);
+}
 
-columnview.gnome-cmd-file-list listview row .bg-black   { background-color: var(--ls-color-bg-black,   #000); }
-columnview.gnome-cmd-file-list listview row .bg-red     { background-color: var(--ls-color-bg-red,     #f00); }
-columnview.gnome-cmd-file-list listview row .bg-green   { background-color: var(--ls-color-bg-green,   #0f0); }
-columnview.gnome-cmd-file-list listview row .bg-yellow  { background-color: var(--ls-color-bg-yellow,  #ff0); }
-columnview.gnome-cmd-file-list listview row .bg-blue    { background-color: var(--ls-color-bg-blue,    #00f); }
-columnview.gnome-cmd-file-list listview row .bg-magenta { background-color: var(--ls-color-bg-magenta, #f0f); }
-columnview.gnome-cmd-file-list listview row .bg-cyan    { background-color: var(--ls-color-bg-cyan,    #0ff); }
-columnview.gnome-cmd-file-list listview row .bg-white   { background-color: var(--ls-color-bg-white,   #fff); }
+/*
+  Note: !important is not supported, so we make sure selectors have the same specificity, making
+  them apply in order.
+*/
+.gnome-cmd-file-list.themed,
+.gnome-cmd-file-list.themed listview {
+  background-color: var(--color-norm-bg);
+}
+.gnome-cmd-file-list.themed row {
+  background-color: unset;
+  color: var(--color-norm-fg);
+}
+.gnome-cmd-file-list.themed row:nth-child(2n) {
+  background-color: var(--color-alt-bg);
+  color: var(--color-alt-fg);
+}
+.gnome-cmd-file-list.themed row.sel {
+  background-color: var(--color-sel-bg);
+}
+.gnome-cmd-file-list.themed row:selected {
+  background-color: var(--color-curs-bg);
+  color: var(--color-curs-fg);
+}
+.gnome-cmd-file-list.themed row.sel {
+  color: var(--color-sel-fg);
+}
+
+.gnome-cmd-file-list .fg-black   { color: var(--ls-color-fg-black,   #000); }
+.gnome-cmd-file-list .fg-red     { color: var(--ls-color-fg-red,     #f00); }
+.gnome-cmd-file-list .fg-green   { color: var(--ls-color-fg-green,   #0f0); }
+.gnome-cmd-file-list .fg-yellow  { color: var(--ls-color-fg-yellow,  #ff0); }
+.gnome-cmd-file-list .fg-blue    { color: var(--ls-color-fg-blue,    #00f); }
+.gnome-cmd-file-list .fg-magenta { color: var(--ls-color-fg-magenta, #f0f); }
+.gnome-cmd-file-list .fg-cyan    { color: var(--ls-color-fg-cyan,    #0ff); }
+.gnome-cmd-file-list .fg-white   { color: var(--ls-color-fg-white,   #fff); }
+
+.gnome-cmd-file-list .bg-black   { background-color: var(--ls-color-bg-black,   #000); }
+.gnome-cmd-file-list .bg-red     { background-color: var(--ls-color-bg-red,     #f00); }
+.gnome-cmd-file-list .bg-green   { background-color: var(--ls-color-bg-green,   #0f0); }
+.gnome-cmd-file-list .bg-yellow  { background-color: var(--ls-color-bg-yellow,  #ff0); }
+.gnome-cmd-file-list .bg-blue    { background-color: var(--ls-color-bg-blue,    #00f); }
+.gnome-cmd-file-list .bg-magenta { background-color: var(--ls-color-bg-magenta, #f0f); }
+.gnome-cmd-file-list .bg-cyan    { background-color: var(--ls-color-bg-cyan,    #0ff); }
+.gnome-cmd-file-list .bg-white   { background-color: var(--ls-color-bg-white,   #fff); }
