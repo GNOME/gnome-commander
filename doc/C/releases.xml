@@ -1,15 +1,4 @@
 <?xml version="1.0"?>
-<!--
-     SPDX-FileCopyrightText: 2011 Piotr Eljasiak
-     SPDX-FileCopyrightText: 2014 Mamoru Tasaka
-     SPDX-FileCopyrightText: 2014 Uwe Scholz <u.scholz83@gmx.de>
-     SPDX-FileCopyrightText: 2015 Anders Jonsson
-     SPDX-FileCopyrightText: 2016 Marek Černocký
-     SPDX-FileCopyrightText: 2022 Sabri Ünal
-     SPDX-FileCopyrightText: 2025 AsciiWolf
-
-     SPDX-License-Identifier: GFDL-1.3-or-later
--->
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
   <!ENTITY app "GNOME Commander">
 ]>
