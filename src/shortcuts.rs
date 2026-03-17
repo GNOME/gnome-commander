@@ -357,8 +357,6 @@ impl Shortcuts {
     }
 }
 
-// const KEYBINDING_FORMAT_STRING: &str = "(sssbbbbbb)";
-
 #[derive(glib::Variant)]
 struct ShortcutVariant {
     pub key_name: String,
@@ -591,5 +589,15 @@ fn parse_key_from_old_name(name: &str) -> Option<gdk::Key> {
         "undo" => Some(gdk::Key::Undo),
         "up" => Some(gdk::Key::Up),
         _ => None,
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_variant_type() {
+        assert_eq!(&*ShortcutVariant::static_variant_type(), "(sssbbbbbb)");
     }
 }
