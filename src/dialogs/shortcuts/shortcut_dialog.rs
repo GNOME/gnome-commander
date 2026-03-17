@@ -329,6 +329,11 @@ impl ShortcutDialog {
                 break None;
             };
 
+            if shortcut.is_mandatory() {
+                mandatory_notify(dialog.upcast_ref(), shortcut).await;
+                continue;
+            }
+
             if Some(shortcut) != current_shortcut.as_ref().map(|s| s.shortcut)
                 && let Some(existing_action) = find_action(shortcut, existing_actions)
                 && !conflict_confirm(dialog.upcast_ref(), &existing_action, shortcut).await
@@ -352,6 +357,24 @@ fn find_action(shortcut: Shortcut, existing: &gio::ListModel) -> Option<String> 
             .filter(|ua| ua.shortcut == shortcut)
             .map(|ua| ua.call.action.description())
     })
+}
+
+async fn mandatory_notify(parent: &gtk::Window, accel: Shortcut) {
+    let _ = gtk::AlertDialog::builder()
+        .modal(true)
+        .message(
+            gettext("Shortcut “{shortcut}” cannot be reconfigured.")
+                .replace("{shortcut}", &accel.label()),
+        )
+        .detail(gettext(
+            "This shortcut is used by an action that is not configurable.",
+        ))
+        .buttons([gettext("_Dismiss")])
+        .cancel_button(0)
+        .default_button(0)
+        .build()
+        .choose_future(Some(parent))
+        .await;
 }
 
 async fn conflict_confirm(parent: &gtk::Window, action: &str, accel: Shortcut) -> bool {
