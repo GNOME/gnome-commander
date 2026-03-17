@@ -147,7 +147,10 @@ impl Shortcuts {
         self.register(Shortcut::ctrl(Key::d), UserAction::BookmarksEdit);
         self.register(Shortcut::ctrl(Key::n), UserAction::ConnectionsNew);
         self.register(Shortcut::ctrl(Key::f), UserAction::ConnectionsOpen);
-        self.register(Shortcut::ctrl_shift(Key::f), UserAction::ConnectionsClose);
+        self.register(
+            Shortcut::ctrl_shift(Key::f),
+            UserAction::ConnectionsCloseCurrent,
+        );
         self.register(Shortcut::alt(Key::_1), UserAction::ConnectionsChangeLeft);
         self.register(Shortcut::sup(Key::_1), UserAction::ConnectionsChangeLeft);
         self.register(Shortcut::alt(Key::_2), UserAction::ConnectionsChangeRight);
