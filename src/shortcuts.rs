@@ -423,15 +423,7 @@ impl ShortcutVariant {
 }
 
 fn parse_key(name: &str) -> Option<gdk::Key> {
-    // GDK name
-    if let Some(key) = gdk::Key::from_name(name) {
-        return Some(key);
-    }
-    // Old name
-    if let Some(key) = parse_key_from_old_name(name) {
-        return Some(key);
-    }
-    None
+    gdk::Key::from_name(name).or_else(|| parse_key_from_old_name(name))
 }
 
 fn parse_key_from_old_name(name: &str) -> Option<gdk::Key> {
