@@ -18,9 +18,20 @@ pub struct Shortcut {
 }
 
 impl Shortcut {
+    pub fn new(key: gdk::Key, state: gdk::ModifierType) -> Self {
+        // Normalize letter keys: upper-case for Shift modifier, lower-case otherwise.
+        let key = if state.contains(gdk::ModifierType::SHIFT_MASK) {
+            key.to_upper()
+        } else {
+            key.to_lower()
+        };
+
+        Self { key, state }
+    }
+
     pub fn parse(accelerator: &str) -> Option<Self> {
         if let Some((key, state)) = gtk::accelerator_parse(accelerator) {
-            Some(Self { key, state })
+            Some(Self::new(key, state))
         } else {
             None
         }
@@ -31,45 +42,30 @@ impl Shortcut {
     }
 
     pub fn key(key: gdk::Key) -> Self {
-        Self {
-            key,
-            state: gdk::ModifierType::NO_MODIFIER_MASK,
-        }
+        Self::new(key, gdk::ModifierType::NO_MODIFIER_MASK)
     }
 
     pub fn ctrl(key: gdk::Key) -> Self {
-        Self {
-            key,
-            state: gdk::ModifierType::CONTROL_MASK,
-        }
+        Self::new(key, gdk::ModifierType::CONTROL_MASK)
     }
 
     pub fn shift(key: gdk::Key) -> Self {
-        Self {
-            key,
-            state: gdk::ModifierType::SHIFT_MASK,
-        }
+        Self::new(key, gdk::ModifierType::SHIFT_MASK)
     }
 
     pub fn alt(key: gdk::Key) -> Self {
-        Self {
-            key,
-            state: gdk::ModifierType::ALT_MASK,
-        }
+        Self::new(key, gdk::ModifierType::ALT_MASK)
     }
 
     pub fn sup(key: gdk::Key) -> Self {
-        Self {
-            key,
-            state: gdk::ModifierType::SUPER_MASK,
-        }
+        Self::new(key, gdk::ModifierType::SUPER_MASK)
     }
 
     pub fn ctrl_shift(key: gdk::Key) -> Self {
-        Self {
+        Self::new(
             key,
-            state: gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::SHIFT_MASK,
-        }
+            gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::SHIFT_MASK,
+        )
     }
 
     pub fn name(self) -> glib::GString {
@@ -144,38 +140,38 @@ impl Shortcuts {
         use gdk::Key;
 
         self.register(Shortcut::key(Key::F12), UserAction::ViewMainMenu);
-        self.register(Shortcut::ctrl(Key::d), UserAction::BookmarksEdit);
-        self.register(Shortcut::ctrl(Key::n), UserAction::ConnectionsNew);
-        self.register(Shortcut::ctrl(Key::f), UserAction::ConnectionsOpen);
+        self.register(Shortcut::ctrl(Key::D), UserAction::BookmarksEdit);
+        self.register(Shortcut::ctrl(Key::N), UserAction::ConnectionsNew);
+        self.register(Shortcut::ctrl(Key::F), UserAction::ConnectionsOpen);
         self.register(
-            Shortcut::ctrl_shift(Key::f),
+            Shortcut::ctrl_shift(Key::F),
             UserAction::ConnectionsCloseCurrent,
         );
         self.register(Shortcut::alt(Key::_1), UserAction::ConnectionsChangeLeft);
         self.register(Shortcut::sup(Key::_1), UserAction::ConnectionsChangeLeft);
         self.register(Shortcut::alt(Key::_2), UserAction::ConnectionsChangeRight);
         self.register(Shortcut::sup(Key::_2), UserAction::ConnectionsChangeRight);
-        self.register(Shortcut::ctrl_shift(Key::c), UserAction::EditCopyNames);
+        self.register(Shortcut::ctrl_shift(Key::C), UserAction::EditCopyNames);
         self.register(Shortcut::ctrl(Key::F12), UserAction::EditFilter);
-        self.register(Shortcut::sup(Key::f), UserAction::FileSearch);
-        self.register(Shortcut::ctrl(Key::m), UserAction::FileAdvrename);
+        self.register(Shortcut::sup(Key::F), UserAction::FileSearch);
+        self.register(Shortcut::ctrl(Key::M), UserAction::FileAdvrename);
         self.register(Shortcut::shift(Key::F5), UserAction::FileCopyAs);
         self.register(Shortcut::ctrl_shift(Key::F5), UserAction::FileCreateSymlink);
         self.register(Shortcut::shift(Key::F4), UserAction::FileEditNewDoc);
-        self.register(Shortcut::ctrl(Key::q), UserAction::FileExit);
+        self.register(Shortcut::ctrl(Key::Q), UserAction::FileExit);
         self.register(Shortcut::alt(Key::F3), UserAction::FileExternalView);
         self.register(Shortcut::shift(Key::F3), UserAction::FileInternalView);
         self.register(Shortcut::shift(Key::F2), UserAction::MarkCompareDirectories);
-        self.register(Shortcut::ctrl(Key::a), UserAction::MarkSelectAll);
+        self.register(Shortcut::ctrl(Key::A), UserAction::MarkSelectAll);
         self.register(Shortcut::ctrl(Key::equal), UserAction::MarkSelectAll);
         self.register(Shortcut::ctrl(Key::KP_Add), UserAction::MarkSelectAll);
-        self.register(Shortcut::ctrl_shift(Key::a), UserAction::MarkUnselectAll);
+        self.register(Shortcut::ctrl_shift(Key::A), UserAction::MarkUnselectAll);
         self.register(Shortcut::ctrl(Key::minus), UserAction::MarkUnselectAll);
         self.register(
             Shortcut::ctrl(Key::KP_Subtract),
             UserAction::MarkUnselectAll,
         );
-        self.register(Shortcut::ctrl(Key::o), UserAction::OptionsEdit);
+        self.register(Shortcut::ctrl(Key::O), UserAction::OptionsEdit);
         self.register(Shortcut::alt(Key::Down), UserAction::ViewDirHistory);
         self.register(Shortcut::alt(Key::KP_Down), UserAction::ViewDirHistory);
         self.register(Shortcut::ctrl(Key::Page_Up), UserAction::ViewUp);
@@ -202,10 +198,10 @@ impl Shortcuts {
         self.register(Shortcut::ctrl(Key::quoteleft), UserAction::ViewHome);
         self.register(Shortcut::ctrl_shift(Key::asciitilde), UserAction::ViewHome);
         self.register(Shortcut::ctrl(Key::backslash), UserAction::ViewRoot);
-        self.register(Shortcut::ctrl(Key::r), UserAction::ViewRefresh);
-        self.register(Shortcut::ctrl(Key::t), UserAction::ViewNewTab);
-        self.register(Shortcut::ctrl(Key::w), UserAction::ViewCloseTab);
-        self.register(Shortcut::ctrl_shift(Key::w), UserAction::ViewCloseAllTabs);
+        self.register(Shortcut::ctrl(Key::R), UserAction::ViewRefresh);
+        self.register(Shortcut::ctrl(Key::T), UserAction::ViewNewTab);
+        self.register(Shortcut::ctrl(Key::W), UserAction::ViewCloseTab);
+        self.register(Shortcut::ctrl_shift(Key::W), UserAction::ViewCloseAllTabs);
     }
 
     pub fn register(&self, key: Shortcut, action: UserAction) {
@@ -339,9 +335,9 @@ impl Shortcuts {
         // these to identify the differences, only differences need to be migrated.
         let mut defaults = [
             (Shortcut::key(Key::F12), UserAction::ViewMainMenu),
-            (Shortcut::ctrl(Key::d), UserAction::BookmarksEdit),
-            (Shortcut::ctrl(Key::n), UserAction::ConnectionsNew),
-            (Shortcut::ctrl(Key::f), UserAction::ConnectionsOpen),
+            (Shortcut::ctrl(Key::D), UserAction::BookmarksEdit),
+            (Shortcut::ctrl(Key::N), UserAction::ConnectionsNew),
+            (Shortcut::ctrl(Key::F), UserAction::ConnectionsOpen),
             (
                 Shortcut::ctrl_shift(Key::f),
                 UserAction::ConnectionsCloseCurrent,
@@ -350,26 +346,26 @@ impl Shortcuts {
             (Shortcut::sup(Key::_1), UserAction::ConnectionsChangeLeft),
             (Shortcut::alt(Key::_2), UserAction::ConnectionsChangeRight),
             (Shortcut::sup(Key::_2), UserAction::ConnectionsChangeRight),
-            (Shortcut::ctrl_shift(Key::c), UserAction::EditCopyNames),
+            (Shortcut::ctrl_shift(Key::C), UserAction::EditCopyNames),
             (Shortcut::ctrl(Key::F12), UserAction::EditFilter),
-            (Shortcut::ctrl(Key::m), UserAction::FileAdvrename),
+            (Shortcut::ctrl(Key::M), UserAction::FileAdvrename),
             (Shortcut::shift(Key::F5), UserAction::FileCopyAs),
             (Shortcut::ctrl_shift(Key::F5), UserAction::FileCreateSymlink),
             (Shortcut::shift(Key::F4), UserAction::FileEditNewDoc),
-            (Shortcut::ctrl(Key::q), UserAction::FileExit),
+            (Shortcut::ctrl(Key::Q), UserAction::FileExit),
             (Shortcut::alt(Key::F3), UserAction::FileExternalView),
             (Shortcut::shift(Key::F3), UserAction::FileInternalView),
             (Shortcut::shift(Key::F2), UserAction::MarkCompareDirectories),
-            (Shortcut::ctrl(Key::a), UserAction::MarkSelectAll),
+            (Shortcut::ctrl(Key::A), UserAction::MarkSelectAll),
             (Shortcut::ctrl(Key::equal), UserAction::MarkSelectAll),
             (Shortcut::ctrl(Key::KP_Add), UserAction::MarkSelectAll),
-            (Shortcut::ctrl_shift(Key::a), UserAction::MarkUnselectAll),
+            (Shortcut::ctrl_shift(Key::A), UserAction::MarkUnselectAll),
             (Shortcut::ctrl(Key::minus), UserAction::MarkUnselectAll),
             (
                 Shortcut::ctrl(Key::KP_Subtract),
                 UserAction::MarkUnselectAll,
             ),
-            (Shortcut::ctrl(Key::o), UserAction::OptionsEdit),
+            (Shortcut::ctrl(Key::O), UserAction::OptionsEdit),
             (Shortcut::alt(Key::Down), UserAction::ViewDirHistory),
             (Shortcut::alt(Key::KP_Down), UserAction::ViewDirHistory),
             (Shortcut::ctrl(Key::Page_Up), UserAction::ViewUp),
@@ -395,10 +391,10 @@ impl Shortcuts {
             (Shortcut::ctrl(Key::quoteleft), UserAction::ViewHome),
             (Shortcut::ctrl_shift(Key::asciitilde), UserAction::ViewHome),
             (Shortcut::ctrl(Key::backslash), UserAction::ViewRoot),
-            (Shortcut::ctrl(Key::r), UserAction::ViewRefresh),
-            (Shortcut::ctrl(Key::t), UserAction::ViewNewTab),
-            (Shortcut::ctrl(Key::w), UserAction::ViewCloseTab),
-            (Shortcut::ctrl_shift(Key::w), UserAction::ViewCloseAllTabs),
+            (Shortcut::ctrl(Key::R), UserAction::ViewRefresh),
+            (Shortcut::ctrl(Key::T), UserAction::ViewNewTab),
+            (Shortcut::ctrl(Key::W), UserAction::ViewCloseTab),
+            (Shortcut::ctrl_shift(Key::W), UserAction::ViewCloseAllTabs),
         ]
         .into_iter()
         .collect::<BTreeMap<_, _>>();
@@ -543,10 +539,7 @@ impl LegacyShortcutVariant {
     }
 
     pub fn shortcut(&self) -> Option<Shortcut> {
-        Some(Shortcut {
-            key: parse_key(&self.key_name)?,
-            state: self.mask(),
-        })
+        Some(Shortcut::new(parse_key(&self.key_name)?, self.mask()))
     }
 }
 
