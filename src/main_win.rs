@@ -605,7 +605,7 @@ pub mod imp {
                 .build();
 
             self.shortcuts
-                .load(options.keybindings.get(), options.legacy_keybindings.get());
+                .load(&options.keybindings.get(), options.legacy_keybindings.get());
 
             self.color_themes.connect_local(
                 "theme-changed",

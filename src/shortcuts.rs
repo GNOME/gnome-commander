@@ -30,11 +30,8 @@ impl Shortcut {
     }
 
     pub fn parse(accelerator: &str) -> Option<Self> {
-        if let Some((key, state)) = gtk::accelerator_parse(accelerator) {
-            Some(Self::new(key, state))
-        } else {
-            None
-        }
+        let (key, state) = gtk::accelerator_parse(accelerator)?;
+        Some(Self::new(key, state))
     }
 
     pub fn as_accelerator(&self) -> String {
@@ -286,7 +283,7 @@ impl Shortcuts {
         true
     }
 
-    pub fn load(&self, bindings: Vec<ShortcutVariant>, legacy: glib::Variant) {
+    pub fn load(&self, bindings: &[ShortcutVariant], legacy: glib::Variant) {
         self.clear();
         self.set_default();
 
@@ -516,7 +513,7 @@ pub struct LegacyShortcutVariant {
 
 impl LegacyShortcutVariant {
     pub fn mask(&self) -> gdk::ModifierType {
-        let mut accel_mask = gdk::ModifierType::empty();
+        let mut accel_mask = gdk::ModifierType::NO_MODIFIER_MASK;
         if self.shift {
             accel_mask |= gdk::ModifierType::SHIFT_MASK;
         }
