@@ -23,6 +23,7 @@ use crate::{
         VariantOption, WriteResult,
     },
     search::profile::{LegacySearchProfileVariant, SearchProfile, SearchProfileVariant},
+    shortcuts::ShortcutVariant,
     tab_label::TabLockIndicator,
     types::{
         ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GraphicalLayoutMode, IconScaleQuality,
@@ -40,7 +41,8 @@ pub struct GeneralOptions {
     pub directory_history: StrvOption,
     pub connections: VariantOption<Vec<ConnectionVariant>>,
     pub bookmarks: VariantOption<Vec<BookmarkVariant>>,
-    pub keybindings: AppOption<glib::Variant>,
+    pub keybindings: VariantOption<Vec<ShortcutVariant>>,
+    pub legacy_keybindings: AppOption<glib::Variant>,
 
     pub symlink_format: StringOption,
     pub use_trash: BoolOption,
@@ -140,7 +142,8 @@ impl GeneralOptions {
             directory_history: StrvOption::simple(&settings, "directory-history"),
             connections: VariantOption::variant(&settings, "connections"),
             bookmarks: VariantOption::variant(&settings, "bookmarks"),
-            keybindings: AppOption::simple(&settings, "keybindings"),
+            keybindings: VariantOption::variant(&settings, "keybindings-v2"),
+            legacy_keybindings: AppOption::simple(&settings, "keybindings"),
             symlink_format: StringOption::simple(&settings, "symlink-string"),
             use_trash: BoolOption::simple(&settings, "delete-to-trash"),
             menu_visible: AppOption::simple(&settings, "mainmenu-visibility"),

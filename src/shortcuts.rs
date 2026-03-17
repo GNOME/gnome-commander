@@ -18,6 +18,18 @@ pub struct Shortcut {
 }
 
 impl Shortcut {
+    pub fn parse(accelerator: &str) -> Option<Self> {
+        if let Some((key, state)) = gtk::accelerator_parse(accelerator) {
+            Some(Self { key, state })
+        } else {
+            None
+        }
+    }
+
+    pub fn as_accelerator(&self) -> String {
+        gtk::accelerator_name(self.key, self.state).to_string()
+    }
+
     pub fn key(key: gdk::Key) -> Self {
         Self {
             key,
@@ -128,39 +140,39 @@ impl Shortcuts {
         self.register(Shortcut::key(gdk::Key::F9), UserAction::FileSearch);
     }
 
-    fn set_default(&self) {
+    pub fn set_default(&self) {
         use gdk::Key;
 
         self.register(Shortcut::key(Key::F12), UserAction::ViewMainMenu);
-        self.register(Shortcut::ctrl(Key::D), UserAction::BookmarksEdit);
-        self.register(Shortcut::ctrl(Key::N), UserAction::ConnectionsNew);
-        self.register(Shortcut::ctrl(Key::F), UserAction::ConnectionsOpen);
-        self.register(Shortcut::ctrl_shift(Key::F), UserAction::ConnectionsClose);
+        self.register(Shortcut::ctrl(Key::d), UserAction::BookmarksEdit);
+        self.register(Shortcut::ctrl(Key::n), UserAction::ConnectionsNew);
+        self.register(Shortcut::ctrl(Key::f), UserAction::ConnectionsOpen);
+        self.register(Shortcut::ctrl_shift(Key::f), UserAction::ConnectionsClose);
         self.register(Shortcut::alt(Key::_1), UserAction::ConnectionsChangeLeft);
         self.register(Shortcut::sup(Key::_1), UserAction::ConnectionsChangeLeft);
         self.register(Shortcut::alt(Key::_2), UserAction::ConnectionsChangeRight);
         self.register(Shortcut::sup(Key::_2), UserAction::ConnectionsChangeRight);
-        self.register(Shortcut::ctrl_shift(Key::C), UserAction::EditCopyNames);
+        self.register(Shortcut::ctrl_shift(Key::c), UserAction::EditCopyNames);
         self.register(Shortcut::ctrl(Key::F12), UserAction::EditFilter);
-        self.register(Shortcut::sup(Key::F), UserAction::FileSearch);
-        self.register(Shortcut::ctrl(Key::M), UserAction::FileAdvrename);
+        self.register(Shortcut::sup(Key::f), UserAction::FileSearch);
+        self.register(Shortcut::ctrl(Key::m), UserAction::FileAdvrename);
         self.register(Shortcut::shift(Key::F5), UserAction::FileCopyAs);
         self.register(Shortcut::ctrl_shift(Key::F5), UserAction::FileCreateSymlink);
         self.register(Shortcut::shift(Key::F4), UserAction::FileEditNewDoc);
-        self.register(Shortcut::ctrl(Key::Q), UserAction::FileExit);
+        self.register(Shortcut::ctrl(Key::q), UserAction::FileExit);
         self.register(Shortcut::alt(Key::F3), UserAction::FileExternalView);
         self.register(Shortcut::shift(Key::F3), UserAction::FileInternalView);
         self.register(Shortcut::shift(Key::F2), UserAction::MarkCompareDirectories);
-        self.register(Shortcut::ctrl(Key::A), UserAction::MarkSelectAll);
+        self.register(Shortcut::ctrl(Key::a), UserAction::MarkSelectAll);
         self.register(Shortcut::ctrl(Key::equal), UserAction::MarkSelectAll);
         self.register(Shortcut::ctrl(Key::KP_Add), UserAction::MarkSelectAll);
-        self.register(Shortcut::ctrl_shift(Key::A), UserAction::MarkUnselectAll);
+        self.register(Shortcut::ctrl_shift(Key::a), UserAction::MarkUnselectAll);
         self.register(Shortcut::ctrl(Key::minus), UserAction::MarkUnselectAll);
         self.register(
             Shortcut::ctrl(Key::KP_Subtract),
             UserAction::MarkUnselectAll,
         );
-        self.register(Shortcut::ctrl(Key::O), UserAction::OptionsEdit);
+        self.register(Shortcut::ctrl(Key::o), UserAction::OptionsEdit);
         self.register(Shortcut::alt(Key::Down), UserAction::ViewDirHistory);
         self.register(Shortcut::alt(Key::KP_Down), UserAction::ViewDirHistory);
         self.register(Shortcut::ctrl(Key::Page_Up), UserAction::ViewUp);
@@ -187,22 +199,17 @@ impl Shortcuts {
         self.register(Shortcut::ctrl(Key::quoteleft), UserAction::ViewHome);
         self.register(Shortcut::ctrl_shift(Key::asciitilde), UserAction::ViewHome);
         self.register(Shortcut::ctrl(Key::backslash), UserAction::ViewRoot);
-        self.register(Shortcut::ctrl(Key::R), UserAction::ViewRefresh);
-        self.register(Shortcut::ctrl(Key::T), UserAction::ViewNewTab);
-        self.register(Shortcut::ctrl(Key::W), UserAction::ViewCloseTab);
-        self.register(Shortcut::ctrl_shift(Key::W), UserAction::ViewCloseAllTabs);
+        self.register(Shortcut::ctrl(Key::r), UserAction::ViewRefresh);
+        self.register(Shortcut::ctrl(Key::t), UserAction::ViewNewTab);
+        self.register(Shortcut::ctrl(Key::w), UserAction::ViewCloseTab);
+        self.register(Shortcut::ctrl_shift(Key::w), UserAction::ViewCloseAllTabs);
     }
 
-    pub fn register(&self, key: Shortcut, action: UserAction) -> bool {
+    pub fn register(&self, key: Shortcut, action: UserAction) {
         self.register_full(key, action, None)
     }
 
-    pub fn register_full(&self, key: Shortcut, action: UserAction, data: Option<&str>) -> bool {
-        // event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_ALT_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
-        if self.inner.borrow().action.contains_key(&key) {
-            return false;
-        }
-
+    pub fn register_full(&self, key: Shortcut, action: UserAction, data: Option<&str>) {
         if key.key.is_lower() && key.key.is_upper() {
             self.inner.borrow_mut().action.insert(
                 Shortcut {
@@ -233,7 +240,10 @@ impl Shortcuts {
                 },
             );
         }
-        true
+    }
+
+    pub fn unregister(&self, key: &Shortcut) {
+        self.inner.borrow_mut().action.remove(key);
     }
 
     pub fn clear(&self) {
@@ -277,69 +287,197 @@ impl Shortcuts {
         true
     }
 
-    pub fn load(&self, variant: glib::Variant) {
+    pub fn load(&self, bindings: Vec<ShortcutVariant>, legacy: glib::Variant) {
         self.clear();
-        if variant.n_children() == 0 {
-            self.set_default();
+        self.set_default();
+
+        if !bindings.is_empty() {
+            for binding in bindings {
+                let Some(shortcut) = Shortcut::parse(&binding.accelerator) else {
+                    eprintln!(
+                        "<KeyBindings> invalid key: '{}' - ignored",
+                        binding.accelerator
+                    );
+                    continue;
+                };
+
+                if binding.action_name.is_empty() {
+                    self.unregister(&shortcut);
+                } else {
+                    let Some(user_action) = UserAction::from_name(&binding.action_name) else {
+                        eprintln!(
+                            "<KeyBindings> unknown user action: '{}' - ignored",
+                            binding.action_name
+                        );
+                        continue;
+                    };
+                    self.register_full(
+                        shortcut,
+                        user_action,
+                        Some(binding.action_data.as_str()).filter(|d| !d.is_empty()),
+                    );
+                }
+            }
         } else {
-            for keybinding in variant.iter() {
-                let Some(sv) = ShortcutVariant::from_variant(&keybinding) else {
-                    eprintln!(
-                        "Wrong variant type of a shortcut: {}. Skipping",
-                        keybinding.type_()
-                    );
-                    continue;
-                };
+            self.load_legacy(legacy);
+        }
 
-                let Some(user_action) = UserAction::from_name(&sv.action_name) else {
-                    eprintln!(
-                        "<KeyBindings> unknown user action: '{}' - ignored",
-                        sv.action_name
-                    );
-                    continue;
-                };
+        self.set_mandatory();
+    }
 
-                let Some(shortcut) = sv.shortcut() else {
-                    eprintln!(
-                        "<KeyBindings> invalid key name: '{}' - ignored",
-                        sv.key_name
-                    );
-                    continue;
-                };
+    fn load_legacy(&self, variant: glib::Variant) {
+        use gdk::Key;
 
+        if variant.n_children() == 0 {
+            return;
+        }
+
+        // These are the default shortcuts from Gnome Commander 1.18.5. We compare the setting to
+        // these to identify the differences, only differences need to be migrated.
+        let mut defaults = [
+            (Shortcut::key(Key::F12), UserAction::ViewMainMenu),
+            (Shortcut::ctrl(Key::d), UserAction::BookmarksEdit),
+            (Shortcut::ctrl(Key::n), UserAction::ConnectionsNew),
+            (Shortcut::ctrl(Key::f), UserAction::ConnectionsOpen),
+            (
+                Shortcut::ctrl_shift(Key::f),
+                UserAction::ConnectionsCloseCurrent,
+            ),
+            (Shortcut::alt(Key::_1), UserAction::ConnectionsChangeLeft),
+            (Shortcut::sup(Key::_1), UserAction::ConnectionsChangeLeft),
+            (Shortcut::alt(Key::_2), UserAction::ConnectionsChangeRight),
+            (Shortcut::sup(Key::_2), UserAction::ConnectionsChangeRight),
+            (Shortcut::ctrl_shift(Key::c), UserAction::EditCopyNames),
+            (Shortcut::ctrl(Key::F12), UserAction::EditFilter),
+            (Shortcut::ctrl(Key::m), UserAction::FileAdvrename),
+            (Shortcut::shift(Key::F5), UserAction::FileCopyAs),
+            (Shortcut::ctrl_shift(Key::F5), UserAction::FileCreateSymlink),
+            (Shortcut::shift(Key::F4), UserAction::FileEditNewDoc),
+            (Shortcut::ctrl(Key::q), UserAction::FileExit),
+            (Shortcut::alt(Key::F3), UserAction::FileExternalView),
+            (Shortcut::shift(Key::F3), UserAction::FileInternalView),
+            (Shortcut::shift(Key::F2), UserAction::MarkCompareDirectories),
+            (Shortcut::ctrl(Key::a), UserAction::MarkSelectAll),
+            (Shortcut::ctrl(Key::equal), UserAction::MarkSelectAll),
+            (Shortcut::ctrl(Key::KP_Add), UserAction::MarkSelectAll),
+            (Shortcut::ctrl_shift(Key::a), UserAction::MarkUnselectAll),
+            (Shortcut::ctrl(Key::minus), UserAction::MarkUnselectAll),
+            (
+                Shortcut::ctrl(Key::KP_Subtract),
+                UserAction::MarkUnselectAll,
+            ),
+            (Shortcut::ctrl(Key::o), UserAction::OptionsEdit),
+            (Shortcut::alt(Key::Down), UserAction::ViewDirHistory),
+            (Shortcut::alt(Key::KP_Down), UserAction::ViewDirHistory),
+            (Shortcut::ctrl(Key::Page_Up), UserAction::ViewUp),
+            (Shortcut::ctrl(Key::KP_Page_Up), UserAction::ViewUp),
+            (Shortcut::ctrl_shift(Key::plus), UserAction::ViewEqualPanes),
+            (
+                Shortcut::ctrl_shift(Key::greater),
+                UserAction::ViewInInactivePane,
+            ),
+            (Shortcut::ctrl(Key::Left), UserAction::ViewInLeftPane),
+            (Shortcut::ctrl(Key::KP_Left), UserAction::ViewInLeftPane),
+            (Shortcut::ctrl(Key::Right), UserAction::ViewInRightPane),
+            (Shortcut::ctrl(Key::KP_Right), UserAction::ViewInRightPane),
+            (Shortcut::ctrl(Key::Up), UserAction::ViewInNewTab),
+            (Shortcut::ctrl(Key::KP_Up), UserAction::ViewInNewTab),
+            (Shortcut::ctrl_shift(Key::Up), UserAction::ViewInInactiveTab),
+            (
+                Shortcut::ctrl_shift(Key::KP_Up),
+                UserAction::ViewInInactiveTab,
+            ),
+            (Shortcut::ctrl(Key::Page_Down), UserAction::ViewDirectory),
+            (Shortcut::ctrl(Key::KP_Page_Down), UserAction::ViewDirectory),
+            (Shortcut::ctrl(Key::quoteleft), UserAction::ViewHome),
+            (Shortcut::ctrl_shift(Key::asciitilde), UserAction::ViewHome),
+            (Shortcut::ctrl(Key::backslash), UserAction::ViewRoot),
+            (Shortcut::ctrl(Key::r), UserAction::ViewRefresh),
+            (Shortcut::ctrl(Key::t), UserAction::ViewNewTab),
+            (Shortcut::ctrl(Key::w), UserAction::ViewCloseTab),
+            (Shortcut::ctrl_shift(Key::w), UserAction::ViewCloseAllTabs),
+        ]
+        .into_iter()
+        .collect::<BTreeMap<_, _>>();
+
+        for keybinding in variant.iter() {
+            let Some(sv) = LegacyShortcutVariant::from_variant(&keybinding) else {
+                eprintln!(
+                    "<LegacyKeyBindings> wrong variant type of shortcut: {}. Skipping",
+                    keybinding.type_()
+                );
+                continue;
+            };
+
+            let Some(user_action) = UserAction::from_name(&sv.action_name) else {
+                eprintln!(
+                    "<LegacyKeyBindings> unknown user action: '{}' - ignored",
+                    sv.action_name
+                );
+                continue;
+            };
+
+            let Some(mut shortcut) = sv.shortcut() else {
+                eprintln!(
+                    "<LegacyKeyBindings> invalid key name: '{}' - ignored",
+                    sv.key_name
+                );
+                continue;
+            };
+
+            if shortcut.state == gdk::ModifierType::NO_MODIFIER_MASK
+                && matches!(shortcut.key, Key::_1 | Key::_2)
+            {
+                // Gnome Commander 1.18.5 had a bug that prevented it from saving Super modifier
+                shortcut.state = gdk::ModifierType::SUPER_MASK;
+            }
+
+            if !sv.action_data.is_empty() || defaults.get(&shortcut) != Some(&user_action) {
                 self.register_full(
                     shortcut,
                     user_action,
                     Some(sv.action_data.as_str()).filter(|d| !d.is_empty()),
                 );
             }
+            defaults.remove(&shortcut);
         }
-        self.set_mandatory();
+
+        // Any default bindings that we haven’t seen yet must have been removed.
+        for (shortcut, _) in defaults {
+            self.unregister(&shortcut);
+        }
     }
 
-    pub fn save(&self) -> glib::Variant {
-        glib::Variant::array_from_iter::<ShortcutVariant>(
-            self.inner
-                .borrow()
-                .action
-                .iter()
-                .filter(|(shortcut, _call)| !shortcut.is_mandatory())
-                .filter_map(|(shortcut, call)| {
-                    ShortcutVariant::from_shortcut(
-                        shortcut,
-                        call.action,
-                        call.action_data.as_deref().unwrap_or_default(),
-                    )
-                    .map(|sv| sv.to_variant())
-                    .or_else(|| {
-                        eprintln!(
-                            "Shortcut {} cannot be saved. Skipping",
-                            gtk::accelerator_name(shortcut.key, shortcut.state)
-                        );
-                        None
-                    })
-                }),
-        )
+    pub fn save(&self) -> Vec<ShortcutVariant> {
+        let defaults = Self::new();
+        defaults.set_default();
+
+        let default_shortcuts = &defaults.inner.borrow().action;
+        let actual_shortcuts = &self.inner.borrow().action;
+
+        // Save modified key bindings
+        actual_shortcuts
+            .iter()
+            .filter(|(shortcut, call)| {
+                !shortcut.is_mandatory() && default_shortcuts.get(shortcut) != Some(call)
+            })
+            .map(|(shortcut, call)| ShortcutVariant {
+                accelerator: shortcut.as_accelerator(),
+                action_name: call.action.name().to_owned(),
+                action_data: call.action_data.as_ref().cloned().unwrap_or_default(),
+            })
+            // Save removed key bindings
+            .chain(
+                default_shortcuts
+                    .iter()
+                    .filter(|(shortcut, _call)| actual_shortcuts.get(shortcut).is_none())
+                    .map(|(shortcut, _)| ShortcutVariant {
+                        accelerator: shortcut.as_accelerator(),
+                        action_name: String::new(),
+                        action_data: String::new(),
+                    }),
+            )
+            .collect()
     }
 
     pub fn bookmark_shortcuts(&self, bookmark_name: &str) -> BTreeSet<Shortcut> {
@@ -358,7 +496,14 @@ impl Shortcuts {
 }
 
 #[derive(glib::Variant)]
-struct ShortcutVariant {
+pub struct ShortcutVariant {
+    pub accelerator: String,
+    pub action_name: String,
+    pub action_data: String,
+}
+
+#[derive(glib::Variant)]
+pub struct LegacyShortcutVariant {
     pub key_name: String,
     pub action_name: String,
     pub action_data: String,
@@ -370,25 +515,7 @@ struct ShortcutVariant {
     pub meta: bool,
 }
 
-impl ShortcutVariant {
-    pub fn from_shortcut(
-        shortcut: &Shortcut,
-        action: UserAction,
-        action_data: &str,
-    ) -> Option<Self> {
-        Some(Self {
-            key_name: shortcut.key.name()?.to_string(),
-            action_name: action.name().to_owned(),
-            action_data: action_data.to_owned(),
-            shift: shortcut.state.contains(gdk::ModifierType::SHIFT_MASK),
-            control: shortcut.state.contains(gdk::ModifierType::CONTROL_MASK),
-            alt: shortcut.state.contains(gdk::ModifierType::ALT_MASK),
-            sup: shortcut.state.contains(gdk::ModifierType::SUPER_MASK),
-            hyper: shortcut.state.contains(gdk::ModifierType::HYPER_MASK),
-            meta: shortcut.state.contains(gdk::ModifierType::META_MASK),
-        })
-    }
-
+impl LegacyShortcutVariant {
     pub fn mask(&self) -> gdk::ModifierType {
         let mut accel_mask = gdk::ModifierType::empty();
         if self.shift {
@@ -598,6 +725,10 @@ mod test {
 
     #[test]
     fn test_variant_type() {
-        assert_eq!(&*ShortcutVariant::static_variant_type(), "(sssbbbbbb)");
+        assert_eq!(&*ShortcutVariant::static_variant_type(), "(sss)");
+        assert_eq!(
+            &*LegacyShortcutVariant::static_variant_type(),
+            "(sssbbbbbb)"
+        );
     }
 }

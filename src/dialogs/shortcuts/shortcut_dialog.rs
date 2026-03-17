@@ -255,7 +255,7 @@ mod imp {
                 // Cancel capturing
             } else {
                 self.set_shortcut(Shortcut {
-                    key: key.to_upper(),
+                    key,
                     state: modifier,
                 });
             }

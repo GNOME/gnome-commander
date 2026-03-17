@@ -367,6 +367,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
     </key>
     <key name="keybindings" type="a(sssbbbbbb)">
       <default>[]</default>
+      <summary>Legacy list of keybindings</summary>
+      <description>
+          This setting is only present for backwards compatibility and will be removed in future.
+      </description>
+    </key>
+    <key name="keybindings-v2" type="a(sss)">
+      <default>[]</default>
       <summary>List of keybindings</summary>
       <description>
           Each entry in this list represents a keybinding.
