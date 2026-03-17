@@ -4,7 +4,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::user_action::ShortcutAction;
-use crate::{shortcuts::Shortcuts, utils::WindowExt};
+use crate::{
+    shortcuts::{Shortcut, Shortcuts},
+    utils::WindowExt,
+};
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::error::Error;
@@ -209,30 +212,53 @@ mod imp {
     impl WindowImpl for ShortcutsDialog {}
 
     impl ShortcutsDialog {
+        fn remove_shortcut(&self, shortcut: &Shortcut, except: Option<&ShortcutAction>) {
+            if let Some(position) = self
+                .store
+                .iter::<glib::BoxedAnyObject>()
+                .position(|action| {
+                    action.is_ok_and(|action| {
+                        let action = action.borrow::<ShortcutAction>();
+                        &action.shortcut == shortcut && Some(&*action) != except
+                    })
+                })
+            {
+                // Remove reassigned action
+                self.store.remove(position as u32);
+            }
+        }
+
         async fn add(&self) {
             if let Some(shortcut_action) =
                 ShortcutDialog::run(self.obj().upcast_ref(), None, self.store.upcast_ref()).await
             {
+                self.remove_shortcut(&shortcut_action.shortcut, None);
                 self.store
                     .append(&glib::BoxedAnyObject::new(shortcut_action));
             }
         }
 
         async fn edit_selected(&self) {
-            if let Some(selected) = self.selection.selected_item()
-                && let Some(position) = self.store.find(&selected)
-            {
+            if let Some(selected) = self.selection.selected_item() {
                 let action = selected
-                    .downcast::<glib::BoxedAnyObject>()
-                    .map(|o| o.borrow::<ShortcutAction>().clone())
-                    .ok();
+                    .downcast_ref::<glib::BoxedAnyObject>()
+                    .map(|o| o.borrow::<ShortcutAction>().clone());
 
-                if let Some(shortcut_action) =
-                    ShortcutDialog::run(self.obj().upcast_ref(), action, self.store.upcast_ref())
-                        .await
+                if let Some(shortcut_action) = ShortcutDialog::run(
+                    self.obj().upcast_ref(),
+                    action.as_ref(),
+                    self.store.upcast_ref(),
+                )
+                .await
                 {
-                    self.store
-                        .splice(position, 1, &[glib::BoxedAnyObject::new(shortcut_action)]);
+                    self.remove_shortcut(&shortcut_action.shortcut, action.as_ref());
+                    if let Some(position) = self.store.find(&selected) {
+                        self.store.splice(
+                            position,
+                            1,
+                            &[glib::BoxedAnyObject::new(shortcut_action)],
+                        );
+                    }
                 }
             }
         }

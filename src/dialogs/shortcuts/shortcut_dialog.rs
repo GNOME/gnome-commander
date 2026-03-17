@@ -308,16 +308,12 @@ impl Default for ShortcutDialog {
 impl ShortcutDialog {
     pub async fn run(
         parent: &gtk::Window,
-        current_shortcut: Option<ShortcutAction>,
+        current_shortcut: Option<&ShortcutAction>,
         existing_actions: &gio::ListModel,
     ) -> Option<ShortcutAction> {
         let dialog = Self::default();
         dialog.set_transient_for(Some(parent));
-        if let Some(ShortcutAction {
-            ref shortcut,
-            ref call,
-        }) = current_shortcut
-        {
+        if let Some(ShortcutAction { shortcut, call }) = current_shortcut {
             dialog.imp().set_shortcut(*shortcut);
             dialog.imp().set_action(call);
         }
@@ -334,7 +330,7 @@ impl ShortcutDialog {
                 continue;
             }
 
-            if Some(shortcut) != current_shortcut.as_ref().map(|s| s.shortcut)
+            if Some(shortcut) != current_shortcut.map(|s| s.shortcut)
                 && let Some(existing_action) = find_action(shortcut, existing_actions)
                 && !conflict_confirm(dialog.upcast_ref(), &existing_action, shortcut).await
             {
