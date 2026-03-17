@@ -73,6 +73,7 @@ mod imp {
         shortcut_button: gtk::Button,
         capturing: Cell<bool>,
         shortcut: Cell<Option<Shortcut>>,
+        pub ok_button: gtk::Button,
         sender: async_channel::Sender<Option<(Shortcut, Call)>>,
         pub receiver: async_channel::Receiver<Option<(Shortcut, Call)>>,
     }
@@ -97,6 +98,8 @@ mod imp {
                 shortcut_button: gtk::Button::builder().build(),
                 capturing: Default::default(),
                 shortcut: Default::default(),
+                ok_button: gtk::Button::builder().use_underline(true).build(),
+
                 sender,
                 receiver,
             }
@@ -165,11 +168,7 @@ mod imp {
                 move |_| sender.toss(None)
             ));
 
-            let ok_button = gtk::Button::builder()
-                .label(gettext("_Update Shortcut"))
-                .use_underline(true)
-                .build();
-            ok_button.connect_clicked(glib::clone!(
+            self.ok_button.connect_clicked(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
                 move |_| {
@@ -178,7 +177,7 @@ mod imp {
             ));
 
             grid.attach(
-                &dialog_button_box(NO_BUTTONS, &[&cancel_button, &ok_button]),
+                &dialog_button_box(NO_BUTTONS, &[&cancel_button, &self.ok_button]),
                 0,
                 3,
                 3,
@@ -196,7 +195,7 @@ mod imp {
             ));
             dialog.add_controller(key_controller);
 
-            dialog.set_default_widget(Some(&ok_button));
+            dialog.set_default_widget(Some(&self.ok_button));
             dialog.set_cancel_widget(&cancel_button);
         }
     }
@@ -317,6 +316,14 @@ impl ShortcutDialog {
             dialog.imp().set_shortcut(*shortcut);
             dialog.imp().set_action(call);
         }
+        dialog
+            .imp()
+            .ok_button
+            .set_label(&if current_shortcut.is_some() {
+                gettext("_Update Shortcut")
+            } else {
+                gettext("A_dd Shortcut")
+            });
         dialog.present();
 
         let result = loop {
