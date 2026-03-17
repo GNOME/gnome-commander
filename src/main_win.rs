@@ -21,7 +21,7 @@ use crate::{
     paned_ext::GnomeCmdPanedExt,
     plugin_manager::{PluginManager, wrap_plugin_menu},
     search::search_dialog::SearchDialog,
-    shortcuts::Shortcuts,
+    shortcuts::{LegacyShortcutVariant, Shortcuts},
     spawn::{SpawnError, app_needs_terminal, run_command_indir},
     tags::FileMetadataService,
     transfer::{copy_files, move_files},
@@ -604,7 +604,8 @@ pub mod imp {
                 .set_only()
                 .build();
 
-            self.shortcuts.load(options.keybindings.get());
+            self.shortcuts
+                .load(&options.keybindings.get(), options.legacy_keybindings.get());
 
             self.color_themes.connect_local(
                 "theme-changed",
@@ -1266,6 +1267,14 @@ impl MainWindow {
         self.imp().plugin_manager.save();
 
         options.keybindings.set(self.imp().shortcuts.save())?;
+
+        // Reset legacy option, making sure we don't import it more than once
+        options
+            .legacy_keybindings
+            .set(glib::Variant::array_from_iter::<LegacyShortcutVariant>(
+                [].into_iter(),
+            ))?;
+
         self.save_tabs(
             options.save_tabs_on_exit.get(),
             options.save_dirs_on_exit.get(),

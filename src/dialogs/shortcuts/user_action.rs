@@ -5,7 +5,7 @@
 
 use crate::shortcuts::{Call, Shortcut};
 
-#[derive(Clone)]
+#[derive(Clone, PartialEq, Eq)]
 pub struct ShortcutAction {
     pub shortcut: Shortcut,
     pub call: Call,
