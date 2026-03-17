@@ -355,10 +355,12 @@ fn create_option_factory() -> gtk::ListItemFactory {
 
 fn fill_model(model: &gio::ListStore, shotcuts: &Shortcuts) {
     for (shortcut, call) in shotcuts.all() {
-        model.append(&glib::BoxedAnyObject::new(ShortcutAction {
-            shortcut,
-            call,
-        }));
+        if !shortcut.is_mandatory() {
+            model.append(&glib::BoxedAnyObject::new(ShortcutAction {
+                shortcut,
+                call,
+            }));
+        }
     }
 }
 
