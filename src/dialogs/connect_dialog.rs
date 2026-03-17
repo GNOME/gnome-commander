@@ -61,6 +61,7 @@ mod imp {
         pub port_entry: gtk::Entry,
         pub folder_entry: gtk::Entry,
         pub domain_entry: gtk::Entry,
+        pub ok_btn: gtk::Button,
         sender: async_channel::Sender<Option<glib::Uri>>,
         pub receiver: async_channel::Receiver<Option<glib::Uri>>,
     }
@@ -84,6 +85,7 @@ mod imp {
                 port_entry: gtk::Entry::builder().activates_default(true).build(),
                 folder_entry: gtk::Entry::builder().activates_default(true).build(),
                 domain_entry: gtk::Entry::builder().activates_default(true).build(),
+                ok_btn: gtk::Button::builder().use_underline(true).build(),
                 sender,
                 receiver,
             }
@@ -97,7 +99,6 @@ mod imp {
             let obj = self.obj();
 
             obj.add_css_class("dialog");
-            obj.set_title(Some(&gettext("Remote Server")));
             obj.set_resizable(false);
 
             obj.set_child(Some(&self.grid));
@@ -175,11 +176,7 @@ mod imp {
                 move |_| imp.sender.toss(None)
             ));
 
-            let ok_btn = gtk::Button::builder()
-                .label(gettext("C_onnect"))
-                .use_underline(true)
-                .build();
-            ok_btn.connect_clicked(glib::clone!(
+            self.ok_btn.connect_clicked(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
                 move |_| {
@@ -188,14 +185,14 @@ mod imp {
             ));
 
             self.grid.attach(
-                &dialog_button_box(&[&help_btn], &[&cancel_btn, &ok_btn]),
+                &dialog_button_box(&[&help_btn], &[&cancel_btn, &self.ok_btn]),
                 0,
                 GridRow::Buttons as i32,
                 2,
                 1,
             );
 
-            obj.set_default_widget(Some(&ok_btn));
+            obj.set_default_widget(Some(&self.ok_btn));
             obj.set_cancel_widget(&cancel_btn);
         }
     }
@@ -434,6 +431,12 @@ impl ConnectDialog {
     ) -> Option<ConnectionRemote> {
         let dialog = ConnectDialog::default();
         dialog.set_transient_for(Some(parent_window));
+        dialog.set_title(Some(&if with_alias {
+            gettext("Add Connection")
+        } else {
+            gettext("New Connection")
+        }));
+
         dialog.imp().alias_entry.set_sensitive(with_alias);
 
         if let Some(uri) = uri {
@@ -441,6 +444,12 @@ impl ConnectDialog {
         } else {
             dialog.imp().set_method(Some(ConnectionMethodID::CON_SFTP));
         }
+
+        dialog.imp().ok_btn.set_label(&if with_alias {
+            gettext("A_dd Connection")
+        } else {
+            gettext("C_onnect")
+        });
 
         dialog.present();
         let response = dialog.imp().receiver.recv().await;
@@ -457,8 +466,9 @@ impl ConnectDialog {
     }
 
     pub async fn edit_connection(parent_window: &gtk::Window, con: &ConnectionRemote) -> bool {
-        let dialog: ConnectDialog = glib::Object::builder().build();
+        let dialog = ConnectDialog::default();
         dialog.set_transient_for(Some(parent_window));
+        dialog.set_title(Some(&gettext("Edit Connection")));
 
         dialog.imp().type_combo.set_sensitive(false);
 
@@ -471,6 +481,11 @@ impl ConnectDialog {
         if let Some(uri) = con.uri() {
             dialog.set_uri(&uri);
         }
+
+        dialog
+            .imp()
+            .ok_btn
+            .set_label(&gettext("_Update Connection"));
 
         dialog.present();
         let mut result = false;
