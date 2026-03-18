@@ -1153,6 +1153,7 @@ async fn help_about(main_win: MainWindow) {
         "Assaf Gordon <agordon88@gmail.com>",
         "Uwe Scholz <u.scholz83@gmx.de>",
         "Andrey Kuteiko <andy128k@gmail.com>",
+        "Wladimir Palant https://palant.info/",
     ];
 
     let documenters = [
@@ -1164,8 +1165,9 @@ async fn help_about(main_win: MainWindow) {
 
     let copyright = "Copyright \u{00A9} 2001-2006 Marcus Bjurman
 Copyright \u{00A9} 2007-2012 Piotr Eljasiak
-Copyright \u{00A9} 2013-2024 Uwe Scholz
-Copyright \u{00A9} 2024 Andrey Kuteiko";
+Copyright \u{00A9} 2013-2026 Uwe Scholz
+Copyright \u{00A9} 2024-2026 Andrey Kuteiko
+Copyright \u{00A9} 2026 Wladimir Palant";
 
     let license = format!(
         "{}\n\n{}\n\n{}",
