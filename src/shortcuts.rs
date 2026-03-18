@@ -206,36 +206,13 @@ impl Shortcuts {
     }
 
     pub fn register_full(&self, key: Shortcut, action: UserAction, data: Option<&str>) {
-        if key.key.is_lower() && key.key.is_upper() {
-            self.inner.borrow_mut().action.insert(
-                Shortcut {
-                    key: key.key.to_lower(),
-                    state: key.state,
-                },
-                Call {
-                    action,
-                    action_data: data.map(|d| d.to_owned()),
-                },
-            );
-            self.inner.borrow_mut().action.insert(
-                Shortcut {
-                    key: key.key.to_upper(),
-                    state: key.state,
-                },
-                Call {
-                    action,
-                    action_data: data.map(|d| d.to_owned()),
-                },
-            );
-        } else {
-            self.inner.borrow_mut().action.insert(
-                key,
-                Call {
-                    action,
-                    action_data: data.map(|d| d.to_owned()),
-                },
-            );
-        }
+        self.inner.borrow_mut().action.insert(
+            key,
+            Call {
+                action,
+                action_data: data.map(|d| d.to_owned()),
+            },
+        );
     }
 
     pub fn unregister(&self, key: &Shortcut) {
