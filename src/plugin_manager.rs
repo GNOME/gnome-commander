@@ -384,11 +384,13 @@ pub fn wrap_plugin_menu(plugin: &str, menu: &gio::MenuModel) -> gio::Menu {
     new_menu
 }
 
-pub fn show_plugin_manager(plugin_manager: &PluginManager, parent_window: &gtk::Window) {
+pub fn show_plugin_manager(
+    plugin_manager: &PluginManager,
+    parent_window: &gtk::Window,
+) -> gtk::Window {
     let dialog = gtk::Window::builder()
         .transient_for(parent_window)
         .title(gettext("Available plugins"))
-        .modal(true)
         .width_request(500)
         .height_request(300)
         .resizable(true)
@@ -428,6 +430,7 @@ pub fn show_plugin_manager(plugin_manager: &PluginManager, parent_window: &gtk::
     }
 
     dialog.present();
+    dialog
 }
 
 fn create_plugin_widget(plugin_manager: &PluginManager, plugin_data: &PluginData) -> gtk::Widget {

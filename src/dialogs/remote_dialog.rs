@@ -230,8 +230,7 @@ mod imp {
         }
 
         async fn on_new_btn_clicked(&self) {
-            let Some(connection) =
-                ConnectDialog::new_connection(self.obj().upcast_ref(), true, None).await
+            let Some(connection) = ConnectDialog::add_connection(self.obj().upcast_ref()).await
             else {
                 return;
             };

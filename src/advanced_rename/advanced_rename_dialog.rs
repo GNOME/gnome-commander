@@ -13,6 +13,7 @@ use crate::{
     file::{File, FileOps},
     file_list::list::FileList,
     history::History,
+    main_win::MainWindow,
     options::{GeneralOptions, ProgramsOptions},
     tags::FileMetadataService,
     utils::{size_to_string, time_to_string},
@@ -264,6 +265,7 @@ mod imp {
         file_metadata_service: OnceCell<FileMetadataService>,
 
         pub(super) config: OnceCell<AdvRenameConfig>,
+        pub(super) main_window: glib::WeakRef<MainWindow>,
 
         #[property(get, set)]
         profile_component: OnceCell<AdvancedRenameProfileComponent>,
@@ -327,6 +329,7 @@ mod imp {
             Self {
                 file_metadata_service: Default::default(),
                 config: Default::default(),
+                main_window: Default::default(),
                 profile_component: Default::default(),
 
                 files,
@@ -723,15 +726,18 @@ mod imp {
                     .obj()
                     .file_list()
                     .and_then(|file_list| file_list.connection());
-                let file_changed = FilePropertiesDialog::show(
-                    self.obj().upcast_ref(),
-                    &self.obj().file_metadata_service(),
-                    &item.file(),
-                    connection,
-                )
-                .await;
-                if file_changed {
-                    self.file_list_update_files();
+
+                if let Some(main_window) = self.main_window.upgrade() {
+                    let file_changed = FilePropertiesDialog::show(
+                        &main_window,
+                        &self.obj().file_metadata_service(),
+                        &item.file(),
+                        connection,
+                    )
+                    .await;
+                    if file_changed {
+                        self.file_list_update_files();
+                    }
                 }
             }
         }
@@ -1104,7 +1110,7 @@ glib::wrapper! {
 }
 
 pub fn advanced_rename_dialog_show(
-    parent_window: &gtk::Window,
+    parent_window: &MainWindow,
     file_list: &FileList,
     file_metadata_service: &FileMetadataService,
 ) {
@@ -1113,32 +1119,41 @@ pub fn advanced_rename_dialog_show(
         return;
     }
 
-    let cfg = AdvRenameConfig::new();
-    cfg.load();
+    let dialog = if let Some(dialog) = parent_window.get_dialog::<AdvancedRenameDialog>("advrename")
+    {
+        dialog
+    } else {
+        let cfg = AdvRenameConfig::new();
+        cfg.load();
 
-    let dialog: AdvancedRenameDialog = glib::Object::builder()
-        .property("file-metadata-service", file_metadata_service)
-        .property("transient-for", parent_window)
-        .property("file-list", file_list)
-        .build();
+        let dialog: AdvancedRenameDialog = parent_window.set_dialog(
+            "advrename",
+            glib::Object::builder()
+                .property("file-metadata-service", file_metadata_service)
+                .property("transient-for", parent_window)
+                .property("file-list", file_list)
+                .build(),
+        );
 
-    dialog.imp().config.set(cfg.clone()).ok().unwrap();
+        dialog.imp().config.set(cfg.clone()).ok().unwrap();
+        dialog.imp().main_window.set(Some(parent_window));
 
-    dialog.imp().update_profile_menu();
+        dialog.imp().update_profile_menu();
 
-    dialog
-        .profile_component()
-        .set_profile(Some(cfg.default_profile()));
-    dialog.imp().update_template();
-    dialog
-        .profile_component()
-        .set_template_history(&cfg.template_history());
-    dialog.profile_component().update();
+        dialog
+            .profile_component()
+            .set_profile(Some(cfg.default_profile()));
+        dialog.imp().update_template();
+        dialog
+            .profile_component()
+            .set_template_history(&cfg.template_history());
+        dialog.profile_component().update();
 
-    dialog.profile_component().grab_focus();
+        dialog.profile_component().grab_focus();
+        dialog
+    };
 
     gnome_cmd_advrename_dialog_set(&dialog, &files);
-
     dialog.present();
 }
 

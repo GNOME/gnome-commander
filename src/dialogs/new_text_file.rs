@@ -49,6 +49,7 @@ pub async fn show_new_textfile_dialog(parent_window: &gtk::Window, file_list: &F
         .title(gettext("New Text File"))
         .build();
     dialog.add_css_class("dialog");
+    dialog.set_modal(true);
 
     let grid = gtk::Grid::builder().build();
     dialog.set_child(Some(&grid));

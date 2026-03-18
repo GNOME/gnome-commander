@@ -32,8 +32,9 @@ use crate::{
     file_list::list::FileList,
     libgcmd::file_actions::{FileActions, FileActionsExt},
     main_win::MainWindow,
-    options::{ConfirmOptions, GeneralOptions, NetworkOptions, ProgramsOptions},
+    options::{ConfirmOptions, GeneralOptions, NetworkOptions, ProgramsOptions, SearchConfig},
     plugin_manager::{PluginActionVariant, show_plugin_manager},
+    search::search_dialog::SearchDialog,
     spawn::{SpawnError, spawn_async, spawn_async_command},
     types::FileSelectorID,
     utils::{ErrorMessage, display_help, get_modifiers_state},
@@ -139,7 +140,17 @@ async fn file_search(main_win: MainWindow) {
 
     if options.use_internal_search.get() {
         let start_dir = file_list.directory();
-        let dlg = main_win.get_or_create_search_dialog();
+        let dlg = main_win.get_or_create_dialog("search", || {
+            let search_config = SearchConfig::get();
+            let options = GeneralOptions::new();
+
+            SearchDialog::new(
+                search_config,
+                &main_win.file_metadata_service(),
+                &main_win,
+                options.search_window_is_transient.get(),
+            )
+        });
         dlg.show_and_set_focus(start_dir.as_ref());
     } else {
         fn no_search_command_error() -> String {
@@ -240,7 +251,7 @@ async fn file_properties(main_win: MainWindow) {
 
     if let Some(file) = file_list.selected_file() {
         let changed = FilePropertiesDialog::show(
-            main_win.upcast_ref(),
+            &main_win,
             &main_win.file_metadata_service(),
             &file,
             file_list.connection(),
@@ -457,7 +468,7 @@ async fn file_advrename(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
     let file_metadata_service = main_win.file_metadata_service();
-    advanced_rename_dialog_show(main_win.upcast_ref(), &file_list, &file_metadata_service);
+    advanced_rename_dialog_show(&main_win, &file_list, &file_metadata_service);
 }
 
 async fn file_sendto(main_win: MainWindow) {
@@ -955,7 +966,7 @@ async fn bookmarks_add_current(main_win: MainWindow) {
 async fn bookmarks_edit(main_win: MainWindow) {
     let connection_list = ConnectionList::get();
     let shortcuts = main_win.shortcuts();
-    let result = BookmarksDialog::show(main_win.upcast_ref(), connection_list, shortcuts).await;
+    let result = BookmarksDialog::show(&main_win, connection_list, shortcuts).await;
     if let Some(bookmark) = result {
         let fs = main_win.file_selector(FileSelectorID::Active);
         fs.goto_directory(&bookmark.connection, Path::new(&bookmark.bookmark.path()));
@@ -1007,21 +1018,20 @@ async fn options_edit(main_win: MainWindow) {
 
 async fn options_edit_shortcuts(main_win: MainWindow) {
     let shortcuts = main_win.shortcuts();
-    ShortcutsDialog::run(main_win.upcast_ref(), shortcuts).await;
+    ShortcutsDialog::run(&main_win, shortcuts).await;
 }
 
 /************** Connections Menu **************/
 
 async fn connections_open(main_win: MainWindow) {
-    let dialog = RemoteDialog::new(&main_win);
+    let dialog = main_win.get_or_create_dialog("connections", || RemoteDialog::new(&main_win));
     dialog.present();
 }
 
 async fn connections_new(main_win: MainWindow) {
     let options = NetworkOptions::new();
     let uri = glib::Uri::parse(&options.quick_connect_uri.get(), glib::UriFlags::NONE).ok();
-    if let Some(connection) = ConnectDialog::new_connection(main_win.upcast_ref(), false, uri).await
-    {
+    if let Some(connection) = ConnectDialog::new_connection(&main_win, uri).await {
         let fs = main_win.file_selector(FileSelectorID::Active);
         if fs.is_current_tab_locked() {
             fs.new_tab();
@@ -1080,8 +1090,11 @@ async fn connections_close_current(main_win: MainWindow) {
 /************** Plugins Menu ***********/
 
 async fn plugins_configure(main_win: MainWindow) {
-    let plugin_manager = main_win.plugin_manager();
-    show_plugin_manager(&plugin_manager, main_win.upcast_ref());
+    let dialog = main_win.get_or_create_dialog("plugins", || {
+        let plugin_manager = main_win.plugin_manager();
+        show_plugin_manager(&plugin_manager, main_win.upcast_ref())
+    });
+    dialog.present();
 }
 
 async fn plugin_action(main_win: MainWindow, plugin_action: PluginActionVariant) {
@@ -1169,6 +1182,7 @@ Copyright \u{00A9} 2024 Andrey Kuteiko";
 
     gtk::AboutDialog::builder()
         .transient_for(&main_win)
+        .modal(true)
         .name("GNOME Commander")
         .version(PACKAGE_VERSION)
         .comments(gettext(

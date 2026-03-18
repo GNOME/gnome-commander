@@ -8,6 +8,7 @@ use crate::{
     connection::{Connection, ConnectionExt, bookmark::Bookmark, list::ConnectionList},
     dir::Directory,
     file::FileOps,
+    main_win::MainWindow,
     options::GeneralOptions,
     shortcuts::Shortcuts,
     utils::{ErrorMessage, WindowExt, bold},
@@ -544,16 +545,24 @@ impl BookmarksDialog {
     }
 
     pub async fn show(
-        parent_window: &gtk::Window,
+        parent_window: &MainWindow,
         connection_list: &ConnectionList,
         shortcuts: &Shortcuts,
     ) -> Option<TaggedBookmark> {
-        let dialog = Self::new(parent_window, connection_list, shortcuts);
-        dialog.present();
-        dialog.imp().view.grab_focus();
-        let result = dialog.imp().receiver.recv().await.ok().flatten();
-        dialog.close();
-        result
+        if let Some(dialog) = parent_window.get_dialog::<Self>("bookmarks") {
+            dialog.present();
+            None
+        } else {
+            let dialog = parent_window.set_dialog(
+                "bookmarks",
+                Self::new(parent_window.upcast_ref(), connection_list, shortcuts),
+            );
+            dialog.present();
+            dialog.imp().view.grab_focus();
+            let result = dialog.imp().receiver.recv().await.ok().flatten();
+            dialog.close();
+            result
+        }
     }
 }
 
