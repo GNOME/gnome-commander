@@ -5,6 +5,7 @@
 
 use super::user_action::ShortcutAction;
 use crate::{
+    main_win::MainWindow,
     shortcuts::{Shortcut, Shortcuts},
     utils::WindowExt,
 };
@@ -286,21 +287,25 @@ impl Default for ShortcutsDialog {
 }
 
 impl ShortcutsDialog {
-    pub async fn run(parent: &gtk::Window, shortcuts: &Shortcuts) {
-        let dialog = Self::default();
-        dialog.set_transient_for(Some(parent));
-        fill_model(&dialog.imp().store, shortcuts);
+    pub async fn run(parent: &MainWindow, shortcuts: &Shortcuts) {
+        if let Some(dialog) = parent.get_dialog::<Self>("shortcuts") {
+            dialog.present();
+        } else {
+            let dialog = parent.set_dialog("shortcuts", Self::default());
+            dialog.set_transient_for(Some(parent));
+            fill_model(&dialog.imp().store, shortcuts);
 
-        dialog.present();
-        dialog.imp().view.grab_focus();
+            dialog.present();
+            dialog.imp().view.grab_focus();
 
-        let response = dialog.imp().receiver.recv().await;
-        if response == Ok(true)
-            && let Err(error) = shortcuts_from_model(&dialog.imp().store, shortcuts)
-        {
-            eprintln!("Failed to save shortcuts: {}", error);
+            let response = dialog.imp().receiver.recv().await;
+            if response == Ok(true)
+                && let Err(error) = shortcuts_from_model(&dialog.imp().store, shortcuts)
+            {
+                eprintln!("Failed to save shortcuts: {}", error);
+            }
+            dialog.close();
         }
-        dialog.close();
     }
 }
 

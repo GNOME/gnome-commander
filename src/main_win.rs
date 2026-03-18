@@ -17,7 +17,7 @@ use crate::{
         file_actions::{FileActions, FileActionsExt},
         state::{State, StateExt},
     },
-    options::{GeneralOptions, ProgramsOptions, SearchConfig, types::WriteResult},
+    options::{GeneralOptions, ProgramsOptions, types::WriteResult},
     paned_ext::GnomeCmdPanedExt,
     plugin_manager::{PluginManager, wrap_plugin_menu},
     search::search_dialog::SearchDialog,
@@ -88,6 +88,7 @@ pub mod imp {
     };
     use std::{
         cell::{Cell, RefCell},
+        collections::BTreeMap,
         path::Path,
         time::Duration,
     };
@@ -147,7 +148,7 @@ pub mod imp {
         #[property(get, set, builder(QuickSearchShortcut::default()))]
         quick_search_shortcut: Cell<QuickSearchShortcut>,
 
-        pub search_dialog: glib::WeakRef<SearchDialog>,
+        pub active_dialogs: RefCell<BTreeMap<String, glib::WeakRef<gtk::Window>>>,
 
         pub shortcuts: Shortcuts,
     }
@@ -249,7 +250,7 @@ pub mod imp {
                 view_backup_files: Cell::new(true),
                 quick_search_shortcut: Default::default(),
 
-                search_dialog: Default::default(),
+                active_dialogs: Default::default(),
                 shortcuts: Shortcuts::new(),
             }
         }
@@ -1341,30 +1342,37 @@ impl MainWindow {
         self.imp().file_metadata_service.clone()
     }
 
-    pub fn get_or_create_search_dialog(&self) -> SearchDialog {
-        if let Some(dialog) = self.imp().search_dialog.upgrade() {
-            dialog
-        } else {
-            let search_config = SearchConfig::get();
-            let options = GeneralOptions::new();
+    pub fn get_dialog<T: IsA<gtk::Window>>(&self, handle: &str) -> Option<T> {
+        self.imp()
+            .active_dialogs
+            .borrow()
+            .get(handle)
+            .and_then(|weak_ref| weak_ref.upgrade())
+            .and_downcast::<T>()
+    }
 
-            let dialog = SearchDialog::new(
-                search_config,
-                &self.file_metadata_service(),
-                self,
-                options.search_window_is_transient.get(),
-            );
-            self.imp().search_dialog.set(Some(&dialog));
+    pub fn set_dialog<T: IsA<gtk::Window>>(&self, handle: &str, dialog: T) -> T {
+        self.imp()
+            .active_dialogs
+            .borrow_mut()
+            .insert(handle.to_owned(), dialog.as_ref().downgrade());
+        dialog
+    }
 
-            dialog
-        }
+    pub fn get_or_create_dialog<F, T>(&self, handle: &str, initializer: F) -> T
+    where
+        F: FnOnce() -> T,
+        T: IsA<gtk::Window>,
+    {
+        self.get_dialog(handle)
+            .unwrap_or_else(|| self.set_dialog(handle, initializer()))
     }
 
     pub fn update_style(&self) {
         self.imp().file_selector_left.borrow().update_style();
         self.imp().file_selector_right.borrow().update_style();
         self.imp().cmdline.update_style();
-        if let Some(dialog) = self.imp().search_dialog.upgrade() {
+        if let Some(dialog) = self.get_dialog::<SearchDialog>("search") {
             dialog.update_style();
         }
     }

@@ -8,6 +8,7 @@ use crate::{
         ConnectionExt,
         remote::{ConnectionMethodID, ConnectionRemote, ConnectionRemoteExt},
     },
+    main_win::MainWindow,
     utils::WindowExt,
 };
 use gettextrs::gettext;
@@ -423,34 +424,7 @@ impl Default for ConnectDialog {
 }
 
 impl ConnectDialog {
-    /// Dialog for setting up a new remote server connection.
-    pub async fn new_connection(
-        parent_window: &gtk::Window,
-        with_alias: bool,
-        uri: Option<glib::Uri>,
-    ) -> Option<ConnectionRemote> {
-        let dialog = ConnectDialog::default();
-        dialog.set_transient_for(Some(parent_window));
-        dialog.set_title(Some(&if with_alias {
-            gettext("Add Connection")
-        } else {
-            gettext("New Connection")
-        }));
-
-        dialog.imp().alias_entry.set_sensitive(with_alias);
-
-        if let Some(uri) = uri {
-            dialog.set_uri(&uri);
-        } else {
-            dialog.imp().set_method(Some(ConnectionMethodID::CON_SFTP));
-        }
-
-        dialog.imp().ok_btn.set_label(&if with_alias {
-            gettext("A_dd Connection")
-        } else {
-            gettext("C_onnect")
-        });
-
+    async fn wait_for_connection(dialog: ConnectDialog) -> Option<ConnectionRemote> {
         dialog.present();
         let response = dialog.imp().receiver.recv().await;
         let connection: Option<ConnectionRemote> = match response {
@@ -465,10 +439,46 @@ impl ConnectDialog {
         connection
     }
 
+    /// Dialog for setting up a new remote server connection.
+    pub async fn new_connection(
+        parent_window: &MainWindow,
+        uri: Option<glib::Uri>,
+    ) -> Option<ConnectionRemote> {
+        if let Some(dialog) = parent_window.get_dialog::<ConnectDialog>("connect") {
+            dialog.present();
+            None
+        } else {
+            let dialog = parent_window.set_dialog("connect", ConnectDialog::default());
+            dialog.set_transient_for(Some(parent_window));
+            dialog.set_title(Some(&gettext("New Connection")));
+            dialog.imp().alias_entry.set_sensitive(true);
+
+            if let Some(uri) = uri {
+                dialog.set_uri(&uri);
+            } else {
+                dialog.imp().set_method(Some(ConnectionMethodID::CON_SFTP));
+            }
+
+            dialog.imp().ok_btn.set_label(&gettext("C_onnect"));
+            Self::wait_for_connection(dialog).await
+        }
+    }
+
+    pub async fn add_connection(parent_window: &gtk::Window) -> Option<ConnectionRemote> {
+        let dialog = ConnectDialog::default();
+        dialog.set_transient_for(Some(parent_window));
+        dialog.set_title(Some(&gettext("Add Connection")));
+        dialog.set_modal(true);
+        dialog.imp().set_method(Some(ConnectionMethodID::CON_SFTP));
+        dialog.imp().ok_btn.set_label(&gettext("A_dd Connection"));
+        Self::wait_for_connection(dialog).await
+    }
+
     pub async fn edit_connection(parent_window: &gtk::Window, con: &ConnectionRemote) -> bool {
         let dialog = ConnectDialog::default();
         dialog.set_transient_for(Some(parent_window));
         dialog.set_title(Some(&gettext("Edit Connection")));
+        dialog.set_modal(true);
 
         dialog.imp().type_combo.set_sensitive(false);
 

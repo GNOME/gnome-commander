@@ -6,6 +6,7 @@
 use crate::{
     connection::Connection,
     file::{File, FileOps},
+    main_win::MainWindow,
     tags::FileMetadataService,
     utils::SenderExt,
 };
@@ -89,7 +90,6 @@ mod imp {
             let dlg = self.obj();
             dlg.add_css_class("dialog");
             dlg.set_title(Some(&gettext("File Properties")));
-            dlg.set_modal(true);
 
             let content = gtk::Box::builder()
                 .orientation(gtk::Orientation::Vertical)
@@ -553,7 +553,7 @@ impl FilePropertiesDialog {
     }
 
     pub async fn show(
-        parent_window: &gtk::Window,
+        parent_window: &MainWindow,
         file_metadata_service: &FileMetadataService,
         file: &File,
         connection: Option<Connection>,
@@ -562,27 +562,41 @@ impl FilePropertiesDialog {
             return false;
         }
 
-        let dialog = Self::new(parent_window, file_metadata_service, file, connection);
+        let handle = format!("fileproperties {}", file.uri());
+        if let Some(dialog) = parent_window.get_dialog::<Self>(&handle) {
+            dialog.present();
+            false
+        } else {
+            let dialog = parent_window.set_dialog(
+                &handle,
+                Self::new(
+                    parent_window.upcast_ref(),
+                    file_metadata_service,
+                    file,
+                    connection,
+                ),
+            );
 
-        let (sender, receiver) = async_channel::bounded::<bool>(1);
-        dialog.connect(
-            imp::SIGNAL_DIALOG_RESPONSE,
-            false,
-            glib::clone!(move |values| {
-                let changed = values
-                    .get(1)
-                    .and_then(|v| v.get::<bool>().ok())
-                    .unwrap_or_default();
-                sender.toss(changed);
-                None
-            }),
-        );
+            let (sender, receiver) = async_channel::bounded::<bool>(1);
+            dialog.connect(
+                imp::SIGNAL_DIALOG_RESPONSE,
+                false,
+                glib::clone!(move |values| {
+                    let changed = values
+                        .get(1)
+                        .and_then(|v| v.get::<bool>().ok())
+                        .unwrap_or_default();
+                    sender.toss(changed);
+                    None
+                }),
+            );
 
-        dialog.present();
-        let changed = receiver.recv().await == Ok(true);
-        dialog.close();
+            dialog.present();
+            let changed = receiver.recv().await == Ok(true);
+            dialog.close();
 
-        changed
+            changed
+        }
     }
 }
 
