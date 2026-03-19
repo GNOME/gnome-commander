@@ -6,6 +6,7 @@
 use crate::{
     history_entry::HistoryEntry,
     main_win::ExecutionTarget,
+    shortcuts::{Area, Shortcuts},
     utils::{ALT, NO_MOD, SHIFT, SenderExt},
 };
 use gettextrs::gettext;
@@ -331,6 +332,11 @@ glib::wrapper! {
 impl CommandLine {
     pub fn new() -> Self {
         glib::Object::builder().build()
+    }
+
+    pub fn add_shortcuts(&self, shortcuts: &Shortcuts) {
+        shortcuts.add_controller(&self.imp().entry, Area::CommandLine);
+        shortcuts.add_controller(&self.imp().terminal, Area::Terminal);
     }
 
     pub fn set_directory(&self, directory: &str) {

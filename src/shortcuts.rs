@@ -3,13 +3,41 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::{debug::debug, main_win::MainWindow, user_actions::UserAction};
+use crate::user_actions::UserAction;
 use gtk::{gdk, prelude::*};
 use std::{
     cell::RefCell,
     collections::{BTreeMap, BTreeSet},
     rc::Rc,
 };
+
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
+pub enum Area {
+    Panel,
+    CommandLine,
+    Terminal,
+    Any,
+}
+
+impl Area {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Panel => "panel",
+            Self::CommandLine => "command-line",
+            Self::Terminal => "terminal",
+            Self::Any => "any",
+        }
+    }
+
+    pub fn from_str(value: &str) -> Self {
+        match value {
+            "panel" => Self::Panel,
+            "command-line" => Self::CommandLine,
+            "terminal" => Self::Terminal,
+            _ => Self::Any,
+        }
+    }
+}
 
 #[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
 pub struct Shortcut {
@@ -86,6 +114,28 @@ impl Shortcut {
                     | gdk::Key::F9
             )
     }
+
+    pub fn as_gtk_shortcut(&self, call: &Call) -> Option<gtk::Shortcut> {
+        let mut builder = gtk::Shortcut::builder()
+            .trigger(&gtk::KeyvalTrigger::new(self.key, self.state))
+            .action(&gtk::NamedAction::new(call.action.name()));
+        if let Some(parameter_type) = call.action.parameter_type() {
+            match parameter_type {
+                // TODO: This should work for types other than strings
+                value if value == String::static_variant_type() => {
+                    builder = builder.arguments(&call.action_data.to_variant());
+                }
+                _ => {
+                    eprintln!(
+                        "<KeyBindings> invalid key: cannot process parameter for action {}, non-string type required.",
+                        call.action.name()
+                    );
+                    return None;
+                }
+            }
+        }
+        Some(builder.build())
+    }
 }
 
 impl PartialOrd for Shortcut {
@@ -109,17 +159,19 @@ pub struct Call {
 #[derive(Clone)]
 pub struct Shortcuts {
     inner: Rc<RefCell<ShortcutsInner>>,
+    controllers: RefCell<Vec<(Area, glib::WeakRef<gtk::ShortcutController>)>>,
 }
 
 #[derive(Default)]
 struct ShortcutsInner {
-    action: BTreeMap<Shortcut, Call>,
+    action: BTreeMap<(Area, Shortcut), Call>,
 }
 
 impl Shortcuts {
     pub fn new() -> Self {
         Self {
             inner: Default::default(),
+            controllers: Default::default(),
         }
     }
 
@@ -201,25 +253,79 @@ impl Shortcuts {
         self.register(Shortcut::ctrl_shift(Key::W), UserAction::ViewCloseAllTabs);
     }
 
-    pub fn register(&self, key: Shortcut, action: UserAction) {
-        self.register_full(key, action, None)
+    pub fn register(&self, accelerator: Shortcut, action: UserAction) {
+        self.register_full(accelerator, action, None)
     }
 
-    pub fn register_full(&self, key: Shortcut, action: UserAction, data: Option<&str>) {
-        self.inner.borrow_mut().action.insert(
-            key,
-            Call {
-                action,
-                action_data: data.map(|d| d.to_owned()),
-            },
-        );
+    pub fn register_full(&self, accelerator: Shortcut, action: UserAction, data: Option<&str>) {
+        self.unregister(&accelerator, action.area());
+        if action.area() == Area::Any {
+            for area in [Area::Panel, Area::CommandLine, Area::Terminal] {
+                self.unregister(&accelerator, area);
+            }
+        } else {
+            self.unregister(&accelerator, Area::Any);
+        }
+
+        let call = Call {
+            action,
+            action_data: data.map(|d| d.to_owned()),
+        };
+
+        let call_area = call.action.area();
+        self.controllers.borrow_mut().retain(|(area, controller)| {
+            if area != &call_area {
+                return true;
+            }
+            if let Some(controller) = controller.upgrade() {
+                if let Some(shortcut) = accelerator.as_gtk_shortcut(&call) {
+                    controller.add_shortcut(shortcut);
+                }
+                true
+            } else {
+                false
+            }
+        });
+
+        self.inner
+            .borrow_mut()
+            .action
+            .insert((action.area(), accelerator), call);
     }
 
-    pub fn unregister(&self, key: &Shortcut) {
-        self.inner.borrow_mut().action.remove(key);
+    pub fn unregister(&self, accelerator: &Shortcut, call_area: Area) {
+        let key = (call_area, *accelerator);
+        if let Some(call) = self.inner.borrow().action.get(&key) {
+            self.controllers.borrow_mut().retain(|(area, controller)| {
+                if area != &call_area {
+                    return true;
+                }
+                if let Some(controller) = controller.upgrade() {
+                    if let Some(shortcut) = accelerator.as_gtk_shortcut(&call) {
+                        controller.remove_shortcut(&shortcut);
+                    }
+                    true
+                } else {
+                    false
+                }
+            });
+
+            self.inner.borrow_mut().action.remove(&key);
+        }
     }
 
     pub fn clear(&self) {
+        self.controllers.borrow_mut().retain(|(_, controller)| {
+            if let Some(controller) = controller.upgrade() {
+                while let Some(shortcut) = controller.item(0).and_downcast_ref::<gtk::Shortcut>() {
+                    controller.remove_shortcut(shortcut);
+                }
+                true
+            } else {
+                false
+            }
+        });
+
         self.inner.borrow_mut().action.clear();
     }
 
@@ -228,36 +334,23 @@ impl Shortcuts {
             .borrow()
             .action
             .iter()
-            .map(|(s, c)| (*s, c.clone()))
+            .map(|((_, s), c)| (*s, c.clone()))
             .collect()
     }
 
-    pub fn handle_key_event(&self, mw: &MainWindow, event: Shortcut) -> bool {
-        let inner = self.inner.borrow();
-        let Some(call) = inner.action.get(&event) else {
-            return false;
-        };
-
-        debug!(
-            'u',
-            "Key event: {:?}. Handling key event by {:?}", event, call
-        );
-
-        // This is a bit controversial. Majority of actions to not accept arguments
-        // and those which accept expect a specific variant and not an arbitrary
-        // string.
-        if let Err(err) = gtk::prelude::WidgetExt::activate_action(
-            mw.upcast_ref::<gtk::Widget>(),
-            call.action.name(),
-            call.action_data
-                .as_ref()
-                .filter(|d| !d.is_empty())
-                .map(|d| d.to_variant())
-                .as_ref(),
-        ) {
-            eprintln!("Failed to activate action {}: {}", call.action.name(), err);
+    pub fn add_controller(&self, widget: &impl IsA<gtk::Widget>, controller_area: Area) {
+        let controller = gtk::ShortcutController::new();
+        for ((area, shortcut), call) in self.inner.borrow().action.iter() {
+            if (area == &controller_area || area == &Area::Any)
+                && let Some(shortcut) = shortcut.as_gtk_shortcut(call)
+            {
+                controller.add_shortcut(shortcut);
+            }
         }
-        true
+        self.controllers
+            .borrow_mut()
+            .push((controller_area, controller.downgrade()));
+        widget.as_ref().add_controller(controller);
     }
 
     pub fn load(&self, bindings: &[ShortcutVariant], legacy: glib::Variant) {
@@ -275,7 +368,7 @@ impl Shortcuts {
                 };
 
                 if binding.action_name.is_empty() {
-                    self.unregister(&shortcut);
+                    self.unregister(&shortcut, Area::from_str(&binding.action_data));
                 } else {
                     let Some(user_action) = UserAction::from_name(&binding.action_name) else {
                         eprintln!(
@@ -416,8 +509,8 @@ impl Shortcuts {
         }
 
         // Any default bindings that we haven’t seen yet must have been removed.
-        for (shortcut, _) in defaults {
-            self.unregister(&shortcut);
+        for (shortcut, action) in defaults {
+            self.unregister(&shortcut, action.area());
         }
     }
 
@@ -428,26 +521,29 @@ impl Shortcuts {
         let default_shortcuts = &defaults.inner.borrow().action;
         let actual_shortcuts = &self.inner.borrow().action;
 
-        // Save modified key bindings
+        // Save modified key bindings.
         actual_shortcuts
             .iter()
-            .filter(|(shortcut, call)| {
-                !shortcut.is_mandatory() && default_shortcuts.get(shortcut) != Some(call)
+            .filter(|(key, call)| {
+                let (_, shortcut) = key;
+                !shortcut.is_mandatory() && default_shortcuts.get(key) != Some(call)
             })
-            .map(|(shortcut, call)| ShortcutVariant {
+            .map(|((_, shortcut), call)| ShortcutVariant {
                 accelerator: shortcut.as_accelerator(),
                 action_name: call.action.name().to_owned(),
                 action_data: call.action_data.as_ref().cloned().unwrap_or_default(),
             })
-            // Save removed key bindings
+            // Save removed key bindings.
+            // We mark removed binding with an empty action name. But we still need to know from
+            // which area the binding was removed, so we misuse the action data field to store it.
             .chain(
                 default_shortcuts
                     .iter()
-                    .filter(|(shortcut, _call)| actual_shortcuts.get(shortcut).is_none())
-                    .map(|(shortcut, _)| ShortcutVariant {
+                    .filter(|(key, _call)| actual_shortcuts.get(key).is_none())
+                    .map(|((area, shortcut), _)| ShortcutVariant {
                         accelerator: shortcut.as_accelerator(),
                         action_name: String::new(),
-                        action_data: String::new(),
+                        action_data: area.as_str().to_owned(),
                     }),
             )
             .collect()
@@ -458,12 +554,12 @@ impl Shortcuts {
             .borrow()
             .action
             .iter()
-            .filter(|(shortcut, call)| {
+            .filter(|((_, shortcut), call)| {
                 shortcut.key.is_upper()
                     && call.action == UserAction::BookmarksGoto
                     && call.action_data.as_deref() == Some(bookmark_name)
             })
-            .map(|kv| *kv.0)
+            .map(|((_, shortcut), _)| *shortcut)
             .collect()
     }
 }

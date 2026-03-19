@@ -21,7 +21,7 @@ use crate::{
     paned_ext::GnomeCmdPanedExt,
     plugin_manager::{PluginManager, wrap_plugin_menu},
     search::search_dialog::SearchDialog,
-    shortcuts::{LegacyShortcutVariant, Shortcuts},
+    shortcuts::{Area, LegacyShortcutVariant, Shortcuts},
     spawn::{SpawnError, app_needs_terminal, run_command_indir},
     tags::FileMetadataService,
     transfer::{copy_files, move_files},
@@ -83,7 +83,6 @@ pub mod imp {
         layout::ls_colors_palette::LsColorPalettes,
         options::{FiltersOptions, utils::remember_window_state},
         pwd::uid,
-        shortcuts::Shortcut,
         types::QuickSearchShortcut,
     };
     use std::{
@@ -418,52 +417,16 @@ pub mod imp {
                     Some(gtk::NamedAction::new(UserAction::SwapPanes.name())),
                 ),
                 gtk::Shortcut::new(
-                    gtk::ShortcutTrigger::parse_string("<Alt><Shift>p"),
-                    Some(gtk::NamedAction::new(UserAction::PluginsConfigure.name())),
-                ),
-                gtk::Shortcut::new(
-                    gtk::ShortcutTrigger::parse_string("<Control><Shift>h"),
-                    Some(gtk::NamedAction::new(UserAction::ViewHiddenFiles.name())),
-                ),
-                gtk::Shortcut::new(
-                    gtk::ShortcutTrigger::parse_string("F1"),
-                    Some(gtk::NamedAction::new(UserAction::HelpHelp.name())),
-                ),
-                gtk::Shortcut::new(
                     gtk::ShortcutTrigger::parse_string("F2"),
                     Some(gtk::NamedAction::new(UserAction::FileRename.name())),
-                ),
-                gtk::Shortcut::new(
-                    gtk::ShortcutTrigger::parse_string("F3"),
-                    Some(gtk::NamedAction::new(UserAction::FileView.name())),
-                ),
-                gtk::Shortcut::new(
-                    gtk::ShortcutTrigger::parse_string("F4"),
-                    Some(gtk::NamedAction::new(UserAction::FileEdit.name())),
-                ),
-                gtk::Shortcut::new(
-                    gtk::ShortcutTrigger::parse_string("F5"),
-                    Some(gtk::NamedAction::new(UserAction::FileCopy.name())),
-                ),
-                gtk::Shortcut::new(
-                    gtk::ShortcutTrigger::parse_string("F6"),
-                    Some(gtk::NamedAction::new(UserAction::FileMove.name())),
-                ),
-                gtk::Shortcut::new(
-                    gtk::ShortcutTrigger::parse_string("F7"),
-                    Some(gtk::NamedAction::new(UserAction::FileMkdir.name())),
-                ),
-                gtk::Shortcut::new(
-                    gtk::ShortcutTrigger::parse_string("F8"),
-                    Some(gtk::NamedAction::new(UserAction::FileDelete.name())),
-                ),
-                gtk::Shortcut::new(
-                    gtk::ShortcutTrigger::parse_string("F9"),
-                    Some(gtk::NamedAction::new(UserAction::FileSearch.name())),
                 ),
             ]);
             let shortcuts_controller = gtk::ShortcutController::for_model(&shortcuts);
             mw.add_controller(shortcuts_controller);
+
+            self.shortcuts.add_controller(&*mw, Area::Any);
+            self.shortcuts.add_controller(&self.paned, Area::Panel);
+            self.cmdline.add_shortcuts(&self.shortcuts);
 
             self.update_drop_con_button(None);
 
@@ -947,7 +910,7 @@ pub mod imp {
                     if self.cmdline.is_visible() {
                         self.cmdline.show_history();
                     }
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
                 (ALT_SHIFT, gdk::Key::f | gdk::Key::F) => {
                     if let Some(remote_con) = ConnectionList::get()
@@ -959,18 +922,9 @@ pub mod imp {
                             .file_list()
                             .set_connection(&remote_con, None);
                     }
-                    return glib::Propagation::Stop;
+                    glib::Propagation::Stop
                 }
-                _ => {}
-            }
-
-            if self
-                .shortcuts
-                .handle_key_event(&self.obj(), Shortcut { key, state })
-            {
-                glib::Propagation::Stop
-            } else {
-                glib::Propagation::Proceed
+                _ => glib::Propagation::Proceed
             }
         }
 
@@ -1597,9 +1551,9 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
         gio::Menu::new()
             .section({
                 gio::Menu::new()
-                    .action_accel(UserAction::EditCapCut, "<Control>X")
-                    .action_accel(UserAction::EditCapCopy, "<Control>C")
-                    .action_accel(UserAction::EditCapPaste, "<Control>V")
+                    .action(UserAction::EditCapCut)
+                    .action(UserAction::EditCapCopy)
+                    .action(UserAction::EditCapPaste)
                     .action_accel(UserAction::FileDelete, "Delete")
             })
             .action(UserAction::EditCopyNames)
@@ -1660,7 +1614,7 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
 
     menu.append_submenu(Some(&gettext("_Settings")), &{
         gio::Menu::new()
-            .action_accel(UserAction::OptionsEdit, "<Control>O")
+            .action(UserAction::OptionsEdit)
             .action(UserAction::OptionsEditShortcuts)
     });
 
