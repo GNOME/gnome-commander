@@ -24,7 +24,6 @@ use crate::{
     options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
     tags::FileMetadataService,
     types::{ExtensionDisplayMode, GraphicalLayoutMode, SizeDisplayMode},
-    user_actions::UserAction,
     utils::{ErrorMessage, size_to_string, time_to_string},
 };
 use gettextrs::{gettext, ngettext};
@@ -1057,20 +1056,6 @@ mod imp {
 
         fn key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
             match (state, key) {
-                (ALT, gdk::Key::Return | gdk::Key::KP_Enter) => {
-                    let _ = self
-                        .obj()
-                        .activate_action(UserAction::FileProperties.name(), None);
-                    glib::Propagation::Stop
-                }
-                (ALT, gdk::Key::KP_Add) => {
-                    self.obj().toggle_files_with_same_extension(true);
-                    glib::Propagation::Stop
-                }
-                (ALT, gdk::Key::KP_Subtract) => {
-                    self.obj().toggle_files_with_same_extension(false);
-                    glib::Propagation::Stop
-                }
                 (SHIFT, gdk::Key::F6) => {
                     let this = self.obj().clone();
                     glib::spawn_future_local(async move {
@@ -1123,10 +1108,6 @@ mod imp {
                     });
                     glib::Propagation::Stop
                 }
-                (NO_MOD, gdk::Key::KP_Multiply) => {
-                    self.obj().invert_selection();
-                    glib::Propagation::Stop
-                }
                 (NO_MOD, gdk::Key::KP_Divide) => {
                     self.obj().restore_selection();
                     glib::Propagation::Stop
@@ -1138,13 +1119,6 @@ mod imp {
                     {
                         self.obj().select_row(position + 1);
                     }
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::Delete | gdk::Key::KP_Delete) => {
-                    let this = self.obj().clone();
-                    glib::spawn_future_local(async move {
-                        this.show_delete_dialog(false).await;
-                    });
                     glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::Menu) => {

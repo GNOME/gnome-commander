@@ -27,10 +27,7 @@ use crate::{
     transfer::{copy_files, move_files},
     types::{ConfirmOverwriteMode, FileSelectorID},
     user_actions::UserAction,
-    utils::{
-        ALT_SHIFT, CONTROL, CONTROL_ALT, ErrorMessage, MenuBuilderExt, NO_MOD, SHIFT,
-        extract_menu_shortcuts, sleep,
-    },
+    utils::{ALT_SHIFT, CONTROL, CONTROL_ALT, ErrorMessage, MenuBuilderExt, NO_MOD, SHIFT, sleep},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
@@ -394,7 +391,7 @@ pub mod imp {
             vbox.append(&self.buttonbar_sep);
             vbox.append(&self.buttonbar);
 
-            let mut shortcuts = extract_menu_shortcuts(menu.upcast_ref());
+            let mut shortcuts = gio::ListStore::new::<gtk::Shortcut>();
             shortcuts.extend([
                 gtk::Shortcut::new(
                     gtk::ShortcutTrigger::parse_string("<Control>s"),
@@ -1520,7 +1517,7 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
                     .action(UserAction::FileChmod)
                     .action(UserAction::FileAdvrename)
                     .action(UserAction::FileCreateSymlink)
-                    .action_accel(UserAction::FileProperties, "<Alt>KP_Enter")
+                    .action(UserAction::FileProperties)
             })
             .section({
                 gio::Menu::new()
@@ -1542,7 +1539,7 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
                     .action(UserAction::EditCapCut)
                     .action(UserAction::EditCapCopy)
                     .action(UserAction::EditCapPaste)
-                    .action_accel(UserAction::FileDelete, "Delete")
+                    .action(UserAction::FileDelete)
             })
             .action(UserAction::EditCopyNames)
     });
@@ -1555,11 +1552,11 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
                     .action(UserAction::MarkUnselectAll)
                     .action(UserAction::MarkSelectAllFiles)
                     .action(UserAction::MarkUnselectAllFiles)
-                    .action_accel(UserAction::MarkSelectWithPattern, "KP_Add")
-                    .action_accel(UserAction::MarkUnselectWithPattern, "KP_Subtract")
+                    .action(UserAction::MarkSelectWithPattern)
+                    .action(UserAction::MarkUnselectWithPattern)
                     .action(UserAction::MarkSelectAllWithSameExtension)
                     .action(UserAction::MarkUnselectAllWithSameExtension)
-                    .action_accel(UserAction::MarkInvertSelection, "KP_Multiply")
+                    .action(UserAction::MarkInvertSelection)
                     .action(UserAction::MarkRestoreSelection)
             })
             .action(UserAction::MarkCompareDirectories)
@@ -1569,8 +1566,8 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
         gio::Menu::new()
             .section({
                 gio::Menu::new()
-                    .action_accel(UserAction::ViewBack, "<Alt>Pointer_Left")
-                    .action_accel(UserAction::ViewForward, "<Alt>Pointer_Right")
+                    .action(UserAction::ViewBack)
+                    .action(UserAction::ViewForward)
                     .action(UserAction::ViewRefresh)
             })
             .section({
@@ -1589,12 +1586,12 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
             })
             .section({
                 gio::Menu::new()
-                    .action_accel(UserAction::ViewHiddenFiles, "<Control><Shift>H")
+                    .action(UserAction::ViewHiddenFiles)
                     .action(UserAction::ViewBackupFiles)
             })
             .section({
                 gio::Menu::new()
-                    .action_accel(UserAction::ViewEqualPanes, "<Control><Shift>KP_Equal")
+                    .action(UserAction::ViewEqualPanes)
                     .action(UserAction::ViewMaximizePane)
             })
             .section(gio::Menu::new().action(UserAction::ViewHorizontalOrientation))
@@ -1637,7 +1634,7 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
         gio::Menu::new()
             .section({
                 gio::Menu::new()
-                    .action_accel(UserAction::HelpHelp, "F1")
+                    .action(UserAction::HelpHelp)
                     .action(UserAction::HelpKeyboard)
                     .action(UserAction::HelpWeb)
                     .action(UserAction::HelpProblem)

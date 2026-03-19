@@ -1620,19 +1620,19 @@ user_actions! {
     ),
 
     // Edit actions
-    EditCapCut in Any => (
+    EditCapCut in Panel => (
         "edit-cap-cut" | "edit.cut",
         gettext("Cu_t"),
         edit_cap_cut,
     ),
 
-    EditCapCopy in Any => (
+    EditCapCopy in Panel => (
         "edit-cap-copy" | "edit.copy",
         gettext("_Copy"),
         edit_cap_copy,
     ),
 
-    EditCapPaste in Any => (
+    EditCapPaste in Panel => (
         "edit-cap-paste" | "edit.paste",
         gettext("_Paste"),
         edit_cap_paste,

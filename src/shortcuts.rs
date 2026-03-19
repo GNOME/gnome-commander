@@ -212,6 +212,8 @@ impl Shortcuts {
         self.register(Shortcut::ctrl(Key::C), UserAction::EditCapCopy);
         self.register(Shortcut::ctrl(Key::V), UserAction::EditCapPaste);
         self.register(Shortcut::ctrl_shift(Key::C), UserAction::EditCopyNames);
+        self.register(Shortcut::key(gdk::Key::KP_Delete), UserAction::FileDelete);
+        self.register(Shortcut::key(gdk::Key::Delete), UserAction::FileDelete);
         self.register(Shortcut::ctrl(Key::F12), UserAction::EditFilter);
         self.register(Shortcut::sup(Key::F), UserAction::FileSearch);
         self.register(Shortcut::ctrl(Key::M), UserAction::FileAdvrename);
@@ -221,40 +223,65 @@ impl Shortcuts {
         self.register(Shortcut::ctrl(Key::Q), UserAction::FileExit);
         self.register(Shortcut::alt(Key::F3), UserAction::FileExternalView);
         self.register(Shortcut::shift(Key::F3), UserAction::FileInternalView);
+        self.register(Shortcut::alt(Key::KP_Enter), UserAction::FileProperties);
+        self.register(Shortcut::alt(Key::Return), UserAction::FileProperties);
         self.register(Shortcut::shift(Key::F2), UserAction::MarkCompareDirectories);
-        self.register(Shortcut::ctrl(Key::A), UserAction::MarkSelectAll);
         self.register(Shortcut::ctrl(Key::equal), UserAction::MarkSelectAll);
         self.register(Shortcut::ctrl(Key::KP_Add), UserAction::MarkSelectAll);
-        self.register(Shortcut::ctrl_shift(Key::A), UserAction::MarkUnselectAll);
+        self.register(Shortcut::ctrl(Key::A), UserAction::MarkSelectAll);
         self.register(Shortcut::ctrl(Key::minus), UserAction::MarkUnselectAll);
         self.register(
             Shortcut::ctrl(Key::KP_Subtract),
             UserAction::MarkUnselectAll,
         );
+        self.register(Shortcut::ctrl_shift(Key::A), UserAction::MarkUnselectAll);
+        self.register(
+            Shortcut::alt(Key::KP_Add),
+            UserAction::MarkSelectWithPattern,
+        );
+        self.register(
+            Shortcut::alt(Key::KP_Subtract),
+            UserAction::MarkUnselectWithPattern,
+        );
+        self.register(
+            Shortcut::key(Key::KP_Multiply),
+            UserAction::MarkInvertSelection,
+        );
         self.register(Shortcut::ctrl(Key::O), UserAction::OptionsEdit);
         self.register(Shortcut::alt(Key::Down), UserAction::ViewDirHistory);
         self.register(Shortcut::alt(Key::KP_Down), UserAction::ViewDirHistory);
-        self.register(Shortcut::ctrl(Key::Page_Up), UserAction::ViewUp);
+        self.register(Shortcut::alt(Key::KP_Left), UserAction::ViewBack);
+        self.register(Shortcut::alt(Key::Left), UserAction::ViewBack);
+        self.register(Shortcut::alt(Key::KP_Right), UserAction::ViewForward);
+        self.register(Shortcut::alt(Key::Right), UserAction::ViewForward);
+        self.register(Shortcut::key(Key::BackSpace), UserAction::ViewUp);
         self.register(Shortcut::ctrl(Key::KP_Page_Up), UserAction::ViewUp);
+        self.register(Shortcut::ctrl(Key::Page_Up), UserAction::ViewUp);
+        self.register(Shortcut::ctrl_shift(Key::H), UserAction::ViewHiddenFiles);
+        self.register(
+            Shortcut::ctrl_shift(Key::KP_Equal),
+            UserAction::ViewEqualPanes,
+        );
+        self.register(Shortcut::ctrl_shift(Key::equal), UserAction::ViewEqualPanes);
         self.register(Shortcut::ctrl_shift(Key::plus), UserAction::ViewEqualPanes);
         self.register(Shortcut::ctrl(Key::period), UserAction::ViewInActivePane);
         self.register(
             Shortcut::ctrl_shift(Key::greater),
             UserAction::ViewInInactivePane,
         );
-        self.register(Shortcut::ctrl(Key::Left), UserAction::ViewInLeftPane);
         self.register(Shortcut::ctrl(Key::KP_Left), UserAction::ViewInLeftPane);
-        self.register(Shortcut::ctrl(Key::Right), UserAction::ViewInRightPane);
+        self.register(Shortcut::ctrl(Key::Left), UserAction::ViewInLeftPane);
         self.register(Shortcut::ctrl(Key::KP_Right), UserAction::ViewInRightPane);
-        self.register(Shortcut::ctrl(Key::Up), UserAction::ViewInNewTab);
+        self.register(Shortcut::ctrl(Key::Right), UserAction::ViewInRightPane);
         self.register(Shortcut::ctrl(Key::KP_Up), UserAction::ViewInNewTab);
-        self.register(Shortcut::ctrl_shift(Key::Up), UserAction::ViewInInactiveTab);
+        self.register(Shortcut::ctrl(Key::Up), UserAction::ViewInNewTab);
         self.register(
             Shortcut::ctrl_shift(Key::KP_Up),
             UserAction::ViewInInactiveTab,
         );
-        self.register(Shortcut::ctrl(Key::Page_Down), UserAction::ViewDirectory);
+        self.register(Shortcut::ctrl_shift(Key::Up), UserAction::ViewInInactiveTab);
         self.register(Shortcut::ctrl(Key::KP_Page_Down), UserAction::ViewDirectory);
+        self.register(Shortcut::ctrl(Key::Page_Down), UserAction::ViewDirectory);
         self.register(Shortcut::ctrl(Key::quoteleft), UserAction::ViewHome);
         self.register(Shortcut::ctrl_shift(Key::asciitilde), UserAction::ViewHome);
         self.register(Shortcut::ctrl(Key::backslash), UserAction::ViewRoot);
@@ -262,7 +289,15 @@ impl Shortcuts {
         self.register(Shortcut::ctrl(Key::T), UserAction::ViewNewTab);
         self.register(Shortcut::ctrl(Key::W), UserAction::ViewCloseTab);
         self.register(Shortcut::ctrl_shift(Key::W), UserAction::ViewCloseAllTabs);
-    }
+        self.register(
+            Shortcut::ctrl_shift(Key::ISO_Left_Tab),
+            UserAction::ViewPrevTab,
+        );
+        self.register(Shortcut::ctrl_shift(Key::Tab), UserAction::ViewPrevTab);
+        self.register(Shortcut::ctrl(Key::ISO_Left_Tab), UserAction::ViewNextTab);
+        self.register(Shortcut::ctrl(Key::Tab), UserAction::ViewNextTab);
+        self.register(Shortcut::key(Key::F1), UserAction::HelpHelp);
+   }
 
     pub fn register(&self, accelerator: Shortcut, action: UserAction) {
         self.register_full(accelerator, action, None)
@@ -314,10 +349,12 @@ impl Shortcuts {
             // In order to remove from a controller we need to find the exact shortcut instance.
             for shortcut in controller.iter::<glib::Object>().flatten() {
                 if let Some(shortcut) = shortcut.downcast_ref::<gtk::Shortcut>()
-                    && let Some(trigger) = shortcut.trigger().and_downcast_ref::<gtk::KeyvalTrigger>()
+                    && let Some(trigger) =
+                        shortcut.trigger().and_downcast_ref::<gtk::KeyvalTrigger>()
                     && trigger.keyval() == accelerator.key
                     && trigger.modifiers() == accelerator.state
-                    && let Some(named_action) = shortcut.action().and_downcast_ref::<gtk::NamedAction>()
+                    && let Some(named_action) =
+                        shortcut.action().and_downcast_ref::<gtk::NamedAction>()
                     && named_action.action_name() == action.name()
                 {
                     controller.remove_shortcut(shortcut);
