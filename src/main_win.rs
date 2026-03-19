@@ -534,7 +534,7 @@ pub mod imp {
             self.shortcuts
                 .load(&options.keybindings.get(), options.legacy_keybindings.get());
             self.shortcuts.attach(&*mw);
-            self.shortcuts.add_controller(&*mw, Area::Any);
+            self.shortcuts.add_controller(&*mw, Area::MainWindow);
             self.shortcuts.add_controller(&self.paned, Area::Panel);
             self.cmdline.add_shortcuts(&self.shortcuts);
 

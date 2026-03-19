@@ -1432,37 +1432,37 @@ user_actions! {
         file_delete,
     ),
 
-    FileView in Any => (
+    FileView in MainWindow => (
         "file-view" | "file.view",
         gettext("View File"),
         file_view,
     ),
 
-    FileInternalView in Any => (
+    FileInternalView in MainWindow => (
         "file-internal-view" | "file.internal_view",
         gettext("View with internal viewer"),
         file_internal_view,
     ),
 
-    FileExternalView in Any => (
+    FileExternalView in MainWindow => (
         "file-external-view" | "file.external_view",
         gettext("View with external viewer"),
         file_external_view,
     ),
 
-    FileEdit in Any => (
+    FileEdit in MainWindow => (
         "file-edit" | "file.edit",
         gettext("Edit (SHIFT for new document)"),
         file_edit,
     ),
 
-    FileEditNewDoc in Any => (
+    FileEditNewDoc in MainWindow => (
         "file-edit-new-doc" | "file.edit_new_doc",
         gettext("New _Text File"),
         file_edit_new_doc,
     ),
 
-    FileSearch in Any => (
+    FileSearch in MainWindow => (
         "file-search" | "file.search",
         gettext("_Search…"),
         file_search,
@@ -1534,7 +1534,7 @@ user_actions! {
         file_sendto,
     ),
 
-    FileExit in Any => (
+    FileExit in MainWindow => (
         "file-exit" | "file.exit",
         gettext("Quit"),
         file_exit,
@@ -1651,44 +1651,44 @@ user_actions! {
     ),
 
     // Command actions
-    CommandExecute in Any => (
+    CommandExecute in MainWindow => (
         "command-execute" | "command.execute",
         gettext("Execute command"),
         command_execute,
     ),
 
-    CommandOpenTerminal in Any => (
+    CommandOpenTerminal in MainWindow => (
         "command-open-terminal" | "command.open_terminal",
         gettext("Open _Terminal"),
         command_open_terminal,
     ),
 
     // View actions
-    ViewConbuttons in Any => (
+    ViewConbuttons in MainWindow => (
         "view-conbuttons" | "view.conbuttons",
         gettext("Show Device Buttons"),
         "connection-buttons-visible",
     ),
 
-    ViewDevlist in Any => (
+    ViewDevlist in MainWindow => (
         "view-devlist" | "view.devlist",
         gettext("Show Device List"),
         "connection-list-visible",
     ),
 
-    ViewToolbar in Any => (
+    ViewToolbar in MainWindow => (
         "view-toolbar" | "view.toolbar",
         gettext("Show Toolbar"),
         "toolbar-visible",
     ),
 
-    ViewButtonbar in Any => (
+    ViewButtonbar in MainWindow => (
         "view-buttonbar" | "view.buttonbar",
         gettext("Show Buttonbar"),
         "buttonbar-visible",
     ),
 
-    ViewCmdline in Any => (
+    ViewCmdline in MainWindow => (
         "view-cmdline" | "view.cmdline",
         gettext("Show Command Line"),
         "command-line-visible",
@@ -1700,13 +1700,13 @@ user_actions! {
         view_dir_history,
     ),
 
-    ViewHiddenFiles in Any => (
+    ViewHiddenFiles in MainWindow => (
         "view-hidden-files" | "view.hidden_files",
         gettext("Show Hidden Files"),
         "view-hidden-files",
     ),
 
-    ViewBackupFiles in Any => (
+    ViewBackupFiles in MainWindow => (
         "view-backup-files" | "view.backup_files",
         gettext("Show Backup Files"),
         "view-backup-files",
@@ -1862,7 +1862,7 @@ user_actions! {
         "horizontal-orientation",
     ),
 
-    ViewMainMenu in Any => (
+    ViewMainMenu in MainWindow => (
         "view-main-menu" | "view.main_menu",
         gettext("Display main menu"),
         "menu-visible",
@@ -1924,13 +1924,13 @@ user_actions! {
     ),
 
     // Option actions
-    OptionsEdit in Any => (
+    OptionsEdit in MainWindow => (
         "options-edit" | "options.edit",
         gettext("_Options…"),
         options_edit,
     ),
 
-    OptionsEditShortcuts in Any => (
+    OptionsEditShortcuts in MainWindow => (
         "options-edit-shortcuts" | "options.shortcuts",
         gettext("_Keyboard Shortcuts…"),
         options_edit_shortcuts,
@@ -1980,44 +1980,44 @@ user_actions! {
     ),
 
     // Plugin actions
-    PluginsConfigure in Any => (
+    PluginsConfigure in MainWindow => (
         "plugins-configure" | "plugins.configure",
         gettext("_Configure Plugins…"),
         plugins_configure,
     ),
 
-    PluginAction in Any => (
+    PluginAction in MainWindow => (
         "plugin-action" | "plugin.action",
         String::new(), // invisible to users
         plugin_action,
     ),
 
     // Help actions
-    HelpHelp in Any => (
+    HelpHelp in MainWindow => (
         "help-help" | "help.help",
         gettext("_Documentation"),
         help_help,
     ),
 
-    HelpKeyboard in Any => (
+    HelpKeyboard in MainWindow => (
         "help-keyboard" | "help.keyboard",
         gettext("_Keyboard Shortcuts"),
         help_keyboard,
     ),
 
-    HelpWeb in Any => (
+    HelpWeb in MainWindow => (
         "help-web" | "help.web",
         gettext("GNOME Commander on the _Web"),
         help_web,
     ),
 
-    HelpProblem in Any => (
+    HelpProblem in MainWindow => (
         "help-problem" | "help.problem",
         gettext("Report a _Problem"),
         help_problem,
     ),
 
-    HelpAbout in Any => (
+    HelpAbout in MainWindow => (
         "help-about" | "help.about",
         gettext("_About"),
         help_about,

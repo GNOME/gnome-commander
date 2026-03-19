@@ -15,7 +15,7 @@ pub enum Area {
     Panel,
     CommandLine,
     Terminal,
-    Any,
+    MainWindow,
 }
 
 impl Area {
@@ -24,7 +24,7 @@ impl Area {
             Self::Panel => "panel",
             Self::CommandLine => "command-line",
             Self::Terminal => "terminal",
-            Self::Any => "any",
+            Self::MainWindow => "main-window",
         }
     }
 
@@ -33,7 +33,7 @@ impl Area {
             "panel" => Self::Panel,
             "command-line" => Self::CommandLine,
             "terminal" => Self::Terminal,
-            _ => Self::Any,
+            _ => Self::MainWindow,
         }
     }
 }
@@ -329,12 +329,15 @@ impl Shortcuts {
 
     pub fn register_full(&self, accelerator: Shortcut, action: UserAction, data: Option<&str>) {
         self.unregister(&accelerator, action.area());
-        if action.area() == Area::Any {
-            for area in [Area::Panel, Area::CommandLine, Area::Terminal] {
-                self.unregister(&accelerator, area);
+        match action.area() {
+            Area::MainWindow => {
+                for area in [Area::Panel, Area::CommandLine, Area::Terminal] {
+                    self.unregister(&accelerator, area);
+                }
             }
-        } else {
-            self.unregister(&accelerator, Area::Any);
+            Area::Panel | Area::CommandLine | Area::Terminal => {
+                self.unregister(&accelerator, Area::MainWindow)
+            }
         }
 
         let call = Call {
