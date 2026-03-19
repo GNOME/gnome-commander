@@ -210,6 +210,7 @@ impl Shortcuts {
         self.register(Shortcut::key(gdk::Key::Delete), UserAction::FileDelete);
         self.register(Shortcut::ctrl(Key::F12), UserAction::EditFilter);
         self.register(Shortcut::sup(Key::F), UserAction::FileSearch);
+        self.register(Shortcut::key(Key::F2), UserAction::FileRename);
         self.register(Shortcut::ctrl(Key::M), UserAction::FileAdvrename);
         self.register(Shortcut::shift(Key::F5), UserAction::FileCopyAs);
         self.register(Shortcut::ctrl_shift(Key::F5), UserAction::FileCreateSymlink);
@@ -290,6 +291,9 @@ impl Shortcuts {
         self.register(Shortcut::ctrl_shift(Key::Tab), UserAction::ViewPrevTab);
         self.register(Shortcut::ctrl(Key::ISO_Left_Tab), UserAction::ViewNextTab);
         self.register(Shortcut::ctrl(Key::Tab), UserAction::ViewNextTab);
+        self.register(Shortcut::ctrl(Key::Tab), UserAction::ViewNextTab);
+        self.register(Shortcut::ctrl(Key::U), UserAction::SwapPanes);
+        self.register(Shortcut::ctrl(Key::S), UserAction::ShowSlidePopup);
         self.register(Shortcut::key(Key::F1), UserAction::HelpHelp);
     }
 

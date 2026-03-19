@@ -391,24 +391,6 @@ pub mod imp {
             vbox.append(&self.buttonbar_sep);
             vbox.append(&self.buttonbar);
 
-            let mut shortcuts = gio::ListStore::new::<gtk::Shortcut>();
-            shortcuts.extend([
-                gtk::Shortcut::new(
-                    gtk::ShortcutTrigger::parse_string("<Control>s"),
-                    Some(gtk::NamedAction::new(UserAction::ShowSlidePopup.name())),
-                ),
-                gtk::Shortcut::new(
-                    gtk::ShortcutTrigger::parse_string("<Control>u"),
-                    Some(gtk::NamedAction::new(UserAction::SwapPanes.name())),
-                ),
-                gtk::Shortcut::new(
-                    gtk::ShortcutTrigger::parse_string("F2"),
-                    Some(gtk::NamedAction::new(UserAction::FileRename.name())),
-                ),
-            ]);
-            let shortcuts_controller = gtk::ShortcutController::for_model(&shortcuts);
-            mw.add_controller(shortcuts_controller);
-
             self.update_drop_con_button(None);
 
             self.file_selector_left
