@@ -38,7 +38,7 @@ You can also download tarball releases from the [Gnome download server](https://
 ### Ideas ###
 
 If you have some good ideas for stuff you want to see in this program you
-should check the [TODO](TODO) file first before filing a feature request.
+should check the list of open [issues marked as feature](https://gitlab.gnome.org/GNOME/gnome-commander/-/issues?label_name%5B%5D=1.%20Feature) before filing a new feature request.
 
 ### Translations ###
 
