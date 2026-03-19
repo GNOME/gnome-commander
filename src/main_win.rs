@@ -412,6 +412,7 @@ pub mod imp {
             let shortcuts_controller = gtk::ShortcutController::for_model(&shortcuts);
             mw.add_controller(shortcuts_controller);
 
+            self.shortcuts.attach(&*mw);
             self.shortcuts.add_controller(&*mw, Area::Any);
             self.shortcuts.add_controller(&self.paned, Area::Panel);
             self.cmdline.add_shortcuts(&self.shortcuts);
@@ -912,7 +913,7 @@ pub mod imp {
                     }
                     glib::Propagation::Stop
                 }
-                _ => glib::Propagation::Proceed
+                _ => glib::Propagation::Proceed,
             }
         }
 
@@ -1518,13 +1519,13 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
                 gio::Menu::new()
                     .action(UserAction::FileChown)
                     .action(UserAction::FileChmod)
-                    .action_accel(UserAction::FileAdvrename, "<Control>M")
-                    .action_accel(UserAction::FileCreateSymlink, "<Control><shift>F5")
+                    .action(UserAction::FileAdvrename)
+                    .action(UserAction::FileCreateSymlink)
                     .action_accel(UserAction::FileProperties, "<Alt>KP_Enter")
             })
             .section({
                 gio::Menu::new()
-                    .action_accel(UserAction::FileSearch, "F9")
+                    .action(UserAction::FileSearch)
                     .action(UserAction::FileQuickSearch)
                     .action(UserAction::EditFilter)
             })
@@ -1551,8 +1552,8 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
         gio::Menu::new()
             .section({
                 gio::Menu::new()
-                    .action_accel(UserAction::MarkSelectAll, "<Control>KP_Add")
-                    .action_accel(UserAction::MarkUnselectAll, "<Control>KP_Subtract")
+                    .action(UserAction::MarkSelectAll)
+                    .action(UserAction::MarkUnselectAll)
                     .action(UserAction::MarkSelectAllFiles)
                     .action(UserAction::MarkUnselectAllFiles)
                     .action_accel(UserAction::MarkSelectWithPattern, "KP_Add")
@@ -1562,7 +1563,7 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
                     .action_accel(UserAction::MarkInvertSelection, "KP_Multiply")
                     .action(UserAction::MarkRestoreSelection)
             })
-            .action_accel(UserAction::MarkCompareDirectories, "<Shift>F2")
+            .action(UserAction::MarkCompareDirectories)
     });
 
     menu.append_submenu(Some(&gettext("_View")), &{
@@ -1571,13 +1572,13 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
                 gio::Menu::new()
                     .action_accel(UserAction::ViewBack, "<Alt>Pointer_Left")
                     .action_accel(UserAction::ViewForward, "<Alt>Pointer_Right")
-                    .action_accel(UserAction::ViewRefresh, "<Control>R")
+                    .action(UserAction::ViewRefresh)
             })
             .section({
                 gio::Menu::new()
-                    .action_accel(UserAction::ViewNewTab, "<Control>T")
-                    .action_accel(UserAction::ViewCloseTab, "<Control>W")
-                    .action_accel(UserAction::ViewCloseAllTabs, "<Control><Shift>W")
+                    .action(UserAction::ViewNewTab)
+                    .action(UserAction::ViewCloseTab)
+                    .action(UserAction::ViewCloseAllTabs)
             })
             .section({
                 gio::Menu::new()
@@ -1610,8 +1611,8 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
         gio::Menu::new()
             .section({
                 gio::Menu::new()
-                    .action_accel(UserAction::ConnectionsOpen, "<Control>F")
-                    .action_accel(UserAction::ConnectionsNew, "<Control>N")
+                    .action(UserAction::ConnectionsOpen)
+                    .action(UserAction::ConnectionsNew)
             })
             .section(local_connections_menu())
             .section(connections_menu())
@@ -1622,7 +1623,7 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
             .section({
                 gio::Menu::new()
                     .action(UserAction::BookmarksAddCurrent)
-                    .action_accel(UserAction::BookmarksEdit, "<Control>D")
+                    .action(UserAction::BookmarksEdit)
             })
             .section(create_bookmarks_menu())
     });

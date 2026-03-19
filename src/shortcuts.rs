@@ -160,6 +160,7 @@ pub struct Call {
 pub struct Shortcuts {
     inner: Rc<RefCell<ShortcutsInner>>,
     controllers: RefCell<Vec<(Area, glib::WeakRef<gtk::ShortcutController>)>>,
+    top_level_controller: gtk::ShortcutController,
 }
 
 #[derive(Default)]
@@ -169,9 +170,16 @@ struct ShortcutsInner {
 
 impl Shortcuts {
     pub fn new() -> Self {
+        // This is a hack: this controller doesn't do anything. But we add all shortcuts to it, so
+        // that these will be displayed in the menu. Otherwise the menu will only show shortcuts
+        // registered for the entire window, not the ones handled by specific widgets.
+        let top_level_controller = gtk::ShortcutController::new();
+        top_level_controller.set_propagation_phase(gtk::PropagationPhase::None);
+
         Self {
             inner: Default::default(),
             controllers: Default::default(),
+            top_level_controller,
         }
     }
 
@@ -275,20 +283,21 @@ impl Shortcuts {
             action_data: data.map(|d| d.to_owned()),
         };
 
-        let call_area = call.action.area();
-        self.controllers.borrow_mut().retain(|(area, controller)| {
-            if area != &call_area {
-                return true;
-            }
-            if let Some(controller) = controller.upgrade() {
-                if let Some(shortcut) = accelerator.as_gtk_shortcut(&call) {
-                    controller.add_shortcut(shortcut);
+        if let Some(shortcut) = accelerator.as_gtk_shortcut(&call) {
+            let call_area = call.action.area();
+            self.controllers.borrow_mut().retain(|(area, controller)| {
+                if area != &call_area {
+                    return true;
                 }
-                true
-            } else {
-                false
-            }
-        });
+                if let Some(controller) = controller.upgrade() {
+                    controller.add_shortcut(shortcut.clone());
+                    true
+                } else {
+                    false
+                }
+            });
+            self.top_level_controller.add_shortcut(shortcut)
+        }
 
         self.inner
             .borrow_mut()
@@ -298,23 +307,26 @@ impl Shortcuts {
 
     pub fn unregister(&self, accelerator: &Shortcut, call_area: Area) {
         let key = (call_area, *accelerator);
-        if let Some(call) = self.inner.borrow().action.get(&key) {
+        let action = &mut self.inner.borrow_mut().action;
+        let Some(call) = action.get(&key) else {
+            return;
+        };
+        if let Some(shortcut) = accelerator.as_gtk_shortcut(&call) {
             self.controllers.borrow_mut().retain(|(area, controller)| {
                 if area != &call_area {
                     return true;
                 }
                 if let Some(controller) = controller.upgrade() {
-                    if let Some(shortcut) = accelerator.as_gtk_shortcut(&call) {
-                        controller.remove_shortcut(&shortcut);
-                    }
+                    controller.remove_shortcut(&shortcut);
                     true
                 } else {
                     false
                 }
             });
-
-            self.inner.borrow_mut().action.remove(&key);
+            self.top_level_controller.remove_shortcut(&shortcut);
         }
+
+        action.remove(&key);
     }
 
     pub fn clear(&self) {
@@ -328,6 +340,13 @@ impl Shortcuts {
                 false
             }
         });
+        while let Some(shortcut) = self
+            .top_level_controller
+            .item(0)
+            .and_downcast_ref::<gtk::Shortcut>()
+        {
+            self.top_level_controller.remove_shortcut(shortcut);
+        }
 
         self.inner.borrow_mut().action.clear();
     }
@@ -341,6 +360,15 @@ impl Shortcuts {
             .collect()
     }
 
+    /// Attaches a dummy controller to a window, making sure all shortcuts show up in menu.
+    pub fn attach(&self, window: &impl IsA<gtk::Window>) {
+        window
+            .as_ref()
+            .add_controller(self.top_level_controller.clone());
+    }
+
+    /// Attaches a shortcut controller to a widget, making it handle shortcuts for the designated
+    /// area.
     pub fn add_controller(&self, widget: &impl IsA<gtk::Widget>, controller_area: Area) {
         let controller = gtk::ShortcutController::new();
         for ((area, shortcut), call) in self.inner.borrow().action.iter() {
