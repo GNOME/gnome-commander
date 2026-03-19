@@ -306,25 +306,43 @@ impl Shortcuts {
     }
 
     pub fn unregister(&self, accelerator: &Shortcut, call_area: Area) {
+        fn remove_from_controller(
+            controller: &gtk::ShortcutController,
+            accelerator: &Shortcut,
+            action: UserAction,
+        ) {
+            // In order to remove from a controller we need to find the exact shortcut instance.
+            for shortcut in controller.iter::<glib::Object>().flatten() {
+                if let Some(shortcut) = shortcut.downcast_ref::<gtk::Shortcut>()
+                    && let Some(trigger) = shortcut.trigger().and_downcast_ref::<gtk::KeyvalTrigger>()
+                    && trigger.keyval() == accelerator.key
+                    && trigger.modifiers() == accelerator.state
+                    && let Some(named_action) = shortcut.action().and_downcast_ref::<gtk::NamedAction>()
+                    && named_action.action_name() == action.name()
+                {
+                    controller.remove_shortcut(shortcut);
+                    break;
+                }
+            }
+        }
+
         let key = (call_area, *accelerator);
         let action = &mut self.inner.borrow_mut().action;
         let Some(call) = action.get(&key) else {
             return;
         };
-        if let Some(shortcut) = accelerator.as_gtk_shortcut(&call) {
-            self.controllers.borrow_mut().retain(|(area, controller)| {
-                if area != &call_area {
-                    return true;
-                }
-                if let Some(controller) = controller.upgrade() {
-                    controller.remove_shortcut(&shortcut);
-                    true
-                } else {
-                    false
-                }
-            });
-            self.top_level_controller.remove_shortcut(&shortcut);
-        }
+        self.controllers.borrow_mut().retain(|(area, controller)| {
+            if area != &call_area {
+                return true;
+            }
+            if let Some(controller) = controller.upgrade() {
+                remove_from_controller(&controller, accelerator, call.action);
+                true
+            } else {
+                false
+            }
+        });
+        remove_from_controller(&self.top_level_controller, accelerator, call.action);
 
         action.remove(&key);
     }
