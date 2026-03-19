@@ -412,11 +412,6 @@ pub mod imp {
             let shortcuts_controller = gtk::ShortcutController::for_model(&shortcuts);
             mw.add_controller(shortcuts_controller);
 
-            self.shortcuts.attach(&*mw);
-            self.shortcuts.add_controller(&*mw, Area::Any);
-            self.shortcuts.add_controller(&self.paned, Area::Panel);
-            self.cmdline.add_shortcuts(&self.shortcuts);
-
             self.update_drop_con_button(None);
 
             self.file_selector_left
@@ -559,6 +554,10 @@ pub mod imp {
 
             self.shortcuts
                 .load(&options.keybindings.get(), options.legacy_keybindings.get());
+            self.shortcuts.attach(&*mw);
+            self.shortcuts.add_controller(&*mw, Area::Any);
+            self.shortcuts.add_controller(&self.paned, Area::Panel);
+            self.cmdline.add_shortcuts(&self.shortcuts);
 
             self.color_themes.connect_local(
                 "theme-changed",
