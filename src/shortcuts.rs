@@ -381,7 +381,7 @@ impl Shortcuts {
         let controller = gtk::ShortcutController::new();
         controller.set_propagation_phase(gtk::PropagationPhase::Capture);
         for ((area, shortcut), call) in self.actions.borrow().iter() {
-            if (area == &controller_area || area == &Area::Any)
+            if area == &controller_area
                 && let Some(shortcut) = shortcut.as_gtk_shortcut(call)
             {
                 controller.add_shortcut(shortcut);
