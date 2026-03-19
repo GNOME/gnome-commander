@@ -210,6 +210,7 @@ impl Shortcuts {
         self.register(Shortcut::key(gdk::Key::Delete), UserAction::FileDelete);
         self.register(Shortcut::ctrl(Key::F12), UserAction::EditFilter);
         self.register(Shortcut::sup(Key::F), UserAction::FileSearch);
+        self.register(Shortcut::shift(Key::F6), UserAction::FileRename);
         self.register(Shortcut::key(Key::F2), UserAction::FileRename);
         self.register(Shortcut::ctrl(Key::M), UserAction::FileAdvrename);
         self.register(Shortcut::shift(Key::F5), UserAction::FileCopyAs);
@@ -220,6 +221,9 @@ impl Shortcuts {
         self.register(Shortcut::shift(Key::F3), UserAction::FileInternalView);
         self.register(Shortcut::alt(Key::KP_Enter), UserAction::FileProperties);
         self.register(Shortcut::alt(Key::Return), UserAction::FileProperties);
+        self.register(Shortcut::key(Key::space), UserAction::MarkToggle);
+        self.register(Shortcut::key(Key::KP_Insert), UserAction::MarkToggleAndStep);
+        self.register(Shortcut::key(Key::Insert), UserAction::MarkToggleAndStep);
         self.register(Shortcut::shift(Key::F2), UserAction::MarkCompareDirectories);
         self.register(Shortcut::ctrl(Key::equal), UserAction::MarkSelectAll);
         self.register(Shortcut::ctrl(Key::KP_Add), UserAction::MarkSelectAll);
@@ -234,13 +238,31 @@ impl Shortcuts {
             Shortcut::alt(Key::KP_Add),
             UserAction::MarkSelectWithPattern,
         );
+        self.register(Shortcut::key(Key::equal), UserAction::MarkSelectWithPattern);
+        self.register(
+            Shortcut::key(Key::KP_Add),
+            UserAction::MarkSelectWithPattern,
+        );
+        self.register(Shortcut::key(Key::plus), UserAction::MarkSelectWithPattern);
         self.register(
             Shortcut::alt(Key::KP_Subtract),
             UserAction::MarkUnselectWithPattern,
         );
         self.register(
+            Shortcut::key(Key::KP_Subtract),
+            UserAction::MarkUnselectWithPattern,
+        );
+        self.register(
+            Shortcut::key(Key::minus),
+            UserAction::MarkUnselectWithPattern,
+        );
+        self.register(
             Shortcut::key(Key::KP_Multiply),
             UserAction::MarkInvertSelection,
+        );
+        self.register(
+            Shortcut::key(Key::KP_Divide),
+            UserAction::MarkRestoreSelection,
         );
         self.register(Shortcut::ctrl(Key::O), UserAction::OptionsEdit);
         self.register(Shortcut::alt(Key::Down), UserAction::ViewDirHistory);
@@ -250,6 +272,8 @@ impl Shortcuts {
         self.register(Shortcut::alt(Key::KP_Right), UserAction::ViewForward);
         self.register(Shortcut::alt(Key::Right), UserAction::ViewForward);
         self.register(Shortcut::key(Key::BackSpace), UserAction::ViewUp);
+        self.register(Shortcut::key(Key::KP_Left), UserAction::ViewUp);
+        self.register(Shortcut::key(Key::Left), UserAction::ViewUp);
         self.register(Shortcut::ctrl(Key::KP_Page_Up), UserAction::ViewUp);
         self.register(Shortcut::ctrl(Key::Page_Up), UserAction::ViewUp);
         self.register(Shortcut::ctrl_shift(Key::H), UserAction::ViewHiddenFiles);
@@ -268,6 +292,8 @@ impl Shortcuts {
         self.register(Shortcut::ctrl(Key::Left), UserAction::ViewInLeftPane);
         self.register(Shortcut::ctrl(Key::KP_Right), UserAction::ViewInRightPane);
         self.register(Shortcut::ctrl(Key::Right), UserAction::ViewInRightPane);
+        self.register(Shortcut::key(Key::KP_Right), UserAction::ViewDirectory);
+        self.register(Shortcut::key(Key::Right), UserAction::ViewDirectory);
         self.register(Shortcut::ctrl(Key::KP_Up), UserAction::ViewInNewTab);
         self.register(Shortcut::ctrl(Key::Up), UserAction::ViewInNewTab);
         self.register(
