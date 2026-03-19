@@ -1301,7 +1301,7 @@ mod test {
     use crate::intviewer::data_presentation::next_tab_position;
     use rusty_fork::rusty_fork_test;
 
-    const FILENAME: &str = "./TODO";
+    const FILENAME: &str = "./AUTHORS";
 
     #[test]
     fn test_scan() {
