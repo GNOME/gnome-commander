@@ -8,7 +8,6 @@ use gtk::{gdk, prelude::*};
 use std::{
     cell::RefCell,
     collections::{BTreeMap, BTreeSet},
-    rc::Rc,
 };
 
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
@@ -158,14 +157,9 @@ pub struct Call {
 
 #[derive(Clone)]
 pub struct Shortcuts {
-    inner: Rc<RefCell<ShortcutsInner>>,
+    actions: RefCell<BTreeMap<(Area, Shortcut), Call>>,
     controllers: RefCell<Vec<(Area, glib::WeakRef<gtk::ShortcutController>)>>,
     top_level_controller: gtk::ShortcutController,
-}
-
-#[derive(Default)]
-struct ShortcutsInner {
-    action: BTreeMap<(Area, Shortcut), Call>,
 }
 
 impl Shortcuts {
@@ -177,7 +171,7 @@ impl Shortcuts {
         top_level_controller.set_propagation_phase(gtk::PropagationPhase::None);
 
         Self {
-            inner: Default::default(),
+            actions: Default::default(),
             controllers: Default::default(),
             top_level_controller,
         }
@@ -297,7 +291,7 @@ impl Shortcuts {
         self.register(Shortcut::ctrl(Key::ISO_Left_Tab), UserAction::ViewNextTab);
         self.register(Shortcut::ctrl(Key::Tab), UserAction::ViewNextTab);
         self.register(Shortcut::key(Key::F1), UserAction::HelpHelp);
-   }
+    }
 
     pub fn register(&self, accelerator: Shortcut, action: UserAction) {
         self.register_full(accelerator, action, None)
@@ -334,9 +328,8 @@ impl Shortcuts {
             self.top_level_controller.add_shortcut(shortcut)
         }
 
-        self.inner
+        self.actions
             .borrow_mut()
-            .action
             .insert((action.area(), accelerator), call);
     }
 
@@ -364,8 +357,8 @@ impl Shortcuts {
         }
 
         let key = (call_area, *accelerator);
-        let action = &mut self.inner.borrow_mut().action;
-        let Some(call) = action.get(&key) else {
+        let mut actions = self.actions.borrow_mut();
+        let Some(call) = actions.get(&key) else {
             return;
         };
         self.controllers.borrow_mut().retain(|(area, controller)| {
@@ -381,7 +374,7 @@ impl Shortcuts {
         });
         remove_from_controller(&self.top_level_controller, accelerator, call.action);
 
-        action.remove(&key);
+        actions.remove(&key);
     }
 
     pub fn clear(&self) {
@@ -403,13 +396,12 @@ impl Shortcuts {
             self.top_level_controller.remove_shortcut(shortcut);
         }
 
-        self.inner.borrow_mut().action.clear();
+        self.actions.borrow_mut().clear();
     }
 
     pub fn all(&self) -> Vec<(Shortcut, Call)> {
-        self.inner
+        self.actions
             .borrow()
-            .action
             .iter()
             .map(|((_, s), c)| (*s, c.clone()))
             .collect()
@@ -427,7 +419,7 @@ impl Shortcuts {
     pub fn add_controller(&self, widget: &impl IsA<gtk::Widget>, controller_area: Area) {
         let controller = gtk::ShortcutController::new();
         controller.set_propagation_phase(gtk::PropagationPhase::Capture);
-        for ((area, shortcut), call) in self.inner.borrow().action.iter() {
+        for ((area, shortcut), call) in self.actions.borrow().iter() {
             if (area == &controller_area || area == &Area::Any)
                 && let Some(shortcut) = shortcut.as_gtk_shortcut(call)
             {
@@ -605,8 +597,8 @@ impl Shortcuts {
         let defaults = Self::new();
         defaults.set_default();
 
-        let default_shortcuts = &defaults.inner.borrow().action;
-        let actual_shortcuts = &self.inner.borrow().action;
+        let default_shortcuts = &defaults.actions.borrow();
+        let actual_shortcuts = &self.actions.borrow();
 
         // Save modified key bindings.
         actual_shortcuts
@@ -637,9 +629,8 @@ impl Shortcuts {
     }
 
     pub fn bookmark_shortcuts(&self, bookmark_name: &str) -> BTreeSet<Shortcut> {
-        self.inner
+        self.actions
             .borrow()
-            .action
             .iter()
             .filter(|((_, shortcut), call)| {
                 shortcut.key.is_upper()
