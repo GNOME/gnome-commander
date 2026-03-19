@@ -107,7 +107,7 @@ mod test {
 
     #[test]
     fn get_byte_does_read() {
-        let file_path = PathBuf::from("./TODO");
+        let file_path = PathBuf::from("./AUTHORS");
         let fops = FileInputSource::open(&file_path).unwrap();
 
         let end = fops.max_offset();
