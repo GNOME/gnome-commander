@@ -200,6 +200,9 @@ impl Shortcuts {
         self.register(Shortcut::sup(Key::_1), UserAction::ConnectionsChangeLeft);
         self.register(Shortcut::alt(Key::_2), UserAction::ConnectionsChangeRight);
         self.register(Shortcut::sup(Key::_2), UserAction::ConnectionsChangeRight);
+        self.register(Shortcut::ctrl(Key::X), UserAction::EditCapCut);
+        self.register(Shortcut::ctrl(Key::C), UserAction::EditCapCopy);
+        self.register(Shortcut::ctrl(Key::V), UserAction::EditCapPaste);
         self.register(Shortcut::ctrl_shift(Key::C), UserAction::EditCopyNames);
         self.register(Shortcut::ctrl(Key::F12), UserAction::EditFilter);
         self.register(Shortcut::sup(Key::F), UserAction::FileSearch);

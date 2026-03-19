@@ -397,18 +397,6 @@ pub mod imp {
             let mut shortcuts = extract_menu_shortcuts(menu.upcast_ref());
             shortcuts.extend([
                 gtk::Shortcut::new(
-                    gtk::ShortcutTrigger::parse_string("<Control>x"),
-                    Some(gtk::NamedAction::new(UserAction::EditCapCut.name())),
-                ),
-                gtk::Shortcut::new(
-                    gtk::ShortcutTrigger::parse_string("<Control>c"),
-                    Some(gtk::NamedAction::new(UserAction::EditCapCopy.name())),
-                ),
-                gtk::Shortcut::new(
-                    gtk::ShortcutTrigger::parse_string("<Control>v"),
-                    Some(gtk::NamedAction::new(UserAction::EditCapPaste.name())),
-                ),
-                gtk::Shortcut::new(
                     gtk::ShortcutTrigger::parse_string("<Control>s"),
                     Some(gtk::NamedAction::new(UserAction::ShowSlidePopup.name())),
                 ),
