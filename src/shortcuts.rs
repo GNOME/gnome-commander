@@ -313,19 +313,9 @@ impl Shortcuts {
         };
 
         if let Some(shortcut) = accelerator.as_gtk_shortcut(&call) {
-            let call_area = call.action.area();
-            self.controllers.borrow_mut().retain(|(area, controller)| {
-                if area != &call_area {
-                    return true;
-                }
-                if let Some(controller) = controller.upgrade() {
-                    controller.add_shortcut(shortcut.clone());
-                    true
-                } else {
-                    false
-                }
+            self.for_each_controller(Some(call.action.area()), |controller| {
+                controller.add_shortcut(shortcut.clone());
             });
-            self.top_level_controller.add_shortcut(shortcut)
         }
 
         self.actions
@@ -334,11 +324,12 @@ impl Shortcuts {
     }
 
     pub fn unregister(&self, accelerator: &Shortcut, call_area: Area) {
-        fn remove_from_controller(
-            controller: &gtk::ShortcutController,
-            accelerator: &Shortcut,
-            action: UserAction,
-        ) {
+        let key = (call_area, *accelerator);
+        let mut actions = self.actions.borrow_mut();
+        let Some(call) = actions.get(&key) else {
+            return;
+        };
+        self.for_each_controller(Some(call_area), |controller| {
             // In order to remove from a controller we need to find the exact shortcut instance.
             for shortcut in controller.iter::<glib::Object>().flatten() {
                 if let Some(shortcut) = shortcut.downcast_ref::<gtk::Shortcut>()
@@ -348,53 +339,23 @@ impl Shortcuts {
                     && trigger.modifiers() == accelerator.state
                     && let Some(named_action) =
                         shortcut.action().and_downcast_ref::<gtk::NamedAction>()
-                    && named_action.action_name() == action.name()
+                    && named_action.action_name() == call.action.name()
                 {
                     controller.remove_shortcut(shortcut);
                     break;
                 }
             }
-        }
-
-        let key = (call_area, *accelerator);
-        let mut actions = self.actions.borrow_mut();
-        let Some(call) = actions.get(&key) else {
-            return;
-        };
-        self.controllers.borrow_mut().retain(|(area, controller)| {
-            if area != &call_area {
-                return true;
-            }
-            if let Some(controller) = controller.upgrade() {
-                remove_from_controller(&controller, accelerator, call.action);
-                true
-            } else {
-                false
-            }
         });
-        remove_from_controller(&self.top_level_controller, accelerator, call.action);
 
         actions.remove(&key);
     }
 
     pub fn clear(&self) {
-        self.controllers.borrow_mut().retain(|(_, controller)| {
-            if let Some(controller) = controller.upgrade() {
-                while let Some(shortcut) = controller.item(0).and_downcast_ref::<gtk::Shortcut>() {
-                    controller.remove_shortcut(shortcut);
-                }
-                true
-            } else {
-                false
+        self.for_each_controller(None, |controller| {
+            while let Some(shortcut) = controller.item(0).and_downcast_ref::<gtk::Shortcut>() {
+                controller.remove_shortcut(shortcut);
             }
         });
-        while let Some(shortcut) = self
-            .top_level_controller
-            .item(0)
-            .and_downcast_ref::<gtk::Shortcut>()
-        {
-            self.top_level_controller.remove_shortcut(shortcut);
-        }
 
         self.actions.borrow_mut().clear();
     }
@@ -430,6 +391,21 @@ impl Shortcuts {
             .borrow_mut()
             .push((controller_area, controller.downgrade()));
         widget.as_ref().add_controller(controller);
+    }
+
+    fn for_each_controller(&self, filter_area: Option<Area>, f: impl Fn(&gtk::ShortcutController)) {
+        self.controllers.borrow_mut().retain(|(area, controller)| {
+            if filter_area.is_some_and(|filter_area| &filter_area != area) {
+                return true;
+            }
+            if let Some(controller) = controller.upgrade() {
+                f(&controller);
+                true
+            } else {
+                false
+            }
+        });
+        f(&self.top_level_controller);
     }
 
     pub fn load(&self, bindings: &[ShortcutVariant], legacy: glib::Variant) {
