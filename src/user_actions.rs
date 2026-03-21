@@ -142,16 +142,17 @@ async fn file_search(main_win: MainWindow) {
         let start_dir = file_list.directory();
         let dlg = main_win.get_or_create_dialog("search", || {
             let search_config = SearchConfig::get();
-            let options = GeneralOptions::new();
 
-            SearchDialog::new(
-                search_config,
-                &main_win.file_metadata_service(),
-                &main_win,
-                options.search_window_is_transient.get(),
-            )
+            SearchDialog::new(search_config, &main_win.file_metadata_service(), &main_win)
         });
-        dlg.show_and_set_focus(start_dir.as_ref());
+        let options = GeneralOptions::new();
+        dlg.show_and_set_focus(
+            start_dir.as_ref(),
+            options
+                .search_window_is_transient
+                .get()
+                .then_some(&main_win),
+        );
     } else {
         fn no_search_command_error() -> String {
             format!(
