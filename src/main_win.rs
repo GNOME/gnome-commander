@@ -27,7 +27,7 @@ use crate::{
     transfer::{copy_files, move_files},
     types::{ConfirmOverwriteMode, FileSelectorID},
     user_actions::UserAction,
-    utils::{ALT_SHIFT, CONTROL, CONTROL_ALT, ErrorMessage, MenuBuilderExt, NO_MOD, SHIFT, sleep},
+    utils::{ErrorMessage, MenuBuilderExt, sleep},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
@@ -99,6 +99,7 @@ pub mod imp {
         con_drop_image: gtk::Image,
         toolbar_sep: gtk::Separator,
         cmdline_paned: gtk::Paned,
+        #[property(get)]
         pub cmdline: CommandLine,
         buttonbar: gtk::Box,
         buttonbar_sep: gtk::Separator,
@@ -425,28 +426,6 @@ pub mod imp {
 
             self.file_selector_left.borrow().update_connections();
             self.file_selector_right.borrow().update_connections();
-
-            let key_capture_controller = gtk::EventControllerKey::builder()
-                .propagation_phase(gtk::PropagationPhase::Capture)
-                .build();
-            key_capture_controller.connect_key_pressed(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                #[upgrade_or]
-                glib::Propagation::Proceed,
-                move |_, key, _, state| imp.on_key_pressed_capture(key, state)
-            ));
-            mw.add_controller(key_capture_controller);
-
-            let key_controller = gtk::EventControllerKey::new();
-            key_controller.connect_key_pressed(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                #[upgrade_or]
-                glib::Propagation::Proceed,
-                move |_, key, _, state| imp.on_key_pressed(key, state)
-            ));
-            mw.add_controller(key_controller);
 
             self.file_selector_left
                 .borrow()
@@ -866,71 +845,6 @@ pub mod imp {
                 .unwrap_or_default();
             self.cmdline.set_directory(&directory);
         }
-
-        fn on_key_pressed_capture(
-            &self,
-            key: gdk::Key,
-            state: gdk::ModifierType,
-        ) -> glib::Propagation {
-            match (state, key) {
-                (CONTROL, gdk::Key::e | gdk::Key::E | gdk::Key::Down) => {
-                    if self.cmdline.is_visible() {
-                        self.cmdline.show_history();
-                    }
-                    glib::Propagation::Stop
-                }
-                (ALT_SHIFT, gdk::Key::f | gdk::Key::F) => {
-                    if let Some(remote_con) = ConnectionList::get()
-                        .iter()
-                        .find_map(|c| c.downcast::<ConnectionRemote>().ok())
-                    {
-                        self.obj()
-                            .file_selector(FileSelectorID::Active)
-                            .file_list()
-                            .set_connection(&remote_con, None);
-                    }
-                    glib::Propagation::Stop
-                }
-                _ => glib::Propagation::Proceed,
-            }
-        }
-
-        fn on_key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
-            match (state, key) {
-                (CONTROL_ALT, gdk::Key::c | gdk::Key::C) => {
-                    if self.cmdline.is_visible()
-                        && self.quick_search_shortcut.get() == QuickSearchShortcut::JustACharacter
-                    {
-                        self.cmdline.grab_focus();
-                    }
-                    glib::Propagation::Stop
-                }
-                (ALT_SHIFT, gdk::Key::f | gdk::Key::F) => {
-                    if let Some(remote_con) = ConnectionList::get()
-                        .iter()
-                        .find_map(|c| c.downcast::<ConnectionRemote>().ok())
-                    {
-                        self.obj()
-                            .file_selector(FileSelectorID::Active)
-                            .file_list()
-                            .set_connection(&remote_con, None);
-                    }
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::Tab | gdk::Key::ISO_Left_Tab) => {
-                    self.obj().switch_to_opposite();
-                    glib::Propagation::Stop
-                }
-                (SHIFT, gdk::Key::Tab | gdk::Key::ISO_Left_Tab) => glib::Propagation::Stop,
-                (NO_MOD, gdk::Key::Escape) => {
-                    if self.cmdline.is_visible() {
-                        self.cmdline.set_text("");
-                    }
-                    glib::Propagation::Stop
-                }
-                _ => glib::Propagation::Proceed,
-            }
-        }
     }
 
     fn toolbar_button(action: UserAction, icon: &str) -> gtk::Button {
@@ -1067,7 +981,7 @@ impl MainWindow {
         }
     }
 
-    fn switch_to_opposite(&self) {
+    pub fn switch_to_opposite(&self) {
         self.set_current_panel(1_u32.saturating_sub(self.current_panel()));
     }
 

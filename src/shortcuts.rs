@@ -92,6 +92,20 @@ impl Shortcut {
         )
     }
 
+    pub fn ctrl_alt(key: gdk::Key) -> Self {
+        Self::new(
+            key,
+            gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::ALT_MASK,
+        )
+    }
+
+    pub fn alt_shift(key: gdk::Key) -> Self {
+        Self::new(
+            key,
+            gdk::ModifierType::ALT_MASK | gdk::ModifierType::SHIFT_MASK,
+        )
+    }
+
     pub fn name(self) -> glib::GString {
         gtk::accelerator_name(self.key, self.state)
     }
@@ -198,6 +212,10 @@ impl Shortcuts {
             Shortcut::ctrl_shift(Key::F),
             UserAction::ConnectionsCloseCurrent,
         );
+        self.register(
+            Shortcut::alt_shift(Key::F),
+            UserAction::ConnectionsConnectFirst,
+        );
         self.register(Shortcut::alt(Key::_1), UserAction::ConnectionsChangeLeft);
         self.register(Shortcut::sup(Key::_1), UserAction::ConnectionsChangeLeft);
         self.register(Shortcut::alt(Key::_2), UserAction::ConnectionsChangeRight);
@@ -265,8 +283,11 @@ impl Shortcuts {
             UserAction::MarkRestoreSelection,
         );
         self.register(Shortcut::ctrl(Key::O), UserAction::OptionsEdit);
-        self.register(Shortcut::alt(Key::Down), UserAction::ViewDirHistory);
         self.register(Shortcut::alt(Key::KP_Down), UserAction::ViewDirHistory);
+        self.register(Shortcut::alt(Key::Down), UserAction::ViewDirHistory);
+        self.register(Shortcut::ctrl(Key::E), UserAction::ViewCmdlineHistory);
+        self.register(Shortcut::ctrl(Key::KP_Down), UserAction::ViewCmdlineHistory);
+        self.register(Shortcut::ctrl(Key::Down), UserAction::ViewCmdlineHistory);
         self.register(Shortcut::alt(Key::KP_Left), UserAction::ViewBack);
         self.register(Shortcut::alt(Key::Left), UserAction::ViewBack);
         self.register(Shortcut::alt(Key::KP_Right), UserAction::ViewForward);
@@ -317,10 +338,15 @@ impl Shortcuts {
         self.register(Shortcut::ctrl_shift(Key::Tab), UserAction::ViewPrevTab);
         self.register(Shortcut::ctrl(Key::ISO_Left_Tab), UserAction::ViewNextTab);
         self.register(Shortcut::ctrl(Key::Tab), UserAction::ViewNextTab);
-        self.register(Shortcut::ctrl(Key::Tab), UserAction::ViewNextTab);
+        self.register(Shortcut::key(Key::ISO_Left_Tab), UserAction::SwitchPanels);
+        self.register(Shortcut::key(Key::Tab), UserAction::SwitchPanels);
         self.register(Shortcut::ctrl(Key::U), UserAction::SwapPanes);
         self.register(Shortcut::ctrl(Key::S), UserAction::ShowSlidePopup);
         self.register(Shortcut::key(Key::F1), UserAction::HelpHelp);
+        self.register(Shortcut::ctrl_alt(Key::P), UserAction::GoToPanels);
+        self.register(Shortcut::ctrl_alt(Key::C), UserAction::GoToCmdline);
+        self.register(Shortcut::ctrl_alt(Key::T), UserAction::GoToTerminal);
+        self.register(Shortcut::key(Key::Escape), UserAction::ClearCmdline);
     }
 
     pub fn register(&self, accelerator: Shortcut, action: UserAction) {
@@ -494,7 +520,7 @@ impl Shortcuts {
             (Shortcut::ctrl(Key::N), UserAction::ConnectionsNew),
             (Shortcut::ctrl(Key::F), UserAction::ConnectionsOpen),
             (
-                Shortcut::ctrl_shift(Key::f),
+                Shortcut::ctrl_shift(Key::F),
                 UserAction::ConnectionsCloseCurrent,
             ),
             (Shortcut::alt(Key::_1), UserAction::ConnectionsChangeLeft),

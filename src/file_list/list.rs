@@ -1024,6 +1024,7 @@ mod imp {
 
         fn key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
             match (state, key) {
+                (SHIFT, gdk::Key::Tab | gdk::Key::ISO_Left_Tab) => glib::Propagation::Stop,
                 (SHIFT, gdk::Key::F10) => {
                     self.obj().show_file_popup(None);
                     glib::Propagation::Stop

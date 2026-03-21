@@ -518,6 +518,10 @@ impl CommandLine {
         }
     }
 
+    pub fn terminal(&self) -> &vte::Terminal {
+        &self.imp().terminal
+    }
+
     pub fn terminal_available(&self) -> bool {
         self.is_visible()
             && self

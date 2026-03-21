@@ -7,8 +7,11 @@ use crate::{
     advanced_rename::advanced_rename_dialog::advanced_rename_dialog_show,
     config::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_URL, PACKAGE_VERSION},
     connection::{
-        ConnectionExt, ConnectionInterface, bookmark::BookmarkGoToVariant, home::ConnectionHome,
-        list::ConnectionList, remote::ConnectionRemoteExt,
+        ConnectionExt, ConnectionInterface,
+        bookmark::BookmarkGoToVariant,
+        home::ConnectionHome,
+        list::ConnectionList,
+        remote::{ConnectionRemote, ConnectionRemoteExt},
     },
     dialogs::{
         chmod_dialog::show_chmod_dialog,
@@ -727,6 +730,13 @@ async fn view_dir_history(main_win: MainWindow) {
         .show_history();
 }
 
+async fn view_cmdline_history(main_win: MainWindow) {
+    let cmdline = main_win.cmdline();
+    if cmdline.is_visible() {
+        cmdline.show_history();
+    }
+}
+
 async fn view_up(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
@@ -940,6 +950,10 @@ async fn view_step_down(main_win: MainWindow) {
         .focus_next();
 }
 
+async fn switch_panels(main_win: MainWindow) {
+    main_win.switch_to_opposite();
+}
+
 async fn swap_panels(main_win: MainWindow) {
     main_win.swap_panels();
 }
@@ -1043,6 +1057,18 @@ async fn connections_new(main_win: MainWindow) {
         {
             eprintln!("Failed to save quick connect parameters: {error}");
         }
+    }
+}
+
+async fn connections_connect_first(main_win: MainWindow) {
+    if let Some(remote_con) = ConnectionList::get()
+        .iter()
+        .find_map(|c| c.downcast::<ConnectionRemote>().ok())
+    {
+        main_win
+            .file_selector(FileSelectorID::Active)
+            .file_list()
+            .set_connection(&remote_con, None);
     }
 }
 
@@ -1200,6 +1226,31 @@ Copyright \u{00A9} 2024 Andrey Kuteiko";
         .website_label("GNOME Commander Website")
         .build()
         .present();
+}
+
+async fn go_to_panels(main_win: MainWindow) {
+    main_win.file_selector(FileSelectorID::Active).grab_focus();
+}
+
+async fn go_to_cmdline(main_win: MainWindow) {
+    let cmdline = main_win.cmdline();
+    if cmdline.is_visible() {
+        cmdline.grab_focus();
+    }
+}
+
+async fn go_to_terminal(main_win: MainWindow) {
+    let cmdline = main_win.cmdline();
+    if cmdline.is_visible() {
+        cmdline.terminal().grab_focus();
+    }
+}
+
+async fn clear_cmdline(main_win: MainWindow) {
+    let cmdline = main_win.cmdline();
+    if cmdline.is_visible() {
+        cmdline.set_text("");
+    }
 }
 
 trait Activatable {
@@ -1696,8 +1747,14 @@ user_actions! {
 
     ViewDirHistory in Panel => (
         "view-dir-history" | "view.dir_history",
-        gettext("Show directory history"),
+        gettext("Show Directory History"),
         view_dir_history,
+    ),
+
+    ViewCmdlineHistory in MainWindow => (
+        "view-cmdline-hisotry",
+        gettext("Show Command Line History"),
+        view_cmdline_history,
     ),
 
     ViewHiddenFiles in MainWindow => (
@@ -1880,6 +1937,12 @@ user_actions! {
         view_step_down,
     ),
 
+    SwitchPanels in Panel => (
+        "switch-panels",
+        gettext("Switch to Opposite Panel"),
+        switch_panels,
+    ),
+
     SwapPanes in Panel => (
         "swap-panes",
         gettext("Swap panels"),
@@ -1951,25 +2014,33 @@ user_actions! {
 
     ConnectionsSetCurrent in Panel => (
         "connections-set-current" | "connections.set-uuid",
-        gettext("Set connection"),
+        gettext("Set Connection"),
         connections_set_current,
+    ),
+
+    // This should really be restricted to Panel but its default shortcut is Alt+Shift+F and this
+    // one will be handled by the menu unless we register this for the entire window.
+    ConnectionsConnectFirst in MainWindow => (
+        "connections-connect-first",
+        gettext("Connect to First Remote Server"),
+        connections_connect_first,
     ),
 
     ConnectionsChangeLeft in Panel => (
         "connections-change-left" | "connections.change_left",
-        gettext("Change left connection"),
+        gettext("Change Left Connection"),
         connections_change_left,
     ),
 
     ConnectionsChangeRight in Panel => (
         "connections-change-right" | "connections.change_right",
-        gettext("Change right connection"),
+        gettext("Change Right Connection"),
         connections_change_right,
     ),
 
     ConnectionsClose in Panel => (
         "connections-close" | "connections.close-uuid",
-        gettext("Close connection"),
+        gettext("Close Connection"),
         connections_close,
     ),
 
@@ -2021,5 +2092,30 @@ user_actions! {
         "help-about" | "help.about",
         gettext("_About"),
         help_about,
+    ),
+
+    // Other actions
+    GoToPanels in MainWindow => (
+        "go-to-panels",
+        gettext("Jump to Panels"),
+        go_to_panels,
+    ),
+
+    GoToCmdline in MainWindow => (
+        "go-to-cmdline",
+        gettext("Jump to Command Line"),
+        go_to_cmdline,
+    ),
+
+    GoToTerminal in MainWindow => (
+        "go-to-terminal",
+        gettext("Jump to Command Output"),
+        go_to_terminal,
+    ),
+
+    ClearCmdline in CommandLine => (
+        "clear-cmdline",
+        gettext("Clear Command Line"),
+        clear_cmdline,
     ),
 }
