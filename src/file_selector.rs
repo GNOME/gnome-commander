@@ -1298,7 +1298,7 @@ impl FileSelector {
         if self.is_realized() {
             self.imp().update_selected_files_label();
         }
-        if self.active() {
+        if file_list.focused_file().is_none() {
             file_list.select_row(0);
         }
     }
