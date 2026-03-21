@@ -17,6 +17,7 @@ src/application.rs
 src/app.rs
 src/chmod_component.rs
 src/chown_component.rs
+src/command_line.rs
 src/connection/device.rs
 src/connection/home.rs
 src/connection/remote.rs
@@ -80,8 +81,8 @@ src/open_connection.rs
 src/open_file.rs
 src/options/options.rs
 src/plugin_manager.rs
-src/search/generic.rs
-src/search/local.rs
+src/search/backend.rs
+src/search/content_search.rs
 src/search/search_dialog.rs
 src/search/selection_profile_component.rs
 src/select_directory_button.rs
