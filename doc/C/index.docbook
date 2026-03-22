@@ -6336,12 +6336,12 @@
         <row valign="top">
             <entry><para><keycombo><keycap>F1</keycap></keycombo></para></entry>
             <entry><para>Help</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>F2</keycap></keycombo></para></entry>
             <entry><para>Rename a file</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>F3</keycap></keycombo></para></entry>
@@ -6409,22 +6409,13 @@
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo></entry>
-            <entry><para>Search</para></entry>
-            <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><keycombo><keycap>ALT</keycap><keycap>F8</keycap></keycombo></entry>
-            <entry><para>Open the history list for the command line</para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
             <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><keycombo><keycap>ALT</keycap><keycap>DOWN</keycap></keycombo></entry>
+            <entry><para><keycombo><keycap>ALT</keycap><keycap>DOWN</keycap></keycombo></para>
+              <para><keycombo><keycap>ALT</keycap><keycap>KP_DOWN</keycap></keycombo></para></entry>
             <entry><para>Open the history list of visited directories</para></entry>
             <entry><para>yes</para></entry>
         </row>
@@ -6564,14 +6555,16 @@
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><keycombo><keycap>ALT</keycap><keycap>NUM +</keycap></keycombo></entry>
+            <entry><para><keycombo><keycap>ALT</keycap><keycap>NUM +</keycap></keycombo></para>
+              <para><keycombo><keycap>CTRL</keycap><keycap>A</keycap></keycombo></para></entry>
             <entry><para>Select all files with the same extension</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><keycombo><keycap>ALT</keycap><keycap>NUM -</keycap></keycombo></entry>
+            <entry><para><keycombo><keycap>ALT</keycap><keycap>NUM -</keycap></keycombo></para>
+              <para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>A</keycap></keycombo></para></entry>
             <entry><para>Unselect all files with the same extension</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -6580,9 +6573,10 @@
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>BACKSPACE</keycap></keycombo></para>
-                   <para><keycombo><keycap>CTRL</keycap><keycap>PageUp</keycap></keycombo></para></entry>
+              <para><keycombo><keycap>CTRL</keycap><keycap>PageUp</keycap></keycombo></para>
+              <para><keycombo><keycap>CTRL</keycap><keycap>KP_PageUp</keycap></keycombo></para></entry>
             <entry><para>Change to parent directory (cd ..)</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -6615,14 +6609,16 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para><keycombo><keycap>ALT</keycap><keycap>LEFT</keycap></keycombo></para></entry>
+            <entry><para><keycombo><keycap>ALT</keycap><keycap>LEFT</keycap></keycombo></para>
+              <para><keycombo><keycap>ALT</keycap><keycap>KP_LEFT</keycap></keycombo></para></entry>
             <entry><para>Go back to the last visited directory</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><para><keycombo><keycap>ALT</keycap><keycap>RIGHT</keycap></keycombo></para></entry>
+            <entry><para><keycombo><keycap>ALT</keycap><keycap>RIGHT</keycap></keycombo></para>
+              <para><keycombo><keycap>ALT</keycap><keycap>KP_RIGHT</keycap></keycombo></para></entry>
             <entry><para>Go forward to the next visited directory</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -6665,7 +6661,7 @@
         <row valign="top">
             <entry><para><keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo></para></entry>
             <entry><para>Show properties for the selected file</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -6684,9 +6680,10 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para><keycombo><keycap>DELETE</keycap></keycombo></para></entry>
+            <entry><para><keycombo><keycap>DELETE</keycap></keycombo></para>
+              <para><keycombo><keycap>KP_DELETE</keycap></keycombo></para></entry>
             <entry><para>Delete files</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -6706,17 +6703,17 @@
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>C</keycap></keycombo></entry>
             <entry><para>Copy files to clipboard (not a global one yet)</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>X</keycap></keycombo></entry>
             <entry><para>Cut files to clipboard (not a global one yet)</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>V</keycap></keycombo></entry>
             <entry><para>Paste from clipboard to current dir (not a global one yet)</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -6732,16 +6729,6 @@
             <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><keycombo><keycap>CTRL</keycap><keycap>A</keycap></keycombo></entry>
-            <entry><para>Select all files</para></entry>
-            <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>A</keycap></keycombo></entry>
-            <entry><para>Unselect all files</para></entry>
-            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>D</keycap></keycombo></entry>
@@ -6765,27 +6752,27 @@
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>U</keycap></keycombo></entry>
-            <entry><para>Switch between left and right file list</para></entry>
+            <entry><para>Swap left and right file list</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>CTRL</keycap><keycap>LEFT</keycap></keycombo></para></entry>
-            <entry><para>Copy the current working directory from the active left file list to the right one</para></entry>
+            <entry><para>Open the current directory of the left file list on the the right one</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>CTRL</keycap><keycap>RIGHT</keycap></keycombo></para></entry>
-            <entry><para>Copy the current working directory from the active right file list to the left one</para></entry>
+            <entry><para>Open the current directory of the right file list on the the left one</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>.</keycap></keycombo></entry>
-            <entry><para>Copy the current working directory from the inactive file list to the active one</para></entry>
+            <entry><para>Open the current directory of the inactive file list in the active one</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>.</keycap></keycombo></entry>
-            <entry><para>Copy the current working directory from the active file list to the inactive one</para></entry>
+            <entry><para>Open the current directory of the active file list in the inactive one</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
@@ -6796,7 +6783,7 @@
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>S</keycap></keycombo></entry>
             <entry><para>Open slide popup for setting the panel sizes</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo></entry>
@@ -6816,12 +6803,12 @@
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>TAB</keycap></keycombo></entry>
             <entry><para>Switch to the next tab</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>TAB</keycap></keycombo></entry>
             <entry><para>Switch to the previous tab</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -6841,10 +6828,11 @@
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</keycap></keycombo></entry>
             <entry><para>Toggle hidden files on/off</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></keycombo></entry>
+            <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></keycombo></para>
+              <para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>KP_=</keycap></keycombo></para></entry>
             <entry><para>Set both panels equal</para></entry>
             <entry><para>yes</para></entry>
         </row>
@@ -6863,6 +6851,11 @@
             <entry><para>Connect to remote server</para></entry>
             <entry><para>yes</para></entry>
         </row>
+          <row valign="top">
+            <entry><keycombo><keycap>ALT</keycap><keycap>SHIFT</keycap><keycap>F</keycap></keycombo></entry>
+            <entry><para>Connect to the first remote server in the remote server list</para></entry>
+            <entry><para>yes</para></entry>
+          </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F</keycap></keycombo></entry>
             <entry><para>Disconnect from remote server</para></entry>
@@ -6874,14 +6867,29 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo></entry>
-            <entry><para>Create MD5 (128-bit) checksum</para></entry>
-            <entry><para>yes</para></entry>
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
+          <entry><para><keycombo><keycap>CTRL</keycap><keycap>ALT</keycap><keycap>P</keycap></keycombo></para></entry>
+          <entry><para>Jump to panels</para></entry>
+          <entry><para></para></entry>
+        </row>
+        <row valign="top">
+          <entry><para><keycombo><keycap>CTRL</keycap><keycap>ALT</keycap><keycap>C</keycap></keycombo></para></entry>
+          <entry><para>Jump to the command line</para></entry>
+          <entry><para></para></entry>
+        </row>
+        <row valign="top">
+          <entry><para><keycombo><keycap>CTRL</keycap><keycap>ALT</keycap><keycap>T</keycap></keycombo></para></entry>
+          <entry><para>Jump to the terminal</para></entry>
+          <entry><para></para></entry>
+        </row>
+        <row valign="top">
+          <entry><para></para></entry>
+          <entry><para></para></entry>
+          <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>ALT</keycap><keycap>Letter(s)</keycap></keycombo></para>
@@ -6902,21 +6910,6 @@
         <row valign="top">
             <entry><para><keycombo><keycap>ESC</keycap></keycombo></para></entry>
             <entry><para>Clear the command line</para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><keycombo><keycap>CTRL</keycap><keycap>K</keycap></keycombo></entry>
-            <entry><para>Delete to the end of line</para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo></entry>
-            <entry><para>Delete the word to the left of the cursor</para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo></entry>
-            <entry><para>Delete the word to the right of the cursor</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
@@ -6941,13 +6934,13 @@
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>CTRL</keycap><keycap>DOWN</keycap></keycombo></para>
-                   <para><keycombo><keycap>CTRL</keycap><keycap>E</keycap></keycombo></para>
-                   <para><keycombo><keycap>ALT</keycap><keycap>F8</keycap></keycombo></para></entry>
+              <para><keycombo><keycap>CTRL</keycap><keycap>KP_DOWN</keycap></keycombo></para>
+              <para><keycombo><keycap>CTRL</keycap><keycap>E</keycap></keycombo></para></entry>
             <entry><para>A list with the latest command lines (history list) is opened. Use the <keycombo><keycap>UP</keycap></keycombo>
             and <keycombo><keycap>DOWN</keycap></keycombo> cursor keys to select an entry.
-            By pressing the <keycombo><keycap>LEFT</keycap></keycombo> or <keycombo><keycap>RIGHT</keycap></keycombo> key, you can edit the command line.
-            This automatically closes the list</para></entry>
-            <entry><para/></entry>
+            By pressing <keycombo><keycap>ENTER</keycap></keycombo>, the currently marked entry is copied into the command line.
+            This automatically closes the list.</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         </tbody>
       </tgroup>
