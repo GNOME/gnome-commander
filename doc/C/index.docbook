@@ -4722,6 +4722,17 @@
             </row>
             <row>
               <entry colname="colspec0" valign="top">
+                <para><guilabel>Search Window</guilabel></para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Search window is always on top</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>By activating this option the search window of &app; will always stay on top of the program window.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
                 <para><guilabel>Multiple instances</guilabel></para>
               </entry>
               <entry colname="colspec2" valign="top">
