@@ -142,7 +142,7 @@ impl GeneralTab {
             .build();
         quick_search.append(&quick_search_ctrl_alt);
         let quick_search_alt = gtk::CheckButton::builder()
-            .label(gettext("ALT+letters (menu access with F12)"))
+            .label(gettext("ALT+letters (menu access with F10)"))
             .group(&quick_search_ctrl_alt)
             .build();
         quick_search.append(&quick_search_alt);
