@@ -710,13 +710,11 @@ impl SearchDialog {
         config: Rc<SearchConfig>,
         file_metadata_service: &FileMetadataService,
         main_window: &MainWindow,
-        transient: bool,
     ) -> Self {
         let this: Self = glib::Object::builder()
             .property("file-metadata-service", file_metadata_service)
             .property("main-window", main_window)
             .build();
-        this.set_transient_for(if transient { Some(main_window) } else { None });
         this.imp().config.set(config.clone()).ok().unwrap();
         this.imp().update_profile_menu();
 
@@ -729,7 +727,12 @@ impl SearchDialog {
         this
     }
 
-    pub fn show_and_set_focus(&self, start_dir: Option<&Directory>) {
+    pub fn show_and_set_focus(
+        &self,
+        start_dir: Option<&Directory>,
+        transient_for: Option<&MainWindow>,
+    ) {
+        self.set_transient_for(transient_for);
         self.present();
         self.profile_component().grab_focus();
 

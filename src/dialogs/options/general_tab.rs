@@ -28,7 +28,7 @@ pub struct GeneralTab {
     quick_search_just_char: gtk::CheckButton,
     quick_search_exact_match_begin: gtk::CheckButton,
     quick_search_exact_match_end: gtk::CheckButton,
-    search_window_is_minimizable: gtk::CheckButton,
+    search_window_always_on_top: gtk::CheckButton,
     single_instance: gtk::CheckButton,
     save_dirs: gtk::CheckButton,
     save_tabs: gtk::CheckButton,
@@ -167,12 +167,10 @@ impl GeneralTab {
             .spacing(6)
             .build();
         vbox.append(&create_category(&gettext("Search Window"), &search_window));
-        let search_window_is_minimizable = gtk::CheckButton::builder()
-            .label(gettext(
-                "Search window is minimizable\n(Needs program restart if altered)",
-            ))
+        let search_window_always_on_top = gtk::CheckButton::builder()
+            .label(gettext("Search window is always on top"))
             .build();
-        search_window.append(&search_window_is_minimizable);
+        search_window.append(&search_window_always_on_top);
 
         let mutiple_instances = gtk::Box::builder()
             .orientation(gtk::Orientation::Vertical)
@@ -254,7 +252,7 @@ impl GeneralTab {
             quick_search_just_char,
             quick_search_exact_match_begin,
             quick_search_exact_match_end,
-            search_window_is_minimizable,
+            search_window_always_on_top,
             single_instance,
             save_dirs,
             save_tabs,
@@ -311,8 +309,8 @@ impl GeneralTab {
             .set_active(options.quick_search_exact_match_begin.get());
         self.quick_search_exact_match_end
             .set_active(options.quick_search_exact_match_end.get());
-        self.search_window_is_minimizable
-            .set_active(!options.search_window_is_transient.get());
+        self.search_window_always_on_top
+            .set_active(options.search_window_is_transient.get());
         self.single_instance
             .set_active(!options.allow_multiple_instances.get());
         self.save_dirs.set_active(options.save_dirs_on_exit.get());
@@ -369,7 +367,7 @@ impl GeneralTab {
             .set(self.quick_search_exact_match_end.is_active())?;
         options
             .search_window_is_transient
-            .set(!self.search_window_is_minimizable.is_active())?;
+            .set(self.search_window_always_on_top.is_active())?;
         options
             .allow_multiple_instances
             .set(!self.single_instance.is_active())?;
