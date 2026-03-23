@@ -21,7 +21,7 @@ use crate::{
     tags::FileMetadataService,
     types::MiddleMouseButtonMode,
     user_actions::UserAction,
-    utils::{ALT, CONTROL, CONTROL_SHIFT, NO_MOD, u32_enum},
+    utils::u32_enum,
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, graphene, pango, prelude::*, subclass::prelude::*};
@@ -341,28 +341,6 @@ mod imp {
             ));
             self.notebook.add_controller(notebook_click);
 
-            let key_capture_controller = gtk::EventControllerKey::builder()
-                .propagation_phase(gtk::PropagationPhase::Capture)
-                .build();
-            key_capture_controller.connect_key_pressed(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                #[upgrade_or]
-                glib::Propagation::Proceed,
-                move |_, key, _, state| imp.key_pressed_capture(key, state)
-            ));
-            this.add_controller(key_capture_controller);
-
-            let key_controller = gtk::EventControllerKey::new();
-            key_controller.connect_key_pressed(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                #[upgrade_or]
-                glib::Propagation::Proceed,
-                move |_, key, _, state| imp.key_pressed(key, state)
-            ));
-            this.add_controller(key_controller);
-
             let options = GeneralOptions::new();
             options
                 .always_show_tabs
@@ -506,53 +484,6 @@ mod imp {
         fn set_active(&self, active: bool) {
             self.active.set(active);
             self.directory_indicator.set_active(active);
-        }
-
-        fn key_pressed_capture(
-            &self,
-            key: gdk::Key,
-            state: gdk::ModifierType,
-        ) -> glib::Propagation {
-            match (state, key) {
-                (CONTROL, gdk::Key::Tab | gdk::Key::ISO_Left_Tab) => {
-                    self.obj().next_tab();
-                    glib::Propagation::Stop
-                }
-                (CONTROL_SHIFT, gdk::Key::Tab | gdk::Key::ISO_Left_Tab) => {
-                    self.obj().prev_tab();
-                    glib::Propagation::Stop
-                }
-                _ => glib::Propagation::Proceed,
-            }
-        }
-
-        fn key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
-            match (state, key) {
-                (ALT, gdk::Key::Left | gdk::Key::KP_Left) => {
-                    self.obj().back();
-                    glib::Propagation::Stop
-                }
-                (ALT, gdk::Key::Right | gdk::Key::KP_Right) => {
-                    self.obj().forward();
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::BackSpace) => {
-                    self.go_up();
-                    glib::Propagation::Stop
-                }
-                _ => glib::Propagation::Proceed,
-            }
-        }
-
-        fn go_up(&self) {
-            let fl = self.obj().file_list();
-            if self.obj().is_tab_locked(&fl) {
-                if let Some(parent) = fl.directory().and_then(|d| d.parent()) {
-                    self.obj().new_tab_with_dir(&parent, true, true);
-                }
-            } else {
-                fl.goto_directory(Path::new(".."));
-            }
         }
     }
 

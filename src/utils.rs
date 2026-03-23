@@ -479,8 +479,6 @@ pub trait MenuBuilderExt {
 
     fn action(self, action: UserAction) -> Self;
 
-    fn action_accel(self, action: UserAction, accel: &str) -> Self;
-
     fn section(self, section: gio::Menu) -> Self;
 
     fn submenu(self, label: impl Into<String>, section: gio::Menu) -> Self;
@@ -506,10 +504,6 @@ impl MenuBuilderExt for gio::Menu {
 
     fn action(self, action: UserAction) -> Self {
         self.item(action.menu_description(), action.name())
-    }
-
-    fn action_accel(self, action: UserAction, accel: &str) -> Self {
-        self.item_accel(action.menu_description(), action.name(), accel)
     }
 
     fn section(self, section: gio::Menu) -> Self {

@@ -7,8 +7,11 @@ use crate::{
     advanced_rename::advanced_rename_dialog::advanced_rename_dialog_show,
     config::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_URL, PACKAGE_VERSION},
     connection::{
-        ConnectionExt, ConnectionInterface, bookmark::BookmarkGoToVariant, home::ConnectionHome,
-        list::ConnectionList, remote::ConnectionRemoteExt,
+        ConnectionExt, ConnectionInterface,
+        bookmark::BookmarkGoToVariant,
+        home::ConnectionHome,
+        list::ConnectionList,
+        remote::{ConnectionRemote, ConnectionRemoteExt},
     },
     dialogs::{
         chmod_dialog::show_chmod_dialog,
@@ -35,6 +38,7 @@ use crate::{
     options::{ConfirmOptions, GeneralOptions, NetworkOptions, ProgramsOptions, SearchConfig},
     plugin_manager::{PluginActionVariant, show_plugin_manager},
     search::search_dialog::SearchDialog,
+    shortcuts::Area,
     spawn::{SpawnError, spawn_async, spawn_async_command},
     types::FileSelectorID,
     utils::{ErrorMessage, display_help, get_modifiers_state},
@@ -568,13 +572,6 @@ async fn mark_unselect_all_with_same_extension(main_win: MainWindow) {
         .toggle_files_with_same_extension(false);
 }
 
-async fn mark_restore_selection(main_win: MainWindow) {
-    main_win
-        .file_selector(FileSelectorID::Active)
-        .file_list()
-        .restore_selection();
-}
-
 async fn mark_compare_directories(main_win: MainWindow) {
     let fl1 = main_win.file_selector(FileSelectorID::Active).file_list();
     let fl2 = main_win.file_selector(FileSelectorID::Inactive).file_list();
@@ -724,6 +721,13 @@ async fn view_dir_history(main_win: MainWindow) {
     main_win
         .file_selector(FileSelectorID::Active)
         .show_history();
+}
+
+async fn view_cmdline_history(main_win: MainWindow) {
+    let cmdline = main_win.cmdline();
+    if cmdline.is_visible() {
+        cmdline.show_history();
+    }
 }
 
 async fn view_up(main_win: MainWindow) {
@@ -939,6 +943,10 @@ async fn view_step_down(main_win: MainWindow) {
         .focus_next();
 }
 
+async fn switch_panels(main_win: MainWindow) {
+    main_win.switch_to_opposite();
+}
+
 async fn swap_panels(main_win: MainWindow) {
     main_win.swap_panels();
 }
@@ -1042,6 +1050,18 @@ async fn connections_new(main_win: MainWindow) {
         {
             eprintln!("Failed to save quick connect parameters: {error}");
         }
+    }
+}
+
+async fn connections_connect_first(main_win: MainWindow) {
+    if let Some(remote_con) = ConnectionList::get()
+        .iter()
+        .find_map(|c| c.downcast::<ConnectionRemote>().ok())
+    {
+        main_win
+            .file_selector(FileSelectorID::Active)
+            .file_list()
+            .set_connection(&remote_con, None);
     }
 }
 
@@ -1203,6 +1223,31 @@ Copyright \u{00A9} 2026 Wladimir Palant";
         .present();
 }
 
+async fn go_to_panels(main_win: MainWindow) {
+    main_win.file_selector(FileSelectorID::Active).grab_focus();
+}
+
+async fn go_to_cmdline(main_win: MainWindow) {
+    let cmdline = main_win.cmdline();
+    if cmdline.is_visible() {
+        cmdline.grab_focus();
+    }
+}
+
+async fn go_to_terminal(main_win: MainWindow) {
+    let cmdline = main_win.cmdline();
+    if cmdline.is_visible() {
+        cmdline.terminal().grab_focus();
+    }
+}
+
+async fn clear_cmdline(main_win: MainWindow) {
+    let cmdline = main_win.cmdline();
+    if cmdline.is_visible() {
+        cmdline.set_text("");
+    }
+}
+
 trait Activatable {
     fn activate(self, action: &UserAction, mw: MainWindow, parameter: Option<&glib::Variant>);
     fn parameter_type(self) -> Option<Cow<'static, glib::VariantTy>>;
@@ -1315,7 +1360,7 @@ macro_rules! user_actions {
     (
         $(
             $(#[$meta:meta])*
-            $id:ident($name:literal $(| $($legacy_name:literal)|+)?, $description:expr, $handler:expr$(,)?),
+            $id:ident in $area:ident => ($name:literal $(| $($legacy_name:literal)|+)?, $description:expr, $handler:expr$(,)?),
         )+
     ) => {
         #[derive(Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
@@ -1373,6 +1418,12 @@ macro_rules! user_actions {
                     })*
                 }
             }
+
+            pub fn area(&self) -> Area {
+                match self {
+                    $(Self::$id => Area::$area,)*
+                }
+            }
         }
 
         impl TryFrom<usize> for UserAction {
@@ -1403,618 +1454,657 @@ impl UserAction {
 user_actions! {
     // File actions
     #[default]
-    FileCopy(
+    FileCopy in Panel => (
         "file-copy" | "file.copy",
         gettext("Copy Files"),
         file_copy,
     ),
 
-    FileCopyAs(
+    FileCopyAs in Panel => (
         "file-copy-as" | "file.copy_as",
         gettext("Copy files with rename"),
         file_copy_as,
     ),
 
-    FileMove(
+    FileMove in Panel => (
         "file-move" | "file.move",
         gettext("Move Files"),
         file_move,
     ),
 
-    FileDelete(
+    FileDelete in Panel => (
         "file-delete" | "file.delete",
         gettext("_Delete"),
         file_delete,
     ),
 
-    FileView(
+    FileView in MainWindow => (
         "file-view" | "file.view",
         gettext("View File"),
         file_view,
     ),
 
-    FileInternalView(
+    FileInternalView in MainWindow => (
         "file-internal-view" | "file.internal_view",
         gettext("View with internal viewer"),
         file_internal_view,
     ),
 
-    FileExternalView(
+    FileExternalView in MainWindow => (
         "file-external-view" | "file.external_view",
         gettext("View with external viewer"),
         file_external_view,
     ),
 
-    FileEdit(
+    FileEdit in MainWindow => (
         "file-edit" | "file.edit",
         gettext("Edit (SHIFT for new document)"),
         file_edit,
     ),
 
-    FileEditNewDoc(
+    FileEditNewDoc in MainWindow => (
         "file-edit-new-doc" | "file.edit_new_doc",
         gettext("New _Text File"),
         file_edit_new_doc,
     ),
 
-    FileSearch(
+    FileSearch in MainWindow => (
         "file-search" | "file.search",
         gettext("_Search…"),
         file_search,
     ),
 
-    FileQuickSearch(
+    FileQuickSearch in Panel => (
         "file-quick-search" | "file.quick_search",
         gettext("_Quick Search…"),
         file_quick_search,
     ),
 
-    FileChmod(
+    FileChmod in Panel => (
         "file-chmod" | "file.chmod",
         gettext("Change Per_missions"),
         file_chmod,
     ),
 
-    FileChown(
+    FileChown in Panel => (
         "file-chown" | "file.chown",
         gettext("Change _Owner/Group"),
         file_chown,
     ),
 
-    FileMkdir(
+    FileMkdir in Panel => (
         "file-mkdir" | "file.mkdir",
         gettext("New _Directory"),
         file_mkdir,
     ),
 
-    FileProperties(
+    FileProperties in Panel => (
         "file-properties" | "file.properties",
         gettext("_Properties…"),
         file_properties,
     ),
 
-    FileDiff(
+    FileDiff in Panel => (
         "file-diff" | "file.diff",
         gettext("_Diff"),
         file_diff,
     ),
 
-    FileSyncDirs(
+    FileSyncDirs in Panel => (
         "file-sync-dirs" | "file.synchronize_directories",
         gettext("S_ynchronize Directories"),
         file_sync_dirs,
     ),
 
-    FileRename(
+    FileRename in Panel => (
         "file-rename" | "file.rename",
         gettext("_Rename"),
         file_rename,
     ),
 
-    FileCreateSymlink(
+    FileCreateSymlink in Panel => (
         "file-create-symlink" | "file.create_symlink",
         gettext("Create _Symbolic Link"),
         file_create_symlink,
     ),
 
-    FileAdvrename(
+    FileAdvrename in Panel => (
         "file-advrename" | "file.advrename",
         gettext("Advanced _Rename Tool"),
         file_advrename,
     ),
 
-    FileSendto(
+    FileSendto in Panel => (
         "file-sendto" | "file.sendto",
         gettext("_Send Files"),
         file_sendto,
     ),
 
-    FileExit(
+    FileExit in MainWindow => (
         "file-exit" | "file.exit",
         gettext("Quit"),
         file_exit,
     ),
 
     // Mark actions
-    MarkToggle(
+    MarkToggle in Panel => (
         "mark-toggle" | "mark.toggle",
         gettext("Toggle selection"),
         mark_toggle,
     ),
 
-    MarkToggleAndStep(
+    MarkToggleAndStep in Panel => (
         "mark-toggle-and-step" | "mark.toggle_and_step",
         gettext("Toggle selection and move cursor downward"),
         mark_toggle_and_step,
     ),
 
-    MarkSelectAll(
+    MarkSelectAll in Panel => (
         "mark-select-all" | "mark.select_all",
         gettext("_Select All"),
         mark_select_all,
     ),
 
-    MarkUnselectAll(
+    MarkUnselectAll in Panel => (
         "mark-unselect-all" | "mark.unselect_all",
         gettext("_Unselect All"),
         mark_unselect_all,
     ),
 
-    MarkSelectAllFiles(
+    MarkSelectAllFiles in Panel => (
         "mark-select-all-files" | "mark.select_all_files",
         gettext("Select all _Files"),
         mark_select_all_files,
     ),
 
-    MarkUnselectAllFiles(
+    MarkUnselectAllFiles in Panel => (
         "mark-unselect-all-files" | "mark.unselect_all_files",
         gettext("Unselect all Fi_les"),
         mark_unselect_all_files,
     ),
 
-    MarkSelectWithPattern(
+    MarkSelectWithPattern in Panel => (
         "mark-select-with-pattern" | "mark.select_with_pattern",
         gettext("Select with _Pattern"),
         mark_select_with_pattern,
     ),
 
-    MarkUnselectWithPattern(
+    MarkUnselectWithPattern in Panel => (
         "mark-unselect-with-pattern" | "mark.unselect_with_pattern",
         gettext("Unselect with P_attern"),
         mark_unselect_with_pattern,
     ),
 
-    MarkInvertSelection(
+    MarkInvertSelection in Panel => (
         "mark-invert-selection" | "mark.invert",
         gettext("_Invert Selection"),
         mark_invert_selection,
     ),
 
-    MarkSelectAllWithSameExtension(
+    MarkSelectAllWithSameExtension in Panel => (
         "mark-select-all-with-same-extension" | "mark.select_all_with_same_extension",
         gettext("Select with same _Extension"),
         mark_select_all_with_same_extension,
     ),
 
-    MarkUnselectAllWithSameExtension(
+    MarkUnselectAllWithSameExtension in Panel => (
         "mark-unselect-all-with-same-extension" | "mark.unselect_all_with_same_extension",
         gettext("Unselect with same E_xtension"),
         mark_unselect_all_with_same_extension,
     ),
 
-    MarkRestoreSelection(
-        "mark-restore-selection" | "mark.restore_selection",
-        gettext("_Restore Selection"),
-        mark_restore_selection,
-    ),
-
-    MarkCompareDirectories(
+    MarkCompareDirectories in Panel => (
         "mark-compare-directories" | "mark.compare_directories",
         gettext("_Compare Directories"),
         mark_compare_directories,
     ),
 
     // Edit actions
-    EditCapCut(
+    EditCapCut in Panel => (
         "edit-cap-cut" | "edit.cut",
         gettext("Cu_t"),
         edit_cap_cut,
     ),
 
-    EditCapCopy(
+    EditCapCopy in Panel => (
         "edit-cap-copy" | "edit.copy",
         gettext("_Copy"),
         edit_cap_copy,
     ),
 
-    EditCapPaste(
+    EditCapPaste in Panel => (
         "edit-cap-paste" | "edit.paste",
         gettext("_Paste"),
         edit_cap_paste,
     ),
 
-    EditFilter(
+    EditFilter in Panel => (
         "edit-filter" | "edit.filter",
         gettext("_Enable Filter…"),
         edit_filter,
     ),
 
-    EditCopyNames(
+    EditCopyNames in Panel => (
         "edit-copy-fnames" | "edit.copy_filenames",
         gettext("Copy _File Names (SHIFT for full paths, ALT for URIs)"),
         edit_copy_fnames,
     ),
 
     // Command actions
-    CommandExecute(
+    CommandExecute in MainWindow => (
         "command-execute" | "command.execute",
         gettext("Execute command"),
         command_execute,
     ),
 
-    CommandOpenTerminal(
+    CommandOpenTerminal in MainWindow => (
         "command-open-terminal" | "command.open_terminal",
         gettext("Open _Terminal"),
         command_open_terminal,
     ),
 
     // View actions
-    ViewConbuttons(
+    ViewConbuttons in MainWindow => (
         "view-conbuttons" | "view.conbuttons",
         gettext("Show Device Buttons"),
         "connection-buttons-visible",
     ),
 
-    ViewDevlist(
+    ViewDevlist in MainWindow => (
         "view-devlist" | "view.devlist",
         gettext("Show Device List"),
         "connection-list-visible",
     ),
 
-    ViewToolbar(
+    ViewToolbar in MainWindow => (
         "view-toolbar" | "view.toolbar",
         gettext("Show Toolbar"),
         "toolbar-visible",
     ),
 
-    ViewButtonbar(
+    ViewButtonbar in MainWindow => (
         "view-buttonbar" | "view.buttonbar",
         gettext("Show Buttonbar"),
         "buttonbar-visible",
     ),
 
-    ViewCmdline(
+    ViewCmdline in MainWindow => (
         "view-cmdline" | "view.cmdline",
         gettext("Show Command Line"),
         "command-line-visible",
     ),
 
-    ViewDirHistory(
+    ViewDirHistory in Panel => (
         "view-dir-history" | "view.dir_history",
-        gettext("Show directory history"),
+        gettext("Show Directory History"),
         view_dir_history,
     ),
 
-    ViewHiddenFiles(
+    ViewCmdlineHistory in MainWindow => (
+        "view-cmdline-hisotry",
+        gettext("Show Command Line History"),
+        view_cmdline_history,
+    ),
+
+    ViewHiddenFiles in MainWindow => (
         "view-hidden-files" | "view.hidden_files",
         gettext("Show Hidden Files"),
         "view-hidden-files",
     ),
 
-    ViewBackupFiles(
+    ViewBackupFiles in MainWindow => (
         "view-backup-files" | "view.backup_files",
         gettext("Show Backup Files"),
         "view-backup-files",
     ),
 
-    ViewUp(
+    ViewUp in Panel => (
         "view-up" | "view.up",
         gettext("Up one directory"),
         view_up,
     ),
 
-    ViewFirst(
+    ViewFirst in Panel => (
         "view-first" | "view.first",
         gettext("Back to oldest"),
         view_first,
     ),
 
-    ViewBack(
+    ViewBack in Panel => (
         "view-back" | "view.back",
         gettext("_Back"),
         view_back,
     ),
 
-    ViewForward(
+    ViewForward in Panel => (
         "view-forward" | "view.forward",
         gettext("_Forward"),
         view_forward,
     ),
 
-    ViewLast(
+    ViewLast in Panel => (
         "view-last" | "view.last",
         gettext("Forward to latest"),
         view_last,
     ),
 
-    ViewRefresh(
+    ViewRefresh in Panel => (
         "view-refresh" | "view.refresh",
         gettext("_Refresh"),
         view_refresh,
     ),
 
-    ViewEqualPanes(
+    ViewEqualPanes in Panel => (
         "view-equal-panes" | "view.equal_panes",
         gettext("_Equal Panel Size"),
         view_equal_panes,
     ),
 
-    ViewMaximizePane(
+    ViewMaximizePane in Panel => (
         "view-maximize-pane" | "view.maximize_pane",
         gettext("Maximize Panel Size"),
         view_maximize_pane,
     ),
 
-    ViewInLeftPane(
+    ViewInLeftPane in Panel => (
         "view-in-left-pane" | "view.in_left_pane",
         gettext("Open directory in the left panel"),
         view_in_left_pane,
     ),
 
-    ViewInRightPane(
+    ViewInRightPane in Panel => (
         "view-in-right-pane" | "view.in_right_pane",
         gettext("Open directory in the right panel"),
         view_in_right_pane,
     ),
 
-    ViewInActivePane(
+    ViewInActivePane in Panel => (
         "view-in-active-pane" | "view.in_active_pane",
         gettext("Open directory in the active panel"),
         view_in_active_pane,
     ),
 
-    ViewInInactivePane(
+    ViewInInactivePane in Panel => (
         "view-in-inactive-pane" | "view.in_inactive_pane",
         gettext("Open directory in the inactive panel"),
         view_in_inactive_pane,
     ),
 
-    ViewDirectory(
+    ViewDirectory in Panel => (
         "view-directory" | "view.directory",
         gettext("Change directory"),
         view_directory,
     ),
 
-    ViewHome(
+    ViewHome in Panel => (
         "view-home" | "view.home",
         gettext("Home directory"),
         view_home,
     ),
 
-    ViewRoot(
+    ViewRoot in Panel => (
         "view-root" | "view.root",
         gettext("Root directory"),
         view_root,
     ),
 
-    ViewNewTab(
+    ViewNewTab in Panel => (
         "view-new-tab" | "view.new_tab",
         gettext("Open in New _Tab"),
         view_new_tab,
     ),
 
-    ViewCloseTab(
+    ViewCloseTab in Panel => (
         "view-close-tab" | "view.close_tab",
         gettext("_Close Tab"),
         view_close_tab,
     ),
 
-    ViewCloseAllTabs(
+    ViewCloseAllTabs in Panel => (
         "view-close-all-tabs" | "view.close_all_tabs",
         gettext("Close _All Tabs"),
         view_close_all_tabs,
     ),
 
-    ViewCloseDuplicateTabs(
+    ViewCloseDuplicateTabs in Panel => (
         "view-close-duplicate-tabs" | "view.close_duplicate_tabs",
         gettext("Close duplicate tabs"),
         view_close_duplicate_tabs,
     ),
 
-    ViewPrevTab(
+    ViewPrevTab in Panel => (
         "view-prev-tab" | "view.prev_tab",
         gettext("Previous tab"),
         view_prev_tab,
     ),
 
-    ViewNextTab(
+    ViewNextTab in Panel => (
         "view-next-tab" | "view.next_tab",
         gettext("Next tab"),
         view_next_tab,
     ),
 
-    ViewInNewTab(
+    ViewInNewTab in Panel => (
         "view-in-new-tab" | "view.in_new_tab",
         gettext("Open directory in the new tab"),
         view_in_new_tab,
     ),
 
-    ViewInInactiveTab(
+    ViewInInactiveTab in Panel => (
         "view-in-inactive-tab" | "view.in_inactive_tab",
         gettext("Open directory in the new tab (inactive panel)"),
         view_in_inactive_tab,
     ),
 
-    ViewToggleTabLock(
+    ViewToggleTabLock in Panel => (
         "view-toggle-tab-lock" | "view.toggle_lock_tab",
         gettext("Lock/unlock tab"),
         view_toggle_tab_lock,
     ),
 
-    ViewHorizontalOrientation(
+    ViewHorizontalOrientation in Panel => (
         "view-horizontal-orientation" | "view.horizontal-orientation",
         gettext("Horizontal Orientation"),
         "horizontal-orientation",
     ),
 
-    ViewMainMenu(
+    ViewMainMenu in MainWindow => (
         "view-main-menu" | "view.main_menu",
         gettext("Display main menu"),
         "menu-visible",
     ),
 
-    ViewStepUp(
+    ViewStepUp in Panel => (
         "view-step-up" | "view.step_up",
         gettext("Move cursor one step up"),
         view_step_up,
     ),
 
-    ViewStepDown(
+    ViewStepDown in Panel => (
         "view-step-down" | "view.step_down",
         gettext("Move cursor one step down"),
         view_step_down,
     ),
 
-    SwapPanes(
+    SwitchPanels in Panel => (
+        "switch-panels",
+        gettext("Switch to Opposite Panel"),
+        switch_panels,
+    ),
+
+    SwapPanes in Panel => (
         "swap-panes",
         gettext("Swap panels"),
         swap_panels,
     ),
 
-    ShowSlidePopup(
+    ShowSlidePopup in Panel => (
         "show-slide-popup",
         gettext("Show panel size selector"),
         show_slide_popup,
     ),
 
-    ViewSlide(
+    ViewSlide in Panel => (
         "view-slide",
         String::new(), // invisible to users
         view_slide,
     ),
 
     // Bookmark actions
-    BookmarksAddCurrent(
+    BookmarksAddCurrent in Panel => (
         "bookmarks-add-current" | "bookmarks.add_current",
         gettext("_Bookmark this Directory…"),
         bookmarks_add_current,
     ),
 
-    BookmarksEdit(
+    BookmarksEdit in Panel => (
         "bookmarks-edit" | "bookmarks.edit",
         gettext("_Manage Bookmarks…"),
         bookmarks_edit,
     ),
 
-    BookmarksGoto(
+    BookmarksGoto in Panel => (
         "bookmarks-goto" | "bookmarks.goto",
         gettext("Go to bookmarked location"),
         bookmarks_goto,
     ),
 
-    BookmarksView(
+    BookmarksView in Panel => (
         "bookmarks-view" | "bookmarks.view",
         gettext("Show bookmarks of current device"),
         bookmarks_view,
     ),
 
     // Option actions
-    OptionsEdit(
+    OptionsEdit in MainWindow => (
         "options-edit" | "options.edit",
         gettext("_Options…"),
         options_edit,
     ),
 
-    OptionsEditShortcuts(
+    OptionsEditShortcuts in MainWindow => (
         "options-edit-shortcuts" | "options.shortcuts",
         gettext("_Keyboard Shortcuts…"),
         options_edit_shortcuts,
     ),
 
     // Connections actions
-    ConnectionsOpen(
+    ConnectionsOpen in Panel => (
         "connections-open" | "connections.open",
         gettext("_Remote Server…"),
         connections_open,
     ),
 
-    ConnectionsNew(
+    ConnectionsNew in Panel => (
         "connections-new" | "connections.new",
         gettext("New Connection…"),
         connections_new,
     ),
 
-    ConnectionsSetCurrent(
+    ConnectionsSetCurrent in Panel => (
         "connections-set-current" | "connections.set-uuid",
-        gettext("Set connection"),
+        gettext("Set Connection"),
         connections_set_current,
     ),
 
-    ConnectionsChangeLeft(
+    // This should really be restricted to Panel but its default shortcut is Alt+Shift+F and this
+    // one will be handled by the menu unless we register this for the entire window.
+    ConnectionsConnectFirst in MainWindow => (
+        "connections-connect-first",
+        gettext("Connect to First Remote Server"),
+        connections_connect_first,
+    ),
+
+    ConnectionsChangeLeft in Panel => (
         "connections-change-left" | "connections.change_left",
-        gettext("Change left connection"),
+        gettext("Change Left Connection"),
         connections_change_left,
     ),
 
-    ConnectionsChangeRight(
+    ConnectionsChangeRight in Panel => (
         "connections-change-right" | "connections.change_right",
-        gettext("Change right connection"),
+        gettext("Change Right Connection"),
         connections_change_right,
     ),
 
-    ConnectionsClose(
+    ConnectionsClose in Panel => (
         "connections-close" | "connections.close-uuid",
-        gettext("Close connection"),
+        gettext("Close Connection"),
         connections_close,
     ),
 
-    ConnectionsCloseCurrent(
+    ConnectionsCloseCurrent in Panel => (
         "connections-close-current" | "connections.close",
         gettext("Drop Connection"),
         connections_close_current,
     ),
 
     // Plugin actions
-    PluginsConfigure(
+    PluginsConfigure in MainWindow => (
         "plugins-configure" | "plugins.configure",
         gettext("_Configure Plugins…"),
         plugins_configure,
     ),
 
-    PluginAction(
+    PluginAction in MainWindow => (
         "plugin-action" | "plugin.action",
         String::new(), // invisible to users
         plugin_action,
     ),
 
     // Help actions
-    HelpHelp(
+    HelpHelp in MainWindow => (
         "help-help" | "help.help",
         gettext("_Documentation"),
         help_help,
     ),
 
-    HelpKeyboard(
+    HelpKeyboard in MainWindow => (
         "help-keyboard" | "help.keyboard",
         gettext("_Keyboard Shortcuts"),
         help_keyboard,
     ),
 
-    HelpWeb(
+    HelpWeb in MainWindow => (
         "help-web" | "help.web",
         gettext("GNOME Commander on the _Web"),
         help_web,
     ),
 
-    HelpProblem(
+    HelpProblem in MainWindow => (
         "help-problem" | "help.problem",
         gettext("Report a _Problem"),
         help_problem,
     ),
 
-    HelpAbout(
+    HelpAbout in MainWindow => (
         "help-about" | "help.about",
         gettext("_About"),
         help_about,
+    ),
+
+    // Other actions
+    GoToPanels in MainWindow => (
+        "go-to-panels",
+        gettext("Jump to Panels"),
+        go_to_panels,
+    ),
+
+    GoToCmdline in MainWindow => (
+        "go-to-cmdline",
+        gettext("Jump to Command Line"),
+        go_to_cmdline,
+    ),
+
+    GoToTerminal in MainWindow => (
+        "go-to-terminal",
+        gettext("Jump to Command Output"),
+        go_to_terminal,
+    ),
+
+    ClearCmdline in CommandLine => (
+        "clear-cmdline",
+        gettext("Clear Command Line"),
+        clear_cmdline,
     ),
 }

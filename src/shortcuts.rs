@@ -3,13 +3,40 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::{debug::debug, main_win::MainWindow, user_actions::UserAction};
+use crate::user_actions::UserAction;
 use gtk::{gdk, prelude::*};
 use std::{
     cell::RefCell,
     collections::{BTreeMap, BTreeSet},
-    rc::Rc,
 };
+
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
+pub enum Area {
+    Panel,
+    CommandLine,
+    Terminal,
+    MainWindow,
+}
+
+impl Area {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Panel => "panel",
+            Self::CommandLine => "command-line",
+            Self::Terminal => "terminal",
+            Self::MainWindow => "main-window",
+        }
+    }
+
+    pub fn from_str(value: &str) -> Self {
+        match value {
+            "panel" => Self::Panel,
+            "command-line" => Self::CommandLine,
+            "terminal" => Self::Terminal,
+            _ => Self::MainWindow,
+        }
+    }
+}
 
 #[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
 pub struct Shortcut {
@@ -65,6 +92,20 @@ impl Shortcut {
         )
     }
 
+    pub fn ctrl_alt(key: gdk::Key) -> Self {
+        Self::new(
+            key,
+            gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::ALT_MASK,
+        )
+    }
+
+    pub fn alt_shift(key: gdk::Key) -> Self {
+        Self::new(
+            key,
+            gdk::ModifierType::ALT_MASK | gdk::ModifierType::SHIFT_MASK,
+        )
+    }
+
     pub fn name(self) -> glib::GString {
         gtk::accelerator_name(self.key, self.state)
     }
@@ -85,6 +126,28 @@ impl Shortcut {
                     | gdk::Key::F8
                     | gdk::Key::F9
             )
+    }
+
+    pub fn as_gtk_shortcut(&self, call: &Call) -> Option<gtk::Shortcut> {
+        let mut builder = gtk::Shortcut::builder()
+            .trigger(&gtk::KeyvalTrigger::new(self.key, self.state))
+            .action(&gtk::NamedAction::new(call.action.name()));
+        if let Some(parameter_type) = call.action.parameter_type() {
+            match parameter_type {
+                // TODO: This should work for types other than strings
+                value if value == String::static_variant_type() => {
+                    builder = builder.arguments(&call.action_data.to_variant());
+                }
+                _ => {
+                    eprintln!(
+                        "<KeyBindings> invalid key: cannot process parameter for action {}, non-string type required.",
+                        call.action.name()
+                    );
+                    return None;
+                }
+            }
+        }
+        Some(builder.build())
     }
 }
 
@@ -108,18 +171,23 @@ pub struct Call {
 
 #[derive(Clone)]
 pub struct Shortcuts {
-    inner: Rc<RefCell<ShortcutsInner>>,
-}
-
-#[derive(Default)]
-struct ShortcutsInner {
-    action: BTreeMap<Shortcut, Call>,
+    actions: RefCell<BTreeMap<(Area, Shortcut), Call>>,
+    controllers: RefCell<Vec<(Area, glib::WeakRef<gtk::ShortcutController>)>>,
+    top_level_controller: gtk::ShortcutController,
 }
 
 impl Shortcuts {
     pub fn new() -> Self {
+        // This is a hack: this controller doesn't do anything. But we add all shortcuts to it, so
+        // that these will be displayed in the menu. Otherwise the menu will only show shortcuts
+        // registered for the entire window, not the ones handled by specific widgets.
+        let top_level_controller = gtk::ShortcutController::new();
+        top_level_controller.set_propagation_phase(gtk::PropagationPhase::None);
+
         Self {
-            inner: Default::default(),
+            actions: Default::default(),
+            controllers: Default::default(),
+            top_level_controller,
         }
     }
 
@@ -144,13 +212,24 @@ impl Shortcuts {
             Shortcut::ctrl_shift(Key::F),
             UserAction::ConnectionsCloseCurrent,
         );
+        self.register(
+            Shortcut::alt_shift(Key::F),
+            UserAction::ConnectionsConnectFirst,
+        );
         self.register(Shortcut::alt(Key::_1), UserAction::ConnectionsChangeLeft);
         self.register(Shortcut::sup(Key::_1), UserAction::ConnectionsChangeLeft);
         self.register(Shortcut::alt(Key::_2), UserAction::ConnectionsChangeRight);
         self.register(Shortcut::sup(Key::_2), UserAction::ConnectionsChangeRight);
+        self.register(Shortcut::ctrl(Key::X), UserAction::EditCapCut);
+        self.register(Shortcut::ctrl(Key::C), UserAction::EditCapCopy);
+        self.register(Shortcut::ctrl(Key::V), UserAction::EditCapPaste);
         self.register(Shortcut::ctrl_shift(Key::C), UserAction::EditCopyNames);
+        self.register(Shortcut::key(gdk::Key::KP_Delete), UserAction::FileDelete);
+        self.register(Shortcut::key(gdk::Key::Delete), UserAction::FileDelete);
         self.register(Shortcut::ctrl(Key::F12), UserAction::EditFilter);
         self.register(Shortcut::sup(Key::F), UserAction::FileSearch);
+        self.register(Shortcut::shift(Key::F6), UserAction::FileRename);
+        self.register(Shortcut::key(Key::F2), UserAction::FileRename);
         self.register(Shortcut::ctrl(Key::M), UserAction::FileAdvrename);
         self.register(Shortcut::shift(Key::F5), UserAction::FileCopyAs);
         self.register(Shortcut::ctrl_shift(Key::F5), UserAction::FileCreateSymlink);
@@ -158,40 +237,89 @@ impl Shortcuts {
         self.register(Shortcut::ctrl(Key::Q), UserAction::FileExit);
         self.register(Shortcut::alt(Key::F3), UserAction::FileExternalView);
         self.register(Shortcut::shift(Key::F3), UserAction::FileInternalView);
+        self.register(Shortcut::alt(Key::KP_Enter), UserAction::FileProperties);
+        self.register(Shortcut::alt(Key::Return), UserAction::FileProperties);
+        self.register(Shortcut::key(Key::space), UserAction::MarkToggle);
+        self.register(Shortcut::key(Key::KP_Insert), UserAction::MarkToggleAndStep);
+        self.register(Shortcut::key(Key::Insert), UserAction::MarkToggleAndStep);
         self.register(Shortcut::shift(Key::F2), UserAction::MarkCompareDirectories);
-        self.register(Shortcut::ctrl(Key::A), UserAction::MarkSelectAll);
         self.register(Shortcut::ctrl(Key::equal), UserAction::MarkSelectAll);
         self.register(Shortcut::ctrl(Key::KP_Add), UserAction::MarkSelectAll);
-        self.register(Shortcut::ctrl_shift(Key::A), UserAction::MarkUnselectAll);
+        self.register(Shortcut::ctrl(Key::A), UserAction::MarkSelectAll);
         self.register(Shortcut::ctrl(Key::minus), UserAction::MarkUnselectAll);
         self.register(
             Shortcut::ctrl(Key::KP_Subtract),
             UserAction::MarkUnselectAll,
         );
+        self.register(Shortcut::ctrl_shift(Key::A), UserAction::MarkUnselectAll);
+        self.register(
+            Shortcut::alt(Key::KP_Add),
+            UserAction::MarkSelectWithPattern,
+        );
+        self.register(Shortcut::key(Key::equal), UserAction::MarkSelectWithPattern);
+        self.register(
+            Shortcut::key(Key::KP_Add),
+            UserAction::MarkSelectWithPattern,
+        );
+        self.register(Shortcut::key(Key::plus), UserAction::MarkSelectWithPattern);
+        self.register(
+            Shortcut::alt(Key::KP_Subtract),
+            UserAction::MarkUnselectWithPattern,
+        );
+        self.register(
+            Shortcut::key(Key::KP_Subtract),
+            UserAction::MarkUnselectWithPattern,
+        );
+        self.register(
+            Shortcut::key(Key::minus),
+            UserAction::MarkUnselectWithPattern,
+        );
+        self.register(
+            Shortcut::key(Key::KP_Multiply),
+            UserAction::MarkInvertSelection,
+        );
         self.register(Shortcut::ctrl(Key::O), UserAction::OptionsEdit);
-        self.register(Shortcut::alt(Key::Down), UserAction::ViewDirHistory);
         self.register(Shortcut::alt(Key::KP_Down), UserAction::ViewDirHistory);
-        self.register(Shortcut::ctrl(Key::Page_Up), UserAction::ViewUp);
+        self.register(Shortcut::alt(Key::Down), UserAction::ViewDirHistory);
+        self.register(Shortcut::ctrl(Key::E), UserAction::ViewCmdlineHistory);
+        self.register(Shortcut::ctrl(Key::KP_Down), UserAction::ViewCmdlineHistory);
+        self.register(Shortcut::ctrl(Key::Down), UserAction::ViewCmdlineHistory);
+        self.register(Shortcut::alt(Key::KP_Left), UserAction::ViewBack);
+        self.register(Shortcut::alt(Key::Left), UserAction::ViewBack);
+        self.register(Shortcut::alt(Key::KP_Right), UserAction::ViewForward);
+        self.register(Shortcut::alt(Key::Right), UserAction::ViewForward);
+        self.register(Shortcut::key(Key::BackSpace), UserAction::ViewUp);
+        self.register(Shortcut::key(Key::KP_Left), UserAction::ViewUp);
+        self.register(Shortcut::key(Key::Left), UserAction::ViewUp);
         self.register(Shortcut::ctrl(Key::KP_Page_Up), UserAction::ViewUp);
+        self.register(Shortcut::ctrl(Key::Page_Up), UserAction::ViewUp);
+        self.register(Shortcut::ctrl_shift(Key::H), UserAction::ViewHiddenFiles);
+        self.register(
+            Shortcut::ctrl_shift(Key::KP_Equal),
+            UserAction::ViewEqualPanes,
+        );
+        self.register(Shortcut::ctrl_shift(Key::equal), UserAction::ViewEqualPanes);
         self.register(Shortcut::ctrl_shift(Key::plus), UserAction::ViewEqualPanes);
         self.register(Shortcut::ctrl(Key::period), UserAction::ViewInActivePane);
         self.register(
             Shortcut::ctrl_shift(Key::greater),
             UserAction::ViewInInactivePane,
         );
-        self.register(Shortcut::ctrl(Key::Left), UserAction::ViewInLeftPane);
         self.register(Shortcut::ctrl(Key::KP_Left), UserAction::ViewInLeftPane);
-        self.register(Shortcut::ctrl(Key::Right), UserAction::ViewInRightPane);
+        self.register(Shortcut::ctrl(Key::Left), UserAction::ViewInLeftPane);
         self.register(Shortcut::ctrl(Key::KP_Right), UserAction::ViewInRightPane);
-        self.register(Shortcut::ctrl(Key::Up), UserAction::ViewInNewTab);
+        self.register(Shortcut::ctrl(Key::Right), UserAction::ViewInRightPane);
+        self.register(Shortcut::key(Key::KP_Right), UserAction::ViewDirectory);
+        self.register(Shortcut::key(Key::Right), UserAction::ViewDirectory);
         self.register(Shortcut::ctrl(Key::KP_Up), UserAction::ViewInNewTab);
-        self.register(Shortcut::ctrl_shift(Key::Up), UserAction::ViewInInactiveTab);
+        self.register(Shortcut::ctrl(Key::Up), UserAction::ViewInNewTab);
         self.register(
             Shortcut::ctrl_shift(Key::KP_Up),
             UserAction::ViewInInactiveTab,
         );
-        self.register(Shortcut::ctrl(Key::Page_Down), UserAction::ViewDirectory);
+        self.register(Shortcut::ctrl_shift(Key::Up), UserAction::ViewInInactiveTab);
         self.register(Shortcut::ctrl(Key::KP_Page_Down), UserAction::ViewDirectory);
+        self.register(Shortcut::ctrl(Key::Page_Down), UserAction::ViewDirectory);
         self.register(Shortcut::ctrl(Key::quoteleft), UserAction::ViewHome);
         self.register(Shortcut::ctrl_shift(Key::asciitilde), UserAction::ViewHome);
         self.register(Shortcut::ctrl(Key::backslash), UserAction::ViewRoot);
@@ -199,88 +327,140 @@ impl Shortcuts {
         self.register(Shortcut::ctrl(Key::T), UserAction::ViewNewTab);
         self.register(Shortcut::ctrl(Key::W), UserAction::ViewCloseTab);
         self.register(Shortcut::ctrl_shift(Key::W), UserAction::ViewCloseAllTabs);
+        self.register(
+            Shortcut::ctrl_shift(Key::ISO_Left_Tab),
+            UserAction::ViewPrevTab,
+        );
+        self.register(Shortcut::ctrl_shift(Key::Tab), UserAction::ViewPrevTab);
+        self.register(Shortcut::ctrl(Key::ISO_Left_Tab), UserAction::ViewNextTab);
+        self.register(Shortcut::ctrl(Key::Tab), UserAction::ViewNextTab);
+        self.register(Shortcut::key(Key::ISO_Left_Tab), UserAction::SwitchPanels);
+        self.register(Shortcut::key(Key::Tab), UserAction::SwitchPanels);
+        self.register(Shortcut::ctrl(Key::U), UserAction::SwapPanes);
+        self.register(Shortcut::ctrl(Key::S), UserAction::ShowSlidePopup);
+        self.register(Shortcut::key(Key::F1), UserAction::HelpHelp);
+        self.register(Shortcut::ctrl_alt(Key::P), UserAction::GoToPanels);
+        self.register(Shortcut::ctrl_alt(Key::C), UserAction::GoToCmdline);
+        self.register(Shortcut::ctrl_alt(Key::T), UserAction::GoToTerminal);
+        self.register(Shortcut::key(Key::Escape), UserAction::ClearCmdline);
     }
 
-    pub fn register(&self, key: Shortcut, action: UserAction) {
-        self.register_full(key, action, None)
+    pub fn register(&self, accelerator: Shortcut, action: UserAction) {
+        self.register_full(accelerator, action, None)
     }
 
-    pub fn register_full(&self, key: Shortcut, action: UserAction, data: Option<&str>) {
-        if key.key.is_lower() && key.key.is_upper() {
-            self.inner.borrow_mut().action.insert(
-                Shortcut {
-                    key: key.key.to_lower(),
-                    state: key.state,
-                },
-                Call {
-                    action,
-                    action_data: data.map(|d| d.to_owned()),
-                },
-            );
-            self.inner.borrow_mut().action.insert(
-                Shortcut {
-                    key: key.key.to_upper(),
-                    state: key.state,
-                },
-                Call {
-                    action,
-                    action_data: data.map(|d| d.to_owned()),
-                },
-            );
-        } else {
-            self.inner.borrow_mut().action.insert(
-                key,
-                Call {
-                    action,
-                    action_data: data.map(|d| d.to_owned()),
-                },
-            );
+    pub fn register_full(&self, accelerator: Shortcut, action: UserAction, data: Option<&str>) {
+        self.unregister(&accelerator, action.area());
+        match action.area() {
+            Area::MainWindow => {
+                for area in [Area::Panel, Area::CommandLine, Area::Terminal] {
+                    self.unregister(&accelerator, area);
+                }
+            }
+            Area::Panel | Area::CommandLine | Area::Terminal => {
+                self.unregister(&accelerator, Area::MainWindow)
+            }
         }
+
+        let call = Call {
+            action,
+            action_data: data.map(|d| d.to_owned()),
+        };
+
+        if let Some(shortcut) = accelerator.as_gtk_shortcut(&call) {
+            self.for_each_controller(Some(call.action.area()), |controller| {
+                controller.add_shortcut(shortcut.clone());
+            });
+        }
+
+        self.actions
+            .borrow_mut()
+            .insert((action.area(), accelerator), call);
     }
 
-    pub fn unregister(&self, key: &Shortcut) {
-        self.inner.borrow_mut().action.remove(key);
+    pub fn unregister(&self, accelerator: &Shortcut, call_area: Area) {
+        let key = (call_area, *accelerator);
+        let mut actions = self.actions.borrow_mut();
+        let Some(call) = actions.get(&key) else {
+            return;
+        };
+        self.for_each_controller(Some(call_area), |controller| {
+            // In order to remove from a controller we need to find the exact shortcut instance.
+            for shortcut in controller.iter::<glib::Object>().flatten() {
+                if let Some(shortcut) = shortcut.downcast_ref::<gtk::Shortcut>()
+                    && let Some(trigger) =
+                        shortcut.trigger().and_downcast_ref::<gtk::KeyvalTrigger>()
+                    && trigger.keyval() == accelerator.key
+                    && trigger.modifiers() == accelerator.state
+                    && let Some(named_action) =
+                        shortcut.action().and_downcast_ref::<gtk::NamedAction>()
+                    && named_action.action_name() == call.action.name()
+                {
+                    controller.remove_shortcut(shortcut);
+                    break;
+                }
+            }
+        });
+
+        actions.remove(&key);
     }
 
     pub fn clear(&self) {
-        self.inner.borrow_mut().action.clear();
+        self.for_each_controller(None, |controller| {
+            while let Some(shortcut) = controller.item(0).and_downcast_ref::<gtk::Shortcut>() {
+                controller.remove_shortcut(shortcut);
+            }
+        });
+
+        self.actions.borrow_mut().clear();
     }
 
     pub fn all(&self) -> Vec<(Shortcut, Call)> {
-        self.inner
+        self.actions
             .borrow()
-            .action
             .iter()
-            .map(|(s, c)| (*s, c.clone()))
+            .map(|((_, s), c)| (*s, c.clone()))
             .collect()
     }
 
-    pub fn handle_key_event(&self, mw: &MainWindow, event: Shortcut) -> bool {
-        let inner = self.inner.borrow();
-        let Some(call) = inner.action.get(&event) else {
-            return false;
-        };
+    /// Attaches a dummy controller to a window, making sure all shortcuts show up in menu.
+    pub fn attach(&self, window: &impl IsA<gtk::Window>) {
+        window
+            .as_ref()
+            .add_controller(self.top_level_controller.clone());
+    }
 
-        debug!(
-            'u',
-            "Key event: {:?}. Handling key event by {:?}", event, call
-        );
-
-        // This is a bit controversial. Majority of actions to not accept arguments
-        // and those which accept expect a specific variant and not an arbitrary
-        // string.
-        if let Err(err) = gtk::prelude::WidgetExt::activate_action(
-            mw.upcast_ref::<gtk::Widget>(),
-            call.action.name(),
-            call.action_data
-                .as_ref()
-                .filter(|d| !d.is_empty())
-                .map(|d| d.to_variant())
-                .as_ref(),
-        ) {
-            eprintln!("Failed to activate action {}: {}", call.action.name(), err);
+    /// Attaches a shortcut controller to a widget, making it handle shortcuts for the designated
+    /// area.
+    pub fn add_controller(&self, widget: &impl IsA<gtk::Widget>, controller_area: Area) {
+        let controller = gtk::ShortcutController::new();
+        controller.set_propagation_phase(gtk::PropagationPhase::Capture);
+        for ((area, shortcut), call) in self.actions.borrow().iter() {
+            if area == &controller_area
+                && let Some(shortcut) = shortcut.as_gtk_shortcut(call)
+            {
+                controller.add_shortcut(shortcut);
+            }
         }
-        true
+        self.controllers
+            .borrow_mut()
+            .push((controller_area, controller.downgrade()));
+        widget.as_ref().add_controller(controller);
+    }
+
+    fn for_each_controller(&self, filter_area: Option<Area>, f: impl Fn(&gtk::ShortcutController)) {
+        self.controllers.borrow_mut().retain(|(area, controller)| {
+            if filter_area.is_some_and(|filter_area| &filter_area != area) {
+                return true;
+            }
+            if let Some(controller) = controller.upgrade() {
+                f(&controller);
+                true
+            } else {
+                false
+            }
+        });
+        f(&self.top_level_controller);
     }
 
     pub fn load(&self, bindings: &[ShortcutVariant], legacy: glib::Variant) {
@@ -298,7 +478,7 @@ impl Shortcuts {
                 };
 
                 if binding.action_name.is_empty() {
-                    self.unregister(&shortcut);
+                    self.unregister(&shortcut, Area::from_str(&binding.action_data));
                 } else {
                     let Some(user_action) = UserAction::from_name(&binding.action_name) else {
                         eprintln!(
@@ -336,7 +516,7 @@ impl Shortcuts {
             (Shortcut::ctrl(Key::N), UserAction::ConnectionsNew),
             (Shortcut::ctrl(Key::F), UserAction::ConnectionsOpen),
             (
-                Shortcut::ctrl_shift(Key::f),
+                Shortcut::ctrl_shift(Key::F),
                 UserAction::ConnectionsCloseCurrent,
             ),
             (Shortcut::alt(Key::_1), UserAction::ConnectionsChangeLeft),
@@ -439,8 +619,8 @@ impl Shortcuts {
         }
 
         // Any default bindings that we haven’t seen yet must have been removed.
-        for (shortcut, _) in defaults {
-            self.unregister(&shortcut);
+        for (shortcut, action) in defaults {
+            self.unregister(&shortcut, action.area());
         }
     }
 
@@ -448,45 +628,47 @@ impl Shortcuts {
         let defaults = Self::new();
         defaults.set_default();
 
-        let default_shortcuts = &defaults.inner.borrow().action;
-        let actual_shortcuts = &self.inner.borrow().action;
+        let default_shortcuts = &defaults.actions.borrow();
+        let actual_shortcuts = &self.actions.borrow();
 
-        // Save modified key bindings
+        // Save modified key bindings.
         actual_shortcuts
             .iter()
-            .filter(|(shortcut, call)| {
-                !shortcut.is_mandatory() && default_shortcuts.get(shortcut) != Some(call)
+            .filter(|(key, call)| {
+                let (_, shortcut) = key;
+                !shortcut.is_mandatory() && default_shortcuts.get(key) != Some(call)
             })
-            .map(|(shortcut, call)| ShortcutVariant {
+            .map(|((_, shortcut), call)| ShortcutVariant {
                 accelerator: shortcut.as_accelerator(),
                 action_name: call.action.name().to_owned(),
                 action_data: call.action_data.as_ref().cloned().unwrap_or_default(),
             })
-            // Save removed key bindings
+            // Save removed key bindings.
+            // We mark removed binding with an empty action name. But we still need to know from
+            // which area the binding was removed, so we misuse the action data field to store it.
             .chain(
                 default_shortcuts
                     .iter()
-                    .filter(|(shortcut, _call)| actual_shortcuts.get(shortcut).is_none())
-                    .map(|(shortcut, _)| ShortcutVariant {
+                    .filter(|(key, _call)| actual_shortcuts.get(key).is_none())
+                    .map(|((area, shortcut), _)| ShortcutVariant {
                         accelerator: shortcut.as_accelerator(),
                         action_name: String::new(),
-                        action_data: String::new(),
+                        action_data: area.as_str().to_owned(),
                     }),
             )
             .collect()
     }
 
     pub fn bookmark_shortcuts(&self, bookmark_name: &str) -> BTreeSet<Shortcut> {
-        self.inner
+        self.actions
             .borrow()
-            .action
             .iter()
-            .filter(|(shortcut, call)| {
+            .filter(|((_, shortcut), call)| {
                 shortcut.key.is_upper()
                     && call.action == UserAction::BookmarksGoto
                     && call.action_data.as_deref() == Some(bookmark_name)
             })
-            .map(|kv| *kv.0)
+            .map(|((_, shortcut), _)| *shortcut)
             .collect()
     }
 }

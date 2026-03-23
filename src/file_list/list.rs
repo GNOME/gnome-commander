@@ -24,7 +24,6 @@ use crate::{
     options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
     tags::FileMetadataService,
     types::{ExtensionDisplayMode, GraphicalLayoutMode, SizeDisplayMode},
-    user_actions::UserAction,
     utils::{ErrorMessage, size_to_string, time_to_string},
 };
 use gettextrs::{gettext, ngettext};
@@ -41,7 +40,6 @@ mod imp {
         app::App,
         connection::list::ConnectionList,
         debug::debug,
-        dialogs::pattern_selection_dialog::select_by_pattern,
         file_list::{
             actions::{
                 Script, file_list_action_execute, file_list_action_execute_script,
@@ -1013,37 +1011,6 @@ mod imp {
                     }
                     glib::Propagation::Stop
                 }
-                (NO_MOD, gdk::Key::space) => {
-                    self.obj()
-                        .set_cursor(gdk::Cursor::from_name("wait", None).as_ref());
-
-                    self.obj().toggle();
-                    if let Some(position) = self.obj().focused_file_position() {
-                        self.obj().show_dir_tree_size(position);
-                    }
-                    self.obj().emit_files_changed();
-
-                    self.obj().set_cursor(None);
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::Left | gdk::Key::KP_Left) => {
-                    if let Some(dotdot) = self
-                        .items_iter()
-                        .map(|item| item.file())
-                        .find(|f| f.is_dotdot())
-                    {
-                        self.obj().emit_by_name::<()>("file-activated", &[&dotdot]);
-                    }
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::Right | gdk::Key::KP_Right) => {
-                    if let Some(directory) = self.obj().selected_file().filter(|f| f.is_directory())
-                    {
-                        self.obj()
-                            .emit_by_name::<()>("file-activated", &[&directory]);
-                    }
-                    glib::Propagation::Stop
-                }
                 (NO_MOD, gdk::Key::Shift_L | gdk::Key::Shift_R) => {
                     if !self.shift_down.get() {
                         self.shift_down_row
@@ -1057,27 +1024,7 @@ mod imp {
 
         fn key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
             match (state, key) {
-                (ALT, gdk::Key::Return | gdk::Key::KP_Enter) => {
-                    let _ = self
-                        .obj()
-                        .activate_action(UserAction::FileProperties.name(), None);
-                    glib::Propagation::Stop
-                }
-                (ALT, gdk::Key::KP_Add) => {
-                    self.obj().toggle_files_with_same_extension(true);
-                    glib::Propagation::Stop
-                }
-                (ALT, gdk::Key::KP_Subtract) => {
-                    self.obj().toggle_files_with_same_extension(false);
-                    glib::Propagation::Stop
-                }
-                (SHIFT, gdk::Key::F6) => {
-                    let this = self.obj().clone();
-                    glib::spawn_future_local(async move {
-                        this.show_rename_dialog().await;
-                    });
-                    glib::Propagation::Stop
-                }
+                (SHIFT, gdk::Key::Tab | gdk::Key::ISO_Left_Tab) => glib::Propagation::Stop,
                 (SHIFT, gdk::Key::F10) => {
                     self.obj().show_file_popup(None);
                     glib::Propagation::Stop
@@ -1107,44 +1054,6 @@ mod imp {
                 }
                 (CONTROL, gdk::Key::F6) => {
                     self.obj().sort_by(ColumnID::COLUMN_SIZE);
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::KP_Add | gdk::Key::plus | gdk::Key::equal) => {
-                    let this = self.obj().clone();
-                    glib::spawn_future_local(async move {
-                        select_by_pattern(&this, true).await;
-                    });
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::KP_Subtract | gdk::Key::minus) => {
-                    let this = self.obj().clone();
-                    glib::spawn_future_local(async move {
-                        select_by_pattern(&this, false).await;
-                    });
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::KP_Multiply) => {
-                    self.obj().invert_selection();
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::KP_Divide) => {
-                    self.obj().restore_selection();
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::Insert | gdk::Key::KP_Insert) => {
-                    self.obj().toggle();
-                    if let Some(position) = self.obj().focused_file_position()
-                        && position + 1 < self.selection.n_items()
-                    {
-                        self.obj().select_row(position + 1);
-                    }
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::Delete | gdk::Key::KP_Delete) => {
-                    let this = self.obj().clone();
-                    glib::spawn_future_local(async move {
-                        this.show_delete_dialog(false).await;
-                    });
                     glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::Menu) => {
@@ -1850,6 +1759,8 @@ impl FileList {
     pub fn toggle(&self) {
         if let Some(position) = self.focused_file_position() {
             self.imp().toggle_file(position);
+            self.show_dir_tree_size(position);
+            self.emit_files_changed();
         }
     }
 
@@ -2201,10 +2112,6 @@ impl FileList {
             }
         }
         self.emit_files_changed();
-    }
-
-    pub fn restore_selection(&self) {
-        // TODO: implement
     }
 
     pub fn stats(&self) -> FileListStats {
