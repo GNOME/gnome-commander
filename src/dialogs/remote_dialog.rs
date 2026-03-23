@@ -17,15 +17,16 @@ mod imp {
     use super::*;
     use crate::{
         dialogs::{connect_dialog::ConnectDialog, order_utils::ordering_buttons},
-        utils::{dialog_button_box, display_help},
+        utils::{ListRowSelector, dialog_button_box, display_help},
     };
-    use std::{cell::OnceCell, time::Duration};
+    use std::{cell::OnceCell, rc::Rc, time::Duration};
 
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::RemoteDialog)]
     pub struct RemoteDialog {
         selection: gtk::SingleSelection,
         pub view: gtk::ColumnView,
+        row_selector: Rc<ListRowSelector>,
         edit_button: gtk::Button,
         remove_button: gtk::Button,
         connect_button: gtk::Button,
@@ -42,12 +43,15 @@ mod imp {
         type ParentType = gtk::Window;
 
         fn new() -> Self {
+            let view = gtk::ColumnView::builder()
+                .width_request(400)
+                .height_request(250)
+                .build();
+            let row_selector = ListRowSelector::new(&view);
             Self {
                 selection: gtk::SingleSelection::new(None::<gio::ListModel>),
-                view: gtk::ColumnView::builder()
-                    .width_request(400)
-                    .height_request(250)
-                    .build(),
+                view,
+                row_selector,
                 edit_button: gtk::Button::builder()
                     .label(gettext("_Edit"))
                     .use_underline(true)
@@ -238,10 +242,7 @@ mod imp {
             let connections = self.obj().connections();
             connections.add(&connection);
 
-            let position = self.selection.n_items() - 1;
-            self.selection.set_selected(position);
-            self.view
-                .scroll_to(position, None, gtk::ListScrollFlags::all(), None);
+            self.row_selector.select_row(self.selection.n_items() - 1);
             self.view.grab_focus();
         }
 
@@ -252,19 +253,20 @@ mod imp {
 
             if ConnectDialog::edit_connection(self.obj().upcast_ref(), &connection).await {
                 self.obj().connections().refresh(&connection);
-                self.selection.set_selected(position);
-                self.view
-                    .scroll_to(position, None, gtk::ListScrollFlags::all(), None);
+                self.row_selector.select_row(position);
                 self.view.grab_focus();
             }
         }
 
         fn on_remove_btn_clicked(&self) {
-            let Some((_, connection)) = self.selected_connection() else {
+            let Some((position, connection)) = self.selected_connection() else {
                 eprintln!("{}", gettext("No server selected"));
                 return;
             };
             self.obj().connections().remove(&connection);
+            if position > 0 {
+                self.row_selector.select_row(position - 1);
+            }
         }
 
         async fn on_help_btn_clicked(&self) {

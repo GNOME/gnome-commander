@@ -20,15 +20,16 @@ mod imp {
     use super::*;
     use crate::{
         options::utils::remember_window_size,
-        utils::{SenderExt, dialog_button_box, display_help},
+        utils::{ListRowSelector, SenderExt, dialog_button_box, display_help},
     };
-    use std::cell::RefCell;
+    use std::{cell::RefCell, rc::Rc};
 
     pub struct BookmarksDialog {
         pub shortcuts: RefCell<Option<Shortcuts>>,
         pub flatten_model: gtk::FlattenListModel,
         pub selection_model: gtk::SingleSelection,
         pub view: gtk::ColumnView,
+        row_selector: Rc<ListRowSelector>,
         pub edit_button: gtk::Button,
         pub remove_button: gtk::Button,
         pub up_button: gtk::Button,
@@ -52,12 +53,14 @@ mod imp {
                 .height_request(250)
                 .model(&selection_model)
                 .build();
+            let row_selector = ListRowSelector::new(&view);
             let (sender, receiver) = async_channel::bounded(1);
             Self {
                 shortcuts: Default::default(),
                 flatten_model,
                 selection_model,
                 view,
+                row_selector,
                 edit_button: gtk::Button::builder()
                     .label(gettext("_Edit"))
                     .use_underline(true)
@@ -418,23 +421,8 @@ mod imp {
         }
 
         fn select(&self, position: u32) {
-            // Returning from Edit dialog, we need this minimal delay or focus won't be set.
-            glib::timeout_add_local_once(
-                std::time::Duration::from_millis(1),
-                glib::clone!(
-                    #[weak(rename_to = imp)]
-                    self,
-                    move || {
-                        imp.view.scroll_to(
-                            position,
-                            None,
-                            gtk::ListScrollFlags::FOCUS | gtk::ListScrollFlags::SELECT,
-                            None,
-                        );
-                        imp.selection_changed();
-                    }
-                ),
-            );
+            self.row_selector.select_row(position);
+            self.selection_changed();
         }
 
         async fn edit_clicked(&self) {

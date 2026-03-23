@@ -56,7 +56,7 @@ mod imp {
             QuickSearchShortcut, RightMouseButtonMode,
         },
         utils::{
-            ALT, ALT_SHIFT, CONTROL, CONTROL_ALT, CONTROL_SHIFT, NO_MOD, SHIFT,
+            ALT, ALT_SHIFT, CONTROL, CONTROL_ALT, CONTROL_SHIFT, ListRowSelector, NO_MOD, SHIFT,
             get_modifiers_state, permissions_to_numbers, permissions_to_text,
         },
         weak_map::WeakMap,
@@ -144,6 +144,7 @@ mod imp {
         #[property(get)]
         pub view: gtk::ColumnView,
         pub columns: RefCell<Vec<gtk::ColumnViewColumn>>,
+        pub row_selector: Rc<ListRowSelector>,
 
         pub cells_map: BTreeMap<ColumnID, CellsMap>,
 
@@ -224,6 +225,11 @@ mod imp {
         }
 
         fn new() -> Self {
+            let view = gtk::ColumnView::builder()
+                .show_column_separators(false)
+                .show_row_separators(false)
+                .build();
+            let row_selector = ListRowSelector::new(&view);
             Self {
                 quick_search: Default::default(),
                 file_metadata_service: Default::default(),
@@ -254,11 +260,9 @@ mod imp {
                 focus_controller: gtk::EventControllerFocus::new(),
 
                 selection: Default::default(),
-                view: gtk::ColumnView::builder()
-                    .show_column_separators(false)
-                    .show_row_separators(false)
-                    .build(),
+                view,
                 columns: Default::default(),
+                row_selector,
 
                 cells_map: ColumnID::VARIANTS
                     .iter()
@@ -1983,14 +1987,7 @@ impl FileList {
     }
 
     pub fn select_row(&self, pos: u32) {
-        if pos != gtk::INVALID_LIST_POSITION {
-            self.imp().view.scroll_to(
-                pos,
-                None,
-                gtk::ListScrollFlags::FOCUS | gtk::ListScrollFlags::SELECT,
-                None,
-            );
-        }
+        self.imp().row_selector.select_row(pos);
     }
 
     pub fn toggle_with_pattern(&self, pattern: &Filter, mode: bool) {
