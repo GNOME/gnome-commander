@@ -278,10 +278,6 @@ impl Shortcuts {
             Shortcut::key(Key::KP_Multiply),
             UserAction::MarkInvertSelection,
         );
-        self.register(
-            Shortcut::key(Key::KP_Divide),
-            UserAction::MarkRestoreSelection,
-        );
         self.register(Shortcut::ctrl(Key::O), UserAction::OptionsEdit);
         self.register(Shortcut::alt(Key::KP_Down), UserAction::ViewDirHistory);
         self.register(Shortcut::alt(Key::Down), UserAction::ViewDirHistory);

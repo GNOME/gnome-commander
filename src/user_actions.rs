@@ -572,13 +572,6 @@ async fn mark_unselect_all_with_same_extension(main_win: MainWindow) {
         .toggle_files_with_same_extension(false);
 }
 
-async fn mark_restore_selection(main_win: MainWindow) {
-    main_win
-        .file_selector(FileSelectorID::Active)
-        .file_list()
-        .restore_selection();
-}
-
 async fn mark_compare_directories(main_win: MainWindow) {
     let fl1 = main_win.file_selector(FileSelectorID::Active).file_list();
     let fl2 = main_win.file_selector(FileSelectorID::Inactive).file_list();
@@ -1656,12 +1649,6 @@ user_actions! {
         "mark-unselect-all-with-same-extension" | "mark.unselect_all_with_same_extension",
         gettext("Unselect with same E_xtension"),
         mark_unselect_all_with_same_extension,
-    ),
-
-    MarkRestoreSelection in Panel => (
-        "mark-restore-selection" | "mark.restore_selection",
-        gettext("_Restore Selection"),
-        mark_restore_selection,
     ),
 
     MarkCompareDirectories in Panel => (

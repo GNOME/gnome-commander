@@ -1453,7 +1453,6 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
                     .action(UserAction::MarkSelectAllWithSameExtension)
                     .action(UserAction::MarkUnselectAllWithSameExtension)
                     .action(UserAction::MarkInvertSelection)
-                    .action(UserAction::MarkRestoreSelection)
             })
             .action(UserAction::MarkCompareDirectories)
     });

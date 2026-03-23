@@ -2114,10 +2114,6 @@ impl FileList {
         self.emit_files_changed();
     }
 
-    pub fn restore_selection(&self) {
-        // TODO: implement
-    }
-
     pub fn stats(&self) -> FileListStats {
         let mut stats = FileListStats::default();
         for item in self.imp().items_iter() {
