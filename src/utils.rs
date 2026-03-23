@@ -12,9 +12,11 @@ use crate::{
 use gettextrs::{gettext, ngettext};
 use gtk::{gdk, gio, glib, pango, prelude::*};
 use std::{
+    cell::Cell,
     ffi::{OsStr, OsString},
     fmt,
     mem::swap,
+    rc::Rc,
     sync::OnceLock,
     time::Duration,
 };
@@ -601,6 +603,63 @@ impl GnomeCmdFileExt for gio::File {
                 &gettext("Closing of a file enumerator failed"),
             )),
             (_, Some(error)) => Err(error),
+        }
+    }
+}
+
+/// Gtk doesn't allow changing focused row while the list isn't focused, things end up in an
+/// invalid state. This type encapsulates the row selection logic, delaying focus change if
+/// necessary.
+pub struct ListRowSelector {
+    view: gtk::ColumnView,
+    focus_controller: gtk::EventControllerFocus,
+    delayed_focus: Cell<Option<u32>>,
+}
+
+impl ListRowSelector {
+    pub fn new(view: &gtk::ColumnView) -> Rc<Self> {
+        let focus_controller = gtk::EventControllerFocus::new();
+        view.add_controller(focus_controller.clone());
+
+        let result = Rc::new(Self {
+            view: view.clone(),
+            focus_controller,
+            delayed_focus: Cell::new(None),
+        });
+
+        let weak_ref = Rc::downgrade(&result);
+        result
+            .focus_controller
+            .connect_contains_focus_notify(move |controller| {
+                if controller.contains_focus()
+                    && let Some(this) = weak_ref.upgrade()
+                    && let Some(pos) = this.delayed_focus.replace(None)
+                {
+                    let view = this.view.clone();
+                    glib::spawn_future_local(async move {
+                        view.scroll_to(pos, None, gtk::ListScrollFlags::FOCUS, None);
+                    });
+                }
+            });
+
+        result
+    }
+
+    pub fn select_row(&self, pos: u32) {
+        if pos != gtk::INVALID_LIST_POSITION {
+            if self.focus_controller.contains_focus() {
+                self.view.scroll_to(
+                    pos,
+                    None,
+                    gtk::ListScrollFlags::FOCUS | gtk::ListScrollFlags::SELECT,
+                    None,
+                );
+                self.delayed_focus.set(None);
+            } else {
+                self.view
+                    .scroll_to(pos, None, gtk::ListScrollFlags::SELECT, None);
+                self.delayed_focus.set(Some(pos));
+            }
         }
     }
 }
