@@ -994,18 +994,14 @@
                 <para>Select all files with the same extension</para>
               </entry>
               <entry colname="colspec2" valign="top"/>
-              <entry colname="colspec3" valign="top">
-                <para><keycombo><keycap>ALT</keycap><keycap>NUM +</keycap></keycombo></para>
-              </entry>
+              <entry colname="colspec3" valign="top"/>
             </row>
             <row>
               <entry colname="colspec0" valign="top">
                 <para>Unselect all files with the same extension</para>
               </entry>
               <entry colname="colspec2" valign="top"/>
-              <entry colname="colspec3" valign="top">
-                <para><keycombo><keycap>ALT</keycap><keycap>NUM -</keycap></keycombo></para>
-              </entry>
+              <entry colname="colspec3" valign="top"/>
             </row>
             <row>
               <entry colname="colspec0" valign="top">
@@ -1016,7 +1012,7 @@
                 </para>
               </entry>
               <entry colname="colspec3" valign="top">
-                <para><keycombo><keycap>NUM +</keycap></keycombo></para>
+                <para><keycombo><keycap>+</keycap></keycombo></para>
               </entry>
             </row>
             <row>
@@ -1029,7 +1025,7 @@
                 </para>
               </entry>
               <entry colname="colspec3" valign="top">
-                <para><keycombo><keycap>NUM -</keycap></keycombo></para>
+                <para><keycombo><keycap>-</keycap></keycombo></para>
               </entry>
             </row>
             <row>
@@ -1443,7 +1439,7 @@
                 files. The shown tags are: File.Description,
                 File.Publisher, Doc.Title, Doc.Pagecount,
                 Audio.Albumartist, Audio.Title, Audio.Bitrate and
-                Audio.Durationmmss. For more information, see 
+                Audio.Durationmmss. For more information, see
 		<link linkend="gnome-commander-advanced-rename-metadata-tags">metadata tags</link>.
 		</para>
 	      </entry>
@@ -1542,13 +1538,13 @@
       <title>Using Bookmarks</title>
       <para>You can use bookmarks to speed up navigation within your local files or to
        access remote servers.</para>
-      <para>Managing your bookmarks is done with the bookmark manager, started by selecting 
-      <menuchoice><guimenu>Bookmarks</guimenu><guimenuitem>Manage bookmarks...</guimenuitem></menuchoice> 
+      <para>Managing your bookmarks is done with the bookmark manager, started by selecting
+      <menuchoice><guimenu>Bookmarks</guimenu><guimenuitem>Manage bookmarks...</guimenuitem></menuchoice>
       or pressing <keycombo><keycap>CTRL</keycap><keycap>D</keycap></keycombo>. See an example screenshot
       below.</para>
       <para>To add a folder to the bookmarks, navigate to the folder&apos;s location.
-      In the menu select <menuchoice><guimenu>Bookmarks</guimenu><guimenu>Bookmark this 
-      directory</guimenu></menuchoice>. Once you have added a bookmark, it will be added 
+      In the menu select <menuchoice><guimenu>Bookmarks</guimenu><guimenu>Bookmark this
+      directory</guimenu></menuchoice>. Once you have added a bookmark, it will be added
       in its respective group in the <menuchoice><guimenu>Bookmarks</guimenu></menuchoice> menu.
       A bookmark is automatically assigned to a group, depending on where the bookmark is pointing to.</para>
       <para>You can then Jump to a bookmark, Edit, Remove, or modify the position of a
@@ -1560,9 +1556,9 @@
 	<listitem><para>The shortcut of the bookmark,</para></listitem>
 	<listitem><para>The path to which the bookmark points to.</para></listitem>
       </orderedlist></para>
-      <para>The name and the path of a bookmark are editable by pressing the <guimenu>Edit</guimenu> 
-      button. In contrast, the shortcut of a bookmark in the third column is taken from 
-      the associated user action <guimenu>Go to bookmarked location</guimenu>, adjustable by clicking on 
+      <para>The name and the path of a bookmark are editable by pressing the <guimenu>Edit</guimenu>
+      button. In contrast, the shortcut of a bookmark in the third column is taken from
+      the associated user action <guimenu>Go to bookmarked location</guimenu>, adjustable by clicking on
       the  menu entry <menuchoice><guimenu>Settings</guimenu><guimenuitem>Keyboard Shortcuts...</guimenuitem>
       </menuchoice>. In the bookmarks window it is only shown as a reference but it is not editable.</para>
       <!-- ==== Figure ==== -->
@@ -1592,7 +1588,7 @@
             <listitem><para>Backup files, whose file name ends with a tilde (~) or with extension <filename>'.bak'</filename></para></listitem>
             <listitem><para>Files that are listed in a particular folder's <filename>.hidden</filename> file.</para></listitem>
         </itemizedlist>
-      <para>You may hide or show hidden files in all folders by:</para> 
+      <para>You may hide or show hidden files in all folders by:</para>
       <itemizedlist>
             <listitem><para>Selecting <menuchoice><guimenu>View</guimenu><guimenuitem>Show Hidden Files</guimenuitem></menuchoice>,</para></listitem>
             <listitem><para>Pressing <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</keycap></keycombo>.</para></listitem>
@@ -4246,10 +4242,10 @@
 	<para>Remote connection details can be set up temporarily or permanently, depending on how they are added to &app;:
 	<itemizedlist>
 	  <listitem><para>By hitting the shortcut <keycombo><keycap>CTRL</keycap><keycap>N</keycap></keycombo> a
-	  temporary connection is configured. That's why no connection alias is needed in this case. If you 
-	  restart &app;, the connection details have to be entered again to connect to the same 
+	  temporary connection is configured. That's why no connection alias is needed in this case. If you
+	  restart &app;, the connection details have to be entered again to connect to the same
 	  server.</para></listitem>
-	  <listitem><para>By adding a remote connection via the <guimenuitem>Add</guimenuitem> button in the 
+	  <listitem><para>By adding a remote connection via the <guimenuitem>Add</guimenuitem> button in the
 	  Remote Connections dialog (see above), the connection is stored permanently in this dialog. If you
 	  restart &app; the stored connection is available again.</para></listitem>
 	</itemizedlist>
@@ -4264,7 +4260,7 @@
 	  <listitem><para>Secure WebDAV (HTTPS)</para></listitem>
 	  <listitem><para>Custom location</para></listitem>
 	</orderedlist></para>
-	<para>Depending on the choice, different login details have to be entered in the 
+	<para>Depending on the choice, different login details have to be entered in the
 	Remote Server dialog.</para>
 	<para>See an example for a public FTP server in the figure below.</para>
 	<!-- ==== Figure ==== -->
@@ -4295,7 +4291,7 @@
       </para>
       <sect3 id="gnome-commander-internal-viewer-modes">
         <title>View Modes</title>
-        <para>The <guilabel>View Modes</guilabel> group (In the <menuchoice><guimenu>View</guimenu></menuchoice> menu) 
+        <para>The <guilabel>View Modes</guilabel> group (In the <menuchoice><guimenu>View</guimenu></menuchoice> menu)
 	contains the preferences that you can set to view images and texts in the internal viewer window:</para>
 	<para>
 	  <orderedlist>
@@ -4305,7 +4301,7 @@
             <listitem><para>Image mode</para></listitem>
 	  </orderedlist>
 	</para>
-	<para>For all of the three text modes (mode 1 to 3) you can change the text encoding in 
+	<para>For all of the three text modes (mode 1 to 3) you can change the text encoding in
 	<menuchoice><guimenu>Text</guimenu><guimenuitem>Encoding</guimenuitem></menuchoice>.</para>
 	<para>For the image display mode you can choose if additional meta data should be shown below the image by selecting
 	<menuchoice><guimenu>Image</guimenu><guimenuitem>Show Metadata Tags</guimenuitem></menuchoice>.</para>
@@ -4654,7 +4650,7 @@
                 <para>CTRL+ALT+Letters</para>
               </entry>
               <entry colname="colspec3" valign="top">
-                <para>By selecting this option when you press <keycombo><keycap>CTRL</keycap><keycap>Alt</keycap><keycap>Letter</keycap></keycombo> &app; will scroll down the selection cursor in the active
+                <para>By selecting this option when you press <keycombo><keycap>CTRL</keycap><keycap>ALT</keycap><keycap>Letter</keycap></keycombo> &app; will scroll down the selection cursor in the active
                    pane to the first item using that letter. You can then enter more
                    letters after the first one to refine the search. By then pressing the up or down arrow key
                    the cursor will jump to all files or folders which match your selection.</para>
@@ -4665,10 +4661,10 @@
                 <para/>
               </entry>
               <entry colname="colspec2" valign="top">
-                <para>Alt+letters (menu access with <keycap>F10</keycap>)</para>
+                <para>ALT+letters (menu access with <keycap>F10</keycap>)</para>
               </entry>
               <entry colname="colspec3" valign="top">
-                <para>When you press <keycombo><keycap>Alt</keycap><keycap>Letter</keycap></keycombo> &app; will scroll down the selection cursor in the active
+                <para>When you press <keycombo><keycap>ALT</keycap><keycap>Letter</keycap></keycombo> &app; will scroll down the selection cursor in the active
                    pane to the first item using that letter. You can then enter more
                    letters after the first one to refine the search.</para>
                 <note>
@@ -5624,7 +5620,7 @@
       <title>Programs</title>
       <!-- Brief description-->
       <para>This section of the options dialog lets you configure preferred applications for different tasks.
-      In the <guilabel>Other favourite apps</guilabel> section you can specify even more applications for opening 
+      In the <guilabel>Other favourite apps</guilabel> section you can specify even more applications for opening
       certain document types. See <xref linkend="gcmd-TBL-setting6"></xref> and below for more information.</para>
       <!-- == Figure ==== -->
       <figure id="options-programs-fig">
@@ -5898,8 +5894,8 @@
         </table>
       </para>
       <para>The section below describes the process of adding or modifying other applications to the contextual menu</para>
-      <para>In the <xref linkend="options-application-fig"></xref> box you can input a number of different parameters to run 
-      the application you want. You will probably need to check the various options available for the application in its manual 
+      <para>In the <xref linkend="options-application-fig"></xref> box you can input a number of different parameters to run
+      the application you want. You will probably need to check the various options available for the application in its manual
       pages.</para>
       <note><para>The dialog box used to modify existing applications is the same as the one described below.</para></note>
          <!-- ==== Figure ==== -->
@@ -6325,11 +6321,12 @@
     <para>If you want to know more about how to change a keyboard shortcut or how to assign a new one (if user definable), look at the section <xref linkend="gnome-commander-user-actions"></xref>.</para>
     <tip><para>The daily usage of &app; is very effective if you know by heart at least the most important keyboard shortcuts for moving and file handling (see section <xref linkend="gnome-commander-usage"></xref>). Learn them and &app; will be an even more effective tool for you.</para></tip>
     <note>
-      <para>Some keyboard shortcuts may not work as expected under your environment, e.g. GNOME.
-                The reason for that is that the environment uses some global
-                shortcuts (i.e. <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo> moves the entire application window in GNOME),
-                which suppresses assigned keyboard mapping of &app;. Use the
-                keyboard shortcuts preference tool of your environment to customize the default keyboard
+      <para>Some keyboard shortcuts may not work as expected with your keyboard layout.
+                The reason for that is that e.g. the <keycap>=</keycap> key on a German keyboard can only be pressed
+                in combination with the <keycap>SHIFT</keycap> modifier, so the
+                keyboard shortcut <keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo> is
+                impossible. Use the
+                keyboard shortcuts preference tool of &app; to customize the default keyboard
                 shortcuts to your requirements.</para>
     </note>
     <informaltable frame="topbot">
@@ -6390,50 +6387,19 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para><keycombo><keycap>F10</keycap></keycombo></para></entry>
+            <entry><para>Enter menu</para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top" rowsep="1">
             <entry><para><keycombo><keycap>F12</keycap></keycombo></para></entry>
             <entry><para>Display main menu</para></entry>
             <entry><para>yes</para></entry>
         </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><para><keycombo><keycap>ALT</keycap><keycap>1</keycap></keycombo></para></entry>
-            <entry><para>Change left connection</para></entry>
-            <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><para><keycombo><keycap>ALT</keycap><keycap>2</keycap></keycombo></para></entry>
-            <entry><para>Change right connection</para></entry>
-            <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo></entry>
-            <entry><para>View with external viewer</para></entry>
-            <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><para><keycombo><keycap>ALT</keycap><keycap>DOWN</keycap></keycombo></para>
-              <para><keycombo><keycap>ALT</keycap><keycap>KP_DOWN</keycap></keycombo></para></entry>
+        <row valign="top" rowsep="1">
+            <entry><para><keycombo><keycap>ALT</keycap><keycap>DOWN</keycap></keycombo></para></entry>
             <entry><para>Open the history list of visited directories</para></entry>
             <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>SHIFT</keycap><keycap>F2</keycap></keycombo></entry>
@@ -6443,6 +6409,11 @@
         <row valign="top">
             <entry><keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo></entry>
             <entry><para>View with internal viewer</para></entry>
+            <entry><para>yes</para></entry>
+        </row>
+        <row valign="top">
+            <entry><keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo></entry>
+            <entry><para>View with external viewer</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
@@ -6456,18 +6427,18 @@
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
+            <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F5</keycap></keycombo></para></entry>
+            <entry><para>Create symbolic link</para></entry>
+            <entry><para>yes</para></entry>
+        </row>
+        <row valign="top">
             <entry><keycombo><keycap>SHIFT</keycap><keycap>F6</keycap></keycombo></entry>
             <entry><para>Rename a file</para></entry>
             <entry><para>yes</para></entry>
         </row>
-        <row valign="top">
+        <row valign="top" rowsep="1">
             <entry><para><keycombo><keycap>SHIFT</keycap><keycap>F10</keycap></keycombo></para></entry>
             <entry><para>Bring up the context menu for the selected files.</para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
@@ -6490,58 +6461,26 @@
             <entry><para>Sort by size</para></entry>
             <entry><para></para></entry>
         </row>
-        <row valign="top">
+        <row valign="top" rowsep="1">
             <entry><keycombo><keycap>CTRL</keycap><keycap>F7</keycap></keycombo></entry>
             <entry><para>Unsorted</para></entry>
             <entry><para></para></entry>
         </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F5</keycap></keycombo></para></entry>
-            <entry><para>Create symbolic link</para></entry>
-            <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><para><keycombo><keycap>SUPER</keycap><keycap>1</keycap></keycombo></para></entry>
-            <entry><para>Change left connection</para></entry>
-            <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><para><keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo></para></entry>
-            <entry><para>Change right connection</para></entry>
-            <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
+        <row valign="top" rowsep="1">
             <entry><para><keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo></para></entry>
             <entry><para>Search files</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><keycombo><keycap>=</keycap></keycombo></entry>
+            <entry><para><keycombo><keycap>+</keycap></keycombo></para>
+                   <para><keycombo><keycap>=</keycap></keycombo></para>
+                   <para><keycombo><keycap>NUM +</keycap></keycombo></para></entry>
             <entry><para>Select files using a pattern</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><keycombo><keycap>NUM +</keycap></keycombo></entry>
-            <entry><para>Select files using a pattern</para></entry>
-            <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><keycombo><keycap>NUM -</keycap></keycombo></entry>
+            <entry><para><keycombo><keycap>-</keycap></keycombo></para>
+                   <para><keycombo><keycap>NUM -</keycap></keycombo></para></entry>
             <entry><para>Unselect files using a pattern</para></entry>
             <entry><para>yes</para></entry>
         </row>
@@ -6551,48 +6490,31 @@
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><keycombo><keycap>NUM /</keycap></keycombo></entry>
-            <entry><para>Restore selection</para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo></entry>
+            <entry><para><keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo></para>
+                   <para><keycombo><keycap>CTRL</keycap><keycap>NUM +</keycap></keycombo></para>
+                   <para><keycombo><keycap>CTRL</keycap><keycap>A</keycap></keycombo></para></entry>
             <entry><para>Select all files</para></entry>
             <entry><para>yes</para></entry>
         </row>
-        <row valign="top">
-            <entry><keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo></entry>
+        <row valign="top" rowsep="1">
+            <entry><para><keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo></para>
+                   <para><keycombo><keycap>CTRL</keycap><keycap>NUM -</keycap></keycombo></para>
+                   <para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>A</keycap></keycombo></para></entry>
             <entry><para>Unselect all files</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><para><keycombo><keycap>ALT</keycap><keycap>NUM +</keycap></keycombo></para>
-              <para><keycombo><keycap>CTRL</keycap><keycap>A</keycap></keycombo></para></entry>
-            <entry><para>Select all files with the same extension</para></entry>
-            <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><para><keycombo><keycap>ALT</keycap><keycap>NUM -</keycap></keycombo></para>
-              <para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>A</keycap></keycombo></para></entry>
-            <entry><para>Unselect all files with the same extension</para></entry>
-            <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><para><keycombo><keycap>BACKSPACE</keycap></keycombo></para>
-              <para><keycombo><keycap>CTRL</keycap><keycap>PageUp</keycap></keycombo></para>
-              <para><keycombo><keycap>CTRL</keycap><keycap>KP_PageUp</keycap></keycombo></para></entry>
+            <entry><para><keycombo><keycap>LEFT</keycap></keycombo></para>
+                   <para><keycombo><keycap>BACKSPACE</keycap></keycombo></para>
+                   <para><keycombo><keycap>CTRL</keycap><keycap>PageUp</keycap></keycombo></para></entry>
             <entry><para>Change to parent directory (cd ..)</para></entry>
             <entry><para>yes</para></entry>
         </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
+        <row valign="top" rowsep="1">
+            <entry><para><keycombo><keycap>RIGHT</keycap></keycombo></para>
+                   <para><keycombo><keycap>CTRL</keycap><keycap>PageDown</keycap></keycombo></para></entry>
+            <entry><para>Change directory</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>ENTER</keycap></keycombo></para></entry>
@@ -6601,160 +6523,97 @@
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>SHIFT</keycap><keycap>ENTER</keycap></keycombo></para></entry>
-            <entry><para>Execute command line in the defined terminal and leaves the terminal window open</para></entry>
+            <entry><para>Execute command line in the defined terminal</para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top" rowsep="1">
+            <entry><para><keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo></para></entry>
+            <entry><para>Execute command line in background, ignoring its output</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><para><keycombo><keycap>CTRL</keycap><keycap>PageDown</keycap></keycombo></para></entry>
-            <entry><para>Change directory</para></entry>
-            <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><para><keycombo><keycap>ALT</keycap><keycap>LEFT</keycap></keycombo></para>
-              <para><keycombo><keycap>ALT</keycap><keycap>KP_LEFT</keycap></keycombo></para></entry>
+            <entry><para><keycombo><keycap>ALT</keycap><keycap>LEFT</keycap></keycombo></para></entry>
             <entry><para>Go back to the last visited directory</para></entry>
             <entry><para>yes</para></entry>
         </row>
-        <row valign="top">
-            <entry><para><keycombo><keycap>ALT</keycap><keycap>RIGHT</keycap></keycombo></para>
-              <para><keycombo><keycap>ALT</keycap><keycap>KP_RIGHT</keycap></keycombo></para></entry>
+        <row valign="top" rowsep="1">
+            <entry><para><keycombo><keycap>ALT</keycap><keycap>RIGHT</keycap></keycombo></para></entry>
             <entry><para>Go forward to the next visited directory</para></entry>
             <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>CTRL</keycap><keycap>\</keycap></keycombo></para></entry>
             <entry><para>Go to the root directory</para></entry>
             <entry><para>yes</para></entry>
         </row>
-        <row valign="top">
+        <row valign="top" rowsep="1">
             <entry><para><keycombo><keycap>CTRL</keycap><keycap>~</keycap></keycombo></para>
                    <para><keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo></para></entry>
             <entry><para>Go to the home directory</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
             <entry><para><keycombo><keycap>INSERT</keycap></keycombo></para></entry>
-            <entry><para>Select file or directory</para></entry>
+            <entry><para>Select file or directory and move down</para></entry>
             <entry><para></para></entry>
         </row>
-        <row valign="top">
+        <row valign="top" rowsep="1">
             <entry><para><keycombo><keycap>SPACE</keycap></keycombo></para></entry>
             <entry><para>Select file or directory (as <keycombo><keycap>INSERT</keycap></keycombo>).
                          If <keycombo><keycap>SPACE</keycap></keycombo> is used on an unselected directory under the cursor,
                          the contents in this directory are counted and the size is shown in the "full" view instead of the string DIR</para></entry>
             <entry><para></para></entry>
         </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
+        <row valign="top" rowsep="1">
             <entry><para><keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo></para></entry>
             <entry><para>Show properties for the selected file</para></entry>
             <entry><para>yes</para></entry>
         </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
+        <row valign="top" rowsep="1">
             <entry><para><keycombo><keycap>ALT</keycap><keycap>SHIFT</keycap><keycap>ENTER</keycap></keycombo></para></entry>
             <entry><para>The contents of all directories in the current directory are counted. The sizes of the directories are then shown
             in the "full" view instead of the string DIR</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><para><keycombo><keycap>DELETE</keycap></keycombo></para>
-              <para><keycombo><keycap>KP_DELETE</keycap></keycombo></para></entry>
+            <entry><para><keycombo><keycap>DELETE</keycap></keycombo></para></entry>
             <entry><para>Delete files</para></entry>
             <entry><para>yes</para></entry>
         </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
+        <row valign="top" rowsep="1">
             <entry><para><keycombo><keycap>SHIFT</keycap><keycap>DELETE</keycap></keycombo></para></entry>
             <entry><para>Delete files permanently (do not move them to the trash can, even if this is configured in the options)</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>C</keycap></keycombo></entry>
-            <entry><para>Copy files to clipboard (not a global one yet)</para></entry>
+            <entry><para>Copy files to clipboard</para></entry>
             <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><keycombo><keycap>CTRL</keycap><keycap>X</keycap></keycombo></entry>
-            <entry><para>Cut files to clipboard (not a global one yet)</para></entry>
-            <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><keycombo><keycap>CTRL</keycap><keycap>V</keycap></keycombo></entry>
-            <entry><para>Paste from clipboard to current dir (not a global one yet)</para></entry>
-            <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>C</keycap></keycombo></entry>
-            <entry><para>Copy selected file names to clipboard</para></entry>
+            <entry><para>Copy file names to clipboard</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>X</keycap></keycombo></entry>
+            <entry><para>Cut files to clipboard</para></entry>
+            <entry><para>yes</para></entry>
+        </row>
+        <row valign="top" rowsep="1">
+            <entry><keycombo><keycap>CTRL</keycap><keycap>V</keycap></keycombo></entry>
+            <entry><para>Paste from clipboard to current dir</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>D</keycap></keycombo></entry>
-            <entry><para>Open favorite directories (bookmarks)</para></entry>
+            <entry><para>Open bookmarks</para></entry>
             <entry><para>yes</para></entry>
         </row>
-        <row valign="top">
+        <row valign="top" rowsep="1">
             <entry><keycombo><keycap>CTRL</keycap><keycap>M</keycap></keycombo></entry>
             <entry><para>Advanced Rename Tool</para></entry>
             <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>TAB</keycap></keycombo></para></entry>
@@ -6781,19 +6640,19 @@
             <entry><para>Open the current directory of the inactive file list in the active one</para></entry>
             <entry><para>yes</para></entry>
         </row>
-        <row valign="top">
+        <row valign="top" rowsep="1">
             <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>.</keycap></keycombo></entry>
             <entry><para>Open the current directory of the active file list in the inactive one</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>S</keycap></keycombo></entry>
             <entry><para>Open slide popup for setting the panel sizes</para></entry>
+            <entry><para>yes</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></keycombo></para></entry>
+            <entry><para>Set equal size for both panels</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
@@ -6816,15 +6675,10 @@
             <entry><para>Switch to the next tab</para></entry>
             <entry><para>yes</para></entry>
         </row>
-        <row valign="top">
+        <row valign="top" rowsep="1">
             <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>TAB</keycap></keycombo></entry>
             <entry><para>Switch to the previous tab</para></entry>
             <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>R</keycap></keycombo></entry>
@@ -6836,21 +6690,10 @@
             <entry><para>Options dialog</para></entry>
             <entry><para>yes</para></entry>
         </row>
-        <row valign="top">
+        <row valign="top" rowsep="1">
             <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</keycap></keycombo></entry>
             <entry><para>Toggle hidden files on/off</para></entry>
             <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></keycombo></para>
-              <para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>KP_=</keycap></keycombo></para></entry>
-            <entry><para>Set both panels equal</para></entry>
-            <entry><para>yes</para></entry>
-        </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>N</keycap></keycombo></entry>
@@ -6873,14 +6716,16 @@
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
+            <entry><para><keycombo><keycap>ALT</keycap><keycap>1</keycap></keycombo></para>
+                   <para><keycombo><keycap>SUPER</keycap><keycap>1</keycap></keycombo></para></entry>
+            <entry><para>Change left connection</para></entry>
+            <entry><para>yes</para></entry>
         </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
+        <row valign="top" rowsep="1">
+            <entry><para><keycombo><keycap>ALT</keycap><keycap>2</keycap></keycombo></para>
+                   <para><keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo></para></entry>
+            <entry><para>Change right connection</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
           <entry><para><keycombo><keycap>CTRL</keycap><keycap>ALT</keycap><keycap>P</keycap></keycombo></para></entry>
@@ -6892,25 +6737,15 @@
           <entry><para>Jump to the command line</para></entry>
           <entry><para></para></entry>
         </row>
-        <row valign="top">
+        <row valign="top" rowsep="1">
           <entry><para><keycombo><keycap>CTRL</keycap><keycap>ALT</keycap><keycap>T</keycap></keycombo></para></entry>
-          <entry><para>Jump to the terminal</para></entry>
+          <entry><para>Jump to the command output</para></entry>
           <entry><para></para></entry>
         </row>
-        <row valign="top">
-          <entry><para></para></entry>
-          <entry><para></para></entry>
-          <entry><para></para></entry>
-        </row>
-        <row valign="top">
+        <row valign="top" rowsep="1">
             <entry><para><keycombo><keycap>ALT</keycap><keycap>Letter(s)</keycap></keycombo></para>
                    <para><keycombo><keycap>CTRL</keycap><keycap>ALT</keycap><keycap>Letter(s)</keycap></keycombo></para></entry>
             <entry><para>Quick search for a file name (starting with specified letter) in the current directory</para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
@@ -6933,19 +6768,13 @@
             <entry><para>The file name under the cursor in the source directory is added to the end of the command line</para></entry>
             <entry><para></para></entry>
         </row>
-        <row valign="top">
+        <row valign="top" rowsep="1">
             <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>ENTER</keycap></keycombo></entry>
             <entry><para>The file name under the cursor including its path is added to the end of the command line</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
             <entry><para><keycombo><keycap>CTRL</keycap><keycap>DOWN</keycap></keycombo></para>
-              <para><keycombo><keycap>CTRL</keycap><keycap>KP_DOWN</keycap></keycombo></para>
               <para><keycombo><keycap>CTRL</keycap><keycap>E</keycap></keycombo></para></entry>
             <entry><para>A list with the latest command lines (history list) is opened. Use the <keycombo><keycap>UP</keycap></keycombo>
             and <keycombo><keycap>DOWN</keycap></keycombo> cursor keys to select an entry.
@@ -6974,12 +6803,12 @@
       </orderedlist></para>
       <para>You can <guilabel>Add</guilabel> a new shortcut and <guilabel>Remove</guilabel> a selected one with the related buttons on the right.</para>
       <para>The default dialog window is shown in the figure <xref linkend="keyboard-shortcuts"></xref> below.</para>
-      <para>Available user actions are shown in the table <xref linkend="gnome-commander-user-actions-list"></xref> below.</para> 
+      <para>Available user actions are shown in the table <xref linkend="gnome-commander-user-actions-list"></xref> below.</para>
       <para>Find the default key bindings in the previous section <xref linkend="gnome-commander-keyboard"></xref>.</para>
       <tip>
-        <para>It&apos;s possible to assign more than one key combinations to an action. 
-	To do so, click on the <guilabel>Add</guilabel> button, choose a new shortcut 
-	and choose the action which is already assigned to another shortcut. Some actions 
+        <para>It&apos;s possible to assign more than one key combinations to an action.
+	To do so, click on the <guilabel>Add</guilabel> button, choose a new shortcut
+	and choose the action which is already assigned to another shortcut. Some actions
 	are already assigned to multiple shortcuts by default.</para>
       </tip>
       <para>Key bindings are stored in the &lt;KeyBindings&gt; section of &app; config file (<guilabel>~/.gnome-commander/gnome-commander.xml</guilabel>).</para>
@@ -7448,12 +7277,12 @@
 	<sect2 id="gnome-commander-handling-archives">
 	  <title>Handling Archives</title>
 	  <para>&app; still lacks built-in browsing of compressed archives. However the program can be configured so
-	  that working with archives becomes quite practical anyway.</para> 
-	  <para>There are two different ways: The preferred one is to activate the built-in 
-	  <application>Fileroller</application> plugin in the menu 
-	  <menuchoice><guimenu>Plugins</guimenu><guimenuitem>Configure Plugins...</guimenuitem></menuchoice>. By 
-	  activating this plugin you get additional entries in the popup menu by right clicking on selected files 
-	  and folders (make sure that <application>Fileroller</application> is installed in your system). 
+	  that working with archives becomes quite practical anyway.</para>
+	  <para>There are two different ways: The preferred one is to activate the built-in
+	  <application>Fileroller</application> plugin in the menu
+	  <menuchoice><guimenu>Plugins</guimenu><guimenuitem>Configure Plugins...</guimenuitem></menuchoice>. By
+	  activating this plugin you get additional entries in the popup menu by right clicking on selected files
+	  and folders (make sure that <application>Fileroller</application> is installed in your system).
 	  By clicking on an archive, the popup menu lets you choose where to extract the archive to.</para>
 	  <para>The second, outdated but still working way is the following:</para>
 	  <itemizedlist>
@@ -7507,12 +7336,12 @@
 	  <title>Copying File Names and Paths</title>
           <itemizedlist>
             <listitem>
-	      <para>To copy names of selected files to the environment's clipboard, use the Copy File Names action 
+	      <para>To copy names of selected files to the environment's clipboard, use the Copy File Names action
 	      on the <guimenu>Edit</guimenu> menu or the "**" icon on the toolbar.</para>
             </listitem>
             <listitem>
 	      <para>To copy full paths of selected files to the environment's clipboard, hold down
-	      <keycap>SHIFT</keycap> while activating either the Copy File Names action on the <guimenu>Edit</guimenu> 
+	      <keycap>SHIFT</keycap> while activating either the Copy File Names action on the <guimenu>Edit</guimenu>
 	      menu or the "**" icon on the toolbar.</para>
             </listitem>
             <listitem>
@@ -7520,11 +7349,11 @@
           of the directory list.</para>
             </listitem>
             <listitem>
-	      <para>To insert the current file's path in &app;'s command line, press 
+	      <para>To insert the current file's path in &app;'s command line, press
 	      <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>ENTER</keycap></keycombo>.</para>
             </listitem>
             <listitem>
-	      <para>To insert the current file's name in &app;'s command line, press 
+	      <para>To insert the current file's name in &app;'s command line, press
 	      <keycombo><keycap>CTRL</keycap><keycap>ENTER</keycap></keycombo>.</para>
             </listitem>
           </itemizedlist>
@@ -7559,8 +7388,8 @@
       <para>If you'd like to compile the latest stable version of &app; yourself, get it as a tar.xz
       file from the <ulink type="http" url="https://gcmd.github.io/download.html">download section</ulink>
       on the &app; home page.</para>
-      <para>After extracting the archive, first have a look at the <guimenu>README</guimenu> file, 
-      where you get an overview of the downloaded release. Also, have a look at the 
+      <para>After extracting the archive, first have a look at the <guimenu>README</guimenu> file,
+      where you get an overview of the downloaded release. Also, have a look at the
       <guimenu>INSTALL</guimenu> file. The installation is explained in detail there.</para>
     </sect2>
     <sect2 id="gnome-commander-development-version">
@@ -7575,7 +7404,7 @@
         if you already have a version of the code simply run <command>git pull</command> to get the latest revisions.</para>
       </note>
       <para>Just remember to run <command>./autogen.sh</command> before building by <command>make</command>.</para>
-      <warning><para>Be aware that there can be serious bugs in code from GNOME git repository. 
+      <warning><para>Be aware that there can be serious bugs in code from GNOME git repository.
       This code is intended for hacking, development and testing purposes only.</para></warning>
     </sect2>
   </sect1>
@@ -7678,32 +7507,32 @@
     <title>About &app;</title>
     <sect2 id="gnome-commander-history">
       <title>History of &app;</title>
-      <para> &app; was primarily written by Marcus Bjurman, who was the one initiating this 
+      <para> &app; was primarily written by Marcus Bjurman, who was the one initiating this
       project in 2001 and developed it up to version 1.1.6 in January 2004.</para>
-      <para>Later on, since 2004, &app; was maintained by the new lead developer Piotr Eljasiak, 
-      working at the project already since 2002. In this time, Assaf Gordon contributed by 
+      <para>Later on, since 2004, &app; was maintained by the new lead developer Piotr Eljasiak,
+      working at the project already since 2002. In this time, Assaf Gordon contributed by
       implementing the internal file viewer.</para>
-      <para>Piotr conducted the development until version 1.2.8.15. In this time Magnus Stålnacke 
-      was responsible for the homepage. On the mailing list, amongst others, Michael and Magnus 
-      contributed with many great ideas and by helping finding bugs and other inconsistencies. 
-      After Magnus resigned from the project, Thomas Jost helped to maintain the homepage at 
+      <para>Piotr conducted the development until version 1.2.8.15. In this time Magnus Stålnacke
+      was responsible for the homepage. On the mailing list, amongst others, Michael and Magnus
+      contributed with many great ideas and by helping finding bugs and other inconsistencies.
+      After Magnus resigned from the project, Thomas Jost helped to maintain the homepage at
       Savannah.org</para>
-      <para>Unfortunately, Piotr suddenly passed away in the beginning of 2012 and &app; had no 
-      maintainer for nearly two years. Late in 2013, Uwe Scholz, a user of &app; since the 
+      <para>Unfortunately, Piotr suddenly passed away in the beginning of 2012 and &app; had no
+      maintainer for nearly two years. Late in 2013, Uwe Scholz, a user of &app; since the
       days before version 1.0, took over the project as project maintainer.</para>
     </sect2>
     <sect2 id="gnome-commander-location">
       <title>Location</title>
       <para>In the beginning, &app; had its home at Sourceforge. Later, the project moved to
-      Savannah.org, where it got its own homepage and its mailing lists. In the end 
-      of 2003, the source tree moved to Gnome.org. Though, the homepage and mailing lists were 
+      Savannah.org, where it got its own homepage and its mailing lists. In the end
+      of 2003, the source tree moved to Gnome.org. Though, the homepage and mailing lists were
       still hosted at Savannah.</para>
       <para>Since 2013, the location of the &app; home page has been moved to GitHub.org.</para>
     </sect2>
     <sect2 id="gnome-commander-bug-reporting">
       <title>Bug Reporting</title>
     <para>
-      If you found a bug, you can check if it is already reported on our 
+      If you found a bug, you can check if it is already reported on our
       <ulink type="http" url="https://gitlab.gnome.org/GNOME/gnome-commander/issues">GitLab</ulink>
       page at Gnome.org. If not, please report the bug. If you want to fix it by yourself
       have a look at the section <xref linkend="gnome-commander-development-version"></xref>.</para>
