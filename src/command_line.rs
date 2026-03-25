@@ -114,7 +114,8 @@ mod imp {
                     }
                 ));
             self.terminal
-                .feed(gettext("If you run a command its output will appear here.\r\n").as_bytes());
+                .feed(gettext("If you run a command its output will appear here.").as_bytes());
+            self.terminal.feed("\r\n".as_bytes());
 
             let entry_box = gtk::Box::builder()
                 .orientation(gtk::Orientation::Horizontal)
