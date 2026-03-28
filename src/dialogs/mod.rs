@@ -27,7 +27,7 @@ pub mod transfer_progress_dialog;
 pub mod connect_dialog;
 pub mod remote_dialog;
 
-pub mod shortcuts;
+pub mod shortcuts_dialog;
 
 pub mod profiles;
 

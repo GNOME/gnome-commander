@@ -434,19 +434,6 @@ pub fn attributes_bold() -> pango::AttrList {
     attrs
 }
 
-pub fn key_sorter<K, O>(key: K) -> gtk::Sorter
-where
-    K: Fn(&glib::Object) -> O + 'static,
-    O: std::cmp::Ord,
-{
-    gtk::CustomSorter::new(move |a, b| {
-        let key_a = (key)(a);
-        let key_b = (key)(b);
-        key_a.cmp(&key_b).into()
-    })
-    .upcast()
-}
-
 pub fn grid_attach(
     parent: &impl IsA<gtk::Widget>,
     child: &impl IsA<gtk::Widget>,
