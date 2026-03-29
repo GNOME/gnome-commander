@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander 1.3.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/"
 "\n"
-"POT-Creation-Date: 2026-03-25 07:26+0000\n"
-"PO-Revision-Date: 2026-03-26 21:33+0200\n"
+"POT-Creation-Date: 2026-03-29 09:46+0000\n"
+"PO-Revision-Date: 2026-03-29 19:10+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -486,7 +486,6 @@ msgid "This option defines the width of the group column."
 msgstr "Цей параметр визначає ширину стовпчика груп."
 
 #: data/org.gnome.gnome-commander.gschema.xml:370
-#| msgid "List of keybindings"
 msgid "Legacy list of keybindings"
 msgstr "Застарілий список клавіатурних скорочень"
 
@@ -3892,7 +3891,7 @@ msgstr "Який назву файлу повинен мати новий арх
 #: src/dialogs/shortcuts/shortcut_dialog.rs:395
 #: src/dialogs/shortcuts/shortcuts_dialog.rs:178
 #: src/dialogs/transfer_progress_dialog.rs:73 src/dirlist.rs:45
-#: src/file_selector.rs:1571 src/intviewer/search_dialog.rs:49
+#: src/file_selector.rs:1573 src/intviewer/search_dialog.rs:49
 #: src/open_connection.rs:35 src/open_file.rs:23 src/open_file.rs:45
 #: src/user_actions.rs:851
 msgid "_Cancel"
@@ -5980,7 +5979,6 @@ msgid "_Paste"
 msgstr "Вст_авити"
 
 #: src/command_line.rs:53
-#| msgid "Select all"
 msgid "_Select all"
 msgstr "_Вибрати все"
 
@@ -5993,7 +5991,6 @@ msgid "_Run"
 msgstr "_Виконати"
 
 #: src/command_line.rs:161
-#| msgid "Requires terminal"
 msgid "Run in _terminal"
 msgstr "Запустити в _терміналі"
 
@@ -6285,7 +6282,6 @@ msgid "Please check spelling and try again."
 msgstr "Будь ласка, перевірте правильність написання і повторіть спробу."
 
 #: src/dialogs/connect_dialog.rs:453
-#| msgid "New connection"
 msgid "New Connection"
 msgstr "Нове з'єднання"
 
@@ -6294,22 +6290,18 @@ msgid "C_onnect"
 msgstr "З'_єднатися"
 
 #: src/dialogs/connect_dialog.rs:470
-#| msgid "Connections"
 msgid "Add Connection"
 msgstr "Додати з'єднання"
 
 #: src/dialogs/connect_dialog.rs:473
-#| msgid "_Connections"
 msgid "A_dd Connection"
 msgstr "Д_одати з'єднання"
 
 #: src/dialogs/connect_dialog.rs:480
-#| msgid "Connections"
 msgid "Edit Connection"
 msgstr "Редагувати з'єднання"
 
 #: src/dialogs/connect_dialog.rs:498
-#| msgid "_Connections"
 msgid "_Update Connection"
 msgstr "_Оновити з'єднання"
 
@@ -7060,8 +7052,9 @@ msgid "CTRL+ALT+letters"
 msgstr "CTRL+ALT+літера"
 
 #: src/dialogs/options/general_tab.rs:145
-msgid "ALT+letters (menu access with F12)"
-msgstr "ALT+літери (доступ до меню – F12)"
+#| msgid "ALT+letters (menu access with F12)"
+msgid "ALT+letters (menu access with F10)"
+msgstr "ALT+літери (доступ до меню – F10)"
 
 #: src/dialogs/options/general_tab.rs:151
 msgid "Just letters (command line access with CTRL+ALT+C)"
@@ -7080,7 +7073,6 @@ msgid "Search Window"
 msgstr "Вікно пошуку"
 
 #: src/dialogs/options/general_tab.rs:171
-#| msgid "Search window is transient"
 msgid "Search window is always on top"
 msgstr "Вікно пошуку завжди над іншими"
 
@@ -7492,13 +7484,11 @@ msgid "_Update Shortcut"
 msgstr "_Оновити скорочення"
 
 #: src/dialogs/shortcuts/shortcut_dialog.rs:325
-#| msgid "_Shortcut"
 msgid "A_dd Shortcut"
 msgstr "_Додати скорочення"
 
 #: src/dialogs/shortcuts/shortcut_dialog.rs:369
 #, rust-format
-#| msgid "Shortcut “{shortcut}” is already taken by “{action}”."
 msgid "Shortcut “{shortcut}” cannot be reconfigured."
 msgstr "Клавіатурне скорочення «{shortcut}» не можна переналаштувати."
 
@@ -7735,63 +7725,63 @@ msgstr "Значення"
 msgid "Failed to get file info for {path}."
 msgstr "Не вдалося отримати відомості щодо файла для {path}."
 
-#: src/file_selector.rs:1179
+#: src/file_selector.rs:1181
 msgid "Add current dir"
 msgstr "Додати поточний каталог"
 
-#: src/file_selector.rs:1181
+#: src/file_selector.rs:1183
 msgid "Manage bookmarks…"
 msgstr "Керування закладками…"
 
-#: src/file_selector.rs:1334
+#: src/file_selector.rs:1336
 msgid "%s free"
 msgstr "%s вільно"
 
-#: src/file_selector.rs:1340
+#: src/file_selector.rs:1342
 msgid "Unknown disk usage"
 msgstr "Невідоме використання диску"
 
-#: src/file_selector.rs:1570 src/user_actions.rs:850
+#: src/file_selector.rs:1572 src/user_actions.rs:850
 msgid "The tab is locked, close anyway?"
 msgstr "Вкладку заблоковано. Закрити її попри це?"
 
-#: src/file_selector.rs:1571 src/user_actions.rs:851
+#: src/file_selector.rs:1573 src/user_actions.rs:851
 msgid "C_lose Tab"
 msgstr "Закр_ити вкладку"
 
-#: src/file_selector.rs:1612 src/user_actions.rs:1854
+#: src/file_selector.rs:1614 src/user_actions.rs:1854
 msgid "Open in New _Tab"
 msgstr "_Відкрити на новій вкладці"
 
-#: src/file_selector.rs:1621
+#: src/file_selector.rs:1623
 msgid "_Unlock Tab"
 msgstr "Р_озблокувати вкладку"
 
-#: src/file_selector.rs:1623
+#: src/file_selector.rs:1625
 msgid "_Lock Tab"
 msgstr "За_блокувати вкладку"
 
-#: src/file_selector.rs:1635
+#: src/file_selector.rs:1637
 msgid "_Refresh Tab"
 msgstr "_Оновити вкладку"
 
-#: src/file_selector.rs:1644
+#: src/file_selector.rs:1646
 msgid "Copy Tab to Other _Panel"
 msgstr "Копіювати вкладку у іншу _панель"
 
-#: src/file_selector.rs:1650 src/user_actions.rs:1860
+#: src/file_selector.rs:1652 src/user_actions.rs:1860
 msgid "_Close Tab"
 msgstr "_Закрити вкладки"
 
-#: src/file_selector.rs:1654 src/user_actions.rs:1866
+#: src/file_selector.rs:1656 src/user_actions.rs:1866
 msgid "Close _All Tabs"
 msgstr "_Закрити всі вкладки"
 
-#: src/file_selector.rs:1658
+#: src/file_selector.rs:1660
 msgid "Close _Duplicate Tabs"
 msgstr "Закрити _дублювати вкладок"
 
-#: src/file_selector.rs:1686
+#: src/file_selector.rs:1688
 msgid "Filter:"
 msgstr "Фільтр:"
 
@@ -8581,11 +8571,6 @@ msgid "There was an error reporting problem."
 msgstr "Виникла проблема звіту про помилку."
 
 #: src/user_actions.rs:1196
-#| msgid ""
-#| "GNOME Commander is free software; you can redistribute it and/or modify "
-#| "it under the terms of the GNU General Public License as published by the "
-#| "Free Software Foundation; either version 2 of the License, or (at your "
-#| "option) any later version."
 msgid ""
 "GNOME Commander is free software: you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -8612,14 +8597,13 @@ msgstr ""
 #: src/user_actions.rs:1202
 #| msgid ""
 #| "You should have received a copy of the GNU General Public License along "
-#| "with GNOME Commander; if not, write to the Free Software Foundation, "
-#| "Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#| "with Foobar. If not, see <https://www.gnu.org/licenses/>."
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"Foobar. If not, see <https://www.gnu.org/licenses/>."
+"GNOME Commander. If not, see <https://www.gnu.org/licenses/>."
 msgstr ""
 "Ви повинні були отримати копію ліцензії GNU General Public License разом з "
-"Foobar. Якщо цього не сталося, див. <https://www.gnu.org/licenses/>."
+"GNOME Commander. Якщо цього не сталося, див. <https://www.gnu.org/licenses/>."
 
 #: src/user_actions.rs:1212
 msgid "A fast and powerful file manager for the GNOME desktop"
@@ -8806,12 +8790,10 @@ msgid "Show Command Line"
 msgstr "Показати командний рядок"
 
 #: src/user_actions.rs:1740
-#| msgid "Show directory history"
 msgid "Show Directory History"
 msgstr "Показати журнал каталогів"
 
 #: src/user_actions.rs:1746
-#| msgid "Show Command Line"
 msgid "Show Command Line History"
 msgstr "Показати журнал командного рядка"
 
@@ -8964,27 +8946,22 @@ msgid "New Connection…"
 msgstr "Нове з'єднання…"
 
 #: src/user_actions.rs:2007
-#| msgid "Set connection"
 msgid "Set Connection"
 msgstr "Встановити з'єднання"
 
 #: src/user_actions.rs:2015
-#| msgid "Remote Server"
 msgid "Connect to First Remote Server"
 msgstr "Встановити з'єднання з першим віддаленим сервером"
 
 #: src/user_actions.rs:2021
-#| msgid "Change left connection"
 msgid "Change Left Connection"
 msgstr "Змінити ліве з'єднання"
 
 #: src/user_actions.rs:2027
-#| msgid "Change right connection"
 msgid "Change Right Connection"
 msgstr "Змінити праве з'єднання"
 
 #: src/user_actions.rs:2033
-#| msgid "Close connection"
 msgid "Close Connection"
 msgstr "Закрити з'єднання"
 
@@ -9013,12 +8990,10 @@ msgid "_About"
 msgstr "_Про модуль"
 
 #: src/user_actions.rs:2090
-#| msgid "_Jump to"
 msgid "Jump to Panels"
 msgstr "Перейти до панелей"
 
 #: src/user_actions.rs:2096
-#| msgid "Show Command Line"
 msgid "Jump to Command Line"
 msgstr "Перейти до командного рядка"
 
@@ -9027,7 +9002,6 @@ msgid "Jump to Command Output"
 msgstr "Перейти до панелі виведених командою даних"
 
 #: src/user_actions.rs:2108
-#| msgid "Show Command Line"
 msgid "Clear Command Line"
 msgstr "Очистити панель командного рядка"
 
