@@ -156,8 +156,6 @@ mod imp {
             vbox.append(&modified_only);
 
             self.view.add_css_class("rich-list");
-            // Note: This will produce a bogus warning, see
-            // https://gitlab.gnome.org/GNOME/gtk/-/issues/4088
             self.view.set_filter_func(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
