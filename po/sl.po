@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
-"POT-Creation-Date: 2026-03-25 07:26+0000\n"
-"PO-Revision-Date: 2026-03-25 12:50+0100\n"
+"POT-Creation-Date: 2026-03-29 09:46+0000\n"
+"PO-Revision-Date: 2026-03-29 17:50+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -3398,7 +3398,7 @@ msgstr "Kakšno ime naj ima nov arhiv?"
 #: src/dialogs/prepare_transfer_dialog.rs:72 src/dialogs/profiles/edit_profile_dialog.rs:89
 #: src/dialogs/profiles/manage_profiles_dialog.rs:237 src/dialogs/shortcuts/shortcut_dialog.rs:160
 #: src/dialogs/shortcuts/shortcut_dialog.rs:395 src/dialogs/shortcuts/shortcuts_dialog.rs:178
-#: src/dialogs/transfer_progress_dialog.rs:73 src/dirlist.rs:45 src/file_selector.rs:1571
+#: src/dialogs/transfer_progress_dialog.rs:73 src/dirlist.rs:45 src/file_selector.rs:1573
 #: src/intviewer/search_dialog.rs:49 src/open_connection.rs:35 src/open_file.rs:23 src/open_file.rs:45
 #: src/user_actions.rs:851
 msgid "_Cancel"
@@ -6462,8 +6462,8 @@ msgid "CTRL+ALT+letters"
 msgstr "CTRL+ALT+črke"
 
 #: src/dialogs/options/general_tab.rs:145
-msgid "ALT+letters (menu access with F12)"
-msgstr "ALT+črke (dostop do menija z F12)"
+msgid "ALT+letters (menu access with F10)"
+msgstr "IZMENJALKA+črke (dostop do menija z F10)"
 
 #: src/dialogs/options/general_tab.rs:151
 msgid "Just letters (command line access with CTRL+ALT+C)"
@@ -7126,63 +7126,63 @@ msgstr "Vrednost"
 msgid "Failed to get file info for {path}."
 msgstr "Pridobivanje podatkov o datoteki za {path} ni uspelo."
 
-#: src/file_selector.rs:1179
+#: src/file_selector.rs:1181
 msgid "Add current dir"
 msgstr "Dodaj trenutno mapo"
 
-#: src/file_selector.rs:1181
+#: src/file_selector.rs:1183
 msgid "Manage bookmarks…"
 msgstr "Upravljanje zaznamkov …"
 
-#: src/file_selector.rs:1334
+#: src/file_selector.rs:1336
 msgid "%s free"
 msgstr "Prosto %s"
 
-#: src/file_selector.rs:1340
+#: src/file_selector.rs:1342
 msgid "Unknown disk usage"
 msgstr "Nedoločena zasedenost diska"
 
-#: src/file_selector.rs:1570 src/user_actions.rs:850
+#: src/file_selector.rs:1572 src/user_actions.rs:850
 msgid "The tab is locked, close anyway?"
 msgstr "Zavihek je zaklenjen; naj se vseeno zapre?"
 
-#: src/file_selector.rs:1571 src/user_actions.rs:851
+#: src/file_selector.rs:1573 src/user_actions.rs:851
 msgid "C_lose Tab"
 msgstr "_Zapri zavihek"
 
-#: src/file_selector.rs:1612 src/user_actions.rs:1854
+#: src/file_selector.rs:1614 src/user_actions.rs:1854
 msgid "Open in New _Tab"
 msgstr "Odpri v novem _zavihku"
 
-#: src/file_selector.rs:1621
+#: src/file_selector.rs:1623
 msgid "_Unlock Tab"
 msgstr "_Odkleni zavihek"
 
-#: src/file_selector.rs:1623
+#: src/file_selector.rs:1625
 msgid "_Lock Tab"
 msgstr "_Zakleni zavihek"
 
-#: src/file_selector.rs:1635
+#: src/file_selector.rs:1637
 msgid "_Refresh Tab"
 msgstr "O_sveži zavihek"
 
-#: src/file_selector.rs:1644
+#: src/file_selector.rs:1646
 msgid "Copy Tab to Other _Panel"
 msgstr "Kopiraj zavihek v drugo _ploščo"
 
-#: src/file_selector.rs:1650 src/user_actions.rs:1860
+#: src/file_selector.rs:1652 src/user_actions.rs:1860
 msgid "_Close Tab"
 msgstr "_Zapri zavihek"
 
-#: src/file_selector.rs:1654 src/user_actions.rs:1866
+#: src/file_selector.rs:1656 src/user_actions.rs:1866
 msgid "Close _All Tabs"
 msgstr "Zapri _vse zavihke"
 
-#: src/file_selector.rs:1658
+#: src/file_selector.rs:1660
 msgid "Close _Duplicate Tabs"
 msgstr "Zapri po_dvojene zavihke"
 
-#: src/file_selector.rs:1686
+#: src/file_selector.rs:1688
 msgid "Filter:"
 msgstr "Filter:"
 
@@ -7970,8 +7970,8 @@ msgstr ""
 
 #: src/user_actions.rs:1202
 msgid ""
-"You should have received a copy of the GNU General Public License along with Foobar. If not, see <https://"
-"www.gnu.org/licenses/>."
+"You should have received a copy of the GNU General Public License along with GNOME Commander. If not, see "
+"<https://www.gnu.org/licenses/>."
 msgstr ""
 "Skupaj s programom bi morali prejeti tudi kopijo Splošnega javnega dovoljenja GNU (GNU GPL). Če je niste "
 "dobili, si oglejte <https://www.gnu.org/licenses/>."
