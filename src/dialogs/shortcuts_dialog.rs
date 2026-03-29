@@ -10,12 +10,13 @@ use crate::{
     utils::{SenderExt, WindowExt},
 };
 use gettextrs::gettext;
-use gtk::{gdk, gio, glib, prelude::*, subclass::prelude::*};
+use gtk::{gdk, glib, prelude::*, subclass::prelude::*};
 
 #[derive(Clone, PartialEq, Eq)]
 struct ListEntry {
     pub action: UserAction,
     pub shortcuts: Vec<Shortcut>,
+    pub row: gtk::ListBoxRow,
 }
 
 enum CaptureResult {
@@ -30,14 +31,14 @@ mod imp {
     use std::cell::RefCell;
 
     pub struct ShortcutsDialog {
-        pub store: gio::ListStore,
-        pub hidden_actions: RefCell<Vec<(Shortcut, Call)>>,
-        pub filter_text: RefCell<String>,
-        pub modified_only: RefCell<bool>,
-        pub default_shortcuts: Shortcuts,
-        pub view: gtk::ListBox,
+        pub(super) entries: RefCell<Vec<ListEntry>>,
+        hidden_actions: RefCell<Vec<(Shortcut, Call)>>,
+        filter_text: RefCell<String>,
+        modified_only: RefCell<bool>,
+        pub(super) default_shortcuts: Shortcuts,
+        pub(super) view: gtk::ListBox,
         sender: async_channel::Sender<bool>,
-        pub receiver: async_channel::Receiver<bool>,
+        pub(super) receiver: async_channel::Receiver<bool>,
     }
 
     #[glib::object_subclass]
@@ -93,7 +94,7 @@ mod imp {
 
             let (sender, receiver) = async_channel::bounded(1);
             Self {
-                store: gio::ListStore::new::<glib::BoxedAnyObject>(),
+                entries: Default::default(),
                 hidden_actions: Default::default(),
                 filter_text: Default::default(),
                 modified_only: Default::default(),
@@ -155,16 +156,6 @@ mod imp {
             vbox.append(&modified_only);
 
             self.view.add_css_class("rich-list");
-            self.view.bind_model(
-                Some(&self.store),
-                glib::clone!(
-                    #[weak(rename_to = imp)]
-                    self,
-                    #[upgrade_or]
-                    gtk::Box::builder().build().upcast(),
-                    move |item| imp.create_widget(item),
-                ),
-            );
             // Note: This will produce a bogus warning, see
             // https://gitlab.gnome.org/GNOME/gtk/-/issues/4088
             self.view.set_filter_func(glib::clone!(
@@ -183,16 +174,8 @@ mod imp {
                 #[weak(rename_to = imp)]
                 self,
                 move |_, row| {
-                    if let Some(obj) = imp
-                        .store
-                        .item(row.index() as u32)
-                        .and_downcast_ref::<glib::BoxedAnyObject>()
-                    {
-                        glib::spawn_future_local(
-                            imp.obj()
-                                .clone()
-                                .add_shortcut(obj.borrow::<ListEntry>().action),
-                        );
+                    if let Some(entry) = imp.entries.borrow().get(row.index() as usize) {
+                        glib::spawn_future_local(imp.obj().clone().add_shortcut(entry.action));
                     }
                 },
             ));
@@ -268,19 +251,26 @@ mod imp {
     impl WindowImpl for ShortcutsDialog {}
 
     impl ShortcutsDialog {
-        pub fn fill_model(&self, shortcuts: &Shortcuts) {
+        pub(super) fn fill_list(&self, shortcuts: &Shortcuts) {
             let mut shortcuts: Vec<_> = shortcuts.all();
             shortcuts.retain(|(shortcut, _)| !shortcut.is_mandatory());
 
             let mut entries: Vec<_> = UserAction::all()
                 // TODO: Action parameters cannot currently be configured
                 .filter(|action| !action.has_parameter())
-                .map(|action| ListEntry {
-                    action,
-                    shortcuts: shortcuts
+                .map(|action| {
+                    let shortcuts: Vec<_> = shortcuts
                         .extract_if(.., |(_, call)| call.action == action)
                         .map(|(shortcut, _)| shortcut)
-                        .collect(),
+                        .collect();
+                    ListEntry {
+                        row: gtk::ListBoxRow::builder()
+                            .child(&self.create_widget(action, &shortcuts))
+                            .activatable(true)
+                            .build(),
+                        action,
+                        shortcuts,
+                    }
                 })
                 .collect();
             entries.sort_by_cached_key(|entry| {
@@ -289,20 +279,18 @@ mod imp {
                     entry.action.description().to_lowercase(),
                 )
             });
-
-            for entry in entries {
-                self.store.append(&glib::BoxedAnyObject::new(entry));
+            for entry in &entries {
+                self.view.append(&entry.row);
             }
+            self.entries.replace(entries);
 
             self.hidden_actions.replace(shortcuts);
         }
 
-        pub fn save_shortcuts(&self, shortcuts: &Shortcuts) {
+        pub(super) fn save_shortcuts(&self, shortcuts: &Shortcuts) {
             shortcuts.clear();
 
-            for obj in self.store.iter::<glib::BoxedAnyObject>().flatten() {
-                let entry = obj.borrow::<ListEntry>();
-
+            for entry in self.entries.borrow().iter() {
                 for shortcut in &entry.shortcuts {
                     shortcuts.register(*shortcut, entry.action);
                 }
@@ -322,12 +310,8 @@ mod imp {
                 return true;
             }
 
-            let Some(entry) = self
-                .store
-                .item(row.index() as u32)
-                .and_downcast_ref::<glib::BoxedAnyObject>()
-                .map(|o| o.borrow::<ListEntry>().clone())
-            else {
+            let entries = self.entries.borrow();
+            let Some(entry) = entries.get(row.index() as usize) else {
                 return false;
             };
 
@@ -370,18 +354,11 @@ mod imp {
         }
 
         fn update_row_header(&self, row: &gtk::ListBoxRow, previous_row: Option<&gtk::ListBoxRow>) {
-            let Some(entry) = self
-                .store
-                .item(row.index() as u32)
-                .and_downcast_ref::<glib::BoxedAnyObject>()
-                .map(|o| o.borrow::<ListEntry>().clone())
-            else {
+            let entries = self.entries.borrow();
+            let Some(entry) = entries.get(row.index() as usize) else {
                 return;
             };
-            let previous = previous_row
-                .and_then(|row| self.store.item(row.index() as u32))
-                .and_downcast_ref::<glib::BoxedAnyObject>()
-                .map(|o| o.borrow::<ListEntry>().clone());
+            let previous = previous_row.and_then(|row| entries.get(row.index() as usize));
             let needs_header =
                 previous.is_none_or(|previous| previous.action.area() != entry.action.area());
             if needs_header {
@@ -399,110 +376,91 @@ mod imp {
             }
         }
 
-        fn create_widget(&self, item: &glib::Object) -> gtk::Widget {
-            if let Some(entry) = item
-                .downcast_ref::<glib::BoxedAnyObject>()
-                .map(|obj| obj.borrow::<ListEntry>())
-            {
-                let default_shortcuts = self.default_shortcuts.for_call(&Call {
-                    action: entry.action,
-                    action_data: None,
-                });
+        fn create_widget(&self, action: UserAction, shortcuts: &[Shortcut]) -> gtk::Widget {
+            let default_shortcuts = self.default_shortcuts.for_call(&Call {
+                action,
+                action_data: None,
+            });
 
-                let row = gtk::Box::builder()
-                    .orientation(gtk::Orientation::Horizontal)
-                    .build();
+            let row = gtk::Box::builder()
+                .orientation(gtk::Orientation::Horizontal)
+                .build();
 
-                let label = gtk::Label::builder()
-                    .label(entry.action.description())
-                    .hexpand(true)
-                    .halign(gtk::Align::Start)
-                    .build();
-                row.append(&label);
+            let label = gtk::Label::builder()
+                .label(action.description())
+                .hexpand(true)
+                .halign(gtk::Align::Start)
+                .build();
+            row.append(&label);
 
-                let shortcuts = gtk::Box::builder()
-                    .orientation(gtk::Orientation::Vertical)
-                    .build();
+            let shortcuts_box = gtk::Box::builder()
+                .orientation(gtk::Orientation::Vertical)
+                .build();
 
-                let shortcut_actions = gtk::Box::builder()
+            let shortcut_actions = gtk::Box::builder()
+                .orientation(gtk::Orientation::Horizontal)
+                .halign(gtk::Align::End)
+                .build();
+            shortcut_actions.append(
+                &gtk::Button::builder()
+                    .icon_name("document-new")
+                    .tooltip_text(gettext("Add Shortcut"))
+                    .action_name("add-shortcut")
+                    .action_target(&action.name().to_variant())
+                    .css_classes(["flat"])
+                    .build(),
+            );
+            shortcuts_box.append(&shortcut_actions);
+
+            let mut modified = false;
+            for shortcut in shortcuts {
+                let shortcut_box = gtk::Box::builder()
                     .orientation(gtk::Orientation::Horizontal)
                     .halign(gtk::Align::End)
                     .build();
-                shortcut_actions.append(
+                if !default_shortcuts.contains(shortcut) {
+                    shortcut_box.add_css_class("keyboard-shortcuts-modified");
+                    modified = true;
+                }
+                shortcut_box.append(
+                    &gtk::Label::builder()
+                        .label(shortcut.label())
+                        .css_classes(["keyboard-shortcuts-shortcut"])
+                        .build(),
+                );
+                shortcut_box.append(
                     &gtk::Button::builder()
-                        .icon_name("document-new")
-                        .tooltip_text(gettext("Add Shortcut"))
-                        .action_name("add-shortcut")
-                        .action_target(&entry.action.name().to_variant())
+                        .icon_name("document-edit")
+                        .tooltip_text(gettext("Edit Shortcut"))
+                        .action_name("edit-shortcut")
+                        .action_target(&(action.name(), shortcut.as_accelerator()).to_variant())
                         .css_classes(["flat"])
                         .build(),
                 );
-                shortcuts.append(&shortcut_actions);
-
-                let mut modified = false;
-                for shortcut in &entry.shortcuts {
-                    let shortcut_box = gtk::Box::builder()
-                        .orientation(gtk::Orientation::Horizontal)
-                        .halign(gtk::Align::End)
-                        .build();
-                    if !default_shortcuts.contains(shortcut) {
-                        shortcut_box.add_css_class("keyboard-shortcuts-modified");
-                        modified = true;
-                    }
-                    shortcut_box.append(
-                        &gtk::Label::builder()
-                            .label(shortcut.label())
-                            .css_classes(["keyboard-shortcuts-shortcut"])
-                            .build(),
-                    );
-                    shortcut_box.append(
-                        &gtk::Button::builder()
-                            .icon_name("document-edit")
-                            .tooltip_text(gettext("Edit Shortcut"))
-                            .action_name("edit-shortcut")
-                            .action_target(
-                                &(entry.action.name(), shortcut.as_accelerator()).to_variant(),
-                            )
-                            .css_classes(["flat"])
-                            .build(),
-                    );
-                    shortcuts.append(&shortcut_box);
-                }
-
-                if modified || entry.shortcuts.len() != default_shortcuts.len() {
-                    shortcut_actions.prepend(
-                        &gtk::Button::builder()
-                            .icon_name("edit-undo")
-                            .tooltip_text(gettext("Reset to Default"))
-                            .action_name("reset-action")
-                            .action_target(&entry.action.name().to_variant())
-                            .css_classes(["flat"])
-                            .build(),
-                    );
-                    label.add_css_class("keyboard-shortcuts-modified");
-                }
-
-                row.append(&shortcuts);
-
-                row.upcast()
-            } else {
-                gtk::Box::builder().build().upcast()
+                shortcuts_box.append(&shortcut_box);
             }
+
+            if modified || shortcuts.len() != default_shortcuts.len() {
+                shortcut_actions.prepend(
+                    &gtk::Button::builder()
+                        .icon_name("edit-undo")
+                        .tooltip_text(gettext("Reset to Default"))
+                        .action_name("reset-action")
+                        .action_target(&action.name().to_variant())
+                        .css_classes(["flat"])
+                        .build(),
+                );
+                label.add_css_class("keyboard-shortcuts-modified");
+            }
+
+            row.append(&shortcuts_box);
+
+            row.upcast()
         }
 
-        pub fn lookup_action(&self, action: UserAction) -> Option<glib::BoxedAnyObject> {
-            for obj in self.store.iter::<glib::BoxedAnyObject>() {
-                if let Ok(obj) = obj
-                    && obj.borrow::<ListEntry>().action == action
-                {
-                    return Some(obj);
-                }
-            }
-            None
-        }
-
-        pub async fn resolve_conflicts(
+        pub(super) async fn resolve_conflicts(
             &self,
+            entries: &mut [ListEntry],
             shortcuts: &[Shortcut],
             assigned_to: UserAction,
         ) -> bool {
@@ -529,59 +487,43 @@ mod imp {
                 }
             }
 
-            for obj in self.store.iter::<glib::BoxedAnyObject>().flatten() {
-                {
-                    let entry = obj.borrow::<ListEntry>();
-                    if entry.action == assigned_to || !entry.action.area().intersects(assigned_area)
-                    {
-                        continue;
-                    }
+            for entry in entries.iter_mut() {
+                if entry.action == assigned_to || !entry.action.area().intersects(assigned_area) {
+                    continue;
                 }
 
-                let mut needs_update = false;
                 loop {
                     let mut remove = None;
-                    {
-                        let entry = obj.borrow::<ListEntry>();
-                        for (index, shortcut) in entry.shortcuts.iter().enumerate() {
-                            if shortcuts.contains(shortcut) {
-                                remove = Some((index, entry.action, *shortcut));
-                                break;
-                            }
+                    for (index, shortcut) in entry.shortcuts.iter().enumerate() {
+                        if shortcuts.contains(shortcut) {
+                            remove = Some((index, entry.action, *shortcut));
+                            break;
                         }
                     }
+
                     if let Some((index, action, shortcut)) = remove {
                         if !conflict_confirm(self.obj().upcast_ref(), action, shortcut).await {
                             return false;
                         }
 
                         // Remove the conflict and re-run the check
-                        obj.borrow_mut::<ListEntry>().shortcuts.remove(index);
-                        needs_update = true;
+                        entry.shortcuts.remove(index);
+                        self.update_row(entry, false);
                     } else {
                         break;
                     }
-                }
-
-                if needs_update {
-                    self.update_row(&obj, false);
                 }
             }
 
             true
         }
 
-        pub fn update_row(&self, obj: &glib::BoxedAnyObject, focus: bool) {
-            if let Some(pos) = self
-                .store
-                .iter::<glib::BoxedAnyObject>()
-                .position(|o| o.as_ref() == Ok(obj))
-                && let Some(row) = self.view.row_at_index(pos as i32)
-            {
-                row.set_child(Some(&self.create_widget(obj.upcast_ref())));
-                if focus {
-                    row.grab_focus();
-                }
+        pub(super) fn update_row(&self, entry: &ListEntry, focus: bool) {
+            entry
+                .row
+                .set_child(Some(&self.create_widget(entry.action, &entry.shortcuts)));
+            if focus {
+                entry.row.grab_focus();
             }
         }
     }
@@ -606,7 +548,7 @@ impl ShortcutsDialog {
         } else {
             let dialog = parent.set_dialog("shortcuts", Self::default());
             dialog.set_transient_for(Some(parent));
-            dialog.imp().fill_model(shortcuts);
+            dialog.imp().fill_list(shortcuts);
 
             dialog.present();
             if let Some(row) = dialog.imp().view.row_at_index(0) {
@@ -622,33 +564,35 @@ impl ShortcutsDialog {
         }
     }
 
+    #[allow(clippy::await_holding_refcell_ref)]     // Modal dialog is unproblematic
     async fn add_shortcut(self, action: UserAction) {
-        let Some(obj) = self.imp().lookup_action(action) else {
+        let mut entries = self.imp().entries.borrow_mut();
+        let Some(index) = entries.iter_mut().position(|entry| entry.action == action) else {
             return;
         };
         if let CaptureResult::Success(shortcut) = capture_key(self.upcast_ref(), action, None).await
         {
-            if obj.borrow::<ListEntry>().shortcuts.contains(&shortcut)
-                || !self.imp().resolve_conflicts(&[shortcut], action).await
+            if entries[index].shortcuts.contains(&shortcut)
+                || !self
+                    .imp()
+                    .resolve_conflicts(&mut entries, &[shortcut], action)
+                    .await
             {
                 return;
             } else {
-                obj.borrow_mut::<ListEntry>().shortcuts.push(shortcut);
+                entries[index].shortcuts.push(shortcut);
             }
-            self.imp().update_row(&obj, true);
+            self.imp().update_row(&entries[index], true);
         }
     }
 
+    #[allow(clippy::await_holding_refcell_ref)]     // Modal dialog is unproblematic
     async fn edit_shortcut(self, action: UserAction, shortcut: Shortcut) {
-        let Some(obj) = self.imp().lookup_action(action) else {
+        let mut entries = self.imp().entries.borrow_mut();
+        let Some(index) = entries.iter_mut().position(|entry| entry.action == action) else {
             return;
         };
-        let Some(pos) = obj
-            .borrow::<ListEntry>()
-            .shortcuts
-            .iter()
-            .position(|s| s == &shortcut)
-        else {
+        let Some(pos) = entries[index].shortcuts.iter().position(|s| s == &shortcut) else {
             return;
         };
 
@@ -658,27 +602,31 @@ impl ShortcutsDialog {
                     return;
                 }
 
-                if obj.borrow::<ListEntry>().shortcuts.contains(&new_shortcut) {
-                    obj.borrow_mut::<ListEntry>().shortcuts.remove(pos);
-                } else if !self.imp().resolve_conflicts(&[new_shortcut], action).await {
+                if entries[index].shortcuts.contains(&new_shortcut) {
+                    entries[index].shortcuts.remove(pos);
+                } else if !self
+                    .imp()
+                    .resolve_conflicts(&mut entries, &[new_shortcut], action)
+                    .await
+                {
                     return;
                 } else {
-                    obj.borrow_mut::<ListEntry>()
-                        .shortcuts
-                        .splice(pos..=pos, [new_shortcut]);
+                    entries[index].shortcuts[pos] = new_shortcut;
                 }
-                self.imp().update_row(&obj, true);
+                self.imp().update_row(&entries[index], true);
             }
             CaptureResult::Remove => {
-                obj.borrow_mut::<ListEntry>().shortcuts.remove(pos);
-                self.imp().update_row(&obj, true);
+                entries[index].shortcuts.remove(pos);
+                self.imp().update_row(&entries[index], true);
             }
             CaptureResult::Cancel => (),
         }
     }
 
+    #[allow(clippy::await_holding_refcell_ref)]     // Modal dialog is unproblematic
     async fn reset_action(self, action: UserAction) {
-        let Some(obj) = self.imp().lookup_action(action) else {
+        let mut entries = self.imp().entries.borrow_mut();
+        let Some(index) = entries.iter_mut().position(|entry| entry.action == action) else {
             return;
         };
         let default_shortcuts = self.imp().default_shortcuts.for_call(&Call {
@@ -688,11 +636,11 @@ impl ShortcutsDialog {
 
         if self
             .imp()
-            .resolve_conflicts(&default_shortcuts, action)
+            .resolve_conflicts(&mut entries, &default_shortcuts, action)
             .await
         {
-            obj.borrow_mut::<ListEntry>().shortcuts = default_shortcuts;
-            self.imp().update_row(&obj, true);
+            entries[index].shortcuts = default_shortcuts;
+            self.imp().update_row(&entries[index], true);
         }
     }
 }
