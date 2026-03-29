@@ -1173,7 +1173,7 @@ async fn help_about(main_win: MainWindow) {
         "Piotr Eljasiak <epiotr@use.pl>",
         "Assaf Gordon <agordon88@gmail.com>",
         "Uwe Scholz <u.scholz83@gmx.de>",
-        "Andrey Kuteiko <andy128k@gmail.com>",
+        "Andrey Kutejko <andy128k@gmail.com>",
         "Wladimir Palant https://palant.info/",
     ];
 
@@ -1187,21 +1187,8 @@ async fn help_about(main_win: MainWindow) {
     let copyright = "Copyright \u{00A9} 2001-2006 Marcus Bjurman
 Copyright \u{00A9} 2007-2012 Piotr Eljasiak
 Copyright \u{00A9} 2013-2026 Uwe Scholz
-Copyright \u{00A9} 2024-2026 Andrey Kuteiko
+Copyright \u{00A9} 2024-2026 Andrey Kutejko
 Copyright \u{00A9} 2026 Wladimir Palant";
-
-    let license = format!(
-        "{}\n\n{}\n\n{}",
-        gettext(
-            "GNOME Commander is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version."
-        ),
-        gettext(
-            "GNOME Commander is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
-        ),
-        gettext(
-            "You should have received a copy of the GNU General Public License along with GNOME Commander. If not, see <https://www.gnu.org/licenses/>."
-        )
-    );
 
     gtk::AboutDialog::builder()
         .transient_for(&main_win)
@@ -1212,8 +1199,7 @@ Copyright \u{00A9} 2026 Wladimir Palant";
             "A fast and powerful file manager for the GNOME desktop",
         ))
         .copyright(copyright)
-        .license(license)
-        .wrap_license(true)
+        .license_type(gtk::License::Gpl30)
         .authors(authors)
         .documenters(documenters)
         .logo_icon_name(PACKAGE_NAME)
