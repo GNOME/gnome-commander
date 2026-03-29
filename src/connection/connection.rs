@@ -89,7 +89,7 @@ impl Connection {
     }
 
     pub fn add_to_cache(&self, directory: &Directory, uri: &str) {
-        debug!('k', "ADDING {:?} {} to the cache", directory, uri);
+        debug!('k', "ADDING {directory:?} {uri} to the cache");
         self.imp()
             .dir_cache
             .borrow_mut()
@@ -98,35 +98,38 @@ impl Connection {
 
     pub fn remove_from_cache(&self, directory: &Directory) {
         let uri = directory.uri();
-        debug!('k', "REMOVING {:?} {} from the cache", directory, uri);
+        debug!('k', "REMOVING {directory:?} {uri} from the cache");
         self.imp().dir_cache.borrow_mut().remove(&uri);
     }
 
     pub fn remove_from_cache_by_uri(&self, uri: &str) {
-        let removed: Vec<String> = self
+        // We have to hold on to the removed directories here. These have to be dropped after our
+        // cache reference is released because it will call remove_from_cache() which needs a cache
+        // reference as well.
+        let _removed: Vec<_> = self
             .imp()
             .dir_cache
             .borrow_mut()
             .extract_if(|u, _| u.starts_with(uri))
-            .map(|(uri, _dir)| uri)
             .collect();
         debug!(
             'k',
-            "REMOVING {} from the cache together with {:?}", uri, removed
+            "REMOVING {uri} from the cache together with {:?}",
+            _removed
+                .into_iter()
+                .map(|(uri, _dir)| uri)
+                .collect::<Vec<_>>()
         );
     }
 
     pub fn cache_lookup(&self, uri: &str) -> Option<Directory> {
         match self.imp().dir_cache.borrow().get(uri) {
             Some(directory) => {
-                debug!(
-                    'k',
-                    "FOUND {:?} {} in the cache, reusing it!", directory, uri
-                );
+                debug!('k', "FOUND {directory:?} {uri} in the cache, reusing it!");
                 Some(directory.clone())
             }
             None => {
-                debug!('k', "FAILED to find {} in the cache", uri);
+                debug!('k', "FAILED to find {uri} in the cache");
                 None
             }
         }
