@@ -150,7 +150,7 @@ impl File {
         self.file_info().edit_name().into()
     }
 
-    pub fn parent_directory(&self) -> Option<Directory> {
+    fn parent_directory(&self) -> Option<Directory> {
         self.imp().parent_dir.upgrade()
     }
 
