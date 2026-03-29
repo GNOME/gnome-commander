@@ -1078,7 +1078,7 @@
       <title>Copying a File or Folder</title>
       <para>You can use the mouse, the keyboard and the menus to copy a selection of items in another location.
       </para>
-      <para>First select the item(s) you wish to copy, You can then use any of the the following options.</para>
+      <para>First select the item(s) you wish to copy, You can then use any of the following options.</para>
       <itemizedlist>
         <listitem>
           <para>To copy using the menus <menuchoice><guimenu>Edit</guimenu><guimenuitem>Copy</guimenuitem></menuchoice>, then select the location where you want to copy the selection and select <menuchoice><guimenu>Edit</guimenu><guimenuitem>Paste</guimenuitem></menuchoice>.
@@ -1111,7 +1111,7 @@
       <title>Moving a File or Folder</title>
       <para>You can use the mouse, the keyboard , and the menus to move a selection of items in another location
       </para>
-      <para>First select the item(s) you wish to move, You can then use any of the the following options.</para>
+      <para>First select the item(s) you wish to move, You can then use any of the following options.</para>
       <itemizedlist>
         <listitem>
           <para>To move using the menus <menuchoice><guimenu>Edit</guimenu><guimenuitem>Cut</guimenuitem></menuchoice>, then select the location where you want to copy the selection and select <menuchoice><guimenu>Edit</guimenu><guimenuitem>Paste</guimenuitem></menuchoice>.
@@ -6627,12 +6627,12 @@
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>CTRL</keycap><keycap>LEFT</keycap></keycombo></para></entry>
-            <entry><para>Open the current directory of the left file list on the the right one</para></entry>
+            <entry><para>Open the current directory of the left file list on the right one</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>CTRL</keycap><keycap>RIGHT</keycap></keycombo></para></entry>
-            <entry><para>Open the current directory of the right file list on the the left one</para></entry>
+            <entry><para>Open the current directory of the right file list on the left one</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
