@@ -880,18 +880,20 @@ impl FileSelector {
     }
 
     pub fn go_to_file(&self, file: &File, connection: Option<Connection>) {
-        let Some(dir) = file.parent_directory() else {
+        let Some(parent_file) = file.file().parent() else {
             eprintln!(
                 "Cannot go to a file {}. It has no parent directory.",
                 file.name()
             );
             return;
         };
+        let connection = connection.unwrap_or_else(|| ConnectionList::get().home().upcast());
+        let dir = Directory::new_from_file(&connection, &parent_file);
         if self.is_current_tab_locked() {
             self.new_tab_with_dir(&dir, true, true);
             self.file_list().focus_file(&file.path_name(), true);
         } else if let Some(file_list) = self.current_file_list() {
-            if let Some(connection) = connection {
+            if connection.is::<ConnectionRemote>() {
                 file_list.set_connection(&connection, Some(&dir));
             } else {
                 file_list.set_directory(&dir);
