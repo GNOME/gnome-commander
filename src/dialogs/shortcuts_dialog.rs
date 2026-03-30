@@ -774,7 +774,22 @@ async fn capture_key(
     let controller = gtk::EventControllerKey::new();
     controller.set_propagation_phase(gtk::PropagationPhase::Capture);
     controller.connect_key_pressed(move |_, key, _, modifiers| {
-        if gtk::accelerator_valid(key, modifiers) {
+        if gtk::accelerator_valid(key, modifiers)
+            || matches!(
+                key,
+                gdk::Key::Tab
+                    | gdk::Key::ISO_Left_Tab
+                    | gdk::Key::KP_Tab
+                    | gdk::Key::Up
+                    | gdk::Key::KP_Up
+                    | gdk::Key::Down
+                    | gdk::Key::KP_Down
+                    | gdk::Key::Left
+                    | gdk::Key::KP_Left
+                    | gdk::Key::Right
+                    | gdk::Key::KP_Right
+            )
+        {
             sender.toss((key, modifiers));
             glib::Propagation::Stop
         } else {
