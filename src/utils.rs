@@ -146,6 +146,20 @@ pub trait WindowExt {
 impl<T: IsA<gtk::Window> + WidgetExt> WindowExt for T {
     fn set_cancel_widget(&self, cancel_widget: &impl IsA<gtk::Widget>) {
         let cancel_widget = cancel_widget.upcast_ref::<gtk::Widget>().clone();
+        self.connect_close_request(glib::clone!(
+            #[weak]
+            cancel_widget,
+            #[upgrade_or]
+            glib::Propagation::Proceed,
+            move |_| {
+                // Activating won’t trigger clicked signal at this stage, so emit it explicitly.
+                if let Some(button) = cancel_widget.downcast_ref::<gtk::Button>() {
+                    button.emit_clicked();
+                };
+                glib::Propagation::Proceed
+            }
+        ));
+
         let controller = gtk::ShortcutController::new();
         controller.add_shortcut(
             gtk::Shortcut::builder()
@@ -432,19 +446,6 @@ pub fn attributes_bold() -> pango::AttrList {
     let attrs = pango::AttrList::new();
     attrs.insert(pango::AttrInt::new_weight(pango::Weight::Bold));
     attrs
-}
-
-pub fn key_sorter<K, O>(key: K) -> gtk::Sorter
-where
-    K: Fn(&glib::Object) -> O + 'static,
-    O: std::cmp::Ord,
-{
-    gtk::CustomSorter::new(move |a, b| {
-        let key_a = (key)(a);
-        let key_b = (key)(b);
-        key_a.cmp(&key_b).into()
-    })
-    .upcast()
 }
 
 pub fn grid_attach(

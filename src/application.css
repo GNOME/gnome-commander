@@ -69,3 +69,23 @@ listview.gcmd-toolbar {
 .search-statusbar {
     border-spacing: 6px;
 }
+
+/* Keyboard Shortcuts */
+
+.keyboard-shortcuts-section-header {
+    font-size: 120%;
+    font-weight: bold;
+    padding: .5ex 0;
+}
+
+.keyboard-shortcuts-shortcut {
+    opacity: 0.6;
+}
+
+.keyboard-shortcuts-modified {
+    font-weight: bold;
+}
+
+.keyboard-shortcuts-key-capture-instructions {
+    padding: 5ex 1em;
+}

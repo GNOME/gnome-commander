@@ -4,6 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use crate::user_actions::UserAction;
+use gettextrs::gettext;
 use gtk::{gdk, prelude::*};
 use std::{
     cell::RefCell,
@@ -34,6 +35,23 @@ impl Area {
             "command-line" => Self::CommandLine,
             "terminal" => Self::Terminal,
             _ => Self::MainWindow,
+        }
+    }
+
+    pub fn label(&self) -> String {
+        match self {
+            Self::Panel => gettext("Panels"),
+            Self::CommandLine => gettext("Command Line"),
+            Self::Terminal => gettext("Command Output"),
+            Self::MainWindow => gettext("GNOME Commander Window"),
+        }
+    }
+
+    pub fn intersects(&self, other: Self) -> bool {
+        match self {
+            action if *action == other => true,
+            Self::Panel | Self::CommandLine | Self::Terminal => other == Self::MainWindow,
+            Self::MainWindow => matches!(other, Self::Panel | Self::CommandLine | Self::Terminal),
         }
     }
 }
@@ -420,6 +438,15 @@ impl Shortcuts {
             .borrow()
             .iter()
             .map(|((_, s), c)| (*s, c.clone()))
+            .collect()
+    }
+
+    pub fn for_call(&self, call: &Call) -> Vec<Shortcut> {
+        self.actions
+            .borrow()
+            .iter()
+            .filter(|(_, c)| c == &call)
+            .map(|((_, s), _)| *s)
             .collect()
     }
 

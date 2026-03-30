@@ -105,15 +105,6 @@ mod imp {
                 }
             ));
 
-            dlg.connect_close_request(glib::clone!(
-                #[strong(rename_to = cancellable)]
-                self.cancellable,
-                move |dlg| {
-                    cancellable.cancel();
-                    dlg.close();
-                    glib::Propagation::Proceed
-                }
-            ));
             dlg.set_cancel_widget(&self.stop_button);
         }
     }

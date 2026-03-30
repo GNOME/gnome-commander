@@ -28,7 +28,7 @@ use crate::{
         prepare_copy_dialog::prepare_copy_dialog_show,
         prepare_move_dialog::prepare_move_dialog_show,
         remote_dialog::RemoteDialog,
-        shortcuts::shortcuts_dialog::ShortcutsDialog,
+        shortcuts_dialog::ShortcutsDialog,
     },
     dir::Directory,
     file::{File, FileOps},

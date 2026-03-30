@@ -141,14 +141,6 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
 
     let (sender, receiver) = async_channel::bounded::<bool>(1);
 
-    dialog.connect_close_request(glib::clone!(
-        #[strong]
-        sender,
-        move |_| {
-            sender.toss(false);
-            glib::Propagation::Proceed
-        }
-    ));
     cancel_button.connect_clicked(glib::clone!(
         #[strong]
         sender,

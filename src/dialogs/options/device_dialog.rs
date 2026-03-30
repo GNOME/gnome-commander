@@ -138,14 +138,6 @@ pub async fn edit_device_dialog(
         sender,
         move |_| sender.toss(true)
     ));
-    dialog.connect_close_request(glib::clone!(
-        #[strong]
-        sender,
-        move |_| {
-            sender.toss(false);
-            glib::Propagation::Proceed
-        }
-    ));
     dialog.set_cancel_widget(&cancel_button);
 
     if let Some(device) = device {

@@ -58,8 +58,7 @@ src/dialogs/prepare_transfer_dialog.rs
 src/dialogs/profiles/edit_profile_dialog.rs
 src/dialogs/profiles/manage_profiles_dialog.rs
 src/dialogs/remote_dialog.rs
-src/dialogs/shortcuts/shortcut_dialog.rs
-src/dialogs/shortcuts/shortcuts_dialog.rs
+src/dialogs/shortcuts_dialog.rs
 src/dialogs/transfer_progress_dialog.rs
 src/dirlist.rs
 src/dir.rs
@@ -87,6 +86,7 @@ src/search/search_dialog.rs
 src/search/selection_profile_component.rs
 src/select_directory_button.rs
 src/select_icon_button.rs
+src/shortcuts.rs
 src/spawn.rs
 src/tags/basic.rs
 src/tags/image.rs
