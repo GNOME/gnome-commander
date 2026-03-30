@@ -7,7 +7,7 @@ use crate::{
     main_win::MainWindow,
     shortcuts::{Call, Shortcut, Shortcuts},
     user_actions::UserAction,
-    utils::{SenderExt, WindowExt},
+    utils::{NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
 };
 use gettextrs::gettext;
 use gtk::{gdk, glib, prelude::*, subclass::prelude::*};
@@ -27,7 +27,7 @@ enum CaptureResult {
 
 mod imp {
     use super::*;
-    use crate::utils::{dialog_button_box, display_help};
+    use crate::utils::display_help;
     use std::cell::RefCell;
 
     pub struct ShortcutsDialog {
@@ -740,6 +740,37 @@ async fn capture_key(
     vbox.append(&instructions);
 
     let (sender, receiver) = async_channel::bounded(1);
+
+    let cancel_button = gtk::Button::builder()
+        .label(gettext("Cancel"))
+        .focusable(false)
+        .build();
+    cancel_button.connect_clicked(glib::clone!(
+        #[strong]
+        sender,
+        move |_| sender.toss((gdk::Key::Escape, gdk::ModifierType::all()))
+    ));
+    dialog.set_cancel_widget(&cancel_button);
+
+    if existing_key.is_some() {
+        let remove_button = gtk::Button::builder()
+            .label(gettext("Remove Shortcut"))
+            .focusable(false)
+            .build();
+        remove_button.connect_clicked(glib::clone!(
+            #[strong]
+            sender,
+            move |_| sender.toss((gdk::Key::BackSpace, gdk::ModifierType::all()))
+        ));
+
+        vbox.append(&dialog_button_box(
+            NO_BUTTONS,
+            &[&cancel_button, &remove_button],
+        ));
+    } else {
+        vbox.append(&dialog_button_box(NO_BUTTONS, &[&cancel_button]));
+    }
+
     let controller = gtk::EventControllerKey::new();
     controller.set_propagation_phase(gtk::PropagationPhase::Capture);
     controller.connect_key_pressed(move |_, key, _, modifiers| {
@@ -758,7 +789,13 @@ async fn capture_key(
     let result = loop {
         let response = receiver.recv().await;
         if let Ok((key, modifiers)) = response {
-            if key == gdk::Key::Escape && modifiers == gdk::ModifierType::NO_MODIFIER_MASK {
+            if key == gdk::Key::Escape && modifiers == gdk::ModifierType::all() {
+                // Not a keyboard input, cancel button clicked
+                break CaptureResult::Cancel;
+            } else if key == gdk::Key::BackSpace && modifiers == gdk::ModifierType::all() {
+                // Not a keyboard input, remove button clicked
+                break CaptureResult::Remove;
+            } else if key == gdk::Key::Escape && modifiers == gdk::ModifierType::NO_MODIFIER_MASK {
                 if state == 1 {
                     break CaptureResult::Cancel;
                 }
