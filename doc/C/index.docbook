@@ -6794,13 +6794,15 @@
     <para>User actions trigger predefined functions (actions) and make &app; very flexible. They are accessed by a key or set of keys (shortcut key). </para>
     <sect2 id="gnome-commander-user-actions-managing">
       <title>Managing user actions</title>
-      <para>The dialog for user actions and associated keyboard shortcuts can be opened by clicking on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Keyboard Shortcuts...</guimenuitem></menuchoice>. Below, the usage of the dialog is explained.</para>
-      <para>In the keyboard shortcut dialog a text box for searching through available shortcuts is shown. Below that textbox, a checkbox for only showing changed shortcuts is available. The table under that checkbox contains all available shortcuts. They are listed in three blocks: &quot;Panel&quot; shortcuts, &quot;Command Line&quot; shortcuts and &quot;&app; window&quot; shortcuts. The entries in each block consist of two columns:
+      <para>The dialog for user actions and associated keyboard shortcuts can be opened by clicking on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Keyboard Shortcuts…</guimenuitem></menuchoice>. Below, the usage of the dialog is explained.</para>
+      <para>The keyboard shortcuts dialog lists available user actions with their respective configured shortcuts. As the list is quite long, you can use the search textbox above it to limit the display only to the actions containing specific text. In addition, a checkbox below that textbox allows showing only actions where default shortcut settings have been modified.</para>
+      <para>The actions are listed in multiple blocks including “Panel” shortcuts, “Command Line” shortcuts and “&app; window” shortcuts. Shortcuts for the two former groups only apply to the respective parts of the window while the shortcuts in the latter group can be pressed anywhere in the window.</para>
+      <para>The entries in each block consist of two columns:
       <orderedlist>
         <listitem><para><guilabel>Shortcut Action</guilabel>: Action to perform by pressing the shortcut key.</para></listitem>
-        <listitem><para><guilabel>Shortcut Key</guilabel>: Key combination the user has to press to perform the action. It&apos;s possible to assign more than one key combinations to an action. Some actionsare already assigned to multiple shortcuts by default.</para></listitem>
+        <listitem><para><guilabel>Shortcut Key</guilabel>: Key combination the user has to press to perform the action. It&apos;s possible to assign more than one key combination to an action. Some actions are already assigned to multiple shortcuts by default.</para></listitem>
       </orderedlist></para>
-      <para>You can configure the available shortcuts by clicking on the related icons for adding or editing on the right. When a shortcut is modified, the shortcut key is written in bold letters. Also, a &quot;Reset to Default&quot; button occurs, to reset the shortcut key to the default value.</para>
+      <para>You can configure the available shortcuts by clicking on the related icons for adding or editing on the right. When a shortcut is modified, the shortcut key is written in bold letters. Also, the action name is written in bold latters if the action’s default shortcut configuration has been modified. A “Reset to Default” button appears then, allowing to reset the action’s configured shortcuts to the default value.</para>
       <para>Find the default key bindings in the previous section <xref linkend="gnome-commander-keyboard"></xref>.</para>
     </sect2>
   </sect1>
