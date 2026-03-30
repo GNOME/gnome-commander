@@ -230,15 +230,6 @@ mod imp {
                 move |_| imp.jump_to_clicked()
             ));
 
-            dialog.connect_close_request(glib::clone!(
-                #[strong(rename_to = sender)]
-                self.sender,
-                move |_| {
-                    sender.toss(None);
-                    glib::Propagation::Proceed
-                }
-            ));
-
             dialog.set_default_widget(Some(&self.jump_button));
             dialog.set_cancel_widget(&close_button);
         }

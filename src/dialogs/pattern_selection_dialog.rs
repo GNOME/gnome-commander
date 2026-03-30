@@ -103,15 +103,6 @@ pub async fn show_pattern_selection_dialog(
         1,
     );
 
-    dialog.connect_close_request(glib::clone!(
-        #[strong]
-        sender,
-        move |_| {
-            sender.toss(false);
-            glib::Propagation::Proceed
-        }
-    ));
-
     dialog.set_default_widget(Some(&ok_btn));
     dialog.set_cancel_widget(&cancel_btn);
 

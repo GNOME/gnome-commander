@@ -562,7 +562,7 @@ impl ShortcutsDialog {
         }
     }
 
-    #[allow(clippy::await_holding_refcell_ref)]     // Modal dialog is unproblematic
+    #[allow(clippy::await_holding_refcell_ref)] // Modal dialog is unproblematic
     async fn add_shortcut(self, action: UserAction) {
         let mut entries = self.imp().entries.borrow_mut();
         let Some(index) = entries.iter_mut().position(|entry| entry.action == action) else {
@@ -584,7 +584,7 @@ impl ShortcutsDialog {
         }
     }
 
-    #[allow(clippy::await_holding_refcell_ref)]     // Modal dialog is unproblematic
+    #[allow(clippy::await_holding_refcell_ref)] // Modal dialog is unproblematic
     async fn edit_shortcut(self, action: UserAction, shortcut: Shortcut) {
         let mut entries = self.imp().entries.borrow_mut();
         let Some(index) = entries.iter_mut().position(|entry| entry.action == action) else {
@@ -621,7 +621,7 @@ impl ShortcutsDialog {
         }
     }
 
-    #[allow(clippy::await_holding_refcell_ref)]     // Modal dialog is unproblematic
+    #[allow(clippy::await_holding_refcell_ref)] // Modal dialog is unproblematic
     async fn reset_action(self, action: UserAction) {
         let mut entries = self.imp().entries.borrow_mut();
         let Some(index) = entries.iter_mut().position(|entry| entry.action == action) else {

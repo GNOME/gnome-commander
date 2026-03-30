@@ -196,14 +196,6 @@ pub async fn edit_palette(
         sender,
         move |_| sender.toss(true)
     ));
-    dialog.connect_close_request(glib::clone!(
-        #[strong]
-        sender,
-        move |_| {
-            sender.toss(false);
-            glib::Propagation::Proceed
-        }
-    ));
     dialog.set_default_widget(Some(&ok_button));
     dialog.set_cancel_widget(&cancel_button);
 

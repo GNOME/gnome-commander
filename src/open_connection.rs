@@ -47,14 +47,6 @@ pub async fn open_connection(parent_window: &gtk::Window, con: &Connection) -> b
         cancellable,
         move |_| cancellable.cancel()
     ));
-    dialog.connect_close_request(glib::clone!(
-        #[strong]
-        cancellable,
-        move |_| {
-            cancellable.cancel();
-            glib::Propagation::Proceed
-        }
-    ));
 
     dialog.present();
 

@@ -158,14 +158,6 @@ pub async fn edit_colors(parent_window: &gtk::Window, theme: ColorTheme) -> Opti
         sender,
         move |_| sender.toss(())
     ));
-    dialog.connect_close_request(glib::clone!(
-        #[strong]
-        sender,
-        move |_| {
-            sender.toss(());
-            glib::Propagation::Proceed
-        }
-    ));
     dialog.set_cancel_widget(&close_button);
 
     dialog.present();
