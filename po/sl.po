@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
-"POT-Creation-Date: 2026-03-29 09:46+0000\n"
-"PO-Revision-Date: 2026-03-29 17:50+0200\n"
+"POT-Creation-Date: 2026-03-30 20:49+0000\n"
+"PO-Revision-Date: 2026-03-31 11:36+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -3396,11 +3396,10 @@ msgstr "Kakšno ime naj ima nov arhiv?"
 #: src/dialogs/options/device_dialog.rs:98 src/dialogs/options/edit_palette_dialog.rs:158
 #: src/dialogs/options/options_dialog.rs:105 src/dialogs/pattern_selection_dialog.rs:74
 #: src/dialogs/prepare_transfer_dialog.rs:72 src/dialogs/profiles/edit_profile_dialog.rs:89
-#: src/dialogs/profiles/manage_profiles_dialog.rs:237 src/dialogs/shortcuts/shortcut_dialog.rs:160
-#: src/dialogs/shortcuts/shortcut_dialog.rs:395 src/dialogs/shortcuts/shortcuts_dialog.rs:178
-#: src/dialogs/transfer_progress_dialog.rs:73 src/dirlist.rs:45 src/file_selector.rs:1573
-#: src/intviewer/search_dialog.rs:49 src/open_connection.rs:35 src/open_file.rs:23 src/open_file.rs:45
-#: src/user_actions.rs:851
+#: src/dialogs/profiles/manage_profiles_dialog.rs:237 src/dialogs/shortcuts_dialog.rs:206
+#: src/dialogs/shortcuts_dialog.rs:677 src/dialogs/transfer_progress_dialog.rs:73 src/dirlist.rs:45
+#: src/file_selector.rs:1573 src/intviewer/search_dialog.rs:49 src/open_connection.rs:35 src/open_file.rs:23
+#: src/open_file.rs:45 src/user_actions.rs:851
 msgid "_Cancel"
 msgstr "Pre_kliči"
 
@@ -5005,7 +5004,7 @@ msgstr "Rezultati"
 #: src/dialogs/mkdir_dialog.rs:73 src/dialogs/options/device_dialog.rs:94
 #: src/dialogs/options/options_dialog.rs:101 src/dialogs/profiles/edit_profile_dialog.rs:55
 #: src/dialogs/profiles/manage_profiles_dialog.rs:215 src/dialogs/remote_dialog.rs:151
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:164 src/intviewer/window.rs:883 src/main_win.rs:1528
+#: src/dialogs/shortcuts_dialog.rs:192 src/intviewer/window.rs:883 src/main_win.rs:1528
 #: src/search/search_dialog.rs:353
 msgid "_Help"
 msgstr "Pomo_č"
@@ -5064,21 +5063,18 @@ msgstr "Metaoznaka"
 
 #: src/advanced_rename/profile_component.rs:113 src/dialogs/options/apps_widget.rs:68
 #: src/dialogs/options/devices_widget.rs:54 src/dialogs/remote_dialog.rs:118
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:127
 msgid "_Add"
 msgstr "_Dodaj"
 
 #: src/advanced_rename/profile_component.rs:117 src/dialogs/manage_bookmarks_dialog.rs:65
 #: src/dialogs/options/apps_widget.rs:74 src/dialogs/options/devices_widget.rs:61
-#: src/dialogs/profiles/manage_profiles_dialog.rs:159 src/dialogs/remote_dialog.rs:56
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:140 src/main_win.rs:1431
+#: src/dialogs/profiles/manage_profiles_dialog.rs:159 src/dialogs/remote_dialog.rs:56 src/main_win.rs:1431
 msgid "_Edit"
 msgstr "_Uredi"
 
 #: src/advanced_rename/profile_component.rs:121 src/dialogs/manage_bookmarks_dialog.rs:70
 #: src/dialogs/options/apps_widget.rs:80 src/dialogs/options/devices_widget.rs:68
 #: src/dialogs/profiles/manage_profiles_dialog.rs:184 src/dialogs/remote_dialog.rs:60
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:153
 msgid "_Remove"
 msgstr "_Odstrani"
 
@@ -5408,11 +5404,11 @@ msgstr "Pogled besedila:"
 msgid "Number view:"
 msgstr "Pogled številk:"
 
-#: src/command_line.rs:50 src/user_actions.rs:1672
+#: src/command_line.rs:50 src/user_actions.rs:1658
 msgid "_Copy"
 msgstr "_Kopiraj"
 
-#: src/command_line.rs:51 src/user_actions.rs:1678
+#: src/command_line.rs:51 src/user_actions.rs:1664
 msgid "_Paste"
 msgstr "_Prilepi"
 
@@ -5474,8 +5470,8 @@ msgstr "Odklopi: {device_name}"
 msgid "Volume successfully unmounted"
 msgstr "Pogon je uspešno odklopljen"
 
-#: src/connection/device.rs:353 src/dialogs/shortcuts/shortcut_dialog.rs:375 src/intviewer/window.rs:651
-#: src/utils.rs:232
+#: src/connection/device.rs:353 src/dialogs/shortcuts_dialog.rs:656 src/intviewer/window.rs:651
+#: src/utils.rs:246
 msgid "_Dismiss"
 msgstr "_Opusti"
 
@@ -5761,7 +5757,7 @@ msgstr "Izdelava simbolične povezave ni uspela"
 msgid "Deleting…"
 msgstr "Poteka brisanje …"
 
-#: src/dialogs/delete_dialog.rs:152
+#: src/dialogs/delete_dialog.rs:143
 #, rust-format
 msgid "Deleted {count} of {total} file"
 msgid_plural "Deleted {count} of {total} files"
@@ -5770,68 +5766,68 @@ msgstr[1] "Izbrisana {count} od {total} datotek"
 msgstr[2] "Izbrisani {count} od {total} datotek"
 msgstr[3] "Izbrisane {count} od {total} datotek"
 
-#: src/dialogs/delete_dialog.rs:176
+#: src/dialogs/delete_dialog.rs:167
 #, rust-format
 msgid "The directory “{}” is not empty. Do you really want to delete it?"
 msgstr "Mapa »{}« ni prazna. Ali jo res želite izbrisati?"
 
-#: src/dialogs/delete_dialog.rs:179
+#: src/dialogs/delete_dialog.rs:170
 #, rust-format
 msgid "Do you really want to delete “{}”?"
 msgstr "Ali res želite izbrisati »{}«?"
 
-#: src/dialogs/delete_dialog.rs:186 src/dialogs/delete_dialog.rs:521 src/user_actions.rs:399
-#: src/user_actions.rs:446
+#: src/dialogs/delete_dialog.rs:177 src/dialogs/delete_dialog.rs:512 src/dialogs/shortcuts_dialog.rs:745
+#: src/user_actions.rs:399 src/user_actions.rs:446
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: src/dialogs/delete_dialog.rs:187 src/dialogs/delete_dialog.rs:227
+#: src/dialogs/delete_dialog.rs:178 src/dialogs/delete_dialog.rs:218
 #: src/dialogs/options/confirmation_tab.rs:82 src/dialogs/options/confirmation_tab.rs:111
 #: src/dialogs/prepare_copy_dialog.rs:62 src/dialogs/prepare_move_dialog.rs:62 src/transfer.rs:455
 #: src/transfer.rs:495 src/transfer.rs:556 src/transfer.rs:669 src/user_actions.rs:397
 msgid "Skip"
 msgstr "Preskoči"
 
-#: src/dialogs/delete_dialog.rs:189
+#: src/dialogs/delete_dialog.rs:180
 msgid "Delete All"
 msgstr "Izbriši vse"
 
-#: src/dialogs/delete_dialog.rs:191
+#: src/dialogs/delete_dialog.rs:182
 msgid "Delete Remaining"
 msgstr "Izbriši preostale"
 
-#: src/dialogs/delete_dialog.rs:193 src/dialogs/delete_dialog.rs:521
+#: src/dialogs/delete_dialog.rs:184 src/dialogs/delete_dialog.rs:512
 #: src/dialogs/options/confirmation_tab.rs:65
 msgid "Delete"
 msgstr "Izbriši"
 
-#: src/dialogs/delete_dialog.rs:214
+#: src/dialogs/delete_dialog.rs:205
 #, rust-format
 msgid "Error while deleting “{file}”"
 msgstr "Napaka pri brisanju »{file}«"
 
-#: src/dialogs/delete_dialog.rs:227 src/dialogs/delete_dialog.rs:565 src/transfer.rs:455 src/transfer.rs:472
+#: src/dialogs/delete_dialog.rs:218 src/dialogs/delete_dialog.rs:556 src/transfer.rs:455 src/transfer.rs:472
 #: src/transfer.rs:490 src/transfer.rs:507 src/transfer.rs:552 src/transfer.rs:570 src/transfer.rs:665
 #: src/transfer.rs:683
 msgid "Abort"
 msgstr "Prekliči"
 
-#: src/dialogs/delete_dialog.rs:227 src/transfer.rs:455 src/transfer.rs:491 src/transfer.rs:508
+#: src/dialogs/delete_dialog.rs:218 src/transfer.rs:455 src/transfer.rs:491 src/transfer.rs:508
 #: src/transfer.rs:553 src/transfer.rs:571 src/transfer.rs:666 src/transfer.rs:684 src/user_actions.rs:400
 msgid "Retry"
 msgstr "Poskusi znova"
 
-#: src/dialogs/delete_dialog.rs:495
+#: src/dialogs/delete_dialog.rs:486
 #, rust-format
 msgid "Do you want to permanently delete “{}”?"
 msgstr "Ali želite trajno izbrisati »{}«?"
 
-#: src/dialogs/delete_dialog.rs:498
+#: src/dialogs/delete_dialog.rs:489
 #, rust-format
 msgid "Do you want to move “{}” to the trash can?"
 msgstr "Ali želite premakniti »{}« v koš?"
 
-#: src/dialogs/delete_dialog.rs:504
+#: src/dialogs/delete_dialog.rs:495
 msgid "Do you want to permanently delete the selected file?"
 msgid_plural "Do you want to permanently delete the %d selected files?"
 msgstr[0] "Ali želite trajno izbrisati %d izbranih datotek?"
@@ -5839,7 +5835,7 @@ msgstr[1] "Ali želite trajno izbrisati %d izbrano datoteko?"
 msgstr[2] "Ali želite trajno izbrisati %d izbrani datoteki?"
 msgstr[3] "Ali želite trajno izbrisati %d izbrane datoteke?"
 
-#: src/dialogs/delete_dialog.rs:510
+#: src/dialogs/delete_dialog.rs:501
 msgid "Do you want to move the selected file to the trash can?"
 msgid_plural "Do you want to move the %d selected files to the trash can?"
 msgstr[0] "Ali želite premakniti %d izbranih datotek v smeti?"
@@ -5847,7 +5843,7 @@ msgstr[1] "Ali želite premakniti %d izbrano datoteko v smeti?"
 msgstr[2] "Ali želite premakniti %d izbrani datoteki v smeti?"
 msgstr[3] "Ali želite premakniti %d izbrane datoteke v smeti?"
 
-#: src/dialogs/delete_dialog.rs:563
+#: src/dialogs/delete_dialog.rs:554
 msgid "Error while deleting"
 msgstr "Napaka pri brisanju"
 
@@ -6002,7 +5998,7 @@ msgstr "Bližnjica"
 msgid "Path"
 msgstr "Pot"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:584
+#: src/dialogs/manage_bookmarks_dialog.rs:575
 msgid "To bookmark a directory the whole search path to the directory must be in valid UTF-8 encoding"
 msgstr "Za ustvarjanje zaznamka mape mora biti celotna iskalna pot v veljavnem UTF-8 kodnem naboru"
 
@@ -6075,7 +6071,7 @@ msgid "Icon:"
 msgstr "Ikona:"
 
 #: src/dialogs/options/app_dialog.rs:84 src/dialogs/options/options_dialog.rs:24
-#: src/dialogs/prepare_copy_dialog.rs:83 src/dialogs/shortcuts/shortcuts_dialog.rs:93
+#: src/dialogs/prepare_copy_dialog.rs:83
 msgid "Options"
 msgstr "Možnosti"
 
@@ -6119,11 +6115,11 @@ msgstr ":Dodaj program"
 msgid "_Update Application"
 msgstr "Posodo_bi program"
 
-#: src/dialogs/options/app_dialog.rs:242
+#: src/dialogs/options/app_dialog.rs:234
 msgid "An app needs to have a non-empty label"
 msgstr "Program mora imeti neprazno oznako"
 
-#: src/dialogs/options/app_dialog.rs:249
+#: src/dialogs/options/app_dialog.rs:241
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
@@ -6214,15 +6210,15 @@ msgstr "_Dodaj napravo"
 msgid "_Update Device"
 msgstr "Posodo_bi napravo"
 
-#: src/dialogs/options/device_dialog.rs:173
+#: src/dialogs/options/device_dialog.rs:165
 msgid "A device needs to have a non-empty alias"
 msgstr "Naprava mora imeti neprazen vzdevek"
 
-#: src/dialogs/options/device_dialog.rs:180
+#: src/dialogs/options/device_dialog.rs:172
 msgid "A device needs to have a non-empty path/label"
 msgstr "Naprava mora imeti neprazno pot/oznako"
 
-#: src/dialogs/options/device_dialog.rs:187
+#: src/dialogs/options/device_dialog.rs:179
 msgid "A device needs to have a non-empty mount point"
 msgstr "Naprava mora imeti neprazno mesto priklopa"
 
@@ -6421,7 +6417,7 @@ msgstr "Enojni klik odstrani izbor"
 msgid "Middle mouse button"
 msgstr "Srednji gumb miške"
 
-#: src/dialogs/options/general_tab.rs:92 src/user_actions.rs:1764
+#: src/dialogs/options/general_tab.rs:92 src/user_actions.rs:1750
 msgid "Up one directory"
 msgstr "Odpre mapo višje"
 
@@ -6761,7 +6757,7 @@ msgstr "_Izberi"
 msgid "Uns_elect"
 msgstr "Pre_kliči izbor"
 
-#: src/dialogs/pattern_selection_dialog.rs:173
+#: src/dialogs/pattern_selection_dialog.rs:164
 msgid "Bad expression"
 msgstr "Napačen izraz"
 
@@ -6846,88 +6842,89 @@ msgstr "Oddaljene povezave"
 msgid "No server selected"
 msgstr "Ni izbranega strežnika"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:116
-msgid "Keyboard Shortcut"
-msgstr "Tipkovna bližnjica"
+#: src/dialogs/shortcuts_dialog.rs:119
+msgid "Keyboard Shortcuts"
+msgstr "Tipkovne bližnjice"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:124
-msgid "_Action"
-msgstr "_Dejanje"
+#: src/dialogs/shortcuts_dialog.rs:130
+msgid "Search shortcuts…"
+msgstr "Poišči tipkovne bližnjice …"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:134
-msgid "_Shortcut"
-msgstr "_Bližnjica"
+#: src/dialogs/shortcuts_dialog.rs:218
+msgid "_Save Shortcuts"
+msgstr "Shrani tipke za _bližnjice"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:152
-msgid ""
-"To edit a shortcut key, click on the \"Assign\" button and type a new accelerator, or press escape to "
-"cancel."
-msgstr ""
-"Za urejanje tipkovne bližnjice kliknite gumb »Dodeli« in vnesite novo bližnjico, sicer pritisnite "
-"ubežnico za preklic."
+#: src/dialogs/shortcuts_dialog.rs:405 src/dialogs/shortcuts_dialog.rs:697
+msgid "Add Shortcut"
+msgstr "Dodaj tipkovno bližnjico"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:236
-msgid "New shortcut..."
-msgstr "Nova bližnjica ..."
+#: src/dialogs/shortcuts_dialog.rs:432 src/dialogs/shortcuts_dialog.rs:695
+msgid "Edit Shortcut"
+msgstr "Dodaj tipkovno bližnjico"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:241
-msgid "Assign"
-msgstr "Dodeli"
+#: src/dialogs/shortcuts_dialog.rs:445
+msgid "Reset to Default"
+msgstr "Ponastavi na privzeto"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:273
-msgid "No action is selected."
-msgstr "Nobeno dejanje ni izbrano."
-
-#: src/dialogs/shortcuts/shortcut_dialog.rs:280
-msgid "No shortcut is defined."
-msgstr "Nobena bližnjica ni določena."
-
-#: src/dialogs/shortcuts/shortcut_dialog.rs:323
-msgid "_Update Shortcut"
-msgstr "Posodo_bi tipkovno bližnjico"
-
-#: src/dialogs/shortcuts/shortcut_dialog.rs:325
-msgid "A_dd Shortcut"
-msgstr "Dodaj tipkovno _bližnjico"
-
-#: src/dialogs/shortcuts/shortcut_dialog.rs:369
+#: src/dialogs/shortcuts_dialog.rs:650
 #, rust-format
 msgid "Shortcut “{shortcut}” cannot be reconfigured."
 msgstr "Tipkovne bližnjice »{shortcut}« ni možno ponovno prilagoditi."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:373
+#: src/dialogs/shortcuts_dialog.rs:654
 msgid "This shortcut is used by an action that is not configurable."
 msgstr "To tipkovno bližnjico uporablja dejanje, ki ga ni možno prilagoditi."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:387
+#: src/dialogs/shortcuts_dialog.rs:669
 #, rust-format
 msgid "Shortcut “{shortcut}” is already taken by “{action}”."
 msgstr "Tipkovna bližnjica »{shortcut}« se že uporablja za »{action}«."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:392
+#: src/dialogs/shortcuts_dialog.rs:674
 #, rust-format
 msgid "Reassigning the shortcut will cause it to be removed from “{action}”."
 msgstr "Če bližnjico znova dodelite, bo odvzeta »{action}«."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:395
+#: src/dialogs/shortcuts_dialog.rs:677
 msgid "_Reassign shortcut"
 msgstr "_Ponovno določi bližnjico"
 
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:56
-msgid "Keyboard Shortcuts"
-msgstr "Tipkovne bližnjice"
+#: src/dialogs/shortcuts_dialog.rs:711
+#, rust-format
+msgid "Enter a shortcut to replace “{shortcut}” for action “{action}.”"
+msgstr "Vnesite tipkovno bližnjico, da zamenjate »{shortcut}« za dejanje »{action}«."
 
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:70
-msgid "Shortcut Key"
-msgstr "Tipkovna bližnjica"
+#: src/dialogs/shortcuts_dialog.rs:715
+#, rust-format
+msgid "Enter a new shortcut for action “{action}.”"
+msgstr "Vnesite novo tipkovno bližnjico za dejanje »{action}«."
 
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:81
-msgid "Action"
-msgstr "Dejanje"
+#: src/dialogs/shortcuts_dialog.rs:725
+msgid "Press the desired key combination on your keyboard."
+msgstr "Pritisnite želeno kombinacijo tipk."
 
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:190
-msgid "_Save Shortcuts"
-msgstr "Shrani tipke za _bližnjice"
+#: src/dialogs/shortcuts_dialog.rs:727
+msgid "Press Esc twice to cancel."
+msgstr "Pritisnite dvakrat ubežnico (Esc) za preklic."
+
+#: src/dialogs/shortcuts_dialog.rs:730
+msgid "Press Backspace twice to remove the shortcut."
+msgstr "Pritisnite dvakrat vračalko za odstranitev tipkovne bližnjice."
+
+#: src/dialogs/shortcuts_dialog.rs:757
+msgid "Remove Shortcut"
+msgstr "Odstrani tipkovno bližnjice"
+
+#: src/dialogs/shortcuts_dialog.rs:820
+msgid "Press Esc again to cancel or Enter to use Esc as shortcut key."
+msgstr ""
+"Pritisnite znova ubežnico (Esc) za preklic ali vnašalko (Enter) za rabo ubežnice kot tipke za bližnjico."
+
+#: src/dialogs/shortcuts_dialog.rs:831
+msgid "Press Backspace again to remove the shortcut or Enter to use Backspace as shortcut key."
+msgstr ""
+"Pritisnite znova vračalko, da odstranite tipkovno bližnjico, ali vnašalko, da uporabite vračalko kot "
+"tipko za bližnjico."
 
 #: src/dialogs/transfer_progress_dialog.rs:52
 msgid "Progress"
@@ -7150,7 +7147,7 @@ msgstr "Zavihek je zaklenjen; naj se vseeno zapre?"
 msgid "C_lose Tab"
 msgstr "_Zapri zavihek"
 
-#: src/file_selector.rs:1614 src/user_actions.rs:1854
+#: src/file_selector.rs:1614 src/user_actions.rs:1840
 msgid "Open in New _Tab"
 msgstr "Odpri v novem _zavihku"
 
@@ -7170,11 +7167,11 @@ msgstr "O_sveži zavihek"
 msgid "Copy Tab to Other _Panel"
 msgstr "Kopiraj zavihek v drugo _ploščo"
 
-#: src/file_selector.rs:1652 src/user_actions.rs:1860
+#: src/file_selector.rs:1652 src/user_actions.rs:1846
 msgid "_Close Tab"
 msgstr "_Zapri zavihek"
 
-#: src/file_selector.rs:1656 src/user_actions.rs:1866
+#: src/file_selector.rs:1656 src/user_actions.rs:1852
 msgid "Close _All Tabs"
 msgstr "Zapri _vse zavihke"
 
@@ -7460,7 +7457,7 @@ msgstr "_Šestnajstiški odmik"
 msgid "Quick _Help"
 msgstr "Hitra po_moč"
 
-#: src/intviewer/window.rs:886 src/user_actions.rs:2065
+#: src/intviewer/window.rs:886 src/user_actions.rs:2051
 msgid "_Keyboard Shortcuts"
 msgstr "_Tipkovne bližnjice"
 
@@ -7687,6 +7684,22 @@ msgstr "Izbor slikovne datoteke"
 #: src/select_icon_button.rs:92
 msgid "Choose Icon"
 msgstr "Izbor ikone"
+
+#: src/shortcuts.rs:43
+msgid "Panels"
+msgstr "Pulti"
+
+#: src/shortcuts.rs:44
+msgid "Command Line"
+msgstr "Ukazna vrstica"
+
+#: src/shortcuts.rs:45
+msgid "Command Output"
+msgstr "izhod ukaza"
+
+#: src/shortcuts.rs:46
+msgid "GNOME Commander Window"
+msgstr "Okno GNOME Commander"
 
 #: src/spawn.rs:126 src/spawn.rs:130
 msgid "No valid command given."
@@ -7949,432 +7962,405 @@ msgstr "Prišlo je do napake pri odpiranju domače strani."
 msgid "There was an error reporting problem."
 msgstr "Prišlo je do napake pri poročanju o napaki."
 
-#: src/user_actions.rs:1196
-msgid ""
-"GNOME Commander is free software: you can redistribute it and/or modify it under the terms of the GNU "
-"General Public License as published by the Free Software Foundation, either version 3 of the License, or "
-"(at your option) any later version."
-msgstr ""
-"Program Commander je prosto programje; lahko ga razširjate in/ali spreminjate pod pogoji Splošnega "
-"javnega dovoljenja GNU (GNU General Public License), kot ga je objavila ustanova Free Software "
-"Foundation; bodisi različice 3 ali (po vaši izbiri) poljubne poznejše različice."
-
 #: src/user_actions.rs:1199
-msgid ""
-"GNOME Commander is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even "
-"the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public "
-"License for more details."
-msgstr ""
-"GNOME Terminal se širi v upanju, da bo uporaben, vendar brez kakršnekoli garancije. Za več podrobnosti si "
-"oglejte GNU Splošno javno dovoljenje."
-
-#: src/user_actions.rs:1202
-msgid ""
-"You should have received a copy of the GNU General Public License along with GNOME Commander. If not, see "
-"<https://www.gnu.org/licenses/>."
-msgstr ""
-"Skupaj s programom bi morali prejeti tudi kopijo Splošnega javnega dovoljenja GNU (GNU GPL). Če je niste "
-"dobili, si oglejte <https://www.gnu.org/licenses/>."
-
-#: src/user_actions.rs:1212
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Hiter in zmogljiv urejevalnik datotek za GNOME namizje"
 
-#: src/user_actions.rs:1220
+#: src/user_actions.rs:1206
 msgid "translator-credits"
 msgstr ""
 "Matej Urbančič <mateju@src.gnome.org>\n"
 "Martin Srebotnjak <miles@filmsi.net>"
 
-#: src/user_actions.rs:1460
+#: src/user_actions.rs:1446
 msgid "Copy Files"
 msgstr "Kopiraj datoteke"
 
-#: src/user_actions.rs:1466
+#: src/user_actions.rs:1452
 msgid "Copy files with rename"
 msgstr "Kopiraj in preimenuj datoteke"
 
-#: src/user_actions.rs:1472
+#: src/user_actions.rs:1458
 msgid "Move Files"
 msgstr "Premakni datoteke"
 
-#: src/user_actions.rs:1478
+#: src/user_actions.rs:1464
 msgid "_Delete"
 msgstr "_Izbriši"
 
-#: src/user_actions.rs:1484
+#: src/user_actions.rs:1470
 msgid "View File"
 msgstr "Pokaži datoteko"
 
-#: src/user_actions.rs:1490
+#: src/user_actions.rs:1476
 msgid "View with internal viewer"
 msgstr "Poglej datoteko z vgrajenim pregledovalnikom"
 
-#: src/user_actions.rs:1496
+#: src/user_actions.rs:1482
 msgid "View with external viewer"
 msgstr "Poglej datoteko z zunanjim pregledovalnikom"
 
-#: src/user_actions.rs:1502
+#: src/user_actions.rs:1488
 msgid "Edit (SHIFT for new document)"
 msgstr "Uredi (s tipko SHIFT se odpre nov dokument)"
 
-#: src/user_actions.rs:1508
+#: src/user_actions.rs:1494
 msgid "New _Text File"
 msgstr "Nova _besedilna datoteka"
 
-#: src/user_actions.rs:1514
+#: src/user_actions.rs:1500
 msgid "_Search…"
 msgstr "_Poišči …"
 
-#: src/user_actions.rs:1520
+#: src/user_actions.rs:1506
 msgid "_Quick Search…"
 msgstr "_Hitro iskanje …"
 
-#: src/user_actions.rs:1526
+#: src/user_actions.rs:1512
 msgid "Change Per_missions"
 msgstr "Spremeni _dovoljenja"
 
-#: src/user_actions.rs:1532
+#: src/user_actions.rs:1518
 msgid "Change _Owner/Group"
 msgstr "Spremeni _lastništvo"
 
-#: src/user_actions.rs:1538
+#: src/user_actions.rs:1524
 msgid "New _Directory"
 msgstr "Nova _mapa"
 
-#: src/user_actions.rs:1544
+#: src/user_actions.rs:1530
 msgid "_Properties…"
 msgstr "_Lastnosti …"
 
-#: src/user_actions.rs:1550
+#: src/user_actions.rs:1536
 msgid "_Diff"
 msgstr "_Primerjava"
 
-#: src/user_actions.rs:1556
+#: src/user_actions.rs:1542
 msgid "S_ynchronize Directories"
 msgstr "_Uskladi mapi"
 
-#: src/user_actions.rs:1562
+#: src/user_actions.rs:1548
 msgid "_Rename"
 msgstr "P_reimenuj"
 
-#: src/user_actions.rs:1568
+#: src/user_actions.rs:1554
 msgid "Create _Symbolic Link"
 msgstr "_Ustvari simbolno povezavo"
 
-#: src/user_actions.rs:1574
+#: src/user_actions.rs:1560
 msgid "Advanced _Rename Tool"
 msgstr "Napre_dno preimenovanje"
 
-#: src/user_actions.rs:1580
+#: src/user_actions.rs:1566
 msgid "_Send Files"
 msgstr "Pošlji _datoteke"
 
-#: src/user_actions.rs:1586
+#: src/user_actions.rs:1572
 msgid "Quit"
 msgstr "Končaj"
 
-#: src/user_actions.rs:1593
+#: src/user_actions.rs:1579
 msgid "Toggle selection"
 msgstr "Preklopi izbor"
 
-#: src/user_actions.rs:1599
+#: src/user_actions.rs:1585
 msgid "Toggle selection and move cursor downward"
 msgstr "Preklopi izbor in premakni kazalnik nižje"
 
-#: src/user_actions.rs:1605
+#: src/user_actions.rs:1591
 msgid "_Select All"
 msgstr "Izberi _vse"
 
-#: src/user_actions.rs:1611
+#: src/user_actions.rs:1597
 msgid "_Unselect All"
 msgstr "P_očisti vse"
 
-#: src/user_actions.rs:1617
+#: src/user_actions.rs:1603
 msgid "Select all _Files"
 msgstr "Izberi _vse datoteke"
 
-#: src/user_actions.rs:1623
+#: src/user_actions.rs:1609
 msgid "Unselect all Fi_les"
 msgstr "Počisti izbor vse_h datotek"
 
-#: src/user_actions.rs:1629
+#: src/user_actions.rs:1615
 msgid "Select with _Pattern"
 msgstr "Izberi z _vzorcem"
 
-#: src/user_actions.rs:1635
+#: src/user_actions.rs:1621
 msgid "Unselect with P_attern"
 msgstr "Počisti izbor z v_zorcem"
 
-#: src/user_actions.rs:1641
+#: src/user_actions.rs:1627
 msgid "_Invert Selection"
 msgstr "Preo_brni izbor"
 
-#: src/user_actions.rs:1647
+#: src/user_actions.rs:1633
 msgid "Select with same _Extension"
 msgstr "Izberi vse z iso _pripono"
 
-#: src/user_actions.rs:1653
+#: src/user_actions.rs:1639
 msgid "Unselect with same E_xtension"
 msgstr "Počisti izbor datotek z isto _pripono"
 
-#: src/user_actions.rs:1659
+#: src/user_actions.rs:1645
 msgid "_Compare Directories"
 msgstr "_Primerjava map"
 
-#: src/user_actions.rs:1666
+#: src/user_actions.rs:1652
 msgid "Cu_t"
 msgstr "I_zreži"
 
-#: src/user_actions.rs:1684
+#: src/user_actions.rs:1670
 msgid "_Enable Filter…"
 msgstr "_Omogoči filter …"
 
-#: src/user_actions.rs:1690
+#: src/user_actions.rs:1676
 msgid "Copy _File Names (SHIFT for full paths, ALT for URIs)"
 msgstr "Kopiraj imena _datotek (s tipko SHIFT kopirate celotna pot, z ALT pa naslove URI)"
 
-#: src/user_actions.rs:1697
+#: src/user_actions.rs:1683
 msgid "Execute command"
 msgstr "Izvedi ukaz"
 
-#: src/user_actions.rs:1703
+#: src/user_actions.rs:1689
 msgid "Open _Terminal"
 msgstr "Odpri _terminal"
 
-#: src/user_actions.rs:1710
+#: src/user_actions.rs:1696
 msgid "Show Device Buttons"
 msgstr "Pokaži gumbe naprav"
 
-#: src/user_actions.rs:1716
+#: src/user_actions.rs:1702
 msgid "Show Device List"
 msgstr "Pokaži seznam naprav"
 
-#: src/user_actions.rs:1722
+#: src/user_actions.rs:1708
 msgid "Show Toolbar"
 msgstr "Pokaži orodno vrstico"
 
-#: src/user_actions.rs:1728
+#: src/user_actions.rs:1714
 msgid "Show Buttonbar"
 msgstr "Pokaži funkcijske tipke"
 
-#: src/user_actions.rs:1734
+#: src/user_actions.rs:1720
 msgid "Show Command Line"
 msgstr "Pokaži ukazno vrstico"
 
-#: src/user_actions.rs:1740
+#: src/user_actions.rs:1726
 msgid "Show Directory History"
 msgstr "Pokaži zgodovino mape"
 
-#: src/user_actions.rs:1746
+#: src/user_actions.rs:1732
 msgid "Show Command Line History"
 msgstr "Pokaži zgodovino ukazne vrstice"
 
-#: src/user_actions.rs:1752
+#: src/user_actions.rs:1738
 msgid "Show Hidden Files"
 msgstr "Pokaži skrite datoteke"
 
-#: src/user_actions.rs:1758
+#: src/user_actions.rs:1744
 msgid "Show Backup Files"
 msgstr "Pokaži varnostne kopije"
 
-#: src/user_actions.rs:1770
+#: src/user_actions.rs:1756
 msgid "Back to oldest"
 msgstr "Nazaj na najstarejše"
 
-#: src/user_actions.rs:1776
+#: src/user_actions.rs:1762
 msgid "_Back"
 msgstr "_Nazaj"
 
-#: src/user_actions.rs:1782
+#: src/user_actions.rs:1768
 msgid "_Forward"
 msgstr "_Naprej"
 
-#: src/user_actions.rs:1788
+#: src/user_actions.rs:1774
 msgid "Forward to latest"
 msgstr "Naprej na najnovejše"
 
-#: src/user_actions.rs:1794
+#: src/user_actions.rs:1780
 msgid "_Refresh"
 msgstr "_Osveži"
 
-#: src/user_actions.rs:1800
+#: src/user_actions.rs:1786
 msgid "_Equal Panel Size"
 msgstr "_Enako veliki plošči"
 
-#: src/user_actions.rs:1806
+#: src/user_actions.rs:1792
 msgid "Maximize Panel Size"
 msgstr "Razpni velikost plošče"
 
-#: src/user_actions.rs:1812
+#: src/user_actions.rs:1798
 msgid "Open directory in the left panel"
 msgstr "Odpre mapo v levem podoknu"
 
-#: src/user_actions.rs:1818
+#: src/user_actions.rs:1804
 msgid "Open directory in the right panel"
 msgstr "Odpre mapo v desnem podoknu"
 
-#: src/user_actions.rs:1824
+#: src/user_actions.rs:1810
 msgid "Open directory in the active panel"
 msgstr "Odpre mapo v dejavnem podoknu"
 
-#: src/user_actions.rs:1830
+#: src/user_actions.rs:1816
 msgid "Open directory in the inactive panel"
 msgstr "Odpre mapo v nedejavnem podoknu"
 
-#: src/user_actions.rs:1836
+#: src/user_actions.rs:1822
 msgid "Change directory"
 msgstr "Spremeni mapo"
 
-#: src/user_actions.rs:1842
+#: src/user_actions.rs:1828
 msgid "Home directory"
 msgstr "Domači imenik"
 
-#: src/user_actions.rs:1848
+#: src/user_actions.rs:1834
 msgid "Root directory"
 msgstr "Korenska mapa"
 
-#: src/user_actions.rs:1872
+#: src/user_actions.rs:1858
 msgid "Close duplicate tabs"
 msgstr "Zapri podvojene zavihke"
 
-#: src/user_actions.rs:1878
+#: src/user_actions.rs:1864
 msgid "Previous tab"
 msgstr "Predhodni zavihek"
 
-#: src/user_actions.rs:1884
+#: src/user_actions.rs:1870
 msgid "Next tab"
 msgstr "Naslednji zavihek"
 
-#: src/user_actions.rs:1890
+#: src/user_actions.rs:1876
 msgid "Open directory in the new tab"
 msgstr "Odpri mapo v novem zavihku"
 
-#: src/user_actions.rs:1896
+#: src/user_actions.rs:1882
 msgid "Open directory in the new tab (inactive panel)"
 msgstr "Odpri mapo v novem zavihku (nedejavno podokno)"
 
-#: src/user_actions.rs:1902
+#: src/user_actions.rs:1888
 msgid "Lock/unlock tab"
 msgstr "Zakleni/Odkleni zavihek"
 
-#: src/user_actions.rs:1908
+#: src/user_actions.rs:1894
 msgid "Horizontal Orientation"
 msgstr "Vodoravna postavitev"
 
-#: src/user_actions.rs:1914
+#: src/user_actions.rs:1900
 msgid "Display main menu"
 msgstr "Pokaži glavni meni"
 
-#: src/user_actions.rs:1920
+#: src/user_actions.rs:1906
 msgid "Move cursor one step up"
 msgstr "Premakni kazalko en korak višje"
 
-#: src/user_actions.rs:1926
+#: src/user_actions.rs:1912
 msgid "Move cursor one step down"
 msgstr "Premakni kazalko en korak nižje"
 
-#: src/user_actions.rs:1932
+#: src/user_actions.rs:1918
 msgid "Switch to Opposite Panel"
 msgstr "Preklopi na nasprotni pult"
 
-#: src/user_actions.rs:1938
+#: src/user_actions.rs:1924
 msgid "Swap panels"
 msgstr "Zamenjaj plošče"
 
-#: src/user_actions.rs:1944
+#: src/user_actions.rs:1930
 msgid "Show panel size selector"
 msgstr "Prikaži izbirnik velikosti plošče"
 
-#: src/user_actions.rs:1957
+#: src/user_actions.rs:1943
 msgid "_Bookmark this Directory…"
 msgstr "_Ustvari zaznamek mape …"
 
-#: src/user_actions.rs:1963
+#: src/user_actions.rs:1949
 msgid "_Manage Bookmarks…"
 msgstr "_Upravljaj zaznamke …"
 
-#: src/user_actions.rs:1969
+#: src/user_actions.rs:1955
 msgid "Go to bookmarked location"
 msgstr "Skoči na mesto zaznamka"
 
-#: src/user_actions.rs:1975
+#: src/user_actions.rs:1961
 msgid "Show bookmarks of current device"
 msgstr "Pokaži zaznamke trenutne naprave"
 
-#: src/user_actions.rs:1982
+#: src/user_actions.rs:1968
 msgid "_Options…"
 msgstr "_Možnosti …"
 
-#: src/user_actions.rs:1988
+#: src/user_actions.rs:1974
 msgid "_Keyboard Shortcuts…"
 msgstr "_Tipkovne bližnjice …"
 
-#: src/user_actions.rs:1995
+#: src/user_actions.rs:1981
 msgid "_Remote Server…"
 msgstr "_Oddaljeni strežnik …"
 
-#: src/user_actions.rs:2001
+#: src/user_actions.rs:1987
 msgid "New Connection…"
 msgstr "Nova povezava …"
 
-#: src/user_actions.rs:2007
+#: src/user_actions.rs:1993
 msgid "Set Connection"
 msgstr "Nastavi povezavo"
 
-#: src/user_actions.rs:2015
+#: src/user_actions.rs:2001
 msgid "Connect to First Remote Server"
 msgstr "Poveži se s prvim oddaljenim strežnikom"
 
-#: src/user_actions.rs:2021
+#: src/user_actions.rs:2007
 msgid "Change Left Connection"
 msgstr "Spremeni povezavo na levi"
 
-#: src/user_actions.rs:2027
+#: src/user_actions.rs:2013
 msgid "Change Right Connection"
 msgstr "Spremeni povezavo na desni"
 
-#: src/user_actions.rs:2033
+#: src/user_actions.rs:2019
 msgid "Close Connection"
 msgstr "Zapri povezavo"
 
-#: src/user_actions.rs:2039
+#: src/user_actions.rs:2025
 msgid "Drop Connection"
 msgstr "Prekini povezavo"
 
-#: src/user_actions.rs:2046
+#: src/user_actions.rs:2032
 msgid "_Configure Plugins…"
 msgstr "_Prilagodi vstavke …"
 
-#: src/user_actions.rs:2059
+#: src/user_actions.rs:2045
 msgid "_Documentation"
 msgstr "_Dokumentacija"
 
-#: src/user_actions.rs:2071
+#: src/user_actions.rs:2057
 msgid "GNOME Commander on the _Web"
 msgstr "Program GNOME _Commander na spletu"
 
-#: src/user_actions.rs:2077
+#: src/user_actions.rs:2063
 msgid "Report a _Problem"
 msgstr "Prijavi _težavo"
 
-#: src/user_actions.rs:2083
+#: src/user_actions.rs:2069
 msgid "_About"
 msgstr "_O Programu"
 
-#: src/user_actions.rs:2090
+#: src/user_actions.rs:2076
 msgid "Jump to Panels"
 msgstr "Skoči na pulte"
 
-#: src/user_actions.rs:2096
+#: src/user_actions.rs:2082
 msgid "Jump to Command Line"
 msgstr "Skoči v ukazno vrstico"
 
-#: src/user_actions.rs:2102
+#: src/user_actions.rs:2088
 msgid "Jump to Command Output"
 msgstr "Skoči na izhod ukaza"
 
-#: src/user_actions.rs:2108
+#: src/user_actions.rs:2094
 msgid "Clear Command Line"
 msgstr "Počisti ukazno vrstico"
 
@@ -8382,12 +8368,12 @@ msgstr "Počisti ukazno vrstico"
 msgid "Cannot create a temporary file."
 msgstr "Začasne datoteke ni mogoče ustvariti."
 
-#: src/utils.rs:266
+#: src/utils.rs:280
 #, rust-format
 msgid "There was an error while opening help uri {uri}."
 msgstr "Pri odpiranju uri {uri} za vsebino pomoči je prišlo do napake."
 
-#: src/utils.rs:367
+#: src/utils.rs:381
 #, rust-format
 msgid "{} PiB"
 msgid_plural "{} PiB"
@@ -8396,7 +8382,7 @@ msgstr[1] "{} PiB"
 msgstr[2] "{} PiB"
 msgstr[3] "{} PiB"
 
-#: src/utils.rs:370
+#: src/utils.rs:384
 #, rust-format
 msgid "{} TiB"
 msgid_plural "{} TiB"
@@ -8405,7 +8391,7 @@ msgstr[1] "{} PiB"
 msgstr[2] "{} PiB"
 msgstr[3] "{} PiB"
 
-#: src/utils.rs:373
+#: src/utils.rs:387
 #, rust-format
 msgid "{} GiB"
 msgid_plural "{} GiB"
@@ -8414,7 +8400,7 @@ msgstr[1] "{} PiB"
 msgstr[2] "{} PiB"
 msgstr[3] "{} PiB"
 
-#: src/utils.rs:376
+#: src/utils.rs:390
 #, rust-format
 msgid "{} MiB"
 msgid_plural "{} MiB"
@@ -8423,7 +8409,7 @@ msgstr[1] "{} MiB"
 msgstr[2] "{} MiB"
 msgstr[3] "{} MiB"
 
-#: src/utils.rs:379
+#: src/utils.rs:393
 #, rust-format
 msgid "{} kiB"
 msgid_plural "{} kiB"
@@ -8432,7 +8418,7 @@ msgstr[1] "{} kiB"
 msgstr[2] "{} kiB"
 msgstr[3] "{} kiB"
 
-#: src/utils.rs:382 src/utils.rs:393 src/utils.rs:397
+#: src/utils.rs:396 src/utils.rs:407 src/utils.rs:411
 #, rust-format
 msgid "{} byte"
 msgid_plural "{} bytes"
@@ -8441,6 +8427,6 @@ msgstr[1] "{} bajt"
 msgstr[2] "{} bajta"
 msgstr[3] "{} bajti"
 
-#: src/utils.rs:603
+#: src/utils.rs:604
 msgid "Closing of a file enumerator failed"
 msgstr "Zapiranje oštevilčevalnika datotek ni uspelo"
