@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander 1.3.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/"
 "\n"
-"POT-Creation-Date: 2026-03-29 09:46+0000\n"
-"PO-Revision-Date: 2026-03-29 19:10+0300\n"
+"POT-Creation-Date: 2026-03-30 20:49+0000\n"
+"PO-Revision-Date: 2026-03-31 19:33+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -3887,9 +3887,7 @@ msgstr "Який назву файлу повинен мати новий арх
 #: src/dialogs/prepare_transfer_dialog.rs:72
 #: src/dialogs/profiles/edit_profile_dialog.rs:89
 #: src/dialogs/profiles/manage_profiles_dialog.rs:237
-#: src/dialogs/shortcuts/shortcut_dialog.rs:160
-#: src/dialogs/shortcuts/shortcut_dialog.rs:395
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:178
+#: src/dialogs/shortcuts_dialog.rs:206 src/dialogs/shortcuts_dialog.rs:677
 #: src/dialogs/transfer_progress_dialog.rs:73 src/dirlist.rs:45
 #: src/file_selector.rs:1573 src/intviewer/search_dialog.rs:49
 #: src/open_connection.rs:35 src/open_file.rs:23 src/open_file.rs:45
@@ -5541,9 +5539,9 @@ msgstr "Результат"
 #: src/dialogs/options/options_dialog.rs:101
 #: src/dialogs/profiles/edit_profile_dialog.rs:55
 #: src/dialogs/profiles/manage_profiles_dialog.rs:215
-#: src/dialogs/remote_dialog.rs:151
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:164 src/intviewer/window.rs:883
-#: src/main_win.rs:1528 src/search/search_dialog.rs:353
+#: src/dialogs/remote_dialog.rs:151 src/dialogs/shortcuts_dialog.rs:192
+#: src/intviewer/window.rs:883 src/main_win.rs:1528
+#: src/search/search_dialog.rs:353
 msgid "_Help"
 msgstr "_Довідка"
 
@@ -5608,7 +5606,6 @@ msgstr "Метатег"
 #: src/advanced_rename/profile_component.rs:113
 #: src/dialogs/options/apps_widget.rs:68
 #: src/dialogs/options/devices_widget.rs:54 src/dialogs/remote_dialog.rs:118
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:127
 msgid "_Add"
 msgstr "_Додати"
 
@@ -5617,8 +5614,7 @@ msgstr "_Додати"
 #: src/dialogs/options/apps_widget.rs:74
 #: src/dialogs/options/devices_widget.rs:61
 #: src/dialogs/profiles/manage_profiles_dialog.rs:159
-#: src/dialogs/remote_dialog.rs:56
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:140 src/main_win.rs:1431
+#: src/dialogs/remote_dialog.rs:56 src/main_win.rs:1431
 msgid "_Edit"
 msgstr "_Правка"
 
@@ -5628,7 +5624,6 @@ msgstr "_Правка"
 #: src/dialogs/options/devices_widget.rs:68
 #: src/dialogs/profiles/manage_profiles_dialog.rs:184
 #: src/dialogs/remote_dialog.rs:60
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:153
 msgid "_Remove"
 msgstr "В_илучити"
 
@@ -5970,11 +5965,11 @@ msgstr "Текстове представлення:"
 msgid "Number view:"
 msgstr "Числове представлення:"
 
-#: src/command_line.rs:50 src/user_actions.rs:1672
+#: src/command_line.rs:50 src/user_actions.rs:1658
 msgid "_Copy"
 msgstr "_Копіювати"
 
-#: src/command_line.rs:51 src/user_actions.rs:1678
+#: src/command_line.rs:51 src/user_actions.rs:1664
 msgid "_Paste"
 msgstr "Вст_авити"
 
@@ -6036,8 +6031,8 @@ msgstr "Демонтування: {device_name}"
 msgid "Volume successfully unmounted"
 msgstr "Том успішно демонтовано"
 
-#: src/connection/device.rs:353 src/dialogs/shortcuts/shortcut_dialog.rs:375
-#: src/intviewer/window.rs:651 src/utils.rs:232
+#: src/connection/device.rs:353 src/dialogs/shortcuts_dialog.rs:656
+#: src/intviewer/window.rs:651 src/utils.rs:246
 msgid "_Dismiss"
 msgstr "_Скасувати"
 
@@ -6325,7 +6320,7 @@ msgstr "Не вдалося створити символічне посилан
 msgid "Deleting…"
 msgstr "Вилучення…"
 
-#: src/dialogs/delete_dialog.rs:152
+#: src/dialogs/delete_dialog.rs:143
 #, rust-format
 msgid "Deleted {count} of {total} file"
 msgid_plural "Deleted {count} of {total} files"
@@ -6334,22 +6329,23 @@ msgstr[1] "Вилучено {count} з {total} файлів"
 msgstr[2] "Вилучено {count} з {total} файлів"
 msgstr[3] "Вилучено {count} з {total} файла"
 
-#: src/dialogs/delete_dialog.rs:176
+#: src/dialogs/delete_dialog.rs:167
 #, rust-format
 msgid "The directory “{}” is not empty. Do you really want to delete it?"
 msgstr "Каталог «{}» містить дані. Ви справді хочете його вилучити?"
 
-#: src/dialogs/delete_dialog.rs:179
+#: src/dialogs/delete_dialog.rs:170
 #, rust-format
 msgid "Do you really want to delete “{}”?"
 msgstr "Хочете справді вилучити «{}»?"
 
-#: src/dialogs/delete_dialog.rs:186 src/dialogs/delete_dialog.rs:521
-#: src/user_actions.rs:399 src/user_actions.rs:446
+#: src/dialogs/delete_dialog.rs:177 src/dialogs/delete_dialog.rs:512
+#: src/dialogs/shortcuts_dialog.rs:745 src/user_actions.rs:399
+#: src/user_actions.rs:446
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: src/dialogs/delete_dialog.rs:187 src/dialogs/delete_dialog.rs:227
+#: src/dialogs/delete_dialog.rs:178 src/dialogs/delete_dialog.rs:218
 #: src/dialogs/options/confirmation_tab.rs:82
 #: src/dialogs/options/confirmation_tab.rs:111
 #: src/dialogs/prepare_copy_dialog.rs:62 src/dialogs/prepare_move_dialog.rs:62
@@ -6358,48 +6354,48 @@ msgstr "Скасувати"
 msgid "Skip"
 msgstr "Пропустити"
 
-#: src/dialogs/delete_dialog.rs:189
+#: src/dialogs/delete_dialog.rs:180
 msgid "Delete All"
 msgstr "Вилучити все"
 
-#: src/dialogs/delete_dialog.rs:191
+#: src/dialogs/delete_dialog.rs:182
 msgid "Delete Remaining"
 msgstr "Вилучити решту"
 
-#: src/dialogs/delete_dialog.rs:193 src/dialogs/delete_dialog.rs:521
+#: src/dialogs/delete_dialog.rs:184 src/dialogs/delete_dialog.rs:512
 #: src/dialogs/options/confirmation_tab.rs:65
 msgid "Delete"
 msgstr "Видалити"
 
-#: src/dialogs/delete_dialog.rs:214
+#: src/dialogs/delete_dialog.rs:205
 #, rust-format
 msgid "Error while deleting “{file}”"
 msgstr "Помилка при вилученні «{file}»"
 
-#: src/dialogs/delete_dialog.rs:227 src/dialogs/delete_dialog.rs:565
+#: src/dialogs/delete_dialog.rs:218 src/dialogs/delete_dialog.rs:556
 #: src/transfer.rs:455 src/transfer.rs:472 src/transfer.rs:490
 #: src/transfer.rs:507 src/transfer.rs:552 src/transfer.rs:570
 #: src/transfer.rs:665 src/transfer.rs:683
 msgid "Abort"
 msgstr "Перервати"
 
-#: src/dialogs/delete_dialog.rs:227 src/transfer.rs:455 src/transfer.rs:491
+#: src/dialogs/delete_dialog.rs:218 src/transfer.rs:455 src/transfer.rs:491
 #: src/transfer.rs:508 src/transfer.rs:553 src/transfer.rs:571
 #: src/transfer.rs:666 src/transfer.rs:684 src/user_actions.rs:400
 msgid "Retry"
 msgstr "Повторити"
 
-#: src/dialogs/delete_dialog.rs:495
+#: src/dialogs/delete_dialog.rs:486
 #, rust-format
 msgid "Do you want to permanently delete “{}”?"
 msgstr "Хочете остаточно вилучити «{}»?"
 
-#: src/dialogs/delete_dialog.rs:498
+#: src/dialogs/delete_dialog.rs:489
 #, rust-format
 msgid "Do you want to move “{}” to the trash can?"
 msgstr "Хочете пересунути «{}» до смітника?"
 
-#: src/dialogs/delete_dialog.rs:504
+#: src/dialogs/delete_dialog.rs:495
 msgid "Do you want to permanently delete the selected file?"
 msgid_plural "Do you want to permanently delete the %d selected files?"
 msgstr[0] "Бажаєте остаточно вилучити %d вибраний файл?"
@@ -6407,7 +6403,7 @@ msgstr[1] "Бажаєте остаточно вилучити %d вибрані 
 msgstr[2] "Бажаєте остаточно вилучити %d вибраних файлів?"
 msgstr[3] "Бажаєте остаточно вилучити вибраний файл?"
 
-#: src/dialogs/delete_dialog.rs:510
+#: src/dialogs/delete_dialog.rs:501
 msgid "Do you want to move the selected file to the trash can?"
 msgid_plural "Do you want to move the %d selected files to the trash can?"
 msgstr[0] "Бажаєте пересунути %d вибраний файл до смітника?"
@@ -6415,7 +6411,7 @@ msgstr[1] "Бажаєте пересунути %d вибрані файли до
 msgstr[2] "Бажаєте пересунути %d вибраних файлів до смітника?"
 msgstr[3] "Бажаєте пересунути вибраний файл до смітника?"
 
-#: src/dialogs/delete_dialog.rs:563
+#: src/dialogs/delete_dialog.rs:554
 msgid "Error while deleting"
 msgstr "Помилка під час вилучення"
 
@@ -6572,7 +6568,7 @@ msgstr "Посилання"
 msgid "Path"
 msgstr "Шлях"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:584
+#: src/dialogs/manage_bookmarks_dialog.rs:575
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding"
@@ -6651,7 +6647,6 @@ msgstr "Значок:"
 #: src/dialogs/options/app_dialog.rs:84
 #: src/dialogs/options/options_dialog.rs:24
 #: src/dialogs/prepare_copy_dialog.rs:83
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:93
 msgid "Options"
 msgstr "Параметри"
 
@@ -6695,11 +6690,11 @@ msgstr "_Доддати програму"
 msgid "_Update Application"
 msgstr "_Оновити програму"
 
-#: src/dialogs/options/app_dialog.rs:242
+#: src/dialogs/options/app_dialog.rs:234
 msgid "An app needs to have a non-empty label"
 msgstr "Програма повинна мати непорожню мітку"
 
-#: src/dialogs/options/app_dialog.rs:249
+#: src/dialogs/options/app_dialog.rs:241
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
@@ -6796,15 +6791,15 @@ msgstr "_Додати пристрій"
 msgid "_Update Device"
 msgstr "_Оновити пристрій"
 
-#: src/dialogs/options/device_dialog.rs:173
+#: src/dialogs/options/device_dialog.rs:165
 msgid "A device needs to have a non-empty alias"
 msgstr "Пристрій повинен мати непорожню альтернативну назву"
 
-#: src/dialogs/options/device_dialog.rs:180
+#: src/dialogs/options/device_dialog.rs:172
 msgid "A device needs to have a non-empty path/label"
 msgstr "Пристрій повинен мати непорожній шлях або мітку"
 
-#: src/dialogs/options/device_dialog.rs:187
+#: src/dialogs/options/device_dialog.rs:179
 msgid "A device needs to have a non-empty mount point"
 msgstr "Пристрій повинен мати непорожню точку монтування"
 
@@ -7011,7 +7006,7 @@ msgstr "Скасування вибору файлів одним клацанн
 msgid "Middle mouse button"
 msgstr "Середня кнопка миші"
 
-#: src/dialogs/options/general_tab.rs:92 src/user_actions.rs:1764
+#: src/dialogs/options/general_tab.rs:92 src/user_actions.rs:1750
 msgid "Up one directory"
 msgstr "Вище на один каталог"
 
@@ -7052,7 +7047,6 @@ msgid "CTRL+ALT+letters"
 msgstr "CTRL+ALT+літера"
 
 #: src/dialogs/options/general_tab.rs:145
-#| msgid "ALT+letters (menu access with F12)"
 msgid "ALT+letters (menu access with F10)"
 msgstr "ALT+літери (доступ до меню – F10)"
 
@@ -7354,7 +7348,7 @@ msgstr "П_означити"
 msgid "Uns_elect"
 msgstr "Зн_яти позначення"
 
-#: src/dialogs/pattern_selection_dialog.rs:173
+#: src/dialogs/pattern_selection_dialog.rs:164
 msgid "Bad expression"
 msgstr "Помилковий вираз"
 
@@ -7443,90 +7437,100 @@ msgstr "Віддалені з'єднання"
 msgid "No server selected"
 msgstr "Сервер не вибраний"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:116
-msgid "Keyboard Shortcut"
-msgstr "Клавіатурне скорочення"
+#: src/dialogs/shortcuts_dialog.rs:119
+msgid "Keyboard Shortcuts"
+msgstr "Швидкі клавіші"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:124
-msgid "_Action"
-msgstr "Д_ія"
+#: src/dialogs/shortcuts_dialog.rs:130
+#| msgid "_Keyboard Shortcuts…"
+msgid "Search shortcuts…"
+msgstr "Шукати у скороченнях…"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:134
-msgid "_Shortcut"
-msgstr "С_корочення"
+#: src/dialogs/shortcuts_dialog.rs:218
+msgid "_Save Shortcuts"
+msgstr "_Зберегти скорочення"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:152
-msgid ""
-"To edit a shortcut key, click on the \"Assign\" button and type a new "
-"accelerator, or press escape to cancel."
-msgstr ""
-"Для редагування клавіатурного скорочення натисніть кнопку «Призначити» та "
-"натисніть вибране скорочення або натисніть ESC для скасування."
+#: src/dialogs/shortcuts_dialog.rs:405 src/dialogs/shortcuts_dialog.rs:697
+#| msgid "A_dd Shortcut"
+msgid "Add Shortcut"
+msgstr "Додати скорочення"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:236
-msgid "New shortcut..."
-msgstr "Створити скорочення…"
+#: src/dialogs/shortcuts_dialog.rs:432 src/dialogs/shortcuts_dialog.rs:695
+#| msgid "A_dd Shortcut"
+msgid "Edit Shortcut"
+msgstr "Змінити скорочення"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:241
-msgid "Assign"
-msgstr "Призначити"
+#: src/dialogs/shortcuts_dialog.rs:445
+#| msgid "Delete default"
+msgid "Reset to Default"
+msgstr "Повернутися до типового"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:273
-msgid "No action is selected."
-msgstr "Не вибрано жодної дії."
-
-#: src/dialogs/shortcuts/shortcut_dialog.rs:280
-msgid "No shortcut is defined."
-msgstr "Скорочення не визначено."
-
-#: src/dialogs/shortcuts/shortcut_dialog.rs:323
-msgid "_Update Shortcut"
-msgstr "_Оновити скорочення"
-
-#: src/dialogs/shortcuts/shortcut_dialog.rs:325
-msgid "A_dd Shortcut"
-msgstr "_Додати скорочення"
-
-#: src/dialogs/shortcuts/shortcut_dialog.rs:369
+#: src/dialogs/shortcuts_dialog.rs:650
 #, rust-format
 msgid "Shortcut “{shortcut}” cannot be reconfigured."
 msgstr "Клавіатурне скорочення «{shortcut}» не можна переналаштувати."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:373
+#: src/dialogs/shortcuts_dialog.rs:654
 msgid "This shortcut is used by an action that is not configurable."
 msgstr "Це скорочення використано для дії, яку не можна налаштувати."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:387
+#: src/dialogs/shortcuts_dialog.rs:669
 #, rust-format
 msgid "Shortcut “{shortcut}” is already taken by “{action}”."
 msgstr "Клавіатурне скорочення «{shortcut}» вже використано для «{action}»."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:392
+#: src/dialogs/shortcuts_dialog.rs:674
 #, rust-format
 msgid "Reassigning the shortcut will cause it to be removed from “{action}”."
 msgstr ""
 "Зміна призначення цього скорочення призведе до його вилучення з дії "
 "«{action}»."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:395
+#: src/dialogs/shortcuts_dialog.rs:677
 msgid "_Reassign shortcut"
 msgstr "_Перепризначити клавіші"
 
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:56
-msgid "Keyboard Shortcuts"
-msgstr "Швидкі клавіші"
+#: src/dialogs/shortcuts_dialog.rs:711
+#, rust-format
+#| msgid "Shortcut “{shortcut}” is already taken by “{action}”."
+msgid "Enter a shortcut to replace “{shortcut}” for action “{action}.”"
+msgstr "Введіть скорочення на заміну «{shortcut}» для дії «{action}»."
 
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:70
-msgid "Shortcut Key"
-msgstr "Швидка клавіша"
+#: src/dialogs/shortcuts_dialog.rs:715
+#, rust-format
+msgid "Enter a new shortcut for action “{action}.”"
+msgstr "Введіть нове скорочення для дії «{action}»."
 
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:81
-msgid "Action"
-msgstr "Дія"
+#: src/dialogs/shortcuts_dialog.rs:725
+msgid "Press the desired key combination on your keyboard."
+msgstr "Натисніть бажану комбінацію клавіш на клавіатурі."
 
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:190
-msgid "_Save Shortcuts"
-msgstr "_Зберегти скорочення"
+#: src/dialogs/shortcuts_dialog.rs:727
+msgid "Press Esc twice to cancel."
+msgstr "Натисніть Esc двічі, щоб скасувати."
+
+#: src/dialogs/shortcuts_dialog.rs:730
+msgid "Press Backspace twice to remove the shortcut."
+msgstr "Натисніть Backspace двічі, щоб вилучити скорочення."
+
+#: src/dialogs/shortcuts_dialog.rs:757
+#| msgid "_Save Shortcuts"
+msgid "Remove Shortcut"
+msgstr "Вилучити скорочення"
+
+#: src/dialogs/shortcuts_dialog.rs:820
+msgid "Press Esc again to cancel or Enter to use Esc as shortcut key."
+msgstr ""
+"Натисніть Esc ще раз, щоб скасувати, або Enter, щоб використати Esc як"
+" клавішу скорочення."
+
+#: src/dialogs/shortcuts_dialog.rs:831
+msgid ""
+"Press Backspace again to remove the shortcut or Enter to use Backspace as "
+"shortcut key."
+msgstr ""
+"Натисніть Backspace ще раз, щоб вилучити скорочення, або Enter, щоб"
+" використати Backspace як клавішу скорочення."
 
 #: src/dialogs/transfer_progress_dialog.rs:52
 msgid "Progress"
@@ -7749,7 +7753,7 @@ msgstr "Вкладку заблоковано. Закрити її попри ц
 msgid "C_lose Tab"
 msgstr "Закр_ити вкладку"
 
-#: src/file_selector.rs:1614 src/user_actions.rs:1854
+#: src/file_selector.rs:1614 src/user_actions.rs:1840
 msgid "Open in New _Tab"
 msgstr "_Відкрити на новій вкладці"
 
@@ -7769,11 +7773,11 @@ msgstr "_Оновити вкладку"
 msgid "Copy Tab to Other _Panel"
 msgstr "Копіювати вкладку у іншу _панель"
 
-#: src/file_selector.rs:1652 src/user_actions.rs:1860
+#: src/file_selector.rs:1652 src/user_actions.rs:1846
 msgid "_Close Tab"
 msgstr "_Закрити вкладки"
 
-#: src/file_selector.rs:1656 src/user_actions.rs:1866
+#: src/file_selector.rs:1656 src/user_actions.rs:1852
 msgid "Close _All Tabs"
 msgstr "_Закрити всі вкладки"
 
@@ -8060,7 +8064,7 @@ msgstr "_Шістнадцятковий зсув"
 msgid "Quick _Help"
 msgstr "Швидка _довідка"
 
-#: src/intviewer/window.rs:886 src/user_actions.rs:2065
+#: src/intviewer/window.rs:886 src/user_actions.rs:2051
 msgid "_Keyboard Shortcuts"
 msgstr "_Комбінації клавіш"
 
@@ -8292,6 +8296,26 @@ msgstr "Виберіть файл зображення"
 #: src/select_icon_button.rs:92
 msgid "Choose Icon"
 msgstr "Виберіть піктограму"
+
+#: src/shortcuts.rs:43
+#| msgid "Channels"
+msgid "Panels"
+msgstr "Панелі"
+
+#: src/shortcuts.rs:44
+#| msgid "Show Command Line"
+msgid "Command Line"
+msgstr "Командний рядок"
+
+#: src/shortcuts.rs:45
+#| msgid "Jump to Command Output"
+msgid "Command Output"
+msgstr "Виведення команди"
+
+#: src/shortcuts.rs:46
+#| msgid "GNOME Commander"
+msgid "GNOME Commander Window"
+msgstr "Вікно GNOME Commander"
 
 #: src/spawn.rs:126 src/spawn.rs:130
 msgid "No valid command given."
@@ -8570,438 +8594,403 @@ msgstr "Помилка відкриття домашньої сторінки."
 msgid "There was an error reporting problem."
 msgstr "Виникла проблема звіту про помилку."
 
-#: src/user_actions.rs:1196
-msgid ""
-"GNOME Commander is free software: you can redistribute it and/or modify it "
-"under the terms of the GNU General Public License as published by the Free "
-"Software Foundation, either version 3 of the License, or (at your option) "
-"any later version."
-msgstr ""
-"GNOME Commander є вільним програмним забезпеченням; ви можете "
-"розповсюджувати та/або модифікувати його на умовах ліцензії GNU General "
-"Public License (не нижче версії 3), що публікується Фордом Вільного "
-"Програмного Забезпечення. "
-
 #: src/user_actions.rs:1199
-msgid ""
-"GNOME Commander is distributed in the hope that it will be useful, but "
-"WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
-"or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
-"more details."
-msgstr ""
-"GNOME Commander розповсюджується зі сподіванням, що програма буде корисною, "
-"але БЕЗ БУДЬ-ЯКИХ ГАРАНТІЙ; не гарантується навіть ПРИДАТНІСТЬ чи "
-"ВІДПОВІДНІСТЬ ПЕВНІЙ МЕТІ. Для отримання додаткової інформації ознайомтесь з "
-"GNU General Public License."
-
-#: src/user_actions.rs:1202
-#| msgid ""
-#| "You should have received a copy of the GNU General Public License along "
-#| "with Foobar. If not, see <https://www.gnu.org/licenses/>."
-msgid ""
-"You should have received a copy of the GNU General Public License along with "
-"GNOME Commander. If not, see <https://www.gnu.org/licenses/>."
-msgstr ""
-"Ви повинні були отримати копію ліцензії GNU General Public License разом з "
-"GNOME Commander. Якщо цього не сталося, див. <https://www.gnu.org/licenses/>."
-
-#: src/user_actions.rs:1212
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Швидкий та потужний менеджер файлів для середовища GNOME"
 
-#: src/user_actions.rs:1220
+#: src/user_actions.rs:1206
 msgid "translator-credits"
 msgstr "Maxim Dziumanenko <mvd@mylinux.com.ua>"
 
-#: src/user_actions.rs:1460
+#: src/user_actions.rs:1446
 msgid "Copy Files"
 msgstr "Копіювати файли"
 
-#: src/user_actions.rs:1466
+#: src/user_actions.rs:1452
 msgid "Copy files with rename"
 msgstr "Копіювати файл з перейменуванням "
 
-#: src/user_actions.rs:1472
+#: src/user_actions.rs:1458
 msgid "Move Files"
 msgstr "Пересунути файли"
 
-#: src/user_actions.rs:1478
+#: src/user_actions.rs:1464
 msgid "_Delete"
 msgstr "В_идалити"
 
-#: src/user_actions.rs:1484
+#: src/user_actions.rs:1470
 msgid "View File"
 msgstr "Переглянути файл"
 
-#: src/user_actions.rs:1490
+#: src/user_actions.rs:1476
 msgid "View with internal viewer"
 msgstr "Перегляд у вбудованому переглядачі"
 
-#: src/user_actions.rs:1496
+#: src/user_actions.rs:1482
 msgid "View with external viewer"
 msgstr "Перегляд у зовнішньому переглядачі"
 
-#: src/user_actions.rs:1502
+#: src/user_actions.rs:1488
 msgid "Edit (SHIFT for new document)"
 msgstr "Редагувати (SHIFT для нового документа)"
 
-#: src/user_actions.rs:1508
+#: src/user_actions.rs:1494
 msgid "New _Text File"
 msgstr "Створити _текстовий файл"
 
-#: src/user_actions.rs:1514
+#: src/user_actions.rs:1500
 msgid "_Search…"
 msgstr "З_найти…"
 
-#: src/user_actions.rs:1520
+#: src/user_actions.rs:1506
 msgid "_Quick Search…"
 msgstr "_Швидкий пошук…"
 
-#: src/user_actions.rs:1526
+#: src/user_actions.rs:1512
 msgid "Change Per_missions"
 msgstr "Змінити _права доступу"
 
-#: src/user_actions.rs:1532
+#: src/user_actions.rs:1518
 msgid "Change _Owner/Group"
 msgstr "Змінити _власника/групу"
 
-#: src/user_actions.rs:1538
+#: src/user_actions.rs:1524
 msgid "New _Directory"
 msgstr "Створити _каталог"
 
-#: src/user_actions.rs:1544
+#: src/user_actions.rs:1530
 msgid "_Properties…"
 msgstr "В_ластивості…"
 
-#: src/user_actions.rs:1550
+#: src/user_actions.rs:1536
 msgid "_Diff"
 msgstr "Показати ві_дміни"
 
-#: src/user_actions.rs:1556
+#: src/user_actions.rs:1542
 msgid "S_ynchronize Directories"
 msgstr "С_инхронізувати каталоги"
 
-#: src/user_actions.rs:1562
+#: src/user_actions.rs:1548
 msgid "_Rename"
 msgstr "Перей_менувати"
 
-#: src/user_actions.rs:1568
+#: src/user_actions.rs:1554
 msgid "Create _Symbolic Link"
 msgstr "Створити _символічне посилання"
 
-#: src/user_actions.rs:1574
+#: src/user_actions.rs:1560
 msgid "Advanced _Rename Tool"
 msgstr "_Розширений інструмент перейменування"
 
-#: src/user_actions.rs:1580
+#: src/user_actions.rs:1566
 msgid "_Send Files"
 msgstr "_Надіслати файли"
 
-#: src/user_actions.rs:1586
+#: src/user_actions.rs:1572
 msgid "Quit"
 msgstr "Вийти"
 
-#: src/user_actions.rs:1593
+#: src/user_actions.rs:1579
 msgid "Toggle selection"
 msgstr "Перемкнути стан позначення"
 
-#: src/user_actions.rs:1599
+#: src/user_actions.rs:1585
 msgid "Toggle selection and move cursor downward"
 msgstr "Перемкнути позначення і пересунути курсор нижче"
 
-#: src/user_actions.rs:1605
+#: src/user_actions.rs:1591
 msgid "_Select All"
 msgstr "Виді_лити все"
 
-#: src/user_actions.rs:1611
+#: src/user_actions.rs:1597
 msgid "_Unselect All"
 msgstr "_Зняти все позначення"
 
-#: src/user_actions.rs:1617
+#: src/user_actions.rs:1603
 msgid "Select all _Files"
 msgstr "Позначити усі _файли"
 
-#: src/user_actions.rs:1623
+#: src/user_actions.rs:1609
 msgid "Unselect all Fi_les"
 msgstr "Зняти позначення з усіх ф_айлів"
 
-#: src/user_actions.rs:1629
+#: src/user_actions.rs:1615
 msgid "Select with _Pattern"
 msgstr "Позначити за вз_ірцем"
 
-#: src/user_actions.rs:1635
+#: src/user_actions.rs:1621
 msgid "Unselect with P_attern"
 msgstr "З_няти позначення за взірцем"
 
-#: src/user_actions.rs:1641
+#: src/user_actions.rs:1627
 msgid "_Invert Selection"
 msgstr "_Інвертувати позначення"
 
-#: src/user_actions.rs:1647
+#: src/user_actions.rs:1633
 msgid "Select with same _Extension"
 msgstr "Позначити файли з тим самим су_фіксом"
 
-#: src/user_actions.rs:1653
+#: src/user_actions.rs:1639
 msgid "Unselect with same E_xtension"
 msgstr "Зняти позначення з файлів з тим самим с_уфіксом"
 
-#: src/user_actions.rs:1659
+#: src/user_actions.rs:1645
 msgid "_Compare Directories"
 msgstr "_Порівняти каталоги"
 
-#: src/user_actions.rs:1666
+#: src/user_actions.rs:1652
 msgid "Cu_t"
 msgstr "_Вирізати"
 
-#: src/user_actions.rs:1684
+#: src/user_actions.rs:1670
 msgid "_Enable Filter…"
 msgstr "_Увімкнути фільтр…"
 
-#: src/user_actions.rs:1690
+#: src/user_actions.rs:1676
 msgid "Copy _File Names (SHIFT for full paths, ALT for URIs)"
 msgstr "Копіювати назви _файлів (SHIFT для повного шляху, ALT для URI)"
 
-#: src/user_actions.rs:1697
+#: src/user_actions.rs:1683
 msgid "Execute command"
 msgstr "Виконати команду"
 
-#: src/user_actions.rs:1703
+#: src/user_actions.rs:1689
 msgid "Open _Terminal"
 msgstr "Відкрити _термінал"
 
-#: src/user_actions.rs:1710
+#: src/user_actions.rs:1696
 msgid "Show Device Buttons"
 msgstr "Показати кнопки пристроїв"
 
-#: src/user_actions.rs:1716
+#: src/user_actions.rs:1702
 msgid "Show Device List"
 msgstr "Показати список пристроїв"
 
-#: src/user_actions.rs:1722
+#: src/user_actions.rs:1708
 msgid "Show Toolbar"
 msgstr "Панель інструментів"
 
-#: src/user_actions.rs:1728
+#: src/user_actions.rs:1714
 msgid "Show Buttonbar"
 msgstr "Показати панель кнопок"
 
-#: src/user_actions.rs:1734
+#: src/user_actions.rs:1720
 msgid "Show Command Line"
 msgstr "Показати командний рядок"
 
-#: src/user_actions.rs:1740
+#: src/user_actions.rs:1726
 msgid "Show Directory History"
 msgstr "Показати журнал каталогів"
 
-#: src/user_actions.rs:1746
+#: src/user_actions.rs:1732
 msgid "Show Command Line History"
 msgstr "Показати журнал командного рядка"
 
-#: src/user_actions.rs:1752
+#: src/user_actions.rs:1738
 msgid "Show Hidden Files"
 msgstr "Показати приховані файли"
 
-#: src/user_actions.rs:1758
+#: src/user_actions.rs:1744
 msgid "Show Backup Files"
 msgstr "Показати резервні файли"
 
-#: src/user_actions.rs:1770
+#: src/user_actions.rs:1756
 msgid "Back to oldest"
 msgstr "Назад до найстаршого"
 
-#: src/user_actions.rs:1776
+#: src/user_actions.rs:1762
 msgid "_Back"
 msgstr "Н_азад"
 
-#: src/user_actions.rs:1782
+#: src/user_actions.rs:1768
 msgid "_Forward"
 msgstr "В_перед"
 
-#: src/user_actions.rs:1788
+#: src/user_actions.rs:1774
 msgid "Forward to latest"
 msgstr "Вбере до останнього"
 
-#: src/user_actions.rs:1794
+#: src/user_actions.rs:1780
 msgid "_Refresh"
 msgstr "_Оновити"
 
-#: src/user_actions.rs:1800
+#: src/user_actions.rs:1786
 msgid "_Equal Panel Size"
 msgstr "З_рівняти розмір панелей"
 
-#: src/user_actions.rs:1806
+#: src/user_actions.rs:1792
 msgid "Maximize Panel Size"
 msgstr "Максимізувати розмір панелі"
 
-#: src/user_actions.rs:1812
+#: src/user_actions.rs:1798
 msgid "Open directory in the left panel"
 msgstr "Відкрити каталог на лівій панелі"
 
-#: src/user_actions.rs:1818
+#: src/user_actions.rs:1804
 msgid "Open directory in the right panel"
 msgstr "Відкрити каталог на правій панелі"
 
-#: src/user_actions.rs:1824
+#: src/user_actions.rs:1810
 msgid "Open directory in the active panel"
 msgstr "Відкрити каталог на активній панелі"
 
-#: src/user_actions.rs:1830
+#: src/user_actions.rs:1816
 msgid "Open directory in the inactive panel"
 msgstr "Відкрити каталог на неактивній панелі"
 
-#: src/user_actions.rs:1836
+#: src/user_actions.rs:1822
 msgid "Change directory"
 msgstr "Змінити каталог"
 
-#: src/user_actions.rs:1842
+#: src/user_actions.rs:1828
 msgid "Home directory"
 msgstr "Домашній каталог"
 
-#: src/user_actions.rs:1848
+#: src/user_actions.rs:1834
 msgid "Root directory"
 msgstr "Кореневий каталог"
 
-#: src/user_actions.rs:1872
+#: src/user_actions.rs:1858
 msgid "Close duplicate tabs"
 msgstr "Закрити дублікати вкладок"
 
-#: src/user_actions.rs:1878
+#: src/user_actions.rs:1864
 msgid "Previous tab"
 msgstr "попередня вкладка"
 
-#: src/user_actions.rs:1884
+#: src/user_actions.rs:1870
 msgid "Next tab"
 msgstr "Наступна вкладка"
 
-#: src/user_actions.rs:1890
+#: src/user_actions.rs:1876
 msgid "Open directory in the new tab"
 msgstr "Відкрити каталог у новій вкладці"
 
-#: src/user_actions.rs:1896
+#: src/user_actions.rs:1882
 msgid "Open directory in the new tab (inactive panel)"
 msgstr "Відкрити каталог у новій вкладці (неактивна панель)"
 
-#: src/user_actions.rs:1902
+#: src/user_actions.rs:1888
 msgid "Lock/unlock tab"
 msgstr "Заблокувати/розблокувати вкладку"
 
-#: src/user_actions.rs:1908
+#: src/user_actions.rs:1894
 msgid "Horizontal Orientation"
 msgstr "Горизонтальна орієнтація"
 
-#: src/user_actions.rs:1914
+#: src/user_actions.rs:1900
 msgid "Display main menu"
 msgstr "Показати головне меню"
 
-#: src/user_actions.rs:1920
+#: src/user_actions.rs:1906
 msgid "Move cursor one step up"
 msgstr "Пересунути курсор на крок вище"
 
-#: src/user_actions.rs:1926
+#: src/user_actions.rs:1912
 msgid "Move cursor one step down"
 msgstr "Пересунути курсор на крок нижче"
 
-#: src/user_actions.rs:1932
+#: src/user_actions.rs:1918
 msgid "Switch to Opposite Panel"
 msgstr "Перемкнутися на протилежну панель"
 
-#: src/user_actions.rs:1938
+#: src/user_actions.rs:1924
 msgid "Swap panels"
 msgstr "Поміняти панелі місцями"
 
-#: src/user_actions.rs:1944
+#: src/user_actions.rs:1930
 msgid "Show panel size selector"
 msgstr "Показати елемент вибору розміру панелі"
 
-#: src/user_actions.rs:1957
+#: src/user_actions.rs:1943
 msgid "_Bookmark this Directory…"
 msgstr "_Закладка на поточний каталог…"
 
-#: src/user_actions.rs:1963
+#: src/user_actions.rs:1949
 msgid "_Manage Bookmarks…"
 msgstr "_Керування закладками…"
 
-#: src/user_actions.rs:1969
+#: src/user_actions.rs:1955
 msgid "Go to bookmarked location"
 msgstr "Перейти по закладці"
 
-#: src/user_actions.rs:1975
+#: src/user_actions.rs:1961
 msgid "Show bookmarks of current device"
 msgstr "Показати закладки поточного пристрою"
 
-#: src/user_actions.rs:1982
+#: src/user_actions.rs:1968
 msgid "_Options…"
 msgstr "П_араметри…"
 
-#: src/user_actions.rs:1988
+#: src/user_actions.rs:1974
 msgid "_Keyboard Shortcuts…"
 msgstr "_Клавіатурні скорочення…"
 
-#: src/user_actions.rs:1995
+#: src/user_actions.rs:1981
 msgid "_Remote Server…"
 msgstr "_Віддалений сервер…"
 
-#: src/user_actions.rs:2001
+#: src/user_actions.rs:1987
 msgid "New Connection…"
 msgstr "Нове з'єднання…"
 
-#: src/user_actions.rs:2007
+#: src/user_actions.rs:1993
 msgid "Set Connection"
 msgstr "Встановити з'єднання"
 
-#: src/user_actions.rs:2015
+#: src/user_actions.rs:2001
 msgid "Connect to First Remote Server"
 msgstr "Встановити з'єднання з першим віддаленим сервером"
 
-#: src/user_actions.rs:2021
+#: src/user_actions.rs:2007
 msgid "Change Left Connection"
 msgstr "Змінити ліве з'єднання"
 
-#: src/user_actions.rs:2027
+#: src/user_actions.rs:2013
 msgid "Change Right Connection"
 msgstr "Змінити праве з'єднання"
 
-#: src/user_actions.rs:2033
+#: src/user_actions.rs:2019
 msgid "Close Connection"
 msgstr "Закрити з'єднання"
 
-#: src/user_actions.rs:2039
+#: src/user_actions.rs:2025
 msgid "Drop Connection"
 msgstr "Розірвати з'єднання"
 
-#: src/user_actions.rs:2046
+#: src/user_actions.rs:2032
 msgid "_Configure Plugins…"
 msgstr "_Налаштувати додатки…"
 
-#: src/user_actions.rs:2059
+#: src/user_actions.rs:2045
 msgid "_Documentation"
 msgstr "_Документація"
 
-#: src/user_actions.rs:2071
+#: src/user_actions.rs:2057
 msgid "GNOME Commander on the _Web"
 msgstr "GNOME Commander у _веб"
 
-#: src/user_actions.rs:2077
+#: src/user_actions.rs:2063
 msgid "Report a _Problem"
 msgstr "Сповістити про _проблему"
 
-#: src/user_actions.rs:2083
+#: src/user_actions.rs:2069
 msgid "_About"
 msgstr "_Про модуль"
 
-#: src/user_actions.rs:2090
+#: src/user_actions.rs:2076
 msgid "Jump to Panels"
 msgstr "Перейти до панелей"
 
-#: src/user_actions.rs:2096
+#: src/user_actions.rs:2082
 msgid "Jump to Command Line"
 msgstr "Перейти до командного рядка"
 
-#: src/user_actions.rs:2102
+#: src/user_actions.rs:2088
 msgid "Jump to Command Output"
 msgstr "Перейти до панелі виведених командою даних"
 
-#: src/user_actions.rs:2108
+#: src/user_actions.rs:2094
 msgid "Clear Command Line"
 msgstr "Очистити панель командного рядка"
 
@@ -9009,12 +8998,12 @@ msgstr "Очистити панель командного рядка"
 msgid "Cannot create a temporary file."
 msgstr "Не вдалося створити тимчасовий файл."
 
-#: src/utils.rs:266
+#: src/utils.rs:280
 #, rust-format
 msgid "There was an error while opening help uri {uri}."
 msgstr "Під час спроби відкрити адресу довідки {uri} сталася помилка."
 
-#: src/utils.rs:367
+#: src/utils.rs:381
 #, rust-format
 msgid "{} PiB"
 msgid_plural "{} PiB"
@@ -9023,7 +9012,7 @@ msgstr[1] "{} ПіБ"
 msgstr[2] "{} ПіБ"
 msgstr[3] "{} ПіБ"
 
-#: src/utils.rs:370
+#: src/utils.rs:384
 #, rust-format
 msgid "{} TiB"
 msgid_plural "{} TiB"
@@ -9032,7 +9021,7 @@ msgstr[1] "{} ТіБ"
 msgstr[2] "{} ТіБ"
 msgstr[3] "{} ТіБ"
 
-#: src/utils.rs:373
+#: src/utils.rs:387
 #, rust-format
 msgid "{} GiB"
 msgid_plural "{} GiB"
@@ -9041,7 +9030,7 @@ msgstr[1] "{} ГіБ"
 msgstr[2] "{} ГіБ"
 msgstr[3] "{} ГіБ"
 
-#: src/utils.rs:376
+#: src/utils.rs:390
 #, rust-format
 msgid "{} MiB"
 msgid_plural "{} MiB"
@@ -9050,7 +9039,7 @@ msgstr[1] "{} МіБ"
 msgstr[2] "{} МіБ"
 msgstr[3] "{} МіБ"
 
-#: src/utils.rs:379
+#: src/utils.rs:393
 #, rust-format
 msgid "{} kiB"
 msgid_plural "{} kiB"
@@ -9059,7 +9048,7 @@ msgstr[1] "{} КіБ"
 msgstr[2] "{} КіБ"
 msgstr[3] "{} КіБ"
 
-#: src/utils.rs:382 src/utils.rs:393 src/utils.rs:397
+#: src/utils.rs:396 src/utils.rs:407 src/utils.rs:411
 #, rust-format
 msgid "{} byte"
 msgid_plural "{} bytes"
@@ -9068,9 +9057,79 @@ msgstr[1] "{} байти"
 msgstr[2] "{} байтів"
 msgstr[3] "{} байт"
 
-#: src/utils.rs:603
+#: src/utils.rs:604
 msgid "Closing of a file enumerator failed"
 msgstr "Не вдалося завершити відлік за нумерацією файлів"
+
+#~ msgid "Keyboard Shortcut"
+#~ msgstr "Клавіатурне скорочення"
+
+#~ msgid "_Action"
+#~ msgstr "Д_ія"
+
+#~ msgid "_Shortcut"
+#~ msgstr "С_корочення"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the \"Assign\" button and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "Для редагування клавіатурного скорочення натисніть кнопку «Призначити» та "
+#~ "натисніть вибране скорочення або натисніть ESC для скасування."
+
+#~ msgid "New shortcut..."
+#~ msgstr "Створити скорочення…"
+
+#~ msgid "Assign"
+#~ msgstr "Призначити"
+
+#~ msgid "No action is selected."
+#~ msgstr "Не вибрано жодної дії."
+
+#~ msgid "No shortcut is defined."
+#~ msgstr "Скорочення не визначено."
+
+#~ msgid "_Update Shortcut"
+#~ msgstr "_Оновити скорочення"
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Швидка клавіша"
+
+#~ msgid "Action"
+#~ msgstr "Дія"
+
+#~ msgid ""
+#~ "GNOME Commander is free software: you can redistribute it and/or modify "
+#~ "it under the terms of the GNU General Public License as published by the "
+#~ "Free Software Foundation, either version 3 of the License, or (at your "
+#~ "option) any later version."
+#~ msgstr ""
+#~ "GNOME Commander є вільним програмним забезпеченням; ви можете "
+#~ "розповсюджувати та/або модифікувати його на умовах ліцензії GNU General "
+#~ "Public License (не нижче версії 3), що публікується Фордом Вільного "
+#~ "Програмного Забезпечення. "
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of "
+#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General "
+#~ "Public License for more details."
+#~ msgstr ""
+#~ "GNOME Commander розповсюджується зі сподіванням, що програма буде "
+#~ "корисною, але БЕЗ БУДЬ-ЯКИХ ГАРАНТІЙ; не гарантується навіть ПРИДАТНІСТЬ "
+#~ "чи ВІДПОВІДНІСТЬ ПЕВНІЙ МЕТІ. Для отримання додаткової інформації "
+#~ "ознайомтесь з GNU General Public License."
+
+#~| msgid ""
+#~| "You should have received a copy of the GNU General Public License along "
+#~| "with Foobar. If not, see <https://www.gnu.org/licenses/>."
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along "
+#~ "with GNOME Commander. If not, see <https://www.gnu.org/licenses/>."
+#~ msgstr ""
+#~ "Ви повинні були отримати копію ліцензії GNU General Public License разом "
+#~ "з GNOME Commander. Якщо цього не сталося, див. <https://www.gnu.org/"
+#~ "licenses/>."
 
 #~ msgid ""
 #~ "Search window is minimizable\n"
