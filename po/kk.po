@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
-"POT-Creation-Date: 2026-03-25 07:26+0000\n"
-"PO-Revision-Date: 2026-03-26 22:38+0500\n"
+"POT-Creation-Date: 2026-03-30 20:49+0000\n"
+"PO-Revision-Date: 2026-03-31 07:06+0500\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "Language: kk\n"
@@ -3789,11 +3789,9 @@ msgstr "Жаңа архивтің файл аты қандай болуы кер
 #: src/dialogs/prepare_transfer_dialog.rs:72
 #: src/dialogs/profiles/edit_profile_dialog.rs:89
 #: src/dialogs/profiles/manage_profiles_dialog.rs:237
-#: src/dialogs/shortcuts/shortcut_dialog.rs:160
-#: src/dialogs/shortcuts/shortcut_dialog.rs:395
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:178
+#: src/dialogs/shortcuts_dialog.rs:206 src/dialogs/shortcuts_dialog.rs:677
 #: src/dialogs/transfer_progress_dialog.rs:73 src/dirlist.rs:45
-#: src/file_selector.rs:1571 src/intviewer/search_dialog.rs:49
+#: src/file_selector.rs:1573 src/intviewer/search_dialog.rs:49
 #: src/open_connection.rs:35 src/open_file.rs:23 src/open_file.rs:45
 #: src/user_actions.rs:851
 msgid "_Cancel"
@@ -5442,7 +5440,7 @@ msgstr "Нәтижелер"
 #: src/dialogs/options/options_dialog.rs:101
 #: src/dialogs/profiles/edit_profile_dialog.rs:55
 #: src/dialogs/profiles/manage_profiles_dialog.rs:215
-#: src/dialogs/remote_dialog.rs:151 src/dialogs/shortcuts/shortcuts_dialog.rs:164
+#: src/dialogs/remote_dialog.rs:151 src/dialogs/shortcuts_dialog.rs:192
 #: src/intviewer/window.rs:883 src/main_win.rs:1528
 #: src/search/search_dialog.rs:353
 msgid "_Help"
@@ -5508,7 +5506,7 @@ msgstr "Метабелгі"
 
 #: src/advanced_rename/profile_component.rs:113
 #: src/dialogs/options/apps_widget.rs:68 src/dialogs/options/devices_widget.rs:54
-#: src/dialogs/remote_dialog.rs:118 src/dialogs/shortcuts/shortcuts_dialog.rs:127
+#: src/dialogs/remote_dialog.rs:118
 msgid "_Add"
 msgstr "Қ_осу"
 
@@ -5516,8 +5514,7 @@ msgstr "Қ_осу"
 #: src/dialogs/manage_bookmarks_dialog.rs:65
 #: src/dialogs/options/apps_widget.rs:74 src/dialogs/options/devices_widget.rs:61
 #: src/dialogs/profiles/manage_profiles_dialog.rs:159
-#: src/dialogs/remote_dialog.rs:56 src/dialogs/shortcuts/shortcuts_dialog.rs:140
-#: src/main_win.rs:1431
+#: src/dialogs/remote_dialog.rs:56 src/main_win.rs:1431
 msgid "_Edit"
 msgstr "Тү_зету"
 
@@ -5525,7 +5522,7 @@ msgstr "Тү_зету"
 #: src/dialogs/manage_bookmarks_dialog.rs:70
 #: src/dialogs/options/apps_widget.rs:80 src/dialogs/options/devices_widget.rs:68
 #: src/dialogs/profiles/manage_profiles_dialog.rs:184
-#: src/dialogs/remote_dialog.rs:60 src/dialogs/shortcuts/shortcuts_dialog.rs:153
+#: src/dialogs/remote_dialog.rs:60
 msgid "_Remove"
 msgstr "Ө_шіру"
 
@@ -5861,11 +5858,11 @@ msgstr "Мәтіндік түрі:"
 msgid "Number view:"
 msgstr "Сандық түрі:"
 
-#: src/command_line.rs:50 src/user_actions.rs:1672
+#: src/command_line.rs:50 src/user_actions.rs:1658
 msgid "_Copy"
 msgstr "_Көшіру"
 
-#: src/command_line.rs:51 src/user_actions.rs:1678
+#: src/command_line.rs:51 src/user_actions.rs:1664
 msgid "_Paste"
 msgstr "_Кірістіру"
 
@@ -5927,8 +5924,8 @@ msgstr "Ажырату: {device_name}"
 msgid "Volume successfully unmounted"
 msgstr "Том сәтті ажыратылды"
 
-#: src/connection/device.rs:353 src/dialogs/shortcuts/shortcut_dialog.rs:375
-#: src/intviewer/window.rs:651 src/utils.rs:232
+#: src/connection/device.rs:353 src/dialogs/shortcuts_dialog.rs:656
+#: src/intviewer/window.rs:651 src/utils.rs:246
 msgid "_Dismiss"
 msgstr "_Елемеу"
 
@@ -6215,28 +6212,29 @@ msgstr "Символдық сілтеме жасау сәтсіз аяқталд
 msgid "Deleting…"
 msgstr "Өшірілуде…"
 
-#: src/dialogs/delete_dialog.rs:152
+#: src/dialogs/delete_dialog.rs:143
 #, rust-format
 msgid "Deleted {count} of {total} file"
 msgid_plural "Deleted {count} of {total} files"
 msgstr[0] "{total} файлдың {count} өшірілді"
 
-#: src/dialogs/delete_dialog.rs:176
+#: src/dialogs/delete_dialog.rs:167
 #, rust-format
 msgid "The directory “{}” is not empty. Do you really want to delete it?"
 msgstr "“{}” бумасы бос емес. Оны шынымен өшіргіңіз келе ме?"
 
-#: src/dialogs/delete_dialog.rs:179
+#: src/dialogs/delete_dialog.rs:170
 #, rust-format
 msgid "Do you really want to delete “{}”?"
 msgstr "“{}” өшіруді шынымен қалайсыз ба?"
 
-#: src/dialogs/delete_dialog.rs:186 src/dialogs/delete_dialog.rs:521
-#: src/user_actions.rs:399 src/user_actions.rs:446
+#: src/dialogs/delete_dialog.rs:177 src/dialogs/delete_dialog.rs:512
+#: src/dialogs/shortcuts_dialog.rs:745 src/user_actions.rs:399
+#: src/user_actions.rs:446
 msgid "Cancel"
 msgstr "Болдырмау"
 
-#: src/dialogs/delete_dialog.rs:187 src/dialogs/delete_dialog.rs:227
+#: src/dialogs/delete_dialog.rs:178 src/dialogs/delete_dialog.rs:218
 #: src/dialogs/options/confirmation_tab.rs:82
 #: src/dialogs/options/confirmation_tab.rs:111
 #: src/dialogs/prepare_copy_dialog.rs:62 src/dialogs/prepare_move_dialog.rs:62
@@ -6245,58 +6243,58 @@ msgstr "Болдырмау"
 msgid "Skip"
 msgstr "Аттап кету"
 
-#: src/dialogs/delete_dialog.rs:189
+#: src/dialogs/delete_dialog.rs:180
 msgid "Delete All"
 msgstr "Барлығын өшіру"
 
-#: src/dialogs/delete_dialog.rs:191
+#: src/dialogs/delete_dialog.rs:182
 msgid "Delete Remaining"
 msgstr "Қалғандарын өшіру"
 
-#: src/dialogs/delete_dialog.rs:193 src/dialogs/delete_dialog.rs:521
+#: src/dialogs/delete_dialog.rs:184 src/dialogs/delete_dialog.rs:512
 #: src/dialogs/options/confirmation_tab.rs:65
 msgid "Delete"
 msgstr "Өшіру"
 
-#: src/dialogs/delete_dialog.rs:214
+#: src/dialogs/delete_dialog.rs:205
 #, rust-format
 msgid "Error while deleting “{file}”"
 msgstr "“{file}” өшіру кезіндегі қате"
 
-#: src/dialogs/delete_dialog.rs:227 src/dialogs/delete_dialog.rs:565
+#: src/dialogs/delete_dialog.rs:218 src/dialogs/delete_dialog.rs:556
 #: src/transfer.rs:455 src/transfer.rs:472 src/transfer.rs:490
 #: src/transfer.rs:507 src/transfer.rs:552 src/transfer.rs:570
 #: src/transfer.rs:665 src/transfer.rs:683
 msgid "Abort"
 msgstr "Тоқтату"
 
-#: src/dialogs/delete_dialog.rs:227 src/transfer.rs:455 src/transfer.rs:491
+#: src/dialogs/delete_dialog.rs:218 src/transfer.rs:455 src/transfer.rs:491
 #: src/transfer.rs:508 src/transfer.rs:553 src/transfer.rs:571
 #: src/transfer.rs:666 src/transfer.rs:684 src/user_actions.rs:400
 msgid "Retry"
 msgstr "Қайталау"
 
-#: src/dialogs/delete_dialog.rs:495
+#: src/dialogs/delete_dialog.rs:486
 #, rust-format
 msgid "Do you want to permanently delete “{}”?"
 msgstr "“{}” біржола өшіргіңіз келе ме?"
 
-#: src/dialogs/delete_dialog.rs:498
+#: src/dialogs/delete_dialog.rs:489
 #, rust-format
 msgid "Do you want to move “{}” to the trash can?"
 msgstr "“{}” қоқыс шелегіне тастағыңыз келе ме?"
 
-#: src/dialogs/delete_dialog.rs:504
+#: src/dialogs/delete_dialog.rs:495
 msgid "Do you want to permanently delete the selected file?"
 msgid_plural "Do you want to permanently delete the %d selected files?"
 msgstr[0] "Таңдалған %d файлды біржола өшіруді қалайсыз ба?"
 
-#: src/dialogs/delete_dialog.rs:510
+#: src/dialogs/delete_dialog.rs:501
 msgid "Do you want to move the selected file to the trash can?"
 msgid_plural "Do you want to move the %d selected files to the trash can?"
 msgstr[0] "Таңдалған %d файлды қоқыс шелегіне тастағыңыз келе ме?"
 
-#: src/dialogs/delete_dialog.rs:563
+#: src/dialogs/delete_dialog.rs:554
 msgid "Error while deleting"
 msgstr "Өшіру кезіндегі қате"
 
@@ -6453,7 +6451,7 @@ msgstr "Жарлық"
 msgid "Path"
 msgstr "Орналасу"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:584
+#: src/dialogs/manage_bookmarks_dialog.rs:575
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding"
@@ -6531,7 +6529,6 @@ msgstr "Таңбаша:"
 
 #: src/dialogs/options/app_dialog.rs:84 src/dialogs/options/options_dialog.rs:24
 #: src/dialogs/prepare_copy_dialog.rs:83
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:93
 msgid "Options"
 msgstr "Опциялар"
 
@@ -6575,11 +6572,11 @@ msgstr "Бағдарламаны қо_су"
 msgid "_Update Application"
 msgstr "Бағдарламаны жаңар_ту"
 
-#: src/dialogs/options/app_dialog.rs:242
+#: src/dialogs/options/app_dialog.rs:234
 msgid "An app needs to have a non-empty label"
 msgstr "Бағдарламаның белгісі бос болмауы тиіс"
 
-#: src/dialogs/options/app_dialog.rs:249
+#: src/dialogs/options/app_dialog.rs:241
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
@@ -6676,15 +6673,15 @@ msgstr "Құрылғыны қо_су"
 msgid "_Update Device"
 msgstr "Құрылғыны жаңар_ту"
 
-#: src/dialogs/options/device_dialog.rs:173
+#: src/dialogs/options/device_dialog.rs:165
 msgid "A device needs to have a non-empty alias"
 msgstr "Құрылғының алиасы бос болмауы тиіс"
 
-#: src/dialogs/options/device_dialog.rs:180
+#: src/dialogs/options/device_dialog.rs:172
 msgid "A device needs to have a non-empty path/label"
 msgstr "Құрылғының жолы/белгісі бос болмауы тиіс"
 
-#: src/dialogs/options/device_dialog.rs:187
+#: src/dialogs/options/device_dialog.rs:179
 msgid "A device needs to have a non-empty mount point"
 msgstr "Құрылғының тіркеу нүктесі бос болмауы тиіс"
 
@@ -6888,7 +6885,7 @@ msgstr "Бір рет шерту файлдардың таңдауын алып 
 msgid "Middle mouse button"
 msgstr "Тышқанның ортаңғы батырмасы"
 
-#: src/dialogs/options/general_tab.rs:92 src/user_actions.rs:1764
+#: src/dialogs/options/general_tab.rs:92 src/user_actions.rs:1750
 msgid "Up one directory"
 msgstr "Бір бума жоғары"
 
@@ -6929,8 +6926,8 @@ msgid "CTRL+ALT+letters"
 msgstr "CTRL+ALT+әріптер"
 
 #: src/dialogs/options/general_tab.rs:145
-msgid "ALT+letters (menu access with F12)"
-msgstr "ALT+әріптер (мәзірге F12 арқылы қол жеткізу)"
+msgid "ALT+letters (menu access with F10)"
+msgstr "ALT+әріптер (F10 көмегімен мәзірге қол жеткізу)"
 
 #: src/dialogs/options/general_tab.rs:151
 msgid "Just letters (command line access with CTRL+ALT+C)"
@@ -7230,7 +7227,7 @@ msgstr "Т_аңдау"
 msgid "Uns_elect"
 msgstr "Таңда_уды алып тастау"
 
-#: src/dialogs/pattern_selection_dialog.rs:173
+#: src/dialogs/pattern_selection_dialog.rs:164
 msgid "Bad expression"
 msgstr "Қате өрнек"
 
@@ -7313,89 +7310,94 @@ msgstr "Қашықтағы қосылымдар"
 msgid "No server selected"
 msgstr "Сервер таңдалмады"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:116
-msgid "Keyboard Shortcut"
-msgstr "Пернетақта жарлығы"
+#: src/dialogs/shortcuts_dialog.rs:119
+msgid "Keyboard Shortcuts"
+msgstr "Пернетақта жарлықтары"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:124
-msgid "_Action"
-msgstr "Әре_кет"
+#: src/dialogs/shortcuts_dialog.rs:130
+msgid "Search shortcuts…"
+msgstr "Жарлықтарды іздеу…"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:134
-msgid "_Shortcut"
-msgstr "Жар_лық"
+#: src/dialogs/shortcuts_dialog.rs:218
+msgid "_Save Shortcuts"
+msgstr "Жарлықтарды сақ_тау"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:152
-msgid ""
-"To edit a shortcut key, click on the \"Assign\" button and type a new "
-"accelerator, or press escape to cancel."
-msgstr ""
-"Жарлық пернесін түзету үшін «Тағайындау» батырмасына шертіп, жаңа үдеткішті "
-"теріңіз немесе бас тарту үшін escape пернесін басыңыз."
+#: src/dialogs/shortcuts_dialog.rs:405 src/dialogs/shortcuts_dialog.rs:697
+msgid "Add Shortcut"
+msgstr "Жарлық қосу"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:236
-msgid "New shortcut..."
-msgstr "Жаңа жарлық..."
+#: src/dialogs/shortcuts_dialog.rs:432 src/dialogs/shortcuts_dialog.rs:695
+msgid "Edit Shortcut"
+msgstr "Жарлықты түзету"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:241
-msgid "Assign"
-msgstr "Тағайындау"
+#: src/dialogs/shortcuts_dialog.rs:445
+msgid "Reset to Default"
+msgstr "Бастапқы күйге қайтару"
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:273
-msgid "No action is selected."
-msgstr "Әрекет таңдалмады."
-
-#: src/dialogs/shortcuts/shortcut_dialog.rs:280
-msgid "No shortcut is defined."
-msgstr "Жарлық анықталмады."
-
-#: src/dialogs/shortcuts/shortcut_dialog.rs:323
-msgid "_Update Shortcut"
-msgstr "Жарлықты жаңар_ту"
-
-#: src/dialogs/shortcuts/shortcut_dialog.rs:325
-msgid "A_dd Shortcut"
-msgstr "Жарлық қо_су"
-
-#: src/dialogs/shortcuts/shortcut_dialog.rs:369
+#: src/dialogs/shortcuts_dialog.rs:650
 #, rust-format
 msgid "Shortcut “{shortcut}” cannot be reconfigured."
 msgstr "«{shortcut}» жарлығын қайта баптау мүмкін емес."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:373
+#: src/dialogs/shortcuts_dialog.rs:654
 msgid "This shortcut is used by an action that is not configurable."
 msgstr "Бұл жарлық бапталмайтын әрекет үшін қолданылады."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:387
+#: src/dialogs/shortcuts_dialog.rs:669
 #, rust-format
 msgid "Shortcut “{shortcut}” is already taken by “{action}”."
 msgstr "«{shortcut}» жарлығын қазір «{action}» әрекеті иеленіп тұр."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:392
+#: src/dialogs/shortcuts_dialog.rs:674
 #, rust-format
 msgid "Reassigning the shortcut will cause it to be removed from “{action}”."
 msgstr ""
 "Жарлықты қайта тағайындау оның «{action}» әрекетінен өшірілуіне әкеп соғады."
 
-#: src/dialogs/shortcuts/shortcut_dialog.rs:395
+#: src/dialogs/shortcuts_dialog.rs:677
 msgid "_Reassign shortcut"
 msgstr "Жарлықты қайта тағайын_дау"
 
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:56
-msgid "Keyboard Shortcuts"
-msgstr "Пернетақта жарлықтары"
+#: src/dialogs/shortcuts_dialog.rs:711
+#, rust-format
+msgid "Enter a shortcut to replace “{shortcut}” for action “{action}.”"
+msgstr ""
+"“{action}” әрекетінің “{shortcut}” жарлығын алмастыру үшін жарлық енгізіңіз."
 
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:70
-msgid "Shortcut Key"
-msgstr "Жарлық пернесі"
+#: src/dialogs/shortcuts_dialog.rs:715
+#, rust-format
+msgid "Enter a new shortcut for action “{action}.”"
+msgstr "“{action}” әрекеті үшін жаңа жарлық енгізіңіз."
 
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:81
-msgid "Action"
-msgstr "Әрекет"
+#: src/dialogs/shortcuts_dialog.rs:725
+msgid "Press the desired key combination on your keyboard."
+msgstr "Пернетақтада қажетті пернелер тіркесімін басыңыз."
 
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:190
-msgid "_Save Shortcuts"
-msgstr "Жарлықтарды сақ_тау"
+#: src/dialogs/shortcuts_dialog.rs:727
+msgid "Press Esc twice to cancel."
+msgstr "Бас тарту үшін Esc пернесін екі рет басыңыз."
+
+#: src/dialogs/shortcuts_dialog.rs:730
+msgid "Press Backspace twice to remove the shortcut."
+msgstr "Жарлықты өшіру үшін Backspace пернесін екі рет басыңыз."
+
+#: src/dialogs/shortcuts_dialog.rs:757
+msgid "Remove Shortcut"
+msgstr "Жарлықты өшіру"
+
+#: src/dialogs/shortcuts_dialog.rs:820
+msgid "Press Esc again to cancel or Enter to use Esc as shortcut key."
+msgstr ""
+"Бас тарту үшін Esc пернесін қайта басыңыз немесе Esc пернесін жарлық ретінде "
+"қолдану үшін Enter пернесін басыңыз."
+
+#: src/dialogs/shortcuts_dialog.rs:831
+msgid ""
+"Press Backspace again to remove the shortcut or Enter to use Backspace as "
+"shortcut key."
+msgstr ""
+"Жарлықты өшіру үшін Backspace пернесін қайта басыңыз немесе Backspace пернесін "
+"жарлық ретінде қолдану үшін Enter пернесін басыңыз."
 
 #: src/dialogs/transfer_progress_dialog.rs:52
 msgid "Progress"
@@ -7576,63 +7578,63 @@ msgstr "Мәні"
 msgid "Failed to get file info for {path}."
 msgstr "{path} үшін файл ақпаратын алу сәтсіз аяқталды."
 
-#: src/file_selector.rs:1179
+#: src/file_selector.rs:1181
 msgid "Add current dir"
 msgstr "Ағымдағы буманы қосу"
 
-#: src/file_selector.rs:1181
+#: src/file_selector.rs:1183
 msgid "Manage bookmarks…"
 msgstr "Бетбелгілерді басқару…"
 
-#: src/file_selector.rs:1334
+#: src/file_selector.rs:1336
 msgid "%s free"
 msgstr "%s бос"
 
-#: src/file_selector.rs:1340
+#: src/file_selector.rs:1342
 msgid "Unknown disk usage"
 msgstr "Дискінің пайдаланылуы белгісіз"
 
-#: src/file_selector.rs:1570 src/user_actions.rs:850
+#: src/file_selector.rs:1572 src/user_actions.rs:850
 msgid "The tab is locked, close anyway?"
 msgstr "Бет құлыпталған, бәрібір жабу керек пе?"
 
-#: src/file_selector.rs:1571 src/user_actions.rs:851
+#: src/file_selector.rs:1573 src/user_actions.rs:851
 msgid "C_lose Tab"
 msgstr "Бетті жа_бу"
 
-#: src/file_selector.rs:1612 src/user_actions.rs:1854
+#: src/file_selector.rs:1614 src/user_actions.rs:1840
 msgid "Open in New _Tab"
 msgstr "Жаңа бе_тте ашу"
 
-#: src/file_selector.rs:1621
+#: src/file_selector.rs:1623
 msgid "_Unlock Tab"
 msgstr "Беттің құлы_пын ашу"
 
-#: src/file_selector.rs:1623
+#: src/file_selector.rs:1625
 msgid "_Lock Tab"
 msgstr "Бетті құлы_птау"
 
-#: src/file_selector.rs:1635
+#: src/file_selector.rs:1637
 msgid "_Refresh Tab"
 msgstr "Бетті жаңар_ту"
 
-#: src/file_selector.rs:1644
+#: src/file_selector.rs:1646
 msgid "Copy Tab to Other _Panel"
 msgstr "Бетті басқа панельге көші_ру"
 
-#: src/file_selector.rs:1650 src/user_actions.rs:1860
+#: src/file_selector.rs:1652 src/user_actions.rs:1846
 msgid "_Close Tab"
 msgstr "Бетті _жабу"
 
-#: src/file_selector.rs:1654 src/user_actions.rs:1866
+#: src/file_selector.rs:1656 src/user_actions.rs:1852
 msgid "Close _All Tabs"
 msgstr "Барлық беттерді жа_бу"
 
-#: src/file_selector.rs:1658
+#: src/file_selector.rs:1660
 msgid "Close _Duplicate Tabs"
 msgstr "Қайталанатын беттерді жа_бу"
 
-#: src/file_selector.rs:1686
+#: src/file_selector.rs:1688
 msgid "Filter:"
 msgstr "Сүзгі:"
 
@@ -7905,7 +7907,7 @@ msgstr "_Он алтылық ығысу"
 msgid "Quick _Help"
 msgstr "Жылдам _көмек"
 
-#: src/intviewer/window.rs:886 src/user_actions.rs:2065
+#: src/intviewer/window.rs:886 src/user_actions.rs:2051
 msgid "_Keyboard Shortcuts"
 msgstr "П_ернетақта жарлықтары"
 
@@ -8127,6 +8129,22 @@ msgstr "Сурет файлын таңдау"
 #: src/select_icon_button.rs:92
 msgid "Choose Icon"
 msgstr "Таңбашаны таңдау"
+
+#: src/shortcuts.rs:43
+msgid "Panels"
+msgstr "Панельдер"
+
+#: src/shortcuts.rs:44
+msgid "Command Line"
+msgstr "Командалық жол"
+
+#: src/shortcuts.rs:45
+msgid "Command Output"
+msgstr "Команда шығысы"
+
+#: src/shortcuts.rs:46
+msgid "GNOME Commander Window"
+msgstr "GNOME Commander терезесі"
 
 #: src/spawn.rs:126 src/spawn.rs:130
 msgid "No valid command given."
@@ -8396,435 +8414,403 @@ msgstr "Үй бетін ашу кезінде қате кетті."
 msgid "There was an error reporting problem."
 msgstr "Мәселе туралы хабарлау кезінде қате кетті."
 
-#: src/user_actions.rs:1196
-msgid ""
-"GNOME Commander is free software: you can redistribute it and/or modify it "
-"under the terms of the GNU General Public License as published by the Free "
-"Software Foundation, either version 3 of the License, or (at your option) any "
-"later version."
-msgstr ""
-"GNOME Commander — еркін бағдарламалық қамтама: сіз оны Free Software "
-"Foundation жариялаған GNU General Public License (3-нұсқа немесе (өз қалауыңыз "
-"бойынша) кез келген кейінгі нұсқа) шарттарына сәйкес қайта тарата аласыз және/"
-"немесе өзгерте аласыз."
-
 #: src/user_actions.rs:1199
-msgid ""
-"GNOME Commander is distributed in the hope that it will be useful, but WITHOUT "
-"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
-"FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
-msgstr ""
-"GNOME Commander пайдалы болады деген үмітпен таратылады, бірақ ЕШҚАНДАЙ "
-"КЕПІЛДІК берілмейді; тіпті САТУҒА ЖАРАМДЫЛЫҚ немесе БЕЛГІЛІ БІР МАҚСАТҚА "
-"СӘЙКЕСТІК кепілдігі де жоқ. Толығырақ ақпаратты GNU General Public License "
-"лицензиясынан қараңыз."
-
-#: src/user_actions.rs:1202
-msgid ""
-"You should have received a copy of the GNU General Public License along with "
-"Foobar. If not, see <https://www.gnu.org/licenses/>."
-msgstr ""
-"Сіз GNOME Commander бағдарламасымен бірге GNU General Public License "
-"көшірмесін алуыңыз керек еді. Егер алмасаңыз, <https://www.gnu.org/licenses/> "
-"сілтемесін қараңыз."
-
-#: src/user_actions.rs:1212
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "GNOME жұмыс үстеліне арналған жылдам әрі қуатты файл менеджері"
 
-#: src/user_actions.rs:1220
+#: src/user_actions.rs:1206
 msgid "translator-credits"
 msgstr "Baurzhan Muftakhidinov <baurthefirst@gmail.com>"
 
-#: src/user_actions.rs:1460
+#: src/user_actions.rs:1446
 msgid "Copy Files"
 msgstr "Файлдарды көшіру"
 
-#: src/user_actions.rs:1466
+#: src/user_actions.rs:1452
 msgid "Copy files with rename"
 msgstr "Файлдарды атын өзгертіп көшіру"
 
-#: src/user_actions.rs:1472
+#: src/user_actions.rs:1458
 msgid "Move Files"
 msgstr "Файлдарды жылжыту"
 
-#: src/user_actions.rs:1478
+#: src/user_actions.rs:1464
 msgid "_Delete"
 msgstr "Ө_шіру"
 
-#: src/user_actions.rs:1484
+#: src/user_actions.rs:1470
 msgid "View File"
 msgstr "Файлды көру"
 
-#: src/user_actions.rs:1490
+#: src/user_actions.rs:1476
 msgid "View with internal viewer"
 msgstr "Ішкі қарап шығу құралымен көру"
 
-#: src/user_actions.rs:1496
+#: src/user_actions.rs:1482
 msgid "View with external viewer"
 msgstr "Сыртқы қарап шығу құралымен көру"
 
-#: src/user_actions.rs:1502
+#: src/user_actions.rs:1488
 msgid "Edit (SHIFT for new document)"
 msgstr "Түзету (жаңа құжат үшін SHIFT)"
 
-#: src/user_actions.rs:1508
+#: src/user_actions.rs:1494
 msgid "New _Text File"
 msgstr "Жаңа _мәтіндік файл"
 
-#: src/user_actions.rs:1514
+#: src/user_actions.rs:1500
 msgid "_Search…"
 msgstr "_Іздеу…"
 
-#: src/user_actions.rs:1520
+#: src/user_actions.rs:1506
 msgid "_Quick Search…"
 msgstr "_Жылдам іздеу…"
 
-#: src/user_actions.rs:1526
+#: src/user_actions.rs:1512
 msgid "Change Per_missions"
 msgstr "_Рұқсаттарды өзгерту"
 
-#: src/user_actions.rs:1532
+#: src/user_actions.rs:1518
 msgid "Change _Owner/Group"
 msgstr "_Иесін/топты өзгерту"
 
-#: src/user_actions.rs:1538
+#: src/user_actions.rs:1524
 msgid "New _Directory"
 msgstr "Жаңа _бума"
 
-#: src/user_actions.rs:1544
+#: src/user_actions.rs:1530
 msgid "_Properties…"
 msgstr "Қа_сиеттері…"
 
-#: src/user_actions.rs:1550
+#: src/user_actions.rs:1536
 msgid "_Diff"
 msgstr "_Diff"
 
-#: src/user_actions.rs:1556
+#: src/user_actions.rs:1542
 msgid "S_ynchronize Directories"
 msgstr "Бумаларды с_инхрондау"
 
-#: src/user_actions.rs:1562
+#: src/user_actions.rs:1548
 msgid "_Rename"
 msgstr "_Атын өзгерту"
 
-#: src/user_actions.rs:1568
+#: src/user_actions.rs:1554
 msgid "Create _Symbolic Link"
 msgstr "_Символдық сілтеме жасау"
 
-#: src/user_actions.rs:1574
+#: src/user_actions.rs:1560
 msgid "Advanced _Rename Tool"
 msgstr "Кеңейтілген а_тын өзгерту сайманы"
 
-#: src/user_actions.rs:1580
+#: src/user_actions.rs:1566
 msgid "_Send Files"
 msgstr "Файлдарды _жіберу"
 
-#: src/user_actions.rs:1586
+#: src/user_actions.rs:1572
 msgid "Quit"
 msgstr "Шығу"
 
-#: src/user_actions.rs:1593
+#: src/user_actions.rs:1579
 msgid "Toggle selection"
 msgstr "Ерекшелеуді ауыстыру"
 
-#: src/user_actions.rs:1599
+#: src/user_actions.rs:1585
 msgid "Toggle selection and move cursor downward"
 msgstr "Ерекшелеуді ауыстырып, курсорды төмен жылжыту"
 
-#: src/user_actions.rs:1605
+#: src/user_actions.rs:1591
 msgid "_Select All"
 msgstr "Бар_лығын таңдау"
 
-#: src/user_actions.rs:1611
+#: src/user_actions.rs:1597
 msgid "_Unselect All"
 msgstr "Барлығынан таңдауды _алып тастау"
 
-#: src/user_actions.rs:1617
+#: src/user_actions.rs:1603
 msgid "Select all _Files"
 msgstr "Барлық _файлдарды таңдау"
 
-#: src/user_actions.rs:1623
+#: src/user_actions.rs:1609
 msgid "Unselect all Fi_les"
 msgstr "Барлық файлдардан таңдауды _алып тастау"
 
-#: src/user_actions.rs:1629
+#: src/user_actions.rs:1615
 msgid "Select with _Pattern"
 msgstr "Үлгі бойынша _таңдау"
 
-#: src/user_actions.rs:1635
+#: src/user_actions.rs:1621
 msgid "Unselect with P_attern"
 msgstr "Ү_лгі бойынша таңдауды алып тастау"
 
-#: src/user_actions.rs:1641
+#: src/user_actions.rs:1627
 msgid "_Invert Selection"
 msgstr "Ерекшелеуді _инверттеу"
 
-#: src/user_actions.rs:1647
+#: src/user_actions.rs:1633
 msgid "Select with same _Extension"
 msgstr "Бірдей _кеңейтуі бойынша таңдау"
 
-#: src/user_actions.rs:1653
+#: src/user_actions.rs:1639
 msgid "Unselect with same E_xtension"
 msgstr "Бірдей к_еңейтуі бойынша таңдауды алып тастау"
 
-#: src/user_actions.rs:1659
+#: src/user_actions.rs:1645
 msgid "_Compare Directories"
 msgstr "Бумаларды _салыстыру"
 
-#: src/user_actions.rs:1666
+#: src/user_actions.rs:1652
 msgid "Cu_t"
 msgstr "Қиы_п алу"
 
-#: src/user_actions.rs:1684
+#: src/user_actions.rs:1670
 msgid "_Enable Filter…"
 msgstr "_Сүзгіні іске қосу…"
 
-#: src/user_actions.rs:1690
+#: src/user_actions.rs:1676
 msgid "Copy _File Names (SHIFT for full paths, ALT for URIs)"
 msgstr "_Файл аттарын көшіру (толық жолдар үшін SHIFT, URI үшін ALT)"
 
-#: src/user_actions.rs:1697
+#: src/user_actions.rs:1683
 msgid "Execute command"
 msgstr "Команданы орындау"
 
-#: src/user_actions.rs:1703
+#: src/user_actions.rs:1689
 msgid "Open _Terminal"
 msgstr "_Терминалды ашу"
 
-#: src/user_actions.rs:1710
+#: src/user_actions.rs:1696
 msgid "Show Device Buttons"
 msgstr "Құрылғы батырмаларын көрсету"
 
-#: src/user_actions.rs:1716
+#: src/user_actions.rs:1702
 msgid "Show Device List"
 msgstr "Құрылғылар тізімін көрсету"
 
-#: src/user_actions.rs:1722
+#: src/user_actions.rs:1708
 msgid "Show Toolbar"
 msgstr "Саймандар панелін көрсету"
 
-#: src/user_actions.rs:1728
+#: src/user_actions.rs:1714
 msgid "Show Buttonbar"
 msgstr "Батырмалар панелін көрсету"
 
-#: src/user_actions.rs:1734
+#: src/user_actions.rs:1720
 msgid "Show Command Line"
 msgstr "Командалық жолды көрсету"
 
-#: src/user_actions.rs:1740
+#: src/user_actions.rs:1726
 msgid "Show Directory History"
 msgstr "Бумалар тарихын көрсету"
 
-#: src/user_actions.rs:1746
+#: src/user_actions.rs:1732
 msgid "Show Command Line History"
 msgstr "Командалық жол тарихын көрсету"
 
-#: src/user_actions.rs:1752
+#: src/user_actions.rs:1738
 msgid "Show Hidden Files"
 msgstr "Жасырын файлдарды көрсету"
 
-#: src/user_actions.rs:1758
+#: src/user_actions.rs:1744
 msgid "Show Backup Files"
 msgstr "Сақтық көшірме файлдарын көрсету"
 
-#: src/user_actions.rs:1770
+#: src/user_actions.rs:1756
 msgid "Back to oldest"
 msgstr "Ең ескісіне оралу"
 
-#: src/user_actions.rs:1776
+#: src/user_actions.rs:1762
 msgid "_Back"
 msgstr "Ар_тқа"
 
-#: src/user_actions.rs:1782
+#: src/user_actions.rs:1768
 msgid "_Forward"
 msgstr "А_лға"
 
-#: src/user_actions.rs:1788
+#: src/user_actions.rs:1774
 msgid "Forward to latest"
 msgstr "Ең соңғысына өту"
 
-#: src/user_actions.rs:1794
+#: src/user_actions.rs:1780
 msgid "_Refresh"
 msgstr "Жаңар_ту"
 
-#: src/user_actions.rs:1800
+#: src/user_actions.rs:1786
 msgid "_Equal Panel Size"
 msgstr "_Панельдердің бірдей өлшемі"
 
-#: src/user_actions.rs:1806
+#: src/user_actions.rs:1792
 msgid "Maximize Panel Size"
 msgstr "Панель өлшемін барынша арттыру"
 
-#: src/user_actions.rs:1812
+#: src/user_actions.rs:1798
 msgid "Open directory in the left panel"
 msgstr "Буманы сол жақ панельде ашу"
 
-#: src/user_actions.rs:1818
+#: src/user_actions.rs:1804
 msgid "Open directory in the right panel"
 msgstr "Буманы оң жақ панельде ашу"
 
-#: src/user_actions.rs:1824
+#: src/user_actions.rs:1810
 msgid "Open directory in the active panel"
 msgstr "Буманы белсенді панельде ашу"
 
-#: src/user_actions.rs:1830
+#: src/user_actions.rs:1816
 msgid "Open directory in the inactive panel"
 msgstr "Буманы белсенді емес панельде ашу"
 
-#: src/user_actions.rs:1836
+#: src/user_actions.rs:1822
 msgid "Change directory"
 msgstr "Буманы өзгерту"
 
-#: src/user_actions.rs:1842
+#: src/user_actions.rs:1828
 msgid "Home directory"
 msgstr "Үй бумасы"
 
-#: src/user_actions.rs:1848
+#: src/user_actions.rs:1834
 msgid "Root directory"
 msgstr "Түбірлік бума"
 
-#: src/user_actions.rs:1872
+#: src/user_actions.rs:1858
 msgid "Close duplicate tabs"
 msgstr "Дубликат беттерді жабу"
 
-#: src/user_actions.rs:1878
+#: src/user_actions.rs:1864
 msgid "Previous tab"
 msgstr "Алдыңғы бет"
 
-#: src/user_actions.rs:1884
+#: src/user_actions.rs:1870
 msgid "Next tab"
 msgstr "Келесі бет"
 
-#: src/user_actions.rs:1890
+#: src/user_actions.rs:1876
 msgid "Open directory in the new tab"
 msgstr "Буманы жаңа бетте ашу"
 
-#: src/user_actions.rs:1896
+#: src/user_actions.rs:1882
 msgid "Open directory in the new tab (inactive panel)"
 msgstr "Буманы жаңа бетте ашу (белсенді емес панель)"
 
-#: src/user_actions.rs:1902
+#: src/user_actions.rs:1888
 msgid "Lock/unlock tab"
 msgstr "Бетті құлыптау/құлпын ашу"
 
-#: src/user_actions.rs:1908
+#: src/user_actions.rs:1894
 msgid "Horizontal Orientation"
 msgstr "Горизонталды бағдар"
 
-#: src/user_actions.rs:1914
+#: src/user_actions.rs:1900
 msgid "Display main menu"
 msgstr "Бас мәзірді көрсету"
 
-#: src/user_actions.rs:1920
+#: src/user_actions.rs:1906
 msgid "Move cursor one step up"
 msgstr "Курсорды бір қадам жоғары жылжыту"
 
-#: src/user_actions.rs:1926
+#: src/user_actions.rs:1912
 msgid "Move cursor one step down"
 msgstr "Курсорды бір қадам төмен жылжыту"
 
-#: src/user_actions.rs:1932
+#: src/user_actions.rs:1918
 msgid "Switch to Opposite Panel"
 msgstr "Қарсы панельге ауысу"
 
-#: src/user_actions.rs:1938
+#: src/user_actions.rs:1924
 msgid "Swap panels"
 msgstr "Панельдерді алмастыру"
 
-#: src/user_actions.rs:1944
+#: src/user_actions.rs:1930
 msgid "Show panel size selector"
 msgstr "Панель өлшемін таңдау құралын көрсету"
 
-#: src/user_actions.rs:1957
+#: src/user_actions.rs:1943
 msgid "_Bookmark this Directory…"
 msgstr "Бұл буманы _бетбелгілерге қосу…"
 
-#: src/user_actions.rs:1963
+#: src/user_actions.rs:1949
 msgid "_Manage Bookmarks…"
 msgstr "Бетбелгілерді _басқару…"
 
-#: src/user_actions.rs:1969
+#: src/user_actions.rs:1955
 msgid "Go to bookmarked location"
 msgstr "Бетбелгіленген орынға өту"
 
-#: src/user_actions.rs:1975
+#: src/user_actions.rs:1961
 msgid "Show bookmarks of current device"
 msgstr "Ағымдағы құрылғының бетбелгілерін көрсету"
 
-#: src/user_actions.rs:1982
+#: src/user_actions.rs:1968
 msgid "_Options…"
 msgstr "_Опциялар…"
 
-#: src/user_actions.rs:1988
+#: src/user_actions.rs:1974
 msgid "_Keyboard Shortcuts…"
 msgstr "_Пернетақта жарлықтары…"
 
-#: src/user_actions.rs:1995
+#: src/user_actions.rs:1981
 msgid "_Remote Server…"
 msgstr "Қа_шықтағы сервер…"
 
-#: src/user_actions.rs:2001
+#: src/user_actions.rs:1987
 msgid "New Connection…"
 msgstr "Жаңа байланыс…"
 
-#: src/user_actions.rs:2007
+#: src/user_actions.rs:1993
 msgid "Set Connection"
 msgstr "Қосылымды орнату"
 
-#: src/user_actions.rs:2015
+#: src/user_actions.rs:2001
 msgid "Connect to First Remote Server"
 msgstr "Бірінші қашықтағы серверге қосылу"
 
-#: src/user_actions.rs:2021
+#: src/user_actions.rs:2007
 msgid "Change Left Connection"
 msgstr "Сол жақ қосылымды өзгерту"
 
-#: src/user_actions.rs:2027
+#: src/user_actions.rs:2013
 msgid "Change Right Connection"
 msgstr "Оң жақ қосылымды өзгерту"
 
-#: src/user_actions.rs:2033
+#: src/user_actions.rs:2019
 msgid "Close Connection"
 msgstr "Қосылымды жабу"
 
-#: src/user_actions.rs:2039
+#: src/user_actions.rs:2025
 msgid "Drop Connection"
 msgstr "Байланысты үзу"
 
-#: src/user_actions.rs:2046
+#: src/user_actions.rs:2032
 msgid "_Configure Plugins…"
 msgstr "Плагиндерді _баптау…"
 
-#: src/user_actions.rs:2059
+#: src/user_actions.rs:2045
 msgid "_Documentation"
 msgstr "Құ_жаттама"
 
-#: src/user_actions.rs:2071
+#: src/user_actions.rs:2057
 msgid "GNOME Commander on the _Web"
 msgstr "Желідегі GNOME Commander _беті"
 
-#: src/user_actions.rs:2077
+#: src/user_actions.rs:2063
 msgid "Report a _Problem"
 msgstr "Мәселе туралы _хабарлау"
 
-#: src/user_actions.rs:2083
+#: src/user_actions.rs:2069
 msgid "_About"
 msgstr "Осы тур_алы"
 
-#: src/user_actions.rs:2090
+#: src/user_actions.rs:2076
 msgid "Jump to Panels"
 msgstr "Панельдерге өту"
 
-#: src/user_actions.rs:2096
+#: src/user_actions.rs:2082
 msgid "Jump to Command Line"
 msgstr "Командалық жолға өту"
 
-#: src/user_actions.rs:2102
+#: src/user_actions.rs:2088
 msgid "Jump to Command Output"
 msgstr "Команда нәтижесіне өту"
 
-#: src/user_actions.rs:2108
+#: src/user_actions.rs:2094
 msgid "Clear Command Line"
 msgstr "Командалық жолды тазалау"
 
@@ -8832,50 +8818,117 @@ msgstr "Командалық жолды тазалау"
 msgid "Cannot create a temporary file."
 msgstr "Уақытша файлды жасау мүмкін емес."
 
-#: src/utils.rs:266
+#: src/utils.rs:280
 #, rust-format
 msgid "There was an error while opening help uri {uri}."
 msgstr "{uri} анықтама адресін ашу кезінде қате кетті."
 
-#: src/utils.rs:367
+#: src/utils.rs:381
 #, rust-format
 msgid "{} PiB"
 msgid_plural "{} PiB"
 msgstr[0] "{} PiB"
 
-#: src/utils.rs:370
+#: src/utils.rs:384
 #, rust-format
 msgid "{} TiB"
 msgid_plural "{} TiB"
 msgstr[0] "{} TiB"
 
-#: src/utils.rs:373
+#: src/utils.rs:387
 #, rust-format
 msgid "{} GiB"
 msgid_plural "{} GiB"
 msgstr[0] "{} GiB"
 
-#: src/utils.rs:376
+#: src/utils.rs:390
 #, rust-format
 msgid "{} MiB"
 msgid_plural "{} MiB"
 msgstr[0] "{} MiB"
 
-#: src/utils.rs:379
+#: src/utils.rs:393
 #, rust-format
 msgid "{} kiB"
 msgid_plural "{} kiB"
 msgstr[0] "{} kiB"
 
-#: src/utils.rs:382 src/utils.rs:393 src/utils.rs:397
+#: src/utils.rs:396 src/utils.rs:407 src/utils.rs:411
 #, rust-format
 msgid "{} byte"
 msgid_plural "{} bytes"
 msgstr[0] "{} байт"
 
-#: src/utils.rs:603
+#: src/utils.rs:604
 msgid "Closing of a file enumerator failed"
 msgstr "Файлды санап шығу құралын жабу сәтсіз аяқталды"
+
+#~ msgid "Keyboard Shortcut"
+#~ msgstr "Пернетақта жарлығы"
+
+#~ msgid "_Action"
+#~ msgstr "Әре_кет"
+
+#~ msgid "_Shortcut"
+#~ msgstr "Жар_лық"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the \"Assign\" button and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "Жарлық пернесін түзету үшін «Тағайындау» батырмасына шертіп, жаңа үдеткішті "
+#~ "теріңіз немесе бас тарту үшін escape пернесін басыңыз."
+
+#~ msgid "New shortcut..."
+#~ msgstr "Жаңа жарлық..."
+
+#~ msgid "Assign"
+#~ msgstr "Тағайындау"
+
+#~ msgid "No action is selected."
+#~ msgstr "Әрекет таңдалмады."
+
+#~ msgid "No shortcut is defined."
+#~ msgstr "Жарлық анықталмады."
+
+#~ msgid "_Update Shortcut"
+#~ msgstr "Жарлықты жаңар_ту"
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Жарлық пернесі"
+
+#~ msgid "Action"
+#~ msgstr "Әрекет"
+
+#~ msgid ""
+#~ "GNOME Commander is free software: you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation, either version 3 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME Commander — еркін бағдарламалық қамтама: сіз оны Free Software "
+#~ "Foundation жариялаған GNU General Public License (3-нұсқа немесе (өз "
+#~ "қалауыңыз бойынша) кез келген кейінгі нұсқа) шарттарына сәйкес қайта тарата "
+#~ "аласыз және/немесе өзгерте аласыз."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License "
+#~ "for more details."
+#~ msgstr ""
+#~ "GNOME Commander пайдалы болады деген үмітпен таратылады, бірақ ЕШҚАНДАЙ "
+#~ "КЕПІЛДІК берілмейді; тіпті САТУҒА ЖАРАМДЫЛЫҚ немесе БЕЛГІЛІ БІР МАҚСАТҚА "
+#~ "СӘЙКЕСТІК кепілдігі де жоқ. Толығырақ ақпаратты GNU General Public License "
+#~ "лицензиясынан қараңыз."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along "
+#~ "with Foobar. If not, see <https://www.gnu.org/licenses/>."
+#~ msgstr ""
+#~ "Сіз GNOME Commander бағдарламасымен бірге GNU General Public License "
+#~ "көшірмесін алуыңыз керек еді. Егер алмасаңыз, <https://www.gnu.org/licenses/"
+#~ "> сілтемесін қараңыз."
 
 #~ msgid ""
 #~ "Search window is minimizable\n"
