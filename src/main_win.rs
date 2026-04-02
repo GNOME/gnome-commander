@@ -514,7 +514,12 @@ pub mod imp {
                 .load(&options.keybindings.get(), options.legacy_keybindings.get());
             self.shortcuts.attach(&*mw);
             self.shortcuts.add_controller(&*mw, Area::MainWindow);
-            self.shortcuts.add_controller(&self.paned, Area::Panel);
+            self.file_selector_left
+                .borrow()
+                .add_shortcuts(&self.shortcuts);
+            self.file_selector_right
+                .borrow()
+                .add_shortcuts(&self.shortcuts);
             self.cmdline.add_shortcuts(&self.shortcuts);
 
             self.color_themes.connect_local(
