@@ -13,7 +13,9 @@ use crate::{
     file::FileOps,
     main_win::MainWindow,
     options::SearchConfig,
+    shortcuts::Area,
     tags::FileMetadataService,
+    user_actions::UserAction,
     utils::WindowExt,
 };
 use gettextrs::{gettext, ngettext};
@@ -244,6 +246,19 @@ mod imp {
                     }
                 },
             );
+
+            klass.install_action(UserAction::FileView.name(), None, |obj, _, _| {
+                obj.imp().file_view();
+            });
+            klass.install_action(UserAction::FileInternalView.name(), None, |obj, _, _| {
+                obj.imp().file_internal_view();
+            });
+            klass.install_action(UserAction::FileExternalView.name(), None, |obj, _, _| {
+                obj.imp().file_external_view();
+            });
+            klass.install_action(UserAction::FileEdit.name(), None, |obj, _, _| {
+                obj.imp().file_edit();
+            });
         }
 
         fn new() -> Self {
@@ -700,6 +715,41 @@ mod imp {
                 profile_component.set_content_patterns_history(&config.content_patterns());
             }
         }
+
+        pub fn file_view(&self) {
+            if let Some(file_list) = self.result_list.borrow().as_ref()
+                && let Err(error) =
+                    file_list.activate_action("fl.file-view", Some(&None::<bool>.to_variant()))
+            {
+                eprintln!("Cannot activate action `file-view`: {error}");
+            }
+        }
+
+        pub fn file_internal_view(&self) {
+            if let Some(file_list) = self.result_list.borrow().as_ref()
+                && let Err(error) =
+                    file_list.activate_action("fl.file-view", Some(&true.to_variant()))
+            {
+                eprintln!("Cannot activate action `file-view`: {error}");
+            }
+        }
+
+        pub fn file_external_view(&self) {
+            if let Some(file_list) = self.result_list.borrow().as_ref()
+                && let Err(error) =
+                    file_list.activate_action("fl.file-view", Some(&false.to_variant()))
+            {
+                eprintln!("Cannot activate action `file-view`: {error}");
+            }
+        }
+
+        pub fn file_edit(&self) {
+            if let Some(file_list) = self.result_list.borrow().as_ref()
+                && let Err(error) = file_list.activate_action("fl.file-edit", None)
+            {
+                eprintln!("Cannot activate action `file-edit`: {error}");
+            }
+        }
     }
 }
 
@@ -721,6 +771,10 @@ impl SearchDialog {
             .build();
         this.imp().config.set(config.clone()).ok().unwrap();
         this.imp().update_profile_menu();
+
+        main_window
+            .shortcuts()
+            .add_controller(&this, Area::MainWindow);
 
         let profile_component = this.profile_component();
         profile_component.set_profile(Some(config.default_profile()));
