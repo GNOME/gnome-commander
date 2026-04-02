@@ -428,9 +428,6 @@ mod imp {
                 this,
                 move |_| {
                     this.profile_component().copy();
-                    if let Some(file_list) = this.result_list() {
-                        file_list.clear();
-                    }
                 }
             ));
 
