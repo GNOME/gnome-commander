@@ -21,11 +21,12 @@ mod imp {
         #[property(get, set, nullable)]
         profile: RefCell<Option<SearchProfile>>,
 
-        pub filter_type_drop_down: gtk::DropDown,
-        pub pattern_entry: HistoryEntry,
+        pub path_entry: HistoryEntry,
+        pub path_match_case: gtk::ToggleButton,
+        pub path_regex: gtk::ToggleButton,
         pub recurse_drop_down: gtk::DropDown,
-        pub find_text_entry: HistoryEntry,
-        pub case_check: gtk::CheckButton,
+        pub content_entry: HistoryEntry,
+        pub content_match_case: gtk::ToggleButton,
     }
 
     #[glib::object_subclass]
@@ -38,19 +39,23 @@ mod imp {
             Self {
                 labels_size_group: Default::default(),
                 profile: Default::default(),
-                filter_type_drop_down: gtk::DropDown::builder()
-                    .model(&filter_type_model())
-                    .factory(&same_size_labels_factory())
+                path_entry: Default::default(),
+                path_match_case: gtk::ToggleButton::builder()
+                    .icon_name("gnome-commander-match-case")
+                    .tooltip_text(gettext("Case sensitive"))
                     .build(),
-                pattern_entry: Default::default(),
+                path_regex: gtk::ToggleButton::builder()
+                    .icon_name("gnome-commander-regex")
+                    .tooltip_text(gettext("Regex match"))
+                    .build(),
                 recurse_drop_down: gtk::DropDown::builder()
                     .model(&recurse_model())
                     .hexpand(true)
                     .build(),
-                find_text_entry: Default::default(),
-                case_check: gtk::CheckButton::builder()
-                    .label(gettext("Case sensiti_ve"))
-                    .use_underline(true)
+                content_entry: Default::default(),
+                content_match_case: gtk::ToggleButton::builder()
+                    .icon_name("gnome-commander-match-case")
+                    .tooltip_text(gettext("Case sensitive"))
                     .build(),
             }
         }
@@ -70,9 +75,22 @@ mod imp {
             grid.set_parent(&*self.obj());
 
             // search for
-            grid.attach(&self.filter_type_drop_down, 0, 0, 1, 1);
-            self.pattern_entry.set_hexpand(true);
-            grid.attach(&self.pattern_entry, 1, 0, 1, 1);
+            let path_label = gtk::Label::builder()
+                .label(gettext("File _path:"))
+                .use_underline(true)
+                .mnemonic_widget(&self.path_entry)
+                .xalign(0.0)
+                .build();
+            grid.attach(&path_label, 0, 0, 1, 1);
+
+            let path_box = gtk::Box::builder()
+                .orientation(gtk::Orientation::Horizontal)
+                .build();
+            self.path_entry.set_hexpand(true);
+            path_box.append(&self.path_entry);
+            path_box.append(&self.path_match_case);
+            path_box.append(&self.path_regex);
+            grid.attach(&path_box, 1, 0, 1, 1);
 
             // recurse check
             let recurse_label = gtk::Label::builder()
@@ -85,36 +103,30 @@ mod imp {
             grid.attach(&self.recurse_drop_down, 1, 1, 1, 1);
 
             // find text
-            let find_text_label = gtk::Label::builder()
+            let content_label = gtk::Label::builder()
                 .label(gettext("Contains _text:"))
                 .use_underline(true)
-                .mnemonic_widget(&self.find_text_entry)
+                .mnemonic_widget(&self.content_entry)
                 .xalign(0.0)
                 .build();
-            grid.attach(&find_text_label, 0, 2, 1, 1);
-            self.find_text_entry.set_hexpand(true);
-            grid.attach(&self.find_text_entry, 1, 2, 1, 1);
+            grid.attach(&content_label, 0, 2, 1, 1);
 
-            // case check
-            grid.attach(&self.case_check, 1, 3, 1, 1);
+            let content_box = gtk::Box::builder()
+                .orientation(gtk::Orientation::Horizontal)
+                .build();
+            self.content_entry.set_hexpand(true);
+            content_box.append(&self.content_entry);
+            content_box.append(&self.content_match_case);
+            grid.attach(&content_box, 1, 2, 1, 1);
 
             if let Some(labels_size_group) = self.obj().labels_size_group() {
-                labels_size_group.add_widget(&self.filter_type_drop_down);
+                labels_size_group.add_widget(&path_label);
                 labels_size_group.add_widget(&recurse_label);
-                labels_size_group.add_widget(&find_text_label);
+                labels_size_group.add_widget(&content_label);
             }
 
-            self.filter_type_drop_down
-                .connect_selected_notify(glib::clone!(
-                    #[weak(rename_to = imp)]
-                    self,
-                    move |_| {
-                        imp.pattern_entry.grab_focus();
-                    }
-                ));
-
-            self.pattern_entry.entry().set_activates_default(true);
-            self.find_text_entry.entry().set_activates_default(true);
+            self.path_entry.entry().set_activates_default(true);
+            self.content_entry.entry().set_activates_default(true);
         }
 
         fn dispose(&self) {
@@ -126,12 +138,8 @@ mod imp {
 
     impl WidgetImpl for SelectionProfileComponent {
         fn grab_focus(&self) -> bool {
-            self.pattern_entry.grab_focus()
+            self.path_entry.grab_focus()
         }
-    }
-
-    fn filter_type_model() -> gio::ListModel {
-        gtk::StringList::new(&[&gettext("Path matches regex:"), &gettext("Name contains:")]).into()
     }
 
     fn recurse_model() -> gio::ListModel {
@@ -143,34 +151,6 @@ mod imp {
             model.append(&ngettext("%i level", "%i levels", i).replace("%i", &i.to_string()));
         }
         model.upcast()
-    }
-
-    fn same_size_labels_factory() -> gtk::ListItemFactory {
-        let size_group = gtk::SizeGroup::new(gtk::SizeGroupMode::Horizontal);
-        let factory = gtk::SignalListItemFactory::new();
-        factory.connect_setup(glib::clone!(
-            #[strong]
-            size_group,
-            move |_, item| {
-                if let Some(item) = item.downcast_ref::<gtk::ListItem>() {
-                    let label = gtk::Label::builder().xalign(0.0).build();
-                    item.set_child(Some(&label));
-                    size_group.add_widget(&label);
-                }
-            }
-        ));
-        factory.connect_bind(move |_, item| {
-            if let Some(item) = item.downcast_ref::<gtk::ListItem>()
-                && let Some(label) = item.child().and_downcast::<gtk::Label>()
-            {
-                if let Some(text) = item.item().and_downcast::<gtk::StringObject>() {
-                    label.set_label(&text.string());
-                } else {
-                    label.set_label("");
-                }
-            }
-        });
-        factory.upcast()
     }
 }
 
@@ -202,18 +182,21 @@ impl SelectionProfileComponent {
             return;
         };
 
-        self.imp().pattern_entry.set_text(&profile.path_pattern());
+        self.imp().path_entry.set_text(&profile.path_pattern());
         self.imp()
-            .filter_type_drop_down
-            .set_selected(profile.path_syntax().into());
+            .path_match_case
+            .set_active(profile.path_match_case());
+        self.imp()
+            .path_regex
+            .set_active(profile.path_syntax() == PatternType::Regex);
         self.imp()
             .recurse_drop_down
             .set_selected((profile.max_depth() + 1) as u32);
         self.imp()
-            .find_text_entry
+            .content_entry
             .set_text(&profile.content_pattern());
         self.imp()
-            .case_check
+            .content_match_case
             .set_active(profile.content_match_case());
     }
 
@@ -222,22 +205,25 @@ impl SelectionProfileComponent {
             return;
         };
 
-        let text_pattern = self.imp().find_text_entry.text();
+        let text_pattern = self.imp().content_entry.text();
 
-        profile.set_path_pattern(self.imp().pattern_entry.text());
+        profile.set_path_pattern(self.imp().path_entry.text());
         profile.set_max_depth(self.imp().recurse_drop_down.selected() as i32 - 1);
-        profile.set_path_syntax(PatternType::from(
-            self.imp().filter_type_drop_down.selected(),
-        ));
+        profile.set_path_match_case(self.imp().path_match_case.is_active());
+        profile.set_path_syntax(if self.imp().path_regex.is_active() {
+            PatternType::Regex
+        } else {
+            PatternType::FnMatch
+        });
         profile.set_content_pattern(text_pattern);
-        profile.set_content_match_case(self.imp().case_check.is_active());
+        profile.set_content_match_case(self.imp().content_match_case.is_active());
     }
 
     pub fn set_name_patterns_history(&self, history: &[String]) {
-        self.imp().pattern_entry.set_history(history);
+        self.imp().path_entry.set_history(history);
     }
 
     pub fn set_content_patterns_history(&self, history: &[String]) {
-        self.imp().find_text_entry.set_history(history);
+        self.imp().content_entry.set_history(history);
     }
 }

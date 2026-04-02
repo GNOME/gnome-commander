@@ -21,6 +21,8 @@ mod imp {
         #[property(get, set)]
         pub path_syntax: Cell<PatternType>,
         #[property(get, set)]
+        pub path_match_case: Cell<bool>,
+        #[property(get, set)]
         pub max_depth: Cell<i32>,
         #[property(get, set)]
         pub content_pattern: RefCell<String>,
@@ -56,6 +58,7 @@ impl SearchProfile {
         self.set_name("");
         self.set_path_pattern("");
         self.set_path_syntax(PatternType::default());
+        self.set_path_match_case(false);
         self.set_max_depth(-1);
         self.set_content_pattern("");
         self.set_content_match_case(false);
@@ -65,6 +68,7 @@ impl SearchProfile {
         self.set_name(other.name());
         self.set_path_pattern(other.path_pattern());
         self.set_path_syntax(other.path_syntax());
+        self.set_path_match_case(other.path_match_case());
         self.set_max_depth(other.max_depth());
         self.set_content_pattern(other.content_pattern());
         self.set_content_match_case(other.content_match_case());
@@ -79,6 +83,7 @@ impl SearchProfile {
     const SETTING_NAME: &str = "name";
     const SETTING_MAX_DEPTH: &str = "max-depth";
     const SETTING_PATH_SYNTAX: &str = "path-syntax";
+    const SETTING_PATH_MATCH_CASE: &str = "path-match-case";
     const SETTING_PATH_PATTERN: &str = "path-pattern";
     const SETTING_CONTENT_MATCH_CASE: &str = "content-match-case";
     const SETTING_CONTENT_PATTERN: &str = "content-pattern";
@@ -90,6 +95,10 @@ impl SearchProfile {
         v.insert(
             Self::SETTING_PATH_SYNTAX.to_string(),
             u32::from(self.path_syntax()).into(),
+        );
+        v.insert(
+            Self::SETTING_PATH_MATCH_CASE.to_string(),
+            self.path_match_case().into(),
         );
         v.insert(
             Self::SETTING_PATH_PATTERN.to_string(),
@@ -124,6 +133,12 @@ impl SearchProfile {
             .and_then(u32::from_variant)
         {
             self.set_path_syntax(PatternType::from(path_syntax));
+        }
+        if let Some(path_match_case) = variant
+            .get(Self::SETTING_PATH_MATCH_CASE)
+            .and_then(bool::from_variant)
+        {
+            self.set_path_match_case(path_match_case);
         }
         if let Some(path_pattern) = variant
             .get(Self::SETTING_PATH_PATTERN)
@@ -187,6 +202,7 @@ mod test {
         profile.set_name("name");
         profile.set_max_depth(3);
         profile.set_path_syntax(PatternType::Regex);
+        profile.set_path_match_case(true);
         profile.set_path_pattern("path");
         profile.set_content_match_case(true);
         profile.set_content_pattern("text");
@@ -199,6 +215,7 @@ mod test {
         assert_eq!(profile.name(), "name");
         assert_eq!(profile.max_depth(), 3);
         assert_eq!(profile.path_syntax(), PatternType::Regex);
+        assert_eq!(profile.path_match_case(), true);
         assert_eq!(profile.path_pattern(), "path");
         assert_eq!(profile.content_match_case(), true);
         assert_eq!(profile.content_pattern(), "text");

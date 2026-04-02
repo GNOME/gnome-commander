@@ -39,6 +39,8 @@ icons_scalable = [
   'gnome-commander-edit-symbolic.svg',
   'gnome-commander-folder-remote-symbolic.svg',
   'gnome-commander-folder-remote-disconnect-symbolic.svg',
+  'gnome-commander-match-case-symbolic.svg',
+  'gnome-commander-regex-symbolic.svg',
 ]
 
 install_data(icons_scalable,

@@ -41,7 +41,12 @@ pub async fn search(
         }
 
         Some(
-            Filter::new(&filename_pattern, false, profile.path_syntax()).map_err(|error| {
+            Filter::new(
+                &filename_pattern,
+                profile.path_match_case(),
+                profile.path_syntax(),
+            )
+            .map_err(|error| {
                 ErrorMessage::with_error(gettext("Invalid file name pattern."), &*error)
             })?,
         )
