@@ -374,7 +374,10 @@ mod imp {
             close_button.connect_clicked(glib::clone!(
                 #[weak]
                 this,
-                move |_| this.close()
+                move |_| {
+                    this.imp().stop();
+                    this.close();
+                }
             ));
 
             self.jump_button.connect_clicked(glib::clone!(
