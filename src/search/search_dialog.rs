@@ -17,7 +17,7 @@ use crate::{
     utils::WindowExt,
 };
 use gettextrs::{gettext, ngettext};
-use gtk::{gio, glib, prelude::*, subclass::prelude::*};
+use gtk::{gio, glib, pango, prelude::*, subclass::prelude::*};
 use std::rc::Rc;
 
 struct SearchProfiles {
@@ -257,7 +257,11 @@ mod imp {
                     &labels_size_group,
                 ))),
                 result_list: Default::default(),
-                status_label: Default::default(),
+                status_label: gtk::Label::builder()
+                    .max_width_chars(1)
+                    .hexpand(true)
+                    .ellipsize(pango::EllipsizeMode::Middle)
+                    .build(),
                 progress_bar: gtk::ProgressBar::builder()
                     .show_text(false)
                     .pulse_step(0.02)
@@ -342,10 +346,10 @@ mod imp {
             // status & progress
             let statusbar = gtk::Box::builder()
                 .css_classes(["search-statusbar"])
-                .orientation(gtk::Orientation::Horizontal)
+                .orientation(gtk::Orientation::Vertical)
                 .build();
-            statusbar.append(&self.status_label);
             statusbar.append(&self.progress_bar);
+            statusbar.append(&self.status_label);
             self.progress_bar.set_visible(false);
             grid.attach(&statusbar, 0, 3, 2, 1);
 
