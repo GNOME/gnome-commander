@@ -199,6 +199,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           Determines the height of file panels in pixels. Remaining vertical space is allocated for the command line.
       </description>
     </key>
+    <key name="cmdline-autohide-output" type="b">
+      <default>true</default>
+      <summary>Automatically hide command line output</summary>
+      <description>
+          If enabled, command line output is hidden automatically when the command line is inactive.
+      </description>
+    </key>
     <key name="horizontal-orientation" type="b">
       <default>false</default>
       <summary>Horizontal orientation</summary>

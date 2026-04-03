@@ -1745,6 +1745,12 @@ user_actions! {
         "view-backup-files",
     ),
 
+    CmdlineAutohideOutput in MainWindow => (
+        "cmdline-autohide-output",
+        gettext("Hide Command Line Output When Inactive"),
+        "cmdline-autohide-output",
+    ),
+
     ViewUp in Panel => (
         "view-up" | "view.up",
         gettext("Up one directory"),
