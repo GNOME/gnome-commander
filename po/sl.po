@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
-"POT-Creation-Date: 2026-03-30 20:49+0000\n"
-"PO-Revision-Date: 2026-03-31 11:36+0200\n"
+"POT-Creation-Date: 2026-04-06 18:51+0000\n"
+"PO-Revision-Date: 2026-04-06 21:34+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -5005,7 +5005,7 @@ msgstr "Rezultati"
 #: src/dialogs/options/options_dialog.rs:101 src/dialogs/profiles/edit_profile_dialog.rs:55
 #: src/dialogs/profiles/manage_profiles_dialog.rs:215 src/dialogs/remote_dialog.rs:151
 #: src/dialogs/shortcuts_dialog.rs:192 src/intviewer/window.rs:883 src/main_win.rs:1528
-#: src/search/search_dialog.rs:353
+#: src/search/search_dialog.rs:357
 msgid "_Help"
 msgstr "Pomo_č"
 
@@ -5016,7 +5016,7 @@ msgstr "Ponastavi"
 #: src/advanced_rename/advanced_rename_dialog.rs:545 src/dialogs/about_plugin.rs:119
 #: src/dialogs/manage_bookmarks_dialog.rs:199 src/dialogs/options/edit_colors_dialog.rs:148
 #: src/dialogs/remote_dialog.rs:163 src/intviewer/window.rs:722 src/plugin_manager.rs:417
-#: src/search/search_dialog.rs:367
+#: src/search/search_dialog.rs:371
 msgid "_Close"
 msgstr "_Zapri"
 
@@ -5024,20 +5024,20 @@ msgstr "_Zapri"
 msgid "_Apply"
 msgstr "_Uveljavi"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:803 src/search/search_dialog.rs:500
+#: src/advanced_rename/advanced_rename_dialog.rs:803 src/search/search_dialog.rs:504
 msgid "New profile"
 msgstr "Nov profil"
 
 #: src/advanced_rename/advanced_rename_dialog.rs:814 src/advanced_rename/advanced_rename_dialog.rs:840
-#: src/search/search_dialog.rs:508
+#: src/search/search_dialog.rs:512
 msgid "Profiles"
 msgstr "Profili"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1061 src/search/search_dialog.rs:456
+#: src/advanced_rename/advanced_rename_dialog.rs:1061 src/search/search_dialog.rs:460
 msgid "_Save Profile As…"
 msgstr "_Shrani profil kot …"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1068 src/search/search_dialog.rs:465
+#: src/advanced_rename/advanced_rename_dialog.rs:1068 src/search/search_dialog.rs:469
 msgid "_Manage Profiles…"
 msgstr "_Upravljaj profile …"
 
@@ -5977,7 +5977,7 @@ msgstr "Navz_gor"
 msgid "_Down"
 msgstr "Navz_dol"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:85 src/search/search_dialog.rs:273
+#: src/dialogs/manage_bookmarks_dialog.rs:85 src/search/search_dialog.rs:277
 msgid "_Jump to"
 msgstr "_Skoči na"
 
@@ -6445,7 +6445,8 @@ msgstr "Izberi mape"
 msgid "Sorting"
 msgstr "Razvrščanje"
 
-#: src/dialogs/options/general_tab.rs:127
+#: src/dialogs/options/general_tab.rs:127 src/search/selection_profile_component.rs:45
+#: src/search/selection_profile_component.rs:58
 msgid "Case sensitive"
 msgstr "Upoštevaj velikost črk"
 
@@ -7203,7 +7204,7 @@ msgstr "Poi_šči"
 msgid "Find"
 msgstr "Najdi"
 
-#: src/intviewer/search_progress_dialog.rs:32 src/search/search_dialog.rs:278
+#: src/intviewer/search_progress_dialog.rs:32 src/search/search_dialog.rs:282
 msgid "_Stop"
 msgstr "_Ustavi"
 
@@ -7586,11 +7587,11 @@ msgstr "O programu"
 msgid "Configure"
 msgstr "Prilagodi"
 
-#: src/search/backend.rs:45
+#: src/search/backend.rs:52
 msgid "Invalid file name pattern."
 msgstr "Neveljaven vzorec imena datoteke."
 
-#: src/search/backend.rs:129
+#: src/search/backend.rs:138
 #, rust-format
 msgid "Searching in: {}"
 msgstr "Iskanje v: {}"
@@ -7599,23 +7600,23 @@ msgstr "Iskanje v: {}"
 msgid "Invalid text content regular expression."
 msgstr "Neveljaven regularni izraz vsebine besedila."
 
-#: src/search/search_dialog.rs:267
+#: src/search/search_dialog.rs:271
 msgid "Pr_ofiles…"
 msgstr "Pr_ofili …"
 
-#: src/search/search_dialog.rs:283
+#: src/search/search_dialog.rs:287
 msgid "_Find"
 msgstr "_Najdi"
 
-#: src/search/search_dialog.rs:304
+#: src/search/search_dialog.rs:308
 msgid "Search…"
 msgstr "Poišči …"
 
-#: src/search/search_dialog.rs:312
+#: src/search/search_dialog.rs:316
 msgid "_Look in folder:"
 msgstr "_Preišči v mapi:"
 
-#: src/search/search_dialog.rs:655
+#: src/search/search_dialog.rs:659
 #, rust-format
 msgid "Found {} match — search aborted"
 msgid_plural "Found {} matches — search aborted"
@@ -7624,7 +7625,7 @@ msgstr[1] "Najden {} zadetek - iskanje preklicano"
 msgstr[2] "Najdena {} zadetka - iskanje preklicano"
 msgstr[3] "Najdeni {} zadetki - iskanje preklicano"
 
-#: src/search/search_dialog.rs:660
+#: src/search/search_dialog.rs:664
 #, rust-format
 msgid "Found {} match"
 msgid_plural "Found {} matches"
@@ -7633,35 +7634,31 @@ msgstr[1] "Najden {} zadetek"
 msgstr[2] "Najdena {} zadetka"
 msgstr[3] "Najdeni {} zadetki"
 
-#: src/search/selection_profile_component.rs:52
-msgid "Case sensiti_ve"
-msgstr "Razlikuj _velike in male črke"
+#: src/search/selection_profile_component.rs:49
+msgid "Regex match"
+msgstr "Zadetek z logičnim izrazom"
 
 #: src/search/selection_profile_component.rs:79
+msgid "File _path:"
+msgstr "_Pot datoteke:"
+
+#: src/search/selection_profile_component.rs:97
 msgid "Search _recursively:"
 msgstr "Išči _rekurzivno:"
 
-#: src/search/selection_profile_component.rs:89
+#: src/search/selection_profile_component.rs:107
 msgid "Contains _text:"
 msgstr "Vsebuje _besedilo:"
 
-#: src/search/selection_profile_component.rs:134
-msgid "Path matches regex:"
-msgstr "Ime je skladno z logičnim izrazom:"
-
-#: src/search/selection_profile_component.rs:134
-msgid "Name contains:"
-msgstr "Ime vsebuje:"
-
-#: src/search/selection_profile_component.rs:139
+#: src/search/selection_profile_component.rs:147
 msgid "Unlimited depth"
 msgstr "Neomejena globina"
 
-#: src/search/selection_profile_component.rs:140
+#: src/search/selection_profile_component.rs:148
 msgid "Current directory only"
 msgstr "Le trenutno mapo"
 
-#: src/search/selection_profile_component.rs:143
+#: src/search/selection_profile_component.rs:151
 msgid "%i level"
 msgid_plural "%i levels"
 msgstr[0] "%i ravni"
