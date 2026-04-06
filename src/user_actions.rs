@@ -89,6 +89,14 @@ async fn file_delete(main_win: MainWindow) {
         .await;
 }
 
+async fn file_delete_permanently(main_win: MainWindow) {
+    main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .show_delete_dialog(true)
+        .await;
+}
+
 async fn file_view(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
@@ -1463,6 +1471,12 @@ user_actions! {
         "file-delete" | "file.delete",
         gettext("_Delete"),
         file_delete,
+    ),
+
+    FileDeletePermanently in Panel => (
+        "file-delete-permanently",
+        gettext("Delete Permanently"),
+        file_delete_permanently,
     ),
 
     FileView in MainWindow => (

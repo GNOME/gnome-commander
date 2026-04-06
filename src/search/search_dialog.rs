@@ -206,6 +206,7 @@ mod imp {
         pub dir_browser: RefCell<DirectoryButton>,
         #[property(get, set)]
         pub profile_component: RefCell<SelectionProfileComponent>,
+        virtual_directory: Directory,
         #[property(get, set)]
         pub result_list: RefCell<Option<FileList>>,
         pub status_label: gtk::Label,
@@ -259,6 +260,16 @@ mod imp {
             klass.install_action(UserAction::FileEdit.name(), None, |obj, _, _| {
                 obj.imp().file_edit();
             });
+            klass.install_action(UserAction::FileDelete.name(), None, |obj, _, _| {
+                obj.imp().file_delete(false);
+            });
+            klass.install_action(
+                UserAction::FileDeletePermanently.name(),
+                None,
+                |obj, _, _| {
+                    obj.imp().file_delete(true);
+                },
+            );
         }
 
         fn new() -> Self {
@@ -271,6 +282,7 @@ mod imp {
                 profile_component: RefCell::new(SelectionProfileComponent::new(Some(
                     &labels_size_group,
                 ))),
+                virtual_directory: Directory::create_virtual(),
                 result_list: Default::default(),
                 status_label: gtk::Label::builder()
                     .max_width_chars(1)
@@ -349,6 +361,18 @@ mod imp {
             let result_list = FileList::new(&this.file_metadata_service());
             result_list.set_height_request(200);
             self.result_list.replace(Some(result_list.clone()));
+
+            self.virtual_directory.connect_closure(
+                "file-deleted",
+                false,
+                glib::closure_local!(
+                    #[weak]
+                    result_list,
+                    move |_: &Directory, f: &File| {
+                        result_list.remove_file(f);
+                    }
+                ),
+            );
 
             let sw = gtk::ScrolledWindow::builder()
                 .vexpand(true)
@@ -629,6 +653,7 @@ mod imp {
             self.find_button.set_sensitive(false);
             self.obj().set_default_widget(Some(&self.stop_button));
 
+            self.virtual_directory.files().remove_all();
             result_list.clear();
             result_list
                 .set_connection_async(&start_dir.connection(), None)
@@ -639,7 +664,11 @@ mod imp {
                 &profile,
                 &start_dir,
                 &|message| match message {
-                    SearchMessage::File(file) => result_list.append_file(&file),
+                    SearchMessage::File(file) => {
+                        file.set_parent_directory(Some(&self.virtual_directory));
+                        self.virtual_directory.files().append(&file);
+                        result_list.append_file(&file);
+                    }
                     SearchMessage::Status(status) => self.status_label.set_text(&status),
                 },
                 &cancellable,
@@ -750,6 +779,13 @@ mod imp {
                 eprintln!("Cannot activate action `file-edit`: {error}");
             }
         }
+
+        pub fn file_delete(&self, force: bool) {
+            if let Some(file_list) = self.result_list.borrow().as_ref() {
+                let file_list = file_list.clone();
+                glib::spawn_future_local(async move { file_list.show_delete_dialog(force).await });
+            }
+        }
     }
 }
 
@@ -775,6 +811,7 @@ impl SearchDialog {
         main_window
             .shortcuts()
             .add_controller(&this, Area::MainWindow);
+        main_window.shortcuts().add_controller(&this, Area::Panel);
 
         let profile_component = this.profile_component();
         profile_component.set_profile(Some(config.default_profile()));

@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use crate::{
-    connection::Connection,
+    connection::{Connection, list::ConnectionList},
     debug::debug,
     dirlist::list_directory,
     file::{File, FileOps},
@@ -78,7 +78,9 @@ mod imp {
         }
 
         fn dispose(&self) {
-            self.connection.borrow().remove_from_cache(&self.obj());
+            if !self.file.borrow().has_uri_scheme("virtual") {
+                self.connection.borrow().remove_from_cache(&self.obj());
+            }
         }
 
         fn signals() -> &'static [glib::subclass::Signal] {
@@ -130,15 +132,25 @@ impl Directory {
 
     pub fn new_from_file(connection: &impl IsA<Connection>, file: impl AsRef<gio::File>) -> Self {
         let file = file.as_ref();
-        if let Some(directory) = connection.as_ref().cache_lookup(&file.uri()) {
+        let is_virtual = file.has_uri_scheme("virtual");
+        if !is_virtual && let Some(directory) = connection.as_ref().cache_lookup(&file.uri()) {
             directory
         } else {
             let this: Self = glib::Object::builder().build();
             this.imp().connection.replace(connection.as_ref().clone());
             this.imp().file.replace(file.clone());
-            connection.as_ref().add_to_cache(&this, &file.uri());
+            if !is_virtual {
+                connection.as_ref().add_to_cache(&this, &file.uri());
+            }
             this
         }
+    }
+
+    /// Creates a "virtual" directory only meant to keep track of a bunch of files since files can
+    /// currently only notify directories about changes. TODO: We should really allow files to be
+    /// monitored by a generic trait instead of a directory.
+    pub fn create_virtual() -> Self {
+        Self::new(&ConnectionList::get().home(), "virtual:")
     }
 
     pub fn parent(&self) -> Option<Directory> {

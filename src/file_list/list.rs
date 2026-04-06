@@ -811,8 +811,8 @@ mod imp {
         }
 
         fn on_dir_file_deleted(&self, dir: &Directory, f: &File) {
-            if self.directory.borrow().as_ref() == Some(dir) && self.obj().remove_file(f) {
-                self.obj().emit_files_changed();
+            if self.directory.borrow().as_ref() == Some(dir) {
+                self.obj().remove_file(f);
             }
         }
 
@@ -1031,13 +1031,6 @@ mod imp {
                 (SHIFT, gdk::Key::Tab | gdk::Key::ISO_Left_Tab) => glib::Propagation::Stop,
                 (SHIFT, gdk::Key::F10) => {
                     self.obj().show_file_popup(None);
-                    glib::Propagation::Stop
-                }
-                (SHIFT, gdk::Key::Delete | gdk::Key::KP_Delete) => {
-                    let this = self.obj().clone();
-                    glib::spawn_future_local(async move {
-                        this.show_delete_dialog(true).await;
-                    });
                     glib::Propagation::Stop
                 }
                 (ALT_SHIFT, gdk::Key::Return | gdk::Key::KP_Enter) => {
@@ -1667,7 +1660,7 @@ impl FileList {
         });
     }
 
-    fn remove_file(&self, f: &File) -> bool {
+    pub fn remove_file(&self, f: &File) -> bool {
         let Some(store_position) = self
             .imp()
             .store
@@ -1683,6 +1676,7 @@ impl FileList {
         if let Some(view_position) = view_position {
             self.select_row(view_position as u32);
         }
+        self.emit_files_changed();
         true
     }
 
