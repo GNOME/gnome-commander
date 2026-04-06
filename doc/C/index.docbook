@@ -1286,6 +1286,32 @@
   <sect1 id="gnome-commander-advanced-features">
     <title>Advanced Features</title>
     <para>This section describes more features and tools included in &app;</para>
+    <!-- ================ File Searching Subsection ======================= -->
+    <sect2 id="gnome-commander-search">
+      <title>Searching for Files</title>
+      <para>The file search enables you to search for files on your system.
+          To perform a basic search, you can type a file name or a partial file name, with or without wild cards.
+          To refine your search, you can apply additional search options.</para>
+      <para>To start the search you can use the following methods:
+                         <itemizedlist>
+                                   <listitem><para>Press the <keycap>F9</keycap> key or click on the <guibutton>F9 Search</guibutton>.</para></listitem>
+                                   <listitem><para>Use the <keycombo><keycap>Super</keycap><keycap>F</keycap></keycombo>.</para></listitem>
+                                   <listitem><para>In the menubar select <menuchoice><guimenuitem>File</guimenuitem><guimenuitem>Search</guimenuitem></menuchoice>.</para></listitem></itemizedlist></para>
+      <para>&app; searches in the directory that you specify and optionally in the sub directories.
+          The search results are displayed in the results file list.</para>
+      <para>In the basic search you can use the question mark character (<keycap>?</keycap>) or the wildcard character (<keycap>*</keycap>) anywhere
+        in the file path to adjust the search path pattern. A slash (<keycap>/</keycap>) in a pattern indicates a directory separator.</para>
+      <para>The following options can be defined in the search dialog:
+        <itemizedlist>
+          <listitem><para>Look in the specified folder</para></listitem>
+          <listitem><para>File path pattern</para></listitem>
+          <listitem><para>File path matches casing / file path matches regex</para></listitem>
+          <listitem><para>Recursive search (depth of search)</para></listitem>
+          <listitem><para>Search for the specified text in files</para></listitem>
+          <listitem><para>Text in files should matches casing</para></listitem>
+          </itemizedlist></para>
+      <para>Use Stop button to stop a search before &app; completes the search.</para>
+    </sect2>
     <!-- ================ File Properties Subsection ======================= -->
     <sect2 id="gnome-commander-file-properties">
       <title>Viewing the Properties of a File or Folder</title>
@@ -4484,6 +4510,9 @@
             and also the pattern matching system used.</para>
           </listitem>
           <listitem>
+            <para><guilabel>Search window</guilabel> configures search window options.</para>
+          </listitem>
+          <listitem>
             <para><guilabel>Multiple instances</guilabel> configures the number of &app; that can be launched</para>
           </listitem>
           <listitem>
@@ -4783,6 +4812,17 @@
               </entry>
               <entry colname="colspec3" valign="top">
                 <para>By activating this option &app; saves the history of executed commandline commands on exit. When restarted, the history of commands in the commandline accessible again.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para><guilabel></guilabel></para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Search history</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>By activating this option, &app; saves the history of search patterns on exit. When restarted, the history of search patterns is accessible again.</para>
               </entry>
             </row>
           </tbody>
