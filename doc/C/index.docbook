@@ -1311,6 +1311,7 @@
           <listitem><para>Text in files should matches casing</para></listitem>
           </itemizedlist></para>
       <para>Use Stop button to stop a search before &app; completes the search.</para>
+      <para>The files in the search result list can be fiewed, edited or deleted with the associated user actions.</para>
     </sect2>
     <!-- ================ File Properties Subsection ======================= -->
     <sect2 id="gnome-commander-file-properties">
@@ -6623,7 +6624,7 @@
         <row valign="top" rowsep="1">
             <entry><para><keycombo><keycap>SHIFT</keycap><keycap>DELETE</keycap></keycombo></para></entry>
             <entry><para>Delete files permanently (do not move them to the trash can, even if this is configured in the options)</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>C</keycap></keycombo></entry>
