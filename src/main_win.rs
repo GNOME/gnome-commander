@@ -114,6 +114,8 @@ pub mod imp {
         pub paned: gtk::Paned,
         pub file_selector_left: RefCell<FileSelector>,
         pub file_selector_right: RefCell<FileSelector>,
+        pub focus_controller_left: gtk::EventControllerFocus,
+        pub focus_controller_right: gtk::EventControllerFocus,
         #[property(get, set = Self::set_current_panel)]
         current_panel: Cell<u32>,
 
@@ -205,6 +207,8 @@ pub mod imp {
                     .build(),
                 file_selector_left: RefCell::new(file_selector_left),
                 file_selector_right: RefCell::new(file_selector_right),
+                focus_controller_left: gtk::EventControllerFocus::new(),
+                focus_controller_right: gtk::EventControllerFocus::new(),
                 cmdline_paned: gtk::Paned::builder()
                     .orientation(gtk::Orientation::Vertical)
                     .vexpand(true)
@@ -314,25 +318,23 @@ pub mod imp {
             self.paned
                 .set_end_child(Some(&*self.file_selector_right.borrow()));
 
-            let focus_controller = gtk::EventControllerFocus::new();
-            focus_controller.connect_enter(glib::clone!(
+            self.focus_controller_left.connect_enter(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
                 move |_| imp.obj().set_current_panel(0),
             ));
             self.file_selector_left
                 .borrow()
-                .add_controller(focus_controller);
+                .add_controller(self.focus_controller_left.clone());
 
-            let focus_controller = gtk::EventControllerFocus::new();
-            focus_controller.connect_enter(glib::clone!(
+            self.focus_controller_right.connect_enter(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
                 move |_| imp.obj().set_current_panel(1),
             ));
             self.file_selector_right
                 .borrow()
-                .add_controller(focus_controller);
+                .add_controller(self.focus_controller_right.clone());
 
             mw.bind_property(
                 "connection-buttons-visible",
@@ -514,7 +516,12 @@ pub mod imp {
                 .load(&options.keybindings.get(), options.legacy_keybindings.get());
             self.shortcuts.attach(&*mw);
             self.shortcuts.add_controller(&*mw, Area::MainWindow);
-            self.shortcuts.add_controller(&self.paned, Area::Panel);
+            self.file_selector_left
+                .borrow()
+                .add_shortcuts(&self.shortcuts);
+            self.file_selector_right
+                .borrow()
+                .add_shortcuts(&self.shortcuts);
             self.cmdline.add_shortcuts(&self.shortcuts);
 
             self.color_themes.connect_local(
@@ -756,22 +763,33 @@ pub mod imp {
 
         fn set_current_panel(&self, panel: u32) {
             self.current_panel.set(panel);
-            let fs = match panel {
+            let (fs, focus_controller) = match panel {
                 0 => {
                     self.file_selector_left.borrow().set_active(true);
                     self.file_selector_right.borrow().set_active(false);
-                    self.file_selector_left.borrow()
+                    (
+                        self.file_selector_left.borrow(),
+                        &self.focus_controller_left,
+                    )
                 }
                 _ => {
                     self.file_selector_right.borrow().set_active(true);
                     self.file_selector_left.borrow().set_active(false);
-                    self.file_selector_right.borrow()
+                    (
+                        self.file_selector_right.borrow(),
+                        &self.focus_controller_right,
+                    )
                 }
             };
             self.update_browse_buttons(&fs);
             self.update_drop_con_button(fs.file_list().connection().as_ref());
             self.update_cmdline();
-            fs.file_list().grab_focus();
+
+            // We might get here because main window got focus. Do not grab focus unnecessarily,
+            // this will move focus away from filter box for example.
+            if !focus_controller.contains_focus() {
+                fs.file_list().grab_focus();
+            }
         }
 
         fn on_left_fs_select(&self) {
