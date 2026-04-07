@@ -10,7 +10,6 @@ mod imp {
     use std::cell::Cell;
 
     pub struct HistoryEntry {
-        pub entry: gtk::Entry,
         pub selection: gtk::SingleSelection,
         pub popover: gtk::Popover,
         pub history: gtk::StringList,
@@ -21,17 +20,11 @@ mod imp {
     impl ObjectSubclass for HistoryEntry {
         const NAME: &'static str = "GnomeCmdHistoryEntry";
         type Type = super::HistoryEntry;
-        type ParentType = gtk::Widget;
+        type ParentType = gtk::Entry;
 
         fn new() -> Self {
             let history = gtk::StringList::default();
             Self {
-                entry: gtk::Entry::builder()
-                    .hexpand(true)
-                    .editable(true)
-                    .can_focus(true)
-                    .width_request(60)
-                    .build(),
                 selection: gtk::SingleSelection::new(Some(history.clone())),
                 popover: gtk::Popover::builder()
                     .position(gtk::PositionType::Bottom)
@@ -48,34 +41,9 @@ mod imp {
             self.parent_constructed();
 
             let obj = self.obj();
-            obj.set_layout_manager(Some(
-                gtk::BoxLayout::builder()
-                    .orientation(gtk::Orientation::Horizontal)
-                    .spacing(4)
-                    .build(),
-            ));
-
-            self.entry.set_parent(&*obj);
-
-            self.entry
-                .set_secondary_icon_name(Some("gnome-commander-down"));
-            self.entry.connect_icon_press(glib::clone!(
-                #[weak]
-                obj,
-                move |_, _| obj.show_history()
-            ));
-
-            // let history_button = gtk::Button::builder()
-            //     .icon_name("gnome-commander-down")
-            //     .can_focus(false)
-            //     // .has_frame(false)
-            //     .build();
-            // history_button.set_parent(&*obj);
-            // history_button.connect_clicked(glib::clone!(
-            //     #[weak]
-            //     obj,
-            //     move |_| obj.show_history()
-            // ));
+            obj.set_width_request(60);
+            obj.set_secondary_icon_name(Some("gnome-commander-down"));
+            obj.connect_icon_press(|obj, _| obj.show_history());
 
             let list =
                 gtk::ListView::new(Some(self.selection.clone()), Some(history_item_factory()));
@@ -84,7 +52,7 @@ mod imp {
                 obj,
                 move |_, position| {
                     if let Some(str) = obj.imp().history.string(position) {
-                        obj.imp().entry.set_text(&str);
+                        obj.set_text(&str);
                         obj.imp().popover.popdown();
                         obj.grab_focus();
                     }
@@ -102,24 +70,16 @@ mod imp {
                 glib::Propagation::Proceed,
                 move |_, key, _, state| imp.on_key_pressed(key, state)
             ));
-            self.entry.add_controller(key_controller);
+            obj.add_controller(key_controller);
         }
 
         fn dispose(&self) {
             self.popover.unparent();
-            while let Some(child) = self.obj().first_child() {
-                child.unparent();
-            }
         }
     }
 
-    impl WidgetImpl for HistoryEntry {
-        fn grab_focus(&self) -> bool {
-            let result = self.entry.grab_focus();
-            self.entry.set_position(-1);
-            result
-        }
-    }
+    impl WidgetImpl for HistoryEntry {}
+    impl EntryImpl for HistoryEntry {}
 
     impl HistoryEntry {
         fn on_key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
@@ -166,11 +126,19 @@ mod imp {
     }
 }
 
-glib::wrapper! {
-    pub struct HistoryEntry(ObjectSubclass<imp::HistoryEntry>)
-        @extends gtk::Widget,
-        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
+mod wrapper {
+    // We have to implement CellEditable here even though it is deprecated.
+    // See https://github.com/gtk-rs/gtk-rs-core/issues/1941
+    #![allow(deprecated)]
+
+    glib::wrapper! {
+        pub struct HistoryEntry(ObjectSubclass<super::imp::HistoryEntry>)
+            @extends gtk::Entry, gtk::Widget,
+            @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::CellEditable, gtk::Editable;
+    }
 }
+
+pub use wrapper::HistoryEntry;
 
 impl Default for HistoryEntry {
     fn default() -> Self {
@@ -179,18 +147,6 @@ impl Default for HistoryEntry {
 }
 
 impl HistoryEntry {
-    pub fn entry(&self) -> gtk::Entry {
-        self.imp().entry.clone()
-    }
-
-    pub fn text(&self) -> glib::GString {
-        self.imp().entry.text()
-    }
-
-    pub fn set_text(&self, text: &str) {
-        self.imp().entry.set_text(text);
-    }
-
     pub fn add_to_history(&self, value: &str) {
         let history = &self.imp().history;
         for i in (0..history.n_items()).rev() {
@@ -231,7 +187,7 @@ impl HistoryEntry {
         self.imp().selection.select_item(0, true);
     }
 
-    pub fn set_position(&self, position: gtk::PositionType) {
+    pub fn set_popover_position(&self, position: gtk::PositionType) {
         self.imp().popover.set_position(position);
     }
 }

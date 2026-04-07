@@ -67,7 +67,7 @@ mod imp {
 
             self.search_entry
                 .set_max_history_size(INTVIEWER_HISTORY_SIZE);
-            self.search_entry.entry().set_activates_default(true);
+            self.search_entry.set_activates_default(true);
 
             let label = gtk::Label::builder()
                 .label(gettext("_Search for:"))
@@ -77,7 +77,7 @@ mod imp {
             grid.attach(&label, 0, 0, 1, 1);
             grid.attach(&self.search_entry, 1, 0, 2, 1);
 
-            self.search_entry.entry().connect_changed(glib::clone!(
+            self.search_entry.connect_changed(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
                 move |_| imp.entry_changed()
