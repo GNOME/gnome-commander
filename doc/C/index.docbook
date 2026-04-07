@@ -1311,7 +1311,7 @@
           <listitem><para>Text in files should matches casing</para></listitem>
           </itemizedlist></para>
       <para>Use Stop button to stop a search before &app; completes the search.</para>
-      <para>The files in the search result list can be fiewed, edited or deleted with the associated user actions.</para>
+      <para>The files in the search result list can be viewed, edited or deleted with the associated user actions.</para>
     </sect2>
     <!-- ================ File Properties Subsection ======================= -->
     <sect2 id="gnome-commander-file-properties">
