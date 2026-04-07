@@ -163,7 +163,7 @@ mod imp {
 
             self.entry.add_css_class("command-line-entry-field");
             self.entry.set_hexpand(true);
-            self.entry.set_position(gtk::PositionType::Top);
+            self.entry.set_popover_position(gtk::PositionType::Top);
             self.entry.set_parent(&*obj);
 
             self.terminal.connect_bell(glib::clone!(
@@ -250,7 +250,7 @@ mod imp {
     impl WidgetImpl for CommandLine {
         fn grab_focus(&self) -> bool {
             let result = self.entry.grab_focus();
-            self.entry.entry().set_position(-1);
+            self.entry.set_position(-1);
             result
         }
     }
@@ -440,12 +440,12 @@ impl CommandLine {
     }
 
     pub fn append_text(&self, text: &str) {
-        fn append(entry: &gtk::Entry, text: &str) {
+        fn append(entry: &HistoryEntry, text: &str) {
             let mut position = entry.text_length() as i32;
             entry.insert_text(text, &mut position);
         }
 
-        let entry = &self.imp().entry.entry();
+        let entry = &self.imp().entry;
         let current_text = entry.text();
         if !current_text.ends_with(' ') && !current_text.is_empty() {
             append(entry, " ");

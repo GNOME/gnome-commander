@@ -17,6 +17,7 @@ use crate::{
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
     open_file::mime_exec_single,
     options::ProgramsOptions,
+    shortcuts::{Area, Shortcuts},
     tab_label::TabLabel,
     tags::FileMetadataService,
     types::MiddleMouseButtonMode,
@@ -1380,6 +1381,10 @@ impl FileSelector {
     pub fn show_filter(&self) {
         self.imp().filter_box.set_visible(true);
         self.imp().filter_entry.grab_focus();
+    }
+
+    pub fn add_shortcuts(&self, shortcuts: &Shortcuts) {
+        shortcuts.add_controller(&self.imp().notebook, Area::Panel);
     }
 }
 

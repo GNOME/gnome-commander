@@ -12,6 +12,7 @@ use crate::{
 };
 use gettextrs::gettext;
 use gtk::gio::{self, prelude::*};
+use std::collections::BTreeSet;
 
 pub enum SearchMessage {
     Status(String),
@@ -27,18 +28,19 @@ pub async fn search(
     let max_depth = profile.max_depth();
     let start_dir = start_dir.uri();
 
-    let mut filename_pattern = profile.path_pattern();
+    let filename_pattern = profile.path_pattern();
     let filename_filter = if !filename_pattern.is_empty() {
-        if matches!(profile.path_syntax(), PatternType::FnMatch) {
+        let filename_pattern = if matches!(profile.path_syntax(), PatternType::FnMatch)
+            && !filename_pattern.contains('/')
+        {
             if !filename_pattern.contains('*') && !filename_pattern.contains('?') {
-                filename_pattern = format!("*{filename_pattern}*")
-            }
-            filename_pattern = if filename_pattern.starts_with('/') {
-                format!("**{filename_pattern}")
+                format!("**/*{filename_pattern}*")
             } else {
                 format!("**/{filename_pattern}")
-            };
-        }
+            }
+        } else {
+            filename_pattern
+        };
 
         Some(
             Filter::new(
@@ -76,6 +78,7 @@ pub async fn search(
 
     std::thread::spawn(move || {
         search_dir_recursive(
+            &gio::File::for_uri(&start_dir),
             &start_dir,
             max_depth,
             &filename_filter,
@@ -108,15 +111,15 @@ pub async fn search(
     Ok(())
 }
 
-fn get_path(uri: &str) -> String {
-    glib::Uri::parse(uri, glib::UriFlags::NONE)
-        .ok()
-        .map(|uri| uri.path())
+fn get_path(start: &gio::File, uri: &str) -> String {
+    start
+        .relative_path(&gio::File::for_uri(uri))
+        .map(|path| path.into_os_string().to_string_lossy().to_string())
         .unwrap_or_default()
-        .to_string()
 }
 
 fn search_dir_recursive(
+    start: &gio::File,
     dir: &str,
     level: i32,
     filename_filter: &Option<Filter>,
@@ -129,13 +132,15 @@ fn search_dir_recursive(
         return;
     }
 
-    let message = (
-        false,
-        gettext("Searching in: {}").replace("{}", &get_path(dir)),
-    );
-    if let Err(error) = sender.send_blocking(message) {
-        eprintln!("Sending search result to channel failed: {error}");
-        return;
+    if start.uri() != dir {
+        let message = (
+            false,
+            gettext("Searching in: {}").replace("{}", &get_path(start, dir)),
+        );
+        if let Err(error) = sender.send_blocking(message) {
+            eprintln!("Sending search result to channel failed: {error}");
+            return;
+        }
     }
 
     let dir_file = gio::File::for_uri(dir);
@@ -154,6 +159,7 @@ fn search_dir_recursive(
     };
 
     // first process the files
+    let mut matched_dirs = BTreeSet::new();
     for info in &files {
         if cancellable.is_cancelled() {
             return;
@@ -161,7 +167,7 @@ fn search_dir_recursive(
 
         let file = dir_file.child(info.name());
         if let Some(filter) = filename_filter
-            && !filter.matches(&get_path(&file.uri()))
+            && !filter.matches(&get_path(start, &file.uri()))
         {
             continue;
         }
@@ -179,6 +185,10 @@ fn search_dir_recursive(
             eprintln!("Sending search result to channel failed: {error}");
             return;
         }
+
+        if info.file_type() == gio::FileType::Directory {
+            matched_dirs.insert(info.name());
+        }
     }
 
     if level == 0 {
@@ -190,13 +200,14 @@ fn search_dir_recursive(
         if cancellable.is_cancelled() {
             return;
         }
-        if info.file_type() != gio::FileType::Directory {
+        if info.file_type() != gio::FileType::Directory || matched_dirs.contains(&info.name()) {
             continue;
         }
         // we don't want to go backwards or to follow symlinks
         let display_name = info.display_name();
         if display_name != "." && display_name != ".." && !info.is_symlink() {
             search_dir_recursive(
+                start,
                 &dir_file.child(info.name()).uri(),
                 level - 1,
                 filename_filter,

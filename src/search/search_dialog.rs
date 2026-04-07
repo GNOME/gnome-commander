@@ -13,7 +13,9 @@ use crate::{
     file::FileOps,
     main_win::MainWindow,
     options::SearchConfig,
+    shortcuts::Area,
     tags::FileMetadataService,
+    user_actions::UserAction,
     utils::WindowExt,
 };
 use gettextrs::{gettext, ngettext};
@@ -204,6 +206,7 @@ mod imp {
         pub dir_browser: RefCell<DirectoryButton>,
         #[property(get, set)]
         pub profile_component: RefCell<SelectionProfileComponent>,
+        virtual_directory: Directory,
         #[property(get, set)]
         pub result_list: RefCell<Option<FileList>>,
         pub status_label: gtk::Label,
@@ -244,6 +247,29 @@ mod imp {
                     }
                 },
             );
+
+            klass.install_action(UserAction::FileView.name(), None, |obj, _, _| {
+                obj.imp().file_view();
+            });
+            klass.install_action(UserAction::FileInternalView.name(), None, |obj, _, _| {
+                obj.imp().file_internal_view();
+            });
+            klass.install_action(UserAction::FileExternalView.name(), None, |obj, _, _| {
+                obj.imp().file_external_view();
+            });
+            klass.install_action(UserAction::FileEdit.name(), None, |obj, _, _| {
+                obj.imp().file_edit();
+            });
+            klass.install_action(UserAction::FileDelete.name(), None, |obj, _, _| {
+                obj.imp().file_delete(false);
+            });
+            klass.install_action(
+                UserAction::FileDeletePermanently.name(),
+                None,
+                |obj, _, _| {
+                    obj.imp().file_delete(true);
+                },
+            );
         }
 
         fn new() -> Self {
@@ -256,6 +282,7 @@ mod imp {
                 profile_component: RefCell::new(SelectionProfileComponent::new(Some(
                     &labels_size_group,
                 ))),
+                virtual_directory: Directory::create_virtual(),
                 result_list: Default::default(),
                 status_label: gtk::Label::builder()
                     .max_width_chars(1)
@@ -335,6 +362,18 @@ mod imp {
             result_list.set_height_request(200);
             self.result_list.replace(Some(result_list.clone()));
 
+            self.virtual_directory.connect_closure(
+                "file-deleted",
+                false,
+                glib::closure_local!(
+                    #[weak]
+                    result_list,
+                    move |_: &Directory, f: &File| {
+                        result_list.remove_file(f);
+                    }
+                ),
+            );
+
             let sw = gtk::ScrolledWindow::builder()
                 .vexpand(true)
                 .hscrollbar_policy(gtk::PolicyType::Automatic)
@@ -374,7 +413,10 @@ mod imp {
             close_button.connect_clicked(glib::clone!(
                 #[weak]
                 this,
-                move |_| this.close()
+                move |_| {
+                    this.imp().stop();
+                    this.close();
+                }
             ));
 
             self.jump_button.connect_clicked(glib::clone!(
@@ -425,9 +467,6 @@ mod imp {
                 this,
                 move |_| {
                     this.profile_component().copy();
-                    if let Some(file_list) = this.result_list() {
-                        file_list.clear();
-                    }
                 }
             ));
 
@@ -614,6 +653,7 @@ mod imp {
             self.find_button.set_sensitive(false);
             self.obj().set_default_widget(Some(&self.stop_button));
 
+            self.virtual_directory.files().remove_all();
             result_list.clear();
             result_list
                 .set_connection_async(&start_dir.connection(), None)
@@ -624,7 +664,11 @@ mod imp {
                 &profile,
                 &start_dir,
                 &|message| match message {
-                    SearchMessage::File(file) => result_list.append_file(&file),
+                    SearchMessage::File(file) => {
+                        file.set_parent_directory(Some(&self.virtual_directory));
+                        self.virtual_directory.files().append(&file);
+                        result_list.append_file(&file);
+                    }
                     SearchMessage::Status(status) => self.status_label.set_text(&status),
                 },
                 &cancellable,
@@ -700,6 +744,48 @@ mod imp {
                 profile_component.set_content_patterns_history(&config.content_patterns());
             }
         }
+
+        pub fn file_view(&self) {
+            if let Some(file_list) = self.result_list.borrow().as_ref()
+                && let Err(error) =
+                    file_list.activate_action("fl.file-view", Some(&None::<bool>.to_variant()))
+            {
+                eprintln!("Cannot activate action `file-view`: {error}");
+            }
+        }
+
+        pub fn file_internal_view(&self) {
+            if let Some(file_list) = self.result_list.borrow().as_ref()
+                && let Err(error) =
+                    file_list.activate_action("fl.file-view", Some(&true.to_variant()))
+            {
+                eprintln!("Cannot activate action `file-view`: {error}");
+            }
+        }
+
+        pub fn file_external_view(&self) {
+            if let Some(file_list) = self.result_list.borrow().as_ref()
+                && let Err(error) =
+                    file_list.activate_action("fl.file-view", Some(&false.to_variant()))
+            {
+                eprintln!("Cannot activate action `file-view`: {error}");
+            }
+        }
+
+        pub fn file_edit(&self) {
+            if let Some(file_list) = self.result_list.borrow().as_ref()
+                && let Err(error) = file_list.activate_action("fl.file-edit", None)
+            {
+                eprintln!("Cannot activate action `file-edit`: {error}");
+            }
+        }
+
+        pub fn file_delete(&self, force: bool) {
+            if let Some(file_list) = self.result_list.borrow().as_ref() {
+                let file_list = file_list.clone();
+                glib::spawn_future_local(async move { file_list.show_delete_dialog(force).await });
+            }
+        }
     }
 }
 
@@ -721,6 +807,11 @@ impl SearchDialog {
             .build();
         this.imp().config.set(config.clone()).ok().unwrap();
         this.imp().update_profile_menu();
+
+        main_window
+            .shortcuts()
+            .add_controller(&this, Area::MainWindow);
+        main_window.shortcuts().add_controller(&this, Area::Panel);
 
         let profile_component = this.profile_component();
         profile_component.set_profile(Some(config.default_profile()));

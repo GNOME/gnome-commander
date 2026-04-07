@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2024 Andrey Kutejko <andy128k@gmail.com>
+// SPDX-FileCopyrightText: 2026 Wladimir Palant https://palant.info/
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -172,7 +173,7 @@ mod imp {
                     .build();
                 vbox.append(&label);
 
-                self.template_entry.entry().set_activates_default(true);
+                self.template_entry.set_activates_default(true);
                 vbox.append(&self.template_entry);
 
                 let bbox = gtk::Box::builder()
@@ -369,7 +370,7 @@ mod imp {
                 hbox.append(&self.trim_combo);
             }
 
-            self.template_entry.entry().connect_changed(glib::clone!(
+            self.template_entry.connect_changed(glib::clone!(
                 #[weak]
                 this,
                 move |_| this.emit_by_name::<()>("template-changed", &[])
@@ -515,7 +516,7 @@ mod imp {
 
     impl AdvancedRenameProfileComponent {
         fn insert_tag(&self, tag: &str) {
-            let entry = self.template_entry.entry();
+            let entry = &self.template_entry;
             let position0 = entry.position();
             let mut position = position0;
             entry.insert_text(tag, &mut position);
@@ -907,7 +908,7 @@ impl AdvancedRenameProfileComponent {
             return;
         };
 
-        let template_entry = self.imp().template_entry.entry();
+        let template_entry = &self.imp().template_entry;
         let template_string = profile.template_string();
         template_entry.set_text({
             if template_string.is_empty() {

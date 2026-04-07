@@ -43,8 +43,8 @@ pub async fn show_pattern_selection_dialog(
     let pattern_entry = HistoryEntry::default();
     pattern_entry.set_hexpand(true);
     pattern_entry.set_history(&patterns);
-    pattern_entry.entry().set_activates_default(true);
-    pattern_entry.entry().select_region(0, -1);
+    pattern_entry.set_activates_default(true);
+    pattern_entry.select_region(0, -1);
 
     let label = gtk::Label::builder()
         .label(gettext("_Pattern:"))
