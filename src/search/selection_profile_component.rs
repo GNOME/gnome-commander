@@ -125,8 +125,8 @@ mod imp {
                 labels_size_group.add_widget(&content_label);
             }
 
-            self.path_entry.entry().set_activates_default(true);
-            self.content_entry.entry().set_activates_default(true);
+            self.path_entry.set_activates_default(true);
+            self.content_entry.set_activates_default(true);
         }
 
         fn dispose(&self) {
