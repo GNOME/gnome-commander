@@ -244,6 +244,14 @@ impl Shortcuts {
         self.register(Shortcut::ctrl_shift(Key::C), UserAction::EditCopyNames);
         self.register(Shortcut::key(gdk::Key::KP_Delete), UserAction::FileDelete);
         self.register(Shortcut::key(gdk::Key::Delete), UserAction::FileDelete);
+        self.register(
+            Shortcut::shift(gdk::Key::KP_Delete),
+            UserAction::FileDeletePermanently,
+        );
+        self.register(
+            Shortcut::shift(gdk::Key::Delete),
+            UserAction::FileDeletePermanently,
+        );
         self.register(Shortcut::ctrl(Key::F12), UserAction::EditFilter);
         self.register(Shortcut::sup(Key::F), UserAction::FileSearch);
         self.register(Shortcut::shift(Key::F6), UserAction::FileRename);
