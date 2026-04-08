@@ -7,7 +7,7 @@ use crate::{
     main_win::MainWindow,
     shortcuts::{Call, Shortcut, Shortcuts},
     user_actions::UserAction,
-    utils::{NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
+    utils::{NO_BUTTONS, NO_MOD, SHIFT, SenderExt, WindowExt, dialog_button_box},
 };
 use gettextrs::gettext;
 use gtk::{gdk, glib, prelude::*, subclass::prelude::*};
@@ -33,6 +33,7 @@ mod imp {
     pub struct ShortcutsDialog {
         pub(super) entries: RefCell<Vec<ListEntry>>,
         hidden_actions: RefCell<Vec<(Shortcut, Call)>>,
+        search_field: gtk::SearchEntry,
         filter_text: RefCell<String>,
         modified_only: RefCell<bool>,
         pub(super) default_shortcuts: Shortcuts,
@@ -96,6 +97,11 @@ mod imp {
             Self {
                 entries: Default::default(),
                 hidden_actions: Default::default(),
+                search_field: gtk::SearchEntry::builder()
+                    .placeholder_text(gettext("Search shortcuts…"))
+                    .activates_default(false)
+                    .search_delay(50)
+                    .build(),
                 filter_text: Default::default(),
                 modified_only: Default::default(),
                 default_shortcuts,
@@ -126,12 +132,7 @@ mod imp {
                 .build();
             dialog.set_child(Some(&vbox));
 
-            let search_field = gtk::SearchEntry::builder()
-                .placeholder_text(gettext("Search shortcuts…"))
-                .activates_default(false)
-                .search_delay(50)
-                .build();
-            search_field.connect_search_changed(glib::clone!(
+            self.search_field.connect_search_changed(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
                 move |search_field| {
@@ -139,7 +140,7 @@ mod imp {
                     imp.view.invalidate_filter();
                 }
             ));
-            vbox.append(&search_field);
+            vbox.append(&self.search_field);
 
             let modified_only = gtk::CheckButton::builder()
                 .label("Show only _modified shortcuts")
@@ -177,6 +178,16 @@ mod imp {
                     }
                 },
             ));
+
+            let controller = gtk::EventControllerKey::new();
+            controller.connect_key_pressed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                #[upgrade_or]
+                glib::Propagation::Proceed,
+                move |_, key, _, modifiers| imp.on_list_key_pressed(key, modifiers)
+            ));
+            self.view.add_controller(controller);
 
             let scrolled_window = gtk::ScrolledWindow::builder()
                 .hscrollbar_policy(gtk::PolicyType::Never)
@@ -229,14 +240,17 @@ mod imp {
                 &[&cancel_button, &ok_button],
             ));
 
-            search_field.connect_stop_search(glib::clone!(
+            self.search_field.connect_stop_search(glib::clone!(
                 #[weak]
                 cancel_button,
+                #[weak(rename_to = imp)]
+                self,
                 move |search_field| {
                     if search_field.text().is_empty() {
                         cancel_button.activate();
                     } else {
                         search_field.set_text("");
+                        imp.view.grab_focus();
                     }
                 }
             ));
@@ -299,6 +313,26 @@ mod imp {
             }
 
             shortcuts.set_mandatory();
+        }
+
+        fn on_list_key_pressed(
+            &self,
+            key: gdk::Key,
+            modifiers: gdk::ModifierType,
+        ) -> glib::Propagation {
+            if modifiers.difference(SHIFT) == NO_MOD
+                && let Some(char) = key.to_unicode()
+                && char >= ' '
+            {
+                let mut position = self.search_field.position();
+                self.search_field
+                    .insert_text(&char.to_string(), &mut position);
+                self.search_field.grab_focus();
+                self.search_field.set_position(position);
+                glib::Propagation::Stop
+            } else {
+                glib::Propagation::Proceed
+            }
         }
 
         fn filter_row(&self, row: &gtk::ListBoxRow) -> bool {
