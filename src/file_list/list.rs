@@ -26,7 +26,7 @@ use crate::{
     types::{ExtensionDisplayMode, GraphicalLayoutMode, SizeDisplayMode},
     utils::{ErrorMessage, size_to_string, time_to_string},
 };
-use gettextrs::{gettext, ngettext};
+use gettextrs::gettext;
 use gtk::{gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
 use std::{
     collections::HashSet,
@@ -2145,24 +2145,20 @@ impl FileList {
     pub fn stats_str(&self, mode: SizeDisplayMode) -> String {
         let stats = self.stats();
 
-        let sentence1 = gettext("A total of {selected_bytes} has been selected.").replace(
-            "{selected_bytes}",
-            &size_to_string(stats.selected.bytes, mode),
-        );
+        let sentence1 = gettext("Selected {selected_bytes} of {total_bytes}.")
+            .replace(
+                "{selected_bytes}",
+                &size_to_string(stats.selected.bytes, mode),
+            )
+            .replace("{total_bytes}", &size_to_string(stats.total.bytes, mode));
 
-        let sentence2 = ngettext(
-            "{selected_files} file selected.",
-            "{selected_files} files selected.",
-            stats.selected.files as u32,
-        )
-        .replace("{selected_files}", &stats.selected.files.to_string());
+        let sentence2 = gettext("Files: {selected_files} of {total_files}.")
+            .replace("{selected_files}", &stats.selected.files.to_string())
+            .replace("{total_files}", &stats.total.files.to_string());
 
-        let sentence3 = ngettext(
-            "{selected_dirs} directory selected.",
-            "{selected_dirs} directories selected.",
-            stats.selected.directories as u32,
-        )
-        .replace("{selected_dirs}", &stats.selected.directories.to_string());
+        let sentence3 = gettext("Directories: {selected_dirs} of {total_dirs}.")
+            .replace("{selected_dirs}", &stats.selected.directories.to_string())
+            .replace("{total_dirs}", &stats.total.directories.to_string());
 
         format!("{sentence1} {sentence2} {sentence3}")
     }
