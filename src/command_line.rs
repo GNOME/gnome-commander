@@ -29,7 +29,7 @@ mod imp {
     impl ObjectSubclass for CommandLine {
         const NAME: &'static str = "GnomeCmdCommandLine";
         type Type = super::CommandLine;
-        type ParentType = gtk::Widget;
+        type ParentType = gtk::Frame;
 
         fn new() -> Self {
             Self {
@@ -68,16 +68,24 @@ mod imp {
 
             let obj = self.obj();
             obj.add_css_class("command-line");
-            obj.set_layout_manager(Some(
-                gtk::BoxLayout::builder()
-                    .orientation(gtk::Orientation::Vertical)
-                    .build(),
-            ));
+            obj.add_css_class("flat");
+
+            let vbox = gtk::Box::builder()
+                .orientation(gtk::Orientation::Vertical)
+                .build();
+            obj.set_child(Some(&vbox));
+
+            // This label is for accessibility only and can be hidden.
+            let label = gtk::Label::builder()
+                .label(gettext("Command Line"))
+                .visible(false)
+                .build();
+            obj.set_label_widget(Some(&label));
 
             self.setup_actions();
 
             let scrolled_window = gtk::ScrolledWindow::builder().child(&self.terminal).build();
-            scrolled_window.set_parent(&*obj);
+            vbox.append(&scrolled_window);
 
             self.terminal.connect_selection_changed(glib::clone!(
                 #[weak(rename_to = imp)]
@@ -121,7 +129,7 @@ mod imp {
                 .orientation(gtk::Orientation::Horizontal)
                 .build();
             entry_box.add_css_class("command-line-entry");
-            entry_box.set_parent(&*obj);
+            vbox.append(&entry_box);
 
             let cwd_box = gtk::Box::builder()
                 .orientation(gtk::Orientation::Horizontal)
@@ -133,10 +141,6 @@ mod imp {
             self.entry.add_css_class("command-line-entry-field");
             self.entry.set_hexpand(true);
             self.entry.set_popover_position(gtk::PositionType::Top);
-            self.entry
-                .update_property(&[gtk::accessible::Property::Description(&gettext(
-                    "Command Line",
-                ))]);
             self.entry
                 .update_relation(&[gtk::accessible::Relation::LabelledBy(&[
                     cwd_box.upcast_ref()
@@ -210,12 +214,6 @@ mod imp {
                 ]
             })
         }
-
-        fn dispose(&self) {
-            while let Some(child) = self.obj().first_child() {
-                child.unparent();
-            }
-        }
     }
 
     impl WidgetImpl for CommandLine {
@@ -225,6 +223,8 @@ mod imp {
             result
         }
     }
+    #[allow(deprecated)] // FrameImpl is deprecated but we need it anyway
+    impl FrameImpl for CommandLine {}
 
     impl CommandLine {
         fn on_key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
@@ -338,7 +338,7 @@ mod imp {
 
 glib::wrapper! {
     pub struct CommandLine(ObjectSubclass<imp::CommandLine>)
-        @extends gtk::Widget,
+        @extends gtk::Widget, gtk::Frame,
         @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 }
 
