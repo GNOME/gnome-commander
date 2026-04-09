@@ -6,7 +6,7 @@
 use crate::{
     app::{AppExt, AppTarget, UserDefinedApp},
     select_icon_button::IconButton,
-    utils::{ErrorMessage, NO_BUTTONS, SenderExt, WindowExt, attributes_bold, dialog_button_box},
+    utils::{ErrorMessage, NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
 };
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
@@ -33,37 +33,6 @@ pub async fn edit_app_dialog(
     let grid = gtk::Grid::builder().build();
     dialog.set_child(Some(&grid));
 
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Label:"))
-            .halign(gtk::Align::Start)
-            .build(),
-        0,
-        0,
-        1,
-        1,
-    );
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Command:"))
-            .halign(gtk::Align::Start)
-            .build(),
-        0,
-        1,
-        1,
-        1,
-    );
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Icon:"))
-            .halign(gtk::Align::Start)
-            .build(),
-        0,
-        2,
-        1,
-        1,
-    );
-
     let name_entry = gtk::Entry::builder()
         .hexpand(true)
         .activates_default(true)
@@ -81,73 +50,105 @@ pub async fn edit_app_dialog(
 
     grid.attach(
         &gtk::Label::builder()
-            .label(gettext("Options"))
-            .attributes(&attributes_bold())
+            .label(gettext("Label:"))
             .halign(gtk::Align::Start)
+            .mnemonic_widget(&name_entry)
             .build(),
         0,
-        3,
-        2,
+        0,
+        1,
         1,
     );
+    grid.attach(
+        &gtk::Label::builder()
+            .label(gettext("Command:"))
+            .halign(gtk::Align::Start)
+            .mnemonic_widget(&cmd_entry)
+            .build(),
+        0,
+        1,
+        1,
+        1,
+    );
+    grid.attach(
+        &gtk::Label::builder()
+            .label(gettext("Icon:"))
+            .halign(gtk::Align::Start)
+            .mnemonic_widget(&icon_entry)
+            .build(),
+        0,
+        2,
+        1,
+        1,
+    );
+
+    let vbox = gtk::Box::builder()
+        .orientation(gtk::Orientation::Vertical)
+        .build();
+    let frame = gtk::Frame::builder()
+        .label(gettext("Options"))
+        .child(&vbox)
+        .css_classes(["flat"])
+        .build();
 
     let handles_multiple = gtk::CheckButton::builder()
         .label(gettext("Can handle multiple files"))
         .build();
-    grid.attach(&handles_multiple, 0, 4, 2, 1);
+    vbox.append(&handles_multiple);
 
     let handles_uris = gtk::CheckButton::builder()
         .label(gettext("Can handle URIs"))
         .build();
-    grid.attach(&handles_uris, 0, 5, 2, 1);
+    vbox.append(&handles_uris);
 
     let requires_terminal = gtk::CheckButton::builder()
         .label(gettext("Requires terminal"))
         .build();
-    grid.attach(&requires_terminal, 0, 6, 2, 1);
+    vbox.append(&requires_terminal);
 
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Show for"))
-            .attributes(&attributes_bold())
-            .halign(gtk::Align::Start)
-            .build(),
-        0,
-        7,
-        2,
-        1,
-    );
+    grid.attach(&frame, 0, 3, 2, 1);
+
+    let vbox = gtk::Box::builder()
+        .orientation(gtk::Orientation::Vertical)
+        .build();
+    let frame = gtk::Frame::builder()
+        .label(gettext("Show for"))
+        .child(&vbox)
+        .css_classes(["flat"])
+        .build();
 
     let show_for_all_files = gtk::CheckButton::builder()
         .label(gettext("All files"))
         .build();
-    grid.attach(&show_for_all_files, 0, 8, 2, 1);
+    vbox.append(&show_for_all_files);
 
     let show_for_all_dirs = gtk::CheckButton::builder()
         .label(gettext("All directories"))
         .group(&show_for_all_files)
         .build();
-    grid.attach(&show_for_all_dirs, 0, 9, 2, 1);
+    vbox.append(&show_for_all_dirs);
 
     let show_for_all_dirs_and_files = gtk::CheckButton::builder()
         .label(gettext("All directories and files"))
         .group(&show_for_all_files)
         .build();
-    grid.attach(&show_for_all_dirs_and_files, 0, 10, 2, 1);
+    vbox.append(&show_for_all_dirs_and_files);
 
     let show_for_some_files = gtk::CheckButton::builder()
         .label(gettext("Some files"))
         .group(&show_for_all_files)
         .build();
-    grid.attach(&show_for_some_files, 0, 11, 2, 1);
+    vbox.append(&show_for_some_files);
 
+    grid.attach(&frame, 0, 7, 2, 1);
+
+    let pattern_entry = gtk::Entry::builder().activates_default(true).build();
     let pattern_label = gtk::Label::builder()
         .label(gettext("File patterns"))
         .margin_start(24)
+        .mnemonic_widget(&pattern_entry)
         .build();
     grid.attach(&pattern_label, 0, 12, 1, 1);
-
-    let pattern_entry = gtk::Entry::builder().activates_default(true).build();
     grid.attach(&pattern_entry, 1, 12, 1, 1);
 
     show_for_some_files.connect_toggled(glib::clone!(

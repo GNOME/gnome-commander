@@ -31,47 +31,6 @@ pub async fn edit_device_dialog(
     let grid = gtk::Grid::builder().build();
     dialog.set_child(Some(&grid));
 
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Alias:"))
-            .halign(gtk::Align::Start)
-            .build(),
-        0,
-        0,
-        1,
-        1,
-    );
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Device/Label:"))
-            .halign(gtk::Align::Start)
-            .build(),
-        0,
-        1,
-        1,
-        1,
-    );
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Mount point:"))
-            .halign(gtk::Align::Start)
-            .build(),
-        0,
-        2,
-        1,
-        1,
-    );
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Icon:"))
-            .halign(gtk::Align::Start)
-            .build(),
-        0,
-        3,
-        1,
-        1,
-    );
-
     let alias_entry = gtk::Entry::builder()
         .hexpand(true)
         .activates_default(true)
@@ -89,6 +48,51 @@ pub async fn edit_device_dialog(
 
     let icon_entry = IconButton::default();
     grid.attach(&icon_entry, 1, 3, 1, 1);
+
+    grid.attach(
+        &gtk::Label::builder()
+            .label(gettext("Alias:"))
+            .halign(gtk::Align::Start)
+            .mnemonic_widget(&alias_entry)
+            .build(),
+        0,
+        0,
+        1,
+        1,
+    );
+    grid.attach(
+        &gtk::Label::builder()
+            .label(gettext("Device/Label:"))
+            .halign(gtk::Align::Start)
+            .mnemonic_widget(&device_entry)
+            .build(),
+        0,
+        1,
+        1,
+        1,
+    );
+    grid.attach(
+        &gtk::Label::builder()
+            .label(gettext("Mount point:"))
+            .halign(gtk::Align::Start)
+            .mnemonic_widget(&mount_point_entry)
+            .build(),
+        0,
+        2,
+        1,
+        1,
+    );
+    grid.attach(
+        &gtk::Label::builder()
+            .label(gettext("Icon:"))
+            .halign(gtk::Align::Start)
+            .mnemonic_widget(&icon_entry)
+            .build(),
+        0,
+        3,
+        1,
+        1,
+    );
 
     let help_button = gtk::Button::builder()
         .label(gettext("_Help"))

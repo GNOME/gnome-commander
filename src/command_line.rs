@@ -123,12 +123,24 @@ mod imp {
             entry_box.add_css_class("command-line-entry");
             entry_box.set_parent(&*obj);
 
-            entry_box.append(&self.cwd);
-            entry_box.append(&gtk::Label::new(Some("#")));
+            let cwd_box = gtk::Box::builder()
+                .orientation(gtk::Orientation::Horizontal)
+                .build();
+            cwd_box.append(&self.cwd);
+            cwd_box.append(&gtk::Label::new(Some("#")));
+            entry_box.append(&cwd_box);
 
             self.entry.add_css_class("command-line-entry-field");
             self.entry.set_hexpand(true);
             self.entry.set_popover_position(gtk::PositionType::Top);
+            self.entry
+                .update_property(&[gtk::accessible::Property::Description(&gettext(
+                    "Command Line",
+                ))]);
+            self.entry
+                .update_relation(&[gtk::accessible::Relation::LabelledBy(&[
+                    cwd_box.upcast_ref()
+                ])]);
             entry_box.append(&self.entry);
 
             self.terminal.connect_bell(glib::clone!(

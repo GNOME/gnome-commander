@@ -32,6 +32,59 @@ pub async fn edit_palette(
 
     let color_dialog = gtk::ColorDialog::builder().modal(true).build();
 
+    let foreground_label = gtk::Label::builder()
+        .label(gettext("Foreground"))
+        .hexpand(true)
+        .halign(gtk::Align::Start)
+        .build();
+    grid.attach(&foreground_label, 0, 1, 1, 1);
+
+    let background_label = gtk::Label::builder()
+        .label(gettext("Background"))
+        .hexpand(true)
+        .halign(gtk::Align::Start)
+        .build();
+    grid.attach(&background_label, 0, 2, 1, 1);
+
+    let color_labels = [
+        gtk::Label::builder()
+            .label(gettext("Black"))
+            .halign(gtk::Align::Center)
+            .build(),
+        gtk::Label::builder()
+            .label(gettext("Red"))
+            .halign(gtk::Align::Center)
+            .build(),
+        gtk::Label::builder()
+            .label(gettext("Green"))
+            .halign(gtk::Align::Center)
+            .build(),
+        gtk::Label::builder()
+            .label(gettext("Yellow"))
+            .halign(gtk::Align::Center)
+            .build(),
+        gtk::Label::builder()
+            .label(gettext("Blue"))
+            .halign(gtk::Align::Center)
+            .build(),
+        gtk::Label::builder()
+            .label(gettext("Magenta"))
+            .halign(gtk::Align::Center)
+            .build(),
+        gtk::Label::builder()
+            .label(gettext("Cyan"))
+            .halign(gtk::Align::Center)
+            .build(),
+        gtk::Label::builder()
+            .label(gettext("White"))
+            .halign(gtk::Align::Center)
+            .build(),
+    ];
+
+    for (i, label) in color_labels.iter().enumerate() {
+        grid.attach(label, i as i32 + 1, 0, 1, 1);
+    }
+
     let mut buttons: HashMap<(LsPallettePlane, LsPalletteColor), gtk::ColorDialogButton> =
         HashMap::new();
     for plane in LsPallettePlane::VARIANTS {
@@ -41,114 +94,20 @@ pub async fn edit_palette(
                 .rgba(palette.color(*plane, *palette_color))
                 .dialog(&color_dialog)
                 .build();
+            if let Some(button) = btn.first_child() {
+                button.update_relation(&[gtk::accessible::Relation::DescribedBy(&[
+                    color_labels[*palette_color as usize].upcast_ref(),
+                    if *plane == LsPallettePlane::Foreground {
+                        foreground_label.upcast_ref()
+                    } else {
+                        background_label.upcast_ref()
+                    },
+                ])]);
+            }
             grid.attach(&btn, *palette_color as i32 + 1, *plane as i32 + 1, 1, 1);
             buttons.insert((*plane, *palette_color), btn);
         }
     }
-
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Foreground"))
-            .hexpand(true)
-            .halign(gtk::Align::Start)
-            .build(),
-        0,
-        1,
-        1,
-        1,
-    );
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Background"))
-            .hexpand(true)
-            .halign(gtk::Align::Start)
-            .build(),
-        0,
-        2,
-        1,
-        1,
-    );
-
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Black"))
-            .halign(gtk::Align::Center)
-            .build(),
-        1,
-        0,
-        1,
-        1,
-    );
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Red"))
-            .halign(gtk::Align::Center)
-            .build(),
-        2,
-        0,
-        1,
-        1,
-    );
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Green"))
-            .halign(gtk::Align::Center)
-            .build(),
-        3,
-        0,
-        1,
-        1,
-    );
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Yellow"))
-            .halign(gtk::Align::Center)
-            .build(),
-        4,
-        0,
-        1,
-        1,
-    );
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Blue"))
-            .halign(gtk::Align::Center)
-            .build(),
-        5,
-        0,
-        1,
-        1,
-    );
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Magenta"))
-            .halign(gtk::Align::Center)
-            .build(),
-        6,
-        0,
-        1,
-        1,
-    );
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Cyan"))
-            .halign(gtk::Align::Center)
-            .build(),
-        7,
-        0,
-        1,
-        1,
-    );
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("White"))
-            .halign(gtk::Align::Center)
-            .build(),
-        8,
-        0,
-        1,
-        1,
-    );
 
     let reset_button = gtk::Button::builder()
         .label(gettext("_Reset"))

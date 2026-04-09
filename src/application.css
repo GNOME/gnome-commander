@@ -23,6 +23,14 @@
     border-spacing: 12px;
 }
 
+frame.flat {
+    border: none;
+}
+
+frame > label {
+    font-weight: bold;
+}
+
 /* Main window */
 
 listview.gcmd-toolbar {

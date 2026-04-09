@@ -6,7 +6,7 @@
 use super::prepare_transfer_dialog::PrepareTransferDialog;
 use crate::{
     file::FileOps, file_selector::FileSelector, main_win::MainWindow, options::ConfirmOptions,
-    transfer::move_files, types::ConfirmOverwriteMode, utils::bold,
+    transfer::move_files, types::ConfirmOverwriteMode,
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gio, prelude::*};
@@ -39,36 +39,39 @@ pub async fn prepare_move_dialog_show(
     };
     dialog.set_dst_label(&label);
 
-    dialog.append_to_left(
-        &gtk::Label::builder()
-            .label(bold(&gettext("Overwrite Files")))
-            .use_markup(true)
-            .halign(gtk::Align::Start)
-            .build(),
-    );
+    let vbox = gtk::Box::builder()
+        .orientation(gtk::Orientation::Vertical)
+        .build();
+    let frame = gtk::Frame::builder()
+        .label("Overwrite Files")
+        .child(&vbox)
+        .css_classes(["flat"])
+        .build();
 
     let query = gtk::CheckButton::builder()
         .label(gettext("Query First"))
         .build();
-    dialog.append_to_left(&query);
+    vbox.append(&query);
 
     let rename = gtk::CheckButton::builder()
         .label(gettext("Rename"))
         .group(&query)
         .build();
-    dialog.append_to_left(&rename);
+    vbox.append(&rename);
 
     let skip = gtk::CheckButton::builder()
         .label(gettext("Skip"))
         .group(&query)
         .build();
-    dialog.append_to_left(&skip);
+    vbox.append(&skip);
 
     let silent = gtk::CheckButton::builder()
         .label(gettext("Overwrite silently"))
         .group(&query)
         .build();
-    dialog.append_to_left(&silent);
+    vbox.append(&silent);
+
+    dialog.append_to_left(&frame);
 
     match options.confirm_move_overwrite.get() {
         ConfirmOverwriteMode::Silently => &silent,
