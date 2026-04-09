@@ -9,190 +9,292 @@ use super::{
     programs_tab::ProgramsTab, tabs_tab::TabsTab,
 };
 use crate::{
+    main_win::MainWindow,
     options::{
         ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions, ProgramsOptions,
-        utils::remember_window_size,
+        types::WriteResult, utils::remember_window_size,
     },
+    shortcuts::Area,
+    user_actions::UserAction,
     utils::{SenderExt, WindowExt, dialog_button_box, display_help},
 };
 use gettextrs::gettext;
-use gtk::{glib, prelude::*};
+use gtk::{glib, prelude::*, subclass::prelude::*};
 use std::sync::Mutex;
 
-pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool {
-    let dialog = gtk::Window::builder()
-        .title(gettext("Options"))
-        .transient_for(parent_window)
-        .modal(true)
-        .build();
-    dialog.add_css_class("dialog");
+mod imp {
+    use super::*;
 
-    let content_area = gtk::Box::builder()
-        .orientation(gtk::Orientation::Vertical)
-        .build();
-    dialog.set_child(Some(&content_area));
+    pub struct OptionsDialog {
+        pub(super) notebook: gtk::Notebook,
+        pub(super) general_tab: GeneralTab,
+        pub(super) format_tab: FormatTab,
+        pub(super) layout_tab: LayoutTab,
+        pub(super) tabs_tab: TabsTab,
+        pub(super) confirmation_tab: CondifrmationTab,
+        pub(super) filters_tab: FiltersTab,
+        pub(super) programs_tab: ProgramsTab,
+        pub(super) devices_tab: DevicesTab,
+        sender: async_channel::Sender<bool>,
+        pub(super) receiver: async_channel::Receiver<bool>,
+    }
 
-    let general_options = GeneralOptions::new();
-    let color_options = ColorOptions::new();
-    let confirmation_options = ConfirmOptions::new();
-    let filters_options = FiltersOptions::new();
-    let programs_options = ProgramsOptions::new();
+    #[glib::object_subclass]
+    impl ObjectSubclass for OptionsDialog {
+        const NAME: &'static str = "GnomeCmdOptionsDialog";
+        type Type = super::OptionsDialog;
+        type ParentType = gtk::Window;
 
-    remember_window_size(
-        &dialog,
-        &general_options.options_window_width,
-        &general_options.options_window_height,
-    );
-
-    let notebook = gtk::Notebook::builder().hexpand(true).vexpand(true).build();
-    content_area.append(&notebook);
-
-    let general_tab = GeneralTab::new();
-    general_tab.read(&general_options);
-    let format_tab = FormatTab::new();
-    format_tab.read(&general_options);
-    let layout_tab = LayoutTab::new();
-    layout_tab.read(&general_options, &color_options);
-    let tabs_tab = TabsTab::new();
-    tabs_tab.read(&general_options);
-    let confirmation_tab = CondifrmationTab::new();
-    confirmation_tab.read(&confirmation_options);
-    let filters_tab = FiltersTab::new();
-    filters_tab.read(&filters_options);
-    let programs_tab = ProgramsTab::new();
-    programs_tab.read(&general_options, &programs_options);
-    let devices_tab = DevicesTab::new();
-    devices_tab.read(&general_options);
-
-    notebook.append_page(
-        &general_tab.widget(),
-        Some(&gtk::Label::builder().label(gettext("General")).build()),
-    );
-    notebook.append_page(
-        &format_tab.widget(),
-        Some(&gtk::Label::builder().label(gettext("Format")).build()),
-    );
-    notebook.append_page(
-        &layout_tab.widget(),
-        Some(&gtk::Label::builder().label(gettext("Layout")).build()),
-    );
-    notebook.append_page(
-        &tabs_tab.widget(),
-        Some(&gtk::Label::builder().label(gettext("Tabs")).build()),
-    );
-    notebook.append_page(
-        &confirmation_tab.widget(),
-        Some(&gtk::Label::builder().label(gettext("Confirmation")).build()),
-    );
-    notebook.append_page(
-        &filters_tab.widget(),
-        Some(&gtk::Label::builder().label(gettext("Filters")).build()),
-    );
-    notebook.append_page(
-        &programs_tab.widget(),
-        Some(&gtk::Label::builder().label(gettext("Programs")).build()),
-    );
-    notebook.append_page(
-        &devices_tab.widget(),
-        Some(&gtk::Label::builder().label(gettext("Devices")).build()),
-    );
-
-    let help_button = gtk::Button::builder()
-        .label(gettext("_Help"))
-        .use_underline(true)
-        .build();
-    let cancel_button = gtk::Button::builder()
-        .label(gettext("_Cancel"))
-        .use_underline(true)
-        .build();
-    let ok_button = gtk::Button::builder()
-        .label(gettext("_Save"))
-        .use_underline(true)
-        .build();
-
-    content_area.append(&dialog_button_box(
-        &[&help_button],
-        &[&cancel_button, &ok_button],
-    ));
-    dialog.set_default_widget(Some(&ok_button));
-
-    help_button.connect_clicked(glib::clone!(
-        #[weak]
-        dialog,
-        #[weak]
-        notebook,
-        move |_| {
-            let link_id = match notebook.current_page() {
-                Some(0) => Some("gnome-commander-prefs-general"),
-                Some(1) => Some("gnome-commander-prefs-format"),
-                Some(2) => Some("gnome-commander-prefs-layout"),
-                Some(3) => Some("gnome-commander-prefs-tabs"),
-                Some(4) => Some("gnome-commander-prefs-confirmation"),
-                Some(5) => Some("gnome-commander-prefs-filters"),
-                Some(6) => Some("gnome-commander-prefs-programs"),
-                Some(7) => Some("gnome-commander-prefs-devices"),
-                _ => None,
-            };
-            glib::spawn_future_local(async move {
-                display_help(dialog.upcast_ref(), link_id).await;
+        fn class_init(klass: &mut Self::Class) {
+            klass.install_action(UserAction::ViewNextTab.name(), None, |obj, _, _| {
+                obj.imp().next_tab()
             });
-        }
-    ));
-
-    let (sender, receiver) = async_channel::bounded::<bool>(1);
-
-    cancel_button.connect_clicked(glib::clone!(
-        #[strong]
-        sender,
-        move |_| sender.toss(false)
-    ));
-    ok_button.connect_clicked(glib::clone!(
-        #[strong]
-        sender,
-        move |_| sender.toss(true)
-    ));
-
-    dialog.set_cancel_widget(&cancel_button);
-
-    static LAST_ACTIVE_TAB: Mutex<u32> = Mutex::new(0);
-
-    // open the tab which was active when closing the options notebook last time
-    notebook.set_current_page(LAST_ACTIVE_TAB.lock().map(|g| *g).ok());
-
-    dialog.present();
-
-    let result = receiver.recv().await == Ok(true);
-
-    if result {
-        if let Err(error) = general_tab.write(&general_options) {
-            eprintln!("{error}");
-        }
-        if let Err(error) = format_tab.write(&general_options) {
-            eprintln!("{error}");
-        }
-        if let Err(error) = layout_tab.write(&general_options, &color_options) {
-            eprintln!("{error}");
-        }
-        if let Err(error) = tabs_tab.write(&general_options) {
-            eprintln!("{error}");
-        }
-        if let Err(error) = confirmation_tab.write(&confirmation_options) {
-            eprintln!("{error}");
-        }
-        if let Err(error) = filters_tab.write(&filters_options) {
-            eprintln!("{error}");
-        }
-        if let Err(error) = programs_tab.write(&general_options, &programs_options) {
-            eprintln!("{error}");
-        }
-        if let Err(error) = devices_tab.write(&general_options) {
-            eprintln!("{error}");
-        }
-        if let Ok(mut last_active_tab) = LAST_ACTIVE_TAB.lock() {
-            *last_active_tab = notebook.current_page().unwrap_or_default();
+            klass.install_action(UserAction::ViewPrevTab.name(), None, |obj, _, _| {
+                obj.imp().prev_tab()
+            });
         }
     }
 
+    impl OptionsDialog {
+        fn new() -> Self {
+            let (sender, receiver) = async_channel::bounded(1);
+
+            Self {
+                notebook: gtk::Notebook::builder().hexpand(true).vexpand(true).build(),
+                general_tab: GeneralTab::new(),
+                format_tab: FormatTab::new(),
+                layout_tab: LayoutTab::new(),
+                tabs_tab: TabsTab::new(),
+                confirmation_tab: CondifrmationTab::new(),
+                filters_tab: FiltersTab::new(),
+                programs_tab: ProgramsTab::new(),
+                devices_tab: DevicesTab::new(),
+                sender,
+                receiver,
+            }
+        }
+
+        pub(super) fn activate_page(&self, page: u32) {
+            self.notebook.set_current_page(Some(page));
+            self.notebook.grab_focus();
+            self.notebook.child_focus(gtk::DirectionType::TabForward);
+        }
+
+        pub(super) fn next_tab(&self) {
+            self.activate_page(
+                (self.notebook.current_page().unwrap_or_default() + 1) % self.notebook.n_pages(),
+            );
+        }
+
+        pub(super) fn prev_tab(&self) {
+            let pages = self.notebook.n_pages();
+            self.activate_page(
+                (self.notebook.current_page().unwrap_or_default() + pages - 1) % pages,
+            );
+        }
+    }
+
+    impl Default for OptionsDialog {
+        fn default() -> Self {
+            Self::new()
+        }
+    }
+
+    impl ObjectImpl for OptionsDialog {
+        fn constructed(&self) {
+            self.parent_constructed();
+
+            let obj = self.obj();
+            obj.add_css_class("dialog");
+            obj.set_title(Some(&gettext("Options")));
+            obj.set_modal(true);
+
+            let content_area = gtk::Box::builder()
+                .orientation(gtk::Orientation::Vertical)
+                .build();
+            obj.set_child(Some(&content_area));
+
+            let general_options = GeneralOptions::new();
+            let color_options = ColorOptions::new();
+            let confirmation_options = ConfirmOptions::new();
+            let filters_options = FiltersOptions::new();
+            let programs_options = ProgramsOptions::new();
+
+            remember_window_size(
+                &*obj,
+                &general_options.options_window_width,
+                &general_options.options_window_height,
+            );
+
+            content_area.append(&self.notebook);
+
+            self.general_tab.read(&general_options);
+            self.format_tab.read(&general_options);
+            self.layout_tab.read(&general_options, &color_options);
+            self.tabs_tab.read(&general_options);
+            self.confirmation_tab.read(&confirmation_options);
+            self.filters_tab.read(&filters_options);
+            self.programs_tab.read(&general_options, &programs_options);
+            self.devices_tab.read(&general_options);
+
+            self.notebook.append_page(
+                &self.general_tab.widget(),
+                Some(&gtk::Label::builder().label(gettext("General")).build()),
+            );
+            self.notebook.append_page(
+                &self.format_tab.widget(),
+                Some(&gtk::Label::builder().label(gettext("Format")).build()),
+            );
+            self.notebook.append_page(
+                &self.layout_tab.widget(),
+                Some(&gtk::Label::builder().label(gettext("Layout")).build()),
+            );
+            self.notebook.append_page(
+                &self.tabs_tab.widget(),
+                Some(&gtk::Label::builder().label(gettext("Tabs")).build()),
+            );
+            self.notebook.append_page(
+                &self.confirmation_tab.widget(),
+                Some(&gtk::Label::builder().label(gettext("Confirmation")).build()),
+            );
+            self.notebook.append_page(
+                &self.filters_tab.widget(),
+                Some(&gtk::Label::builder().label(gettext("Filters")).build()),
+            );
+            self.notebook.append_page(
+                &self.programs_tab.widget(),
+                Some(&gtk::Label::builder().label(gettext("Programs")).build()),
+            );
+            self.notebook.append_page(
+                &self.devices_tab.widget(),
+                Some(&gtk::Label::builder().label(gettext("Devices")).build()),
+            );
+
+            let help_button = gtk::Button::builder()
+                .label(gettext("_Help"))
+                .use_underline(true)
+                .build();
+            let cancel_button = gtk::Button::builder()
+                .label(gettext("_Cancel"))
+                .use_underline(true)
+                .build();
+            let ok_button = gtk::Button::builder()
+                .label(gettext("_Save"))
+                .use_underline(true)
+                .build();
+
+            content_area.append(&dialog_button_box(
+                &[&help_button],
+                &[&cancel_button, &ok_button],
+            ));
+
+            help_button.connect_clicked(glib::clone!(
+                #[weak]
+                obj,
+                #[weak(rename_to = notebook)]
+                self.notebook,
+                move |_| {
+                    let link_id = match notebook.current_page() {
+                        Some(0) => Some("gnome-commander-prefs-general"),
+                        Some(1) => Some("gnome-commander-prefs-format"),
+                        Some(2) => Some("gnome-commander-prefs-layout"),
+                        Some(3) => Some("gnome-commander-prefs-tabs"),
+                        Some(4) => Some("gnome-commander-prefs-confirmation"),
+                        Some(5) => Some("gnome-commander-prefs-filters"),
+                        Some(6) => Some("gnome-commander-prefs-programs"),
+                        Some(7) => Some("gnome-commander-prefs-devices"),
+                        _ => None,
+                    };
+                    glib::spawn_future_local(async move {
+                        display_help(obj.upcast_ref(), link_id).await;
+                    });
+                }
+            ));
+
+            cancel_button.connect_clicked(glib::clone!(
+                #[strong(rename_to = sender)]
+                self.sender,
+                move |_| sender.toss(false)
+            ));
+            ok_button.connect_clicked(glib::clone!(
+                #[strong(rename_to = sender)]
+                self.sender,
+                move |_| sender.toss(true)
+            ));
+
+            obj.set_default_widget(Some(&ok_button));
+            obj.set_cancel_widget(&cancel_button);
+        }
+    }
+
+    impl WidgetImpl for OptionsDialog {}
+    impl WindowImpl for OptionsDialog {}
+}
+
+glib::wrapper! {
+    pub struct OptionsDialog(ObjectSubclass<imp::OptionsDialog>)
+        @extends gtk::Widget, gtk::Window,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Root, gtk::Native;
+}
+
+impl OptionsDialog {
+    pub fn notebook(&self) -> &gtk::Notebook {
+        &self.imp().notebook
+    }
+
+    pub fn activate_page(&self, page: u32) {
+        self.imp().activate_page(page);
+    }
+
+    pub fn receiver(&self) -> &async_channel::Receiver<bool> {
+        &self.imp().receiver
+    }
+
+    pub fn save(&self) -> WriteResult {
+        let general_options = GeneralOptions::new();
+        let color_options = ColorOptions::new();
+        let confirmation_options = ConfirmOptions::new();
+        let filters_options = FiltersOptions::new();
+        let programs_options = ProgramsOptions::new();
+
+        self.imp().general_tab.write(&general_options)?;
+        self.imp().format_tab.write(&general_options)?;
+        self.imp()
+            .layout_tab
+            .write(&general_options, &color_options)?;
+        self.imp().tabs_tab.write(&general_options)?;
+        self.imp().confirmation_tab.write(&confirmation_options)?;
+        self.imp().filters_tab.write(&filters_options)?;
+        self.imp()
+            .programs_tab
+            .write(&general_options, &programs_options)?;
+        self.imp().devices_tab.write(&general_options)?;
+        Ok(())
+    }
+}
+
+pub async fn show_options_dialog(parent_window: &MainWindow) -> bool {
+    let dialog: OptionsDialog = glib::Object::builder().build();
+    dialog.set_transient_for(Some(parent_window));
+
+    parent_window
+        .shortcuts()
+        .add_controller(dialog.notebook(), Area::Panel);
+
+    dialog.present();
+
+    // open the tab which was active when closing the options notebook last time
+    static LAST_ACTIVE_TAB: Mutex<u32> = Mutex::new(0);
+    dialog.activate_page(LAST_ACTIVE_TAB.lock().map(|g| *g).unwrap_or_default());
+
+    let result = dialog.receiver().recv().await == Ok(true);
+    if result && let Err(error) = dialog.save() {
+        eprintln!("{error}");
+    }
+
+    if let Ok(mut last_active_tab) = LAST_ACTIVE_TAB.lock() {
+        *last_active_tab = dialog.notebook().current_page().unwrap_or_default();
+    }
     dialog.close();
 
     result
