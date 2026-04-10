@@ -10,9 +10,9 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/"
 "issues/\n"
-"POT-Creation-Date: 2026-04-06 20:37+0000\n"
-"PO-Revision-Date: 2026-04-02 07:19+0200\n"
-"Last-Translator: Марко М. Костић <marko.m.kostic@gmail.com>\n"
+"POT-Creation-Date: 2026-04-07 08:36+0000\n"
+"PO-Revision-Date: 2026-04-10 17:33+0200\n"
+"Last-Translator: Марко Костић <marko.m.kostic@gmail.com>\n"
 "Language-Team: Serbian <gnome-sr@googlegroups.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr ""
 "X-Generator: Poedit 3.9\n"
 
 #: data/org.gnome.gnome-commander.desktop.in:2
-#: data/org.gnome.gnome-commander.metainfo.xml.in:16 src/main_win.rs:266
+#: data/org.gnome.gnome-commander.metainfo.xml.in:16 src/main_win.rs:270
 msgid "GNOME Commander"
 msgstr "Гномов наредник"
 
@@ -1534,8 +1534,8 @@ msgstr "Име ствараоца."
 
 #: plugins/exiv2/exiv2-plugin.cc:69 plugins/taglib/taglib-plugin.cc:173
 #: src/advanced_rename/advanced_rename_dialog.rs:417
-#: src/advanced_rename/profile_component.rs:207
-#: src/advanced_rename/profile_component.rs:661
+#: src/advanced_rename/profile_component.rs:208
+#: src/advanced_rename/profile_component.rs:662
 msgid "Date"
 msgstr "Датум"
 
@@ -3809,7 +3809,7 @@ msgid "What file name should the new archive have?"
 msgstr "Који назив треба да носи нова архива?"
 
 #: plugins/fileroller/file-roller-plugin.cc:434
-#: src/advanced_rename/profile_component.rs:1023
+#: src/advanced_rename/profile_component.rs:1024
 #: src/advanced_rename/regex_dialog.rs:102 src/dialogs/chmod_dialog.rs:134
 #: src/dialogs/chown_dialog.rs:105 src/dialogs/connect_dialog.rs:171
 #: src/dialogs/create_symlink_dialog.rs:38 src/dialogs/delete_dialog.rs:72
@@ -3827,9 +3827,9 @@ msgstr "Који назив треба да носи нова архива?"
 #: src/dialogs/profiles/manage_profiles_dialog.rs:237
 #: src/dialogs/shortcuts_dialog.rs:206 src/dialogs/shortcuts_dialog.rs:677
 #: src/dialogs/transfer_progress_dialog.rs:73 src/dirlist.rs:45
-#: src/file_selector.rs:1573 src/intviewer/search_dialog.rs:49
+#: src/file_selector.rs:1578 src/intviewer/search_dialog.rs:49
 #: src/open_connection.rs:35 src/open_file.rs:23 src/open_file.rs:45
-#: src/user_actions.rs:851
+#: src/user_actions.rs:859
 msgid "_Cancel"
 msgstr "_Откажи"
 
@@ -3854,7 +3854,7 @@ msgid "Extract to “%s”"
 msgstr "Распакуј у „%s“"
 
 #: plugins/fileroller/file-roller-plugin.cc:610
-#: src/advanced_rename/profile_component.rs:193 src/tags/basic.rs:131
+#: src/advanced_rename/profile_component.rs:194 src/tags/basic.rs:131
 msgid "File"
 msgstr "Датотека"
 
@@ -5198,7 +5198,7 @@ msgid "Terms of use."
 msgstr "Услови коришћења."
 
 #: plugins/taglib/taglib-plugin.cc:226
-#: src/advanced_rename/profile_component.rs:692
+#: src/advanced_rename/profile_component.rs:693
 msgid "Time"
 msgstr "Време"
 
@@ -5482,8 +5482,8 @@ msgstr "Резултати"
 #: src/dialogs/profiles/edit_profile_dialog.rs:55
 #: src/dialogs/profiles/manage_profiles_dialog.rs:215
 #: src/dialogs/remote_dialog.rs:151 src/dialogs/shortcuts_dialog.rs:192
-#: src/intviewer/window.rs:883 src/main_win.rs:1528
-#: src/search/search_dialog.rs:357
+#: src/intviewer/window.rs:883 src/main_win.rs:1546
+#: src/search/search_dialog.rs:396
 msgid "_Help"
 msgstr "По_моћ"
 
@@ -5496,7 +5496,7 @@ msgstr "Врати"
 #: src/dialogs/about_plugin.rs:119 src/dialogs/manage_bookmarks_dialog.rs:199
 #: src/dialogs/options/edit_colors_dialog.rs:148
 #: src/dialogs/remote_dialog.rs:163 src/intviewer/window.rs:722
-#: src/plugin_manager.rs:417 src/search/search_dialog.rs:371
+#: src/plugin_manager.rs:417 src/search/search_dialog.rs:410
 msgid "_Close"
 msgstr "_Затвори"
 
@@ -5505,23 +5505,23 @@ msgid "_Apply"
 msgstr "_Примени"
 
 #: src/advanced_rename/advanced_rename_dialog.rs:803
-#: src/search/search_dialog.rs:504
+#: src/search/search_dialog.rs:543
 msgid "New profile"
 msgstr "Нови профил"
 
 #: src/advanced_rename/advanced_rename_dialog.rs:814
 #: src/advanced_rename/advanced_rename_dialog.rs:840
-#: src/search/search_dialog.rs:512
+#: src/search/search_dialog.rs:551
 msgid "Profiles"
 msgstr "Профили"
 
 #: src/advanced_rename/advanced_rename_dialog.rs:1061
-#: src/search/search_dialog.rs:460
+#: src/search/search_dialog.rs:499
 msgid "_Save Profile As…"
 msgstr "_Сачувај профил као…"
 
 #: src/advanced_rename/advanced_rename_dialog.rs:1068
-#: src/search/search_dialog.rs:469
+#: src/search/search_dialog.rs:508
 msgid "_Manage Profiles…"
 msgstr "_Управљај профилима…"
 
@@ -5541,26 +5541,26 @@ msgstr "Својства датотеке"
 msgid "Update file list"
 msgstr "Освежи списак датотека"
 
-#: src/advanced_rename/profile_component.rs:97
+#: src/advanced_rename/profile_component.rs:98
 msgid "Metatag"
 msgstr "Мета ознака"
 
-#: src/advanced_rename/profile_component.rs:113
+#: src/advanced_rename/profile_component.rs:114
 #: src/dialogs/options/apps_widget.rs:68
 #: src/dialogs/options/devices_widget.rs:54 src/dialogs/remote_dialog.rs:118
 msgid "_Add"
 msgstr "_Додај"
 
-#: src/advanced_rename/profile_component.rs:117
+#: src/advanced_rename/profile_component.rs:118
 #: src/dialogs/manage_bookmarks_dialog.rs:65
 #: src/dialogs/options/apps_widget.rs:74
 #: src/dialogs/options/devices_widget.rs:61
 #: src/dialogs/profiles/manage_profiles_dialog.rs:159
-#: src/dialogs/remote_dialog.rs:56 src/main_win.rs:1431
+#: src/dialogs/remote_dialog.rs:56 src/main_win.rs:1449
 msgid "_Edit"
 msgstr "_Уређивање"
 
-#: src/advanced_rename/profile_component.rs:121
+#: src/advanced_rename/profile_component.rs:122
 #: src/dialogs/manage_bookmarks_dialog.rs:70
 #: src/dialogs/options/apps_widget.rs:80
 #: src/dialogs/options/devices_widget.rs:68
@@ -5569,251 +5569,251 @@ msgstr "_Уређивање"
 msgid "_Remove"
 msgstr "_Уклони"
 
-#: src/advanced_rename/profile_component.rs:125
+#: src/advanced_rename/profile_component.rs:126
 msgid "Remove A_ll"
 msgstr "Уклони _све"
 
-#: src/advanced_rename/profile_component.rs:166
+#: src/advanced_rename/profile_component.rs:167
 msgid "_Template"
 msgstr "_Шаблон"
 
-#: src/advanced_rename/profile_component.rs:186
+#: src/advanced_rename/profile_component.rs:187
 msgid "Directory"
 msgstr "Директоријум"
 
-#: src/advanced_rename/profile_component.rs:200
-#: src/advanced_rename/profile_component.rs:240
-#: src/advanced_rename/profile_component.rs:643
+#: src/advanced_rename/profile_component.rs:201
+#: src/advanced_rename/profile_component.rs:241
+#: src/advanced_rename/profile_component.rs:644
 msgid "Counter"
 msgstr "Бројач"
 
-#: src/advanced_rename/profile_component.rs:250
+#: src/advanced_rename/profile_component.rs:251
 msgid "_Start:"
 msgstr "_Почетак:"
 
-#: src/advanced_rename/profile_component.rs:265
+#: src/advanced_rename/profile_component.rs:266
 msgid "Ste_p:"
 msgstr "_Корак:"
 
-#: src/advanced_rename/profile_component.rs:280
+#: src/advanced_rename/profile_component.rs:281
 msgid "Di_gits:"
 msgstr "_Цифре:"
 
-#: src/advanced_rename/profile_component.rs:297
+#: src/advanced_rename/profile_component.rs:298
 msgid "Regex replacing"
 msgstr "Замена регуларним изразима"
 
-#: src/advanced_rename/profile_component.rs:350
+#: src/advanced_rename/profile_component.rs:351
 msgid "Case"
 msgstr "Величина слова"
 
-#: src/advanced_rename/profile_component.rs:361
+#: src/advanced_rename/profile_component.rs:362
 msgid "Trim blanks"
 msgstr "Скрати празнине"
 
-#: src/advanced_rename/profile_component.rs:616
+#: src/advanced_rename/profile_component.rs:617
 msgid "Grandparent"
 msgstr "Велики_родитељ"
 
-#: src/advanced_rename/profile_component.rs:617
+#: src/advanced_rename/profile_component.rs:618
 msgid "Parent"
 msgstr "Родитељ"
 
-#: src/advanced_rename/profile_component.rs:622
+#: src/advanced_rename/profile_component.rs:623
 msgid "File name"
 msgstr "Назив датотеке"
 
-#: src/advanced_rename/profile_component.rs:624
+#: src/advanced_rename/profile_component.rs:625
 msgid "File name (range)"
 msgstr "Назив датотеке (опсег)"
 
-#: src/advanced_rename/profile_component.rs:628
+#: src/advanced_rename/profile_component.rs:629
 msgid "File name without extension"
 msgstr "Назив датотеке без наставка"
 
-#: src/advanced_rename/profile_component.rs:632
+#: src/advanced_rename/profile_component.rs:633
 msgid "File name without extension (range)"
 msgstr "Назив датотеке без наставка (опсег)"
 
-#: src/advanced_rename/profile_component.rs:636
+#: src/advanced_rename/profile_component.rs:637
 msgid "File extension"
 msgstr "Проширење датотеке"
 
-#: src/advanced_rename/profile_component.rs:645
+#: src/advanced_rename/profile_component.rs:646
 msgid "Counter (width)"
 msgstr "Бројач (ширина)"
 
-#: src/advanced_rename/profile_component.rs:649
+#: src/advanced_rename/profile_component.rs:650
 msgid "Counter (auto)"
 msgstr "Бројач (самостално)"
 
-#: src/advanced_rename/profile_component.rs:653
+#: src/advanced_rename/profile_component.rs:654
 msgid "Hexadecimal random number (width)"
 msgstr "Хексадецимални насумични број (ширина)"
 
-#: src/advanced_rename/profile_component.rs:663
-#: src/advanced_rename/profile_component.rs:694
+#: src/advanced_rename/profile_component.rs:664
+#: src/advanced_rename/profile_component.rs:695
 msgid "<locale>"
 msgstr "<месно>"
 
-#: src/advanced_rename/profile_component.rs:665
+#: src/advanced_rename/profile_component.rs:666
 msgid "yyyy-mm-dd"
 msgstr "гггг-мм-дд"
 
-#: src/advanced_rename/profile_component.rs:669
+#: src/advanced_rename/profile_component.rs:670
 msgid "yy-mm-dd"
 msgstr "гг-мм-дд"
 
-#: src/advanced_rename/profile_component.rs:673
+#: src/advanced_rename/profile_component.rs:674
 msgid "yy.mm.dd"
 msgstr "гг.мм.дд"
 
-#: src/advanced_rename/profile_component.rs:676
+#: src/advanced_rename/profile_component.rs:677
 msgid "yymmdd"
 msgstr "ггммдд"
 
-#: src/advanced_rename/profile_component.rs:678
+#: src/advanced_rename/profile_component.rs:679
 msgid "dd.mm.yy"
 msgstr "дд.мм.гг"
 
-#: src/advanced_rename/profile_component.rs:682
+#: src/advanced_rename/profile_component.rs:683
 msgid "mm-dd-yy"
 msgstr "мм-дд-гг"
 
-#: src/advanced_rename/profile_component.rs:685
+#: src/advanced_rename/profile_component.rs:686
 msgid "yyyy"
 msgstr "гггг"
 
-#: src/advanced_rename/profile_component.rs:686
+#: src/advanced_rename/profile_component.rs:687
 msgid "yy"
 msgstr "гг"
 
-#: src/advanced_rename/profile_component.rs:687
+#: src/advanced_rename/profile_component.rs:688
 msgid "mm"
 msgstr "мм"
 
-#: src/advanced_rename/profile_component.rs:688
+#: src/advanced_rename/profile_component.rs:689
 msgid "mmm"
 msgstr "ммм"
 
-#: src/advanced_rename/profile_component.rs:689
+#: src/advanced_rename/profile_component.rs:690
 msgid "dd"
 msgstr "дд"
 
-#: src/advanced_rename/profile_component.rs:696
+#: src/advanced_rename/profile_component.rs:697
 msgid "HH.MM.SS"
 msgstr "ЧЧ.ММ.СС"
 
-#: src/advanced_rename/profile_component.rs:700
+#: src/advanced_rename/profile_component.rs:701
 msgid "HH-MM-SS"
 msgstr "ЧЧ-ММ-СС"
 
-#: src/advanced_rename/profile_component.rs:703
+#: src/advanced_rename/profile_component.rs:704
 msgid "HHMMSS"
 msgstr "ЧЧММСС"
 
-#: src/advanced_rename/profile_component.rs:704
+#: src/advanced_rename/profile_component.rs:705
 msgid "HH"
 msgstr "ЧЧ"
 
-#: src/advanced_rename/profile_component.rs:705
+#: src/advanced_rename/profile_component.rs:706
 msgid "MM"
 msgstr "ММ"
 
-#: src/advanced_rename/profile_component.rs:706
+#: src/advanced_rename/profile_component.rs:707
 msgid "SS"
 msgstr "СС"
 
-#: src/advanced_rename/profile_component.rs:711
+#: src/advanced_rename/profile_component.rs:712
 msgid "auto"
 msgstr "самостално"
 
-#: src/advanced_rename/profile_component.rs:731
+#: src/advanced_rename/profile_component.rs:732
 msgid "Search for"
 msgstr "Потражи"
 
-#: src/advanced_rename/profile_component.rs:740
+#: src/advanced_rename/profile_component.rs:741
 msgid "Replace with"
 msgstr "Замени са"
 
-#: src/advanced_rename/profile_component.rs:749
+#: src/advanced_rename/profile_component.rs:750
 msgid "Match case"
 msgstr "Упореди величину слова"
 
-#: src/advanced_rename/profile_component.rs:833
+#: src/advanced_rename/profile_component.rs:834
 #: src/dialogs/prepare_transfer_dialog.rs:196 src/file_list/actions.rs:72
 msgid "Yes"
 msgstr "Да"
 
-#: src/advanced_rename/profile_component.rs:835
+#: src/advanced_rename/profile_component.rs:836
 #: src/dialogs/prepare_transfer_dialog.rs:196 src/file_list/actions.rs:72
 msgid "No"
 msgstr "Не"
 
-#: src/advanced_rename/profile_component.rs:847
+#: src/advanced_rename/profile_component.rs:848
 #: src/advanced_rename/profile.rs:54
 msgid "<unchanged>"
 msgstr "<неизмењено>"
 
 # ????
-#: src/advanced_rename/profile_component.rs:848
+#: src/advanced_rename/profile_component.rs:849
 #: src/advanced_rename/profile.rs:55
 msgid "lowercase"
 msgstr "мала слова"
 
-#: src/advanced_rename/profile_component.rs:849
+#: src/advanced_rename/profile_component.rs:850
 #: src/advanced_rename/profile.rs:56
 msgid "UPPERCASE"
 msgstr "ВЕЛИКА СЛОВА"
 
-#: src/advanced_rename/profile_component.rs:850
+#: src/advanced_rename/profile_component.rs:851
 #: src/advanced_rename/profile.rs:57
 msgid "Sentence case"
 msgstr "Слова реченице"
 
-#: src/advanced_rename/profile_component.rs:851
+#: src/advanced_rename/profile_component.rs:852
 #: src/advanced_rename/profile.rs:58
 msgid "Initial Caps"
 msgstr "Почетно велико слово"
 
-#: src/advanced_rename/profile_component.rs:852
+#: src/advanced_rename/profile_component.rs:853
 #: src/advanced_rename/profile.rs:59
 msgid "tOGGLE cASE"
 msgstr "иЗМЕНИ вЕЛИЧИНУ сЛОВА"
 
-#: src/advanced_rename/profile_component.rs:858
+#: src/advanced_rename/profile_component.rs:859
 #: src/advanced_rename/profile.rs:102
 msgid "<none>"
 msgstr "<ништа>"
 
-#: src/advanced_rename/profile_component.rs:859
+#: src/advanced_rename/profile_component.rs:860
 #: src/advanced_rename/profile.rs:103
 msgid "leading"
 msgstr "водећи"
 
-#: src/advanced_rename/profile_component.rs:860
+#: src/advanced_rename/profile_component.rs:861
 #: src/advanced_rename/profile.rs:104
 msgid "trailing"
 msgstr "пратећи"
 
-#: src/advanced_rename/profile_component.rs:861
+#: src/advanced_rename/profile_component.rs:862
 #: src/advanced_rename/profile.rs:105
 msgid "leading and trailing"
 msgstr "водећи и пратећи"
 
-#: src/advanced_rename/profile_component.rs:983
+#: src/advanced_rename/profile_component.rs:984
 msgid "Range Selection"
 msgstr "Избор опсега"
 
-#: src/advanced_rename/profile_component.rs:1006
+#: src/advanced_rename/profile_component.rs:1007
 msgid "_Select range:"
 msgstr "Изабери _опсег:"
 
-#: src/advanced_rename/profile_component.rs:1015
+#: src/advanced_rename/profile_component.rs:1016
 msgid "_Inverse selection"
 msgstr "_Преокрени избор"
 
-#: src/advanced_rename/profile_component.rs:1037
+#: src/advanced_rename/profile_component.rs:1038
 msgid "_Insert"
 msgstr "Уметн_и"
 
@@ -5908,11 +5908,11 @@ msgstr "Текстуални преглед:"
 msgid "Number view:"
 msgstr "Бројевни преглед:"
 
-#: src/command_line.rs:50 src/user_actions.rs:1658
+#: src/command_line.rs:50 src/user_actions.rs:1672
 msgid "_Copy"
 msgstr "_Умножи"
 
-#: src/command_line.rs:51 src/user_actions.rs:1664
+#: src/command_line.rs:51 src/user_actions.rs:1678
 msgid "_Paste"
 msgstr "_Убаци"
 
@@ -6288,8 +6288,8 @@ msgid "Do you really want to delete “{}”?"
 msgstr "Да ли заиста желите да обришете „{}“?"
 
 #: src/dialogs/delete_dialog.rs:177 src/dialogs/delete_dialog.rs:512
-#: src/dialogs/shortcuts_dialog.rs:745 src/user_actions.rs:399
-#: src/user_actions.rs:446
+#: src/dialogs/shortcuts_dialog.rs:745 src/user_actions.rs:407
+#: src/user_actions.rs:454
 msgid "Cancel"
 msgstr "Откажи"
 
@@ -6298,7 +6298,7 @@ msgstr "Откажи"
 #: src/dialogs/options/confirmation_tab.rs:111
 #: src/dialogs/prepare_copy_dialog.rs:62 src/dialogs/prepare_move_dialog.rs:62
 #: src/transfer.rs:455 src/transfer.rs:495 src/transfer.rs:556
-#: src/transfer.rs:669 src/user_actions.rs:397
+#: src/transfer.rs:669 src/user_actions.rs:405
 msgid "Skip"
 msgstr "Прескочи"
 
@@ -6329,7 +6329,7 @@ msgstr "Прекини"
 
 #: src/dialogs/delete_dialog.rs:218 src/transfer.rs:455 src/transfer.rs:491
 #: src/transfer.rs:508 src/transfer.rs:553 src/transfer.rs:571
-#: src/transfer.rs:666 src/transfer.rs:684 src/user_actions.rs:400
+#: src/transfer.rs:666 src/transfer.rs:684 src/user_actions.rs:408
 msgid "Retry"
 msgstr "Понови"
 
@@ -6495,7 +6495,7 @@ msgstr "_Горе"
 msgid "_Down"
 msgstr "_Доле"
 
-#: src/dialogs/manage_bookmarks_dialog.rs:85 src/search/search_dialog.rs:277
+#: src/dialogs/manage_bookmarks_dialog.rs:85 src/search/search_dialog.rs:304
 msgid "_Jump to"
 msgstr "_Иди на"
 
@@ -6953,7 +6953,7 @@ msgstr "Један клик поништава избор датотека"
 msgid "Middle mouse button"
 msgstr "Средње дугме миша"
 
-#: src/dialogs/options/general_tab.rs:92 src/user_actions.rs:1750
+#: src/dialogs/options/general_tab.rs:92 src/user_actions.rs:1764
 msgid "Up one directory"
 msgstr "Идите један директоријум горе"
 
@@ -7502,7 +7502,7 @@ msgstr[1] "{} датотеке су наведене"
 msgstr[2] "{} датотека је наведено"
 msgstr[3] "{} датотека је наведена"
 
-#: src/dir.rs:204
+#: src/dir.rs:216
 msgid "Directory listing failed."
 msgstr "Навођење директоријума није успело."
 
@@ -7543,74 +7543,74 @@ msgstr "Преузимање није успело."
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Не могу да набавим МИМЕ врсту датотеке."
 
-#: src/file_list/list.rs:323 src/file_list/list.rs:1548
+#: src/file_list/list.rs:323 src/file_list/list.rs:1541
 msgid "name"
 msgstr "назив"
 
-#: src/file_list/list.rs:329 src/file_list/list.rs:1549
+#: src/file_list/list.rs:329 src/file_list/list.rs:1542
 msgid "ext"
 msgstr "прош"
 
-#: src/file_list/list.rs:335 src/file_list/list.rs:1550
+#: src/file_list/list.rs:335 src/file_list/list.rs:1543
 msgid "dir"
 msgstr "дир"
 
-#: src/file_list/list.rs:341 src/file_list/list.rs:1551
+#: src/file_list/list.rs:341 src/file_list/list.rs:1544
 msgid "size"
 msgstr "влчна"
 
-#: src/file_list/list.rs:347 src/file_list/list.rs:1552
+#: src/file_list/list.rs:347 src/file_list/list.rs:1545
 msgid "date"
 msgstr "датум"
 
-#: src/file_list/list.rs:353 src/file_list/list.rs:1553
+#: src/file_list/list.rs:353 src/file_list/list.rs:1546
 msgid "perm"
 msgstr "овлашћ"
 
 # кориснички идентификациони број
-#: src/file_list/list.rs:359 src/file_list/list.rs:1554
+#: src/file_list/list.rs:359 src/file_list/list.rs:1547
 msgid "uid"
 msgstr "киб"
 
 # групни идентификациони број
-#: src/file_list/list.rs:365 src/file_list/list.rs:1555
+#: src/file_list/list.rs:365 src/file_list/list.rs:1548
 msgid "gid"
 msgstr "гиб"
 
-#: src/file_list/list.rs:1446
+#: src/file_list/list.rs:1439
 msgid "_Copy here"
 msgstr "_Умножи овде"
 
-#: src/file_list/list.rs:1460
+#: src/file_list/list.rs:1453
 msgid "_Move here"
 msgstr "_Премести овде"
 
-#: src/file_list/list.rs:1474
+#: src/file_list/list.rs:1467
 msgid "_Link here"
 msgstr "_Повежи овде"
 
-#: src/file_list/list.rs:1489
+#: src/file_list/list.rs:1482
 msgid "C_ancel"
 msgstr "Отк_ажи"
 
-#: src/file_list/list.rs:2038 src/file_list/list.rs:2061
+#: src/file_list/list.rs:2032 src/file_list/list.rs:2055
 msgid "Current directory is not set."
 msgstr "Тренутни директоријум није подешен."
 
-#: src/file_list/list.rs:2043
+#: src/file_list/list.rs:2037
 msgid "No parent directory"
 msgstr "Нема родитељског директоријума"
 
-#: src/file_list/list.rs:2055
+#: src/file_list/list.rs:2049
 msgid "No SAMBA connection is available"
 msgstr "САМБА веза није доступна"
 
-#: src/file_list/list.rs:2154
+#: src/file_list/list.rs:2148
 #, rust-format
 msgid "A total of {selected_bytes} has been selected."
 msgstr "Укупно је изабрано {selected_bytes}."
 
-#: src/file_list/list.rs:2160
+#: src/file_list/list.rs:2154
 #, rust-format
 msgid "{selected_files} file selected."
 msgid_plural "{selected_files} files selected."
@@ -7619,7 +7619,7 @@ msgstr[1] "{selected_files} изабране датотеке."
 msgstr[2] "{selected_files} изабраних датотека."
 msgstr[3] "{selected_files} изабрана датотека."
 
-#: src/file_list/list.rs:2167
+#: src/file_list/list.rs:2161
 #, rust-format
 msgid "{selected_dirs} directory selected."
 msgid_plural "{selected_dirs} directories selected."
@@ -7628,12 +7628,12 @@ msgstr[1] "{selected_dirs} изабрана директоријума."
 msgstr[2] "{selected_dirs} изабраних директоријума."
 msgstr[3] "{selected_dirs} изабран директоријум."
 
-#: src/file_list/list.rs:2223
+#: src/file_list/list.rs:2217
 #, rust-format
 msgid "Cannot rename a file to {new_name}"
 msgstr "Не могу да преименујем датотеку у {new_name}"
 
-#: src/file_list/list.rs:2704
+#: src/file_list/list.rs:2698
 msgid "<DIR>"
 msgstr "<ДИР>"
 
@@ -7672,63 +7672,63 @@ msgstr "Вредност"
 msgid "Failed to get file info for {path}."
 msgstr "Нисам успео да добавим податке о датотеци за {path}."
 
-#: src/file_selector.rs:1181
+#: src/file_selector.rs:1182
 msgid "Add current dir"
 msgstr "Додајте текући директоријум"
 
-#: src/file_selector.rs:1183
+#: src/file_selector.rs:1184
 msgid "Manage bookmarks…"
 msgstr "Управљај обележивачима…"
 
-#: src/file_selector.rs:1336
+#: src/file_selector.rs:1337
 msgid "%s free"
 msgstr "%s слободно"
 
-#: src/file_selector.rs:1342
+#: src/file_selector.rs:1343
 msgid "Unknown disk usage"
 msgstr "Непозната употреба диска"
 
-#: src/file_selector.rs:1572 src/user_actions.rs:850
+#: src/file_selector.rs:1577 src/user_actions.rs:858
 msgid "The tab is locked, close anyway?"
 msgstr "Језичак је закључан, да ипак затворим?"
 
-#: src/file_selector.rs:1573 src/user_actions.rs:851
+#: src/file_selector.rs:1578 src/user_actions.rs:859
 msgid "C_lose Tab"
 msgstr "_Затвори језичак"
 
-#: src/file_selector.rs:1614 src/user_actions.rs:1840
+#: src/file_selector.rs:1619 src/user_actions.rs:1854
 msgid "Open in New _Tab"
 msgstr "Отвори у новом _језичку"
 
-#: src/file_selector.rs:1623
+#: src/file_selector.rs:1628
 msgid "_Unlock Tab"
 msgstr "_Откључај језичак"
 
-#: src/file_selector.rs:1625
+#: src/file_selector.rs:1630
 msgid "_Lock Tab"
 msgstr "_Закључај језичак"
 
-#: src/file_selector.rs:1637
+#: src/file_selector.rs:1642
 msgid "_Refresh Tab"
 msgstr "Освежи _језичак"
 
-#: src/file_selector.rs:1646
+#: src/file_selector.rs:1651
 msgid "Copy Tab to Other _Panel"
 msgstr "Умножи језичак у д_руго окно"
 
-#: src/file_selector.rs:1652 src/user_actions.rs:1846
+#: src/file_selector.rs:1657 src/user_actions.rs:1860
 msgid "_Close Tab"
 msgstr "_Затвори језичак"
 
-#: src/file_selector.rs:1656 src/user_actions.rs:1852
+#: src/file_selector.rs:1661 src/user_actions.rs:1866
 msgid "Close _All Tabs"
 msgstr "Затвори _све језичке"
 
-#: src/file_selector.rs:1660
+#: src/file_selector.rs:1665
 msgid "Close _Duplicate Tabs"
 msgstr "Затвори _удвостручене језичке"
 
-#: src/file_selector.rs:1688
+#: src/file_selector.rs:1693
 msgid "Filter:"
 msgstr "Пропусник:"
 
@@ -7753,7 +7753,7 @@ msgstr "П_ретрага"
 msgid "Find"
 msgstr "Нађи"
 
-#: src/intviewer/search_progress_dialog.rs:32 src/search/search_dialog.rs:282
+#: src/intviewer/search_progress_dialog.rs:32 src/search/search_dialog.rs:309
 msgid "_Stop"
 msgstr "_Стани"
 
@@ -7811,11 +7811,11 @@ msgstr "_Умножи избор"
 msgid "Pattern “{}” was not found"
 msgstr "Образац „{}“ није пронађен"
 
-#: src/intviewer/window.rs:721 src/main_win.rs:1408
+#: src/intviewer/window.rs:721 src/main_win.rs:1426
 msgid "_File"
 msgstr "_Датотека"
 
-#: src/intviewer/window.rs:725 src/main_win.rs:1460
+#: src/intviewer/window.rs:725 src/main_win.rs:1478
 msgid "_View"
 msgstr "Пре_глед"
 
@@ -7975,7 +7975,7 @@ msgstr "Изврни _усправно"
 msgid "Flip _Horizontal"
 msgstr "Изврни _водоравно"
 
-#: src/intviewer/window.rs:847 src/main_win.rs:1495
+#: src/intviewer/window.rs:847 src/main_win.rs:1513
 msgid "_Settings"
 msgstr "_Подешавања"
 
@@ -8007,63 +8007,63 @@ msgstr "_Хексадецимални померај"
 msgid "Quick _Help"
 msgstr "Брза _помоћ"
 
-#: src/intviewer/window.rs:886 src/user_actions.rs:2051
+#: src/intviewer/window.rs:886 src/user_actions.rs:2065
 msgid "_Keyboard Shortcuts"
 msgstr "_Пречице тастатуре"
 
-#: src/main_win.rs:222
+#: src/main_win.rs:226
 msgid "F3 View"
 msgstr "Ф3 погледај"
 
-#: src/main_win.rs:223
+#: src/main_win.rs:227
 msgid "F4 Edit"
 msgstr "Ф4 уреди"
 
-#: src/main_win.rs:224
+#: src/main_win.rs:228
 msgid "F5 Copy"
 msgstr "Ф5 умножи"
 
-#: src/main_win.rs:225
+#: src/main_win.rs:229
 msgid "F6 Move"
 msgstr "Ф6 премести"
 
-#: src/main_win.rs:226
+#: src/main_win.rs:230
 msgid "F7 Mkdir"
 msgstr "Ф7 направи_дир"
 
-#: src/main_win.rs:227
+#: src/main_win.rs:231
 msgid "F8 Delete"
 msgstr "Ф8 обриши"
 
-#: src/main_win.rs:228
+#: src/main_win.rs:232
 msgid "F9 Search"
 msgstr "Ф9 протражи"
 
-#: src/main_win.rs:264
+#: src/main_win.rs:268
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "Гномов наредник — ОВЛАШЋЕЊА АДМИНИСТРАТОРА"
 
-#: src/main_win.rs:649
+#: src/main_win.rs:656
 msgid "Drop connection"
 msgstr "Прекините везу"
 
-#: src/main_win.rs:1234
+#: src/main_win.rs:1252
 msgid "Failed starting shell"
 msgstr "Није успело покретање шкољке"
 
-#: src/main_win.rs:1443
+#: src/main_win.rs:1461
 msgid "_Mark"
 msgstr "О_значи"
 
-#: src/main_win.rs:1501
+#: src/main_win.rs:1519
 msgid "_Connections"
 msgstr "_Везе"
 
-#: src/main_win.rs:1512
+#: src/main_win.rs:1530
 msgid "_Bookmarks"
 msgstr "О_бележивачи"
 
-#: src/main_win.rs:1522
+#: src/main_win.rs:1540
 msgid "_Plugins"
 msgstr "Пр_икључци"
 
@@ -8153,23 +8153,23 @@ msgstr "Претражујем у: {}"
 msgid "Invalid text content regular expression."
 msgstr "Неисправан регуларни израз садржаја текста."
 
-#: src/search/search_dialog.rs:271
+#: src/search/search_dialog.rs:298
 msgid "Pr_ofiles…"
 msgstr "Пр_офили…"
 
-#: src/search/search_dialog.rs:287
+#: src/search/search_dialog.rs:314
 msgid "_Find"
 msgstr "_Нађи"
 
-#: src/search/search_dialog.rs:308
+#: src/search/search_dialog.rs:335
 msgid "Search…"
 msgstr "Тражи…"
 
-#: src/search/search_dialog.rs:316
+#: src/search/search_dialog.rs:343
 msgid "_Look in folder:"
 msgstr "_Тражи у фасцикли:"
 
-#: src/search/search_dialog.rs:659
+#: src/search/search_dialog.rs:703
 #, rust-format
 msgid "Found {} match — search aborted"
 msgid_plural "Found {} matches — search aborted"
@@ -8178,7 +8178,7 @@ msgstr[1] "Пронашао сам {} поклапања - претрага је
 msgstr[2] "Пронашао сам {} поклапања - претрага је прекинута"
 msgstr[3] "Пронашао сам {} поклапања - претрага је прекинута"
 
-#: src/search/search_dialog.rs:664
+#: src/search/search_dialog.rs:708
 #, rust-format
 msgid "Found {} match"
 msgid_plural "Found {} matches"
@@ -8259,7 +8259,7 @@ msgstr "Није дата исправна наредба."
 msgid "Bad command template."
 msgstr "Лош шаблон наредбе."
 
-#: src/spawn.rs:133 src/user_actions.rs:177
+#: src/spawn.rs:133 src/user_actions.rs:185
 msgid "Unable to execute command."
 msgstr "Не могу да извршим наредбу."
 
@@ -8389,7 +8389,7 @@ msgid "Rename all"
 msgstr "Преименуј све"
 
 #: src/transfer.rs:496 src/transfer.rs:559 src/transfer.rs:672
-#: src/user_actions.rs:398
+#: src/user_actions.rs:406
 msgid "Skip all"
 msgstr "Прескочи све"
 
@@ -8463,35 +8463,35 @@ msgctxt ""
 msgid "{name} (Copy {number})"
 msgstr "{name} (копија {number})"
 
-#: src/user_actions.rs:164
+#: src/user_actions.rs:172
 msgid "No search command given."
 msgstr "Није дата наредба претраге."
 
-#: src/user_actions.rs:165
+#: src/user_actions.rs:173
 msgid "You can set a command for a search tool in the program options."
 msgstr "Можете да поставите наредбу за алат претраге у опцијама програма."
 
-#: src/user_actions.rs:277
+#: src/user_actions.rs:285
 msgid "Operation not supported on remote file systems"
 msgstr "Радња није подржана на удаљеним системима датотека"
 
-#: src/user_actions.rs:302
+#: src/user_actions.rs:310
 msgid "No file selected"
 msgstr "Није изабрана ниједна датотека"
 
-#: src/user_actions.rs:315
+#: src/user_actions.rs:323
 msgid "Too many selected files"
 msgstr "Превише изабраних датотека"
 
-#: src/user_actions.rs:339
+#: src/user_actions.rs:347
 msgid "Nothing to compare"
 msgstr "Ништа за упоређивање"
 
-#: src/user_actions.rs:361
+#: src/user_actions.rs:369
 msgid "link to %s"
 msgstr "веза до „%s“"
 
-#: src/user_actions.rs:436
+#: src/user_actions.rs:444
 #, rust-format
 msgid "Create symbolic links of {count} file in {dir}?"
 msgid_plural "Create symbolic links of {count} files in {dir}?"
@@ -8500,15 +8500,15 @@ msgstr[1] "Да направим симболичке везе за {count} да
 msgstr[2] "Да направим симболичке везе за {count} датотека у „{dir}“?"
 msgstr[3] "Да направи  симболичке везе за {count} датотеку у „{dir}“?"
 
-#: src/user_actions.rs:446
+#: src/user_actions.rs:454
 msgid "Create"
 msgstr "Направи"
 
-#: src/user_actions.rs:489
+#: src/user_actions.rs:497
 msgid "Warning"
 msgstr "Упозорење"
 
-#: src/user_actions.rs:489
+#: src/user_actions.rs:497
 msgid ""
 "The default send-to command only supports one selected file at a time. You "
 "can change the command in the program options."
@@ -8516,23 +8516,23 @@ msgstr ""
 "Основна наредба слања ка подржава само једну изабрану датотеку у исто време. "
 "Можете изменити наредбу у опцијама програм."
 
-#: src/user_actions.rs:703
+#: src/user_actions.rs:711
 msgid "Terminal command is not configured properly."
 msgstr "Наредба терминала није исправно подешена."
 
-#: src/user_actions.rs:1153
+#: src/user_actions.rs:1161
 msgid "There was an error opening home page."
 msgstr "Дошло је до грешке отварања личне странице."
 
-#: src/user_actions.rs:1164
+#: src/user_actions.rs:1172
 msgid "There was an error reporting problem."
 msgstr "Дошло је до грешке извештавања о проблему."
 
-#: src/user_actions.rs:1199
+#: src/user_actions.rs:1207
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Брз и моћан управник датотекама за Гномово радно окружење"
 
-#: src/user_actions.rs:1206
+#: src/user_actions.rs:1214
 msgid "translator-credits"
 msgstr ""
 "  Данило Шеган <dsegan@gmx.net>\n"
@@ -8541,398 +8541,402 @@ msgstr ""
 "\n"
 "https://гном.срб — превод на српски језик"
 
-#: src/user_actions.rs:1446
+#: src/user_actions.rs:1454
 msgid "Copy Files"
 msgstr "Умножи датотеке"
 
-#: src/user_actions.rs:1452
+#: src/user_actions.rs:1460
 msgid "Copy files with rename"
 msgstr "Умножите датотеке са преименовањем"
 
-#: src/user_actions.rs:1458
+#: src/user_actions.rs:1466
 msgid "Move Files"
 msgstr "Премести датотеке"
 
-#: src/user_actions.rs:1464
+#: src/user_actions.rs:1472
 msgid "_Delete"
 msgstr "_Обриши"
 
-#: src/user_actions.rs:1470
+#: src/user_actions.rs:1478
+msgid "Delete Permanently"
+msgstr "Трајно обриши"
+
+#: src/user_actions.rs:1484
 msgid "View File"
 msgstr "Погледај датотеку"
 
-#: src/user_actions.rs:1476
+#: src/user_actions.rs:1490
 msgid "View with internal viewer"
 msgstr "Прикажите унутрашњим прегледачем"
 
-#: src/user_actions.rs:1482
+#: src/user_actions.rs:1496
 msgid "View with external viewer"
 msgstr "Прикажите спољним прегледачем"
 
-#: src/user_actions.rs:1488
+#: src/user_actions.rs:1502
 msgid "Edit (SHIFT for new document)"
 msgstr "Уредите (ПОМАК за нови документ)"
 
-#: src/user_actions.rs:1494
+#: src/user_actions.rs:1508
 msgid "New _Text File"
 msgstr "Нова _текстуална датотека"
 
-#: src/user_actions.rs:1500
+#: src/user_actions.rs:1514
 msgid "_Search…"
 msgstr "_Тражи…"
 
-#: src/user_actions.rs:1506
+#: src/user_actions.rs:1520
 msgid "_Quick Search…"
 msgstr "_Брза претрага…"
 
-#: src/user_actions.rs:1512
+#: src/user_actions.rs:1526
 msgid "Change Per_missions"
 msgstr "Промени _овлашћења"
 
-#: src/user_actions.rs:1518
+#: src/user_actions.rs:1532
 msgid "Change _Owner/Group"
 msgstr "Промени _власника/групу"
 
-#: src/user_actions.rs:1524
+#: src/user_actions.rs:1538
 msgid "New _Directory"
 msgstr "Нови _директоријум"
 
-#: src/user_actions.rs:1530
+#: src/user_actions.rs:1544
 msgid "_Properties…"
 msgstr "_Својства…"
 
-#: src/user_actions.rs:1536
+#: src/user_actions.rs:1550
 msgid "_Diff"
 msgstr "_Разлике"
 
 # bug: directries -> directories
-#: src/user_actions.rs:1542
+#: src/user_actions.rs:1556
 msgid "S_ynchronize Directories"
 msgstr "Усагласи _директоријуме"
 
-#: src/user_actions.rs:1548
+#: src/user_actions.rs:1562
 msgid "_Rename"
 msgstr "П_реименуј"
 
-#: src/user_actions.rs:1554
+#: src/user_actions.rs:1568
 msgid "Create _Symbolic Link"
 msgstr "Направи _симболичку везу"
 
-#: src/user_actions.rs:1560
+#: src/user_actions.rs:1574
 msgid "Advanced _Rename Tool"
 msgstr "Напредни алат за _преименовање"
 
-#: src/user_actions.rs:1566
+#: src/user_actions.rs:1580
 msgid "_Send Files"
 msgstr "Пошаљи _датотеке"
 
-#: src/user_actions.rs:1572
+#: src/user_actions.rs:1586
 msgid "Quit"
 msgstr "Завршите"
 
-#: src/user_actions.rs:1579
+#: src/user_actions.rs:1593
 msgid "Toggle selection"
 msgstr "Пребаците избор"
 
-#: src/user_actions.rs:1585
+#: src/user_actions.rs:1599
 msgid "Toggle selection and move cursor downward"
 msgstr "Пребаците избор и преместите курсор на доле"
 
-#: src/user_actions.rs:1591
+#: src/user_actions.rs:1605
 msgid "_Select All"
 msgstr "Изабери _све"
 
-#: src/user_actions.rs:1597
+#: src/user_actions.rs:1611
 msgid "_Unselect All"
 msgstr "_Поништи све"
 
-#: src/user_actions.rs:1603
+#: src/user_actions.rs:1617
 msgid "Select all _Files"
 msgstr "Изабери све _датотеке"
 
-#: src/user_actions.rs:1609
+#: src/user_actions.rs:1623
 msgid "Unselect all Fi_les"
 msgstr "Поништи избор _свих датотека"
 
-#: src/user_actions.rs:1615
+#: src/user_actions.rs:1629
 msgid "Select with _Pattern"
 msgstr "Изабери према о_брасцу"
 
-#: src/user_actions.rs:1621
+#: src/user_actions.rs:1635
 msgid "Unselect with P_attern"
 msgstr "Поништи избор према об_расцу"
 
-#: src/user_actions.rs:1627
+#: src/user_actions.rs:1641
 msgid "_Invert Selection"
 msgstr "_Обрни избор"
 
-#: src/user_actions.rs:1633
+#: src/user_actions.rs:1647
 msgid "Select with same _Extension"
 msgstr "Изабери са истим _проширењем"
 
-#: src/user_actions.rs:1639
+#: src/user_actions.rs:1653
 msgid "Unselect with same E_xtension"
 msgstr "Поништи избор са _истим проширењем"
 
 # bug: directries -> directories
-#: src/user_actions.rs:1645
+#: src/user_actions.rs:1659
 msgid "_Compare Directories"
 msgstr "Пореди _директоријуме"
 
-#: src/user_actions.rs:1652
+#: src/user_actions.rs:1666
 msgid "Cu_t"
 msgstr "_Исеци"
 
-#: src/user_actions.rs:1670
+#: src/user_actions.rs:1684
 msgid "_Enable Filter…"
 msgstr "_Укључи филтер…"
 
-#: src/user_actions.rs:1676
+#: src/user_actions.rs:1690
 msgid "Copy _File Names (SHIFT for full paths, ALT for URIs)"
 msgstr "Умножи _називе датотека (SHIFT за пуне путање, ALT за URI-је)"
 
-#: src/user_actions.rs:1683
+#: src/user_actions.rs:1697
 msgid "Execute command"
 msgstr "Извршите наредбу"
 
-#: src/user_actions.rs:1689
+#: src/user_actions.rs:1703
 msgid "Open _Terminal"
 msgstr "Отвори _терминал"
 
-#: src/user_actions.rs:1696
+#: src/user_actions.rs:1710
 msgid "Show Device Buttons"
 msgstr "Прикажи дугмад уређаја"
 
-#: src/user_actions.rs:1702
+#: src/user_actions.rs:1716
 msgid "Show Device List"
 msgstr "Прикажи списак уређаја"
 
-#: src/user_actions.rs:1708
+#: src/user_actions.rs:1722
 msgid "Show Toolbar"
 msgstr "Прикажи траку алата"
 
-#: src/user_actions.rs:1714
+#: src/user_actions.rs:1728
 msgid "Show Buttonbar"
 msgstr "Прикажи траку дугмади"
 
-#: src/user_actions.rs:1720
+#: src/user_actions.rs:1734
 msgid "Show Command Line"
 msgstr "Прикажи линију наредби"
 
-#: src/user_actions.rs:1726
+#: src/user_actions.rs:1740
 msgid "Show Directory History"
 msgstr "Прикажите историјат директоријума"
 
-#: src/user_actions.rs:1732
+#: src/user_actions.rs:1746
 msgid "Show Command Line History"
 msgstr "Прикажи историјат линије наредби"
 
-#: src/user_actions.rs:1738
+#: src/user_actions.rs:1752
 msgid "Show Hidden Files"
 msgstr "Прикажи скривене датотеке"
 
-#: src/user_actions.rs:1744
+#: src/user_actions.rs:1758
 msgid "Show Backup Files"
 msgstr "Прикажи резервне датотеке"
 
-#: src/user_actions.rs:1756
+#: src/user_actions.rs:1770
 msgid "Back to oldest"
 msgstr "Назад на најстарије"
 
-#: src/user_actions.rs:1762
+#: src/user_actions.rs:1776
 msgid "_Back"
 msgstr "На_зад"
 
-#: src/user_actions.rs:1768
+#: src/user_actions.rs:1782
 msgid "_Forward"
 msgstr "На_пред"
 
-#: src/user_actions.rs:1774
+#: src/user_actions.rs:1788
 msgid "Forward to latest"
 msgstr "Напред на најновије"
 
-#: src/user_actions.rs:1780
+#: src/user_actions.rs:1794
 msgid "_Refresh"
 msgstr "_Освежи"
 
-#: src/user_actions.rs:1786
+#: src/user_actions.rs:1800
 msgid "_Equal Panel Size"
 msgstr "_Иста величина окна"
 
-#: src/user_actions.rs:1792
+#: src/user_actions.rs:1806
 msgid "Maximize Panel Size"
 msgstr "Увећај величину окна"
 
-#: src/user_actions.rs:1798
+#: src/user_actions.rs:1812
 msgid "Open directory in the left panel"
 msgstr "Отвори директоријум у левом окну"
 
-#: src/user_actions.rs:1804
+#: src/user_actions.rs:1818
 msgid "Open directory in the right panel"
 msgstr "Отвори директоријум у десном окну"
 
-#: src/user_actions.rs:1810
+#: src/user_actions.rs:1824
 msgid "Open directory in the active panel"
 msgstr "Отвори директоријум у активном окну"
 
-#: src/user_actions.rs:1816
+#: src/user_actions.rs:1830
 msgid "Open directory in the inactive panel"
 msgstr "Отвори директоријум у неактивном окну"
 
-#: src/user_actions.rs:1822
+#: src/user_actions.rs:1836
 msgid "Change directory"
 msgstr "Измените директоријум"
 
-#: src/user_actions.rs:1828
+#: src/user_actions.rs:1842
 msgid "Home directory"
 msgstr "Лични директоријум"
 
-#: src/user_actions.rs:1834
+#: src/user_actions.rs:1848
 msgid "Root directory"
 msgstr "Корени директоријум"
 
-#: src/user_actions.rs:1858
+#: src/user_actions.rs:1872
 msgid "Close duplicate tabs"
 msgstr "Затвори удвостручене језичке"
 
-#: src/user_actions.rs:1864
+#: src/user_actions.rs:1878
 msgid "Previous tab"
 msgstr "Претходни језичак"
 
-#: src/user_actions.rs:1870
+#: src/user_actions.rs:1884
 msgid "Next tab"
 msgstr "Следећи језичак"
 
-#: src/user_actions.rs:1876
+#: src/user_actions.rs:1890
 msgid "Open directory in the new tab"
 msgstr "Отворите директоријум у новом језичку"
 
-#: src/user_actions.rs:1882
+#: src/user_actions.rs:1896
 msgid "Open directory in the new tab (inactive panel)"
 msgstr "Отвори директоријум у новом језичку (неактивно окно)"
 
-#: src/user_actions.rs:1888
+#: src/user_actions.rs:1902
 msgid "Lock/unlock tab"
 msgstr "Закључајте/откључајте језичак"
 
-#: src/user_actions.rs:1894
+#: src/user_actions.rs:1908
 msgid "Horizontal Orientation"
 msgstr "Водоравно усмерење"
 
-#: src/user_actions.rs:1900
+#: src/user_actions.rs:1914
 msgid "Display main menu"
 msgstr "Прикажи главни изборник"
 
-#: src/user_actions.rs:1906
+#: src/user_actions.rs:1920
 msgid "Move cursor one step up"
 msgstr "Померите курсор један корак горе"
 
-#: src/user_actions.rs:1912
+#: src/user_actions.rs:1926
 msgid "Move cursor one step down"
 msgstr "Померите курсор један корак доле"
 
-#: src/user_actions.rs:1918
+#: src/user_actions.rs:1932
 msgid "Switch to Opposite Panel"
 msgstr "Пребаци се на супротно окно"
 
-#: src/user_actions.rs:1924
+#: src/user_actions.rs:1938
 msgid "Swap panels"
 msgstr "Размени окна"
 
-#: src/user_actions.rs:1930
+#: src/user_actions.rs:1944
 msgid "Show panel size selector"
 msgstr "Прикажи бирач величине окна"
 
-#: src/user_actions.rs:1943
+#: src/user_actions.rs:1957
 msgid "_Bookmark this Directory…"
 msgstr "_Обележи овај директоријум…"
 
-#: src/user_actions.rs:1949
+#: src/user_actions.rs:1963
 msgid "_Manage Bookmarks…"
 msgstr "_Управљај обележивачима…"
 
-#: src/user_actions.rs:1955
+#: src/user_actions.rs:1969
 msgid "Go to bookmarked location"
 msgstr "Иди на забележено место"
 
-#: src/user_actions.rs:1961
+#: src/user_actions.rs:1975
 msgid "Show bookmarks of current device"
 msgstr "Прикажи обележиваче текућег уређаја"
 
-#: src/user_actions.rs:1968
+#: src/user_actions.rs:1982
 msgid "_Options…"
 msgstr "_Опције…"
 
-#: src/user_actions.rs:1974
+#: src/user_actions.rs:1988
 msgid "_Keyboard Shortcuts…"
 msgstr "_Пречице тастатуре…"
 
-#: src/user_actions.rs:1981
+#: src/user_actions.rs:1995
 msgid "_Remote Server…"
 msgstr "_Удаљени сервер…"
 
-#: src/user_actions.rs:1987
+#: src/user_actions.rs:2001
 msgid "New Connection…"
 msgstr "Нова веза…"
 
-#: src/user_actions.rs:1993
+#: src/user_actions.rs:2007
 msgid "Set Connection"
 msgstr "Постави везу"
 
-#: src/user_actions.rs:2001
+#: src/user_actions.rs:2015
 msgid "Connect to First Remote Server"
 msgstr "Повежи се на први удаљени сервер"
 
-#: src/user_actions.rs:2007
+#: src/user_actions.rs:2021
 msgid "Change Left Connection"
 msgstr "Измените леву везу"
 
-#: src/user_actions.rs:2013
+#: src/user_actions.rs:2027
 msgid "Change Right Connection"
 msgstr "Измените десну везу"
 
-#: src/user_actions.rs:2019
+#: src/user_actions.rs:2033
 msgid "Close Connection"
 msgstr "Затворите везу"
 
-#: src/user_actions.rs:2025
+#: src/user_actions.rs:2039
 msgid "Drop Connection"
 msgstr "Прекини везу"
 
-#: src/user_actions.rs:2032
+#: src/user_actions.rs:2046
 msgid "_Configure Plugins…"
 msgstr "_Подеси прикључке…"
 
-#: src/user_actions.rs:2045
+#: src/user_actions.rs:2059
 msgid "_Documentation"
 msgstr "_Документација"
 
-#: src/user_actions.rs:2057
+#: src/user_actions.rs:2071
 msgid "GNOME Commander on the _Web"
 msgstr "Гномов наредник на _вебу"
 
 # Xfer???
-#: src/user_actions.rs:2063
+#: src/user_actions.rs:2077
 msgid "Report a _Problem"
 msgstr "Извести о _проблему"
 
-#: src/user_actions.rs:2069
+#: src/user_actions.rs:2083
 msgid "_About"
 msgstr "_О програму"
 
-#: src/user_actions.rs:2076
+#: src/user_actions.rs:2090
 msgid "Jump to Panels"
 msgstr "Скочи на окна"
 
-#: src/user_actions.rs:2082
+#: src/user_actions.rs:2096
 msgid "Jump to Command Line"
 msgstr "Скочи на линију наредби"
 
-#: src/user_actions.rs:2088
+#: src/user_actions.rs:2102
 msgid "Jump to Command Output"
 msgstr "Скочи на излаз наредбе"
 
-#: src/user_actions.rs:2094
+#: src/user_actions.rs:2108
 msgid "Clear Command Line"
 msgstr "Очисти линију наредби"
 
