@@ -1131,7 +1131,7 @@
           to the other pane and press the <keycap>SHIFT</keycap> while releasing the left mouse button.</para>
         </listitem>
         <listitem>
-          <para>To move the selection from one pane to the other can simply press <keycap>F6</keycap>.</para>
+          <para>To move the selection from one pane to the other you can simply press <keycap>F6</keycap>.</para>
         </listitem>
       </itemizedlist>
       <note>
@@ -1143,7 +1143,7 @@
       <title>Renaming a File or Folder</title>
       <para>This section describes a simple way to rename files or folders. There is also the
       <xref linkend="gnome-commander-advanced-rename"/> for more complex operations and batch processing. You can
-       use various the following methods to rename files and folder.</para>
+       use the following methods to rename files and folders.</para>
       <para>Firstly select the item you wish to rename.</para>
       <itemizedlist>
         <listitem>
@@ -1246,7 +1246,7 @@
        	 <para>To open a new tab displaying the selected folder in the inactive pane press the <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>UP</keycap></keycombo>.</para>
         </listitem>
         <listitem>
-     	   <para>To navigate between tab you can you the mouse or use <keycombo><keycap>CTRL</keycap><keycap>TAB</keycap></keycombo> as many time as needed to select the tab element. If the tabs are selected you can also use the <keycap>RIGHT</keycap> or <keycap>LEFT</keycap> to select the desired tab.</para>
+     	   <para>To navigate between tabs you can use the mouse or use <keycombo><keycap>CTRL</keycap><keycap>TAB</keycap></keycombo> as many times as needed to select the tab element. If the tabs are selected you can also use the <keycap>RIGHT</keycap> or <keycap>LEFT</keycap> to select the desired tab.</para>
         </listitem>
         <listitem>
      	   <para>To close a tab you can use the mouse and double click the tab or right click on it and from the menu select <guimenu>Close tab</guimenu>. You can also close the current tab using the keyboard shortcut <keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo></para>
@@ -1308,7 +1308,7 @@
           <listitem><para>File path matches casing / file path matches regex</para></listitem>
           <listitem><para>Recursive search (depth of search)</para></listitem>
           <listitem><para>Search for the specified text in files</para></listitem>
-          <listitem><para>Text in files should matches casing</para></listitem>
+          <listitem><para>Text in files should match casing</para></listitem>
           </itemizedlist></para>
       <para>Use Stop button to stop a search before &app; completes the search.</para>
       <para>The files in the search result list can be viewed, edited or deleted with the associated user actions.</para>
@@ -1353,7 +1353,7 @@
       <tip>
         <para>On the Permissions tab (see <xref linkend="permission-tab-fig"></xref>), you can change the permissions
          and ownership of a file (that is, if you have the right permissions
-         yourself).You can change the read, write, and execute settings
+         yourself). You can change the read, write, and execute settings
    	   for a file. For more information on permissions, see
    	   <xref linkend="gnome-commander-permissions"></xref>.</para>
       </tip>
@@ -2940,7 +2940,7 @@
                     <row valign="top">
                         <entry><para>File.Rank</para></entry>
                         <entry><para>Rank</para></entry>
-                        <entry><para>Editable file rank for grading favourites. Value should be in the range 1..10.</para></entry>
+                        <entry><para>Editable file rank for grading favorites. Value should be in the range 1..10.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>File.Size</para></entry>
@@ -4231,7 +4231,7 @@
         <note>
             <para>Some conversion specifiers can be modified by preceding them by the O modifier to indicate that an alternative
             format should be used. If the alternative format or specification does not exist for the current locale,
-            the behaviour will be as if the unmodified conversion specification were used.</para>
+            the behavior will be as if the unmodified conversion specification were used.</para>
         </note>
     </sect3>
     </sect2>
@@ -4776,7 +4776,7 @@
                 <para>Directories</para>
               </entry>
               <entry colname="colspec3" valign="top">
-                <para>By activating this option &app; saves the current folder location on exit. When restarted, the two active location are reopened.</para>
+                <para>By activating this option &app; saves the current folder location on exit. When restarted, the two active locations are reopened.</para>
                 <note>
                   <para>Regardless of 'Save on exit' option, locations for locked tabs are always saved on exit.</para>
                 </note>
@@ -4812,7 +4812,7 @@
                 <para>Commandline history</para>
               </entry>
               <entry colname="colspec3" valign="top">
-                <para>By activating this option &app; saves the history of executed commandline commands on exit. When restarted, the history of commands in the commandline accessible again.</para>
+                <para>By activating this option &app; saves the history of executed commandline commands on exit. When restarted, the history of commands in the commandline is accessible again.</para>
               </entry>
             </row>
             <row>
@@ -5235,7 +5235,7 @@
 			<title>Configuring Custom LS_COLORS</title>
 			 <para>&app; does not differentiate files types by default.</para>
 			 <para>You can configure it to differentiate file types like LS_COLORS does when using the command shell. For more information on this you can look up the <ulink url="http://linux.die.net/man/5/dir_colors">dir_colors man page</ulink>.</para>
-			 <para>To enable the use of LS_COLORS for &app; click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options</guimenuitem></menuchoice>, than on the <guilabel>Layout</guilabel> tab and activate the <guilabel>Colorize files according to the LS_COLORS environment variable</guilabel> check box.</para>
+			 <para>To enable the use of LS_COLORS for &app; click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options</guimenuitem></menuchoice>, then on the <guilabel>Layout</guilabel> tab and activate the <guilabel>Colorize files according to the LS_COLORS environment variable</guilabel> check box.</para>
 			 <para>If you prefer other shades of colors than given by the LS_COLOR variable you may change them by clicking on the <guilabel>Edit colors...</guilabel> button.</para>
 			 <note><para>Some users reported that custom LS_COLORS, defined in ~/.dir_colors, are not applied if &app; was started by clicking on a .desktop file or by starting it using the GNOME menu. In that case you have to make sure that LS_COLORS is set in the file ~/.profile or ~/.xprofile.</para>
 			 <para>For this you will need to find out the default TERM value of your system. Therefore, login to a virtual terminal by pressing <keycombo><keycap>CTRL</keycap><keycap>ALT</keycap><keycap>F1</keycap></keycombo> and execute the command <keycombo><keycap>echo $TERM</keycap></keycombo>. If the output is <keycombo><keycap>linux</keycap></keycombo>, the entry in ~/.profile might look like this:</para>
@@ -5257,10 +5257,10 @@
           <para>By checking <guilabel>Always show the tab bar</guilabel> in the tab bar section, &app; will always show the tab bar, even if only one tab is opened.</para>
         </listitem>
         <listitem>
-          <para>In the tab lock indicator section, you can configure the way how a locked tab will by indicated. There are three different possibilities:
+          <para>In the tab lock indicator section, you can configure the way how a locked tab will be indicated. There are three different possibilities:
           <itemizedlist>
             <listitem><para><guilabel>Lock icon</guilabel>: An icon is shown,</para></listitem>
-            <listitem><para><guilabel>* (asterix)</guilabel>: An asterix is shown,</para></listitem>
+            <listitem><para><guilabel>* (asterisk)</guilabel>: An asterisk is shown,</para></listitem>
             <listitem><para><guilabel>Styled text</guilabel>: The name of the tab is colored.</para></listitem>
           </itemizedlist>
 	  </para>
@@ -5616,7 +5616,7 @@
                 <para>Hidden Files</para>
               </entry>
               <entry colname="colspec3">
-                <para>Hidden files and directory in linux are preceded by the ".". Hidden files usually contain application settings</para>
+                <para>Hidden files and directories in linux are preceded by the ".". Hidden files usually contain application settings</para>
               </entry>
             </row>
             <row>
@@ -5661,7 +5661,7 @@
       <title>Programs</title>
       <!-- Brief description-->
       <para>This section of the options dialog lets you configure preferred applications for different tasks.
-      In the <guilabel>Other favourite apps</guilabel> section you can specify even more applications for opening
+      In the <guilabel>Other favorite apps</guilabel> section you can specify even more applications for opening
       certain document types. See <xref linkend="gcmd-TBL-setting6"></xref> and below for more information.</para>
       <!-- == Figure ==== -->
       <figure id="options-programs-fig">
@@ -5721,7 +5721,7 @@
             	  <para>Viewer:</para>
             	</entry>
             	<entry colname="colspec3">
-		  <para>Set which application is used when the view command is used by pressing the <keycap>F3</keycap> key. Default value: "gedit %s". %s is the variable containing the selected items. See <xref linkend="gcmd-TBL-setting7"></xref> tab for more information. By default &app; uses an internal viewer. See next row.</para>
+		  <para>Set which application is used when the view command is used by pressing the <keycap>F3</keycap> key. Default value: "gedit %s". %s is the variable containing the selected items. See <xref linkend="gcmd-TBL-setting7"></xref> table for more information. By default &app; uses an internal viewer. See next row.</para>
             	</entry>
               </row>
               <row>
@@ -5739,7 +5739,7 @@
             	  <para>Editor:</para>
             	</entry>
             	<entry colname="colspec3">
-            	  <para>In this text box you can type in the command line used to start your favourite text editor. Default value: "gedit %s"</para>
+            	  <para>In this text box you can type in the command line used to start your favorite text editor. Default value: "gedit %s"</para>
             	</entry>
               </row>
               <row>
@@ -5748,7 +5748,7 @@
             	  <para>Differ:</para>
             	</entry>
             	<entry colname="colspec3">
-            	  <para>In this text box you can type in the command line used to start your favourite comparison tool. %s is the variable containing the selected files to compare. Default value: "meld %s"</para>
+            	  <para>In this text box you can type in the command line used to start your favorite comparison tool. %s is the variable containing the selected files to compare. Default value: "meld %s"</para>
             	</entry>
               </row>
               <row>
@@ -5766,7 +5766,7 @@
             	  <para>Terminal:</para>
             	</entry>
             	<entry colname="colspec3">
-            	  <para>In this text box you can type in the command line used to start you favourite terminal application. Default value: "gnome-terminal".</para>
+            	  <para>In this text box you can type in the command line used to start your favorite terminal application. Default value: "gnome-terminal".</para>
             	</entry>
               </row>
 	      <row>
@@ -5786,7 +5786,7 @@
             	  <para>Edit</para>
             	</entry>
             	<entry colname="colspec3">
-            	  <para>Clicking this button will open a dialog were you can modify the parameters used to launch the application selected. The same dialog box as above is opened when you click on this button. This dialog box options are described below.</para>
+            	  <para>Clicking this button will open a dialog where you can modify the parameters used to launch the application selected. The same dialog box as above is opened when you click on this button. This dialog box options are described below.</para>
             	</entry>
               </row>
 	      <row>
@@ -5824,7 +5824,7 @@
             	  <para>Terminal command for apps in the list above</para>
             	</entry>
             	<entry colname="colspec3">
-            	  <para>In this text box you can type in the command line used to start your app from the list above with a favourite terminal application. %s is the variable used to pass the command to be executed  in the terminal. Default value: "gnome-terminal -e %s".</para>
+            	  <para>In this text box you can type in the command line used to start your app from the list above with a favorite terminal application. %s is the variable used to pass the command to be executed  in the terminal. Default value: "gnome-terminal -e %s".</para>
             	</entry>
               </row>
               <row>
@@ -6214,7 +6214,7 @@
                   </para>
               	</entry>
               	<entry colname="colspec3">
-                  <para>Clicking this button will open a dialog were you can modify a device which is selected in the <guimenu>Devices</guimenu> window list.
+                  <para>Clicking this button will open a dialog where you can modify a device which is selected in the <guimenu>Devices</guimenu> window list.
                   </para>
               	</entry>
               </row>
@@ -6229,7 +6229,7 @@
                   </para>
               	</entry>
               	<entry colname="colspec3">
-                  <para>Clicking this button will remove the application selected from the <guimenu>Devices</guimenu> window list.
+                  <para>Clicking this button will remove the device selected from the <guimenu>Devices</guimenu> window list.
                   </para>
               	</entry>
               </row>
@@ -6843,7 +6843,7 @@
         <listitem><para><guilabel>Shortcut Action</guilabel>: Action to perform by pressing the shortcut key.</para></listitem>
         <listitem><para><guilabel>Shortcut Key</guilabel>: Key combination the user has to press to perform the action. It&apos;s possible to assign more than one key combination to an action. Some actions are already assigned to multiple shortcuts by default.</para></listitem>
       </orderedlist></para>
-      <para>You can configure the available shortcuts by clicking on the related icons for adding or editing on the right. When a shortcut is modified, the shortcut key is written in bold letters. Also, the action name is written in bold latters if the action’s default shortcut configuration has been modified. A “Reset to Default” button appears then, allowing to reset the action’s configured shortcuts to the default value.</para>
+      <para>You can configure the available shortcuts by clicking on the related icons for adding or editing on the right. When a shortcut is modified, the shortcut key is written in bold letters. Also, the action name is written in bold letters if the action’s default shortcut configuration has been modified. A “Reset to Default” button appears then, allowing to reset the action’s configured shortcuts to the default value.</para>
       <para>Find the default key bindings in the previous section <xref linkend="gnome-commander-keyboard"></xref>.</para>
     </sect2>
   </sect1>
@@ -7067,7 +7067,7 @@
     </para>
     <note>
       <para>
-        Since &app; version 1.10.0 the following option files are obsolete. If they have been created by ealier &app; versions
+        Since &app; version 1.10.0 the following option files are obsolete. If they have been created by earlier &app; versions
         then the filename is extended automatically by <guilabel>*.deprecated</guilabel> and their settings are imported in
         GSettings under the path <guilabel>org.gnome.gnome-commander</guilabel>.
       </para>
