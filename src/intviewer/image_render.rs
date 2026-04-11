@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+use crate::utils::u32_enum;
 use gtk::{gdk, gdk_pixbuf, glib, graphene, prelude::*, subclass::prelude::*};
 use std::path::Path;
 
@@ -577,12 +578,13 @@ impl ImageRender {
     }
 }
 
-#[derive(Clone, Copy, strum::FromRepr)]
-#[repr(i32)]
-pub enum ImageOperation {
-    RotateClockwise,
-    RotateCounterclockwise,
-    RotateUpsideDown,
-    FlipVertical,
-    FlipHorizontal,
+u32_enum! {
+    pub enum ImageOperation {
+        #[default]
+        RotateClockwise,
+        RotateCounterclockwise,
+        RotateUpsideDown,
+        FlipVertical,
+        FlipHorizontal,
+    }
 }

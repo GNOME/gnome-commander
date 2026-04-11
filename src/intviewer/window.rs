@@ -10,6 +10,7 @@ use super::{
 };
 use crate::{
     file::{File, FileOps},
+    intviewer::image_render::ImageOperation,
     tags::FileMetadataService,
     utils::{MenuBuilderExt, extract_menu_shortcuts, pending, u32_enum},
 };
@@ -55,7 +56,7 @@ mod imp {
     use crate::{
         file_metainfo_view::FileMetainfoView,
         intviewer::{
-            image_render::{ImageOperation, ImageRender},
+            image_render::ImageRender,
             search_dialog::{SearchDialog, SearchRequest},
             text_render::TextRenderDisplayMode,
         },
@@ -134,7 +135,7 @@ mod imp {
             klass.install_property_action("viewer.encoding", "encoding");
             klass.install_action(
                 "viewer.imageop",
-                Some(glib::VariantTy::INT32),
+                Some(&ImageOperation::static_variant_type()),
                 |obj, _, p| obj.imp().image_operation(p),
             );
             klass.install_property_action("viewer.chars-per-line", "chars-per-line");
@@ -381,7 +382,8 @@ mod imp {
             self.obj()
                 .add_controller(self.shortcuts_controller.borrow().clone());
 
-            self.obj().action_set_enabled("viewer.best-fit", mode == DisplayMode::Image);
+            self.obj()
+                .action_set_enabled("viewer.best-fit", mode == DisplayMode::Image);
         }
 
         fn text_status_update(&self) {
@@ -578,10 +580,7 @@ mod imp {
         }
 
         fn image_operation(&self, op: Option<&glib::Variant>) {
-            let Some(operation) = op
-                .and_then(|v| v.get::<i32>())
-                .and_then(ImageOperation::from_repr)
-            else {
+            let Some(operation) = op.and_then(|v| ImageOperation::from_variant(v)) else {
                 return;
             };
             self.image_render.operation(operation);
@@ -741,31 +740,38 @@ fn create_menu(display_mode: DisplayMode) -> gio::Menu {
         )
         .submenu(
             gettext("_View"),
-            {
-                let menu = gio::Menu::new();
-                for (display_mode, label, accel) in [
-                    (DisplayMode::Text, gettext("_Text"), "1"),
-                    (DisplayMode::Binary, gettext("_Binary"), "2"),
-                    (DisplayMode::Hexdump, gettext("_Hexadecimal"), "3"),
-                    (DisplayMode::Image, gettext("_Image"), "4"),
-                ] {
-                    let item = gio::MenuItem::new(Some(&label), None);
-                    item.set_action_and_target_value(
-                        Some("viewer.display-mode"),
-                        Some(&display_mode.to_variant()),
-                    );
-                    item.set_attribute_value("accel", Some(&accel.to_variant()));
-                    menu.append_item(&item);
-                }
-                menu
-            }
-            .section(
-                gio::Menu::new()
-                    .item_accel(gettext("_Zoom In"), "viewer.zoom-in", "<Control>plus")
-                    .item_accel(gettext("_Zoom Out"), "viewer.zoom-out", "<Control>minus")
-                    .item_accel(gettext("_Normal Size"), "viewer.normal-size", "<Control>0")
-                    .item_accel(gettext("_Best Fit"), "viewer.best-fit", "<Control>period"),
-            ),
+            gio::Menu::new()
+                .item_param_accel(
+                    gettext("_Text"),
+                    "viewer.display-mode",
+                    DisplayMode::Text,
+                    "1",
+                )
+                .item_param_accel(
+                    gettext("_Binary"),
+                    "viewer.display-mode",
+                    DisplayMode::Binary,
+                    "2",
+                )
+                .item_param_accel(
+                    gettext("_Hexadecimal"),
+                    "viewer.display-mode",
+                    DisplayMode::Hexdump,
+                    "3",
+                )
+                .item_param_accel(
+                    gettext("_Image"),
+                    "viewer.display-mode",
+                    DisplayMode::Image,
+                    "4",
+                )
+                .section(
+                    gio::Menu::new()
+                        .item_accel(gettext("_Zoom In"), "viewer.zoom-in", "<Control>plus")
+                        .item_accel(gettext("_Zoom Out"), "viewer.zoom-out", "<Control>minus")
+                        .item_accel(gettext("_Normal Size"), "viewer.normal-size", "<Control>0")
+                        .item_accel(gettext("_Best Fit"), "viewer.best-fit", "<Control>period"),
+                ),
         );
 
     if matches!(
@@ -868,19 +874,33 @@ fn create_menu(display_mode: DisplayMode) -> gio::Menu {
         menu = menu.submenu(
             gettext("_Image"),
             gio::Menu::new()
-                .item_accel(
+                .item_param_accel(
                     gettext("Rotate Clockwise"),
-                    "viewer.imageop(0)",
+                    "viewer.imageop",
+                    ImageOperation::RotateClockwise,
                     "<Control>R",
                 )
-                .item(gettext("Rotate Counter Clockwis_e"), "viewer.imageop(1)")
-                .item_accel(
+                .item_param(
+                    gettext("Rotate Counter Clockwis_e"),
+                    "viewer.imageop",
+                    ImageOperation::RotateCounterclockwise,
+                )
+                .item_param_accel(
                     gettext("Rotate 180\u{00B0}"),
-                    "viewer.imageop(2)",
+                    "viewer.imageop",
+                    ImageOperation::RotateUpsideDown,
                     "<Control><Shift>R",
                 )
-                .item(gettext("Flip _Vertical"), "viewer.imageop(3)")
-                .item(gettext("Flip _Horizontal"), "viewer.imageop(4)"),
+                .item_param(
+                    gettext("Flip _Vertical"),
+                    "viewer.imageop",
+                    ImageOperation::FlipVertical,
+                )
+                .item_param(
+                    gettext("Flip _Horizontal"),
+                    "viewer.imageop",
+                    ImageOperation::FlipHorizontal,
+                ),
         );
     }
 
