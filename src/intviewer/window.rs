@@ -68,6 +68,8 @@ mod imp {
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::ViewerWindow)]
     pub struct ViewerWindow {
+        menubar: gtk::PopoverMenuBar,
+        shortcuts_controller: RefCell<gtk::ShortcutController>,
         pub stack: gtk::Stack,
         pub text_render: TextRender,
         pub image_render: ImageRender,
@@ -155,7 +157,13 @@ mod imp {
             image_render.set_best_fit(true);
             image_render.set_scale_factor(1.0);
 
+            let display_mode = Default::default();
+            let menu = create_menu(display_mode);
             Self {
+                menubar: gtk::PopoverMenuBar::from_model(Some(&menu)),
+                shortcuts_controller: RefCell::new(gtk::ShortcutController::for_model(
+                    &extract_menu_shortcuts(menu.upcast_ref()),
+                )),
                 stack: gtk::Stack::builder().vexpand(true).build(),
                 text_render: TextRender::new(),
                 image_render,
@@ -172,7 +180,7 @@ mod imp {
                 }),
                 current_scale_index: Cell::new(5),
                 img_initialized: Default::default(),
-                display_mode: Default::default(),
+                display_mode: Cell::new(display_mode),
 
                 wrap_lines: Cell::new(true),
                 encoding: Default::default(),
@@ -199,8 +207,7 @@ mod imp {
                 .build();
             window.set_child(Some(&vbox));
 
-            let menu = create_menu();
-            vbox.append(&gtk::PopoverMenuBar::from_model(Some(&menu)));
+            vbox.append(&self.menubar);
 
             let tscrollbox = gtk::ScrolledWindow::builder()
                 .child(&self.text_render)
@@ -319,9 +326,7 @@ mod imp {
             ));
             window.add_controller(key_controller);
 
-            let shortcuts = extract_menu_shortcuts(menu.upcast_ref());
-            let shortcuts_controller = gtk::ShortcutController::for_model(&shortcuts);
-            window.add_controller(shortcuts_controller);
+            window.add_controller(self.shortcuts_controller.borrow().clone());
         }
     }
 
@@ -366,6 +371,15 @@ mod imp {
                     self.image_render.notify_status_changed();
                 }
             }
+
+            let menu = create_menu(mode);
+            self.menubar.set_menu_model(Some(&menu));
+            self.obj()
+                .remove_controller(&self.shortcuts_controller.replace(
+                    gtk::ShortcutController::for_model(&extract_menu_shortcuts(menu.upcast_ref())),
+                ));
+            self.obj()
+                .add_controller(self.shortcuts_controller.borrow().clone());
         }
 
         fn text_status_update(&self) {
@@ -717,8 +731,8 @@ async fn start_search(window: &ViewerWindow, forward: bool) {
     }
 }
 
-fn create_menu() -> gio::Menu {
-    gio::Menu::new()
+fn create_menu(display_mode: DisplayMode) -> gio::Menu {
+    let mut menu = gio::Menu::new()
         .submenu(
             gettext("_File"),
             gio::Menu::new().item_accel(gettext("_Close"), "viewer.close", "Escape"),
@@ -750,8 +764,13 @@ fn create_menu() -> gio::Menu {
                     .item_accel(gettext("_Normal Size"), "viewer.normal-size", "<Control>0")
                     .item_accel(gettext("_Best Fit"), "viewer.best-fit", "<Control>period"),
             ),
-        )
-        .submenu(
+        );
+
+    if matches!(
+        display_mode,
+        DisplayMode::Text | DisplayMode::Binary | DisplayMode::Hexdump
+    ) {
+        menu = menu.submenu(
             gettext("_Text"),
             gio::Menu::new()
                 .item_accel(
@@ -840,8 +859,11 @@ fn create_menu() -> gio::Menu {
                             "viewer.encoding('ISO-8859-1')",
                         ),
                 ),
-        )
-        .submenu(
+        );
+    }
+
+    if display_mode == DisplayMode::Image {
+        menu = menu.submenu(
             gettext("_Image"),
             gio::Menu::new()
                 .item_accel(
@@ -857,47 +879,49 @@ fn create_menu() -> gio::Menu {
                 )
                 .item(gettext("Flip _Vertical"), "viewer.imageop(3)")
                 .item(gettext("Flip _Horizontal"), "viewer.imageop(4)"),
-        )
-        .submenu(
-            gettext("_Settings"),
-            gio::Menu::new()
-                .submenu(
-                    gettext("_Binary Mode"),
-                    gio::Menu::new()
-                        .item_accel(
-                            gettext("_20 chars/line"),
-                            "viewer.chars-per-line(20)",
-                            "<Control>2",
-                        )
-                        .item_accel(
-                            gettext("_40 chars/line"),
-                            "viewer.chars-per-line(40)",
-                            "<Control>4",
-                        )
-                        .item_accel(
-                            gettext("_80 chars/line"),
-                            "viewer.chars-per-line(80)",
-                            "<Control>8",
-                        ),
-                )
-                .section(
-                    gio::Menu::new()
-                        .item_accel(
-                            gettext("Show Metadata _Tags"),
-                            "viewer.metadata-visible",
-                            "T",
-                        )
-                        .item_accel(
-                            gettext("_Hexadecimal Offset"),
-                            "viewer.hexadecimal-offset",
-                            "<Control>D",
-                        ),
-                ),
-        )
-        .submenu(
-            gettext("_Help"),
-            gio::Menu::new()
-                .item_accel(gettext("Quick _Help"), "viewer.quick-help", "F1")
-                .item(gettext("_Keyboard Shortcuts"), "viewer.keyboard-shortcuts"),
-        )
+        );
+    }
+
+    menu.submenu(
+        gettext("_Settings"),
+        gio::Menu::new()
+            .submenu(
+                gettext("_Binary Mode"),
+                gio::Menu::new()
+                    .item_accel(
+                        gettext("_20 chars/line"),
+                        "viewer.chars-per-line(20)",
+                        "<Control>2",
+                    )
+                    .item_accel(
+                        gettext("_40 chars/line"),
+                        "viewer.chars-per-line(40)",
+                        "<Control>4",
+                    )
+                    .item_accel(
+                        gettext("_80 chars/line"),
+                        "viewer.chars-per-line(80)",
+                        "<Control>8",
+                    ),
+            )
+            .section(
+                gio::Menu::new()
+                    .item_accel(
+                        gettext("Show Metadata _Tags"),
+                        "viewer.metadata-visible",
+                        "T",
+                    )
+                    .item_accel(
+                        gettext("_Hexadecimal Offset"),
+                        "viewer.hexadecimal-offset",
+                        "<Control>D",
+                    ),
+            ),
+    )
+    .submenu(
+        gettext("_Help"),
+        gio::Menu::new()
+            .item_accel(gettext("Quick _Help"), "viewer.quick-help", "F1")
+            .item(gettext("_Keyboard Shortcuts"), "viewer.keyboard-shortcuts"),
+    )
 }
