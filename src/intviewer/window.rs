@@ -11,7 +11,7 @@ use super::{
 use crate::{
     file::{File, FileOps},
     tags::FileMetadataService,
-    utils::{MenuBuilderExt, extract_menu_shortcuts, pending},
+    utils::{MenuBuilderExt, extract_menu_shortcuts, pending, u32_enum},
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{
@@ -24,6 +24,31 @@ use gtk::{
 const IMAGE_SCALE_FACTORS: &[f64] = &[
     0.1, 0.2, 0.33, 0.5, 0.67, 1.0, 1.25, 1.50, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0,
 ];
+
+u32_enum! {
+    pub enum DisplayMode {
+        #[default]
+        Text,
+        Binary,
+        Hexdump,
+        Image,
+    }
+}
+
+impl DisplayMode {
+    pub fn guess(file: &File) -> Option<Self> {
+        let content_type = file.content_type().map(|ct| ct.to_lowercase())?;
+        if content_type.starts_with("text/") {
+            Some(Self::Text)
+        } else if content_type.starts_with("image/") {
+            Some(Self::Image)
+        } else if content_type.starts_with("application/") {
+            Some(Self::Binary)
+        } else {
+            None
+        }
+    }
+}
 
 mod imp {
     use super::*;
@@ -60,7 +85,7 @@ mod imp {
         pub img_initialized: Cell<bool>,
 
         #[property(get, set = Self::set_display_mode)]
-        pub display_mode: RefCell<String>,
+        display_mode: Cell<DisplayMode>,
 
         #[property(get, set)]
         pub wrap_lines: Cell<bool>,
@@ -304,10 +329,10 @@ mod imp {
     impl WindowImpl for ViewerWindow {}
 
     impl ViewerWindow {
-        fn set_display_mode(&self, mode: &str) {
-            self.display_mode.replace(mode.to_owned());
+        fn set_display_mode(&self, mode: DisplayMode) {
+            self.display_mode.set(mode);
 
-            if mode == DISP_MODE_IMAGE && !self.img_initialized.get() {
+            if mode == DisplayMode::Image && !self.img_initialized.get() {
                 // do lazy-initialization of the image render, only when the user first asks to display the file as image
                 if let Some(path) = self.obj().file().and_then(|f| f.local_path()) {
                     self.img_initialized.set(true);
@@ -318,29 +343,28 @@ mod imp {
             }
 
             match mode {
-                DISP_MODE_TEXT_FIXED => {
+                DisplayMode::Text => {
                     self.text_render
                         .set_display_mode(TextRenderDisplayMode::Text);
                     self.stack.set_visible_child_name("text");
                     self.text_render.notify_status_changed();
                 }
-                DISP_MODE_BINARY => {
+                DisplayMode::Binary => {
                     self.text_render
                         .set_display_mode(TextRenderDisplayMode::Binary);
                     self.stack.set_visible_child_name("text");
                     self.text_render.notify_status_changed();
                 }
-                DISP_MODE_HEXDUMP => {
+                DisplayMode::Hexdump => {
                     self.text_render
                         .set_display_mode(TextRenderDisplayMode::Hexdump);
                     self.stack.set_visible_child_name("text");
                     self.text_render.notify_status_changed();
                 }
-                DISP_MODE_IMAGE => {
+                DisplayMode::Image => {
                     self.stack.set_visible_child_name("image");
                     self.image_render.notify_status_changed();
                 }
-                _ => {}
             }
         }
 
@@ -394,20 +418,20 @@ mod imp {
         }
 
         fn copy_selection(&self) {
-            if *self.display_mode.borrow() != DISP_MODE_IMAGE {
+            if self.display_mode.get() != DisplayMode::Image {
                 self.text_render.copy_selection();
             }
         }
 
         fn zoom_in(&self) {
-            match self.display_mode.borrow().as_str() {
-                DISP_MODE_TEXT_FIXED | DISP_MODE_BINARY | DISP_MODE_HEXDUMP => {
+            match self.display_mode.get() {
+                DisplayMode::Text | DisplayMode::Binary | DisplayMode::Hexdump => {
                     let size = self.text_render.font_size();
                     if size != 0 && size <= 32 {
                         self.text_render.set_font_size(size + 1);
                     }
                 }
-                DISP_MODE_IMAGE => {
+                DisplayMode::Image => {
                     self.image_render.set_best_fit(false);
 
                     let index = (self.current_scale_index.get() + 1)
@@ -419,19 +443,18 @@ mod imp {
                         self.image_render.set_scale_factor(scale_factor);
                     }
                 }
-                _ => {}
             }
         }
 
         fn zoom_out(&self) {
-            match self.display_mode.borrow().as_str() {
-                DISP_MODE_TEXT_FIXED | DISP_MODE_BINARY | DISP_MODE_HEXDUMP => {
+            match self.display_mode.get() {
+                DisplayMode::Text | DisplayMode::Binary | DisplayMode::Hexdump => {
                     let size = self.text_render.font_size();
                     if size >= 4 {
                         self.text_render.set_font_size(size - 1);
                     }
                 }
-                DISP_MODE_IMAGE => {
+                DisplayMode::Image => {
                     self.image_render.set_best_fit(false);
 
                     let index = (self.current_scale_index.get() - 1)
@@ -443,39 +466,36 @@ mod imp {
                         self.image_render.set_scale_factor(scale_factor);
                     }
                 }
-                _ => {}
             }
         }
 
         fn zoom_normal(&self) {
-            match self.display_mode.borrow().as_str() {
-                DISP_MODE_TEXT_FIXED | DISP_MODE_BINARY | DISP_MODE_HEXDUMP => {
+            match self.display_mode.get() {
+                DisplayMode::Text | DisplayMode::Binary | DisplayMode::Hexdump => {
                     self.text_render.set_font_size(12);
                 }
-                DISP_MODE_IMAGE => {
+                DisplayMode::Image => {
                     self.image_render.set_best_fit(true);
                     self.current_scale_index.set(5); // index of 1.0 in IMAGE_SCALE_FACTORS
                     self.image_render.set_scale_factor(1.0);
                 }
-                _ => {}
             }
         }
 
         fn zoom_best_fit(&self) {
-            match self.display_mode.borrow().as_str() {
-                DISP_MODE_TEXT_FIXED | DISP_MODE_BINARY | DISP_MODE_HEXDUMP => {
+            match self.display_mode.get() {
+                DisplayMode::Text | DisplayMode::Binary | DisplayMode::Hexdump => {
                     // nothing to do
                 }
-                DISP_MODE_IMAGE => {
+                DisplayMode::Image => {
                     self.image_render.set_best_fit(true);
                 }
-                _ => {}
             }
         }
 
         #[async_recursion::async_recursion(?Send)]
         async fn find(&self) {
-            if *self.display_mode.borrow() == DISP_MODE_IMAGE {
+            if self.display_mode.get() == DisplayMode::Image {
                 return;
             }
 
@@ -519,7 +539,7 @@ mod imp {
         }
 
         async fn find_next(&self) {
-            if *self.display_mode.borrow() == DISP_MODE_IMAGE {
+            if self.display_mode.get() == DisplayMode::Image {
                 return;
             }
 
@@ -532,7 +552,7 @@ mod imp {
         }
 
         async fn find_prev(&self) {
-            if *self.display_mode.borrow() == DISP_MODE_IMAGE {
+            if self.display_mode.get() == DisplayMode::Image {
                 return;
             }
 
@@ -595,11 +615,6 @@ glib::wrapper! {
         @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Native, gtk::Root;
 }
 
-const DISP_MODE_TEXT_FIXED: &str = "text";
-const DISP_MODE_BINARY: &str = "bin";
-const DISP_MODE_HEXDUMP: &str = "hex";
-const DISP_MODE_IMAGE: &str = "image";
-
 impl ViewerWindow {
     pub fn file_view(file: &File, file_metadata_service: &FileMetadataService) -> Self {
         let w: Self = glib::Object::builder()
@@ -619,7 +634,7 @@ impl ViewerWindow {
         self.set_file(file);
 
         self.imp().text_render.load_file(&path);
-        self.set_display_mode(guess_display_mode(file).unwrap_or_default());
+        self.set_display_mode(DisplayMode::guess(file).unwrap_or_default());
 
         self.imp()
             .metadata_view
@@ -628,19 +643,6 @@ impl ViewerWindow {
             .set_property("file", file);
 
         self.set_title(path.to_str());
-    }
-}
-
-fn guess_display_mode(file: &File) -> Option<&'static str> {
-    let content_type = file.content_type().map(|ct| ct.to_lowercase())?;
-    if content_type.starts_with("text/") {
-        Some(DISP_MODE_TEXT_FIXED)
-    } else if content_type.starts_with("image/") {
-        Some(DISP_MODE_IMAGE)
-    } else if content_type.starts_with("application/") {
-        Some(DISP_MODE_BINARY)
-    } else {
-        None
     }
 }
 
@@ -723,18 +725,31 @@ fn create_menu() -> gio::Menu {
         )
         .submenu(
             gettext("_View"),
-            gio::Menu::new()
-                .item_accel(gettext("_Text"), "viewer.display-mode('text')", "1")
-                .item_accel(gettext("_Binary"), "viewer.display-mode('bin')", "2")
-                .item_accel(gettext("_Hexadecimal"), "viewer.display-mode('hex')", "3")
-                .item_accel(gettext("_Image"), "viewer.display-mode('image')", "4")
-                .section(
-                    gio::Menu::new()
-                        .item_accel(gettext("_Zoom In"), "viewer.zoom-in", "<Control>plus")
-                        .item_accel(gettext("_Zoom Out"), "viewer.zoom-out", "<Control>minus")
-                        .item_accel(gettext("_Normal Size"), "viewer.normal-size", "<Control>0")
-                        .item_accel(gettext("_Best Fit"), "viewer.best-fit", "<Control>period"),
-                ),
+            {
+                let menu = gio::Menu::new();
+                for (display_mode, label, accel) in [
+                    (DisplayMode::Text, gettext("_Text"), "1"),
+                    (DisplayMode::Binary, gettext("_Binary"), "2"),
+                    (DisplayMode::Hexdump, gettext("_Hexadecimal"), "3"),
+                    (DisplayMode::Image, gettext("_Image"), "4"),
+                ] {
+                    let item = gio::MenuItem::new(Some(&label), None);
+                    item.set_action_and_target_value(
+                        Some("viewer.display-mode"),
+                        Some(&display_mode.to_variant()),
+                    );
+                    item.set_attribute_value("accel", Some(&accel.to_variant()));
+                    menu.append_item(&item);
+                }
+                menu
+            }
+            .section(
+                gio::Menu::new()
+                    .item_accel(gettext("_Zoom In"), "viewer.zoom-in", "<Control>plus")
+                    .item_accel(gettext("_Zoom Out"), "viewer.zoom-out", "<Control>minus")
+                    .item_accel(gettext("_Normal Size"), "viewer.normal-size", "<Control>0")
+                    .item_accel(gettext("_Best Fit"), "viewer.best-fit", "<Control>period"),
+            ),
         )
         .submenu(
             gettext("_Text"),
