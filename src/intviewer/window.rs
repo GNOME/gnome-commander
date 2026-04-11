@@ -580,7 +580,7 @@ mod imp {
         }
 
         fn image_operation(&self, op: Option<&glib::Variant>) {
-            let Some(operation) = op.and_then(|v| ImageOperation::from_variant(v)) else {
+            let Some(operation) = op.and_then(ImageOperation::from_variant) else {
                 return;
             };
             self.image_render.operation(operation);
