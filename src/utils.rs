@@ -705,11 +705,15 @@ impl<A: PartialOrd + Ord + Clone> FromIterator<A> for MinMax<A> {
     }
 }
 
+pub trait EnumAll {
+    fn all() -> impl Iterator<Item = Self>;
+}
+
 /// Defines an enum type that can be represented as a u32 value. One of the enum variants has to
 /// be marked with #[default], it will be used when converting numeric values that don't map to any
 /// of the enum variants.
 macro_rules! u32_enum {
-    ($vis:vis enum $type:ident {
+    ($(#[$type_meta:meta])* $vis:vis enum $type:ident {
         $($(#[$meta:meta])* $variant:ident,)+
     }) => {
         #[derive(Debug, Copy, Clone, PartialEq, Eq, Default)]
@@ -717,6 +721,7 @@ macro_rules! u32_enum {
         #[value_delegate(from = u32)]
         #[variant_enum(repr)]
         #[repr(u32)]
+        $(#[$type_meta])*
         $vis enum $type {
             $($(#[$meta])* $variant,)+
         }
@@ -739,6 +744,15 @@ macro_rules! u32_enum {
                     $(v if v == u32::from($type::$variant) => $type::$variant,)+
                     _ => Default::default(),
                 }
+            }
+        }
+
+        impl $crate::utils::EnumAll for $type {
+            fn all() -> impl Iterator<Item=Self> {
+                $(
+                    let _max_index: u32 = Self::$variant.into();
+                )*
+                (0..=_max_index).map(|n| Self::from(n))
             }
         }
     }

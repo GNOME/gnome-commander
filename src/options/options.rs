@@ -8,6 +8,7 @@ use crate::{
     app::FavoriteAppVariant,
     connection::list::{BookmarkVariant, ConnectionVariant, CustomDeviceVariant},
     enum_convert_strum,
+    file_list::quick_search::QuickSearchMode,
     file_selector::{LegacyTabVariant, TabVariant},
     filter::PatternType,
     history::History,
@@ -86,8 +87,8 @@ pub struct GeneralOptions {
     pub left_mouse_button_unselects: BoolOption,
 
     pub quick_search_shortcut: EnumOption<QuickSearchShortcut>,
-    pub quick_search_exact_match_begin: BoolOption,
-    pub quick_search_exact_match_end: BoolOption,
+    pub quick_search_default_mode: EnumOption<QuickSearchMode>,
+    pub quick_search_case_sensitive: BoolOption,
 
     pub show_samba_workgroups_button: BoolOption,
     pub device_only_icon: BoolOption,
@@ -229,13 +230,14 @@ impl GeneralOptions {
                 "quick-search",
                 enum_convert_strum!(QuickSearchShortcut),
             ),
-            quick_search_exact_match_begin: BoolOption::simple(
+            quick_search_default_mode: AppOption::new(
                 &settings,
-                "quick-search-exact-match-begin",
+                "quick-search-default-mode",
+                enum_convert_strum!(QuickSearchMode),
             ),
-            quick_search_exact_match_end: BoolOption::simple(
+            quick_search_case_sensitive: BoolOption::simple(
                 &settings,
-                "quick-search-exact-match-end",
+                "quick-search-case-sensitive",
             ),
             show_samba_workgroups_button: BoolOption::simple(
                 &settings,

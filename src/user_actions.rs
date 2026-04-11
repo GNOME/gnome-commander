@@ -32,7 +32,7 @@ use crate::{
     },
     dir::Directory,
     file::{File, FileOps},
-    file_list::list::FileList,
+    file_list::{list::FileList, quick_search::QuickSearchMode},
     libgcmd::file_actions::{FileActions, FileActionsExt},
     main_win::MainWindow,
     options::{ConfirmOptions, GeneralOptions, NetworkOptions, ProgramsOptions, SearchConfig},
@@ -198,10 +198,17 @@ async fn file_search(main_win: MainWindow) {
 }
 
 pub async fn file_quick_search(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::Active);
-    let file_list = file_selector.file_list();
+    main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .show_quick_search(None, Some(QuickSearchMode::Search));
+}
 
-    file_list.show_quick_search(None);
+async fn file_quick_filter(main_win: MainWindow) {
+    main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .show_quick_search(None, Some(QuickSearchMode::Filter));
 }
 
 async fn file_chmod(main_win: MainWindow) {
@@ -645,10 +652,6 @@ async fn edit_cap_copy(main_win: MainWindow) {
 
 async fn edit_cap_paste(main_win: MainWindow) {
     main_win.paste_files().await;
-}
-
-async fn edit_filter(main_win: MainWindow) {
-    main_win.file_selector(FileSelectorID::Active).show_filter();
 }
 
 async fn edit_copy_fnames(main_win: MainWindow) {
@@ -1521,6 +1524,12 @@ user_actions! {
         file_quick_search,
     ),
 
+    FileQuickFilter in Panel => (
+        "edit-filter" | "edit.filter",
+        gettext("Quick _Filter…"),
+        file_quick_filter,
+    ),
+
     FileChmod in Panel => (
         "file-chmod" | "file.chmod",
         gettext("Change Per_missions"),
@@ -1677,12 +1686,6 @@ user_actions! {
         "edit-cap-paste" | "edit.paste",
         gettext("_Paste"),
         edit_cap_paste,
-    ),
-
-    EditFilter in Panel => (
-        "edit-filter" | "edit.filter",
-        gettext("_Enable Filter…"),
-        edit_filter,
     ),
 
     EditCopyNames in Panel => (

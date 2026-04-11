@@ -6,6 +6,7 @@
 use super::common::create_category;
 use crate::{
     dialogs::options::common::{radio_group_get_value, radio_group_set_value},
+    file_list::quick_search::QuickSearchMode,
     options::{GeneralOptions, types::WriteResult},
     types::{LeftMouseButtonMode, MiddleMouseButtonMode, QuickSearchShortcut},
 };
@@ -23,11 +24,11 @@ pub struct GeneralTab {
     select_dirs: gtk::CheckButton,
     case_sensitive: gtk::CheckButton,
     symbolic_links_as_regular_files: gtk::CheckButton,
+    quick_search_mode_search: gtk::CheckButton,
+    quick_search_mode_filter: gtk::CheckButton,
     quick_search_ctrl_alt: gtk::CheckButton,
     quick_search_alt: gtk::CheckButton,
     quick_search_just_char: gtk::CheckButton,
-    quick_search_exact_match_begin: gtk::CheckButton,
-    quick_search_exact_match_end: gtk::CheckButton,
     search_window_always_on_top: gtk::CheckButton,
     single_instance: gtk::CheckButton,
     save_dirs: gtk::CheckButton,
@@ -137,6 +138,25 @@ impl GeneralTab {
             .spacing(6)
             .build();
         vbox.append(&create_category(&gettext("Quick search"), &quick_search));
+
+        let quick_search_mode = gtk::Box::builder()
+            .orientation(gtk::Orientation::Horizontal)
+            .spacing(6)
+            .build();
+        quick_search_mode.append(
+            &gtk::Label::builder()
+                .label(gettext("Default mode:"))
+                .build(),
+        );
+        let quick_search_mode_search = gtk::CheckButton::builder().label(gettext("Search")).build();
+        quick_search_mode.append(&quick_search_mode_search);
+        let quick_search_mode_filter = gtk::CheckButton::builder()
+            .label(gettext("Filter"))
+            .group(&quick_search_mode_search)
+            .build();
+        quick_search_mode.append(&quick_search_mode_filter);
+        quick_search.append(&quick_search_mode);
+
         let quick_search_ctrl_alt = gtk::CheckButton::builder()
             .label(gettext("CTRL+ALT+letters"))
             .build();
@@ -153,14 +173,6 @@ impl GeneralTab {
             .group(&quick_search_ctrl_alt)
             .build();
         quick_search.append(&quick_search_just_char);
-        let quick_search_exact_match_begin = gtk::CheckButton::builder()
-            .label(gettext("Match beginning of the file name"))
-            .build();
-        quick_search.append(&quick_search_exact_match_begin);
-        let quick_search_exact_match_end = gtk::CheckButton::builder()
-            .label(gettext("Match end of the file name"))
-            .build();
-        quick_search.append(&quick_search_exact_match_end);
 
         let search_window = gtk::Box::builder()
             .orientation(gtk::Orientation::Vertical)
@@ -247,11 +259,11 @@ impl GeneralTab {
             select_dirs,
             case_sensitive,
             symbolic_links_as_regular_files,
+            quick_search_mode_search,
+            quick_search_mode_filter,
             quick_search_ctrl_alt,
             quick_search_alt,
             quick_search_just_char,
-            quick_search_exact_match_begin,
-            quick_search_exact_match_end,
             search_window_always_on_top,
             single_instance,
             save_dirs,
@@ -296,6 +308,13 @@ impl GeneralTab {
             .set_active(options.symbolic_links_as_regular_files.get());
         radio_group_set_value(
             [
+                (&self.quick_search_mode_search, QuickSearchMode::Search),
+                (&self.quick_search_mode_filter, QuickSearchMode::Filter),
+            ],
+            options.quick_search_default_mode.get(),
+        );
+        radio_group_set_value(
+            [
                 (&self.quick_search_ctrl_alt, QuickSearchShortcut::CtrlAlt),
                 (&self.quick_search_alt, QuickSearchShortcut::Alt),
                 (
@@ -305,10 +324,6 @@ impl GeneralTab {
             ],
             options.quick_search_shortcut.get(),
         );
-        self.quick_search_exact_match_begin
-            .set_active(options.quick_search_exact_match_begin.get());
-        self.quick_search_exact_match_end
-            .set_active(options.quick_search_exact_match_end.get());
         self.search_window_always_on_top
             .set_active(options.search_window_is_transient.get());
         self.single_instance
@@ -351,6 +366,12 @@ impl GeneralTab {
         options
             .symbolic_links_as_regular_files
             .set(self.symbolic_links_as_regular_files.is_active())?;
+        options
+            .quick_search_default_mode
+            .set(radio_group_get_value([
+                (&self.quick_search_mode_search, QuickSearchMode::Search),
+                (&self.quick_search_mode_filter, QuickSearchMode::Filter),
+            ]))?;
         options.quick_search_shortcut.set(radio_group_get_value([
             (&self.quick_search_ctrl_alt, QuickSearchShortcut::CtrlAlt),
             (&self.quick_search_alt, QuickSearchShortcut::Alt),
@@ -359,12 +380,6 @@ impl GeneralTab {
                 QuickSearchShortcut::JustACharacter,
             ),
         ]))?;
-        options
-            .quick_search_exact_match_begin
-            .set(self.quick_search_exact_match_begin.is_active())?;
-        options
-            .quick_search_exact_match_end
-            .set(self.quick_search_exact_match_end.is_active())?;
         options
             .search_window_is_transient
             .set(self.search_window_always_on_top.is_active())?;
