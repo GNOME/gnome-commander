@@ -1,5 +1,6 @@
 <!--
 SPDX-FileCopyrightText: 2025 Andrey Kutejko <andy128k@gmail.com>
+SPDX-FileCopyrightText: 2026 Wladimir Palant https://palant.info/
 
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
@@ -29,6 +30,10 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <value nick="ctrl-alt" value="0"/>
     <value nick="alt" value="1"/>
     <value nick="just-a-character" value="2"/>
+  </enum>
+  <enum id="org.gnome.gnome-commander.GnomeCmdQuickSearchMode">
+    <value nick="search" value="0"/>
+    <value nick="filter" value="1"/>
   </enum>
   <enum id="org.gnome.gnome-commander.GnomeCmdExtensionDisplayMode">
     <value nick="with-fname" value="0"/>

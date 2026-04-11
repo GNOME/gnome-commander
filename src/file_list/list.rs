@@ -4,8 +4,12 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::{
-    cell::FileListCell, file_attr_sorter::FileAttrSorter, file_type_sorter::FileTypeSorter,
-    item::FileListItem, popup::file_popup_menu, quick_search::QuickSearch,
+    cell::FileListCell,
+    file_attr_sorter::FileAttrSorter,
+    file_type_sorter::FileTypeSorter,
+    item::FileListItem,
+    popup::file_popup_menu,
+    quick_search::{QuickSearch, QuickSearchMode},
 };
 use crate::{
     connection::{Connection, ConnectionExt, ConnectionInterface, list::ConnectionList},
@@ -72,6 +76,12 @@ mod imp {
 
     pub type CellsMap = Rc<WeakMap<FileListItem, FileListCell>>;
 
+    #[derive(Debug, Default, Copy, Clone, PartialEq, Eq)]
+    struct TextTarget {
+        pub quick_search: bool,
+        pub command_line: bool,
+    }
+
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::FileList)]
     pub struct FileList {
@@ -130,14 +140,14 @@ mod imp {
         select_dirs: Cell<bool>,
 
         #[property(get, set, builder(QuickSearchShortcut::default()))]
-        quick_search_shortcut: Cell<QuickSearchShortcut>,
+        pub(super) quick_search_shortcut: Cell<QuickSearchShortcut>,
 
         #[property(get)]
         pub store: gio::ListStore,
 
         pub sort_model: gtk::SortListModel,
-
-        focus_controller: gtk::EventControllerFocus,
+        pub(super) filter_model: gtk::FilterListModel,
+        pub(super) filter: RefCell<Option<Filter>>,
 
         #[property(get)]
         pub selection: gtk::SingleSelection,
@@ -149,8 +159,8 @@ mod imp {
         pub cells_map: BTreeMap<ColumnID, CellsMap>,
 
         pub shift_down: Cell<bool>,
-        pub shift_down_row: Cell<Option<u32>>,
-        pub shift_down_key: Cell<Option<gdk::Key>>,
+        pub range_selection_start: Cell<Option<u32>>,
+        pub range_selection_closed: Cell<Option<bool>>,
 
         modifier_click: Cell<Option<gdk::ModifierType>>,
 
@@ -225,7 +235,13 @@ mod imp {
         }
 
         fn new() -> Self {
+            let store = gio::ListStore::new::<FileListItem>();
+            let filter_model = gtk::FilterListModel::builder().model(&store).build();
+            let sort_model = gtk::SortListModel::builder().model(&filter_model).build();
+            let selection = gtk::SingleSelection::builder().model(&sort_model).build();
+
             let view = gtk::ColumnView::builder()
+                .model(&selection)
                 .show_column_separators(false)
                 .show_row_separators(false)
                 .build();
@@ -253,13 +269,13 @@ mod imp {
                 select_dirs: Default::default(),
                 quick_search_shortcut: Default::default(),
 
-                store: gio::ListStore::new::<FileListItem>(),
+                store,
 
-                sort_model: Default::default(),
+                sort_model,
+                filter_model,
+                filter: Default::default(),
 
-                focus_controller: gtk::EventControllerFocus::new(),
-
-                selection: Default::default(),
+                selection,
                 view,
                 columns: Default::default(),
                 row_selector,
@@ -270,8 +286,8 @@ mod imp {
                     .collect(),
 
                 shift_down: Default::default(),
-                shift_down_row: Default::default(),
-                shift_down_key: Default::default(),
+                range_selection_start: Default::default(),
+                range_selection_closed: Default::default(),
                 modifier_click: Default::default(),
 
                 focus_later: Default::default(),
@@ -296,9 +312,14 @@ mod imp {
             let fl = self.obj();
             fl.set_layout_manager(Some(gtk::BinLayout::new()));
 
-            self.sort_model.set_model(Some(&self.store));
-            self.selection.set_model(Some(&self.sort_model));
-            self.view.set_model(Some(&self.selection));
+            self.filter_model
+                .set_filter(Some(&gtk::CustomFilter::new(glib::clone!(
+                    #[weak(rename_to = imp)]
+                    self,
+                    #[upgrade_or]
+                    false,
+                    move |obj| imp.filter_row(obj),
+                ))));
             self.view.add_css_class("gnome-cmd-file-list");
 
             let scrolled_window = gtk::ScrolledWindow::builder()
@@ -314,7 +335,6 @@ mod imp {
                 .build();
             capture_event_box.append(&scrolled_window);
             capture_event_box.set_parent(&*fl);
-            capture_event_box.add_controller(self.focus_controller.clone());
 
             for (column_id, title, factory, sorter) in [
                 (ColumnID::COLUMN_ICON, "", create_icon_factory(), None),
@@ -615,6 +635,10 @@ mod imp {
                     glib::subclass::Signal::builder("cmdline-execute")
                         .return_type::<bool>()
                         .build(),
+                    // Quick Search needs to be displayed
+                    glib::subclass::Signal::builder("show-quick-search")
+                        .param_types([gtk::Widget::static_type()])
+                        .build(),
                 ]
             })
         }
@@ -627,6 +651,16 @@ mod imp {
     }
 
     impl FileList {
+        fn filter_row(&self, obj: &glib::Object) -> bool {
+            let Some(ref filter) = *self.filter.borrow() else {
+                return true;
+            };
+            let Some(item) = obj.downcast_ref::<FileListItem>() else {
+                return false;
+            };
+            item.file().is_dotdot() || filter.matches(&item.name())
+        }
+
         pub fn set_connection(&self, connection: &Connection) {
             if Some(connection) == self.connection.borrow().as_ref() {
                 return;
@@ -832,7 +866,7 @@ mod imp {
             }
         }
 
-        pub fn items_iter(&self) -> impl Iterator<Item = FileListItem> + use<'_> {
+        pub fn items_iter(&self) -> impl DoubleEndedIterator<Item = FileListItem> {
             self.selection
                 .iter::<glib::Object>()
                 .flatten()
@@ -879,26 +913,14 @@ mod imp {
             let Some(cursor) = self.obj().focused_file_position() else {
                 return;
             };
-            let shift_down_key = self.shift_down_key.take();
-            let Some(shift_down_row) = self.shift_down_row.get() else {
+            let Some(range_selection_closed) = self.range_selection_closed.take() else {
+                return;
+            };
+            let Some(range_selection_start) = self.range_selection_start.get() else {
                 return;
             };
 
-            match shift_down_key {
-                Some(gdk::Key::Page_Up) => {
-                    self.toggle_file_range(shift_down_row, cursor, false);
-                }
-                Some(gdk::Key::Page_Down) => {
-                    self.toggle_file_range(shift_down_row, cursor, false);
-                }
-                Some(gdk::Key::Home) => {
-                    self.toggle_file_range(shift_down_row, cursor, true);
-                }
-                Some(gdk::Key::End) => {
-                    self.toggle_file_range(shift_down_row, cursor, true);
-                }
-                _ => {}
-            }
+            self.toggle_file_range(range_selection_start, cursor, range_selection_closed);
         }
 
         fn toggle_file_range(&self, start_row: u32, end_row: u32, closed_end: bool) {
@@ -926,10 +948,34 @@ mod imp {
         }
 
         pub fn select_with_mouse(&self, positions: u32) {
-            if let Some(start_row) = self.shift_down_row.get() {
+            if let Some(start_row) = self.range_selection_start.get() {
                 self.select_file_range(start_row, positions);
                 self.shift_down.set(false);
-                self.shift_down_key.set(None);
+                self.range_selection_closed.set(None);
+            }
+        }
+
+        fn potential_text_target(&self) -> TextTarget {
+            let Some(focus) = self.obj().root().as_ref().and_then(gtk::Root::focus) else {
+                return Default::default();
+            };
+            if focus.is_ancestor(&*self.obj()) {
+                // Key presses within the file list go to either Quick Search or command line
+                TextTarget {
+                    quick_search: true,
+                    command_line: true,
+                }
+            } else if self.quick_search_shortcut.get() != QuickSearchShortcut::JustACharacter
+                && let Some(quick_search) = self.quick_search.upgrade()
+                && focus.is_ancestor(&quick_search)
+            {
+                // Continue handling Alt+letter and Ctrl+Alt+letter within Quick Search
+                TextTarget {
+                    quick_search: true,
+                    ..Default::default()
+                }
+            } else {
+                Default::default()
             }
         }
 
@@ -938,17 +984,30 @@ mod imp {
             key: gdk::Key,
             state: gdk::ModifierType,
         ) -> glib::Propagation {
-            if self.focus_controller.contains_focus() && is_quicksearch_starting_character(key) {
-                if is_quicksearch_starting_modifier(self.quick_search_shortcut.get(), state) {
-                    self.obj().show_quick_search(Some(key));
+            if is_quicksearch_starting_character(key) {
+                let target = self.potential_text_target();
+                if target.quick_search
+                    && is_quicksearch_starting_modifier(self.quick_search_shortcut.get(), state)
+                {
+                    self.obj().show_quick_search(Some(key), None);
                     return glib::Propagation::Stop;
-                } else if let Some(text) = text_typing(key, state) {
-                    self.obj().emit_by_name::<()>("cmdline-append", &[&text]);
+                } else if target.command_line
+                    && state.difference(SHIFT) == NO_MOD
+                    && let Some(text) = key.to_unicode()
+                {
+                    self.obj()
+                        .emit_by_name::<()>("cmdline-append", &[&text.to_string()]);
                     return glib::Propagation::Stop;
                 }
             }
 
             glib::Propagation::Proceed
+        }
+
+        pub(super) fn start_range_selection(&self, closed: bool) {
+            self.range_selection_closed.set(Some(closed));
+            self.range_selection_start
+                .replace(self.obj().focused_file_position());
         }
 
         fn key_pressed_capture(
@@ -957,43 +1016,34 @@ mod imp {
             state: gdk::ModifierType,
         ) -> glib::Propagation {
             match (state, key) {
-                (SHIFT, gdk::Key::Page_Up | gdk::Key::KP_Page_Up | gdk::Key::KP_9) => {
-                    self.shift_down_key.set(Some(gdk::Key::Page_Up));
-                    self.shift_down_row
-                        .replace(self.obj().focused_file_position());
-                    glib::Propagation::Proceed
-                }
-                (SHIFT, gdk::Key::Page_Down | gdk::Key::KP_Page_Down | gdk::Key::KP_3) => {
-                    self.shift_down_key.set(Some(gdk::Key::Page_Down));
-                    self.shift_down_row
-                        .replace(self.obj().focused_file_position());
-                    glib::Propagation::Proceed
-                }
                 (
                     SHIFT,
-                    gdk::Key::Up
+                    gdk::Key::Page_Up
+                    | gdk::Key::KP_Page_Up
+                    | gdk::Key::KP_9
+                    | gdk::Key::Page_Down
+                    | gdk::Key::KP_Page_Down
+                    | gdk::Key::KP_3
+                    | gdk::Key::Up
                     | gdk::Key::KP_Up
                     | gdk::Key::KP_8
                     | gdk::Key::Down
                     | gdk::Key::KP_Down
                     | gdk::Key::KP_2,
                 ) => {
-                    self.shift_down_key.set(Some(gdk::Key::Up));
-                    if let Some(focused) = self.obj().focused_file_position() {
-                        self.toggle_file(focused);
-                    }
+                    self.start_range_selection(false);
                     glib::Propagation::Proceed
                 }
-                (SHIFT, gdk::Key::Home | gdk::Key::KP_Home | gdk::Key::KP_7) => {
-                    self.shift_down_key.set(Some(gdk::Key::Home));
-                    self.shift_down_row
-                        .replace(self.obj().focused_file_position());
-                    glib::Propagation::Proceed
-                }
-                (SHIFT, gdk::Key::End | gdk::Key::KP_End | gdk::Key::KP_1) => {
-                    self.shift_down_key.set(Some(gdk::Key::End));
-                    self.shift_down_row
-                        .replace(self.obj().focused_file_position());
+                (
+                    SHIFT,
+                    gdk::Key::Home
+                    | gdk::Key::KP_Home
+                    | gdk::Key::KP_7
+                    | gdk::Key::End
+                    | gdk::Key::KP_End
+                    | gdk::Key::KP_1,
+                ) => {
+                    self.start_range_selection(true);
                     glib::Propagation::Proceed
                 }
                 (CONTROL, gdk::Key::P | gdk::Key::p) => {
@@ -1017,7 +1067,7 @@ mod imp {
                 }
                 (NO_MOD, gdk::Key::Shift_L | gdk::Key::Shift_R) => {
                     if !self.shift_down.get() {
-                        self.shift_down_row
+                        self.range_selection_start
                             .replace(self.obj().focused_file_position());
                     }
                     glib::Propagation::Stop
@@ -1386,17 +1436,12 @@ mod imp {
         quick_search: QuickSearchShortcut,
         state: gdk::ModifierType,
     ) -> bool {
+        let state = state.difference(SHIFT);
         match quick_search {
             QuickSearchShortcut::CtrlAlt => state == CONTROL_ALT,
             QuickSearchShortcut::Alt => state == ALT,
             QuickSearchShortcut::JustACharacter => state == NO_MOD,
         }
-    }
-
-    fn text_typing(key: gdk::Key, state: gdk::ModifierType) -> Option<String> {
-        (state.difference(SHIFT) == NO_MOD)
-            .then(|| key.to_unicode().map(|c| c.to_string()))
-            .flatten()
     }
 
     pub fn type_string(file_type: gio::FileType) -> &'static str {
@@ -1579,6 +1624,17 @@ impl FileList {
             .build()
     }
 
+    pub fn set_filter(&self, filter: Option<Filter>) {
+        self.imp().filter.replace(filter);
+        if let Some(filter) = self.imp().filter_model.filter() {
+            filter.changed(gtk::FilterChange::Different);
+        }
+    }
+
+    pub fn start_range_selection(&self, closed: bool) {
+        self.imp().start_range_selection(closed);
+    }
+
     pub fn size(&self) -> usize {
         self.imp()
             .selection
@@ -1686,6 +1742,10 @@ impl FileList {
 
     pub fn visible_files(&self) -> glib::List<File> {
         self.imp().items_iter().map(|item| item.file()).collect()
+    }
+
+    pub fn files(&self) -> impl DoubleEndedIterator<Item = File> {
+        self.imp().items_iter().map(|item| item.file())
     }
 
     pub fn selected_files(&self) -> glib::List<File> {
@@ -2226,23 +2286,29 @@ impl FileList {
         }
     }
 
-    pub fn show_quick_search(&self, key: Option<gdk::Key>) {
-        let popup_is_visible = self
-            .imp()
-            .quick_search
-            .upgrade()
-            .map(|popup| popup.is_visible())
-            .unwrap_or_default();
-
-        if !popup_is_visible {
-            let popup = QuickSearch::new(self);
-            self.imp().quick_search.set(Some(&popup));
-            popup.popup();
-
-            if let Some(initial_text) = key.and_then(|k| k.to_unicode()).map(|c| c.to_string()) {
-                popup.set_text(&initial_text);
-            }
+    pub fn show_quick_search(&self, key: Option<gdk::Key>, mode: Option<QuickSearchMode>) {
+        let quick_search = self.imp().quick_search.upgrade().unwrap_or_else(|| {
+            // We display the quick search box outside the file list widget to make sure keyboard
+            // shortcut processing doesn't interfere with text entry.
+            let quick_search = QuickSearch::new(self);
+            self.emit_by_name::<()>(
+                "show-quick-search",
+                &[quick_search.upcast_ref::<gtk::Widget>()],
+            );
+            quick_search.set_mode(
+                mode.unwrap_or_else(|| GeneralOptions::new().quick_search_default_mode.get()),
+            );
+            self.imp().quick_search.set(Some(&quick_search));
+            quick_search
+        });
+        if let Some(mode) = mode {
+            // If a mode was passed in explicitly, overwrite even if Quick Search is already open.
+            quick_search.set_mode(mode);
         }
+        if let Some(text) = key.and_then(|k| k.to_unicode()).map(|c| c.to_string()) {
+            quick_search.add_text(&text);
+        }
+        quick_search.grab_focus_without_selecting();
     }
 
     pub fn update_style(&self) {
@@ -2290,11 +2356,9 @@ impl FileList {
             items.insert(0, FileListItem::new(&File::dotdot(dir)));
         }
 
-        self.imp().sort_model.set_model(gio::ListModel::NONE);
         let store = &self.imp().store;
         store.remove_all();
         store.splice(0, 0, &items);
-        self.imp().sort_model.set_model(Some(store));
 
         if self.is_realized() {
             // If we have been waiting for this file to show up, focus it
@@ -2399,6 +2463,19 @@ impl FileList {
             "list-clicked",
             false,
             glib::closure_local!(move |this, button, file| (callback)(this, button, file)),
+        )
+    }
+
+    pub fn connect_show_quick_search<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, gtk::Widget) + 'static,
+    {
+        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
+        #[allow(clippy::redundant_closure)]
+        self.connect_closure(
+            "show-quick-search",
+            false,
+            glib::closure_local!(move |this, widget| (callback)(this, widget)),
         )
     }
 

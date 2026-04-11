@@ -1437,7 +1437,7 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
                 gio::Menu::new()
                     .action(UserAction::FileSearch)
                     .action(UserAction::FileQuickSearch)
-                    .action(UserAction::EditFilter)
+                    .action(UserAction::FileQuickFilter)
             })
             .section({
                 gio::Menu::new()

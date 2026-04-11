@@ -16,7 +16,10 @@ u32_enum! {
     }
 }
 
+#[derive(Debug, Default, Clone)]
 pub enum Filter {
+    #[default]
+    None,
     Regex {
         regex: Regex,
     },
@@ -50,6 +53,7 @@ impl Filter {
 
     pub fn matches(&self, text: &str) -> bool {
         match self {
+            Self::None => true,
             Self::Regex { regex } => regex.is_match(text),
             Self::FnMatch { pattern, options } => pattern.matches_with(text, *options),
         }

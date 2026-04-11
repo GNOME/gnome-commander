@@ -472,20 +472,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
           This option defines if multiple instances are allowed.
       </description>
     </key>
-    <key name="quick-search-exact-match-begin" type="b">
-      <default>true</default>
-      <summary>Quick search exact match begin</summary>
-      <description>
-          This option defines if quick search should match explicitly at the beginning of an item name.
-      </description>
-    </key>
-    <key name="quick-search-exact-match-end" type="b">
-      <default>false</default>
-      <summary>Quick search exact match end</summary>
-      <description>
-          This option defines if quick search should match explicitly at the end of an item name.
-      </description>
-    </key>
     <key name="dev-only-icon" type="b">
       <default>false</default>
       <summary>Only device icons</summary>
@@ -512,6 +498,20 @@ SPDX-License-Identifier: GPL-3.0-or-later
       <summary>Quick search shortcut</summary>
       <description>
           This option defines the shortcut for quick search.
+      </description>
+    </key>
+    <key name="quick-search-default-mode" enum="org.gnome.gnome-commander.GnomeCmdQuickSearchMode">
+      <default>'search'</default>
+      <summary>Default Quick Search mode</summary>
+      <description>
+          This option defines which mode Quick Search opens with.
+      </description>
+    </key>
+    <key name="quick-search-case-sensitive" type="b">
+      <default>false</default>
+      <summary>Case sensitive Quick Search</summary>
+      <description>
+          This option is used to remember the state of the "Case Sensitive" toggle in Quick Search.
       </description>
     </key>
     <key name="file-list-tabs" type="a(syybb)">

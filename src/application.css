@@ -60,6 +60,15 @@ listview.gcmd-toolbar {
     animation: bell 0.5s ease-out;
 }
 
+.quick-search {
+    margin: 0 6px;
+    border-spacing: 6px;
+}
+
+.quick-search.bell entry {
+    animation: bell 0.5s ease-out;
+}
+
 /* Search dialog */
 
 .search-profile-grid {
