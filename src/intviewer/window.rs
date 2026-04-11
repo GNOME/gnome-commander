@@ -380,6 +380,8 @@ mod imp {
                 ));
             self.obj()
                 .add_controller(self.shortcuts_controller.borrow().clone());
+
+            self.obj().action_set_enabled("viewer.best-fit", mode == DisplayMode::Image);
         }
 
         fn text_status_update(&self) {
