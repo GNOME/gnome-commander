@@ -152,7 +152,7 @@ impl Searcher {
         }
     }
 
-    fn check_abort_request(&self) -> bool {
+    pub fn is_aborted(&self) -> bool {
         self.imp().abort_indicator.load(Ordering::SeqCst)
     }
 
@@ -202,7 +202,7 @@ impl Searcher {
                 update_counter = update_interval;
             }
 
-            if self.check_abort_request() {
+            if self.is_aborted() {
                 break;
             }
         }
@@ -248,7 +248,7 @@ impl Searcher {
                 update_counter = update_interval;
             }
 
-            if self.check_abort_request() {
+            if self.is_aborted() {
                 break;
             }
         }
@@ -288,7 +288,7 @@ impl Searcher {
                 update_counter = update_interval;
             }
 
-            if self.check_abort_request() {
+            if self.is_aborted() {
                 break;
             }
         }
@@ -327,7 +327,7 @@ impl Searcher {
                 update_counter = update_interval;
             }
 
-            if self.check_abort_request() {
+            if self.is_aborted() {
                 break;
             }
         }

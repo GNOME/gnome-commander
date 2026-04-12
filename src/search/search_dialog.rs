@@ -181,9 +181,9 @@ mod imp {
         dir::Directory,
         file::File,
         file_list::list::FileList,
-        intviewer::search_dialog::gnome_cmd_viewer_search_text_add_to_history,
+        intviewer::search_bar::Mode,
         main_win::MainWindow,
-        options::{GeneralOptions, utils::remember_window_size},
+        options::{GeneralOptions, ViewerOptions, utils::remember_window_size},
         select_directory_button::DirectoryButton,
         types::FileSelectorID,
         utils::{dialog_button_box, display_help},
@@ -756,7 +756,9 @@ mod imp {
             let text_pattern = default_profile.content_pattern();
             if !text_pattern.is_empty() {
                 config.add_content_pattern(&text_pattern);
-                gnome_cmd_viewer_search_text_add_to_history(&text_pattern);
+                if let Err(error) = ViewerOptions::new().add_to_history(&text_pattern, Mode::Text) {
+                    eprintln!("{error}");
+                }
                 profile_component.set_content_patterns_history(&config.content_patterns());
             }
         }

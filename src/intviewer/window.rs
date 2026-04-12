@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::{
-    search_progress_dialog::SearchProgressDialog,
+    search_bar::{SearchBar, SearchSettings},
     searcher::{SearchProgress, Searcher},
     text_render::TextRender,
 };
@@ -55,13 +55,9 @@ mod imp {
     use super::*;
     use crate::{
         file_metainfo_view::FileMetainfoView,
-        intviewer::{
-            image_render::ImageRender,
-            search_dialog::{SearchDialog, SearchRequest},
-            text_render::TextRenderDisplayMode,
-        },
+        intviewer::{image_render::ImageRender, text_render::TextRenderDisplayMode},
         options::{ViewerOptions, utils::remember_window_size},
-        utils::display_help,
+        utils::{display_help, hbox_builder, vbox_builder},
     };
     use gtk::gdk;
     use std::cell::{Cell, OnceCell, RefCell};
@@ -82,8 +78,7 @@ mod imp {
 
         #[property(get, set)]
         pub file: RefCell<Option<File>>,
-        pub searcher: RefCell<Option<Searcher>>,
-        pub search: RefCell<SearchRequest>,
+        pub(super) searchbar: SearchBar,
         pub current_scale_index: Cell<usize>,
         pub img_initialized: Cell<bool>,
 
@@ -121,14 +116,12 @@ mod imp {
             klass.install_action("viewer.best-fit", None, |obj, _, _| {
                 obj.imp().zoom_best_fit()
             });
-            klass.install_action_async("viewer.find", None, |obj, _, _| async move {
-                obj.imp().find().await
-            });
+            klass.install_action("viewer.find", None, |obj, _, _| obj.imp().find());
             klass.install_action_async("viewer.find-next", None, |obj, _, _| async move {
-                obj.imp().find_next().await
+                obj.imp().start_search(true).await
             });
             klass.install_action_async("viewer.find-previous", None, |obj, _, _| async move {
-                obj.imp().find_prev().await
+                obj.imp().start_search(false).await
             });
             klass.install_property_action("viewer.display-mode", "display-mode");
             klass.install_property_action("viewer.wrap-lines", "wrap-lines");
@@ -174,11 +167,7 @@ mod imp {
                 file_metadata_service: Default::default(),
 
                 file: Default::default(),
-                searcher: Default::default(),
-                search: RefCell::new(SearchRequest::Text {
-                    pattern: glib::GString::new(),
-                    case_sensitive: true,
-                }),
+                searchbar: SearchBar::new(),
                 current_scale_index: Cell::new(5),
                 img_initialized: Default::default(),
                 display_mode: Cell::new(display_mode),
@@ -202,67 +191,79 @@ mod imp {
             window.set_icon_name(Some("gnome-commander-internal-viewer"));
             window.set_title(Some("GViewer"));
 
-            let vbox = gtk::Box::builder()
-                .orientation(gtk::Orientation::Vertical)
-                .spacing(6)
-                .build();
-            window.set_child(Some(&vbox));
+            window.set_child(Some(
+                &vbox_builder()
+                    .add_css_class("spacing")
+                    .append(&self.menubar)
+                    .append({
+                        let tscrollbox = gtk::ScrolledWindow::builder()
+                            .child(&self.text_render)
+                            .hexpand(true)
+                            .vexpand(true)
+                            .build();
+                        self.text_render.connect_text_status_changed(glib::clone!(
+                            #[weak(rename_to = imp)]
+                            self,
+                            move |_| imp.text_status_update()
+                        ));
 
-            vbox.append(&self.menubar);
+                        let button_gesture = gtk::GestureClick::builder().button(3).build();
+                        button_gesture.connect_pressed(glib::clone!(
+                            #[weak(rename_to = imp)]
+                            self,
+                            move |_, n_press, x, y| imp
+                                .on_text_viewer_button_pressed(n_press, x, y)
+                        ));
+                        self.text_render.add_controller(button_gesture);
 
-            let tscrollbox = gtk::ScrolledWindow::builder()
-                .child(&self.text_render)
-                .hexpand(true)
-                .vexpand(true)
-                .build();
+                        let iscrollbox = gtk::ScrolledWindow::builder()
+                            .child(&self.image_render)
+                            .hexpand(true)
+                            .vexpand(true)
+                            .build();
+                        self.image_render.connect_image_status_changed(glib::clone!(
+                            #[weak(rename_to = imp)]
+                            self,
+                            move |_| imp.image_status_update()
+                        ));
 
-            let iscrollbox = gtk::ScrolledWindow::builder()
-                .child(&self.image_render)
-                .hexpand(true)
-                .vexpand(true)
-                .build();
+                        self.stack.add_named(&tscrollbox, Some("text"));
+                        self.stack.add_named(&iscrollbox, Some("image"));
+                        self.stack.set_visible_child_name("text");
 
-            self.stack.add_named(&tscrollbox, Some("text"));
-            self.stack.add_named(&iscrollbox, Some("image"));
-            self.stack.set_visible_child_name("text");
-            vbox.append(&self.stack);
-
-            self.text_render.connect_text_status_changed(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                move |_| imp.text_status_update()
+                        &self.stack
+                    })
+                    .append({
+                        self.searchbar.connect_search(glib::clone!(
+                            #[weak(rename_to = imp)]
+                            self,
+                            move |_, forward| {
+                                glib::spawn_future_local(async move {
+                                    imp.start_search(forward).await;
+                                });
+                            }
+                        ));
+                        &self.searchbar
+                    })
+                    .append(
+                        &hbox_builder()
+                            .add_css_class("spacing")
+                            .add_css_class("offset")
+                            .append(&self.status_label)
+                            .build(),
+                    )
+                    .append(&{
+                        let metadata_view = FileMetainfoView::new(&window.file_metadata_service());
+                        metadata_view.set_vexpand(true);
+                        window
+                            .bind_property("metadata-visible", &metadata_view, "visible")
+                            .bidirectional()
+                            .build();
+                        let _ = self.metadata_view.set(metadata_view.clone());
+                        metadata_view
+                    })
+                    .build(),
             ));
-            self.image_render.connect_image_status_changed(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                move |_| imp.image_status_update()
-            ));
-
-            let button_gesture = gtk::GestureClick::builder().button(3).build();
-            button_gesture.connect_pressed(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                move |_, n_press, x, y| imp.on_text_viewer_button_pressed(n_press, x, y)
-            ));
-            self.text_render.add_controller(button_gesture);
-
-            let statusbar = gtk::Box::builder()
-                .orientation(gtk::Orientation::Horizontal)
-                .spacing(6)
-                .margin_start(12)
-                .margin_end(12)
-                .build();
-            statusbar.append(&self.status_label);
-            vbox.append(&statusbar);
-
-            let metadata_view = FileMetainfoView::new(&window.file_metadata_service());
-            metadata_view.set_vexpand(true);
-            window
-                .bind_property("metadata-visible", &metadata_view, "visible")
-                .bidirectional()
-                .build();
-            vbox.append(&metadata_view);
-            self.metadata_view.set(metadata_view).ok().unwrap();
 
             let options = ViewerOptions::new();
 
@@ -370,6 +371,7 @@ mod imp {
                 DisplayMode::Image => {
                     self.stack.set_visible_child_name("image");
                     self.image_render.notify_status_changed();
+                    self.searchbar.hide();
                 }
             }
 
@@ -511,71 +513,130 @@ mod imp {
             }
         }
 
-        #[async_recursion::async_recursion(?Send)]
-        async fn find(&self) {
+        fn find(&self) {
             if self.display_mode.get() == DisplayMode::Image {
                 return;
             }
 
-            // Show the Search Dialog
-            let Some(request) = SearchDialog::show(self.obj().upcast_ref()).await else {
-                return;
-            };
-
-            let searcher = match &request {
-                SearchRequest::Text {
-                    pattern,
-                    case_sensitive,
-                } => Searcher::new_text_search(
-                    self.text_render.input_mode().unwrap(),
-                    self.text_render.current_offset(),
-                    self.text_render
-                        .input_mode()
-                        .map(|f| f.max_offset())
-                        .unwrap_or_default(),
-                    pattern,
-                    *case_sensitive,
-                ),
-                SearchRequest::Binary { pattern, .. } => Searcher::new_hex_search(
-                    self.text_render.input_mode().unwrap(),
-                    self.text_render.current_offset(),
-                    self.text_render
-                        .input_mode()
-                        .map(|f| f.max_offset())
-                        .unwrap_or_default(),
-                    pattern,
-                ),
-            };
-
-            if let Some(searcher) = searcher {
-                self.search.replace(request);
-                self.searcher.replace(Some(searcher));
-
-                // call "find_next" to actually do the search
-                self.find_next().await;
-            }
+            self.searchbar.show(true);
         }
 
-        async fn find_next(&self) {
+        async fn start_search(&self, forward: bool) {
             if self.display_mode.get() == DisplayMode::Image {
                 return;
             }
 
-            if self.searcher.borrow().is_none() {
-                // if no search is active, call "menu_edit_find". (which will call "menu_edit_find_next" again
-                self.find().await;
+            let Some(settings) = self.searchbar.settings() else {
+                // No search active, just show and focus search bar
+                self.searchbar.show(true);
+                return;
+            };
+
+            self.searchbar.show(false);
+            self.searchbar.add_to_history();
+
+            let end_offset = self
+                .text_render
+                .input_mode()
+                .map(|f| f.max_offset())
+                .unwrap_or_default();
+            let start_offset = if self.searchbar.showing_not_found() {
+                // Wrap the search around after “Not found”
+                if forward { 0 } else { end_offset }
+            } else if let Some((start_marker, end_marker)) = self.text_render.marker() {
+                // Start at the marked text if there is any
+                if forward {
+                    start_marker + 1
+                } else {
+                    end_marker - 1
+                }
             } else {
-                start_search(&self.obj(), true).await;
-            }
-        }
+                // Default to starting at the edge of the current screen
+                if forward {
+                    self.text_render.current_offset()
+                } else {
+                    self.text_render.end_offset()
+                }
+            };
 
-        async fn find_prev(&self) {
-            if self.display_mode.get() == DisplayMode::Image {
+            let (searcher, pattern_len) = match settings {
+                SearchSettings::Text {
+                    pattern,
+                    match_case,
+                } => (
+                    Searcher::new_text_search(
+                        self.text_render.input_mode().unwrap(),
+                        start_offset,
+                        end_offset,
+                        &pattern,
+                        match_case,
+                    ),
+                    pattern.len(),
+                ),
+                SearchSettings::Binary { pattern } => (
+                    Searcher::new_hex_search(
+                        self.text_render.input_mode().unwrap(),
+                        start_offset,
+                        end_offset,
+                        &pattern,
+                    ),
+                    pattern.len(),
+                ),
+            };
+
+            let Some(searcher) = searcher else {
                 return;
-            }
+            };
 
-            if self.searcher.borrow().is_some() {
-                start_search(&self.obj(), false).await;
+            let abort_handler = self.searchbar.connect_abort(glib::clone!(
+                #[strong]
+                searcher,
+                move |_| searcher.abort()
+            ));
+
+            let (sender, receiver) = async_channel::bounded::<SearchProgress>(1);
+
+            let thread = std::thread::spawn(glib::clone!(
+                #[strong]
+                searcher,
+                move || {
+                    let sender1 = sender.clone();
+                    let found = searcher.search(forward, move |p| {
+                        sender1.send_blocking(SearchProgress::Progress(p)).unwrap()
+                    });
+                    sender.send_blocking(SearchProgress::Done(found)).unwrap();
+                }
+            ));
+
+            let found = loop {
+                let message = receiver.recv().await.unwrap();
+                match message {
+                    SearchProgress::Progress(progress) => self.searchbar.show_progress(progress),
+                    SearchProgress::Done(found) => break found,
+                }
+            };
+            self.searchbar.disconnect(abort_handler);
+            let _ = thread.join();
+            pending().await;
+
+            self.searchbar.hide_progress();
+            match found {
+                Some(result) => {
+                    self.text_render.set_marker(
+                        result,
+                        if forward {
+                            result + pattern_len as u64
+                        } else {
+                            result - pattern_len as u64
+                        },
+                    );
+                    self.text_render.ensure_offset_visible(result);
+                }
+                None => {
+                    if !searcher.is_aborted() {
+                        self.searchbar.show_not_found();
+                    }
+                }
             }
         }
 
@@ -651,84 +712,11 @@ impl ViewerWindow {
         self.imp().text_render.load_file(&path);
         self.set_display_mode(DisplayMode::guess(file).unwrap_or_default());
 
-        self.imp()
-            .metadata_view
-            .get()
-            .unwrap()
-            .set_property("file", file);
+        if let Some(metadata_view) = self.imp().metadata_view.get() {
+            metadata_view.set_property("file", file);
+        }
 
         self.set_title(path.to_str());
-    }
-}
-
-async fn say_not_found(parent: &gtk::Window, search_pattern: &str) {
-    let _answer = gtk::AlertDialog::builder()
-        .modal(true)
-        .message(gettext("Pattern “{}” was not found").replace("{}", search_pattern))
-        .buttons([gettext("_Dismiss")])
-        .cancel_button(0)
-        .default_button(0)
-        .build()
-        .choose_future(Some(parent))
-        .await;
-}
-
-async fn start_search(window: &ViewerWindow, forward: bool) {
-    let Some(searcher) = window.imp().searcher.borrow().clone() else {
-        return;
-    };
-    let search = window.imp().search.borrow().clone();
-
-    let (sender, receiver) = async_channel::bounded::<SearchProgress>(1);
-
-    let thread = std::thread::spawn(glib::clone!(
-        #[strong]
-        searcher,
-        move || {
-            let sender1 = sender.clone();
-            let found = searcher.search(forward, move |p| {
-                sender1.send_blocking(SearchProgress::Progress(p)).unwrap()
-            });
-            sender.send_blocking(SearchProgress::Done(found)).unwrap();
-        }
-    ));
-
-    let progress_dlg = SearchProgressDialog::new(window.upcast_ref(), &search.to_string());
-    progress_dlg.connect_stop(glib::clone!(
-        #[weak]
-        searcher,
-        move || searcher.abort()
-    ));
-
-    progress_dlg.present();
-    let found = loop {
-        let message = receiver.recv().await.unwrap();
-        match message {
-            SearchProgress::Progress(progress) => progress_dlg.set_progress(progress),
-            SearchProgress::Done(found) => break found,
-        }
-    };
-    thread.join().unwrap();
-    progress_dlg.close();
-
-    pending().await;
-
-    match found {
-        Some(result) => {
-            let text_render = &window.imp().text_render;
-            text_render.set_marker(
-                result,
-                if forward {
-                    result + search.len()
-                } else {
-                    result - search.len()
-                },
-            );
-            text_render.ensure_offset_visible(result);
-        }
-        None => {
-            say_not_found(window.upcast_ref(), &search.to_string()).await;
-        }
     }
 }
 

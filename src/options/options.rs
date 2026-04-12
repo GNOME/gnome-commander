@@ -12,7 +12,7 @@ use crate::{
     file_selector::{LegacyTabVariant, TabVariant},
     filter::PatternType,
     history::History,
-    intviewer::search_dialog::Mode,
+    intviewer::search_bar::Mode,
     layout::{
         PREF_COLORS,
         color_themes::{ColorTheme, ColorThemeId, load_custom_theme, save_custom_theme},
@@ -625,5 +625,22 @@ impl ViewerOptions {
             case_sensitive_search: AppOption::simple(&settings, "case-sensitive-search"),
             search_mode: AppOption::new(&settings, "search-mode", enum_convert_strum!(Mode)),
         }
+    }
+
+    pub fn add_to_history(&self, text: &str, mode: Mode) -> WriteResult {
+        const INTVIEWER_HISTORY_SIZE: usize = 16;
+
+        let option = match mode {
+            Mode::Text => &self.search_pattern_text,
+            Mode::Binary => &self.search_pattern_hex,
+        };
+
+        let mut history = option.get();
+        if history.first().is_some_and(|s| s == text) {
+            return Ok(());
+        }
+        history.insert(0, text.to_owned());
+        history.truncate(INTVIEWER_HISTORY_SIZE);
+        option.set(history)
     }
 }

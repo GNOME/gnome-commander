@@ -1129,6 +1129,18 @@ impl TextRender {
         self.emit_text_status_changed();
     }
 
+    pub fn marker(&self) -> Option<(u64, u64)> {
+        let mut marker_start = self.imp().marker_start.get();
+        let mut marker_end = self.imp().marker_end.get();
+        if marker_start == marker_end {
+            return None;
+        }
+        if marker_start > marker_end {
+            std::mem::swap(&mut marker_start, &mut marker_end);
+        }
+        Some((marker_start, marker_end))
+    }
+
     pub fn set_marker(&self, start: u64, end: u64) {
         self.imp().marker_start.set(start);
         self.imp().marker_end.set(end);
@@ -1139,6 +1151,10 @@ impl TextRender {
         self.vadjustment()
             .map(|a| a.value() as u64)
             .unwrap_or_default()
+    }
+
+    pub fn end_offset(&self) -> u64 {
+        self.imp().last_displayed_offset.get()
     }
 
     pub fn size(&self) -> u64 {
@@ -1211,14 +1227,9 @@ impl TextRender {
     }
 
     pub fn copy_selection(&self) {
-        let mut marker_start = self.imp().marker_start.get();
-        let mut marker_end = self.imp().marker_end.get();
-        if marker_start == marker_end {
+        let Some((marker_start, marker_end)) = self.marker() else {
             return;
-        }
-        if marker_start > marker_end {
-            std::mem::swap(&mut marker_start, &mut marker_end);
-        }
+        };
         match self.display_mode() {
             TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => self
                 .imp()

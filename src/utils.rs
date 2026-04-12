@@ -649,6 +649,54 @@ impl GnomeCmdFileExt for gio::File {
     }
 }
 
+/// A helper class allowing to chain modifications for a `gtk::Box`.
+pub struct BoxBuilder {
+    inner: gtk::Box,
+}
+
+impl BoxBuilder {
+    pub fn append(self, child: &impl IsA<gtk::Widget>) -> Self {
+        self.inner.append(child);
+        self
+    }
+
+    pub fn add_css_class(self, css_class: &str) -> Self {
+        self.inner.add_css_class(css_class);
+        self
+    }
+
+    pub fn build(self) -> gtk::Box {
+        self.inner
+    }
+}
+
+impl From<gtk::Box> for BoxBuilder {
+    fn from(inner: gtk::Box) -> Self {
+        Self { inner }
+    }
+}
+
+impl From<BoxBuilder> for gtk::Box {
+    fn from(builder: BoxBuilder) -> Self {
+        builder.inner
+    }
+}
+
+/// Creates a `BoxBuilder` instance for a box with arbitrary orientation.
+fn box_builder(orientation: gtk::Orientation) -> BoxBuilder {
+    gtk::Box::builder().orientation(orientation).build().into()
+}
+
+/// Creates a `BoxBuilder` instance for a box with horizontal orientation.
+pub fn hbox_builder() -> BoxBuilder {
+    box_builder(gtk::Orientation::Horizontal)
+}
+
+/// Creates a `BoxBuilder` instance for a box with vertical orientation.
+pub fn vbox_builder() -> BoxBuilder {
+    box_builder(gtk::Orientation::Vertical)
+}
+
 /// Gtk doesn't allow changing focused row while the list isn't focused, things end up in an
 /// invalid state. This type encapsulates the row selection logic, delaying focus change if
 /// necessary.
