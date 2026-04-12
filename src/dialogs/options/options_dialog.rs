@@ -47,10 +47,10 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.install_action(UserAction::ViewNextTab.name(), None, |obj, _, _| {
-                obj.imp().next_tab()
+                obj.imp().notebook.emit_change_current_page(1);
             });
             klass.install_action(UserAction::ViewPrevTab.name(), None, |obj, _, _| {
-                obj.imp().prev_tab()
+                obj.imp().notebook.emit_change_current_page(-1);
             });
         }
     }
@@ -72,25 +72,6 @@ mod imp {
                 sender,
                 receiver,
             }
-        }
-
-        pub(super) fn activate_page(&self, page: u32) {
-            self.notebook.set_current_page(Some(page));
-            self.notebook.grab_focus();
-            self.notebook.child_focus(gtk::DirectionType::TabForward);
-        }
-
-        pub(super) fn next_tab(&self) {
-            self.activate_page(
-                (self.notebook.current_page().unwrap_or_default() + 1) % self.notebook.n_pages(),
-            );
-        }
-
-        pub(super) fn prev_tab(&self) {
-            let pages = self.notebook.n_pages();
-            self.activate_page(
-                (self.notebook.current_page().unwrap_or_default() + pages - 1) % pages,
-            );
         }
     }
 
@@ -170,6 +151,12 @@ mod imp {
                 Some(&gtk::Label::builder().label(gettext("Devices")).build()),
             );
 
+            self.notebook.connect_page_notify(|notebook| {
+                // Make sure to focus first element of the tab
+                notebook.grab_focus();
+                notebook.child_focus(gtk::DirectionType::TabForward);
+            });
+
             let help_button = gtk::Button::builder()
                 .label(gettext("_Help"))
                 .use_underline(true)
@@ -242,10 +229,6 @@ impl OptionsDialog {
         &self.imp().notebook
     }
 
-    pub fn activate_page(&self, page: u32) {
-        self.imp().activate_page(page);
-    }
-
     pub fn receiver(&self) -> &async_channel::Receiver<bool> {
         &self.imp().receiver
     }
@@ -285,7 +268,9 @@ pub async fn show_options_dialog(parent_window: &MainWindow) -> bool {
 
     // open the tab which was active when closing the options notebook last time
     static LAST_ACTIVE_TAB: Mutex<u32> = Mutex::new(0);
-    dialog.activate_page(LAST_ACTIVE_TAB.lock().map(|g| *g).unwrap_or_default());
+    let notebook = &dialog.imp().notebook;
+    notebook.set_current_page(None);    // making sure our page change handler is triggered
+    notebook.set_current_page(Some(LAST_ACTIVE_TAB.lock().map(|g| *g).unwrap_or_default()));
 
     let result = dialog.receiver().recv().await == Ok(true);
     if result && let Err(error) = dialog.save() {
