@@ -5,6 +5,7 @@
 #[cfg(test)]
 mod test {
     use crate::{
+        file_list::quick_search::QuickSearchMode,
         layout::color_themes::ColorThemeId,
         tab_label::TabLockIndicator,
         types::{
@@ -12,6 +13,7 @@ mod test {
             GraphicalLayoutMode, LeftMouseButtonMode, MiddleMouseButtonMode, PermissionDisplayMode,
             QuickSearchShortcut, RightMouseButtonMode, SizeDisplayMode,
         },
+        utils::EnumAll,
     };
     use gtk::prelude::*;
 
@@ -31,6 +33,43 @@ mod test {
                 indent,
                 enum_value.nick(),
                 enum_value.value()
+            ));
+        }
+        xml.push_str(indent);
+        xml.push_str("</enum>\n");
+
+        xml
+    }
+
+    fn enum_xml_iterable<T>(name: &str, indent: &str) -> String
+    where
+        T: EnumAll + std::fmt::Debug,
+        u32: From<T>,
+    {
+        let mut xml = String::new();
+        xml.push_str(indent);
+
+        xml.push_str(&format!("<enum id=\"org.gnome.gnome-commander.{name}\">\n",));
+        for variant in T::all() {
+            let mut nick = format!("{variant:?}");
+
+            // Convert CamelCase to kebab-case
+            let (first, _) = nick.split_at_mut(1);
+            first.make_ascii_lowercase();
+            let nick = nick
+                .chars()
+                .map(|c| {
+                    if !c.is_ascii_uppercase() {
+                        c.to_string()
+                    } else {
+                        ['-', c.to_ascii_lowercase()].into_iter().collect()
+                    }
+                })
+                .collect::<String>();
+
+            xml.push_str(&format!(
+                "{indent}  <value nick=\"{nick}\" value=\"{}\"/>\n",
+                u32::from(variant)
             ));
         }
         xml.push_str(indent);
@@ -84,6 +123,7 @@ mod test {
             enum_xml(GnomeCmdTransferType::static_type(), "  "),
             enum_xml(PermissionDisplayMode::static_type(), "  "),
             enum_xml(QuickSearchShortcut::static_type(), "  "),
+            enum_xml_iterable::<QuickSearchMode>("GnomeCmdQuickSearchMode", "  "),
             enum_xml(ExtensionDisplayMode::static_type(), "  "),
             enum_xml(ConfirmOverwriteMode::static_type(), "  "),
             enum_xml(DndMode::static_type(), "  "),

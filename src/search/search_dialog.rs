@@ -209,6 +209,7 @@ mod imp {
         virtual_directory: Directory,
         #[property(get, set)]
         pub result_list: RefCell<Option<FileList>>,
+        quick_search_box: gtk::Box,
         pub status_label: gtk::Label,
         pub progress_bar: gtk::ProgressBar,
         #[property(get, set)]
@@ -284,6 +285,9 @@ mod imp {
                 ))),
                 virtual_directory: Directory::create_virtual(),
                 result_list: Default::default(),
+                quick_search_box: gtk::Box::builder()
+                    .orientation(gtk::Orientation::Vertical)
+                    .build(),
                 status_label: gtk::Label::builder()
                     .max_width_chars(1)
                     .hexpand(true)
@@ -374,6 +378,17 @@ mod imp {
                 ),
             );
 
+            result_list.connect_show_quick_search(glib::clone!(
+                #[weak(rename_to = quick_search_box)]
+                self.quick_search_box,
+                move |_, widget| {
+                    while let Some(child) = quick_search_box.first_child() {
+                        child.unparent();
+                    }
+                    quick_search_box.append(&widget);
+                }
+            ));
+
             let sw = gtk::ScrolledWindow::builder()
                 .vexpand(true)
                 .hscrollbar_policy(gtk::PolicyType::Automatic)
@@ -381,6 +396,7 @@ mod imp {
                 .child(&result_list)
                 .build();
             grid.attach(&sw, 0, 2, 2, 1);
+            grid.attach(&self.quick_search_box, 0, 3, 2, 1);
 
             // status & progress
             let statusbar = gtk::Box::builder()
@@ -390,7 +406,7 @@ mod imp {
             statusbar.append(&self.progress_bar);
             statusbar.append(&self.status_label);
             self.progress_bar.set_visible(false);
-            grid.attach(&statusbar, 0, 3, 2, 1);
+            grid.attach(&statusbar, 0, 4, 2, 1);
 
             let help_button = gtk::Button::builder()
                 .label(gettext("_Help"))
@@ -456,7 +472,7 @@ mod imp {
                     ],
                 ),
                 0,
-                4,
+                5,
                 2,
                 1,
             );

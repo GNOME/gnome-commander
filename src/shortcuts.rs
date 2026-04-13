@@ -252,7 +252,8 @@ impl Shortcuts {
             Shortcut::shift(gdk::Key::Delete),
             UserAction::FileDeletePermanently,
         );
-        self.register(Shortcut::ctrl(Key::F12), UserAction::EditFilter);
+        self.register(Shortcut::ctrl(Key::F11), UserAction::FileQuickSearch);
+        self.register(Shortcut::ctrl(Key::F12), UserAction::FileQuickFilter);
         self.register(Shortcut::sup(Key::F), UserAction::FileSearch);
         self.register(Shortcut::shift(Key::F6), UserAction::FileRename);
         self.register(Shortcut::key(Key::F2), UserAction::FileRename);
@@ -559,7 +560,7 @@ impl Shortcuts {
             (Shortcut::alt(Key::_2), UserAction::ConnectionsChangeRight),
             (Shortcut::sup(Key::_2), UserAction::ConnectionsChangeRight),
             (Shortcut::ctrl_shift(Key::C), UserAction::EditCopyNames),
-            (Shortcut::ctrl(Key::F12), UserAction::EditFilter),
+            (Shortcut::ctrl(Key::F12), UserAction::FileQuickFilter),
             (Shortcut::ctrl(Key::M), UserAction::FileAdvrename),
             (Shortcut::shift(Key::F5), UserAction::FileCopyAs),
             (Shortcut::ctrl_shift(Key::F5), UserAction::FileCreateSymlink),

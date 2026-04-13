@@ -63,8 +63,7 @@ mod imp {
         pub directory_indicator: DirectoryIndicator,
         pub notebook: gtk::Notebook,
         pub info_label: gtk::Label,
-        pub filter_box: gtk::Box,
-        pub filter_entry: gtk::Entry,
+        pub(super) quick_search_box: gtk::Box,
 
         #[property(get, set, nullable)]
         pub command_line: RefCell<Option<CommandLine>>,
@@ -78,7 +77,7 @@ mod imp {
         #[property(get, set = Self::set_active)]
         active: Cell<bool>,
 
-        #[property(get, set, nullable)]
+        #[property(get, set = Self::set_list, nullable)]
         list: RefCell<Option<FileList>>,
 
         select_connection_in_progress: Cell<bool>,
@@ -160,8 +159,6 @@ mod imp {
                 })),
             );
 
-            let (filter_box, filter_entry) = create_filter_box();
-
             Self {
                 connection_bar: ConnectionBar::new(connection_list),
                 connection_list: connection_list.clone(),
@@ -209,8 +206,9 @@ mod imp {
                     .margin_end(6)
                     .build(),
 
-                filter_box,
-                filter_entry,
+                quick_search_box: gtk::Box::builder()
+                    .orientation(gtk::Orientation::Vertical)
+                    .build(),
 
                 command_line: Default::default(),
 
@@ -278,8 +276,8 @@ mod imp {
             ));
 
             this.attach(&self.notebook, 0, 3, 2, 1);
-            this.attach(&self.info_label, 0, 4, 1, 1);
-            this.attach(&self.filter_box, 0, 5, 2, 1);
+            this.attach(&self.quick_search_box, 0, 4, 2, 1);
+            this.attach(&self.info_label, 0, 5, 1, 1);
 
             self.tab_popover.set_parent(&self.notebook);
 
@@ -403,6 +401,15 @@ mod imp {
             mask.is_some_and(|m| m.contains(gdk::ModifierType::CONTROL_MASK))
         }
 
+        pub fn set_quick_search(&self, widget: Option<gtk::Widget>) {
+            while let Some(child) = self.quick_search_box.first_child() {
+                child.unparent();
+            }
+            if let Some(widget) = widget {
+                self.quick_search_box.append(&widget);
+            }
+        }
+
         async fn add_bookmark(&self) {
             let Some(window) = self.obj().root().and_downcast::<gtk::Window>() else {
                 return;
@@ -448,6 +455,13 @@ mod imp {
             if self.select_connection_in_progress.get() {
                 return;
             }
+            if let Some(connection) = self.obj().file_list().connection()
+                && self.find_connection_in_dropdown(&connection).is_none()
+            {
+                // Current connection is not in dropdown, this selection is probably due to it
+                // being closed right now. Ignore this event.
+                return;
+            }
             if let Some(connection) = self
                 .connection_dropdown
                 .selected_item()
@@ -485,6 +499,11 @@ mod imp {
         fn set_active(&self, active: bool) {
             self.active.set(active);
             self.directory_indicator.set_active(active);
+        }
+
+        fn set_list(&self, list: Option<FileList>) {
+            self.list.replace(list);
+            self.set_quick_search(None);
         }
     }
 
@@ -708,6 +727,15 @@ impl FileSelector {
             #[weak(rename_to = this)]
             self,
             move |fl, button, file| this.on_list_list_clicked(fl, button, file)
+        ));
+        fl.connect_show_quick_search(glib::clone!(
+            #[weak(rename_to = this)]
+            self,
+            move |fl, widget| {
+                if this.current_file_list().as_ref() == Some(fl) {
+                    this.imp().set_quick_search(Some(widget));
+                }
+            }
         ));
 
         if let Some(dir) = dir {
@@ -1378,11 +1406,6 @@ impl FileSelector {
         }
     }
 
-    pub fn show_filter(&self) {
-        self.imp().filter_box.set_visible(true);
-        self.imp().filter_entry.grab_focus();
-    }
-
     pub fn add_shortcuts(&self, shortcuts: &Shortcuts) {
         shortcuts.add_controller(&self.imp().notebook, Area::Panel);
     }
@@ -1679,49 +1702,6 @@ async fn on_notebook_button_pressed(
         }
         _ => {}
     }
-}
-
-fn create_filter_box() -> (gtk::Box, gtk::Entry) {
-    let filter_box = gtk::Box::builder()
-        .orientation(gtk::Orientation::Horizontal)
-        .spacing(6)
-        .margin_start(6)
-        .margin_end(6)
-        .visible(false)
-        .build();
-
-    filter_box.append(&gtk::Label::builder().label(gettext("Filter:")).build());
-
-    let entry = gtk::Entry::builder().hexpand(true).build();
-    let key_controller = gtk::EventControllerKey::new();
-    key_controller.connect_key_pressed(glib::clone!(
-        #[weak]
-        filter_box,
-        #[upgrade_or]
-        glib::Propagation::Proceed,
-        move |_, key, _, state| {
-            if state == gdk::ModifierType::NO_MODIFIER_MASK && key == gdk::Key::Escape {
-                filter_box.set_visible(false);
-            }
-            glib::Propagation::Proceed
-        }
-    ));
-    entry.add_controller(key_controller);
-    filter_box.append(&entry);
-
-    let filter_close_button = gtk::Button::builder()
-        .label("x")
-        .has_frame(false)
-        .focusable(false)
-        .build();
-    filter_close_button.connect_clicked(glib::clone!(
-        #[weak]
-        filter_box,
-        move |_| filter_box.set_visible(false)
-    ));
-    filter_box.append(&filter_close_button);
-
-    (filter_box, entry)
 }
 
 #[cfg(test)]

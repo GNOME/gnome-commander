@@ -49,12 +49,8 @@ listview.gcmd-toolbar {
     margin: 3px 0;
 }
 
-.command-line {
+.command-line, .command-line-output {
     margin: 1px 2px;
-    border-spacing: 1px;
-}
-
-.command-line-entry {
     border-spacing: 4px;
 }
 
@@ -65,6 +61,15 @@ listview.gcmd-toolbar {
 }
 
 .command-line-entry-field.bell entry {
+    animation: bell 0.5s ease-out;
+}
+
+.quick-search {
+    margin: 0 6px;
+    border-spacing: 6px;
+}
+
+.quick-search.bell entry {
     animation: bell 0.5s ease-out;
 }
 

@@ -8,6 +8,7 @@ use crate::{
     app::FavoriteAppVariant,
     connection::list::{BookmarkVariant, ConnectionVariant, CustomDeviceVariant},
     enum_convert_strum,
+    file_list::quick_search::QuickSearchMode,
     file_selector::{LegacyTabVariant, TabVariant},
     filter::PatternType,
     history::History,
@@ -86,8 +87,8 @@ pub struct GeneralOptions {
     pub left_mouse_button_unselects: BoolOption,
 
     pub quick_search_shortcut: EnumOption<QuickSearchShortcut>,
-    pub quick_search_exact_match_begin: BoolOption,
-    pub quick_search_exact_match_end: BoolOption,
+    pub quick_search_default_mode: EnumOption<QuickSearchMode>,
+    pub quick_search_case_sensitive: BoolOption,
 
     pub show_samba_workgroups_button: BoolOption,
     pub device_only_icon: BoolOption,
@@ -95,6 +96,7 @@ pub struct GeneralOptions {
     pub command_line_history: StrvOption,
     pub command_line_history_length: U32Option,
     pub command_line_split: I32Option,
+    pub command_line_autohide_output: BoolOption,
 
     pub save_tabs_on_exit: BoolOption,
     pub save_dirs_on_exit: BoolOption,
@@ -229,13 +231,14 @@ impl GeneralOptions {
                 "quick-search",
                 enum_convert_strum!(QuickSearchShortcut),
             ),
-            quick_search_exact_match_begin: BoolOption::simple(
+            quick_search_default_mode: AppOption::new(
                 &settings,
-                "quick-search-exact-match-begin",
+                "quick-search-default-mode",
+                enum_convert_strum!(QuickSearchMode),
             ),
-            quick_search_exact_match_end: BoolOption::simple(
+            quick_search_case_sensitive: BoolOption::simple(
                 &settings,
-                "quick-search-exact-match-end",
+                "quick-search-case-sensitive",
             ),
             show_samba_workgroups_button: BoolOption::simple(
                 &settings,
@@ -245,6 +248,7 @@ impl GeneralOptions {
             command_line_history: StrvOption::simple(&settings, "cmdline-history"),
             command_line_history_length: U32Option::simple(&settings, "cmdline-history-length"),
             command_line_split: I32Option::simple(&settings, "cmdline-split"),
+            command_line_autohide_output: BoolOption::simple(&settings, "cmdline-autohide-output"),
             save_tabs_on_exit: BoolOption::simple(&settings, "save-tabs-on-exit"),
             save_dirs_on_exit: BoolOption::simple(&settings, "save-dirs-on-exit"),
             save_directory_history_on_exit: BoolOption::simple(
