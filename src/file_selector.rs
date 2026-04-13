@@ -455,6 +455,13 @@ mod imp {
             if self.select_connection_in_progress.get() {
                 return;
             }
+            if let Some(connection) = self.obj().file_list().connection()
+                && self.find_connection_in_dropdown(&connection).is_none()
+            {
+                // Current connection is not in dropdown, this selection is probably due to it
+                // being closed right now. Ignore this event.
+                return;
+            }
             if let Some(connection) = self
                 .connection_dropdown
                 .selected_item()
