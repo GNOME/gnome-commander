@@ -172,7 +172,7 @@ impl Searcher {
         let mut update_counter = update_interval;
 
         j = imd.previous_char_offset(j);
-        while j >= m {
+        while j >= m - 1 {
             let chars = imd.characters_backwards(j, m as usize);
             match bm.scan(&chars) {
                 Ok(ScanResult::Match(_advancement)) => {
@@ -254,7 +254,7 @@ impl Searcher {
         let mut update_counter = update_interval;
 
         j = j.saturating_sub(1);
-        while j >= m {
+        while j >= m - 1 {
             let bytes = imd.bytes_backwards(j, m as usize);
             match bm.scan(&bytes) {
                 Ok(ScanResult::Match(_advancement)) => {
