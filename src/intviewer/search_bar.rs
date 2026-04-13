@@ -363,7 +363,9 @@ impl SearchBar {
         let entry = &self.imp().entry;
         entry.set_progress_fraction(0.0);
         entry.set_sensitive(true);
-        self.imp().match_case.set_sensitive(true);
+        self.imp()
+            .match_case
+            .set_sensitive(!self.imp().hex_mode.is_active());
         self.imp().hex_mode.set_sensitive(true);
 
         if self.imp().stop_button.has_focus() {
