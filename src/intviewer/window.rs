@@ -684,6 +684,12 @@ mod imp {
                 popover.set_parent(&*self.obj());
                 popover.set_position(gtk::PositionType::Bottom);
                 popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 0, 0)));
+                popover.connect_closed(|this| {
+                    let this = this.clone();
+                    glib::spawn_future_local(async move {
+                        this.unparent();
+                    });
+                });
                 popover.popup();
             }
         }
