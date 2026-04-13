@@ -77,7 +77,16 @@ impl DataPresentation {
             offset = self.input_mode.previous_char_offset(offset);
             match self.input_mode.character(offset) {
                 None => return None,
-                Some('\n') | Some('\r') => return Some(offset),
+                Some('\r') => return Some(offset),
+                Some('\n') => {
+                    let previous_offset = self.input_mode.previous_char_offset(offset);
+                    if self.input_mode.character(previous_offset) == Some('\r') {
+                        // Treat CRLF combination as a single EOL
+                        return Some(previous_offset);
+                    } else {
+                        return Some(offset);
+                    }
+                }
                 _ => {}
             }
         }
@@ -89,9 +98,7 @@ impl DataPresentation {
             let prev_offset = self.input_mode.previous_char_offset(offset);
             match self.input_mode.character(prev_offset) {
                 None => return 0,
-                Some('\n') | Some('\r') => {
-                    return offset;
-                }
+                Some('\n') | Some('\r') => return offset,
                 _ => offset = prev_offset,
             }
         }
@@ -142,7 +149,15 @@ impl DataPresentation {
             offset = self.input_mode.next_char_offset(offset);
 
             // break upon end of line
-            if value == '\n' || value == '\r' {
+            if value == '\n' {
+                break;
+            } else if value == '\r' {
+                // Treat CRLF combination as a single EOL
+                if let Some(value) = self.input_mode.character(offset)
+                    && value == '\n'
+                {
+                    offset = self.input_mode.next_char_offset(offset);
+                }
                 break;
             }
         }
@@ -231,7 +246,15 @@ impl DataPresentation {
             offset = self.input_mode.next_char_offset(offset);
 
             // break upon end of line
-            if value == '\n' || value == '\r' {
+            if value == '\n' {
+                break;
+            } else if value == '\r' {
+                // Treat \r\n combination as a single EOL
+                if let Some(value) = self.input_mode.character(offset)
+                    && value == '\n'
+                {
+                    offset = self.input_mode.next_char_offset(offset);
+                }
                 break;
             } else if value == '\t' {
                 char_count = next_tab_position(char_count, self.tab_size.get());
