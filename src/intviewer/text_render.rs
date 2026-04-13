@@ -881,7 +881,10 @@ mod imp {
                 .offsets(start_offset, end_offset)
                 .filter_map(|offset| input_mode.character(offset))
                 .collect();
-            self.obj().clipboard().set_text(&text);
+            let provider = gdk::ContentProvider::for_bytes("text/plain", &text.as_bytes().into());
+            if let Err(error) = self.obj().clipboard().set_content(Some(&provider)) {
+                eprintln!("Failed copying text to clipboard: {error}");
+            }
         }
 
         fn binary_mode_chars(&self, start_of_line: u64, end_of_line: u64) -> Vec<(u64, u32, char)> {
