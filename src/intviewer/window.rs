@@ -107,6 +107,9 @@ mod imp {
             klass.install_action("viewer.copy-text-selection", None, |obj, _, _| {
                 obj.imp().copy_selection()
             });
+            klass.install_action("viewer.select-all", None, |obj, _, _| {
+                obj.imp().select_all()
+            });
             klass.install_action("viewer.close", None, |obj, _, _| obj.close());
             klass.install_action("viewer.zoom-in", None, |obj, _, _| obj.imp().zoom_in());
             klass.install_action("viewer.zoom-out", None, |obj, _, _| obj.imp().zoom_out());
@@ -443,6 +446,18 @@ mod imp {
             }
         }
 
+        fn select_all(&self) {
+            if self.display_mode.get() != DisplayMode::Image {
+                self.text_render.set_marker(
+                    0,
+                    self.text_render
+                        .input_mode()
+                        .map(|f| f.max_offset())
+                        .unwrap_or_default(),
+                );
+            }
+        }
+
         fn zoom_in(&self) {
             match self.display_mode.get() {
                 DisplayMode::Text | DisplayMode::Binary | DisplayMode::Hexdump => {
@@ -676,9 +691,10 @@ mod imp {
             if n_press == 1 {
                 let menu = gio::Menu::new();
                 menu.append(
-                    Some(&gettext("_Copy selection")),
+                    Some(&gettext("_Copy Selection")),
                     Some("viewer.copy-text-selection"),
                 );
+                menu.append(Some(&gettext("_Select All")), Some("viewer.select-all"));
 
                 let popover = gtk::PopoverMenu::from_model(Some(&menu));
                 popover.set_parent(&self.text_render);
@@ -785,6 +801,7 @@ fn create_menu(display_mode: DisplayMode) -> gio::Menu {
                     "viewer.copy-text-selection",
                     "<Control>C",
                 )
+                .item_accel(gettext("_Select All"), "viewer.select-all", "<Control>A")
                 .item_accel(gettext("Find…"), "viewer.find", "<Control>F")
                 .item_accel(gettext("Find Next"), "viewer.find-next", "F3")
                 .item_accel(
