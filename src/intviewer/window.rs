@@ -5,14 +5,14 @@
 
 use super::{
     search_bar::{SearchBar, SearchSettings},
-    searcher::{SearchProgress, Searcher},
+    searcher::Searcher,
     text_render::TextRender,
 };
 use crate::{
     file::{File, FileOps},
     intviewer::image_render::ImageOperation,
     tags::FileMetadataService,
-    utils::{MenuBuilderExt, extract_menu_shortcuts, pending, u32_enum},
+    utils::{MenuBuilderExt, SenderExt, extract_menu_shortcuts, pending, u32_enum},
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{
@@ -522,6 +522,12 @@ mod imp {
         }
 
         async fn start_search(&self, forward: bool) {
+            #[derive(Debug, Clone, Copy)]
+            enum SearchProgress {
+                Progress(u32),
+                Done(Option<u64>, usize),
+            }
+
             if self.display_mode.get() == DisplayMode::Image {
                 return;
             }
@@ -535,6 +541,7 @@ mod imp {
             self.searchbar.show(false);
             self.searchbar.add_to_history();
 
+            let input_mode = self.text_render.input_mode().unwrap();
             let end_offset = self
                 .text_render
                 .input_mode()
@@ -559,60 +566,58 @@ mod imp {
                 }
             };
 
-            let (searcher, pattern_len) = match settings {
-                SearchSettings::Text {
-                    pattern,
-                    match_case,
-                } => (
-                    Searcher::new_text_search(
-                        self.text_render.input_mode().unwrap(),
-                        start_offset,
-                        end_offset,
-                        &pattern,
-                        match_case,
-                    ),
-                    pattern.len(),
-                ),
-                SearchSettings::Binary { pattern } => (
-                    Searcher::new_hex_search(
-                        self.text_render.input_mode().unwrap(),
-                        start_offset,
-                        end_offset,
-                        &pattern,
-                    ),
-                    pattern.len(),
-                ),
-            };
-
-            let Some(searcher) = searcher else {
-                return;
-            };
-
+            let cancellable = gio::Cancellable::new();
             let abort_handler = self.searchbar.connect_abort(glib::clone!(
                 #[strong]
-                searcher,
-                move |_| searcher.abort()
+                cancellable,
+                move |_| cancellable.cancel()
             ));
 
             let (sender, receiver) = async_channel::bounded::<SearchProgress>(1);
 
             let thread = std::thread::spawn(glib::clone!(
                 #[strong]
-                searcher,
+                cancellable,
                 move || {
-                    let sender1 = sender.clone();
-                    let found = searcher.search(forward, move |p| {
-                        sender1.send_blocking(SearchProgress::Progress(p)).unwrap()
+                    let (searcher, pattern_len) = match settings {
+                        SearchSettings::Text {
+                            pattern,
+                            match_case,
+                        } => (
+                            Searcher::new_text_search(
+                                input_mode,
+                                start_offset,
+                                end_offset,
+                                &pattern,
+                                match_case,
+                                cancellable,
+                            ),
+                            pattern.len(),
+                        ),
+                        SearchSettings::Binary { pattern } => (
+                            Searcher::new_hex_search(
+                                input_mode,
+                                start_offset,
+                                end_offset,
+                                &pattern,
+                                cancellable,
+                            ),
+                            pattern.len(),
+                        ),
+                    };
+
+                    let found = searcher.search(forward, |p| {
+                        sender.toss(SearchProgress::Progress(p));
                     });
-                    sender.send_blocking(SearchProgress::Done(found)).unwrap();
+                    sender.toss(SearchProgress::Done(found, pattern_len));
                 }
             ));
 
-            let found = loop {
+            let (found, pattern_len) = loop {
                 let message = receiver.recv().await.unwrap();
                 match message {
                     SearchProgress::Progress(progress) => self.searchbar.show_progress(progress),
-                    SearchProgress::Done(found) => break found,
+                    SearchProgress::Done(found, pattern_len) => break (found, pattern_len),
                 }
             };
             self.searchbar.disconnect(abort_handler);
@@ -633,7 +638,7 @@ mod imp {
                     self.text_render.ensure_offset_visible(result);
                 }
                 None => {
-                    if !searcher.is_aborted() {
+                    if !cancellable.is_cancelled() {
                         self.searchbar.show_not_found();
                     }
                 }

@@ -7,66 +7,37 @@ use super::{
     boyer_moore::{BoyerMoore, ScanResult, boyer_moore_bytes_new, boyer_moore_string_new},
     input_modes::InputMode,
 };
-use gtk::glib::{self, subclass::prelude::*};
-use std::sync::{Arc, atomic::Ordering};
+use gtk::{gio, gio::prelude::*};
+use std::sync::Arc;
 
-mod imp {
-    use super::*;
-    use std::sync::{
-        Mutex, OnceLock,
-        atomic::{AtomicBool, AtomicU64},
-    };
-
-    pub enum SearchMode {
-        Text(BoyerMoore<char>, BoyerMoore<char>),
-        Hex(BoyerMoore<u8>, BoyerMoore<u8>),
-    }
-
-    #[derive(Default)]
-    pub struct Searcher {
-        pub input_mode: OnceLock<Arc<InputMode>>,
-        pub search_mode: OnceLock<SearchMode>,
-        pub start_offset: AtomicU64,
-        pub max_offset: AtomicU64,
-        pub search_result: AtomicU64,
-        pub progress_callback: Mutex<Option<Box<dyn Fn(u32) + Send + Sync + 'static>>>,
-        pub abort_indicator: AtomicBool,
-    }
-
-    #[glib::object_subclass]
-    impl ObjectSubclass for Searcher {
-        const NAME: &'static str = "GnomeCmdSearcher";
-        type Type = super::Searcher;
-    }
-
-    impl ObjectImpl for Searcher {}
+enum SearchMode {
+    Text(BoyerMoore<char>, BoyerMoore<char>),
+    Hex(BoyerMoore<u8>, BoyerMoore<u8>),
 }
 
-glib::wrapper! {
-    pub struct Searcher(ObjectSubclass<imp::Searcher>);
-}
-
-#[derive(Clone, Copy)]
-pub enum SearchProgress {
-    Progress(u32),
-    Done(Option<u64>),
+pub struct Searcher {
+    input_mode: Arc<InputMode>,
+    search_mode: SearchMode,
+    start_offset: u64,
+    max_offset: u64,
+    cancellable: gio::Cancellable,
 }
 
 impl Searcher {
     fn new(
         input_mode: Arc<InputMode>,
-        search_mode: imp::SearchMode,
+        search_mode: SearchMode,
         start_offset: u64,
         max_offset: u64,
+        cancellable: gio::Cancellable,
     ) -> Self {
-        let this: Self = glib::Object::builder().build();
-        this.imp().input_mode.set(input_mode).ok().unwrap();
-        this.imp().search_mode.set(search_mode).ok().unwrap();
-        this.imp()
-            .start_offset
-            .store(start_offset, Ordering::SeqCst);
-        this.imp().max_offset.store(max_offset, Ordering::SeqCst);
-        this
+        Self {
+            input_mode,
+            search_mode,
+            start_offset,
+            max_offset,
+            cancellable,
+        }
     }
 
     pub fn new_text_search(
@@ -75,21 +46,19 @@ impl Searcher {
         max_offset: u64,
         text: &str,
         case_sensitive: bool,
-    ) -> Option<Self> {
-        if start_offset > max_offset || text.is_empty() {
-            return None;
-        }
-
-        let bm = boyer_moore_string_new(text, case_sensitive)?;
+        cancellable: gio::Cancellable,
+    ) -> Self {
+        let bm = boyer_moore_string_new(text, case_sensitive);
         let bm_reverse =
-            boyer_moore_string_new(&text.chars().rev().collect::<String>(), case_sensitive)?;
+            boyer_moore_string_new(&text.chars().rev().collect::<String>(), case_sensitive);
 
-        Some(Self::new(
+        Self::new(
             input_mode,
-            imp::SearchMode::Text(bm, bm_reverse),
+            SearchMode::Text(bm, bm_reverse),
             start_offset,
             max_offset,
-        ))
+            cancellable,
+        )
     }
 
     pub fn new_hex_search(
@@ -97,94 +66,75 @@ impl Searcher {
         start_offset: u64,
         max_offset: u64,
         buffer: &[u8],
-    ) -> Option<Self> {
-        if start_offset > max_offset || buffer.is_empty() {
-            return None;
-        }
+        cancellable: gio::Cancellable,
+    ) -> Self {
+        let bm = boyer_moore_bytes_new(buffer.to_vec());
+        let bm_reverse = boyer_moore_bytes_new(buffer.iter().rev().cloned().collect::<Vec<u8>>());
 
-        let bm = boyer_moore_bytes_new(buffer.to_vec())?;
-        let bm_reverse = boyer_moore_bytes_new(buffer.iter().rev().cloned().collect::<Vec<u8>>())?;
-
-        Some(Self::new(
+        Self::new(
             input_mode,
-            imp::SearchMode::Hex(bm, bm_reverse),
+            SearchMode::Hex(bm, bm_reverse),
             start_offset,
             max_offset,
-        ))
+            cancellable,
+        )
     }
 
-    fn input_mode(&self) -> Arc<InputMode> {
-        self.imp().input_mode.get().unwrap().clone()
+    pub fn search<F: Fn(u32)>(&self, forward: bool, progress_callback: F) -> Option<u64> {
+        progress_callback(self.progress(self.start_offset));
+
+        match (&self.search_mode, forward) {
+            (SearchMode::Text(bm, _), true) => self.search_text_forward(bm, progress_callback),
+            (SearchMode::Text(_, bm), false) => self.search_text_backward(bm, progress_callback),
+            (SearchMode::Hex(bm, _), true) => self.search_hex_forward(bm, progress_callback),
+            (SearchMode::Hex(_, bm), false) => self.search_hex_backward(bm, progress_callback),
+        }
     }
 
-    pub fn search<F: Fn(u32) + Send + Sync + 'static>(&self, forward: bool, f: F) -> Option<u64> {
-        let mode = self.imp().search_mode.get()?;
-        self.imp()
-            .progress_callback
-            .lock()
-            .unwrap()
-            .replace(Box::new(f));
-        self.imp().abort_indicator.store(false, Ordering::SeqCst);
-
-        self.update_progress_indicator(self.imp().start_offset.load(Ordering::SeqCst));
-
-        let found = match (mode, forward) {
-            (imp::SearchMode::Text(bm, _), true) => self.search_text_forward(bm),
-            (imp::SearchMode::Text(_, bm), false) => self.search_text_backward(bm),
-            (imp::SearchMode::Hex(bm, _), true) => self.search_hex_forward(bm),
-            (imp::SearchMode::Hex(_, bm), false) => self.search_hex_backward(bm),
-        };
-        if found {
-            Some(self.imp().search_result.load(Ordering::SeqCst))
+    fn progress(&self, position: u64) -> u32 {
+        if self.max_offset == 0 {
+            0
         } else {
-            None
+            (if let Some(position) = position.checked_mul(1000) {
+                position / self.max_offset
+            } else {
+                //  Overflow, file is too large
+                position / (self.max_offset / 1000)
+            }) as u32
         }
     }
 
-    pub fn abort(&self) {
-        self.imp().abort_indicator.store(true, Ordering::SeqCst);
-    }
-
-    fn update_progress_indicator(&self, position: u64) {
-        let value = ((position * 1000) / self.imp().max_offset.load(Ordering::SeqCst)) as u32;
-        if let Some(cb) = self.imp().progress_callback.lock().unwrap().as_ref() {
-            (cb)(value);
-        }
-    }
-
-    pub fn is_aborted(&self) -> bool {
-        self.imp().abort_indicator.load(Ordering::SeqCst)
+    #[inline]
+    fn is_aborted(&self) -> bool {
+        self.cancellable.is_cancelled()
     }
 
     fn update_interval(&self) -> u32 {
-        let max_offset = self.imp().max_offset.load(Ordering::SeqCst);
-        if max_offset > 1000 {
-            (max_offset / 1000) as u32
+        if self.max_offset > 1000 {
+            (self.max_offset / 1000) as u32
         } else {
             10
         }
     }
 
-    fn search_text_forward(&self, bm: &BoyerMoore<char>) -> bool {
-        let imd = self.input_mode();
+    fn search_text_forward<F: Fn(u32)>(
+        &self,
+        bm: &BoyerMoore<char>,
+        progress_callback: F,
+    ) -> Option<u64> {
+        let imd = &self.input_mode;
         let update_interval = self.update_interval();
 
         let m = bm.pattern.len() as u64;
-        let n = self.imp().max_offset.load(Ordering::SeqCst);
-        let mut j = self.imp().start_offset.load(Ordering::SeqCst);
+        let n = self.max_offset;
+        let mut j = self.start_offset;
         let mut update_counter = update_interval;
 
-        while j <= n - m {
+        while j + m <= n {
             let chars = imd.characters(j, m as usize);
             match bm.scan(&chars) {
-                Ok(ScanResult::Match(advancement)) => {
-                    self.imp().search_result.store(j, Ordering::SeqCst);
-                    for _ in 0..advancement {
-                        j = imd.next_char_offset(j);
-                    }
-                    // Store the current offset, we'll use it if the user chooses "find next"
-                    self.imp().start_offset.store(j, Ordering::SeqCst);
-                    return true;
+                Ok(ScanResult::Match(_advancement)) => {
+                    return Some(j);
                 }
                 Ok(ScanResult::NoMatch(advancement)) => {
                     for _ in 0..advancement {
@@ -192,13 +142,13 @@ impl Searcher {
                     }
                 }
                 _ => {
-                    return false;
+                    break;
                 }
             }
 
             update_counter -= 1;
             if update_counter == 0 {
-                self.update_progress_indicator(j);
+                progress_callback(self.progress(j));
                 update_counter = update_interval;
             }
 
@@ -206,31 +156,27 @@ impl Searcher {
                 break;
             }
         }
-        false
+        None
     }
 
-    fn search_text_backward(&self, bm: &BoyerMoore<char>) -> bool {
-        let imd = self.input_mode();
+    fn search_text_backward<F: Fn(u32)>(
+        &self,
+        bm: &BoyerMoore<char>,
+        progress_callback: F,
+    ) -> Option<u64> {
+        let imd = &self.input_mode;
         let update_interval = self.update_interval();
 
         let m = bm.pattern.len() as u64;
-        let mut j = self.imp().start_offset.load(Ordering::SeqCst);
+        let mut j = self.start_offset;
         let mut update_counter = update_interval;
 
         j = imd.previous_char_offset(j);
         while j >= m {
             let chars = imd.characters_backwards(j, m as usize);
             match bm.scan(&chars) {
-                Ok(ScanResult::Match(advancement)) => {
-                    self.imp()
-                        .search_result
-                        .store(imd.next_char_offset(j), Ordering::SeqCst);
-                    for _ in 0..advancement {
-                        j = imd.previous_char_offset(j);
-                    }
-                    // Store the current offset, we'll use it if the user chooses "find next"
-                    self.imp().start_offset.store(j, Ordering::SeqCst);
-                    return true;
+                Ok(ScanResult::Match(_advancement)) => {
+                    return Some(imd.next_char_offset(j));
                 }
                 Ok(ScanResult::NoMatch(advancement)) => {
                     for _ in 0..advancement {
@@ -238,13 +184,13 @@ impl Searcher {
                     }
                 }
                 _ => {
-                    return false;
+                    break;
                 }
             }
 
             update_counter -= 1;
             if update_counter == 0 {
-                self.update_progress_indicator(j);
+                progress_callback(self.progress(j));
                 update_counter = update_interval;
             }
 
@@ -252,39 +198,39 @@ impl Searcher {
                 break;
             }
         }
-        false
+        None
     }
 
-    fn search_hex_forward(&self, bm: &BoyerMoore<u8>) -> bool {
-        let imd = self.input_mode();
+    fn search_hex_forward<F: Fn(u32)>(
+        &self,
+        bm: &BoyerMoore<u8>,
+        progress_callback: F,
+    ) -> Option<u64> {
+        let imd = &self.input_mode;
         let update_interval = self.update_interval();
 
         let m = bm.pattern.len() as u64;
-        let n = self.imp().max_offset.load(Ordering::SeqCst);
-        let mut j = self.imp().start_offset.load(Ordering::SeqCst);
+        let n = self.max_offset;
+        let mut j = self.start_offset;
         let mut update_counter = update_interval;
 
-        while j <= n - m {
+        while j + m <= n {
             let bytes = imd.bytes(j, m as usize);
             match bm.scan(&bytes) {
-                Ok(ScanResult::Match(advancement)) => {
-                    self.imp().search_result.store(j, Ordering::SeqCst);
-                    j += advancement as u64;
-                    // Store the current offset, we'll use it if the user chooses "find next"
-                    self.imp().start_offset.store(j, Ordering::SeqCst);
-                    return true;
+                Ok(ScanResult::Match(_advancement)) => {
+                    return Some(j);
                 }
                 Ok(ScanResult::NoMatch(advancement)) => {
                     j += advancement as u64;
                 }
                 _ => {
-                    return false;
+                    break;
                 }
             }
 
             update_counter -= 1;
             if update_counter == 0 {
-                self.update_progress_indicator(j);
+                progress_callback(self.progress(j));
                 update_counter = update_interval;
             }
 
@@ -292,38 +238,39 @@ impl Searcher {
                 break;
             }
         }
-        false
+        None
     }
 
-    fn search_hex_backward(&self, bm: &BoyerMoore<u8>) -> bool {
-        let imd = self.input_mode();
+    fn search_hex_backward<F: Fn(u32)>(
+        &self,
+        bm: &BoyerMoore<u8>,
+        progress_callback: F,
+    ) -> Option<u64> {
+        let imd = &self.input_mode;
         let update_interval = self.update_interval();
 
         let m = bm.pattern.len() as u64;
-        let mut j = self.imp().start_offset.load(Ordering::SeqCst);
+        let mut j = self.start_offset;
         let mut update_counter = update_interval;
 
         j = j.saturating_sub(1);
         while j >= m {
             let bytes = imd.bytes_backwards(j, m as usize);
             match bm.scan(&bytes) {
-                Ok(ScanResult::Match(advancement)) => {
-                    self.imp().search_result.store(j + 1, Ordering::SeqCst);
-                    j -= advancement as u64;
-                    self.imp().start_offset.store(j, Ordering::SeqCst);
-                    return true;
+                Ok(ScanResult::Match(_advancement)) => {
+                    return Some(j + 1);
                 }
                 Ok(ScanResult::NoMatch(advancement)) => {
                     j -= advancement as u64;
                 }
                 _ => {
-                    return false;
+                    break;
                 }
             }
 
             update_counter -= 1;
             if update_counter == 0 {
-                self.update_progress_indicator(j);
+                progress_callback(self.progress(j));
                 update_counter = update_interval;
             }
 
@@ -331,6 +278,6 @@ impl Searcher {
                 break;
             }
         }
-        false
+        None
     }
 }

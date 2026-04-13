@@ -14,16 +14,15 @@ pub struct BoyerMoore<T: Eq + Hash + Copy> {
 }
 
 impl<T: Eq + Hash + Copy> BoyerMoore<T> {
-    pub fn new(pattern: Vec<T>, eq_class: Box<dyn EqClass<T> + Send + Sync>) -> Option<Self> {
-        if pattern.is_empty() {
-            return None;
-        }
-        Some(Self {
+    pub fn new(pattern: Vec<T>, eq_class: Box<dyn EqClass<T> + Send + Sync>) -> Self {
+        assert!(!pattern.is_empty());
+
+        Self {
             good: good_suffix_table(&pattern, &|a, b| eq_class.equal(a, b)),
             bad: compute_bad_map(&pattern, &*eq_class),
             pattern,
             eq_class,
-        })
+        }
     }
 
     pub fn advancement(&self, pattern_index: usize, value: &T) -> usize {
@@ -135,14 +134,11 @@ fn compute_bad_map<T: Eq + Hash>(pattern: &[T], eq_class: &dyn EqClass<T>) -> Ha
     bad
 }
 
-pub fn boyer_moore_bytes_new(pattern: Vec<u8>) -> Option<BoyerMoore<u8>> {
+pub fn boyer_moore_bytes_new(pattern: Vec<u8>) -> BoyerMoore<u8> {
     BoyerMoore::<u8>::new(pattern, Box::new(SimpleEqClass::<u8>::default()))
 }
 
-pub fn boyer_moore_string_new(pattern: &str, case_sensitive: bool) -> Option<BoyerMoore<char>> {
-    if pattern.is_empty() {
-        return None;
-    }
+pub fn boyer_moore_string_new(pattern: &str, case_sensitive: bool) -> BoyerMoore<char> {
     BoyerMoore::new(
         pattern.chars().collect::<Vec<_>>(),
         if case_sensitive {
