@@ -563,7 +563,7 @@ mod imp {
                     })
                     .unwrap_or_default();
 
-                if !displayable {
+                if !displayable && !matches!(byte, b'\t' | b'\n' | b'\r') {
                     input_mode.update_utf8_translation(byte, '.');
                 }
             }
