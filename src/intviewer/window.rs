@@ -681,7 +681,7 @@ mod imp {
                 );
 
                 let popover = gtk::PopoverMenu::from_model(Some(&menu));
-                popover.set_parent(&*self.obj());
+                popover.set_parent(&self.text_render);
                 popover.set_position(gtk::PositionType::Bottom);
                 popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 0, 0)));
                 popover.connect_closed(|this| {
