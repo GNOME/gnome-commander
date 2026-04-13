@@ -29,7 +29,10 @@ impl<T: Eq + Hash + Copy> BoyerMoore<T> {
         let m = self.pattern.len();
         usize::max(
             self.good[pattern_index],
-            self.bad.get(value).unwrap_or(&m) + 1 + pattern_index - m,
+            self.bad
+                .get(value)
+                .unwrap_or(&m)
+                .saturating_sub(m - 1 - pattern_index),
         )
     }
 
@@ -58,6 +61,7 @@ pub trait EqClass<T> {
     fn normal(&self, a: &T) -> T;
 }
 
+#[derive(Debug, PartialEq, Eq)]
 pub enum ScanResult {
     Match(usize),
     NoMatch(usize),
@@ -85,7 +89,7 @@ fn suffix_table<T>(pattern: &[T], eq: &dyn Fn(&T, &T) -> bool) -> Vec<usize> {
     }
     let mut f = 0;
     // This implementation differs from the classical one.
-    // instead of a variable `g` it uses `g1` which is greated then `g` by one.
+    // instead of a variable `g` it uses `g1` which is greater than `g` by one.
     // `g1` cannot be negative (and be stored as `usize`) while `g` may become -1 sometimes.
     let mut g1 = m;
     for i in (0..=(m - 2)).rev() {
@@ -129,7 +133,7 @@ fn compute_bad_map<T: Eq + Hash>(pattern: &[T], eq_class: &dyn EqClass<T>) -> Ha
     let m = pattern.len();
     let mut bad = HashMap::new();
     for (i, el) in pattern[..m - 1].iter().enumerate() {
-        bad.insert(eq_class.normal(el), m - i - 1);
+        bad.insert(eq_class.normal(el), m - 1 - i);
     }
     bad
 }
@@ -355,5 +359,26 @@ mod test {
         }
 
         assert_eq!(&found, &[217]);
+    }
+
+    #[test]
+    fn match_advancement() {
+        fn scan(pattern: &str, text: &str) -> Result<ScanResult, ()> {
+            let bm = boyer_moore_string_new(pattern, true);
+            bm.scan(&text.chars().collect::<Vec<_>>())
+        }
+
+        // good: 3
+        assert_eq!(scan("test", "test"), Ok(ScanResult::Match(3)));
+        // good: 3, bad: 1
+        assert_eq!(scan("test", "ttst"), Ok(ScanResult::NoMatch(3)));
+        // good: 4, bad: 2
+        assert_eq!(scan("xest", "ttst"), Ok(ScanResult::NoMatch(4)));
+        // good: 3, bad: -2
+        assert_eq!(scan("test", "sest"), Ok(ScanResult::NoMatch(3)));
+        // good: 4, bad: -2
+        assert_eq!(scan("esttest", "abcsest"), Ok(ScanResult::NoMatch(4)));
+        // good: 3, bad: 4
+        assert_eq!(scan("zastest", "abxyzst"), Ok(ScanResult::NoMatch(4)));
     }
 }
