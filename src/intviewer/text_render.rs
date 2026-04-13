@@ -520,6 +520,7 @@ mod imp {
                     });
                 }
                 self.update_adjustments_limits();
+                self.obj().emit_text_status_changed();
             }
             self.obj().queue_draw();
         }
