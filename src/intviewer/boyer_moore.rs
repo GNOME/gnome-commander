@@ -230,6 +230,12 @@ mod test {
     }
 
     #[test]
+    #[should_panic]
+    fn match_bytes_empty_pattern() {
+        boyer_moore_bytes_new(vec![]);
+    }
+
+    #[test]
     fn match_bytes_test() {
         const PATTERN: &[u8] = &[0x01, 0x04, 0xB4, 0xFE, 0x01, 0x01, 0x04];
         const TEXT: &[u8] = &[
@@ -255,7 +261,7 @@ mod test {
             0x01, 0x04, 0xb4, 0xfe, 0x01, 0x01, 0x04, 0x00,
         ];
 
-        let bm = boyer_moore_bytes_new(PATTERN.to_vec()).unwrap();
+        let bm = boyer_moore_bytes_new(PATTERN.to_vec());
 
         assert_eq!(bm.good, vec![5, 5, 5, 5, 5, 7, 1]);
 
@@ -291,6 +297,12 @@ mod test {
     }
 
     #[test]
+    #[should_panic]
+    fn match_chars_empty_pattern() {
+        boyer_moore_string_new("", false);
+    }
+
+    #[test]
     fn match_chars_test() {
         // In this test a pattern of UTF-8 encoded letters is searched in a text with UTF-8 encoded letters.
 
@@ -320,7 +332,7 @@ mod test {
         );
         let ct_text: Vec<char> = TEXT.chars().collect();
 
-        let bm = boyer_moore_string_new(PATTERN, false).unwrap();
+        let bm = boyer_moore_string_new(PATTERN, false);
 
         // Do the actual search
         let m = bm.pattern.len();
