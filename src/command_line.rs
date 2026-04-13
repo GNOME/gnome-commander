@@ -6,6 +6,7 @@
 use crate::{
     history_entry::HistoryEntry,
     main_win::ExecutionTarget,
+    options::GeneralOptions,
     shortcuts::{Area, Shortcuts},
     utils::{ALT, NO_MOD, SHIFT, SenderExt},
 };
@@ -16,13 +17,24 @@ use vte::prelude::*;
 
 mod imp {
     use super::*;
-    use std::{sync::OnceLock, time::Duration};
+    use std::{
+        cell::{Cell, RefCell},
+        sync::OnceLock,
+        time::Duration,
+    };
 
+    #[derive(glib::Properties)]
+    #[properties(wrapper_type = super::CommandLine)]
     pub struct CommandLine {
         pub action_group: gio::SimpleActionGroup,
         pub terminal: vte::Terminal,
         pub cwd: gtk::Label,
         pub entry: HistoryEntry,
+        pub(super) output_widget: gtk::Widget,
+        pub(super) focus_controllers: [gtk::EventControllerFocus; 2],
+        #[property(get, set = Self::set_autohide_output)]
+        autohide_output: Cell<bool>,
+        autohide_timeout: RefCell<Option<glib::SourceId>>,
     }
 
     #[glib::object_subclass]
@@ -32,36 +44,49 @@ mod imp {
         type ParentType = gtk::Widget;
 
         fn new() -> Self {
+            let terminal = vte::Terminal::builder()
+                .allow_hyperlink(true)
+                .audible_bell(false)
+                .enable_fallback_scrolling(false)
+                .input_enabled(true)
+                .scroll_on_keystroke(true)
+                .scroll_unit_is_pixels(true)
+                .can_focus(true)
+                .can_target(true)
+                .focus_on_click(true)
+                .vexpand(true)
+                .context_menu_model(&{
+                    let menu = gio::Menu::new();
+                    menu.append(Some(&gettext("_Copy")), Some("cmdline.term-copy"));
+                    menu.append(Some(&gettext("_Paste")), Some("cmdline.term-paste"));
+                    menu.append(
+                        Some(&gettext("_Select all")),
+                        Some("cmdline.term-select-all"),
+                    );
+                    menu
+                })
+                .build();
             Self {
                 action_group: gio::SimpleActionGroup::new(),
-                terminal: vte::Terminal::builder()
-                    .allow_hyperlink(true)
-                    .audible_bell(false)
-                    .enable_fallback_scrolling(false)
-                    .input_enabled(true)
-                    .scroll_on_keystroke(true)
-                    .scroll_unit_is_pixels(true)
-                    .can_focus(true)
-                    .can_target(true)
-                    .focus_on_click(true)
-                    .vexpand(true)
-                    .context_menu_model(&{
-                        let menu = gio::Menu::new();
-                        menu.append(Some(&gettext("_Copy")), Some("cmdline.term-copy"));
-                        menu.append(Some(&gettext("_Paste")), Some("cmdline.term-paste"));
-                        menu.append(
-                            Some(&gettext("_Select all")),
-                            Some("cmdline.term-select-all"),
-                        );
-                        menu
-                    })
-                    .build(),
+                output_widget: gtk::ScrolledWindow::builder()
+                    .child(&terminal)
+                    .css_classes(["command-line-output"])
+                    .build()
+                    .upcast(),
+                terminal,
                 cwd: gtk::Label::builder().selectable(true).build(),
                 entry: HistoryEntry::default(),
+                focus_controllers: [
+                    gtk::EventControllerFocus::new(),
+                    gtk::EventControllerFocus::new(),
+                ],
+                autohide_output: Cell::new(true),
+                autohide_timeout: Default::default(),
             }
         }
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for CommandLine {
         fn constructed(&self) {
             self.parent_constructed();
@@ -70,14 +95,11 @@ mod imp {
             obj.add_css_class("command-line");
             obj.set_layout_manager(Some(
                 gtk::BoxLayout::builder()
-                    .orientation(gtk::Orientation::Vertical)
+                    .orientation(gtk::Orientation::Horizontal)
                     .build(),
             ));
 
             self.setup_actions();
-
-            let scrolled_window = gtk::ScrolledWindow::builder().child(&self.terminal).build();
-            scrolled_window.set_parent(&*obj);
 
             self.terminal.connect_selection_changed(glib::clone!(
                 #[weak(rename_to = imp)]
@@ -117,19 +139,32 @@ mod imp {
                 .feed(gettext("If you run a command its output will appear here.").as_bytes());
             self.terminal.feed("\r\n".as_bytes());
 
-            let entry_box = gtk::Box::builder()
-                .orientation(gtk::Orientation::Horizontal)
-                .build();
-            entry_box.add_css_class("command-line-entry");
-            entry_box.set_parent(&*obj);
+            for (focus_controller, widget) in self
+                .focus_controllers
+                .iter()
+                .zip([obj.upcast_ref::<gtk::Widget>(), &self.output_widget])
+            {
+                focus_controller.connect_enter(glib::clone!(
+                    #[weak(rename_to = imp)]
+                    self,
+                    move |_| imp.stop_autohide_timeout(),
+                ));
+                focus_controller.connect_leave(glib::clone!(
+                    #[weak(rename_to = imp)]
+                    self,
+                    move |_| imp.start_autohide_timeout(),
+                ));
+                widget.add_controller(focus_controller.clone());
+            }
+            self.do_autohide(self.autohide_output.get());
 
-            entry_box.append(&self.cwd);
-            entry_box.append(&gtk::Label::new(Some("#")));
+            self.cwd.set_parent(&*obj);
+            gtk::Label::new(Some("#")).set_parent(&*obj);
 
             self.entry.add_css_class("command-line-entry-field");
             self.entry.set_hexpand(true);
             self.entry.set_popover_position(gtk::PositionType::Top);
-            entry_box.append(&self.entry);
+            self.entry.set_parent(&*obj);
 
             self.terminal.connect_bell(glib::clone!(
                 #[weak(rename_to = entry)]
@@ -170,7 +205,7 @@ mod imp {
                 .build();
             button_box.append(&run_menu);
 
-            entry_box.append(&button_box);
+            button_box.set_parent(&*obj);
 
             let key_controller = gtk::EventControllerKey::new();
             key_controller.set_propagation_phase(gtk::PropagationPhase::Capture);
@@ -182,6 +217,12 @@ mod imp {
                 move |_, key, _, state| imp.on_key_pressed(key, state)
             ));
             self.entry.add_controller(key_controller);
+
+            let options = GeneralOptions::new();
+            options
+                .command_line_autohide_output
+                .bind(&*obj, "autohide-output")
+                .build();
         }
 
         fn signals() -> &'static [glib::subclass::Signal] {
@@ -215,6 +256,56 @@ mod imp {
     }
 
     impl CommandLine {
+        fn set_autohide_output(&self, value: bool) {
+            self.autohide_output.set(value);
+            self.do_autohide(value);
+        }
+
+        pub(super) fn start_autohide_timeout(&self) {
+            if !self.autohide_output.get()
+                || self.autohide_timeout.borrow().is_some()
+                || self
+                    .action_group
+                    .lookup_action("run")
+                    .and_downcast::<gio::SimpleAction>()
+                    .is_some_and(|action| !action.is_enabled())
+            {
+                return;
+            }
+
+            const AUTOHIDE_DELAY: u32 = 5;
+            self.autohide_timeout
+                .replace(Some(glib::timeout_add_seconds_local_once(
+                    AUTOHIDE_DELAY,
+                    glib::clone!(
+                        #[weak(rename_to = imp)]
+                        self,
+                        move || {
+                            imp.autohide_timeout.replace(None);
+                            imp.do_autohide(true);
+                        },
+                    ),
+                )));
+        }
+
+        fn stop_autohide_timeout(&self) {
+            self.do_autohide(false);
+        }
+
+        fn do_autohide(&self, autohide: bool) {
+            if let Some(timeout) = self.autohide_timeout.replace(None) {
+                timeout.remove();
+            }
+
+            if autohide {
+                if !self.focus_controllers.iter().any(|c| c.contains_focus()) {
+                    self.output_widget.set_visible(false);
+                }
+            } else {
+                self.output_widget.set_visible(true);
+            }
+        }
+
         fn on_key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
             match (state, key) {
                 (NO_MOD | SHIFT | ALT, gdk::Key::Return) => {
@@ -338,6 +429,10 @@ impl CommandLine {
     pub fn add_shortcuts(&self, shortcuts: &Shortcuts) {
         shortcuts.add_controller(&self.imp().entry, Area::CommandLine);
         shortcuts.add_controller(&self.imp().terminal, Area::Terminal);
+    }
+
+    pub fn output(&self) -> &gtk::Widget {
+        &self.imp().output_widget
     }
 
     pub fn set_directory(&self, directory: &str) {
@@ -516,6 +611,15 @@ impl CommandLine {
             .and_downcast::<gio::SimpleAction>()
         {
             action.set_enabled(false);
+        }
+
+        if !self
+            .imp()
+            .focus_controllers
+            .iter()
+            .any(|c| c.contains_focus())
+        {
+            self.imp().start_autohide_timeout();
         }
     }
 

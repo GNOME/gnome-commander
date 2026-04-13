@@ -146,6 +146,8 @@ pub mod imp {
         view_backup_files: Cell<bool>,
         #[property(get, set, builder(QuickSearchShortcut::default()))]
         quick_search_shortcut: Cell<QuickSearchShortcut>,
+        #[property(get, set)]
+        cmdline_autohide_output: Cell<bool>,
 
         pub active_dialogs: RefCell<BTreeMap<String, glib::WeakRef<gtk::Window>>>,
 
@@ -250,6 +252,7 @@ pub mod imp {
                 view_hidden_files: Cell::new(true),
                 view_backup_files: Cell::new(true),
                 quick_search_shortcut: Default::default(),
+                cmdline_autohide_output: Cell::new(true),
 
                 active_dialogs: Default::default(),
                 shortcuts: Shortcuts::new(),
@@ -312,6 +315,7 @@ pub mod imp {
             vbox.append(&self.toolbar_sep);
 
             vbox.append(&self.cmdline_paned);
+            vbox.append(&self.cmdline);
 
             self.paned
                 .set_start_child(Some(&*self.file_selector_left.borrow()));
@@ -382,7 +386,8 @@ pub mod imp {
                 .sync_create()
                 .build();
             self.cmdline_paned.set_start_child(Some(&self.paned));
-            self.cmdline_paned.set_end_child(Some(&self.cmdline));
+            self.cmdline_paned
+                .set_end_child(Some(self.cmdline.output()));
 
             self.create_buttonbar();
             mw.bind_property("buttonbar-visible", &self.buttonbar, "visible")
@@ -486,6 +491,10 @@ pub mod imp {
             options
                 .quick_search_shortcut
                 .bind(&*mw, "quick-search-shortcut")
+                .build();
+            options
+                .command_line_autohide_output
+                .bind(&*mw, "cmdline-autohide-output")
                 .build();
 
             let command_line_split = options.command_line_split.get();
@@ -1501,6 +1510,7 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
                 gio::Menu::new()
                     .action(UserAction::ViewHiddenFiles)
                     .action(UserAction::ViewBackupFiles)
+                    .action(UserAction::CmdlineAutohideOutput)
             })
             .section({
                 gio::Menu::new()
