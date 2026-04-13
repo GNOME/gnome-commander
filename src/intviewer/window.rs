@@ -230,6 +230,15 @@ mod imp {
                             move |_| imp.image_status_update()
                         ));
 
+                        let button_gesture = gtk::GestureClick::builder().button(3).build();
+                        button_gesture.connect_pressed(glib::clone!(
+                            #[weak(rename_to = imp)]
+                            self,
+                            move |_, n_press, x, y| imp
+                                .on_image_viewer_button_pressed(n_press, x, y)
+                        ));
+                        self.image_render.add_controller(button_gesture);
+
                         self.stack.add_named(&tscrollbox, Some("text"));
                         self.stack.add_named(&iscrollbox, Some("image"));
                         self.stack.set_visible_child_name("text");
@@ -687,26 +696,64 @@ mod imp {
             }
         }
 
+        fn show_context_menu(
+            &self,
+            widget: &impl IsA<gtk::Widget>,
+            menu: gio::Menu,
+            x: f64,
+            y: f64,
+        ) {
+            let popover = gtk::PopoverMenu::from_model(Some(&menu));
+            popover.set_parent(widget);
+            popover.set_position(gtk::PositionType::Bottom);
+            popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 0, 0)));
+            popover.connect_closed(|this| {
+                let this = this.clone();
+                glib::spawn_future_local(async move {
+                    this.unparent();
+                });
+            });
+            popover.popup();
+        }
+
         fn on_text_viewer_button_pressed(&self, n_press: i32, x: f64, y: f64) {
             if n_press == 1 {
-                let menu = gio::Menu::new();
-                menu.append(
-                    Some(&gettext("_Copy Selection")),
-                    Some("viewer.copy-text-selection"),
-                );
-                menu.append(Some(&gettext("_Select All")), Some("viewer.select-all"));
+                let menu = gio::Menu::new()
+                    .item(gettext("_Copy Selection"), "viewer.copy-text-selection")
+                    .item(gettext("_Select All"), "viewer.select-all");
+                self.show_context_menu(&self.text_render, menu, x, y);
+            }
+        }
 
-                let popover = gtk::PopoverMenu::from_model(Some(&menu));
-                popover.set_parent(&self.text_render);
-                popover.set_position(gtk::PositionType::Bottom);
-                popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 0, 0)));
-                popover.connect_closed(|this| {
-                    let this = this.clone();
-                    glib::spawn_future_local(async move {
-                        this.unparent();
-                    });
-                });
-                popover.popup();
+        fn on_image_viewer_button_pressed(&self, n_press: i32, x: f64, y: f64) {
+            if n_press == 1 {
+                let menu = gio::Menu::new()
+                    .item_param(
+                        gettext("_Rotate Clockwise"),
+                        "viewer.imageop",
+                        ImageOperation::RotateClockwise,
+                    )
+                    .item_param(
+                        gettext("Rotate Counter Clockwis_e"),
+                        "viewer.imageop",
+                        ImageOperation::RotateCounterclockwise,
+                    )
+                    .item_param(
+                        gettext("Rotate 180\u{00B0}"),
+                        "viewer.imageop",
+                        ImageOperation::RotateUpsideDown,
+                    )
+                    .item_param(
+                        gettext("Flip _Vertical"),
+                        "viewer.imageop",
+                        ImageOperation::FlipVertical,
+                    )
+                    .item_param(
+                        gettext("Flip _Horizontal"),
+                        "viewer.imageop",
+                        ImageOperation::FlipHorizontal,
+                    );
+                self.show_context_menu(&self.image_render, menu, x, y);
             }
         }
     }
@@ -891,7 +938,7 @@ fn create_menu(display_mode: DisplayMode) -> gio::Menu {
             gettext("_Image"),
             gio::Menu::new()
                 .item_param_accel(
-                    gettext("Rotate Clockwise"),
+                    gettext("_Rotate Clockwise"),
                     "viewer.imageop",
                     ImageOperation::RotateClockwise,
                     "<Control>R",
