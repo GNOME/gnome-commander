@@ -476,10 +476,25 @@ mod imp {
                     }
                 }
                 DisplayMode::Image => {
-                    self.image_render.set_best_fit(false);
+                    let index = if self.image_render.best_fit() {
+                        let current_factor = self.image_render.real_scale_factor();
+                        let mut index = 0;
+                        for (i, factor) in IMAGE_SCALE_FACTORS.iter().enumerate() {
+                            index = i;
+                            if *factor > current_factor {
+                                break;
+                            }
+                        }
+                        self.image_render.set_best_fit(false);
+                        index
+                    } else {
+                        let current_index = self.current_scale_index.get();
+                        if current_index >= IMAGE_SCALE_FACTORS.len() - 1 {
+                            return;
+                        }
+                        current_index + 1
+                    };
 
-                    let index = (self.current_scale_index.get() + 1)
-                        .clamp(0, IMAGE_SCALE_FACTORS.len() - 1);
                     self.current_scale_index.set(index);
 
                     let scale_factor = IMAGE_SCALE_FACTORS[index];
@@ -499,10 +514,25 @@ mod imp {
                     }
                 }
                 DisplayMode::Image => {
-                    self.image_render.set_best_fit(false);
+                    let index = if self.image_render.best_fit() {
+                        let current_factor = self.image_render.real_scale_factor();
+                        let mut index = 0;
+                        for (i, factor) in IMAGE_SCALE_FACTORS.iter().enumerate().rev() {
+                            index = i;
+                            if *factor < current_factor {
+                                break;
+                            }
+                        }
+                        self.image_render.set_best_fit(false);
+                        index
+                    } else {
+                        let current_index = self.current_scale_index.get();
+                        if current_index == 0 {
+                            return;
+                        }
+                        current_index - 1
+                    };
 
-                    let index = (self.current_scale_index.get() - 1)
-                        .clamp(0, IMAGE_SCALE_FACTORS.len() - 1);
                     self.current_scale_index.set(index);
 
                     let scale_factor = IMAGE_SCALE_FACTORS[index];

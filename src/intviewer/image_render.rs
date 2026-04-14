@@ -566,6 +566,18 @@ impl ImageRender {
         }
     }
 
+    pub fn real_scale_factor(&self) -> f64 {
+        let original_pixbuf = self.imp().original_pixbuf.borrow();
+        let display_pixbuf = self.imp().display_pixbuf.borrow();
+        if let Some(original_pixbuf) = original_pixbuf.as_ref()
+            && let Some(display_pixbuf) = display_pixbuf.as_ref()
+        {
+            display_pixbuf.width() as f64 / original_pixbuf.width() as f64
+        } else {
+            1.0
+        }
+    }
+
     pub fn notify_status_changed(&self) {
         self.emit_by_name::<()>("image-status-changed", &[]);
     }
