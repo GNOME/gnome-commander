@@ -615,6 +615,10 @@ mod imp {
         }
 
         fn button_press(&self, button: u32, n_press: i32, x: f64, y: f64) {
+            if !self.obj().has_focus() {
+                self.obj().grab_focus();
+            }
+
             if n_press == 1 && self.button.get().is_none() {
                 self.button.set(Some(button));
                 self.marker_start.set(match self.obj().display_mode() {

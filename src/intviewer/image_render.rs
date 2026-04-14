@@ -358,6 +358,10 @@ pub mod imp {
         }
 
         fn button_press(&self, n_press: i32, x: f64, y: f64, button: u32) {
+            if !self.obj().has_focus() {
+                self.obj().grab_focus();
+            }
+
             if n_press == 1 && self.drag_state.borrow().is_none() {
                 self.drag_state.replace(Some(DragState { button, x, y }));
             }
