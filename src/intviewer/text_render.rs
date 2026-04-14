@@ -200,24 +200,7 @@ mod imp {
     impl WidgetImpl for TextRender {
         fn size_allocate(&self, width: i32, height: i32, baseline: i32) {
             self.parent_size_allocate(width, height, baseline);
-
-            let char_width = self.char_width.get();
-            let char_height = self.char_height.get();
-
-            if let Some(dp) = self.obj().data_presentation()
-                && let Some(chars) =
-                    (width > 0 && char_width > 0).then(|| (width / char_width) as u32)
-            {
-                self.chars_per_line.set(chars);
-                dp.set_wrap_limit(chars);
-                self.obj().queue_draw();
-            }
-
-            self.lines_displayed.set(if char_height > 0 {
-                height / char_height
-            } else {
-                10
-            });
+            self.update_viewport_size(width, height);
         }
 
         fn measure(&self, orientation: gtk::Orientation, _for_size: i32) -> (i32, i32, i32, i32) {
@@ -415,7 +398,7 @@ mod imp {
                     .data_presentation()
                     .is_some_and(|dp| dp.mode() == DataPresentationMode::NoWrap)
                 {
-                    // TODO: find our the real horz limit
+                    // TODO: find out the real horz limit
                     self.max_column.get() as f64
                 } else {
                     0.0
@@ -423,7 +406,7 @@ mod imp {
             );
             adjustment.set_step_increment(1.0);
             adjustment.set_page_increment(5.0);
-            adjustment.set_page_size(self.chars_per_line.get() as f64);
+            adjustment.set_page_size(self.chars_per_line.get() as f64 - 1.0);
         }
 
         fn update_vadjustment_limits(&self, adjustment: &gtk::Adjustment) {
@@ -447,6 +430,33 @@ mod imp {
         fn set_vscroll_policy(&self, policy: gtk::ScrollablePolicy) {
             self.vscroll_policy.set(policy);
             self.obj().queue_resize();
+        }
+
+        pub(super) fn update_viewport_size(&self, width: i32, height: i32) {
+            let char_width = self.char_width.get();
+            let char_height = self.char_height.get();
+
+            if let Some(dp) = self.obj().data_presentation()
+                && let Some(chars) =
+                    (width > 0 && char_width > 0).then(|| (width / char_width) as u32)
+            {
+                self.chars_per_line.set(chars);
+                dp.set_wrap_limit(chars);
+                self.obj().queue_draw();
+            }
+
+            self.lines_displayed.set(if char_height > 0 {
+                height / char_height
+            } else {
+                10
+            });
+
+            if let Some(adjustment) = self.obj().hadjustment() {
+                self.update_hadjustment_limits(&adjustment);
+            }
+            if let Some(adjustment) = self.obj().vadjustment() {
+                self.update_vadjustment_limits(&adjustment);
+            }
         }
 
         fn set_display_mode(&self, mode: TextRenderDisplayMode) {
@@ -1257,6 +1267,12 @@ impl TextRender {
         self.imp().char_width.set(char_width);
         self.imp().char_height.set(char_height);
         self.imp().font_desc.replace(Some(new_desc));
+
+        let width = self.width();
+        let height = self.height();
+        if width > 0 && height > 0 {
+            self.imp().update_viewport_size(width, height);
+        }
     }
 
     fn emit_text_status_changed(&self) {
