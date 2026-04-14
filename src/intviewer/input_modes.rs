@@ -3,7 +3,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::{debug::debug, intviewer::cp437::CP437};
+use crate::debug::debug;
 use std::{
     num::NonZeroUsize,
     sync::{LazyLock, RwLock},
@@ -43,9 +43,6 @@ impl InputMode {
         *self.ascii_charset_translation.write().unwrap() = if encoding.eq_ignore_ascii_case("ASCII")
         {
             *DEFAULT_ASCII_TABLE
-        } else if encoding.eq_ignore_ascii_case("CP437") {
-            // Use our special translation table. (IConv does not work with CP437)
-            CP437
         } else {
             // Build the translation table for the current charset
             create_encoding_table(encoding).unwrap_or_else(|| {
@@ -276,6 +273,8 @@ static DEFAULT_ASCII_TABLE: LazyLock<[char; 256]> = LazyLock::new(|| {
     table
 });
 
+const CP437_SPECIAL_CHARS: &str = "☺☻♥♦♣♠•◘○◙♂♀♪♫☼►◄↕‼¶§▬↨↑↓→←∟↔▲▼⌂";
+
 fn create_encoding_table(encoding: &str) -> Option<[char; 256]> {
     let mut icnv = glib::IConv::new("UTF8", encoding)?;
     let mut table = ['.'; 256];
@@ -287,6 +286,16 @@ fn create_encoding_table(encoding: &str) -> Option<[char; 256]> {
             .and_then(|s| std::str::from_utf8(&s.0).ok())
             .and_then(|s| s.chars().next())
             .unwrap_or('.');
+    }
+    if encoding.eq_ignore_ascii_case("CP437") {
+        // CP437 characters 01-1F and 7F aren't handled by iconv
+        for (i, char) in CP437_SPECIAL_CHARS.chars().enumerate() {
+            if i < 0x1f {
+                table[i + 1] = char;
+            } else {
+                table[0x7f] = char;
+            }
+        }
     }
     Some(table)
 }

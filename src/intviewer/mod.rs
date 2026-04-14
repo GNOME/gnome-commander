@@ -4,7 +4,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 pub mod boyer_moore;
-pub mod cp437;
 pub mod data_presentation;
 pub mod file_input_source;
 pub mod image_render;
