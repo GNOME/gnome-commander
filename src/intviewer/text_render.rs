@@ -5,14 +5,11 @@
 
 use super::data_presentation::DataPresentation;
 use crate::{
-    intviewer::{
-        data_presentation::DataPresentationMode, file_input_source::FileInputSource,
-        input_modes::InputMode,
-    },
+    intviewer::{file_input_source::FileInputSource, input_modes::InputMode},
     utils::Max,
 };
 use gtk::{gdk, glib, graphene, pango, prelude::*, subclass::prelude::*};
-use std::{num::NonZeroU32, path::Path, rc::Rc, sync::Arc};
+use std::{num::NonZeroU32, path::Path, sync::Arc};
 
 const HEXDUMP_FIXED_LIMIT: u32 = 16;
 
@@ -60,8 +57,8 @@ mod imp {
         #[property(get, set = Self::set_hexadecimal_offset)]
         hexadecimal_offset: Cell<bool>,
 
-        pub input_mode: RefCell<Option<Arc<InputMode>>>,
-        pub data_presentation: RefCell<Option<Rc<DataPresentation>>>,
+        pub input_mode: RefCell<Arc<InputMode>>,
+        pub data_presentation: RefCell<DataPresentation>,
 
         #[property(get, set)]
         chars_per_line: Cell<u32>,
@@ -109,7 +106,7 @@ mod imp {
                 hexadecimal_offset: Default::default(),
 
                 input_mode: Default::default(),
-                data_presentation: Default::default(),
+                data_presentation: RefCell::new(DataPresentation::new()),
 
                 chars_per_line: Default::default(),
                 max_column: Default::default(),
@@ -214,10 +211,6 @@ mod imp {
         }
 
         fn snapshot(&self, snapshot: &gtk::Snapshot) {
-            let Some(dp) = self.obj().data_presentation() else {
-                return;
-            };
-
             let display_mode = self.obj().display_mode();
 
             let char_height = self.char_height.get();
@@ -237,6 +230,7 @@ mod imp {
                 std::mem::swap(&mut marker_start, &mut marker_end);
             }
 
+            let dp = self.data_presentation.borrow();
             let text_color = self.obj().color();
             let display_options = DisplayOptions {
                 text_color,
@@ -247,7 +241,7 @@ mod imp {
                 ..DisplayOptions::alternate_marker()
             };
             loop {
-                let eol_offset = dp.end_of_line_offset(offset);
+                let eol_offset = dp.end_of_line_offset(&self.input_mode.borrow(), offset);
                 if eol_offset == offset {
                     break;
                 }
@@ -367,11 +361,12 @@ mod imp {
         }
 
         fn vadjustment_update(&self) {
-            if let Some(vadjustment) = self.obj().vadjustment()
-                && let Some(dp) = self.obj().data_presentation()
-            {
+            if let Some(vadjustment) = self.obj().vadjustment() {
                 let value = vadjustment.value() as u64;
-                let new_value = dp.align_offset_to_line_start(value);
+                let new_value = self
+                    .data_presentation
+                    .borrow()
+                    .align_offset_to_line_start(&self.input_mode.borrow(), value);
                 if new_value != value {
                     vadjustment.set_value(new_value as f64);
                 }
@@ -393,11 +388,7 @@ mod imp {
         fn update_hadjustment_limits(&self, adjustment: &gtk::Adjustment) {
             adjustment.set_lower(0.0);
             adjustment.set_upper(
-                if self
-                    .obj()
-                    .data_presentation()
-                    .is_some_and(|dp| dp.mode() == DataPresentationMode::NoWrap)
-                {
+                if self.data_presentation.borrow().mode() == DataPresentationMode::NoWrap {
                     // TODO: find out the real horz limit
                     self.max_column.get() as f64
                 } else {
@@ -411,12 +402,7 @@ mod imp {
 
         fn update_vadjustment_limits(&self, adjustment: &gtk::Adjustment) {
             adjustment.set_lower(0.0);
-            adjustment.set_upper(
-                self.obj()
-                    .input_mode()
-                    .map(|f| f.max_offset().saturating_sub(1))
-                    .unwrap_or_default() as f64,
-            );
+            adjustment.set_upper(self.input_mode.borrow().max_offset().saturating_sub(1) as f64);
             adjustment.set_step_increment(1.0);
             adjustment.set_page_increment(10.0);
             adjustment.set_page_size(10.0);
@@ -436,12 +422,10 @@ mod imp {
             let char_width = self.char_width.get();
             let char_height = self.char_height.get();
 
-            if let Some(dp) = self.obj().data_presentation()
-                && let Some(chars) =
-                    (width > 0 && char_width > 0).then(|| (width / char_width) as u32)
-            {
+            if width > 0 && char_width > 0 {
+                let chars = (width / char_width) as u32;
                 self.chars_per_line.set(chars);
-                dp.set_wrap_limit(chars);
+                self.data_presentation.borrow_mut().set_wrap_limit(chars);
                 self.obj().queue_draw();
             }
 
@@ -462,30 +446,30 @@ mod imp {
         fn set_display_mode(&self, mode: TextRenderDisplayMode) {
             self.display_mode.set(mode);
 
-            let Some(dp) = self.obj().data_presentation() else {
-                return;
-            };
-            match mode {
-                TextRenderDisplayMode::Text => {
-                    dp.set_mode(if self.wrap_mode.get() {
-                        DataPresentationMode::Wrap
-                    } else {
-                        DataPresentationMode::NoWrap
-                    });
-                }
-                TextRenderDisplayMode::Binary => {
-                    // Binary display mode doesn't support UTF8
-                    // TODO: switch back to the previous encoding, not just ASCII
-                    //        input_mode.set_mode("ASCII");
-                    dp.set_fixed_count(self.fixed_limit.get());
-                    dp.set_mode(DataPresentationMode::BinaryFixed);
-                }
-                TextRenderDisplayMode::Hexdump => {
-                    // HEX display mode doesn't support UTF8
-                    // TODO: switch back to the previous encoding, not just ASCII
-                    //        input_mode.set_mode("ASCII");
-                    dp.set_fixed_count(HEXDUMP_FIXED_LIMIT);
-                    dp.set_mode(DataPresentationMode::BinaryFixed);
+            {
+                let mut dp = self.data_presentation.borrow_mut();
+                match mode {
+                    TextRenderDisplayMode::Text => {
+                        dp.set_mode(if self.wrap_mode.get() {
+                            DataPresentationMode::Wrap
+                        } else {
+                            DataPresentationMode::NoWrap
+                        });
+                    }
+                    TextRenderDisplayMode::Binary => {
+                        // Binary display mode doesn't support UTF8
+                        // TODO: switch back to the previous encoding, not just ASCII
+                        //        input_mode.set_mode("ASCII");
+                        dp.set_fixed_count(self.fixed_limit.get());
+                        dp.set_mode(DataPresentationMode::BinaryFixed);
+                    }
+                    TextRenderDisplayMode::Hexdump => {
+                        // HEX display mode doesn't support UTF8
+                        // TODO: switch back to the previous encoding, not just ASCII
+                        //        input_mode.set_mode("ASCII");
+                        dp.set_fixed_count(HEXDUMP_FIXED_LIMIT);
+                        dp.set_mode(DataPresentationMode::BinaryFixed);
+                    }
                 }
             }
             // self.obj().setup_current_font();
@@ -493,8 +477,10 @@ mod imp {
                 hadjustment.set_value(0.0);
             }
             if let Some(vadjustment) = self.obj().vadjustment() {
-                vadjustment
-                    .set_value(dp.align_offset_to_line_start(self.obj().current_offset()) as f64);
+                vadjustment.set_value(self.data_presentation.borrow().align_offset_to_line_start(
+                    &self.input_mode.borrow(),
+                    self.obj().current_offset(),
+                ) as f64);
             }
 
             self.obj().queue_draw();
@@ -509,9 +495,7 @@ mod imp {
         fn set_tab_size(&self, tab_size: u32) {
             if tab_size > 0 {
                 self.tab_size.set(tab_size);
-                if let Some(dp) = self.obj().data_presentation() {
-                    dp.set_tab_size(tab_size);
-                }
+                self.data_presentation.borrow_mut().set_tab_size(tab_size);
                 self.obj().queue_draw();
             }
         }
@@ -522,13 +506,11 @@ mod imp {
                 if let Some(hadjustment) = self.obj().hadjustment() {
                     hadjustment.set_value(0.0);
                 }
-                if let Some(dp) = self.obj().data_presentation() {
-                    dp.set_mode(if wrap_mode {
-                        DataPresentationMode::Wrap
-                    } else {
-                        DataPresentationMode::NoWrap
-                    });
-                }
+                self.data_presentation.borrow_mut().set_mode(if wrap_mode {
+                    DataPresentationMode::Wrap
+                } else {
+                    DataPresentationMode::NoWrap
+                });
                 self.update_adjustments_limits();
                 self.obj().emit_text_status_changed();
             }
@@ -544,34 +526,32 @@ mod imp {
                     eprintln!("Can't set UTF8 encoding when in Binary or HexDump display mode");
                 }
                 _ => {
-                    self.encoding.replace(encoding.clone());
-                    if let Some(input_mode) = self.obj().input_mode() {
+                    let mut input_mode = self.input_mode.borrow_mut();
+                    if let Some(input_mode) = Arc::get_mut(&mut input_mode) {
+                        self.encoding.replace(encoding.clone());
                         input_mode.set_mode(&encoding);
-                        self.filter_undisplayable_chars();
+                        self.filter_undisplayable_chars(input_mode);
+                        self.obj().queue_draw();
+                    } else {
+                        eprintln!(
+                            "Failed setting encoding, could not get mutable input mode reference"
+                        );
                     }
-                    self.obj().queue_draw();
                 }
             }
         }
 
-        fn filter_undisplayable_chars(&self) {
-            let Some(input_mode) = self.obj().input_mode() else {
-                return;
-            };
-
+        fn filter_undisplayable_chars(&self, input_mode: &mut InputMode) {
             let layout = self.obj().create_pango_layout(None);
             layout.set_font_description(self.font_desc.borrow().as_ref());
             for byte in 0..=255 {
-                let displayable = input_mode
-                    .byte_to_char(byte)
-                    .filter(|ch| *ch != '\0')
-                    .map(|ch| {
-                        layout.set_text(&ch.to_string());
-                        let (_ink_rect, logical_rect) = layout.pixel_extents();
-                        // Pango displays something
-                        logical_rect.width() > 0
-                    })
-                    .unwrap_or_default();
+                let ch = input_mode.byte_to_char(byte);
+                let displayable = ch != '\0' && {
+                    layout.set_text(&ch.to_string());
+                    let (_ink_rect, logical_rect) = layout.pixel_extents();
+                    // Pango displays something
+                    logical_rect.width() > 0
+                };
 
                 if !displayable && !matches!(byte, b'\t' | b'\n' | b'\r') {
                     input_mode.update_utf8_translation(byte, '.');
@@ -581,14 +561,14 @@ mod imp {
 
         fn set_fixed_limit(&self, fixed_limit: u32) {
             self.fixed_limit.set(fixed_limit);
-            if let Some(dp) = self.obj().data_presentation() {
-                // always 16 bytes in hex dump
-                let fixed_limit = match self.obj().display_mode() {
-                    TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => fixed_limit,
-                    TextRenderDisplayMode::Hexdump => HEXDUMP_FIXED_LIMIT,
-                };
-                dp.set_fixed_count(fixed_limit);
-            }
+            // always 16 bytes in hex dump
+            let fixed_limit = match self.obj().display_mode() {
+                TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => fixed_limit,
+                TextRenderDisplayMode::Hexdump => HEXDUMP_FIXED_LIMIT,
+            };
+            self.data_presentation
+                .borrow_mut()
+                .set_fixed_count(fixed_limit);
 
             self.obj().queue_draw();
         }
@@ -602,12 +582,13 @@ mod imp {
             let Some(vadjustment) = self.obj().vadjustment() else {
                 return;
             };
-            let Some(dp) = self.obj().data_presentation() else {
-                return;
-            };
 
             let mut current_offset = self.obj().current_offset();
-            current_offset = dp.scroll_lines(current_offset, (4.0 * dy) as i32);
+            current_offset = self.data_presentation.borrow().scroll_lines(
+                &self.input_mode.borrow(),
+                current_offset,
+                (4.0 * dy) as i32,
+            );
             vadjustment.set_value(current_offset as f64);
 
             self.obj().emit_text_status_changed();
@@ -659,12 +640,6 @@ mod imp {
         }
 
         fn key_pressed(&self, key: gdk::Key) -> glib::Propagation {
-            let Some(input_mode) = self.obj().input_mode() else {
-                return glib::Propagation::Proceed;
-            };
-            let Some(dp) = self.obj().data_presentation() else {
-                return glib::Propagation::Proceed;
-            };
             let Some(hadjustment) = self.obj().hadjustment() else {
                 return glib::Propagation::Proceed;
             };
@@ -672,18 +647,31 @@ mod imp {
                 return glib::Propagation::Proceed;
             };
 
+            let dp = self.data_presentation.borrow();
             let column = self.obj().column();
             let current_offset = self.obj().current_offset();
 
             match key {
-                gdk::Key::Up => vadjustment.set_value(dp.scroll_lines(current_offset, -1) as f64),
-                gdk::Key::Down => vadjustment.set_value(dp.scroll_lines(current_offset, 1) as f64),
-                gdk::Key::Page_Up => vadjustment.set_value(
-                    dp.scroll_lines(current_offset, -(self.lines_displayed.get() - 1)) as f64,
-                ),
-                gdk::Key::Page_Down => vadjustment.set_value(
-                    dp.scroll_lines(current_offset, self.lines_displayed.get() - 1) as f64,
-                ),
+                gdk::Key::Up => vadjustment.set_value(dp.scroll_lines(
+                    &self.input_mode.borrow(),
+                    current_offset,
+                    -1,
+                ) as f64),
+                gdk::Key::Down => vadjustment.set_value(dp.scroll_lines(
+                    &self.input_mode.borrow(),
+                    current_offset,
+                    1,
+                ) as f64),
+                gdk::Key::Page_Up => vadjustment.set_value(dp.scroll_lines(
+                    &self.input_mode.borrow(),
+                    current_offset,
+                    -(self.lines_displayed.get() - 1),
+                ) as f64),
+                gdk::Key::Page_Down => vadjustment.set_value(dp.scroll_lines(
+                    &self.input_mode.borrow(),
+                    current_offset,
+                    self.lines_displayed.get() - 1,
+                ) as f64),
                 gdk::Key::Left => {
                     if !self.wrap_mode.get() && column > 0 {
                         hadjustment.set_value((column - 1) as f64);
@@ -695,8 +683,10 @@ mod imp {
                     }
                 }
                 gdk::Key::Home => vadjustment.set_value(0.0),
-                gdk::Key::End => vadjustment
-                    .set_value(dp.align_offset_to_line_start(input_mode.max_offset() - 1) as f64),
+                gdk::Key::End => vadjustment.set_value(dp.align_offset_to_line_start(
+                    &self.input_mode.borrow(),
+                    self.input_mode.borrow().max_offset() - 1,
+                ) as f64),
                 _ => return glib::Propagation::Proceed,
             }
 
@@ -707,13 +697,6 @@ mod imp {
         }
 
         pub fn text_mode_pixel_to_offset(&self, x: f64, y: f64, start_marker: bool) -> u64 {
-            let Some(dp) = self.obj().data_presentation() else {
-                return 0;
-            };
-            let Some(input_mode) = self.obj().input_mode() else {
-                return 0;
-            };
-
             let char_width = self.char_width.get();
             let char_height = self.char_height.get();
             let tab_size = self.tab_size.get();
@@ -727,28 +710,27 @@ mod imp {
             let line = (y / char_height as f64) as i32;
             let column = (x as i32 / char_width + self.obj().column()) as u32;
 
-            let line_offset = dp.scroll_lines(current_offset, line);
-            let next_line_offset = dp.scroll_lines(line_offset, 1);
+            let dp = self.data_presentation.borrow();
+            let line_offset = dp.scroll_lines(&self.input_mode.borrow(), current_offset, line);
+            let next_line_offset = dp.scroll_lines(&self.input_mode.borrow(), line_offset, 1);
 
-            text_mode_line_iter(&input_mode, line_offset, next_line_offset, tab_size)
-                .find_map(move |(offset, c, _)| {
-                    if start_marker {
-                        (c >= column).then_some(offset)
-                    } else {
-                        (c > column).then_some(offset)
-                    }
-                })
-                .unwrap_or(next_line_offset)
+            text_mode_line_iter(
+                &self.input_mode.borrow(),
+                line_offset,
+                next_line_offset,
+                tab_size,
+            )
+            .find_map(move |(offset, c, _)| {
+                if start_marker {
+                    (c >= column).then_some(offset)
+                } else {
+                    (c > column).then_some(offset)
+                }
+            })
+            .unwrap_or(next_line_offset)
         }
 
         pub fn hex_mode_pixel_to_offset(&self, x: f64, y: f64, start_marker: bool) -> u64 {
-            let Some(dp) = self.obj().data_presentation() else {
-                return 0;
-            };
-            let Some(input_mode) = self.obj().input_mode() else {
-                return 0;
-            };
-
             let char_width = self.char_width.get();
             let char_height = self.char_height.get();
 
@@ -761,8 +743,9 @@ mod imp {
             let line = (y / char_height as f64) as i32;
             let column = (x as i32 / char_width + self.obj().column()) as u32;
 
-            let line_offset = dp.scroll_lines(current_offset, line);
-            let next_line_offset = dp.scroll_lines(line_offset, 1);
+            let dp = self.data_presentation.borrow();
+            let line_offset = dp.scroll_lines(&self.input_mode.borrow(), current_offset, line);
+            let next_line_offset = dp.scroll_lines(&self.input_mode.borrow(), line_offset, 1);
 
             let (hex_offset, bin_offset) = hex_mode_column_layout();
 
@@ -791,6 +774,7 @@ mod imp {
                 column.saturating_sub(bin_offset)
             };
 
+            let input_mode = self.input_mode.borrow();
             let mut offset = line_offset;
             while byte_offset > 0 && offset < next_line_offset {
                 offset = input_mode.next_char_offset(offset);
@@ -862,17 +846,19 @@ mod imp {
         }
 
         fn text_mode_chars(&self, start_of_line: u64, end_of_line: u64) -> Vec<(u64, u32, char)> {
-            let Some(input_mode) = self.obj().input_mode() else {
-                return Vec::new();
-            };
-            text_mode_line_iter(&input_mode, start_of_line, end_of_line, self.tab_size.get())
-                .filter_map(|(offset, column, character)| match character {
-                    Some('\r') | Some('\n') => None,
-                    Some(ch) if ch == '\0' || ch.is_whitespace() => Some((offset, column, ' ')),
-                    Some(ch) => Some((offset, column, ch)),
-                    None => Some((offset, column, '\u{FFFD}')),
-                })
-                .collect::<Vec<_>>()
+            text_mode_line_iter(
+                &self.input_mode.borrow(),
+                start_of_line,
+                end_of_line,
+                self.tab_size.get(),
+            )
+            .filter_map(|(offset, column, character)| match character {
+                Some('\r') | Some('\n') => None,
+                Some(ch) if ch == '\0' || ch.is_whitespace() => Some((offset, column, ' ')),
+                Some(ch) => Some((offset, column, ch)),
+                None => Some((offset, column, '\u{FFFD}')),
+            })
+            .collect::<Vec<_>>()
         }
 
         fn text_mode_display_line(
@@ -889,9 +875,7 @@ mod imp {
         }
 
         pub fn text_mode_copy_to_clipboard(&self, start_offset: u64, end_offset: u64) {
-            let Some(input_mode) = self.obj().input_mode() else {
-                return;
-            };
+            let input_mode = self.input_mode.borrow();
             let text: String = input_mode
                 .offsets(start_offset, end_offset)
                 .filter_map(|offset| input_mode.character(offset))
@@ -906,10 +890,7 @@ mod imp {
         }
 
         fn binary_mode_chars(&self, start_of_line: u64, end_of_line: u64) -> Vec<(u64, u32, char)> {
-            let Some(input_mode) = self.obj().input_mode() else {
-                return Vec::new();
-            };
-            binary_mode_line_iter(&input_mode, start_of_line, end_of_line)
+            binary_mode_line_iter(&self.input_mode.borrow(), start_of_line, end_of_line)
                 .map(|(offset, column, character)| {
                     (
                         offset,
@@ -943,10 +924,6 @@ mod imp {
             display_options: &DisplayOptions,
             display_options_alternate: &DisplayOptions,
         ) {
-            let Some(input_mode) = self.obj().input_mode() else {
-                return;
-            };
-
             let layout = self.obj().create_pango_layout(None);
             layout.set_font_description(self.font_desc.borrow().as_ref());
             layout.set_text(&if self.hexadecimal_offset.get() {
@@ -963,33 +940,35 @@ mod imp {
                     (display_options_alternate, display_options)
                 };
 
-            let hex_chars = hex_mode_line_iter(&input_mode, start_of_line, end_of_line)
-                .flat_map(|(offset, column, byte)| {
-                    match byte {
-                        Some(b) => format!("{:02X}", b)
-                            .chars()
-                            .enumerate()
-                            .map(|(i, c)| (offset, column * 3 + i as u32, c))
-                            .collect(),
-                        None => {
-                            vec![]
+            let hex_chars =
+                hex_mode_line_iter(&self.input_mode.borrow(), start_of_line, end_of_line)
+                    .flat_map(|(offset, column, byte)| {
+                        match byte {
+                            Some(b) => format!("{:02X}", b)
+                                .chars()
+                                .enumerate()
+                                .map(|(i, c)| (offset, column * 3 + i as u32, c))
+                                .collect(),
+                            None => {
+                                vec![]
+                            }
                         }
-                    }
-                    .into_iter()
-                })
-                .collect::<Vec<_>>();
+                        .into_iter()
+                    })
+                    .collect::<Vec<_>>();
 
-            let bin_chars = hex_mode_line_iter(&input_mode, start_of_line, end_of_line)
-                .map(|(offset, column, byte)| {
-                    (
-                        offset,
-                        column,
-                        byte.filter(|b| *b != 0)
-                            .and_then(|b| char::from_u32(b as u32))
-                            .unwrap_or('.'),
-                    )
-                })
-                .collect::<Vec<_>>();
+            let bin_chars =
+                hex_mode_line_iter(&self.input_mode.borrow(), start_of_line, end_of_line)
+                    .map(|(offset, column, byte)| {
+                        (
+                            offset,
+                            column,
+                            byte.filter(|b| *b != 0)
+                                .and_then(|b| char::from_u32(b as u32))
+                                .unwrap_or('.'),
+                        )
+                    })
+                    .collect::<Vec<_>>();
 
             let (hex_offset, bin_offset) = hex_mode_column_layout();
 
@@ -1024,9 +1003,7 @@ mod imp {
 
         pub fn hex_mode_copy_to_clipboard(&self, start_offset: u64, end_offset: u64) {
             if self.hexmode_marker_on_hexdump.get() {
-                let Some(input_mode) = self.obj().input_mode() else {
-                    return;
-                };
+                let input_mode = self.input_mode.borrow();
                 let text = input_mode
                     .offsets(start_offset, end_offset)
                     .filter_map(|offset| input_mode.raw_byte(offset))
@@ -1040,7 +1017,7 @@ mod imp {
     }
 
     fn text_mode_line_iter(
-        input_mode: &InputMode,
+        input_mode: &Arc<InputMode>,
         start: u64,
         end: u64,
         tab_size: u32,
@@ -1060,7 +1037,7 @@ mod imp {
     }
 
     fn binary_mode_line_iter(
-        input_mode: &InputMode,
+        input_mode: &Arc<InputMode>,
         start: u64,
         end: u64,
     ) -> impl Iterator<Item = (u64, u32, Option<char>)> + use<'_> {
@@ -1075,7 +1052,7 @@ mod imp {
     }
 
     fn hex_mode_line_iter(
-        input_mode: &InputMode,
+        input_mode: &Arc<InputMode>,
         start: u64,
         end: u64,
     ) -> impl Iterator<Item = (u64, u32, Option<u8>)> + use<'_> {
@@ -1138,12 +1115,11 @@ impl TextRender {
         let Some(vadjustment) = self.vadjustment() else {
             return;
         };
-        let Some(dp) = self.data_presentation() else {
-            return;
-        };
 
-        offset = dp.align_offset_to_line_start(offset);
-        offset = dp.scroll_lines(offset, -self.imp().lines_displayed.get() / 2);
+        let dp = self.imp().data_presentation.borrow();
+        let input_mode = self.imp().input_mode.borrow();
+        offset = dp.align_offset_to_line_start(&input_mode, offset);
+        offset = dp.scroll_lines(&input_mode, offset, -self.imp().lines_displayed.get() / 2);
 
         vadjustment.set_value(offset as f64);
         self.queue_draw();
@@ -1179,9 +1155,7 @@ impl TextRender {
     }
 
     pub fn size(&self) -> u64 {
-        self.input_mode()
-            .map(|f| f.max_offset())
-            .unwrap_or_default()
+        self.imp().input_mode.borrow().max_offset()
     }
 
     pub fn column(&self) -> i32 {
@@ -1190,22 +1164,16 @@ impl TextRender {
             .unwrap_or_default()
     }
 
-    pub fn input_mode(&self) -> Option<Arc<InputMode>> {
+    pub fn input_mode(&self) -> Arc<InputMode> {
         self.imp().input_mode.borrow().clone()
     }
 
-    pub fn data_presentation(&self) -> Option<Rc<DataPresentation>> {
-        self.imp().data_presentation.borrow().clone()
-    }
-
     pub fn load_file(&self, filename: &Path) {
-        self.imp().input_mode.replace(None);
-        self.imp().data_presentation.replace(None);
-
         let source = match FileInputSource::open(filename) {
             Ok(source) => source,
             Err(error) => {
                 eprintln!("Failed to load file {}: {}", filename.display(), error);
+                self.imp().input_mode.replace(Default::default());
                 return;
             }
         };
@@ -1219,26 +1187,11 @@ impl TextRender {
         self.set_max_column(0);
 
         // Setup the input mode translations
-        let input_mode = Arc::new(InputMode::new(source));
+        let mut input_mode = InputMode::new(source);
         input_mode.set_mode(&self.encoding());
-
-        // Setup the data presentation mode
-        let data_presentation = Rc::new(DataPresentation::new(&input_mode));
-        data_presentation.set_wrap_limit(50);
-        data_presentation.set_fixed_count(self.fixed_limit());
-        data_presentation.set_tab_size(self.tab_size());
-        data_presentation.set_mode(if self.wrap_mode() {
-            DataPresentationMode::Wrap
-        } else {
-            DataPresentationMode::NoWrap
-        });
+        self.imp().input_mode.replace(Arc::new(input_mode));
 
         self.set_display_mode(TextRenderDisplayMode::Text);
-
-        self.imp().input_mode.replace(Some(input_mode));
-        self.imp()
-            .data_presentation
-            .replace(Some(data_presentation));
 
         self.imp().update_adjustments_limits();
     }

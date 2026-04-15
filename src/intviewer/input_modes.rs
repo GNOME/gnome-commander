@@ -4,24 +4,20 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use crate::debug::debug;
-use std::{
-    borrow::Cow,
-    num::NonZeroUsize,
-    sync::{LazyLock, RwLock},
-};
+use std::{borrow::Cow, num::NonZeroUsize};
 
 pub struct InputMode {
     source: Box<dyn InputSource + Send + Sync>,
-    mode: RwLock<String>,
-    ascii_charset_translation: RwLock<[char; 256]>,
+    mode: String,
+    ascii_charset_translation: [char; 256],
 }
 
 impl InputMode {
     pub fn new<S: InputSource + Send + Sync + 'static>(source: S) -> Self {
         Self {
             source: Box::new(source),
-            mode: RwLock::new("ASCII".to_owned()),
-            ascii_charset_translation: RwLock::new(*DEFAULT_ASCII_TABLE),
+            mode: "ASCII".to_owned(),
+            ascii_charset_translation: DEFAULT_ASCII_TABLE,
         }
     }
 
@@ -29,26 +25,25 @@ impl InputMode {
         self.source.max_offset()
     }
 
-    pub fn mode(&self) -> String {
-        self.mode.read().unwrap().clone()
+    pub fn mode(&self) -> &str {
+        &self.mode
     }
 
-    pub fn set_mode(&self, mode: &str) {
-        *self.mode.write().unwrap() = mode.to_owned();
+    pub fn set_mode(&mut self, mode: &str) {
+        self.mode = mode.to_owned();
         if !mode.eq_ignore_ascii_case("UTF8") {
             self.inputmode_ascii_activate(mode)
         }
     }
 
-    fn inputmode_ascii_activate(&self, encoding: &str) {
-        *self.ascii_charset_translation.write().unwrap() = if encoding.eq_ignore_ascii_case("ASCII")
-        {
-            *DEFAULT_ASCII_TABLE
+    fn inputmode_ascii_activate(&mut self, encoding: &str) {
+        self.ascii_charset_translation = if encoding.eq_ignore_ascii_case("ASCII") {
+            DEFAULT_ASCII_TABLE
         } else {
             // Build the translation table for the current charset
             create_encoding_table(encoding).unwrap_or_else(|| {
                 eprintln!("Failed to load charset conversions, using ASCII fallback.");
-                *DEFAULT_ASCII_TABLE
+                DEFAULT_ASCII_TABLE
             })
         };
     }
@@ -62,10 +57,10 @@ impl InputMode {
     /// you must handle gracefully an 'offset' which is not on a character alignemnt.
     /// (e.g. in the second byte of a UTF-8 character)
     pub fn character(&self, offset: u64) -> Option<char> {
-        if self.mode() == "UTF8" {
+        if self.mode == "UTF8" {
             self.inputmode_utf8_get_char(offset)
         } else {
-            self.byte_to_char(self.raw_byte(offset)?)
+            self.raw_byte(offset).map(|byte| self.byte_to_char(byte))
         }
     }
 
@@ -115,7 +110,7 @@ impl InputMode {
     /// For UTF-8 input mode, a character is 1 to 6 bytes.
     /// Other input modes can return diferent values.
     pub fn next_char_offset(&self, current_offset: u64) -> u64 {
-        if self.mode() == "UTF8" {
+        if self.mode == "UTF8" {
             self.inputmode_utf8_get_next_offset(current_offset)
         } else {
             (current_offset + 1).clamp(0, self.max_offset())
@@ -124,7 +119,7 @@ impl InputMode {
 
     /// returns the BYTE offset of the previous logical character.
     pub fn previous_char_offset(&self, current_offset: u64) -> u64 {
-        if self.mode() == "UTF8" {
+        if self.mode == "UTF8" {
             self.inputmode_utf8_get_previous_offset(current_offset)
         } else {
             current_offset.saturating_sub(1)
@@ -147,14 +142,14 @@ impl InputMode {
         })
     }
 
-    pub fn byte_to_char(&self, data: u8) -> Option<char> {
-        Some(self.ascii_charset_translation.read().ok()?[data as usize])
+    pub fn byte_to_char(&self, data: u8) -> char {
+        self.ascii_charset_translation[data as usize]
     }
 
     /// Used by highler layers (text-render) to update the translation table,
     /// filter out utf8 characters that IConv returned but Pango can't display
-    pub fn update_utf8_translation(&self, index: u8, new_value: char) {
-        self.ascii_charset_translation.write().unwrap()[index as usize] = new_value;
+    pub fn update_utf8_translation(&mut self, index: u8, new_value: char) {
+        self.ascii_charset_translation[index as usize] = new_value;
     }
 
     fn inputmode_utf8_get_next_offset(&self, offset: u64) -> u64 {
@@ -242,6 +237,12 @@ impl InputMode {
     }
 }
 
+impl Default for InputMode {
+    fn default() -> Self {
+        InputMode::new(&[0_u8][0..0])
+    }
+}
+
 pub trait InputSource {
     fn max_offset(&self) -> u64;
     fn byte(&self, offset: u64) -> Option<u8>;
@@ -266,13 +267,18 @@ fn is_utf8_trailer(b: u8) -> bool {
     b & 0xC0 == 0x80
 }
 
-static DEFAULT_ASCII_TABLE: LazyLock<[char; 256]> = LazyLock::new(|| {
+const DEFAULT_ASCII_TABLE: [char; 256] = {
     let mut table = ['.'; 256];
-    for b in 0..0x80_u8 {
-        table[b as usize] = b as char
+    let mut b = 0_u8;
+    loop {
+        table[b as usize] = b as char;
+        b += 1;
+        if b >= 0x80 {
+            break;
+        }
     }
     table
-});
+};
 
 const CP437_SPECIAL_CHARS: &str = "☺☻♥♦♣♠•◘○◙♂♀♪♫☼►◄↕‼¶§▬↨↑↓→←∟↔▲▼⌂";
 
@@ -330,7 +336,7 @@ mod test {
     #[test]
     fn input_mode() {
         let data: &[u8] = &[];
-        let imd = InputMode::new(data);
+        let mut imd = InputMode::new(data);
         for mode in ["ASCII", "UTF8", "CP437", "CP1251"] {
             imd.set_mode(mode);
             assert_eq!(imd.mode(), mode);
@@ -342,7 +348,7 @@ mod test {
         let data: &[u8] = &[
             0x41, 0xC3, 0xB6, 0xD0, 0x96, 0xE2, 0x82, 0xAC, 0xF0, 0x9D, 0x84, 0x9E,
         ];
-        let imd = InputMode::new(data);
+        let mut imd = InputMode::new(data);
         imd.set_mode("UTF8");
         assert_eq!(String::from_iter(imd.characters(0, 5)), "AöЖ€𝄞");
     }
@@ -350,7 +356,7 @@ mod test {
     #[test]
     fn test_decode_ascii() {
         let data: &[u8] = &[0x00, 0x03, 0x0A, 0x20, 0x41, 0x80, 0xFE];
-        let imd = InputMode::new(data);
+        let mut imd = InputMode::new(data);
         imd.set_mode("ASCII");
         assert_eq!(String::from_iter(imd.characters(0, 7)), "\x00\x03\n A..");
     }
@@ -358,7 +364,7 @@ mod test {
     #[test]
     fn test_decode_cp437() {
         let data: &[u8] = &[0x00, 0x03, 0x0A, 0x20, 0x41, 0x80, 0xFE];
-        let imd = InputMode::new(data);
+        let mut imd = InputMode::new(data);
         imd.set_mode("CP437");
         assert_eq!(String::from_iter(imd.characters(0, 7)), "\x00♥◙ AÇ■");
     }
@@ -366,7 +372,7 @@ mod test {
     #[test]
     fn test_decode_windows1251() {
         let data: &[u8] = &[0x00, 0x03, 0x0A, 0x20, 0x41, 0x80, 0xFE];
-        let imd = InputMode::new(data);
+        let mut imd = InputMode::new(data);
         imd.set_mode("CP1251");
         assert_eq!(String::from_iter(imd.characters(0, 7)), "\x00\x03\n AЂю");
     }

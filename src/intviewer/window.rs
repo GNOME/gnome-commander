@@ -460,13 +460,7 @@ mod imp {
 
         fn select_all(&self) {
             if self.display_mode.get() != DisplayMode::Image {
-                self.text_render.set_marker(
-                    0,
-                    self.text_render
-                        .input_mode()
-                        .map(|f| f.max_offset())
-                        .unwrap_or_default(),
-                );
+                self.text_render.set_marker(0, self.text_render.size());
             }
         }
 
@@ -598,12 +592,8 @@ mod imp {
             self.searchbar.show(false);
             self.searchbar.add_to_history();
 
-            let input_mode = self.text_render.input_mode().unwrap();
-            let end_offset = self
-                .text_render
-                .input_mode()
-                .map(|f| f.max_offset())
-                .unwrap_or_default();
+            let input_mode = self.text_render.input_mode();
+            let end_offset = input_mode.max_offset();
             let start_offset = if self.searchbar.showing_not_found() {
                 // Wrap the search around after “Not found”
                 if forward { 0 } else { end_offset }
