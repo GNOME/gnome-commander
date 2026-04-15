@@ -270,12 +270,9 @@ fn is_utf8_trailer(b: u8) -> bool {
 const DEFAULT_ASCII_TABLE: [char; 256] = {
     let mut table = ['.'; 256];
     let mut b = 0_u8;
-    loop {
+    while b < 0x80 {
         table[b as usize] = b as char;
         b += 1;
-        if b >= 0x80 {
-            break;
-        }
     }
     table
 };
