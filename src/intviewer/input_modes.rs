@@ -5,6 +5,7 @@
 
 use crate::debug::debug;
 use std::{
+    borrow::Cow,
     num::NonZeroUsize,
     sync::{LazyLock, RwLock},
 };
@@ -300,6 +301,17 @@ fn create_encoding_table(encoding: &str) -> Option<[char; 256]> {
     Some(table)
 }
 
+pub fn preprocess_for_cp437_conversion(text: &str) -> Cow<'_, str> {
+    let mut current = Cow::Borrowed(text);
+    for (i, char) in CP437_SPECIAL_CHARS.chars().enumerate() {
+        if current.contains(char) {
+            let replacement = (if i < 0x1f { i as u8 + 1 } else { 0x7f } as char).to_string();
+            current = Cow::Owned(current.replace(char, &replacement));
+        }
+    }
+    current
+}
+
 impl InputSource for &[u8] {
     fn max_offset(&self) -> u64 {
         self.len() as u64
@@ -332,9 +344,39 @@ mod test {
         ];
         let imd = InputMode::new(data);
         imd.set_mode("UTF8");
+        assert_eq!(String::from_iter(imd.characters(0, 5)), "AöЖ€𝄞");
+    }
+
+    #[test]
+    fn test_decode_ascii() {
+        let data: &[u8] = &[0x00, 0x03, 0x0A, 0x20, 0x41, 0x80, 0xFE];
+        let imd = InputMode::new(data);
+        imd.set_mode("ASCII");
+        assert_eq!(String::from_iter(imd.characters(0, 7)), "\x00\x03\n A..");
+    }
+
+    #[test]
+    fn test_decode_cp437() {
+        let data: &[u8] = &[0x00, 0x03, 0x0A, 0x20, 0x41, 0x80, 0xFE];
+        let imd = InputMode::new(data);
+        imd.set_mode("CP437");
+        assert_eq!(String::from_iter(imd.characters(0, 7)), "\x00♥◙ AÇ■");
+    }
+
+    #[test]
+    fn test_decode_windows1251() {
+        let data: &[u8] = &[0x00, 0x03, 0x0A, 0x20, 0x41, 0x80, 0xFE];
+        let imd = InputMode::new(data);
+        imd.set_mode("CP1251");
+        assert_eq!(String::from_iter(imd.characters(0, 7)), "\x00\x03\n AЂю");
+    }
+
+    #[test]
+    fn test_preprocess_cp437() {
+        let data = "a\x00b☻♥cd▬↨e f▲▼g~h⌂";
         assert_eq!(
-            imd.characters(0, 5),
-            vec!['\u{0041}', '\u{00f6}', '\u{0416}', '\u{20ac}', '\u{1d11e}',]
+            preprocess_for_cp437_conversion(data),
+            "a\x00b\x02\x03cd\x16\x17e f\x1e\x1fg~h\x7f"
         );
     }
 }

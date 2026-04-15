@@ -55,7 +55,10 @@ mod imp {
     use super::*;
     use crate::{
         file_metainfo_view::FileMetainfoView,
-        intviewer::{image_render::ImageRender, text_render::TextRenderDisplayMode},
+        intviewer::{
+            image_render::ImageRender, input_modes::preprocess_for_cp437_conversion,
+            text_render::TextRenderDisplayMode,
+        },
         options::{ViewerOptions, utils::remember_window_size},
         utils::{display_help, hbox_builder, vbox_builder},
     };
@@ -579,7 +582,7 @@ mod imp {
             #[derive(Debug, Clone, Copy)]
             enum SearchProgress {
                 Progress(u32),
-                Done(Option<u64>, usize),
+                Done(Option<u64>),
             }
 
             if self.display_mode.get() == DisplayMode::Image {
@@ -620,6 +623,29 @@ mod imp {
                 }
             };
 
+            let (pattern, match_case) = match settings {
+                SearchSettings::Text {
+                    pattern,
+                    match_case,
+                } => {
+                    let encoding = self.encoding.borrow();
+                    let pattern = if encoding.eq_ignore_ascii_case("CP437") {
+                        preprocess_for_cp437_conversion(&pattern)
+                    } else {
+                        pattern.into()
+                    };
+                    let Some((slice, _)) = glib::IConv::new(&*encoding, "UTF8")
+                        .and_then(|mut iconv| iconv.convert(pattern.as_bytes()).ok())
+                    else {
+                        self.searchbar.show_encoding_error();
+                        return;
+                    };
+                    (slice.to_vec(), match_case)
+                }
+                SearchSettings::Binary { pattern } => (pattern, true),
+            };
+            let pattern_len = pattern.len();
+
             let cancellable = gio::Cancellable::new();
             let abort_handler = self.searchbar.connect_abort(glib::clone!(
                 #[strong]
@@ -633,45 +659,27 @@ mod imp {
                 #[strong]
                 cancellable,
                 move || {
-                    let (searcher, pattern_len) = match settings {
-                        SearchSettings::Text {
-                            pattern,
-                            match_case,
-                        } => (
-                            Searcher::new_text_search(
-                                input_mode,
-                                start_offset,
-                                end_offset,
-                                &pattern,
-                                match_case,
-                                cancellable,
-                            ),
-                            pattern.len(),
-                        ),
-                        SearchSettings::Binary { pattern } => (
-                            Searcher::new_hex_search(
-                                input_mode,
-                                start_offset,
-                                end_offset,
-                                &pattern,
-                                cancellable,
-                            ),
-                            pattern.len(),
-                        ),
-                    };
+                    let searcher = Searcher::new(
+                        input_mode,
+                        start_offset,
+                        end_offset,
+                        &pattern,
+                        match_case,
+                        cancellable,
+                    );
 
                     let found = searcher.search(forward, |p| {
                         sender.toss(SearchProgress::Progress(p));
                     });
-                    sender.toss(SearchProgress::Done(found, pattern_len));
+                    sender.toss(SearchProgress::Done(found));
                 }
             ));
 
-            let (found, pattern_len) = loop {
+            let found = loop {
                 let message = receiver.recv().await.unwrap();
                 match message {
                     SearchProgress::Progress(progress) => self.searchbar.show_progress(progress),
-                    SearchProgress::Done(found, pattern_len) => break (found, pattern_len),
+                    SearchProgress::Done(found) => break found,
                 }
             };
             self.searchbar.disconnect(abort_handler);

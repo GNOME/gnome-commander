@@ -12,6 +12,7 @@ const STATE_SEARCHING: &str = "searching";
 const MESSAGE_NONE: &str = "";
 const MESSAGE_NOT_HEX: &str = "not_hex";
 const MESSAGE_NOT_FOUND: &str = "not_found";
+const MESSAGE_ENCODING_ERROR: &str = "encoding_error";
 
 mod imp {
     use super::*;
@@ -194,6 +195,10 @@ mod imp {
                         self.message.add_named(
                             &gtk::Label::new(Some(&gettext("Not found"))),
                             Some(MESSAGE_NOT_FOUND),
+                        );
+                        self.message.add_named(
+                            &gtk::Label::new(Some(&gettext("Cannot translate into text encoding"))),
+                            Some(MESSAGE_ENCODING_ERROR),
                         );
                         &self.message
                     })
@@ -399,6 +404,10 @@ impl SearchBar {
 
     pub fn showing_not_found(&self) -> bool {
         self.imp().message.visible_child_name().as_deref() == Some(MESSAGE_NOT_FOUND)
+    }
+
+    pub fn show_encoding_error(&self) {
+        self.set_message(MESSAGE_ENCODING_ERROR);
     }
 
     pub fn connect_search<F>(&self, callback: F) -> glib::SignalHandlerId

@@ -138,15 +138,11 @@ fn compute_bad_map<T: Eq + Hash>(pattern: &[T], eq_class: &dyn EqClass<T>) -> Ha
     bad
 }
 
-pub fn boyer_moore_bytes_new(pattern: Vec<u8>) -> BoyerMoore<u8> {
-    BoyerMoore::<u8>::new(pattern, Box::new(SimpleEqClass::<u8>::default()))
-}
-
-pub fn boyer_moore_string_new(pattern: &str, case_sensitive: bool) -> BoyerMoore<char> {
-    BoyerMoore::new(
-        pattern.chars().collect::<Vec<_>>(),
+pub fn boyer_moore_bytes_new(pattern: Vec<u8>, case_sensitive: bool) -> BoyerMoore<u8> {
+    BoyerMoore::<u8>::new(
+        pattern,
         if case_sensitive {
-            Box::new(SimpleEqClass::<char>::default())
+            Box::new(SimpleEqClass::<u8>::default())
         } else {
             Box::new(AsciiCaseFold)
         },
@@ -155,13 +151,13 @@ pub fn boyer_moore_string_new(pattern: &str, case_sensitive: bool) -> BoyerMoore
 
 pub struct AsciiCaseFold;
 
-impl EqClass<char> for AsciiCaseFold {
-    fn equal(&self, a: &char, b: &char) -> bool {
+impl EqClass<u8> for AsciiCaseFold {
+    fn equal(&self, a: &u8, b: &u8) -> bool {
         a.eq_ignore_ascii_case(b)
     }
 
-    fn normal(&self, a: &char) -> char {
-        a.to_ascii_uppercase()
+    fn normal(&self, a: &u8) -> u8 {
+        a.to_ascii_lowercase()
     }
 }
 
@@ -236,7 +232,7 @@ mod test {
     #[test]
     #[should_panic]
     fn match_bytes_empty_pattern() {
-        boyer_moore_bytes_new(vec![]);
+        boyer_moore_bytes_new(vec![], true);
     }
 
     #[test]
@@ -265,7 +261,7 @@ mod test {
             0x01, 0x04, 0xb4, 0xfe, 0x01, 0x01, 0x04, 0x00,
         ];
 
-        let bm = boyer_moore_bytes_new(PATTERN.to_vec());
+        let bm = boyer_moore_bytes_new(PATTERN.to_vec(), true);
 
         assert_eq!(bm.good, vec![5, 5, 5, 5, 5, 7, 1]);
 
@@ -301,12 +297,6 @@ mod test {
     }
 
     #[test]
-    #[should_panic]
-    fn match_chars_empty_pattern() {
-        boyer_moore_string_new("", false);
-    }
-
-    #[test]
     fn match_chars_test() {
         // In this test a pattern of UTF-8 encoded letters is searched in a text with UTF-8 encoded letters.
 
@@ -334,17 +324,16 @@ mod test {
             "French:",
             "Les na\u{00EF} fs \u{00E6}githales h\u{00E2}tifs pondant \u{00E0} No\u{00EB}l o\u{00F9} il g\u{00E8}le sont s\u{00FB}rs d'\u{00EA}tre d\u{00E9}\u{00E7}us et de voir leurs dr\u{00F4}les d'\u{0153}ufs ab\u{00EE}m\u{00E9}s.",
         );
-        let ct_text: Vec<char> = TEXT.chars().collect();
 
-        let bm = boyer_moore_string_new(PATTERN, false);
+        let bm = boyer_moore_bytes_new(PATTERN.as_bytes().to_vec(), false);
 
         // Do the actual search
         let m = bm.pattern.len();
-        let n = ct_text.len();
+        let n = TEXT.len();
         let mut j = 0;
         let mut found = Vec::new();
         while j <= n - m {
-            match bm.scan(&ct_text[j..(j + m)]) {
+            match bm.scan(&TEXT.as_bytes()[j..(j + m)]) {
                 Ok(ScanResult::Match(advancement)) => {
                     found.push(j);
                     j += advancement;
@@ -358,14 +347,14 @@ mod test {
             }
         }
 
-        assert_eq!(&found, &[217]);
+        assert_eq!(&found, &[245]);
     }
 
     #[test]
     fn match_advancement() {
         fn scan(pattern: &str, text: &str) -> Result<ScanResult, ()> {
-            let bm = boyer_moore_string_new(pattern, true);
-            bm.scan(&text.chars().collect::<Vec<_>>())
+            let bm = boyer_moore_bytes_new(pattern.as_bytes().to_vec(), true);
+            bm.scan(text.as_bytes())
         }
 
         // good: 3
