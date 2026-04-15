@@ -29,18 +29,18 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
 
     let initial_value = f.name();
 
+    let entry = gtk::Entry::builder()
+        .activates_default(true)
+        .hexpand(true)
+        .text(&initial_value)
+        .build();
     let label = gtk::Label::builder()
         .label(gettext("Copy “{}” to").replace("{}", &initial_value))
         .halign(gtk::Align::Start)
         .valign(gtk::Align::Center)
+        .mnemonic_widget(&entry)
         .build();
     grid.attach(&label, 0, 0, 1, 1);
-
-    let entry = gtk::Entry::builder()
-        .activates_default(true)
-        .hexpand(true)
-        .text(initial_value)
-        .build();
     grid.attach(&entry, 0, 1, 1, 1);
 
     let (sender, receiver) = async_channel::bounded::<bool>(1);

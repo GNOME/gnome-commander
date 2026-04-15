@@ -96,6 +96,7 @@ pub struct GeneralOptions {
     pub command_line_history: StrvOption,
     pub command_line_history_length: U32Option,
     pub command_line_split: I32Option,
+    pub command_line_autohide_output: BoolOption,
 
     pub save_tabs_on_exit: BoolOption,
     pub save_dirs_on_exit: BoolOption,
@@ -247,6 +248,7 @@ impl GeneralOptions {
             command_line_history: StrvOption::simple(&settings, "cmdline-history"),
             command_line_history_length: U32Option::simple(&settings, "cmdline-history-length"),
             command_line_split: I32Option::simple(&settings, "cmdline-split"),
+            command_line_autohide_output: BoolOption::simple(&settings, "cmdline-autohide-output"),
             save_tabs_on_exit: BoolOption::simple(&settings, "save-tabs-on-exit"),
             save_dirs_on_exit: BoolOption::simple(&settings, "save-dirs-on-exit"),
             save_directory_history_on_exit: BoolOption::simple(

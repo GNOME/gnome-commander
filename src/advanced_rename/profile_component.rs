@@ -161,17 +161,17 @@ mod imp {
                     .spacing(6)
                     .hexpand(true)
                     .build();
-                hbox.append(&vbox);
-
                 let label = gtk::Label::builder()
                     .label(gettext("_Template"))
                     .use_underline(true)
-                    .attributes(&attributes_bold())
-                    .halign(gtk::Align::Start)
-                    .valign(gtk::Align::Center)
                     .mnemonic_widget(&self.template_entry)
                     .build();
-                vbox.append(&label);
+                let frame = gtk::Frame::builder()
+                    .label_widget(&label)
+                    .child(&vbox)
+                    .css_classes(["flat"])
+                    .build();
+                hbox.append(&frame);
 
                 self.template_entry.set_activates_default(true);
                 vbox.append(&self.template_entry);
@@ -235,16 +235,12 @@ mod imp {
                     .column_spacing(12)
                     .margin_start(12)
                     .build();
-                hbox.append(&grid);
-
-                let label = gtk::Label::builder()
+                let frame = gtk::Frame::builder()
                     .label(gettext("Counter"))
-                    .use_underline(true)
-                    .attributes(&attributes_bold())
-                    .halign(gtk::Align::Start)
-                    .valign(gtk::Align::Center)
+                    .child(&grid)
+                    .css_classes(["flat"])
                     .build();
-                grid.attach(&label, 0, 0, 2, 1);
+                hbox.append(&frame);
 
                 grid.attach(
                     &gtk::Label::builder()
@@ -294,21 +290,18 @@ mod imp {
 
             // Regex
             {
-                let label = gtk::Label::builder()
-                    .label(gettext("Regex replacing"))
-                    .attributes(&attributes_bold())
-                    .halign(gtk::Align::Start)
-                    .valign(gtk::Align::Center)
-                    .build();
-                label.set_parent(&*this);
-
                 let grid = gtk::Grid::builder()
                     .row_spacing(6)
                     .column_spacing(12)
                     .margin_top(6)
                     .margin_bottom(12)
                     .build();
-                grid.set_parent(&*this);
+                let frame = gtk::Frame::builder()
+                    .label(gettext("Regex replacing"))
+                    .child(&grid)
+                    .css_classes(["flat"])
+                    .build();
+                frame.set_parent(&*this);
 
                 create_regex_view(&self.regex_view);
 

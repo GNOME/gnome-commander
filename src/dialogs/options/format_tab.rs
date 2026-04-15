@@ -93,33 +93,35 @@ impl FormatTab {
             .build();
         vbox.append(&create_category(&gettext("Date format"), &grid));
 
+        let date_format = gtk::Entry::builder().hexpand(true).build();
         grid.attach(
             &gtk::Label::builder()
                 .label(gettext("Format:"))
                 .halign(gtk::Align::Start)
+                .mnemonic_widget(&date_format)
                 .build(),
             0,
             0,
             1,
             1,
         );
-        let date_format = gtk::Entry::builder().hexpand(true).build();
         grid.attach(&date_format, 1, 0, 1, 1);
 
-        grid.attach(
-            &gtk::Label::builder()
-                .label(gettext("Test result:"))
-                .halign(gtk::Align::Start)
-                .build(),
-            0,
-            1,
-            1,
-            1,
-        );
         let date_format_test = gtk::Label::builder()
             .halign(gtk::Align::Start)
             .hexpand(true)
             .build();
+        grid.attach(
+            &gtk::Label::builder()
+                .label(gettext("Test result:"))
+                .halign(gtk::Align::Start)
+                .mnemonic_widget(&date_format_test)
+                .build(),
+            0,
+            1,
+            1,
+            1,
+        );
         grid.attach(&date_format_test, 1, 1, 1, 1);
         grid.attach(
             &gtk::Label::builder()

@@ -31,6 +31,14 @@ box.offset {
     margin: 0 12px;
 }
 
+frame.flat {
+    border: none;
+}
+
+frame > label {
+    font-weight: bold;
+}
+
 /* Main window */
 
 listview.gcmd-toolbar {
@@ -49,12 +57,8 @@ listview.gcmd-toolbar {
     margin: 3px 0;
 }
 
-.command-line {
+.command-line, .command-line-output {
     margin: 1px 2px;
-    border-spacing: 1px;
-}
-
-.command-line-entry {
     border-spacing: 4px;
 }
 

@@ -80,69 +80,91 @@ pub async fn edit_colors(parent_window: &gtk::Window, theme: ColorTheme) -> Opti
         .build();
     grid.attach(&cursor_bg, 2, 4, 1, 1);
 
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Foreground"))
-            .hexpand(true)
-            .halign(gtk::Align::Center)
-            .build(),
-        1,
-        0,
-        1,
-        1,
-    );
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Background"))
-            .hexpand(true)
-            .halign(gtk::Align::Center)
-            .build(),
-        2,
-        0,
-        1,
-        1,
-    );
+    let label_foreground = gtk::Label::builder()
+        .label(gettext("Foreground"))
+        .hexpand(true)
+        .halign(gtk::Align::Center)
+        .build();
+    grid.attach(&label_foreground, 1, 0, 1, 1);
 
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Default:"))
-            .halign(gtk::Align::Start)
-            .build(),
-        0,
-        1,
-        1,
-        1,
-    );
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Alternate:"))
-            .halign(gtk::Align::Start)
-            .build(),
-        0,
-        2,
-        1,
-        1,
-    );
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Selected file:"))
-            .halign(gtk::Align::Start)
-            .build(),
-        0,
-        3,
-        1,
-        1,
-    );
-    grid.attach(
-        &gtk::Label::builder()
-            .label(gettext("Cursor:"))
-            .halign(gtk::Align::Start)
-            .build(),
-        0,
-        4,
-        1,
-        1,
-    );
+    let label_background = gtk::Label::builder()
+        .label(gettext("Background"))
+        .hexpand(true)
+        .halign(gtk::Align::Center)
+        .build();
+    grid.attach(&label_background, 2, 0, 1, 1);
+
+    let label_default = gtk::Label::builder()
+        .label(gettext("Default:"))
+        .halign(gtk::Align::Start)
+        .build();
+    grid.attach(&label_default, 0, 1, 1, 1);
+    if let Some(button) = default_fg.first_child() {
+        button.update_relation(&[gtk::accessible::Relation::DescribedBy(&[
+            label_default.upcast_ref(),
+            label_foreground.upcast_ref(),
+        ])]);
+    }
+    if let Some(button) = default_bg.first_child() {
+        button.update_relation(&[gtk::accessible::Relation::DescribedBy(&[
+            label_default.upcast_ref(),
+            label_background.upcast_ref(),
+        ])]);
+    }
+
+    let label_alternatve = gtk::Label::builder()
+        .label(gettext("Alternate:"))
+        .halign(gtk::Align::Start)
+        .build();
+    grid.attach(&label_alternatve, 0, 2, 1, 1);
+    if let Some(button) = alternate_fg.first_child() {
+        button.update_relation(&[gtk::accessible::Relation::DescribedBy(&[
+            label_alternatve.upcast_ref(),
+            label_foreground.upcast_ref(),
+        ])]);
+    }
+    if let Some(button) = alternate_bg.first_child() {
+        button.update_relation(&[gtk::accessible::Relation::DescribedBy(&[
+            label_alternatve.upcast_ref(),
+            label_background.upcast_ref(),
+        ])]);
+    }
+
+    let label_selected = gtk::Label::builder()
+        .label(gettext("Selected file:"))
+        .halign(gtk::Align::Start)
+        .build();
+    grid.attach(&label_selected, 0, 3, 1, 1);
+    if let Some(button) = selected_fg.first_child() {
+        button.update_relation(&[gtk::accessible::Relation::DescribedBy(&[
+            label_selected.upcast_ref(),
+            label_foreground.upcast_ref(),
+        ])]);
+    }
+    if let Some(button) = selected_bg.first_child() {
+        button.update_relation(&[gtk::accessible::Relation::DescribedBy(&[
+            label_selected.upcast_ref(),
+            label_background.upcast_ref(),
+        ])]);
+    }
+
+    let label_cursor = gtk::Label::builder()
+        .label(gettext("Cursor:"))
+        .halign(gtk::Align::Start)
+        .build();
+    grid.attach(&label_cursor, 0, 4, 1, 1);
+    if let Some(button) = cursor_fg.first_child() {
+        button.update_relation(&[gtk::accessible::Relation::DescribedBy(&[
+            label_cursor.upcast_ref(),
+            label_foreground.upcast_ref(),
+        ])]);
+    }
+    if let Some(button) = cursor_bg.first_child() {
+        button.update_relation(&[gtk::accessible::Relation::DescribedBy(&[
+            label_cursor.upcast_ref(),
+            label_background.upcast_ref(),
+        ])]);
+    }
 
     let close_button = gtk::Button::builder()
         .label(gettext("_Close"))
