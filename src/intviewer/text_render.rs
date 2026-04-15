@@ -390,14 +390,17 @@ mod imp {
 
         fn update_hadjustment_limits(&self, adjustment: &gtk::Adjustment) {
             adjustment.set_lower(0.0);
-            adjustment.set_upper(
-                if self.data_presentation.borrow().mode() == DataPresentationMode::NoWrap {
-                    // TODO: find out the real horz limit
-                    self.max_column.get() as f64
-                } else {
-                    0.0
-                },
-            );
+            adjustment.set_upper(match self.data_presentation.borrow().mode() {
+                DataPresentationMode::NoWrap => self.max_column.get() as f64,
+                DataPresentationMode::Wrap => 0.0,
+                DataPresentationMode::BinaryFixed => {
+                    (if self.display_mode.get() == TextRenderDisplayMode::Binary {
+                        self.fixed_limit.get()
+                    } else {
+                        hex_mode_column_layout().1 + HEXDUMP_FIXED_LIMIT
+                    }) as f64
+                }
+            });
             adjustment.set_step_increment(1.0);
             adjustment.set_page_increment(5.0);
             adjustment.set_page_size(self.chars_per_line.get() as f64 - 1.0);
@@ -477,6 +480,7 @@ mod imp {
             }
             // self.obj().setup_current_font();
             if let Some(hadjustment) = self.obj().hadjustment() {
+                self.update_hadjustment_limits(&hadjustment);
                 hadjustment.set_value(0.0);
             }
             if let Some(vadjustment) = self.obj().vadjustment() {
@@ -567,6 +571,9 @@ mod imp {
             self.data_presentation
                 .borrow_mut()
                 .set_fixed_count(fixed_limit);
+            if let Some(adjustment) = self.obj().hadjustment() {
+                self.update_hadjustment_limits(&adjustment);
+            }
 
             self.obj().queue_draw();
         }
