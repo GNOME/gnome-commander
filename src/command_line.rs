@@ -41,7 +41,7 @@ mod imp {
     impl ObjectSubclass for CommandLine {
         const NAME: &'static str = "GnomeCmdCommandLine";
         type Type = super::CommandLine;
-        type ParentType = gtk::Widget;
+        type ParentType = gtk::Frame;
 
         fn new() -> Self {
             let terminal = vte::Terminal::builder()
@@ -92,12 +92,20 @@ mod imp {
             self.parent_constructed();
 
             let obj = self.obj();
-            obj.add_css_class("command-line");
-            obj.set_layout_manager(Some(
-                gtk::BoxLayout::builder()
-                    .orientation(gtk::Orientation::Horizontal)
-                    .build(),
-            ));
+            obj.add_css_class("flat");
+
+            let hbox = gtk::Box::builder()
+                .orientation(gtk::Orientation::Horizontal)
+                .css_classes(["command-line"])
+                .build();
+            obj.set_child(Some(&hbox));
+
+            // This label is for accessibility only and can be hidden.
+            let label = gtk::Label::builder()
+                .label(gettext("Command Line"))
+                .visible(false)
+                .build();
+            obj.set_label_widget(Some(&label));
 
             self.setup_actions();
 
@@ -158,13 +166,21 @@ mod imp {
             }
             self.do_autohide(self.autohide_output.get());
 
-            self.cwd.set_parent(&*obj);
-            gtk::Label::new(Some("#")).set_parent(&*obj);
+            let cwd_box = gtk::Box::builder()
+                .orientation(gtk::Orientation::Horizontal)
+                .build();
+            cwd_box.append(&self.cwd);
+            cwd_box.append(&gtk::Label::new(Some("#")));
+            hbox.append(&cwd_box);
 
             self.entry.add_css_class("command-line-entry-field");
             self.entry.set_hexpand(true);
             self.entry.set_popover_position(gtk::PositionType::Top);
-            self.entry.set_parent(&*obj);
+            self.entry
+                .update_relation(&[gtk::accessible::Relation::LabelledBy(&[
+                    cwd_box.upcast_ref()
+                ])]);
+            hbox.append(&self.entry);
 
             self.terminal.connect_bell(glib::clone!(
                 #[weak(rename_to = entry)]
@@ -205,7 +221,7 @@ mod imp {
                 .build();
             button_box.append(&run_menu);
 
-            button_box.set_parent(&*obj);
+            hbox.append(&button_box);
 
             let key_controller = gtk::EventControllerKey::new();
             key_controller.set_propagation_phase(gtk::PropagationPhase::Capture);
@@ -239,12 +255,6 @@ mod imp {
                 ]
             })
         }
-
-        fn dispose(&self) {
-            while let Some(child) = self.obj().first_child() {
-                child.unparent();
-            }
-        }
     }
 
     impl WidgetImpl for CommandLine {
@@ -254,6 +264,8 @@ mod imp {
             result
         }
     }
+    #[allow(deprecated)] // FrameImpl is deprecated but we need it anyway
+    impl FrameImpl for CommandLine {}
 
     impl CommandLine {
         fn set_autohide_output(&self, value: bool) {
@@ -417,7 +429,7 @@ mod imp {
 
 glib::wrapper! {
     pub struct CommandLine(ObjectSubclass<imp::CommandLine>)
-        @extends gtk::Widget,
+        @extends gtk::Widget, gtk::Frame,
         @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 }
 

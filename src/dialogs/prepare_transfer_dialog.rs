@@ -46,12 +46,14 @@ mod imp {
 
         fn new() -> Self {
             let (sender, receiver) = async_channel::bounded(1);
+            let dst_entry = gtk::Entry::builder().activates_default(true).build();
             Self {
                 dst_label: gtk::Label::builder()
                     .use_markup(true)
                     .halign(gtk::Align::Start)
+                    .mnemonic_widget(&dst_entry)
                     .build(),
-                dst_entry: gtk::Entry::builder().activates_default(true).build(),
+                dst_entry,
                 left_vbox: gtk::Box::builder()
                     .orientation(gtk::Orientation::Vertical)
                     .spacing(6)

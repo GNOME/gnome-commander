@@ -65,18 +65,15 @@ mod imp {
             let check_categories = [gettext("Owner:"), gettext("Group:"), gettext("Others:")];
 
             for (y, check_category) in check_categories.iter().enumerate() {
-                grid_attach(
-                    &*this,
-                    &gtk::Label::builder()
-                        .label(check_category)
-                        .halign(gtk::Align::Start)
-                        .build(),
-                    0,
-                    y as i32,
-                    1,
-                    1,
-                );
+                let label = gtk::Label::builder()
+                    .label(check_category)
+                    .halign(gtk::Align::Start)
+                    .build();
+                grid_attach(&*this, &label, 0, y as i32, 1, 1);
                 for (x, cb) in self.check_boxes[y].iter().enumerate() {
+                    cb.update_relation(&[gtk::accessible::Relation::DescribedBy(&[
+                        label.upcast_ref()
+                    ])]);
                     cb.connect_toggled(glib::clone!(
                         #[weak(rename_to = imp)]
                         self,
@@ -100,6 +97,7 @@ mod imp {
                 &gtk::Label::builder()
                     .label(gettext("Text view:"))
                     .halign(gtk::Align::Start)
+                    .mnemonic_widget(&self.text_view)
                     .build(),
                 0,
                 4,
@@ -113,6 +111,7 @@ mod imp {
                 &gtk::Label::builder()
                     .label(gettext("Number view:"))
                     .halign(gtk::Align::Start)
+                    .mnemonic_widget(&self.number_view)
                     .build(),
                 0,
                 5,

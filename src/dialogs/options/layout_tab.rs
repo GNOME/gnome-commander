@@ -52,30 +52,21 @@ impl LayoutTab {
             .build();
         vbox.append(&create_category(&gettext("File panels"), &grid));
 
+        let list_font =
+            gtk::FontDialogButton::new(Some(gtk::FontDialog::builder().modal(true).build()));
         grid.attach(
             &gtk::Label::builder()
                 .label(gettext("Font:"))
                 .halign(gtk::Align::Start)
+                .mnemonic_widget(&list_font)
                 .build(),
             0,
             0,
             1,
             1,
         );
-        let list_font =
-            gtk::FontDialogButton::new(Some(gtk::FontDialog::builder().modal(true).build()));
         grid.attach(&list_font, 1, 0, 2, 1);
 
-        grid.attach(
-            &gtk::Label::builder()
-                .label(gettext("Row height:"))
-                .halign(gtk::Align::Start)
-                .build(),
-            0,
-            1,
-            1,
-            1,
-        );
         let row_height = gtk::SpinButton::builder()
             .adjustment(
                 &gtk::Adjustment::builder()
@@ -90,18 +81,19 @@ impl LayoutTab {
             .digits(0)
             .numeric(true)
             .build();
-        grid.attach(&row_height, 1, 1, 2, 1);
-
         grid.attach(
             &gtk::Label::builder()
-                .label(gettext("Display file extensions:"))
+                .label(gettext("Row height:"))
                 .halign(gtk::Align::Start)
+                .mnemonic_widget(&row_height)
                 .build(),
             0,
-            2,
+            1,
             1,
             1,
         );
+        grid.attach(&row_height, 1, 1, 2, 1);
+
         let extension_display_mode = gtk::DropDown::builder()
             .model(&gtk::StringList::new(&[
                 &gettext("With file name"),
@@ -110,18 +102,19 @@ impl LayoutTab {
             ]))
             .hexpand(true)
             .build();
-        grid.attach(&extension_display_mode, 1, 2, 2, 1);
-
         grid.attach(
             &gtk::Label::builder()
-                .label(gettext("Graphical mode:"))
+                .label(gettext("Display file extensions:"))
                 .halign(gtk::Align::Start)
+                .mnemonic_widget(&extension_display_mode)
                 .build(),
             0,
-            3,
+            2,
             1,
             1,
         );
+        grid.attach(&extension_display_mode, 1, 2, 2, 1);
+
         let graphical_layout_mode = gtk::DropDown::builder()
             .model(&gtk::StringList::new(&[
                 &gettext("No icons"),
@@ -130,18 +123,19 @@ impl LayoutTab {
             ]))
             .hexpand(true)
             .build();
-        grid.attach(&graphical_layout_mode, 1, 3, 2, 1);
-
         grid.attach(
             &gtk::Label::builder()
-                .label(gettext("Color scheme:"))
+                .label(gettext("Graphical mode:"))
                 .halign(gtk::Align::Start)
+                .mnemonic_widget(&graphical_layout_mode)
                 .build(),
             0,
-            4,
+            3,
             1,
             1,
         );
+        grid.attach(&graphical_layout_mode, 1, 3, 2, 1);
+
         let color_theme = gtk::DropDown::builder()
             .model(&gtk::StringList::new(&[
                 &gettext("Respect theme colors"),
@@ -156,7 +150,19 @@ impl LayoutTab {
             ]))
             .hexpand(true)
             .build();
+        grid.attach(
+            &gtk::Label::builder()
+                .label(gettext("Color scheme:"))
+                .halign(gtk::Align::Start)
+                .mnemonic_widget(&color_theme)
+                .build(),
+            0,
+            4,
+            1,
+            1,
+        );
         grid.attach(&color_theme, 1, 4, 1, 1);
+
         let custom_color_theme = Rc::new(RefCell::new(ColorTheme::default()));
         let color_btn = gtk::Button::builder().label(gettext("Edit…")).build();
         color_btn.connect_clicked(glib::clone!(
@@ -218,16 +224,6 @@ impl LayoutTab {
         let mime_icon_settings_frame = create_category(&gettext("MIME icon settings"), &grid);
         vbox.append(&mime_icon_settings_frame);
 
-        grid.attach(
-            &gtk::Label::builder()
-                .label(gettext("Icon size:"))
-                .halign(gtk::Align::Start)
-                .build(),
-            0,
-            0,
-            1,
-            1,
-        );
         let icon_size = gtk::SpinButton::builder()
             .adjustment(
                 &gtk::Adjustment::builder()
@@ -242,36 +238,49 @@ impl LayoutTab {
             .digits(0)
             .numeric(true)
             .build();
+        grid.attach(
+            &gtk::Label::builder()
+                .label(gettext("Icon size:"))
+                .halign(gtk::Align::Start)
+                .mnemonic_widget(&icon_size)
+                .build(),
+            0,
+            0,
+            1,
+            1,
+        );
         grid.attach(&icon_size, 1, 0, 1, 1);
 
+        let icon_scale_quality = gtk::Scale::builder()
+            .orientation(gtk::Orientation::Horizontal)
+            .adjustment(&gtk::Adjustment::builder().lower(0.0).upper(3.0).build())
+            .digits(0)
+            .build();
         grid.attach(
             &gtk::Label::builder()
                 .label(gettext("Scaling quality:"))
                 .halign(gtk::Align::Start)
+                .mnemonic_widget(&icon_scale_quality)
                 .build(),
             0,
             1,
             1,
             1,
         );
-        let icon_scale_quality = gtk::Scale::builder()
-            .orientation(gtk::Orientation::Horizontal)
-            .adjustment(&gtk::Adjustment::builder().lower(0.0).upper(3.0).build())
-            .digits(0)
-            .build();
         grid.attach(&icon_scale_quality, 1, 1, 1, 1);
 
+        let mime_icon_dir = DirectoryButton::default();
         grid.attach(
             &gtk::Label::builder()
                 .label(gettext("Theme icon directory:"))
                 .halign(gtk::Align::Start)
+                .mnemonic_widget(&mime_icon_dir)
                 .build(),
             0,
             2,
             1,
             1,
         );
-        let mime_icon_dir = DirectoryButton::default();
         grid.attach(&mime_icon_dir, 1, 2, 1, 1);
 
         graphical_layout_mode

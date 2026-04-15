@@ -60,42 +60,60 @@ impl ProgramsTab {
             .build();
         vbox.append(&create_category(&gettext("Standard programs"), &grid));
 
-        let label = gtk::Label::builder().label(gettext("Viewer:")).build();
-        grid.attach(&label, 0, 0, 1, 1);
         let viewer = gtk::Entry::builder().hexpand(true).build();
+        let label = gtk::Label::builder()
+            .label(gettext("Viewer:"))
+            .mnemonic_widget(&viewer)
+            .build();
+        grid.attach(&label, 0, 0, 1, 1);
         grid.attach(&viewer, 1, 0, 1, 1);
         let use_internal_viewer = gtk::CheckButton::builder()
             .label(gettext("Use Internal Viewer"))
             .build();
         grid.attach(&use_internal_viewer, 1, 1, 1, 1);
 
-        let label = gtk::Label::builder().label(gettext("Editor:")).build();
-        grid.attach(&label, 0, 2, 1, 1);
         let editor = gtk::Entry::builder().hexpand(true).build();
+        let label = gtk::Label::builder()
+            .label(gettext("Editor:"))
+            .mnemonic_widget(&editor)
+            .build();
+        grid.attach(&label, 0, 2, 1, 1);
         grid.attach(&editor, 1, 2, 1, 1);
 
-        let label = gtk::Label::builder().label(gettext("Differ:")).build();
-        grid.attach(&label, 0, 3, 1, 1);
         let differ = gtk::Entry::builder().hexpand(true).build();
+        let label = gtk::Label::builder()
+            .label(gettext("Differ:"))
+            .mnemonic_widget(&differ)
+            .build();
+        grid.attach(&label, 0, 3, 1, 1);
         grid.attach(&differ, 1, 3, 1, 1);
 
-        let label = gtk::Label::builder().label(gettext("Search:")).build();
-        grid.attach(&label, 0, 4, 1, 1);
         let search = gtk::Entry::builder().hexpand(true).build();
+        let label = gtk::Label::builder()
+            .label(gettext("Search:"))
+            .mnemonic_widget(&search)
+            .build();
+        grid.attach(&label, 0, 4, 1, 1);
         grid.attach(&search, 1, 4, 1, 1);
         let use_internal_search = gtk::CheckButton::builder()
             .label(gettext("Use Internal Search"))
             .build();
         grid.attach(&use_internal_search, 1, 5, 1, 1);
 
-        let label = gtk::Label::builder().label(gettext("Send files:")).build();
-        grid.attach(&label, 0, 6, 1, 1);
         let send_to = gtk::Entry::builder().hexpand(true).build();
+        let label = gtk::Label::builder()
+            .label(gettext("Send files:"))
+            .mnemonic_widget(&send_to)
+            .build();
+        grid.attach(&label, 0, 6, 1, 1);
         grid.attach(&send_to, 1, 6, 1, 1);
 
-        let label = gtk::Label::builder().label(gettext("Terminal:")).build();
-        grid.attach(&label, 0, 7, 1, 1);
         let termopen = gtk::Entry::builder().hexpand(true).build();
+        let label = gtk::Label::builder()
+            .label(gettext("Terminal:"))
+            .mnemonic_widget(&termopen)
+            .build();
+        grid.attach(&label, 0, 7, 1, 1);
         grid.attach(&termopen, 1, 7, 1, 1);
 
         let fav_apps = FavoriteApps::new();
@@ -110,11 +128,12 @@ impl ProgramsTab {
             .build();
         vbox.append(&create_category(&gettext("Global app options"), &grid));
 
+        let termexec = gtk::Entry::builder().hexpand(true).build();
         let label = gtk::Label::builder()
             .label(gettext("Terminal command for apps in the list above:"))
+            .mnemonic_widget(&termexec)
             .build();
         grid.attach(&label, 0, 0, 1, 1);
-        let termexec = gtk::Entry::builder().hexpand(true).build();
         grid.attach(&termexec, 1, 0, 1, 1);
 
         Self {

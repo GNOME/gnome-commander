@@ -23,8 +23,7 @@ mod imp {
         tags::file_metadata::FileMetadata,
         types::SizeDisplayMode,
         utils::{
-            ErrorMessage, WindowExt, attributes_bold, dialog_button_box, display_help, nice_size,
-            time_to_string,
+            ErrorMessage, WindowExt, dialog_button_box, display_help, nice_size, time_to_string,
         },
     };
     use futures::StreamExt;
@@ -347,28 +346,24 @@ mod imp {
                 .build();
 
             tab.attach(
-                &gtk::Label::builder()
+                &gtk::Frame::builder()
                     .label(gettext("Owner and group"))
-                    .halign(gtk::Align::Start)
-                    .valign(gtk::Align::Center)
-                    .attributes(&attributes_bold())
+                    .child(&self.chown_component)
+                    .css_classes(["flat"])
                     .build(),
                 0,
                 0,
                 1,
                 1,
             );
-
             self.chown_component.set_ownership(file.uid(), file.gid());
             self.chown_component.set_hexpand(true);
-            tab.attach(&self.chown_component, 0, 1, 1, 1);
 
             tab.attach(
-                &gtk::Label::builder()
+                &gtk::Frame::builder()
                     .label(gettext("Access permissions"))
-                    .halign(gtk::Align::Start)
-                    .valign(gtk::Align::Center)
-                    .attributes(&attributes_bold())
+                    .child(&self.chmod_component)
+                    .css_classes(["flat"])
                     .build(),
                 0,
                 2,

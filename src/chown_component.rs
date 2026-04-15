@@ -82,6 +82,7 @@ mod imp {
                 &gtk::Label::builder()
                     .label(gettext("Owner:"))
                     .halign(gtk::Align::Start)
+                    .mnemonic_widget(&self.user)
                     .build(),
                 0,
                 0,
@@ -94,6 +95,7 @@ mod imp {
                 &gtk::Label::builder()
                     .label(gettext("Group:"))
                     .halign(gtk::Align::Start)
+                    .mnemonic_widget(&self.group)
                     .build(),
                 0,
                 1,

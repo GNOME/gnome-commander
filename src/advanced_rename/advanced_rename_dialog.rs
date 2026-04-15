@@ -251,7 +251,7 @@ mod imp {
         file_view::file_view,
         options::utils::remember_window_size,
         types::SizeDisplayMode,
-        utils::{MenuBuilderExt, WindowExt, attributes_bold, dialog_button_box, display_help},
+        utils::{MenuBuilderExt, WindowExt, dialog_button_box, display_help},
     };
     use std::{
         cell::{OnceCell, RefCell},
@@ -420,33 +420,22 @@ mod imp {
                     .build(),
             );
 
-            let results_vbox = gtk::Box::builder()
-                .orientation(gtk::Orientation::Vertical)
-                .margin_top(12)
-                .spacing(6)
-                .vexpand(true)
+            let frame = gtk::Frame::builder()
+                .label(gettext("Results"))
+                .child(
+                    &gtk::ScrolledWindow::builder()
+                        .hscrollbar_policy(gtk::PolicyType::Automatic)
+                        .vscrollbar_policy(gtk::PolicyType::Automatic)
+                        .has_frame(true)
+                        .margin_top(12)
+                        .vexpand(true)
+                        .child(&self.file_view)
+                        .build(),
+                )
+                .css_classes(["flat"])
                 .build();
-            paned.set_end_child(Some(&results_vbox));
+            paned.set_end_child(Some(&frame));
             paned.set_shrink_end_child(false);
-
-            results_vbox.append(
-                &gtk::Label::builder()
-                    .label(gettext("Results"))
-                    .attributes(&attributes_bold())
-                    .halign(gtk::Align::Start)
-                    .valign(gtk::Align::Center)
-                    .build(),
-            );
-
-            results_vbox.append(
-                &gtk::ScrolledWindow::builder()
-                    .hscrollbar_policy(gtk::PolicyType::Automatic)
-                    .vscrollbar_policy(gtk::PolicyType::Automatic)
-                    .has_frame(true)
-                    .vexpand(true)
-                    .child(&self.file_view)
-                    .build(),
-            );
 
             profile_component.connect_local(
                 "template-changed",

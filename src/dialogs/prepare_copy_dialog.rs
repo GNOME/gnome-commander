@@ -6,7 +6,7 @@
 use super::prepare_transfer_dialog::PrepareTransferDialog;
 use crate::{
     file::FileOps, file_selector::FileSelector, main_win::MainWindow, options::ConfirmOptions,
-    transfer::copy_files, types::ConfirmOverwriteMode, utils::bold,
+    transfer::copy_files, types::ConfirmOverwriteMode,
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gio, prelude::*};
@@ -39,36 +39,39 @@ pub async fn prepare_copy_dialog_show(
     };
     dialog.set_dst_label(&label);
 
-    dialog.append_to_left(
-        &gtk::Label::builder()
-            .label(bold(&gettext("Overwrite Files")))
-            .use_markup(true)
-            .halign(gtk::Align::Start)
-            .build(),
-    );
+    let vbox = gtk::Box::builder()
+        .orientation(gtk::Orientation::Vertical)
+        .build();
+    let frame = gtk::Frame::builder()
+        .label("Overwrite Files")
+        .child(&vbox)
+        .css_classes(["flat"])
+        .build();
 
     let query = gtk::CheckButton::builder()
         .label(gettext("Query First"))
         .build();
-    dialog.append_to_left(&query);
+    vbox.append(&query);
 
     let rename = gtk::CheckButton::builder()
         .label(gettext("Rename"))
         .group(&query)
         .build();
-    dialog.append_to_left(&rename);
+    vbox.append(&rename);
 
     let skip = gtk::CheckButton::builder()
         .label(gettext("Skip"))
         .group(&query)
         .build();
-    dialog.append_to_left(&skip);
+    vbox.append(&skip);
 
     let silent = gtk::CheckButton::builder()
         .label(gettext("Overwrite silently"))
         .group(&query)
         .build();
-    dialog.append_to_left(&silent);
+    vbox.append(&silent);
+
+    dialog.append_to_left(&frame);
 
     match options.confirm_copy_overwrite.get() {
         ConfirmOverwriteMode::Silently => &silent,
@@ -78,18 +81,21 @@ pub async fn prepare_copy_dialog_show(
     }
     .set_active(true);
 
-    dialog.append_to_right(
-        &gtk::Label::builder()
-            .label(bold(&gettext("Options")))
-            .halign(gtk::Align::Start)
-            .use_markup(true)
-            .build(),
-    );
+    let vbox = gtk::Box::builder()
+        .orientation(gtk::Orientation::Vertical)
+        .build();
+    let frame = gtk::Frame::builder()
+        .label("Options")
+        .child(&vbox)
+        .css_classes(["flat"])
+        .build();
 
     let follow_links = gtk::CheckButton::builder()
         .label(gettext("Follow Links"))
         .build();
-    dialog.append_to_right(&follow_links);
+    vbox.append(&follow_links);
+
+    dialog.append_to_right(&frame);
 
     let Some((dest_dir, dest_fn)) = dialog.run().await else {
         return;
