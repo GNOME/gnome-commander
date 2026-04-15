@@ -1108,22 +1108,37 @@ impl TextRender {
         glib::Object::builder().build()
     }
 
-    pub fn ensure_offset_visible(&self, mut offset: u64) {
-        if offset >= self.current_offset() && offset < self.imp().last_displayed_offset.get() {
-            return;
-        }
-        let Some(vadjustment) = self.vadjustment() else {
-            return;
-        };
-
+    pub fn ensure_offset_visible(&self, offset: u64) {
         let dp = self.imp().data_presentation.borrow();
         let input_mode = self.imp().input_mode.borrow();
-        offset = dp.align_offset_to_line_start(&input_mode, offset);
-        offset = dp.scroll_lines(&input_mode, offset, -self.imp().lines_displayed.get() / 2);
+        let line_start = dp.align_offset_to_line_start(&input_mode, offset);
+        let mut changed_adjustment = false;
 
-        vadjustment.set_value(offset as f64);
-        self.queue_draw();
-        self.emit_text_status_changed();
+        if let Some(vadjustment) = self.vadjustment()
+            && (offset < self.current_offset() || offset >= self.imp().last_displayed_offset.get())
+        {
+            vadjustment.set_value(dp.scroll_lines(
+                &input_mode,
+                offset,
+                -self.imp().lines_displayed.get() / 2,
+            ) as f64);
+            changed_adjustment = true;
+        }
+
+        let hoffset = (offset - line_start) as f64;
+        let chars_per_line = self.chars_per_line() as f64;
+        if let Some(hadjustment) = self.hadjustment()
+            && (hoffset < hadjustment.value()
+                || hoffset >= hadjustment.value() + chars_per_line)
+        {
+            hadjustment.set_value(hoffset - chars_per_line / 2.0);
+            changed_adjustment = true;
+        }
+
+        if changed_adjustment {
+            self.queue_draw();
+            self.emit_text_status_changed();
+        }
     }
 
     pub fn marker(&self) -> Option<(u64, u64)> {
