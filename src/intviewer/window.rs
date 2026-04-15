@@ -668,10 +668,11 @@ mod imp {
                         end_offset,
                         &pattern,
                         match_case,
+                        forward,
                         cancellable,
                     );
 
-                    let found = searcher.search(forward, |p| {
+                    let found = searcher.search(|p| {
                         sender.toss(SearchProgress::Progress(p));
                     });
                     sender.toss(SearchProgress::Done(found));
