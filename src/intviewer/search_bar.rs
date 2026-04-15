@@ -200,6 +200,16 @@ mod imp {
                     .build(),
             ));
 
+            self.inner.connect_search_mode_enabled_notify(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |inner| {
+                    if !inner.is_search_mode() && imp.obj().state() == STATE_SEARCHING {
+                        imp.stop_search();
+                    }
+                }
+            ));
+
             let controller = gtk::ShortcutController::new();
             controller.add_shortcut(
                 gtk::Shortcut::builder()
@@ -281,6 +291,14 @@ impl SearchBar {
 
     pub fn hide(&self) {
         self.imp().inner.set_search_mode(false);
+    }
+
+    fn state(&self) -> String {
+        self.imp()
+            .entry_buttons
+            .visible_child_name()
+            .unwrap_or_default()
+            .to_string()
     }
 
     fn set_state(&self, state: &'static str) {
