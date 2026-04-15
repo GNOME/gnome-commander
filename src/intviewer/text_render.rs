@@ -6,7 +6,7 @@
 use super::data_presentation::DataPresentation;
 use crate::{
     intviewer::{file_input_source::FileInputSource, input_modes::InputMode},
-    utils::Max,
+    utils::{CONTROL, Max, NO_MOD},
 };
 use gtk::{gdk, glib, graphene, pango, prelude::*, subclass::prelude::*};
 use std::{num::NonZeroU32, path::Path, sync::Arc};
@@ -64,6 +64,7 @@ mod imp {
         chars_per_line: Cell<u32>,
         #[property(get, set)]
         max_column: Cell<u32>,
+        displayed_max_column: Cell<u32>,
         pub last_displayed_offset: Cell<u64>,
         #[property(get, set)]
         pub lines_displayed: Cell<i32>,
@@ -110,6 +111,7 @@ mod imp {
 
                 chars_per_line: Default::default(),
                 max_column: Default::default(),
+                displayed_max_column: Default::default(),
                 last_displayed_offset: Default::default(),
                 lines_displayed: Default::default(),
                 marker_start: Default::default(),
@@ -181,7 +183,7 @@ mod imp {
                 self,
                 #[upgrade_or]
                 glib::Propagation::Proceed,
-                move |_, key, _, _| imp.key_pressed(key)
+                move |_, key, _, modifiers| imp.key_pressed(key, modifiers)
             ));
             this.add_controller(key_controller);
         }
@@ -240,6 +242,7 @@ mod imp {
                 text_color,
                 ..DisplayOptions::alternate_marker()
             };
+            self.displayed_max_column.set(0);
             loop {
                 let eol_offset = dp.end_of_line_offset(&self.input_mode.borrow(), offset);
                 if eol_offset == offset {
@@ -639,7 +642,7 @@ mod imp {
             }
         }
 
-        fn key_pressed(&self, key: gdk::Key) -> glib::Propagation {
+        fn key_pressed(&self, key: gdk::Key, modifiers: gdk::ModifierType) -> glib::Propagation {
             let Some(hadjustment) = self.obj().hadjustment() else {
                 return glib::Propagation::Proceed;
             };
@@ -651,39 +654,49 @@ mod imp {
             let column = self.obj().column();
             let current_offset = self.obj().current_offset();
 
-            match key {
-                gdk::Key::Up => vadjustment.set_value(dp.scroll_lines(
+            match (modifiers, key) {
+                (NO_MOD, gdk::Key::Up) => vadjustment.set_value(dp.scroll_lines(
                     &self.input_mode.borrow(),
                     current_offset,
                     -1,
                 ) as f64),
-                gdk::Key::Down => vadjustment.set_value(dp.scroll_lines(
+                (NO_MOD, gdk::Key::Down) => vadjustment.set_value(dp.scroll_lines(
                     &self.input_mode.borrow(),
                     current_offset,
                     1,
                 ) as f64),
-                gdk::Key::Page_Up => vadjustment.set_value(dp.scroll_lines(
+                (NO_MOD, gdk::Key::Page_Up) => vadjustment.set_value(dp.scroll_lines(
                     &self.input_mode.borrow(),
                     current_offset,
                     -(self.lines_displayed.get() - 1),
                 ) as f64),
-                gdk::Key::Page_Down => vadjustment.set_value(dp.scroll_lines(
+                (NO_MOD, gdk::Key::Page_Down) => vadjustment.set_value(dp.scroll_lines(
                     &self.input_mode.borrow(),
                     current_offset,
                     self.lines_displayed.get() - 1,
                 ) as f64),
-                gdk::Key::Left => {
+                (NO_MOD, gdk::Key::Left) => {
                     if !self.wrap_mode.get() && column > 0 {
                         hadjustment.set_value((column - 1) as f64);
                     }
                 }
-                gdk::Key::Right => {
+                (NO_MOD, gdk::Key::Right) => {
                     if !self.wrap_mode.get() {
                         hadjustment.set_value((column + 1) as f64);
                     }
                 }
-                gdk::Key::Home => vadjustment.set_value(0.0),
-                gdk::Key::End => vadjustment.set_value(dp.align_offset_to_line_start(
+                (NO_MOD, gdk::Key::Home) => hadjustment.set_value(0.0),
+                (NO_MOD, gdk::Key::End) => {
+                    let max_column = self.displayed_max_column.get();
+                    let chars_per_line = self.chars_per_line.get();
+                    hadjustment.set_value(if max_column > chars_per_line - 1 {
+                        (max_column - chars_per_line + 1) as f64
+                    } else {
+                        0.0
+                    });
+                }
+                (CONTROL, gdk::Key::Home) => vadjustment.set_value(0.0),
+                (CONTROL, gdk::Key::End) => vadjustment.set_value(dp.align_offset_to_line_start(
                     &self.input_mode.borrow(),
                     self.input_mode.borrow().max_offset() - 1,
                 ) as f64),
@@ -839,6 +852,9 @@ mod imp {
                 .map(|(_, column, _)| *column)
                 .max()
                 .unwrap_or_default();
+            if max_column > self.displayed_max_column.get() {
+                self.displayed_max_column.set(max_column);
+            }
             if max_column > self.max_column.get() {
                 self.max_column.set(max_column);
                 self.update_adjustments_limits();
@@ -1128,8 +1144,7 @@ impl TextRender {
         let hoffset = (offset - line_start) as f64;
         let chars_per_line = self.chars_per_line() as f64;
         if let Some(hadjustment) = self.hadjustment()
-            && (hoffset < hadjustment.value()
-                || hoffset >= hadjustment.value() + chars_per_line)
+            && (hoffset < hadjustment.value() || hoffset >= hadjustment.value() + chars_per_line)
         {
             hadjustment.set_value(hoffset - chars_per_line / 2.0);
             changed_adjustment = true;
