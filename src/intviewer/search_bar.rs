@@ -265,8 +265,6 @@ mod imp {
         }
 
         pub(super) fn update_search_mode(&self, mode: Mode) {
-            self.match_case.set_sensitive(mode == Mode::Text);
-
             let option = match mode {
                 Mode::Text => &self.options.search_pattern_text,
                 Mode::Binary => &self.options.search_pattern_hex,
@@ -326,7 +324,10 @@ impl SearchBar {
             if text.trim().is_empty() {
                 None
             } else if let Some(pattern) = hex_to_bytes(&text) {
-                Some(SearchSettings::Binary { pattern })
+                Some(SearchSettings::Binary {
+                    pattern,
+                    match_case: self.imp().match_case.is_active(),
+                })
             } else {
                 self.set_message(MESSAGE_NOT_HEX);
                 None
@@ -386,9 +387,7 @@ impl SearchBar {
         let entry = &self.imp().entry;
         entry.set_progress_fraction(0.0);
         entry.set_sensitive(true);
-        self.imp()
-            .match_case
-            .set_sensitive(!self.imp().hex_mode.is_active());
+        self.imp().match_case.set_sensitive(true);
         self.imp().hex_mode.set_sensitive(true);
 
         if self.imp().stop_button.has_focus() {
@@ -465,7 +464,7 @@ u32_enum! {
 #[derive(Debug)]
 pub enum SearchSettings {
     Text { pattern: String, match_case: bool },
-    Binary { pattern: Vec<u8> },
+    Binary { pattern: Vec<u8>, match_case: bool },
 }
 
 #[cfg(test)]

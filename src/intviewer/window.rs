@@ -642,7 +642,10 @@ mod imp {
                     };
                     (slice.to_vec(), match_case)
                 }
-                SearchSettings::Binary { pattern } => (pattern, true),
+                SearchSettings::Binary {
+                    pattern,
+                    match_case,
+                } => (pattern, match_case),
             };
             let pattern_len = pattern.len();
 
