@@ -600,9 +600,9 @@ mod imp {
             } else if let Some((start_marker, end_marker)) = self.text_render.marker() {
                 // Start at the marked text if there is any
                 if forward {
-                    start_marker + 1
+                    input_mode.next_char_offset(start_marker)
                 } else {
-                    end_marker - 1
+                    input_mode.previous_char_offset(end_marker)
                 }
             } else {
                 // Default to starting at the edge of the current screen
@@ -683,13 +683,14 @@ mod imp {
             self.searchbar.hide_progress();
             match found {
                 Some(result) => {
+                    let input_mode = self.text_render.input_mode();
                     self.text_render.set_marker(
-                        result,
-                        if forward {
+                        input_mode.previous_char_boundary(result),
+                        input_mode.next_char_boundary(if forward {
                             result + pattern_len as u64
                         } else {
                             result - pattern_len as u64
-                        },
+                        }),
                     );
                     self.text_render.ensure_offset_visible(result);
                 }
