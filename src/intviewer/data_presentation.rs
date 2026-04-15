@@ -72,20 +72,17 @@ impl DataPresentation {
         self.wrap_limit = chars_per_line;
     }
 
-    /// scans the file from offset "start" backwards, until a CR/LF is found.
-    /// returns the offset of the previous CR/LF, or 0 (if we've reached the start of the file)
+    /// Scans the file from offset "start" backwards until a CR/LF/CRLF is found.
+    /// Returns the offset of the previous CR/LF/CRLF, or None if start of the file is reached.
     fn find_previous_crlf(&self, input_mode: &InputMode, start: u64) -> Option<u64> {
-        let mut offset = start;
-        while offset > 0 {
-            offset = input_mode.previous_char_offset(offset);
-            match input_mode.character(offset) {
+        for offset in (0..start).rev() {
+            match input_mode.raw_byte(offset) {
                 None => return None,
-                Some('\r') => return Some(offset),
-                Some('\n') => {
-                    let previous_offset = input_mode.previous_char_offset(offset);
-                    if input_mode.character(previous_offset) == Some('\r') {
+                Some(b'\r') => return Some(offset),
+                Some(b'\n') => {
+                    if offset > 0 && input_mode.raw_byte(offset - 1) == Some(b'\r') {
                         // Treat CRLF combination as a single EOL
-                        return Some(previous_offset);
+                        return Some(offset - 1);
                     } else {
                         return Some(offset);
                     }
@@ -96,14 +93,22 @@ impl DataPresentation {
         None
     }
 
-    fn nowrap_align_offset(&self, input_mode: &InputMode, mut offset: u64) -> u64 {
-        while offset > 0 {
-            let prev_offset = input_mode.previous_char_offset(offset);
-            match input_mode.character(prev_offset) {
-                None => return 0,
-                Some('\n') | Some('\r') => return offset,
-                _ => offset = prev_offset,
-            }
+    /// Scans the file backwards starting from offset to find the start of the line.
+    fn nowrap_align_offset(&self, input_mode: &InputMode, offset: u64) -> u64 {
+        for offset in (0..offset).rev() {
+            return match input_mode.raw_byte(offset) {
+                None => 0,
+                Some(b'\n') => offset + 1,
+                Some(b'\r') => {
+                    if input_mode.raw_byte(offset + 1) == Some(b'\n') {
+                        // Treat CRLF combination as a single EOL
+                        continue;
+                    } else {
+                        offset + 1
+                    }
+                }
+                _ => continue,
+            };
         }
         0
     }
@@ -149,22 +154,18 @@ impl DataPresentation {
 
     fn nowrap_get_eol(&self, input_mode: &InputMode, start_of_line: u64) -> u64 {
         let mut offset = start_of_line;
-        loop {
-            let Some(value) = input_mode.character(offset) else {
-                break;
-            };
-
-            offset = input_mode.next_char_offset(offset);
+        while let Some(value) = input_mode.raw_byte(offset) {
+            offset += 1;
 
             // break upon end of line
-            if value == '\n' {
+            if value == b'\n' {
                 break;
-            } else if value == '\r' {
+            } else if value == b'\r' {
                 // Treat CRLF combination as a single EOL
-                if let Some(value) = input_mode.character(offset)
-                    && value == '\n'
+                if let Some(value) = input_mode.raw_byte(offset)
+                    && value == b'\n'
                 {
-                    offset = input_mode.next_char_offset(offset);
+                    offset += 1;
                 }
                 break;
             }
@@ -252,24 +253,24 @@ impl DataPresentation {
         let mut offset = start_of_line;
 
         loop {
-            let Some(value) = input_mode.character(offset) else {
+            let Some(value) = input_mode.raw_byte(offset) else {
                 break;
             };
 
             offset = input_mode.next_char_offset(offset);
 
             // break upon end of line
-            if value == '\n' {
+            if value == b'\n' {
                 break;
-            } else if value == '\r' {
+            } else if value == b'\r' {
                 // Treat \r\n combination as a single EOL
-                if let Some(value) = input_mode.character(offset)
-                    && value == '\n'
+                if let Some(value) = input_mode.raw_byte(offset)
+                    && value == b'\n'
                 {
                     offset = input_mode.next_char_offset(offset);
                 }
                 break;
-            } else if value == '\t' {
+            } else if value == b'\t' {
                 char_count = next_tab_position(char_count, self.tab_size);
             } else {
                 char_count += 1;
@@ -338,39 +339,30 @@ mod test {
         }
     }
 
-    const ABRACADABRA: &[u8] = br#"
-a
-ab
-abra
-abrac
-abraca
-abracad
-abracada
-abracadab
-abracadabr
-abracadabra
-"#;
+    const ABRACADABRA: &[u8] = b"\na\r\nab\nabra\r\nabrac\nabraca\r\nabracad\nabracada\r\nabracadab\nabracadabr\r\nabracadabra\n";
 
     #[test]
     fn nowrap() {
-        let imd = InputMode::new(ABRACADABRA);
+        let mut imd = InputMode::new(ABRACADABRA);
+        imd.set_mode("CP437");
         let mut dp = DataPresentation::new();
         dp.set_mode(DataPresentationMode::NoWrap);
 
         assert_eq!(dp.nowrap_align_offset(&imd, 0), 0);
         assert_eq!(dp.nowrap_align_offset(&imd, 1), 1);
         assert_eq!(dp.nowrap_align_offset(&imd, 2), 1);
-        assert_eq!(dp.nowrap_align_offset(&imd, 3), 3);
-        assert_eq!(dp.nowrap_align_offset(&imd, 4), 3);
-        assert_eq!(dp.nowrap_align_offset(&imd, 5), 3);
-        assert_eq!(dp.nowrap_align_offset(&imd, 6), 6);
+        assert_eq!(dp.nowrap_align_offset(&imd, 3), 1);
+        assert_eq!(dp.nowrap_align_offset(&imd, 4), 4);
+        assert_eq!(dp.nowrap_align_offset(&imd, 6), 4);
+        assert_eq!(dp.nowrap_align_offset(&imd, 6), 4);
+        assert_eq!(dp.nowrap_align_offset(&imd, 7), 7);
 
         assert_eq!(dp.scroll_lines(&imd, 0, 1), 1);
-        assert_eq!(dp.scroll_lines(&imd, 1, 1), 3);
-        assert_eq!(dp.scroll_lines(&imd, 3, 1), 6);
+        assert_eq!(dp.scroll_lines(&imd, 1, 1), 4);
+        assert_eq!(dp.scroll_lines(&imd, 4, 1), 7);
 
-        assert_eq!(dp.scroll_lines(&imd, 6, -1), 3);
-        assert_eq!(dp.scroll_lines(&imd, 3, -1), 1);
+        assert_eq!(dp.scroll_lines(&imd, 7, -1), 4);
+        assert_eq!(dp.scroll_lines(&imd, 4, -1), 1);
         assert_eq!(dp.scroll_lines(&imd, 1, -1), 0);
     }
 
