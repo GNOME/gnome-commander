@@ -655,38 +655,41 @@ mod imp {
             let current_offset = self.obj().current_offset();
 
             match (modifiers, key) {
-                (NO_MOD, gdk::Key::Up) => vadjustment.set_value(dp.scroll_lines(
+                (NO_MOD, gdk::Key::Up | gdk::Key::KP_Up) => vadjustment.set_value(dp.scroll_lines(
                     &self.input_mode.borrow(),
                     current_offset,
                     -1,
-                ) as f64),
-                (NO_MOD, gdk::Key::Down) => vadjustment.set_value(dp.scroll_lines(
-                    &self.input_mode.borrow(),
-                    current_offset,
-                    1,
-                ) as f64),
-                (NO_MOD, gdk::Key::Page_Up) => vadjustment.set_value(dp.scroll_lines(
-                    &self.input_mode.borrow(),
-                    current_offset,
-                    -(self.lines_displayed.get() - 1),
-                ) as f64),
-                (NO_MOD, gdk::Key::Page_Down) => vadjustment.set_value(dp.scroll_lines(
-                    &self.input_mode.borrow(),
-                    current_offset,
-                    self.lines_displayed.get() - 1,
-                ) as f64),
-                (NO_MOD, gdk::Key::Left) => {
+                )
+                    as f64),
+                (NO_MOD, gdk::Key::Down | gdk::Key::KP_Down) => vadjustment.set_value(
+                    dp.scroll_lines(&self.input_mode.borrow(), current_offset, 1) as f64,
+                ),
+                (NO_MOD, gdk::Key::Page_Up | gdk::Key::KP_Page_Up) => {
+                    vadjustment.set_value(dp.scroll_lines(
+                        &self.input_mode.borrow(),
+                        current_offset,
+                        -(self.lines_displayed.get() - 1),
+                    ) as f64)
+                }
+                (NO_MOD, gdk::Key::Page_Down | gdk::Key::KP_Page_Down) => {
+                    vadjustment.set_value(dp.scroll_lines(
+                        &self.input_mode.borrow(),
+                        current_offset,
+                        self.lines_displayed.get() - 1,
+                    ) as f64)
+                }
+                (NO_MOD, gdk::Key::Left | gdk::Key::KP_Left) => {
                     if !self.wrap_mode.get() && column > 0 {
                         hadjustment.set_value((column - 1) as f64);
                     }
                 }
-                (NO_MOD, gdk::Key::Right) => {
+                (NO_MOD, gdk::Key::Right | gdk::Key::KP_Right) => {
                     if !self.wrap_mode.get() {
                         hadjustment.set_value((column + 1) as f64);
                     }
                 }
-                (NO_MOD, gdk::Key::Home) => hadjustment.set_value(0.0),
-                (NO_MOD, gdk::Key::End) => {
+                (NO_MOD, gdk::Key::Home | gdk::Key::KP_Home) => hadjustment.set_value(0.0),
+                (NO_MOD, gdk::Key::End | gdk::Key::KP_End) => {
                     let max_column = self.displayed_max_column.get();
                     let chars_per_line = self.chars_per_line.get();
                     hadjustment.set_value(if max_column > chars_per_line - 1 {
@@ -695,11 +698,13 @@ mod imp {
                         0.0
                     });
                 }
-                (CONTROL, gdk::Key::Home) => vadjustment.set_value(0.0),
-                (CONTROL, gdk::Key::End) => vadjustment.set_value(dp.align_offset_to_line_start(
-                    &self.input_mode.borrow(),
-                    self.input_mode.borrow().max_offset() - 1,
-                ) as f64),
+                (CONTROL, gdk::Key::Home | gdk::Key::KP_Home) => vadjustment.set_value(0.0),
+                (CONTROL, gdk::Key::End | gdk::Key::KP_End) => {
+                    vadjustment.set_value(dp.align_offset_to_line_start(
+                        &self.input_mode.borrow(),
+                        self.input_mode.borrow().max_offset() - 1,
+                    ) as f64)
+                }
                 _ => return glib::Propagation::Proceed,
             }
 
