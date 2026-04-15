@@ -547,19 +547,14 @@ mod imp {
         fn filter_undisplayable_chars(&self, input_mode: &mut InputMode) {
             let layout = self.obj().create_pango_layout(None);
             layout.set_font_description(self.font_desc.borrow().as_ref());
-            for byte in 0..=255 {
-                let ch = input_mode.byte_to_char(byte);
-                let displayable = ch != '\0' && {
+            input_mode.adjust_invisible_characters(move |ch| {
+                ch != '\0' && {
                     layout.set_text(&ch.to_string());
                     let (_ink_rect, logical_rect) = layout.pixel_extents();
                     // Pango displays something
                     logical_rect.width() > 0
-                };
-
-                if !displayable && !matches!(byte, b'\t' | b'\n' | b'\r') {
-                    input_mode.update_utf8_translation(byte, '.');
                 }
-            }
+            })
         }
 
         fn set_fixed_limit(&self, fixed_limit: u32) {
