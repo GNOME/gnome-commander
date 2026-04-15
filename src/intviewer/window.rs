@@ -1019,6 +1019,14 @@ fn create_menu(display_mode: DisplayMode) -> gio::Menu {
                         gettext("_80 chars/line"),
                         "viewer.chars-per-line(80)",
                         "<Control>8",
+                    )
+                    .item(
+                        gettext("_120 chars/line"),
+                        "viewer.chars-per-line(120)",
+                    )
+                    .item(
+                        gettext("_160 chars/line"),
+                        "viewer.chars-per-line(160)",
                     ),
             )
             .section(
