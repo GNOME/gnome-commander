@@ -896,7 +896,7 @@ mod imp {
                 .offsets(start_offset, end_offset)
                 .filter_map(|offset| input_mode.character(offset))
                 .collect();
-            let provider = gdk::ContentProvider::for_bytes("text/plain", &text.as_bytes().into());
+            let provider = gdk::ContentProvider::for_bytes("text/plain;charset=utf-8", &text.as_bytes().into());
             if let Err(error) = self.obj().clipboard().set_content(Some(&provider)) {
                 eprintln!("Failed copying text to clipboard: {error}");
             }
