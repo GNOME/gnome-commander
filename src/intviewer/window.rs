@@ -287,6 +287,22 @@ mod imp {
                     .build(),
             ));
 
+            window.connect_focus_widget_notify(|window| {
+                if gtk::prelude::GtkWindowExt::focus(window)
+                    .is_some_and(|widget| widget.widget_name() == "GtkPopoverMenuBarItem")
+                {
+                    // Individual menu bar items should never be focused, return focus to the
+                    // content area. This is quite a hack to compensate for Gtk's shortcomings but
+                    // worst-case scenario is that this won't work in some future Gtk version and
+                    // focus simply remains on the menu requiring the user to click.
+                    if window.imp().display_mode.get() == DisplayMode::Image {
+                        window.imp().image_render.grab_focus();
+                    } else {
+                        window.imp().text_render.grab_focus();
+                    }
+                }
+            });
+
             let options = ViewerOptions::new();
 
             remember_window_size(&*window, &options.window_width, &options.window_height);
