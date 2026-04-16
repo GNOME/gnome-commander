@@ -264,7 +264,7 @@ mod imp {
                         marker_end,
                         &display_options,
                     ),
-                    TextRenderDisplayMode::Binary => self.binary_mode_display_line(
+                    TextRenderDisplayMode::FixedWidth => self.fixed_width_mode_display_line(
                         snapshot,
                         offset,
                         eol_offset,
@@ -395,7 +395,7 @@ mod imp {
                 DataPresentationMode::NoWrap => self.max_column.get() as f64,
                 DataPresentationMode::Wrap => 0.0,
                 DataPresentationMode::BinaryFixed => {
-                    (if self.display_mode.get() == TextRenderDisplayMode::Binary {
+                    (if self.display_mode.get() == TextRenderDisplayMode::FixedWidth {
                         self.fixed_limit.get()
                     } else {
                         hex_mode_column_layout().1 + HEXDUMP_FIXED_LIMIT
@@ -463,17 +463,11 @@ mod imp {
                             DataPresentationMode::NoWrap
                         });
                     }
-                    TextRenderDisplayMode::Binary => {
-                        // Binary display mode doesn't support UTF8
-                        // TODO: switch back to the previous encoding, not just ASCII
-                        //        input_mode.set_mode("ASCII");
+                    TextRenderDisplayMode::FixedWidth => {
                         dp.set_fixed_count(self.fixed_limit.get());
                         dp.set_mode(DataPresentationMode::BinaryFixed);
                     }
                     TextRenderDisplayMode::Hexdump => {
-                        // HEX display mode doesn't support UTF8
-                        // TODO: switch back to the previous encoding, not just ASCII
-                        //        input_mode.set_mode("ASCII");
                         dp.set_fixed_count(HEXDUMP_FIXED_LIMIT);
                         dp.set_mode(DataPresentationMode::BinaryFixed);
                     }
@@ -534,8 +528,8 @@ mod imp {
         fn set_encoding(&self, encoding: String) {
             match self.obj().display_mode() {
                 TextRenderDisplayMode::Hexdump if encoding.eq_ignore_ascii_case("UTF8") => {
-                    // Ugly hack: UTF-8 is not acceptable encoding in Binary/Hexdump modes
-                    eprintln!("Can't set UTF8 encoding when in Binary or HexDump display mode");
+                    // Ugly hack: UTF-8 is not acceptable encoding in Hexdump mode
+                    eprintln!("Can't set UTF8 encoding when in HexDump display mode");
                     return;
                 }
                 _ => {
@@ -582,7 +576,7 @@ mod imp {
             self.fixed_limit.set(fixed_limit);
             // always 16 bytes in hex dump
             let fixed_limit = match self.obj().display_mode() {
-                TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => fixed_limit,
+                TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => fixed_limit,
                 TextRenderDisplayMode::Hexdump => HEXDUMP_FIXED_LIMIT,
             };
             self.data_presentation
@@ -625,7 +619,7 @@ mod imp {
             if n_press == 1 && self.button.get().is_none() {
                 self.button.set(Some(button));
                 self.marker_start.set(match self.obj().display_mode() {
-                    TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => {
+                    TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => {
                         self.text_mode_pixel_to_offset(x, y, true)
                     }
                     TextRenderDisplayMode::Hexdump => self.hex_mode_pixel_to_offset(x, y, true),
@@ -637,7 +631,7 @@ mod imp {
             if self.button.get() == Some(button) {
                 self.button.set(None);
                 self.marker_end.set(match self.obj().display_mode() {
-                    TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => {
+                    TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => {
                         self.text_mode_pixel_to_offset(x, y, false)
                     }
                     TextRenderDisplayMode::Hexdump => self.hex_mode_pixel_to_offset(x, y, false),
@@ -649,7 +643,7 @@ mod imp {
         fn motion_notify(&self, x: f64, y: f64) {
             if self.button.get().is_some() {
                 let new_marker = match self.obj().display_mode() {
-                    TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => {
+                    TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => {
                         self.text_mode_pixel_to_offset(x, y, false)
                     }
                     TextRenderDisplayMode::Hexdump => self.hex_mode_pixel_to_offset(x, y, false),
@@ -929,8 +923,8 @@ mod imp {
             }
         }
 
-        fn binary_mode_chars(&self, start_of_line: u64, end_of_line: u64) -> Vec<(u64, u32, char)> {
-            binary_mode_line_iter(&self.input_mode.borrow(), start_of_line, end_of_line)
+        fn fixed_width_mode_chars(&self, start_of_line: u64, end_of_line: u64) -> Vec<(u64, u32, char)> {
+            fixed_width_mode_line_iter(&self.input_mode.borrow(), start_of_line, end_of_line)
                 .map(|(offset, column, character)| {
                     (
                         offset,
@@ -941,7 +935,7 @@ mod imp {
                 .collect()
         }
 
-        fn binary_mode_display_line(
+        fn fixed_width_mode_display_line(
             &self,
             snapshot: &gtk::Snapshot,
             start_of_line: u64,
@@ -950,7 +944,7 @@ mod imp {
             marker_end: u64,
             display_options: &DisplayOptions,
         ) {
-            let chars = self.binary_mode_chars(start_of_line, end_of_line);
+            let chars = self.fixed_width_mode_chars(start_of_line, end_of_line);
             self.display_line(snapshot, &chars, marker_start, marker_end, display_options);
         }
 
@@ -1076,7 +1070,7 @@ mod imp {
             })
     }
 
-    fn binary_mode_line_iter(
+    fn fixed_width_mode_line_iter(
         input_mode: &Arc<InputMode>,
         start: u64,
         end: u64,
@@ -1259,7 +1253,7 @@ impl TextRender {
             return;
         };
         match self.display_mode() {
-            TextRenderDisplayMode::Text | TextRenderDisplayMode::Binary => self
+            TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => self
                 .imp()
                 .text_mode_copy_to_clipboard(marker_start, marker_end),
             TextRenderDisplayMode::Hexdump => self
@@ -1336,7 +1330,7 @@ fn get_max_char_width_and_height(
 pub enum TextRenderDisplayMode {
     #[default]
     Text = 0,
-    Binary,
+    FixedWidth,
     Hexdump,
 }
 
@@ -1374,7 +1368,7 @@ mod test {
             text_render.load_file(&Path::new(FILENAME));
             for mode in [
                 TextRenderDisplayMode::Text,
-                TextRenderDisplayMode::Binary,
+                TextRenderDisplayMode::FixedWidth,
                 TextRenderDisplayMode::Hexdump,
             ] {
                 text_render.set_display_mode(mode);

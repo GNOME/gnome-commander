@@ -30,7 +30,7 @@ u32_enum! {
     pub enum DisplayMode {
         #[default]
         Text,
-        Binary,
+        FixedWidth,
         Hexdump,
         Image,
     }
@@ -44,7 +44,7 @@ impl DisplayMode {
         } else if content_type.starts_with("image/") {
             Some(Self::Image)
         } else if content_type.starts_with("application/") {
-            Some(Self::Binary)
+            Some(Self::FixedWidth)
         } else {
             None
         }
@@ -408,9 +408,9 @@ mod imp {
                     self.stack.set_visible_child_name("text");
                     self.text_render.notify_status_changed();
                 }
-                DisplayMode::Binary => {
+                DisplayMode::FixedWidth => {
                     self.text_render
-                        .set_display_mode(TextRenderDisplayMode::Binary);
+                        .set_display_mode(TextRenderDisplayMode::FixedWidth);
                     self.stack.set_visible_child_name("text");
                     self.text_render.notify_status_changed();
                 }
@@ -503,7 +503,7 @@ mod imp {
 
         fn zoom_in(&self) {
             match self.display_mode.get() {
-                DisplayMode::Text | DisplayMode::Binary | DisplayMode::Hexdump => {
+                DisplayMode::Text | DisplayMode::FixedWidth | DisplayMode::Hexdump => {
                     let size = self.text_render.font_size();
                     if size != 0 && size <= 32 {
                         self.text_render.set_font_size(size + 1);
@@ -541,7 +541,7 @@ mod imp {
 
         fn zoom_out(&self) {
             match self.display_mode.get() {
-                DisplayMode::Text | DisplayMode::Binary | DisplayMode::Hexdump => {
+                DisplayMode::Text | DisplayMode::FixedWidth | DisplayMode::Hexdump => {
                     let size = self.text_render.font_size();
                     if size >= 4 {
                         self.text_render.set_font_size(size - 1);
@@ -579,7 +579,7 @@ mod imp {
 
         fn zoom_normal(&self) {
             match self.display_mode.get() {
-                DisplayMode::Text | DisplayMode::Binary | DisplayMode::Hexdump => {
+                DisplayMode::Text | DisplayMode::FixedWidth | DisplayMode::Hexdump => {
                     self.text_render.set_font_size(12);
                 }
                 DisplayMode::Image => {
@@ -592,7 +592,7 @@ mod imp {
 
         fn zoom_best_fit(&self) {
             match self.display_mode.get() {
-                DisplayMode::Text | DisplayMode::Binary | DisplayMode::Hexdump => {
+                DisplayMode::Text | DisplayMode::FixedWidth | DisplayMode::Hexdump => {
                     // nothing to do
                 }
                 DisplayMode::Image => {
@@ -880,9 +880,9 @@ fn create_menu(display_mode: DisplayMode) -> gio::Menu {
                     "1",
                 )
                 .item_param_accel(
-                    gettext("_Binary"),
+                    gettext("_Fixed Width"),
                     "viewer.display-mode",
-                    DisplayMode::Binary,
+                    DisplayMode::FixedWidth,
                     "2",
                 )
                 .item_param_accel(
@@ -908,7 +908,7 @@ fn create_menu(display_mode: DisplayMode) -> gio::Menu {
 
     if matches!(
         display_mode,
-        DisplayMode::Text | DisplayMode::Binary | DisplayMode::Hexdump
+        DisplayMode::Text | DisplayMode::FixedWidth | DisplayMode::Hexdump
     ) {
         menu = menu.submenu(
             gettext("_Text"),
@@ -1042,7 +1042,7 @@ fn create_menu(display_mode: DisplayMode) -> gio::Menu {
         gio::Menu::new()
             .submenu(gettext("_Font"), create_font_menu())
             .submenu(
-                gettext("_Binary Mode"),
+                gettext("Fixed _Width Mode"),
                 gio::Menu::new()
                     .item_accel(
                         gettext("_20 chars/line"),
@@ -1060,7 +1060,7 @@ fn create_menu(display_mode: DisplayMode) -> gio::Menu {
                         "<Control>8",
                     )
                     .item(gettext("_120 chars/line"), "viewer.chars-per-line(120)")
-                    .item(gettext("_160 chars/line"), "viewer.chars-per-line(160)"),
+                    .item(gettext("1_60 chars/line"), "viewer.chars-per-line(160)"),
             )
             .section(
                 gio::Menu::new()
