@@ -36,7 +36,8 @@ impl DataPresentation {
         match self.mode() {
             DataPresentationMode::NoWrap => self.nowrap_align_offset(input_mode, offset),
             DataPresentationMode::Wrap => self.wrap_align_offset(input_mode, offset),
-            DataPresentationMode::BinaryFixed => self.binfixed_align_offset(input_mode, offset),
+            DataPresentationMode::Fixed => self.fixed_align_offset(input_mode, offset),
+            DataPresentationMode::Binary => self.bin_align_offset(input_mode, offset),
         }
     }
 
@@ -46,8 +47,11 @@ impl DataPresentation {
                 self.nowrap_scroll_lines(input_mode, current_offset, delta)
             }
             DataPresentationMode::Wrap => self.wrap_scroll_lines(input_mode, current_offset, delta),
-            DataPresentationMode::BinaryFixed => {
-                self.binfixed_scroll_lines(input_mode, current_offset, delta, false)
+            DataPresentationMode::Fixed => {
+                self.fixed_scroll_lines(input_mode, current_offset, delta, false)
+            }
+            DataPresentationMode::Binary => {
+                self.bin_scroll_lines(input_mode, current_offset, delta)
             }
         }
     }
@@ -56,7 +60,8 @@ impl DataPresentation {
         match self.mode() {
             DataPresentationMode::NoWrap => self.nowrap_get_eol(input_mode, start_of_line),
             DataPresentationMode::Wrap => self.wrap_get_eol(input_mode, start_of_line),
-            DataPresentationMode::BinaryFixed => self.binfixed_get_eol(input_mode, start_of_line),
+            DataPresentationMode::Fixed => self.fixed_get_eol(input_mode, start_of_line),
+            DataPresentationMode::Binary => self.bin_get_eol(input_mode, start_of_line),
         }
     }
 
@@ -286,36 +291,27 @@ impl DataPresentation {
         offset
     }
 
-    fn binfixed_align_offset(&self, input_mode: &InputMode, offset: u64) -> u64 {
-        let max_offset = input_mode.max_offset();
-        if let Some(char_size) = input_mode.char_size()
-            && char_size > 0
-        {
-            let fixed_count = self.fixed_count.max(1) as u64 * char_size;
-            offset.clamp(0, max_offset) / fixed_count * fixed_count
+    fn fixed_align_offset(&self, input_mode: &InputMode, offset: u64) -> u64 {
+        if input_mode.char_size().is_some_and(|size| size > 0) {
+            self.bin_align_offset(input_mode, offset)
         } else {
             // For variable-width encodings we just assume that the current offset is aligned.
             offset
         }
     }
 
-    fn binfixed_scroll_lines(
+    fn fixed_scroll_lines(
         &self,
         input_mode: &InputMode,
         current_offset: u64,
         delta: i32,
         past_last_line: bool,
     ) -> u64 {
-        let fixed_count = self.fixed_count.max(1);
-        if let Some(char_size) = input_mode.char_size()
-            && char_size > 0
-        {
-            (self
-                .binfixed_align_offset(input_mode, current_offset)
-                .saturating_add_signed(fixed_count as i64 * char_size as i64 * delta as i64))
-            .clamp(0, input_mode.max_offset())
+        if input_mode.char_size().is_some_and(|size| size > 0) {
+            self.bin_scroll_lines(input_mode, current_offset, delta)
         } else {
             // No fixed character size, so we have to move one character at a time.
+            let fixed_count = self.fixed_count.max(1);
             if delta < 0 {
                 let mut offset = current_offset;
                 for _ in 0..(-delta) as u32 * fixed_count {
@@ -343,8 +339,25 @@ impl DataPresentation {
         }
     }
 
-    fn binfixed_get_eol(&self, input_mode: &InputMode, start_of_line: u64) -> u64 {
-        self.binfixed_scroll_lines(input_mode, start_of_line, 1, true)
+    fn fixed_get_eol(&self, input_mode: &InputMode, start_of_line: u64) -> u64 {
+        self.fixed_scroll_lines(input_mode, start_of_line, 1, true)
+    }
+
+    fn bin_align_offset(&self, input_mode: &InputMode, offset: u64) -> u64 {
+        let fixed_count = self.fixed_count.max(1) as u64;
+        offset.clamp(0, input_mode.max_offset()) / fixed_count * fixed_count
+    }
+
+    fn bin_scroll_lines(&self, input_mode: &InputMode, current_offset: u64, delta: i32) -> u64 {
+        let fixed_count = self.fixed_count.max(1);
+        (self
+            .bin_align_offset(input_mode, current_offset)
+            .saturating_add_signed(fixed_count as i64 * delta as i64))
+        .clamp(0, input_mode.max_offset())
+    }
+
+    fn bin_get_eol(&self, input_mode: &InputMode, start_of_line: u64) -> u64 {
+        self.bin_scroll_lines(input_mode, start_of_line, 1)
     }
 }
 
@@ -354,9 +367,11 @@ pub enum DataPresentationMode {
     #[default]
     NoWrap = 0,
     Wrap,
+    /// fixed number of characters per line.
+    Fixed,
     /// fixed number of binary characters per line.
     /// e.g. CHAR=BYTE, no UTF-8 or other translations
-    BinaryFixed,
+    Binary,
 }
 
 pub fn next_tab_position(column: u32, tab_size: u32) -> u32 {
@@ -373,7 +388,8 @@ mod test {
         for mode in [
             DataPresentationMode::Wrap,
             DataPresentationMode::NoWrap,
-            DataPresentationMode::BinaryFixed,
+            DataPresentationMode::Fixed,
+            DataPresentationMode::Binary,
         ] {
             dp.set_mode(mode);
             assert_eq!(dp.mode(), mode);

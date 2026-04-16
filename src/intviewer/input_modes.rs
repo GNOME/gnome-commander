@@ -111,7 +111,7 @@ impl InputMode {
     }
 
     /// Returns the character size if an encoding with a fixed character size is selected.
-    pub fn char_size(&self) -> Option<u64> {
+    pub fn char_size(&self) -> Option<u32> {
         self.encoding.char_size()
     }
 
@@ -182,7 +182,7 @@ impl InputSource for &[u8] {
 trait CharacterEncoding {
     /// For fixed-width encodings, this should return the size of a character in bytes. For
     /// variable-width encodings `None`` is returned.
-    fn char_size(&self) -> Option<u64>;
+    fn char_size(&self) -> Option<u32>;
 
     /// Decodes the character at the given offset.
     fn char_at(&self, input_mode: &InputMode, offset: u64) -> Option<char>;
@@ -265,7 +265,7 @@ impl SingleByteEncoding {
 }
 
 impl CharacterEncoding for SingleByteEncoding {
-    fn char_size(&self) -> Option<u64> {
+    fn char_size(&self) -> Option<u32> {
         Some(1)
     }
 
@@ -325,7 +325,7 @@ impl UTF8Encoding {
 }
 
 impl CharacterEncoding for UTF8Encoding {
-    fn char_size(&self) -> Option<u64> {
+    fn char_size(&self) -> Option<u32> {
         None
     }
 

@@ -394,12 +394,9 @@ mod imp {
             adjustment.set_upper(match self.data_presentation.borrow().mode() {
                 DataPresentationMode::NoWrap => self.max_column.get() as f64,
                 DataPresentationMode::Wrap => 0.0,
-                DataPresentationMode::BinaryFixed => {
-                    (if self.display_mode.get() == TextRenderDisplayMode::FixedWidth {
-                        self.fixed_limit.get()
-                    } else {
-                        hex_mode_column_layout().1 + HEXDUMP_FIXED_LIMIT
-                    }) as f64
+                DataPresentationMode::Fixed => self.fixed_limit.get() as f64,
+                DataPresentationMode::Binary => {
+                    (hex_mode_column_layout().1 + HEXDUMP_FIXED_LIMIT) as f64
                 }
             });
             adjustment.set_step_increment(1.0);
@@ -464,12 +461,15 @@ mod imp {
                         });
                     }
                     TextRenderDisplayMode::FixedWidth => {
-                        dp.set_fixed_count(self.fixed_limit.get());
-                        dp.set_mode(DataPresentationMode::BinaryFixed);
+                        dp.set_fixed_count(
+                            self.fixed_limit.get()
+                                * self.input_mode.borrow().char_size().unwrap_or(1),
+                        );
+                        dp.set_mode(DataPresentationMode::Fixed);
                     }
                     TextRenderDisplayMode::Hexdump => {
                         dp.set_fixed_count(HEXDUMP_FIXED_LIMIT);
-                        dp.set_mode(DataPresentationMode::BinaryFixed);
+                        dp.set_mode(DataPresentationMode::Binary);
                     }
                 }
             }
@@ -526,34 +526,25 @@ mod imp {
         }
 
         fn set_encoding(&self, encoding: String) {
-            match self.obj().display_mode() {
-                TextRenderDisplayMode::Hexdump if encoding.eq_ignore_ascii_case("UTF8") => {
-                    // Ugly hack: UTF-8 is not acceptable encoding in Hexdump mode
-                    eprintln!("Can't set UTF8 encoding when in HexDump display mode");
+            {
+                let mut input_mode = self.input_mode.borrow_mut();
+                if let Some(input_mode) = Arc::get_mut(&mut input_mode) {
+                    self.encoding.replace(encoding.clone());
+                    input_mode.set_mode(&encoding);
+                    self.filter_undisplayable_chars(input_mode);
+                } else {
+                    eprintln!(
+                        "Failed setting encoding, could not get mutable input mode reference"
+                    );
                     return;
-                }
-                _ => {
-                    let mut input_mode = self.input_mode.borrow_mut();
-                    if let Some(input_mode) = Arc::get_mut(&mut input_mode) {
-                        self.encoding.replace(encoding.clone());
-                        input_mode.set_mode(&encoding);
-                        self.filter_undisplayable_chars(input_mode);
-                    } else {
-                        eprintln!(
-                            "Failed setting encoding, could not get mutable input mode reference"
-                        );
-                        return;
-                    }
                 }
             }
 
             if let Some(vadjustment) = self.obj().vadjustment() {
-                vadjustment.set_value(
-                    self.data_presentation.borrow().align_offset_to_line_start(
-                        &self.input_mode.borrow(),
-                        self.obj().current_offset(),
-                    ) as f64,
-                );
+                vadjustment.set_value(self.data_presentation.borrow().align_offset_to_line_start(
+                    &self.input_mode.borrow(),
+                    self.obj().current_offset(),
+                ) as f64);
             }
 
             self.obj().queue_draw();
@@ -923,7 +914,11 @@ mod imp {
             }
         }
 
-        fn fixed_width_mode_chars(&self, start_of_line: u64, end_of_line: u64) -> Vec<(u64, u32, char)> {
+        fn fixed_width_mode_chars(
+            &self,
+            start_of_line: u64,
+            end_of_line: u64,
+        ) -> Vec<(u64, u32, char)> {
             fixed_width_mode_line_iter(&self.input_mode.borrow(), start_of_line, end_of_line)
                 .map(|(offset, column, character)| {
                     (
@@ -974,35 +969,25 @@ mod imp {
                     (display_options_alternate, display_options)
                 };
 
-            let hex_chars =
+            let mut hex_chars = Vec::new();
+            let mut bin_chars = Vec::new();
+            for (offset, column, byte, character) in
                 hex_mode_line_iter(&self.input_mode.borrow(), start_of_line, end_of_line)
-                    .flat_map(|(offset, column, byte)| {
-                        match byte {
-                            Some(b) => format!("{:02X}", b)
-                                .chars()
-                                .enumerate()
-                                .map(|(i, c)| (offset, column * 3 + i as u32, c))
-                                .collect(),
-                            None => {
-                                vec![]
-                            }
-                        }
-                        .into_iter()
-                    })
-                    .collect::<Vec<_>>();
-
-            let bin_chars =
-                hex_mode_line_iter(&self.input_mode.borrow(), start_of_line, end_of_line)
-                    .map(|(offset, column, byte)| {
-                        (
-                            offset,
-                            column,
-                            byte.filter(|b| *b != 0)
-                                .and_then(|b| char::from_u32(b as u32))
-                                .unwrap_or('.'),
-                        )
-                    })
-                    .collect::<Vec<_>>();
+            {
+                if let Some(byte) = byte {
+                    hex_chars.extend(
+                        format!("{byte:02X}")
+                            .chars()
+                            .enumerate()
+                            .map(|(i, c)| (offset, column * 3 + i as u32, c)),
+                    );
+                    bin_chars.push((
+                        offset,
+                        column,
+                        character.filter(|c| *c != '\0').unwrap_or('.'),
+                    ));
+                }
+            }
 
             let (hex_offset, bin_offset) = hex_mode_column_layout();
 
@@ -1089,14 +1074,20 @@ mod imp {
         input_mode: &Arc<InputMode>,
         start: u64,
         end: u64,
-    ) -> impl Iterator<Item = (u64, u32, Option<u8>)> + use<'_> {
+    ) -> impl Iterator<Item = (u64, u32, Option<u8>, Option<char>)> + use<'_> {
+        let use_encoding = input_mode.char_size().is_some_and(|size| size == 1);
         input_mode
             .byte_offsets(start, end)
             .scan(0, move |column, offset| {
                 let current = *column;
-                let character = input_mode.raw_byte(offset);
+                let byte = input_mode.raw_byte(offset);
+                let character = if use_encoding {
+                    input_mode.character(offset)
+                } else {
+                    byte.and_then(|byte| char::from_u32(byte.into()))
+                };
                 *column += 1;
-                Some((offset, current, character))
+                Some((offset, current, byte, character))
             })
     }
 
