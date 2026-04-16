@@ -4309,8 +4309,8 @@
     <!-- ================ Internal Viewer Subsection ======================= -->
     <sect2 id="gnome-commander-internal-viewer">
       <title>Using the Internal Viewer</title>
-      <para>The internal viewer allows viewing contents of files in text, Unicode,
-       binary, hex or graphical mode.</para>
+      <para>The internal viewer allows viewing contents of files in text,
+       fixed width, hex or graphical mode.</para>
       <para>To start viewing files use <keycap>F3</keycap> (default viewer - defined
 	      in <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>) or
           <keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo> (internal viewer). The internal viewer uses MMAP
@@ -4323,7 +4323,7 @@
 	<para>
 	  <orderedlist>
             <listitem><para>Text mode</para></listitem>
-            <listitem><para>Binary mode</para></listitem>
+            <listitem><para>Fixed Width mode</para></listitem>
             <listitem><para>Hex dump mode</para></listitem>
             <listitem><para>Image mode</para></listitem>
 	  </orderedlist>
@@ -4393,12 +4393,12 @@
         </row>
         <row valign="top">
         <entry><keycombo><keycap>A</keycap></keycombo></entry>
-        <entry><para>Sets ASCII input mode. When in ASCII mode, you can also set the required character encoding
-        from the "View|Character Encoding" submenu</para></entry>
+        <entry><para>Sets ASCII input mode. You can also choose a language-specific character encoding
+        from the "Text|Encoding" submenu</para></entry>
         </row>
         <row valign="top">
         <entry><keycombo><keycap>Q</keycap></keycombo></entry>
-        <entry><para>Sets ASCII input mode, with codepage 437 encoding (suitable for binary and hex mode viewing)</para></entry>
+        <entry><para>Sets ASCII input mode, with codepage 437 encoding</para></entry>
         </row>
         <row valign="top">
         <entry><keycombo><keycap>U</keycap></keycombo></entry>
@@ -4409,17 +4409,15 @@
         </row>
         <row valign="top">
         <entry><keycombo><keycap>1</keycap></keycombo></entry>
-        <entry><para>Sets display mode to text, with fixed width font</para></entry>
+        <entry><para>Sets display mode to text</para></entry>
         </row>
         <row valign="top">
         <entry><keycombo><keycap>2</keycap></keycombo></entry>
-        <entry><para>Sets display mode to binary. Switching to Binary display mode
-        will automatically set ASCII input mode (UTF-8 is not supported with binary display)</para></entry>
+        <entry><para>Sets display mode to fixed width. You can choose the line length via the "Settings|Fixed Width Mode" submenu.</para></entry>
         </row>
         <row valign="top">
         <entry><keycombo><keycap>3</keycap></keycombo></entry>
-        <entry><para>Sets display mode to hex dump. Switching to hex display mode
-        will automatically set ASCII input mode (UTF-8 is not supported with hex dump display)</para></entry>
+        <entry><para>Sets display mode to hex dump.</para></entry>
         </row>
         <row valign="top">
         <entry><keycombo><keycap>4</keycap></keycombo></entry>
