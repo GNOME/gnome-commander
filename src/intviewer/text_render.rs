@@ -533,11 +533,10 @@ mod imp {
 
         fn set_encoding(&self, encoding: String) {
             match self.obj().display_mode() {
-                TextRenderDisplayMode::Binary | TextRenderDisplayMode::Hexdump
-                    if encoding.eq_ignore_ascii_case("UTF8") =>
-                {
+                TextRenderDisplayMode::Hexdump if encoding.eq_ignore_ascii_case("UTF8") => {
                     // Ugly hack: UTF-8 is not acceptable encoding in Binary/Hexdump modes
                     eprintln!("Can't set UTF8 encoding when in Binary or HexDump display mode");
+                    return;
                 }
                 _ => {
                     let mut input_mode = self.input_mode.borrow_mut();
@@ -545,14 +544,25 @@ mod imp {
                         self.encoding.replace(encoding.clone());
                         input_mode.set_mode(&encoding);
                         self.filter_undisplayable_chars(input_mode);
-                        self.obj().queue_draw();
                     } else {
                         eprintln!(
                             "Failed setting encoding, could not get mutable input mode reference"
                         );
+                        return;
                     }
                 }
             }
+
+            if let Some(vadjustment) = self.obj().vadjustment() {
+                vadjustment.set_value(
+                    self.data_presentation.borrow().align_offset_to_line_start(
+                        &self.input_mode.borrow(),
+                        self.obj().current_offset(),
+                    ) as f64,
+                );
+            }
+
+            self.obj().queue_draw();
         }
 
         fn filter_undisplayable_chars(&self, input_mode: &mut InputMode) {

@@ -47,7 +47,7 @@ impl DataPresentation {
             }
             DataPresentationMode::Wrap => self.wrap_scroll_lines(input_mode, current_offset, delta),
             DataPresentationMode::BinaryFixed => {
-                self.binfixed_scroll_lines(input_mode, current_offset, delta)
+                self.binfixed_scroll_lines(input_mode, current_offset, delta, false)
             }
         }
     }
@@ -205,7 +205,10 @@ impl DataPresentation {
         let mut temp = line_start;
         while temp <= offset {
             line_start = temp;
-            temp = self.wrap_scroll_lines(input_mode, temp, 1)
+            temp = self.wrap_scroll_lines(input_mode, temp, 1);
+            if temp == line_start {
+                break;
+            }
         }
         line_start
     }
@@ -285,8 +288,15 @@ impl DataPresentation {
 
     fn binfixed_align_offset(&self, input_mode: &InputMode, offset: u64) -> u64 {
         let max_offset = input_mode.max_offset();
-        let fixed_count = self.fixed_count.max(1) as u64;
-        offset.clamp(0, max_offset) / fixed_count * fixed_count
+        if let Some(char_size) = input_mode.char_size()
+            && char_size > 0
+        {
+            let fixed_count = self.fixed_count.max(1) as u64 * char_size;
+            offset.clamp(0, max_offset) / fixed_count * fixed_count
+        } else {
+            // For variable-width encodings we just assume that the current offset is aligned.
+            offset
+        }
     }
 
     fn binfixed_scroll_lines(
@@ -294,16 +304,47 @@ impl DataPresentation {
         input_mode: &InputMode,
         current_offset: u64,
         delta: i32,
+        past_last_line: bool,
     ) -> u64 {
         let fixed_count = self.fixed_count.max(1);
-        (self
-            .binfixed_align_offset(input_mode, current_offset)
-            .saturating_add_signed(fixed_count as i64 * delta as i64))
-        .clamp(0, input_mode.max_offset())
+        if let Some(char_size) = input_mode.char_size()
+            && char_size > 0
+        {
+            (self
+                .binfixed_align_offset(input_mode, current_offset)
+                .saturating_add_signed(fixed_count as i64 * char_size as i64 * delta as i64))
+            .clamp(0, input_mode.max_offset())
+        } else {
+            // No fixed character size, so we have to move one character at a time.
+            if delta < 0 {
+                let mut offset = current_offset;
+                for _ in 0..(-delta) as u32 * fixed_count {
+                    offset = input_mode.previous_char_offset(offset);
+                }
+                offset
+            } else {
+                // Slightly more complicated logic when scrolling forward because we usually don't
+                // want to "scroll" past the start of the last line: it will cause the content to
+                // shift around.
+                let max_offset = input_mode.max_offset();
+                let mut line_offset = current_offset;
+                for _ in 0..delta {
+                    let mut offset = line_offset;
+                    for _ in 0..fixed_count {
+                        offset = input_mode.next_char_offset(offset);
+                        if !past_last_line && offset >= max_offset {
+                            return line_offset;
+                        }
+                    }
+                    line_offset = offset;
+                }
+                line_offset.clamp(0, max_offset)
+            }
+        }
     }
 
     fn binfixed_get_eol(&self, input_mode: &InputMode, start_of_line: u64) -> u64 {
-        self.binfixed_scroll_lines(input_mode, start_of_line, 1)
+        self.binfixed_scroll_lines(input_mode, start_of_line, 1, true)
     }
 }
 
