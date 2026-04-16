@@ -594,7 +594,6 @@ pub struct ViewerOptions {
 
     pub encoding: StringOption,
     pub fixed_font_name: StringOption,
-    pub variable_font_name: StringOption,
     pub font_size: U32Option,
     pub tab_size: U32Option,
     pub wrap_mode: BoolOption,
@@ -615,7 +614,6 @@ impl ViewerOptions {
             window_height: AppOption::simple(&settings, "window-height"),
             encoding: AppOption::simple(&settings, "charset"),
             fixed_font_name: AppOption::simple(&settings, "fixed-font-name"),
-            variable_font_name: AppOption::simple(&settings, "variable-font-name"),
             font_size: AppOption::simple(&settings, "font-size"),
             tab_size: AppOption::simple(&settings, "tab-size"),
             wrap_mode: AppOption::simple(&settings, "wrap-mode"),

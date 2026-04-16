@@ -1009,14 +1009,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
       <default>'Monospace'</default>
       <summary>Fixed font name</summary>
       <description>
-          Name of the default font with fixed character width.
-      </description>
-    </key>
-    <key name="variable-font-name" type="s">
-      <default>'Sans'</default>
-      <summary>Variable font name</summary>
-      <description>
-          Name of the default font with variable character width.
+          Name of the font with fixed character width.
       </description>
     </key>
     <key name="display-hex-offset" type="b">

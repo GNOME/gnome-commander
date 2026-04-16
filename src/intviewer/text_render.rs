@@ -43,7 +43,8 @@ mod imp {
         #[property(get, set = Self::set_display_mode, builder(TextRenderDisplayMode::default()))]
         display_mode: Cell<TextRenderDisplayMode>,
 
-        pub fixed_font_name: String,
+        #[property(get, set = Self::set_font_name)]
+        pub fixed_font_name: RefCell<String>,
         #[property(get, set = Self::set_font_size)]
         font_size: Cell<u32>,
         #[property(get, set = Self::set_tab_size)]
@@ -98,7 +99,7 @@ mod imp {
                 vscroll_policy: Cell::new(gtk::ScrollablePolicy::Minimum),
 
                 display_mode: Cell::default(),
-                fixed_font_name: String::from("Monospace"),
+                fixed_font_name: RefCell::new(String::from("Monospace")),
                 font_size: Cell::new(12),
                 tab_size: Cell::new(8),
                 wrap_mode: Default::default(),
@@ -490,6 +491,12 @@ mod imp {
                 ) as f64);
             }
 
+            self.obj().queue_draw();
+        }
+
+        fn set_font_name(&self, font_name: &str) {
+            self.fixed_font_name.replace(font_name.to_owned());
+            self.obj().setup_current_font();
             self.obj().queue_draw();
         }
 
@@ -1253,7 +1260,7 @@ impl TextRender {
 
     fn setup_current_font(&self) {
         self.setup_font(
-            &self.imp().fixed_font_name,
+            &self.imp().fixed_font_name.borrow(),
             NonZeroU32::new(self.font_size()).unwrap(),
         );
     }

@@ -3,7 +3,7 @@ Prerequisites
 
 Gnome Commander requires the following packages:
 
-- A working GNOME platform including glib 2.80, gtk 4.14, gio 2.0, and vte 0.76
+- A working GNOME platform including glib 2.80, gtk 4.14, gio 2.0, pangocairo and vte 0.76
 - meson
 
 Gnome Commander can also make use of the following packages:

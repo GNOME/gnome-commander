@@ -93,6 +93,8 @@ mod imp {
         #[property(get, set)]
         pub encoding: RefCell<String>,
         #[property(get, set)]
+        pub fixed_font_name: RefCell<String>,
+        #[property(get, set)]
         pub chars_per_line: Cell<i32>,
         #[property(get, set)]
         pub hexadecimal_offset: Cell<bool>,
@@ -137,6 +139,7 @@ mod imp {
                 Some(&ImageOperation::static_variant_type()),
                 |obj, _, p| obj.imp().image_operation(p),
             );
+            klass.install_property_action("viewer.fixed-font-name", "fixed-font-name");
             klass.install_property_action("viewer.chars-per-line", "chars-per-line");
             klass.install_property_action("viewer.hexadecimal-offset", "hexadecimal-offset");
             klass.install_property_action("viewer.metadata-visible", "metadata-visible");
@@ -180,6 +183,7 @@ mod imp {
 
                 wrap_lines: Cell::new(true),
                 encoding: Default::default(),
+                fixed_font_name: Default::default(),
                 hexadecimal_offset: Cell::new(true),
                 chars_per_line: Cell::new(20),
                 metadata_visible: Cell::new(true),
@@ -323,6 +327,16 @@ mod imp {
             options.encoding.bind(&*window, "encoding").build();
             window
                 .bind_property("encoding", &self.text_render, "encoding")
+                .bidirectional()
+                .sync_create()
+                .build();
+
+            options
+                .fixed_font_name
+                .bind(&*window, "fixed-font-name")
+                .build();
+            window
+                .bind_property("fixed-font-name", &self.text_render, "fixed-font-name")
                 .bidirectional()
                 .sync_create()
                 .build();
@@ -1026,6 +1040,7 @@ fn create_menu(display_mode: DisplayMode) -> gio::Menu {
     menu.submenu(
         gettext("_Settings"),
         gio::Menu::new()
+            .submenu(gettext("_Font"), create_font_menu())
             .submenu(
                 gettext("_Binary Mode"),
                 gio::Menu::new()
@@ -1067,4 +1082,20 @@ fn create_menu(display_mode: DisplayMode) -> gio::Menu {
             .item_accel(gettext("Quick _Help"), "viewer.quick-help", "F1")
             .item(gettext("_Keyboard Shortcuts"), "viewer.keyboard-shortcuts"),
     )
+}
+
+fn create_font_menu() -> gio::Menu {
+    let mut menu =
+        gio::Menu::new().item_param(gettext("_Default"), "viewer.fixed-font-name", "Monospace");
+    let families = pangocairo::FontMap::default().list_families();
+    for family in families {
+        if family.is_monospace() && !family.name().eq_ignore_ascii_case("Monospace") {
+            menu = menu.item_param(
+                family.name(),
+                "viewer.fixed-font-name",
+                family.name().as_str(),
+            );
+        }
+    }
+    menu
 }
