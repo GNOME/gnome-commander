@@ -209,8 +209,11 @@ mod imp {
                 #[weak(rename_to = imp)]
                 self,
                 move |inner| {
-                    if !inner.is_search_mode() && imp.obj().state() == STATE_SEARCHING {
-                        imp.stop_search();
+                    if !inner.is_search_mode() {
+                        if imp.obj().state() == STATE_SEARCHING {
+                            imp.stop_search();
+                        }
+                        imp.obj().emit_by_name::<()>("closed", &[]);
                     }
                 }
             ));
@@ -248,6 +251,7 @@ mod imp {
                         .param_types([bool::static_type()])
                         .build(),
                     glib::subclass::Signal::builder("abort").build(),
+                    glib::subclass::Signal::builder("closed").build(),
                 ]
             })
         }
@@ -426,6 +430,17 @@ impl SearchBar {
     {
         self.connect_closure(
             "abort",
+            false,
+            glib::closure_local!(move |this: &Self| { (callback)(this) }),
+        )
+    }
+
+    pub fn connect_closed<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self) + 'static,
+    {
+        self.connect_closure(
+            "closed",
             false,
             glib::closure_local!(move |this: &Self| { (callback)(this) }),
         )

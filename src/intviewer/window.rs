@@ -258,6 +258,13 @@ mod imp {
                                 });
                             }
                         ));
+                        self.searchbar.connect_closed(glib::clone!(
+                            #[weak(rename_to = imp)]
+                            self,
+                            move |_| {
+                                imp.text_render.grab_focus();
+                            }
+                        ));
                         &self.searchbar
                     })
                     .append(
