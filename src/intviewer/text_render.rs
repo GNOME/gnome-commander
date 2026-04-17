@@ -461,11 +461,15 @@ mod imp {
                         });
                     }
                     TextRenderDisplayMode::FixedWidth => {
-                        dp.set_fixed_count(
-                            self.fixed_limit.get()
-                                * self.input_mode.borrow().char_size().unwrap_or(1),
-                        );
-                        dp.set_mode(DataPresentationMode::Fixed);
+                        if let Some(char_size) = self.input_mode.borrow().char_size()
+                            && char_size > 0
+                        {
+                            dp.set_fixed_count(self.fixed_limit.get() * char_size);
+                            dp.set_mode(DataPresentationMode::Binary);
+                        } else {
+                            dp.set_fixed_count(self.fixed_limit.get());
+                            dp.set_mode(DataPresentationMode::Fixed);
+                        }
                     }
                     TextRenderDisplayMode::Hexdump => {
                         dp.set_fixed_count(HEXDUMP_FIXED_LIMIT);
@@ -540,14 +544,21 @@ mod imp {
                 }
             }
 
-            if let Some(vadjustment) = self.obj().vadjustment() {
-                vadjustment.set_value(self.data_presentation.borrow().align_offset_to_line_start(
-                    &self.input_mode.borrow(),
-                    self.obj().current_offset(),
-                ) as f64);
-            }
+            if self.display_mode.get() == TextRenderDisplayMode::FixedWidth {
+                // Encoding could change data presentation mode, do the necessary updates.
+                self.set_display_mode(self.display_mode.get());
+            } else {
+                if let Some(vadjustment) = self.obj().vadjustment() {
+                    vadjustment.set_value(
+                        self.data_presentation.borrow().align_offset_to_line_start(
+                            &self.input_mode.borrow(),
+                            self.obj().current_offset(),
+                        ) as f64,
+                    );
+                }
 
-            self.obj().queue_draw();
+                self.obj().queue_draw();
+            }
         }
 
         fn filter_undisplayable_chars(&self, input_mode: &mut InputMode) {

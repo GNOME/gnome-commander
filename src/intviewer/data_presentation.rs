@@ -291,13 +291,10 @@ impl DataPresentation {
         offset
     }
 
-    fn fixed_align_offset(&self, input_mode: &InputMode, offset: u64) -> u64 {
-        if input_mode.char_size().is_some_and(|size| size > 0) {
-            self.bin_align_offset(input_mode, offset)
-        } else {
-            // For variable-width encodings we just assume that the current offset is aligned.
-            offset
-        }
+    fn fixed_align_offset(&self, _input_mode: &InputMode, offset: u64) -> u64 {
+        // We cannot align the offset short of scanning the entire file, just take the current
+        // offset as line start.
+        offset
     }
 
     fn fixed_scroll_lines(
@@ -307,35 +304,30 @@ impl DataPresentation {
         delta: i32,
         past_last_line: bool,
     ) -> u64 {
-        if input_mode.char_size().is_some_and(|size| size > 0) {
-            self.bin_scroll_lines(input_mode, current_offset, delta)
-        } else {
-            // No fixed character size, so we have to move one character at a time.
-            let fixed_count = self.fixed_count.max(1);
-            if delta < 0 {
-                let mut offset = current_offset;
-                for _ in 0..(-delta) as u32 * fixed_count {
-                    offset = input_mode.previous_char_offset(offset);
-                }
-                offset
-            } else {
-                // Slightly more complicated logic when scrolling forward because we usually don't
-                // want to "scroll" past the start of the last line: it will cause the content to
-                // shift around.
-                let max_offset = input_mode.max_offset();
-                let mut line_offset = current_offset;
-                for _ in 0..delta {
-                    let mut offset = line_offset;
-                    for _ in 0..fixed_count {
-                        offset = input_mode.next_char_offset(offset);
-                        if !past_last_line && offset >= max_offset {
-                            return line_offset;
-                        }
-                    }
-                    line_offset = offset;
-                }
-                line_offset.clamp(0, max_offset)
+        let fixed_count = self.fixed_count.max(1);
+        if delta < 0 {
+            let mut offset = current_offset;
+            for _ in 0..(-delta) as u32 * fixed_count {
+                offset = input_mode.previous_char_offset(offset);
             }
+            offset
+        } else {
+            // Slightly more complicated logic when scrolling forward because we usually don't
+            // want to "scroll" past the start of the last line: it will cause the content to
+            // shift around.
+            let max_offset = input_mode.max_offset();
+            let mut line_offset = current_offset;
+            for _ in 0..delta {
+                let mut offset = line_offset;
+                for _ in 0..fixed_count {
+                    offset = input_mode.next_char_offset(offset);
+                    if !past_last_line && offset >= max_offset {
+                        return line_offset;
+                    }
+                }
+                line_offset = offset;
+            }
+            line_offset.clamp(0, max_offset)
         }
     }
 
