@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 /*
-    Code for OLE2 data processing comes from libextractor and is adjusted to GNOME Commander needs.
+    Code for OLE2 data processing comes from libextractor and is adjusted to Gnome Commander needs.
 
         src/plugins/ole2/ole2extractor.c - 2006-12-29
 

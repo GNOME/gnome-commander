@@ -268,9 +268,9 @@ pub mod imp {
             let mw = self.obj();
 
             mw.set_title(Some(&if uid() == 0 {
-                gettext("GNOME Commander — ROOT PRIVILEGES")
+                gettext("Gnome Commander — ROOT PRIVILEGES")
             } else {
-                gettext("GNOME Commander")
+                gettext("Gnome Commander")
             }));
             mw.set_icon_name(Some("gnome-commander"));
             mw.set_resizable(true);

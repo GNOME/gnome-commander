@@ -16,7 +16,7 @@ Gnome Commander can also make use of the following packages:
 
 The minimum version requirements can be found in the top-level meson.build.
 
-If you install GNOME Commander by manually compiling the sources, keep in
+If you install Gnome Commander by manually compiling the sources, keep in
 mind that on most Linux distributions you have to install the development
 packages for the above libraries to be found by the configure script.
 These packages are normaly indicated by a "-dev" or "-devel" suffix,

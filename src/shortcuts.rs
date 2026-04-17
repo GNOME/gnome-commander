@@ -43,7 +43,7 @@ impl Area {
             Self::Panel => gettext("Panels"),
             Self::CommandLine => gettext("Command Line"),
             Self::Terminal => gettext("Command Output"),
-            Self::MainWindow => gettext("GNOME Commander Window"),
+            Self::MainWindow => gettext("Gnome Commander Window"),
         }
     }
 
