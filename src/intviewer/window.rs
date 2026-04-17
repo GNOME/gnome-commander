@@ -460,7 +460,8 @@ mod imp {
 
         fn image_status_update(&self) {
             let Some(pixbuf) = self.image_render.origin_pixbuf() else {
-                self.status_label.set_text("");
+                self.status_label
+                    .set_text(&gettext("Could not recognize the image file format"));
                 return;
             };
 
