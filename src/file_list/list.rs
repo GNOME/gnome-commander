@@ -1726,13 +1726,19 @@ impl FileList {
         else {
             return false;
         };
-        let view_position = self.imp().items_iter().position(|item| item.file() == *f);
 
+        let was_focused = self
+            .root()
+            .as_ref()
+            .and_then(gtk::Root::focus)
+            .is_some_and(|widget| widget.is_ancestor(self));
         self.imp().store.remove(store_position as u32);
-        if let Some(view_position) = view_position {
-            self.select_row(view_position as u32);
-        }
         self.emit_files_changed();
+        if was_focused {
+            // Removing focused row makes Gtk transfer focus away from the list, restore it.
+            self.grab_focus();
+        }
+
         true
     }
 
