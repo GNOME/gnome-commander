@@ -6485,27 +6485,22 @@
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>F3</keycap></keycombo></entry>
             <entry><para>Sort by name</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>F4</keycap></keycombo></entry>
             <entry><para>Sort by extension</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>F5</keycap></keycombo></entry>
             <entry><para>Sort by date/time</para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><keycombo><keycap>CTRL</keycap><keycap>F6</keycap></keycombo></entry>
-            <entry><para>Sort by size</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top" rowsep="1">
-            <entry><keycombo><keycap>CTRL</keycap><keycap>F7</keycap></keycombo></entry>
-            <entry><para>Unsorted</para></entry>
-            <entry><para></para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>F6</keycap></keycombo></entry>
+            <entry><para>Sort by size</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top" rowsep="1">
             <entry><para><keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo></para></entry>
@@ -6551,15 +6546,20 @@
             <entry><para>Change to parent directory (cd ..)</para></entry>
             <entry><para>yes</para></entry>
         </row>
-        <row valign="top" rowsep="1">
+        <row valign="top">
             <entry><para><keycombo><keycap>RIGHT</keycap></keycombo></para>
                    <para><keycombo><keycap>CTRL</keycap><keycap>PageDown</keycap></keycombo></para></entry>
             <entry><para>Change directory</para></entry>
             <entry><para>yes</para></entry>
         </row>
+        <row valign="top" rowsep="1">
+            <entry><para><keycombo><keycap>ENTER</keycap></keycombo>(in panels)</para></entry>
+            <entry><para>Change directory or open file</para></entry>
+            <entry><para>yes</para></entry>
+        </row>
         <row valign="top">
-            <entry><para><keycombo><keycap>ENTER</keycap></keycombo></para></entry>
-            <entry><para>Change directory or execute command line if not empty</para></entry>
+            <entry><para><keycombo><keycap>ENTER</keycap></keycombo>(in command line)</para></entry>
+            <entry><para>Execute command line</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
@@ -6605,16 +6605,17 @@
                          the contents in this directory are counted and the size is shown in the "full" view instead of the string DIR</para></entry>
             <entry><para></para></entry>
         </row>
-        <row valign="top" rowsep="1">
+        <row valign="top">
             <entry><para><keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo></para></entry>
             <entry><para>Show properties for the selected file</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top" rowsep="1">
             <entry><para><keycombo><keycap>ALT</keycap><keycap>SHIFT</keycap><keycap>ENTER</keycap></keycombo></para></entry>
-            <entry><para>The contents of all directories in the current directory are counted. The sizes of the directories are then shown
-            in the "full" view instead of the string DIR</para></entry>
-            <entry><para></para></entry>
+            <entry><para>For each directory in the list, calculate the cumulative size of its contents
+                         and display it instead of the string DIR, like <keycap>SPACE</keycap> does for
+                         a single directory</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>DELETE</keycap></keycombo></para></entry>
@@ -6802,17 +6803,17 @@
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>P</keycap></keycombo></entry>
             <entry><para>The full path of the current directory is added to the command line</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>ENTER</keycap></keycombo></entry>
             <entry><para>The file name under the cursor in the source directory is added to the end of the command line</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top" rowsep="1">
             <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>ENTER</keycap></keycombo></entry>
             <entry><para>The file name under the cursor including its path is added to the end of the command line</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>CTRL</keycap><keycap>DOWN</keycap></keycombo></para>

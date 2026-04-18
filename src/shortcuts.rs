@@ -361,6 +361,18 @@ impl Shortcuts {
         self.register(Shortcut::ctrl_shift(Key::Tab), UserAction::ViewPrevTab);
         self.register(Shortcut::ctrl(Key::ISO_Left_Tab), UserAction::ViewNextTab);
         self.register(Shortcut::ctrl(Key::Tab), UserAction::ViewNextTab);
+        self.register(
+            Shortcut::alt_shift(Key::Return),
+            UserAction::CalculateDirectorySizes,
+        );
+        self.register(
+            Shortcut::alt_shift(Key::KP_Enter),
+            UserAction::CalculateDirectorySizes,
+        );
+        self.register(Shortcut::ctrl(Key::F3), UserAction::SortByName);
+        self.register(Shortcut::ctrl(Key::F4), UserAction::SortByExt);
+        self.register(Shortcut::ctrl(Key::F5), UserAction::SortByDate);
+        self.register(Shortcut::ctrl(Key::F6), UserAction::SortBySize);
         self.register(Shortcut::key(Key::ISO_Left_Tab), UserAction::SwitchPanels);
         self.register(Shortcut::key(Key::Tab), UserAction::SwitchPanels);
         self.register(Shortcut::ctrl(Key::U), UserAction::SwapPanes);
@@ -370,6 +382,25 @@ impl Shortcuts {
         self.register(Shortcut::ctrl_alt(Key::C), UserAction::GoToCmdline);
         self.register(Shortcut::ctrl_alt(Key::T), UserAction::GoToTerminal);
         self.register(Shortcut::key(Key::Escape), UserAction::ClearCmdline);
+        self.register(Shortcut::key(Key::Return), UserAction::OpenFile);
+        self.register(Shortcut::key(Key::KP_Enter), UserAction::OpenFile);
+        self.register(Shortcut::ctrl(Key::P), UserAction::AddCwdToCmdLine);
+        self.register(
+            Shortcut::ctrl(Key::Return),
+            UserAction::AddFileNameToCmdLine,
+        );
+        self.register(
+            Shortcut::ctrl(Key::KP_Enter),
+            UserAction::AddFileNameToCmdLine,
+        );
+        self.register(
+            Shortcut::ctrl_shift(Key::Return),
+            UserAction::AddFilePathToCmdLine,
+        );
+        self.register(
+            Shortcut::ctrl_shift(Key::KP_Enter),
+            UserAction::AddFilePathToCmdLine,
+        );
     }
 
     pub fn register(&self, accelerator: Shortcut, action: UserAction) {

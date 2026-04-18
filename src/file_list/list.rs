@@ -34,6 +34,7 @@ use gettextrs::{gettext, ngettext};
 use gtk::{gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
 use std::{
     collections::HashSet,
+    ffi::OsStr,
     path::{Path, PathBuf},
 };
 use strum::VariantArray;
@@ -60,15 +61,14 @@ mod imp {
             QuickSearchShortcut, RightMouseButtonMode,
         },
         utils::{
-            ALT, ALT_SHIFT, CONTROL, CONTROL_ALT, CONTROL_SHIFT, ListRowSelector, NO_MOD, SHIFT,
-            get_modifiers_state, permissions_to_numbers, permissions_to_text,
+            ALT, CONTROL, CONTROL_ALT, ListRowSelector, NO_MOD, SHIFT, get_modifiers_state,
+            permissions_to_numbers, permissions_to_text,
         },
         weak_map::WeakMap,
     };
     use std::{
         cell::{Cell, OnceCell, RefCell},
         collections::BTreeMap,
-        ffi::OsStr,
         rc::Rc,
         sync::OnceLock,
         time::Duration,
@@ -1046,25 +1046,6 @@ mod imp {
                     self.start_range_selection(true);
                     glib::Propagation::Proceed
                 }
-                (CONTROL, gdk::Key::P | gdk::Key::p) => {
-                    self.add_cwd_to_cmdline();
-                    glib::Propagation::Stop
-                }
-                (CONTROL, gdk::Key::Return | gdk::Key::KP_Enter) => {
-                    self.add_file_to_cmdline(false);
-                    glib::Propagation::Stop
-                }
-                (CONTROL_SHIFT, gdk::Key::Return | gdk::Key::KP_Enter) => {
-                    self.add_file_to_cmdline(true);
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::Return | gdk::Key::KP_Enter) => {
-                    let event_processed = self.obj().emit_by_name::<bool>("cmdline-execute", &[]);
-                    if !event_processed && let Some(file) = self.obj().focused_file() {
-                        self.obj().emit_by_name::<()>("file-activated", &[&file]);
-                    }
-                    glib::Propagation::Stop
-                }
                 (NO_MOD, gdk::Key::Shift_L | gdk::Key::Shift_R) => {
                     if !self.shift_down.get() {
                         self.range_selection_start
@@ -1081,26 +1062,6 @@ mod imp {
                 (SHIFT, gdk::Key::Tab | gdk::Key::ISO_Left_Tab) => glib::Propagation::Stop,
                 (SHIFT, gdk::Key::F10) => {
                     self.obj().show_file_popup(None);
-                    glib::Propagation::Stop
-                }
-                (ALT_SHIFT, gdk::Key::Return | gdk::Key::KP_Enter) => {
-                    self.obj().show_visible_tree_sizes();
-                    glib::Propagation::Stop
-                }
-                (CONTROL, gdk::Key::F3) => {
-                    self.obj().sort_by(ColumnID::COLUMN_NAME);
-                    glib::Propagation::Stop
-                }
-                (CONTROL, gdk::Key::F4) => {
-                    self.obj().sort_by(ColumnID::COLUMN_EXT);
-                    glib::Propagation::Stop
-                }
-                (CONTROL, gdk::Key::F5) => {
-                    self.obj().sort_by(ColumnID::COLUMN_DATE);
-                    glib::Propagation::Stop
-                }
-                (CONTROL, gdk::Key::F6) => {
-                    self.obj().sort_by(ColumnID::COLUMN_SIZE);
                     glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::Menu) => {
@@ -1237,30 +1198,6 @@ mod imp {
                 item.toggle_selected();
                 self.selection.items_changed(position, 1, 1);
                 self.obj().emit_files_changed();
-            }
-        }
-
-        fn add_to_cmdline(&self, value: impl AsRef<OsStr>) {
-            if let Some(text) = glib::shell_quote(value).to_str() {
-                self.obj().emit_by_name::<()>("cmdline-append", &[&text]);
-            }
-        }
-
-        fn add_cwd_to_cmdline(&self) {
-            if let Some(path) = self.obj().directory().and_then(|d| d.local_path()) {
-                self.add_to_cmdline(path);
-            }
-        }
-
-        fn add_file_to_cmdline(&self, fullpath: bool) {
-            if let Some(file) = self.obj().selected_file() {
-                if fullpath {
-                    if let Some(path) = file.local_path() {
-                        self.add_to_cmdline(path);
-                    }
-                } else {
-                    self.add_to_cmdline(file.name());
-                }
             }
         }
 
@@ -2329,7 +2266,7 @@ impl FileList {
         self.queue_draw();
     }
 
-    fn sort_by(&self, col: ColumnID) {
+    pub fn sort_by(&self, col: ColumnID) {
         let (current_col, current_direction) = self.sorting();
         let direction = if current_col == col {
             match current_direction {
@@ -2533,6 +2470,37 @@ impl FileList {
         );
         popover.present();
         popover.popup();
+    }
+
+    pub fn open_file(&self) {
+        let event_processed = self.emit_by_name::<bool>("cmdline-execute", &[]);
+        if !event_processed && let Some(file) = self.focused_file() {
+            self.emit_by_name::<()>("file-activated", &[&file]);
+        }
+    }
+
+    fn add_to_cmdline(&self, value: impl AsRef<OsStr>) {
+        if let Some(text) = glib::shell_quote(value).to_str() {
+            self.emit_by_name::<()>("cmdline-append", &[&text]);
+        }
+    }
+
+    pub fn add_cwd_to_cmdline(&self) {
+        if let Some(path) = self.directory().and_then(|d| d.local_path()) {
+            self.add_to_cmdline(path);
+        }
+    }
+
+    pub fn add_file_to_cmdline(&self, fullpath: bool) {
+        if let Some(file) = self.selected_file() {
+            if fullpath {
+                if let Some(path) = file.local_path() {
+                    self.add_to_cmdline(path);
+                }
+            } else {
+                self.add_to_cmdline(file.name());
+            }
+        }
     }
 }
 
