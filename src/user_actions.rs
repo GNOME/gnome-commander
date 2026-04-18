@@ -32,7 +32,7 @@ use crate::{
     },
     dir::Directory,
     file::{File, FileOps},
-    file_list::{list::FileList, quick_search::QuickSearchMode},
+    file_list::{list::{ColumnID, FileList}, quick_search::QuickSearchMode},
     libgcmd::file_actions::{FileActions, FileActionsExt},
     main_win::MainWindow,
     options::{ConfirmOptions, GeneralOptions, NetworkOptions, ProgramsOptions, SearchConfig},
@@ -971,6 +971,48 @@ async fn view_slide(main_win: MainWindow, percentage: i32) {
     main_win.set_slide(percentage);
 }
 
+async fn calculate_directory_sizes(main_win: MainWindow) {
+    main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .show_visible_tree_sizes();
+}
+
+fn sort_file_list(main_win: MainWindow, column: ColumnID) {
+    main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .sort_by(column);
+}
+
+async fn sort_by_name(main_win: MainWindow) {
+    sort_file_list(main_win, ColumnID::COLUMN_NAME);
+}
+
+async fn sort_by_ext(main_win: MainWindow) {
+    sort_file_list(main_win, ColumnID::COLUMN_EXT);
+}
+
+async fn sort_by_date(main_win: MainWindow) {
+    sort_file_list(main_win, ColumnID::COLUMN_DATE);
+}
+
+async fn sort_by_size(main_win: MainWindow) {
+    sort_file_list(main_win, ColumnID::COLUMN_SIZE);
+}
+
+async fn sort_by_perm(main_win: MainWindow) {
+    sort_file_list(main_win, ColumnID::COLUMN_PERM);
+}
+
+async fn sort_by_owner(main_win: MainWindow) {
+    sort_file_list(main_win, ColumnID::COLUMN_OWNER);
+}
+
+async fn sort_by_group(main_win: MainWindow) {
+    sort_file_list(main_win, ColumnID::COLUMN_GROUP);
+}
+
 /************** Bookmarks Menu **************/
 
 async fn bookmarks_add_current(main_win: MainWindow) {
@@ -1244,6 +1286,34 @@ async fn clear_cmdline(main_win: MainWindow) {
     if cmdline.is_visible() {
         cmdline.set_text("");
     }
+}
+
+async fn open_file(main_win: MainWindow) {
+    main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .open_file();
+}
+
+async fn add_cwd_to_cmdline(main_win: MainWindow) {
+    main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .add_cwd_to_cmdline();
+}
+
+async fn add_file_name_to_cmdline(main_win: MainWindow) {
+    main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .add_file_to_cmdline(false);
+}
+
+async fn add_file_path_to_cmdline(main_win: MainWindow) {
+    main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .add_file_to_cmdline(true);
 }
 
 trait Activatable {
@@ -1960,6 +2030,54 @@ user_actions! {
         view_slide,
     ),
 
+    CalculateDirectorySizes in Panel => (
+        "calculate-directory-sizes",
+        gettext("Calculate Size for All Directories"),
+        calculate_directory_sizes,
+    ),
+
+    SortByName in Panel => (
+        "sort-by-name",
+        gettext("Sort by Name"),
+        sort_by_name,
+    ),
+
+    SortByExt in Panel => (
+        "sort-by-ext",
+        gettext("Sort by Extension"),
+        sort_by_ext,
+    ),
+
+    SortByDate in Panel => (
+        "sort-by-date",
+        gettext("Sort by Date"),
+        sort_by_date,
+    ),
+
+    SortBySize in Panel => (
+        "sort-by-size",
+        gettext("Sort by Size"),
+        sort_by_size,
+    ),
+
+    SortByPerm in Panel => (
+        "sort-by-perm",
+        gettext("Sort by Permissions"),
+        sort_by_perm,
+    ),
+
+    SortByOwner in Panel => (
+        "sort-by-owner",
+        gettext("Sort by Owner"),
+        sort_by_owner,
+    ),
+
+    SortByGroup in Panel => (
+        "sort-by-group",
+        gettext("Sort by Group"),
+        sort_by_group,
+    ),
+
     // Bookmark actions
     BookmarksAddCurrent in Panel => (
         "bookmarks-add-current" | "bookmarks.add_current",
@@ -2116,5 +2234,29 @@ user_actions! {
         "clear-cmdline",
         gettext("Clear Command Line"),
         clear_cmdline,
+    ),
+
+    OpenFile in Panel => (
+        "open-file",
+        gettext("Open Current File"),
+        open_file,
+    ),
+
+    AddCwdToCmdLine in MainWindow => (
+        "add-cwd-to-cmdline",
+        gettext("Add Current Directory to Command Line"),
+        add_cwd_to_cmdline,
+    ),
+
+    AddFileNameToCmdLine in MainWindow => (
+        "add-file-name-to-cmdline",
+        gettext("Add Current File Name to Command Line"),
+        add_file_name_to_cmdline,
+    ),
+
+    AddFilePathToCmdLine in MainWindow => (
+        "add-file-path-to-cmdline",
+        gettext("Add Current File Path to Command Line"),
+        add_file_path_to_cmdline,
     ),
 }

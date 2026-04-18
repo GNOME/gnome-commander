@@ -30,10 +30,11 @@ use crate::{
     types::{ExtensionDisplayMode, GraphicalLayoutMode, SizeDisplayMode},
     utils::{ErrorMessage, size_to_string, time_to_string},
 };
-use gettextrs::{gettext, ngettext};
+use gettextrs::gettext;
 use gtk::{gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
 use std::{
     collections::HashSet,
+    ffi::OsStr,
     path::{Path, PathBuf},
 };
 use strum::VariantArray;
@@ -60,15 +61,14 @@ mod imp {
             QuickSearchShortcut, RightMouseButtonMode,
         },
         utils::{
-            ALT, ALT_SHIFT, CONTROL, CONTROL_ALT, CONTROL_SHIFT, ListRowSelector, NO_MOD, SHIFT,
-            get_modifiers_state, permissions_to_numbers, permissions_to_text,
+            ALT, CONTROL, CONTROL_ALT, ListRowSelector, NO_MOD, SHIFT, get_modifiers_state,
+            permissions_to_numbers, permissions_to_text,
         },
         weak_map::WeakMap,
     };
     use std::{
         cell::{Cell, OnceCell, RefCell},
         collections::BTreeMap,
-        ffi::OsStr,
         rc::Rc,
         sync::OnceLock,
         time::Duration,
@@ -1046,25 +1046,6 @@ mod imp {
                     self.start_range_selection(true);
                     glib::Propagation::Proceed
                 }
-                (CONTROL, gdk::Key::P | gdk::Key::p) => {
-                    self.add_cwd_to_cmdline();
-                    glib::Propagation::Stop
-                }
-                (CONTROL, gdk::Key::Return | gdk::Key::KP_Enter) => {
-                    self.add_file_to_cmdline(false);
-                    glib::Propagation::Stop
-                }
-                (CONTROL_SHIFT, gdk::Key::Return | gdk::Key::KP_Enter) => {
-                    self.add_file_to_cmdline(true);
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::Return | gdk::Key::KP_Enter) => {
-                    let event_processed = self.obj().emit_by_name::<bool>("cmdline-execute", &[]);
-                    if !event_processed && let Some(file) = self.obj().focused_file() {
-                        self.obj().emit_by_name::<()>("file-activated", &[&file]);
-                    }
-                    glib::Propagation::Stop
-                }
                 (NO_MOD, gdk::Key::Shift_L | gdk::Key::Shift_R) => {
                     if !self.shift_down.get() {
                         self.range_selection_start
@@ -1081,26 +1062,6 @@ mod imp {
                 (SHIFT, gdk::Key::Tab | gdk::Key::ISO_Left_Tab) => glib::Propagation::Stop,
                 (SHIFT, gdk::Key::F10) => {
                     self.obj().show_file_popup(None);
-                    glib::Propagation::Stop
-                }
-                (ALT_SHIFT, gdk::Key::Return | gdk::Key::KP_Enter) => {
-                    self.obj().show_visible_tree_sizes();
-                    glib::Propagation::Stop
-                }
-                (CONTROL, gdk::Key::F3) => {
-                    self.obj().sort_by(ColumnID::COLUMN_NAME);
-                    glib::Propagation::Stop
-                }
-                (CONTROL, gdk::Key::F4) => {
-                    self.obj().sort_by(ColumnID::COLUMN_EXT);
-                    glib::Propagation::Stop
-                }
-                (CONTROL, gdk::Key::F5) => {
-                    self.obj().sort_by(ColumnID::COLUMN_DATE);
-                    glib::Propagation::Stop
-                }
-                (CONTROL, gdk::Key::F6) => {
-                    self.obj().sort_by(ColumnID::COLUMN_SIZE);
                     glib::Propagation::Stop
                 }
                 (NO_MOD, gdk::Key::Menu) => {
@@ -1237,30 +1198,6 @@ mod imp {
                 item.toggle_selected();
                 self.selection.items_changed(position, 1, 1);
                 self.obj().emit_files_changed();
-            }
-        }
-
-        fn add_to_cmdline(&self, value: impl AsRef<OsStr>) {
-            if let Some(text) = glib::shell_quote(value).to_str() {
-                self.obj().emit_by_name::<()>("cmdline-append", &[&text]);
-            }
-        }
-
-        fn add_cwd_to_cmdline(&self) {
-            if let Some(path) = self.obj().directory().and_then(|d| d.local_path()) {
-                self.add_to_cmdline(path);
-            }
-        }
-
-        fn add_file_to_cmdline(&self, fullpath: bool) {
-            if let Some(file) = self.obj().selected_file() {
-                if fullpath {
-                    if let Some(path) = file.local_path() {
-                        self.add_to_cmdline(path);
-                    }
-                } else {
-                    self.add_to_cmdline(file.name());
-                }
             }
         }
 
@@ -1726,13 +1663,19 @@ impl FileList {
         else {
             return false;
         };
-        let view_position = self.imp().items_iter().position(|item| item.file() == *f);
 
+        let was_focused = self
+            .root()
+            .as_ref()
+            .and_then(gtk::Root::focus)
+            .is_some_and(|widget| widget.is_ancestor(self));
         self.imp().store.remove(store_position as u32);
-        if let Some(view_position) = view_position {
-            self.select_row(view_position as u32);
-        }
         self.emit_files_changed();
+        if was_focused {
+            // Removing focused row makes Gtk transfer focus away from the list, restore it.
+            self.grab_focus();
+        }
+
         true
     }
 
@@ -2205,24 +2148,20 @@ impl FileList {
     pub fn stats_str(&self, mode: SizeDisplayMode) -> String {
         let stats = self.stats();
 
-        let sentence1 = gettext("A total of {selected_bytes} has been selected.").replace(
-            "{selected_bytes}",
-            &size_to_string(stats.selected.bytes, mode),
-        );
+        let sentence1 = gettext("Selected {selected_bytes} of {total_bytes}.")
+            .replace(
+                "{selected_bytes}",
+                &size_to_string(stats.selected.bytes, mode),
+            )
+            .replace("{total_bytes}", &size_to_string(stats.total.bytes, mode));
 
-        let sentence2 = ngettext(
-            "{selected_files} file selected.",
-            "{selected_files} files selected.",
-            stats.selected.files as u32,
-        )
-        .replace("{selected_files}", &stats.selected.files.to_string());
+        let sentence2 = gettext("Files: {selected_files} of {total_files}.")
+            .replace("{selected_files}", &stats.selected.files.to_string())
+            .replace("{total_files}", &stats.total.files.to_string());
 
-        let sentence3 = ngettext(
-            "{selected_dirs} directory selected.",
-            "{selected_dirs} directories selected.",
-            stats.selected.directories as u32,
-        )
-        .replace("{selected_dirs}", &stats.selected.directories.to_string());
+        let sentence3 = gettext("Directories: {selected_dirs} of {total_dirs}.")
+            .replace("{selected_dirs}", &stats.selected.directories.to_string())
+            .replace("{total_dirs}", &stats.total.directories.to_string());
 
         format!("{sentence1} {sentence2} {sentence3}")
     }
@@ -2329,7 +2268,7 @@ impl FileList {
         self.queue_draw();
     }
 
-    fn sort_by(&self, col: ColumnID) {
+    pub fn sort_by(&self, col: ColumnID) {
         let (current_col, current_direction) = self.sorting();
         let direction = if current_col == col {
             match current_direction {
@@ -2533,6 +2472,37 @@ impl FileList {
         );
         popover.present();
         popover.popup();
+    }
+
+    pub fn open_file(&self) {
+        let event_processed = self.emit_by_name::<bool>("cmdline-execute", &[]);
+        if !event_processed && let Some(file) = self.focused_file() {
+            self.emit_by_name::<()>("file-activated", &[&file]);
+        }
+    }
+
+    fn add_to_cmdline(&self, value: impl AsRef<OsStr>) {
+        if let Some(text) = glib::shell_quote(value).to_str() {
+            self.emit_by_name::<()>("cmdline-append", &[&text]);
+        }
+    }
+
+    pub fn add_cwd_to_cmdline(&self) {
+        if let Some(path) = self.directory().and_then(|d| d.local_path()) {
+            self.add_to_cmdline(path);
+        }
+    }
+
+    pub fn add_file_to_cmdline(&self, fullpath: bool) {
+        if let Some(file) = self.selected_file() {
+            if fullpath {
+                if let Some(path) = file.local_path() {
+                    self.add_to_cmdline(path);
+                }
+            } else {
+                self.add_to_cmdline(file.name());
+            }
+        }
     }
 }
 
