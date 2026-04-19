@@ -13,18 +13,18 @@
   <id>org.gnome.gnome-commander</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0+</project_license>
-  <name>GNOME Commander</name>
+  <name>Gnome Commander</name>
   <summary>Dual-panel file manager</summary>
   <description>
     <p>
-      GNOME Commander is a “dual-panel” graphical file manager for the GNOME
-      desktop environment. It features separate tabs for each panel,
+      Gnome Commander is a “dual-panel” graphical file manager.
+      It features separate tabs for each panel,
       setting up custom device buttons, bookmark manager, fully integrated
       commandline, file quick search, an internal image viewer, a powerful
       batch renaming tool, and FTP and Samba access.
     </p>
     <p>
-      GNOME Commander aims to advanced users who like to focus on precise
+      Gnome Commander aims to advanced users who like to focus on precise
       file management, working in parallel through special applications,
       and running smart commands.
     </p>

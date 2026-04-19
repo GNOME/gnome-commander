@@ -5,7 +5,7 @@
   <!ENTITY appversion "1.19.0">
   <!ENTITY manrevision "1.19.0">
   <!ENTITY date "??? 2026">
-  <!ENTITY app "GNOME Commander">
+  <!ENTITY app "Gnome Commander">
 ]>
 <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
@@ -116,7 +116,7 @@
 <!-- to V3.0, and so on. -->
     <revhistory>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.3;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.3;</revnumber>
         <date>2006-12-11</date>
         <revdescription>
           <para role="author">Piotr Eljasiak
@@ -125,7 +125,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.4;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.4;</revnumber>
         <date>2007-06-09</date>
         <revdescription>
           <para role="author">Piotr Eljasiak
@@ -134,7 +134,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.5;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.5;</revnumber>
         <date>2008-02-29</date>
         <revdescription>
           <para role="author">Piotr Eljasiak
@@ -143,7 +143,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.6;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.6;</revnumber>
         <date>2008-06-01</date>
         <revdescription>
           <para role="author">Piotr Eljasiak
@@ -152,7 +152,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.7;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.7;</revnumber>
         <date>2008-07-28</date>
         <revdescription>
           <para role="author">Piotr Eljasiak
@@ -161,7 +161,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.8;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.8;</revnumber>
         <date>2009-06-29</date>
         <revdescription>
           <para role="author">Piotr Eljasiak
@@ -170,7 +170,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.8.1;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.8.1;</revnumber>
         <date>2009-08-10</date>
         <revdescription>
           <para role="author">Piotr Eljasiak
@@ -179,7 +179,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.8.2;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.8.2;</revnumber>
         <date>2009-09-22</date>
         <revdescription>
           <para role="author">Piotr Eljasiak
@@ -188,7 +188,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.8.3;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.8.3;</revnumber>
         <date>2009-10-28</date>
         <revdescription>
           <para role="author">Piotr Eljasiak
@@ -197,7 +197,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.8.4;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.8.4;</revnumber>
         <date>2009-12-03</date>
         <revdescription>
           <para role="author">Piotr Eljasiak
@@ -206,7 +206,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.8.5;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.8.5;</revnumber>
         <date>2010-02-13</date>
         <revdescription>
           <para role="author">Piotr Eljasiak
@@ -215,7 +215,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.8.6;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.8.6;</revnumber>
         <date>2010-06-01</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
@@ -225,7 +225,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.8.7;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.8.7;</revnumber>
         <date>2010-07-27</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
@@ -235,7 +235,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.8.8;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.8.8;</revnumber>
         <date>2010-09-09</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
@@ -245,7 +245,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.8.9;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.8.9;</revnumber>
         <date>2010-12-03</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
@@ -255,7 +255,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.8.10;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.8.10;</revnumber>
         <date>2011-01-15</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
@@ -265,7 +265,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.8.11;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.8.11;</revnumber>
         <date>2011-05-01</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
@@ -275,7 +275,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.8.12;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.8.12;</revnumber>
         <date>2011-06-15</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
@@ -285,7 +285,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.8.13;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.8.13;</revnumber>
         <date>2011-08-06</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
@@ -295,7 +295,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.8.14;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.8.14;</revnumber>
         <date>2011-10-04</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
@@ -305,7 +305,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.2.8.15;</revnumber>
+        <revnumber>Gnome Commander Manual V1.2.8.15;</revnumber>
         <date>2011-12-06</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
@@ -315,7 +315,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.4;</revnumber>
+        <revnumber>Gnome Commander Manual V1.4;</revnumber>
         <date>2014-03-17</date>
         <revdescription>
           <para role="author">Laurent Coudeur
@@ -330,7 +330,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.4.1;</revnumber>
+        <revnumber>Gnome Commander Manual V1.4.1;</revnumber>
         <date>2014-04-05</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -339,7 +339,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.4.2;</revnumber>
+        <revnumber>Gnome Commander Manual V1.4.2;</revnumber>
         <date>2014-05-23</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -348,7 +348,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.4.3;</revnumber>
+        <revnumber>Gnome Commander Manual V1.4.3;</revnumber>
         <date>2014-06-22</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -357,7 +357,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.4.4;</revnumber>
+        <revnumber>Gnome Commander Manual V1.4.4;</revnumber>
         <date>2014-11-11</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -366,7 +366,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.4.5;</revnumber>
+        <revnumber>Gnome Commander Manual V1.4.5;</revnumber>
         <date>2015-01-24</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -375,7 +375,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.4.6;</revnumber>
+        <revnumber>Gnome Commander Manual V1.4.6;</revnumber>
         <date>2015-05-19</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -384,7 +384,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.4.7;</revnumber>
+        <revnumber>Gnome Commander Manual V1.4.7;</revnumber>
         <date>2014-05-30</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -393,7 +393,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.4.8;</revnumber>
+        <revnumber>Gnome Commander Manual V1.4.8;</revnumber>
         <date>2016-03-14</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -402,7 +402,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.6.0;</revnumber>
+        <revnumber>Gnome Commander Manual V1.6.0;</revnumber>
         <date>2016-10-04</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -411,7 +411,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.6.1;</revnumber>
+        <revnumber>Gnome Commander Manual V1.6.1;</revnumber>
         <date>2016-10-18</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -420,7 +420,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.6.2;</revnumber>
+        <revnumber>Gnome Commander Manual V1.6.2;</revnumber>
         <date>2016-11-06</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -429,7 +429,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.6.3;</revnumber>
+        <revnumber>Gnome Commander Manual V1.6.3;</revnumber>
         <date>2017-02-26</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -438,7 +438,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.6.4;</revnumber>
+        <revnumber>Gnome Commander Manual V1.6.4;</revnumber>
         <date>2017-05-28</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -447,7 +447,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.8.0;</revnumber>
+        <revnumber>Gnome Commander Manual V1.8.0;</revnumber>
         <date>2017-08-10</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -456,7 +456,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.8.1;</revnumber>
+        <revnumber>Gnome Commander Manual V1.8.1;</revnumber>
         <date>2018-03-04</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -465,7 +465,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.10.0;</revnumber>
+        <revnumber>Gnome Commander Manual V1.10.0;</revnumber>
         <date>2019-03-31</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -474,7 +474,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.10.1;</revnumber>
+        <revnumber>Gnome Commander Manual V1.10.1;</revnumber>
         <date>2019-05-12</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -483,7 +483,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.10.2;</revnumber>
+        <revnumber>Gnome Commander Manual V1.10.2;</revnumber>
         <date>2019-05-16</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -492,7 +492,7 @@
         </revdescription>
       </revision>
        <revision>
-        <revnumber>GNOME Commander Manual V1.10.3;</revnumber>
+        <revnumber>Gnome Commander Manual V1.10.3;</revnumber>
         <date>2020-06-19</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -501,7 +501,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.12.0;</revnumber>
+        <revnumber>Gnome Commander Manual V1.12.0;</revnumber>
         <date>2021-03-25</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -510,7 +510,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.12.1;</revnumber>
+        <revnumber>Gnome Commander Manual V1.12.1;</revnumber>
         <date>2021-04-17</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -519,7 +519,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.12.2;</revnumber>
+        <revnumber>Gnome Commander Manual V1.12.2;</revnumber>
         <date>2021-05-29</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -528,7 +528,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.12.3;</revnumber>
+        <revnumber>Gnome Commander Manual V1.12.3;</revnumber>
         <date>2021-11-20</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -537,7 +537,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.12.3.1;</revnumber>
+        <revnumber>Gnome Commander Manual V1.12.3.1;</revnumber>
         <date>2021-11-21</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -546,7 +546,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.14.0;</revnumber>
+        <revnumber>Gnome Commander Manual V1.14.0;</revnumber>
         <date>2022-02-05</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -555,7 +555,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.14.1;</revnumber>
+        <revnumber>Gnome Commander Manual V1.14.1;</revnumber>
         <date>2022-03-01</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -564,7 +564,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.14.2;</revnumber>
+        <revnumber>Gnome Commander Manual V1.14.2;</revnumber>
         <date>2022-03-27</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -573,7 +573,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.14.3;</revnumber>
+        <revnumber>Gnome Commander Manual V1.14.3;</revnumber>
         <date>2022-06-18</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -582,7 +582,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.16.0;</revnumber>
+        <revnumber>Gnome Commander Manual V1.16.0;</revnumber>
         <date>2023-01-22</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -591,7 +591,7 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.17.0;</revnumber>
+        <revnumber>Gnome Commander Manual V1.17.0;</revnumber>
         <date>2023-12-31</date>
         <revdescription>
           <para role="author">Uwe Scholz
@@ -608,7 +608,7 @@
 <!-- Translators may also add here feedback address for translations -->
     </legalnotice>
     <abstract role="description">
-      <para>&app; is a lightweight and fast file manager for the GNOME desktop.</para>
+      <para>&app; is a lightweight and fast file manager.</para>
     </abstract>
   </articleinfo>
   <indexterm zone="index">
@@ -623,7 +623,7 @@
 <!-- Use the Introduction section to give a brief overview of what the application is and what it does. -->
   <sect1 id="gnome-commander-introduction">
     <title>Introduction</title>
-    <para>The &app; application is a fast and powerful graphical file manager for the GNOME desktop environment,
+    <para>The &app; application is a fast and powerful graphical file manager,
     it has a &quot;two-pane&quot; interface based on the orthodox file manager (OFM) principle,
     in the tradition of Norton and Midnight Commander.
 

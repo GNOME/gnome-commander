@@ -1246,10 +1246,10 @@ Copyright \u{00A9} 2026 Wladimir Palant";
     gtk::AboutDialog::builder()
         .transient_for(&main_win)
         .modal(true)
-        .name("GNOME Commander")
+        .name("Gnome Commander")
         .version(PACKAGE_VERSION)
         .comments(gettext(
-            "A fast and powerful file manager for the GNOME desktop",
+            "A fast and powerful file manager",
         ))
         .copyright(copyright)
         .license_type(gtk::License::Gpl30)
@@ -1258,7 +1258,7 @@ Copyright \u{00A9} 2026 Wladimir Palant";
         .logo_icon_name(PACKAGE_NAME)
         .translator_credits(gettext("translator-credits"))
         .website("https://gcmd.github.io")
-        .website_label("GNOME Commander Website")
+        .website_label("Gnome Commander Website")
         .build()
         .present();
 }
@@ -2195,7 +2195,7 @@ user_actions! {
 
     HelpWeb in MainWindow => (
         "help-web" | "help.web",
-        gettext("GNOME Commander on the _Web"),
+        gettext("Gnome Commander on the _Web"),
         help_web,
     ),
 
