@@ -1,12 +1,19 @@
-Gnome Commander has seen many great developers and contributors since its inception and we thank them all.
+Gnome Commander has seen many great developers and contributors
+since its inception and we thank them all:
 
-The Gnome Commander project is currently maintained by:
+Marcus Bjurman
+Piotr Eljasiak (†)
+Uwe Scholz
+Andrey Kutejko
+Wladimir Palant
+Daniel Mustieles
+Marek Černocký
+Mario Blättermann
+Piotr Drąg
+Yuri Chornoivan
+...
 
-    Uwe Scholz <u.scholz83@gmx.de>
+and many more. A list of all contributors to the Git repository
+of Gnome Commander can be viewed with the command
 
-
-A list of contributors to the Git repository of Gnome Commander can be viewed with the command
-
-	git shortlog -s -n --no-merges
-
-after cloning the git repository from https://gitlab.gnome.org/GNOME/gnome-commander
+git shortlog -s -n --no-merges
