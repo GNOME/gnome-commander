@@ -13,7 +13,7 @@ see the file [COPYING](COPYING) for more information.
 
 Check the list of [releases](https://gitlab.gnome.org/GNOME/gnome-commander/-/releases) to see what has changed in each version.
 
-## Scripts for the file popup menu
+### Scripts for the file popup menu
 
 Under this [link](https://gitlab.gnome.org/GNOME/gnome-commander/tree/main/gcmd-scripts) some sample scripts can be found.
 Move them into `~/.gnome-commander/scripts/` to extend the file popup menu.
