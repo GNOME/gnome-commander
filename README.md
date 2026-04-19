@@ -9,29 +9,20 @@ Gnome Commander is a fast and powerful twin-panel file manager for the Linux des
 ![ScreenShot](https://gitlab.gnome.org/GNOME/gnome-commander/-/raw/main/doc/C/figures/gnome-commander_window.png)
 
 Gnome Commander is released under the GNU General Public License (GPL) version 3,
-see the file ``COPYING`` for more information.
+see the file [COPYING](COPYING) for more information.
 
-The online available Git log contains a detailed description on what has changed
-in each version. For program users the metainfo file might be a better place to
-look since it contains change summaries between the different versions.
+Check the list of [releases](https://gitlab.gnome.org/GNOME/gnome-commander/-/releases) to see what has changed in each version.
 
-Generate a human readable version of the metainfo file with the following command:
-  `appstream-util appdata-to-news data/org.gnome.gnome-commander.metainfo.xml`
+## Scripts for the file popup menu
 
-* Website with more information: https://gcmd.github.io/
+Under this [link](https://gitlab.gnome.org/GNOME/gnome-commander/tree/main/gcmd-scripts) some sample scripts can be found.
+Move them into `~/.gnome-commander/scripts/` to extend the file popup menu.
+
 
 ### Mailing lists ###
 
 * https://lists.nongnu.org/mailman/listinfo/gcmd-users → for users
 * https://lists.nongnu.org/mailman/listinfo/gcmd-devel → for developers
-
-### Distribution packages ###
-
-Gnome Commander is
-[available in distributions](https://gcmd.github.io/download.html#external)
-like Fedora, Gentoo, Arch, etc.
-
-You can also download tarball releases from the [Gnome download server](https://download.gnome.org/sources/gnome-commander/).
 
 ## Contributing ##
 
@@ -42,11 +33,12 @@ should check the list of open [issues marked as feature](https://gitlab.gnome.or
 
 ### Translations ###
 
-It would be great if you could help translating using [damned lies](https://l10n.gnome.org/).
+If you are interested in improving the translation, check this [link](https://welcome.gnome.org/team/translation/).
 
 ### Cool hacks ###
 
-Have a look in the [Gnome Wiki](https://wiki.gnome.org/GitLab#GitLab_workflow_for_code_contribution) how to contribute with new lines of code.
+Have a look in the [Gnome Wiki](https://wiki.gnome.org/GitLab#GitLab_workflow_for_code_contribution)
+how to contribute with new lines of code.
 
 Don't forget to write a good explanation of what your patch does.
 
@@ -75,7 +67,8 @@ for detailed information regarding the installation of Gnome Commander.
 ### Problem reporting ###
 
 Bugs should be reported on [Gnome GitLab](https://gitlab.gnome.org/GNOME/gnome-commander/issues).
-You will need to create an account for yourself.
+
+First, have a look at the list of known bugs on GitLab before opening a new issue there.
 
 In the bug report please include:
 
@@ -83,7 +76,7 @@ In the bug report please include:
 For instance:
   * What operating system and version
   * What desktop environment
-  * What version of the gtk+, glib and gnome libraries
+  * What version of the gtk+, glib and Rust libraries
 * How to reproduce the bug.
 * If the bug was a crash, the exact text that was printed out when the
   crash occurred.
@@ -91,8 +84,6 @@ For instance:
   necessary. If you do send a stack trace, and the error is an X error,
   it will be more useful if the stack trace is produced running the test
   program with the --sync command line option.
-
-Also, have a look at the list of known bugs on GitLab before opening a new bug.
 
 ### Tip for working with git ###
 
