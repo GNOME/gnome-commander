@@ -606,7 +606,7 @@ mod imp {
                         .set_scale_factor(TEXT_SCALE_FACTORS[DEFAULT_TEXT_SCALE_INDEX]);
                 }
                 DisplayMode::Image => {
-                    self.image_render.set_best_fit(true);
+                    self.image_render.set_best_fit(false);
                     self.current_scale_index.set(DEFAULT_IMAGE_SCALE_INDEX);
                     self.image_render.set_scale_factor(1.0);
                 }
