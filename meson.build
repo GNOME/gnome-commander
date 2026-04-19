@@ -101,10 +101,9 @@ gio       = dependency('gio-2.0', version: '>=' + GIO_REQ)
 gtk       = dependency('gtk4', version: '>=' + GTK_REQ)
 vte       = dependency('vte-2.91-gtk4', version: '>=' + VTE_REQ)
 pixbuf    = dependency('gdk-pixbuf-2.0')
-pangocairo= dependency('pangocairo')
 
 common_deps = [
-  glib, gmodule, gio, gobject, gtk, vte, pangocairo
+  glib, gmodule, gio, gobject, gtk, vte
 ]
 
 ##### Optional dependencies #####

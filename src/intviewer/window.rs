@@ -18,13 +18,20 @@ use gettextrs::{gettext, ngettext};
 use gtk::{
     gio,
     glib::{self, translate::*},
+    pango,
     prelude::*,
     subclass::prelude::*,
 };
 
+const TEXT_SCALE_FACTORS: &[f64] = &[
+    0.3, 0.5, 0.67, 0.8, 0.9, 1.0, 1.1, 1.2, 1.33, 1.5, 1.7, 2.0, 2.4, 3.0, 4.0, 5.0,
+];
+const DEFAULT_TEXT_SCALE_INDEX: usize = 5;
+
 const IMAGE_SCALE_FACTORS: &[f64] = &[
     0.1, 0.2, 0.33, 0.5, 0.67, 1.0, 1.25, 1.50, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0,
 ];
+const DEFAULT_IMAGE_SCALE_INDEX: usize = 5;
 
 u32_enum! {
     pub enum DisplayMode {
@@ -93,7 +100,7 @@ mod imp {
         #[property(get, set)]
         pub encoding: RefCell<String>,
         #[property(get, set)]
-        pub fixed_font_name: RefCell<String>,
+        pub monospaced_font: RefCell<String>,
         #[property(get, set)]
         pub chars_per_line: Cell<i32>,
         #[property(get, set)]
@@ -139,7 +146,9 @@ mod imp {
                 Some(&ImageOperation::static_variant_type()),
                 |obj, _, p| obj.imp().image_operation(p),
             );
-            klass.install_property_action("viewer.fixed-font-name", "fixed-font-name");
+            klass.install_action_async("viewer.choose-font", None, async |obj, _, _| {
+                obj.imp().choose_font().await
+            });
             klass.install_property_action("viewer.chars-per-line", "chars-per-line");
             klass.install_property_action("viewer.hexadecimal-offset", "hexadecimal-offset");
             klass.install_property_action("viewer.metadata-visible", "metadata-visible");
@@ -177,13 +186,13 @@ mod imp {
 
                 file: Default::default(),
                 searchbar: SearchBar::new(),
-                current_scale_index: Cell::new(5),
+                current_scale_index: Cell::new(DEFAULT_IMAGE_SCALE_INDEX),
                 img_initialized: Default::default(),
                 display_mode: Cell::new(display_mode),
 
                 wrap_lines: Cell::new(true),
                 encoding: Default::default(),
-                fixed_font_name: Default::default(),
+                monospaced_font: Default::default(),
                 hexadecimal_offset: Cell::new(true),
                 chars_per_line: Cell::new(20),
                 metadata_visible: Cell::new(true),
@@ -311,10 +320,6 @@ mod imp {
 
             remember_window_size(&*window, &options.window_width, &options.window_height);
 
-            options
-                .font_size
-                .bind(&self.text_render, "font-size")
-                .build();
             options.tab_size.bind(&self.text_render, "tab-size").build();
 
             options.wrap_mode.bind(&*window, "wrap-lines").build();
@@ -332,11 +337,11 @@ mod imp {
                 .build();
 
             options
-                .fixed_font_name
-                .bind(&*window, "fixed-font-name")
+                .monospaced_font
+                .bind(&*window, "monospaced-font")
                 .build();
             window
-                .bind_property("fixed-font-name", &self.text_render, "fixed-font-name")
+                .bind_property("monospaced-font", &self.text_render, "monospaced-font")
                 .bidirectional()
                 .sync_create()
                 .build();
@@ -448,6 +453,8 @@ mod imp {
             let column =
                 gettext("Column: {}").replace("{}", &self.text_render.column().to_string());
 
+            let scale = format!("{}%", (self.text_render.scale_factor() * 100.0) as i64);
+
             let wrap = if self.text_render.wrap_mode() {
                 &gettext("Wrap")
             } else {
@@ -455,7 +462,7 @@ mod imp {
             };
 
             self.status_label
-                .set_text(&format!("{position}\t{column}\t{wrap}"));
+                .set_text(&format!("{position}\t{column}\t{scale}\t{wrap}"));
         }
 
         fn image_status_update(&self) {
@@ -505,9 +512,14 @@ mod imp {
         fn zoom_in(&self) {
             match self.display_mode.get() {
                 DisplayMode::Text | DisplayMode::FixedWidth | DisplayMode::Hexdump => {
-                    let size = self.text_render.font_size();
-                    if size != 0 && size <= 32 {
-                        self.text_render.set_font_size(size + 1);
+                    let current_factor = self.text_render.scale_factor();
+                    let current_index = TEXT_SCALE_FACTORS
+                        .iter()
+                        .position(|f| *f == current_factor)
+                        .unwrap_or(DEFAULT_TEXT_SCALE_INDEX);
+                    if current_index < TEXT_SCALE_FACTORS.len() - 1 {
+                        self.text_render
+                            .set_scale_factor(TEXT_SCALE_FACTORS[current_index + 1]);
                     }
                 }
                 DisplayMode::Image => {
@@ -543,9 +555,14 @@ mod imp {
         fn zoom_out(&self) {
             match self.display_mode.get() {
                 DisplayMode::Text | DisplayMode::FixedWidth | DisplayMode::Hexdump => {
-                    let size = self.text_render.font_size();
-                    if size >= 4 {
-                        self.text_render.set_font_size(size - 1);
+                    let current_factor = self.text_render.scale_factor();
+                    let current_index = TEXT_SCALE_FACTORS
+                        .iter()
+                        .position(|f| *f == current_factor)
+                        .unwrap_or(DEFAULT_TEXT_SCALE_INDEX);
+                    if current_index > 0 {
+                        self.text_render
+                            .set_scale_factor(TEXT_SCALE_FACTORS[current_index - 1]);
                     }
                 }
                 DisplayMode::Image => {
@@ -581,11 +598,12 @@ mod imp {
         fn zoom_normal(&self) {
             match self.display_mode.get() {
                 DisplayMode::Text | DisplayMode::FixedWidth | DisplayMode::Hexdump => {
-                    self.text_render.set_font_size(12);
+                    self.text_render
+                        .set_scale_factor(TEXT_SCALE_FACTORS[DEFAULT_TEXT_SCALE_INDEX]);
                 }
                 DisplayMode::Image => {
                     self.image_render.set_best_fit(true);
-                    self.current_scale_index.set(5); // index of 1.0 in IMAGE_SCALE_FACTORS
+                    self.current_scale_index.set(DEFAULT_IMAGE_SCALE_INDEX);
                     self.image_render.set_scale_factor(1.0);
                 }
             }
@@ -746,6 +764,36 @@ mod imp {
             };
             self.image_render.operation(operation);
             self.image_render.queue_draw();
+        }
+
+        async fn choose_font(&self) {
+            let dialog = gtk::FontDialog::builder().modal(true).build();
+            dialog.set_filter(Some(&gtk::CustomFilter::new(|font| {
+                if let Some(family) = font.downcast_ref::<pango::FontFamily>() {
+                    family.is_monospace()
+                } else if let Some(face) = font.downcast_ref::<pango::FontFace>() {
+                    face.family().is_monospace()
+                } else {
+                    eprintln!(
+                        "Font filter received unexpected object type {}",
+                        font.type_()
+                    );
+                    true
+                }
+            })));
+
+            let font = pango::FontDescription::from_string(&self.monospaced_font.borrow());
+            match dialog
+                .choose_font_future(Some(&*self.obj()), Some(&font))
+                .await
+            {
+                Ok(font) => self.obj().set_monospaced_font(&*font.to_str()),
+                Err(error) => {
+                    if !error.matches(gtk::DialogError::Dismissed) {
+                        eprintln!("Failed choosing font: {error}");
+                    }
+                }
+            }
         }
 
         fn key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
@@ -1041,7 +1089,7 @@ fn create_menu(display_mode: DisplayMode) -> gio::Menu {
     menu.submenu(
         gettext("_Settings"),
         gio::Menu::new()
-            .submenu(gettext("_Font"), create_font_menu())
+            .item(gettext("_Font…"), "viewer.choose-font")
             .submenu(
                 gettext("Fixed _Width Mode"),
                 gio::Menu::new()
@@ -1083,20 +1131,4 @@ fn create_menu(display_mode: DisplayMode) -> gio::Menu {
             .item_accel(gettext("Quick _Help"), "viewer.quick-help", "F1")
             .item(gettext("_Keyboard Shortcuts"), "viewer.keyboard-shortcuts"),
     )
-}
-
-fn create_font_menu() -> gio::Menu {
-    let mut menu =
-        gio::Menu::new().item_param(gettext("_Default"), "viewer.fixed-font-name", "Monospace");
-    let families = pangocairo::FontMap::default().list_families();
-    for family in families {
-        if family.is_monospace() && !family.name().eq_ignore_ascii_case("Monospace") {
-            menu = menu.item_param(
-                family.name(),
-                "viewer.fixed-font-name",
-                family.name().as_str(),
-            );
-        }
-    }
-    menu
 }

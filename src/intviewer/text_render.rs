@@ -9,7 +9,7 @@ use crate::{
     utils::{CONTROL, Max, NO_MOD},
 };
 use gtk::{gdk, glib, graphene, pango, prelude::*, subclass::prelude::*};
-use std::{num::NonZeroU32, path::Path, sync::Arc};
+use std::{path::Path, sync::Arc};
 
 const HEXDUMP_FIXED_LIMIT: u32 = 16;
 
@@ -43,10 +43,10 @@ mod imp {
         #[property(get, set = Self::set_display_mode, builder(TextRenderDisplayMode::default()))]
         display_mode: Cell<TextRenderDisplayMode>,
 
-        #[property(get, set = Self::set_font_name)]
-        pub fixed_font_name: RefCell<String>,
-        #[property(get, set = Self::set_font_size)]
-        font_size: Cell<u32>,
+        pub font_desc: RefCell<pango::FontDescription>,
+        #[property(get, set = Self::set_monospaced_font)]
+        pub(super) monospaced_font: RefCell<String>,
+        pub(super) scale_factor: Cell<f64>,
         #[property(get, set = Self::set_tab_size)]
         tab_size: Cell<u32>,
         #[property(get, set = Self::set_wrap_mode)]
@@ -77,7 +77,6 @@ mod imp {
 
         pub char_width: Cell<i32>,
         pub char_height: Cell<i32>,
-        pub font_desc: RefCell<Option<pango::FontDescription>>,
     }
 
     #[glib::object_subclass]
@@ -88,6 +87,7 @@ mod imp {
         type Interfaces = (gtk::Scrollable,);
 
         fn new() -> Self {
+            let monospaced_font = String::from("Monospace 12");
             Self {
                 hadjustment: Default::default(),
                 hadjustment_handler_ids: Default::default(),
@@ -99,8 +99,9 @@ mod imp {
                 vscroll_policy: Cell::new(gtk::ScrollablePolicy::Minimum),
 
                 display_mode: Cell::default(),
-                fixed_font_name: RefCell::new(String::from("Monospace")),
-                font_size: Cell::new(12),
+                font_desc: RefCell::new(pango::FontDescription::from_string(&monospaced_font)),
+                monospaced_font: RefCell::new(monospaced_font),
+                scale_factor: Cell::new(1.0),
                 tab_size: Cell::new(8),
                 wrap_mode: Default::default(),
                 encoding: RefCell::new(String::from("ASCII")),
@@ -122,7 +123,6 @@ mod imp {
 
                 char_width: Default::default(),
                 char_height: Default::default(),
-                font_desc: Default::default(),
             }
         }
     }
@@ -492,14 +492,8 @@ mod imp {
             self.obj().queue_draw();
         }
 
-        fn set_font_name(&self, font_name: &str) {
-            self.fixed_font_name.replace(font_name.to_owned());
-            self.obj().setup_current_font();
-            self.obj().queue_draw();
-        }
-
-        fn set_font_size(&self, font_size: u32) {
-            self.font_size.set(font_size.max(4));
+        fn set_monospaced_font(&self, font: &str) {
+            self.monospaced_font.replace(font.to_owned());
             self.obj().setup_current_font();
             self.obj().queue_draw();
         }
@@ -563,7 +557,7 @@ mod imp {
 
         fn filter_undisplayable_chars(&self, input_mode: &mut InputMode) {
             let layout = self.obj().create_pango_layout(None);
-            layout.set_font_description(self.font_desc.borrow().as_ref());
+            layout.set_font_description(Some(&*self.font_desc.borrow()));
             input_mode.adjust_invisible_characters(move |ch| {
                 ch != '\0' && {
                     layout.set_text(&ch.to_string());
@@ -826,7 +820,7 @@ mod imp {
             display_options: &DisplayOptions,
         ) {
             let layout = self.obj().create_pango_layout(None);
-            layout.set_font_description(self.font_desc.borrow().as_ref());
+            layout.set_font_description(Some(&*self.font_desc.borrow()));
 
             let marked: MinMax<u32> = chars
                 .iter()
@@ -965,7 +959,7 @@ mod imp {
             display_options_alternate: &DisplayOptions,
         ) {
             let layout = self.obj().create_pango_layout(None);
-            layout.set_font_description(self.font_desc.borrow().as_ref());
+            layout.set_font_description(Some(&*self.font_desc.borrow()));
             layout.set_text(&if self.hexadecimal_offset.get() {
                 format!("{:08X}", start_of_line)
             } else {
@@ -1144,6 +1138,16 @@ impl TextRender {
         glib::Object::builder().build()
     }
 
+    pub fn scale_factor(&self) -> f64 {
+        self.imp().scale_factor.get()
+    }
+
+    pub fn set_scale_factor(&self, factor: f64) {
+        self.imp().scale_factor.set(factor.max(0.1));
+        self.setup_current_font();
+        self.queue_draw();
+    }
+
     pub fn ensure_offset_visible(&self, offset: u64) {
         let dp = self.imp().data_presentation.borrow();
         let input_mode = self.imp().input_mode.borrow();
@@ -1265,18 +1269,16 @@ impl TextRender {
     }
 
     fn setup_current_font(&self) {
-        self.setup_font(
-            &self.imp().fixed_font_name.borrow(),
-            NonZeroU32::new(self.font_size()).unwrap(),
-        );
+        let mut font = pango::FontDescription::from_string(&self.imp().monospaced_font.borrow());
+        font.set_size((font.size() as f64 * self.scale_factor()) as i32);
+        self.setup_font(font);
     }
 
-    fn setup_font(&self, fontname: &str, fontsize: NonZeroU32) {
-        let new_desc = pango::FontDescription::from_string(&format!("{fontname} {fontsize}"));
+    fn setup_font(&self, new_desc: pango::FontDescription) {
         let (char_width, char_height) = get_max_char_width_and_height(self.upcast_ref(), &new_desc);
         self.imp().char_width.set(char_width);
         self.imp().char_height.set(char_height);
-        self.imp().font_desc.replace(Some(new_desc));
+        self.imp().font_desc.replace(new_desc);
 
         let width = self.width();
         let height = self.height();
