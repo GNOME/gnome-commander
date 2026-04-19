@@ -43,7 +43,11 @@ mod imp {
             let obj = self.obj();
             obj.set_width_request(60);
             obj.set_secondary_icon_name(Some("gnome-commander-down"));
-            obj.connect_icon_press(|obj, _| obj.show_history());
+            obj.connect_icon_press(|obj, icon_pos| {
+                if icon_pos == gtk::EntryIconPosition::Secondary {
+                    obj.show_history();
+                }
+            });
 
             let list =
                 gtk::ListView::new(Some(self.selection.clone()), Some(history_item_factory()));

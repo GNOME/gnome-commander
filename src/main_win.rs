@@ -299,7 +299,10 @@ pub mod imp {
                 if gtk::prelude::GtkWindowExt::focus(mw)
                     .is_some_and(|widget| widget.widget_name() == "GtkPopoverMenuBarItem")
                 {
-                    // Individual menu bar items should never be focused, return focus to the file list
+                    // Individual menu bar items should never be focused, return focus to the
+                    // content area. This is quite a hack to compensate for Gtk's shortcomings but
+                    // worst-case scenario is that this won't work in some future Gtk version and
+                    // focus simply remains on the menu requiring the user to click.
                     mw.focus_file_lists();
                 }
             });

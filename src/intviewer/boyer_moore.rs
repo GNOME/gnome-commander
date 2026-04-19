@@ -14,23 +14,25 @@ pub struct BoyerMoore<T: Eq + Hash + Copy> {
 }
 
 impl<T: Eq + Hash + Copy> BoyerMoore<T> {
-    pub fn new(pattern: Vec<T>, eq_class: Box<dyn EqClass<T> + Send + Sync>) -> Option<Self> {
-        if pattern.is_empty() {
-            return None;
-        }
-        Some(Self {
+    pub fn new(pattern: Vec<T>, eq_class: Box<dyn EqClass<T> + Send + Sync>) -> Self {
+        assert!(!pattern.is_empty());
+
+        Self {
             good: good_suffix_table(&pattern, &|a, b| eq_class.equal(a, b)),
             bad: compute_bad_map(&pattern, &*eq_class),
             pattern,
             eq_class,
-        })
+        }
     }
 
     pub fn advancement(&self, pattern_index: usize, value: &T) -> usize {
         let m = self.pattern.len();
         usize::max(
             self.good[pattern_index],
-            self.bad.get(value).unwrap_or(&m) + 1 + pattern_index - m,
+            self.bad
+                .get(value)
+                .unwrap_or(&m)
+                .saturating_sub(m - 1 - pattern_index),
         )
     }
 
@@ -59,6 +61,7 @@ pub trait EqClass<T> {
     fn normal(&self, a: &T) -> T;
 }
 
+#[derive(Debug, PartialEq, Eq)]
 pub enum ScanResult {
     Match(usize),
     NoMatch(usize),
@@ -86,7 +89,7 @@ fn suffix_table<T>(pattern: &[T], eq: &dyn Fn(&T, &T) -> bool) -> Vec<usize> {
     }
     let mut f = 0;
     // This implementation differs from the classical one.
-    // instead of a variable `g` it uses `g1` which is greated then `g` by one.
+    // instead of a variable `g` it uses `g1` which is greater than `g` by one.
     // `g1` cannot be negative (and be stored as `usize`) while `g` may become -1 sometimes.
     let mut g1 = m;
     for i in (0..=(m - 2)).rev() {
@@ -130,23 +133,16 @@ fn compute_bad_map<T: Eq + Hash>(pattern: &[T], eq_class: &dyn EqClass<T>) -> Ha
     let m = pattern.len();
     let mut bad = HashMap::new();
     for (i, el) in pattern[..m - 1].iter().enumerate() {
-        bad.insert(eq_class.normal(el), m - i - 1);
+        bad.insert(eq_class.normal(el), m - 1 - i);
     }
     bad
 }
 
-pub fn boyer_moore_bytes_new(pattern: Vec<u8>) -> Option<BoyerMoore<u8>> {
-    BoyerMoore::<u8>::new(pattern, Box::new(SimpleEqClass::<u8>::default()))
-}
-
-pub fn boyer_moore_string_new(pattern: &str, case_sensitive: bool) -> Option<BoyerMoore<char>> {
-    if pattern.is_empty() {
-        return None;
-    }
-    BoyerMoore::new(
-        pattern.chars().collect::<Vec<_>>(),
+pub fn boyer_moore_bytes_new(pattern: Vec<u8>, case_sensitive: bool) -> BoyerMoore<u8> {
+    BoyerMoore::<u8>::new(
+        pattern,
         if case_sensitive {
-            Box::new(SimpleEqClass::<char>::default())
+            Box::new(SimpleEqClass::<u8>::default())
         } else {
             Box::new(AsciiCaseFold)
         },
@@ -155,13 +151,13 @@ pub fn boyer_moore_string_new(pattern: &str, case_sensitive: bool) -> Option<Boy
 
 pub struct AsciiCaseFold;
 
-impl EqClass<char> for AsciiCaseFold {
-    fn equal(&self, a: &char, b: &char) -> bool {
+impl EqClass<u8> for AsciiCaseFold {
+    fn equal(&self, a: &u8, b: &u8) -> bool {
         a.eq_ignore_ascii_case(b)
     }
 
-    fn normal(&self, a: &char) -> char {
-        a.to_ascii_uppercase()
+    fn normal(&self, a: &u8) -> u8 {
+        a.to_ascii_lowercase()
     }
 }
 
@@ -234,6 +230,12 @@ mod test {
     }
 
     #[test]
+    #[should_panic]
+    fn match_bytes_empty_pattern() {
+        boyer_moore_bytes_new(vec![], true);
+    }
+
+    #[test]
     fn match_bytes_test() {
         const PATTERN: &[u8] = &[0x01, 0x04, 0xB4, 0xFE, 0x01, 0x01, 0x04];
         const TEXT: &[u8] = &[
@@ -259,7 +261,7 @@ mod test {
             0x01, 0x04, 0xb4, 0xfe, 0x01, 0x01, 0x04, 0x00,
         ];
 
-        let bm = boyer_moore_bytes_new(PATTERN.to_vec()).unwrap();
+        let bm = boyer_moore_bytes_new(PATTERN.to_vec(), true);
 
         assert_eq!(bm.good, vec![5, 5, 5, 5, 5, 7, 1]);
 
@@ -322,17 +324,16 @@ mod test {
             "French:",
             "Les na\u{00EF} fs \u{00E6}githales h\u{00E2}tifs pondant \u{00E0} No\u{00EB}l o\u{00F9} il g\u{00E8}le sont s\u{00FB}rs d'\u{00EA}tre d\u{00E9}\u{00E7}us et de voir leurs dr\u{00F4}les d'\u{0153}ufs ab\u{00EE}m\u{00E9}s.",
         );
-        let ct_text: Vec<char> = TEXT.chars().collect();
 
-        let bm = boyer_moore_string_new(PATTERN, false).unwrap();
+        let bm = boyer_moore_bytes_new(PATTERN.as_bytes().to_vec(), false);
 
         // Do the actual search
         let m = bm.pattern.len();
-        let n = ct_text.len();
+        let n = TEXT.len();
         let mut j = 0;
         let mut found = Vec::new();
         while j <= n - m {
-            match bm.scan(&ct_text[j..(j + m)]) {
+            match bm.scan(&TEXT.as_bytes()[j..(j + m)]) {
                 Ok(ScanResult::Match(advancement)) => {
                     found.push(j);
                     j += advancement;
@@ -346,6 +347,27 @@ mod test {
             }
         }
 
-        assert_eq!(&found, &[217]);
+        assert_eq!(&found, &[245]);
+    }
+
+    #[test]
+    fn match_advancement() {
+        fn scan(pattern: &str, text: &str) -> Result<ScanResult, ()> {
+            let bm = boyer_moore_bytes_new(pattern.as_bytes().to_vec(), true);
+            bm.scan(text.as_bytes())
+        }
+
+        // good: 3
+        assert_eq!(scan("test", "test"), Ok(ScanResult::Match(3)));
+        // good: 3, bad: 1
+        assert_eq!(scan("test", "ttst"), Ok(ScanResult::NoMatch(3)));
+        // good: 4, bad: 2
+        assert_eq!(scan("xest", "ttst"), Ok(ScanResult::NoMatch(4)));
+        // good: 3, bad: -2
+        assert_eq!(scan("test", "sest"), Ok(ScanResult::NoMatch(3)));
+        // good: 4, bad: -2
+        assert_eq!(scan("esttest", "abcsest"), Ok(ScanResult::NoMatch(4)));
+        // good: 3, bad: 4
+        assert_eq!(scan("zastest", "abxyzst"), Ok(ScanResult::NoMatch(4)));
     }
 }

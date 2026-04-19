@@ -269,7 +269,7 @@ pub async fn show_options_dialog(parent_window: &MainWindow) -> bool {
     // open the tab which was active when closing the options notebook last time
     static LAST_ACTIVE_TAB: Mutex<u32> = Mutex::new(0);
     let notebook = &dialog.imp().notebook;
-    notebook.set_current_page(None);    // making sure our page change handler is triggered
+    notebook.set_current_page(None); // making sure our page change handler is triggered
     notebook.set_current_page(Some(LAST_ACTIVE_TAB.lock().map(|g| *g).unwrap_or_default()));
 
     let result = dialog.receiver().recv().await == Ok(true);

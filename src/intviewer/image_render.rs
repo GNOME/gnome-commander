@@ -1,7 +1,9 @@
 // SPDX-FileCopyrightText: 2025 Andrey Kutejko <andy128k@gmail.com>
+// SPDX-FileCopyrightText: 2026 Wladimir Palant https://palant.info/
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+use crate::utils::u32_enum;
 use gtk::{gdk, gdk_pixbuf, glib, graphene, prelude::*, subclass::prelude::*};
 use std::path::Path;
 
@@ -357,6 +359,10 @@ pub mod imp {
         }
 
         fn button_press(&self, n_press: i32, x: f64, y: f64, button: u32) {
+            if !self.obj().has_focus() {
+                self.obj().grab_focus();
+            }
+
             if n_press == 1 && self.drag_state.borrow().is_none() {
                 self.drag_state.replace(Some(DragState { button, x, y }));
             }
@@ -468,6 +474,7 @@ pub mod imp {
             }
 
             self.update_adjustments();
+            self.obj().notify_status_changed();
         }
 
         fn update_adjustments(&self) {
@@ -561,6 +568,18 @@ impl ImageRender {
         }
     }
 
+    pub fn real_scale_factor(&self) -> f64 {
+        let original_pixbuf = self.imp().original_pixbuf.borrow();
+        let display_pixbuf = self.imp().display_pixbuf.borrow();
+        if let Some(original_pixbuf) = original_pixbuf.as_ref()
+            && let Some(display_pixbuf) = display_pixbuf.as_ref()
+        {
+            display_pixbuf.width() as f64 / original_pixbuf.width() as f64
+        } else {
+            1.0
+        }
+    }
+
     pub fn notify_status_changed(&self) {
         self.emit_by_name::<()>("image-status-changed", &[]);
     }
@@ -577,12 +596,13 @@ impl ImageRender {
     }
 }
 
-#[derive(Clone, Copy, strum::FromRepr)]
-#[repr(i32)]
-pub enum ImageOperation {
-    RotateClockwise,
-    RotateCounterclockwise,
-    RotateUpsideDown,
-    FlipVertical,
-    FlipHorizontal,
+u32_enum! {
+    pub enum ImageOperation {
+        #[default]
+        RotateClockwise,
+        RotateCounterclockwise,
+        RotateUpsideDown,
+        FlipVertical,
+        FlipHorizontal,
+    }
 }

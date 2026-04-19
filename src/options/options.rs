@@ -12,7 +12,7 @@ use crate::{
     file_selector::{LegacyTabVariant, TabVariant},
     filter::PatternType,
     history::History,
-    intviewer::search_dialog::Mode,
+    intviewer::search_bar::Mode,
     layout::{
         PREF_COLORS,
         color_themes::{ColorTheme, ColorThemeId, load_custom_theme, save_custom_theme},
@@ -593,9 +593,7 @@ pub struct ViewerOptions {
     pub window_height: U32Option,
 
     pub encoding: StringOption,
-    pub fixed_font_name: StringOption,
-    pub variable_font_name: StringOption,
-    pub font_size: U32Option,
+    pub monospaced_font: StringOption,
     pub tab_size: U32Option,
     pub wrap_mode: BoolOption,
     pub binary_bytes_per_line: U32Option,
@@ -614,9 +612,7 @@ impl ViewerOptions {
             window_width: AppOption::simple(&settings, "window-width"),
             window_height: AppOption::simple(&settings, "window-height"),
             encoding: AppOption::simple(&settings, "charset"),
-            fixed_font_name: AppOption::simple(&settings, "fixed-font-name"),
-            variable_font_name: AppOption::simple(&settings, "variable-font-name"),
-            font_size: AppOption::simple(&settings, "font-size"),
+            monospaced_font: AppOption::simple(&settings, "monospaced-font"),
             tab_size: AppOption::simple(&settings, "tab-size"),
             wrap_mode: AppOption::simple(&settings, "wrap-mode"),
             binary_bytes_per_line: AppOption::simple(&settings, "binary-bytes-per-line"),
@@ -627,5 +623,22 @@ impl ViewerOptions {
             case_sensitive_search: AppOption::simple(&settings, "case-sensitive-search"),
             search_mode: AppOption::new(&settings, "search-mode", enum_convert_strum!(Mode)),
         }
+    }
+
+    pub fn add_to_history(&self, text: &str, mode: Mode) -> WriteResult {
+        const INTVIEWER_HISTORY_SIZE: usize = 16;
+
+        let option = match mode {
+            Mode::Text => &self.search_pattern_text,
+            Mode::Binary => &self.search_pattern_hex,
+        };
+
+        let mut history = option.get();
+        if history.first().is_some_and(|s| s == text) {
+            return Ok(());
+        }
+        history.insert(0, text.to_owned());
+        history.truncate(INTVIEWER_HISTORY_SIZE);
+        option.set(history)
     }
 }

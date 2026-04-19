@@ -469,10 +469,25 @@ pub fn grid_attach(
 pub trait MenuBuilderExt {
     fn item(self, label: impl Into<String>, detailed_action: impl AsRef<str>) -> Self;
 
+    fn item_param(
+        self,
+        label: impl Into<String>,
+        action: impl AsRef<str>,
+        param: impl glib::variant::ToVariant,
+    ) -> Self;
+
     fn item_accel(
         self,
         label: impl Into<String>,
         detailed_action: impl AsRef<str>,
+        accel: &str,
+    ) -> Self;
+
+    fn item_param_accel(
+        self,
+        label: impl Into<String>,
+        action: impl AsRef<str>,
+        param: impl glib::variant::ToVariant,
         accel: &str,
     ) -> Self;
 
@@ -489,6 +504,18 @@ impl MenuBuilderExt for gio::Menu {
         self
     }
 
+    fn item_param(
+        self,
+        label: impl Into<String>,
+        action: impl AsRef<str>,
+        param: impl glib::variant::ToVariant,
+    ) -> Self {
+        let item = gio::MenuItem::new(Some(&label.into()), None);
+        item.set_action_and_target_value(Some(action.as_ref()), Some(&param.to_variant()));
+        self.append_item(&item);
+        self
+    }
+
     fn item_accel(
         self,
         label: impl Into<String>,
@@ -496,6 +523,20 @@ impl MenuBuilderExt for gio::Menu {
         accel: &str,
     ) -> Self {
         let item = gio::MenuItem::new(Some(&label.into()), Some(detailed_action.as_ref()));
+        item.set_attribute_value("accel", Some(&accel.to_variant()));
+        self.append_item(&item);
+        self
+    }
+
+    fn item_param_accel(
+        self,
+        label: impl Into<String>,
+        action: impl AsRef<str>,
+        param: impl glib::variant::ToVariant,
+        accel: &str,
+    ) -> Self {
+        let item = gio::MenuItem::new(Some(&label.into()), None);
+        item.set_action_and_target_value(Some(action.as_ref()), Some(&param.to_variant()));
         item.set_attribute_value("accel", Some(&accel.to_variant()));
         self.append_item(&item);
         self
@@ -602,6 +643,54 @@ impl GnomeCmdFileExt for gio::File {
             (_, Some(error)) => Err(error),
         }
     }
+}
+
+/// A helper class allowing to chain modifications for a `gtk::Box`.
+pub struct BoxBuilder {
+    inner: gtk::Box,
+}
+
+impl BoxBuilder {
+    pub fn append(self, child: &impl IsA<gtk::Widget>) -> Self {
+        self.inner.append(child);
+        self
+    }
+
+    pub fn add_css_class(self, css_class: &str) -> Self {
+        self.inner.add_css_class(css_class);
+        self
+    }
+
+    pub fn build(self) -> gtk::Box {
+        self.inner
+    }
+}
+
+impl From<gtk::Box> for BoxBuilder {
+    fn from(inner: gtk::Box) -> Self {
+        Self { inner }
+    }
+}
+
+impl From<BoxBuilder> for gtk::Box {
+    fn from(builder: BoxBuilder) -> Self {
+        builder.inner
+    }
+}
+
+/// Creates a `BoxBuilder` instance for a box with arbitrary orientation.
+fn box_builder(orientation: gtk::Orientation) -> BoxBuilder {
+    gtk::Box::builder().orientation(orientation).build().into()
+}
+
+/// Creates a `BoxBuilder` instance for a box with horizontal orientation.
+pub fn hbox_builder() -> BoxBuilder {
+    box_builder(gtk::Orientation::Horizontal)
+}
+
+/// Creates a `BoxBuilder` instance for a box with vertical orientation.
+pub fn vbox_builder() -> BoxBuilder {
+    box_builder(gtk::Orientation::Vertical)
 }
 
 /// Gtk doesn't allow changing focused row while the list isn't focused, things end up in an

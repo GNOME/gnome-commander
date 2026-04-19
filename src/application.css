@@ -23,6 +23,14 @@
     border-spacing: 12px;
 }
 
+box.spacing {
+    border-spacing: 6px;
+}
+
+box.offset {
+    margin: 0 12px;
+}
+
 frame.flat {
     border: none;
 }
