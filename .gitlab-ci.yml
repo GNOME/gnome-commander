@@ -1,0 +1,10 @@
+image: alpine:latest
+
+website:
+  script:
+    - echo 'Deploying website...'
+  artifacts:
+    paths:
+      - public
+  pages: true
+
