@@ -4,12 +4,9 @@ The Gnome Commander project is currently maintained by:
 
     Uwe Scholz <u.scholz83@gmx.de>
 
-A list of contributers to the sources of Gnome Commander can be viewed with the command
+
+A list of contributors to the Git repository of Gnome Commander can be viewed with the command
 
 	git shortlog -s -n --no-merges
 
 after cloning the git repository from https://gitlab.gnome.org/GNOME/gnome-commander
-
-Additional contributors:
-
-- Dennis Gert Rebentrost <rebentrostde@gmail.com> ("Select all files" button)
