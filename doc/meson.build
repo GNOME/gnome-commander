@@ -34,7 +34,7 @@ media = [
 install_man('gnome-commander.1')
 
 install_data(
-  ['keys.txt', 'internal_viewer_hacking.txt'],
+  ['internal_viewer_hacking.txt'],
   install_dir : get_option('datadir') / meson.project_name()
 )
 
