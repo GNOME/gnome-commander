@@ -474,6 +474,7 @@ pub mod imp {
             }
 
             self.update_adjustments();
+            self.obj().notify_status_changed();
         }
 
         fn update_adjustments(&self) {

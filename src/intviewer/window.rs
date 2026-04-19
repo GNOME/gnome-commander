@@ -490,7 +490,11 @@ mod imp {
             let scale = if !self.image_render.best_fit() {
                 format!("{}%", (self.image_render.scale_factor() * 100.0) as i64)
             } else {
-                gettext("(fit to window)")
+                format!(
+                    "{}%\t{}",
+                    (self.image_render.real_scale_factor() * 100.0) as i64,
+                    gettext("(fit to window)")
+                )
             };
 
             self.status_label
