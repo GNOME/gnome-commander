@@ -790,8 +790,9 @@ impl<A: PartialOrd + Ord + Clone> FromIterator<A> for MinMax<A> {
     }
 }
 
-pub trait EnumAll {
-    fn all() -> impl Iterator<Item = Self>;
+#[allow(dead_code)] // used by unit tests
+pub trait IterableEnum {
+    fn iter() -> impl Iterator<Item = Self>;
 }
 
 /// Defines an enum type that can be represented as a u32 value. One of the enum variants has to
@@ -801,7 +802,7 @@ macro_rules! u32_enum {
     ($(#[$type_meta:meta])* $vis:vis enum $type:ident {
         $($(#[$meta:meta])* $variant:ident,)+
     }) => {
-        #[derive(Debug, Copy, Clone, PartialEq, Eq, Default)]
+        #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Default)]
         #[derive(::gtk::glib::ValueDelegate, ::gtk::glib::Variant)]
         #[value_delegate(from = u32)]
         #[variant_enum(repr)]
@@ -809,6 +810,24 @@ macro_rules! u32_enum {
         $(#[$type_meta])*
         $vis enum $type {
             $($(#[$meta])* $variant,)+
+        }
+
+        #[allow(dead_code)]
+        impl $type {
+            pub fn all() -> impl Iterator<Item=Self> {
+                $(
+                    let _max_index: u32 = Self::$variant.into();
+                )*
+                (0..=_max_index).map(|n| Self::from(n))
+            }
+
+            pub const fn count() -> usize {
+                let count = 0;
+                $(
+                    let count = (count + 1, Self::$variant).0;
+                )*
+                count
+            }
         }
 
         impl From<$type> for u32 {
@@ -832,12 +851,9 @@ macro_rules! u32_enum {
             }
         }
 
-        impl $crate::utils::EnumAll for $type {
-            fn all() -> impl Iterator<Item=Self> {
-                $(
-                    let _max_index: u32 = Self::$variant.into();
-                )*
-                (0..=_max_index).map(|n| Self::from(n))
+        impl $crate::utils::IterableEnum for $type {
+            fn iter() -> impl Iterator<Item = Self> {
+                Self::all()
             }
         }
     }

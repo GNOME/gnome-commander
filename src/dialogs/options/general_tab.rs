@@ -281,14 +281,8 @@ impl GeneralTab {
     pub fn read(&self, options: &GeneralOptions) {
         radio_group_set_value(
             [
-                (
-                    &self.lmb_single_click,
-                    LeftMouseButtonMode::OpensWithSingleClick,
-                ),
-                (
-                    &self.lmb_double_click,
-                    LeftMouseButtonMode::OpensWithDoubleClick,
-                ),
+                (&self.lmb_single_click, LeftMouseButtonMode::SingleClick),
+                (&self.lmb_double_click, LeftMouseButtonMode::DoubleClick),
             ],
             options.left_mouse_button_mode.get(),
         );
@@ -340,14 +334,8 @@ impl GeneralTab {
 
     pub fn write(&self, options: &GeneralOptions) -> WriteResult {
         options.left_mouse_button_mode.set(radio_group_get_value([
-            (
-                &self.lmb_single_click,
-                LeftMouseButtonMode::OpensWithSingleClick,
-            ),
-            (
-                &self.lmb_double_click,
-                LeftMouseButtonMode::OpensWithDoubleClick,
-            ),
+            (&self.lmb_single_click, LeftMouseButtonMode::SingleClick),
+            (&self.lmb_double_click, LeftMouseButtonMode::DoubleClick),
         ]))?;
         options
             .left_mouse_button_unselects

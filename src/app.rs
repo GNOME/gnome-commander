@@ -8,20 +8,20 @@ use crate::{
     file::FileOps,
     options::{GeneralOptions, ProgramsOptions, types::WriteResult},
     spawn::{parse_command_template, spawn_async_command},
-    utils::{ErrorMessage, make_run_in_terminal_command},
+    utils::{ErrorMessage, make_run_in_terminal_command, u32_enum},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, prelude::*};
 use std::{borrow::Cow, ffi::OsString, path::PathBuf};
 
-#[repr(i32)]
-#[derive(Default, Clone, Copy, PartialEq, Eq, Debug, glib::Variant, strum::FromRepr)]
-pub enum AppTarget {
-    #[default]
-    AllFiles = 0,
-    AllDirs,
-    AllDirsAndFiles,
-    SomeFiles,
+u32_enum! {
+    pub enum AppTarget {
+        #[default]
+        AllFiles,
+        AllDirs,
+        AllDirsAndFiles,
+        SomeFiles,
+    }
 }
 
 pub trait AppExt {
@@ -290,12 +290,7 @@ pub fn load_favorite_apps(options: &GeneralOptions) -> Vec<UserDefinedApp> {
                 .filter(|p| !p.is_empty())
                 .map(PathBuf::from),
             pattern_string: app.pattern_string,
-            target: app
-                .target
-                .try_into()
-                .ok()
-                .and_then(AppTarget::from_repr)
-                .unwrap_or_default(),
+            target: app.target.into(),
             handles_uris: app.handles_uris,
             handles_multiple: app.handles_multiple,
             requires_terminal: app.requires_terminal,

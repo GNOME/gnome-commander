@@ -13,44 +13,19 @@ mod test {
             GraphicalLayoutMode, LeftMouseButtonMode, MiddleMouseButtonMode, PermissionDisplayMode,
             QuickSearchShortcut, RightMouseButtonMode, SizeDisplayMode,
         },
-        utils::EnumAll,
+        utils::IterableEnum,
     };
-    use gtk::prelude::*;
 
-    fn enum_xml(type_: glib::Type, indent: &str) -> String {
-        let enum_class = glib::EnumClass::with_type(type_).unwrap();
-
-        let mut xml = String::new();
-        xml.push_str(indent);
-
-        xml.push_str(&format!(
-            "<enum id=\"org.gnome.gnome-commander.{}\">\n",
-            type_.name()
-        ));
-        for enum_value in enum_class.values() {
-            xml.push_str(&format!(
-                "{}  <value nick=\"{}\" value=\"{}\"/>\n",
-                indent,
-                enum_value.nick(),
-                enum_value.value()
-            ));
-        }
-        xml.push_str(indent);
-        xml.push_str("</enum>\n");
-
-        xml
-    }
-
-    fn enum_xml_iterable<T>(name: &str, indent: &str) -> String
+    fn enum_xml<T>(name: &str, indent: &str) -> String
     where
-        T: EnumAll + std::fmt::Debug,
+        T: IterableEnum + std::fmt::Debug,
         u32: From<T>,
     {
         let mut xml = String::new();
         xml.push_str(indent);
 
         xml.push_str(&format!("<enum id=\"org.gnome.gnome-commander.{name}\">\n",));
-        for variant in T::all() {
+        for variant in T::iter() {
             let mut nick = format!("{variant:?}");
 
             // Convert CamelCase to kebab-case
@@ -78,60 +53,23 @@ mod test {
         xml
     }
 
-    fn color_theme_xml(indent: &str) -> String {
-        let mut xml = format!(
-            "{}<enum id=\"org.gnome.gnome-commander.GnomeCmdColorMode\">\n",
-            indent
-        );
-        xml.push_str(indent);
-        xml.push_str("  <value nick=\"none\" value=\"0\"/>\n");
-        for (enum_value, name) in <ColorThemeId as strum::VariantArray>::VARIANTS
-            .iter()
-            .zip(<ColorThemeId as strum::VariantNames>::VARIANTS.iter())
-        {
-            xml.push_str(indent);
-            xml.push_str(&format!(
-                "  <value nick=\"{}\" value=\"{}\"/>\n",
-                camel_case_to_kebab_case(name),
-                *enum_value as i32
-            ));
-        }
-        xml.push_str(indent);
-        xml.push_str("</enum>\n");
-
-        xml
-    }
-
-    fn camel_case_to_kebab_case(name: &str) -> String {
-        let mut kebab = String::new();
-        for (index, char) in name.chars().enumerate() {
-            if index > 0 && char.is_ascii_uppercase() {
-                kebab.push('-');
-                kebab.push(char.to_ascii_lowercase());
-            } else {
-                kebab.push(char.to_ascii_lowercase());
-            }
-        }
-        kebab
-    }
-
     #[test]
     fn test_schema_xml() {
         let enum_types = [
-            enum_xml(GraphicalLayoutMode::static_type(), "  "),
-            enum_xml(SizeDisplayMode::static_type(), "  "),
-            enum_xml(GnomeCmdTransferType::static_type(), "  "),
-            enum_xml(PermissionDisplayMode::static_type(), "  "),
-            enum_xml(QuickSearchShortcut::static_type(), "  "),
-            enum_xml_iterable::<QuickSearchMode>("GnomeCmdQuickSearchMode", "  "),
-            enum_xml(ExtensionDisplayMode::static_type(), "  "),
-            enum_xml(ConfirmOverwriteMode::static_type(), "  "),
-            enum_xml(DndMode::static_type(), "  "),
-            enum_xml(LeftMouseButtonMode::static_type(), "  "),
-            enum_xml(MiddleMouseButtonMode::static_type(), "  "),
-            enum_xml(RightMouseButtonMode::static_type(), "  "),
-            enum_xml(TabLockIndicator::static_type(), "  "),
-            color_theme_xml("  "),
+            enum_xml::<GraphicalLayoutMode>("GnomeCmdGraphicalLayoutMode", "  "),
+            enum_xml::<SizeDisplayMode>("GnomeCmdSizeDisplayMode", "  "),
+            enum_xml::<GnomeCmdTransferType>("GnomeCmdTransferType", "  "),
+            enum_xml::<PermissionDisplayMode>("GnomeCmdPermissionDisplayMode", "  "),
+            enum_xml::<QuickSearchShortcut>("GnomeCmdQuickSearchShortcut", "  "),
+            enum_xml::<QuickSearchMode>("GnomeCmdQuickSearchMode", "  "),
+            enum_xml::<ExtensionDisplayMode>("GnomeCmdExtensionDisplayMode", "  "),
+            enum_xml::<ConfirmOverwriteMode>("GnomeCmdConfirmOverwriteMode", "  "),
+            enum_xml::<DndMode>("GnomeCmdDndMode", "  "),
+            enum_xml::<LeftMouseButtonMode>("GnomeCmdLeftMouseButtonMode", "  "),
+            enum_xml::<MiddleMouseButtonMode>("GnomeCmdMiddleMouseButtonMode", "  "),
+            enum_xml::<RightMouseButtonMode>("GnomeCmdRightMouseButtonMode", "  "),
+            enum_xml::<TabLockIndicator>("GnomeCmdTabLockIndicator", "  "),
+            enum_xml::<ColorThemeId>("GnomeCmdColorMode", "  "),
         ];
         let schemalist = format!("<schemalist>\n{}</schemalist>\n", enum_types.join(""));
 

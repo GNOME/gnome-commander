@@ -11,7 +11,6 @@ gtk = { package = "gtk4", version = "0.10", features = ["gnome_46"] }
 glib = { version = "0.21", features = ["v2_80"] }
 libc = "0.2.155"
 tempfile = "3.11.0"
-strum = { version = "0.27", features = ["derive"] }
 async-recursion = "1.1.1"
 winnow = "0.7"
 indexmap = "2.7.1"

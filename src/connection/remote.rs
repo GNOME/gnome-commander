@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::{Connection, ConnectionExt, ConnectionInterface};
-use crate::{debug::debug, utils::ErrorMessage};
+use crate::{debug::debug, utils::ErrorMessage, utils::u32_enum};
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::{
@@ -266,18 +266,19 @@ impl ConnectionInterface for ConnectionRemote {
     }
 }
 
-#[derive(Clone, Copy, strum::FromRepr, PartialEq, PartialOrd, Eq, Ord)]
-#[repr(u32)]
-#[allow(non_camel_case_types)]
-pub enum ConnectionMethodID {
-    CON_SFTP = 0,
-    CON_FTP,
-    CON_ANON_FTP,
-    CON_SMB,
-    CON_DAV,
-    CON_DAVS,
-    CON_URI,
-    CON_FILE,
+u32_enum! {
+    #[allow(non_camel_case_types)]
+    pub enum ConnectionMethodID {
+        #[default]
+        CON_SFTP,
+        CON_FTP,
+        CON_ANON_FTP,
+        CON_SMB,
+        CON_DAV,
+        CON_DAVS,
+        CON_URI,
+        CON_FILE,
+    }
 }
 
 impl ConnectionMethodID {

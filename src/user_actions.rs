@@ -32,7 +32,10 @@ use crate::{
     },
     dir::Directory,
     file::{File, FileOps},
-    file_list::{list::{ColumnID, FileList}, quick_search::QuickSearchMode},
+    file_list::{
+        list::{ColumnID, FileList},
+        quick_search::QuickSearchMode,
+    },
     libgcmd::file_actions::{FileActions, FileActionsExt},
     main_win::MainWindow,
     options::{ConfirmOptions, GeneralOptions, NetworkOptions, ProgramsOptions, SearchConfig},
@@ -986,31 +989,31 @@ fn sort_file_list(main_win: MainWindow, column: ColumnID) {
 }
 
 async fn sort_by_name(main_win: MainWindow) {
-    sort_file_list(main_win, ColumnID::COLUMN_NAME);
+    sort_file_list(main_win, ColumnID::Name);
 }
 
 async fn sort_by_ext(main_win: MainWindow) {
-    sort_file_list(main_win, ColumnID::COLUMN_EXT);
+    sort_file_list(main_win, ColumnID::Ext);
 }
 
 async fn sort_by_date(main_win: MainWindow) {
-    sort_file_list(main_win, ColumnID::COLUMN_DATE);
+    sort_file_list(main_win, ColumnID::Date);
 }
 
 async fn sort_by_size(main_win: MainWindow) {
-    sort_file_list(main_win, ColumnID::COLUMN_SIZE);
+    sort_file_list(main_win, ColumnID::Size);
 }
 
 async fn sort_by_perm(main_win: MainWindow) {
-    sort_file_list(main_win, ColumnID::COLUMN_PERM);
+    sort_file_list(main_win, ColumnID::Perm);
 }
 
 async fn sort_by_owner(main_win: MainWindow) {
-    sort_file_list(main_win, ColumnID::COLUMN_OWNER);
+    sort_file_list(main_win, ColumnID::Owner);
 }
 
 async fn sort_by_group(main_win: MainWindow) {
-    sort_file_list(main_win, ColumnID::COLUMN_GROUP);
+    sort_file_list(main_win, ColumnID::Group);
 }
 
 /************** Bookmarks Menu **************/

@@ -28,7 +28,7 @@ use crate::{
     options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
     tags::FileMetadataService,
     types::{ExtensionDisplayMode, GraphicalLayoutMode, SizeDisplayMode},
-    utils::{ErrorMessage, size_to_string, time_to_string},
+    utils::{ErrorMessage, size_to_string, time_to_string, u32_enum},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
@@ -37,7 +37,6 @@ use std::{
     ffi::OsStr,
     path::{Path, PathBuf},
 };
-use strum::VariantArray;
 
 mod imp {
     use super::*;
@@ -97,16 +96,16 @@ mod imp {
         #[property(get, set)]
         pub row_height: Cell<u32>,
 
-        #[property(get, set, builder(ExtensionDisplayMode::default()))]
+        #[property(get, set)]
         pub extension_display_mode: Cell<ExtensionDisplayMode>,
 
-        #[property(get, set, builder(GraphicalLayoutMode::default()))]
+        #[property(get, set)]
         graphical_layout_mode: Cell<GraphicalLayoutMode>,
 
-        #[property(get, set, builder(SizeDisplayMode::default()))]
+        #[property(get, set)]
         size_display_mode: Cell<SizeDisplayMode>,
 
-        #[property(get, set, builder(PermissionDisplayMode::default()))]
+        #[property(get, set)]
         permissions_display_mode: Cell<PermissionDisplayMode>,
 
         #[property(get, set)]
@@ -121,25 +120,25 @@ mod imp {
         #[property(get, set)]
         symbolic_links_as_regular_files: Cell<bool>,
 
-        #[property(get, set, builder(LeftMouseButtonMode::default()))]
+        #[property(get, set)]
         left_mouse_button_mode: Cell<LeftMouseButtonMode>,
 
-        #[property(get, set, builder(MiddleMouseButtonMode::default()))]
+        #[property(get, set)]
         middle_mouse_button_mode: Cell<MiddleMouseButtonMode>,
 
-        #[property(get, set, builder(RightMouseButtonMode::default()))]
+        #[property(get, set)]
         right_mouse_button_mode: Cell<RightMouseButtonMode>,
 
         #[property(get, set, default = true)]
         left_mouse_button_unselects: Cell<bool>,
 
-        #[property(get, set, builder(DndMode::default()))]
+        #[property(get, set)]
         dnd_mode: Cell<DndMode>,
 
         #[property(get, set, default = true)]
         select_dirs: Cell<bool>,
 
-        #[property(get, set, builder(QuickSearchShortcut::default()))]
+        #[property(get, set)]
         pub(super) quick_search_shortcut: Cell<QuickSearchShortcut>,
 
         #[property(get)]
@@ -280,10 +279,7 @@ mod imp {
                 columns: Default::default(),
                 row_selector,
 
-                cells_map: ColumnID::VARIANTS
-                    .iter()
-                    .map(|c| (*c, Default::default()))
-                    .collect(),
+                cells_map: ColumnID::all().map(|c| (c, Default::default())).collect(),
 
                 shift_down: Default::default(),
                 range_selection_start: Default::default(),
@@ -337,53 +333,53 @@ mod imp {
             capture_event_box.set_parent(&*fl);
 
             for (column_id, title, factory, sorter) in [
-                (ColumnID::COLUMN_ICON, "", create_icon_factory(), None),
+                (ColumnID::Icon, "", create_icon_factory(), None),
                 (
-                    ColumnID::COLUMN_NAME,
+                    ColumnID::Name,
                     &gettext("name"),
-                    create_name_factory(&self.cells_map[&ColumnID::COLUMN_NAME]),
+                    create_name_factory(&self.cells_map[&ColumnID::Name]),
                     Some(FileAttrSorter::by_name()),
                 ),
                 (
-                    ColumnID::COLUMN_EXT,
+                    ColumnID::Ext,
                     &gettext("ext"),
-                    create_ext_factory(&self.cells_map[&ColumnID::COLUMN_EXT]),
+                    create_ext_factory(&self.cells_map[&ColumnID::Ext]),
                     Some(FileAttrSorter::by_ext()),
                 ),
                 (
-                    ColumnID::COLUMN_DIR,
+                    ColumnID::Dir,
                     &gettext("dir"),
-                    create_dir_factory(&self.cells_map[&ColumnID::COLUMN_DIR]),
+                    create_dir_factory(&self.cells_map[&ColumnID::Dir]),
                     Some(FileAttrSorter::by_dir()),
                 ),
                 (
-                    ColumnID::COLUMN_SIZE,
+                    ColumnID::Size,
                     &gettext("size"),
-                    create_size_factory(&self.cells_map[&ColumnID::COLUMN_SIZE]),
+                    create_size_factory(&self.cells_map[&ColumnID::Size]),
                     Some(FileAttrSorter::by_size()),
                 ),
                 (
-                    ColumnID::COLUMN_DATE,
+                    ColumnID::Date,
                     &gettext("date"),
-                    create_date_factory(&self.cells_map[&ColumnID::COLUMN_DATE]),
+                    create_date_factory(&self.cells_map[&ColumnID::Date]),
                     Some(FileAttrSorter::by_date()),
                 ),
                 (
-                    ColumnID::COLUMN_PERM,
+                    ColumnID::Perm,
                     &gettext("perm"),
-                    create_perm_factory(&self.cells_map[&ColumnID::COLUMN_PERM]),
+                    create_perm_factory(&self.cells_map[&ColumnID::Perm]),
                     Some(FileAttrSorter::by_perm()),
                 ),
                 (
-                    ColumnID::COLUMN_OWNER,
+                    ColumnID::Owner,
                     &gettext("uid"),
-                    create_owner_factory(&self.cells_map[&ColumnID::COLUMN_OWNER]),
+                    create_owner_factory(&self.cells_map[&ColumnID::Owner]),
                     Some(FileAttrSorter::by_owner()),
                 ),
                 (
-                    ColumnID::COLUMN_GROUP,
+                    ColumnID::Group,
                     &gettext("gid"),
-                    create_group_factory(&self.cells_map[&ColumnID::COLUMN_GROUP]),
+                    create_group_factory(&self.cells_map[&ColumnID::Group]),
                     Some(FileAttrSorter::by_group()),
                 ),
             ] {
@@ -391,7 +387,7 @@ mod imp {
                     .title(title)
                     .factory(&factory)
                     .resizable(true)
-                    .expand(column_id != ColumnID::COLUMN_ICON)
+                    .expand(column_id != ColumnID::Icon)
                     .build();
                 column.set_sorter(sorter.as_ref());
                 self.view.append_column(&column);
@@ -408,7 +404,7 @@ mod imp {
             );
 
             self.sort_model.set_sorter(Some(&sorter));
-            fl.set_sorting(ColumnID::COLUMN_NAME, gtk::SortType::Ascending);
+            fl.set_sorting(ColumnID::Name, gtk::SortType::Ascending);
 
             self.selection.connect_selected_notify(glib::clone!(
                 #[weak(rename_to = imp)]
@@ -515,20 +511,16 @@ mod imp {
                 .build();
             general_options
                 .extension_display_mode
-                .bind(&*fl, "extension-display-mode")
-                .build();
+                .bind_enum(&*fl, "extension-display-mode");
             general_options
                 .graphical_layout_mode
-                .bind(&*fl, "graphical-layout-mode")
-                .build();
+                .bind_enum(&*fl, "graphical-layout-mode");
             general_options
                 .size_display_mode
-                .bind(&*fl, "size-display-mode")
-                .build();
+                .bind_enum(&*fl, "size-display-mode");
             general_options
                 .permissions_display_mode
-                .bind(&*fl, "permissions-display-mode")
-                .build();
+                .bind_enum(&*fl, "permissions-display-mode");
             general_options
                 .date_display_format
                 .bind(&*fl, "date-display-format")
@@ -543,16 +535,13 @@ mod imp {
                 .build();
             general_options
                 .left_mouse_button_mode
-                .bind(&*fl, "left-mouse-button-mode")
-                .build();
+                .bind_enum(&*fl, "left-mouse-button-mode");
             general_options
                 .middle_mouse_button_mode
-                .bind(&*fl, "middle-mouse-button-mode")
-                .build();
+                .bind_enum(&*fl, "middle-mouse-button-mode");
             general_options
                 .right_mouse_button_mode
-                .bind(&*fl, "right-mouse-button-mode")
-                .build();
+                .bind_enum(&*fl, "right-mouse-button-mode");
             general_options
                 .left_mouse_button_unselects
                 .bind(&*fl, "left-mouse-button-unselects")
@@ -563,11 +552,10 @@ mod imp {
                 .build();
             general_options
                 .quick_search_shortcut
-                .bind(&*fl, "quick-search-shortcut")
-                .build();
+                .bind_enum(&*fl, "quick-search-shortcut");
 
             let confirm_options = ConfirmOptions::new();
-            confirm_options.dnd_mode.bind(&*fl, "dnd-mode").build();
+            confirm_options.dnd_mode.bind_enum(&*fl, "dnd-mode");
 
             for (column, key) in fl
                 .view()
@@ -1095,8 +1083,7 @@ mod imp {
 
                 if n_press == 2
                     && button == 1
-                    && self.left_mouse_button_mode.get()
-                        == LeftMouseButtonMode::OpensWithDoubleClick
+                    && self.left_mouse_button_mode.get() == LeftMouseButtonMode::DoubleClick
                 {
                     self.obj()
                         .emit_by_name::<()>("file-activated", &[&item.file()]);
@@ -1154,7 +1141,7 @@ mod imp {
             if n_press == 1
                 && button == 1
                 && self.modifier_click.get() == Some(NO_MOD)
-                && self.left_mouse_button_mode.get() == LeftMouseButtonMode::OpensWithSingleClick
+                && self.left_mouse_button_mode.get() == LeftMouseButtonMode::SingleClick
             {
                 self.obj()
                     .emit_by_name::<()>("file-activated", &[&item.file()]);
@@ -1472,84 +1459,84 @@ glib::wrapper! {
         @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 }
 
-#[allow(non_camel_case_types)]
-#[derive(Clone, Copy, PartialOrd, Ord, PartialEq, Eq, strum::FromRepr, strum::VariantArray)]
-#[repr(C)]
+u32_enum! {
 pub enum ColumnID {
-    COLUMN_ICON = 0,
-    COLUMN_NAME,
-    COLUMN_EXT,
-    COLUMN_DIR,
-    COLUMN_SIZE,
-    COLUMN_DATE,
-    COLUMN_PERM,
-    COLUMN_OWNER,
-    COLUMN_GROUP,
+    Icon,
+    #[default]
+    Name,
+    Ext,
+    Dir,
+    Size,
+    Date,
+    Perm,
+    Owner,
+    Group,
+}
 }
 
 impl ColumnID {
     pub fn name(&self) -> &'static str {
         match self {
-            Self::COLUMN_ICON => "icon",
-            Self::COLUMN_NAME => "name",
-            Self::COLUMN_EXT => "ext",
-            Self::COLUMN_DIR => "dir",
-            Self::COLUMN_SIZE => "size",
-            Self::COLUMN_DATE => "date",
-            Self::COLUMN_PERM => "perm",
-            Self::COLUMN_OWNER => "uid",
-            Self::COLUMN_GROUP => "gid",
+            Self::Icon => "icon",
+            Self::Name => "name",
+            Self::Ext => "ext",
+            Self::Dir => "dir",
+            Self::Size => "size",
+            Self::Date => "date",
+            Self::Perm => "perm",
+            Self::Owner => "uid",
+            Self::Group => "gid",
         }
     }
 
     pub fn from_name(name: &str) -> Option<Self> {
         match name {
-            "icon" => Some(Self::COLUMN_ICON),
-            "name" => Some(Self::COLUMN_NAME),
-            "ext" => Some(Self::COLUMN_EXT),
-            "dir" => Some(Self::COLUMN_DIR),
-            "size" => Some(Self::COLUMN_SIZE),
-            "date" => Some(Self::COLUMN_DATE),
-            "perm" => Some(Self::COLUMN_PERM),
-            "uid" => Some(Self::COLUMN_OWNER),
-            "gid" => Some(Self::COLUMN_GROUP),
+            "icon" => Some(Self::Icon),
+            "name" => Some(Self::Name),
+            "ext" => Some(Self::Ext),
+            "dir" => Some(Self::Dir),
+            "size" => Some(Self::Size),
+            "date" => Some(Self::Date),
+            "perm" => Some(Self::Perm),
+            "uid" => Some(Self::Owner),
+            "gid" => Some(Self::Group),
             _ => None,
         }
     }
 
     pub fn title(self) -> Option<String> {
         match self {
-            Self::COLUMN_ICON => None,
-            Self::COLUMN_NAME => Some(gettext("name")),
-            Self::COLUMN_EXT => Some(gettext("ext")),
-            Self::COLUMN_DIR => Some(gettext("dir")),
-            Self::COLUMN_SIZE => Some(gettext("size")),
-            Self::COLUMN_DATE => Some(gettext("date")),
-            Self::COLUMN_PERM => Some(gettext("perm")),
-            Self::COLUMN_OWNER => Some(gettext("uid")),
-            Self::COLUMN_GROUP => Some(gettext("gid")),
+            Self::Icon => None,
+            Self::Name => Some(gettext("name")),
+            Self::Ext => Some(gettext("ext")),
+            Self::Dir => Some(gettext("dir")),
+            Self::Size => Some(gettext("size")),
+            Self::Date => Some(gettext("date")),
+            Self::Perm => Some(gettext("perm")),
+            Self::Owner => Some(gettext("uid")),
+            Self::Group => Some(gettext("gid")),
         }
     }
 
     pub fn xalign(self) -> f32 {
         match self {
-            Self::COLUMN_ICON => 0.5,
-            Self::COLUMN_SIZE => 1.0,
+            Self::Icon => 0.5,
+            Self::Size => 1.0,
             _ => 0.0,
         }
     }
 
     pub fn default_sort_direction(self) -> gtk::SortType {
         match self {
-            Self::COLUMN_ICON => gtk::SortType::Ascending,
-            Self::COLUMN_NAME => gtk::SortType::Ascending,
-            Self::COLUMN_EXT => gtk::SortType::Ascending,
-            Self::COLUMN_DIR => gtk::SortType::Ascending,
-            Self::COLUMN_SIZE => gtk::SortType::Descending,
-            Self::COLUMN_DATE => gtk::SortType::Descending,
-            Self::COLUMN_PERM => gtk::SortType::Ascending,
-            Self::COLUMN_OWNER => gtk::SortType::Ascending,
-            Self::COLUMN_GROUP => gtk::SortType::Ascending,
+            Self::Icon => gtk::SortType::Ascending,
+            Self::Name => gtk::SortType::Ascending,
+            Self::Ext => gtk::SortType::Ascending,
+            Self::Dir => gtk::SortType::Ascending,
+            Self::Size => gtk::SortType::Descending,
+            Self::Date => gtk::SortType::Descending,
+            Self::Perm => gtk::SortType::Ascending,
+            Self::Owner => gtk::SortType::Ascending,
+            Self::Group => gtk::SortType::Ascending,
         }
     }
 }
@@ -1718,8 +1705,8 @@ impl FileList {
             .borrow()
             .iter()
             .position(|c| sort_column.as_ref() == Some(c))
-            .and_then(ColumnID::from_repr)
-            .unwrap_or(ColumnID::COLUMN_NAME);
+            .and_then(|pos| u32::try_from(pos).ok().map(ColumnID::from))
+            .unwrap_or_default();
         let direction = cv_sorter
             .map(|sorter| sorter.primary_sort_order())
             .unwrap_or(col.default_sort_direction());
@@ -2427,9 +2414,9 @@ impl FileList {
     }
 
     fn focus_row_coordinates(&self, item: &FileListItem) -> Option<gdk::Rectangle> {
-        let name_rect = self.item_rect(item, ColumnID::COLUMN_NAME)?;
+        let name_rect = self.item_rect(item, ColumnID::Name)?;
         let rect = if self.extension_display_mode() != ExtensionDisplayMode::Both {
-            if let Some(ext_rect) = self.item_rect(item, ColumnID::COLUMN_EXT) {
+            if let Some(ext_rect) = self.item_rect(item, ColumnID::Ext) {
                 name_rect.union(&ext_rect)
             } else {
                 name_rect
@@ -2708,7 +2695,7 @@ fn create_ext_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
         cell.bind(&item);
         if !matches!(
             global_options.extension_display_mode.get(),
-            ExtensionDisplayMode::WithFileName
+            ExtensionDisplayMode::WithFname
         ) {
             cell.add_binding(
                 item.bind_property("extension", &cell, "text")
@@ -2873,9 +2860,9 @@ fn create_text_cell_factory(
 }
 
 pub fn apply_css(item: &FileListItem, use_ls_colors: bool, widget: &gtk::Widget) {
-    for c in LsPalletteColor::VARIANTS {
-        widget.remove_css_class(&format!("fg-{}", c.as_ref()));
-        widget.remove_css_class(&format!("bg-{}", c.as_ref()));
+    for c in LsPalletteColor::all() {
+        widget.remove_css_class(&format!("fg-{}", c.name()));
+        widget.remove_css_class(&format!("bg-{}", c.name()));
     }
 
     let mut current_parent = widget.clone().upcast::<gtk::Accessible>();
@@ -2898,10 +2885,10 @@ pub fn apply_css(item: &FileListItem, use_ls_colors: bool, widget: &gtk::Widget)
         && use_ls_colors
         && let Some(colors) = ls_colors_get(&item.file().file_info())
     {
-        if let Some(class) = colors.fg.map(|fg| format!("fg-{}", fg.as_ref())) {
+        if let Some(class) = colors.fg.map(|fg| format!("fg-{}", fg.name())) {
             widget.add_css_class(&class);
         }
-        if let Some(class) = colors.bg.map(|fg| format!("bg-{}", fg.as_ref())) {
+        if let Some(class) = colors.bg.map(|fg| format!("bg-{}", fg.name())) {
             widget.add_css_class(&class);
         }
     }

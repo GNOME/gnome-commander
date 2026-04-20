@@ -3,26 +3,33 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::libgcmd::file_metadata_extractor::FileMetadataExtractor;
+use crate::{libgcmd::file_metadata_extractor::FileMetadataExtractor, utils::u32_enum};
 use gettextrs::gettext;
 use gtk::{gdk_pixbuf, glib::subclass::prelude::*, prelude::*};
 
 use super::GnomeCmdTag;
 
-#[derive(Clone, Copy, strum::VariantArray, strum::IntoStaticStr, strum::EnumString)]
-enum ImageTag {
-    #[strum(serialize = "Image.Width")]
-    Width,
-    #[strum(serialize = "Image.Height")]
-    Height,
-    #[strum(serialize = "Image.Size")]
-    Size,
+u32_enum! {
+    enum ImageTag {
+        #[default]
+        Width,
+        Height,
+        Size,
+    }
 }
 
 impl ImageTag {
     fn tag(&self) -> GnomeCmdTag {
-        let str: &'static str = self.into();
+        let str = match self {
+            Self::Width => "Image.Width",
+            Self::Height => "Image.Height",
+            Self::Size => "Image.Size",
+        };
         GnomeCmdTag(str.into())
+    }
+
+    fn from_tag(tag: &GnomeCmdTag) -> Option<Self> {
+        Self::all().find(|t| &t.tag() == tag)
     }
 
     fn name(self) -> String {
@@ -51,8 +58,6 @@ mod imp {
         },
         tags::GnomeCmdTagClass,
     };
-    use std::str::FromStr;
-    use strum::VariantArray;
 
     #[derive(Default)]
     pub struct ImageMetadataExtractor {}
@@ -68,7 +73,7 @@ mod imp {
 
     impl FileMetadataExtractorImpl for ImageMetadataExtractor {
         fn supported_tags(&self) -> Vec<GnomeCmdTag> {
-            ImageTag::VARIANTS.iter().map(|t| t.tag()).collect()
+            ImageTag::all().map(|t| t.tag()).collect()
         }
 
         fn summary_tags(&self) -> Vec<GnomeCmdTag> {
@@ -84,11 +89,11 @@ mod imp {
         }
 
         fn tag_name(&self, tag: &GnomeCmdTag) -> Option<String> {
-            Some(ImageTag::from_str(&tag.0).ok()?.name())
+            Some(ImageTag::from_tag(tag)?.name())
         }
 
         fn tag_description(&self, tag: &GnomeCmdTag) -> Option<String> {
-            Some(ImageTag::from_str(&tag.0).ok()?.description())
+            Some(ImageTag::from_tag(tag)?.description())
         }
 
         fn extract_metadata<F: FnMut(GnomeCmdTag, Option<&str>)>(
