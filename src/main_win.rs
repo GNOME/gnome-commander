@@ -31,7 +31,7 @@ use crate::{
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
-use std::{cell::RefCell, ffi::OsString, path::Path};
+use std::{cell::RefCell, ffi::OsString, path::Path, rc::Rc};
 
 #[derive(Debug, Default, Copy, Clone, PartialEq, Eq, glib::ValueDelegate)]
 #[value_delegate(from = u32)]
@@ -80,7 +80,6 @@ pub mod imp {
         layout::ls_colors_palette::LsColorPalettes,
         options::{FiltersOptions, utils::remember_window_state},
         pwd::uid,
-        types::QuickSearchShortcut,
     };
     use std::{
         cell::{Cell, RefCell},
@@ -123,8 +122,8 @@ pub mod imp {
         pub file_metadata_service: FileMetadataService,
         pub cut_and_paste_state: RefCell<Option<CutAndPasteState>>,
 
-        pub color_themes: ColorThemes,
-        ls_color_palettes: LsColorPalettes,
+        pub color_themes: Rc<ColorThemes>,
+        ls_color_palettes: Rc<LsColorPalettes>,
 
         #[property(get, set)]
         menu_visible: Cell<bool>,
@@ -144,8 +143,6 @@ pub mod imp {
         view_hidden_files: Cell<bool>,
         #[property(get, set = Self::set_view_backup_files)]
         view_backup_files: Cell<bool>,
-        #[property(get, set, builder(QuickSearchShortcut::default()))]
-        quick_search_shortcut: Cell<QuickSearchShortcut>,
         #[property(get, set)]
         cmdline_autohide_output: Cell<bool>,
 
@@ -251,7 +248,6 @@ pub mod imp {
                 connection_list_visible: Cell::new(true),
                 view_hidden_files: Cell::new(true),
                 view_backup_files: Cell::new(true),
-                quick_search_shortcut: Default::default(),
                 cmdline_autohide_output: Cell::new(true),
 
                 active_dialogs: Default::default(),
@@ -492,10 +488,6 @@ pub mod imp {
                 .bind(&*mw, "connection-list-visible")
                 .build();
             options
-                .quick_search_shortcut
-                .bind(&*mw, "quick-search-shortcut")
-                .build();
-            options
                 .command_line_autohide_output
                 .bind(&*mw, "cmdline-autohide-output")
                 .build();
@@ -505,7 +497,7 @@ pub mod imp {
                 self.cmdline_paned.set_position(command_line_split);
             } else {
                 // Allocate 10% of the overall height for the command line by default
-                let handler_id = std::rc::Rc::new(Cell::new(None));
+                let handler_id = Rc::new(Cell::new(None));
                 let handler_id_cloned = handler_id.clone();
                 handler_id.replace(Some(self.cmdline_paned.connect_position_notify(
                     move |this| {
@@ -536,34 +528,16 @@ pub mod imp {
                 .add_shortcuts(&self.shortcuts);
             self.cmdline.add_shortcuts(&self.shortcuts);
 
-            self.color_themes.connect_local(
-                "theme-changed",
-                false,
-                glib::clone!(
-                    #[weak(rename_to = this)]
-                    self.obj(),
-                    #[upgrade_or]
-                    None,
-                    move |_| {
-                        this.update_view();
-                        None
-                    }
-                ),
-            );
-            self.ls_color_palettes.connect_local(
-                "palette-changed",
-                false,
-                glib::clone!(
-                    #[weak(rename_to = this)]
-                    self.obj(),
-                    #[upgrade_or]
-                    None,
-                    move |_| {
-                        this.update_view();
-                        None
-                    }
-                ),
-            );
+            self.color_themes.set_update_callback(glib::clone!(
+                #[weak(rename_to = this)]
+                self.obj(),
+                move |_| this.update_view()
+            ));
+            self.ls_color_palettes.set_update_callback(glib::clone!(
+                #[weak(rename_to = this)]
+                self.obj(),
+                move |_| this.update_view()
+            ));
 
             let filters_options = FiltersOptions::new();
             filters_options
@@ -1427,7 +1401,7 @@ impl MainWindow {
         }
     }
 
-    pub fn color_themes(&self) -> &ColorThemes {
+    pub fn color_themes(&self) -> &Rc<ColorThemes> {
         &self.imp().color_themes
     }
 }

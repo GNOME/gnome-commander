@@ -3,7 +3,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::config::PIXMAPS_DIR;
+use crate::{config::PIXMAPS_DIR, utils::u32_enum};
 use gtk::{glib, pango, prelude::*, subclass::prelude::*};
 use std::path::Path;
 
@@ -23,7 +23,7 @@ mod imp {
         #[property(get, set = Self::set_locked)]
         locked: Cell<bool>,
 
-        #[property(get, set = Self::set_indicator, builder(TabLockIndicator::default()))]
+        #[property(get, set = Self::set_indicator)]
         indicator: Cell<TabLockIndicator>,
     }
 
@@ -128,11 +128,11 @@ impl Default for TabLabel {
     }
 }
 
-#[derive(Clone, Copy, Default, strum::FromRepr, glib::Enum)]
-#[enum_type(name = "GnomeCmdTabLockIndicator")]
-pub enum TabLockIndicator {
-    #[default]
-    Icon = 0,
-    Asterisk,
-    StyledText,
+u32_enum! {
+    pub enum TabLockIndicator {
+        #[default]
+        Icon,
+        Asterisk,
+        StyledText,
+    }
 }

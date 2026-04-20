@@ -468,7 +468,6 @@ fn hex_to_bytes(text: &str) -> Option<Vec<u8>> {
 }
 
 u32_enum! {
-    #[derive(strum::FromRepr)]
     pub enum Mode {
         #[default]
         Text,

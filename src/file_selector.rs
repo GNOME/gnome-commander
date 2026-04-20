@@ -586,7 +586,7 @@ impl FileSelector {
     pub fn new_tab(&self) -> FileList {
         self.new_tab_full(
             None,
-            ColumnID::COLUMN_NAME,
+            ColumnID::Name,
             gtk::SortType::Ascending,
             false,
             None,
@@ -627,7 +627,7 @@ impl FileSelector {
 
         self.set_tab_locked(&fl, locked);
         fl.update_style();
-        fl.show_column(ColumnID::COLUMN_DIR, false);
+        fl.show_column(ColumnID::Dir, false);
 
         if let Some((history_entries, (current_connection, current_uri))) = history {
             let connection_list = ConnectionList::get();
@@ -1144,7 +1144,7 @@ impl FileSelector {
             let directory = Directory::new(&con, &con.create_uri(&path));
             self.new_tab_full(
                 Some(&directory),
-                ColumnID::COLUMN_NAME,
+                ColumnID::Name,
                 gtk::SortType::Ascending,
                 false,
                 None,
@@ -1484,7 +1484,7 @@ impl TabVariant {
             .and_then(String::from_variant)
             .as_deref()
             .and_then(ColumnID::from_name)
-            .unwrap_or(ColumnID::COLUMN_NAME)
+            .unwrap_or(ColumnID::Name)
     }
 
     pub fn set_sort_column(&mut self, column: ColumnID) {
@@ -1558,9 +1558,7 @@ impl From<LegacyTabVariant> for TabVariant {
     fn from(legacy: LegacyTabVariant) -> Self {
         let mut result = Self::new(Default::default(), legacy.uri);
         result.set_position((legacy.file_felector_id as u32).into());
-        if let Some(column) = ColumnID::from_repr(legacy.sort_column.into()) {
-            result.set_sort_column(column);
-        }
+        result.set_sort_column(u32::from(legacy.sort_column).into());
         result.set_sort_direction(match legacy.sort_order {
             false => gtk::SortType::Ascending,
             true => gtk::SortType::Descending,

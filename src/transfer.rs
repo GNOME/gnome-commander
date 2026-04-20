@@ -14,7 +14,7 @@ use crate::{
     file::{File, FileOps},
     options::GeneralOptions,
     types::{ConfirmOverwriteMode, GnomeCmdTransferType, SizeDisplayMode},
-    utils::{ErrorMessage, nice_size, pending, time_to_string},
+    utils::{ErrorMessage, nice_size, pending, time_to_string, u32_enum},
 };
 use futures::{FutureExt, StreamExt, select};
 use gettextrs::{gettext, pgettext};
@@ -413,18 +413,19 @@ fn file_details(
     ))
 }
 
-#[repr(C)]
-#[derive(Clone, Copy, PartialEq, Eq, strum::FromRepr)]
-pub enum ProblemAction {
-    Abort = 0,
-    Retry,
-    CopyInto,
-    Skip,
-    Rename,
-    SkipAll,
-    RenameAll,
-    Replace,
-    ReplaceAll,
+u32_enum! {
+    pub enum ProblemAction {
+        #[default]
+        Abort,
+        Retry,
+        CopyInto,
+        Skip,
+        Rename,
+        SkipAll,
+        RenameAll,
+        Replace,
+        ReplaceAll,
+    }
 }
 
 impl ProblemAction {

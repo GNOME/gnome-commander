@@ -3,13 +3,12 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::PREF_COLORS;
-use gtk::{
-    gdk, gio,
-    glib::{self, subclass::prelude::*},
-    prelude::*,
+use crate::{
+    options::{ColorOptions, types::WriteResult},
+    utils::u32_enum,
 };
-use std::{borrow::Cow, cell::RefCell};
+use gtk::{gdk, glib};
+use std::{borrow::Cow, cell::RefCell, rc::Rc};
 
 const fn from_hex(color: &'static str) -> gdk::RGBA {
     const fn strip_prefix(input: &str, prefix: char) -> Option<&str> {
@@ -189,146 +188,126 @@ const COLOR_THEME_WINTER: ColorTheme = ColorTheme {
     curs_bg: from_hex("#00ffff"),
 };
 
-#[derive(
-    Clone,
-    Copy,
-    Default,
-    Debug,
-    PartialEq,
-    Eq,
-    strum::FromRepr,
-    strum::VariantArray,
-    strum::VariantNames,
-)]
-pub enum ColorThemeId {
-    Modern = 1,
-    #[default]
-    Fusion,
-    Classic,
-    DeepBlue,
-    Cafezinho,
-    GreenTiger,
-    Winter,
-    Custom,
-}
-
-mod imp {
-    use super::*;
-    use glib::subclass::Signal;
-    use std::{cell::OnceCell, sync::OnceLock};
-
-    #[derive(glib::Properties, Default)]
-    #[properties(wrapper_type = super::ColorThemes)]
-    pub struct ColorThemes {
-        #[property(get, construct_only)]
-        settings: OnceCell<gio::Settings>,
-        #[property(get, construct_only)]
-        display: OnceCell<Option<gdk::Display>>,
-        #[property(get, set, nullable)]
-        css_provider: RefCell<Option<gtk::CssProvider>>,
-    }
-
-    #[glib::object_subclass]
-    impl ObjectSubclass for ColorThemes {
-        const NAME: &'static str = "GnomeCmdColorThemes";
-        type Type = super::ColorThemes;
-    }
-
-    #[glib::derived_properties]
-    impl ObjectImpl for ColorThemes {
-        fn constructed(&self) {
-            self.parent_constructed();
-
-            if let Some(display) = self.obj().display() {
-                let css_provider = gtk::CssProvider::new();
-                css_provider.load_from_string(include_str!("styles.css"));
-                gtk::style_context_add_provider_for_display(
-                    &display,
-                    &css_provider,
-                    gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
-                );
-            } else {
-                eprintln!("No display");
-            }
-
-            self.obj().settings().connect_changed(
-                Some("theme"),
-                glib::clone!(
-                    #[weak(rename_to = this)]
-                    self.obj(),
-                    move |_, _| this.update_theme()
-                ),
-            );
-            self.obj().update_theme();
-        }
-
-        fn signals() -> &'static [Signal] {
-            static SIGNALS: OnceLock<Vec<Signal>> = OnceLock::new();
-            SIGNALS.get_or_init(|| vec![Signal::builder("theme-changed").build()])
-        }
+u32_enum! {
+    pub enum ColorThemeId {
+        None,
+        Modern,
+        #[default]
+        Fusion,
+        Classic,
+        DeepBlue,
+        Cafezinho,
+        GreenTiger,
+        Winter,
+        Custom,
     }
 }
 
-glib::wrapper! {
-    pub struct ColorThemes(ObjectSubclass<imp::ColorThemes>);
+type Callback = Box<dyn Fn(&ColorThemes)>;
+
+pub struct ColorThemes {
+    callback: RefCell<Option<Callback>>,
+    settings: ColorOptions,
+    css_provider: Option<gtk::CssProvider>,
 }
 
 impl ColorThemes {
-    pub fn new() -> Self {
-        let settings = gio::Settings::new(PREF_COLORS);
-        glib::Object::builder()
-            .property("settings", settings)
-            .property("display", gdk::Display::default())
-            .build()
-    }
-
-    fn update_theme(&self) {
-        let Some(display) = self.display() else {
-            eprintln!("No display");
-            return;
-        };
-
-        if let Some(css_provider) = self.css_provider() {
-            gtk::style_context_remove_provider_for_display(&display, &css_provider);
-            self.set_css_provider(None::<gtk::CssProvider>);
-        }
-
-        if let Some(theme) = self.theme() {
+    pub fn new() -> Rc<Self> {
+        let css_provider = gdk::Display::default().map(|display| {
+            // CSS provider for static CSS data
             let css_provider = gtk::CssProvider::new();
-            css_provider.load_from_string(&theme.create_css());
-
+            css_provider.load_from_string(include_str!("styles.css"));
             gtk::style_context_add_provider_for_display(
                 &display,
                 &css_provider,
                 gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
             );
 
-            self.set_css_provider(Some(css_provider));
-        }
+            // CSS provider for dynamic CSS data
+            let css_provider = gtk::CssProvider::new();
+            gtk::style_context_add_provider_for_display(
+                &display,
+                &css_provider,
+                gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
+            );
+            css_provider
+        });
 
-        self.emit_by_name::<()>("theme-changed", &[]);
+        let this = Rc::new(Self {
+            callback: Default::default(),
+            settings: ColorOptions::new(),
+            css_provider,
+        });
+
+        let weak_ref = Rc::downgrade(&this);
+        this.settings.theme.connect_changed(move |_| {
+            if let Some(this) = weak_ref.upgrade() {
+                this.update_theme();
+            }
+        });
+        for option in [
+            &this.settings.custom_norm_fg,
+            &this.settings.custom_norm_bg,
+            &this.settings.custom_alt_fg,
+            &this.settings.custom_alt_bg,
+            &this.settings.custom_sel_fg,
+            &this.settings.custom_sel_bg,
+            &this.settings.custom_curs_fg,
+            &this.settings.custom_curs_bg,
+        ] {
+            let weak_ref = Rc::downgrade(&this);
+            option.connect_changed(move |_| {
+                if let Some(this) = weak_ref.upgrade() {
+                    this.update_theme();
+                }
+            });
+        }
+        this.update_theme();
+
+        this
     }
 
-    fn theme_id(&self) -> Option<ColorThemeId> {
-        self.settings()
-            .enum_("theme")
-            .try_into()
-            .ok()
-            .and_then(ColorThemeId::from_repr)
+    pub fn set_update_callback(&self, callback: impl Fn(&Self) + 'static) {
+        self.callback.replace(Some(Box::new(callback)));
+    }
+
+    fn update_theme(&self) {
+        let Some(css_provider) = &self.css_provider else {
+            eprintln!("No display");
+            return;
+        };
+
+        css_provider.load_from_string(
+            &self
+                .theme()
+                .map(|theme| theme.create_css())
+                .unwrap_or_default(),
+        );
+
+        if let Some(callback) = self.callback.borrow().as_ref() {
+            (callback)(self);
+        }
+    }
+
+    fn theme_id(&self) -> ColorThemeId {
+        self.settings.theme.get()
     }
 
     pub fn has_theme(&self) -> bool {
-        self.theme_id().is_some()
+        self.theme_id() != ColorThemeId::None
     }
 
     pub fn theme(&self) -> Option<Cow<'static, ColorTheme>> {
-        let theme_id = self.theme_id()?;
-        Some(theme_by_id(&self.settings(), theme_id))
+        theme_by_id(&self.settings, self.theme_id())
     }
 }
 
-fn theme_by_id(settings: &gio::Settings, theme_id: ColorThemeId) -> Cow<'static, ColorTheme> {
-    match theme_id {
+fn theme_by_id(
+    settings: &ColorOptions,
+    theme_id: ColorThemeId,
+) -> Option<Cow<'static, ColorTheme>> {
+    Some(match theme_id {
+        ColorThemeId::None => return None,
         ColorThemeId::Modern => Cow::Borrowed(&COLOR_THEME_MODERN),
         ColorThemeId::Fusion => Cow::Borrowed(&COLOR_THEME_FUSION),
         ColorThemeId::Classic => Cow::Borrowed(&COLOR_THEME_CLASSIC),
@@ -337,34 +316,31 @@ fn theme_by_id(settings: &gio::Settings, theme_id: ColorThemeId) -> Cow<'static,
         ColorThemeId::GreenTiger => Cow::Borrowed(&COLOR_THEME_GREEN_TIGER),
         ColorThemeId::Winter => Cow::Borrowed(&COLOR_THEME_WINTER),
         ColorThemeId::Custom => Cow::Owned(load_custom_theme(settings)),
-    }
+    })
 }
 
-pub fn load_custom_theme(settings: &gio::Settings) -> ColorTheme {
+pub fn load_custom_theme(settings: &ColorOptions) -> ColorTheme {
     ColorTheme {
-        norm_fg: gdk::RGBA::parse(settings.string("custom-norm-fg")).unwrap_or(gdk::RGBA::BLACK),
-        norm_bg: gdk::RGBA::parse(settings.string("custom-norm-bg")).unwrap_or(gdk::RGBA::BLACK),
-        alt_fg: gdk::RGBA::parse(settings.string("custom-alt-fg")).unwrap_or(gdk::RGBA::BLACK),
-        alt_bg: gdk::RGBA::parse(settings.string("custom-alt-bg")).unwrap_or(gdk::RGBA::BLACK),
-        sel_fg: gdk::RGBA::parse(settings.string("custom-sel-fg")).unwrap_or(gdk::RGBA::BLACK),
-        sel_bg: gdk::RGBA::parse(settings.string("custom-sel-bg")).unwrap_or(gdk::RGBA::BLACK),
-        curs_fg: gdk::RGBA::parse(settings.string("custom-curs-fg")).unwrap_or(gdk::RGBA::BLACK),
-        curs_bg: gdk::RGBA::parse(settings.string("custom-curs-bg")).unwrap_or(gdk::RGBA::BLACK),
+        norm_fg: settings.custom_norm_fg.get(),
+        norm_bg: settings.custom_norm_bg.get(),
+        alt_fg: settings.custom_alt_fg.get(),
+        alt_bg: settings.custom_alt_bg.get(),
+        sel_fg: settings.custom_sel_fg.get(),
+        sel_bg: settings.custom_sel_bg.get(),
+        curs_fg: settings.custom_curs_fg.get(),
+        curs_bg: settings.custom_curs_bg.get(),
     }
 }
 
-pub fn save_custom_theme(
-    theme: &ColorTheme,
-    settings: &gio::Settings,
-) -> Result<(), glib::error::BoolError> {
-    settings.set_string("custom-norm-fg", &theme.norm_fg.to_str())?;
-    settings.set_string("custom-norm-bg", &theme.norm_bg.to_str())?;
-    settings.set_string("custom-alt-fg", &theme.alt_fg.to_str())?;
-    settings.set_string("custom-alt-bg", &theme.alt_bg.to_str())?;
-    settings.set_string("custom-sel-fg", &theme.sel_fg.to_str())?;
-    settings.set_string("custom-sel-bg", &theme.sel_bg.to_str())?;
-    settings.set_string("custom-curs-fg", &theme.curs_fg.to_str())?;
-    settings.set_string("custom-curs-bg", &theme.curs_bg.to_str())?;
+pub fn save_custom_theme(theme: &ColorTheme, settings: &ColorOptions) -> WriteResult {
+    settings.custom_norm_fg.set(theme.norm_fg)?;
+    settings.custom_norm_bg.set(theme.norm_bg)?;
+    settings.custom_alt_fg.set(theme.alt_fg)?;
+    settings.custom_alt_bg.set(theme.alt_bg)?;
+    settings.custom_sel_fg.set(theme.sel_fg)?;
+    settings.custom_sel_bg.set(theme.sel_bg)?;
+    settings.custom_curs_fg.set(theme.curs_fg)?;
+    settings.custom_curs_bg.set(theme.curs_bg)?;
     Ok(())
 }
 

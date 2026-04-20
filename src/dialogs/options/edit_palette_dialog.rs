@@ -12,8 +12,7 @@ use crate::{
 };
 use gettextrs::gettext;
 use gtk::prelude::*;
-use std::collections::HashMap;
-use strum::{EnumCount, VariantArray};
+use std::collections::BTreeMap;
 
 pub async fn edit_palette(
     parent_window: &gtk::Window,
@@ -85,27 +84,33 @@ pub async fn edit_palette(
         grid.attach(label, i as i32 + 1, 0, 1, 1);
     }
 
-    let mut buttons: HashMap<(LsPallettePlane, LsPalletteColor), gtk::ColorDialogButton> =
-        HashMap::new();
-    for plane in LsPallettePlane::VARIANTS {
-        for palette_color in LsPalletteColor::VARIANTS {
+    let mut buttons: BTreeMap<(LsPallettePlane, LsPalletteColor), gtk::ColorDialogButton> =
+        BTreeMap::new();
+    for plane in LsPallettePlane::all() {
+        for palette_color in LsPalletteColor::all() {
             let btn = gtk::ColorDialogButton::builder()
                 .halign(gtk::Align::Center)
-                .rgba(palette.color(*plane, *palette_color))
+                .rgba(palette.color(plane, palette_color))
                 .dialog(&color_dialog)
                 .build();
             if let Some(button) = btn.first_child() {
                 button.update_relation(&[gtk::accessible::Relation::DescribedBy(&[
-                    color_labels[*palette_color as usize].upcast_ref(),
-                    if *plane == LsPallettePlane::Foreground {
+                    color_labels[u32::from(palette_color) as usize].upcast_ref(),
+                    if plane == LsPallettePlane::Foreground {
                         foreground_label.upcast_ref()
                     } else {
                         background_label.upcast_ref()
                     },
                 ])]);
             }
-            grid.attach(&btn, *palette_color as i32 + 1, *plane as i32 + 1, 1, 1);
-            buttons.insert((*plane, *palette_color), btn);
+            grid.attach(
+                &btn,
+                u32::from(palette_color) as i32 + 1,
+                u32::from(plane) as i32 + 1,
+                1,
+                1,
+            );
+            buttons.insert((plane, palette_color), btn);
         }
     }
 
@@ -125,8 +130,8 @@ pub async fn edit_palette(
     grid.attach(
         &dialog_button_box(&[&reset_button], &[&cancel_button, &ok_button]),
         0,
-        LsPallettePlane::COUNT as i32 + 1,
-        LsPalletteColor::COUNT as i32 + 1,
+        LsPallettePlane::count() as i32 + 1,
+        LsPalletteColor::count() as i32 + 1,
         1,
     );
 
@@ -135,10 +140,9 @@ pub async fn edit_palette(
         buttons,
         move |_| {
             let palette = LsColorsPalette::default();
-            for plane in LsPallettePlane::VARIANTS {
-                for palette_color in LsPalletteColor::VARIANTS {
-                    buttons[&(*plane, *palette_color)]
-                        .set_rgba(palette.color(*plane, *palette_color));
+            for plane in LsPallettePlane::all() {
+                for palette_color in LsPalletteColor::all() {
+                    buttons[&(plane, palette_color)].set_rgba(palette.color(plane, palette_color));
                 }
             }
         }
@@ -163,12 +167,12 @@ pub async fn edit_palette(
 
     let palette = (result == Ok(true)).then(|| {
         let mut palette = LsColorsPalette::default();
-        for plane in LsPallettePlane::VARIANTS {
-            for palette_color in LsPalletteColor::VARIANTS {
+        for plane in LsPallettePlane::all() {
+            for palette_color in LsPalletteColor::all() {
                 palette.set_color(
-                    *plane,
-                    *palette_color,
-                    buttons[&(*plane, *palette_color)].rgba(),
+                    plane,
+                    palette_color,
+                    buttons[&(plane, palette_color)].rgba(),
                 );
             }
         }

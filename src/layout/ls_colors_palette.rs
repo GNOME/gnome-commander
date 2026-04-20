@@ -3,14 +3,12 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::{
-    PREF_COLORS,
-    ls_colors::{LsPalletteColor, LsPallettePlane},
-};
-use gtk::{gdk, gio, prelude::*, subclass::prelude::*};
-use strum::{EnumCount, VariantArray};
+use super::ls_colors::{LsPalletteColor, LsPallettePlane};
+use crate::options::{ColorOptions, types::RGBAOption};
+use gtk::gdk;
+use std::{cell::RefCell, rc::Rc};
 
-type PlaneColors = [gdk::RGBA; LsPalletteColor::COUNT];
+type PlaneColors = [gdk::RGBA; LsPalletteColor::count()];
 
 const DEFAULT_PLANE_COLORS: PlaneColors = [
     gdk::RGBA::BLACK,
@@ -25,7 +23,7 @@ const DEFAULT_PLANE_COLORS: PlaneColors = [
 
 #[derive(Clone)]
 pub struct LsColorsPalette {
-    colors: [PlaneColors; LsPallettePlane::COUNT],
+    colors: [PlaneColors; LsPallettePlane::count()],
 }
 
 impl Default for LsColorsPalette {
@@ -52,13 +50,13 @@ impl LsColorsPalette {
 
     fn create_css(&self) -> String {
         let mut css = String::from(":root {");
-        for plane in LsPallettePlane::VARIANTS {
-            for palette_color in LsPalletteColor::VARIANTS {
+        for plane in LsPallettePlane::all() {
+            for palette_color in LsPalletteColor::all() {
                 css.push_str(&format!(
                     "--ls-color-{}-{}: {};\n",
-                    plane.as_ref(),
-                    palette_color.as_ref(),
-                    self.color(*plane, *palette_color).to_str()
+                    plane.name(),
+                    palette_color.name(),
+                    self.color(plane, palette_color).to_str()
                 ));
             }
         }
@@ -67,116 +65,103 @@ impl LsColorsPalette {
     }
 }
 
-pub fn load_palette(settings: &gio::Settings) -> LsColorsPalette {
+fn options(
+    settings: &ColorOptions,
+) -> impl Iterator<Item = ((LsPallettePlane, LsPalletteColor), &RGBAOption)> {
+    LsPalletteColor::all()
+        .flat_map(|color| LsPallettePlane::all().map(move |plane| (plane, color)))
+        .zip([
+            &settings.lscm_black_fg,
+            &settings.lscm_black_bg,
+            &settings.lscm_red_fg,
+            &settings.lscm_red_bg,
+            &settings.lscm_green_fg,
+            &settings.lscm_green_bg,
+            &settings.lscm_yellow_fg,
+            &settings.lscm_yellow_bg,
+            &settings.lscm_blue_fg,
+            &settings.lscm_blue_bg,
+            &settings.lscm_magenta_fg,
+            &settings.lscm_magenta_bg,
+            &settings.lscm_cyan_fg,
+            &settings.lscm_cyan_bg,
+            &settings.lscm_white_fg,
+            &settings.lscm_white_bg,
+        ])
+}
+
+pub fn load_palette(settings: &ColorOptions) -> LsColorsPalette {
     let mut palette: LsColorsPalette = Default::default();
-    for plane in LsPallettePlane::VARIANTS {
-        for palette_color in LsPalletteColor::VARIANTS {
-            let key = format!("lscm-{}-{}", palette_color.as_ref(), plane.as_ref());
-            if let Ok(color) = gdk::RGBA::parse(settings.string(&key)) {
-                palette.set_color(*plane, *palette_color, color);
-            }
-        }
+    for ((plane, palette_color), option) in options(settings) {
+        palette.set_color(plane, palette_color, option.get());
     }
     palette
 }
 
 pub fn save_palette(
     palette: &LsColorsPalette,
-    settings: &gio::Settings,
+    settings: &ColorOptions,
 ) -> Result<(), glib::error::BoolError> {
-    for plane in LsPallettePlane::VARIANTS {
-        for palette_color in LsPalletteColor::VARIANTS {
-            let key = format!("lscm-{}-{}", palette_color.as_ref(), plane.as_ref());
-            settings.set_string(&key, &palette.color(*plane, *palette_color).to_str())?;
-        }
+    for ((plane, palette_color), option) in options(settings) {
+        option.set(*palette.color(plane, palette_color))?;
     }
     Ok(())
 }
 
-mod imp {
-    use super::*;
-    use glib::subclass::Signal;
-    use std::{
-        cell::{OnceCell, RefCell},
-        sync::OnceLock,
-    };
+type Callback = Box<dyn Fn(&LsColorPalettes)>;
 
-    #[derive(glib::Properties, Default)]
-    #[properties(wrapper_type = super::LsColorPalettes)]
-    pub struct LsColorPalettes {
-        #[property(get, construct_only)]
-        settings: OnceCell<gio::Settings>,
-        #[property(get, construct_only)]
-        display: OnceCell<Option<gdk::Display>>,
-        #[property(get, set, nullable)]
-        css_provider: RefCell<Option<gtk::CssProvider>>,
-    }
-
-    #[glib::object_subclass]
-    impl ObjectSubclass for LsColorPalettes {
-        const NAME: &'static str = "GnomeCmdLsColorPalettes";
-        type Type = super::LsColorPalettes;
-    }
-
-    #[glib::derived_properties]
-    impl ObjectImpl for LsColorPalettes {
-        fn constructed(&self) {
-            self.parent_constructed();
-
-            self.obj().settings().connect_changed(
-                None,
-                glib::clone!(
-                    #[weak(rename_to = this)]
-                    self.obj(),
-                    move |_, _| this.update_palette()
-                ),
-            );
-            self.obj().update_palette();
-        }
-
-        fn signals() -> &'static [Signal] {
-            static SIGNALS: OnceLock<Vec<Signal>> = OnceLock::new();
-            SIGNALS.get_or_init(|| vec![Signal::builder("palette-changed").build()])
-        }
-    }
-}
-
-glib::wrapper! {
-    pub struct LsColorPalettes(ObjectSubclass<imp::LsColorPalettes>);
+pub struct LsColorPalettes {
+    callback: RefCell<Option<Callback>>,
+    settings: ColorOptions,
+    css_provider: Option<gtk::CssProvider>,
 }
 
 impl LsColorPalettes {
-    pub fn new() -> Self {
-        let settings = gio::Settings::new(PREF_COLORS);
-        glib::Object::builder()
-            .property("settings", settings)
-            .property("display", gdk::Display::default())
-            .build()
+    pub fn new() -> Rc<Self> {
+        let css_provider = gdk::Display::default().map(|display| {
+            let css_provider = gtk::CssProvider::new();
+            gtk::style_context_add_provider_for_display(
+                &display,
+                &css_provider,
+                gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
+            );
+            css_provider
+        });
+
+        let this = Rc::new(Self {
+            callback: Default::default(),
+            settings: ColorOptions::new(),
+            css_provider,
+        });
+
+        for (_, option) in options(&this.settings) {
+            let weak_ref = Rc::downgrade(&this);
+            option.connect_changed(move |_| {
+                if let Some(this) = weak_ref.upgrade() {
+                    this.update_palette();
+                }
+            });
+        }
+        this.update_palette();
+
+        this
+    }
+
+    pub fn set_update_callback(&self, callback: impl Fn(&Self) + 'static) {
+        self.callback.replace(Some(Box::new(callback)));
     }
 
     fn update_palette(&self) {
-        let Some(display) = self.display() else {
+        let Some(css_provider) = self.css_provider.as_ref() else {
             eprintln!("No display");
             return;
         };
 
-        if let Some(css_provider) = self.css_provider() {
-            gtk::style_context_remove_provider_for_display(&display, &css_provider);
-        }
-
-        let palette = load_palette(&self.settings());
-
-        let css_provider = gtk::CssProvider::new();
+        let palette = load_palette(&self.settings);
         css_provider.load_from_string(&palette.create_css());
 
-        gtk::style_context_add_provider_for_display(
-            &display,
-            &css_provider,
-            gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
-        );
-
-        self.set_css_provider(Some(css_provider));
-
-        self.emit_by_name::<()>("palette-changed", &[]);
+        if let Some(callback) = self.callback.borrow().as_ref() {
+            (callback)(self);
+        }
     }
 }

@@ -353,11 +353,10 @@ impl DataPresentation {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, strum::FromRepr, Default)]
-#[repr(C)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum DataPresentationMode {
     #[default]
-    NoWrap = 0,
+    NoWrap,
     Wrap,
     /// fixed number of characters per line.
     Fixed,

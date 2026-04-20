@@ -7,7 +7,6 @@ use crate::{
     advanced_rename::profile::AdvancedRenameProfileVariant,
     app::FavoriteAppVariant,
     connection::list::{BookmarkVariant, ConnectionVariant, CustomDeviceVariant},
-    enum_convert_strum,
     file_list::quick_search::QuickSearchMode,
     file_selector::{LegacyTabVariant, TabVariant},
     filter::PatternType,
@@ -19,9 +18,8 @@ use crate::{
         ls_colors_palette::{LsColorsPalette, load_palette, save_palette},
     },
     options::types::{
-        AppOption, BoolOption, DURATION_MILLIS_TYPE, EnumOption, EnumRepr, I32Option,
-        OPTIONAL_PATH_TYPE, StringOption, StrvOption, TypeConvertCallback, U32Option,
-        VariantOption, WriteResult,
+        AppOption, BoolOption, DurationOption, EnumOption, I32Option, OptionalPathOption,
+        RGBAOption, StringOption, StrvOption, U32Option, VariantOption, WriteResult,
     },
     search::profile::{LegacySearchProfileVariant, SearchProfile, SearchProfileVariant},
     shortcuts::ShortcutVariant,
@@ -31,10 +29,11 @@ use crate::{
         LeftMouseButtonMode, MiddleMouseButtonMode, PermissionDisplayMode, QuickSearchShortcut,
         RightMouseButtonMode, SizeDisplayMode,
     },
+    utils::u32_enum,
 };
 use gettextrs::gettext;
 use gtk::{gio, prelude::*};
-use std::{path::PathBuf, rc::Rc, sync::LazyLock, time::Duration};
+use std::{rc::Rc, sync::LazyLock};
 
 pub struct GeneralOptions {
     pub allow_multiple_instances: BoolOption,
@@ -74,7 +73,7 @@ pub struct GeneralOptions {
 
     pub icon_size: U32Option,
     pub icon_scale_quality: EnumOption<IconScaleQuality>,
-    pub mime_icon_dir: AppOption<Option<PathBuf>, String>,
+    pub mime_icon_dir: OptionalPathOption,
 
     pub select_dirs: BoolOption,
 
@@ -107,7 +106,7 @@ pub struct GeneralOptions {
     pub favorite_apps: VariantOption<Vec<FavoriteAppVariant>>,
 
     pub advanced_rename_profiles: VariantOption<Vec<AdvancedRenameProfileVariant>>,
-    pub advanced_rename_template_history: AppOption<Vec<String>>,
+    pub advanced_rename_template_history: StrvOption,
 
     pub search_window_is_transient: BoolOption,
     pub search_profiles: VariantOption<Vec<SearchProfileVariant>>,
@@ -131,7 +130,7 @@ pub struct GeneralOptions {
     pub search_window_width: U32Option,
     pub search_window_height: U32Option,
 
-    pub gui_update_rate: AppOption<Duration, u32>,
+    pub gui_update_rate: DurationOption,
 }
 
 impl GeneralOptions {
@@ -139,191 +138,177 @@ impl GeneralOptions {
         let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.general");
 
         Self {
-            allow_multiple_instances: BoolOption::simple(&settings, "allow-multiple-instances"),
-            device_list: VariantOption::variant(&settings, "device-list"),
-            directory_history: StrvOption::simple(&settings, "directory-history"),
-            connections: VariantOption::variant(&settings, "connections"),
-            bookmarks: VariantOption::variant(&settings, "bookmarks"),
-            keybindings: VariantOption::variant(&settings, "keybindings-v2"),
-            legacy_keybindings: AppOption::simple(&settings, "keybindings"),
-            symlink_format: StringOption::simple(&settings, "symlink-string"),
-            use_trash: BoolOption::simple(&settings, "delete-to-trash"),
-            menu_visible: AppOption::simple(&settings, "mainmenu-visibility"),
-            toolbar_visible: AppOption::simple(&settings, "show-toolbar"),
-            horizontal_orientation: AppOption::simple(&settings, "horizontal-orientation"),
-            command_line_visible: AppOption::simple(&settings, "show-cmdline"),
-            buttonbar_visible: AppOption::simple(&settings, "show-buttonbar"),
-            connection_buttons_visible: AppOption::simple(&settings, "show-devbuttons"),
-            connection_list_visible: AppOption::simple(&settings, "show-devlist"),
-            always_show_tabs: BoolOption::simple(&settings, "always-show-tabs"),
-            tab_lock_indicator: AppOption::new(
-                &settings,
-                "tab-lock-indicator",
-                enum_convert_strum!(TabLockIndicator),
-            ),
-            file_list_tabs: VariantOption::variant(&settings, "file-list-tabs-v2"),
-            legacy_file_list_tabs: VariantOption::variant(&settings, "file-list-tabs"),
-            list_font: StringOption::simple(&settings, "list-font"),
-            list_row_height: U32Option::simple(&settings, "list-row-height"),
+            allow_multiple_instances: BoolOption::new(&settings, "allow-multiple-instances"),
+            device_list: VariantOption::new(&settings, "device-list"),
+            directory_history: StrvOption::new(&settings, "directory-history"),
+            connections: VariantOption::new(&settings, "connections"),
+            bookmarks: VariantOption::new(&settings, "bookmarks"),
+            keybindings: VariantOption::new(&settings, "keybindings-v2"),
+            legacy_keybindings: AppOption::new(&settings, "keybindings"),
+            symlink_format: StringOption::new(&settings, "symlink-string"),
+            use_trash: BoolOption::new(&settings, "delete-to-trash"),
+            menu_visible: BoolOption::new(&settings, "mainmenu-visibility"),
+            toolbar_visible: BoolOption::new(&settings, "show-toolbar"),
+            horizontal_orientation: BoolOption::new(&settings, "horizontal-orientation"),
+            command_line_visible: BoolOption::new(&settings, "show-cmdline"),
+            buttonbar_visible: BoolOption::new(&settings, "show-buttonbar"),
+            connection_buttons_visible: BoolOption::new(&settings, "show-devbuttons"),
+            connection_list_visible: BoolOption::new(&settings, "show-devlist"),
+            always_show_tabs: BoolOption::new(&settings, "always-show-tabs"),
+            tab_lock_indicator: EnumOption::new(&settings, "tab-lock-indicator"),
+            file_list_tabs: VariantOption::new(&settings, "file-list-tabs-v2"),
+            legacy_file_list_tabs: VariantOption::new(&settings, "file-list-tabs"),
+            list_font: StringOption::new(&settings, "list-font"),
+            list_row_height: U32Option::new(&settings, "list-row-height"),
             list_column_width: [
-                U32Option::simple(&settings, "column-width-icon"),
-                U32Option::simple(&settings, "column-width-name"),
-                U32Option::simple(&settings, "column-width-ext"),
-                U32Option::simple(&settings, "column-width-dir"),
-                U32Option::simple(&settings, "column-width-size"),
-                U32Option::simple(&settings, "column-width-date"),
-                U32Option::simple(&settings, "column-width-perm"),
-                U32Option::simple(&settings, "column-width-owner"),
-                U32Option::simple(&settings, "column-width-group"),
+                U32Option::new(&settings, "column-width-icon"),
+                U32Option::new(&settings, "column-width-name"),
+                U32Option::new(&settings, "column-width-ext"),
+                U32Option::new(&settings, "column-width-dir"),
+                U32Option::new(&settings, "column-width-size"),
+                U32Option::new(&settings, "column-width-date"),
+                U32Option::new(&settings, "column-width-perm"),
+                U32Option::new(&settings, "column-width-owner"),
+                U32Option::new(&settings, "column-width-group"),
             ],
-            date_display_format: StringOption::simple(&settings, "date-disp-format"),
-            graphical_layout_mode: AppOption::new(
-                &settings,
-                "graphical-layout-mode",
-                enum_convert_strum!(GraphicalLayoutMode),
-            ),
-            extension_display_mode: AppOption::new(
-                &settings,
-                "extension-display-mode",
-                enum_convert_strum!(ExtensionDisplayMode),
-            ),
-            size_display_mode: AppOption::new(
-                &settings,
-                "size-display-mode",
-                enum_convert_strum!(SizeDisplayMode),
-            ),
-            permissions_display_mode: AppOption::new(
-                &settings,
-                "perm-display-mode",
-                enum_convert_strum!(PermissionDisplayMode),
-            ),
-            icon_size: U32Option::simple(&settings, "icon-size"),
-            icon_scale_quality: AppOption::new(
-                &settings,
-                "icon-scale-quality",
-                enum_convert_strum!(IconScaleQuality),
-            ),
-            mime_icon_dir: AppOption::new(&settings, "mime-icon-dir", OPTIONAL_PATH_TYPE),
-            select_dirs: BoolOption::simple(&settings, "select-dirs"),
-            case_sensitive: BoolOption::simple(&settings, "case-sensitive"),
-            symbolic_links_as_regular_files: BoolOption::simple(
+            date_display_format: StringOption::new(&settings, "date-disp-format"),
+            graphical_layout_mode: EnumOption::new(&settings, "graphical-layout-mode"),
+            extension_display_mode: EnumOption::new(&settings, "extension-display-mode"),
+            size_display_mode: EnumOption::new(&settings, "size-display-mode"),
+            permissions_display_mode: EnumOption::new(&settings, "perm-display-mode"),
+            icon_size: U32Option::new(&settings, "icon-size"),
+            icon_scale_quality: EnumOption::new(&settings, "icon-scale-quality"),
+            mime_icon_dir: OptionalPathOption::new(&settings, "mime-icon-dir"),
+            select_dirs: BoolOption::new(&settings, "select-dirs"),
+            case_sensitive: BoolOption::new(&settings, "case-sensitive"),
+            symbolic_links_as_regular_files: BoolOption::new(
                 &settings,
                 "symbolic-links-as-regular-files",
             ),
-            left_mouse_button_mode: AppOption::new(
-                &settings,
-                "clicks-to-open-item",
-                enum_convert_strum!(LeftMouseButtonMode),
-            ),
-            middle_mouse_button_mode: AppOption::new(
-                &settings,
-                "middle-mouse-btn-mode",
-                enum_convert_strum!(MiddleMouseButtonMode),
-            ),
-            right_mouse_button_mode: AppOption::new(
-                &settings,
-                "right-mouse-btn-mode",
-                enum_convert_strum!(RightMouseButtonMode),
-            ),
-            left_mouse_button_unselects: BoolOption::simple(&settings, "left-mouse-btn-unselects"),
-            quick_search_shortcut: AppOption::new(
-                &settings,
-                "quick-search",
-                enum_convert_strum!(QuickSearchShortcut),
-            ),
-            quick_search_default_mode: AppOption::new(
-                &settings,
-                "quick-search-default-mode",
-                enum_convert_strum!(QuickSearchMode),
-            ),
-            quick_search_case_sensitive: BoolOption::simple(
-                &settings,
-                "quick-search-case-sensitive",
-            ),
-            show_samba_workgroups_button: BoolOption::simple(
-                &settings,
-                "show-samba-workgroup-button",
-            ),
-            device_only_icon: BoolOption::simple(&settings, "dev-only-icon"),
-            command_line_history: StrvOption::simple(&settings, "cmdline-history"),
-            command_line_history_length: U32Option::simple(&settings, "cmdline-history-length"),
-            command_line_split: I32Option::simple(&settings, "cmdline-split"),
-            command_line_autohide_output: BoolOption::simple(&settings, "cmdline-autohide-output"),
-            save_tabs_on_exit: BoolOption::simple(&settings, "save-tabs-on-exit"),
-            save_dirs_on_exit: BoolOption::simple(&settings, "save-dirs-on-exit"),
-            save_directory_history_on_exit: BoolOption::simple(
-                &settings,
-                "save-dir-history-on-exit",
-            ),
-            save_command_line_history_on_exit: BoolOption::simple(
+            left_mouse_button_mode: EnumOption::new(&settings, "clicks-to-open-item"),
+            middle_mouse_button_mode: EnumOption::new(&settings, "middle-mouse-btn-mode"),
+            right_mouse_button_mode: EnumOption::new(&settings, "right-mouse-btn-mode"),
+            left_mouse_button_unselects: BoolOption::new(&settings, "left-mouse-btn-unselects"),
+            quick_search_shortcut: EnumOption::new(&settings, "quick-search"),
+            quick_search_default_mode: EnumOption::new(&settings, "quick-search-default-mode"),
+            quick_search_case_sensitive: BoolOption::new(&settings, "quick-search-case-sensitive"),
+            show_samba_workgroups_button: BoolOption::new(&settings, "show-samba-workgroup-button"),
+            device_only_icon: BoolOption::new(&settings, "dev-only-icon"),
+            command_line_history: StrvOption::new(&settings, "cmdline-history"),
+            command_line_history_length: U32Option::new(&settings, "cmdline-history-length"),
+            command_line_split: I32Option::new(&settings, "cmdline-split"),
+            command_line_autohide_output: BoolOption::new(&settings, "cmdline-autohide-output"),
+            save_tabs_on_exit: BoolOption::new(&settings, "save-tabs-on-exit"),
+            save_dirs_on_exit: BoolOption::new(&settings, "save-dirs-on-exit"),
+            save_directory_history_on_exit: BoolOption::new(&settings, "save-dir-history-on-exit"),
+            save_command_line_history_on_exit: BoolOption::new(
                 &settings,
                 "save-cmdline-history-on-exit",
             ),
-            save_search_history: BoolOption::simple(&settings, "save-search-history-on-exit"),
-            favorite_apps: VariantOption::variant(&settings, "favorite-apps"),
-            advanced_rename_profiles: AppOption::variant(&settings, "advrename-profiles"),
-            advanced_rename_template_history: AppOption::simple(
+            save_search_history: BoolOption::new(&settings, "save-search-history-on-exit"),
+            favorite_apps: VariantOption::new(&settings, "favorite-apps"),
+            advanced_rename_profiles: VariantOption::new(&settings, "advrename-profiles"),
+            advanced_rename_template_history: StrvOption::new(
                 &settings,
                 "advrename-template-history",
             ),
-            search_window_is_transient: BoolOption::simple(&settings, "search-win-is-transient"),
-            search_profiles: VariantOption::variant(&settings, "search-profiles-v2"),
-            legacy_search_profiles: VariantOption::variant(&settings, "search-profiles"),
-            search_pattern_history: StrvOption::simple(&settings, "search-pattern-history"),
-            search_text_history: StrvOption::simple(&settings, "search-text-history"),
-            main_window_width: U32Option::simple(&settings, "main-win-width"),
-            main_window_height: U32Option::simple(&settings, "main-win-height"),
-            main_window_state: U32Option::simple(&settings, "main-win-state"),
-            options_window_width: AppOption::simple(&settings, "opts-dialog-width"),
-            options_window_height: AppOption::simple(&settings, "opts-dialog-height"),
-            bookmarks_window_width: AppOption::simple(&settings, "bookmarks-win-width"),
-            bookmarks_window_height: AppOption::simple(&settings, "bookmarks-win-height"),
-            advanced_rename_window_width: AppOption::simple(&settings, "advrename-win-width"),
-            advanced_rename_window_height: AppOption::simple(&settings, "advrename-win-height"),
-            search_window_width: AppOption::simple(&settings, "search-win-width"),
-            search_window_height: AppOption::simple(&settings, "search-win-height"),
-            gui_update_rate: AppOption::new(&settings, "gui-update-rate", DURATION_MILLIS_TYPE),
+            search_window_is_transient: BoolOption::new(&settings, "search-win-is-transient"),
+            search_profiles: VariantOption::new(&settings, "search-profiles-v2"),
+            legacy_search_profiles: VariantOption::new(&settings, "search-profiles"),
+            search_pattern_history: StrvOption::new(&settings, "search-pattern-history"),
+            search_text_history: StrvOption::new(&settings, "search-text-history"),
+            main_window_width: U32Option::new(&settings, "main-win-width"),
+            main_window_height: U32Option::new(&settings, "main-win-height"),
+            main_window_state: U32Option::new(&settings, "main-win-state"),
+            options_window_width: U32Option::new(&settings, "opts-dialog-width"),
+            options_window_height: U32Option::new(&settings, "opts-dialog-height"),
+            bookmarks_window_width: U32Option::new(&settings, "bookmarks-win-width"),
+            bookmarks_window_height: U32Option::new(&settings, "bookmarks-win-height"),
+            advanced_rename_window_width: U32Option::new(&settings, "advrename-win-width"),
+            advanced_rename_window_height: U32Option::new(&settings, "advrename-win-height"),
+            search_window_width: U32Option::new(&settings, "search-win-width"),
+            search_window_height: U32Option::new(&settings, "search-win-height"),
+            gui_update_rate: DurationOption::new(&settings, "gui-update-rate"),
         }
     }
 }
 
 pub struct ColorOptions {
-    settings: gio::Settings,
-    pub theme: AppOption<Option<ColorThemeId>, EnumRepr>,
+    pub theme: EnumOption<ColorThemeId>,
     pub use_ls_colors: BoolOption,
+    pub custom_norm_fg: RGBAOption,
+    pub custom_norm_bg: RGBAOption,
+    pub custom_alt_fg: RGBAOption,
+    pub custom_alt_bg: RGBAOption,
+    pub custom_sel_fg: RGBAOption,
+    pub custom_sel_bg: RGBAOption,
+    pub custom_curs_fg: RGBAOption,
+    pub custom_curs_bg: RGBAOption,
+    pub lscm_black_fg: RGBAOption,
+    pub lscm_black_bg: RGBAOption,
+    pub lscm_red_fg: RGBAOption,
+    pub lscm_red_bg: RGBAOption,
+    pub lscm_green_fg: RGBAOption,
+    pub lscm_green_bg: RGBAOption,
+    pub lscm_yellow_fg: RGBAOption,
+    pub lscm_yellow_bg: RGBAOption,
+    pub lscm_blue_fg: RGBAOption,
+    pub lscm_blue_bg: RGBAOption,
+    pub lscm_magenta_fg: RGBAOption,
+    pub lscm_magenta_bg: RGBAOption,
+    pub lscm_cyan_fg: RGBAOption,
+    pub lscm_cyan_bg: RGBAOption,
+    pub lscm_white_fg: RGBAOption,
+    pub lscm_white_bg: RGBAOption,
 }
 
 impl ColorOptions {
     pub fn new() -> Self {
         let settings = gio::Settings::new(PREF_COLORS);
         Self {
-            theme: AppOption::new(
-                &settings,
-                "theme",
-                TypeConvertCallback {
-                    from_repr: |e: EnumRepr| e.0.try_into().ok().and_then(ColorThemeId::from_repr),
-                    to_repr: |e| EnumRepr(e.map(|t| t as i32).unwrap_or_default()),
-                },
-            ),
-            use_ls_colors: AppOption::simple(&settings, "use-ls-colors"),
-            settings,
+            theme: EnumOption::new(&settings, "theme"),
+            use_ls_colors: BoolOption::new(&settings, "use-ls-colors"),
+            custom_norm_fg: RGBAOption::new(&settings, "custom-norm-fg"),
+            custom_norm_bg: RGBAOption::new(&settings, "custom-norm-bg"),
+            custom_alt_fg: RGBAOption::new(&settings, "custom-alt-fg"),
+            custom_alt_bg: RGBAOption::new(&settings, "custom-alt-bg"),
+            custom_sel_fg: RGBAOption::new(&settings, "custom-sel-fg"),
+            custom_sel_bg: RGBAOption::new(&settings, "custom-sel-bg"),
+            custom_curs_fg: RGBAOption::new(&settings, "custom-curs-fg"),
+            custom_curs_bg: RGBAOption::new(&settings, "custom-curs-bg"),
+            lscm_black_fg: RGBAOption::new(&settings, "lscm-black-fg"),
+            lscm_black_bg: RGBAOption::new(&settings, "lscm-black-bg"),
+            lscm_red_fg: RGBAOption::new(&settings, "lscm-red-fg"),
+            lscm_red_bg: RGBAOption::new(&settings, "lscm-red-bg"),
+            lscm_green_fg: RGBAOption::new(&settings, "lscm-green-fg"),
+            lscm_green_bg: RGBAOption::new(&settings, "lscm-green-bg"),
+            lscm_yellow_fg: RGBAOption::new(&settings, "lscm-yellow-fg"),
+            lscm_yellow_bg: RGBAOption::new(&settings, "lscm-yellow-bg"),
+            lscm_blue_fg: RGBAOption::new(&settings, "lscm-blue-fg"),
+            lscm_blue_bg: RGBAOption::new(&settings, "lscm-blue-bg"),
+            lscm_magenta_fg: RGBAOption::new(&settings, "lscm-magenta-fg"),
+            lscm_magenta_bg: RGBAOption::new(&settings, "lscm-magenta-bg"),
+            lscm_cyan_fg: RGBAOption::new(&settings, "lscm-cyan-fg"),
+            lscm_cyan_bg: RGBAOption::new(&settings, "lscm-cyan-bg"),
+            lscm_white_fg: RGBAOption::new(&settings, "lscm-white-fg"),
+            lscm_white_bg: RGBAOption::new(&settings, "lscm-white-bg"),
         }
     }
 
     pub fn custom_theme(&self) -> ColorTheme {
-        load_custom_theme(&self.settings)
+        load_custom_theme(self)
     }
 
     pub fn set_custom_theme(&self, theme: &ColorTheme) -> WriteResult {
-        save_custom_theme(theme, &self.settings)
+        save_custom_theme(theme, self)
     }
 
     pub fn ls_color_palette(&self) -> LsColorsPalette {
-        load_palette(&self.settings)
+        load_palette(self)
     }
 
     pub fn set_ls_color_palette(&self, palette: &LsColorsPalette) -> WriteResult {
-        save_palette(palette, &self.settings)
+        save_palette(palette, self)
     }
 }
 
@@ -339,35 +324,21 @@ impl ConfirmOptions {
     pub fn new() -> Self {
         let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.confirmations");
         Self {
-            confirm_delete: BoolOption::simple(&settings, "delete"),
-            confirm_delete_default: AppOption::new(
-                &settings,
-                "delete-default",
-                enum_convert_strum!(DeleteDefault, DeleteDefault::Cancel),
-            ),
-            confirm_copy_overwrite: AppOption::new(
-                &settings,
-                "copy-overwrite",
-                enum_convert_strum!(ConfirmOverwriteMode, ConfirmOverwriteMode::Query),
-            ),
-            confirm_move_overwrite: AppOption::new(
-                &settings,
-                "move-overwrite",
-                enum_convert_strum!(ConfirmOverwriteMode, ConfirmOverwriteMode::Query),
-            ),
-            dnd_mode: AppOption::new(
-                &settings,
-                "mouse-drag-and-drop",
-                enum_convert_strum!(DndMode),
-            ),
+            confirm_delete: BoolOption::new(&settings, "delete"),
+            confirm_delete_default: EnumOption::new(&settings, "delete-default"),
+            confirm_copy_overwrite: EnumOption::new(&settings, "copy-overwrite"),
+            confirm_move_overwrite: EnumOption::new(&settings, "move-overwrite"),
+            dnd_mode: EnumOption::new(&settings, "mouse-drag-and-drop"),
         }
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Eq, strum::FromRepr)]
-pub enum DeleteDefault {
-    Cancel = 3,
-    Delete = 1,
+u32_enum! {
+    pub enum DeleteDefault {
+        #[default]
+        Cancel,
+        Delete,
+    }
 }
 
 pub struct FiltersOptions {
@@ -389,18 +360,18 @@ impl FiltersOptions {
     pub fn new() -> Self {
         let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.filter");
         Self {
-            hide_unknown: BoolOption::simple(&settings, "hide-unknown"),
-            hide_regular: BoolOption::simple(&settings, "hide-regular"),
-            hide_directory: BoolOption::simple(&settings, "hide-directory"),
-            hide_special: BoolOption::simple(&settings, "hide-special"),
-            hide_shortcut: BoolOption::simple(&settings, "hide-shortcut"),
-            hide_mountable: BoolOption::simple(&settings, "hide-mountable"),
-            hide_virtual: BoolOption::simple(&settings, "hide-virtual"),
-            hide_volatile: BoolOption::simple(&settings, "hide-volatile"),
-            hide_hidden: BoolOption::simple(&settings, "hide-dotfile"),
-            hide_backup: BoolOption::simple(&settings, "hide-backupfiles"),
-            hide_symlink: BoolOption::simple(&settings, "hide-symlink"),
-            backup_pattern: StringOption::simple(&settings, "backup-pattern"),
+            hide_unknown: BoolOption::new(&settings, "hide-unknown"),
+            hide_regular: BoolOption::new(&settings, "hide-regular"),
+            hide_directory: BoolOption::new(&settings, "hide-directory"),
+            hide_special: BoolOption::new(&settings, "hide-special"),
+            hide_shortcut: BoolOption::new(&settings, "hide-shortcut"),
+            hide_mountable: BoolOption::new(&settings, "hide-mountable"),
+            hide_virtual: BoolOption::new(&settings, "hide-virtual"),
+            hide_volatile: BoolOption::new(&settings, "hide-volatile"),
+            hide_hidden: BoolOption::new(&settings, "hide-dotfile"),
+            hide_backup: BoolOption::new(&settings, "hide-backupfiles"),
+            hide_symlink: BoolOption::new(&settings, "hide-symlink"),
+            backup_pattern: StringOption::new(&settings, "backup-pattern"),
         }
     }
 }
@@ -422,16 +393,16 @@ impl ProgramsOptions {
     pub fn new() -> Self {
         let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.programs");
         Self {
-            dont_download: BoolOption::simple(&settings, "dont-download"),
-            use_internal_viewer: BoolOption::simple(&settings, "use-internal-viewer"),
-            viewer_cmd: StringOption::simple(&settings, "viewer-cmd"),
-            editor_cmd: StringOption::simple(&settings, "editor-cmd"),
-            differ_cmd: StringOption::simple(&settings, "differ-cmd"),
-            use_internal_search: BoolOption::simple(&settings, "use-internal-search"),
-            search_cmd: StringOption::simple(&settings, "search-cmd"),
-            sendto_cmd: StringOption::simple(&settings, "sendto-cmd"),
-            terminal_cmd: StringOption::simple(&settings, "terminal-cmd"),
-            terminal_exec_cmd: StringOption::simple(&settings, "terminal-exec-cmd"),
+            dont_download: BoolOption::new(&settings, "dont-download"),
+            use_internal_viewer: BoolOption::new(&settings, "use-internal-viewer"),
+            viewer_cmd: StringOption::new(&settings, "viewer-cmd"),
+            editor_cmd: StringOption::new(&settings, "editor-cmd"),
+            differ_cmd: StringOption::new(&settings, "differ-cmd"),
+            use_internal_search: BoolOption::new(&settings, "use-internal-search"),
+            search_cmd: StringOption::new(&settings, "search-cmd"),
+            sendto_cmd: StringOption::new(&settings, "sendto-cmd"),
+            terminal_cmd: StringOption::new(&settings, "terminal-cmd"),
+            terminal_exec_cmd: StringOption::new(&settings, "terminal-exec-cmd"),
         }
     }
 }
@@ -583,7 +554,7 @@ impl NetworkOptions {
     pub fn new() -> Self {
         let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.network");
         Self {
-            quick_connect_uri: AppOption::simple(&settings, "quick-connect-uri"),
+            quick_connect_uri: StringOption::new(&settings, "quick-connect-uri"),
         }
     }
 }
@@ -609,19 +580,19 @@ impl ViewerOptions {
     pub fn new() -> Self {
         let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.internal-viewer");
         Self {
-            window_width: AppOption::simple(&settings, "window-width"),
-            window_height: AppOption::simple(&settings, "window-height"),
-            encoding: AppOption::simple(&settings, "charset"),
-            monospaced_font: AppOption::simple(&settings, "monospaced-font"),
-            tab_size: AppOption::simple(&settings, "tab-size"),
-            wrap_mode: AppOption::simple(&settings, "wrap-mode"),
-            binary_bytes_per_line: AppOption::simple(&settings, "binary-bytes-per-line"),
-            display_hex_offset: AppOption::simple(&settings, "display-hex-offset"),
-            metadata_visible: AppOption::simple(&settings, "metadata-visible"),
-            search_pattern_text: AppOption::simple(&settings, "search-pattern-text"),
-            search_pattern_hex: AppOption::simple(&settings, "search-pattern-hex"),
-            case_sensitive_search: AppOption::simple(&settings, "case-sensitive-search"),
-            search_mode: AppOption::new(&settings, "search-mode", enum_convert_strum!(Mode)),
+            window_width: U32Option::new(&settings, "window-width"),
+            window_height: U32Option::new(&settings, "window-height"),
+            encoding: StringOption::new(&settings, "charset"),
+            monospaced_font: StringOption::new(&settings, "monospaced-font"),
+            tab_size: U32Option::new(&settings, "tab-size"),
+            wrap_mode: BoolOption::new(&settings, "wrap-mode"),
+            binary_bytes_per_line: U32Option::new(&settings, "binary-bytes-per-line"),
+            display_hex_offset: BoolOption::new(&settings, "display-hex-offset"),
+            metadata_visible: BoolOption::new(&settings, "metadata-visible"),
+            search_pattern_text: StrvOption::new(&settings, "search-pattern-text"),
+            search_pattern_hex: StrvOption::new(&settings, "search-pattern-hex"),
+            case_sensitive_search: BoolOption::new(&settings, "case-sensitive-search"),
+            search_mode: EnumOption::new(&settings, "search-mode"),
         }
     }
 

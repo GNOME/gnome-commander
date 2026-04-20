@@ -8,13 +8,12 @@ use crate::{
     file::{File, FileOps},
     filter::{Filter, PatternType},
     options::GeneralOptions,
-    utils::{EnumAll, u32_enum},
+    utils::u32_enum,
 };
 use gettextrs::gettext;
 use gtk::{gdk, glib, prelude::*, subclass::prelude::*};
 
 u32_enum! {
-    #[derive(strum::FromRepr)]
     pub enum QuickSearchMode {
         #[default]
         Search,

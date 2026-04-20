@@ -123,7 +123,7 @@ mod imp {
                 self,
                 move |_| {
                     let method = imp.get_method();
-                    imp.setup_for_type(method);
+                    imp.setup_for_type(Some(method));
                 }
             ));
 
@@ -241,9 +241,8 @@ mod imp {
             }
         }
 
-        pub fn get_method(&self) -> Option<ConnectionMethodID> {
-            let method = self.type_combo.selected();
-            ConnectionMethodID::from_repr(method)
+        pub fn get_method(&self) -> ConnectionMethodID {
+            ConnectionMethodID::from(self.type_combo.selected())
         }
 
         pub fn set_method(&self, method: Option<ConnectionMethodID>) {
@@ -299,10 +298,7 @@ mod imp {
         }
 
         pub fn get_connection_uri(&self) -> Result<glib::Uri, ErrorMessage> {
-            let method = self.get_method().ok_or_else(|| ErrorMessage {
-                message: gettext("Connection method is not selected"),
-                secondary_text: None,
-            })?;
+            let method = self.get_method();
             let uri = match method {
                 ConnectionMethodID::CON_SFTP => glib::Uri::build(
                     glib::UriFlags::NONE,

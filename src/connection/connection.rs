@@ -136,8 +136,7 @@ impl Connection {
     }
 }
 
-#[repr(C)]
-#[derive(Clone, Copy, PartialEq, Eq, strum::FromRepr)]
+#[derive(Clone, Copy, PartialEq, Eq)]
 pub enum ConnectionState {
     Closed,
     Open,

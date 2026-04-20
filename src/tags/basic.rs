@@ -4,44 +4,51 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::GnomeCmdTag;
-use crate::libgcmd::file_metadata_extractor::FileMetadataExtractor;
+use crate::{libgcmd::file_metadata_extractor::FileMetadataExtractor, utils::u32_enum};
 use gettextrs::gettext;
 use gtk::{gio, glib::subclass::prelude::*, prelude::*};
 
-#[derive(Clone, Copy, strum::VariantArray, strum::IntoStaticStr, strum::EnumString)]
-enum FileTag {
-    #[strum(serialize = "File.Name")]
-    Name,
-    #[strum(serialize = "File.Path")]
-    Path,
-    #[strum(serialize = "File.Link")]
-    Link,
-    #[strum(serialize = "File.Size")]
-    Size,
-    #[strum(serialize = "File.Modified")]
-    Modified,
-    #[strum(serialize = "File.Accessed")]
-    Accessed,
-    #[strum(serialize = "File.Permissions")]
-    Permissions,
-    #[strum(serialize = "File.Format")]
-    Format,
-    #[strum(serialize = "File.Publisher")]
-    Publisher,
-    #[strum(serialize = "File.Description")]
-    Description,
-    #[strum(serialize = "File.Keywords")]
-    Keywords,
-    #[strum(serialize = "File.Rank")]
-    Rank,
-    #[strum(serialize = "File.Content")]
-    Content,
+u32_enum! {
+    enum FileTag {
+        #[default]
+        Name,
+        Path,
+        Link,
+        Size,
+        Modified,
+        Accessed,
+        Permissions,
+        Format,
+        Publisher,
+        Description,
+        Keywords,
+        Rank,
+        Content,
+    }
 }
 
 impl FileTag {
     fn tag(&self) -> GnomeCmdTag {
-        let str: &'static str = self.into();
+        let str = match self {
+            Self::Name => "File.Name",
+            Self::Path => "File.Path",
+            Self::Link => "File.Link",
+            Self::Size => "File.Size",
+            Self::Modified => "File.Modified",
+            Self::Accessed => "File.Accessed",
+            Self::Permissions => "File.Permissions",
+            Self::Format => "File.Format",
+            Self::Publisher => "File.Publisher",
+            Self::Description => "File.Description",
+            Self::Keywords => "File.Keywords",
+            Self::Rank => "File.Rank",
+            Self::Content => "File.Content",
+        };
         GnomeCmdTag(str.into())
+    }
+
+    fn from_tag(tag: &GnomeCmdTag) -> Option<Self> {
+        Self::all().find(|t| &t.tag() == tag)
     }
 
     fn name(self) -> String {
@@ -99,8 +106,6 @@ mod imp {
         tags::{GnomeCmdTag, GnomeCmdTagClass},
         utils::permissions_to_text,
     };
-    use std::str::FromStr;
-    use strum::VariantArray;
 
     #[derive(Default)]
     pub struct BasicMetadataExtractor {}
@@ -116,7 +121,7 @@ mod imp {
 
     impl FileMetadataExtractorImpl for BasicMetadataExtractor {
         fn supported_tags(&self) -> Vec<GnomeCmdTag> {
-            FileTag::VARIANTS.iter().map(|t| t.tag()).collect()
+            FileTag::all().map(|t| t.tag()).collect()
         }
 
         fn summary_tags(&self) -> Vec<GnomeCmdTag> {
@@ -135,11 +140,11 @@ mod imp {
         }
 
         fn tag_name(&self, tag: &GnomeCmdTag) -> Option<String> {
-            Some(FileTag::from_str(&tag.0).ok()?.name())
+            Some(FileTag::from_tag(tag)?.name())
         }
 
         fn tag_description(&self, tag: &GnomeCmdTag) -> Option<String> {
-            Some(FileTag::from_str(&tag.0).ok()?.description())
+            Some(FileTag::from_tag(tag)?.description())
         }
 
         fn extract_metadata<F: FnMut(GnomeCmdTag, Option<&str>)>(

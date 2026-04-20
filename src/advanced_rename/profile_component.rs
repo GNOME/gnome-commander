@@ -461,10 +461,8 @@ mod imp {
                 #[weak]
                 this,
                 move |dropdown| {
-                    if let Some(case_conversion) = CaseConversion::from_repr(dropdown.selected())
-                        && let Some(profile) = this.profile()
-                    {
-                        profile.set_case_conversion(case_conversion);
+                    if let Some(profile) = this.profile() {
+                        profile.set_case_conversion(CaseConversion::from(dropdown.selected()));
                         this.emit_by_name::<()>("regex-changed", &[]);
                     }
                 }
@@ -473,10 +471,8 @@ mod imp {
                 #[weak]
                 this,
                 move |dropdown| {
-                    if let Some(trim_blanks) = TrimBlanks::from_repr(dropdown.selected())
-                        && let Some(profile) = this.profile()
-                    {
-                        profile.set_trim_blanks(trim_blanks);
+                    if let Some(profile) = this.profile() {
+                        profile.set_trim_blanks(TrimBlanks::from(dropdown.selected()));
                         this.emit_by_name::<()>("regex-changed", &[]);
                     }
                 }

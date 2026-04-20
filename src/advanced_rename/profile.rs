@@ -6,33 +6,21 @@ use super::{
     convert::{initial_caps, sentence_case, toggle_case},
     regex_dialog::RegexReplace,
 };
+use crate::utils::u32_enum;
 use gettextrs::gettext;
 use gtk::{gio, glib::subclass::prelude::*, prelude::*};
 use std::fmt;
 
-#[derive(
-    Clone,
-    Copy,
-    PartialEq,
-    Eq,
-    Default,
-    Debug,
-    strum::VariantArray,
-    strum::FromRepr,
-    glib::Enum,
-    glib::Variant,
-)]
-#[enum_type(name = "GnomeCmdCaseConversion")]
-#[variant_enum(repr)]
-#[repr(u32)]
-pub enum CaseConversion {
-    #[default]
-    Unchanged,
-    LowerCase,
-    UpperCase,
-    SentenceCase,
-    InitialCaps,
-    ToggleCase,
+u32_enum! {
+    pub enum CaseConversion {
+        #[default]
+        Unchanged,
+        LowerCase,
+        UpperCase,
+        SentenceCase,
+        InitialCaps,
+        ToggleCase,
+    }
 }
 
 impl CaseConversion {
@@ -62,27 +50,14 @@ impl fmt::Display for CaseConversion {
     }
 }
 
-#[derive(
-    Clone,
-    Copy,
-    PartialEq,
-    Eq,
-    Default,
-    Debug,
-    strum::VariantArray,
-    strum::FromRepr,
-    glib::Enum,
-    glib::Variant,
-)]
-#[enum_type(name = "GnomeCmdTrimBlanks")]
-#[variant_enum(repr)]
-#[repr(u32)]
-pub enum TrimBlanks {
-    #[default]
-    None,
-    Leading,
-    Trailing,
-    LeadingAndTrailing,
+u32_enum! {
+    pub enum TrimBlanks {
+        #[default]
+        None,
+        Leading,
+        Trailing,
+        LeadingAndTrailing,
+    }
 }
 
 impl TrimBlanks {
@@ -133,10 +108,10 @@ mod imp {
         // #[property(get, set)]
         pub regexes: RefCell<Vec<RegexReplace>>,
 
-        #[property(get, set, builder(CaseConversion::default()))]
+        #[property(get, set)]
         case_conversion: Cell<CaseConversion>,
 
-        #[property(get, set, builder(TrimBlanks::default()))]
+        #[property(get, set)]
         trim_blanks: Cell<TrimBlanks>,
     }
 

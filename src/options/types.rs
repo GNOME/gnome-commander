@@ -3,12 +3,12 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use gtk::{gio, prelude::*};
-use std::{marker::PhantomData, path::PathBuf, rc::Rc, time::Duration};
+use gtk::{gdk, gio, prelude::*};
+use std::{marker::PhantomData, path::PathBuf, time::Duration};
 
 pub type WriteResult = Result<(), glib::BoolError>;
 
-pub struct EnumRepr(pub i32);
+pub struct EnumRepr(i32);
 
 pub trait SettingsRepr {
     fn value(settings: &gio::Settings, key: &str) -> Self;
@@ -85,32 +85,31 @@ impl SettingsRepr for EnumRepr {
     }
 }
 
-pub struct AppOption<T, R = T> {
+pub struct AppOption<T, R = T, Convert = TypeConvertIdentity<T>> {
     settings: gio::Settings,
     key: &'static str,
-    convert: Rc<dyn TypeConvert<T, R>>,
+    convert: PhantomData<(T, R, Convert)>,
 }
 
-impl<T: 'static, R: SettingsRepr + 'static> AppOption<T, R> {
-    pub fn new(
-        settings: &gio::Settings,
-        key: &'static str,
-        convert: impl TypeConvert<T, R> + 'static,
-    ) -> Self {
+impl<T, R, Convert> AppOption<T, R, Convert>
+where
+    R: SettingsRepr,
+    Convert: TypeConvert<T, R>,
+{
+    pub fn new(settings: &gio::Settings, key: &'static str) -> Self {
         Self {
             settings: settings.clone(),
             key,
-            convert: Rc::new(convert),
+            convert: Default::default(),
         }
     }
 
     pub fn get(&self) -> T {
-        self.convert
-            .from_repr(<R as SettingsRepr>::value(&self.settings, self.key))
+        Convert::from_repr(<R as SettingsRepr>::value(&self.settings, self.key))
     }
 
     pub fn set(&self, value: impl Into<T>) -> WriteResult {
-        <R as SettingsRepr>::set_value(&self.settings, self.key, self.convert.to_repr(value.into()))
+        <R as SettingsRepr>::set_value(&self.settings, self.key, Convert::to_repr(value.into()))
     }
 
     pub fn bind<'o>(
@@ -124,10 +123,9 @@ impl<T: 'static, R: SettingsRepr + 'static> AppOption<T, R> {
     pub fn connect_changed(&self, f: impl Fn(T) + 'static) -> glib::SignalHandlerId {
         let f = Box::new(f);
         let key = self.key;
-        let convert = self.convert.clone();
         self.settings
             .connect_changed(Some(key), move |settings, _| {
-                let value = convert.from_repr(<R as SettingsRepr>::value(settings, key));
+                let value = Convert::from_repr(<R as SettingsRepr>::value(settings, key));
                 (f)(value);
             })
     }
@@ -137,22 +135,34 @@ impl<T: 'static, R: SettingsRepr + 'static> AppOption<T, R> {
     }
 }
 
-impl<T: SettingsRepr + 'static> AppOption<T, T> {
-    pub fn simple(settings: &gio::Settings, key: &'static str) -> Self {
-        Self::new(settings, key, TypeConvertIdentity(PhantomData))
-    }
-}
+impl<T> EnumOption<T>
+where
+    T: From<u32> + Into<glib::Value>,
+    u32: From<T>,
+{
+    /// Regular Glib functionality can only bind enums to string properties, not to numerical ones.
+    /// This method will bind an enum setting to a numerical property "manually."
+    pub fn bind_enum(&self, object: &impl IsA<glib::Object>, property: &str) {
+        object.set_property(property, self.get());
 
-impl<T: FromVariant + ToVariant + Default + 'static> AppOption<T, glib::Variant> {
-    pub fn variant(settings: &gio::Settings, key: &'static str) -> Self {
-        Self::new(
-            settings,
-            key,
-            TypeConvertCallback::<T, glib::Variant> {
-                from_repr: |r| <T as FromVariant>::from_variant(&r).unwrap_or_default(),
-                to_repr: |t| <T as ToVariant>::to_variant(&t),
-            },
-        )
+        let weak_ref = object.downgrade();
+        let prop = property.to_owned();
+        let settings_handler = self.connect_changed(move |value| {
+            if let Some(object) = weak_ref.upgrade() {
+                object.set_property(&prop, value);
+            }
+        });
+
+        let settings = self.settings.clone();
+        let key = self.key;
+        object.connect_notify_local(Some(property), move |object, param| {
+            if let Ok(value) = i32::try_from(object.property::<u32>(param.name())) {
+                let _ = EnumRepr::set_value(&settings, key, EnumRepr(value));
+            }
+        });
+
+        let settings = self.settings.clone();
+        object.add_weak_ref_notify_local(move || settings.disconnect(settings_handler));
     }
 }
 
@@ -161,66 +171,93 @@ pub type I32Option = AppOption<i32>;
 pub type U32Option = AppOption<u32>;
 pub type StringOption = AppOption<String>;
 pub type StrvOption = AppOption<Vec<String>>;
-pub type VariantOption<T> = AppOption<T, glib::Variant>;
-pub type EnumOption<T> = AppOption<T, EnumRepr>;
+pub type VariantOption<T> = AppOption<T, glib::Variant, TypeConvertVariant<T>>;
+pub type EnumOption<T> = AppOption<T, EnumRepr, TypeConvertEnum<T>>;
+pub type RGBAOption = AppOption<gdk::RGBA, String, TypeConvertRGBA>;
+pub type OptionalPathOption = AppOption<Option<PathBuf>, String, TypeConvertOptionalPath>;
+pub type DurationOption = AppOption<Duration, u32, TypeConvertDuration>;
 
 pub trait TypeConvert<T, R> {
-    fn from_repr(&self, value: R) -> T;
-    fn to_repr(&self, value: T) -> R;
+    fn from_repr(value: R) -> T;
+    fn to_repr(value: T) -> R;
 }
 
 pub struct TypeConvertIdentity<T>(PhantomData<T>);
 
 impl<T> TypeConvert<T, T> for TypeConvertIdentity<T> {
-    fn from_repr(&self, value: T) -> T {
+    fn from_repr(value: T) -> T {
         value
     }
 
-    fn to_repr(&self, value: T) -> T {
+    fn to_repr(value: T) -> T {
         value
     }
 }
 
-pub struct TypeConvertCallback<T, R> {
-    pub from_repr: fn(R) -> T,
-    pub to_repr: fn(T) -> R,
-}
+pub struct TypeConvertVariant<T>(PhantomData<T>);
 
-impl<T, R> TypeConvert<T, R> for TypeConvertCallback<T, R> {
-    fn from_repr(&self, value: R) -> T {
-        (self.from_repr)(value)
+impl<T: FromVariant + ToVariant + Default> TypeConvert<T, glib::Variant> for TypeConvertVariant<T> {
+    fn from_repr(value: glib::Variant) -> T {
+        T::from_variant(&value).unwrap_or_default()
     }
 
-    fn to_repr(&self, value: T) -> R {
-        (self.to_repr)(value)
+    fn to_repr(value: T) -> glib::Variant {
+        T::to_variant(&value)
     }
 }
 
-#[macro_export]
-macro_rules! enum_convert_strum {
-    ($t:ty) => {
-        enum_convert_strum!($t, <$t>::default())
-    };
-    ($t:ty, $d:expr) => {
-        $crate::options::types::TypeConvertCallback::<$t, $crate::options::types::EnumRepr> {
-            from_repr: |e| e.0.try_into().ok().and_then(<$t>::from_repr).unwrap_or($d),
-            to_repr: |e| $crate::options::types::EnumRepr(e as i32),
-        }
-    };
+pub struct TypeConvertEnum<T>(PhantomData<T>);
+
+impl<T> TypeConvert<T, EnumRepr> for TypeConvertEnum<T>
+where
+    T: From<u32>,
+    u32: From<T>,
+{
+    fn from_repr(value: EnumRepr) -> T {
+        u32::try_from(value.0).unwrap_or_default().into()
+    }
+
+    fn to_repr(value: T) -> EnumRepr {
+        EnumRepr(u32::from(value).try_into().unwrap_or_default())
+    }
 }
 
-pub const OPTIONAL_PATH_TYPE: TypeConvertCallback<Option<PathBuf>, String> = TypeConvertCallback {
-    from_repr: |s: String| Some(s).filter(|s| !s.is_empty()).map(PathBuf::from),
-    to_repr: |value| {
+pub struct TypeConvertRGBA;
+
+impl TypeConvert<gdk::RGBA, String> for TypeConvertRGBA {
+    fn from_repr(value: String) -> gdk::RGBA {
+        gdk::RGBA::parse(&value).unwrap_or(gdk::RGBA::BLACK)
+    }
+
+    fn to_repr(value: gdk::RGBA) -> String {
+        value.to_str().to_string()
+    }
+}
+
+pub struct TypeConvertOptionalPath;
+
+impl TypeConvert<Option<PathBuf>, String> for TypeConvertOptionalPath {
+    fn from_repr(value: String) -> Option<PathBuf> {
+        Some(value).filter(|s| !s.is_empty()).map(PathBuf::from)
+    }
+
+    fn to_repr(value: Option<PathBuf>) -> String {
         value
             .as_ref()
-            .and_then(|v| v.to_str())
+            .and_then(|path| path.to_str())
             .unwrap_or_default()
             .to_owned()
-    },
-};
+    }
+}
 
-pub const DURATION_MILLIS_TYPE: TypeConvertCallback<Duration, u32> = TypeConvertCallback {
-    from_repr: |d: u32| Duration::from_millis(d as u64),
-    to_repr: |value| value.as_millis().try_into().unwrap_or_default(),
-};
+pub struct TypeConvertDuration;
+
+impl TypeConvert<Duration, u32> for TypeConvertDuration {
+    fn from_repr(value: u32) -> Duration {
+        Duration::from_millis(value.into())
+    }
+
+    fn to_repr(value: Duration) -> u32 {
+        value.as_millis().try_into().unwrap_or_default()
+    }
+}

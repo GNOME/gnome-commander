@@ -33,7 +33,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
   </enum>
 
   <enum id="org.gnome.gnome-commander.preferences.confirmations.delete-default-enum">
-    <value nick="cancel" value="3"/>
+    <value nick="cancel" value="0"/>
     <value nick="delete" value="1"/>
   </enum>
 
