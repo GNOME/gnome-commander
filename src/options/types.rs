@@ -85,6 +85,7 @@ impl SettingsRepr for EnumRepr {
     }
 }
 
+#[derive(Debug, Clone)]
 pub struct AppOption<T, R = T, Convert = TypeConvertIdentity<T>> {
     settings: gio::Settings,
     key: &'static str,
@@ -182,6 +183,7 @@ pub trait TypeConvert<T, R> {
     fn to_repr(value: T) -> R;
 }
 
+#[derive(Debug, Clone)]
 pub struct TypeConvertIdentity<T>(PhantomData<T>);
 
 impl<T> TypeConvert<T, T> for TypeConvertIdentity<T> {
@@ -194,6 +196,7 @@ impl<T> TypeConvert<T, T> for TypeConvertIdentity<T> {
     }
 }
 
+#[derive(Debug, Clone)]
 pub struct TypeConvertVariant<T>(PhantomData<T>);
 
 impl<T: FromVariant + ToVariant + Default> TypeConvert<T, glib::Variant> for TypeConvertVariant<T> {
@@ -206,6 +209,7 @@ impl<T: FromVariant + ToVariant + Default> TypeConvert<T, glib::Variant> for Typ
     }
 }
 
+#[derive(Debug, Clone)]
 pub struct TypeConvertEnum<T>(PhantomData<T>);
 
 impl<T> TypeConvert<T, EnumRepr> for TypeConvertEnum<T>
@@ -222,6 +226,7 @@ where
     }
 }
 
+#[derive(Debug, Clone)]
 pub struct TypeConvertRGBA;
 
 impl TypeConvert<gdk::RGBA, String> for TypeConvertRGBA {
@@ -234,6 +239,7 @@ impl TypeConvert<gdk::RGBA, String> for TypeConvertRGBA {
     }
 }
 
+#[derive(Debug, Clone)]
 pub struct TypeConvertOptionalPath;
 
 impl TypeConvert<Option<PathBuf>, String> for TypeConvertOptionalPath {
@@ -250,6 +256,7 @@ impl TypeConvert<Option<PathBuf>, String> for TypeConvertOptionalPath {
     }
 }
 
+#[derive(Debug, Clone)]
 pub struct TypeConvertDuration;
 
 impl TypeConvert<Duration, u32> for TypeConvertDuration {
