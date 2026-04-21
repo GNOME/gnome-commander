@@ -8,7 +8,9 @@ use crate::{
     dialogs::options::common::{radio_group_get_value, radio_group_set_value},
     file_list::quick_search::QuickSearchMode,
     options::{GeneralOptions, types::WriteResult},
-    types::{LeftMouseButtonMode, MiddleMouseButtonMode, QuickSearchShortcut},
+    types::{
+        LeftMouseButtonMode, MiddleMouseButtonMode, QuickSearchShortcut, RightMouseButtonMode,
+    },
 };
 use gettextrs::gettext;
 use gtk::prelude::*;
@@ -20,6 +22,8 @@ pub struct GeneralTab {
     lmb_unselects: gtk::CheckButton,
     mmb_cd_up: gtk::CheckButton,
     mmb_new_tab: gtk::CheckButton,
+    rmb_popup: gtk::CheckButton,
+    rmb_select: gtk::CheckButton,
     delete_to_trash: gtk::CheckButton,
     select_dirs: gtk::CheckButton,
     case_sensitive: gtk::CheckButton,
@@ -98,6 +102,24 @@ impl GeneralTab {
             .group(&mmb_cd_up)
             .build();
         middle_mouse_button.append(&mmb_new_tab);
+
+        let right_mouse_button = gtk::Box::builder()
+            .orientation(gtk::Orientation::Vertical)
+            .spacing(6)
+            .build();
+        vbox.append(&create_category(
+            &gettext("Right mouse button"),
+            &right_mouse_button,
+        ));
+        let rmb_popup = gtk::CheckButton::builder()
+            .label(gettext("Shows popup menu"))
+            .build();
+        right_mouse_button.append(&rmb_popup);
+        let rmb_select = gtk::CheckButton::builder()
+            .label(gettext("Selects files"))
+            .group(&rmb_popup)
+            .build();
+        right_mouse_button.append(&rmb_select);
 
         let deletion = gtk::Box::builder()
             .orientation(gtk::Orientation::Vertical)
@@ -255,6 +277,8 @@ impl GeneralTab {
             lmb_unselects,
             mmb_cd_up,
             mmb_new_tab,
+            rmb_popup,
+            rmb_select,
             delete_to_trash,
             select_dirs,
             case_sensitive,
@@ -294,6 +318,13 @@ impl GeneralTab {
                 (&self.mmb_new_tab, MiddleMouseButtonMode::OpensNewTab),
             ],
             options.middle_mouse_button_mode.get(),
+        );
+        radio_group_set_value(
+            [
+                (&self.rmb_popup, RightMouseButtonMode::PopupsMenu),
+                (&self.rmb_select, RightMouseButtonMode::Selects),
+            ],
+            options.right_mouse_button_mode.get(),
         );
         self.delete_to_trash.set_active(options.use_trash.get());
         self.select_dirs.set_active(options.select_dirs.get());
@@ -346,6 +377,10 @@ impl GeneralTab {
                 (&self.mmb_cd_up, MiddleMouseButtonMode::GoesUpDir),
                 (&self.mmb_new_tab, MiddleMouseButtonMode::OpensNewTab),
             ]))?;
+        options.right_mouse_button_mode.set(radio_group_get_value([
+            (&self.rmb_popup, RightMouseButtonMode::PopupsMenu),
+            (&self.rmb_select, RightMouseButtonMode::Selects),
+        ]))?;
         options.use_trash.set(self.delete_to_trash.is_active())?;
         options.select_dirs.set(self.select_dirs.is_active())?;
         options
