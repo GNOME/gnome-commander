@@ -75,11 +75,68 @@
       <description>
         <p>This release includes the following features and changes:</p>
         <ul>
+          <li>Added embedded terminal to display output of commands run by Gnome Commander (see issue #213). The new “Hide Command Line Output When Inactive” in “View” menu hides the terminal automatically when inactive.</li>
+          <li>Redesigned Quick Search functionality:
+            <ul>
+              <li>Filtering the file list is now possible as well. The default mode can be configured in Options dialog</li>
+              <li>Text is always matched anywhere in the file name unless wildcard patterns `*` or `?` are used explicitly</li>
+              <li>A button to enable case-sensitive matching has been added</li>
+              <li>Quick Search no longer starts searching at the beginning of the file list but at the current position</li>
+              <li>Most keyboard shortcuts can be used from Quick Search without causing it to close</li>
+            </ul>
+          </li>
+          <li>Various improvements to the Search dialog:
+            <ul>
+              <li>Improved performance</li>
+              <li>Closing and re-opening search no longer clears the search results</li>
+              <li>Path matching can now use extended glob expressions like dir/**/*.md that will be applied to the entire path relative to current directory</li>
+              <li>A button to choose whether path matching should be case-sensitive has been added</li>
+              <li>Search progress shows the directory currently being searched</li>
+            </ul>
+          </li>
+          <li>Various improvements to the internal viewer:
+            <ul>
+              <li>Viewer font can now be chosen from the Settings menu</li>
+              <li>Binary mode has been renamed into Fixed Width and supports UTF-8</li>
+              <li>Replaced the search dialog by a search bar</li>
+              <li>Added support for case-insensitive hexadecimal search</li>
+              <li>Considerably improved search performance</li>
+              <li>Added “Select All” menu item for text</li>
+              <li>Added a context menu for images</li>
+              <li>Status bar displays some information for images as well now</li>
+              <li>DOS-style CRLF line breaks are recognized as a single line break now</li>
+              <li>Many bug fixes</li>
+            </ul>
+          </li>
+          <li>Improved accessibility of the application, allowing screen readers to better recognize context (see issue #23)</li>
+          <li>Redesigned Keyboard Shortcuts dialog, making it easier to use. Also, the list of configurable keyboard shortcuts has been vastly expanded.</li>
+          <li>Switching tabs in Options dialog is now possible via Ctrl+Tab and Shift+Ctrl+Tab (see issue #254)</li>
+          <li>Navigation history is no longer shared between different panels (see issue #49)</li>
+          <li>External terminal application is now xdg-terminal-exec by default which will launch <a href="https://documentation.ubuntu.com/desktop/en/latest/how-to/change-the-default-terminal/#on-ubuntu-25-04-and-later">the configured default terminal</a></li>
+          <li>Calculating size of a large directory will no longer hang up Gnome Commander, and selecting a different file will abort the operation in progress (see issue #9)</li>
+          <li>Improved Wayland support, starting an application immediately activates it if the application supports this</li>
           <li>New option to treat symlinks as regular files, see issue #159</li>
+          <li>The “Search window is minimizable” option is now called “Search window always on top” and no longer requires a restart (see issue #236)</li>
+          <li>Made the text indicating size and number of selected files easier to translate (see issue #176)</li>
+          <li>When a command is run in an external terminal no additional pause is being added as the terminal application will usually leave the window open anyway</li>
+          <li>Better icon for “Copy File Names” action that respects dark mode</li>
+          <li>Added support for <a href="https://specifications.freedesktop.org/icon-theme/latest/">icon theme directories</a> for MIME icons</li>
         </ul>
         <p>This release fixes the following bugs:</p>
         <ul>
-          <li>Fix for double g_error_free call (Mamoru Tasaka)</li>
+          <li>Various documentation mistakes correction (Anders Jonsson)</li>
+          <li>Search is now stopped automatically when the Search dialog is closed</li>
+          <li>Made sure that opening multiple dialogs of the same type is not possible, instead the existing dialog is brought up (see issue #234)</li>
+          <li>Fixed issues when directory opened in one panel is renamed in another (see issue #229)</li>
+          <li>Restoring remote connections on startup only succeeded for already active connections</li>
+          <li>Remote connection restored on startup was lacking its bookmarks (see issue #217)</li>
+          <li>Navigating history via file list’s dropdown no longer reorders history entries</li>
+          <li>When ALT+letters was supposed to start Quick Search, they would occasionally open menu instead (see issue #204)</li>
+          <li>No visual indication of file selection in “Respect theme’s colors” mode</li>
+          <li>Switching tabs in the inactive panel wouldn’t activate it (see issue #216)</li>
+          <li>Fixed search continuing in background when aborted</li>
+          <li>Respect theme’s text color in the internal viewer, fixing display in dark mode (see issue #199)</li>
+          <li>Renamed files were still displaying the old name (Andrey Kutejko)</li>
         </ul>
         <p>New or updated translations: ...</p>
         <p>New or updated docs: ...</p>
