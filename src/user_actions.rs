@@ -1251,9 +1251,7 @@ Copyright \u{00A9} 2026 Wladimir Palant";
         .modal(true)
         .name("Gnome Commander")
         .version(PACKAGE_VERSION)
-        .comments(gettext(
-            "A fast and powerful file manager",
-        ))
+        .comments(gettext("A fast and powerful file manager"))
         .copyright(copyright)
         .license_type(gtk::License::Gpl30)
         .authors(authors)
