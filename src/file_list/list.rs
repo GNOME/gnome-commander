@@ -1097,6 +1097,10 @@ mod imp {
             );
 
             if let Some((_, item)) = cell.as_ref() {
+                let position = self.items_iter().position(|i| &i == item);
+                if let Some(position) = position.and_then(|p| p.try_into().ok()) {
+                    self.obj().select_row(position);
+                }
                 let state = self.get_modifiers_state();
 
                 self.modifier_click.set(state);
@@ -1110,11 +1114,7 @@ mod imp {
                 } else if n_press == 1 && button == 1 {
                     match state {
                         Some(SHIFT) => {
-                            if let Some(position) = self
-                                .items_iter()
-                                .position(|i| &i == item)
-                                .and_then(|p| p.try_into().ok())
-                            {
+                            if let Some(position) = position.and_then(|p| p.try_into().ok()) {
                                 self.select_with_mouse(position);
                             }
                         }
