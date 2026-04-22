@@ -2135,7 +2135,7 @@ impl FileList {
     pub fn stats_str(&self, mode: SizeDisplayMode) -> String {
         let stats = self.stats();
 
-        let sentence1 = gettext("Selected {selected_bytes} of {total_bytes}.")
+        let sentence1 = gettext("Selected: {selected_bytes} of {total_bytes}.")
             .replace(
                 "{selected_bytes}",
                 &size_to_string(stats.selected.bytes, mode),
