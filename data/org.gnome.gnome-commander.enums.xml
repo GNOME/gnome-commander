@@ -17,11 +17,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <value nick="grouped" value="2"/>
     <value nick="powered" value="3"/>
   </enum>
-  <enum id="org.gnome.gnome-commander.GnomeCmdTransferType">
-    <value nick="copy" value="0"/>
-    <value nick="move" value="1"/>
-    <value nick="link" value="2"/>
-  </enum>
   <enum id="org.gnome.gnome-commander.GnomeCmdPermissionDisplayMode">
     <value nick="text" value="0"/>
     <value nick="number" value="1"/>

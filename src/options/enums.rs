@@ -9,9 +9,9 @@ mod test {
         layout::color_themes::ColorThemeId,
         tab_label::TabLockIndicator,
         types::{
-            ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GnomeCmdTransferType,
-            GraphicalLayoutMode, LeftMouseButtonMode, MiddleMouseButtonMode, PermissionDisplayMode,
-            QuickSearchShortcut, RightMouseButtonMode, SizeDisplayMode,
+            ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GraphicalLayoutMode,
+            LeftMouseButtonMode, MiddleMouseButtonMode, PermissionDisplayMode, QuickSearchShortcut,
+            RightMouseButtonMode, SizeDisplayMode,
         },
         utils::IterableEnum,
     };
@@ -58,7 +58,6 @@ mod test {
         let enum_types = [
             enum_xml::<GraphicalLayoutMode>("GnomeCmdGraphicalLayoutMode", "  "),
             enum_xml::<SizeDisplayMode>("GnomeCmdSizeDisplayMode", "  "),
-            enum_xml::<GnomeCmdTransferType>("GnomeCmdTransferType", "  "),
             enum_xml::<PermissionDisplayMode>("GnomeCmdPermissionDisplayMode", "  "),
             enum_xml::<QuickSearchShortcut>("GnomeCmdQuickSearchShortcut", "  "),
             enum_xml::<QuickSearchMode>("GnomeCmdQuickSearchMode", "  "),
