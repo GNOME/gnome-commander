@@ -266,7 +266,7 @@ fn description_factory(file_metadata_service: FileMetadataService) -> gtk::ListI
             return;
         };
         let description = file_metadata_service
-            .tag_name(&node.tag)
+            .tag_description(&node.tag)
             .unwrap_or_default();
         label.set_text(&description);
         label.set_tooltip_text(Some(&description));
