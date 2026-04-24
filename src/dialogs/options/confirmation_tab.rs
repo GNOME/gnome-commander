@@ -55,7 +55,7 @@ impl CondifrmationTab {
             .build();
         delete_category_box.append(&confirm_delete_check);
         let delete_default_check = gtk::CheckButton::builder()
-            .label(gettext("Confirm defaults to OK"))
+            .label(gettext("Confirm defaults to Delete"))
             .build();
         delete_category_box.append(&delete_default_check);
         confirm_delete_check
