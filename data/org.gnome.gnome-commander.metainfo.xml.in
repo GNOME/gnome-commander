@@ -44,12 +44,9 @@
       <image>https://gitlab.gnome.org/GNOME/gnome-commander/-/raw/main/doc/C/figures/gnome-commander_window.png</image>
     </screenshot>
   </screenshots>
-  <url type="homepage">https://gcmd.github.io/index.html</url>
+  <url type="homepage">https://gnome.pages.gitlab.gnome.org/gnome-commander/</url>
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/gnome-commander/issues</url>
-  <url type="donation">https://gcmd.github.io/#donations</url>
-  <url type="contribute">https://gcmd.github.io/dev.html#contr</url>
-  <url type="help">https://gcmd.github.io/doc.html</url>
-  <url type="translate">https://gcmd.github.io/dev.html#trnsl</url>
+  <url type="contribute">https://gnome.pages.gitlab.gnome.org/gnome-commander/#contributing</url>
   <url type="vcs-browser">https://gitlab.gnome.org/GNOME/gnome-commander</url>
   <update_contact>gcmd-devel_AT_nongnu.org</update_contact>
   <project_group>GNOME</project_group>

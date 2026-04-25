@@ -7004,12 +7004,10 @@
       <title>Getting &app;</title>
       <para>
             It&apos;s recommended to use the &app; package that is provided by your distribution.
-            Refer to &app; for the <ulink type="http" url="https://gcmd.github.io/download.html#external">list of distributions</ulink>
-            supporting &app; packages.
-        </para>
+      </para>
       <para>
             All current and historical releases can be found on the <ulink type="http" url="http://ftp.gnome.org/pub/GNOME/sources/gnome-commander/">GNOME FTP server</ulink>, too.
-        </para>
+      </para>
     </sect2>
     <sect2 id="gnome-commander-versioning">
       <title>Versioning</title>
@@ -7022,8 +7020,7 @@
     <sect2 id="gnome-commander-stable-version">
       <title>Current stable version</title>
       <para>If you'd like to compile the latest stable version of &app; yourself, get it as a tar.xz
-      file from the <ulink type="http" url="https://gcmd.github.io/download.html">download section</ulink>
-      on the &app; home page.</para>
+      file from GNOME's <ulink type="http" url="https://download.gnome.org/sources/gnome-commander/">download server</ulink>.</para>
       <para>After extracting the archive, first have a look at the <guimenu>README</guimenu> file,
       where you get an overview of the downloaded release. Also, have a look at the
       <guimenu>INSTALL</guimenu> file. The installation is explained in detail there.</para>

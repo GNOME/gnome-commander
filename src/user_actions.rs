@@ -1258,7 +1258,7 @@ Copyright \u{00A9} 2026 Wladimir Palant";
         .documenters(documenters)
         .logo_icon_name(PACKAGE_NAME)
         .translator_credits(gettext("translator-credits"))
-        .website("https://gcmd.github.io")
+        .website("https://gnome.pages.gitlab.gnome.org/gnome-commander/")
         .website_label("Gnome Commander Website")
         .build()
         .present();

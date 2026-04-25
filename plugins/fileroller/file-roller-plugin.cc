@@ -26,7 +26,7 @@ extern "C" {
 #define COPYRIGHT "Copyright \n\xc2\xa9 2003-2006 Marcus Bjurman\n\xc2\xa9 2013-2024 Uwe Scholz"
 #define AUTHOR "Marcus Bjurman <marbj499@student.liu.se>"
 #define TRANSLATOR_CREDITS "Translations: https://l10n.gnome.org/module/gnome-commander/"
-#define WEBPAGE "https://gcmd.github.io"
+#define WEBPAGE "https://gnome.pages.gitlab.gnome.org/gnome-commander/"
 
 #define GCMD_PLUGINS_FILE_ROLLER                     "org.gnome.gnome-commander.plugins.file-roller-plugin"
 #define GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE        "default-type"

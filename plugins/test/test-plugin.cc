@@ -15,7 +15,7 @@
 #define NAME "Example"
 #define COPYRIGHT "Copyright \xc2\xa9 2003-2006 Marcus Bjurman\n\xc2\xa9 2013-2024 Uwe Scholz"
 #define AUTHOR "Marcus Bjurman <marbj499@student.liu.se>"
-#define WEBPAGE "https://gcmd.github.io"
+#define WEBPAGE "https://gnome.pages.gitlab.gnome.org/gnome-commander/"
 
 
 static GnomeCmdPluginInfo plugin_nfo = {
