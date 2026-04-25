@@ -799,6 +799,7 @@ mod imp {
                     ),
                 ));
 
+            self.obj().show_files(directory);
             directory.start_monitoring();
             self.add_to_history(directory);
         }
