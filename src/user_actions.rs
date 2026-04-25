@@ -646,15 +646,25 @@ async fn mark_compare_directories(main_win: MainWindow) {
 /************** Edit Menu **************/
 
 async fn edit_cap_cut(main_win: MainWindow) {
-    main_win.cut_files();
+    main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .cut_files();
 }
 
 async fn edit_cap_copy(main_win: MainWindow) {
-    main_win.copy_files();
+    main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .copy_files();
 }
 
 async fn edit_cap_paste(main_win: MainWindow) {
-    main_win.paste_files().await;
+    main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .paste_files()
+        .await;
 }
 
 async fn edit_copy_fnames(main_win: MainWindow) {

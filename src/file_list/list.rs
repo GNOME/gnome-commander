@@ -27,7 +27,7 @@ use crate::{
     open_connection::open_connection,
     options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
     tags::FileMetadataService,
-    types::{ExtensionDisplayMode, GraphicalLayoutMode, SizeDisplayMode},
+    types::{ExtensionDisplayMode, GraphicalLayoutMode, SizeDisplayMode, TransferType},
     utils::{ErrorMessage, MenuBuilderExt, SenderExt, size_to_string, time_to_string, u32_enum},
 };
 use gettextrs::gettext;
@@ -64,7 +64,7 @@ mod imp {
         types::{
             ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GraphicalLayoutMode,
             LeftMouseButtonMode, MiddleMouseButtonMode, PermissionDisplayMode, QuickSearchShortcut,
-            RightMouseButtonMode, TransferType,
+            RightMouseButtonMode,
         },
         utils::{
             ALT, CONTROL, CONTROL_ALT, ListRowSelector, NO_MOD, SHIFT, get_modifiers_state,
@@ -1208,7 +1208,7 @@ mod imp {
             }
         }
 
-        fn drag_prepare(&self, _x: f64, _y: f64) -> Option<gdk::ContentProvider> {
+        pub(super) fn drag_prepare(&self, _x: f64, _y: f64) -> Option<gdk::ContentProvider> {
             let files = self
                 .obj()
                 .selected_files()
@@ -1263,7 +1263,7 @@ mod imp {
                 for uri in uris.into_iter() {
                     if let Some(item) = obj.imp().items_iter().find(|item| item.file().uri() == uri)
                     {
-                        // A drag&drop operation won't necessarily move all files
+                        // A move operation won't necessarily move all files
                         let file = item.file();
                         if !file.file().query_exists(gio::Cancellable::NONE) {
                             file.on_deleted();
@@ -1431,7 +1431,7 @@ mod imp {
             result
         }
 
-        async fn drop_files(
+        pub(super) async fn drop_files(
             &self,
             transfer_type: TransferType,
             files: Vec<gio::File>,
@@ -1675,6 +1675,103 @@ impl FileList {
                         .unwrap_or(-1),
                 );
             });
+        }
+    }
+
+    pub fn copy_files(&self) {
+        let Some(provider) = self.imp().drag_prepare(0.0, 0.0) else {
+            return;
+        };
+        if let Err(error) = self.clipboard().set_content(Some(&provider)) {
+            eprintln!("Failed setting clipboard contents: {error}");
+        }
+    }
+
+    pub fn cut_files(&self) {
+        let Some(provider) = self.imp().drag_prepare(0.0, 0.0) else {
+            return;
+        };
+        let provider = gdk::ContentProvider::new_union(&[
+            provider,
+            gdk::ContentProvider::for_value(&self.to_value()),
+        ]);
+        if let Err(error) = self.clipboard().set_content(Some(&provider)) {
+            eprintln!("Failed setting clipboard contents: {error}");
+        }
+    }
+
+    pub async fn paste_files(&self) {
+        let clipboard = self.clipboard();
+        let formats = clipboard.formats();
+        if !DROP_TYPES
+            .iter()
+            .any(|mime| formats.contain_mime_type(mime))
+        {
+            return;
+        }
+
+        let Some(destination) = self.directory() else {
+            return;
+        };
+
+        let stream = match clipboard
+            .read_future(DROP_TYPES, glib::Priority::DEFAULT)
+            .await
+        {
+            Ok((stream, _)) => stream,
+            Err(error) => {
+                eprintln!("Error reading clipboard data: {error}");
+                return;
+            }
+        };
+        let data = match stream
+            .read_bytes_future(i32::MAX as usize, glib::Priority::DEFAULT)
+            .await
+        {
+            Ok(data) => data,
+            Err(error) => {
+                eprintln!("Error reading clipboard data: {error}");
+                return;
+            }
+        };
+
+        let Ok(data) = String::from_utf8(data.to_vec()) else {
+            eprintln!("Error reading clipboard data: not in UTF-8 format");
+            return;
+        };
+        let files = glib::Uri::list_extract_uris(&data)
+            .into_iter()
+            .map(|uri| gio::File::for_uri(&uri))
+            .collect::<Vec<_>>();
+
+        // This will only be set for a local cut operation
+        let file_list = clipboard
+            .read_value_future(self.value_type(), glib::Priority::DEFAULT)
+            .await
+            .ok()
+            .and_then(|value| value.get::<Self>().ok());
+
+        if let Some(file_list) = file_list {
+            self.imp()
+                .drop_files(TransferType::Move, files, destination)
+                .await;
+            for uri in glib::Uri::list_extract_uris(&data).into_iter() {
+                if let Some(item) = file_list
+                    .imp()
+                    .items_iter()
+                    .find(|item| item.file().uri() == uri)
+                {
+                    // A move operation won't necessarily move all files
+                    let file = item.file();
+                    if !file.file().query_exists(gio::Cancellable::NONE) {
+                        file.on_deleted();
+                    }
+                }
+            }
+        } else {
+            self.imp()
+                .drop_files(TransferType::Copy, files, destination)
+                .await;
         }
     }
 
