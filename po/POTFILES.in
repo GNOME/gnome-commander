@@ -71,8 +71,7 @@ src/file_metainfo_view.rs
 src/file.rs
 src/file_selector.rs
 src/file_view.rs
-src/intviewer/search_dialog.rs
-src/intviewer/search_progress_dialog.rs
+src/intviewer/search_bar.rs
 src/intviewer/window.rs
 src/main.rs
 src/main_win.rs
