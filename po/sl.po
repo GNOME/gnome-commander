@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
 "POT-Creation-Date: 2026-04-25 15:14+0000\n"
-"PO-Revision-Date: 2026-04-26 01:07+0200\n"
+"PO-Revision-Date: 2026-04-26 08:35+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -488,20 +488,17 @@ msgid "Save directories on exit"
 msgstr "Shrani izbor map ob končanju"
 
 #: data/org.gnome.gnome-commander.gschema.xml:407
-#, fuzzy
-#| msgid "Defines if the current directories are opened again when GNOME Commander is restarted."
 msgid "Defines if the current directories are opened again when Gnome Commander is restarted."
-msgstr "Določa, ali naj se trenutni imeniki znova odprejo, ko se program ponovno zažene."
+msgstr "Določa, ali naj se trenutne mape znova odprejo, ko se program Gnome Commander ponovno zažene."
 
 #: data/org.gnome.gnome-commander.gschema.xml:413
 msgid "Save tabs on exit"
 msgstr "Shrani zavihke ob končanju"
 
 #: data/org.gnome.gnome-commander.gschema.xml:414
-#, fuzzy
-#| msgid "Defines if the current open tabs are opened again when GNOME Commander is restarted."
 msgid "Defines if the current open tabs are opened again when Gnome Commander is restarted."
-msgstr "Določa, ali naj se trenutno odprti zavihki odprejo znova, ko se ponovno zažene program."
+msgstr ""
+"Določa, ali naj se trenutno odprti zavihki odprejo znova, ko se ponovno zažene program Gnome Commander."
 
 #: data/org.gnome.gnome-commander.gschema.xml:420
 msgid "Save directory history on exit"
@@ -1164,13 +1161,15 @@ msgstr "Možnost določa privzet kodni nabor znakov."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1010
 msgid "Monospaced font"
-msgstr ""
+msgstr "Pisava enakomerne širine"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1011
 msgid ""
 "Description of the monospaced font used to display text. It should include at least font name and size "
 "but can also contain additional options like Italic Light."
 msgstr ""
+"Opis pisave z enakomernim razmikom, ki se uporablja za prikaz besedila. Vsebovati mora vsaj ime pisave in "
+"velikost, lahko pa vključuje tudi dodatne možnosti, kot je npr. »Italic Light« oz. »ležeča, tanka«."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1018
 msgid "Display hex offset"
@@ -1276,32 +1275,22 @@ msgid "Dual-panel file manager"
 msgstr "Dvostrani urejevalnik datotek"
 
 #: data/org.gnome.gnome-commander.metainfo.xml.in:19
-#, fuzzy
-#| msgid ""
-#| "GNOME Commander is a “dual-panel” graphical file manager for the GNOME desktop environment. It "
-#| "features separate tabs for each panel, setting up custom device buttons, bookmark manager, fully "
-#| "integrated commandline, file quick search, an internal image viewer, a powerful batch renaming tool, "
-#| "and FTP and Samba access."
 msgid ""
 "Gnome Commander is a “dual-panel” graphical file manager. It features separate tabs for each panel, "
 "setting up custom device buttons, bookmark manager, fully integrated commandline, file quick search, an "
 "internal image viewer, a powerful batch renaming tool, and FTP and Samba access."
 msgstr ""
-"Gnome Commander je »dvostrani« upravljalnik datotek za namizje GNOME. Omogoča ločene zavihke za vsako "
-"podokno, določitev gumbov naprav po meri, upravitelja zaznamkov, v celoti integrirano ukazno vrstico, "
-"hitro iskanje datotek, vgrajeni pregledovalnik slik in zmogljivo orodje za paketno preimenovanje. Podpira "
-"tudi različne protokole dostopa do oddaljene vsebine od FTP do Sambe."
+"Gnome Commander je »dvostrani« upravljalnik datotek. Omogoča ločene zavihke za vsako podokno, določitev "
+"gumbov naprav po meri, upravitelja zaznamkov, v celoti integrirano ukazno vrstico, hitro iskanje datotek, "
+"vgrajeni pregledovalnik slik in zmogljivo orodje za paketno preimenovanje. Podpira tudi različne "
+"protokole dostopa do oddaljenih vsebin od FTP do Sambe."
 
 #: data/org.gnome.gnome-commander.metainfo.xml.in:26
-#, fuzzy
-#| msgid ""
-#| "GNOME Commander aims to advanced users who like to focus on precise file management, working in "
-#| "parallel through special applications, and running smart commands."
 msgid ""
 "Gnome Commander aims to advanced users who like to focus on precise file management, working in parallel "
 "through special applications, and running smart commands."
 msgstr ""
-"Program GNOME Commander je namenjen naprednim uporabnikom, ki želijo imeti pregled nad datotekami, "
+"Program Gnome Commander je namenjen naprednim uporabnikom, ki želijo imeti pregled nad datotekami, "
 "opravljati več nalog hkrati in izvajati naprednejša datotečna opravila."
 
 #. developer_name tag deprecated with Appstream 1.0
@@ -6146,10 +6135,8 @@ msgid "Confirm before delete"
 msgstr "Potrdi pred brisanjem"
 
 #: src/dialogs/options/confirmation_tab.rs:58
-#, fuzzy
-#| msgid "Confirm defaults to OK"
 msgid "Confirm defaults to Delete"
-msgstr "Potrdi privzete vrednosti na V redu"
+msgstr "Potrdi privzete vrednosti na Izbriši"
 
 #: src/dialogs/options/confirmation_tab.rs:73 src/dialogs/options/confirmation_tab.rs:102
 msgid "Query first"
@@ -6442,10 +6429,8 @@ msgid "Shows popup menu"
 msgstr "Pokaži pojavno okno"
 
 #: src/dialogs/options/general_tab.rs:119
-#, fuzzy
-#| msgid "Selected file:"
 msgid "Selects files"
-msgstr "Izbrana datoteka:"
+msgstr "Izbere datoteke"
 
 #: src/dialogs/options/general_tab.rs:128
 msgid "Deletion"
@@ -7080,8 +7065,7 @@ msgid "No SAMBA connection is available"
 msgstr "Povezava SAMBA ni na voljo"
 
 #: src/file_list/list.rs:2138
-#, fuzzy, rust-format
-#| msgid "Selected {selected_bytes} of {total_bytes}."
+#, rust-format
 msgid "Selected: {selected_bytes} of {total_bytes}."
 msgstr "Izbranih {selected_bytes} od {total_bytes}."
 
@@ -7229,7 +7213,7 @@ msgstr "Ni zadetkov"
 
 #: src/intviewer/search_bar.rs:200
 msgid "Cannot translate into text encoding"
-msgstr ""
+msgstr "Ni nožno prevesti v kodiranje besedila"
 
 #: src/intviewer/window.rs:449
 #, rust-format
@@ -7246,10 +7230,8 @@ msgid "Wrap"
 msgstr "Prelomi"
 
 #: src/intviewer/window.rs:471
-#, fuzzy
-#| msgid "Related image file format."
 msgid "Could not recognize the image file format"
-msgstr "Privzeti slikovni zapis datoteke."
+msgstr "Ni možno prepoznati vrste zapisa slikovne datoteke"
 
 #: src/intviewer/window.rs:480
 #, rust-format
@@ -7314,10 +7296,8 @@ msgid "_Text"
 msgstr "_Besedilo"
 
 #: src/intviewer/window.rs:936
-#, fuzzy
-#| msgid "Page Width"
 msgid "_Fixed Width"
-msgstr "Širina strani"
+msgstr "_Nespremenljiva širina"
 
 #: src/intviewer/window.rs:942
 msgid "_Hexadecimal"
@@ -7465,7 +7445,7 @@ msgstr "_Pisava …"
 
 #: src/intviewer/window.rs:1098
 msgid "Fixed _Width Mode"
-msgstr ""
+msgstr "Način nespremenljive _širine"
 
 #: src/intviewer/window.rs:1101
 msgid "_20 chars/line"
@@ -8312,46 +8292,35 @@ msgstr "Prikaži izbirnik velikosti plošče"
 
 #: src/user_actions.rs:2036
 msgid "Calculate Size for All Directories"
-msgstr ""
+msgstr "Izračunaj velikost vseh map"
 
 #: src/user_actions.rs:2042
-#, fuzzy
-#| msgid "Country Name"
 msgid "Sort by Name"
 msgstr "Ime države"
 
 #: src/user_actions.rs:2048
-#, fuzzy
 msgid "Sort by Extension"
 msgstr "Razvrsti po končnici"
 
 #: src/user_actions.rs:2054
-#, fuzzy
-#| msgid "Print Date"
 msgid "Sort by Date"
-msgstr "Datum tiskanja"
+msgstr "Razvrsti po datumu"
 
 #: src/user_actions.rs:2060
-#, fuzzy
 msgid "Sort by Size"
 msgstr "Razvrsti po velikosti"
 
 #: src/user_actions.rs:2066
-#, fuzzy
-#| msgid "Permissions"
 msgid "Sort by Permissions"
-msgstr "Dovoljenja"
+msgstr "Razvsti po dovoljenjih"
 
 #: src/user_actions.rs:2072
-#, fuzzy
 msgid "Sort by Owner"
 msgstr "Razvrsti po lastniku"
 
 #: src/user_actions.rs:2078
-#, fuzzy
-#| msgid "Content Group"
 msgid "Sort by Group"
-msgstr "Skupina vsebine"
+msgstr "Razvrsti po skupini"
 
 #: src/user_actions.rs:2085
 msgid "_Bookmark this Directory…"
@@ -8527,47 +8496,3 @@ msgstr[3] "{} bajti"
 #: src/utils.rs:641
 msgid "Closing of a file enumerator failed"
 msgstr "Zapiranje oštevilčevalnika datotek ni uspelo"
-
-#~ msgid "Fixed font name"
-#~ msgstr "Pisava določene širine"
-
-#~ msgid "Name of the default font with fixed character width."
-#~ msgstr "Ime privzete pisave določene širine."
-
-#~ msgid "Variable font name"
-#~ msgstr "Pisava spremenljive širine"
-
-#~ msgid "Name of the default font with variable character width."
-#~ msgstr "Ime privzete pisave spremenljive širine."
-
-#~ msgid "Font size"
-#~ msgstr "Velikost pisave"
-
-#~ msgid "This option defines the default font size."
-#~ msgstr "Možnost določa privzeto velikost pisave."
-
-#~ msgid "Connection method is not selected"
-#~ msgstr "Način povezave ni izbran"
-
-#~ msgid "Sea_rch"
-#~ msgstr "Poi_šči"
-
-#~ msgid "Find"
-#~ msgstr "Najdi"
-
-#~ msgid "Searching…"
-#~ msgstr "Poteka iskanje …"
-
-#, rust-format
-#~ msgid "Searching for “{}”"
-#~ msgstr "Iskanje »{}«"
-
-#, rust-format
-#~ msgid "Pattern “{}” was not found"
-#~ msgstr "Vzorca »{}« ni mogoče najti"
-
-#~ msgid "_Binary"
-#~ msgstr "_Dvojiško"
-
-#~ msgid "_Binary Mode"
-#~ msgstr "_Dvojiški način"
