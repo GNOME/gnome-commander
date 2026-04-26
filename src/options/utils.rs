@@ -2,48 +2,44 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::types::AppOption;
-use gtk::{gio, prelude::*};
+use super::types::U32Option;
+use gtk::prelude::*;
 
 pub fn remember_window_size(
     window: &impl AsRef<gtk::Window>,
-    width_option: &AppOption<u32>,
-    height_option: &AppOption<u32>,
+    width_option: &U32Option,
+    height_option: &U32Option,
 ) {
-    fn map_u32_as_i32<'a>(binding: gio::BindingBuilder<'a>) -> gio::BindingBuilder<'a> {
-        binding
-            .mapping(|v, _| {
-                let height: i32 = v.get::<u32>()?.try_into().ok()?;
-                Some(height.to_value())
-            })
-            .set_mapping(|v, _| {
-                let height: u32 = v.get::<i32>().ok()?.try_into().ok()?;
-                Some(height.to_variant())
-            })
+    if let Ok(width) = width_option.get().try_into() {
+        window.as_ref().set_default_width(width);
+    }
+    if let Ok(height) = height_option.get().try_into() {
+        window.as_ref().set_default_height(height);
     }
 
-    map_u32_as_i32(width_option.bind(window.as_ref(), "default-width")).build();
-    map_u32_as_i32(height_option.bind(window.as_ref(), "default-height")).build();
+    let width_option = width_option.clone();
+    let height_option = height_option.clone();
+    window.as_ref().connect_destroy(move |window| {
+        if let Ok(width) = u32::try_from(window.default_width()) {
+            let _ = width_option.set(width);
+        }
+        if let Ok(height) = u32::try_from(window.default_height()) {
+            let _ = height_option.set(height);
+        }
+    });
 }
 
 pub fn remember_window_state(
     window: &impl AsRef<gtk::Window>,
-    width_option: &AppOption<u32>,
-    height_option: &AppOption<u32>,
-    state_option: &AppOption<u32>,
+    width_option: &U32Option,
+    height_option: &U32Option,
+    state_option: &U32Option,
 ) {
     remember_window_size(window, width_option, height_option);
-    state_option
-        .bind(window.as_ref(), "maximized")
-        .mapping(|v, _| {
-            let state = v.get::<u32>()?;
-            let maximized: bool = state == 4;
-            Some(maximized.to_value())
-        })
-        .set_mapping(|v, _| {
-            let maximized = v.get::<bool>().ok()?;
-            let state: u32 = if maximized { 4_u32 } else { 0_u32 };
-            Some(state.to_variant())
-        })
-        .build();
+    window.as_ref().set_maximized(state_option.get() == 4);
+
+    let state_option = state_option.clone();
+    window.as_ref().connect_destroy(move |window| {
+        let _ = state_option.set(if window.is_maximized() { 4_u32 } else { 0 });
+    });
 }
