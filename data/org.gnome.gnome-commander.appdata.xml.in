@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2014-2025 Uwe Scholz <u.scholz83@gmx.de> -->
+<!-- Copyright 2014-2026 Uwe Scholz <u.scholz83@gmx.de> -->
 <component type="desktop">
   <id>org.gnome.gnome-commander</id>
   <metadata_license>CC0-1.0</metadata_license>
@@ -8,14 +8,14 @@
   <summary>Two-pane file manager</summary>
   <description>
     <p>
-      GNOME Commander is a “two-pane” graphical file manager for the GNOME
+      Gnome Commander is a “twin-panel” graphical file manager for the Linux
       desktop environment. It features separate tabs for each pane,
       setting up custom device buttons, bookmark manager, fully integrated
       commandline, file quick search, an internal image viewer, a powerful
       batch renaming tool, and FTP and Samba access.
     </p>
     <p>
-      GNOME Commander aims to advanced users who like to focus on precise
+      Gnome Commander aims to advanced users who like to focus on precise
       file management, working in parallel through special applications,
       and running smart commands.
     </p>
@@ -48,9 +48,9 @@
   <update_contact>gcmd-devel_AT_nongnu.org</update_contact>
   <project_group>GNOME</project_group>
   <!-- developer_name tag deprecated with Appstream 1.0 -->
-  <developer_name>The GNOME Project</developer_name>
+  <developer_name>The Gnome Commander team</developer_name>
   <developer id="gnome.org">
-    <name>The GNOME Project</name>
+    <name>The Gnome Commander team</name>
   </developer>
   <translation type="gettext">gnome-commander</translation>
   <content_rating type="oars-1.0" />
@@ -65,14 +65,10 @@
   </suggests>
 
   <releases>
-    <release type="stable" version="1.18.6" date="2026-12-31">
+    <release type="stable" version="1.18.6" date="2026-04-26">
       <description>
-        <p>This release fixes the following bugs:</p>
-        <ul>
-          <li>Issue xxx: ...</li>
-        </ul>
-        <p>New or updated translations: ...</p>
-        <p>New or updated docs: ...</p>
+        <p>New or updated translations: kk (Baurzhan Muftakhidinov), sr (Марко Костић)</p>
+        <p>New or updated docs: hu (Balázs Úr), kk (Baurzhan Muftakhidinov), ru (Sergej A.), sr (Марко Костић), sv (Anders Jonsson)</p>
       </description>
     </release>
     <release type="stable" version="1.18.5" date="2026-01-24">
