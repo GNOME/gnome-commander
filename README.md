@@ -19,11 +19,6 @@ Under this [link](https://gitlab.gnome.org/GNOME/gnome-commander/tree/main/gcmd-
 Move them into `~/.gnome-commander/scripts/` to extend the file popup menu.
 
 
-### Mailing lists ###
-
-* https://lists.nongnu.org/mailman/listinfo/gcmd-users → for users
-* https://lists.nongnu.org/mailman/listinfo/gcmd-devel → for developers
-
 ## Contributing ##
 
 ### Ideas ###
