@@ -11,8 +11,8 @@ use crate::{
     utils::ErrorMessage,
 };
 use gettextrs::gettext;
-use gtk::{gio, glib, prelude::*, subclass::prelude::*};
-use std::{cell::Ref, path::Path};
+use gtk::{gio, glib, glib::object::WeakRef, prelude::*, subclass::prelude::*};
+use std::{cell::Ref, path::Path, rc::Rc};
 
 const SIGNAL_FILE_CREATED: &str = "file-created";
 const SIGNAL_FILE_DELETED: &str = "file-deleted";
@@ -45,6 +45,9 @@ mod imp {
         pub file_monitor: RefCell<Option<gio::FileMonitor>>,
         pub monitor_users: Cell<u32>,
         pub lock: Cell<bool>,
+        /// Weak reference to be set as "parent directory" on directory’s files. Sharing a single
+        /// weak reference avoids hitting Glib's limits.
+        pub(super) weak_ref: Rc<WeakRef<super::Directory>>,
     }
 
     thread_local! {
@@ -67,6 +70,7 @@ mod imp {
                 file_monitor: Default::default(),
                 monitor_users: Default::default(),
                 lock: Default::default(),
+                weak_ref: Default::default(),
             }
         }
     }
@@ -75,6 +79,7 @@ mod imp {
     impl ObjectImpl for Directory {
         fn constructed(&self) {
             self.parent_constructed();
+            self.weak_ref.set(Some(&*self.obj()));
         }
 
         fn dispose(&self) {
@@ -266,6 +271,10 @@ impl Directory {
         None
     }
 
+    pub fn listen_to_file(&self, file: &File) {
+        file.set_parent_directory(Some(self.imp().weak_ref.clone()));
+    }
+
     pub fn file_created(&self, uri_str: &str) {
         if self.find_file(uri_str).is_some() {
             return;
@@ -288,7 +297,7 @@ impl Directory {
         };
 
         let f = File::new_from_file(file, &file_info);
-        f.set_parent_directory(Some(self));
+        self.listen_to_file(&f);
         self.files().append(&f);
         self.set_needs_mtime_update(true);
         self.emit_by_name::<()>(SIGNAL_FILE_CREATED, &[&f]);
@@ -487,7 +496,7 @@ fn create_file_from_file_info(file_info: &gio::FileInfo, parent: &Directory) -> 
         None
     } else {
         let file = File::new_from_file(parent.get_child_gfile(&file_info.name()), file_info);
-        file.set_parent_directory(Some(parent));
+        parent.listen_to_file(&file);
         Some(file)
     }
 }

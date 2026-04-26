@@ -18,6 +18,7 @@ use std::{
     cell::Ref,
     ffi::OsString,
     path::{Path, PathBuf},
+    rc::Rc,
     time::Instant,
 };
 
@@ -33,7 +34,7 @@ mod imp {
         #[property(get, set=Self::set_file_info)]
         pub file_info: RefCell<gio::FileInfo>,
         pub is_dotdot: Cell<bool>,
-        pub parent_dir: WeakRef<Directory>,
+        pub parent_dir: RefCell<Option<Rc<WeakRef<Directory>>>>,
         pub last_update: RefCell<Option<Instant>>,
     }
 
@@ -151,11 +152,15 @@ impl File {
     }
 
     fn parent_directory(&self) -> Option<Directory> {
-        self.imp().parent_dir.upgrade()
+        self.imp()
+            .parent_dir
+            .borrow()
+            .as_ref()
+            .and_then(|parent_dir| parent_dir.upgrade())
     }
 
-    pub fn set_parent_directory(&self, dir: Option<&Directory>) {
-        self.imp().parent_dir.set(dir);
+    pub fn set_parent_directory(&self, dir: Option<Rc<WeakRef<Directory>>>) {
+        self.imp().parent_dir.replace(dir);
     }
 
     pub fn content_type(&self) -> Option<glib::GString> {

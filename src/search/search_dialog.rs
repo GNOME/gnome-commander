@@ -681,7 +681,7 @@ mod imp {
                 &start_dir,
                 &|message| match message {
                     SearchMessage::File(file) => {
-                        file.set_parent_directory(Some(&self.virtual_directory));
+                        self.virtual_directory.listen_to_file(&file);
                         self.virtual_directory.files().append(&file);
                         result_list.append_file(&file);
                     }
