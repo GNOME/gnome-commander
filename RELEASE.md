@@ -26,7 +26,7 @@ Update the [MetaInfo](data/org.gnome.gnome-commander.metainfo.xml.in) file with 
 
 ## On the day of the release
 
-When preparing the release, update the release date in the [MetaInfo](data/org.gnome.gnome-commander.metainfo.xml.in) file and also in the documentation in the header and in release notes (similar to how it was done [here](https://gitlab.gnome.org/GNOME/gnome-commander/-/commit/5b543557c790b5be6d70bb56ad508727a2754d37)).
+When preparing the release, update the release date in the [MetaInfo](data/org.gnome.gnome-commander.metainfo.xml.in) file and also in the [documentation](doc/C/index.docbook) in the header and in release notes (similar to how it was done [here](https://gitlab.gnome.org/GNOME/gnome-commander/-/commit/5b543557c790b5be6d70bb56ad508727a2754d37)).
 
 Then, do a `appstream-util validate data/org.gnome.gnome-commander.metainfo.xml.in`. No error should occur.
 
