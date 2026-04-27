@@ -41,9 +41,18 @@ use std::{
 const TYPE_URI_LIST: &str = "text/uri-list";
 const TYPE_TEXT_PLAIN: &str = "text/plain";
 const TYPE_URL: &str = "_NETSCAPE_URL";
+const TYPE_GNOME_PROPRIETARY: &str = "x-special/gnome-copied-files";
+const TYPE_KDE_PROPRIETARY: &str = "application/x-kde-cutselection";
 
 const DRAG_TYPES: &[&str] = &[TYPE_URI_LIST, TYPE_TEXT_PLAIN];
 const DROP_TYPES: &[&str] = &[TYPE_URI_LIST, TYPE_URL];
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+enum ContentSharingOperation {
+    Drag,
+    Copy,
+    Cut,
+}
 
 mod imp {
     use super::*;
@@ -1208,7 +1217,10 @@ mod imp {
             }
         }
 
-        pub(super) fn drag_prepare(&self, _x: f64, _y: f64) -> Option<gdk::ContentProvider> {
+        pub(super) fn content_provider(
+            &self,
+            op: ContentSharingOperation,
+        ) -> Option<gdk::ContentProvider> {
             let files = self
                 .obj()
                 .selected_files()
@@ -1219,7 +1231,7 @@ mod imp {
                 return None;
             }
 
-            let providers = DRAG_TYPES
+            let mut providers = DRAG_TYPES
                 .iter()
                 .map(|mime| {
                     gdk::ContentProvider::for_bytes(
@@ -1228,7 +1240,46 @@ mod imp {
                     )
                 })
                 .collect::<Vec<_>>();
+            if op == ContentSharingOperation::Cut {
+                // Remember which file list to notify on internal cut operation.
+                providers.push(gdk::ContentProvider::for_value(&self.obj().to_value()));
+            }
+            if matches!(
+                op,
+                ContentSharingOperation::Copy | ContentSharingOperation::Cut
+            ) {
+                // GNOME and KDE have different solutions to differentiate cut and copy operations.
+                // GNOME has a MIME type similar to text/uri-list which is prepended by the
+                // operation type. KDE adds a MIME type that only contains a flag indicating whether
+                // this is a cut operation.
+                let mut data = files.join("\n");
+                data.insert_str(
+                    0,
+                    if op == ContentSharingOperation::Cut {
+                        "cut\n"
+                    } else {
+                        "copy\n"
+                    },
+                );
+                providers.push(gdk::ContentProvider::for_bytes(
+                    TYPE_GNOME_PROPRIETARY,
+                    &glib::Bytes::from_owned(data),
+                ));
+                providers.push(gdk::ContentProvider::for_bytes(
+                    TYPE_KDE_PROPRIETARY,
+                    &glib::Bytes::from_owned(String::from(if op == ContentSharingOperation::Cut {
+                        "1"
+                    } else {
+                        "0"
+                    })),
+                ));
+            }
+
             Some(gdk::ContentProvider::new_union(&providers))
+        }
+
+        fn drag_prepare(&self, _x: f64, _y: f64) -> Option<gdk::ContentProvider> {
+            self.content_provider(ContentSharingOperation::Drag)
         }
 
         fn drag_end(&self, drag: &gdk::Drag, delete: bool) {
@@ -1679,28 +1730,35 @@ impl FileList {
     }
 
     pub fn copy_files(&self) {
-        let Some(provider) = self.imp().drag_prepare(0.0, 0.0) else {
-            return;
-        };
-        if let Err(error) = self.clipboard().set_content(Some(&provider)) {
+        if let Some(provider) = self.imp().content_provider(ContentSharingOperation::Copy)
+            && let Err(error) = self.clipboard().set_content(Some(&provider))
+        {
             eprintln!("Failed setting clipboard contents: {error}");
         }
     }
 
     pub fn cut_files(&self) {
-        let Some(provider) = self.imp().drag_prepare(0.0, 0.0) else {
-            return;
-        };
-        let provider = gdk::ContentProvider::new_union(&[
-            provider,
-            gdk::ContentProvider::for_value(&self.to_value()),
-        ]);
-        if let Err(error) = self.clipboard().set_content(Some(&provider)) {
+        if let Some(provider) = self.imp().content_provider(ContentSharingOperation::Cut)
+            && let Err(error) = self.clipboard().set_content(Some(&provider))
+        {
             eprintln!("Failed setting clipboard contents: {error}");
         }
     }
 
     pub async fn paste_files(&self) {
+        async fn read_types(
+            clipboard: &gdk::Clipboard,
+            types: &[&str],
+        ) -> Result<(glib::Bytes, glib::GString), glib::Error> {
+            let (stream, mime) = clipboard
+                .read_future(types, glib::Priority::DEFAULT)
+                .await?;
+            let bytes = stream
+                .read_bytes_future(i32::MAX as usize, glib::Priority::DEFAULT)
+                .await?;
+            Ok((bytes, mime))
+        }
+
         let clipboard = self.clipboard();
         let formats = clipboard.formats();
         if !DROP_TYPES
@@ -1714,27 +1772,13 @@ impl FileList {
             return;
         };
 
-        let stream = match clipboard
-            .read_future(DROP_TYPES, glib::Priority::DEFAULT)
-            .await
-        {
-            Ok((stream, _)) => stream,
+        let data = match read_types(&clipboard, DROP_TYPES).await {
+            Ok((data, _)) => data,
             Err(error) => {
                 eprintln!("Error reading clipboard data: {error}");
                 return;
             }
         };
-        let data = match stream
-            .read_bytes_future(i32::MAX as usize, glib::Priority::DEFAULT)
-            .await
-        {
-            Ok(data) => data,
-            Err(error) => {
-                eprintln!("Error reading clipboard data: {error}");
-                return;
-            }
-        };
-
         let Ok(data) = String::from_utf8(data.to_vec()) else {
             eprintln!("Error reading clipboard data: not in UTF-8 format");
             return;
@@ -1769,8 +1813,26 @@ impl FileList {
                 }
             }
         } else {
+            async fn is_move(clipboard: &gdk::Clipboard) -> bool {
+                let Ok((data, mime)) =
+                    read_types(clipboard, &[TYPE_GNOME_PROPRIETARY, TYPE_KDE_PROPRIETARY]).await
+                else {
+                    return false;
+                };
+                (mime == TYPE_GNOME_PROPRIETARY && data.starts_with(b"cut\n"))
+                    || (mime == TYPE_KDE_PROPRIETARY && &*data == b"1")
+            }
+
             self.imp()
-                .drop_files(TransferType::Copy, files, destination)
+                .drop_files(
+                    if is_move(&clipboard).await {
+                        TransferType::Move
+                    } else {
+                        TransferType::Copy
+                    },
+                    files,
+                    destination,
+                )
                 .await;
         }
     }
