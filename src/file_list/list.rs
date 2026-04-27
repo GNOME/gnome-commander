@@ -915,9 +915,11 @@ mod imp {
             let start = u32::min(start_row, end_row);
             let end = u32::max(start_row, end_row);
             let range = if closed_end {
-                start..(end + 1)
-            } else {
+                start..end + 1
+            } else if start_row <= end_row {
                 start..end
+            } else {
+                start + 1..end + 1
             };
             for position in range {
                 self.toggle_file(position);
@@ -992,10 +994,17 @@ mod imp {
             glib::Propagation::Proceed
         }
 
-        pub(super) fn start_range_selection(&self, closed: bool) {
-            self.range_selection_closed.set(Some(closed));
-            self.range_selection_start
-                .replace(self.obj().focused_file_position());
+        pub(super) fn start_range_selection(&self, up: bool, closed: bool) {
+            let position = self.obj().focused_file_position();
+            if let Some(position) = position
+                && ((up && position == 0) || (!up && position + 1 == self.selection.n_items()))
+            {
+                // Current position isn't going to change, just select current file.
+                self.toggle_file(position);
+            } else {
+                self.range_selection_closed.set(Some(closed));
+                self.range_selection_start.replace(position);
+            }
         }
 
         fn key_pressed_capture(
@@ -1009,29 +1018,31 @@ mod imp {
                     gdk::Key::Page_Up
                     | gdk::Key::KP_Page_Up
                     | gdk::Key::KP_9
-                    | gdk::Key::Page_Down
-                    | gdk::Key::KP_Page_Down
-                    | gdk::Key::KP_3
                     | gdk::Key::Up
                     | gdk::Key::KP_Up
-                    | gdk::Key::KP_8
-                    | gdk::Key::Down
-                    | gdk::Key::KP_Down
-                    | gdk::Key::KP_2,
+                    | gdk::Key::KP_8,
                 ) => {
-                    self.start_range_selection(false);
+                    self.start_range_selection(true, false);
                     glib::Propagation::Proceed
                 }
                 (
                     SHIFT,
-                    gdk::Key::Home
-                    | gdk::Key::KP_Home
-                    | gdk::Key::KP_7
-                    | gdk::Key::End
-                    | gdk::Key::KP_End
-                    | gdk::Key::KP_1,
+                    gdk::Key::Page_Down
+                    | gdk::Key::KP_Page_Down
+                    | gdk::Key::KP_3
+                    | gdk::Key::Down
+                    | gdk::Key::KP_Down
+                    | gdk::Key::KP_2,
                 ) => {
-                    self.start_range_selection(true);
+                    self.start_range_selection(false, false);
+                    glib::Propagation::Proceed
+                }
+                (SHIFT, gdk::Key::Home | gdk::Key::KP_Home | gdk::Key::KP_7) => {
+                    self.start_range_selection(true, true);
+                    glib::Propagation::Proceed
+                }
+                (SHIFT, gdk::Key::End | gdk::Key::KP_End | gdk::Key::KP_1) => {
+                    self.start_range_selection(false, true);
                     glib::Propagation::Proceed
                 }
                 (NO_MOD, gdk::Key::Shift_L | gdk::Key::Shift_R) => {
@@ -1555,8 +1566,8 @@ impl FileList {
         }
     }
 
-    pub fn start_range_selection(&self, closed: bool) {
-        self.imp().start_range_selection(closed);
+    pub fn start_range_selection(&self, up: bool, closed: bool) {
+        self.imp().start_range_selection(up, closed);
     }
 
     pub fn size(&self) -> usize {

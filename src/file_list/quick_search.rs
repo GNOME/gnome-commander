@@ -278,7 +278,10 @@ mod imp {
                     | gdk::Key::KP_Page_Up,
                 ) => {
                     if state == SHIFT {
-                        self.obj().file_list().start_range_selection(false);
+                        self.obj().file_list().start_range_selection(
+                            matches!(key, gdk::Key::Page_Up | gdk::Key::KP_Page_Up),
+                            false,
+                        );
                     }
                     let previous_focus = self.obj().root().and_then(|root| root.focus());
                     if Self::trigger_shortcuts(
