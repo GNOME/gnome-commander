@@ -2754,7 +2754,6 @@ fn create_date_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
                 .sync_create()
                 .build(),
         );
-        cell.bind(&item);
     })
 }
 
@@ -2776,7 +2775,6 @@ fn create_perm_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
                 .sync_create()
                 .build(),
         );
-        cell.bind(&item);
     })
 }
 
@@ -2789,7 +2787,6 @@ fn create_owner_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
                 .sync_create()
                 .build(),
         );
-        cell.bind(&item);
     })
 }
 
@@ -2802,7 +2799,6 @@ fn create_group_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
                 .sync_create()
                 .build(),
         );
-        cell.bind(&item);
     })
 }
 
