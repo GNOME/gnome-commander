@@ -806,6 +806,7 @@ mod imp {
 
         fn on_dir_list_ok(&self, dir: &Directory) {
             debug!('l', "on_dir_list_ok");
+            self.obj().show_files(dir);
             self.add_to_history(dir);
         }
 
