@@ -839,12 +839,14 @@ mod imp {
                     ),
                 ));
 
+            self.obj().show_files(directory);
             directory.start_monitoring();
             self.add_to_history(directory);
         }
 
         fn on_dir_list_ok(&self, dir: &Directory) {
             debug!('l', "on_dir_list_ok");
+            self.obj().show_files(dir);
             self.add_to_history(dir);
         }
 
@@ -2984,7 +2986,6 @@ fn create_date_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
                 .sync_create()
                 .build(),
         );
-        cell.bind(&item);
     })
 }
 
@@ -3006,7 +3007,6 @@ fn create_perm_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
                 .sync_create()
                 .build(),
         );
-        cell.bind(&item);
     })
 }
 
@@ -3019,7 +3019,6 @@ fn create_owner_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
                 .sync_create()
                 .build(),
         );
-        cell.bind(&item);
     })
 }
 
@@ -3032,7 +3031,6 @@ fn create_group_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
                 .sync_create()
                 .build(),
         );
-        cell.bind(&item);
     })
 }
 

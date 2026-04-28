@@ -314,7 +314,6 @@ mod imp {
                         .set_directory(directory.as_ref());
                     this.imp().update_selected_files_label();
                     this.update_volume_label();
-                    this.update_style();
 
                     if let Some(dir) = directory {
                         this.emit_by_name::<()>("dir-changed", &[&dir]);
@@ -322,6 +321,7 @@ mod imp {
                     if let Some(con) = file_list.connection() {
                         this.imp().select_connection(&con);
                     }
+                    file_list.grab_focus();
                 }
             ));
 
@@ -632,7 +632,6 @@ impl FileSelector {
         }
 
         self.set_tab_locked(&fl, locked);
-        fl.update_style();
         fl.show_column(ColumnID::Dir, false);
 
         if let Some((history_entries, (current_connection, current_uri))) = history {
@@ -673,6 +672,7 @@ impl FileSelector {
             .append_page(&fl, Some(&TabLabel::default()));
         self.update_show_tabs();
         self.imp().notebook.set_tab_reorderable(&fl, true);
+        fl.update_style();
 
         fl.connect_con_changed(glib::clone!(
             #[weak(rename_to = this)]
@@ -774,7 +774,6 @@ impl FileSelector {
             return;
         }
 
-        self.update_files();
         self.imp().update_selected_files_label();
 
         self.emit_by_name::<()>("dir-changed", &[dir]);
@@ -1336,26 +1335,7 @@ impl FileSelector {
         self.imp().history_button.set_active(true);
     }
 
-    fn update_files(&self) {
-        let Some(file_list) = self.current_file_list() else {
-            return;
-        };
-        let Some(directory) = file_list.directory() else {
-            return;
-        };
-        file_list.show_files(&directory);
-        if self.is_realized() {
-            self.imp().update_selected_files_label();
-        }
-        if file_list.focused_file().is_none() {
-            file_list.select_row(0);
-        }
-    }
-
     pub fn update_style(&self) {
-        if self.is_realized() {
-            self.update_files();
-        }
         self.update_show_tabs();
         for i in 0..self.tab_count() {
             let fl = self.file_list_nth(i);

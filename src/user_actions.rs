@@ -219,15 +219,13 @@ async fn file_chmod(main_win: MainWindow) {
     let file_list = file_selector.file_list();
 
     let files = file_list.selected_files();
-    if !files.is_empty()
-        && show_chmod_dialog(
+    if !files.is_empty() {
+        show_chmod_dialog(
             main_win.upcast_ref(),
             file_list.connection().as_ref(),
             &files,
         )
-        .await
-    {
-        file_list.reload().await;
+        .await;
     }
 }
 
@@ -236,15 +234,13 @@ async fn file_chown(main_win: MainWindow) {
     let file_list = file_selector.file_list();
 
     let files = file_list.selected_files();
-    if !files.is_empty()
-        && show_chown_dialog(
+    if !files.is_empty() {
+        show_chown_dialog(
             main_win.upcast_ref(),
             file_list.connection().as_ref(),
             &files,
         )
-        .await
-    {
-        file_list.reload().await;
+        .await;
     }
 }
 

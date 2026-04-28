@@ -120,7 +120,7 @@ glib::wrapper! {
     pub struct Directory(ObjectSubclass<imp::Directory>);
 }
 
-#[derive(Clone, Copy, Default, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
 pub enum DirectoryState {
     #[default]
     Empty,
