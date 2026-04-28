@@ -382,6 +382,12 @@ impl Shortcuts {
         self.register(Shortcut::ctrl_alt(Key::C), UserAction::GoToCmdline);
         self.register(Shortcut::ctrl_alt(Key::T), UserAction::GoToTerminal);
         self.register(Shortcut::key(Key::Escape), UserAction::ClearCmdline);
+        self.register(Shortcut::key(Key::Return), UserAction::RunEmbedded);
+        self.register(Shortcut::key(Key::KP_Enter), UserAction::RunEmbedded);
+        self.register(Shortcut::shift(Key::Return), UserAction::RunExternal);
+        self.register(Shortcut::shift(Key::KP_Enter), UserAction::RunExternal);
+        self.register(Shortcut::alt(Key::Return), UserAction::RunNoCapture);
+        self.register(Shortcut::alt(Key::KP_Enter), UserAction::RunNoCapture);
         self.register(Shortcut::key(Key::Return), UserAction::OpenFile);
         self.register(Shortcut::key(Key::KP_Enter), UserAction::OpenFile);
         self.register(Shortcut::ctrl(Key::P), UserAction::AddCwdToCmdLine);

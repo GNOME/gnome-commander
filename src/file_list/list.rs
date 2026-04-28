@@ -944,9 +944,11 @@ mod imp {
             let start = u32::min(start_row, end_row);
             let end = u32::max(start_row, end_row);
             let range = if closed_end {
-                start..(end + 1)
-            } else {
+                start..end + 1
+            } else if start_row <= end_row {
                 start..end
+            } else {
+                start + 1..end + 1
             };
             for position in range {
                 self.toggle_file(position);
@@ -1021,10 +1023,17 @@ mod imp {
             glib::Propagation::Proceed
         }
 
-        pub(super) fn start_range_selection(&self, closed: bool) {
-            self.range_selection_closed.set(Some(closed));
-            self.range_selection_start
-                .replace(self.obj().focused_file_position());
+        pub(super) fn start_range_selection(&self, up: bool, closed: bool) {
+            let position = self.obj().focused_file_position();
+            if let Some(position) = position
+                && ((up && position == 0) || (!up && position + 1 == self.selection.n_items()))
+            {
+                // Current position isn't going to change, just select current file.
+                self.toggle_file(position);
+            } else {
+                self.range_selection_closed.set(Some(closed));
+                self.range_selection_start.replace(position);
+            }
         }
 
         fn key_pressed_capture(
@@ -1038,29 +1047,31 @@ mod imp {
                     gdk::Key::Page_Up
                     | gdk::Key::KP_Page_Up
                     | gdk::Key::KP_9
-                    | gdk::Key::Page_Down
-                    | gdk::Key::KP_Page_Down
-                    | gdk::Key::KP_3
                     | gdk::Key::Up
                     | gdk::Key::KP_Up
-                    | gdk::Key::KP_8
-                    | gdk::Key::Down
-                    | gdk::Key::KP_Down
-                    | gdk::Key::KP_2,
+                    | gdk::Key::KP_8,
                 ) => {
-                    self.start_range_selection(false);
+                    self.start_range_selection(true, false);
                     glib::Propagation::Proceed
                 }
                 (
                     SHIFT,
-                    gdk::Key::Home
-                    | gdk::Key::KP_Home
-                    | gdk::Key::KP_7
-                    | gdk::Key::End
-                    | gdk::Key::KP_End
-                    | gdk::Key::KP_1,
+                    gdk::Key::Page_Down
+                    | gdk::Key::KP_Page_Down
+                    | gdk::Key::KP_3
+                    | gdk::Key::Down
+                    | gdk::Key::KP_Down
+                    | gdk::Key::KP_2,
                 ) => {
-                    self.start_range_selection(true);
+                    self.start_range_selection(false, false);
+                    glib::Propagation::Proceed
+                }
+                (SHIFT, gdk::Key::Home | gdk::Key::KP_Home | gdk::Key::KP_7) => {
+                    self.start_range_selection(true, true);
+                    glib::Propagation::Proceed
+                }
+                (SHIFT, gdk::Key::End | gdk::Key::KP_End | gdk::Key::KP_1) => {
+                    self.start_range_selection(false, true);
                     glib::Propagation::Proceed
                 }
                 (NO_MOD, gdk::Key::Shift_L | gdk::Key::Shift_R) => {
@@ -1678,8 +1689,8 @@ impl FileList {
         }
     }
 
-    pub fn start_range_selection(&self, closed: bool) {
-        self.imp().start_range_selection(closed);
+    pub fn start_range_selection(&self, up: bool, closed: bool) {
+        self.imp().start_range_selection(up, closed);
     }
 
     pub fn size(&self) -> usize {
@@ -1901,7 +1912,7 @@ impl FileList {
         self.imp().store.remove_all();
     }
 
-    pub fn visible_files(&self) -> glib::List<File> {
+    pub fn visible_files(&self) -> Vec<File> {
         self.imp().items_iter().map(|item| item.file()).collect()
     }
 
@@ -1909,8 +1920,8 @@ impl FileList {
         self.imp().items_iter().map(|item| item.file())
     }
 
-    pub fn selected_files(&self) -> glib::List<File> {
-        let mut list: glib::List<File> = self
+    pub fn selected_files(&self) -> Vec<File> {
+        let mut list: Vec<File> = self
             .imp()
             .items_iter()
             .filter(|item| item.selected())
@@ -1919,7 +1930,7 @@ impl FileList {
         if list.is_empty()
             && let Some(file) = self.selected_file()
         {
-            list.push_back(file);
+            list.push(file);
         }
         list
     }
@@ -2504,10 +2515,9 @@ impl FileList {
 
         let mut items: Vec<_> = dir
             .files()
-            .iter::<File>()
-            .flatten()
+            .iter()
             .filter(|f| file_is_wanted(f, &options))
-            .map(|f| FileListItem::new(&f))
+            .map(FileListItem::new)
             .collect();
         if dir.parent().is_some() {
             items.insert(0, FileListItem::new(&File::dotdot(dir)));
@@ -2738,67 +2748,47 @@ pub struct FileListStats {
 }
 
 fn file_is_wanted(file: &File, options: &FiltersOptions) -> bool {
-    match file.file().query_info(
-        "standard::*",
-        gio::FileQueryInfoFlags::NOFOLLOW_SYMLINKS,
-        gio::Cancellable::NONE,
-    ) {
-        Ok(file_info) => {
-            let basename = file.file().basename();
-            let Some(basename) = basename.as_ref().and_then(|b| b.to_str()) else {
-                return false;
-            };
-
-            if basename == "." {
-                return false;
-            }
-            if file.is_dotdot() {
-                return false;
-            }
-            let hide = match file_info.file_type() {
-                gio::FileType::Unknown => options.hide_unknown.get(),
-                gio::FileType::Regular => options.hide_regular.get(),
-                gio::FileType::Directory => options.hide_directory.get(),
-                gio::FileType::SymbolicLink => options.hide_symlink.get(),
-                gio::FileType::Special => options.hide_special.get(),
-                gio::FileType::Shortcut => options.hide_shortcut.get(),
-                gio::FileType::Mountable => options.hide_mountable.get(),
-                _ => false,
-            };
-            if hide {
-                return false;
-            }
-            if options.hide_symlink.get() && file_info.is_symlink() {
-                return false;
-            }
-            if options.hide_hidden.get() && file_info.is_hidden() {
-                return false;
-            }
-            if options.hide_virtual.get()
-                && file_info.boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL)
-            {
-                return false;
-            }
-            if options.hide_volatile.get()
-                && file_info.boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VOLATILE)
-            {
-                return false;
-            }
-            if options.hide_backup.get() && matches_pattern(basename, &options.backup_pattern.get())
-            {
-                return false;
-            }
-            true
-        }
-        Err(error) => {
-            eprintln!(
-                "file_is_wanted: retrieving file info for {} failed: {}",
-                file.file().uri(),
-                error.message()
-            );
-            true
-        }
+    let name = file.name();
+    if name == "." || name == ".." {
+        return false;
     }
+    let hide = match file.file_type() {
+        gio::FileType::Unknown => options.hide_unknown.get(),
+        gio::FileType::Regular => options.hide_regular.get(),
+        gio::FileType::Directory => options.hide_directory.get(),
+        gio::FileType::SymbolicLink => options.hide_symlink.get(),
+        gio::FileType::Special => options.hide_special.get(),
+        gio::FileType::Shortcut => options.hide_shortcut.get(),
+        gio::FileType::Mountable => options.hide_mountable.get(),
+        _ => false,
+    };
+    if hide {
+        return false;
+    }
+    if options.hide_symlink.get() && file.is_symlink() {
+        return false;
+    }
+    if options.hide_hidden.get() && file.file_info().is_hidden() {
+        return false;
+    }
+    if options.hide_virtual.get()
+        && file
+            .file_info()
+            .boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL)
+    {
+        return false;
+    }
+    if options.hide_volatile.get()
+        && file
+            .file_info()
+            .boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VOLATILE)
+    {
+        return false;
+    }
+    if options.hide_backup.get() && matches_pattern(&name, &options.backup_pattern.get()) {
+        return false;
+    }
+    true
 }
 
 fn matches_pattern(file: &str, patterns: &str) -> bool {

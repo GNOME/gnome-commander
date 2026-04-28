@@ -1161,10 +1161,10 @@ impl MainWindow {
         let state = State::new();
         state.set_active_dir(dir1.as_ref().map(to_file).and_upcast_ref());
         state.set_inactive_dir(dir2.as_ref().map(to_file).and_upcast_ref());
-        state.set_active_dir_files(&fl1.visible_files());
-        state.set_inactive_dir_files(&fl2.visible_files());
-        state.set_active_dir_selected_files(&fl1.selected_files());
-        state.set_inactive_dir_selected_files(&fl2.selected_files());
+        state.set_active_dir_files(&fl1.visible_files().into_iter().collect());
+        state.set_inactive_dir_files(&fl2.visible_files().into_iter().collect());
+        state.set_active_dir_selected_files(&fl1.selected_files().into_iter().collect());
+        state.set_inactive_dir_selected_files(&fl2.selected_files().into_iter().collect());
 
         state
     }

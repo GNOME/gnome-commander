@@ -33,7 +33,7 @@ fn fav_app_menu_item(app: &App) -> gio::MenuItem {
     item
 }
 
-fn fav_app_matches_files(app: &UserDefinedApp, files: &glib::List<File>) -> bool {
+fn fav_app_matches_files(app: &UserDefinedApp, files: &[File]) -> bool {
     match app.target {
         AppTarget::AllFiles => files.iter().all(|file| file.is_regular()),
         AppTarget::AllDirs => files.iter().all(|file| file.is_directory()),
@@ -113,7 +113,7 @@ fn create_action_script_menu() -> Option<gio::Menu> {
 /// (for opening the selected files or folders with dedicated programs).
 fn add_open_with_entries(menu: &gio::Menu, file_list: &FileList) {
     let files = file_list.selected_files();
-    let first_file = files.front();
+    let first_file = files.first();
 
     let content_type = first_file.and_then(|f| f.content_type());
 
@@ -172,7 +172,7 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
     let menu = gio::Menu::new();
 
     // Add execute menu entry
-    let first_file = files.front()?;
+    let first_file = files.first()?;
     if first_file.is_executable() && files.len() == 1 {
         let section = gio::Menu::new();
         section.append_item(&gio::MenuItem::new(

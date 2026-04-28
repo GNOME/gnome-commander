@@ -45,12 +45,14 @@ async fn chown_recursively(
             return;
         }
 
-        for child in dir
+        // Create a copy of the list to guard against modifications while we process it
+        let files = dir
             .files()
-            .iter::<File>()
-            .flatten()
+            .iter()
             .filter(|child| !child.is_dotdot() && child.name() != "." && !child.is_symlink())
-        {
+            .cloned()
+            .collect::<Vec<_>>();
+        for child in files {
             chown_recursively(parent_window, Some(connection), &child, uid, gid, recurse).await;
         }
     }
@@ -59,7 +61,7 @@ async fn chown_recursively(
 async fn chown_files(
     parent_window: &gtk::Window,
     connection: Option<&Connection>,
-    files: &glib::List<File>,
+    files: &[File],
     uid: Option<uid_t>,
     gid: gid_t,
     recursive: bool,
@@ -72,9 +74,9 @@ async fn chown_files(
 pub async fn show_chown_dialog(
     parent_window: &gtk::Window,
     connection: Option<&Connection>,
-    files: &glib::List<File>,
+    files: &[File],
 ) -> bool {
-    let Some(file) = files.front() else {
+    let Some(file) = files.first() else {
         return false;
     };
 

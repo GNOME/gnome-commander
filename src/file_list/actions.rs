@@ -90,7 +90,7 @@ fn create_temporary_files(files: &[File]) -> Result<Vec<File>, ErrorMessage> {
 }
 
 async fn mime_exec_multiple(
-    files: glib::List<File>,
+    files: Vec<File>,
     app: App,
     parent_window: &gtk::Window,
     options: &ProgramsOptions,
@@ -103,7 +103,7 @@ async fn mime_exec_multiple(
     }
 
     let files_to_open: Vec<_> = if app.handles_uris() && options.dont_download.get() {
-        files.into_iter().collect()
+        files
     } else {
         let (mut local, remote): (Vec<File>, Vec<File>) =
             files.into_iter().partition(|f| f.is_local());
@@ -165,7 +165,7 @@ pub async fn file_list_action_open_with_default(file_list: &FileList) {
     };
     let files = file_list.selected_files();
 
-    let mut grouped: Vec<(gio::AppInfo, glib::List<File>)> = Vec::new();
+    let mut grouped: Vec<(gio::AppInfo, Vec<File>)> = Vec::new();
 
     for file in files {
         if let Some(app_info) = file.app_info_for_content_type() {
@@ -174,10 +174,10 @@ pub async fn file_list_action_open_with_default(file_list: &FileList) {
                 .position(|(app, _)| app_info.equal(app))
                 .unwrap_or_else(|| {
                     let len = grouped.len();
-                    grouped.push((app_info, glib::List::new()));
+                    grouped.push((app_info, Vec::new()));
                     len
                 });
-            grouped[pos].1.push_back(file);
+            grouped[pos].1.push(file);
         } else {
             ErrorMessage::new(
                 file.name(),
@@ -207,7 +207,7 @@ pub async fn file_list_action_execute(file_list: &FileList) {
         eprintln!("Unexpected: parent window isn't the main window");
         return;
     };
-    let Some(file) = file_list.selected_files().front().cloned() else {
+    let Some(file) = file_list.selected_files().first().cloned() else {
         eprintln!("No file selected");
         return;
     };

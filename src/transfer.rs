@@ -977,8 +977,7 @@ async fn move_file_recursively(
                 file_info.set_display_name(&name.to_string_lossy());
                 file_info.set_name(name);
 
-                let mut files = glib::List::new();
-                files.push_back(File::new_from_file(src.clone(), &file_info));
+                let files = vec![File::new_from_file(src.clone(), &file_info)];
 
                 do_delete(
                     window.upcast_ref(),

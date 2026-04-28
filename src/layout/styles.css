@@ -39,11 +39,12 @@
 .gnome-cmd-file-list.themed row.sel {
   background-color: var(--color-sel-bg);
 }
-.gnome-cmd-file-list.themed row:selected {
+.gnome-cmd-file-selector.active .gnome-cmd-file-list.themed row:selected {
   background-color: var(--color-curs-bg);
   color: var(--color-curs-fg);
 }
-.gnome-cmd-file-list.themed row.sel {
+.gnome-cmd-file-list.themed row.sel,
+.gnome-cmd-file-selector.active .gnome-cmd-file-list.themed row.sel {
   color: var(--color-sel-fg);
 }
 

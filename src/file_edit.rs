@@ -11,10 +11,7 @@ use crate::{
 };
 use gettextrs::gettext;
 
-pub async fn file_edit(
-    files: glib::List<File>,
-    options: &ProgramsOptions,
-) -> Result<(), ErrorMessage> {
+pub async fn file_edit(files: Vec<File>, options: &ProgramsOptions) -> Result<(), ErrorMessage> {
     let files = files
         .into_iter()
         .filter_map(|file| {

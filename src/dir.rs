@@ -37,7 +37,7 @@ mod imp {
         pub connection: RefCell<Connection>,
         pub file: RefCell<gio::File>,
         pub state: Cell<DirectoryState>,
-        pub files: gio::ListStore,
+        pub files: RefCell<Vec<File>>,
         #[property(get, set)]
         pub mtime: RefCell<Option<glib::DateTime>>,
         #[property(get, set)]
@@ -61,7 +61,7 @@ mod imp {
                 connection: DUMMY_CONNECTION.with(|con| con.clone()),
                 file: RefCell::new(gio::File::for_path("/")),
                 state: Cell::new(DirectoryState::Empty),
-                files: gio::ListStore::new::<File>(),
+                files: RefCell::new(Vec::new()),
                 mtime: Default::default(),
                 needs_mtime_update: Default::default(),
                 file_monitor: Default::default(),
@@ -166,8 +166,8 @@ impl Directory {
         self.path_from_root().to_string_lossy().to_string()
     }
 
-    pub fn files(&self) -> gio::ListStore {
-        self.imp().files.clone()
+    pub fn files(&self) -> Ref<'_, Vec<File>> {
+        self.imp().files.borrow()
     }
 
     pub fn state(&self) -> DirectoryState {
@@ -179,11 +179,9 @@ impl Directory {
     }
 
     fn set_files(&self, files: impl IntoIterator<Item = File>) {
-        let store = self.files();
-        store.remove_all();
-        for file in files {
-            store.append(&file);
-        }
+        let mut store = self.imp().files.borrow_mut();
+        store.clear();
+        store.extend(files);
     }
 
     pub async fn relist_files(
@@ -229,13 +227,20 @@ impl Directory {
         mut visual: bool,
     ) -> Result<(), ErrorMessage> {
         visual &= self.connection().needs_list_visprog();
-        let files = self.files();
-        if files.n_items() == 0 || self.is_local() {
+        if self.files().is_empty() || self.is_local() {
             self.relist_files(parent_window, visual).await
         } else {
             self.emit_by_name::<()>(SIGNAL_LIST_OK, &[]);
             Ok(())
         }
+    }
+
+    pub fn clear_files(&self) {
+        self.imp().files.borrow_mut().clear();
+    }
+
+    pub fn add_file(&self, file: &File) {
+        self.imp().files.borrow_mut().push(file.clone());
     }
 
     pub fn get_child_gfile(&self, filename: &Path) -> gio::File {
@@ -256,11 +261,10 @@ impl Directory {
         }
     }
 
-    fn find_file(&self, uri_str: &str) -> Option<(u32, File)> {
-        let files = self.files();
-        for (i, f) in files.iter::<File>().flatten().enumerate() {
+    fn find_file(&self, uri_str: &str) -> Option<(usize, File)> {
+        for (i, f) in self.files().iter().enumerate() {
             if f.uri() == uri_str {
-                return Some((i as u32, f));
+                return Some((i, f.clone()));
             }
         }
         None
@@ -289,7 +293,7 @@ impl Directory {
 
         let f = File::new_from_file(file, &file_info);
         f.set_parent_directory(Some(self));
-        self.files().append(&f);
+        self.add_file(&f);
         self.set_needs_mtime_update(true);
         self.emit_by_name::<()>(SIGNAL_FILE_CREATED, &[&f]);
     }
@@ -303,7 +307,7 @@ impl Directory {
         if let Some((position, file)) = self.find_file(uri_str) {
             self.set_needs_mtime_update(true);
             self.emit_by_name::<()>(SIGNAL_FILE_DELETED, &[&file]);
-            self.files().remove(position);
+            self.imp().files.borrow_mut().remove(position);
         }
     }
 
@@ -341,7 +345,7 @@ impl Directory {
             }
 
             // Update listed files
-            for file in directory.imp().files.iter::<File>().flatten() {
+            for file in directory.files().iter() {
                 file.set_file(directory.get_child_gfile(&file.path_name()));
             }
 
