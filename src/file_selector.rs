@@ -632,7 +632,6 @@ impl FileSelector {
         }
 
         self.set_tab_locked(&fl, locked);
-        fl.update_style();
         fl.show_column(ColumnID::Dir, false);
 
         if let Some((history_entries, (current_connection, current_uri))) = history {
@@ -673,6 +672,7 @@ impl FileSelector {
             .append_page(&fl, Some(&TabLabel::default()));
         self.update_show_tabs();
         self.imp().notebook.set_tab_reorderable(&fl, true);
+        fl.update_style();
 
         fl.connect_con_changed(glib::clone!(
             #[weak(rename_to = this)]
