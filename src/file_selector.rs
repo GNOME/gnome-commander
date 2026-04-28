@@ -235,6 +235,7 @@ mod imp {
 
             let this = self.obj();
             this.set_column_spacing(6);
+            this.add_css_class("gnome-cmd-file-selector");
 
             self.connection_bar.set_hexpand(true);
             this.attach(&self.connection_bar, 0, 0, 2, 1);
@@ -499,6 +500,11 @@ mod imp {
         fn set_active(&self, active: bool) {
             self.active.set(active);
             self.directory_indicator.set_active(active);
+            if active {
+                self.obj().add_css_class("active");
+            } else {
+                self.obj().remove_css_class("active");
+            }
         }
 
         fn set_list(&self, list: Option<FileList>) {
