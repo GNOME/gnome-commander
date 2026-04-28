@@ -68,7 +68,7 @@ fn create_list_progress_dialog(parent_window: &gtk::Window) -> ProgressDialog {
 pub async fn list_directory(
     dir: &Directory,
     parent_window: Option<&gtk::Window>,
-) -> Result<glib::List<gio::FileInfo>, glib::Error> {
+) -> Result<Vec<gio::FileInfo>, glib::Error> {
     let file = dir.file().clone();
 
     let dialog = parent_window.map(create_list_progress_dialog);
@@ -122,6 +122,6 @@ pub async fn list_directory(
 
     match error {
         Some(error) => Err(error),
-        None => Ok(files.into_iter().collect()),
+        None => Ok(files),
     }
 }

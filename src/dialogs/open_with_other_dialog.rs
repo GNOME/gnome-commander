@@ -12,7 +12,7 @@ use gettextrs::gettext;
 use gtk::{glib, prelude::*};
 use std::ffi::OsString;
 
-pub async fn show_open_with_other_dialog(parent_window: &MainWindow, files: &glib::List<File>) {
+pub async fn show_open_with_other_dialog(parent_window: &MainWindow, files: &[File]) {
     let dialog = gtk::Window::builder()
         .transient_for(parent_window)
         .title(gettext("Open with other…"))

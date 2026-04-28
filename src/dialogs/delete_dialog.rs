@@ -37,7 +37,7 @@ struct DeleteData {
     progress_dialog: Option<DeleteProgressDialog>,
     connection: Option<Connection>,
     /// this is the real list of deleted files
-    deleted_files: glib::List<File>,
+    deleted_files: Vec<File>,
     delete_action: DeleteAction,
     cancellable: gio::Cancellable,
 }
@@ -251,7 +251,7 @@ async fn perform_delete_operation_one(delete_data: &mut DeleteData, file: &File)
 
     match result {
         Ok(_) => {
-            delete_data.deleted_files.push_back(file.clone());
+            delete_data.deleted_files.push(file.clone());
 
             if let Some(ref progress_window) = delete_data.progress_dialog {
                 progress_window.set_progress(delete_data.deleted_files.len());
@@ -271,7 +271,9 @@ async fn perform_delete_operation_one(delete_data: &mut DeleteData, file: &File)
                 return handle_delete_problem(delete_data, file, problem).await;
             }
 
-            for child in dir.files().iter::<File>().flatten() {
+            // Create a copy of the list, it will change while we delete.
+            let files = dir.files().clone();
+            for child in files {
                 Box::pin(perform_delete_operation_one(delete_data, &child)).await?;
             }
             // Now remove the directory itself, as it is finally empty
@@ -302,17 +304,14 @@ async fn handle_delete_problem(
     }
 }
 
-async fn perform_delete_operation(
-    delete_data: &mut DeleteData,
-    files: &glib::List<File>,
-) -> DeleteResult {
+async fn perform_delete_operation(delete_data: &mut DeleteData, files: &[File]) -> DeleteResult {
     for file in files {
         perform_delete_operation_one(delete_data, file).await?;
     }
     DeleteResult::Continue(())
 }
 
-async fn count_total_items(files: &glib::List<File>) -> Option<u64> {
+async fn count_total_items(files: &[File]) -> Option<u64> {
     let mut total = 0;
     for file in files {
         let file = file.file().clone();
@@ -330,7 +329,7 @@ pub async fn do_delete(
     parent_window: &gtk::Window,
     delete_action: DeleteAction,
     connection: Option<&Connection>,
-    files: &glib::List<File>,
+    files: &[File],
     mut show_progress: bool,
 ) {
     if files.is_empty() {
@@ -365,7 +364,7 @@ pub async fn do_delete(
             .clone(),
         progress_dialog,
         connection: connection.cloned(),
-        deleted_files: glib::List::new(),
+        deleted_files: Vec::new(),
         delete_action,
         cancellable,
     };
@@ -414,20 +413,20 @@ async fn measure_directory(file: &File) -> Result<(bool, bool), glib::Error> {
 /// This happens as of user interaction.
 async fn remove_items_from_list_to_be_deleted(
     parent_window: &gtk::Window,
-    files: glib::List<File>,
+    files: Vec<File>,
     options: &ConfirmOptions,
-) -> Result<glib::List<File>, glib::Error> {
+) -> Result<Vec<File>, glib::Error> {
     if !options.confirm_delete.get() {
         return Ok(files);
     };
 
-    let mut files_to_delete = glib::List::new();
+    let mut files_to_delete = Vec::new();
 
     let mut delete_all_confirmed = false;
     let mut first_confirmation = true;
     for file in files {
         if delete_all_confirmed {
-            files_to_delete.push_back(file);
+            files_to_delete.push(file);
             continue;
         }
 
@@ -446,22 +445,22 @@ async fn remove_items_from_list_to_be_deleted(
 
                 match response {
                     DeleteNonEmpty::Cancel => {
-                        return Ok(glib::List::new());
+                        return Ok(Vec::new());
                     }
                     DeleteNonEmpty::DeleteAll => {
-                        files_to_delete.push_back(file);
+                        files_to_delete.push(file);
                         delete_all_confirmed = true;
                     }
                     DeleteNonEmpty::Skip => {}
                     DeleteNonEmpty::Delete => {
-                        files_to_delete.push_back(file);
+                        files_to_delete.push(file);
                     }
                 }
             } else {
-                files_to_delete.push_back(file);
+                files_to_delete.push(file);
             }
         } else {
-            files_to_delete.push_back(file);
+            files_to_delete.push(file);
         }
     }
 
@@ -470,7 +469,7 @@ async fn remove_items_from_list_to_be_deleted(
 
 async fn confirm_delete(
     parent_window: &gtk::Window,
-    files: &glib::List<File>,
+    files: &[File],
     delete_action: DeleteAction,
     options: &ConfirmOptions,
 ) -> bool {
@@ -480,7 +479,7 @@ async fn confirm_delete(
 
     let n_files = files.len();
     let text = if n_files == 1 {
-        let file = files.front().unwrap();
+        let file = files.first().unwrap();
         match delete_action {
             DeleteAction::DeletePermanently => {
                 gettext("Do you want to permanently delete “{}”?").replace("{}", &file.name())
@@ -524,12 +523,12 @@ async fn confirm_delete(
 pub async fn show_delete_dialog(
     parent_window: &gtk::Window,
     connection: Option<&Connection>,
-    files: &glib::List<File>,
+    files: &[File],
     force_delete: bool,
     general_options: &GeneralOptions,
     confirm_options: &ConfirmOptions,
 ) {
-    let files: glib::List<File> = files.iter().filter(|f| !f.is_dotdot()).cloned().collect();
+    let files: Vec<_> = files.iter().filter(|f| !f.is_dotdot()).cloned().collect();
     if files.is_empty() {
         return;
     }
