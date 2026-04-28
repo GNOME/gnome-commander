@@ -6630,17 +6630,17 @@
         <row valign="top">
             <entry><para><keycombo><keycap>ENTER</keycap></keycombo>(in command line)</para></entry>
             <entry><para>Execute command line</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>SHIFT</keycap><keycap>ENTER</keycap></keycombo></para></entry>
             <entry><para>Execute command line in the defined terminal</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top" rowsep="1">
             <entry><para><keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo></para></entry>
             <entry><para>Execute command line in background, ignoring its output</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>ALT</keycap><keycap>LEFT</keycap></keycombo></para></entry>
@@ -6666,14 +6666,14 @@
         <row valign="top">
             <entry><para><keycombo><keycap>INSERT</keycap></keycombo></para></entry>
             <entry><para>Select file or directory and move down</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top" rowsep="1">
             <entry><para><keycombo><keycap>SPACE</keycap></keycombo></para></entry>
             <entry><para>Select file or directory (as <keycombo><keycap>INSERT</keycap></keycombo>).
                          If <keycombo><keycap>SPACE</keycap></keycombo> is used on an unselected directory under the cursor,
                          the contents in this directory are counted and the size is shown in the "full" view instead of the string DIR</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo></para></entry>
@@ -6705,7 +6705,7 @@
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>C</keycap></keycombo></entry>
             <entry><para>Copy file names to clipboard</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>X</keycap></keycombo></entry>
@@ -6730,12 +6730,12 @@
         <row valign="top">
             <entry><para><keycombo><keycap>TAB</keycap></keycombo></para></entry>
             <entry><para>Switch between left and right file list</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>U</keycap></keycombo></entry>
             <entry><para>Swap left and right file list</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>CTRL</keycap><keycap>LEFT</keycap></keycombo></para></entry>
@@ -6842,17 +6842,17 @@
         <row valign="top">
           <entry><para><keycombo><keycap>CTRL</keycap><keycap>ALT</keycap><keycap>P</keycap></keycombo></para></entry>
           <entry><para>Jump to panels</para></entry>
-          <entry><para></para></entry>
+          <entry><para>yes</para></entry>
         </row>
         <row valign="top">
           <entry><para><keycombo><keycap>CTRL</keycap><keycap>ALT</keycap><keycap>C</keycap></keycombo></para></entry>
           <entry><para>Jump to the command line</para></entry>
-          <entry><para></para></entry>
+          <entry><para>yes</para></entry>
         </row>
         <row valign="top" rowsep="1">
           <entry><para><keycombo><keycap>CTRL</keycap><keycap>ALT</keycap><keycap>T</keycap></keycombo></para></entry>
           <entry><para>Jump to the command output</para></entry>
-          <entry><para></para></entry>
+          <entry><para>yes</para></entry>
         </row>
         <row valign="top" rowsep="1">
             <entry><para><keycombo><keycap>ALT</keycap><keycap>Letter(s)</keycap></keycombo></para>
@@ -6868,7 +6868,7 @@
         <row valign="top">
             <entry><para><keycombo><keycap>ESC</keycap></keycombo></para></entry>
             <entry><para>Clear the command line</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>P</keycap></keycombo></entry>
