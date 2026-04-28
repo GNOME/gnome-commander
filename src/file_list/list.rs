@@ -601,6 +601,12 @@ mod imp {
                 .use_ls_colors
                 .bind(&*fl, "use-ls-colors")
                 .build();
+
+            fl.connect_unmap(|fl| {
+                if let Some(sender) = fl.imp().dnd_mode_sender.replace(None) {
+                    sender.toss(None);
+                }
+            });
         }
 
         fn dispose(&self) {
