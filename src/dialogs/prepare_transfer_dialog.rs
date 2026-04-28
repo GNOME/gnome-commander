@@ -30,7 +30,7 @@ mod imp {
         pub right_vbox: gtk::Box,
         pub ok_button: gtk::Button,
         pub cancel_button: gtk::Button,
-        pub src_files: OnceCell<glib::List<File>>,
+        pub src_files: OnceCell<Vec<File>>,
         pub src_fs: OnceCell<FileSelector>,
         pub dst_fs: OnceCell<FileSelector>,
         pub default_dest_dir: OnceCell<Directory>,
@@ -212,7 +212,7 @@ impl PrepareTransferDialog {
         let default_dest_dir = to.file_list().directory().unwrap();
 
         let single_source_file = if src_files.len() == 1 {
-            src_files.front()
+            src_files.first()
         } else {
             None
         };
@@ -311,7 +311,7 @@ impl PrepareTransferDialog {
 
 pub async fn handle_user_input(
     parent_window: &gtk::Window,
-    src_files: &glib::List<File>,
+    src_files: &[File],
     src_fs: &FileSelector,
     dst_fs: &FileSelector,
     default_dest_dir: &Directory,
@@ -370,7 +370,7 @@ pub async fn handle_user_input(
     let mut dest_fn: Option<String> = None;
 
     if src_files.len() == 1 {
-        let single_source_file = src_files.front().unwrap();
+        let single_source_file = src_files.first().unwrap();
 
         if file_type == gio::FileType::Directory {
             // There exists a directory, copy into it using the original filename

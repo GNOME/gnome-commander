@@ -22,7 +22,7 @@ pub async fn prepare_copy_dialog_show(
     let num_files = src_files.len();
     let single_source_file = match num_files {
         0 => return,
-        1 => src_files.front(),
+        1 => src_files.first(),
         _ => None,
     };
 

@@ -1146,10 +1146,10 @@ pub fn advanced_rename_dialog_show(
     dialog.present();
 }
 
-fn gnome_cmd_advrename_dialog_set(dialog: &AdvancedRenameDialog, file_list: &glib::List<File>) {
+fn gnome_cmd_advrename_dialog_set(dialog: &AdvancedRenameDialog, file_list: &[File]) {
     dialog
         .profile_component()
-        .set_sample_file_name(file_list.front().map(|f| f.name()));
+        .set_sample_file_name(file_list.first().map(|f| f.name()));
 
     let file_metadata_service = dialog.file_metadata_service();
     let files = &dialog.imp().files;

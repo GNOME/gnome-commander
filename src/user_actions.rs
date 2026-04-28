@@ -316,7 +316,7 @@ async fn do_file_diff(
 
             let inactive_file = inactive_fl
                 .selected_files()
-                .front()
+                .first()
                 .ok_or_else(|| ErrorMessage::new(gettext("No file selected"), None::<String>))?
                 .clone();
 
@@ -386,7 +386,7 @@ fn symlink_name(file_name: &str, options: &GeneralOptions) -> String {
 
 async fn create_symlinks(
     parent_window: &gtk::Window,
-    files: &glib::List<File>,
+    files: &[File],
     directory: &Directory,
     options: &GeneralOptions,
 ) {

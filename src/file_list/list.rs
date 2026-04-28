@@ -1670,7 +1670,7 @@ impl FileList {
         self.imp().store.remove_all();
     }
 
-    pub fn visible_files(&self) -> glib::List<File> {
+    pub fn visible_files(&self) -> Vec<File> {
         self.imp().items_iter().map(|item| item.file()).collect()
     }
 
@@ -1678,8 +1678,8 @@ impl FileList {
         self.imp().items_iter().map(|item| item.file())
     }
 
-    pub fn selected_files(&self) -> glib::List<File> {
-        let mut list: glib::List<File> = self
+    pub fn selected_files(&self) -> Vec<File> {
+        let mut list: Vec<File> = self
             .imp()
             .items_iter()
             .filter(|item| item.selected())
@@ -1688,7 +1688,7 @@ impl FileList {
         if list.is_empty()
             && let Some(file) = self.selected_file()
         {
-            list.push_back(file);
+            list.push(file);
         }
         list
     }
@@ -2273,10 +2273,9 @@ impl FileList {
 
         let mut items: Vec<_> = dir
             .files()
-            .iter::<File>()
-            .flatten()
+            .iter()
             .filter(|f| file_is_wanted(f, &options))
-            .map(|f| FileListItem::new(&f))
+            .map(FileListItem::new)
             .collect();
         if dir.parent().is_some() {
             items.insert(0, FileListItem::new(&File::dotdot(dir)));
