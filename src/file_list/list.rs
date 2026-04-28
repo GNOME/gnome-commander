@@ -2506,67 +2506,47 @@ pub struct FileListStats {
 }
 
 fn file_is_wanted(file: &File, options: &FiltersOptions) -> bool {
-    match file.file().query_info(
-        "standard::*",
-        gio::FileQueryInfoFlags::NOFOLLOW_SYMLINKS,
-        gio::Cancellable::NONE,
-    ) {
-        Ok(file_info) => {
-            let basename = file.file().basename();
-            let Some(basename) = basename.as_ref().and_then(|b| b.to_str()) else {
-                return false;
-            };
-
-            if basename == "." {
-                return false;
-            }
-            if file.is_dotdot() {
-                return false;
-            }
-            let hide = match file_info.file_type() {
-                gio::FileType::Unknown => options.hide_unknown.get(),
-                gio::FileType::Regular => options.hide_regular.get(),
-                gio::FileType::Directory => options.hide_directory.get(),
-                gio::FileType::SymbolicLink => options.hide_symlink.get(),
-                gio::FileType::Special => options.hide_special.get(),
-                gio::FileType::Shortcut => options.hide_shortcut.get(),
-                gio::FileType::Mountable => options.hide_mountable.get(),
-                _ => false,
-            };
-            if hide {
-                return false;
-            }
-            if options.hide_symlink.get() && file_info.is_symlink() {
-                return false;
-            }
-            if options.hide_hidden.get() && file_info.is_hidden() {
-                return false;
-            }
-            if options.hide_virtual.get()
-                && file_info.boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL)
-            {
-                return false;
-            }
-            if options.hide_volatile.get()
-                && file_info.boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VOLATILE)
-            {
-                return false;
-            }
-            if options.hide_backup.get() && matches_pattern(basename, &options.backup_pattern.get())
-            {
-                return false;
-            }
-            true
-        }
-        Err(error) => {
-            eprintln!(
-                "file_is_wanted: retrieving file info for {} failed: {}",
-                file.file().uri(),
-                error.message()
-            );
-            true
-        }
+    let name = file.name();
+    if name == "." || name == ".." {
+        return false;
     }
+    let hide = match file.file_type() {
+        gio::FileType::Unknown => options.hide_unknown.get(),
+        gio::FileType::Regular => options.hide_regular.get(),
+        gio::FileType::Directory => options.hide_directory.get(),
+        gio::FileType::SymbolicLink => options.hide_symlink.get(),
+        gio::FileType::Special => options.hide_special.get(),
+        gio::FileType::Shortcut => options.hide_shortcut.get(),
+        gio::FileType::Mountable => options.hide_mountable.get(),
+        _ => false,
+    };
+    if hide {
+        return false;
+    }
+    if options.hide_symlink.get() && file.is_symlink() {
+        return false;
+    }
+    if options.hide_hidden.get() && file.file_info().is_hidden() {
+        return false;
+    }
+    if options.hide_virtual.get()
+        && file
+            .file_info()
+            .boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL)
+    {
+        return false;
+    }
+    if options.hide_volatile.get()
+        && file
+            .file_info()
+            .boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VOLATILE)
+    {
+        return false;
+    }
+    if options.hide_backup.get() && matches_pattern(&name, &options.backup_pattern.get()) {
+        return false;
+    }
+    true
 }
 
 fn matches_pattern(file: &str, patterns: &str) -> bool {
