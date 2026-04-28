@@ -37,7 +37,7 @@ use crate::{
         quick_search::QuickSearchMode,
     },
     libgcmd::file_actions::{FileActions, FileActionsExt},
-    main_win::MainWindow,
+    main_win::{ExecutionTarget, MainWindow},
     options::{ConfirmOptions, GeneralOptions, NetworkOptions, ProgramsOptions, SearchConfig},
     plugin_manager::{PluginActionVariant, show_plugin_manager},
     search::search_dialog::SearchDialog,
@@ -1286,6 +1286,30 @@ async fn clear_cmdline(main_win: MainWindow) {
     let cmdline = main_win.cmdline();
     if cmdline.is_visible() {
         cmdline.set_text("");
+        if RootExt::focus(&main_win).is_some_and(|focus| focus.is_ancestor(&cmdline)) {
+            main_win.focus_file_lists();
+        }
+    }
+}
+
+async fn cmdline_run_embedded(main_win: MainWindow) {
+    let cmdline = main_win.cmdline();
+    if cmdline.is_visible() {
+        cmdline.process_command(ExecutionTarget::EmbeddedTerminal);
+    }
+}
+
+async fn cmdline_run_external(main_win: MainWindow) {
+    let cmdline = main_win.cmdline();
+    if cmdline.is_visible() {
+        cmdline.process_command(ExecutionTarget::ExternalTerminal);
+    }
+}
+
+async fn cmdline_run_nocapture(main_win: MainWindow) {
+    let cmdline = main_win.cmdline();
+    if cmdline.is_visible() {
+        cmdline.process_command(ExecutionTarget::Background);
     }
 }
 
@@ -2235,6 +2259,24 @@ user_actions! {
         "clear-cmdline",
         gettext("Clear Command Line"),
         clear_cmdline,
+    ),
+
+    RunEmbedded in CommandLine => (
+        "run-embedded",
+        gettext("_Run"),
+        cmdline_run_embedded,
+    ),
+
+    RunExternal in CommandLine => (
+        "run-external",
+        gettext("Run in _terminal"),
+        cmdline_run_external,
+    ),
+
+    RunNoCapture in CommandLine => (
+        "cmdline-run-nocapture",
+        gettext("Run _ignoring output"),
+        cmdline_run_nocapture,
     ),
 
     OpenFile in Panel => (

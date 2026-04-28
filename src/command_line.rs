@@ -8,7 +8,8 @@ use crate::{
     main_win::ExecutionTarget,
     options::GeneralOptions,
     shortcuts::{Area, Shortcuts},
-    utils::{ALT, NO_MOD, SHIFT, SenderExt},
+    user_actions::UserAction,
+    utils::{MenuBuilderExt, NO_MOD, SenderExt},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, prelude::*, subclass::prelude::*};
@@ -28,6 +29,7 @@ mod imp {
     pub struct CommandLine {
         pub action_group: gio::SimpleActionGroup,
         pub terminal: vte::Terminal,
+        pub(super) terminal_busy: Cell<bool>,
         pub cwd: gtk::Label,
         pub entry: HistoryEntry,
         pub(super) output_widget: gtk::Widget,
@@ -74,6 +76,7 @@ mod imp {
                     .build()
                     .upcast(),
                 terminal,
+                terminal_busy: Default::default(),
                 cwd: gtk::Label::builder().selectable(true).build(),
                 entry: HistoryEntry::default(),
                 focus_controllers: [
@@ -198,26 +201,19 @@ mod imp {
                 .build();
 
             let run_button = gtk::Button::builder()
-                .label(gettext("_Run"))
+                .label(UserAction::RunEmbedded.menu_description())
                 .use_underline(true)
-                .action_name("cmdline.run")
+                .action_name(UserAction::RunEmbedded.name())
                 .build();
             button_box.append(&run_button);
 
             let run_menu = gtk::MenuButton::builder()
                 .direction(gtk::ArrowType::Up)
-                .menu_model(&{
-                    let menu = gio::Menu::new();
-                    menu.append(
-                        Some(&gettext("Run in _terminal")),
-                        Some("cmdline.run-external-terminal"),
-                    );
-                    menu.append(
-                        Some(&gettext("Run _ignoring output")),
-                        Some("cmdline.run-nocapture"),
-                    );
-                    menu
-                })
+                .menu_model(
+                    &gio::Menu::new()
+                        .action(UserAction::RunExternal)
+                        .action(UserAction::RunNoCapture),
+                )
                 .build();
             button_box.append(&run_menu);
 
@@ -276,11 +272,7 @@ mod imp {
         pub(super) fn start_autohide_timeout(&self) {
             if !self.autohide_output.get()
                 || self.autohide_timeout.borrow().is_some()
-                || self
-                    .action_group
-                    .lookup_action("run")
-                    .and_downcast::<gio::SimpleAction>()
-                    .is_some_and(|action| !action.is_enabled())
+                || self.terminal_busy.get()
             {
                 return;
             }
@@ -320,24 +312,6 @@ mod imp {
 
         fn on_key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
             match (state, key) {
-                (NO_MOD | SHIFT | ALT, gdk::Key::Return) => {
-                    self.action_group.activate_action(
-                        if state == SHIFT {
-                            "run-external-terminal"
-                        } else if state == ALT {
-                            "run-nocapture"
-                        } else {
-                            "run"
-                        },
-                        None,
-                    );
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::Escape) => {
-                    self.entry.set_text("");
-                    self.obj().emit_lose_focus();
-                    glib::Propagation::Stop
-                }
                 (NO_MOD, gdk::Key::Up | gdk::Key::Down) => {
                     self.obj().emit_lose_focus();
                     glib::Propagation::Stop
@@ -348,30 +322,6 @@ mod imp {
 
         fn setup_actions(&self) {
             let obj = self.obj();
-
-            let action = gio::SimpleAction::new("run", None);
-            action.connect_activate(glib::clone!(
-                #[weak]
-                obj,
-                move |_, _| obj.process_command(ExecutionTarget::EmbeddedTerminal),
-            ));
-            self.action_group.add_action(&action);
-
-            let action = gio::SimpleAction::new("run-nocapture", None);
-            action.connect_activate(glib::clone!(
-                #[weak]
-                obj,
-                move |_, _| obj.process_command(ExecutionTarget::Background),
-            ));
-            self.action_group.add_action(&action);
-
-            let action = gio::SimpleAction::new("run-external-terminal", None);
-            action.connect_activate(glib::clone!(
-                #[weak]
-                obj,
-                move |_, _| obj.process_command(ExecutionTarget::ExternalTerminal),
-            ));
-            self.action_group.add_action(&action);
 
             let action = gio::SimpleAction::new("term-copy", None);
             action.set_enabled(false);
@@ -398,18 +348,6 @@ mod imp {
                 move |_, _| obj.imp().terminal.select_all(),
             ));
             self.action_group.add_action(&action);
-
-            obj.connect_realize(|obj| {
-                if let Some(application) = obj
-                    .root()
-                    .and_downcast::<gtk::ApplicationWindow>()
-                    .and_then(|w| w.application())
-                {
-                    application.set_accels_for_action("cmdline.run-nocapture", &["<Alt>Return"]);
-                    application
-                        .set_accels_for_action("cmdline.run-external-terminal", &["<Shift>Return"]);
-                }
-            });
 
             obj.insert_action_group("cmdline", Some(&self.action_group));
 
@@ -583,13 +521,9 @@ impl CommandLine {
     fn pre_exec(&self) {
         self.imp().terminal.grab_focus();
 
-        if let Some(action) = self
-            .imp()
-            .action_group
-            .lookup_action("run")
-            .and_downcast::<gio::SimpleAction>()
-        {
-            action.set_enabled(false);
+        self.imp().terminal_busy.set(true);
+        if let Some(root) = self.root() {
+            root.action_set_enabled(UserAction::RunEmbedded.name(), false);
         }
 
         if let Some(action) = self
@@ -607,13 +541,9 @@ impl CommandLine {
             self.grab_focus();
         }
 
-        if let Some(action) = self
-            .imp()
-            .action_group
-            .lookup_action("run")
-            .and_downcast::<gio::SimpleAction>()
-        {
-            action.set_enabled(true);
+        self.imp().terminal_busy.set(false);
+        if let Some(root) = self.root() {
+            root.action_set_enabled(UserAction::RunEmbedded.name(), true);
         }
 
         if let Some(action) = self
@@ -640,13 +570,7 @@ impl CommandLine {
     }
 
     pub fn terminal_available(&self) -> bool {
-        self.is_visible()
-            && self
-                .imp()
-                .action_group
-                .lookup_action("run")
-                .and_downcast::<gio::SimpleAction>()
-                .is_some_and(|action| action.is_enabled())
+        self.is_visible() && !self.imp().terminal_busy.get()
     }
 
     pub fn history(&self) -> Vec<String> {
