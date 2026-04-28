@@ -1104,6 +1104,16 @@ impl FileSelector {
                 variant.set_sort_column(column);
                 variant.set_sort_direction(order);
                 variant.set_locked(self.is_tab_locked(&file_list));
+                variant.set_state(if file_list != self.file_list() {
+                    TabState::Background
+                } else if self.active() {
+                    TabState::Active
+                } else {
+                    TabState::Selected
+                });
+                if let Some(file) = file_list.selected_file() {
+                    variant.set_selected_file(&file.path_name());
+                }
                 if save_history {
                     variant.set_history(
                         file_list
@@ -1126,15 +1136,19 @@ impl FileSelector {
 
         for tab in tabs {
             let directory = restore_directory(connection_list, tab.current_location());
-            self.new_tab_full(
+            let state = tab.state();
+            let file_list = self.new_tab_full(
                 Some(&directory),
                 tab.sort_column(),
                 tab.sort_direction(),
                 tab.locked(),
                 Some((tab.history(), tab.current_location())),
-                true,
-                false,
+                state != TabState::Background,
+                state == TabState::Active,
             );
+            if let Some(path) = tab.selected_file() {
+                file_list.focus_file(&path, true);
+            }
         }
 
         if self.tab_count() == 0 {
@@ -1419,6 +1433,15 @@ u32_enum! {
     }
 }
 
+u32_enum! {
+    pub enum TabState {
+        #[default]
+        Background,
+        Selected,
+        Active,
+    }
+}
+
 pub struct TabVariant(BTreeMap<String, glib::Variant>);
 
 impl ToVariant for TabVariant {
@@ -1446,6 +1469,8 @@ impl TabVariant {
     const SETTING_SORT_DIRECTION: &str = "sort-direction";
     const SETTING_LOCKED: &str = "locked";
     const SETTING_HISTORY: &str = "history";
+    const SETTING_STATE: &str = "state";
+    const SETTING_SELECTED_FILE: &str = "selected-file";
 
     const SORT_DIRECTION_ASCENDING: &str = "asc";
     const SORT_DIRECTION_DESCENDING: &str = "desc";
@@ -1540,6 +1565,31 @@ impl TabVariant {
     pub fn set_history(&mut self, history: Vec<StoredHistoryEntry>) {
         self.0
             .insert(Self::SETTING_HISTORY.to_string(), history.into());
+    }
+
+    pub fn state(&self) -> TabState {
+        self.0
+            .get(Self::SETTING_STATE)
+            .and_then(TabState::from_variant)
+            .unwrap_or_default()
+    }
+
+    pub fn set_state(&mut self, state: TabState) {
+        self.0.insert(Self::SETTING_STATE.to_string(), state.into());
+    }
+
+    pub fn selected_file(&self) -> Option<PathBuf> {
+        self.0
+            .get(Self::SETTING_SELECTED_FILE)
+            .and_then(String::from_variant)
+            .map(|s| s.into())
+    }
+
+    pub fn set_selected_file(&mut self, path: &Path) {
+        if let Some(path) = path.as_os_str().to_str() {
+            self.0
+                .insert(Self::SETTING_SELECTED_FILE.to_string(), path.into());
+        }
     }
 }
 
