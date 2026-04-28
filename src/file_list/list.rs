@@ -1474,7 +1474,7 @@ mod imp {
                 });
 
                 let sender = sender.clone();
-                glib::timeout_add_local_once(Duration::from_millis(1), move || {
+                glib::timeout_add_local_once(Duration::from_millis(100), move || {
                     // An error here is expected if a response was already sent by a menu item.
                     // This is only useful if the pop-up was closed without triggering an action.
                     let _ = sender.send_blocking(None);
