@@ -725,6 +725,11 @@ mod imp {
                 return;
             }
 
+            if let Some(sender) = self.dnd_mode_sender.replace(None) {
+                // Cancel ongoing drop mode selection.
+                sender.toss(None);
+            }
+
             let previous_directory = self.directory.replace(Some(directory.clone()));
             if let Some(previous_directory) = previous_directory {
                 previous_directory.cancel_monitoring();
@@ -1438,7 +1443,10 @@ mod imp {
 
         async fn query_dnd_action(&self, x: f64, y: f64) -> Option<TransferType> {
             let (sender, receiver) = async_channel::bounded(2);
-            self.dnd_mode_sender.replace(Some(sender.clone()));
+            if let Some(old_sender) = self.dnd_mode_sender.replace(Some(sender.clone())) {
+                // If there is already an ongoing drop mode selection – cancel it.
+                old_sender.toss(None);
+            }
             let menu = gio::Menu::new()
                 .section(
                     gio::Menu::new()
@@ -1466,18 +1474,12 @@ mod imp {
 
             let popover = gtk::PopoverMenu::from_model(Some(&menu));
             popover.set_parent(&*self.obj());
+            popover.set_autohide(false);
             popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 1, 1)));
-            popover.connect_closed(move |this| {
+            popover.connect_closed(|this| {
                 let this = this.clone();
                 glib::spawn_future_local(async move {
                     this.unparent();
-                });
-
-                let sender = sender.clone();
-                glib::timeout_add_local_once(Duration::from_millis(100), move || {
-                    // An error here is expected if a response was already sent by a menu item.
-                    // This is only useful if the pop-up was closed without triggering an action.
-                    let _ = sender.send_blocking(None);
                 });
             });
             popover.popup();
@@ -1490,6 +1492,7 @@ mod imp {
                 }
             };
             self.dnd_mode_sender.replace(None);
+            popover.popdown();
             result
         }
 
