@@ -27,8 +27,8 @@ use crate::{
     open_connection::open_connection,
     options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
     tags::FileMetadataService,
-    types::{ExtensionDisplayMode, GraphicalLayoutMode, SizeDisplayMode},
-    utils::{ErrorMessage, size_to_string, time_to_string, u32_enum},
+    types::{ExtensionDisplayMode, GraphicalLayoutMode, SizeDisplayMode, TransferType},
+    utils::{ErrorMessage, MenuBuilderExt, SenderExt, size_to_string, time_to_string, u32_enum},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
@@ -37,6 +37,22 @@ use std::{
     ffi::OsStr,
     path::{Path, PathBuf},
 };
+
+const TYPE_URI_LIST: &str = "text/uri-list";
+const TYPE_TEXT_PLAIN: &str = "text/plain";
+const TYPE_URL: &str = "_NETSCAPE_URL";
+const TYPE_GNOME_PROPRIETARY: &str = "x-special/gnome-copied-files";
+const TYPE_KDE_PROPRIETARY: &str = "application/x-kde-cutselection";
+
+const DRAG_TYPES: &[&str] = &[TYPE_URI_LIST, TYPE_TEXT_PLAIN];
+const DROP_TYPES: &[&str] = &[TYPE_URI_LIST, TYPE_URL];
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+enum ContentSharingOperation {
+    Drag,
+    Copy,
+    Cut,
+}
 
 mod imp {
     use super::*;
@@ -55,9 +71,9 @@ mod imp {
         tags::FileMetadataService,
         transfer::{copy_files, link_files, move_files},
         types::{
-            ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GnomeCmdTransferType,
-            GraphicalLayoutMode, LeftMouseButtonMode, MiddleMouseButtonMode, PermissionDisplayMode,
-            QuickSearchShortcut, RightMouseButtonMode,
+            ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GraphicalLayoutMode,
+            LeftMouseButtonMode, MiddleMouseButtonMode, PermissionDisplayMode, QuickSearchShortcut,
+            RightMouseButtonMode,
         },
         utils::{
             ALT, CONTROL, CONTROL_ALT, ListRowSelector, NO_MOD, SHIFT, get_modifiers_state,
@@ -173,6 +189,8 @@ mod imp {
         pub history: History<(Connection, PathBuf)>,
 
         pub current_size_calculation: Cell<Option<gio::Cancellable>>,
+
+        dnd_mode_sender: RefCell<Option<async_channel::Sender<Option<TransferType>>>>,
     }
 
     #[glib::object_subclass]
@@ -222,15 +240,17 @@ mod imp {
             );
             klass.install_action_async(
                 "fl.drop-files",
-                Some(&DroppingFiles::static_variant_type()),
+                Some(&Option::<TransferType>::static_variant_type()),
                 |obj, _, parameter| async move {
-                    if let Some(transfer) = parameter.as_ref().and_then(DroppingFiles::from_variant)
+                    if let Some(sender) = obj.imp().dnd_mode_sender.borrow().as_ref()
+                        && let Some(transfer_type) = parameter
+                            .as_ref()
+                            .and_then(Option::<TransferType>::from_variant)
                     {
-                        obj.imp().drop_files(transfer).await;
+                        sender.toss(transfer_type);
                     }
                 },
             );
-            klass.install_action("fl.drop-files-cancel", None, |_, _, _| { /* do nothing */ });
         }
 
         fn new() -> Self {
@@ -296,6 +316,7 @@ mod imp {
                 history: History::new(20),
 
                 current_size_calculation: Default::default(),
+                dnd_mode_sender: Default::default(),
             }
         }
     }
@@ -476,7 +497,9 @@ mod imp {
             ));
             self.view.add_controller(click_controller);
 
-            let drag_source = gtk::DragSource::new();
+            let drag_source = gtk::DragSource::builder()
+                .actions(gdk::DragAction::COPY | gdk::DragAction::MOVE | gdk::DragAction::LINK)
+                .build();
             drag_source.connect_prepare(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
@@ -489,19 +512,25 @@ mod imp {
                 self,
                 move |_, drag, delete| imp.drag_end(drag, delete)
             ));
-            // TODO: implement
-            // fl.add_controller(drag_source);
+            fl.add_controller(drag_source);
 
-            let drop_target = gtk::DropTarget::new(String::static_type(), gdk::DragAction::all());
+            let drop_target = gtk::DropTargetAsync::builder()
+                .actions(
+                    gdk::DragAction::COPY
+                        | gdk::DragAction::MOVE
+                        | gdk::DragAction::LINK
+                        | gdk::DragAction::ASK,
+                )
+                .formats(&gdk::ContentFormats::new(DROP_TYPES))
+                .build();
             drop_target.connect_drop(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
                 #[upgrade_or]
                 false,
-                move |_, value, x, y| imp.drop(value, x, y)
+                move |_, drop, x, y| imp.drop(drop, x, y)
             ));
-            // TODO: implement
-            // fl.add_controller(drop_target);
+            fl.add_controller(drop_target);
 
             let general_options = GeneralOptions::new();
             general_options.list_font.bind(&*fl, "font-name").build();
@@ -572,6 +601,12 @@ mod imp {
                 .use_ls_colors
                 .bind(&*fl, "use-ls-colors")
                 .build();
+
+            fl.connect_unmap(|fl| {
+                if let Some(sender) = fl.imp().dnd_mode_sender.replace(None) {
+                    sender.toss(None);
+                }
+            });
         }
 
         fn dispose(&self) {
@@ -694,6 +729,11 @@ mod imp {
         pub fn set_directory(&self, directory: &Directory) {
             if Some(directory) == self.directory.borrow().as_ref() {
                 return;
+            }
+
+            if let Some(sender) = self.dnd_mode_sender.replace(None) {
+                // Cancel ongoing drop mode selection.
+                sender.toss(None);
             }
 
             let previous_directory = self.directory.replace(Some(directory.clone()));
@@ -1088,6 +1128,10 @@ mod imp {
             );
 
             if let Some((_, item)) = cell.as_ref() {
+                let position = self.items_iter().position(|i| &i == item);
+                if let Some(position) = position.and_then(|p| p.try_into().ok()) {
+                    self.obj().select_row(position);
+                }
                 let state = self.get_modifiers_state();
 
                 self.modifier_click.set(state);
@@ -1101,11 +1145,7 @@ mod imp {
                 } else if n_press == 1 && button == 1 {
                     match state {
                         Some(SHIFT) => {
-                            if let Some(position) = self
-                                .items_iter()
-                                .position(|i| &i == item)
-                                .and_then(|p| p.try_into().ok())
-                            {
+                            if let Some(position) = position.and_then(|p| p.try_into().ok()) {
                                 self.select_with_mouse(position);
                             }
                         }
@@ -1199,7 +1239,10 @@ mod imp {
             }
         }
 
-        fn drag_prepare(&self, _x: f64, _y: f64) -> Option<gdk::ContentProvider> {
+        pub(super) fn content_provider(
+            &self,
+            op: ContentSharingOperation,
+        ) -> Option<gdk::ContentProvider> {
             let files = self
                 .obj()
                 .selected_files()
@@ -1210,138 +1253,293 @@ mod imp {
                 return None;
             }
 
-            let bytes = glib::Bytes::from_owned(files.join("\r\n"));
-
-            Some(gdk::ContentProvider::for_bytes("text/uri-list", &bytes))
-        }
-
-        fn drag_end(&self, _drag: &gdk::Drag, delete: bool) {
-            if delete {
-                for f in self.obj().selected_files() {
-                    self.obj().remove_file(&f);
-                }
+            let mut providers = DRAG_TYPES
+                .iter()
+                .map(|mime| {
+                    gdk::ContentProvider::for_bytes(
+                        mime,
+                        &glib::Bytes::from_owned(files.join("\r\n")),
+                    )
+                })
+                .collect::<Vec<_>>();
+            if op == ContentSharingOperation::Cut {
+                // Remember which file list to notify on internal cut operation.
+                providers.push(gdk::ContentProvider::for_value(&self.obj().to_value()));
             }
+            if matches!(
+                op,
+                ContentSharingOperation::Copy | ContentSharingOperation::Cut
+            ) {
+                // GNOME and KDE have different solutions to differentiate cut and copy operations.
+                // GNOME has a MIME type similar to text/uri-list which is prepended by the
+                // operation type. KDE adds a MIME type that only contains a flag indicating whether
+                // this is a cut operation.
+                let mut data = files.join("\n");
+                data.insert_str(
+                    0,
+                    if op == ContentSharingOperation::Cut {
+                        "cut\n"
+                    } else {
+                        "copy\n"
+                    },
+                );
+                providers.push(gdk::ContentProvider::for_bytes(
+                    TYPE_GNOME_PROPRIETARY,
+                    &glib::Bytes::from_owned(data),
+                ));
+                providers.push(gdk::ContentProvider::for_bytes(
+                    TYPE_KDE_PROPRIETARY,
+                    &glib::Bytes::from_owned(String::from(if op == ContentSharingOperation::Cut {
+                        "1"
+                    } else {
+                        "0"
+                    })),
+                ));
+            }
+
+            Some(gdk::ContentProvider::new_union(&providers))
         }
 
-        fn drop(&self, value: &glib::Value, x: f64, y: f64) -> bool {
-            let Ok(data) = value.get::<String>() else {
+        fn drag_prepare(&self, _x: f64, _y: f64) -> Option<gdk::ContentProvider> {
+            self.content_provider(ContentSharingOperation::Drag)
+        }
+
+        fn drag_end(&self, drag: &gdk::Drag, delete: bool) {
+            if !delete {
+                return;
+            }
+
+            let drag = drag.clone();
+            let obj = self.obj().clone();
+            glib::spawn_future_local(async move {
+                let stream = gio::MemoryOutputStream::new_resizable();
+                if let Err(error) = drag
+                    .content()
+                    .write_mime_type_future(TYPE_URI_LIST, &stream, glib::Priority::DEFAULT)
+                    .await
+                {
+                    eprintln!("Error reading files to delete after drag: {error}");
+                    return;
+                }
+                if let Err(error) = stream.close(gio::Cancellable::NONE) {
+                    eprintln!("Error closing memory output stream: {error}");
+                    return;
+                }
+
+                let data = stream.steal_as_bytes();
+                let Ok(data) = String::from_utf8(data.to_vec()) else {
+                    eprintln!("Error reading files to delete after drag: not in UTF-8 format");
+                    return;
+                };
+
+                let uris = glib::Uri::list_extract_uris(&data);
+                for uri in uris.into_iter() {
+                    if let Some(item) = obj.imp().items_iter().find(|item| item.file().uri() == uri)
+                    {
+                        // A move operation won't necessarily move all files
+                        let file = item.file();
+                        if !file.file().query_exists(gio::Cancellable::NONE) {
+                            file.on_deleted();
+                        }
+                    }
+                }
+            });
+        }
+
+        fn drop(&self, drop: &gdk::Drop, x: f64, y: f64) -> bool {
+            let formats = drop.formats();
+            if !DROP_TYPES
+                .iter()
+                .any(|mime| formats.contain_mime_type(mime))
+            {
+                return false;
+            }
+
+            let Some(dir) = self.obj().directory() else {
                 return false;
             };
 
-            let row = self.row_at_coords(x, y);
-            let file = row.map(|(_, item)| item.file());
+            let file = self.row_at_coords(x, y).map(|(_, item)| item.file());
 
-            let destination = if file.as_ref().is_some_and(|f| f.is_dotdot()) {
-                DroppingFilesDestination::Parent
-            } else if let Some(file) = &file
-                && file.is_directory()
-            {
-                DroppingFilesDestination::Child(file.path_name())
-            } else {
-                DroppingFilesDestination::This
+            let destination = match file {
+                Some(file) if file.is_dotdot() => dir.parent().unwrap_or(dir),
+                Some(file) if file.is_directory() => dir.child(file.path_name()),
+                _ => dir,
             };
 
-            // transform the drag data to a list with `gio::File`s
-            let files: Vec<_> = data
-                .split("\r\n")
-                .filter(|s| !s.is_empty())
-                .map(|s| s.to_owned())
-                // .map(|uri| gio::File::for_uri(uri))
-                .collect();
+            let drop = drop.clone();
+            let obj = self.obj().clone();
+            glib::spawn_future_local(async move {
+                let stream = match drop.read_future(DROP_TYPES, glib::Priority::DEFAULT).await {
+                    Ok((stream, _)) => stream,
+                    Err(error) => {
+                        eprintln!("Error reading drop data: {error}");
+                        drop.finish(gdk::DragAction::empty());
+                        return;
+                    }
+                };
+                let data = match stream
+                    .read_bytes_future(i32::MAX as usize, glib::Priority::DEFAULT)
+                    .await
+                {
+                    Ok(data) => data,
+                    Err(error) => {
+                        eprintln!("Error reading drop data: {error}");
+                        drop.finish(gdk::DragAction::empty());
+                        return;
+                    }
+                };
 
-            let mask = self.get_modifiers_state();
-            let shift_or_control = mask
-                .map(|m| m.contains(SHIFT) || m.contains(CONTROL))
-                .unwrap_or_default();
+                let Ok(data) = String::from_utf8(data.to_vec()) else {
+                    eprintln!("Error reading drop data: not in UTF-8 format");
+                    drop.finish(gdk::DragAction::empty());
+                    return;
+                };
 
-            match (self.dnd_mode.get(), shift_or_control) {
-                (DndMode::Query, _) | (_, true) => {
-                    let menu = create_dnd_popup(&files, &destination);
+                let files = glib::Uri::list_extract_uris(&data)
+                    .into_iter()
+                    .map(|uri| gio::File::for_uri(&uri))
+                    .collect::<Vec<_>>();
 
-                    let dnd_popover = gtk::PopoverMenu::from_model(Some(&menu));
-                    dnd_popover.set_parent(&*self.obj());
-                    dnd_popover
-                        .set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 1, 1)));
-                    dnd_popover.present();
-                    dnd_popover.popup();
-                }
-                (DndMode::Copy, false) => {
-                    let this = self.obj().clone();
-                    glib::spawn_future_local(async move {
-                        this.imp()
-                            .drop_files(DroppingFiles {
-                                transfer_type: GnomeCmdTransferType::Copy,
-                                files,
-                                destination,
-                            })
-                            .await;
-                    });
-                }
-                (DndMode::Move, false) => {
-                    let this = self.obj().clone();
-                    glib::spawn_future_local(async move {
-                        this.imp()
-                            .drop_files(DroppingFiles {
-                                transfer_type: GnomeCmdTransferType::Move,
-                                files,
-                                destination,
-                            })
-                            .await;
-                    });
-                }
-            }
+                let transfer_type = if obj
+                    .imp()
+                    .get_modifiers_state()
+                    .is_some_and(|state| state.contains(SHIFT) || state.contains(CONTROL))
+                {
+                    // Let Gkt decide on the appropriate action based on modifier keys
+                    match drop.actions() {
+                        gdk::DragAction::COPY => TransferType::Copy,
+                        gdk::DragAction::MOVE => TransferType::Move,
+                        gdk::DragAction::LINK => TransferType::Link,
+                        _ => match obj.imp().query_dnd_action(x, y).await {
+                            Some(transfer_type) => transfer_type,
+                            None => {
+                                drop.finish(gdk::DragAction::empty());
+                                return;
+                            }
+                        },
+                    }
+                } else {
+                    // No modifier keys, use the user-configured default action
+                    match obj.imp().dnd_mode.get() {
+                        DndMode::Copy => TransferType::Copy,
+                        DndMode::Move => TransferType::Move,
+                        DndMode::Query => match obj.imp().query_dnd_action(x, y).await {
+                            Some(transfer_type) => transfer_type,
+                            None => {
+                                drop.finish(gdk::DragAction::empty());
+                                return;
+                            }
+                        },
+                    }
+                };
 
+                obj.imp()
+                    .drop_files(transfer_type, files, destination)
+                    .await;
+
+                drop.finish(match transfer_type {
+                    TransferType::Copy => gdk::DragAction::COPY,
+                    TransferType::Move => gdk::DragAction::MOVE,
+                    TransferType::Link => gdk::DragAction::LINK,
+                });
+            });
             true
         }
 
-        async fn drop_files(&self, data: DroppingFiles) {
+        async fn query_dnd_action(&self, x: f64, y: f64) -> Option<TransferType> {
+            let (sender, receiver) = async_channel::bounded(2);
+            if let Some(old_sender) = self.dnd_mode_sender.replace(Some(sender.clone())) {
+                // If there is already an ongoing drop mode selection – cancel it.
+                old_sender.toss(None);
+            }
+            let menu = gio::Menu::new()
+                .section(
+                    gio::Menu::new()
+                        .item_param(
+                            gettext("_Copy here"),
+                            "fl.drop-files",
+                            Some(TransferType::Copy),
+                        )
+                        .item_param(
+                            gettext("_Move here"),
+                            "fl.drop-files",
+                            Some(TransferType::Move),
+                        )
+                        .item_param(
+                            gettext("_Link here"),
+                            "fl.drop-files",
+                            Some(TransferType::Link),
+                        ),
+                )
+                .section(gio::Menu::new().item_param(
+                    gettext("C_ancel"),
+                    "fl.drop-files",
+                    None::<TransferType>,
+                ));
+
+            let popover = gtk::PopoverMenu::from_model(Some(&menu));
+            popover.set_parent(&*self.obj());
+            popover.set_autohide(false);
+            popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 1, 1)));
+            popover.connect_closed(|this| {
+                let this = this.clone();
+                glib::spawn_future_local(async move {
+                    this.unparent();
+                });
+            });
+            popover.popup();
+
+            let result = match receiver.recv().await {
+                Ok(result) => result,
+                Err(error) => {
+                    eprintln!("Failed waiting for Drag&Drop pop-up response: {error}");
+                    None
+                }
+            };
+            self.dnd_mode_sender.replace(None);
+            popover.popdown();
+            result
+        }
+
+        pub(super) async fn drop_files(
+            &self,
+            transfer_type: TransferType,
+            files: Vec<gio::File>,
+            destination: Directory,
+        ) {
             let Some(window) = self.obj().root().and_downcast::<gtk::Window>() else {
                 return;
             };
 
-            let files: Vec<gio::File> = data
-                .files
-                .iter()
-                .map(|uri| gio::File::for_uri(uri))
-                .collect();
-
-            let to = match data.destination {
-                DroppingFilesDestination::Parent => self.obj().directory().and_then(|d| d.parent()),
-                DroppingFilesDestination::Child(name) => {
-                    self.obj().directory().map(|d| d.child(&name))
-                }
-                DroppingFilesDestination::This => self.obj().directory(),
-            };
-            let Some(dir) = to else { return };
-
-            let _result = match data.transfer_type {
-                GnomeCmdTransferType::Copy => {
+            match transfer_type {
+                TransferType::Copy => {
                     copy_files(
                         window.clone(),
                         files,
-                        dir.clone(),
+                        destination.clone(),
                         None,
                         gio::FileCopyFlags::NONE,
                         ConfirmOverwriteMode::Query,
                     )
                     .await
                 }
-                GnomeCmdTransferType::Move => {
+                TransferType::Move => {
                     move_files(
                         window.clone(),
                         files,
-                        dir.clone(),
+                        destination.clone(),
                         None,
                         gio::FileCopyFlags::NONE,
                         ConfirmOverwriteMode::Query,
                     )
                     .await
                 }
-                GnomeCmdTransferType::Link => {
+                TransferType::Link => {
                     link_files(
                         window.clone(),
                         files,
-                        dir.clone(),
+                        destination.clone(),
                         None,
                         gio::FileCopyFlags::NONE,
                         ConfirmOverwriteMode::Query,
@@ -1350,10 +1548,9 @@ mod imp {
                 }
             };
 
-            if let Err(error) = dir.relist_files(&window, false).await {
+            if let Err(error) = destination.relist_files(&window, false).await {
                 error.show(&window).await;
             }
-            // main_win.focus_file_lists();
         }
     }
 
@@ -1396,71 +1593,6 @@ mod imp {
             PermissionDisplayMode::Number => permissions_to_numbers(permissions),
             PermissionDisplayMode::Text => permissions_to_text(permissions),
         }
-    }
-
-    #[derive(glib::Variant)]
-    pub struct DroppingFiles {
-        pub transfer_type: GnomeCmdTransferType,
-        pub files: Vec<String>,
-        pub destination: DroppingFilesDestination,
-    }
-
-    #[derive(Clone, glib::Variant)]
-    pub enum DroppingFilesDestination {
-        This,
-        Parent,
-        Child(PathBuf),
-    }
-
-    fn create_dnd_popup(files: &[String], destination: &DroppingFilesDestination) -> gio::Menu {
-        let menu = gio::Menu::new();
-        let section = gio::Menu::new();
-
-        let item = gio::MenuItem::new(Some(&gettext("_Copy here")), None);
-        item.set_action_and_target_value(
-            Some("fl.drop-files"),
-            Some(
-                &DroppingFiles {
-                    transfer_type: GnomeCmdTransferType::Copy,
-                    files: files.to_vec(),
-                    destination: destination.to_owned(),
-                }
-                .to_variant(),
-            ),
-        );
-        section.append_item(&item);
-
-        let item = gio::MenuItem::new(Some(&gettext("_Move here")), None);
-        item.set_action_and_target_value(
-            Some("fl.drop-files"),
-            Some(
-                &DroppingFiles {
-                    transfer_type: GnomeCmdTransferType::Move,
-                    files: files.to_vec(),
-                    destination: destination.to_owned(),
-                }
-                .to_variant(),
-            ),
-        );
-        section.append_item(&item);
-
-        let item = gio::MenuItem::new(Some(&gettext("_Link here")), None);
-        item.set_action_and_target_value(
-            Some("fl.drop-files"),
-            Some(
-                &DroppingFiles {
-                    transfer_type: GnomeCmdTransferType::Link,
-                    files: files.to_vec(),
-                    destination: destination.to_owned(),
-                }
-                .to_variant(),
-            ),
-        );
-        section.append_item(&item);
-
-        menu.append_section(None, &section);
-        menu.append(Some(&gettext("C_ancel")), Some("fl.drop-files-cancel"));
-        menu
     }
 }
 
@@ -1614,6 +1746,114 @@ impl FileList {
                         .unwrap_or(-1),
                 );
             });
+        }
+    }
+
+    pub fn copy_files(&self) {
+        if let Some(provider) = self.imp().content_provider(ContentSharingOperation::Copy)
+            && let Err(error) = self.clipboard().set_content(Some(&provider))
+        {
+            eprintln!("Failed setting clipboard contents: {error}");
+        }
+    }
+
+    pub fn cut_files(&self) {
+        if let Some(provider) = self.imp().content_provider(ContentSharingOperation::Cut)
+            && let Err(error) = self.clipboard().set_content(Some(&provider))
+        {
+            eprintln!("Failed setting clipboard contents: {error}");
+        }
+    }
+
+    pub async fn paste_files(&self) {
+        async fn read_types(
+            clipboard: &gdk::Clipboard,
+            types: &[&str],
+        ) -> Result<(glib::Bytes, glib::GString), glib::Error> {
+            let (stream, mime) = clipboard
+                .read_future(types, glib::Priority::DEFAULT)
+                .await?;
+            let bytes = stream
+                .read_bytes_future(i32::MAX as usize, glib::Priority::DEFAULT)
+                .await?;
+            Ok((bytes, mime))
+        }
+
+        let clipboard = self.clipboard();
+        let formats = clipboard.formats();
+        if !DROP_TYPES
+            .iter()
+            .any(|mime| formats.contain_mime_type(mime))
+        {
+            return;
+        }
+
+        let Some(destination) = self.directory() else {
+            return;
+        };
+
+        let data = match read_types(&clipboard, DROP_TYPES).await {
+            Ok((data, _)) => data,
+            Err(error) => {
+                eprintln!("Error reading clipboard data: {error}");
+                return;
+            }
+        };
+        let Ok(data) = String::from_utf8(data.to_vec()) else {
+            eprintln!("Error reading clipboard data: not in UTF-8 format");
+            return;
+        };
+        let files = glib::Uri::list_extract_uris(&data)
+            .into_iter()
+            .map(|uri| gio::File::for_uri(&uri))
+            .collect::<Vec<_>>();
+
+        // This will only be set for a local cut operation
+        let file_list = clipboard
+            .read_value_future(self.value_type(), glib::Priority::DEFAULT)
+            .await
+            .ok()
+            .and_then(|value| value.get::<Self>().ok());
+
+        if let Some(file_list) = file_list {
+            self.imp()
+                .drop_files(TransferType::Move, files, destination)
+                .await;
+            for uri in glib::Uri::list_extract_uris(&data).into_iter() {
+                if let Some(item) = file_list
+                    .imp()
+                    .items_iter()
+                    .find(|item| item.file().uri() == uri)
+                {
+                    // A move operation won't necessarily move all files
+                    let file = item.file();
+                    if !file.file().query_exists(gio::Cancellable::NONE) {
+                        file.on_deleted();
+                    }
+                }
+            }
+        } else {
+            async fn is_move(clipboard: &gdk::Clipboard) -> bool {
+                let Ok((data, mime)) =
+                    read_types(clipboard, &[TYPE_GNOME_PROPRIETARY, TYPE_KDE_PROPRIETARY]).await
+                else {
+                    return false;
+                };
+                (mime == TYPE_GNOME_PROPRIETARY && data.starts_with(b"cut\n"))
+                    || (mime == TYPE_KDE_PROPRIETARY && &*data == b"1")
+            }
+
+            self.imp()
+                .drop_files(
+                    if is_move(&clipboard).await {
+                        TransferType::Move
+                    } else {
+                        TransferType::Copy
+                    },
+                    files,
+                    destination,
+                )
+                .await;
         }
     }
 

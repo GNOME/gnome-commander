@@ -13,7 +13,7 @@ use crate::{
     dir::Directory,
     file::{File, FileOps},
     options::GeneralOptions,
-    types::{ConfirmOverwriteMode, GnomeCmdTransferType, SizeDisplayMode},
+    types::{ConfirmOverwriteMode, SizeDisplayMode, TransferType},
     utils::{ErrorMessage, nice_size, pending, time_to_string, u32_enum},
 };
 use futures::{FutureExt, StreamExt, select};
@@ -26,7 +26,7 @@ use std::{
 };
 
 struct XferData {
-    transfer_type: GnomeCmdTransferType,
+    transfer_type: TransferType,
     copy_flags: gio::FileCopyFlags,
     overwrite_mode: ConfirmOverwriteMode,
 
@@ -50,7 +50,7 @@ struct XferData {
 }
 
 fn create_xfer_data(
-    transfer_type: GnomeCmdTransferType,
+    transfer_type: TransferType,
     copy_flags: gio::FileCopyFlags,
     overwrite_mode: ConfirmOverwriteMode,
     src_files: Vec<gio::File>,
@@ -131,7 +131,7 @@ pub async fn copy_files(
     win.set_title(Some(&gettext("preparing…")));
 
     let xfer_data = create_xfer_data(
-        GnomeCmdTransferType::Copy,
+        TransferType::Copy,
         copy_flags,
         overwrite_mode,
         src_files,
@@ -202,7 +202,7 @@ pub async fn move_files(
     win.set_title(Some(&gettext("preparing…")));
 
     let xfer_data = create_xfer_data(
-        GnomeCmdTransferType::Move,
+        TransferType::Move,
         copy_flags,
         overwrite_mode,
         src_files,
@@ -273,7 +273,7 @@ pub async fn link_files(
     win.set_title(Some(&gettext("preparing…")));
 
     let xfer_data = create_xfer_data(
-        GnomeCmdTransferType::Link,
+        TransferType::Link,
         copy_flags,
         overwrite_mode,
         src_files,
@@ -305,7 +305,7 @@ pub async fn download_to_temporary(
     win.set_title(Some(&gettext("downloading to /tmp")));
 
     let xfer_data = create_xfer_data(
-        GnomeCmdTransferType::Copy,
+        TransferType::Copy,
         copy_flags,
         ConfirmOverwriteMode::Query,
         src_files,
@@ -352,13 +352,13 @@ async fn transfer_files(
         }
 
         match xfer_data.transfer_type {
-            GnomeCmdTransferType::Copy => {
+            TransferType::Copy => {
                 copy_file_recursively(xfer_data, window, src, dst, xfer_data.copy_flags).await?;
             }
-            GnomeCmdTransferType::Move => {
+            TransferType::Move => {
                 move_file_recursively(xfer_data, window, src, dst, xfer_data.copy_flags).await?;
             }
-            GnomeCmdTransferType::Link => {
+            TransferType::Link => {
                 let symlink_src_path = src.path().unwrap();
 
                 match dst.make_symbolic_link(symlink_src_path, gio::Cancellable::NONE) {
@@ -772,7 +772,7 @@ async fn report_transfer_problem(
         Ok(problem_action)
     } else {
         match xfer_data.transfer_type {
-            GnomeCmdTransferType::Copy => {
+            TransferType::Copy => {
                 update_transfer_gui_error_copy(
                     window.upcast_ref(),
                     src,
@@ -783,7 +783,7 @@ async fn report_transfer_problem(
                 )
                 .await
             }
-            GnomeCmdTransferType::Move => {
+            TransferType::Move => {
                 update_transfer_gui_error_move(
                     window.upcast_ref(),
                     src,
@@ -794,7 +794,7 @@ async fn report_transfer_problem(
                 )
                 .await
             }
-            GnomeCmdTransferType::Link => {
+            TransferType::Link => {
                 update_transfer_gui_error_link(window.upcast_ref(), src, dst, error).await
             }
         }

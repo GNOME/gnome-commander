@@ -34,7 +34,7 @@ u32_enum! {
 }
 
 u32_enum! {
-    pub enum GnomeCmdTransferType {
+    pub enum TransferType {
         #[default]
         Copy,
         Move,

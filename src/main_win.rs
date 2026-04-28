@@ -10,7 +10,6 @@ use crate::{
     },
     dir::Directory,
     file::{File, FileOps},
-    file_list::list::FileList,
     file_selector::{FileSelector, TabPosition, TabVariant},
     layout::color_themes::ColorThemes,
     libgcmd::{
@@ -24,8 +23,7 @@ use crate::{
     shortcuts::{Area, LegacyShortcutVariant, Shortcuts},
     spawn::{SpawnError, app_needs_terminal, run_command_indir},
     tags::FileMetadataService,
-    transfer::{copy_files, move_files},
-    types::{ConfirmOverwriteMode, FileSelectorID},
+    types::FileSelectorID,
     user_actions::UserAction,
     utils::{ErrorMessage, MenuBuilderExt, sleep},
 };
@@ -120,7 +118,6 @@ pub mod imp {
 
         pub plugin_manager: PluginManager,
         pub file_metadata_service: FileMetadataService,
-        pub cut_and_paste_state: RefCell<Option<CutAndPasteState>>,
 
         pub color_themes: Rc<ColorThemes>,
         ls_color_palettes: Rc<LsColorPalettes>,
@@ -232,7 +229,6 @@ pub mod imp {
 
                 plugin_manager,
                 file_metadata_service,
-                cut_and_paste_state: Default::default(),
 
                 color_themes: ColorThemes::new(),
                 ls_color_palettes: LsColorPalettes::new(),
@@ -1272,103 +1268,7 @@ impl MainWindow {
     }
 }
 
-enum CutAndPasteOperation {
-    Cut,
-    Copy,
-}
-
-pub struct CutAndPasteState {
-    operation: CutAndPasteOperation,
-    source_file_list: FileList,
-    files: Vec<File>,
-}
-
 impl MainWindow {
-    fn set_cap_state(&self, state: bool) {
-        self.action_set_enabled(UserAction::EditCapPaste.name(), state);
-    }
-
-    pub fn cut_files(&self) {
-        let source_file_list = self.file_selector(FileSelectorID::Active).file_list();
-        let files = source_file_list.selected_files();
-        if files.is_empty() {
-            return;
-        }
-
-        self.imp()
-            .cut_and_paste_state
-            .replace(Some(CutAndPasteState {
-                source_file_list,
-                operation: CutAndPasteOperation::Cut,
-                files,
-            }));
-        self.set_cap_state(true);
-    }
-
-    pub fn copy_files(&self) {
-        let source_file_list = self.file_selector(FileSelectorID::Active).file_list();
-        let files = source_file_list.selected_files();
-        if files.is_empty() {
-            return;
-        }
-
-        self.imp()
-            .cut_and_paste_state
-            .replace(Some(CutAndPasteState {
-                source_file_list,
-                operation: CutAndPasteOperation::Copy,
-                files,
-            }));
-        self.set_cap_state(true);
-    }
-
-    pub async fn paste_files(&self) {
-        let destination_file_list = self.file_selector(FileSelectorID::Active).file_list();
-        let Some(dir) = destination_file_list.directory() else {
-            return;
-        };
-
-        self.set_cap_state(false);
-        let Some(state) = self.imp().cut_and_paste_state.take() else {
-            return;
-        };
-
-        let files = state.files.iter().map(|f| f.file().clone()).collect();
-        let success = match state.operation {
-            CutAndPasteOperation::Cut => {
-                move_files(
-                    self.clone().upcast(),
-                    files,
-                    dir.clone(),
-                    None,
-                    gio::FileCopyFlags::NONE,
-                    ConfirmOverwriteMode::Query,
-                )
-                .await
-            }
-            CutAndPasteOperation::Copy => {
-                copy_files(
-                    self.clone().upcast(),
-                    files,
-                    dir.clone(),
-                    None,
-                    gio::FileCopyFlags::NONE,
-                    ConfirmOverwriteMode::Query,
-                )
-                .await
-            }
-        };
-        if !success {
-            eprintln!("Transfer failed");
-        }
-
-        state.source_file_list.reload().await;
-        if let Err(error) = dir.relist_files(self.upcast_ref(), false).await {
-            error.show(self.upcast_ref()).await;
-        }
-        self.focus_file_lists();
-    }
-
     pub fn set_slide(&self, percentage: i32) -> bool {
         let paned = &self.imp().paned;
         let dimension = if self.horizontal_orientation() {
