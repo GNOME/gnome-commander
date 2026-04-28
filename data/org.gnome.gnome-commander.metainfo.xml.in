@@ -41,22 +41,19 @@
   </keywords>
   <screenshots>
     <screenshot type="default">
-      <image>https://gitlab.gnome.org/GNOME/gnome-commander/-/raw/main/doc/C/figures/gnome-commander_window.png</image>
+      <image>https://gitlab.gnome.org/GNOME/gnome-commander/-/raw/pages/public/images/screenshot-1024-light.png</image>
     </screenshot>
   </screenshots>
-  <url type="homepage">https://gcmd.github.io/index.html</url>
+  <url type="homepage">https://gnome.pages.gitlab.gnome.org/gnome-commander/</url>
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/gnome-commander/issues</url>
-  <url type="donation">https://gcmd.github.io/#donations</url>
-  <url type="contribute">https://gcmd.github.io/dev.html#contr</url>
-  <url type="help">https://gcmd.github.io/doc.html</url>
-  <url type="translate">https://gcmd.github.io/dev.html#trnsl</url>
+  <url type="contribute">https://gnome.pages.gitlab.gnome.org/gnome-commander/#contributing</url>
   <url type="vcs-browser">https://gitlab.gnome.org/GNOME/gnome-commander</url>
   <update_contact>gcmd-devel_AT_nongnu.org</update_contact>
   <project_group>GNOME</project_group>
   <!-- developer_name tag deprecated with Appstream 1.0 -->
   <developer_name>The GNOME Project</developer_name>
   <developer id="org.gnome">
-    <name>The GNOME Project</name>
+    <name>The Gnome Commander team</name>
   </developer>
   <translation type="gettext">gnome-commander</translation>
   <content_rating type="oars-1.0" />
@@ -140,6 +137,65 @@
         </ul>
         <p>New or updated translations: ...</p>
         <p>New or updated docs: ...</p>
+      </description>
+    </release>
+    <release type="stable" version="1.18.6" date="2026-04-26">
+      <description>
+        <p>New or updated translations: kk (Baurzhan Muftakhidinov), sr (Марко Костић)</p>
+        <p>New or updated docs: hu (Balázs Úr), kk (Baurzhan Muftakhidinov), ru (Sergej A.), sr (Марко Костић), sv (Anders Jonsson)</p>
+      </description>
+    </release>
+    <release type="stable" version="1.18.5" date="2026-01-24">
+      <description>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Issue #201: Crash when trying to enter a directory where user doesn't have permission </li>
+        </ul>
+        <p>New or updated docs: sv (Anders Jonsson)</p>
+      </description>
+    </release>
+    <release type="stable" version="1.18.4" date="2025-09-28">
+      <description>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Issue #191: Test failures with googletest 1.17 (Andrey Kutejko)</li>
+          <li>Update in metainfo.xml to adapt to the renamed Yelp ID (Jeremy Bicha)</li>
+        </ul>
+        <p>New or updated docs: sv (Anders Jonsson)</p>
+      </description>
+    </release>
+    <release type="stable" version="1.18.3" date="2025-06-22">
+      <description>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Improved compatibility with Wayland (Balló György)</li>
+          <li>Fix crash when SMB button is pressed (Andrey Kutejko)</li>
+          <li>Issue #179: DEL key in quick search dialog wants remove whole file/dir (Andrey Kutejko)</li>
+        </ul>
+        <p>New or updated translations: ru (Sergej A.), sv (Anders Jonsson)</p>
+      </description>
+    </release>
+    <release type="stable" version="1.18.2" date="2025-02-10">
+      <description>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Issue #152: Segfault when using %D as a format qualifier in the date string</li>
+          <li>Issue #153: Segfault when unmounting a file system externally while visiting it at the same time</li>
+          <li>Fix storing the column widths in the file panes (Andrey Kutejko)</li>
+          <li>Issue #161: Fix for crash related to plugins (Andrey Kutejko)</li>
+        </ul>
+        <p>New or updated translations: eu (Asier Sarasua Garmendia), hu (Balázs Úr), id (Andika Triwidada), pt (Hugo Carvalho), pt_BR (Juliano de Souza Camargo), ru (Sergej A.), sl (Martin), sv (Anders Jonsson), uk (Yuri Chornoivan)</p>
+        <p>New or updated docs: ru (Sergej A.), sv (Anders Jonsson)</p>
+      </description>
+    </release>
+    <release type="stable" version="1.18.1" date="2024-07-30">
+      <description>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Issue #151: Segfault at startup when none of the stored tabs points to a valid directory</li>
+        </ul>
+        <p>New or updated translations: ru (Sergej A.)</p>
+        <p>New or updated docs: sv (Anders Jonsson)</p>
       </description>
     </release>
     <release type="stable" version="1.18.0" date="2024-07-21">

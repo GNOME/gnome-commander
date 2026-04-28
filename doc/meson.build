@@ -33,11 +33,6 @@ media = [
 
 install_man('gnome-commander.1')
 
-install_data(
-  ['internal_viewer_hacking.txt'],
-  install_dir : get_option('datadir') / meson.project_name()
-)
-
 gnome.yelp(
   meson.project_name(),
   sources: sources,

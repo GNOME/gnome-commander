@@ -48,16 +48,18 @@ async fn chmod_recursively(
             return;
         }
 
-        for child in dir
+        // Create a copy of the list to guard against modifications while we process it
+        let files = dir
             .files()
-            .iter::<File>()
-            .flatten()
+            .iter()
             .filter(|child| !child.is_dotdot() && child.name() != "." && !child.is_symlink())
             .filter(|child| match mode {
                 ChmodRecursiveMode::AllFiles => true,
                 ChmodRecursiveMode::DirectoriesOnly => child.is_directory(),
             })
-        {
+            .cloned()
+            .collect::<Vec<_>>();
+        for child in files {
             chmod_recursively(
                 parent_window,
                 Some(connection),
@@ -73,7 +75,7 @@ async fn chmod_recursively(
 async fn chmod_files(
     parent_window: &gtk::Window,
     connection: Option<&Connection>,
-    files: &glib::List<File>,
+    files: &[File],
     permissions: u32,
     recursive: Option<ChmodRecursiveMode>,
 ) {
@@ -85,9 +87,9 @@ async fn chmod_files(
 pub async fn show_chmod_dialog(
     parent_window: &gtk::Window,
     connection: Option<&Connection>,
-    files: &glib::List<File>,
+    files: &[File],
 ) -> bool {
-    let Some(file) = files.front() else {
+    let Some(file) = files.first() else {
         return false;
     };
 

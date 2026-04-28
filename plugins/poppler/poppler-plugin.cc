@@ -414,7 +414,7 @@ GnomeCmdPluginInfo *get_plugin_info ()
         .authors = (gchar **) authors,
         .documenters = nullptr,
         .translator = nullptr,
-        .webpage = "https://gcmd.github.io"
+        .webpage = "https://gnome.pages.gitlab.gnome.org/gnome-commander/"
     };
 
     if (!info.comments)

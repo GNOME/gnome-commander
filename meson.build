@@ -16,7 +16,7 @@ gnome = import('gnome')
 i18n = import('i18n')
 
 # Constants
-package_url = 'https://gcmd.github.io/'
+package_url = 'https://gnome.pages.gitlab.gnome.org/gnome-commander/'
 package_bugreport = 'https://gitlab.gnome.org/GNOME/gnome-commander/issues'
 app_id = 'org.gnome.gnome-commander'
 

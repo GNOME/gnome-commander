@@ -669,7 +669,7 @@ mod imp {
             self.find_button.set_sensitive(false);
             self.obj().set_default_widget(Some(&self.stop_button));
 
-            self.virtual_directory.files().remove_all();
+            self.virtual_directory.clear_files();
             result_list.clear();
             result_list
                 .set_connection_async(&start_dir.connection(), None)
@@ -682,7 +682,7 @@ mod imp {
                 &|message| match message {
                     SearchMessage::File(file) => {
                         self.virtual_directory.listen_to_file(&file);
-                        self.virtual_directory.files().append(&file);
+                        self.virtual_directory.add_file(&file);
                         result_list.append_file(&file);
                     }
                     SearchMessage::Status(status) => self.status_label.set_text(&status),

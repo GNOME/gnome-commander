@@ -19,11 +19,6 @@ Under this [link](https://gitlab.gnome.org/GNOME/gnome-commander/tree/main/gcmd-
 Move them into `~/.gnome-commander/scripts/` to extend the file popup menu.
 
 
-### Mailing lists ###
-
-* https://lists.nongnu.org/mailman/listinfo/gcmd-users → for users
-* https://lists.nongnu.org/mailman/listinfo/gcmd-devel → for developers
-
 ## Contributing ##
 
 ### Ideas ###
@@ -35,16 +30,9 @@ should check the list of open [issues marked as feature](https://gitlab.gnome.or
 
 If you are interested in improving the translation, check this [link](https://welcome.gnome.org/team/translation/).
 
-### Cool hacks ###
-
-Have a look in the [Gnome Wiki](https://wiki.gnome.org/GitLab#GitLab_workflow_for_code_contribution)
-how to contribute with new lines of code.
-
-Don't forget to write a good explanation of what your patch does.
-
 ## Building ##
 
-Get the latest source from the [Gnome server](https://download.gnome.org/sources/gnome-commander/).
+Get the latest source from the [GNOME server](https://download.gnome.org/sources/gnome-commander/).
 
 ```bash
 ~ » tar -xf gnome-commander-$VERSION.tar.xz # unpack the sources
@@ -64,9 +52,19 @@ For installing Gnome Commander using the sources in the git repository, do the f
 and execute the meson commands from the section above. See the file [INSTALL](INSTALL)
 for detailed information regarding the installation of Gnome Commander.
 
+### Branches and Versions
+
+Gnome Commander is being developed in several branches:
+
+ - The main branch, where all the normal development takes place. It should always contain a runable version of GCMD.
+ - One or more stable branches, named after the current stable release (e.g. gcmd-1-18), which only includes bugfixes, doc updates, translation updates, but no new features;
+ - Optionally, some feature branches, where new ideas or big features are cooked until they are ready to be merged in the main branch.
+
+The version numbers (major, minor and micro) follow the standard of odd and even versioning. Even numbers are stable versions, that are intended for all-day use. Odd versions are development versions. The version number is stored as git-tags in the git repository. The current one is stored at the top of [meson.build](meson.build).
+
 ### Problem reporting ###
 
-Bugs should be reported on [Gnome GitLab](https://gitlab.gnome.org/GNOME/gnome-commander/issues).
+Bugs should be reported on [GNOME GitLab](https://gitlab.gnome.org/GNOME/gnome-commander/issues).
 
 First, have a look at the list of known bugs on GitLab before opening a new issue there.
 
