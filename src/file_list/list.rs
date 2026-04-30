@@ -2142,7 +2142,6 @@ impl FileList {
             return;
         };
 
-        // this.set_sensitive(false);
         self.set_cursor(gdk::Cursor::from_name("wait", None).as_ref());
 
         let result = match directory.state() {
@@ -2159,15 +2158,11 @@ impl FileList {
         };
 
         self.set_cursor(None);
-        // self.set_sensitive(true);
+        self.imp().set_directory(directory);
 
         if let Err(error) = result {
             error.show(&window).await;
-            // g_timeout_add (1, (GSourceFunc) set_home_connection, fl);
-            return;
         }
-
-        self.imp().set_directory(directory);
     }
 
     pub fn dir_history(&self) -> &History<(Connection, PathBuf)> {
