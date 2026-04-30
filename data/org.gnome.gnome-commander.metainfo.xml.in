@@ -75,7 +75,7 @@
           <li>Added embedded terminal to display output of commands run by Gnome Commander (see issue #213). The new “Hide Command Line Output When Inactive” in “View” menu hides the terminal automatically when inactive.</li>
           <li>Redesigned Quick Search functionality:
             <ul>
-              <li>Filtering the file list is now possible as well. The default mode can be configured in Options dialog</li>
+              <li>Filtering the file list is now possible as well. The default mode can be configured in the Options dialog</li>
               <li>Text is always matched anywhere in the file name unless wildcard patterns `*` or `?` are used explicitly</li>
               <li>A button to enable case-sensitive matching has been added</li>
               <li>Quick Search no longer starts searching at the beginning of the file list but at the current position</li>
@@ -105,6 +105,8 @@
               <li>Many bug fixes</li>
             </ul>
           </li>
+          <li>Migration of the overall codebase to the Rust language and Gtk4</li>
+          <li>Updated the program license to GPL-3.0+</li>
           <li>Improved accessibility of the application, allowing screen readers to better recognize context (see issue #23)</li>
           <li>Redesigned Keyboard Shortcuts dialog, making it easier to use. Also, the list of configurable keyboard shortcuts has been vastly expanded.</li>
           <li>Switching tabs in Options dialog is now possible via Ctrl+Tab and Shift+Ctrl+Tab (see issue #254)</li>
@@ -112,12 +114,14 @@
           <li>External terminal application is now xdg-terminal-exec by default which will launch <a href="https://documentation.ubuntu.com/desktop/en/latest/how-to/change-the-default-terminal/#on-ubuntu-25-04-and-later">the configured default terminal</a></li>
           <li>Calculating size of a large directory will no longer hang up Gnome Commander, and selecting a different file will abort the operation in progress (see issue #9)</li>
           <li>Improved Wayland support, starting an application immediately activates it if the application supports this</li>
-          <li>New option to treat symlinks as regular files, see issue #159</li>
+          <li>New option to treat symlinks as regular files (see issue #159)</li>
           <li>The “Search window is minimizable” option is now called “Search window always on top” and no longer requires a restart (see issue #236)</li>
           <li>Made the text indicating size and number of selected files easier to translate (see issue #176)</li>
           <li>When a command is run in an external terminal no additional pause is being added as the terminal application will usually leave the window open anyway</li>
           <li>Better icon for “Copy File Names” action that respects dark mode</li>
           <li>Added support for <a href="https://specifications.freedesktop.org/icon-theme/latest/">icon theme directories</a> for MIME icons</li>
+          <li>Order of columns in the file panels can now be altered by mouse drag-n-drop</li>
+          <li>Removed the dependency on xpm library for MIME icons</li>
         </ul>
         <p>This release fixes the following bugs:</p>
         <ul>
@@ -134,6 +138,10 @@
           <li>Fixed search continuing in background when aborted</li>
           <li>Respect theme’s text color in the internal viewer, fixing display in dark mode (see issue #199)</li>
           <li>Renamed files were still displaying the old name (Andrey Kutejko)</li>
+          <li>Device bar overflow is fixed when it exceeds the panel width</li>
+          <li>Advanced rename dialog does not exceed screen size anymore for long file names</li>
+          <li>Pressing the keypad button “*” does not select / deselect the “..” directory anymore</li>
+          <li>Selected files in tabs are kept when switching tabs</li>
         </ul>
         <p>New or updated translations: ...</p>
         <p>New or updated docs: ...</p>
