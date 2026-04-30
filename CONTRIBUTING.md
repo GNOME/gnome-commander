@@ -27,17 +27,34 @@ Please keep in mind: translating isn’t always straightforward. You translate t
 
 ### Contributing code
 
-You can get the Gnome Commander source code by cloning this repository with git:
+See the [INSTALL file](INSTALL) for instructions on building and running the code. If you want to contribute changes back you will need to create a merge request. Here is how it works:
 
-```bash
-git clone git@gitlab.gnome.org:GNOME/gnome-commander.git
-```
+* Fork this repository on GitLab if you haven’t done so yet. You can then click the Code dropdown and get the address that you need to clone:
+  ```bash
+  git clone https://gitlab.gnome.org/<user>/gnome-commander.git
+  cd gnome-commander
+  ```
+* Set up the upstream repository, allowing you to sync your fork with it easily:
+  ```bash
+  git remote add upstream https://gitlab.gnome.org/GNOME/gnome-commander.git
+  ```
+* Create a branch for your work:
+  ```bash
+  git checkout -b my-awsome-feature
+  ```
+* Make and test your changes. Once you are done commit them with `git commit`. If your work addresses an open issue, say #123, add something like “Closes: #123” to your commit message. This will make sure the issue is closed automatically when your changes are merged.
+* Just to be on the safe side, synchronize with the upstream repository and rebase your changes on top of the latest `main` branch state. This will make sure that there are no merge conflicts:
+  ```bash
+  git fetch upstream main
+  git rebase upstream/main
+  ```
+* Push your changes to your fork on GitLab:
+  ```bash
+  git push origin HEAD
+  ```
+* Create your merge request. Either use the link shown to you on the terminal when you push or open the branch you created for these changes on GitLab and click “Create merge request.”
 
-See the [INSTALL file](INSTALL) for instructions on building and running the code.
-
-#### Using merge requests
-
-To contribute your changes you need to fork the Gnome Commander repository and push the changes to a branch in your fork first. Once you do that you can [create a merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/). We will try to review your merge request timely and either request changes or merge it.
+Now it is up to us. We will try to review your merge request timely and either request changes or merge it.
 
 A word of caution: if you plan to make extensive changes then we should hear about it *before* you’ve done all the work. Feel free to create an issue where conceptual questions can be discussed. Creating a draft merge request with your work in progress isn’t a bad idea either, it lets us comment on the direction you are taking. You don’t want to have all your work go to waste because we have different ideas on how something should be done.
 
