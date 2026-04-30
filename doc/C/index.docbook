@@ -702,56 +702,44 @@
     &app; provides the following features:</para>
     <itemizedlist>
       <listitem>
-        <para>GTK-2 GUI with standard mouse interactions</para>
+    <para>Split panel view</para>
       </listitem>
       <listitem>
-        <para>Support for tabs</para>
+    <para>Support for tabs</para>
       </listitem>
       <listitem>
-        <para>One instance mode</para>
+    <para>Quick search and filter</para>
       </listitem>
       <listitem>
-        <para>Remote connections using GVFS: FTP, SFTP (SSH+FTP), WebDAV and SMB/CIFS (Samba)</para>
+    <para>Advanced search by file name and content</para>
       </listitem>
       <listitem>
-        <para>Right click mouse menu</para>
+    <para>Remote connections to SSH servers, FTP, Windows shares,
+      WebDAV</para>
       </listitem>
       <listitem>
-        <para>User defined context menu</para>
+    <para>Internal viewer with text, hex and image view</para>
       </listitem>
       <listitem>
-        <para>Quick device access buttons with automatic mounting and unmounting</para>
+    <para>Command line with embedded terminal output</para>
       </listitem>
       <listitem>
-        <para>History of accessed locations</para>
+    <para>Advanced rename tool supporting file meta-data</para>
       </listitem>
       <listitem>
-        <para>Folder bookmarks</para>
+    <para>Highly customizable keyboard shortcuts</para>
       </listitem>
       <listitem>
-        <para>User defined keyboard shortcuts</para>
+    <para>User defined colors for the panels</para>
       </listitem>
       <listitem>
-        <para>Plugin support</para>
+    <para>Support for bookmarks</para>
       </listitem>
       <listitem>
-        <para>Fast internal file viewer for text and images</para>
+    <para>Comparing directories</para>
       </listitem>
       <listitem>
-        <para>Meta data support for Exif, IPTC, ID3, Vorbis, FLAC, APE, OLE2, ODF and PDF tags</para>
-      </listitem>
-      <listitem>
-        <para>Tools for advanced batch renaming of files, searching, quick file name searching in current directory,
-                symlinking, comparing directories</para>
-      </listitem>
-      <listitem>
-        <para>Integrated command line</para>
-      </listitem>
-      <listitem>
-        <para>Color profiles</para>
-      </listitem>
-      <listitem>
-        <para>Support for over 40 languages</para>
+    <para>and more…</para>
       </listitem>
     </itemizedlist>
     <note>
