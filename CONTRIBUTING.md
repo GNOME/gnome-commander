@@ -40,7 +40,7 @@ See the [INSTALL file](INSTALL) for instructions on building and running the cod
   ```
 * Create a branch for your work:
   ```bash
-  git checkout -b my-awsome-feature
+  git checkout -b my-awesome-feature
   ```
 * Make and test your changes. Once you are done commit them with `git commit`. If your work addresses an open issue, say #123, add something like “Closes: #123” to your commit message. This will make sure the issue is closed automatically when your changes are merged.
 * Just to be on the safe side, synchronize with the upstream repository and rebase your changes on top of the latest `main` branch state. This will make sure that there are no merge conflicts:
