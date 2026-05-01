@@ -1111,7 +1111,7 @@
           </para>
         </listitem>
         <listitem>
-          <para>Using the mouse You can also right click on the selected items in the drop down menu select
+          <para>Using the mouse: You can also right click on the selected items in the drop down menu select
             <guimenuitem>Copy</guimenuitem> then in the chosen location Right click in an empty area and select
             <guimenuitem>Paste</guimenuitem> in the drop down menu.
           </para>
@@ -1144,7 +1144,7 @@
           </para>
         </listitem>
         <listitem>
-          <para>Using the mouse you can also right click on the selected items in the drop down menu select
+          <para>Using the mouse: you can also right click on the selected items in the drop down menu select
           <guimenuitem>Cut</guimenuitem> then in the chosen location right click in an empty area and select
           <guimenuitem>Paste</guimenuitem> in the drop down menu.
           </para>
@@ -1189,7 +1189,7 @@
     <sect2 id="gnome-commander-delete">
       <title>Deleting a File or Folder</title>
       <para>There are different ways to delete an item using &app;.</para>
-      <para>Select the item(s) You wish to delete.</para>
+      <para>Select the item(s) you wish to delete.</para>
       <itemizedlist>
         <listitem>
           <para>Press the <keycap>Delete</keycap> or the <keycap>F8</keycap> keys.</para>
@@ -1282,6 +1282,10 @@
       <itemizedlist>
         <listitem>
           <para><guimenu>Open in new tab</guimenu> this action opens a new tab with the displaying the currently opened folder. </para>
+        </listitem>
+        <listitem>
+          <para><guimenu>Lock tab</guimenu> this actions locks a tab so that a warning is displayed when you try to close the tab.
+          </para>
         </listitem>
         <listitem>
           <para><guimenu>Refresh tab</guimenu> this actions refreshes the files displayed currently in the folder.
