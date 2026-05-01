@@ -991,8 +991,7 @@
                 <para>Select a group of contiguous items</para>
               </entry>
               <entry colname="colspec2" valign="top">
-                <para>In icon view, drag around the files that you want to select.</para>
-                <para>In list view, click on the first item in the group. Press-and-hold <keycap>SHIFT</keycap>, then click on the last item in the group.</para>
+                <para>Click on the first item in the group. Press-and-hold <keycap>SHIFT</keycap>, then click on the last item in the group.</para>
               </entry>
               <entry colname="colspec3" valign="top"/>
             </row>
@@ -1001,8 +1000,7 @@
                 <para>Select multiple items</para>
               </entry>
               <entry colname="colspec2" valign="top">
-                <para>Press-and-hold <keycap>CTRL</keycap>. Click on the items that you want to select.</para>
-                <para>Alternatively, press-and-hold <keycap>CTRL</keycap>, then drag around the files that you want to select.</para>
+                <para>Press and hold <keycap>CTRL</keycap>. Click on the items that you want to select.</para>
               </entry>
               <entry colname="colspec3" valign="top"/>
             </row>
@@ -1029,20 +1027,6 @@
                 <para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>A</keycap></keycombo></para>
                 <para><keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo></para>
               </entry>
-            </row>
-            <row>
-              <entry colname="colspec0" valign="top">
-                <para>Select all files with the same extension</para>
-              </entry>
-              <entry colname="colspec2" valign="top"/>
-              <entry colname="colspec3" valign="top"/>
-            </row>
-            <row>
-              <entry colname="colspec0" valign="top">
-                <para>Unselect all files with the same extension</para>
-              </entry>
-              <entry colname="colspec2" valign="top"/>
-              <entry colname="colspec3" valign="top"/>
             </row>
             <row>
               <entry colname="colspec0" valign="top">
@@ -1083,6 +1067,7 @@
           </tbody>
         </tgroup>
       </table>
+      <para>There are even more options available in the <menuchoice><guimenu>Mark</guimenu></menuchoice> for selecting files menu</para>
       <para>To perform the default action on an item, double-click on the item.</para>
     </sect2>
 
