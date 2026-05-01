@@ -1090,7 +1090,7 @@
     <!-- ================ Drag-and-Drop Subsection ======================= -->
     <sect2 id="gnome-commander-dnd">
       <title>Drag-and-Drop</title>
-      <para>You can drag and drop selected items from one pane to the other to copy, move, or create a symbolic link
+      <para>You can drag and drop selected items from one panel to the other to copy, move, or create a symbolic link
       	to an item. You can also drag and drop the selected items into another application.
       </para>
       <para>To drag and drop a selection or a selected item with your mouse, with the pointer over the selection or
@@ -1135,12 +1135,12 @@
           <para>Press the following keys <keycombo><keycap>CTRL</keycap><keycap>C</keycap></keycombo>, then select the location for the files and press <keycombo><keycap>CTRL</keycap><keycap>V</keycap></keycombo></para>
         </listitem>
         <listitem>
-          <para>To copy the selection from one pane to the other using the mouse simply drag and drop the selected
+          <para>To copy the selection from one panel to the other using the mouse simply drag and drop the selected
           	items to the other pane.
        	</para>
         </listitem>
         <listitem>
-          <para>To copy the selection from one pane to the other you can simply press <keycap>F5</keycap>.</para>
+          <para>To copy the selection from one panel to the other you can simply press <keycap>F5</keycap>.</para>
         </listitem>
       </itemizedlist>
       <note>
@@ -1168,11 +1168,11 @@
           <para>Press the following keys <keycombo><keycap>CTRL</keycap><keycap>X</keycap></keycombo>, then select the location for the files and press <keycombo><keycap>CTRL</keycap><keycap>V</keycap></keycombo></para>
         </listitem>
         <listitem>
-          <para>To move the selection from one pane to the other using the mouse drag and drop the selected items
-          to the other pane and press the <keycap>SHIFT</keycap> while releasing the left mouse button.</para>
+          <para>To move the selection from one panel to the other using the mouse drag and drop the selected items
+          to the other panel and press the <keycap>SHIFT</keycap> while releasing the left mouse button.</para>
         </listitem>
         <listitem>
-          <para>To move the selection from one pane to the other you can simply press <keycap>F6</keycap>.</para>
+          <para>To move the selection from one panel to the other you can simply press <keycap>F6</keycap>.</para>
         </listitem>
       </itemizedlist>
       <note>
@@ -1227,7 +1227,7 @@
           <para>Press the <keycap>F7</keycap>, in the dialog box that is then opened name the new folder.</para>
         </listitem>
         <listitem>
-          <para>Using the mouse right click in an empty area of the pane, in the drop down menu select <menuchoice><guimenu>New</guimenu><guimenu>Folder</guimenu></menuchoice>, then type the folder name in the dialog box that is opened.</para>
+          <para>Using the mouse right click in an empty area of the panel, in the drop down menu select <menuchoice><guimenu>New</guimenu><guimenu>Folder</guimenu></menuchoice>, then type the folder name in the dialog box that is opened.</para>
         </listitem>
       </itemizedlist>
     </sect2>
@@ -1281,10 +1281,10 @@
         <para>To open a new tab press <keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo> this opens a new tab in the current panel with the same folder opened.</para>
         </listitem>
         <listitem>
-       	 <para>To open a new tab displaying the selected folder in the current pane press the <keycombo><keycap>CTRL</keycap><keycap>UP</keycap></keycombo>. If you have configured the mouse middle click option to open a new tab (<xref linkend="gnome-commander-prefs-general"/>), then using the middle mouse button on a folder will also open a new tab displaying it in the current pane.</para>
+       	 <para>To open a new tab displaying the selected folder in the current panel press the <keycombo><keycap>CTRL</keycap><keycap>UP</keycap></keycombo>. If you have configured the mouse middle click option to open a new tab (<xref linkend="gnome-commander-prefs-general"/>), then using the middle mouse button on a folder will also open a new tab displaying it in the current pane.</para>
         </listitem>
         <listitem>
-       	 <para>To open a new tab displaying the selected folder in the inactive pane press the <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>UP</keycap></keycombo>.</para>
+       	 <para>To open a new tab displaying the selected folder in the inactive panel press the <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>UP</keycap></keycombo>.</para>
         </listitem>
         <listitem>
      	   <para>To navigate between tabs you can use the mouse or use <keycombo><keycap>CTRL</keycap><keycap>TAB</keycap></keycombo> as many times as needed to select the tab element. If the tabs are selected you can also use the <keycap>RIGHT</keycap> or <keycap>LEFT</keycap> to select the desired tab.</para>
@@ -1303,7 +1303,7 @@
         	</para>
         </listitem>
         <listitem>
-        	<para><guimenu>Copy tab to other pane</guimenu> opens a new tab in the opposite pane, this tab will display the selected tab. </para>
+        	<para><guimenu>Copy tab to other panel</guimenu> opens a new tab in the opposite panel, this tab will display the selected tab. </para>
         </listitem>
         <listitem>
 	        <para><guimenu>Close tab</guimenu> this action closes the currently selected tab.
@@ -1313,7 +1313,7 @@
         <para><guimenu>Close all tabs</guimenu> &app; will close all open tabs in the current pane. This leaves the current tab as the only open folder.</para>
         </listitem>
         <listitem>
-        <para><guimenu>Close duplicate tabs</guimenu> &app; will search for duplicated open tabs in the current pane and close them.</para>
+        <para><guimenu>Close duplicate tabs</guimenu> &app; will search for duplicated open tabs in the current panel and close them.</para>
         </listitem>
       </itemizedlist>
 	 </sect2>
@@ -4287,7 +4287,7 @@
 	<listitem><para>Buttons to <guimenuitem>Add</guimenuitem>, <guimenuitem>Edit</guimenuitem> and to <guimenuitem>Remove</guimenuitem> a selected connection,</para></listitem>
 	<listitem><para>Option for setting the anonymous FTP password globally.</para></listitem>
       <listitem><para>A <guimenuitem>Close</guimenuitem> and a <guimenuitem>Connect</guimenuitem> button.</para></listitem></orderedlist></para>
-      <para>Double click on a connection or select a connection and hit <keycombo><keycap>ENTER</keycap></keycombo> will open the remote connection in the active pane of &app;.</para>
+      <para>Double click on a connection or select a connection and hit <keycombo><keycap>ENTER</keycap></keycombo> will open the remote connection in the active panel of &app;.</para>
       <para> An example figure with three anonymous FTP and one secure SSH connection is shown below.</para>
       <para> In the subsection <xref linkend="gnome-commander-config-remote-connections"></xref> it is shown how to edit a connection by clicking on the <guimenuitem>Add</guimenuitem> or <guimenuitem>Edit</guimenuitem> button.</para>
       <!-- ==== Figure ==== -->
@@ -4720,7 +4720,7 @@
               </entry>
               <entry colname="colspec3" valign="top">
                 <para>By selecting this option when you press <keycombo><keycap>CTRL</keycap><keycap>ALT</keycap><keycap>Letter</keycap></keycombo> &app; will scroll down the selection cursor in the active
-                   pane to the first item using that letter. You can then enter more
+                   panel to the first item using that letter. You can then enter more
                    letters after the first one to refine the search. By then pressing the up or down arrow key
                    the cursor will jump to all files or folders which match your selection.</para>
               </entry>
@@ -4734,7 +4734,7 @@
               </entry>
               <entry colname="colspec3" valign="top">
                 <para>When you press <keycombo><keycap>ALT</keycap><keycap>Letter</keycap></keycombo> &app; will scroll down the selection cursor in the active
-                   pane to the first item using that letter. You can then enter more
+                   panel to the first item using that letter. You can then enter more
                    letters after the first one to refine the search.</para>
                 <note>
                   <para>By selecting this option you alter the standard GNOME behavior
@@ -4752,7 +4752,7 @@
               </entry>
               <entry colname="colspec3" valign="top">
                 <para>When you press a letter &app; will scroll down the selection cursor in the active
-                   pane to the first item using that letter. You can then enter more
+                   panel to the first item using that letter. You can then enter more
                    letters after the first one to refine the search.</para>
                 <note>
                   <para>By selecting this option you alter the standard GNOME behavior
@@ -4770,7 +4770,7 @@
               </entry>
               <entry colname="colspec3" valign="top">
                 <para>By selecting this option when you start to search for a letter or a letter combination, &app; will scroll down the selection cursor in the active
-                   pane to the first item beginning with that letter or that letter combination.</para>
+                   panel to the first item beginning with that letter or that letter combination.</para>
               </entry>
             </row>
             <row>
@@ -4782,7 +4782,7 @@
               </entry>
               <entry colname="colspec3" valign="top">
                 <para>By selecting this option when you start to search for a letter or a letter combination, &app; will scroll down the selection cursor in the active
-                   pane to the first item ending with that letter or that letter combination.</para>
+                   panel to the first item ending with that letter or that letter combination.</para>
               </entry>
             </row>
             <row>
@@ -5138,7 +5138,7 @@
                 list:
                 	<itemizedlist>
                 		<listitem>
-                			<para><guibutton>No icons</guibutton> this option does not display an icon item in the first column in the pane it displays a &quot;/&quot; in front of directories to distinguish them from files.</para>
+                			<para><guibutton>No icons</guibutton> this option does not display an icon item in the first column in the panel it displays a &quot;/&quot; in front of directories to distinguish them from files.</para>
                 		</listitem>
                      <listitem>
                      	<para><guibutton>File type icons</guibutton> this option displays simple icons for files and folder.</para>
