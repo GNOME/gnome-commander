@@ -59,7 +59,7 @@ mod weak_set;
 mod gmodule;
 
 use application::Application;
-use gtk::{glib, prelude::*};
+use gtk::prelude::*;
 use std::error::Error;
 use std::path::Path;
 use std::process::Termination;
@@ -67,15 +67,6 @@ use std::process::Termination;
 use crate::config::{DATADIR, PACKAGE};
 
 fn main() -> Result<impl Termination, Box<dyn Error>> {
-    if let Some(mismatch) = glib::check_version(2, 66, 0) {
-        eprintln!("GLib version mismatch: {mismatch}");
-        std::process::exit(1);
-    }
-    if let Some(mismatch) = gtk::check_version(4, 12, 0) {
-        eprintln!("GTK version mismatch: {mismatch}");
-        std::process::exit(1);
-    }
-
     gettextrs::setlocale(gettextrs::LocaleCategory::LcAll, "");
     gettextrs::bindtextdomain(PACKAGE, Path::new(DATADIR).join("locale"))?;
     gettextrs::bind_textdomain_codeset(PACKAGE, "UTF-8")?;
