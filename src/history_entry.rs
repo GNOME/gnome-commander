@@ -130,19 +130,11 @@ mod imp {
     }
 }
 
-mod wrapper {
-    // We have to implement CellEditable here even though it is deprecated.
-    // See https://github.com/gtk-rs/gtk-rs-core/issues/1941
-    #![allow(deprecated)]
-
-    glib::wrapper! {
-        pub struct HistoryEntry(ObjectSubclass<super::imp::HistoryEntry>)
-            @extends gtk::Entry, gtk::Widget,
-            @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::CellEditable, gtk::Editable;
-    }
+glib::wrapper! {
+    pub struct HistoryEntry(ObjectSubclass<imp::HistoryEntry>)
+        @extends gtk::Entry, gtk::Widget,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::CellEditable, gtk::Editable;
 }
-
-pub use wrapper::HistoryEntry;
 
 impl Default for HistoryEntry {
     fn default() -> Self {

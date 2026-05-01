@@ -2,13 +2,13 @@
 name = "gnome-commander"
 version = "0.1.0"
 edition = "2024"
-rust-version = "1.88"
+rust-version = "1.92"
 
 [dependencies]
 async-channel = "2.3.1"
 gettext-rs = { version = "0.7.0", features = ["gettext-system"] }
-gtk = { package = "gtk4", version = "0.10", features = ["gnome_46"] }
-glib = { version = "0.21", features = ["v2_80"] }
+gtk = { package = "gtk4", version = "0.11", features = ["gnome_46"] }
+glib = { version = "0.22", features = ["v2_80"] }
 libc = "0.2.155"
 tempfile = "3.11.0"
 async-recursion = "1.1.1"
@@ -21,7 +21,7 @@ glob = "0.3.2"
 memmap2 = "0.9.7"
 bimap = "0.6.3"
 grep = "0.4.1"
-vte = { package = "vte4", version = "0.9.0", features = ["v0_76"] }
+vte = { package = "vte4", version = "0.10.0", features = ["v0_76"] }
 
 [build-dependencies]
 system-deps = "7"

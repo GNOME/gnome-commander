@@ -2552,8 +2552,6 @@ impl FileList {
     where
         F: Fn(&Self, &Connection) + 'static,
     {
-        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
-        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "con-changed",
             false,
@@ -2565,8 +2563,6 @@ impl FileList {
     where
         F: Fn(&Self, &Directory) + 'static,
     {
-        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
-        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "dir-changed",
             false,
@@ -2578,8 +2574,6 @@ impl FileList {
     where
         F: Fn(&Self) + 'static,
     {
-        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
-        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "files-changed",
             false,
@@ -2591,8 +2585,6 @@ impl FileList {
     where
         F: Fn(&Self, &File) + 'static,
     {
-        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
-        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "file-activated",
             false,
@@ -2604,8 +2596,6 @@ impl FileList {
     where
         F: Fn(&Self, &str) + 'static,
     {
-        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
-        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "cmdline-append",
             false,
@@ -2617,8 +2607,6 @@ impl FileList {
     where
         F: Fn(&Self) -> bool + 'static,
     {
-        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
-        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "cmdline-execute",
             false,
@@ -2630,8 +2618,6 @@ impl FileList {
     where
         F: Fn(&Self, u32, Option<File>) + 'static,
     {
-        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
-        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "list-clicked",
             false,
@@ -2643,8 +2629,6 @@ impl FileList {
     where
         F: Fn(&Self, gtk::Widget) + 'static,
     {
-        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
-        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "show-quick-search",
             false,
