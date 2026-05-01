@@ -849,12 +849,6 @@
               </listitem>
               <listitem>
                 <para>
-                  <guilabel>--version</guilabel>
-                </para>
-                <para>Show version of &app;.</para>
-              </listitem>
-              <listitem>
-                <para>
                   <guilabel>-l, --start-left-dir=STRING</guilabel>
                 </para>
                 <para>Specify the start directory for the left pane.</para>
@@ -864,12 +858,6 @@
                   <guilabel>-r, --start-right-dir=STRING</guilabel>
                 </para>
                 <para>Specify the start directory for the right pane.</para>
-              </listitem>
-              <listitem>
-                <para>
-                  <guilabel>--config-dir=STRING</guilabel>
-                </para>
-                <para>Specify the directory for configuration files.</para>
               </listitem>
               <listitem>
                 <para>
@@ -936,13 +924,6 @@
                     <para><guilabel>z</guilabel> detailed MIME based imageload</para>
                   </listitem>
                 </itemizedlist>
-              </listitem>
-              <listitem>
-                <para>
-                  <guilabel>[gtk,gnome,bonobo options]</guilabel>
-                </para>
-                <para>Standard gtk, gnome, bonobo options are supported. Use <guilabel>--help</guilabel> to see possible options.
-                </para>
               </listitem>
             </itemizedlist>
           </listitem>
