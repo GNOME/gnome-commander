@@ -17,7 +17,6 @@ media = [
   'figures/gnome-commander_dialog_file_metadata.png',
   'figures/gnome-commander_dialog_file_permissions.png',
   'figures/gnome-commander_dialog_file_properties.png',
-  'figures/gnome-commander_dialog_remote_connections.png',
   'figures/gnome-commander_dialog_remote_server.png',
   'figures/gnome-commander_options_confirmation.png',
   'figures/gnome-commander_options_devices.png',

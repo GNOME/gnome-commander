@@ -1340,7 +1340,7 @@
           <listitem><para>Search for the specified text in files</para></listitem>
           <listitem><para>Text in files should match casing</para></listitem>
           </itemizedlist></para>
-      <para>Use Stop button to stop a search before &app; completes the search.</para>
+      <para>Use the <guimenuitem>Stop</guimenuitem> button to stop a search before &app; completes the search.</para>
       <para>The files in the search result list can be viewed, edited or deleted with the associated user actions.</para>
     </sect2>
     <!-- ================ File Properties Subsection ======================= -->
@@ -1606,12 +1606,10 @@
       A bookmark is automatically assigned to a group, depending on where the bookmark is pointing to.</para>
       <para>You can then Jump to a bookmark, Edit, Remove, or modify the position of a
       bookmark in the selected group.</para>
-      <para>In the bookmark list there are four different columns displayed:
+      <para>In the bookmark list there are two different columns displayed:
       <orderedlist>
-  <listitem><para>The name of the bookmark group,</para></listitem>
-  <listitem><para>The name of the bookmark,</para></listitem>
-  <listitem><para>The shortcut of the bookmark,</para></listitem>
-  <listitem><para>The path to which the bookmark points to.</para></listitem>
+        <listitem><para>The name of the bookmark,</para></listitem>
+        <listitem><para>The path to which the bookmark points to.</para></listitem>
       </orderedlist></para>
       <para>The name and the path of a bookmark are editable by pressing the <guimenu>Edit</guimenu>
       button. In contrast, the shortcut of a bookmark in the third column is taken from
@@ -4270,29 +4268,14 @@
       <title>Remote Connections</title>
       <para>The Remote Connections dialog gives an overview about the stored connections to remote servers. It is also your starting point for opening a connection to a remote server.</para>
       <para>Open the dialog by clicking <menuchoice><guimenu>Connections</guimenu><guimenuitem>Remote Server...</guimenuitem></menuchoice> in the menu bar or by hitting <keycombo><keycap>CTRL</keycap><keycap>F</keycap></keycombo>.</para>
-      <para>It is divided into four parts:
+      <para>It is divided into three parts:
       <orderedlist>
-  <listitem><para>Connections list,</para></listitem>
-  <listitem><para>Buttons to <guimenuitem>Add</guimenuitem>, <guimenuitem>Edit</guimenuitem> and to <guimenuitem>Remove</guimenuitem> a selected connection,</para></listitem>
-  <listitem><para>Option for setting the anonymous FTP password globally.</para></listitem>
-      <listitem><para>A <guimenuitem>Close</guimenuitem> and a <guimenuitem>Connect</guimenuitem> button.</para></listitem></orderedlist></para>
+        <listitem><para>Connections list,</para></listitem>
+        <listitem><para>Buttons to <guimenuitem>Add</guimenuitem>, <guimenuitem>Edit</guimenuitem>, <guimenuitem>Remove</guimenuitem> and to move a selected connection <guimenuitem>Up</guimenuitem> or <guimenuitem>Down</guimenuitem>,</para></listitem>
+        <listitem><para>A <guimenuitem>Close</guimenuitem> and a <guimenuitem>Connect</guimenuitem> button.</para></listitem></orderedlist></para>
       <para>Double click on a connection or select a connection and hit <keycombo><keycap>ENTER</keycap></keycombo> will open the remote connection in the active panel of &app;.</para>
-      <para> An example figure with three anonymous FTP and one secure SSH connection is shown below.</para>
       <para> In the subsection <xref linkend="gnome-commander-config-remote-connections"></xref> it is shown how to edit a connection by clicking on the <guimenuitem>Add</guimenuitem> or <guimenuitem>Edit</guimenuitem> button.</para>
-      <!-- ==== Figure ==== -->
-      <figure id="remote-connections-example">
-  <title>Remote Connections Overview</title>
-  <screenshot>
-          <mediaobject>
-            <imageobject>
-        <imagedata fileref="figures/gnome-commander_dialog_remote_connections.png" format="PNG"/>
-            </imageobject>
-            <textobject><phrase>Overview of remote servers.</phrase>
-            </textobject>
-    </mediaobject>
-  </screenshot>
-      </figure>
-      <!-- ==== End of Figure ==== -->
+
       <!-- ================ Remote Server Subsection ======================= -->
       <sect3 id="gnome-commander-config-remote-connections">
   <title>Adding and Configuring Remote Connections</title>
@@ -4307,7 +4290,7 @@
     restart &app; the stored connection is available again.</para></listitem>
   </itemizedlist>
   </para>
-  <para>Currently, (&app; version 1.4) there are six different connection types available:
+  <para>Currently, there are seven different connection types available:
   <orderedlist>
     <listitem><para>SSH</para></listitem>
     <listitem><para>Public FTP</para></listitem>
@@ -4322,16 +4305,17 @@
   <para>See an example for a public FTP server in the figure below.</para>
   <!-- ==== Figure ==== -->
   <figure id="remote-connections-new">
-          <title>Creating Server Connection</title>
-          <screenshot>
-            <mediaobject>
-              <imageobject>
-    <imagedata fileref="figures/gnome-commander_dialog_remote_server.png" format="PNG"/>
-              </imageobject>
-              <textobject><phrase>Creating a new remote server connection.</phrase>
-              </textobject>
-            </mediaobject>
-          </screenshot>
+    <title>Creating Server Connection</title>
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="figures/gnome-commander_dialog_remote_server.png" format="PNG"/>
+        </imageobject>
+        <textobject>
+          <phrase>Creating a new remote server connection.</phrase>
+        </textobject>
+      </mediaobject>
+    </screenshot>
   </figure>
   <!-- ==== End of Figure ==== -->
       </sect3>
@@ -4343,8 +4327,7 @@
        fixed width, hex or graphical mode.</para>
       <para>To start viewing files use <keycap>F3</keycap> (default viewer - defined
         in <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>) or
-          <keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo> (internal viewer). The internal viewer uses MMAP
-         whenever possible for the fastest file loading.
+          <keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo> (internal viewer).
       </para>
       <sect3 id="gnome-commander-internal-viewer-modes">
         <title>View Modes</title>
@@ -4354,7 +4337,7 @@
     <orderedlist>
             <listitem><para>Text mode</para></listitem>
             <listitem><para>Fixed Width mode</para></listitem>
-            <listitem><para>Hex dump mode</para></listitem>
+            <listitem><para>Hexadecimal mode</para></listitem>
             <listitem><para>Image mode</para></listitem>
     </orderedlist>
   </para>
@@ -4407,7 +4390,7 @@
         </thead>
         <tbody>
         <row valign="top">
-        <entry><para>Escape</para><keycombo><keycap>CTRL</keycap><keycap>Q</keycap></keycombo></entry>
+        <entry><para><keycombo><keycap>ESC</keycap></keycombo></para><keycombo><keycap>CTRL</keycap><keycap>Q</keycap></keycombo></entry>
         <entry><para>Closes the internal viewer window</para></entry>
         </row>
         <row valign="top">
@@ -4415,7 +4398,7 @@
         <entry><para>Toggles line wrapping (applicable only in text display modes)</para></entry>
         </row>
         <row valign="top">
-        <entry><para><keycombo><keycap>T</keycap></keycombo></para><keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo></entry>
+        <entry><keycombo><keycap>T</keycap></keycombo></entry>
         <entry><para>Shows metadata tags</para></entry>
         </row>
         <row valign="top">
@@ -4684,7 +4667,20 @@
             <row>
               <entry colname="colspec0" valign="top">
                 <para>
-                  <guilabel>Sorting/Quick search</guilabel>
+                  <guilabel>Selection</guilabel>
+                </para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Select directories</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>This option defines if directories will be marked when all items in a file panel should be marked.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para>
+                  <guilabel>Sorting</guilabel>
                 </para>
               </entry>
               <entry colname="colspec2" valign="top">
@@ -4700,8 +4696,34 @@
             </row>
             <row>
               <entry colname="colspec0" valign="top">
+                <para/>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Treat symbolic links as regular files</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>This option defines if symbolic links should be treated as regular files.
+                  In the file panel they are listed between other files and not at
+                  the top if their target is not existing.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
                 <para>
-                  <guilabel>Quick search using</guilabel>
+                  <guilabel>Quick search</guilabel>
+                </para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Default mode</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>This option defines which mode Quick Search opens with.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para>
+                  <guilabel></guilabel>
                 </para>
               </entry>
               <entry colname="colspec2" valign="top">
@@ -4709,9 +4731,9 @@
               </entry>
               <entry colname="colspec3" valign="top">
                 <para>By selecting this option when you press <keycombo><keycap>CTRL</keycap><keycap>ALT</keycap><keycap>Letter</keycap></keycombo> &app; will scroll down the selection cursor in the active
-                   panel to the first item using that letter. You can then enter more
-                   letters after the first one to refine the search. By then pressing the up or down arrow key
-                   the cursor will jump to all files or folders which match your selection.</para>
+                  panel to the first item using that letter. You can then enter more
+                  letters after the first one to refine the search. By then pressing the up or down arrow key
+                  the cursor will jump to all files or folders which match your selection.</para>
               </entry>
             </row>
             <row>
@@ -4748,30 +4770,6 @@
                   and to access the command line with the keyboard you will need to use the command
                   <keycombo><keycap>CTRL</keycap><keycap>Alt</keycap><keycap>C</keycap></keycombo>.</para>
                 </note>
-              </entry>
-            </row>
-            <row>
-              <entry colname="colspec0" valign="top">
-                <para/>
-              </entry>
-              <entry colname="colspec2" valign="top">
-                <para>Match beginning of the file name</para>
-              </entry>
-              <entry colname="colspec3" valign="top">
-                <para>By selecting this option when you start to search for a letter or a letter combination, &app; will scroll down the selection cursor in the active
-                   panel to the first item beginning with that letter or that letter combination.</para>
-              </entry>
-            </row>
-            <row>
-              <entry colname="colspec0" valign="top">
-                <para/>
-              </entry>
-              <entry colname="colspec2" valign="top">
-                <para>Match end of the file name</para>
-              </entry>
-              <entry colname="colspec3" valign="top">
-                <para>By selecting this option when you start to search for a letter or a letter combination, &app; will scroll down the selection cursor in the active
-                   panel to the first item ending with that letter or that letter combination.</para>
               </entry>
             </row>
             <row>
