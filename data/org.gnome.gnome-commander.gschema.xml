@@ -994,12 +994,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
       </description>
     </key>
     <key name="charset" type="s">
-      <!--Translators: This is the default string of encoding used by the internal viewer
-          for displaying the file in the given encoding. You may want to customize it by using
-          an encoding that is common in your country.
-          See https://gitlab.gnome.org/GNOME/gnome-commander/-/blob/main/src/intviewer/window.rs#L776 for
-          a list of supported encodings. -->
-      <default l10n="messages">'UTF8'</default>
+      <default>'UTF8'</default>
       <summary>Character set</summary>
       <description>
           This option defines the default character encoding.
