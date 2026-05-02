@@ -126,6 +126,7 @@ mod imp {
                     .title(gettext("Shortcut"))
                     .factory(&self.shortcut_factory())
                     .resizable(true)
+                    .visible(false) // TODO: implement shortcut management
                     .build(),
             );
             self.view.append_column(
