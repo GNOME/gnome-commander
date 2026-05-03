@@ -137,6 +137,7 @@ impl File {
         info.set_name("..");
         info.set_display_name("..");
         info.set_file_type(gio::FileType::Directory);
+        info.set_is_hidden(false);
         info.set_is_symlink(false);
         info.set_size(0);
         info.set_attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE, 0xFFF);
