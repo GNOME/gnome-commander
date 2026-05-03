@@ -863,7 +863,7 @@
                 <para>
                   <guilabel>-d, --debug=STRING</guilabel>
                 </para>
-                <para>Specify debug flags to use. Debug output will be written to stdout.</para>
+                <para>Specify debug flags to use. Debug output will be written to stdout (only available in debug builds)</para>
                 <para>Possible flags:</para>
                 <itemizedlist>
                   <listitem>
@@ -1067,7 +1067,7 @@
           </tbody>
         </tgroup>
       </table>
-      <para>There are even more options available in the <menuchoice><guimenu>Mark</guimenu></menuchoice> for selecting files menu</para>
+      <para>There are even more options available for selecting files in the <menuchoice><guimenu>Mark</guimenu></menuchoice> menu</para>
       <para>To perform the default action on an item, double-click on the item.</para>
     </sect2>
 
@@ -1212,7 +1212,7 @@
           <para>Press the <keycap>F7</keycap>, in the dialog box that is then opened name the new folder.</para>
         </listitem>
         <listitem>
-          <para>Using the mouse right click in an empty area of the panel, in the drop down menu select <menuchoice><guimenu>New</guimenu><guimenu>Folder</guimenu></menuchoice>, then type the folder name in the dialog box that is opened.</para>
+          <para>Using the mouse: Right click in an empty area of the panel, in the drop down menu select <menuchoice><guimenu>New</guimenu><guimenu>Folder</guimenu></menuchoice>, then type the folder name in the dialog box that is opened.</para>
         </listitem>
       </itemizedlist>
     </sect2>
@@ -1281,18 +1281,18 @@
         <para>Right clicking on any tab will open a tab specific menu</para>
       <itemizedlist>
         <listitem>
-          <para><guimenu>Open in new tab</guimenu> this action opens a new tab with the displaying the currently opened folder. </para>
+          <para><guimenu>Open in new tab</guimenu> this action opens a new tab displaying the currently opened folder. </para>
         </listitem>
         <listitem>
-          <para><guimenu>Lock tab</guimenu> this actions locks a tab so that a warning is displayed when you try to close the tab.
+          <para><guimenu>Lock tab</guimenu> this action locks a tab so that a warning is displayed when you try to close the tab.
           </para>
         </listitem>
         <listitem>
-          <para><guimenu>Refresh tab</guimenu> this actions refreshes the files displayed currently in the folder.
+          <para><guimenu>Refresh tab</guimenu> this action refreshes the files currently displayed in the folder.
           </para>
         </listitem>
         <listitem>
-          <para><guimenu>Copy tab to other panel</guimenu> opens a new tab in the opposite panel, this tab will display the selected tab. </para>
+          <para><guimenu>Copy tab to other panel</guimenu> opens a new tab in the opposite panel, this tab will display the current folder. </para>
         </listitem>
         <listitem>
           <para><guimenu>Close tab</guimenu> this action closes the currently selected tab.
@@ -4674,7 +4674,7 @@
                 <para>Select directories</para>
               </entry>
               <entry colname="colspec3" valign="top">
-                <para>This option defines if directories will be marked when all items in a file panel should be marked.</para>
+                <para>This option defines wether directories will be marked when all items in a file panel should be marked.</para>
               </entry>
             </row>
             <row>
@@ -4702,9 +4702,9 @@
                 <para>Treat symbolic links as regular files</para>
               </entry>
               <entry colname="colspec3" valign="top">
-                <para>This option defines if symbolic links should be treated as regular files.
-                  In the file panel they are listed between other files and not at
-                  the top if their target is not existing.</para>
+                <para>If enabled, symbolic links will be treated as regular files.
+                  In the file panel they are then listed between other files and not at
+                  the top if their target does not existing.</para>
               </entry>
             </row>
             <row>
@@ -4717,7 +4717,7 @@
                 <para>Default mode</para>
               </entry>
               <entry colname="colspec3" valign="top">
-                <para>This option defines which mode Quick Search opens with.</para>
+                <para>This option determines whether Quick Search should search or filter files when it is opened.</para>
               </entry>
             </row>
             <row>
