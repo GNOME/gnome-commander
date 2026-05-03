@@ -328,16 +328,45 @@ mod imp {
 
             let fl = self.obj();
             fl.set_layout_manager(Some(gtk::BinLayout::new()));
+            self.view.add_css_class("gnome-cmd-file-list");
 
+            let filters_options = FiltersOptions::new();
+            for option in [
+                &filters_options.hide_unknown,
+                &filters_options.hide_regular,
+                &filters_options.hide_directory,
+                &filters_options.hide_special,
+                &filters_options.hide_shortcut,
+                &filters_options.hide_mountable,
+                &filters_options.hide_virtual,
+                &filters_options.hide_volatile,
+                &filters_options.hide_hidden,
+                &filters_options.hide_backup,
+                &filters_options.hide_symlink,
+            ] {
+                option.connect_changed(glib::clone!(
+                    #[weak(rename_to = imp)]
+                    self,
+                    move |_| if let Some(filter) = imp.filter_model.filter() {
+                        filter.changed(gtk::FilterChange::Different);
+                    }
+                ));
+            }
+            filters_options.backup_pattern.connect_changed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| if let Some(filter) = imp.filter_model.filter() {
+                    filter.changed(gtk::FilterChange::Different);
+                }
+            ));
             self.filter_model
                 .set_filter(Some(&gtk::CustomFilter::new(glib::clone!(
                     #[weak(rename_to = imp)]
                     self,
                     #[upgrade_or]
                     false,
-                    move |obj| imp.filter_row(obj),
+                    move |obj| imp.filter_row(obj, &filters_options),
                 ))));
-            self.view.add_css_class("gnome-cmd-file-list");
 
             let scrolled_window = gtk::ScrolledWindow::builder()
                 .hscrollbar_policy(gtk::PolicyType::Automatic)
@@ -674,14 +703,58 @@ mod imp {
     }
 
     impl FileList {
-        fn filter_row(&self, obj: &glib::Object) -> bool {
-            let Some(ref filter) = *self.filter.borrow() else {
-                return true;
-            };
+        fn filter_row(&self, obj: &glib::Object, options: &FiltersOptions) -> bool {
             let Some(item) = obj.downcast_ref::<FileListItem>() else {
                 return false;
             };
-            item.file().is_dotdot() || filter.matches(&item.name())
+            let file = item.file();
+            let name = item.name();
+
+            if file.is_dotdot() {
+                return true;
+            }
+
+            let hide = match file.file_type() {
+                gio::FileType::Unknown => options.hide_unknown.get(),
+                gio::FileType::Regular => options.hide_regular.get(),
+                gio::FileType::Directory => options.hide_directory.get(),
+                gio::FileType::SymbolicLink => options.hide_symlink.get(),
+                gio::FileType::Special => options.hide_special.get(),
+                gio::FileType::Shortcut => options.hide_shortcut.get(),
+                gio::FileType::Mountable => options.hide_mountable.get(),
+                _ => false,
+            };
+            if hide {
+                return false;
+            }
+            if options.hide_symlink.get() && file.is_symlink() {
+                return false;
+            }
+            if options.hide_hidden.get() && file.file_info().is_hidden() {
+                return false;
+            }
+            if options.hide_virtual.get()
+                && file
+                    .file_info()
+                    .boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL)
+            {
+                return false;
+            }
+            if options.hide_volatile.get()
+                && file
+                    .file_info()
+                    .boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VOLATILE)
+            {
+                return false;
+            }
+            if options.hide_backup.get() && matches_pattern(&name, &options.backup_pattern.get()) {
+                return false;
+            }
+
+            let Some(ref filter) = *self.filter.borrow() else {
+                return true;
+            };
+            filter.matches(&name)
         }
 
         pub fn set_connection(&self, connection: &Connection) {
@@ -919,8 +992,7 @@ mod imp {
         }
 
         pub fn insert_file(&self, f: &File) -> bool {
-            let options = FiltersOptions::new();
-            if file_is_wanted(f, &options) {
+            if file_is_wanted(f) {
                 self.add_file(f);
                 true
             } else {
@@ -2142,7 +2214,6 @@ impl FileList {
             return;
         };
 
-        // this.set_sensitive(false);
         self.set_cursor(gdk::Cursor::from_name("wait", None).as_ref());
 
         let result = match directory.state() {
@@ -2159,15 +2230,11 @@ impl FileList {
         };
 
         self.set_cursor(None);
-        // self.set_sensitive(true);
+        self.imp().set_directory(directory);
 
         if let Err(error) = result {
             error.show(&window).await;
-            // g_timeout_add (1, (GSourceFunc) set_home_connection, fl);
-            return;
         }
-
-        self.imp().set_directory(directory);
     }
 
     pub fn dir_history(&self) -> &History<(Connection, PathBuf)> {
@@ -2522,12 +2589,10 @@ impl FileList {
     }
 
     pub fn show_files(&self, dir: &Directory) {
-        let options = FiltersOptions::new();
-
         let mut items: Vec<_> = dir
             .files()
             .iter()
-            .filter(|f| file_is_wanted(f, &options))
+            .filter(|f| file_is_wanted(f))
             .map(FileListItem::new)
             .collect();
         if dir.parent().is_some() {
@@ -2557,8 +2622,6 @@ impl FileList {
     where
         F: Fn(&Self, &Connection) + 'static,
     {
-        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
-        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "con-changed",
             false,
@@ -2570,8 +2633,6 @@ impl FileList {
     where
         F: Fn(&Self, &Directory) + 'static,
     {
-        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
-        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "dir-changed",
             false,
@@ -2583,8 +2644,6 @@ impl FileList {
     where
         F: Fn(&Self) + 'static,
     {
-        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
-        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "files-changed",
             false,
@@ -2596,8 +2655,6 @@ impl FileList {
     where
         F: Fn(&Self, &File) + 'static,
     {
-        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
-        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "file-activated",
             false,
@@ -2609,8 +2666,6 @@ impl FileList {
     where
         F: Fn(&Self, &str) + 'static,
     {
-        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
-        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "cmdline-append",
             false,
@@ -2622,8 +2677,6 @@ impl FileList {
     where
         F: Fn(&Self) -> bool + 'static,
     {
-        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
-        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "cmdline-execute",
             false,
@@ -2635,8 +2688,6 @@ impl FileList {
     where
         F: Fn(&Self, u32, Option<File>) + 'static,
     {
-        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
-        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "list-clicked",
             false,
@@ -2648,8 +2699,6 @@ impl FileList {
     where
         F: Fn(&Self, gtk::Widget) + 'static,
     {
-        // Silence linting false positive, https://github.com/gtk-rs/gtk-rs-core/issues/1912
-        #[allow(clippy::redundant_closure)]
         self.connect_closure(
             "show-quick-search",
             false,
@@ -2758,48 +2807,9 @@ pub struct FileListStats {
     pub selected: Stats,
 }
 
-fn file_is_wanted(file: &File, options: &FiltersOptions) -> bool {
+fn file_is_wanted(file: &File) -> bool {
     let name = file.name();
-    if name == "." || name == ".." {
-        return false;
-    }
-    let hide = match file.file_type() {
-        gio::FileType::Unknown => options.hide_unknown.get(),
-        gio::FileType::Regular => options.hide_regular.get(),
-        gio::FileType::Directory => options.hide_directory.get(),
-        gio::FileType::SymbolicLink => options.hide_symlink.get(),
-        gio::FileType::Special => options.hide_special.get(),
-        gio::FileType::Shortcut => options.hide_shortcut.get(),
-        gio::FileType::Mountable => options.hide_mountable.get(),
-        _ => false,
-    };
-    if hide {
-        return false;
-    }
-    if options.hide_symlink.get() && file.is_symlink() {
-        return false;
-    }
-    if options.hide_hidden.get() && file.file_info().is_hidden() {
-        return false;
-    }
-    if options.hide_virtual.get()
-        && file
-            .file_info()
-            .boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL)
-    {
-        return false;
-    }
-    if options.hide_volatile.get()
-        && file
-            .file_info()
-            .boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VOLATILE)
-    {
-        return false;
-    }
-    if options.hide_backup.get() && matches_pattern(&name, &options.backup_pattern.get()) {
-        return false;
-    }
-    true
+    name != "." && name != ".."
 }
 
 fn matches_pattern(file: &str, patterns: &str) -> bool {
