@@ -7016,66 +7016,6 @@
     </sect2>
   </sect1>
 
-<!-- ============= Configuration files ==================== -->
-<!-- This section contains info about the program configuration files.-->
-  <sect1 id="gnome-commander-configuration-files">
-    <title>Configuration Files</title>
-    <para>This section gives an overview of the configuration files used by &app;:
-    </para>
-    <note>
-        <para>
-          Since &app; version 1.10.0 the location of configuration files changed from <guilabel>~/.gnome-commander</guilabel>
-          to <guilabel>~/.config/gnome-commander</guilabel>. Existing files are automatically moved when starting &app; 1.10.0
-          the first time.
-        </para>
-    </note>
-    <para>
-      <term>
-        <guilabel>~/.config/gnome-commander/scripts/*</guilabel>
-      </term>
-      In this directory the user can place scripts for the <xref linkend="popup-menu-actions"></xref>.
-    </para>
-    <note>
-      <para>
-        Since &app; version 1.10.0 the following option files are obsolete. If they have been created by earlier &app; versions
-        then the filename is extended automatically by <guilabel>*.deprecated</guilabel> and their settings are imported in
-        GSettings under the path <guilabel>org.gnome.gnome-commander</guilabel>.
-      </para>
-    <variablelist>
-      <varlistentry>
-        <term>
-          <guilabel>~/.config/gnome-commander/devices</guilabel>
-        </term>
-        <listitem>
-          <para/>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          <guilabel>~/.config/gnome-commander/fav-apps</guilabel>
-        </term>
-        <listitem>
-          <para/>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          <guilabel>~/.config/gnome-commander/gnome-commander.xml</guilabel>
-        </term>
-        <listitem>
-          <para/>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-    </note>
-    <note>
-        <para>
-            Since &app; version  1.6.0 the options file <guilabel>~/.gnome2/gnome-commander</guilabel> is obsolete.
-            The settings of this file are now stored in GSettings under the path <guilabel>org.gnome.gnome-commander</guilabel>.
-        </para>
-    </note>
-  </sect1>
-
 <xi:include href="releases.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
 
 <!-- ============= Bugs ================================== -->
