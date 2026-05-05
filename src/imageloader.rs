@@ -75,8 +75,16 @@ impl IconCache {
             .borrow_mut()
             .entry(cache_key)
             .or_insert_with(|| {
-                let theme_icon_dir = self.options.mime_icon_dir.get()?;
-                self.mime_icon_in_dir(&theme_icon_dir, file_type, mime_type)
+                self.options
+                    .mime_icon_dir
+                    .get()
+                    .and_then(|theme_icon_dir| {
+                        self.mime_icon_in_dir(&theme_icon_dir, file_type, mime_type)
+                    })
+                    .or_else(|| {
+                        let default_dir = Path::new(PIXMAPS_DIR).join("mime-icons");
+                        self.mime_icon_in_dir(&default_dir, file_type, mime_type)
+                    })
             })
             .clone()
     }
