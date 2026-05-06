@@ -1044,14 +1044,18 @@ impl MainWindow {
             .and_then(|dir| std::path::absolute(dir).ok())
             .and_then(|dir| glib::filename_to_uri(dir, None).ok())
         {
-            left_tabs.push(TabVariant::new(Default::default(), dir.to_string()));
+            let mut tab = TabVariant::new(Default::default(), dir.to_string());
+            tab.set_state(TabState::Selected);
+            left_tabs.push(tab);
         }
 
         if let Some(dir) = start_right_dir
             .and_then(|dir| std::path::absolute(dir).ok())
             .and_then(|dir| glib::filename_to_uri(dir, None).ok())
         {
-            right_tabs.push(TabVariant::new(Default::default(), dir.to_string()));
+            let mut tab = TabVariant::new(Default::default(), dir.to_string());
+            tab.set_state(TabState::Selected);
+            right_tabs.push(tab);
         }
 
         let current_panel = if right_tabs.iter().any(|tab| tab.state() == TabState::Active) {
