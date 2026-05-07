@@ -4535,7 +4535,7 @@
       <para>To modify the general options click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
          then click on the <guilabel>General</guilabel> tab.
        </para>
-       <para>The options available are described in more details in the
+       <para>The options available are described in more detail in the
          <xref linkend="gcmd-TBL-setting1"/>.</para>
       <para/>
       <table frame="topbot" id="gcmd-TBL-setting1">
@@ -4879,7 +4879,7 @@
       </para>
       <para>To modify the Format options click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on
          the <guilabel>Format</guilabel> tab.</para>
-      <para>The options available are described in more details below in the
+      <para>The options available are described in more detail below in the
        <xref linkend="gcmd-TBL-setting2"/>.</para>
       <table frame="topbot" id="gcmd-TBL-setting2">
         <title>Format option tab</title>
@@ -5004,7 +5004,7 @@
       <para>To modify the Panes layout options click on <menuchoice><guimenu>
          Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
          then click on the <guilabel>Layout</guilabel> tab.</para>
-      <para>The options available are described in more details below in the
+      <para>The options available are described in more detail below in the
        <xref linkend="gcmd-TBL-setting3"/></para>
       <table frame="topbot" id="gcmd-TBL-setting3">
         <title>Layout option tab</title>
@@ -5281,7 +5281,7 @@
       <para>To modify the confirmation settings click on <menuchoice><guimenu>
        Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
        then click on the <guilabel>Confirmation</guilabel> tab.</para>
-      <para>The options available are described in more details below in the
+      <para>The options available are described in more detail below in the
        <xref linkend="gcmd-TBL-setting4"/>.</para>
       <para/>
       <table frame="topbot" id="gcmd-TBL-setting4">
