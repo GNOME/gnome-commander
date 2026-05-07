@@ -5228,7 +5228,7 @@
       <title>Configuring Custom LS_COLORS</title>
        <para>You can configure it to differentiate file types like LS_COLORS does when using the command shell. For more information on this you can look up the <ulink url="http://linux.die.net/man/5/dir_colors">dir_colors man page</ulink>.</para>
        <para>To enable the use of LS_COLORS for &app; click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options</guimenuitem></menuchoice>, then on the <guilabel>Layout</guilabel> tab and activate the <guilabel>Colorize files according to the LS_COLORS environment variable</guilabel> check box.</para>
-       <para>If you prefer other shades of colors than given by the LS_COLOR variable you may change them by clicking on the <guilabel>Edit colors...</guilabel> button.</para>
+       <para>If you prefer the basic colors from LS_COLOR variable to be translated into different shades of colors you may change them by clicking on the <guilabel>Edit colors...</guilabel> button.</para>
     </sect3>
 <!-- ====Confirmation==== -->
     </sect2>
@@ -5442,7 +5442,7 @@
                 <para>Copy</para>
               </entry>
               <entry colname="colspec3">
-                <para>Selected items are copied without confirmation.</para>
+                <para>Items are copied without confirmation.</para>
               </entry>
             </row>
             <row>
@@ -5453,7 +5453,7 @@
                 <para>Move</para>
               </entry>
               <entry colname="colspec3">
-                <para>Selected items are moved without confirmation.</para>
+                <para>Items are moved without confirmation.</para>
               </entry>
             </row>
           </tbody>
