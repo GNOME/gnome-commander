@@ -176,7 +176,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
       <description>Describes the different interpolation modes that can be used with the scaling functions.</description>
     </key>
     <key name="mime-icon-dir" type="s">
-      <default>'/usr/local/share/pixmaps/gnome-commander/mime-icons'</default>
+      <default>''</default>
       <summary>MIME icon directory</summary>
       <description>Directory in which MIME icons are located.</description>
     </key>

@@ -60,6 +60,7 @@ mod imp {
                 .title(gettext("Select Directory"))
                 .modal(true)
                 .build();
+            dialog.set_initial_folder(self.file.borrow().as_ref());
 
             let result = dialog.select_folder_future(parent.as_ref()).await;
 
