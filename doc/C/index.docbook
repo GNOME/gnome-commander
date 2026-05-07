@@ -5548,7 +5548,7 @@
                 <para>Shortcuts (Windows systems)</para>
               </entry>
               <entry colname="colspec3">
-                <para>A Microsoft Windows Shortcut File (LNK) is a file format designed to link to various types of information such as files, network shares, and search results.</para>
+                <para>A special type of links to network directories.</para>
               </entry>
             </row>
             <row>
@@ -5559,7 +5559,7 @@
                 <para>Mountable locations</para>
               </entry>
               <entry colname="colspec3">
-                <para></para>
+                <para>Network directories which can be mounted locally.</para>
               </entry>
             </row>
             <row>
@@ -5570,7 +5570,7 @@
                 <para>Virtual files</para>
               </entry>
               <entry colname="colspec3">
-                <para></para>
+                <para>Network devices which actually aren't files - think of servers and their shares.</para>
               </entry>
             </row>
             <row>
@@ -5581,7 +5581,7 @@
                 <para>Volatile files</para>
               </entry>
               <entry colname="colspec3">
-                <para></para>
+                <para>Another special type of files which are associated with Google Drive shortcuts.</para>
               </entry>
             </row>
             <row>
