@@ -18,14 +18,8 @@ media = [
   'figures/gnome-commander_dialog_file_permissions.png',
   'figures/gnome-commander_dialog_file_properties.png',
   'figures/gnome-commander_dialog_remote_server.png',
-  'figures/gnome-commander_options_confirmation.png',
   'figures/gnome-commander_options_devices.png',
-  'figures/gnome-commander_options_filters.png',
-  'figures/gnome-commander_options_format.png',
   'figures/gnome-commander_options_layout_colors.png',
-  'figures/gnome-commander_options_layout.png',
-  'figures/gnome-commander_options_programs.png',
-  'figures/gnome-commander_options_tabs.png',
   'figures/gnome-commander_simple_plugins_example.png',
   'figures/gnome-commander_window.png'
 ]
