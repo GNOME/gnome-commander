@@ -4910,7 +4910,7 @@
                 <para>Powered</para>
               </entry>
               <entry>
-                <para>The powered option displays file sizes using units such as B, KB, MB</para>
+                <para>The powered option displays file sizes using units such as bytes, KiB, MiB</para>
               </entry>
             </row>
             <row>
