@@ -1655,9 +1655,9 @@
         <para>A powerful tool for batch renaming of the files selected in &app;.
         It allows to easily rename lots of files in one go.
         The file names can be created by parts of the original file name, its path,
-        numbering the files or accessing hundreds of informations about the file,
+        numbering the files or accessing hundreds of metadata information about the file,
         like creation date or <link linkend="gnome-commander-advanced-rename-metadata-tags">Exif/IPTC</link>
-        informations of an image.</para>
+        information of an image.</para>
 
         <para>When started, the following dialog is displayed:</para>
 
@@ -4859,7 +4859,7 @@
     <!-- Format options-->
     <sect2 id="gnome-commander-prefs-format">
       <title>Format</title>
-      <para>The Format tab contains the options on how file informations in the associated
+      <para>The Format tab contains the options on how file information in the associated
         file panel columns are displayed.</para>
       <para>
         <itemizedlist>
