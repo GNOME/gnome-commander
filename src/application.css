@@ -103,7 +103,7 @@ listview.gcmd-toolbar {
     opacity: 0.6;
 }
 
-.keyboard-shortcuts-modified {
+.keyboard-shortcuts-modified > label {
     font-weight: bold;
 }
 
