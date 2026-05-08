@@ -3,44 +3,16 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+use super::item::FileListItem;
 use crate::file::File;
-use gtk::{gio, glib, prelude::*, subclass::prelude::*};
+use gtk::prelude::*;
 use std::cmp;
 
-mod imp {
-    use super::*;
-    use crate::{file_list::item::FileListItem, options::GeneralOptions};
-    use std::cell::Cell;
+pub struct FileTypeSorter;
 
-    #[derive(Default, glib::Properties)]
-    #[properties(wrapper_type = super::FileTypeSorter)]
-    pub struct FileTypeSorter {
-        #[property(get, set = Self::set_symbolic_links_as_regular_files)]
-        symbolic_links_as_regular_files: Cell<bool>,
-    }
-
-    #[glib::object_subclass]
-    impl ObjectSubclass for FileTypeSorter {
-        const NAME: &'static str = "GnomeCmdFileTypeSorter";
-        type Type = super::FileTypeSorter;
-        type ParentType = gtk::Sorter;
-    }
-
-    #[glib::derived_properties]
-    impl ObjectImpl for FileTypeSorter {
-        fn constructed(&self) {
-            self.parent_constructed();
-
-            let general_options = GeneralOptions::new();
-            general_options
-                .symbolic_links_as_regular_files
-                .bind(&*self.obj(), "symbolic-links-as-regular-files")
-                .build();
-        }
-    }
-
-    impl SorterImpl for FileTypeSorter {
-        fn compare(&self, obj1: &glib::Object, obj2: &glib::Object) -> gtk::Ordering {
+impl FileTypeSorter {
+    pub fn get() -> impl IsA<gtk::Sorter> {
+        gtk::CustomSorter::new(|obj1, obj2| {
             let (file1, file2) = match (
                 obj1.downcast_ref::<FileListItem>(),
                 obj2.downcast_ref::<FileListItem>(),
@@ -51,43 +23,20 @@ mod imp {
                 (Some(item1), Some(item2)) => (item1.file(), item2.file()),
             };
 
-            let symbolic_links_as_regular_files = self.symbolic_links_as_regular_files.get();
-            let file_type_key1 = file_type_key(&file1, symbolic_links_as_regular_files);
-            let file_type_key2 = file_type_key(&file2, symbolic_links_as_regular_files);
+            let key1 = file_type_key(&file1);
+            let key2 = file_type_key(&file2);
 
-            file_type_key1.cmp(&file_type_key2).into()
-        }
-    }
-
-    impl FileTypeSorter {
-        fn set_symbolic_links_as_regular_files(&self, value: bool) {
-            self.symbolic_links_as_regular_files.set(value);
-            self.obj().changed(gtk::SorterChange::Different);
-        }
+            key1.cmp(&key2).into()
+        })
     }
 }
 
-glib::wrapper! {
-    pub struct FileTypeSorter(ObjectSubclass<imp::FileTypeSorter>)
-        @extends gtk::Sorter;
-}
-
-impl Default for FileTypeSorter {
-    fn default() -> Self {
-        glib::Object::builder().build()
-    }
-}
-
-fn file_type_key(file: &File, symbolic_links_as_regular_files: bool) -> impl cmp::Ord {
+fn file_type_key(file: &File) -> impl cmp::Ord {
     if file.is_dotdot() {
-        return 0;
-    }
-    match file.file_type() {
-        gio::FileType::Special => 1,
-        gio::FileType::SymbolicLink if symbolic_links_as_regular_files => 4,
-        gio::FileType::SymbolicLink => 2,
-        gio::FileType::Directory | gio::FileType::Shortcut | gio::FileType::Mountable => 3,
-        gio::FileType::Regular => 4,
-        _ => 5,
+        0
+    } else if file.is_directory() {
+        1
+    } else {
+        2
     }
 }

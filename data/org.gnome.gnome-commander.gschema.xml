@@ -457,14 +457,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
             This option defines if sorting should be case sensitive.
         </description>
     </key>
-    <key name="symbolic-links-as-regular-files" type="b">
-        <default>false</default>
-        <summary>Treat symbolic links as regular files</summary>
-        <description>
-            This option defines if symbolic links should be treated as regular files.
-            In the file panel they are listed between other files and not at the top if their target is not existing.
-        </description>
-    </key>
     <key name="select-dirs" type="b">
         <default>true</default>
         <summary>Select directories when all is marked</summary>
@@ -686,22 +678,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <key name="hide-special" type="b">
       <default>false</default>
       <summary>Hide special files, such as a socket, fifo, block devices, or character devices.</summary>
-    </key>
-    <key name="hide-shortcut" type="b">
-      <default>false</default>
-      <summary>Hide shortcut files (Windows systems)</summary>
-    </key>
-    <key name="hide-mountable" type="b">
-      <default>false</default>
-      <summary>Hide mountable locations</summary>
-    </key>
-    <key name="hide-virtual" type="b">
-      <default>false</default>
-      <summary>Hide virtual files</summary>
-    </key>
-    <key name="hide-volatile" type="b">
-      <default>false</default>
-      <summary>Hide volatile files</summary>
     </key>
     <key name="hide-dotfile" type="b">
       <default>true</default>

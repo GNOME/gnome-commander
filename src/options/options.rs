@@ -78,7 +78,6 @@ pub struct GeneralOptions {
     pub select_dirs: BoolOption,
 
     pub case_sensitive: BoolOption,
-    pub symbolic_links_as_regular_files: BoolOption,
 
     pub left_mouse_button_mode: EnumOption<LeftMouseButtonMode>,
     pub middle_mouse_button_mode: EnumOption<MiddleMouseButtonMode>,
@@ -181,10 +180,6 @@ impl GeneralOptions {
             mime_icon_dir: OptionalPathOption::new(&settings, "mime-icon-dir"),
             select_dirs: BoolOption::new(&settings, "select-dirs"),
             case_sensitive: BoolOption::new(&settings, "case-sensitive"),
-            symbolic_links_as_regular_files: BoolOption::new(
-                &settings,
-                "symbolic-links-as-regular-files",
-            ),
             left_mouse_button_mode: EnumOption::new(&settings, "clicks-to-open-item"),
             middle_mouse_button_mode: EnumOption::new(&settings, "middle-mouse-btn-mode"),
             right_mouse_button_mode: EnumOption::new(&settings, "right-mouse-btn-mode"),

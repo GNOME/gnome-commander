@@ -134,9 +134,6 @@ mod imp {
         case_sensitive: Cell<bool>,
 
         #[property(get, set)]
-        symbolic_links_as_regular_files: Cell<bool>,
-
-        #[property(get, set)]
         left_mouse_button_mode: Cell<LeftMouseButtonMode>,
 
         #[property(get, set)]
@@ -278,7 +275,6 @@ mod imp {
                 date_display_format: Default::default(),
                 use_ls_colors: Default::default(),
                 case_sensitive: Default::default(),
-                symbolic_links_as_regular_files: Default::default(),
                 left_mouse_button_mode: Default::default(),
                 middle_mouse_button_mode: Default::default(),
                 right_mouse_button_mode: Default::default(),
@@ -481,7 +477,7 @@ mod imp {
             fl.insert_action_group("fl", Some(&action_group));
 
             let sorter = gtk::MultiSorter::new();
-            sorter.append(FileTypeSorter::default());
+            sorter.append(FileTypeSorter::get());
             sorter.append(
                 self.view
                     .sorter()
@@ -621,10 +617,6 @@ mod imp {
             general_options
                 .case_sensitive
                 .bind(&*fl, "case-sensitive")
-                .build();
-            general_options
-                .symbolic_links_as_regular_files
-                .bind(&*fl, "symbolic-links-as-regular-files")
                 .build();
             general_options
                 .left_mouse_button_mode
