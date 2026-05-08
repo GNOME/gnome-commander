@@ -334,10 +334,6 @@ mod imp {
                 &filters_options.hide_regular,
                 &filters_options.hide_directory,
                 &filters_options.hide_special,
-                &filters_options.hide_shortcut,
-                &filters_options.hide_mountable,
-                &filters_options.hide_virtual,
-                &filters_options.hide_volatile,
                 &filters_options.hide_hidden,
                 &filters_options.hide_backup,
                 &filters_options.hide_symlink,
@@ -787,34 +783,20 @@ mod imp {
             let hide = match file.file_type() {
                 gio::FileType::Unknown => options.hide_unknown.get(),
                 gio::FileType::Regular => options.hide_regular.get(),
-                gio::FileType::Directory => options.hide_directory.get(),
                 gio::FileType::SymbolicLink => options.hide_symlink.get(),
                 gio::FileType::Special => options.hide_special.get(),
-                gio::FileType::Shortcut => options.hide_shortcut.get(),
-                gio::FileType::Mountable => options.hide_mountable.get(),
                 _ => false,
             };
             if hide {
+                return false;
+            }
+            if options.hide_directory.get() && file.is_directory() {
                 return false;
             }
             if options.hide_symlink.get() && file.is_symlink() {
                 return false;
             }
             if options.hide_hidden.get() && file.file_info().is_hidden() {
-                return false;
-            }
-            if options.hide_virtual.get()
-                && file
-                    .file_info()
-                    .boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL)
-            {
-                return false;
-            }
-            if options.hide_volatile.get()
-                && file
-                    .file_info()
-                    .boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VOLATILE)
-            {
                 return false;
             }
             if options.hide_backup.get() && matches_pattern(&name, &options.backup_pattern.get()) {
@@ -1724,10 +1706,10 @@ mod imp {
         match file_type {
             gio::FileType::Regular => " ",
             gio::FileType::Directory => "/",
+            gio::FileType::Shortcut => "/",
+            gio::FileType::Mountable => "/",
             gio::FileType::SymbolicLink => "@",
             gio::FileType::Special => "S",
-            gio::FileType::Shortcut => "K",
-            gio::FileType::Mountable => "M",
             _ => "?",
         }
     }

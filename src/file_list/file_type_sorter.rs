@@ -83,13 +83,11 @@ fn file_type_key(file: &File, symbolic_links_as_regular_files: bool) -> impl cmp
         return 0;
     }
     match file.file_type() {
-        gio::FileType::Mountable => 1,
-        gio::FileType::Shortcut => 2,
-        gio::FileType::Special => 3,
-        gio::FileType::SymbolicLink if symbolic_links_as_regular_files => 6,
-        gio::FileType::SymbolicLink => 4,
-        gio::FileType::Directory => 5,
-        gio::FileType::Regular => 6,
-        _ => 8,
+        gio::FileType::Special => 1,
+        gio::FileType::SymbolicLink if symbolic_links_as_regular_files => 4,
+        gio::FileType::SymbolicLink => 2,
+        gio::FileType::Directory | gio::FileType::Shortcut | gio::FileType::Mountable => 3,
+        gio::FileType::Regular => 4,
+        _ => 5,
     }
 }
