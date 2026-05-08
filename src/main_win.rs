@@ -10,7 +10,7 @@ use crate::{
     },
     dir::Directory,
     file::{File, FileOps},
-    file_selector::{FileSelector, TabPosition, TabState, TabVariant},
+    file_selector::{FileSelector, TabOptions, TabPosition, TabState, TabVariant},
     layout::color_themes::ColorThemes,
     libgcmd::{
         file_actions::{FileActions, FileActionsExt},
@@ -1016,7 +1016,7 @@ impl MainWindow {
         };
 
         if dst.is_current_tab_locked() {
-            dst.new_tab_with_dir(&dir, true, false);
+            dst.new_tab(Some(&dir), TabOptions::from(&dst.file_list()).grab_focus(false));
         } else {
             dst.file_list()
                 .set_connection(&dir.connection(), Some(&dir));

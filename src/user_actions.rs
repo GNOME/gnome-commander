@@ -36,6 +36,7 @@ use crate::{
         list::{ColumnID, FileList},
         quick_search::QuickSearchMode,
     },
+    file_selector::TabOptions,
     libgcmd::file_actions::{FileActions, FileActionsExt},
     main_win::{ExecutionTarget, MainWindow},
     options::{ConfirmOptions, GeneralOptions, NetworkOptions, ProgramsOptions, SearchConfig},
@@ -757,7 +758,7 @@ async fn view_up(main_win: MainWindow) {
 
     if file_selector.is_tab_locked(&file_list) {
         if let Some(directory) = file_list.directory().and_then(|d| d.parent()) {
-            file_selector.new_tab_with_dir(&directory, true, true);
+            file_selector.new_tab(Some(&directory), TabOptions::from(&file_list));
         }
     } else {
         file_list.goto_directory(Path::new(".."));
@@ -838,7 +839,7 @@ async fn view_home(main_win: MainWindow) {
         file_list.goto_directory(Path::new("~"));
     } else {
         let directory = Directory::new(&home, &home.create_uri(&glib::home_dir()));
-        file_selector.new_tab_with_dir(&directory, true, true);
+        file_selector.new_tab(Some(&directory), TabOptions::from(&file_list));
     }
 }
 
@@ -849,7 +850,7 @@ async fn view_root(main_win: MainWindow) {
     if file_selector.is_tab_locked(&file_list) {
         if let Some(connection) = file_list.connection() {
             let directory = Directory::new(&connection, &connection.create_uri(Path::new("/")));
-            file_selector.new_tab_with_dir(&directory, true, true);
+            file_selector.new_tab(Some(&directory), TabOptions::from(&file_list));
         }
     } else {
         file_list.goto_directory(Path::new("/"));
@@ -860,7 +861,7 @@ async fn view_new_tab(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
     if let Some(directory) = file_list.directory() {
-        file_selector.new_tab_with_dir(&directory, true, true);
+        file_selector.new_tab(Some(&directory), TabOptions::from(&file_list));
     }
 }
 
@@ -908,39 +909,39 @@ async fn view_next_tab(main_win: MainWindow) {
 
 async fn view_in_new_tab(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
-    if let Some(dir) = file_selector
-        .file_list()
+    let file_list = file_selector.file_list();
+    if let Some(dir) = file_list
         .selected_file()
         .filter(|file| file.is_directory())
         .and_then(|file| {
-            file_selector
-                .file_list()
+            file_list
                 .directory()
                 .map(|parent| parent.child(file.name()))
         })
-        .or_else(|| file_selector.file_list().directory())
+        .or_else(|| file_list.directory())
     {
-        file_selector.new_tab_with_dir(&dir, false, false);
+        file_selector.new_tab(Some(&dir), TabOptions::from(&file_list).activate(false));
     }
 }
 
 async fn view_in_inactive_tab(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
-    if let Some(dir) = file_selector
-        .file_list()
+    let file_list = file_selector.file_list();
+    if let Some(dir) = file_list
         .selected_file()
         .filter(|file| file.is_directory())
         .and_then(|file| {
-            file_selector
-                .file_list()
+            file_list
                 .directory()
                 .map(|parent| parent.child(file.name()))
         })
-        .or_else(|| file_selector.file_list().directory())
+        .or_else(|| file_list.directory())
     {
-        main_win
-            .file_selector(FileSelectorID::Inactive)
-            .new_tab_with_dir(&dir, false, false);
+        let file_selector = main_win.file_selector(FileSelectorID::Inactive);
+        file_selector.new_tab(
+            Some(&dir),
+            TabOptions::from(&file_selector.file_list()).activate(false),
+        );
     }
 }
 
@@ -1104,10 +1105,11 @@ async fn connections_new(main_win: MainWindow) {
     let uri = glib::Uri::parse(&options.quick_connect_uri.get(), glib::UriFlags::NONE).ok();
     if let Some(connection) = ConnectDialog::new_connection(&main_win, uri).await {
         let fs = main_win.file_selector(FileSelectorID::Active);
+        let mut file_list = fs.file_list();
         if fs.is_current_tab_locked() {
-            fs.new_tab();
+            file_list = fs.new_tab(None, TabOptions::from(&file_list));
         }
-        fs.file_list().set_connection(&connection, None);
+        file_list.set_connection(&connection, None);
         if let Some(quick_connect_uri) = connection.uri().map(|uri| uri.to_str())
             && let Err(error) = options.quick_connect_uri.set(quick_connect_uri)
         {

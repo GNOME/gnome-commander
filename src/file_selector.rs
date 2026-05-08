@@ -384,7 +384,7 @@ mod imp {
     impl FileSelector {
         fn open_connection(&self, con: &Connection, new_tab: bool) {
             let fl = if new_tab || self.obj().is_current_tab_locked() {
-                self.obj().new_tab()
+                self.obj().new_tab(None, TabOptions::from(&self.obj().file_list()))
             } else {
                 self.obj().file_list()
             };
@@ -589,52 +589,14 @@ impl FileSelector {
             .unwrap()
     }
 
-    pub fn new_tab(&self) -> FileList {
-        self.new_tab_full(
-            None,
-            ColumnID::Name,
-            gtk::SortType::Ascending,
-            false,
-            None,
-            true,
-            true,
-        )
-    }
-
-    pub fn new_tab_with_dir(&self, dir: &Directory, activate: bool, grab_focus: bool) -> FileList {
-        let (sort_column, order) = self.file_list().sorting();
-        self.new_tab_full(
-            Some(dir),
-            sort_column,
-            order,
-            false,
-            None,
-            activate,
-            grab_focus,
-        )
-    }
-
-    pub fn new_tab_full(
-        &self,
-        dir: Option<&Directory>,
-        sort_column: ColumnID,
-        sort_order: gtk::SortType,
-        locked: bool,
-        history: Option<(Vec<StoredHistoryEntry>, StoredHistoryEntry)>,
-        activate: bool,
-        grab_focus: bool,
-    ) -> FileList {
+    pub fn new_tab(&self, dir: Option<&Directory>, options: TabOptions) -> FileList {
         let fl = FileList::new(&self.file_metadata_service());
-        fl.set_sorting(sort_column, sort_order);
+        fl.set_sorting(options.sort_column, options.sort_direction);
 
-        if activate {
-            self.set_list(Some(&fl));
-        }
-
-        self.set_tab_locked(&fl, locked);
+        self.set_tab_locked(&fl, options.locked);
         fl.show_column(ColumnID::Dir, false);
 
-        if let Some((history_entries, (current_connection, current_uri))) = history {
+        if let Some((history_entries, (current_connection, current_uri))) = options.history {
             let connection_list = ConnectionList::get();
             let mut selected_entry = None;
             for (connection_alias, stored_uri) in history_entries.into_iter().rev() {
@@ -750,10 +712,19 @@ impl FileSelector {
 
         self.imp().update_tab_label(&fl);
 
-        if activate {
+        if let Some(selected_file) = options.selected_file {
+            fl.focus_file(&selected_file, true);
+        }
+
+        if options.activate {
+            let focused = self.root().and_then(|root| root.focus());
+            self.set_list(Some(&fl));
             self.imp().notebook.set_current_page(Some(n));
-            if grab_focus {
+            if options.grab_focus {
                 fl.grab_focus();
+            } else if let Some(focused) = focused {
+                // Changing notebook page grabs focus, restore it
+                focused.grab_focus();
             }
         }
 
@@ -789,7 +760,7 @@ impl FileSelector {
                 {
                     if self.is_tab_locked(fl) {
                         if let Some(directory) = fl.directory().and_then(|d| d.parent()) {
-                            self.new_tab_with_dir(&directory, true, true);
+                            self.new_tab(Some(&directory), TabOptions::from(fl));
                         }
                     } else {
                         fl.goto_directory(Path::new(".."));
@@ -800,7 +771,7 @@ impl FileSelector {
                     .map(|(file, connection)| Directory::new_from_file(&connection, &*file.file()))
                     .or_else(|| fl.directory())
                 {
-                    self.new_tab_with_dir(&directory, true, true);
+                    self.new_tab(Some(&directory), TabOptions::from(fl));
                 }
             }
             6 | 8 => self.back(),
@@ -888,27 +859,28 @@ impl FileSelector {
     }
 
     pub fn goto_directory(&self, con: &Connection, path: &Path) {
-        if self.file_list().connection().as_ref() == Some(con) {
+        let file_list = self.file_list();
+        if file_list.connection().as_ref() == Some(con) {
             if self.is_current_tab_locked() {
                 let dir = Directory::new(con, &con.create_uri(path));
-                self.new_tab_with_dir(&dir, true, true);
+                self.new_tab(Some(&dir), TabOptions::from(&file_list));
             } else {
-                self.file_list().goto_directory(path);
+                file_list.goto_directory(path);
             }
         } else if con.is_open() {
             let dir = Directory::new(con, &con.create_uri(path));
 
             if self.is_current_tab_locked() {
-                self.new_tab_with_dir(&dir, true, true);
+                self.new_tab(Some(&dir), TabOptions::from(&file_list));
             } else {
-                self.file_list().set_connection(con, Some(&dir));
+                file_list.set_connection(con, Some(&dir));
             }
         } else {
             con.set_base_path(Some(path.to_path_buf()));
             if self.is_current_tab_locked() {
-                self.new_tab_with_dir(&con.default_dir().unwrap(), true, true);
+                self.new_tab(con.default_dir().as_ref(), TabOptions::from(&file_list));
             } else {
-                self.file_list().set_connection(con, None);
+                file_list.set_connection(con, None);
             }
         }
     }
@@ -924,8 +896,10 @@ impl FileSelector {
         let connection = connection.unwrap_or_else(|| ConnectionList::get().home().upcast());
         let dir = Directory::new_from_file(&connection, &parent_file);
         if self.is_current_tab_locked() {
-            self.new_tab_with_dir(&dir, true, true);
-            self.file_list().focus_file(&file.path_name(), true);
+            self.new_tab(
+                Some(&dir),
+                TabOptions::from(&self.file_list()).selected_file(file.path_name()),
+            );
         } else if let Some(file_list) = self.current_file_list() {
             if connection.is::<ConnectionRemote>() {
                 file_list.set_connection(&connection, Some(&dir));
@@ -996,9 +970,11 @@ impl FileSelector {
 
     fn on_navigate(&self, path: &str, new_tab: bool) {
         if new_tab || self.is_current_tab_locked() {
-            if let Some(connection) = self.current_file_list().and_then(|fl| fl.connection()) {
+            if let Some(file_list) = self.current_file_list()
+                && let Some(connection) = file_list.connection()
+            {
                 let dir = Directory::new(&connection, &connection.create_uri(Path::new(path)));
-                self.new_tab_with_dir(&dir, true, true);
+                self.new_tab(Some(&dir), TabOptions::from(&file_list));
             }
         } else {
             self.file_list().goto_directory(Path::new(path));
@@ -1007,26 +983,30 @@ impl FileSelector {
     }
 
     fn goto(&self, connection: &Connection, path: &Path) {
-        if self.file_list().connection().as_ref() == Some(connection) {
+        let file_list = self.file_list();
+        if file_list.connection().as_ref() == Some(connection) {
             let dir = Directory::new(connection, &connection.create_uri(path));
             if self.is_current_tab_locked() {
-                self.new_tab_with_dir(&dir, true, true);
+                self.new_tab(Some(&dir), TabOptions::from(&file_list));
             } else {
-                self.file_list().set_directory(&dir);
+                file_list.set_directory(&dir);
             }
         } else if connection.is_open() {
             let dir = Directory::new(connection, &connection.create_uri(path));
             if self.is_current_tab_locked() {
-                self.new_tab_with_dir(&dir, true, true);
+                self.new_tab(Some(&dir), TabOptions::from(&file_list));
             } else {
-                self.file_list().set_connection(connection, Some(&dir));
+                file_list.set_connection(connection, Some(&dir));
             }
         } else {
             connection.set_base_path(Some(PathBuf::from(path)));
             if self.is_current_tab_locked() {
-                self.new_tab_with_dir(&connection.default_dir().unwrap(), true, true);
+                self.new_tab(
+                    connection.default_dir().as_ref(),
+                    TabOptions::from(&file_list),
+                );
             } else {
-                self.file_list().set_connection(connection, None);
+                file_list.set_connection(connection, None);
             }
         }
     }
@@ -1141,19 +1121,7 @@ impl FileSelector {
 
         for tab in tabs {
             let directory = restore_directory(connection_list, tab.current_location());
-            let state = tab.state();
-            let file_list = self.new_tab_full(
-                Some(&directory),
-                tab.sort_column(),
-                tab.sort_direction(),
-                tab.locked(),
-                Some((tab.history(), tab.current_location())),
-                state != TabState::Background,
-                state == TabState::Active,
-            );
-            if let Some(path) = tab.selected_file() {
-                file_list.focus_file(&path, true);
-            }
+            self.new_tab(Some(&directory), tab.tab_options());
         }
 
         if self.tab_count() == 0 {
@@ -1161,15 +1129,7 @@ impl FileSelector {
             let con = connection_list.home();
             let path = glib::home_dir();
             let directory = Directory::new(&con, &con.create_uri(&path));
-            self.new_tab_full(
-                Some(&directory),
-                ColumnID::Name,
-                gtk::SortType::Ascending,
-                false,
-                None,
-                true,
-                false,
-            );
+            self.new_tab(Some(&directory), TabOptions::new().grab_focus(false));
         }
     }
 
@@ -1384,10 +1344,10 @@ impl FileSelector {
                     }
                 } else if file.is_dotdot() {
                     if let Some(parent) = fl.directory().and_then(|d| d.parent()) {
-                        self.new_tab_with_dir(&parent, true, true);
+                        self.new_tab(Some(&parent), TabOptions::from(fl));
                     }
                 } else if let Some(dir) = fl.directory() {
-                    self.new_tab_with_dir(&dir.child(file.path_name()), true, true);
+                    self.new_tab(Some(&dir.child(file.path_name())), TabOptions::from(fl));
                 }
             }
             gio::FileType::Regular => {
@@ -1425,6 +1385,76 @@ u32_enum! {
         Background,
         Selected,
         Active,
+    }
+}
+
+pub struct TabOptions {
+    pub sort_column: ColumnID,
+    pub sort_direction: gtk::SortType,
+    pub locked: bool,
+    pub history: Option<(Vec<StoredHistoryEntry>, StoredHistoryEntry)>,
+    pub activate: bool,
+    pub grab_focus: bool,
+    pub selected_file: Option<PathBuf>,
+}
+
+impl TabOptions {
+    pub fn new() -> Self {
+        Self {
+            sort_column: ColumnID::Name,
+            sort_direction: gtk::SortType::Ascending,
+            locked: false,
+            history: None,
+            activate: true,
+            grab_focus: true,
+            selected_file: None,
+        }
+    }
+
+    pub fn from(file_list: &FileList) -> Self {
+        let (sort_column, sort_direction) = file_list.sorting();
+        Self::new()
+            .sort_column(sort_column)
+            .sort_direction(sort_direction)
+    }
+
+    pub fn sort_column(mut self, sort_column: ColumnID) -> Self {
+        self.sort_column = sort_column;
+        self
+    }
+
+    pub fn sort_direction(mut self, sort_direction: gtk::SortType) -> Self {
+        self.sort_direction = sort_direction;
+        self
+    }
+
+    pub fn locked(mut self, locked: bool) -> Self {
+        self.locked = locked;
+        self
+    }
+
+    pub fn history(
+        mut self,
+        entries: Vec<StoredHistoryEntry>,
+        current: StoredHistoryEntry,
+    ) -> Self {
+        self.history = Some((entries, current));
+        self
+    }
+
+    pub fn activate(mut self, activate: bool) -> Self {
+        self.activate = activate;
+        self
+    }
+
+    pub fn grab_focus(mut self, grab_focus: bool) -> Self {
+        self.grab_focus = grab_focus;
+        self
+    }
+
+    pub fn selected_file(mut self, selected_file: PathBuf) -> Self {
+        self.selected_file = Some(selected_file);
+        self
     }
 }
 
@@ -1468,6 +1498,21 @@ impl TabVariant {
             (connection, uri).into(),
         );
         Self(inner)
+    }
+
+    pub fn tab_options(&self) -> TabOptions {
+        let options = TabOptions::new()
+            .sort_column(self.sort_column())
+            .sort_direction(self.sort_direction())
+            .locked(self.locked())
+            .history(self.history(), self.current_location())
+            .activate(self.state() != TabState::Background)
+            .grab_focus(self.state() == TabState::Active);
+        if let Some(selected_file) = self.selected_file() {
+            options.selected_file(selected_file)
+        } else {
+            options
+        }
     }
 
     pub fn current_location(&self) -> StoredHistoryEntry {
@@ -1730,8 +1775,9 @@ async fn on_notebook_button_pressed(
         }
         (2, 1, TabClick::Area) => {
             // double-click on a tabs area
-            if let Some(dir) = file_selector.file_list().directory() {
-                file_selector.new_tab_with_dir(&dir, true, true);
+            let file_list = file_selector.file_list();
+            if let Some(dir) = file_list.directory() {
+                file_selector.new_tab(Some(&dir), TabOptions::from(&file_list));
             }
         }
         _ => {}
