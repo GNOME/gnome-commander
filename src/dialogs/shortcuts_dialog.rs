@@ -143,7 +143,7 @@ mod imp {
             vbox.append(&self.search_field);
 
             let modified_only = gtk::CheckButton::builder()
-                .label("Show only _modified shortcuts")
+                .label(gettext("Show only _modified shortcuts"))
                 .use_underline(true)
                 .build();
             modified_only.connect_toggled(glib::clone!(
