@@ -5,8 +5,10 @@
 
 use super::action_entry::ActionEntryInput;
 use crate::{
-    components::{Component, ComponentSender, forward_output, with},
+    components::{Component, ComponentSender},
+    forward_output,
     shortcuts::Shortcut,
+    with,
 };
 use gettextrs::gettext;
 use gtk::prelude::*;

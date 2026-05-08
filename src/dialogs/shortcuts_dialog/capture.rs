@@ -4,10 +4,12 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use crate::{
-    components::{Component, ComponentSender, forward_output, with},
+    components::{Component, ComponentSender},
+    forward_output,
     shortcuts::Shortcut,
     user_actions::UserAction,
     utils::{NO_MOD, WindowExt},
+    with,
 };
 use gettextrs::gettext;
 use gtk::{gdk, glib, prelude::*};

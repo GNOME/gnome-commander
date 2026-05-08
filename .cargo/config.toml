@@ -1,2 +1,3 @@
 [build]
 rustflags = ["-L", "builddir/libgcmd"]
+rustdocflags = ["-L", "builddir/libgcmd"]
