@@ -12,7 +12,7 @@ use crate::{
     },
     dir::Directory,
     file::{File, FileOps},
-    file_list::list::{ColumnID, FileList},
+    file_list::list::{ColumnID, ColumnOptions, FileList},
     main_win::ExecutionTarget,
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
     open_file::mime_exec_single,
@@ -384,7 +384,8 @@ mod imp {
     impl FileSelector {
         fn open_connection(&self, con: &Connection, new_tab: bool) {
             let fl = if new_tab || self.obj().is_current_tab_locked() {
-                self.obj().new_tab(None, TabOptions::from(&self.obj().file_list()))
+                self.obj()
+                    .new_tab(None, TabOptions::from(&self.obj().file_list()))
             } else {
                 self.obj().file_list()
             };
@@ -592,6 +593,7 @@ impl FileSelector {
     pub fn new_tab(&self, dir: Option<&Directory>, options: TabOptions) -> FileList {
         let fl = FileList::new(&self.file_metadata_service());
         fl.set_sorting(options.sort_column, options.sort_direction);
+        fl.set_column_options(&options.column_options);
 
         self.set_tab_locked(&fl, options.locked);
         fl.show_column(ColumnID::Dir, false);
@@ -1099,6 +1101,7 @@ impl FileSelector {
                 if let Some(file) = file_list.selected_file() {
                     variant.set_selected_file(&file.path_name());
                 }
+                variant.set_column_options(file_list.column_options());
                 if save_history {
                     variant.set_history(
                         file_list
@@ -1396,6 +1399,7 @@ pub struct TabOptions {
     pub activate: bool,
     pub grab_focus: bool,
     pub selected_file: Option<PathBuf>,
+    pub column_options: Vec<ColumnOptions>,
 }
 
 impl TabOptions {
@@ -1408,6 +1412,7 @@ impl TabOptions {
             activate: true,
             grab_focus: true,
             selected_file: None,
+            column_options: Vec::new(),
         }
     }
 
@@ -1416,6 +1421,7 @@ impl TabOptions {
         Self::new()
             .sort_column(sort_column)
             .sort_direction(sort_direction)
+            .column_options(file_list.column_options())
     }
 
     pub fn sort_column(mut self, sort_column: ColumnID) -> Self {
@@ -1456,6 +1462,11 @@ impl TabOptions {
         self.selected_file = Some(selected_file);
         self
     }
+
+    pub fn column_options(mut self, column_options: Vec<ColumnOptions>) -> Self {
+        self.column_options = column_options;
+        self
+    }
 }
 
 pub struct TabVariant(BTreeMap<String, glib::Variant>);
@@ -1487,6 +1498,7 @@ impl TabVariant {
     const SETTING_HISTORY: &str = "history";
     const SETTING_STATE: &str = "state";
     const SETTING_SELECTED_FILE: &str = "selected-file";
+    const SETTING_COLUMN_OPTIONS: &str = "column-options";
 
     const SORT_DIRECTION_ASCENDING: &str = "asc";
     const SORT_DIRECTION_DESCENDING: &str = "desc";
@@ -1507,7 +1519,8 @@ impl TabVariant {
             .locked(self.locked())
             .history(self.history(), self.current_location())
             .activate(self.state() != TabState::Background)
-            .grab_focus(self.state() == TabState::Active);
+            .grab_focus(self.state() == TabState::Active)
+            .column_options(self.column_options());
         if let Some(selected_file) = self.selected_file() {
             options.selected_file(selected_file)
         } else {
@@ -1518,7 +1531,7 @@ impl TabVariant {
     pub fn current_location(&self) -> StoredHistoryEntry {
         self.0
             .get(Self::SETTING_CURRENT_LOCATION)
-            .and_then(<StoredHistoryEntry>::from_variant)
+            .and_then(StoredHistoryEntry::from_variant)
             .unwrap_or_default()
     }
 
@@ -1621,6 +1634,20 @@ impl TabVariant {
             self.0
                 .insert(Self::SETTING_SELECTED_FILE.to_string(), path.into());
         }
+    }
+
+    pub fn column_options(&self) -> Vec<ColumnOptions> {
+        self.0
+            .get(Self::SETTING_COLUMN_OPTIONS)
+            .and_then(Vec::<ColumnOptions>::from_variant)
+            .unwrap_or_default()
+    }
+
+    pub fn set_column_options(&mut self, options: Vec<ColumnOptions>) {
+        self.0.insert(
+            Self::SETTING_COLUMN_OPTIONS.to_string(),
+            options.to_variant(),
+        );
     }
 }
 

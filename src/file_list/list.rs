@@ -33,7 +33,7 @@ use crate::{
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
 use std::{
-    collections::HashSet,
+    collections::{BTreeMap, HashSet},
     ffi::OsStr,
     path::{Path, PathBuf},
 };
@@ -168,7 +168,6 @@ mod imp {
         pub selection: gtk::SingleSelection,
         #[property(get)]
         pub view: gtk::ColumnView,
-        pub columns: RefCell<Vec<gtk::ColumnViewColumn>>,
         pub row_selector: Rc<ListRowSelector>,
 
         pub cells_map: BTreeMap<ColumnID, CellsMap>,
@@ -296,7 +295,6 @@ mod imp {
 
                 selection,
                 view,
-                columns: Default::default(),
                 row_selector,
 
                 cells_map: ColumnID::all().map(|c| (c, Default::default())).collect(),
@@ -382,6 +380,8 @@ mod imp {
             capture_event_box.append(&scrolled_window);
             capture_event_box.set_parent(&*fl);
 
+            let action_group = gio::SimpleActionGroup::new();
+            let general_options = GeneralOptions::new();
             for (column_id, title, factory, sorter) in [
                 (ColumnID::Icon, "", create_icon_factory(), None),
                 (
@@ -434,15 +434,55 @@ mod imp {
                 ),
             ] {
                 let column = gtk::ColumnViewColumn::builder()
+                    .id(column_id.name())
                     .title(title)
                     .factory(&factory)
                     .resizable(true)
                     .expand(column_id != ColumnID::Icon)
                     .build();
                 column.set_sorter(sorter.as_ref());
+
+                // Apply legacy width option, new column options will overwrite it later if present
+                if let Some(width) = general_options
+                    .list_column_width
+                    .iter()
+                    .find(|(name, _)| *name == column_id.name())
+                    .and_then(|(_, option)| option.get().try_into().ok())
+                {
+                    column.set_fixed_width(width);
+                }
+
+                // Create action to toggle column visibility
+                let action = gio::SimpleAction::new_stateful(
+                    &format!("toggle-column-{}", column_id.name()),
+                    None,
+                    &column.is_visible().to_variant(),
+                );
+                if column_id == ColumnID::Name {
+                    action.set_enabled(false);
+                } else {
+                    action.connect_change_state(glib::clone!(
+                        #[weak]
+                        column,
+                        move |_, state| {
+                            if let Some(visible) = state.and_then(bool::from_variant) {
+                                column.set_visible(visible);
+                            };
+                        }
+                    ));
+                }
+                column.connect_visible_notify(glib::clone!(
+                    #[weak]
+                    action,
+                    move |column| {
+                        action.set_state(&column.is_visible().to_variant());
+                    }
+                ));
+                action_group.add_action(&action);
+
                 self.view.append_column(&column);
-                self.columns.borrow_mut().push(column);
             }
+            fl.insert_action_group("fl", Some(&action_group));
 
             let sorter = gtk::MultiSorter::new();
             sorter.append(FileTypeSorter::default());
@@ -561,7 +601,6 @@ mod imp {
             ));
             fl.add_controller(drop_target);
 
-            let general_options = GeneralOptions::new();
             general_options.list_font.bind(&*fl, "font-name").build();
             general_options
                 .list_row_height
@@ -614,16 +653,6 @@ mod imp {
 
             let confirm_options = ConfirmOptions::new();
             confirm_options.dnd_mode.bind_enum(&*fl, "dnd-mode");
-
-            for (column, key) in fl
-                .view()
-                .columns()
-                .iter::<gtk::ColumnViewColumn>()
-                .flatten()
-                .zip(&general_options.list_column_width)
-            {
-                key.bind(&column, "fixed-width").build();
-            }
 
             let color_options = ColorOptions::new();
             color_options
@@ -2024,13 +2053,9 @@ impl FileList {
             .as_ref()
             .and_then(|sorter| sorter.primary_sort_column());
 
-        let col = self
-            .imp()
-            .columns
-            .borrow()
-            .iter()
-            .position(|c| sort_column.as_ref() == Some(c))
-            .and_then(|pos| u32::try_from(pos).ok().map(ColumnID::from))
+        let col = sort_column
+            .and_then(|column| column.id())
+            .and_then(|name| ColumnID::from_name(&name))
             .unwrap_or_default();
         let direction = cv_sorter
             .map(|sorter| sorter.primary_sort_order())
@@ -2038,16 +2063,96 @@ impl FileList {
         (col, direction)
     }
 
-    pub fn set_sorting(&self, column: ColumnID, order: gtk::SortType) {
-        if let Some(column) = self.imp().columns.borrow().get(column as usize) {
-            self.view().sort_by_column(None, order);
-            self.view().sort_by_column(Some(column), order);
+    pub fn set_sorting(&self, column_id: ColumnID, order: gtk::SortType) {
+        for column in self
+            .view()
+            .columns()
+            .iter::<gtk::ColumnViewColumn>()
+            .flatten()
+        {
+            if column.id().is_some_and(|name| name == column_id.name()) {
+                self.view().sort_by_column(None, order);
+                self.view().sort_by_column(Some(&column), order);
+                break;
+            }
         }
     }
 
-    pub fn show_column(&self, col: ColumnID, value: bool) {
-        if let Some(column) = self.imp().columns.borrow().get(col as usize) {
-            column.set_visible(value);
+    pub fn column_options(&self) -> Vec<ColumnOptions> {
+        self.view()
+            .columns()
+            .iter::<gtk::ColumnViewColumn>()
+            .flatten()
+            .filter_map(|column| {
+                let column_id = ColumnID::from_name(&column.id()?)?;
+                if column_id == ColumnID::Dir {
+                    return None;
+                }
+                let mut options = ColumnOptions::new(column_id);
+                options.set_width(column.fixed_width());
+                options.set_visible(column.is_visible());
+                Some(options)
+            })
+            .collect()
+    }
+
+    pub fn set_column_options(&self, column_options: &[ColumnOptions]) {
+        let mut position = 0;
+        for options in column_options {
+            let Some(column_id) = options.column() else {
+                continue;
+            };
+            if column_id == ColumnID::Dir {
+                continue;
+            }
+            let Some(current_position) = self
+                .view()
+                .columns()
+                .iter::<gtk::ColumnViewColumn>()
+                .flatten()
+                .position(|column| column.id().is_some_and(|name| name == column_id.name()))
+                .and_then(|pos| u32::try_from(pos).ok())
+            else {
+                continue;
+            };
+            let Some(column) = self
+                .view()
+                .columns()
+                .item(current_position)
+                .and_downcast::<gtk::ColumnViewColumn>()
+            else {
+                continue;
+            };
+
+            let width = options.width();
+            if width > 0 {
+                column.set_fixed_width(width);
+            }
+
+            if column_id != ColumnID::Name {
+                column.set_visible(options.visible());
+            }
+
+            if current_position != position
+                && let Some(store) = self.view().columns().downcast_ref::<gio::ListStore>()
+            {
+                store.remove(current_position);
+                store.insert(position, &column);
+            }
+            position += 1;
+        }
+    }
+
+    pub fn show_column(&self, column_id: ColumnID, value: bool) {
+        for column in self
+            .view()
+            .columns()
+            .iter::<gtk::ColumnViewColumn>()
+            .flatten()
+        {
+            if column.id().is_some_and(|name| name == column_id.name()) {
+                column.set_visible(value);
+            }
         }
     }
 
@@ -2791,6 +2896,72 @@ impl FileList {
                 self.add_to_cmdline(file.name());
             }
         }
+    }
+}
+
+#[derive(Debug)]
+pub struct ColumnOptions(BTreeMap<String, glib::Variant>);
+
+impl ToVariant for ColumnOptions {
+    fn to_variant(&self) -> glib::Variant {
+        self.0.to_variant()
+    }
+}
+
+impl FromVariant for ColumnOptions {
+    fn from_variant(variant: &glib::Variant) -> Option<Self> {
+        BTreeMap::from_variant(variant).map(Self)
+    }
+}
+
+impl StaticVariantType for ColumnOptions {
+    fn static_variant_type() -> std::borrow::Cow<'static, glib::VariantTy> {
+        BTreeMap::<String, glib::Variant>::static_variant_type()
+    }
+}
+
+impl ColumnOptions {
+    const SETTING_NAME: &str = "name";
+    const SETTING_WIDTH: &str = "width";
+    const SETTING_VISIBLE: &str = "visible";
+
+    pub fn new(column: ColumnID) -> Self {
+        let mut inner = BTreeMap::new();
+        inner.insert(
+            Self::SETTING_NAME.to_string(),
+            column.name().to_owned().into(),
+        );
+        Self(inner)
+    }
+
+    pub fn column(&self) -> Option<ColumnID> {
+        self.0
+            .get(Self::SETTING_NAME)
+            .and_then(String::from_variant)
+            .and_then(|name| ColumnID::from_name(&name))
+    }
+
+    pub fn width(&self) -> i32 {
+        self.0
+            .get(Self::SETTING_WIDTH)
+            .and_then(i32::from_variant)
+            .unwrap_or(-1)
+    }
+
+    pub fn set_width(&mut self, width: i32) {
+        self.0.insert(Self::SETTING_WIDTH.to_string(), width.into());
+    }
+
+    pub fn visible(&self) -> bool {
+        self.0
+            .get(Self::SETTING_VISIBLE)
+            .and_then(bool::from_variant)
+            .unwrap_or(true)
+    }
+
+    pub fn set_visible(&mut self, visible: bool) {
+        self.0
+            .insert(Self::SETTING_VISIBLE.to_string(), visible.into());
     }
 }
 

@@ -1016,7 +1016,10 @@ impl MainWindow {
         };
 
         if dst.is_current_tab_locked() {
-            dst.new_tab(Some(&dir), TabOptions::from(&dst.file_list()).grab_focus(false));
+            dst.new_tab(
+                Some(&dir),
+                TabOptions::from(&dst.file_list()).grab_focus(false),
+            );
         } else {
             dst.file_list()
                 .set_connection(&dir.connection(), Some(&dir));
