@@ -8910,3 +8910,167 @@ msgstr[3] "{} бајт"
 #: src/utils.rs:641
 msgid "Closing of a file enumerator failed"
 msgstr "Затварање набрајача датотека није успело"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "Гномов наредник"
+
+#~ msgid ""
+#~ "Defines if the current directories are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Одређује да ли се текући директоријуми отварају и при поновном покретању "
+#~ "Гномовог наредника."
+
+#~ msgid ""
+#~ "Defines if the current open tabs are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Одређује да ли се тренутно отворени језичци отварају и при поновном "
+#~ "покретању Гномовог наредника."
+
+#~ msgid "Fixed font name"
+#~ msgstr "Назив непроменљивих слова"
+
+#~ msgid "Name of the default font with fixed character width."
+#~ msgstr "Назив основних слова са сталном ширином знакова."
+
+#~ msgid "Variable font name"
+#~ msgstr "Назив променљивих слова"
+
+#~ msgid "Name of the default font with variable character width."
+#~ msgstr "Назив основних слова са променљивом ширином знакова."
+
+#~ msgid "Font size"
+#~ msgstr "Величина слова"
+
+#~ msgid "This option defines the default font size."
+#~ msgstr "Ова могућност одређује основну величину слова."
+
+#~ msgid ""
+#~ "GNOME Commander is a “dual-panel” graphical file manager for the GNOME "
+#~ "desktop environment. It features separate tabs for each panel, setting up "
+#~ "custom device buttons, bookmark manager, fully integrated commandline, file "
+#~ "quick search, an internal image viewer, a powerful batch renaming tool, and "
+#~ "FTP and Samba access."
+#~ msgstr ""
+#~ "Гномов наредник је „дво-окни“ (two-panel) графички управник датотека за "
+#~ "Гномово радно окружење. Одликују га одвојени језичци за свако окно, "
+#~ "подешавање произвољних дугмади уређаја, управник обележивачима, потпуно "
+#~ "обједињена конзола наредби, брза претрага датотека, унутрашњи прегледач "
+#~ "слика, моћан алат за групно преименовање, као и приступ ФТП-у и Самби."
+
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+#~ "Гномов наредник је намењен напредним корисницима који воле да се усредсреде "
+#~ "на прецизном управљању датотекама, радећи упоредно кроз посебне програме, и "
+#~ "покрећући паметне наредбе."
+
+#~ msgid "Connection method is not selected"
+#~ msgstr "Метода повезивања није изабрана"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "Потврди подразумевано на У реду"
+
+#, rust-format
+#~ msgid "Selected {selected_bytes} of {total_bytes}."
+#~ msgstr "Изабрано је {selected_bytes} од {total_bytes}."
+
+#~ msgid "Sea_rch"
+#~ msgstr "П_ретрага"
+
+#~ msgid "Find"
+#~ msgstr "Нађи"
+
+#~ msgid "Searching…"
+#~ msgstr "Претражујем…"
+
+#, rust-format
+#~ msgid "Searching for “{}”"
+#~ msgstr "Тражим „{}“"
+
+#~ msgid "_Copy selection"
+#~ msgstr "_Умножи избор"
+
+#, rust-format
+#~ msgid "Pattern “{}” was not found"
+#~ msgstr "Образац „{}“ није пронађен"
+
+#~ msgid "_Binary"
+#~ msgstr "_Бинарно"
+
+#~ msgid "Rotate Clockwise"
+#~ msgstr "Окрени на десно"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "_Бинарни режим"
+
+#~ msgid "GNOME Commander — ROOT PRIVILEGES"
+#~ msgstr "Гномов наредник — ОВЛАШЋЕЊА АДМИНИСТРАТОРА"
+
+#~ msgid "GNOME Commander Window"
+#~ msgstr "Прозор Гномовог наредника"
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "Брз и моћан управник датотекама за Гномово радно окружење"
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "Гномов наредник на _вебу"
+
+#~ msgid "Quick search exact match begin"
+#~ msgstr "Брза претрага тачно поклапа почетак"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the beginning"
+#~ " of an item name."
+#~ msgstr ""
+#~ "Ова могућност одређује да чи брза претрага треба изричито да одговара на "
+#~ "почетку назива ставке."
+
+#~ msgid "Quick search exact match end"
+#~ msgstr "Брза претрага тачно поклапа крај"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the end of an"
+#~ " item name."
+#~ msgstr ""
+#~ "Ова могућност одређује да чи брза претрага треба изричито да одговара на "
+#~ "крају назива ставке."
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "Поклапа почетак назива датотеке"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "Поклапа крај назива датотеке"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Пресними датотеке"
+
+#, rust-format
+#~ msgid "A total of {selected_bytes} has been selected."
+#~ msgstr "Укупно је изабрано {selected_bytes}."
+
+#, rust-format
+#~ msgid "{selected_dirs} directory selected."
+#~ msgid_plural "{selected_dirs} directories selected."
+#~ msgstr[0] "{selected_dirs} изабран директоријум."
+#~ msgstr[1] "{selected_dirs} изабрана директоријума."
+#~ msgstr[2] "{selected_dirs} изабраних директоријума."
+#~ msgstr[3] "{selected_dirs} изабран директоријум."
+
+#~ msgid "Filter:"
+#~ msgstr "Пропусник:"
+
+#~ msgid "_Enable Filter…"
+#~ msgstr "_Укључи филтер…"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "Разликуј _величину слова"
+
+#~ msgid "Path matches regex:"
+#~ msgstr "Путања одговара регуларном изразу:"
+
+#~ msgid "Name contains:"
+#~ msgstr "Назив садржи:"

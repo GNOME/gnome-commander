@@ -5102,3 +5102,1795 @@ msgstr "없음"
 #: plugins/taglib/taglib-plugin.cc:421
 msgid "10-15ms"
 msgstr "10-15ms"
+
+#~ msgid "A two paned file manager"
+#~ msgstr "이중 창 파일 매니저"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME 커맨더"
+
+#~ msgid "No error description available"
+#~ msgstr "에러 설명을 구할 수 없습니다"
+
+#~ msgid "CVS options"
+#~ msgstr "CVS 옵션"
+
+#~ msgid "Compression level"
+#~ msgstr "압축 레벨"
+
+#~ msgid "Unified diff format"
+#~ msgstr "통합된 diff 포맷"
+
+#~ msgid "A plugin that eventually will be a simple CVS client"
+#~ msgstr "결국은 간단한 CVS 클라이언트가 될 플러그인"
+
+#~ msgid "Compare with"
+#~ msgstr "비교 대상"
+
+#~ msgid "HEAD"
+#~ msgstr "헤드"
+
+#~ msgid "The previous revision"
+#~ msgstr "기존 개정판"
+
+#~ msgid "Other revision"
+#~ msgstr "기타 개정판"
+
+#~ msgid "CVS Diff"
+#~ msgstr "CVS Diff"
+
+#~ msgid "revision"
+#~ msgstr "개정판"
+
+#~ msgid "Revision:"
+#~ msgstr "개정판:"
+
+#~ msgid "Compare..."
+#~ msgstr "비교..."
+
+#~ msgid "Author:"
+#~ msgstr "제작자:"
+
+#~ msgid "Date:"
+#~ msgstr "날짜:"
+
+#~ msgid "State:"
+#~ msgstr "상태:"
+
+#~ msgid "Lines:"
+#~ msgstr "줄:"
+
+#~ msgid "Message:"
+#~ msgstr "메시지:"
+
+#~ msgid "Create Archive..."
+#~ msgstr "압축 파일 생성..."
+
+#, c-format
+#~ msgid "Extract to '%s'"
+#~ msgstr "'%s'에 풀기"
+
+#~ msgid "Default type"
+#~ msgstr "디폴트 타입"
+
+#~ msgid "/_Save Profile As..."
+#~ msgstr "/다른 이름으로 프로필 저장(_S)..."
+
+#~ msgid "/_Manage Profiles..."
+#~ msgstr "/프로필 관리(_M)..."
+
+#~ msgid "Current file name"
+#~ msgstr "현 파일 명"
+
+#~ msgid "New file name"
+#~ msgstr "새 파일 명"
+
+#~ msgid "File size"
+#~ msgstr "파일 크기"
+
+#~ msgid "File modification date"
+#~ msgstr "파일 변경 날짜"
+
+#~ msgid "Profiles..."
+#~ msgstr "프로필..."
+
+#~ msgid "_Replace with:"
+#~ msgstr "대체할 문자열(_R)"
+
+#~ msgid ""
+#~ "Some regular expressions functionality is disabled. To enable it's necessary"
+#~ " to build GNOME Commander with GLib ≥ 2.14. Please contact your package "
+#~ "maintainer about that."
+#~ msgstr ""
+#~ "몇 가지 정규식 기능은 비 활성화되어 있습니다. 이것을 활성화하려면 GLib 2.14 이상의 버전으로 GNOME 커맨더를 컴파일할 필요가"
+#~ " 있습니다. 이것에 관한 내용은 여러분의 패키지 관리자를 접촉하기 바랍니다."
+
+#~ msgid "Bookmark name is missing"
+#~ msgstr "책갈피 명이 없습니다"
+
+#~ msgid "Bookmark target is missing"
+#~ msgstr "책갈피 대상이 없습니다"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the corresponding row and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr "단축키를 편집하려면 해당되는 열을 클릭하고 새 액셀러레이터를 입력하거나 escape 키를 눌러 취소하십시오."
+
+#~ msgid "Shortcut Key"
+#~ msgstr "단축키 키"
+
+#~ msgid "Keyboard shortcut for selected action"
+#~ msgstr "선택된 행위를 위한 키보드 단축키"
+
+#~ msgid "Action"
+#~ msgstr "행위"
+
+#~ msgid "User action"
+#~ msgstr "사용자 행위"
+
+#~ msgid "Optional data"
+#~ msgstr "옵션 데이터"
+
+#, c-format
+#~ msgid "Shortcut \"%s\" is already taken by \"%s\"."
+#~ msgstr "단축키 \"%s\"는 \"%s\"에 의해 이미 이용되고 있습니다."
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "충돌하는 단축키"
+
+#, c-format
+#~ msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
+#~ msgstr "단축키를 재 할당하면 이것이 \"%s\"에서 제거될 것입니다."
+
+#~ msgid "Invalid shortcut."
+#~ msgstr "무효한 단축키"
+
+#~ msgid "Do nothing"
+#~ msgstr "아무 것도 안함"
+
+#~| msgid "Group:"
+#~ msgid "Group"
+#~ msgstr "그룹"
+
+#~| msgid "Bookmark Groups"
+#~ msgid "Bookmark Groups"
+#~ msgstr "책갈피 그룹"
+
+#~| msgid "Bookmark name:"
+#~ msgid "Bookmark name"
+#~ msgstr "책갈피 명"
+
+#~| msgid "Keyboard shortcut for selected action"
+#~ msgid "Keyboard shortcut for selected bookmark"
+#~ msgstr "선택된 책갈피를 위한 키보드 단축키"
+
+#~| msgid "Bookmark target:"
+#~ msgid "Bookmarked path"
+#~ msgstr "책갈피 경로"
+
+#~ msgid "/Local path..."
+#~ msgstr "/로컬 경로..."
+
+#~ msgid "/Remote location..."
+#~ msgstr "/원격 위치..."
+
+#~ msgid "_Import"
+#~ msgstr "임포트(_I)"
+
+#~ msgid "Profile name"
+#~ msgstr "프로필 명"
+
+#, c-format
+#~| msgid "%d file listed"
+#~ msgid "%d file listed"
+#~ msgid_plural "%d files listed"
+#~ msgstr[0] "%d개의 파일이 리스트 되었습니다"
+#~ msgstr[1] "%d개의 파일이 리스트 되었습니다"
+
+#~ msgid "Accelerator key"
+#~ msgstr "액셀러레이터 키"
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr "액셀러레이터 수정자"
+
+#~ msgid "Accelerator Mode"
+#~ msgstr "액셀러레이터 모드"
+
+#~ msgid "The type of accelerator."
+#~ msgstr "액셀러레이터 타입"
+
+#~ msgid "Disabled"
+#~ msgstr "무효화"
+
+#~ msgid "New accelerator..."
+#~ msgstr "새 엑셀러레이터..."
+
+#~ msgid "Credits"
+#~ msgstr "공로자"
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "플러그인 웹 페이지"
+
+#~ msgid "C_redits"
+#~ msgstr "공로자(_r)"
+
+#, c-format
+#~| msgid ""
+#~| "Could not chown %s\n"
+#~| "%s"
+#~ msgid "Could not chown %s"
+#~ msgstr "%s를 chown 할 수 없습니다"
+
+#~ msgid "Chown"
+#~ msgstr "Chown"
+
+#~ msgid "<New connection>"
+#~ msgstr "<새 연결>"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "%s로 가기"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "연결: %s"
+
+#, c-format
+#~ msgid "Disconnect from: %s"
+#~ msgstr "연결 해제: %s"
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "%s에 연결 중\n"
+
+#~ msgid "Mount failed: Permission denied"
+#~ msgstr "마운트 실패: 권한이 없습니다"
+
+#~ msgid "Mount failed: No medium found"
+#~ msgstr "마운트 실패: 미디어를 발견할 수 없습니다"
+
+#, c-format
+#~ msgid "Mount failed: mount exited with existatus %d"
+#~ msgstr "마운트 실패: 종료 상태 %d로 마운트가 종료되었습니다"
+
+#~ msgid "Device is now safe to remove"
+#~ msgstr "장치가 지금 안전하게 제거되었습니다"
+
+#, c-format
+#~ msgid ""
+#~ "Cannot unmount the volume:\n"
+#~ "%s %s"
+#~ msgstr ""
+#~ "볼륨을 마운트 해제할 수 없습니다:\n"
+#~ "%s %s"
+
+#~ msgid "Unknown error"
+#~ msgstr "불 특정 에러"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "%s (%s)로 이동"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr "마운트: %s"
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr "마운트 해제: %s"
+
+#, c-format
+#~ msgid "\"%s\" is not a valid location"
+#~ msgstr "\"%s\"는 유효한 위치가 아닙니다"
+
+#~ msgid "Please check the spelling and try again."
+#~ msgstr "철자를 확인하고 다시 시도하십시오."
+
+#~ msgid "S_hare:"
+#~ msgstr "공유(_h):"
+
+#~ msgid "_Remote dir:"
+#~ msgstr "원격 디렉토리(_R):"
+
+#~ msgid "_User name:"
+#~ msgstr "사용자 명(_U):"
+
+#~ msgid "_Password:"
+#~ msgstr "비번(_P):"
+
+#~ msgid "Remote Server"
+#~ msgstr "원격 서버"
+
+#~ msgid "Use _GNOME Keyring Manager for authentication"
+#~ msgstr "인증을 위해 GNOME(_G) Keyring 매니저 이용"
+
+#~ msgid "Failed to browse the network. Is the SMB module installed?"
+#~ msgstr "네트워트 브라우즈 실패. SMB 모듈이 설치되었습니까?"
+
+#~| msgid "WWW Audio File"
+#~ msgid "Audio Files"
+#~ msgstr "오디오 파일"
+
+#~ msgid "CamelCase"
+#~ msgstr "낙타 표기법"
+
+#, c-format
+#~| msgid "Deleted %ld of %ld file"
+#~ msgid "Deleted %ld of %ld file"
+#~ msgid_plural "Deleted %ld of %ld files"
+#~ msgstr[0] "%ld / %ld 파일 삭제됨"
+#~ msgstr[1] "%ld / %ld 파일 삭제됨"
+
+#~ msgid "Deleting..."
+#~ msgstr "삭제 중..."
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting \"%s\"\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "\"%s\" 삭제 중 에러\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Delete problem"
+#~ msgstr "삭제 문제"
+
+#, c-format
+#~ msgid "Do you want to delete \"%s\"?"
+#~ msgstr "\"%s\"를 삭제하시겠습니까?"
+
+#, c-format
+#~| msgid "Do you want to delete the selected file?"
+#~ msgid "Do you want to delete the selected file?"
+#~ msgid_plural "Do you want to delete the %d selected files?"
+#~ msgstr[0] "선택된 파일을 지우시겠습니까?"
+#~ msgstr[1] "%d개의 선택된 파일을 지우시겠습니까?"
+
+#~ msgid "OK"
+#~ msgstr "확인"
+
+#~ msgid "Manage bookmarks..."
+#~ msgstr "책갈피 관리..."
+
+#~| msgid "Failed to open connection: %s\n"
+#~ msgid "Failed to open connection."
+#~ msgstr "연결을 여는 데에 실패했습니다."
+
+#~| msgid "Not an ordinary file: %s"
+#~ msgid "Not an ordinary file"
+#~ msgstr "정규 파일이 아닙니다"
+
+#~ msgid "Couldn't retrieve MIME type of the file."
+#~ msgstr "파일의 MIME 타입을 얻을 수 없습니다."
+
+#~ msgid "Open with other..."
+#~ msgstr "다음으로 열기..."
+
+#~ msgid "Needs terminal"
+#~ msgstr "터미널 필요"
+
+#, c-format
+#~ msgid "_Open with \"%s\""
+#~ msgstr "\"%s\"로(으로) 열기(_O)"
+
+#~ msgid "Open With..."
+#~ msgstr "다음으로 열기..."
+
+#~ msgid "Send files"
+#~ msgstr "파일 보내기"
+
+#~ msgid "Open this _folder"
+#~ msgstr "이 폴더 열기(_f)"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "여기에서 터미널 열기(_t)"
+
+#~ msgid "_Properties..."
+#~ msgstr "속성(_P)..."
+
+#~ msgid "Other..."
+#~ msgstr "기타..."
+
+#, c-format
+#~| msgid "%s byte"
+#~ msgid "%s byte"
+#~ msgid_plural "%s bytes"
+#~ msgstr[0] "%s 바이트"
+#~ msgstr[1] "%s 바이트"
+
+#~ msgid "Image:"
+#~ msgstr "이미지:"
+
+#~ msgid "Type:"
+#~ msgstr "타입:"
+
+#~ msgid "MIME Type:"
+#~ msgstr "MIME 타입:"
+
+#~ msgid "_Change"
+#~ msgstr "변경(_C)"
+
+#~ msgid "Type"
+#~ msgstr "타입"
+
+#~ msgid "Metadata namespace"
+#~ msgstr "메타 데이터 이름 공간"
+
+#~ msgid "Tag name"
+#~ msgstr "태그 이름"
+
+#~ msgid "Tag value"
+#~ msgstr "태그 값"
+
+#~ msgid "Metadata tag description"
+#~ msgstr "메타 데이터 태그 설명"
+
+#, c-format
+#~| msgid "%s of %s kB in %d of %d file"
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] "%s / %s kB(%d / %d 파일)"
+#~ msgstr[1] "%s / %s kB(%d / %d 파일)"
+
+#, c-format
+#~| msgid "%s, %d of %d dir selected"
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] "%s, %d / %d 디렉토리가 선택되었습니다"
+#~ msgstr[1] "%s, %d / %d 디렉토리가 선택되었습니다"
+
+#~ msgid "Copy Tab to Other _Pane"
+#~ msgstr "다른 창에 탭 복사(_P)"
+
+#~ msgid "No file name given"
+#~ msgstr "파일 명이 주어지지 않았습니다"
+
+#~ msgid "Filter:"
+#~ msgstr "필터:"
+
+#~ msgid "Unknown file type"
+#~ msgstr "알려지지 않은 파일 타입"
+
+#~ msgid "Regular file"
+#~ msgstr "정규 파일"
+
+#~ msgid "FIFO"
+#~ msgstr "FIFO"
+
+#~ msgid "UNIX Socket"
+#~ msgstr "유닉스 소켓"
+
+#~ msgid "Character device"
+#~ msgstr "문자 디바이스"
+
+#~ msgid "Block device"
+#~ msgstr "블럭 디바이스"
+
+#~ msgid "Symbolic link"
+#~ msgstr "심벌릭 링크"
+
+#~ msgid "_Directory"
+#~ msgstr "디렉토리(_D)"
+
+#~ msgid "_Text File"
+#~ msgstr "텍스트 파일(_T)"
+
+#~ msgid "_New..."
+#~ msgstr "새로 만들기(_N)..."
+
+#~ msgid "Switch to Vertical Layout"
+#~ msgstr "수직 레이아웃으로 전환"
+
+#~ msgid "Switch to Horizontal Layout"
+#~ msgstr "수평 레이아웃으로 전환"
+
+#~ msgid "Start _GNOME Commander as root"
+#~ msgstr "GNOME 커맨더를 root 권한으로 시작"
+
+#~ msgid "_Quit"
+#~ msgstr "종료(_Q)"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "선택 복원(_R)"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "파일 명 복사(_F)"
+
+#~ msgid "_Search..."
+#~ msgstr "검색(_S)"
+
+#~ msgid "_Quick Search..."
+#~ msgstr "빠른 검색(_Q)..."
+
+#~ msgid "_Enable Filter..."
+#~ msgstr "필터 유효화(_E)..."
+
+#~ msgid "_Bookmark this Directory..."
+#~ msgstr "이 디렉토리를 책갈피에 넣기..."
+
+#~ msgid "_Manage Bookmarks..."
+#~ msgstr "책갈피 관리(_M)..."
+
+#~ msgid "_Configure Plugins..."
+#~ msgstr "플러그인 설정(_C)..."
+
+#~ msgid "_Options..."
+#~ msgstr "옵션(_O)..."
+
+#~ msgid "_Keyboard Shortcuts..."
+#~ msgstr "키보드 단축키(_K)..."
+
+#~ msgid "_MIME Types..."
+#~ msgstr "MIME 타입(_M)..."
+
+#~ msgid "_Remote Server..."
+#~ msgstr "원격 서버(_R)..."
+
+#~ msgid "New Connection..."
+#~ msgstr "새 연결..."
+
+#~ msgid "_Contents"
+#~ msgstr "내용(_C)"
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "웹 상의 GNOME 커맨더(_W)"
+
+#~ msgid "F10 Quit"
+#~ msgstr "F10 종료"
+
+#~ msgid "GNOME Commander - ROOT PRIVILEGES"
+#~ msgstr "GNOME 커맨더 - ROOT 권한"
+
+#~ msgid "Refresh"
+#~ msgstr "다시 읽기"
+
+#~ msgid "Go to the oldest"
+#~ msgstr "처음 위치로 가기"
+
+#~ msgid "Go back"
+#~ msgstr "뒤로 가기"
+
+#~ msgid "Go forward"
+#~ msgstr "앞으로 가기"
+
+#~ msgid "Go to the latest"
+#~ msgstr "마지막 위치로 가기"
+
+#~ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+#~ msgstr "파일 명 복사(전체 경로는 SHIFT, URI는 ALT 키를 동시에)"
+
+#~ msgid "Cut"
+#~ msgstr "잘라내기"
+
+#~ msgid "Paste"
+#~ msgstr "붙여넣기"
+
+#~ msgid "Open terminal"
+#~ msgstr "터미널 열기"
+
+#, c-format
+#~ msgid "Copy \"%s\" to"
+#~ msgstr "\"%s\"을(를) 복사할 곳"
+
+#~| msgid "Match filenames using"
+#~ msgid "Match file names using"
+#~ msgstr "파일 명 일치 방법"
+
+#~ msgid "Shell syntax"
+#~ msgstr "쉘 문법"
+
+#~ msgid "Regex syntax"
+#~ msgstr "정규식 문법"
+
+#~ msgid "Sorting options"
+#~ msgstr "정렬 옵션"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "파일 명의 시작에 매치"
+
+#~| msgid "Current file name"
+#~ msgid "Match end of the file name"
+#~ msgstr "파일 명 끝과 매치"
+
+#~ msgid "Don't start a new instance"
+#~ msgstr "새 인스턴스를 시작하지 않음"
+
+#~ msgid "_Test"
+#~ msgstr "테스트(_T)"
+
+#~ msgid ""
+#~ "See the manual page for \"strftime\" for help on how to set the format "
+#~ "string."
+#~ msgstr "포맷 문자열을 설정하는 방법에 관한 도움말은 \"strftime\"의 매뉴얼 페이지를 참조하기 바란다."
+
+#~ msgid "Edit Colors..."
+#~ msgstr "색상 편집..."
+
+#~ msgid "Colors"
+#~ msgstr "색상"
+
+#~| msgid "Paste"
+#~ msgid "Palette"
+#~ msgstr "팔렛트"
+
+#~| msgid "Foreground"
+#~ msgid "Foreground:"
+#~ msgstr "전경:"
+
+#~| msgid "Background"
+#~ msgid "Background:"
+#~ msgstr "배경:"
+
+#~ msgid "File panes"
+#~ msgstr "파일 창"
+
+#~ msgid "Edit..."
+#~ msgstr "편집..."
+
+#~| msgid "Edit Colors..."
+#~ msgid "Edit colors..."
+#~ msgstr "색상 편집..."
+
+#~ msgid "Document icon directory:"
+#~ msgstr "문서 아이콘 디렉토리:"
+
+#~ msgid "Copy overwrite"
+#~ msgstr "복사 시 덮어쓰기"
+
+#~ msgid "Silently"
+#~ msgstr "조용히"
+
+#~ msgid "Move overwrite"
+#~ msgstr "이동 시 덮어쓰기"
+
+#~ msgid "Fifo files"
+#~ msgstr "Fifo 파일"
+
+#~ msgid "Socket files"
+#~ msgstr "소켓 파일"
+
+#~ msgid "Character devices"
+#~ msgstr "문자 디바이스"
+
+#~ msgid "Block devices"
+#~ msgstr "블록 디바이스"
+
+#~ msgid "Authentication"
+#~ msgstr "인증"
+
+#~ msgid "Use GNOME Keyring Manager for authentication"
+#~ msgstr "인증을 위해 GNOME Keyring 관리자를 이용"
+
+#~ msgid "Anonymous FTP access"
+#~ msgstr "익명 FTP 접근"
+
+#~ msgid "Password:"
+#~ msgstr "비번:"
+
+#~ msgid "Other favorite apps"
+#~ msgstr "기타 즐겨쓰는 응용프로그램"
+
+#~ msgid "Device:"
+#~ msgstr "장치:"
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr "마운팅 지나치기(슈퍼 마운트 이용 중에 유용)"
+
+#~ msgid "Network"
+#~ msgstr "네트워크"
+
+#~ msgid "Pattern:"
+#~ msgstr "패턴:"
+
+#~ msgid "Skip All"
+#~ msgstr "모두 지나치기"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "파일 덮어쓰기"
+
+#, c-format
+#~| msgid "copy %d file to"
+#~ msgid "copy %d file to"
+#~ msgid_plural "copy %d files to"
+#~ msgstr[0] "%d 파일을 복사할 곳"
+#~ msgstr[1] "%d 파일을 복사할 곳"
+
+#, c-format
+#~ msgid "Move \"%s\" to"
+#~ msgstr "\"%s\"을(를) 이동할 곳"
+
+#, c-format
+#~| msgid "move %d file to"
+#~ msgid "move %d file to"
+#~ msgid_plural "move %d files to"
+#~ msgstr[0] "%d 파일을 이동할 곳"
+#~ msgstr[1] "%d 파일을 이동할 곳"
+
+#, c-format
+#~ msgid "The directory '%s' doesn't exist, do you want to create it?"
+#~ msgstr "'%s' 디렉토리가 존재하지 않은데 생성하기를 원하십니까?"
+
+#~ msgid "/Grandparent"
+#~ msgstr "/부모의 부모"
+
+#~ msgid "/Parent"
+#~ msgstr "/부모"
+
+#~ msgid "/File name"
+#~ msgstr "/파일 명"
+
+#~| msgid "/File name"
+#~ msgid "/File name (range)"
+#~ msgstr "/파일 명(범위)"
+
+#~ msgid "/File name without extension"
+#~ msgstr "/파일 명(확장자 제외)"
+
+#~| msgid "/File name without extension"
+#~ msgid "/File name without extension (range)"
+#~ msgstr "/파일 명(확장자 제외)(범위)"
+
+#~ msgid "/File extension"
+#~ msgstr "/파일 확장자"
+
+#~ msgid "/Counter"
+#~ msgstr "/카운터"
+
+#~ msgid "/Counter (width)"
+#~ msgstr "/카운터(폭)"
+
+#~ msgid "/Hexadecimal random number (width)"
+#~ msgstr "/16진 무작위 수(폭)"
+
+#~ msgid "/Date"
+#~ msgstr "/날짜"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "/날짜/<로케일>"
+
+#~ msgid "/Date/yyyy-mm-dd"
+#~ msgstr "/날짜/yyyy-mm-dd"
+
+#~ msgid "/Date/yy-mm-dd"
+#~ msgstr "/날짜/yy-mm-dd"
+
+#~ msgid "/Date/yy.mm.dd"
+#~ msgstr "/날짜/yy.mm.dd"
+
+#~ msgid "/Date/yymmdd"
+#~ msgstr "/날짜/yymmdd"
+
+#~ msgid "/Date/dd.mm.yy"
+#~ msgstr "/날짜/dd.mm.yy"
+
+#~ msgid "/Date/mm-dd-yy"
+#~ msgstr "/날짜/mm-dd-yy"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/날짜/yyyy"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/날짜/yy"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/날짜/mm"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/날짜/mmm"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/날짜/dd"
+
+#~ msgid "/Time"
+#~ msgstr "/시간"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/시간/<로케일>"
+
+#~ msgid "/Time/HH.MM.SS"
+#~ msgstr "/시간/HH.MM.SS"
+
+#~ msgid "/Time/HH-MM-SS"
+#~ msgstr "/시간/HH-MM-SS"
+
+#~ msgid "/Time/HHMMSS"
+#~ msgstr "/시간/HHMMSS"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/시간/HH"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/시간/MM"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/시간/SS"
+
+#~ msgid "Regex pattern"
+#~ msgstr "정규식 패턴"
+
+#~ msgid "Replacement"
+#~ msgstr "대체"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "대소문자 구분 매칭"
+
+#~| msgid "Can't load python module 'gnomevfs' ('gnome.vfs')\n"
+#~ msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
+#~ msgstr "파이선 모듈 'gnomevfs' ('gnome.vfs')를 로드 할 수 없습니다"
+
+#~ msgid "GNOME authentication manager usage"
+#~ msgstr "GNOME 인증 관리자 이용"
+
+#~ msgid "Network protocol"
+#~ msgstr "네트워크 프로토콜"
+
+#~ msgid "Connection name"
+#~ msgstr "연결 이름"
+
+#~ msgid "Connections"
+#~ msgstr "연결"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "익명 FTP 비번:"
+
+#~ msgid "_Unlimited depth"
+#~ msgstr "무제한 깊이(_U)"
+
+#~ msgid "Current _directory only"
+#~ msgstr "현 디렉토리만(_d)"
+
+#~ msgid "_Limited depth"
+#~ msgstr "제한된 깊이(_L)"
+
+#~ msgid "Files _not containing text"
+#~ msgstr "텍스트를 포함하지 않는 파일들(_n)"
+
+#, c-format
+#~ msgid "Failed to open file %s: %s\n"
+#~ msgstr "파일 %s 열기 실패: %s\n"
+
+#, c-format
+#~ msgid "Failed to seek in file %s: %s\n"
+#~ msgstr "파일 %s 찾기 실패: %s\n"
+
+#, c-format
+#~ msgid "Failed to read from file %s: %s\n"
+#~ msgstr "파일 %s에서 읽기 실패: %s\n"
+
+#, c-format
+#~ msgid "Searching in: %s"
+#~ msgstr "%s에서 검색 중"
+
+#, c-format
+#~| msgid "Found %d match - search aborted"
+#~ msgid "Found %d match - search aborted"
+#~ msgid_plural "Found %d matches - search aborted"
+#~ msgstr[0] "%d개의 매치 발견 - 검색 중지됨"
+#~ msgstr[1] "%d개의 매치 발견 - 검색 중지됨"
+
+#, c-format
+#~| msgid "Found %d match"
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "%d개의 매치 발견"
+#~ msgstr[1] "%d개의 매치 발견"
+
+#~ msgid "Search..."
+#~ msgstr "검색..."
+
+#~ msgid "Search _for: "
+#~ msgstr "검색 내용(_f):"
+
+#~ msgid "Search _in: "
+#~ msgstr "검색 위치(_i):"
+
+#~ msgid "Search _recursively"
+#~ msgstr "재귀적으로 검색(_r)"
+
+#~ msgid "Find _text: "
+#~ msgstr "텍스트 찾기(_t):"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "대소문자 구분(_v)"
+
+#~ msgid "_Go to"
+#~ msgstr "이동(_G)"
+
+#~ msgid "Enter password"
+#~ msgstr "비번을 입력하세요"
+
+#~ msgid ""
+#~ "Problem: access not permitted\n"
+#~ "\n"
+#~ "please supply user credentials\n"
+#~ "\n"
+#~ "Remember: wrong credentials may lead to account locking"
+#~ msgstr ""
+#~ "문제: 접근이 허용되지 않습니다\n"
+#~ "\n"
+#~ "사용자 자격 증명을 제공하기 바랍니다\n"
+#~ "\n"
+#~ "주의: 잘못된 자격 증명은 계정 정지를 일으킬 수도 있습니다"
+
+#, c-format
+#~ msgid "Can't find a host or workgroup named %s\n"
+#~ msgstr "%s 라는 이름의 호스트나 작업 그룹을 발견할 수 없습니다\n"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr "현 디렉토리를 책갈피에 넣기"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "책갈피 관리"
+
+#~ msgid "Open folder"
+#~ msgstr "폴더 열기"
+
+#~ msgid "Start GNOME Commander as root"
+#~ msgstr "GNOME 커맨더를 root 권한으로 시작"
+
+#~ msgid "Close connection"
+#~ msgstr "연결 닫기"
+
+#~ msgid "New connection"
+#~ msgstr "새 연결"
+
+#~ msgid "Open connection"
+#~ msgstr "연결 열기"
+
+#~| msgid "Close connection"
+#~ msgid "Change left connection"
+#~ msgstr "좌측 연결 변경"
+
+#~| msgid "Close connection"
+#~ msgid "Change right connection"
+#~ msgstr "우측 연결 변경"
+
+#~ msgid "Copy file names"
+#~ msgstr "파일 명 복사"
+
+#~ msgid "Show user defined files"
+#~ msgstr "사용자 정의 파일 보기"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "향상된 개명 도구"
+
+#~ msgid "Change permissions"
+#~ msgstr "권한 변경"
+
+#~ msgid "Change owner/group"
+#~ msgstr "소유자/그룹 변경"
+
+#~ msgid "Copy files"
+#~ msgstr "파일 복사"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "심벌릭 링크 생성"
+
+#~ msgid "Delete files"
+#~ msgstr "파일 삭제"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "파일 비교(diff)"
+
+#~ msgid "Edit file"
+#~ msgstr "파일 편집"
+
+#~ msgid "Edit a new file"
+#~ msgstr "새 파일 편집"
+
+#~ msgid "Create directory"
+#~ msgstr "디렉토리 생성"
+
+#~ msgid "Move files"
+#~ msgstr "파일 이동"
+
+#~ msgid "Rename files"
+#~ msgstr "파일 개명"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "디렉토리 동기화"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr "GNOME 커맨더에 대해서"
+
+#~ msgid "Help contents"
+#~ msgstr "도움말 목록"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "키보드 단축키에 관한 도움말"
+
+#~ msgid "Report a problem"
+#~ msgstr "문제 보고"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr "웹 상의 GNOME 커맨더"
+
+#~ msgid "Compare directories"
+#~ msgstr "디렉토리 비교"
+
+#~ msgid "Invert selection"
+#~ msgstr "선택 반전"
+
+#~ msgid "Select all"
+#~ msgstr "모두 선택"
+
+#~ msgid "Unselect all"
+#~ msgstr "모두 선택 해제"
+
+#~ msgid "MIME types"
+#~ msgstr "MIME 타입"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "키보드 단축키"
+
+#~ msgid "Configure plugins"
+#~ msgstr "플러그인 설정"
+
+#~ msgid "Execute python plugin"
+#~ msgstr "파이선 플러그인 실행"
+
+#~ msgid "Back one directory"
+#~ msgstr "한 디렉토리 뒤로"
+
+#~ msgid "Close the current tab"
+#~ msgstr "현재 탭 닫기"
+
+#~| msgid "_Close Tab"
+#~ msgid "Close all tabs"
+#~ msgstr "모든 탭 닫기"
+
+#~ msgid "Equal panel size"
+#~ msgstr "패널 크기 같게"
+
+#~ msgid "Back to the first directory"
+#~ msgstr "첫 번째 디렉토리로 돌아가기"
+
+#~ msgid "Forward one directory"
+#~ msgstr "한 디렉토리 앞으로"
+
+#~ msgid "Open directory in the active window"
+#~ msgstr "활성 창에 디렉토리 열기"
+
+#~ msgid "Open directory in the inactive window"
+#~ msgstr "비 활성 창에 디렉토리 열기"
+
+#~ msgid "Open directory in the left window"
+#~ msgstr "좌측 창에 디렉토리 열기"
+
+#~ msgid "Open directory in the right window"
+#~ msgstr "우측 창에 디렉토리 열기"
+
+#~| msgid "Open directory in the inactive window"
+#~ msgid "Open directory in the new tab (inactive window)"
+#~ msgstr "새 탭에 디렉토리 열기(비 활성 창)"
+
+#~ msgid "Forward to the last directory"
+#~ msgstr "마지막 디렉토리로 앞으로"
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "새 탭에 디렉토리 열기"
+
+#~ msgid "Show terminal"
+#~ msgstr "터미널 보기"
+
+#, c-format
+#~| msgid "Create symbolic links of %i file in %s?"
+#~ msgid "Create symbolic links of %i file in %s?"
+#~ msgid_plural "Create symbolic links of %i files in %s?"
+#~ msgstr[0] "%i 파일의 심벌릭 링크를 %s에 생성하시겠습니까?"
+#~ msgstr[1] "%i 파일의 심벌릭 링크를 %s에 생성하시겠습니까?"
+
+#~| msgid "Open terminal"
+#~ msgid "Unable to open terminal"
+#~ msgstr "터미널을 열 수 없습니다"
+
+#~ msgid "Unable to start Nautilus."
+#~ msgstr "노틸러스를 시작할 수 없습니다."
+
+#~| msgid "gksu or kdesu is not found."
+#~ msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found."
+#~ msgstr "xdg-su, gksu, gnomesu, kdesu나 beesu가 발견되지 않습니다."
+
+#~ msgid "Unable to start GNOME Commander in root mode."
+#~ msgstr "root 모드에서 GNOME 커맨더를 시작할 수 없습니다."
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "GNOME 데스크탑 상의 빠르고 강력한 파일 매니저"
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME 커맨더는 무료 소프트웨어이며 자유 소프트웨어 재단에 의해 발행된 GNU 일반 공중 사용 허가서(버전 2나 선택적으로 그 이후의"
+#~ " 버전)의 조건 하에서 여러분은 이것을 수정하거나 재 배포할 수 있습니다."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "GNOME 커맨더는 이것이 유용할 것이라는 희망 하에 배포되지만 어떤 보증도 하지 않으며 상업성이나 특별한 목적을 위한 적합성에 관한 "
+#~ "어떤 암시적인 보증조차도 하지 않는다. 자세한 내용은 GNU 일반 공중 허가서를 보기 바란다."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+#~ "여러분은 GNOME 커맨더와 함께 GNU 일반 공중 사용 허가서의 복사본을 얻어야 한다. 그렇지 않다면 Free Software "
+#~ "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, "
+#~ "USA에 글을 보내기 바란다."
+
+#, c-format
+#~ msgid ""
+#~ "The file \"%s\" already exists.\n"
+#~ "\n"
+#~ "Do you want to overwrite it?\n"
+#~ msgstr ""
+#~ "파일 \"%s\"이(가) 이미 존재합니다.\n"
+#~ "\n"
+#~ "덮어쓰기를 원하십니까?\n"
+
+#~ msgid "Replace All"
+#~ msgstr "모두 교체"
+
+#, c-format
+#~ msgid ""
+#~ "Error while copying to %s\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "%s로 복사하는 동안 에러 발생\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Transfer problem"
+#~ msgstr "전송 문제"
+
+#~ msgid "copying..."
+#~ msgstr "복사 중..."
+
+#, c-format
+#~ msgid "[file %ld of %ld] \"%s\""
+#~ msgstr "[파일 %ld of %ld] \"%s\""
+
+#~ msgid "preparing..."
+#~ msgstr "준비 중..."
+
+#~ msgid "stopping..."
+#~ msgstr "정지 중..."
+
+#, c-format
+#~ msgid "%s of %s copied"
+#~ msgstr "%s/%s이(가) 복사됨"
+
+#, c-format
+#~ msgid "%.0f%% copied"
+#~ msgstr "%.0f%% 복사됨"
+
+#~ msgid ""
+#~ "Couldn't load installed file type pixmap, trying to load from source-dir\n"
+#~ msgstr "설치된 pixmap 파일 타입을 로드 할 수 없어 소스 디렉토리에서 로드를 시도하는 중\n"
+
+#, c-format
+#~ msgid "Trying to load %s instead\n"
+#~ msgstr "대신 %s의 로드를 시도하는 중\n"
+
+#, c-format
+#~ msgid ""
+#~ "Can't find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-commander from the gnome-commander-%s/src directory\n"
+#~ msgstr ""
+#~ "pixmap을 어디에서도 발견할 수 없습니다. 그 프로그램을 설치했는지를 확인해보거나 gnome-commander-%s/src "
+#~ "디렉토리에서 gnome-commander를 실행하기 바랍니다\n"
+
+#~ msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
+#~ msgstr "설치된 pixmap을 로드 할 수 없어 소스 디렉토리에서 로드를 시도하는 중\n"
+
+#~ msgid "Find"
+#~ msgstr "찾기"
+
+#~ msgid "Searching..."
+#~ msgstr "검색 중..."
+
+#, c-format
+#~ msgid "Searching for \"%s\""
+#~ msgstr "\"%s\"를 검색하는 중"
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr "위치: %lu / %lu\t칼럼: %d\t%s"
+
+#~| msgid "pixel"
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "픽셀"
+#~ msgstr[1] "픽셀"
+
+#~| msgid "bit/sample"
+#~ msgid "bit/sample"
+#~ msgid_plural "bits/sample"
+#~ msgstr[0] "비트/샘플"
+#~ msgstr[1] "비트/샘플"
+
+#~ msgid "_Binary"
+#~ msgstr "바이너리(_B)"
+
+#~ msgid "Zoom _Out"
+#~ msgstr "축소(_O)"
+
+#~ msgid "Best _Fit"
+#~ msgstr "최적 크기(_F)"
+
+#~ msgid "Find..."
+#~ msgstr "찾기..."
+
+#~ msgid "_Rotate 180°"
+#~ msgstr "180° 회전(_R)"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "이진 모드(_B)"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "현 설정 저장(_S)"
+
+#, c-format
+#~ msgid "Pattern \"%s\" was not found"
+#~ msgstr "패턴 \"%s\"이(가) 발견되지 않습니다"
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr "좌측 창을 위한 시작 디렉토리를 명세하십시오"
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr "우측 창을 위한 시작 디렉토리를 명세하십시오"
+
+#~ msgid "File Manager"
+#~ msgstr "파일 관리자"
+
+#~ msgid "Disable"
+#~ msgstr "무효화"
+
+#~ msgid "Enable"
+#~ msgstr "유효화"
+
+#~ msgid "Version"
+#~ msgstr "버전"
+
+#~ msgid "_Enable"
+#~ msgstr "유효화(_E)"
+
+#~ msgid "_Configure"
+#~ msgstr "설정(_C)"
+
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr "<Exif와 IPTC 태그는 지원되지 않습니다>"
+
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr "<ID3, APE, FLAC와 Vorbis 태그는 지원되지 않습니다>"
+
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr "<OLE2와 ODF 태그는 지원되지 않습니다>"
+
+#~ msgid "<PDF tags not supported>"
+#~ msgstr "<PDF 태그는 지원되지 않습니다>"
+
+#~ msgid "Set to \"1\" if track is new to the user (default \"0\")."
+#~ msgstr "사용자에게 새 트랙이면 \"1\"로 설정(기본 값 \"0\")."
+
+#~ msgid "\"1\" if the copyrighted bit is set."
+#~ msgstr "저작권 소유 비트가 설정되면 \"1\"."
+
+#~ msgid "\"1\" if the \"original\" bit is set."
+#~ msgstr "\"original\" 비트가 설정되면 \"1\"."
+
+#~ msgid "Created"
+#~ msgstr "생성 일"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr "자원의 생성 사이클에서의 이벤트와 관련된 날짜(생성/출판일)."
+
+#~ msgid "Number of \"notes\" in the document."
+#~ msgstr "문서 안의 \"노트\"의 수."
+
+#~ msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
+#~ msgstr "\"화면 보기\", \"슬라이드뷰\" 등의 프레젠테이션 타입."
+
+#~ msgid ""
+#~ "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
+#~ "enforced\" or \"Locked for annotations\"."
+#~ msgstr "\"암호로 보호됨\", \"읽기 전용 권장\", \"읽기 전용 강요\" 또는 \"주석을 위한 잠금\" 중 하나."
+
+#~ msgid ""
+#~ "Copyright information. The tag is used to indicate both the photographer and"
+#~ " editor copyrights. It is the copyright notice of the person or organization"
+#~ " claiming rights to the image. The Interoperability copyright statement "
+#~ "including date and rights should be written in this field; e.g., "
+#~ "\"Copyright, John Smith, 19xx. All rights reserved.\". The field records "
+#~ "both the photographer and editor copyrights, with each recorded in a "
+#~ "separate part of the statement. When there is a clear distinction between "
+#~ "the photographer and editor copyrights, these are to be written in the order"
+#~ " of photographer followed by editor copyright, separated by NULL (in this "
+#~ "case, since the statement also ends with a NULL, there are two NULL codes) "
+#~ "(see example 1). When only the photographer is given, it is terminated by "
+#~ "one NULL code. When only the editor copyright is given, the photographer "
+#~ "copyright part consists of one space followed by a terminating NULL code, "
+#~ "then the editor copyright is given. When the field is left blank, it is "
+#~ "treated as unknown."
+#~ msgstr ""
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr "Exif IFD 포인터"
+
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr "Exif IFD에 대한 포인터. 상호 이용성, Exif IFD는 TiFF에 명세된 IFD와 동일한 구조를 가집니다."
+
+#~ msgid ""
+#~ "Indicates whether the latitude is north or south latitude. The ASCII value "
+#~ "'N' indicates north latitude, and 'S' is south latitude."
+#~ msgstr "위도가 북위인지 남위인지를 가리킵니다. 아스키 값 'N'은 북위를 가리키고 'S'는 남위를 가리킵니다."
+
+#~ msgid ""
+#~ "Indicates whether the longitude is east or west longitude. ASCII 'E' "
+#~ "indicates east longitude, and 'W' is west longitude."
+#~ msgstr "경도가 동경인지 서경인지를 가리킵니다. 아스키 'E'는 동경을 가리키고 'W'는 서경을 가리킵니다."
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr "상호 이용성 IFD 포인터"
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+#~ "상호 이용성 IFD는 상호 이용성을 보증하기 위한 정보를 저장하는 태그들로 구성되며 Exif IFD에 위치하는 아래 태그에 의해 "
+#~ "지칭됩니다. 상호 이용성 IFD의 상호 이용성 구조는 TIFF에 정의된 IFD 구조와 동일하지만 정상 TIFF IFD와 비교해서 "
+#~ "특징적으로 이미지 데이터를 포함하지 않습니다."
+
+#~ msgid ""
+#~ "Indicates the identification of the Interoperability rule. Use \"R98\" for "
+#~ "stating ExifR98 Rules."
+#~ msgstr "상호 이용성 규칙의 식별 코드를 가리킵니다. ExifR98 규칙을 서술하기 위해 \"R98\"을 이용하십시오."
+
+#~ msgid ""
+#~ "The reference black point value and reference white point value. No defaults"
+#~ " are given in TIFF, but the values below are given as defaults here. The "
+#~ "color space is declared in a color space information tag, with the default "
+#~ "being the value that gives the optimal image characteristics "
+#~ "Interoperability these conditions."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This tag is used to record the name of an audio file related to the image "
+#~ "data. The only relational information recorded here is the Exif audio file "
+#~ "name and extension (an ASCII string consisting of 8 characters + '.' + 3 "
+#~ "characters). The path is not recorded. When using this tag, audio files must"
+#~ " be recorded in conformance to the Exif audio format. Writers are also "
+#~ "allowed to store the data such as Audio within APP2 as FlashPix extension "
+#~ "stream data. Audio files must be recorded in conformance to the Exif audio "
+#~ "format. If multiple files are mapped to one file, the above format is used "
+#~ "to record just one audio file name. If there are multiple audio files, the "
+#~ "first recorded file is given. When there are three Exif audio files "
+#~ "\"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the Exif image file"
+#~ " name for each of them, \"DSC00001.JPG\", is indicated. By combining "
+#~ "multiple relational information, a variety of playback possibilities can be "
+#~ "supported. The method of using relational information is left to the "
+#~ "implementation on the playback side. Since this information is an ASCII "
+#~ "character string, it is terminated by NULL. When this tag is used to map "
+#~ "audio files, the relation of the audio file to image data must also be "
+#~ "indicated on the audio file end."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "A tag for Exif users to write keywords or comments on the image besides "
+#~ "those in <Exif.ImageDescription>, and without the character code limitations"
+#~ " of the <Exif.ImageDescription> tag. The character code used in the "
+#~ "<Exif.UserComment> tag is identified based on an ID code in a fixed 8-byte "
+#~ "area at the start of the tag data area. The unused portion of the area is "
+#~ "padded with NULL (\"00.h\"). ID codes are assigned by means of registration."
+#~ " The value of CountN is determinated based on the 8 bytes in the character "
+#~ "code area and the number of bytes in the user comment part. Since the TYPE "
+#~ "is not ASCII, NULL termination is not necessary. The ID code for the "
+#~ "<Exif.UserComment> area may be a Defined code such as JIS or ASCII, or may "
+#~ "be Undefined. The Undefined name is UndefinedText, and the ID code is filled"
+#~ " with 8 bytes of all \"NULL\" (\"00.H\"). An Exif reader that reads the "
+#~ "<Exif.UserComment> tag must have a function for determining the ID code. "
+#~ "This function is not required in Exif readers that do not use the "
+#~ "<Exif.UserComment> tag. When a <Exif.UserComment> area is set aside, it is "
+#~ "recommended that the ID code be ASCII and that the following user comment "
+#~ "part be filled with blank characters [20.H]."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The matrix coefficients for transformation from RGB to YCbCr image data. No "
+#~ "default is given in TIFF; but here \"Color Space Guidelines\" is used as the"
+#~ " default. The color space is declared in a color space information tag, with"
+#~ " the default being the value that gives the optimal image characteristics "
+#~ "Interoperability this condition."
+#~ msgstr ""
+
+#~ msgid "File's contents filtered as plain text."
+#~ msgstr "파일 내용이 평문 텍스트로 필터됩니다."
+
+#~ msgid ""
+#~ "MIME type of the file or if a directory it should contain value \"Folder\"."
+#~ msgstr "파일의 MIME 타입이며 디렉토리일 경우 \"Folder\" 값을 가지고 있어야 합니다."
+
+#~ msgid "Permission string in unix format eg \"-rw-r--r--\"."
+#~ msgstr "\"-rw-r-r-\"와 같은 유닉스 포맷의 권한 문자열"
+
+#~ msgid "Emphasis"
+#~ msgstr "강조"
+
+#~ msgid "Emphasis."
+#~ msgstr "강조."
+
+#~ msgid "Equalization 2"
+#~ msgstr "이퀄라이제이션 2"
+
+#~ msgid "Frames"
+#~ msgstr "프레임"
+
+#~ msgid "Number of frames."
+#~ msgstr "프레임 수."
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr "관련 인물 2"
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr "오디오 파일의 ID3 태그를 제외한 바이트 단위의 크기."
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr "볼륨 조정 2"
+
+#~ msgid "Set to \"1\" if flash was fired."
+#~ msgstr "플래시가 터지면 \"1\"로 설정."
+
+#~ msgid ""
+#~ "Represents the orientation of the image wrt camera (IE \"top,left\" or "
+#~ "\"bottom,right\")."
+#~ msgstr "카메라와 관련된 이미지의 방향을 상징한다(예 \"top,left\" 또는 \"bottom,right\")."
+
+#~ msgid ""
+#~ "The type of action that this object provides to a previous object. '01' "
+#~ "Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The type of update this object provides to a previous object. The link to "
+#~ "the previous object is made using the ARM. '01' indicates an additional "
+#~ "language."
+#~ msgstr ""
+#~ "이 객체가 기존의 객체에 대해 제공하는 업데이트의 타입. 기존 객체에 대한 연결은 ARM을 이용해서 이루어집니다. '01'은 추가적인 "
+#~ "언어를 가리킵니다."
+
+#~ msgid ""
+#~ "Specifies the envelope handling priority and not the editorial urgency. '1' "
+#~ "for most urgent, '5' for normal, and '8' for least urgent. '9' is user-"
+#~ "defined."
+#~ msgstr ""
+#~ "편집 가능한 긴급성이 아니라 포장 처리 우선권을 명세합니다. '1'은 가장 긴급, '5'는 보통, '8'은 가장 긴급하지 않음. '9'는"
+#~ " 사용자 정의."
+
+#~ msgid ""
+#~ "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
+#~ "for square."
+#~ msgstr "이미지 영역의 레이아웃: 'P'는 인물, 'L'은 경치, 'S'는 사각."
+
+#~ msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
+#~ msgstr "여기에서 'a'는 아침, 'p'는 저녁, 'b'는 모두."
+
+#~ msgid ""
+#~ "Specifies the editorial urgency of content and not necessarily the envelope "
+#~ "handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
+#~ msgstr ""
+#~ "컨텐트의 편집 가능한 긴급성을 명세하며 반드시 포장 처리 우선권일 필요는 없습니다. '1'은 가장 긴급, '5'는 보통이고 '8'은 가장"
+#~ " 긴급하지 않음."
+
+#~ msgid "Set to \"1\" if optimized for network access."
+#~ msgstr "네트워크 접근이 최적화되었을 경우 \"1\"로 설정"
+
+#~ msgid "Set to \"1\" if printing is allowed."
+#~ msgstr "프린팅이 허용될 경우 \"1\"로 설정"
+
+#~ msgid "Set to \"1\" if high resolution printing is allowed."
+#~ msgstr "고해상도 프린팅이 허용될 경우 \"1\"로 설정"
+
+#~ msgid "Set to \"1\" if copying the contents is allowed."
+#~ msgstr "컨텐트 복사가 허용될 경우 \"1\"로 설정"
+
+#~ msgid "Set to \"1\" if modifying the contents is allowed."
+#~ msgstr "컨텐트 변경이 허용될 경우 \"1\"로 설정"
+
+#~ msgid ""
+#~ "Set to \"1\" if inserting, rotating, or deleting pages and creating "
+#~ "navigation elements is allowed."
+#~ msgstr "삽입, 회전 또는 페이지 삭제와 탐색 요소들을 생성하는 것이 허용되면 \"1\"로 설정"
+
+#~ msgid "Set to \"1\" if adding or modifying text annotations is allowed."
+#~ msgstr "텍스트 주석을 추가하거나 변경하는 것이 허용되면 \"1\"로 설정"
+
+#~ msgid "Set to \"1\" if filling of form fields is allowed."
+#~ msgstr "폼 필드의 필링이 허용되면 \"1\"로 설정"
+
+#~ msgid "Set to \"1\" if accessibility support (eg. screen readers) is enabled."
+#~ msgstr "접근성 지원(예. 스키린 읽기)이 유효화되었으면 \"1\"로 설정"
+
+#~ msgid "No Proofing"
+#~ msgstr "Proofing 없음"
+
+#~ msgid "Arabic"
+#~ msgstr "아라비아어"
+
+#~ msgid "Bulgarian"
+#~ msgstr "불가리아어"
+
+#~ msgid "Catalan"
+#~ msgstr "카탈로니아어"
+
+#~ msgid "Traditional Chinese"
+#~ msgstr "중국어 번체"
+
+#~ msgid "Simplified Chinese"
+#~ msgstr "중국어 간체"
+
+#~ msgid "Chechen"
+#~ msgstr "체첸어"
+
+#~ msgid "Danish"
+#~ msgstr "덴마크어"
+
+#~ msgid "German"
+#~ msgstr "독일어"
+
+#~ msgid "Swiss German"
+#~ msgstr "스위스 독일어"
+
+#~ msgid "Greek"
+#~ msgstr "그리스어"
+
+#~ msgid "U.S. English"
+#~ msgstr "U.S. 영어"
+
+#~ msgid "U.K. English"
+#~ msgstr "U.K. 영어"
+
+#~ msgid "Australian English"
+#~ msgstr "오스트레일리아 영어"
+
+#~ msgid "Castilian Spanish"
+#~ msgstr "표준 스페인어"
+
+#~ msgid "Mexican Spanish"
+#~ msgstr "맥시코스페인어"
+
+#~ msgid "Finnish"
+#~ msgstr "핀란드어"
+
+#~ msgid "French"
+#~ msgstr "프랑스어"
+
+#~ msgid "Belgian French"
+#~ msgstr "벨기에 프랑스어"
+
+#~ msgid "Canadian French"
+#~ msgstr "캐나다 프랑스어"
+
+#~ msgid "Swiss French"
+#~ msgstr "스위스 프랑스어"
+
+#~ msgid "Hebrew"
+#~ msgstr "히브리어"
+
+#~ msgid "Hungarian"
+#~ msgstr "헝가리어"
+
+#~ msgid "Icelandic"
+#~ msgstr "아이슬란드어"
+
+#~ msgid "Italian"
+#~ msgstr "이탈리아어"
+
+#~ msgid "Swiss Italian"
+#~ msgstr "스위스 이탈리아어"
+
+#~ msgid "Japanese"
+#~ msgstr "일본어"
+
+#~ msgid "Korean"
+#~ msgstr "한국어"
+
+#~ msgid "Dutch"
+#~ msgstr "네덜란드어"
+
+#~ msgid "Belgian Dutch"
+#~ msgstr "벨기어 네덜란드어"
+
+#~ msgid "Norwegian Bokmal"
+#~ msgstr "노르웨이 부크몰"
+
+#~ msgid "Norwegian Nynorsk"
+#~ msgstr "노르웨이 뉘노르스크"
+
+#~ msgid "Polish"
+#~ msgstr "폴란드어"
+
+#~ msgid "Brazilian Portuguese"
+#~ msgstr "브라질 포르투갈어"
+
+#~ msgid "Portuguese"
+#~ msgstr "포르투갈어"
+
+#~ msgid "Rhaeto-Romanic"
+#~ msgstr "레토로만어"
+
+#~ msgid "Romanian"
+#~ msgstr "루마니아어"
+
+#~ msgid "Russian"
+#~ msgstr "러시아어"
+
+#~ msgid "Croato-Serbian (Latin)"
+#~ msgstr "세르보크로아티아어(라틴어)"
+
+#~ msgid "Serbo-Croatian (Cyrillic)"
+#~ msgstr "세르보크로아티아어(키릴어)"
+
+#~ msgid "Slovak"
+#~ msgstr "슬로바키아어"
+
+#~ msgid "Albanian"
+#~ msgstr "알바니아어"
+
+#~ msgid "Swedish"
+#~ msgstr "스웨덴어"
+
+#~ msgid "Thai"
+#~ msgstr "타이어"
+
+#~ msgid "Turkish"
+#~ msgstr "터키어"
+
+#~ msgid "Urdu"
+#~ msgstr "우르두어"
+
+#~ msgid "Indonesian"
+#~ msgstr "인도네시아어"
+
+#~ msgid "Ukrainian"
+#~ msgstr "우크라이나어"
+
+#~ msgid "Byelorussian"
+#~ msgstr "벨로루시어"
+
+#~ msgid "Slovenian"
+#~ msgstr "슬로베니아어"
+
+#~ msgid "Estonian"
+#~ msgstr "에스토니아어"
+
+#~ msgid "Latvian"
+#~ msgstr "라트비아어"
+
+#~ msgid "Lithuanian"
+#~ msgstr "리투아니아어"
+
+#~ msgid "Farsi"
+#~ msgstr "페르시아어"
+
+#~ msgid "Basque"
+#~ msgstr "바스크어"
+
+#~ msgid "Macedonian"
+#~ msgstr "마케도니아어"
+
+#~ msgid "Afrikaans"
+#~ msgstr "공용 네덜란드어"
+
+#~ msgid "Malayalam"
+#~ msgstr "말레이시아어"
+
+#, c-format
+#~ msgid "unsupported tag (suppressed %u B of binary data)"
+#~ msgstr "지원되지 않는 태그(이진 데이터의 억제된 %u B)"
+
+#, c-format
+#~| msgid "No default application registered"
+#~ msgid "No default application found for the MIME type %s."
+#~ msgstr "마임 타입 %s을(를) 위한 기본 응용프로그램이 발견되지 않습니다."
+
+#, c-format
+#~ msgid ""
+#~ "\"%s\" seems to be a binary executable file but it lacks the executable bit."
+#~ " Do you want to set it and then run the file?"
+#~ msgstr "\"%s\"은(는) 이진 실행 파일로 보이지만 실행 비트가 없습니다. 실행 비트를 설정한 후 파일을 실행하시겠습니까?"
+
+#~ msgid "Make Executable?"
+#~ msgstr "실행 가능하게 하겠습니까?"
+
+#, c-format
+#~ msgid ""
+#~ "\"%s\" is an executable text file. Do you want to run it, or display its "
+#~ "contents?"
+#~ msgstr "\"%s\"은(는) 실행 가능 텍스트 파일입니다. 이것을 실행하겠습니까 아니면 내용을 표시하시겠습니까?"
+
+#~ msgid "Run or Display"
+#~ msgstr "실행 또는 표시"
+
+#~ msgid "Display"
+#~ msgstr "표시"
+
+#~ msgid "Run"
+#~ msgstr "실행"
+
+#, c-format
+#~| msgid ""
+#~| "%s does not know how to open remote file. Do you want to download the file "
+#~| "to a temporary location and then open it?"
+#~ msgid ""
+#~ "%s does not know how to open remote file. Do you want to download the file "
+#~ "to a temporary location and then open it?"
+#~ msgid_plural ""
+#~ "%s does not know how to open remote files. Do you want to download the files"
+#~ " to a temporary location and then open them?"
+#~ msgstr[0] "%s은(는) 원격 파일들을 여는 방법을 알지 못합니다. 이 파일들을 임시 위치에 다운로드 한 후 열기를 원하십니까?"
+#~ msgstr[1] "%s은(는) 원격 파일들을 여는 방법을 알지 못합니다. 이 파일들을 임시 위치에 다운로드 한 후 열기를 원하십니까?"
+
+#~| msgid ""
+#~| "Failed to create a directory in which to store temporary files.\n"
+#~| "Error message: %s\n"
+#~ msgid "Failed to create a directory in which to store temporary files"
+#~ msgstr "임시 파일들을 저장할 디렉토리 생성에 실패했습니다."
+
+#, c-format
+#~ msgid "Creating directory %s... "
+#~ msgstr "%s 디렉토리 생성 중..."
+
+#, c-format
+#~ msgid "Failed to create the directory %s"
+#~ msgstr "디렉토리 %s를 생성하는 데에 실패했습니다"
+
+#, c-format
+#~ msgid "Couldn't read from the directory %s: %s"
+#~ msgstr "디렉토리 %s에서 읽을 수 없습니다: %s"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "도움말을 디스플레이하는 동안 에러가 발생했습니다."
+
+#~ msgid "Quick search using"
+#~ msgstr "빠른 탐색 방법"
+
+#~ msgid "path"
+#~ msgstr "경로"
+
+#~ msgid ""
+#~ "No default application found for the MIME type %s.\n"
+#~ "Open the \"File types and programs\" page in the Control Center to add one."
+#~ msgstr ""
+#~ "MIME 타입 %s을(를) 위한 어떤 기본 응용프로그램도 발견되지 않았습니다.\n"
+#~ "추가하려면 제어 센터에서 \"파일 타입과 프로그램\"을 열기 바랍니다."
+
+#~ msgid "Listing failed: %s\n"
+#~ msgstr "리스팅 실패: %s\n"
+
+#~ msgid "No filename entered"
+#~ msgstr "파일 명이 입력되지 않았습니다"
+
+#~ msgid "Directory options"
+#~ msgstr "디렉토리 옵션"
+
+#~ msgid "Directory cache size"
+#~ msgstr "디렉토리 캐시 크기"
+
+#~ msgid "running `%s'\n"
+#~ msgstr "`%s' 실행 중\n"

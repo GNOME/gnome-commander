@@ -7835,3 +7835,985 @@ msgstr[0] "{} kiB"
 msgid "{} byte"
 msgid_plural "{} bytes"
 msgstr[0] "{} byte"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME Commander"
+
+#~ msgid "Two-pane file manager"
+#~ msgstr "Manajer berkas dua panel"
+
+#~ msgid ""
+#~ "GNOME Commander is a “two-pane” graphical file manager for the GNOME desktop"
+#~ " environment. It features separate tabs for each pane, setting up custom "
+#~ "device buttons, bookmark manager, fully integrated commandline, file quick "
+#~ "search, an internal image viewer, a powerful batch renaming tool, and FTP "
+#~ "and Samba access."
+#~ msgstr ""
+#~ "GNOME Commander adalah suatu manajer berkas grafis \"dua panel\" bagi "
+#~ "lingkungan desktop GNOME. Memiliki fitur-fitur tab-tab terpisah bagi setiap "
+#~ "panel, menyiapkan tombol perangkat tersuai, manajer markah, perintah baris "
+#~ "terintegrasi penuh, pencarian cepat berkas, penampil citra internal, alat "
+#~ "pengubah nama batch yang kuat, dan akses Samba serta FTP."
+
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+#~ "GNOME Commander bertujuan untuk pengguna tingkat lanjut yang ingin fokus "
+#~ "pada manajemen berkas yang presisi, bekerja secara paralel melalui aplikasi "
+#~ "khusus, dan menjalankan perintah cerdas."
+
+#~ msgid "A two paned file manager"
+#~ msgstr "Manajer berkas dua panel"
+
+#~ msgid ""
+#~ "A custom font that will be used for the file panes if the “Use default font”"
+#~ " option is turned off."
+#~ msgstr ""
+#~ "Fonta ubahan yang akan dipakai bagi panel berkas bila opsi \"Pakai fonta "
+#~ "baku\" dimatikan."
+
+#~ msgid ""
+#~ "Defines how the filesize will be displayed in the associated pane column."
+#~ msgstr ""
+#~ "Menentukan bagaimana ukuran berkas akan ditampilkan dalam kolom panel "
+#~ "terkait."
+
+#~ msgid ""
+#~ "Defines how the file permission will be displayed in the associated pane "
+#~ "column."
+#~ msgstr ""
+#~ "Menentukan bagaimana izin berkas akan ditampilkan dalam kolom panel terkait."
+
+#~ msgid "Defines the icon style of files and folders in the file panes."
+#~ msgstr "Menentukan gaya ikon berkas dan folder dalam panel berkas."
+
+#~ msgid "Defines the height of a row in the file pane."
+#~ msgstr "Menentukan tinggi dari satu baris dalam panel berkas."
+
+#~ msgid "Format of the date in the file pane."
+#~ msgstr "Format tanggal dalam panel berkas."
+
+#~ msgid "The font in the file panes."
+#~ msgstr "Fonta dalam panel berkas."
+
+#~ msgid "Size of icons in the file pane."
+#~ msgstr "Ukuran ikon dalam panel berkas."
+
+#~ msgid ""
+#~ "Defines if the orientation of the file panes should be horizontal or not."
+#~ msgstr ""
+#~ "Menentukan apakah orientasi dari panel berkas mesti horisontal atau tidak."
+
+#~ msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
+#~ msgstr ""
+#~ "Laju penyegaran dari antar muka pengguna grafis dalam satuan 1/1000 detik."
+
+#~ msgid ""
+#~ "Defines if the current directories are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Menentukan apakah direktori-direktori saat ini dibuka lagi ketika GNOME "
+#~ "Commander dijalankan lagi."
+
+#~ msgid ""
+#~ "Defines if the current open tabs are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Menentukan apakah tab-tab saat ini dibuka lagi ketika GNOME Commander "
+#~ "dijalankan lagi."
+
+#~ msgid ""
+#~ "This option defines if directories will be marked when all items in a file "
+#~ "pane should be marked."
+#~ msgstr ""
+#~ "Opsi ini menentukan apakah direktori ditandai ketika semua butir dalam "
+#~ "sebuah panel berkas mesti ditandai."
+
+#~ msgid "Quick search exact match begin"
+#~ msgstr "Awal cocok persis pencarian cepat"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the beginning"
+#~ " of an item name."
+#~ msgstr ""
+#~ "Opsi ini menentukan apakah pencarian cepat mesti secara eksplisit cocok di "
+#~ "awal nama butir."
+
+#~ msgid "Quick search exact match end"
+#~ msgstr "Akhir cocok persis pencarian cepat"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the end of an"
+#~ " item name."
+#~ msgstr ""
+#~ "Opsi ini menentukan apakah pencarian cepat mesti secara eksplisit cocok di "
+#~ "akhir nama butir."
+
+#~ msgid ""
+#~ "The entries in this list are used for restoring the tabs from the last "
+#~ "session."
+#~ msgstr ""
+#~ "Entri dalam daftar ini digunakan untuk memulihkan tab dari sesi terakhir."
+
+#~ msgid "Leave terminal open"
+#~ msgstr "Biarkan terminal terbuka"
+
+#~ msgid ""
+#~ "This option defines if a terminal window should stay open after a command "
+#~ "finishes inside of it."
+#~ msgstr ""
+#~ "Opsi ini menentukan apakah sebuah jendela terminal mesti tetap terbuka "
+#~ "setelah sebuah perintah berakhir di dalamnya."
+
+#~ msgid "Fixed font name"
+#~ msgstr "Nama fonta tetap"
+
+#~ msgid "Name of the default font with fixed character width."
+#~ msgstr "Nama dari fonta baku dengan lebar karakter tetap."
+
+#~ msgid "Variable font name"
+#~ msgstr "Nama fonta variabel"
+
+#~ msgid "Name of the default font with variable character width."
+#~ msgstr "Nama dari fonta baku dengan lebar karakter variabel."
+
+#~ msgid "Font size"
+#~ msgstr "Ukuran font"
+
+#~ msgid "This option defines the default font size."
+#~ msgstr "Opsi ini menentukan ukuran fonta baku."
+
+#~ msgid "Horizontal offset"
+#~ msgstr "Ofset horisontal"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "horizontal direction."
+#~ msgstr ""
+#~ "Opsi ini menentukan ofset visual dari penampil berkas internal dalam arah "
+#~ "horisontal."
+
+#~ msgid "Vertical offset"
+#~ msgstr "Ofset vertikal"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "vertical direction."
+#~ msgstr ""
+#~ "Opsi ini menentukan ofset visual dari penampil berkas internal dalam arah "
+#~ "vertikal."
+
+#~ msgid "No error description available"
+#~ msgstr "Keterangan kesalahan tak tersedia"
+
+#~ msgid "Remote Server"
+#~ msgstr "Server Jauh"
+
+#~ msgid "Connection method is not selected"
+#~ msgstr "Metode koneksi tidak dipilih"
+
+#~ msgid "No file name given"
+#~ msgstr "Tak ada nama berkas yang diberikan"
+
+#~ msgid ""
+#~ "Error while deleting “{file}”\n"
+#~ "\n"
+#~ "{error}"
+#~ msgstr ""
+#~ "Galat saat menghapus \"{file}\"\n"
+#~ "\n"
+#~ "{error}"
+
+#~ msgid "Delete problem"
+#~ msgstr "Masalah penghapusan"
+
+#~ msgid "Deletion failed"
+#~ msgstr "Penghapusan gagal"
+
+#~ msgid ""
+#~ "Error while deleting: \n"
+#~ "\n"
+#~ "{}"
+#~ msgstr ""
+#~ "Galat ketika menghapus: \n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Bookmark name is missing."
+#~ msgstr "Kurang nama markah."
+
+#~ msgid "Bookmark target is missing."
+#~ msgstr "Kurang target markah."
+
+#~ msgid "Current file name"
+#~ msgstr "Nama berkas kini"
+
+#~ msgid "New file name"
+#~ msgstr "Nama baru berkas"
+
+#~ msgid "File size"
+#~ msgstr "Ukuran berkas"
+
+#~ msgid "File modification date"
+#~ msgstr "Tanggal perubahan berkas"
+
+#~ msgid "Image:"
+#~ msgstr "Gambar:"
+
+#~ msgid "Content Type:"
+#~ msgstr "Tipe Isi:"
+
+#~ msgid "Type"
+#~ msgstr "Tipe"
+
+#~ msgid "Metadata namespace"
+#~ msgstr "Ruang name metadata"
+
+#~ msgid "Tag name"
+#~ msgstr "Nama tag"
+
+#~ msgid "Tag value"
+#~ msgstr "Nilai tag"
+
+#~ msgid "Metadata tag description"
+#~ msgstr "Deskripsi tag metadata"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the corresponding row and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "Untuk menyunting suatu tombol pintas, klik pada baris yang bersangkutan dan "
+#~ "ketikkan suatu akselerator baru, atau tekan escape untuk membatalkan."
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Tombol Pintas"
+
+#~ msgid "Keyboard shortcut for selected action"
+#~ msgstr "Pintasan papan tik bagi aksi yang dipilih"
+
+#~ msgid "Action"
+#~ msgstr "Aksi"
+
+#~ msgid "User action"
+#~ msgstr "Aksi pengguna"
+
+#~ msgid "Optional data"
+#~ msgstr "Data opsional"
+
+#~ msgid "Do nothing"
+#~ msgstr "Jangan lakukan apa pun"
+
+#~ msgid "Group"
+#~ msgstr "Grup"
+
+#~ msgid "Bookmark group"
+#~ msgstr "Buat markah grup"
+
+#~ msgid "Bookmark name"
+#~ msgstr "Nama markah"
+
+#~ msgid "Keyboard shortcut for selected bookmark"
+#~ msgstr "Pintasan papan tik bagi markah yang dipilih"
+
+#~ msgid "Bookmarked path"
+#~ msgstr "Path yang dimarkahi"
+
+#, c-format
+#~ msgid "Make directory failed: %s\n"
+#~ msgstr "Pembuatan direktori gagal: %s\n"
+
+#~ msgid "Sorting/Quick search"
+#~ msgstr "Pengurutan/Pencarian cepat"
+
+#~ msgid "ALT+letters (menu access with F12)"
+#~ msgstr "ALT+huruf (akses menu dengan F12)"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "Cocokkan dengan awal nama berkas"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "Cocok akhir nama berkas"
+
+#~ msgid ""
+#~ "Search window is minimizable\n"
+#~ "(Needs program restart if altered)"
+#~ msgstr ""
+#~ "Jendela pencarian dapat diminimalkan\n"
+#~ "(Program perlu dijalankan ulang jika diubah)"
+
+#~ msgid "Colors"
+#~ msgstr "Warna"
+
+#~ msgid "Palette"
+#~ msgstr "Palet"
+
+#~ msgid "Foreground:"
+#~ msgstr "Latar depan:"
+
+#~ msgid "Background:"
+#~ msgstr "Latar belakang:"
+
+#~ msgid "File panes"
+#~ msgstr "Panel berkas"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "Konfirmasikan baku ke OK"
+
+#~ msgid "Leave terminal window open"
+#~ msgstr "Biarkan jendela terminal terbuka"
+
+#~ msgid "Search local directories only"
+#~ msgstr "Hanya cari direktori lokal saja"
+
+#~ msgid "Files _not containing text"
+#~ msgstr "Berkas ya_ng tak memuat teks"
+
+#, c-format
+#~ msgid "Failed to read file %s: File is not searchable"
+#~ msgstr "Gagal membaca berkas %s: Berkas tidak dapat dicari"
+
+#, c-format
+#~ msgid "Failed to read file %s: %s"
+#~ msgstr "Gagal membaca berkas %s: %s"
+
+#, c-format
+#~ msgid "Searching in: %s"
+#~ msgstr "Mencari di: %s"
+
+#, c-format
+#~ msgid "Found %d match — search aborted"
+#~ msgid_plural "Found %d matches — search aborted"
+#~ msgstr[0] "Ditemukan %d kecocokan — pencarian digugurkan"
+
+#, c-format
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "Ditemukan %d kecocokan"
+
+#, c-format
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr "Gagal menata id grup proses dari anak %d: %s.\n"
+
+#~ msgid "Error parsing the search command."
+#~ msgstr "Galat saat mengurai perintah pencarian."
+
+#~ msgid "Error running the search command."
+#~ msgstr "Galat saat menjalankan perintah pencarian."
+
+#, c-format
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr "Gagal pindah direktori di luar %s"
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "Pintasan Yang Konflik"
+
+#~ msgid "Invalid shortcut."
+#~ msgstr "Pintasan tak valid."
+
+#~ msgid "Invalid path."
+#~ msgstr "Path tidak valid."
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Timpa Berkas"
+
+#~ msgid "Profile name"
+#~ msgstr "Nama profil"
+
+#~ msgid "Network protocol"
+#~ msgstr "Protokol jaringan"
+
+#~ msgid "Connection name"
+#~ msgstr "Nama sambungan"
+
+#~ msgid "stopping…"
+#~ msgstr "menghentikan…"
+
+#~ msgid "Accelerator key"
+#~ msgstr "Tombol akselerator"
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr "Pengubah akselerator"
+
+#~ msgid "Accelerator Mode"
+#~ msgstr "Mode Akselerator"
+
+#~ msgid "The type of accelerator."
+#~ msgstr "Tipe akselerator."
+
+#~ msgid "Disabled"
+#~ msgstr "Dinonaktifkan"
+
+#~ msgid "New accelerator…"
+#~ msgstr "Akselerator baru…"
+
+#~ msgid "Credits"
+#~ msgstr "Kredit"
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "Laman Web Pengaya"
+
+#~ msgid "C_redits"
+#~ msgstr "K_redit"
+
+#~ msgid "Regex pattern"
+#~ msgstr "Pola regex"
+
+#~ msgid "Replacement"
+#~ msgstr "Pengganti"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "Pencocokan yang peka huruf besar kecil"
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr "Nyatakan direktori awal bagi panel kiri"
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr "Nyatakan direktori awal bagi panel kanan"
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr "Menyatakan direktori bagi berkas konfigurasi"
+
+#, c-format
+#~ msgid "The program has now finished. Press Enter to close this window.\n"
+#~ msgstr "Program ini telah selesai. Tekan Enter untuk menutup jendela ini.\n"
+
+#~ msgid "<New connection>"
+#~ msgstr "<Koneksi baru>"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "Ke: %s"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "Sambung ke: %s"
+
+#, c-format
+#~ msgid "Disconnect from: %s"
+#~ msgstr "Memutus dari: %s"
+
+#, c-format
+#~ msgid "Mount failed: mount exited with exitstatus %d"
+#~ msgstr "Mount gagal: mount keluar dengan exitstatus %d"
+
+#, c-format
+#~ msgid ""
+#~ "Cannot unmount the volume:\n"
+#~ "%s\n"
+#~ "Error code: %d"
+#~ msgstr ""
+#~ "Tak bisa melepas kaitan volume:\n"
+#~ "%s\n"
+#~ "Kode galat: %d"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "Ke: %s (%s)"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr "Kaitkan: %s"
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr "Lepas Kaitan: %s"
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "Menyambung ke %s\n"
+
+#, c-format
+#~ msgid "_Open with “%s”"
+#~ msgstr "_Buka dengan \"%s"
+
+#~ msgid "Failed to open connection."
+#~ msgstr "Gagal membuka koneksi."
+
+#~ msgid "Cut"
+#~ msgstr "Potong"
+
+#~ msgid "Copy file names"
+#~ msgstr "Salin nama berkas"
+
+#~ msgid "Send files"
+#~ msgstr "Kirim berkas"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "Buka _terminal di sini"
+
+#~ msgid "_New"
+#~ msgstr "_Baru"
+
+#~ msgid "_Directory"
+#~ msgstr "_Direktori"
+
+#~ msgid "_Text File"
+#~ msgstr "Berkas _Teks"
+
+#, c-format
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] "%s dari %s kB dalam %d dari %d berkas"
+
+#, c-format
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] "%s, %d dari %d dir dipilih"
+
+#~ msgid "Filter:"
+#~ msgstr "Penyaring:"
+
+#~ msgid "_Enable Filter…"
+#~ msgstr "Fungsikan P_enyaring…"
+
+#~ msgid "Start _GNOME Commander as root"
+#~ msgstr "Mulai _GNOME Commander sebagai Root"
+
+#~ msgid "_Quit"
+#~ msgstr "_Keluar"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "Salin Nama _Berkas"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "Kembalikan Pi_lihan"
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "GNOME Commander di _Web"
+
+#~ msgid "Refresh"
+#~ msgstr "Segarkan"
+
+#~ msgid "Go to the oldest"
+#~ msgstr "Ke yang tertua"
+
+#~ msgid "Go back"
+#~ msgstr "Mundur"
+
+#~ msgid "Go forward"
+#~ msgstr "Maju"
+
+#~ msgid "Go to the latest"
+#~ msgstr "Ke yang terakhir"
+
+#~ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+#~ msgstr "Salin nama berkas (SHIFT untuk path lengkap, ALT untuk URI)"
+
+#~ msgid "Paste"
+#~ msgstr "Tempel"
+
+#~ msgid "Open terminal (SHIFT for root privileges)"
+#~ msgstr "Buka terminal (SHIFT untuk hak root)"
+
+#~ msgid "GNOME Commander — ROOT PRIVILEGES"
+#~ msgstr "GNOME Commander — PRIVILESE ROOT"
+
+#~ msgid "Path matches regex:"
+#~ msgstr "Path cocok regex:"
+
+#~ msgid "Name contains:"
+#~ msgstr "Nama memuat:"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "_Peka huruf besar kecil"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr "Markahi direktori saat ini"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "Mengelola markah"
+
+#~ msgid "Open terminal"
+#~ msgstr "Buka terminal"
+
+#~ msgid "Open terminal as root"
+#~ msgstr "Buka terminal sebagai root"
+
+#~ msgid "Start GNOME Commander as root"
+#~ msgstr "Mulai GNOME Commander sebagai root"
+
+#~ msgid "Close connection"
+#~ msgstr "Tutup koneksi"
+
+#~ msgid "New connection"
+#~ msgstr "Koneksi baru"
+
+#~ msgid "Open connection"
+#~ msgstr "Buka koneksi"
+
+#~ msgid "Change left connection"
+#~ msgstr "Ubah koneksi kiri"
+
+#~ msgid "Change right connection"
+#~ msgstr "Ubah koneksi kanan"
+
+#~ msgid "Show user defined files"
+#~ msgstr "Tampilkan berkas yang didefinisikan oleh pengguna"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "Alat ubah nama tingkat lanjut"
+
+#~ msgid "Change permissions"
+#~ msgstr "Ubah hak akses"
+
+#~ msgid "Change owner/group"
+#~ msgstr "Ubah pemilik/grup"
+
+#~ msgid "Copy files"
+#~ msgstr "Salin berkas"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "Buat taut simbolik"
+
+#~ msgid "Delete files"
+#~ msgstr "Hapus Berkas"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "Bandingkan berkas (diff)"
+
+#~ msgid "Edit file"
+#~ msgstr "Sunting berkas"
+
+#~ msgid "Edit a new file"
+#~ msgstr "Sunting suatu berkas baru"
+
+#~ msgid "Create directory"
+#~ msgstr "Buat direktori"
+
+#~ msgid "Move files"
+#~ msgstr "Memindah berkas"
+
+#~ msgid "Rename files"
+#~ msgstr "Ubah nama berkas"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "Selaraskan direktori"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr "Tentang GNOME Commander"
+
+#~ msgid "Help contents"
+#~ msgstr "Isi bantuan"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "Bantuan tentang pintasan papan tik"
+
+#~ msgid "Report a problem"
+#~ msgstr "Laporkan suatu masalah"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr "GNOME Commander di Web"
+
+#~ msgid "Compare directories"
+#~ msgstr "Bandingkan direktori"
+
+#~ msgid "Invert selection"
+#~ msgstr "Balik pilihan"
+
+#~ msgid "Select all"
+#~ msgstr "Pilih semua"
+
+#~ msgid "Select all files"
+#~ msgstr "Pilih semua berkas"
+
+#~ msgid "Unselect all files"
+#~ msgstr "Pilih tak satupun"
+
+#~ msgid "Unselect all"
+#~ msgstr "Tidak pilih semua"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Pintasan papan tik"
+
+#~ msgid "Configure plugins"
+#~ msgstr "Mengatur pengaya"
+
+#~ msgid "Back one directory"
+#~ msgstr "Mundur satu direktori"
+
+#~ msgid "Close the current tab"
+#~ msgstr "Tutup tab saat ini"
+
+#~ msgid "Close all tabs"
+#~ msgstr "Tutup semua tab"
+
+#~ msgid "Show directory history"
+#~ msgstr "Tampilkan riwayat direktori"
+
+#~ msgid "Equal panel size"
+#~ msgstr "Ukuran panel sama"
+
+#~ msgid "Maximize panel size"
+#~ msgstr "Maksimalkan ukuran panel"
+
+#~ msgid "Back to the first directory"
+#~ msgstr "Kembali ke direktori pertama"
+
+#~ msgid "Forward one directory"
+#~ msgstr "Maju satu direktori"
+
+#~ msgid "Open directory in the active window"
+#~ msgstr "Buka direktori dalam jendela aktif"
+
+#~ msgid "Open directory in the inactive window"
+#~ msgstr "Buka direktori dalam jendela yang tak aktif"
+
+#~ msgid "Open directory in the left window"
+#~ msgstr "Buka direktori di jendela kiri"
+
+#~ msgid "Open directory in the right window"
+#~ msgstr "Buka direktori di jendela kanan"
+
+#~ msgid "Open directory in the new tab (inactive window)"
+#~ msgstr "Buka direktori dalam tab baru (jendela yang tak aktif)"
+
+#~ msgid "Forward to the last directory"
+#~ msgstr "Maju ke direktori terakhir"
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "Buka direktori dalam tab baru"
+
+#~ msgid "Show terminal"
+#~ msgstr "Tampilkan terminal"
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "Manajer berkas yang cepat dan bertenaga bagi desktop GNOME"
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME Commander adalah perangkat lunak bebas; Anda dapat mendistribusikan "
+#~ "ulang dan/atau mengubahnya di bawah ketentuan GNU General Public License "
+#~ "sebagaimana dipublikasikan oleh Free Software Foundation; Lisensi versi 2 "
+#~ "atau (sesuai pilihan Anda) sebarang versi setelahnya."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "GNOME Commander didistribusikan dengan harapan dapat berguna, tetapi TANPA "
+#~ "ADANYA JAMINAN; termasuk tanpa jaminan DAYA JUAL atau KELAIKAN UNTUK TUJUAN "
+#~ "TERTENTU. Lihat GNU General Public License untuk rincian lebih lanjut."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+#~ "Anda harusnya menerima sebuah salinan Lisensi Umum GNU bersamaan dengan "
+#~ "GNOME Commander, jika tidak, tulislah surat ke Free Software Foundation, "
+#~ "Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+
+#, c-format
+#~ msgid "Source “%s” could not be deleted. Aborting!"
+#~ msgstr "Sumber \"%s\" tidak dapat dihapus. Menggugurkan!"
+
+#, c-format
+#~ msgid "Couldn’t load installed pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Tak bisa memuat pixmap tipe berkas yang dipasang, mencoba memuat %s sebagai "
+#~ "gantinya"
+
+#, c-format
+#~ msgid ""
+#~ "Can’t find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-commander from the gnome-commander-%s/src directory"
+#~ msgstr ""
+#~ "Tak bisa temukan pixmap dimanapun. Pastikan bahwa Anda telah memasang "
+#~ "program tersebut atau sedang mengeksekusi gnome-commander dari direktori "
+#~ "gnome-commander-%s/src"
+
+#~ msgid "Find"
+#~ msgstr "Cari"
+
+#~ msgid "Searching…"
+#~ msgstr "Mencari…"
+
+#~ msgid "Searching for “{}”"
+#~ msgstr "Mencari \"{}\""
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr "Posisi: %lu dari %lu\tKolom: %d\t%s"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "piksel"
+
+#~ msgid "bit/sample"
+#~ msgid_plural "bits/sample"
+#~ msgstr[0] "bit/cuplikan"
+
+#~ msgid "_Copy selection"
+#~ msgstr "_Salin pilihan"
+
+#~ msgid "_Binary"
+#~ msgstr "_Biner"
+
+#~ msgid "Arabic (Windows, CP1256)"
+#~ msgstr "Arab (Windows, CP1256)"
+
+#~ msgid "Rotate Clockwise"
+#~ msgstr "Putar Searah Jarum Jam"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "Mode _Biner"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "_Simpan Pengaturan Saat Ini"
+
+#~ msgid "Make Executable?"
+#~ msgstr "Jadikan Executable?"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid "Run or Display"
+#~ msgstr "Jalankan atau Tampilkan"
+
+#~ msgid "Display"
+#~ msgstr "Tampilan"
+
+#~ msgid "Run"
+#~ msgstr "Jalankan"
+
+#~ msgid "A file {} has no URI"
+#~ msgstr "Berkas {} tidak memiliki URI"
+
+#~ msgid "Disable"
+#~ msgstr "Mematikan"
+
+#~ msgid "Enable"
+#~ msgstr "Memfungsikan"
+
+#~ msgid "Version"
+#~ msgstr "Versi"
+
+#~ msgid "_Enable"
+#~ msgstr "M_emfungsikan"
+
+#~ msgid "_Configure"
+#~ msgstr "_Konfigurasikan"
+
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr "<Tag Exif dan IPTC tak didukung>"
+
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr "<Tag IDE3, APE, FLAC, dan Vorbis tak didukung>"
+
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr "<Tag OLE2 dan ODF tak didukung>"
+
+#~ msgid "<PDF tags not supported>"
+#~ msgstr "<Tag PDF tak didukung>"
+
+#~ msgid "Created"
+#~ msgstr "Dibuat"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr ""
+#~ "Tanggal yang dikaitkan dengan peristiwa dalam siklus hidup sumber daya "
+#~ "(tanggal pembuatan/publikasi)."
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr "Pointer IFD Exif"
+
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr ""
+#~ "Pointer ke IFD Exif. Interoperabilitas, IFD Exif memiliki struktur yang sama"
+#~ " dengan IFD yang dinyatakan dalam TIFF."
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr "Pointer IFD Interoperabilitas"
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+#~ "IFD Interoperabilitas tersusun dari tag yang menyimpan informasi untuk "
+#~ "memastikan Interoperabilitas dan ditunjuk oleh tag berikut yang terletak "
+#~ "dalam IFD Exif. Struktur Interoperabilitas dan IFD Interoperabilitas sama "
+#~ "dengan struktur IFD yang didefinisika TIFF tapi tak memuat data citra secara"
+#~ " karakteristik dibanding dengan IFD TIFF normal."
+
+#~ msgid "Emphasis"
+#~ msgstr "Penekanan"
+
+#~ msgid "Emphasis."
+#~ msgstr "Penekanan."
+
+#~ msgid "Equalization 2"
+#~ msgstr "Equalisasi 2"
+
+#~ msgid "Frames"
+#~ msgstr "Bingkai"
+
+#~ msgid "Number of frames."
+#~ msgstr "Banyaknya bingkai."
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr "InvolvedPeople2"
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr "Ukuran berkas audio dalam byte, tak termasuk tag ID3."
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr "Penyesuaian Volume 2"
+
+#, c-format
+#~ msgid "unsupported tag (suppressed %ld B of binary data)"
+#~ msgstr "tag tak didukung (%ld B data biner diredam)"
+
+#~ msgid "No command was given."
+#~ msgstr "Tidak ada perintah yang diberikan."
+
+#~ msgid "Unable to open terminal in root mode."
+#~ msgstr "Tak bisa membuka terminal dalam mode root."
+
+#~ msgid "Cannot determine executable of Gnome Commander"
+#~ msgstr "Tidak bisa menentukan executable dari Gnome Commander"
+
+#~ msgid "Unable to start GNOME Commander in root mode."
+#~ msgstr "Tak bisa memulai GNOME Commander dalam mode root."
+
+#, c-format
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "(%sbyte)"
+
+#, c-format
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "%sbyte"
+
+#, c-format
+#~ msgid "Creating directory %s… "
+#~ msgstr "Membuat direktori %s… "
+
+#, c-format
+#~ msgid "Failed to create the directory %s: %s"
+#~ msgstr "Gagal membuat direktori %s: %s"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "Ada kesalahan saat menampilkan bantuan."
+
+#~ msgid "Cannot create a file for a path {}."
+#~ msgstr "Tidak bisa membuat berkas untuk path {}."
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu, beesu or pkexec is not found."
+#~ msgstr ""
+#~ "gksudo, xdg-su, gksu, gnomesu, kdesu, beesu, atau pkexec tak ditemukan."

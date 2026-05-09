@@ -5517,3 +5517,2099 @@ msgstr "10-15ms"
 #, fuzzy
 #~ msgid "About"
 #~ msgstr "Περί"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME Commander"
+
+#~ msgid "A two paned file manager"
+#~ msgstr "Ένας διαχειριστής αρχείων με δύο παράθυρα"
+
+#~ msgid "No error description available"
+#~ msgstr "Δεν υπάρχει διάθεσιμη περιγραφή σφάλματος"
+
+#~ msgid "Create Archive..."
+#~ msgstr "Δημιουργία Συμπιεσμένου Αρχείου..."
+
+#, c-format
+#~ msgid "Extract to '%s'"
+#~ msgstr "Εξαγωγή σε '%s'"
+
+#~ msgid "Default type"
+#~ msgstr "Προεπιλεγμένος τύπος"
+
+#~ msgid "/_Save Profile As..."
+#~ msgstr "/_Αποθήκευση προφίλ ως..."
+
+#~ msgid "/_Manage Profiles..."
+#~ msgstr "/_Διαχείριση προφίλ..."
+
+#~ msgid "Current file name"
+#~ msgstr "Τρέχον όνομα αρχείου"
+
+#~ msgid "New file name"
+#~ msgstr "Νέο όνομα αρχείου"
+
+#~ msgid "File size"
+#~ msgstr "Μέγεθος αρχείου"
+
+#~ msgid "File modification date"
+#~ msgstr "Ημερομηνία τροποποίησης αρχείου"
+
+#~ msgid "Profiles..."
+#~ msgstr "Προφίλ..."
+
+#~ msgid "_Replace with:"
+#~ msgstr "_Αντικατάσταση με:"
+
+#~ msgid ""
+#~ "Some regular expressions functionality is disabled. To enable it's necessary"
+#~ " to build GNOME Commander with GLib ≥ 2.14. Please contact your package "
+#~ "maintainer about that."
+#~ msgstr ""
+#~ "Κάποια λειτουργικότητα κανονικών εκφράσεων έχει απενεργοποιηθεί. Για "
+#~ "ενεργοποίηση είναι απαραίτητη η δόμηση του GNOME Commander με GLib ≥ 2.14. "
+#~ "Παρακαλούμε επικοινωνήστε με τον συντηρητή του πακέτου σας για αυτό."
+
+#, c-format
+#~ msgid "Could not chown %s"
+#~ msgstr "Αδυναμία chown %s"
+
+#~ msgid "Chown"
+#~ msgstr "Chown"
+
+#~ msgid "S_hare:"
+#~ msgstr "_Κοινόχρηστος:"
+
+#~ msgid "_User name:"
+#~ msgstr "Ό_νομα χρήστη:"
+
+#~ msgid "_Password:"
+#~ msgstr "_Κωδικός πρόσβασης:"
+
+#, c-format
+#~ msgid "\"%s\" is not a valid location"
+#~ msgstr "Το \"%s\" δεν είναι έγκυρη τοποθεσία"
+
+#~ msgid "Remote Server"
+#~ msgstr "Απομακρυσμένος εξυπηρετητής"
+
+#~ msgid "Use _GNOME Keyring Manager for authentication"
+#~ msgstr "Χρήση του διαχειριστή κλειδοθήκης του _GNOME για πιστοποίηση"
+
+#, c-format
+#~ msgid "Deleted %ld of %ld file"
+#~ msgid_plural "Deleted %ld of %ld files"
+#~ msgstr[0] "Διαγραφή %ld από %ld αρχείο"
+#~ msgstr[1] "Διαγραφή %ld από %ld αρχεία"
+
+#~ msgid "Deleting..."
+#~ msgstr "Διαγραφή..."
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting \"%s\"\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Σφάλμα κατά τη διαγραφή του \"%s\"\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Delete problem"
+#~ msgstr "Διαγραφή προβλήματος"
+
+#, c-format
+#~ msgid "Do you want to delete \"%s\"?"
+#~ msgstr "Θέλετε τη διαγραφή του \"%s\";"
+
+#, c-format
+#~ msgid "Do you want to delete the selected file?"
+#~ msgid_plural "Do you want to delete the %d selected files?"
+#~ msgstr[0] "Θέλετε να διαγράψετε το επιλεγμένο αρχείο;"
+#~ msgstr[1] "Θέλετε να διαγράψετε τα %d επιλεγμένα αρχεία;"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid "Bookmark name is missing."
+#~ msgstr "Λείπει το όνομα του σελιδοδείκτη."
+
+#~ msgid "Bookmark target is missing."
+#~ msgstr "Ο προορισμός του σελιδοδείκτη λείπει."
+
+#~ msgid "Image:"
+#~ msgstr "Εικόνα:"
+
+#~ msgid "Type:"
+#~ msgstr "Τύπος:"
+
+#~ msgid "MIME Type:"
+#~ msgstr "Τύπος MIME:"
+
+#~ msgid "Type"
+#~ msgstr "Τύπος"
+
+#~ msgid "Metadata namespace"
+#~ msgstr "Ονοματοθεσία μεταδεδομένων"
+
+#~ msgid "Tag name"
+#~ msgstr "Όνομα ετικέτας"
+
+#~ msgid "Tag value"
+#~ msgstr "Τιμή ετικέτας"
+
+#~ msgid "Metadata tag description"
+#~ msgstr "Περιγραφή ετικέτας μεταδεδομένων"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the corresponding row and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "Για να επεξεργαστείτε μία συντόμευση πληκτρολογίου, πατήστε στην αντίστοιχη "
+#~ "γραμμή και πληκτρολογήστε τον νέο επιταχυντή, ή πατήστε διαφυγή για να το "
+#~ "ακυρώσετε."
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Πλήκτρο συντόμευσης"
+
+#~ msgid "Keyboard shortcut for selected action"
+#~ msgstr "Συντόμευση πληκτρολογίου για την επιλεγμένη ενέργεια"
+
+#~ msgid "Action"
+#~ msgstr "Ενέργεια"
+
+#~ msgid "User action"
+#~ msgstr "Ενέργεια χρήστη"
+
+#~ msgid "Optional data"
+#~ msgstr "Προαιρετικά δεδομένα"
+
+#, c-format
+#~ msgid "Shortcut \"%s\" is already taken by \"%s\"."
+#~ msgstr "Η συντόμευση \"%s\" χρησιμοποιείται ήδη από το \"%s\"."
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "Συγκρουόμενες συντομεύσεις"
+
+#, c-format
+#~ msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
+#~ msgstr "Η επανεκχώρηση της συντόμευσης θα την απομακρύνει από το \"%s\"."
+
+#~ msgid "Invalid shortcut."
+#~ msgstr "Άκυρη συντόμευση."
+
+#~ msgid "Do nothing"
+#~ msgstr "Καμία ενέργεια"
+
+#, c-format
+#~ msgid "Copy \"%s\" to"
+#~ msgstr "Αντιγραφή \"%s\" σε"
+
+#~ msgid "Group"
+#~ msgstr "Ομάδα"
+
+#~ msgid "Bookmark group"
+#~ msgstr "Ομάδα σελιδοδεικτών"
+
+#~ msgid "Bookmark name"
+#~ msgstr "Όνομα σελιδοδείκτη"
+
+#~ msgid "Keyboard shortcut for selected bookmark"
+#~ msgstr "Συντόμευση πληκτρολογίου για τον επιλεγμένο σελιδοδείκτη"
+
+#~ msgid "Bookmarked path"
+#~ msgstr "Διαδρομή σελιδοδείκτη"
+
+#~ msgid "Profile name"
+#~ msgstr "Όνομα προφίλ"
+
+#~ msgid "/Local path..."
+#~ msgstr "/Τοπική διαδρομή..."
+
+#~ msgid "/Remote location..."
+#~ msgstr "/Απομακρυσμένη τοποθεσία..."
+
+#~ msgid "_Import"
+#~ msgstr "Ε_ισαγωγή"
+
+#~ msgid "Silently"
+#~ msgstr "Σιωπηλά"
+
+#~ msgid "Skip All"
+#~ msgstr "Προσπέραση Όλων"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Αντικατάσταση αρχείων"
+
+#, c-format
+#~ msgid "copy %d file to"
+#~ msgid_plural "copy %d files to"
+#~ msgstr[0] "αντιγραφή %d αρχείου στο"
+#~ msgstr[1] "αντιγραφή %d αρχείου στο"
+
+#, c-format
+#~ msgid "Move \"%s\" to"
+#~ msgstr "Μετακίνηση του \"%s\" σε"
+
+#, c-format
+#~ msgid "move %d file to"
+#~ msgid_plural "move %d files to"
+#~ msgstr[0] "μετακίνηση του αρχείου %d στο"
+#~ msgstr[1] "μετακίνηση των αρχείων %d στο"
+
+#, c-format
+#~ msgid "The directory '%s' doesn't exist, do you want to create it?"
+#~ msgstr "Ο κατάλογος '%s' δεν υπάρχει, θέλετε να δημιουργηθεί;"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "Ταίριασμα αρχής του ονόματος αρχείου"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "Ταίριασμα τέλους του ονόματος αρχείου"
+
+#~ msgid "Don't start a new instance"
+#~ msgstr "Μην ξεκινάτε νέο στιγμιότυπο"
+
+#~ msgid ""
+#~ "See the manual page for \"strftime\" for help on how to set the format "
+#~ "string."
+#~ msgstr ""
+#~ "Δείτε τη σελίδα του εγχειριδίου για \"strftime\", για βοήθεια στη ρύθμιση "
+#~ "του αλφαριθμητικού μορφής."
+
+#~ msgid "Edit Colors..."
+#~ msgstr "Επεξεργασία χρωμάτων..."
+
+#~ msgid "Colors"
+#~ msgstr "Χρώματα"
+
+#~ msgid "Palette"
+#~ msgstr "Παλέτα"
+
+#~ msgid "Foreground:"
+#~ msgstr "Προσκήνιο:"
+
+#~ msgid "Background:"
+#~ msgstr "Παρασκήνιο:"
+
+#~ msgid "File panes"
+#~ msgstr "Παράθυρα αρχείου"
+
+#~ msgid "Edit..."
+#~ msgstr "Επεξεργασία..."
+
+#~ msgid "Edit colors..."
+#~ msgstr "Επεξεργασία χρωμάτων..."
+
+#~ msgid "Document icon directory:"
+#~ msgstr "Κατάλογος εικονιδίου εγγράφου:"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "Επιβεβαίωση προεπιλογών σε Εντάξει"
+
+#~ msgid "Copy overwrite"
+#~ msgstr "Αντιγραφή αντικατάστασης"
+
+#~ msgid "Move overwrite"
+#~ msgstr "Μετακίνηση αντικατάστασης"
+
+#~ msgid "Drag and Drop"
+#~ msgstr "Μεταφορά κι απόθεση"
+
+#~ msgid "Fifo files"
+#~ msgstr "Αρχεία Fifo"
+
+#~ msgid "Socket files"
+#~ msgstr "Αρχεία Socket"
+
+#~ msgid "Character devices"
+#~ msgstr "Συσκευές χαρακτήρα"
+
+#~ msgid "Block devices"
+#~ msgstr "Συσκευές ομάδας"
+
+#~ msgid "Other favorite apps"
+#~ msgstr "Άλλες αγαπημένες εφαρμογές"
+
+#~ msgid "Device:"
+#~ msgstr "Συσκευή:"
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr "Παράλειψη προσάρτησης (χρήσιμη όταν χρησιμοποιείτε υπερπροσάρτηση)"
+
+#~ msgid "Save password in GNOME keyring"
+#~ msgstr "Αποθήκευση συνθηματικού στην κλειδοθήκη GNOME"
+
+#~ msgid "Network protocol"
+#~ msgstr "Πρωτόκολλο δικτύου"
+
+#~ msgid "Connection name"
+#~ msgstr "Όνομα σύνδεσης"
+
+#~ msgid "Connections"
+#~ msgstr "Συνδέσεις"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "Ανώνυμος κωδικός FTP:"
+
+#~ msgid "Search local directories only"
+#~ msgstr "Αναζήτηση μόνο τοπικών καταλόγων"
+
+#~ msgid "Files _not containing text"
+#~ msgstr "Αρχεία που _δεν περιέχουν κείμενο"
+
+#, c-format
+#~ msgid "Failed to read file %s: %s"
+#~ msgstr "Αποτυχία ανάγνωσης αρχείου %s: %s"
+
+#, c-format
+#~ msgid "Searching in: %s"
+#~ msgstr "Αναζήτηση στο: %s"
+
+#, c-format
+#~ msgid "Found %d match - search aborted"
+#~ msgid_plural "Found %d matches - search aborted"
+#~ msgstr[0] "Βρέθηκε %d ταίριασμα - διακοπή αναζήτησης"
+#~ msgstr[1] "Βρέθηκαν %d ταιριάσματα - διακοπή αναζήτησης"
+
+#, c-format
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "Βρέθηκε %d ταίριασμα"
+#~ msgstr[1] "Βρέθηκαν %d ταιριάσματα"
+
+#, c-format
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr ""
+#~ "Αποτυχία ορισμού αναγνωριστικού ομάδας διαδικασίας του θυγατρικού του %d: "
+#~ "%s.\n"
+
+#~ msgid "Error parsing the search command."
+#~ msgstr "Σφάλμα κατά την ανάλυση της εντολής αναζήτησης."
+
+#~ msgid "Error running the search command."
+#~ msgstr "Σφάλμα κατά την εκτέλεση της εντολής αναζήτησης."
+
+#, c-format
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr "Αποτυχία αλλαγής του καταλόγου έξω από το %s"
+
+#~ msgid "Search..."
+#~ msgstr "Αναζήτηση..."
+
+#, c-format
+#~ msgid "%d file listed"
+#~ msgid_plural "%d files listed"
+#~ msgstr[0] "%d αρχείο στη λίστα"
+#~ msgstr[1] "%d αρχεία στη λίστα"
+
+#~ msgid "Accelerator key"
+#~ msgstr "Πλήκτρο επιτάχυνσης"
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr "Τροποποιητές επιταχυντών"
+
+#~ msgid "Accelerator Mode"
+#~ msgstr "Λειτουργία επιταχυντή"
+
+#~ msgid "The type of accelerator."
+#~ msgstr "Ο τύπος του επιταχυντή."
+
+#~ msgid "Disabled"
+#~ msgstr "Απενεργοποιημένο"
+
+#~ msgid "New accelerator..."
+#~ msgstr "Νέος επιταχυντής..."
+
+#~ msgid "Credits"
+#~ msgstr "Μνεία"
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "Ιστοσελίδα προσθέτου"
+
+#~ msgid "C_redits"
+#~ msgstr "Μ_νεία"
+
+#~ msgid "/Grandparent"
+#~ msgstr "/Δεύτερος ανιόν"
+
+#~ msgid "/Parent"
+#~ msgstr "/Ανιόν"
+
+#~ msgid "/File name"
+#~ msgstr "/Όνομα αρχείου"
+
+#~ msgid "/File name (range)"
+#~ msgstr "/Όνομα αρχείου (περιοχή)"
+
+#~ msgid "/File name without extension"
+#~ msgstr "/Όνομα αρχείου χωρίς επέκταση"
+
+#~ msgid "/File name without extension (range)"
+#~ msgstr "/Όνομα αρχείου χωρίς επέκταση (περιοχή)"
+
+#~ msgid "/File extension"
+#~ msgstr "/Επέκταση αρχείου"
+
+#~ msgid "/Counter"
+#~ msgstr "/Μετρητής"
+
+#~ msgid "/Counter (width)"
+#~ msgstr "/Μετρητής (πλάτος)"
+
+#~ msgid "/Counter (auto)"
+#~ msgstr "/Μετρητής (αυτόματος)"
+
+#~ msgid "/Hexadecimal random number (width)"
+#~ msgstr "/Δεκαεξαδικός τυχαίος αριθμός (πλάτος)"
+
+#~ msgid "/Date"
+#~ msgstr "/Ημερομηνία"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "/Ημερομηνία/<locale>"
+
+#~ msgid "/Date/yyyy-mm-dd"
+#~ msgstr "/Ημερομηνία/εεεε-μμ-ηη"
+
+#~ msgid "/Date/yy-mm-dd"
+#~ msgstr "/Ημερομηνία/εε-μμ-ηη"
+
+#~ msgid "/Date/yy.mm.dd"
+#~ msgstr "/Ημερομηνία/εε.μμ.ηη"
+
+#~ msgid "/Date/yymmdd"
+#~ msgstr "/Ημερομηνία/εεμμηη"
+
+#~ msgid "/Date/dd.mm.yy"
+#~ msgstr "/Ημερομηνία/ηη.μμ.εε"
+
+#~ msgid "/Date/mm-dd-yy"
+#~ msgstr "/ημερομηνία/μμ-ηη-εε"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/Ημερομηνία/εεεε"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/Ημερομηνία/εε"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/Ημερομηνία/μμ"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/Ημερομηνία/μμμ"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/Ημερομηνία/ηη"
+
+#~ msgid "/Time"
+#~ msgstr "/Ώρα"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/Ώρα/<locale>"
+
+#~ msgid "/Time/HH.MM.SS"
+#~ msgstr "/Ώρα/ΩΩ.ΛΛ.ΔΔ"
+
+#~ msgid "/Time/HH-MM-SS"
+#~ msgstr "/Ώρα/ΩΩ-ΛΛ-ΔΔ"
+
+#~ msgid "/Time/HHMMSS"
+#~ msgstr "/Ώρα/ΩΩΛΛΔΔ"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/Ώρα/ΩΩ"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/Ώρα/ΛΛ"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/Ώρα/ΔΔ"
+
+#~ msgid "Regex pattern"
+#~ msgstr "Μοτίβα Regex"
+
+#~ msgid "Replacement"
+#~ msgstr "Αντικατάσταση"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "Ταίριασμα πεζών-κεφαλαίων"
+
+#~ msgid "<New connection>"
+#~ msgstr "<Νέα σύνδεση>"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "Μετάβαση σε: %s"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "Σύνδεσης σε: %s"
+
+#, c-format
+#~ msgid "Disconnect from: %s"
+#~ msgstr "Αποσύνδεση από: %s"
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "Σύνδεση στο %s\n"
+
+#, c-format
+#~ msgid "Mount failed: mount exited with existatus %d"
+#~ msgstr "Αποτυχία προσάρτησης: η προσάρτηση εξήλθε με κατάσταση εξόδου %d"
+
+#~ msgid "Device is now safe to remove"
+#~ msgstr "Η αφαίρεση της συσκευής είναι τώρα ασφαλής"
+
+#, c-format
+#~ msgid ""
+#~ "Cannot unmount the volume:\n"
+#~ "%s %s"
+#~ msgstr ""
+#~ "Αδύνατη η αποπροσάρτηση του τόμου:\n"
+#~ "%s %s"
+
+#~ msgid "Unknown error"
+#~ msgstr "Άγνωστο σφάλμα"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "Μετάβαση σε: %s (%s)"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr "Προσάρτηση %s"
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr "Αποπροσάρτηση: %s"
+
+#~ msgid "Failed to browse the network. Is the SMB module installed?"
+#~ msgstr "Αποτυχία περιήγησης δικτύου. Είναι το άρθρωμα SMB εγκατεστημένο;"
+
+#~ msgid "Audio Files"
+#~ msgstr "Αρχεία ήχου"
+
+#~ msgid "CamelCase"
+#~ msgstr "Καμηλογράμματα"
+
+#~ msgid "Manage bookmarks..."
+#~ msgstr "Διαχείριση σελιδοδεικτών..."
+
+#~ msgid "/_Copy here"
+#~ msgstr "/_Αντιγραφή εδώ"
+
+#~ msgid "/_Move here"
+#~ msgstr "/_Μετακίνηση εδώ"
+
+#~ msgid "/_Link here"
+#~ msgstr "/_Σύνδεσμος εδώ"
+
+#~ msgid "/C_ancel"
+#~ msgstr "/Α_κύρωση"
+
+#~ msgid "Failed to open connection."
+#~ msgstr "Αποτυχία ανοίγματος σύνδεσης."
+
+#~ msgid "Couldn't retrieve MIME type of the file."
+#~ msgstr "Αδύνατη η ανάκτηση τύπου MIME του αρχείου."
+
+#~ msgid "Open with other..."
+#~ msgstr "Άνοιγμα με άλλη..."
+
+#~ msgid "Needs terminal"
+#~ msgstr "Χρειάζεται τερματικό"
+
+#, c-format
+#~ msgid "_Open with \"%s\""
+#~ msgstr "_Ανοίγει με \"%s\""
+
+#~ msgid "Copy file names"
+#~ msgstr "Αντιγραφή ονομάτων αρχείων"
+
+#~ msgid "Send files"
+#~ msgstr "Αποστολή αρχείων"
+
+#~ msgid "Open this _folder"
+#~ msgstr "Άνοιγμα αυτού του _φακέλου"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "Άνοιγμα του _τερματικού εδώ"
+
+#~ msgid "_Properties..."
+#~ msgstr "_Ιδιότητες..."
+
+#~ msgid "Other _Application..."
+#~ msgstr "Άλλη ε_φαρμογή..."
+
+#, c-format
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] "%s από %s kB σε %d από %d αρχείο"
+#~ msgstr[1] "%s από %s kB σε %d από %d αρχεία"
+
+#, c-format
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] "%s, %d από %d επιλεγμένο κατάλογο"
+#~ msgstr[1] "%s, %d από %d επιλεγμένους καταλόγους"
+
+#~ msgid "The tab is locked, close anyway ?"
+#~ msgstr "Η καρτέλα είναι κλειδωμένη, να κλείσει οπωσδήποτε;"
+
+#~ msgid "Copy Tab to Other _Pane"
+#~ msgstr "Αντιγραφή καρτέλας σε άλλο _παράθυρο"
+
+#~ msgid "No file name given"
+#~ msgstr "Δεν έχετε δώσει όνομα αρχείου"
+
+#~ msgid "Filter:"
+#~ msgstr "Φίλτρο:"
+
+#~ msgid "Unknown file type"
+#~ msgstr "Άγνωστος τύπος αρχείου"
+
+#~ msgid "Regular file"
+#~ msgstr "Κανονικό αρχείο"
+
+#~ msgid "FIFO"
+#~ msgstr "FIFO"
+
+#~ msgid "UNIX Socket"
+#~ msgstr "Υποδοχή UNIX"
+
+#~ msgid "Character device"
+#~ msgstr "Συσκευή χαρακτήρα"
+
+#~ msgid "Block device"
+#~ msgstr "Συσκευή ομάδας"
+
+#~ msgid "Symbolic link"
+#~ msgstr "Συμβολικός σύνδεσμος"
+
+#~ msgid "_Directory"
+#~ msgstr "Κα_ταλόγος"
+
+#~ msgid "_Text File"
+#~ msgstr "Αρχείο _κειμένου"
+
+#~ msgid "_New"
+#~ msgstr "_Νέο"
+
+#~ msgid "Switch to Vertical Layout"
+#~ msgstr "Αλλαγή σε κάθετη διάταξη"
+
+#~ msgid "Switch to Horizontal Layout"
+#~ msgstr "Αλλαγή σε οριζόντια διάταξη"
+
+#~ msgid "_Search..."
+#~ msgstr "Ανα_ζήτηση..."
+
+#~ msgid "_Quick Search..."
+#~ msgstr "_Γρήγορη αναζήτηση..."
+
+#~ msgid "_Enable Filter..."
+#~ msgstr "Ενεργοποίηση _φίλτρου..."
+
+#~ msgid "Start _GNOME Commander as Root"
+#~ msgstr "Εκκίνηση του _GNOME Commander ως ριζικού"
+
+#~ msgid "_Quit"
+#~ msgstr "Έ_ξοδος"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "Επαναφο_ρά επιλογής"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "Αντιγραφή ονομάτων α_ρχείων"
+
+#~ msgid "_Bookmark this Directory..."
+#~ msgstr "Προσ_θήκη σελιδοδείκτη για αυτόν κατάλογο..."
+
+#~ msgid "_Manage Bookmarks..."
+#~ msgstr "Δια_χείριση σελιδοδεικτών..."
+
+#~ msgid "_Configure Plugins..."
+#~ msgstr "_Ρύθμιση πρόσθετων λειτουργιών..."
+
+#~ msgid "_Options..."
+#~ msgstr "_Επιλογές..."
+
+#~ msgid "_Keyboard Shortcuts..."
+#~ msgstr "Συντομεύσεις _πληκτρολογίου..."
+
+#~ msgid "_Remote Server..."
+#~ msgstr "Απο_μακρυσμένος εξυπηρετητής..."
+
+#~ msgid "New Connection..."
+#~ msgstr "Νέα σύνδεση..."
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "GNOME Commander στον _ιστό"
+
+#~ msgid "GNOME Commander - ROOT PRIVILEGES"
+#~ msgstr "GNOME Commander - ΔΙΚΑΙΩΜΑΤΑ ΥΠΕΡΧΡΗΣΤΗ"
+
+#~ msgid "Refresh"
+#~ msgstr "Ανανέωση"
+
+#~ msgid "Go to the oldest"
+#~ msgstr "Μετάβαση στον πιο παλιό"
+
+#~ msgid "Go back"
+#~ msgstr "Μετάβαση πίσω"
+
+#~ msgid "Go forward"
+#~ msgstr "Μετάβαση εμπρός"
+
+#~ msgid "Go to the latest"
+#~ msgstr "Μετάβαση στον τελευταίο"
+
+#~ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+#~ msgstr ""
+#~ "Αντιγραφή ονομάτων αρχείου (SHIFT για πλήρεις διαδρομές, ALT για URIs)"
+
+#~ msgid "Cut"
+#~ msgstr "Αποκοπή"
+
+#~ msgid "Paste"
+#~ msgstr "Επικόλληση"
+
+#~ msgid "Open terminal (SHIFT for root privileges)"
+#~ msgstr "Άνοιγμα τερματικού (SHIFT για δικαιώματα υπερχρήστη)"
+
+#~ msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
+#~ msgstr "Αδύνατη η φόρτωση του αρθρώματος python 'gnomevfs' ('gnome.vfs')"
+
+#~ msgid "Path matches regex:"
+#~ msgstr "Η διαδομή ταιριάζει στο regex:"
+
+#~ msgid "Name contains:"
+#~ msgstr "Το όνομα περιέχει:"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "Διάκριση _πεζών/κεφαλαίων"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr "Σελιδοδείκτη στον τρέχοντα κατάλογο"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "Διαχείριση σελιδοδεικτών"
+
+#~ msgid "Open folder"
+#~ msgstr "Άνοιγμα φακέλου"
+
+#~ msgid "Open terminal"
+#~ msgstr "Άνοιγμα τερματικού"
+
+#~ msgid "Open terminal as root"
+#~ msgstr "Άνοιγμα τερματικού ως υπερχρήστης"
+
+#~ msgid "Start GNOME Commander as root"
+#~ msgstr "Εκκίνηση του GNOME Commander ως υπερχρήστης"
+
+#~ msgid "Close connection"
+#~ msgstr "Κλείσιμο σύνδεσης"
+
+#~ msgid "New connection"
+#~ msgstr "Νέα σύνδεση"
+
+#~ msgid "Open connection"
+#~ msgstr "Άνοιγμα σύνδεσης"
+
+#~ msgid "Change left connection"
+#~ msgstr "Αλλαγή αριστερής σύνδεσης"
+
+#~ msgid "Change right connection"
+#~ msgstr "Αλλαγή δεξιάς σύνδεσης"
+
+#~ msgid "Show user defined files"
+#~ msgstr "Εμφάνιση των ορισμένων από τον χρήστη αρχείων"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "Προχωρημένο εργαλείο μετονομασίας"
+
+#~ msgid "Change permissions"
+#~ msgstr "Αλλαγή δικαιωμάτων"
+
+#~ msgid "Change owner/group"
+#~ msgstr "Αλλαγή ιδιοκτήτη/ομάδας"
+
+#~ msgid "Copy files"
+#~ msgstr "Αντιγραφή αρχείων"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "Δημιουργία συμβολικού συνδέσμου"
+
+#~ msgid "Delete files"
+#~ msgstr "Διαγραφή αρχείων"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "Σύγκριση αρχείων (diff)"
+
+#~ msgid "Edit file"
+#~ msgstr "Επεξεργασία αρχείου"
+
+#~ msgid "Edit a new file"
+#~ msgstr "Επεξεργασία νέου αρχείου"
+
+#~ msgid "Create directory"
+#~ msgstr "Δημιουργία καταλόγου"
+
+#~ msgid "Move files"
+#~ msgstr "Μετακίνηση αρχείων"
+
+#~ msgid "Rename files"
+#~ msgstr "Μετονομασία αρχείων"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "Συγχρονισμός καταλόγων"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr "Περί του GNOME Commander"
+
+#~ msgid "Help contents"
+#~ msgstr "Περιεχόμενα βοήθειας"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "Βοήθεια για συντομεύσεις πληκτρολογίου"
+
+#~ msgid "Report a problem"
+#~ msgstr "Αναφορά προβλήματος"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr "GNOME Commander στον ιστό"
+
+#~ msgid "Compare directories"
+#~ msgstr "Σύγκριση καταλόγων"
+
+#~ msgid "Invert selection"
+#~ msgstr "Αντιστροφή επιλογής"
+
+#~ msgid "Select all"
+#~ msgstr "Επιλογή όλων"
+
+#~ msgid "Unselect all"
+#~ msgstr "Αποεπιλογή όλων"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Συντομεύσεις πληκτρολογίου"
+
+#~ msgid "Configure plugins"
+#~ msgstr "Ρύθμιση προσθέτων"
+
+#~ msgid "Execute Python plugin"
+#~ msgstr "Εκτέλεση προσθέτου Python"
+
+#~ msgid "Back one directory"
+#~ msgstr "Ένας κατάλογος πίσω"
+
+#~ msgid "Close the current tab"
+#~ msgstr "Κλείσιμο της τρέχουσας καρτέλας"
+
+#~ msgid "Close all tabs"
+#~ msgstr "Κλείσιμο όλων των καρτελών"
+
+#~ msgid "Show directory history"
+#~ msgstr "Εμφάνιση ιστορικού καταλόγου"
+
+#~ msgid "Equal panel size"
+#~ msgstr "Ίσο μέγεθος πίνακα"
+
+#~ msgid "Maximize panel size"
+#~ msgstr "Μεγιστοποίηση μεγέθους πίνακα"
+
+#~ msgid "Back to the first directory"
+#~ msgstr "Πίσω στον πρώτο κατάλογο"
+
+#~ msgid "Forward one directory"
+#~ msgstr "Μπροστά έναν κατάλογο"
+
+#~ msgid "Open directory in the active window"
+#~ msgstr "Άνοιγμα καταλόγου στο ενεργό παράθυρο"
+
+#~ msgid "Open directory in the inactive window"
+#~ msgstr "Άνοιγμα καταλόγου στο ανενεργό παράθυρο"
+
+#~ msgid "Open directory in the left window"
+#~ msgstr "Άνοιγμα καταλόγου στο αριστερό παράθυρο"
+
+#~ msgid "Open directory in the right window"
+#~ msgstr "Άνοιγμα καταλόγου στο δεξιό παράθυρο"
+
+#~ msgid "Open directory in the new tab (inactive window)"
+#~ msgstr "Άνοιγμα καταλόγου στη νέα καρτέλα (ανενεργό παράθυρο)"
+
+#~ msgid "Forward to the last directory"
+#~ msgstr "Προώθηση στον τελευταίο κατάλογο"
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "Άνοιγμα καταλόγου σε νέα καρτέλα"
+
+#~ msgid "Show terminal"
+#~ msgstr "Εμφάνιση τερματικού"
+
+#, c-format
+#~ msgid "Create symbolic links of %i file in %s?"
+#~ msgid_plural "Create symbolic links of %i files in %s?"
+#~ msgstr[0] "Δημιουργία συμβολικών συνδέσμων του %i αρχείου στο %s;"
+#~ msgstr[1] "Δημιουργία συμβολικών συνδέσμων των %i αρχείων στο %s;"
+
+#~ msgid "Unable to open terminal"
+#~ msgstr "Αδύνατο το άνοιγμα του τερματικού"
+
+#~ msgid "Unable to open terminal in root mode."
+#~ msgstr "Αδύνατο το άνοιγμα τερματικού σε ριζική κατάσταση."
+
+#~ msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found."
+#~ msgstr "Δεν βρέθηκαν τα xdg-su, gksu, gnomesu, kdesu ή beesu."
+
+#~ msgid "Unable to start Nautilus."
+#~ msgstr "Αδύνατη η έναρξη του Ναυτίλου."
+
+#~ msgid "Unable to start GNOME Commander in root mode."
+#~ msgstr "Αδύνατη η έναρξη του GNOME Commander σε ριζική κατάσταση."
+
+#~ msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+#~ msgstr "Δεν βρέθηκαν τα xdg-su, gksu, gnomesu, kdesu ή beesu"
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr ""
+#~ "Ένας γρήγορος και ισχυρός διαχειριστής αρχείων για την επιφάνεια εργασίας "
+#~ "GNOME"
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "Το GNOME Commander είναι ελεύθερο λογισμικό· επιτρέπεται η αναδιανομή ή/και "
+#~ "τροποποίησή του υπό τους όρους της Γενικής Άδειας Δημόσιας Χρήσης GNU (GNU "
+#~ "General Public License) όπως αυτή δημοσιεύεται από το Ίδρυμα Ελεύθερου "
+#~ "Λογισμικού (Free Software Foundation)· είτε της έκδοσης 2 της άδειας, είτε "
+#~ "(κατ' επιλογήν) οποιασδήποτε μεταγενέστερης έκδοσης."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "Το GNOME Commander διανέμεται με την ελπίδα ότι θα είναι χρήσιμο, αλλά ΧΩΡΙΣ"
+#~ " ΚΑΜΙΑ ΑΠΟΛΥΤΩΣ ΕΓΓΥΗΣΗ· χωρίς ακόμη και την έμμεση εγγύηση ΕΜΠΟΡΕΥΣΙΜΟΤΗΤΑΣ"
+#~ " ή ΚΑΤΑΛΛΗΛΟΤΗΤΑΣ ΓΙΑ ΣΥΓΚΕΚΡΙΜΕΝΟ ΣΚΟΠΟ. Δείτε για περισσότερες "
+#~ "λεπτομέρειες τη Γενική Άδεια Δημόσιας Χρήσης GNU."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+#~ "Θα πρέπει να έχετε λάβει ένα αντίγραφο της Γενικής Άδειας Δημόσιας Χρήσης "
+#~ "GNU (GNU General Public License) μαζί με αυτό το πρόγραμμα· αν όχι, "
+#~ "επικοινωνήστε γραπτώς με το Ίδρυμα Ελεύθερου λογισμικού Free Software "
+#~ "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, "
+#~ "USA."
+
+#, c-format
+#~ msgid ""
+#~ "Overwrite file:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "With:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+#~ msgstr ""
+#~ "Αρχείο αντικατάστασης:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "Με:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+
+#~ msgid "Replace All"
+#~ msgstr "Αντικατάσταση Όλων"
+
+#, c-format
+#~ msgid ""
+#~ "Error while copying to %s\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Σφάλμα κατά την αντιγραφή στο %s\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Transfer problem"
+#~ msgstr "Πρόβλημα μεταφοράς"
+
+#~ msgid "copying..."
+#~ msgstr "αντιγραφή..."
+
+#, c-format
+#~ msgid "[file %ld of %ld] \"%s\""
+#~ msgstr "[αρχείο %ld από %ld] \"%s\""
+
+#~ msgid "preparing..."
+#~ msgstr "προετοιμασία..."
+
+#~ msgid "stopping..."
+#~ msgstr "διακοπή...."
+
+#, c-format
+#~ msgid "%s of %s copied"
+#~ msgstr "%s από %s αντιγράφηκε"
+
+#, c-format
+#~ msgid "%.0f%% copied"
+#~ msgstr "%.0f%% αντιγράφηκε"
+
+#, c-format
+#~ msgid "Couldn't load installed file type pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Αδύνατη η φόρτωση του εγκατεστημένου τύπου αρχείου pixmap, γίνεται "
+#~ "προσπάθεια να φορτωθεί το %s"
+
+#, c-format
+#~ msgid ""
+#~ "Can't find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-commander from the gnome-commander-%s/src directory"
+#~ msgstr ""
+#~ "Αδύνατη η εύρεση του pixmap οπουδήποτε. Βεβαιωθείτε ότι έχετε εγκαταστήσει "
+#~ "το πρόγραμμα ή ότι εκτελείται το gnome-commander από τον κατάλογο gnome-"
+#~ "commander-%s/src"
+
+#, c-format
+#~ msgid "Couldn't load installed pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Αδύνατη η φόρτωση του εγκατεστημένου pixmap, γίνεται προσπάθεια να φορτωθεί "
+#~ "το %s"
+
+#~ msgid "Find"
+#~ msgstr "Εύρεση"
+
+#~ msgid "Searching..."
+#~ msgstr "Αναζήτηση..."
+
+#, c-format
+#~ msgid "Searching for \"%s\""
+#~ msgstr "Αναζήτηση για το \"%s\""
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr "Θέση: %lu από %lu\tΣτήλη: %d\t%s"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "εικονοστοιχείο"
+#~ msgstr[1] "εικονοστοιχεία"
+
+#~ msgid "bit/sample"
+#~ msgid_plural "bits/sample"
+#~ msgstr[0] "δυαδικό/δείγμα"
+#~ msgstr[1] "δυαδικά/δείγμα"
+
+#~ msgid "_Copy selection"
+#~ msgstr "_Αντιγραφή επιλογής"
+
+#~ msgid "_Binary"
+#~ msgstr "_Δυαδικό"
+
+#~ msgid "Zoom _Out"
+#~ msgstr "_Σμίκρυνση"
+
+#~ msgid "Best _Fit"
+#~ msgstr "Καλύτερο ταί_ριασμα"
+
+#~ msgid "Find..."
+#~ msgstr "Εύρεση..."
+
+#~ msgid "_Rotate 180°"
+#~ msgstr "_Περιστροφή 180°"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "_Δυαδική λειτουργία"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "Απο_θήκευση τρεχουσών ρυθμίσεων"
+
+#, c-format
+#~ msgid "Pattern \"%s\" was not found"
+#~ msgstr "Δε βρέθηκε το μοτίβο \"%s\""
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr "Καθορισμός του καταλόγου εκκίνησης για το αριστερό ταμπλώ"
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr "Καθορισμός του καταλόγου εκκίνησης για το δεξί ταμπλώ"
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr "Καθορισμός του καταλόγου για αρχεία διαμόρφωσης"
+
+#~ msgid "File Manager"
+#~ msgstr "Διαχειριστής αρχείου"
+
+#~ msgid "Disable"
+#~ msgstr "Απενεργοποίηση"
+
+#~ msgid "Enable"
+#~ msgstr "Ενεργοποίηση"
+
+#~ msgid "Version"
+#~ msgstr "Έκδοση"
+
+#~ msgid "_Enable"
+#~ msgstr "Ενερ_γοποίηση"
+
+#~ msgid "_Configure"
+#~ msgstr "_Ρύθμιση"
+
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr "<Οι ετικέτες Exif και IPTC δεν υποστηρίζονται>"
+
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr "<Οι ετικέτες ID3, APE, FLAC και Vorbis δεν υποστηρίζονται>"
+
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr "<Οι ετικέτες OLE2 και ODF δεν υποστηρίζονται>"
+
+#~ msgid "<PDF tags not supported>"
+#~ msgstr "<Οι ετικέτες PDF δεν υποστηρίζονται>"
+
+#~ msgid "Set to \"1\" if track is new to the user (default \"0\")."
+#~ msgstr "Ορισμός στο \"1\" αν το κομμάτι είναι νέο στον χρήστη (προεπιλογή το \"0\")."
+
+#~ msgid "\"1\" if the copyrighted bit is set."
+#~ msgstr "\"1\" αν το δυαδικό με πνευματικά δικαιώματα έχει οριστεί."
+
+#~ msgid "\"1\" if the \"original\" bit is set."
+#~ msgstr "\"1\" αν το δυαδικό \"αρχικό\" έχει οριστεί."
+
+#~ msgid "Created"
+#~ msgstr "Δημιουργήθηκε"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr ""
+#~ "Ημερομηνία συσχέτισης με ένα συμβάν στον κύκλο ζωής του πόρου (ημερομηνία "
+#~ "δημιουργίας/δημοσίευσης)."
+
+#~ msgid "Number of \"notes\" in the document."
+#~ msgstr "Ο αριθμός των \"σημειώσεων\" στο έγγραφo."
+
+#~ msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
+#~ msgstr ""
+#~ "Ο τύπος της παρουσίασης, όπως \"Εμφάνιση στην οθόνη\", \"Προβολή "
+#~ "διαφάνειας\", κλπ."
+
+#~ msgid ""
+#~ "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
+#~ "enforced\" or \"Locked for annotations\"."
+#~ msgstr ""
+#~ "Ένα από τα: \"προστασία με κωδικό\", \"συνιστάται μόνο για ανάγνωση\", "
+#~ "\"αναγκαστικά μόνο για ανάγνωση\" ή \"κλειδωμένο για σχόλια\"."
+
+#~ msgid ""
+#~ "Copyright information. The tag is used to indicate both the photographer and"
+#~ " editor copyrights. It is the copyright notice of the person or organization"
+#~ " claiming rights to the image. The Interoperability copyright statement "
+#~ "including date and rights should be written in this field; e.g., "
+#~ "\"Copyright, John Smith, 19xx. All rights reserved.\". The field records "
+#~ "both the photographer and editor copyrights, with each recorded in a "
+#~ "separate part of the statement. When there is a clear distinction between "
+#~ "the photographer and editor copyrights, these are to be written in the order"
+#~ " of photographer followed by editor copyright, separated by NULL (in this "
+#~ "case, since the statement also ends with a NULL, there are two NULL codes) "
+#~ "(see example 1). When only the photographer is given, it is terminated by "
+#~ "one NULL code. When only the editor copyright is given, the photographer "
+#~ "copyright part consists of one space followed by a terminating NULL code, "
+#~ "then the editor copyright is given. When the field is left blank, it is "
+#~ "treated as unknown."
+#~ msgstr ""
+#~ "Πληροφορίες πνευματικών δικαιωμάτων. Η ετικέτα χρησιμοποιείται για να δείξει"
+#~ " και τον φωτογράφο και τα πνευματικά δικαιώματα του επεξεργαστή. Είναι η "
+#~ "σημείωση πνευματικών δικαιωμάτων του ατόμου ή της οργάνωσης που διεκδικεί "
+#~ "δικαιώματα στην εικόνα. Η δήλωση πνευματικών δικαιωμάτων διαλειτουργικότητας"
+#~ " συμπεριλαμβάνει ημερομηνία και τα δικαιώματα πρέπει να γραφτούν σε αυτό το "
+#~ "πεδίο· π.χ., \"Πνευματικά δικαιώματα, Δημήτρης Νικολάου, 20xx. Διατηρούνται "
+#~ "όλα τα δικαιώματα.\". Το πεδίο εγγράφει και τα δικαιώματα του φωτογράφου και"
+#~ " του επεξεργαστή, με τον καθένα να καταγράφεται σε ένα ξεχωριστό τμήμα της "
+#~ "δήλωσης. Όταν υπάρχει μια σαφής διάκριση μεταξύ των δικαιωμάτων του "
+#~ "φωτογράφου και του επεξεργαστή, αυτά πρέπει να γραφτούν με τα δικαιώματα του"
+#~ " φωτογράφου πρώτα και ύστερα του επεξεργαστή, διαχωριζόμενα με ΚΕΝΟ (σε "
+#~ "αυτήν την περίπτωση, αφού η δήλωση τελειώνει επίσης με ΚΕΝΟ, υπάρχουν δύο "
+#~ "ΚΕΝΑ) (δείτε το παράδειγμα 1). Όταν δίνεται μόνο ο φωτογράφος, τελειώνει με "
+#~ "ένα μόνο ΚΕΝΟ. Όταν δίνονται μόνο τα δικαιώματα του επεξεργαστή, το τμήμα "
+#~ "των δικαιωμάτων του φωτογράφου αποτελείται από έναν χώρο ακολουθούμενο από "
+#~ "ένα ΚΕΝΟ που τελειώνει, έπειτα δίνονται τα δικαιώματα του επεξεργαστή. Όταν "
+#~ "το πεδίο αφήνεται κενό, αντιμετωπίζεται ως άγνωστο."
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr "Δείκτης IFD exif"
+
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr ""
+#~ "Ένας δείκτης στο IFD Exif. Διαλειτουργικότητα, το IFD exif έχει την ίδια "
+#~ "δομή όπως αυτό του IFD που καθορίζεται στο TIFF."
+
+#~ msgid ""
+#~ "Indicates whether the latitude is north or south latitude. The ASCII value "
+#~ "'N' indicates north latitude, and 'S' is south latitude."
+#~ msgstr ""
+#~ "Δείχνει αν το γεωγραφικό πλάτος είναι βόρειο ή νότιο. Η τιμή ASCII 'Ν' "
+#~ "δείχνει βόρειο πλάτος και η τιμή 'S' νότιο."
+
+#~ msgid ""
+#~ "Indicates whether the longitude is east or west longitude. ASCII 'E' "
+#~ "indicates east longitude, and 'W' is west longitude."
+#~ msgstr ""
+#~ "Δείχνει αν το γεωγραφικό μήκος είναι ανατολικό ή δυτικό. Το ASCII 'Ε' "
+#~ "δείχνει ανατολικό γεωγραφικό μήκος και το 'W' δυτικό."
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr "Δείκτης IFD διαλειτουργικότητας"
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+#~ "Η διαλειτουργικότητα IFD αποτελείται από ετικέτες που αποθηκεύουν τις "
+#~ "πληροφορίες για να εξασφαλίσουν τη διαλειτουργικότητα και δείχνουν στην "
+#~ "ετικέτα που ακολουθεί και είναι τοποθετημένη στο IFD του Exif. Η "
+#~ "διαλειτουργική δομή της IFD διαλειτουργικότητας δεν περιέχει τα "
+#~ "χαρακτηριστικά δεδομένα της εικόνας συγκρινόμενα με το κανονικό IFD του "
+#~ "TIFF."
+
+#~ msgid ""
+#~ "Indicates the identification of the Interoperability rule. Use \"R98\" for "
+#~ "stating ExifR98 Rules."
+#~ msgstr ""
+#~ "Δείχνει την ταυτοποίηση του κανόνα διαλειτουργικότητας. Χρησιμοποιήστε "
+#~ "\"R98\" για δήλωση κανόνων ExifR98."
+
+#~ msgid ""
+#~ "The reference black point value and reference white point value. No defaults"
+#~ " are given in TIFF, but the values below are given as defaults here. The "
+#~ "color space is declared in a color space information tag, with the default "
+#~ "being the value that gives the optimal image characteristics "
+#~ "Interoperability these conditions."
+#~ msgstr ""
+#~ "Η τιμή μαύρου σημείου αναφοράς και η τιμή λευκού σημείου αναφοράς. Δεν "
+#~ "δίνονται προεπιλογές στο TIFF, αλλά οι παρακάτω τιμές δίνονται ως "
+#~ "προεπιλογές εδώ. Ο χρωματικός χώρος σε μια ετικέτα πληροφοριών χρωματικού "
+#~ "χώρου, με την προεπιλογή να είναι η τιμή που δίνει τα βέλτιστα "
+#~ "διαλειτουργικά χαρακτηριστικά εικόνας αυτών των συνθηκών."
+
+#~ msgid ""
+#~ "This tag is used to record the name of an audio file related to the image "
+#~ "data. The only relational information recorded here is the Exif audio file "
+#~ "name and extension (an ASCII string consisting of 8 characters + '.' + 3 "
+#~ "characters). The path is not recorded. When using this tag, audio files must"
+#~ " be recorded in conformance to the Exif audio format. Writers are also "
+#~ "allowed to store the data such as Audio within APP2 as FlashPix extension "
+#~ "stream data. Audio files must be recorded in conformance to the Exif audio "
+#~ "format. If multiple files are mapped to one file, the above format is used "
+#~ "to record just one audio file name. If there are multiple audio files, the "
+#~ "first recorded file is given. When there are three Exif audio files "
+#~ "\"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the Exif image file"
+#~ " name for each of them, \"DSC00001.JPG\", is indicated. By combining "
+#~ "multiple relational information, a variety of playback possibilities can be "
+#~ "supported. The method of using relational information is left to the "
+#~ "implementation on the playback side. Since this information is an ASCII "
+#~ "character string, it is terminated by NULL. When this tag is used to map "
+#~ "audio files, the relation of the audio file to image data must also be "
+#~ "indicated on the audio file end."
+#~ msgstr ""
+#~ "Αυτή η ετικέτα χρησιμοποιείται για να γράψει το όνομα ενός αρχείου ήχου "
+#~ "σχετικού με τα δεδομένα της εικόνας. Η μόνη σχεσιακή πληροφορία που γράφτηκε"
+#~ " εδώ είναι το όνομα αρχείου ήχου Exif και η επέκταση (μια συμβολοσειρά ASCII"
+#~ " που αποτελείται από 8 χαρακτήρες + '.' + 3 χαρακτήρες). Η διαδρομή δεν "
+#~ "γράφεται. Όταν χρησιμοποιείται αυτή η ετικέτα, τα αρχεία ήχου πρέπει να "
+#~ "γραφτούν σε συμφωνία με τη μορφή ήχου Exif. Οι συγγραφείς επιτρέπεται επίσης"
+#~ " να αποθηκεύσουν τα δεδομένα όπως ήχο μέσα σε APP2 δεδομένα ροής επέκτασης "
+#~ "FlashPix. Τα αρχεία ήχου πρέπει να γραφτούν σύμφωνα με τη μορφή ήχου Exif. "
+#~ "Αν πολλαπλά αρχεία απεικονίζονται σε ένα αρχείο, η παραπάνω μορφή "
+#~ "χρησιμοποιείται για εγγραφή μόνο ενός ονόματος αρχείου ήχου. Αν υπάρχουν "
+#~ "πολλαπλά αρχεία ήχου, δίνεται το πρώτο γραμμένο αρχείο. Όταν υπάρχουν τρία "
+#~ "αρχεία ήχου Exif \"SND00001.WAV\", \"SND00002.WAV\" και \"SND00003.WAV\", το"
+#~ " όνομα αρχείου εικόνας Exif για καθένα τους, δείχνει \"DSC00001.JPG\". "
+#~ "Συνδυάζοντας πολλαπλές σχετικές πληροφορίες, μια ποικιλία δυνατοτήτων "
+#~ "αναπαραγωγής μπορεί να υποστηριχθεί. Η μέθοδος χρήσης σχεσιακών πληροφοριών "
+#~ "αφήνεται στην εφαρμογή της πλευράς αναπαραγωγής. Αφού αυτή η πληροφορία "
+#~ "είναι μια συμβολοσειρά χαρακτήρα ASCII, τελειώνει με NULL. Όταν αυτή η "
+#~ "ετικέτα χρησιμοποιείται για απεικόνιση αρχείων ήχου, η σχέση του αρχείου "
+#~ "ήχου με τα δεδομένα της εικόνας πρέπει επίσης να δείχνεται στο τέλος του "
+#~ "αρχείου ήχου."
+
+#~ msgid ""
+#~ "A tag for Exif users to write keywords or comments on the image besides "
+#~ "those in <Exif.ImageDescription>, and without the character code limitations"
+#~ " of the <Exif.ImageDescription> tag. The character code used in the "
+#~ "<Exif.UserComment> tag is identified based on an ID code in a fixed 8-byte "
+#~ "area at the start of the tag data area. The unused portion of the area is "
+#~ "padded with NULL (\"00.h\"). ID codes are assigned by means of registration."
+#~ " The value of CountN is determinated based on the 8 bytes in the character "
+#~ "code area and the number of bytes in the user comment part. Since the TYPE "
+#~ "is not ASCII, NULL termination is not necessary. The ID code for the "
+#~ "<Exif.UserComment> area may be a Defined code such as JIS or ASCII, or may "
+#~ "be Undefined. The Undefined name is UndefinedText, and the ID code is filled"
+#~ " with 8 bytes of all \"NULL\" (\"00.H\"). An Exif reader that reads the "
+#~ "<Exif.UserComment> tag must have a function for determining the ID code. "
+#~ "This function is not required in Exif readers that do not use the "
+#~ "<Exif.UserComment> tag. When a <Exif.UserComment> area is set aside, it is "
+#~ "recommended that the ID code be ASCII and that the following user comment "
+#~ "part be filled with blank characters [20.H]."
+#~ msgstr ""
+#~ "Μια ετικέτα για χρήστες Exif για εγγραφή λέξεων-κλειδιών ή σχολίων στην "
+#~ "εικόνα πέρα από αυτά στο <Exif.ImageDescription> και χωρίς τους περιορισμούς"
+#~ " κώδικα χαρακτήρων της ετικέτας <Exif.ImageDescription>. Ο χρησιμοποιούμενος"
+#~ " κώδικας χαρακτήρων στην ετικέτα <Exif.UserComment> ταυτοποιείται με βάση "
+#~ "έναν κώδικα αναγνωριστικού σε μια σταθερή περιοχή 8 οκτάδων στην αρχή της "
+#~ "περιοχής δεδομένων ετικέτας. Το αχρησιμοποίητο τμήμα της περιοχής "
+#~ "συμπληρώνεται με NULL (\"00.h\"). Οι κώδικες αναγνωριστικού εκχωρούνται μέσω"
+#~ " της εγγραφής. Η τιμή του CountN ορίζεται με βάση τις 8 οκτάδες στην περιοχή"
+#~ " κώδικα χαρακτήρων και τον αριθμό οκτάδων στο τμήμα σχολίων χρήστη. Αφού ο "
+#~ "TYPE δεν είναι ASCII, ο τερματισμός δεν είναι απαραίτητος. Ο κώδικας "
+#~ "αναγνωριστικού για την περιοχή <Exif.UserComment> μπορεί να είναι ένας "
+#~ "ορισμένος κώδικας όπως JIS ή ASCII, ή μπορεί να είναι αόριστος. Το αόριστο "
+#~ "όνομα είναι UndefinedText και ο κώδικας αναγνωριστικού συμπληρώνεται με 8 "
+#~ "οκτάδες όλων των \"NULL\" (\"00.H\"). Ένας αναγνώστης Exif που διαβάζει την "
+#~ "ετικέτα <Exif.UserComment> πρέπει να έχει μια συνάρτηση για ορισμό του "
+#~ "κώδικα αναγνωριστικού. Αυτή η συνάρτηση δεν απαιτείται σε αναγνώστες Exif "
+#~ "που δεν χρησιμοποιούν την ετικέτα <Exif.UserComment>. Όταν μια περιοχή "
+#~ "<Exif.UserComment> ορίζεται παράπλευρα, συνιστάται αυτός ο κώδικας "
+#~ "αναγνωριστικού να είναι ASCII και αυτός που ακολουθεί το τμήμα σχολίων "
+#~ "χρήστη να συμπληρώνεται με κενούς χαρακτήρες [20.Η]."
+
+#~ msgid ""
+#~ "The matrix coefficients for transformation from RGB to YCbCr image data. No "
+#~ "default is given in TIFF; but here \"Color Space Guidelines\" is used as the"
+#~ " default. The color space is declared in a color space information tag, with"
+#~ " the default being the value that gives the optimal image characteristics "
+#~ "Interoperability this condition."
+#~ msgstr ""
+#~ "Οι συντελεστές πίνακα για μετασχηματισμό από RGB σε δεδομένα εικόνας YCbCr. "
+#~ "Δεν δίνεται καμία προεπιλογή στο TIFF· αλλά εδώ χρησιμοποιούνται οι "
+#~ "\"Οδηγίες χρωματικού χώρου\" ως προεπιλογή. Ο χρωματικός χώρος δηλώνεται σε "
+#~ "μια ετικέτα πληροφορίας χρωματικού χώρου, με προεπιλογή την τιμή που δίνει "
+#~ "βέλτιστα διαλειτουργικά χαρακτηριστικά εικόνας αυτής της κατάστασης."
+
+#~ msgid "File's contents filtered as plain text."
+#~ msgstr "Τα περιεχόμενα του αρχείου φιλτραρισμένα ως απλό κείμενο."
+
+#~ msgid ""
+#~ "MIME type of the file or if a directory it should contain value \"Folder\"."
+#~ msgstr ""
+#~ "Ο τύπος MIME του αρχείου ή αν ένας κατάλογος πρέπει να περιέχει τιμή "
+#~ "\"φάκελος\"."
+
+#~ msgid "Permission string in unix format eg \"-rw-r--r--\"."
+#~ msgstr "Η συμβολοσειρά άδειας σε μορφή Γιούνιξ π.χ. \"-rw-r--r--\"."
+
+#~ msgid "Emphasis"
+#~ msgstr "Έμφαση"
+
+#~ msgid "Emphasis."
+#~ msgstr "Έμφαση."
+
+#~ msgid "Equalization 2"
+#~ msgstr "Ισοστάθμιση 2"
+
+#~ msgid "Frames"
+#~ msgstr "Πλαίσια"
+
+#~ msgid "Number of frames."
+#~ msgstr "Αριθμός πλαισίων."
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr "Εμπλεκόμενα άτομα 2"
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr "Μέγεθος αρχείου ήχου σε οκτάδες, αποκλειόμενης της ετικέτας ID3."
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr "Ρύθμιση έντασης 2"
+
+#~ msgid "Set to \"1\" if flash was fired."
+#~ msgstr "Ορισμός σε \"1\" αν χρησιμοποιήθηκε η αναλαμπή."
+
+#~ msgid ""
+#~ "Represents the orientation of the image wrt camera (IE \"top,left\" or "
+#~ "\"bottom,right\")."
+#~ msgstr ""
+#~ "Αναπαριστά τον προσανατολισμό της κάμερας wrt της εικόνας (IE \"πάνω, "
+#~ "αριστερά\" ή \"κάτω, δεξιά\")."
+
+#~ msgid ""
+#~ "The type of action that this object provides to a previous object. '01' "
+#~ "Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
+#~ msgstr ""
+#~ "Ο τύπος της ενέργειας που δίνει αυτό το αντικείμενο σε ένα προηγούμενο "
+#~ "αντικείμενο. '01' σκότωμα αντικειμένου, '02' αντικατάσταση αντικειμένου, "
+#~ "'03' προσάρτηση αντικειμένου, '04' αναφορά αντικειμένου."
+
+#~ msgid ""
+#~ "The type of update this object provides to a previous object. The link to "
+#~ "the previous object is made using the ARM. '01' indicates an additional "
+#~ "language."
+#~ msgstr ""
+#~ "Ο τύπος της ενημέρωσης που αυτό το αντικείμενο παρέχει σε ένα προηγούμενο "
+#~ "αντικείμενο. Ο σύνδεσμος του προηγούμενου γίνεται χρησιμοποιώντας το ARM. Το"
+#~ " '01' δείχνει μια πρόσθετη γλώσσα."
+
+#~ msgid ""
+#~ "Specifies the envelope handling priority and not the editorial urgency. '1' "
+#~ "for most urgent, '5' for normal, and '8' for least urgent. '9' is user-"
+#~ "defined."
+#~ msgstr ""
+#~ "Καθορίζει την προτεραιότητα χειρισμού του φακέλου και όχι την εκδοτική "
+#~ "σπουδαιότητα. Το '1' για τα πιο επείγοντα, '5' για τα κανονικά και '8' για "
+#~ "τα λιγότερο επείγοντα. Το '9' καθορίζεται από τον χρήστη."
+
+#~ msgid ""
+#~ "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
+#~ "for square."
+#~ msgstr ""
+#~ "Η διάταξη της περιοχής της εικόνας: 'P' για κάθετη, 'L' για οριζόντια και "
+#~ "'S' για τετράγωνη."
+
+#~ msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
+#~ msgstr "Όπου 'a' είναι πρωί, 'p' είναι βράδυ, 'b' είναι και οι δυο."
+
+#~ msgid ""
+#~ "Specifies the editorial urgency of content and not necessarily the envelope "
+#~ "handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
+#~ msgstr ""
+#~ "Καθορίζει την εκδοτική προτεραιότητα του περιεχομένου και όχι αναγκαστικά "
+#~ "την προτεραιότητα χειρισμού του φακέλου. Το '1' είναι το πιο επείγον, '5' "
+#~ "κανονικό και '8' το λιγότερο επείγον."
+
+#~ msgid "Set to \"1\" if optimized for network access."
+#~ msgstr "Ορισμός σε \"1\" αν είναι βέλτιστο για πρόσβαση σε δίκτυο."
+
+#~ msgid "Set to \"1\" if printing is allowed."
+#~ msgstr "Ορισμός σε \"1\" αν επιτρέπεται η εκτύπωση."
+
+#~ msgid "Set to \"1\" if high resolution printing is allowed."
+#~ msgstr "Ορισμός σε \"1\" αν επιτρέπεται εκτύπωση υψηλής ανάλυσης."
+
+#~ msgid "Set to \"1\" if copying the contents is allowed."
+#~ msgstr "Ορισμός σε \"1\" αν επιτρέπεται η αντιγραφή των περιεχομένων."
+
+#~ msgid "Set to \"1\" if modifying the contents is allowed."
+#~ msgstr "Ορισμός σε \"1\" αν επιτρέπεται η τροποποίηση των περιεχομένων."
+
+#~ msgid ""
+#~ "Set to \"1\" if inserting, rotating, or deleting pages and creating "
+#~ "navigation elements is allowed."
+#~ msgstr ""
+#~ "Ορισμός σε \"1\" αν επιτρέπονται η εισαγωγή, περιστροφή ή διαγραφή σελίδων "
+#~ "και η δημιουργία στοιχείων περιήγησης."
+
+#~ msgid "Set to \"1\" if adding or modifying text annotations is allowed."
+#~ msgstr ""
+#~ "Ορισμός σε \"1\" αν επιτρέπεται προσθήκη ή τροποποίηση σημειώσεων κειμένου."
+
+#~ msgid "Set to \"1\" if filling of form fields is allowed."
+#~ msgstr "Ορισμός σε \"1\" αν επιτρέπεται η συμπλήρωση πεδίων φόρμας."
+
+#~ msgid "Set to \"1\" if accessibility support (e.g. screen readers) is enabled."
+#~ msgstr ""
+#~ "Ορισμός σε \"1\" αν είναι ενεργή η υποστήριξη προσβασιμότητας (π.χ. "
+#~ "αναγνώστες οθόνης)."
+
+#~ msgid "No Proofing"
+#~ msgstr "Χωρίς απόδειξη"
+
+#~ msgid "Arabic"
+#~ msgstr "Αραβική"
+
+#~ msgid "Bulgarian"
+#~ msgstr "Βουλγαρική"
+
+#~ msgid "Catalan"
+#~ msgstr "Καταλανική"
+
+#~ msgid "Traditional Chinese"
+#~ msgstr "Παραδοσιακή κινέζικη"
+
+#~ msgid "Simplified Chinese"
+#~ msgstr "Απλοποιημένη κινέζικη"
+
+#~ msgid "Chechen"
+#~ msgstr "Τσετσενική"
+
+#~ msgid "Danish"
+#~ msgstr "Δανική"
+
+#~ msgid "German"
+#~ msgstr "Γερμανική"
+
+#~ msgid "Swiss German"
+#~ msgstr "Γερμανική Ελβετίας"
+
+#~ msgid "Greek"
+#~ msgstr "Ελληνική"
+
+#~ msgid "U.S. English"
+#~ msgstr "Αγγλική ΗΠΑ"
+
+#~ msgid "U.K. English"
+#~ msgstr "Αγγλική Ενωμένου βασιλείου"
+
+#~ msgid "Australian English"
+#~ msgstr "Αγγλική Αυστραλίας"
+
+#~ msgid "Castilian Spanish"
+#~ msgstr "Ισπανική Καστίλης"
+
+#~ msgid "Mexican Spanish"
+#~ msgstr "Ισπανική Μεξικού"
+
+#~ msgid "Finnish"
+#~ msgstr "Φινλανδική"
+
+#~ msgid "French"
+#~ msgstr "Γαλλική"
+
+#~ msgid "Belgian French"
+#~ msgstr "Γαλλική Βελγίου"
+
+#~ msgid "Canadian French"
+#~ msgstr "Γαλλική Καναδά"
+
+#~ msgid "Swiss French"
+#~ msgstr "Γαλλική Ελβετίας"
+
+#~ msgid "Hebrew"
+#~ msgstr "Εβραϊκή"
+
+#~ msgid "Hungarian"
+#~ msgstr "Ουγγρική"
+
+#~ msgid "Icelandic"
+#~ msgstr "Ισλανδική"
+
+#~ msgid "Italian"
+#~ msgstr "Ιταλική"
+
+#~ msgid "Swiss Italian"
+#~ msgstr "Ιταλική Ελβετίας"
+
+#~ msgid "Japanese"
+#~ msgstr "Ιαπωνική"
+
+#~ msgid "Korean"
+#~ msgstr "Κορεατική"
+
+#~ msgid "Dutch"
+#~ msgstr "Ολλανδική"
+
+#~ msgid "Belgian Dutch"
+#~ msgstr "Ολλανδική Βελγίου"
+
+#~ msgid "Norwegian Bokmal"
+#~ msgstr "Νορβηγική Bokmål"
+
+#~ msgid "Norwegian Nynorsk"
+#~ msgstr "Νορβηγική Nynorsk"
+
+#~ msgid "Polish"
+#~ msgstr "Πολωνική"
+
+#~ msgid "Brazilian Portuguese"
+#~ msgstr "Πορτογαλική Βραζιλίας"
+
+#~ msgid "Portuguese"
+#~ msgstr "Πορτογαλική"
+
+#~ msgid "Rhaeto-Romanic"
+#~ msgstr "Ραιτορωμανική"
+
+#~ msgid "Romanian"
+#~ msgstr "Ρουμανική"
+
+#~ msgid "Russian"
+#~ msgstr "Ρωσική"
+
+#~ msgid "Croato-Serbian (Latin)"
+#~ msgstr "Κροατοσερβική (λατινικά)"
+
+#~ msgid "Serbo-Croatian (Cyrillic)"
+#~ msgstr "Σερβοκροατική (κυριλλικά)"
+
+#~ msgid "Slovak"
+#~ msgstr "Σλοβακική"
+
+#~ msgid "Albanian"
+#~ msgstr "Αλβανική"
+
+#~ msgid "Swedish"
+#~ msgstr "Σουηδική"
+
+#~ msgid "Thai"
+#~ msgstr "Τάι"
+
+#~ msgid "Turkish"
+#~ msgstr "Τουρκική"
+
+#~ msgid "Urdu"
+#~ msgstr "Ούρντου"
+
+#~ msgid "Indonesian"
+#~ msgstr "Ινδονησιακή"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Ουκρανική"
+
+#~ msgid "Byelorussian"
+#~ msgstr "Λευκορωσική"
+
+#~ msgid "Slovenian"
+#~ msgstr "Σλοβενική"
+
+#~ msgid "Estonian"
+#~ msgstr "Εσθονική"
+
+#~ msgid "Latvian"
+#~ msgstr "Λετονική"
+
+#~ msgid "Lithuanian"
+#~ msgstr "Λιθουανική"
+
+#~ msgid "Farsi"
+#~ msgstr "Φαρσί"
+
+#~ msgid "Basque"
+#~ msgstr "Βασκική"
+
+#~ msgid "Macedonian"
+#~ msgstr "Σλαβομακεδονική"
+
+#~ msgid "Afrikaans"
+#~ msgstr "Αφρικάανς"
+
+#~ msgid "Malayalam"
+#~ msgstr "Μαλαισιανή"
+
+#, c-format
+#~ msgid "unsupported tag (suppressed %u B of binary data)"
+#~ msgstr "ανυποστήρικτη ετικέτα (καταργημένο %u Β των δυαδικών δεδομένων)"
+
+#, c-format
+#~ msgid "No default application found for the MIME type %s."
+#~ msgstr "Δεν βρέθηκε προεπιλεγμένη εφαρμογή για τον τύπο MIME %s."
+
+#, c-format
+#~ msgid ""
+#~ "\"%s\" seems to be a binary executable file but it lacks the executable bit."
+#~ " Do you want to set it and then run the file?"
+#~ msgstr ""
+#~ "Το \"%s\" φαίνεται να είναι ένα δυαδικό εκτελέσιμο αρχείο αλλά του λείπει το"
+#~ " εκτελέσιμο δυαδικό ψηφίο. Θέλετε να το ορίσετε και έπειτα να εκτελέσετε το "
+#~ "αρχείο;"
+
+#~ msgid "Make Executable?"
+#~ msgstr "Δημιουργία εκτελέσιμου;"
+
+#, c-format
+#~ msgid ""
+#~ "\"%s\" is an executable text file. Do you want to run it, or display its "
+#~ "contents?"
+#~ msgstr ""
+#~ "Το \"%s\" είναι ένα εκτελέσιμο αρχείο κειμένου. Θέλετε να το εκτελέσετε, ή "
+#~ "να εμφανίσετε τα περιεχόμενά του;"
+
+#~ msgid "Run or Display"
+#~ msgstr "Εκτέλεση ή Εμφάνιση"
+
+#~ msgid "Display"
+#~ msgstr "Εμφάνιση"
+
+#~ msgid "Run"
+#~ msgstr "Εκτέλεση"
+
+#, c-format
+#~ msgid ""
+#~ "%s does not know how to open remote file. Do you want to download the file "
+#~ "to a temporary location and then open it?"
+#~ msgid_plural ""
+#~ "%s does not know how to open remote files. Do you want to download the files"
+#~ " to a temporary location and then open them?"
+#~ msgstr[0] ""
+#~ "το %s δεν ξέρει πώς να ανοίξει απομακρυσμένο αρχείο. Θέλετε να κάνετε λήψη "
+#~ "του αρχείου σε μια προσωρινή θέση και έπειτα να το ανοίξετε;"
+#~ msgstr[1] ""
+#~ "το %s δεν ξέρει πώς να ανοίξει απομακρυσμένα αρχεία. Θέλετε να κάνετε λήψη "
+#~ "των αρχείων σε μια προσωρινή θέση και έπειτα να τα ανοίξετε;"
+
+#, c-format
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "(%sοκτάδα)"
+#~ msgstr[1] "(%sοκτάδες)"
+
+#, c-format
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "%sοκτάδα"
+#~ msgstr[1] "%sοκτάδες"
+
+#~ msgid "Failed to create a directory in which to store temporary files."
+#~ msgstr ""
+#~ "Αποτυχία δημιουργίας ενός καταλόγου στον οποίον να αποθηκευτούν τα προσωρινά"
+#~ " αρχεία."
+
+#, c-format
+#~ msgid "Creating directory %s... "
+#~ msgstr "Δημιουργία καταλόγου %s... "
+
+#, c-format
+#~ msgid "Failed to create the directory %s"
+#~ msgstr "Αποτυχία δημιουργίας του καταλόγου %s."
+
+#, c-format
+#~ msgid "Couldn't read from the directory %s: %s"
+#~ msgstr "Αδύνατη η ανάγνωση από τον κατάλογο %s: %s"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "Παρουσιάστηκε σφάλμα κατά την εμφάνιση της βοήθειας."
+
+#~ msgid "CVS options"
+#~ msgstr "Επιλογές CVS"
+
+#~ msgid "Compression level"
+#~ msgstr "Επίπεδο συμπίεσης"
+
+#~ msgid "Unified diff format"
+#~ msgstr "Ενιαία μορφή διαφορών"
+
+#~ msgid "A plugin that eventually will be a simple CVS client"
+#~ msgstr "Ένα πρόσθετο που τελικά θα είναι ένας απλός πελάτης CVS"
+
+#~ msgid "Compare with"
+#~ msgstr "Σύγκριση με"
+
+#~ msgid "HEAD"
+#~ msgstr "HEAD"
+
+#~ msgid "The previous revision"
+#~ msgstr "Η προηγούμενη αναθεώρηση"
+
+#~ msgid "Other revision"
+#~ msgstr "Άλλη αναθεώρηση"
+
+#~ msgid "CVS Diff"
+#~ msgstr "CVS Diff"
+
+#~ msgid "revision"
+#~ msgstr "αναθεώρηση"
+
+#~ msgid "Revision:"
+#~ msgstr "Αναθεώρηση:"
+
+#~ msgid "Compare..."
+#~ msgstr "Σύγκριση..."
+
+#~ msgid "Author:"
+#~ msgstr "Συγγραφέας:"
+
+#~ msgid "Date:"
+#~ msgstr "Ημερομηνία:"
+
+#~ msgid "State:"
+#~ msgstr "Κατάσταση:"
+
+#~ msgid "Lines:"
+#~ msgstr "Γραμμές:"
+
+#~ msgid "Message:"
+#~ msgstr "Μήνυμα:"
+
+#~ msgid "_Change"
+#~ msgstr "Α_λλαγή"
+
+#~ msgid "_MIME Types..."
+#~ msgstr "Τύποι _MIME..."
+
+#~ msgid "_Contents"
+#~ msgstr "_Περιεχόμενα"
+
+#~ msgid "MIME types"
+#~ msgstr "Τύποι MIME"
+
+#~ msgid "path"
+#~ msgstr "διαδρομή"
+
+#~ msgid "_Remote dir:"
+#~ msgstr "_Απομακρυσμένος κατάλογος:"
+
+#~ msgid "Other..."
+#~ msgstr "Άλλο..."
+
+#~ msgid "Listing failed: %s\n"
+#~ msgstr "Αποτυχία καταγραφής: %s\n"
+
+#~ msgid "Symlink name:"
+#~ msgstr "Όνομα συμβολικού συνδέσμου:"
+
+#~ msgid "Match file names using"
+#~ msgstr "Ταίριασμα ονομάτων αρχείου χρησιμοποιώντας"
+
+#~ msgid "Shell syntax"
+#~ msgstr "Σύνταξη φλοιού"
+
+#~ msgid "Regex syntax"
+#~ msgstr "Σύνταξη Regex"
+
+#~ msgid "Sorting options"
+#~ msgstr "Επιλογές ταξινόμησης"
+
+#~ msgid "Quick search using"
+#~ msgstr "Γρήγορη αναζήτηση χρησιμοποιώντας"
+
+#~ msgid "_Test"
+#~ msgstr "_Δοκιμή"
+
+#~ msgid "Authentication"
+#~ msgstr "Πιστοποίηση"
+
+#~ msgid "Use GNOME Keyring Manager for authentication"
+#~ msgstr "Χρήση του διαχειριστή κλειδοθήκης του GNOME για πιστοποίηση"
+
+#~ msgid "Anonymous FTP access"
+#~ msgstr "Ανώνυμη πρόσβαση FTP"
+
+#~ msgid "Password:"
+#~ msgstr "Κωδικός:"
+
+#~ msgid "Network"
+#~ msgstr "Δίκτυο"
+
+#~ msgid "GNOME authentication manager usage"
+#~ msgstr "Χρήση διαχειριστή πιστοποίησης GNOME"
+
+#~ msgid "_Limited depth"
+#~ msgstr "_Περιορισμένο βάθος"
+
+#~ msgid "Failed to open file %s: %s\n"
+#~ msgstr "Αποτυχία ανοίγματος αρχείου %s: %s\n"
+
+#~ msgid "Failed to seek in file %s: %s\n"
+#~ msgstr "Αποτυχία αναζήτησης στο αρχείο %s: %s\n"
+
+#~ msgid "Search _for: "
+#~ msgstr "Αναζήτηση _για: "
+
+#~ msgid "Search _in: "
+#~ msgstr "Αναζήτηση _σε: "
+
+#~ msgid "Search _recursively"
+#~ msgstr "_Κυκλική αναζήτηση"
+
+#~ msgid "Find _text: "
+#~ msgstr "Εύρεση _κειμένου: "
+
+#~ msgid "_Go to"
+#~ msgstr "_Μετάβαση σε"
+
+#~ msgid "Enter password"
+#~ msgstr "Εισάγετε κωδικό"
+
+#~ msgid ""
+#~ "Problem: access not permitted\n"
+#~ "\n"
+#~ "please supply user credentials\n"
+#~ "\n"
+#~ "Remember: wrong credentials may lead to account locking"
+#~ msgstr ""
+#~ "Πρόβλημα: η πρόσβαση δεν επιτρέπεται\n"
+#~ "\n"
+#~ "παρακαλούμε δώστε τα διαπιστευτήρια χρήστη\n"
+#~ "\n"
+#~ "Να θυμάστε: εσφαλμένα διαπιστευτήρια μπορεί να οδηγήσουν σε κλείδωμα λογαριασμού"
+
+#~ msgid "Can't find a host or workgroup named %s\n"
+#~ msgstr "Αδύνατη η εύρεση οικοδεσπότη ή ομάδας εργασίας με όνομα %s\n"
+
+#~ msgid ""
+#~ "The file \"%s\" already exists.\n"
+#~ "\n"
+#~ "Do you want to overwrite it?\n"
+#~ msgstr ""
+#~ "To αρχείο \"%s\" υπάρχει ήδη.\n"
+#~ "\n"
+#~ " Θέλετε να το αντικαταστήσετε;\n"
+
+#~ msgid "Trying to load %s instead\n"
+#~ msgstr "Προσπάθεια φόρτωσης %s εναλλακτικά\n"
+
+#~ msgid ""
+#~ "No default application found for the MIME type %s.\n"
+#~ "Open the \"File types and programs\" page in the Control Center to add one."
+#~ msgstr ""
+#~ "Δεν βρέθηκε προεπιλεγμένη εφαρμογή για τον τύπο MIME %s.\n"
+#~ "Ανοίξτε τη σελίδα \"τύποι αρχείων και προγραμμάτων\" στο κέντρο ελέγχου για να προσθέσετε μία."
+
+#, fuzzy
+#~ msgid "With this:"
+#~ msgstr "με αυτό"
+
+#~ msgid "New Rule"
+#~ msgstr "Νέος κανόνας"
+
+#~ msgid "Counter start value:"
+#~ msgstr "Τιμή εκκίνησης μετρητή:"
+
+#, fuzzy
+#~ msgid "Counter increment:"
+#~ msgstr "Μετρητής:"
+
+#, fuzzy
+#~ msgid "Counter minimum digit count:"
+#~ msgstr "Μετρητής:"
+
+#~ msgid "Template Options"
+#~ msgstr "Επιλογές προτύπου"
+
+#~ msgid "Auto-update when the template is entered"
+#~ msgstr "Αυτόματη ενημέρωση όταν εισάγεται πρότυπο"
+
+#, fuzzy
+#~ msgid "O_ptions..."
+#~ msgstr "Επιλογές..."
+
+#~ msgid "With this"
+#~ msgstr "με αυτό"
+
+#~ msgid ""
+#~ "Could not chmod %s\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Αδυναμία chmod %s\n"
+#~ "%s"
+
+#~ msgid "Removes the FTP connection to %s"
+#~ msgstr "Απομακρύνει τη σύνδεση FTP σε %s"
+
+#~ msgid "F10 Quit"
+#~ msgstr "F10 Έξοδος"
+
+#~ msgid "Directory options"
+#~ msgstr "Επιλογές καταλόγου"
+
+#~ msgid "Directory cache size"
+#~ msgstr "Μέγεθος λανθάνουσας μνήμης καταλόγου"
+
+#~ msgid "Goto"
+#~ msgstr "Μετάβαση σε"
+
+#, fuzzy
+#~ msgid "running `%s'\n"
+#~ msgstr "εκτελείται \"%s\"\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "When parsing the users and groups on this system it was found that the user "
+#~ "%s is part of the group %s. This user can however not be found.\n"
+#~ msgstr ""
+#~ "#-#-#-#-#  GNOME210-gcalctool.HEAD.el.po (el)  #-#-#-#-#\n"
+#~ "and\n"
+#~ "#-#-#-#-#  GNOME210-gnomemeeting.HEAD.el.po (el)  #-#-#-#-#\n"
+#~ "και στο είναι από ομάδα not ο"
+
+#, fuzzy
+#~ msgid "Dir"
+#~ msgstr "dir"
+
+#~ msgid "_Add..."
+#~ msgstr "Προσ_θήκη..."
+
+#~ msgid "_Edit..."
+#~ msgstr "_Επεξεργασία..."
+
+#~ msgid "_Goto"
+#~ msgstr "Μετά_βαση σε "
+
+#~ msgid "No alias specified"
+#~ msgstr "Δεν έχει καθοριστεί ψευδώνυμο"
+
+#~ msgid "No host specified"
+#~ msgstr "Δεν έχει οριστεί όνομα συστήματος"
+
+#~ msgid "Invalid port number: %s"
+#~ msgstr "Μη έγκυρος αριθμός θύρας: %s"
+
+#~ msgid "Host:"
+#~ msgstr "Σύστημα:"
+
+#, fuzzy
+#~ msgid "Edit Remote Connection"
+#~ msgstr "Σύνδεση FTP"
+
+#~ msgid "Connect"
+#~ msgstr "Σύνδεση"
+
+#, fuzzy
+#~ msgid "_Hex"
+#~ msgstr "_Βοήθεια"
+
+#~ msgid "Enter password for %s@%s"
+#~ msgstr "Εισάγετε κωδικό για %s@%s"
+
+#~ msgid "Enter Password"
+#~ msgstr "Εισάγετε κωδικό"
+
+#~ msgid "FTP Connect"
+#~ msgstr "Σύνδεση FTP"
+
+#~ msgid "_Execute"
+#~ msgstr "_Εκτέλεση"
+
+#~ msgid "_Cut"
+#~ msgstr "Α_ποκοπή"
+
+#, fuzzy
+#~ msgid "No translation is currently in use."
+#~ msgstr "Όχι είναι in."
+
+#~ msgid "Rename \"%s\" to"
+#~ msgstr "Μετονομασία \"%s\" σε:"
+
+#~ msgid "New FTP Server"
+#~ msgstr "Νέος εξυπηρετητής FTP"
+
+#~ msgid "Edit FTP Server"
+#~ msgstr "Επεξεργασία εξυπηρετητή FTP"
+
+#~ msgid "User _Manual..."
+#~ msgstr "Εγχειρίδιο _χρήστη..."
+
+#~ msgid "_About..."
+#~ msgstr "_Περί..."
+
+#~ msgid "Chmod"
+#~ msgstr "Chmod"
+
+#, fuzzy
+#~ msgid ""
+#~ "%s does not know how to open remote files. Do you want to download the files"
+#~ " to a temporary location and then open them?"
+#~ msgstr ""
+#~ "not άνοιγμα a τοποθεσία #-#-#-#-#  GNOME210-gcalctool.HEAD.el.po (el)  #-#-#-#-#\n"
+#~ "and\n"
+#~ "#-#-#-#-#  GNOME210-gnomemeeting.HEAD.el.po (el)  #-#-#-#-#\n"
+#~ "και άνοιγμα?"

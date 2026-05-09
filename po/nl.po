@@ -7512,3 +7512,2030 @@ msgstr "10-15ms"
 #, fuzzy
 #~ msgid "About"
 #~ msgstr "Info"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME Commander"
+
+#~ msgid "Two-pane file manager"
+#~ msgstr "Bestandsbeheer met twee panelen"
+
+#~ msgid ""
+#~ "GNOME Commander is a “two-pane” graphical file manager for the GNOME desktop"
+#~ " environment. It features separate tabs for each pane, setting up custom "
+#~ "device buttons, bookmark manager, fully integrated commandline, file quick "
+#~ "search, an internal image viewer, a powerful batch renaming tool, and FTP "
+#~ "and Samba access."
+#~ msgstr ""
+#~ "GNOME Commander is een grafische bestandsbeheerder met twee panelen voor de "
+#~ "Gnome-bureaubladomgeving. Het beschikt over afzonderlijke tabbladen voor elk"
+#~ " paneel, het instellen van aangepaste apparaatknoppen, bladwijzerbeheer, "
+#~ "volledig geïntegreerde opdrachtregel, snel zoeken naar bestanden, een "
+#~ "interne afbeeldingsviewer, een krachtig hulpmiddel voor het hernoemen van "
+#~ "batches en FTP- en Samba-toegang."
+
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+#~ "GNOME Commander is bedoeld voor gevorderde gebruikers die zich graag "
+#~ "toeleggen op nauwkeurig bestandsbeheer, parallel werken via speciale "
+#~ "toepassingen en slimme opdrachten uitvoeren."
+
+#~ msgid "A two paned file manager"
+#~ msgstr "Bestandsbeheer met twee panelen"
+
+#~ msgid "Use default font"
+#~ msgstr "Standaardlettertype gebruiken"
+
+#~ msgid ""
+#~ "Whether to use the system’s default fixed width font for the file panels "
+#~ "instead of a font specific to gnome-commander."
+#~ msgstr ""
+#~ "Of het standaard lettertype met vaste breedte van het systeem gebruikt moet "
+#~ "worden voor de bestandspanelen in plaats van een lettertype dat specifiek is"
+#~ " voor gnome-commander."
+
+#~ msgid ""
+#~ "A custom font that will be used for the file panes if the “Use default font”"
+#~ " option is turned off."
+#~ msgstr ""
+#~ "Een aangepast lettertype dat gebruikt zal worden voor de bestandspanelen als"
+#~ " de optie ‘Standaard lettertype gebruiken’ is uitgeschakeld."
+
+#~ msgid ""
+#~ "Defines how the filesize will be displayed in the associated pane column."
+#~ msgstr ""
+#~ "Bepaalt hoe de bestandsgrootte wordt weergegeven in de bijbehorende "
+#~ "paneelkolom."
+
+#~ msgid ""
+#~ "Defines how the file permission will be displayed in the associated pane "
+#~ "column."
+#~ msgstr ""
+#~ "Definieert hoe de bestandstoegang wordt weergegeven in de bijbehorende "
+#~ "paneelkolom."
+
+#~ msgid "Defines the icon style of files and folders in the file panes."
+#~ msgstr ""
+#~ "Definieert de pictogramstijl van bestanden en mappen in de bestandspanelen."
+
+#~ msgid "Defines the height of a row in the file pane."
+#~ msgstr "Bepaalt de hoogte van een rij in het bestandspaneel."
+
+#~ msgid "Format of the date in the file pane."
+#~ msgstr "Formaat van de datum in het bestandspaneel."
+
+#~ msgid "The font in the file panes."
+#~ msgstr "Het lettertype in de bestandspanelen."
+
+#~ msgid "Size of icons in the file pane."
+#~ msgstr "Grootte van pictogrammen in het bestandspaneel."
+
+#~ msgid "Device icon size"
+#~ msgstr "Grootte apparaatpictogram"
+
+#~ msgid "Icon size in the device list."
+#~ msgstr "Pictogramgrootte in de apparatenlijst."
+
+#~ msgid ""
+#~ "Defines if the orientation of the file panes should be horizontal or not."
+#~ msgstr ""
+#~ "Bepaalt of de oriëntatie van de bestandspanelen horizontaal moet zijn of "
+#~ "niet."
+
+#~ msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
+#~ msgstr ""
+#~ "Updatesnelheid van de grafische gebruikersinterface in 1/1000ste van een "
+#~ "seconde."
+
+#~ msgid "Main window horizontal position"
+#~ msgstr "Horizontale positie van het hoofdvenster"
+
+#~ msgid "Position of the main window in horizontal direction."
+#~ msgstr "Positie van het hoofdvenster in horizontale richting."
+
+#~ msgid "Main window vertical position"
+#~ msgstr "Verticale positie van het hoofdvenster"
+
+#~ msgid "Position of the main window in vertical direction."
+#~ msgstr "Positie van het hoofdvenster in verticale richting."
+
+#~ msgid ""
+#~ "Defines if the current directories are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Bepaalt of de huidige mappen weer geopend worden wanneer Gnome Commander "
+#~ "opnieuw gestart wordt."
+
+#~ msgid ""
+#~ "Defines if the current open tabs are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Bepaalt of de huidige geopende tabbladen opnieuw worden geopend wanneer "
+#~ "Gnome Commander opnieuw gestart wordt."
+
+#~ msgid ""
+#~ "This option defines if directories will be marked when all items in a file "
+#~ "pane should be marked."
+#~ msgstr ""
+#~ "Deze optie bepaalt of mappen worden gemarkeerd wanneer alle items in een "
+#~ "bestandspaneel moeten worden gemarkeerd."
+
+#~ msgid "Quick search exact match begin"
+#~ msgstr "Snelzoeken naar exacte overeenkomst aan het begin"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the beginning"
+#~ " of an item name."
+#~ msgstr ""
+#~ "Deze optie bepaalt of snelzoeken aan het begin van een itemnaam expliciet "
+#~ "moet overeenkomen."
+
+#~ msgid "Quick search exact match end"
+#~ msgstr "Snelzoeken naar exacte overeenkomst aan het einde"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the end of an"
+#~ " item name."
+#~ msgstr ""
+#~ "Deze optie bepaalt of snelzoeken aan het einde van een itemnaam expliciet "
+#~ "moet overeenkomen."
+
+#~ msgid ""
+#~ "The entries in this list are used for restoring the tabs from the last "
+#~ "session."
+#~ msgstr ""
+#~ "De items in deze lijst worden gebruikt voor het herstellen van de tabbladen "
+#~ "van de vorigesessie."
+
+#~ msgid "Leave terminal open"
+#~ msgstr "Terminal open laten"
+
+#~ msgid ""
+#~ "This option defines if a terminal window should stay open after a command "
+#~ "finishes inside of it."
+#~ msgstr ""
+#~ "Deze optie definieert of een terminalvenster open moet blijven nadat er een "
+#~ "opdracht in is uitgevoerd."
+
+#~ msgid "Fixed font name"
+#~ msgstr "Naam van lettertype met vaste breedte"
+
+#~ msgid "Name of the default font with fixed character width."
+#~ msgstr "Naam van het standaard lettertype met vaste breedte."
+
+#~ msgid "Variable font name"
+#~ msgstr "Naam van lettertype met variabele breedte"
+
+#~ msgid "Name of the default font with variable character width."
+#~ msgstr "Naam van het standaard lettertype met variabele breedte."
+
+#~ msgid "Font size"
+#~ msgstr "Lettergrootte"
+
+#~ msgid "This option defines the default font size."
+#~ msgstr "Deze optie definieert de standaard lettergrootte."
+
+#~ msgid "Horizontal offset"
+#~ msgstr "Horizontale offset"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "horizontal direction."
+#~ msgstr ""
+#~ "Deze optie definieert de visuele offset van de interne bestandsviewer in "
+#~ "horizontale richting."
+
+#~ msgid "Vertical offset"
+#~ msgstr "Verticale offset"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "vertical direction."
+#~ msgstr ""
+#~ "Deze optie definieert de visuele offset van de interne bestandsviewer in "
+#~ "verticale richting."
+
+#~ msgid "No error description available"
+#~ msgstr "Geen foutbeschrijving beschikbaar"
+
+#~ msgid "Folder selection"
+#~ msgstr "Mapselectie"
+
+#~ msgid "File selection"
+#~ msgstr "Bestandsselectie"
+
+#~ msgid "/_Save Profile As…"
+#~ msgstr "/_Profiel opslaan als…"
+
+#~ msgid "/_Manage Profiles…"
+#~ msgstr "/Profielen _beheren…"
+
+#~ msgid "Current file name"
+#~ msgstr "Huidige bestandsnaam"
+
+#~ msgid "New file name"
+#~ msgstr "Nieuwe bestandsnaam"
+
+#~ msgid "File size"
+#~ msgstr "Bestandsgrootte"
+
+#~ msgid "File modification date"
+#~ msgstr "Wijzigingsdatum bestand"
+
+#~ msgid "_Replace with:"
+#~ msgstr "_Vervangen door:"
+
+#, c-format
+#~ msgid "Could not chmod %s"
+#~ msgstr "Kan %s niet aanpassen met chmod"
+
+#, c-format
+#~ msgid "Could not chown %s"
+#~ msgstr "Kan %s niet aanpassen met chown"
+
+#~ msgid "Chown"
+#~ msgstr "Chown"
+
+#, c-format
+#~ msgid "“%s” is not a valid location"
+#~ msgstr "‘%s’ is geen geldige locatie"
+
+#~ msgid "Remote Server"
+#~ msgstr "Externe server"
+
+#, c-format
+#~ msgid "Deleted %lu of %lu file"
+#~ msgid_plural "Deleted %lu of %lu files"
+#~ msgstr[0] "%lu van %lu bestand verwijderd"
+#~ msgstr[1] "%lu van %lu bestanden verwijderd"
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Fout bij verwijderen van ‘%s’\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Delete problem"
+#~ msgstr "Verwijderingsprobleem"
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting: \n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Fout bij verwijderen:\n"
+#~ "\n"
+#~ "%s"
+
+#, c-format
+#~ msgid "Do you really want to delete “%s”?"
+#~ msgstr "Wilt u ‘%s’ echt verwijderen?"
+
+#, c-format
+#~ msgid "The directory “%s” is not empty. Do you really want to delete it?"
+#~ msgstr "De map ‘%s’ is niet leeg. Wilt u deze echt verwijderen?"
+
+#, c-format
+#~ msgid "Do you want to permanently delete “%s”?"
+#~ msgstr "Wilt u ‘%s’ definitief verwijderen?"
+
+#, c-format
+#~ msgid "Do you want to move “%s” to the trash can?"
+#~ msgstr "Wilt u ‘%s’ naar de prullenbak verplaatsen?"
+
+#~ msgid "Bookmark name is missing."
+#~ msgstr "Bladwijzernaam ontbreekt"
+
+#~ msgid "Bookmark target is missing."
+#~ msgstr "Geen doel voor bladwijzer ingevuld"
+
+#~ msgid "Image:"
+#~ msgstr "Image:"
+
+#~ msgid "Content Type:"
+#~ msgstr "Soort inhoud:"
+
+#~ msgid "Type"
+#~ msgstr "Type"
+
+#~ msgid "Metadata namespace"
+#~ msgstr "Naamruimte metadata"
+
+#~ msgid "Tag name"
+#~ msgstr "Tagnaam"
+
+#~ msgid "Tag value"
+#~ msgstr "Tagwaarde"
+
+#~ msgid "Metadata tag description"
+#~ msgstr "Omschrijving metadatatag"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the corresponding row and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "Om een sneltoets te bewerken, klik op de corresponderende rij en typ een "
+#~ "nieuwe sneltoetscombinatie in, of druk op escape om te annuleren."
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Sneltoets"
+
+#~ msgid "Keyboard shortcut for selected action"
+#~ msgstr "Sneltoets voor de geselecteerde actie"
+
+#~ msgid "Action"
+#~ msgstr "Actie"
+
+#~ msgid "User action"
+#~ msgstr "Actie gebruiker"
+
+#~ msgid "Optional data"
+#~ msgstr "Optionele data"
+
+#, c-format
+#~ msgid "Shortcut “%s” is already taken by “%s”."
+#~ msgstr "Sneltoets ‘%s’ wordt al gebruikt door ‘%s’."
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "Conflicterende sneltoetsen"
+
+#, c-format
+#~ msgid "Reassigning the shortcut will cause it to be removed from “%s”."
+#~ msgstr ""
+#~ "Als u de sneltoets opnieuw toewijst zal deze niet langer gelden voor ‘%s’."
+
+#~ msgid "Invalid shortcut."
+#~ msgstr "Ongeldige sneltoets"
+
+#~ msgid "Do nothing"
+#~ msgstr "Niets doen"
+
+#, c-format
+#~ msgid "Copy “%s” to"
+#~ msgstr "‘%s’ kopiëren naar"
+
+#~ msgid "Group"
+#~ msgstr "Groep"
+
+#~ msgid "Bookmark group"
+#~ msgstr "Bladwijzergroep"
+
+#~ msgid "Bookmark name"
+#~ msgstr "Naam bladwijzer"
+
+#~ msgid "Keyboard shortcut for selected bookmark"
+#~ msgstr "Sneltoets voor de geselecteerde bladwijzer"
+
+#~ msgid "Bookmarked path"
+#~ msgstr "Pad met bladwijzer"
+
+#~ msgid "Profile name"
+#~ msgstr "Profielnaam"
+
+#, c-format
+#~ msgid "Make directory failed: %s\n"
+#~ msgstr "Map maken mislukt: %s\n"
+
+#~ msgid "Sorting/Quick search"
+#~ msgstr "Sorteren/Snelzoeken"
+
+#~ msgid "ALT+letters (menu access with F12)"
+#~ msgstr "ALT+letters (menutoegang met F12)"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "Overeenkomen met begin van bestandsnaam"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "Overeenkomen met einde van bestandsnaam"
+
+#~ msgid ""
+#~ "See the manual page for “strftime” for help on how to set the format string."
+#~ msgstr ""
+#~ "Raadpleeg de handleiding voor ‘strftime’ voor extra hulp bij het instellen "
+#~ "van de datumopmaak."
+
+#~ msgid "Colors"
+#~ msgstr "Kleuren"
+
+#~ msgid "Palette"
+#~ msgstr "Palet"
+
+#~ msgid "Foreground:"
+#~ msgstr "Voorgrond:"
+
+#~ msgid "Background:"
+#~ msgstr "Achtergrond:"
+
+#~ msgid "File panes"
+#~ msgstr "Bestandspanelen"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "Standaard OK bevestigen"
+
+#~ msgid "Leave terminal window open"
+#~ msgstr "Terminalvenster open laten"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Bestanden overschrijven"
+
+#, c-format
+#~ msgid "copy %d file to"
+#~ msgid_plural "copy %d files to"
+#~ msgstr[0] "%d bestand kopiëren naar"
+#~ msgstr[1] "%d bestanden kopiëren naar"
+
+#, c-format
+#~ msgid "Move “%s” to"
+#~ msgstr "‘%s’ verplaatsen naar"
+
+#, c-format
+#~ msgid "move %d file to"
+#~ msgid_plural "move %d files to"
+#~ msgstr[0] "%d bestand verplaatsen naar"
+#~ msgstr[1] "%d bestanden verplaatsen naar"
+
+#, c-format
+#~ msgid "The directory “%s” doesn’t exist, do you want to create it?"
+#~ msgstr "De map ‘%s’ bestaat niet. Wilt u deze aanmaken?"
+
+#~ msgid "Unknown error"
+#~ msgstr "Onbekende fout"
+
+#~ msgid "Network protocol"
+#~ msgstr "Netwerkprotocol"
+
+#~ msgid "Connection name"
+#~ msgstr "Naam verbinding"
+
+#~ msgid "Connections"
+#~ msgstr "Verbindingen"
+
+#, c-format
+#~ msgid "%d file listed"
+#~ msgid_plural "%d files listed"
+#~ msgstr[0] "%d bestand opgenomen in lijst"
+#~ msgstr[1] "%d bestanden opgenomen in lijst"
+
+#~ msgid "Accelerator key"
+#~ msgstr "Sneltoets"
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr "Sneltoets-optietoetsen"
+
+#~ msgid "Accelerator Mode"
+#~ msgstr "Acceleratiemodus"
+
+#~ msgid "The type of accelerator."
+#~ msgstr "Het type acceleratie"
+
+#~ msgid "Disabled"
+#~ msgstr "Uitgeschakeld"
+
+#~ msgid "New accelerator…"
+#~ msgstr "Nieuwe sneltoets…"
+
+#~ msgid "Credits"
+#~ msgstr "Met dank aan"
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "Webpagina van plug-in"
+
+#~ msgid "C_redits"
+#~ msgstr "Met _dank aan"
+
+#~ msgid "/Grandparent"
+#~ msgstr "/Map boven bovenliggende map"
+
+#~ msgid "/Parent"
+#~ msgstr "/Bovenliggende map"
+
+#~ msgid "/File name"
+#~ msgstr "/Bestandsnaam"
+
+#~ msgid "/File name (range)"
+#~ msgstr "/Bestandsnaam (bereik)"
+
+#~ msgid "/File name without extension"
+#~ msgstr "/Bestandsnaam zonder extensie"
+
+#~ msgid "/File name without extension (range)"
+#~ msgstr "/Bestandsnaam zonder extensie (bereik)"
+
+#~ msgid "/File extension"
+#~ msgstr "/Bestandsextensie"
+
+#~ msgid "/Counter"
+#~ msgstr "/Teller"
+
+#~ msgid "/Counter (width)"
+#~ msgstr "/Teller (breedte)"
+
+#~ msgid "/Counter (auto)"
+#~ msgstr "/Teller (auto)"
+
+#~ msgid "/Hexadecimal random number (width)"
+#~ msgstr "/Hexadecimaal willekeurig getal (breedte)"
+
+#~ msgid "/Date"
+#~ msgstr "/Datum"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "/Datum/<locale>"
+
+#~ msgid "/Date/yyyy-mm-dd"
+#~ msgstr "/Datum/yyyy-mm-dd"
+
+#~ msgid "/Date/yy-mm-dd"
+#~ msgstr "/Datum/yy-mm-dd"
+
+#~ msgid "/Date/yy.mm.dd"
+#~ msgstr "/Datum/yy.mm.dd"
+
+#~ msgid "/Date/yymmdd"
+#~ msgstr "/Datum/yymmdd"
+
+#~ msgid "/Date/dd.mm.yy"
+#~ msgstr "/Datum/dd.mm.yy"
+
+#~ msgid "/Date/mm-dd-yy"
+#~ msgstr "/Datum/mm-dd-yy"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/Datum/yyyy"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/Datum/yy"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/Datum/mm"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/Datum/mmm"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/Datum/dd"
+
+#~ msgid "/Time"
+#~ msgstr "/Tijd"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/Tijd/<locale>"
+
+#~ msgid "/Time/HH.MM.SS"
+#~ msgstr "/Tijd/HH.MM.SS"
+
+#~ msgid "/Time/HH-MM-SS"
+#~ msgstr "/Tijd/HH-MM-SS"
+
+#~ msgid "/Time/HHMMSS"
+#~ msgstr "/Tijd/HHMMSS"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/Tijd/HH"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/Tijd/MM"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/Tijd/SS"
+
+#~ msgid "Regex pattern"
+#~ msgstr "Regex-patroon"
+
+#~ msgid "Replacement"
+#~ msgstr "Vervanging"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "Hoofdlettergevoelige zoekopdracht"
+
+#, c-format
+#~ msgid "The program has now finished. Press Enter to close this window.\n"
+#~ msgstr ""
+#~ "Dit programma is nu beëindigd. Druk op Enter om dit venster te sluiten.\n"
+
+#, c-format
+#~ msgid "Mount failed: mount exited with exitstatus %d"
+#~ msgstr "Aankoppelen mislukt: opdracht gaf eindstatus %d terug"
+
+#, c-format
+#~ msgid ""
+#~ "Cannot unmount the volume:\n"
+#~ "%s\n"
+#~ "Error code: %d"
+#~ msgstr ""
+#~ "Volumen kan niet ontkoppeld worden:\n"
+#~ "%s\n"
+#~ "Foutcode: %d"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "Ga naar: %s (%s)"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "Ga naar: %s"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr "Aankoppelen: %s"
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr "Ontkoppelen: %s"
+
+#~ msgid "<New connection>"
+#~ msgstr "<Nieuwe verbinding>"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "Verbinden met: %s"
+
+#, c-format
+#~ msgid "Disconnect from: %s"
+#~ msgstr "Verbinding verbreken met: %s"
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "Verbinden met %s\n"
+
+#, c-format
+#~ msgid "_Open with “%s”"
+#~ msgstr "_Openen met ‘%s’"
+
+#~ msgid "/_Copy here"
+#~ msgstr "/Hier _kopiëren"
+
+#~ msgid "/_Move here"
+#~ msgstr "/Hier _verplaatsen"
+
+#~ msgid "/_Link here"
+#~ msgstr "/Hier _koppelen"
+
+#~ msgid "/C_ancel"
+#~ msgstr "/_Annuleren"
+
+#, c-format
+#~ msgid ""
+#~ "“%s” seems to be a binary executable file but it lacks the executable bit. "
+#~ "Do you want to set it and then run the file?"
+#~ msgstr ""
+#~ "‘%s’ lijkt een binair uitvoerbaar bestand te zijn, maar het uitvoerbaar-bit "
+#~ "ontbreekt. Wilt u dit instellen en vervolgens het bestand uitvoeren?"
+
+#~ msgid "Make Executable?"
+#~ msgstr "Uitvoerbaar maken?"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#, c-format
+#~ msgid ""
+#~ "“%s” is an executable text file. Do you want to run it, or display its "
+#~ "contents?"
+#~ msgstr ""
+#~ "‘%s’ is een uitvoerbaar tekstbestand. Wilt u het uitvoeren, of de inhoud "
+#~ "weergeven?"
+
+#~ msgid "Run or Display"
+#~ msgstr "Uitvoeren of weergeven"
+
+#~ msgid "Display"
+#~ msgstr "Weergeven"
+
+#~ msgid "Run"
+#~ msgstr "Uitvoeren"
+
+#, c-format
+#~ msgid "No default application found for the file type %s."
+#~ msgstr "Geen standaardtoepassing gevonden voor bestandstype %s."
+
+#, c-format
+#~ msgid ""
+#~ "%s does not know how to open remote file. Do you want to download the file "
+#~ "to a temporary location and then open it?"
+#~ msgid_plural ""
+#~ "%s does not know how to open remote files. Do you want to download the files"
+#~ " to a temporary location and then open them?"
+#~ msgstr[0] ""
+#~ "%s kan het bestand op afstand niet openen. Wilt u het bestand downloaden "
+#~ "naar een tijdelijke locatie en vanaf daar openen?"
+#~ msgstr[1] ""
+#~ "%s kan de bestanden op afstand niet openen. Wilt u deze downloaden naar een "
+#~ "tijdelijke locatie en vanaf daar openen?"
+
+#~ msgid "Failed to open connection."
+#~ msgstr "Kan geen verbinding maken."
+
+#~ msgid "Needs terminal"
+#~ msgstr "Terminal vereist"
+
+#~ msgid "Other _Application…"
+#~ msgstr "Andere _toepassing…"
+
+#~ msgid "Cut"
+#~ msgstr "Knippen"
+
+#~ msgid "Send files"
+#~ msgstr "Bestanden versturen"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "_Terminal hier openen"
+
+#~ msgid "Copy file names"
+#~ msgstr "Bestandsnamen kopiëren"
+
+#, c-format
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] "%s van %s kB in %d van %d bestand"
+#~ msgstr[1] "%s van %s kB in %d van %d bestanden"
+
+#, c-format
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] "%s, %d van %d map geselecteerd"
+#~ msgstr[1] "%s, %d van %d mappen geselecteerd"
+
+#~ msgid "Copy Tab to Other _Pane"
+#~ msgstr "Tabblad kopiëren naar een ander _paneel"
+
+#~ msgid "No file name given"
+#~ msgstr "Geen bestandsnaam gegeven"
+
+#~ msgid "Filter:"
+#~ msgstr "Filter:"
+
+#~ msgid "_New"
+#~ msgstr "_Nieuw"
+
+#~ msgid "_Directory"
+#~ msgstr "_Map"
+
+#~ msgid "_Text File"
+#~ msgstr "_Tekstbestand"
+
+#~ msgid "_Enable Filter…"
+#~ msgstr "Filter inscha_kelen…"
+
+#~ msgid "Start _GNOME Commander as root"
+#~ msgstr "GNOME Commander starten als Root"
+
+#~ msgid "_Quit"
+#~ msgstr "A_fsluiten"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "_Bestandsnamen kopiëren"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "Selectie _herstellen"
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "GNOME Commander op I_nternet"
+
+#~ msgid "Refresh"
+#~ msgstr "Verversen"
+
+#~ msgid "Go to the oldest"
+#~ msgstr "Ga naar de oudste"
+
+#~ msgid "Go back"
+#~ msgstr "Terug"
+
+#~ msgid "Go forward"
+#~ msgstr "Vooruit"
+
+#~ msgid "Go to the latest"
+#~ msgstr "Ga naar de laatste"
+
+#~ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+#~ msgstr "Bestandsnamen kopiëren (Shift voor volledige paden, Alt voor URI's)"
+
+#~ msgid "Paste"
+#~ msgstr "Plakken"
+
+#~ msgid "Open terminal (SHIFT for root privileges)"
+#~ msgstr "Terminal openen (Shift voor root-privileges)"
+
+#~ msgid "GNOME Commander — ROOT PRIVILEGES"
+#~ msgstr "GNOME Commander — ROOT-PRIVILEGES"
+
+#~ msgid "Path matches regex:"
+#~ msgstr "Pad komt overeen met regex:"
+
+#~ msgid "Name contains:"
+#~ msgstr "Naam bevat:"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "Hoofdletter_gevoelig"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr "Bladwijzer maken van huidige map"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "Bladwijzers beheren"
+
+#~ msgid "Open terminal"
+#~ msgstr "Terminal openen"
+
+#~ msgid "Open terminal as root"
+#~ msgstr "Terminal openen als root"
+
+#~ msgid "Start GNOME Commander as root"
+#~ msgstr "GNOME Commander starten als root"
+
+#~ msgid "Close connection"
+#~ msgstr "Verbinding sluiten"
+
+#~ msgid "New connection"
+#~ msgstr "Nieuwe verbinding"
+
+#~ msgid "Open connection"
+#~ msgstr "Verbinding openen"
+
+#~ msgid "Change left connection"
+#~ msgstr "Linker verbinding wijzigen"
+
+#~ msgid "Change right connection"
+#~ msgstr "Rechter verbinding wijzigen"
+
+#~ msgid "Show user defined files"
+#~ msgstr "Door gebruiker gedefinieerde bestanden weergeven"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "Geavanceerd hernoemfunctie"
+
+#~ msgid "Change permissions"
+#~ msgstr "Rechten wijzigen"
+
+#~ msgid "Change owner/group"
+#~ msgstr "Eigenaar/groep wijzigen"
+
+#~ msgid "Copy files"
+#~ msgstr "Bestanden kopiëren"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "Symbolische verwijzing maken"
+
+#~ msgid "Delete files"
+#~ msgstr "bestanden verwijderen"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "Bestanden vvergelijken (diff)"
+
+#~ msgid "Edit file"
+#~ msgstr "Bestand bewerken"
+
+#~ msgid "Edit a new file"
+#~ msgstr "Een nieuw bestand bewerken"
+
+#~ msgid "Create directory"
+#~ msgstr "Map maken"
+
+#~ msgid "Move files"
+#~ msgstr "Bestanden verplaatsen"
+
+#~ msgid "Rename files"
+#~ msgstr "Bestanden hernoemen"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "Mappen synchroniseren"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr "Info GNOME Commander"
+
+#~ msgid "Help contents"
+#~ msgstr "Hulpinhoud"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "Sneltoetsenhulp"
+
+#~ msgid "Report a problem"
+#~ msgstr "Een probleem melden"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr "GNOME Commander op Internet"
+
+#~ msgid "Compare directories"
+#~ msgstr "Mappen vergelijken"
+
+#~ msgid "Invert selection"
+#~ msgstr "Selectie omkeren"
+
+#~ msgid "Select all"
+#~ msgstr "Alles selecteren"
+
+#~ msgid "Select all files"
+#~ msgstr "Alle bestanden selecteren"
+
+#~ msgid "Unselect all files"
+#~ msgstr "Selecteren van alle bestanden opheffen"
+
+#~ msgid "Unselect all"
+#~ msgstr "Alles deselecteren"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Sneltoetsen"
+
+#~ msgid "Configure plugins"
+#~ msgstr "Plug-ins configureren"
+
+#~ msgid "Back one directory"
+#~ msgstr "Eén map terug"
+
+#~ msgid "Close the current tab"
+#~ msgstr "Het huidige bestand sluiten"
+
+#~ msgid "Close all tabs"
+#~ msgstr "Alle tabbladen sluiten"
+
+#~ msgid "Show directory history"
+#~ msgstr "Mapgeschiedenis tonen"
+
+#~ msgid "Equal panel size"
+#~ msgstr "Paneelgrootte gelijkmaken"
+
+#~ msgid "Maximize panel size"
+#~ msgstr "Paneel maximaliseren"
+
+#~ msgid "Back to the first directory"
+#~ msgstr "Terug naar eerste map"
+
+#~ msgid "Forward one directory"
+#~ msgstr "Eén map vooruit"
+
+#~ msgid "Open directory in the active window"
+#~ msgstr "Map openen in actieve venster"
+
+#~ msgid "Open directory in the inactive window"
+#~ msgstr "Map openen in het niet-actieve venster"
+
+#~ msgid "Open directory in the left window"
+#~ msgstr "Map openen in linker venster"
+
+#~ msgid "Open directory in the right window"
+#~ msgstr "Map openen in rechter venster"
+
+#~ msgid "Open directory in the new tab (inactive window)"
+#~ msgstr "Map openen in het nieuwe tabblad (niet-actieve venster)"
+
+#~ msgid "Forward to the last directory"
+#~ msgstr "Laatste map doorsturen"
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "Map openen in een nieuwe tabblad"
+
+#~ msgid "Show terminal"
+#~ msgstr "Terminal tonen"
+
+#, c-format
+#~ msgid "Create symbolic links of %i file in %s?"
+#~ msgid_plural "Create symbolic links of %i files in %s?"
+#~ msgstr[0] "Symbolische verwijzingen maken van %i bestand in %s?"
+#~ msgstr[1] "Symbolische verwijzingen maken van %i bestanden in %s?"
+
+#~ msgid "Unable to open terminal in root mode."
+#~ msgstr "Terminal kan niet worden geopend in rootmodus."
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
+#~ msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu of beesu niet gevonden."
+
+#~ msgid "Unable to start GNOME Commander in root mode."
+#~ msgstr "GNOME Commander kan niet gestart worden in rootmodus."
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+#~ msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu of beesu niet gevonden"
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "Snel en krachtig bestandsbeheer voor de GNOME omgeving"
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME Commander is vrije software; verspreiden en/of aanbrengen van "
+#~ "wijzigingen is toegestaan onder de voorwaarden vermeld in de GNU General "
+#~ "Public License, zoals die gepubliceerd is door de Free Software Foundation; "
+#~ "ofwel versie 2 van de licentie ofwel (indien u dat wenst) een latere versie."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "GNOME Commander wordt verspreid in de hoop dat het nuttig is, maar ZONDER "
+#~ "ENIGE GARANTIE; zelfs niet de impliciete garantie van VERKOOPBAARHEID of "
+#~ "GESCHIKTHEID VOOR EEN BEPAALD DOEL. Zie de GNU General Public License voor "
+#~ "meer informatie."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+#~ "U zou een kopie van de GNU General License ontvangen moeten hebben samen met"
+#~ " GNOME Commander; als dat niet zo is, kunt u schrijven naar the Free "
+#~ "Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA "
+#~ "02110-1301, USA."
+
+#~ msgid "Transfer problem"
+#~ msgstr "Overdrachtsprobleem"
+
+#~ msgid "Copy problem"
+#~ msgstr "Probleem kopiëren"
+
+#, c-format
+#~ msgid ""
+#~ "Overwrite file:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "With:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+#~ msgstr ""
+#~ "Bestand overschrijven:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "Met:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+
+#, c-format
+#~ msgid ""
+#~ "Error while transferring “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Fout bij het overbrengen van ‘%s’\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Move problem"
+#~ msgstr "Probleem verplaatsen"
+
+#, c-format
+#~ msgid "[file %ld of %ld] “%s”"
+#~ msgstr "[bestand %ld van %ld] ‘%s’"
+
+#, c-format
+#~ msgid ""
+#~ "Error while creating symlink “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Fout bij aanmaken van symlink ‘%s’\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Symlink creation problem"
+#~ msgstr "Probleem met aanmaken van symlink"
+
+#, c-format
+#~ msgid ""
+#~ "Source “%s” could not be deleted. Aborting!\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Bron ‘%s’ kon niet worden verwijderd. Wordt afgebroken!\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "stopping…"
+#~ msgstr "stoppen…"
+
+#, c-format
+#~ msgid "%s of %s copied"
+#~ msgstr "%s van %s gekopieerd"
+
+#, c-format
+#~ msgid "%.0f%% copied"
+#~ msgstr "%.0f%% gekopieerd"
+
+#, c-format
+#~ msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Kan geïnstalleerd bestandstype pixmap niet laden. In plaats daarvan wordt "
+#~ "geprobeerd om %s te laden."
+
+#, c-format
+#~ msgid ""
+#~ "Can’t find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-commander from the gnome-commander-%s/src directory"
+#~ msgstr ""
+#~ "Kan pixmap nergens vinden. Verzeker u ervan dat u het programma "
+#~ "geïnstalleerd heeft, of dat gnome-commander start vanuit de map gnome-"
+#~ "commander-%s/src"
+
+#, c-format
+#~ msgid "Couldn’t load installed pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Kan geïnstalleerde pixmap niet laden. In plaats daarvan wordt geprobeerd om "
+#~ "%s te laden"
+
+#~ msgid "Find"
+#~ msgstr "Zoeken"
+
+#~ msgid "Searching…"
+#~ msgstr "Zoeken…"
+
+#, c-format
+#~ msgid "Searching for “%s”"
+#~ msgstr "Zoeken naar ‘%s’"
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr "Positie: %lu van %lu\tKolom: %d\t%s"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "pixel"
+#~ msgstr[1] "pixels"
+
+#~ msgid "bit/sample"
+#~ msgid_plural "bits/sample"
+#~ msgstr[0] "bit/voorbeeld"
+#~ msgstr[1] "bits/voorbeeld"
+
+#~ msgid "_Copy selection"
+#~ msgstr "Selectie _kopiëren"
+
+#~ msgid "_Binary"
+#~ msgstr "_Binair"
+
+#~ msgid "Arabic (Windows, CP1256)"
+#~ msgstr "Arabisch (Windows, CP1256)"
+
+#~ msgid "Rotate Clockwise"
+#~ msgstr "Met de klok mee draaien"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "_Binaire modus"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "Huidige instellingen _opslaan"
+
+#, c-format
+#~ msgid "Pattern “%s” was not found"
+#~ msgstr "Patroon ‘%s’ niet gevonden"
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr "De startmap voor het linker paneel opgeven"
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr "De startmap voor het rechter paneel opgeven"
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr "De map voor configuratiebestanden opgeven"
+
+#~ msgid "File Manager"
+#~ msgstr "Bestandsbeheer"
+
+#~ msgid "Disable"
+#~ msgstr "Uitschakelen"
+
+#~ msgid "Enable"
+#~ msgstr "Inschakelen"
+
+#~ msgid "Version"
+#~ msgstr "Versie"
+
+#~ msgid "_Enable"
+#~ msgstr "_Inschakelen"
+
+#~ msgid "_Configure"
+#~ msgstr "Con_figureren"
+
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr "<Exif en IPTC-tags niet ondersteund>"
+
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr "<ID3, APE, FLAC en Vorbis-tags niet ondersteund>"
+
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr "<OLE2 en ODF-tags niet ondersteund>"
+
+#~ msgid "<PDF tags not supported>"
+#~ msgstr "<PDF-tags niet ondersteundd>"
+
+#~ msgid "Created"
+#~ msgstr "Gemaakt"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr ""
+#~ "Datum geassocieerd met een gebeurtenis in de levenscyclus van de bron "
+#~ "(aanmaak/publicatiedatum)."
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr "Exif IFD Pointer"
+
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr ""
+#~ "Een pointer naar de Exif IFD. Interoperabiliteit, Exif IFD heeft dezelfde "
+#~ "structuur als die van de IFD gespecificeerd in TIFF."
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr "Interoperabiliteit IFD-pointer"
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+#~ "Interoperabiliteit-IFD is samengesteld uit tags en bevat de informatie die "
+#~ "voor de interoperabiliteit zorgt; er wordt naar verwezen door de volgende "
+#~ "tag die zich in Exif IFD bevindt. De interoperabiliteitsstructuur van "
+#~ "interoperabiliteit-IFD is dezelfde als de TIFF gedefinieerde IFD-structuur "
+#~ "maar bevat niet de afbeeldingsgegevens die bij normale TIFF-IFD horen."
+
+#~ msgid "Emphasis"
+#~ msgstr "Nadruk"
+
+#~ msgid "Emphasis."
+#~ msgstr "Nadruk."
+
+#~ msgid "Equalization 2"
+#~ msgstr "Gelijkmaking 2"
+
+#~ msgid "Frames"
+#~ msgstr "Frames"
+
+#~ msgid "Number of frames."
+#~ msgstr "Aantal frames."
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr "BetrokkenPersonen2"
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr "Grootte van het audiobestand in bytes, zonder de ID3-tag."
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr "Volumeregeling 2"
+
+#, c-format
+#~ msgid "unsupported tag (suppressed %ld B of binary data)"
+#~ msgstr "niet-ondersteunde tag (%ld B van binaire data onderdrukt)"
+
+# meervoud van byte is ook byte
+#, c-format
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "(%s byte)"
+#~ msgstr[1] "(%s bytes)"
+
+# meervoud van byte is ook byte
+#, c-format
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "%sbyte"
+#~ msgstr[1] "%sbytes"
+
+#~ msgid "Failed to change working directory to a temporary directory."
+#~ msgstr "Werkmap wijzigen in een tijdelijke map is mislukt."
+
+#~ msgid "Failed to create a directory in which to store temporary files."
+#~ msgstr ""
+#~ "Aanmaken van map waarin tijdelijke bestanden moeten worden opgeslagen is "
+#~ "mislukt."
+
+#, c-format
+#~ msgid "Creating directory %s… "
+#~ msgstr "Map %s aanmaken… "
+
+#, c-format
+#~ msgid "Failed to create the directory %s: %s"
+#~ msgstr "Aanmaken van de map %s: %s is mislukt"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "Fout bij weergeven van de hulpdocumentatie."
+
+#~ msgid "CVS options"
+#~ msgstr "CVS opties"
+
+#~ msgid "Compression level"
+#~ msgstr "Compressieniveau"
+
+#~ msgid "Unified diff format"
+#~ msgstr "Standaard diff-formaat"
+
+#~ msgid "A plugin that eventually will be a simple CVS client"
+#~ msgstr "Een plug-in die uiteindelijk een eenvoudige CVS-client zal worden"
+
+#~ msgid "Compare with"
+#~ msgstr "Vergelijken met"
+
+#~ msgid "HEAD"
+#~ msgstr "HEAD"
+
+#~ msgid "The previous revision"
+#~ msgstr "De vorige revisie"
+
+#~ msgid "Other revision"
+#~ msgstr "Andere revisie"
+
+#~ msgid "CVS Diff"
+#~ msgstr "CVS Diff"
+
+#~ msgid "revision"
+#~ msgstr "revisie"
+
+#~ msgid "Revision:"
+#~ msgstr "Revisie:"
+
+#~ msgid "Compare..."
+#~ msgstr "Vergelijken…"
+
+#~ msgid "Author:"
+#~ msgstr "Auteur:"
+
+#~ msgid "Date:"
+#~ msgstr "Datum:"
+
+#~ msgid "State:"
+#~ msgstr "Staat:"
+
+#~ msgid "Lines:"
+#~ msgstr "Regels:"
+
+#~ msgid "Message:"
+#~ msgstr "Bericht:"
+
+#~ msgid "Create Archive..."
+#~ msgstr "Archief aanmaken…"
+
+#~ msgid "Profiles..."
+#~ msgstr "Profielen…"
+
+#~ msgid ""
+#~ "Some regular expressions functionality is disabled. To enable it's necessary"
+#~ " to build GNOME Commander with GLib ≥ 2.14. Please contact your package "
+#~ "maintainer about that."
+#~ msgstr ""
+#~ "De functionaliteit van bepaalde reguliere expressies is uitgeschakeld. Om "
+#~ "deze in te schakelen moet Gnome Commander gebouwd worden met GLib ≥ 2.14. "
+#~ "Neem hiervoor contact op met degene die het pakket onderhoudt."
+
+#~ msgid "/Local path..."
+#~ msgstr "/Lokaal pad…"
+
+#~ msgid "_Import"
+#~ msgstr "_Importeren"
+
+#~ msgid "Save password in GNOME keyring"
+#~ msgstr "Wachtwoord opslaan in Gnome-sleutelbos"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "Anoniem FTP-wachtwoord:"
+
+#~ msgid "Search local directories only"
+#~ msgstr "Alleen lokale mappen doorzoeken"
+
+#~ msgid "Files _not containing text"
+#~ msgstr "Bestanden _zonder tekst"
+
+#~ msgid "Failed to read file %s: %s"
+#~ msgstr "Kan niet lezen uit bestand %s: %s"
+
+#~ msgid "Searching in: %s"
+#~ msgstr "Zoeken in: %s"
+
+#~ msgid "Found %d match - search aborted"
+#~ msgid_plural "Found %d matches - search aborted"
+#~ msgstr[0] "%d overeenkomst gevonden - zoeken afgebroken"
+#~ msgstr[1] "%d overeenkomsten gevonden - zoeken afgebroken"
+
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "%d overeenkomst gevonden"
+#~ msgstr[1] "%d overeenkomsten gevonden"
+
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr "Procesgroep-id van dochter %d: %s instellen is mislukt.\n"
+
+#~ msgid "Error parsing the search command."
+#~ msgstr "Fout bij ontleden van de zoekopdracht."
+
+#~ msgid "Error running the search command."
+#~ msgstr "Fout bij het uitvoeren van de zoekopdracht."
+
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr "Wijzigen van map buiten %s is mislukt"
+
+#~ msgid "Search..."
+#~ msgstr "Zoeken…"
+
+#~ msgid "Device is now safe to remove"
+#~ msgstr "Apparaat kan veilig verwijderd worden"
+
+#~ msgid "S_hare:"
+#~ msgstr "G_edeeld:"
+
+#~ msgid "_User name:"
+#~ msgstr "_Gebruikersnaam:"
+
+#~ msgid "_Password:"
+#~ msgstr "_Wachtwoord:"
+
+#~ msgid "Use _GNOME Keyring Manager for authentication"
+#~ msgstr "_Gnome sleutelbosbeheer gebruiken voor authenticatie"
+
+#~ msgid "Audio Files"
+#~ msgstr "Audiobestanden"
+
+#~ msgid "CamelCase"
+#~ msgstr "Elk woord met hoofdletter"
+
+#~ msgid "Manage bookmarks..."
+#~ msgstr "Bladwijzers beheren…"
+
+#~ msgid "Open this _folder"
+#~ msgstr "Deze _map openen"
+
+#~ msgid "_Properties..."
+#~ msgstr "_Eigenschappen…"
+
+#~ msgid "Type:"
+#~ msgstr "Type:"
+
+#~ msgid "MIME Type:"
+#~ msgstr "MIME-type:"
+
+#~ msgid "_Change"
+#~ msgstr "_Wijzigen"
+
+#~ msgid "Regular file"
+#~ msgstr "Normaal bestand"
+
+#~ msgid "FIFO"
+#~ msgstr "FIFO"
+
+#~ msgid "UNIX Socket"
+#~ msgstr "UNIX Socket"
+
+#~ msgid "Character device"
+#~ msgstr "Karakterapparaat"
+
+#~ msgid "Block device"
+#~ msgstr "Blokapparaat"
+
+#~ msgid "Symbolic link"
+#~ msgstr "Symbolische verwijzing"
+
+#~ msgid "Switch to Vertical Layout"
+#~ msgstr "Verticale opmaak gebruiken"
+
+#~ msgid "Switch to Horizontal Layout"
+#~ msgstr "Horizontale opmaak gebruiken"
+
+#~ msgid "_Search..."
+#~ msgstr "_Zoeken…"
+
+#~ msgid "_Options..."
+#~ msgstr "_Opties…"
+
+#~ msgid "_Keyboard Shortcuts..."
+#~ msgstr "_Sneltoetsen…"
+
+#~ msgid "_MIME Types..."
+#~ msgstr "_MIME-types…"
+
+#~ msgid "_Remote Server..."
+#~ msgstr "_Externe server…"
+
+#~ msgid "New Connection..."
+#~ msgstr "Nieuwe verbinding…"
+
+#~ msgid "_Contents"
+#~ msgstr "_Inhoud"
+
+#~ msgid "Edit..."
+#~ msgstr "Bewerken…"
+
+#~ msgid "Document icon directory:"
+#~ msgstr "Map voor documentpictogrammen:"
+
+#~ msgid "Silently"
+#~ msgstr "Stil"
+
+#~ msgid "Fifo files"
+#~ msgstr "Fifo-bestanden"
+
+#~ msgid "Socket files"
+#~ msgstr "Socket-bestanden"
+
+#~ msgid "Character devices"
+#~ msgstr "Karakter-apparaten"
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr "Aankoppelen overslaan (handig bij gebruik van super-mount)"
+
+#~ msgid "Skip All"
+#~ msgstr "Alles overslaan"
+
+#~ msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
+#~ msgstr "De pythonmodule ‘gnomevfs’ (‘gnome.vfs’) kan niet worden geladen"
+
+#~ msgid "Open folder"
+#~ msgstr "Map openen"
+
+#~ msgid "MIME types"
+#~ msgstr "MIME-types:"
+
+#~ msgid "Execute Python plugin"
+#~ msgstr "Python-plug-in uitvoeren"
+
+#~ msgid "Unable to start Nautilus."
+#~ msgstr "Nautilus kan niet gestart worden."
+
+#~ msgid ""
+#~ "Error while copying to %s\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Fout bij kopiëren naar %s\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "copying..."
+#~ msgstr "kopiëren…"
+
+#~ msgid "Find..."
+#~ msgstr "Zoeken..."
+
+#~ msgid "No Proofing"
+#~ msgstr "No Proofing"
+
+#~ msgid "Arabic"
+#~ msgstr "Arabisch"
+
+#~ msgid "Bulgarian"
+#~ msgstr "Bulgaars"
+
+#~ msgid "Catalan"
+#~ msgstr "Catalaans"
+
+#~ msgid "Traditional Chinese"
+#~ msgstr "Traditioneel Chinees"
+
+#~ msgid "Simplified Chinese"
+#~ msgstr "Vereenvoudigd Chinees"
+
+#~ msgid "Chechen"
+#~ msgstr "Tsjetsjeens"
+
+#~ msgid "Danish"
+#~ msgstr "Deens"
+
+#~ msgid "German"
+#~ msgstr "Duits"
+
+#~ msgid "Swiss German"
+#~ msgstr "Duits Zwitserland"
+
+#~ msgid "Greek"
+#~ msgstr "Grieks"
+
+#~ msgid "U.S. English"
+#~ msgstr "Engels U.S."
+
+#~ msgid "U.K. English"
+#~ msgstr "Engels U.K."
+
+#~ msgid "Australian English"
+#~ msgstr "Engels Australië"
+
+#~ msgid "Castilian Spanish"
+#~ msgstr "Spaans Castiliaans"
+
+#~ msgid "Mexican Spanish"
+#~ msgstr "Spaans Mexico"
+
+#~ msgid "Finnish"
+#~ msgstr "Fins"
+
+#~ msgid "French"
+#~ msgstr "Frans"
+
+#~ msgid "Belgian French"
+#~ msgstr "Frans België"
+
+#~ msgid "Canadian French"
+#~ msgstr "Frans Canada"
+
+#~ msgid "Swiss French"
+#~ msgstr "Frans Zwitserland"
+
+#~ msgid "Hebrew"
+#~ msgstr "Hebreeuws"
+
+#~ msgid "Hungarian"
+#~ msgstr "Hongaars"
+
+#~ msgid "Icelandic"
+#~ msgstr "IJslands"
+
+#~ msgid "Italian"
+#~ msgstr "Italiaans"
+
+#~ msgid "Swiss Italian"
+#~ msgstr "Italiaans Zwitserland"
+
+#~ msgid "Japanese"
+#~ msgstr "Japans"
+
+#~ msgid "Korean"
+#~ msgstr "Koreaans"
+
+#~ msgid "Dutch"
+#~ msgstr "Nederlands"
+
+#~ msgid "Belgian Dutch"
+#~ msgstr "Nederlands België"
+
+#~ msgid "Norwegian Bokmal"
+#~ msgstr "Noors Bokmal"
+
+#~ msgid "Norwegian Nynorsk"
+#~ msgstr "Noors Nynorsk"
+
+#~ msgid "Polish"
+#~ msgstr "Pools"
+
+#~ msgid "Brazilian Portuguese"
+#~ msgstr "Portugees Brazilië"
+
+#~ msgid "Portuguese"
+#~ msgstr "Portugees"
+
+#~ msgid "Rhaeto-Romanic"
+#~ msgstr "Reto-Romaans"
+
+#~ msgid "Romanian"
+#~ msgstr "Roemeens"
+
+#~ msgid "Russian"
+#~ msgstr "Russisch"
+
+#~ msgid "Croato-Serbian (Latin)"
+#~ msgstr "Kroatisch-Servisch (Latijn)"
+
+#~ msgid "Serbo-Croatian (Cyrillic)"
+#~ msgstr "Servo-Kroatisch (Cyrillisch)"
+
+#~ msgid "Slovak"
+#~ msgstr "Slovaaks"
+
+#~ msgid "Albanian"
+#~ msgstr "Albanees"
+
+#~ msgid "Swedish"
+#~ msgstr "Zweeds"
+
+#~ msgid "Thai"
+#~ msgstr "Thais"
+
+#~ msgid "Urdu"
+#~ msgstr "Urdu"
+
+#~ msgid "Indonesian"
+#~ msgstr "Indonesisch"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Oekraïens"
+
+#~ msgid "Byelorussian"
+#~ msgstr "Wit-Russisch"
+
+#~ msgid "Slovenian"
+#~ msgstr "Sloveens"
+
+#~ msgid "Estonian"
+#~ msgstr "Ests"
+
+#~ msgid "Latvian"
+#~ msgstr "Lets"
+
+#~ msgid "Lithuanian"
+#~ msgstr "Litouws"
+
+#~ msgid "Farsi"
+#~ msgstr "Farsi"
+
+#~ msgid "Basque"
+#~ msgstr "Baskisch"
+
+#~ msgid "Macedonian"
+#~ msgstr "Macedonisch"
+
+#~ msgid "Afrikaans"
+#~ msgstr "Afrikaans"
+
+#~ msgid "Malayalam"
+#~ msgstr "Malayalam"
+
+#~ msgid "Couldn't read from the directory %s: %s"
+#~ msgstr "Kan niet lezen uit de map %s: %s"
+
+#, fuzzy
+#~ msgid "_Remote dir:"
+#~ msgstr "_Verwijderen"
+
+#~ msgid "Other..."
+#~ msgstr "Anders..."
+
+#~ msgid "F10 Quit"
+#~ msgstr "F10 Sluiten"
+
+#~ msgid "Shell syntax"
+#~ msgstr "shell syntax"
+
+#~ msgid "Regex syntax"
+#~ msgstr "regex syntax"
+
+#~ msgid "_Test"
+#~ msgstr "_Test"
+
+#, fuzzy
+#~ msgid "Authentication"
+#~ msgstr "Toepassing:"
+
+#, fuzzy
+#~ msgid "Anonymous FTP access"
+#~ msgstr "Anoniem wachtwoord:"
+
+#~ msgid "Password:"
+#~ msgstr "Wachtwoord:"
+
+#, fuzzy
+#~ msgid "Network"
+#~ msgstr "Nieuwe bladwijzer"
+
+#~ msgid "Failed to open file %s: %s\n"
+#~ msgstr "Kan bestand %s niet openen: %s\n"
+
+#, fuzzy
+#~ msgid "Search _in: "
+#~ msgstr "Zoeken in: "
+
+#, fuzzy
+#~ msgid "Search _recursively"
+#~ msgstr "Recursief zoeken"
+
+#, fuzzy
+#~ msgid "_Go to"
+#~ msgstr "_Ga naar"
+
+#, fuzzy
+#~ msgid "Enter password"
+#~ msgstr "Geef wachtwoord"
+
+#~ msgid "Can't find a host or workgroup named %s\n"
+#~ msgstr "Kan geen computer of groep met de naam %s vinden\n"
+
+#, fuzzy
+#~ msgid "running `%s'\n"
+#~ msgstr "\"%s\" actief\n"
+
+#~ msgid ""
+#~ "The file \"%s\" already exists.\n"
+#~ "\n"
+#~ "Do you want to overwrite it?\n"
+#~ msgstr ""
+#~ "Het bestand \"%s\" bestaat al.\n"
+#~ "\n"
+#~ "Wilt u deze overschrijven?\n"
+
+#~ msgid "Trying to load %s instead\n"
+#~ msgstr "Probeer %s te laden\n"
+
+#, fuzzy
+#~ msgid "/Counter (precision)"
+#~ msgstr "Andere revisie"
+
+#, fuzzy
+#~ msgid "With this:"
+#~ msgstr "Met dit"
+
+#~ msgid "New Rule"
+#~ msgstr "Nieuwe regel"
+
+#~ msgid "Counter start value:"
+#~ msgstr "Startwaarde teller:"
+
+#~ msgid "Counter increment:"
+#~ msgstr "Stapgrootte teller:"
+
+#~ msgid "Counter minimum digit count:"
+#~ msgstr "Minimaal aantal getallen op teller:"
+
+#~ msgid "Template Options"
+#~ msgstr "Sjabloonopties"
+
+#~ msgid "Auto-update when the template is entered"
+#~ msgstr "Autoverversen bij invoeren van sjabloon"
+
+#~ msgid "O_ptions..."
+#~ msgstr "O_pties..."
+
+#~ msgid "With this"
+#~ msgstr "Met dit"
+
+#~ msgid "path"
+#~ msgstr "pad"
+
+#~ msgid "Removes the FTP connection to %s"
+#~ msgstr "FTP-verbinding verbreken met %s"
+
+#~ msgid "Directory options"
+#~ msgstr "Mapopties"
+
+#~ msgid "Directory cache size"
+#~ msgstr "Buffergrootte"
+
+#~ msgid "Goto"
+#~ msgstr "Ganaar"
+
+#~ msgid ""
+#~ "When parsing the users and groups on this system it was found that the user "
+#~ "%s is part of the group %s. This user can however not be found.\n"
+#~ msgstr ""
+#~ "Bij analyseren van de gebruikers en groepen op dit systeem bleek de "
+#~ "gebruiker %s in de groep %s te zitten. Deze gebruiker is echter nergens te "
+#~ "vinden.\n"
+
+#~ msgid ""
+#~ "No default application found for the mime-type %s.\n"
+#~ "Open the \"File types and programs\" page in the Control Center to add one."
+#~ msgstr ""
+#~ "Geen standaardprogramma gevonden voor het MIME-type %s.\n"
+#~ "Open het venster \"Bestandstypen en programma's\" om er een toe te voegen."
+
+#, fuzzy
+#~ msgid "Dir"
+#~ msgstr "map"
+
+#~ msgid "_Add..."
+#~ msgstr "_Toevoegen..."
+
+#~ msgid "_Edit..."
+#~ msgstr "Be_werken..."
+
+#~ msgid "No alias specified"
+#~ msgstr "Geen alias gegeven"
+
+#~ msgid "No host specified"
+#~ msgstr "Geen computer gegeven"
+
+#~ msgid "Invalid port number: %s"
+#~ msgstr "Ongeldig poortnummer: %s"
+
+#~ msgid "Host:"
+#~ msgstr "Computer:"
+
+#, fuzzy
+#~ msgid "Edit Remote Connection"
+#~ msgstr "FTP verbinding maken"
+
+#~ msgid "Connect"
+#~ msgstr "Verbinden"
+
+#, fuzzy
+#~ msgid "_Hex"
+#~ msgstr "_Hulp"
+
+#~ msgid "Enter password for %s@%s"
+#~ msgstr "Geef wachtwoord voor %s@%s"
+
+#~ msgid "Enter Password"
+#~ msgstr "Geef wachtwoord"
+
+#~ msgid "FTP Connect"
+#~ msgstr "FTP verbinding maken"
+
+#~ msgid "FTP _Connect..."
+#~ msgstr "FTP-verbinding _maken..."
+
+#~ msgid "FTP _Quick Connect..."
+#~ msgstr "FTP _snelstarten..."
+
+#~ msgid "_Execute"
+#~ msgstr "_Uitvoeren"
+
+#~ msgid "_Cut"
+#~ msgstr "K_nippen"
+
+#~ msgid "No translation is currently in use."
+#~ msgstr "Vincent van Adrighem"
+
+#~ msgid "Rename \"%s\" to"
+#~ msgstr "\"%s\" hernoemen naar"
+
+#~ msgid "Case sens"
+#~ msgstr "Hoofdlettergevoelig"
+
+#~ msgid "New FTP Server"
+#~ msgstr "Nieuwe FTP-server"
+
+#~ msgid "Edit FTP Server"
+#~ msgstr "FTP-server bewerken"
+
+#~ msgid "User _Manual..."
+#~ msgstr "Gebruikers_handleiding..."
+
+#~ msgid "_About..."
+#~ msgstr "_Info..."
+
+#~ msgid "Chmod"
+#~ msgstr "Chmod"
+
+#~ msgid ""
+#~ "%s does not know how to open remote files. Do you want to download the files"
+#~ " to a temporary location and then open them?"
+#~ msgstr ""
+#~ "%s kan geen bestanden op afstand openen. Wilt u deze downloaden naar een "
+#~ "tijdelijke locatie en vanaf daar openen?"
+
+#~ msgid "Compare Revisions..."
+#~ msgstr "Revisies vergelijken..."
+
+#~ msgid "CVS"
+#~ msgstr "CVS"
+
+#~ msgid "CVSLogViewer"
+#~ msgstr "CVSLogboekweergave"
+
+#~ msgid "Revisions"
+#~ msgstr "Revisies"
+
+#~ msgid "Revision 2:"
+#~ msgstr "Revisie 2:"
+
+#~ msgid "Diff output"
+#~ msgstr "Uitvoer diff"
+
+#~ msgid "Copyright: Marcus Bjurman 2003"
+#~ msgstr "Copyright: Marcus Bjurman 2003"
+
+#~ msgid "Small tool to browse CVS revisions of a single file."
+#~ msgstr ""
+#~ "Eenvoudig gereedschap om verschillende revisies van een CVS-bestand te "
+#~ "bekijken."
+
+#~ msgid "Program name"
+#~ msgstr "Programmanaam"
+
+#~ msgid "Copyright information for the program"
+#~ msgstr "Copyright-informatie van het programma"
+
+#~ msgid "Authors"
+#~ msgstr "Auteurs"
+
+#~ msgid "List of authors of the programs"
+#~ msgstr "Lijst van de auteurs van de programma's"
+
+#~ msgid "Author entry"
+#~ msgstr "Auteur-ingang"
+
+#~ msgid "A single author entry"
+#~ msgstr "Een enkele auteur"
+
+#~ msgid "List of people documenting the program"
+#~ msgstr "Lijst van mensen die de documentatie hebben verzorgd"
+
+#~ msgid "Documenter entry"
+#~ msgstr "Documenteerder-ingang"
+
+#~ msgid "A single documenter entry"
+#~ msgstr "Een nekele documenteerder"
+
+#~ msgid ""
+#~ "Credits to the translators. This string should be marked as translatable"
+#~ msgstr ""
+#~ "Dankbetuiging aan de vertaler. Deze tekst moet als vertaalbaar gemarkeerd "
+#~ "worden"
+
+#~ msgid "Webpage for the plugin"
+#~ msgstr "Webstek voor de plugin"
+
+#~ msgid "..."
+#~ msgstr "..."

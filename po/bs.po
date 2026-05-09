@@ -5442,3 +5442,1787 @@ msgstr "Nijedan"
 #: plugins/taglib/taglib-plugin.cc:421
 msgid "10-15ms"
 msgstr "10-15ms"
+
+#~ msgid "Two-pane file manager"
+#~ msgstr "Upravnik datotekama sa dvije površi"
+
+#~ msgid ""
+#~ "GNOME Commander is a \"two-pane\" graphical file manager for the GNOME "
+#~ "desktop environment. It features separate tabs for each pane, setting up "
+#~ "custom device buttons, bookmark manager, fully integrated commandline, file "
+#~ "quick search, an internal image viewer, a powerful batch renaming tool, and "
+#~ "FTP and Samba access."
+#~ msgstr ""
+#~ "Gnomov narednik je „dvo-površinski“ grafički upravnik datoteka za Gnomovo "
+#~ "radno okruženje. Odlikuju ga odvojeni jezičci za svaku površ, podešavanje "
+#~ "proizvoljnih dugmadi uređaja, upravnik obeleživačima, potpuno objedinjena "
+#~ "konzola naredbi, brza pretraga datoteka, unutrašnji pregledač slika, moćan "
+#~ "alat za grupno preimenovanje, kao i pristup FTP-u i Sambi."
+
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+#~ "Gnomov narednik je namijenjen naprednim korisnicima koji vole da se "
+#~ "usredsrede na preciznom upravljanju datotekama, radeći uporedno kroz posebne"
+#~ " programe, i pokrećući pametne naredbe."
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME Commander"
+
+#~ msgid "A two paned file manager"
+#~ msgstr "Upravitelj datotekama s dva okna"
+
+#~ msgid "File;Manager;"
+#~ msgstr "datoteka;upravnik;"
+
+#~ msgid "No error description available"
+#~ msgstr "Nije opis greške dostupan"
+
+#~ msgid "Create Archive..."
+#~ msgstr "Napravi arhiv..."
+
+#, c-format
+#~ msgid "Extract to '%s'"
+#~ msgstr "Raspakuj u '%s'"
+
+#~ msgid "Default type"
+#~ msgstr "Zadani tip"
+
+#~ msgid "/_Save Profile As..."
+#~ msgstr "/_Spasite profil kao..."
+
+#~ msgid "/_Manage Profiles..."
+#~ msgstr "/_Upravljajte profilima..."
+
+#~ msgid "Current file name"
+#~ msgstr "Ime trenutne datoteke"
+
+#~ msgid "New file name"
+#~ msgstr "Ime nove datoteke"
+
+#~ msgid "File size"
+#~ msgstr "Veličina datoteke"
+
+#~ msgid "File modification date"
+#~ msgstr "Datum modifikacije datoteke"
+
+#~ msgid "Profiles..."
+#~ msgstr "Profili..."
+
+#~ msgid "_Replace with:"
+#~ msgstr "_Zamijeni sa:"
+
+#~ msgid ""
+#~ "Some regular expressions functionality is disabled. To enable it's necessary"
+#~ " to build GNOME Commander with GLib ≥ 2.14. Please contact your package "
+#~ "maintainer about that."
+#~ msgstr ""
+#~ "Neki regularni izrazi funkcionalnosti su isključeni. Da se uključe, potrebno"
+#~ " je izgraditi GNOME Commander sa GLib  ≥ 2.14. Molimo kontaktirajte svog "
+#~ "održavača paketa o ovome."
+
+#, c-format
+#~ msgid "Could not chown %s"
+#~ msgstr "Nije uspjelo chown %s"
+
+#~ msgid "Chown"
+#~ msgstr "Chown"
+
+#~ msgid "S_hare:"
+#~ msgstr "_Dijeli:"
+
+#~ msgid "_User name:"
+#~ msgstr "_Korisničko ime:"
+
+#~ msgid "_Password:"
+#~ msgstr "_Lozinka:"
+
+#, c-format
+#~ msgid "\"%s\" is not a valid location"
+#~ msgstr "\"%s\" nije ispravno mjesto"
+
+#~ msgid "Remote Server"
+#~ msgstr "Daljinski poslužitelj"
+
+#~ msgid "Use _GNOME Keyring Manager for authentication"
+#~ msgstr "Koristi _GNOME Privjesak menadžer za ovjeru"
+
+#, c-format
+#~ msgid "Deleted %ld of %ld file"
+#~ msgid_plural "Deleted %ld of %ld files"
+#~ msgstr[0] "Obrisana %ld od %ld datoteka"
+#~ msgstr[1] "Obrisano %ld od %ld datoteka"
+#~ msgstr[2] "Obrisano %ld od %ld datoteka"
+
+#~ msgid "Deleting..."
+#~ msgstr "Brišem..."
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting \"%s\"\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Greška prilikom brisanja \"%s\"\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Delete problem"
+#~ msgstr "Obriši problem"
+
+#, c-format
+#~ msgid "Do you want to delete \"%s\"?"
+#~ msgstr "Želite li izbrisati \"%s\"?"
+
+#, c-format
+#~ msgid "Do you want to delete the selected file?"
+#~ msgid_plural "Do you want to delete the %d selected files?"
+#~ msgstr[0] "Želite li izbrisati %d odabranu datoteku?"
+#~ msgstr[1] "Želite li izbrisati %d odabrane datoteke?"
+#~ msgstr[2] "Želite li izbrisati %d odabranih datoteka?"
+
+#~ msgid "OK"
+#~ msgstr "U redu"
+
+#~ msgid "Bookmark name is missing."
+#~ msgstr "Ime oznake nedostaje."
+
+#~ msgid "Bookmark target is missing."
+#~ msgstr "Oznake odredišta nedostaju."
+
+#~ msgid "Image:"
+#~ msgstr "Slika:"
+
+#~ msgid "Type:"
+#~ msgstr "Tip:"
+
+#~ msgid "MIME Type:"
+#~ msgstr "MIME tip:"
+
+#~ msgid "Type"
+#~ msgstr "Tip"
+
+#~ msgid "Metadata namespace"
+#~ msgstr "Metadata namespace"
+
+#~ msgid "Tag name"
+#~ msgstr "Ime oznake"
+
+#~ msgid "Tag value"
+#~ msgstr "Vrijednost oznake"
+
+#~ msgid "Metadata tag description"
+#~ msgstr "Metadata opis taga"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the corresponding row and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "Za editovanje tipke za kraticu, kliknite na odgovarajući red i ukucajte novi"
+#~ " akcelerator, ili stisnite escape da odustanite."
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Tasteri Prečice"
+
+#~ msgid "Keyboard shortcut for selected action"
+#~ msgstr "Kratica tastature za odabranu akciju"
+
+#~ msgid "Action"
+#~ msgstr "Akcija"
+
+#~ msgid "User action"
+#~ msgstr "Korisnikova akcija"
+
+#~ msgid "Optional data"
+#~ msgstr "Izborni podaci"
+
+#, c-format
+#~ msgid "Shortcut \"%s\" is already taken by \"%s\"."
+#~ msgstr "Kratica \"%s\" je već zauzeta sa \"%s\"."
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "Sukobljene prečice"
+
+#, c-format
+#~ msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
+#~ msgstr "Promjena prečice znači i njeno uklanjanje iz „%s“."
+
+#~ msgid "Invalid shortcut."
+#~ msgstr "Neispravna prečica."
+
+#~ msgid "Do nothing"
+#~ msgstr "Ne radi ništa"
+
+#, c-format
+#~ msgid "Copy \"%s\" to"
+#~ msgstr "Kopiraj \"%s\" u"
+
+#~ msgid "Group"
+#~ msgstr "Grupiši"
+
+#~ msgid "Bookmark group"
+#~ msgstr "Grupa Oznaka"
+
+#~ msgid "Bookmark name"
+#~ msgstr "Ime Oznake"
+
+#~ msgid "Keyboard shortcut for selected bookmark"
+#~ msgstr "Kratica na tastaturi za izabranu oznaku"
+
+#~ msgid "Bookmarked path"
+#~ msgstr "Označena putanja"
+
+#~ msgid "Profile name"
+#~ msgstr "Ime profila"
+
+#~ msgid "/Local path..."
+#~ msgstr "/Lokalna putanja..."
+
+#~ msgid "/Remote location..."
+#~ msgstr "/Udaljena lokacija..."
+
+#~ msgid "_Import"
+#~ msgstr "U_vezi"
+
+#~ msgid "Silently"
+#~ msgstr "Tiho"
+
+#~ msgid "Skip All"
+#~ msgstr "Preskoči sve"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Piši preko datoteka"
+
+#         translations.
+#, c-format
+#~ msgid "copy %d file to"
+#~ msgid_plural "copy %d files to"
+#~ msgstr[0] "kopiraj %d datoteku u"
+#~ msgstr[1] "kopiraj %d datoteke u"
+#~ msgstr[2] "kopiraj %d datoteka u"
+
+#, c-format
+#~ msgid "Move \"%s\" to"
+#~ msgstr "Premjesti \"%s\" u"
+
+#         translations.
+#, c-format
+#~ msgid "move %d file to"
+#~ msgid_plural "move %d files to"
+#~ msgstr[0] "premjesti %d datoteku u"
+#~ msgstr[1] "premjesti %d datoteke u"
+#~ msgstr[2] "premjesti %d datoteka u"
+
+#, c-format
+#~ msgid "The directory '%s' doesn't exist, do you want to create it?"
+#~ msgstr "Direktorij '%s' ne postoji, želite li ga kreirati?"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "Upari početak imena datoteke"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "Upari kraj imena datoteke"
+
+#~ msgid "Don't start a new instance"
+#~ msgstr "Ne pokreći novu instancu"
+
+#~ msgid ""
+#~ "See the manual page for \"strftime\" for help on how to set the format "
+#~ "string."
+#~ msgstr ""
+#~ "Pogledaj priručnik za \"strftime\" za pomoć kako postaviti format stringa."
+
+#~ msgid "Edit Colors..."
+#~ msgstr "Uredi boje..."
+
+#~ msgid "Colors"
+#~ msgstr "Boje"
+
+#~ msgid "Palette"
+#~ msgstr "Paleta"
+
+#~ msgid "Foreground:"
+#~ msgstr "Prvi plan:"
+
+#~ msgid "Background:"
+#~ msgstr "Pozadina:"
+
+#~ msgid "File panes"
+#~ msgstr "Okna fajla"
+
+#~ msgid "Edit..."
+#~ msgstr "Izmijeni..."
+
+#~ msgid "Edit colors..."
+#~ msgstr "Uredi boje..."
+
+#~ msgid "Document icon directory:"
+#~ msgstr "Direktorij ikone dokumenta:"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "Potvrdi zadano na OK"
+
+#~ msgid "Copy overwrite"
+#~ msgstr "Kopiraj preko"
+
+#~ msgid "Move overwrite"
+#~ msgstr "Premjesti preko"
+
+#~ msgid "Drag and Drop"
+#~ msgstr "Povuci i spusti"
+
+#~ msgid "Fifo files"
+#~ msgstr "Fifo datoteke"
+
+#~ msgid "Socket files"
+#~ msgstr "Socket fajlovi"
+
+#~ msgid "Character devices"
+#~ msgstr "Karakter uređaji"
+
+#~ msgid "Block devices"
+#~ msgstr "Blok uređaji"
+
+#~ msgid "Device:"
+#~ msgstr "Uređaj:"
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr "Preskoči montiranje (korisno kod korištenja super-montiranja)"
+
+#~ msgid "Save password in GNOME keyring"
+#~ msgstr "Spasi lozinku u GNOME privjesku"
+
+#~ msgid "Network protocol"
+#~ msgstr "Mrežni protokol"
+
+#~ msgid "Connection name"
+#~ msgstr "Ime veze"
+
+#~ msgid "Connections"
+#~ msgstr "Veze"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "Anonimna FTP lozinka:"
+
+#~ msgid "Search local directories only"
+#~ msgstr "Pretraži samo lokalne direktorije"
+
+#~ msgid "Files _not containing text"
+#~ msgstr "Datoteke _koje ne sadrže tekst"
+
+#, c-format
+#~ msgid "Failed to read file %s: %s"
+#~ msgstr "Neuspjeh kod čitanja datoteke %s: %s"
+
+#, c-format
+#~ msgid "Searching in: %s"
+#~ msgstr "Pretražujem u: %s"
+
+#, c-format
+#~ msgid "Found %d match - search aborted"
+#~ msgid_plural "Found %d matches - search aborted"
+#~ msgstr[0] "Nađeno %d slaganje - pretraga prekinuta"
+#~ msgstr[1] "Nađeno %d slaganja - pretraga prekinuta"
+#~ msgstr[2] "Nađeno %d slaganja - pretraga prekinuta"
+
+#, c-format
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "Nađeno %d slaganje"
+#~ msgstr[1] "Nađena %d slaganja"
+#~ msgstr[2] "Nađeno %d slaganja"
+
+#, c-format
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr ""
+#~ "Neuspješno postavljanje grupnog ID-a procesa za podređeni proces %d: %s.\n"
+
+#~ msgid "Error parsing the search command."
+#~ msgstr "Greška prilikom analize komande za pretraživanje."
+
+#~ msgid "Error running the search command."
+#~ msgstr "Greška prilikom pokretanja komande za pretraživanje."
+
+#, c-format
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr "Neuspjeh mijenjanja direktorija izvan %s"
+
+#~ msgid "Search..."
+#~ msgstr "Traži..."
+
+#, c-format
+#~ msgid "%d file listed"
+#~ msgid_plural "%d files listed"
+#~ msgstr[0] "%d datoteka navedena"
+#~ msgstr[1] "%d datoteke navedene"
+#~ msgstr[2] "%d datoteka navedenih"
+
+#~ msgid "Accelerator key"
+#~ msgstr "Taster prečice"
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr "Modifikatori za prečicu"
+
+#~ msgid "Accelerator Mode"
+#~ msgstr "Režim prečice"
+
+#~ msgid "The type of accelerator."
+#~ msgstr "Tip kratice."
+
+#~ msgid "Disabled"
+#~ msgstr "Onemogućeno"
+
+#~ msgid "New accelerator..."
+#~ msgstr "Nova kratica..."
+
+#~ msgid "Credits"
+#~ msgstr "Zasluge"
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "Web stranica proširenja"
+
+#~ msgid "C_redits"
+#~ msgstr "_Zasluge"
+
+#~ msgid "/Grandparent"
+#~ msgstr "/Djed"
+
+#~ msgid "/Parent"
+#~ msgstr "/Roditelj"
+
+#~ msgid "/File name"
+#~ msgstr "/Ime datoteke"
+
+#~ msgid "/File name (range)"
+#~ msgstr "/Ime datoteke(opeseg)"
+
+#~ msgid "/File name without extension"
+#~ msgstr "/Ime datoteke bez produžetka"
+
+#~ msgid "/File name without extension (range)"
+#~ msgstr "/Ime datoteke bez produžetka (opseg)"
+
+#~ msgid "/File extension"
+#~ msgstr "/Produžetak datoteke"
+
+#~ msgid "/Counter"
+#~ msgstr "/Brojač"
+
+#~ msgid "/Counter (width)"
+#~ msgstr "/Brojač (širina)"
+
+#~ msgid "/Counter (auto)"
+#~ msgstr "/Brojač (auto)"
+
+#~ msgid "/Hexadecimal random number (width)"
+#~ msgstr "/Slučajan Hexadecimalni broj (širina)"
+
+#~ msgid "/Date"
+#~ msgstr "/Datum"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "/Datum/<mjesto>"
+
+#~ msgid "/Date/yyyy-mm-dd"
+#~ msgstr "/Datum/gggg-mm-dd"
+
+#~ msgid "/Date/yy-mm-dd"
+#~ msgstr "/Datum/gg-mm-dd"
+
+#~ msgid "/Date/yy.mm.dd"
+#~ msgstr "/Datum/gg.mm.dd"
+
+#~ msgid "/Date/yymmdd"
+#~ msgstr "/Datum/ggmmdd"
+
+#~ msgid "/Date/dd.mm.yy"
+#~ msgstr "/Datum/dd.mm.gg"
+
+#~ msgid "/Date/mm-dd-yy"
+#~ msgstr "/Datum/mm-dd-gg"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/Datum/gggg"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/Datum/gg"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/Datum/mm"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/Datum/mmm"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/Datum/dd"
+
+#~ msgid "/Time"
+#~ msgstr "/Vrijeme"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/Vrijeme/<mjesto>"
+
+#~ msgid "/Time/HH.MM.SS"
+#~ msgstr "/Vrijeme/HH.MM.SS"
+
+#~ msgid "/Time/HH-MM-SS"
+#~ msgstr "/Vrijeme/HH-MM-SS"
+
+#~ msgid "/Time/HHMMSS"
+#~ msgstr "/Vrijeme/HHMMSS"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/Vrijeme/HH"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/Vrijeme/MM"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/Vrijeme/SS"
+
+#~ msgid "Regex pattern"
+#~ msgstr "Regex uzorak"
+
+#~ msgid "Replacement"
+#~ msgstr "Zamjena"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "Razlikuje veličinu slova"
+
+#~ msgid "<New connection>"
+#~ msgstr "<Nova veza>"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "Idi u:%s"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "Poveži sa: %s"
+
+#, c-format
+#~ msgid "Disconnect from: %s"
+#~ msgstr "Prekini sa: %s"
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "Povezivanje sa %s\n"
+
+#, c-format
+#~ msgid "Mount failed: mount exited with existatus %d"
+#~ msgstr "Montiranje neuspješno: montiranje prekinuto sa statusom %d"
+
+#~ msgid "Device is now safe to remove"
+#~ msgstr "Sada možete da uklonite uređaj"
+
+#, c-format
+#~ msgid ""
+#~ "Cannot unmount the volume:\n"
+#~ "%s %s"
+#~ msgstr ""
+#~ "Ne može se odmontirat volumen:\n"
+#~ "%s%s"
+
+#~ msgid "Unknown error"
+#~ msgstr "Nepoznata greška"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "Idi u:%s(%s)"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr "Montiraj: %s"
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr "Demontiraj: %s"
+
+#~ msgid "Failed to browse the network. Is the SMB module installed?"
+#~ msgstr "Neuspjeh pretraživanja mreže. Da li je SMB modul instaliran?"
+
+#~ msgid "Audio Files"
+#~ msgstr "Audio datoteke"
+
+#~ msgid "CamelCase"
+#~ msgstr "CamelCase"
+
+#~ msgid "Manage bookmarks..."
+#~ msgstr "Upravljaj oznakama..."
+
+#~ msgid "/_Copy here"
+#~ msgstr "/_Kopiraj ovdje"
+
+#~ msgid "/_Move here"
+#~ msgstr "/_Premjesti ovdje"
+
+#~ msgid "/_Link here"
+#~ msgstr "/_Poveži ovdje"
+
+#~ msgid "/C_ancel"
+#~ msgstr "/O_tkaži"
+
+#~ msgid "Failed to open connection."
+#~ msgstr "Neuspjeh kod otvaranja veze."
+
+#~ msgid "Couldn't retrieve MIME type of the file."
+#~ msgstr "Nije moguće povratiti MIME tip datoteke."
+
+#~ msgid "Open with other..."
+#~ msgstr "Otvori sa drugim..."
+
+#~ msgid "Needs terminal"
+#~ msgstr "Potreban je terminal"
+
+#, c-format
+#~ msgid "_Open with \"%s\""
+#~ msgstr "_Otvori sa \"%s\""
+
+#~ msgid "Copy file names"
+#~ msgstr "Kopiraj imena datoteka"
+
+#~ msgid "Send files"
+#~ msgstr "Pošalji datoteke"
+
+#~ msgid "Open this _folder"
+#~ msgstr "Otvori ovaj _direktorij"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "Otvori _terminal ovdje"
+
+#~ msgid "_Properties..."
+#~ msgstr "_Svojstva..."
+
+#~ msgid "Other _Application..."
+#~ msgstr "Druga _Aplikacija..."
+
+#, c-format
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] "%s od %s kB u %d od %d datoteke"
+#~ msgstr[1] "%s od %s kB u %d od %d datoteke"
+#~ msgstr[2] "%s od %s kB u %d od %d datoteka"
+
+#, c-format
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] "%s, %d od %d dir odabrano"
+#~ msgstr[1] "%s, %d od %d dirs odabrano"
+#~ msgstr[2] "%s, %d od %d dirs odabrano"
+
+#~ msgid "The tab is locked, close anyway ?"
+#~ msgstr "Tab je zaključan, zatvoriti u svakom slučaju?"
+
+#~ msgid "Copy Tab to Other _Pane"
+#~ msgstr "Kopiraj Tab u drugo _Okno"
+
+#~ msgid "No file name given"
+#~ msgstr "Datoteci nije dato ime"
+
+#~ msgid "Filter:"
+#~ msgstr "Filter:"
+
+#~ msgid "Unknown file type"
+#~ msgstr "Nepoznat tip datoteke"
+
+#~ msgid "Regular file"
+#~ msgstr "Regularna datoteka"
+
+#~ msgid "FIFO"
+#~ msgstr "FIFO"
+
+#~ msgid "UNIX Socket"
+#~ msgstr "UNIX Soket"
+
+#~ msgid "Character device"
+#~ msgstr "Znakovni uređaj"
+
+#~ msgid "Block device"
+#~ msgstr "Blok uređaj"
+
+#~ msgid "Symbolic link"
+#~ msgstr "Simbolička veza"
+
+#~ msgid "_Directory"
+#~ msgstr "_Direktorij"
+
+#~ msgid "_Text File"
+#~ msgstr "_Tekstualna datoteka"
+
+#~ msgid "_New"
+#~ msgstr "_Nova"
+
+#~ msgid "Switch to Vertical Layout"
+#~ msgstr "Promijeni u vertikalni raspored"
+
+#~ msgid "Switch to Horizontal Layout"
+#~ msgstr "Promijeni u horizontalni raspored"
+
+#~ msgid "_Search..."
+#~ msgstr "Pretraga..."
+
+#~ msgid "_Quick Search..."
+#~ msgstr "_Brza pretraga..."
+
+#~ msgid "_Enable Filter..."
+#~ msgstr "_Omogući Filter..."
+
+#~ msgid "Start _GNOME Commander as root"
+#~ msgstr "Pokreni _GNOME Komandir kao Root"
+
+#~ msgid "_Quit"
+#~ msgstr "_Izađi"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "_Povrati izbor"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "Kopiraj _Imena Datoteka"
+
+#~ msgid "_Bookmark this Directory..."
+#~ msgstr "_Označi ovaj direktorij..."
+
+#~ msgid "_Manage Bookmarks..."
+#~ msgstr "_Upravljaj oznakama..."
+
+#~ msgid "_Configure Plugins..."
+#~ msgstr "_Konfiguriraj proširenja..."
+
+#~ msgid "_Options..."
+#~ msgstr "_Opcije..."
+
+#~ msgid "_Keyboard Shortcuts..."
+#~ msgstr "Kratice _tastature..."
+
+#~ msgid "_Remote Server..."
+#~ msgstr "_Udaljeni server..."
+
+#~ msgid "New Connection..."
+#~ msgstr "Nova veza..."
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "GNOME Commander na _Web"
+
+#~ msgid "GNOME Commander - ROOT PRIVILEGES"
+#~ msgstr "GNOME Commander - ROO PRIVILEGIJE"
+
+#~ msgid "Refresh"
+#~ msgstr "Osvježi"
+
+#~ msgid "Go to the oldest"
+#~ msgstr "Idi na najstarije"
+
+#~ msgid "Go back"
+#~ msgstr "Idi nazad"
+
+#~ msgid "Go forward"
+#~ msgstr "Idi naprijed"
+
+#~ msgid "Go to the latest"
+#~ msgstr "Idi na zadnji"
+
+#~ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+#~ msgstr "Kopiraj imena fajlova( SHIFT za cijele putanja, ALT za URIs)"
+
+#~ msgid "Cut"
+#~ msgstr "Isijeci"
+
+#~ msgid "Paste"
+#~ msgstr "Umetni"
+
+#~ msgid "Open terminal (SHIFT for root privileges)"
+#~ msgstr "Otvori terminal (SHIFT za root privilegije)"
+
+#~ msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
+#~ msgstr "Ne može se učitati python modul 'gnomevfs'('gnome.vfs')"
+
+#~ msgid "Path matches regex:"
+#~ msgstr "Put odgovara regex:"
+
+#~ msgid "Name contains:"
+#~ msgstr "Ime sadrži:"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "_Osjetljivo na velika i mala slova"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr "Označi trenutni direktorij"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "Upravljaj oznakama"
+
+#~ msgid "Open folder"
+#~ msgstr "Otvori direktorij"
+
+#~ msgid "Open terminal"
+#~ msgstr "Otvori terminal"
+
+#~ msgid "Open terminal as root"
+#~ msgstr "Otvori terminal kao root"
+
+#~ msgid "Start GNOME Commander as root"
+#~ msgstr "Pokreni GNOME Komandir kao root"
+
+#~ msgid "Close connection"
+#~ msgstr "Zatvori vezu"
+
+#~ msgid "New connection"
+#~ msgstr "Nova veza"
+
+#~ msgid "Open connection"
+#~ msgstr "Otvori vezu"
+
+#~ msgid "Change left connection"
+#~ msgstr "Promijeni lijevu vezu"
+
+#~ msgid "Change right connection"
+#~ msgstr "Promijeni desnu vezu"
+
+#~ msgid "Show user defined files"
+#~ msgstr "Prikaži datoteke definisane od korisnika"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "Napredni uređaj za preimenovanje"
+
+#~ msgid "Change permissions"
+#~ msgstr "Promijeni dozvole"
+
+#~ msgid "Change owner/group"
+#~ msgstr "Promijeni vlasnika/grupu"
+
+#~ msgid "Copy files"
+#~ msgstr "Kopiraj fajlove"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "Kreiraj simbolički link"
+
+#~ msgid "Delete files"
+#~ msgstr "Obriši datoteke"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "Uporedi datoteke(diff)"
+
+#~ msgid "Edit file"
+#~ msgstr "Uredi datoteku"
+
+#~ msgid "Edit a new file"
+#~ msgstr "Uredi novi fajl"
+
+#~ msgid "Create directory"
+#~ msgstr "Napravi direktorij"
+
+#~ msgid "Move files"
+#~ msgstr "Premjesti fajlove"
+
+#~ msgid "Rename files"
+#~ msgstr "Preimenuj fajlove"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "Sinhronizuj direktorije"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr "O GNOME Komandiru"
+
+#~ msgid "Help contents"
+#~ msgstr "Sadržaj pomoći"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "Pomoć na kraticama sa tastature"
+
+#~ msgid "Report a problem"
+#~ msgstr "Prijavi problem"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr "GNOME Komandir na webu"
+
+#~ msgid "Compare directories"
+#~ msgstr "Uporedi direktorije"
+
+#~ msgid "Invert selection"
+#~ msgstr "Invertuj selekciju"
+
+#~ msgid "Select all"
+#~ msgstr "Odaberi sve"
+
+#~ msgid "Unselect all"
+#~ msgstr "Poništi sav izbor"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Prečice tastature"
+
+#~ msgid "Configure plugins"
+#~ msgstr "Konfiguriraj plugine"
+
+#~ msgid "Execute Python plugin"
+#~ msgstr "Izvrši Python plugin"
+
+#~ msgid "Back one directory"
+#~ msgstr "Nazad jedan direktorij"
+
+#~ msgid "Close the current tab"
+#~ msgstr "Zatvori trenutnu karticu"
+
+#~ msgid "Close all tabs"
+#~ msgstr "Zatvori sve kartice"
+
+#~ msgid "Show directory history"
+#~ msgstr "Prikaži historiju direktorija"
+
+#~ msgid "Equal panel size"
+#~ msgstr "Jednaka veličina panela"
+
+#~ msgid "Maximize panel size"
+#~ msgstr "Uvećaj maksimalno veličinu panela"
+
+#~ msgid "Back to the first directory"
+#~ msgstr "Nazad u prvi direktorij"
+
+#~ msgid "Forward one directory"
+#~ msgstr "Naprijed jedan direktorij"
+
+#~ msgid "Open directory in the active window"
+#~ msgstr "Otvori direktorij u aktivnom prozoru"
+
+#~ msgid "Open directory in the inactive window"
+#~ msgstr "Otvori direktorij u neaktivnom prozoru"
+
+#~ msgid "Open directory in the left window"
+#~ msgstr "Otvori direktorij u lijevom prozoru"
+
+#~ msgid "Open directory in the right window"
+#~ msgstr "Otvori direktorj u desnom prozoru"
+
+#~ msgid "Open directory in the new tab (inactive window)"
+#~ msgstr "Otvori direktorij u novoj kartici (neaktivni prozor)"
+
+#~ msgid "Forward to the last directory"
+#~ msgstr "Naprijed u prethodni direktorij"
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "Otvori direktorij u novoj kartici"
+
+#~ msgid "Show terminal"
+#~ msgstr "Prikaži terminal"
+
+#, c-format
+#~ msgid "Create symbolic links of %i file in %s?"
+#~ msgid_plural "Create symbolic links of %i files in %s?"
+#~ msgstr[0] "Kreiraj simboličke linkove od %i datoteke u %s?"
+#~ msgstr[1] "Kreiraj simboličke linkove od %i datoteke u %s?"
+#~ msgstr[2] "Kreiraj simboličke linkove od %i datoteka u %s?"
+
+#~ msgid "Unable to open terminal in root mode."
+#~ msgstr "Neuspješno otvaranje terminala u root modu."
+
+#~ msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found."
+#~ msgstr "xdg-su, gksu, gnomesu, kdesu ili beesu nije pronađen."
+
+#~ msgid "Unable to start Nautilus."
+#~ msgstr "Neuspješno pokretanje Nautilus-a."
+
+#~ msgid "Unable to start GNOME Commander in root mode."
+#~ msgstr "Neuspješno pokretanje GNOME Komandira u root modu."
+
+#~ msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+#~ msgstr "xdg-su, gksu, gnomesu, kdesu ili beesu nije pronađen"
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "Brzni i moćni upravljač datotekama za GNOME radnu površinu"
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME Commander je besplatan softver; može se redistribuirati i/ili "
+#~ "modifikovati pod uvjetima od  GNU General Public License objavljene od Free "
+#~ "Software Foundation; ili verziju 2 licence, ili( po vašem odabiru) bilo koju"
+#~ " kasniju verziju."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "GNOME Commander je distribuiran u nadi da će biti koristan, ali BEZ IKAKVE "
+#~ "GARANCIJe; čak bez impliciranje garancije od PRODAJE  ili FITNESS ZA "
+#~ "SPECIFIČNU NAMJENU. Pogledajte GNU General Public Licence za više detalja."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+#~ "Trebali ste primiti kopiju GNU General Public Licence zajedno sa GNOME "
+#~ "Komaderom; ako niste, pišite u Free Software Foundation, Inc., 51 Franklin "
+#~ "Street, Fifth Floor, Boston, MA 02110-1301, USA."
+
+#, c-format
+#~ msgid ""
+#~ "Overwrite file:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "With:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+#~ msgstr ""
+#~ "Piši preko fajla:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "Sa:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+
+#~ msgid "Replace All"
+#~ msgstr "Zamijeni sve"
+
+#, c-format
+#~ msgid ""
+#~ "Error while copying to %s\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Greška tokom kopiranja u %s\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Transfer problem"
+#~ msgstr "Problem prijenosa"
+
+#~ msgid "copying..."
+#~ msgstr "kopiranje..."
+
+#, c-format
+#~ msgid "[file %ld of %ld] \"%s\""
+#~ msgstr "[fajl %ld od %ld] \"%s\""
+
+#~ msgid "preparing..."
+#~ msgstr "pripremam..."
+
+#~ msgid "stopping..."
+#~ msgstr "zaustavljam..."
+
+#, c-format
+#~ msgid "%s of %s copied"
+#~ msgstr "kopirano %s od %s"
+
+#, c-format
+#~ msgid "%.0f%% copied"
+#~ msgstr "%.0f%% kopirano"
+
+#, c-format
+#~ msgid "Couldn't load installed file type pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Neuspjeh kod učitavanja instaliranog pixmap tipa fajla, pokušava se učitati "
+#~ "%s umjesto njega"
+
+#, c-format
+#~ msgid ""
+#~ "Can't find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-commander from the gnome-commander-%s/src directory"
+#~ msgstr ""
+#~ "Ne može se pronaći pixmap nigdje. Provjerite da li ste instalirali program "
+#~ "ili se izvršava gnome-commander iz gnom-commander-%s/src direktorij"
+
+#, c-format
+#~ msgid "Couldn't load installed pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Neuspješno učitavanje instaliranog pixmapa, pokušava se učitati %s umjesto "
+#~ "njega"
+
+#~ msgid "Find"
+#~ msgstr "Nađi"
+
+#~ msgid "Searching..."
+#~ msgstr "Tražim..."
+
+#, c-format
+#~ msgid "Searching for \"%s\""
+#~ msgstr "Traženje \"%s\""
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr "Pozicija: %lu od %lu\t Kolona:%d\t%s"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "piksel"
+#~ msgstr[1] "piksela"
+#~ msgstr[2] "piksela"
+
+#~ msgid "bit/sample"
+#~ msgid_plural "bits/sample"
+#~ msgstr[0] "bit/uzorak"
+#~ msgstr[1] "bit/uzorku"
+#~ msgstr[2] "bitova/uzorku"
+
+#~ msgid "_Copy selection"
+#~ msgstr "_Kopiraj selekciju"
+
+#~ msgid "_Binary"
+#~ msgstr "_Binarno"
+
+#~ msgid "Zoom _Out"
+#~ msgstr "U_manji"
+
+#~ msgid "Best _Fit"
+#~ msgstr "_Najbolje uklapanje"
+
+#~ msgid "Find..."
+#~ msgstr "Pronađi..."
+
+#~ msgid "_Rotate 180°"
+#~ msgstr "_Rotiraj 180°"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "_Binaran mod"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "_Spasi trenutne postavke"
+
+#, c-format
+#~ msgid "Pattern \"%s\" was not found"
+#~ msgstr "Uzorak \"%s\" nije pronađen"
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr "Specificiraj startni direktorij za lijevo okno"
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr "Specificiraj startni direktorij za desno okno"
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr "Specificiraj direktorij za konfiguracijske fajlove"
+
+#~ msgid "File Manager"
+#~ msgstr "Menadžer datoteka"
+
+#~ msgid "Disable"
+#~ msgstr "Isključi"
+
+#~ msgid "Enable"
+#~ msgstr "Uključi"
+
+#~ msgid "Version"
+#~ msgstr "Verzija"
+
+#~ msgid "_Enable"
+#~ msgstr "_Omogući"
+
+#~ msgid "_Configure"
+#~ msgstr "_Konfiguriši"
+
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr "<Exif i IPTC tagovi nisu podržani>"
+
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr "<ID3, APE, FLAC i Vorbis tagovi nisu podržani>"
+
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr "<OLE2 i ODF tagovi nisu podržani>"
+
+#~ msgid "<PDF tags not supported>"
+#~ msgstr "<PDF tagovi nisu podržani>"
+
+#~ msgid "Set to \"1\" if track is new to the user (default \"0\")."
+#~ msgstr "Podesi na \"1\" ako je traka nova korisniku (default \"0\" )."
+
+#~ msgid "\"1\" if the copyrighted bit is set."
+#~ msgstr "\"1\" ako je copyrighted bit podešen."
+
+#~ msgid "\"1\" if the \"original\" bit is set."
+#~ msgstr "\"1\" ako je \"original\" bit podešen."
+
+#~ msgid "Created"
+#~ msgstr "Kreirano"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr ""
+#~ "Datum asociran sa događajem u životnom ciklusu resursa(kreiranje/datum "
+#~ "objavljivanja)."
+
+#~ msgid "Number of \"notes\" in the document."
+#~ msgstr "Broj \"nota\" u ovom dokumentu."
+
+#~ msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
+#~ msgstr "Tip prezentacije, kao \"On-screen Show\", \"SlideView\",etc."
+
+#~ msgid ""
+#~ "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
+#~ "enforced\" or \"Locked for annotations\"."
+#~ msgstr ""
+#~ "Jedna od: \"Zaštićeno passwordom\", \"Samo za čitanje preopručeno\", \"Samo "
+#~ "za čitanje prisino\" ili \"Zaključano za anotacije\"."
+
+#~ msgid ""
+#~ "Copyright information. The tag is used to indicate both the photographer and"
+#~ " editor copyrights. It is the copyright notice of the person or organization"
+#~ " claiming rights to the image. The Interoperability copyright statement "
+#~ "including date and rights should be written in this field; e.g., "
+#~ "\"Copyright, John Smith, 19xx. All rights reserved.\". The field records "
+#~ "both the photographer and editor copyrights, with each recorded in a "
+#~ "separate part of the statement. When there is a clear distinction between "
+#~ "the photographer and editor copyrights, these are to be written in the order"
+#~ " of photographer followed by editor copyright, separated by NULL (in this "
+#~ "case, since the statement also ends with a NULL, there are two NULL codes) "
+#~ "(see example 1). When only the photographer is given, it is terminated by "
+#~ "one NULL code. When only the editor copyright is given, the photographer "
+#~ "copyright part consists of one space followed by a terminating NULL code, "
+#~ "then the editor copyright is given. When the field is left blank, it is "
+#~ "treated as unknown."
+#~ msgstr ""
+#~ "Informacije o autorskim pravima. Tag je korišten da indicira i fotografa i "
+#~ "editora autorskih prava. To je napomena autorskih prava od osobe ili "
+#~ "organizacije koja polaže prava na sliku. Interoperabilna izjava autorskih "
+#~ "prava uključujući datum i prava bi trebala biti napisana u ovom polju;e.g., "
+#~ "\"Autorska prava, John Smith, 19xx. Sva prava zaštićena\". Polje snima i "
+#~ "fotografa i editora autorskih prava, oba u različitim dijelovima izjave. "
+#~ "Kada je čista razlika između fotografa i editora autorskih prava, ova će "
+#~ "biti pisana počevši od fotografa praćenog editorom prava, odvojena NULL( u "
+#~ "ovoj slučaju, pošto izjava također završava sa NULL, postoje dva NULL "
+#~ "koda)(pogledaj primjer 1). Kada je samo fotograf dan, prekinuto je sa NULL "
+#~ "kodom. Kada je samo editor prava dan, fotografovi dijelovi autorskih prava "
+#~ "se sastoje od jednog spacea praćenog sa terminirajućim NULL kodom, onda su "
+#~ "prava editora dana. Kada je polje ostavljeno prazno, tretira se kao "
+#~ "nepoznato."
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr "Exif IFD Pointer"
+
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr ""
+#~ "Pokazivač na Exif IFD. Interoperabilnost, Exif IFD ima istu strukturu kao "
+#~ "IFD specificiran u TIFF."
+
+#~ msgid ""
+#~ "Indicates whether the latitude is north or south latitude. The ASCII value "
+#~ "'N' indicates north latitude, and 'S' is south latitude."
+#~ msgstr ""
+#~ "Označava sjevernu ili južnu geogr. širinu. ASCII slovo 'N' označava "
+#~ "sjevernu, a 'S' južnu širinu.."
+
+#~ msgid ""
+#~ "Indicates whether the longitude is east or west longitude. ASCII 'E' "
+#~ "indicates east longitude, and 'W' is west longitude."
+#~ msgstr ""
+#~ "Označava istočnu ili zapadnu geogr. dužinu. ASCII slovo 'E' je za istočnu, a"
+#~ " 'W' za zapadnu dužinu."
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr "IFD pokazivac interoperabilnosti"
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+#~ "Interoperabilni IFD je sastavljen od tagova koji spremaju informacije da "
+#~ "osiguraju interoperabilnost i na njega pokazuje sljedeći tag lociran u Exif "
+#~ "IFD. Interoperabilna struktura interoperabilnog IFD-a je ista kao i TIFF "
+#~ "definirana IFD struktura, ali ne sadrći slikovne podatke karakteristično "
+#~ "uspoređene sa normalnim TIFF IFD."
+
+#~ msgid ""
+#~ "Indicates the identification of the Interoperability rule. Use \"R98\" for "
+#~ "stating ExifR98 Rules."
+#~ msgstr ""
+#~ "Indicira identifikaciju pravila interperabilnosti. Koristiti \"R98\" za "
+#~ "navode ExifR98 pravila."
+
+#~ msgid ""
+#~ "The reference black point value and reference white point value. No defaults"
+#~ " are given in TIFF, but the values below are given as defaults here. The "
+#~ "color space is declared in a color space information tag, with the default "
+#~ "being the value that gives the optimal image characteristics "
+#~ "Interoperability these conditions."
+#~ msgstr ""
+#~ "Referentna vrijednost crnila i referentna vrijednost bjelila. Za TIFF se "
+#~ "ništa ne podrazumijeva, ali sljedeće vrijednosti su date kao "
+#~ "podrazumijevane. Paleta boja je deklarisana u informacionoj oznaci za paletu"
+#~ " boja, a podrazumijevane vrijednosti su one koje daju optimalne "
+#~ "karakteristike slike."
+
+#~ msgid ""
+#~ "This tag is used to record the name of an audio file related to the image "
+#~ "data. The only relational information recorded here is the Exif audio file "
+#~ "name and extension (an ASCII string consisting of 8 characters + '.' + 3 "
+#~ "characters). The path is not recorded. When using this tag, audio files must"
+#~ " be recorded in conformance to the Exif audio format. Writers are also "
+#~ "allowed to store the data such as Audio within APP2 as FlashPix extension "
+#~ "stream data. Audio files must be recorded in conformance to the Exif audio "
+#~ "format. If multiple files are mapped to one file, the above format is used "
+#~ "to record just one audio file name. If there are multiple audio files, the "
+#~ "first recorded file is given. When there are three Exif audio files "
+#~ "\"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the Exif image file"
+#~ " name for each of them, \"DSC00001.JPG\", is indicated. By combining "
+#~ "multiple relational information, a variety of playback possibilities can be "
+#~ "supported. The method of using relational information is left to the "
+#~ "implementation on the playback side. Since this information is an ASCII "
+#~ "character string, it is terminated by NULL. When this tag is used to map "
+#~ "audio files, the relation of the audio file to image data must also be "
+#~ "indicated on the audio file end."
+#~ msgstr ""
+#~ "Ovaj tag je korišten za snimanje imena udio fajla povezanog sa podacima "
+#~ "slike. Jedina relaciona informacija snimljena ovdje je Exif audio ime fajla "
+#~ "i ekstenzija(ASCII string koji sadrži 8 znakova +'.'+3 znaka). Put nije "
+#~ "snimljen. Kada se koristi ovaj tag, audio fajlovi moraju biti snimljeni u "
+#~ "konformaciji sa Exif audio formatom. Piscima je također dozvoljeno spremati "
+#~ "podatke poput Audio unutar APP2 kao protok FlashPix ekstenzije podataka. "
+#~ "Audio fajlovi moraju biti snimljeni u konformaciji sa Exif audio formatom. "
+#~ "Ako su višestruki fajlovi mapirani u jedan fajl, format iznad je korišten da"
+#~ " snimi samo jedno ime audio fajla. Ako postoje višestruka imena audio "
+#~ "fajlova , prvi snimljeni fajl je dan. Kada postoje tri Exif audio fajla "
+#~ "\"SND0001.Wav\", \"SND00002.WAV\"  i \"SND00003.WAV\", ime Exif fajla za "
+#~ "svaki od njih, \"DSC00001.JPG\", je indiciran. Kombiniranjem više relacionih"
+#~ " informacija, varijacija playback mogućnosti može biti podržana. Metoda "
+#~ "korištenja relacionih informacija je ostavljena za implementaciju na  "
+#~ "playbacku.Pošto je ova informacija ASCII string karaktera, terminirana je sa"
+#~ " NULL. Kada je ovaj tag korišten za mapiranje audio fajlova, relacija audio "
+#~ "fajla sa podacima slike mora biti također indicirana na kraju audio fajla."
+
+#~ msgid ""
+#~ "A tag for Exif users to write keywords or comments on the image besides "
+#~ "those in <Exif.ImageDescription>, and without the character code limitations"
+#~ " of the <Exif.ImageDescription> tag. The character code used in the "
+#~ "<Exif.UserComment> tag is identified based on an ID code in a fixed 8-byte "
+#~ "area at the start of the tag data area. The unused portion of the area is "
+#~ "padded with NULL (\"00.h\"). ID codes are assigned by means of registration."
+#~ " The value of CountN is determinated based on the 8 bytes in the character "
+#~ "code area and the number of bytes in the user comment part. Since the TYPE "
+#~ "is not ASCII, NULL termination is not necessary. The ID code for the "
+#~ "<Exif.UserComment> area may be a Defined code such as JIS or ASCII, or may "
+#~ "be Undefined. The Undefined name is UndefinedText, and the ID code is filled"
+#~ " with 8 bytes of all \"NULL\" (\"00.H\"). An Exif reader that reads the "
+#~ "<Exif.UserComment> tag must have a function for determining the ID code. "
+#~ "This function is not required in Exif readers that do not use the "
+#~ "<Exif.UserComment> tag. When a <Exif.UserComment> area is set aside, it is "
+#~ "recommended that the ID code be ASCII and that the following user comment "
+#~ "part be filled with blank characters [20.H]."
+#~ msgstr ""
+#~ "Tag za Exif korisnike da napišu ključne riječi ili komentare o slici osim "
+#~ "onih u <Exif.ImageDescription>, i bez limita za znakovni kod od "
+#~ "<Exif.ImageDescription> taga. Znakovni kod  korišten u <Exif.UserComment> "
+#~ "tagu je identificiran u odnosu na ID kod u 8-bitnom polju na početku polja "
+#~ "podataka taga.Neiskorištena porticija polja je postavljena sa NULL "
+#~ "(\"00.h\"). ID kodovi su dodijeljeni prema registraciji. Vrijednost CountN "
+#~ "je dodijeljena u odnosu na 8 bita u polju znakovnog koda i broju bita u "
+#~ "dijelu korisničkih komentara. Pošto TYPE nije ASCII, NULL terminacij nije "
+#~ "potrebna. ID kod za <Exif.UserComment> polje može biti definirani kod poput "
+#~ "JIS ili ASCII, ili može biti nedefiniran. Nedefinirano ime je nedefinirani "
+#~ "tekst, i ID kod je ispunjen sa 8 bita , svi sa \"NULL\"(\"00.H\"). Exif "
+#~ "čitač koji čita <Exif.UserComment> tag mora imati funkciju za određivanje ID"
+#~ " koda. Ova funkcija nije potrebna u Exif čitačima koji ne koriste "
+#~ "<Exif.UserComment> tag. Kada je <Exif.UserComment> polje ostavljeno po "
+#~ "strani, preporučeno je da ID kod bude ASCII i da prateći dio korisničkih "
+#~ "komentara bude ispunjen sa praznim znakovima[20.H]."
+
+#~ msgid ""
+#~ "The matrix coefficients for transformation from RGB to YCbCr image data. No "
+#~ "default is given in TIFF; but here \"Color Space Guidelines\" is used as the"
+#~ " default. The color space is declared in a color space information tag, with"
+#~ " the default being the value that gives the optimal image characteristics "
+#~ "Interoperability this condition."
+#~ msgstr ""
+#~ "Koeficijenti matrice za transformaciju iz RGB u YCbCr podatke slike. Nema "
+#~ "sistemskih postavki u TIFF; ali je ovdje \"Color Space Guideliness\" "
+#~ "korištena kao sistemska postavka. Boja prostora je objavljena u "
+#~ "informacionom tagu boje prostora, koji je po sistemskoj postavci vrijednost "
+#~ "koja daje optimalne karakteristike slike interoperabilnosti ove kondicije."
+
+#~ msgid "File's contents filtered as plain text."
+#~ msgstr "Sadržaji fajla filtrirani kao običan tekst."
+
+#~ msgid ""
+#~ "MIME type of the file or if a directory it should contain value \"Folder\"."
+#~ msgstr ""
+#~ "MIME tip fajla ili ako je direktorij trebao bi sadržavati vrijednosti "
+#~ "\"Folder\"."
+
+#~ msgid "Permission string in unix format eg \"-rw-r--r--\"."
+#~ msgstr "String dozvole u formatu npr. \"-rw-r--r--\"."
+
+#~ msgid "Emphasis"
+#~ msgstr "Naglašenost"
+
+#~ msgid "Emphasis."
+#~ msgstr "Naglašenost."
+
+#~ msgid "Equalization 2"
+#~ msgstr "Izjednačavanje 2"
+
+#~ msgid "Frames"
+#~ msgstr "Okviri"
+
+#~ msgid "Number of frames."
+#~ msgstr "Broj okvira."
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr "Uključeni ljudi2"
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr "Veličina audio fajla u bitovima, isključujući ID3 tag."
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr "Povećanje glasnoće 2"
+
+#~ msgid "Set to \"1\" if flash was fired."
+#~ msgstr "Podesi u \"1\" ako je fleš opaljen."
+
+#~ msgid ""
+#~ "Represents the orientation of the image wrt camera (IE \"top,left\" or "
+#~ "\"bottom,right\")."
+#~ msgstr ""
+#~ "Predstavlja orijentaciju od wrt kamere slike (IE \"vrh,lijevo\" ili "
+#~ "\"dno,desno\")."
+
+#~ msgid ""
+#~ "The type of action that this object provides to a previous object. '01' "
+#~ "Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
+#~ msgstr ""
+#~ "Tip akcije koji ovaj objekad pruža prethodnom objektu.  '01' Ubij objekat, "
+#~ "'02' Zamjeni objekat, '03' Dodaj objekat '04' Referenciraj objekat."
+
+#~ msgid ""
+#~ "The type of update this object provides to a previous object. The link to "
+#~ "the previous object is made using the ARM. '01' indicates an additional "
+#~ "language."
+#~ msgstr ""
+#~ "Tip ažuriranja koje ovaj objekat dobavlja prethodnom objektu. Link do "
+#~ "prethodnog objekta je stvoren pomoću ARM. '01' indicira dodatni jezik."
+
+#~ msgid ""
+#~ "Specifies the envelope handling priority and not the editorial urgency. '1' "
+#~ "for most urgent, '5' for normal, and '8' for least urgent. '9' is user-"
+#~ "defined."
+#~ msgstr ""
+#~ "Specificira prioritet rukovanja omotnicom , a ne uredničku hitnost. '1' za "
+#~ "najurgentiju, '5' za normalnu , i '8' za najmanje urgentnu. '9' je "
+#~ "korisnički-definirana."
+
+#~ msgid ""
+#~ "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
+#~ "for square."
+#~ msgstr ""
+#~ "Raspored zone slike. 'P' za portret, 'L' za pejzaž. i 'S' za četvrtasto."
+
+#~ msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
+#~ msgstr "Gdje je 'a' jutro, 'p' večer, 'b' je oboje."
+
+#~ msgid ""
+#~ "Specifies the editorial urgency of content and not necessarily the envelope "
+#~ "handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
+#~ msgstr ""
+#~ "Specificira uredničku hitnost sadržaja i ne nužno prioritet rukovanja "
+#~ "omotnicom. '1' za najurgentiju, '5' za normalnu, i '8' za najmanje urgentnu."
+
+#~ msgid "Set to \"1\" if optimized for network access."
+#~ msgstr "Podesi na \"1\" ako je optimizovano za pristup mreži."
+
+#~ msgid "Set to \"1\" if printing is allowed."
+#~ msgstr "Podesi na \"1\" ako je printanje dozvoljeno."
+
+#~ msgid "Set to \"1\" if high resolution printing is allowed."
+#~ msgstr "Podesi na \"1\" ako je printanje u visokoj rezoluciji dozvoljeno."
+
+#~ msgid "Set to \"1\" if copying the contents is allowed."
+#~ msgstr "Podesi na \"1\" ako je kopiranje sadržaja objekta dozvoljeno."
+
+#~ msgid "Set to \"1\" if modifying the contents is allowed."
+#~ msgstr "Podesi na \"1\" ako je modificiranje sadržaja dozvoljeno."
+
+#~ msgid ""
+#~ "Set to \"1\" if inserting, rotating, or deleting pages and creating "
+#~ "navigation elements is allowed."
+#~ msgstr ""
+#~ "Podesi na \"1\" ako je umetanje, rotacija ili brisanje stranica i kreiranje "
+#~ "elemenata navigacije dozvoljeno."
+
+#~ msgid "Set to \"1\" if adding or modifying text annotations is allowed."
+#~ msgstr ""
+#~ "Podesi na \"1\" ako je dodavanje ili modifikovanje anotacije teksta "
+#~ "dozvoljeno."
+
+#~ msgid "Set to \"1\" if filling of form fields is allowed."
+#~ msgstr "Podesi na \"1\" ako je punjenje polja forme dozvoljeno."
+
+#~ msgid "Set to \"1\" if accessibility support (e.g. screen readers) is enabled."
+#~ msgstr ""
+#~ "Podesi na \"1\" ako je podrška pristupačnosti(npr. čitači zaslona) "
+#~ "omogućena."
+
+#~ msgid "No Proofing"
+#~ msgstr "Bez provjere"
+
+#~ msgid "Arabic"
+#~ msgstr "Arapski"
+
+#~ msgid "Bulgarian"
+#~ msgstr "Bugarski"
+
+#~ msgid "Catalan"
+#~ msgstr "Katalonski"
+
+#~ msgid "Traditional Chinese"
+#~ msgstr "Tradicionalni kineski"
+
+#~ msgid "Simplified Chinese"
+#~ msgstr "Pojednostavljeni kineski"
+
+#~ msgid "Chechen"
+#~ msgstr "Čečenski"
+
+#~ msgid "Danish"
+#~ msgstr "Danski"
+
+#~ msgid "German"
+#~ msgstr "Njemački"
+
+#~ msgid "Swiss German"
+#~ msgstr "Švicarski njemački"
+
+#~ msgid "Greek"
+#~ msgstr "Grčki"
+
+#~ msgid "U.S. English"
+#~ msgstr "Američki engleski"
+
+#~ msgid "U.K. English"
+#~ msgstr "Britanski engleski"
+
+#~ msgid "Australian English"
+#~ msgstr "Australijski engleski"
+
+#~ msgid "Castilian Spanish"
+#~ msgstr "Kastijski španski"
+
+#~ msgid "Mexican Spanish"
+#~ msgstr "Meksični španski"
+
+#~ msgid "Finnish"
+#~ msgstr "Finski"
+
+#~ msgid "French"
+#~ msgstr "Francuski"
+
+#~ msgid "Belgian French"
+#~ msgstr "Belgijski francuski"
+
+#~ msgid "Canadian French"
+#~ msgstr "Kanadski francuski"
+
+#~ msgid "Swiss French"
+#~ msgstr "Švicarski francuski"
+
+#~ msgid "Hebrew"
+#~ msgstr "Hebrejski"
+
+#~ msgid "Hungarian"
+#~ msgstr "Mađarski"
+
+#~ msgid "Icelandic"
+#~ msgstr "Islandski"
+
+#~ msgid "Italian"
+#~ msgstr "Talijanski"
+
+#~ msgid "Swiss Italian"
+#~ msgstr "Švicarski talijanski"
+
+#~ msgid "Japanese"
+#~ msgstr "Japanski"
+
+#~ msgid "Korean"
+#~ msgstr "Korejski"
+
+#~ msgid "Dutch"
+#~ msgstr "Holandski"
+
+#~ msgid "Belgian Dutch"
+#~ msgstr "Belgijski holandski"
+
+#~ msgid "Norwegian Bokmal"
+#~ msgstr "Norveški Bokmal"
+
+#~ msgid "Norwegian Nynorsk"
+#~ msgstr "Norveški Ninorsk"
+
+#~ msgid "Polish"
+#~ msgstr "Poljski"
+
+#~ msgid "Brazilian Portuguese"
+#~ msgstr "Brazilski portugalski"
+
+#~ msgid "Portuguese"
+#~ msgstr "Portugalski"
+
+#~ msgid "Rhaeto-Romanic"
+#~ msgstr "Reto-Romanski"
+
+#~ msgid "Romanian"
+#~ msgstr "Rumunjski"
+
+#~ msgid "Russian"
+#~ msgstr "Ruski"
+
+#~ msgid "Croato-Serbian (Latin)"
+#~ msgstr "Hrvatsko-Srpski(Latinica)"
+
+#~ msgid "Serbo-Croatian (Cyrillic)"
+#~ msgstr "Srpsko-Hrvatski(Ćirilica)"
+
+#~ msgid "Slovak"
+#~ msgstr "Slovački"
+
+#~ msgid "Albanian"
+#~ msgstr "Albanski"
+
+#~ msgid "Swedish"
+#~ msgstr "Švedski"
+
+#~ msgid "Thai"
+#~ msgstr "Tajlandski"
+
+#~ msgid "Turkish"
+#~ msgstr "Turski"
+
+#~ msgid "Urdu"
+#~ msgstr "Urdu"
+
+#~ msgid "Indonesian"
+#~ msgstr "Indonezijski"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Ukrajinski"
+
+#~ msgid "Byelorussian"
+#~ msgstr "Bjeloruski"
+
+#~ msgid "Slovenian"
+#~ msgstr "Slovenački"
+
+#~ msgid "Estonian"
+#~ msgstr "Estonski"
+
+#~ msgid "Latvian"
+#~ msgstr "Latvijski"
+
+#~ msgid "Lithuanian"
+#~ msgstr "Litvanski"
+
+#~ msgid "Farsi"
+#~ msgstr "Farsi"
+
+#~ msgid "Basque"
+#~ msgstr "Baskijski"
+
+#~ msgid "Macedonian"
+#~ msgstr "Makedonski"
+
+#~ msgid "Afrikaans"
+#~ msgstr "Afrikaans"
+
+#~ msgid "Malayalam"
+#~ msgstr "Malajamski"
+
+#, c-format
+#~ msgid "unsupported tag (suppressed %u B of binary data)"
+#~ msgstr "nepodržani tag(potisnuto %u B od binarnog podatka)"
+
+#, c-format
+#~ msgid "No default application found for the MIME type %s."
+#~ msgstr "Nema default aplikacije za MIME tip %s."
+
+#, c-format
+#~ msgid ""
+#~ "\"%s\" seems to be a binary executable file but it lacks the executable bit."
+#~ " Do you want to set it and then run the file?"
+#~ msgstr ""
+#~ "%s izgleda kao binarno izvršiva datoteka, ali joj nedostaje izvršivi bit. "
+#~ "Želite li ga podesiti i onda pokrenuti datoteku?"
+
+#~ msgid "Make Executable?"
+#~ msgstr "Napravi izvršivo?"
+
+#, c-format
+#~ msgid ""
+#~ "\"%s\" is an executable text file. Do you want to run it, or display its "
+#~ "contents?"
+#~ msgstr ""
+#~ "\"%s\" je izvršiva tekstualna datoteka. Želite li je pokrenuti , ili "
+#~ "prikazati njen sadržaj?"
+
+#~ msgid "Run or Display"
+#~ msgstr "Pokreni ili prikaži"
+
+#~ msgid "Display"
+#~ msgstr "Prikaži"
+
+#~ msgid "Run"
+#~ msgstr "Pokreni"
+
+#         translations.
+#, c-format
+#~ msgid ""
+#~ "%s does not know how to open remote file. Do you want to download the file "
+#~ "to a temporary location and then open it?"
+#~ msgid_plural ""
+#~ "%s does not know how to open remote files. Do you want to download the files"
+#~ " to a temporary location and then open them?"
+#~ msgstr[0] ""
+#~ "%s ne zna kako da otvori udaljeni fajl. Želite li skinuti fajl na privremenu"
+#~ " lokaciju i zatim ga otvoriti?"
+#~ msgstr[1] ""
+#~ "%s ne zna kako da otvori udaljene fajlove. Želite li skinuti fajlove na "
+#~ "privremenu lokaciju i zatim ih otvoriti?"
+#~ msgstr[2] ""
+#~ "%s ne zna kako da otvori udaljene fajlove. Želite li skinuti fajlove na "
+#~ "privremenu lokaciju i zatim ih otvoriti?"
+
+#         translations.
+#, c-format
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "(%sbyte)"
+#~ msgstr[1] "(%sbytes)"
+#~ msgstr[2] "(%sbytes)"
+
+#         translations.
+#, c-format
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "%sbyte"
+#~ msgstr[1] "%sbytes"
+#~ msgstr[2] "%sbytes"
+
+#~ msgid "Failed to create a directory in which to store temporary files."
+#~ msgstr ""
+#~ "Neuspjeh kod kreiranja direktorija u koje će se spremiti privremeni fajlovi."
+
+#, c-format
+#~ msgid "Creating directory %s... "
+#~ msgstr "Kreiranje direktorija%s... "
+
+#, c-format
+#~ msgid "Failed to create the directory %s"
+#~ msgstr "Neuspjeh kod kreiranja direktorija %s"
+
+#, c-format
+#~ msgid "Couldn't read from the directory %s: %s"
+#~ msgstr "Ne može se čitati iz direktorija %s: %s"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "Dogodila se greška tokom prikazivanja pomoći."

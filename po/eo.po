@@ -6381,3 +6381,1663 @@ msgstr "Nenio"
 #: plugins/taglib/taglib-plugin.cc:421
 msgid "10-15ms"
 msgstr ""
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME Commander"
+
+#~ msgid "Two-pane file manager"
+#~ msgstr "Dupanela dosieradministrilo"
+
+#~ msgid ""
+#~ "GNOME Commander is a “two-pane” graphical file manager for the GNOME desktop"
+#~ " environment. It features separate tabs for each pane, setting up custom "
+#~ "device buttons, bookmark manager, fully integrated commandline, file quick "
+#~ "search, an internal image viewer, a powerful batch renaming tool, and FTP "
+#~ "and Samba access."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+
+#~ msgid "A two paned file manager"
+#~ msgstr "Dupanela dosieradministrilo"
+
+#~ msgid "Use default font"
+#~ msgstr "Uzi implicitan tiparon"
+
+#~ msgid ""
+#~ "Whether to use the system’s default fixed width font for the file panels "
+#~ "instead of a font specific to gnome-commander."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "A custom font that will be used for the file panes if the “Use default font”"
+#~ " option is turned off."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Defines how the filesize will be displayed in the associated pane column."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Defines how the file permission will be displayed in the associated pane "
+#~ "column."
+#~ msgstr ""
+
+#~ msgid "Defines the icon style of files and folders in the file panes."
+#~ msgstr ""
+
+#~ msgid "Defines the height of a row in the file pane."
+#~ msgstr ""
+
+#~ msgid "Format of the date in the file pane."
+#~ msgstr ""
+
+#~ msgid "The font in the file panes."
+#~ msgstr ""
+
+#~ msgid "Size of icons in the file pane."
+#~ msgstr ""
+
+#, fuzzy
+#~| msgid "Icon size:"
+#~ msgid "Device icon size"
+#~ msgstr "Piktogramgrando"
+
+#~ msgid "Icon size in the device list."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Defines if the orientation of the file panes should be horizontal or not."
+#~ msgstr ""
+
+#~ msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
+#~ msgstr ""
+
+#~ msgid "Main window horizontal position"
+#~ msgstr ""
+
+#~ msgid "Position of the main window in horizontal direction."
+#~ msgstr ""
+
+#~ msgid "Main window vertical position"
+#~ msgstr ""
+
+#~ msgid "Position of the main window in vertical direction."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Defines if the current directories are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Defines if the current open tabs are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This option defines if directories will be marked when all items in a file "
+#~ "pane should be marked."
+#~ msgstr ""
+
+#~ msgid "Quick search exact match begin"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the beginning"
+#~ " of an item name."
+#~ msgstr ""
+
+#, fuzzy
+#~| msgid "Quick search"
+#~ msgid "Quick search exact match end"
+#~ msgstr "Rapida serĉo"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the end of an"
+#~ " item name."
+#~ msgstr ""
+
+#~ msgid "Skip device mounting"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This option defines if mounting of devices should be skipped when they are "
+#~ "opened."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The entries in this list are used for restoring the tabs from the last "
+#~ "session."
+#~ msgstr ""
+
+#~ msgid "Hide FIFO pipes"
+#~ msgstr ""
+
+#~ msgid "Hide sockets"
+#~ msgstr ""
+
+#, fuzzy
+#~| msgid "Character device"
+#~ msgid "Hide character devices"
+#~ msgstr "Signoaparato"
+
+#, fuzzy
+#~| msgid "Block devices"
+#~ msgid "Hide block devices"
+#~ msgstr "Blokaparatoj"
+
+#, fuzzy
+#~| msgid "Needs terminal"
+#~ msgid "Leave terminal open"
+#~ msgstr "Bezonas terminalon"
+
+#~ msgid ""
+#~ "This option defines if a terminal window should stay open after a command "
+#~ "finishes inside of it."
+#~ msgstr ""
+
+#~ msgid "Fixed font name"
+#~ msgstr ""
+
+#~ msgid "Name of the default font with fixed character width."
+#~ msgstr ""
+
+#, fuzzy
+#~| msgid "Profile name"
+#~ msgid "Variable font name"
+#~ msgstr "Profilnomo"
+
+#~ msgid "Name of the default font with variable character width."
+#~ msgstr ""
+
+#~ msgid "Font size"
+#~ msgstr "Tipargrando"
+
+#~ msgid "This option defines the default font size."
+#~ msgstr ""
+
+#, fuzzy
+#~| msgid "Flip _Horizontal"
+#~ msgid "Horizontal offset"
+#~ msgstr "Renversi horizontale"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "horizontal direction."
+#~ msgstr ""
+
+#~ msgid "Vertical offset"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "vertical direction."
+#~ msgstr ""
+
+#~ msgid "No error description available"
+#~ msgstr "Ne estas priskribo de eraro"
+
+#, fuzzy
+#~| msgid "Invert selection"
+#~ msgid "Folder selection"
+#~ msgstr "Inversigi la elekton"
+
+#, fuzzy
+#~| msgid "Invert selection"
+#~ msgid "File selection"
+#~ msgstr "Inversigi la elekton"
+
+#~ msgid "/_Save Profile As…"
+#~ msgstr "/Kon_servi profilon kiel…"
+
+#~ msgid "/_Manage Profiles…"
+#~ msgstr "/_Redakti profilojn…"
+
+#~ msgid "Current file name"
+#~ msgstr "Aktuala dosiernomo"
+
+#~ msgid "New file name"
+#~ msgstr "Nova dosiernomo"
+
+#~ msgid "File size"
+#~ msgstr "Dosiergrando"
+
+#~ msgid "File modification date"
+#~ msgstr ""
+
+#~ msgid "_Replace with:"
+#~ msgstr "_Anstataŭigi per:"
+
+#, c-format
+#~ msgid "Could not chown %s"
+#~ msgstr ""
+
+#~ msgid "Chown"
+#~ msgstr ""
+
+#~ msgid "S_hare:"
+#~ msgstr ""
+
+#~ msgid "_User name:"
+#~ msgstr "_Uzantonomo:"
+
+#, c-format
+#~ msgid "“%s” is not a valid location"
+#~ msgstr "“%s” ne estas valida loko"
+
+#~ msgid "Remote Server"
+#~ msgstr "Fora IPP-servilo"
+
+#, c-format
+#~ msgid "Deleted %ld of %ld file"
+#~ msgid_plural "Deleted %ld of %ld files"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Eraro dum forigo de “%s”\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Delete problem"
+#~ msgstr "Forigproblemo"
+
+#, c-format
+#~ msgid "Do you want to delete “%s”?"
+#~ msgstr "Ĉu vi volas forigi na “%s”?"
+
+#, c-format
+#~ msgid "Do you want to delete the selected file?"
+#~ msgid_plural "Do you want to delete the %d selected files?"
+#~ msgstr[0] "Ĉu vi volas forigi la elektitan dosieron?"
+#~ msgstr[1] "Ĉu vi volas forigi la %d elektitajn dosierojn?"
+
+#~ msgid "Bookmark name is missing."
+#~ msgstr "Legosigna nomo mankas."
+
+#~ msgid "Bookmark target is missing."
+#~ msgstr "Legosigna celo mankas."
+
+#~ msgid "Image:"
+#~ msgstr "Bildo:"
+
+#~ msgid "Type:"
+#~ msgstr "Tipo:"
+
+#~ msgid "MIME Type:"
+#~ msgstr "MIME-tipo:"
+
+#~ msgid "Type"
+#~ msgstr "Tipo"
+
+#~ msgid "Metadata namespace"
+#~ msgstr ""
+
+#~ msgid "Tag name"
+#~ msgstr ""
+
+#~ msgid "Tag value"
+#~ msgstr ""
+
+#~ msgid "Metadata tag description"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the corresponding row and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "Klaku sur responda linio kaj premu novan klavon por redakti klavkombinon aŭ "
+#~ "premu retropaŝon por nuligilo."
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Klavkombinklavo"
+
+#~ msgid "Keyboard shortcut for selected action"
+#~ msgstr ""
+
+#~ msgid "Action"
+#~ msgstr "Ago"
+
+#~ msgid "User action"
+#~ msgstr "Uzantoago"
+
+#~ msgid "Optional data"
+#~ msgstr ""
+
+#, c-format
+#~ msgid "Shortcut “%s” is already taken by “%s”."
+#~ msgstr "Klavkombino “%s” estas jam prenita de “%s”."
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "Konfliktantaj klavkombinoj"
+
+#, fuzzy, c-format
+#~| msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
+#~ msgid "Reassigning the shortcut will cause it to be removed from “%s”."
+#~ msgstr "Reatribuo de klavkombinoj kaŭzos ĝian forigon de “%s”."
+
+#~ msgid "Invalid shortcut."
+#~ msgstr "Nevalida klavkombino."
+
+#~ msgid "Do nothing"
+#~ msgstr "Fari nenion"
+
+#, c-format
+#~ msgid "Copy “%s” to"
+#~ msgstr "Kopii “%s” al"
+
+#~ msgid "Group"
+#~ msgstr "Grupo"
+
+#~ msgid "Bookmark group"
+#~ msgstr "Legosigna grupo"
+
+#~ msgid "Bookmark name"
+#~ msgstr "Legosigna nomo"
+
+#~ msgid "Keyboard shortcut for selected bookmark"
+#~ msgstr ""
+
+#~ msgid "Bookmarked path"
+#~ msgstr ""
+
+#~ msgid "Profile name"
+#~ msgstr "Profilnomo"
+
+#, fuzzy
+#~| msgid "Quick search"
+#~ msgid "Sorting/Quick search"
+#~ msgstr "Rapida serĉo"
+
+#~ msgid "ALT+letters (menu access with F12)"
+#~ msgstr ""
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr ""
+
+#~ msgid "Match end of the file name"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Search window is minimizable\n"
+#~ "(Needs program restart if altered)"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "See the manual page for “strftime” for help on how to set the format string."
+#~ msgstr ""
+
+#~ msgid "Colors"
+#~ msgstr "Koloroj"
+
+#~ msgid "Palette"
+#~ msgstr "Paletro"
+
+#~ msgid "Foreground:"
+#~ msgstr "Malfono:"
+
+#~ msgid "Background:"
+#~ msgstr "Fono:"
+
+#~ msgid "File panes"
+#~ msgstr ""
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr ""
+
+#~ msgid "Copy overwrite"
+#~ msgstr "Kopii anstatŭigante"
+
+#~ msgid "Silently"
+#~ msgstr ""
+
+#~ msgid "Move overwrite"
+#~ msgstr "Movi anstatŭigante"
+
+#~ msgid "Drag and Drop"
+#~ msgstr "Ŝovi kaj demeti"
+
+#~ msgid "Fifo files"
+#~ msgstr ""
+
+#~ msgid "Socket files"
+#~ msgstr ""
+
+#~ msgid "Character devices"
+#~ msgstr ""
+
+#~ msgid "Block devices"
+#~ msgstr "Blokaparatoj"
+
+#~ msgid "Leave terminal window open"
+#~ msgstr ""
+
+#~ msgid "Device:"
+#~ msgstr "Aparato:"
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr ""
+
+#~ msgid "Skip All"
+#~ msgstr ""
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Anstataŭigi dosierojn"
+
+#, c-format
+#~ msgid "copy %d file to"
+#~ msgid_plural "copy %d files to"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#, c-format
+#~ msgid "Move “%s” to"
+#~ msgstr "Movi “%s” al"
+
+#, c-format
+#~ msgid "move %d file to"
+#~ msgid_plural "move %d files to"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#, c-format
+#~ msgid "The directory “%s” doesn’t exist, do you want to create it?"
+#~ msgstr "La dosierujo “%s” ne ekzistas, ĉu vi volas krei ĝin?"
+
+#~ msgid "Network protocol"
+#~ msgstr "Retprotokolo"
+
+#~ msgid "Connection name"
+#~ msgstr "Konekto-nomo"
+
+#~ msgid "Connections"
+#~ msgstr "Konektoj"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "Anonima FTP-pasvorto:"
+
+#~ msgid "Search local directories only"
+#~ msgstr ""
+
+#~ msgid "Files _not containing text"
+#~ msgstr ""
+
+#, c-format
+#~ msgid "Failed to read file %s: %s"
+#~ msgstr "Malsukcesis legi dosieron %s: %s"
+
+#, c-format
+#~ msgid "Searching in: %s"
+#~ msgstr "Serĉante en: %s"
+
+#, c-format
+#~ msgid "Found %d match — search aborted"
+#~ msgid_plural "Found %d matches — search aborted"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#, c-format
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#, c-format
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr ""
+
+#~ msgid "Error parsing the search command."
+#~ msgstr ""
+
+#~ msgid "Error running the search command."
+#~ msgstr ""
+
+#, c-format
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr ""
+
+#, c-format
+#~ msgid "%d file listed"
+#~ msgid_plural "%d files listed"
+#~ msgstr[0] "%d listigita dosiero"
+#~ msgstr[1] "%d listigitaj dosieroj"
+
+#~ msgid "Accelerator key"
+#~ msgstr "Akcela klavo"
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr "Akcelaj modifigiloj"
+
+#~ msgid "Accelerator Mode"
+#~ msgstr "Akcela reĝimo"
+
+#~ msgid "The type of accelerator."
+#~ msgstr "La tipo de la akcelilo."
+
+#~ msgid "Disabled"
+#~ msgstr "Elŝaltite"
+
+#~ msgid "New accelerator…"
+#~ msgstr "Nova akcelilo…"
+
+#~ msgid "Credits"
+#~ msgstr "Dankoj"
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "Retpaĝaro de la kromprogramoj"
+
+#~ msgid "C_redits"
+#~ msgstr "D_ankoj"
+
+#~ msgid "/Grandparent"
+#~ msgstr "/Geavo"
+
+#~ msgid "/Parent"
+#~ msgstr "/Gepatro"
+
+#~ msgid "/File name"
+#~ msgstr "/Dosiernomo"
+
+#, fuzzy
+#~ msgid "/File name (range)"
+#~ msgstr "/Dosiernomo"
+
+#~ msgid "/File name without extension"
+#~ msgstr ""
+
+#~ msgid "/File name without extension (range)"
+#~ msgstr ""
+
+#~ msgid "/File extension"
+#~ msgstr ""
+
+#~ msgid "/Counter"
+#~ msgstr "/Nombrilo"
+
+#~ msgid "/Counter (width)"
+#~ msgstr ""
+
+#, fuzzy
+#~| msgid "/Counter"
+#~ msgid "/Counter (auto)"
+#~ msgstr "/Nombrilo"
+
+#~ msgid "/Hexadecimal random number (width)"
+#~ msgstr ""
+
+#~ msgid "/Date"
+#~ msgstr "/Dato"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "/Dato/<locale>"
+
+#~ msgid "/Date/yyyy-mm-dd"
+#~ msgstr "/Dato/yyyy-mm-dd"
+
+#~ msgid "/Date/yy-mm-dd"
+#~ msgstr "/Dato/yy-mm-dd"
+
+#~ msgid "/Date/yy.mm.dd"
+#~ msgstr "/Dato/yy.mm.dd"
+
+#~ msgid "/Date/yymmdd"
+#~ msgstr "/Dato/yymmdd"
+
+#~ msgid "/Date/dd.mm.yy"
+#~ msgstr "/Dato/dd.mm.yy"
+
+#~ msgid "/Date/mm-dd-yy"
+#~ msgstr "/Dato/mm-dd-yy"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/Dato/yyyy"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/Dato/yy"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/Dato/mm"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/Dato/mmm"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/Dato/dd"
+
+#~ msgid "/Time"
+#~ msgstr "/Horo"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/Horo/<locale>"
+
+#~ msgid "/Time/HH.MM.SS"
+#~ msgstr "/Horo/HH.MM.SS"
+
+#~ msgid "/Time/HH-MM-SS"
+#~ msgstr "/Horo/HH-MM-SS"
+
+#~ msgid "/Time/HHMMSS"
+#~ msgstr "/Horo/HHMMSS"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/Horo/HH"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/Horo/MM"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/Horo/SS"
+
+#~ msgid "Regex pattern"
+#~ msgstr ""
+
+#~ msgid "Replacement"
+#~ msgstr "Anstataŭigo"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr ""
+
+#, c-format
+#~ msgid "The program has now finished. Press Enter to close this window.\n"
+#~ msgstr ""
+
+#, c-format
+#~ msgid "Mount failed: mount exited with exitstatus %d"
+#~ msgstr ""
+
+#~ msgid "Device is now safe to remove"
+#~ msgstr ""
+
+#, c-format
+#~ msgid ""
+#~ "Cannot unmount the volume:\n"
+#~ "%s %s"
+#~ msgstr ""
+
+#~ msgid "Unknown error"
+#~ msgstr "Nekonata eraro"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "Iri al: %s (%s)"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr ""
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr ""
+
+#~ msgid "<New connection>"
+#~ msgstr "<Nova konekto>"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "Iri al: %s"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "Konekti al: %s"
+
+#, c-format
+#~ msgid "Disconnect from: %s"
+#~ msgstr "Malkonekti de: %s"
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "Kontaktante al %s\n"
+
+#~ msgid "Failed to browse the network. Is the SMB module installed?"
+#~ msgstr ""
+
+#~ msgid "/_Copy here"
+#~ msgstr "/_Kopii ĉi tien"
+
+#~ msgid "/_Move here"
+#~ msgstr "/_Movi ĉi tien"
+
+#~ msgid "/_Link here"
+#~ msgstr ""
+
+#~ msgid "/C_ancel"
+#~ msgstr "/_Nuligi"
+
+#, c-format
+#~ msgid ""
+#~ "“%s” seems to be a binary executable file but it lacks the executable bit. "
+#~ "Do you want to set it and then run the file?"
+#~ msgstr ""
+
+#~ msgid "Make Executable?"
+#~ msgstr ""
+
+#~ msgid "OK"
+#~ msgstr "Akcepti"
+
+#, c-format
+#~ msgid ""
+#~ "“%s” is an executable text file. Do you want to run it, or display its "
+#~ "contents?"
+#~ msgstr ""
+
+#~ msgid "Run or Display"
+#~ msgstr ""
+
+#~ msgid "Display"
+#~ msgstr "Ekrano"
+
+#~ msgid "Run"
+#~ msgstr "Ruli"
+
+#, c-format
+#~ msgid "No default application found for the MIME type %s."
+#~ msgstr ""
+
+#, c-format
+#~ msgid ""
+#~ "%s does not know how to open remote file. Do you want to download the file "
+#~ "to a temporary location and then open it?"
+#~ msgid_plural ""
+#~ "%s does not know how to open remote files. Do you want to download the files"
+#~ " to a temporary location and then open them?"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "Failed to open connection."
+#~ msgstr "Malsukcesis malfermi konekton."
+
+#~ msgid "Needs terminal"
+#~ msgstr "Bezonas terminalon"
+
+#, c-format
+#~ msgid "_Open with “%s”"
+#~ msgstr "_Malfermi per “%s”"
+
+#~ msgid "Copy file names"
+#~ msgstr "Kopii dosiernomojn"
+
+#~ msgid "Send files"
+#~ msgstr "Sendi dosierojn"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "Malfermi _terminalon ĉi tie"
+
+#~ msgid "Other _Application…"
+#~ msgstr "Alia _aplikaĵo…"
+
+#, c-format
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#, c-format
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "Copy Tab to Other _Pane"
+#~ msgstr ""
+
+#~ msgid "No file name given"
+#~ msgstr ""
+
+#~ msgid "Filter:"
+#~ msgstr "Filtrilo:"
+
+#~ msgid "_Directory"
+#~ msgstr "_Dosierujo"
+
+#~ msgid "_Text File"
+#~ msgstr "_Tekstdosiero"
+
+#~ msgid "_New"
+#~ msgstr "_Nova"
+
+#~ msgid "_Enable Filter…"
+#~ msgstr "_Enŝalti filtrilon…"
+
+#~ msgid "Start _GNOME Commander as root"
+#~ msgstr ""
+
+#~ msgid "_Quit"
+#~ msgstr "Ĉ_esi"
+
+#~ msgid "_Restore Selection"
+#~ msgstr ""
+
+#~ msgid "Copy _File Names"
+#~ msgstr ""
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr ""
+
+#~ msgid "GNOME Commander — ROOT PRIVILEGES"
+#~ msgstr ""
+
+#~ msgid "Refresh"
+#~ msgstr "Aktualigi"
+
+#~ msgid "Go to the oldest"
+#~ msgstr "Iri al la plej malnova"
+
+#~ msgid "Go back"
+#~ msgstr "Iri malantaŭen"
+
+#~ msgid "Go forward"
+#~ msgstr "Iri antaŭen"
+
+#~ msgid "Go to the latest"
+#~ msgstr "Iri al la lasta"
+
+#~ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+#~ msgstr ""
+
+#~ msgid "Cut"
+#~ msgstr "Eltondi"
+
+#~ msgid "Paste"
+#~ msgstr "Alglui"
+
+#~ msgid "Open terminal (SHIFT for root privileges)"
+#~ msgstr ""
+
+#~ msgid "Path matches regex:"
+#~ msgstr ""
+
+#~ msgid "Name contains:"
+#~ msgstr "Nomo entenas:"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "_Usklecodistinge"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr ""
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "Redakti legosignoj"
+
+#~ msgid "Open terminal"
+#~ msgstr "Malfermi terminalon"
+
+#~ msgid "Open terminal as root"
+#~ msgstr "Malfermi terminalon kiel ĉefuzanto"
+
+#~ msgid "Start GNOME Commander as root"
+#~ msgstr ""
+
+#~ msgid "Close connection"
+#~ msgstr "Fermi konekton"
+
+#~ msgid "New connection"
+#~ msgstr "Nova konekto"
+
+#~ msgid "Open connection"
+#~ msgstr "Malfermi konekton"
+
+#~ msgid "Change left connection"
+#~ msgstr ""
+
+#~ msgid "Change right connection"
+#~ msgstr ""
+
+#~ msgid "Show user defined files"
+#~ msgstr ""
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "Altnivela alinomigilo"
+
+#~ msgid "Change permissions"
+#~ msgstr "Ŝanĝi permesojn"
+
+#~ msgid "Change owner/group"
+#~ msgstr "Ŝanĝi pozedanton/grupon"
+
+#~ msgid "Copy files"
+#~ msgstr "Kopii dosierojn"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "Krei simbolan ligilon"
+
+#~ msgid "Delete files"
+#~ msgstr "Forigi dosierojn"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr ""
+
+#~ msgid "Edit file"
+#~ msgstr "Redakti dosieron"
+
+#~ msgid "Edit a new file"
+#~ msgstr "Redakti novan dosieron"
+
+#~ msgid "Create directory"
+#~ msgstr "Krei dosierujon"
+
+#~ msgid "Move files"
+#~ msgstr "Movi dosierojn"
+
+#~ msgid "Rename files"
+#~ msgstr "Alinomi dosierojn"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "Sinkronigi dosierujojn"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr ""
+
+#~ msgid "Help contents"
+#~ msgstr "Help-enhavoj"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "Helpo pri la klavkombinoj"
+
+#~ msgid "Report a problem"
+#~ msgstr "Raporti problemon"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr ""
+
+#~ msgid "Compare directories"
+#~ msgstr "Kompari dosierujojn"
+
+#~ msgid "Invert selection"
+#~ msgstr "Inversigi la elekton"
+
+#~ msgid "Select all"
+#~ msgstr "Elekti ĉiujn"
+
+#~ msgid "Unselect all"
+#~ msgstr "Malelekti ĉiujn"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Klavkombinoj"
+
+#~ msgid "Configure plugins"
+#~ msgstr "Agordi kromaĵojn"
+
+#~ msgid "Back one directory"
+#~ msgstr ""
+
+#~ msgid "Close the current tab"
+#~ msgstr ""
+
+#~ msgid "Close all tabs"
+#~ msgstr ""
+
+#~ msgid "Show directory history"
+#~ msgstr ""
+
+#~ msgid "Equal panel size"
+#~ msgstr ""
+
+#~ msgid "Maximize panel size"
+#~ msgstr ""
+
+#~ msgid "Back to the first directory"
+#~ msgstr ""
+
+#~ msgid "Forward one directory"
+#~ msgstr ""
+
+#~ msgid "Open directory in the active window"
+#~ msgstr "Malfermi la dosierujon en la aktiva fenestro"
+
+#~ msgid "Open directory in the inactive window"
+#~ msgstr "Malfermi la dosierujon en la neaktiva fenestro"
+
+#~ msgid "Open directory in the left window"
+#~ msgstr "Malfermi la dosierujon en la maldekstra fenestro"
+
+#~ msgid "Open directory in the right window"
+#~ msgstr "Malfermi la dosierujon en la dekstra fenestro"
+
+#~ msgid "Open directory in the new tab (inactive window)"
+#~ msgstr "Malfermi la dosierujon en la nova langeto (neaktiva fenestro)"
+
+#~ msgid "Forward to the last directory"
+#~ msgstr ""
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "Malfermi la dosierujon en nova langeto"
+
+#~ msgid "Show terminal"
+#~ msgstr "Montri terminalon"
+
+#, c-format
+#~ msgid "Create symbolic links of %i file in %s?"
+#~ msgid_plural "Create symbolic links of %i files in %s?"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "Unable to open terminal in root mode."
+#~ msgstr "Ne eblas malfermi terminalon en reĝimo \"root\"."
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
+#~ msgstr ""
+
+#~ msgid "Unable to start GNOME Commander in root mode."
+#~ msgstr ""
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+#~ msgstr ""
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME Commander estas libera programaro; vi povas distribui ĝin kaj/aŭ "
+#~ "modifi ĝin laŭ la termoj de la Ĝenerala Publika Permesilo de GNU kiel "
+#~ "elsendita de la Free Software Foundation; 2-a versio de la permesilo aŭ "
+#~ "(laŭvole) iu-ajn posta."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "GNOME Commander estas distribuite kun la espero ke ĝi estos utila, sed SEN "
+#~ "IA AJN GARANTIO;  eĉ sen la implica garantio de NEGOCEBLO aŭ ADAPTADO AL "
+#~ "IU APARTA CELO. Vidu la Ĝeneralan Publikan Permesilon de GNU por pli da "
+#~ "detaloj."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+#~ "Vi devintus ricevi kopion de la Ĝenerala Publika Permesilo de GNU kune kun "
+#~ "GNOME Commander; se ne, skribu al la Fondaĵo Libera Programaro: Free "
+#~ "Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA "
+#~ "02110-1301, Usono."
+
+#, c-format
+#~ msgid ""
+#~ "Overwrite file:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "With:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+#~ msgstr ""
+
+#~ msgid "Replace All"
+#~ msgstr "Anstataŭigi ĉiujn"
+
+#, c-format
+#~ msgid ""
+#~ "Error while copying to %s\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Eraro dum kopiado al %s\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Transfer problem"
+#~ msgstr ""
+
+#, c-format
+#~ msgid "[file %ld of %ld] “%s”"
+#~ msgstr ""
+
+#~ msgid "stopping…"
+#~ msgstr "haltigante…"
+
+#, c-format
+#~ msgid "%s of %s copied"
+#~ msgstr ""
+
+#, c-format
+#~ msgid "%.0f%% copied"
+#~ msgstr ""
+
+#, c-format
+#~ msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
+#~ msgstr ""
+
+#, c-format
+#~ msgid ""
+#~ "Can’t find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-commander from the gnome-commander-%s/src directory"
+#~ msgstr ""
+
+#, c-format
+#~ msgid "Couldn’t load installed pixmap, trying to load %s instead"
+#~ msgstr ""
+
+#~ msgid "Find"
+#~ msgstr "Serĉi"
+
+#~ msgid "Searching…"
+#~ msgstr "Serĉante…"
+
+#, c-format
+#~ msgid "Searching for “%s”"
+#~ msgstr "Serĉante por “%s”"
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr ""
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "bildero"
+#~ msgstr[1] "bilderoj"
+
+#~ msgid "bit/sample"
+#~ msgid_plural "bits/sample"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "_Copy selection"
+#~ msgstr "_Kopii elekton"
+
+#~ msgid "_Binary"
+#~ msgstr "_Duuma"
+
+#~ msgid "Zoom _Out"
+#~ msgstr "E_lzomi"
+
+#~ msgid "Best _Fit"
+#~ msgstr "_Optimuma adapto"
+
+#~ msgid "_Rotate 180°"
+#~ msgstr "_Turni 180°"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "_Duuma meĝimo"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "_Konservi nunajn agordojn"
+
+#, c-format
+#~ msgid "Pattern “%s” was not found"
+#~ msgstr ""
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr ""
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr ""
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr ""
+
+#~ msgid "File Manager"
+#~ msgstr "Dosiera administrilo"
+
+#~ msgid "Disable"
+#~ msgstr "Elŝalti"
+
+#~ msgid "Enable"
+#~ msgstr "Enŝalti"
+
+#~ msgid "Version"
+#~ msgstr "Versio"
+
+#~ msgid "_Enable"
+#~ msgstr "_Enŝalti"
+
+#~ msgid "_Configure"
+#~ msgstr "_Agordi"
+
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr ""
+
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr ""
+
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr ""
+
+#~ msgid "<PDF tags not supported>"
+#~ msgstr ""
+
+#~ msgid "Created"
+#~ msgstr "Kreite"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr ""
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr ""
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+
+#~ msgid "Emphasis"
+#~ msgstr "Emfazo"
+
+#~ msgid "Emphasis."
+#~ msgstr "Emfazo."
+
+#~ msgid "Equalization 2"
+#~ msgstr ""
+
+#~ msgid "Frames"
+#~ msgstr "Kadroj"
+
+#~ msgid "Number of frames."
+#~ msgstr "Nombro da kadroj."
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr ""
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr ""
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr ""
+
+#, c-format
+#~ msgid "unsupported tag (suppressed %ld B of binary data)"
+#~ msgstr ""
+
+#, c-format
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "(%s bajto)"
+#~ msgstr[1] "(%s bajtoj)"
+
+#, c-format
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "%s bajto"
+#~ msgstr[1] "%s bajtoj"
+
+#, fuzzy
+#~| msgid ""
+#~| "Failed to create a directory in which to store temporary files."
+#~ msgid "Failed to change working directory to a temporary directory."
+#~ msgstr "Malsukcesis krei dosierujon en kiu konservi dumtempajn dosierojn."
+
+#~ msgid "Failed to create a directory in which to store temporary files."
+#~ msgstr "Malsukcesis krei dosierujon en kiu konservi dumtempajn dosierojn."
+
+#, fuzzy, c-format
+#~| msgid "Failed to create the directory %s"
+#~ msgid "Couldn’t read from the directory %s: %s"
+#~ msgstr "Ne eblis legi de la dosierujo %s: %s"
+
+#, c-format
+#~ msgid "Creating directory %s… "
+#~ msgstr "Kreante dosierujon %s… "
+
+#, c-format
+#~ msgid "Failed to create the directory %s"
+#~ msgstr "Malsukcesis krei la dosierujon %s"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "Okazis eraro dum montrado de helpo."
+
+#, fuzzy, c-format
+#~| msgid "Failed to create the directory %s"
+#~ msgid "Couldn’t move path from “%s” to “%s”: %s"
+#~ msgstr "Ne eblis legi de la dosierujo %s: %s"
+
+#~ msgid "Audio Files"
+#~ msgstr "Sondosieroj"
+
+#~ msgid "Unknown file type"
+#~ msgstr "Nekonata dosiertipo"
+
+#~ msgid "Regular file"
+#~ msgstr "Regula dosiero"
+
+#~ msgid "FIFO"
+#~ msgstr "FIFO"
+
+#~ msgid "UNIX Socket"
+#~ msgstr "Uniks-kontaktilo"
+
+#~ msgid "Character device"
+#~ msgstr "Signoaparato"
+
+#~ msgid "Block device"
+#~ msgstr "Blokaparato"
+
+#~ msgid "Symbolic link"
+#~ msgstr "Simbola ligilo"
+
+#~ msgid "Arabic"
+#~ msgstr "Araba"
+
+#~ msgid "Bulgarian"
+#~ msgstr "Bulgara"
+
+#~ msgid "Catalan"
+#~ msgstr "Kataluna"
+
+#~ msgid "Traditional Chinese"
+#~ msgstr "Ĉina (tradicie)"
+
+#~ msgid "Simplified Chinese"
+#~ msgstr "Ĉina (simpligite)"
+
+#~ msgid "Chechen"
+#~ msgstr "Ĉeĉena"
+
+#~ msgid "Danish"
+#~ msgstr "Dana"
+
+#~ msgid "German"
+#~ msgstr "Germana"
+
+#~ msgid "Swiss German"
+#~ msgstr "Svisgermana"
+
+#~ msgid "Greek"
+#~ msgstr "Greka"
+
+#~ msgid "U.S. English"
+#~ msgstr "Angla (Usono)"
+
+#~ msgid "U.K. English"
+#~ msgstr "Angla (Britujo)"
+
+#~ msgid "Australian English"
+#~ msgstr "Angla (Aŭstralio)"
+
+#~ msgid "Mexican Spanish"
+#~ msgstr "Hispana (Meksiko)"
+
+#~ msgid "Finnish"
+#~ msgstr "Fina"
+
+#~ msgid "French"
+#~ msgstr "Franca"
+
+#~ msgid "Belgian French"
+#~ msgstr "Franca (Belgujo)"
+
+#~ msgid "Canadian French"
+#~ msgstr "Franca (Kanado)"
+
+#~ msgid "Swiss French"
+#~ msgstr "Svisa franca"
+
+#~ msgid "Hebrew"
+#~ msgstr "Hebrea"
+
+#~ msgid "Hungarian"
+#~ msgstr "Hungara"
+
+#~ msgid "Icelandic"
+#~ msgstr "Islanda"
+
+#~ msgid "Italian"
+#~ msgstr "Itala"
+
+#~ msgid "Swiss Italian"
+#~ msgstr "Svisa itala"
+
+#~ msgid "Japanese"
+#~ msgstr "Japana"
+
+#~ msgid "Korean"
+#~ msgstr "Korea"
+
+#~ msgid "Dutch"
+#~ msgstr "Nederlanda"
+
+#~ msgid "Belgian Dutch"
+#~ msgstr "Belga nederlanda"
+
+#~ msgid "Norwegian Bokmal"
+#~ msgstr "Norvega (bokmål)"
+
+#~ msgid "Norwegian Nynorsk"
+#~ msgstr "Norvega (nynorsk)"
+
+#~ msgid "Polish"
+#~ msgstr "Pola"
+
+#~ msgid "Brazilian Portuguese"
+#~ msgstr "Portugala (Brazilo)"
+
+#~ msgid "Portuguese"
+#~ msgstr "Portugala"
+
+#~ msgid "Romanian"
+#~ msgstr "Rumana"
+
+#~ msgid "Russian"
+#~ msgstr "Rusa"
+
+#~ msgid "Slovak"
+#~ msgstr "Slovaka"
+
+#~ msgid "Albanian"
+#~ msgstr "Albana"
+
+#~ msgid "Swedish"
+#~ msgstr "Sveda"
+
+#~ msgid "Thai"
+#~ msgstr "Taja"
+
+#~ msgid "Turkish"
+#~ msgstr "Turka"
+
+#~ msgid "Urdu"
+#~ msgstr "Urduo"
+
+#~ msgid "Indonesian"
+#~ msgstr "Indonezia"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Ukraina"
+
+#~ msgid "Byelorussian"
+#~ msgstr "Bjelorusa"
+
+#~ msgid "Slovenian"
+#~ msgstr "Slovena"
+
+#~ msgid "Estonian"
+#~ msgstr "Estona"
+
+#~ msgid "Latvian"
+#~ msgstr "Latva"
+
+#~ msgid "Lithuanian"
+#~ msgstr "Litova"
+
+#~ msgid "Farsi"
+#~ msgstr "Persa"
+
+#~ msgid "Basque"
+#~ msgstr "Vaska"
+
+#~ msgid "Macedonian"
+#~ msgstr "Macedonia"
+
+#~ msgid "Afrikaans"
+#~ msgstr "Afrikansa"
+
+#~ msgid "Malayalam"
+#~ msgstr "Malajza"
+
+#~ msgid "CVS options"
+#~ msgstr "Agordoj de CVS"
+
+#~ msgid "Compression level"
+#~ msgstr "Nivelo de densigo"
+
+#~ msgid "Unified diff format"
+#~ msgstr "Unuigita formato de diff"
+
+#~ msgid "Compare with"
+#~ msgstr "Kompari kun"
+
+#~ msgid "HEAD"
+#~ msgstr "KAPO"
+
+#~ msgid "The previous revision"
+#~ msgstr "La antaŭa revizio"
+
+#~ msgid "Other revision"
+#~ msgstr "Alia revizio"
+
+#~ msgid "CVS Diff"
+#~ msgstr "CVS Diff"
+
+#~ msgid "revision"
+#~ msgstr "revizio"
+
+#~ msgid "Revision:"
+#~ msgstr "Revizio:"
+
+#~ msgid "Compare..."
+#~ msgstr "Kompari..."
+
+#~ msgid "Author:"
+#~ msgstr "Aŭtoro:"
+
+#~ msgid "Date:"
+#~ msgstr "Dato:"
+
+#~ msgid "State:"
+#~ msgstr "Stato:"
+
+#~ msgid "Lines:"
+#~ msgstr "Linioj:"
+
+#~ msgid "Message:"
+#~ msgstr "Mesaĝo:"
+
+#~ msgid "Create Archive..."
+#~ msgstr "Krei arkivon..."
+
+#~ msgid "Profiles..."
+#~ msgstr "Profiloj..."
+
+#~ msgid "/Local path..."
+#~ msgstr "/Loka vojo..."
+
+#~ msgid "/Remote location..."
+#~ msgstr "/Fora loko..."
+
+#~ msgid "_Import"
+#~ msgstr "_Importi"
+
+#~ msgid "Search..."
+#~ msgstr "Serĉi..."
+
+#~ msgid "_Password:"
+#~ msgstr "_Pasvorto:"
+
+#~ msgid "Manage bookmarks..."
+#~ msgstr "Redakti legosignojn..."
+
+#~ msgid "Open this _folder"
+#~ msgstr "Mal_fermi tiun dosierujon"
+
+#~ msgid "_Properties..."
+#~ msgstr "_Atributoj..."
+
+#~ msgid "_Change"
+#~ msgstr "Ŝ_anĝi"
+
+#~ msgid "_Search..."
+#~ msgstr "_Serĉi..."
+
+#~ msgid "_Options..."
+#~ msgstr "_Agordoj..."
+
+#~ msgid "_Keyboard Shortcuts..."
+#~ msgstr "_Klavkombinoj..."
+
+#~ msgid "_MIME Types..."
+#~ msgstr "_MIME-tipoj"
+
+#~ msgid "_Remote Server..."
+#~ msgstr "_Fora servilo..."
+
+#~ msgid "New Connection..."
+#~ msgstr "Nova konekto..."
+
+#~ msgid "_Contents"
+#~ msgstr "_Enhavoj"
+
+#~ msgid "Edit..."
+#~ msgstr "Redakti..."
+
+#~ msgid "Document icon directory:"
+#~ msgstr "Dosierujo de la dokumentpiktogramoj:"
+
+#~ msgid "Open folder"
+#~ msgstr "Malfermi dosierujon"
+
+#~ msgid "MIME types"
+#~ msgstr "MIME-tipoj"
+
+#~ msgid "Unable to start Nautilus."
+#~ msgstr "Ne eblas lanĉi Naŭtiluson."
+
+#~ msgid "copying..."
+#~ msgstr "kopiante..."
+
+#~ msgid "Find..."
+#~ msgstr "Serĉi..."
+
+#~ msgid "_Remote dir:"
+#~ msgstr "_Fora dosierujo:"
+
+#~ msgid "Authentication"
+#~ msgstr "Aŭtentokontrolo"
+
+#~ msgid "Anonymous FTP access"
+#~ msgstr "Anonima FTP-aliro"
+
+#~ msgid "Password:"
+#~ msgstr "Pasvorto:"
+
+#~ msgid "Network"
+#~ msgstr "Reto"
+
+#~ msgid "Failed to open file %s: %s"
+#~ msgstr "Malsukcesis malfermi dosieron %s: %s"
+
+#~ msgid "_Go to"
+#~ msgstr "_Iri al"
+
+#~ msgid "Enter password"
+#~ msgstr "Enigi pasvorton"

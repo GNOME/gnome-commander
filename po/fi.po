@@ -6171,3 +6171,1705 @@ msgstr "10-15ms"
 #, fuzzy
 #~ msgid "Sorting"
 #~ msgstr "Järjestysvalitsimet"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "Gnomen komentaja"
+
+#~ msgid "Two-pane file manager"
+#~ msgstr "Kaksipaneelinen tiedostoselain"
+
+#~ msgid ""
+#~ "GNOME Commander is a “two-pane” graphical file manager for the GNOME desktop"
+#~ " environment. It features separate tabs for each pane, setting up custom "
+#~ "device buttons, bookmark manager, fully integrated commandline, file quick "
+#~ "search, an internal image viewer, a powerful batch renaming tool, and FTP "
+#~ "and Samba access."
+#~ msgstr ""
+#~ "Gnomen komentaja on kaksipaneelinen, graafinen tiedostoselain Gnome-"
+#~ "työpöydälle. Sen ominaisuuksiin kuuluu muun muassa erilliset välilehdet "
+#~ "jokaisessa paneelissa, omavalintaiset laitepainikkeet, kirjanmerkkien "
+#~ "hallinta, täysin integroitu komentorivi, tiedostojen pikahaku, "
+#~ "sisäänrakennettu kuvakatselin, tehokas joukkonimeämistyökalu sekä FTP- ja "
+#~ "Samba-käyttö."
+
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+#~ "Gnomen komentaja on suunnattu tehokäyttäjille, jotka haluavat monipuolista "
+#~ "tiedostojen hallintaa, sovellusten monikäyttöä ja komentorivityöskentelyä."
+
+#~ msgid "A two paned file manager"
+#~ msgstr "Kaksipaneelinen tiedostoselain"
+
+#~ msgid "Use default font"
+#~ msgstr "Käytä oletusfonttia"
+
+#~ msgid ""
+#~ "Whether to use the system’s default fixed width font for the file panels "
+#~ "instead of a font specific to gnome-commander."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "A custom font that will be used for the file panes if the “Use default font”"
+#~ " option is turned off."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Defines how the filesize will be displayed in the associated pane column."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Defines how the file permission will be displayed in the associated pane "
+#~ "column."
+#~ msgstr ""
+
+#~ msgid "Defines the icon style of files and folders in the file panes."
+#~ msgstr ""
+
+#~ msgid "Defines the height of a row in the file pane."
+#~ msgstr ""
+
+#~ msgid "Format of the date in the file pane."
+#~ msgstr "Päiväyksen muoto tiedostopaneelissa."
+
+#, fuzzy
+#~| msgid "Version of the file format."
+#~ msgid "The font in the file panes."
+#~ msgstr "Tiedostomuodon versio."
+
+#, fuzzy
+#~| msgid "Number of lines in the document."
+#~ msgid "Size of icons in the file pane."
+#~ msgstr "Asiakirjan rivien lukumäärä."
+
+#~ msgid "Device icon size"
+#~ msgstr "Laitekuvakkeen koko"
+
+#~ msgid "Icon size in the device list."
+#~ msgstr "Kuvakekoko laiteluettelossa."
+
+#~ msgid ""
+#~ "Defines if the orientation of the file panes should be horizontal or not."
+#~ msgstr ""
+
+#~ msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
+#~ msgstr ""
+
+#~ msgid "Main window horizontal position"
+#~ msgstr ""
+
+#~ msgid "Position of the main window in horizontal direction."
+#~ msgstr ""
+
+#~ msgid "Main window vertical position"
+#~ msgstr ""
+
+#~ msgid "Position of the main window in vertical direction."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Defines if the current directories are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Defines if the current open tabs are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This option defines if directories will be marked when all items in a file "
+#~ "pane should be marked."
+#~ msgstr ""
+
+#~ msgid "Quick search exact match begin"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the beginning"
+#~ " of an item name."
+#~ msgstr ""
+
+#, fuzzy
+#~| msgid "Quick search using"
+#~ msgid "Quick search exact match end"
+#~ msgstr "Pikahaku käyttäen"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the end of an"
+#~ " item name."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The entries in this list are used for restoring the tabs from the last "
+#~ "session."
+#~ msgstr ""
+
+#~ msgid "Leave terminal open"
+#~ msgstr "Jätä pääte avoimeksi"
+
+#~ msgid ""
+#~ "This option defines if a terminal window should stay open after a command "
+#~ "finishes inside of it."
+#~ msgstr ""
+
+#, fuzzy
+#~| msgid "/File name"
+#~ msgid "Fixed font name"
+#~ msgstr "/Tiedostonimi"
+
+#~ msgid "Name of the default font with fixed character width."
+#~ msgstr ""
+
+#, fuzzy
+#~| msgid "/File name"
+#~ msgid "Variable font name"
+#~ msgstr "/Tiedostonimi"
+
+#~ msgid "Name of the default font with variable character width."
+#~ msgstr ""
+
+#~ msgid "Font size"
+#~ msgstr "Fontin koko"
+
+#~ msgid "This option defines the default font size."
+#~ msgstr ""
+
+#, fuzzy
+#~| msgid "Flip _Horizontal"
+#~ msgid "Horizontal offset"
+#~ msgstr "Peilaa _vaakasuunnassa"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "horizontal direction."
+#~ msgstr ""
+
+#~ msgid "Vertical offset"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "vertical direction."
+#~ msgstr ""
+
+#~ msgid "No error description available"
+#~ msgstr "Virheen kuvausta ei ole saatavilla"
+
+#~ msgid "Folder selection"
+#~ msgstr "Kansion valinta"
+
+#~ msgid "File selection"
+#~ msgstr "Tiedoston valinta"
+
+#~ msgid "/_Save Profile As…"
+#~ msgstr "/_Tallenna profiili nimellä…"
+
+#~ msgid "/_Manage Profiles…"
+#~ msgstr "/_Hallitse profiileja…"
+
+#~ msgid "Current file name"
+#~ msgstr "Nykyinen tiedostonimi"
+
+#~ msgid "New file name"
+#~ msgstr "Uusi tiedostonimi"
+
+#~ msgid "File size"
+#~ msgstr "Tiedoston koko"
+
+#~ msgid "File modification date"
+#~ msgstr ""
+
+#~ msgid "_Replace with:"
+#~ msgstr "Korvaa _tällä:"
+
+#, fuzzy, c-format
+#~| msgid "Could not chown %s"
+#~ msgid "Could not chmod %s"
+#~ msgstr "Chown kohteelle %s ei onnistunut"
+
+#, c-format
+#~ msgid "Could not chown %s"
+#~ msgstr "Chown kohteelle %s ei onnistunut"
+
+#~ msgid "Chown"
+#~ msgstr "Chown"
+
+#~ msgid "S_hare:"
+#~ msgstr "_Jako:"
+
+#~ msgid "_User name:"
+#~ msgstr "_Käyttäjätunnus:"
+
+#, c-format
+#~ msgid "“%s” is not a valid location"
+#~ msgstr "“%s” ei ole kelvollinen sijainti"
+
+#~ msgid "Remote Server"
+#~ msgstr "Etäpalvelin"
+
+#, fuzzy, c-format
+#~| msgid "Deleted %ld of %ld file"
+#~| msgid_plural "Deleted %ld of %ld files"
+#~ msgid "Deleted %lu of %lu file"
+#~ msgid_plural "Deleted %lu of %lu files"
+#~ msgstr[0] "poistettiin %ld/%ld tiedosto"
+#~ msgstr[1] "poistettiin %ld/%ld tiedostoa"
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Virhe poistettaessa kohdetta “%s”\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Delete problem"
+#~ msgstr "Ongelma poistossa"
+
+#, c-format
+#~| msgid ""
+#~| "Error while deleting “%s”\n"
+#~| "\n"
+#~| "%s"
+#~ msgid ""
+#~ "Error while deleting: \n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Virhe poistaessa: \n"
+#~ "\n"
+#~ "%s"
+
+#, c-format
+#~| msgid "The directory “%s” doesn’t exist, do you want to create it?"
+#~ msgid "The directory “%s” is not empty. Do you really want to delete it?"
+#~ msgstr "Kansio “%s” ei ole tyhjä. Haluatko varmasti poistaa sen?"
+
+#, c-format
+#~ msgid "Do you want to delete “%s”?"
+#~ msgstr "Haluatko poistaa kohteen “%s”?"
+
+#, c-format
+#~ msgid "Do you want to delete the selected file?"
+#~ msgid_plural "Do you want to delete the %d selected files?"
+#~ msgstr[0] "Haluatko poistaa valitun tiedoston?"
+#~ msgstr[1] "Haluatko poistaa %d valittua tiedostoa?"
+
+#~ msgid "Bookmark name is missing."
+#~ msgstr "Kirjanmerkin nimi puuttuu."
+
+#, fuzzy
+#~| msgid "Bookmark target is missing"
+#~ msgid "Bookmark target is missing."
+#~ msgstr "Kirjanmerkin kohde puuttuu"
+
+#~ msgid "Image:"
+#~ msgstr "Kuva:"
+
+#~ msgid "Content Type:"
+#~ msgstr "Sisältötyyppi:"
+
+#~ msgid "Type"
+#~ msgstr "Tyyppi"
+
+#~ msgid "Metadata namespace"
+#~ msgstr ""
+
+#~ msgid "Tag name"
+#~ msgstr "Merkinnän nimi"
+
+#~ msgid "Tag value"
+#~ msgstr "Merkinnän arvo"
+
+#, fuzzy
+#~ msgid "Metadata tag description"
+#~ msgstr "Pakkauskodekin kuvaus."
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the corresponding row and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Pikanäppäin"
+
+#, fuzzy
+#~| msgid "_Keyboard Shortcuts"
+#~ msgid "Keyboard shortcut for selected action"
+#~ msgstr "_Näppäinoikotiet"
+
+#~ msgid "Action"
+#~ msgstr "Toiminto"
+
+#, fuzzy
+#~| msgid "Duration"
+#~ msgid "User action"
+#~ msgstr "Kesto"
+
+#, fuzzy
+#~| msgid "Optional information"
+#~ msgid "Optional data"
+#~ msgstr "Lisätiedot"
+
+#, c-format
+#~ msgid "Shortcut “%s” is already taken by “%s”."
+#~ msgstr ""
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "Ristiriidassa olevat pikanäppäimet"
+
+#, c-format
+#~ msgid "Reassigning the shortcut will cause it to be removed from “%s”."
+#~ msgstr ""
+
+#, fuzzy
+#~| msgid "Invalid source pattern"
+#~ msgid "Invalid shortcut."
+#~ msgstr "Virhellinen lähdekuvio"
+
+#~ msgid "Do nothing"
+#~ msgstr "Älä tee mitään"
+
+#, fuzzy, c-format
+#~| msgid "Copy \"%s\" to"
+#~ msgid "Copy “%s” to"
+#~ msgstr "Kopioi \"%s\" kohteeseen"
+
+#~ msgid "Group"
+#~ msgstr "Ryhmä"
+
+#~ msgid "Bookmark group"
+#~ msgstr "Kirjanmerkkiryhmä"
+
+#~ msgid "Bookmark name"
+#~ msgstr "Kirjanmerkin nimi"
+
+#~ msgid "Keyboard shortcut for selected bookmark"
+#~ msgstr ""
+
+#~ msgid "Bookmarked path"
+#~ msgstr "Kirjanmerkin polku"
+
+#~ msgid "Profile name"
+#~ msgstr "Profiilini nimi"
+
+#, fuzzy, c-format
+#~| msgid "Make Directory"
+#~ msgid "Make directory failed: %s\n"
+#~ msgstr "Luo kansio"
+
+#~ msgid "Sorting/Quick search"
+#~ msgstr "Järjestys/pikahaku"
+
+#~ msgid "ALT+letters (menu access with F12)"
+#~ msgstr "ALT+kirjaimia (valikko näppäimestä F12)"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "Vastaa tiedostonimen alkua"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "Vastaa tiedostonimen loppua"
+
+#~ msgid ""
+#~ "Search window is minimizable\n"
+#~ "(Needs program restart if altered)"
+#~ msgstr ""
+#~ "Hakuikkuna on pienennettävissä\n"
+#~ "(Vaatii ohjelman uudelleenkäynnistyksen)"
+
+#~ msgid ""
+#~ "See the manual page for “strftime” for help on how to set the format string."
+#~ msgstr "Katso ohjekirjasivu \"strftime\" miten muotoilla päiväyksen esitysmuoto."
+
+#~ msgid "Colors"
+#~ msgstr "Värit"
+
+#~ msgid "Palette"
+#~ msgstr "Paletti"
+
+#~ msgid "Foreground:"
+#~ msgstr "Edustaväri:"
+
+#~ msgid "Background:"
+#~ msgstr "Taustaväri:"
+
+#~ msgid "File panes"
+#~ msgstr "Tiedostopaneelit"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "Vahvistus asettaa oletukseksi OK"
+
+#~ msgid "Preselected overwride action in copy dialog"
+#~ msgstr ""
+
+#~ msgid "Move overwrite"
+#~ msgstr "Siirto ylikirjoittaa"
+
+#~ msgid "Drag and Drop"
+#~ msgstr "Vedä ja pudota"
+
+#~ msgid "Leave terminal window open"
+#~ msgstr "Jätä pääteikkuna avoimeksi"
+
+#~ msgid "Device:"
+#~ msgstr "Laite:"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Ylikirjoita tiedostot"
+
+#, c-format
+#~ msgid "copy %d file to"
+#~ msgid_plural "copy %d files to"
+#~ msgstr[0] "kopioi %d tiedosto kohteeseen"
+#~ msgstr[1] "kopioi %d tiedostoa kohteeseen"
+
+#~ msgid "Silently"
+#~ msgstr "Ilman viestiä"
+
+#~ msgid "Skip All"
+#~ msgstr "Ohita kaikki"
+
+#, fuzzy, c-format
+#~| msgid "Move \"%s\" to"
+#~ msgid "Move “%s” to"
+#~ msgstr "Siirrä \"%s\" kohteeseen"
+
+#, c-format
+#~ msgid "move %d file to"
+#~ msgid_plural "move %d files to"
+#~ msgstr[0] "siirrä %d tiedosto kohteeseen"
+#~ msgstr[1] "siirrä %d tiedostoa kohteeseen"
+
+#, c-format
+#~ msgid "The directory “%s” doesn’t exist, do you want to create it?"
+#~ msgstr "Kansiota “%s” ei ole olemassa, haluatko luoda sen?"
+
+#~ msgid "Network protocol"
+#~ msgstr "Verkkoprotokolla"
+
+#~ msgid "Connection name"
+#~ msgstr "Yhteyden nimi"
+
+#~ msgid "Connections"
+#~ msgstr "Yhteydet"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "Anonyymin FTP:n salasana:"
+
+#~ msgid "Search local directories only"
+#~ msgstr "Etsi vain paikallisista kansioista"
+
+#~ msgid "Files _not containing text"
+#~ msgstr ""
+
+#, fuzzy, c-format
+#~| msgid "Failed to read file %s: %s"
+#~ msgid "Failed to read file %s: File is not searchable"
+#~ msgstr "Tiedostoa %s ei voitu lukea: %s"
+
+#, c-format
+#~ msgid "Failed to read file %s: %s"
+#~ msgstr "Tiedostoa %s ei voitu lukea: %s"
+
+#, c-format
+#~ msgid "Searching in: %s"
+#~ msgstr "Etsitään kohteesta: %s"
+
+#, fuzzy, c-format
+#~| msgid "Found %d match - search aborted"
+#~| msgid_plural "Found %d matches - search aborted"
+#~ msgid "Found %d match — search aborted"
+#~ msgid_plural "Found %d matches — search aborted"
+#~ msgstr[0] "Löytyi %d osuma ennen keskeyttämistä"
+#~ msgstr[1] "Löytyi %d osumaa ennen keskeyttämistä"
+
+#, c-format
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "Löytyi %d osuma"
+#~ msgstr[1] "Löytyi %d osumaa"
+
+#, c-format
+#~ msgid "%d file listed"
+#~ msgid_plural "%d files listed"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "Accelerator key"
+#~ msgstr ""
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr ""
+
+#~ msgid "Accelerator Mode"
+#~ msgstr ""
+
+#~ msgid "The type of accelerator."
+#~ msgstr ""
+
+#~ msgid "Disabled"
+#~ msgstr "Ei käytössä"
+
+#~ msgid "New accelerator…"
+#~ msgstr "Uusi valintanäppäin…"
+
+#~ msgid "Credits"
+#~ msgstr "Tekijät"
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "Liitännäisen www-sivu"
+
+#~ msgid "C_redits"
+#~ msgstr "_Tekijät"
+
+#~ msgid "/Grandparent"
+#~ msgstr "/Isovanhempi"
+
+#~ msgid "/Parent"
+#~ msgstr "/Vanhempi"
+
+#~ msgid "/File name"
+#~ msgstr "/Tiedostonimi"
+
+#, fuzzy
+#~| msgid "/File name"
+#~ msgid "/File name (range)"
+#~ msgstr "/Tiedostonimi"
+
+#~ msgid "/File name without extension"
+#~ msgstr "/Tiedostonimi ilman päätettä"
+
+#, fuzzy
+#~| msgid "/File name without extension"
+#~ msgid "/File name without extension (range)"
+#~ msgstr "/Tiedostonimi ilman päätettä"
+
+#~ msgid "/File extension"
+#~ msgstr "/Tiedostopääte"
+
+#~ msgid "/Counter"
+#~ msgstr "/Laskuri"
+
+#, fuzzy
+#~| msgid "/Counter (precision)"
+#~ msgid "/Counter (width)"
+#~ msgstr "/Laskuri (tarkka)"
+
+#, fuzzy
+#~| msgid "/Counter"
+#~ msgid "/Counter (auto)"
+#~ msgstr "/Laskuri"
+
+#~ msgid "/Hexadecimal random number (width)"
+#~ msgstr ""
+
+#, fuzzy
+#~| msgid "Date"
+#~ msgid "/Date"
+#~ msgstr "Päiväys"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "/Päiväys/<locale>"
+
+#~ msgid "/Date/yyyy-mm-dd"
+#~ msgstr "/Päiväys/vvvv-kk-pp"
+
+#~ msgid "/Date/yy-mm-dd"
+#~ msgstr "/Päiväys/vv-kk-pp"
+
+#~ msgid "/Date/yy.mm.dd"
+#~ msgstr "/Päiväys/vv.kk.pp"
+
+#~ msgid "/Date/yymmdd"
+#~ msgstr "/Päiväys/vvkkpp"
+
+#~ msgid "/Date/dd.mm.yy"
+#~ msgstr "/Päiväys/pp.kk.vv"
+
+#~ msgid "/Date/mm-dd-yy"
+#~ msgstr "/Päiväys/kk-pp-vv"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/Päiväys/vvvv"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/Päiväys/vv"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/Päiväys/kk"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/Päiväys/kkk"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/Päiväys/pp"
+
+#, fuzzy
+#~ msgid "/Time"
+#~ msgstr "/Aika/TT"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/Aika/<locale>"
+
+#~ msgid "/Time/HH.MM.SS"
+#~ msgstr "/Aika/TT.MM.SS"
+
+#~ msgid "/Time/HH-MM-SS"
+#~ msgstr "/Aika/TT-MM-SS"
+
+#~ msgid "/Time/HHMMSS"
+#~ msgstr "/Aika/TTMMSS"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/Aika/TT"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/Aika/MM"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/Aika/SS"
+
+#, fuzzy
+#~| msgid "File patterns"
+#~ msgid "Regex pattern"
+#~ msgstr "Tiedostomallit"
+
+#, fuzzy
+#~| msgid "Replace"
+#~ msgid "Replacement"
+#~ msgstr "Korvaa"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "Täsmää kirjainkokoon"
+
+#, c-format
+#~ msgid "The program has now finished. Press Enter to close this window.\n"
+#~ msgstr "Ohjelma on nyt valmistunut. Paina Enter sulkeaksesi tämän ikkunan.\n"
+
+#, fuzzy, c-format
+#~| msgid "Mount failed: mount exited with existatus %d"
+#~ msgid "Mount failed: mount exited with exitstatus %d"
+#~ msgstr "Liittäminen epäonnistui: mount suljettiin tilakoodilla %d"
+
+#, fuzzy, c-format
+#~| msgid ""
+#~| "Volume unmounting failed:\n"
+#~| "%s %s"
+#~ msgid ""
+#~ "Cannot unmount the volume:\n"
+#~ "%s\n"
+#~ "Error code: %d"
+#~ msgstr ""
+#~ "Taltion irrotus epäonnistui:\n"
+#~ "%s %s"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "Siirry: %s (%s)"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "Siirry: %s"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr "Liitä: %s"
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr "Irrota: %s"
+
+#~ msgid "<New connection>"
+#~ msgstr "<Uusi yhteys>"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "Yhdistä: %s"
+
+#, c-format
+#~ msgid "Disconnect from: %s"
+#~ msgstr "Katkaise yhteys: %s"
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "Yhdistetään kohteeseen %s\n"
+
+#~ msgid "Failed to browse the network. Is the SMB module installed?"
+#~ msgstr "Verkon selaus ei onnistunut. Onko SMB-moduli asennettu?"
+
+#, c-format
+#~ msgid "_Open with “%s”"
+#~ msgstr "_Avaa sovelluksella “%s”"
+
+#~ msgid "/_Copy here"
+#~ msgstr "/_Kopioi tänne"
+
+#~ msgid "/_Move here"
+#~ msgstr "/_Siirrä tänne"
+
+#~ msgid "/_Link here"
+#~ msgstr "/_Linkki tänne"
+
+#~ msgid "/C_ancel"
+#~ msgstr "/_Peru"
+
+#, c-format
+#~ msgid ""
+#~ "“%s” seems to be a binary executable file but it lacks the executable bit. "
+#~ "Do you want to set it and then run the file?"
+#~ msgstr ""
+#~ "“%s” näyttäisi olevan suoritettava tiedosto, mutta siitä puuttuu "
+#~ "suoritusoikeudet. Haluatko asettaa suoritusoikeudet ja suorittaa ohjelman?"
+
+#~ msgid "Make Executable?"
+#~ msgstr "Muutetaanko suoritettavaksi?"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#, c-format
+#~ msgid ""
+#~ "“%s” is an executable text file. Do you want to run it, or display its "
+#~ "contents?"
+#~ msgstr ""
+#~ "“%s” on suoritettava tekstitiedosto. Haluatko suorittaa sen vai näyttää sen "
+#~ "sisällön?"
+
+#~ msgid "Run or Display"
+#~ msgstr "Suorita tai näytä"
+
+#~ msgid "Display"
+#~ msgstr "Näytä"
+
+#~ msgid "Run"
+#~ msgstr "Suorita"
+
+#, fuzzy, c-format
+#~| msgid "No default application found for the MIME type %s."
+#~ msgid "No default application found for the file type %s."
+#~ msgstr "MIME-tyypille %s ei löytynyt oletussovellusta."
+
+#, fuzzy, c-format
+#~| msgid ""
+#~| "%s does not know how to open remote file. Do you want to download the file "
+#~| "to a temporary location and then open it?"
+#~| msgid_plural ""
+#~| "%s does not know how to open remote files. Do you want to download the files"
+#~| " to a temporary location and then open them?"
+#~ msgid ""
+#~ "%s does not know how to open remote file. Do you want to download the file "
+#~ "to a temporary location and then open it?"
+#~ msgstr ""
+#~ "%s ei osaa avata etätiedostoja. Haluatko noutaa tiedoston väliaikaiskansioon"
+#~ " ja avata sen sieltä?"
+
+#~ msgid "Failed to open connection."
+#~ msgstr "Yhteyden avaaminen ei onnistunut."
+
+#~ msgid "Needs terminal"
+#~ msgstr "Vaatii päätteen"
+
+#~ msgid "Other _Application…"
+#~ msgstr "Muu _sovellus…"
+
+#~ msgid "Cut"
+#~ msgstr "Leikkaa"
+
+#~ msgid "Send files"
+#~ msgstr "Lähetä tiedostoja"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "Avaa _pääte tähän"
+
+#~ msgid "Copy file names"
+#~ msgstr "Kopioi tiedostonimet"
+
+#, c-format
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] "%s / %s kt %d / %d tiedostoa"
+#~ msgstr[1] "%s / %s kt %d / %d tiedostossa"
+
+#, c-format
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] "%s, %d/%d kansio valittu"
+#~ msgstr[1] "%s, %d/%d kansiota valittu"
+
+#~ msgid "Copy Tab to Other _Pane"
+#~ msgstr "Kopioi _välilehti toiseen paneeliin"
+
+#~ msgid "No file name given"
+#~ msgstr "Tiedostonimeä ei annettu"
+
+#~ msgid "Filter:"
+#~ msgstr "Suodatin:"
+
+#~ msgid "_New"
+#~ msgstr "_Uusi"
+
+#~ msgid "_Directory"
+#~ msgstr "_Kansio"
+
+#~ msgid "_Text File"
+#~ msgstr "_Tekstitiedosto"
+
+#~ msgid "_Enable Filter…"
+#~ msgstr "_Käytä suodatinta…"
+
+#~ msgid "Start _GNOME Commander as root"
+#~ msgstr "K_äynnistä Gnomen komentaja pääkäyttäjän oikeuksin"
+
+#~ msgid "_Quit"
+#~ msgstr "_Lopeta"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "Kopioi _tiedostonimiä"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "_Palauta valinta"
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "Gnome Commander _verkossa"
+
+#~ msgid "Refresh"
+#~ msgstr "Virkistä"
+
+#~ msgid "Go to the oldest"
+#~ msgstr "Siirry vanhimpaan"
+
+#~ msgid "Go back"
+#~ msgstr "Siirry takaisin"
+
+#~ msgid "Go forward"
+#~ msgstr "Siirry eteenpäin"
+
+#~ msgid "Go to the latest"
+#~ msgstr "Siirry uusimpaan"
+
+#, fuzzy
+#~| msgid "Copy file names (SHIFT for full paths)"
+#~ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+#~ msgstr "Kopioi tiedostonimet (SHIFTin kanssa koko polkunimet)"
+
+#~ msgid "Paste"
+#~ msgstr "Liitä"
+
+#~ msgid "Open terminal (SHIFT for root privileges)"
+#~ msgstr "Avaa pääte (SHIFT avaa ylläpitäjän oikeuksin)"
+
+#~ msgid "GNOME Commander — ROOT PRIVILEGES"
+#~ msgstr "GNOME Commander — ROOT-OIKEUDET"
+
+#~ msgid "Path matches regex:"
+#~ msgstr "Polku vastaa regexiä:"
+
+#~ msgid "Name contains:"
+#~ msgstr "Nimi sisältää:"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "Kirjainkoko _merkitsee"
+
+#, fuzzy
+#~| msgid "_Bookmark this Directory..."
+#~ msgid "Bookmark current directory"
+#~ msgstr "Lisää _kirjanmerkki tähän kansioon..."
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "Hallitse kirjanmerkkejä"
+
+#~ msgid "Open terminal"
+#~ msgstr "Avaa pääte"
+
+#~ msgid "Open terminal as root"
+#~ msgstr "Avaa pääte pääkäyttäjän oikeuksin"
+
+#~ msgid "Start GNOME Commander as root"
+#~ msgstr "Käynnistä Gnomen komentaja pääkäyttäjän oikeuksiin"
+
+#~ msgid "Close connection"
+#~ msgstr "Sulje yhteys"
+
+#~ msgid "New connection"
+#~ msgstr "Uusi yhteys"
+
+#~ msgid "Open connection"
+#~ msgstr "Avaa yhteys"
+
+#, fuzzy
+#~| msgid "<New connection>"
+#~ msgid "Change left connection"
+#~ msgstr "<Uusi yhteys>"
+
+#, fuzzy
+#~| msgid "Drop connection"
+#~ msgid "Change right connection"
+#~ msgstr "Lopeta yhteys"
+
+#, fuzzy
+#~| msgid "Show Hidden Files"
+#~ msgid "Show user defined files"
+#~ msgstr "Näytä piilotiedostot"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "Kehittynyt uudelleennimeämistyökalu"
+
+#~ msgid "Change permissions"
+#~ msgstr "Muuta oikeuksia"
+
+#~ msgid "Change owner/group"
+#~ msgstr "Muuta omistajaa tai ryhmää"
+
+#~ msgid "Copy files"
+#~ msgstr "Kopioi tiedostot"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "Luo symbolinen linkki"
+
+#~ msgid "Delete files"
+#~ msgstr "Poista tiedostot"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "Vertaa tiedostoja (diff)"
+
+#~ msgid "Edit file"
+#~ msgstr "Muokkaa tiedostoa"
+
+#~ msgid "Edit a new file"
+#~ msgstr "Muokkaa uutta tiedostoa"
+
+#~ msgid "Create directory"
+#~ msgstr "Luo kansio"
+
+#~ msgid "Move files"
+#~ msgstr "Siirrä tiedostot"
+
+#~ msgid "Rename files"
+#~ msgstr "Nimeä tiedostot uudelleen"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "Synkronoi kansiot"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr "Tietoja - Gnomen komentaja"
+
+#~ msgid "Help contents"
+#~ msgstr "Ohjeen sisältö"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "Ohje pikanäppäimistä"
+
+#~ msgid "Report a problem"
+#~ msgstr "Ilmoita ongelmasta"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr "Gnome Commander verkossa"
+
+#~ msgid "Compare directories"
+#~ msgstr "Vertaa kansioita"
+
+#~ msgid "Invert selection"
+#~ msgstr "Käänteinen valinta"
+
+#~ msgid "Select all"
+#~ msgstr "Valitse kaikki"
+
+#~ msgid "Unselect all"
+#~ msgstr "Älä valitse mitään"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Pikanäppäimet"
+
+#~ msgid "Configure plugins"
+#~ msgstr "Määrittele liitännäiset"
+
+#~ msgid "Back one directory"
+#~ msgstr "Yksi hakemisto takaisin"
+
+#~ msgid "Close the current tab"
+#~ msgstr "Sulje nykyinen välilehti"
+
+#~ msgid "Close all tabs"
+#~ msgstr "Sulje kaikki välilehdet"
+
+#~ msgid "Show directory history"
+#~ msgstr "Näytä kansiohistoria"
+
+#~ msgid "Equal panel size"
+#~ msgstr "Samankokoiset paneelit"
+
+#~ msgid "Maximize panel size"
+#~ msgstr "Suurenna paneelin koko"
+
+#, fuzzy
+#~| msgid "Failed to create the directory %s"
+#~ msgid "Back to the first directory"
+#~ msgstr "Kansiota \"%s\" ei voitu luoda"
+
+#, fuzzy
+#~| msgid "Up one directory"
+#~ msgid "Forward one directory"
+#~ msgstr "Yksi kansio ylös"
+
+#~ msgid "Open directory in the active window"
+#~ msgstr "Avaa kansio aktiivisessa ikkunassa"
+
+#~ msgid "Open directory in the inactive window"
+#~ msgstr ""
+
+#~ msgid "Open directory in the left window"
+#~ msgstr "Avaa kansio vasemmassa ikkunassa"
+
+#~ msgid "Open directory in the right window"
+#~ msgstr "Avaa kansio oikeassa ikkunassa"
+
+#~ msgid "Open directory in the new tab (inactive window)"
+#~ msgstr ""
+
+#, fuzzy
+#~| msgid "Failed to create the directory %s"
+#~ msgid "Forward to the last directory"
+#~ msgstr "Kansiota \"%s\" ei voitu luoda"
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "Avaa kansio uudessa välilehdessä"
+
+#~ msgid "Show terminal"
+#~ msgstr "Näytä pääte"
+
+#, c-format
+#~ msgid "Create symbolic links of %i file in %s?"
+#~ msgid_plural "Create symbolic links of %i files in %s?"
+#~ msgstr[0] "Luodaanko symboliset linkit %i tiedostosta kohteeseen %s?"
+#~ msgstr[1] "Luodaanko symboliset linkit %i tiedostosta kohteeseen %s?"
+
+#~ msgid "Unable to open terminal in root mode."
+#~ msgstr "Päätettä ei voitu avata ylläpitäjän oikeuksin."
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
+#~ msgstr "Komentoa gksudo, xdg-su, gksu, gnomesu, kdesu tai beesu ei löydy."
+
+#~ msgid "Unable to start GNOME Commander in root mode."
+#~ msgstr "Gnomen komentajan käynnistäminen pääkäyttäjän oikeuksin ei onnistu."
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+#~ msgstr "Komentoa gksudo, xdg-su, gksu, gnomesu, kdesu tai beesu ei löydy."
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "Nopea ja tehokas tiedostonselain Gnomelle"
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+
+#~ msgid "Transfer problem"
+#~ msgstr "Ongelma siirrossa"
+
+#, fuzzy
+#~| msgid "Copy File"
+#~ msgid "Copy problem"
+#~ msgstr "Kopioi tiedosto"
+
+#, c-format
+#~ msgid ""
+#~ "Overwrite file:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "With:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+#~ msgstr ""
+
+#, fuzzy, c-format
+#~| msgid ""
+#~| "Error while deleting “%s”\n"
+#~| "\n"
+#~| "%s"
+#~ msgid ""
+#~ "Error while transferring “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Virhe poistettaessa kohdetta “%s”\n"
+#~ "\n"
+#~ "%s"
+
+#, fuzzy
+#~| msgid "Delete problem"
+#~ msgid "Move problem"
+#~ msgstr "Ongelma poistossa"
+
+#, fuzzy, c-format
+#~| msgid "[file %ld of %ld] \"%s\""
+#~ msgid "[file %ld of %ld] “%s”"
+#~ msgstr "[tiedosto %ld / %ld] \"%s\""
+
+#, fuzzy, c-format
+#~| msgid ""
+#~| "Error while deleting “%s”\n"
+#~| "\n"
+#~| "%s"
+#~ msgid ""
+#~ "Error while creating symlink “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Virhe poistettaessa kohdetta “%s”\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Symlink creation problem"
+#~ msgstr "Symbolisen linkin luomisongelma"
+
+#~ msgid "stopping…"
+#~ msgstr "pysäytetään…"
+
+#, c-format
+#~ msgid "%s of %s copied"
+#~ msgstr "%s/%s kopioitu"
+
+#, c-format
+#~ msgid "%.0f%% copied"
+#~ msgstr "%.0f %% kopioitu"
+
+#, c-format
+#~ msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
+#~ msgstr ""
+
+#, c-format
+#~ msgid ""
+#~ "Can’t find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-commander from the gnome-commander-%s/src directory"
+#~ msgstr ""
+
+#, c-format
+#~ msgid "Couldn’t load installed pixmap, trying to load %s instead"
+#~ msgstr ""
+
+#~ msgid "Find"
+#~ msgstr "Etsi"
+
+#~ msgid "Searching…"
+#~ msgstr "Etsitään…"
+
+#, c-format
+#~| msgid "Searching for \"%s\""
+#~ msgid "Searching for “%s”"
+#~ msgstr "Etsitään “%s”"
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr "Sijainti: %lu / %lu\tSarake: %d\t%s"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "pikseli"
+#~ msgstr[1] "pikseliä"
+
+#~ msgid "bit/sample"
+#~ msgid_plural "bits/sample"
+#~ msgstr[0] "bitti/näyte"
+#~ msgstr[1] "bittiä/näyte"
+
+#~ msgid "_Copy selection"
+#~ msgstr "_Kopioi valinta"
+
+#~ msgid "_Binary"
+#~ msgstr "_Binääri"
+
+#~ msgid "Arabic (Windows, CP1256)"
+#~ msgstr ""
+
+#~ msgid "Rotate Clockwise"
+#~ msgstr "Kierrä myötäpäivään"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "_Binääritila"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "_Tallenna nykyiset asetukset"
+
+#, fuzzy, c-format
+#~| msgid "Pattern \"%s\" was not found"
+#~ msgid "Pattern “%s” was not found"
+#~ msgstr "Mallia \"%s\" ei löydy"
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr ""
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr ""
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr ""
+
+#~ msgid "File Manager"
+#~ msgstr "Tiedostoselain"
+
+#~ msgid "Disable"
+#~ msgstr "Älä käytä"
+
+#~ msgid "Enable"
+#~ msgstr "Käytä"
+
+#~ msgid "Version"
+#~ msgstr "Versio"
+
+#~ msgid "_Enable"
+#~ msgstr "_Käytä"
+
+#~ msgid "_Configure"
+#~ msgstr "_Määrittele"
+
+#, fuzzy
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr "<EXIF-merkinnät eivät ole tuettu>"
+
+#, fuzzy
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr "<ICC-merkinnät eivät ole tuettu>"
+
+#, fuzzy
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr "<ICC-merkinnät eivät ole tuettu>"
+
+#~ msgid "<PDF tags not supported>"
+#~ msgstr "<PDF-tunnisteet eivät ole tuettuja>"
+
+#~ msgid "Created"
+#~ msgstr "Luotu"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr ""
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr "Exif IFD -osoitin"
+
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr ""
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+
+#~ msgid "Emphasis"
+#~ msgstr ""
+
+#~ msgid "Emphasis."
+#~ msgstr ""
+
+#~ msgid "Equalization 2"
+#~ msgstr ""
+
+#~ msgid "Frames"
+#~ msgstr ""
+
+#, fuzzy
+#~ msgid "Number of frames."
+#~ msgstr "Asiakirjan sivujen lukumäärä."
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr ""
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr ""
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr ""
+
+#, fuzzy, c-format
+#~| msgid "unsupported tag (suppressed %u B of binary data)"
+#~ msgid "unsupported tag (suppressed %ld B of binary data)"
+#~ msgstr "Merkintä ei ole tuettu (poistettiin %ut binääritietoa)"
+
+#, fuzzy, c-format
+#~| msgid "%s byte"
+#~| msgid_plural "%s bytes"
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "%s tavu"
+#~ msgstr[1] "%s tavua"
+
+#, fuzzy, c-format
+#~| msgid "%s byte"
+#~| msgid_plural "%s bytes"
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "%s tavu"
+#~ msgstr[1] "%s tavua"
+
+#, fuzzy
+#~| msgid ""
+#~| "Failed to create a directory in which to store temporary files.\n"
+#~| "Error message: %s\n"
+#~ msgid "Failed to change working directory to a temporary directory."
+#~ msgstr ""
+#~ "Väliaikaistiedostojen tallennusta varten ei voitu luoda kansiota.\n"
+#~ "Virheviesti: %s\n"
+
+#, fuzzy
+#~| msgid ""
+#~| "Failed to create a directory in which to store temporary files.\n"
+#~| "Error message: %s\n"
+#~ msgid "Failed to create a directory in which to store temporary files."
+#~ msgstr ""
+#~ "Väliaikaistiedostojen tallennusta varten ei voitu luoda kansiota.\n"
+#~ "Virheviesti: %s\n"
+
+#, fuzzy, c-format
+#~| msgid "Couldn't read from the directory %s: %s"
+#~ msgid "Couldn’t read from the directory %s: %s"
+#~ msgstr "Kansiota %s ei voitu lukea: %s"
+
+#, c-format
+#~ msgid "Creating directory %s… "
+#~ msgstr "Luodaan kansiota %s… "
+
+#, c-format
+#~ msgid "Failed to create the directory %s"
+#~ msgstr "Kansiota \"%s\" ei voitu luoda"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "Virhe näytettäessä ohjetta."
+
+#, fuzzy, c-format
+#~| msgid "Couldn't read from the directory %s: %s"
+#~ msgid "Couldn’t move path from “%s” to “%s”: %s"
+#~ msgstr "Kansiota %s ei voitu lukea: %s"
+
+#~ msgid "Hide block devices"
+#~ msgstr "Piilota lohkolaitteet"
+
+#~ msgid "Type:"
+#~ msgstr "Tyyppi:"
+
+#~ msgid "MIME Type:"
+#~ msgstr "MIME-tyyppi:"
+
+#~ msgid "Copy overwrite"
+#~ msgstr "Kopionti ylikirjoittaa"
+
+#~ msgid "Fifo files"
+#~ msgstr "FIFO-tiedostot"
+
+#~ msgid "Socket files"
+#~ msgstr "Pistoketiedostot"
+
+#~ msgid "Character devices"
+#~ msgstr "Merkkilaitteet"
+
+#~ msgid "Block devices"
+#~ msgstr "Lohkolaitteet"
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr "Ohita liittäminen (hyödyllinen käytettäessä super-mountia)"
+
+#, fuzzy
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr "Tiedostosta %s ei voi lukea: %s\n"
+
+#, fuzzy
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr "Kansiota \"%s\" ei voitu luoda"
+
+#~ msgid "Device is now safe to remove"
+#~ msgstr "Laite on nyt turvallista poistaa"
+
+#~ msgid "Unknown error"
+#~ msgstr "Tuntematon virhe"
+
+#~ msgid ""
+#~ "Error while copying to %s\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Virhe kopioitaessa kohteeseen %s\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "gnome-commander"
+#~ msgstr "gnome-commander"
+
+#~ msgid "Audio Files"
+#~ msgstr "Äänitiedostot"
+
+#~ msgid "Unknown file type"
+#~ msgstr "Tuntematon tiedostotyyppi"
+
+#~ msgid "Regular file"
+#~ msgstr "Tavallinen tiedosto"
+
+#~ msgid "FIFO"
+#~ msgstr "FIFO"
+
+#~ msgid "UNIX Socket"
+#~ msgstr "UNIX-pistoke"
+
+#~ msgid "Character device"
+#~ msgstr "Merkkilaite"
+
+#~ msgid "Block device"
+#~ msgstr "Lohkolaite"
+
+#~ msgid "Symbolic link"
+#~ msgstr "Symbolinen linkki"
+
+#~ msgid "Can’t load python module “gnomevfs” (“gnome.vfs”)"
+#~ msgstr "Python-moduulia “gnomevfs” (“gnome.vfs”) ei voi ladata"
+
+#~ msgid "Execute Python plugin"
+#~ msgstr "Suorita Python-liitännäinen"
+
+#~ msgid "No Proofing"
+#~ msgstr "Ei oikolukua"
+
+#~ msgid "Arabic"
+#~ msgstr "arabia"
+
+#~ msgid "Bulgarian"
+#~ msgstr "bulgaria"
+
+#~ msgid "Catalan"
+#~ msgstr "katalaani"
+
+#~ msgid "Traditional Chinese"
+#~ msgstr "kiina, perinteinen"
+
+#~ msgid "Simplified Chinese"
+#~ msgstr "kiina, yksinkertaistettu"
+
+#~ msgid "Danish"
+#~ msgstr "tanska"
+
+#~ msgid "German"
+#~ msgstr "saksa"
+
+#~ msgid "Swiss German"
+#~ msgstr "sveitsin saksa"
+
+#~ msgid "Greek"
+#~ msgstr "kreikka"
+
+#~ msgid "U.S. English"
+#~ msgstr "amerikanenglanti"
+
+#~ msgid "U.K. English"
+#~ msgstr "brittienglanti"
+
+#~ msgid "Australian English"
+#~ msgstr "australianenglanti"
+
+#~ msgid "Castilian Spanish"
+#~ msgstr "kastilian espanja"
+
+#~ msgid "Mexican Spanish"
+#~ msgstr "meksikon espanja"
+
+#~ msgid "Finnish"
+#~ msgstr "suomi"
+
+#~ msgid "French"
+#~ msgstr "ranska"
+
+#~ msgid "Belgian French"
+#~ msgstr "belgian ranska"
+
+#~ msgid "Canadian French"
+#~ msgstr "kanadan ranska"
+
+#~ msgid "Swiss French"
+#~ msgstr "sveitsin ranska"
+
+#~ msgid "Hebrew"
+#~ msgstr "heprea"
+
+#~ msgid "Hungarian"
+#~ msgstr "unkari"
+
+#~ msgid "Icelandic"
+#~ msgstr "islanti"
+
+#~ msgid "Italian"
+#~ msgstr "italia"
+
+#~ msgid "Swiss Italian"
+#~ msgstr "sveitsin italia"
+
+#~ msgid "Japanese"
+#~ msgstr "japani"
+
+#~ msgid "Korean"
+#~ msgstr "korea"
+
+#~ msgid "Dutch"
+#~ msgstr "hollanti"
+
+#~ msgid "Belgian Dutch"
+#~ msgstr "belgian hollanti"
+
+#~ msgid "Norwegian Bokmal"
+#~ msgstr "norja, bokmal"
+
+#~ msgid "Norwegian Nynorsk"
+#~ msgstr "norja, nynorsk"
+
+#~ msgid "Polish"
+#~ msgstr "puola"
+
+#~ msgid "Brazilian Portuguese"
+#~ msgstr "brasilian portugali"
+
+#~ msgid "Portuguese"
+#~ msgstr "portugali"
+
+#~ msgid "Rhaeto-Romanic"
+#~ msgstr "retoromaani"
+
+#~ msgid "Romanian"
+#~ msgstr "romania"
+
+#~ msgid "Russian"
+#~ msgstr "venäjä"
+
+#~ msgid "Serbo-Croatian (Cyrillic)"
+#~ msgstr "serbo-kroatia (kyrillinen)"
+
+#~ msgid "Slovak"
+#~ msgstr "slovakia"
+
+#~ msgid "Albanian"
+#~ msgstr "albania"
+
+#~ msgid "Swedish"
+#~ msgstr "ruotsi"
+
+#~ msgid "Thai"
+#~ msgstr "thai"
+
+#~ msgid "Urdu"
+#~ msgstr "urdu"
+
+#~ msgid "Indonesian"
+#~ msgstr "indonesia"
+
+#~ msgid "Ukrainian"
+#~ msgstr "ukraina"
+
+#~ msgid "Byelorussian"
+#~ msgstr "valko-venäjä"
+
+#~ msgid "Slovenian"
+#~ msgstr "slovenia"
+
+#~ msgid "Estonian"
+#~ msgstr "eesti"
+
+#~ msgid "Latvian"
+#~ msgstr "latvia"
+
+#~ msgid "Lithuanian"
+#~ msgstr "liettua"
+
+#~ msgid "Farsi"
+#~ msgstr "farsi"
+
+#~ msgid "Basque"
+#~ msgstr "baski"
+
+#~ msgid "Macedonian"
+#~ msgstr "makedonia"
+
+#~ msgid "Create Archive..."
+#~ msgstr "Luo arkisto..."
+
+#, fuzzy
+#~ msgid "Profiles..."
+#~ msgstr "_Ominaisuudet..."
+
+#~ msgid "Search..."
+#~ msgstr "Etsi..."
+
+#~ msgid "_Password:"
+#~ msgstr "_Salasana:"
+
+#~ msgid "Use _GNOME Keyring Manager for authentication"
+#~ msgstr "Käytä Gnomen avainnippua tunnistatumiseen"
+
+#~ msgid "Manage bookmarks..."
+#~ msgstr "Hallitse kirjanmerkkejä..."
+
+#, fuzzy
+#~ msgid "Open this _folder"
+#~ msgstr "Avaa muulla sovelluksella..."
+
+#~ msgid "_Properties..."
+#~ msgstr "_Ominaisuudet..."
+
+#~ msgid "Switch to Vertical Layout"
+#~ msgstr "Vaihda pystyasetteluun"
+
+#~ msgid "Switch to Horizontal Layout"
+#~ msgstr "Vaihda vaaka-asetteluun"
+
+#~ msgid "_Search..."
+#~ msgstr "_Etsi..."
+
+#~ msgid "_Options..."
+#~ msgstr "_Valinnat..."
+
+#, fuzzy
+#~ msgid "_Keyboard Shortcuts..."
+#~ msgstr "_Näppäinoikotiet"
+
+#~ msgid "_Remote Server..."
+#~ msgstr "_Etäpalvelin..."
+
+#~ msgid "New Connection..."
+#~ msgstr "Uusi yhteys..."
+
+#~ msgid "Edit..."
+#~ msgstr "Muokaa..."
+
+#~ msgid "Document icon directory:"
+#~ msgstr "Asiakirjakuvakkeiden kansio:"
+
+#~ msgid "copying..."
+#~ msgstr "kopioidaan..."
+
+#~ msgid "Find..."
+#~ msgstr "Etsi..."

@@ -7590,3 +7590,1459 @@ msgstr "Keine"
 #: plugins/taglib/taglib-plugin.cc:421
 msgid "10-15ms"
 msgstr "10-15ms"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME Commander"
+
+#~ msgid "Two-pane file manager"
+#~ msgstr "Dateiverwaltung mit zweigeteilter Oberfläche"
+
+#~ msgid ""
+#~ "GNOME Commander is a “two-pane” graphical file manager for the GNOME desktop"
+#~ " environment. It features separate tabs for each pane, setting up custom "
+#~ "device buttons, bookmark manager, fully integrated commandline, file quick "
+#~ "search, an internal image viewer, a powerful batch renaming tool, and FTP "
+#~ "and Samba access."
+#~ msgstr ""
+#~ "GNOME Commander ist ein graphisches Dateiverwaltungsprogramm mit "
+#~ "zweigeteilter Oberfläche für die GNOME Arbeitsumgebung. Er stellt separate "
+#~ "Reiter für jede Seite, eine voll integrierte Befehlszeile, einen internen "
+#~ "Bildbetrachter und ein mächtiges Mehrfach-Umbenennungswerkzeug zur "
+#~ "Verfügung. Darüber hinaus ermöglicht GNOME Commander das Anlegen von "
+#~ "benutzerdefinierten Geräteknöpfen, Verwaltung von Lesezeichen, schnelle "
+#~ "Dateisuche und Zugriff per FTP und Samba."
+
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+#~ "Die Zielgruppe von GNOME Commander sind erfahrene Benutzer, die eine präzise"
+#~ " Dateiverwaltung wünschen, gerne parallel mit Spezialanwendungen arbeiten "
+#~ "und clevere Befehle laufen lassen."
+
+#~ msgid "A two paned file manager"
+#~ msgstr "Ein Dateiverwaltungsprogramm mit zweigeteilter Oberfläche"
+
+#~ msgid "Use default font"
+#~ msgstr "Standardschrift verwenden"
+
+#~ msgid ""
+#~ "Whether to use the system’s default fixed width font for the file panels "
+#~ "instead of a font specific to gnome-commander."
+#~ msgstr ""
+#~ "Legt fest, ob die Standardschrift fester Breite des Systems für die "
+#~ "Dateifenster anstelle einer speziellen GNOME-Commander-Schrift verwendet "
+#~ "werden soll."
+
+#~ msgid ""
+#~ "A custom font that will be used for the file panes if the “Use default font”"
+#~ " option is turned off."
+#~ msgstr ""
+#~ "Die für die Dateifenster zu verwendende benutzerdefinierte Schrift. Diese "
+#~ "wird ausschließlich verwendet, falls die »Voreingestellte Schrift "
+#~ "verwenden«-Option deaktiviert ist."
+
+#~ msgid ""
+#~ "Defines how the filesize will be displayed in the associated pane column."
+#~ msgstr ""
+#~ "Legt fest, wie die Dateigröße in der entsprechenden Spalte im Dateifenster "
+#~ "angezeigt wird."
+
+#~ msgid ""
+#~ "Defines how the file permission will be displayed in the associated pane "
+#~ "column."
+#~ msgstr ""
+#~ "Legt fest, wie die Dateizugriffsrechte in der entsprechenden Spalte im "
+#~ "Dateifenster angezeigt werden sollen."
+
+#~ msgid "Defines the icon style of files and folders in the file panes."
+#~ msgstr ""
+#~ "Legt den Symbolstil von Dateien und Ordnern in den Dateifenstern fest."
+
+#~ msgid "Defines the height of a row in the file pane."
+#~ msgstr "Legt die Höhe einer Zeile im Dateifenster fest."
+
+#~ msgid "Format of the date in the file pane."
+#~ msgstr "Format des Datums im Dateifenster."
+
+#~ msgid "The font in the file panes."
+#~ msgstr "Die Schrift in den Dateifenstern."
+
+#~ msgid "Size of icons in the file pane."
+#~ msgstr "Größe der Symbole im Dateifenster."
+
+#~ msgid "Device icon size"
+#~ msgstr "Größe der Gerätesymbole"
+
+#~ msgid "Icon size in the device list."
+#~ msgstr "Symbolgröße in der Geräteliste."
+
+#~ msgid ""
+#~ "Defines if the orientation of the file panes should be horizontal or not."
+#~ msgstr ""
+#~ "Legt fest, ob die Dateifenster horizontal angeordnet werden sollen oder "
+#~ "nicht."
+
+# English should be interface, not interphase
+# (F.H.)
+#~ msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
+#~ msgstr ""
+#~ "Aktualisierungsrate der grafischen Benutzeroberfläche in Tausendstel-"
+#~ "Sekunden."
+
+#~ msgid "Main window horizontal position"
+#~ msgstr "Horizontale Position des Hauptfensters"
+
+#~ msgid "Position of the main window in horizontal direction."
+#~ msgstr "Position des Hauptfensters in horizontaler Richtung."
+
+#~ msgid "Main window vertical position"
+#~ msgstr "Vertikale Position des Hauptfensters"
+
+#~ msgid "Position of the main window in vertical direction."
+#~ msgstr "Position des Hauptfensters in vertikaler Richtung."
+
+#~ msgid ""
+#~ "Defines if the current directories are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Legt fest, ob die aktuellen Ordner wieder geöffnet werden, wenn GNOME "
+#~ "Commander neu gestartet wird."
+
+#~ msgid ""
+#~ "Defines if the current open tabs are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Legt fest, ob die aktuellen Reiter wieder geöffnet werden, wenn GNOME "
+#~ "Commander neu gestartet wird."
+
+#~ msgid ""
+#~ "This option defines if directories will be marked when all items in a file "
+#~ "pane should be marked."
+#~ msgstr ""
+#~ "Diese Option legt fest, ob beim Auswählen aller Objekte in einem "
+#~ "Dateifenster Ordner ebenfalls ausgewählt werden."
+
+#~ msgid "Quick search exact match begin"
+#~ msgstr "Suchtreffer am Namensanfang"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the beginning"
+#~ " of an item name."
+#~ msgstr ""
+#~ "Diese Option legt fest, ob bei der Schnellsuche ausdrücklich Treffer am "
+#~ "Anfang eines Objektnamens gesucht werden."
+
+#~ msgid "Quick search exact match end"
+#~ msgstr "Suchtreffer am Namensende"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the end of an"
+#~ " item name."
+#~ msgstr ""
+#~ "Diese Option legt fest, ob bei der Schnellsuche ausdrücklich Treffer am Ende"
+#~ " eines Objektnamens gesucht werden."
+
+#~ msgid ""
+#~ "The entries in this list are used for restoring the tabs from the last "
+#~ "session."
+#~ msgstr ""
+#~ "Die Einträge in dieser Liste werden zur Wiederherstellung der Reiter aus der"
+#~ " letzten Sitzung verwendet."
+
+#~ msgid "Leave terminal open"
+#~ msgstr "Terminal geöffnet lassen"
+
+#~ msgid ""
+#~ "This option defines if a terminal window should stay open after a command "
+#~ "finishes inside of it."
+#~ msgstr ""
+#~ "Diese Option definiert, ob ein Terminal geöffnet bleiben soll, wenn die "
+#~ "Ausführung des Befehls beendet ist."
+
+#~ msgid "Fixed font name"
+#~ msgstr "Schrift fester Breite"
+
+#~ msgid "Name of the default font with fixed character width."
+#~ msgstr "Name der dicktengleichen Standardschrift (feste Zeichenbreite)."
+
+#~ msgid "Variable font name"
+#~ msgstr "Schrift variabler Breite"
+
+#~ msgid "Name of the default font with variable character width."
+#~ msgstr "Name der Standardschrift (variable Zeichenbreite)."
+
+#~ msgid "Font size"
+#~ msgstr "Schriftgröße"
+
+#~ msgid "This option defines the default font size."
+#~ msgstr "Diese Option legt die vorgegebene Schriftgröße fest."
+
+#~ msgid "Horizontal offset"
+#~ msgstr "Horizontaler Versatz"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "horizontal direction."
+#~ msgstr ""
+#~ "Diese Option legt den visuellen Versatz des internen Betrachters in "
+#~ "horizontaler Richtung fest."
+
+#~ msgid "Vertical offset"
+#~ msgstr "Vertikaler Versatz"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "vertical direction."
+#~ msgstr ""
+#~ "Diese Option legt den visuellen Versatz des internen Betrachters in "
+#~ "vertikaler Richtung fest."
+
+#~ msgid "No error description available"
+#~ msgstr "Keine Fehlerbeschreibung vorhanden"
+
+#~ msgid "Folder selection"
+#~ msgstr "Ordnerauswahl"
+
+#~ msgid "File selection"
+#~ msgstr "Dateiauswahl"
+
+#~ msgid "/_Save Profile As…"
+#~ msgstr "/Profil speichern _unter …"
+
+#~ msgid "/_Manage Profiles…"
+#~ msgstr "/Profile ver_walten …"
+
+#~ msgid "Current file name"
+#~ msgstr "Aktueller Dateiname"
+
+#~ msgid "New file name"
+#~ msgstr "Neuer Dateiname"
+
+#~ msgid "File size"
+#~ msgstr "Dateigröße"
+
+#~ msgid "File modification date"
+#~ msgstr "Änderungsdatum der Datei"
+
+#~ msgid "_Replace with:"
+#~ msgstr "E_rsetzen durch:"
+
+#, c-format
+#~ msgid "Could not chmod %s"
+#~ msgstr "»chmod %s« konnte nicht ausgeführt werden"
+
+#, c-format
+#~ msgid "Could not chown %s"
+#~ msgstr "»chown %s« konnte nicht ausgeführt werden"
+
+#~ msgid "Chown"
+#~ msgstr "Chown"
+
+#, c-format
+#~ msgid "“%s” is not a valid location"
+#~ msgstr "»%s« ist kein gültiger Ort"
+
+#~ msgid "Remote Server"
+#~ msgstr "Entfernter Server"
+
+#, c-format
+#~ msgid "Deleted %lu of %lu file"
+#~ msgid_plural "Deleted %lu of %lu files"
+#~ msgstr[0] "%lu von %lu Datei gelöscht"
+#~ msgstr[1] "%lu von %lu Dateien gelöscht"
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Fehler beim Löschen von »%s«\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Delete problem"
+#~ msgstr "Problem beim Löschen"
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting: \n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Fehler beim Löschen von: \n"
+#~ "\n"
+#~ "%s"
+
+#, c-format
+#~ msgid "Do you really want to delete “%s”?"
+#~ msgstr "Möchten Sie »%s« wirklich löschen?"
+
+#, c-format
+#~ msgid "The directory “%s” is not empty. Do you really want to delete it?"
+#~ msgstr "Der Ordner »%s« ist nicht leer. Möchten Sie ihn wirklich löschen?"
+
+#, c-format
+#~ msgid "Do you want to permanently delete “%s”?"
+#~ msgstr "Möchten Sie »%s« dauerhaft löschen?"
+
+#, c-format
+#~ msgid "Do you want to move “%s” to the trash can?"
+#~ msgstr "Möchten Sie »%s« in den Papierkorb verschieben?"
+
+#~ msgid "Bookmark name is missing."
+#~ msgstr "Der Name des Lesezeichens fehlt."
+
+#~ msgid "Bookmark target is missing."
+#~ msgstr "Das Ziel des Lesezeichens fehlt."
+
+#~ msgid "Image:"
+#~ msgstr "Bild:"
+
+#~ msgid "Content Type:"
+#~ msgstr "Art des Inhalts:"
+
+#~ msgid "Type"
+#~ msgstr "Typ"
+
+#~ msgid "Metadata namespace"
+#~ msgstr "Namensbereich der Metadaten"
+
+#~ msgid "Tag name"
+#~ msgstr "Tag-Name"
+
+#~ msgid "Tag value"
+#~ msgstr "Tag-Wert"
+
+#~ msgid "Metadata tag description"
+#~ msgstr "Beschreibung des Metadaten-Tags"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the corresponding row and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "Klicken Sie auf eine Zeile und geben Sie eine neue Tastenkombination ein, um"
+#~ " diese zu übernehmen, oder drücken Sie »Esc«, um sie zu löschen."
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Tastenkombination"
+
+#~ msgid "Keyboard shortcut for selected action"
+#~ msgstr "Tastenkombination für gewählte Aktion"
+
+#~ msgid "Action"
+#~ msgstr "Aktion"
+
+#~ msgid "User action"
+#~ msgstr "Benutzeraktion"
+
+#~ msgid "Optional data"
+#~ msgstr "Zusätzliche Informationen"
+
+#, c-format
+#~ msgid "Shortcut “%s” is already taken by “%s”."
+#~ msgstr "Die Tastenkombination »%s« wird bereits von »%s« verwendet."
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "Kollidierende Tastenkombinationen"
+
+#, c-format
+#~ msgid "Reassigning the shortcut will cause it to be removed from “%s”."
+#~ msgstr ""
+#~ "Die Neuzuweisung dieser Tastenkombination wird sie von »%s« entfernen."
+
+#~ msgid "Invalid shortcut."
+#~ msgstr "Ungültige Tastenkombination."
+
+#~ msgid "Do nothing"
+#~ msgstr "Ignorieren"
+
+#, c-format
+#~ msgid "Copy “%s” to"
+#~ msgstr "»%s« wird kopiert nach"
+
+#~ msgid "Group"
+#~ msgstr "Gruppe"
+
+#~ msgid "Bookmark group"
+#~ msgstr "Gruppe des Lesezeichens"
+
+#~ msgid "Bookmark name"
+#~ msgstr "Name des Lesezeichens"
+
+#~ msgid "Keyboard shortcut for selected bookmark"
+#~ msgstr "Tastenkombination für gewähltes Lesezeichen"
+
+#~ msgid "Bookmarked path"
+#~ msgstr "Pfad für Lesezeichen"
+
+#~ msgid "Profile name"
+#~ msgstr "Profilname"
+
+#, c-format
+#~ msgid "Make directory failed: %s\n"
+#~ msgstr "Ordner erstellen fehlgeschlagen: %s\n"
+
+#~ msgid "Sorting/Quick search"
+#~ msgstr "Sortierung/Schnellsuche"
+
+#~ msgid "ALT+letters (menu access with F12)"
+#~ msgstr "Alt+Buchstaben (Menüzugriff durch F12)"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "Übereinstimmung mit dem Anfang des Dateinamens"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "Übereinstimmung mit dem Ende des Dateinamens"
+
+#~ msgid ""
+#~ "Search window is minimizable\n"
+#~ "(Needs program restart if altered)"
+#~ msgstr ""
+#~ "Suchfenster ist minimierbar\n"
+#~ "(Programmneustart erforderlich bei Änderung)"
+
+#~ msgid ""
+#~ "See the manual page for “strftime” for help on how to set the format string."
+#~ msgstr ""
+#~ "Genauere Angaben zur Formatierung werden durch Eingabe von »man strftime« "
+#~ "angezeigt."
+
+#~ msgid "Colors"
+#~ msgstr "Farben"
+
+#~ msgid "Palette"
+#~ msgstr "Palette"
+
+#~ msgid "Foreground:"
+#~ msgstr "Vordergrund:"
+
+#~ msgid "Background:"
+#~ msgstr "Hintergrund:"
+
+#~ msgid "File panes"
+#~ msgstr "Dateifenster"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "Bestätigung standardmäßig auf OK setzen"
+
+#~ msgid "Leave terminal window open"
+#~ msgstr "Terminalfenster geöffnet lassen"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Dateien überschreiben"
+
+#, c-format
+#~ msgid "copy %d file to"
+#~ msgid_plural "copy %d files to"
+#~ msgstr[0] "%d Datei wird kopiert nach"
+#~ msgstr[1] "%d Dateien werden kopiert nach"
+
+#, c-format
+#~ msgid "Move “%s” to"
+#~ msgstr "»%s« wird verschoben nach"
+
+#, c-format
+#~ msgid "move %d file to"
+#~ msgid_plural "move %d files to"
+#~ msgstr[0] "%d Datei wird verschoben nach"
+#~ msgstr[1] "%d Dateien werden verschoben nach"
+
+#, c-format
+#~ msgid "The directory “%s” doesn’t exist, do you want to create it?"
+#~ msgstr "Der Ordner »%s« existiert nicht, soll er erstellt werden?"
+
+#~ msgid "Unknown error"
+#~ msgstr "Unbekannter Fehler"
+
+#~ msgid "Network protocol"
+#~ msgstr "Netzwerkprotokoll"
+
+#~ msgid "Connection name"
+#~ msgstr "Verbindungsname"
+
+#~ msgid "Connections"
+#~ msgstr "Verbindungen"
+
+#~ msgid "Search local directories only"
+#~ msgstr "Nur lokale Ordner durchsuchen"
+
+#~ msgid "Files _not containing text"
+#~ msgstr "Dateien, die _keinen Text enthalten"
+
+#, c-format
+#~ msgid "Failed to read file %s: File is not searchable"
+#~ msgstr "Datei %s konnte nicht gelesen werden: Datei ist nicht durchsuchbar"
+
+#, c-format
+#~ msgid "Failed to read file %s: %s"
+#~ msgstr "Datei %s konnte nicht gelesen werden: %s"
+
+#, c-format
+#~ msgid "Searching in: %s"
+#~ msgstr "Suche in: %s"
+
+#, c-format
+#~ msgid "Found %d match — search aborted"
+#~ msgid_plural "Found %d matches — search aborted"
+#~ msgstr[0] "Vor dem Abbruch der Suche wurde %d Treffer gefunden"
+#~ msgstr[1] "Vor dem Abbruch der Suche wurden %d Treffer gefunden"
+
+#, c-format
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "%d Treffer gefunden"
+#~ msgstr[1] "%d Treffer gefunden"
+
+#, c-format
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr ""
+#~ "Prozessgruppenkennung des Kindprozesses %d konnte nicht gesetzt werden: "
+#~ "%s.\n"
+
+#~ msgid "Error parsing the search command."
+#~ msgstr "Fehler beim Verarbeiten des Suchbefehls."
+
+#~ msgid "Error running the search command."
+#~ msgstr "Fehler beim Ausführen des Suchbefehls."
+
+#, c-format
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr "In den Ordner außerhalb von %s konnte nicht gewechselt werden"
+
+#, c-format
+#~ msgid "%d file listed"
+#~ msgid_plural "%d files listed"
+#~ msgstr[0] "%d Datei aufgelistet"
+#~ msgstr[1] "%d Dateien aufgelistet"
+
+#~ msgid "Accelerator key"
+#~ msgstr "Zugriffstaste"
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr "Umschalttasten der Kombination"
+
+#~ msgid "Accelerator Mode"
+#~ msgstr "Tastenkombinationsmodus"
+
+#~ msgid "The type of accelerator."
+#~ msgstr "Der Tastenkombinationstyp."
+
+#~ msgid "Disabled"
+#~ msgstr "Deaktiviert"
+
+#~ msgid "New accelerator…"
+#~ msgstr "Neue Tastenkombination …"
+
+#~ msgid "Credits"
+#~ msgstr "Mitwirkende"
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "Website der Erweiterung"
+
+#~ msgid "C_redits"
+#~ msgstr "_Mitwirkende"
+
+#~ msgid "/Grandparent"
+#~ msgstr "/Großeltern"
+
+#~ msgid "/Parent"
+#~ msgstr "/Eltern"
+
+#~ msgid "/File name"
+#~ msgstr "/Dateiname"
+
+#~ msgid "/File name (range)"
+#~ msgstr "/Dateiname (Bereich)"
+
+#~ msgid "/File name without extension"
+#~ msgstr "/Dateiname ohne Endung"
+
+#~ msgid "/File name without extension (range)"
+#~ msgstr "/Dateiname ohne Endung (Bereich)"
+
+#~ msgid "/File extension"
+#~ msgstr "/Dateiendung"
+
+#~ msgid "/Counter"
+#~ msgstr "/Zähler"
+
+#~ msgid "/Counter (width)"
+#~ msgstr "/Zähler (Breite)"
+
+#~ msgid "/Counter (auto)"
+#~ msgstr "/Zähler (auto)"
+
+#~ msgid "/Hexadecimal random number (width)"
+#~ msgstr "/Hexadezimale Zufallszahl (Breite)"
+
+#~ msgid "/Date"
+#~ msgstr "/Datum"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "/Datum/<locale>"
+
+#~ msgid "/Date/yyyy-mm-dd"
+#~ msgstr "/Datum/jjjj-mm-dd"
+
+#~ msgid "/Date/yy-mm-dd"
+#~ msgstr "/Datum/jj-mm-dd"
+
+#~ msgid "/Date/yy.mm.dd"
+#~ msgstr "/Datum/jj.mm.dd"
+
+#~ msgid "/Date/yymmdd"
+#~ msgstr "/Datum/jjmmdd"
+
+#~ msgid "/Date/dd.mm.yy"
+#~ msgstr "/Datum/dd.mm.jj"
+
+#~ msgid "/Date/mm-dd-yy"
+#~ msgstr "/Datum/mm-dd-jj"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/Datum/jjjj"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/Datum/jj"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/Datum/mm"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/Datum/mmm"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/Datum/dd"
+
+#~ msgid "/Time"
+#~ msgstr "/Zeit"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/Zeit/<locale>"
+
+#~ msgid "/Time/HH.MM.SS"
+#~ msgstr "/Zeit/HH.MM.SS"
+
+#~ msgid "/Time/HH-MM-SS"
+#~ msgstr "/Zeit/HH-MM-SS"
+
+#~ msgid "/Time/HHMMSS"
+#~ msgstr "/Zeit/HHMMSS"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/Zeit/HH"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/Zeit/MM"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/Zeit/SS"
+
+#~ msgid "Regex pattern"
+#~ msgstr "Regex-Muster"
+
+#~ msgid "Replacement"
+#~ msgstr "Ersetzen"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "Groß-/Kleinschreibung beachten"
+
+#, c-format
+#~ msgid "The program has now finished. Press Enter to close this window.\n"
+#~ msgstr ""
+#~ "Das Programm ist nun beendet. Drücken Sie die Eingabetaste, um dieses "
+#~ "Fenster zu schließen.\n"
+
+#, c-format
+#~ msgid "Mount failed: mount exited with exitstatus %d"
+#~ msgstr ""
+#~ "Einbinden fehlgeschlagen: Einbinden wurde abgebrochen, Rückgabewert war %d"
+
+#, c-format
+#~ msgid ""
+#~ "Cannot unmount the volume:\n"
+#~ "%s\n"
+#~ "Error code: %d"
+#~ msgstr ""
+#~ "Der Datenträger konnte nicht ausgehängt werden:\n"
+#~ "%s\n"
+#~ "Fehlercode: %d"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "Gehe zu: %s (%s)"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "Gehe zu: %s"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr "Einbinden: %s"
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr "Aushängen: %s"
+
+#~ msgid "<New connection>"
+#~ msgstr "<Neue Verbindung>"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "Verbinden zu: %s"
+
+#, c-format
+#~ msgid "Disconnect from: %s"
+#~ msgstr "Verbindung zu %s trennen"
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "Verbindung zu %s wird hergestellt\n"
+
+#, c-format
+#~ msgid "_Open with “%s”"
+#~ msgstr "Ö_ffnen mit »%s«"
+
+#~ msgid "/_Copy here"
+#~ msgstr "/Hierher _kopieren"
+
+#~ msgid "/_Move here"
+#~ msgstr "/Hierher _verschieben"
+
+#~ msgid "/_Link here"
+#~ msgstr "/Hierher _verknüpfen"
+
+#~ msgid "/C_ancel"
+#~ msgstr "/_Abbrechen"
+
+#, c-format
+#~ msgid ""
+#~ "“%s” seems to be a binary executable file but it lacks the executable bit. "
+#~ "Do you want to set it and then run the file?"
+#~ msgstr ""
+#~ "»%s« scheint eine ausführbare Binärdatei mit fehlender Ausführberechtigung "
+#~ "zu sein. Soll das Recht gesetzt und die Datei ausgeführt werden?"
+
+#~ msgid "Make Executable?"
+#~ msgstr "Ausführbar machen?"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#, c-format
+#~ msgid ""
+#~ "“%s” is an executable text file. Do you want to run it, or display its "
+#~ "contents?"
+#~ msgstr ""
+#~ "»%s« ist eine ausführbare Textdatei. Soll sie ausgeführt oder angezeigt "
+#~ "werden?"
+
+#~ msgid "Run or Display"
+#~ msgstr "Ausführen oder Anzeigen"
+
+#~ msgid "Display"
+#~ msgstr "Anzeigen"
+
+#~ msgid "Run"
+#~ msgstr "Ausführen"
+
+#, c-format
+#~ msgid "No default application found for the file type %s."
+#~ msgstr "Keine vorgegebene Anwendung für Dateityp %s gefunden."
+
+# Irgendwie kommt mir das komisch vor:
+# MMn sollte hier eigentlich gar kein Plural-String stehen, da die Variable
+# vermutlich den Namen des Programms enthält, das die Datei(en) öffnen soll.
+# Das ist ja immer Singular... - pk
+#, c-format
+#~ msgid ""
+#~ "%s does not know how to open remote file. Do you want to download the file "
+#~ "to a temporary location and then open it?"
+#~ msgid_plural ""
+#~ "%s does not know how to open remote files. Do you want to download the files"
+#~ " to a temporary location and then open them?"
+#~ msgstr[0] ""
+#~ "%s kann ferne Datei nicht öffnen. Soll die Datei in einen temporären Ordner "
+#~ "kopiert und dann geöffnet werden?"
+#~ msgstr[1] ""
+#~ "%s kann ferne Dateien nicht öffnen. Sollen die Dateien in einen temporären "
+#~ "Ordner kopiert und dann geöffnet werden?"
+
+#~ msgid "Failed to open connection."
+#~ msgstr "Verbindung konnte nicht geöffnet werden."
+
+#~ msgid "Needs terminal"
+#~ msgstr "Terminal erforderlich"
+
+#~ msgid "Other _Application…"
+#~ msgstr "_Andere Anwendung …"
+
+#~ msgid "Cut"
+#~ msgstr "Ausschneiden"
+
+#~ msgid "Send files"
+#~ msgstr "Dateien senden"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "_Terminal hier öffnen"
+
+#~ msgid "Copy file names"
+#~ msgstr "Dateinamen kopieren"
+
+#, c-format
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] "%s von %s KB in %d von %d Datei"
+#~ msgstr[1] "%s von %s KB in %d von %d Dateien"
+
+#, c-format
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] "%s, %d von %d Ordner ausgewählt"
+#~ msgstr[1] "%s, %d von %d Ordnern ausgewählt"
+
+#~ msgid "Copy Tab to Other _Pane"
+#~ msgstr "Reiter in anderes Dateifenster _kopieren"
+
+#~ msgid "No file name given"
+#~ msgstr "Kein Dateiname angegeben"
+
+#~ msgid "Filter:"
+#~ msgstr "Filter:"
+
+#~ msgid "_New"
+#~ msgstr "_Neu"
+
+#~ msgid "_Directory"
+#~ msgstr "Or_dner"
+
+#~ msgid "_Text File"
+#~ msgstr "_Textdatei"
+
+#~ msgid "_Enable Filter…"
+#~ msgstr "Filter a_ktivieren …"
+
+#~ msgid "Start _GNOME Commander as root"
+#~ msgstr "GNOME Commander als _Administrator starten"
+
+#~ msgid "_Quit"
+#~ msgstr "S_chließen"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "Dateina_men kopieren"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "Auswahl wieder_herstellen"
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "GNOME Commander im Inter_net"
+
+#~ msgid "Refresh"
+#~ msgstr "Aktualisieren"
+
+#~ msgid "Go to the oldest"
+#~ msgstr "Gehe zum Ältesten"
+
+#~ msgid "Go back"
+#~ msgstr "Zurück"
+
+#~ msgid "Go forward"
+#~ msgstr "Vorwärts"
+
+#~ msgid "Go to the latest"
+#~ msgstr "Gehe zum Letzten"
+
+#~ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+#~ msgstr "Dateinamen kopieren (Umschalttaste für volle Pfade, Alt für URIs)"
+
+#~ msgid "Paste"
+#~ msgstr "Einfügen"
+
+#~ msgid "Open terminal (SHIFT for root privileges)"
+#~ msgstr "Terminal öffnen (Umschalttaste für Systemverwalterrechte)"
+
+#~ msgid "GNOME Commander — ROOT PRIVILEGES"
+#~ msgstr "GNOME Commander — ADMINISTRATORRECHTE"
+
+#~ msgid "Path matches regex:"
+#~ msgstr "Pfad entspricht regulärem Ausdruck:"
+
+#~ msgid "Name contains:"
+#~ msgstr "Name enthält:"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "_Groß-/Kleinschreibung beachten"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr "Aktuellen Ordner zu Lesezeichen hinzufügen"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "Lesezeichen verwalten"
+
+#~ msgid "Open terminal"
+#~ msgstr "Terminal öffnen"
+
+#~ msgid "Open terminal as root"
+#~ msgstr "Terminal als Systemverwalter öffnen"
+
+#~ msgid "Start GNOME Commander as root"
+#~ msgstr "GNOME Commander als Administrator starten"
+
+#~ msgid "Close connection"
+#~ msgstr "Verbindung schließen"
+
+#~ msgid "New connection"
+#~ msgstr "Neue Verbindung"
+
+#~ msgid "Open connection"
+#~ msgstr "Verbindung öffnen"
+
+#~ msgid "Change left connection"
+#~ msgstr "Linke Verbindung ändern"
+
+#~ msgid "Change right connection"
+#~ msgstr "Rechte Verbindung ändern"
+
+#~ msgid "Show user defined files"
+#~ msgstr "Benutzerdefinierte Dateien zeigen"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "Werkzeug zum Umbenennen"
+
+#~ msgid "Change permissions"
+#~ msgstr "Zugriffsrechte ändern"
+
+#~ msgid "Change owner/group"
+#~ msgstr "Besitzer/Gruppe ändern"
+
+#~ msgid "Copy files"
+#~ msgstr "Dateien kopieren"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "Symbolische Verknüpfung erstellen"
+
+#~ msgid "Delete files"
+#~ msgstr "Dateien löschen"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "Dateien vergleichen (diff)"
+
+#~ msgid "Edit file"
+#~ msgstr "Datei bearbeiten"
+
+#~ msgid "Edit a new file"
+#~ msgstr "Eine neue Datei bearbeiten"
+
+#~ msgid "Create directory"
+#~ msgstr "Ordner erstellen"
+
+#~ msgid "Move files"
+#~ msgstr "Dateien verschieben"
+
+#~ msgid "Rename files"
+#~ msgstr "Dateien umbenennen"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "Ordner abgleichen"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr "Über GNOME Commander"
+
+#~ msgid "Help contents"
+#~ msgstr "Inhalt"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "Hilfe zu Tastenkombinationen"
+
+#~ msgid "Report a problem"
+#~ msgstr "Problem berichten"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr "GNOME Commander im Internet"
+
+#~ msgid "Compare directories"
+#~ msgstr "Ordner vergleichen"
+
+#~ msgid "Invert selection"
+#~ msgstr "Auswahl umkehren"
+
+#~ msgid "Select all"
+#~ msgstr "Alles auswählen"
+
+#~ msgid "Select all files"
+#~ msgstr "Alle Dateien auswählen"
+
+#~ msgid "Unselect all files"
+#~ msgstr "Alle Dateien abwählen"
+
+#~ msgid "Unselect all"
+#~ msgstr "Alles abwählen"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Tastenkombinationen"
+
+#~ msgid "Configure plugins"
+#~ msgstr "Erweiterungen einrichten"
+
+#~ msgid "Back one directory"
+#~ msgstr "Ein Ordner zurück"
+
+#~ msgid "Close the current tab"
+#~ msgstr "Aktuellen Reiter schließen"
+
+#~ msgid "Close all tabs"
+#~ msgstr "Alle Reiter schließen"
+
+#~ msgid "Show directory history"
+#~ msgstr "Chronik des Ordners anzeigen"
+
+#~ msgid "Equal panel size"
+#~ msgstr "Ansichtsgröße ausgleichen"
+
+#~ msgid "Maximize panel size"
+#~ msgstr "Panelgröße maximieren"
+
+#~ msgid "Back to the first directory"
+#~ msgstr "Zurück zum ersten Ordner"
+
+#~ msgid "Forward one directory"
+#~ msgstr "Ein Ordner vor"
+
+#~ msgid "Open directory in the active window"
+#~ msgstr "Ordner im aktiven Fenster öffnen"
+
+#~ msgid "Open directory in the inactive window"
+#~ msgstr "Ordner im inaktiven Fenster öffnen"
+
+#~ msgid "Open directory in the left window"
+#~ msgstr "Ordner im linken Fenster öffnen"
+
+#~ msgid "Open directory in the right window"
+#~ msgstr "Ordner im rechten Fenster öffnen"
+
+#~ msgid "Open directory in the new tab (inactive window)"
+#~ msgstr "Ordner in neuem Reiter öffnen (inaktives Fenster)"
+
+#~ msgid "Forward to the last directory"
+#~ msgstr "Vor zum letzten Ordner"
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "Ordner in neuem Reiter öffnen"
+
+#~ msgid "Show terminal"
+#~ msgstr "Terminal zeigen"
+
+#, c-format
+#~ msgid "Create symbolic links of %i file in %s?"
+#~ msgid_plural "Create symbolic links of %i files in %s?"
+#~ msgstr[0] "Symbolische Verknüpfung erstellen für %i Datei in %s?"
+#~ msgstr[1] "Symbolische Verknüpfungen erstellen für %i Dateien in %s?"
+
+#~ msgid "Unable to open terminal in root mode."
+#~ msgstr "Terminal konnte im Systemverwaltermodus nicht geöffnet werden."
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
+#~ msgstr ""
+#~ "gksudo, xdg-su, gksu, gnomesu, kdesu oder beesu konnten nicht gefunden "
+#~ "werden."
+
+#~ msgid "Unable to start GNOME Commander in root mode."
+#~ msgstr "GNOME Commander konnte nicht als Administrator gestartet werden."
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+#~ msgstr ""
+#~ "gksudo, xdg-su, gksu, gnomesu, kdesu oder beesu konnten nicht gefunden "
+#~ "werden"
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr ""
+#~ "Eine schnelle und funktionsreiche Dateiverwaltung für den GNOME Desktop"
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME Commander ist freie Software, Sie können sie weitergeben und/oder "
+#~ "verändern, solange Sie sich an die Regeln der GNU General Public License "
+#~ "halten, so wie sie von der Free Software Foundation festgelegt wurden; "
+#~ "entweder in Version 2 der Lizenz oder (nach Ihrem Ermessen) in jeder "
+#~ "folgenden Version."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "GNOME Commander wurde mit dem Ziel veröffentlicht, dass Sie es nützlich "
+#~ "finden, jedoch OHNE JEDWEDE GARANTIE, sogar ohne eine implizite Garantie der"
+#~ " VERKAUFBARKEIT oder der NUTZBARKEIT FÜR EINEN SPEZIELLEN ZWECK. Schauen Sie"
+#~ " für weitere Informationen bitten in der GNU General Public License (GNU "
+#~ "GPL) nach."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+#~ "Mit diesem Programm sollten Sie außerdem eine Kopie der GNU General Public "
+#~ "License erhalten haben. Wenn dem nicht so ist, so schreiben Sie bitte an die"
+#~ " Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA"
+#~ " 02110-1301, USA."
+
+#~ msgid "Transfer problem"
+#~ msgstr "Problem beim Übertragen"
+
+#~ msgid "Copy problem"
+#~ msgstr "Problem beim Kopieren"
+
+#, c-format
+#~ msgid ""
+#~ "Overwrite file:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "With:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+#~ msgstr ""
+#~ "Datei überschreiben:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "mit:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+
+#, c-format
+#~ msgid ""
+#~ "Error while transferring “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Fehler beim Übertragen von »%s«\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Move problem"
+#~ msgstr "Problem beim Verschieben"
+
+#, c-format
+#~ msgid "[file %ld of %ld] “%s”"
+#~ msgstr "[Datei %ld von %ld] »%s«"
+
+#, c-format
+#~ msgid ""
+#~ "Error while creating symlink “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Fehler beim Erstellen der Verknüpfung »%s«\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Symlink creation problem"
+#~ msgstr "Problem beim Erstellen einer Verknüpfung"
+
+#, c-format
+#~ msgid ""
+#~ "Source “%s” could not be deleted. Aborting!\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Quelle »%s« konnte nicht gelöscht werden. Der Vorgang wird abgebrochen!\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "stopping…"
+#~ msgstr "wird beendet …"
+
+#, c-format
+#~ msgid "%s of %s copied"
+#~ msgstr "%s von %s kopiert"
+
+#, c-format
+#~ msgid "%.0f%% copied"
+#~ msgstr "%.0f%% kopiert"
+
+#, c-format
+#~ msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Die Grafik zum Dateityp konnte nicht geladen werden, Laden von %s wird "
+#~ "versucht"
+
+#, c-format
+#~ msgid ""
+#~ "Can’t find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-commander from the gnome-commander-%s/src directory"
+#~ msgstr ""
+#~ "Die Grafik kann nicht gefunden werden. Stellen Sie sicher, dass die "
+#~ "Anwendung richtig installiert wurde oder gnome-commander aus dem Ordner "
+#~ "gnome-commander-%s/src/ ausgeführt wird"
+
+#, c-format
+#~ msgid "Couldn’t load installed pixmap, trying to load %s instead"
+#~ msgstr "Die Grafik konnte nicht geladen werden, Laden von %s wird versucht"
+
+#~ msgid "Find"
+#~ msgstr "Suchen"
+
+#~ msgid "Searching…"
+#~ msgstr "Suchen …"
+
+#, c-format
+#~ msgid "Searching for “%s”"
+#~ msgstr "Suche nach »%s«"
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr "Position: %lu von %lu\tSpalte: %d\t%s"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "Pixel"
+#~ msgstr[1] "Pixel"
+
+#~ msgid "bit/sample"
+#~ msgid_plural "bits/sample"
+#~ msgstr[0] "Bit/Sample"
+#~ msgstr[1] "Bits/Sample"
+
+#~ msgid "_Copy selection"
+#~ msgstr "Auswahl _kopieren"
+
+#~ msgid "_Binary"
+#~ msgstr "_Binär"
+
+#~ msgid "Arabic (Windows, CP1256)"
+#~ msgstr "Arabisch (Windows, CP1256)"
+
+#~ msgid "Rotate Clockwise"
+#~ msgstr "Im Uhrzeigersinn drehen"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "_Binärmodus"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "Momentane Einstellungen _speichern"
+
+#, c-format
+#~ msgid "Pattern “%s” was not found"
+#~ msgstr "Muster »%s« wurde nicht gefunden"
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr "Den Startordner für die linke Ansicht angeben"
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr "Den Startordner für die rechte Ansicht angeben"
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr "Den Ordner für Konfigurationsdateien angeben"
+
+#~ msgid "File Manager"
+#~ msgstr "Dateiverwaltung"
+
+#~ msgid "Disable"
+#~ msgstr "Deaktivieren"
+
+#~ msgid "Enable"
+#~ msgstr "Aktivieren"
+
+#~ msgid "Version"
+#~ msgstr "Version"
+
+#~ msgid "_Enable"
+#~ msgstr "_Aktivieren"
+
+#~ msgid "_Configure"
+#~ msgstr "_Einrichten"
+
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr "<Exif- und IPTC-Tags werden nicht unterstützt>"
+
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr "<ID3, APE, FLAC und Vorbis-Tags werden nicht unterstützt>"
+
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr "<OLE2- und ODF-Tags werden nicht unterstützt>"
+
+#~ msgid "<PDF tags not supported>"
+#~ msgstr "<PDF-Tags werden nicht unterstützt>"
+
+#~ msgid "Created"
+#~ msgstr "Erstellt am"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr ""
+#~ "Ein Bearbeitungszeitpunkt des Objekts (Erstellung / "
+#~ "Veröffentlichungszeitpunkt)."
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr "Exif-IFD-Verweis"
+
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr ""
+#~ "Ein Verweis auf die Exif-IFD. Zwecks Interoperabilität hat der Exif-IFD-"
+#~ "Verweis die gleiche Struktur wie die im TIFF-Format angegebene IFD."
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr "IFD-Interoperabilitätsverweis"
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+#~ "Der IFD-Interoperabilitätsverweis wird aus Tags zur Gewährleistung der "
+#~ "Interoperabilität zusammengestellt und verweist auf den folgenden Tag, der "
+#~ "sich in der Exif-IFD befindet. Die Interoperabilitätsstruktur die gleiche, "
+#~ "wie in TIFF definiert, enthält aber nicht die Charakteristik der Bilddaten "
+#~ "wie in der normalen TIFF-IFD."
+
+#~ msgid "Emphasis"
+#~ msgstr "Emphasis"
+
+#~ msgid "Emphasis."
+#~ msgstr "Emphasis."
+
+#~ msgid "Equalization 2"
+#~ msgstr "Entzerrung 2"
+
+#~ msgid "Frames"
+#~ msgstr "Frames"
+
+#~ msgid "Number of frames."
+#~ msgstr "Anzahl der Einzelbilder."
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr "InvolvedPeople2"
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr "Größe der Audiodatei in Bytes, ohne ID3-Tag."
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr "Lautstärkeanpassung 2"
+
+#, c-format
+#~ msgid "unsupported tag (suppressed %ld B of binary data)"
+#~ msgstr "Nicht unterstützter Tag (%ld B an Binärdaten werden unterdrückt)"
+
+#, c-format
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "(%sbyte)"
+#~ msgstr[1] "(%sbytes)"
+
+#, c-format
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "%s Byte"
+#~ msgstr[1] "%s Bytes"
+
+#~ msgid "Failed to change working directory to a temporary directory."
+#~ msgstr ""
+#~ "Es konnte nicht vom Arbeitsordner in einen temporären Ordner gewechselt "
+#~ "werden."
+
+#~ msgid "Failed to create a directory in which to store temporary files."
+#~ msgstr "Erstellen eines Ordners zum Ablegen temporärer Dateien schlug fehl."
+
+#, c-format
+#~ msgid "Creating directory %s… "
+#~ msgstr "Ordner %s wird erstellt … "
+
+# Die Variable nach dem Doppelpunkt ist eine Fehlermeldung, die den Grund für
+# den Fehlschlag angibt - pk
+#, c-format
+#~ msgid "Failed to create the directory %s: %s"
+#~ msgstr "Der Ordner »%s« konnte nicht erstellt werden: %s"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "Beim Anzeigen der Hilfe ist ein Fehler aufgetreten."
+
+#~ msgid "S_hare:"
+#~ msgstr "_Freigabe:"
+
+#~ msgid "_User name:"
+#~ msgstr "_Benutzername:"
+
+#~ msgid "Copy overwrite"
+#~ msgstr "Überschreiben beim Kopieren"
+
+#~ msgid "Silently"
+#~ msgstr "Ohne Rückfrage"
+
+#~ msgid "Move overwrite"
+#~ msgstr "Überschreiben beim Verschieben"
+
+#~ msgid "Skip All"
+#~ msgstr "Alle überspringen"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "Passwort für anonymen FTP-Zugriff:"
+
+#, c-format
+#~ msgid "Couldn’t read from the directory %s: %s"
+#~ msgstr "Aus dem Ordner %s konnte nicht gelesen werden: %s"
+
+#, c-format
+#~ msgid "Couldn’t move path from “%s” to “%s”: %s"
+#~ msgstr "Pfad konnte nicht von »%s« nach »%s« verschoben werden: %s"
+
+#~ msgid "Skip device mounting"
+#~ msgstr "Geräteeinbindung überspringen"
+
+#~ msgid ""
+#~ "This option defines if mounting of devices should be skipped when they are "
+#~ "opened."
+#~ msgstr ""
+#~ "Diese Option legt fest, ob beim Öffnen von Geräten das Einhängen "
+#~ "übersprungen werden soll."
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr "Einbinden abbrechen (sinnvoll bei Verwendung von super-mount)"
+
+#~ msgid "Device is now safe to remove"
+#~ msgstr "Datenträger kann sicher entfernt werden"
+
+#~ msgid "Hide FIFO pipes"
+#~ msgstr "FIFO-Weiterleitungen verbergen"
+
+#~ msgid "Hide sockets"
+#~ msgstr "Sockets verbergen"
+
+#~ msgid "Hide block devices"
+#~ msgstr "Blockorientierte Geräte verbergen"
+
+#~ msgid "Type:"
+#~ msgstr "Typ:"
+
+#~ msgid "MIME Type:"
+#~ msgstr "Mime-Typ:"
+
+#~ msgid "Fifo files"
+#~ msgstr "Fifo-Dateien"
+
+#~ msgid "Socket files"
+#~ msgstr "Socket-Dateien"
+
+#~ msgid "Character devices"
+#~ msgstr "Zeichenorientierte Geräte"
+
+#~ msgid "Block devices"
+#~ msgstr "Blockorientierte Geräte"

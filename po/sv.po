@@ -8737,3 +8737,1781 @@ msgstr "Stängning av en filuppräknare misslyckades"
 
 #~ msgid "Selects files"
 #~ msgstr "Markerar filer"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME Commander"
+
+#~ msgid ""
+#~ "Defines if the current directories are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Definierar om de nuvarande katalogerna öppnas igen när GNOME Commander "
+#~ "startas om."
+
+#~ msgid ""
+#~ "Defines if the current open tabs are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Definierar om de nuvarande öppna flikarna öppnas igen när GNOME Commander "
+#~ "startas om."
+
+#~ msgid "Quick search exact match begin"
+#~ msgstr "Snabbsök exakt träff i början"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the beginning"
+#~ " of an item name."
+#~ msgstr ""
+#~ "Detta alternativ definierar huruvida en snabbsökning ska få träff explicit i"
+#~ " början av ett objektsnamn."
+
+#~ msgid "Quick search exact match end"
+#~ msgstr "Snabbsök exakt träff i slutet"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the end of an"
+#~ " item name."
+#~ msgstr ""
+#~ "Detta alternativ definierar om en snabbsökning får en träff explicit i "
+#~ "slutet av ett objektsnamn."
+
+#~ msgid "Fixed font name"
+#~ msgstr "Fast typsnittsnamn"
+
+#~ msgid "Name of the default font with fixed character width."
+#~ msgstr "Namnet på standardtypsnittet med fast teckenbredd."
+
+#~ msgid "Variable font name"
+#~ msgstr "Variabelt typsnittsnamn"
+
+#~ msgid "Name of the default font with variable character width."
+#~ msgstr "Namnet på standardtypsnittet med variabel teckenbredd."
+
+#~ msgid "Font size"
+#~ msgstr "Teckenstorlek"
+
+#~ msgid "This option defines the default font size."
+#~ msgstr "Detta alternativ definierar storleken på standardtypsnittet."
+
+#~ msgid ""
+#~ "GNOME Commander is a “dual-panel” graphical file manager for the GNOME "
+#~ "desktop environment. It features separate tabs for each panel, setting up "
+#~ "custom device buttons, bookmark manager, fully integrated commandline, file "
+#~ "quick search, an internal image viewer, a powerful batch renaming tool, and "
+#~ "FTP and Samba access."
+#~ msgstr ""
+#~ "GNOME Commander är en grafisk filhanterare med två paneler för "
+#~ "skrivbordsmiljön GNOME. Dess egenskaper är separata flikar för varje panel, "
+#~ "inställningar för anpassade enhetsknappar, bokmärkeshanterare, helt "
+#~ "integrerad kommandorad, snabbsökning av filer, en intern bildvisare, ett "
+#~ "kraftfullt verktyg för att byta namn satsvis samt FTP- och Samba-åtkomst."
+
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+#~ "GNOME Commander riktar sig mot avancerade användare som vill fokusera på "
+#~ "exakt filhantering, arbeta parallellt genom speciella program och köra "
+#~ "smarta kommandon."
+
+#~ msgid "Connection method is not selected"
+#~ msgstr "Anslutningsmetod har inte valts"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "Bekräfta är som standard OK"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "Matcha början på filnamnet"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "Matcha slutet på filnamnet"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Skriv över befintliga filer"
+
+# TODO: Should the word bytes be added? Plural?
+#~ msgid "A total of {selected_bytes} has been selected."
+#~ msgstr "Totalt {selected_bytes} har markerats."
+
+#~ msgid "{selected_files} file selected."
+#~ msgid_plural "{selected_files} files selected."
+#~ msgstr[0] "{selected_files} fil markerad."
+#~ msgstr[1] "{selected_files} filer markerade."
+
+#~ msgid "{selected_dirs} directory selected."
+#~ msgid_plural "{selected_dirs} directories selected."
+#~ msgstr[0] "{selected_dirs} katalog markerad."
+#~ msgstr[1] "{selected_dirs} kataloger markerade."
+
+#~ msgid "Filter:"
+#~ msgstr "Filter:"
+
+#~ msgid "Sea_rch"
+#~ msgstr "Sö_k"
+
+#~ msgid "Find"
+#~ msgstr "Sök"
+
+#~ msgid "Searching…"
+#~ msgstr "Söker…"
+
+#~ msgid "Searching for “{}”"
+#~ msgstr "Söker efter ”{}”"
+
+#~ msgid "_Copy selection"
+#~ msgstr "_Kopiera markering"
+
+#~ msgid "Pattern “{}” was not found"
+#~ msgstr "Sökmönstret ”{}” hittades inte"
+
+#~ msgid "_Binary"
+#~ msgstr "_Binärt"
+
+#~ msgid "Rotate Clockwise"
+#~ msgstr "Rotera medurs"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "_Binärt format"
+
+#~ msgid "GNOME Commander — ROOT PRIVILEGES"
+#~ msgstr "GNOME Commander — ROOT-PRIVILEGIER"
+
+#~ msgid "GNOME Commander Window"
+#~ msgstr "GNOME Commander-fönster"
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "En snabb och kraftfull filhanterare för GNOME-skrivbordet"
+
+#~ msgid "_Enable Filter…"
+#~ msgstr "_Aktivera filter…"
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "GNOME Commander på _webben"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "Skilj på stora och s_må bokstäver"
+
+#~ msgid "Path matches regex:"
+#~ msgstr "Sökväg matchar regex:"
+
+#~ msgid "Name contains:"
+#~ msgstr "Namn innehåller:"
+
+#~ msgid "Keyboard Shortcut"
+#~ msgstr "Tangentbordsgenväg"
+
+#~ msgid "_Action"
+#~ msgstr "Å_tgärd"
+
+#~ msgid "_Shortcut"
+#~ msgstr "_Kortkommando"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the \"Assign\" button and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "För att redigera ett kortkommando, klicka på knappen ”Tilldela” och ange en "
+#~ "ny snabbtangent eller tryck esc för att avbryta."
+
+#~ msgid "New shortcut..."
+#~ msgstr "Nytt kortkommando…"
+
+#~ msgid "Assign"
+#~ msgstr "Tilldela"
+
+#~ msgid "No action is selected."
+#~ msgstr "Ingen åtgärd är vald."
+
+#~ msgid "No shortcut is defined."
+#~ msgstr "Inget kortkommando är definierat."
+
+#~ msgid "_Update Shortcut"
+#~ msgstr "_Uppdatera kortkommando"
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Kortkommando"
+
+#~ msgid "Action"
+#~ msgstr "Åtgärd"
+
+#~ msgid ""
+#~ "GNOME Commander is free software: you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation, either version 3 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME Commander är fri programvara; du kan vidaredistribuera det och/eller "
+#~ "modifiera det under villkoren i GNU General Public License som publicerats "
+#~ "av Free Software Foundation, antingen version 3 av licensen, eller (om du så"
+#~ " vill) någon senare version."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "GNOME Commander är distribuerat i hopp om att vara användbart, men UTAN "
+#~ "NÅGON GARANTI; även utan underförstådd garanti om SÄLJBARHET eller "
+#~ "LÄMPLIGHET FÖR NÅGOT SPECIELLT ÄNDAMÅL.  Se GNU General Public License för "
+#~ "ytterligare information."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander. If not, see <https://www.gnu.org/licenses/>."
+#~ msgstr ""
+#~ "Du bör ha fått en kopia av GNU General Public License tillsammans med GNOME "
+#~ "Commander. Om inte, skriv till Free Software Foundation, Inc., 51 Franklin "
+#~ "Street, Fifth Floor, Boston, MA 02110-1301 USA."
+
+#~ msgid ""
+#~ "Search window is minimizable\n"
+#~ "(Needs program restart if altered)"
+#~ msgstr ""
+#~ "Sökfönstret är minimerbart\n"
+#~ "(Kräver omstart av programmet vid ändring)"
+
+#~ msgid "Search failed"
+#~ msgstr "Sökning misslyckades"
+
+#~ msgid "Something went wrong, cannot get start directory."
+#~ msgstr "Något gick fel, kan inte erhålla startkatalogen."
+
+#~ msgid "_Restore Selection"
+#~ msgstr "Å_terställ markering"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid "Failed to get directory info for {path}."
+#~ msgstr "Kunde inte erhålla kataloginfo för {path}."
+
+#~ msgid "Cannot extract a file path"
+#~ msgstr "Kan inte extrahera en filsökväg"
+
+#~ msgid "Failed to detect a start directory"
+#~ msgstr "Kunde inte identifiera en startkatalog"
+
+#~ msgid "Source “%s” could not be deleted. Aborting!"
+#~ msgstr "Källan ”%s” kunde inte tas bort. Avbryter!"
+
+#~ msgid ""
+#~ "Cannot detect a connection for a source “%s”. It could not be deleted. "
+#~ "Aborting!"
+#~ msgstr ""
+#~ "Kan inte identifiera någon anslutning för en källa ”%s”. Den kunde inte tas "
+#~ "bort. Avbryter!"
+
+#~ msgid "A two paned file manager"
+#~ msgstr "En tvåpanelers filhanterare"
+
+#~ msgid "Leave terminal open"
+#~ msgstr "Lämna terminal öppen"
+
+#~ msgid ""
+#~ "This option defines if a terminal window should stay open after a command "
+#~ "finishes inside of it."
+#~ msgstr ""
+#~ "Detta alternativ definierar huruvida ett terminalfönster ska fortsätta vara "
+#~ "öppet efter att ett kommando avslutats i det."
+
+#~ msgid "Leave terminal window open"
+#~ msgstr "Lämna terminalfönster öppet"
+
+#, c-format
+#~ msgid "The program has now finished. Press Enter to close this window.\n"
+#~ msgstr "Programmet är nu klart. Tryck Retur för att stänga detta fönster.\n"
+
+#~ msgid "Cut"
+#~ msgstr "Klipp ut"
+
+#~ msgid "Copy file names"
+#~ msgstr "Kopiera filnamn"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "Öppna _terminalfönster här"
+
+#~ msgid "_Text File"
+#~ msgstr "_Textfil"
+
+#~ msgid "Refresh"
+#~ msgstr "Uppdatera"
+
+#~ msgid "Go back"
+#~ msgstr "Gå bakåt"
+
+#~ msgid "Go forward"
+#~ msgstr "Gå framåt"
+
+#~ msgid "Go to the latest"
+#~ msgstr "Gå till senaste"
+
+#~ msgid "Paste"
+#~ msgstr "Klistra in"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "Kopiera _filnamn"
+
+#~ msgid "Copy files"
+#~ msgstr "Kopiera filer"
+
+#~ msgid "Delete files"
+#~ msgstr "Ta bort filer"
+
+#~ msgid "Edit file"
+#~ msgstr "Redigera fil"
+
+#~ msgid "Edit a new file"
+#~ msgstr "Redigera en ny fil"
+
+#~ msgid "Change permissions"
+#~ msgstr "Ändra rättigheter"
+
+#~ msgid "Change owner/group"
+#~ msgstr "Ändra ägare/grupp"
+
+#~ msgid "Create directory"
+#~ msgstr "Skapa katalog"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "Jämför filer (diff)"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "Synkronisera kataloger"
+
+#~ msgid "Rename files"
+#~ msgstr "Byt namn på filer"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "Skapa symbolisk länk"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "Avancerat namnbytesverktyg"
+
+#~ msgid "Select all files"
+#~ msgstr "Markera alla filer"
+
+#~ msgid "Unselect all files"
+#~ msgstr "Avmarkera alla filer"
+
+#~ msgid "Select with pattern"
+#~ msgstr "Markera med mönster"
+
+#~ msgid "Unselect with pattern"
+#~ msgstr "Avmarkera med mönster"
+
+#~ msgid "Invert selection"
+#~ msgstr "Invertera markering"
+
+#~ msgid "Select with same extension"
+#~ msgstr "Markera med samma filändelse"
+
+#~ msgid "Unselect with same extension"
+#~ msgstr "Avmarkera med samma filändelse"
+
+#~ msgid "Restore selection"
+#~ msgstr "Återställ markering"
+
+#~ msgid "Compare directories"
+#~ msgstr "Jämför kataloger"
+
+#~ msgid "Show user defined files"
+#~ msgstr "Visa användardefinierade filer"
+
+#~ msgid "Show hidden files"
+#~ msgstr "Visa dolda filer"
+
+#~ msgid "Show backup files"
+#~ msgstr "Visa säkerhetskopior"
+
+#~ msgid "Back to the first directory"
+#~ msgstr "Tillbaka till första katalogen"
+
+#~ msgid "Back one directory"
+#~ msgstr "Bakåt en katalog"
+
+#~ msgid "Forward one directory"
+#~ msgstr "Framåt en katalog"
+
+#~ msgid "Equal panel size"
+#~ msgstr "Samma panelstorlek"
+
+#~ msgid "Maximize panel size"
+#~ msgstr "Maximera panelstorlek"
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "Öppna katalogen i en ny flik"
+
+#~ msgid "Close the current tab"
+#~ msgstr "Stäng aktuell flik"
+
+#~ msgid "Close all tabs"
+#~ msgstr "Stäng alla flikar"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr "Bokmärk aktuell katalog"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "Hantera bokmärken"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Tangentbordsgenvägar"
+
+#~ msgid "Open connection"
+#~ msgstr "Öppna anslutning"
+
+#~ msgid "Configure plugins"
+#~ msgstr "Konfigurera insticksmoduler"
+
+#~ msgid "Help contents"
+#~ msgstr "Innehåll"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "Hjälp för tangentbordsgenvägar"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr "GNOME Commander på webben"
+
+#~ msgid "Report a problem"
+#~ msgstr "Rapportera ett problem"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr "Om GNOME Commander"
+
+#~ msgid "Invalid file name regular expression."
+#~ msgstr "Ogiltigt reguljärt uttryck för filnamn."
+
+#~ msgid "Cannot extract a relative file path"
+#~ msgstr "Kan inte extrahera en relativ filsökväg"
+
+#~ msgid "Error running the search command."
+#~ msgstr "Fel vid körning av sökkommandot."
+
+#~ msgid "stopping…"
+#~ msgstr "avbryter…"
+
+#~ msgid "No command was given."
+#~ msgstr "Inget kommando angivet."
+
+#~ msgid ""
+#~ "<b>{name}</b>\n"
+#~ "<span color='dimgray' size='smaller'>{size}, {time}</span>"
+#~ msgstr ""
+#~ "<b>{name}</b>\n"
+#~ "<span color='dimgray' size='smaller'>{size}, {time}</span>"
+
+#~ msgid "Failed to open a connection."
+#~ msgstr "Kunde inte öppna en anslutning."
+
+#~ msgid "Deletion failed"
+#~ msgstr "Borttagning misslyckades"
+
+#~ msgid "<New connection>"
+#~ msgstr "<Ny anslutning>"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "Gå till: %s"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "Anslut till: %s"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "Gå till: %s (%s)"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr "Montera: %s"
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr "Avmontera: %s"
+
+#~ msgid "A file {} has no URI"
+#~ msgstr "En fil {} har ingen URI"
+
+#~ msgid "Current file name"
+#~ msgstr "Aktuellt filnamn"
+
+#~ msgid "New file name"
+#~ msgstr "Nytt filnamn"
+
+#~ msgid "File size"
+#~ msgstr "Filstorlek"
+
+#~ msgid "File modification date"
+#~ msgstr "Filändringsdatum"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "Ett fel uppstod vid visande av hjälp."
+
+#~ msgid "Search local directories only"
+#~ msgstr "Sök endast i lokala kataloger"
+
+#~ msgid "Files _not containing text"
+#~ msgstr "Filer som _ej innehåller text"
+
+#, c-format
+#~ msgid "Failed to read file %s: File is not searchable"
+#~ msgstr "Kunde inte läsa filen %s: Filen är inte sökbar"
+
+#, c-format
+#~ msgid "Failed to read file %s: %s"
+#~ msgstr "Kunde inte läsa filen %s: %s"
+
+#, c-format
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr "Misslyckades med att ange processgrupp-ID för barnet %d: %s.\n"
+
+#~ msgid "Error parsing the search command."
+#~ msgstr "Fel vid tolkning av sökkommandot."
+
+#, c-format
+#~ msgid "_Open with “%s”"
+#~ msgstr "Ö_ppna med ”%s”"
+
+#~ msgid "Sorting/Quick search"
+#~ msgstr "Sortering/Snabbsök"
+
+#~ msgid "Profile name"
+#~ msgstr "Profilnamn"
+
+#~ msgid ""
+#~ "{selected_bytes} of {total_bytes} in {selected_files} of {total_files} file"
+#~ msgid_plural ""
+#~ "{selected_bytes} of {total_bytes} in {selected_files} of {total_files} files"
+#~ msgstr[0] ""
+#~ "{selected_bytes} av {total_bytes} i {selected_files} av {total_files} fil"
+#~ msgstr[1] ""
+#~ "{selected_bytes} av {total_bytes} i {selected_files} av {total_files} filer"
+
+#~ msgid "Replacement"
+#~ msgstr "Ersättning"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "Skilj på stora och små bokstäver"
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "Kopplar upp mot %s\n"
+
+#, c-format
+#~ msgid "Creating directory %s… "
+#~ msgstr "Skapar katalogen %s… "
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr "Ange katalogen för konfigurationsfiler"
+
+#, c-format
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "(%sbyte)"
+#~ msgstr[1] "(%sbyte)"
+
+#, c-format
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "%sbyte"
+#~ msgstr[1] "%sbyte"
+
+#~ msgid "Refresh tab"
+#~ msgstr "Uppdatera flik"
+
+#~ msgid "Image:"
+#~ msgstr "Bild:"
+
+#~ msgid "Credits"
+#~ msgstr "Tack till"
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "Webbsida för tilläggsprogrammet"
+
+#~ msgid "C_redits"
+#~ msgstr "_Tack till"
+
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr "<Exif och IPTC-taggar stöds inte>"
+
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr "<ID3, APE, FLAC och Vorbis-taggar stöds inte>"
+
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr "<OLE2- och ODF-taggar stöds inte>"
+
+#~ msgid "<PDF tags not supported>"
+#~ msgstr "<PDF-taggar stöds inte>"
+
+#~ msgid "Created"
+#~ msgstr "Skapad"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr ""
+#~ "Datum associerat med en händelse i resursens livscykel "
+#~ "(skapande/publikations-datum)."
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr "Exif IFD-pekare"
+
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr ""
+#~ "En pekare för Exif IFD. För interoperabilitet har Exif IFD samma struktur "
+#~ "som den för IFD specificerad i formatet TIFF."
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr "Interoperability IFD-pekare"
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+#~ "Interoperability IFD består av taggar som lagrar informationen för att "
+#~ "försäkra sig om att interoperabiliteten pekas ut av följande tagg funnen i "
+#~ "Exif IFD. Interoperabilitetstrukturen för Interoperability IFD är densamma "
+#~ "som den TIFF-definierade IFD-strukturen men innehåller inte bilddata som är "
+#~ "karakteristiskt jämförd med normal TIFF-IFD."
+
+#~ msgid "Emphasis"
+#~ msgstr "Emfas"
+
+#~ msgid "Emphasis."
+#~ msgstr "Emfas."
+
+#~ msgid "Equalization 2"
+#~ msgstr "Utjämning 2"
+
+#~ msgid "Frames"
+#~ msgstr "Ramar"
+
+#~ msgid "Number of frames."
+#~ msgstr "Antalet ramar."
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr "Involverade människor 2"
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr "Storlek på ljudfilen i byte, exkluderande ID3-taggen."
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr "Volymjustering 2"
+
+#, c-format
+#~ msgid "unsupported tag (suppressed %ld B of binary data)"
+#~ msgstr "tagg stöds ej (undertryckte %ld B binär data)"
+
+#~ msgid "Horizontal offset"
+#~ msgstr "Horisontell förskjutning"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "horizontal direction."
+#~ msgstr ""
+#~ "Detta alternativ definierar den visuella förskjutningen för den interna "
+#~ "filvisaren i horisontell riktning."
+
+#~ msgid "Vertical offset"
+#~ msgstr "Vertikal förskjutning"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "vertical direction."
+#~ msgstr ""
+#~ "Detta alternativ definierar den visuella förskjutningen för den interna "
+#~ "filvisaren i vertikal riktning."
+
+#, c-format
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] "%s av %s kB i %d av %d fil"
+#~ msgstr[1] "%s av %s kB i %d av %d filer"
+
+#, c-format
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] "%s, %d av %d katalog markerad"
+#~ msgstr[1] "%s, %d av %d kataloger markerade"
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr "Position: %lu av %lu\tKolumn: %d\t%s"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "bildpunkt"
+#~ msgstr[1] "bildpunkter"
+
+#, c-format
+#~ msgid "Couldn’t load installed pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Kunde inte läsa in en installerad pixmap, provar att läsa in %s i stället"
+
+#, c-format
+#~ msgid ""
+#~ "Can’t find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-commander from the gnome-commander-%s/src directory"
+#~ msgstr ""
+#~ "Kan inte hitta pixmap någonstans. Kontrollera att du har installerat "
+#~ "programmet eller att du kör gnome-commander från katalogen gnome-"
+#~ "commander-%s/src"
+
+#~ msgid "Disable"
+#~ msgstr "Inaktivera"
+
+#~ msgid "Enable"
+#~ msgstr "Aktivera"
+
+#~ msgid "Version"
+#~ msgstr "Version"
+
+#~ msgid "_Enable"
+#~ msgstr "_Aktivera"
+
+#~ msgid "_Configure"
+#~ msgstr "_Konfigurera"
+
+#~ msgid "Network protocol"
+#~ msgstr "Nätverksprotokoll"
+
+#~ msgid "Connection name"
+#~ msgstr "Anslutningsnamn"
+
+#~ msgid "_Quit"
+#~ msgstr "_Avsluta"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "_Spara inställningar"
+
+#~ msgid "No file name given"
+#~ msgstr "Inget filnamn angivet"
+
+#~ msgid "Bookmark name is missing."
+#~ msgstr "Bokmärkesnamnet saknas."
+
+#~ msgid "Bookmark target is missing."
+#~ msgstr "Sökvägen för bokmärket saknas."
+
+#~ msgid "Keyboard shortcut for selected action"
+#~ msgstr "Tangentbordsgenväg för vald åtgärd"
+
+#~ msgid "User action"
+#~ msgstr "Användaråtgärd"
+
+#~ msgid "Optional data"
+#~ msgstr "Valfri data"
+
+#~ msgid "Do nothing"
+#~ msgstr "Gör ingenting"
+
+#~ msgid "Group"
+#~ msgstr "Grupp"
+
+#~ msgid "Bookmark group"
+#~ msgstr "Bokmärkesgrupp"
+
+#~ msgid "Bookmark name"
+#~ msgstr "Namn för bokmärket"
+
+#~ msgid "Keyboard shortcut for selected bookmark"
+#~ msgstr "Tangentbordsgenväg för valt bokmärke"
+
+#~ msgid "Bookmarked path"
+#~ msgstr "Bokmärkt sökväg"
+
+#~ msgid "Colors"
+#~ msgstr "Färger"
+
+#~ msgid "Palette"
+#~ msgstr "Palett"
+
+#~ msgid "Foreground:"
+#~ msgstr "Förgrund:"
+
+#~ msgid "Background:"
+#~ msgstr "Bakgrund:"
+
+#~ msgid "Invalid shortcut."
+#~ msgstr "Ogiltigt kortkommando."
+
+#~ msgid "Invalid path."
+#~ msgstr "Ogiltig sökväg."
+
+#~ msgid "Accelerator key"
+#~ msgstr "Snabbtangent"
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr "Snabbtangentsmodifierare"
+
+#~ msgid "Accelerator Mode"
+#~ msgstr "Snabbtangentsläge"
+
+#~ msgid "The type of accelerator."
+#~ msgstr "Typ av snabbtangent."
+
+#~ msgid "Disabled"
+#~ msgstr "Inaktiverad"
+
+#~ msgid "New accelerator…"
+#~ msgstr "Ny snabbtangent…"
+
+#~ msgid "Delete problem"
+#~ msgstr "Problem vid borttagning"
+
+#~ msgid "Type"
+#~ msgstr "Typ"
+
+#~ msgid "Metadata namespace"
+#~ msgstr "Namnrymd för metadata"
+
+#~ msgid "Tag name"
+#~ msgstr "Taggnamn"
+
+#~ msgid "Tag value"
+#~ msgstr "Taggvärde"
+
+#~ msgid "Metadata tag description"
+#~ msgstr "Beskrivning av metadatatagg"
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "Kortkommandon i konflikt"
+
+#~ msgid "Run or Display"
+#~ msgstr "Kör eller visa"
+
+#~ msgid "Run"
+#~ msgstr "Kör"
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu, beesu or pkexec is not found."
+#~ msgstr ""
+#~ "gksudo, xdg-su, gksu, gnomesu, kdesu, beesu eller pkexec hittades inte."
+
+#~ msgid "Start _GNOME Commander as root"
+#~ msgstr "Starta _GNOME Commander som root"
+
+#~ msgid "Open terminal (SHIFT for root privileges)"
+#~ msgstr "Öppna terminal (SKIFT för root-behörighet)"
+
+#~ msgid "Open terminal as root"
+#~ msgstr "Öppna terminal som root"
+
+#~ msgid "Start GNOME Commander as root"
+#~ msgstr "Starta GNOME Commander som root"
+
+#~ msgid "Show terminal"
+#~ msgstr "Visa terminal"
+
+#~ msgid "Unable to open terminal in root mode."
+#~ msgstr "Kunde inte öppna terminal i root-läge."
+
+#~ msgid "Cannot determine executable of Gnome Commander"
+#~ msgstr "Kan inte identifiera körbar fil för Gnome Commander"
+
+#~ msgid "Unable to start GNOME Commander in root mode."
+#~ msgstr "Kunde inte starta GNOME Commander i root-läge."
+
+#~ msgid "Chown"
+#~ msgstr "Chown"
+
+#~ msgid "Needs terminal"
+#~ msgstr "Behöver ett terminalfönster"
+
+#~ msgid "Failed to change working directory to a temporary directory."
+#~ msgstr "Kunde inte byta arbetskatalog till en temporär katalog."
+
+#~ msgid "Failed to create a directory in which to store temporary files."
+#~ msgstr "Kunde inte skapa en katalog för att spara temporära filer."
+
+#~ msgid "Unknown error"
+#~ msgstr "Okänt fel"
+
+#~ msgid "Transfer problem"
+#~ msgstr "Problem vid överföring"
+
+#~ msgid "Copy problem"
+#~ msgstr "Problem vid kopiering"
+
+#, c-format
+#~ msgid ""
+#~ "Overwrite file:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "With:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+#~ msgstr ""
+#~ "Skriv över fil:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "Med:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+
+#~ msgid "Move problem"
+#~ msgstr "Problem vid flytt"
+
+#, c-format
+#~ msgid "[file %ld of %ld] “%s”"
+#~ msgstr "[fil %ld av %ld] ”%s”"
+
+#~ msgid "Symlink creation problem"
+#~ msgstr "Problem vid skapande av symbolisk länk"
+
+#, c-format
+#~ msgid "%s of %s copied"
+#~ msgstr "%s av %s kopierat"
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+#~ msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu eller beesu hittades inte"
+
+#, c-format
+#~ msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Kunde inte läsa in pixmap för installerad filtyp, provar att läsa in %s i "
+#~ "stället"
+
+#~ msgid "Folder selection"
+#~ msgstr "Mappval"
+
+#~ msgid "File selection"
+#~ msgstr "Filval"
+
+#~ msgid "Use default font"
+#~ msgstr "Använd standardtypsnitt"
+
+#~ msgid ""
+#~ "Whether to use the system’s default fixed width font for the file panels "
+#~ "instead of a font specific to gnome-commander."
+#~ msgstr ""
+#~ "Huruvida systemets standardtypsnitt med fast bredd ska användas för "
+#~ "filpaneler i stället för ett specifikt gnome-commander-typsnitt."
+
+#~ msgid "Device icon size"
+#~ msgstr "Ikonstorlek på enhet"
+
+#~ msgid "Icon size in the device list."
+#~ msgstr "Ikonstorlek i enhetslistan."
+
+#~ msgid "Main window horizontal position"
+#~ msgstr "Horisontell position för huvudfönstret"
+
+#~ msgid "Position of the main window in horizontal direction."
+#~ msgstr "Position för huvudfönstret i horisontell riktning."
+
+#~ msgid "Main window vertical position"
+#~ msgstr "Vertikal position för huvudfönstret"
+
+#~ msgid "Position of the main window in vertical direction."
+#~ msgstr "Position för huvudfönstret i vertikal riktning."
+
+#~ msgid "Other _Application…"
+#~ msgstr "Annat _program…"
+
+#~ msgid "File Manager"
+#~ msgstr "Filhanterare"
+
+#~ msgid "/File name"
+#~ msgstr "/Filnamn"
+
+#~ msgid "/Counter"
+#~ msgstr "/Räknare"
+
+#~ msgid "/Date"
+#~ msgstr "/Datum"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "/Datum/<locale>"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/Datum/åååå"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/Datum/åå"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/Datum/mm"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/Datum/mmm"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/Datum/dd"
+
+#~ msgid "/Time"
+#~ msgstr "/Tid"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/Tid/<locale>"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/Tid/TT"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/Tid/MM"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/Tid/SS"
+
+#~ msgid "S_hare:"
+#~ msgstr "Ut_delning:"
+
+#~ msgid "_User name:"
+#~ msgstr "_Användare:"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "Anonymt FTP-lösenord:"
+
+#~ msgid "Couldn’t read from the directory %s: %s"
+#~ msgstr "Kunde inte läsa från katalogen %s: %s"
+
+#~ msgid "Couldn’t move path from “%s” to “%s”: %s"
+#~ msgstr "Kunde inte ändra sökväg från ”%s” till ”%s”: %s"
+
+#~ msgid "Move overwrite"
+#~ msgstr "Skriv över vid flytt"
+
+#~ msgid "Silently"
+#~ msgstr "Tyst"
+
+#~ msgid "Skip All"
+#~ msgstr "Hoppa över alla"
+
+#~ msgid "Copy overwrite"
+#~ msgstr "Skriv över vid kopiering"
+
+#~ msgid "Deleted %"
+#~ msgid_plural "Deleted %"
+#~ msgstr[0] "Borttagen %"
+#~ msgstr[1] "Borttagna %"
+
+#~ msgid ""
+#~ "Error while copying to %s\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Fel vid kopieringen till %s\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Skip device mounting"
+#~ msgstr "Hoppa över enhetsmontering"
+
+#~ msgid ""
+#~ "This option defines if mounting of devices should be skipped when they are "
+#~ "opened."
+#~ msgstr ""
+#~ "Detta alternativ definierar om montering av enheter ska hoppas över när de "
+#~ "öppnas."
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr "Hoppa över montering (användbart när supermount används)"
+
+#~ msgid "Device is now safe to remove"
+#~ msgstr "Enheten är nu säker att koppla från"
+
+#~ msgid "Hide FIFO pipes"
+#~ msgstr "Dölj FIFO-rör"
+
+#~ msgid "Hide sockets"
+#~ msgstr "Dölj uttag"
+
+#~ msgid "Hide block devices"
+#~ msgstr "Dölj blockenheter"
+
+#~ msgid "Type:"
+#~ msgstr "Typ:"
+
+#~ msgid "MIME Type:"
+#~ msgstr "MIME-typ:"
+
+#~ msgid "Fifo files"
+#~ msgstr "Fifo-filer"
+
+#~ msgid "Socket files"
+#~ msgstr "Uttagsfiler"
+
+#~ msgid "Character devices"
+#~ msgstr "Teckenenheter"
+
+#~ msgid "Block devices"
+#~ msgstr "Blockenheter"
+
+#~ msgid "Unknown file type"
+#~ msgstr "Okänd filtyp"
+
+#~ msgid "Regular file"
+#~ msgstr "Vanlig fil"
+
+#~ msgid "FIFO"
+#~ msgstr "FIFO"
+
+#~ msgid "UNIX Socket"
+#~ msgstr "UNIX-uttag"
+
+#~ msgid "Character device"
+#~ msgstr "Teckenenhet"
+
+#~ msgid "Block device"
+#~ msgstr "Blockenhet"
+
+#~ msgid "Symbolic link"
+#~ msgstr "Symbolisk länk"
+
+#~ msgid "No Proofing"
+#~ msgstr "Inget förprovtryck"
+
+#~ msgid "Arabic"
+#~ msgstr "Arabiska"
+
+#~ msgid "Bulgarian"
+#~ msgstr "Bulgariska"
+
+#~ msgid "Catalan"
+#~ msgstr "Katalanska"
+
+#~ msgid "Traditional Chinese"
+#~ msgstr "Kinesiska (traditionell)"
+
+#~ msgid "Simplified Chinese"
+#~ msgstr "Kinesiska (förenklad)"
+
+#~ msgid "Chechen"
+#~ msgstr "Tjetjenska"
+
+#~ msgid "Danish"
+#~ msgstr "Danska"
+
+#~ msgid "German"
+#~ msgstr "Tyska"
+
+#~ msgid "Swiss German"
+#~ msgstr "Tyska (schweizisk)"
+
+#~ msgid "Greek"
+#~ msgstr "Grekiska"
+
+#~ msgid "U.S. English"
+#~ msgstr "Engelska (US)"
+
+#~ msgid "U.K. English"
+#~ msgstr "Engelska (UK)"
+
+#~ msgid "Australian English"
+#~ msgstr "Engelska (AU)"
+
+#~ msgid "Castilian Spanish"
+#~ msgstr "Spanska (kastiliansk)"
+
+#~ msgid "Mexican Spanish"
+#~ msgstr "Spanska (mexikansk)"
+
+#~ msgid "Finnish"
+#~ msgstr "Finska"
+
+#~ msgid "French"
+#~ msgstr "Franska"
+
+#~ msgid "Belgian French"
+#~ msgstr "Franska (belgisk)"
+
+#~ msgid "Canadian French"
+#~ msgstr "Franska (kanadensisk)"
+
+#~ msgid "Swiss French"
+#~ msgstr "Franska (schweizisk)"
+
+#~ msgid "Hebrew"
+#~ msgstr "Hebreiska"
+
+#~ msgid "Hungarian"
+#~ msgstr "Ungerska"
+
+#~ msgid "Icelandic"
+#~ msgstr "Isländska"
+
+#~ msgid "Italian"
+#~ msgstr "Italienska"
+
+#~ msgid "Swiss Italian"
+#~ msgstr "Italienska (schweizisk)"
+
+#~ msgid "Korean"
+#~ msgstr "Koreanska"
+
+#~ msgid "Dutch"
+#~ msgstr "Nederländska"
+
+#~ msgid "Belgian Dutch"
+#~ msgstr "Nederländska (belgisk)"
+
+#~ msgid "Norwegian Bokmal"
+#~ msgstr "Norska (bokmål)"
+
+#~ msgid "Norwegian Nynorsk"
+#~ msgstr "Norska (nynorsk)"
+
+#~ msgid "Polish"
+#~ msgstr "Polska"
+
+#~ msgid "Brazilian Portuguese"
+#~ msgstr "Brasiliansk portugisiska"
+
+#~ msgid "Portuguese"
+#~ msgstr "Portugisiska"
+
+#~ msgid "Rhaeto-Romanic"
+#~ msgstr "Räto-romanska"
+
+#~ msgid "Romanian"
+#~ msgstr "Rumänska"
+
+#~ msgid "Russian"
+#~ msgstr "Ryska"
+
+#~ msgid "Croato-Serbian (Latin)"
+#~ msgstr "Serbokroatiska (Latinsk)"
+
+#~ msgid "Serbo-Croatian (Cyrillic)"
+#~ msgstr "Serbokroatiska (Kyrillisk)"
+
+#~ msgid "Slovak"
+#~ msgstr "Slovakiska"
+
+#~ msgid "Albanian"
+#~ msgstr "Albanska"
+
+#~ msgid "Swedish"
+#~ msgstr "Svenska"
+
+#~ msgid "Thai"
+#~ msgstr "Thailändska"
+
+#~ msgid "Urdu"
+#~ msgstr "Urdu"
+
+#~ msgid "Indonesian"
+#~ msgstr "Indonesiska"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Ukrainska"
+
+#~ msgid "Byelorussian"
+#~ msgstr "Vitryska"
+
+#~ msgid "Slovenian"
+#~ msgstr "Slovenska"
+
+#~ msgid "Estonian"
+#~ msgstr "Estniska"
+
+#~ msgid "Latvian"
+#~ msgstr "Lettiska"
+
+#~ msgid "Lithuanian"
+#~ msgstr "Litauiska"
+
+#~ msgid "Farsi"
+#~ msgstr "Farsi"
+
+#~ msgid "Basque"
+#~ msgstr "Baskiska"
+
+#~ msgid "Macedonian"
+#~ msgstr "Makedoniska"
+
+#~ msgid "Afrikaans"
+#~ msgstr "Afrikaans"
+
+#~ msgid "Malayalam"
+#~ msgstr "Malayalam"
+
+#~ msgid "gnome-commander"
+#~ msgstr "gnome-commander"
+
+#~ msgid "Audio Files"
+#~ msgstr "Ljudfiler"
+
+#~ msgid "CamelCase"
+#~ msgstr "CamelCase"
+
+#~ msgid "Can’t load python module “gnomevfs” (“gnome.vfs”)"
+#~ msgstr "Kan ej ladda python-modulen ”gnomevfs” (”gnome.vfs”)"
+
+#~ msgid "Execute Python plugin"
+#~ msgstr "Kör Python-instick"
+
+#~ msgid "Use gcmd-block for terminal commands"
+#~ msgstr "Använd gcmd-block för terminalkommandon"
+
+#~ msgid "Just letters"
+#~ msgstr "Bara bokstäver"
+
+#~ msgid "Create Archive..."
+#~ msgstr "Skapa arkiv…"
+
+#~ msgid "Profiles..."
+#~ msgstr "Profiler…"
+
+#~ msgid ""
+#~ "Some regular expressions functionality is disabled. To enable it's necessary"
+#~ " to build GNOME Commander with GLib ≥ 2.14. Please contact your package "
+#~ "maintainer about that."
+#~ msgstr ""
+#~ "En del funktionalitet för reguljära uttryck är inaktiverade. För att "
+#~ "aktivera dem är det nödvändigt att bygga GNOME Commander med GLib ≥ 2.14. "
+#~ "Kontakta de paketansvariga för det."
+
+#~ msgid "Edit..."
+#~ msgstr "Redigera…"
+
+#~ msgid "Search..."
+#~ msgstr "Sök…"
+
+#~ msgid "Manage bookmarks..."
+#~ msgstr "Hantera bokmärken…"
+
+#~ msgid "_Properties..."
+#~ msgstr "_Egenskaper…"
+
+#~ msgid "_Search..."
+#~ msgstr "_Sök…"
+
+#~ msgid "_Options..."
+#~ msgstr "_Alternativ…"
+
+#~ msgid "_Remote Server..."
+#~ msgstr "_Fjärrserver…"
+
+#~ msgid "New Connection..."
+#~ msgstr "Ny anslutning…"
+
+#~ msgid "copying..."
+#~ msgstr "kopierar…"
+
+#~ msgid "Find..."
+#~ msgstr "Sök…"
+
+#~ msgid "file manager"
+#~ msgstr "filhanterare"
+
+#~ msgid "file system"
+#~ msgstr "filsystem"
+
+#~ msgid "FTP"
+#~ msgstr "FTP"
+
+#~ msgid "WebDAV"
+#~ msgstr "WebDAV"
+
+#~ msgid "/Local path..."
+#~ msgstr "/Lokal sökväg…"
+
+#~ msgid "_Import"
+#~ msgstr "_Importera"
+
+#~ msgid "rename"
+#~ msgstr "byt namn"
+
+#~ msgid "copy"
+#~ msgstr "kopiera"
+
+#~ msgid "File;Manager;"
+#~ msgstr "Filhanterare;"
+
+#~ msgid "Document icon directory:"
+#~ msgstr "Katalog med dokumentikoner:"
+
+#~ msgid "Switch to Vertical Layout"
+#~ msgstr "Växla till vertikal layout"
+
+#~ msgid "Switch to Horizontal Layout"
+#~ msgstr "Växla till horisontell layout"
+
+#~ msgid "Open this _folder"
+#~ msgstr "Öppna denna _mapp"
+
+#~ msgid "Open folder"
+#~ msgstr "Öppna mapp"
+
+#~ msgid "Unable to start Nautilus."
+#~ msgstr "Kunde inte starta Nautilus."
+
+#~ msgid "_Password:"
+#~ msgstr "_Lösenord:"
+
+#~ msgid "Use _GNOME Keyring Manager for authentication"
+#~ msgstr "Använd _GNOME Keyring Manager för autentisering"
+
+#~ msgid "CVS options"
+#~ msgstr "CVS-alternativ"
+
+#~ msgid "Compression level"
+#~ msgstr "Komprimeringsgrad"
+
+#~ msgid "Unified diff format"
+#~ msgstr "Generellt diff-format"
+
+#~ msgid "A plugin that eventually will be a simple CVS client"
+#~ msgstr "En enkel CVS-klient under utveckling"
+
+#~ msgid "Compare with"
+#~ msgstr "Jämför med"
+
+#~ msgid "HEAD"
+#~ msgstr "HEAD"
+
+#~ msgid "The previous revision"
+#~ msgstr "Föregående version"
+
+#~ msgid "Other revision"
+#~ msgstr "Annan version"
+
+#~ msgid "CVS Diff"
+#~ msgstr "CVS Diff"
+
+#~ msgid "revision"
+#~ msgstr "version"
+
+#~ msgid "Revision:"
+#~ msgstr "Version:"
+
+#~ msgid "Compare..."
+#~ msgstr "Jämför…"
+
+#~ msgid "Author:"
+#~ msgstr "Skapare:"
+
+#~ msgid "Date:"
+#~ msgstr "Datum:"
+
+#~ msgid "State:"
+#~ msgstr "Status:"
+
+#~ msgid "Lines:"
+#~ msgstr "Rader:"
+
+#~ msgid "Message:"
+#~ msgstr "Meddelande:"
+
+#~ msgid "_Remote dir:"
+#~ msgstr "Fjärr_katalog:"
+
+#~ msgid "_Change"
+#~ msgstr "_Ändra"
+
+#~ msgid "_MIME Types..."
+#~ msgstr "_MIME-typer…"
+
+#~ msgid "_Contents"
+#~ msgstr "_Innehåll"
+
+#~ msgid "Shell syntax"
+#~ msgstr "Skalmönster"
+
+#~ msgid "Regex syntax"
+#~ msgstr "Regex-mönster"
+
+#~ msgid "Sorting options"
+#~ msgstr "Sorteringsalternativ"
+
+#~ msgid "Authentication"
+#~ msgstr "Autentisering"
+
+#~ msgid "Use GNOME Keyring Manager for authentication"
+#~ msgstr "Använd GNOME Keyring Manager för autentisering"
+
+#~ msgid "Anonymous FTP access"
+#~ msgstr "Anonym FTP-åtkomst"
+
+#~ msgid "Password:"
+#~ msgstr "Lösenord:"
+
+#~ msgid "Network"
+#~ msgstr "Nätverk"
+
+#~ msgid "GNOME authentication manager usage"
+#~ msgstr "Använder GNOME authentication manager"
+
+#~ msgid "_Limited depth"
+#~ msgstr "_Begränsat djup"
+
+#~ msgid "Failed to open file %s: %s"
+#~ msgstr "Kunde inte öppna filen %s: %s"
+
+#~ msgid "Search _in: "
+#~ msgstr "Sök _i: "
+
+#~ msgid "Search _recursively"
+#~ msgstr "Sök _rekursivt"
+
+#~ msgid "_Go to"
+#~ msgstr "_Gå till"
+
+#~ msgid "Enter password"
+#~ msgstr "Ange lösenord"
+
+#~ msgid ""
+#~ "Problem: access not permitted\n"
+#~ "\n"
+#~ "please supply user credentials\n"
+#~ "\n"
+#~ "Remember: wrong credentials may lead to account locking"
+#~ msgstr ""
+#~ "Problem: åtkomst ej tillåten\n"
+#~ "\n"
+#~ "var god ange användaruppgifter\n"
+#~ "\n"
+#~ "Kom ihåg: fel uppgifter kan leda till låsning av kontot"
+
+#~ msgid "MIME types"
+#~ msgstr "MIME-typer"
+
+#~ msgid ""
+#~ "The file \"%s\" already exists.\n"
+#~ "\n"
+#~ "Do you want to overwrite it?\n"
+#~ msgstr ""
+#~ "Filen \"%s\" finns redan.\n"
+#~ "\n"
+#~ "Vill du skriva över den?\n"
+
+#~ msgid "path"
+#~ msgstr "sökväg"
+
+#~ msgid "Other..."
+#~ msgstr "Annat…"
+
+#~ msgid "Symlink name:"
+#~ msgstr "Namn på symbolisk länk:"
+
+#~ msgid "F10 Quit"
+#~ msgstr "F10 Avsluta"
+
+#~ msgid "No filename entered"
+#~ msgstr "Inget filnamn angivet"
+
+#~ msgid "Directory options"
+#~ msgstr "Katalogalternativ"
+
+#~ msgid "Directory cache size"
+#~ msgstr "Storlek på katalog-cachen"
+
+#~ msgid "_Test"
+#~ msgstr "_Test"
+
+#~ msgid "Can't find a host or workgroup named %s\n"
+#~ msgstr "Hittar ingen värd eller arbetsgrupp med namnet %s\n"
+
+#~ msgid "Trying to load %s instead\n"
+#~ msgstr "Provar att läsa in %s i stället\n"
+
+#~ msgid ""
+#~ "When parsing the users and groups on this system it was found that the user "
+#~ "%s is part of the group %s. This user can however not be found.\n"
+#~ msgstr "Användaren %s i gruppen %s kan inte hittas i systemet.\n"
+
+#~ msgid "/Counter (precision)"
+#~ msgstr "/Räknare (precision)"
+
+#~ msgid "With this:"
+#~ msgstr "Med detta:"
+
+#~ msgid "New Rule"
+#~ msgstr "Ny regel"
+
+#~ msgid "Counter start value:"
+#~ msgstr "Räknarens startvärde:"
+
+#~ msgid "Counter increment:"
+#~ msgstr "Räknarens steg:"
+
+#~ msgid "Counter minimum digit count:"
+#~ msgstr "Räknarens minsta antal tecken:"
+
+#~ msgid "Template Options"
+#~ msgstr "Mallalternativ"
+
+#~ msgid "Auto-update when the template is entered"
+#~ msgstr "Uppdatera automatiskt när mallen skrivs in"
+
+#~ msgid "O_ptions..."
+#~ msgstr "A_lternativ…"
+
+#~ msgid "With this"
+#~ msgstr "Med detta"
+
+#~ msgid ""
+#~ "Volume unmounting succeeded.\n"
+#~ "It is safe to eject the media."
+#~ msgstr ""
+#~ "Avmontering av enheten lyckades. \n"
+#~ "Det är säkert att avlägsna enheten"
+
+#~ msgid "Removes the FTP connection to %s"
+#~ msgstr "Tar bort FTP-anslutningen till %s"
+
+#~ msgid "Goto"
+#~ msgstr "Gå till"
+
+#~ msgid "_No Parsing (original file)"
+#~ msgstr "_Ingen tolkning (originalfil)"
+
+#~ msgid "_HTML Parser"
+#~ msgstr "_HTML-tolkare"
+
+#~ msgid "_PS/PDF Parser"
+#~ msgstr "_PS/PDF-tolkare"
+
+#~ msgid "_Show EXIF/IPTC Information"
+#~ msgstr "_Visa EXIF/IPTC-information"
+
+#~ msgid "_Decimal Offset in Hexdump"
+#~ msgstr "_Decimal förskjutning i Hexdump"
+
+#~ msgid ""
+#~ "This tag indicates the direction of saturation processing applied by the "
+#~ "camera when the image was shot."
+#~ msgstr ""
+#~ "Denna tagg indikerar riktningen av färgmättnaden utförd av kamerans "
+#~ "bildprocessning vid fångandet av bilden."
+
+#~ msgid "A textual description of the data"
+#~ msgstr "En beskrivning av datans innehåll"
+
+#~ msgid "Dir"
+#~ msgstr "Katalog"
+
+#~ msgid "_Edit..."
+#~ msgstr "R_edigera…"
+
+#~ msgid "No alias specified"
+#~ msgstr "Namn saknas"
+
+#~ msgid "No host specified"
+#~ msgstr "Värd saknas"
+
+#~ msgid "Invalid port number: %s"
+#~ msgstr "Ogiltigt portnummer: %s"
+
+#~ msgid "Host:"
+#~ msgstr "Värd:"
+
+#~ msgid "_Hex"
+#~ msgstr "_Hex"
+
+#~ msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
+#~ msgstr "Bildstorlek: %dx%d\tfärgdjup: %d\tZoom: %s"
+
+#~ msgid "_Hex dump"
+#~ msgstr "_Hexdump"
+
+#~ msgid "CCIT J17"
+#~ msgstr "CCIT J17"
+
+#~ msgid "Enter password for %s@%s"
+#~ msgstr "Ange lösenordet för %s@%s"
+
+#~ msgid "Enter Password"
+#~ msgstr "Ange lösenord"
+
+#~ msgid "FTP Connect"
+#~ msgstr "Anslut till FTP-server"
+
+#~ msgid "FTP _Connect..."
+#~ msgstr "_Anslut till FTP-server…"
+
+#~ msgid "FTP _Quick Connect..."
+#~ msgstr "_Snabbanslut till FTP-server…"
+
+#~ msgid "The F number."
+#~ msgstr "Bländartalet"
+
+#~ msgid "Icon Path"
+#~ msgstr "Ikonsökväg"
+
+#~ msgid "Track number"
+#~ msgstr "Spårnummer"
+
+#~ msgid "Camera Model"
+#~ msgstr "Kameramodell"
+
+#~ msgid "F number"
+#~ msgstr "Bländarvärde"
+
+#~ msgid "<ICC tags not supported>"
+#~ msgstr "<ICC-taggar stöds inte>"
+
+#~ msgid "Total number of chars in document."
+#~ msgstr "Totalt antal tecken i dokumentet."
+
+#~ msgid "_Execute"
+#~ msgstr "_Kör"
+
+#~ msgid "Rename \"%s\" to"
+#~ msgstr "Byta namn på \"%s\" till"
+
+#~ msgid "Case sens"
+#~ msgstr "Skilj på stora och små bokstäver"
+
+#~ msgid "New FTP Server"
+#~ msgstr "Ny FTP Server"
+
+#~ msgid "Edit FTP Server"
+#~ msgstr "Modifiera FTP Server"
+
+#~ msgid ""
+#~ "%s does not know how to open remote files. Do you want to download the files"
+#~ " to a temporary location and then open them?"
+#~ msgstr ""
+#~ "%s kan inte öppna avlägsna filer. Vill du hämta filerna till\n"
+#~ "en temporär katalog och sedan öppna dem?"
+
+#~ msgid "User _Manual..."
+#~ msgstr "_Användarmanual…"
+
+#~ msgid "Chmod"
+#~ msgstr "Chmod"
+
+#~ msgid "Compare Revisions..."
+#~ msgstr "Jämför Versioner…"
+
+#~ msgid "CVS"
+#~ msgstr "CVS"
+
+#~ msgid "CVSLogViewer"
+#~ msgstr "CVS-logg-visare:"
+
+#~ msgid "Revisions"
+#~ msgstr "Versioner"
+
+#~ msgid "Revision 2:"
+#~ msgstr "Version 2:"
+
+#~ msgid "Diff output"
+#~ msgstr "Skillnad"
+
+#~ msgid "Program name"
+#~ msgstr "Programnamn"
+
+#~ msgid ""
+#~ "Do you want to overwrite the file:\n"
+#~ " %s\n"
+#~ msgstr ""
+#~ "Vill du skriva över filen:\n"
+#~ " %s?\n"
+
+#~ msgid "Conflict while copying"
+#~ msgstr "En konflikt uppstod vid kopieringen"

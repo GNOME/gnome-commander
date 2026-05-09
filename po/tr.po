@@ -8214,3 +8214,591 @@ msgstr "Dosya sayıcı kapatılamadı"
 
 #~ msgid "Default"
 #~ msgstr "Öntanımlı"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME Commander"
+
+#~ msgid "A two paned file manager"
+#~ msgstr "İki bölmeli dosya yöneticisi"
+
+#~ msgid ""
+#~ "A custom font that will be used for the file panes if the “Use default font”"
+#~ " option is turned off."
+#~ msgstr ""
+#~ "“Öntanımlı yazı tipini kullan” seçeneği kapalıysa, dosya bölmeleri için "
+#~ "kullanılacak özel yazı tipi."
+
+#~ msgid ""
+#~ "Defines how the filesize will be displayed in the associated pane column."
+#~ msgstr ""
+#~ "Bu değer, dosya boyutunun ilişkili bölme sütununda görüntülenme durumunu "
+#~ "tanımlar."
+
+#~ msgid ""
+#~ "Defines how the file permission will be displayed in the associated pane "
+#~ "column."
+#~ msgstr ""
+#~ "Bu değer, dosya izinlerinin ilişkili bölme sütununda görüntülenme durumunu "
+#~ "tanımlar."
+
+#~ msgid "Defines the icon style of files and folders in the file panes."
+#~ msgstr "Dosya bölmelerindeki dosya ve dizinlerin simge biçimini tanımlar."
+
+#~ msgid "Defines the height of a row in the file pane."
+#~ msgstr "Bu değer, dosya bölmesindeni her bir satırın yüksekliğini tanımlar."
+
+#~ msgid "Format of the date in the file pane."
+#~ msgstr "Dosya bölmesindeki tarih biçimi."
+
+#~ msgid "The font in the file panes."
+#~ msgstr "Dosya bölmelerindeki yazı tipi."
+
+#~ msgid "Size of icons in the file pane."
+#~ msgstr "Belge bölmesindeki simgelerin boyutu."
+
+#~ msgid ""
+#~ "Defines if the orientation of the file panes should be horizontal or not."
+#~ msgstr "Dosya bölmelerinin yönünün yatay durumunu tanımlar."
+
+#~ msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
+#~ msgstr "Kullanıcı arayüzünün güncellenme hızı (ms. türünden)"
+
+#~ msgid ""
+#~ "Defines if the current directories are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Bu değer, GNOME Commander yeniden başlatıldığında geçerli açık dizinlerin "
+#~ "tekrar açılması durumunu tanımlar."
+
+#~ msgid ""
+#~ "Defines if the current open tabs are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Bu değer, GNOME Commander yeniden başlatıldığında geçerli açık sekmelerin "
+#~ "tekrar açılması durumunu tanımlar."
+
+#~ msgid ""
+#~ "This option defines if symbolic links should be treated as regular files. In"
+#~ " the file pane they are listed between other files and not at the top if "
+#~ "their target is not existing."
+#~ msgstr ""
+#~ "Bu seçenek, sembolik bağlantılara normal dosya gibi davranılıp "
+#~ "davranılmayacağını belirler. Dosya bölmesinde diğer dosyaların arasında "
+#~ "listelenirler ve hedefleri var olmuyorsa en üstte listelenmezler."
+
+#~ msgid ""
+#~ "This option defines if directories will be marked when all items in a file "
+#~ "pane should be marked."
+#~ msgstr ""
+#~ "Bu seçenek, dosya bölmesindeki tüm nesneler işaretlendiğinde dizinlerin "
+#~ "işaretlenme durumunu tanımlar."
+
+#~ msgid "Quick search exact match begin"
+#~ msgstr "Hızlı arama tam eşleme başlangıç"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the beginning"
+#~ " of an item name."
+#~ msgstr ""
+#~ "Bu seçenek, hızlı aramanın bir nesne adının başlangıcında açıkça eşleşme "
+#~ "durumunu tanımlar."
+
+#~ msgid "Quick search exact match end"
+#~ msgstr "Hızlı arama tam eşleme bitiş"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the end of an"
+#~ " item name."
+#~ msgstr ""
+#~ "Bu seçenek, hızlı aramanın bir nesne adının sonunda açıkça eşleşme durumunu "
+#~ "tanımlar."
+
+#~ msgid ""
+#~ "The entries in this list are used for restoring the tabs from the last "
+#~ "session."
+#~ msgstr ""
+#~ "Bu listedeki girdiler, sekmeleri son oturumdan geri yüklemek için "
+#~ "kullanılır."
+
+#~ msgid "Leave terminal open"
+#~ msgstr "Uçbirimi açık bırak"
+
+#~ msgid ""
+#~ "This option defines if a terminal window should stay open after a command "
+#~ "finishes inside of it."
+#~ msgstr ""
+#~ "Bu seçenek, uçbirim penceresinin komut tamamlandıktan sonra açık kalma "
+#~ "durumunu tanımlar."
+
+#~ msgid "Fixed font name"
+#~ msgstr "Sabit yazı tipi adı"
+
+#~ msgid "Name of the default font with fixed character width."
+#~ msgstr "Sabit karakter genişliğine sahip öntanımlı yazı tipinin adı."
+
+#~ msgid "Variable font name"
+#~ msgstr "Değişken yazı tipi adı"
+
+#~ msgid "Name of the default font with variable character width."
+#~ msgstr "Değişken karakter genişliğine sahip öntanımlı yazı tipinin adı."
+
+#~ msgid "Font size"
+#~ msgstr "Yazı tipi boyutu"
+
+#~ msgid "This option defines the default font size."
+#~ msgstr "Bu seçenek, öntanımlı yazı tipini tanımlar."
+
+#~ msgid "Two-pane file manager"
+#~ msgstr "İki bölmeli dosya yöneticisi"
+
+#~ msgid ""
+#~ "GNOME Commander is a “two-pane” graphical file manager for the GNOME desktop"
+#~ " environment. It features separate tabs for each pane, setting up custom "
+#~ "device buttons, bookmark manager, fully integrated commandline, file quick "
+#~ "search, an internal image viewer, a powerful batch renaming tool, and FTP "
+#~ "and Samba access."
+#~ msgstr ""
+#~ "Gnome Commander, GNOME masaüstü ortamı için “iki bölmeli” grafiksel dosya "
+#~ "yönetisidir. Her bölmeyi sekmelere ayırma, özel aygıt düğme ayarları, yer "
+#~ "imlerini yöneticisi, tümleşik komut satırı, hızlı dosya arama, gömülü resim "
+#~ "göstericisi, güçlü bir toplu yeniden adlandırma aracı ve FTP, Samba erişimi "
+#~ "sunar."
+
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+#~ "GNOME Commander, hassas dosya yönetimi gibi işlemler yapan, gelişmiş "
+#~ "kullanıcıları hedefler, özel uygulamalar ile paralel çalışır ve akıllı "
+#~ "komutları çalıştırır."
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr "Sol bölüm için başlangıç dizinini belirt"
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr "Sağ bölüm için başlangıç dizinini belirt"
+
+#~ msgid "OK"
+#~ msgstr "Tamam"
+
+#~ msgid "Remote Server"
+#~ msgstr "Uzak Sunucu"
+
+#~ msgid "Connection method is not selected"
+#~ msgstr "Bağlantı yöntemi seçilmedi"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "Öntanımlı onayı Tamam yap"
+
+#~ msgid "ALT+letters (menu access with F12)"
+#~ msgstr "ALT+harfler (F12 ile menü erişimi)"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "Dosya adının başlangıcıyla eşleştir"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "Dosya adının sonuyla eşleştir"
+
+#~ msgid ""
+#~ "Search window is minimizable\n"
+#~ "(Needs program restart if altered)"
+#~ msgstr ""
+#~ "Arama penceresi küçültülmüş\n"
+#~ "(Eğer değiştirilirse program yeniden başlatılmalı)"
+
+#~ msgid "File panes"
+#~ msgstr "Dosya bölmeleri"
+
+#~ msgid "Leave terminal window open"
+#~ msgstr "Uçbirim penceresini açık bırak"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Dosyaların Üstüne Yaz"
+
+#~ msgid "Keyboard Shortcut"
+#~ msgstr "Klavye Kısayolları"
+
+#~ msgid "_Action"
+#~ msgstr "_Eylem"
+
+#~ msgid "_Shortcut"
+#~ msgstr "_Kısayol"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the \"Assign\" button and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "Kısayol tuşunu düzenlemek için \"Ata\" düğmesine tıklayın ve yeni kısayol "
+#~ "yazın ya da iptal etmek için escape tuşuna basın."
+
+#~ msgid "New shortcut..."
+#~ msgstr "Yeni kısayol..."
+
+#~ msgid "Assign"
+#~ msgstr "Ata"
+
+#~ msgid "No action is selected."
+#~ msgstr "Seçilmiş eylem yok"
+
+#~ msgid "No shortcut is defined."
+#~ msgstr "Hiçbir kısayol tanımlanmamış."
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Kısayol Tuşu"
+
+#~ msgid "Action"
+#~ msgstr "Eylem"
+
+#, rust-format
+#~ msgid "Failed to get directory info for {path}."
+#~ msgstr "{path} dizini için bilgi alınamadı."
+
+#, rust-format
+#~ msgid "A total of {selected_bytes} has been selected."
+#~ msgstr "Toplam {selected_bytes} bayt seçildi."
+
+#, rust-format
+#~ msgid "{selected_files} file selected."
+#~ msgid_plural "{selected_files} files selected."
+#~ msgstr[0] "{selected_files} dosya seçildi."
+
+#, rust-format
+#~ msgid "{selected_dirs} directory selected."
+#~ msgid_plural "{selected_dirs} directories selected."
+#~ msgstr[0] "{selected_dirs} dizin seçildi."
+
+#~ msgid "Cut"
+#~ msgstr "Kes"
+
+#~ msgid "Copy file names"
+#~ msgstr "Dosya adlarını kopyala"
+
+#~ msgid "Send files"
+#~ msgstr "Dosyaları gönder"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "Burada _uçbirim aç"
+
+#~ msgid "_Directory"
+#~ msgstr "_Dizin"
+
+#~ msgid "_Text File"
+#~ msgstr "_Metin Dosyası"
+
+#~ msgid "Copy Tab to Other _Pane"
+#~ msgstr "Sekmeyi Diğer _Bölmeye Kopyala"
+
+#~ msgid "Filter:"
+#~ msgstr "Süzgeç:"
+
+#, c-format
+#~ msgid "The program has now finished. Press Enter to close this window.\n"
+#~ msgstr "Program tamamlandı. Pencereyi kapatmak için Enter tuşuna basın.\n"
+
+#~ msgid "Find"
+#~ msgstr "Bul"
+
+#~ msgid "Searching…"
+#~ msgstr "Aranıyor…"
+
+#, rust-format
+#~ msgid "Searching for “{}”"
+#~ msgstr "“{}” aranıyor"
+
+#~ msgid "_Copy selection"
+#~ msgstr "_Seçimi kopyala"
+
+#, rust-format
+#~ msgid "Pattern “{}” was not found"
+#~ msgstr "“{}” deseni bulunamadı"
+
+#~ msgid "_Binary"
+#~ msgstr "_İkili Değer"
+
+#~ msgid "Rotate Clockwise"
+#~ msgstr "Saat Yönüne Döndür"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "_İkili Kip"
+
+#~ msgid "GNOME Commander — ROOT PRIVILEGES"
+#~ msgstr "GNOME Commander — YÖNETİCİ HAKLARIYLA"
+
+#~ msgid "Refresh"
+#~ msgstr "Tazele"
+
+#~ msgid "Go to the oldest"
+#~ msgstr "En eskiye git"
+
+#~ msgid "Go back"
+#~ msgstr "Geri git"
+
+#~ msgid "Go forward"
+#~ msgstr "İleri git"
+
+#~ msgid "Go to the latest"
+#~ msgstr "En sonuncuya git"
+
+#~ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+#~ msgstr "Dosya adlarını kopyala (Tüm yollar için SHIFT, URI için ALT)"
+
+#~ msgid "Paste"
+#~ msgstr "Yapıştır"
+
+#~ msgid "Open terminal"
+#~ msgstr "Uçbirim aç"
+
+#~ msgid "_Enable Filter…"
+#~ msgstr "Süzgeçi _Etkinleştir…"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "_Dosya Adlarını Kopyala"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "Seçimi _Geri Al"
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "GNOME Commander _Web Sayfası"
+
+#~ msgid "Search failed"
+#~ msgstr "Arama başarısız"
+
+#~ msgid "Error running the search command."
+#~ msgstr "Arama komutu yürütülemedi."
+
+#~ msgid "Cannot extract a relative file path"
+#~ msgstr "Göreceli dosya yolu çıkarılamadı"
+
+#~ msgid "Cannot extract a file path"
+#~ msgstr "Dosya yolu çıkarılamadı"
+
+#~ msgid "Failed to detect a start directory"
+#~ msgstr "Başlangıç dizini saptanamadı"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "Büyük/küçük _harf duyarlı"
+
+#~ msgid "Path matches regex:"
+#~ msgstr "Düzenli ifade ile eşleşen yol:"
+
+#~ msgid "Name contains:"
+#~ msgstr "Adın içerdiği:"
+
+#~ msgid "Source “%s” could not be deleted. Aborting!"
+#~ msgstr "Kaynak “%s” silinemedi. İptal ediliyor!"
+
+#~ msgid ""
+#~ "Cannot detect a connection for a source “%s”. It could not be deleted. "
+#~ "Aborting!"
+#~ msgstr "“%s” kaynağı için bağlantı saptanamadı. Silinemiyor! İptal ediliyor!"
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME Commander özgür yazılımdır ve Özgür Yazılım Vakfı tarafından "
+#~ "yayınlanan GNU Genel Kamu Lisansı sürüm 2 veya daha sonraki bir sürümün "
+#~ "şartları altında yeniden dağıtabilir ve/veya değiştirebilirsiniz."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "GNOME Commander kullanışlı olması amacıyla dağıtılmıştır, ancak HİÇBİR "
+#~ "GARANTİSİ YOKTUR; hatta SATILABİLİRLİK ya da BİR AMACA HİZMET gibi garantisi"
+#~ " de yoktur.  Daha çok ayrıntı için GNU Genel Kamu Lisansı'na bakın."
+
+# Link koymak, mektup yazmaktan daha faydalı.
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+#~ "GNOME Commander ile birlikte GNU General Public License bir kopyasını "
+#~ "birlikte almış olmalısınız; almadıysanız, <https://www.gnu.org/licenses/> "
+#~ "adresine bakınız."
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "GNOME masaüstü için hızlı ve güçlü dosya yöneticisi"
+
+#~ msgid "Copy files"
+#~ msgstr "Dosyaları kopyala"
+
+#~ msgid "Move files"
+#~ msgstr "Dosyaları taşı"
+
+#~ msgid "Delete files"
+#~ msgstr "Dosyaları sil"
+
+#~ msgid "Edit file"
+#~ msgstr "Dosya düzenle"
+
+#~ msgid "Edit a new file"
+#~ msgstr "Yeni dosya düzenle"
+
+#~ msgid "Change permissions"
+#~ msgstr "İzinleri değiştir"
+
+#~ msgid "Change owner/group"
+#~ msgstr "Sahibi/grubu değiştir"
+
+#~ msgid "Create directory"
+#~ msgstr "Dizin oluştur"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "Dosyaları karşılaştır (diff)"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "Dizinleri eşitle"
+
+#~ msgid "Rename files"
+#~ msgstr "Dosyaları yeniden adlandır"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "Sembolik bağlantı oluştur"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "Gelişmiş yeniden adlandırma aracı"
+
+#~ msgid "Select all"
+#~ msgstr "Tümünü seç"
+
+#~ msgid "Unselect all"
+#~ msgstr "Tüm seçimleri kaldır"
+
+#~ msgid "Select all files"
+#~ msgstr "Tüm dosyaları seç"
+
+#~ msgid "Unselect all files"
+#~ msgstr "Tüm dosya seçimlerini kaldır"
+
+#~ msgid "Select with pattern"
+#~ msgstr "Örüntü ile seç"
+
+#~ msgid "Unselect with pattern"
+#~ msgstr "Örüntü ile seçimleri kaldır"
+
+#~ msgid "Invert selection"
+#~ msgstr "Seçimi ters çevir"
+
+#~ msgid "Select with same extension"
+#~ msgstr "Aynı uzantı ile seç"
+
+#~ msgid "Unselect with same extension"
+#~ msgstr "Aynı Uzantı ile seçimleri kaldır"
+
+#~ msgid "Restore selection"
+#~ msgstr "Seçimi geri yükle"
+
+#~ msgid "Compare directories"
+#~ msgstr "Dizinleri karşılaştır"
+
+#~ msgid "Show user defined files"
+#~ msgstr "Kullanıcı tanımlı dosyaları göster"
+
+#~ msgid "Show directory history"
+#~ msgstr "Dizin geçmişini göster"
+
+#~ msgid "Show hidden files"
+#~ msgstr "Gizli dosyaları göster"
+
+#~ msgid "Show backup files"
+#~ msgstr "Yedek dosyalarını göster"
+
+#~ msgid "Back to the first directory"
+#~ msgstr "İlk dizine geri dön"
+
+#~ msgid "Back one directory"
+#~ msgstr "Bir dizin geriye"
+
+#~ msgid "Forward one directory"
+#~ msgstr "Bir dizin ilerle"
+
+#~ msgid "Forward to the last directory"
+#~ msgstr "Son dizine ilerle"
+
+#~ msgid "Equal panel size"
+#~ msgstr "Eşit bölme boyutu"
+
+#~ msgid "Maximize panel size"
+#~ msgstr "Bölme boyutunu azami yap"
+
+#~ msgid "Open directory in the left window"
+#~ msgstr "Dizini sol pencerede aç"
+
+#~ msgid "Open directory in the right window"
+#~ msgstr "Dizini sağ pencerede aç"
+
+#~ msgid "Open directory in the active window"
+#~ msgstr "Dizini etkin pencerede aç"
+
+#~ msgid "Open directory in the inactive window"
+#~ msgstr "Dizini etkin olmayan pencerede aç"
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "Dizini yeni sekmede aç"
+
+#~ msgid "Close the current tab"
+#~ msgstr "Geçerli sekmeyi kapat"
+
+#~ msgid "Close all tabs"
+#~ msgstr "Tüm sekmeleri kapat"
+
+#~ msgid "Open directory in the new tab (inactive window)"
+#~ msgstr "Dizini yeni sekmede aç (etkin olmayan pencere)"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr "Geçerli dizini yer imlerine ekle"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "Yer imlerini yönet"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Klavye kısayolları"
+
+#~ msgid "Open connection"
+#~ msgstr "Bağlantı aç"
+
+#~ msgid "New connection"
+#~ msgstr "Yeni bağlantı"
+
+#~ msgid "Set connection"
+#~ msgstr "Bağlantıyı ayarla"
+
+#~ msgid "Change left connection"
+#~ msgstr "Sol bağlantıyı değiştir"
+
+#~ msgid "Change right connection"
+#~ msgstr "Sağ bağlantıyı değiştir"
+
+#~ msgid "Close connection"
+#~ msgstr "Bağlantıyı kapat"
+
+#~ msgid "Configure plugins"
+#~ msgstr "Eklentileri yapılandır"
+
+#~ msgid "Help contents"
+#~ msgstr "Yardım içeriği"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "Klavye kısayolları yardımı"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr "GNOME Commander web sayfası"
+
+#~ msgid "Report a problem"
+#~ msgstr "Hata bildir"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr "GNOME Commander Hakkında"
+
+#~ msgid "stopping…"
+#~ msgstr "durduruluyor…"
+
+#~ msgid "No command was given."
+#~ msgstr "Komut verilmedi."
