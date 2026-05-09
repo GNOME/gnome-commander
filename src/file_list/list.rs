@@ -2386,7 +2386,19 @@ impl FileList {
     }
 
     pub fn select_row(&self, pos: u32) {
-        self.imp().row_selector.select_row(pos);
+        if self.imp().view.size(gtk::Orientation::Vertical) > 0 {
+            self.imp().row_selector.select_row(pos);
+        } else {
+            // Too early to set selection
+            glib::timeout_add_local_once(
+                std::time::Duration::from_millis(10),
+                glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move || obj.select_row(pos),
+                ),
+            );
+        }
     }
 
     pub fn toggle_with_pattern(&self, pattern: &Filter, mode: bool) {
@@ -2698,18 +2710,16 @@ impl FileList {
         store.remove_all();
         store.splice(0, 0, &items);
 
-        if self.is_realized() {
-            // If we have been waiting for this file to show up, focus it
-            let focus_later = self.imp().focus_later.take();
-            let focus_later_item = items
-                .into_iter()
-                .find(|item| focus_later.as_ref() == Some(&item.file().path_name()));
+        // If we have been waiting for this file to show up, focus it
+        let focus_later = self.imp().focus_later.take();
+        let focus_later_item = items
+            .into_iter()
+            .find(|item| focus_later.as_ref() == Some(&item.file().path_name()));
 
-            if let Some(item) = focus_later_item {
-                self.focus_file_at_row(&item);
-            } else {
-                self.select_row(0);
-            }
+        if let Some(item) = focus_later_item {
+            self.focus_file_at_row(&item);
+        } else {
+            self.select_row(0);
         }
     }
 
