@@ -1814,6 +1814,7 @@ impl FileList {
         if let Some(filter) = self.imp().filter_model.filter() {
             filter.changed(gtk::FilterChange::Different);
         }
+        self.emit_files_changed();
     }
 
     pub fn start_range_selection(&self, up: bool, closed: bool) {
