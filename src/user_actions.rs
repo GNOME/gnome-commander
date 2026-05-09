@@ -861,7 +861,11 @@ async fn view_new_tab(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
     if let Some(directory) = file_list.directory() {
-        file_selector.new_tab(Some(&directory), TabOptions::from(&file_list));
+        let mut options = TabOptions::from(&file_list);
+        if let Some(selected_file) = file_list.selected_file() {
+            options = options.selected_file(selected_file.path_name());
+        }
+        file_selector.new_tab(Some(&directory), options);
     }
 }
 
