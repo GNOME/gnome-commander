@@ -2064,17 +2064,15 @@ impl FileList {
     }
 
     pub fn set_sorting(&self, column_id: ColumnID, order: gtk::SortType) {
-        for column in self
+        if let Some(column) = self
             .view()
             .columns()
             .iter::<gtk::ColumnViewColumn>()
             .flatten()
+            .find(|column| column.id().is_some_and(|name| name == column_id.name()))
         {
-            if column.id().is_some_and(|name| name == column_id.name()) {
-                self.view().sort_by_column(None, order);
-                self.view().sort_by_column(Some(&column), order);
-                break;
-            }
+            self.view().sort_by_column(None, order);
+            self.view().sort_by_column(Some(&column), order);
         }
     }
 
@@ -2105,21 +2103,14 @@ impl FileList {
             if column_id == ColumnID::Dir {
                 continue;
             }
-            let Some(current_position) = self
+            let Some((current_position, column)) = self
                 .view()
                 .columns()
                 .iter::<gtk::ColumnViewColumn>()
                 .flatten()
-                .position(|column| column.id().is_some_and(|name| name == column_id.name()))
-                .and_then(|pos| u32::try_from(pos).ok())
-            else {
-                continue;
-            };
-            let Some(column) = self
-                .view()
-                .columns()
-                .item(current_position)
-                .and_downcast::<gtk::ColumnViewColumn>()
+                .enumerate()
+                .find(|(_, column)| column.id().is_some_and(|name| name == column_id.name()))
+                .and_then(|(pos, column)| u32::try_from(pos).ok().map(|pos| (pos, column)))
             else {
                 continue;
             };
@@ -2144,15 +2135,14 @@ impl FileList {
     }
 
     pub fn show_column(&self, column_id: ColumnID, value: bool) {
-        for column in self
+        if let Some(column) = self
             .view()
             .columns()
             .iter::<gtk::ColumnViewColumn>()
             .flatten()
+            .find(|column| column.id().is_some_and(|name| name == column_id.name()))
         {
-            if column.id().is_some_and(|name| name == column_id.name()) {
-                column.set_visible(value);
-            }
+            column.set_visible(value);
         }
     }
 
