@@ -7572,3 +7572,1885 @@ msgstr "10-15ms"
 
 #~ msgid "Sorting"
 #~ msgstr "Sortare"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "Commander GNOME"
+
+#~ msgid "Two-pane file manager"
+#~ msgstr "Manager de fișiere cu panou dublu"
+
+#~ msgid ""
+#~ "GNOME Commander is a “two-pane” graphical file manager for the GNOME desktop"
+#~ " environment. It features separate tabs for each pane, setting up custom "
+#~ "device buttons, bookmark manager, fully integrated commandline, file quick "
+#~ "search, an internal image viewer, a powerful batch renaming tool, and FTP "
+#~ "and Samba access."
+#~ msgstr ""
+#~ "Commander GNOME este un administrator grafic de fișiere în „două-panouri” "
+#~ "pentru mediul desktop GNOME. Vine cu taburi separate pentru fiecare panou, "
+#~ "stabilirea de butoane de dispozitiv personalizate, administrator de marcaje,"
+#~ " linie de comandă integrată complet, căutare rapidă de fișiere, un "
+#~ "vizualizator de imagini intern, o unealtă puternică de redenumire în masă, ș"
+#~ " acces FTP și Samba."
+
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+#~ "Commander GNOME este conceput pentru utilizatori avansați care doresc să se "
+#~ "concentreze pe administrarea precisă a fișierelor, lucrul în paralel prin "
+#~ "aplicații speciale, și rularea de comenzi inteligente."
+
+#~ msgid "A two paned file manager"
+#~ msgstr "Manager de fișiere dublu-panou"
+
+#~ msgid "Use default font"
+#~ msgstr "Utilizează fontul implicit"
+
+#~ msgid ""
+#~ "Whether to use the system’s default fixed width font for the file panels "
+#~ "instead of a font specific to gnome-commander."
+#~ msgstr ""
+#~ "Dacă să se folosească fontul cu lățime fixă implicit al sistemului pentru "
+#~ "panourile cu fișiere în loc de un font specific lui gnome-commander."
+
+#~ msgid ""
+#~ "A custom font that will be used for the file panes if the “Use default font”"
+#~ " option is turned off."
+#~ msgstr ""
+#~ "Un font personalizat care va fi folosit pentru panourile cu fișiere dacă "
+#~ "opțiunea „Utilizează fontul implicit” este oprită."
+
+#~ msgid ""
+#~ "Defines how the filesize will be displayed in the associated pane column."
+#~ msgstr ""
+#~ "Definește cum dimensiunea fișierului va fi afișată în coloana panoului "
+#~ "asociat."
+
+#~ msgid ""
+#~ "Defines how the file permission will be displayed in the associated pane "
+#~ "column."
+#~ msgstr ""
+#~ "Definește cum permisiunile fișierelor vor fi afișate în coloana panoului "
+#~ "asociat."
+
+#~ msgid "Defines the icon style of files and folders in the file panes."
+#~ msgstr ""
+#~ "Definește stilul de iconițe pentru fișiere și dosare în panourile cu "
+#~ "fișiere."
+
+#~ msgid "Defines the height of a row in the file pane."
+#~ msgstr "Definește înălțimea rândului în panoul cu fișiere."
+
+#~ msgid "Format of the date in the file pane."
+#~ msgstr "Formatul datei în panoul fișierului."
+
+#~ msgid "The font in the file panes."
+#~ msgstr "Fontul panoului fișierului."
+
+#~ msgid "Size of icons in the file pane."
+#~ msgstr "Dimensiunea iconițelor în panoul fișier."
+
+#~ msgid "Device icon size"
+#~ msgstr "Dimensiune iconiței dispozitivului"
+
+#~ msgid "Icon size in the device list."
+#~ msgstr "Dimensiunea iconițelor în lista cu dispozitive."
+
+#~ msgid ""
+#~ "Defines if the orientation of the file panes should be horizontal or not."
+#~ msgstr ""
+#~ "Definește dacă orientarea panourilor cu fișiere ar trebui să fie orizontală "
+#~ "sau nu."
+
+#~ msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
+#~ msgstr "Rata de actualizare a interfeței grafice în a mia parte de secundă."
+
+#~ msgid "Main window horizontal position"
+#~ msgstr "Poziția orizontală a ferestrei principale"
+
+#~ msgid "Position of the main window in horizontal direction."
+#~ msgstr "Poziția ferestrei principale în direcția orizontală."
+
+#~ msgid "Main window vertical position"
+#~ msgstr "Poziția verticală a ferestrei principale"
+
+#~ msgid "Position of the main window in vertical direction."
+#~ msgstr "Poziția ferestrei principale în direcția verticală."
+
+#~ msgid ""
+#~ "Defines if the current directories are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Definește dacă directoarele curente sunt deschise din nou când Commander "
+#~ "GNOME este repornit."
+
+#~ msgid ""
+#~ "Defines if the current open tabs are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Definește dacă taburile deschise curent sunt deschise din nou când Commander"
+#~ " GNOME este repornit."
+
+#~ msgid ""
+#~ "This option defines if directories will be marked when all items in a file "
+#~ "pane should be marked."
+#~ msgstr ""
+#~ "Această opțiune definește dacă directoarele vor fi marcate când toate "
+#~ "elementele dintr-un panou cu fișiere trebuie marcate."
+
+#~ msgid "Quick search exact match begin"
+#~ msgstr "Începutul căutării rapide cu potrivire exactă"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the beginning"
+#~ " of an item name."
+#~ msgstr ""
+#~ "Această opțiune definește dacă căutarea rapidă ar trebui să se potrivească "
+#~ "explicit la începutul numelui unui element."
+
+#~ msgid "Quick search exact match end"
+#~ msgstr "Sfârșitul potriviri exacte a căutării rapide"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the end of an"
+#~ " item name."
+#~ msgstr ""
+#~ "Această opțiune definește dacă căutarea rapidă ar trebui să se potrivească "
+#~ "explicit la sfârșitul numelui unui element."
+
+#~ msgid ""
+#~ "The entries in this list are used for restoring the tabs from the last "
+#~ "session."
+#~ msgstr ""
+#~ "Intrările din această listă sunt folosite pentru a restaura taburi din "
+#~ "ultima sesiune."
+
+#~ msgid "Leave terminal open"
+#~ msgstr "Lasă terminalul deschis"
+
+#~ msgid ""
+#~ "This option defines if a terminal window should stay open after a command "
+#~ "finishes inside of it."
+#~ msgstr ""
+#~ "Această opțiune definește dacă o fereastră de terminal ar trebui să rămână "
+#~ "deschisă după ce comanda din interiorul ei se finalizează."
+
+#~ msgid "Fixed font name"
+#~ msgstr "Nume font fix"
+
+#~ msgid "Name of the default font with fixed character width."
+#~ msgstr "Numele fontului implicit cu lățime de caractere fixă."
+
+#~ msgid "Variable font name"
+#~ msgstr "Nume de font variabil"
+
+#~ msgid "Name of the default font with variable character width."
+#~ msgstr "Numele fontului implicit cu lățime de caractere variabilă."
+
+#~ msgid "Font size"
+#~ msgstr "Dimensiune font"
+
+#~ msgid "This option defines the default font size."
+#~ msgstr "Această opțiune definește dimensiunea implicită a fontului."
+
+#~ msgid "Horizontal offset"
+#~ msgstr "Decalaj orizontal"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "horizontal direction."
+#~ msgstr ""
+#~ "Această opțiune definește decalajul vizual al vizualizatorului de fișiere "
+#~ "intern în direcția orizontală."
+
+#~ msgid "Vertical offset"
+#~ msgstr "Decalaj vertical"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "vertical direction."
+#~ msgstr ""
+#~ "Această opțiune definește decalajul vizual al vizualizatorului de fișiere "
+#~ "intern în direcția verticală."
+
+#~ msgid "No error description available"
+#~ msgstr "Descrierea erorii nu este disponibilă"
+
+#~ msgid "Folder selection"
+#~ msgstr "Selecție dosare"
+
+#~ msgid "File selection"
+#~ msgstr "Selecție fișiere"
+
+#~ msgid "/_Save Profile As…"
+#~ msgstr "/_Salvează profilul ca…"
+
+#~ msgid "/_Manage Profiles…"
+#~ msgstr "/Ad_ministrează profilurile…"
+
+#~ msgid "Current file name"
+#~ msgstr "Numele curent al fișierului"
+
+#~ msgid "New file name"
+#~ msgstr "Numele nou al fișierului"
+
+#~ msgid "File size"
+#~ msgstr "Dimensiune fișier"
+
+#~ msgid "File modification date"
+#~ msgstr "Data modificării fișierului"
+
+#~ msgid "_Replace with:"
+#~ msgstr "Î_nlocuiește cu:"
+
+#, c-format
+#~ msgid "Could not chmod %s"
+#~ msgstr "Nu s-a putut schimba modul (chmod) %s"
+
+#, c-format
+#~ msgid "Could not chown %s"
+#~ msgstr "Nu s-a putut schimba proprietarul (chown) %s"
+
+#~ msgid "Chown"
+#~ msgstr "Schimbă proprietarul (Chown)"
+
+#, c-format
+#~ msgid "“%s” is not a valid location"
+#~ msgstr "„%s” nu este o locație validă"
+
+#~ msgid "Remote Server"
+#~ msgstr "Server la distanță"
+
+#, c-format
+#~ msgid "Deleted %lu of %lu file"
+#~ msgid_plural "Deleted %lu of %lu files"
+#~ msgstr[0] "A fost șters %lu din %lu fișiere"
+#~ msgstr[1] "Au fost șterse %lu din %lu fișiere"
+#~ msgstr[2] "Au fost șterse %lu din %lu de fișiere"
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Eroare la ștergerea „%s”\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Delete problem"
+#~ msgstr "Problemă la ștergere"
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting: \n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Eroare la ștergere:\n"
+#~ "\n"
+#~ "%s"
+
+#, c-format
+#~ msgid "Do you really want to delete “%s”?"
+#~ msgstr "Doriți să ștergeți „%s”?"
+
+#, c-format
+#~ msgid "The directory “%s” is not empty. Do you really want to delete it?"
+#~ msgstr "Directorul „%s” nu este gol. Doriți să îl ștergeți?"
+
+#, c-format
+#~ msgid "Do you want to permanently delete “%s”?"
+#~ msgstr "Doriți să ștergeți permanent „%s”?"
+
+#, c-format
+#~ msgid "Do you want to move “%s” to the trash can?"
+#~ msgstr "Doriți să mutați „%s” la coșul de gunoi?"
+
+#~ msgid "Bookmark name is missing."
+#~ msgstr "Lipsește numele semnului de carte."
+
+#~ msgid "Bookmark target is missing."
+#~ msgstr "Lipsește ținta semnului de carte."
+
+#~ msgid "Image:"
+#~ msgstr "Imagine:"
+
+#~ msgid "Content Type:"
+#~ msgstr "Tip de conținut:"
+
+#~ msgid "Type"
+#~ msgstr "Tip"
+
+#~ msgid "Metadata namespace"
+#~ msgstr "Spațiu de nume metadate"
+
+#~ msgid "Tag name"
+#~ msgstr "Nume etichetă"
+
+#~ msgid "Tag value"
+#~ msgstr "Valoare etichetă"
+
+#~ msgid "Metadata tag description"
+#~ msgstr "Descriere etichetă metadate"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the corresponding row and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "Pentru a edita o scurtătură, apăsați pe rândul corespunzător și tastați noul"
+#~ " accelerator sau apăsați ESC pentru a anula."
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Scurtătură"
+
+#~ msgid "Keyboard shortcut for selected action"
+#~ msgstr "Scurtătură de tastatură pentru acțiunea selectată"
+
+#~ msgid "Action"
+#~ msgstr "Acțiune"
+
+#~ msgid "User action"
+#~ msgstr "Acțiunea utilizatorului"
+
+#~ msgid "Optional data"
+#~ msgstr "Date opționale"
+
+#, c-format
+#~ msgid "Shortcut “%s” is already taken by “%s”."
+#~ msgstr "Scurtătura „%s” este deja luată de „%s”."
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "Scurtături în conflict"
+
+#, c-format
+#~ msgid "Reassigning the shortcut will cause it to be removed from “%s”."
+#~ msgstr "Reatribuirea scurtăturii va cauza ștergerea ei pentru „%s”."
+
+#~ msgid "Invalid shortcut."
+#~ msgstr "Scurtătură nevalidă."
+
+#~ msgid "Do nothing"
+#~ msgstr "Nu fă nimic"
+
+#, c-format
+#~ msgid "Copy “%s” to"
+#~ msgstr "Copiază „%s” la"
+
+#~ msgid "Group"
+#~ msgstr "Grup"
+
+#~ msgid "Bookmark group"
+#~ msgstr "Grup pentru semnul de carte"
+
+#~ msgid "Bookmark name"
+#~ msgstr "Nume semn de carte"
+
+#~ msgid "Keyboard shortcut for selected bookmark"
+#~ msgstr "Scurtătura de tastatură pentru semnul de carte selectat"
+
+#~ msgid "Bookmarked path"
+#~ msgstr "Calea semnului de carte"
+
+#~ msgid "Profile name"
+#~ msgstr "Nume profil"
+
+#, c-format
+#~ msgid "Make directory failed: %s\n"
+#~ msgstr "Crearea dosarului a eșuat: %s\n"
+
+#~ msgid "Sorting/Quick search"
+#~ msgstr "Căutare/sortare rapidă"
+
+#~ msgid "ALT+letters (menu access with F12)"
+#~ msgstr "ALT+litere (acces la meniu cu F12)"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "Potrivește cu începutul numelui de fișier"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "Potrivește cu sfârșitul numelui de fișier"
+
+#~ msgid ""
+#~ "Search window is minimizable\n"
+#~ "(Needs program restart if altered)"
+#~ msgstr ""
+#~ "Fereastra de căutare poate fi minimizată\n"
+#~ "(Necesită repornirea programului la modificare)"
+
+#~ msgid ""
+#~ "See the manual page for “strftime” for help on how to set the format string."
+#~ msgstr ""
+#~ "Consultați pagina manualului „strftime” pentru ajutor la definirea șirului "
+#~ "de format."
+
+#~ msgid "Colors"
+#~ msgstr "Culori"
+
+#~ msgid "Palette"
+#~ msgstr "Paletă"
+
+#~ msgid "Foreground:"
+#~ msgstr "Prim-plan:"
+
+#~ msgid "Background:"
+#~ msgstr "Fundal:"
+
+#~ msgid "File panes"
+#~ msgstr "Panouri fișiere"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "Confirmă implicitele ca OK"
+
+#~ msgid "Leave terminal window open"
+#~ msgstr "Lasă fereastra terminalului deschisă"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Scrie peste"
+
+#, c-format
+#~ msgid "copy %d file to"
+#~ msgid_plural "copy %d files to"
+#~ msgstr[0] "copie %d fișier în"
+#~ msgstr[1] "copie %d fișiere în"
+#~ msgstr[2] "copie %d de fișiere în"
+
+#, c-format
+#~ msgid "Move “%s” to"
+#~ msgstr "Mută „%s” în"
+
+#, c-format
+#~ msgid "move %d file to"
+#~ msgid_plural "move %d files to"
+#~ msgstr[0] "mută %d fișier în"
+#~ msgstr[1] "mută %d fișiere în"
+#~ msgstr[2] "mută %d de fișiere în"
+
+#, c-format
+#~ msgid "The directory “%s” doesn’t exist, do you want to create it?"
+#~ msgstr "Directorul „%s” nu există, doriți să îl creați?"
+
+#~ msgid "Unknown error"
+#~ msgstr "Eroare necunoscută"
+
+#~ msgid "Network protocol"
+#~ msgstr "Protocol de rețea"
+
+#~ msgid "Connection name"
+#~ msgstr "Nume conexiune"
+
+#~ msgid "Connections"
+#~ msgstr "Conexiuni"
+
+#~ msgid "Search local directories only"
+#~ msgstr "Caută numai în dosarele locale"
+
+#~ msgid "Files _not containing text"
+#~ msgstr "Fișiere ce _nu conțin textul"
+
+#, c-format
+#~ msgid "Failed to read file %s: File is not searchable"
+#~ msgstr "Nu s-a putut citi fișierul %s: fișierul nu poate fi căutat"
+
+#, c-format
+#~ msgid "Failed to read file %s: %s"
+#~ msgstr "Nu s-a putut citi fișierul %s: %s"
+
+#, c-format
+#~ msgid "Searching in: %s"
+#~ msgstr "Căutare în: %s"
+
+#, c-format
+#~ msgid "Found %d match — search aborted"
+#~ msgid_plural "Found %d matches — search aborted"
+#~ msgstr[0] "Am găsit %d potrivire — căutarea anulată"
+#~ msgstr[1] "Am găsit %d potriviri — căutarea anulată"
+#~ msgstr[2] "Am găsit %d de potriviri — căutarea anulată"
+
+#, c-format
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "A fost găsit %d potrivire"
+#~ msgstr[1] "Au fost găsite %d potriviri"
+#~ msgstr[2] "Au fost găsite %d de potriviri"
+
+#, c-format
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr "Nu s-a putut definii id-ul pentru grupul de procese %d: %s.\n"
+
+#~ msgid "Error parsing the search command."
+#~ msgstr "Eroare la analizarea comenzii de căutare."
+
+#~ msgid "Error running the search command."
+#~ msgstr "Eroare la rularea comenzii de căutare."
+
+#, c-format
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr "Nu s-a putut schimba dosarul în afara %s"
+
+#, c-format
+#~ msgid "%d file listed"
+#~ msgid_plural "%d files listed"
+#~ msgstr[0] "%d fișier listat"
+#~ msgstr[1] "%d fișiere listate"
+#~ msgstr[2] "%d de fișiere listate"
+
+#~ msgid "Accelerator key"
+#~ msgstr "Tastă-accelerator"
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr "Modificatori de accelerare"
+
+#~ msgid "Accelerator Mode"
+#~ msgstr "Mod accelerator"
+
+#~ msgid "The type of accelerator."
+#~ msgstr "Tipul acceleratorului."
+
+#~ msgid "Disabled"
+#~ msgstr "Dezactivat"
+
+#~ msgid "New accelerator…"
+#~ msgstr "Accelerator nou…"
+
+#~ msgid "Credits"
+#~ msgstr "Autori"
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "Pagina web a modulului"
+
+#~ msgid "C_redits"
+#~ msgstr "A_utori"
+
+#~ msgid "/Grandparent"
+#~ msgstr "/Bunic"
+
+#~ msgid "/Parent"
+#~ msgstr "/Părinte"
+
+#~ msgid "/File name"
+#~ msgstr "/Nume fișier"
+
+#~ msgid "/File name (range)"
+#~ msgstr "/Nume fișier (interval)"
+
+#~ msgid "/File name without extension"
+#~ msgstr "/Nume de fișier fără extensie"
+
+#~ msgid "/File name without extension (range)"
+#~ msgstr "/Nume fișier fără extensie (interval)"
+
+#~ msgid "/File extension"
+#~ msgstr "/Extensie fișier"
+
+#~ msgid "/Counter"
+#~ msgstr "/Contor"
+
+#~ msgid "/Counter (width)"
+#~ msgstr "/Contor (lățime)"
+
+#~ msgid "/Counter (auto)"
+#~ msgstr "/Contor (automat)"
+
+#~ msgid "/Hexadecimal random number (width)"
+#~ msgstr "/Număr aleator hexazecimal (lățime)"
+
+#~ msgid "/Date"
+#~ msgstr "/Data"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "/Data/<locală>"
+
+#~ msgid "/Date/yyyy-mm-dd"
+#~ msgstr "/Data/aaaa-ll-zz"
+
+#~ msgid "/Date/yy-mm-dd"
+#~ msgstr "/Data/aa-ll-zz"
+
+#~ msgid "/Date/yy.mm.dd"
+#~ msgstr "/Data/aa.ll.zz"
+
+#~ msgid "/Date/yymmdd"
+#~ msgstr "/Data/aallzz"
+
+#~ msgid "/Date/dd.mm.yy"
+#~ msgstr "/Data/zz.ll.aa"
+
+#~ msgid "/Date/mm-dd-yy"
+#~ msgstr "/Data/ll-zz-aa"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/Data/aaaa"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/Data/aa"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/Data/ll"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/Data/lll"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/Data/zz"
+
+#~ msgid "/Time"
+#~ msgstr "/Ora"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/Ora/<locală>"
+
+#~ msgid "/Time/HH.MM.SS"
+#~ msgstr "/Ora/HH.MM.SS"
+
+#~ msgid "/Time/HH-MM-SS"
+#~ msgstr "/Ora/HH-MM-SS"
+
+#~ msgid "/Time/HHMMSS"
+#~ msgstr "/Ora/HHMMSS"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/Ora/HH"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/Ora/MM"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/Ora/SS"
+
+#~ msgid "Regex pattern"
+#~ msgstr "Șablon regex"
+
+#~ msgid "Replacement"
+#~ msgstr "Înlocuitor"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "Potrivire cu majuscule semnificative"
+
+#, c-format
+#~ msgid "The program has now finished. Press Enter to close this window.\n"
+#~ msgstr ""
+#~ "Programul a fost finalizat. Apăsați Enter pentru a închide această "
+#~ "fereastră.\n"
+
+#, c-format
+#~ msgid "Mount failed: mount exited with exitstatus %d"
+#~ msgstr "Montare eșuată: programul „mount” a ieșit cu codul de eroare %d"
+
+#, c-format
+#~ msgid ""
+#~ "Cannot unmount the volume:\n"
+#~ "%s\n"
+#~ "Error code: %d"
+#~ msgstr ""
+#~ "Nu s-a putut demonta volumul:\n"
+#~ "%s\n"
+#~ "Cod de eroare: %d"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "Du-te la: %s (%s)"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "Du-te la: %s"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr "Montează: %s"
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr "Demontează: %s"
+
+#~ msgid "<New connection>"
+#~ msgstr "<Conexiune nouă>"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "Conectare la: %s"
+
+#, c-format
+#~ msgid "Disconnect from: %s"
+#~ msgstr "Deconectare de la: %s"
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "Se conectează la %s\n"
+
+#, c-format
+#~ msgid "_Open with “%s”"
+#~ msgstr "_Deschide cu „%s”"
+
+#~ msgid "/_Copy here"
+#~ msgstr "/_Copiază aici"
+
+#~ msgid "/_Move here"
+#~ msgstr "/_Mută aici"
+
+#~ msgid "/_Link here"
+#~ msgstr "/_Leagă aici"
+
+#~ msgid "/C_ancel"
+#~ msgstr "/R_enunță"
+
+#, c-format
+#~ msgid ""
+#~ "“%s” seems to be a binary executable file but it lacks the executable bit. "
+#~ "Do you want to set it and then run the file?"
+#~ msgstr ""
+#~ "„%s” pare a fi un fișier executabil binar, dar nu are drepturile de execuție"
+#~ " definite. Doriți să stabiliți drepturi de execuție și să executați "
+#~ "fișierul?"
+
+#~ msgid "Make Executable?"
+#~ msgstr "Doriți să-l faceți executabil?"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#, c-format
+#~ msgid ""
+#~ "“%s” is an executable text file. Do you want to run it, or display its "
+#~ "contents?"
+#~ msgstr ""
+#~ "„%s” este un fișier text executabil. Doriți să-l executați sau să-i afișați "
+#~ "conținutul?"
+
+#~ msgid "Run or Display"
+#~ msgstr "Execută sau afișează"
+
+#~ msgid "Display"
+#~ msgstr "Afișează"
+
+#~ msgid "Run"
+#~ msgstr "Execută"
+
+#, c-format
+#~ msgid "No default application found for the file type %s."
+#~ msgstr "Nu s-a găsit nicio aplicație implicită pentru tipul de fișiere %s."
+
+#, c-format
+#~ msgid ""
+#~ "%s does not know how to open remote file. Do you want to download the file "
+#~ "to a temporary location and then open it?"
+#~ msgid_plural ""
+#~ "%s does not know how to open remote files. Do you want to download the files"
+#~ " to a temporary location and then open them?"
+#~ msgstr[0] ""
+#~ "%s nu știe cum să deschidă fișierul de la distanță. Doriți să descărcați "
+#~ "fișierul într-o locație temporară și apoi să-l deschideți?"
+#~ msgstr[1] ""
+#~ "%s nu știe cum să deschidă fișierul de la distanță. Doriți să descărcați "
+#~ "fișierul într-o locație temporară și apoi să-l deschideți?"
+#~ msgstr[2] ""
+#~ "%s nu știe cum să deschidă fișierul de la distanță. Doriți să descărcați "
+#~ "fișierul într-o locație temporară și apoi să-l deschideți?"
+
+#~ msgid "Failed to open connection."
+#~ msgstr "Nu s-a putut deschide conexiunea."
+
+#~ msgid "Needs terminal"
+#~ msgstr "Necesită terminal"
+
+#~ msgid "Other _Application…"
+#~ msgstr "_Altă aplicație…"
+
+#~ msgid "Cut"
+#~ msgstr "Taie"
+
+#~ msgid "Send files"
+#~ msgstr "Trimite fișiere"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "Deschide _terminal aici"
+
+#~ msgid "Copy file names"
+#~ msgstr "Copiază numele de fișierele"
+
+#, c-format
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] "%s din %s kO în %d din %d fișiere"
+#~ msgstr[1] "%s din %s kO în %d din %d fișiere"
+#~ msgstr[2] "%s din %s kO în %d din %d de fișiere"
+
+#, c-format
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] "%s, %d din %d dosare selectate"
+#~ msgstr[1] "%s, %d din %d dosare selectate"
+#~ msgstr[2] "%s, %d din %d de dosare selectate"
+
+#~ msgid "Copy Tab to Other _Pane"
+#~ msgstr "Copiază tabul în celălalt _panou"
+
+#~ msgid "No file name given"
+#~ msgstr "Nu a fost dat niciun nume de fișier"
+
+#~ msgid "Filter:"
+#~ msgstr "Filtru:"
+
+#~ msgid "_New"
+#~ msgstr "_Nou"
+
+#~ msgid "_Directory"
+#~ msgstr "_Dosar"
+
+#~ msgid "_Text File"
+#~ msgstr "Fișier _text"
+
+#~ msgid "_Enable Filter…"
+#~ msgstr "_Activează filtrul…"
+
+#~ msgid "Start _GNOME Commander as root"
+#~ msgstr "Pornește Commander _GNOME ca root"
+
+#~ msgid "_Quit"
+#~ msgstr "_Ieșire"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "Copiază numele _fișierelor"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "_Restaurează selecția"
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "Commander GNOME pe _Web"
+
+#~ msgid "Refresh"
+#~ msgstr "Reîncarcă"
+
+#~ msgid "Go to the oldest"
+#~ msgstr "Du-te la cel mai vechi"
+
+#~ msgid "Go back"
+#~ msgstr "Du-te înapoi"
+
+#~ msgid "Go forward"
+#~ msgstr "Du-te înainte"
+
+#~ msgid "Go to the latest"
+#~ msgstr "Du-te la cel mai nou"
+
+#~ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+#~ msgstr ""
+#~ "Copiază numele de fișiere (SHIFT pentru căi complete, ALT pentru URIuri)"
+
+#~ msgid "Paste"
+#~ msgstr "Lipește"
+
+#~ msgid "Open terminal (SHIFT for root privileges)"
+#~ msgstr "Deschide terminal (SHIFT pentru drepturi de root)"
+
+#~ msgid "GNOME Commander — ROOT PRIVILEGES"
+#~ msgstr "Commander GNOME - DREPTURI DE ROOT"
+
+#~ msgid "Path matches regex:"
+#~ msgstr "Calea se potrivește cu regex:"
+
+#~ msgid "Name contains:"
+#~ msgstr "Numele conține:"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "Majuscule semnificati_ve"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr "Adaugă acest dosar la semnele de carte"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "Administrează semnele de carte"
+
+#~ msgid "Open terminal"
+#~ msgstr "Deschide terminal"
+
+#~ msgid "Open terminal as root"
+#~ msgstr "Deschide terminal ca root"
+
+#~ msgid "Start GNOME Commander as root"
+#~ msgstr "Pornește Commander GNOME ca root"
+
+#~ msgid "Close connection"
+#~ msgstr "Închide conexiunea"
+
+#~ msgid "New connection"
+#~ msgstr "Conexiune nouă"
+
+#~ msgid "Open connection"
+#~ msgstr "Deschide conexiunea"
+
+#~ msgid "Change left connection"
+#~ msgstr "Schimbă conexiunea stânga"
+
+#~ msgid "Change right connection"
+#~ msgstr "Schimbă conexiunea dreapta"
+
+#~ msgid "Show user defined files"
+#~ msgstr "Arată fișierele definite de utilizator"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "Unealtă de redenumire avansată"
+
+#~ msgid "Change permissions"
+#~ msgstr "Schimbă permisiunile"
+
+#~ msgid "Change owner/group"
+#~ msgstr "Schimbă proprietar/grup"
+
+#~ msgid "Copy files"
+#~ msgstr "Copiază fișiere"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "Creează legătură simbolică"
+
+#~ msgid "Delete files"
+#~ msgstr "Șterge fișiere"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "Compară fișiere (diff)"
+
+#~ msgid "Edit file"
+#~ msgstr "Editează fișier"
+
+#~ msgid "Edit a new file"
+#~ msgstr "Editează un fișier nou"
+
+#~ msgid "Create directory"
+#~ msgstr "Creează un dosar"
+
+#~ msgid "Move files"
+#~ msgstr "Mută fișiere"
+
+#~ msgid "Rename files"
+#~ msgstr "Redenumește fișiere"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "S_incronizează dosarele"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr "Despre Commander GNOME"
+
+#~ msgid "Help contents"
+#~ msgstr "Conținut manual"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "Manual scurtături de taste"
+
+#~ msgid "Report a problem"
+#~ msgstr "Raportați o problemă"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr "Commander GNOME pe web"
+
+#~ msgid "Compare directories"
+#~ msgstr "Compară dosare"
+
+#~ msgid "Invert selection"
+#~ msgstr "Inversează selecția"
+
+#~ msgid "Select all"
+#~ msgstr "Selectează tot"
+
+#~ msgid "Select all files"
+#~ msgstr "Selectează toate fișierele"
+
+#~ msgid "Unselect all files"
+#~ msgstr "Deselectează toate fișierele"
+
+#~ msgid "Unselect all"
+#~ msgstr "Deselectează tot"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Scurtături de tastatură"
+
+#~ msgid "Configure plugins"
+#~ msgstr "Configurare module"
+
+#~ msgid "Back one directory"
+#~ msgstr "Înapoi un dosar"
+
+#~ msgid "Close the current tab"
+#~ msgstr "Închide tabul curent"
+
+#~ msgid "Close all tabs"
+#~ msgstr "Închide toate taburile"
+
+#~ msgid "Show directory history"
+#~ msgstr "Arată istoricul dosarului"
+
+#~ msgid "Equal panel size"
+#~ msgstr "Panouri de dimensiuni egale"
+
+#~ msgid "Maximize panel size"
+#~ msgstr "Maximizează dimensiunea panoului"
+
+#~ msgid "Back to the first directory"
+#~ msgstr "Înapoi la primul dosar"
+
+#~ msgid "Forward one directory"
+#~ msgstr "Înainte cu un dosar"
+
+#~ msgid "Open directory in the active window"
+#~ msgstr "Deschide dosarul în fereastra activă"
+
+#~ msgid "Open directory in the inactive window"
+#~ msgstr "Deschide dosarul în fereastra inactivă"
+
+#~ msgid "Open directory in the left window"
+#~ msgstr "Deschide dosarul în fereastra stânga"
+
+#~ msgid "Open directory in the right window"
+#~ msgstr "Deschide dosarul în fereastra dreapta"
+
+#~ msgid "Open directory in the new tab (inactive window)"
+#~ msgstr "Deschide dosarul într-un tab nou (fereastră inactivă)"
+
+#~ msgid "Forward to the last directory"
+#~ msgstr "Continuă spre ultimul dosar"
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "Deschide dosarul într-un tab nou"
+
+#~ msgid "Show terminal"
+#~ msgstr "Arată terminal"
+
+#, c-format
+#~ msgid "Create symbolic links of %i file in %s?"
+#~ msgid_plural "Create symbolic links of %i files in %s?"
+#~ msgstr[0] "Crează legătură simbolică pentru %i fișier din %s?"
+#~ msgstr[1] "Doriți să se creeze legături simbolice pentru %i fișiere din %s?"
+#~ msgstr[2] ""
+#~ "Doriți să se creeze legături simbolice pentru %i de fișiere din %s?"
+
+#~ msgid "Unable to open terminal in root mode."
+#~ msgstr "Nu s-a putut deschide terminalul ca root."
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
+#~ msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu sau beesu nu sunt găsite."
+
+#~ msgid "Unable to start GNOME Commander in root mode."
+#~ msgstr "Commander GNOME nu poate fi pornit cu drepturi de root."
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+#~ msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu sau beesu nu sunt găsite"
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr ""
+#~ "Un puternic și rapid manager de fișiere cu dublu panou pentru desktop-ul "
+#~ "GNOME"
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "Commander GNOME este software liber; îl puteți redistribui și/sau modifica "
+#~ "în conformitate cu termenii Licenței Publice Generale GNU, așa cum este "
+#~ "publicată de Fundația pentru Software Liber; fie versiunea 2 a Licenței, fie"
+#~ " (la latitudinea dumneavoastră) orice versiune ulterioară."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "Commander GNOME este distribuit cu speranța că va fi util, dar FĂRĂ NICI O "
+#~ "GARANȚIE, fără garanție implicită de VANDABILITATE și CONFORMITATE UNUI "
+#~ "ANUMIT SCOP. Citiți Licența Publică Generală GNU pentru detalii."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+#~ "Ar trebui să fi primit o copie a Licenței Publice Generale GNU împreună cu "
+#~ "Commander GNOME; dacă nu, scrieți la Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+
+#~ msgid "Transfer problem"
+#~ msgstr "Problemă de transfer"
+
+#~ msgid "Copy problem"
+#~ msgstr "Problemă la copiere"
+
+#, c-format
+#~ msgid ""
+#~ "Overwrite file:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "With:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+#~ msgstr ""
+#~ "Suprascrie fișierul:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "Cu:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+
+#, c-format
+#~ msgid ""
+#~ "Error while transferring “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Eroare la transfer „%s”\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Move problem"
+#~ msgstr "Problemă la mutare"
+
+#, c-format
+#~ msgid "[file %ld of %ld] “%s”"
+#~ msgstr "[fișier %ld din %ld] „%s”"
+
+#, c-format
+#~ msgid ""
+#~ "Error while creating symlink “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Eroare la crearea legăturii simbolice „%s”\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Symlink creation problem"
+#~ msgstr "Problemă la crearea legăturii simbolice"
+
+#, c-format
+#~ msgid ""
+#~ "Source “%s” could not be deleted. Aborting!\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Sursa „%s” nu a putut fi detectată. Se anulează!\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "stopping…"
+#~ msgstr "se oprește…"
+
+#, c-format
+#~ msgid "%s of %s copied"
+#~ msgstr "%s din %s copiați"
+
+#, c-format
+#~ msgid "%.0f%% copied"
+#~ msgstr "%.0f%% copiat"
+
+#, c-format
+#~ msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Nu s-a putut încărca fișierul instalat de tip pixmap, se încearcă încărcarea"
+#~ " lui %s în loc"
+
+#, c-format
+#~ msgid ""
+#~ "Can’t find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-commander from the gnome-commander-%s/src directory"
+#~ msgstr ""
+#~ "Pixmapul nu a fost găsit nicăieri. Asigurați-vă că ați instalat programul "
+#~ "sau gnome-commander este executat din dosarul gnome-commander-%s/src"
+
+#, c-format
+#~ msgid "Couldn’t load installed pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Nu s-a putut încărca pixmapul instalat, se încearcă încărcarea lui %s în loc"
+
+#~ msgid "Find"
+#~ msgstr "Găsește"
+
+#~ msgid "Searching…"
+#~ msgstr "Se caută…"
+
+#, c-format
+#~ msgid "Searching for “%s”"
+#~ msgstr "Se caută după „%s”"
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr "Poziție: %lu din %lu\tColoana: %d\t%s"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "pixel"
+#~ msgstr[1] "pixeli"
+#~ msgstr[2] "pixeli"
+
+#~ msgid "bit/sample"
+#~ msgid_plural "bits/sample"
+#~ msgstr[0] "bit/eșantion"
+#~ msgstr[1] "biți/eșantion"
+#~ msgstr[2] "biți/eșantion"
+
+#~ msgid "_Copy selection"
+#~ msgstr "_Copiază selecția"
+
+#~ msgid "_Binary"
+#~ msgstr "_Binar"
+
+#~ msgid "Arabic (Windows, CP1256)"
+#~ msgstr "Arabă (Windows, CP1256)"
+
+#~ msgid "Rotate Clockwise"
+#~ msgstr "Rotește în sens orar"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "Mod _binar"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "_Salvează setările curente"
+
+#, c-format
+#~ msgid "Pattern “%s” was not found"
+#~ msgstr "Șablonul „%s” nu a fost găsit"
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr "Specifică dosarul start pentru panoul stâng"
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr "Specifică dosarul start pentru panoul drept"
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr "Specifică dosarul pentru fișierele de configurare"
+
+#~ msgid "File Manager"
+#~ msgstr "Manager de fișiere"
+
+#~ msgid "Disable"
+#~ msgstr "Dezactivează"
+
+#~ msgid "Enable"
+#~ msgstr "Activează"
+
+#~ msgid "Version"
+#~ msgstr "Versiune"
+
+#~ msgid "_Enable"
+#~ msgstr "_Activează"
+
+#~ msgid "_Configure"
+#~ msgstr "_Configurează"
+
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr "<Etichetele Exif și IPTC nu sunt implementate>"
+
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr "<Etichetele ID3, APE, FLAC și Vorbis nu sunt implementate>"
+
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr "<Etichetele OLE2 și ODF nu sunt implementate>"
+
+#~ msgid "<PDF tags not supported>"
+#~ msgstr "<Eticheta PDF nu este implementată>"
+
+#~ msgid "Created"
+#~ msgstr "Creat la"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr ""
+#~ "Dată asociată cu un eveniment din ciclul de viață al resursei (data "
+#~ "publicării/creerii)."
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr "Indicator Exif IFD"
+
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr ""
+#~ "Un indicator la Exif IFD. Interoperabilitate, Exif IFD are aceeași structură"
+#~ " ca și cea a IFD specificate în TIFF."
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr "Indicator de interoperabilitate IFD"
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+#~ "Interoperabilitatea IFD este compusă din etichete care stochează informația "
+#~ "pentru a asigura interoperabilitatea și indicat de următoarea etichetă "
+#~ "aflată în Exif IFD. Structura Interoperabilității pentru Interoperabilitatea"
+#~ " IFD este aceeași cu structura IFD definită de TIFF, dar nu conține datele "
+#~ "imaginii caracteristic, comparativ cu un IFD TIFF normal."
+
+#~ msgid "Emphasis"
+#~ msgstr "Evidențiere"
+
+#~ msgid "Emphasis."
+#~ msgstr "Evidențiere."
+
+#~ msgid "Equalization 2"
+#~ msgstr "Egalizare 2"
+
+#~ msgid "Frames"
+#~ msgstr "Cadre"
+
+#~ msgid "Number of frames."
+#~ msgstr "Număr de cadre."
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr "PersoaneImplicate2"
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr "Dimensiunea fișierului audio în octeți, excluzând eticheta ID3."
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr "Reglaj volum 2"
+
+#, c-format
+#~ msgid "unsupported tag (suppressed %ld B of binary data)"
+#~ msgstr "etichetă nesuportată (suprimă %ld O de date binare)"
+
+#, c-format
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "%s octet"
+#~ msgstr[1] "%s octeți"
+#~ msgstr[2] "%s de octeți"
+
+#, c-format
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "%s octet"
+#~ msgstr[1] "%s octeți"
+#~ msgstr[2] "%s de octeți"
+
+#~ msgid "Failed to change working directory to a temporary directory."
+#~ msgstr "Nu s-a putut schimba directorul de lucru într-un director temporar."
+
+#~ msgid "Failed to create a directory in which to store temporary files."
+#~ msgstr "Nu s-a putut crea dosarul pentru stocarea fișierelor temporare."
+
+#, c-format
+#~ msgid "Creating directory %s… "
+#~ msgstr "Se creează directorul %s... "
+
+#, c-format
+#~ msgid "Failed to create the directory %s: %s"
+#~ msgstr "Eșec la crearea directorului %s: %s"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "A apărut o eroare la afișarea ajutorului."
+
+#~ msgid "Skip device mounting"
+#~ msgstr "Omite montarea dispozitivelor"
+
+#~ msgid ""
+#~ "This option defines if mounting of devices should be skipped when they are "
+#~ "opened."
+#~ msgstr ""
+#~ "Această opțiune definește dacă montarea dispozitivelor ar trebui omisă când "
+#~ "ele sunt deschise."
+
+#~ msgid "S_hare:"
+#~ msgstr "Parta_jare:"
+
+#~ msgid "_User name:"
+#~ msgstr "_Utilizator:"
+
+#~ msgid "Copy overwrite"
+#~ msgstr "Suprascriere la copiere"
+
+#~ msgid "Silently"
+#~ msgstr "Silențios"
+
+#~ msgid "Move overwrite"
+#~ msgstr "Suprascriere la mutare"
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr "Omite montarea (folositor când se utilizează super-montarea)"
+
+#~ msgid "Skip All"
+#~ msgstr "Omite tot"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "Parolă FTP anonim:"
+
+#~ msgid "Device is now safe to remove"
+#~ msgstr "Puteți deconecta în siguranță dispozitivul"
+
+#~ msgid ""
+#~ "Error while copying to %s\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Eroare în timpul copierii în %s\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Couldn’t read from the directory %s: %s"
+#~ msgstr "Nu s-a putut citi din directorul %s: %s"
+
+#~ msgid "Couldn’t move path from “%s” to “%s”: %s"
+#~ msgstr "Nu s-a putut muta calea de la „%s” la „%s”: %s"
+
+#~ msgid "Hide block devices"
+#~ msgstr "Ascunde dispozitivele bloc"
+
+#~ msgid "Type:"
+#~ msgstr "Tip:"
+
+#~ msgid "MIME Type:"
+#~ msgstr "Tip MIME:"
+
+#~ msgid "Fifo files"
+#~ msgstr "Fișiere fifo"
+
+#~ msgid "Socket files"
+#~ msgstr "Fișiere socket"
+
+#~ msgid "Character devices"
+#~ msgstr "Dispozitive caracter"
+
+#~ msgid "Block devices"
+#~ msgstr "Dispozitive bloc"
+
+#, fuzzy
+#~ msgid "File;Manager;"
+#~ msgstr "Manager de fișiere"
+
+#~ msgid "Create Archive..."
+#~ msgstr "Creează arhivă..."
+
+#~ msgid "Profiles..."
+#~ msgstr "Profiluri..."
+
+#~ msgid ""
+#~ "Some regular expressions functionality is disabled. To enable it's necessary"
+#~ " to build GNOME Commander with GLib ≥ 2.14. Please contact your package "
+#~ "maintainer about that."
+#~ msgstr ""
+#~ "O parte din funcționalitatea expresiilor regulate e dezactivată. Pentru a le"
+#~ " activa este necesar să compilați GNOME Commander cu GLib ≥ 2.14. Contactați"
+#~ " responsabilul pachetului în legătură cu această problemă."
+
+#~ msgid "/Local path..."
+#~ msgstr "/Cale locală..."
+
+#~ msgid "_Import"
+#~ msgstr "_Importă"
+
+#~ msgid "Edit..."
+#~ msgstr "Editare..."
+
+#~ msgid "Document icon directory:"
+#~ msgstr "Dosar iconițe documente:"
+
+#~ msgid "Search..."
+#~ msgstr "Căutare..."
+
+#~ msgid "Audio Files"
+#~ msgstr "Fișiere audio"
+
+#~ msgid "CamelCase"
+#~ msgstr "Majuscule în cuvinte"
+
+#~ msgid "Manage bookmarks..."
+#~ msgstr "Administrează semnele de carte..."
+
+#~ msgid "Regular file"
+#~ msgstr "Fișier obișnuit"
+
+#~ msgid "FIFO"
+#~ msgstr "FIFO"
+
+#~ msgid "UNIX Socket"
+#~ msgstr "Socket UNIX"
+
+#~ msgid "Character device"
+#~ msgstr "Dispozitiv caracter"
+
+#~ msgid "Block device"
+#~ msgstr "Dispozitiv bloc"
+
+#~ msgid "Symbolic link"
+#~ msgstr "Legătură simbolică"
+
+#~ msgid "Open this _folder"
+#~ msgstr "Desc_hide acest dosar"
+
+#~ msgid "_Properties..."
+#~ msgstr "Proprie_tăți..."
+
+#~ msgid "Switch to Vertical Layout"
+#~ msgstr "Comută la aranjament vertical"
+
+#~ msgid "Switch to Horizontal Layout"
+#~ msgstr "Comută la aranjament orizontal"
+
+#~ msgid "_Search..."
+#~ msgstr "Ca_ută..."
+
+#~ msgid "Start _GNOME Commander as Root"
+#~ msgstr "Pornește _GNOME Commander ca root"
+
+#~ msgid "_Options..."
+#~ msgstr "_Opțiuni..."
+
+#~ msgid "_Keyboard Shortcuts..."
+#~ msgstr "S_curtături de tastatură..."
+
+#~ msgid "_Remote Server..."
+#~ msgstr "Se_rver la distanță..."
+
+#~ msgid "New Connection..."
+#~ msgstr "Conexiune nouă..."
+
+#~ msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
+#~ msgstr "Modulul python 'gnomevfs' ('gnome.vfs') nu poate fi încărcat"
+
+#~ msgid "Open folder"
+#~ msgstr "Deschide dosar"
+
+#, fuzzy
+#~ msgid "Execute Python plugin"
+#~ msgstr "Execută modul python"
+
+#~ msgid "Unable to start Nautilus."
+#~ msgstr "Nautilus nu poate fi pornit."
+
+#~ msgid "copying..."
+#~ msgstr "copie..."
+
+#~ msgid "Find..."
+#~ msgstr "Găsește..."
+
+#~ msgid "No Proofing"
+#~ msgstr "Fără verificare"
+
+#~ msgid "Arabic"
+#~ msgstr "Arabă"
+
+#~ msgid "Bulgarian"
+#~ msgstr "Bulgară"
+
+#~ msgid "Catalan"
+#~ msgstr "Catalană"
+
+#~ msgid "Traditional Chinese"
+#~ msgstr "Chineză tradițională"
+
+#~ msgid "Simplified Chinese"
+#~ msgstr "Chineză simplificată"
+
+#~ msgid "Chechen"
+#~ msgstr "Cecenă"
+
+#~ msgid "Danish"
+#~ msgstr "Daneză"
+
+#~ msgid "German"
+#~ msgstr "Germană"
+
+#~ msgid "Swiss German"
+#~ msgstr "Germană elvețiană"
+
+#~ msgid "Greek"
+#~ msgstr "Greacă"
+
+#~ msgid "U.S. English"
+#~ msgstr "Engleză U.S."
+
+#~ msgid "U.K. English"
+#~ msgstr "Engleză U.K."
+
+#~ msgid "Australian English"
+#~ msgstr "Engleză australiană"
+
+#~ msgid "Castilian Spanish"
+#~ msgstr "Spaniolă castiliană"
+
+#~ msgid "Mexican Spanish"
+#~ msgstr "Spaniolă mexicană"
+
+#~ msgid "Finnish"
+#~ msgstr "Finlandeză"
+
+#~ msgid "French"
+#~ msgstr "Franceză"
+
+#~ msgid "Belgian French"
+#~ msgstr "Franceză belgiană"
+
+#~ msgid "Canadian French"
+#~ msgstr "Franceză canadiană"
+
+#~ msgid "Swiss French"
+#~ msgstr "Franceză elvețiană"
+
+#~ msgid "Hebrew"
+#~ msgstr "Ebraică"
+
+#~ msgid "Hungarian"
+#~ msgstr "Maghiară"
+
+#~ msgid "Icelandic"
+#~ msgstr "Islandeză"
+
+#~ msgid "Italian"
+#~ msgstr "Italiană"
+
+#~ msgid "Swiss Italian"
+#~ msgstr "Italiană elvețiană"
+
+#~ msgid "Japanese"
+#~ msgstr "Japoneză"
+
+#~ msgid "Korean"
+#~ msgstr "Coreeană"
+
+#~ msgid "Dutch"
+#~ msgstr "Olandeză"
+
+#~ msgid "Belgian Dutch"
+#~ msgstr "Olandeză belgiană"
+
+#~ msgid "Norwegian Bokmal"
+#~ msgstr "Norvegiană (Bokmål)"
+
+#~ msgid "Norwegian Nynorsk"
+#~ msgstr "Norvegiană (Nynorsk)"
+
+#~ msgid "Polish"
+#~ msgstr "Poloneză"
+
+#~ msgid "Brazilian Portuguese"
+#~ msgstr "Portugheză braziliană"
+
+#~ msgid "Portuguese"
+#~ msgstr "Portugheză"
+
+#~ msgid "Rhaeto-Romanic"
+#~ msgstr "Reto-romană"
+
+#~ msgid "Romanian"
+#~ msgstr "Română"
+
+#~ msgid "Russian"
+#~ msgstr "Rusă"
+
+#~ msgid "Croato-Serbian (Latin)"
+#~ msgstr "Croato-sârbă (Latin)"
+
+#~ msgid "Serbo-Croatian (Cyrillic)"
+#~ msgstr "Sârbo-croată (Chirilic)"
+
+#~ msgid "Slovak"
+#~ msgstr "Slovacă"
+
+#~ msgid "Albanian"
+#~ msgstr "Albaneză"
+
+#~ msgid "Swedish"
+#~ msgstr "Suedeză"
+
+#~ msgid "Thai"
+#~ msgstr "Tailandeză"
+
+#~ msgid "Urdu"
+#~ msgstr "Urdu"
+
+#~ msgid "Indonesian"
+#~ msgstr "Indoneziană"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Ucrainiană"
+
+#~ msgid "Byelorussian"
+#~ msgstr "Bielorusă"
+
+#~ msgid "Slovenian"
+#~ msgstr "Slovenă"
+
+#~ msgid "Estonian"
+#~ msgstr "Estoniană"
+
+#~ msgid "Latvian"
+#~ msgstr "Letonă"
+
+#~ msgid "Lithuanian"
+#~ msgstr "Lituaniană"
+
+#~ msgid "Farsi"
+#~ msgstr "Persană"
+
+#~ msgid "Basque"
+#~ msgstr "Bască"
+
+#~ msgid "Macedonian"
+#~ msgstr "Macedoneană"
+
+#~ msgid "Afrikaans"
+#~ msgstr "Afrikaans"
+
+#~ msgid "Malayalam"
+#~ msgstr "Malayalam"
+
+#~ msgid "CVS options"
+#~ msgstr "Opțiuni CVS"
+
+#~ msgid "Compression level"
+#~ msgstr "Nivel compresie"
+
+#~ msgid "Unified diff format"
+#~ msgstr "Format diff unificat"
+
+#~ msgid "A plugin that eventually will be a simple CVS client"
+#~ msgstr "Un modul care eventual va deveni un simplu client CVS"
+
+#~ msgid "Compare with"
+#~ msgstr "Compară cu"
+
+# Se referă la ramura principală din CVS
+#~ msgid "HEAD"
+#~ msgstr "PRINCIPALĂ"
+
+#~ msgid "The previous revision"
+#~ msgstr "Revizia precedentă"
+
+#~ msgid "Other revision"
+#~ msgstr "Altă revizie"
+
+#~ msgid "CVS Diff"
+#~ msgstr "CVS Diff"
+
+#~ msgid "revision"
+#~ msgstr "revizie"
+
+#~ msgid "Revision:"
+#~ msgstr "Revizie:"
+
+#~ msgid "Compare..."
+#~ msgstr "Compară..."
+
+#~ msgid "Author:"
+#~ msgstr "Autor:"
+
+#~ msgid "Date:"
+#~ msgstr "Data:"
+
+#~ msgid "State:"
+#~ msgstr "Stare:"
+
+#~ msgid "Lines:"
+#~ msgstr "Linii:"
+
+#~ msgid "Message:"
+#~ msgstr "Mesaj:"
+
+#~ msgid "Save password in GNOME keyring"
+#~ msgstr "Salvează parola în inelul de chei GNOME"
+
+#~ msgid "_Password:"
+#~ msgstr "_Parolă:"
+
+#~ msgid "Use _GNOME Keyring Manager for authentication"
+#~ msgstr ""
+#~ "Folosește Administratorul inelelor de chei _GNOME pentru autentificare"
+
+#~ msgid "_Change"
+#~ msgstr "_Schimbă"
+
+#~ msgid "_MIME Types..."
+#~ msgstr "Tipuri _MIME..."
+
+#~ msgid "_Contents"
+#~ msgstr "_Conținut"
+
+#~ msgid "MIME types"
+#~ msgstr "Tipuri MIME:"
+
+#~ msgid "_Remote dir:"
+#~ msgstr "Di_rector la distanță:"
+
+#~ msgid "Match file names using"
+#~ msgstr "Potrivește numele de fișiere utilizând"
+
+#~ msgid "Shell syntax"
+#~ msgstr "Sintaxa Shell"
+
+#~ msgid "Regex syntax"
+#~ msgstr "Sintaxa Regex"
+
+#~ msgid "Sorting options"
+#~ msgstr "Opțiuni sortare"
+
+#~ msgid "_Test"
+#~ msgstr "_Test"
+
+#~ msgid "Authentication"
+#~ msgstr "Autentificare"
+
+#~ msgid "Use GNOME Keyring Manager for authentication"
+#~ msgstr "Folosește Administratorul inelelor de chei GNOME pentru autentificare"
+
+#~ msgid "Anonymous FTP access"
+#~ msgstr "Acces FTP anonim"
+
+#~ msgid "Password:"
+#~ msgstr "Parola:"
+
+#~ msgid "Network"
+#~ msgstr "Rețea"
+
+#~ msgid "GNOME authentication manager usage"
+#~ msgstr "Utilizare manager de autentificare GNOME"
+
+#~ msgid "_Limited depth"
+#~ msgstr "Adâncime _limitată"
+
+#~ msgid "Failed to open file %s: %s"
+#~ msgstr "Nu s-a putut deschide fișierul %s: %s"
+
+#~ msgid "Search _recursively"
+#~ msgstr "Caută _recursiv"
+
+#~ msgid "_Go to"
+#~ msgstr "_Du-te la"
+
+#~ msgid "Enter password"
+#~ msgstr "Introduceți parola"
+
+#~ msgid ""
+#~ "Problem: access not permitted\n"
+#~ "\n"
+#~ "please supply user credentials\n"
+#~ "\n"
+#~ "Remember: wrong credentials may lead to account locking"
+#~ msgstr ""
+#~ "Problemă: accesul nu este permis\n"
+#~ "\n"
+#~ "vă rog furnizați informații de legitimare\n"
+#~ "\n"
+#~ "Rețineți: informații de legitimare greșite pot duce la blocarea contului"
+
+#~ msgid "Can't find a host or workgroup named %s\n"
+#~ msgstr "Nu s-a putut găsi un computer gazdă și nici workgroup-ul %s\n"
+
+#~ msgid ""
+#~ "The file \"%s\" already exists.\n"
+#~ "\n"
+#~ "Do you want to overwrite it?\n"
+#~ msgstr ""
+#~ "Fișierul „%s” deja există.\n"
+#~ "\n"
+#~ "Vrei sa-l rescrii?\n"

@@ -5458,3 +5458,1794 @@ msgstr "Žiadne"
 #: plugins/taglib/taglib-plugin.cc:421
 msgid "10-15ms"
 msgstr "10-15ms"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME Commander"
+
+#~ msgid "Two-pane file manager"
+#~ msgstr "Dvojpanelový správca súborov"
+
+#~ msgid ""
+#~ "GNOME Commander is a \"two-pane\" graphical file manager for the GNOME "
+#~ "desktop environment. It features separate tabs for each pane, setting up "
+#~ "custom device buttons, bookmark manager, fully integrated commandline, file "
+#~ "quick search, an internal image viewer, a powerful batch renaming tool, and "
+#~ "FTP and Samba access."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+
+#~ msgid "filemanager"
+#~ msgstr "správca súborov"
+
+#~ msgid "rename"
+#~ msgstr "premenovať"
+
+#~ msgid "copy"
+#~ msgstr "kopírovať"
+
+#~ msgid "FTP"
+#~ msgstr "FTP"
+
+#~| msgid "WebDAV (HTTP)"
+#~ msgid "WebDAV"
+#~ msgstr "WebDAV"
+
+#~ msgid "A two paned file manager"
+#~ msgstr "Dvojpanelový správca súborov"
+
+#~ msgid "File;Manager;"
+#~ msgstr "Súbor;Správca;"
+
+#~ msgid "No error description available"
+#~ msgstr "Popis chyby nie je prítomný"
+
+#~ msgid "Create Archive..."
+#~ msgstr "Vytvoriť archív..."
+
+#, c-format
+#~ msgid "Extract to '%s'"
+#~ msgstr "Rozbaliť do '%s'"
+
+#~ msgid "Default type"
+#~ msgstr "Predvolený typ"
+
+#~ msgid "/_Save Profile As..."
+#~ msgstr "/_Uložiť profil ako..."
+
+#~ msgid "/_Manage Profiles..."
+#~ msgstr "/_Spravovať Profily..."
+
+#~ msgid "Current file name"
+#~ msgstr "Aktuálny názov súboru"
+
+#~ msgid "New file name"
+#~ msgstr "Nový názov súboru"
+
+#~ msgid "File size"
+#~ msgstr "Veľkosť súboru"
+
+#~ msgid "File modification date"
+#~ msgstr "Dátum úpravy súboru"
+
+#~ msgid "Profiles..."
+#~ msgstr "Profily..."
+
+#~ msgid "_Replace with:"
+#~ msgstr "_Nahradiť s:"
+
+#~ msgid ""
+#~ "Some regular expressions functionality is disabled. To enable it's necessary"
+#~ " to build GNOME Commander with GLib ≥ 2.14. Please contact your package "
+#~ "maintainer about that."
+#~ msgstr ""
+#~ "Niektoré regulárne výrazy boli zakázané. Na ich povolenie musíte zostaviť "
+#~ "GNOME Commander s GLib ≥ 2.14. Kontaktujte ohľadom toho prosím svojho "
+#~ "správcu balíčkov."
+
+#, c-format
+#~ msgid "Could not chown %s"
+#~ msgstr "Nepodarilo sa vykonať chown %s"
+
+#~ msgid "Chown"
+#~ msgstr "Chown"
+
+#~ msgid "S_hare:"
+#~ msgstr "_Zdieľať:"
+
+#~ msgid "_User name:"
+#~ msgstr "_Používateľské meno:"
+
+#, c-format
+#~ msgid "\"%s\" is not a valid location"
+#~ msgstr "„%s“ nie je platné umiestnenie"
+
+#~ msgid "Remote Server"
+#~ msgstr "Vzdialený server"
+
+#, c-format
+#~ msgid "Deleted %ld of %ld file"
+#~ msgid_plural "Deleted %ld of %ld files"
+#~ msgstr[0] "Odstránených %ld z %ld súborov"
+#~ msgstr[1] "Odstránený %ld z %ld súboru"
+#~ msgstr[2] "Odstránené %ld z %ld súborov"
+
+#~ msgid "Deleting..."
+#~ msgstr "Odstraňuje sa..."
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting \"%s\"\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Nastala chyba počas odstraňovania „%s“\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Delete problem"
+#~ msgstr "Odstrániť problém"
+
+#, c-format
+#~ msgid "Do you want to delete \"%s\"?"
+#~ msgstr "Chcete odstrániť „%s“?"
+
+#, c-format
+#~ msgid "Do you want to delete the selected file?"
+#~ msgid_plural "Do you want to delete the %d selected files?"
+#~ msgstr[0] "Chcete odstrániť %d označených súborov?"
+#~ msgstr[1] "Chcete odstrániť označený súbor?"
+#~ msgstr[2] "Chcete odstrániť %d označené súbory?"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid "Bookmark name is missing."
+#~ msgstr "Chýba názov záložky."
+
+#~ msgid "Bookmark target is missing."
+#~ msgstr "Chýba cieľ záložky."
+
+#~ msgid "Image:"
+#~ msgstr "Obraz:"
+
+#~ msgid "Type:"
+#~ msgstr "Typ:"
+
+#~ msgid "MIME Type:"
+#~ msgstr "MIME typ:"
+
+#~ msgid "Type"
+#~ msgstr "Typ"
+
+#~ msgid "Metadata namespace"
+#~ msgstr "Menný priestor metadát"
+
+#~ msgid "Tag name"
+#~ msgstr "Názov štítka"
+
+#~ msgid "Tag value"
+#~ msgstr "Hodnota štítka"
+
+#~ msgid "Metadata tag description"
+#~ msgstr "Popis štítka metadát"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the corresponding row and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "Na úpravu klávesovej skratky kliknite na príslušný riadok a zadajte novú "
+#~ "skratku, alebo stlačte Esc pre zrušenie."
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Klávesová skratka"
+
+#~ msgid "Keyboard shortcut for selected action"
+#~ msgstr "Klávesová skratka pre označenú operáciu"
+
+#~ msgid "Action"
+#~ msgstr "Operácia"
+
+#~ msgid "User action"
+#~ msgstr "Používateľská operácia"
+
+#~ msgid "Optional data"
+#~ msgstr "Nepovinné údaje"
+
+#, c-format
+#~ msgid "Shortcut \"%s\" is already taken by \"%s\"."
+#~ msgstr "Skratka „%s“ je už obsadená operáciou „%s“."
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "Konfliktujúce skratky"
+
+#, c-format
+#~ msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
+#~ msgstr "Opätovné priradenie skratky spôsobí odstránenie skratky pre „%s“."
+
+#~ msgid "Invalid shortcut."
+#~ msgstr "Neplatná skratka."
+
+#~ msgid "Do nothing"
+#~ msgstr "Neurobiť nič"
+
+#, c-format
+#~ msgid "Copy \"%s\" to"
+#~ msgstr "Kopírovať „%s“ do"
+
+#~ msgid "Group"
+#~ msgstr "Skupina"
+
+#~ msgid "Bookmark group"
+#~ msgstr "Skupina záložiek"
+
+#~ msgid "Bookmark name"
+#~ msgstr "Názov záložky"
+
+#~ msgid "Keyboard shortcut for selected bookmark"
+#~ msgstr "Klávesová skratka pre označenú záložku"
+
+#~ msgid "Bookmarked path"
+#~ msgstr "Cesta uložená do záložky"
+
+#~ msgid "Profile name"
+#~ msgstr "Názov profilu"
+
+#~ msgid "/Local path..."
+#~ msgstr "/Lokálna cesta..."
+
+#~ msgid "/Remote location..."
+#~ msgstr "/Vzdialené umiestnenie"
+
+#~ msgid "_Import"
+#~ msgstr "_Importovať"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "Porovnať začiatok názvu súboru"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "Porovnať koniec názvu súboru"
+
+#~ msgid "Don't start a new instance"
+#~ msgstr "Nezačínať nové spustenia"
+
+#~ msgid ""
+#~ "See the manual page for \"strftime\" for help on how to set the format "
+#~ "string."
+#~ msgstr ""
+#~ "Pozrite si manuálovú stránku pre „strftime“, kde nájdete pomoc pre "
+#~ "nastavenie formátu reťazca."
+
+#~ msgid "Edit Colors..."
+#~ msgstr "Upraviť farby..."
+
+#~ msgid "Colors"
+#~ msgstr "Farby"
+
+#~ msgid "Palette"
+#~ msgstr "Paleta"
+
+#~ msgid "Foreground:"
+#~ msgstr "Popredie:"
+
+#~ msgid "Background:"
+#~ msgstr "Pozadie:"
+
+#~ msgid "File panes"
+#~ msgstr "Panely súborov"
+
+#~ msgid "Edit..."
+#~ msgstr "Upraviť..."
+
+#~ msgid "Edit colors..."
+#~ msgstr "Upraviť farby..."
+
+#~ msgid "Document icon directory:"
+#~ msgstr "Adresár s ikonami dokumentov:"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "Predvolená hodnota potvrdenia bude OK"
+
+#~ msgid "Copy overwrite"
+#~ msgstr "Prepísať pri kopírovaní"
+
+#~ msgid "Silently"
+#~ msgstr "Potichu"
+
+#~ msgid "Move overwrite"
+#~ msgstr "Prepísať pri presúvaní"
+
+#~ msgid "Drag and Drop"
+#~ msgstr "Operácia 'ťahaj a pusť'"
+
+#~ msgid "Fifo files"
+#~ msgstr "Fifo súbory"
+
+#~ msgid "Socket files"
+#~ msgstr "Soket súbory"
+
+#~ msgid "Character devices"
+#~ msgstr "Znakové zariadenia"
+
+#~ msgid "Block devices"
+#~ msgstr "Blokové zariadenia"
+
+#~ msgid "Device:"
+#~ msgstr "Zariadenie:"
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr "Preskočiť pripojenie (mount) - užitočné, ak používate super-mount"
+
+#~ msgid "Skip All"
+#~ msgstr "Všetko preskočiť"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Prepísať súbory"
+
+#, c-format
+#~ msgid "copy %d file to"
+#~ msgid_plural "copy %d files to"
+#~ msgstr[0] "kopírovať %d súborov do"
+#~ msgstr[1] "kopírovať %d súbor do"
+#~ msgstr[2] "kopírovať %d súbory do"
+
+#, c-format
+#~ msgid "Move \"%s\" to"
+#~ msgstr "Presunúť „%s“ do"
+
+#, c-format
+#~ msgid "move %d file to"
+#~ msgid_plural "move %d files to"
+#~ msgstr[0] "Presunúť %d súborov do"
+#~ msgstr[1] "Presunúť %d súbor do"
+#~ msgstr[2] "Presunúť %d súbory do"
+
+#, c-format
+#~ msgid "The directory '%s' doesn't exist, do you want to create it?"
+#~ msgstr "Adresár '%s' neexistuje, chcete ho vytvoriť?"
+
+#~ msgid "Network protocol"
+#~ msgstr "Sieťový protokol"
+
+#~ msgid "Connection name"
+#~ msgstr "Názov pripojenia"
+
+#~ msgid "Connections"
+#~ msgstr "Pripojenia"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "Anonymné heslo FTP:"
+
+#~ msgid "Search local directories only"
+#~ msgstr "Hľadať iba v lokálnych adresároch"
+
+#~ msgid "Files _not containing text"
+#~ msgstr "Súbory _neobsahujúce text"
+
+#, c-format
+#~ msgid "Failed to read file %s: %s"
+#~ msgstr "Nepodarilo sa prečítať súbor %s: %s"
+
+#, c-format
+#~ msgid "Searching in: %s"
+#~ msgstr "Vyhľadávanie v: %s"
+
+#, c-format
+#~ msgid "Found %d match - search aborted"
+#~ msgid_plural "Found %d matches - search aborted"
+#~ msgstr[0] "Nájdených %d zhôd  - hľadanie zastavené"
+#~ msgstr[1] "Nájdená %d zhoda - hľadanie zastavené"
+#~ msgstr[2] "Nájdené %d zhody - hľadanie zastavené"
+
+#, c-format
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "Nájdených %d zhôd"
+#~ msgstr[1] "Nájdená %d zhoda"
+#~ msgstr[2] "Nájdené %d zhody"
+
+#, c-format
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr "Nepodarilo sa nastaviť identifikátor skupiny procesu %d: %s.\n"
+
+#~ msgid "Error parsing the search command."
+#~ msgstr "Chyba pri analýze príkazu vyhľadávania."
+
+#~ msgid "Error running the search command."
+#~ msgstr "Chyba pri spustení príkazu vyhľadávania."
+
+#, c-format
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr "Nepodarilo sa zmeniť adresár mimo %s"
+
+#~ msgid "Search..."
+#~ msgstr "Hľadať..."
+
+#, c-format
+#~ msgid "%d file listed"
+#~ msgid_plural "%d files listed"
+#~ msgstr[0] "zobrazených %d súborov"
+#~ msgstr[1] "zobrazený %d súbor"
+#~ msgstr[2] "zobrazené %d súbory"
+
+#~ msgid "Accelerator key"
+#~ msgstr "Klávesová skratka"
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr "Modifikátor klávesových skratiek"
+
+#~ msgid "Accelerator Mode"
+#~ msgstr "Režim klávesovej skratky"
+
+#~ msgid "The type of accelerator."
+#~ msgstr "Mód klávesovej skratky"
+
+#~ msgid "Disabled"
+#~ msgstr "Nedostupná"
+
+#~ msgid "New accelerator..."
+#~ msgstr "Nová klávesová skratka..."
+
+#~ msgid "Credits"
+#~ msgstr "Poďakovanie"
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "Webstránka modulu"
+
+#~ msgid "C_redits"
+#~ msgstr "_Poďakovanie"
+
+#~ msgid "/Grandparent"
+#~ msgstr "/Prarodič"
+
+#~ msgid "/Parent"
+#~ msgstr "/Rodič"
+
+#~ msgid "/File name"
+#~ msgstr "/Názov súboru"
+
+#~ msgid "/File name (range)"
+#~ msgstr "/Názov súboru (rozsah)"
+
+#~ msgid "/File name without extension"
+#~ msgstr "/Názov súboru bez prípony"
+
+#~ msgid "/File name without extension (range)"
+#~ msgstr "/Názov súboru bez prípony (rozsah)"
+
+#~ msgid "/File extension"
+#~ msgstr "/Prípona súboru"
+
+#~ msgid "/Counter"
+#~ msgstr "/Počítadlo"
+
+#~ msgid "/Counter (width)"
+#~ msgstr "/Počítadlo (šírka)"
+
+#~ msgid "/Counter (auto)"
+#~ msgstr "/Počítadlo (automatické)"
+
+#~ msgid "/Hexadecimal random number (width)"
+#~ msgstr "/Hexadecimálne ľubovoľné číslo (šírka)"
+
+#~ msgid "/Date"
+#~ msgstr "/Dátum"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "/Dátum/<národné nastavenie>"
+
+#~ msgid "/Date/yyyy-mm-dd"
+#~ msgstr "/Dátum/rrrr-mm-dd"
+
+#~ msgid "/Date/yy-mm-dd"
+#~ msgstr "/Dátum/rr-mm-dd"
+
+#~ msgid "/Date/yy.mm.dd"
+#~ msgstr "/Dátum/rr.mm.dd"
+
+#~ msgid "/Date/yymmdd"
+#~ msgstr "/Dátum/rrmmdd"
+
+#~ msgid "/Date/dd.mm.yy"
+#~ msgstr "/Dátum/dd.mm.rr"
+
+#~ msgid "/Date/mm-dd-yy"
+#~ msgstr "/Dátum/mm-dd-rr"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/Dátum/rrrr"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/Dátum/rr"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/Dátum/mm"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/Dátum/mmm"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/Dátum/dd:"
+
+#~ msgid "/Time"
+#~ msgstr "/Čas"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/Čas/<národné nastavenie>"
+
+#~ msgid "/Time/HH.MM.SS"
+#~ msgstr "/Čas/HH.MM.SS"
+
+#~ msgid "/Time/HH-MM-SS"
+#~ msgstr "/Čas/HH-MM-SS"
+
+#~ msgid "/Time/HHMMSS"
+#~ msgstr "/Čas/HHMMSS"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/Čas/HH"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/Čas/MM"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/Time/SS"
+
+#~ msgid "Regex pattern"
+#~ msgstr "Regexová vzorka"
+
+#~ msgid "Replacement"
+#~ msgstr "Náhrada"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "Rozlišovanie veľkosti písmen"
+
+#, c-format
+#~ msgid "Mount failed: mount exited with existatus %d"
+#~ msgstr "Pripojenie zlyhalo: 'mount' skončil so stavom %d"
+
+#~ msgid "Device is now safe to remove"
+#~ msgstr "Teraz môžete zariadenie bezpečne odpojiť"
+
+#, c-format
+#~ msgid ""
+#~ "Cannot unmount the volume:\n"
+#~ "%s %s"
+#~ msgstr ""
+#~ "Nepodarilo sa odpojiť zväzok:\n"
+#~ "%s %s"
+
+#~ msgid "Unknown error"
+#~ msgstr "Neznáma chyba"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "Prejsť na: %s (%s)"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr "Pripojiť: %s"
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr "Odpojiť: %s"
+
+#~ msgid "<New connection>"
+#~ msgstr "<Nové pripojenie>"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "Prejsť na: %s"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "Pripojiť sa k: %s"
+
+#, c-format
+#~ msgid "Disconnect from: %s"
+#~ msgstr "Odpojiť sa od: %s"
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "Pripájanie sa k %s\n"
+
+#~ msgid "Failed to browse the network. Is the SMB module installed?"
+#~ msgstr "Nepodarilo sa prehliadnuť sieť. Je SMB modul nainštalovaný?"
+
+#~ msgid "Audio Files"
+#~ msgstr "Audio súbory"
+
+#~ msgid "CamelCase"
+#~ msgstr "PrvéPísmenáVeľké"
+
+#~ msgid "Manage bookmarks..."
+#~ msgstr "Spravovať záložky..."
+
+#~ msgid "Unknown file type"
+#~ msgstr "Neznámy typ súboru"
+
+#~ msgid "Regular file"
+#~ msgstr "Regulárny súbor"
+
+#~ msgid "FIFO"
+#~ msgstr "FIFO"
+
+#~ msgid "UNIX Socket"
+#~ msgstr "UNIX Socket"
+
+#~ msgid "Character device"
+#~ msgstr "Znakové zariadenie"
+
+#~ msgid "Block device"
+#~ msgstr "Blokové zariadenie"
+
+#~ msgid "Symbolic link"
+#~ msgstr "Symbolický odkaz"
+
+#~ msgid "/_Copy here"
+#~ msgstr "/_Kopírovať sem"
+
+#~ msgid "/_Move here"
+#~ msgstr "/_Presunúť sem"
+
+#~ msgid "/_Link here"
+#~ msgstr "/_Vytvoriť tu odkaz"
+
+#~ msgid "/C_ancel"
+#~ msgstr "/Z_rušiť"
+
+#~ msgid "Failed to open connection."
+#~ msgstr "Nepodarilo sa otvoriť pripojenie."
+
+#~ msgid "Couldn't retrieve MIME type of the file."
+#~ msgstr "Nepodarilo sa zistiť MIME typ súboru."
+
+#~ msgid "Open with other..."
+#~ msgstr "Otvoriť pomocou..."
+
+#~ msgid "Needs terminal"
+#~ msgstr "Potrebuje terminál"
+
+#, c-format
+#~ msgid "_Open with \"%s\""
+#~ msgstr "_Otvoriť s „%s“"
+
+#~ msgid "Copy file names"
+#~ msgstr "Kopírovať názvy súborov"
+
+#~ msgid "Send files"
+#~ msgstr "Poslať súbory"
+
+#~ msgid "Open this _folder"
+#~ msgstr "Otvoriť tento _priečinok"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "Otvoriť _terminál tu"
+
+#~ msgid "_Properties..."
+#~ msgstr "_Vlastnosti..."
+
+#~ msgid "Other _Application..."
+#~ msgstr "Iná aplikácia..."
+
+#, c-format
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] "%s z %s kB v %d z %d súborov"
+#~ msgstr[1] "%s z %s kB v %d z %d súboru"
+#~ msgstr[2] "%s z %s kB v %d z %d súborov"
+
+#, c-format
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] "%s, označených %d adresárov z %d"
+#~ msgstr[1] "%s, označený %d adresár z %d"
+#~ msgstr[2] "%s, označené %d adresáre z %d"
+
+#~ msgid "Copy Tab to Other _Pane"
+#~ msgstr "Kopírovať kartu na iný _panel"
+
+#~ msgid "No file name given"
+#~ msgstr "Nebol zadaný názov súboru"
+
+#~ msgid "Filter:"
+#~ msgstr "Filter:"
+
+#~ msgid "_Directory"
+#~ msgstr "_Adresár"
+
+#~ msgid "_Text File"
+#~ msgstr "_Textový súbor"
+
+#~ msgid "_New"
+#~ msgstr "_Nový"
+
+#~ msgid "Switch to Vertical Layout"
+#~ msgstr "Prepnúť na zvislé rozloženie"
+
+#~ msgid "Switch to Horizontal Layout"
+#~ msgstr "Prepnúť na vodorovné rozloženie"
+
+#~ msgid "_Search..."
+#~ msgstr "_Hľadať..."
+
+#~ msgid "_Quick Search..."
+#~ msgstr "_Rýchle hľadanie..."
+
+#~ msgid "_Enable Filter..."
+#~ msgstr "_Povoliť filter..."
+
+#~ msgid "Start _GNOME Commander as root"
+#~ msgstr "Spustiť GNOME Commander ako root"
+
+#~ msgid "_Quit"
+#~ msgstr "_Ukončiť"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "_Obnoviť výber"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "Kopírovať názvy _súborov"
+
+#~ msgid "_Bookmark this Directory..."
+#~ msgstr "_Vložiť tento adresár medzi záložky..."
+
+#~ msgid "_Manage Bookmarks..."
+#~ msgstr "_Spravovať záložky..."
+
+#~ msgid "_Configure Plugins..."
+#~ msgstr "_Nastaviť zásuvné moduly..."
+
+#~ msgid "_Options..."
+#~ msgstr "M_ožnosti..."
+
+#~ msgid "_Keyboard Shortcuts..."
+#~ msgstr "_Klávesové skratky..."
+
+#~ msgid "_Remote Server..."
+#~ msgstr "_Vzdialený server..."
+
+#~ msgid "New Connection..."
+#~ msgstr "Nové pripojenie..."
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "GNOME Commander na _webe"
+
+#~ msgid "GNOME Commander - ROOT PRIVILEGES"
+#~ msgstr "GNOME Commander - ROOT PRIVILÉGIÁ"
+
+#~ msgid "Refresh"
+#~ msgstr "Obnoviť"
+
+#~ msgid "Go to the oldest"
+#~ msgstr "Prejsť na najstarší"
+
+#~ msgid "Go back"
+#~ msgstr "Ísť späť"
+
+#~ msgid "Go forward"
+#~ msgstr "Ísť dopredu"
+
+#~ msgid "Go to the latest"
+#~ msgstr "Prejsť na najnovší"
+
+#~ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+#~ msgstr "Kopírovať názvy súborov (SHIFT pre celé cesty, ALT pre URI)"
+
+#~ msgid "Cut"
+#~ msgstr "Vystrihnúť"
+
+#~ msgid "Paste"
+#~ msgstr "Vložiť"
+
+#~ msgid "Open terminal (SHIFT for root privileges)"
+#~ msgstr "Otvoriť terminál (SHIFT pre práva užívateľa root)"
+
+#~ msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
+#~ msgstr "Nepodarilo sa načítať pythonový modul 'gnomevfs' ('gnome.vfs')"
+
+#~ msgid "Path matches regex:"
+#~ msgstr "Cesta zodpovedá regulárnemu výrazu:"
+
+#~ msgid "Name contains:"
+#~ msgstr "Názov obsahuje:"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "_Rozlišovať veľkosť písmen"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr "Vložiť tento adresár medzi záložky"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "Spravovať záložky"
+
+#~ msgid "Open folder"
+#~ msgstr "Otvoriť priečinok"
+
+#~ msgid "Open terminal"
+#~ msgstr "Otvoriť terminál"
+
+#~ msgid "Open terminal as root"
+#~ msgstr "Otvoriť terminál ako root"
+
+#~ msgid "Start GNOME Commander as root"
+#~ msgstr "Spustiť GNOME Commander ako root"
+
+#~ msgid "Close connection"
+#~ msgstr "Zavrieť pripojenie"
+
+#~ msgid "New connection"
+#~ msgstr "Nové pripojenie"
+
+#~ msgid "Open connection"
+#~ msgstr "Otvoriť pripojenie"
+
+#~ msgid "Change left connection"
+#~ msgstr "Zmeniť ľavé pripojenie"
+
+#~ msgid "Change right connection"
+#~ msgstr "Zmeniť pravé pripojenie"
+
+#~ msgid "Show user defined files"
+#~ msgstr "Zobraziť používateľom zadefinované súbory"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "Nástroj na pokročilé premenovanie"
+
+#~ msgid "Change permissions"
+#~ msgstr "Zmeniť oprávnenia"
+
+#~ msgid "Change owner/group"
+#~ msgstr "Zmeniť vlastníka/skupinu"
+
+#~ msgid "Copy files"
+#~ msgstr "Kopírovať súbory"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "Vytvoriť symbolický odkaz"
+
+#~ msgid "Delete files"
+#~ msgstr "Odstrániť súbory"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "Porovnať súbory (diff)"
+
+#~ msgid "Edit file"
+#~ msgstr "Upraviť súbor"
+
+#~ msgid "Edit a new file"
+#~ msgstr "Upraviť nový súbor"
+
+#~ msgid "Create directory"
+#~ msgstr "Vytvoriť adresár"
+
+#~ msgid "Move files"
+#~ msgstr "Presunúť súbory"
+
+#~ msgid "Rename files"
+#~ msgstr "Premenovať súbory"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "Synchronizovať adresáre"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr "O GNOME Commander"
+
+#~ msgid "Help contents"
+#~ msgstr "Pomocník pre obsah"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "Pomocník pre klávesové skratky"
+
+#~ msgid "Report a problem"
+#~ msgstr "Nahlásiť problém"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr "GNOME Commander na webe"
+
+#~ msgid "Compare directories"
+#~ msgstr "Porovnať adresáre"
+
+#~ msgid "Invert selection"
+#~ msgstr "Obrátiť výber"
+
+#~ msgid "Select all"
+#~ msgstr "Označiť všetko"
+
+#~ msgid "Unselect all"
+#~ msgstr "Odznačiť všetko"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Klávesové skratky"
+
+#~ msgid "Configure plugins"
+#~ msgstr "Nastaviť zásuvné moduly"
+
+#~ msgid "Execute Python plugin"
+#~ msgstr "Spustiť zásuvný modul Python"
+
+#~ msgid "Back one directory"
+#~ msgstr "Späť o jeden adresár"
+
+#~ msgid "Close the current tab"
+#~ msgstr "Zatvoriť aktuálnu kartu"
+
+#~ msgid "Close all tabs"
+#~ msgstr "Zatvoriť všetky karty"
+
+#~ msgid "Show directory history"
+#~ msgstr "Zobraziť históriu adresára"
+
+#~ msgid "Equal panel size"
+#~ msgstr "Rovnaké veľkosti panelov"
+
+#~ msgid "Maximize panel size"
+#~ msgstr "Maximalizovať veľkosti panelov"
+
+#~ msgid "Back to the first directory"
+#~ msgstr "Späť do prvého adresára"
+
+#~ msgid "Forward one directory"
+#~ msgstr "Vpred o jeden adresár"
+
+#~ msgid "Open directory in the active window"
+#~ msgstr "Otvoriť adresár v aktívnom okne"
+
+#~ msgid "Open directory in the inactive window"
+#~ msgstr "Otvoriť adresár v neaktívnom okne"
+
+#~ msgid "Open directory in the left window"
+#~ msgstr "Otvoriť adresár v ľavom okne"
+
+#~ msgid "Open directory in the right window"
+#~ msgstr "Otvoriť adresár v pravom okne"
+
+#~ msgid "Open directory in the new tab (inactive window)"
+#~ msgstr "Otvoriť adresár na novej karte (v neaktívnom okne)"
+
+#~ msgid "Forward to the last directory"
+#~ msgstr "Vpred do posledného adresára"
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "Otvoriť adresár na novej karte"
+
+#~ msgid "Show terminal"
+#~ msgstr "Zobraziť terminál"
+
+#, c-format
+#~ msgid "Create symbolic links of %i file in %s?"
+#~ msgid_plural "Create symbolic links of %i files in %s?"
+#~ msgstr[0] "Vytvoriť symb. odkazy %i súborov v %s?"
+#~ msgstr[1] "Vytvoriť symb. odkazy %i súboru v %s?"
+#~ msgstr[2] "Vytvoriť symb. odkazy %i súborov v %s?"
+
+#~ msgid "Unable to open terminal in root mode."
+#~ msgstr "Nepodarilo sa otvoriť terminál v režime root."
+
+#~ msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found."
+#~ msgstr "xdg-su, gksu, gnomesu, kdesu alebo beesu nebolo nájdené."
+
+#~ msgid "Unable to start Nautilus."
+#~ msgstr "Nepodarilo sa spustiť Nautilus."
+
+#~ msgid "Unable to start GNOME Commander in root mode."
+#~ msgstr "Nepodarilo sa spustiť GNOME commander v režime root."
+
+#~ msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+#~ msgstr "xdg-su, gksu, gnomesu, kdesu alebo beesu nebolo nájdené"
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "Rýchly a výkonný správca súborov pre pracovné prostredie GNOME"
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME Commander je slobodný softvér. Môžete ho ďalej šíriť a/alebo upravovať"
+#~ " za podmienok licencie GNU General Public Licence v podobe, akej ju "
+#~ "publikovala Free Software Foundation. Buď vo verzii 2 tejto licencie, alebo "
+#~ "(podľa vášho uváženia) v hociktorej novšej verzii."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "GNOME Commander je šírený v nádeji, že bude užitočný, ale BEZ AKEJKOĽVEK "
+#~ "ZÁRUKY; a to aj bez záruky PREDAJNOSTI alebo VHODNOSTI PRE URČITÝ ÚČEL. Viac"
+#~ " podrobností nájdete v GNU General Public Licence."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+#~ "Spolu s GNOME Commander ste mali obdržať aj kópiu GNU General Public "
+#~ "Licence. Ak sa tak nestalo, napíšte na adresu  Free Software Foundation, "
+#~ "Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+
+#, c-format
+#~ msgid ""
+#~ "Overwrite file:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "With:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+#~ msgstr ""
+#~ "Prepísať súbor:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "S:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+
+#~ msgid "Replace All"
+#~ msgstr "Nahradiť všetko"
+
+#, c-format
+#~ msgid ""
+#~ "Error while copying to %s\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Nastala chyba počas kopírovania %s\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Transfer problem"
+#~ msgstr "Problém prenosu"
+
+#~ msgid "copying..."
+#~ msgstr "kopíruje sa..."
+
+#, c-format
+#~ msgid "[file %ld of %ld] \"%s\""
+#~ msgstr "[súbor %ld z %ld] „%s“"
+
+#~ msgid "preparing..."
+#~ msgstr "pripravuje sa..."
+
+#~ msgid "stopping..."
+#~ msgstr "zastavuje sa..."
+
+#, c-format
+#~ msgid "%s of %s copied"
+#~ msgstr "%s z %s skopírované"
+
+#, c-format
+#~ msgid "%.0f%% copied"
+#~ msgstr "%.0f%% skopírované"
+
+#, c-format
+#~ msgid "Couldn't load installed file type pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Nepodarilo sa načítať inštalované súbory typu pixmap, skúša sa miesto nich "
+#~ "načítavanie %s"
+
+#, c-format
+#~ msgid ""
+#~ "Can't find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-commander from the gnome-commander-%s/src directory"
+#~ msgstr ""
+#~ "Nepodarilo sa nájsť pixmap. Uistite sa, že ste tento program nainštalovali, "
+#~ "alebo že spúšťate gnome-commander z adresára gnome-commander-%s/src"
+
+#, c-format
+#~ msgid "Couldn't load installed pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Nepodarilo sa načítať nainštalovaný pixmap, skúša sa miesto neho načítať %s."
+
+#~ msgid "Find"
+#~ msgstr "Nájsť"
+
+#~ msgid "Searching..."
+#~ msgstr "Hľadá sa..."
+
+#, c-format
+#~ msgid "Searching for \"%s\""
+#~ msgstr "Hľadá sa „%s“"
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr "Pozícia: %lu z %lu\tStĺpec: %d\t%s"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "pixlov"
+#~ msgstr[1] "pixel"
+#~ msgstr[2] "pixle"
+
+#~ msgid "bit/sample"
+#~ msgid_plural "bits/sample"
+#~ msgstr[0] "bitov na vzorku"
+#~ msgstr[1] "bit na vzorku"
+#~ msgstr[2] "bity na vzorku"
+
+#~ msgid "_Copy selection"
+#~ msgstr "_Kopírovať výber"
+
+#~ msgid "_Binary"
+#~ msgstr "_Binárne"
+
+#~ msgid "Zoom _Out"
+#~ msgstr "_Zmenšiť"
+
+#~ msgid "Best _Fit"
+#~ msgstr "_Prispôsobiť veľkosti okna"
+
+#~ msgid "Find..."
+#~ msgstr "Nájsť..."
+
+#~ msgid "_Rotate 180°"
+#~ msgstr "O_točit o 180°"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "_Binárny režim"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "_Uložiť aktuálne nastavenia"
+
+#, c-format
+#~ msgid "Pattern \"%s\" was not found"
+#~ msgstr "Vzorka „%s“ nebola nájdená"
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr "Určte úvodný adresár pre ľavý panel"
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr "Určte úvodný adresár pre pravý panel"
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr "Určte úvodný adresár pre súbory s nastaveniami"
+
+#~ msgid "File Manager"
+#~ msgstr "Správca súborov"
+
+#~ msgid "Disable"
+#~ msgstr "Zakázať"
+
+#~ msgid "Enable"
+#~ msgstr "Povoliť"
+
+#~ msgid "Version"
+#~ msgstr "Verzia"
+
+#~ msgid "_Enable"
+#~ msgstr "_Povoliť"
+
+#~ msgid "_Configure"
+#~ msgstr "_Nastaviť"
+
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr "<Štítky Exif a IPTC nie sú podporované>"
+
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr "<štítky ID3, APE, FLAC a Vorbis nie sú podporované>"
+
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr "<štítky OLE2 a ODF nie sú podporované>"
+
+#~ msgid "<PDF tags not supported>"
+#~ msgstr "<štítky PDF nie sú podporované>"
+
+#~ msgid "Set to \"1\" if track is new to the user (default \"0\")."
+#~ msgstr ""
+#~ "Nastavené na „1“ ak je zvuková stopa pre používateľa nová (predvolenou "
+#~ "hodnotou je „0“)."
+
+#~ msgid "\"1\" if the copyrighted bit is set."
+#~ msgstr "„1“ ak je bit autorských práv nastavený."
+
+#~ msgid "\"1\" if the \"original\" bit is set."
+#~ msgstr "„1“ ak je bit „pôvodná“ nastavený."
+
+#~ msgid "Created"
+#~ msgstr "Vytvorené"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr ""
+#~ "Dátum súvisiaci s udalosťou v životnom cykle zdroja (vytvorenie/publikácia)."
+
+#~ msgid "Number of \"notes\" in the document."
+#~ msgstr "Počet „poznámok“ v dokumente."
+
+#~ msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
+#~ msgstr "Typ prezentácie, napr. „On-screen Show“, „SlideView“."
+
+#~ msgid ""
+#~ "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
+#~ "enforced\" or \"Locked for annotations\"."
+#~ msgstr ""
+#~ "Jedno z nasledujúcich: „Password protected“ (chránené heslom), „Read-only "
+#~ "recommended“ (odporúčané len na čítanie), „Read-only enforced“ (povolené len"
+#~ " čítanie), alebo „Locked for annotations“ (uzamknuté pre poznámky)."
+
+#~ msgid ""
+#~ "Copyright information. The tag is used to indicate both the photographer and"
+#~ " editor copyrights. It is the copyright notice of the person or organization"
+#~ " claiming rights to the image. The Interoperability copyright statement "
+#~ "including date and rights should be written in this field; e.g., "
+#~ "\"Copyright, John Smith, 19xx. All rights reserved.\". The field records "
+#~ "both the photographer and editor copyrights, with each recorded in a "
+#~ "separate part of the statement. When there is a clear distinction between "
+#~ "the photographer and editor copyrights, these are to be written in the order"
+#~ " of photographer followed by editor copyright, separated by NULL (in this "
+#~ "case, since the statement also ends with a NULL, there are two NULL codes) "
+#~ "(see example 1). When only the photographer is given, it is terminated by "
+#~ "one NULL code. When only the editor copyright is given, the photographer "
+#~ "copyright part consists of one space followed by a terminating NULL code, "
+#~ "then the editor copyright is given. When the field is left blank, it is "
+#~ "treated as unknown."
+#~ msgstr ""
+#~ "Informácie o autorských právach. Tento štítok je použitý na uvedenie "
+#~ "autorských práv fotografa, aj editora. Sú to autorské práva osoby, alebo "
+#~ "organizácie, ktorá vlastní práva obrázka. Pravidlom je do prehlásenia "
+#~ "autorských práv v tomto poli zahrnúť dátum a práva, napr. „Copyright, John "
+#~ "Smith, 19xx. Všetký práva vyhradené.“. Toto pole zaznamenáva autorské práva "
+#~ "fotografa, aj editora, so všetkými snímkami v oddelenej časti prehlásenia. "
+#~ "Ak je medzi autorskými právami fotografa a editora badateľný rozdiel, najprv"
+#~ " by mal byť zapísaný copyright fotografa, nasledovaný editorskými. Mali by "
+#~ "byť oddelené pomocou NULL (keďže v tomto prípade aj prehlásenie končí na "
+#~ "NULL, budú vedľa seba 2 NULL)(viď príklad 1). Ak sú dané iba autorské práva "
+#~ "fotografa, sú ukončené jedným NULL kódom. Ak sú dané iba autorské práva "
+#~ "editora, práva fotografa pozostávajú z jednej medzery nasledovanej NULLom a "
+#~ "právami editora. Ak je toto pole prázdne, údaj sa považuje za neznámy."
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr "Ukazovateľ IFD Exif"
+
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr ""
+#~ "Ukazovateľ na Exif IFD. Kvôli prenositeľnosti má Exif IFD rovnakú štruktúru "
+#~ "ako IFD špecifikované v TIFF."
+
+#~ msgid ""
+#~ "Indicates whether the latitude is north or south latitude. The ASCII value "
+#~ "'N' indicates north latitude, and 'S' is south latitude."
+#~ msgstr ""
+#~ "Určuje, či je zemepisná šírka severná alebo južná. ASCII hodnota 'N' znamená"
+#~ " severnú, 'S' južnú zemepisnú šírku."
+
+#~ msgid ""
+#~ "Indicates whether the longitude is east or west longitude. ASCII 'E' "
+#~ "indicates east longitude, and 'W' is west longitude."
+#~ msgstr ""
+#~ "Určuje, či je zemepisná dĺžka východná alebo západná. ASCII hodnota 'E' "
+#~ "znamená východnú, 'W' západnú zemepisnú dĺžku."
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr "Ukazovateľ súčinnosti IFD"
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+#~ "Súčinnosť IFD pozostáva zo štítkov, ktoré obsahujú informácie pre zaistenie "
+#~ "súčinnosti a odkazujú naň pomocou nasledujúceho štítka umiestneného v Exif "
+#~ "IFD. Štruktúra pre súčinnosť je rovnaká ako štruktúra IFD definovaná v TIFF "
+#~ "a neobsahuje obrazové dáta charakteristicky porovnávané s normálnym IFD v "
+#~ "TIFF."
+
+#~ msgid ""
+#~ "Indicates the identification of the Interoperability rule. Use \"R98\" for "
+#~ "stating ExifR98 Rules."
+#~ msgstr ""
+#~ "Určuje identifikáciu pravidla súčinnosti. Použite „R98“ pre uvedenie "
+#~ "pravidiel ExifR98."
+
+#~ msgid ""
+#~ "The reference black point value and reference white point value. No defaults"
+#~ " are given in TIFF, but the values below are given as defaults here. The "
+#~ "color space is declared in a color space information tag, with the default "
+#~ "being the value that gives the optimal image characteristics "
+#~ "Interoperability these conditions."
+#~ msgstr ""
+#~ "Hodnota referenčného čierneho a bieleho bodu. V TIFF sa nenachádzajú žiadne "
+#~ "predvolené hodnoty, za predvolené hodnoty sa tu považujú tie nižšie. Farebný"
+#~ " priestor je deklarovaný v štítku s informáciami o farebnom priestore, "
+#~ "pričom predvolenou hodnotou je tá, ktorá dáva za týchto podmienok optimálne "
+#~ "obrazové vlastnosti."
+
+#~ msgid ""
+#~ "This tag is used to record the name of an audio file related to the image "
+#~ "data. The only relational information recorded here is the Exif audio file "
+#~ "name and extension (an ASCII string consisting of 8 characters + '.' + 3 "
+#~ "characters). The path is not recorded. When using this tag, audio files must"
+#~ " be recorded in conformance to the Exif audio format. Writers are also "
+#~ "allowed to store the data such as Audio within APP2 as FlashPix extension "
+#~ "stream data. Audio files must be recorded in conformance to the Exif audio "
+#~ "format. If multiple files are mapped to one file, the above format is used "
+#~ "to record just one audio file name. If there are multiple audio files, the "
+#~ "first recorded file is given. When there are three Exif audio files "
+#~ "\"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the Exif image file"
+#~ " name for each of them, \"DSC00001.JPG\", is indicated. By combining "
+#~ "multiple relational information, a variety of playback possibilities can be "
+#~ "supported. The method of using relational information is left to the "
+#~ "implementation on the playback side. Since this information is an ASCII "
+#~ "character string, it is terminated by NULL. When this tag is used to map "
+#~ "audio files, the relation of the audio file to image data must also be "
+#~ "indicated on the audio file end."
+#~ msgstr ""
+#~ "Tento štítok je použitý na záznam názvu zvukového súboru, ktorý súvisí s "
+#~ "obrazovými dátami. Jediná súvisiaca informácia, ktorá je tu zaznamenaná je "
+#~ "názov a rozšírenie Exif zvukového súboru (ide o ASCII reťazec obsahujúci 8 "
+#~ "znakov + '.' + 3 znaky). Cesta nie je ukladaná. Ak je tento štítok použitý, "
+#~ "audio súbory musia byť nahraté v súlade so zvukovým formátom Exif. "
+#~ "Zapisujúce zariadenia môžu ukladať dáta, napr. zvuk v rámci APP2 v podobe "
+#~ "rozširujúceho sa prúdu dát rozšírenia FlashPix. Zvukové súbory musia byť "
+#~ "nahraté v súlade s Exif audio formátom. Ak je do jedného súboru mapovaných "
+#~ "viacero súborov, je pre záznam práve jedného názvu zvukového súboru použitý "
+#~ "spomenutý formát. Ak je daných viac zvukových formátov, je zadaný prvý "
+#~ "nahratý súbor. Ak sú dané 3 Exif zvukové súbory, „SND00001.WAV“, "
+#~ "„SND00002.WAV“ a „SND00003.WAV“, je pre všetky daný rovnaký názov obrazového"
+#~ " súboru, „DSC00001.JPG“. Kombináciou viacerých súvisiacich informácií je "
+#~ "možné podporovať viacero možností prehrávania. Spôsob použitia súvisiacich "
+#~ "informácií je prenechaný na implementáciu na strane prehrávača. Keďže je "
+#~ "táto informácia uložená ako reťazec ASCII, je terminovaný pomocou NULL. Ak "
+#~ "je tento štítok použitý na mapovanie audio súborov, vzťah zvukového súboru s"
+#~ " obrazovým musít byť na konci zvukového súboru tiež určený."
+
+#~ msgid ""
+#~ "A tag for Exif users to write keywords or comments on the image besides "
+#~ "those in <Exif.ImageDescription>, and without the character code limitations"
+#~ " of the <Exif.ImageDescription> tag. The character code used in the "
+#~ "<Exif.UserComment> tag is identified based on an ID code in a fixed 8-byte "
+#~ "area at the start of the tag data area. The unused portion of the area is "
+#~ "padded with NULL (\"00.h\"). ID codes are assigned by means of registration."
+#~ " The value of CountN is determinated based on the 8 bytes in the character "
+#~ "code area and the number of bytes in the user comment part. Since the TYPE "
+#~ "is not ASCII, NULL termination is not necessary. The ID code for the "
+#~ "<Exif.UserComment> area may be a Defined code such as JIS or ASCII, or may "
+#~ "be Undefined. The Undefined name is UndefinedText, and the ID code is filled"
+#~ " with 8 bytes of all \"NULL\" (\"00.H\"). An Exif reader that reads the "
+#~ "<Exif.UserComment> tag must have a function for determining the ID code. "
+#~ "This function is not required in Exif readers that do not use the "
+#~ "<Exif.UserComment> tag. When a <Exif.UserComment> area is set aside, it is "
+#~ "recommended that the ID code be ASCII and that the following user comment "
+#~ "part be filled with blank characters [20.H]."
+#~ msgstr ""
+#~ "Štítok pre používateľov Exif na kľúčové slová, alebo komentáre na obrázok "
+#~ "popri tých v <Exif.ImageDescription>, ale bez obmedzenia počtu znakov, aké "
+#~ "je v štítku <Exif.ImageDescription>. Znaková sada použitá v štítku "
+#~ "<Exif.UserComment> je identifikovaná na základe identifikátora vo forme 8 "
+#~ "bajtového poľa na začiatku štítka. Nepoužitá časť tohto poľa je vyplnená s "
+#~ "NULL („00.h“). Kódy identifiḱátora sú priradzované podľa významu "
+#~ "registrácie. Hodnota CountN je určená na základe 8 bajtov v oblasti znakovej"
+#~ " sady a počtom bajtov v časti s komentármi používateľov. Keďže neide o "
+#~ "ASCII, nie je potrebná terminácia pomocou NULL. Kód identifiḱátora pre "
+#~ "oblasť <Exif.UserComment> môže byť zadefinovaným kódom ako napr JIS, alebo "
+#~ "ASCII, alebo môže byť aj nezadefinovaným. Nezadefinovaný má názov "
+#~ "UndefinedText a kód identifiḱátora je vyplnený 8 bajtmi s hodnotou „NULL“ "
+#~ "(„00.H“). Čítačka Exif, ktorá číta štítok <Exif.UserComment> musí mať "
+#~ "funkciu na určenie kódu identifiḱátora. Táto funkcia nie je potrebná v Exif "
+#~ "čítačkách, ktoré nepoužívajú štítok <Exif.UserComment>. U čítačiek, ktoré "
+#~ "oblasť <Exif.UserComment> nečítajú, sa odporúča, aby bol kód identifiḱátora "
+#~ "v ASCII a aby bol nasledujúci používateľský komentár vyplnený prázdnym "
+#~ "znakom [20.H]."
+
+#~ msgid ""
+#~ "The matrix coefficients for transformation from RGB to YCbCr image data. No "
+#~ "default is given in TIFF; but here \"Color Space Guidelines\" is used as the"
+#~ " default. The color space is declared in a color space information tag, with"
+#~ " the default being the value that gives the optimal image characteristics "
+#~ "Interoperability this condition."
+#~ msgstr ""
+#~ "Maticové koeficienty pre prevod obrazových dát z RGB na YCbCr. Vo formáte "
+#~ "TIFF nie je daná žiadna predvolená hodnota, ako predvolené sú použité "
+#~ "hodnoty v „Color Space Guidelines“ (Pokyny pre farebné priestory). Farebný "
+#~ "priestor je deklarovaný v štítku pre informácie o farebnom priestore, pričom"
+#~ " predvolenou hodnotou je tá, ktorá dáva za týchto podmienok optimálne "
+#~ "vlastnosti obrázka."
+
+#~ msgid "File's contents filtered as plain text."
+#~ msgstr "Obsah súborov filtrovaný ako prostý text."
+
+#~ msgid ""
+#~ "MIME type of the file or if a directory it should contain value \"Folder\"."
+#~ msgstr ""
+#~ "MIME typ súboru, alebo ak ide o adresár, mal by obsahovať hodnotu "
+#~ "„Priečinok“."
+
+#~ msgid "Permission string in unix format eg \"-rw-r--r--\"."
+#~ msgstr "Zápis práv v unixovom formáte, napr. „-rw-r--r--“."
+
+#~ msgid "Emphasis"
+#~ msgstr "Dôraz"
+
+#~ msgid "Emphasis."
+#~ msgstr "Dôraz."
+
+#~ msgid "Equalization 2"
+#~ msgstr "Vyrovnanie 2"
+
+#~ msgid "Frames"
+#~ msgstr "Rámce"
+
+#~ msgid "Number of frames."
+#~ msgstr "Počet rámcov."
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr "Zainteresovaní ľudia 2"
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr "Veľkosť zvukového súboru v bajtoch, bez štítku ID3."
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr "Nastavenie hlasitosti 2"
+
+#~ msgid "Set to \"1\" if flash was fired."
+#~ msgstr "Nastavené na „1“ ak bol použitý blesk."
+
+#~ msgid ""
+#~ "Represents the orientation of the image wrt camera (IE \"top,left\" or "
+#~ "\"bottom,right\")."
+#~ msgstr ""
+#~ "Reprezentuje smer zápisu obrázka fotoaparátom (napr. „zhora, zľava“, alebo "
+#~ "„zdola, zprava“)."
+
+#~ msgid ""
+#~ "The type of action that this object provides to a previous object. '01' "
+#~ "Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
+#~ msgstr ""
+#~ "Typ operácie, ktorú tento objekt poskytuje vo vzťahu k predošlému. '01' "
+#~ "Zabitie objektu, '02' Nahradenie objektu, '03' pripojenie objektu, '04' "
+#~ "odkaz na objekt."
+
+#~ msgid ""
+#~ "The type of update this object provides to a previous object. The link to "
+#~ "the previous object is made using the ARM. '01' indicates an additional "
+#~ "language."
+#~ msgstr ""
+#~ "Typ aktualizácie, ktorú tento objekt poskytuje predošlému objektu. Odkaz na "
+#~ "predošlý objekt je vytvorený pomocou ARM. '01' označuje dodatočný jazyk. "
+
+#~ msgid ""
+#~ "Specifies the envelope handling priority and not the editorial urgency. '1' "
+#~ "for most urgent, '5' for normal, and '8' for least urgent. '9' is user-"
+#~ "defined."
+#~ msgstr ""
+#~ "Určuje prioritu spracovania obálky a nie redakčnú naliehavosť. '1' znamená "
+#~ "najnaliehavejšie, '5' normálne, '8' najmenej naliehavé. '9' je definované "
+#~ "používateľom."
+
+#~ msgid ""
+#~ "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
+#~ "for square."
+#~ msgstr ""
+#~ "Rozloženie plochy pre obrázok: 'P' na výšku, 'L' na šírku, 'S' pre štvorec."
+
+#~ msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
+#~ msgstr "Kde 'a' je ráno, 'p' je poobede, 'b' sú oboje."
+
+#~ msgid ""
+#~ "Specifies the editorial urgency of content and not necessarily the envelope "
+#~ "handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
+#~ msgstr ""
+#~ "Určuje redakčnú naliehavosť, nie nevyhnutne prioritu obslúženia obálky. '1' "
+#~ "znamená najväčšiu naliehavosť, '5' normálnu, '8' najmenšiu."
+
+#~ msgid "Set to \"1\" if optimized for network access."
+#~ msgstr "Nastavené na „1“ ak je optimalizované pre prístup pre sieť."
+
+#~ msgid "Set to \"1\" if printing is allowed."
+#~ msgstr "Nastavené na „1“ ak je tlač povolená."
+
+#~ msgid "Set to \"1\" if high resolution printing is allowed."
+#~ msgstr "Nastavené na „1“ ak je povolená tlač vo vysokom rozlíšení."
+
+#~ msgid "Set to \"1\" if copying the contents is allowed."
+#~ msgstr "Nastavené na „1“ ak je kopírovanie obsahu povolené."
+
+#~ msgid "Set to \"1\" if modifying the contents is allowed."
+#~ msgstr "Nastavené na „1“ ak sú úpravy obsahu povolené."
+
+#~ msgid ""
+#~ "Set to \"1\" if inserting, rotating, or deleting pages and creating "
+#~ "navigation elements is allowed."
+#~ msgstr ""
+#~ "Nastavené na „1“ ak je vkladanie, otáčanie, alebo mazanie stránok a "
+#~ "vytváranie navigačných prvkov povolené."
+
+#~ msgid "Set to \"1\" if adding or modifying text annotations is allowed."
+#~ msgstr ""
+#~ "Nastavené na „1“ ak je pridávanie alebo upravovanie vysvetliviek povolené."
+
+#~ msgid "Set to \"1\" if filling of form fields is allowed."
+#~ msgstr "Nastavené na „1“ ak je vyplňovanie formulárov povolené."
+
+#~ msgid "Set to \"1\" if accessibility support (e.g. screen readers) is enabled."
+#~ msgstr ""
+#~ "Nastavené na „1“ ak je podpora zjednodušenia ovládania (napr. čítačka "
+#~ "obrazovky) povolená."
+
+#~ msgid "No Proofing"
+#~ msgstr "Bez ochrany"
+
+#~ msgid "Arabic"
+#~ msgstr "Arabčina"
+
+#~ msgid "Bulgarian"
+#~ msgstr "Bulharčina"
+
+#~ msgid "Catalan"
+#~ msgstr "Katalánčina"
+
+#~ msgid "Traditional Chinese"
+#~ msgstr "Tradičná čínština"
+
+#~ msgid "Simplified Chinese"
+#~ msgstr "Zjednodušená čínština"
+
+#~ msgid "Chechen"
+#~ msgstr "Čečenčina"
+
+#~ msgid "Danish"
+#~ msgstr "Dánčina"
+
+#~ msgid "German"
+#~ msgstr "Nemčina"
+
+#~ msgid "Swiss German"
+#~ msgstr "Švajčiarská nemčina"
+
+#~ msgid "Greek"
+#~ msgstr "Gréčtina"
+
+#~ msgid "U.S. English"
+#~ msgstr "Americká angličtina"
+
+#~ msgid "U.K. English"
+#~ msgstr "Britská angličtina"
+
+#~ msgid "Australian English"
+#~ msgstr "Austrálska angličtina"
+
+#~ msgid "Castilian Spanish"
+#~ msgstr "Kastilská španielčina"
+
+#~ msgid "Mexican Spanish"
+#~ msgstr "Mexická španielčina"
+
+#~ msgid "Finnish"
+#~ msgstr "Fínština"
+
+#~ msgid "French"
+#~ msgstr "Francúzština"
+
+#~ msgid "Belgian French"
+#~ msgstr "Belgická francúzština"
+
+#~ msgid "Canadian French"
+#~ msgstr "Kanadská francúzština"
+
+#~ msgid "Swiss French"
+#~ msgstr "Švajčiarská francúzština"
+
+#~ msgid "Hebrew"
+#~ msgstr "Hebrejčina"
+
+#~ msgid "Hungarian"
+#~ msgstr "Maďarčina"
+
+#~ msgid "Icelandic"
+#~ msgstr "Islandština"
+
+#~ msgid "Italian"
+#~ msgstr "Taliančina"
+
+#~ msgid "Swiss Italian"
+#~ msgstr "Švajčiarská taliančina"
+
+#~ msgid "Japanese"
+#~ msgstr "Japončina"
+
+#~ msgid "Korean"
+#~ msgstr "Kórejčina"
+
+#~ msgid "Dutch"
+#~ msgstr "Holandština"
+
+#~ msgid "Belgian Dutch"
+#~ msgstr "Belgická holandština"
+
+#~ msgid "Norwegian Bokmal"
+#~ msgstr "Knižná nórština"
+
+#~ msgid "Norwegian Nynorsk"
+#~ msgstr "Nórsky nynorsk"
+
+#~ msgid "Polish"
+#~ msgstr "Poľština"
+
+#~ msgid "Brazilian Portuguese"
+#~ msgstr "Brazílska portugalčina"
+
+#~ msgid "Portuguese"
+#~ msgstr "Portugalčina"
+
+#~ msgid "Rhaeto-Romanic"
+#~ msgstr "Rétorománčina"
+
+#~ msgid "Romanian"
+#~ msgstr "Rumunčina"
+
+#~ msgid "Russian"
+#~ msgstr "Ruština"
+
+#~ msgid "Croato-Serbian (Latin)"
+#~ msgstr "Chorvátsko-srbčina (latinka)"
+
+#~ msgid "Serbo-Croatian (Cyrillic)"
+#~ msgstr "Srbo-chorvátčina (cyrilika)"
+
+#~ msgid "Slovak"
+#~ msgstr "Slovenčina"
+
+#~ msgid "Albanian"
+#~ msgstr "Albánčina"
+
+#~ msgid "Swedish"
+#~ msgstr "Švédčina"
+
+#~ msgid "Thai"
+#~ msgstr "Thajčina"
+
+#~ msgid "Turkish"
+#~ msgstr "Turečtina"
+
+#~ msgid "Urdu"
+#~ msgstr "Urdština"
+
+#~ msgid "Indonesian"
+#~ msgstr "Indonéština"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Ukrajinčina"
+
+#~ msgid "Byelorussian"
+#~ msgstr "Bieloruština"
+
+#~ msgid "Slovenian"
+#~ msgstr "Slovinčina"
+
+#~ msgid "Estonian"
+#~ msgstr "Estónčina"
+
+#~ msgid "Latvian"
+#~ msgstr "Lotyština"
+
+#~ msgid "Lithuanian"
+#~ msgstr "Litovčina"
+
+#~ msgid "Farsi"
+#~ msgstr "Perština"
+
+#~ msgid "Basque"
+#~ msgstr "Baskičtina"
+
+#~ msgid "Macedonian"
+#~ msgstr "Macedónčina"
+
+#~ msgid "Afrikaans"
+#~ msgstr "Afrikánčina"
+
+#~ msgid "Malayalam"
+#~ msgstr "Malajámčina"
+
+#, c-format
+#~ msgid "unsupported tag (suppressed %u B of binary data)"
+#~ msgstr "nepodporovaný štítok (potlačených %u B binárnych dát)"
+
+#, c-format
+#~ msgid "No default application found for the MIME type %s."
+#~ msgstr "Pre typ MIME %s nebola nájdená žiadna predvolená aplikácia."
+
+#, c-format
+#~ msgid ""
+#~ "\"%s\" seems to be a binary executable file but it lacks the executable bit."
+#~ " Do you want to set it and then run the file?"
+#~ msgstr ""
+#~ "Zdá sa, že „%s“ je binárny súbor, ale nie je nastavený ako spustiteľný. "
+#~ "Chcete ho takto nastaviť a potom spustiť?"
+
+#~ msgid "Make Executable?"
+#~ msgstr "Urobiť spustiteľným?"
+
+#, c-format
+#~ msgid ""
+#~ "\"%s\" is an executable text file. Do you want to run it, or display its "
+#~ "contents?"
+#~ msgstr ""
+#~ "„%s“ je spustiteľný textový súbor. Chcete ho spustiť alebo zobraziť jeho "
+#~ "obsah?"
+
+#~ msgid "Run or Display"
+#~ msgstr "Spustiť alebo zobraziť"
+
+#~ msgid "Display"
+#~ msgstr "Zobrazenie"
+
+#~ msgid "Run"
+#~ msgstr "Spustiť"
+
+#, c-format
+#~ msgid ""
+#~ "%s does not know how to open remote file. Do you want to download the file "
+#~ "to a temporary location and then open it?"
+#~ msgid_plural ""
+#~ "%s does not know how to open remote files. Do you want to download the files"
+#~ " to a temporary location and then open them?"
+#~ msgstr[0] ""
+#~ "%s nevie otvoriť vzdialené súbory. Chcete súbor prevziať na dočasné miesto a"
+#~ " otvoriť ho?"
+#~ msgstr[1] ""
+#~ "%s nevie otvoriť vzdialený súbor. Chcete súbor prevziať na dočasné miesto a "
+#~ "otvoriť ho?"
+#~ msgstr[2] ""
+#~ "%s nevie otvoriť vzdialené súbory. Chcete súbor prevziať na dočasné miesto a"
+#~ " otvoriť ho?"
+
+#, c-format
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "(%s bajtov)"
+#~ msgstr[1] "(%s bajt)"
+#~ msgstr[2] "(%s bajty)"
+
+#, c-format
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "%s bajtov"
+#~ msgstr[1] "%s bajt"
+#~ msgstr[2] "%s bajty"
+
+#~ msgid "Failed to create a directory in which to store temporary files."
+#~ msgstr "Nepodarilo sa vytvoriť adresár %s na uloženie dočasných súborov."
+
+#, c-format
+#~ msgid "Creating directory %s... "
+#~ msgstr "Vytváranie adresára %s... "
+
+#, c-format
+#~ msgid "Failed to create the directory %s"
+#~ msgstr "Nepodarilo sa vytvoriť adresár %s"
+
+#, c-format
+#~ msgid "Couldn't read from the directory %s: %s"
+#~ msgstr "Nepodarilo sa čítať z adresára %s: %s"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "Pri zobrazovaní pomocníka došlo k chybe."
+
+#~ msgid "Save password in GNOME keyring"
+#~ msgstr "Uložiť heslo na zväzok kľúčov GNOME"
+
+#~ msgid "_Password:"
+#~ msgstr "_Heslo:"
+
+#~ msgid "Use _GNOME Keyring Manager for authentication"
+#~ msgstr "Používať k overeniu totožnosti Správcu zväzkov kľúčov _GNOME"
+
+#~ msgid "Unable to open terminal"
+#~ msgstr "Nepodarilo sa otvoriť terminál"

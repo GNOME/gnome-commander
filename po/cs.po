@@ -7731,3 +7731,1299 @@ msgstr "Nelze vytvořit dočasný soubor."
 
 #~ msgid "Close _Duplicate Tabs"
 #~ msgstr "Zavřít _duplicitní karty"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME Commander"
+
+#~ msgid "Two-pane file manager"
+#~ msgstr "Dvoupanelový správce souborů"
+
+#~ msgid ""
+#~ "GNOME Commander is a “two-pane” graphical file manager for the GNOME desktop"
+#~ " environment. It features separate tabs for each pane, setting up custom "
+#~ "device buttons, bookmark manager, fully integrated commandline, file quick "
+#~ "search, an internal image viewer, a powerful batch renaming tool, and FTP "
+#~ "and Samba access."
+#~ msgstr ""
+#~ "GNOME Commander je dvoupanelový grafický správce souborů pro pracovní "
+#~ "prostředí GNOME. Jeho schopnosti zahrnují karty pro každý panel zvlášť, "
+#~ "nastavení vlastních tlačítek se zařízeními, správu záložek, plně integrovaný"
+#~ " příkazový řádek, rychlé vyhledávání souborů, interní prohlížeč obrázků, "
+#~ "mocný nástroj pro hromadné přejmenování a přístup k FTP a Sambě."
+
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+#~ "GNOME Commander cílí na pokročilé uživatele, kteří mají rádi pravě takovéto "
+#~ "správce souborů, pracují souběžně ve specializovaných aplikacích a spouští "
+#~ "promyšlené příkazy."
+
+#~ msgid "A two paned file manager"
+#~ msgstr "Dvoupanelový správce souborů"
+
+#~ msgid ""
+#~ "A custom font that will be used for the file panes if the “Use default font”"
+#~ " option is turned off."
+#~ msgstr ""
+#~ "Vlastní font, který bude používán pro panely se soubory v případě, že je "
+#~ "vypnutá volba „Používat výchozí font“."
+
+#~ msgid ""
+#~ "Defines how the filesize will be displayed in the associated pane column."
+#~ msgstr ""
+#~ "Určuje, jak se má zobrazovat velikost souborů v příslušném sloupci v panelu."
+
+#~ msgid ""
+#~ "Defines how the file permission will be displayed in the associated pane "
+#~ "column."
+#~ msgstr ""
+#~ "Určuje, jak se mají zobrazovat oprávnění souboru v příslušném sloupci v "
+#~ "panelu."
+
+#~ msgid "Defines the icon style of files and folders in the file panes."
+#~ msgstr "Určuje styl ikon pro soubory a složky v panelech se soubory."
+
+#~ msgid "Defines the height of a row in the file pane."
+#~ msgstr "Určuje výšku řádku v panelu se soubory."
+
+#~ msgid "Format of the date in the file pane."
+#~ msgstr "Formát dat v panelech se soubory."
+
+#~ msgid "The font in the file panes."
+#~ msgstr "Font v panelech se soubory."
+
+#~ msgid "Size of icons in the file pane."
+#~ msgstr "Velikost ikon v panelech se soubory."
+
+#~ msgid ""
+#~ "Defines if the orientation of the file panes should be horizontal or not."
+#~ msgstr "Určuje, jestli mají být panely se soubory otočené vodorovně nebo ne."
+
+#~ msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
+#~ msgstr "Četnost aktualizace grafické uživatelské mezifáze v milisekundách."
+
+#~ msgid ""
+#~ "Defines if the current directories are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Určuje, jestli se po opětovném spuštění GNOME Commanderu mají znovu otevřít "
+#~ "aktuální složky."
+
+#~ msgid ""
+#~ "Defines if the current open tabs are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Určuje, jestli se po opětovném spuštění GNOME Commanderu mají znovu otevřít "
+#~ "aktuálně otevřené karty."
+
+#~ msgid ""
+#~ "This option defines if directories will be marked when all items in a file "
+#~ "pane should be marked."
+#~ msgstr ""
+#~ "Tato volba určuje, jestli se označí i složky, když se mají v panelu se "
+#~ "soubory označit všechny položky."
+
+#~ msgid "Quick search exact match begin"
+#~ msgstr "Rychlé hledání porovnává začátek"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the beginning"
+#~ " of an item name."
+#~ msgstr ""
+#~ "Tato volba určuje, jestli má rychlé hledání porovnávat výslovně od začátku "
+#~ "názvu položek."
+
+#~ msgid "Quick search exact match end"
+#~ msgstr "Rychlé hledání porovnává konec"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the end of an"
+#~ " item name."
+#~ msgstr ""
+#~ "Tato volba určuje, jestli má rychlé hledání porovnávat výslovně od konce "
+#~ "názvu položek."
+
+#~ msgid ""
+#~ "The entries in this list are used for restoring the tabs from the last "
+#~ "session."
+#~ msgstr ""
+#~ "Jednotlivé položky seznamu se používají pro obnovu karet z posledního "
+#~ "sezení."
+
+#~ msgid "Leave terminal open"
+#~ msgstr "Ponechávat terminál otevřený"
+
+#~ msgid ""
+#~ "This option defines if a terminal window should stay open after a command "
+#~ "finishes inside of it."
+#~ msgstr ""
+#~ "Tato volba určuje, jestli má terminálové okno po dokončení příkazu, který "
+#~ "jste v něm spustili, zůstat otevřené."
+
+#~ msgid "Fixed font name"
+#~ msgstr "Název fontu s pevnou šířkou"
+
+#~ msgid "Name of the default font with fixed character width."
+#~ msgstr "Název výchozího fontu s pevnou šířkou znaků."
+
+#~ msgid "Variable font name"
+#~ msgstr "Název fontu s proměnnou šířkou"
+
+#~ msgid "Name of the default font with variable character width."
+#~ msgstr "Název výchozího fontu s proměnnou šířkou."
+
+#~ msgid "Font size"
+#~ msgstr "Velikost fontu"
+
+#~ msgid "This option defines the default font size."
+#~ msgstr "Tato volba určuje velikost výchozího fontu."
+
+#~ msgid "Horizontal offset"
+#~ msgstr "Vodorovný posun"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "horizontal direction."
+#~ msgstr ""
+#~ "Tato volba určuje, o kolik posunutý ve vodorovném směru vůči hlavnímu oknu "
+#~ "má být zobrazen interní prohlížeč souborů."
+
+#~ msgid "Vertical offset"
+#~ msgstr "Svislý posun"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "vertical direction."
+#~ msgstr ""
+#~ "Tato volba určuje, o kolik posunutý ve svislém směru vůči hlavnímu oknu má "
+#~ "být zobrazen interní prohlížeč souborů."
+
+#~ msgid "No error description available"
+#~ msgstr "Popis chyby není k dispozici"
+
+#~ msgid "Remote Server"
+#~ msgstr "Vzdálený server"
+
+#~ msgid "Connection method is not selected"
+#~ msgstr "Není vybrán způsob připojení"
+
+#~ msgid "Bookmark name is missing."
+#~ msgstr "Schází název záložky."
+
+#~ msgid "Bookmark target is missing."
+#~ msgstr "Schází cíl záložky."
+
+#~ msgid "Current file name"
+#~ msgstr "Současný název souboru"
+
+#~ msgid "New file name"
+#~ msgstr "Nový název souboru"
+
+#~ msgid "File size"
+#~ msgstr "Velikost souboru"
+
+#~ msgid "File modification date"
+#~ msgstr "Datum úpravy souboru"
+
+#, c-format
+#~ msgid "Could not chmod %s"
+#~ msgstr "Nezdařilo se změnit oprávnění %s"
+
+#, c-format
+#~ msgid "Could not chown %s"
+#~ msgstr "Nezdařilo se změnit vlastníka %s"
+
+#~ msgid "Chown"
+#~ msgstr "Změnit vlastníka"
+
+#, c-format
+#~ msgid "Deleted %lu of %lu file"
+#~ msgid_plural "Deleted %lu of %lu files"
+#~ msgstr[0] "Odstraněn %lu z %lu souboru"
+#~ msgstr[1] "Odstraněny %lu z %lu souborů"
+#~ msgstr[2] "Odstraněno %lu z %lu souborů"
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Chyba při odstraňování „%s“\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Delete problem"
+#~ msgstr "Problém s odstraňováním"
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting: \n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Chyba při odstraňování:\n"
+#~ "\n"
+#~ "%s"
+
+#, c-format
+#~ msgid "Do you really want to delete “%s”?"
+#~ msgstr "Opravdu hcete odstranit „%s“?"
+
+#, c-format
+#~ msgid "The directory “%s” is not empty. Do you really want to delete it?"
+#~ msgstr "Složka „%s“ není prázdná. Opravdu ji chcete odstranit?"
+
+#, c-format
+#~ msgid "Do you want to permanently delete “%s”?"
+#~ msgstr "Chcete trvale odstranit „%s“?"
+
+#, c-format
+#~ msgid "Do you want to move “%s” to the trash can?"
+#~ msgstr "Chcete přesunout „%s“ do koše?"
+
+#~ msgid "Image:"
+#~ msgstr "Obrázek:"
+
+#~ msgid "Content Type:"
+#~ msgstr "Typ obsahu:"
+
+#~ msgid "Type"
+#~ msgstr "Typ"
+
+#~ msgid "Metadata namespace"
+#~ msgstr "Jmenný prostor metadat"
+
+#~ msgid "Tag name"
+#~ msgstr "Název štítku"
+
+#~ msgid "Tag value"
+#~ msgstr "Hodnota štítku"
+
+#~ msgid "Metadata tag description"
+#~ msgstr "Popis metadat štítku"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the corresponding row and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "Chcete-li upravit klávesové zkratky, klikněte do odpovídajícího řádku a "
+#~ "napište ji nebo akci zrušte stiskem klávesy Escape."
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Klávesová zkratka"
+
+#~ msgid "Keyboard shortcut for selected action"
+#~ msgstr "Klávesová zkratka pro vybranou akci"
+
+#~ msgid "Action"
+#~ msgstr "Činnost"
+
+#~ msgid "User action"
+#~ msgstr "Uživatelská akce"
+
+#~ msgid "Optional data"
+#~ msgstr "Volitelná data"
+
+#~ msgid "Do nothing"
+#~ msgstr "Nedělat nic"
+
+#~ msgid "Group"
+#~ msgstr "Skupina"
+
+#~ msgid "Bookmark group"
+#~ msgstr "Skupina záložek"
+
+#~ msgid "Bookmark name"
+#~ msgstr "Název záložky"
+
+#~ msgid "Keyboard shortcut for selected bookmark"
+#~ msgstr "Klávesová zkratka pro zvolenou záložku"
+
+#~ msgid "Bookmarked path"
+#~ msgstr "Cesta se záložkou"
+
+#, c-format
+#~ msgid "Make directory failed: %s\n"
+#~ msgstr "Selhalo vytvoření složky: %s\n"
+
+#~ msgid "Sorting/Quick search"
+#~ msgstr "Řazení/rychlé hledání"
+
+#~ msgid "ALT+letters (menu access with F12)"
+#~ msgstr "ALT+písmena (přístup k nabídce pomocí F12)"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "Porovnávat začátek názvu souboru"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "Porovnávat konec názvu souboru"
+
+#~ msgid ""
+#~ "Search window is minimizable\n"
+#~ "(Needs program restart if altered)"
+#~ msgstr ""
+#~ "Vyhledávací okno je minimalizovatelné\n"
+#~ "(V případě změny vyžaduje restart programu)"
+
+#~ msgid "Colors"
+#~ msgstr "Barvy"
+
+#~ msgid "Palette"
+#~ msgstr "Paleta"
+
+#~ msgid "Foreground:"
+#~ msgstr "Popředí:"
+
+#~ msgid "Background:"
+#~ msgstr "Pozadí:"
+
+#~ msgid "File panes"
+#~ msgstr "Panely souborů"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "Výchozí volbu v potvrzení na „Budiž“"
+
+#~ msgid "Leave terminal window open"
+#~ msgstr "Nechávat okno s terminálem otevřené"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Přepsat soubory"
+
+#, c-format
+#~ msgid "Copy “%s” to"
+#~ msgstr "Zkopírovat „%s“ do"
+
+#, c-format
+#~ msgid "copy %d file to"
+#~ msgid_plural "copy %d files to"
+#~ msgstr[0] "zkopírovat %d soubor do"
+#~ msgstr[1] "zkopírovat %d soubory do"
+#~ msgstr[2] "zkopírovat %d souborů do"
+
+#, c-format
+#~ msgid "Move “%s” to"
+#~ msgstr "Přesunout „%s“ do"
+
+#, c-format
+#~ msgid "move %d file to"
+#~ msgid_plural "move %d files to"
+#~ msgstr[0] "přesunout %d soubor do"
+#~ msgstr[1] "přesunout %d soubory do"
+#~ msgstr[2] "přesunout %d souborů do"
+
+#, c-format
+#~ msgid "The directory “%s” doesn’t exist, do you want to create it?"
+#~ msgstr "Složka „%s“ neexistuje, chcete jej vytvořit?"
+
+#~ msgid "Unknown error"
+#~ msgstr "Neznámá chyba"
+
+#~ msgid "Search local directories only"
+#~ msgstr "Prohledávat pouze místní složky"
+
+#~ msgid "Files _not containing text"
+#~ msgstr "Soubory _neobsahující text"
+
+#, c-format
+#~ msgid "Failed to read file %s: File is not searchable"
+#~ msgstr "Nepodařilo se přečíst soubor %s: Soubor nelze prohledávat"
+
+#, c-format
+#~ msgid "Failed to read file %s: %s"
+#~ msgstr "Selhalo čtení souboru %s: %s"
+
+#, c-format
+#~ msgid "Searching in: %s"
+#~ msgstr "Hledá se v: %s"
+
+#, c-format
+#~ msgid "Found %d match — search aborted"
+#~ msgid_plural "Found %d matches — search aborted"
+#~ msgstr[0] "Nalezena %d shoda — vyhledávání přerušeno"
+#~ msgstr[1] "Nalezeny %d shody — vyhledávání přerušeno"
+#~ msgstr[2] "Nalezeno %d shod — vyhledávání přerušeno"
+
+#, c-format
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "Nalezena %d shoda"
+#~ msgstr[1] "Nalezeny %d shody"
+#~ msgstr[2] "Nalezeno %d shod"
+
+#, c-format
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr "Nepodařilo se nastavit ID skupiny procesů potomka %d: %s.\n"
+
+#~ msgid "Error parsing the search command."
+#~ msgstr "Chyba při zpracování vyhledávacího příkazu."
+
+#~ msgid "Error running the search command."
+#~ msgstr "Chyba při spuštění vyhledávacího příkazu."
+
+#, c-format
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr "Nepodařilo se změnit adresář mimo %s"
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "Klávesové zkratky v konfliktu"
+
+#~ msgid "Invalid shortcut."
+#~ msgstr "Neplatná klávesová zkratka."
+
+#~ msgid "Profile name"
+#~ msgstr "Název profilu"
+
+#~ msgid "Network protocol"
+#~ msgstr "Síťový protokol"
+
+#~ msgid "Connection name"
+#~ msgstr "Název připojení"
+
+#~ msgid "Accelerator key"
+#~ msgstr "Klávesová zkratka"
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr "Modifikátory klávesové zkratky"
+
+#~ msgid "Accelerator Mode"
+#~ msgstr "Režim klávesových zkratek"
+
+#~ msgid "The type of accelerator."
+#~ msgstr "Typ klávesové zkratky."
+
+#~ msgid "Disabled"
+#~ msgstr "Zakázáno"
+
+#~ msgid "New accelerator…"
+#~ msgstr "Nová klávesová zkratka…"
+
+#~ msgid "Credits"
+#~ msgstr "Zásluhy"
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "Webová stránka zásuvných modulů"
+
+#~ msgid "C_redits"
+#~ msgstr "Zá_sluhy"
+
+#~ msgid "Regex pattern"
+#~ msgstr "Vzor v podobě regulárního výrazu"
+
+#~ msgid "Replacement"
+#~ msgstr "Náhrada"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "Rozlišovat velikost písmen"
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr "Určuje počáteční složku pro levý panel"
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr "Určuje počáteční složku pro pravý panel"
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr "Určuje složku pro soubory s nastavením"
+
+#, c-format
+#~ msgid "The program has now finished. Press Enter to close this window.\n"
+#~ msgstr "Program právě skončil. Zmáčknutím Enter zavřete okno.\n"
+
+#~ msgid "<New connection>"
+#~ msgstr "<nové připojení>"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "Přejít na: %s"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "Připojit se k: %s"
+
+#, c-format
+#~ msgid "Disconnect from: %s"
+#~ msgstr "Odpojit se od: %s"
+
+#, c-format
+#~ msgid "Mount failed: mount exited with exitstatus %d"
+#~ msgstr "Připojení selhalo: příkaz mount skončil se stavem %d"
+
+#, c-format
+#~ msgid ""
+#~ "Cannot unmount the volume:\n"
+#~ "%s\n"
+#~ "Error code: %d"
+#~ msgstr ""
+#~ "Nezdařilo se odpojit svazek:\n"
+#~ "%s\n"
+#~ "Chybový kód: %d"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "Přejít na: %s (%s)"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr "Připojit: %s"
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr "Odpojit: %s"
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "Připojuje se k %s\n"
+
+#, c-format
+#~ msgid "_Open with “%s”"
+#~ msgstr "_Otevřít pomocí „%s“"
+
+#~ msgid "Needs terminal"
+#~ msgstr "Vyžaduje terminál"
+
+#~ msgid "Failed to open connection."
+#~ msgstr "Nelze otevřít spojení."
+
+#~ msgid "Cut"
+#~ msgstr "Vyjmout"
+
+#~ msgid "Copy file names"
+#~ msgstr "Zkopírovat názvy souborů"
+
+#~ msgid "Send files"
+#~ msgstr "Odeslat soubory"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "Otevřít _terminál zde"
+
+#~ msgid "_New"
+#~ msgstr "_Nový"
+
+#~ msgid "_Directory"
+#~ msgstr "_Složka"
+
+#~ msgid "_Text File"
+#~ msgstr "_Textový soubor"
+
+#, c-format
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] "%s z %s kB v %d z %d vybraného souboru"
+#~ msgstr[1] "%s z %s kB v %d ze %d vybraných souborů"
+#~ msgstr[2] "%s z %s kB v %d z %d vybraných souborů"
+
+#, c-format
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] "%s, %d z %d vybrané složky"
+#~ msgstr[1] "%s, %d ze %d vybraných složek"
+#~ msgstr[2] "%s, %d z %d vybraných složek"
+
+#~ msgid "No file name given"
+#~ msgstr "Nebyl zadán název souboru"
+
+#~ msgid "Filter:"
+#~ msgstr "Filtr:"
+
+#~ msgid "_Enable Filter…"
+#~ msgstr "_Povolit filtr…"
+
+#~ msgid "Start _GNOME Commander as root"
+#~ msgstr "Spustit _GNOME Commander pod správcem root"
+
+#~ msgid "_Quit"
+#~ msgstr "U_končit"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "Zkopírovat _názvy souborů"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "_Obnovit výběr"
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "GNOME Commander na _webu"
+
+#~ msgid "Refresh"
+#~ msgstr "Aktualizovat"
+
+#~ msgid "Go to the oldest"
+#~ msgstr "Přejít na nejstarší"
+
+#~ msgid "Go back"
+#~ msgstr "Zpět"
+
+#~ msgid "Go forward"
+#~ msgstr "Vpřed"
+
+#~ msgid "Go to the latest"
+#~ msgstr "Přejít na nejnovější"
+
+#~ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+#~ msgstr "Zkopírovat názvy souborů (SHIFT pro úplné cesty, ALT pro adresy URI)"
+
+#~ msgid "Paste"
+#~ msgstr "Vložit"
+
+#~ msgid "Open terminal (SHIFT for root privileges)"
+#~ msgstr "Otevřít terminál (SHIFT pro práva uživatele root)"
+
+#~ msgid "GNOME Commander — ROOT PRIVILEGES"
+#~ msgstr "GNOME Commander — PRÁVA SPRÁVCE ROOT"
+
+#~ msgid "Path matches regex:"
+#~ msgstr "Cesta odpovídá regulárnímu výrazu:"
+
+#~ msgid "Name contains:"
+#~ msgstr "Název obsahuje:"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "Rozlišo_vat velikost písmen"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr "Přidat aktuální složku do záložek"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "Spravovat záložky"
+
+#~ msgid "Open terminal"
+#~ msgstr "Otevřít terminál"
+
+#~ msgid "Open terminal as root"
+#~ msgstr "Otevřít terminál jako superuživatel"
+
+#~ msgid "Start GNOME Commander as root"
+#~ msgstr "Spustit GNOME Commander jako superuživatel"
+
+#~ msgid "Close connection"
+#~ msgstr "Zavřít připojení"
+
+#~ msgid "New connection"
+#~ msgstr "Nové připojení"
+
+#~ msgid "Open connection"
+#~ msgstr "Otevřít připojení"
+
+#~ msgid "Change left connection"
+#~ msgstr "Změnit připojení vlevo"
+
+#~ msgid "Change right connection"
+#~ msgstr "Změnit připojení vpravo"
+
+#~ msgid "Show user defined files"
+#~ msgstr "Zobrazit uživatelem definované soubory"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "Pokročilý nástroj přejmenování"
+
+#~ msgid "Change permissions"
+#~ msgstr "Změnit oprávnění"
+
+#~ msgid "Change owner/group"
+#~ msgstr "Změnit vlastníka/skupinu"
+
+#~ msgid "Copy files"
+#~ msgstr "Zkopírovat soubory"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "Vytvořit symbolický odkaz"
+
+#~ msgid "Delete files"
+#~ msgstr "Odstranit soubory"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "Porovnat soubory (diff)"
+
+#~ msgid "Edit file"
+#~ msgstr "Upravit soubor"
+
+#~ msgid "Edit a new file"
+#~ msgstr "Upravit nový soubor"
+
+#~ msgid "Create directory"
+#~ msgstr "Vytvořit složku"
+
+#~ msgid "Move files"
+#~ msgstr "Přesunout soubory"
+
+#~ msgid "Rename files"
+#~ msgstr "Přejmenovat soubory"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "Synchronizovat složky"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr "O aplikaci GNOME Commander"
+
+#~ msgid "Help contents"
+#~ msgstr "Obsah nápovědy"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "Nápověda klávesových zkratek"
+
+#~ msgid "Report a problem"
+#~ msgstr "Nahlásit chybu"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr "GNOME Commander na webu"
+
+#~ msgid "Compare directories"
+#~ msgstr "Porovnat složky"
+
+#~ msgid "Invert selection"
+#~ msgstr "Invertovat výběr"
+
+#~ msgid "Select all"
+#~ msgstr "Vybrat vše"
+
+#~ msgid "Select all files"
+#~ msgstr "Vybrat všechny soubory"
+
+#~ msgid "Unselect all files"
+#~ msgstr "Zrušit výběr všech souborů"
+
+#~ msgid "Unselect all"
+#~ msgstr "Zrušit výběr"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Klávesové zkratky"
+
+#~ msgid "Configure plugins"
+#~ msgstr "Nastavit zásuvné moduly"
+
+#~ msgid "Back one directory"
+#~ msgstr "Zpět o jednu složku"
+
+#~ msgid "Close the current tab"
+#~ msgstr "Zavřít aktuální kartu"
+
+#~ msgid "Close all tabs"
+#~ msgstr "Zavřít všechny karty"
+
+#~ msgid "Show directory history"
+#~ msgstr "Zobrazit historii složky"
+
+#~ msgid "Equal panel size"
+#~ msgstr "Stejná velikost panelů"
+
+#~ msgid "Maximize panel size"
+#~ msgstr "Maximalizovat velikost panelů"
+
+#~ msgid "Back to the first directory"
+#~ msgstr "Zpět do první složky"
+
+#~ msgid "Forward one directory"
+#~ msgstr "Vpřed o jednu složku"
+
+#~ msgid "Open directory in the active window"
+#~ msgstr "Otevřít složku v aktivním okně"
+
+#~ msgid "Open directory in the inactive window"
+#~ msgstr "Otevřít složku v neaktivním okně"
+
+#~ msgid "Open directory in the left window"
+#~ msgstr "Otevřít složku v levém okně"
+
+#~ msgid "Open directory in the right window"
+#~ msgstr "Otevřít složku v pravém okně"
+
+#~ msgid "Open directory in the new tab (inactive window)"
+#~ msgstr "Otevřít složku v nové kartě (neaktivní okno)"
+
+#~ msgid "Forward to the last directory"
+#~ msgstr "Vpřed do poslední složky"
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "Otevřít složku v nové kartě"
+
+#~ msgid "Show terminal"
+#~ msgstr "Zobrazit terminál"
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "Rychlý a mocný správce souborů pro pracovní prostředí GNOME"
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME Commander je svobodný software: Můžete jej dále šířit a/nebo upravovat"
+#~ " za podmínek licence GNU General Public License v podobě, v jaké ji vydala "
+#~ "Free Software Foundation, a to buď ve verzi 2 této licence nebo (dle vaší "
+#~ "volby) v libovolné novější verzi."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "GNOME Commander je šířen ve víře, že bude užitečný, ale BEZ JAKÝCHKOLIV "
+#~ "ZÁRUK, a to i bez předpokládané záruky na PRODEJNOST nebo VHODNOST PRO "
+#~ "KONKRÉTNÍ ÚČEL. Více podrobností najdete přímo v licenci GNU General Public "
+#~ "License."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+#~ "Spolu s aplikací GNOME Commander byste měli obdržet kopii licence GNU "
+#~ "General Public License. Pokud se tak nestalo, napište na Free Software "
+#~ "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, "
+#~ "USA."
+
+#~ msgid "Transfer problem"
+#~ msgstr "Problém s přenosem"
+
+#~ msgid "Copy problem"
+#~ msgstr "Problém s kopírováním"
+
+#, c-format
+#~ msgid ""
+#~ "Overwrite file:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "With:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+#~ msgstr ""
+#~ "Přepsat soubor:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "Souborem:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+
+#, c-format
+#~ msgid ""
+#~ "Error while transferring “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Chyba při přenosu „%s“\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Move problem"
+#~ msgstr "Problém s přesunem"
+
+#, c-format
+#~ msgid "[file %ld of %ld] “%s”"
+#~ msgstr "[soubor %ld z %ld] „%s“"
+
+#, c-format
+#~ msgid ""
+#~ "Error while creating symlink “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Chyba při vytváření symbolického odkazu „%s“\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Symlink creation problem"
+#~ msgstr "Problém s vytvořením symbolického odkazu"
+
+#, c-format
+#~ msgid ""
+#~ "Source “%s” could not be deleted. Aborting!\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Zdroj „%s“ nelze smazat. Přerušuje se!\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "stopping…"
+#~ msgstr "ukončuje se…"
+
+#, c-format
+#~ msgid "%s of %s copied"
+#~ msgstr "%s z %s zkopírováno"
+
+#, c-format
+#~ msgid "%.0f%% copied"
+#~ msgstr "%.0f%% zkopírováno"
+
+#, c-format
+#~ msgid "Couldn’t load installed pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Nelze načíst nainstalovanou pixelovou mapu, místo ní se zkouší načíst %s"
+
+#, c-format
+#~ msgid ""
+#~ "Can’t find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-commander from the gnome-commander-%s/src directory"
+#~ msgstr ""
+#~ "Nikde nelze najít pixelové mapy. Zkontrolujte, zda jste program "
+#~ "nainstalovali nebo že spouštíte gnome-commander ze složky gnome-"
+#~ "commander-%s/src"
+
+#~ msgid "Find"
+#~ msgstr "Najít"
+
+#~ msgid "Searching…"
+#~ msgstr "Hledá se…"
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr "Pozice: %lu z %lu\tSloupec: %d\t%s"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "pixel"
+#~ msgstr[1] "pixely"
+#~ msgstr[2] "pixelů"
+
+#~ msgid "bit/sample"
+#~ msgid_plural "bits/sample"
+#~ msgstr[0] "bit na vzorek"
+#~ msgstr[1] "bity na vzorek"
+#~ msgstr[2] "bitů na vzorek"
+
+#~ msgid "_Copy selection"
+#~ msgstr "Z_kopírovat výběr"
+
+#~ msgid "_Binary"
+#~ msgstr "_Binární data"
+
+#~ msgid "Arabic (Windows, CP1256)"
+#~ msgstr "Arabské (Windows, CP1256)"
+
+#~ msgid "Rotate Clockwise"
+#~ msgstr "Otočit po směru hodinových ručiček"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "Režim _binárních dat"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "_Uložit současné nastavení"
+
+#~ msgid "Make Executable?"
+#~ msgstr "Nastavit jako spustitelný?"
+
+#~ msgid "OK"
+#~ msgstr "Budiž"
+
+#~ msgid "Run or Display"
+#~ msgstr "Spustit nebo zobrazit"
+
+#~ msgid "Display"
+#~ msgstr "Zobrazit"
+
+#~ msgid "Run"
+#~ msgstr "Spustit"
+
+#~ msgid "Disable"
+#~ msgstr "Zakázat"
+
+#~ msgid "Enable"
+#~ msgstr "Povolit"
+
+#~ msgid "Version"
+#~ msgstr "Verze"
+
+#~ msgid "_Enable"
+#~ msgstr "_Povolit"
+
+#~ msgid "_Configure"
+#~ msgstr "_Nastavit"
+
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr "<štítky Exif a IPTC nejsou podporovány>"
+
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr "<štítky ID3, APE, FLAC a Vorbis nejsou podporovány>"
+
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr "<štítky OLE2 a ODF nejsou podporovány>"
+
+#~ msgid "<PDF tags not supported>"
+#~ msgstr "<štítky PDF nejsou podporovány>"
+
+#~ msgid "Created"
+#~ msgstr "Vytvořeno"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr ""
+#~ "Datum související s událostí v životním cyklu zdroje (datum "
+#~ "vytvoření/vydání)."
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr "Ukazatel IFD Exif"
+
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr ""
+#~ "Ukazatel na IFD (složka souboru obrázku) Exif. Kvůli přenositelnosti má IFD "
+#~ "Exif stejnou strukturu jako IFD specifikované v TIFF."
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr "Ukazatel součinnosti IFD"
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+#~ "Ukazatel IFD (složky souboru obrázku) pro součinnost se skládá ze štítků, "
+#~ "které uchovávají informace pro zajištění součinnosti a odkazuje pomocí "
+#~ "následujícího štítku umístěného v Exif IFD. Struktura pro součinnost IFD je "
+#~ "stejná jako struktura IFD definovaná v TIFF, ale neobsahuje obrazová data "
+#~ "charakteristicky srovnaná s normálním IFD v TIFF."
+
+#~ msgid "Emphasis"
+#~ msgstr "Zdůraznění"
+
+#~ msgid "Emphasis."
+#~ msgstr "Zvýšení dynamičnosti."
+
+#~ msgid "Equalization 2"
+#~ msgstr "Ekvalizace 2"
+
+#~ msgid "Frames"
+#~ msgstr "Rámců"
+
+#~ msgid "Number of frames."
+#~ msgstr "Počet rámců."
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr "Zainteresovaní lidé 2"
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr "Velikost zvukového souboru v bajtech, bez štítku ID3."
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr "Vyrovnání hlasitosti 2"
+
+#, c-format
+#~ msgid "unsupported tag (suppressed %ld B of binary data)"
+#~ msgstr "nepodporovaný štítek (přeskakuje se %ld B binárních dat)"
+
+#~ msgid "No command was given."
+#~ msgstr "Nebyl zadán žádný příkaz."
+
+#~ msgid "Unable to open terminal in root mode."
+#~ msgstr "Nelze otevřít terminál v režimu uživatele root."
+
+#~ msgid "Cannot determine executable of Gnome Commander"
+#~ msgstr "Nelze určit spustitelný soubor Gnome Commander"
+
+#~ msgid "Unable to start GNOME Commander in root mode."
+#~ msgstr "Nelze spustit GNOME Commander v režimu správce root."
+
+#, c-format
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "(%s bajt)"
+#~ msgstr[1] "(%s bajty)"
+#~ msgstr[2] "(%s bajtů)"
+
+#, c-format
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "%s bajt"
+#~ msgstr[1] "%s bajty"
+#~ msgstr[2] "%s bajtů"
+
+#~ msgid "Failed to change working directory to a temporary directory."
+#~ msgstr "Selhalo vytvoření složky, do které se ukládají dočasné soubory."
+
+#~ msgid "Failed to create a directory in which to store temporary files."
+#~ msgstr "Selhalo vytvoření složky, do které se ukládají dočasné soubory."
+
+#, c-format
+#~ msgid "Creating directory %s… "
+#~ msgstr "Vytváří se složka %s… "
+
+#, c-format
+#~ msgid "Failed to create the directory %s: %s"
+#~ msgstr "Selhalo vytvoření složky %s: %s"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "Při zobrazování nápovědy došlo k chybě."
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu, beesu or pkexec is not found."
+#~ msgstr "Nenalezeno gksudo, xdg-su, gksu, gnomesu, kdesu, beesu ani pkexec."
+
+#~ msgid "Use default font"
+#~ msgstr "Používat výchozí font"
+
+#~ msgid ""
+#~ "Whether to use the system’s default fixed width font for the file panels "
+#~ "instead of a font specific to gnome-commander."
+#~ msgstr ""
+#~ "Zda se má pro panely se soubory místo fontu definovaného pro gnome-commander"
+#~ " používat výchozí systémový font s pevnou šířkou."
+
+#~ msgid "Device icon size"
+#~ msgstr "Velikost ikon zařízení"
+
+#~ msgid "Icon size in the device list."
+#~ msgstr "Velikost ikon v seznamech zařízení."
+
+#~ msgid "Main window horizontal position"
+#~ msgstr "Vodorovná pozice hlavního okna"
+
+#~ msgid "Position of the main window in horizontal direction."
+#~ msgstr "Pozice hlavního okna ve vodorovném směru."
+
+#~ msgid "Main window vertical position"
+#~ msgstr "Svislá pozice hlavního okna"
+
+#~ msgid "Position of the main window in vertical direction."
+#~ msgstr "Pozice hlavního okna ve svislém směru."
+
+#~ msgid "Folder selection"
+#~ msgstr "Výběr složky"
+
+#~ msgid "File selection"
+#~ msgstr "Výběr souboru"
+
+#, c-format
+#~ msgid "“%s” is not a valid location"
+#~ msgstr "„%s“ není platné umístění"
+
+#, c-format
+#~ msgid "Shortcut “%s” is already taken by “%s”."
+#~ msgstr "Klávesová zkratka „%s“ je již používána pro  „%s“."
+
+#, c-format
+#~ msgid "Reassigning the shortcut will cause it to be removed from “%s”."
+#~ msgstr "Změna klávesové zkratky způsobí její odebrání z „%s“."
+
+#~ msgid "Connections"
+#~ msgstr "Připojení"
+
+#, c-format
+#~ msgid "%d file listed"
+#~ msgid_plural "%d files listed"
+#~ msgstr[0] "%d soubor v seznamu"
+#~ msgstr[1] "%d soubory v seznamu"
+#~ msgstr[2] "%d souborů v seznamu"
+
+#~ msgid "/File name"
+#~ msgstr "/Název souboru"
+
+#~ msgid "/Counter"
+#~ msgstr "/Počítadlo"
+
+#~ msgid "/Date"
+#~ msgstr "/Datum"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "/Datum/<národní prostředí>"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/Datum/rrrrr"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/Datum/rr"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/Datum/mm"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/Datum/mmm"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/Datum/dd"
+
+#~ msgid "/Time"
+#~ msgstr "/Čas"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/Čas/<národní prostředí>"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/Čas/HH"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/Čas/MM"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/Čas/SS"
+
+#, c-format
+#~ msgid ""
+#~ "“%s” seems to be a binary executable file but it lacks the executable bit. "
+#~ "Do you want to set it and then run the file?"
+#~ msgstr ""
+#~ "„%s“ vypadá jako binární spustitelný soubor, ale nemá nastaven příznak "
+#~ "spustitelnosti. Chcete jej nastavit a pak soubor spustit?"
+
+#, c-format
+#~ msgid ""
+#~ "“%s” is an executable text file. Do you want to run it, or display its "
+#~ "contents?"
+#~ msgstr ""
+#~ "„%s“ je spustitelný textový soubor. Chcete jej spustit nebo zobrazit jeho "
+#~ "obsah?"
+
+#, c-format
+#~ msgid "No default application found for the file type %s."
+#~ msgstr "Pro typ souboru %s nebyla nalezena výchozí aplikace."
+
+#, c-format
+#~ msgid ""
+#~ "%s does not know how to open remote file. Do you want to download the file "
+#~ "to a temporary location and then open it?"
+#~ msgid_plural ""
+#~ "%s does not know how to open remote files. Do you want to download the files"
+#~ " to a temporary location and then open them?"
+#~ msgstr[0] ""
+#~ "Aplikace %s neumí otevřít vzdálený soubor. Chcete soubor stáhnout do složky "
+#~ "pro dočasné soubory a poté jej otevřít?"
+#~ msgstr[1] ""
+#~ "Aplikace %s neumí otevírat vzdálené soubory. Chcete soubory stáhnout do "
+#~ "složky pro dočasné soubory a poté je otevřít?"
+#~ msgstr[2] ""
+#~ "Aplikace %s neumí otevírat vzdálené soubory. Chcete soubory stáhnout do "
+#~ "složky pro dočasné soubory a poté je otevřít?"
+
+#~ msgid "Other _Application…"
+#~ msgstr "Jiná _aplikace…"
+
+#~ msgid "Copy Tab to Other _Pane"
+#~ msgstr "Zkopírovat kartu na jiný _panel"
+
+#, c-format
+#~ msgid "Create symbolic links of %i file in %s?"
+#~ msgid_plural "Create symbolic links of %i files in %s?"
+#~ msgstr[0] "Vytvořit symbolický odkaz %i souboru v %s?"
+#~ msgstr[1] "Vytvořit symbolické odkazy %i souborů v %s?"
+#~ msgstr[2] "Vytvořit symbolické odkazy %i souborů v %s?"
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+#~ msgstr "Nenalezeno gksudo, xdg-su, gksu, gnomesu, kdesu ani beesu"
+
+#, c-format
+#~ msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Nelze načíst nainstalovaný soubor typu pixelová mapa, místo něj se zkouší "
+#~ "načíst %s"
+
+#, c-format
+#~ msgid "Searching for “%s”"
+#~ msgstr "Hledá se „%s“"
+
+#, c-format
+#~ msgid "Pattern “%s” was not found"
+#~ msgstr "Vzor „%s“ nebyl nalezen"
+
+#~ msgid "File Manager"
+#~ msgstr "Správce souborů"

@@ -7757,3 +7757,1784 @@ msgstr "10-15ms"
 
 #~ msgid "Sorting"
 #~ msgstr "Ordenatu"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME Commander"
+
+#~ msgid "Two-pane file manager"
+#~ msgstr "Bi paneleko fitxategi-kudeatzailea"
+
+#~ msgid ""
+#~ "GNOME Commander is a “two-pane” graphical file manager for the GNOME desktop"
+#~ " environment. It features separate tabs for each pane, setting up custom "
+#~ "device buttons, bookmark manager, fully integrated commandline, file quick "
+#~ "search, an internal image viewer, a powerful batch renaming tool, and FTP "
+#~ "and Samba access."
+#~ msgstr ""
+#~ "GNOME Commander bi paneleko fitxategi-kudeatzaile grafikoa da, GNOME "
+#~ "mahaigain-ingurunean erabiltzeko sortua. Fitxa desberdinak ditu panel "
+#~ "bakoitzerako, gailu-botoi pertsonalizatuak konfiguratu daitezke, laster-"
+#~ "marken kudeatzailea du, komando-lerro integratua, fitxategien bilaketa "
+#~ "azkarra, barneko irudi-ikustailea, izenak multzoka aldatzeko tresna eta FTP "
+#~ "eta Samba sarbideak."
+
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+#~ "GNOME Commander erabiltzaile aurreratuak ditu jomugan, fitxategien kudeaketa"
+#~ " zehatza nahi dutenak, aplikazio berezituen bidez paraleloan lan egiten "
+#~ "dutenak eta komando adimentsuak exekutatzen dituztenak."
+
+#~ msgid "A two paned file manager"
+#~ msgstr "Bi paneleko fitxategi-kudeatzailea"
+
+#~ msgid ""
+#~ "A custom font that will be used for the file panes if the “Use default font”"
+#~ " option is turned off."
+#~ msgstr ""
+#~ "Fitxategi-paneletan erabiliko den letra-tipo pertsonalizatu bat “Erabili "
+#~ "letra-tipo lehenetsia” aukera desaktibatuta badago."
+
+#~ msgid ""
+#~ "Defines how the filesize will be displayed in the associated pane column."
+#~ msgstr ""
+#~ "Fitxategi-tamaina hari lotutako panel-zutabean nola bistaratuko den "
+#~ "definitzen du."
+
+#~ msgid ""
+#~ "Defines how the file permission will be displayed in the associated pane "
+#~ "column."
+#~ msgstr ""
+#~ "Fitxategi-baimenak haiei lotutako panel-zutabean nola bistaratuko diren "
+#~ "definitzen du."
+
+#~ msgid "Defines the icon style of files and folders in the file panes."
+#~ msgstr ""
+#~ "Fitxategi-paneletako fitxategien eta karpeten ikono-estiloa definitzen du."
+
+#~ msgid "Defines the height of a row in the file pane."
+#~ msgstr "Fitxategi-paneleko errenkaden altuera definitzen du."
+
+#~ msgid "Format of the date in the file pane."
+#~ msgstr "Dataren formatua fitxategi-panelean"
+
+#~ msgid "The font in the file panes."
+#~ msgstr "Fitxategi-panelen letra tipoa-"
+
+#~ msgid "Size of icons in the file pane."
+#~ msgstr "Fitxategi-paneleko ikonoen tamaina."
+
+#~ msgid ""
+#~ "Defines if the orientation of the file panes should be horizontal or not."
+#~ msgstr ""
+#~ "Fitxategi-panelen orientazioak horizontala izan behar duen ala ez definitzen"
+#~ " du."
+
+#~ msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
+#~ msgstr ""
+#~ "Erabiltzailearen interfaze grafikoaren eguneratze-tasa segundoen 1/1000etan"
+
+#~ msgid ""
+#~ "Defines if the current directories are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "GNOME Commander berrabiaraztean uneko direktorioak irekiko diren ala ez "
+#~ "definitzen du."
+
+#~ msgid ""
+#~ "Defines if the current open tabs are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "GNOME Commander berrabiaraztean uneko fitxak irekiko diren ala ez definitzen"
+#~ " du."
+
+#~ msgid ""
+#~ "This option defines if directories will be marked when all items in a file "
+#~ "pane should be marked."
+#~ msgstr ""
+#~ "Aukera honek definitzen du direktorioak markatutako egongo diren ala ez "
+#~ "fitxategi-panel bateko elementu guztiak markatuko direnean."
+
+#~ msgid "Quick search exact match begin"
+#~ msgstr "Bilaketa azkarraren bat etortze zehatza hasieran"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the beginning"
+#~ " of an item name."
+#~ msgstr ""
+#~ "Aukera honek definitzen du bilaketa azkarra esplizituki bat etorri behar den"
+#~ " elementu-izen baten hasieran."
+
+#~ msgid "Quick search exact match end"
+#~ msgstr "Bilaketa azkarraren bat etortze zehatza amaieran"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the end of an"
+#~ " item name."
+#~ msgstr ""
+#~ "Aukera honek definitzen du bilaketa azkarra esplizituki bat etorri behar den"
+#~ " elementu-izen baten amaieran."
+
+#~ msgid ""
+#~ "The entries in this list are used for restoring the tabs from the last "
+#~ "session."
+#~ msgstr ""
+#~ "Zerrenda honetako sarrerak azken saioko fitxak leheneratzeko erabiltzen "
+#~ "dira."
+
+#~ msgid "Leave terminal open"
+#~ msgstr "Utzi terminala irekita"
+
+#~ msgid ""
+#~ "This option defines if a terminal window should stay open after a command "
+#~ "finishes inside of it."
+#~ msgstr ""
+#~ "Aukera honek komando bat amaitu ondoren terminalaren leihoa irekita utzi "
+#~ "behar den ala ez definitzen du."
+
+#~ msgid "Fixed font name"
+#~ msgstr "Letra-tipo finkoaren izena"
+
+#~ msgid "Name of the default font with fixed character width."
+#~ msgstr "Karaktere-zabalera finkoa duen letra-tipo lehenetsiaren izena."
+
+#~ msgid "Variable font name"
+#~ msgstr "Letra-tipo aldakorraren izena"
+
+#~ msgid "Name of the default font with variable character width."
+#~ msgstr "Karaktere-zabalera aldakorra duen letra-tipo lehenetsiaren izena."
+
+#~ msgid "Font size"
+#~ msgstr "Letra-tamaina"
+
+#~ msgid "This option defines the default font size."
+#~ msgstr "Aukera honek letra-tamaina lehenetsia definitzen du."
+
+#~ msgid "Horizontal offset"
+#~ msgstr "Desplazamendu horizontala"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "horizontal direction."
+#~ msgstr ""
+#~ "Aukera honek barneko fitxategi-ikustaileak norabide horizontalean duen "
+#~ "ikusizko desplazamendua definitzen du."
+
+#~ msgid "Vertical offset"
+#~ msgstr "Desplazamendu bertikala"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "vertical direction."
+#~ msgstr ""
+#~ "Aukera honek barneko fitxategi-ikustaileak norabide bertikalean duen "
+#~ "ikusizko desplazamendua definitzen du."
+
+#~ msgid "No error description available"
+#~ msgstr "Ez dago errore-azalpen erabilgarririk"
+
+#~ msgid "Current file name"
+#~ msgstr "Uneko fitxategi-izena"
+
+#~ msgid "New file name"
+#~ msgstr "Fitxategi-izen berria"
+
+#~ msgid "File size"
+#~ msgstr "Fitxategiaren tamaina"
+
+#~ msgid "File modification date"
+#~ msgstr "Fitxategiaren aldaketa-data"
+
+#~ msgid "_Replace with:"
+#~ msgstr "_Ordeztu honekin:"
+
+#, c-format
+#~ msgid "Could not chmod %s"
+#~ msgstr "Ezin da chmod %s egin"
+
+#, c-format
+#~ msgid "Could not chown %s"
+#~ msgstr "Ezin izan da lortu chown %s egitea"
+
+#~ msgid "Chown"
+#~ msgstr "Chown"
+
+#, c-format
+#~ msgid "“%s” is not a valid location"
+#~ msgstr "“%s” ez baliozko kokalekua"
+
+#~ msgid "Remote Server"
+#~ msgstr "Urruneko zerbitzaria"
+
+#, c-format
+#~ msgid "Deleted %lu of %lu file"
+#~ msgid_plural "Deleted %lu of %lu files"
+#~ msgstr[0] "%lu / %lu fitxategi ezabatu da"
+#~ msgstr[1] "%lu / %lu fitxategi ezabatu dira"
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Errorea “%s” ezabatzean\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Delete problem"
+#~ msgstr "Ezabatzeko arazoa"
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting: \n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Errorera honakoa ezabatzean: \n"
+#~ "\n"
+#~ "%s"
+
+#, c-format
+#~ msgid "Do you really want to delete “%s”?"
+#~ msgstr "Benetan ezabatu nahi duzu “%s”?"
+
+#, c-format
+#~ msgid "The directory “%s” is not empty. Do you really want to delete it?"
+#~ msgstr "“%s” direktorioa ez dago hutsik. Benetan ezabatu nahi duzu?"
+
+#, c-format
+#~ msgid "Do you want to permanently delete “%s”?"
+#~ msgstr "Benetan “%s” behin-betiko ezabatu nahi duzu?"
+
+#, c-format
+#~ msgid "Do you want to move “%s” to the trash can?"
+#~ msgstr "“%s” zakarrontzira eraman nahi duzu?"
+
+#~ msgid "Bookmark name is missing."
+#~ msgstr "Laster-markaren izena falta da."
+
+#~ msgid "Bookmark target is missing."
+#~ msgstr "Laster-markaren helburua falta da."
+
+#~ msgid "Image:"
+#~ msgstr "Irudia:"
+
+#~ msgid "Content Type:"
+#~ msgstr "Eduki mota:"
+
+#~ msgid "Type"
+#~ msgstr "Mota"
+
+#~ msgid "Metadata namespace"
+#~ msgstr "Metadatuen izen-lekua"
+
+#~ msgid "Tag name"
+#~ msgstr "Etiketa-izena"
+
+#~ msgid "Tag value"
+#~ msgstr "Etiketa-balioa"
+
+#~ msgid "Metadata tag description"
+#~ msgstr "Metadatuen etiketaren azalpena."
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the corresponding row and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "Laster-tekla bat editatzeko, egin klik dagokion errenkadan eta idatzi "
+#~ "bizkortzaile berria edo sakatu Ihes tekla bertan behera uzteko."
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Laster-tekla"
+
+#~ msgid "Keyboard shortcut for selected action"
+#~ msgstr "Hautatutako ekintzaren laster-tekla"
+
+#~ msgid "Action"
+#~ msgstr "Ekintza"
+
+#~ msgid "User action"
+#~ msgstr "Erabiltzailearen ekintza"
+
+#~ msgid "Optional data"
+#~ msgstr "Aukerako datuak"
+
+#, c-format
+#~ msgid "Shortcut “%s” is already taken by “%s”."
+#~ msgstr "“%s” lasterbidea hartuta du “%s” ekintzak."
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "Gatazka laster-tekletan"
+
+#, c-format
+#~ msgid "Reassigning the shortcut will cause it to be removed from “%s”."
+#~ msgstr "Laster-tekla berriro esleitzeak “%s”-(e)tik ezabatuko du."
+
+#~ msgid "Invalid shortcut."
+#~ msgstr "Laster-tekla baliogabea."
+
+#~ msgid "Do nothing"
+#~ msgstr "Ez egin ezer"
+
+#, c-format
+#~ msgid "Copy “%s” to"
+#~ msgstr "Kopiatu “%s” hona:"
+
+#~ msgid "Group"
+#~ msgstr "Taldea"
+
+#~ msgid "Bookmark group"
+#~ msgstr "Laster-marken taldea"
+
+#~ msgid "Bookmark name"
+#~ msgstr "Laster-markaren izena"
+
+#~ msgid "Keyboard shortcut for selected bookmark"
+#~ msgstr "Hautatutako laster-markaren lasterbidea"
+
+#~ msgid "Bookmarked path"
+#~ msgstr "Laster-markatutako bide-izena"
+
+#~ msgid "Profile name"
+#~ msgstr "Profilaren izena"
+
+#, c-format
+#~ msgid "Make directory failed: %s\n"
+#~ msgstr "Direktorioa sortzeak huts egin du: %s\n"
+
+#~ msgid "Sorting/Quick search"
+#~ msgstr "Ordenatzea/bilaketa azkarra"
+
+#~ msgid "ALT+letters (menu access with F12)"
+#~ msgstr "ALT+letrak (menura sartzeko: F12)"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "Bat etorri fitxategi-izenaren hasierarekin"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "Bat etorri fitxategi-izenaren amaierarekin"
+
+#~ msgid ""
+#~ "Search window is minimizable\n"
+#~ "(Needs program restart if altered)"
+#~ msgstr ""
+#~ "Bilaketa-leihoa minimizatu daiteke\n"
+#~ "(programa berrabiarazi behar da)"
+
+#~ msgid "Colors"
+#~ msgstr "Koloreak"
+
+#~ msgid "Palette"
+#~ msgstr "Paleta"
+
+#~ msgid "Foreground:"
+#~ msgstr "Aurreko planoa:"
+
+#~ msgid "Background:"
+#~ msgstr "Atzeko planoa:"
+
+#~ msgid "File panes"
+#~ msgstr "Fitxategi-panelak"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "Berretsi lehenespena Ados-era"
+
+#~ msgid "Leave terminal window open"
+#~ msgstr "Utzi irekita terminalaren leihoa"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Gainidatzi fitxategiak"
+
+#, c-format
+#~ msgid "copy %d file to"
+#~ msgid_plural "copy %d files to"
+#~ msgstr[0] "kopiatu fitxategi %d hemen:"
+#~ msgstr[1] "kopiatu %d fitxategi hemen:"
+
+#, c-format
+#~ msgid "Move “%s” to"
+#~ msgstr "Mugitu “%s” hona:"
+
+#, c-format
+#~ msgid "move %d file to"
+#~ msgid_plural "move %d files to"
+#~ msgstr[0] "mugitu fitxategi %d hona:"
+#~ msgstr[1] "mugitu %d fitxategi hona:"
+
+#, c-format
+#~ msgid "The directory “%s” doesn’t exist, do you want to create it?"
+#~ msgstr "“%s” direktoriorik ez dago. Sortu nahi duzu?"
+
+#~ msgid "Unknown error"
+#~ msgstr "Errore ezezaguna"
+
+#~ msgid "Network protocol"
+#~ msgstr "Sareko protokoloa"
+
+#~ msgid "Connection name"
+#~ msgstr "Konexioaren izena"
+
+#~ msgid "Connections"
+#~ msgstr "Konexioak"
+
+#~ msgid "Search local directories only"
+#~ msgstr "Bilatu lokaleko direktorioak soilik"
+
+#~ msgid "Files _not containing text"
+#~ msgstr "Testurik _ez duten fitxategiak"
+
+#, c-format
+#~ msgid "Failed to read file %s: File is not searchable"
+#~ msgstr ""
+#~ "Huts egin du %s fitxategia irakurtzeak: Ezin da bilaketarik egin fitxategian"
+
+#, c-format
+#~ msgid "Failed to read file %s: %s"
+#~ msgstr "Huts egin du %s fitxategia irakurtzeak: %s"
+
+#, c-format
+#~ msgid "Searching in: %s"
+#~ msgstr "Hemen bilatzen: %s"
+
+#, c-format
+#~ msgid "Found %d match — search aborted"
+#~ msgid_plural "Found %d matches — search aborted"
+#~ msgstr[0] "Bat etortze %d aurkitu da - bilaketa abortatuta"
+#~ msgstr[1] "%d bat etortze aurkitu dira - bilaketa abortatuta"
+
+#, c-format
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "Bat etortze %d aurkitu da"
+#~ msgstr[1] "%d bat etortze aurkitu dira"
+
+#, c-format
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr "Huts egin du %d umearen prozesu-taldearen IDa ezartzean: %s\n"
+
+#~ msgid "Error parsing the search command."
+#~ msgstr "Errorea bilaketaren komandoa analizatzean."
+
+#~ msgid "Error running the search command."
+#~ msgstr "Errorea bilaketaren komandoa exekutatzean."
+
+#, c-format
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr "Huts egin du direktorioa %s(e)tik kanpora aldatzean"
+
+#, c-format
+#~ msgid "%d file listed"
+#~ msgid_plural "%d files listed"
+#~ msgstr[0] "fitxategi %d zerrendatuta"
+#~ msgstr[1] "%d fitxategi zerrendatuta"
+
+#~ msgid "Accelerator key"
+#~ msgstr "Tekla bizkortzailea"
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr "Bizkortzailearen aldatzaileak"
+
+#~ msgid "Accelerator Mode"
+#~ msgstr "Bizkortzaile modua"
+
+#~ msgid "The type of accelerator."
+#~ msgstr "Laster-teklen mota."
+
+#~ msgid "Disabled"
+#~ msgstr "Desgaituta"
+
+#~ msgid "New accelerator…"
+#~ msgstr "Bizkortzaile berria…"
+
+#~ msgid "Credits"
+#~ msgstr "Kredituak"
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "Pluginen webgunea"
+
+#~ msgid "C_redits"
+#~ msgstr "_Kredituak"
+
+#~ msgid "Regex pattern"
+#~ msgstr "Adierazpen erregularraren eredua"
+
+#~ msgid "Replacement"
+#~ msgstr "Ordezpena"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "Bereizi maiuskulak eta minuskulak"
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr "Zehaztu ezkerreko panelaren hasierako direktorioa"
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr "Zehaztu eskuineko panelaren hasierako direktorioa"
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr "Zehaztu direktorioa konfigurazioko fitxategientzako"
+
+#, c-format
+#~ msgid "The program has now finished. Press Enter to close this window.\n"
+#~ msgstr "Programa amaitu da. Sakatu 'Enter' leiho hau ixteko.\n"
+
+#~ msgid "<New connection>"
+#~ msgstr "<Konexio berria>"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "Joan hona: %s"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "Konektatu: %s"
+
+#, c-format
+#~ msgid "Disconnect from: %s"
+#~ msgstr "Deskonektatu hemendik: %s"
+
+#, c-format
+#~ msgid "Mount failed: mount exited with exitstatus %d"
+#~ msgstr "Muntatzeak huts egin du: muntatzetik irten da %d irteera-egoerarekin"
+
+#, c-format
+#~ msgid ""
+#~ "Cannot unmount the volume:\n"
+#~ "%s\n"
+#~ "Error code: %d"
+#~ msgstr ""
+#~ "Ezin da bolumena desmuntatu:\n"
+#~ "%s\n"
+#~ "Errore-kodea: %d"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "Joan hona: %s (%s)"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr "Muntatu: %s"
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr "Desmuntatu: %s"
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "%s(e)ra konektatzen\n"
+
+#, c-format
+#~ msgid "_Open with “%s”"
+#~ msgstr "_Ireki “%s” aplikazioarekin"
+
+#, c-format
+#~ msgid ""
+#~ "%s does not know how to open remote file. Do you want to download the file "
+#~ "to a temporary location and then open it?"
+#~ msgid_plural ""
+#~ "%s does not know how to open remote files. Do you want to download the files"
+#~ " to a temporary location and then open them?"
+#~ msgstr[0] ""
+#~ "%s(e)k ez daki nola ireki urruneko fitxategia. Fitxategia aldi baterako "
+#~ "kokaleku batean deskargatu eta ondoren ireki nahi al duzu?"
+#~ msgstr[1] ""
+#~ "%s(e)k ez daki urruneko fitxategia nola ireki. Fitxategia aldi baterako "
+#~ "direktorio batean deskargatu eta ondoren ireki nahi duzu?"
+
+#~ msgid "Needs terminal"
+#~ msgstr "Terminala behar du"
+
+#, c-format
+#~ msgid ""
+#~ "“%s” seems to be a binary executable file but it lacks the executable bit. "
+#~ "Do you want to set it and then run the file?"
+#~ msgstr ""
+#~ "Badirudi “%s” fitxategi exekutagarria dela baina ez du bit exekutagarria. "
+#~ "Hura ezarri eta fitxategia exekutatu nahi duzu?"
+
+#~ msgid "Make Executable?"
+#~ msgstr "Exekutagarri bihurtu nahi duzu?"
+
+#~ msgid "OK"
+#~ msgstr "Ados"
+
+#, c-format
+#~ msgid ""
+#~ "“%s” is an executable text file. Do you want to run it, or display its "
+#~ "contents?"
+#~ msgstr ""
+#~ "“%s” testu-fitxategi exekutagarria da. Exekutatu nahi duzu, ala edukia "
+#~ "ikusi?"
+
+#~ msgid "Run or Display"
+#~ msgstr "Exekutatu edo bistaratu"
+
+#~ msgid "Display"
+#~ msgstr "Bistaratzea"
+
+#~ msgid "Run"
+#~ msgstr "Exekutatu"
+
+#, c-format
+#~ msgid "No default application found for the file type %s."
+#~ msgstr "Ez da aplikazio lehenetsirik aurkitu %s fitxategi motarako."
+
+#~ msgid "Failed to open connection."
+#~ msgstr "Huts egin du konexioa irekitzean."
+
+#~ msgid "Cut"
+#~ msgstr "Ebaki"
+
+#~ msgid "Copy file names"
+#~ msgstr "Kopiatu fitxategi-izenak"
+
+#~ msgid "Send files"
+#~ msgstr "Bidali fitxategiak"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "Ireki _terminala hemen"
+
+#~ msgid "_New"
+#~ msgstr "_Berria"
+
+#~ msgid "_Directory"
+#~ msgstr "_Direktorioa"
+
+#~ msgid "_Text File"
+#~ msgstr "_Testu-fitxategia"
+
+#, c-format
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] "%s / %s kB - %d / %d fitxategian"
+#~ msgstr[1] "%s / %s kB - %d / %d fitxategietan"
+
+#, c-format
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] "%s / %d - %d direktorio hautatuan"
+#~ msgstr[1] "%s / %d  - %d direktorio hautatuetan"
+
+#~ msgid "Copy Tab to Other _Pane"
+#~ msgstr "Kopiatu fitxa beste _panelean"
+
+#~ msgid "No file name given"
+#~ msgstr "Ez da fitxategi-izenik eman"
+
+#~ msgid "Filter:"
+#~ msgstr "Iragazkia:"
+
+#~ msgid "_Enable Filter…"
+#~ msgstr "_Gaitu iragazkia…"
+
+#~ msgid "Start _GNOME Commander as root"
+#~ msgstr "Abiarazi _GNOME Commander 'root' gisa"
+
+#~ msgid "_Quit"
+#~ msgstr "I_rten"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "Kopiatu _fitxategi-izenak"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "_Leheneratu hautapena"
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "GNOME Commander, web gunean"
+
+#~ msgid "Refresh"
+#~ msgstr "Freskatu"
+
+#~ msgid "Go to the oldest"
+#~ msgstr "Joan zaharrenera"
+
+#~ msgid "Go back"
+#~ msgstr "Joan atzera"
+
+#~ msgid "Go forward"
+#~ msgstr "Joan aurrera"
+
+#~ msgid "Go to the latest"
+#~ msgstr "Joan azkenera"
+
+#~ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+#~ msgstr "Kopiatu fitxategi-izenak (MAIUS -> bide-izen osoa, ALT -> URIak)"
+
+#~ msgid "Paste"
+#~ msgstr "Itsatsi"
+
+#~ msgid "Open terminal (SHIFT for root privileges)"
+#~ msgstr "Ireki terminala (MAIUS 'root'-en pribilegioetarako)"
+
+#~ msgid "GNOME Commander — ROOT PRIVILEGES"
+#~ msgstr "GNOME Commander — ERRO-PRIBILEGIOAK"
+
+#~ msgid "Path matches regex:"
+#~ msgstr "Bide-izena adi. erregularrarekin bat dator:"
+
+#~ msgid "Name contains:"
+#~ msgstr "Izenak hau dauka:"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "_Maiuskula/minuskula"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr "Sortu uneko direktorioaren laster-marka"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "Kudeatu laster-markak"
+
+#~ msgid "Open terminal"
+#~ msgstr "Ireki terminala"
+
+#~ msgid "Open terminal as root"
+#~ msgstr "Ireki terminala 'root' gisa"
+
+#~ msgid "Start GNOME Commander as root"
+#~ msgstr "Abiarazi GNOME Commander 'root' gisa"
+
+#~ msgid "Close connection"
+#~ msgstr "Itxi konexioa"
+
+#~ msgid "New connection"
+#~ msgstr "Konexio berria"
+
+#~ msgid "Open connection"
+#~ msgstr "Ireki konexioa"
+
+#~ msgid "Change left connection"
+#~ msgstr "Aldatu ezkerreko konexioa"
+
+#~ msgid "Change right connection"
+#~ msgstr "Aldatu eskuineko konexioa"
+
+#~ msgid "Show user defined files"
+#~ msgstr "Erakutsi erabiltzaileak definitutako fitxategiak"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "Izena aldatzeko tresna aurreratua"
+
+#~ msgid "Change permissions"
+#~ msgstr "Aldatu baimenak"
+
+#~ msgid "Change owner/group"
+#~ msgstr "Aldatu jabea/taldea"
+
+#~ msgid "Copy files"
+#~ msgstr "Kopiatu fitxategiak"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "Sortu esteka sinbolikoa"
+
+#~ msgid "Delete files"
+#~ msgstr "Ezabatu fitxategiak"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "Konparatu fitxategiak (diff)"
+
+#~ msgid "Edit file"
+#~ msgstr "Editatu fitxategia"
+
+#~ msgid "Edit a new file"
+#~ msgstr "Editatu fitxategi berria"
+
+#~ msgid "Create directory"
+#~ msgstr "Sortu direktorioa"
+
+#~ msgid "Move files"
+#~ msgstr "Lekuz aldatu fitxategiak"
+
+#~ msgid "Rename files"
+#~ msgstr "Aldatu izena fitxategiei"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "Sinkronizatu direktorioak"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr "GNOME Commander-i buruz"
+
+#~ msgid "Help contents"
+#~ msgstr "Laguntzaren edukia"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "Mantendu laster-teklak"
+
+#~ msgid "Report a problem"
+#~ msgstr "Bidali mezua arazoaren berri emanez"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr "GNOME Commander, web gunean"
+
+#~ msgid "Compare directories"
+#~ msgstr "Konparatu direktorioak"
+
+#~ msgid "Invert selection"
+#~ msgstr "Alderantzikatu hautapena"
+
+#~ msgid "Select all"
+#~ msgstr "Hautatu dena"
+
+#~ msgid "Select all files"
+#~ msgstr "Hautatu fitxategi guztiak"
+
+#~ msgid "Unselect all files"
+#~ msgstr "Desautatu fitxategi guztiak"
+
+#~ msgid "Unselect all"
+#~ msgstr "Desautatu dena"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Laster-teklak"
+
+#~ msgid "Configure plugins"
+#~ msgstr "Konfiguratu pluginak"
+
+#~ msgid "Back one directory"
+#~ msgstr "Itzuli aurreko direktoriora"
+
+#~ msgid "Close the current tab"
+#~ msgstr "Itxi uneko fitxa"
+
+#~ msgid "Close all tabs"
+#~ msgstr "Itxi fitxa guztiak"
+
+#~ msgid "Show directory history"
+#~ msgstr "Erakutsi direktorioaren historia"
+
+#~ msgid "Equal panel size"
+#~ msgstr "Berdindu panel-tamaina"
+
+#~ msgid "Maximize panel size"
+#~ msgstr "Maximizatu panelaren tamaina"
+
+#~ msgid "Back to the first directory"
+#~ msgstr "Itzuli aurreneko direktoriora"
+
+#~ msgid "Forward one directory"
+#~ msgstr "Joan hurrengo direktoriora"
+
+#~ msgid "Open directory in the active window"
+#~ msgstr "Ireki direktorioa leiho aktiboan"
+
+#~ msgid "Open directory in the inactive window"
+#~ msgstr "Ireki direktorioa leiho inaktiboan"
+
+#~ msgid "Open directory in the left window"
+#~ msgstr "Ireki direktorioa ezkerreko leihoan"
+
+#~ msgid "Open directory in the right window"
+#~ msgstr "Ireki direktorioa eskuineko leihoan"
+
+#~ msgid "Open directory in the new tab (inactive window)"
+#~ msgstr "Ireki direktorioa fitxa berrian (leiho inaktiboa)"
+
+#~ msgid "Forward to the last directory"
+#~ msgstr "Joan azkenengo direktoriora"
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "Ireki direktorioa fitxa berri batean"
+
+#~ msgid "Show terminal"
+#~ msgstr "Erakutsi terminala"
+
+#, c-format
+#~ msgid "Create symbolic links of %i file in %s?"
+#~ msgid_plural "Create symbolic links of %i files in %s?"
+#~ msgstr[0] "Sortu %i fitxategiaren esteka sinbolikoa %s(e)n?"
+#~ msgstr[1] "Sortu %i fitxategien esteka sinbolikoak %s(e)n?"
+
+#~ msgid "Unable to open terminal in root mode."
+#~ msgstr "Ezin da terminala 'root' moduan ireki."
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
+#~ msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu edo beesu ez da aurkitu."
+
+#~ msgid "Unable to start GNOME Commander in root mode."
+#~ msgstr "Ezin da GNOME Commander root moduan abiarazi."
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+#~ msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu edo beesu ez da aurkitu"
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "GNOME mahaigainerako fitxategi-kudeatzaile azkarra eta eraginkorra"
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME Commander software librea da; birbana eta/edo alda dezakezu Software "
+#~ "Foundation-ek argitaratutako GNU Lizentzia Publiko Orokorraren 2. bertsioan,"
+#~ " edo (nahiago baduzu) beste berriago batean, jasotako baldintzak betez gero."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "GNOME Commander erabilgarria izango delakoan banatzen da, baina, INOLAKO "
+#~ "BERMERIK GABE; era berean, ez da bermatzen beraren EGOKITASUNA "
+#~ "MERKATURATZEKO edo HELBURU PARTIKULARRETARAKO ERABILTZEKO. Argibide gehiago "
+#~ "nahi izanez gero, ikus GNU Lizentzia Publiko Orokorra."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+#~ "GNOME Commander programarekin batera GNU Lizentzia Publiko Orokorraren kopia"
+#~ " bat jasoko zenuen; hala ez bada, idatzi hona: Free SoftwareFoundation, "
+#~ "Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+
+#~ msgid "Transfer problem"
+#~ msgstr "Transferentzia-arazoa"
+
+#~ msgid "Copy problem"
+#~ msgstr "Arazoa kopiatzean"
+
+#, c-format
+#~ msgid ""
+#~ "Overwrite file:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "With:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+#~ msgstr ""
+#~ "Gainidatzi fitxategia:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "Honekin:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+
+#, c-format
+#~ msgid ""
+#~ "Error while transferring “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Errorea “%s” transferitzean\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Move problem"
+#~ msgstr "Arazoa lekuz aldatzean"
+
+#, c-format
+#~ msgid "[file %ld of %ld] “%s”"
+#~ msgstr "[%ld / %ld fitxategi] “%s”"
+
+#, c-format
+#~ msgid ""
+#~ "Error while creating symlink “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Errorea “%s” esteka sinbolikoa sortzean\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Symlink creation problem"
+#~ msgstr "Arazoa esteka sinbolikoa sortzean"
+
+#, c-format
+#~ msgid ""
+#~ "Source “%s” could not be deleted. Aborting!\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "“%s” iturburua ezin da ezabatu. Abortatzen!\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "stopping…"
+#~ msgstr "gelditzen…"
+
+#, c-format
+#~ msgid "%s of %s copied"
+#~ msgstr "%s  %s kopiatuta"
+
+#, c-format
+#~ msgid "%.0f%% copied"
+#~ msgstr "%%%.0f kopiatuta"
+
+#, c-format
+#~ msgid "Couldn’t load installed pixmap, trying to load %s instead"
+#~ msgstr "Ezin izan da instalatutako pixmap-a kargatu, %s kargatzeko saioa"
+
+#, c-format
+#~ msgid ""
+#~ "Can’t find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-commander from the gnome-commander-%s/src directory"
+#~ msgstr ""
+#~ "Ezin da pixmap-a inon aurkitu. Ziurtatu programa instalatuta dagoela edo "
+#~ "gnome-commander exekutatzeko gnome-commander-%s/src direktorioa erabiltzen "
+#~ "ari dela"
+
+#~ msgid "Find"
+#~ msgstr "Aurkitu"
+
+#~ msgid "Searching…"
+#~ msgstr "Bilatzen…"
+
+#, c-format
+#~ msgid "Searching for “%s”"
+#~ msgstr "“%s” bilatzen"
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr "Posizioa: %lu / %lu\tZutabea: %d\t%s"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "pixel"
+#~ msgstr[1] "pixel"
+
+#~ msgid "bit/sample"
+#~ msgid_plural "bits/sample"
+#~ msgstr[0] "bit/lagineko"
+#~ msgstr[1] "bit/lagineko"
+
+#~ msgid "_Copy selection"
+#~ msgstr "_Kopiatu hautapena"
+
+#~ msgid "_Binary"
+#~ msgstr "_Bitarra"
+
+#~ msgid "Arabic (Windows, CP1256)"
+#~ msgstr "Arabiarra (Windows, CP1256)"
+
+#~ msgid "Rotate Clockwise"
+#~ msgstr "Biratu erlojuaren noranzkoan"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "_Bitar modua"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "_Gorde uneko ezarpenak"
+
+#, c-format
+#~ msgid "Pattern “%s” was not found"
+#~ msgstr "“%s” eredua ez da aurkitu"
+
+#~ msgid "Disable"
+#~ msgstr "Desgaitu"
+
+#~ msgid "Enable"
+#~ msgstr "Gaitu"
+
+#~ msgid "Version"
+#~ msgstr "Bertsioa"
+
+#~ msgid "_Enable"
+#~ msgstr "_Gaitu"
+
+#~ msgid "_Configure"
+#~ msgstr "_Konfiguratu"
+
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr "<Exif eta IPTC etiketak ez daude onartuta>"
+
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr "<ID3, APE, FLAC eta Vorbis etiketak ez daude onartuta>"
+
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr "<OLE2 eta ODF etiketak ez daude onartuta>"
+
+#~ msgid "<PDF tags not supported>"
+#~ msgstr "<PDF etiketak ez daude onartuta>"
+
+#~ msgid "Created"
+#~ msgstr "Sortze-data"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr ""
+#~ "Baliabidearen bizitza zikloaren gertaera batekin (sorrera/argitaratze data) "
+#~ "elkartutako data."
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr "Exif IFD erakuslea"
+
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr ""
+#~ "Exif IDF-ren erakuslea. Elkarreragingarritasuna, Exif IFD-ek TIFF formatuan "
+#~ "zehaztutako IFD eremuaren egitura berdina du."
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr "Elkarreragingarritasunaren IFD erakuslea"
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+#~ "Elkarreragingarritasunaren bermatzeko informazioa gordetzen duten etiketez "
+#~ "osatuta dago elkarreragingarritasunaren IFD-a eta Exif IFD-an kokatuta "
+#~ "dagoen hurrengo etiketara zuzentzen du. Elkarreragingarritasunaren IFD-ren "
+#~ "egitura TIFF-en definitutako IFD egituraren antzekoa da, baina ez du "
+#~ "irudiaren daturik."
+
+#~ msgid "Emphasis"
+#~ msgstr "Enfasia"
+
+#~ msgid "Emphasis."
+#~ msgstr "Enfasia."
+
+#~ msgid "Equalization 2"
+#~ msgstr "2. ekualizazioa"
+
+#~ msgid "Frames"
+#~ msgstr "Markoak"
+
+#~ msgid "Number of frames."
+#~ msgstr "Marko kopurua."
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr "2. partaideak"
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr "Audioko fitxategiaren tamaina, ID3 etiketa baztertuz."
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr "2. bolumena doitzea"
+
+#, c-format
+#~ msgid "unsupported tag (suppressed %ld B of binary data)"
+#~ msgstr "onartzen ez den etiketa (datu bitarren %ld B kendu dira)"
+
+#, c-format
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "(byte %s)"
+#~ msgstr[1] "(%s byte)"
+
+#, c-format
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "byte %s"
+#~ msgstr[1] "%s byte"
+
+#~ msgid "Failed to change working directory to a temporary directory."
+#~ msgstr ""
+#~ "Huts egin du laneko direktoriotik aldi baterako direktorio batera aldatzeak."
+
+#~ msgid "Failed to create a directory in which to store temporary files."
+#~ msgstr ""
+#~ "Huts egin du aldi baterako fitxategiak gordetzeko direktorioa sortzeak."
+
+#, c-format
+#~ msgid "Creating directory %s… "
+#~ msgstr "%s direktorioa sortzen… "
+
+#, c-format
+#~ msgid "Failed to create the directory %s: %s"
+#~ msgstr "Huts egin du%s direktorioa sortzeak: %s"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "Errorea gertatu da laguntza bistaratzean."
+
+#~ msgid "Use default font"
+#~ msgstr "Erabili letra-tipo lehenetsia"
+
+#~ msgid ""
+#~ "Whether to use the system’s default fixed width font for the file panels "
+#~ "instead of a font specific to gnome-commander."
+#~ msgstr ""
+#~ "Sistemaren letra-tipo finko lehenetsia erabiliko den ala ez fitxategi-"
+#~ "paneletan, gnome-commander aplikazioarena den letra-tipo espezifiko bat "
+#~ "erabili ordez."
+
+#~ msgid "Device icon size"
+#~ msgstr "Gailuen ikonoen tamaina"
+
+#~ msgid "Icon size in the device list."
+#~ msgstr "Gailu-zerrendako ikonoen tamaina."
+
+#~ msgid "Main window horizontal position"
+#~ msgstr "Leiho nagusiaren posizio horizontala"
+
+#~ msgid "Position of the main window in horizontal direction."
+#~ msgstr "Leiho nagusiaren posizioa norabide horizontalean"
+
+#~ msgid "Main window vertical position"
+#~ msgstr "Leiho nagusiaren posizio bertikala"
+
+#~ msgid "Position of the main window in vertical direction."
+#~ msgstr "Leiho nagusiaren posizioa norabide bertikalean"
+
+#~ msgid "Folder selection"
+#~ msgstr "Karpeta-hautapena"
+
+#~ msgid "File selection"
+#~ msgstr "Fitxategi-hautapena"
+
+#~ msgid "/File name"
+#~ msgstr "/Fitxategi-izena"
+
+#~ msgid "/Counter"
+#~ msgstr "/Kontagailua"
+
+#~ msgid "/Date"
+#~ msgstr "/Data"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "/Data/<locale>"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/Data/yyyy"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/Data/yy"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/Data/mm"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/Data/mmm"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/Data/dd"
+
+#~ msgid "/Time"
+#~ msgstr "/Ordua"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/Ordua/<locale>"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/Ordua/HH"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/Ordua/MM"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/Ordua/SS"
+
+#~ msgid "Other _Application…"
+#~ msgstr "Beste _aplikazio bat…"
+
+#, c-format
+#~ msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Ezin izan da instalatutako pixmap fitxategi mota kargatu, %s kargatzen "
+#~ "saiatzen"
+
+#~ msgid "File Manager"
+#~ msgstr "Fitxategi-kudeatzailea"
+
+#~ msgid "Skip device mounting"
+#~ msgstr "Saltatu gailuen muntatzea"
+
+#~ msgid ""
+#~ "This option defines if mounting of devices should be skipped when they are "
+#~ "opened."
+#~ msgstr ""
+#~ "Aukera honek definitzen du gailuen muntaketa saltatu behar den ala ez haiek "
+#~ "irekitzen direnean."
+
+#~ msgid "S_hare:"
+#~ msgstr "_Partekatu:"
+
+#~ msgid "_User name:"
+#~ msgstr "_Erabiltzaile-izena:"
+
+#~ msgid "Copy overwrite"
+#~ msgstr "Kopiatu gainidatziz"
+
+#~ msgid "Silently"
+#~ msgstr "Modu isilean"
+
+#~ msgid "Move overwrite"
+#~ msgstr "Aldatu lekuz gainidatziz"
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr "Saltatu muntatzea (erosoa 'super-mount'ekin)"
+
+#~ msgid "Skip All"
+#~ msgstr "Saltatu guztiak"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "FTP anonimoaren pasahitza:"
+
+#~ msgid "Device is now safe to remove"
+#~ msgstr "Gailua orain deskonektatu daiteke"
+
+#~ msgid "Couldn’t read from the directory %s: %s"
+#~ msgstr "Ezin izan da irakurri %s direktoriotik: %s"
+
+#~ msgid "Couldn’t move path from “%s” to “%s”: %s"
+#~ msgstr "Ezin da bidea lekuz aldatu “%s” kokalekutik “%s” kokalekura: %s"
+
+#~ msgid "Hide FIFO pipes"
+#~ msgstr "Ezkutatu FIFO kanalizazioak"
+
+#~ msgid "Hide sockets"
+#~ msgstr "Ezkutatu socket-ak"
+
+#~ msgid "Hide block devices"
+#~ msgstr "Ezkutatu bloke-gailuak"
+
+#~ msgid "Type:"
+#~ msgstr "Mota:"
+
+#~ msgid "MIME Type:"
+#~ msgstr "MIME mota:"
+
+#~ msgid "Fifo files"
+#~ msgstr "Fifo fitxategiak"
+
+#~ msgid "Socket files"
+#~ msgstr "Socket fitxategiak"
+
+#~ msgid "Character devices"
+#~ msgstr "Karaktere-gailuak"
+
+#~ msgid "Block devices"
+#~ msgstr "Bloke-gailuak"
+
+#~ msgid "Create Archive..."
+#~ msgstr "Sortu artxiboa..."
+
+#~ msgid "Profiles..."
+#~ msgstr "Profilak..."
+
+#~ msgid ""
+#~ "Some regular expressions functionality is disabled. To enable it's necessary"
+#~ " to build GNOME Commander with GLib ≥ 2.14. Please contact your package "
+#~ "maintainer about that."
+#~ msgstr ""
+#~ "Zenbait adierazpen erregularren funtzionalitatea desgaituta daude. Gaitzeko "
+#~ "GNOME Commander eraiki behar da GLIB  ≥ 2.14 liburutegiarekin. Jar zaitez "
+#~ "paketearen mantentzailearekin harremanetan."
+
+#~ msgid "_Password:"
+#~ msgstr "_Pasahitza:"
+
+#~ msgid "Use _GNOME Keyring Manager for authentication"
+#~ msgstr "Erabili _GNOMEren gako-sorten kudeatzailea autentifikatzean"
+
+#~ msgid "/Local path..."
+#~ msgstr "/Bide-izen lokala..."
+
+#~ msgid "_Import"
+#~ msgstr "_Inportatu"
+
+#~ msgid "Edit..."
+#~ msgstr "Editatu..."
+
+#~ msgid "Document icon directory:"
+#~ msgstr "Dokumentu-ikonoen direktorioa:"
+
+#~ msgid "Save password in GNOME keyring"
+#~ msgstr "Gorde pasahitza GNOMEren gako-sortan"
+
+#~ msgid "Search..."
+#~ msgstr "Bilatu..."
+
+#~ msgid "Audio Files"
+#~ msgstr "Audioko fitxategiak"
+
+#~ msgid "CamelCase"
+#~ msgstr "CamelCase"
+
+#~ msgid "Manage bookmarks..."
+#~ msgstr "Kudeatu laster-markak..."
+
+#~ msgid "Open this _folder"
+#~ msgstr "Ireki _karpeta hau"
+
+#~ msgid "_Properties..."
+#~ msgstr "_Propietateak..."
+
+#~ msgid "Regular file"
+#~ msgstr "Fitxategi erregularra"
+
+#~ msgid "FIFO"
+#~ msgstr "FIFO"
+
+#~ msgid "UNIX Socket"
+#~ msgstr "UNIX socket-a"
+
+#~ msgid "Character device"
+#~ msgstr "Karaktere-gailua"
+
+#~ msgid "Block device"
+#~ msgstr "Blokeatu gailua"
+
+#~ msgid "Symbolic link"
+#~ msgstr "Esteka sinbolikoa"
+
+#~ msgid "Switch to Vertical Layout"
+#~ msgstr "Aldatu diseinu bertikalera"
+
+#~ msgid "Switch to Horizontal Layout"
+#~ msgstr "Aldatu diseinu horizontalera"
+
+#~ msgid "_Search..."
+#~ msgstr "_Bilatu..."
+
+#~ msgid "_Options..."
+#~ msgstr "_Aukerak..."
+
+#~ msgid "_Keyboard Shortcuts..."
+#~ msgstr "_Laster-teklak..."
+
+#~ msgid "_Remote Server..."
+#~ msgstr "_Urruneko zerbitzaria..."
+
+#~ msgid "New Connection..."
+#~ msgstr "Konexio berria..."
+
+#~ msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
+#~ msgstr "Ezin da 'gnomevfs' python modulua kargatu ('gnome.vfs')"
+
+#~ msgid "Open folder"
+#~ msgstr "Ireki karpeta"
+
+#~ msgid "Execute Python plugin"
+#~ msgstr "Exekutatu Python-eko plugina"
+
+#~ msgid "Unable to start Nautilus."
+#~ msgstr "Ezin da Nautilus abiarazi."
+
+#~ msgid "copying..."
+#~ msgstr "kopiatzen..."
+
+#~ msgid "Find..."
+#~ msgstr "Bilatu..."
+
+#~ msgid "No Proofing"
+#~ msgstr "Frogapenik ez"
+
+#~ msgid "Arabic"
+#~ msgstr "Arabiera"
+
+#~ msgid "Bulgarian"
+#~ msgstr "Bulgariera"
+
+#~ msgid "Catalan"
+#~ msgstr "Katalaniera"
+
+#~ msgid "Traditional Chinese"
+#~ msgstr "Txinatar tradizionala"
+
+#~ msgid "Simplified Chinese"
+#~ msgstr "Txinatar soildua"
+
+#~ msgid "Chechen"
+#~ msgstr "Chechenera"
+
+#~ msgid "Danish"
+#~ msgstr "Daniera"
+
+#~ msgid "German"
+#~ msgstr "Alemaniera"
+
+#~ msgid "Swiss German"
+#~ msgstr "Suitzako alemana"
+
+#~ msgid "Greek"
+#~ msgstr "Greziera"
+
+#~ msgid "U.S. English"
+#~ msgstr "U.S. ingelesa"
+
+#~ msgid "U.K. English"
+#~ msgstr "U.K. ingelesa"
+
+#~ msgid "Australian English"
+#~ msgstr "Australiako ingelesa"
+
+#~ msgid "Castilian Spanish"
+#~ msgstr "Castilako gaztelera"
+
+#~ msgid "Mexican Spanish"
+#~ msgstr "Mexikoko gaztelera"
+
+#~ msgid "Finnish"
+#~ msgstr "Finlandiera"
+
+#~ msgid "French"
+#~ msgstr "Frantsesa"
+
+#~ msgid "Belgian French"
+#~ msgstr "Belgikako frantsesa"
+
+#~ msgid "Canadian French"
+#~ msgstr "Kanadiako frantsesa"
+
+#~ msgid "Swiss French"
+#~ msgstr "Suitzako frantsesa"
+
+#~ msgid "Hebrew"
+#~ msgstr "Hebreera"
+
+#~ msgid "Hungarian"
+#~ msgstr "Hungariera"
+
+#~ msgid "Icelandic"
+#~ msgstr "Islandiera"
+
+#~ msgid "Italian"
+#~ msgstr "Italiera"
+
+#~ msgid "Swiss Italian"
+#~ msgstr "Suitzako italiera"
+
+#~ msgid "Japanese"
+#~ msgstr "Japoniera"
+
+#~ msgid "Korean"
+#~ msgstr "Koreera"
+
+#~ msgid "Dutch"
+#~ msgstr "Nederlandera"
+
+#~ msgid "Belgian Dutch"
+#~ msgstr "Belgikako nederlandera"
+
+#~ msgid "Norwegian Bokmal"
+#~ msgstr "Norvegiako Bokmal"
+
+#~ msgid "Norwegian Nynorsk"
+#~ msgstr "Norvegiako Nynorsk"
+
+#~ msgid "Polish"
+#~ msgstr "Poloniera"
+
+#~ msgid "Brazilian Portuguese"
+#~ msgstr "Brasilgo portugesa"
+
+#~ msgid "Portuguese"
+#~ msgstr "Portugesa"
+
+#~ msgid "Rhaeto-Romanic"
+#~ msgstr "Erretorromaniera"
+
+#~ msgid "Romanian"
+#~ msgstr "Errumaniera"
+
+#~ msgid "Russian"
+#~ msgstr "Errusiera"
+
+#~ msgid "Croato-Serbian (Latin)"
+#~ msgstr "Kroazi-serbiera (Latinoa)"
+
+#~ msgid "Serbo-Croatian (Cyrillic)"
+#~ msgstr "Serbokroaziera (Zirilikoa)"
+
+#~ msgid "Slovak"
+#~ msgstr "Eslovakiera"
+
+#~ msgid "Albanian"
+#~ msgstr "Albaniera"
+
+#~ msgid "Swedish"
+#~ msgstr "Suediera"
+
+#~ msgid "Thai"
+#~ msgstr "Thailandiera"
+
+#~ msgid "Urdu"
+#~ msgstr "Urduera"
+
+#~ msgid "Indonesian"
+#~ msgstr "Indonesiera"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Ukraniera"
+
+#~ msgid "Byelorussian"
+#~ msgstr "Bielorrusiera"
+
+#~ msgid "Slovenian"
+#~ msgstr "Esloveniera"
+
+#~ msgid "Estonian"
+#~ msgstr "Estoniera"
+
+#~ msgid "Latvian"
+#~ msgstr "Letoniera"
+
+#~ msgid "Lithuanian"
+#~ msgstr "Lituaniera"
+
+#~ msgid "Farsi"
+#~ msgstr "Farsia"
+
+#~ msgid "Basque"
+#~ msgstr "Euskara"
+
+#~ msgid "Macedonian"
+#~ msgstr "Mazedoniera"
+
+#~ msgid "Afrikaans"
+#~ msgstr "Afrikaansa"
+
+#~ msgid "Malayalam"
+#~ msgstr "Malayalama"
+
+#~ msgid "CVS options"
+#~ msgstr "CVS aukerak"
+
+#~ msgid "Compression level"
+#~ msgstr "Konpresio-maila"
+
+#~ msgid "Unified diff format"
+#~ msgstr "Diff formatu bateratua"
+
+#~ msgid "A plugin that eventually will be a simple CVS client"
+#~ msgstr "Azkenean CVS bezero soil bat izango den plugina"
+
+#~ msgid "Compare with"
+#~ msgstr "Konparatu honekin:"
+
+#~ msgid "HEAD"
+#~ msgstr "HEAD"
+
+#~ msgid "The previous revision"
+#~ msgstr "Aurreko berrikuspena"
+
+#~ msgid "Other revision"
+#~ msgstr "Beste berrikuspen bat"
+
+#~ msgid "CVS Diff"
+#~ msgstr "CVS Diff"
+
+#~ msgid "revision"
+#~ msgstr "berrikuspena"
+
+#~ msgid "Revision:"
+#~ msgstr "Berrikuspena:"
+
+#~ msgid "Compare..."
+#~ msgstr "Konparatu..."
+
+#~ msgid "Author:"
+#~ msgstr "Egilea:"
+
+#~ msgid "Date:"
+#~ msgstr "Data:"
+
+#~ msgid "State:"
+#~ msgstr "Egoera:"
+
+#~ msgid "Lines:"
+#~ msgstr "Lerroak:"
+
+#~ msgid "Message:"
+#~ msgstr "Mezua:"
+
+#~ msgid "_Remote dir:"
+#~ msgstr "_Urruneko dir.:"
+
+#~ msgid "_Change"
+#~ msgstr "_Aldatu"
+
+#~ msgid "_MIME Types..."
+#~ msgstr "_MIME motak..."
+
+#~ msgid "_Contents"
+#~ msgstr "_Edukia"
+
+#~ msgid "Match file names using"
+#~ msgstr "Fitxategi-izenak parekatzeko erabili:"
+
+#~ msgid "Shell syntax"
+#~ msgstr "Shell sintaxia"
+
+#~ msgid "Regex syntax"
+#~ msgstr "Adierazpen erregularren sintaxia"
+
+#~ msgid "Sorting options"
+#~ msgstr "Ordenatzeko aukerak"
+
+#~ msgid "_Test"
+#~ msgstr "_Proba"
+
+#~ msgid "Authentication"
+#~ msgstr "Autentifikazioa"
+
+#~ msgid "Use GNOME Keyring Manager for authentication"
+#~ msgstr "Erabili GNOMEren gako-sorten kudeatzailea autentifikatzean"
+
+#~ msgid "Anonymous FTP access"
+#~ msgstr "FTP anonimoaren sarbidea"
+
+#~ msgid "Password:"
+#~ msgstr "Pasahitza:"
+
+#~ msgid "Network"
+#~ msgstr "Sarea"
+
+#~ msgid "GNOME authentication manager usage"
+#~ msgstr "GNOMEren autentifikazio-kudeatzailearen erabilera"
+
+#~ msgid "_Limited depth"
+#~ msgstr "Sakonera _mugatua"
+
+#~ msgid "Failed to open file %s: %s\n"
+#~ msgstr "Huts egin du %s fitxategia irekitzean: %s\n"
+
+#~ msgid "Search _recursively"
+#~ msgstr "Bilatu _errekurtsiboki"
+
+#~ msgid "_Go to"
+#~ msgstr "_Joan"
+
+#~ msgid "Enter password"
+#~ msgstr "Idatzi pasahitza"
+
+#~ msgid ""
+#~ "Problem: access not permitted\n"
+#~ "\n"
+#~ "please supply user credentials\n"
+#~ "\n"
+#~ "Remember: wrong credentials may lead to account locking"
+#~ msgstr ""
+#~ "Arazoa: sarbidea ez dago baimendua\n"
+#~ "\n"
+#~ "eman erabiltzailearen kredentzialak\n"
+#~ "\n"
+#~ "Gogoratu: okerreko kredentzialak kontua blokea dezake."
+
+#~ msgid "Can't find a host or workgroup named %s\n"
+#~ msgstr "Ezin da aurkitu %s izeneko ostalari edo lantalderik\n"
+
+#~ msgid "MIME types"
+#~ msgstr "MIME motak"
+
+#~ msgid ""
+#~ "The file \"%s\" already exists.\n"
+#~ "\n"
+#~ "Do you want to overwrite it?\n"
+#~ msgstr ""
+#~ "\"%s\" fitxategia badago lehendik.\n"
+#~ "\n"
+#~ "Gainidatzi nahi duzu?\n"
+
+#~ msgid "Trying to load %s instead\n"
+#~ msgstr "Horren ordez %s kargatzen saiatuko da\n"
+
+#~ msgid "Other..."
+#~ msgstr "Besterik..."
+
+#~ msgid "F10 Quit"
+#~ msgstr "F10 Irten"

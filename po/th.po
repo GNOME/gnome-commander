@@ -4870,3 +4870,1670 @@ msgstr ""
 #: plugins/taglib/taglib-plugin.cc:421
 msgid "10-15ms"
 msgstr ""
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME Commander"
+
+#~ msgid "A two paned file manager"
+#~ msgstr "เครื่องมือจัดการแฟ้มแบบ 2 ช่อง"
+
+#~ msgid "No error description available"
+#~ msgstr "ไม่มีคำอธิบายข้อผิดพลาด"
+
+#~ msgid "CVS options"
+#~ msgstr "ตัวเลือกของ CVS"
+
+#~ msgid "Compression level"
+#~ msgstr "ระดับการบีบอัด"
+
+#~ msgid "Unified diff format"
+#~ msgstr "รูปแบบ Unified diff"
+
+#~ msgid "A plugin that eventually will be a simple CVS client"
+#~ msgstr "ปลั๊กอินซึ่งจะกลายเป็นโปรแกรมลูกข่าย CVS อย่างง่ายในที่สุด"
+
+#~ msgid "Compare with"
+#~ msgstr "เปรียบเทียบกับ"
+
+#~ msgid "HEAD"
+#~ msgstr "HEAD"
+
+#~ msgid "The previous revision"
+#~ msgstr "ฉบับแก้ไขก่อนหน้า"
+
+#~ msgid "Other revision"
+#~ msgstr "ฉบับแก้ไขอื่น"
+
+#~ msgid "CVS Diff"
+#~ msgstr "CVS Diff"
+
+#~ msgid "revision"
+#~ msgstr "ฉบับแก้ไข"
+
+#~ msgid "Revision:"
+#~ msgstr "ฉบับแก้ไข:"
+
+#~ msgid "Compare..."
+#~ msgstr "เปรียบเทียบ..."
+
+#~ msgid "Author:"
+#~ msgstr "ผู้เขียน:"
+
+#~ msgid "Date:"
+#~ msgstr "วันที่:"
+
+#~ msgid "State:"
+#~ msgstr "สถานะ:"
+
+#~ msgid "Lines:"
+#~ msgstr "บรรทัด:"
+
+#~ msgid "Message:"
+#~ msgstr "ข้อความ:"
+
+#~ msgid "Create Archive..."
+#~ msgstr "สร้างแฟ้มจัดเก็บ..."
+
+#, c-format
+#~ msgid "Extract to '%s'"
+#~ msgstr "แตกแฟ้มไปยัง '%s'"
+
+#~ msgid "Default type"
+#~ msgstr "ชนิดปริยาย"
+
+#~ msgid "_Replace with:"
+#~ msgstr "แ_ทนที่ด้วย:"
+
+#~ msgid ""
+#~ "Some regular expressions functionality is disabled. To enable it's necessary"
+#~ " to build GNOME Commander with GLib ≥ 2.14. Please contact your package "
+#~ "maintainer about that."
+#~ msgstr ""
+
+#~ msgid "/Local path..."
+#~ msgstr ""
+
+#~ msgid "/Remote location..."
+#~ msgstr ""
+
+#~ msgid "_Import"
+#~ msgstr "_นำเข้า"
+
+#~ msgid "Profile name"
+#~ msgstr "ชื่อโพรไฟล์"
+
+#, c-format
+#~ msgid "%d file listed"
+#~ msgid_plural "%d files listed"
+#~ msgstr[0] "แสดงแล้ว %d แฟ้ม"
+
+#~ msgid "Accelerator key"
+#~ msgstr "ปุ่มลัด"
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr "ปุ่มประกอบปุ่มลัด"
+
+#~ msgid "Accelerator Mode"
+#~ msgstr "โหมดของปุ่มลัด"
+
+#~ msgid "The type of accelerator."
+#~ msgstr "ชนิดของปุ่มลัด"
+
+#~ msgid "Disabled"
+#~ msgstr "ปิดใช้"
+
+#~ msgid "New accelerator..."
+#~ msgstr "ปุ่มลัดใหม่..."
+
+#~ msgid "Credits"
+#~ msgstr "เครดิต"
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "เว็บไซต์ของปลั๊กอิน"
+
+#~ msgid "C_redits"
+#~ msgstr "เ_ครดิต"
+
+#~ msgid "/_Save Profile As..."
+#~ msgstr "/_บันทึกโพรไฟล์เป็น..."
+
+#~ msgid "/_Manage Profiles..."
+#~ msgstr "/_จัดการโพรไฟล์..."
+
+#~ msgid "Current file name"
+#~ msgstr "ชื่อแฟ้มปัจจุบัน"
+
+#~ msgid "New file name"
+#~ msgstr "ชื่อแฟ้มใหม่"
+
+#~ msgid "File size"
+#~ msgstr "ขนาดแฟ้ม"
+
+#~ msgid "File modification date"
+#~ msgstr "วันที่แก้ไขแฟ้ม"
+
+#~ msgid "Profiles..."
+#~ msgstr "โพรไฟล์..."
+
+#~ msgid "Bookmark name is missing"
+#~ msgstr "ขาดชื่อที่คั่นหน้า"
+
+#~ msgid "Bookmark target is missing"
+#~ msgstr "ขาดปลายทางของที่คั่นหน้า"
+
+#~ msgid "Bookmark Groups"
+#~ msgstr "กลุ่มที่คั่นหน้า"
+
+#~ msgid "path"
+#~ msgstr "พาธ"
+
+#, c-format
+#~ msgid ""
+#~ "Could not chown %s\n"
+#~ "%s"
+#~ msgstr ""
+
+#~ msgid "Chown"
+#~ msgstr ""
+
+#~ msgid "<New connection>"
+#~ msgstr "<การเชื่อมต่อใหม่>"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "ไปยัง: %s"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "เชื่อมต่อไปยัง: %s"
+
+#, c-format
+#~ msgid "Disconnect from: %s"
+#~ msgstr "ตัดการเชื่อมต่อจาก: %s"
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "กำลังเชื่อมต่อไปยัง %s\n"
+
+#~ msgid "Mount failed: Permission denied"
+#~ msgstr "เมานท์ไม่สำเร็จ: ไม่ได้รับอนุญาต"
+
+#~ msgid "Mount failed: No medium found"
+#~ msgstr "เมานท์ไม่สำเร็จ: ไม่พบสื่อ"
+
+#, c-format
+#~ msgid "Mount failed: mount exited with existatus %d"
+#~ msgstr "เมานท์ไม่สำเร็จ: คำสั่ง mount จบการทำงานด้วยค่า %d"
+
+#~ msgid "Device is now safe to remove"
+#~ msgstr "อุปกรณ์ขณะนี้ถอดได้อย่างปลอดภัย"
+
+#, c-format
+#~ msgid ""
+#~ "Cannot unmount the volume:\n"
+#~ "%s %s"
+#~ msgstr ""
+#~ "ไม่สามารถเลิกเมานท์โวลุม:\n"
+#~ "%s %s"
+
+#~ msgid "Unknown error"
+#~ msgstr "ข้อผิดพลาดไม่ทราบสาเหตุ"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "ไปยัง: %s (%s)"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr "เมานท์: %s"
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr "เลิกเมานท์: %s"
+
+#, c-format
+#~ msgid "\"%s\" is not a valid location"
+#~ msgstr "\"%s\" ไม่ใช่ตำแหน่งที่ถูกต้อง"
+
+#~ msgid "Please check the spelling and try again."
+#~ msgstr "กรุณาตรวจสอบการสะกดแล้วลองอีกครั้ง"
+
+#~ msgid "S_hare:"
+#~ msgstr "ใช้_ร่วม:"
+
+#~ msgid "_Remote dir:"
+#~ msgstr "ไดเรกทอรีในเ_ครือข่าย:"
+
+#~ msgid "_User name:"
+#~ msgstr "ชื่_อผู้ใช้:"
+
+#~ msgid "_Password:"
+#~ msgstr "ร_หัสผ่าน:"
+
+#~ msgid "Remote Server"
+#~ msgstr "เซิร์ฟเวอร์ในเครือข่าย"
+
+#~ msgid "Use _GNOME Keyring Manager for authentication"
+#~ msgstr "ใช้เครื่องมือจัดการ_พวงกุญแจของ GNOME ในการยืนยันตัวบุคคล"
+
+#~ msgid "Failed to browse the network. Is the SMB module installed?"
+#~ msgstr "เรียกดูเครือข่ายไม่สำเร็จ ได้ติดตั้งมอดูล SMB แล้วหรือยัง?"
+
+#~ msgid "CamelCase"
+#~ msgstr "CamelCase"
+
+#, c-format
+#~ msgid "Deleted %ld of %ld file"
+#~ msgid_plural "Deleted %ld of %ld files"
+#~ msgstr[0] "ลบแล้ว %ld จาก %ld แฟ้ม"
+
+#~ msgid "Deleting..."
+#~ msgstr "กำลังลบ..."
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting \"%s\"\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "เกิดข้อผิดพลาดขณะลบ \"%s\"\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Delete problem"
+#~ msgstr "ปัญหาการลบ"
+
+#, c-format
+#~ msgid "Do you want to delete \"%s\"?"
+#~ msgstr "คุณต้องการลบ \"%s\" หรือไม่?"
+
+#, c-format
+#~ msgid "Do you want to delete the selected file?"
+#~ msgid_plural "Do you want to delete the %d selected files?"
+#~ msgstr[0] "คุณต้องการลบ %d แฟ้มที่เลือกหรือไม่?"
+
+#~ msgid "OK"
+#~ msgstr "ตกลง"
+
+#~ msgid "Manage bookmarks..."
+#~ msgstr "จัดการที่คั่นหน้า..."
+
+#, c-format
+#~ msgid "Not an ordinary file: %s"
+#~ msgstr "ไม่ใช่แฟ้มธรรมดา: %s"
+
+#~ msgid "Couldn't retrieve MIME type of the file."
+#~ msgstr "ไม่สามารถดึงชนิด MIME ของแฟ้ม"
+
+#~ msgid "Open with other..."
+#~ msgstr "เปิดด้วยโปรแกรมอื่น..."
+
+#~ msgid "Needs terminal"
+#~ msgstr "ต้องใช้เทอร์มินัล"
+
+#, c-format
+#~ msgid "_Open with \"%s\""
+#~ msgstr "_เปิดด้วย \"%s\""
+
+#~ msgid "Open With..."
+#~ msgstr "เปิดด้วย..."
+
+#~ msgid "Copy file names"
+#~ msgstr "คัดลอกชื่อแฟ้ม"
+
+#~ msgid "Send files"
+#~ msgstr "ส่งแฟ้ม"
+
+#~ msgid "Open this _folder"
+#~ msgstr "เปิดโ_ฟลเดอร์นี้"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "เปิดเ_ทอร์มินัลที่นี่"
+
+#~ msgid "_Properties..."
+#~ msgstr "คุณ_สมบัติ..."
+
+#~ msgid "Other..."
+#~ msgstr "โปรแกรมอื่น..."
+
+#, c-format
+#~ msgid "%s byte"
+#~ msgid_plural "%s bytes"
+#~ msgstr[0] "%s ไบต์"
+
+#~ msgid "Image:"
+#~ msgstr "ภาพ:"
+
+#~ msgid "Type:"
+#~ msgstr "ชนิด:"
+
+#~ msgid "MIME Type:"
+#~ msgstr "ชนิด MIME:"
+
+#~ msgid "_Change"
+#~ msgstr "เ_ปลี่ยน"
+
+#~ msgid "Type"
+#~ msgstr "ชนิด"
+
+#~ msgid "Metadata namespace"
+#~ msgstr "ขอบเขตชื่อของข้อมูลกำกับ"
+
+#~ msgid "Tag name"
+#~ msgstr "ชื่อแท็ก"
+
+#~ msgid "Tag value"
+#~ msgstr "ค่าของแท็ก"
+
+#~ msgid "Metadata tag description"
+#~ msgstr "คำบรรยายของแท็กของข้อมูลกำกับ"
+
+#, c-format
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] "%s จาก %s kB ใน %d จาก %d แฟ้ม"
+
+#, c-format
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] "%s, เลือกอยู่ %d จาก %d ไดเรกทอรี"
+
+#, c-format
+#~ msgid "Listing failed: %s\n"
+#~ msgstr "แสดงรายชื่อไม่สำเร็จ: %s\n"
+
+#, c-format
+#~ msgid "Failed to open connection: %s\n"
+#~ msgstr "เปิดการเชื่อมต่อไม่สำเร็จ: %s\n"
+
+#~ msgid "No file name given"
+#~ msgstr ""
+
+#~ msgid "Symlink name:"
+#~ msgstr "ชื่อลิงก์สัญลักษณ์:"
+
+#~ msgid "Filter:"
+#~ msgstr "ตัวกรอง:"
+
+#~ msgid "Unknown file type"
+#~ msgstr "แฟ้มไม่ทราบชนิด"
+
+#~ msgid "Regular file"
+#~ msgstr "แฟ้มธรรมดา"
+
+#~ msgid "FIFO"
+#~ msgstr "FIFO"
+
+#~ msgid "UNIX Socket"
+#~ msgstr "ซ็อกเก็ตของยูนิกซ์"
+
+#~ msgid "Character device"
+#~ msgstr "อุปกรณ์แบบอักขระ"
+
+#~ msgid "Block device"
+#~ msgstr "อุปกรณ์แบบบล็อค"
+
+#~ msgid "Symbolic link"
+#~ msgstr "ลิงก์สัญลักษณ์"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the corresponding row and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "การแก้ไขปุ่มลัด คลิกที่แถวที่ต้องการแล้วกดปุ่มลัดใหม่ หรือกด ESC เพื่อยกเลิก"
+
+#~ msgid "Shortcut Key"
+#~ msgstr "ปุ่มลัด"
+
+#~ msgid "Keyboard shortcut for selected action"
+#~ msgstr "ปุ่มลัดแป้นพิมพ์สำหรับการกระทำที่เลือก"
+
+#~ msgid "Action"
+#~ msgstr "การกระทำ"
+
+#~ msgid "User action"
+#~ msgstr "การกระทำของผู้ใช้"
+
+#~ msgid "Optional data"
+#~ msgstr "ข้อมูลเพิ่มเติม"
+
+#, c-format
+#~ msgid "Shortcut \"%s\" is already taken by \"%s\"."
+#~ msgstr "ปุ่มลัด \"%s\" ถูกใช้ไปแล้วโดย \"%s\""
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "ปุ่มลัดขัดแย้งกัน"
+
+#, c-format
+#~ msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
+#~ msgstr "การกำหนดปุ่มลัดใหม่จะทำให้ปุ่มลัดถูกลบออกจาก \"%s\""
+
+#~ msgid "Invalid shortcut."
+#~ msgstr "ปุ่มลัดไม่ถูกต้อง"
+
+#~ msgid "Do nothing"
+#~ msgstr "ไม่ทำอะไร"
+
+#~ msgid "_Directory"
+#~ msgstr "ไ_ดเรกทอรี"
+
+#~ msgid "_Text File"
+#~ msgstr "แฟ้ม_ข้อความ"
+
+#~ msgid "_New..."
+#~ msgstr "ใ_หม่..."
+
+#~ msgid "Switch to Vertical Layout"
+#~ msgstr "เปลี่ยนเป็นการจัดวางแนวตั้ง"
+
+#~ msgid "Switch to Horizontal Layout"
+#~ msgstr "เปลี่ยนเป็นการจัดวางแนวนอน"
+
+#~ msgid "Start _GNOME Commander as root"
+#~ msgstr "เรียก _GNOME Commander ในฐานะ Root"
+
+#~ msgid "_Quit"
+#~ msgstr "_ออก"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "_คืนสภาพการเลือก"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "คัดลอก_ชื่อแฟ้ม"
+
+#~ msgid "_Search..."
+#~ msgstr "_ค้นหา..."
+
+#~ msgid "_Quick Search..."
+#~ msgstr "ค้นหาแบบเ_ร็ว..."
+
+#~ msgid "_Enable Filter..."
+#~ msgstr "_เปิดใช้งานตัวกรอง..."
+
+#~ msgid "_Bookmark this Directory..."
+#~ msgstr "_คั่นหน้าไดเรกทอรีนี้..."
+
+#~ msgid "_Manage Bookmarks..."
+#~ msgstr "_จัดการที่คั่นหน้า..."
+
+#~ msgid "_Configure Plugins..."
+#~ msgstr "_ตั้งค่าปลั๊กอิน..."
+
+#~ msgid "_Options..."
+#~ msgstr "_ตัวเลือก..."
+
+#~ msgid "_Keyboard Shortcuts..."
+#~ msgstr "ปุ่มลัดแ_ป้นพิมพ์..."
+
+#~ msgid "_MIME Types..."
+#~ msgstr "ชนิด _MIME..."
+
+#~ msgid "_Remote Server..."
+#~ msgstr "เซิร์ฟเวอร์ในเ_ครือข่าย..."
+
+#~ msgid "New Connection..."
+#~ msgstr "การเชื่อมต่อใหม่..."
+
+#~ msgid "_Contents"
+#~ msgstr "เนื้อ_หา"
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "GNOME Commander บนเ_ว็บ"
+
+#~ msgid "GNOME Commander - ROOT PRIVILEGES"
+#~ msgstr "GNOME Commander - สิทธิ์ผู้ดูแลระบบ"
+
+#~ msgid "Refresh"
+#~ msgstr "ปรับแสดง"
+
+#~ msgid "Go to the oldest"
+#~ msgstr "ไปที่เก่าที่สุด"
+
+#~ msgid "Go back"
+#~ msgstr "ย้อนกลับ"
+
+#~ msgid "Go forward"
+#~ msgstr "ไปช้างหน้า"
+
+#~ msgid "Go to the latest"
+#~ msgstr "ไปที่ล่าสุด"
+
+#~ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+#~ msgstr "คัดลอกชื่อแฟ้ม (SHIFT สำหรับพาธเต็ม, ALT สำหรับ URI)"
+
+#~ msgid "Cut"
+#~ msgstr "ตัด"
+
+#~ msgid "Paste"
+#~ msgstr "แปะ"
+
+#~ msgid "Open terminal"
+#~ msgstr "เปิดเทอร์มินัล"
+
+#, c-format
+#~ msgid "Copy \"%s\" to"
+#~ msgstr "คัดลอก \"%s\" ไปยัง"
+
+#~ msgid "Match file names using"
+#~ msgstr "ค้นชื่อแฟ้มโดยใช้"
+
+#~ msgid "Shell syntax"
+#~ msgstr "ไวยากรณ์ของเชลล์"
+
+#~ msgid "Regex syntax"
+#~ msgstr "ไวยากรณ์ของนิพจน์เรกิวลาร์"
+
+#~ msgid "Sorting options"
+#~ msgstr "ตัวเลือกของการเรียงลำดับ"
+
+#~ msgid "Quick search using"
+#~ msgstr "ค้นหาแบบเร็วโดยใช้"
+
+#~ msgid "_Test"
+#~ msgstr "_ทดสอบ"
+
+#~ msgid ""
+#~ "See the manual page for \"strftime\" for help on how to set the format "
+#~ "string."
+#~ msgstr "ดูวิธีกำหนดรูปแบบได้จากคู่มือ (man page) ของ \"strftime\""
+
+#~ msgid "Edit Colors..."
+#~ msgstr "แก้ไขสี..."
+
+#~ msgid "Colors"
+#~ msgstr "สี"
+
+#~ msgid "File panes"
+#~ msgstr "ช่องของแฟ้ม"
+
+#~ msgid "Edit..."
+#~ msgstr "แก้ไข..."
+
+#~ msgid "Document icon directory:"
+#~ msgstr "ไดเรกทอรีของไอคอนเอกสาร:"
+
+#~ msgid "Copy overwrite"
+#~ msgstr "คัดลอกทับ"
+
+#~ msgid "Silently"
+#~ msgstr "โดยไม่ต้องบอก"
+
+#~ msgid "Move overwrite"
+#~ msgstr "ย้ายทับ"
+
+#~ msgid "Fifo files"
+#~ msgstr "แฟ้ม FIFO"
+
+#~ msgid "Socket files"
+#~ msgstr "แฟ้มซ็อกเก็ต"
+
+#~ msgid "Character devices"
+#~ msgstr "อุปกรณ์แบบอักขระ"
+
+#~ msgid "Block devices"
+#~ msgstr "อุปกรณ์แบบบล็อค"
+
+#~ msgid "Authentication"
+#~ msgstr "การยืนยันตัวบุคคล"
+
+#~ msgid "Use GNOME Keyring Manager for authentication"
+#~ msgstr "ใช้เครื่องมือจัดการพวงกุญแจของ GNOME ในการยืนยันตัวบุคคล"
+
+#~ msgid "Anonymous FTP access"
+#~ msgstr "การเข้าถึง FTP แบบนิรนาม"
+
+#~ msgid "Password:"
+#~ msgstr "รหัสผ่าน:"
+
+#~ msgid "Other favorite apps"
+#~ msgstr "โปรแกรมอื่นที่โปรดปราน"
+
+#~ msgid "Device:"
+#~ msgstr "อุปกรณ์:"
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr "ข้ามการเมานท์ (มีประโยชน์เมื่อใช้ super-mount)"
+
+#~ msgid "Network"
+#~ msgstr "เครือข่าย"
+
+#~ msgid "Pattern:"
+#~ msgstr "แพตเทิร์น:"
+
+#~ msgid "Skip All"
+#~ msgstr "ข้ามทั้งหมด"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "เขียนทับแฟ้ม"
+
+#, c-format
+#~ msgid "copy %d file to"
+#~ msgid_plural "copy %d files to"
+#~ msgstr[0] "คัดลอกแฟ้ม %d แฟ้มไปยัง"
+
+#, c-format
+#~ msgid "Move \"%s\" to"
+#~ msgstr "ย้าย \"%s\" ไปยัง"
+
+#, c-format
+#~ msgid "move %d file to"
+#~ msgid_plural "move %d files to"
+#~ msgstr[0] "ย้ายแฟ้ม %d แฟ้มไปยัง"
+
+#, c-format
+#~ msgid "The directory '%s' doesn't exist, do you want to create it?"
+#~ msgstr "ไม่มีไดเรกทอรี '%s' คุณต้องการสร้างหรือไม่?"
+
+#~ msgid "/Grandparent"
+#~ msgstr ""
+
+#~ msgid "/Parent"
+#~ msgstr ""
+
+#~ msgid "/File name"
+#~ msgstr ""
+
+#~ msgid "/File name without extension"
+#~ msgstr ""
+
+#~ msgid "/File extension"
+#~ msgstr ""
+
+#~ msgid "/Counter"
+#~ msgstr ""
+
+#~ msgid "/Counter (width)"
+#~ msgstr ""
+
+#~ msgid "/Hexadecimal random number (width)"
+#~ msgstr ""
+
+#~ msgid "/Date"
+#~ msgstr ""
+
+#~ msgid "/Date/<locale>"
+#~ msgstr ""
+
+#~ msgid "/Date/yyyy-mm-dd"
+#~ msgstr ""
+
+#~ msgid "/Date/yy-mm-dd"
+#~ msgstr ""
+
+#~ msgid "/Date/yy.mm.dd"
+#~ msgstr ""
+
+#~ msgid "/Date/yymmdd"
+#~ msgstr ""
+
+#~ msgid "/Date/dd.mm.yy"
+#~ msgstr ""
+
+#~ msgid "/Date/mm-dd-yy"
+#~ msgstr ""
+
+#~ msgid "/Date/yyyy"
+#~ msgstr ""
+
+#~ msgid "/Date/yy"
+#~ msgstr ""
+
+#~ msgid "/Date/mm"
+#~ msgstr ""
+
+#~ msgid "/Date/mmm"
+#~ msgstr ""
+
+#~ msgid "/Date/dd"
+#~ msgstr ""
+
+#~ msgid "/Time"
+#~ msgstr ""
+
+#~ msgid "/Time/<locale>"
+#~ msgstr ""
+
+#~ msgid "/Time/HH.MM.SS"
+#~ msgstr ""
+
+#~ msgid "/Time/HH-MM-SS"
+#~ msgstr ""
+
+#~ msgid "/Time/HHMMSS"
+#~ msgstr ""
+
+#~ msgid "/Time/HH"
+#~ msgstr ""
+
+#~ msgid "/Time/MM"
+#~ msgstr ""
+
+#~ msgid "/Time/SS"
+#~ msgstr ""
+
+#~ msgid "Regex pattern"
+#~ msgstr "แพตเทิร์นนิพจน์เรกิวลาร์"
+
+#~ msgid "Replacement"
+#~ msgstr "ข้อความแทนที่"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "จับคู่โดยตัวพิมพ์ใหญ่-เล็กตรงกัน"
+
+#~ msgid "Can't load python module 'gnomevfs' ('gnome.vfs')\n"
+#~ msgstr "ไม่สามารถโหลดมอดูลไพธอน 'gnomevfs' ('gnome.vfs')\n"
+
+#~ msgid "GNOME authentication manager usage"
+#~ msgstr "การใช้เครื่องมือจัดการการยืนยันตัวบุคคลของ GNOME"
+
+#~ msgid "Network protocol"
+#~ msgstr "โพรโทคอลเครือข่าย"
+
+#~ msgid "Connection name"
+#~ msgstr "ชื่อของการเชื่อมต่อ"
+
+#~ msgid "Connections"
+#~ msgstr "การเชื่อมต่อ"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "รหัสผ่าน FTP แบบนรินาม:"
+
+#~ msgid "_Unlimited depth"
+#~ msgstr "ไม่จำกัดความ_ลึก"
+
+#~ msgid "Current _directory only"
+#~ msgstr "ไดเรกทอรี_ปัจจุบันเท่านั้น"
+
+#~ msgid "_Limited depth"
+#~ msgstr "_จำกัดความลึก"
+
+#~ msgid "Files _not containing text"
+#~ msgstr "แฟ้มที่ไ_ม่มีข้อความ"
+
+#, c-format
+#~ msgid "Failed to open file %s: %s\n"
+#~ msgstr "เปิดแฟ้ม %s ไม่สำเร็จ: %s\n"
+
+#, c-format
+#~ msgid "Failed to seek in file %s: %s\n"
+#~ msgstr "เลื่อนตำแหน่งในแฟ้ม %s ไม่สำเร็จ: %s\n"
+
+#, c-format
+#~ msgid "Failed to read from file %s: %s\n"
+#~ msgstr "อ่านจากแฟ้ม %s ไม่สำเร็จ: %s\n"
+
+#, c-format
+#~ msgid "Searching in: %s"
+#~ msgstr "กำลังค้นหาใน: %s"
+
+#, c-format
+#~ msgid "Found %d match - search aborted"
+#~ msgid_plural "Found %d matches - search aborted"
+#~ msgstr[0] "พบ %d แห่ง - เลิกค้นหา"
+
+#, c-format
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "พบ %d แห่ง"
+
+#~ msgid "Search..."
+#~ msgstr "ค้นหา..."
+
+#~ msgid "Search _for: "
+#~ msgstr "_ค้นหา: "
+
+#~ msgid "Search _in: "
+#~ msgstr "ค้นหา_ใน: "
+
+#~ msgid "Search _recursively"
+#~ msgstr "ค้นหาในไ_ดเรกทอรีย่อยด้วย"
+
+#~ msgid "Find _text: "
+#~ msgstr "หา_ข้อความ: "
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "ตัว_พิมพ์ใหญ่-เล็กตรงกัน"
+
+#~ msgid "_Go to"
+#~ msgstr "ไ_ปยัง"
+
+#~ msgid "Enter password"
+#~ msgstr "ป้อนรหัสผ่าน"
+
+#~ msgid ""
+#~ "Problem: access not permitted\n"
+#~ "\n"
+#~ "please supply user credentials\n"
+#~ "\n"
+#~ "Remember: wrong credentials may lead to account locking"
+#~ msgstr ""
+#~ "ปัญหา: ไม่ได้รับอนุญาตให้เข้าถึง\n"
+#~ "\n"
+#~ "กรุณาป้อนรหัสลับของผู้ใช้\n"
+#~ "\n"
+#~ "อย่าลืม: การป้อนรหัสลับผิดอาจนำไปสู่การล็อคบัญชี"
+
+#, c-format
+#~ msgid "Can't find a host or workgroup named %s\n"
+#~ msgstr "ไม่พบโฮสต์หรือเวิร์กกรุปที่ชื่อ %s\n"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr "คั่นหน้าไดเรกทอรีปัจจุบัน"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "จัดการที่คั่นหน้า"
+
+#~ msgid "Open folder"
+#~ msgstr "เปิดโฟลเดอร์"
+
+#~ msgid "Start GNOME Commander as root"
+#~ msgstr "เรียก GNOME Commander ในฐานะ root"
+
+#~ msgid "Close connection"
+#~ msgstr "ปิดการเชื่อมต่อ"
+
+#~ msgid "New connection"
+#~ msgstr "การเชื่อมต่อใหม่"
+
+#~ msgid "Open connection"
+#~ msgstr "เปิดการเชื่อมต่อ"
+
+#~ msgid "Show user defined files"
+#~ msgstr "แสดงแฟ้มที่ผู้ใช้กำหนด"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "เครื่องมือเปลี่ยนชื่อขั้นสูง"
+
+#~ msgid "Change permissions"
+#~ msgstr "เปลี่ยนการกำหนดสิทธิ์"
+
+#~ msgid "Change owner/group"
+#~ msgstr "เปลี่ยนเจ้าของ/กลุ่ม"
+
+#~ msgid "Copy files"
+#~ msgstr "คัดลอกแฟ้ม"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "สร้างลิงก์สัญลักษณ์"
+
+#~ msgid "Delete files"
+#~ msgstr "ลบแฟ้ม"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "เปรียบเทียบแฟ้ม (diff)"
+
+#~ msgid "Edit file"
+#~ msgstr "แก้ไขแฟ้ม"
+
+#~ msgid "Edit a new file"
+#~ msgstr "แก้ไขแฟ้มใหม่"
+
+#~ msgid "Create directory"
+#~ msgstr "สร้างไดเรกทอรี"
+
+#~ msgid "Move files"
+#~ msgstr "ย้ายแฟ้ม"
+
+#~ msgid "Rename files"
+#~ msgstr "เปลี่ยนชื่อแฟ้ม"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "ปรับข้อมูลไดเรกทอรีให้ตรงกัน"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr "เกี่ยวกับ GNOME Commander"
+
+#~ msgid "Help contents"
+#~ msgstr "เนื้อหาวิธีใช้"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "วิธีใช้ปุ่มลัดแป้นพิมพ์"
+
+#~ msgid "Report a problem"
+#~ msgstr "รายงานปัญหา"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr "GNOME Commander บนเว็บ"
+
+#~ msgid "Compare directories"
+#~ msgstr "เปรียบเทียบไดเรกทอรี"
+
+#~ msgid "Invert selection"
+#~ msgstr "กลับการเลือก"
+
+#~ msgid "Select all"
+#~ msgstr "เลือกทั้งหมด"
+
+#~ msgid "Unselect all"
+#~ msgstr "เลิกเลือกทั้งหมด"
+
+#~ msgid "MIME types"
+#~ msgstr "ชนิด MIME"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "ปุ่มลัดแป้นพิมพ์"
+
+#~ msgid "Configure plugins"
+#~ msgstr "ตั้งค่าปลั๊กอิน"
+
+#~ msgid "Execute python plugin"
+#~ msgstr "เรียกทำงานปลั๊กอินไพธอน"
+
+#~ msgid "Back one directory"
+#~ msgstr "ย้อนกลับไปหนึ่งไดเรกทอรี"
+
+#~ msgid "Equal panel size"
+#~ msgstr "ปรับขนาดช่องให้เท่ากัน"
+
+#~ msgid "Back to the first directory"
+#~ msgstr "กลับไปไดเรกทอรีแรก"
+
+#~ msgid "Forward one directory"
+#~ msgstr "เดินหน้าไปหนึ่งไดเรกทอรี"
+
+#~ msgid "Open directory in the active window"
+#~ msgstr "เปิดไดเรกทอรีในหน้าต่างที่ทำงานอยู่"
+
+#~ msgid "Open directory in the inactive window"
+#~ msgstr "เปิดไดเรกทอรีในหน้าต่างที่ไม่ทำงาน"
+
+#~ msgid "Open directory in the left window"
+#~ msgstr "เปิดไดเรกทอรีในหน้าต่างซ้าย"
+
+#~ msgid "Open directory in the right window"
+#~ msgstr "เปิดไดเรกทอรีในหน้าต่างขวา"
+
+#~ msgid "Forward to the last directory"
+#~ msgstr "เดินหน้าไปยังไดเรกทอรีสุดท้าย"
+
+#~ msgid "Show terminal"
+#~ msgstr "แสดงเทอร์มินัล"
+
+#, c-format
+#~ msgid "Create symbolic links of %i file in %s?"
+#~ msgid_plural "Create symbolic links of %i files in %s?"
+#~ msgstr[0] "จะสร้างลิงก์สัญลักษณ์ของแฟ้ม %i แฟ้มใน %s หรือไม่?"
+
+#~ msgid "Unable to start Nautilus."
+#~ msgstr "ไม่สามารถเรียก Nautilus"
+
+#~ msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found."
+#~ msgstr "ไม่พบ xdg-su, gksu, gnomesu, kdesu หรือ beesu"
+
+#~ msgid "Unable to start GNOME Commander in root mode."
+#~ msgstr "ไม่สามารถเรียก GNOME Commander ในโหมด root ได้"
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "เครื่องมือจัดการแฟ้มที่เร็วและทรงประสิทธิภาพสำหรับเดสก์ท็อป GNOME"
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME Commander เป็นซอฟต์แวร์เสรี คุณสามารถแจกจ่ายต่อ และ/หรือ "
+#~ "แก้ไขโปรแกรมได้ ภายใต้เงื่อนไขของ GNU General Public License "
+#~ "ที่เผยแพร่โดยมูลนิธิซอฟต์แวร์เสรี ไม่ว่าจะเป็นสัญญาอนุญาตรุ่นที่ 2 "
+#~ "หรือรุ่นถัดมา (ตามแต่คุณจะเลือก)"
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "GNOME Commander เผยแพร่ด้วยความหวังว่าโปรแกรมจะมีประโยชน์ "
+#~ "แต่ไม่มีการรับประกันใดๆ ไม่มีแม้การรับประกันอรรถประโยชน์เชิงพาณิชย์ "
+#~ "หรือความเหมาะสมสำหรับวัตถุประสงค์เฉพาะกิจใดๆ กรุณาอ่าน GNU General Public "
+#~ "License เพื่อดูรายละเอียดเพิ่มเติม"
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+#~ "คุณควรจะได้รับสำเนาของ GNU General Public License มาพร้อมกับ GNOME Commander"
+#~ " ถ้าคุณไม่ได้รับ กรุณาติดต่อไปที่ Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA"
+
+#, c-format
+#~ msgid ""
+#~ "The file \"%s\" already exists.\n"
+#~ "\n"
+#~ "Do you want to overwrite it?\n"
+#~ msgstr ""
+#~ "แฟ้ม \"%s\" มีอยู่ก่อนแล้ว\n"
+#~ "\n"
+#~ "คุณต้องการเขียนทับหรือไม่?\n"
+
+#~ msgid "Replace All"
+#~ msgstr "แทนที่ทั้งหมด"
+
+#, c-format
+#~ msgid ""
+#~ "Error while copying to %s\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "เกิดข้อผิดพลาดขณะคัดลอกไปยัง %s\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Transfer problem"
+#~ msgstr "ปัญหาการถ่ายโอน"
+
+#~ msgid "copying..."
+#~ msgstr "กำลังคัดลอก..."
+
+#, c-format
+#~ msgid "[file %ld of %ld] \"%s\""
+#~ msgstr "[แฟ้มที่ %ld จาก %ld] \"%s\""
+
+#~ msgid ""
+#~ "Copying a directory into itself is a bad idea.\n"
+#~ "The whole operation was cancelled."
+#~ msgstr ""
+#~ "การคัดลอกไดเรกทอรีกลับเข้าในตัวเองไม่ใช่ความคิดที่ดี\n"
+#~ "ขอยกเลิกการทำงานทั้งหมด"
+
+#~ msgid "preparing..."
+#~ msgstr "กำลังเตรียม..."
+
+#~ msgid "stopping..."
+#~ msgstr "กำลังหยุด..."
+
+#, c-format
+#~ msgid "%s of %s copied"
+#~ msgstr "คัดลอกแล้ว %s จาก %s"
+
+#, c-format
+#~ msgid "%.0f%% copied"
+#~ msgstr "คัดลอกแล้ว %.0f%%"
+
+#~ msgid ""
+#~ "Couldn't load installed file type pixmap, trying to load from source-dir\n"
+#~ msgstr ""
+#~ "ไม่สามารถโหลดภาพสัญลักษณ์ชนิดแฟ้มต่างๆ ที่ติดตั้งไว้ได้ "
+#~ "จะพยายามโหลดจากไดเรกทอรีของซอร์ส\n"
+
+#, c-format
+#~ msgid "Trying to load %s instead\n"
+#~ msgstr "กำลังพยายามโหลด %s แทน\n"
+
+#, c-format
+#~ msgid ""
+#~ "Can't find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-commander from the gnome-commander-%s/src directory\n"
+#~ msgstr ""
+#~ "ไม่พบรูปภาพในที่ใด กรุณาตรวจสอบให้แน่ใจว่าคุณได้ติดตั้งโปรแกรมไว้แล้ว "
+#~ "หรือกำลังเรียกทำงาน gnome-commander จากไดเรกทอรี gnome-commander-%s/src\n"
+
+#~ msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
+#~ msgstr "ไม่สามารถโหลดรูปภาพที่ติดตั้งไว้ได้ จะพยายามโหลดจากไดเรกทอรีของซอร์ส\n"
+
+#~ msgid "Find"
+#~ msgstr "หา"
+
+#~ msgid "Searching..."
+#~ msgstr "กำลังค้นหา..."
+
+#, c-format
+#~ msgid "Searching for \"%s\""
+#~ msgstr "กำลังค้นหา \"%s\""
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr "ตำแหน่ง: %lu ใน %lu\tคอลัมน์: %d\t%s"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "พิกเซล"
+
+#~ msgid "bit/sample"
+#~ msgid_plural "bits/sample"
+#~ msgstr[0] "บิต/ตัวอย่าง"
+
+#~ msgid "_Binary"
+#~ msgstr "ไ_บนารี"
+
+#~ msgid "Zoom _Out"
+#~ msgstr "ขยาย_ออก"
+
+#~ msgid "Best _Fit"
+#~ msgstr "เห_มาะสมที่สุด"
+
+#~ msgid "Find..."
+#~ msgstr "หา..."
+
+#~ msgid "_Rotate 180°"
+#~ msgstr "หมุ_น 180°"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "โหมดไ_บนารี"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "_บันทึกการตั้งค่าปัจจุบัน"
+
+#, c-format
+#~ msgid "Pattern \"%s\" was not found"
+#~ msgstr "ไม่พบแพตเทิร์น \"%s\""
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr "ระบุไดเรกทอรีเริ่มต้นสำหรับช่องซ้าย"
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr "ระบุไดเรกทอรีเริ่มต้นสำหรับช่องขวา"
+
+#~ msgid "File Manager"
+#~ msgstr "เครื่องมือจัดการแฟ้ม"
+
+#~ msgid "Disable"
+#~ msgstr "ปิดใช้"
+
+#~ msgid "Enable"
+#~ msgstr "เปิดใช้งาน"
+
+#~ msgid "Version"
+#~ msgstr "รุ่น"
+
+#~ msgid "_Enable"
+#~ msgstr "_เปิดใช้งาน"
+
+#~ msgid "_Configure"
+#~ msgstr "_ตั้งค่า"
+
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr "<ไม่รองรับแท็ก Exif และ IPTC>"
+
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr "<ไม่รองรับแท็ก ID3, APE, FLAC และ Vorbis>"
+
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr "<ไม่รองรับแท็ก OLE2 และ ODF>"
+
+#~ msgid "<PDF tags not supported>"
+#~ msgstr "<ไม่รองรับแท็ก PDF>"
+
+#~ msgid "Set to \"1\" if track is new to the user (default \"0\")."
+#~ msgstr "กำหนดเป็น \"1\" ถ้าเพลงยังใหม่สำหรับผู้ใช้ (ค่าปริยาย \"0\")"
+
+#~ msgid "\"1\" if the copyrighted bit is set."
+#~ msgstr "\"1\" ถ้ามีการกำหนดบิตสงวนลิขสิทธิ์"
+
+#~ msgid "\"1\" if the \"original\" bit is set."
+#~ msgstr "\"1\" ถ้ามีการกำหนดบิต \"ต้นตำรับ\""
+
+#~ msgid "Created"
+#~ msgstr "วันเวลาที่สร้าง"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr ""
+#~ "วันที่เชื่อมโยงกับเหตุการณ์ในวงจรชีวิตของตัวทรัพยากร (วันที่สร้าง/เผยแพร่)"
+
+#~ msgid "Number of \"notes\" in the document."
+#~ msgstr "จำนวนบันทึกข้อความในเอกสาร"
+
+#~ msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
+#~ msgstr "ชนิดของการนำเสนอ เช่น \"On-screen Show\", \"SlideView\" ฯลฯ"
+
+#~ msgid ""
+#~ "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
+#~ "enforced\" or \"Locked for annotations\"."
+#~ msgstr ""
+#~ "ค่าใดค่าหนึ่งต่อไปนี้: \"Password protected\" (ปกป้องด้วยรหัสผ่าน), \"Read-"
+#~ "only recommended\" (แนะนำให้ใช้แบบอ่านอย่างเดียว), \"Read-only enforced\" "
+#~ "(บังคับอ่านอย่างเดียว) หรือ \"Locked for annotations\" "
+#~ "(ล็อคเพื่อทำหมายเหตุประกอบ)"
+
+#~ msgid ""
+#~ "Copyright information. The tag is used to indicate both the photographer and"
+#~ " editor copyrights. It is the copyright notice of the person or organization"
+#~ " claiming rights to the image. The Interoperability copyright statement "
+#~ "including date and rights should be written in this field; e.g., "
+#~ "\"Copyright, John Smith, 19xx. All rights reserved.\". The field records "
+#~ "both the photographer and editor copyrights, with each recorded in a "
+#~ "separate part of the statement. When there is a clear distinction between "
+#~ "the photographer and editor copyrights, these are to be written in the order"
+#~ " of photographer followed by editor copyright, separated by NULL (in this "
+#~ "case, since the statement also ends with a NULL, there are two NULL codes) "
+#~ "(see example 1). When only the photographer is given, it is terminated by "
+#~ "one NULL code. When only the editor copyright is given, the photographer "
+#~ "copyright part consists of one space followed by a terminating NULL code, "
+#~ "then the editor copyright is given. When the field is left blank, it is "
+#~ "treated as unknown."
+#~ msgstr ""
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Indicates whether the latitude is north or south latitude. The ASCII value "
+#~ "'N' indicates north latitude, and 'S' is south latitude."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Indicates whether the longitude is east or west longitude. ASCII 'E' "
+#~ "indicates east longitude, and 'W' is west longitude."
+#~ msgstr ""
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Indicates the identification of the Interoperability rule. Use \"R98\" for "
+#~ "stating ExifR98 Rules."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The reference black point value and reference white point value. No defaults"
+#~ " are given in TIFF, but the values below are given as defaults here. The "
+#~ "color space is declared in a color space information tag, with the default "
+#~ "being the value that gives the optimal image characteristics "
+#~ "Interoperability these conditions."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This tag is used to record the name of an audio file related to the image "
+#~ "data. The only relational information recorded here is the Exif audio file "
+#~ "name and extension (an ASCII string consisting of 8 characters + '.' + 3 "
+#~ "characters). The path is not recorded. When using this tag, audio files must"
+#~ " be recorded in conformance to the Exif audio format. Writers are also "
+#~ "allowed to store the data such as Audio within APP2 as FlashPix extension "
+#~ "stream data. Audio files must be recorded in conformance to the Exif audio "
+#~ "format. If multiple files are mapped to one file, the above format is used "
+#~ "to record just one audio file name. If there are multiple audio files, the "
+#~ "first recorded file is given. When there are three Exif audio files "
+#~ "\"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the Exif image file"
+#~ " name for each of them, \"DSC00001.JPG\", is indicated. By combining "
+#~ "multiple relational information, a variety of playback possibilities can be "
+#~ "supported. The method of using relational information is left to the "
+#~ "implementation on the playback side. Since this information is an ASCII "
+#~ "character string, it is terminated by NULL. When this tag is used to map "
+#~ "audio files, the relation of the audio file to image data must also be "
+#~ "indicated on the audio file end."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "A tag for Exif users to write keywords or comments on the image besides "
+#~ "those in <Exif.ImageDescription>, and without the character code limitations"
+#~ " of the <Exif.ImageDescription> tag. The character code used in the "
+#~ "<Exif.UserComment> tag is identified based on an ID code in a fixed 8-byte "
+#~ "area at the start of the tag data area. The unused portion of the area is "
+#~ "padded with NULL (\"00.h\"). ID codes are assigned by means of registration."
+#~ " The value of CountN is determinated based on the 8 bytes in the character "
+#~ "code area and the number of bytes in the user comment part. Since the TYPE "
+#~ "is not ASCII, NULL termination is not necessary. The ID code for the "
+#~ "<Exif.UserComment> area may be a Defined code such as JIS or ASCII, or may "
+#~ "be Undefined. The Undefined name is UndefinedText, and the ID code is filled"
+#~ " with 8 bytes of all \"NULL\" (\"00.H\"). An Exif reader that reads the "
+#~ "<Exif.UserComment> tag must have a function for determining the ID code. "
+#~ "This function is not required in Exif readers that do not use the "
+#~ "<Exif.UserComment> tag. When a <Exif.UserComment> area is set aside, it is "
+#~ "recommended that the ID code be ASCII and that the following user comment "
+#~ "part be filled with blank characters [20.H]."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The matrix coefficients for transformation from RGB to YCbCr image data. No "
+#~ "default is given in TIFF; but here \"Color Space Guidelines\" is used as the"
+#~ " default. The color space is declared in a color space information tag, with"
+#~ " the default being the value that gives the optimal image characteristics "
+#~ "Interoperability this condition."
+#~ msgstr ""
+
+#~ msgid "File's contents filtered as plain text."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "MIME type of the file or if a directory it should contain value \"Folder\"."
+#~ msgstr ""
+
+#~ msgid "Permission string in unix format eg \"-rw-r--r--\"."
+#~ msgstr ""
+
+#~ msgid "Emphasis"
+#~ msgstr ""
+
+#~ msgid "Emphasis."
+#~ msgstr ""
+
+#~ msgid "Equalization 2"
+#~ msgstr ""
+
+#~ msgid "Frames"
+#~ msgstr ""
+
+#~ msgid "Number of frames."
+#~ msgstr ""
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr ""
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr ""
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr ""
+
+#~ msgid "Set to \"1\" if flash was fired."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Represents the orientation of the image wrt camera (IE \"top,left\" or "
+#~ "\"bottom,right\")."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The type of action that this object provides to a previous object. '01' "
+#~ "Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The type of update this object provides to a previous object. The link to "
+#~ "the previous object is made using the ARM. '01' indicates an additional "
+#~ "language."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Specifies the envelope handling priority and not the editorial urgency. '1' "
+#~ "for most urgent, '5' for normal, and '8' for least urgent. '9' is user-"
+#~ "defined."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
+#~ "for square."
+#~ msgstr ""
+
+#~ msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Specifies the editorial urgency of content and not necessarily the envelope "
+#~ "handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
+#~ msgstr ""
+
+#~ msgid "Set to \"1\" if optimized for network access."
+#~ msgstr ""
+
+#~ msgid "Set to \"1\" if printing is allowed."
+#~ msgstr ""
+
+#~ msgid "Set to \"1\" if high resolution printing is allowed."
+#~ msgstr ""
+
+#~ msgid "Set to \"1\" if copying the contents is allowed."
+#~ msgstr ""
+
+#~ msgid "Set to \"1\" if modifying the contents is allowed."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Set to \"1\" if inserting, rotating, or deleting pages and creating "
+#~ "navigation elements is allowed."
+#~ msgstr ""
+
+#~ msgid "Set to \"1\" if adding or modifying text annotations is allowed."
+#~ msgstr ""
+
+#~ msgid "Set to \"1\" if filling of form fields is allowed."
+#~ msgstr ""
+
+#~ msgid "Set to \"1\" if accessibility support (eg. screen readers) is enabled."
+#~ msgstr ""
+
+#~ msgid "No Proofing"
+#~ msgstr "ไม่มีการตรวจสอบ"
+
+#~ msgid "Arabic"
+#~ msgstr "อารบิก"
+
+#~ msgid "Bulgarian"
+#~ msgstr "บัลแกเรีย"
+
+#~ msgid "Catalan"
+#~ msgstr "คาตะลาน"
+
+#~ msgid "Traditional Chinese"
+#~ msgstr "จีนตัวเต็ม"
+
+#~ msgid "Simplified Chinese"
+#~ msgstr "จีนตัวย่อ"
+
+#~ msgid "Chechen"
+#~ msgstr "เชเชน"
+
+#~ msgid "Danish"
+#~ msgstr "เดนมาร์ก"
+
+#~ msgid "German"
+#~ msgstr "เยอรมัน"
+
+#~ msgid "Swiss German"
+#~ msgstr "เยอรมันสวิส"
+
+#~ msgid "Greek"
+#~ msgstr "กรีก"
+
+#~ msgid "U.S. English"
+#~ msgstr "อังกฤษอเมริกัน"
+
+#~ msgid "U.K. English"
+#~ msgstr "อังกฤษบริติช"
+
+#~ msgid "Australian English"
+#~ msgstr "อังกฤษออสเตรเลีย"
+
+#~ msgid "Castilian Spanish"
+#~ msgstr "สเปนคัสติเลียน"
+
+#~ msgid "Mexican Spanish"
+#~ msgstr "สเปนเม็กซิโก"
+
+#~ msgid "Finnish"
+#~ msgstr "ฟินแลนด์"
+
+#~ msgid "French"
+#~ msgstr "ฝรั่งเศส"
+
+#~ msgid "Belgian French"
+#~ msgstr "ฝรั่งเศสเบลเยียม"
+
+#~ msgid "Canadian French"
+#~ msgstr "ฝรั่งเศสแคนาดา"
+
+#~ msgid "Swiss French"
+#~ msgstr "ฝรั่งเศสสวิส"
+
+#~ msgid "Hebrew"
+#~ msgstr "ฮีบรู"
+
+#~ msgid "Hungarian"
+#~ msgstr "ฮังการี"
+
+#~ msgid "Icelandic"
+#~ msgstr "ไอซ์แลนด์"
+
+#~ msgid "Italian"
+#~ msgstr "อิตาลี"
+
+#~ msgid "Swiss Italian"
+#~ msgstr "อิตาลีสวิส"
+
+#~ msgid "Japanese"
+#~ msgstr "ญี่ปุ่น"
+
+#~ msgid "Korean"
+#~ msgstr "เกาหลี"
+
+#~ msgid "Dutch"
+#~ msgstr "ดัตช์"
+
+#~ msgid "Belgian Dutch"
+#~ msgstr "ดัตช์เบลเยียม"
+
+#~ msgid "Norwegian Bokmal"
+#~ msgstr "นอร์เวย์บุคมอล"
+
+#~ msgid "Norwegian Nynorsk"
+#~ msgstr "นอร์เวย์นีนอร์สก์"
+
+#~ msgid "Polish"
+#~ msgstr "โปแลนด์"
+
+#~ msgid "Brazilian Portuguese"
+#~ msgstr "โปรตุเกสบราซิล"
+
+#~ msgid "Portuguese"
+#~ msgstr "โปรตุเกส"
+
+#~ msgid "Rhaeto-Romanic"
+#~ msgstr "แรโท-โรมานิก"
+
+#~ msgid "Romanian"
+#~ msgstr "โรมาเนีย"
+
+#~ msgid "Russian"
+#~ msgstr "รัสเซีย"
+
+#~ msgid "Croato-Serbian (Latin)"
+#~ msgstr "โครเอโท-เซอร์เบีย (ละติน)"
+
+#~ msgid "Serbo-Croatian (Cyrillic)"
+#~ msgstr "เซอร์โบ-โครเอเชีย (ซีริลลิก)"
+
+#~ msgid "Slovak"
+#~ msgstr "สโลวัก"
+
+#~ msgid "Albanian"
+#~ msgstr "แอลเบเนีย"
+
+#~ msgid "Swedish"
+#~ msgstr "สวีเดน"
+
+#~ msgid "Thai"
+#~ msgstr "ไทย"
+
+#~ msgid "Turkish"
+#~ msgstr "ตุรกี"
+
+#~ msgid "Urdu"
+#~ msgstr "อูรดู"
+
+#~ msgid "Indonesian"
+#~ msgstr "อินโดนีเซีย"
+
+#~ msgid "Ukrainian"
+#~ msgstr "ยูเครน"
+
+#~ msgid "Byelorussian"
+#~ msgstr "ไบโลรัสเซีย"
+
+#~ msgid "Slovenian"
+#~ msgstr "สโลวีเนีย"
+
+#~ msgid "Estonian"
+#~ msgstr "เอสโตเนีย"
+
+#~ msgid "Latvian"
+#~ msgstr "ลัตเวีย"
+
+#~ msgid "Lithuanian"
+#~ msgstr "ลิทัวเนีย"
+
+#~ msgid "Farsi"
+#~ msgstr "ฟาร์ซี"
+
+#~ msgid "Basque"
+#~ msgstr "แบ็ซค์"
+
+#~ msgid "Macedonian"
+#~ msgstr "มาซิโดเนีย"
+
+#~ msgid "Afrikaans"
+#~ msgstr "แอฟริกา"
+
+#~ msgid "Malayalam"
+#~ msgstr "มลยาฬัม"
+
+#, c-format
+#~ msgid "unsupported tag (suppressed %u B of binary data)"
+#~ msgstr ""
+
+#, c-format
+#~ msgid ""
+#~ "No default application found for the MIME type %s.\n"
+#~ "Open the \"File types and programs\" page in the Control Center to add one."
+#~ msgstr ""
+
+#, c-format
+#~ msgid ""
+#~ "\"%s\" seems to be a binary executable file but it lacks the executable bit."
+#~ " Do you want to set it and then run the file?"
+#~ msgstr ""
+
+#~ msgid "Make Executable?"
+#~ msgstr ""
+
+#, c-format
+#~ msgid ""
+#~ "\"%s\" is an executable text file. Do you want to run it, or display its "
+#~ "contents?"
+#~ msgstr ""
+
+#~ msgid "Run or Display"
+#~ msgstr ""
+
+#~ msgid "Display"
+#~ msgstr ""
+
+#~ msgid "Run"
+#~ msgstr ""
+
+#, c-format
+#~ msgid ""
+#~ "%s does not know how to open remote file. Do you want to download the file "
+#~ "to a temporary location and then open it?"
+#~ msgid_plural ""
+#~ "%s does not know how to open remote files. Do you want to download the files"
+#~ " to a temporary location and then open them?"
+#~ msgstr[0] ""
+
+#, c-format
+#~ msgid ""
+#~ "Failed to create a directory in which to store temporary files.\n"
+#~ "Error message: %s\n"
+#~ msgstr ""
+#~ "สร้างไดเรกทอรีเพื่อเก็บแฟ้มชั่วคราวไม่สำเร็จ\n"
+#~ "ข้อความข้อผิดพลาด: %s\n"
+
+#, c-format
+#~ msgid "Creating directory %s... "
+#~ msgstr "กำลังสร้างไดเรกทอรี %s... "
+
+#, c-format
+#~ msgid "Failed to create the directory %s"
+#~ msgstr "สร้างไดเรกทอรี %s ไม่สำเร็จ"
+
+#, c-format
+#~ msgid "Couldn't read from the directory %s: %s"
+#~ msgstr "ไม่สามารถอ่านจากไดเรกทอรี %s: %s"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "เกิดข้อผิดพลาดขณะแสดงวิธีใช้"

@@ -5581,3 +5581,1911 @@ msgstr "Pas cap"
 #: plugins/taglib/taglib-plugin.cc:421
 msgid "10-15ms"
 msgstr "10-15 ms"
+
+#~| msgid "Copy file names"
+#~ msgid "Two-pane file manager"
+#~ msgstr "Un gestionari de fichièrs de dos panèls"
+
+#~ msgid ""
+#~ "GNOME Comandar is a \"two-pane\" graphical file manager for the GNOME "
+#~ "desktop environment. It features separate tabs for each pane, setting up "
+#~ "custom device buttons, bookmark manager, fully integrated commandline, file "
+#~ "quick search, an internal image viewer, a powerful batch renaming tool, and "
+#~ "FTP and Samba access."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "GNOME Comandar aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+
+#~ msgid "GNOME Comandar"
+#~ msgstr "GNOME Comandar"
+
+#~ msgid "A two paned file manager"
+#~ msgstr "Un gestionari de fichièrs de dos panèls"
+
+#~| msgid "File Manager"
+#~ msgid "File;Manager;"
+#~ msgstr "Fichièr;Gestionari;"
+
+#~ msgid "No error description available"
+#~ msgstr "Cap de descripcion de l'error pas disponibla"
+
+#~ msgid "Create Archive..."
+#~ msgstr "Crear un archiu..."
+
+#, c-format
+#~ msgid "Extract to '%s'"
+#~ msgstr "Extraire cap a « %s »"
+
+#~ msgid "Default type"
+#~ msgstr "Tipe per defaut"
+
+#~ msgid "/_Save Profile As..."
+#~ msgstr "/_Enregistrar lo perfil jos..."
+
+#~ msgid "/_Manage Profiles..."
+#~ msgstr "/_Gerir los perfils..."
+
+#~| msgid "New file names"
+#~ msgid "Current file name"
+#~ msgstr "Nom de fichièr actual"
+
+#~| msgid "New file names"
+#~ msgid "New file name"
+#~ msgstr "Novèl nom de fichièr"
+
+#~| msgid "File Type"
+#~ msgid "File size"
+#~ msgstr "Talha de fichièr"
+
+#~ msgid "File modification date"
+#~ msgstr "Data de modificacion del fichièr"
+
+#~| msgid "_Properties..."
+#~ msgid "Profiles..."
+#~ msgstr "Perfils..."
+
+#~| msgid "Replace"
+#~ msgid "_Replace with:"
+#~ msgstr "_Remplaçar per :"
+
+#~ msgid ""
+#~ "Some regular expressions functionality is disabled. To enable it's necessary"
+#~ " to build GNOME Comandar with GLib ≥ 2.14. Please contact your package "
+#~ "maintainer about that."
+#~ msgstr ""
+#~ "Certanas foncions d'expressions regularas son desactivadas. Per l'activar, "
+#~ "es necessari de compilar GNOME Comandar amb GLib ≥ 2.14. Contactatz vòstre "
+#~ "manteneire de paquets a aqueste subjècte."
+
+#, c-format
+#~ msgid "Could not chown %s"
+#~ msgstr "Impossible de far un chown %s"
+
+#~ msgid "Chown"
+#~ msgstr "Chown"
+
+#~ msgid "S_hare:"
+#~ msgstr "Estat :"
+
+#~ msgid "_User name:"
+#~ msgstr "Nom d'_utilizaire :"
+
+#, c-format
+#~ msgid "\"%s\" is not a valid location"
+#~ msgstr "« %s » es pas un emplaçament valid"
+
+#~ msgid "Remote Server"
+#~ msgstr "Servidor distant"
+
+#, c-format
+#~ msgid "Deleted %ld of %ld file"
+#~ msgid_plural "Deleted %ld of %ld files"
+#~ msgstr[0] "%ld de %ld fichièrs suprimit"
+#~ msgstr[1] "%ld de %ld fichièrs suprimits"
+
+#~ msgid "Deleting..."
+#~ msgstr "Supression de..."
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting \"%s\"\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Error al moment de la supression de « %s »\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Delete problem"
+#~ msgstr "Problèma de supression"
+
+#, c-format
+#~ msgid "Do you want to delete \"%s\"?"
+#~ msgstr "Volètz suprimir \"%s\" ?"
+
+#, c-format
+#~ msgid "Do you want to delete the selected file?"
+#~ msgid_plural "Do you want to delete the %d selected files?"
+#~ msgstr[0] "Volètz suprimir lo fichièr seleccionat ?"
+#~ msgstr[1] "Volètz suprimir los %d fichièrs seleccionats ?"
+
+#~ msgid "OK"
+#~ msgstr "D'acòrdi"
+
+#~ msgid "Bookmark name is missing."
+#~ msgstr "Lo nom del signet es mancant."
+
+#~ msgid "Bookmark target is missing."
+#~ msgstr "La cibla del signet es mancanta."
+
+#~ msgid "Image:"
+#~ msgstr "Imatge :"
+
+#~ msgid "Type:"
+#~ msgstr "Tipe :"
+
+#~ msgid "MIME Type:"
+#~ msgstr "Tipe MIME :"
+
+#~ msgid "Type"
+#~ msgstr "Tipe"
+
+#~ msgid "Metadata namespace"
+#~ msgstr "Espaci de nommatge de las metadonadas"
+
+#~ msgid "Tag name"
+#~ msgstr "nom"
+
+#~ msgid "Tag value"
+#~ msgstr "Valor de la balisa"
+
+#~ msgid "Metadata tag description"
+#~ msgstr "Descripcion de la balisa de metadonadas"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the corresponding row and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "Per modificar un acorchi de clavièr, clicatz sus la linha correspondenta e "
+#~ "picatz un novèl acorchi o quichatz sus la tòca d'escapament per anullar."
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Tòca d'acorchi"
+
+#~ msgid "Keyboard shortcut for selected action"
+#~ msgstr "Acorchi de clavièr per l'action seleccionada"
+
+#~ msgid "Action"
+#~ msgstr "Accion"
+
+#~ msgid "User action"
+#~ msgstr "Accion personalizada"
+
+#~ msgid "Optional data"
+#~ msgstr "Donadas opcionalas"
+
+#, c-format
+#~ msgid "Shortcut \"%s\" is already taken by \"%s\"."
+#~ msgstr "L'acorchi de clavièr « %s » es ja pres per « %s »."
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "Conflicte entre acorchis de clavièr"
+
+#, c-format
+#~ msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
+#~ msgstr "Reafectar l'acorchi de clavièr provocarà sa supression de « %s »."
+
+#~ msgid "Invalid shortcut."
+#~ msgstr "Acorchi de clavièr invalid."
+
+#~ msgid "Do nothing"
+#~ msgstr "Far pas res"
+
+#, c-format
+#~ msgid "Copy \"%s\" to"
+#~ msgstr "Copiar « %s » cap a"
+
+#~| msgid "Group:"
+#~ msgid "Group"
+#~ msgstr "Grop"
+
+#~| msgid "Bookmarks"
+#~ msgid "Bookmark group"
+#~ msgstr "Grop de signets"
+
+#~| msgid "Bookmarks"
+#~ msgid "Bookmark name"
+#~ msgstr "Nom del signet"
+
+#~ msgid "Keyboard shortcut for selected bookmark"
+#~ msgstr "Acorchi de clavièr pel signet seleccionat"
+
+#~| msgid "Bookmarks"
+#~ msgid "Bookmarked path"
+#~ msgstr "Camin del signet"
+
+#~| msgid "Copy file names"
+#~ msgid "Profile name"
+#~ msgstr "Nom del perfil"
+
+#~ msgid "/Local path..."
+#~ msgstr "/Camin local..."
+
+#~| msgid "Remote Connections"
+#~ msgid "/Remote location..."
+#~ msgstr "/Emplaçament distant..."
+
+#~ msgid "_Import"
+#~ msgstr "_Importar"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "Filtrar lo començament del nom de fichièr"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "Filtrar la fin del nom de fichièr"
+
+#~ msgid "Don't start a new instance"
+#~ msgstr "Aviar pas una novèla instància"
+
+#~ msgid ""
+#~ "See the manual page for \"strftime\" for help on how to set the format "
+#~ "string."
+#~ msgstr ""
+#~ "Consultatz la pagina del manual de « strftime » per obténer d'ajuda sul "
+#~ "biais de definir lo format de la cadena."
+
+#~ msgid "Edit Colors..."
+#~ msgstr "Modificar las colors..."
+
+#~ msgid "Colors"
+#~ msgstr "Colors"
+
+#~ msgid "Palette"
+#~ msgstr "Paleta"
+
+#~ msgid "Foreground:"
+#~ msgstr "Primièr plan :"
+
+#~| msgid "Background"
+#~ msgid "Background:"
+#~ msgstr "Rèire plan :"
+
+#~ msgid "File panes"
+#~ msgstr "Panèls de fichièr"
+
+#~ msgid "Edit..."
+#~ msgstr "Editar..."
+
+#~| msgid "Edit..."
+#~ msgid "Edit colors..."
+#~ msgstr "Modificar las colors..."
+
+#~ msgid "Document icon directory:"
+#~ msgstr "Dorsièr de las icònas de document :"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "Valors per defaut de confirmacion a D'acòrdi"
+
+#~ msgid "Copy overwrite"
+#~ msgstr "Còpia e espotiment"
+
+#~ msgid "Silently"
+#~ msgstr "Demandar pas"
+
+#~ msgid "Move overwrite"
+#~ msgstr "Desplaçament e espotiment"
+
+#~ msgid "Drag and Drop"
+#~ msgstr "Lisar e depausar"
+
+#~ msgid "Fifo files"
+#~ msgstr "Fichièrs Fifo"
+
+#~ msgid "Socket files"
+#~ msgstr "Fichièrs de connectador"
+
+#~ msgid "Character devices"
+#~ msgstr "Periferics en mòde caractèr"
+
+#~ msgid "Block devices"
+#~ msgstr "Periferics en mòde bloc"
+
+#~ msgid "Device:"
+#~ msgstr "Periferic :"
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr "Evitar lo montatge (utile quand s'utiliza super-mount)"
+
+#~ msgid "Skip All"
+#~ msgstr "Ignorar tot"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Espotir los fichièrs"
+
+#, c-format
+#~ msgid "copy %d file to"
+#~ msgid_plural "copy %d files to"
+#~ msgstr[0] "Copiar %d fichièr cap a"
+#~ msgstr[1] "Copiar %d fichièrs cap a"
+
+#, c-format
+#~ msgid "Move \"%s\" to"
+#~ msgstr "Desplaçar « %s » cap a"
+
+#, c-format
+#~ msgid "move %d file to"
+#~ msgid_plural "move %d files to"
+#~ msgstr[0] "desplaça %d fichièr cap a"
+#~ msgstr[1] "desplaça %d fichièrs cap a"
+
+#, c-format
+#~ msgid "The directory '%s' doesn't exist, do you want to create it?"
+#~ msgstr "Lo dorsièr « %s » existís pas, lo volètz crear ?"
+
+#~ msgid "Network protocol"
+#~ msgstr "Protocole ret"
+
+#~ msgid "Connection name"
+#~ msgstr "Nom de connexion"
+
+#~ msgid "Connections"
+#~ msgstr "Connexions"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "Senhal FTP anonyme :"
+
+#~| msgid "Directories only"
+#~ msgid "Search local directories only"
+#~ msgstr "Recercar solament dins los dorsièrs locals"
+
+#~ msgid "Files _not containing text"
+#~ msgstr "Fichièrs _ne contenant pas lo tèxte"
+
+#, c-format
+#~ msgid "Failed to read file %s: %s"
+#~ msgstr "La lectura del fichièr %s a fracassat : %s"
+
+#, c-format
+#~ msgid "Searching in: %s"
+#~ msgstr "Recèrca dins : %s"
+
+#, c-format
+#~ msgid "Found %d match - search aborted"
+#~ msgid_plural "Found %d matches - search aborted"
+#~ msgstr[0] "%d correspondéncia trobada abans d'èsser arrestat"
+#~ msgstr[1] "%d correspondéncias trobadas abans d'èsser arrestat"
+
+#, c-format
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "%d correspondéncia trobada"
+#~ msgstr[1] "%d correspondéncias trobadas"
+
+#, c-format
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr ""
+#~ "Impossible de definir l'identificant del grop de processus pel processus "
+#~ "filh %d : %s.\n"
+
+#~ msgid "Error parsing the search command."
+#~ msgstr "L'analisi de la comanda de recèrca a fracassat."
+
+#~ msgid "Error running the search command."
+#~ msgstr "L'execucion de la recèrca a fracassat."
+
+#, c-format
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr "Impossible de cambiar de dorsièr a l'exterior de %s"
+
+#~ msgid "Search..."
+#~ msgstr "Recercar..."
+
+#, c-format
+#~ msgid "%d file listed"
+#~ msgid_plural "%d files listed"
+#~ msgstr[0] "%d fichièr dins la lista"
+#~ msgstr[1] "%d fichièrs dins la lista"
+
+#~ msgid "Accelerator key"
+#~ msgstr "Tòca d'acorchi"
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr "Modificadors d'acorchi"
+
+#~ msgid "Accelerator Mode"
+#~ msgstr "Mòde d'acorchi"
+
+#~ msgid "The type of accelerator."
+#~ msgstr "Lo tipe de l'acorchi."
+
+#~ msgid "Disabled"
+#~ msgstr "Desactivat"
+
+#~ msgid "New accelerator..."
+#~ msgstr "Acorchi novèl..."
+
+#~ msgid "Credits"
+#~ msgstr "Mercejaments"
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "Pagina Web de l'empeuton"
+
+#~ msgid "C_redits"
+#~ msgstr "Me_rcejaments"
+
+#~ msgid "/Grandparent"
+#~ msgstr "/Grand parent"
+
+#~ msgid "/Parent"
+#~ msgstr "/Parent"
+
+#~ msgid "/File name"
+#~ msgstr "/Nom de fichièr"
+
+#~| msgid "File Manager"
+#~ msgid "/File name (range)"
+#~ msgstr "/Nom de fichièr (plaja)"
+
+#~ msgid "/File name without extension"
+#~ msgstr "/Nom del fichièr sens l'extension"
+
+#~ msgid "/File name without extension (range)"
+#~ msgstr "/Nom del fichièr sens l'extension (plaja)"
+
+#~ msgid "/File extension"
+#~ msgstr "/Extension del fichièr"
+
+#~ msgid "/Counter"
+#~ msgstr "/Comptador"
+
+#~ msgid "/Counter (width)"
+#~ msgstr "/Comptador (largor)"
+
+#~ msgid "/Counter (auto)"
+#~ msgstr "/Comptador (auto)"
+
+#~ msgid "/Hexadecimal random number (width)"
+#~ msgstr "/Nombre aléatoire exadecimal (largor)"
+
+#~| msgid "Date"
+#~ msgid "/Date"
+#~ msgstr "/Data"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "/Data/<locale>"
+
+#~ msgid "/Date/yyyy-mm-dd"
+#~ msgstr "/Data/aaaa-mm-jj"
+
+#~ msgid "/Date/yy-mm-dd"
+#~ msgstr "/Data/aa-mm-jj"
+
+#~ msgid "/Date/yy.mm.dd"
+#~ msgstr "/Data/aa.mm.jj"
+
+#~ msgid "/Date/yymmdd"
+#~ msgstr "/Data/aammjj"
+
+#~ msgid "/Date/dd.mm.yy"
+#~ msgstr "/Data/jj.mm.aa"
+
+#~ msgid "/Date/mm-dd-yy"
+#~ msgstr "/Data/mm-jj-aa"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/Data/aaaa"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/Data/aa"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/Data/mm"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/Data/mmm"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/Data/jj"
+
+#~| msgid "Time"
+#~ msgid "/Time"
+#~ msgstr "/Ora"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/Ora/<locale>"
+
+#~ msgid "/Time/HH.MM.SS"
+#~ msgstr "/Ora/HH.MM.SS"
+
+#~ msgid "/Time/HH-MM-SS"
+#~ msgstr "/Ora/HH-MM-SS"
+
+#~ msgid "/Time/HHMMSS"
+#~ msgstr "/Ora/HHMMSS"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/Ora/HH"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/Ora/MM"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/Ora/SS"
+
+#~ msgid "Regex pattern"
+#~ msgstr "Motiu d'expression regulara"
+
+#~| msgid "Replace"
+#~ msgid "Replacement"
+#~ msgstr "Remplaçament"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "Seleccion sensible a la cassa"
+
+# Exit status typo
+#, c-format
+#~ msgid "Mount failed: mount exited with existatus %d"
+#~ msgstr "La montatge a fracassat : mount s'es acabat amb lo còde de sortida %d"
+
+#~ msgid "Device is now safe to remove"
+#~ msgstr "Ara, lo periferic pòt èsser levat en seguretat"
+
+#, c-format
+#~ msgid ""
+#~ "Cannot unmount the volume:\n"
+#~ "%s %s"
+#~ msgstr ""
+#~ "Lo desmontatge del volum a fracassat :\n"
+#~ "%s %s"
+
+#~ msgid "Unknown error"
+#~ msgstr "Error desconeguda"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "Anar a : %s (%s)"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr "Montar : %s"
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr "Desmontar : %s"
+
+#~ msgid "<New connection>"
+#~ msgstr "<Connexion novèla>"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "Anar a : %s"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "Se connectar a : %s"
+
+#, c-format
+#~ msgid "Disconnect from: %s"
+#~ msgstr "Se desconnectar de : %s"
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "Connexion a %s\n"
+
+#~ msgid "Failed to browse the network. Is the SMB module installed?"
+#~ msgstr "Lo percors de la ret a fracassat. Lo modul SMB es installat ?"
+
+#~| msgid "Audio"
+#~ msgid "Audio Files"
+#~ msgstr "Fichièrs àudio"
+
+#~ msgid "CamelCase"
+#~ msgstr "CamelCase"
+
+#~ msgid "Manage bookmarks..."
+#~ msgstr "Gerir los marcapaginas..."
+
+#~ msgid "Unknown file type"
+#~ msgstr "Tipe de fichièr desconegut"
+
+#~ msgid "Regular file"
+#~ msgstr "Fichièr normal"
+
+#~ msgid "FIFO"
+#~ msgstr "FIFO"
+
+#~ msgid "UNIX Socket"
+#~ msgstr "Connectador UNIX"
+
+#~ msgid "Character device"
+#~ msgstr "Periferic de caractèrs"
+
+#~ msgid "Block device"
+#~ msgstr "Periferic blòc"
+
+#~ msgid "Symbolic link"
+#~ msgstr "Ligam simbolic"
+
+#~| msgid "_Copy"
+#~ msgid "/_Copy here"
+#~ msgstr "/_Copiar aicí"
+
+#~ msgid "/_Move here"
+#~ msgstr "/_Desplaçar aicí"
+
+#~ msgid "/_Link here"
+#~ msgstr "/_Ligar aicí"
+
+#~| msgid "Cancel"
+#~ msgid "/C_ancel"
+#~ msgstr "/A_nullar"
+
+#~| msgid "Open connection"
+#~ msgid "Failed to open connection."
+#~ msgstr "Fracàs de la dobertura de la connexion."
+
+#~ msgid "Couldn't retrieve MIME type of the file."
+#~ msgstr "Recuperacion del tipe MIME del fichièr impossibla."
+
+#~ msgid "Open with other..."
+#~ msgstr "Dobrir amb un autre..."
+
+#~ msgid "Needs terminal"
+#~ msgstr "Necessita un terminal"
+
+#, c-format
+#~ msgid "_Open with \"%s\""
+#~ msgstr "_Dobrir amb \"%s\""
+
+#~ msgid "Copy file names"
+#~ msgstr "Copiar los noms de fichièrs"
+
+#~ msgid "Send files"
+#~ msgstr "Mandar de fichièrs"
+
+#~ msgid "Open this _folder"
+#~ msgstr "Dobrir aqueste _dorsièr"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "Dobrir un _terminal aicí"
+
+#~ msgid "_Properties..."
+#~ msgstr "_Proprietats..."
+
+#~| msgid "Application:"
+#~ msgid "Other _Application..."
+#~ msgstr "A_utra aplicacion..."
+
+#, c-format
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] "%s sus %s Kio de %d sus %d fichièr"
+#~ msgstr[1] "%s sus %s Kio de %d sus %d fichièrs"
+
+#, c-format
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] "%s, %d sus %d dorsièr seleccionat"
+#~ msgstr[1] "%s, %d sus %d reps seleccionats"
+
+#~ msgid "The tab is locked, close anyway ?"
+#~ msgstr "L'onglet es varrolhat, volètz tampar malgrat tot ?"
+
+#~ msgid "Copy Tab to Other _Pane"
+#~ msgstr "Copiar l'onglet dins l'autre _panèl"
+
+#~ msgid "No file name given"
+#~ msgstr "Cap de nom de fichièr pas donat"
+
+#~ msgid "Filter:"
+#~ msgstr "Filtre :"
+
+#~ msgid "_Directory"
+#~ msgstr "_Dorsièr"
+
+#~ msgid "_Text File"
+#~ msgstr "Fichièr _tèxte"
+
+#~| msgid "_New..."
+#~ msgid "_New"
+#~ msgstr "_Novèl"
+
+#~ msgid "Switch to Vertical Layout"
+#~ msgstr "Bascular en agençament vertical"
+
+#~ msgid "Switch to Horizontal Layout"
+#~ msgstr "Bascular en agençament orizontal"
+
+#~ msgid "_Search..."
+#~ msgstr "_Recercar..."
+
+#~ msgid "_Quick Search..."
+#~ msgstr "Recèrca rap_ida..."
+
+#~ msgid "_Enable Filter..."
+#~ msgstr "_Activar lo filtre..."
+
+#~ msgid "Start _GNOME Comandar as Root"
+#~ msgstr "Aviar _GNOME Comandar coma administrator"
+
+#~ msgid "_Quit"
+#~ msgstr "_Quitar"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "_Restaurer la seleccion"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "Copiar los noms de _fichièr"
+
+#~ msgid "_Bookmark this Directory..."
+#~ msgstr "A_pondre aqueste dorsièr als signets..."
+
+#~ msgid "_Manage Bookmarks..."
+#~ msgstr "_Modificar los Marcapaginas..."
+
+#~ msgid "_Configure Plugins..."
+#~ msgstr "_Configurar los empeutons..."
+
+#~ msgid "_Options..."
+#~ msgstr "_Opcions..."
+
+#~ msgid "_Keyboard Shortcuts..."
+#~ msgstr "_Acorchis de clavièr..."
+
+#~ msgid "_Remote Server..."
+#~ msgstr "Servidor _distant..."
+
+#~ msgid "New Connection..."
+#~ msgstr "Novèla connexion..."
+
+#~ msgid "GNOME Comandar on the _Web"
+#~ msgstr "GNOME Comandar sul _Web"
+
+#~ msgid "GNOME Comandar - ROOT PRIVILEGES"
+#~ msgstr "GNOME Comandar - PRIVILÈGIS ADMIN"
+
+#~ msgid "Refresh"
+#~ msgstr "Actualizar"
+
+#~ msgid "Go to the oldest"
+#~ msgstr "Anar al mai ancien"
+
+#~ msgid "Go back"
+#~ msgstr "Precedent"
+
+#~ msgid "Go forward"
+#~ msgstr "Seguent"
+
+#~ msgid "Go to the latest"
+#~ msgstr "Anar a la darrièra version"
+
+#~ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+#~ msgstr "Copiar los noms de fichièrs (Maj pels camins complets, Alt pels URI)"
+
+#~ msgid "Cut"
+#~ msgstr "Talhar"
+
+#~ msgid "Paste"
+#~ msgstr "Pegar"
+
+#~ msgid "Open terminal (SHIFT for root privileges)"
+#~ msgstr "Dobrir un terminal (Maj per de privilègis root)"
+
+#~ msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
+#~ msgstr "Impossible de cargar lo modul python « gnomevfs » (« gnome.vfs »)"
+
+#~ msgid "Path matches regex:"
+#~ msgstr "Lo camin correspond a l'expression regulara :"
+
+#~| msgid "New connection"
+#~ msgid "Name contains:"
+#~ msgstr "Lo nom conten :"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "Respec_tar la cassa"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr "Apondre aqueste dorsièr als signets"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "Gerir los favorits"
+
+#~ msgid "Open folder"
+#~ msgstr "Dobrir un dorsièr"
+
+#~ msgid "Open terminal"
+#~ msgstr "Dobrir un terminal"
+
+#~ msgid "Open terminal as root"
+#~ msgstr "Dobrís un terminal en tant qu'utilizaire root"
+
+#~ msgid "Start GNOME Comandar as root"
+#~ msgstr "Aviar GNOME Comandar coma administrator"
+
+#~ msgid "Close connection"
+#~ msgstr "Connexion tampada"
+
+#~ msgid "New connection"
+#~ msgstr "Connexion novèla"
+
+#~ msgid "Open connection"
+#~ msgstr "Connexion dobèrta"
+
+#~| msgid "Close connection"
+#~ msgid "Change left connection"
+#~ msgstr "Modificar la connexion a esquèrra"
+
+#~| msgid "Close connection"
+#~ msgid "Change right connection"
+#~ msgstr "Modificar la connexion a drecha"
+
+#~ msgid "Show user defined files"
+#~ msgstr "Afichar los fichièrs definits per l'utilizaire"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "Aisina avançada de renomenatge"
+
+#~ msgid "Change permissions"
+#~ msgstr "Modificar las permissions"
+
+#~ msgid "Change owner/group"
+#~ msgstr "Modificar lo proprietari/grop"
+
+#~ msgid "Copy files"
+#~ msgstr "Copiar de fichièrs"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "Crear un ligam simbolic"
+
+#~ msgid "Delete files"
+#~ msgstr "Suprimir de fichièrs"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "Comparar de fichièrs (diff)"
+
+#~ msgid "Edit file"
+#~ msgstr "Modificar lo fichièr"
+
+#~ msgid "Edit a new file"
+#~ msgstr "Editar un novèl fichièr"
+
+#~ msgid "Create directory"
+#~ msgstr "Crear un dorsièr"
+
+#~ msgid "Move files"
+#~ msgstr "Desplaçar de fichièrs"
+
+#~ msgid "Rename files"
+#~ msgstr "Renomenar de fichièrs"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "Sincronizar de dorsièrs"
+
+#~ msgid "About GNOME Comandar"
+#~ msgstr "A prepaus de GNOME Comandar"
+
+#~ msgid "Help contents"
+#~ msgstr "Ensenhador de l'ajuda"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "Ajuda suls acorchis de clavièr"
+
+#~ msgid "Report a problem"
+#~ msgstr "Senhalar un problèma"
+
+#~ msgid "GNOME Comandar on the web"
+#~ msgstr "GNOME Comandar sus internet"
+
+#~ msgid "Compare directories"
+#~ msgstr "Comparar de dorsièrs"
+
+#~ msgid "Invert selection"
+#~ msgstr "Intervertir la seleccion"
+
+#~ msgid "Select all"
+#~ msgstr "Seleccionar tot"
+
+#~ msgid "Unselect all"
+#~ msgstr "Deseleccionar tot"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Acorchis de clavièr"
+
+#~ msgid "Configure plugins"
+#~ msgstr "Configurar los empeutons"
+
+#~ msgid "Execute Python plugin"
+#~ msgstr "Executar l'empeuton Python"
+
+#~ msgid "Back one directory"
+#~ msgstr "Tornar al dorsièr precedent"
+
+#~ msgid "Close the current tab"
+#~ msgstr "Tampar l'onglet actual"
+
+#~ msgid "Close all tabs"
+#~ msgstr "Tampar totes los onglets"
+
+#~| msgid "Synchronize directories"
+#~ msgid "Show directory history"
+#~ msgstr "Afichar l'istoric del dorsièr"
+
+#~ msgid "Equal panel size"
+#~ msgstr "Talha dels panèls identica"
+
+#~ msgid "Maximize panel size"
+#~ msgstr "Talha maximala dels panèls"
+
+#~ msgid "Back to the first directory"
+#~ msgstr "Retour dins lo dorsièr d'origina"
+
+#~ msgid "Forward one directory"
+#~ msgstr "Avançar d'un dorsièr"
+
+#~ msgid "Open directory in the active window"
+#~ msgstr "Dobrir lo dorsièr dins la fenèstra activa"
+
+#~ msgid "Open directory in the inactive window"
+#~ msgstr "Dobrir lo dorsièr dins la fenèstra inactiva"
+
+#~ msgid "Open directory in the left window"
+#~ msgstr "Dobrir lo dorsièr dins la fenèstra d'esquèrra"
+
+#~ msgid "Open directory in the right window"
+#~ msgstr "Dobrir lo dorsièr dins la fenèstra de drecha"
+
+#~ msgid "Open directory in the new tab (inactive window)"
+#~ msgstr "Dobrir lo dorsièr dins lo novèl onglet (fenèstra inactiva)"
+
+#~ msgid "Forward to the last directory"
+#~ msgstr "Avançar fins al darrièr dorsièr"
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "Dobrir lo dorsièr dins un onglet novèl"
+
+#~| msgid "Terminal:"
+#~ msgid "Show terminal"
+#~ msgstr "Afichar un terminal"
+
+#, c-format
+#~ msgid "Create symbolic links of %i file in %s?"
+#~ msgid_plural "Create symbolic links of %i files in %s?"
+#~ msgstr[0] "Crear de ligams simbolics de %i fichièr dins %s ?"
+#~ msgstr[1] "Crear de ligams simbolics de %i fichièrs dins %s ?"
+
+#~ msgid "Unable to open terminal in root mode."
+#~ msgstr "Impossible de dobrir un terminal en mòde root."
+
+#~ msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found."
+#~ msgstr "xdg-su, gksu, gnomesu, kdesu o beesu son introbables."
+
+#~ msgid "Unable to start Nautilus."
+#~ msgstr "Impossible d'aviar Nautilus."
+
+#~ msgid "Unable to start GNOME Comandar in root mode."
+#~ msgstr "Impossible d'aviar GNOME Comandar en mòde root."
+
+#~ msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+#~ msgstr "xdg-su, gksu, gnomesu, kdesu o beesu son introbables"
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "Un gestionari de fichièrs rapid e poderós pel burèu GNOME"
+
+#~ msgid ""
+#~ "GNOME Comandar is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME Comandar es un logicial liure ; lo podètz redistribuir e/o lo "
+#~ "modificar conformadament a las disposicions de la Licéncia Publica Generala "
+#~ "GNU, tala coma publicada per la Free Software Foundation ; version 2 de la "
+#~ "licéncia, o (coma volètz) tota version ulteriora."
+
+#~ msgid ""
+#~ "GNOME Comandar is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "GNOME Comandar es distribuit dins l'esper que serà utile, mas SENS CAP DE "
+#~ "GARANTIDA ; sens la quita garantida implicita de COMERCIALIZACION o "
+#~ "D'ADAPTACION A UN OBJECTE PARTICULAR. Per mai de detalhs, veire la Licéncia "
+#~ "Publica Generala GNU."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Comandar; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+#~ "Un exemplar de la Licéncia Publica Generala GNU deu èsser provesit amb GNOME"
+#~ " Comandar ; se es pas lo cas, escrivètz a la Free Software Foundation, "
+#~ "Inc.,51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+
+#, c-format
+#~ msgid ""
+#~ "Overwrite file:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "With:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+#~ msgstr ""
+#~ "Remplaçar lo fichièr :\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "per :\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+
+#~ msgid "Replace All"
+#~ msgstr "Remplaçar tot"
+
+#, c-format
+#~ msgid ""
+#~ "Error while copying to %s\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Error al moment de la còpia cap a %s\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Transfer problem"
+#~ msgstr "Problèma de transferiment"
+
+#~ msgid "copying..."
+#~ msgstr "còpia en cors..."
+
+#, c-format
+#~ msgid "[file %ld of %ld] \"%s\""
+#~ msgstr "[fichièr %ld sus %ld] \"%s\""
+
+#~ msgid "preparing..."
+#~ msgstr "preparacion..."
+
+#~ msgid "stopping..."
+#~ msgstr "Arrèst en cors..."
+
+#, c-format
+#~ msgid "%s of %s copied"
+#~ msgstr "%s sus %s copiat"
+
+#, c-format
+#~ msgid "%.0f%% copied"
+#~ msgstr "%.0f %% copiat"
+
+#, c-format
+#~ msgid "Couldn't load installed file type pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Impossible de cargar los fichièrs de tipe pixmap installats, temptativa de "
+#~ "cargament de %s a la plaça"
+
+#, c-format
+#~ msgid ""
+#~ "Can't find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-comandar from the gnome-comandar-%s/src directory"
+#~ msgstr ""
+#~ "Impossible de trobar lo pixmap. Verificatz qu'avez installat o qu'executatz "
+#~ "gnome-comandar a partir del dorsièr gnome-comandar-%s/src"
+
+#, c-format
+#~ msgid "Couldn't load installed pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Impossible de cargar los pixmaps installats, temptativa de cargament de %s a"
+#~ " la plaça"
+
+#~ msgid "Find"
+#~ msgstr "Recercar"
+
+#~ msgid "Searching..."
+#~ msgstr "Recèrca..."
+
+#, c-format
+#~ msgid "Searching for \"%s\""
+#~ msgstr "Recèrca de « %s »"
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr "Posicion : %lu sus %lu\tColomna : %d\t%s"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "pixèl"
+#~ msgstr[1] "pixèls"
+
+#~ msgid "bit/sample"
+#~ msgid_plural "bits/sample"
+#~ msgstr[0] "bit per escandalhatge "
+#~ msgstr[1] "bits per escandalhatge "
+
+#~| msgid "_Connections"
+#~ msgid "_Copy selection"
+#~ msgstr "_Copiar la seleccion"
+
+#~ msgid "_Binary"
+#~ msgstr "_Binari"
+
+#~ msgid "Zoom _Out"
+#~ msgstr "Zoom a_rrièr"
+
+#~ msgid "Best _Fit"
+#~ msgstr "A_justar"
+
+#~ msgid "Find..."
+#~ msgstr "Recercar..."
+
+#~ msgid "_Rotate 180°"
+#~ msgstr "_Rotacion a 180 °"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "Mòde _binari"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "_Enregistrar los paramètres actuals"
+
+#, c-format
+#~ msgid "Pattern \"%s\" was not found"
+#~ msgstr "Lo motiu « %s » es pas estat trobat"
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr "Indica lo dorsièr d'aviada pel panèl de esquèrra"
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr "Indica lo dorsièr d'aviada pel panèl de drecha"
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr "Indica l'emplaçament dels fichièrs de configuracion"
+
+#~ msgid "File Manager"
+#~ msgstr "Gestionari de fichièrs"
+
+#~ msgid "Disable"
+#~ msgstr "Desactivar"
+
+#~ msgid "Enable"
+#~ msgstr "Activar"
+
+#~ msgid "Version"
+#~ msgstr "Version"
+
+#~ msgid "_Enable"
+#~ msgstr "_Activar"
+
+#~ msgid "_Configure"
+#~ msgstr "_Configurar"
+
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr "<balisas Exif e IPTC pas presas en carga>"
+
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr "<balisas ID3, APE, FLAC e Vorbis pas presas en carga>"
+
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr "<balisas OLE2 e ODF pas presas en carga>"
+
+#~ msgid "<PDF tags not supported>"
+#~ msgstr "<balisas PDF pas presas en carga>"
+
+#~ msgid "Set to \"1\" if track is new to the user (default \"0\")."
+#~ msgstr ""
+#~ "Definit a « 1 » se la pista es novèla per l'utilizaire (per defaut « 0 »)."
+
+#~ msgid "\"1\" if the copyrighted bit is set."
+#~ msgstr "« 1 » se lo bit del copyright es definit."
+
+#~ msgid "\"1\" if the \"original\" bit is set."
+#~ msgstr "« 1 » se lo bit « original » es definit."
+
+#~ msgid "Created"
+#~ msgstr "Creat"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr ""
+#~ "Data associée amb un eveniment del cicle de vida de la ressorsa "
+#~ "(creacion/data de publicacion)."
+
+#~ msgid "Number of \"notes\" in the document."
+#~ msgstr "Lo nombre de « nòtas » dins lo document."
+
+#~ msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
+#~ msgstr ""
+#~ "Tipe de la presentacion, coma « On-screen Show » (afichatge a l'ecran), « "
+#~ "SlideView » (diaporama), etc."
+
+#~ msgid ""
+#~ "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
+#~ "enforced\" or \"Locked for annotations\"."
+#~ msgstr ""
+#~ "Demest « Protegit per senhal », « Lectura sola recomandada », « Lectura sola"
+#~ " aplicada » o « Protegit contra las anotacions »."
+
+#~ msgid ""
+#~ "Copyright information. The tag is used to indicate both the photographer and"
+#~ " editor copyrights. It is the copyright notice of the person or organization"
+#~ " claiming rights to the image. The Interoperability copyright statement "
+#~ "including date and rights should be written in this field; e.g., "
+#~ "\"Copyright, John Smith, 19xx. All rights reserved.\". The field records "
+#~ "both the photographer and editor copyrights, with each recorded in a "
+#~ "separate part of the statement. When there is a clear distinction between "
+#~ "the photographer and editor copyrights, these are to be written in the order"
+#~ " of photographer followed by editor copyright, separated by NULL (in this "
+#~ "case, since the statement also ends with a NULL, there are two NULL codes) "
+#~ "(see example 1). When only the photographer is given, it is terminated by "
+#~ "one NULL code. When only the editor copyright is given, the photographer "
+#~ "copyright part consists of one space followed by a terminating NULL code, "
+#~ "then the editor copyright is given. When the field is left blank, it is "
+#~ "treated as unknown."
+#~ msgstr ""
+#~ "Informacion del copyright. La balisa es utilizada per precisar los dreches "
+#~ "del fotograf e de l'editor. Es la notícia de copyright de la persona o de "
+#~ "l'organizacion que possedís los dreches de l'imatge. La notícia de copyright"
+#~ " amai la data e los dreches devon èsser escriches dins aqueste camp ; ex. « "
+#~ "Copyright, John Smith, 20xx. totes los dreches reservats. ». Lo camp "
+#~ "enregistra ensemble lo copyright del fotograf e de l'editor, enregistrat "
+#~ "cadun dins una partida separada de la notícia. Quand los dreches del "
+#~ "fotograf e de l'editor son clarament distinctes, devon èsser escriches dins "
+#~ "l'òrdre seguent : fotograf puèi editor, separats per NULL (dins aqueste cas,"
+#~ " coma la notícia s'acaba tanben per un NULL, i a dos còdes NULL) (veire "
+#~ "l'exemple 1). Quand sol lo fotograf es donat, la notícia es acabada per un "
+#~ "còde NULL. Quand sola la notícia de l'editor es donada, la partida de la "
+#~ "notícia del fotograf conten un espaci e acabada per un còde NULL, la notícia"
+#~ " de l'editor ven apuèi. Se lo camp es daissat vèrge, es tractat coma "
+#~ "desconegut."
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr "Puntador Exif IFD"
+
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr ""
+#~ "Lo puntador cap a l'IFD Exif. Per l'interoperabilitat, l'IFD Exif utiliza la"
+#~ " meteissa estructura que l'IFD utilizat dins TIFF."
+
+#~ msgid ""
+#~ "Indicates whether the latitude is north or south latitude. The ASCII value "
+#~ "'N' indicates north latitude, and 'S' is south latitude."
+#~ msgstr ""
+#~ "Indica se la latitud es nòrd o sud. La valor ASCII « N » indica una latitud "
+#~ "nòrd, e « S » una latitud sud."
+
+#~ msgid ""
+#~ "Indicates whether the longitude is east or west longitude. ASCII 'E' "
+#~ "indicates east longitude, and 'W' is west longitude."
+#~ msgstr ""
+#~ "Indica se la longitud es èst o oèst. La valor ASCII « E » indica una "
+#~ "longitud èst, e « W » una longitud oèst."
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr "Puntador d'interoperabilitat IFD"
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+#~ "L'IFD d'interoperabilitat es composé de balisas qu'emmagazinan las "
+#~ "informacions per assegurar l'interoperabilitat, es indicat per la balisa "
+#~ "seguenta plaçada dins l'IFD Exif. L'interoperabilitat de l'estructura "
+#~ "d'interoperabilitat IFD es la meteissa que la de l'IFD TIFF mas conten pas "
+#~ "las donadas caracteristicas de l'imatge comparada a l'IFD TIFF normal."
+
+#~ msgid ""
+#~ "Indicates the identification of the Interoperability rule. Use \"R98\" for "
+#~ "stating ExifR98 Rules."
+#~ msgstr ""
+#~ "Indica lo tipe de règlas d'interoperabilitat utilizadas. Utilizatz « R98 » "
+#~ "per indicar las règlas ExifR98."
+
+#~ msgid ""
+#~ "The reference black point value and reference white point value. No defaults"
+#~ " are given in TIFF, but the values below are given as defaults here. The "
+#~ "color space is declared in a color space information tag, with the default "
+#~ "being the value that gives the optimal image characteristics "
+#~ "Interoperability these conditions."
+#~ msgstr ""
+#~ "La valor de referéncia dels punts negre e blanc. Cap de valor per defaut es "
+#~ "pas donada en TIFF, mas las valors çaijós son donadas coma defauts aicí. "
+#~ "L'espaci colorimetric es declarat dins la balisa d'informacions de l'espaci "
+#~ "colorimetric, amb coma valor per defaut la que dona las caracteristicas "
+#~ "optimalas de l'imatge dins aquestas condicions."
+
+#~ msgid ""
+#~ "This tag is used to record the name of an audio file related to the image "
+#~ "data. The only relational information recorded here is the Exif audio file "
+#~ "name and extension (an ASCII string consisting of 8 characters + '.' + 3 "
+#~ "characters). The path is not recorded. When using this tag, audio files must"
+#~ " be recorded in conformance to the Exif audio format. Writers are also "
+#~ "allowed to store the data such as Audio within APP2 as FlashPix extension "
+#~ "stream data. Audio files must be recorded in conformance to the Exif audio "
+#~ "format. If multiple files are mapped to one file, the above format is used "
+#~ "to record just one audio file name. If there are multiple audio files, the "
+#~ "first recorded file is given. When there are three Exif audio files "
+#~ "\"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the Exif image file"
+#~ " name for each of them, \"DSC00001.JPG\", is indicated. By combining "
+#~ "multiple relational information, a variety of playback possibilities can be "
+#~ "supported. The method of using relational information is left to the "
+#~ "implementation on the playback side. Since this information is an ASCII "
+#~ "character string, it is terminated by NULL. When this tag is used to map "
+#~ "audio files, the relation of the audio file to image data must also be "
+#~ "indicated on the audio file end."
+#~ msgstr ""
+#~ "Aquesta balisa conten lo nom d'un fichièr àudio ligat a las donadas de "
+#~ "l'imatge. Las solas informacions relativas enregistradas aicí son lo nom "
+#~ "Exif del fichièr àudio e son extension (una cadena ASCII constituida de 8 "
+#~ "caractèrs + '.' + 3 caractèrs). Lo camin es pas enregistrat. Quand aquesta "
+#~ "balisa es utilizada, los fichièrs àudio devon èsser enregistrats de façon "
+#~ "conforme au format àudio Exif. Los autors pòdon tanben emmagazinar de "
+#~ "donadas talas coma d'àudio dins APP2 coma una extension flux de donadas "
+#~ "Flashpix. Los fichièrs àudio devon èsser enregistrats de faiçon conforme al "
+#~ "format àudio Exif. Se de multiples fichièrs son associats a un sol fichièr, "
+#~ "lo format precedent es utilizat per enregistrar solament un nom de fichièr "
+#~ "àudio. Se i a mantun fichièr àudio, on indica lo primièr fichièr. Lorsqu'il "
+#~ "y a 3 fichièrs Exif àudio « SND00001.WAV », « SND00002.WAV » e « "
+#~ "SND00003.WAV », lo nom de fichièr imatge Exif per cadun d'entre eles, « "
+#~ "DSC00001.JPG », es indicat. Quand se combina de multiplas informacions "
+#~ "relacionalas, on obtient de multiples possibilités de lectura. Lo metòde "
+#~ "d'utilizacion de las informacions relationnelles es daissat a "
+#~ "l'implémentation de la lectura. Comme aquesta informacion es una cadena de "
+#~ "caractèr ASCII, es acabada per NULL. Quand aquesta balisa es utilizada per "
+#~ "ligar de fichièrs àudio, la relacion entre lo fichièr àudio e l'imatge deu "
+#~ "tanben èsser indicada pel fichièr àudio."
+
+#~ msgid ""
+#~ "A tag for Exif users to write keywords or comments on the image besides "
+#~ "those in <Exif.ImageDescription>, and without the character code limitations"
+#~ " of the <Exif.ImageDescription> tag. The character code used in the "
+#~ "<Exif.UserComment> tag is identified based on an ID code in a fixed 8-byte "
+#~ "area at the start of the tag data area. The unused portion of the area is "
+#~ "padded with NULL (\"00.h\"). ID codes are assigned by means of registration."
+#~ " The value of CountN is determinated based on the 8 bytes in the character "
+#~ "code area and the number of bytes in the user comment part. Since the TYPE "
+#~ "is not ASCII, NULL termination is not necessary. The ID code for the "
+#~ "<Exif.UserComment> area may be a Defined code such as JIS or ASCII, or may "
+#~ "be Undefined. The Undefined name is UndefinedText, and the ID code is filled"
+#~ " with 8 bytes of all \"NULL\" (\"00.H\"). An Exif reader that reads the "
+#~ "<Exif.UserComment> tag must have a function for determining the ID code. "
+#~ "This function is not required in Exif readers that do not use the "
+#~ "<Exif.UserComment> tag. When a <Exif.UserComment> area is set aside, it is "
+#~ "recommended that the ID code be ASCII and that the following user comment "
+#~ "part be filled with blank characters [20.H]."
+#~ msgstr ""
+#~ "Una balisa per los utilizaires d'Exif utilizada per inscrire de mots claus o"
+#~ " comentar l'imatge en mai de los <Exif.ImageDescription>, e sens los limits "
+#~ "suls còdes de caractèrs de la balisa <Exif.ImageDescription>. Lo còde de "
+#~ "caractèr utilizat dins la balisa <Exif.UserComment> es definit per un "
+#~ "identificador fixe de uèch octets al començament de la zòna de donadas de la"
+#~ " balisa. La partida inutilizada de la zòna es emplenada amb NULL (« 00.h »)."
+#~ " Los còdes d'identificacion son assignats per enregistrament. La valor de "
+#~ "CountN es determinada per los 8 octets dins la zòna de còde de caractèrs e "
+#~ "lo nombre d'octets dins la partida comentari de l'utilizaire. Coma lo TYPE "
+#~ "es pas ASCII, la terminason NULL es pas necessària. Lo còde ID per la zòna "
+#~ "<Exif.UserComment> pòt èsser un còde definit tal coma JIS o ASCII, o pòt "
+#~ "èsser Undefined. Lo nom Undefined es UndefinedText, e lo còde ID còde es "
+#~ "emplenat amb 8 octets de « NULL » (« 00.H »). Un lector de donadas Exif "
+#~ "lisant la balisa <Exif.UserComment> deu aver una foncion per determinar quin"
+#~ " es lo còde ID. Aquesta Foncion es pas necessària per los lectors "
+#~ "qu'utilizan pas la balisa <Exif.UserComment>. Quand una zòna "
+#~ "<Exif.UserComment> es reservada, es recomandat de configurar lo còde ID en "
+#~ "ASCII e d'emplenar la partida de comentari de l'utilizaire amb de blancs "
+#~ "[20.H]."
+
+#~ msgid ""
+#~ "The matrix coefficients for transformation from RGB to YCbCr image data. No "
+#~ "default is given in TIFF; but here \"Color Space Guidelines\" is used as the"
+#~ " default. The color space is declared in a color space information tag, with"
+#~ " the default being the value that gives the optimal image characteristics "
+#~ "Interoperability this condition."
+#~ msgstr ""
+#~ "Los coeficients de la matrice de transformacion per convertir las donadas de"
+#~ " l'imatge de RVB en YCbCr. I a pas de valor per defaut per TIFF ; aicí las «"
+#~ " directivas Espaci colorimetric » son utilizadas per defaut. L'espaci "
+#~ "colorimetric es declarat dins la balisa d'informacion Color space, la valor "
+#~ "per defaut es la valor que dona las caracteristicas optimalas "
+#~ "d'interoperabilitat a l'imatge."
+
+#~ msgid "File's contents filtered as plain text."
+#~ msgstr "Contengut del fichièr filtrat en tèxte simple."
+
+#~ msgid ""
+#~ "MIME type of the file or if a directory it should contain value \"Folder\"."
+#~ msgstr ""
+#~ "Tipe MIME del fichièr o se s'agís d'un dorsièr, deu conténer la valor « "
+#~ "Folder »."
+
+#~ msgid "Permission string in unix format eg \"-rw-r--r--\"."
+#~ msgstr "Cadena de permission al format Unix. Per ex. : « -rw-r--r-- »."
+
+#~ msgid "Emphasis"
+#~ msgstr "Enfasi"
+
+#~ msgid "Emphasis."
+#~ msgstr "Enfasi."
+
+#~ msgid "Equalization 2"
+#~ msgstr "Egalizacion 2"
+
+#~ msgid "Frames"
+#~ msgstr "Imatges"
+
+#~ msgid "Number of frames."
+#~ msgstr "Nombre d'imatges."
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr "Participants 2"
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr "La talha del fichièr àudio en octets, excluant la balisa ID3."
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr "Reglatge de volum 2"
+
+#~ msgid "Set to \"1\" if flash was fired."
+#~ msgstr "Definit a « 1 » se lo flash es estat utilizat."
+
+#~ msgid ""
+#~ "Represents the orientation of the image wrt camera (IE \"top,left\" or "
+#~ "\"bottom,right\")."
+#~ msgstr ""
+#~ "Représente l'orientacion de l'imatge per rapòrt a l'aparelh (per exemple « "
+#~ "en naut, a esquèrra » o « en bas, a drecha »)."
+
+#~ msgid ""
+#~ "The type of action that this object provides to a previous object. '01' "
+#~ "Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
+#~ msgstr ""
+#~ "Lo tipe d'accion que aqueste objècte provesís a un objècte precedent. « 01 »"
+#~ " interrupcion de l'objècte, « 02 » remplaçament de l'objècte, « 03 » apondon"
+#~ " a l'objècte, « 04 » referéncia de l'objècte."
+
+#~ msgid ""
+#~ "The type of update this object provides to a previous object. The link to "
+#~ "the previous object is made using the ARM. '01' indicates an additional "
+#~ "language."
+#~ msgstr ""
+#~ "Tipe de mesa a jorn qu'aqueste objècte apòrta a un objècte precedent. Lo "
+#~ "ligam amb l'objècte precedent es fach en utilizant ARM. « 01 » indica una "
+#~ "lenga addicionala."
+
+#~ msgid ""
+#~ "Specifies the envelope handling priority and not the editorial urgency. '1' "
+#~ "for most urgent, '5' for normal, and '8' for least urgent. '9' is user-"
+#~ "defined."
+#~ msgstr ""
+#~ "Indica la prioritat de gestion de l'envolopa e non pas la prioritat "
+#~ "éditoriale. « 1 » pel mai urgent, « 5 » per normal, e « 8 » pel mens urgent."
+#~ " « 9 » es definida per l'utilizaire."
+
+#~ msgid ""
+#~ "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
+#~ "for square."
+#~ msgstr ""
+#~ "L'orientacion de l'imatge : « P » per retrach, « L » per païsatge e « S » "
+#~ "per carré."
+
+#~ msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
+#~ msgstr "Dins lo qual « a » es lo matin, « p » es lo ser e « b » es los dos."
+
+#~ msgid ""
+#~ "Specifies the editorial urgency of content and not necessarily the envelope "
+#~ "handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
+#~ msgstr ""
+#~ "Indica la prioritat donada al contengut editorial e pas necessàriament a la "
+#~ "gestion de l'envolopa. « 1 » es lo mai urgent « 5 » normal e « 8 » lo mens "
+#~ "urgent."
+
+#~ msgid "Set to \"1\" if optimized for network access."
+#~ msgstr "Definit a « 1 » se optimizat per l'accès ret."
+
+#~ msgid "Set to \"1\" if printing is allowed."
+#~ msgstr "Definit a « 1 » se l'impression es autorizada."
+
+#~ msgid "Set to \"1\" if high resolution printing is allowed."
+#~ msgstr "Definit a « 1 » se l'impression nauta resolucion es autorizada."
+
+#~ msgid "Set to \"1\" if copying the contents is allowed."
+#~ msgstr "Definit a « 1 » se la còpia del contengut es autorizada."
+
+#~ msgid "Set to \"1\" if modifying the contents is allowed."
+#~ msgstr "Definit a « 1 » se la modificacion del contengut es autorizada."
+
+#~ msgid ""
+#~ "Set to \"1\" if inserting, rotating, or deleting pages and creating "
+#~ "navigation elements is allowed."
+#~ msgstr ""
+#~ "Definit a « 1 » se l'insertion, la rotacion o la supression de paginas e la "
+#~ "creacion d'elements de navigation son autorizats."
+
+#~ msgid "Set to \"1\" if adding or modifying text annotations is allowed."
+#~ msgstr ""
+#~ "Definit a « 1 » se l'ajout o la modificacion de comentaris es autorizat."
+
+#~ msgid "Set to \"1\" if filling of form fields is allowed."
+#~ msgstr "Definit a « 1 » se lo remplissage de formularis es autorizat."
+
+#~ msgid "Set to \"1\" if accessibility support (e.g. screen readers) is enabled."
+#~ msgstr ""
+#~ "Definit a « 1 » se la presa en carga de l'accessibilitat (ex : lectors "
+#~ "d'ecran) es activada."
+
+#~ msgid "No Proofing"
+#~ msgstr "Sens Espròvas"
+
+#~ msgid "Arabic"
+#~ msgstr "Arabi"
+
+#~ msgid "Bulgarian"
+#~ msgstr "Bulgar"
+
+#~ msgid "Catalan"
+#~ msgstr "Catalan"
+
+#~ msgid "Traditional Chinese"
+#~ msgstr "Chinés tradicional"
+
+#~ msgid "Simplified Chinese"
+#~ msgstr "Chinés simplificat"
+
+#~ msgid "Chechen"
+#~ msgstr "Chechèn"
+
+#~ msgid "Danish"
+#~ msgstr "Danés"
+
+#~ msgid "German"
+#~ msgstr "Alemand"
+
+#~ msgid "Swiss German"
+#~ msgstr "Soís alemand"
+
+#~ msgid "Greek"
+#~ msgstr "Grèc"
+
+#~ msgid "U.S. English"
+#~ msgstr "Anglés american"
+
+#~ msgid "U.K. English"
+#~ msgstr "Anglés britanic"
+
+#~ msgid "Australian English"
+#~ msgstr "Anglés d'Austràlia"
+
+#~ msgid "Castilian Spanish"
+#~ msgstr "Espanhòl castelhan"
+
+#~ msgid "Mexican Spanish"
+#~ msgstr "Espanhòl mexican"
+
+#~ msgid "Finnish"
+#~ msgstr "Finés"
+
+#~ msgid "French"
+#~ msgstr "Francés"
+
+#~ msgid "Belgian French"
+#~ msgstr "Francés (Bèlga)"
+
+#~ msgid "Canadian French"
+#~ msgstr "Francés (Canadian)"
+
+#~ msgid "Swiss French"
+#~ msgstr "Francés (Soïssa)"
+
+#~ msgid "Hebrew"
+#~ msgstr "Ebrieu"
+
+#~ msgid "Hungarian"
+#~ msgstr "Ongrés"
+
+#~ msgid "Icelandic"
+#~ msgstr "Islandés"
+
+#~ msgid "Italian"
+#~ msgstr "Italian"
+
+#~ msgid "Swiss Italian"
+#~ msgstr "Italian (Soïssa)"
+
+#~ msgid "Japanese"
+#~ msgstr "Japonés"
+
+#~ msgid "Korean"
+#~ msgstr "Corean"
+
+#~ msgid "Dutch"
+#~ msgstr "Neerlandés"
+
+#~ msgid "Belgian Dutch"
+#~ msgstr "Neerlandés bèlga"
+
+#~ msgid "Norwegian Bokmal"
+#~ msgstr "Norvegian bokmal"
+
+#~ msgid "Norwegian Nynorsk"
+#~ msgstr "Norvegian (Nynorsk)"
+
+#~ msgid "Polish"
+#~ msgstr "Polonés"
+
+#~ msgid "Brazilian Portuguese"
+#~ msgstr "Portugués del Brasil"
+
+#~ msgid "Portuguese"
+#~ msgstr "Portugués"
+
+#~ msgid "Rhaeto-Romanic"
+#~ msgstr "Retoromanch"
+
+#~ msgid "Romanian"
+#~ msgstr "Romanés"
+
+#~ msgid "Russian"
+#~ msgstr "Rus"
+
+#~ msgid "Croato-Serbian (Latin)"
+#~ msgstr "Croato-Sèrbi (latin)"
+
+#~ msgid "Serbo-Croatian (Cyrillic)"
+#~ msgstr "Sèrbocroat (cirillic)"
+
+#~ msgid "Slovak"
+#~ msgstr "Eslovac"
+
+#~ msgid "Albanian"
+#~ msgstr "Albanés"
+
+#~ msgid "Swedish"
+#~ msgstr "Suedés"
+
+#~ msgid "Thai"
+#~ msgstr "Tailandés"
+
+#~ msgid "Turkish"
+#~ msgstr "Turc"
+
+#~ msgid "Urdu"
+#~ msgstr "Ordo"
+
+#~ msgid "Indonesian"
+#~ msgstr "Indonesian"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Ucraïnian"
+
+#~ msgid "Byelorussian"
+#~ msgstr "Bielorús"
+
+#~ msgid "Slovenian"
+#~ msgstr "Eslovèn"
+
+#~ msgid "Estonian"
+#~ msgstr "Estonian"
+
+#~ msgid "Latvian"
+#~ msgstr "Leton"
+
+#~ msgid "Lithuanian"
+#~ msgstr "Lituanian"
+
+#~ msgid "Farsi"
+#~ msgstr "Farsi"
+
+#~ msgid "Basque"
+#~ msgstr "Basc"
+
+#~ msgid "Macedonian"
+#~ msgstr "Macedonian"
+
+#~ msgid "Afrikaans"
+#~ msgstr "Afrikaans"
+
+#~ msgid "Malayalam"
+#~ msgstr "Malayalam"
+
+#, c-format
+#~ msgid "unsupported tag (suppressed %u B of binary data)"
+#~ msgstr "Balisa pas presa en carga (%u B de donadas binaires suprimidas)"
+
+#, c-format
+#~ msgid "No default application found for the MIME type %s."
+#~ msgstr "Cap d'aplicacion per defaut es pas associada pel tipe MIME %s."
+
+#, c-format
+#~ msgid ""
+#~ "\"%s\" seems to be a binary executable file but it lacks the executable bit."
+#~ " Do you want to set it and then run the file?"
+#~ msgstr ""
+#~ "Sembla que « %s » es un fichièr binari executable mas li manca lo bit "
+#~ "executable. Lo volètz apondre puèi aviar lo fichièr ?"
+
+#~ msgid "Make Executable?"
+#~ msgstr "Rendre Executable ?"
+
+#, c-format
+#~ msgid ""
+#~ "\"%s\" is an executable text file. Do you want to run it, or display its "
+#~ "contents?"
+#~ msgstr ""
+#~ "« %s » es un fichièr tèxte executable. Lo volètz aviar, o afichar son "
+#~ "contengut ?"
+
+#~ msgid "Run or Display"
+#~ msgstr "Aviar o afichar"
+
+#~ msgid "Display"
+#~ msgstr "Afichar"
+
+#~ msgid "Run"
+#~ msgstr "Executar"
+
+#, c-format
+#~ msgid ""
+#~ "%s does not know how to open remote file. Do you want to download the file "
+#~ "to a temporary location and then open it?"
+#~ msgid_plural ""
+#~ "%s does not know how to open remote files. Do you want to download the files"
+#~ " to a temporary location and then open them?"
+#~ msgstr[0] ""
+#~ "%s sap pas dobrir lo fichièr distant. Volètz telecargar lo fichièr dins un "
+#~ "emplaçament temporari e lo dobrir ?"
+#~ msgstr[1] ""
+#~ "%s sap pas dobrir los fichièrs distants. Volètz telecargar lo fichièr dins "
+#~ "un emplaçament temporari e lo dobrir ?"
+
+#, c-format
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "(%s octet)"
+#~ msgstr[1] "(%s octets)"
+
+#, c-format
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "%s octet"
+#~ msgstr[1] "%s octets"
+
+#~ msgid "Failed to create a directory in which to store temporary files."
+#~ msgstr ""
+#~ "La creacion d'un dorsièr per l'emmagazinatge temporari dels fichièrs a "
+#~ "fracassat."
+
+#, c-format
+#~ msgid "Creating directory %s... "
+#~ msgstr "Creacion del dorsièr %s..."
+
+#, c-format
+#~ msgid "Failed to create the directory %s"
+#~ msgstr "La creacion del dorsièr %s a fracassat"
+
+#, c-format
+#~ msgid "Couldn't read from the directory %s: %s"
+#~ msgstr "Impossible de legir dempuèi lo dorsièr %s : %s"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "I a agut una error al moment d'afichar l'ajuda."
+
+#~ msgid "CVS options"
+#~ msgstr "Opcions CVS"
+
+#~ msgid "Compare with"
+#~ msgstr "Comparar amb"
+
+#~ msgid "Revision:"
+#~ msgstr "Revision :"
+
+#~ msgid "Compare..."
+#~ msgstr "Comparar..."
+
+#~ msgid "Author:"
+#~ msgstr "Autor :"
+
+#~ msgid "Date:"
+#~ msgstr "Data :"
+
+#~ msgid "Lines:"
+#~ msgstr "Linhas :"
+
+#~ msgid "Message:"
+#~ msgstr "Messatge :"
+
+#~ msgid "New Rule"
+#~ msgstr "Règla novèla"
+
+#~ msgid "O_ptions..."
+#~ msgstr "O_pcions..."
+
+#~ msgid "_Password:"
+#~ msgstr "Mot de _pas :"
+
+#~ msgid "Other..."
+#~ msgstr "Autre..."
+
+#~ msgid "_MIME Types..."
+#~ msgstr "Tipes MIME..."
+
+#~ msgid "_Contents"
+#~ msgstr "_Ensenhador"
+
+#~ msgid "F10 Quit"
+#~ msgstr "F10 Sortir"
+
+#~ msgid "Directory options"
+#~ msgstr "Opcions del repertòri"
+
+#~ msgid "_Test"
+#~ msgstr "_Tèxt"
+
+#~ msgid "Authentication"
+#~ msgstr "Orientacion"
+
+#~ msgid "Password:"
+#~ msgstr "Mot de pas :"
+
+#~ msgid "Network"
+#~ msgstr "Ret"
+
+#~ msgid "Search _in: "
+#~ msgstr "Recercar d_ins : "
+
+#~ msgid "_Go to"
+#~ msgstr "_Anar a"
+
+#~ msgid "Enter password"
+#~ msgstr "Picatz lo mot de pas"
+
+#~ msgid "MIME types"
+#~ msgstr "Tipes MIME"
+
+#~ msgid "Save password in GNOME keyring"
+#~ msgstr "Enregistrer lo mot de passe dins lo trousseau GNOME"
+
+#~ msgid "Use _GNOME Keyring Manager for authentication"
+#~ msgstr "Utiliser lo gestionari de trousseaux _GNOME per l'authentification"
+
+#~ msgid "Unable to open terminal"
+#~ msgstr "Impossible d'ouvrir un terminal"
+
+#~ msgid "Compression level"
+#~ msgstr "Taux de compression"
+
+#~ msgid "Unified diff format"
+#~ msgstr "Format diff unifié"
+
+#~ msgid "A plugin that eventually will be a simple CVS client"
+#~ msgstr "Un greffon qui per la suite deviendra un simple client CVS"
+
+#~ msgid "HEAD"
+#~ msgstr "HEAD"
+
+#~ msgid "The previous revision"
+#~ msgstr "La révision précédente"
+
+#~ msgid "Other revision"
+#~ msgstr "Autre révision"
+
+#~ msgid "CVS Diff"
+#~ msgstr "Diff CVS"
+
+#~ msgid "revision"
+#~ msgstr "révision"
+
+#~ msgid "State:"
+#~ msgstr "Estat :"
+
+#~ msgid "_Change"
+#~ msgstr "_Modifier"

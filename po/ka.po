@@ -7991,3 +7991,473 @@ msgstr ""
 
 #~ msgid "C_onnect"
 #~ msgstr "მ_იერთება"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME Commander"
+
+#~ msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Defines if the current directories are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Defines if the current open tabs are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+
+#~ msgid "Quick search exact match begin"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the beginning"
+#~ " of an item name."
+#~ msgstr ""
+
+#~ msgid "Quick search exact match end"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the end of an"
+#~ " item name."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The entries in this list are used for restoring the tabs from the last "
+#~ "session."
+#~ msgstr ""
+
+#~ msgid "Fixed font name"
+#~ msgstr ""
+
+#~ msgid "Name of the default font with fixed character width."
+#~ msgstr ""
+
+#~ msgid "Variable font name"
+#~ msgstr ""
+
+#~ msgid "Name of the default font with variable character width."
+#~ msgstr ""
+
+#~ msgid "Font size"
+#~ msgstr "ფონტის ზომა"
+
+#~ msgid "This option defines the default font size."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "GNOME Commander is a “dual-panel” graphical file manager for the GNOME "
+#~ "desktop environment. It features separate tabs for each panel, setting up "
+#~ "custom device buttons, bookmark manager, fully integrated commandline, file "
+#~ "quick search, an internal image viewer, a powerful batch renaming tool, and "
+#~ "FTP and Samba access."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+
+#~ msgid "OK"
+#~ msgstr "დიახ"
+
+#~ msgid "Remote Server"
+#~ msgstr "დაშორებული სერვერი"
+
+#~ msgid "Connection method is not selected"
+#~ msgstr ""
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr ""
+
+#~ msgid "ALT+letters (menu access with F12)"
+#~ msgstr ""
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr ""
+
+#~ msgid "Match end of the file name"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Search window is minimizable\n"
+#~ "(Needs program restart if altered)"
+#~ msgstr ""
+
+#~ msgid "Overwrite Files"
+#~ msgstr ""
+
+#~ msgid "Keyboard Shortcut"
+#~ msgstr "კლავიატურის მალსახმობი"
+
+#~ msgid "_Action"
+#~ msgstr "_ქმედება"
+
+#~ msgid "_Shortcut"
+#~ msgstr "მალსახმობი"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the \"Assign\" button and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+
+#~ msgid "New shortcut..."
+#~ msgstr "ახალი მალსახმობი..."
+
+#~ msgid "Assign"
+#~ msgstr "მინიჭება"
+
+#~ msgid "No action is selected."
+#~ msgstr "ქმედება არჩეული არაა."
+
+#~ msgid "No shortcut is defined."
+#~ msgstr ""
+
+#~ msgid "Shortcut Key"
+#~ msgstr ""
+
+#~ msgid "Action"
+#~ msgstr "პარამეტრები"
+
+#, rust-format
+#~ msgid "Failed to get directory info for {path}."
+#~ msgstr ""
+
+#, rust-format
+#~ msgid "A total of {selected_bytes} has been selected."
+#~ msgstr ""
+
+#, rust-format
+#~ msgid "{selected_files} file selected."
+#~ msgid_plural "{selected_files} files selected."
+#~ msgstr[0] ""
+
+#, rust-format
+#~ msgid "{selected_dirs} directory selected."
+#~ msgid_plural "{selected_dirs} directories selected."
+#~ msgstr[0] ""
+
+#~ msgid "Filter:"
+#~ msgstr "ფილტრი:"
+
+#~ msgid "Find"
+#~ msgstr "ძებნა"
+
+#~ msgid "Searching…"
+#~ msgstr "ძებნა…"
+
+#, rust-format
+#~ msgid "Searching for “{}”"
+#~ msgstr "\"{}\"-ის ძებნა"
+
+#~ msgid "_Copy selection"
+#~ msgstr ""
+
+#, rust-format
+#~ msgid "Pattern “{}” was not found"
+#~ msgstr ""
+
+#~ msgid "_Binary"
+#~ msgstr ""
+
+#~ msgid "Rotate Clockwise"
+#~ msgstr "საათის ისრის მიმართულებით შებრუნება"
+
+#~ msgid "_Binary Mode"
+#~ msgstr ""
+
+#~ msgid "GNOME Commander — ROOT PRIVILEGES"
+#~ msgstr ""
+
+#~ msgid "Search failed"
+#~ msgstr "ძებნის შეცდომა"
+
+#~ msgid "Cannot extract a file path"
+#~ msgstr ""
+
+#~ msgid "Failed to detect a start directory"
+#~ msgstr ""
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr ""
+
+#~ msgid "Path matches regex:"
+#~ msgstr ""
+
+#~ msgid "Name contains:"
+#~ msgstr ""
+
+#~ msgid "Source “%s” could not be deleted. Aborting!"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Cannot detect a connection for a source “%s”. It could not be deleted. "
+#~ "Aborting!"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr ""
+
+#~ msgid "_Restore Selection"
+#~ msgstr "მონიშნულის _აღდგენა"
+
+#~ msgid "_Enable Filter…"
+#~ msgstr ""
+
+#~ msgid "Show directory history"
+#~ msgstr ""
+
+#~ msgid "Set connection"
+#~ msgstr "კავშირის დაყენება"
+
+#~ msgid "Change left connection"
+#~ msgstr ""
+
+#~ msgid "Change right connection"
+#~ msgstr ""
+
+#~ msgid "Close connection"
+#~ msgstr ""
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "GNOME Commander ინ_ტერნეტში"
+
+#~ msgid "Cut"
+#~ msgstr "ამოჭრა"
+
+#~ msgid "Refresh"
+#~ msgstr "განახლება"
+
+#~ msgid "Go back"
+#~ msgstr "უკან დაბრუნება"
+
+#~ msgid "Go forward"
+#~ msgstr "წინ გადასვლა"
+
+#~ msgid "Paste"
+#~ msgstr "ჩასმა"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "_ფაილის სახელების კოპირება"
+
+#~ msgid "Delete files"
+#~ msgstr "ფაილების წაშლა"
+
+#~ msgid "Edit file"
+#~ msgstr "ფაილის ჩასწორება"
+
+#~ msgid "Change permissions"
+#~ msgstr "წვდომების შეცვლა"
+
+#~ msgid "Create directory"
+#~ msgstr "საქაღალდის შექმნა"
+
+#~ msgid "Select all"
+#~ msgstr "ყველაფრის მონიშვნა"
+
+#~ msgid "Unselect all"
+#~ msgstr "მონიშვნის ყველაფერზე მოხსნა"
+
+#~ msgid "Select all files"
+#~ msgstr "ყველა ფაილის მონიშვნა"
+
+#~ msgid "Unselect with pattern"
+#~ msgstr "მონიშვნის მოხსნა ნიმუშით"
+
+#~ msgid "Invert selection"
+#~ msgstr "მონიშვნის ინვერსია"
+
+#~ msgid "Select with same extension"
+#~ msgstr "მონიშვნა იგივე გაფართოებით"
+
+#~ msgid "Restore selection"
+#~ msgstr "მონიშნულის აღდგენა"
+
+#~ msgid "Compare directories"
+#~ msgstr "საქაღალდეების შედარება"
+
+#~ msgid "Show hidden files"
+#~ msgstr "დამალული ფაილების ჩვენება"
+
+#~ msgid "Show backup files"
+#~ msgstr "მარქაფის ფაილების ჩვენება"
+
+#~ msgid "Close the current tab"
+#~ msgstr "მიმდინარე ჩანართის დახურვა"
+
+#~ msgid "Close all tabs"
+#~ msgstr "ყველა ჩანართის დახურვა"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "სანიშნების მართვა"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "კლავიატურის მალსახმობები"
+
+#~ msgid "New connection"
+#~ msgstr "ახალი შეერთება"
+
+#~ msgid "Report a problem"
+#~ msgstr "პრობლემის შესახებ შეტყობინება"
+
+#~ msgid "Cannot extract a relative file path"
+#~ msgstr "შეფარდებითი ფაილის ბილიკის ამოღება შეუძლებელია"
+
+#~ msgid "Failed to open a connection."
+#~ msgstr "კავშირის გახსნა ჩავარდა."
+
+#~ msgid "Deletion failed"
+#~ msgstr "წაშლა ჩავარდა"
+
+#~ msgid "New file name"
+#~ msgstr "ახალი ფაილის სახელი"
+
+#~ msgid "File size"
+#~ msgstr "ფაილის ზომა"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "შეცდომა დახმარების ჩვენებისას."
+
+#~ msgid "Profile name"
+#~ msgstr "პროფილის სახელი"
+
+#~ msgid "Replacement"
+#~ msgstr "შემცვლელი"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "რეგისტრზე დამოკიდებული დამთხვევა"
+
+#~ msgid "Image:"
+#~ msgstr "გამოსახულება:"
+
+#~ msgid "Credits"
+#~ msgstr "კრედიტები"
+
+#~ msgid "C_redits"
+#~ msgstr "_ავტორები"
+
+#~ msgid "Created"
+#~ msgstr "შეიქმნა"
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr "Exif IFD მაჩვენებელი"
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr "თავსებადობის IFD მაჩვენებელი"
+
+#~ msgid "Emphasis"
+#~ msgstr "მონიშნული"
+
+#~ msgid "Frames"
+#~ msgstr "კადრები"
+
+#~ msgid "Refresh tab"
+#~ msgstr "ჩანართის განახლება"
+
+#~ msgid "Vertical offset"
+#~ msgstr "ვერტიკალური წანაცვლება"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "პიქსელი"
+
+#~ msgid "Disable"
+#~ msgstr "გამორთვა"
+
+#~ msgid "Enable"
+#~ msgstr "ჩართვა"
+
+#~ msgid "_Enable"
+#~ msgstr "_ჩართვა"
+
+#~ msgid "User action"
+#~ msgstr "მომხმარებლის ქმედება"
+
+#~ msgid "Do nothing"
+#~ msgstr "არაფრის გაკეთება"
+
+#~ msgid "Group"
+#~ msgstr "ჯგუფი"
+
+#~ msgid "Bookmark name"
+#~ msgstr "სანიშნის სახელი"
+
+#~ msgid "Colors"
+#~ msgstr "ფერები"
+
+#~ msgid "Palette"
+#~ msgstr "პალიტრა"
+
+#~ msgid "Foreground:"
+#~ msgstr "წინა პლანი:"
+
+#~ msgid "Background:"
+#~ msgstr "ფონი:"
+
+#~ msgid "Accelerator key"
+#~ msgstr "აქსელერატორის გასაღები"
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr "აქსელერატორის მოდიფიკატორები"
+
+#~ msgid "Accelerator Mode"
+#~ msgstr "აქსელერაციის რეჟიმი"
+
+#~ msgid "The type of accelerator."
+#~ msgstr "აქსელერაციის ტიპი."
+
+#~ msgid "Disabled"
+#~ msgstr "გამორთულია"
+
+#~ msgid "New accelerator…"
+#~ msgstr "ახალი აქსელერატორი…"
+
+#~ msgid "_Quit"
+#~ msgstr "გასვ_ლა"
+
+#~ msgid "Type"
+#~ msgstr "ტიპი"
+
+#~ msgid "Tag name"
+#~ msgstr "ჭდის სახელი"
+
+#~ msgid "Tag value"
+#~ msgstr "ჭდის მნიშვნელობა"
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "ერთმანეთთან შეუთავსებელი მალსახმობები"
+
+#~ msgid "Run"
+#~ msgstr "გაშვება"
+
+#~ msgid "Chown"
+#~ msgstr "Chown"
+
+#~ msgid "Unknown error"
+#~ msgstr "უცნობი შეცდომა"
+
+#~ msgid "File Manager"
+#~ msgstr "ფაილების მმართველი"
