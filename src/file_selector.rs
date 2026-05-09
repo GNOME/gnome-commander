@@ -322,6 +322,13 @@ mod imp {
                         this.imp().select_connection(&con);
                     }
                     file_list.grab_focus();
+                    if let Some(pos) = file_list.focused_file_position() {
+                        // Make sure that selected item is still focused
+                        let view = file_list.view();
+                        glib::spawn_future_local(async move {
+                            view.scroll_to(pos, None, gtk::ListScrollFlags::FOCUS, None);
+                        });
+                    }
                 }
             ));
 
