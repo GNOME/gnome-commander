@@ -112,10 +112,10 @@ mod imp {
         #[property(get, set)]
         pub row_height: Cell<u32>,
 
-        #[property(get, set)]
+        #[property(get, set = Self::set_extension_display_mode)]
         pub extension_display_mode: Cell<ExtensionDisplayMode>,
 
-        #[property(get, set)]
+        #[property(get, set = Self::set_graphical_layout_mode)]
         graphical_layout_mode: Cell<GraphicalLayoutMode>,
 
         #[property(get, set)]
@@ -732,6 +732,47 @@ mod imp {
     }
 
     impl FileList {
+        fn set_extension_display_mode(&self, value: ExtensionDisplayMode) {
+            self.extension_display_mode.replace(value);
+
+            // Refresh name and ext columns
+            for column in self
+                .view
+                .columns()
+                .iter::<gtk::ColumnViewColumn>()
+                .flatten()
+            {
+                if column.id().is_some_and(|name| {
+                    name == ColumnID::Name.name() || name == ColumnID::Ext.name()
+                }) {
+                    let factory = column.factory();
+                    column.set_factory(gtk::ListItemFactory::NONE);
+                    column.set_factory(factory.as_ref());
+                }
+            }
+        }
+
+        fn set_graphical_layout_mode(&self, value: GraphicalLayoutMode) {
+            self.graphical_layout_mode.replace(value);
+
+            // Refresh icon column
+            if let Some(column) = self
+                .view
+                .columns()
+                .iter::<gtk::ColumnViewColumn>()
+                .flatten()
+                .find(|column| {
+                    column
+                        .id()
+                        .is_some_and(|name| name == ColumnID::Icon.name())
+                })
+            {
+                let factory = column.factory();
+                column.set_factory(gtk::ListItemFactory::NONE);
+                column.set_factory(factory.as_ref());
+            }
+        }
+
         fn filter_row(&self, obj: &glib::Object, options: &FiltersOptions) -> bool {
             let Some(item) = obj.downcast_ref::<FileListItem>() else {
                 return false;
