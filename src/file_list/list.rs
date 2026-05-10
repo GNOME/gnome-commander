@@ -107,9 +107,6 @@ mod imp {
         pub base_dir: RefCell<Option<PathBuf>>,
 
         #[property(get, set)]
-        pub row_height: Cell<u32>,
-
-        #[property(get, set)]
         pub extension_display_mode: Cell<ExtensionDisplayMode>,
 
         #[property(get, set)]
@@ -267,7 +264,6 @@ mod imp {
                 file_metadata_service: Default::default(),
                 base_dir: Default::default(),
 
-                row_height: Default::default(),
                 extension_display_mode: Default::default(),
                 graphical_layout_mode: Default::default(),
                 size_display_mode: Default::default(),
@@ -558,10 +554,6 @@ mod imp {
             fl.add_controller(drop_target);
 
             let general_options = GeneralOptions::new();
-            general_options
-                .list_row_height
-                .bind(&*fl, "row-height")
-                .build();
             general_options
                 .extension_display_mode
                 .bind_enum(&*fl, "extension-display-mode");
@@ -2553,9 +2545,6 @@ impl FileList {
     }
 
     pub fn update_style(&self) {
-        // TODO: Maybe??? gtk_cell_renderer_set_fixed_size (priv->columns[1], )
-        // gtk_clist_set_row_height (*this, gnome_cmd_data.options.list_row_height);
-
         if let Some(main_win) = self.root().and_downcast::<MainWindow>()
             && main_win.color_themes().has_theme()
         {

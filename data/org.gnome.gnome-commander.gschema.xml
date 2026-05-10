@@ -99,13 +99,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
         Defines the icon style of files and folders in the file panels.
       </description>
     </key>
-    <key name="list-row-height" type="u">
-      <default>16</default>
-      <summary>List row height</summary>
-      <description>
-        Defines the height of a row in the file panel.
-      </description>
-    </key>
     <key name="date-disp-format" type="s">
       <!-- Translators: Feel free to replace the default date format to a common value
            used in your country. See https://docs.gtk.org/glib/method.DateTime.format.html for details.
