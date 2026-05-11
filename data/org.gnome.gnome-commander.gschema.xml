@@ -1058,5 +1058,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           This is the list of automatically loaded plugins, whereas each entry represents the file name of the plugin.
       </description>
     </key>
+    <key name="metadata" type="a{sa{sv}}">
+      <default>{}</default>
+      <summary>Plugin metadata</summary>
+      <description>
+          Metadata of known plugins by their file name.
+      </description>
+    </key>
   </schema>
 </schemalist>

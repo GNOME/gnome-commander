@@ -40,6 +40,7 @@ mod open_file;
 mod options;
 mod paned_ext;
 mod plugin_manager;
+mod plugins;
 mod pwd;
 mod search;
 mod select_directory_button;

@@ -15,6 +15,7 @@ mod imp {
         debug::set_debug_flags,
         main_win::MainWindow,
         options::SearchConfig,
+        plugins::PluginHost,
     };
     use std::{borrow::Cow, cell::RefCell, ops::ControlFlow, path::PathBuf};
 
@@ -103,6 +104,7 @@ mod imp {
             ConnectionList::get().load(&self.options);
             ConnectionList::get().set_volume_monitor();
             setup_list_font(&self.options);
+            glib::spawn_future_local(PluginHost::new());
         }
 
         fn activate(&self) {

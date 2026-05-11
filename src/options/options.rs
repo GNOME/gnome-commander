@@ -21,6 +21,7 @@ use crate::{
         AppOption, BoolOption, DurationOption, EnumOption, I32Option, OptionalPathOption,
         RGBAOption, StringOption, StrvOption, U32Option, VariantOption, WriteResult,
     },
+    plugins::PluginMetadata,
     search::profile::{LegacySearchProfileVariant, SearchProfile, SearchProfileVariant},
     shortcuts::ShortcutVariant,
     tab_label::TabLockIndicator,
@@ -33,7 +34,7 @@ use crate::{
 };
 use gettextrs::gettext;
 use gtk::{gio, prelude::*};
-use std::{rc::Rc, sync::LazyLock};
+use std::{collections::BTreeMap, rc::Rc, sync::LazyLock};
 
 pub struct GeneralOptions {
     pub allow_multiple_instances: BoolOption,
@@ -596,5 +597,18 @@ impl ViewerOptions {
         history.insert(0, text.to_owned());
         history.truncate(INTVIEWER_HISTORY_SIZE);
         option.set(history)
+    }
+}
+
+pub struct PluginsOptions {
+    pub metadata: VariantOption<BTreeMap<String, PluginMetadata>>,
+}
+
+impl PluginsOptions {
+    pub fn new() -> Self {
+        let settings = gio::Settings::new("org.gnome.gnome-commander.plugins.general");
+        Self {
+            metadata: VariantOption::new(&settings, "metadata"),
+        }
     }
 }

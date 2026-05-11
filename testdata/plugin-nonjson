@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo "Hello there. This isn't JSON but still worth a try."
