@@ -2165,11 +2165,8 @@ impl FileList {
                 column.set_visible(options.visible());
             }
 
-            if current_position != position
-                && let Some(store) = self.view().columns().downcast_ref::<gio::ListStore>()
-            {
-                store.remove(current_position);
-                store.insert(position, &column);
+            if current_position != position {
+                self.view().insert_column(position, &column);
             }
             position += 1;
         }
