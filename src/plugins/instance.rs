@@ -2,8 +2,9 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::{Message, PluginMetadata};
+use super::{Message, OutgoingPluginMessage, PluginData, PluginMetadata};
 use crate::options::PluginsOptions;
+use async_channel::Sender;
 use async_process::{Child, Command, Stdio};
 use futures::AsyncRead;
 use std::{
@@ -11,11 +12,12 @@ use std::{
     future::Future,
     io::Error,
     path::{Path, PathBuf},
-    pin::Pin,
+    pin::{Pin, pin},
     task::{Context, Poll},
     time::Instant,
 };
 
+#[derive(Debug)]
 pub struct PluginInstance {
     path: PathBuf,
     metadata: PluginMetadata,
@@ -25,6 +27,7 @@ pub struct PluginInstance {
     incoming_size: usize,
     startup_start: Instant,
     started: bool,
+    sender: Sender<OutgoingPluginMessage>,
 }
 
 impl PluginInstance {
@@ -32,7 +35,11 @@ impl PluginInstance {
     const INCOMING_MAX_SIZE: usize = 1024 * 1024 * 1024;
     const MAX_STARTUP_SECS: u64 = 10;
 
-    pub fn new(path: PathBuf, options: &PluginsOptions) -> Self {
+    pub fn new(
+        path: PathBuf,
+        sender: &Sender<OutgoingPluginMessage>,
+        options: &PluginsOptions,
+    ) -> Self {
         let metadata = options
             .metadata
             .get()
@@ -47,6 +54,7 @@ impl PluginInstance {
             incoming_size: 0,
             startup_start: Instant::now(),
             started: false,
+            sender: sender.clone(),
         }
     }
 
@@ -64,14 +72,6 @@ impl PluginInstance {
 
     pub fn is_initialized(&self) -> bool {
         self.child.is_some() && self.started
-    }
-
-    pub fn errors(&self) -> &[Error] {
-        &self.errors
-    }
-
-    pub fn metadata(&self) -> &PluginMetadata {
-        &self.metadata
     }
 
     pub fn start(&mut self) {
@@ -119,6 +119,14 @@ impl PluginInstance {
         self.save_metadata();
     }
 
+    pub fn data(&self) -> PluginData {
+        PluginData {
+            metadata: self.metadata.clone(),
+            initializing: self.is_enabled() && !self.is_initialized(),
+            errors: self.errors.iter().map(Error::to_string).collect(),
+        }
+    }
+
     fn save_metadata(&self) {
         let options = PluginsOptions::new();
         let mut metadata = options.metadata.get();
@@ -126,6 +134,14 @@ impl PluginInstance {
         if let Err(error) = options.metadata.set(metadata) {
             eprintln!("Failed saving plugin metadata: {error}");
         }
+        self.notify_updated();
+    }
+
+    fn notify_updated(&self) {
+        let _ = self.sender.try_send(OutgoingPluginMessage::PluginUpdated(
+            self.file_name().to_string(),
+            self.data(),
+        ));
     }
 
     fn poll_read(&mut self, cx: &mut Context<'_>, desired_size: usize) -> bool {
@@ -136,7 +152,7 @@ impl PluginInstance {
         let Some(stdout) = self.child.as_mut().and_then(|child| child.stdout.as_mut()) else {
             return false;
         };
-        let stdout = Pin::new(stdout);
+        let stdout = pin!(stdout);
 
         match stdout.poll_read(cx, &mut self.incoming[self.incoming_size..desired_size]) {
             Poll::Ready(Ok(size)) => {
@@ -228,7 +244,7 @@ mod test {
 
     /// This is similar to futures::poll!() but does not consume the future.
     async fn poll_once<T>(future: &mut (impl Future<Output = T> + Unpin)) -> Option<T> {
-        let mut pin = Pin::new(future);
+        let mut pin = pin!(future);
         futures::future::poll_fn(move |cx| {
             Poll::Ready(match pin.as_mut().poll(cx) {
                 Poll::Ready(result) => Some(result),
@@ -240,7 +256,8 @@ mod test {
 
     fn setup_plugin(path: &str) -> PluginInstance {
         let options = PluginsOptions::new();
-        let mut instance = PluginInstance::new(path.into(), &options);
+        let (sender, _) = async_channel::unbounded();
+        let mut instance = PluginInstance::new(path.into(), &sender, &options);
         instance.start();
         instance
     }
@@ -250,7 +267,7 @@ mod test {
         let instance = setup_plugin("testdata/plugin-missing");
         assert!(!instance.is_enabled());
         assert!(!instance.is_initialized());
-        assert_eq!(instance.errors().len(), 1);
+        assert_eq!(instance.errors.len(), 1);
     }
 
     #[async_std::test]
@@ -258,13 +275,13 @@ mod test {
         let mut instance = setup_plugin("testdata/plugin-invalid");
         assert!(instance.is_enabled());
         assert!(!instance.is_initialized());
-        assert_eq!(instance.errors().len(), 0);
+        assert_eq!(instance.errors.len(), 0);
 
         poll_once(&mut instance).await;
 
         assert!(!instance.is_enabled());
         assert!(!instance.is_initialized());
-        assert_eq!(instance.errors().len(), 1);
+        assert_eq!(instance.errors.len(), 1);
     }
 
     #[async_std::test]
@@ -272,13 +289,13 @@ mod test {
         let mut instance = setup_plugin("testdata/plugin-nonjson");
         assert!(instance.is_enabled());
         assert!(!instance.is_initialized());
-        assert_eq!(instance.errors().len(), 0);
+        assert_eq!(instance.errors.len(), 0);
 
         poll_once(&mut instance).await;
 
         assert!(!instance.is_enabled());
         assert!(!instance.is_initialized());
-        assert_eq!(instance.errors().len(), 1);
+        assert_eq!(instance.errors.len(), 1);
     }
 
     #[async_std::test]
@@ -286,21 +303,21 @@ mod test {
         let mut instance = setup_plugin("testdata/plugin-basic");
         assert!(instance.is_enabled());
         assert!(!instance.is_initialized());
-        assert_eq!(instance.errors().len(), 0);
+        assert_eq!(instance.errors.len(), 0);
 
         poll_once(&mut instance).await;
 
         assert!(instance.is_enabled());
         assert!(instance.is_initialized());
-        assert_eq!(instance.errors().len(), 0);
-        assert_eq!(instance.metadata().name(), Some("Basic plugin".to_owned()));
-        assert_eq!(instance.metadata().version(), Some("0.5".to_owned()));
-        assert_eq!(instance.metadata().copyright(), None);
-        assert_eq!(instance.metadata().comments(), None);
-        assert_eq!(instance.metadata().authors(), Vec::<String>::new());
-        assert_eq!(instance.metadata().documenters(), Vec::<String>::new());
-        assert_eq!(instance.metadata().translators(), Vec::<String>::new());
-        assert_eq!(instance.metadata().webpage(), None);
+        assert_eq!(instance.errors.len(), 0);
+        assert_eq!(instance.metadata.name(), Some("Basic plugin".to_owned()));
+        assert_eq!(instance.metadata.version(), Some("0.5".to_owned()));
+        assert_eq!(instance.metadata.copyright(), None);
+        assert_eq!(instance.metadata.comments(), None);
+        assert_eq!(instance.metadata.authors(), Vec::<String>::new());
+        assert_eq!(instance.metadata.documenters(), Vec::<String>::new());
+        assert_eq!(instance.metadata.translators(), Vec::<String>::new());
+        assert_eq!(instance.metadata.webpage(), None);
     }
 
     #[async_std::test]
@@ -308,34 +325,31 @@ mod test {
         let mut instance = setup_plugin("testdata/plugin-extended");
         assert!(instance.is_enabled());
         assert!(!instance.is_initialized());
-        assert_eq!(instance.errors().len(), 0);
+        assert_eq!(instance.errors.len(), 0);
 
         poll_once(&mut instance).await;
 
         assert!(instance.is_enabled());
         assert!(instance.is_initialized());
-        assert_eq!(instance.errors().len(), 0);
+        assert_eq!(instance.errors.len(), 0);
+        assert_eq!(instance.metadata.name(), Some("Extended plugin".to_owned()));
+        assert_eq!(instance.metadata.version(), Some("1.1".to_owned()));
         assert_eq!(
-            instance.metadata().name(),
-            Some("Extended plugin".to_owned())
-        );
-        assert_eq!(instance.metadata().version(), Some("1.1".to_owned()));
-        assert_eq!(
-            instance.metadata().copyright(),
+            instance.metadata.copyright(),
             Some("Copyright 2026".to_owned())
         );
         assert_eq!(
-            instance.metadata().comments(),
+            instance.metadata.comments(),
             Some("This is super cool".to_owned())
         );
         assert_eq!(
-            instance.metadata().authors(),
+            instance.metadata.authors(),
             vec!["Bob".to_owned(), "Jane".to_owned()]
         );
-        assert_eq!(instance.metadata().documenters(), vec!["Frank".to_owned()]);
-        assert_eq!(instance.metadata().translators(), vec![String::new()]);
+        assert_eq!(instance.metadata.documenters(), vec!["Frank".to_owned()]);
+        assert_eq!(instance.metadata.translators(), vec![String::new()]);
         assert_eq!(
-            instance.metadata().webpage(),
+            instance.metadata.webpage(),
             Some("https://example.com/".to_owned())
         );
     }

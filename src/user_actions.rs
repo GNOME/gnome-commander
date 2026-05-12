@@ -5,6 +5,7 @@
 
 use crate::{
     advanced_rename::advanced_rename_dialog::advanced_rename_dialog_show,
+    application::Application,
     config::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_URL, PACKAGE_VERSION},
     connection::{
         ConnectionExt, ConnectionInterface,
@@ -40,7 +41,8 @@ use crate::{
     libgcmd::file_actions::{FileActions, FileActionsExt},
     main_win::{ExecutionTarget, MainWindow},
     options::{ConfirmOptions, GeneralOptions, NetworkOptions, ProgramsOptions, SearchConfig},
-    plugin_manager::{PluginActionVariant, show_plugin_manager},
+    plugin_manager::PluginActionVariant,
+    plugins::show_plugin_manager,
     search::search_dialog::SearchDialog,
     shortcuts::Area,
     spawn::{SpawnError, spawn_async, spawn_async_command},
@@ -1179,11 +1181,9 @@ async fn connections_close_current(main_win: MainWindow) {
 /************** Plugins Menu ***********/
 
 async fn plugins_configure(main_win: MainWindow) {
-    let dialog = main_win.get_or_create_dialog("plugins", || {
-        let plugin_manager = main_win.plugin_manager();
-        show_plugin_manager(&plugin_manager, main_win.upcast_ref())
-    });
-    dialog.present();
+    if let Some(application) = main_win.application().and_downcast::<Application>() {
+        show_plugin_manager(application.plugin_channel(), &main_win).await;
+    }
 }
 
 async fn plugin_action(main_win: MainWindow, plugin_action: PluginActionVariant) {
