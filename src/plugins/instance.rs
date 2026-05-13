@@ -5,6 +5,7 @@
 use super::{Message, OutgoingPluginMessage, PluginData, PluginMetadata};
 use crate::options::PluginsOptions;
 use async_channel::Sender;
+use async_io::Timer;
 use async_process::{Child, Command, Stdio};
 use futures::AsyncRead;
 use std::{
@@ -14,10 +15,9 @@ use std::{
     path::{Path, PathBuf},
     pin::{Pin, pin},
     task::{Context, Poll},
-    time::Instant,
+    time::Duration,
 };
 
-#[derive(Debug)]
 pub struct PluginInstance {
     path: PathBuf,
     metadata: PluginMetadata,
@@ -25,8 +25,7 @@ pub struct PluginInstance {
     errors: Vec<Error>,
     incoming: Vec<u8>,
     incoming_size: usize,
-    startup_start: Instant,
-    started: bool,
+    startup_timeout: Option<Timer>,
     sender: Sender<OutgoingPluginMessage>,
 }
 
@@ -52,8 +51,7 @@ impl PluginInstance {
             errors: Vec::new(),
             incoming: Vec::new(),
             incoming_size: 0,
-            startup_start: Instant::now(),
-            started: false,
+            startup_timeout: None,
             sender: sender.clone(),
         }
     }
@@ -71,7 +69,7 @@ impl PluginInstance {
     }
 
     pub fn is_initialized(&self) -> bool {
-        self.child.is_some() && self.started
+        self.child.is_some() && self.startup_timeout.is_none()
     }
 
     pub fn start(&mut self) {
@@ -87,8 +85,8 @@ impl PluginInstance {
             Ok(child) => {
                 self.child = Some(child);
                 self.errors.clear();
-                self.startup_start = Instant::now();
-                self.started = false;
+                self.startup_timeout =
+                    Some(Timer::after(Duration::from_secs(Self::MAX_STARTUP_SECS)));
                 self.incoming
                     .resize(size_of::<u32>() + Self::INCOMING_MAX_SIZE, 0);
                 self.incoming_size = 0;
@@ -114,7 +112,7 @@ impl PluginInstance {
         // We drop the child even if we fail to kill the process.
         // We keep the incoming buffer just in case the process is restarted shortly.
         self.child = None;
-        self.started = false;
+        self.startup_timeout = None;
         self.metadata.set_enabled(false);
         self.save_metadata();
     }
@@ -180,7 +178,9 @@ impl Future for PluginInstance {
     type Output = ();
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
-        if !self.started && self.startup_start.elapsed().as_secs() >= Self::MAX_STARTUP_SECS {
+        if let Some(timeout) = &mut self.startup_timeout
+            && matches!(pin!(timeout).poll(cx), Poll::Ready(_))
+        {
             self.errors
                 .push(Error::other("Plugin didn't start up within maximum time"));
             self.stop();
@@ -228,7 +228,7 @@ impl Future for PluginInstance {
                 self.metadata.set_documenters(&payload.documenters);
                 self.metadata.set_translators(&payload.translators);
                 self.metadata.set_webpage(payload.webpage.as_deref());
-                self.started = true;
+                self.startup_timeout = None;
                 self.save_metadata();
             }
         }
