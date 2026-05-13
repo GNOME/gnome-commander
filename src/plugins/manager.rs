@@ -74,53 +74,8 @@ pub async fn show_plugin_manager(channel: &PluginChannel, parent: &MainWindow) {
             msg = channel.receive().fuse() => {
                 match msg {
                     OutgoingPluginMessage::Plugins(plugins) => {
-                        let mut removed: BTreeSet<_> =
-                            items.keys().map(|name| name.to_owned()).collect();
-                        for (name, data) in plugins.into_iter() {
-                            let row = if let Some(row) = items.get(&name) {
-                                Cow::Borrowed(row)
-                            } else {
-                                let row = gtk::ListBoxRow::builder()
-                                    .activatable(true)
-                                    .css_classes(["plugin-row"])
-                                    .build();
-
-                                // Find insertion point for alphabetic sorting
-                                let mut next_name = None::<String>;
-                                for key in items.keys() {
-                                    if key > &name
-                                        && next_name
-                                            .as_ref()
-                                            .is_none_or(|next_name| next_name > key)
-                                    {
-                                        next_name = Some(key.to_owned());
-                                    }
-                                }
-
-                                if let Some(next_row) =
-                                    next_name.and_then(|name| items.get(&name))
-                                {
-                                    list.insert(&row, next_row.index());
-                                } else {
-                                    list.append(&row);
-                                }
-
-                                items.insert(name.clone(), row.clone());
-                                Cow::Owned(row)
-                            };
-
-                            setup_row(&name, &row, data, channel);
-                            removed.remove(&name);
-                        }
-
-                        for name in removed {
-                            if let Some(row) = items.get(&name) {
-                                row.unparent();
-                            }
-                            items.remove(&name);
-                        }
+                        update_list(&list, &mut items, plugins, channel);
                     }
-
                     OutgoingPluginMessage::PluginUpdated(name, data) => {
                         if let Some(row) = items.get(&name) {
                             setup_row(&name, row, data, channel);
@@ -132,6 +87,58 @@ pub async fn show_plugin_manager(channel: &PluginChannel, parent: &MainWindow) {
         );
     }
     dialog.close();
+}
+
+fn update_list(
+    list: &gtk::ListBox,
+    items: &mut BTreeMap<String, gtk::ListBoxRow>,
+    plugins: BTreeMap<String, PluginData>,
+    channel: &PluginChannel,
+) {
+    let mut removed: BTreeSet<_> = items.keys().map(|name| name.to_owned()).collect();
+    for (name, data) in plugins.into_iter() {
+        let row = if let Some(row) = items.get(&name) {
+            Cow::Borrowed(row)
+        } else {
+            let row = gtk::ListBoxRow::builder()
+                .activatable(true)
+                .css_classes(["plugin-row"])
+                .build();
+
+            // Find insertion point for alphabetic sorting
+            let mut next_name = None::<String>;
+            for key in items.keys() {
+                if key > &name && next_name.as_ref().is_none_or(|next_name| next_name > key) {
+                    next_name = Some(key.to_owned());
+                }
+            }
+
+            if let Some(next_row) = next_name.and_then(|name| items.get(&name)) {
+                list.insert(&row, next_row.index());
+            } else {
+                list.append(&row);
+            }
+
+            items.insert(name.clone(), row.clone());
+            Cow::Owned(row)
+        };
+
+        setup_row(&name, &row, data, channel);
+        removed.remove(&name);
+    }
+
+    for name in removed {
+        if let Some(row) = items.get(&name) {
+            row.unparent();
+        }
+        items.remove(&name);
+    }
+
+    if list.root().is_some_and(|root| root.focus().as_ref() == Some(list.upcast_ref()))
+        && let Some(row) = list.first_child()
+    {
+        row.grab_focus();
+    }
 }
 
 fn setup_row(name: &str, row: &gtk::ListBoxRow, data: PluginData, channel: &PluginChannel) {
