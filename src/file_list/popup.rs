@@ -3,7 +3,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::{actions::Script, list::FileList};
+use super::{actions::Script, list::ColumnID, list::FileList};
 use crate::{
     app::{App, AppTarget, RegularApp, UserDefinedApp, load_favorite_apps},
     config::PACKAGE,
@@ -227,13 +227,24 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
 }
 
 pub fn list_popup_menu() -> gio::Menu {
-    gio::Menu::new()
-        .submenu(gettext("New"), {
-            gio::Menu::new()
-                .action(UserAction::FileMkdir)
-                .action(UserAction::FileEditNewDoc)
-        })
-        .action(UserAction::EditCapPaste)
-        .action(UserAction::CommandOpenTerminal)
-        .action(UserAction::ViewRefresh)
+    let mut columns_menu = gio::Menu::new();
+    for column in ColumnID::all() {
+        if column != ColumnID::Dir
+            && let Some(title) = column.title()
+        {
+            columns_menu = columns_menu.item(title, format!("fl.toggle-column-{}", column.name()));
+        }
+    }
+
+    gio::Menu::new().section(columns_menu).section(
+        gio::Menu::new()
+            .submenu(gettext("New"), {
+                gio::Menu::new()
+                    .action(UserAction::FileMkdir)
+                    .action(UserAction::FileEditNewDoc)
+            })
+            .action(UserAction::EditCapPaste)
+            .action(UserAction::CommandOpenTerminal)
+            .action(UserAction::ViewRefresh),
+    )
 }

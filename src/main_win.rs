@@ -10,7 +10,7 @@ use crate::{
     },
     dir::Directory,
     file::{File, FileOps},
-    file_selector::{FileSelector, TabPosition, TabVariant},
+    file_selector::{FileSelector, TabOptions, TabPosition, TabState, TabVariant},
     layout::color_themes::ColorThemes,
     libgcmd::{
         file_actions::{FileActions, FileActionsExt},
@@ -1016,7 +1016,10 @@ impl MainWindow {
         };
 
         if dst.is_current_tab_locked() {
-            dst.new_tab_with_dir(&dir, true, false);
+            dst.new_tab(
+                Some(&dir),
+                TabOptions::from(&dst.file_list()).grab_focus(false),
+            );
         } else {
             dst.file_list()
                 .set_connection(&dir.connection(), Some(&dir));
@@ -1044,21 +1047,30 @@ impl MainWindow {
             .and_then(|dir| std::path::absolute(dir).ok())
             .and_then(|dir| glib::filename_to_uri(dir, None).ok())
         {
-            left_tabs.push(TabVariant::new(Default::default(), dir.to_string()));
+            let mut tab = TabVariant::new(Default::default(), dir.to_string());
+            tab.set_state(TabState::Selected);
+            left_tabs.push(tab);
         }
 
         if let Some(dir) = start_right_dir
             .and_then(|dir| std::path::absolute(dir).ok())
             .and_then(|dir| glib::filename_to_uri(dir, None).ok())
         {
-            right_tabs.push(TabVariant::new(Default::default(), dir.to_string()));
+            let mut tab = TabVariant::new(Default::default(), dir.to_string());
+            tab.set_state(TabState::Selected);
+            right_tabs.push(tab);
         }
 
+        let current_panel = if right_tabs.iter().any(|tab| tab.state() == TabState::Active) {
+            1
+        } else {
+            0
+        };
         self.file_selector(FileSelectorID::Left)
             .open_tabs(left_tabs);
-
         self.file_selector(FileSelectorID::Right)
             .open_tabs(right_tabs);
+        self.set_current_panel(current_panel);
     }
 
     fn save_tabs(&self, save_all: bool, save_current: bool, save_history: bool) -> WriteResult {
