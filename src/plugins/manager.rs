@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use crate::{
+    dialogs::about_plugin::about_plugin_dialog,
     main_win::MainWindow,
     plugins::{IncomingPluginMessage, OutgoingPluginMessage, PluginChannel, PluginData},
     utils::{NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
@@ -210,12 +211,18 @@ fn setup_row(name: &str, row: &gtk::ListBoxRow, data: PluginData, channel: &Plug
             || !data.metadata.translators().is_empty()
             || data.metadata.webpage().is_some()
         {
+            let metadata = data.metadata.clone();
             let button = gtk::Button::builder()
                 .icon_name("help-about")
                 .tooltip_text(gettext("About"))
                 .valign(gtk::Align::Center)
                 .build();
             button.add_css_class("flat");
+            button.connect_clicked(move |button| {
+                if let Some(window) = button.root().and_downcast() {
+                    about_plugin_dialog(&window, &metadata).present();
+                }
+            });
             hbox.append(&button);
         }
 

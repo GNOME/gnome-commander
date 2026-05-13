@@ -5,15 +5,15 @@
 
 use crate::{
     i18n::I18N_CONTEXT_SINGULAR,
-    plugin_manager::PluginInfoOwned,
+    plugins::PluginMetadata,
     utils::{NO_BUTTONS, WindowExt, dialog_button_box},
 };
 use gettextrs::{gettext, pgettext};
 use gtk::{glib, pango, prelude::*};
 
-pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginInfoOwned) -> gtk::Window {
+pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginMetadata) -> gtk::Window {
     let dialog = gtk::Window::builder()
-        .title(gettext("About %s").replace("%s", info.name.as_deref().unwrap_or_default()))
+        .title(gettext("About %s").replace("%s", info.name().as_deref().unwrap_or_default()))
         .transient_for(parent)
         .resizable(false)
         .build();
@@ -31,8 +31,8 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginInfoOwned) -> gtk:
             .label(
                 format!(
                     "{} {}",
-                    info.name.as_deref().unwrap_or_default(),
-                    info.version.as_deref().unwrap_or_default(),
+                    info.name().as_deref().unwrap_or_default(),
+                    info.version().as_deref().unwrap_or_default(),
                 )
                 .trim(),
             )
@@ -45,7 +45,7 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginInfoOwned) -> gtk:
             .build(),
     );
 
-    if let Some(ref comments) = info.comments {
+    if let Some(comments) = info.comments() {
         content_area.append(
             &gtk::Label::builder()
                 .selectable(true)
@@ -56,7 +56,7 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginInfoOwned) -> gtk:
         );
     }
 
-    if let Some(ref copyright) = info.copyright {
+    if let Some(copyright) = info.copyright() {
         content_area.append(
             &gtk::Label::builder()
                 .selectable(true)
@@ -73,7 +73,7 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginInfoOwned) -> gtk:
         );
     }
 
-    if let Some(ref webpage) = info.webpage {
+    if let Some(webpage) = info.webpage() {
         content_area.append(
             &gtk::LinkButton::builder()
                 .label(pgettext(I18N_CONTEXT_SINGULAR, "Plugin Webpage"))
@@ -82,20 +82,23 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginInfoOwned) -> gtk:
         );
     }
 
-    if has_credits(info) {
+    let authors = info.authors();
+    let documenters = info.documenters();
+    let translators = info.translators();
+    if !authors.is_empty() || !documenters.is_empty() || !translators.is_empty() {
         let notebook = gtk::Notebook::builder().vexpand(true).build();
         content_area.append(&notebook);
 
-        if !info.authors.is_empty() {
+        if !authors.is_empty() {
             notebook.append_page(
-                &text_content(&multiline(&info.authors), true),
+                &text_content(&multiline(&authors), true),
                 Some(&gtk::Label::builder().label(gettext("Written by")).build()),
             );
         }
 
-        if !info.documenters.is_empty() {
+        if !documenters.is_empty() {
             notebook.append_page(
-                &text_content(&multiline(&info.documenters), true),
+                &text_content(&multiline(&documenters), true),
                 Some(
                     &gtk::Label::builder()
                         .label(gettext("Documented by"))
@@ -104,9 +107,9 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginInfoOwned) -> gtk:
             );
         }
 
-        if let Some(ref translator) = info.translator {
+        if !translators.is_empty() {
             notebook.append_page(
-                &text_content(translator, false),
+                &text_content(&multiline(&translators), false),
                 Some(
                     &gtk::Label::builder()
                         .label(gettext("Translated by"))
@@ -129,10 +132,6 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginInfoOwned) -> gtk:
     close_button.grab_focus();
 
     dialog
-}
-
-fn has_credits(info: &PluginInfoOwned) -> bool {
-    !info.authors.is_empty() || !info.documenters.is_empty() || info.translator.is_some()
 }
 
 fn multiline(lines: &[String]) -> String {
