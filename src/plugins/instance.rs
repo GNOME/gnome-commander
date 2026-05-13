@@ -32,7 +32,7 @@ pub struct PluginInstance {
 
 impl PluginInstance {
     // Same restriction as browsers: maximum incoming message size is 1 MiB.
-    const INCOMING_MAX_SIZE: usize = 1024 * 1024 * 1024;
+    const INCOMING_MAX_SIZE: usize = 1024 * 1024;
     const MAX_STARTUP_SECS: u64 = 10;
 
     pub fn new(
