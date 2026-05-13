@@ -173,12 +173,17 @@ fn setup_row(name: &str, row: &gtk::ListBoxRow, data: PluginData, channel: &Plug
         hbox.append(&gtk::Label::builder().label(gettext("Starting…")).build());
     } else {
         if !data.errors.is_empty() {
+            let errors = data.errors.join("\n\n");
+            let clipboard = row.clipboard();
             let button = gtk::Button::builder()
                 .icon_name("dialog-warning")
-                .tooltip_text(gettext("Plugin has errors:") + "\n\n" + &data.errors.join("\n\n"))
+                .tooltip_text(gettext("Plugin has errors, click to copy.") + "\n\n" + &errors)
                 .valign(gtk::Align::Center)
                 .build();
             button.add_css_class("flat");
+            button.connect_clicked(move |_| {
+                clipboard.set_text(&errors);
+            });
             hbox.append(&button);
         }
 
