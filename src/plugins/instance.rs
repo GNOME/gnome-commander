@@ -8,6 +8,7 @@ use async_channel::Sender;
 use async_io::Timer;
 use async_process::{Child, Command, Stdio};
 use futures::AsyncRead;
+use gettextrs::gettext;
 use std::{
     borrow::Cow,
     future::Future,
@@ -158,7 +159,7 @@ impl PluginInstance {
                     self.incoming_size >= desired_size
                 } else {
                     self.errors
-                        .push(Error::other("Child process terminated unexpectedly"));
+                        .push(Error::other(gettext("Child process terminated unexpectedly")));
                     self.stop();
                     false
                 }
@@ -181,7 +182,7 @@ impl Future for PluginInstance {
             && matches!(pin!(timeout).poll(cx), Poll::Ready(_))
         {
             self.errors
-                .push(Error::other("Plugin didn't start up within maximum time"));
+                .push(Error::other(gettext("Plugin didn't start up within maximum time")));
             self.stop();
             return Poll::Pending;
         }
@@ -197,7 +198,7 @@ impl Future for PluginInstance {
             .unwrap_or_default();
         if size > Self::INCOMING_MAX_SIZE {
             self.errors
-                .push(Error::other("Incoming message exceeded maximum size"));
+                .push(Error::other(gettext("Incoming message exceeded maximum size")));
             self.stop();
             return Poll::Pending;
         }
