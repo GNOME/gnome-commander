@@ -110,6 +110,10 @@ fn list_plugins_in_dir(
         if !entry
             .metadata()
             .is_ok_and(|metadata| metadata.is_file() && is_executable(&metadata))
+            || entry
+                .path()
+                .extension()
+                .is_some_and(|extension| extension == "so")
         {
             continue;
         }

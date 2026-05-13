@@ -134,7 +134,9 @@ fn update_list(
         items.remove(&name);
     }
 
-    if list.root().is_some_and(|root| root.focus().as_ref() == Some(list.upcast_ref()))
+    if list
+        .root()
+        .is_some_and(|root| root.focus().as_ref() == Some(list.upcast_ref()))
         && let Some(row) = list.first_child()
     {
         row.grab_focus();
