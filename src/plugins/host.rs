@@ -57,6 +57,15 @@ impl PluginHost {
                                 instance.stop();
                             }
                         }
+                        Ok(IncomingPluginMessage::TogglePlugin(name)) => {
+                            if let Some(instance) = self.plugins.get_mut(&name) {
+                                if instance.is_enabled() {
+                                    instance.stop();
+                                } else {
+                                    instance.start();
+                                }
+                            }
+                        }
                         Err(error) => {
                             eprintln!("Plugin host failed receiving incoming messages: {error}");
                         }

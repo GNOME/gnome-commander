@@ -11,6 +11,7 @@ pub enum IncomingPluginMessage {
     GetPlugins,
     StartPlugin(String),
     StopPlugin(String),
+    TogglePlugin(String),
 }
 
 #[derive(Debug)]

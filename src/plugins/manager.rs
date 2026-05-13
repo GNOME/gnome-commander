@@ -104,6 +104,13 @@ fn update_list(
                 .activatable(true)
                 .css_classes(["plugin-row"])
                 .build();
+            {
+                let name = name.clone();
+                let channel = channel.clone();
+                row.connect_activate(move |_| {
+                    channel.send(IncomingPluginMessage::TogglePlugin(name.clone()));
+                });
+            }
 
             // Find insertion point for alphabetic sorting
             let mut next_name = None::<String>;
