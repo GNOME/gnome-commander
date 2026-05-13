@@ -86,37 +86,32 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginMetadata) -> gtk::
     let documenters = info.documenters();
     let translators = info.translators();
     if !authors.is_empty() || !documenters.is_empty() || !translators.is_empty() {
-        let notebook = gtk::Notebook::builder().vexpand(true).build();
-        content_area.append(&notebook);
+        let vbox = gtk::Box::builder()
+            .orientation(gtk::Orientation::Vertical)
+            .css_classes(["spacing"])
+            .build();
 
         if !authors.is_empty() {
-            notebook.append_page(
-                &text_content(&multiline(&authors), true),
-                Some(&gtk::Label::builder().label(gettext("Written by")).build()),
-            );
+            vbox.append(&section(&gettext("Written by"), &authors));
         }
 
         if !documenters.is_empty() {
-            notebook.append_page(
-                &text_content(&multiline(&documenters), true),
-                Some(
-                    &gtk::Label::builder()
-                        .label(gettext("Documented by"))
-                        .build(),
-                ),
-            );
+            vbox.append(&section(&gettext("Documented by"), &documenters));
         }
 
         if !translators.is_empty() {
-            notebook.append_page(
-                &text_content(&multiline(&translators), false),
-                Some(
-                    &gtk::Label::builder()
-                        .label(gettext("Translated by"))
-                        .build(),
-                ),
-            );
+            vbox.append(&section(&gettext("Translated by"), &translators));
         }
+
+        content_area.append(
+            &gtk::ScrolledWindow::builder()
+                .vexpand(true)
+                .hscrollbar_policy(gtk::PolicyType::Never)
+                .vscrollbar_policy(gtk::PolicyType::Automatic)
+                .propagate_natural_height(true)
+                .child(&vbox)
+                .build(),
+        );
     }
 
     let close_button = gtk::Button::with_mnemonic(&gettext("_Close"));
@@ -134,31 +129,17 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginMetadata) -> gtk::
     dialog
 }
 
-fn multiline(lines: &[String]) -> String {
-    let markups: Vec<_> = lines
-        .iter()
-        .map(|line| glib::markup_escape_text(line))
-        .collect();
-    markups.join("\n")
-}
-
-fn text_content(text: &str, use_markup: bool) -> gtk::Widget {
-    let content = gtk::Label::builder()
-        .margin_top(12)
-        .margin_bottom(12)
-        .margin_start(12)
-        .margin_end(12)
-        .halign(gtk::Align::Start)
-        .valign(gtk::Align::Start)
-        .label(text)
-        .use_markup(use_markup)
-        .selectable(true)
+fn section(header: &str, lines: &[String]) -> gtk::Frame {
+    let vbox = gtk::Box::builder()
+        .orientation(gtk::Orientation::Vertical)
+        .css_classes(["offset"])
         .build();
-
-    gtk::ScrolledWindow::builder()
-        .hscrollbar_policy(gtk::PolicyType::Automatic)
-        .vscrollbar_policy(gtk::PolicyType::Automatic)
-        .child(&content)
+    for line in lines {
+        vbox.append(&gtk::Label::builder().label(line).halign(gtk::Align::Start).build());
+    }
+    gtk::Frame::builder()
+        .label(header)
+        .child(&vbox)
+        .css_classes(["flat"])
         .build()
-        .upcast()
 }
