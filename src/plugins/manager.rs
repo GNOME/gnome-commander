@@ -198,33 +198,22 @@ fn setup_row(name: &str, row: &gtk::ListBoxRow, data: PluginData, channel: &Plug
             hbox.append(&button);
         }
 
-        if data.metadata.enabled() {
-            let button = gtk::Button::builder()
-                .icon_name("media-playback-stop")
-                .tooltip_text(gettext("Stop Plugin"))
-                .valign(gtk::Align::Center)
-                .build();
-            button.add_css_class("flat");
+        let switch = gtk::Switch::builder()
+            .active(data.metadata.enabled())
+            .valign(gtk::Align::Center)
+            .build();
+        {
             let name = name.to_owned();
             let channel = channel.clone();
-            button.connect_clicked(move |_| {
-                channel.send(IncomingPluginMessage::StopPlugin(name.clone()));
+            switch.connect_active_notify(move |switch| {
+                if switch.is_active() {
+                    channel.send(IncomingPluginMessage::StartPlugin(name.clone()));
+                } else {
+                    channel.send(IncomingPluginMessage::StopPlugin(name.clone()));
+                }
             });
-            hbox.append(&button);
-        } else {
-            let button = gtk::Button::builder()
-                .icon_name("media-playback-start")
-                .tooltip_text(gettext("Start Plugin"))
-                .valign(gtk::Align::Center)
-                .build();
-            button.add_css_class("flat");
-            let name = name.to_owned();
-            let channel = channel.clone();
-            button.connect_clicked(move |_| {
-                channel.send(IncomingPluginMessage::StartPlugin(name.clone()));
-            });
-            hbox.append(&button);
         }
+        hbox.append(&switch);
     }
 
     row.set_child(Some(&hbox));
