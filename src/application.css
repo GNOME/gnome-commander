@@ -110,3 +110,13 @@ listview.gcmd-toolbar {
 .keyboard-shortcuts-key-capture-instructions {
     padding: 5ex 1em;
 }
+
+/* Plugins */
+
+.plugin-row {
+    padding: 6px;
+}
+
+.plugin-row .title {
+    font-weight: bold;
+}
