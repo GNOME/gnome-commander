@@ -150,9 +150,8 @@ impl PluginInstance {
         let Some(stdout) = self.child.as_mut().and_then(|child| child.stdout.as_mut()) else {
             return false;
         };
-        let stdout = pin!(stdout);
 
-        match stdout.poll_read(cx, &mut self.incoming[self.incoming_size..desired_size]) {
+        match pin!(stdout).poll_read(cx, &mut self.incoming[self.incoming_size..desired_size]) {
             Poll::Ready(Ok(size)) => {
                 if size > 0 {
                     self.incoming_size += size;
