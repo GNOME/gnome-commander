@@ -2,17 +2,17 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::{Message, OutgoingPluginMessage, PluginData, PluginMetadata};
+use super::{IncomingMessage, OutgoingMessage, OutgoingPluginMessage, PluginData, PluginMetadata};
 use crate::options::PluginsOptions;
 use async_channel::Sender;
 use async_io::Timer;
-use async_process::{Child, Command, Stdio};
-use futures::AsyncRead;
+use async_process::{Child, ChildStdin, ChildStdout, Command, Stdio};
+use futures::{AsyncRead, AsyncWrite};
 use gettextrs::gettext;
 use std::{
     borrow::Cow,
     future::Future,
-    io::Error,
+    io::{Error, ErrorKind},
     path::{Path, PathBuf},
     pin::{Pin, pin},
     task::{Context, Poll},
@@ -26,6 +26,8 @@ pub struct PluginInstance {
     errors: Vec<Error>,
     incoming: Vec<u8>,
     incoming_size: usize,
+    outgoing: Vec<u8>,
+    outgoing_offset: usize,
     startup_timeout: Option<Timer>,
     sender: Sender<OutgoingPluginMessage>,
 }
@@ -52,6 +54,8 @@ impl PluginInstance {
             errors: Vec::new(),
             incoming: Vec::new(),
             incoming_size: 0,
+            outgoing: Vec::new(),
+            outgoing_offset: 0,
             startup_timeout: None,
             sender: sender.clone(),
         }
@@ -93,6 +97,8 @@ impl PluginInstance {
                 self.incoming_size = 0;
                 self.metadata.set_enabled(true);
                 self.save_metadata();
+
+                self.send_message(OutgoingMessage::Apis(Vec::new()));
             }
             Err(error) => {
                 self.errors.push(error);
@@ -114,8 +120,35 @@ impl PluginInstance {
         // We keep the incoming buffer just in case the process is restarted shortly.
         self.child = None;
         self.startup_timeout = None;
+        self.outgoing.clear();
+        self.outgoing.shrink_to(0);
+        self.outgoing_offset = 0;
         self.metadata.set_enabled(false);
         self.save_metadata();
+    }
+
+    fn send_message(&mut self, msg: OutgoingMessage) {
+        if self.child.is_none() {
+            return;
+        }
+
+        let data = match serde_json::to_vec(&msg) {
+            Ok(data) => data,
+            Err(error) => {
+                eprintln!("Failed serializing plugin message: {error}");
+                return;
+            }
+        };
+        let size = match u32::try_from(data.len()) {
+            Ok(size) => size,
+            Err(_) => {
+                eprintln!("Failed serializing plugin message, message too large");
+                return;
+            }
+        };
+
+        self.outgoing.extend(size.to_ne_bytes());
+        self.outgoing.extend(data);
     }
 
     pub fn data(&self) -> PluginData {
@@ -143,14 +176,41 @@ impl PluginInstance {
         ));
     }
 
-    fn poll_read(&mut self, cx: &mut Context<'_>, desired_size: usize) -> bool {
+    fn process_incoming(&mut self, message: IncomingMessage) -> bool {
+        match message {
+            IncomingMessage::Info(data) => {
+                self.metadata.set_name(Some(&data.name));
+                self.metadata.set_version(Some(&data.version));
+                self.metadata.set_copyright(data.copyright.as_deref());
+                self.metadata.set_comments(data.comments.as_deref());
+                self.metadata.set_authors(&data.authors);
+                self.metadata.set_documenters(&data.documenters);
+                self.metadata.set_translators(&data.translators);
+                self.metadata.set_webpage(data.webpage.as_deref());
+                self.save_metadata();
+            }
+            IncomingMessage::Error(error) => {
+                self.errors.push(Error::other(error));
+                self.notify_updated();
+            }
+            IncomingMessage::Failed => return false,
+            IncomingMessage::Ready => {
+                self.startup_timeout = None;
+                self.notify_updated();
+            }
+        }
+        true
+    }
+
+    fn poll_read(
+        &mut self,
+        cx: &mut Context<'_>,
+        stdout: &mut ChildStdout,
+        desired_size: usize,
+    ) -> bool {
         if self.incoming_size >= desired_size {
             return true;
         }
-
-        let Some(stdout) = self.child.as_mut().and_then(|child| child.stdout.as_mut()) else {
-            return false;
-        };
 
         match pin!(stdout).poll_read(cx, &mut self.incoming[self.incoming_size..desired_size]) {
             Poll::Ready(Ok(size)) => {
@@ -158,36 +218,32 @@ impl PluginInstance {
                     self.incoming_size += size;
                     self.incoming_size >= desired_size
                 } else {
-                    self.errors
-                        .push(Error::other(gettext("Child process terminated unexpectedly")));
+                    self.errors.push(Error::other(gettext(
+                        "Child process terminated unexpectedly",
+                    )));
                     self.stop();
                     false
                 }
             }
             Poll::Ready(Err(error)) => {
-                self.errors.push(error);
+                self.errors.push(if error.kind() == ErrorKind::BrokenPipe {
+                    Error::other(gettext("Child process terminated unexpectedly"))
+                } else {
+                    error
+                });
                 self.stop();
                 false
             }
             Poll::Pending => false,
         }
     }
-}
 
-impl Future for PluginInstance {
-    type Output = ();
-
-    fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
-        if let Some(timeout) = &mut self.startup_timeout
-            && matches!(pin!(timeout).poll(cx), Poll::Ready(_))
-        {
-            self.errors
-                .push(Error::other(gettext("Plugin didn't start up within maximum time")));
-            self.stop();
-            return Poll::Pending;
-        }
-
-        if !self.poll_read(cx, size_of::<u32>()) {
+    fn poll_incoming(
+        &mut self,
+        cx: &mut Context<'_>,
+        stdout: &mut ChildStdout,
+    ) -> Poll<Result<IncomingMessage, ()>> {
+        if !self.poll_read(cx, stdout, size_of::<u32>()) {
             return Poll::Pending;
         }
 
@@ -197,39 +253,113 @@ impl Future for PluginInstance {
             .and_then(|bytes| usize::try_from(u32::from_ne_bytes(bytes)).ok())
             .unwrap_or_default();
         if size > Self::INCOMING_MAX_SIZE {
-            self.errors
-                .push(Error::other(gettext("Incoming message exceeded maximum size")));
-            self.stop();
+            self.errors.push(Error::other(gettext(
+                "Incoming message exceeded maximum size",
+            )));
+            return Poll::Ready(Err(()));
+        }
+
+        if !self.poll_read(cx, stdout, size_of::<u32>() + size) {
             return Poll::Pending;
         }
 
-        if !self.poll_read(cx, size_of::<u32>() + size) {
-            return Poll::Pending;
-        }
-
-        let message = match serde_json::from_slice::<Message>(
+        let message = match serde_json::from_slice::<IncomingMessage>(
             &self.incoming[size_of::<u32>()..size_of::<u32>() + size],
         ) {
             Ok(message) => message,
             Err(error) => {
                 self.errors.push(Error::other(error));
-                self.stop();
-                return Poll::Pending;
+                return Poll::Ready(Err(()));
             }
         };
 
-        match message {
-            Message::Ready(payload) => {
-                self.metadata.set_name(Some(&payload.name));
-                self.metadata.set_version(Some(&payload.version));
-                self.metadata.set_copyright(payload.copyright.as_deref());
-                self.metadata.set_comments(payload.comments.as_deref());
-                self.metadata.set_authors(&payload.authors);
-                self.metadata.set_documenters(&payload.documenters);
-                self.metadata.set_translators(&payload.translators);
-                self.metadata.set_webpage(payload.webpage.as_deref());
-                self.startup_timeout = None;
-                self.save_metadata();
+        self.incoming_size = 0;
+        Poll::Ready(Ok(message))
+    }
+
+    fn send_outgoing(
+        &mut self,
+        cx: &mut Context<'_>,
+        stdin: &mut ChildStdin,
+    ) -> Poll<Result<(), ()>> {
+        match pin!(stdin).poll_write(cx, &self.outgoing[self.outgoing_offset..]) {
+            Poll::Ready(Ok(size)) => {
+                self.outgoing_offset += size;
+                if self.outgoing_offset < self.outgoing.len().saturating_sub(1) {
+                    Poll::Pending
+                } else {
+                    self.outgoing.clear();
+                    self.outgoing_offset = 0;
+                    Poll::Ready(Ok(()))
+                }
+            }
+            Poll::Ready(Err(error)) => {
+                self.errors.push(if error.kind() == ErrorKind::BrokenPipe {
+                    Error::other(gettext("Child process terminated unexpectedly"))
+                } else {
+                    error
+                });
+                Poll::Ready(Err(()))
+            }
+            Poll::Pending => Poll::Pending,
+        }
+    }
+}
+
+impl Future for PluginInstance {
+    type Output = ();
+
+    fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
+        // Enforce startup timeout
+        if let Some(timeout) = &mut self.startup_timeout
+            && matches!(pin!(timeout).poll(cx), Poll::Ready(_))
+        {
+            self.errors.push(Error::other(gettext(
+                "Plugin didn't start up within maximum time",
+            )));
+            self.stop();
+            return Poll::Pending;
+        }
+
+        if let Some(mut child) = self.child.take() {
+            let mut failed = false;
+
+            // Try sending any outgoing messages
+            if !failed
+                && !self.outgoing.is_empty()
+                && let Some(stdin) = child.stdin.as_mut()
+            {
+                match self.send_outgoing(cx, stdin) {
+                    Poll::Ready(Ok(_)) | Poll::Pending => {}
+                    Poll::Ready(Err(_)) => {
+                        failed = true;
+                    }
+                }
+            }
+
+            // Process any incoming messages
+            if !failed && let Some(stdout) = child.stdout.as_mut() {
+                loop {
+                    match self.poll_incoming(cx, stdout) {
+                        Poll::Ready(Ok(message)) => {
+                            failed = !self.process_incoming(message);
+                            if failed {
+                                break;
+                            }
+                        }
+                        Poll::Ready(Err(_)) => {
+                            failed = true;
+                            break;
+                        }
+                        Poll::Pending => break,
+                    }
+                }
+            }
+
+            self.child = Some(child);
+            if failed {
+                self.stop();
+                return Poll::Pending;
             }
         }
 
@@ -256,6 +386,10 @@ mod test {
 
     fn setup_plugin(path: &str) -> PluginInstance {
         let options = PluginsOptions::new();
+        let mut metadata = options.metadata.get();
+        metadata.remove(path.rsplit_once('/').map(|(_, name)| name).unwrap_or(path));
+        let _ = options.metadata.set(metadata);
+
         let (sender, _) = async_channel::unbounded();
         let mut instance = PluginInstance::new(path.into(), &sender, &options);
         instance.start();
@@ -352,5 +486,27 @@ mod test {
             instance.metadata.webpage(),
             Some("https://example.com/".to_owned())
         );
+    }
+
+    #[async_std::test]
+    async fn test_failing_plugin_startup() {
+        let mut instance = setup_plugin("testdata/plugin-failing");
+        assert!(instance.is_enabled());
+        assert!(!instance.is_initialized());
+        assert_eq!(instance.errors.len(), 0);
+
+        poll_once(&mut instance).await;
+
+        assert!(!instance.is_enabled());
+        assert!(!instance.is_initialized());
+        assert_eq!(instance.errors.len(), 3);
+        assert_eq!(instance.metadata.name(), Some("Failing plugin".to_owned()));
+        assert_eq!(instance.metadata.version(), Some("3.5".to_owned()));
+        assert_eq!(instance.metadata.copyright(), None);
+        assert_eq!(instance.metadata.comments(), Some("Failing reliably since 2026".to_owned()));
+        assert_eq!(instance.metadata.authors(), Vec::<String>::new());
+        assert_eq!(instance.metadata.documenters(), Vec::<String>::new());
+        assert_eq!(instance.metadata.translators(), Vec::<String>::new());
+        assert_eq!(instance.metadata.webpage(), None);
     }
 }

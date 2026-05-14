@@ -1,3 +1,5 @@
 #!/bin/sh
 
-echo -ne '\xFA\0\0\0{"type": "ready", "payload": {"name": "Extended plugin", "version": "1.1", "copyright": "Copyright 2026", "comments": "This is super cool", "authors": ["Bob", "Jane"], "documenters": ["Frank"], "translators": [""], "webpage": "https://example.com/"}}'
+echo -ne '\xF9\0\0\0{"type": "info", "payload": {"name": "Extended plugin", "version": "1.1", "copyright": "Copyright 2026", "comments": "This is super cool", "authors": ["Bob", "Jane"], "documenters": ["Frank"], "translators": [""], "webpage": "https://example.com/"}}'
+echo -ne '\x22\0\0\0{"type": "ready", "payload": null}'
+sleep 60

@@ -135,7 +135,12 @@ fn section(header: &str, lines: &[String]) -> gtk::Frame {
         .css_classes(["offset"])
         .build();
     for line in lines {
-        vbox.append(&gtk::Label::builder().label(line).halign(gtk::Align::Start).build());
+        vbox.append(
+            &gtk::Label::builder()
+                .label(line)
+                .halign(gtk::Align::Start)
+                .build(),
+        );
     }
     gtk::Frame::builder()
         .label(header)

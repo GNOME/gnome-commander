@@ -14,4 +14,4 @@ pub use host::PluginHost;
 pub use instance::PluginInstance;
 pub use manager::show_plugin_manager;
 pub use metadata::PluginMetadata;
-use protocol::Message;
+use protocol::{IncomingMessage, OutgoingMessage};
