@@ -209,34 +209,28 @@ impl PluginInstance {
         cx: &mut Context<'_>,
         stdout: &mut ChildStdout,
         desired_size: usize,
-    ) -> bool {
+    ) -> Result<bool, Error> {
         if self.incoming_size >= desired_size {
-            return true;
+            return Ok(true);
         }
 
         match pin!(stdout).poll_read(cx, &mut self.incoming[self.incoming_size..desired_size]) {
             Poll::Ready(Ok(size)) => {
                 if size > 0 {
                     self.incoming_size += size;
-                    self.incoming_size >= desired_size
+                    Ok(self.incoming_size >= desired_size)
                 } else {
-                    self.errors.push(Error::other(gettext(
+                    Err(Error::other(gettext(
                         "Child process terminated unexpectedly",
-                    )));
-                    self.stop();
-                    false
+                    )))
                 }
             }
-            Poll::Ready(Err(error)) => {
-                self.errors.push(if error.kind() == ErrorKind::BrokenPipe {
-                    Error::other(gettext("Child process terminated unexpectedly"))
-                } else {
-                    error
-                });
-                self.stop();
-                false
-            }
-            Poll::Pending => false,
+            Poll::Ready(Err(error)) => Err(if error.kind() == ErrorKind::BrokenPipe {
+                Error::other(gettext("Child process terminated unexpectedly"))
+            } else {
+                error
+            }),
+            Poll::Pending => Ok(false),
         }
     }
 
@@ -244,35 +238,31 @@ impl PluginInstance {
         &mut self,
         cx: &mut Context<'_>,
         stdout: &mut ChildStdout,
-    ) -> Poll<Result<IncomingMessage, ()>> {
-        if !self.poll_read(cx, stdout, size_of::<u32>()) {
-            return Poll::Pending;
-        }
-
-        let size = self.incoming[0..size_of::<u32>()]
-            .try_into()
-            .ok()
-            .and_then(|bytes| usize::try_from(u32::from_ne_bytes(bytes)).ok())
-            .unwrap_or_default();
+    ) -> Poll<Result<IncomingMessage, Error>> {
+        let size = match self.poll_read(cx, stdout, size_of::<u32>()) {
+            Ok(true) => self.incoming[0..size_of::<u32>()]
+                .try_into()
+                .ok()
+                .and_then(|bytes| usize::try_from(u32::from_ne_bytes(bytes)).ok())
+                .unwrap_or_default(),
+            Ok(false) => return Poll::Pending,
+            Err(error) => return Poll::Ready(Err(error)),
+        };
         if size > Self::INCOMING_MAX_SIZE {
-            self.errors.push(Error::other(gettext(
+            return Poll::Ready(Err(Error::other(gettext(
                 "Incoming message exceeded maximum size",
-            )));
-            return Poll::Ready(Err(()));
+            ))));
         }
 
-        if !self.poll_read(cx, stdout, size_of::<u32>() + size) {
-            return Poll::Pending;
-        }
-
-        let message = match serde_json::from_slice::<IncomingMessage>(
-            &self.incoming[size_of::<u32>()..size_of::<u32>() + size],
-        ) {
-            Ok(message) => message,
-            Err(error) => {
-                self.errors.push(Error::other(error));
-                return Poll::Ready(Err(()));
-            }
+        let message = match self.poll_read(cx, stdout, size_of::<u32>() + size) {
+            Ok(true) => match serde_json::from_slice::<IncomingMessage>(
+                &self.incoming[size_of::<u32>()..size_of::<u32>() + size],
+            ) {
+                Ok(message) => message,
+                Err(error) => return Poll::Ready(Err(Error::other(error))),
+            },
+            Ok(false) => return Poll::Pending,
+            Err(error) => return Poll::Ready(Err(error)),
         };
 
         self.incoming_size = 0;
@@ -283,7 +273,7 @@ impl PluginInstance {
         &mut self,
         cx: &mut Context<'_>,
         stdin: &mut ChildStdin,
-    ) -> Poll<Result<(), ()>> {
+    ) -> Poll<Result<(), Error>> {
         match pin!(stdin).poll_write(cx, &self.outgoing[self.outgoing_offset..]) {
             Poll::Ready(Ok(size)) => {
                 self.outgoing_offset += size;
@@ -295,14 +285,11 @@ impl PluginInstance {
                     Poll::Ready(Ok(()))
                 }
             }
-            Poll::Ready(Err(error)) => {
-                self.errors.push(if error.kind() == ErrorKind::BrokenPipe {
-                    Error::other(gettext("Child process terminated unexpectedly"))
-                } else {
-                    error
-                });
-                Poll::Ready(Err(()))
-            }
+            Poll::Ready(Err(error)) => Poll::Ready(Err(if error.kind() == ErrorKind::BrokenPipe {
+                Error::other(gettext("Child process terminated unexpectedly"))
+            } else {
+                error
+            })),
             Poll::Pending => Poll::Pending,
         }
     }
@@ -312,6 +299,8 @@ impl Future for PluginInstance {
     type Output = ();
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
+        let mut failed = false;
+
         // Enforce startup timeout
         if let Some(timeout) = &mut self.startup_timeout
             && matches!(pin!(timeout).poll(cx), Poll::Ready(_))
@@ -319,13 +308,10 @@ impl Future for PluginInstance {
             self.errors.push(Error::other(gettext(
                 "Plugin didn't start up within maximum time",
             )));
-            self.stop();
-            return Poll::Pending;
+            failed = true;
         }
 
-        if let Some(mut child) = self.child.take() {
-            let mut failed = false;
-
+        if !failed && let Some(mut child) = self.child.take() {
             // Try sending any outgoing messages
             if !failed
                 && !self.outgoing.is_empty()
@@ -333,7 +319,8 @@ impl Future for PluginInstance {
             {
                 match self.send_outgoing(cx, stdin) {
                     Poll::Ready(Ok(_)) | Poll::Pending => {}
-                    Poll::Ready(Err(_)) => {
+                    Poll::Ready(Err(error)) => {
+                        self.errors.push(error);
                         failed = true;
                     }
                 }
@@ -349,7 +336,8 @@ impl Future for PluginInstance {
                                 break;
                             }
                         }
-                        Poll::Ready(Err(_)) => {
+                        Poll::Ready(Err(error)) => {
+                            self.errors.push(error);
                             failed = true;
                             break;
                         }
@@ -359,10 +347,10 @@ impl Future for PluginInstance {
             }
 
             self.child = Some(child);
-            if failed {
-                self.stop();
-                return Poll::Pending;
-            }
+        }
+
+        if failed {
+            self.stop();
         }
 
         Poll::Pending
