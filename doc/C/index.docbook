@@ -7006,14 +7006,6 @@
       still hosted at Savannah.</para>
       <para>Since 2013, the location of the &app; home page has been moved to GitHub.org.</para>
     </sect2>
-    <sect2 id="gnome-commander-bug-reporting">
-      <title>Bug Reporting</title>
-    <para>
-      If you found a bug, you can check if it is already reported on our
-      <ulink type="http" url="https://gitlab.gnome.org/GNOME/gnome-commander/issues">GitLab</ulink>
-      page at Gnome.org. If not, please report the bug. If you want to fix it by yourself
-      have a look at the section <xref linkend="gnome-commander-development-version"></xref>.</para>
-    </sect2>
     <sect2 id="gnome-commander-License">
       <title>License</title>
       <para> This program is free software: you can redistribute it and/or modify it under
