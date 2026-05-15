@@ -6958,8 +6958,6 @@
     </sect2>
   </sect1>
 
-<xi:include href="releases.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-
 <!-- ============= Bugs ================================== -->
 <!-- This section is optional and is commented out by default.
      You can use it to describe known bugs and limitations of the
