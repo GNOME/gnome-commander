@@ -6958,27 +6958,17 @@
     </sect2>
   </sect1>
 
-<!-- ============= Bugs ================================== -->
-<!-- This section is optional and is commented out by default.
-     You can use it to describe known bugs and limitations of the
-      program if there are any - please be frank and list all
-     problems you know of.
--->
   <sect1 id="gnome-commander-bugs">
     <title>Known Bugs and Limitations</title>
-    <para>You can report or view &app; bugs at <ulink type="http" url="https://gitlab.gnome.org/GNOME/gnome-commander/issues">gitlab.gnome.org</ulink>.</para>
+    <para>You can report or view &app; bugs at <ulink type="http" url="https://gitlab.gnome.org/GNOME/gnome-commander/-/work_items">gitlab.gnome.org</ulink>.</para>
     <para>Some words about bugs: Though &app; is relatively free from bugs and is a quite mature program, no programs will ever be totally bug free.
         New bugs can be introduced with new features, or through other programs and libraries it depends on,
-        this goes especially for development and testing versions. Quality bug reporting is very important
-        and can be a very good help for the developers to make a better program.
-        Bug reporting is not an act of dissatisfaction, so you are very welcome to help us find, hunt down and kill the bugs.
+        especially for development and testing versions. Quality bug reporting is very important
+        and can be a very good help for the developers to make a better program.</para>
+    <para>Bug reporting is not an act of dissatisfaction, so you are very welcome to help us find and fix the bugs.
         Testing of the new releases and bug reporting is the best way users without programming knowledge can help out in the development of a program,
         and those with programming knowledge are very welcome to suggest fixes and/or send patches to the developers,
         all in the spirit of free and open source software.</para>
-    <para>Known limitation:
-    <itemizedlist>
-    <listitem><para></para></listitem>
-    </itemizedlist></para>
   <para><emphasis>Given enough eyeballs, all bugs are shallow.</emphasis></para>
 
   <para><foreignphrase>Linus law.</foreignphrase></para>
