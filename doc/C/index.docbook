@@ -4696,19 +4696,6 @@
             </row>
             <row>
               <entry colname="colspec0" valign="top">
-                <para/>
-              </entry>
-              <entry colname="colspec2" valign="top">
-                <para>Treat symbolic links as regular files</para>
-              </entry>
-              <entry colname="colspec3" valign="top">
-                <para>If enabled, symbolic links will be treated as regular files.
-                  In the file panel they are then listed between other files and not at
-                  the top if their target does not existing.</para>
-              </entry>
-            </row>
-            <row>
-              <entry colname="colspec0" valign="top">
                 <para>
                   <guilabel>Quick search</guilabel>
                 </para>
@@ -5542,50 +5529,6 @@
             </row>
             <row>
               <entry>
-                <para></para>
-              </entry>
-              <entry colname="colspec2">
-                <para>Shortcuts (Windows systems)</para>
-              </entry>
-              <entry colname="colspec3">
-                <para>A special type of links to network directories.</para>
-              </entry>
-            </row>
-            <row>
-              <entry>
-                <para></para>
-              </entry>
-              <entry colname="colspec2">
-                <para>Mountable locations</para>
-              </entry>
-              <entry colname="colspec3">
-                <para>Network directories which can be mounted locally.</para>
-              </entry>
-            </row>
-            <row>
-              <entry>
-                <para></para>
-              </entry>
-              <entry colname="colspec2">
-                <para>Virtual files</para>
-              </entry>
-              <entry colname="colspec3">
-                <para>Network devices which actually aren't files - think of servers and their shares.</para>
-              </entry>
-            </row>
-            <row>
-              <entry>
-                <para></para>
-              </entry>
-              <entry colname="colspec2">
-                <para>Volatile files</para>
-              </entry>
-              <entry colname="colspec3">
-                <para>Another special type of files which are associated with Google Drive shortcuts.</para>
-              </entry>
-            </row>
-            <row>
-              <entry>
                 <para>
                   <guilabel>Also hide</guilabel>
                 </para>
@@ -5621,13 +5564,13 @@
             </row>
             <row>
               <entry>
-                <para></para>
-              </entry>
-              <entry colname="colspec2">
                 <para>Backup files</para>
               </entry>
+              <entry colname="colspec2">
+                <para>Text box for user-defined filename extensions</para>
+              </entry>
               <entry colname="colspec3">
-                <para>If backup files are hidden you can add more filename extensions here that are used as backup files on your system.</para>
+                <para>If backup files are hidden you can add filename extensions here that are used as backup files on your system. Separate multiple entries with semicolon.</para>
               </entry>
             </row>
           </tbody>
