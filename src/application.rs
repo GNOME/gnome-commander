@@ -42,7 +42,7 @@ mod imp {
             let user_plugins_dir = glib::user_config_dir().join(PACKAGE).join("plugins");
             let (plugin_host, plugin_channel) =
                 PluginHost::new(&[system_plugins_dir, &user_plugins_dir]);
-            glib::spawn_future_local(plugin_host.run());
+            glib::spawn_future_local(plugin_host);
 
             Application {
                 debug_flags: Default::default(),

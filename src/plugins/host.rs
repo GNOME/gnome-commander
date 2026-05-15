@@ -5,12 +5,21 @@
 use super::{IncomingPluginMessage, OutgoingPluginMessage, PluginChannel, PluginInstance};
 use crate::options::PluginsOptions;
 use async_channel::{Receiver, Sender};
-use futures::{FutureExt, future::select_all};
-use std::{collections::BTreeMap, fs, io::Error, path::Path};
+use futures::Stream;
+use std::{
+    collections::BTreeMap,
+    fs,
+    io::Error,
+    path::Path,
+    pin::{Pin, pin},
+    task::{Context, Poll},
+};
 
+#[pin_project::pin_project]
 pub struct PluginHost {
     plugins: BTreeMap<String, PluginInstance>,
     sender: Sender<OutgoingPluginMessage>,
+    #[pin]
     receiver: Receiver<IncomingPluginMessage>,
 }
 
@@ -31,58 +40,68 @@ impl PluginHost {
         (host, PluginChannel::new(incoming_sender, outgoing_receiver))
     }
 
-    pub async fn run(mut self) {
-        let receiver = self.receiver.clone();
-        loop {
-            futures::select!(
-                msg = receiver.recv().fuse() => {
-                    match msg {
-                        Ok(IncomingPluginMessage::GetPlugins) => {
-                            let plugins = self
-                                .plugins
-                                .iter()
-                                .map(|(name, instance)| (name.to_owned(), instance.data()))
-                                .collect();
-                            let _ = self
-                                .sender
-                                .try_send(OutgoingPluginMessage::Plugins(plugins));
-                        }
-                        Ok(IncomingPluginMessage::StartPlugin(name)) => {
-                            if let Some(instance) = self.plugins.get_mut(&name) {
-                                instance.start();
-                            }
-                        }
-                        Ok(IncomingPluginMessage::StopPlugin(name)) => {
-                            if let Some(instance) = self.plugins.get_mut(&name) {
-                                instance.stop();
-                            }
-                        }
-                        Ok(IncomingPluginMessage::TogglePlugin(name)) => {
-                            if let Some(instance) = self.plugins.get_mut(&name) {
-                                if instance.is_enabled() {
-                                    if instance.is_initialized() {
-                                        instance.stop();
-                                    }
-                                } else {
-                                    instance.start();
-                                }
-                            }
-                        }
-                        Err(error) => {
-                            eprintln!("Plugin host failed receiving incoming messages: {error}");
-                        }
-                    }
-                }
-                // Pump async processing in plugin instances, no result is expected here.
-                _ = select_all(self.plugins.values_mut()).fuse() => {}
-            );
-        }
-    }
-
     fn enabled_plugins(&mut self) -> impl Iterator<Item = &mut PluginInstance> {
         self.plugins
             .values_mut()
             .filter(|plugin| plugin.is_enabled())
+    }
+}
+
+impl Future for PluginHost {
+    type Output = ();
+
+    fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
+        let mut this = self.project();
+        loop {
+            let message = match this.receiver.as_mut().poll_next(cx) {
+                Poll::Ready(Some(message)) => message,
+                Poll::Ready(None) => {
+                    eprintln!("Plugin host receiver no longer gets messages, sender dropped?");
+                    break;
+                }
+                Poll::Pending => break,
+            };
+            match message {
+                IncomingPluginMessage::GetPlugins => {
+                    let plugins = this
+                        .plugins
+                        .iter()
+                        .map(|(name, instance)| (name.to_owned(), instance.data()))
+                        .collect();
+                    let _ = this
+                        .sender
+                        .try_send(OutgoingPluginMessage::Plugins(plugins));
+                }
+                IncomingPluginMessage::StartPlugin(name) => {
+                    if let Some(instance) = this.plugins.get_mut(&name) {
+                        instance.start();
+                    }
+                }
+                IncomingPluginMessage::StopPlugin(name) => {
+                    if let Some(instance) = this.plugins.get_mut(&name) {
+                        instance.stop();
+                    }
+                }
+                IncomingPluginMessage::TogglePlugin(name) => {
+                    if let Some(instance) = this.plugins.get_mut(&name) {
+                        if instance.is_enabled() {
+                            if instance.is_initialized() {
+                                instance.stop();
+                            }
+                        } else {
+                            instance.start();
+                        }
+                    }
+                }
+            }
+        }
+
+        for instance in this.plugins.values_mut() {
+            // Instances never resolve, ignore result.
+            let _ = pin!(instance).poll(cx);
+        }
+
+        Poll::Pending
     }
 }
 
