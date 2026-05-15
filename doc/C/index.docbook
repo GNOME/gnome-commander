@@ -6953,7 +6953,6 @@
         <para>The above works only to do a first time download and not for updating the code,
         if you already have a version of the code simply run <command>git pull</command> to get the latest revisions.</para>
       </note>
-      <para>Just remember to run <command>./autogen.sh</command> before building by <command>make</command>.</para>
       <warning><para>Be aware that there can be serious bugs in code from GNOME git repository.
       This code is intended for hacking, development and testing purposes only.</para></warning>
     </sect2>
