@@ -69,12 +69,16 @@ impl PluginInstance {
         Self::file_name_from_path(&self.path)
     }
 
+    /// Tests whether a plugin is enabled. Other than on application startup this also implies that
+    /// the plugin is running.
     pub fn is_enabled(&self) -> bool {
         self.metadata.enabled()
     }
 
+    /// Tests whether the plugin signaled being ready. The result is only meaningful for enabled
+    /// plugins.
     pub fn is_initialized(&self) -> bool {
-        self.child.is_some() && self.startup_timeout.is_none()
+        self.startup_timeout.is_none()
     }
 
     pub fn start(&mut self) {
@@ -128,10 +132,6 @@ impl PluginInstance {
     }
 
     fn send_message(&mut self, msg: OutgoingMessage) {
-        if self.child.is_none() {
-            return;
-        }
-
         let data = match serde_json::to_vec(&msg) {
             Ok(data) => data,
             Err(error) => {
@@ -176,6 +176,8 @@ impl PluginInstance {
         ));
     }
 
+    /// Processes a message from plugin. Note that `self.child` will be unset while this method
+    /// runs, so it should return `false` instead of calling `stop()` to indicate failure.
     fn process_incoming(&mut self, message: IncomingMessage) -> bool {
         match message {
             IncomingMessage::Info(data) => {
@@ -400,7 +402,6 @@ mod test {
     fn test_missing_plugin_startup() {
         let instance = setup_plugin("testdata/plugin-missing");
         assert!(!instance.is_enabled());
-        assert!(!instance.is_initialized());
         assert_eq!(instance.errors.len(), 1);
     }
 
@@ -414,7 +415,6 @@ mod test {
         poll_once(&mut instance).await;
 
         assert!(!instance.is_enabled());
-        assert!(!instance.is_initialized());
         assert_eq!(instance.errors.len(), 1);
     }
 
@@ -428,7 +428,6 @@ mod test {
         poll_once(&mut instance).await;
 
         assert!(!instance.is_enabled());
-        assert!(!instance.is_initialized());
         assert_eq!(instance.errors.len(), 1);
     }
 
@@ -498,7 +497,6 @@ mod test {
         poll_once(&mut instance).await;
 
         assert!(!instance.is_enabled());
-        assert!(!instance.is_initialized());
         assert_eq!(instance.errors.len(), 3);
         assert_eq!(instance.metadata.name(), Some("Failing plugin".to_owned()));
         assert_eq!(instance.metadata.version(), Some("3.5".to_owned()));
