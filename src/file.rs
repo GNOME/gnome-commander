@@ -197,7 +197,10 @@ impl File {
     }
 
     pub fn is_directory(&self) -> bool {
-        self.file_type() == gio::FileType::Directory
+        matches!(
+            self.file_type(),
+            gio::FileType::Directory | gio::FileType::Shortcut | gio::FileType::Mountable
+        )
     }
 
     pub fn is_regular(&self) -> bool {
