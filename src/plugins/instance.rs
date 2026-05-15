@@ -503,7 +503,10 @@ mod test {
         assert_eq!(instance.metadata.name(), Some("Failing plugin".to_owned()));
         assert_eq!(instance.metadata.version(), Some("3.5".to_owned()));
         assert_eq!(instance.metadata.copyright(), None);
-        assert_eq!(instance.metadata.comments(), Some("Failing reliably since 2026".to_owned()));
+        assert_eq!(
+            instance.metadata.comments(),
+            Some("Failing reliably since 2026".to_owned())
+        );
         assert_eq!(instance.metadata.authors(), Vec::<String>::new());
         assert_eq!(instance.metadata.documenters(), Vec::<String>::new());
         assert_eq!(instance.metadata.translators(), Vec::<String>::new());

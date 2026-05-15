@@ -60,7 +60,9 @@ impl PluginHost {
                         Ok(IncomingPluginMessage::TogglePlugin(name)) => {
                             if let Some(instance) = self.plugins.get_mut(&name) {
                                 if instance.is_enabled() {
-                                    instance.stop();
+                                    if instance.is_initialized() {
+                                        instance.stop();
+                                    }
                                 } else {
                                     instance.start();
                                 }
