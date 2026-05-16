@@ -373,7 +373,6 @@ mod imp {
 
             self.chmod_component.set_permissions(file.permissions());
             self.chmod_component.set_hexpand(true);
-            tab.attach(&self.chmod_component, 0, 3, 1, 1);
 
             tab.upcast()
         }
