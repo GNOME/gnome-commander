@@ -990,8 +990,10 @@ async fn get_selected_range(
     let entry = gtk::Entry::builder()
         .text(filename)
         .activates_default(true)
+        .editable(false)
         .hexpand(true)
         .build();
+    entry.select_region(0, -1);
     let label = gtk::Label::builder()
         .label(gettext("_Select range:"))
         .use_underline(true)
@@ -1024,7 +1026,7 @@ async fn get_selected_range(
     ));
 
     let ok_button = gtk::Button::builder()
-        .label(gettext("_Insert"))
+        .label(gettext("I_nsert"))
         .use_underline(true)
         .build();
     ok_button.connect_clicked(glib::clone!(
@@ -1048,12 +1050,13 @@ async fn get_selected_range(
 
     dialog.present();
     let result = receiver.recv().await.unwrap_or_default();
+    let selection_bounds = entry.selection_bounds();
     dialog.close();
 
     if result {
         let inversed = option.is_active();
 
-        if let Some((begin, end)) = entry.selection_bounds() {
+        if let Some((begin, end)) = selection_bounds {
             let len = i32::from(entry.text_length());
             if !inversed {
                 if end == len {
