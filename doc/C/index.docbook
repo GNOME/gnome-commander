@@ -6953,8 +6953,6 @@
         <para>The above works only to do a first time download and not for updating the code,
         if you already have a version of the code simply run <command>git pull</command> to get the latest revisions.</para>
       </note>
-      <warning><para>Be aware that there can be serious bugs in code from GNOME git repository.
-      This code is intended for hacking, development and testing purposes only.</para></warning>
     </sect2>
   </sect1>
 
@@ -6998,7 +6996,7 @@
       "gnome-vfs".</para>
       <para>In 2024, Andrey Kutejko got involved in the project and migrated &app; from Gtk2 to Gtk4.
       He also started the migration from C++ to the Rust language.</para>
-      <para>In early 2026, Wladimir Palant joint the project and fixed a lot of bugs, improved
+      <para>In early 2026, Wladimir Palant joined the project and fixed a lot of bugs, improved
       performance and introduced new features, for example the embedded terminal output.
       Wladimir became the new project maintainer after the release of &app; version 2.0.</para>
     </sect2>
