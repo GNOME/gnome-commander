@@ -337,16 +337,22 @@ mod imp {
                 option.connect_changed(glib::clone!(
                     #[weak(rename_to = imp)]
                     self,
-                    move |_| if let Some(filter) = imp.filter_model.filter() {
-                        filter.changed(gtk::FilterChange::Different);
+                    move |_| {
+                        if let Some(filter) = imp.filter_model.filter() {
+                            filter.changed(gtk::FilterChange::Different);
+                        }
+                        imp.obj().emit_files_changed();
                     }
                 ));
             }
             filters_options.backup_pattern.connect_changed(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
-                move |_| if let Some(filter) = imp.filter_model.filter() {
-                    filter.changed(gtk::FilterChange::Different);
+                move |_| {
+                    if let Some(filter) = imp.filter_model.filter() {
+                        filter.changed(gtk::FilterChange::Different);
+                    }
+                    imp.obj().emit_files_changed();
                 }
             ));
             self.filter_model
@@ -1814,6 +1820,7 @@ impl FileList {
         if let Some(filter) = self.imp().filter_model.filter() {
             filter.changed(gtk::FilterChange::Different);
         }
+        self.emit_files_changed();
     }
 
     pub fn start_range_selection(&self, up: bool, closed: bool) {
