@@ -62,7 +62,6 @@ pub struct GeneralOptions {
     pub legacy_file_list_tabs: VariantOption<Vec<LegacyTabVariant>>,
 
     pub list_font: StringOption,
-    pub list_row_height: U32Option,
     pub list_column_width: [(&'static str, U32Option); 9],
 
     pub date_display_format: StringOption,
@@ -158,7 +157,6 @@ impl GeneralOptions {
             file_list_tabs: VariantOption::new(&settings, "file-list-tabs-v2"),
             legacy_file_list_tabs: VariantOption::new(&settings, "file-list-tabs"),
             list_font: StringOption::new(&settings, "list-font"),
-            list_row_height: U32Option::new(&settings, "list-row-height"),
             list_column_width: [
                 ("icon", U32Option::new(&settings, "column-width-icon")),
                 ("name", U32Option::new(&settings, "column-width-name")),
