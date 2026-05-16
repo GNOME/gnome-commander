@@ -6974,12 +6974,6 @@
   <para><foreignphrase>Linus law.</foreignphrase></para>
  </sect1>
 
-<!-- ============= About ================================== -->
-<!-- This section contains info about the program (not docs), such as
-      author's name(s), web page, license, feedback address. This
-      section is optional: primary place for this info is "About.." box of
-      the program. However, if you do wish to include this info in the
-      manual, this is the place to put it. Alternatively, you can put this information in the title page.-->
   <sect1 id="gnome-commander-about">
     <title>About &app;</title>
     <sect2 id="gnome-commander-history">
