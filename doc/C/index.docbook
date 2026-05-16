@@ -4696,19 +4696,6 @@
             </row>
             <row>
               <entry colname="colspec0" valign="top">
-                <para/>
-              </entry>
-              <entry colname="colspec2" valign="top">
-                <para>Treat symbolic links as regular files</para>
-              </entry>
-              <entry colname="colspec3" valign="top">
-                <para>If enabled, symbolic links will be treated as regular files.
-                  In the file panel they are then listed between other files and not at
-                  the top if their target does not existing.</para>
-              </entry>
-            </row>
-            <row>
-              <entry colname="colspec0" valign="top">
                 <para>
                   <guilabel>Quick search</guilabel>
                 </para>
@@ -5542,50 +5529,6 @@
             </row>
             <row>
               <entry>
-                <para></para>
-              </entry>
-              <entry colname="colspec2">
-                <para>Shortcuts (Windows systems)</para>
-              </entry>
-              <entry colname="colspec3">
-                <para>A special type of links to network directories.</para>
-              </entry>
-            </row>
-            <row>
-              <entry>
-                <para></para>
-              </entry>
-              <entry colname="colspec2">
-                <para>Mountable locations</para>
-              </entry>
-              <entry colname="colspec3">
-                <para>Network directories which can be mounted locally.</para>
-              </entry>
-            </row>
-            <row>
-              <entry>
-                <para></para>
-              </entry>
-              <entry colname="colspec2">
-                <para>Virtual files</para>
-              </entry>
-              <entry colname="colspec3">
-                <para>Network devices which actually aren't files - think of servers and their shares.</para>
-              </entry>
-            </row>
-            <row>
-              <entry>
-                <para></para>
-              </entry>
-              <entry colname="colspec2">
-                <para>Volatile files</para>
-              </entry>
-              <entry colname="colspec3">
-                <para>Another special type of files which are associated with Google Drive shortcuts.</para>
-              </entry>
-            </row>
-            <row>
-              <entry>
                 <para>
                   <guilabel>Also hide</guilabel>
                 </para>
@@ -5621,13 +5564,13 @@
             </row>
             <row>
               <entry>
-                <para></para>
-              </entry>
-              <entry colname="colspec2">
                 <para>Backup files</para>
               </entry>
+              <entry colname="colspec2">
+                <para>Text box for user-defined filename extensions</para>
+              </entry>
               <entry colname="colspec3">
-                <para>If backup files are hidden you can add more filename extensions here that are used as backup files on your system.</para>
+                <para>If backup files are hidden you can add filename extensions here that are used as backup files on your system. Separate multiple entries with semicolon.</para>
               </entry>
             </row>
           </tbody>
@@ -7010,46 +6953,25 @@
         <para>The above works only to do a first time download and not for updating the code,
         if you already have a version of the code simply run <command>git pull</command> to get the latest revisions.</para>
       </note>
-      <para>Just remember to run <command>./autogen.sh</command> before building by <command>make</command>.</para>
-      <warning><para>Be aware that there can be serious bugs in code from GNOME git repository.
-      This code is intended for hacking, development and testing purposes only.</para></warning>
     </sect2>
   </sect1>
 
-<xi:include href="releases.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-
-<!-- ============= Bugs ================================== -->
-<!-- This section is optional and is commented out by default.
-     You can use it to describe known bugs and limitations of the
-      program if there are any - please be frank and list all
-     problems you know of.
--->
   <sect1 id="gnome-commander-bugs">
     <title>Known Bugs and Limitations</title>
-    <para>You can report or view &app; bugs at <ulink type="http" url="https://gitlab.gnome.org/GNOME/gnome-commander/issues">gitlab.gnome.org</ulink>.</para>
+    <para>You can report or view &app; bugs at <ulink type="http" url="https://gitlab.gnome.org/GNOME/gnome-commander/-/work_items">gitlab.gnome.org</ulink>.</para>
     <para>Some words about bugs: Though &app; is relatively free from bugs and is a quite mature program, no programs will ever be totally bug free.
         New bugs can be introduced with new features, or through other programs and libraries it depends on,
-        this goes especially for development and testing versions. Quality bug reporting is very important
-        and can be a very good help for the developers to make a better program.
-        Bug reporting is not an act of dissatisfaction, so you are very welcome to help us find, hunt down and kill the bugs.
+        especially for development and testing versions. Quality bug reporting is very important
+        and can be a very good help for the developers to make a better program.</para>
+    <para>Bug reporting is not an act of dissatisfaction, so you are very welcome to help us find and fix the bugs.
         Testing of the new releases and bug reporting is the best way users without programming knowledge can help out in the development of a program,
         and those with programming knowledge are very welcome to suggest fixes and/or send patches to the developers,
         all in the spirit of free and open source software.</para>
-    <para>Known limitation:
-    <itemizedlist>
-    <listitem><para></para></listitem>
-    </itemizedlist></para>
   <para><emphasis>Given enough eyeballs, all bugs are shallow.</emphasis></para>
 
   <para><foreignphrase>Linus law.</foreignphrase></para>
  </sect1>
 
-<!-- ============= About ================================== -->
-<!-- This section contains info about the program (not docs), such as
-      author's name(s), web page, license, feedback address. This
-      section is optional: primary place for this info is "About.." box of
-      the program. However, if you do wish to include this info in the
-      manual, this is the place to put it. Alternatively, you can put this information in the title page.-->
   <sect1 id="gnome-commander-about">
     <title>About &app;</title>
     <sect2 id="gnome-commander-history">
@@ -7064,9 +6986,19 @@
       contributed with many great ideas and by helping finding bugs and other inconsistencies.
       After Magnus resigned from the project, Thomas Jost helped to maintain the homepage at
       Savannah.org</para>
+      <para>While the program was first written in C, Piotr started to migrate the
+      codebase to C++. The migration was never really finished and the status was merely a
+      mixture of both.</para>
       <para>Unfortunately, Piotr suddenly passed away in the beginning of 2012 and &app; had no
       maintainer for nearly two years. Late in 2013, Uwe Scholz, a user of &app; since the
-      days before version 1.0, took over the project as project maintainer.</para>
+      days before version 1.0, took over the project as project maintainer. His main goal
+      was to keep the project alive, e.g. by getting rid of the legacy library dependency
+      "gnome-vfs".</para>
+      <para>In 2024, Andrey Kutejko got involved in the project and migrated &app; from Gtk2 to Gtk4.
+      He also started the migration from C++ to the Rust language.</para>
+      <para>In early 2026, Wladimir Palant joined the project and fixed a lot of bugs, improved
+      performance and introduced new features, for example the embedded terminal output.
+      Wladimir became the new project maintainer after the release of &app; version 2.0.</para>
     </sect2>
     <sect2 id="gnome-commander-location">
       <title>Location</title>
@@ -7075,14 +7007,8 @@
       of 2003, the source tree moved to Gnome.org. Though, the homepage and mailing lists were
       still hosted at Savannah.</para>
       <para>Since 2013, the location of the &app; home page has been moved to GitHub.org.</para>
-    </sect2>
-    <sect2 id="gnome-commander-bug-reporting">
-      <title>Bug Reporting</title>
-    <para>
-      If you found a bug, you can check if it is already reported on our
-      <ulink type="http" url="https://gitlab.gnome.org/GNOME/gnome-commander/issues">GitLab</ulink>
-      page at Gnome.org. If not, please report the bug. If you want to fix it by yourself
-      have a look at the section <xref linkend="gnome-commander-development-version"></xref>.</para>
+      <para>Since 2026, the location of the &app; home page has been moved to GNOME GitLab pages
+        where it also got a modern outfit.</para>
     </sect2>
     <sect2 id="gnome-commander-License">
       <title>License</title>
@@ -7091,7 +7017,7 @@
       Software Foundation, either version 3 of the License, or (at your option)
       any later version. A copy of this license can be found at this
       <ulink type="http" url="https://www.gnu.org/licenses/gpl-3.0">link</ulink>,
-      or in the file COPYING included with the source code of this program.</para>
+      or in the folder LICENSES included with the source code of this program.</para>
     </sect2>
   </sect1>
 </article>
