@@ -2162,7 +2162,7 @@ impl FileList {
         self.imp().items_iter().any(|item| item.file() == *f)
     }
 
-    fn focused_file_position(&self) -> Option<u32> {
+    pub fn focused_file_position(&self) -> Option<u32> {
         Some(self.imp().selection.selected()).filter(|p| *p != gtk::INVALID_LIST_POSITION)
     }
 
