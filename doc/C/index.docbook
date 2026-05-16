@@ -6995,7 +6995,7 @@
       maintainer for nearly two years. Late in 2013, Uwe Scholz, a user of &app; since the
       days before version 1.0, took over the project as project maintainer. His main goal
       was to keep the project alive, e.g. by getting rid of the legacy library dependency
-      like gnome-vfs.</para>
+      "gnome-vfs".</para>
       <para>In 2024, Andrey Kutejko got involved in the project and migrated &app; from Gtk2 to Gtk4.
       He also started the migration from C++ to the Rust language.</para>
       <para>In early 2026, Wladimir Palant joint the project and fixed a lot of bugs, improved
