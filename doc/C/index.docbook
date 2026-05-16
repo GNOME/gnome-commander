@@ -6994,9 +6994,19 @@
       contributed with many great ideas and by helping finding bugs and other inconsistencies.
       After Magnus resigned from the project, Thomas Jost helped to maintain the homepage at
       Savannah.org</para>
+      <para>While the program was first written in C, Piotr started to migrate the
+      codebase to C++. The migration was never really finished and the status was merely a
+      mixture of both.</para>
       <para>Unfortunately, Piotr suddenly passed away in the beginning of 2012 and &app; had no
       maintainer for nearly two years. Late in 2013, Uwe Scholz, a user of &app; since the
-      days before version 1.0, took over the project as project maintainer.</para>
+      days before version 1.0, took over the project as project maintainer. His main goal
+      was to keep the project alive, e.g. by getting rid of the legacy library dependency
+      like gnome-vfs.</para>
+      <para>In 2024, Andrey Kutejko got involved in the project and migrated &app; from Gtk2 to Gtk4.
+      He also started the migration from C++ to the Rust language.</para>
+      <para>In early 2026, Wladimir Palant joint the project and fixed a lot of bugs, improved
+      performance and introduced new features, for example the embedded terminal output.
+      Wladimir became the new project maintainer after the release of &app; version 2.0.</para>
     </sect2>
     <sect2 id="gnome-commander-location">
       <title>Location</title>
@@ -7005,6 +7015,8 @@
       of 2003, the source tree moved to Gnome.org. Though, the homepage and mailing lists were
       still hosted at Savannah.</para>
       <para>Since 2013, the location of the &app; home page has been moved to GitHub.org.</para>
+      <para>Since 2026, the location of the &app; home page has been moved to GNOME GitLab pages
+        where it also got a modern outfit.</para>
     </sect2>
     <sect2 id="gnome-commander-License">
       <title>License</title>
