@@ -33,17 +33,15 @@ impl IconCache {
             file_type_icons.insert(gio::FileType::Regular, icon);
         }
         if let Some(icon) = load_icon(&file_icons_dir.join("file_type_dir.png")) {
-            file_type_icons.insert(gio::FileType::Directory, icon);
+            file_type_icons.insert(gio::FileType::Directory, icon.clone());
+            file_type_icons.insert(gio::FileType::Shortcut, icon.clone());
+            file_type_icons.insert(gio::FileType::Mountable, icon);
         }
         if let Some(icon) = load_icon(&file_icons_dir.join("file_type_symlink.png")) {
-            file_type_icons.insert(gio::FileType::SymbolicLink, icon.clone());
-            file_type_icons.insert(gio::FileType::Shortcut, icon);
+            file_type_icons.insert(gio::FileType::SymbolicLink, icon);
         }
         if let Some(icon) = load_icon(&file_icons_dir.join("file_type_socket.png")) {
             file_type_icons.insert(gio::FileType::Special, icon);
-        }
-        if let Some(icon) = load_icon(&file_icons_dir.join("file_type_block_device.png")) {
-            file_type_icons.insert(gio::FileType::Mountable, icon);
         }
 
         let options = GeneralOptions::new();
@@ -108,7 +106,7 @@ impl IconCache {
         file_type: gio::FileType,
         mime_type: &str,
     ) -> Option<gio::Icon> {
-        if file_type == gio::FileType::SymbolicLink || file_type == gio::FileType::Shortcut {
+        if file_type == gio::FileType::SymbolicLink {
             return None;
         }
 
@@ -195,10 +193,11 @@ fn load_icon(path: &Path) -> Option<gio::Icon> {
 /// Returns the file name that an image representing the given filetype should have.
 fn type_icon_name(file_type: gio::FileType) -> &'static str {
     match file_type {
-        gio::FileType::Directory => "i-directory",
+        gio::FileType::Directory | gio::FileType::Shortcut | gio::FileType::Mountable => {
+            "i-directory"
+        }
         gio::FileType::Regular => "i-regular",
         gio::FileType::SymbolicLink => "i-symlink",
-        // TODO: Add filetype names for G_FILE_TYPE_SHORTCUT and G_FILE_TYPE_MOUNTABLE
         _ => "i-regular",
     }
 }

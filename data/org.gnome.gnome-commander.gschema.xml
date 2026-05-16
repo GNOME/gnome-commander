@@ -299,63 +299,63 @@ SPDX-License-Identifier: GPL-3.0-or-later
       <default>20</default>
       <summary>Width of icon column</summary>
       <description>
-          This option defines the width of the icon column.
+          This setting is only present for backwards compatibility and will be removed in future.
       </description>
     </key>
     <key name="column-width-name" type="u">
       <default>140</default>
       <summary>Width of name column</summary>
       <description>
-          This option defines the width of the name column.
+          This setting is only present for backwards compatibility and will be removed in future.
       </description>
     </key>
     <key name="column-width-ext" type="u">
       <default>40</default>
       <summary>Width of extension column</summary>
       <description>
-          This option defines the width of the extension column.
+          This setting is only present for backwards compatibility and will be removed in future.
       </description>
     </key>
     <key name="column-width-dir" type="u">
       <default>240</default>
       <summary>Width of directory column</summary>
       <description>
-          This option defines the width of the directory column.
+          This setting is only present for backwards compatibility and will be removed in future.
       </description>
     </key>
     <key name="column-width-size" type="u">
       <default>70</default>
       <summary>Width of size column</summary>
       <description>
-          This option defines the width of the size column.
+          This setting is only present for backwards compatibility and will be removed in future.
       </description>
     </key>
     <key name="column-width-date" type="u">
       <default>150</default>
       <summary>Width of date column</summary>
       <description>
-          This option defines the width of the date column.
+          This setting is only present for backwards compatibility and will be removed in future.
       </description>
     </key>
     <key name="column-width-perm" type="u">
       <default>70</default>
       <summary>Width of permissions column</summary>
       <description>
-          This option defines the width of the permissions column.
+          This setting is only present for backwards compatibility and will be removed in future.
       </description>
     </key>
     <key name="column-width-owner" type="u">
       <default>50</default>
       <summary>Width of owner column</summary>
       <description>
-          This option defines the width of the owner column.
+          This setting is only present for backwards compatibility and will be removed in future.
       </description>
     </key>
     <key name="column-width-group" type="u">
       <default>50</default>
       <summary>Width of group column</summary>
       <description>
-          This option defines the width of the group column.
+          This setting is only present for backwards compatibility and will be removed in future.
       </description>
     </key>
     <key name="keybindings" type="a(sssbbbbbb)">
@@ -441,14 +441,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
         <summary>Case sensitive sorting</summary>
         <description>
             This option defines if sorting should be case sensitive.
-        </description>
-    </key>
-    <key name="symbolic-links-as-regular-files" type="b">
-        <default>false</default>
-        <summary>Treat symbolic links as regular files</summary>
-        <description>
-            This option defines if symbolic links should be treated as regular files.
-            In the file panel they are listed between other files and not at the top if their target is not existing.
         </description>
     </key>
     <key name="select-dirs" type="b">
@@ -672,22 +664,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <key name="hide-special" type="b">
       <default>false</default>
       <summary>Hide special files, such as a socket, fifo, block devices, or character devices.</summary>
-    </key>
-    <key name="hide-shortcut" type="b">
-      <default>false</default>
-      <summary>Hide shortcut files (Windows systems)</summary>
-    </key>
-    <key name="hide-mountable" type="b">
-      <default>false</default>
-      <summary>Hide mountable locations</summary>
-    </key>
-    <key name="hide-virtual" type="b">
-      <default>false</default>
-      <summary>Hide virtual files</summary>
-    </key>
-    <key name="hide-volatile" type="b">
-      <default>false</default>
-      <summary>Hide volatile files</summary>
     </key>
     <key name="hide-dotfile" type="b">
       <default>true</default>

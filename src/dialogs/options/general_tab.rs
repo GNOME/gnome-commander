@@ -27,7 +27,6 @@ pub struct GeneralTab {
     delete_to_trash: gtk::CheckButton,
     select_dirs: gtk::CheckButton,
     case_sensitive: gtk::CheckButton,
-    symbolic_links_as_regular_files: gtk::CheckButton,
     quick_search_mode_search: gtk::CheckButton,
     quick_search_mode_filter: gtk::CheckButton,
     quick_search_ctrl_alt: gtk::CheckButton,
@@ -150,10 +149,6 @@ impl GeneralTab {
             .label(gettext("Case sensitive"))
             .build();
         sorting.append(&case_sensitive);
-        let symbolic_links_as_regular_files = gtk::CheckButton::builder()
-            .label(gettext("Treat symbolic links as regular files"))
-            .build();
-        sorting.append(&symbolic_links_as_regular_files);
 
         let quick_search = gtk::Box::builder()
             .orientation(gtk::Orientation::Vertical)
@@ -282,7 +277,6 @@ impl GeneralTab {
             delete_to_trash,
             select_dirs,
             case_sensitive,
-            symbolic_links_as_regular_files,
             quick_search_mode_search,
             quick_search_mode_filter,
             quick_search_ctrl_alt,
@@ -329,8 +323,6 @@ impl GeneralTab {
         self.delete_to_trash.set_active(options.use_trash.get());
         self.select_dirs.set_active(options.select_dirs.get());
         self.case_sensitive.set_active(options.case_sensitive.get());
-        self.symbolic_links_as_regular_files
-            .set_active(options.symbolic_links_as_regular_files.get());
         radio_group_set_value(
             [
                 (&self.quick_search_mode_search, QuickSearchMode::Search),
@@ -386,9 +378,6 @@ impl GeneralTab {
         options
             .case_sensitive
             .set(self.case_sensitive.is_active())?;
-        options
-            .symbolic_links_as_regular_files
-            .set(self.symbolic_links_as_regular_files.is_active())?;
         options
             .quick_search_default_mode
             .set(radio_group_get_value([

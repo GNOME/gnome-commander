@@ -122,7 +122,6 @@ mod imp {
             let options = GeneralOptions::new();
             main_win.load_command_line_history(&options);
             main_win.present();
-            main_win.set_current_panel(0);
         }
 
         fn shutdown(&self) {

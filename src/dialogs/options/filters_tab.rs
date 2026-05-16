@@ -14,10 +14,6 @@ pub struct FiltersTab {
     hide_regular: gtk::CheckButton,
     hide_directory: gtk::CheckButton,
     hide_special: gtk::CheckButton,
-    hide_shortcut: gtk::CheckButton,
-    hide_mountable: gtk::CheckButton,
-    hide_virtual: gtk::CheckButton,
-    hide_volatile: gtk::CheckButton,
     hide_hidden: gtk::CheckButton,
     hide_backup: gtk::CheckButton,
     hide_symlink: gtk::CheckButton,
@@ -47,18 +43,6 @@ impl FiltersTab {
             hide_special: gtk::CheckButton::builder()
                 .label(gettext("Socket, fifo, block, or character devices"))
                 .build(),
-            hide_shortcut: gtk::CheckButton::builder()
-                .label(gettext("Shortcuts (Windows systems)"))
-                .build(),
-            hide_mountable: gtk::CheckButton::builder()
-                .label(gettext("Mountable locations"))
-                .build(),
-            hide_virtual: gtk::CheckButton::builder()
-                .label(gettext("Virtual files"))
-                .build(),
-            hide_volatile: gtk::CheckButton::builder()
-                .label(gettext("Volatile files"))
-                .build(),
             hide_hidden: gtk::CheckButton::builder()
                 .label(gettext("Hidden files"))
                 .build(),
@@ -82,10 +66,6 @@ impl FiltersTab {
         c.append(&filters.hide_regular);
         c.append(&filters.hide_directory);
         c.append(&filters.hide_special);
-        c.append(&filters.hide_shortcut);
-        c.append(&filters.hide_mountable);
-        c.append(&filters.hide_virtual);
-        c.append(&filters.hide_volatile);
 
         let c = gtk::Box::builder()
             .orientation(gtk::Orientation::Vertical)
@@ -125,10 +105,6 @@ impl FiltersTab {
         self.hide_regular.set_active(options.hide_regular.get());
         self.hide_directory.set_active(options.hide_directory.get());
         self.hide_special.set_active(options.hide_special.get());
-        self.hide_shortcut.set_active(options.hide_shortcut.get());
-        self.hide_mountable.set_active(options.hide_mountable.get());
-        self.hide_virtual.set_active(options.hide_virtual.get());
-        self.hide_volatile.set_active(options.hide_volatile.get());
         self.hide_hidden.set_active(options.hide_hidden.get());
         self.hide_backup.set_active(options.hide_backup.get());
         self.hide_symlink.set_active(options.hide_symlink.get());
@@ -142,12 +118,6 @@ impl FiltersTab {
             .hide_directory
             .set(self.hide_directory.is_active())?;
         options.hide_special.set(self.hide_special.is_active())?;
-        options.hide_shortcut.set(self.hide_shortcut.is_active())?;
-        options
-            .hide_mountable
-            .set(self.hide_mountable.is_active())?;
-        options.hide_virtual.set(self.hide_virtual.is_active())?;
-        options.hide_volatile.set(self.hide_volatile.is_active())?;
         options.hide_hidden.set(self.hide_hidden.is_active())?;
         options.hide_backup.set(self.hide_backup.is_active())?;
         options.hide_symlink.set(self.hide_symlink.is_active())?;
