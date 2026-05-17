@@ -143,8 +143,8 @@
           <li>Pressing the keypad button “*” does not select / deselect the “..” directory anymore</li>
           <li>Selected files in tabs are kept when switching tabs</li>
         </ul>
-        <p>New or updated translations: ...</p>
-        <p>New or updated docs: ...</p>
+        <p>New or updated translations: ca (Jordi Mas), cs (Daniel Rusek), da (Alan Mortensen), el (Efstathios Iosifidis), es (Daniel Mustieles), eu (Asier Sarasua Garmendia), fr (Jean-Marc Tissières), hu (Balázs Úr), id (Andika Triwidada), ja (Oyamada Jun, Ryo Nakano), ka (Ekaterine Papava), kk (Baurzhan Muftakhidinov), pt (Hugo Carvalho), pt_BR (Juliano de Souza Camargo, Rafael Fontenelle, Álvaro Burns), ru (Sergej A.), sl (Martin), sr (Марко Костић, Мирослав Николић), sv (Anders Jonsson), tr (Emin Tufan Çetin, Sabri Ünal), uk (Yuri Chornoivan)</p>
+        <p>New or updated docs: hu (Balázs Úr), kk (Baurzhan Muftakhidinov), ru (Sergej A.), sr (Марко Костић), sv (Anders Jonsson)</p>
       </description>
     </release>
     <release type="stable" version="1.18.6" date="2026-04-26">
