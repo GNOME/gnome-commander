@@ -5033,20 +5033,6 @@
                 <guilabel/>
               </entry>
               <entry colname="colspec2">
-                <para>Row height</para>
-              </entry>
-              <entry colname="colspec3">
-                <para>This is the height of every row displayed in the panes in pixels
-                you can increase or decrease it here using the spin button or entering
-                the size manually.</para>
-              </entry>
-            </row>
-            <row>
-              <entry>
-                <para/>
-                <guilabel/>
-              </entry>
-              <entry colname="colspec2">
                 <para>Display file extensions</para>
               </entry>
               <entry colname="colspec3">
