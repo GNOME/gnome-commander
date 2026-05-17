@@ -66,6 +66,16 @@
   </suggests>
 
   <releases>
+    <release type="stable" version="2.0.1" date="2026-12-31">
+      <description>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Issue xxx: ...</li>
+        </ul>
+        <p>New or updated translations: ...</p>
+        <p>New or updated docs: ...</p>
+      </description>
+    </release>
     <release type="stable" version="2.0.0" date="2026-05-17">
       <description>
         <p>This release includes the following features and changes:</p>
