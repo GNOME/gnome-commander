@@ -68,7 +68,7 @@
   </suggests>
 
   <releases>
-    <release type="stable" version="1.20.0" date="2024-12-31">
+    <release type="stable" version="2.0.0" date="2026-05-17">
       <description>
         <p>This release includes the following features and changes:</p>
         <ul>
