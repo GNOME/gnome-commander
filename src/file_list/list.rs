@@ -26,7 +26,6 @@ use crate::{
     main_win::MainWindow,
     open_connection::open_connection,
     options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
-    tags::FileMetadataService,
     types::{ExtensionDisplayMode, GraphicalLayoutMode, SizeDisplayMode, TransferType},
     utils::{ErrorMessage, MenuBuilderExt, SenderExt, size_to_string, time_to_string, u32_enum},
 };
@@ -63,12 +62,11 @@ mod imp {
         file_list::{
             actions::{
                 Script, file_list_action_execute, file_list_action_execute_script,
-                file_list_action_file_edit, file_list_action_file_view, file_list_action_open_with,
+                file_list_action_file_edit, file_list_action_open_with,
                 file_list_action_open_with_default, file_list_action_open_with_other,
             },
             popup::list_popup_menu,
         },
-        tags::FileMetadataService,
         transfer::{copy_files, link_files, move_files},
         types::{
             ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GraphicalLayoutMode,
@@ -82,7 +80,7 @@ mod imp {
         weak_map::WeakMap,
     };
     use std::{
-        cell::{Cell, OnceCell, RefCell},
+        cell::{Cell, RefCell},
         collections::BTreeMap,
         rc::Rc,
         sync::OnceLock,
@@ -101,8 +99,6 @@ mod imp {
     #[properties(wrapper_type = super::FileList)]
     pub struct FileList {
         pub quick_search: glib::WeakRef<QuickSearch>,
-        #[property(get, construct_only)]
-        pub file_metadata_service: OnceCell<FileMetadataService>,
         #[property(get, set, nullable)]
         pub base_dir: RefCell<Option<PathBuf>>,
 
@@ -190,10 +186,6 @@ mod imp {
         type ParentType = gtk::Widget;
 
         fn class_init(klass: &mut Self::Class) {
-            klass.install_action_async("fl.file-view", None, |obj, _, parameter| async move {
-                let use_internal_viewer = parameter.and_then(|v| v.get::<bool>());
-                file_list_action_file_view(&obj, use_internal_viewer).await;
-            });
             klass.install_action_async("fl.file-edit", None, |obj, _, _| async move {
                 file_list_action_file_edit(&obj).await;
             });
@@ -257,7 +249,6 @@ mod imp {
             let row_selector = ListRowSelector::new(&view);
             Self {
                 quick_search: Default::default(),
-                file_metadata_service: Default::default(),
                 base_dir: Default::default(),
 
                 extension_display_mode: Default::default(),
@@ -1796,10 +1787,8 @@ impl ColumnID {
 }
 
 impl FileList {
-    pub fn new(file_metadata_service: &FileMetadataService) -> Self {
-        glib::Object::builder()
-            .property("file-metadata-service", file_metadata_service)
-            .build()
+    pub fn new() -> Self {
+        glib::Object::builder().build()
     }
 
     pub fn set_filter(&self, filter: Option<Filter>) {

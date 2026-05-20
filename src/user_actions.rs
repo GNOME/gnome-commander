@@ -5,7 +5,6 @@
 
 use crate::{
     advanced_rename::advanced_rename_dialog::advanced_rename_dialog_show,
-    application::Application,
     config::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_URL, PACKAGE_VERSION},
     connection::{
         ConnectionExt, ConnectionInterface,
@@ -38,6 +37,7 @@ use crate::{
         quick_search::QuickSearchMode,
     },
     file_selector::TabOptions,
+    file_view::file_view,
     libgcmd::file_actions::{FileActions, FileActionsExt},
     main_win::{ExecutionTarget, MainWindow},
     options::{ConfirmOptions, GeneralOptions, NetworkOptions, ProgramsOptions, SearchConfig},
@@ -103,32 +103,38 @@ async fn file_delete_permanently(main_win: MainWindow) {
         .await;
 }
 
-async fn file_view(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::Active);
-    let file_list = file_selector.file_list();
+async fn file_view_impl(main_win: MainWindow, use_internal_viewer: Option<bool>) {
+    let Some(file) = main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .selected_file()
+    else {
+        return;
+    };
 
-    if let Err(error) = file_list.activate_action("fl.file-view", Some(&None::<bool>.to_variant()))
+    if let Err(error) = file_view(
+        main_win.upcast_ref(),
+        &file,
+        use_internal_viewer,
+        &ProgramsOptions::new(),
+        main_win.file_metadata_service(),
+    )
+    .await
     {
-        eprintln!("Cannot activate action `file-view`: {}", error);
+        error.show(main_win.upcast_ref()).await;
     }
+}
+
+async fn file_view_default(main_win: MainWindow) {
+    file_view_impl(main_win, None).await;
 }
 
 async fn file_internal_view(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::Active);
-    let file_list = file_selector.file_list();
-
-    if let Err(error) = file_list.activate_action("fl.file-view", Some(&true.to_variant())) {
-        eprintln!("Cannot activate action `file-view`: {}", error);
-    }
+    file_view_impl(main_win, Some(true)).await;
 }
 
 async fn file_external_view(main_win: MainWindow) {
-    let file_selector = main_win.file_selector(FileSelectorID::Active);
-    let file_list = file_selector.file_list();
-
-    if let Err(error) = file_list.activate_action("fl.file-view", Some(&false.to_variant())) {
-        eprintln!("Cannot activate action `file-view`: {}", error);
-    }
+    file_view_impl(main_win, Some(false)).await;
 }
 
 async fn file_edit(main_win: MainWindow) {
@@ -161,7 +167,7 @@ async fn file_search(main_win: MainWindow) {
         let dlg = main_win.get_or_create_dialog("search", || {
             let search_config = SearchConfig::get();
 
-            SearchDialog::new(search_config, &main_win.file_metadata_service(), &main_win)
+            SearchDialog::new(search_config, &main_win)
         });
         let options = GeneralOptions::new();
         dlg.show_and_set_focus(
@@ -274,7 +280,7 @@ async fn file_properties(main_win: MainWindow) {
     if let Some(file) = file_list.selected_file() {
         let changed = FilePropertiesDialog::show(
             &main_win,
-            &main_win.file_metadata_service(),
+            main_win.file_metadata_service(),
             &file,
             file_list.connection(),
         )
@@ -489,8 +495,7 @@ async fn file_create_symlink(main_win: MainWindow) {
 async fn file_advrename(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
-    let file_metadata_service = main_win.file_metadata_service();
-    advanced_rename_dialog_show(&main_win, &file_list, &file_metadata_service);
+    advanced_rename_dialog_show(&main_win, &file_list).await;
 }
 
 async fn file_sendto(main_win: MainWindow) {
@@ -1181,9 +1186,7 @@ async fn connections_close_current(main_win: MainWindow) {
 /************** Plugins Menu ***********/
 
 async fn plugins_configure(main_win: MainWindow) {
-    if let Some(application) = main_win.application().and_downcast::<Application>() {
-        show_plugin_manager(application.plugin_channel(), &main_win).await;
-    }
+    show_plugin_manager(main_win.plugin_channel(), &main_win).await;
 }
 
 async fn plugin_action(main_win: MainWindow, plugin_action: PluginActionVariant) {
@@ -1592,7 +1595,7 @@ user_actions! {
     FileView in MainWindow => (
         "file-view" | "file.view",
         gettext("View File"),
-        file_view,
+        file_view_default,
     ),
 
     FileInternalView in MainWindow => (

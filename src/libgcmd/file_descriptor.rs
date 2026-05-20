@@ -27,11 +27,6 @@ pub mod ffi {
 
     unsafe extern "C" {
         pub fn gnome_cmd_file_descriptor_get_type() -> GType;
-
-        pub fn gnome_cmd_file_descriptor_get_file(fb: *mut GnomeCmdFileDescriptor) -> *const GFile;
-        pub fn gnome_cmd_file_descriptor_get_file_info(
-            fb: *mut GnomeCmdFileDescriptor,
-        ) -> *const GFileInfo;
     }
 }
 
@@ -71,23 +66,3 @@ unsafe extern "C" fn file_descriptor_file_info<T: FileDescriptorImpl>(
     let imp = instance.imp();
     imp.file_info().to_glib_none().0
 }
-
-pub trait FileDescriptorExt: IsA<FileDescriptor> + 'static {
-    fn file(&self) -> gio::File {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_file_descriptor_get_file(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
-    fn file_info(&self) -> gio::FileInfo {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_file_descriptor_get_file_info(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-}
-
-impl<O: IsA<FileDescriptor>> FileDescriptorExt for O {}

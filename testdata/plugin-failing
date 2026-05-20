@@ -1,8 +1,0 @@
-#!/bin/sh
-
-echo -ne '\x74\0\0\0{"type": "info", "payload": {"name": "Failing plugin", "version": "3.5", "comments": "Failing reliably since 2026"}}'
-echo -ne '\x33\0\0\0{"type": "error", "payload": "Something is wrong."}'
-echo -ne '\x35\0\0\0{"type": "error", "payload": "Meaning really wrong."}'
-echo -ne '\x3D\0\0\0{"type": "error", "payload": "Yes, no recovering from that."}'
-echo -ne '\x12\0\0\0{"type": "failed"}'
-sleep 60

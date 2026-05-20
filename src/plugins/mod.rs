@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+mod apis;
 mod channel;
 mod host;
 mod instance;
@@ -9,9 +10,13 @@ mod manager;
 mod metadata;
 mod protocol;
 
-pub use channel::{IncomingPluginMessage, OutgoingPluginMessage, PluginChannel, PluginData};
+use apis::Apis;
+pub use channel::{
+    ApiCall, ApiRequest, ApiResponse, InactivePluginChannel, IncomingPluginMessage,
+    OutgoingPluginMessage, PluginChannel, PluginData,
+};
 pub use host::PluginHost;
-pub use instance::PluginInstance;
+use instance::{PluginInstance, PluginInstanceOutput};
 pub use manager::show_plugin_manager;
 pub use metadata::PluginMetadata;
-use protocol::{IncomingMessage, OutgoingMessage};
+use protocol::{ApiInfo, IncomingMessage, OutgoingMessage};

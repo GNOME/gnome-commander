@@ -2,15 +2,18 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::{IncomingMessage, OutgoingMessage, OutgoingPluginMessage, PluginData, PluginMetadata};
+use super::{
+    ApiCall, ApiRequest, ApiResponse, Apis, IncomingMessage, OutgoingMessage, PluginData,
+    PluginMetadata,
+};
 use crate::options::PluginsOptions;
-use async_channel::Sender;
 use async_io::Timer;
 use async_process::{Child, ChildStdin, ChildStdout, Command, Stdio};
-use futures::{AsyncRead, AsyncWrite};
+use futures::{AsyncRead, AsyncWrite, Stream};
 use gettextrs::gettext;
 use std::{
     borrow::Cow,
+    collections::{BTreeMap, BTreeSet},
     future::Future,
     io::{Error, ErrorKind},
     path::{Path, PathBuf},
@@ -19,6 +22,16 @@ use std::{
     time::Duration,
 };
 
+#[derive(Debug)]
+pub enum PluginInstanceOutput {
+    Updated,
+    ApiResponse {
+        id: u32,
+        response: Option<ApiResponse>,
+    },
+}
+
+#[derive(Debug)]
 pub struct PluginInstance {
     path: PathBuf,
     metadata: PluginMetadata,
@@ -29,19 +42,16 @@ pub struct PluginInstance {
     outgoing: Vec<u8>,
     outgoing_offset: usize,
     startup_timeout: Option<Timer>,
-    sender: Sender<OutgoingPluginMessage>,
+    apis: BTreeSet<Apis>,
+    pending_api_requests: BTreeMap<u32, (ApiCall, Timer)>,
 }
 
 impl PluginInstance {
-    // Same restriction as browsers: maximum incoming message size is 1 MiB.
-    const INCOMING_MAX_SIZE: usize = 1024 * 1024;
+    const INCOMING_MAX_SIZE: usize = 5 * 1024 * 1024; // 5 MiB
     const MAX_STARTUP_SECS: u64 = 10;
+    const MAX_RESPONSE_SECS: u64 = 5;
 
-    pub fn new(
-        path: PathBuf,
-        sender: &Sender<OutgoingPluginMessage>,
-        options: &PluginsOptions,
-    ) -> Self {
+    pub fn new(path: PathBuf, options: &PluginsOptions) -> Self {
         let metadata = options
             .metadata
             .get()
@@ -57,7 +67,8 @@ impl PluginInstance {
             outgoing: Vec::new(),
             outgoing_offset: 0,
             startup_timeout: None,
-            sender: sender.clone(),
+            apis: BTreeSet::new(),
+            pending_api_requests: BTreeMap::new(),
         }
     }
 
@@ -81,6 +92,16 @@ impl PluginInstance {
         self.startup_timeout.is_none()
     }
 
+    pub fn has_pending_api_requests(&self) -> bool {
+        !self.pending_api_requests.is_empty()
+    }
+
+    pub fn drain_pending_api_requests(&mut self) -> Vec<u32> {
+        std::mem::take(&mut self.pending_api_requests)
+            .into_keys()
+            .collect()
+    }
+
     pub fn start(&mut self) {
         if self.child.is_some() {
             return;
@@ -96,13 +117,13 @@ impl PluginInstance {
                 self.errors.clear();
                 self.startup_timeout =
                     Some(Timer::after(Duration::from_secs(Self::MAX_STARTUP_SECS)));
-                self.incoming
-                    .resize(size_of::<u32>() + Self::INCOMING_MAX_SIZE, 0);
                 self.incoming_size = 0;
                 self.metadata.set_enabled(true);
                 self.save_metadata();
 
-                self.send_message(OutgoingMessage::Apis(Vec::new()));
+                self.send_message(OutgoingMessage::Apis(
+                    Apis::all().map(|api| api.info()).collect(),
+                ));
             }
             Err(error) => {
                 self.errors.push(error);
@@ -121,17 +142,20 @@ impl PluginInstance {
         }
 
         // We drop the child even if we fail to kill the process.
-        // We keep the incoming buffer just in case the process is restarted shortly.
         self.child = None;
         self.startup_timeout = None;
+        self.incoming.clear();
+        self.incoming.shrink_to(0);
+        self.incoming_size = 0;
         self.outgoing.clear();
         self.outgoing.shrink_to(0);
         self.outgoing_offset = 0;
+        self.apis.clear();
         self.metadata.set_enabled(false);
         self.save_metadata();
     }
 
-    fn send_message(&mut self, msg: OutgoingMessage) {
+    pub fn send_message(&mut self, msg: OutgoingMessage) {
         let data = match serde_json::to_vec(&msg) {
             Ok(data) => data,
             Err(error) => {
@@ -163,22 +187,38 @@ impl PluginInstance {
         let options = PluginsOptions::new();
         let mut metadata = options.metadata.get();
         metadata.insert(self.file_name().to_string(), self.metadata.clone());
+
+        #[cfg(not(test))]
         if let Err(error) = options.metadata.set(metadata) {
             eprintln!("Failed saving plugin metadata: {error}");
         }
-        self.notify_updated();
     }
 
-    fn notify_updated(&self) {
-        let _ = self.sender.try_send(OutgoingPluginMessage::PluginUpdated(
-            self.file_name().to_string(),
-            self.data(),
-        ));
+    pub fn handle_api_request(&mut self, id: u32, request: &ApiRequest) -> bool {
+        if self.apis.iter().any(|api| api.accept_request(request)) {
+            self.send_message(OutgoingMessage::ApiRequest(id, request.clone()));
+            self.pending_api_requests.insert(
+                id,
+                (
+                    request.call(),
+                    Timer::after(Duration::from_secs(Self::MAX_RESPONSE_SECS)),
+                ),
+            );
+            true
+        } else {
+            false
+        }
     }
 
     /// Processes a message from plugin. Note that `self.child` will be unset while this method
     /// runs, so it should return `false` instead of calling `stop()` to indicate failure.
-    fn process_incoming(&mut self, message: IncomingMessage) -> bool {
+    fn process_incoming(
+        &mut self,
+        message: IncomingMessage,
+    ) -> Result<Option<PluginInstanceOutput>, ()> {
+        const UPDATED: Result<Option<PluginInstanceOutput>, ()> =
+            Ok(Some(PluginInstanceOutput::Updated));
+
         match message {
             IncomingMessage::Info(data) => {
                 self.metadata.set_name(Some(&data.name));
@@ -190,48 +230,103 @@ impl PluginInstance {
                 self.metadata.set_translators(&data.translators);
                 self.metadata.set_webpage(data.webpage.as_deref());
                 self.save_metadata();
+                UPDATED
             }
             IncomingMessage::Error(error) => {
                 self.errors.push(Error::other(error));
-                self.notify_updated();
+                UPDATED
             }
-            IncomingMessage::Failed => return false,
+            IncomingMessage::Register(info) => {
+                if self.is_initialized() {
+                    self.errors.push(Error::other(gettext(
+                        "API registration received after initialization",
+                    )));
+                    return Err(());
+                }
+                if let Some(api) =
+                    Apis::all().find(|api| info.name == api.name() && info.version == api.version())
+                {
+                    if self.apis.contains(&api) {
+                        self.errors.push(Error::other(
+                            gettext("Multiple registrations for API {}")
+                                .replace("{}", &info.to_string()),
+                        ));
+                        Ok(None)
+                    } else {
+                        self.apis.insert(api);
+                        UPDATED
+                    }
+                } else {
+                    self.errors.push(Error::other(
+                        gettext("Registration for unknown API {}").replace("{}", &info.to_string()),
+                    ));
+                    Err(())
+                }
+            }
+            IncomingMessage::Failed => Err(()),
             IncomingMessage::Ready => {
                 self.startup_timeout = None;
-                self.notify_updated();
+                UPDATED
+            }
+            IncomingMessage::ApiResponse(id, response) => {
+                let Some((call, _)) = self.pending_api_requests.get(&id) else {
+                    self.errors.push(Error::other(
+                        gettext("Response to unknown API request {}")
+                            .replace("{}", &id.to_string()),
+                    ));
+                    return Ok(None);
+                };
+
+                if call == &response.call() {
+                    self.pending_api_requests.remove(&id);
+                    Ok(Some(PluginInstanceOutput::ApiResponse {
+                        id,
+                        response: Some(response),
+                    }))
+                } else {
+                    self.errors.push(Error::other(
+                        gettext("Response to API request {} has wrong type")
+                            .replace("{}", &id.to_string()),
+                    ));
+                    Ok(None)
+                }
             }
         }
-        true
     }
 
     fn poll_read(
         &mut self,
         cx: &mut Context<'_>,
-        stdout: &mut ChildStdout,
+        mut stdout: &mut ChildStdout,
         desired_size: usize,
     ) -> Result<bool, Error> {
-        if self.incoming_size >= desired_size {
-            return Ok(true);
+        if self.incoming.len() < desired_size {
+            self.incoming.resize(desired_size, 0);
         }
-
-        match pin!(stdout).poll_read(cx, &mut self.incoming[self.incoming_size..desired_size]) {
-            Poll::Ready(Ok(size)) => {
-                if size > 0 {
-                    self.incoming_size += size;
-                    Ok(self.incoming_size >= desired_size)
-                } else {
-                    Err(Error::other(gettext(
-                        "Child process terminated unexpectedly",
-                    )))
+        while self.incoming_size < desired_size {
+            match Pin::new(&mut stdout)
+                .poll_read(cx, &mut self.incoming[self.incoming_size..desired_size])
+            {
+                Poll::Ready(Ok(size)) => {
+                    if size > 0 {
+                        self.incoming_size += size;
+                    } else {
+                        return Err(Error::other(gettext(
+                            "Child process terminated unexpectedly",
+                        )));
+                    }
                 }
+                Poll::Ready(Err(error)) => {
+                    return Err(if error.kind() == ErrorKind::BrokenPipe {
+                        Error::other(gettext("Child process terminated unexpectedly"))
+                    } else {
+                        error
+                    });
+                }
+                Poll::Pending => return Ok(false),
             }
-            Poll::Ready(Err(error)) => Err(if error.kind() == ErrorKind::BrokenPipe {
-                Error::other(gettext("Child process terminated unexpectedly"))
-            } else {
-                error
-            }),
-            Poll::Pending => Ok(false),
         }
+        Ok(true)
     }
 
     fn poll_incoming(
@@ -295,11 +390,11 @@ impl PluginInstance {
     }
 }
 
-impl Future for PluginInstance {
-    type Output = ();
+impl Stream for PluginInstance {
+    type Item = PluginInstanceOutput;
 
-    fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
-        let mut failed = false;
+    fn poll_next(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Option<Self::Item>> {
+        let mut output: Option<Result<PluginInstanceOutput, ()>> = None;
 
         // Enforce startup timeout
         if let Some(timeout) = &mut self.startup_timeout
@@ -308,12 +403,33 @@ impl Future for PluginInstance {
             self.errors.push(Error::other(gettext(
                 "Plugin didn't start up within maximum time",
             )));
-            failed = true;
+            output = Some(Err(()));
         }
 
-        if !failed && let Some(mut child) = self.child.take() {
+        // Enforce request timeouts
+        if output.is_none() {
+            let mut timed_out = None;
+            for (id, (_, timeout)) in self.pending_api_requests.iter_mut() {
+                if matches!(pin!(timeout).poll(cx), Poll::Ready(_)) {
+                    timed_out = Some(*id);
+                    break;
+                }
+            }
+            if let Some(id) = timed_out {
+                self.pending_api_requests.remove(&id);
+                self.errors.push(Error::other(
+                    gettext("No response to API request {} received within maximum time")
+                        .replace("{}", &id.to_string()),
+                ));
+                output = Some(Ok(PluginInstanceOutput::ApiResponse { id, response: None }));
+            }
+        }
+
+        if output.is_none()
+            && let Some(mut child) = self.child.take()
+        {
             // Try sending any outgoing messages
-            if !failed
+            if output.is_none()
                 && !self.outgoing.is_empty()
                 && let Some(stdin) = child.stdin.as_mut()
             {
@@ -321,25 +437,27 @@ impl Future for PluginInstance {
                     Poll::Ready(Ok(_)) | Poll::Pending => {}
                     Poll::Ready(Err(error)) => {
                         self.errors.push(error);
-                        failed = true;
+                        output = Some(Err(()));
                     }
                 }
             }
 
             // Process any incoming messages
-            if !failed && let Some(stdout) = child.stdout.as_mut() {
-                loop {
+            if let Some(stdout) = child.stdout.as_mut() {
+                while output.is_none() {
                     match self.poll_incoming(cx, stdout) {
-                        Poll::Ready(Ok(message)) => {
-                            failed = !self.process_incoming(message);
-                            if failed {
-                                break;
+                        Poll::Ready(Ok(message)) => match self.process_incoming(message) {
+                            Ok(Some(notification)) => {
+                                output = Some(Ok(notification));
                             }
-                        }
+                            Ok(None) => {}
+                            Err(_) => {
+                                output = Some(Err(()));
+                            }
+                        },
                         Poll::Ready(Err(error)) => {
                             self.errors.push(error);
-                            failed = true;
-                            break;
+                            output = Some(Err(()));
                         }
                         Poll::Pending => break,
                     }
@@ -349,58 +467,58 @@ impl Future for PluginInstance {
             self.child = Some(child);
         }
 
-        if failed {
-            self.stop();
+        match output {
+            Some(Ok(output)) => Poll::Ready(Some(output)),
+            Some(Err(_)) => {
+                self.stop();
+                Poll::Ready(Some(PluginInstanceOutput::Updated))
+            }
+            None => Poll::Pending,
         }
-
-        Poll::Pending
     }
 }
 
 #[cfg(test)]
 mod test {
     use super::*;
-    use std::marker::Unpin;
+    use futures::StreamExt;
+    use tempfile::TempPath;
 
-    /// This is similar to futures::poll!() but does not consume the future.
-    async fn poll_once<T>(future: &mut (impl Future<Output = T> + Unpin)) -> Option<T> {
-        let mut pin = pin!(future);
-        futures::future::poll_fn(move |cx| {
-            Poll::Ready(match pin.as_mut().poll(cx) {
-                Poll::Ready(result) => Some(result),
-                Poll::Pending => None,
-            })
-        })
-        .await
-    }
+    fn setup_plugin(contents: &str) -> (PluginInstance, TempPath) {
+        use std::io::Write;
+        use std::os::unix::fs::PermissionsExt;
 
-    fn setup_plugin(path: &str) -> PluginInstance {
-        let options = PluginsOptions::new();
-        let mut metadata = options.metadata.get();
-        metadata.remove(path.rsplit_once('/').map(|(_, name)| name).unwrap_or(path));
-        let _ = options.metadata.set(metadata);
+        let permissions = std::fs::Permissions::from_mode(0o755);
+        let mut file = tempfile::Builder::new()
+            .prefix("plugin")
+            .permissions(permissions)
+            .tempfile()
+            .unwrap();
+        file.write_all(contents.as_bytes()).unwrap();
+        let (_, path) = file.into_parts();
 
-        let (sender, _) = async_channel::unbounded();
-        let mut instance = PluginInstance::new(path.into(), &sender, &options);
+        let mut instance = PluginInstance::new(path.to_path_buf(), &PluginsOptions::new());
         instance.start();
-        instance
+        (instance, path)
     }
 
     #[test]
     fn test_missing_plugin_startup() {
-        let instance = setup_plugin("testdata/plugin-missing");
+        let path = tempfile::NamedTempFile::new().unwrap().path().to_path_buf();
+        let mut instance = PluginInstance::new(path, &PluginsOptions::new());
+        instance.start();
         assert!(!instance.is_enabled());
         assert_eq!(instance.errors.len(), 1);
     }
 
     #[async_std::test]
     async fn test_invalid_plugin_startup() {
-        let mut instance = setup_plugin("testdata/plugin-invalid");
+        let (mut instance, _cleanup) = setup_plugin("#!/bin/sh");
         assert!(instance.is_enabled());
         assert!(!instance.is_initialized());
         assert_eq!(instance.errors.len(), 0);
 
-        poll_once(&mut instance).await;
+        instance.next().await;
 
         assert!(!instance.is_enabled());
         assert_eq!(instance.errors.len(), 1);
@@ -408,12 +526,17 @@ mod test {
 
     #[async_std::test]
     async fn test_nonjson_plugin_startup() {
-        let mut instance = setup_plugin("testdata/plugin-nonjson");
+        let (mut instance, _cleanup) = setup_plugin(
+            r#"#!/bin/sh
+                echo "Hello there. This isn't JSON but still worth a try."
+                sleep 60
+            "#,
+        );
         assert!(instance.is_enabled());
         assert!(!instance.is_initialized());
         assert_eq!(instance.errors.len(), 0);
 
-        poll_once(&mut instance).await;
+        instance.next().await;
 
         assert!(!instance.is_enabled());
         assert_eq!(instance.errors.len(), 1);
@@ -421,12 +544,19 @@ mod test {
 
     #[async_std::test]
     async fn test_basic_plugin_startup() {
-        let mut instance = setup_plugin("testdata/plugin-basic");
+        let (mut instance, _cleanup) = setup_plugin(
+            r#"#!/bin/sh
+                echo -ne '\x47\0\0\0{"type": "info", "payload": {"name": "Basic plugin", "version": "0.5"}}'
+                echo -ne '\x11\0\0\0{"type": "ready"}'
+                sleep 60
+            "#,
+        );
         assert!(instance.is_enabled());
         assert!(!instance.is_initialized());
         assert_eq!(instance.errors.len(), 0);
 
-        poll_once(&mut instance).await;
+        instance.next().await;
+        instance.next().await;
 
         assert!(instance.is_enabled());
         assert!(instance.is_initialized());
@@ -443,12 +573,21 @@ mod test {
 
     #[async_std::test]
     async fn test_extended_plugin_startup() {
-        let mut instance = setup_plugin("testdata/plugin-extended");
+        let (mut instance, _cleanup) = setup_plugin(
+            r#"#!/bin/sh
+                echo -ne '\xF9\0\0\0{"type": "info", "payload": {"name": "Extended plugin", "version": "1.1", "copyright": "Copyright 2026", "comments": "This is super cool", "authors": ["Bob", "Jane"], "documenters": ["Frank"], "translators": [""], "webpage": "https://example.com/"}}'
+                echo -ne '\x4F\0\0\0{"type": "register", "payload": {"name": "extract_metadata", "version": "1.0"}}'
+                echo -ne '\x22\0\0\0{"type": "ready", "payload": null}'
+                sleep 60
+            "#,
+        );
         assert!(instance.is_enabled());
         assert!(!instance.is_initialized());
         assert_eq!(instance.errors.len(), 0);
 
-        poll_once(&mut instance).await;
+        for _ in 0..3 {
+            instance.next().await;
+        }
 
         assert!(instance.is_enabled());
         assert!(instance.is_initialized());
@@ -473,16 +612,31 @@ mod test {
             instance.metadata.webpage(),
             Some("https://example.com/".to_owned())
         );
+        assert_eq!(
+            instance.apis.iter().copied().collect::<Vec<_>>(),
+            vec![Apis::ExtractMetadata]
+        );
     }
 
     #[async_std::test]
     async fn test_failing_plugin_startup() {
-        let mut instance = setup_plugin("testdata/plugin-failing");
+        let (mut instance, _cleanup) = setup_plugin(
+            r#"#!/bin/sh
+                echo -ne '\x74\0\0\0{"type": "info", "payload": {"name": "Failing plugin", "version": "3.5", "comments": "Failing reliably since 2026"}}'
+                echo -ne '\x33\0\0\0{"type": "error", "payload": "Something is wrong."}'
+                echo -ne '\x35\0\0\0{"type": "error", "payload": "Meaning really wrong."}'
+                echo -ne '\x3D\0\0\0{"type": "error", "payload": "Yes, no recovering from that."}'
+                echo -ne '\x12\0\0\0{"type": "failed"}'
+                sleep 60
+            "#,
+        );
         assert!(instance.is_enabled());
         assert!(!instance.is_initialized());
         assert_eq!(instance.errors.len(), 0);
 
-        poll_once(&mut instance).await;
+        for _ in 0..5 {
+            instance.next().await;
+        }
 
         assert!(!instance.is_enabled());
         assert_eq!(instance.errors.len(), 3);
@@ -497,5 +651,46 @@ mod test {
         assert_eq!(instance.metadata.documenters(), Vec::<String>::new());
         assert_eq!(instance.metadata.translators(), Vec::<String>::new());
         assert_eq!(instance.metadata.webpage(), None);
+    }
+
+    #[async_std::test]
+    async fn test_invalid_registration() {
+        let (mut instance, _cleanup) = setup_plugin(
+            r#"#!/bin/sh
+                echo -ne '\x4F\0\0\0{"type": "register", "payload": {"name": "unknown_api", "version": "1.0"}}'
+                echo -ne '\x22\0\0\0{"type": "ready", "payload": null}'
+                sleep 60
+            "#,
+        );
+        assert!(instance.is_enabled());
+        assert!(!instance.is_initialized());
+        assert_eq!(instance.errors.len(), 0);
+
+        instance.next().await;
+
+        assert!(!instance.is_enabled());
+        assert_eq!(instance.errors.len(), 1);
+        assert!(instance.apis.is_empty());
+    }
+
+    #[async_std::test]
+    async fn test_late_registration() {
+        let (mut instance, _cleanup) = setup_plugin(
+            r#"#!/bin/sh
+                echo -ne '\x22\0\0\0{"type": "ready", "payload": null}'
+                echo -ne '\x4F\0\0\0{"type": "register", "payload": {"name": "extract_metadata", "version": "1.0"}}'
+                sleep 60
+            "#,
+        );
+        assert!(instance.is_enabled());
+        assert!(!instance.is_initialized());
+        assert_eq!(instance.errors.len(), 0);
+
+        instance.next().await;
+        instance.next().await;
+
+        assert!(!instance.is_enabled());
+        assert_eq!(instance.errors.len(), 1);
+        assert!(instance.apis.is_empty());
     }
 }

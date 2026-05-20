@@ -13,7 +13,7 @@ use crate::{
     utils::{ErrorMessage, temp_file},
 };
 use gettextrs::gettext;
-use gtk::{gio, prelude::*};
+use gtk::gio;
 
 pub async fn file_view_internal(
     parent_window: &gtk::Window,
@@ -44,8 +44,7 @@ pub async fn file_view_internal(
         tmp_file
     };
 
-    let viewer = ViewerWindow::file_view(&file_to_view, file_metadata_service);
-    viewer.present();
+    ViewerWindow::file_view(&file_to_view, file_metadata_service).await;
     Ok(())
 }
 

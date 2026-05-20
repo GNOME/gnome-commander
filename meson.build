@@ -107,25 +107,6 @@ common_deps = [
 ]
 
 ##### Optional dependencies #####
-EXIV2_REQ = '0.14'
-conf_data.set('EXIV2_REQ', EXIV2_REQ, description: 'Required version of exiv2 library')
-TAGLIB_REQ = '1.4'
-conf_data.set('TAGLIB_REQ', TAGLIB_REQ, description: 'Required version of poppler library')
-LIBGSF_REQ = '1.14.46'
-conf_data.set('LIBGSF_REQ', LIBGSF_REQ, description: 'Required version of gsf library')
-
-# Check for exiv2 support
-exiv2 = dependency('exiv2', version: '>=' + EXIV2_REQ, required: get_option('exiv2'))
-
-# Check for libgsf
-gsf = dependency('libgsf-1', version: '>=' + LIBGSF_REQ, required: get_option('libgsf'))
-
-# Check for taglib
-taglib = dependency('taglib', version: '>=' + TAGLIB_REQ, required: get_option('taglib'))
-
-# Check for poppler
-poppler = dependency('poppler-glib', required: get_option('poppler'))
-
 # Check for gettext
 intl_dep = dependency('intl', required: false)
 if intl_dep.found()
@@ -181,10 +162,6 @@ summary(
 summary(
   {
     'Generate doc': get_option('help'),
-    'Use exiv2': exiv2.found(),
-    'Use libgsf': gsf.found(),
-    'Use poppler': poppler.found(),
-    'Use taglib': taglib.found(),
   },
   section: 'User defined options'
 )

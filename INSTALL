@@ -8,10 +8,9 @@ Gnome Commander requires the following packages:
 
 Gnome Commander can also make use of the following packages:
 
-- libexiv2
-- taglib
-- libgsf
-- poppler
+- exiv2 for Python3 (Image Metadata plugin)
+- mutagen for Python 3 (Multimedia Metadata plugin)
+- pypdf for Python 3 (Document Metadata plugin)
 - yelp for documentation
 
 The minimum version requirements can be found in the top-level meson.build.
@@ -20,7 +19,7 @@ If you install Gnome Commander by manually compiling the sources, keep in
 mind that on most Linux distributions you have to install the development
 packages for the above libraries to be found by the configure script.
 These packages are normaly indicated by a "-dev" or "-devel" suffix,
-e.g. libgnome-dev, taglib-dev, etc.
+e.g. libglib2.0-dev, libgio-2.0-dev, etc.
 
 Many package managers provide a way to install all the build dependencies for
 a package, such as 'dnf builddep' or 'apt-get build-dep', which will install

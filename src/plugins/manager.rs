@@ -16,7 +16,7 @@ use std::{
     collections::{BTreeMap, BTreeSet},
 };
 
-pub async fn show_plugin_manager(channel: &PluginChannel, parent: &MainWindow) {
+pub async fn show_plugin_manager(mut channel: PluginChannel, parent: &MainWindow) {
     if let Some(dialog) = parent.get_dialog::<gtk::Window>("plugins") {
         dialog.present();
         return;
@@ -75,13 +75,14 @@ pub async fn show_plugin_manager(channel: &PluginChannel, parent: &MainWindow) {
             msg = channel.receive().fuse() => {
                 match msg {
                     OutgoingPluginMessage::Plugins(plugins) => {
-                        update_list(&list, &mut items, plugins, channel);
+                        update_list(&list, &mut items, plugins, &channel);
                     }
                     OutgoingPluginMessage::PluginUpdated(name, data) => {
                         if let Some(row) = items.get(&name) {
-                            setup_row(&name, row, data, channel);
+                            setup_row(&name, row, data, &channel);
                         }
                     }
+                    OutgoingPluginMessage::ApiResponse{..} => {}
                 }
             }
             _ = receiver.recv().fuse() => break,
@@ -107,7 +108,7 @@ fn update_list(
                 .build();
             {
                 let name = name.clone();
-                let channel = channel.clone();
+                let channel = channel.deactivate_cloned();
                 row.connect_activate(move |_| {
                     channel.send(IncomingPluginMessage::TogglePlugin(name.clone()));
                 });
@@ -232,7 +233,7 @@ fn setup_row(name: &str, row: &gtk::ListBoxRow, data: PluginData, channel: &Plug
             .build();
         {
             let name = name.to_owned();
-            let channel = channel.clone();
+            let channel = channel.deactivate_cloned();
             switch.connect_active_notify(move |switch| {
                 if switch.is_active() {
                     channel.send(IncomingPluginMessage::StartPlugin(name.clone()));

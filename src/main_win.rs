@@ -4,6 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use crate::{
+    config::{PACKAGE, PLUGIN_DIR},
     connection::{
         Connection, ConnectionExt, bookmark::BookmarkGoToVariant, list::ConnectionList,
         remote::ConnectionRemote,
@@ -19,6 +20,7 @@ use crate::{
     options::{GeneralOptions, ProgramsOptions, types::WriteResult},
     paned_ext::GnomeCmdPanedExt,
     plugin_manager::{PluginManager, wrap_plugin_menu},
+    plugins::{InactivePluginChannel, PluginChannel, PluginHost},
     search::search_dialog::SearchDialog,
     shortcuts::{Area, LegacyShortcutVariant, Shortcuts},
     spawn::{SpawnError, app_needs_terminal, run_command_indir},
@@ -117,6 +119,7 @@ pub mod imp {
         current_panel: Cell<u32>,
 
         pub plugin_manager: PluginManager,
+        pub plugin_channel: InactivePluginChannel,
         pub file_metadata_service: FileMetadataService,
 
         pub color_themes: Rc<ColorThemes>,
@@ -170,16 +173,23 @@ pub mod imp {
 
         fn new() -> Self {
             let plugin_manager = PluginManager::new();
-            let file_metadata_service = FileMetadataService::new(&plugin_manager);
+
+            let system_plugins_dir = Path::new(PLUGIN_DIR);
+            let user_plugins_dir = glib::user_config_dir().join(PACKAGE).join("plugins");
+            let (plugin_host, plugin_channel) =
+                PluginHost::new(&[system_plugins_dir, &user_plugins_dir]);
+            glib::spawn_future_local(plugin_host);
+
+            let file_metadata_service = FileMetadataService::new(plugin_channel.clone());
 
             let (con_drop, con_drop_image) = build_con_drop_button();
 
             let cmdline = CommandLine::new();
 
-            let file_selector_left = FileSelector::new(&file_metadata_service);
+            let file_selector_left = FileSelector::new();
             file_selector_left.set_command_line(Some(&cmdline));
 
-            let file_selector_right = FileSelector::new(&file_metadata_service);
+            let file_selector_right = FileSelector::new();
             file_selector_right.set_command_line(Some(&cmdline));
 
             Self {
@@ -228,6 +238,7 @@ pub mod imp {
                 find_btn: buttonbar_button(&gettext("F9 Search"), UserAction::FileSearch.name()),
 
                 plugin_manager,
+                plugin_channel,
                 file_metadata_service,
 
                 color_themes: ColorThemes::new(),
@@ -927,6 +938,10 @@ impl MainWindow {
         glib::Object::builder().build()
     }
 
+    pub fn plugin_channel(&self) -> PluginChannel {
+        self.imp().plugin_channel.activate_cloned()
+    }
+
     pub fn left_panel(&self) -> FileSelector {
         self.imp().file_selector_left.borrow().clone()
     }
@@ -1191,8 +1206,8 @@ impl MainWindow {
         self.imp().plugin_manager.clone()
     }
 
-    pub fn file_metadata_service(&self) -> FileMetadataService {
-        self.imp().file_metadata_service.clone()
+    pub fn file_metadata_service(&self) -> &FileMetadataService {
+        &self.imp().file_metadata_service
     }
 
     pub fn get_dialog<T: IsA<gtk::Window>>(&self, handle: &str) -> Option<T> {

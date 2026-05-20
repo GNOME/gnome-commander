@@ -3,26 +3,20 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::{options::GeneralOptions, plugins::PluginChannel};
+use crate::options::GeneralOptions;
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, pango, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
     use crate::{
-        config::{ICONS_DIR, PACKAGE, PLUGIN_DIR},
+        config::{ICONS_DIR, PACKAGE},
         connection::list::ConnectionList,
         debug::set_debug_flags,
         main_win::MainWindow,
         options::SearchConfig,
-        plugins::PluginHost,
     };
-    use std::{
-        borrow::Cow,
-        cell::RefCell,
-        ops::ControlFlow,
-        path::{Path, PathBuf},
-    };
+    use std::{borrow::Cow, cell::RefCell, ops::ControlFlow, path::PathBuf};
 
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::Application)]
@@ -33,24 +27,6 @@ mod imp {
         start_left_dir: RefCell<Option<PathBuf>>,
         #[property(get, set, nullable)]
         start_right_dir: RefCell<Option<PathBuf>>,
-        pub plugin_channel: PluginChannel,
-    }
-
-    impl Default for Application {
-        fn default() -> Self {
-            let system_plugins_dir = Path::new(PLUGIN_DIR);
-            let user_plugins_dir = glib::user_config_dir().join(PACKAGE).join("plugins");
-            let (plugin_host, plugin_channel) =
-                PluginHost::new(&[system_plugins_dir, &user_plugins_dir]);
-            glib::spawn_future_local(plugin_host);
-
-            Application {
-                debug_flags: Default::default(),
-                start_left_dir: Default::default(),
-                start_right_dir: Default::default(),
-                plugin_channel,
-            }
-        }
     }
 
     impl Default for Application {
@@ -318,10 +294,6 @@ impl Application {
             .property("application-id", "org.gnome.gnome-commander")
             .property("flags", flags)
             .build()
-    }
-
-    pub fn plugin_channel(&self) -> &PluginChannel {
-        &self.imp().plugin_channel
     }
 }
 

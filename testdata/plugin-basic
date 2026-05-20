@@ -1,5 +1,0 @@
-#!/bin/sh
-
-echo -ne '\x47\0\0\0{"type": "info", "payload": {"name": "Basic plugin", "version": "0.5"}}'
-echo -ne '\x11\0\0\0{"type": "ready"}'
-sleep 60

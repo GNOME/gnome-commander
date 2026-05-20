@@ -11,10 +11,10 @@ use crate::{
     dialogs::profiles::{ProfileManager, manage_profiles_dialog::manage_profiles},
     dir::Directory,
     file::FileOps,
+    file_view::file_view,
     main_win::MainWindow,
-    options::SearchConfig,
+    options::{ProgramsOptions, SearchConfig},
     shortcuts::Area,
-    tags::FileMetadataService,
     user_actions::UserAction,
     utils::WindowExt,
 };
@@ -198,8 +198,6 @@ mod imp {
         pub config: OnceCell<Rc<SearchConfig>>,
 
         #[property(get, construct_only)]
-        pub file_metadata_service: OnceCell<FileMetadataService>,
-        #[property(get, construct_only)]
         pub main_window: OnceCell<MainWindow>,
 
         #[property(get, set)]
@@ -249,15 +247,23 @@ mod imp {
                 },
             );
 
-            klass.install_action(UserAction::FileView.name(), None, |obj, _, _| {
-                obj.imp().file_view();
+            klass.install_action_async(UserAction::FileView.name(), None, |obj, _, _| async move {
+                obj.imp().file_view().await;
             });
-            klass.install_action(UserAction::FileInternalView.name(), None, |obj, _, _| {
-                obj.imp().file_internal_view();
-            });
-            klass.install_action(UserAction::FileExternalView.name(), None, |obj, _, _| {
-                obj.imp().file_external_view();
-            });
+            klass.install_action_async(
+                UserAction::FileInternalView.name(),
+                None,
+                |obj, _, _| async move {
+                    obj.imp().file_internal_view().await;
+                },
+            );
+            klass.install_action_async(
+                UserAction::FileExternalView.name(),
+                None,
+                |obj, _, _| async move {
+                    obj.imp().file_external_view().await;
+                },
+            );
             klass.install_action(UserAction::FileEdit.name(), None, |obj, _, _| {
                 obj.imp().file_edit();
             });
@@ -277,7 +283,6 @@ mod imp {
             let labels_size_group = gtk::SizeGroup::new(gtk::SizeGroupMode::Horizontal);
             Self {
                 config: Default::default(),
-                file_metadata_service: Default::default(),
                 main_window: Default::default(),
                 dir_browser: Default::default(),
                 profile_component: RefCell::new(SelectionProfileComponent::new(Some(
@@ -362,7 +367,7 @@ mod imp {
             grid.attach(&this.profile_component(), 0, 1, 2, 1);
 
             // file list
-            let result_list = FileList::new(&this.file_metadata_service());
+            let result_list = FileList::new();
             result_list.set_height_request(200);
             self.result_list.replace(Some(result_list.clone()));
 
@@ -763,31 +768,39 @@ mod imp {
             }
         }
 
-        pub fn file_view(&self) {
-            if let Some(file_list) = self.result_list.borrow().as_ref()
-                && let Err(error) =
-                    file_list.activate_action("fl.file-view", Some(&None::<bool>.to_variant()))
+        async fn file_view_impl(&self, use_internal_viewer: Option<bool>) {
+            let Some(file) = self
+                .result_list
+                .borrow()
+                .as_ref()
+                .and_then(|list| list.selected_file())
+            else {
+                return;
+            };
+
+            if let Err(error) = file_view(
+                self.obj().upcast_ref(),
+                &file,
+                use_internal_viewer,
+                &ProgramsOptions::new(),
+                self.obj().main_window().file_metadata_service(),
+            )
+            .await
             {
-                eprintln!("Cannot activate action `file-view`: {error}");
+                error.show(self.obj().upcast_ref()).await;
             }
         }
 
-        pub fn file_internal_view(&self) {
-            if let Some(file_list) = self.result_list.borrow().as_ref()
-                && let Err(error) =
-                    file_list.activate_action("fl.file-view", Some(&true.to_variant()))
-            {
-                eprintln!("Cannot activate action `file-view`: {error}");
-            }
+        pub async fn file_view(&self) {
+            self.file_view_impl(None).await;
         }
 
-        pub fn file_external_view(&self) {
-            if let Some(file_list) = self.result_list.borrow().as_ref()
-                && let Err(error) =
-                    file_list.activate_action("fl.file-view", Some(&false.to_variant()))
-            {
-                eprintln!("Cannot activate action `file-view`: {error}");
-            }
+        pub async fn file_internal_view(&self) {
+            self.file_view_impl(Some(true)).await;
+        }
+
+        pub async fn file_external_view(&self) {
+            self.file_view_impl(Some(false)).await;
         }
 
         pub fn file_edit(&self) {
@@ -814,13 +827,8 @@ glib::wrapper! {
 }
 
 impl SearchDialog {
-    pub fn new(
-        config: Rc<SearchConfig>,
-        file_metadata_service: &FileMetadataService,
-        main_window: &MainWindow,
-    ) -> Self {
+    pub fn new(config: Rc<SearchConfig>, main_window: &MainWindow) -> Self {
         let this: Self = glib::Object::builder()
-            .property("file-metadata-service", file_metadata_service)
             .property("main-window", main_window)
             .build();
         this.imp().config.set(config.clone()).ok().unwrap();

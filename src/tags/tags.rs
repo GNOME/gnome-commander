@@ -3,213 +3,127 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::file_metadata::FileMetadata;
-use crate::{
-    file::File,
-    libgcmd::file_metadata_extractor::{FileMetadataExtractor, FileMetadataExtractorExt},
-    plugin_manager::PluginManager,
+use super::{
+    basic::BasicMetadataExtractor, file_metadata::FileMetadata, image::ImageMetadataExtractor,
+    plugin::PluginMetadataExtractor,
 };
-use gtk::{
-    gio,
-    glib::{self, prelude::*, subclass::prelude::*},
+use crate::{file::File, plugins::InactivePluginChannel};
+use futures::future::join3;
+use gtk::{gio, glib::prelude::*};
+use std::{
+    borrow::Cow,
+    cmp::{Eq, Ord, PartialEq, PartialOrd},
+    collections::BTreeMap,
 };
-use indexmap::IndexMap;
-use std::borrow::Cow;
 
-#[derive(Clone, PartialEq, Eq, Hash)]
-pub struct GnomeCmdTagClass(pub String);
+pub trait Tag: std::fmt::Debug {
+    fn id(&self) -> &str;
+    fn class(&self) -> Cow<'_, str>;
+    fn name(&self) -> Cow<'_, str>;
+    fn description(&self) -> Cow<'_, str>;
+    fn clone(&self) -> Box<dyn Tag>;
+}
 
-#[derive(Clone, PartialEq, Eq, Hash)]
-pub struct GnomeCmdTag(pub Cow<'static, str>);
-
-impl GnomeCmdTag {
-    pub fn id(&self) -> &str {
-        &self.0
-    }
-
-    pub fn class(&self) -> Option<GnomeCmdTagClass> {
-        Some(GnomeCmdTagClass(self.0.split_once('.')?.0.to_owned()))
+impl PartialEq for Box<dyn Tag> {
+    fn eq(&self, other: &Self) -> bool {
+        self.id() == other.id()
     }
 }
 
-mod imp {
-    use super::*;
-    use crate::{
-        libgcmd::file_metadata_extractor::FileMetadataExtractor,
-        tags::{basic::BasicMetadataExtractor, image::ImageMetadataExtractor},
-    };
-    use std::cell::{OnceCell, RefCell};
+impl Eq for Box<dyn Tag> {}
 
-    #[derive(Default, glib::Properties)]
-    #[properties(wrapper_type = super::FileMetadataService)]
-    pub struct FileMetadataService {
-        #[property(get, construct_only)]
-        pub plugin_manager: OnceCell<PluginManager>,
-        pub extractors: RefCell<Vec<FileMetadataExtractor>>,
-    }
-
-    #[glib::object_subclass]
-    impl ObjectSubclass for FileMetadataService {
-        const NAME: &'static str = "GnomeCmdFileMetadataService";
-        type Type = super::FileMetadataService;
-    }
-
-    #[glib::derived_properties]
-    impl ObjectImpl for FileMetadataService {
-        fn constructed(&self) {
-            self.parent_constructed();
-
-            self.obj()
-                .plugin_manager()
-                .connect_plugins_changed(glib::clone!(
-                    #[weak(rename_to = imp)]
-                    self,
-                    move |_| imp.plugins_changed()
-                ));
-
-            self.plugins_changed();
-        }
-
-        fn dispose(&self) {
-            self.extractors.borrow_mut().clear();
-        }
-    }
-
-    impl FileMetadataService {
-        fn plugins_changed(&self) {
-            let mut extractors = vec![
-                BasicMetadataExtractor::default().upcast(),
-                ImageMetadataExtractor::default().upcast(),
-            ];
-
-            extractors.extend(
-                self.obj()
-                    .plugin_manager()
-                    .active_plugins()
-                    .into_iter()
-                    .filter_map(|(_, plugin)| plugin.downcast::<FileMetadataExtractor>().ok()),
-            );
-
-            self.extractors.replace(extractors);
-        }
+impl PartialOrd for Box<dyn Tag> {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        Some(self.cmp(other))
     }
 }
 
-glib::wrapper! {
-    pub struct FileMetadataService(ObjectSubclass<imp::FileMetadataService>);
+impl Ord for Box<dyn Tag> {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        self.id().cmp(other.id())
+    }
+}
+
+pub trait FileMetadataExtractor {
+    async fn supported_tags(&self) -> Vec<(String, Vec<Box<dyn Tag>>)>;
+    fn summary_tags(&self) -> Vec<Box<dyn Tag>>;
+    async fn extract_metadata(&self, file: &File) -> Vec<(Box<dyn Tag>, String)>;
+}
+
+pub struct FileMetadataService {
+    basic_extractor: BasicMetadataExtractor,
+    image_extractor: ImageMetadataExtractor,
+    plugin_extractor: PluginMetadataExtractor,
 }
 
 impl FileMetadataService {
-    pub fn new(plugin_manager: &PluginManager) -> Self {
-        glib::Object::builder()
-            .property("plugin-manager", plugin_manager)
-            .build()
-    }
-
-    pub fn supported_tags_map(
-        &self,
-    ) -> IndexMap<GnomeCmdTagClass, IndexMap<GnomeCmdTag, Vec<FileMetadataExtractor>>> {
-        let mut result: IndexMap<
-            GnomeCmdTagClass,
-            IndexMap<GnomeCmdTag, Vec<FileMetadataExtractor>>,
-        > = Default::default();
-        for extractor in self.imp().extractors.borrow().iter() {
-            for tag in extractor.supported_tags() {
-                if let Some(class) = tag.class() {
-                    result
-                        .entry(class)
-                        .or_default()
-                        .entry(tag)
-                        .or_default()
-                        .push(extractor.clone());
-                } else {
-                    eprintln!("Invalid tag \"{}\".", tag.0);
-                }
-            }
+    pub fn new(plugin_channel: InactivePluginChannel) -> Self {
+        Self {
+            basic_extractor: Default::default(),
+            image_extractor: Default::default(),
+            plugin_extractor: PluginMetadataExtractor::new(plugin_channel),
         }
-        result
     }
 
-    pub fn extract_metadata(&self, file: &File) -> FileMetadata {
+    pub async fn extract_metadata(&self, file: &File) -> FileMetadata {
         let mut metadata = FileMetadata::default();
-        for extractor in self.imp().extractors.borrow().iter() {
-            extractor.extract_metadata(file, |tag, value| metadata.add(tag, value));
+        let (basic_tags, image_tags, plugin_tags) = join3(
+            self.basic_extractor.extract_metadata(file),
+            self.image_extractor.extract_metadata(file),
+            self.plugin_extractor.extract_metadata(file),
+        )
+        .await;
+        for tags in [basic_tags, image_tags, plugin_tags] {
+            for (tag, value) in tags {
+                metadata.add(tag, value)
+            }
         }
         metadata
     }
 
-    pub fn class_name(&self, class: &GnomeCmdTagClass) -> String {
-        for extractor in self.imp().extractors.borrow().iter() {
-            if let Some(name) = extractor.class_name(class) {
-                return name;
-            }
-        }
-        class.0.clone()
-    }
-
-    pub fn tag_name(&self, tag: &GnomeCmdTag) -> Option<String> {
-        for extractor in self.imp().extractors.borrow().iter() {
-            if let name @ Some(_) = extractor.tag_name(tag) {
-                return name;
-            }
-        }
-        None
-    }
-
-    pub fn tag_description(&self, tag: &GnomeCmdTag) -> Option<String> {
-        for extractor in self.imp().extractors.borrow().iter() {
-            if let description @ Some(_) = extractor.tag_description(tag) {
-                return description;
-            }
-        }
-        None
-    }
-
     pub fn file_summary(&self, metadata: &FileMetadata) -> Vec<(String, String)> {
         let mut summary = Vec::new();
-        for extractor in self.imp().extractors.borrow().iter() {
-            for tag in extractor.summary_tags() {
-                if let Some(value) = metadata.get_first(&tag) {
-                    summary.push((
-                        extractor
-                            .tag_name(&tag)
-                            .unwrap_or_else(|| tag.id().to_owned()),
-                        value,
-                    ));
+        for tags in [
+            self.basic_extractor.summary_tags(),
+            self.image_extractor.summary_tags(),
+            self.plugin_extractor.summary_tags(),
+        ] {
+            for tag in tags {
+                if let Some(value) = metadata.get_first(tag.id()) {
+                    summary.push((tag.name().to_string(), value));
                 }
             }
         }
         summary
     }
 
-    pub fn create_menu(&self, action_name: &str) -> gio::Menu {
+    pub async fn create_menu(&self, action_name: &str) -> gio::Menu {
         let menu = gio::Menu::new();
-        for (class, tags) in self.supported_tags_map() {
-            let submenu = gio::Menu::new();
-            for (tag, extractors) in tags {
-                let title = extractors.iter().find_map(|e| e.tag_name(&tag));
-                let item = gio::MenuItem::new(title.as_deref(), None);
-                item.set_action_and_target_value(
-                    Some(action_name),
-                    Some(&format!("$T({})", tag.0).to_variant()),
-                );
-                submenu.append_item(&item);
+        let mut classes = BTreeMap::new();
+
+        for supported in [
+            self.basic_extractor.supported_tags().await,
+            self.image_extractor.supported_tags().await,
+            self.plugin_extractor.supported_tags().await,
+        ] {
+            for (class, tags) in supported {
+                let submenu = classes.entry(class.clone()).or_insert_with(|| {
+                    let submenu = gio::Menu::new();
+                    menu.append_submenu(Some(&class), &submenu);
+                    submenu
+                });
+
+                // TODO: Large lists cannot be handled, cut off at 256 items
+                for tag in &tags[..std::cmp::min(tags.len(), 256)] {
+                    let item = gio::MenuItem::new(Some(&tag.name()), None);
+                    item.set_action_and_target_value(
+                        Some(action_name),
+                        Some(&format!("$T({})", tag.id()).to_variant()),
+                    );
+                    submenu.append_item(&item);
+                }
             }
-            menu.append_submenu(Some(&self.class_name(&class)), &submenu);
         }
         menu
-    }
-
-    pub fn to_tsv(&self, fm: &FileMetadata) -> String {
-        let mut tsv = String::new();
-        for (tag, value) in fm.dump() {
-            tsv.push_str(tag.id());
-            tsv.push('\t');
-            tsv.push_str(self.tag_name(&tag).as_deref().unwrap_or_default());
-            tsv.push('\t');
-            tsv.push_str(&value);
-            tsv.push('\n');
-        }
-        tsv
     }
 }

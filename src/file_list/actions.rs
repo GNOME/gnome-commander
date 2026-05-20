@@ -9,7 +9,6 @@ use crate::{
     dialogs::open_with_other_dialog::show_open_with_other_dialog,
     file::{File, FileOps},
     file_edit::file_edit,
-    file_view::file_view,
     main_win::{ExecutionTarget, MainWindow},
     options::ProgramsOptions,
     transfer::download_to_temporary,
@@ -18,30 +17,6 @@ use crate::{
 use gettextrs::{gettext, ngettext};
 use gtk::{gdk, gio, glib, prelude::*};
 use std::path::PathBuf;
-
-pub async fn file_list_action_file_view(file_list: &FileList, use_internal_viewer: Option<bool>) {
-    let options = ProgramsOptions::new();
-
-    let Some(parent_window) = file_list.root().and_downcast::<gtk::Window>() else {
-        eprintln!("No window");
-        return;
-    };
-    let Some(file) = file_list.selected_file() else {
-        return;
-    };
-    let file_metadata_service = file_list.file_metadata_service();
-    if let Err(error) = file_view(
-        parent_window.upcast_ref(),
-        &file,
-        use_internal_viewer,
-        &options,
-        &file_metadata_service,
-    )
-    .await
-    {
-        error.show(parent_window.upcast_ref()).await;
-    }
-}
 
 pub async fn file_list_action_file_edit(file_list: &FileList) {
     let options = ProgramsOptions::new();

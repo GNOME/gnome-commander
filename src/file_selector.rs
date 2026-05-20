@@ -19,7 +19,6 @@ use crate::{
     options::ProgramsOptions,
     shortcuts::{Area, Shortcuts},
     tab_label::TabLabel,
-    tags::FileMetadataService,
     types::MiddleMouseButtonMode,
     user_actions::UserAction,
     utils::u32_enum,
@@ -45,7 +44,7 @@ mod imp {
         weak_set::WeakSet,
     };
     use std::{
-        cell::{Cell, OnceCell, RefCell},
+        cell::{Cell, RefCell},
         sync::OnceLock,
     };
 
@@ -67,9 +66,6 @@ mod imp {
 
         #[property(get, set, nullable)]
         pub command_line: RefCell<Option<CommandLine>>,
-
-        #[property(get, construct_only)]
-        pub file_metadata_service: OnceCell<FileMetadataService>,
 
         #[property(get, set = Self::set_always_show_tabs)]
         always_show_tabs: Cell<bool>,
@@ -211,8 +207,6 @@ mod imp {
                     .build(),
 
                 command_line: Default::default(),
-
-                file_metadata_service: Default::default(),
 
                 always_show_tabs: Default::default(),
                 active: Default::default(),
@@ -575,10 +569,8 @@ glib::wrapper! {
 }
 
 impl FileSelector {
-    pub fn new(file_metadata_service: &FileMetadataService) -> Self {
-        glib::Object::builder()
-            .property("file-metadata-service", file_metadata_service)
-            .build()
+    pub fn new() -> Self {
+        glib::Object::builder().build()
     }
 
     fn current_file_list(&self) -> Option<FileList> {
@@ -598,7 +590,7 @@ impl FileSelector {
     }
 
     pub fn new_tab(&self, dir: Option<&Directory>, options: TabOptions) -> FileList {
-        let fl = FileList::new(&self.file_metadata_service());
+        let fl = FileList::new();
         fl.set_sorting(options.sort_column, options.sort_direction);
         fl.set_column_options(&options.column_options);
 
