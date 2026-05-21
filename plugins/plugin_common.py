@@ -16,11 +16,24 @@ import sys
 from typing import Any, Awaitable, Optional
 
 
+class SettingDescriptor:
+    def __init__(self, key: str):
+        self.key = key
+
+    async def __get__(self, instance: 'Plugin', owner) -> Any:
+        return await instance.send_api_request_with_response('get-setting', self.key)
+
+    def __set__(self, instance: 'Plugin', value: Any):
+        instance.send_api_request('set-setting', (self.key, value))
+
+
 class Plugin:
     def __init__(self):
         self._tasks = set()
         self._incoming = bytearray()
         self._initialized = False
+        self._max_request_id = 0
+        self._pending_api_requests: dict[int, tuple[str, asyncio.Future]] = {}
 
         locale_dir = os.path.normpath(
             os.path.join(os.path.dirname(__file__), '..',
@@ -33,6 +46,14 @@ class Plugin:
         os.set_blocking(sys.stdin.buffer.fileno(), False)
 
         self._apis = []
+        if len(self.PERSISTENT_SETTINGS) > 0:
+            self._apis.append({
+                'name': 'persistent_settings',
+                'version': '1.0',
+            })
+            for key in self.PERSISTENT_SETTINGS:
+                setattr(type(self), key, SettingDescriptor(key))
+
         if self.extract_metadata and self.list_supported_tags:
             self._apis.append({
                 'name': 'extract_metadata',
@@ -109,6 +130,19 @@ class Plugin:
         self.send_message('failed')
         sys.exit(1)
 
+    def send_api_request(self, name: str, data: Any = None) -> int:
+        id = self._max_request_id
+        self._max_request_id += 1
+        self.send_message('api-request', [id, {name: data}])
+        return id
+
+    async def send_api_request_with_response(self, name: str, data: Any = None) -> Any:
+        id = self.send_api_request(name, data)
+        loop = asyncio.get_running_loop()
+        future = loop.create_future()
+        self._pending_api_requests[id] = (name, future)
+        return await future
+
     async def handle_api_request(self, id: int, name: str, data: Any):
         method = name.replace('-', '_')
         if hasattr(self, method):
@@ -151,7 +185,14 @@ class Plugin:
                 )
                 self._tasks.add(task)
                 task.add_done_callback(self._tasks.discard)
+            elif type == 'api-response':
+                id, response = payload
+                if id in self._pending_api_requests:
+                    name, future = self._pending_api_requests[id]
+                    del self._pending_api_requests[id]
+                    future.set_result(response[name])
 
+    PERSISTENT_SETTINGS: list[str] = []
     extract_metadata: Optional[Callable[..., Awaitable[list[dict]]]] = None
     list_supported_tags: Optional[
         Callable[..., list[tuple[str, Awaitable[list[tuple[str, str]]]]]]

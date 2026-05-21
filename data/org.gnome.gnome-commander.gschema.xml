@@ -1065,5 +1065,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           Metadata of known plugins by their file name.
       </description>
     </key>
+    <key name="persistent-settings" type="a{sa{ss}}">
+      <default>{}</default>
+      <summary>Persistent settings</summary>
+      <description>
+          Settings persisted by the plugins.
+      </description>
+    </key>
   </schema>
 </schemalist>

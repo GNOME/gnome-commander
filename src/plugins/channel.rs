@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::PluginMetadata;
+use super::{ApiRequest, ApiResponse, PluginMetadata};
 use async_broadcast::{
     InactiveReceiver as InactiveBroadcastReceiver, Receiver as BroadcastReceiver,
 };
@@ -37,56 +37,6 @@ pub struct PluginData {
     pub metadata: PluginMetadata,
     pub initializing: bool,
     pub errors: Vec<String>,
-}
-
-#[derive(Debug, Copy, Clone, PartialEq, Eq)]
-pub enum ApiCall {
-    ExtractMetadata,
-    ListSupportedTags,
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(rename_all = "kebab-case")]
-pub enum ApiRequest {
-    ListSupportedTags,
-    ExtractMetadata { path: String, uri: String },
-}
-
-impl ApiRequest {
-    pub fn call(&self) -> ApiCall {
-        match self {
-            Self::ListSupportedTags => ApiCall::ListSupportedTags,
-            Self::ExtractMetadata { .. } => ApiCall::ExtractMetadata,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Deserialize)]
-#[serde(rename_all = "kebab-case")]
-pub enum ApiResponse {
-    ListSupportedTags(Vec<ListSupportedTagsResponse>),
-    ExtractMetadata(Vec<ExtractMetadataResponse>),
-}
-
-impl ApiResponse {
-    pub fn call(&self) -> ApiCall {
-        match self {
-            Self::ListSupportedTags(..) => ApiCall::ListSupportedTags,
-            Self::ExtractMetadata(..) => ApiCall::ExtractMetadata,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Deserialize)]
-pub struct ListSupportedTagsResponse {
-    pub class: String,
-    pub tags: Vec<(String, String)>,
-}
-
-#[derive(Debug, Clone, serde::Deserialize)]
-pub struct ExtractMetadataResponse {
-    pub class: String,
-    pub tags: Vec<(String, String, String, String)>,
 }
 
 /// An inactive channel can be used to send messages to the plugin host but will not receive any

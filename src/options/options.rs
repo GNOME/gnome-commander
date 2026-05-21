@@ -602,6 +602,7 @@ impl ViewerOptions {
 
 pub struct PluginsOptions {
     pub metadata: VariantOption<BTreeMap<String, PluginMetadata>>,
+    pub persistent_settings: VariantOption<BTreeMap<String, BTreeMap<String, String>>>,
 }
 
 impl PluginsOptions {
@@ -609,6 +610,7 @@ impl PluginsOptions {
         let settings = gio::Settings::new("org.gnome.gnome-commander.plugins.general");
         Self {
             metadata: VariantOption::new(&settings, "metadata"),
+            persistent_settings: VariantOption::new(&settings, "persistent-settings"),
         }
     }
 }

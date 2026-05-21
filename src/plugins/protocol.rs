@@ -2,8 +2,6 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::{ApiRequest, ApiResponse};
-
 #[derive(Debug, serde::Deserialize)]
 #[serde(
     tag = "type",
@@ -17,6 +15,7 @@ pub enum IncomingMessage {
     Register(ApiInfo),
     Failed,
     Ready,
+    ApiRequest(u32, ApiRequest),
     ApiResponse(u32, ApiResponse),
 }
 
@@ -25,6 +24,7 @@ pub enum IncomingMessage {
 pub enum OutgoingMessage {
     Apis(Vec<ApiInfo>),
     ApiRequest(u32, ApiRequest),
+    ApiResponse(u32, ApiResponse),
 }
 
 #[derive(Debug, Default, serde::Deserialize)]
@@ -49,6 +49,64 @@ pub struct Info {
 pub struct ApiInfo {
     pub name: String,
     pub version: String,
+}
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+pub enum ApiCall {
+    ExtractMetadata,
+    ListSupportedTags,
+    GetSetting,
+    SetSetting,
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum ApiRequest {
+    ListSupportedTags,
+    ExtractMetadata { path: String, uri: String },
+    GetSetting(String),
+    SetSetting(String, serde_json::Value),
+}
+
+impl ApiRequest {
+    pub fn call(&self) -> ApiCall {
+        match self {
+            Self::ListSupportedTags => ApiCall::ListSupportedTags,
+            Self::ExtractMetadata { .. } => ApiCall::ExtractMetadata,
+            Self::GetSetting(..) => ApiCall::GetSetting,
+            Self::SetSetting(..) => ApiCall::SetSetting,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum ApiResponse {
+    ListSupportedTags(Vec<ListSupportedTagsResponse>),
+    ExtractMetadata(Vec<ExtractMetadataResponse>),
+    GetSetting(serde_json::Value),
+}
+
+impl ApiResponse {
+    pub fn call(&self) -> ApiCall {
+        match self {
+            Self::ListSupportedTags(..) => ApiCall::ListSupportedTags,
+            Self::ExtractMetadata(..) => ApiCall::ExtractMetadata,
+            Self::GetSetting(..) => ApiCall::GetSetting,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListSupportedTagsResponse {
+    pub class: String,
+    pub tags: Vec<(String, String)>,
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ExtractMetadataResponse {
+    pub class: String,
+    pub tags: Vec<(String, String, String, String)>,
 }
 
 impl std::fmt::Display for ApiInfo {

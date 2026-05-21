@@ -18,7 +18,7 @@ use std::{
     io::{Error, ErrorKind},
     path::{Path, PathBuf},
     pin::{Pin, pin},
-    task::{Context, Poll},
+    task::{Context, Poll, Waker},
     time::Duration,
 };
 
@@ -41,6 +41,7 @@ pub struct PluginInstance {
     incoming_size: usize,
     outgoing: Vec<u8>,
     outgoing_offset: usize,
+    outgoing_waker: Option<Waker>,
     startup_timeout: Option<Timer>,
     apis: BTreeSet<Apis>,
     pending_api_requests: BTreeMap<u32, (ApiCall, Timer)>,
@@ -66,6 +67,7 @@ impl PluginInstance {
             incoming_size: 0,
             outgoing: Vec::new(),
             outgoing_offset: 0,
+            outgoing_waker: None,
             startup_timeout: None,
             apis: BTreeSet::new(),
             pending_api_requests: BTreeMap::new(),
@@ -150,6 +152,7 @@ impl PluginInstance {
         self.outgoing.clear();
         self.outgoing.shrink_to(0);
         self.outgoing_offset = 0;
+        self.outgoing_waker = None;
         self.apis.clear();
         self.metadata.set_enabled(false);
         self.save_metadata();
@@ -173,6 +176,10 @@ impl PluginInstance {
 
         self.outgoing.extend(size.to_ne_bytes());
         self.outgoing.extend(data);
+
+        if let Some(waker) = self.outgoing_waker.take() {
+            waker.wake();
+        }
     }
 
     pub fn data(&self) -> PluginData {
@@ -267,6 +274,23 @@ impl PluginInstance {
             IncomingMessage::Ready => {
                 self.startup_timeout = None;
                 UPDATED
+            }
+            IncomingMessage::ApiRequest(id, request) => {
+                for api in self.apis.iter() {
+                    let (handled, response) = api.handle_incoming(&request, self);
+                    if handled {
+                        if let Some(response) = response {
+                            self.send_message(OutgoingMessage::ApiResponse(id, response));
+                        }
+                        return Ok(None);
+                    }
+                }
+
+                self.errors.push(Error::other(
+                    gettext("No API to handle request {} from plugin")
+                        .replace("{}", &id.to_string()),
+                ));
+                Err(())
             }
             IncomingMessage::ApiResponse(id, response) => {
                 let Some((call, _)) = self.pending_api_requests.get(&id) else {
@@ -430,15 +454,18 @@ impl Stream for PluginInstance {
         {
             // Try sending any outgoing messages
             if output.is_none()
-                && !self.outgoing.is_empty()
                 && let Some(stdin) = child.stdin.as_mut()
             {
-                match self.send_outgoing(cx, stdin) {
-                    Poll::Ready(Ok(_)) | Poll::Pending => {}
-                    Poll::Ready(Err(error)) => {
-                        self.errors.push(error);
-                        output = Some(Err(()));
+                if !self.outgoing.is_empty() {
+                    match self.send_outgoing(cx, stdin) {
+                        Poll::Ready(Ok(_)) | Poll::Pending => {}
+                        Poll::Ready(Err(error)) => {
+                            self.errors.push(error);
+                            output = Some(Err(()));
+                        }
                     }
+                } else if self.outgoing_waker.is_none() {
+                    self.outgoing_waker = Some(cx.waker().clone());
                 }
             }
 

@@ -12,11 +12,11 @@ mod protocol;
 
 use apis::Apis;
 pub use channel::{
-    ApiCall, ApiRequest, ApiResponse, InactivePluginChannel, IncomingPluginMessage,
-    OutgoingPluginMessage, PluginChannel, PluginData,
+    InactivePluginChannel, IncomingPluginMessage, OutgoingPluginMessage, PluginChannel, PluginData,
 };
 pub use host::PluginHost;
 use instance::{PluginInstance, PluginInstanceOutput};
 pub use manager::show_plugin_manager;
 pub use metadata::PluginMetadata;
-use protocol::{ApiInfo, IncomingMessage, OutgoingMessage};
+pub use protocol::{ApiCall, ApiInfo, ApiRequest, ApiResponse};
+use protocol::{IncomingMessage, OutgoingMessage};
