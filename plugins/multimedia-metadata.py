@@ -315,7 +315,7 @@ class VorbisExtractor:
 class MultimediaMetadataPlugin(Plugin):
     SOURCES = [InfoExtractor, ID3Extractor, APEv2Extractor, VorbisExtractor]
 
-    def startup(self) -> None:
+    async def startup(self) -> None:
         self.send_message('info', {
             'name': 'Multimedia Metadata',
             'version': '1.0',
@@ -337,9 +337,8 @@ class MultimediaMetadataPlugin(Plugin):
             )
 
         self.send_message('ready')
-        self.process_incoming()
 
-    def extract_metadata(self, data: dict) -> list[dict]:
+    async def extract_metadata(self, data: dict) -> list[dict]:
         import mutagen
         path: str = data['path']
         try:
@@ -351,7 +350,7 @@ class MultimediaMetadataPlugin(Plugin):
 
         return list(filter(lambda result: result is not None, (extractor.extract(file) for extractor in self.SOURCES)))
 
-    def list_supported_tags(self, data: dict) -> list[tuple[str, list[tuple[str, str]]]]:
+    async def list_supported_tags(self, data: dict) -> list[tuple[str, list[tuple[str, str]]]]:
         response = []
         for source in self.SOURCES:
             seen = set()

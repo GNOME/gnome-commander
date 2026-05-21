@@ -38,7 +38,7 @@ BLOCKLIST = {
 
 
 class ImageMetadataPlugin(Plugin):
-    def startup(self) -> None:
+    async def startup(self) -> None:
         self.send_message('info', {
             'name': 'Image Metadata',
             'version': '1.0',
@@ -58,11 +58,9 @@ class ImageMetadataPlugin(Plugin):
             self.fail(
                 _('Required exiv2 module not found. Please install exiv2 for Python3 on your system.')
             )
-
         self.send_message('ready')
-        self.process_incoming()
 
-    def extract_metadata(self, data: dict) -> list[dict]:
+    async def extract_metadata(self, data: dict) -> list[dict]:
         import exiv2
         path: str = data['path']
         try:
@@ -104,7 +102,7 @@ class ImageMetadataPlugin(Plugin):
         ]
         return response
 
-    def list_supported_tags(self, data: dict) -> list[tuple[str, list[tuple[str, str]]]]:
+    async def list_supported_tags(self, data: dict) -> list[tuple[str, list[tuple[str, str]]]]:
         sources = [
             (_("EXIF"), exif_tags()),
             (_("IPTC"), iptc_tags()),

@@ -166,7 +166,7 @@ PDF_METADATA = {
 
 
 class DocumentMetadataPlugin(Plugin):
-    def startup(self) -> None:
+    async def startup(self) -> None:
         self.send_message('info', {
             'name': 'Document Metadata',
             'version': '1.0',
@@ -191,9 +191,8 @@ class DocumentMetadataPlugin(Plugin):
             )
 
         self.send_message('ready')
-        self.process_incoming()
 
-    def extract_metadata(self, data: dict) -> list[dict]:
+    async def extract_metadata(self, data: dict) -> list[dict]:
         sources = [read_zip_metadata(data['path'])]
         if self.has_pypdf:
             sources.append(read_pdf_metadata(data['path']))
@@ -213,7 +212,7 @@ class DocumentMetadataPlugin(Plugin):
             "tags": tags,
         }]
 
-    def list_supported_tags(self, data: dict) -> list[tuple[str, list[tuple[str, str]]]]:
+    async def list_supported_tags(self, data: dict) -> list[tuple[str, list[tuple[str, str]]]]:
         response = []
         seen = set()
         for tag, name, description in TAGS.values():
