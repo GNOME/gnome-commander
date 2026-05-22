@@ -563,7 +563,7 @@ mod test {
     async fn poll(instance: &mut PluginInstance) {
         for i in 0..2 {
             if i == 1 {
-                Timer::after(Duration::from_millis(100)).await;
+                Timer::after(Duration::from_millis(500)).await;
             }
             futures::future::poll_fn(|cx| {
                 while let Poll::Ready(_) = instance.poll(cx) {}
