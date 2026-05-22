@@ -177,7 +177,7 @@ pub mod imp {
             let system_plugins_dir = Path::new(PLUGIN_DIR);
             let user_plugins_dir = glib::user_config_dir().join(PACKAGE).join("plugins");
             let (plugin_host, plugin_channel) =
-                PluginHost::new(&[system_plugins_dir, &user_plugins_dir]);
+                PluginHost::new(&system_plugins_dir, &user_plugins_dir);
             glib::spawn_future_local(plugin_host);
 
             let file_metadata_service = FileMetadataService::new(plugin_channel.clone());

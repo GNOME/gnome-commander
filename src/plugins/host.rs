@@ -25,13 +25,13 @@ pub struct PluginHost {
 }
 
 impl PluginHost {
-    pub fn new(dirs: &[&Path]) -> (Self, InactivePluginHostChannel) {
+    pub fn new(system_dir: &Path, user_dir: &Path) -> (Self, InactivePluginHostChannel) {
         let (incoming_sender, incoming_receiver) = mpsc::channel(16);
         let (outgoing_sender, _) = broadcast::channel(16);
 
         let options = PluginsOptions::new();
         let mut host = Self {
-            plugins: list_plugins(dirs, &options),
+            plugins: list_plugins(system_dir, user_dir, &options),
             sender: outgoing_sender.clone(),
             receiver: incoming_receiver,
             pending_api_requests: BTreeMap::new(),
@@ -183,10 +183,14 @@ fn is_executable(metadata: &fs::Metadata) -> bool {
     (metadata.permissions().mode() & 0o111) != 0
 }
 
-fn list_plugins(dirs: &[&Path], options: &PluginsOptions) -> BTreeMap<String, PluginInstance> {
+fn list_plugins(
+    system_dir: &Path,
+    user_dir: &Path,
+    options: &PluginsOptions,
+) -> BTreeMap<String, PluginInstance> {
     let mut plugins = BTreeMap::new();
-    for dir in dirs {
-        if let Err(error) = list_plugins_in_dir(dir, options, &mut plugins) {
+    for dir in [system_dir, user_dir] {
+        if let Err(error) = list_plugins_in_dir(dir, system_dir, options, &mut plugins) {
             eprintln!(
                 "Failed searching directory '{}' for plugins: {error}",
                 dir.display()
@@ -199,6 +203,7 @@ fn list_plugins(dirs: &[&Path], options: &PluginsOptions) -> BTreeMap<String, Pl
 
 fn list_plugins_in_dir(
     dir: &Path,
+    system_dir: &Path,
     options: &PluginsOptions,
     plugins: &mut BTreeMap<String, PluginInstance>,
 ) -> Result<(), Error> {
@@ -214,7 +219,7 @@ fn list_plugins_in_dir(
         {
             continue;
         }
-        let instance = PluginInstance::new(entry.path(), options);
+        let instance = PluginInstance::new(entry.path(), system_dir, options);
         plugins.insert(instance.file_name().to_string(), instance);
     }
     Ok(())

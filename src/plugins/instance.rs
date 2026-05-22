@@ -35,6 +35,7 @@ pub enum PluginInstanceOutput {
 #[derive(Debug)]
 pub struct PluginInstance {
     path: PathBuf,
+    system_dir: PathBuf,
     metadata: PluginMetadata,
     child: Option<Child>,
     errors: Vec<Error>,
@@ -54,7 +55,7 @@ impl PluginInstance {
     const MAX_STARTUP_SECS: u64 = 10;
     const MAX_RESPONSE_SECS: u64 = 5;
 
-    pub fn new(path: PathBuf, options: &PluginsOptions) -> Self {
+    pub fn new(path: PathBuf, system_dir: &Path, options: &PluginsOptions) -> Self {
         let metadata = options
             .metadata
             .get()
@@ -62,6 +63,7 @@ impl PluginInstance {
             .unwrap_or_default();
         Self {
             path,
+            system_dir: system_dir.to_path_buf(),
             metadata,
             child: None,
             errors: Vec::new(),
@@ -113,6 +115,7 @@ impl PluginInstance {
         }
 
         match Command::new(&self.path)
+            .env("PYTHONPATH", &self.system_dir)
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .spawn()

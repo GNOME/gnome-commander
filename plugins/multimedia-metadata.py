@@ -7,7 +7,7 @@
 from gettext import gettext as _
 from typing import Any
 
-from plugin_common import Plugin
+from plugin_helper import Plugin
 
 
 def N_(text: str) -> str:

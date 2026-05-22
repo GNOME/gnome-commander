@@ -8,7 +8,7 @@ from gettext import gettext as _
 import re
 from typing import Generator
 
-from plugin_common import Plugin
+from plugin_helper import Plugin
 
 
 BLOCKLIST = {

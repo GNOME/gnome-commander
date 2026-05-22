@@ -12,7 +12,7 @@ plugin_files = [
   'document-metadata.py',
   'image-metadata.py',
   'multimedia-metadata.py',
-  'plugin_common.py',
+  'plugin_helper.py',
 ]
 
 install_data(plugin_files, install_dir: plugin_dir)

@@ -10,7 +10,7 @@ from typing import Any, Generator
 from xml.dom import minidom
 import zipfile
 
-from plugin_common import Plugin
+from plugin_helper import Plugin
 
 
 def N_(text: str) -> str:

@@ -40,8 +40,8 @@ class Plugin:
                          '..', '..', 'share', 'locale')
         )
         if os.path.exists(locale_dir):
-            gettext.bindtextdomain('gnome-commander', locale_dir)
-        gettext.textdomain('gnome-commander')
+            gettext.bindtextdomain(self.GETTEXT_DOMAIN, locale_dir)
+        gettext.textdomain(self.GETTEXT_DOMAIN)
 
         os.set_blocking(sys.stdin.buffer.fileno(), False)
 
@@ -91,9 +91,6 @@ class Plugin:
         args = parser.parse_args()
         json.dump(args.func(args.__dict__), sys.stdout)
         sys.exit(0)
-
-    async def startup(self):
-        raise NotImplementedError()
 
     def send_message(self, type: str, payload: Any = None):
         message = json.dumps({
@@ -201,9 +198,16 @@ class Plugin:
     async def show_dialog(self, spec: dict) -> Optional[str]:
         return await self.send_api_request_with_response('show-dialog', spec)
 
+    # Properties and methods that can be overwritten by subclasses
+    GETTEXT_DOMAIN: str = 'gnome-commander'
     PERSISTENT_SETTINGS: list[str] = []
     DIALOGS = False
+
+    async def startup(self):
+        raise NotImplementedError()
+
     extract_metadata: Optional[Callable[..., Awaitable[list[dict]]]] = None
+
     list_supported_tags: Optional[
         Callable[..., list[tuple[str, Awaitable[list[tuple[str, str]]]]]]
     ] = None
