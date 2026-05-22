@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::{
-    InactivePluginChannel, IncomingPluginMessage, OutgoingPluginMessage, PluginInstance,
+    InactivePluginHostChannel, MessageFromPluginHost, MessageToPluginHost, PluginInstance,
     PluginInstanceOutput,
 };
 use crate::options::PluginsOptions;
@@ -19,13 +19,13 @@ use tokio::sync::{broadcast, broadcast::Sender as BroadcastSender, mpsc, mpsc::R
 
 pub struct PluginHost {
     plugins: BTreeMap<String, PluginInstance>,
-    sender: BroadcastSender<OutgoingPluginMessage>,
-    receiver: Receiver<IncomingPluginMessage>,
+    sender: BroadcastSender<MessageFromPluginHost>,
+    receiver: Receiver<MessageToPluginHost>,
     pending_api_requests: BTreeMap<u32, usize>,
 }
 
 impl PluginHost {
-    pub fn new(dirs: &[&Path]) -> (Self, InactivePluginChannel) {
+    pub fn new(dirs: &[&Path]) -> (Self, InactivePluginHostChannel) {
         let (incoming_sender, incoming_receiver) = mpsc::channel(16);
         let (outgoing_sender, _) = broadcast::channel(16);
 
@@ -43,32 +43,29 @@ impl PluginHost {
         }
         (
             host,
-            InactivePluginChannel::new(incoming_sender, outgoing_sender),
+            InactivePluginHostChannel::new(incoming_sender, outgoing_sender),
         )
     }
 
-    fn process_incoming(
-        &mut self,
-        message: IncomingPluginMessage,
-    ) -> Option<OutgoingPluginMessage> {
+    fn process_incoming(&mut self, message: MessageToPluginHost) -> Option<MessageFromPluginHost> {
         match message {
-            IncomingPluginMessage::GetPlugins => Some(OutgoingPluginMessage::Plugins(
+            MessageToPluginHost::GetPlugins => Some(MessageFromPluginHost::Plugins(
                 self.plugins
                     .iter()
                     .map(|(name, instance)| (name.to_owned(), instance.data()))
                     .collect(),
             )),
-            IncomingPluginMessage::StartPlugin(name) => {
+            MessageToPluginHost::StartPlugin(name) => {
                 let instance = self.plugins.get_mut(&name)?;
                 instance.start();
                 Some(updated_message(instance))
             }
-            IncomingPluginMessage::StopPlugin(name) => {
+            MessageToPluginHost::StopPlugin(name) => {
                 let instance = self.plugins.get_mut(&name)?;
                 instance.stop();
                 Some(updated_message(instance))
             }
-            IncomingPluginMessage::TogglePlugin(name) => {
+            MessageToPluginHost::TogglePlugin(name) => {
                 let instance = self.plugins.get_mut(&name)?;
                 if instance.is_enabled() {
                     if instance.is_initialized() {
@@ -82,7 +79,7 @@ impl PluginHost {
                     Some(updated_message(instance))
                 }
             }
-            IncomingPluginMessage::ApiRequest { id, request } => {
+            MessageToPluginHost::ApiRequest { id, request } => {
                 let mut count = 0;
                 for instance in self.plugins.values_mut() {
                     if instance.is_enabled() && instance.handle_api_request(id, &request) {
@@ -94,7 +91,7 @@ impl PluginHost {
                     self.pending_api_requests.insert(id, count);
                     None
                 } else {
-                    Some(OutgoingPluginMessage::ApiResponse {
+                    Some(MessageFromPluginHost::ApiResponse {
                         id,
                         response: None,
                         last: true,
@@ -108,7 +105,7 @@ impl PluginHost {
         message: PluginInstanceOutput,
         instance: &PluginInstance,
         pending_api_requests: &mut BTreeMap<u32, usize>,
-    ) -> Option<OutgoingPluginMessage> {
+    ) -> Option<MessageFromPluginHost> {
         match message {
             PluginInstanceOutput::Updated => Some(updated_message(instance)),
             PluginInstanceOutput::ApiResponse { id, response } => {
@@ -119,7 +116,7 @@ impl PluginHost {
                 }
 
                 if response.is_some() || count == 0 {
-                    Some(OutgoingPluginMessage::ApiResponse {
+                    Some(MessageFromPluginHost::ApiResponse {
                         id,
                         response,
                         last: count == 0,
@@ -155,7 +152,7 @@ impl Future for PluginHost {
                     Self::process_instance_message(message, instance, pending_api_requests)
                 {
                     // If a plugin crashed deal with its outstanding API requests
-                    if matches!(outgoing, OutgoingPluginMessage::PluginUpdated(..))
+                    if matches!(outgoing, MessageFromPluginHost::PluginUpdated(..))
                         && !instance.is_enabled()
                         && instance.has_pending_api_requests()
                     {
@@ -223,6 +220,6 @@ fn list_plugins_in_dir(
     Ok(())
 }
 
-fn updated_message(instance: &PluginInstance) -> OutgoingPluginMessage {
-    OutgoingPluginMessage::PluginUpdated(instance.file_name().to_string(), instance.data())
+fn updated_message(instance: &PluginInstance) -> MessageFromPluginHost {
+    MessageFromPluginHost::PluginUpdated(instance.file_name().to_string(), instance.data())
 }

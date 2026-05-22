@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::{ApiRequest, ApiResponse, PluginMetadata};
+use super::{ApiRequestToPlugin, ApiResponseFromPlugin, PluginMetadata};
 use std::{
     collections::BTreeMap,
     sync::atomic::{AtomicU32, Ordering},
@@ -13,21 +13,24 @@ use tokio::sync::{
 };
 
 #[derive(Debug)]
-pub enum IncomingPluginMessage {
+pub enum MessageToPluginHost {
     GetPlugins,
     StartPlugin(String),
     StopPlugin(String),
     TogglePlugin(String),
-    ApiRequest { id: u32, request: ApiRequest },
+    ApiRequest {
+        id: u32,
+        request: ApiRequestToPlugin,
+    },
 }
 
 #[derive(Debug, Clone)]
-pub enum OutgoingPluginMessage {
+pub enum MessageFromPluginHost {
     Plugins(BTreeMap<String, PluginData>),
     PluginUpdated(String, PluginData),
     ApiResponse {
         id: u32,
-        response: Option<ApiResponse>,
+        response: Option<ApiResponseFromPlugin>,
         last: bool,
     },
 }
@@ -42,15 +45,15 @@ pub struct PluginData {
 /// An inactive channel can be used to send messages to the plugin host but will not receive any
 /// messages unless activated.
 #[derive(Debug, Clone)]
-pub struct InactivePluginChannel {
-    sender: Sender<IncomingPluginMessage>,
-    broadcast_sender: BroadcastSender<OutgoingPluginMessage>,
+pub struct InactivePluginHostChannel {
+    sender: Sender<MessageToPluginHost>,
+    broadcast_sender: BroadcastSender<MessageFromPluginHost>,
 }
 
-impl InactivePluginChannel {
+impl InactivePluginHostChannel {
     pub fn new(
-        sender: Sender<IncomingPluginMessage>,
-        broadcast_sender: BroadcastSender<OutgoingPluginMessage>,
+        sender: Sender<MessageToPluginHost>,
+        broadcast_sender: BroadcastSender<MessageFromPluginHost>,
     ) -> Self {
         Self {
             sender,
@@ -58,15 +61,15 @@ impl InactivePluginChannel {
         }
     }
 
-    pub fn activate_cloned(&self) -> PluginChannel {
-        PluginChannel {
+    pub fn activate_cloned(&self) -> PluginHostChannel {
+        PluginHostChannel {
             sender: self.sender.clone(),
             broadcast_sender: self.broadcast_sender.clone(),
             receiver: self.broadcast_sender.subscribe(),
         }
     }
 
-    pub fn send(&self, msg: IncomingPluginMessage) {
+    pub fn send(&self, msg: MessageToPluginHost) {
         self.sender
             .try_send(msg)
             .expect("Something is wrong, sending message to plugins host failed");
@@ -77,28 +80,28 @@ impl InactivePluginChannel {
 /// from it. It MUST receive messages or the queue will run full, resulting in plugin host messages
 /// no longer being delivered to any receivers.
 #[derive(Debug)]
-pub struct PluginChannel {
-    sender: Sender<IncomingPluginMessage>,
-    broadcast_sender: BroadcastSender<OutgoingPluginMessage>,
-    receiver: BroadcastReceiver<OutgoingPluginMessage>,
+pub struct PluginHostChannel {
+    sender: Sender<MessageToPluginHost>,
+    broadcast_sender: BroadcastSender<MessageFromPluginHost>,
+    receiver: BroadcastReceiver<MessageFromPluginHost>,
 }
 
-impl PluginChannel {
-    pub fn send(&self, msg: IncomingPluginMessage) {
+impl PluginHostChannel {
+    pub fn send(&self, msg: MessageToPluginHost) {
         self.sender
             .try_send(msg)
             .expect("Something is wrong, sending message to plugins host failed");
     }
 
-    pub async fn receive(&mut self) -> OutgoingPluginMessage {
+    pub async fn receive(&mut self) -> MessageFromPluginHost {
         self.receiver
             .recv()
             .await
             .expect("Something is wrong, receiving a message from plugins host failed")
     }
 
-    pub fn deactivate_cloned(&self) -> InactivePluginChannel {
-        InactivePluginChannel {
+    pub fn deactivate_cloned(&self) -> InactivePluginHostChannel {
+        InactivePluginHostChannel {
             sender: self.sender.clone(),
             broadcast_sender: self.broadcast_sender.clone(),
         }
@@ -110,7 +113,7 @@ impl PluginChannel {
     }
 }
 
-impl Clone for PluginChannel {
+impl Clone for PluginHostChannel {
     fn clone(&self) -> Self {
         Self {
             sender: self.sender.clone(),

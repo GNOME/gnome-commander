@@ -2,10 +2,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::{
-    ApiResponse,
-    protocol::{DialogSpec, DialogWidgetValue, WidgetSpec},
-};
+use super::protocol::{ApiResponseFromHost, DialogSpec, DialogWidgetValue, WidgetSpec};
 use crate::utils::{NO_BUTTONS, SenderExt, WindowExt, dialog_button_box};
 use gettextrs::gettext;
 use gtk::prelude::*;
@@ -188,7 +185,7 @@ impl GenericDialog {
 }
 
 impl Future for GenericDialog {
-    type Output = ApiResponse;
+    type Output = ApiResponseFromHost;
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         if let Poll::Ready(Some(button)) = self.receiver.poll_recv(cx) {
@@ -205,7 +202,7 @@ impl Future for GenericDialog {
                     inputs.insert(id.to_owned(), DialogWidgetValue::Bool(checkbox.is_active()));
                 }
             }
-            Poll::Ready(ApiResponse::ShowDialog(button, inputs))
+            Poll::Ready(ApiResponseFromHost::ShowDialog(button, inputs))
         } else {
             Poll::Pending
         }

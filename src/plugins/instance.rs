@@ -3,8 +3,9 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::{
-    ApiCall, ApiRequest, ApiResponse, Apis, GenericDialog, IncomingMessage, IncomingResult,
-    OutgoingMessage, PluginData, PluginMetadata,
+    ApiCall, ApiRequestToPlugin, ApiResponseFromPlugin, Apis, GenericDialog, IncomingResult,
+    PluginData, PluginMetadata,
+    protocol::{MessageFromPlugin, MessageToPlugin},
 };
 use crate::options::PluginsOptions;
 use async_io::Timer;
@@ -27,7 +28,7 @@ pub enum PluginInstanceOutput {
     Updated,
     ApiResponse {
         id: u32,
-        response: Option<ApiResponse>,
+        response: Option<ApiResponseFromPlugin>,
     },
 }
 
@@ -125,7 +126,7 @@ impl PluginInstance {
                 self.metadata.set_enabled(true);
                 self.save_metadata();
 
-                self.send_message(OutgoingMessage::Apis(
+                self.send_message(MessageToPlugin::Apis(
                     Apis::all().map(|api| api.info()).collect(),
                 ));
             }
@@ -164,7 +165,7 @@ impl PluginInstance {
         self.save_metadata();
     }
 
-    pub fn send_message(&mut self, msg: OutgoingMessage) {
+    pub fn send_message(&mut self, msg: MessageToPlugin) {
         let data = match serde_json::to_vec(&msg) {
             Ok(data) => data,
             Err(error) => {
@@ -207,9 +208,9 @@ impl PluginInstance {
         }
     }
 
-    pub fn handle_api_request(&mut self, id: u32, request: &ApiRequest) -> bool {
+    pub fn handle_api_request(&mut self, id: u32, request: &ApiRequestToPlugin) -> bool {
         if self.apis.iter().any(|api| api.accept_request(request)) {
-            self.send_message(OutgoingMessage::ApiRequest(id, request.clone()));
+            self.send_message(MessageToPlugin::ApiRequest(id, request.clone()));
             self.pending_api_requests.insert(
                 id,
                 (
@@ -227,14 +228,14 @@ impl PluginInstance {
     /// runs, so it should return `false` instead of calling `stop()` to indicate failure.
     fn process_incoming(
         &mut self,
-        message: IncomingMessage,
+        message: MessageFromPlugin,
         cx: &mut Context<'_>,
     ) -> Result<Option<PluginInstanceOutput>, ()> {
         const UPDATED: Result<Option<PluginInstanceOutput>, ()> =
             Ok(Some(PluginInstanceOutput::Updated));
 
         match message {
-            IncomingMessage::Info(data) => {
+            MessageFromPlugin::Info(data) => {
                 self.metadata.set_name(Some(&data.name));
                 self.metadata.set_version(Some(&data.version));
                 self.metadata.set_copyright(data.copyright.as_deref());
@@ -246,11 +247,11 @@ impl PluginInstance {
                 self.save_metadata();
                 UPDATED
             }
-            IncomingMessage::Error(error) => {
+            MessageFromPlugin::Error(error) => {
                 self.errors.push(Error::other(error));
                 UPDATED
             }
-            IncomingMessage::Register(info) => {
+            MessageFromPlugin::Register(info) => {
                 if self.is_initialized() {
                     self.errors.push(Error::other(gettext(
                         "API registration received after initialization",
@@ -277,18 +278,18 @@ impl PluginInstance {
                     Err(())
                 }
             }
-            IncomingMessage::Failed => Err(()),
-            IncomingMessage::Ready => {
+            MessageFromPlugin::Failed => Err(()),
+            MessageFromPlugin::Ready => {
                 self.startup_timeout = None;
                 UPDATED
             }
-            IncomingMessage::ApiRequest(id, request) => {
+            MessageFromPlugin::ApiRequest(id, request) => {
                 for api in self.apis.iter() {
                     match api.handle_incoming(&request, self) {
                         IncomingResult::Unhandled => {}
                         IncomingResult::Handled => return Ok(None),
                         IncomingResult::HandledWithResponse(response) => {
-                            self.send_message(OutgoingMessage::ApiResponse(id, response));
+                            self.send_message(MessageToPlugin::ApiResponse(id, response));
                             return Ok(None);
                         }
                         IncomingResult::HandledWithDialog(dialog) => {
@@ -309,7 +310,7 @@ impl PluginInstance {
                 ));
                 Err(())
             }
-            IncomingMessage::ApiResponse(id, response) => {
+            MessageFromPlugin::ApiResponse(id, response) => {
                 let Some((call, _)) = self.pending_api_requests.get(&id) else {
                     self.errors.push(Error::other(
                         gettext("Response to unknown API request {}")
@@ -374,7 +375,7 @@ impl PluginInstance {
         &mut self,
         cx: &mut Context<'_>,
         stdout: &mut ChildStdout,
-    ) -> Poll<Result<IncomingMessage, Error>> {
+    ) -> Poll<Result<MessageFromPlugin, Error>> {
         let size = match self.poll_read(cx, stdout, size_of::<u32>()) {
             Ok(true) => self.incoming[0..size_of::<u32>()]
                 .try_into()
@@ -391,7 +392,7 @@ impl PluginInstance {
         }
 
         let message = match self.poll_read(cx, stdout, size_of::<u32>() + size) {
-            Ok(true) => match serde_json::from_slice::<IncomingMessage>(
+            Ok(true) => match serde_json::from_slice::<MessageFromPlugin>(
                 &self.incoming[size_of::<u32>()..size_of::<u32>() + size],
             ) {
                 Ok(message) => message,
@@ -439,7 +440,7 @@ impl PluginInstance {
         }
 
         for (id, response) in done.into_iter() {
-            self.send_message(OutgoingMessage::ApiResponse(id, response));
+            self.send_message(MessageToPlugin::ApiResponse(id, response));
             self.dialogs.remove(&id);
         }
     }
@@ -563,12 +564,13 @@ mod test {
     async fn poll(instance: &mut PluginInstance) {
         for i in 0..2 {
             if i == 1 {
-                Timer::after(Duration::from_millis(500)).await;
+                Timer::after(Duration::from_millis(100)).await;
             }
             futures::future::poll_fn(|cx| {
                 while let Poll::Ready(_) = instance.poll(cx) {}
                 Poll::Ready(())
-            }).await
+            })
+            .await
         }
     }
 

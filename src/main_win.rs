@@ -20,7 +20,7 @@ use crate::{
     options::{GeneralOptions, ProgramsOptions, types::WriteResult},
     paned_ext::GnomeCmdPanedExt,
     plugin_manager::{PluginManager, wrap_plugin_menu},
-    plugins::{InactivePluginChannel, PluginChannel, PluginHost},
+    plugins::{InactivePluginHostChannel, PluginHost, PluginHostChannel},
     search::search_dialog::SearchDialog,
     shortcuts::{Area, LegacyShortcutVariant, Shortcuts},
     spawn::{SpawnError, app_needs_terminal, run_command_indir},
@@ -119,7 +119,7 @@ pub mod imp {
         current_panel: Cell<u32>,
 
         pub plugin_manager: PluginManager,
-        pub plugin_channel: InactivePluginChannel,
+        pub plugin_channel: InactivePluginHostChannel,
         pub file_metadata_service: FileMetadataService,
 
         pub color_themes: Rc<ColorThemes>,
@@ -938,7 +938,7 @@ impl MainWindow {
         glib::Object::builder().build()
     }
 
-    pub fn plugin_channel(&self) -> PluginChannel {
+    pub fn plugin_channel(&self) -> PluginHostChannel {
         self.imp().plugin_channel.activate_cloned()
     }
 

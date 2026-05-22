@@ -2,14 +2,17 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::{ApiCall, ApiInfo, ApiRequest, ApiResponse, GenericDialog, PluginInstance};
+use super::{
+    ApiCall, ApiInfo, ApiRequestToPlugin, ApiResponseFromPlugin, GenericDialog, PluginInstance,
+    protocol::{ApiRequestToHost, ApiResponseFromHost},
+};
 use crate::{options::PluginsOptions, utils::u32_enum};
 use std::io::Error;
 
 pub enum IncomingResult {
     Unhandled,
     Handled,
-    HandledWithResponse(ApiResponse),
+    HandledWithResponse(ApiResponseFromHost),
     HandledWithDialog(GenericDialog),
     Error(Error),
 }
@@ -49,11 +52,11 @@ impl Apis {
 
     pub fn handle_incoming(
         &self,
-        request: &ApiRequest,
+        request: &ApiRequestToHost,
         instance: &PluginInstance,
     ) -> IncomingResult {
         match request {
-            ApiRequest::GetSetting(key) if self == &Apis::PersistentSettings => {
+            ApiRequestToHost::GetSetting(key) if self == &Apis::PersistentSettings => {
                 let options = PluginsOptions::new();
                 let settings = options.persistent_settings.get();
                 let value = settings
@@ -62,9 +65,9 @@ impl Apis {
                     .and_then(|value| serde_json::from_str(value).ok())
                     .unwrap_or_default();
 
-                IncomingResult::HandledWithResponse(ApiResponse::GetSetting(value))
+                IncomingResult::HandledWithResponse(ApiResponseFromHost::GetSetting(value))
             }
-            ApiRequest::SetSetting(key, value) if self == &Apis::PersistentSettings => {
+            ApiRequestToHost::SetSetting(key, value) if self == &Apis::PersistentSettings => {
                 let options = PluginsOptions::new();
                 let mut settings = options.persistent_settings.get();
                 settings
@@ -76,7 +79,7 @@ impl Apis {
                 }
                 IncomingResult::Handled
             }
-            ApiRequest::ShowDialog(spec) if self == &Apis::Dialogs => {
+            ApiRequestToHost::ShowDialog(spec) if self == &Apis::Dialogs => {
                 match GenericDialog::new(spec.clone()) {
                     Ok(dialog) => IncomingResult::HandledWithDialog(dialog),
                     Err(error) => IncomingResult::Error(error),
@@ -86,7 +89,7 @@ impl Apis {
         }
     }
 
-    pub fn accept_request(&self, request: &ApiRequest) -> bool {
+    pub fn accept_request(&self, request: &ApiRequestToPlugin) -> bool {
         match request.call() {
             ApiCall::ExtractMetadata if self == &Apis::ExtractMetadata => true,
             ApiCall::ListSupportedTags if self == &Apis::ExtractMetadata => true,
@@ -94,7 +97,7 @@ impl Apis {
         }
     }
 
-    pub fn accept_response(&self, response: &ApiResponse) -> bool {
+    pub fn accept_response(&self, response: &ApiResponseFromPlugin) -> bool {
         match response.call() {
             ApiCall::ExtractMetadata if self == &Apis::ExtractMetadata => true,
             ApiCall::ListSupportedTags if self == &Apis::ExtractMetadata => true,

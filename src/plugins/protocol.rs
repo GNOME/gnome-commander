@@ -11,22 +11,22 @@ use std::collections::BTreeMap;
     rename_all = "kebab-case",
     deny_unknown_fields
 )]
-pub enum IncomingMessage {
+pub enum MessageFromPlugin {
     Info(Info),
     Error(String),
     Register(ApiInfo),
     Failed,
     Ready,
-    ApiRequest(u32, ApiRequest),
-    ApiResponse(u32, ApiResponse),
+    ApiRequest(u32, ApiRequestToHost),
+    ApiResponse(u32, ApiResponseFromPlugin),
 }
 
 #[derive(Debug, serde::Serialize)]
 #[serde(tag = "type", content = "payload", rename_all = "kebab-case")]
-pub enum OutgoingMessage {
+pub enum MessageToPlugin {
     Apis(Vec<ApiInfo>),
-    ApiRequest(u32, ApiRequest),
-    ApiResponse(u32, ApiResponse),
+    ApiRequest(u32, ApiRequestToPlugin),
+    ApiResponse(u32, ApiResponseFromHost),
 }
 
 #[derive(Debug, Default, serde::Deserialize)]
@@ -53,35 +53,75 @@ pub struct ApiInfo {
     pub version: String,
 }
 
+impl std::fmt::Display for ApiInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{} {}", self.name, self.version)
+    }
+}
+
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub enum ApiCall {
     ExtractMetadata,
     ListSupportedTags,
-    GetSetting,
-    SetSetting,
-    ShowDialog,
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum ApiRequestToPlugin {
+    ListSupportedTags,
+    ExtractMetadata { path: String, uri: String },
+}
+
+impl ApiRequestToPlugin {
+    pub fn call(&self) -> ApiCall {
+        match self {
+            Self::ListSupportedTags => ApiCall::ListSupportedTags,
+            Self::ExtractMetadata { .. } => ApiCall::ExtractMetadata,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum ApiResponseFromPlugin {
+    ListSupportedTags(Vec<ListSupportedTagsResponse>),
+    ExtractMetadata(Vec<ExtractMetadataResponse>),
+}
+
+impl ApiResponseFromPlugin {
+    pub fn call(&self) -> ApiCall {
+        match self {
+            Self::ListSupportedTags(..) => ApiCall::ListSupportedTags,
+            Self::ExtractMetadata(..) => ApiCall::ExtractMetadata,
+        }
+    }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListSupportedTagsResponse {
+    pub class: String,
+    pub tags: Vec<(String, String)>,
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ExtractMetadataResponse {
+    pub class: String,
+    pub tags: Vec<(String, String, String, String)>,
+}
+
+#[derive(Debug, serde::Deserialize)]
 #[serde(rename_all = "kebab-case")]
-pub enum ApiRequest {
-    ListSupportedTags,
-    ExtractMetadata { path: String, uri: String },
+pub enum ApiRequestToHost {
     GetSetting(String),
     SetSetting(String, serde_json::Value),
     ShowDialog(DialogSpec),
 }
 
-impl ApiRequest {
-    pub fn call(&self) -> ApiCall {
-        match self {
-            Self::ListSupportedTags => ApiCall::ListSupportedTags,
-            Self::ExtractMetadata { .. } => ApiCall::ExtractMetadata,
-            Self::GetSetting(..) => ApiCall::GetSetting,
-            Self::SetSetting(..) => ApiCall::SetSetting,
-            Self::ShowDialog(..) => ApiCall::ShowDialog,
-        }
-    }
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum ApiResponseFromHost {
+    GetSetting(serde_json::Value),
+    ShowDialog(String, BTreeMap<String, DialogWidgetValue>),
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
@@ -143,46 +183,8 @@ pub struct ButtonSpec {
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-#[serde(rename_all = "kebab-case")]
-pub enum ApiResponse {
-    ListSupportedTags(Vec<ListSupportedTagsResponse>),
-    ExtractMetadata(Vec<ExtractMetadataResponse>),
-    GetSetting(serde_json::Value),
-    ShowDialog(String, BTreeMap<String, DialogWidgetValue>),
-}
-
-impl ApiResponse {
-    pub fn call(&self) -> ApiCall {
-        match self {
-            Self::ListSupportedTags(..) => ApiCall::ListSupportedTags,
-            Self::ExtractMetadata(..) => ApiCall::ExtractMetadata,
-            Self::GetSetting(..) => ApiCall::GetSetting,
-            Self::ShowDialog(..) => ApiCall::ShowDialog,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListSupportedTagsResponse {
-    pub class: String,
-    pub tags: Vec<(String, String)>,
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ExtractMetadataResponse {
-    pub class: String,
-    pub tags: Vec<(String, String, String, String)>,
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(untagged)]
 pub enum DialogWidgetValue {
     String(String),
     Bool(bool),
-}
-
-impl std::fmt::Display for ApiInfo {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
-        write!(f, "{} {}", self.name, self.version)
-    }
 }

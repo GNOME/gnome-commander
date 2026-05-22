@@ -6,8 +6,8 @@ use super::{FileMetadataExtractor, Tag};
 use crate::{
     file::{File, FileOps},
     plugins::{
-        ApiRequest, ApiResponse, InactivePluginChannel, IncomingPluginMessage,
-        OutgoingPluginMessage,
+        ApiRequestToPlugin, ApiResponseFromPlugin, InactivePluginHostChannel,
+        MessageFromPluginHost, MessageToPluginHost,
     },
 };
 use std::borrow::Cow;
@@ -56,11 +56,11 @@ impl Tag for PluginTag {
 
 #[derive(Debug)]
 pub struct PluginMetadataExtractor {
-    plugin_channel: InactivePluginChannel,
+    plugin_channel: InactivePluginHostChannel,
 }
 
 impl PluginMetadataExtractor {
-    pub fn new(plugin_channel: InactivePluginChannel) -> Self {
+    pub fn new(plugin_channel: InactivePluginHostChannel) -> Self {
         Self { plugin_channel }
     }
 }
@@ -69,21 +69,21 @@ impl FileMetadataExtractor for PluginMetadataExtractor {
     async fn supported_tags(&self) -> Vec<(String, Vec<Box<dyn Tag>>)> {
         let mut channel = self.plugin_channel.activate_cloned();
         let id = channel.new_id();
-        channel.send(IncomingPluginMessage::ApiRequest {
+        channel.send(MessageToPluginHost::ApiRequest {
             id,
-            request: ApiRequest::ListSupportedTags,
+            request: ApiRequestToPlugin::ListSupportedTags,
         });
 
         let mut result = Vec::new();
         loop {
-            if let OutgoingPluginMessage::ApiResponse {
+            if let MessageFromPluginHost::ApiResponse {
                 id: resp_id,
                 response,
                 last,
             } = channel.receive().await
                 && resp_id == id
             {
-                if let Some(ApiResponse::ListSupportedTags(response)) = response {
+                if let Some(ApiResponseFromPlugin::ListSupportedTags(response)) = response {
                     for entry in response {
                         let tags = entry
                             .tags
@@ -116,9 +116,9 @@ impl FileMetadataExtractor for PluginMetadataExtractor {
     async fn extract_metadata(&self, file: &File) -> Vec<(Box<dyn Tag>, String)> {
         let mut channel = self.plugin_channel.activate_cloned();
         let id = channel.new_id();
-        channel.send(IncomingPluginMessage::ApiRequest {
+        channel.send(MessageToPluginHost::ApiRequest {
             id,
-            request: ApiRequest::ExtractMetadata {
+            request: ApiRequestToPlugin::ExtractMetadata {
                 path: file
                     .local_path()
                     .map(|path| path.as_os_str().to_string_lossy().to_string())
@@ -129,14 +129,14 @@ impl FileMetadataExtractor for PluginMetadataExtractor {
 
         let mut result = Vec::new();
         loop {
-            if let OutgoingPluginMessage::ApiResponse {
+            if let MessageFromPluginHost::ApiResponse {
                 id: resp_id,
                 response,
                 last,
             } = channel.receive().await
                 && resp_id == id
             {
-                if let Some(ApiResponse::ExtractMetadata(response)) = response {
+                if let Some(ApiResponseFromPlugin::ExtractMetadata(response)) = response {
                     for entry in response {
                         result.extend(entry.tags.into_iter().map(
                             |(id, name, description, value)| {

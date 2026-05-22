@@ -7,7 +7,7 @@ use super::{
     basic::BasicMetadataExtractor, file_metadata::FileMetadata, image::ImageMetadataExtractor,
     plugin::PluginMetadataExtractor,
 };
-use crate::{file::File, plugins::InactivePluginChannel};
+use crate::{file::File, plugins::InactivePluginHostChannel};
 use futures::future::join3;
 use gtk::{gio, glib::prelude::*};
 use std::{
@@ -57,7 +57,7 @@ pub struct FileMetadataService {
 }
 
 impl FileMetadataService {
-    pub fn new(plugin_channel: InactivePluginChannel) -> Self {
+    pub fn new(plugin_channel: InactivePluginHostChannel) -> Self {
         Self {
             basic_extractor: Default::default(),
             image_extractor: Default::default(),

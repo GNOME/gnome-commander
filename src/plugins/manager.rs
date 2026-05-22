@@ -5,7 +5,7 @@
 use crate::{
     dialogs::about_plugin::about_plugin_dialog,
     main_win::MainWindow,
-    plugins::{IncomingPluginMessage, OutgoingPluginMessage, PluginChannel, PluginData},
+    plugins::{MessageFromPluginHost, MessageToPluginHost, PluginData, PluginHostChannel},
     utils::{NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
 };
 use futures::FutureExt;
@@ -16,7 +16,7 @@ use std::{
     collections::{BTreeMap, BTreeSet},
 };
 
-pub async fn show_plugin_manager(mut channel: PluginChannel, parent: &MainWindow) {
+pub async fn show_plugin_manager(mut channel: PluginHostChannel, parent: &MainWindow) {
     if let Some(dialog) = parent.get_dialog::<gtk::Window>("plugins") {
         dialog.present();
         return;
@@ -67,21 +67,21 @@ pub async fn show_plugin_manager(mut channel: PluginChannel, parent: &MainWindow
     dialog.present();
     list.grab_focus();
 
-    channel.send(IncomingPluginMessage::GetPlugins);
+    channel.send(MessageToPluginHost::GetPlugins);
 
     loop {
         futures::select!(
             msg = channel.receive().fuse() => {
                 match msg {
-                    OutgoingPluginMessage::Plugins(plugins) => {
+                    MessageFromPluginHost::Plugins(plugins) => {
                         update_list(&list, &mut items, plugins, &channel);
                     }
-                    OutgoingPluginMessage::PluginUpdated(name, data) => {
+                    MessageFromPluginHost::PluginUpdated(name, data) => {
                         if let Some(row) = items.get(&name) {
                             setup_row(&name, row, data, &channel);
                         }
                     }
-                    OutgoingPluginMessage::ApiResponse{..} => {}
+                    MessageFromPluginHost::ApiResponse{..} => {}
                 }
             }
             _ = receiver.recv().fuse() => break,
@@ -94,7 +94,7 @@ fn update_list(
     list: &gtk::ListBox,
     items: &mut BTreeMap<String, gtk::ListBoxRow>,
     plugins: BTreeMap<String, PluginData>,
-    channel: &PluginChannel,
+    channel: &PluginHostChannel,
 ) {
     let mut removed: BTreeSet<_> = items.keys().map(|name| name.to_owned()).collect();
     for (name, data) in plugins.into_iter() {
@@ -109,7 +109,7 @@ fn update_list(
                 let name = name.clone();
                 let channel = channel.deactivate_cloned();
                 row.connect_activate(move |_| {
-                    channel.send(IncomingPluginMessage::TogglePlugin(name.clone()));
+                    channel.send(MessageToPluginHost::TogglePlugin(name.clone()));
                 });
             }
 
@@ -151,7 +151,7 @@ fn update_list(
     }
 }
 
-fn setup_row(name: &str, row: &gtk::ListBoxRow, data: PluginData, channel: &PluginChannel) {
+fn setup_row(name: &str, row: &gtk::ListBoxRow, data: PluginData, channel: &PluginHostChannel) {
     let hbox = gtk::Box::builder()
         .orientation(gtk::Orientation::Horizontal)
         .build();
@@ -235,9 +235,9 @@ fn setup_row(name: &str, row: &gtk::ListBoxRow, data: PluginData, channel: &Plug
             let channel = channel.deactivate_cloned();
             switch.connect_active_notify(move |switch| {
                 if switch.is_active() {
-                    channel.send(IncomingPluginMessage::StartPlugin(name.clone()));
+                    channel.send(MessageToPluginHost::StartPlugin(name.clone()));
                 } else {
-                    channel.send(IncomingPluginMessage::StopPlugin(name.clone()));
+                    channel.send(MessageToPluginHost::StopPlugin(name.clone()));
                 }
             });
         }
