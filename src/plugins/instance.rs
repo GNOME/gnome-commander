@@ -559,7 +559,11 @@ mod test {
         file.write_all(contents.as_bytes()).unwrap();
         let (_, path) = file.into_parts();
 
-        let mut instance = PluginInstance::new(path.to_path_buf(), &PluginsOptions::new());
+        let mut instance = PluginInstance::new(
+            path.to_path_buf(),
+            &PathBuf::from("."),
+            &PluginsOptions::new(),
+        );
         instance.start();
         (instance, path)
     }
@@ -580,7 +584,7 @@ mod test {
     #[test]
     fn test_missing_plugin_startup() {
         let path = tempfile::NamedTempFile::new().unwrap().path().to_path_buf();
-        let mut instance = PluginInstance::new(path, &PluginsOptions::new());
+        let mut instance = PluginInstance::new(path, &PathBuf::from("."), &PluginsOptions::new());
         instance.start();
         assert!(!instance.is_enabled());
         assert_eq!(instance.errors.len(), 1);
