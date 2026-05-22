@@ -25,6 +25,7 @@ regex = "1.11.1"
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.149"
 tempfile = "3.11.0"
+tokio = { version = "1.52.3", features = ["sync"] }
 unicode-segmentation = "1.12.0"
 vte = { package = "vte4", version = "0.10.0", features = ["v0_76"] }
 winnow = "0.7"

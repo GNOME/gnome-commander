@@ -54,6 +54,12 @@ class Plugin:
             for key in self.PERSISTENT_SETTINGS:
                 setattr(type(self), key, SettingDescriptor(key))
 
+        if self.DIALOGS:
+            self._apis.append({
+                'name': 'dialogs',
+                'version': '1.0',
+            })
+
         if self.extract_metadata and self.list_supported_tags:
             self._apis.append({
                 'name': 'extract_metadata',
@@ -192,7 +198,11 @@ class Plugin:
                     del self._pending_api_requests[id]
                     future.set_result(response[name])
 
+    async def show_dialog(self, spec: dict) -> Optional[str]:
+        return await self.send_api_request_with_response('show-dialog', spec)
+
     PERSISTENT_SETTINGS: list[str] = []
+    DIALOGS = False
     extract_metadata: Optional[Callable[..., Awaitable[list[dict]]]] = None
     list_supported_tags: Optional[
         Callable[..., list[tuple[str, Awaitable[list[tuple[str, str]]]]]]

@@ -129,8 +129,16 @@ pub trait SenderExt<T> {
 
 impl<T> SenderExt<T> for async_channel::Sender<T> {
     fn toss(&self, message: T) {
-        if let Err(err) = self.send_blocking(message) {
-            eprintln!("Cannot send a message: {}", err);
+        if let Err(error) = self.send_blocking(message) {
+            eprintln!("Cannot send a message: {}", error);
+        }
+    }
+}
+
+impl<T> SenderExt<T> for tokio::sync::mpsc::Sender<T> {
+    fn toss(&self, message: T) {
+        if let Err(error) = self.try_send(message) {
+            eprintln!("Cannot send a message: {}", error);
         }
     }
 }

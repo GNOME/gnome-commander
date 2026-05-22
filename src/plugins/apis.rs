@@ -2,14 +2,24 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::{ApiCall, ApiInfo, ApiRequest, ApiResponse, PluginInstance};
+use super::{ApiCall, ApiInfo, ApiRequest, ApiResponse, GenericDialog, PluginInstance};
 use crate::{options::PluginsOptions, utils::u32_enum};
+use std::io::Error;
+
+pub enum IncomingResult {
+    Unhandled,
+    Handled,
+    HandledWithResponse(ApiResponse),
+    HandledWithDialog(GenericDialog),
+    Error(Error),
+}
 
 u32_enum! {
     pub enum Apis {
         #[default]
         PersistentSettings,
         ExtractMetadata,
+        Dialogs,
     }
 }
 
@@ -17,6 +27,7 @@ impl Apis {
     pub fn name(&self) -> &'static str {
         match self {
             Apis::PersistentSettings => "persistent_settings",
+            Apis::Dialogs => "dialogs",
             Apis::ExtractMetadata => "extract_metadata",
         }
     }
@@ -24,6 +35,7 @@ impl Apis {
     pub fn version(&self) -> &'static str {
         match self {
             Apis::PersistentSettings => "1.0",
+            Apis::Dialogs => "1.0",
             Apis::ExtractMetadata => "1.0",
         }
     }
@@ -39,7 +51,7 @@ impl Apis {
         &self,
         request: &ApiRequest,
         instance: &PluginInstance,
-    ) -> (bool, Option<ApiResponse>) {
+    ) -> IncomingResult {
         match request {
             ApiRequest::GetSetting(key) if self == &Apis::PersistentSettings => {
                 let options = PluginsOptions::new();
@@ -50,7 +62,7 @@ impl Apis {
                     .and_then(|value| serde_json::from_str(value).ok())
                     .unwrap_or_default();
 
-                (true, Some(ApiResponse::GetSetting(value)))
+                IncomingResult::HandledWithResponse(ApiResponse::GetSetting(value))
             }
             ApiRequest::SetSetting(key, value) if self == &Apis::PersistentSettings => {
                 let options = PluginsOptions::new();
@@ -62,9 +74,15 @@ impl Apis {
                 if let Err(error) = options.persistent_settings.set(settings) {
                     eprintln!("Failed saving persistent plugin setting: {error}");
                 }
-                (true, None)
+                IncomingResult::Handled
             }
-            _ => (false, None),
+            ApiRequest::ShowDialog(spec) if self == &Apis::Dialogs => {
+                match GenericDialog::new(spec.clone()) {
+                    Ok(dialog) => IncomingResult::HandledWithDialog(dialog),
+                    Err(error) => IncomingResult::Error(error),
+                }
+            }
+            _ => IncomingResult::Unhandled,
         }
     }
 

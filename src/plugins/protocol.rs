@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+use std::collections::BTreeMap;
+
 #[derive(Debug, serde::Deserialize)]
 #[serde(
     tag = "type",
@@ -57,6 +59,7 @@ pub enum ApiCall {
     ListSupportedTags,
     GetSetting,
     SetSetting,
+    ShowDialog,
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
@@ -66,6 +69,7 @@ pub enum ApiRequest {
     ExtractMetadata { path: String, uri: String },
     GetSetting(String),
     SetSetting(String, serde_json::Value),
+    ShowDialog(DialogSpec),
 }
 
 impl ApiRequest {
@@ -75,8 +79,67 @@ impl ApiRequest {
             Self::ExtractMetadata { .. } => ApiCall::ExtractMetadata,
             Self::GetSetting(..) => ApiCall::GetSetting,
             Self::SetSetting(..) => ApiCall::SetSetting,
+            Self::ShowDialog(..) => ApiCall::ShowDialog,
         }
     }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DialogSpec {
+    pub title: String,
+    #[serde(default)]
+    pub modal: bool,
+    pub child: WidgetSpec,
+    pub buttons: Vec<ButtonSpec>,
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(tag = "type")]
+pub enum WidgetSpec {
+    HBox {
+        children: Vec<WidgetSpec>,
+    },
+    VBox {
+        children: Vec<WidgetSpec>,
+    },
+    Text {
+        label: String,
+    },
+    Input {
+        id: String,
+        label: String,
+        #[serde(default)]
+        value: String,
+        #[serde(default)]
+        placeholder: String,
+        #[serde(default)]
+        vertical: bool,
+    },
+    Group {
+        label: String,
+        child: Box<WidgetSpec>,
+    },
+    Checkbox {
+        id: String,
+        label: String,
+        #[serde(default)]
+        checked: bool,
+    },
+    RadioGroup {
+        children: Vec<WidgetSpec>,
+        #[serde(default)]
+        vertical: bool,
+    },
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ButtonSpec {
+    pub id: String,
+    pub label: String,
+    #[serde(default)]
+    pub default: bool,
+    #[serde(default)]
+    pub cancel: bool,
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
@@ -85,6 +148,7 @@ pub enum ApiResponse {
     ListSupportedTags(Vec<ListSupportedTagsResponse>),
     ExtractMetadata(Vec<ExtractMetadataResponse>),
     GetSetting(serde_json::Value),
+    ShowDialog(String, BTreeMap<String, DialogWidgetValue>),
 }
 
 impl ApiResponse {
@@ -93,6 +157,7 @@ impl ApiResponse {
             Self::ListSupportedTags(..) => ApiCall::ListSupportedTags,
             Self::ExtractMetadata(..) => ApiCall::ExtractMetadata,
             Self::GetSetting(..) => ApiCall::GetSetting,
+            Self::ShowDialog(..) => ApiCall::ShowDialog,
         }
     }
 }
@@ -107,6 +172,13 @@ pub struct ListSupportedTagsResponse {
 pub struct ExtractMetadataResponse {
     pub class: String,
     pub tags: Vec<(String, String, String, String)>,
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(untagged)]
+pub enum DialogWidgetValue {
+    String(String),
+    Bool(bool),
 }
 
 impl std::fmt::Display for ApiInfo {

@@ -3,8 +3,8 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::{
-    ApiCall, ApiRequest, ApiResponse, Apis, IncomingMessage, OutgoingMessage, PluginData,
-    PluginMetadata,
+    ApiCall, ApiRequest, ApiResponse, Apis, GenericDialog, IncomingMessage, IncomingResult,
+    OutgoingMessage, PluginData, PluginMetadata,
 };
 use crate::options::PluginsOptions;
 use async_io::Timer;
@@ -45,6 +45,7 @@ pub struct PluginInstance {
     startup_timeout: Option<Timer>,
     apis: BTreeSet<Apis>,
     pending_api_requests: BTreeMap<u32, (ApiCall, Timer)>,
+    dialogs: BTreeMap<u32, GenericDialog>,
 }
 
 impl PluginInstance {
@@ -71,6 +72,7 @@ impl PluginInstance {
             startup_timeout: None,
             apis: BTreeSet::new(),
             pending_api_requests: BTreeMap::new(),
+            dialogs: BTreeMap::new(),
         }
     }
 
@@ -155,6 +157,10 @@ impl PluginInstance {
         self.outgoing_waker = None;
         self.apis.clear();
         self.metadata.set_enabled(false);
+        self.dialogs.retain(|_, dialog| {
+            dialog.cancel();
+            false
+        });
         self.save_metadata();
     }
 
@@ -222,6 +228,7 @@ impl PluginInstance {
     fn process_incoming(
         &mut self,
         message: IncomingMessage,
+        cx: &mut Context<'_>,
     ) -> Result<Option<PluginInstanceOutput>, ()> {
         const UPDATED: Result<Option<PluginInstanceOutput>, ()> =
             Ok(Some(PluginInstanceOutput::Updated));
@@ -277,12 +284,22 @@ impl PluginInstance {
             }
             IncomingMessage::ApiRequest(id, request) => {
                 for api in self.apis.iter() {
-                    let (handled, response) = api.handle_incoming(&request, self);
-                    if handled {
-                        if let Some(response) = response {
+                    match api.handle_incoming(&request, self) {
+                        IncomingResult::Unhandled => {}
+                        IncomingResult::Handled => return Ok(None),
+                        IncomingResult::HandledWithResponse(response) => {
                             self.send_message(OutgoingMessage::ApiResponse(id, response));
+                            return Ok(None);
                         }
-                        return Ok(None);
+                        IncomingResult::HandledWithDialog(dialog) => {
+                            self.dialogs.insert(id, dialog);
+                            self.poll_dialogs(cx); // Make sure we wait for the new dialog
+                            return Ok(None);
+                        }
+                        IncomingResult::Error(error) => {
+                            self.errors.push(error);
+                            return UPDATED;
+                        }
                     }
                 }
 
@@ -412,6 +429,20 @@ impl PluginInstance {
             Poll::Pending => Poll::Pending,
         }
     }
+
+    fn poll_dialogs(&mut self, cx: &mut Context<'_>) {
+        let mut done = Vec::new();
+        for (id, dialog) in self.dialogs.iter_mut() {
+            if let Poll::Ready(response) = Pin::new(dialog).poll(cx) {
+                done.push((*id, response));
+            }
+        }
+
+        for (id, response) in done.into_iter() {
+            self.send_message(OutgoingMessage::ApiResponse(id, response));
+            self.dialogs.remove(&id);
+        }
+    }
 }
 
 impl Stream for PluginInstance {
@@ -449,6 +480,11 @@ impl Stream for PluginInstance {
             }
         }
 
+        // Check whether any dialogs completed
+        if output.is_none() {
+            self.poll_dialogs(cx);
+        }
+
         if output.is_none()
             && let Some(mut child) = self.child.take()
         {
@@ -473,7 +509,7 @@ impl Stream for PluginInstance {
             if let Some(stdout) = child.stdout.as_mut() {
                 while output.is_none() {
                     match self.poll_incoming(cx, stdout) {
-                        Poll::Ready(Ok(message)) => match self.process_incoming(message) {
+                        Poll::Ready(Ok(message)) => match self.process_incoming(message, cx) {
                             Ok(Some(notification)) => {
                                 output = Some(Ok(notification));
                             }
