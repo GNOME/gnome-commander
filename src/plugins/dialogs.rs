@@ -191,7 +191,7 @@ impl Future for GenericDialog {
     type Output = ApiResponse;
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
-        if let Poll::Ready(Some(button)) = Pin::new(&mut self.receiver).poll_recv(cx) {
+        if let Poll::Ready(Some(button)) = self.receiver.poll_recv(cx) {
             self.dialog.close();
 
             let mut inputs = BTreeMap::new();

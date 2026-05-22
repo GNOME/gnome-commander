@@ -51,14 +51,13 @@ pub async fn show_plugin_manager(mut channel: PluginChannel, parent: &MainWindow
         .build();
     vbox.append(&scrolled_window);
 
-    let (sender, receiver) = async_channel::bounded::<()>(1);
+    let (sender, mut receiver) = tokio::sync::mpsc::channel(1);
 
     let close_button = gtk::Button::builder()
         .label(gettext("_Close"))
         .use_underline(true)
         .build();
     {
-        let sender = sender.clone();
         close_button.connect_clicked(move |_| sender.toss(()));
     }
     dialog.set_cancel_widget(&close_button);

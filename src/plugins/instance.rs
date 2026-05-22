@@ -9,7 +9,7 @@ use super::{
 use crate::options::PluginsOptions;
 use async_io::Timer;
 use async_process::{Child, ChildStdin, ChildStdout, Command, Stdio};
-use futures::{AsyncRead, AsyncWrite, Stream};
+use futures::{AsyncRead, AsyncWrite};
 use gettextrs::gettext;
 use std::{
     borrow::Cow,
@@ -443,12 +443,8 @@ impl PluginInstance {
             self.dialogs.remove(&id);
         }
     }
-}
 
-impl Stream for PluginInstance {
-    type Item = PluginInstanceOutput;
-
-    fn poll_next(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Option<Self::Item>> {
+    pub fn poll(&mut self, cx: &mut Context<'_>) -> Poll<PluginInstanceOutput> {
         let mut output: Option<Result<PluginInstanceOutput, ()>> = None;
 
         // Enforce startup timeout
@@ -531,10 +527,10 @@ impl Stream for PluginInstance {
         }
 
         match output {
-            Some(Ok(output)) => Poll::Ready(Some(output)),
+            Some(Ok(output)) => Poll::Ready(output),
             Some(Err(_)) => {
                 self.stop();
-                Poll::Ready(Some(PluginInstanceOutput::Updated))
+                Poll::Ready(PluginInstanceOutput::Updated)
             }
             None => Poll::Pending,
         }
@@ -544,7 +540,6 @@ impl Stream for PluginInstance {
 #[cfg(test)]
 mod test {
     use super::*;
-    use futures::StreamExt;
     use tempfile::TempPath;
 
     fn setup_plugin(contents: &str) -> (PluginInstance, TempPath) {
@@ -565,6 +560,18 @@ mod test {
         (instance, path)
     }
 
+    async fn poll(instance: &mut PluginInstance) {
+        for i in 0..2 {
+            if i == 1 {
+                Timer::after(Duration::from_millis(100)).await;
+            }
+            futures::future::poll_fn(|cx| {
+                while let Poll::Ready(_) = instance.poll(cx) {}
+                Poll::Ready(())
+            }).await
+        }
+    }
+
     #[test]
     fn test_missing_plugin_startup() {
         let path = tempfile::NamedTempFile::new().unwrap().path().to_path_buf();
@@ -574,20 +581,20 @@ mod test {
         assert_eq!(instance.errors.len(), 1);
     }
 
-    #[async_std::test]
+    #[tokio::test]
     async fn test_invalid_plugin_startup() {
         let (mut instance, _cleanup) = setup_plugin("#!/bin/sh");
         assert!(instance.is_enabled());
         assert!(!instance.is_initialized());
         assert_eq!(instance.errors.len(), 0);
 
-        instance.next().await;
+        poll(&mut instance).await;
 
         assert!(!instance.is_enabled());
         assert_eq!(instance.errors.len(), 1);
     }
 
-    #[async_std::test]
+    #[tokio::test]
     async fn test_nonjson_plugin_startup() {
         let (mut instance, _cleanup) = setup_plugin(
             r#"#!/bin/sh
@@ -599,13 +606,13 @@ mod test {
         assert!(!instance.is_initialized());
         assert_eq!(instance.errors.len(), 0);
 
-        instance.next().await;
+        poll(&mut instance).await;
 
         assert!(!instance.is_enabled());
         assert_eq!(instance.errors.len(), 1);
     }
 
-    #[async_std::test]
+    #[tokio::test]
     async fn test_basic_plugin_startup() {
         let (mut instance, _cleanup) = setup_plugin(
             r#"#!/bin/sh
@@ -618,8 +625,7 @@ mod test {
         assert!(!instance.is_initialized());
         assert_eq!(instance.errors.len(), 0);
 
-        instance.next().await;
-        instance.next().await;
+        poll(&mut instance).await;
 
         assert!(instance.is_enabled());
         assert!(instance.is_initialized());
@@ -634,7 +640,7 @@ mod test {
         assert_eq!(instance.metadata.webpage(), None);
     }
 
-    #[async_std::test]
+    #[tokio::test]
     async fn test_extended_plugin_startup() {
         let (mut instance, _cleanup) = setup_plugin(
             r#"#!/bin/sh
@@ -648,9 +654,7 @@ mod test {
         assert!(!instance.is_initialized());
         assert_eq!(instance.errors.len(), 0);
 
-        for _ in 0..3 {
-            instance.next().await;
-        }
+        poll(&mut instance).await;
 
         assert!(instance.is_enabled());
         assert!(instance.is_initialized());
@@ -681,7 +685,7 @@ mod test {
         );
     }
 
-    #[async_std::test]
+    #[tokio::test]
     async fn test_failing_plugin_startup() {
         let (mut instance, _cleanup) = setup_plugin(
             r#"#!/bin/sh
@@ -697,9 +701,7 @@ mod test {
         assert!(!instance.is_initialized());
         assert_eq!(instance.errors.len(), 0);
 
-        for _ in 0..5 {
-            instance.next().await;
-        }
+        poll(&mut instance).await;
 
         assert!(!instance.is_enabled());
         assert_eq!(instance.errors.len(), 3);
@@ -716,7 +718,7 @@ mod test {
         assert_eq!(instance.metadata.webpage(), None);
     }
 
-    #[async_std::test]
+    #[tokio::test]
     async fn test_invalid_registration() {
         let (mut instance, _cleanup) = setup_plugin(
             r#"#!/bin/sh
@@ -729,14 +731,14 @@ mod test {
         assert!(!instance.is_initialized());
         assert_eq!(instance.errors.len(), 0);
 
-        instance.next().await;
+        poll(&mut instance).await;
 
         assert!(!instance.is_enabled());
         assert_eq!(instance.errors.len(), 1);
         assert!(instance.apis.is_empty());
     }
 
-    #[async_std::test]
+    #[tokio::test]
     async fn test_late_registration() {
         let (mut instance, _cleanup) = setup_plugin(
             r#"#!/bin/sh
@@ -749,8 +751,7 @@ mod test {
         assert!(!instance.is_initialized());
         assert_eq!(instance.errors.len(), 0);
 
-        instance.next().await;
-        instance.next().await;
+        poll(&mut instance).await;
 
         assert!(!instance.is_enabled());
         assert_eq!(instance.errors.len(), 1);

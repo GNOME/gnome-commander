@@ -7,9 +7,6 @@ use super::{
     PluginInstanceOutput,
 };
 use crate::options::PluginsOptions;
-use async_broadcast::Sender as BroadcastSender;
-use async_channel::Receiver;
-use futures::Stream;
 use std::{
     collections::BTreeMap,
     fs,
@@ -18,25 +15,24 @@ use std::{
     pin::Pin,
     task::{Context, Poll},
 };
+use tokio::sync::{broadcast, broadcast::Sender as BroadcastSender, mpsc, mpsc::Receiver};
 
-#[pin_project::pin_project]
 pub struct PluginHost {
     plugins: BTreeMap<String, PluginInstance>,
     sender: BroadcastSender<OutgoingPluginMessage>,
-    #[pin]
     receiver: Receiver<IncomingPluginMessage>,
     pending_api_requests: BTreeMap<u32, usize>,
 }
 
 impl PluginHost {
     pub fn new(dirs: &[&Path]) -> (Self, InactivePluginChannel) {
-        let (incoming_sender, incoming_receiver) = async_channel::bounded(16);
-        let (outgoing_sender, outgoing_receiver) = async_broadcast::broadcast(16);
+        let (incoming_sender, incoming_receiver) = mpsc::channel(16);
+        let (outgoing_sender, _) = broadcast::channel(16);
 
         let options = PluginsOptions::new();
         let mut host = Self {
             plugins: list_plugins(dirs, &options),
-            sender: outgoing_sender,
+            sender: outgoing_sender.clone(),
             receiver: incoming_receiver,
             pending_api_requests: BTreeMap::new(),
         };
@@ -47,34 +43,33 @@ impl PluginHost {
         }
         (
             host,
-            InactivePluginChannel::new(incoming_sender, outgoing_receiver),
+            InactivePluginChannel::new(incoming_sender, outgoing_sender),
         )
     }
 
     fn process_incoming(
+        &mut self,
         message: IncomingPluginMessage,
-        plugins: &mut BTreeMap<String, PluginInstance>,
-        pending_api_requests: &mut BTreeMap<u32, usize>,
     ) -> Option<OutgoingPluginMessage> {
         match message {
             IncomingPluginMessage::GetPlugins => Some(OutgoingPluginMessage::Plugins(
-                plugins
+                self.plugins
                     .iter()
                     .map(|(name, instance)| (name.to_owned(), instance.data()))
                     .collect(),
             )),
             IncomingPluginMessage::StartPlugin(name) => {
-                let instance = plugins.get_mut(&name)?;
+                let instance = self.plugins.get_mut(&name)?;
                 instance.start();
                 Some(updated_message(instance))
             }
             IncomingPluginMessage::StopPlugin(name) => {
-                let instance = plugins.get_mut(&name)?;
+                let instance = self.plugins.get_mut(&name)?;
                 instance.stop();
                 Some(updated_message(instance))
             }
             IncomingPluginMessage::TogglePlugin(name) => {
-                let instance = plugins.get_mut(&name)?;
+                let instance = self.plugins.get_mut(&name)?;
                 if instance.is_enabled() {
                     if instance.is_initialized() {
                         instance.stop();
@@ -89,14 +84,14 @@ impl PluginHost {
             }
             IncomingPluginMessage::ApiRequest { id, request } => {
                 let mut count = 0;
-                for instance in plugins.values_mut() {
+                for instance in self.plugins.values_mut() {
                     if instance.is_enabled() && instance.handle_api_request(id, &request) {
                         count += 1;
                     }
                 }
 
                 if count > 0 {
-                    pending_api_requests.insert(id, count);
+                    self.pending_api_requests.insert(id, count);
                     None
                 } else {
                     Some(OutgoingPluginMessage::ApiResponse {
@@ -140,22 +135,24 @@ impl PluginHost {
 impl Future for PluginHost {
     type Output = ();
 
-    fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
-        let mut this = self.project();
-
-        while let Poll::Ready(Some(message)) = this.receiver.as_mut().poll_next(cx) {
-            if let Some(outgoing) =
-                Self::process_incoming(message, this.plugins, this.pending_api_requests)
-            {
+    fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
+        while let Poll::Ready(Some(message)) = self.receiver.poll_recv(cx) {
+            if let Some(outgoing) = self.process_incoming(message) {
                 // An error here is expected when no receivers are active.
-                let _ = this.sender.try_broadcast(outgoing);
+                let _ = self.sender.send(outgoing);
             }
         }
 
-        for mut instance in this.plugins.values_mut() {
-            while let Poll::Ready(Some(message)) = Pin::new(&mut instance).poll_next(cx) {
+        let Self {
+            ref mut plugins,
+            ref mut pending_api_requests,
+            ref sender,
+            ..
+        } = *self;
+        for instance in plugins.values_mut() {
+            while let Poll::Ready(message) = instance.poll(cx) {
                 if let Some(outgoing) =
-                    Self::process_instance_message(message, instance, this.pending_api_requests)
+                    Self::process_instance_message(message, instance, pending_api_requests)
                 {
                     // If a plugin crashed deal with its outstanding API requests
                     if matches!(outgoing, OutgoingPluginMessage::PluginUpdated(..))
@@ -166,15 +163,15 @@ impl Future for PluginHost {
                             if let Some(outgoing) = Self::process_instance_message(
                                 PluginInstanceOutput::ApiResponse { id, response: None },
                                 instance,
-                                this.pending_api_requests,
+                                pending_api_requests,
                             ) {
-                                let _ = this.sender.try_broadcast(outgoing);
+                                let _ = sender.send(outgoing);
                             }
                         }
                     }
 
                     // An error here is expected when no receivers are active.
-                    let _ = this.sender.try_broadcast(outgoing);
+                    let _ = sender.send(outgoing);
                 }
             }
         }
