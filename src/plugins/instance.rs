@@ -607,7 +607,7 @@ mod test {
     async fn test_nonjson_plugin_startup() {
         let (mut instance, _cleanup) = setup_plugin(
             r#"#!/bin/sh
-                echo "Hello there. This isn't JSON but still worth a try."
+                /usr/bin/echo "Hello there. This isn't JSON but still worth a try."
                 sleep 60
             "#,
         );
@@ -625,8 +625,8 @@ mod test {
     async fn test_basic_plugin_startup() {
         let (mut instance, _cleanup) = setup_plugin(
             r#"#!/bin/sh
-                echo -ne '\x47\0\0\0{"type": "info", "payload": {"name": "Basic plugin", "version": "0.5"}}'
-                echo -ne '\x11\0\0\0{"type": "ready"}'
+                /usr/bin/echo -ne '\x47\0\0\0{"type": "info", "payload": {"name": "Basic plugin", "version": "0.5"}}'
+                /usr/bin/echo -ne '\x11\0\0\0{"type": "ready"}'
                 sleep 60
             "#,
         );
@@ -653,9 +653,9 @@ mod test {
     async fn test_extended_plugin_startup() {
         let (mut instance, _cleanup) = setup_plugin(
             r#"#!/bin/sh
-                echo -ne '\xF9\0\0\0{"type": "info", "payload": {"name": "Extended plugin", "version": "1.1", "copyright": "Copyright 2026", "comments": "This is super cool", "authors": ["Bob", "Jane"], "documenters": ["Frank"], "translators": [""], "webpage": "https://example.com/"}}'
-                echo -ne '\x4F\0\0\0{"type": "register", "payload": {"name": "extract_metadata", "version": "1.0"}}'
-                echo -ne '\x22\0\0\0{"type": "ready", "payload": null}'
+                /usr/bin/echo -ne '\xF9\0\0\0{"type": "info", "payload": {"name": "Extended plugin", "version": "1.1", "copyright": "Copyright 2026", "comments": "This is super cool", "authors": ["Bob", "Jane"], "documenters": ["Frank"], "translators": [""], "webpage": "https://example.com/"}}'
+                /usr/bin/echo -ne '\x4F\0\0\0{"type": "register", "payload": {"name": "extract_metadata", "version": "1.0"}}'
+                /usr/bin/echo -ne '\x22\0\0\0{"type": "ready", "payload": null}'
                 sleep 60
             "#,
         );
@@ -698,11 +698,11 @@ mod test {
     async fn test_failing_plugin_startup() {
         let (mut instance, _cleanup) = setup_plugin(
             r#"#!/bin/sh
-                echo -ne '\x74\0\0\0{"type": "info", "payload": {"name": "Failing plugin", "version": "3.5", "comments": "Failing reliably since 2026"}}'
-                echo -ne '\x33\0\0\0{"type": "error", "payload": "Something is wrong."}'
-                echo -ne '\x35\0\0\0{"type": "error", "payload": "Meaning really wrong."}'
-                echo -ne '\x3D\0\0\0{"type": "error", "payload": "Yes, no recovering from that."}'
-                echo -ne '\x12\0\0\0{"type": "failed"}'
+                /usr/bin/echo -ne '\x74\0\0\0{"type": "info", "payload": {"name": "Failing plugin", "version": "3.5", "comments": "Failing reliably since 2026"}}'
+                /usr/bin/echo -ne '\x33\0\0\0{"type": "error", "payload": "Something is wrong."}'
+                /usr/bin/echo -ne '\x35\0\0\0{"type": "error", "payload": "Meaning really wrong."}'
+                /usr/bin/echo -ne '\x3D\0\0\0{"type": "error", "payload": "Yes, no recovering from that."}'
+                /usr/bin/echo -ne '\x12\0\0\0{"type": "failed"}'
                 sleep 60
             "#,
         );
@@ -731,8 +731,8 @@ mod test {
     async fn test_invalid_registration() {
         let (mut instance, _cleanup) = setup_plugin(
             r#"#!/bin/sh
-                echo -ne '\x4F\0\0\0{"type": "register", "payload": {"name": "unknown_api", "version": "1.0"}}'
-                echo -ne '\x22\0\0\0{"type": "ready", "payload": null}'
+                /usr/bin/echo -ne '\x4F\0\0\0{"type": "register", "payload": {"name": "unknown_api", "version": "1.0"}}'
+                /usr/bin/echo -ne '\x22\0\0\0{"type": "ready", "payload": null}'
                 sleep 60
             "#,
         );
@@ -751,8 +751,8 @@ mod test {
     async fn test_late_registration() {
         let (mut instance, _cleanup) = setup_plugin(
             r#"#!/bin/sh
-                echo -ne '\x22\0\0\0{"type": "ready", "payload": null}'
-                echo -ne '\x4F\0\0\0{"type": "register", "payload": {"name": "extract_metadata", "version": "1.0"}}'
+                /usr/bin/echo -ne '\x22\0\0\0{"type": "ready", "payload": null}'
+                /usr/bin/echo -ne '\x4F\0\0\0{"type": "register", "payload": {"name": "extract_metadata", "version": "1.0"}}'
                 sleep 60
             "#,
         );
