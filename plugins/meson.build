@@ -6,7 +6,6 @@
 plugindir = pkglibdir / 'plugins'
 
 subdir('fileroller')
-subdir('test')
 
 plugin_files = [
   'document-metadata.py',

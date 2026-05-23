@@ -202,7 +202,7 @@ class Plugin:
                     del self._pending_api_requests[id]
                     future.set_result(response[name])
 
-    async def show_dialog(self, spec: dict) -> Optional[str]:
+    async def show_dialog(self, spec: dict) -> Optional[tuple[str, dict[str, str | bool]]]:
         return await self.send_api_request_with_response('show-dialog', spec)
 
     # Properties and methods that can be overwritten by subclasses

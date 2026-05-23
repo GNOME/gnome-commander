@@ -142,6 +142,7 @@ impl GenericDialog {
             }
             WidgetSpec::Group { label, child } => gtk::Frame::builder()
                 .label(label)
+                .css_classes(["flat"])
                 .child(&self.create_widget(*child))
                 .build()
                 .upcast(),
