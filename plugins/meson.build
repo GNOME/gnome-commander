@@ -5,9 +5,8 @@
 
 plugindir = pkglibdir / 'plugins'
 
-subdir('fileroller')
-
 plugin_files = [
+  'archives.py',
   'document-metadata.py',
   'image-metadata.py',
   'multimedia-metadata.py',

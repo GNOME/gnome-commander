@@ -149,6 +149,7 @@ impl GenericDialog {
                     .label(label)
                     .mnemonic_widget(&text)
                     .use_underline(true)
+                    .halign(gtk::Align::Start)
                     .build();
                 container.append(&label);
                 container.append(&text);
