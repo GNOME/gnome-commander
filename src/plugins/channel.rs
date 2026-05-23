@@ -13,6 +13,7 @@ use tokio::sync::{
 };
 
 #[derive(Debug)]
+#[allow(clippy::large_enum_variant)]
 pub enum MessageToPluginHost {
     GetPlugins,
     StartPlugin(String),
@@ -20,6 +21,7 @@ pub enum MessageToPluginHost {
     TogglePlugin(String),
     ApiRequest {
         id: u32,
+        plugin_name: Option<String>,
         request: ApiRequestToPlugin,
     },
 }
@@ -30,6 +32,7 @@ pub enum MessageFromPluginHost {
     PluginUpdated(String, PluginData),
     ApiResponse {
         id: u32,
+        plugin_name: String,
         response: Option<ApiResponseFromPlugin>,
         last: bool,
     },

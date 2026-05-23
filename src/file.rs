@@ -3,10 +3,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::{
-    dir::Directory, libgcmd::file_descriptor::FileDescriptor, options::GeneralOptions,
-    utils::ErrorMessage,
-};
+use crate::{dir::Directory, options::GeneralOptions, utils::ErrorMessage};
 use futures::{
     future::{Either, select},
     stream::StreamExt,
@@ -24,7 +21,6 @@ use std::{
 
 mod imp {
     use super::*;
-    use crate::libgcmd::file_descriptor::FileDescriptorImpl;
     use std::cell::{Cell, RefCell};
 
     #[derive(glib::Properties)]
@@ -42,7 +38,6 @@ mod imp {
     impl ObjectSubclass for File {
         const NAME: &'static str = "GnomeCmdFile";
         type Type = super::File;
-        type Interfaces = (FileDescriptor,);
 
         fn new() -> Self {
             Self {
@@ -58,16 +53,6 @@ mod imp {
     #[glib::derived_properties]
     impl ObjectImpl for File {}
 
-    impl FileDescriptorImpl for File {
-        fn file(&self) -> gio::File {
-            self.file.borrow().clone()
-        }
-
-        fn file_info(&self) -> gio::FileInfo {
-            self.file_info.borrow().clone()
-        }
-    }
-
     impl File {
         fn set_file_info(&self, file_info: gio::FileInfo) {
             self.is_dotdot.set(
@@ -80,8 +65,7 @@ mod imp {
 }
 
 glib::wrapper! {
-    pub struct File(ObjectSubclass<imp::File>)
-        @implements FileDescriptor;
+    pub struct File(ObjectSubclass<imp::File>);
 }
 
 impl File {

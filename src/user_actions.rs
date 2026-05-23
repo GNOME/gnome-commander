@@ -38,11 +38,9 @@ use crate::{
     },
     file_selector::TabOptions,
     file_view::file_view,
-    libgcmd::file_actions::{FileActions, FileActionsExt},
     main_win::{ExecutionTarget, MainWindow},
     options::{ConfirmOptions, GeneralOptions, NetworkOptions, ProgramsOptions, SearchConfig},
-    plugin_manager::PluginActionVariant,
-    plugins::show_plugin_manager,
+    plugins::{ApiRequestToPlugin, MessageToPluginHost, show_plugin_manager},
     search::search_dialog::SearchDialog,
     shortcuts::Area,
     spawn::{SpawnError, spawn_async, spawn_async_command},
@@ -1189,21 +1187,18 @@ async fn plugins_configure(main_win: MainWindow) {
     show_plugin_manager(main_win.plugin_channel(), &main_win).await;
 }
 
-async fn plugin_action(main_win: MainWindow, plugin_action: PluginActionVariant) {
-    if let Some(plugin) = main_win
-        .plugin_manager()
-        .active_plugins()
-        .into_iter()
-        .find_map(|(name, plugin)| (name == plugin_action.plugin).then_some(plugin))
-        && let Some(file_actions) = plugin.downcast_ref::<FileActions>()
-    {
-        file_actions.execute(
-            &plugin_action.action,
-            Some(&plugin_action.parameter),
-            main_win.upcast_ref(),
-            &main_win.state(),
-        );
-    }
+async fn plugin_action(main_win: MainWindow, data: (String, String, String)) {
+    let (plugin_name, action, parameter) = data;
+    let channel = main_win.plugin_channel();
+    channel.send(MessageToPluginHost::ApiRequest {
+        id: channel.new_id(),
+        plugin_name: Some(plugin_name),
+        request: ApiRequestToPlugin::MenuActivated {
+            action,
+            parameter,
+            state: main_win.state(),
+        },
+    });
 }
 
 /************** Help Menu **************/

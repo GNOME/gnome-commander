@@ -30,6 +30,10 @@ pub enum PluginInstanceOutput {
         id: u32,
         response: Option<ApiResponseFromPlugin>,
     },
+    UpdatedAndApiResponse {
+        id: u32,
+        response: Option<ApiResponseFromPlugin>,
+    },
 }
 
 #[derive(Debug)]
@@ -214,13 +218,15 @@ impl PluginInstance {
     pub fn handle_api_request(&mut self, id: u32, request: &ApiRequestToPlugin) -> bool {
         if self.apis.iter().any(|api| api.accept_request(request)) {
             self.send_message(MessageToPlugin::ApiRequest(id, request.clone()));
-            self.pending_api_requests.insert(
-                id,
-                (
-                    request.call(),
-                    Timer::after(Duration::from_secs(Self::MAX_RESPONSE_SECS)),
-                ),
-            );
+            if request.call().expect_response() {
+                self.pending_api_requests.insert(
+                    id,
+                    (
+                        request.call(),
+                        Timer::after(Duration::from_secs(Self::MAX_RESPONSE_SECS)),
+                    ),
+                );
+            }
             true
         } else {
             false
@@ -476,7 +482,10 @@ impl PluginInstance {
                     gettext("No response to API request {} received within maximum time")
                         .replace("{}", &id.to_string()),
                 ));
-                output = Some(Ok(PluginInstanceOutput::ApiResponse { id, response: None }));
+                output = Some(Ok(PluginInstanceOutput::UpdatedAndApiResponse {
+                    id,
+                    response: None,
+                }));
             }
         }
 

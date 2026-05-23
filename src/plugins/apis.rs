@@ -23,6 +23,7 @@ u32_enum! {
         PersistentSettings,
         ExtractMetadata,
         Dialogs,
+        Menus,
     }
 }
 
@@ -30,16 +31,18 @@ impl Apis {
     pub fn name(&self) -> &'static str {
         match self {
             Apis::PersistentSettings => "persistent_settings",
-            Apis::Dialogs => "dialogs",
             Apis::ExtractMetadata => "extract_metadata",
+            Apis::Dialogs => "dialogs",
+            Apis::Menus => "menus",
         }
     }
 
     pub fn version(&self) -> &'static str {
         match self {
             Apis::PersistentSettings => "1.0",
-            Apis::Dialogs => "1.0",
             Apis::ExtractMetadata => "1.0",
+            Apis::Dialogs => "1.0",
+            Apis::Menus => "1.0",
         }
     }
 
@@ -93,6 +96,9 @@ impl Apis {
         match request.call() {
             ApiCall::ExtractMetadata if self == &Apis::ExtractMetadata => true,
             ApiCall::ListSupportedTags if self == &Apis::ExtractMetadata => true,
+            ApiCall::MainMenuItems if self == &Apis::Menus => true,
+            ApiCall::ContextMenuItems if self == &Apis::Menus => true,
+            ApiCall::MenuActivated if self == &Apis::Menus => true,
             _ => false,
         }
     }
@@ -101,6 +107,8 @@ impl Apis {
         match response.call() {
             ApiCall::ExtractMetadata if self == &Apis::ExtractMetadata => true,
             ApiCall::ListSupportedTags if self == &Apis::ExtractMetadata => true,
+            ApiCall::MainMenuItems if self == &Apis::Menus => true,
+            ApiCall::ContextMenuItems if self == &Apis::Menus => true,
             _ => false,
         }
     }

@@ -63,13 +63,38 @@ impl std::fmt::Display for ApiInfo {
 pub enum ApiCall {
     ExtractMetadata,
     ListSupportedTags,
+    MainMenuItems,
+    ContextMenuItems,
+    MenuActivated,
+}
+
+impl ApiCall {
+    pub fn expect_response(&self) -> bool {
+        match self {
+            Self::ExtractMetadata
+            | Self::ListSupportedTags
+            | Self::MainMenuItems
+            | Self::ContextMenuItems => true,
+            Self::MenuActivated => false,
+        }
+    }
 }
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum ApiRequestToPlugin {
     ListSupportedTags,
-    ExtractMetadata { path: String, uri: String },
+    ExtractMetadata {
+        path: String,
+        uri: String,
+    },
+    MainMenuItems,
+    ContextMenuItems(PanelsState),
+    MenuActivated {
+        action: String,
+        state: PanelsState,
+        parameter: String,
+    },
 }
 
 impl ApiRequestToPlugin {
@@ -77,6 +102,9 @@ impl ApiRequestToPlugin {
         match self {
             Self::ListSupportedTags => ApiCall::ListSupportedTags,
             Self::ExtractMetadata { .. } => ApiCall::ExtractMetadata,
+            Self::MainMenuItems => ApiCall::MainMenuItems,
+            Self::ContextMenuItems(..) => ApiCall::ContextMenuItems,
+            Self::MenuActivated { .. } => ApiCall::MenuActivated,
         }
     }
 }
@@ -86,6 +114,8 @@ impl ApiRequestToPlugin {
 pub enum ApiResponseFromPlugin {
     ListSupportedTags(Vec<ListSupportedTagsResponse>),
     ExtractMetadata(Vec<ExtractMetadataResponse>),
+    MainMenuItems(Vec<MenuItem>),
+    ContextMenuItems(Vec<MenuItem>),
 }
 
 impl ApiResponseFromPlugin {
@@ -93,20 +123,42 @@ impl ApiResponseFromPlugin {
         match self {
             Self::ListSupportedTags(..) => ApiCall::ListSupportedTags,
             Self::ExtractMetadata(..) => ApiCall::ExtractMetadata,
+            Self::MainMenuItems(..) => ApiCall::MainMenuItems,
+            Self::ContextMenuItems(..) => ApiCall::ContextMenuItems,
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Deserialize)]
 pub struct ListSupportedTagsResponse {
     pub class: String,
     pub tags: Vec<(String, String)>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Deserialize)]
 pub struct ExtractMetadataResponse {
     pub class: String,
     pub tags: Vec<(String, String, String, String)>,
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+pub struct PanelsState {
+    pub active_directory_path: Option<String>,
+    pub active_directory_uri: Option<String>,
+    pub active_focused_file: Option<String>,
+    pub active_selected_files: Vec<String>,
+    pub inactive_directory_path: Option<String>,
+    pub inactive_directory_uri: Option<String>,
+    pub inactive_focused_file: Option<String>,
+    pub inactive_selected_files: Vec<String>,
+}
+
+#[derive(Debug, Clone, serde::Deserialize)]
+pub struct MenuItem {
+    pub label: String,
+    pub action: String,
+    #[serde(default)]
+    pub parameter: String,
 }
 
 #[derive(Debug, serde::Deserialize)]

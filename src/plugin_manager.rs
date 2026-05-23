@@ -7,7 +7,6 @@ use crate::{
     config::{PACKAGE, PLUGIN_DIR},
     gmodule::{self, GModule, GModuleFlags},
     libgcmd::{GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION, PluginInfo},
-    user_actions::UserAction,
 };
 use gtk::{
     gio,
@@ -324,54 +323,4 @@ fn load_plugin(path: PathBuf) -> Result<PluginData, String> {
         info,
         plugin: unsafe { from_glib_full(plugin) },
     })
-}
-
-#[derive(Debug, glib::Variant)]
-pub struct PluginActionVariant {
-    pub plugin: String,
-    pub action: String,
-    pub parameter: glib::Variant,
-}
-
-pub fn wrap_plugin_menu(plugin: &str, menu: &gio::MenuModel) -> gio::Menu {
-    let new_menu = gio::Menu::new();
-    for item_index in 0..menu.n_items() {
-        let item = gio::MenuItem::new(None, None);
-
-        let mut action = None;
-        let mut target = glib::Variant::from_none(&i32::static_variant_type());
-        let iter = menu.iterate_item_attributes(item_index);
-        while let Some((attribute, value)) = iter.next() {
-            if attribute == gio::MENU_ATTRIBUTE_ACTION {
-                action = value.str().map(ToString::to_string);
-            } else if attribute == gio::MENU_ATTRIBUTE_TARGET {
-                target = value;
-            } else {
-                item.set_attribute_value(&attribute, Some(&value));
-            }
-        }
-
-        if let Some(action) = action {
-            let plugin_action_target = PluginActionVariant {
-                plugin: plugin.to_owned(),
-                action: action.to_owned(),
-                parameter: target,
-            };
-            item.set_action_and_target_value(
-                Some(UserAction::PluginAction.name()),
-                Some(&plugin_action_target.to_variant()),
-            );
-        } else {
-            item.set_action_and_target_value(None, None);
-        }
-
-        let iter = menu.iterate_item_links(item_index);
-        while let Some((link_name, model)) = iter.next() {
-            let model = wrap_plugin_menu(plugin, &model);
-            item.set_link(&link_name, Some(&model));
-        }
-
-        new_menu.append_item(&item);
-    }
-    new_menu
 }

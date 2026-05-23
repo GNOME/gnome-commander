@@ -28,8 +28,8 @@ class SettingDescriptor:
 
 
 class Plugin:
-    def __init__(self):
-        self._tasks = set()
+    def __init__(self) -> None:
+        self._tasks: set[asyncio.Task] = set()
         self._incoming = bytearray()
         self._initialized = False
         self._max_request_id = 0
@@ -66,6 +66,12 @@ class Plugin:
                 'version': '1.0',
             })
 
+        if self.main_menu_items and self.context_menu_items and self.menu_activated:
+            self._apis.append({
+                'name': 'menus',
+                'version': '1.0',
+            })
+
         if len(sys.argv) > 1:
             self.handle_command_line()
 
@@ -73,7 +79,7 @@ class Plugin:
         loop.add_reader(sys.stdin.buffer, self.handle_incoming, loop)
         loop.run_forever()
 
-    def handle_command_line(self):
+    def handle_command_line(self) -> None:
         parser = argparse.ArgumentParser(
             description='This command line interface is provided for debugging purposes only.'
         )
@@ -92,7 +98,7 @@ class Plugin:
         json.dump(args.func(args.__dict__), sys.stdout)
         sys.exit(0)
 
-    def send_message(self, type: str, payload: Any = None):
+    def send_message(self, type: str, payload: Any = None) -> None:
         message = json.dumps({
             'type': type,
             'payload': payload,
@@ -100,7 +106,7 @@ class Plugin:
         sys.stdout.buffer.write(struct.pack('=I', len(message)) + message)
         sys.stdout.buffer.flush()
 
-    def receive_bytes(self, size: int):
+    def receive_bytes(self, size: int) -> None:
         if len(self._incoming) < size:
             try:
                 incoming = sys.stdin.buffer.read(size - len(self._incoming))
@@ -128,7 +134,7 @@ class Plugin:
         message = json.loads(payload)
         return message['type'], message['payload']
 
-    def fail(self, error: str):
+    def fail(self, error: str) -> None:
         self.send_message('error', error)
         self.send_message('failed')
         sys.exit(1)
@@ -146,15 +152,16 @@ class Plugin:
         self._pending_api_requests[id] = (name, future)
         return await future
 
-    async def handle_api_request(self, id: int, name: str, data: Any):
+    async def handle_api_request(self, id: int, name: str, data: Any) -> None:
         method = name.replace('-', '_')
         if hasattr(self, method):
             response = await getattr(self, method)(data)
-            self.send_message('api-response', [id, {
-                name: response,
-            }])
+            if method != 'menu_activated':
+                self.send_message('api-response', [id, {
+                    name: response,
+                }])
 
-    def handle_incoming(self, loop: asyncio.AbstractEventLoop):
+    def handle_incoming(self, loop: asyncio.AbstractEventLoop) -> None:
         while message := self.receive_message():
             type, payload = message
 
@@ -211,3 +218,9 @@ class Plugin:
     list_supported_tags: Optional[
         Callable[..., list[tuple[str, Awaitable[list[tuple[str, str]]]]]]
     ] = None
+
+    main_menu_items: Optional[Callable[..., Awaitable[list[dict]]]] = None
+
+    context_menu_items: Optional[Callable[..., Awaitable[list[dict]]]] = None
+
+    menu_activated: Optional[Callable[..., Awaitable[None]]] = None

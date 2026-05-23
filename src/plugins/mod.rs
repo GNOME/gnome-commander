@@ -21,4 +21,4 @@ pub use host::PluginHost;
 use instance::{PluginInstance, PluginInstanceOutput};
 pub use manager::show_plugin_manager;
 pub use metadata::PluginMetadata;
-pub use protocol::{ApiCall, ApiInfo, ApiRequestToPlugin, ApiResponseFromPlugin};
+pub use protocol::{ApiCall, ApiInfo, ApiRequestToPlugin, ApiResponseFromPlugin, PanelsState};

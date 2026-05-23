@@ -71,6 +71,7 @@ impl FileMetadataExtractor for PluginMetadataExtractor {
         let id = channel.new_id();
         channel.send(MessageToPluginHost::ApiRequest {
             id,
+            plugin_name: None,
             request: ApiRequestToPlugin::ListSupportedTags,
         });
 
@@ -78,6 +79,7 @@ impl FileMetadataExtractor for PluginMetadataExtractor {
         loop {
             if let MessageFromPluginHost::ApiResponse {
                 id: resp_id,
+                plugin_name: _,
                 response,
                 last,
             } = channel.receive().await
@@ -118,6 +120,7 @@ impl FileMetadataExtractor for PluginMetadataExtractor {
         let id = channel.new_id();
         channel.send(MessageToPluginHost::ApiRequest {
             id,
+            plugin_name: None,
             request: ApiRequestToPlugin::ExtractMetadata {
                 path: file
                     .local_path()
@@ -131,6 +134,7 @@ impl FileMetadataExtractor for PluginMetadataExtractor {
         loop {
             if let MessageFromPluginHost::ApiResponse {
                 id: resp_id,
+                plugin_name: _,
                 response,
                 last,
             } = channel.receive().await

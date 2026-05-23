@@ -79,10 +79,19 @@ impl PluginHost {
                     Some(updated_message(instance))
                 }
             }
-            MessageToPluginHost::ApiRequest { id, request } => {
+            MessageToPluginHost::ApiRequest {
+                id,
+                plugin_name,
+                request,
+            } => {
                 let mut count = 0;
                 for instance in self.plugins.values_mut() {
-                    if instance.is_enabled() && instance.handle_api_request(id, &request) {
+                    if instance.is_enabled()
+                        && plugin_name
+                            .as_ref()
+                            .is_none_or(|plugin_name| plugin_name == &instance.file_name())
+                        && instance.handle_api_request(id, &request)
+                    {
                         count += 1;
                     }
                 }
@@ -93,6 +102,7 @@ impl PluginHost {
                 } else {
                     Some(MessageFromPluginHost::ApiResponse {
                         id,
+                        plugin_name: String::new(),
                         response: None,
                         last: true,
                     })
@@ -105,27 +115,36 @@ impl PluginHost {
         message: PluginInstanceOutput,
         instance: &PluginInstance,
         pending_api_requests: &mut BTreeMap<u32, usize>,
-    ) -> Option<MessageFromPluginHost> {
-        match message {
-            PluginInstanceOutput::Updated => Some(updated_message(instance)),
-            PluginInstanceOutput::ApiResponse { id, response } => {
-                let mut count = pending_api_requests.remove(&id)?;
-                count -= 1;
-                if count > 0 {
-                    pending_api_requests.insert(id, count);
-                }
+    ) -> Vec<MessageFromPluginHost> {
+        let mut result = Vec::new();
 
-                if response.is_some() || count == 0 {
-                    Some(MessageFromPluginHost::ApiResponse {
-                        id,
-                        response,
-                        last: count == 0,
-                    })
-                } else {
-                    None
-                }
+        if matches!(
+            message,
+            PluginInstanceOutput::Updated | PluginInstanceOutput::UpdatedAndApiResponse { .. }
+        ) {
+            result.push(updated_message(instance));
+        }
+
+        if let PluginInstanceOutput::ApiResponse { id, response }
+        | PluginInstanceOutput::UpdatedAndApiResponse { id, response } = message
+            && let Some(mut count) = pending_api_requests.remove(&id)
+        {
+            count -= 1;
+            if count > 0 {
+                pending_api_requests.insert(id, count);
+            }
+
+            if response.is_some() || count == 0 {
+                result.push(MessageFromPluginHost::ApiResponse {
+                    id,
+                    plugin_name: instance.file_name().to_string(),
+                    response,
+                    last: count == 0,
+                });
             }
         }
+
+        result
     }
 }
 
@@ -148,27 +167,28 @@ impl Future for PluginHost {
         } = *self;
         for instance in plugins.values_mut() {
             while let Poll::Ready(message) = instance.poll(cx) {
-                if let Some(outgoing) =
-                    Self::process_instance_message(message, instance, pending_api_requests)
-                {
+                let outgoing =
+                    Self::process_instance_message(message, instance, pending_api_requests);
+                for message in outgoing.into_iter() {
                     // If a plugin crashed deal with its outstanding API requests
-                    if matches!(outgoing, MessageFromPluginHost::PluginUpdated(..))
+                    if matches!(message, MessageFromPluginHost::PluginUpdated(..))
                         && !instance.is_enabled()
                         && instance.has_pending_api_requests()
                     {
                         for id in instance.drain_pending_api_requests() {
-                            if let Some(outgoing) = Self::process_instance_message(
+                            let outgoing = Self::process_instance_message(
                                 PluginInstanceOutput::ApiResponse { id, response: None },
                                 instance,
                                 pending_api_requests,
-                            ) {
-                                let _ = sender.send(outgoing);
+                            );
+                            for message in outgoing.into_iter() {
+                                let _ = sender.send(message);
                             }
                         }
                     }
 
                     // An error here is expected when no receivers are active.
-                    let _ = sender.send(outgoing);
+                    let _ = sender.send(message);
                 }
             }
         }
