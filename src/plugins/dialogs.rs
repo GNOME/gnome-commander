@@ -2,7 +2,10 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::protocol::{ApiResponseFromHost, DialogSpec, DialogWidgetValue, WidgetSpec};
+use super::{
+    PluginInstance,
+    protocol::{ApiResponseFromHost, DialogSpec, DialogWidgetValue, WidgetSpec},
+};
 use crate::utils::{NO_BUTTONS, SenderExt, WindowExt, dialog_button_box};
 use gettextrs::gettext;
 use gtk::prelude::*;
@@ -22,11 +25,23 @@ pub struct GenericDialog {
 }
 
 impl GenericDialog {
-    pub fn new(spec: DialogSpec) -> Result<Self, Error> {
+    pub fn new(spec: DialogSpec, instance: &PluginInstance) -> Result<Self, Error> {
         let (sender, receiver) = mpsc::channel(1);
 
+        let mut title = spec.title;
+        if title.len() > 50 {
+            title.truncate(50);
+            title += "…";
+        }
+        title = title
+            + " | "
+            + &instance
+                .metadata()
+                .name()
+                .unwrap_or_else(|| instance.file_name().to_string());
+
         let dialog = gtk::Window::builder()
-            .title(spec.title)
+            .title(title)
             .modal(spec.modal)
             .build();
         dialog.add_css_class("dialog");

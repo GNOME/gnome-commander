@@ -83,7 +83,7 @@ impl Apis {
                 IncomingResult::Handled
             }
             ApiRequestToHost::ShowDialog(spec) if self == &Apis::Dialogs => {
-                match GenericDialog::new(spec.clone()) {
+                match GenericDialog::new(spec.clone(), instance) {
                     Ok(dialog) => IncomingResult::HandledWithDialog(dialog),
                     Err(error) => IncomingResult::Error(error),
                 }

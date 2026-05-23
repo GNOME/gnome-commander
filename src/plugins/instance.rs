@@ -103,6 +103,10 @@ impl PluginInstance {
         self.startup_timeout.is_none()
     }
 
+    pub fn metadata(&self) -> &PluginMetadata {
+        &self.metadata
+    }
+
     pub fn has_pending_api_requests(&self) -> bool {
         !self.pending_api_requests.is_empty()
     }
