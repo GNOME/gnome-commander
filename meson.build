@@ -167,10 +167,8 @@ summary(
 )
 
 configuration_inc = include_directories('.')
-libgcmd_inc = include_directories('libgcmd')
-sources_inc = include_directories('src', 'src/dialogs', 'src/intviewer', 'src/tags')
+sources_inc = include_directories('src')
 
-subdir('libgcmd')
 subdir('src')
 subdir('data')
 subdir('pixmaps')

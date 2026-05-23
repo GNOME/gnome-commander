@@ -15,7 +15,6 @@ use crate::{
     layout::color_themes::ColorThemes,
     options::{GeneralOptions, ProgramsOptions, types::WriteResult},
     paned_ext::GnomeCmdPanedExt,
-    plugin_manager::PluginManager,
     plugins::{
         ApiRequestToPlugin, ApiResponseFromPlugin, InactivePluginHostChannel,
         MessageFromPluginHost, MessageToPluginHost, PanelsState, PluginHost, PluginHostChannel,
@@ -117,7 +116,6 @@ pub mod imp {
         #[property(get, set = Self::set_current_panel)]
         current_panel: Cell<u32>,
 
-        pub plugin_manager: PluginManager,
         pub plugin_channel: InactivePluginHostChannel,
         pub file_metadata_service: FileMetadataService,
 
@@ -171,8 +169,6 @@ pub mod imp {
         }
 
         fn new() -> Self {
-            let plugin_manager = PluginManager::new();
-
             let system_plugins_dir = Path::new(PLUGIN_DIR);
             let user_plugins_dir = glib::user_config_dir().join(PACKAGE).join("plugins");
             let (plugin_host, plugin_channel) =
@@ -236,7 +232,6 @@ pub mod imp {
                 delete_btn: buttonbar_button(&gettext("F8 Delete"), UserAction::FileDelete.name()),
                 find_btn: buttonbar_button(&gettext("F9 Search"), UserAction::FileSearch.name()),
 
-                plugin_manager,
                 plugin_channel,
                 file_metadata_service,
 
@@ -1111,8 +1106,6 @@ impl MainWindow {
     pub fn save_state(&self) -> WriteResult {
         let options = GeneralOptions::new();
 
-        self.imp().plugin_manager.save();
-
         options.keybindings.set(self.imp().shortcuts.save())?;
 
         // Reset legacy option, making sure we don't import it more than once
@@ -1189,10 +1182,6 @@ impl MainWindow {
                 .filter_map(get_file_name)
                 .collect(),
         }
-    }
-
-    pub fn plugin_manager(&self) -> PluginManager {
-        self.imp().plugin_manager.clone()
     }
 
     pub fn file_metadata_service(&self) -> &FileMetadataService {
