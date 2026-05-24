@@ -37,6 +37,10 @@ impl PluginMetadata {
     const SETTING_WEBPAGE: &str = "webpage";
     const SETTING_ENABLED: &str = "enabled";
 
+    pub fn is_empty(&self) -> bool {
+        self.0.is_empty()
+    }
+
     pub fn name(&self) -> Option<String> {
         self.0
             .get(Self::SETTING_NAME)

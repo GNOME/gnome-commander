@@ -98,6 +98,14 @@ impl PluginInstance {
     /// the plugin is running.
     pub fn is_enabled(&self) -> bool {
         self.metadata.enabled()
+            || (
+                // Plugins in system dir are enabled by default
+                self.metadata.is_empty()
+                    && self
+                        .path
+                        .ancestors()
+                        .any(|ancestor| ancestor == self.system_dir)
+            )
     }
 
     /// Tests whether the plugin signaled being ready. The result is only meaningful for enabled
