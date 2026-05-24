@@ -16,6 +16,7 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginMetadata) -> gtk::
         .title(gettext("About %s").replace("%s", info.name().as_deref().unwrap_or_default()))
         .transient_for(parent)
         .resizable(false)
+        .default_width(600)
         .build();
     dialog.add_css_class("dialog");
 
@@ -49,9 +50,11 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginMetadata) -> gtk::
         content_area.append(
             &gtk::Label::builder()
                 .selectable(true)
-                .justify(gtk::Justification::Center)
-                .wrap(true)
                 .label(comments)
+                .halign(gtk::Align::Start)
+                .wrap(true)
+                .wrap_mode(gtk::pango::WrapMode::Word)
+                .max_width_chars(1)
                 .build(),
         );
     }
@@ -60,15 +63,15 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginMetadata) -> gtk::
         content_area.append(
             &gtk::Label::builder()
                 .selectable(true)
-                .justify(gtk::Justification::Center)
-                .wrap(true)
-                .use_markup(true)
                 .label(copyright)
                 .attributes(&{
                     let attrs = pango::AttrList::new();
                     attrs.insert(pango::AttrFloat::new_scale(pango::SCALE_SMALL));
                     attrs
                 })
+                .wrap(true)
+                .wrap_mode(gtk::pango::WrapMode::Word)
+                .max_width_chars(1)
                 .build(),
         );
     }
