@@ -386,7 +386,7 @@ pub fn size_to_string(size: u64, mode: SizeDisplayMode) -> String {
                 ngettext("{} MiB", "{} MiB", size_u32)
                     .replace("{}", &format!("{:.1}", size as f64 / MIBI as f64))
             } else if size >= KIBI {
-                ngettext("{} kiB", "{} kiB", size_u32)
+                ngettext("{} KiB", "{} KiB", size_u32)
                     .replace("{}", &format!("{:.1}", size as f64 / KIBI as f64))
             } else {
                 ngettext("{} byte", "{} bytes", size_u32).replace("{}", &size.to_string())

@@ -49,6 +49,7 @@ commander = custom_target(
   console: true,
   install: true,
   install_dir: bindir,
+  depends: [libgcmd],
   command: [
     'env',
     cargo_env,

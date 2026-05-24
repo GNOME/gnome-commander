@@ -548,6 +548,7 @@ impl NetworkOptions {
 pub struct ViewerOptions {
     pub window_width: U32Option,
     pub window_height: U32Option,
+    pub window_state: U32Option,
 
     pub encoding: StringOption,
     pub monospaced_font: StringOption,
@@ -568,6 +569,7 @@ impl ViewerOptions {
         Self {
             window_width: U32Option::new(&settings, "window-width"),
             window_height: U32Option::new(&settings, "window-height"),
+            window_state: U32Option::new(&settings, "window-state"),
             encoding: StringOption::new(&settings, "charset"),
             monospaced_font: StringOption::new(&settings, "monospaced-font"),
             tab_size: U32Option::new(&settings, "tab-size"),

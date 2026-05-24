@@ -66,7 +66,7 @@ mod imp {
             image_render::ImageRender, input_modes::preprocess_for_cp437_conversion,
             text_render::TextRenderDisplayMode,
         },
-        options::{ViewerOptions, utils::remember_window_size},
+        options::{ViewerOptions, utils::remember_window_state},
         utils::{display_help, hbox_builder, vbox_builder},
     };
     use gtk::gdk;
@@ -311,7 +311,7 @@ mod imp {
 
             let options = ViewerOptions::new();
 
-            remember_window_size(&*window, &options.window_width, &options.window_height);
+            remember_window_state(&*window, &options.window_width, &options.window_height, &options.window_state);
 
             options.tab_size.bind(&self.text_render, "tab-size").build();
 
