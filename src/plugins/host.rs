@@ -41,6 +41,16 @@ impl PluginHost {
                 instance.start();
             }
         }
+
+        // Remove stale data
+        let mut metadata = options.metadata.get();
+        metadata.retain(|key, _| host.plugins.contains_key(key));
+        let _ = options.metadata.set(metadata);
+
+        let mut settings = options.persistent_settings.get();
+        settings.retain(|key, _| host.plugins.contains_key(key));
+        let _ = options.persistent_settings.set(settings);
+
         (
             host,
             InactivePluginHostChannel::new(incoming_sender, outgoing_sender),
