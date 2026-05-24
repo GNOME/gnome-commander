@@ -90,7 +90,7 @@ async fn get_response(
     }
 }
 
-#[tokio::test]
+#[async_std::test]
 async fn test_archives_menus() {
     with_plugin_host(async |channel| {
         let mut channel = channel.activate_cloned();
@@ -153,7 +153,7 @@ async fn test_archives_menus() {
     .await;
 }
 
-#[tokio::test]
+#[async_std::test]
 async fn test_document_tag_extraction() {
     with_plugin_host(async |channel| {
         wait_for_initialization(&mut channel.activate_cloned(), "document-metadata.py").await;
@@ -196,7 +196,7 @@ async fn test_document_tag_extraction() {
     .await;
 }
 
-#[tokio::test]
+#[async_std::test]
 async fn test_image_tag_extraction() {
     with_plugin_host(async |channel| {
         wait_for_initialization(&mut channel.activate_cloned(), "image-metadata.py").await;
@@ -216,7 +216,7 @@ async fn test_image_tag_extraction() {
     .await;
 }
 
-#[tokio::test]
+#[async_std::test]
 async fn test_multimedia_tag_extraction() {
     with_plugin_host(async |channel| {
         wait_for_initialization(&mut channel.activate_cloned(), "multimedia-metadata.py").await;

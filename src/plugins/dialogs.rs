@@ -7,6 +7,8 @@ use super::{
     protocol::{ApiResponseFromHost, DialogSpec, DialogWidgetValue, WidgetSpec},
 };
 use crate::utils::{NO_BUTTONS, SenderExt, WindowExt, dialog_button_box};
+use async_channel::Receiver;
+use futures::Stream;
 use gettextrs::gettext;
 use gtk::prelude::*;
 use std::{
@@ -15,18 +17,17 @@ use std::{
     pin::Pin,
     task::{Context, Poll},
 };
-use tokio::sync::{mpsc, mpsc::Receiver};
 
 #[derive(Debug)]
 pub struct GenericDialog {
-    receiver: Receiver<String>,
+    receiver: Pin<Box<Receiver<String>>>,
     dialog: gtk::Window,
     inputs: Vec<(String, gtk::Widget)>,
 }
 
 impl GenericDialog {
     pub fn new(spec: DialogSpec, instance: &PluginInstance) -> Result<Self, Error> {
-        let (sender, receiver) = mpsc::channel(1);
+        let (sender, receiver) = async_channel::bounded(1);
 
         let mut title = spec.title;
         if title.len() > 50 {
@@ -43,7 +44,7 @@ impl GenericDialog {
         dialog.add_css_class("dialog");
 
         let mut this = Self {
-            receiver,
+            receiver: Box::pin(receiver),
             dialog: dialog.clone(),
             inputs: Vec::new(),
         };
@@ -205,7 +206,7 @@ impl Future for GenericDialog {
     type Output = ApiResponseFromHost;
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
-        if let Poll::Ready(Some(button)) = self.receiver.poll_recv(cx) {
+        if let Poll::Ready(Some(button)) = Pin::new(&mut self.receiver).poll_next(cx) {
             self.dialog.close();
 
             let mut inputs = BTreeMap::new();

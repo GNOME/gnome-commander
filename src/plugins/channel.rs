@@ -3,13 +3,13 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::{ApiRequestToPlugin, ApiResponseFromPlugin, PluginMetadata};
+use async_broadcast::{
+    InactiveReceiver as InactiveBroadcastReceiver, Receiver as BroadcastReceiver,
+};
+use async_channel::Sender;
 use std::{
     collections::BTreeMap,
     sync::atomic::{AtomicU32, Ordering},
-};
-use tokio::sync::{
-    broadcast::{Receiver as BroadcastReceiver, Sender as BroadcastSender},
-    mpsc::Sender,
 };
 
 #[derive(Debug)]
@@ -51,25 +51,24 @@ pub struct PluginData {
 #[derive(Debug, Clone)]
 pub struct InactivePluginHostChannel {
     sender: Sender<MessageToPluginHost>,
-    broadcast_sender: BroadcastSender<MessageFromPluginHost>,
+    receiver: InactiveBroadcastReceiver<MessageFromPluginHost>,
 }
 
 impl InactivePluginHostChannel {
     pub fn new(
         sender: Sender<MessageToPluginHost>,
-        broadcast_sender: BroadcastSender<MessageFromPluginHost>,
+        receiver: BroadcastReceiver<MessageFromPluginHost>,
     ) -> Self {
         Self {
             sender,
-            broadcast_sender,
+            receiver: receiver.deactivate(),
         }
     }
 
     pub fn activate_cloned(&self) -> PluginHostChannel {
         PluginHostChannel {
             sender: self.sender.clone(),
-            broadcast_sender: self.broadcast_sender.clone(),
-            receiver: self.broadcast_sender.subscribe(),
+            receiver: self.receiver.activate_cloned(),
         }
     }
 
@@ -83,10 +82,9 @@ impl InactivePluginHostChannel {
 /// An active channel can be used to both send messages to the plugin host and receive messages
 /// from it. It MUST receive messages or the queue will run full, resulting in plugin host messages
 /// no longer being delivered to any receivers.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct PluginHostChannel {
     sender: Sender<MessageToPluginHost>,
-    broadcast_sender: BroadcastSender<MessageFromPluginHost>,
     receiver: BroadcastReceiver<MessageFromPluginHost>,
 }
 
@@ -107,22 +105,12 @@ impl PluginHostChannel {
     pub fn deactivate_cloned(&self) -> InactivePluginHostChannel {
         InactivePluginHostChannel {
             sender: self.sender.clone(),
-            broadcast_sender: self.broadcast_sender.clone(),
+            receiver: self.receiver.clone().deactivate(),
         }
     }
 
     pub fn new_id(&self) -> u32 {
         static MAX_ID: AtomicU32 = AtomicU32::new(0);
         MAX_ID.fetch_add(1, Ordering::Relaxed)
-    }
-}
-
-impl Clone for PluginHostChannel {
-    fn clone(&self) -> Self {
-        Self {
-            sender: self.sender.clone(),
-            broadcast_sender: self.broadcast_sender.clone(),
-            receiver: self.receiver.resubscribe(),
-        }
     }
 }

@@ -135,14 +135,6 @@ impl<T> SenderExt<T> for async_channel::Sender<T> {
     }
 }
 
-impl<T> SenderExt<T> for tokio::sync::mpsc::Sender<T> {
-    fn toss(&self, message: T) {
-        if let Err(error) = self.try_send(message) {
-            eprintln!("Cannot send a message: {}", error);
-        }
-    }
-}
-
 pub trait WindowExt {
     fn set_cancel_widget(&self, cancel_widget: &impl IsA<gtk::Widget>);
 }

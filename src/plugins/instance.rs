@@ -632,7 +632,7 @@ mod test {
         assert_eq!(instance.errors.len(), 1);
     }
 
-    #[tokio::test]
+    #[async_std::test]
     async fn test_invalid_plugin_startup() {
         let (mut instance, _cleanup) = setup_plugin("#!/bin/sh");
         assert!(instance.is_enabled());
@@ -645,7 +645,7 @@ mod test {
         assert_eq!(instance.errors.len(), 1);
     }
 
-    #[tokio::test]
+    #[async_std::test]
     async fn test_nonjson_plugin_startup() {
         let (mut instance, _cleanup) = setup_plugin(
             r#"#!/bin/sh
@@ -663,7 +663,7 @@ mod test {
         assert_eq!(instance.errors.len(), 1);
     }
 
-    #[tokio::test]
+    #[async_std::test]
     async fn test_basic_plugin_startup() {
         let (mut instance, _cleanup) = setup_plugin(
             r#"#!/bin/sh
@@ -691,7 +691,7 @@ mod test {
         assert_eq!(instance.metadata.webpage(), None);
     }
 
-    #[tokio::test]
+    #[async_std::test]
     async fn test_extended_plugin_startup() {
         let (mut instance, _cleanup) = setup_plugin(
             r#"#!/bin/sh
@@ -736,7 +736,7 @@ mod test {
         );
     }
 
-    #[tokio::test]
+    #[async_std::test]
     async fn test_failing_plugin_startup() {
         let (mut instance, _cleanup) = setup_plugin(
             r#"#!/bin/sh
@@ -769,7 +769,7 @@ mod test {
         assert_eq!(instance.metadata.webpage(), None);
     }
 
-    #[tokio::test]
+    #[async_std::test]
     async fn test_invalid_registration() {
         let (mut instance, _cleanup) = setup_plugin(
             r#"#!/bin/sh
@@ -789,7 +789,7 @@ mod test {
         assert!(instance.apis.is_empty());
     }
 
-    #[tokio::test]
+    #[async_std::test]
     async fn test_late_registration() {
         let (mut instance, _cleanup) = setup_plugin(
             r#"#!/bin/sh

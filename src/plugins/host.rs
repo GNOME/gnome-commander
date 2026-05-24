@@ -7,6 +7,9 @@ use super::{
     PluginInstanceOutput,
 };
 use crate::options::PluginsOptions;
+use async_broadcast::Sender as BroadcastSender;
+use async_channel::Receiver;
+use futures::Stream;
 use std::{
     collections::BTreeMap,
     fs,
@@ -15,25 +18,24 @@ use std::{
     pin::Pin,
     task::{Context, Poll},
 };
-use tokio::sync::{broadcast, broadcast::Sender as BroadcastSender, mpsc, mpsc::Receiver};
 
 pub struct PluginHost {
     plugins: BTreeMap<String, PluginInstance>,
     sender: BroadcastSender<MessageFromPluginHost>,
-    receiver: Receiver<MessageToPluginHost>,
+    receiver: Pin<Box<Receiver<MessageToPluginHost>>>,
     pending_api_requests: BTreeMap<u32, usize>,
 }
 
 impl PluginHost {
     pub fn new(system_dir: &Path, user_dir: &Path) -> (Self, InactivePluginHostChannel) {
-        let (incoming_sender, incoming_receiver) = mpsc::channel(16);
-        let (outgoing_sender, _) = broadcast::channel(16);
+        let (incoming_sender, incoming_receiver) = async_channel::bounded(16);
+        let (outgoing_sender, outgoing_receiver) = async_broadcast::broadcast(16);
 
         let options = PluginsOptions::new();
         let mut host = Self {
             plugins: list_plugins(system_dir, user_dir, &options),
-            sender: outgoing_sender.clone(),
-            receiver: incoming_receiver,
+            sender: outgoing_sender,
+            receiver: Box::pin(incoming_receiver),
             pending_api_requests: BTreeMap::new(),
         };
         for instance in host.plugins.values_mut() {
@@ -53,7 +55,7 @@ impl PluginHost {
 
         (
             host,
-            InactivePluginHostChannel::new(incoming_sender, outgoing_sender),
+            InactivePluginHostChannel::new(incoming_sender, outgoing_receiver),
         )
     }
 
@@ -164,10 +166,10 @@ impl Future for PluginHost {
     type Output = ();
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
-        while let Poll::Ready(Some(message)) = self.receiver.poll_recv(cx) {
+        while let Poll::Ready(Some(message)) = Pin::new(&mut self.receiver).poll_next(cx) {
             if let Some(outgoing) = self.process_incoming(message) {
                 // An error here is expected when no receivers are active.
-                let _ = self.sender.send(outgoing);
+                let _ = self.sender.try_broadcast(outgoing);
             }
         }
 
@@ -194,13 +196,13 @@ impl Future for PluginHost {
                                 pending_api_requests,
                             );
                             for message in outgoing.into_iter() {
-                                let _ = sender.send(message);
+                                let _ = sender.try_broadcast(message);
                             }
                         }
                     }
 
                     // An error here is expected when no receivers are active.
-                    let _ = sender.send(message);
+                    let _ = sender.try_broadcast(message);
                 }
             }
         }
