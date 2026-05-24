@@ -364,4 +364,4 @@ class MultimediaMetadataPlugin(Plugin):
 
 
 if __name__ == '__main__':
-    MultimediaMetadataPlugin()
+    MultimediaMetadataPlugin().run_forever()

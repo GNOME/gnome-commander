@@ -154,4 +154,4 @@ def xmp_tags() -> Generator[tuple[str, str], None, None]:
 
 
 if __name__ == '__main__':
-    ImageMetadataPlugin()
+    ImageMetadataPlugin().run_forever()

@@ -382,4 +382,4 @@ def read_pdf_metadata(path: str) -> Generator[tuple[str, str], None, None]:
 
 
 if __name__ == '__main__':
-    DocumentMetadataPlugin()
+    DocumentMetadataPlugin().run_forever()

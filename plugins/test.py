@@ -140,4 +140,4 @@ class TestPlugin(Plugin):
 
 
 if __name__ == '__main__':
-    TestPlugin()
+    TestPlugin().run_forever()

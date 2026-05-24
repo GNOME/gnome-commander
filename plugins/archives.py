@@ -581,4 +581,4 @@ class ArchivesPlugin(Plugin):
 
 
 if __name__ == '__main__':
-    ArchivesPlugin()
+    ArchivesPlugin().run_forever()

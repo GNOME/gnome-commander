@@ -72,12 +72,13 @@ class Plugin:
                 'version': '1.0',
             })
 
+    def run_forever(self):
         if len(sys.argv) > 1:
             self.handle_command_line()
-
-        loop = asyncio.new_event_loop()
-        loop.add_reader(sys.stdin.buffer, self.handle_incoming, loop)
-        loop.run_forever()
+        else:
+            loop = asyncio.new_event_loop()
+            loop.add_reader(sys.stdin.buffer, self.handle_incoming, loop)
+            loop.run_forever()
 
     def handle_command_line(self) -> None:
         parser = argparse.ArgumentParser(
