@@ -7,7 +7,10 @@ use super::{
     PluginData, PluginMetadata,
     protocol::{MessageFromPlugin, MessageToPlugin},
 };
-use crate::options::PluginsOptions;
+use crate::{
+    config::{DATADIR, PACKAGE},
+    options::PluginsOptions,
+};
 use async_io::Timer;
 use async_process::{Child, ChildStdin, ChildStdout, Command, Stdio};
 use futures::{AsyncRead, AsyncWrite};
@@ -124,6 +127,8 @@ impl PluginInstance {
 
         match Command::new(&self.path)
             .env("PYTHONPATH", &self.system_dir)
+            .env("GETTEXT_DOMAIN", PACKAGE)
+            .env("GETTEXT_DIR", Path::new(DATADIR).join("locale"))
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .spawn()

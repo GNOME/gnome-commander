@@ -35,13 +35,13 @@ class Plugin:
         self._max_request_id = 0
         self._pending_api_requests: dict[int, tuple[str, asyncio.Future]] = {}
 
-        locale_dir = os.path.normpath(
-            os.path.join(os.path.dirname(__file__), '..',
-                         '..', '..', 'share', 'locale')
-        )
-        if os.path.exists(locale_dir):
-            gettext.bindtextdomain(self.GETTEXT_DOMAIN, locale_dir)
-        gettext.textdomain(self.GETTEXT_DOMAIN)
+        # Do not configure gettext if text domain isn't the default "messages"
+        if (gettext.textdomain() == 'messages' and
+                'GETTEXT_DOMAIN' in os.environ and 'GETTEXT_DIR' in os.environ):
+            gettext.bindtextdomain(
+                os.environ['GETTEXT_DOMAIN'], os.environ['GETTEXT_DIR']
+            )
+            gettext.textdomain(os.environ['GETTEXT_DOMAIN'])
 
         os.set_blocking(sys.stdin.buffer.fileno(), False)
 
@@ -206,7 +206,6 @@ class Plugin:
         return await self.send_api_request_with_response('show-dialog', spec)
 
     # Properties and methods that can be overwritten by subclasses
-    GETTEXT_DOMAIN: str = 'gnome-commander'
     PERSISTENT_SETTINGS: list[str] = []
     DIALOGS = False
 
