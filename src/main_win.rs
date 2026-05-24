@@ -1294,6 +1294,9 @@ impl MainWindow {
         } else {
             paned.width()
         };
+        if dimension == 0 {
+            return false;
+        }
         let new_dimension = dimension * percentage / 100;
 
         if paned.is_position_set() && paned.position() == new_dimension {
