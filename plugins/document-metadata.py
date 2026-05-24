@@ -372,7 +372,7 @@ def read_pdf_metadata(path: str) -> Generator[tuple[str, str], None, None]:
         metadata = reader.metadata
         if metadata:
             for key, mapping in PDF_METADATA.items():
-                value = getattr(metadata, key)
+                value = getattr(metadata, key, None)
                 if not value or (xmp_metadata and equals_xmp_value(value, getattr(xmp_metadata, mapping.replace(':', '_')))):
                     continue
                 yield mapping, str(value)
