@@ -5,3 +5,4 @@
 
 /target
 /src/config.rs
+/plugins/__pycache__
