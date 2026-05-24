@@ -229,18 +229,29 @@ fn list_plugins_in_dir(
 ) -> Result<(), Error> {
     for entry in fs::read_dir(dir)? {
         let entry = entry?;
-        if !entry
-            .metadata()
-            .is_ok_and(|metadata| metadata.is_file() && is_executable(&metadata))
-            || entry
+        let Ok(metadata) = entry.metadata() else {
+            continue;
+        };
+        if metadata.is_dir() {
+            let child = entry.path().join("main");
+            if child
+                .metadata()
+                .is_ok_and(|metadata| metadata.is_file() && is_executable(&metadata))
+            {
+                let instance = PluginInstance::new(child, entry.file_name(), system_dir, options);
+                plugins.insert(instance.file_name().to_string(), instance);
+            }
+        } else if metadata.is_file()
+            && is_executable(&metadata)
+            && !entry
                 .path()
                 .extension()
                 .is_some_and(|extension| extension == "so")
         {
-            continue;
+            let instance =
+                PluginInstance::new(entry.path(), entry.file_name(), system_dir, options);
+            plugins.insert(instance.file_name().to_string(), instance);
         }
-        let instance = PluginInstance::new(entry.path(), system_dir, options);
-        plugins.insert(instance.file_name().to_string(), instance);
     }
     Ok(())
 }

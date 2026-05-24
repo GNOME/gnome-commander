@@ -18,6 +18,7 @@ use gettextrs::gettext;
 use std::{
     borrow::Cow,
     collections::{BTreeMap, BTreeSet},
+    ffi::OsString,
     future::Future,
     io::{Error, ErrorKind},
     path::{Path, PathBuf},
@@ -41,6 +42,7 @@ pub enum PluginInstanceOutput {
 
 #[derive(Debug)]
 pub struct PluginInstance {
+    file_name: OsString,
     path: PathBuf,
     system_dir: PathBuf,
     metadata: PluginMetadata,
@@ -62,13 +64,19 @@ impl PluginInstance {
     const MAX_STARTUP_SECS: u64 = 10;
     const MAX_RESPONSE_SECS: u64 = 5;
 
-    pub fn new(path: PathBuf, system_dir: &Path, options: &PluginsOptions) -> Self {
+    pub fn new(
+        path: PathBuf,
+        file_name: OsString,
+        system_dir: &Path,
+        options: &PluginsOptions,
+    ) -> Self {
         let metadata = options
             .metadata
             .get()
-            .remove(Self::file_name_from_path(&path).as_ref())
+            .remove(file_name.to_string_lossy().as_ref())
             .unwrap_or_default();
         Self {
+            file_name,
             path,
             system_dir: system_dir.to_path_buf(),
             metadata,
@@ -86,12 +94,8 @@ impl PluginInstance {
         }
     }
 
-    fn file_name_from_path(path: &Path) -> Cow<'_, str> {
-        path.file_name().unwrap_or_default().to_string_lossy()
-    }
-
     pub fn file_name(&self) -> Cow<'_, str> {
-        Self::file_name_from_path(&self.path)
+        self.file_name.to_string_lossy()
     }
 
     /// Tests whether a plugin is enabled. Other than on application startup this also implies that
@@ -587,6 +591,7 @@ mod test {
 
         let mut instance = PluginInstance::new(
             path.to_path_buf(),
+            "plugin".into(),
             &PathBuf::from("."),
             &PluginsOptions::new(),
         );
@@ -610,7 +615,12 @@ mod test {
     #[test]
     fn test_missing_plugin_startup() {
         let path = tempfile::NamedTempFile::new().unwrap().path().to_path_buf();
-        let mut instance = PluginInstance::new(path, &PathBuf::from("."), &PluginsOptions::new());
+        let mut instance = PluginInstance::new(
+            path,
+            "plugin".into(),
+            &PathBuf::from("."),
+            &PluginsOptions::new(),
+        );
         instance.start();
         assert!(!instance.is_enabled());
         assert_eq!(instance.errors.len(), 1);
