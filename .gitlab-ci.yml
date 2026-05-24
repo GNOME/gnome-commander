@@ -47,7 +47,7 @@ build_and_test:
   script:
     - apt-get update
     - apt-get install -y $UBUNTU_DEPS xvfb
-    - pip install exiv2
+    - pip install exiv2 --break-system-packages
     - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     - rustup install stable
     - mkdir ${MESON_BUILD_DIR}
