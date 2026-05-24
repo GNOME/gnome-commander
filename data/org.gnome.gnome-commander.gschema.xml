@@ -1019,6 +1019,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           The height of the internal file viewer window.
       </description>
     </key>
+    <key name="window-state" type="u">
+      <default>0</default>
+      <summary>Window state</summary>
+      <description>
+          The number represents the internal file viewer window state, e.g. “maximized”, “fullscreen”, etc. and is calculated internally.
+      </description>
+    </key>
     <key name="search-pattern-text" type="as">
       <default>[]</default>
       <summary>Search pattern for text</summary>
