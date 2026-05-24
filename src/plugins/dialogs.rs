@@ -43,6 +43,7 @@ impl GenericDialog {
         let dialog = gtk::Window::builder()
             .title(title)
             .modal(spec.modal)
+            .default_width(spec.width)
             .build();
         dialog.add_css_class("dialog");
 
@@ -121,6 +122,8 @@ impl GenericDialog {
             WidgetSpec::Text { label } => gtk::Label::builder()
                 .label(label)
                 .halign(gtk::Align::Start)
+                .wrap(true)
+                .wrap_mode(gtk::pango::WrapMode::WordChar)
                 .build()
                 .upcast(),
             WidgetSpec::Input {
@@ -150,6 +153,8 @@ impl GenericDialog {
                     .mnemonic_widget(&text)
                     .use_underline(true)
                     .halign(gtk::Align::Start)
+                    .wrap(true)
+                    .wrap_mode(gtk::pango::WrapMode::WordChar)
                     .build();
                 container.append(&label);
                 container.append(&text);

@@ -274,6 +274,7 @@ The plugin sends this request to have a dialog shown to the user. The request da
 
 * `title` (string): The dialog title
 * `modal` (boolean, optional): Whether the dialog should be modal (default is `false`)
+* `width` (integer, optional): Set the default width for the dialog (default is 600)
 * `child` (WidgetSpec object): The widget to be displayed insider the dialog
 * `buttons` (array of objects): The dialog buttons as objects with the following properties:
   * `id` (string): The button identifier to be used in the response

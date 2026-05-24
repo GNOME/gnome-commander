@@ -176,11 +176,17 @@ pub enum ApiResponseFromHost {
     ShowDialog(String, BTreeMap<String, DialogWidgetValue>),
 }
 
+fn default_dialog_width() -> i32 {
+    600
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct DialogSpec {
     pub title: String,
     #[serde(default)]
     pub modal: bool,
+    #[serde(default = "default_dialog_width")]
+    pub width: i32,
     pub child: WidgetSpec,
     pub buttons: Vec<ButtonSpec>,
 }
