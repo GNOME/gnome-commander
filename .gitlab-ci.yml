@@ -24,6 +24,7 @@ variables:
     gobject-introspection
     libgtk-4-dev
     libvte-2.91-gtk4-dev
+    python3-pip
     7zip
     python3-pypdf
     python3-mutagen
