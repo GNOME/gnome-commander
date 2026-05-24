@@ -179,7 +179,12 @@ fn value_factory() -> gtk::ListItemFactory {
         let Some(item) = item.downcast_ref::<gtk::ListItem>() else {
             return;
         };
-        item.set_child(Some(&gtk::Label::builder().xalign(0.0).build()));
+        item.set_child(Some(
+            &gtk::Label::builder()
+                .xalign(0.0)
+                .ellipsize(gtk::pango::EllipsizeMode::Middle)
+                .build(),
+        ));
     });
     factory.connect_bind(|_, item| {
         let Some(item) = item.downcast_ref::<gtk::ListItem>() else {
@@ -196,6 +201,7 @@ fn value_factory() -> gtk::ListItemFactory {
             return;
         };
         label.set_text(&node.value);
+        label.set_tooltip_text(Some(&node.value));
     });
     factory.upcast()
 }
