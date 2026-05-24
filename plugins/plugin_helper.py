@@ -180,7 +180,7 @@ class Plugin:
 
                 self._initialized = True
 
-                task = loop.create_task(self.startup(), eager_start=True)
+                task = loop.create_task(self.startup())
                 self._tasks.add(task)
                 task.add_done_callback(self._tasks.discard)
             elif type == 'api-request':
