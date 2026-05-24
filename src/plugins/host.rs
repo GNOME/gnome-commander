@@ -241,13 +241,7 @@ fn list_plugins_in_dir(
                 let instance = PluginInstance::new(child, entry.file_name(), system_dir, options);
                 plugins.insert(instance.file_name().to_string(), instance);
             }
-        } else if metadata.is_file()
-            && is_executable(&metadata)
-            && !entry
-                .path()
-                .extension()
-                .is_some_and(|extension| extension == "so")
-        {
+        } else if metadata.is_file() && is_executable(&metadata) {
             let instance =
                 PluginInstance::new(entry.path(), entry.file_name(), system_dir, options);
             plugins.insert(instance.file_name().to_string(), instance);
