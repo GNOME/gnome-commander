@@ -113,6 +113,7 @@ impl PluginHost {
                     Some(MessageFromPluginHost::ApiResponse {
                         id,
                         plugin_name: String::new(),
+                        plugin_display_name: String::new(),
                         response: None,
                         last: true,
                     })
@@ -148,6 +149,7 @@ impl PluginHost {
                 result.push(MessageFromPluginHost::ApiResponse {
                     id,
                     plugin_name: instance.file_name().to_string(),
+                    plugin_display_name: instance.name(),
                     response,
                     last: count == 0,
                 });

@@ -98,6 +98,12 @@ impl PluginInstance {
         self.file_name.to_string_lossy()
     }
 
+    pub fn name(&self) -> String {
+        self.metadata
+            .name()
+            .unwrap_or_else(|| self.file_name().to_string())
+    }
+
     /// Tests whether a plugin is enabled. Other than on application startup this also implies that
     /// the plugin is running.
     pub fn is_enabled(&self) -> bool {

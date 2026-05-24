@@ -33,12 +33,7 @@ impl GenericDialog {
             title.truncate(50);
             title += "…";
         }
-        title = title
-            + " | "
-            + &instance
-                .metadata()
-                .name()
-                .unwrap_or_else(|| instance.file_name().to_string());
+        title = title + " | " + &instance.name();
 
         let dialog = gtk::Window::builder()
             .title(title)

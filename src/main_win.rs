@@ -1556,28 +1556,43 @@ async fn plugins_menu(channel: &mut PluginHostChannel, menu: &gio::Menu) {
         request: ApiRequestToPlugin::MainMenuItems,
     });
 
+    let mut received = Vec::new();
     loop {
         if let MessageFromPluginHost::ApiResponse {
             id: resp_id,
             plugin_name,
+            plugin_display_name,
             response,
             last,
         } = channel.receive().await
             && resp_id == id
         {
             if let Some(ApiResponseFromPlugin::MainMenuItems(items)) = response {
-                for item in items {
-                    let menuitem = gio::MenuItem::new(Some(&item.label), None);
-                    menuitem.set_action_and_target_value(
-                        Some(UserAction::PluginAction.name()),
-                        Some(&(&plugin_name, &item.action, &item.parameter).to_variant()),
-                    );
-                    menu.append_item(&menuitem);
-                }
+                received.extend(
+                    items
+                        .into_iter()
+                        .map(|item| (plugin_name.clone(), plugin_display_name.clone(), item)),
+                );
             }
             if last {
                 break;
             }
         }
+    }
+
+    received.sort_by_cached_key(|(plugin_name, _, _)| plugin_name.clone());
+
+    for (plugin_name, plugin_display_name, item) in received {
+        let label = if plugin_display_name.is_empty() {
+            item.label
+        } else {
+            format!("{} | {plugin_display_name}", item.label)
+        };
+        let menuitem = gio::MenuItem::new(Some(&label), None);
+        menuitem.set_action_and_target_value(
+            Some(UserAction::PluginAction.name()),
+            Some(&(&plugin_name, &item.action, &item.parameter).to_variant()),
+        );
+        menu.append_item(&menuitem);
     }
 }

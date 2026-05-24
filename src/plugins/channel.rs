@@ -33,6 +33,7 @@ pub enum MessageFromPluginHost {
     ApiResponse {
         id: u32,
         plugin_name: String,
+        plugin_display_name: String,
         response: Option<ApiResponseFromPlugin>,
         last: bool,
     },

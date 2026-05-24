@@ -79,9 +79,9 @@ impl FileMetadataExtractor for PluginMetadataExtractor {
         loop {
             if let MessageFromPluginHost::ApiResponse {
                 id: resp_id,
-                plugin_name: _,
                 response,
                 last,
+                ..
             } = channel.receive().await
                 && resp_id == id
             {
@@ -134,9 +134,9 @@ impl FileMetadataExtractor for PluginMetadataExtractor {
         loop {
             if let MessageFromPluginHost::ApiResponse {
                 id: resp_id,
-                plugin_name: _,
                 response,
                 last,
+                ..
             } = channel.receive().await
                 && resp_id == id
             {
