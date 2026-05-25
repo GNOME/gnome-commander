@@ -113,8 +113,7 @@ impl FileMetadataService {
                     submenu
                 });
 
-                // TODO: Large lists cannot be handled, cut off at 256 items
-                for tag in &tags[..std::cmp::min(tags.len(), 256)] {
+                for tag in tags {
                     let item = gio::MenuItem::new(Some(&tag.name()), None);
                     item.set_action_and_target_value(
                         Some(action_name),
