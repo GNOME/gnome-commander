@@ -1681,7 +1681,7 @@ user_actions! {
 
     FileCreateSymlink in Panel => (
         "file-create-symlink" | "file.create_symlink",
-        gettext("Create _Symbolic Link"),
+        gettext("Create Symbolic _Link"),
         file_create_symlink,
     ),
 
