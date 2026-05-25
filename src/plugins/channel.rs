@@ -8,7 +8,7 @@ use async_broadcast::{
 };
 use async_channel::Sender;
 use std::{
-    collections::BTreeMap,
+    collections::HashMap,
     sync::atomic::{AtomicU32, Ordering},
 };
 
@@ -28,7 +28,7 @@ pub enum MessageToPluginHost {
 
 #[derive(Debug, Clone)]
 pub enum MessageFromPluginHost {
-    Plugins(BTreeMap<String, PluginData>),
+    Plugins(HashMap<String, PluginData>),
     PluginUpdated(String, PluginData),
     ApiResponse {
         id: u32,

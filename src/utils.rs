@@ -802,7 +802,7 @@ macro_rules! u32_enum {
     ($(#[$type_meta:meta])* $vis:vis enum $type:ident {
         $($(#[$meta:meta])* $variant:ident,)+
     }) => {
-        #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Default)]
+        #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
         #[derive(::gtk::glib::ValueDelegate, ::gtk::glib::Variant)]
         #[value_delegate(from = u32)]
         #[variant_enum(repr)]

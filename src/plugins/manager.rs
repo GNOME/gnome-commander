@@ -13,7 +13,7 @@ use gettextrs::gettext;
 use gtk::prelude::*;
 use std::{
     borrow::Cow,
-    collections::{BTreeMap, BTreeSet},
+    collections::{HashMap, HashSet},
 };
 
 pub async fn show_plugin_manager(mut channel: PluginHostChannel, parent: &MainWindow) {
@@ -41,7 +41,7 @@ pub async fn show_plugin_manager(mut channel: PluginHostChannel, parent: &MainWi
     let list = gtk::ListBox::builder()
         .selection_mode(gtk::SelectionMode::None)
         .build();
-    let mut items: BTreeMap<String, gtk::ListBoxRow> = BTreeMap::new();
+    let mut items: HashMap<String, gtk::ListBoxRow> = HashMap::new();
 
     let scrolled_window = gtk::ScrolledWindow::builder()
         .child(&list)
@@ -92,11 +92,11 @@ pub async fn show_plugin_manager(mut channel: PluginHostChannel, parent: &MainWi
 
 fn update_list(
     list: &gtk::ListBox,
-    items: &mut BTreeMap<String, gtk::ListBoxRow>,
-    plugins: BTreeMap<String, PluginData>,
+    items: &mut HashMap<String, gtk::ListBoxRow>,
+    plugins: HashMap<String, PluginData>,
     channel: &PluginHostChannel,
 ) {
-    let mut removed: BTreeSet<_> = items.keys().map(|name| name.to_owned()).collect();
+    let mut removed: HashSet<_> = items.keys().map(|name| name.to_owned()).collect();
     for (name, data) in plugins.into_iter() {
         let row = if let Some(row) = items.get(&name) {
             Cow::Borrowed(row)

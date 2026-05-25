@@ -11,7 +11,7 @@ use async_broadcast::Sender as BroadcastSender;
 use async_channel::Receiver;
 use futures::Stream;
 use std::{
-    collections::BTreeMap,
+    collections::HashMap,
     fs,
     io::Error,
     path::Path,
@@ -20,10 +20,10 @@ use std::{
 };
 
 pub struct PluginHost {
-    plugins: BTreeMap<String, PluginInstance>,
+    plugins: HashMap<String, PluginInstance>,
     sender: BroadcastSender<MessageFromPluginHost>,
     receiver: Pin<Box<Receiver<MessageToPluginHost>>>,
-    pending_api_requests: BTreeMap<u32, usize>,
+    pending_api_requests: HashMap<u32, usize>,
 }
 
 impl PluginHost {
@@ -36,7 +36,7 @@ impl PluginHost {
             plugins: list_plugins(system_dir, user_dir, &options),
             sender: outgoing_sender,
             receiver: Box::pin(incoming_receiver),
-            pending_api_requests: BTreeMap::new(),
+            pending_api_requests: HashMap::new(),
         };
         for instance in host.plugins.values_mut() {
             if instance.is_enabled() {
@@ -127,7 +127,7 @@ impl PluginHost {
     fn process_instance_message(
         message: PluginInstanceOutput,
         instance: &PluginInstance,
-        pending_api_requests: &mut BTreeMap<u32, usize>,
+        pending_api_requests: &mut HashMap<u32, usize>,
     ) -> Vec<MessageFromPluginHost> {
         let mut result = Vec::new();
 
@@ -221,8 +221,8 @@ fn list_plugins(
     system_dir: &Path,
     user_dir: &Path,
     options: &PluginsOptions,
-) -> BTreeMap<String, PluginInstance> {
-    let mut plugins = BTreeMap::new();
+) -> HashMap<String, PluginInstance> {
+    let mut plugins = HashMap::new();
     for dir in [system_dir, user_dir] {
         if let Err(error) = list_plugins_in_dir(dir, system_dir, options, &mut plugins) {
             eprintln!(
@@ -239,7 +239,7 @@ fn list_plugins_in_dir(
     dir: &Path,
     system_dir: &Path,
     options: &PluginsOptions,
-    plugins: &mut BTreeMap<String, PluginInstance>,
+    plugins: &mut HashMap<String, PluginInstance>,
 ) -> Result<(), Error> {
     for entry in fs::read_dir(dir)? {
         let entry = entry?;

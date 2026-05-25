@@ -17,7 +17,7 @@ use futures::{AsyncRead, AsyncWrite};
 use gettextrs::gettext;
 use std::{
     borrow::Cow,
-    collections::{BTreeMap, BTreeSet},
+    collections::{HashMap, HashSet},
     ffi::OsString,
     future::Future,
     io::{Error, ErrorKind},
@@ -54,9 +54,9 @@ pub struct PluginInstance {
     outgoing_offset: usize,
     outgoing_waker: Option<Waker>,
     startup_timeout: Option<Timer>,
-    apis: BTreeSet<Apis>,
-    pending_api_requests: BTreeMap<u32, (ApiCall, Timer)>,
-    dialogs: BTreeMap<u32, GenericDialog>,
+    apis: HashSet<Apis>,
+    pending_api_requests: HashMap<u32, (ApiCall, Timer)>,
+    dialogs: HashMap<u32, GenericDialog>,
 }
 
 impl PluginInstance {
@@ -88,9 +88,9 @@ impl PluginInstance {
             outgoing_offset: 0,
             outgoing_waker: None,
             startup_timeout: None,
-            apis: BTreeSet::new(),
-            pending_api_requests: BTreeMap::new(),
-            dialogs: BTreeMap::new(),
+            apis: HashSet::new(),
+            pending_api_requests: HashMap::new(),
+            dialogs: HashMap::new(),
         }
     }
 

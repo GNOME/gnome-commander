@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use glib::prelude::*;
-use std::{borrow::Cow, collections::BTreeMap};
+use std::{borrow::Cow, collections::HashMap};
 
 #[derive(Debug, Default, Clone)]
 pub struct PluginMetadata {
@@ -19,7 +19,7 @@ pub struct PluginMetadata {
     pub was_empty: bool,
 }
 
-type VariantType = BTreeMap<String, glib::Variant>;
+type VariantType = HashMap<String, glib::Variant>;
 
 impl ToVariant for PluginMetadata {
     fn to_variant(&self) -> glib::Variant {

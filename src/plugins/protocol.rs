@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use std::collections::BTreeMap;
+use std::collections::HashMap;
 
 #[derive(Debug, serde::Deserialize)]
 #[serde(
@@ -173,7 +173,7 @@ pub enum ApiRequestToHost {
 #[serde(rename_all = "kebab-case")]
 pub enum ApiResponseFromHost {
     GetSetting(serde_json::Value),
-    ShowDialog(String, BTreeMap<String, DialogWidgetValue>),
+    ShowDialog(String, HashMap<String, DialogWidgetValue>),
 }
 
 fn default_dialog_width() -> i32 {

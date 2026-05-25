@@ -12,7 +12,7 @@ use futures::Stream;
 use gettextrs::gettext;
 use gtk::prelude::*;
 use std::{
-    collections::BTreeMap,
+    collections::HashMap,
     io::Error,
     pin::Pin,
     task::{Context, Poll},
@@ -209,7 +209,7 @@ impl Future for GenericDialog {
         if let Poll::Ready(Some(button)) = Pin::new(&mut self.receiver).poll_next(cx) {
             self.dialog.close();
 
-            let mut inputs = BTreeMap::new();
+            let mut inputs = HashMap::new();
             for (id, widget) in &self.inputs {
                 if let Some(input) = widget.downcast_ref::<gtk::Entry>() {
                     inputs.insert(
