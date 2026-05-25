@@ -77,16 +77,14 @@ impl ColorTheme {
     fn create_css(&self) -> String {
         format!(
             r#"
-                .gnome-cmd-file-list {{
-                    --color-norm-bg: {norm_bg};
-                    --color-norm-fg: {norm_fg};
-                    --color-alt-bg: {alt_bg};
-                    --color-alt-fg: {alt_fg};
-                    --color-sel-bg: {sel_bg};
-                    --color-sel-fg: {sel_fg};
-                    --color-curs-bg: {curs_bg};
-                    --color-curs-fg: {curs_fg};
-                }}
+                @define-color color-norm-bg {norm_bg};
+                @define-color color-norm-fg {norm_fg};
+                @define-color color-alt-bg {alt_bg};
+                @define-color color-alt-fg {alt_fg};
+                @define-color color-sel-bg {sel_bg};
+                @define-color color-sel-fg {sel_fg};
+                @define-color color-curs-bg {curs_bg};
+                @define-color color-curs-fg {curs_fg};
             "#,
             norm_bg = self.norm_bg,
             norm_fg = self.norm_fg,
