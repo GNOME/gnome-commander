@@ -1919,7 +1919,7 @@ user_actions! {
 
     ViewMaximizePane in Panel => (
         "view-maximize-pane" | "view.maximize_pane",
-        gettext("Maximize Panel Size"),
+        gettext("_Maximize Panel Size"),
         view_maximize_pane,
     ),
 
@@ -2021,7 +2021,7 @@ user_actions! {
 
     ViewHorizontalOrientation in Panel => (
         "view-horizontal-orientation" | "view.horizontal-orientation",
-        gettext("Horizontal Orientation"),
+        gettext("_Horizontal Orientation"),
         "horizontal-orientation",
     ),
 
