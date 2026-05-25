@@ -34,12 +34,12 @@ async fn wait_for_initialization(channel: &mut PluginHostChannel, plugin: &str) 
             let mut done = false;
             for (name, data) in plugins.into_iter() {
                 if &name == plugin {
-                    if !data.metadata.enabled() {
+                    if !data.metadata.enabled {
                         channel.send(MessageToPluginHost::StartPlugin(name));
                     } else if !data.initializing {
                         done = true;
                     }
-                } else if data.metadata.enabled() {
+                } else if data.metadata.enabled {
                     channel.send(MessageToPluginHost::StopPlugin(name));
                 }
             }

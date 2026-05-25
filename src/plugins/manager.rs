@@ -161,7 +161,7 @@ fn setup_row(name: &str, row: &gtk::ListBoxRow, data: PluginData, channel: &Plug
         .hexpand(true)
         .valign(gtk::Align::Center)
         .build();
-    if let Some(name) = data.metadata.name() {
+    if let Some(name) = &data.metadata.name {
         description.append(
             &gtk::Label::builder()
                 .label(name)
@@ -170,10 +170,10 @@ fn setup_row(name: &str, row: &gtk::ListBoxRow, data: PluginData, channel: &Plug
                 .build(),
         );
     }
-    if let Some(version) = data.metadata.version() {
+    if let Some(version) = &data.metadata.version {
         description.append(
             &gtk::Label::builder()
-                .label(gettext("Version: {}").replace("{}", &version))
+                .label(gettext("Version: {}").replace("{}", version))
                 .halign(gtk::Align::Start)
                 .build(),
         );
@@ -204,12 +204,12 @@ fn setup_row(name: &str, row: &gtk::ListBoxRow, data: PluginData, channel: &Plug
             hbox.append(&button);
         }
 
-        if data.metadata.copyright().is_some()
-            || data.metadata.comments().is_some()
-            || !data.metadata.authors().is_empty()
-            || !data.metadata.documenters().is_empty()
-            || !data.metadata.translators().is_empty()
-            || data.metadata.webpage().is_some()
+        if data.metadata.copyright.is_some()
+            || data.metadata.comments.is_some()
+            || !data.metadata.authors.is_empty()
+            || !data.metadata.documenters.is_empty()
+            || !data.metadata.translators.is_empty()
+            || data.metadata.webpage.is_some()
         {
             let metadata = data.metadata.clone();
             let button = gtk::Button::builder()
@@ -227,7 +227,7 @@ fn setup_row(name: &str, row: &gtk::ListBoxRow, data: PluginData, channel: &Plug
         }
 
         let switch = gtk::Switch::builder()
-            .active(data.metadata.enabled())
+            .active(data.metadata.enabled)
             .valign(gtk::Align::Center)
             .build();
         {

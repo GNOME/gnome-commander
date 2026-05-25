@@ -100,17 +100,18 @@ impl PluginInstance {
 
     pub fn name(&self) -> String {
         self.metadata
-            .name()
+            .name
+            .clone()
             .unwrap_or_else(|| self.file_name().to_string())
     }
 
     /// Tests whether a plugin is enabled. Other than on application startup this also implies that
     /// the plugin is running.
     pub fn is_enabled(&self) -> bool {
-        self.metadata.enabled()
+        self.metadata.enabled
             || (
                 // Plugins in system dir are enabled by default
-                self.metadata.is_empty()
+                self.metadata.was_empty
                     && self
                         .path
                         .ancestors()
@@ -157,7 +158,7 @@ impl PluginInstance {
                 self.startup_timeout =
                     Some(Timer::after(Duration::from_secs(Self::MAX_STARTUP_SECS)));
                 self.incoming_size = 0;
-                self.metadata.set_enabled(true);
+                self.metadata.enabled = true;
                 self.save_metadata();
 
                 self.send_message(MessageToPlugin::Apis(
@@ -166,7 +167,7 @@ impl PluginInstance {
             }
             Err(error) => {
                 self.errors.push(error);
-                self.metadata.set_enabled(false);
+                self.metadata.enabled = false;
                 self.save_metadata();
             }
         }
@@ -191,7 +192,7 @@ impl PluginInstance {
         self.outgoing_offset = 0;
         self.outgoing_waker = None;
         self.apis.clear();
-        self.metadata.set_enabled(false);
+        self.metadata.enabled = false;
         self.dialogs.retain(|_, dialog| {
             dialog.cancel();
             false
@@ -272,14 +273,14 @@ impl PluginInstance {
 
         match message {
             MessageFromPlugin::Info(data) => {
-                self.metadata.set_name(Some(&data.name));
-                self.metadata.set_version(Some(&data.version));
-                self.metadata.set_copyright(data.copyright.as_deref());
-                self.metadata.set_comments(data.comments.as_deref());
-                self.metadata.set_authors(&data.authors);
-                self.metadata.set_documenters(&data.documenters);
-                self.metadata.set_translators(&data.translators);
-                self.metadata.set_webpage(data.webpage.as_deref());
+                self.metadata.name = Some(data.name);
+                self.metadata.version = Some(data.version);
+                self.metadata.copyright = data.copyright;
+                self.metadata.comments = data.comments;
+                self.metadata.authors = data.authors;
+                self.metadata.documenters = data.documenters;
+                self.metadata.translators = data.translators;
+                self.metadata.webpage = data.webpage;
                 self.save_metadata();
                 UPDATED
             }
@@ -681,14 +682,14 @@ mod test {
         assert!(instance.is_enabled());
         assert!(instance.is_initialized());
         assert_eq!(instance.errors.len(), 0);
-        assert_eq!(instance.metadata.name(), Some("Basic plugin".to_owned()));
-        assert_eq!(instance.metadata.version(), Some("0.5".to_owned()));
-        assert_eq!(instance.metadata.copyright(), None);
-        assert_eq!(instance.metadata.comments(), None);
-        assert_eq!(instance.metadata.authors(), Vec::<String>::new());
-        assert_eq!(instance.metadata.documenters(), Vec::<String>::new());
-        assert_eq!(instance.metadata.translators(), Vec::<String>::new());
-        assert_eq!(instance.metadata.webpage(), None);
+        assert_eq!(instance.metadata.name, Some("Basic plugin".to_owned()));
+        assert_eq!(instance.metadata.version, Some("0.5".to_owned()));
+        assert_eq!(instance.metadata.copyright, None);
+        assert_eq!(instance.metadata.comments, None);
+        assert_eq!(instance.metadata.authors, Vec::<String>::new());
+        assert_eq!(instance.metadata.documenters, Vec::<String>::new());
+        assert_eq!(instance.metadata.translators, Vec::<String>::new());
+        assert_eq!(instance.metadata.webpage, None);
     }
 
     #[async_std::test]
@@ -710,24 +711,24 @@ mod test {
         assert!(instance.is_enabled());
         assert!(instance.is_initialized());
         assert_eq!(instance.errors.len(), 0);
-        assert_eq!(instance.metadata.name(), Some("Extended plugin".to_owned()));
-        assert_eq!(instance.metadata.version(), Some("1.1".to_owned()));
+        assert_eq!(instance.metadata.name, Some("Extended plugin".to_owned()));
+        assert_eq!(instance.metadata.version, Some("1.1".to_owned()));
         assert_eq!(
-            instance.metadata.copyright(),
+            instance.metadata.copyright,
             Some("Copyright 2026".to_owned())
         );
         assert_eq!(
-            instance.metadata.comments(),
+            instance.metadata.comments,
             Some("This is super cool".to_owned())
         );
         assert_eq!(
-            instance.metadata.authors(),
+            instance.metadata.authors,
             vec!["Bob".to_owned(), "Jane".to_owned()]
         );
-        assert_eq!(instance.metadata.documenters(), vec!["Frank".to_owned()]);
-        assert_eq!(instance.metadata.translators(), vec![String::new()]);
+        assert_eq!(instance.metadata.documenters, vec!["Frank".to_owned()]);
+        assert_eq!(instance.metadata.translators, vec![String::new()]);
         assert_eq!(
-            instance.metadata.webpage(),
+            instance.metadata.webpage,
             Some("https://example.com/".to_owned())
         );
         assert_eq!(
@@ -756,17 +757,17 @@ mod test {
 
         assert!(!instance.is_enabled());
         assert_eq!(instance.errors.len(), 3);
-        assert_eq!(instance.metadata.name(), Some("Failing plugin".to_owned()));
-        assert_eq!(instance.metadata.version(), Some("3.5".to_owned()));
-        assert_eq!(instance.metadata.copyright(), None);
+        assert_eq!(instance.metadata.name, Some("Failing plugin".to_owned()));
+        assert_eq!(instance.metadata.version, Some("3.5".to_owned()));
+        assert_eq!(instance.metadata.copyright, None);
         assert_eq!(
-            instance.metadata.comments(),
+            instance.metadata.comments,
             Some("Failing reliably since 2026".to_owned())
         );
-        assert_eq!(instance.metadata.authors(), Vec::<String>::new());
-        assert_eq!(instance.metadata.documenters(), Vec::<String>::new());
-        assert_eq!(instance.metadata.translators(), Vec::<String>::new());
-        assert_eq!(instance.metadata.webpage(), None);
+        assert_eq!(instance.metadata.authors, Vec::<String>::new());
+        assert_eq!(instance.metadata.documenters, Vec::<String>::new());
+        assert_eq!(instance.metadata.translators, Vec::<String>::new());
+        assert_eq!(instance.metadata.webpage, None);
     }
 
     #[async_std::test]

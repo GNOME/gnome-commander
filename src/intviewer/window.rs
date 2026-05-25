@@ -311,7 +311,12 @@ mod imp {
 
             let options = ViewerOptions::new();
 
-            remember_window_state(&*window, &options.window_width, &options.window_height, &options.window_state);
+            remember_window_state(
+                &*window,
+                &options.window_width,
+                &options.window_height,
+                &options.window_state,
+            );
 
             options.tab_size.bind(&self.text_render, "tab-size").build();
 

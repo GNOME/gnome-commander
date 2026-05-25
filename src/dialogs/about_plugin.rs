@@ -13,7 +13,7 @@ use gtk::{glib, pango, prelude::*};
 
 pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginMetadata) -> gtk::Window {
     let dialog = gtk::Window::builder()
-        .title(gettext("About %s").replace("%s", info.name().as_deref().unwrap_or_default()))
+        .title(gettext("About %s").replace("%s", info.name.as_deref().unwrap_or_default()))
         .transient_for(parent)
         .resizable(false)
         .default_width(600)
@@ -32,8 +32,8 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginMetadata) -> gtk::
             .label(
                 format!(
                     "{} {}",
-                    info.name().as_deref().unwrap_or_default(),
-                    info.version().as_deref().unwrap_or_default(),
+                    info.name.as_deref().unwrap_or_default(),
+                    info.version.as_deref().unwrap_or_default(),
                 )
                 .trim(),
             )
@@ -46,7 +46,7 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginMetadata) -> gtk::
             .build(),
     );
 
-    if let Some(comments) = info.comments() {
+    if let Some(comments) = &info.comments {
         content_area.append(
             &gtk::Label::builder()
                 .selectable(true)
@@ -59,7 +59,7 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginMetadata) -> gtk::
         );
     }
 
-    if let Some(copyright) = info.copyright() {
+    if let Some(copyright) = &info.copyright {
         content_area.append(
             &gtk::Label::builder()
                 .selectable(true)
@@ -76,7 +76,7 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginMetadata) -> gtk::
         );
     }
 
-    if let Some(webpage) = info.webpage() {
+    if let Some(webpage) = &info.webpage {
         content_area.append(
             &gtk::LinkButton::builder()
                 .label(pgettext(I18N_CONTEXT_SINGULAR, "Plugin Webpage"))
@@ -85,25 +85,22 @@ pub fn about_plugin_dialog(parent: &gtk::Window, info: &PluginMetadata) -> gtk::
         );
     }
 
-    let authors = info.authors();
-    let documenters = info.documenters();
-    let translators = info.translators();
-    if !authors.is_empty() || !documenters.is_empty() || !translators.is_empty() {
+    if !info.authors.is_empty() || !info.documenters.is_empty() || !info.translators.is_empty() {
         let vbox = gtk::Box::builder()
             .orientation(gtk::Orientation::Vertical)
             .css_classes(["spacing"])
             .build();
 
-        if !authors.is_empty() {
-            vbox.append(&section(&gettext("Written by"), &authors));
+        if !info.authors.is_empty() {
+            vbox.append(&section(&gettext("Written by"), &info.authors));
         }
 
-        if !documenters.is_empty() {
-            vbox.append(&section(&gettext("Documented by"), &documenters));
+        if !info.documenters.is_empty() {
+            vbox.append(&section(&gettext("Documented by"), &info.documenters));
         }
 
-        if !translators.is_empty() {
-            vbox.append(&section(&gettext("Translated by"), &translators));
+        if !info.translators.is_empty() {
+            vbox.append(&section(&gettext("Translated by"), &info.translators));
         }
 
         content_area.append(

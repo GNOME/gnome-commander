@@ -6,23 +6,86 @@ use glib::prelude::*;
 use std::{borrow::Cow, collections::BTreeMap};
 
 #[derive(Debug, Default, Clone)]
-pub struct PluginMetadata(BTreeMap<String, glib::Variant>);
+pub struct PluginMetadata {
+    pub name: Option<String>,
+    pub version: Option<String>,
+    pub copyright: Option<String>,
+    pub comments: Option<String>,
+    pub authors: Vec<String>,
+    pub documenters: Vec<String>,
+    pub translators: Vec<String>,
+    pub webpage: Option<String>,
+    pub enabled: bool,
+    pub was_empty: bool,
+}
+
+type VariantType = BTreeMap<String, glib::Variant>;
 
 impl ToVariant for PluginMetadata {
     fn to_variant(&self) -> glib::Variant {
-        self.0.to_variant()
+        let mut map = VariantType::new();
+        for (name, value) in [
+            (Self::SETTING_NAME, self.name.as_ref()),
+            (Self::SETTING_VERSION, self.version.as_ref()),
+            (Self::SETTING_COPYRIGHT, self.copyright.as_ref()),
+            (Self::SETTING_COMMENTS, self.comments.as_ref()),
+            (Self::SETTING_WEBPAGE, self.webpage.as_ref()),
+        ] {
+            if let Some(value) = value {
+                map.insert(name.to_owned(), value.to_variant());
+            }
+        }
+
+        for (name, value) in [
+            (Self::SETTING_AUTHORS, &self.authors),
+            (Self::SETTING_DOCUMENTERS, &self.documenters),
+            (Self::SETTING_TRANSLATORS, &self.translators),
+        ] {
+            map.insert(name.to_owned(), value.to_variant());
+        }
+
+        map.insert(Self::SETTING_ENABLED.to_owned(), self.enabled.to_variant());
+
+        map.to_variant()
     }
 }
 
 impl FromVariant for PluginMetadata {
     fn from_variant(variant: &glib::Variant) -> Option<Self> {
-        BTreeMap::from_variant(variant).map(Self)
+        let map = VariantType::from_variant(variant)?;
+        let mut result = Self {
+            was_empty: map.is_empty(),
+            ..Default::default()
+        };
+        for (key, value) in map.into_iter() {
+            match key.as_str() {
+                Self::SETTING_NAME => result.name = String::from_variant(&value),
+                Self::SETTING_VERSION => result.version = String::from_variant(&value),
+                Self::SETTING_COPYRIGHT => result.copyright = String::from_variant(&value),
+                Self::SETTING_COMMENTS => result.comments = String::from_variant(&value),
+                Self::SETTING_AUTHORS => {
+                    result.authors = Vec::<String>::from_variant(&value).unwrap_or_default()
+                }
+                Self::SETTING_DOCUMENTERS => {
+                    result.documenters = Vec::<String>::from_variant(&value).unwrap_or_default()
+                }
+                Self::SETTING_TRANSLATORS => {
+                    result.translators = Vec::<String>::from_variant(&value).unwrap_or_default()
+                }
+                Self::SETTING_WEBPAGE => result.webpage = String::from_variant(&value),
+                Self::SETTING_ENABLED => {
+                    result.enabled = bool::from_variant(&value).unwrap_or_default()
+                }
+                _ => {}
+            }
+        }
+        Some(result)
     }
 }
 
 impl StaticVariantType for PluginMetadata {
     fn static_variant_type() -> Cow<'static, glib::VariantTy> {
-        BTreeMap::<String, glib::Variant>::static_variant_type()
+        VariantType::static_variant_type()
     }
 }
 
@@ -36,130 +99,4 @@ impl PluginMetadata {
     const SETTING_TRANSLATORS: &str = "translators";
     const SETTING_WEBPAGE: &str = "webpage";
     const SETTING_ENABLED: &str = "enabled";
-
-    pub fn is_empty(&self) -> bool {
-        self.0.is_empty()
-    }
-
-    pub fn name(&self) -> Option<String> {
-        self.0
-            .get(Self::SETTING_NAME)
-            .and_then(String::from_variant)
-    }
-
-    pub fn set_name(&mut self, value: Option<&str>) {
-        if let Some(value) = value {
-            self.0.insert(Self::SETTING_NAME.to_string(), value.into());
-        } else {
-            self.0.remove(Self::SETTING_NAME);
-        }
-    }
-
-    pub fn version(&self) -> Option<String> {
-        self.0
-            .get(Self::SETTING_VERSION)
-            .and_then(String::from_variant)
-    }
-
-    pub fn set_version(&mut self, value: Option<&str>) {
-        if let Some(value) = value {
-            self.0
-                .insert(Self::SETTING_VERSION.to_string(), value.into());
-        } else {
-            self.0.remove(Self::SETTING_VERSION);
-        }
-    }
-
-    pub fn copyright(&self) -> Option<String> {
-        self.0
-            .get(Self::SETTING_COPYRIGHT)
-            .and_then(String::from_variant)
-    }
-
-    pub fn set_copyright(&mut self, value: Option<&str>) {
-        if let Some(value) = value {
-            self.0
-                .insert(Self::SETTING_COPYRIGHT.to_string(), value.into());
-        } else {
-            self.0.remove(Self::SETTING_COPYRIGHT);
-        }
-    }
-
-    pub fn comments(&self) -> Option<String> {
-        self.0
-            .get(Self::SETTING_COMMENTS)
-            .and_then(String::from_variant)
-    }
-
-    pub fn set_comments(&mut self, value: Option<&str>) {
-        if let Some(value) = value {
-            self.0
-                .insert(Self::SETTING_COMMENTS.to_string(), value.into());
-        } else {
-            self.0.remove(Self::SETTING_COMMENTS);
-        }
-    }
-
-    pub fn authors(&self) -> Vec<String> {
-        self.0
-            .get(Self::SETTING_AUTHORS)
-            .and_then(Vec::<String>::from_variant)
-            .unwrap_or_default()
-    }
-
-    pub fn set_authors(&mut self, value: &[String]) {
-        self.0
-            .insert(Self::SETTING_AUTHORS.to_string(), value.into());
-    }
-
-    pub fn documenters(&self) -> Vec<String> {
-        self.0
-            .get(Self::SETTING_DOCUMENTERS)
-            .and_then(Vec::<String>::from_variant)
-            .unwrap_or_default()
-    }
-
-    pub fn set_documenters(&mut self, value: &[String]) {
-        self.0
-            .insert(Self::SETTING_DOCUMENTERS.to_string(), value.into());
-    }
-
-    pub fn translators(&self) -> Vec<String> {
-        self.0
-            .get(Self::SETTING_TRANSLATORS)
-            .and_then(Vec::<String>::from_variant)
-            .unwrap_or_default()
-    }
-
-    pub fn set_translators(&mut self, value: &[String]) {
-        self.0
-            .insert(Self::SETTING_TRANSLATORS.to_string(), value.into());
-    }
-
-    pub fn webpage(&self) -> Option<String> {
-        self.0
-            .get(Self::SETTING_WEBPAGE)
-            .and_then(String::from_variant)
-    }
-
-    pub fn set_webpage(&mut self, value: Option<&str>) {
-        if let Some(value) = value {
-            self.0
-                .insert(Self::SETTING_WEBPAGE.to_string(), value.into());
-        } else {
-            self.0.remove(Self::SETTING_WEBPAGE);
-        }
-    }
-
-    pub fn enabled(&self) -> bool {
-        self.0
-            .get(Self::SETTING_ENABLED)
-            .and_then(bool::from_variant)
-            .unwrap_or_default()
-    }
-
-    pub fn set_enabled(&mut self, value: bool) {
-        self.0
-            .insert(Self::SETTING_ENABLED.to_string(), value.into());
-    }
 }
