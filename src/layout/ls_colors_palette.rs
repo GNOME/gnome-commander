@@ -49,18 +49,17 @@ impl LsColorsPalette {
     }
 
     fn create_css(&self) -> String {
-        let mut css = String::from(":root {");
+        let mut css = String::new();
         for plane in LsPallettePlane::all() {
             for palette_color in LsPalletteColor::all() {
                 css.push_str(&format!(
-                    "--ls-color-{}-{}: {};\n",
+                    "@define-color ls-color-{}-{} {};\n",
                     plane.name(),
                     palette_color.name(),
                     self.color(plane, palette_color).to_str()
                 ));
             }
         }
-        css.push('}');
         css
     }
 }
