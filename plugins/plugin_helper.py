@@ -74,13 +74,13 @@ class Plugin:
 
     def run_forever(self):
         if len(sys.argv) > 1:
-            self.handle_command_line()
+            asyncio.run(self.handle_command_line())
         else:
             loop = asyncio.new_event_loop()
             loop.add_reader(sys.stdin.buffer, self.handle_incoming, loop)
             loop.run_forever()
 
-    def handle_command_line(self) -> None:
+    async def handle_command_line(self) -> None:
         parser = argparse.ArgumentParser(
             description='This command line interface is provided for debugging purposes only.'
         )
@@ -95,8 +95,9 @@ class Plugin:
             subparser = subparsers.add_parser('list-supported-tags')
             subparser.set_defaults(func=self.list_supported_tags)
 
+        os.set_blocking(sys.stdin.buffer.fileno(), True)
         args = parser.parse_args()
-        json.dump(args.func(args.__dict__), sys.stdout)
+        json.dump(await args.func(args.__dict__), sys.stdout)
         sys.exit(0)
 
     def send_message(self, type: str, payload: Any = None) -> None:
