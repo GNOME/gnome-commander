@@ -2162,7 +2162,7 @@ user_actions! {
 
     ConnectionsNew in Panel => (
         "connections-new" | "connections.new",
-        gettext("New Connection…"),
+        gettext("_New Connection…"),
         connections_new,
     ),
 
