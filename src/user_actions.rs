@@ -1699,7 +1699,7 @@ user_actions! {
 
     FileExit in MainWindow => (
         "file-exit" | "file.exit",
-        gettext("Quit"),
+        gettext("Qui_t"),
         file_exit,
     ),
 
