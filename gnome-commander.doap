@@ -18,7 +18,7 @@
     <foaf:Person>
       <foaf:name>Wladimir Palant</foaf:name>
       <foaf:mbox rdf:resource="mailto:jhpgnome@palant.de" />
-      <gnome:userid>palant</gnome:userid>
+      <gnome:userid>wpalant</gnome:userid>
     </foaf:Person>
   </maintainer>
 
