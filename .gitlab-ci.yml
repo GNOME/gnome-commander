@@ -24,9 +24,9 @@ variables:
     gobject-introspection
     libgtk-4-dev
     libvte-2.91-gtk4-dev
-    python3-pip
     7zip
     python3-pypdf
+    python3-exifread
     python3-mutagen
     curl
 
@@ -47,7 +47,6 @@ build_and_test:
   script:
     - apt-get update
     - apt-get install -y $UBUNTU_DEPS xvfb
-    - pip install exiv2 --break-system-packages
     - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     - rustup install stable
     - mkdir ${MESON_BUILD_DIR}
