@@ -1351,6 +1351,9 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
                     .action(UserAction::FileDiff)
                     .action(UserAction::FileSyncDirs)
             })
+            .section({
+                gio::Menu::new().action(UserAction::FileExit)
+            })
     });
 
     menu.append_submenu(Some(&gettext("_Edit")), &{
