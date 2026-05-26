@@ -114,13 +114,13 @@ fn substitute_command_argument(command_template: &str, arg: &OsStr) -> OsString 
     cmd
 }
 
-pub fn make_run_in_terminal_command(command: &OsStr, options: &ProgramsOptions) -> OsString {
+pub fn make_run_in_terminal_command(command: &OsStr) -> OsString {
     let shell = std::env::var("SHELL").unwrap_or_else(|_| "/bin/sh".to_owned());
     let arg = glib::shell_quote(substitute_command_argument(
         &format!("{shell} -c %s"),
         &glib::shell_quote(command),
     ));
-    substitute_command_argument(&options.terminal_exec_cmd.get(), &arg)
+    substitute_command_argument(&ProgramsOptions::instance().terminal_exec_cmd.get(), &arg)
 }
 
 pub trait SenderExt<T> {

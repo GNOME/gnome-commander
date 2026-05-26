@@ -18,26 +18,14 @@ mod imp {
     };
     use std::{borrow::Cow, cell::RefCell, ops::ControlFlow, path::PathBuf};
 
-    #[derive(glib::Properties)]
+    #[derive(Default, glib::Properties)]
     #[properties(wrapper_type = super::Application)]
     pub struct Application {
-        options: GeneralOptions,
         debug_flags: RefCell<Option<String>>,
         #[property(get, set, nullable)]
         start_left_dir: RefCell<Option<PathBuf>>,
         #[property(get, set, nullable)]
         start_right_dir: RefCell<Option<PathBuf>>,
-    }
-
-    impl Default for Application {
-        fn default() -> Self {
-            Self {
-                options: GeneralOptions::new(),
-                debug_flags: Default::default(),
-                start_left_dir: Default::default(),
-                start_right_dir: Default::default(),
-            }
-        }
     }
 
     #[glib::object_subclass]
@@ -98,11 +86,12 @@ mod imp {
 
             create_config_directory();
 
-            ConnectionList::create(self.options.show_samba_workgroups_button.get());
-            SearchConfig::get().load(&self.options);
-            ConnectionList::get().load(&self.options);
+            let options = GeneralOptions::instance();
+            ConnectionList::create(options.show_samba_workgroups_button.get());
+            SearchConfig::get().load(&options);
+            ConnectionList::get().load(&options);
             ConnectionList::get().set_volume_monitor();
-            setup_list_font(&self.options);
+            setup_list_font(&options);
         }
 
         fn activate(&self) {
@@ -119,13 +108,12 @@ mod imp {
                 self.start_left_dir.borrow().as_deref(),
                 self.start_right_dir.borrow().as_deref(),
             );
-            let options = GeneralOptions::new();
-            main_win.load_command_line_history(&options);
+            main_win.load_command_line_history(&GeneralOptions::instance());
             main_win.present();
         }
 
         fn shutdown(&self) {
-            let options = GeneralOptions::new();
+            let options = GeneralOptions::instance();
             if let Err(error) =
                 SearchConfig::get().save(&options, options.save_search_history.get())
             {
@@ -299,6 +287,6 @@ impl Application {
 
 impl Default for Application {
     fn default() -> Self {
-        Self::new(GeneralOptions::new().allow_multiple_instances.get())
+        Self::new(GeneralOptions::instance().allow_multiple_instances.get())
     }
 }

@@ -14,7 +14,7 @@ use crate::{
     file_list::list::FileList,
     history::History,
     main_win::MainWindow,
-    options::{GeneralOptions, ProgramsOptions},
+    options::GeneralOptions,
     utils::{size_to_string, time_to_string},
 };
 use gettextrs::gettext;
@@ -42,7 +42,7 @@ impl AdvRenameConfig {
     }
 
     fn load(&self) {
-        let options = GeneralOptions::new();
+        let options = GeneralOptions::instance();
         load_advrename_profiles(
             options.advanced_rename_profiles.get(),
             &self.0.default_profile,
@@ -59,7 +59,7 @@ impl AdvRenameConfig {
     }
 
     fn save(&self) -> Result<(), glib::BoolError> {
-        let options = GeneralOptions::new();
+        let options = GeneralOptions::instance();
         options
             .advanced_rename_profiles
             .set(save_advrename_profiles(
@@ -384,7 +384,7 @@ mod imp {
                 .set(profile_component.clone())
                 .unwrap();
 
-            let options = GeneralOptions::new();
+            let options = GeneralOptions::instance();
 
             self.file_view.append_column(
                 &gtk::ColumnViewColumn::builder()
@@ -689,21 +689,17 @@ mod imp {
         }
 
         async fn file_list_view(&self) {
-            if let Some((_, item)) = self.selected_item() {
-                let options = ProgramsOptions::new();
-
-                if let Some(main_window) = self.obj().main_window()
-                    && let Err(error) = file_view(
-                        self.obj().upcast_ref(),
-                        &item.file(),
-                        None,
-                        &options,
-                        main_window.file_metadata_service(),
-                    )
-                    .await
-                {
-                    error.show(self.obj().upcast_ref()).await;
-                }
+            if let Some((_, item)) = self.selected_item()
+                && let Some(main_window) = self.obj().main_window()
+                && let Err(error) = file_view(
+                    self.obj().upcast_ref(),
+                    &item.file(),
+                    None,
+                    main_window.file_metadata_service(),
+                )
+                .await
+            {
+                error.show(self.obj().upcast_ref()).await;
             }
         }
 

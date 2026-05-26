@@ -205,7 +205,6 @@ type Callback = Box<dyn Fn(&ColorThemes)>;
 
 pub struct ColorThemes {
     callback: RefCell<Option<Callback>>,
-    settings: ColorOptions,
     css_provider: Option<gtk::CssProvider>,
 }
 
@@ -233,25 +232,25 @@ impl ColorThemes {
 
         let this = Rc::new(Self {
             callback: Default::default(),
-            settings: ColorOptions::new(),
             css_provider,
         });
 
+        let settings = ColorOptions::instance();
         let weak_ref = Rc::downgrade(&this);
-        this.settings.theme.connect_changed(move |_| {
+        settings.theme.connect_changed(move |_| {
             if let Some(this) = weak_ref.upgrade() {
                 this.update_theme();
             }
         });
         for option in [
-            &this.settings.custom_norm_fg,
-            &this.settings.custom_norm_bg,
-            &this.settings.custom_alt_fg,
-            &this.settings.custom_alt_bg,
-            &this.settings.custom_sel_fg,
-            &this.settings.custom_sel_bg,
-            &this.settings.custom_curs_fg,
-            &this.settings.custom_curs_bg,
+            &settings.custom_norm_fg,
+            &settings.custom_norm_bg,
+            &settings.custom_alt_fg,
+            &settings.custom_alt_bg,
+            &settings.custom_sel_fg,
+            &settings.custom_sel_bg,
+            &settings.custom_curs_fg,
+            &settings.custom_curs_bg,
         ] {
             let weak_ref = Rc::downgrade(&this);
             option.connect_changed(move |_| {
@@ -288,7 +287,7 @@ impl ColorThemes {
     }
 
     fn theme_id(&self) -> ColorThemeId {
-        self.settings.theme.get()
+        ColorOptions::instance().theme.get()
     }
 
     pub fn has_theme(&self) -> bool {
@@ -296,14 +295,11 @@ impl ColorThemes {
     }
 
     pub fn theme(&self) -> Option<Cow<'static, ColorTheme>> {
-        theme_by_id(&self.settings, self.theme_id())
+        theme_by_id(self.theme_id())
     }
 }
 
-fn theme_by_id(
-    settings: &ColorOptions,
-    theme_id: ColorThemeId,
-) -> Option<Cow<'static, ColorTheme>> {
+fn theme_by_id(theme_id: ColorThemeId) -> Option<Cow<'static, ColorTheme>> {
     Some(match theme_id {
         ColorThemeId::None => return None,
         ColorThemeId::Modern => Cow::Borrowed(&COLOR_THEME_MODERN),
@@ -313,11 +309,12 @@ fn theme_by_id(
         ColorThemeId::Cafezinho => Cow::Borrowed(&COLOR_THEME_CAFEZINHO),
         ColorThemeId::GreenTiger => Cow::Borrowed(&COLOR_THEME_GREEN_TIGER),
         ColorThemeId::Winter => Cow::Borrowed(&COLOR_THEME_WINTER),
-        ColorThemeId::Custom => Cow::Owned(load_custom_theme(settings)),
+        ColorThemeId::Custom => Cow::Owned(load_custom_theme()),
     })
 }
 
-pub fn load_custom_theme(settings: &ColorOptions) -> ColorTheme {
+pub fn load_custom_theme() -> ColorTheme {
+    let settings = ColorOptions::instance();
     ColorTheme {
         norm_fg: settings.custom_norm_fg.get(),
         norm_bg: settings.custom_norm_bg.get(),
@@ -330,7 +327,8 @@ pub fn load_custom_theme(settings: &ColorOptions) -> ColorTheme {
     }
 }
 
-pub fn save_custom_theme(theme: &ColorTheme, settings: &ColorOptions) -> WriteResult {
+pub fn save_custom_theme(theme: &ColorTheme) -> WriteResult {
+    let settings = ColorOptions::instance();
     settings.custom_norm_fg.set(theme.norm_fg)?;
     settings.custom_norm_bg.set(theme.norm_bg)?;
     settings.custom_alt_fg.set(theme.alt_fg)?;

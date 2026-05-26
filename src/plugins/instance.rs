@@ -233,7 +233,7 @@ impl PluginInstance {
     }
 
     fn save_metadata(&self) {
-        let options = PluginsOptions::new();
+        let options = PluginsOptions::instance();
         let mut metadata = options.metadata.get();
         metadata.insert(self.file_name().to_string(), self.metadata.clone());
 
@@ -600,7 +600,7 @@ mod test {
             path.to_path_buf(),
             "plugin".into(),
             &PathBuf::from("."),
-            &PluginsOptions::new(),
+            &PluginsOptions::instance(),
         );
         instance.start();
         (instance, path)
@@ -626,7 +626,7 @@ mod test {
             path,
             "plugin".into(),
             &PathBuf::from("."),
-            &PluginsOptions::new(),
+            &PluginsOptions::instance(),
         );
         instance.start();
         assert!(!instance.is_enabled());

@@ -83,8 +83,7 @@ mod imp {
                 .set_tooltip_text(Some(&gettext("Case sensitive")));
             self.case_sensitive.set_parent(&*obj);
 
-            let options = GeneralOptions::new();
-            options
+            GeneralOptions::instance()
                 .quick_search_case_sensitive
                 .bind(&self.case_sensitive, "active")
                 .build();

@@ -16,7 +16,6 @@ use crate::{
     main_win::ExecutionTarget,
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
     open_file::mime_exec_single,
-    options::ProgramsOptions,
     shortcuts::{Area, Shortcuts},
     tab_label::TabLabel,
     types::MiddleMouseButtonMode,
@@ -342,8 +341,7 @@ mod imp {
             ));
             self.notebook.add_controller(notebook_click);
 
-            let options = GeneralOptions::new();
-            options
+            GeneralOptions::instance()
                 .always_show_tabs
                 .bind(&*this, "always-show-tabs")
                 .build();
@@ -420,8 +418,7 @@ mod imp {
             let Some(dir) = self.obj().file_list().directory() else {
                 return;
             };
-            let options = GeneralOptions::new();
-            bookmark_directory(&window, &dir, &options).await;
+            bookmark_directory(&window, &dir).await;
         }
 
         fn toggle_tab_lock(&self, index: u32) {
@@ -479,17 +476,14 @@ mod imp {
                 return;
             };
 
-            let options = GeneralOptions::new();
-
             tab_label.set_label(fl.directory().map(|d| d.name()).unwrap_or_default());
             tab_label.set_locked(self.obj().is_tab_locked(fl));
-            tab_label.set_indicator(options.tab_lock_indicator.get());
+            tab_label.set_indicator(GeneralOptions::instance().tab_lock_indicator.get());
         }
 
         pub fn update_selected_files_label(&self) {
-            let options = GeneralOptions::new();
             if let Some(file_list) = self.obj().current_file_list() {
-                let stats = file_list.stats_str(options.size_display_mode.get());
+                let stats = file_list.stats_str(GeneralOptions::instance().size_display_mode.get());
                 self.info_label.set_text(&stats);
             }
         }
@@ -1353,12 +1347,10 @@ impl FileSelector {
                 }
             }
             gio::FileType::Regular => {
-                let options = ProgramsOptions::new();
                 if let Some(parent_window) = self.root().and_downcast::<gtk::Window>() {
                     let file = file.clone();
                     glib::spawn_future_local(async move {
-                        if let Err(error) = mime_exec_single(&parent_window, &file, &options).await
-                        {
+                        if let Err(error) = mime_exec_single(&parent_window, &file).await {
                             error.show(&parent_window).await;
                         }
                     });

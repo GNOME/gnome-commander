@@ -14,7 +14,6 @@ use std::{cell::RefCell, collections::HashMap, path::Path, rc::Rc, sync::LazyLoc
 pub struct IconCache {
     file_type_icons: HashMap<gio::FileType, gio::Icon>,
     symlink: gio::ThemedIcon,
-    options: GeneralOptions,
     cache: RefCell<HashMap<IconCacheKey, Option<gio::Icon>>>,
 }
 
@@ -44,22 +43,21 @@ impl IconCache {
             file_type_icons.insert(gio::FileType::Special, icon);
         }
 
-        let options = GeneralOptions::new();
-
         let this = Rc::new(Self {
             file_type_icons,
             symlink: gio::ThemedIcon::new("overlay_symlink"),
-            options,
             cache: Default::default(),
         });
 
-        this.options.mime_icon_dir.connect_changed(glib::clone!(
-            #[weak]
-            this,
-            move |_| {
-                this.cache.borrow_mut().clear();
-            }
-        ));
+        GeneralOptions::instance()
+            .mime_icon_dir
+            .connect_changed(glib::clone!(
+                #[weak]
+                this,
+                move |_| {
+                    this.cache.borrow_mut().clear();
+                }
+            ));
 
         this
     }
@@ -73,7 +71,7 @@ impl IconCache {
             .borrow_mut()
             .entry(cache_key)
             .or_insert_with(|| {
-                self.options
+                GeneralOptions::instance()
                     .mime_icon_dir
                     .get()
                     .and_then(|theme_icon_dir| {

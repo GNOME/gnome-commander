@@ -39,7 +39,7 @@ use crate::{
     file_selector::TabOptions,
     file_view::file_view,
     main_win::{ExecutionTarget, MainWindow},
-    options::{ConfirmOptions, GeneralOptions, NetworkOptions, ProgramsOptions, SearchConfig},
+    options::{GeneralOptions, NetworkOptions, ProgramsOptions, SearchConfig},
     plugins::{ApiRequestToPlugin, MessageToPluginHost, show_plugin_manager},
     search::search_dialog::SearchDialog,
     shortcuts::Area,
@@ -61,8 +61,7 @@ use std::{
 async fn file_copy(main_win: MainWindow) {
     let src_fs = main_win.file_selector(FileSelectorID::Active);
     let dst_fs = main_win.file_selector(FileSelectorID::Inactive);
-    let options = ConfirmOptions::new();
-    prepare_copy_dialog_show(&main_win, &src_fs, &dst_fs, &options).await;
+    prepare_copy_dialog_show(&main_win, &src_fs, &dst_fs).await;
 }
 
 async fn file_copy_as(main_win: MainWindow) {
@@ -81,8 +80,7 @@ async fn file_copy_as(main_win: MainWindow) {
 async fn file_move(main_win: MainWindow) {
     let src_fs = main_win.file_selector(FileSelectorID::Active);
     let dst_fs = main_win.file_selector(FileSelectorID::Inactive);
-    let options = ConfirmOptions::new();
-    prepare_move_dialog_show(&main_win, &src_fs, &dst_fs, &options).await;
+    prepare_move_dialog_show(&main_win, &src_fs, &dst_fs).await;
 }
 
 async fn file_delete(main_win: MainWindow) {
@@ -114,7 +112,6 @@ async fn file_view_impl(main_win: MainWindow, use_internal_viewer: Option<bool>)
         main_win.upcast_ref(),
         &file,
         use_internal_viewer,
-        &ProgramsOptions::new(),
         main_win.file_metadata_service(),
     )
     .await
@@ -155,22 +152,19 @@ async fn file_edit_new_doc(main_win: MainWindow) {
 }
 
 async fn file_search(main_win: MainWindow) {
-    let options = ProgramsOptions::new();
-
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
 
-    if options.use_internal_search.get() {
+    if ProgramsOptions::instance().use_internal_search.get() {
         let start_dir = file_list.directory();
         let dlg = main_win.get_or_create_dialog("search", || {
             let search_config = SearchConfig::get();
 
             SearchDialog::new(search_config, &main_win)
         });
-        let options = GeneralOptions::new();
         dlg.show_and_set_focus(
             start_dir.as_ref(),
-            options
+            GeneralOptions::instance()
                 .search_window_is_transient
                 .get()
                 .then_some(&main_win),
@@ -185,16 +179,17 @@ async fn file_search(main_win: MainWindow) {
         }
 
         let files = file_list.selected_files().into_iter().collect::<Vec<_>>();
-        let error_message = match spawn_async(None, &files, &options.search_cmd.get()) {
-            Ok(_) => return,
-            Err(SpawnError::InvalidTemplate) => ErrorMessage::brief(no_search_command_error()),
-            Err(SpawnError::InvalidCommand(e)) => {
-                ErrorMessage::with_error(no_search_command_error(), &e)
-            }
-            Err(SpawnError::Failure(e)) => {
-                ErrorMessage::with_error(gettext("Unable to execute command."), &e)
-            }
-        };
+        let error_message =
+            match spawn_async(None, &files, &ProgramsOptions::instance().search_cmd.get()) {
+                Ok(_) => return,
+                Err(SpawnError::InvalidTemplate) => ErrorMessage::brief(no_search_command_error()),
+                Err(SpawnError::InvalidCommand(e)) => {
+                    ErrorMessage::with_error(no_search_command_error(), &e)
+                }
+                Err(SpawnError::Failure(e)) => {
+                    ErrorMessage::with_error(gettext("Unable to execute command."), &e)
+                }
+            };
         if let Some(window) = main_win.root().and_downcast::<gtk::Window>() {
             error_message.show(&window).await;
         } else {
@@ -300,10 +295,7 @@ fn ensure_file_list_is_local(file_list: &FileList) -> Result<(), ErrorMessage> {
     }
 }
 
-async fn do_file_diff(
-    main_win: &MainWindow,
-    options: &ProgramsOptions,
-) -> Result<(), ErrorMessage> {
+async fn do_file_diff(main_win: &MainWindow) -> Result<(), ErrorMessage> {
     let active_fl = main_win.file_selector(FileSelectorID::Active).file_list();
     let inactive_fl = main_win.file_selector(FileSelectorID::Inactive).file_list();
 
@@ -326,28 +318,28 @@ async fn do_file_diff(
             spawn_async(
                 None,
                 &[active_file, inactive_file],
-                &options.differ_cmd.get(),
+                &ProgramsOptions::instance().differ_cmd.get(),
             )
             .map_err(SpawnError::into_message)
         }
-        2 | 3 => spawn_async(None, &selected_files, &options.differ_cmd.get())
-            .map_err(SpawnError::into_message),
+        2 | 3 => spawn_async(
+            None,
+            &selected_files,
+            &ProgramsOptions::instance().differ_cmd.get(),
+        )
+        .map_err(SpawnError::into_message),
 
         _ => Err(ErrorMessage::brief(gettext("Too many selected files"))),
     }
 }
 
 async fn file_diff(main_win: MainWindow) {
-    let options = ProgramsOptions::new();
-    if let Err(error) = do_file_diff(&main_win, &options).await {
+    if let Err(error) = do_file_diff(&main_win).await {
         error.show(main_win.upcast_ref()).await;
     }
 }
 
-async fn do_file_sync_dirs(
-    main_win: &MainWindow,
-    options: &ProgramsOptions,
-) -> Result<(), ErrorMessage> {
+async fn do_file_sync_dirs(main_win: &MainWindow) -> Result<(), ErrorMessage> {
     let active_fl = main_win.file_selector(FileSelectorID::Active).file_list();
     let inactive_fl = main_win.file_selector(FileSelectorID::Inactive).file_list();
 
@@ -359,13 +351,16 @@ async fn do_file_sync_dirs(
         .zip(inactive_fl.directory())
         .ok_or_else(|| ErrorMessage::brief(gettext("Nothing to compare")))?;
 
-    spawn_async(None, &[active_dir, inactive_dir], &options.differ_cmd.get())
-        .map_err(SpawnError::into_message)
+    spawn_async(
+        None,
+        &[active_dir, inactive_dir],
+        &ProgramsOptions::instance().differ_cmd.get(),
+    )
+    .map_err(SpawnError::into_message)
 }
 
 async fn file_sync_dirs(main_win: MainWindow) {
-    let options = ProgramsOptions::new();
-    if let Err(error) = do_file_sync_dirs(&main_win, &options).await {
+    if let Err(error) = do_file_sync_dirs(&main_win).await {
         error.show(main_win.upcast_ref()).await;
     }
 }
@@ -438,7 +433,7 @@ async fn create_symlinks(
 }
 
 async fn file_create_symlink(main_win: MainWindow) {
-    let options = GeneralOptions::new();
+    let options = GeneralOptions::instance();
 
     let active_fs = main_win.file_selector(FileSelectorID::Active);
     let inactive_fs = main_win.file_selector(FileSelectorID::Inactive);
@@ -497,13 +492,11 @@ async fn file_advrename(main_win: MainWindow) {
 }
 
 async fn file_sendto(main_win: MainWindow) {
-    let options = ProgramsOptions::new();
-
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
     let files = file_list.selected_files().into_iter().collect::<Vec<_>>();
 
-    let command_template = options.sendto_cmd.get();
+    let command_template = ProgramsOptions::instance().sendto_cmd.get();
 
     if command_template == "xdg-email --attach %s" && files.len() > 1 {
         ErrorMessage::new(gettext("Warning"), Some(gettext("The default send-to command only supports one selected file at a time. You can change the command in the program options."))).show(main_win.upcast_ref()).await;
@@ -716,14 +709,14 @@ async fn command_execute(main_win: MainWindow, command_template: String) {
     }
 }
 
-fn open_terminal(main_win: &MainWindow, options: &ProgramsOptions) -> Result<(), ErrorMessage> {
+fn open_terminal(main_win: &MainWindow) -> Result<(), ErrorMessage> {
     let dpath = main_win
         .file_selector(FileSelectorID::Active)
         .file_list()
         .directory()
         .and_then(|d| d.file().path());
 
-    let command = OsString::from(options.terminal_cmd.get());
+    let command = OsString::from(ProgramsOptions::instance().terminal_cmd.get());
     if command.is_empty() {
         return Err(ErrorMessage {
             message: gettext("Terminal command is not configured properly."),
@@ -736,8 +729,7 @@ fn open_terminal(main_win: &MainWindow, options: &ProgramsOptions) -> Result<(),
 
 /// Executes the command stored in `terminal-cmd` in the active directory.
 async fn command_open_terminal(main_win: MainWindow) {
-    let options = ProgramsOptions::new();
-    if let Err(error_message) = open_terminal(&main_win, &options) {
+    if let Err(error_message) = open_terminal(&main_win) {
         error_message.show(main_win.upcast_ref()).await;
     }
 }
@@ -1040,8 +1032,7 @@ async fn bookmarks_add_current(main_win: MainWindow) {
         eprintln!("No directory. Nothing to bookmark.");
         return;
     };
-    let options = GeneralOptions::new();
-    bookmark_directory(main_win.upcast_ref(), &dir, &options).await;
+    bookmark_directory(main_win.upcast_ref(), &dir).await;
 }
 
 async fn bookmarks_edit(main_win: MainWindow) {
@@ -1110,7 +1101,7 @@ async fn connections_open(main_win: MainWindow) {
 }
 
 async fn connections_new(main_win: MainWindow) {
-    let options = NetworkOptions::new();
+    let options = NetworkOptions::instance();
     let uri = glib::Uri::parse(&options.quick_connect_uri.get(), glib::UriFlags::NONE).ok();
     if let Some(connection) = ConnectDialog::new_connection(&main_win, uri).await {
         let fs = main_win.file_selector(FileSelectorID::Active);

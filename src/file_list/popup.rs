@@ -241,9 +241,8 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
     });
 
     // Add favorite applications menu entries
-    let options = GeneralOptions::new();
     let fav_menu = gio::Menu::new();
-    for app in load_favorite_apps(&options) {
+    for app in load_favorite_apps(&GeneralOptions::instance()) {
         if fav_app_matches_files(&app, &files) {
             fav_menu.append_item(&fav_app_menu_item(&App::UserDefined(app)));
         }

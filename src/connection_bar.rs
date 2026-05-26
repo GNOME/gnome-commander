@@ -16,7 +16,7 @@ mod imp {
         connection_button::ConnectionButton,
         options::GeneralOptions,
     };
-    use std::{cell::OnceCell, rc::Rc, sync::OnceLock};
+    use std::{cell::OnceCell, sync::OnceLock};
 
     #[derive(Default, glib::Properties)]
     #[properties(wrapper_type = super::ConnectionBar)]
@@ -59,13 +59,11 @@ mod imp {
                 })),
             );
 
-            let options = GeneralOptions::new();
-
             let selection_model = gtk::NoSelection::new(Some(model));
             self.list_view.set_orientation(gtk::Orientation::Horizontal);
             self.list_view.set_model(Some(&selection_model));
             self.list_view
-                .set_factory(Some(&button_factory(obj.upcast_ref(), Rc::new(options))));
+                .set_factory(Some(&button_factory(obj.upcast_ref())));
             self.list_view.add_css_class("gcmd-toolbar");
         }
 
@@ -89,20 +87,21 @@ mod imp {
 
     impl WidgetImpl for ConnectionBar {}
 
-    fn button_factory(emitter: &glib::Object, options: Rc<GeneralOptions>) -> gtk::ListItemFactory {
+    fn button_factory(emitter: &glib::Object) -> gtk::ListItemFactory {
         let factory = gtk::SignalListItemFactory::new();
         factory.connect_setup(glib::clone!(
             #[weak]
             emitter,
-            #[strong]
-            options,
             move |_, item| {
                 let Some(list_item) = item.downcast_ref::<gtk::ListItem>() else {
                     return;
                 };
 
                 let button = ConnectionButton::default();
-                options.device_only_icon.bind(&button, "only-icon").build();
+                GeneralOptions::instance()
+                    .device_only_icon
+                    .bind(&button, "only-icon")
+                    .build();
                 button.connect_clicked(glib::clone!(
                     #[weak]
                     emitter,
