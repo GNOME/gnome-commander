@@ -15,7 +15,6 @@ use crate::{
     history::History,
     main_win::MainWindow,
     options::{GeneralOptions, ProgramsOptions},
-    tags::FileMetadataService,
     utils::{size_to_string, time_to_string},
 };
 use gettextrs::gettext;
@@ -182,7 +181,6 @@ impl AdvrenameProfiles {
 struct AdvRenameProfileManager {
     config: AdvRenameConfig,
     profiles: AdvrenameProfiles,
-    file_metadata_service: FileMetadataService,
 }
 
 impl ProfileManager for AdvRenameProfileManager {
@@ -219,7 +217,7 @@ impl ProfileManager for AdvRenameProfileManager {
         profile_index: usize,
         _labels_size_group: &gtk::SizeGroup,
     ) -> gtk::Widget {
-        let component = AdvancedRenameProfileComponent::new(&self.file_metadata_service);
+        let component = AdvancedRenameProfileComponent::new();
         component.set_profile(Some(self.profiles.profile(profile_index)));
         component.set_template_history(&self.config.template_history());
         component.update();
@@ -261,9 +259,6 @@ mod imp {
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::AdvancedRenameDialog)]
     pub struct AdvancedRenameDialog {
-        #[property(get, construct_only)]
-        file_metadata_service: OnceCell<FileMetadataService>,
-
         pub(super) config: OnceCell<AdvRenameConfig>,
         pub(super) main_window: glib::WeakRef<MainWindow>,
 
@@ -301,9 +296,13 @@ mod imp {
                 None,
                 |obj, _, _| async move { obj.imp().file_list_properties().await },
             );
-            klass.install_action("advrename.update-file-list", None, |obj, _, _| {
-                obj.imp().file_list_update_files();
-            });
+            klass.install_action_async(
+                "advrename.update-file-list",
+                None,
+                |obj, _, _| async move {
+                    obj.imp().file_list_update_files().await;
+                },
+            );
             klass.install_action_async("advrename.save-profile", None, |obj, _, _| async move {
                 obj.imp().save_profile().await
             });
@@ -327,7 +326,6 @@ mod imp {
             let file_view = gtk::ColumnView::builder().model(&file_selection).build();
 
             Self {
-                file_metadata_service: Default::default(),
                 config: Default::default(),
                 main_window: Default::default(),
                 profile_component: Default::default(),
@@ -379,8 +377,7 @@ mod imp {
             paned.set_shrink_start_child(false);
             paned.set_resize_start_child(false);
 
-            let profile_component =
-                AdvancedRenameProfileComponent::new(&this.file_metadata_service());
+            let profile_component = AdvancedRenameProfileComponent::new();
             profile_component.set_vexpand(true);
             parameters_vbox.append(&profile_component);
             self.profile_component
@@ -695,14 +692,15 @@ mod imp {
             if let Some((_, item)) = self.selected_item() {
                 let options = ProgramsOptions::new();
 
-                if let Err(error) = file_view(
-                    self.obj().upcast_ref(),
-                    &item.file(),
-                    None,
-                    &options,
-                    &self.obj().file_metadata_service(),
-                )
-                .await
+                if let Some(main_window) = self.obj().main_window()
+                    && let Err(error) = file_view(
+                        self.obj().upcast_ref(),
+                        &item.file(),
+                        None,
+                        &options,
+                        main_window.file_metadata_service(),
+                    )
+                    .await
                 {
                     error.show(self.obj().upcast_ref()).await;
                 }
@@ -716,16 +714,16 @@ mod imp {
                     .file_list()
                     .and_then(|file_list| file_list.connection());
 
-                if let Some(main_window) = self.main_window.upgrade() {
+                if let Some(main_window) = self.obj().main_window() {
                     let file_changed = FilePropertiesDialog::show(
                         &main_window,
-                        &self.obj().file_metadata_service(),
+                        main_window.file_metadata_service(),
                         &item.file(),
                         connection,
                     )
                     .await;
                     if file_changed {
-                        self.file_list_update_files();
+                        self.file_list_update_files().await;
                     }
                 }
             }
@@ -758,12 +756,17 @@ mod imp {
             }
         }
 
-        fn file_list_update_files(&self) {
-            let file_metadata_service = self.obj().file_metadata_service();
+        async fn file_list_update_files(&self) {
+            let Some(main_window) = self.obj().main_window() else {
+                return;
+            };
             for index in 0..self.files.n_items() {
                 if let Some(item) = self.files.item(index).and_downcast::<Item>() {
                     let file = item.file();
-                    let metadata = file_metadata_service.extract_metadata(&file);
+                    let metadata = main_window
+                        .file_metadata_service()
+                        .extract_metadata(&file)
+                        .await;
 
                     let new_item = item.deep_copy();
                     new_item.clear_error();
@@ -794,7 +797,6 @@ mod imp {
             let manager = Rc::new(AdvRenameProfileManager {
                 config: cfg,
                 profiles,
-                file_metadata_service: self.obj().file_metadata_service(),
             });
 
             if manage_profiles(
@@ -820,7 +822,6 @@ mod imp {
             let manager = Rc::new(AdvRenameProfileManager {
                 config: cfg,
                 profiles,
-                file_metadata_service: self.obj().file_metadata_service(),
             });
 
             if manage_profiles(
@@ -1098,63 +1099,77 @@ glib::wrapper! {
         @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Root, gtk::Native;
 }
 
-pub fn advanced_rename_dialog_show(
-    parent_window: &MainWindow,
-    file_list: &FileList,
-    file_metadata_service: &FileMetadataService,
-) {
+impl AdvancedRenameDialog {
+    pub fn main_window(&self) -> Option<MainWindow> {
+        self.imp().main_window.upgrade()
+    }
+}
+
+pub async fn advanced_rename_dialog_show(parent_window: &MainWindow, file_list: &FileList) {
     let files = file_list.selected_files();
     if files.is_empty() {
         return;
     }
 
-    let dialog = if let Some(dialog) = parent_window.get_dialog::<AdvancedRenameDialog>("advrename")
-    {
-        dialog
-    } else {
-        let cfg = AdvRenameConfig::new();
-        cfg.load();
+    let (dialog, initialized) =
+        if let Some(dialog) = parent_window.get_dialog::<AdvancedRenameDialog>("advrename") {
+            (dialog, true)
+        } else {
+            let cfg = AdvRenameConfig::new();
+            cfg.load();
 
-        let dialog: AdvancedRenameDialog = parent_window.set_dialog(
-            "advrename",
-            glib::Object::builder()
-                .property("file-metadata-service", file_metadata_service)
-                .property("transient-for", parent_window)
-                .property("file-list", file_list)
-                .build(),
-        );
+            let dialog: AdvancedRenameDialog = parent_window.set_dialog(
+                "advrename",
+                glib::Object::builder()
+                    .property("transient-for", parent_window)
+                    .property("file-list", file_list)
+                    .build(),
+            );
 
-        dialog.imp().config.set(cfg.clone()).ok().unwrap();
-        dialog.imp().main_window.set(Some(parent_window));
+            dialog.imp().config.set(cfg.clone()).ok().unwrap();
+            dialog.imp().main_window.set(Some(parent_window));
 
-        dialog.imp().update_profile_menu();
+            dialog.imp().update_profile_menu();
 
-        dialog
-            .profile_component()
-            .set_profile(Some(cfg.default_profile()));
-        dialog.imp().update_template();
-        dialog
-            .profile_component()
-            .set_template_history(&cfg.template_history());
-        dialog.profile_component().update();
+            dialog
+                .profile_component()
+                .set_profile(Some(cfg.default_profile()));
+            dialog.imp().update_template();
+            dialog
+                .profile_component()
+                .set_template_history(&cfg.template_history());
+            dialog.profile_component().update();
 
+            (dialog, false)
+        };
+
+    gnome_cmd_advrename_dialog_set(parent_window, &dialog, &files).await;
+    dialog.present();
+
+    if !initialized {
         dialog.profile_component().grab_focus();
         dialog
-    };
-
-    gnome_cmd_advrename_dialog_set(&dialog, &files);
-    dialog.present();
+            .profile_component()
+            .update_metadata_menu(parent_window.file_metadata_service())
+            .await;
+    }
 }
 
-fn gnome_cmd_advrename_dialog_set(dialog: &AdvancedRenameDialog, file_list: &[File]) {
+async fn gnome_cmd_advrename_dialog_set(
+    parent_window: &MainWindow,
+    dialog: &AdvancedRenameDialog,
+    file_list: &[File],
+) {
     dialog
         .profile_component()
         .set_sample_file_name(file_list.first().map(|f| f.name()));
 
-    let file_metadata_service = dialog.file_metadata_service();
     let files = &dialog.imp().files;
     for file in file_list {
-        let metadata = file_metadata_service.extract_metadata(file);
+        let metadata = parent_window
+            .file_metadata_service()
+            .extract_metadata(file)
+            .await;
 
         let item = Item::new(file);
         item.clear_error();

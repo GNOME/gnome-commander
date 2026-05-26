@@ -1,0 +1,57 @@
+// SPDX-FileCopyrightText: 2026 Wladimir Palant https://palant.info/
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+pub mod advanced_rename;
+pub mod app;
+pub mod application;
+pub mod chmod_component;
+pub mod chown_component;
+pub mod command_line;
+pub mod config;
+pub mod connection;
+pub mod connection_bar;
+pub mod connection_button;
+pub mod debug;
+pub mod dialogs;
+pub mod dir;
+pub mod directory_indicator;
+pub mod dirlist;
+pub mod file;
+pub mod file_edit;
+pub mod file_list;
+pub mod file_metainfo_view;
+pub mod file_selector;
+pub mod file_view;
+pub mod filter;
+pub mod hintbox;
+pub mod history;
+pub mod history_entry;
+pub mod i18n;
+pub mod imageloader;
+pub mod intviewer;
+pub mod layout;
+pub mod main_win;
+pub mod notebook_ext;
+pub mod open_connection;
+pub mod open_file;
+pub mod options;
+pub mod paned_ext;
+pub mod plugins;
+pub mod pwd;
+pub mod search;
+pub mod select_directory_button;
+pub mod select_icon_button;
+pub mod shortcuts;
+pub mod spawn;
+pub mod tab_label;
+pub mod tags;
+pub mod transfer;
+pub mod types;
+pub mod user_actions;
+pub mod utils;
+pub mod weak_map;
+pub mod weak_ref;
+pub mod weak_set;
+
+pub mod gmodule;

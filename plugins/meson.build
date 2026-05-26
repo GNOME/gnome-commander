@@ -5,18 +5,12 @@
 
 plugindir = pkglibdir / 'plugins'
 
-subdir('fileroller')
-subdir('test')
+plugin_files = [
+  'archives.py',
+  'document-metadata.py',
+  'image-metadata.py',
+  'multimedia-metadata.py',
+  'plugin_helper.py',
+]
 
-if exiv2.found()
-  subdir('exiv2')
-endif
-if gsf.found()
-  subdir('gsf')
-endif
-if poppler.found()
-  subdir('poppler')
-endif
-if taglib.found()
-  subdir('taglib')
-endif
+install_data(plugin_files, install_dir: plugin_dir)

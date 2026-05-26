@@ -4,11 +4,10 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-project('gnome-commander', ['C', 'cpp', 'rust'],
+project('gnome-commander', ['rust'],
   version: '2.1.0',
   license: 'GPLv3',
   meson_version: '>= 0.59',
-  default_options: ['cpp_std=c++17', 'build.cpp_std=c++17']
 )
 
 # Importing modules
@@ -39,35 +38,6 @@ summary('datadir', get_option('datadir'))
 summary('buildtype', get_option('buildtype'), section: 'Build Configuration')
 summary('debug', get_option('debug'), section: 'Build Configuration')
 
-c = meson.get_compiler('c')
-cpp = meson.get_compiler('cpp')
-
-common_ccflags = [
-  '-DGLIB_DISABLE_DEPRECATION_WARNINGS',
-  '-DGTK_DISABLE_SINGLE_INCLUDES',
-  # '-DGDK_DISABLE_DEPRECATED',
-  # '-DGTK_DISABLE_DEPRECATED',
-]
-test_cflags = [
-  '-Wno-deprecated-declarations',
-  '-Wformat=2',
-  '-Wmissing-declarations',
-  '-Wmissing-prototypes',
-  '-Wnested-externs',
-  '-Wpointer-arith',
-  '-Wcast-align',
-  '-Wstrict-prototypes'
-]
-
-common_ccflags += cpp.get_supported_arguments (test_cflags)
-
-use_no_strict_aliasing = cpp.has_argument('-fno-strict-aliasing')
-if use_no_strict_aliasing
-  common_ccflags += ['-fno-strict-aliasing']
-endif
-
-add_project_arguments(common_ccflags, language: 'cpp')
-
 plugin_dir = libdir / meson.project_name() / 'plugins'
 pixmaps_dir = datadir / 'pixmaps' / meson.project_name()
 icons_dir = datadir / meson.project_name() / 'icons'
@@ -84,60 +54,6 @@ conf_data.set_quoted('ICONS_DIR',         '@0@'.format(icons_dir), description :
 conf_data.set_quoted('PLUGIN_DIR',        '@0@'.format(plugin_dir), description : 'location of plugins')
 conf_data.set_quoted('PREFIX',            '@0@'.format(prefix), description : 'definition of PREFIX')
 conf_data.set_quoted('PACKAGE_VERSION',   '@0@'.format(meson.project_version()), description : 'Define to the version of this package.')
-
-# Compulsory dependencies
-GLIB_REQ = '2.80.0'
-conf_data.set('GLIB_REQ', GLIB_REQ, description: 'Required version of glib library')
-GMODULE_REQ = '2.0.0'
-GTK_REQ = '4.14.0'
-conf_data.set('GTK_REQ', GTK_REQ, description: 'Required version of gtk library')
-GIO_REQ = '2.0'
-VTE_REQ = '0.76'
-
-gobject   = dependency('gobject-2.0', version: '>=' + GLIB_REQ)
-glib      = dependency('glib-2.0', version: '>=' + GLIB_REQ)
-gmodule   = dependency('gmodule-2.0', version: '>=' + GMODULE_REQ)
-gio       = dependency('gio-2.0', version: '>=' + GIO_REQ)
-gtk       = dependency('gtk4', version: '>=' + GTK_REQ)
-vte       = dependency('vte-2.91-gtk4', version: '>=' + VTE_REQ)
-pixbuf    = dependency('gdk-pixbuf-2.0')
-
-common_deps = [
-  glib, gmodule, gio, gobject, gtk, vte
-]
-
-##### Optional dependencies #####
-EXIV2_REQ = '0.14'
-conf_data.set('EXIV2_REQ', EXIV2_REQ, description: 'Required version of exiv2 library')
-TAGLIB_REQ = '1.4'
-conf_data.set('TAGLIB_REQ', TAGLIB_REQ, description: 'Required version of poppler library')
-LIBGSF_REQ = '1.14.46'
-conf_data.set('LIBGSF_REQ', LIBGSF_REQ, description: 'Required version of gsf library')
-
-# Check for exiv2 support
-exiv2 = dependency('exiv2', version: '>=' + EXIV2_REQ, required: get_option('exiv2'))
-
-# Check for libgsf
-gsf = dependency('libgsf-1', version: '>=' + LIBGSF_REQ, required: get_option('libgsf'))
-
-# Check for taglib
-taglib = dependency('taglib', version: '>=' + TAGLIB_REQ, required: get_option('taglib'))
-
-# Check for poppler
-poppler = dependency('poppler-glib', required: get_option('poppler'))
-
-# Check for gettext
-intl_dep = dependency('intl', required: false)
-if intl_dep.found()
-  conf_data.set('ENABLE_NLS', 1, description : 'Is translation of program messages to the user\'s native language requested.')
-endif
-
-#### Check for mmap #####
-if cpp.has_function('mmap', prefix : '#include<sys/mman.h>')
-  conf_data.set('HAVE_MMAP', 1, description: 'Define to 1 if you have a working `mmap\' system call.')
-endif
-
-configure_file(output : 'config.h', configuration : conf_data)
 
 meson.add_dist_script(
   find_program('check-news.sh').full_path(),
@@ -181,19 +97,10 @@ summary(
 summary(
   {
     'Generate doc': get_option('help'),
-    'Use exiv2': exiv2.found(),
-    'Use libgsf': gsf.found(),
-    'Use poppler': poppler.found(),
-    'Use taglib': taglib.found(),
   },
   section: 'User defined options'
 )
 
-configuration_inc = include_directories('.')
-libgcmd_inc = include_directories('libgcmd')
-sources_inc = include_directories('src', 'src/dialogs', 'src/intviewer', 'src/tags')
-
-subdir('libgcmd')
 subdir('src')
 subdir('data')
 subdir('pixmaps')
@@ -202,9 +109,7 @@ subdir('plugins')
 if get_option('help')
   subdir('doc')
 endif
-if intl_dep.found()
-  subdir('po')
-endif
+subdir('po')
 
 gnome.post_install(
   glib_compile_schemas: true,

@@ -34,10 +34,6 @@ endif
 
 cargo_env = [
   'CARGO_HOME=' + meson.project_build_root() / 'cargo-home',
-  'RUSTFLAGS=-L ' + (meson.project_build_root() / 'src')
-        + ' -L ' + (meson.project_build_root() / 'libgcmd')
-        + ' -lgcmd'
-        + ' -C link-arg=-Wl,-rpath=' + rpath,
 ]
 
 libgmcddialogs_dep = declare_dependency(
@@ -53,7 +49,6 @@ commander = custom_target(
   console: true,
   install: true,
   install_dir: bindir,
-  depends: [libgcmd],
   command: [
     'env',
     cargo_env,
@@ -67,6 +62,6 @@ test(
   'cargo-test', cargo,
   env: cargo_env,
   args: ['test', '--no-fail-fast'] + cargo_options,
-  depends: [commander, libgcmd],
-  timeout: 180
+  depends: [commander],
+  timeout: 300
 )

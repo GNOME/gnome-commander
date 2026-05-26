@@ -4,7 +4,7 @@
 
 use crate::{
     file::{File, FileOps},
-    tags::{GnomeCmdTag, file_metadata::FileMetadata},
+    tags::file_metadata::FileMetadata,
 };
 use std::rc::Rc;
 use winnow::{
@@ -314,7 +314,7 @@ pub fn generate_file_name(
             }
             Chunk::MetaTag(metatag) => {
                 let name = format!("{}.{}", metatag.name, metatag.opts1.join("."));
-                if let Some(value) = metadata.get(&GnomeCmdTag(name.into())) {
+                if let Some(value) = metadata.get(&name) {
                     result.push_str(&value);
                 }
             }

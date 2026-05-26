@@ -4,6 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use crate::{
+    config::{PACKAGE, PLUGIN_DIR},
     connection::{
         Connection, ConnectionExt, bookmark::BookmarkGoToVariant, list::ConnectionList,
         remote::ConnectionRemote,
@@ -12,13 +13,12 @@ use crate::{
     file::{File, FileOps},
     file_selector::{FileSelector, TabOptions, TabPosition, TabState, TabVariant},
     layout::color_themes::ColorThemes,
-    libgcmd::{
-        file_actions::{FileActions, FileActionsExt},
-        state::{State, StateExt},
-    },
     options::{GeneralOptions, ProgramsOptions, types::WriteResult},
     paned_ext::GnomeCmdPanedExt,
-    plugin_manager::{PluginManager, wrap_plugin_menu},
+    plugins::{
+        ApiRequestToPlugin, ApiResponseFromPlugin, InactivePluginHostChannel,
+        MessageFromPluginHost, MessageToPluginHost, PanelsState, PluginHost, PluginHostChannel,
+    },
     search::search_dialog::SearchDialog,
     shortcuts::{Area, LegacyShortcutVariant, Shortcuts},
     spawn::{SpawnError, app_needs_terminal, run_command_indir},
@@ -116,7 +116,7 @@ pub mod imp {
         #[property(get, set = Self::set_current_panel)]
         current_panel: Cell<u32>,
 
-        pub plugin_manager: PluginManager,
+        pub plugin_channel: InactivePluginHostChannel,
         pub file_metadata_service: FileMetadataService,
 
         pub color_themes: Rc<ColorThemes>,
@@ -169,17 +169,22 @@ pub mod imp {
         }
 
         fn new() -> Self {
-            let plugin_manager = PluginManager::new();
-            let file_metadata_service = FileMetadataService::new(&plugin_manager);
+            let system_plugins_dir = Path::new(PLUGIN_DIR);
+            let user_plugins_dir = glib::user_config_dir().join(PACKAGE).join("plugins");
+            let (plugin_host, plugin_channel) =
+                PluginHost::new(system_plugins_dir, &user_plugins_dir);
+            glib::spawn_future_local(plugin_host);
+
+            let file_metadata_service = FileMetadataService::new(plugin_channel.clone());
 
             let (con_drop, con_drop_image) = build_con_drop_button();
 
             let cmdline = CommandLine::new();
 
-            let file_selector_left = FileSelector::new(&file_metadata_service);
+            let file_selector_left = FileSelector::new();
             file_selector_left.set_command_line(Some(&cmdline));
 
-            let file_selector_right = FileSelector::new(&file_metadata_service);
+            let file_selector_right = FileSelector::new();
             file_selector_right.set_command_line(Some(&cmdline));
 
             Self {
@@ -227,7 +232,7 @@ pub mod imp {
                 delete_btn: buttonbar_button(&gettext("F8 Delete"), UserAction::FileDelete.name()),
                 find_btn: buttonbar_button(&gettext("F9 Search"), UserAction::FileSearch.name()),
 
-                plugin_manager,
+                plugin_channel,
                 file_metadata_service,
 
                 color_themes: ColorThemes::new(),
@@ -266,12 +271,6 @@ pub mod imp {
             }));
             mw.set_icon_name(Some("gnome-commander"));
             mw.set_resizable(true);
-
-            self.plugin_manager.connect_plugins_changed(glib::clone!(
-                #[weak]
-                mw,
-                move |_| mw.imp().update_menu()
-            ));
 
             let vbox = gtk::Box::builder()
                 .orientation(gtk::Orientation::Vertical)
@@ -444,12 +443,6 @@ pub mod imp {
                     move || imp.on_right_fs_select()
                 ));
 
-            ConnectionList::get().connect_list_changed(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                move || imp.on_con_list_list_changed()
-            ));
-
             let options = GeneralOptions::new();
             remember_window_state(
                 &*mw,
@@ -567,11 +560,6 @@ pub mod imp {
     impl ApplicationWindowImpl for MainWindow {}
 
     impl MainWindow {
-        pub fn update_menu(&self) {
-            let menu = main_menu(&self.obj());
-            self.menubar.set_menu_model(Some(&menu));
-        }
-
         fn create_toolbar(&self) {
             self.toolbar
                 .append(&toolbar_button(UserAction::ViewRefresh, "view-refresh"));
@@ -788,10 +776,6 @@ pub mod imp {
             self.update_cmdline();
         }
 
-        fn on_con_list_list_changed(&self) {
-            self.update_menu();
-        }
-
         fn set_connection_list_visible(&self, value: bool) {
             self.connection_list_visible.set(value);
             self.file_selector_left.borrow().update_show_devlist(value);
@@ -925,6 +909,10 @@ glib::wrapper! {
 impl MainWindow {
     pub fn new() -> Self {
         glib::Object::builder().build()
+    }
+
+    pub fn plugin_channel(&self) -> PluginHostChannel {
+        self.imp().plugin_channel.activate_cloned()
     }
 
     pub fn left_panel(&self) -> FileSelector {
@@ -1118,8 +1106,6 @@ impl MainWindow {
     pub fn save_state(&self) -> WriteResult {
         let options = GeneralOptions::new();
 
-        self.imp().plugin_manager.save();
-
         options.keybindings.set(self.imp().shortcuts.save())?;
 
         // Reset legacy option, making sure we don't import it more than once
@@ -1162,37 +1148,44 @@ impl MainWindow {
         &self.imp().shortcuts
     }
 
-    pub fn state(&self) -> State {
+    pub fn state(&self) -> PanelsState {
+        fn get_file_name(file: impl FileOps) -> Option<String> {
+            file.path_name().to_str().map(str::to_owned)
+        }
+
         let fl1 = self.file_selector(FileSelectorID::Active).file_list();
         let fl2 = self.file_selector(FileSelectorID::Inactive).file_list();
         let dir1 = fl1.directory();
         let dir2 = fl2.directory();
 
-        pub fn to_file(directory: &Directory) -> File {
-            let info = gio::FileInfo::new();
-            info.set_display_name(&directory.name());
-            info.set_name(directory.path_name());
-            info.set_file_type(gio::FileType::Directory);
-            File::new_from_file(&*directory.file(), &info)
+        PanelsState {
+            active_directory_path: dir1
+                .as_ref()
+                .and_then(|dir| dir.local_path())
+                .and_then(|path| path.to_str().map(str::to_owned)),
+            active_directory_uri: dir1.map(|dir| dir.uri()),
+            active_focused_file: fl1.selected_file().and_then(get_file_name),
+            active_selected_files: fl1
+                .selected_files()
+                .into_iter()
+                .filter_map(get_file_name)
+                .collect(),
+            inactive_directory_path: dir2
+                .as_ref()
+                .and_then(|dir| dir.local_path())
+                .and_then(|path| path.to_str().map(str::to_owned)),
+            inactive_directory_uri: dir2.map(|dir| dir.uri()),
+            inactive_focused_file: fl2.selected_file().and_then(get_file_name),
+            inactive_selected_files: fl2
+                .selected_files()
+                .into_iter()
+                .filter_map(get_file_name)
+                .collect(),
         }
-
-        let state = State::new();
-        state.set_active_dir(dir1.as_ref().map(to_file).and_upcast_ref());
-        state.set_inactive_dir(dir2.as_ref().map(to_file).and_upcast_ref());
-        state.set_active_dir_files(&fl1.visible_files().into_iter().collect());
-        state.set_inactive_dir_files(&fl2.visible_files().into_iter().collect());
-        state.set_active_dir_selected_files(&fl1.selected_files().into_iter().collect());
-        state.set_inactive_dir_selected_files(&fl2.selected_files().into_iter().collect());
-
-        state
     }
 
-    pub fn plugin_manager(&self) -> PluginManager {
-        self.imp().plugin_manager.clone()
-    }
-
-    pub fn file_metadata_service(&self) -> FileMetadataService {
-        self.imp().file_metadata_service.clone()
+    pub fn file_metadata_service(&self) -> &FileMetadataService {
+        &self.imp().file_metadata_service
     }
 
     pub fn get_dialog<T: IsA<gtk::Window>>(&self, handle: &str) -> Option<T> {
@@ -1427,6 +1420,8 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
             .action(UserAction::OptionsEditShortcuts)
     });
 
+    let connections_goto = gio::Menu::new();
+    let connections_disconnect = gio::Menu::new();
     menu.append_submenu(Some(&gettext("_Connections")), &{
         gio::Menu::new()
             .section({
@@ -1434,8 +1429,15 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
                     .action(UserAction::ConnectionsOpen)
                     .action(UserAction::ConnectionsNew)
             })
-            .section(local_connections_menu())
-            .section(connections_menu())
+            .section(connections_goto.clone())
+            .section(connections_disconnect.clone())
+    });
+
+    local_connections_menu(&connections_goto);
+    connections_menu(&connections_disconnect);
+    ConnectionList::get().connect_list_changed(move || {
+        local_connections_menu(&connections_goto);
+        connections_menu(&connections_disconnect);
     });
 
     menu.append_submenu(Some(&gettext("_Bookmarks")), &{
@@ -1448,10 +1450,21 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
             .section(create_bookmarks_menu())
     });
 
+    let plugins = gio::Menu::new();
     menu.append_submenu(Some(&gettext("_Plugins")), &{
         gio::Menu::new()
             .section(gio::Menu::new().action(UserAction::PluginsConfigure))
-            .section(create_plugins_menu(main_win))
+            .section(plugins.clone())
+    });
+
+    let mut channel = main_win.plugin_channel();
+    glib::spawn_future_local(async move {
+        plugins_menu(&mut channel, &plugins).await;
+        loop {
+            if let MessageFromPluginHost::PluginUpdated(..) = channel.receive().await {
+                plugins_menu(&mut channel, &plugins).await;
+            }
+        }
     });
 
     menu.append_submenu(Some(&gettext("_Help")), &{
@@ -1469,8 +1482,8 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
     menu
 }
 
-fn local_connections_menu() -> gio::Menu {
-    let menu = gio::Menu::new();
+fn local_connections_menu(menu: &gio::Menu) {
+    menu.remove_all();
     for con in ConnectionList::get().iter() {
         if con
             .downcast_ref::<ConnectionRemote>()
@@ -1486,11 +1499,10 @@ fn local_connections_menu() -> gio::Menu {
             menu.append_item(&item);
         }
     }
-    menu
 }
 
-fn connections_menu() -> gio::Menu {
-    let menu = gio::Menu::new();
+fn connections_menu(menu: &gio::Menu) {
+    menu.remove_all();
 
     // Add all open connections that are not permanent
     for con in ConnectionList::get().iter() {
@@ -1503,7 +1515,6 @@ fn connections_menu() -> gio::Menu {
             menu.append_item(&item);
         }
     }
-    menu
 }
 
 fn create_bookmarks_menu() -> gio::Menu {
@@ -1541,15 +1552,53 @@ fn create_bookmarks_menu() -> gio::Menu {
     menu
 }
 
-fn create_plugins_menu(main_win: &MainWindow) -> gio::Menu {
-    let menu = gio::Menu::new();
-    for (action_group_name, plugin) in main_win.plugin_manager().active_plugins() {
-        if let Some(file_actions) = plugin.downcast_ref::<FileActions>()
-            && let Some(plugin_menu) = file_actions.create_main_menu()
+async fn plugins_menu(channel: &mut PluginHostChannel, menu: &gio::Menu) {
+    menu.remove_all();
+
+    let id = channel.new_id();
+    channel.send(MessageToPluginHost::ApiRequest {
+        id,
+        plugin_name: None,
+        request: ApiRequestToPlugin::MainMenuItems,
+    });
+
+    let mut received = Vec::new();
+    loop {
+        if let MessageFromPluginHost::ApiResponse {
+            id: resp_id,
+            plugin_name,
+            plugin_display_name,
+            response,
+            last,
+        } = channel.receive().await
+            && resp_id == id
         {
-            let plugin_menu = wrap_plugin_menu(&action_group_name, &plugin_menu);
-            menu.append_section(None, &plugin_menu);
+            if let Some(ApiResponseFromPlugin::MainMenuItems(items)) = response {
+                received.extend(
+                    items
+                        .into_iter()
+                        .map(|item| (plugin_name.clone(), plugin_display_name.clone(), item)),
+                );
+            }
+            if last {
+                break;
+            }
         }
     }
-    menu
+
+    received.sort_by_cached_key(|(plugin_name, _, _)| plugin_name.clone());
+
+    for (plugin_name, plugin_display_name, item) in received {
+        let label = if plugin_display_name.is_empty() {
+            item.label
+        } else {
+            format!("{} | {plugin_display_name}", item.label)
+        };
+        let menuitem = gio::MenuItem::new(Some(&label), None);
+        menuitem.set_action_and_target_value(
+            Some(UserAction::PluginAction.name()),
+            Some(&(&plugin_name, &item.action, &item.parameter).to_variant()),
+        );
+        menu.append_item(&menuitem);
+    }
 }

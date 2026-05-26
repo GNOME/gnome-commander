@@ -22,12 +22,12 @@ variables:
     yelp-tools
     gi-docgen
     gobject-introspection
-    libexiv2-dev
-    libgsf-1-dev
     libgtk-4-dev
-    libpoppler-glib-dev
-    libtag1-dev
     libvte-2.91-gtk4-dev
+    7zip
+    python3-pypdf
+    python3-exifread
+    python3-mutagen
     curl
 
 include:
@@ -52,6 +52,7 @@ build_and_test:
     - mkdir ${MESON_BUILD_DIR}
     - meson setup ${MESON_BUILD_DIR}
     - meson compile -C ${MESON_BUILD_DIR}
+    - meson install -C ${MESON_BUILD_DIR}
     - exit_code=0
     - xvfb-run meson test -C ${MESON_BUILD_DIR} || exit_code=$?; if [ "$exit_code" != "0" ]; then echo "Unit tests failed."; cat ${MESON_BUILD_DIR}/meson-logs/testlog.txt; exit 1; fi;
 

@@ -14,5 +14,5 @@ EOF
 
 {
   grep -RHo 'gettextrs' src/ | cut -d: -f1 && \
-  find src/ plugins/ -regex '.*\.\(cc\|\c\)$' -exec grep -lE "\bN?_\s*\(" '{}' \;
+  find src/ plugins/ -regex '.*\.py$' -exec grep -lE "\bN?_\s*\(" '{}' \;
 } | sort -u >> po/POTFILES.in

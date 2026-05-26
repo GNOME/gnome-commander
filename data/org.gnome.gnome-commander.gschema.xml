@@ -1041,28 +1041,19 @@ SPDX-License-Identifier: GPL-3.0-or-later
       </description>
     </key>
   </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.plugins.file-roller-plugin" path="/org/gnome/gnome-commander/plugins/file-roller-plugin/">
-    <key name="default-type" type="s">
-        <default>'.zip'</default>
-        <summary>File suffix</summary>
-        <description>
-            Default file suffix of archives created with the File Roller plugin.
-        </description>
-    </key>
-    <key name="prefix-pattern" type="s">
-        <default>'$N'</default>
-        <summary>Prefix pattern</summary>
-        <description>
-            The prefix pattern is used to build up the name for an archive created with the File Roller plugin.
-        </description>
-    </key>
-  </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.plugins.general" path="/org/gnome/gnome-commander/plugins/general/">
-    <key name="autoload" type="as">
-      <default>[]</default>
-      <summary>Automatically loaded plugins</summary>
+    <key name="metadata" type="a{sa{sv}}">
+      <default>{}</default>
+      <summary>Plugin metadata</summary>
       <description>
-          This is the list of automatically loaded plugins, whereas each entry represents the file name of the plugin.
+          Metadata of known plugins by their file name.
+      </description>
+    </key>
+    <key name="persistent-settings" type="a{sa{ss}}">
+      <default>{}</default>
+      <summary>Persistent settings</summary>
+      <description>
+          Settings persisted by the plugins.
       </description>
     </key>
   </schema>

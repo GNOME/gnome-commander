@@ -70,7 +70,7 @@ mod imp {
         utils::{display_help, hbox_builder, vbox_builder},
     };
     use gtk::gdk;
-    use std::cell::{Cell, OnceCell, RefCell};
+    use std::cell::{Cell, RefCell};
 
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::ViewerWindow)]
@@ -81,10 +81,7 @@ mod imp {
         pub text_render: TextRender,
         pub image_render: ImageRender,
         pub status_label: gtk::Label,
-        pub metadata_view: OnceCell<FileMetainfoView>,
-
-        #[property(get, construct_only)]
-        pub file_metadata_service: OnceCell<FileMetadataService>,
+        pub metadata_view: FileMetainfoView,
 
         #[property(get, set)]
         pub file: RefCell<Option<File>>,
@@ -180,9 +177,7 @@ mod imp {
                 text_render: TextRender::new(),
                 image_render,
                 status_label: gtk::Label::default(),
-                metadata_view: Default::default(),
-
-                file_metadata_service: Default::default(),
+                metadata_view: FileMetainfoView::new(),
 
                 file: Default::default(),
                 searchbar: SearchBar::new(),
@@ -287,15 +282,13 @@ mod imp {
                             .append(&self.status_label)
                             .build(),
                     )
-                    .append(&{
-                        let metadata_view = FileMetainfoView::new(&window.file_metadata_service());
-                        metadata_view.set_vexpand(true);
+                    .append({
+                        self.metadata_view.set_vexpand(true);
                         window
-                            .bind_property("metadata-visible", &metadata_view, "visible")
+                            .bind_property("metadata-visible", &self.metadata_view, "visible")
                             .bidirectional()
                             .build();
-                        let _ = self.metadata_view.set(metadata_view.clone());
-                        metadata_view
+                        &self.metadata_view
                     })
                     .build(),
             ));
@@ -894,13 +887,14 @@ glib::wrapper! {
 }
 
 impl ViewerWindow {
-    pub fn file_view(file: &File, file_metadata_service: &FileMetadataService) -> Self {
-        let w: Self = glib::Object::builder()
-            .property("file-metadata-service", file_metadata_service)
-            .build();
+    pub async fn file_view(file: &File, file_metadata_service: &FileMetadataService) {
+        let w: Self = glib::Object::builder().build();
         w.load_file(file);
+        w.present();
         w.imp().stack.grab_focus();
-        w
+        w.imp()
+            .metadata_view
+            .set_metadata(&mut file_metadata_service.extract_metadata(file).await);
     }
 
     fn load_file(&self, file: &File) {
@@ -913,10 +907,6 @@ impl ViewerWindow {
 
         self.imp().text_render.load_file(&path);
         self.set_display_mode(DisplayMode::guess(file).unwrap_or_default());
-
-        if let Some(metadata_view) = self.imp().metadata_view.get() {
-            metadata_view.set_property("file", file);
-        }
 
         self.set_title(path.to_str());
     }

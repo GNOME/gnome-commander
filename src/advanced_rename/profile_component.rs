@@ -24,20 +24,18 @@ mod imp {
         utils::{MenuBuilderExt, attributes_bold},
     };
     use std::{
-        cell::{Cell, OnceCell, RefCell},
+        cell::{Cell, RefCell},
         sync::OnceLock,
     };
 
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::AdvancedRenameProfileComponent)]
     pub struct AdvancedRenameProfileComponent {
-        #[property(get, construct_only)]
-        file_metadata_service: OnceCell<FileMetadataService>,
         #[property(get, set, nullable)]
         profile: RefCell<Option<AdvancedRenameProfile>>,
 
         pub template_entry: HistoryEntry,
-        metadata_button: gtk::MenuButton,
+        pub metadata_button: gtk::MenuButton,
 
         pub counter_start_spin: gtk::SpinButton,
         pub counter_step_spin: gtk::SpinButton,
@@ -91,7 +89,6 @@ mod imp {
             let regex_selection_model = gtk::SingleSelection::new(Some(regex_model.clone()));
 
             Self {
-                file_metadata_service: OnceCell::new(),
                 profile: Default::default(),
 
                 template_entry: Default::default(),
@@ -212,11 +209,6 @@ mod imp {
                 bbox.append(&button);
 
                 bbox_size_group.add_widget(&self.metadata_button);
-                self.metadata_button.set_menu_model(Some(
-                    &this
-                        .file_metadata_service()
-                        .create_menu("advrenametag.insert-text-tag"),
-                ));
                 if let Some(popover) = self
                     .metadata_button
                     .popover()
@@ -860,11 +852,16 @@ glib::wrapper! {
 }
 
 impl AdvancedRenameProfileComponent {
-    pub fn new(file_metadata_service: &FileMetadataService) -> Self {
-        let this: Self = glib::Object::builder()
-            .property("file-metadata-service", file_metadata_service)
-            .build();
-        this
+    pub fn new() -> Self {
+        glib::Object::builder().build()
+    }
+
+    pub async fn update_metadata_menu(&self, file_metadata_service: &FileMetadataService) {
+        self.imp().metadata_button.set_menu_model(Some(
+            &file_metadata_service
+                .create_menu("advrenametag.insert-text-tag")
+                .await,
+        ));
     }
 
     pub fn set_template_history(&self, history: &[String]) {

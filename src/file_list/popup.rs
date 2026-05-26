@@ -10,10 +10,11 @@ use crate::{
     debug::debug,
     file::{File, FileOps},
     filter::fnmatch,
-    libgcmd::file_actions::{FileActions, FileActionsExt},
     main_win::MainWindow,
     options::GeneralOptions,
-    plugin_manager::wrap_plugin_menu,
+    plugins::{
+        ApiRequestToPlugin, ApiResponseFromPlugin, MessageFromPluginHost, MessageToPluginHost,
+    },
     user_actions::UserAction,
     utils::MenuBuilderExt,
 };
@@ -187,14 +188,57 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
     add_open_with_entries(&menu, file_list);
 
     // Add plugin popup entries
-    for (action_group_name, plugin) in main_win.plugin_manager().active_plugins() {
-        if let Some(file_actions) = plugin.downcast_ref::<FileActions>()
-            && let Some(plugin_menu) = file_actions.create_popup_menu_items(&main_win.state())
-        {
-            let plugin_menu = wrap_plugin_menu(&action_group_name, &plugin_menu);
-            menu.append_section(None, &plugin_menu);
+    let section = gio::Menu::new();
+    menu.append_section(None, &section);
+    let mut channel = main_win.plugin_channel();
+    let id = channel.new_id();
+    channel.send(MessageToPluginHost::ApiRequest {
+        id,
+        plugin_name: None,
+        request: ApiRequestToPlugin::ContextMenuItems(main_win.state()),
+    });
+
+    glib::spawn_future_local(async move {
+        let mut received = Vec::new();
+        loop {
+            if let MessageFromPluginHost::ApiResponse {
+                id: resp_id,
+                plugin_name,
+                plugin_display_name,
+                response,
+                last,
+            } = channel.receive().await
+                && resp_id == id
+            {
+                if let Some(ApiResponseFromPlugin::ContextMenuItems(items)) = response {
+                    received.extend(
+                        items
+                            .into_iter()
+                            .map(|item| (plugin_name.clone(), plugin_display_name.clone(), item)),
+                    );
+                }
+                if last {
+                    break;
+                }
+            }
         }
-    }
+
+        received.sort_by_cached_key(|(plugin_name, _, _)| plugin_name.clone());
+
+        for (plugin_name, plugin_display_name, item) in received {
+            let label = if plugin_display_name.is_empty() {
+                item.label
+            } else {
+                format!("{} | {plugin_display_name}", item.label)
+            };
+            let menuitem = gio::MenuItem::new(Some(&label), None);
+            menuitem.set_action_and_target_value(
+                Some(UserAction::PluginAction.name()),
+                Some(&(&plugin_name, &item.action, &item.parameter).to_variant()),
+            );
+            section.append_item(&menuitem);
+        }
+    });
 
     // Add favorite applications menu entries
     let options = GeneralOptions::new();
