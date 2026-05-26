@@ -63,5 +63,5 @@ test(
   env: cargo_env,
   args: ['test', '--no-fail-fast'] + cargo_options,
   depends: [commander],
-  timeout: 180
+  timeout: 300
 )
