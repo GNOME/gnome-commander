@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
-"POT-Creation-Date: 2026-05-24 21:54+0000\n"
-"PO-Revision-Date: 2026-05-25 14:43+0200\n"
+"POT-Creation-Date: 2026-05-25 17:17+0000\n"
+"PO-Revision-Date: 2026-05-26 13:58+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -4922,7 +4922,7 @@ msgstr "Rezultati"
 #: src/dialogs/mkdir_dialog.rs:73 src/dialogs/options/device_dialog.rs:98
 #: src/dialogs/options/options_dialog.rs:161 src/dialogs/profiles/edit_profile_dialog.rs:55
 #: src/dialogs/profiles/manage_profiles_dialog.rs:215 src/dialogs/remote_dialog.rs:152
-#: src/dialogs/shortcuts_dialog.rs:203 src/intviewer/window.rs:1138 src/main_win.rs:1454
+#: src/dialogs/shortcuts_dialog.rs:203 src/intviewer/window.rs:1138 src/main_win.rs:1457
 #: src/search/search_dialog.rs:412
 msgid "_Help"
 msgstr "Pomo_č"
@@ -4986,7 +4986,7 @@ msgstr "_Dodaj"
 
 #: src/advanced_rename/profile_component.rs:118 src/dialogs/manage_bookmarks_dialog.rs:65
 #: src/dialogs/options/apps_widget.rs:74 src/dialogs/options/devices_widget.rs:61
-#: src/dialogs/profiles/manage_profiles_dialog.rs:159 src/dialogs/remote_dialog.rs:57 src/main_win.rs:1356
+#: src/dialogs/profiles/manage_profiles_dialog.rs:159 src/dialogs/remote_dialog.rs:57 src/main_win.rs:1359
 msgid "_Edit"
 msgstr "_Uredi"
 
@@ -7180,7 +7180,7 @@ msgstr "Obrni _vodoravno"
 msgid "_File"
 msgstr "_Datoteka"
 
-#: src/intviewer/window.rs:932 src/main_win.rs:1385
+#: src/intviewer/window.rs:932 src/main_win.rs:1388
 msgid "_View"
 msgstr "Po_gled"
 
@@ -7328,7 +7328,7 @@ msgstr "Zahodni (CP1252)"
 msgid "Western (ISO-8859-1)"
 msgstr "Zahodni (ISO-8859-1)"
 
-#: src/intviewer/window.rs:1099 src/main_win.rs:1421
+#: src/intviewer/window.rs:1099 src/main_win.rs:1424
 msgid "_Settings"
 msgstr "_Nastavitve"
 
@@ -7416,19 +7416,19 @@ msgstr "Prekini povezavo"
 msgid "Failed starting shell"
 msgstr "Neuspeli zagon lupine"
 
-#: src/main_win.rs:1368
+#: src/main_win.rs:1371
 msgid "_Mark"
 msgstr "_Označi"
 
-#: src/main_win.rs:1427
+#: src/main_win.rs:1430
 msgid "_Connections"
 msgstr "_Povezave"
 
-#: src/main_win.rs:1438
+#: src/main_win.rs:1441
 msgid "_Bookmarks"
 msgstr "_Zaznamki"
 
-#: src/main_win.rs:1448
+#: src/main_win.rs:1451
 msgid "_Plugins"
 msgstr "_Vstavki"
 
@@ -7964,8 +7964,8 @@ msgid "_Rename"
 msgstr "P_reimenuj"
 
 #: src/user_actions.rs:1684
-msgid "Create _Symbolic Link"
-msgstr "_Ustvari simbolno povezavo"
+msgid "Create Symbolic _Link"
+msgstr "Ustvari simbo_lno povezavo"
 
 #: src/user_actions.rs:1690
 msgid "Advanced _Rename Tool"
@@ -7976,8 +7976,8 @@ msgid "_Send Files"
 msgstr "Pošlji _datoteke"
 
 #: src/user_actions.rs:1702
-msgid "Quit"
-msgstr "Končaj"
+msgid "Qui_t"
+msgstr "Iz_hod"
 
 #: src/user_actions.rs:1709
 msgid "Toggle selection"
@@ -8104,8 +8104,8 @@ msgid "_Equal Panel Size"
 msgstr "_Enako veliki plošči"
 
 #: src/user_actions.rs:1922
-msgid "Maximize Panel Size"
-msgstr "Razpni velikost plošče"
+msgid "_Maximize Panel Size"
+msgstr "_Razpni velikost plošče"
 
 #: src/user_actions.rs:1928
 msgid "Open directory in the left panel"
@@ -8160,8 +8160,8 @@ msgid "Lock/unlock tab"
 msgstr "Zakleni/Odkleni zavihek"
 
 #: src/user_actions.rs:2024
-msgid "Horizontal Orientation"
-msgstr "Vodoravna postavitev"
+msgid "_Horizontal Orientation"
+msgstr "_Vodoravna postavitev"
 
 #: src/user_actions.rs:2030
 msgid "Display main menu"
@@ -8248,8 +8248,8 @@ msgid "_Remote Server…"
 msgstr "_Oddaljeni strežnik …"
 
 #: src/user_actions.rs:2165
-msgid "New Connection…"
-msgstr "Nova povezava …"
+msgid "_New Connection…"
+msgstr "_Nova povezava …"
 
 #: src/user_actions.rs:2171
 msgid "Set Connection"
