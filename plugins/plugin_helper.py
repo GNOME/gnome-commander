@@ -13,6 +13,7 @@ import json
 import os
 import struct
 import sys
+import traceback
 from typing import Any, Awaitable, Optional
 
 
@@ -172,7 +173,11 @@ class Plugin:
     async def handle_api_request(self, id: int, name: str, data: Any) -> None:
         method = name.replace('-', '_')
         if hasattr(self, method):
-            response = await getattr(self, method)(data)
+            try:
+                response = await getattr(self, method)(data)
+            except:
+                traceback.print_exc()
+                response = []
             if method != 'menu_activated':
                 self.send_message('api-response', [id, {
                     name: response,
