@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
-"POT-Creation-Date: 2026-05-17 10:04+0000\n"
-"PO-Revision-Date: 2026-05-17 13:49+0200\n"
+"POT-Creation-Date: 2026-05-24 21:54+0000\n"
+"PO-Revision-Date: 2026-05-25 14:43+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -1142,43 +1142,55 @@ msgid "The height of the internal file viewer window."
 msgstr "Določa višino okna notranjega pregledovalnika."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1024
+msgid "Window state"
+msgstr "Stanje okna"
+
+#: data/org.gnome.gnome-commander.gschema.xml:1025
+msgid ""
+"The number represents the internal file viewer window state, e.g. “maximized”, “fullscreen”, etc. and is "
+"calculated internally."
+msgstr ""
+"Številka predstavlja stanje internega okna ogleda datoteke, npr. »razpeto«, »celozaslonsko« ... in se "
+"izračuna interno."
+
+#: data/org.gnome.gnome-commander.gschema.xml:1031
 msgid "Search pattern for text"
 msgstr "Iskalni niz besedila"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1025
+#: data/org.gnome.gnome-commander.gschema.xml:1032
 msgid "This string array stores the history of text searches within the internal file viewer."
 msgstr "Niz določa shranjeno zgodovino besedilnih iskanj v notranjem pregledovalniku datotek."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1031
+#: data/org.gnome.gnome-commander.gschema.xml:1038
 msgid "Search pattern for hex values"
 msgstr "Iskalni niz šestnajstiške vrednosti"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1032
+#: data/org.gnome.gnome-commander.gschema.xml:1039
 msgid "This string array stores the history of searches for hex values within the internal file viewer."
 msgstr ""
 "Niz določa shranjeno zgodovina iskanj za šestnajstiške vrednosti v notranjem pregledovalniku datotek."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1040
+#: data/org.gnome.gnome-commander.gschema.xml:1047
 msgid "File suffix"
 msgstr "Pripona datoteke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1041
+#: data/org.gnome.gnome-commander.gschema.xml:1048
 msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr "Privzeta pripona arhivov, ki so ustvarjeni z vstavkom File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1047
+#: data/org.gnome.gnome-commander.gschema.xml:1054
 msgid "Prefix pattern"
 msgstr "Vzorec predpone"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1048
+#: data/org.gnome.gnome-commander.gschema.xml:1055
 msgid "The prefix pattern is used to build up the name for an archive created with the File Roller plugin."
 msgstr "Vzorec predpone se uporablja za izgradnjo imena arhiva, ustvarjenega z vstavkom File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1056
+#: data/org.gnome.gnome-commander.gschema.xml:1063
 msgid "Automatically loaded plugins"
 msgstr "Samodejno naloži vstavke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1057
+#: data/org.gnome.gnome-commander.gschema.xml:1064
 msgid ""
 "This is the list of automatically loaded plugins, whereas each entry represents the file name of the "
 "plugin."
@@ -1206,11 +1218,6 @@ msgid ""
 msgstr ""
 "Program Gnome Commander je namenjen naprednim uporabnikom, ki želijo imeti pregled nad datotekami, "
 "opravljati več nalog hkrati in izvajati naprednejša datotečna opravila."
-
-#. developer_name tag deprecated with Appstream 1.0
-#: data/org.gnome.gnome-commander.metainfo.xml.in:54
-msgid "The GNOME Project"
-msgstr "Projekt GNOME"
 
 #: plugins/exiv2/exiv2-plugin.cc:63 plugins/taglib/taglib-plugin.cc:70
 msgid "Album"
@@ -4915,7 +4922,7 @@ msgstr "Rezultati"
 #: src/dialogs/mkdir_dialog.rs:73 src/dialogs/options/device_dialog.rs:98
 #: src/dialogs/options/options_dialog.rs:161 src/dialogs/profiles/edit_profile_dialog.rs:55
 #: src/dialogs/profiles/manage_profiles_dialog.rs:215 src/dialogs/remote_dialog.rs:152
-#: src/dialogs/shortcuts_dialog.rs:203 src/intviewer/window.rs:1133 src/main_win.rs:1451
+#: src/dialogs/shortcuts_dialog.rs:203 src/intviewer/window.rs:1138 src/main_win.rs:1454
 #: src/search/search_dialog.rs:412
 msgid "_Help"
 msgstr "Pomo_č"
@@ -4926,7 +4933,7 @@ msgstr "Ponastavi"
 
 #: src/advanced_rename/advanced_rename_dialog.rs:534 src/dialogs/about_plugin.rs:119
 #: src/dialogs/manage_bookmarks_dialog.rs:200 src/dialogs/options/edit_colors_dialog.rs:170
-#: src/dialogs/remote_dialog.rs:164 src/intviewer/window.rs:924 src/plugin_manager.rs:415
+#: src/dialogs/remote_dialog.rs:164 src/intviewer/window.rs:929 src/plugin_manager.rs:415
 #: src/search/search_dialog.rs:426
 msgid "_Close"
 msgstr "_Zapri"
@@ -4979,7 +4986,7 @@ msgstr "_Dodaj"
 
 #: src/advanced_rename/profile_component.rs:118 src/dialogs/manage_bookmarks_dialog.rs:65
 #: src/dialogs/options/apps_widget.rs:74 src/dialogs/options/devices_widget.rs:61
-#: src/dialogs/profiles/manage_profiles_dialog.rs:159 src/dialogs/remote_dialog.rs:57 src/main_win.rs:1353
+#: src/dialogs/profiles/manage_profiles_dialog.rs:159 src/dialogs/remote_dialog.rs:57 src/main_win.rs:1356
 msgid "_Edit"
 msgstr "_Uredi"
 
@@ -7101,25 +7108,25 @@ msgstr "Ni zadetkov"
 msgid "Cannot translate into text encoding"
 msgstr "Ni nožno prevesti v kodiranje besedila"
 
-#: src/intviewer/window.rs:449
+#: src/intviewer/window.rs:454
 #, rust-format
 msgid "Position: {offset} of {size}"
 msgstr "Položaj: {offset} / {size}"
 
-#: src/intviewer/window.rs:454
+#: src/intviewer/window.rs:459
 #, rust-format
 msgid "Column: {}"
 msgstr "Stolpec: {}"
 
-#: src/intviewer/window.rs:459
+#: src/intviewer/window.rs:464
 msgid "Wrap"
 msgstr "Prelomi"
 
-#: src/intviewer/window.rs:471
+#: src/intviewer/window.rs:476
 msgid "Could not recognize the image file format"
 msgstr "Ni možno prepoznati vrste zapisa slikovne datoteke"
 
-#: src/intviewer/window.rs:480
+#: src/intviewer/window.rs:485
 #, rust-format
 msgid "{width} x {height} pixel"
 msgid_plural "{width} x {height} pixels"
@@ -7128,7 +7135,7 @@ msgstr[1] "{width} x {height} sl. točka"
 msgstr[2] "{width} x {height} sl. točki"
 msgstr[3] "{width} x {height} sl. točke"
 
-#: src/intviewer/window.rs:487
+#: src/intviewer/window.rs:492
 #, rust-format
 msgid "{} bit/sample"
 msgid_plural "{} bits/sample"
@@ -7137,235 +7144,235 @@ msgstr[1] "{} bit/vzorec"
 msgstr[2] "{} bita/vzorec"
 msgstr[3] "{} biti/vzorec"
 
-#: src/intviewer/window.rs:496
+#: src/intviewer/window.rs:501
 msgid "(fit to window)"
 msgstr "(prilagodi oknu)"
 
-#: src/intviewer/window.rs:845
+#: src/intviewer/window.rs:850
 msgid "_Copy Selection"
 msgstr "_Kopiraj izbor"
 
-#: src/intviewer/window.rs:846 src/intviewer/window.rs:974 src/user_actions.rs:1721
+#: src/intviewer/window.rs:851 src/intviewer/window.rs:979 src/user_actions.rs:1721
 msgid "_Select All"
 msgstr "Izberi _vse"
 
-#: src/intviewer/window.rs:855 src/intviewer/window.rs:1064
+#: src/intviewer/window.rs:860 src/intviewer/window.rs:1069
 msgid "_Rotate Clockwise"
 msgstr "_Zasukaj v smeri urinega kazalca"
 
-#: src/intviewer/window.rs:860 src/intviewer/window.rs:1070
+#: src/intviewer/window.rs:865 src/intviewer/window.rs:1075
 msgid "Rotate Counter Clockwis_e"
 msgstr "Zasukaj v obratni smeri urinega kazalca"
 
-#: src/intviewer/window.rs:865 src/intviewer/window.rs:1075
+#: src/intviewer/window.rs:870 src/intviewer/window.rs:1080
 msgid "Rotate 180°"
 msgstr "Zasukaj za 180°"
 
-#: src/intviewer/window.rs:870 src/intviewer/window.rs:1081
+#: src/intviewer/window.rs:875 src/intviewer/window.rs:1086
 msgid "Flip _Vertical"
 msgstr "Obrni _navpično"
 
-#: src/intviewer/window.rs:875 src/intviewer/window.rs:1086
+#: src/intviewer/window.rs:880 src/intviewer/window.rs:1091
 msgid "Flip _Horizontal"
 msgstr "Obrni _vodoravno"
 
-#: src/intviewer/window.rs:923 src/main_win.rs:1330
+#: src/intviewer/window.rs:928 src/main_win.rs:1333
 msgid "_File"
 msgstr "_Datoteka"
 
-#: src/intviewer/window.rs:927 src/main_win.rs:1382
+#: src/intviewer/window.rs:932 src/main_win.rs:1385
 msgid "_View"
 msgstr "Po_gled"
 
-#: src/intviewer/window.rs:930 src/intviewer/window.rs:967
+#: src/intviewer/window.rs:935 src/intviewer/window.rs:972
 msgid "_Text"
 msgstr "_Besedilo"
 
-#: src/intviewer/window.rs:936
+#: src/intviewer/window.rs:941
 msgid "_Fixed Width"
 msgstr "_Nespremenljiva širina"
 
-#: src/intviewer/window.rs:942
+#: src/intviewer/window.rs:947
 msgid "_Hexadecimal"
 msgstr "_Šestnajstiško"
 
-#: src/intviewer/window.rs:948 src/intviewer/window.rs:1061
+#: src/intviewer/window.rs:953 src/intviewer/window.rs:1066
 msgid "_Image"
 msgstr "_Slika"
 
-#: src/intviewer/window.rs:955
+#: src/intviewer/window.rs:960
 msgid "_Zoom In"
 msgstr "_Približaj"
 
-#: src/intviewer/window.rs:956
+#: src/intviewer/window.rs:961
 msgid "_Zoom Out"
 msgstr "_Oddalji"
 
-#: src/intviewer/window.rs:957
+#: src/intviewer/window.rs:962
 msgid "_Normal Size"
 msgstr "_Navadna velikost"
 
-#: src/intviewer/window.rs:958
+#: src/intviewer/window.rs:963
 msgid "_Best Fit"
 msgstr "_Najboljše prileganje"
 
-#: src/intviewer/window.rs:970
+#: src/intviewer/window.rs:975
 msgid "_Copy Text Selection"
 msgstr "_Kopiraj izbor besedila"
 
-#: src/intviewer/window.rs:975
+#: src/intviewer/window.rs:980
 msgid "Find…"
 msgstr "Najdi …"
 
-#: src/intviewer/window.rs:976
+#: src/intviewer/window.rs:981
 msgid "Find Next"
 msgstr "Najdi naslednje"
 
-#: src/intviewer/window.rs:978
+#: src/intviewer/window.rs:983
 msgid "Find Previous"
 msgstr "Najdi prejšnje"
 
-#: src/intviewer/window.rs:983
+#: src/intviewer/window.rs:988
 msgid "_Wrap lines"
 msgstr "_Ovij vrstice"
 
-#: src/intviewer/window.rs:988
+#: src/intviewer/window.rs:993
 msgid "_Encoding"
 msgstr "_Nabor znakov"
 
-#: src/intviewer/window.rs:990
+#: src/intviewer/window.rs:995
 msgid "_UTF-8"
 msgstr "_UTF-8"
 
-#: src/intviewer/window.rs:992
+#: src/intviewer/window.rs:997
 msgid "English (US-_ASCII)"
 msgstr "Angleški (US-_ASCII)"
 
-#: src/intviewer/window.rs:996
+#: src/intviewer/window.rs:1001
 msgid "Terminal (CP437)"
 msgstr "Terminal (CP437)"
 
-#: src/intviewer/window.rs:998
+#: src/intviewer/window.rs:1003
 msgid "Arabic (ISO-8859-6)"
 msgstr "Arabski (ISO-8859-6)"
 
-#: src/intviewer/window.rs:1002
+#: src/intviewer/window.rs:1007
 msgid "Arabic ( Windows, CP1256)"
 msgstr "Arabski (Windows, CP1256)"
 
-#: src/intviewer/window.rs:1005
+#: src/intviewer/window.rs:1010
 msgid "Arabic (Dos, CP864)"
 msgstr "Arabski (Dos, CP864)"
 
-#: src/intviewer/window.rs:1007
+#: src/intviewer/window.rs:1012
 msgid "Baltic (ISO-8859-4)"
 msgstr "Baltski (ISO-8859-4)"
 
-#: src/intviewer/window.rs:1011
+#: src/intviewer/window.rs:1016
 msgid "Central European (ISO-8859-2)"
 msgstr "Srednjevropski (ISO-8859-2)"
 
-#: src/intviewer/window.rs:1015
+#: src/intviewer/window.rs:1020
 msgid "Central European (CP1250)"
 msgstr "Srednjeevropski (CP1250)"
 
-#: src/intviewer/window.rs:1019
+#: src/intviewer/window.rs:1024
 msgid "Cyrillic (ISO-8859-5)"
 msgstr "Cirilica (ISO-8859-5)"
 
-#: src/intviewer/window.rs:1022
+#: src/intviewer/window.rs:1027
 msgid "Cyrillic (CP1251)"
 msgstr "Cirilica (CP1251)"
 
-#: src/intviewer/window.rs:1024
+#: src/intviewer/window.rs:1029
 msgid "Greek (ISO-8859-7)"
 msgstr "Grški (ISO-8859-7)"
 
-#: src/intviewer/window.rs:1027
+#: src/intviewer/window.rs:1032
 msgid "Greek (CP1253)"
 msgstr "Grški (CP1253)"
 
-#: src/intviewer/window.rs:1029
+#: src/intviewer/window.rs:1034
 msgid "Hebrew (Windows, CP1255)"
 msgstr "Hebrejski (Windows, CP1255)"
 
-#: src/intviewer/window.rs:1032
+#: src/intviewer/window.rs:1037
 msgid "Hebrew (Dos, CP862)"
 msgstr "Hebrejski (Dos, CP862)"
 
-#: src/intviewer/window.rs:1034
+#: src/intviewer/window.rs:1039
 msgid "Hebrew (ISO-8859-8)"
 msgstr "Hebrejski (ISO-8859-8)"
 
-#: src/intviewer/window.rs:1038
+#: src/intviewer/window.rs:1043
 msgid "Latin 9 (ISO-8859-15)"
 msgstr "Latinica 9 (ISO-8859-15)"
 
-#: src/intviewer/window.rs:1042
+#: src/intviewer/window.rs:1047
 msgid "Maltese (ISO-8859-3)"
 msgstr "Malteški (ISO-8859-3)"
 
-#: src/intviewer/window.rs:1046
+#: src/intviewer/window.rs:1051
 msgid "Turkish (ISO-8859-9)"
 msgstr "Turški (ISO-8859-9)"
 
-#: src/intviewer/window.rs:1049
+#: src/intviewer/window.rs:1054
 msgid "Turkish (CP1254)"
 msgstr "Turški (CP1254)"
 
-#: src/intviewer/window.rs:1050
+#: src/intviewer/window.rs:1055
 msgid "Western (CP1252)"
 msgstr "Zahodni (CP1252)"
 
-#: src/intviewer/window.rs:1052
+#: src/intviewer/window.rs:1057
 msgid "Western (ISO-8859-1)"
 msgstr "Zahodni (ISO-8859-1)"
 
-#: src/intviewer/window.rs:1094 src/main_win.rs:1418
+#: src/intviewer/window.rs:1099 src/main_win.rs:1421
 msgid "_Settings"
 msgstr "_Nastavitve"
 
-#: src/intviewer/window.rs:1096
+#: src/intviewer/window.rs:1101
 msgid "_Font…"
 msgstr "_Pisava …"
 
-#: src/intviewer/window.rs:1098
+#: src/intviewer/window.rs:1103
 msgid "Fixed _Width Mode"
 msgstr "Način nespremenljive _širine"
 
-#: src/intviewer/window.rs:1101
+#: src/intviewer/window.rs:1106
 msgid "_20 chars/line"
 msgstr "_20 znakov/vrstico"
 
-#: src/intviewer/window.rs:1106
+#: src/intviewer/window.rs:1111
 msgid "_40 chars/line"
 msgstr "_40 znakov/vrstico"
 
-#: src/intviewer/window.rs:1111
+#: src/intviewer/window.rs:1116
 msgid "_80 chars/line"
 msgstr "_80 znakov/vrstico"
 
-#: src/intviewer/window.rs:1115
+#: src/intviewer/window.rs:1120
 msgid "_120 chars/line"
 msgstr "_120 znakov/vrstico"
 
-#: src/intviewer/window.rs:1116
+#: src/intviewer/window.rs:1121
 msgid "1_60 chars/line"
 msgstr "1_60 znakov/vrstico"
 
-#: src/intviewer/window.rs:1121
+#: src/intviewer/window.rs:1126
 msgid "Show Metadata _Tags"
 msgstr "Pokaži _značke metapodatkov"
 
-#: src/intviewer/window.rs:1126
+#: src/intviewer/window.rs:1131
 msgid "_Hexadecimal Offset"
 msgstr "_Šestnajstiški odmik"
 
-#: src/intviewer/window.rs:1135
+#: src/intviewer/window.rs:1140
 msgid "Quick _Help"
 msgstr "Hitra po_moč"
 
-#: src/intviewer/window.rs:1136 src/user_actions.rs:2229
+#: src/intviewer/window.rs:1141 src/user_actions.rs:2229
 msgid "_Keyboard Shortcuts"
 msgstr "_Tipkovne bližnjice"
 
@@ -7409,19 +7416,19 @@ msgstr "Prekini povezavo"
 msgid "Failed starting shell"
 msgstr "Neuspeli zagon lupine"
 
-#: src/main_win.rs:1365
+#: src/main_win.rs:1368
 msgid "_Mark"
 msgstr "_Označi"
 
-#: src/main_win.rs:1424
+#: src/main_win.rs:1427
 msgid "_Connections"
 msgstr "_Povezave"
 
-#: src/main_win.rs:1435
+#: src/main_win.rs:1438
 msgid "_Bookmarks"
 msgstr "_Zaznamki"
 
-#: src/main_win.rs:1445
+#: src/main_win.rs:1448
 msgid "_Plugins"
 msgstr "_Vstavki"
 
@@ -8375,12 +8382,12 @@ msgstr[3] "{} MiB"
 
 #: src/utils.rs:389
 #, rust-format
-msgid "{} kiB"
-msgid_plural "{} kiB"
-msgstr[0] "{} kiB"
-msgstr[1] "{} kiB"
-msgstr[2] "{} kiB"
-msgstr[3] "{} kiB"
+msgid "{} KiB"
+msgid_plural "{} KiB"
+msgstr[0] "{} KiB"
+msgstr[1] "{} KiB"
+msgstr[2] "{} KiB"
+msgstr[3] "{} KiB"
 
 #: src/utils.rs:392 src/utils.rs:403 src/utils.rs:407
 #, rust-format

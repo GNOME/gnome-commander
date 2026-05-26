@@ -1287,6 +1287,9 @@ impl MainWindow {
         } else {
             paned.width()
         };
+        if dimension == 0 {
+            return false;
+        }
         let new_dimension = dimension * percentage / 100;
 
         if paned.is_position_set() && paned.position() == new_dimension {
@@ -1340,6 +1343,9 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
                 gio::Menu::new()
                     .action(UserAction::FileDiff)
                     .action(UserAction::FileSyncDirs)
+            })
+            .section({
+                gio::Menu::new().action(UserAction::FileExit)
             })
     });
 

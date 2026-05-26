@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander 1.3.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/"
 "\n"
-"POT-Creation-Date: 2026-05-17 13:16+0000\n"
-"PO-Revision-Date: 2026-05-17 18:37+0300\n"
+"POT-Creation-Date: 2026-05-24 21:54+0000\n"
+"PO-Revision-Date: 2026-05-25 18:45+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1346,10 +1346,27 @@ msgid "The height of the internal file viewer window."
 msgstr "Висота вікна вбудованого засобу перегляду файлів."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1024
+#| msgid "Windows share"
+msgid "Window state"
+msgstr "Стан вікна"
+
+#: data/org.gnome.gnome-commander.gschema.xml:1025
+#| msgid ""
+#| "The number represents the main window state, e.g. “maximized”, "
+#| "“fullscreen”, etc. and is calculated internally."
+msgid ""
+"The number represents the internal file viewer window state, e.g. "
+"“maximized”, “fullscreen”, etc. and is calculated internally."
+msgstr ""
+"Число, яке відповідає стану вікна вбудованого редактора файлів, наприклад"
+" «максимізовано», «на "
+"увесь екран» тощо. Обчислюється на внутрішньому рівні програми."
+
+#: data/org.gnome.gnome-commander.gschema.xml:1031
 msgid "Search pattern for text"
 msgstr "Взірець пошуку для тексту"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1025
+#: data/org.gnome.gnome-commander.gschema.xml:1032
 msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
@@ -1357,11 +1374,11 @@ msgstr ""
 "Цей масив рядків зберігає журнал текстових пошуку у вбудованому засобі "
 "перегляду файлів."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1031
+#: data/org.gnome.gnome-commander.gschema.xml:1038
 msgid "Search pattern for hex values"
 msgstr "Взірець пошуку для шістнадцяткових значень"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1032
+#: data/org.gnome.gnome-commander.gschema.xml:1039
 msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
@@ -1369,21 +1386,21 @@ msgstr ""
 "Цей масив рядків зберігає журнал пошуку шістнадцяткових значень у "
 "вбудованому засобі перегляду файлів."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1040
+#: data/org.gnome.gnome-commander.gschema.xml:1047
 msgid "File suffix"
 msgstr "Суфікс назв файлів"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1041
+#: data/org.gnome.gnome-commander.gschema.xml:1048
 msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr ""
 "Типовий суфікс назв архівів, які буде створено за допомогою додатка File "
 "Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1047
+#: data/org.gnome.gnome-commander.gschema.xml:1054
 msgid "Prefix pattern"
 msgstr "Взірець префіксів"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1048
+#: data/org.gnome.gnome-commander.gschema.xml:1055
 msgid ""
 "The prefix pattern is used to build up the name for an archive created with "
 "the File Roller plugin."
@@ -1391,11 +1408,11 @@ msgstr ""
 "Взірець префіксів використовується для побудови назв архівів, які буде "
 "створено за допомогою додатка File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1056
+#: data/org.gnome.gnome-commander.gschema.xml:1063
 msgid "Automatically loaded plugins"
 msgstr "Автоматично завантажувані модулі"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1057
+#: data/org.gnome.gnome-commander.gschema.xml:1064
 msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
@@ -5444,7 +5461,7 @@ msgstr "Результат"
 #: src/dialogs/profiles/edit_profile_dialog.rs:55
 #: src/dialogs/profiles/manage_profiles_dialog.rs:215
 #: src/dialogs/remote_dialog.rs:152 src/dialogs/shortcuts_dialog.rs:203
-#: src/intviewer/window.rs:1133 src/main_win.rs:1451
+#: src/intviewer/window.rs:1138 src/main_win.rs:1454
 #: src/search/search_dialog.rs:412
 msgid "_Help"
 msgstr "_Довідка"
@@ -5457,7 +5474,7 @@ msgstr "Скинути"
 #: src/advanced_rename/advanced_rename_dialog.rs:534
 #: src/dialogs/about_plugin.rs:119 src/dialogs/manage_bookmarks_dialog.rs:200
 #: src/dialogs/options/edit_colors_dialog.rs:170
-#: src/dialogs/remote_dialog.rs:164 src/intviewer/window.rs:924
+#: src/dialogs/remote_dialog.rs:164 src/intviewer/window.rs:929
 #: src/plugin_manager.rs:415 src/search/search_dialog.rs:426
 msgid "_Close"
 msgstr "_Закрити"
@@ -5518,7 +5535,7 @@ msgstr "_Додати"
 #: src/dialogs/options/apps_widget.rs:74
 #: src/dialogs/options/devices_widget.rs:61
 #: src/dialogs/profiles/manage_profiles_dialog.rs:159
-#: src/dialogs/remote_dialog.rs:57 src/main_win.rs:1353
+#: src/dialogs/remote_dialog.rs:57 src/main_win.rs:1356
 msgid "_Edit"
 msgstr "_Правка"
 
@@ -5775,7 +5792,6 @@ msgid "_Inverse selection"
 msgstr "_Інвертувати позначення"
 
 #: src/advanced_rename/profile_component.rs:1029
-#| msgid "_Insert"
 msgid "I_nsert"
 msgstr "Вст_авити"
 
@@ -7697,25 +7713,25 @@ msgstr "Не знайдено"
 msgid "Cannot translate into text encoding"
 msgstr "Не вдалося перенести до кодування тексту"
 
-#: src/intviewer/window.rs:449
+#: src/intviewer/window.rs:454
 #, rust-format
 msgid "Position: {offset} of {size}"
 msgstr "Розташування: {offset} з {size}"
 
-#: src/intviewer/window.rs:454
+#: src/intviewer/window.rs:459
 #, rust-format
 msgid "Column: {}"
 msgstr "Стовпчик: {}"
 
-#: src/intviewer/window.rs:459
+#: src/intviewer/window.rs:464
 msgid "Wrap"
 msgstr "Прокрутка"
 
-#: src/intviewer/window.rs:471
+#: src/intviewer/window.rs:476
 msgid "Could not recognize the image file format"
 msgstr "Не вдалося розпізнати формат зображення"
 
-#: src/intviewer/window.rs:480
+#: src/intviewer/window.rs:485
 #, rust-format
 msgid "{width} x {height} pixel"
 msgid_plural "{width} x {height} pixels"
@@ -7724,7 +7740,7 @@ msgstr[1] "{width} x {height} пікселі"
 msgstr[2] "{width} x {height} пікселів"
 msgstr[3] "{width} x {height} піксель"
 
-#: src/intviewer/window.rs:487
+#: src/intviewer/window.rs:492
 #, rust-format
 msgid "{} bit/sample"
 msgid_plural "{} bits/sample"
@@ -7733,236 +7749,236 @@ msgstr[1] "{} біта/семпл"
 msgstr[2] "{} бітів/семпл"
 msgstr[3] "{} біт/семпл"
 
-#: src/intviewer/window.rs:496
+#: src/intviewer/window.rs:501
 msgid "(fit to window)"
 msgstr "(до розміру вікна)"
 
-#: src/intviewer/window.rs:845
+#: src/intviewer/window.rs:850
 msgid "_Copy Selection"
 msgstr "_Копіювати позначене"
 
-#: src/intviewer/window.rs:846 src/intviewer/window.rs:974
+#: src/intviewer/window.rs:851 src/intviewer/window.rs:979
 #: src/user_actions.rs:1721
 msgid "_Select All"
 msgstr "Виді_лити все"
 
-#: src/intviewer/window.rs:855 src/intviewer/window.rs:1064
+#: src/intviewer/window.rs:860 src/intviewer/window.rs:1069
 msgid "_Rotate Clockwise"
 msgstr "_Обернути за годинниковою стрілкою"
 
-#: src/intviewer/window.rs:860 src/intviewer/window.rs:1070
+#: src/intviewer/window.rs:865 src/intviewer/window.rs:1075
 msgid "Rotate Counter Clockwis_e"
 msgstr "Розвернути _проти годинника"
 
-#: src/intviewer/window.rs:865 src/intviewer/window.rs:1075
+#: src/intviewer/window.rs:870 src/intviewer/window.rs:1080
 msgid "Rotate 180°"
 msgstr "Обернути на 180°"
 
-#: src/intviewer/window.rs:870 src/intviewer/window.rs:1081
+#: src/intviewer/window.rs:875 src/intviewer/window.rs:1086
 msgid "Flip _Vertical"
 msgstr "Відобразити _вертикально"
 
-#: src/intviewer/window.rs:875 src/intviewer/window.rs:1086
+#: src/intviewer/window.rs:880 src/intviewer/window.rs:1091
 msgid "Flip _Horizontal"
 msgstr "Відобразити _горизонтально"
 
-#: src/intviewer/window.rs:923 src/main_win.rs:1330
+#: src/intviewer/window.rs:928 src/main_win.rs:1333
 msgid "_File"
 msgstr "_Файл"
 
-#: src/intviewer/window.rs:927 src/main_win.rs:1382
+#: src/intviewer/window.rs:932 src/main_win.rs:1385
 msgid "_View"
 msgstr "_Вигляд"
 
-#: src/intviewer/window.rs:930 src/intviewer/window.rs:967
+#: src/intviewer/window.rs:935 src/intviewer/window.rs:972
 msgid "_Text"
 msgstr "_Текст"
 
-#: src/intviewer/window.rs:936
+#: src/intviewer/window.rs:941
 msgid "_Fixed Width"
 msgstr "_Фіксована ширина"
 
-#: src/intviewer/window.rs:942
+#: src/intviewer/window.rs:947
 msgid "_Hexadecimal"
 msgstr "_Шістнадцяткове"
 
-#: src/intviewer/window.rs:948 src/intviewer/window.rs:1061
+#: src/intviewer/window.rs:953 src/intviewer/window.rs:1066
 msgid "_Image"
 msgstr "_Зображення"
 
-#: src/intviewer/window.rs:955
+#: src/intviewer/window.rs:960
 msgid "_Zoom In"
 msgstr "_Збільшити"
 
-#: src/intviewer/window.rs:956
+#: src/intviewer/window.rs:961
 msgid "_Zoom Out"
 msgstr "З_меншити"
 
-#: src/intviewer/window.rs:957
+#: src/intviewer/window.rs:962
 msgid "_Normal Size"
 msgstr "_Нормальний розмір"
 
-#: src/intviewer/window.rs:958
+#: src/intviewer/window.rs:963
 msgid "_Best Fit"
 msgstr "_Оптимізувати"
 
-#: src/intviewer/window.rs:970
+#: src/intviewer/window.rs:975
 msgid "_Copy Text Selection"
 msgstr "_Копіювати позначений текст"
 
-#: src/intviewer/window.rs:975
+#: src/intviewer/window.rs:980
 msgid "Find…"
 msgstr "Знайти…"
 
-#: src/intviewer/window.rs:976
+#: src/intviewer/window.rs:981
 msgid "Find Next"
 msgstr "Знайти далі"
 
-#: src/intviewer/window.rs:978
+#: src/intviewer/window.rs:983
 msgid "Find Previous"
 msgstr "Знайти позаду"
 
-#: src/intviewer/window.rs:983
+#: src/intviewer/window.rs:988
 msgid "_Wrap lines"
 msgstr "_Згорнути рядки"
 
-#: src/intviewer/window.rs:988
+#: src/intviewer/window.rs:993
 msgid "_Encoding"
 msgstr "_Кодування"
 
-#: src/intviewer/window.rs:990
+#: src/intviewer/window.rs:995
 msgid "_UTF-8"
 msgstr "_UTF-8"
 
-#: src/intviewer/window.rs:992
+#: src/intviewer/window.rs:997
 msgid "English (US-_ASCII)"
 msgstr "Англійське (US-_ASCII)"
 
-#: src/intviewer/window.rs:996
+#: src/intviewer/window.rs:1001
 msgid "Terminal (CP437)"
 msgstr "Термінал (CP437)"
 
-#: src/intviewer/window.rs:998
+#: src/intviewer/window.rs:1003
 msgid "Arabic (ISO-8859-6)"
 msgstr "Арабське (ISO-8859-6)"
 
-#: src/intviewer/window.rs:1002
+#: src/intviewer/window.rs:1007
 msgid "Arabic ( Windows, CP1256)"
 msgstr "Арабське (Windows, CP1256)"
 
-#: src/intviewer/window.rs:1005
+#: src/intviewer/window.rs:1010
 msgid "Arabic (Dos, CP864)"
 msgstr "Арабське (DOS, CP864)"
 
-#: src/intviewer/window.rs:1007
+#: src/intviewer/window.rs:1012
 msgid "Baltic (ISO-8859-4)"
 msgstr "Балтійське (ISO-8859-4)"
 
-#: src/intviewer/window.rs:1011
+#: src/intviewer/window.rs:1016
 msgid "Central European (ISO-8859-2)"
 msgstr "Центральноєвропейське (ISO-8859-2)"
 
-#: src/intviewer/window.rs:1015
+#: src/intviewer/window.rs:1020
 msgid "Central European (CP1250)"
 msgstr "Центральноєвропейське (CP1250)"
 
-#: src/intviewer/window.rs:1019
+#: src/intviewer/window.rs:1024
 msgid "Cyrillic (ISO-8859-5)"
 msgstr "Кирилиця (ISO-8859-5)"
 
-#: src/intviewer/window.rs:1022
+#: src/intviewer/window.rs:1027
 msgid "Cyrillic (CP1251)"
 msgstr "Кирилиця (CP1251)"
 
-#: src/intviewer/window.rs:1024
+#: src/intviewer/window.rs:1029
 msgid "Greek (ISO-8859-7)"
 msgstr "Грецьке (ISO 8859-7)"
 
-#: src/intviewer/window.rs:1027
+#: src/intviewer/window.rs:1032
 msgid "Greek (CP1253)"
 msgstr "Грецьке (CP1253)"
 
-#: src/intviewer/window.rs:1029
+#: src/intviewer/window.rs:1034
 msgid "Hebrew (Windows, CP1255)"
 msgstr "Іврит (Windows, CP1255)"
 
-#: src/intviewer/window.rs:1032
+#: src/intviewer/window.rs:1037
 msgid "Hebrew (Dos, CP862)"
 msgstr "Іврит (DOS, CP862)"
 
-#: src/intviewer/window.rs:1034
+#: src/intviewer/window.rs:1039
 msgid "Hebrew (ISO-8859-8)"
 msgstr "Іврит (ISO-8859-8)"
 
-#: src/intviewer/window.rs:1038
+#: src/intviewer/window.rs:1043
 msgid "Latin 9 (ISO-8859-15)"
 msgstr "Латиниця 9 (ISO-8859-15)"
 
-#: src/intviewer/window.rs:1042
+#: src/intviewer/window.rs:1047
 msgid "Maltese (ISO-8859-3)"
 msgstr "Мальтійська (ISO-8859-3)"
 
-#: src/intviewer/window.rs:1046
+#: src/intviewer/window.rs:1051
 msgid "Turkish (ISO-8859-9)"
 msgstr "Турецьке (ISO 8859-9)"
 
-#: src/intviewer/window.rs:1049
+#: src/intviewer/window.rs:1054
 msgid "Turkish (CP1254)"
 msgstr "Турецьке (CP1254)"
 
-#: src/intviewer/window.rs:1050
+#: src/intviewer/window.rs:1055
 msgid "Western (CP1252)"
 msgstr "Західноєвропейське (CP1252)"
 
-#: src/intviewer/window.rs:1052
+#: src/intviewer/window.rs:1057
 msgid "Western (ISO-8859-1)"
 msgstr "Західне (ISO-8859-1)"
 
-#: src/intviewer/window.rs:1094 src/main_win.rs:1418
+#: src/intviewer/window.rs:1099 src/main_win.rs:1421
 msgid "_Settings"
 msgstr "Н_астройки"
 
-#: src/intviewer/window.rs:1096
+#: src/intviewer/window.rs:1101
 msgid "_Font…"
 msgstr "_Шрифт…"
 
-#: src/intviewer/window.rs:1098
+#: src/intviewer/window.rs:1103
 msgid "Fixed _Width Mode"
 msgstr "Режим фіксованої _ширини"
 
-#: src/intviewer/window.rs:1101
+#: src/intviewer/window.rs:1106
 msgid "_20 chars/line"
 msgstr "_20 символів на рядок"
 
-#: src/intviewer/window.rs:1106
+#: src/intviewer/window.rs:1111
 msgid "_40 chars/line"
 msgstr "_40 символів на рядок"
 
-#: src/intviewer/window.rs:1111
+#: src/intviewer/window.rs:1116
 msgid "_80 chars/line"
 msgstr "_80 символів на рядок"
 
-#: src/intviewer/window.rs:1115
+#: src/intviewer/window.rs:1120
 msgid "_120 chars/line"
 msgstr "_120 символів на рядок"
 
-#: src/intviewer/window.rs:1116
+#: src/intviewer/window.rs:1121
 msgid "1_60 chars/line"
 msgstr "1_60 символів на рядок"
 
-#: src/intviewer/window.rs:1121
+#: src/intviewer/window.rs:1126
 msgid "Show Metadata _Tags"
 msgstr "Показати _теги метаданих"
 
-#: src/intviewer/window.rs:1126
+#: src/intviewer/window.rs:1131
 msgid "_Hexadecimal Offset"
 msgstr "_Шістнадцятковий зсув"
 
-#: src/intviewer/window.rs:1135
+#: src/intviewer/window.rs:1140
 msgid "Quick _Help"
 msgstr "Швидка _довідка"
 
-#: src/intviewer/window.rs:1136 src/user_actions.rs:2229
+#: src/intviewer/window.rs:1141 src/user_actions.rs:2229
 msgid "_Keyboard Shortcuts"
 msgstr "_Комбінації клавіш"
 
@@ -8006,19 +8022,19 @@ msgstr "Розірвати з'єднання"
 msgid "Failed starting shell"
 msgstr "Не вдалося запустити командну оболонку"
 
-#: src/main_win.rs:1365
+#: src/main_win.rs:1368
 msgid "_Mark"
 msgstr "В_ідмітка"
 
-#: src/main_win.rs:1424
+#: src/main_win.rs:1427
 msgid "_Connections"
 msgstr "З'_єднання"
 
-#: src/main_win.rs:1435
+#: src/main_win.rs:1438
 msgid "_Bookmarks"
 msgstr "_Закладки"
 
-#: src/main_win.rs:1445
+#: src/main_win.rs:1448
 msgid "_Plugins"
 msgstr "_Модулі"
 
@@ -8991,8 +9007,8 @@ msgstr[3] "{} МіБ"
 
 #: src/utils.rs:389
 #, rust-format
-msgid "{} kiB"
-msgid_plural "{} kiB"
+msgid "{} KiB"
+msgid_plural "{} KiB"
 msgstr[0] "{} КіБ"
 msgstr[1] "{} КіБ"
 msgstr[2] "{} КіБ"
@@ -9010,6 +9026,14 @@ msgstr[3] "{} байт"
 #: src/utils.rs:641
 msgid "Closing of a file enumerator failed"
 msgstr "Не вдалося завершити відлік за нумерацією файлів"
+
+#, rust-format
+#~ msgid "{} kiB"
+#~ msgid_plural "{} kiB"
+#~ msgstr[0] "{} КіБ"
+#~ msgstr[1] "{} КіБ"
+#~ msgstr[2] "{} КіБ"
+#~ msgstr[3] "{} КіБ"
 
 #~ msgid "Panel font"
 #~ msgstr "Шрифт панелі"

@@ -56,8 +56,7 @@ mod imp {
             hbox.append(&self.image);
             hbox.append(&self.label);
 
-            let click_controller = gtk::GestureClick::new();
-            click_controller.set_button(0);
+            let click_controller = gtk::GestureClick::builder().button(2).build();
             click_controller.connect_pressed(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
@@ -68,6 +67,11 @@ mod imp {
                 }
             ));
             self.button.add_controller(click_controller);
+            self.button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.clicked(1)
+            ));
         }
 
         fn signals() -> &'static [glib::subclass::Signal] {

@@ -1679,7 +1679,7 @@ user_actions! {
 
     FileCreateSymlink in Panel => (
         "file-create-symlink" | "file.create_symlink",
-        gettext("Create _Symbolic Link"),
+        gettext("Create Symbolic _Link"),
         file_create_symlink,
     ),
 
@@ -1697,7 +1697,7 @@ user_actions! {
 
     FileExit in MainWindow => (
         "file-exit" | "file.exit",
-        gettext("Quit"),
+        gettext("Qui_t"),
         file_exit,
     ),
 
@@ -1917,7 +1917,7 @@ user_actions! {
 
     ViewMaximizePane in Panel => (
         "view-maximize-pane" | "view.maximize_pane",
-        gettext("Maximize Panel Size"),
+        gettext("_Maximize Panel Size"),
         view_maximize_pane,
     ),
 
@@ -2019,7 +2019,7 @@ user_actions! {
 
     ViewHorizontalOrientation in Panel => (
         "view-horizontal-orientation" | "view.horizontal-orientation",
-        gettext("Horizontal Orientation"),
+        gettext("_Horizontal Orientation"),
         "horizontal-orientation",
     ),
 
@@ -2160,7 +2160,7 @@ user_actions! {
 
     ConnectionsNew in Panel => (
         "connections-new" | "connections.new",
-        gettext("New Connection…"),
+        gettext("_New Connection…"),
         connections_new,
     ),
 
