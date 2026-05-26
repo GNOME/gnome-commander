@@ -81,7 +81,7 @@ pub mod imp {
     };
     use std::{
         cell::{Cell, RefCell},
-        collections::BTreeMap,
+        collections::HashMap,
         path::Path,
         time::Duration,
     };
@@ -143,7 +143,7 @@ pub mod imp {
         #[property(get, set)]
         cmdline_autohide_output: Cell<bool>,
 
-        pub active_dialogs: RefCell<BTreeMap<String, glib::WeakRef<gtk::Window>>>,
+        pub active_dialogs: RefCell<HashMap<String, glib::WeakRef<gtk::Window>>>,
 
         pub shortcuts: Shortcuts,
     }
