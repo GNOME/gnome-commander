@@ -236,6 +236,10 @@ class ImageMetadataPlugin(Plugin):
 
         try:
             import exifread
+            import logging
+
+            # ExifRead logs errors instead of raising them, silence them
+            logging.getLogger("exifread").setLevel(logging.CRITICAL)
         except ImportError:
             self.fail(
                 _('Required exifread module not found. Please install exifread for Python3 on your system.')
