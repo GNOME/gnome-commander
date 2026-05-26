@@ -44,6 +44,7 @@ before_script:
 
 build_and_test:
   stage: build
+  timeout: 5m
   script:
     - apt-get update
     - apt-get install -y $UBUNTU_DEPS xvfb
