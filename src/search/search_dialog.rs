@@ -13,7 +13,7 @@ use crate::{
     file::FileOps,
     file_view::file_view,
     main_win::MainWindow,
-    options::{ProgramsOptions, SearchConfig},
+    options::SearchConfig,
     shortcuts::Area,
     user_actions::UserAction,
     utils::WindowExt,
@@ -491,7 +491,7 @@ mod imp {
                 }
             ));
 
-            let options = GeneralOptions::new();
+            let options = GeneralOptions::instance();
             remember_window_size(
                 &*this,
                 &options.search_window_width,
@@ -654,7 +654,7 @@ mod imp {
 
             let progress_bar = &self.progress_bar;
             let update_gui_timeout_id = glib::timeout_add_local(
-                GeneralOptions::new().gui_update_rate.get(),
+                GeneralOptions::instance().gui_update_rate.get(),
                 glib::clone!(
                     #[weak]
                     progress_bar,
@@ -759,7 +759,9 @@ mod imp {
             let text_pattern = default_profile.content_pattern();
             if !text_pattern.is_empty() {
                 config.add_content_pattern(&text_pattern);
-                if let Err(error) = ViewerOptions::new().add_to_history(&text_pattern, Mode::Text) {
+                if let Err(error) =
+                    ViewerOptions::instance().add_to_history(&text_pattern, Mode::Text)
+                {
                     eprintln!("{error}");
                 }
                 profile_component.set_content_patterns_history(&config.content_patterns());
@@ -780,7 +782,6 @@ mod imp {
                 self.obj().upcast_ref(),
                 &file,
                 use_internal_viewer,
-                &ProgramsOptions::new(),
                 self.obj().main_window().file_metadata_service(),
             )
             .await

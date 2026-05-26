@@ -307,7 +307,7 @@ mod imp {
             fl.set_layout_manager(Some(gtk::BinLayout::new()));
             self.view.add_css_class("gnome-cmd-file-list");
 
-            let filters_options = FiltersOptions::new();
+            let filters_options = FiltersOptions::instance();
             for option in [
                 &filters_options.hide_unknown,
                 &filters_options.hide_regular,
@@ -362,7 +362,7 @@ mod imp {
             capture_event_box.set_parent(&*fl);
 
             let action_group = gio::SimpleActionGroup::new();
-            let general_options = GeneralOptions::new();
+            let general_options = GeneralOptions::instance();
             for (column_id, title, factory, sorter) in [
                 (ColumnID::Icon, "", create_icon_factory(), None),
                 (
@@ -623,11 +623,11 @@ mod imp {
                 .quick_search_shortcut
                 .bind_enum(&*fl, "quick-search-shortcut");
 
-            let confirm_options = ConfirmOptions::new();
-            confirm_options.dnd_mode.bind_enum(&*fl, "dnd-mode");
+            ConfirmOptions::instance()
+                .dnd_mode
+                .bind_enum(&*fl, "dnd-mode");
 
-            let color_options = ColorOptions::new();
-            color_options
+            ColorOptions::instance()
                 .use_ls_colors
                 .bind(&*fl, "use-ls-colors")
                 .build();
@@ -2582,17 +2582,7 @@ impl FileList {
         };
         let files = self.selected_files();
         if !files.is_empty() {
-            let general_options = GeneralOptions::new();
-            let confirm_options = ConfirmOptions::new();
-            show_delete_dialog(
-                &window,
-                self.connection().as_ref(),
-                &files,
-                force,
-                &general_options,
-                &confirm_options,
-            )
-            .await;
+            show_delete_dialog(&window, self.connection().as_ref(), &files, force).await;
         }
     }
 
@@ -2644,7 +2634,7 @@ impl FileList {
                 &[quick_search.upcast_ref::<gtk::Widget>()],
             );
             quick_search.set_mode(
-                mode.unwrap_or_else(|| GeneralOptions::new().quick_search_default_mode.get()),
+                mode.unwrap_or_else(|| GeneralOptions::instance().quick_search_default_mode.get()),
             );
             self.imp().quick_search.set(Some(&quick_search));
             quick_search
@@ -2983,8 +2973,6 @@ fn create_icon_factory() -> gtk::ListItemFactory {
 
     let color_settings = gio::Settings::new(PREF_COLORS);
 
-    let global_options = GeneralOptions::new();
-
     let factory = gtk::SignalListItemFactory::new();
     factory.connect_setup(|_, obj| {
         if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() {
@@ -3054,7 +3042,7 @@ fn create_icon_factory() -> gtk::ListItemFactory {
             let use_ls_colors = color_settings.boolean("use-ls-colors");
             apply_css(&item, use_ls_colors, label.upcast_ref());
 
-            match global_options.graphical_layout_mode.get() {
+            match GeneralOptions::instance().graphical_layout_mode.get() {
                 GraphicalLayoutMode::Text => {
                     label.set_text(imp::type_string(file.file_type()));
                     stack.set_visible_child(&label);
@@ -3072,10 +3060,9 @@ fn create_icon_factory() -> gtk::ListItemFactory {
 }
 
 fn create_name_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
-    let global_options = GeneralOptions::new();
     create_text_cell_factory(0.0, cells, move |cell, item| {
         let prop = if matches!(
-            global_options.extension_display_mode.get(),
+            GeneralOptions::instance().extension_display_mode.get(),
             ExtensionDisplayMode::Stripped
         ) {
             "stem"
@@ -3092,11 +3079,10 @@ fn create_name_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
 }
 
 fn create_ext_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
-    let global_options = GeneralOptions::new();
     create_text_cell_factory(0.0, cells, move |cell, item| {
         cell.bind(&item);
         if !matches!(
-            global_options.extension_display_mode.get(),
+            GeneralOptions::instance().extension_display_mode.get(),
             ExtensionDisplayMode::WithFname
         ) {
             cell.add_binding(
@@ -3120,9 +3106,8 @@ fn create_dir_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
 }
 
 fn create_size_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
-    let global_options = GeneralOptions::new();
     create_text_cell_factory(1.0, cells, move |cell, item| {
-        let mode = global_options.size_display_mode.get();
+        let mode = GeneralOptions::instance().size_display_mode.get();
         let is_directory = item.file().is_directory();
         cell.bind(&item);
         cell.add_binding(
@@ -3143,9 +3128,8 @@ fn create_size_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
 }
 
 fn create_date_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
-    let global_options = GeneralOptions::new();
     create_text_cell_factory(0.0, cells, move |cell, item| {
-        let format = global_options.date_display_format.get();
+        let format = GeneralOptions::instance().date_display_format.get();
 
         cell.bind(&item);
         cell.add_binding(
@@ -3160,9 +3144,8 @@ fn create_date_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
 }
 
 fn create_perm_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
-    let global_options = GeneralOptions::new();
     create_text_cell_factory(0.0, cells, move |cell, item| {
-        let mode = global_options.permissions_display_mode.get();
+        let mode = GeneralOptions::instance().permissions_display_mode.get();
 
         cell.bind(&item);
         cell.add_binding(

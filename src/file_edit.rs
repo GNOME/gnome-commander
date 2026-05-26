@@ -11,7 +11,7 @@ use crate::{
 };
 use gettextrs::gettext;
 
-pub async fn file_edit(files: Vec<File>, options: &ProgramsOptions) -> Result<(), ErrorMessage> {
+pub async fn file_edit(files: Vec<File>) -> Result<(), ErrorMessage> {
     let files = files
         .into_iter()
         .filter_map(|file| {
@@ -29,7 +29,8 @@ pub async fn file_edit(files: Vec<File>, options: &ProgramsOptions) -> Result<()
         .collect::<Result<Vec<_>, _>>()?;
 
     if !files.is_empty() {
-        spawn_async(None, &files, &options.editor_cmd.get()).map_err(SpawnError::into_message)?;
+        spawn_async(None, &files, &ProgramsOptions::instance().editor_cmd.get())
+            .map_err(SpawnError::into_message)?;
     }
     Ok(())
 }

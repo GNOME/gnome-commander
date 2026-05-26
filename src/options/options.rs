@@ -133,7 +133,7 @@ pub struct GeneralOptions {
 }
 
 impl GeneralOptions {
-    pub fn new() -> Self {
+    fn new() -> Self {
         let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.general");
 
         Self {
@@ -225,6 +225,13 @@ impl GeneralOptions {
             gui_update_rate: DurationOption::new(&settings, "gui-update-rate"),
         }
     }
+
+    pub fn instance() -> Rc<Self> {
+        thread_local! {
+            static INSTANCE: Rc<GeneralOptions> = Rc::new(GeneralOptions::new());
+        }
+        INSTANCE.with(|instance| instance.clone())
+    }
 }
 
 pub struct ColorOptions {
@@ -257,7 +264,7 @@ pub struct ColorOptions {
 }
 
 impl ColorOptions {
-    pub fn new() -> Self {
+    fn new() -> Self {
         let settings = gio::Settings::new(PREF_COLORS);
         Self {
             theme: EnumOption::new(&settings, "theme"),
@@ -289,16 +296,23 @@ impl ColorOptions {
         }
     }
 
+    pub fn instance() -> Rc<Self> {
+        thread_local! {
+            static INSTANCE: Rc<ColorOptions> = Rc::new(ColorOptions::new());
+        }
+        INSTANCE.with(|instance| instance.clone())
+    }
+
     pub fn custom_theme(&self) -> ColorTheme {
-        load_custom_theme(self)
+        load_custom_theme()
     }
 
     pub fn set_custom_theme(&self, theme: &ColorTheme) -> WriteResult {
-        save_custom_theme(theme, self)
+        save_custom_theme(theme)
     }
 
     pub fn ls_color_palette(&self) -> LsColorsPalette {
-        load_palette(self)
+        load_palette()
     }
 
     pub fn set_ls_color_palette(&self, palette: &LsColorsPalette) -> WriteResult {
@@ -315,7 +329,7 @@ pub struct ConfirmOptions {
 }
 
 impl ConfirmOptions {
-    pub fn new() -> Self {
+    fn new() -> Self {
         let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.confirmations");
         Self {
             confirm_delete: BoolOption::new(&settings, "delete"),
@@ -324,6 +338,13 @@ impl ConfirmOptions {
             confirm_move_overwrite: EnumOption::new(&settings, "move-overwrite"),
             dnd_mode: EnumOption::new(&settings, "mouse-drag-and-drop"),
         }
+    }
+
+    pub fn instance() -> Rc<Self> {
+        thread_local! {
+            static INSTANCE: Rc<ConfirmOptions> = Rc::new(ConfirmOptions::new());
+        }
+        INSTANCE.with(|instance| instance.clone())
     }
 }
 
@@ -347,7 +368,7 @@ pub struct FiltersOptions {
 }
 
 impl FiltersOptions {
-    pub fn new() -> Self {
+    fn new() -> Self {
         let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.filter");
         Self {
             hide_unknown: BoolOption::new(&settings, "hide-unknown"),
@@ -359,6 +380,13 @@ impl FiltersOptions {
             hide_symlink: BoolOption::new(&settings, "hide-symlink"),
             backup_pattern: StringOption::new(&settings, "backup-pattern"),
         }
+    }
+
+    pub fn instance() -> Rc<Self> {
+        thread_local! {
+            static INSTANCE: Rc<FiltersOptions> = Rc::new(FiltersOptions::new());
+        }
+        INSTANCE.with(|instance| instance.clone())
     }
 }
 
@@ -376,7 +404,7 @@ pub struct ProgramsOptions {
 }
 
 impl ProgramsOptions {
-    pub fn new() -> Self {
+    fn new() -> Self {
         let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.programs");
         Self {
             dont_download: BoolOption::new(&settings, "dont-download"),
@@ -390,6 +418,13 @@ impl ProgramsOptions {
             terminal_cmd: StringOption::new(&settings, "terminal-cmd"),
             terminal_exec_cmd: StringOption::new(&settings, "terminal-exec-cmd"),
         }
+    }
+
+    pub fn instance() -> Rc<Self> {
+        thread_local! {
+            static INSTANCE: Rc<ProgramsOptions> = Rc::new(ProgramsOptions::new());
+        }
+        INSTANCE.with(|instance| instance.clone())
     }
 }
 
@@ -537,11 +572,18 @@ pub struct NetworkOptions {
 }
 
 impl NetworkOptions {
-    pub fn new() -> Self {
+    fn new() -> Self {
         let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.network");
         Self {
             quick_connect_uri: StringOption::new(&settings, "quick-connect-uri"),
         }
+    }
+
+    pub fn instance() -> Rc<Self> {
+        thread_local! {
+            static INSTANCE: Rc<NetworkOptions> = Rc::new(NetworkOptions::new());
+        }
+        INSTANCE.with(|instance| instance.clone())
     }
 }
 
@@ -564,7 +606,7 @@ pub struct ViewerOptions {
 }
 
 impl ViewerOptions {
-    pub fn new() -> Self {
+    fn new() -> Self {
         let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.internal-viewer");
         Self {
             window_width: U32Option::new(&settings, "window-width"),
@@ -582,6 +624,13 @@ impl ViewerOptions {
             case_sensitive_search: BoolOption::new(&settings, "case-sensitive-search"),
             search_mode: EnumOption::new(&settings, "search-mode"),
         }
+    }
+
+    pub fn instance() -> Rc<Self> {
+        thread_local! {
+            static INSTANCE: Rc<ViewerOptions> = Rc::new(ViewerOptions::new());
+        }
+        INSTANCE.with(|instance| instance.clone())
     }
 
     pub fn add_to_history(&self, text: &str, mode: Mode) -> WriteResult {
@@ -608,11 +657,18 @@ pub struct PluginsOptions {
 }
 
 impl PluginsOptions {
-    pub fn new() -> Self {
+    fn new() -> Self {
         let settings = gio::Settings::new("org.gnome.gnome-commander.plugins.general");
         Self {
             metadata: VariantOption::new(&settings, "metadata"),
             persistent_settings: VariantOption::new(&settings, "persistent-settings"),
         }
+    }
+
+    pub fn instance() -> Rc<Self> {
+        thread_local! {
+            static INSTANCE: Rc<PluginsOptions> = Rc::new(PluginsOptions::new());
+        }
+        INSTANCE.with(|instance| instance.clone())
     }
 }

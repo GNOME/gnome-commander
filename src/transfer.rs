@@ -124,9 +124,10 @@ pub async fn copy_files(
 
     let (bytes_total, files_total) = set_files_total(&src_files).await;
 
-    let options = GeneralOptions::new();
-
-    let win = TransferProgressWindow::new(files_total, options.size_display_mode.get());
+    let win = TransferProgressWindow::new(
+        files_total,
+        GeneralOptions::instance().size_display_mode.get(),
+    );
     win.set_transient_for(Some(&parent_window));
     win.set_title(Some(&gettext("preparing…")));
 
@@ -195,9 +196,10 @@ pub async fn move_files(
 
     let (bytes_total, files_total) = set_files_total(&src_files).await;
 
-    let options = GeneralOptions::new();
-
-    let win = TransferProgressWindow::new(files_total, options.size_display_mode.get());
+    let win = TransferProgressWindow::new(
+        files_total,
+        GeneralOptions::instance().size_display_mode.get(),
+    );
     win.set_transient_for(Some(&parent_window));
     win.set_title(Some(&gettext("preparing…")));
 
@@ -266,9 +268,10 @@ pub async fn link_files(
 
     let (bytes_total, files_total) = set_files_total(&src_files).await;
 
-    let options = GeneralOptions::new();
-
-    let win = TransferProgressWindow::new(files_total, options.size_display_mode.get());
+    let win = TransferProgressWindow::new(
+        files_total,
+        GeneralOptions::instance().size_display_mode.get(),
+    );
     win.set_transient_for(Some(&parent_window));
     win.set_title(Some(&gettext("preparing…")));
 
@@ -298,9 +301,10 @@ pub async fn download_to_temporary(
 ) -> bool {
     let (bytes_total, files_total) = set_files_total(&src_files).await;
 
-    let options = GeneralOptions::new();
-
-    let win = TransferProgressWindow::new(files_total, options.size_display_mode.get());
+    let win = TransferProgressWindow::new(
+        files_total,
+        GeneralOptions::instance().size_display_mode.get(),
+    );
     win.set_transient_for(Some(&parent_window));
     win.set_title(Some(&gettext("downloading to /tmp")));
 
@@ -532,7 +536,7 @@ async fn run_file_copy_overwrite_dialog(
     dst: &gio::File,
     many: bool,
 ) -> Result<ProblemAction, glib::Error> {
-    let options = GeneralOptions::new();
+    let options = GeneralOptions::instance();
     let size_display_mode = options.size_display_mode.get();
     let date_format = options.date_display_format.get();
     let msg = gettext("Overwrite file:\n\n{dst}\n\nWith:\n\n{src}")
@@ -645,7 +649,7 @@ async fn run_move_overwrite_dialog(
     dst: &gio::File,
     many: bool,
 ) -> Result<ProblemAction, glib::Error> {
-    let options = GeneralOptions::new();
+    let options = GeneralOptions::instance();
     let size_display_mode = options.size_display_mode.get();
     let date_format = options.date_display_format.get();
     let msg = gettext("Overwrite file:\n\n{dst}\n\nWith:\n\n{src}")
@@ -741,7 +745,7 @@ async fn update_transfer_gui_error_link(
     dst: &gio::File,
     error: &glib::Error,
 ) -> Result<ProblemAction, glib::Error> {
-    let options = GeneralOptions::new();
+    let options = GeneralOptions::instance();
     let size_display_mode = options.size_display_mode.get();
     let date_format = options.date_display_format.get();
     let msg = gettext("Error while creating symlink “{file}”").replace(

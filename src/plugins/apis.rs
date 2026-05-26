@@ -60,8 +60,7 @@ impl Apis {
     ) -> IncomingResult {
         match request {
             ApiRequestToHost::GetSetting(key) if self == &Apis::PersistentSettings => {
-                let options = PluginsOptions::new();
-                let settings = options.persistent_settings.get();
+                let settings = PluginsOptions::instance().persistent_settings.get();
                 let value = settings
                     .get(instance.file_name().as_ref())
                     .and_then(|map| map.get(key))
@@ -71,7 +70,7 @@ impl Apis {
                 IncomingResult::HandledWithResponse(ApiResponseFromHost::GetSetting(value))
             }
             ApiRequestToHost::SetSetting(key, value) if self == &Apis::PersistentSettings => {
-                let options = PluginsOptions::new();
+                let options = PluginsOptions::instance();
                 let mut settings = options.persistent_settings.get();
                 settings
                     .entry(instance.file_name().to_string())

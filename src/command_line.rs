@@ -230,8 +230,7 @@ mod imp {
             ));
             self.entry.add_controller(key_controller);
 
-            let options = GeneralOptions::new();
-            options
+            GeneralOptions::instance()
                 .command_line_autohide_output
                 .bind(&*obj, "autohide-output")
                 .build();

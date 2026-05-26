@@ -16,7 +16,6 @@ pub async fn prepare_copy_dialog_show(
     main_win: &MainWindow,
     from: &FileSelector,
     to: &FileSelector,
-    options: &ConfirmOptions,
 ) {
     let src_files = from.file_list().selected_files();
     let num_files = src_files.len();
@@ -73,7 +72,7 @@ pub async fn prepare_copy_dialog_show(
 
     dialog.append_to_left(&frame);
 
-    match options.confirm_copy_overwrite.get() {
+    match ConfirmOptions::instance().confirm_copy_overwrite.get() {
         ConfirmOverwriteMode::Silently => &silent,
         ConfirmOverwriteMode::SkipAll => &skip,
         ConfirmOverwriteMode::RenameAll => &rename,

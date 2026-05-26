@@ -34,8 +34,7 @@ mod imp {
         fn constructed(&self) {
             self.parent_constructed();
 
-            let general_options = GeneralOptions::new();
-            general_options
+            GeneralOptions::instance()
                 .case_sensitive
                 .bind(&*self.obj(), "case-sensitive")
                 .build();

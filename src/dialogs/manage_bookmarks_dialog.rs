@@ -103,7 +103,7 @@ mod imp {
             dialog.set_resizable(true);
             dialog.set_destroy_with_parent(true);
 
-            let options = GeneralOptions::new();
+            let options = GeneralOptions::instance();
             remember_window_size(
                 &*dialog,
                 &options.bookmarks_window_width,
@@ -568,7 +568,7 @@ impl TaggedBookmark {
     }
 }
 
-pub async fn bookmark_directory(window: &gtk::Window, dir: &Directory, options: &GeneralOptions) {
+pub async fn bookmark_directory(window: &gtk::Window, dir: &Directory) {
     let is_local = dir.is_local();
     let path = dir.path_from_root();
 
@@ -606,7 +606,10 @@ pub async fn bookmark_directory(window: &gtk::Window, dir: &Directory, options: 
     if let Some(changed_bookmark) = edit_bookmark_dialog(window, true, &con, &bookmark).await {
         con.add_bookmark(changed_bookmark);
 
-        if let Err(error) = options.bookmarks.set(connection_list.save_bookmarks()) {
+        if let Err(error) = GeneralOptions::instance()
+            .bookmarks
+            .set(connection_list.save_bookmarks())
+        {
             eprintln!("Failed to save bookmarks: {error}");
         }
     }

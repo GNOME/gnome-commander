@@ -13,7 +13,7 @@ use crate::{
     file::{File, FileOps},
     file_selector::{FileSelector, TabOptions, TabPosition, TabState, TabVariant},
     layout::color_themes::ColorThemes,
-    options::{GeneralOptions, ProgramsOptions, types::WriteResult},
+    options::{GeneralOptions, types::WriteResult},
     paned_ext::GnomeCmdPanedExt,
     plugins::{
         ApiRequestToPlugin, ApiResponseFromPlugin, InactivePluginHostChannel,
@@ -443,7 +443,7 @@ pub mod imp {
                     move || imp.on_right_fs_select()
                 ));
 
-            let options = GeneralOptions::new();
+            let options = GeneralOptions::instance();
             remember_window_state(
                 &*mw,
                 &options.main_window_width,
@@ -528,7 +528,7 @@ pub mod imp {
                 move |_| this.update_view()
             ));
 
-            let filters_options = FiltersOptions::new();
+            let filters_options = FiltersOptions::instance();
             filters_options
                 .hide_hidden
                 .bind(&*mw, "view-hidden-files")
@@ -1015,8 +1015,7 @@ impl MainWindow {
     }
 
     pub fn load_tabs(&self, start_left_dir: Option<&Path>, start_right_dir: Option<&Path>) {
-        let options = GeneralOptions::new();
-
+        let options = GeneralOptions::instance();
         let mut tabs = options.file_list_tabs.get();
         if tabs.is_empty() {
             tabs = options
@@ -1062,8 +1061,6 @@ impl MainWindow {
     }
 
     fn save_tabs(&self, save_all: bool, save_current: bool, save_history: bool) -> WriteResult {
-        let options = GeneralOptions::new();
-
         let mut tabs = Vec::<TabVariant>::new();
         tabs.extend(self.file_selector(FileSelectorID::Left).save_tabs(
             TabPosition::LeftOrTop,
@@ -1077,6 +1074,8 @@ impl MainWindow {
             save_current,
             save_history,
         ));
+
+        let options = GeneralOptions::instance();
 
         // Reset legacy option, making sure we don't import it more than once
         let _ = options.legacy_file_list_tabs.set(Vec::new());
@@ -1104,7 +1103,7 @@ impl MainWindow {
     }
 
     pub fn save_state(&self) -> WriteResult {
-        let options = GeneralOptions::new();
+        let options = GeneralOptions::instance();
 
         options.keybindings.set(self.imp().shortcuts.save())?;
 
@@ -1253,7 +1252,6 @@ impl MainWindow {
             working_directory.as_deref(),
             &OsString::from(command),
             target == ExecutionTarget::ExternalTerminal,
-            &ProgramsOptions::new(),
         )
         .map_err(SpawnError::into_message)
         {
@@ -1344,9 +1342,7 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
                     .action(UserAction::FileDiff)
                     .action(UserAction::FileSyncDirs)
             })
-            .section({
-                gio::Menu::new().action(UserAction::FileExit)
-            })
+            .section(gio::Menu::new().action(UserAction::FileExit))
     });
 
     menu.append_submenu(Some(&gettext("_Edit")), &{

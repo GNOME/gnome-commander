@@ -31,7 +31,7 @@ impl PluginHost {
         let (incoming_sender, incoming_receiver) = async_channel::bounded(16);
         let (outgoing_sender, outgoing_receiver) = async_broadcast::broadcast(16);
 
-        let options = PluginsOptions::new();
+        let options = PluginsOptions::instance();
         let mut host = Self {
             plugins: list_plugins(system_dir, user_dir, &options),
             sender: outgoing_sender,

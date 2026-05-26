@@ -309,7 +309,7 @@ mod imp {
                 }
             });
 
-            let options = ViewerOptions::new();
+            let options = ViewerOptions::instance();
 
             remember_window_state(
                 &*window,

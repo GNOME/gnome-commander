@@ -317,7 +317,7 @@ impl File {
             return true;
         };
         let now = Instant::now();
-        if now.duration_since(last_update) > GeneralOptions::new().gui_update_rate.get() {
+        if now.duration_since(last_update) > GeneralOptions::instance().gui_update_rate.get() {
             self.imp().last_update.replace(Some(now));
             true
         } else {
