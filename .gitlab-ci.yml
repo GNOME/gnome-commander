@@ -53,6 +53,7 @@ build_and_test:
     - meson setup ${MESON_BUILD_DIR}
     - meson compile -C ${MESON_BUILD_DIR}
     - meson install -C ${MESON_BUILD_DIR}
+    - cargo fmt --all --check
     - exit_code=0
     - xvfb-run meson test -C ${MESON_BUILD_DIR} || exit_code=$?; if [ "$exit_code" != "0" ]; then echo "Unit tests failed."; cat ${MESON_BUILD_DIR}/meson-logs/testlog.txt; exit 1; fi;
 
