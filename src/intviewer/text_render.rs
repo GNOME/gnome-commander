@@ -616,7 +616,7 @@ mod imp {
                 self.button.set(Some(button));
                 self.marker_start.set(match self.obj().display_mode() {
                     TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => {
-                        self.text_mode_pixel_to_offset(x, y, true)
+                        self.text_mode_pixel_to_offset(x, y)
                     }
                     TextRenderDisplayMode::Hexdump => self.hex_mode_pixel_to_offset(x, y, true),
                 });
@@ -628,7 +628,7 @@ mod imp {
                 self.button.set(None);
                 self.marker_end.set(match self.obj().display_mode() {
                     TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => {
-                        self.text_mode_pixel_to_offset(x, y, false)
+                        self.text_mode_pixel_to_offset(x, y)
                     }
                     TextRenderDisplayMode::Hexdump => self.hex_mode_pixel_to_offset(x, y, false),
                 });
@@ -640,7 +640,7 @@ mod imp {
             if self.button.get().is_some() {
                 let new_marker = match self.obj().display_mode() {
                     TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => {
-                        self.text_mode_pixel_to_offset(x, y, false)
+                        self.text_mode_pixel_to_offset(x, y)
                     }
                     TextRenderDisplayMode::Hexdump => self.hex_mode_pixel_to_offset(x, y, false),
                 };
@@ -723,19 +723,20 @@ mod imp {
             glib::Propagation::Stop
         }
 
-        pub fn text_mode_pixel_to_offset(&self, x: f64, y: f64, start_marker: bool) -> u64 {
+        pub fn text_mode_pixel_to_offset(&self, x: f64, y: f64) -> u64 {
             let char_width = self.char_width.get();
             let char_height = self.char_height.get();
             let tab_size = self.tab_size.get();
 
             let current_offset: u64 = self.obj().current_offset();
 
-            if x < 0.0 || y < 0.0 || char_height <= 0 || char_width <= 0 {
+            if char_height <= 0 || char_width <= 0 {
                 return current_offset;
             }
 
-            let line = (y / char_height as f64) as i32;
-            let column = (x as i32 / char_width + self.obj().column()) as u32;
+            let line = (y.max(0.0) / f64::from(char_height)) as i32;
+            let column =
+                (x.max(0.0) / f64::from(char_width) + f64::from(self.obj().column())) as u32;
 
             let dp = self.data_presentation.borrow();
             let line_offset = dp.scroll_lines(&self.input_mode.borrow(), current_offset, line);
@@ -747,13 +748,7 @@ mod imp {
                 next_line_offset,
                 tab_size,
             )
-            .find_map(move |(offset, c, _)| {
-                if start_marker {
-                    (c >= column).then_some(offset)
-                } else {
-                    (c > column).then_some(offset)
-                }
-            })
+            .find_map(move |(offset, c, _)| (c >= column).then_some(offset))
             .unwrap_or(next_line_offset)
         }
 
