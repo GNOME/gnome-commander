@@ -95,6 +95,21 @@ class Plugin:
             subparser = subparsers.add_parser('list-supported-tags')
             subparser.set_defaults(func=self.list_supported_tags)
 
+        if any(api['name'] == 'menus' for api in self._apis):
+            subparser = subparsers.add_parser('main-menu-items')
+            subparser.set_defaults(func=self.main_menu_items)
+
+            subparser = subparsers.add_parser('context-menu-items')
+            subparser.add_argument('--active-directory-path', '-p')
+            subparser.add_argument('--active-directory-uri', '-u')
+            subparser.add_argument('--active-focused-file', '-f')
+            subparser.add_argument('--active-selected-files', '-s', nargs='*')
+            subparser.add_argument('--inactive-directory-path', '-P')
+            subparser.add_argument('--inactive-directory-uri', '-U')
+            subparser.add_argument('--inactive-focused-file', '-F')
+            subparser.add_argument('--inactive-selected-files', '-S', nargs='*')
+            subparser.set_defaults(func=self.context_menu_items)
+
         os.set_blocking(sys.stdin.buffer.fileno(), True)
         args = parser.parse_args()
         json.dump(await args.func(args.__dict__), sys.stdout)
