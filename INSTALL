@@ -8,7 +8,7 @@ Gnome Commander requires the following packages:
 
 Gnome Commander can also make use of the following packages:
 
-- exiv2 for Python3 (Image Metadata plugin)
+- exifread for Python3 (Image Metadata plugin)
 - mutagen for Python 3 (Multimedia Metadata plugin)
 - pypdf for Python 3 (Document Metadata plugin)
 - yelp for documentation
