@@ -148,21 +148,13 @@ impl Directory {
     /// displayed. Each call to `pin_to_cache()` has to be paired with a matching
     /// `unpin_from_cache()` call.
     pub fn pin_to_cache(&self) {
-        self.imp()
-            .connection
-            .borrow()
-            .dir_cache_mut()
-            .pin(self);
+        self.imp().connection.borrow().dir_cache_mut().pin(self);
     }
 
     /// Allows the directory to be released from cache again, once called as many times as
     /// `pin_to_cache()` was called before.
     pub fn unpin_from_cache(&self) {
-        self.imp()
-            .connection
-            .borrow()
-            .dir_cache_mut()
-            .unpin(self);
+        self.imp().connection.borrow().dir_cache_mut().unpin(self);
     }
 
     /// Creates a "virtual" directory only meant to keep track of a bunch of files since files can
