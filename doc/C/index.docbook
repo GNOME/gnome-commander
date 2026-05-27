@@ -4,14 +4,12 @@
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "2.0.1">
   <!ENTITY manrevision "2.0.1">
-  <!ENTITY date "?? ?? 2026">
   <!ENTITY app "Gnome Commander">
 ]>
 <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
        Use the appversion entity to specify the version of the application.
        Use the manrevision entity to specify the revision number of this manual.
-       Use the date entity to specify the release date of this manual.
        Use the app entity to specify the name of the application. -->
 <!-- =============Document Header ============================= -->
 <article id="index" lang="en">
