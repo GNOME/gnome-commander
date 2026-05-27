@@ -2,16 +2,14 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY author "Uwe Scholz">
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "2.0.1">
-  <!ENTITY manrevision "2.0.1">
-  <!ENTITY date "?? ?? 2026">
+  <!ENTITY appversion "2.0.2">
+  <!ENTITY manrevision "2.0.2">
   <!ENTITY app "Gnome Commander">
 ]>
 <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
        Use the appversion entity to specify the version of the application.
        Use the manrevision entity to specify the revision number of this manual.
-       Use the date entity to specify the release date of this manual.
        Use the app entity to specify the name of the application. -->
 <!-- =============Document Header ============================= -->
 <article id="index" lang="en">
@@ -682,7 +680,16 @@
       </revision>
       <revision>
         <revnumber>Gnome Commander Manual V2.0.1;</revnumber>
-        <date>2026-12-31</date>
+        <date>2026-05-27</date>
+        <revdescription>
+          <para role="author">Wladimir Palant
+            <email>jhpgnome@palant.de</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>Gnome Commander Manual V2.0.2;</revnumber>
+        <date>2026-??-??</date>
         <revdescription>
           <para role="author">Wladimir Palant
             <email>jhpgnome@palant.de</email></para>
