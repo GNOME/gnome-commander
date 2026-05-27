@@ -647,6 +647,7 @@ mod imp {
                 child.unparent();
             }
             if let Some(directory) = self.directory.take() {
+                directory.unpin_from_cache();
                 for handler_id in self.directory_handlers.take() {
                     directory.disconnect(handler_id);
                 }
@@ -837,8 +838,10 @@ mod imp {
                 sender.toss(None);
             }
 
+            directory.pin_to_cache();
             let previous_directory = self.directory.replace(Some(directory.clone()));
             if let Some(previous_directory) = previous_directory {
+                previous_directory.unpin_from_cache();
                 previous_directory.cancel_monitoring();
                 for handler_id in self.directory_handlers.take() {
                     previous_directory.disconnect(handler_id);

@@ -34,6 +34,9 @@ mod imp {
             self.parent_constructed();
             let home = self.obj();
 
+            // No caching of local directories
+            home.dir_cache_mut().reduce_unpinned_capacity(1);
+
             home.set_state(ConnectionState::Open);
             home.set_alias(Some(&gettext("Home")));
 
