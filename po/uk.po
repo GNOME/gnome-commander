@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/"
 "\n"
 "POT-Creation-Date: 2026-05-26 16:20+0000\n"
-"PO-Revision-Date: 2026-05-26 20:10+0300\n"
+"PO-Revision-Date: 2026-05-27 21:27+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1684,6 +1684,8 @@ msgstr "Кількість  осередків"
 msgid ""
 "Number of table cells that a document producer has counted in a document"
 msgstr ""
+"Кількість комірок таблиць, яку нараховано програмою, за допомогою якої"
+" створено документ"
 
 #: plugins/document-metadata.py:63
 msgid "Character Count"
@@ -1694,6 +1696,8 @@ msgstr "Кількість символів"
 msgid ""
 "Number of characters that a document producer has counted in a document"
 msgstr ""
+"Кількість символів, яку нараховано програмою, за допомогою якої створено"
+" документ"
 
 #: plugins/document-metadata.py:64
 #| msgid "Page Count"
@@ -1704,6 +1708,8 @@ msgstr "Кількість рисунків"
 msgid ""
 "Number of drawing shapes that a document producer has counted in a document"
 msgstr ""
+"Кількість намальованих форм, яку нараховано програмою, за допомогою якої"
+" створено документ"
 
 #: plugins/document-metadata.py:65
 #| msgid "Page Count"
@@ -1714,6 +1720,8 @@ msgstr "Підрахунок кадрів"
 msgid ""
 "Number of text boxes that a document producer has counted in a document"
 msgstr ""
+"Кількість текстових полів, яку нараховано програмою, за допомогою якої"
+" створено документ"
 
 #: plugins/document-metadata.py:66
 msgid "Image Count"
@@ -1723,17 +1731,21 @@ msgstr "Кількість зображень"
 #| msgid "Number of slides in the presentation document."
 msgid "Number of images that a document producer has counted in a document"
 msgstr ""
+"Кількість зображень, яку нараховано програмою, за допомогою якої створено"
+" документ"
 
 #: plugins/document-metadata.py:67
 #| msgid "Character Count"
 msgid "Non-Whitespace Character Count"
-msgstr ""
+msgstr "Кількість непробільних символів"
 
 #: plugins/document-metadata.py:67
 msgid ""
 "Number of non-white space characters that a document producer has counted in "
 "a document"
 msgstr ""
+"Кількість непробільних символів, яку нараховано програмою, за допомогою якої"
+" створено документ"
 
 #: plugins/document-metadata.py:68
 msgid "Object Count"
@@ -1744,6 +1756,8 @@ msgid ""
 "Number of embedded objects stored in OpenDocument format that a document "
 "producer has counted in a document"
 msgstr ""
+"Кількість вбудованих об'єктів, які зберігаються у форматі OpenDocument, яку"
+" нараховано програмою, за допомогою якої створено документ"
 
 #: plugins/document-metadata.py:69
 #| msgid "Object Count"
@@ -1755,6 +1769,8 @@ msgid ""
 "Number of embedded objects stored in a different format than OpenDocument "
 "that a document producer has counted in a document"
 msgstr ""
+"Кількість вбудованих об'єктів, які зберігаються у форматі, відмінному від"
+" OpenDocument, яку нараховано програмою, за допомогою якої створено документ"
 
 #: plugins/document-metadata.py:70
 msgid "Page Count"
@@ -1763,6 +1779,8 @@ msgstr "Кількість сторінок"
 #: plugins/document-metadata.py:70
 msgid "Number of pages that a document producer has calculated for a document"
 msgstr ""
+"Кількість сторінок, яку нараховано програмою, за допомогою якої створено"
+" документ"
 
 #: plugins/document-metadata.py:71
 msgid "Paragraph Count"
@@ -1773,6 +1791,8 @@ msgstr "Кількість параграфів"
 msgid ""
 "Number of paragraphs that a document producer has counted in a document"
 msgstr ""
+"Кількість абзаців, яку нараховано програмою, за допомогою якої створено"
+" документ"
 
 #: plugins/document-metadata.py:72
 #| msgid "Word Count"
@@ -1782,7 +1802,7 @@ msgstr "Кількість рядків"
 #: plugins/document-metadata.py:72
 #| msgid "Number of lines in the document."
 msgid "Number of lines contained in a document instance"
-msgstr ""
+msgstr "Кількість рядків в екземплярі документа"
 
 #: plugins/document-metadata.py:73
 #| msgid "Sentence case"
@@ -1793,6 +1813,8 @@ msgstr "Кількість речень"
 #| msgid "Number of slides in the presentation document."
 msgid "Number of sentences that a document producer has counted in a document"
 msgstr ""
+"Кількість речень, яку нараховано програмою, за допомогою якої створено"
+" документ"
 
 #: plugins/document-metadata.py:74
 #| msgid "Table Count"
@@ -1803,6 +1825,8 @@ msgstr "Кількість складів"
 #| msgid "Number of slides in the presentation document."
 msgid "Number of syllables that a document producer has counted in a document"
 msgstr ""
+"Кількість складів, яку нараховано програмою, за допомогою якої створено"
+" документ"
 
 #: plugins/document-metadata.py:75
 msgid "Table Count"
@@ -1821,6 +1845,7 @@ msgstr "Кількість слів"
 #| msgid "Number of slides in the presentation document."
 msgid "Number of words that a document producer has counted in a document"
 msgstr ""
+"Кількість слів, яку нараховано програмою, за допомогою якої створено документ"
 
 #: plugins/document-metadata.py:80
 msgid "Manager"
@@ -1829,7 +1854,7 @@ msgstr "Менеджер"
 #: plugins/document-metadata.py:80
 #| msgid "Number of characters in the document."
 msgid "Name of a supervisor associated with the document"
-msgstr ""
+msgstr "Назва відповідального за цей документ"
 
 #: plugins/document-metadata.py:81
 msgid "Company"
@@ -1838,7 +1863,7 @@ msgstr "Компанія"
 #: plugins/document-metadata.py:81
 #| msgid "Number of characters in the document."
 msgid "Name of a company associated with the document"
-msgstr ""
+msgstr "Назва компанії, яку пов'язано з цим документом"
 
 #: plugins/document-metadata.py:85
 msgid "Presentation Format"
@@ -1847,7 +1872,7 @@ msgstr "Формат презентації"
 #: plugins/document-metadata.py:85
 #| msgid "Number of slides in the presentation document."
 msgid "Intended format for a presentation document"
-msgstr ""
+msgstr "Формат призначення для документа презентації"
 
 #: plugins/document-metadata.py:88
 msgid "Slide Count"
@@ -1865,7 +1890,7 @@ msgstr "Кількість приміток"
 #: plugins/document-metadata.py:89
 #| msgid "Number of slides in the presentation document."
 msgid "Number of slides in a presentation containing notes"
-msgstr ""
+msgstr "Кількість слайдів у документі презентації, у яких містяться нотатки"
 
 #: plugins/document-metadata.py:91
 msgid "Hidden Slide Count"
@@ -1874,7 +1899,7 @@ msgstr "Кількість прихованих слайдів"
 #: plugins/document-metadata.py:91
 #| msgid "Number of hidden slides in the presentation document."
 msgid "Number of hidden slides in a presentation document"
-msgstr ""
+msgstr "Кількість прихованих слайдів у документі презентації"
 
 #: plugins/document-metadata.py:92
 msgid "Multimedia Clip Count"
@@ -1883,12 +1908,12 @@ msgstr "Кількість мультимедійних кліпів"
 #: plugins/document-metadata.py:92
 #| msgid "Number of slides in the presentation document."
 msgid "Number of sound or video clips that are present in the document"
-msgstr ""
+msgstr "Кількість звукових кліпів або відеокліпів, які містяться у документі"
 
 #: plugins/document-metadata.py:93
 #| msgid "Scale"
 msgid "Scale Crop"
-msgstr ""
+msgstr "Масштабоване обрізання"
 
 #: plugins/document-metadata.py:93
 #| msgid "Title of the document."
@@ -1897,28 +1922,31 @@ msgstr "Режим показу мініатюри документа"
 
 #: plugins/document-metadata.py:94
 msgid "Links Up-to-Date"
-msgstr ""
+msgstr "Актуальні посилання"
 
 #: plugins/document-metadata.py:94
 msgid "Indicates whether hyperlinks in a document are up-to-date"
-msgstr ""
+msgstr "Вказує на те, що гіперпосилання у документі є актуальними"
 
 #: plugins/document-metadata.py:96
 msgid "Shared Document"
-msgstr ""
+msgstr "Спільний документ"
 
 #: plugins/document-metadata.py:96
 msgid ""
 "Indicates if this document is currently shared between multiple producers"
 msgstr ""
+"Вказує на те, чи використовується документ спільно декількома редакторами"
 
 #: plugins/document-metadata.py:97
 msgid "Relative Hyperlink Base"
-msgstr ""
+msgstr "База відносних гіперпосилань"
 
 #: plugins/document-metadata.py:97
 msgid "Base string used for evaluating relative hyperlinks in this document"
 msgstr ""
+"Базовий рядок, який буде використано при визначенні відносних гіперпосилань"
+" у цьому документі"
 
 #: plugins/document-metadata.py:99
 #| msgid "Application:"
@@ -1936,23 +1964,24 @@ msgstr "Захищено паролем"
 
 #: plugins/document-metadata.py:100
 msgid "Security level of this document: password-protected"
-msgstr ""
+msgstr "Рівень захисту цього документа: захищено паролем"
 
 #: plugins/document-metadata.py:101
 msgid "Read-Only Recommended"
-msgstr ""
+msgstr "Рекомендовано лише читання"
 
 #: plugins/document-metadata.py:101
 msgid "Security level of this document: recommended to be opened as read-only"
 msgstr ""
+"Рівень захисту цього документа: рекомендовано відкривати лише для читання"
 
 #: plugins/document-metadata.py:102
 msgid "Read-Only Enforced"
-msgstr ""
+msgstr "Примусово лише читання"
 
 #: plugins/document-metadata.py:102
 msgid "Security level of this document: enforced to be opened as read-only"
-msgstr ""
+msgstr "Рівень захисту цього документа: примусово відкривати лише для читання"
 
 #: plugins/document-metadata.py:103
 #| msgid "Linked information."
@@ -1961,7 +1990,7 @@ msgstr "Заблоковано від анотування"
 
 #: plugins/document-metadata.py:103
 msgid "Security level of this document: locked for annotation"
-msgstr ""
+msgstr "Рівень захисту цього документа: заблоковано від анотування"
 
 #. https://learn.microsoft.com/en-us/dotnet/api/documentformat.openxml.packaging.ipackageproperties?view=openxml-3.0.1
 #: plugins/document-metadata.py:106
@@ -1981,6 +2010,7 @@ msgstr "Стан вмісту"
 #: plugins/document-metadata.py:107
 msgid "Status of the content, for example “Draft”, “Reviewed”, and “Final”"
 msgstr ""
+"Стан вмісту, приклади: «чернетка», «рецензовано» та «остаточний варіант»"
 
 #: plugins/document-metadata.py:113 src/tags/basic.rs:74
 msgid "Keywords"
@@ -1988,7 +2018,7 @@ msgstr "Ключові слова"
 
 #: plugins/document-metadata.py:113
 msgid "Keywords to support searching and indexing"
-msgstr ""
+msgstr "Ключові слова для пошуку та індексування"
 
 #: plugins/document-metadata.py:115
 #| msgid "Date Modified"
@@ -2016,18 +2046,18 @@ msgstr "Версія"
 
 #: plugins/document-metadata.py:121
 msgid "Version number, set by the user or by the application"
-msgstr ""
+msgstr "Номер версії, встановлений користувачем або програмою"
 
 #. https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#section-3
 #. https://pypdf.readthedocs.io/en/stable/modules/XmpInformation.html
 #: plugins/document-metadata.py:125
 #| msgid "Contrast"
 msgid "Contributor"
-msgstr ""
+msgstr "Внески"
 
 #: plugins/document-metadata.py:125
 msgid "Entity responsible for making contributions to the document"
-msgstr ""
+msgstr "Запис відповідального за участь у редагуванні документа"
 
 #: plugins/document-metadata.py:126
 msgid "Coverage"
@@ -2038,6 +2068,8 @@ msgid ""
 "Spatial or temporal topic of the document, spatial applicability of the "
 "document, or jurisdiction under which the document is relevant"
 msgstr ""
+"Просторове або часове призначення документа, просторова застосовність"
+" документа або юрисдикція, до якої документ належить"
 
 #: plugins/document-metadata.py:128 src/dialogs/options/options_dialog.rs:127
 #: src/tags/basic.rs:71
@@ -2066,19 +2098,17 @@ msgstr "Видавник"
 
 #: plugins/document-metadata.py:130
 msgid "Entity responsible for making the document available"
-msgstr ""
+msgstr "Запис, який відповідає за доступність документа"
 
 #: plugins/document-metadata.py:131
-#, fuzzy
 #| msgid "Deletion"
 msgid "Relationship"
 msgstr "Взаємозв'язок"
 
 #: plugins/document-metadata.py:131
-#, fuzzy
 #| msgid "Title of the document."
 msgid "Relationship to other document"
-msgstr "Заголовок документа."
+msgstr "Зв'язок з іншим документом"
 
 #: plugins/document-metadata.py:132
 #| msgid "Height"
@@ -2087,7 +2117,7 @@ msgstr "Права"
 
 #: plugins/document-metadata.py:132
 msgid "Information about rights held in and over the document"
-msgstr ""
+msgstr "Дані щодо прав доступу документа і до документа"
 
 #: plugins/document-metadata.py:133
 msgid "Source"
@@ -2095,72 +2125,73 @@ msgstr "Джерело"
 
 #: plugins/document-metadata.py:133
 msgid "A related document from which this document is derived"
-msgstr ""
+msgstr "Пов'язаний документ, від якого походить цей документ"
 
 #: plugins/document-metadata.py:134
 msgid "Type"
 msgstr "Тип"
 
 #: plugins/document-metadata.py:134
-#, fuzzy
 #| msgid "The PDF version of the document."
 msgid "The nature or genre of the document"
-msgstr "PDF версія документа"
+msgstr "Природа або жанр документа"
 
 #: plugins/document-metadata.py:143
 msgid "PDF Version"
 msgstr "Версія PDF"
 
 #: plugins/document-metadata.py:143
-#, fuzzy
 #| msgid "The PDF version of the document."
 msgid "The PDF version of the document"
-msgstr "PDF версія документа"
+msgstr "Версія PDF документа"
 
 #: plugins/document-metadata.py:147
-#, fuzzy
 #| msgid "Metadata view"
 msgid "Metadata Date"
-msgstr "Перегляд метаданих"
+msgstr "Дата метаданих"
 
 #: plugins/document-metadata.py:147
 msgid "Date and time that any metadata for this resource was last changed"
 msgstr ""
+"Дата і час, у який востаннє було змінено будь-які метадані цього ресурсу"
 
 #: plugins/document-metadata.py:148
-#, fuzzy
 #| msgid "Initial Creator"
 msgid "Initial Generator"
-msgstr "Автор початкового матеріалу"
+msgstr "Породжувач"
 
 #: plugins/document-metadata.py:148
-#, fuzzy
 #| msgid "The template file that is been used to generate this document."
 msgid "Name of the first known tool used to create the document"
-msgstr "Файл шаблону, що був використаний для створення цього документу."
+msgstr ""
+"Назва першого відомого інструменту, який було використано для створення"
+" документа"
 
 #: plugins/document-metadata.py:149
 msgid "PDF/A Part"
-msgstr ""
+msgstr "Частина PDF/A"
 
 #: plugins/document-metadata.py:149
 msgid ""
 "The part of the PDF/A standard that the document conforms to (e.g., 1, 2, 3)"
 msgstr ""
+"Частина стандарту PDF/A, з якою є сумісний документ (приклади: 1, 2, 3)"
 
 #: plugins/document-metadata.py:150
 msgid "PDF/A Conformance"
-msgstr ""
+msgstr "Сумісність з PDF/A"
 
 #: plugins/document-metadata.py:150
 msgid "The conformance level within the PDF/A standard (e.g., A, B, U)"
-msgstr ""
+msgstr "Рівень сумісності зі стандартом PDF/A (приклади: A, B, U)"
 
 #: plugins/document-metadata.py:174
 msgid ""
 "A plugin for extracting metadata from documents in OpenDocument (OpenOffice/"
 "LibreOffice), Open XML (Microsoft Office) and PDF formats."
 msgstr ""
+"Додаток для видобування метаданих з документів у форматах OpenDocument"
+" (OpenOffice/LibreOffice), Open XML (Microsoft Office) і PDF."
 
 #: plugins/document-metadata.py:176
 msgid ""
@@ -2175,16 +2206,14 @@ msgid ""
 msgstr ""
 
 #: plugins/document-metadata.py:206
-#, fuzzy
 #| msgid "Undefined"
 msgid "User-Defined:"
-msgstr "Визначений користувачем"
+msgstr "Визначений користувачем:"
 
 #: plugins/document-metadata.py:211 plugins/document-metadata.py:222
-#, fuzzy
 #| msgid "Document Name"
 msgid "Document"
-msgstr "Назва документа"
+msgstr "Документ"
 
 #: plugins/image-metadata.py:27 src/tags/image.rs:40
 msgid "Image"
@@ -2195,7 +2224,6 @@ msgid "Thumbnail"
 msgstr "Мініатюра"
 
 #: plugins/image-metadata.py:29
-#, fuzzy
 msgid "Photo"
 msgstr "Фото"
 
@@ -2209,27 +2237,24 @@ msgid "A general indication of the kind of data contained in this subfile."
 msgstr "Загальна індикація типу даних, що знаходяться в цьому підфайлі."
 
 #: plugins/image-metadata.py:37
-#, fuzzy
 #| msgid "New Subfile Type"
 msgid "Subfile Type"
-msgstr "Тип нового підфайла"
+msgstr "Тип підфайла"
 
 #: plugins/image-metadata.py:38 plugins/multimedia-metadata.py:36
 msgid "Bits per Sample"
 msgstr "Бітів на семпл"
 
 #: plugins/image-metadata.py:38
-#, fuzzy
 #| msgid "The number of bits in each audio sample."
 msgid "The number of bits per image component."
-msgstr "Кількість бітів на кожен звуковий фрагмент."
+msgstr "Кількість бітів на кожен компонент зображення."
 
 #: plugins/image-metadata.py:39
 msgid "Compression"
 msgstr "Стиснення"
 
 #: plugins/image-metadata.py:39
-#, fuzzy
 #| msgid ""
 #| "The compression scheme used for the image data. When a primary image is "
 #| "JPEG compressed, this designation is not necessary and is omitted. When "
@@ -2238,8 +2263,7 @@ msgid ""
 "The compression scheme used for the image data. When thumbnails use JPEG "
 "compression, this tag value is set to 6."
 msgstr ""
-"Схема стиснення даних що використана для зображення. Коли головне зображення "
-"стиснуте в режимі  JPEG, то це поле не є необхідним і пропускається. Коли  "
+"Схема стиснення даних що використана для зображення. Коли  "
 "ескіз має JPEG стиснення, значення цього теґу дорівнює 6. "
 
 #: plugins/image-metadata.py:40
@@ -2248,7 +2272,7 @@ msgstr "Фотометрична інтерпретація"
 
 #: plugins/image-metadata.py:40
 msgid "The pixel composition."
-msgstr ""
+msgstr "Піксельна композиція."
 
 #: plugins/image-metadata.py:41
 msgid "Thresholding"
@@ -2261,10 +2285,9 @@ msgid ""
 msgstr ""
 
 #: plugins/image-metadata.py:42
-#, fuzzy
 #| msgid "Page Width"
 msgid "Cell Width"
-msgstr "Ширина сторінки"
+msgstr "Ширина комірки"
 
 #: plugins/image-metadata.py:42
 msgid ""
@@ -2273,10 +2296,9 @@ msgid ""
 msgstr ""
 
 #: plugins/image-metadata.py:43
-#, fuzzy
 #| msgid "Focal Length"
 msgid "Cell Length"
-msgstr "Фокусна відстань"
+msgstr "Довжина комірки"
 
 #: plugins/image-metadata.py:43
 msgid ""
@@ -2408,7 +2430,6 @@ msgid "X-Resolution"
 msgstr "Роздільна здатність за X"
 
 #: plugins/image-metadata.py:54
-#, fuzzy
 #| msgid ""
 #| "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageWidth> "
 #| "direction. When the image resolution is unknown, 72 [dpi] is designated."
@@ -2416,8 +2437,9 @@ msgid ""
 "The number of pixels per <ResolutionUnit> in the <ImageWidth> direction. "
 "When the image resolution is unknown, 72 [dpi] is designated."
 msgstr ""
-"Кількість пікселів на <Exif.ResolutionUnit> в <Exif.ImageWidth> напрямку. "
-"Якщо роздільна здатність зображення не відома, встановлюється 72 [dpi]."
+"Кількість пікселів на <ResolutionUnit> у напрямку <ImageWidth>. Якщо"
+" роздільна здатність зображення є невідомою, використовується значення 72"
+" [точок на дюйм]."
 
 #: plugins/image-metadata.py:55
 #| msgid "x Resolution"
@@ -2425,7 +2447,6 @@ msgid "Y-Resolution"
 msgstr "Роздільна здатність за Y"
 
 #: plugins/image-metadata.py:55
-#, fuzzy
 #| msgid ""
 #| "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageLength> "
 #| "direction. The same value as <Exif.XResolution> is designated."
@@ -2433,8 +2454,8 @@ msgid ""
 "The number of pixels per <ResolutionUnit> in the <ImageLength> direction. "
 "The same value as <XResolution> is designated."
 msgstr ""
-"Кількість пікселів на <Exif.ResolutionUnit> у напрямку <Exif.ImageLength>. "
-"Використовується те саме значення, що і для <Exif.XResolution>."
+"Кількість пікселів на <ResolutionUnit> у напрямку <ImageLength>."
+" Використовується те саме значення, що і для <XResolution>."
 
 #: plugins/image-metadata.py:56
 msgid "Planar Configuration"
@@ -2965,7 +2986,6 @@ msgid "ISO Speed Ratings"
 msgstr "Чутливість по ISO"
 
 #: plugins/image-metadata.py:105
-#, fuzzy
 #| msgid ""
 #| "The ISO Speed and ISO Latitude of the camera or input device as specified "
 #| "in ISO 12232."
@@ -3121,7 +3141,6 @@ msgid "Shutter speed."
 msgstr "Витримка"
 
 #: plugins/image-metadata.py:119
-#, fuzzy
 #| msgid "Max Aperture Value"
 msgid "Aperture Value"
 msgstr "Розмір діафрагми"
@@ -3261,7 +3280,6 @@ msgid "Subject Area"
 msgstr "Область об'єкту"
 
 #: plugins/image-metadata.py:134
-#, fuzzy
 #| msgid "The location and area of the main subject in the overall scene."
 msgid ""
 "This tag indicates the location and area of the main subject in the overall "
@@ -3338,7 +3356,6 @@ msgid "Sub-seconds Time Original"
 msgstr "Частки секунди часу створення оригіналу"
 
 #: plugins/image-metadata.py:140
-#, fuzzy
 #| msgid "Fractions of seconds for the <Exif.DateTimeOriginal> tag."
 msgid ""
 "A tag used to record fractions of seconds for the <DateTimeOriginal> tag."
@@ -3353,7 +3370,6 @@ msgid "Sub-seconds Time Digitized"
 msgstr "Частки секунди часу цифрування"
 
 #: plugins/image-metadata.py:141
-#, fuzzy
 #| msgid "Fractions of seconds for the <Exif.DateTimeDigitized> tag."
 msgid ""
 "A tag used to record fractions of seconds for the <DateTimeDigitized> tag."
@@ -3523,7 +3539,6 @@ msgid "Scene Type"
 msgstr "Тип сцени"
 
 #: plugins/image-metadata.py:159
-#, fuzzy
 #| msgid ""
 #| "The type of scene. If a DSC recorded the image, this tag value must "
 #| "always be set to 1, indicating that the image was directly photographed."
@@ -3550,7 +3565,6 @@ msgid "Exposure Mode"
 msgstr "Режим експозиції"
 
 #: plugins/image-metadata.py:161
-#, fuzzy
 #| msgid ""
 #| "The exposure mode set when the image was shot. In auto-bracketing mode, "
 #| "the camera shoots a series of frames of the same scene at different "
@@ -3569,7 +3583,6 @@ msgid "White Balance"
 msgstr "Баланс білого"
 
 #: plugins/image-metadata.py:162
-#, fuzzy
 #| msgid "The white balance mode set when the image was shot."
 msgid "This tag indicates the white balance mode set when the image was shot."
 msgstr ""
@@ -3581,7 +3594,6 @@ msgid "Digital Zoom Ratio"
 msgstr "Величина цифрового збільшення"
 
 #: plugins/image-metadata.py:163
-#, fuzzy
 #| msgid ""
 #| "The digital zoom ratio when the image was shot. If the numerator of the "
 #| "recorded value is 0, this indicates that digital zoom was not used."
@@ -3635,7 +3647,6 @@ msgid "Contrast"
 msgstr "Контраст"
 
 #: plugins/image-metadata.py:167
-#, fuzzy
 #| msgid ""
 #| "The direction of contrast processing applied by the camera when the image "
 #| "was shot."
@@ -3651,7 +3662,6 @@ msgid "Saturation"
 msgstr "Насиченість"
 
 #: plugins/image-metadata.py:168
-#, fuzzy
 #| msgid ""
 #| "The direction of saturation processing applied by the camera when the "
 #| "image was shot."
@@ -3667,7 +3677,6 @@ msgid "Sharpness"
 msgstr "Різкість"
 
 #: plugins/image-metadata.py:169
-#, fuzzy
 #| msgid ""
 #| "The direction of sharpness processing applied by the camera when the "
 #| "image was shot."
@@ -3867,7 +3876,6 @@ msgid "GPS Latitude Reference"
 msgstr "Відносна висота"
 
 #: plugins/image-metadata.py:190
-#, fuzzy
 #| msgid ""
 #| "Indicates whether the latitude is north or south latitude. The ASCII "
 #| "value “N” indicates north latitude, and “S” is south latitude."
@@ -3875,8 +3883,8 @@ msgid ""
 "Indicates whether the latitude is north or south latitude. The ASCII value "
 "'N' indicates north latitude, and 'S' is south latitude."
 msgstr ""
-"Вказує, якою є широта (північною чи південною). ASCII-літера «N» вказує на "
-"північну широту, а літера «S» – на південну широту."
+"Визначає, є широта північною чи південною. Значення ASCII «N» означає"
+" північну широту, а значення «S» — південну."
 
 #: plugins/image-metadata.py:191
 #| msgid "Latitude"
@@ -3903,7 +3911,6 @@ msgid "GPS Longitude Reference"
 msgstr "Відносна висота"
 
 #: plugins/image-metadata.py:192
-#, fuzzy
 #| msgid ""
 #| "Indicates whether the longitude is east or west longitude. ASCII “E” "
 #| "indicates east longitude, and “W” is west longitude."
@@ -3911,8 +3918,8 @@ msgid ""
 "Indicates whether the longitude is east or west longitude. ASCII 'E' "
 "indicates east longitude, and 'W' is west longitude."
 msgstr ""
-"Визначає, є довгота східною чи західною. «E» у ASCII відповідає східній "
-"довготі, а «W» — західній довготі."
+"Визначає, є довгота східною чи західною. «E» у ASCII відповідає східній"
+" довготі, а «W» — західній довготі."
 
 #: plugins/image-metadata.py:193
 #| msgid "Longitude"
@@ -3939,7 +3946,6 @@ msgid "GPS Altitude"
 msgstr "Висота за GPS"
 
 #: plugins/image-metadata.py:194
-#, fuzzy
 #| msgid ""
 #| "Indicates the altitude based on the reference in <Exif.GPS.AltitudeRef>. "
 #| "The reference unit is meters."
@@ -3991,13 +3997,11 @@ msgstr ""
 " Interoperability»."
 
 #: plugins/image-metadata.py:198
-#, fuzzy
 #| msgid "Exposure Mode"
 msgid "GPS Measure Mode"
-msgstr "Режим експозиції"
+msgstr "Режим вимінювання GPS"
 
 #: plugins/image-metadata.py:198
-#, fuzzy
 msgid ""
 "Indicates the GPS measurement mode. \"2\" means two-dimensional measurement "
 "and \"3\" means three-dimensional measurement is in progress."
@@ -4007,10 +4011,9 @@ msgstr ""
 
 #: plugins/image-metadata.py:199
 msgid "GPS Data Degree of Precision"
-msgstr ""
+msgstr "Рівень точності даних GPS"
 
 #: plugins/image-metadata.py:199
-#, fuzzy
 msgid ""
 "Indicates the GPS DOP (data degree of precision). An HDOP value is written "
 "during two-dimensional measurement, and PDOP during three-dimensional "
@@ -4020,22 +4023,22 @@ msgstr ""
 " двовимірного вимірювання, а PDOP — під час тривимірного вимірювання."
 
 #: plugins/image-metadata.py:200
-#, fuzzy
 #| msgid "Subject Reference"
 msgid "GPS Speed Reference"
-msgstr "Довідка про об'єкт"
+msgstr "Еталон швидкості GPS"
 
 #: plugins/image-metadata.py:200
 msgid ""
 "Indicates the unit used to express the GPS receiver speed of movement. \"K\" "
 "\"M\" and \"N\" represents kilometers per hour, miles per hour, and knots."
 msgstr ""
+"Вказує одиницю виміру швидкості руху приймача GPS. «K», «M» і «N» —"
+" кілометри на годину, милі за годину та вузли, відповідно."
 
 #: plugins/image-metadata.py:201
-#, fuzzy
 #| msgid "ISO Speed"
 msgid "GPS Speed"
-msgstr "швидкість GPS"
+msgstr "Швидкість GPS"
 
 #: plugins/image-metadata.py:201
 #| msgid "Indicates the value of coefficient gamma."
@@ -4047,7 +4050,6 @@ msgid "GPS Track Ref"
 msgstr ""
 
 #: plugins/image-metadata.py:202
-#, fuzzy
 msgid ""
 "Indicates the reference for giving the direction of GPS receiver movement. "
 "\"T\" denotes true direction and \"M\" is magnetic direction."
@@ -4062,7 +4064,6 @@ msgid "GPS Track"
 msgstr "MB-ідентифікатор  доріжки"
 
 #: plugins/image-metadata.py:203
-#, fuzzy
 msgid ""
 "Indicates the direction of GPS receiver movement. The range of values is "
 "from 0.00 to 359.99."
@@ -4091,7 +4092,6 @@ msgid "GPS Image Direction"
 msgstr "Напрямок знімання у GPS"
 
 #: plugins/image-metadata.py:205
-#, fuzzy
 msgid ""
 "Indicates the direction of the image when it was captured. The range of "
 "values is from 0.00 to 359.99."
@@ -4136,7 +4136,6 @@ msgid "GPS Destination Latitude"
 msgstr "Призначення"
 
 #: plugins/image-metadata.py:208
-#, fuzzy
 #| msgid ""
 #| "Indicates the latitude. The latitude is expressed as three RATIONAL "
 #| "values giving the degrees, minutes, and seconds, respectively. When "
@@ -4183,7 +4182,6 @@ msgid "GPS Destination Longitude"
 msgstr "Призначення"
 
 #: plugins/image-metadata.py:210
-#, fuzzy
 #| msgid ""
 #| "Indicates the longitude. The longitude is expressed as three RATIONAL "
 #| "values giving the degrees, minutes, and seconds, respectively. When "
@@ -4226,7 +4224,6 @@ msgid "GPS Destination Bearing"
 msgstr "Призначення"
 
 #: plugins/image-metadata.py:212
-#, fuzzy
 msgid ""
 "Indicates the bearing to the destination point. The range of values is from "
 "0.00 to 359.99."
