@@ -66,7 +66,7 @@
   </suggests>
 
   <releases>
-    <release type="stable" version="2.0.1" date="2026-12-31">
+    <release type="stable" version="2.0.2" date="2026-??-??">
       <description>
         <p>This release fixes the following bugs:</p>
         <ul>
@@ -74,6 +74,20 @@
         </ul>
         <p>New or updated translations: ...</p>
         <p>New or updated docs: ...</p>
+      </description>
+    </release>
+    <release type="stable" version="2.0.1" date="2026-05-27">
+      <description>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Issue #326: Right panel would occasionally occupy all available space on startup, rendering left panel invisible</li>
+          <li>Color themes were broken with older Gtk versions (e.g. on Ubuntu 24.04)</li>
+          <li>Issue #327: With older Gtk versions (e.g. on Ubuntu 24.04) clicking a device button only worked once (AndriiC)</li>
+          <li>Issue #331: No Quit menu item in the File menu</li>
+          <li>Issue #335: Running search for the first time would list home directory contents as “search results”</li>
+          <li>Issue #334: Internal viewer doesn’t allow selecting the first character in a line (AndriiC)</li>
+          <li>Issue #334: Moving mouse pointer out of the internal viewer window selects everything to the start of the visible area (AndriiC)</li>
+        </ul>
       </description>
     </release>
     <release type="stable" version="2.0.0" date="2026-05-17">
