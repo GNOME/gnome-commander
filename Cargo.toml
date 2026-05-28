@@ -2,6 +2,8 @@
 name = "gnome-commander"
 version = "0.1.0"
 edition = "2024"
+# Note: Updating minimum Rust version also requires the Docker build environment.
+# See docker directory for instructions.
 rust-version = "1.92"
 
 [lib]
