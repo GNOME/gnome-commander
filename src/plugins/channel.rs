@@ -9,6 +9,7 @@ use async_broadcast::{
 use async_channel::Sender;
 use std::{
     collections::HashMap,
+    path::PathBuf,
     sync::atomic::{AtomicU32, Ordering},
 };
 
@@ -41,6 +42,7 @@ pub enum MessageFromPluginHost {
 
 #[derive(Debug, Clone)]
 pub struct PluginData {
+    pub path: PathBuf,
     pub metadata: PluginMetadata,
     pub initializing: bool,
     pub errors: Vec<String>,

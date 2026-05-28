@@ -226,6 +226,7 @@ impl PluginInstance {
 
     pub fn data(&self) -> PluginData {
         PluginData {
+            path: self.path.clone(),
             metadata: self.metadata.clone(),
             initializing: self.is_enabled() && !self.is_initialized(),
             errors: self.errors.iter().map(Error::to_string).collect(),
