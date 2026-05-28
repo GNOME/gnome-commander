@@ -78,6 +78,7 @@ IMAGE_TAGS = {
     'InkSet': ('InkSet', N_('Ink Set'), N_('The set of inks used in a separated (PhotometricInterpretation=5) image.')),
     'InkNames': ('InkNames', N_('Ink Names'), N_('The name of each ink used in a separated (PhotometricInterpretation=5) image.')),
     'NumberofInks': ('NumberOfInks', N_('Number Of Inks'), N_('The number of inks.')),
+    # xgettext:no-python-format
     'DotRange': ('DotRange', N_('Dot Range'), N_('The component values that correspond to a 0% dot and 100% dot.')),
     'TargetPrinter': ('TargetPrinter', N_('Target Printer'), N_('A description of the printing environment for which this separation is intended.')),
     'ExtraSamples': ('ExtraSamples', N_('Extra Samples'), N_('Specifies that each pixel has m extra components whose interpretation is defined by one of the values listed below.')),
