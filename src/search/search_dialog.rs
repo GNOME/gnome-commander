@@ -677,7 +677,6 @@ mod imp {
             self.virtual_directory.clear_files();
             result_list.clear();
             result_list.imp().set_connection(&start_dir.connection());
-            result_list.set_base_dir(start_dir.local_path());
 
             let search_result = backend::search(
                 &profile,

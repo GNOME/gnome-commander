@@ -99,8 +99,6 @@ mod imp {
     #[properties(wrapper_type = super::FileList)]
     pub struct FileList {
         pub quick_search: glib::WeakRef<QuickSearch>,
-        #[property(get, set, nullable)]
-        pub base_dir: RefCell<Option<PathBuf>>,
 
         #[property(get, set = Self::set_extension_display_mode)]
         pub extension_display_mode: Cell<ExtensionDisplayMode>,
@@ -249,7 +247,6 @@ mod imp {
             let row_selector = ListRowSelector::new(&view);
             Self {
                 quick_search: Default::default(),
-                base_dir: Default::default(),
 
                 extension_display_mode: Default::default(),
                 graphical_layout_mode: Default::default(),
