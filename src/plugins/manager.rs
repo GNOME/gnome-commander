@@ -181,6 +181,7 @@ fn setup_row(name: &str, row: &gtk::ListBoxRow, data: PluginData, channel: &Plug
     description.append(
         &gtk::Label::builder()
             .label(gettext("File: {}").replace("{}", name))
+            .tooltip_text(data.path.display().to_string())
             .halign(gtk::Align::Start)
             .build(),
     );
