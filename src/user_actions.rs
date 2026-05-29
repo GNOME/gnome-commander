@@ -1066,7 +1066,7 @@ async fn connections_connect_first(main_win: MainWindow) {
         main_win
             .file_selector(FileSelectorID::Active)
             .file_list()
-            .set_connection(&remote_con);
+            .set_directory(&remote_con.default_dir());
     }
 }
 
@@ -1088,7 +1088,7 @@ async fn connections_set_current(main_win: MainWindow, uuid: String) {
     main_win
         .file_selector(FileSelectorID::Active)
         .file_list()
-        .set_connection(&con);
+        .set_directory(&con.default_dir());
 }
 
 async fn connections_close(main_win: MainWindow, uuid: String) {

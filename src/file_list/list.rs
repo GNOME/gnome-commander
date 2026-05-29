@@ -2337,10 +2337,6 @@ impl FileList {
         self.imp().directory.borrow().connection()
     }
 
-    pub fn set_connection(&self, connection: &impl IsA<Connection>) {
-        self.set_directory(&connection.default_dir());
-    }
-
     pub fn directory(&self) -> Directory {
         self.imp().directory.borrow().clone()
     }
