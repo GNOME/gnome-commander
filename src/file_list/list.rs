@@ -656,6 +656,7 @@ mod imp {
                 child.unparent();
             }
             if let Some(directory) = self.directory.take() {
+                directory.cancel_monitoring();
                 for handler_id in self.directory_handlers.take() {
                     directory.disconnect(handler_id);
                 }
