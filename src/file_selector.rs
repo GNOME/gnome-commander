@@ -1323,8 +1323,10 @@ impl FileSelector {
             .connection()
             .is_none_or(|c| !c.can_show_free_space())
         {
+            self.imp().volume_size_label.set_visible(false);
             return;
         }
+        self.imp().volume_size_label.set_visible(true);
         let Some(directory) = file_list.directory() else {
             return;
         };
