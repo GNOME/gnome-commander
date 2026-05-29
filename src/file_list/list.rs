@@ -12,7 +12,7 @@ use super::{
     quick_search::{QuickSearch, QuickSearchMode},
 };
 use crate::{
-    connection::{Connection, ConnectionExt, ConnectionInterface, list::ConnectionList},
+    connection::{Connection, ConnectionExt},
     dialogs::{delete_dialog::show_delete_dialog, rename_popover::show_rename_popover},
     dir::{Directory, DirectoryState},
     file::{File, FileOps},
@@ -165,11 +165,9 @@ mod imp {
 
         pub focus_later: RefCell<Option<PathBuf>>,
 
-        pub connection: RefCell<Option<Connection>>,
-        pub connection_handlers: RefCell<Vec<glib::SignalHandlerId>>,
-
-        pub directory: RefCell<Option<Directory>>,
+        pub directory: RefCell<Directory>,
         pub directory_handlers: RefCell<Vec<glib::SignalHandlerId>>,
+        pub connection_handlers: RefCell<Vec<glib::SignalHandlerId>>,
         pub history: History<(Connection, PathBuf)>,
 
         pub current_size_calculation: Cell<Option<gio::Cancellable>>,
@@ -282,11 +280,11 @@ mod imp {
 
                 focus_later: Default::default(),
 
-                connection: Default::default(),
-                connection_handlers: Default::default(),
-
-                directory: Default::default(),
+                directory: RefCell::new(Directory::create_virtual(
+                    ConnectionList::get().home().upcast_ref(),
+                )),
                 directory_handlers: Default::default(),
+                connection_handlers: Default::default(),
                 history: History::new(20),
 
                 current_size_calculation: Default::default(),
@@ -643,16 +641,17 @@ mod imp {
             while let Some(child) = self.obj().first_child() {
                 child.unparent();
             }
-            if let Some(directory) = self.directory.take() {
-                directory.unpin_from_cache();
-                for handler_id in self.directory_handlers.take() {
-                    directory.disconnect(handler_id);
-                }
+
+            let directory = self.directory.borrow();
+            for handler_id in self.directory_handlers.take() {
+                directory.disconnect(handler_id);
             }
-            if let Some(connection) = self.connection.take() {
-                for handler_id in self.connection_handlers.take() {
-                    connection.disconnect(handler_id);
-                }
+            directory.unpin_from_cache();
+            directory.cancel_monitoring();
+
+            let connection = directory.connection();
+            for handler_id in self.connection_handlers.take() {
+                connection.disconnect(handler_id);
             }
         }
 
@@ -783,50 +782,15 @@ mod imp {
             filter.matches(&name)
         }
 
-        pub fn set_connection(&self, connection: &Connection) {
-            if Some(connection) == self.connection.borrow().as_ref() {
-                return;
-            }
-
-            let previous_connection = self.connection.replace(Some(connection.clone()));
-
-            if let Some(previous_connection) = previous_connection {
-                for handler_id in self.connection_handlers.take() {
-                    previous_connection.disconnect(handler_id);
-                }
-            }
-
-            self.connection_handlers
-                .borrow_mut()
-                .push(connection.connect_closure(
-                    "close",
-                    false,
-                    glib::closure_local!(
-                        #[weak(rename_to = imp)]
-                        self,
-                        move |c: &Connection| {
-                            if Some(c) == imp.connection.borrow().as_ref() {
-                                imp.obj()
-                                    .set_connection(&ConnectionList::get().home(), None);
-                            }
-                        }
-                    ),
-                ));
-
-            self.obj().emit_by_name::<()>("con-changed", &[&connection]);
-        }
-
         fn add_to_history(&self, directory: &Directory) {
-            if let Some(connection) = &*self.connection.borrow() {
-                self.history
-                    .add((connection.clone(), directory.path_from_root()));
-            }
+            self.history
+                .add((directory.connection(), directory.path_from_root()));
 
             self.obj().emit_by_name::<()>("dir-changed", &[directory]);
         }
 
         pub fn set_directory(&self, directory: &Directory) {
-            if Some(directory) == self.directory.borrow().as_ref() {
+            if directory == &*self.directory.borrow() {
                 return;
             }
 
@@ -835,20 +799,36 @@ mod imp {
                 sender.toss(None);
             }
 
-            directory.pin_to_cache();
-            let previous_directory = self.directory.replace(Some(directory.clone()));
-            if let Some(previous_directory) = previous_directory {
-                previous_directory.unpin_from_cache();
-                previous_directory.cancel_monitoring();
-                for handler_id in self.directory_handlers.take() {
-                    previous_directory.disconnect(handler_id);
+            let previous_directory = self.directory.replace(directory.clone());
+            previous_directory.unpin_from_cache();
+            previous_directory.cancel_monitoring();
+            for handler_id in self.directory_handlers.take() {
+                previous_directory.disconnect(handler_id);
+            }
+
+            let previous_connection = previous_directory.connection();
+            if previous_connection != directory.connection() {
+                for handler_id in self.connection_handlers.take() {
+                    previous_connection.disconnect(handler_id);
                 }
-                if previous_directory.is_local()
-                    && !previous_directory.is_monitored()
-                    && previous_directory.needs_mtime_update()
-                {
-                    previous_directory.update_mtime();
-                }
+
+                self.connection_handlers
+                    .borrow_mut()
+                    .push(directory.connection().connect_closure(
+                        "close",
+                        false,
+                        glib::closure_local!(
+                            #[weak(rename_to = imp)]
+                            self,
+                            move |c: &Connection| {
+                                if c == &imp.directory.borrow().connection() {
+                                    imp.set_directory(&ConnectionList::get().home().default_dir());
+                                }
+                            }
+                        ),
+                    ));
+                self.obj()
+                    .emit_by_name::<()>("con-changed", &[&directory.connection()]);
             }
 
             self.directory_handlers
@@ -940,9 +920,28 @@ mod imp {
                     ),
                 ));
 
+            directory.pin_to_cache();
             self.obj().show_files(directory);
             directory.start_monitoring();
             self.add_to_history(directory);
+
+            if directory.state() == DirectoryState::Empty || !directory.connection().is_open() {
+                let obj = self.obj().clone();
+                let directory = directory.clone();
+                glib::spawn_future_local(async move {
+                    let connection = directory.connection();
+                    if !connection.is_open()
+                        && let Some(window) = obj.root().and_downcast::<gtk::Window>()
+                    {
+                        if open_connection(&window, &connection).await {
+                            directory.relist_files().await;
+                        }
+                        obj.emit_by_name::<()>("con-changed", &[&directory.connection()]);
+                    } else {
+                        directory.relist_files().await;
+                    }
+                });
+            };
         }
 
         fn on_dir_list_ok(&self, dir: &Directory) {
@@ -956,13 +955,10 @@ mod imp {
         }
 
         fn on_directory_deleted(&self, dir: &Directory) {
-            if let Some(parent_dir) = dir.existing_parent()
-                && let Some(path) = parent_dir.local_path()
-            {
-                self.obj().goto_directory(&path);
-            } else {
-                self.obj().goto_directory(Path::new("~"));
-            }
+            self.set_directory(
+                &dir.existing_parent()
+                    .unwrap_or_else(|| ConnectionList::get().home().default_dir()),
+            );
         }
 
         fn on_directory_renamed(&self, dir: &Directory) {
@@ -976,7 +972,7 @@ mod imp {
         }
 
         fn on_dir_file_deleted(&self, dir: &Directory, f: &File) {
-            if self.directory.borrow().as_ref() == Some(dir) {
+            if &*self.directory.borrow() == dir {
                 self.obj().remove_file(f);
             }
         }
@@ -1457,10 +1453,7 @@ mod imp {
                 return false;
             }
 
-            let Some(dir) = self.obj().directory() else {
-                return false;
-            };
-
+            let dir = self.obj().directory();
             let file = self.row_at_coords(x, y).map(|(_, item)| item.file());
 
             let destination = match file {
@@ -1650,7 +1643,7 @@ mod imp {
                 }
             };
 
-            if let Err(error) = destination.relist_files(&window, false).await {
+            if let Err(error) = destination.relist_files().await {
                 error.show(&window).await;
             }
         }
@@ -1889,10 +1882,7 @@ impl FileList {
             return;
         }
 
-        let Some(destination) = self.directory() else {
-            return;
-        };
-
+        let destination = self.directory();
         let data = match read_types(&clipboard, DROP_TYPES).await {
             Ok((data, _)) => data,
             Err(error) => {
@@ -2234,97 +2224,20 @@ impl FileList {
         };
     }
 
-    pub fn connection(&self) -> Option<Connection> {
-        self.imp().connection.borrow().clone()
+    pub fn connection(&self) -> Connection {
+        self.imp().directory.borrow().connection()
     }
 
-    pub fn set_connection(&self, connection: &impl IsA<Connection>, start_dir: Option<&Directory>) {
-        let this = self.clone();
-        let connection = connection.as_ref().clone();
-        let start_dir = start_dir.cloned();
-        glib::spawn_future_local(async move {
-            this.set_connection_async(&connection, start_dir).await;
-        });
+    pub fn set_connection(&self, connection: &impl IsA<Connection>) {
+        self.set_directory(&connection.default_dir());
     }
 
-    pub async fn set_connection_async(
-        &self,
-        connection: &impl IsA<Connection>,
-        start_dir: Option<Directory>,
-    ) {
-        let connection = connection.as_ref();
-        if self.connection().as_ref() == Some(connection) {
-            let directory = if !connection.should_remember_dir() {
-                connection.default_dir()
-            } else {
-                start_dir
-            };
-            if let Some(directory) = directory {
-                self.set_directory_async(&directory).await;
-            }
-            return;
-        }
-
-        let opened = if connection.is_open() {
-            true
-        } else if let Some(window) = self.root().and_downcast::<gtk::Window>() {
-            open_connection(&window, connection).await
-        } else {
-            eprintln!("No window");
-            false
-        };
-
-        if opened {
-            self.imp().set_connection(connection);
-        }
-
-        if let Some(directory) = start_dir.or_else(|| connection.default_dir()) {
-            self.set_directory_async(&directory).await;
-        }
-    }
-
-    pub fn directory(&self) -> Option<Directory> {
+    pub fn directory(&self) -> Directory {
         self.imp().directory.borrow().clone()
     }
 
     pub fn set_directory(&self, directory: &Directory) {
-        let this = self.clone();
-        let directory = directory.clone();
-        glib::spawn_future_local(async move {
-            this.set_directory_async(&directory).await;
-        });
-    }
-
-    pub async fn set_directory_async(&self, directory: &Directory) {
-        if Some(directory) == self.directory().as_ref() {
-            return;
-        }
-
-        let Some(window) = self.root().and_downcast::<gtk::Window>() else {
-            return;
-        };
-
-        self.set_cursor(gdk::Cursor::from_name("wait", None).as_ref());
-
-        let result = match directory.state() {
-            DirectoryState::Empty => directory.list_files(&window, true).await,
-            DirectoryState::Listing | DirectoryState::Canceling => Ok(()),
-            DirectoryState::Listed => {
-                // check if the dir has up-to-date file list; if not and it's a local dir - relist it
-                if directory.is_local() && !directory.is_monitored() && directory.update_mtime() {
-                    directory.relist_files(&window, true).await
-                } else {
-                    Ok(())
-                }
-            }
-        };
-
-        self.set_cursor(None);
         self.imp().set_directory(directory);
-
-        if let Err(error) = result {
-            error.show(&window).await;
-        }
     }
 
     pub fn dir_history(&self) -> &History<(Connection, PathBuf)> {
@@ -2332,17 +2245,13 @@ impl FileList {
     }
 
     pub async fn reload(&self) {
-        let Some(directory) = self.directory() else {
-            return;
-        };
-        let Some(window) = self.root().and_downcast::<gtk::Window>() else {
-            eprintln!("No window");
-            return;
-        };
-
         self.unselect_all();
-        if let Err(error) = directory.relist_files(&window, true).await {
-            error.show(&window).await;
+        if let Err(error) = self.directory().relist_files().await {
+            if let Some(window) = self.root().and_downcast::<gtk::Window>() {
+                error.show(&window).await;
+            } else {
+                eprintln!("No window");
+            }
         }
     }
 
@@ -2408,78 +2317,6 @@ impl FileList {
             }
         }
         self.emit_files_changed();
-    }
-
-    pub fn goto_directory(&self, dir: &Path) {
-        let this = self.clone();
-        let dir = dir.to_path_buf();
-        glib::spawn_future_local(async move {
-            this.goto_directory_async(&dir).await;
-        });
-    }
-
-    pub async fn goto_directory_async(&self, dir: &Path) {
-        if let Err(error) = self.goto_directory_actual(dir).await {
-            match self.root().and_downcast::<gtk::Window>() {
-                Some(window) => error.show(&window).await,
-                None => eprintln!("{error}"),
-            }
-        }
-    }
-
-    pub async fn goto_directory_actual(&self, dir: &Path) -> Result<(), ErrorMessage> {
-        let dir = if let Ok(relative) = dir.strip_prefix("~") {
-            glib::home_dir().join(relative)
-        } else {
-            glib::shell_unquote(dir)
-                .as_ref()
-                .map(Path::new)
-                .unwrap_or(dir)
-                .to_path_buf()
-        };
-
-        let (new_dir, focus_dir) = if dir == Path::new("..") {
-            let cwd = self
-                .directory()
-                .ok_or_else(|| ErrorMessage::brief(gettext("Current directory is not set.")))?;
-
-            // let's get the parent directory
-            (
-                cwd.parent()
-                    .ok_or_else(|| ErrorMessage::brief(gettext("No parent directory")))?,
-                Some(cwd),
-            )
-        } else {
-            (
-                if dir.is_absolute() {
-                    let connection = self
-                        .connection()
-                        .unwrap_or_else(|| ConnectionList::get().home().upcast());
-                    Directory::new(&connection, &connection.create_uri(&dir))
-                } else if dir.starts_with("\\\\") {
-                    let connection = ConnectionList::get().smb().ok_or_else(|| {
-                        ErrorMessage::brief(gettext("No SAMBA connection is available"))
-                    })?;
-                    Directory::new(&connection, &connection.create_uri(&dir))
-                } else {
-                    self.directory()
-                        .ok_or_else(|| {
-                            ErrorMessage::brief(gettext("Current directory is not set."))
-                        })
-                        .map(|cwd| cwd.child(&dir))?
-                },
-                None,
-            )
-        };
-
-        self.set_directory_async(&new_dir).await;
-
-        // focus the current dir when going back to the parent dir
-        if let Some(focus_dir) = focus_dir {
-            self.focus_file(&focus_dir.path_name(), false);
-        }
-
-        Ok(())
     }
 
     fn emit_files_changed(&self) {
@@ -2582,7 +2419,7 @@ impl FileList {
         };
         let files = self.selected_files();
         if !files.is_empty() {
-            show_delete_dialog(&window, self.connection().as_ref(), &files, force).await;
+            show_delete_dialog(&window, &self.connection(), &files, force).await;
         }
     }
 
@@ -2697,7 +2534,7 @@ impl FileList {
 
         if let Some(item) = focus_later_item {
             self.focus_file_at_row(&item);
-        } else {
+        } else if store.n_items() > 0 {
             self.select_row(0);
         }
     }
@@ -2860,7 +2697,7 @@ impl FileList {
     }
 
     pub fn add_cwd_to_cmdline(&self) {
-        if let Some(path) = self.directory().and_then(|d| d.local_path()) {
+        if let Some(path) = self.directory().local_path() {
             self.add_to_cmdline(path);
         }
     }

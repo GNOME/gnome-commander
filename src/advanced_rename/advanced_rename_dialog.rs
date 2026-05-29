@@ -704,23 +704,19 @@ mod imp {
         }
 
         async fn file_list_properties(&self) {
-            if let Some((_, item)) = self.selected_item() {
-                let connection = self
-                    .obj()
-                    .file_list()
-                    .and_then(|file_list| file_list.connection());
-
-                if let Some(main_window) = self.obj().main_window() {
-                    let file_changed = FilePropertiesDialog::show(
-                        &main_window,
-                        main_window.file_metadata_service(),
-                        &item.file(),
-                        connection,
-                    )
-                    .await;
-                    if file_changed {
-                        self.file_list_update_files().await;
-                    }
+            if let Some((_, item)) = self.selected_item()
+                && let Some(main_window) = self.obj().main_window()
+                && let Some(file_list) = self.obj().file_list()
+            {
+                let file_changed = FilePropertiesDialog::show(
+                    &main_window,
+                    main_window.file_metadata_service(),
+                    &item.file(),
+                    &file_list.connection(),
+                )
+                .await;
+                if file_changed {
+                    self.file_list_update_files().await;
                 }
             }
         }

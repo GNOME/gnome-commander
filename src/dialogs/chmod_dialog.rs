@@ -23,7 +23,7 @@ pub enum ChmodRecursiveMode {
 #[async_recursion::async_recursion(?Send)]
 async fn chmod_recursively(
     parent_window: &gtk::Window,
-    connection: Option<&Connection>,
+    connection: &Connection,
     file: &File,
     permissions: u32,
     recursive: Option<ChmodRecursiveMode>,
@@ -40,10 +40,9 @@ async fn chmod_recursively(
 
     if let Some(mode) = recursive
         && file.is_directory()
-        && let Some(connection) = connection
     {
         let dir = Directory::new_from_file(connection, &*file.file());
-        if let Err(error) = dir.list_files(parent_window, false).await {
+        if let Err(error) = dir.list_files().await {
             error.show(parent_window).await;
             return;
         }
@@ -60,21 +59,14 @@ async fn chmod_recursively(
             .cloned()
             .collect::<Vec<_>>();
         for child in files {
-            chmod_recursively(
-                parent_window,
-                Some(connection),
-                &child,
-                permissions,
-                recursive,
-            )
-            .await;
+            chmod_recursively(parent_window, connection, &child, permissions, recursive).await;
         }
     }
 }
 
 async fn chmod_files(
     parent_window: &gtk::Window,
-    connection: Option<&Connection>,
+    connection: &Connection,
     files: &[File],
     permissions: u32,
     recursive: Option<ChmodRecursiveMode>,
@@ -86,7 +78,7 @@ async fn chmod_files(
 
 pub async fn show_chmod_dialog(
     parent_window: &gtk::Window,
-    connection: Option<&Connection>,
+    connection: &Connection,
     files: &[File],
 ) -> bool {
     let Some(file) = files.first() else {

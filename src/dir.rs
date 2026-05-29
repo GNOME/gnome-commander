@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use crate::{
-    connection::{Connection, ConnectionExt, list::ConnectionList},
+    connection::{Connection, ConnectionExt},
     debug::debug,
     dirlist::list_directory,
     file::{File, FileOps},
@@ -40,8 +40,6 @@ mod imp {
         pub files: RefCell<Vec<File>>,
         #[property(get, set)]
         pub mtime: RefCell<Option<glib::DateTime>>,
-        #[property(get, set)]
-        pub needs_mtime_update: Cell<bool>,
         pub file_monitor: RefCell<Option<gio::FileMonitor>>,
         pub monitor_users: Cell<u32>,
         pub lock: Cell<bool>,
@@ -66,7 +64,6 @@ mod imp {
                 state: Cell::new(DirectoryState::Empty),
                 files: RefCell::new(Vec::new()),
                 mtime: Default::default(),
-                needs_mtime_update: Default::default(),
                 file_monitor: Default::default(),
                 monitor_users: Default::default(),
                 lock: Default::default(),
@@ -148,20 +145,27 @@ impl Directory {
     /// displayed. Each call to `pin_to_cache()` has to be paired with a matching
     /// `unpin_from_cache()` call.
     pub fn pin_to_cache(&self) {
-        self.imp().connection.borrow().dir_cache_mut().pin(self);
+        if !self.is_virtual() {
+            self.imp().connection.borrow().dir_cache_mut().pin(self);
+        }
     }
 
     /// Allows the directory to be released from cache again, once called as many times as
     /// `pin_to_cache()` was called before.
     pub fn unpin_from_cache(&self) {
-        self.imp().connection.borrow().dir_cache_mut().unpin(self);
+        if !self.is_virtual() {
+            self.imp().connection.borrow().dir_cache_mut().unpin(self);
+        }
     }
 
-    /// Creates a "virtual" directory only meant to keep track of a bunch of files since files can
-    /// currently only notify directories about changes. TODO: We should really allow files to be
-    /// monitored by a generic trait instead of a directory.
-    pub fn create_virtual() -> Self {
-        Self::new(&ConnectionList::get().home(), "virtual:")
+    /// Creates a "virtual" directory only meant to serve as a placeholder. Virtual directories are
+    /// not cached.
+    pub fn create_virtual(connection: &Connection) -> Self {
+        Self::new(connection, "virtual:")
+    }
+
+    pub fn is_virtual(&self) -> bool {
+        self.file().has_uri_scheme("virtual")
     }
 
     pub fn parent(&self) -> Option<Directory> {
@@ -196,18 +200,15 @@ impl Directory {
         store.extend(files);
     }
 
-    pub async fn relist_files(
-        &self,
-        parent_window: &gtk::Window,
-        mut visual: bool,
-    ) -> Result<(), ErrorMessage> {
+    pub async fn relist_files(&self) -> Result<(), ErrorMessage> {
+        if self.is_virtual() {
+            return Ok(());
+        }
         let Some(lock) = DirectoryLock::try_acquire(self) else {
             return Ok(());
         };
 
-        visual &= self.connection().needs_list_visprog();
-        let window = if visual { Some(parent_window) } else { None };
-        let result = match list_directory(self, window).await {
+        let result = match list_directory(self).await {
             Ok(file_infos) => {
                 self.set_state(DirectoryState::Listed);
                 self.set_files(
@@ -233,14 +234,9 @@ impl Directory {
         result
     }
 
-    pub async fn list_files(
-        &self,
-        parent_window: &gtk::Window,
-        mut visual: bool,
-    ) -> Result<(), ErrorMessage> {
-        visual &= self.connection().needs_list_visprog();
+    pub async fn list_files(&self) -> Result<(), ErrorMessage> {
         if self.files().is_empty() || self.is_local() {
-            self.relist_files(parent_window, visual).await
+            self.relist_files().await
         } else {
             self.emit_by_name::<()>(SIGNAL_LIST_OK, &[]);
             Ok(())
@@ -317,7 +313,6 @@ impl Directory {
         let f = File::new_from_file(file, &file_info);
         self.listen_to_file(&f);
         self.add_file(&f);
-        self.set_needs_mtime_update(true);
         self.emit_by_name::<()>(SIGNAL_FILE_CREATED, &[&f]);
     }
 
@@ -327,7 +322,6 @@ impl Directory {
             .remove_with_children(uri_str);
 
         if let Some((position, file)) = self.find_file(uri_str) {
-            self.set_needs_mtime_update(true);
             self.emit_by_name::<()>(SIGNAL_FILE_DELETED, &[&file]);
             self.imp().files.borrow_mut().remove(position);
         }
@@ -335,7 +329,6 @@ impl Directory {
 
     pub fn file_changed(&self, uri_str: &str) {
         if let Some((_, file)) = self.find_file(uri_str) {
-            self.set_needs_mtime_update(true);
             match file.refresh_file_info() {
                 Ok(()) => {
                     self.emit_by_name::<()>(SIGNAL_FILE_CHANGED, &[&file]);
@@ -376,43 +369,13 @@ impl Directory {
                 .rename(old_uri_str, &file.uri());
             directory.emit_by_name::<()>(SIGNAL_DIR_RENAMED, &[]);
         }
-        self.set_needs_mtime_update(true);
         self.emit_by_name::<()>(SIGNAL_FILE_RENAMED, &[file]);
     }
 
-    /// This function also determines if cached dir is up-to-date (false=yes)
-    pub fn update_mtime(&self) -> bool {
-        let current_time = self
-            .file()
-            .query_info(
-                gio::FILE_ATTRIBUTE_TIME_MODIFIED,
-                gio::FileQueryInfoFlags::NONE,
-                gio::Cancellable::NONE,
-            )
-            .ok()
-            .and_then(|fi| fi.modification_date_time());
-
-        let cached_time = self.mtime();
-
-        let result = if let Some(cached_time) = cached_time
-            && let Some(current_time) = current_time
-            && current_time != cached_time
-        {
-            // cache is not up-to-date
-            self.set_mtime(&current_time);
-            true
-        } else {
-            false
-        };
-
-        // after this function we are sure dir's mtime is up-to-date
-        self.set_needs_mtime_update(false);
-
-        result
-    }
-
     pub fn start_monitoring(&self) {
-        if self.imp().monitor_users.get() != 0 {
+        let monitor_users = self.imp().monitor_users.get();
+        if monitor_users != 0 {
+            self.imp().monitor_users.set(monitor_users + 1);
             return;
         }
 
@@ -445,9 +408,7 @@ impl Directory {
                 debug!('n', "Added monitor to {}", self.uri());
 
                 self.imp().file_monitor.replace(Some(file_monitor));
-                self.imp()
-                    .monitor_users
-                    .set(self.imp().monitor_users.get() + 1);
+                self.imp().monitor_users.set(monitor_users + 1);
             }
             Err(error) => {
                 debug!('n', "Failed to add monitor to {}: {}", self.uri(), error);

@@ -37,6 +37,7 @@ mod imp {
         fn constructed(&self) {
             self.parent_constructed();
             self.obj().set_alias(Some(&gettext("SMB")));
+            self.obj().set_base_path(Some(PathBuf::from("/")));
         }
     }
     impl ConnectionImpl for ConnectionSmb {}
@@ -70,15 +71,7 @@ impl ConnectionInterface for ConnectionSmb {
         _window: gtk::Window,
     ) -> Pin<Box<dyn Future<Output = Result<(), ErrorMessage>> + '_>> {
         Box::pin(async move {
-            let path = if let Some(path) = self.base_path() {
-                path
-            } else {
-                let path = PathBuf::from("/");
-                self.set_base_path(Some(path.clone()));
-                path
-            };
-
-            let file = gio::File::for_uri(&self.create_uri(&path));
+            let file = gio::File::for_uri(&self.create_uri(&self.base_path().unwrap_or_default()));
 
             let uri_string = file.uri();
             debug!('s', "Connecting to {}", uri_string);
@@ -103,11 +96,7 @@ impl ConnectionInterface for ConnectionSmb {
         &self,
         _window: Option<gtk::Window>,
     ) -> Pin<Box<dyn Future<Output = Result<(), ErrorMessage>> + '_>> {
-        Box::pin(async move {
-            self.set_default_dir(None);
-            self.set_base_path(None);
-            Ok(())
-        })
+        Box::pin(async move { Ok(()) })
     }
 
     fn create_uri(&self, path: &Path) -> String {
@@ -141,14 +130,6 @@ impl ConnectionInterface for ConnectionSmb {
 
     fn is_closeable(&self) -> bool {
         false
-    }
-
-    fn needs_open_visprog(&self) -> bool {
-        true
-    }
-
-    fn needs_list_visprog(&self) -> bool {
-        true
     }
 
     fn open_message(&self) -> Option<String> {

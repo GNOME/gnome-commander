@@ -69,6 +69,11 @@ impl DirCache {
         let uri = directory.uri();
         assert!(!self.map.contains_key(&uri));
 
+        if self.unpinned_capacity == 0 {
+            // We could add and immediately evict it again but let’s take a shortcut.
+            return;
+        }
+
         debug!('k', "ADDING {directory:?} {uri} to the cache");
         if self.unpinned_capacity_used >= self.unpinned_capacity {
             self.evict_oldest();
@@ -92,7 +97,12 @@ impl DirCache {
             if entry.pinned == 0 {
                 self.unpinned_capacity_used -= 1;
             } else {
-                entry.directory.emit_deleted();
+                // Processing of this signal will need a reference to the cache, yet we are already
+                // running from a mutable reference. Run this asynchronously to prevent a conflict.
+                let directory = entry.directory.clone();
+                glib::spawn_future_local(async move {
+                    directory.emit_deleted();
+                });
             }
         }
     }
@@ -107,6 +117,12 @@ impl DirCache {
         for key in removed {
             self.remove(&key);
         }
+    }
+
+    pub fn clear(&mut self) {
+        self.map.clear();
+        self.order.clear();
+        self.unpinned_capacity_used = 0;
     }
 
     pub fn pin(&mut self, directory: &Directory) {
@@ -137,19 +153,18 @@ impl DirCache {
             debug!('k', "UNPINNING {:?} {uri} from the cache", entry.directory);
             entry.pinned -= 1;
             if entry.pinned == 0 {
+                self.unpinned_capacity_used += 1;
                 self.order.retain(|key| key != &uri);
                 self.order.push(uri.to_owned());
 
-                if self.unpinned_capacity_used >= self.unpinned_capacity {
+                if self.unpinned_capacity_used > self.unpinned_capacity {
                     self.evict_oldest();
                 }
-                self.unpinned_capacity_used += 1;
             }
         }
     }
 
     pub fn reduce_unpinned_capacity(&mut self, unpinned_capacity: usize) {
-        assert!(unpinned_capacity > 0);
         while self.unpinned_capacity_used > unpinned_capacity && self.evict_oldest() {}
         self.unpinned_capacity = unpinned_capacity.max(self.unpinned_capacity_used);
         self.map.shrink_to(self.unpinned_capacity);
@@ -366,5 +381,20 @@ mod test {
         subdir.pin_to_cache();
         conn.dir_cache_mut().remove_with_children("file:///dir2");
         assert!(result.take());
+    }
+
+    #[test]
+    fn test_zero_capacity() {
+        let conn: Connection = glib::Object::builder().build();
+        conn.dir_cache_mut().reduce_unpinned_capacity(0);
+
+        let directory1 = Directory::new(&conn, "file:///dir1");
+        assert_eq!(conn.dir_cache().get("file:///dir1"), None);
+
+        directory1.pin_to_cache();
+        assert_eq!(conn.dir_cache().get("file:///dir1"), Some(&directory1));
+
+        directory1.unpin_from_cache();
+        assert_eq!(conn.dir_cache().get("file:///dir1"), None);
     }
 }

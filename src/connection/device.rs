@@ -58,6 +58,10 @@ impl ConnectionDevice {
         this.set_mount(None);
         this.set_volume(None);
         this.set_alias(Some(alias));
+
+        // No caching of local directories
+        this.dir_cache_mut().reduce_unpinned_capacity(0);
+
         this
     }
 
@@ -91,6 +95,7 @@ impl ConnectionDevice {
         self.imp()
             .mount_point
             .replace(mount_point.map(ToOwned::to_owned));
+        self.set_base_path(mount_point.map(ToOwned::to_owned));
     }
 
     pub fn icon(&self) -> Option<gio::Icon> {
@@ -115,6 +120,7 @@ impl ConnectionDevice {
 
     pub fn set_mount(&self, mount: Option<&gio::Mount>) {
         self.imp().mount.replace(mount.cloned());
+        self.set_base_path(mount.and_then(|mount| mount.default_location().path()));
     }
 
     pub fn volume(&self) -> Option<gio::Volume> {
@@ -123,6 +129,11 @@ impl ConnectionDevice {
 
     pub fn set_volume(&self, volume: Option<&gio::Volume>) {
         self.imp().volume.replace(volume.cloned());
+        self.set_base_path(
+            volume
+                .and_then(|volume| volume.get_mount())
+                .and_then(|mount| mount.default_location().path()),
+        );
     }
 
     async fn legacy_mount(&self) -> Result<(), ErrorMessage> {
@@ -132,10 +143,6 @@ impl ConnectionDevice {
         let Some(mount_point) = self.mountp_string() else {
             return Ok(());
         };
-
-        if self.base_path().is_none() {
-            self.set_base_path(Some(mount_point.clone()));
-        }
 
         let (sender, receiver) = async_channel::bounded(1);
         let _join_handle = std::thread::spawn({
@@ -218,9 +225,6 @@ impl ConnectionInterface for ConnectionDevice {
                 };
 
                 let file = mount.default_location();
-                let path = file.path().unwrap();
-                self.set_base_path(Some(path));
-
                 match file
                     .query_info_future(
                         "standard::*",
@@ -249,8 +253,6 @@ impl ConnectionInterface for ConnectionDevice {
         window: Option<gtk::Window>,
     ) -> Pin<Box<dyn Future<Output = Result<(), ErrorMessage>> + '_>> {
         Box::pin(async {
-            self.set_default_dir(None);
-
             if let Err(error) = std::env::set_current_dir(glib::home_dir()) {
                 debug!(
                     'm',

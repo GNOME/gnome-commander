@@ -5,7 +5,6 @@
 
 use crate::{
     connection::{Connection, ConnectionExt, list::ConnectionList, remote::ConnectionRemote},
-    file_selector::TabOptions,
     i18n::I18N_CONTEXT_ACTION,
     main_win::MainWindow,
     types::FileSelectorID,
@@ -300,11 +299,7 @@ mod imp {
             self.obj().close();
 
             glib::timeout_add_local_once(Duration::from_millis(1), move || {
-                let mut file_list = fs.file_list();
-                if fs.is_current_tab_locked() {
-                    file_list = fs.new_tab(None, TabOptions::from(&file_list));
-                }
-                file_list.set_connection(&connection, None);
+                fs.goto(&fs.file_list(), &connection.default_dir());
             });
         }
     }

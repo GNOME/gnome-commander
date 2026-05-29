@@ -39,11 +39,6 @@ fn create_empty_file(name: &str, dir: &Directory) -> Result<gio::File, ErrorMess
 }
 
 pub async fn show_new_textfile_dialog(parent_window: &gtk::Window, file_list: &FileList) {
-    let Some(dir) = file_list.directory() else {
-        eprintln!("No directory");
-        return;
-    };
-
     let dialog = gtk::Window::builder()
         .transient_for(parent_window)
         .title(gettext("New Text File"))
@@ -112,6 +107,7 @@ pub async fn show_new_textfile_dialog(parent_window: &gtk::Window, file_list: &F
 
     dialog.present();
 
+    let dir = file_list.directory();
     let file = loop {
         let response = receiver.recv().await;
         if response == Ok(true) {
