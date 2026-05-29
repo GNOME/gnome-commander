@@ -156,7 +156,12 @@ mod imp {
         }
     }
 
-    impl WidgetImpl for QuickSearch {}
+    impl WidgetImpl for QuickSearch {
+        fn unrealize(&self) {
+            self.parent_unrealize();
+            self.obj().file_list().set_filter(None);
+        }
+    }
 
     impl QuickSearch {
         /// Moves focus to the previously focused widget, making sure that entry field state isn't
@@ -408,7 +413,6 @@ impl QuickSearch {
 
     pub fn remove(&self) {
         self.unparent();
-        self.file_list().set_filter(None);
         self.file_list().grab_focus();
     }
 
