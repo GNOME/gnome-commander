@@ -144,11 +144,11 @@ pub struct ExtractMetadataResponse {
 #[derive(Debug, Clone, serde::Serialize)]
 pub struct PanelsState {
     pub active_directory_path: Option<String>,
-    pub active_directory_uri: Option<String>,
+    pub active_directory_uri: String,
     pub active_focused_file: Option<String>,
     pub active_selected_files: Vec<String>,
     pub inactive_directory_path: Option<String>,
-    pub inactive_directory_uri: Option<String>,
+    pub inactive_directory_uri: String,
     pub inactive_focused_file: Option<String>,
     pub inactive_selected_files: Vec<String>,
 }

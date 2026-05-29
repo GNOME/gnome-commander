@@ -46,6 +46,8 @@ pub trait ConnectionRemoteExt: IsA<ConnectionRemote> + 'static {
 
     fn set_uri(&self, uri: Option<&glib::Uri>) {
         self.as_ref().imp().uri.replace(uri.cloned());
+        self.as_ref()
+            .set_base_path(uri.map(|uri| PathBuf::from(uri.path())));
     }
 
     fn uri_string(&self) -> Option<String> {
@@ -109,15 +111,6 @@ impl ConnectionInterface for ConnectionRemote {
                 return Ok(());
             };
 
-            let base_path = match self.base_path() {
-                Some(base_path) => base_path,
-                None => {
-                    let base_path = PathBuf::from(uri.path());
-                    self.set_base_path(Some(base_path.clone()));
-                    base_path
-                }
-            };
-
             let file = gio::File::for_uri(&uri.to_str());
             debug!('m', "Connecting to {}", file.uri());
 
@@ -145,7 +138,8 @@ impl ConnectionInterface for ConnectionRemote {
                 }
             }
 
-            let base_file = gio::File::for_uri(&self.create_uri(&base_path));
+            let base_file =
+                gio::File::for_uri(&self.create_uri(&self.base_path().unwrap_or_default()));
             match base_file
                 .query_info_future(
                     "standard::*",
@@ -172,9 +166,6 @@ impl ConnectionInterface for ConnectionRemote {
         _window: Option<gtk::Window>,
     ) -> Pin<Box<dyn Future<Output = Result<(), ErrorMessage>> + '_>> {
         Box::pin(async {
-            self.set_default_dir(None);
-            self.set_base_path(None);
-
             let Some(uri) = self.uri_string() else {
                 return Ok(());
             };
@@ -220,14 +211,6 @@ impl ConnectionInterface for ConnectionRemote {
     }
 
     fn is_closeable(&self) -> bool {
-        true
-    }
-
-    fn needs_open_visprog(&self) -> bool {
-        true
-    }
-
-    fn needs_list_visprog(&self) -> bool {
         true
     }
 

@@ -207,7 +207,7 @@ pub fn dialog_button_box(
     bx.upcast()
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub struct ErrorMessage {
     pub message: String,
     pub secondary_text: Option<String>,

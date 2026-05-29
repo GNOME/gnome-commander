@@ -110,11 +110,11 @@ async fn test_archives_menus() {
 
         let state = PanelsState {
             active_directory_path: Some("testfiles".to_owned()),
-            active_directory_uri: Some("file://testfiles".to_owned()),
+            active_directory_uri: "file://testfiles".to_owned(),
             active_focused_file: Some("archive".to_owned()),
             active_selected_files: vec!["archive".to_owned()],
             inactive_directory_path: None,
-            inactive_directory_uri: None,
+            inactive_directory_uri: "file://testfiles".to_owned(),
             inactive_focused_file: None,
             inactive_selected_files: vec![],
         };
@@ -132,11 +132,11 @@ async fn test_archives_menus() {
 
         let state = PanelsState {
             active_directory_path: Some("testfiles".to_owned()),
-            active_directory_uri: Some("file://testfiles".to_owned()),
+            active_directory_uri: "file://testfiles".to_owned(),
             active_focused_file: Some("apev2.tag".to_owned()),
             active_selected_files: vec!["apev2.tag".to_owned()],
             inactive_directory_path: None,
-            inactive_directory_uri: None,
+            inactive_directory_uri: "file://testfiles".to_owned(),
             inactive_focused_file: None,
             inactive_selected_files: vec![],
         };

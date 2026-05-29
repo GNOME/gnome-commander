@@ -986,7 +986,7 @@ async fn move_file_recursively(
                 do_delete(
                     window.upcast_ref(),
                     DeleteAction::DeletePermanently,
-                    Some(&ConnectionList::get().find_by_file(src)),
+                    &ConnectionList::get().find_by_file(src),
                     &files,
                     false, // do not show progress window
                 )

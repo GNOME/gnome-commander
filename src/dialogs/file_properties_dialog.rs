@@ -535,7 +535,7 @@ glib::wrapper! {
 }
 
 impl FilePropertiesDialog {
-    pub fn new(parent_window: &gtk::Window, file: &File, connection: Option<Connection>) -> Self {
+    pub fn new(parent_window: &gtk::Window, file: &File, connection: &Connection) -> Self {
         glib::Object::builder()
             .property("transient-for", parent_window)
             .property("file", file)
@@ -547,7 +547,7 @@ impl FilePropertiesDialog {
         parent_window: &MainWindow,
         file_metadata_service: &FileMetadataService,
         file: &File,
-        connection: Option<Connection>,
+        connection: &Connection,
     ) -> bool {
         if file.is_dotdot() {
             return false;

@@ -233,11 +233,11 @@ The response data should be an array of menu items which can be empty if the plu
 This request will be sent to the plugin whenever the file context menu is displayed. The request data is an object indicating current Gnome Commander state. The properties of the state object are:
 
 * `active_directory_path` (string or `null`): Path of the directory displayed in the active panel
-* `active_directory_uri` (string or `null`): URI of the directory displayed in the active panel
+* `active_directory_uri` (string): URI of the directory displayed in the active panel
 * `active_focused_file` (string or `null`): Name of the focused file in the active panel if any
 * `active_selected_files` (array of string): Names of the selected files in the active panel, can be empty
 * `inactive_directory_path` (string or `null`): Path of the directory displayed in the inactive panel
-* `inactive_directory_uri` (string or `null`): URI of the directory displayed in the inactive panel
+* `inactive_directory_uri` (string): URI of the directory displayed in the inactive panel
 * `inactive_focused_file` (string or `null`): Name of the focused file in the inactive panel if any
 * `inactive_selected_files` (array of string): Names of the selected files in the inactive panel, can be empty
 

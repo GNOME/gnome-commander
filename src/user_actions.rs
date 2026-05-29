@@ -7,7 +7,7 @@ use crate::{
     advanced_rename::advanced_rename_dialog::advanced_rename_dialog_show,
     config::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_URL, PACKAGE_VERSION},
     connection::{
-        ConnectionExt, ConnectionInterface,
+        ConnectionExt,
         bookmark::BookmarkGoToVariant,
         home::ConnectionHome,
         list::ConnectionList,
@@ -36,7 +36,7 @@ use crate::{
         list::{ColumnID, FileList},
         quick_search::QuickSearchMode,
     },
-    file_selector::TabOptions,
+    file_selector::{FileSelector, TabOptions},
     file_view::file_view,
     main_win::{ExecutionTarget, MainWindow},
     options::{GeneralOptions, NetworkOptions, ProgramsOptions, SearchConfig},
@@ -70,11 +70,7 @@ async fn file_copy_as(main_win: MainWindow) {
     let Some(file) = file_list.selected_file() else {
         return;
     };
-    let Some(dir) = file_list.directory() else {
-        return;
-    };
-
-    make_copy_dialog(&file, &dir, &main_win).await;
+    make_copy_dialog(&file, &file_list.directory(), &main_win).await;
 }
 
 async fn file_move(main_win: MainWindow) {
@@ -156,14 +152,13 @@ async fn file_search(main_win: MainWindow) {
     let file_list = file_selector.file_list();
 
     if ProgramsOptions::instance().use_internal_search.get() {
-        let start_dir = file_list.directory();
         let dlg = main_win.get_or_create_dialog("search", || {
             let search_config = SearchConfig::get();
 
             SearchDialog::new(search_config, &main_win)
         });
         dlg.show_and_set_focus(
-            start_dir.as_ref(),
+            &file_list.directory(),
             GeneralOptions::instance()
                 .search_window_is_transient
                 .get()
@@ -222,12 +217,7 @@ async fn file_chmod(main_win: MainWindow) {
 
     let files = file_list.selected_files();
     if !files.is_empty() {
-        show_chmod_dialog(
-            main_win.upcast_ref(),
-            file_list.connection().as_ref(),
-            &files,
-        )
-        .await;
+        show_chmod_dialog(main_win.upcast_ref(), &file_list.connection(), &files).await;
     }
 }
 
@@ -237,12 +227,7 @@ async fn file_chown(main_win: MainWindow) {
 
     let files = file_list.selected_files();
     if !files.is_empty() {
-        show_chown_dialog(
-            main_win.upcast_ref(),
-            file_list.connection().as_ref(),
-            &files,
-        )
-        .await;
+        show_chown_dialog(main_win.upcast_ref(), &file_list.connection(), &files).await;
     }
 }
 
@@ -250,18 +235,16 @@ async fn file_mkdir(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
 
-    if let Some(dir) = file_list.directory() {
-        let selected_file = file_list.selected_file();
-        let dir_file = dir.file().clone();
-        let new_dir =
-            show_mkdir_dialog(main_win.upcast_ref(), &dir_file, selected_file.as_ref()).await;
+    let selected_file = file_list.selected_file();
+    let dir = file_list.directory();
+    let dir_file = dir.file().clone();
+    let new_dir = show_mkdir_dialog(main_win.upcast_ref(), &dir_file, selected_file.as_ref()).await;
 
-        if let Some(new_dir) = new_dir {
-            // focus the created directory (if possible)
-            if new_dir.parent().is_some_and(|p| p.equal(&*dir.file())) {
-                dir.file_created(&new_dir.uri());
-                file_list.focus_file(&new_dir.basename().unwrap(), true);
-            }
+    if let Some(new_dir) = new_dir {
+        // focus the created directory (if possible)
+        if new_dir.parent().is_some_and(|p| p.equal(&dir_file)) {
+            dir.file_created(&new_dir.uri());
+            file_list.focus_file(&new_dir.basename().unwrap(), true);
         }
     }
 }
@@ -275,7 +258,7 @@ async fn file_properties(main_win: MainWindow) {
             &main_win,
             main_win.file_metadata_service(),
             &file,
-            file_list.connection(),
+            &file_list.connection(),
         )
         .await;
 
@@ -286,7 +269,7 @@ async fn file_properties(main_win: MainWindow) {
 }
 
 fn ensure_file_list_is_local(file_list: &FileList) -> Result<(), ErrorMessage> {
-    if file_list.connection().is_some_and(|c| c.is_local()) {
+    if file_list.connection().is_local() {
         Ok(())
     } else {
         Err(ErrorMessage::brief(gettext(
@@ -346,14 +329,9 @@ async fn do_file_sync_dirs(main_win: &MainWindow) -> Result<(), ErrorMessage> {
     ensure_file_list_is_local(&active_fl)?;
     ensure_file_list_is_local(&inactive_fl)?;
 
-    let (active_dir, inactive_dir) = active_fl
-        .directory()
-        .zip(inactive_fl.directory())
-        .ok_or_else(|| ErrorMessage::brief(gettext("Nothing to compare")))?;
-
     spawn_async(
         None,
-        &[active_dir, inactive_dir],
+        &[active_fl.directory(), inactive_fl.directory()],
         &ProgramsOptions::instance().differ_cmd.get(),
     )
     .map_err(SpawnError::into_message)
@@ -438,10 +416,7 @@ async fn file_create_symlink(main_win: MainWindow) {
     let active_fs = main_win.file_selector(FileSelectorID::Active);
     let inactive_fs = main_win.file_selector(FileSelectorID::Inactive);
 
-    let Some(dest_directory) = inactive_fs.file_list().directory() else {
-        eprintln!("Cannot create symlinks: No destination directory.");
-        return;
-    };
+    let dest_directory = inactive_fs.file_list().directory();
 
     let active_fl = active_fs.file_list();
     let selected_files = active_fl.selected_files();
@@ -714,7 +689,7 @@ fn open_terminal(main_win: &MainWindow) -> Result<(), ErrorMessage> {
         .file_selector(FileSelectorID::Active)
         .file_list()
         .directory()
-        .and_then(|d| d.file().path());
+        .local_path();
 
     let command = OsString::from(ProgramsOptions::instance().terminal_cmd.get());
     if command.is_empty() {
@@ -752,14 +727,7 @@ async fn view_cmdline_history(main_win: MainWindow) {
 async fn view_up(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
-
-    if file_selector.is_tab_locked(&file_list) {
-        if let Some(directory) = file_list.directory().and_then(|d| d.parent()) {
-            file_selector.new_tab(Some(&directory), TabOptions::from(&file_list));
-        }
-    } else {
-        file_list.goto_directory(Path::new(".."));
-    }
+    file_selector.goto_parent(&file_list);
 }
 
 async fn view_first(main_win: MainWindow) {
@@ -829,41 +797,23 @@ async fn view_directory(main_win: MainWindow) {
 async fn view_home(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
-
-    let home = ConnectionList::get().home();
-    if !file_selector.is_tab_locked(&file_list) {
-        file_list.set_connection(&home, None);
-        file_list.goto_directory(Path::new("~"));
-    } else {
-        let directory = Directory::new(&home, &home.create_uri(&glib::home_dir()));
-        file_selector.new_tab(Some(&directory), TabOptions::from(&file_list));
-    }
+    file_selector.goto(&file_list, &ConnectionList::get().home().default_dir());
 }
 
 async fn view_root(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
-
-    if file_selector.is_tab_locked(&file_list) {
-        if let Some(connection) = file_list.connection() {
-            let directory = Directory::new(&connection, &connection.create_uri(Path::new("/")));
-            file_selector.new_tab(Some(&directory), TabOptions::from(&file_list));
-        }
-    } else {
-        file_list.goto_directory(Path::new("/"));
-    }
+    file_selector.goto_path(&file_list, Path::new("/"));
 }
 
 async fn view_new_tab(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
-    if let Some(directory) = file_list.directory() {
-        let mut options = TabOptions::from(&file_list);
-        if let Some(selected_file) = file_list.selected_file() {
-            options = options.selected_file(selected_file.path_name());
-        }
-        file_selector.new_tab(Some(&directory), options);
+    let mut options = TabOptions::from(&file_list);
+    if let Some(selected_file) = file_list.selected_file() {
+        options = options.selected_file(selected_file.path_name());
     }
+    file_selector.new_tab(&file_list.directory(), options);
 }
 
 async fn ask_close_locked_tab(parent_window: &gtk::Window) -> bool {
@@ -911,39 +861,27 @@ async fn view_next_tab(main_win: MainWindow) {
 async fn view_in_new_tab(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
-    if let Some(dir) = file_list
+    let dir = file_list
         .selected_file()
         .filter(|file| file.is_directory())
-        .and_then(|file| {
-            file_list
-                .directory()
-                .map(|parent| parent.child(file.name()))
-        })
-        .or_else(|| file_list.directory())
-    {
-        file_selector.new_tab(Some(&dir), TabOptions::from(&file_list).activate(false));
-    }
+        .map(|file| file_list.directory().child(file.name()))
+        .unwrap_or_else(|| file_list.directory());
+    file_selector.new_tab(&dir, TabOptions::from(&file_list).activate(false));
 }
 
 async fn view_in_inactive_tab(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
-    if let Some(dir) = file_list
+    let dir = file_list
         .selected_file()
         .filter(|file| file.is_directory())
-        .and_then(|file| {
-            file_list
-                .directory()
-                .map(|parent| parent.child(file.name()))
-        })
-        .or_else(|| file_list.directory())
-    {
-        let file_selector = main_win.file_selector(FileSelectorID::Inactive);
-        file_selector.new_tab(
-            Some(&dir),
-            TabOptions::from(&file_selector.file_list()).activate(false),
-        );
-    }
+        .map(|file| file_list.directory().child(file.name()))
+        .unwrap_or_else(|| file_list.directory());
+    let file_selector = main_win.file_selector(FileSelectorID::Inactive);
+    file_selector.new_tab(
+        &dir,
+        TabOptions::from(&file_selector.file_list()).activate(false),
+    );
 }
 
 async fn view_toggle_tab_lock(main_win: MainWindow) {
@@ -1028,11 +966,7 @@ async fn sort_by_group(main_win: MainWindow) {
 
 async fn bookmarks_add_current(main_win: MainWindow) {
     let fs = main_win.file_selector(FileSelectorID::Active);
-    let Some(dir) = fs.file_list().directory() else {
-        eprintln!("No directory. Nothing to bookmark.");
-        return;
-    };
-    bookmark_directory(main_win.upcast_ref(), &dir).await;
+    bookmark_directory(main_win.upcast_ref(), &fs.file_list().directory()).await;
 }
 
 async fn bookmarks_edit(main_win: MainWindow) {
@@ -1041,7 +975,13 @@ async fn bookmarks_edit(main_win: MainWindow) {
     let result = BookmarksDialog::show(&main_win, connection_list, shortcuts).await;
     if let Some(bookmark) = result {
         let fs = main_win.file_selector(FileSelectorID::Active);
-        fs.goto_directory(&bookmark.connection, Path::new(&bookmark.bookmark.path()));
+        fs.goto(
+            &fs.file_list(),
+            &FileSelector::directory_for_path(
+                &bookmark.connection,
+                Path::new(bookmark.bookmark.path()),
+            ),
+        );
     }
 }
 
@@ -1071,7 +1011,10 @@ async fn bookmarks_goto(main_win: MainWindow, goto: BookmarkGoToVariant) {
     };
 
     let fs = main_win.file_selector(FileSelectorID::Active);
-    fs.goto_directory(&connection, path);
+    fs.goto(
+        &fs.file_list(),
+        &FileSelector::directory_for_path(&connection, path),
+    );
 }
 
 async fn bookmarks_view(main_win: MainWindow) {
@@ -1105,11 +1048,8 @@ async fn connections_new(main_win: MainWindow) {
     let uri = glib::Uri::parse(&options.quick_connect_uri.get(), glib::UriFlags::NONE).ok();
     if let Some(connection) = ConnectDialog::new_connection(&main_win, uri).await {
         let fs = main_win.file_selector(FileSelectorID::Active);
-        let mut file_list = fs.file_list();
-        if fs.is_current_tab_locked() {
-            file_list = fs.new_tab(None, TabOptions::from(&file_list));
-        }
-        file_list.set_connection(&connection, None);
+        let file_list = fs.file_list();
+        fs.goto(&file_list, &connection.default_dir());
         if let Some(quick_connect_uri) = connection.uri().map(|uri| uri.to_str())
             && let Err(error) = options.quick_connect_uri.set(quick_connect_uri)
         {
@@ -1126,7 +1066,7 @@ async fn connections_connect_first(main_win: MainWindow) {
         main_win
             .file_selector(FileSelectorID::Active)
             .file_list()
-            .set_connection(&remote_con, None);
+            .set_directory(&remote_con.default_dir());
     }
 }
 
@@ -1148,7 +1088,7 @@ async fn connections_set_current(main_win: MainWindow, uuid: String) {
     main_win
         .file_selector(FileSelectorID::Active)
         .file_list()
-        .set_connection(&con, None);
+        .set_directory(&con.default_dir());
 }
 
 async fn connections_close(main_win: MainWindow, uuid: String) {
@@ -1162,12 +1102,11 @@ async fn connections_close(main_win: MainWindow, uuid: String) {
 }
 
 async fn connections_close_current(main_win: MainWindow) {
-    if let Some(con) = main_win
+    let con = main_win
         .file_selector(FileSelectorID::Active)
         .file_list()
-        .connection()
-        .filter(|c| c.downcast_ref::<ConnectionHome>().is_none())
-    {
+        .connection();
+    if con.downcast_ref::<ConnectionHome>().is_none() {
         con.close(Some(main_win.upcast_ref())).await;
     }
 }

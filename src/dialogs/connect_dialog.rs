@@ -501,10 +501,6 @@ impl ConnectDialog {
             let alias = dialog.imp().alias_entry.text();
             con.set_alias(Some(&alias));
             con.set_uri(Some(&uri));
-
-            let path = uri.path();
-            con.set_base_path(Some(if path.is_empty() { "/" } else { &path }.into()));
-
             result = true;
         }
         dialog.close();

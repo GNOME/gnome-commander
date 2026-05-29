@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use crate::{
-    connection::{Connection, list::ConnectionList},
+    connection::Connection,
     dir::Directory,
     file::{File, FileOps},
     options::{ConfirmOptions, DeleteDefault, GeneralOptions},
@@ -35,7 +35,7 @@ enum DeleteErrorAction {
 struct DeleteData {
     parent_window: gtk::Window,
     progress_dialog: Option<DeleteProgressDialog>,
-    connection: Option<Connection>,
+    connection: Connection,
     /// this is the real list of deleted files
     deleted_files: Vec<File>,
     delete_action: DeleteAction,
@@ -261,14 +261,8 @@ async fn perform_delete_operation_one(delete_data: &mut DeleteData, file: &File)
             return DeleteResult::Continue(());
         }
         Err(error) if error.matches(gio::IOErrorEnum::NotEmpty) => {
-            let dir = Directory::new_from_file(
-                &delete_data
-                    .connection
-                    .clone()
-                    .unwrap_or_else(|| ConnectionList::get().home().upcast()),
-                &*file.file(),
-            );
-            if let Err(problem) = dir.list_files(&delete_data.parent_window, false).await {
+            let dir = Directory::new_from_file(&delete_data.connection, &*file.file());
+            if let Err(problem) = dir.list_files().await {
                 return handle_delete_problem(delete_data, file, problem).await;
             }
 
@@ -329,7 +323,7 @@ async fn count_total_items(files: &[File]) -> Option<u64> {
 pub async fn do_delete(
     parent_window: &gtk::Window,
     delete_action: DeleteAction,
-    connection: Option<&Connection>,
+    connection: &Connection,
     files: &[File],
     mut show_progress: bool,
 ) {
@@ -364,7 +358,7 @@ pub async fn do_delete(
             .map_or(parent_window, |p| p.upcast_ref())
             .clone(),
         progress_dialog,
-        connection: connection.cloned(),
+        connection: connection.clone(),
         deleted_files: Vec::new(),
         delete_action,
         cancellable,
@@ -517,7 +511,7 @@ async fn confirm_delete(
 
 pub async fn show_delete_dialog(
     parent_window: &gtk::Window,
-    connection: Option<&Connection>,
+    connection: &Connection,
     files: &[File],
     force_delete: bool,
 ) {

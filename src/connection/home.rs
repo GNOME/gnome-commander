@@ -14,10 +14,7 @@ use std::{future::Future, path::Path, pin::Pin};
 
 mod imp {
     use super::*;
-    use crate::{
-        connection::{ConnectionExt, ConnectionImpl, ConnectionState},
-        dir::Directory,
-    };
+    use crate::connection::{ConnectionExt, ConnectionImpl, ConnectionState};
 
     #[derive(Default)]
     pub struct ConnectionHome {}
@@ -34,11 +31,12 @@ mod imp {
             self.parent_constructed();
             let home = self.obj();
 
+            // No caching of local directories
+            home.dir_cache_mut().reduce_unpinned_capacity(0);
+
             home.set_state(ConnectionState::Open);
             home.set_alias(Some(&gettext("Home")));
-
-            let dir = Directory::new(&*home, &home.create_uri(&glib::home_dir()));
-            home.set_default_dir(Some(&dir));
+            home.set_base_path(Some(glib::home_dir()));
         }
     }
 

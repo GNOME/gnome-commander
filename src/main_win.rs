@@ -11,7 +11,7 @@ use crate::{
     },
     dir::Directory,
     file::{File, FileOps},
-    file_selector::{FileSelector, TabOptions, TabPosition, TabState, TabVariant},
+    file_selector::{FileSelector, TabPosition, TabState, TabVariant},
     layout::color_themes::ColorThemes,
     options::{GeneralOptions, types::WriteResult},
     paned_ext::GnomeCmdPanedExt,
@@ -82,7 +82,7 @@ pub mod imp {
     use std::{
         cell::{Cell, RefCell},
         collections::HashMap,
-        path::Path,
+        path::PathBuf,
         time::Duration,
     };
 
@@ -716,18 +716,34 @@ pub mod imp {
 
         fn on_cmdline_change_directory(&self, dest_dir: &str) {
             let file_selector = self.obj().file_selector(FileSelectorID::Active);
+            let file_list = file_selector.file_list();
 
             if dest_dir == "-"
-                && !file_selector.file_list().directory().is_some_and(|d| {
-                    d.get_child_gfile(Path::new(dest_dir))
-                        .query_exists(gio::Cancellable::NONE)
-                })
+                && !file_list
+                    .directory()
+                    .get_child_gfile(Path::new(dest_dir))
+                    .query_exists(gio::Cancellable::NONE)
             {
                 file_selector.back();
             } else {
-                file_selector
-                    .file_list()
-                    .goto_directory(Path::new(dest_dir));
+                if let Some(relative) = dest_dir.strip_prefix("~") {
+                    let mut dir = ConnectionList::get().home().default_dir();
+                    for part in relative.split(std::path::MAIN_SEPARATOR) {
+                        if !part.is_empty() {
+                            dir = dir.child(part);
+                        }
+                    }
+                    file_selector.goto(&file_list, &dir);
+                } else {
+                    let path = PathBuf::from(
+                        glib::shell_unquote(dest_dir).unwrap_or_else(|_| dest_dir.into()),
+                    );
+                    if path.is_absolute() {
+                        file_selector.goto_path(&file_list, &path);
+                    } else {
+                        file_selector.goto(&file_list, &file_list.directory().child(&path));
+                    }
+                };
             }
         }
 
@@ -752,7 +768,7 @@ pub mod imp {
                 }
             };
             self.update_browse_buttons(&fs);
-            self.update_drop_con_button(fs.file_list().connection().as_ref());
+            self.update_drop_con_button(Some(&fs.file_list().connection()));
             self.update_cmdline();
 
             // We might get here because main window got focus. Do not grab focus unnecessarily,
@@ -772,7 +788,7 @@ pub mod imp {
 
         fn on_fs_dir_changed(&self, fs: &FileSelector, _dir: &Directory) {
             self.update_browse_buttons(fs);
-            self.update_drop_con_button(fs.file_list().connection().as_ref());
+            self.update_drop_con_button(Some(&fs.file_list().connection()));
             self.update_cmdline();
         }
 
@@ -825,8 +841,7 @@ pub mod imp {
                 .file_selector(FileSelectorID::Active)
                 .file_list()
                 .directory()
-                .map(|d| d.display_path())
-                .unwrap_or_default();
+                .display_path();
             self.cmdline.set_directory(&directory);
         }
     }
@@ -984,34 +999,20 @@ impl MainWindow {
             }
         };
 
-        let Some(dir) = src
+        let dir = src
             .active()
             .then(|| {
                 src.file_list()
                     .selected_file()
                     .filter(|file| file.is_directory())
-                    .and_then(|file| {
-                        src.file_list()
-                            .connection()
-                            .map(|connection| (connection, file))
+                    .map(|file| {
+                        Directory::new_from_file(&src.file_list().connection(), &*file.file())
                     })
-                    .map(|(connection, file)| Directory::new_from_file(&connection, &*file.file()))
             })
             .flatten()
-            .or_else(|| src.file_list().directory())
-        else {
-            return;
-        };
+            .unwrap_or_else(|| src.file_list().directory());
 
-        if dst.is_current_tab_locked() {
-            dst.new_tab(
-                Some(&dir),
-                TabOptions::from(&dst.file_list()).grab_focus(false),
-            );
-        } else {
-            dst.file_list()
-                .set_connection(&dir.connection(), Some(&dir));
-        }
+        dst.goto(&dst.file_list(), &dir);
     }
 
     pub fn load_tabs(&self, start_left_dir: Option<&Path>, start_right_dir: Option<&Path>) {
@@ -1159,10 +1160,9 @@ impl MainWindow {
 
         PanelsState {
             active_directory_path: dir1
-                .as_ref()
-                .and_then(|dir| dir.local_path())
+                .local_path()
                 .and_then(|path| path.to_str().map(str::to_owned)),
-            active_directory_uri: dir1.map(|dir| dir.uri()),
+            active_directory_uri: dir1.uri(),
             active_focused_file: fl1.selected_file().and_then(get_file_name),
             active_selected_files: fl1
                 .selected_files()
@@ -1170,10 +1170,9 @@ impl MainWindow {
                 .filter_map(get_file_name)
                 .collect(),
             inactive_directory_path: dir2
-                .as_ref()
-                .and_then(|dir| dir.local_path())
+                .local_path()
                 .and_then(|path| path.to_str().map(str::to_owned)),
-            inactive_directory_uri: dir2.map(|dir| dir.uri()),
+            inactive_directory_uri: dir2.uri(),
             inactive_focused_file: fl2.selected_file().and_then(get_file_name),
             inactive_selected_files: fl2
                 .selected_files()
@@ -1225,7 +1224,7 @@ impl MainWindow {
     pub async fn execute_command(&self, command: &str, mut target: ExecutionTarget) -> bool {
         let file_list = self.file_selector(FileSelectorID::Active).file_list();
 
-        let working_directory = file_list.directory().and_then(|d| d.local_path());
+        let working_directory = file_list.directory().local_path();
 
         if target == ExecutionTarget::AnyTerminal {
             target = if self.imp().cmdline.terminal_available() {
