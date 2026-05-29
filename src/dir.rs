@@ -398,7 +398,9 @@ impl Directory {
     }
 
     pub fn start_monitoring(&self) {
-        if self.imp().monitor_users.get() != 0 {
+        let monitor_users = self.imp().monitor_users.get();
+        if monitor_users != 0 {
+            self.imp().monitor_users.set(monitor_users + 1);
             return;
         }
 
@@ -431,9 +433,7 @@ impl Directory {
                 debug!('n', "Added monitor to {}", self.uri());
 
                 self.imp().file_monitor.replace(Some(file_monitor));
-                self.imp()
-                    .monitor_users
-                    .set(self.imp().monitor_users.get() + 1);
+                self.imp().monitor_users.set(monitor_users + 1);
             }
             Err(error) => {
                 debug!('n', "Failed to add monitor to {}: {}", self.uri(), error);
