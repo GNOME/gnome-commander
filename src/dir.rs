@@ -194,6 +194,11 @@ impl Directory {
         self.imp().state.set(state);
     }
 
+    pub fn invalidate(&self) {
+        // This directory belongs to a closed connection, force a relist next time it is used.
+        self.set_state(DirectoryState::Empty);
+    }
+
     fn set_files(&self, files: impl IntoIterator<Item = File>) {
         let mut store = self.imp().files.borrow_mut();
         store.clear();

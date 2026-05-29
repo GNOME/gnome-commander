@@ -119,7 +119,7 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
     fn set_state(&self, state: ConnectionState) {
         self.as_ref().imp().state.set(state);
         if state == ConnectionState::Closed {
-            self.dir_cache_mut().clear();
+            self.dir_cache_mut().invalidate_all();
         }
         self.emit_by_name::<()>("updated", &[]);
     }

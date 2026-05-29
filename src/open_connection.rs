@@ -6,12 +6,15 @@
 use crate::{
     connection::{Connection, ConnectionExt},
     debug::debug,
-    utils::{WindowExt, ErrorMessage},
+    utils::{ErrorMessage, WindowExt},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
 
-pub async fn open_connection(parent_window: &gtk::Window, con: &Connection) -> Result<(), ErrorMessage> {
+pub async fn open_connection(
+    parent_window: &gtk::Window,
+    con: &Connection,
+) -> Result<(), ErrorMessage> {
     let dialog = gtk::Window::builder()
         .transient_for(parent_window)
         .modal(true)

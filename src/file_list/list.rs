@@ -822,7 +822,8 @@ mod imp {
         }
 
         pub fn set_directory(&self, directory: &Directory) {
-            if directory == &*self.directory.borrow() {
+            if directory.state() != DirectoryState::Empty && directory == &*self.directory.borrow()
+            {
                 return;
             }
 
@@ -1055,6 +1056,7 @@ mod imp {
 
         fn on_dir_list_ok(&self, dir: &Directory) {
             debug!('l', "on_dir_list_ok");
+            self.set_state(State::Loaded);
             self.obj().show_files(dir);
             self.obj().emit_files_changed();
         }

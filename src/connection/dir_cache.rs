@@ -119,10 +119,10 @@ impl DirCache {
         }
     }
 
-    pub fn clear(&mut self) {
-        self.map.clear();
-        self.order.clear();
-        self.unpinned_capacity_used = 0;
+    pub fn invalidate_all(&mut self) {
+        for entry in self.map.values() {
+            entry.directory.invalidate();
+        }
     }
 
     pub fn pin(&mut self, directory: &Directory) {
