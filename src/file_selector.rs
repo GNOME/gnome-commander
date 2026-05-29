@@ -1251,8 +1251,10 @@ impl FileSelector {
             return;
         };
         if !file_list.connection().can_show_free_space() || file_list.directory().is_virtual() {
+            self.imp().volume_size_label.set_visible(false);
             return;
         }
+        self.imp().volume_size_label.set_visible(true);
         match file_list.directory().free_space() {
             Ok(free_space) => {
                 self.imp()
