@@ -66,6 +66,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         move |_| sender.toss(true)
     ));
 
+    dialog.set_default_widget(Some(&ok_btn));
     dialog.set_cancel_widget(&cancel_btn);
 
     grid.attach(
