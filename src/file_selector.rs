@@ -818,7 +818,7 @@ impl FileSelector {
         self.layout_manager()
             .map(|lm| lm.layout_child(&self.imp().volume_size_label))
             .and_downcast::<gtk::GridLayoutChild>()
-            .inspect(|lc| lc.set_row(if visible { 1 } else { 4 }));
+            .inspect(|lc| lc.set_row(if visible { 1 } else { 5 }));
     }
 
     pub fn update_connections(&self) {
