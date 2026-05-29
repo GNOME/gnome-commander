@@ -99,7 +99,6 @@ mod imp {
     enum State {
         Loaded,
         Loading,
-        ConnectionFailed,
         Error(ErrorMessage),
     }
 
@@ -971,10 +970,9 @@ mod imp {
                     if !connection.is_open()
                         && let Some(window) = obj.root().and_downcast::<gtk::Window>()
                     {
-                        if open_connection(&window, &connection).await {
-                            obj.imp().relist().await;
-                        } else {
-                            obj.imp().set_state(State::ConnectionFailed);
+                        match open_connection(&window, &connection).await {
+                            Err(error) => obj.imp().set_state(State::Error(error)),
+                            Ok(_) => obj.imp().relist().await,
                         }
                         obj.emit_by_name::<()>("con-changed", &[&directory.connection()]);
                     } else {
@@ -1043,13 +1041,6 @@ mod imp {
                                 }
                             ),
                         )));
-                }
-                State::ConnectionFailed => {
-                    self.state_widget.set_label(&gettext("Connection failed"));
-                    self.state_widget.set_tooltip_text(None);
-                    self.state_widget.remove_css_class("loading");
-                    self.state_widget.add_css_class("error");
-                    self.state_widget.set_visible(true);
                 }
                 State::Error(error) => {
                     self.state_widget.set_label(&error.message);
