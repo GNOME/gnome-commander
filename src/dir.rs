@@ -117,7 +117,6 @@ pub enum DirectoryState {
     Empty,
     Listed,
     Listing,
-    Canceling,
 }
 
 impl Directory {
