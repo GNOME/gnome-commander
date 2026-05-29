@@ -11,7 +11,10 @@ use gtk::{gio, glib, prelude::*};
 
 const FILES_PER_UPDATE: i32 = 50;
 
-pub async fn list_directory(dir: &Directory) -> Result<Vec<gio::FileInfo>, glib::Error> {
+pub async fn list_directory(
+    dir: &Directory,
+    cancellable: Option<&gio::Cancellable>,
+) -> Result<Vec<gio::FileInfo>, glib::Error> {
     let file = dir.file().clone();
 
     let mut files = Vec::new();
@@ -35,6 +38,9 @@ pub async fn list_directory(dir: &Directory) -> Result<Vec<gio::FileInfo>, glib:
             }
             Ok(chunk) => {
                 files.extend(chunk);
+                if cancellable.is_some_and(|c| c.is_cancelled()) {
+                    break;
+                }
             }
             Err(e) => {
                 error = Some(e);

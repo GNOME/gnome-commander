@@ -128,7 +128,7 @@ pub async fn prepare_copy_dialog_show(
     )
     .await;
 
-    if let Err(error) = dest_dir.relist_files().await {
+    if let Err(error) = dest_dir.relist_files(None).await {
         error.show(main_win.upcast_ref()).await;
     }
 

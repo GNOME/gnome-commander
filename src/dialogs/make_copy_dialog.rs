@@ -119,7 +119,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
     .await;
 
     if success {
-        if let Err(error) = dir.relist_files().await {
+        if let Err(error) = dir.relist_files(None).await {
             error.show(main_win.upcast_ref()).await;
         }
         main_win.focus_file_lists();

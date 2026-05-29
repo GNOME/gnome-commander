@@ -95,6 +95,14 @@ mod imp {
         pub command_line: bool,
     }
 
+    #[derive(Debug, PartialEq, Eq)]
+    enum State {
+        Loaded,
+        Loading,
+        ConnectionFailed,
+        Error(ErrorMessage),
+    }
+
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::FileList)]
     pub struct FileList {
@@ -154,6 +162,11 @@ mod imp {
         #[property(get)]
         pub view: gtk::ColumnView,
         pub row_selector: Rc<ListRowSelector>,
+
+        state: RefCell<State>,
+        state_widget: gtk::Label,
+        state_widget_timeout: RefCell<Option<glib::SourceId>>,
+        current_list_operation: RefCell<Option<gio::Cancellable>>,
 
         pub cells_map: BTreeMap<ColumnID, CellsMap>,
 
@@ -271,6 +284,16 @@ mod imp {
                 view,
                 row_selector,
 
+                state: RefCell::new(State::Loaded),
+                state_widget: gtk::Label::builder()
+                    .css_classes(["gnome-cmd-file-list-state"])
+                    .visible(false)
+                    .halign(gtk::Align::End)
+                    .valign(gtk::Align::End)
+                    .build(),
+                state_widget_timeout: Default::default(),
+                current_list_operation: Default::default(),
+
                 cells_map: ColumnID::all().map(|c| (c, Default::default())).collect(),
 
                 shift_down: Default::default(),
@@ -350,10 +373,8 @@ mod imp {
                 .child(&self.view)
                 .build();
 
-            let capture_event_box = gtk::Box::builder()
-                .orientation(gtk::Orientation::Vertical)
-                .build();
-            capture_event_box.append(&scrolled_window);
+            let capture_event_box = gtk::Overlay::builder().child(&scrolled_window).build();
+            capture_event_box.add_overlay(&self.state_widget);
             capture_event_box.set_parent(&*fl);
 
             let action_group = gio::SimpleActionGroup::new();
@@ -643,11 +664,14 @@ mod imp {
             }
 
             let directory = self.directory.borrow();
+            directory.unpin_from_cache();
+            directory.cancel_monitoring();
+            if let Some(cancellable) = self.current_list_operation.take() {
+                cancellable.cancel();
+            }
             for handler_id in self.directory_handlers.take() {
                 directory.disconnect(handler_id);
             }
-            directory.unpin_from_cache();
-            directory.cancel_monitoring();
 
             let connection = directory.connection();
             for handler_id in self.connection_handlers.take() {
@@ -697,6 +721,15 @@ mod imp {
     impl WidgetImpl for FileList {
         fn grab_focus(&self) -> bool {
             self.view.grab_focus()
+        }
+
+        fn unrealize(&self) {
+            self.parent_unrealize();
+
+            // Break up reference loop
+            if let Some(cancellable) = self.current_list_operation.take() {
+                cancellable.cancel();
+            }
         }
     }
 
@@ -802,6 +835,9 @@ mod imp {
             let previous_directory = self.directory.replace(directory.clone());
             previous_directory.unpin_from_cache();
             previous_directory.cancel_monitoring();
+            if let Some(cancellable) = self.current_list_operation.take() {
+                cancellable.cancel();
+            }
             for handler_id in self.directory_handlers.take() {
                 previous_directory.disconnect(handler_id);
             }
@@ -926,6 +962,8 @@ mod imp {
             self.add_to_history(directory);
 
             if directory.state() == DirectoryState::Empty || !directory.connection().is_open() {
+                self.set_state(State::Loading);
+
                 let obj = self.obj().clone();
                 let directory = directory.clone();
                 glib::spawn_future_local(async move {
@@ -934,20 +972,100 @@ mod imp {
                         && let Some(window) = obj.root().and_downcast::<gtk::Window>()
                     {
                         if open_connection(&window, &connection).await {
-                            directory.relist_files().await;
+                            obj.imp().relist().await;
+                        } else {
+                            obj.imp().set_state(State::ConnectionFailed);
                         }
                         obj.emit_by_name::<()>("con-changed", &[&directory.connection()]);
                     } else {
-                        directory.relist_files().await;
+                        obj.imp().relist().await;
                     }
                 });
-            };
+            } else {
+                self.set_state(State::Loaded);
+            }
+        }
+
+        pub async fn relist(&self) {
+            if self.current_list_operation.borrow().is_some() {
+                return;
+            }
+            self.set_state(State::Loading);
+
+            let cancellable = gio::Cancellable::new();
+            self.current_list_operation
+                .replace(Some(cancellable.clone()));
+            let result = self
+                .obj()
+                .directory()
+                .relist_files(Some(&cancellable))
+                .await;
+            self.current_list_operation.replace(None);
+
+            if !cancellable.is_cancelled() {
+                self.set_state(match result {
+                    Ok(_) => State::Loaded,
+                    Err(error) => State::Error(error),
+                });
+            }
+        }
+
+        fn set_state(&self, state: State) {
+            if state == *self.state.borrow() {
+                return;
+            }
+            self.state.replace(state);
+            self.update_state_widget();
+        }
+
+        fn update_state_widget(&self) {
+            if let Some(timeout) = self.state_widget_timeout.take() {
+                timeout.remove();
+            }
+            match &*self.state.borrow() {
+                State::Loaded => self.state_widget.set_visible(false),
+                State::Loading => {
+                    self.state_widget.set_label(&gettext("Loading…"));
+                    self.state_widget.set_tooltip_text(None);
+                    self.state_widget.add_css_class("loading");
+                    self.state_widget.remove_css_class("error");
+
+                    // Only display the loading message if loading takes some time.
+                    self.state_widget_timeout
+                        .replace(Some(glib::timeout_add_local_once(
+                            Duration::from_millis(500),
+                            glib::clone!(
+                                #[weak(rename_to = imp)]
+                                self,
+                                move || {
+                                    imp.state_widget_timeout.replace(None);
+                                    imp.state_widget.set_visible(true);
+                                }
+                            ),
+                        )));
+                }
+                State::ConnectionFailed => {
+                    self.state_widget.set_label(&gettext("Connection failed"));
+                    self.state_widget.set_tooltip_text(None);
+                    self.state_widget.remove_css_class("loading");
+                    self.state_widget.add_css_class("error");
+                    self.state_widget.set_visible(true);
+                }
+                State::Error(error) => {
+                    self.state_widget.set_label(&error.message);
+                    self.state_widget
+                        .set_tooltip_text(error.secondary_text.as_deref());
+                    self.state_widget.remove_css_class("loading");
+                    self.state_widget.add_css_class("error");
+                    self.state_widget.set_visible(true);
+                }
+            }
         }
 
         fn on_dir_list_ok(&self, dir: &Directory) {
             debug!('l', "on_dir_list_ok");
             self.obj().show_files(dir);
-            self.add_to_history(dir);
+            self.obj().emit_files_changed();
         }
 
         fn on_dir_list_failed(&self, _dir: &Directory, error: &glib::Error) {
@@ -1643,9 +1761,7 @@ mod imp {
                 }
             };
 
-            if let Err(error) = destination.relist_files().await {
-                error.show(&window).await;
-            }
+            self.relist().await;
         }
     }
 
@@ -2246,13 +2362,7 @@ impl FileList {
 
     pub async fn reload(&self) {
         self.unselect_all();
-        if let Err(error) = self.directory().relist_files().await {
-            if let Some(window) = self.root().and_downcast::<gtk::Window>() {
-                error.show(&window).await;
-            } else {
-                eprintln!("No window");
-            }
-        }
+        self.imp().relist().await;
     }
 
     pub fn append_file(&self, file: &File) {

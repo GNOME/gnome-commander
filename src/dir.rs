@@ -200,7 +200,10 @@ impl Directory {
         store.extend(files);
     }
 
-    pub async fn relist_files(&self) -> Result<(), ErrorMessage> {
+    pub async fn relist_files(
+        &self,
+        cancellable: Option<&gio::Cancellable>,
+    ) -> Result<(), ErrorMessage> {
         if self.is_virtual() {
             return Ok(());
         }
@@ -208,15 +211,17 @@ impl Directory {
             return Ok(());
         };
 
-        let result = match list_directory(self).await {
+        let result = match list_directory(self, cancellable).await {
             Ok(file_infos) => {
-                self.set_state(DirectoryState::Listed);
-                self.set_files(
-                    file_infos
-                        .into_iter()
-                        .filter_map(|file_info| create_file_from_file_info(&file_info, self)),
-                );
-                self.emit_by_name::<()>(SIGNAL_LIST_OK, &[]);
+                if !cancellable.is_some_and(|c| c.is_cancelled()) {
+                    self.set_state(DirectoryState::Listed);
+                    self.set_files(
+                        file_infos
+                            .into_iter()
+                            .filter_map(|file_info| create_file_from_file_info(&file_info, self)),
+                    );
+                    self.emit_by_name::<()>(SIGNAL_LIST_OK, &[]);
+                }
                 Ok(())
             }
             Err(error) => {
@@ -236,7 +241,7 @@ impl Directory {
 
     pub async fn list_files(&self) -> Result<(), ErrorMessage> {
         if self.files().is_empty() || self.is_local() {
-            self.relist_files().await
+            self.relist_files(None).await
         } else {
             self.emit_by_name::<()>(SIGNAL_LIST_OK, &[]);
             Ok(())

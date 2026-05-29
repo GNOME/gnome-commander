@@ -20,6 +20,20 @@
   background-color: rgba(128, 128, 128, 0.3);
 }
 
+.gnome-cmd-file-list-state {
+  border: 1px solid #000;
+  border-radius: 0.5em;
+  color: #000;
+  margin: 2em;
+  padding: 0.5em;
+}
+.gnome-cmd-file-list-state.loading {
+  background-color: #996;
+}
+.gnome-cmd-file-list-state.error {
+  background-color: #966;
+}
+
 /*
   Note: !important is not supported, so we make sure selectors have the same specificity, making
   them apply in order.
