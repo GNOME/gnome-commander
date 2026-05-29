@@ -1811,7 +1811,11 @@ async fn on_notebook_button_pressed(
             // double-click on a tabs area
             let file_list = file_selector.file_list();
             if let Some(dir) = file_list.directory() {
-                file_selector.new_tab(Some(&dir), TabOptions::from(&file_list));
+                let mut options = TabOptions::from(&file_list);
+                if let Some(selected_file) = file_list.selected_file() {
+                    options = options.selected_file(selected_file.path_name());
+                }
+                file_selector.new_tab(Some(&dir), options);
             }
         }
         _ => {}
