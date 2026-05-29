@@ -199,7 +199,6 @@ mod test {
     use glib::prelude::*;
     use std::{cell::RefCell, rc::Rc};
 
-    #[test]
     fn test_get_insert_evict() {
         let conn: Connection = glib::Object::builder().build();
         conn.dir_cache_mut().reduce_unpinned_capacity(2);
@@ -337,50 +336,60 @@ mod test {
 
     #[test]
     fn test_signalling() {
-        fn connect_listener(directory: &Directory, result: &Rc<RefCell<bool>>) {
-            let result = result.clone();
-            directory.connect_closure(
-                "dir-deleted",
-                false,
-                glib::RustClosure::new_local(move |_| {
-                    result.replace(true);
-                    None
-                }),
-            );
-        }
+        // Gtk doesn't like different threads spawning local futures. Make sure that the two tests
+        // doing it run in sequence on the same thread.
+        test_get_insert_evict();
 
-        let conn: Connection = glib::Object::builder().build();
-        conn.dir_cache_mut().reduce_unpinned_capacity(1);
-        let result = Rc::new(RefCell::new(false));
+        glib::MainContext::default().block_on(async {
+            fn connect_listener(directory: &Directory, result: &Rc<RefCell<bool>>) {
+                let result = result.clone();
+                directory.connect_closure(
+                    "dir-deleted",
+                    false,
+                    glib::RustClosure::new_local(move |_| {
+                        result.replace(true);
+                        None
+                    }),
+                );
+            }
 
-        // No notification when unpinned directories are removed.
-        let directory1 = Directory::new(&conn, "file:///dir1");
-        connect_listener(&directory1, &result);
-        conn.dir_cache_mut().remove("file:///dir1");
-        assert!(!result.take());
+            let conn: Connection = glib::Object::builder().build();
+            conn.dir_cache_mut().reduce_unpinned_capacity(1);
+            let result = Rc::new(RefCell::new(false));
 
-        // Removing pinned directories results in notification.
-        let directory1 = Directory::new(&conn, "file:///dir1");
-        directory1.pin_to_cache();
-        connect_listener(&directory1, &result);
-        conn.dir_cache_mut().remove("file:///dir1");
-        assert!(result.take());
+            // No notification when unpinned directories are removed.
+            let directory1 = Directory::new(&conn, "file:///dir1");
+            connect_listener(&directory1, &result);
+            conn.dir_cache_mut().remove("file:///dir1");
+            let _ = glib::spawn_future_local(async {}).await;
+            assert!(!result.take());
 
-        // Regular eviction produces no notification.
-        let directory1 = Directory::new(&conn, "file:///dir1");
-        connect_listener(&directory1, &result);
-        let directory2 = Directory::new(&conn, "file:///dir2");
-        assert_eq!(conn.dir_cache().get("file:///dir1"), None);
-        assert_eq!(conn.dir_cache().get("file:///dir2"), Some(&directory2));
-        assert!(!result.take());
+            // Removing pinned directories results in notification.
+            let directory1 = Directory::new(&conn, "file:///dir1");
+            directory1.pin_to_cache();
+            connect_listener(&directory1, &result);
+            conn.dir_cache_mut().remove("file:///dir1");
+            let _ = glib::spawn_future_local(async {}).await;
+            assert!(result.take());
 
-        // Removal of pinned children produces a notification
-        directory2.pin_to_cache();
-        let subdir = Directory::new(&conn, "file:///dir2/subdir");
-        connect_listener(&subdir, &result);
-        subdir.pin_to_cache();
-        conn.dir_cache_mut().remove_with_children("file:///dir2");
-        assert!(result.take());
+            // Regular eviction produces no notification.
+            let directory1 = Directory::new(&conn, "file:///dir1");
+            connect_listener(&directory1, &result);
+            let directory2 = Directory::new(&conn, "file:///dir2");
+            let _ = glib::spawn_future_local(async {}).await;
+            assert_eq!(conn.dir_cache().get("file:///dir1"), None);
+            assert_eq!(conn.dir_cache().get("file:///dir2"), Some(&directory2));
+            assert!(!result.take());
+
+            // Removal of pinned children produces a notification
+            directory2.pin_to_cache();
+            let subdir = Directory::new(&conn, "file:///dir2/subdir");
+            connect_listener(&subdir, &result);
+            subdir.pin_to_cache();
+            conn.dir_cache_mut().remove_with_children("file:///dir2");
+            let _ = glib::spawn_future_local(async {}).await;
+            assert!(result.take());
+        });
     }
 
     #[test]
