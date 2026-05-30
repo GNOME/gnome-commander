@@ -14,6 +14,7 @@
 //! | l    | directory listings            |
 //! | m    | connection debugging          |
 //! | n    | directory monitoring          |
+//! | p    | plugins messaging             |
 //! | s    | smb network browser           |
 //! | t    | metadata tags                 |
 //! | u    | user actions debugging        |
