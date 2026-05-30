@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::{ApiRequestToPlugin, ApiResponseFromPlugin, PluginMetadata};
+use crate::{main_win::ExecutionTarget, utils::ErrorMessage};
 use async_broadcast::{
     InactiveReceiver as InactiveBroadcastReceiver, Receiver as BroadcastReceiver,
 };
@@ -20,6 +21,11 @@ pub enum MessageToPluginHost {
     StartPlugin(String),
     StopPlugin(String),
     TogglePlugin(String),
+    RunCommandResult {
+        id: u32,
+        plugin_name: String,
+        result: Result<(), ErrorMessage>,
+    },
     ApiRequest {
         id: u32,
         plugin_name: Option<String>,
@@ -31,6 +37,12 @@ pub enum MessageToPluginHost {
 pub enum MessageFromPluginHost {
     Plugins(HashMap<String, PluginData>),
     PluginUpdated(String, PluginData),
+    RunCommand {
+        id: u32,
+        plugin_name: String,
+        command: String,
+        target: ExecutionTarget,
+    },
     ApiResponse {
         id: u32,
         plugin_name: String,

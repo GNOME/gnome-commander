@@ -6,7 +6,7 @@ use super::{
     ApiCall, ApiInfo, ApiRequestToPlugin, ApiResponseFromPlugin, GenericDialog, PluginInstance,
     protocol::{ApiRequestToHost, ApiResponseFromHost},
 };
-use crate::{options::PluginsOptions, utils::u32_enum};
+use crate::{main_win::ExecutionTarget, options::PluginsOptions, utils::u32_enum};
 use std::io::Error;
 
 pub enum IncomingResult {
@@ -14,6 +14,7 @@ pub enum IncomingResult {
     Handled,
     HandledWithResponse(ApiResponseFromHost),
     HandledWithDialog(GenericDialog),
+    HandledWithCommand(String, ExecutionTarget),
     Error(Error),
 }
 
@@ -24,6 +25,7 @@ u32_enum! {
         ExtractMetadata,
         Dialogs,
         Menus,
+        Commands,
     }
 }
 
@@ -34,6 +36,7 @@ impl Apis {
             Apis::ExtractMetadata => "extract_metadata",
             Apis::Dialogs => "dialogs",
             Apis::Menus => "menus",
+            Apis::Commands => "commands",
         }
     }
 
@@ -43,6 +46,7 @@ impl Apis {
             Apis::ExtractMetadata => "1.0",
             Apis::Dialogs => "1.0",
             Apis::Menus => "1.0",
+            Apis::Commands => "1.0",
         }
     }
 
@@ -86,6 +90,25 @@ impl Apis {
                     Ok(dialog) => IncomingResult::HandledWithDialog(dialog),
                     Err(error) => IncomingResult::Error(error),
                 }
+            }
+            ApiRequestToHost::RunCommand(command, target) if self == &Apis::Commands => {
+                if command.is_empty() {
+                    return IncomingResult::Error(Error::other("Command cannot be empty"));
+                }
+
+                let target = match target.as_str() {
+                    "background" => ExecutionTarget::Background,
+                    "any" => ExecutionTarget::AnyTerminal,
+                    "embedded" => ExecutionTarget::EmbeddedTerminal,
+                    "external" => ExecutionTarget::ExternalTerminal,
+                    _ => {
+                        return IncomingResult::Error(Error::other(format!(
+                            "Invalid execution target: {target}"
+                        )));
+                    }
+                };
+
+                IncomingResult::HandledWithCommand(command.clone(), target)
             }
             _ => IncomingResult::Unhandled,
         }

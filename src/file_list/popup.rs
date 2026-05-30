@@ -3,10 +3,9 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::{actions::Script, list::ColumnID, list::FileList};
+use super::{list::ColumnID, list::FileList};
 use crate::{
     app::{App, AppTarget, RegularApp, UserDefinedApp, load_favorite_apps},
-    config::PACKAGE,
     debug::debug,
     file::{File, FileOps},
     filter::fnmatch,
@@ -20,11 +19,6 @@ use crate::{
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
-use std::{
-    fs,
-    io::{self, BufRead},
-    path::Path,
-};
 
 const MAX_OPEN_WITH_APPS: usize = 20;
 
@@ -54,60 +48,6 @@ fn fav_app_matches_files(app: &UserDefinedApp, files: &[File]) -> bool {
             })
         }
     }
-}
-
-/// Try to get the script info out of the script
-fn extract_script_info(script_path: &Path) -> Option<(String, bool)> {
-    let file = fs::File::open(script_path).ok()?;
-
-    let mut script_name = None;
-    let mut in_terminal = false;
-    for line in io::BufReader::new(file).lines().map_while(Result::ok) {
-        if let Some(name) = line.strip_prefix("#name:") {
-            script_name = Some(name.trim().to_string());
-        }
-        if let Some(term) = line.trim().strip_prefix("#term:") {
-            in_terminal = term.trim() == "true";
-        }
-    }
-    Some((script_name?, in_terminal))
-}
-
-fn create_action_script_menu() -> Option<gio::Menu> {
-    let scripts_dir = glib::user_config_dir().join(PACKAGE).join("scripts");
-
-    let menu = gio::Menu::new();
-
-    for entry in fs::read_dir(scripts_dir).ok()?.flatten() {
-        let path = entry.path();
-        if !path.is_file() {
-            continue;
-        }
-
-        let mut script_info = Script {
-            path,
-            in_terminal: false,
-        };
-        let script_name;
-
-        // Try to get the scriptname out of the script, otherwise take the filename
-        if let Some((name, in_terminal)) = extract_script_info(&script_info.path) {
-            script_info.in_terminal = in_terminal;
-            script_name = name;
-        } else {
-            script_name = entry.file_name().to_string_lossy().to_string();
-        }
-
-        let item = gio::MenuItem::new(Some(&script_name), None);
-        item.set_action_and_target_value(
-            Some("fl.execute-script"),
-            Some(&script_info.to_variant()),
-        );
-
-        menu.append_item(&item);
-    }
-
-    Some(menu)
 }
 
 /// This method adds all "open" popup entries
@@ -248,10 +188,6 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
         }
     }
     menu.append_section(None, &fav_menu);
-
-    if let Some(section) = create_action_script_menu() {
-        menu.append_section(None, &section);
-    }
 
     menu.append_section(None, &{
         gio::Menu::new()

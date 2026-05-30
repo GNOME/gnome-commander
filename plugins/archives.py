@@ -324,7 +324,7 @@ class ArchivesPlugin(Plugin):
 
         target_path = os.path.join(
             target_dir or source_dir, f'archive.{compression_format}')
-        result = await self.show_dialog({
+        button, state = await self.show_dialog({
             'title': _('Create Archive'),
             'modal': True,
             'child': {
@@ -360,12 +360,12 @@ class ArchivesPlugin(Plugin):
                 'default': True,
             }]
         })
-        if result is None or result[0] == 'cancel':
+        if button == 'cancel':
             return
 
-        target_path = result[1]['target']
+        target_path = state['target']
         for ext in file_extensions:
-            if result[1][ext]:
+            if state[ext]:
                 compression_format = ext
                 break
         self.compression_format = compression_format
@@ -426,7 +426,7 @@ class ArchivesPlugin(Plugin):
             target_path = os.path.join(
                 target_path, basename if ext else 'unpacked'
             )
-        result = await self.show_dialog({
+        button, state = await self.show_dialog({
             'title': _('Extract Archive'),
             'modal': True,
             'child': {
@@ -449,11 +449,11 @@ class ArchivesPlugin(Plugin):
                 'default': True,
             }]
         })
-        if result is None or result[0] != 'accept':
+        if button != 'accept':
             return
 
         target_path = os.path.normpath(
-            os.path.join(source_dir, result[1]['target_path'])
+            os.path.join(source_dir, state['target_path'])
         )
         try:
             await format.uncompress(source, target_path, self)
@@ -481,7 +481,7 @@ class ArchivesPlugin(Plugin):
             })
 
     async def query_overwrite_one(self, path: str) -> str:
-        result = await self.show_dialog({
+        button, _ = await self.show_dialog({
             'title': 'File exists',
             'modal': True,
             'child': {
@@ -497,13 +497,10 @@ class ArchivesPlugin(Plugin):
                 'id': 'overwrite',
             }],
         })
-        if not result:
-            return 'cancel'
-        else:
-            return result[0]
+        return button
 
     async def query_overwrite(self, path: str) -> tuple[str, bool]:
-        result = await self.show_dialog({
+        button, state = await self.show_dialog({
             'title': 'File exists',
             'modal': True,
             'child': {
@@ -529,10 +526,7 @@ class ArchivesPlugin(Plugin):
                 'id': 'skip',
             }],
         })
-        if not result:
-            return ('cancel', True)
-        else:
-            return (result[0], result[1]['apply_all'])
+        return button, state['apply_all']
 
     @classmethod
     def compress_item(cls) -> dict:

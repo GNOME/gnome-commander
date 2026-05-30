@@ -40,7 +40,7 @@ use crate::{
     file_view::file_view,
     main_win::{ExecutionTarget, MainWindow},
     options::{GeneralOptions, NetworkOptions, ProgramsOptions, SearchConfig},
-    plugins::{ApiRequestToPlugin, MessageToPluginHost, show_plugin_manager},
+    plugins::{ApiRequestToPlugin, MessageToPluginHost, ModifierState, show_plugin_manager},
     search::search_dialog::SearchDialog,
     shortcuts::Area,
     spawn::{SpawnError, spawn_async, spawn_async_command},
@@ -1127,6 +1127,9 @@ async fn plugin_action(main_win: MainWindow, data: (String, String, String)) {
             action,
             parameter,
             state: main_win.state(),
+            modifiers: get_modifiers_state(main_win.upcast_ref())
+                .map(ModifierState::from)
+                .unwrap_or_default(),
         },
     });
 }

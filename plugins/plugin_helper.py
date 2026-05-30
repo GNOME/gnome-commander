@@ -61,6 +61,12 @@ class Plugin:
                 'version': '1.0',
             })
 
+        if self.COMMANDS:
+            self._apis.append({
+                'name': 'commands',
+                'version': '1.0',
+            })
+
         if self.extract_metadata and self.list_supported_tags:
             self._apis.append({
                 'name': 'extract_metadata',
@@ -224,12 +230,16 @@ class Plugin:
                     del self._pending_api_requests[id]
                     future.set_result(response[name])
 
-    async def show_dialog(self, spec: dict) -> Optional[tuple[str, dict[str, Any]]]:
+    async def show_dialog(self, spec: dict) -> tuple[str, dict[str, Any]]:
         return await self.send_api_request_with_response('show-dialog', spec)
+
+    async def run_command(self, command: str, target: str) -> list[str]:
+        return await self.send_api_request_with_response('run-command', [command, target])
 
     # Properties and methods that can be overwritten by subclasses
     PERSISTENT_SETTINGS: list[str] = []
     DIALOGS = False
+    COMMANDS = False
 
     async def startup(self):
         raise NotImplementedError()

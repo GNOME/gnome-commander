@@ -264,6 +264,8 @@ pub mod imp {
 
             let mw = self.obj();
 
+            self.handle_plugin_host_requests(&self.plugin_channel);
+
             mw.set_title(Some(&if uid() == 0 {
                 gettext("Gnome Commander — ROOT PRIVILEGES")
             } else {
@@ -371,7 +373,7 @@ pub mod imp {
                 move |_, command, target| {
                     let command = command.to_owned();
                     glib::spawn_future_local(async move {
-                        mw.execute_command(&command, target).await;
+                        mw.execute_command_with_message(&command, target).await;
                     });
                 }
             ));
@@ -560,6 +562,29 @@ pub mod imp {
     impl ApplicationWindowImpl for MainWindow {}
 
     impl MainWindow {
+        fn handle_plugin_host_requests(&self, channel: &InactivePluginHostChannel) {
+            let mut channel = channel.activate_cloned();
+            let obj = self.obj().clone();
+            glib::spawn_future_local(async move {
+                loop {
+                    if let MessageFromPluginHost::RunCommand {
+                        id,
+                        plugin_name,
+                        command,
+                        target,
+                    } = channel.receive().await
+                    {
+                        let result = obj.execute_command(&command, target).await;
+                        channel.send(MessageToPluginHost::RunCommandResult {
+                            id,
+                            plugin_name,
+                            result,
+                        });
+                    }
+                }
+            });
+        }
+
         fn create_toolbar(&self) {
             self.toolbar
                 .append(&toolbar_button(UserAction::ViewRefresh, "view-refresh"));
@@ -1221,7 +1246,11 @@ impl MainWindow {
         }
     }
 
-    pub async fn execute_command(&self, command: &str, mut target: ExecutionTarget) -> bool {
+    pub async fn execute_command(
+        &self,
+        command: &str,
+        mut target: ExecutionTarget,
+    ) -> Result<(), ErrorMessage> {
         let file_list = self.file_selector(FileSelectorID::Active).file_list();
 
         let working_directory = file_list.directory().local_path();
@@ -1235,25 +1264,30 @@ impl MainWindow {
         }
 
         if target == ExecutionTarget::EmbeddedTerminal {
-            if let Err(error) = self
-                .imp()
-                .cmdline
+            let cmdline = &self.imp().cmdline;
+            if !cmdline.terminal_available() {
+                return Err(ErrorMessage::brief(gettext("Embedded terminal is busy")));
+            }
+            cmdline
                 .exec(working_directory.as_deref(), command)
                 .await
                 .map_err(|error| ErrorMessage::with_error(gettext("Failed starting shell"), &error))
-            {
-                error.show(self.upcast_ref()).await;
-                false
-            } else {
-                true
-            }
-        } else if let Err(error) = run_command_indir(
-            working_directory.as_deref(),
-            &OsString::from(command),
-            target == ExecutionTarget::ExternalTerminal,
-        )
-        .map_err(SpawnError::into_message)
-        {
+        } else {
+            run_command_indir(
+                working_directory.as_deref(),
+                &OsString::from(command),
+                target == ExecutionTarget::ExternalTerminal,
+            )
+            .map_err(SpawnError::into_message)
+        }
+    }
+
+    pub async fn execute_command_with_message(
+        &self,
+        command: &str,
+        target: ExecutionTarget,
+    ) -> bool {
+        if let Err(error) = self.execute_command(command, target).await {
             error.show(self.upcast_ref()).await;
             false
         } else {
@@ -1264,7 +1298,7 @@ impl MainWindow {
     pub async fn execute_file(&self, file: &File) -> bool {
         let mut command = String::from("./");
         command.push_str(&glib::shell_quote(file.file_info().display_name()).to_string_lossy());
-        self.execute_command(
+        self.execute_command_with_message(
             &command,
             if app_needs_terminal(file) {
                 ExecutionTarget::AnyTerminal
