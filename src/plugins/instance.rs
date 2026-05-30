@@ -9,6 +9,7 @@ use super::{
 };
 use crate::{
     config::{DATADIR, PACKAGE},
+    main_win::ExecutionTarget,
     options::PluginsOptions,
 };
 use async_io::Timer;
@@ -37,6 +38,11 @@ pub enum PluginInstanceOutput {
     UpdatedAndApiResponse {
         id: u32,
         response: Option<ApiResponseFromPlugin>,
+    },
+    RunCommand {
+        id: u32,
+        command: String,
+        target: ExecutionTarget,
     },
 }
 
@@ -334,6 +340,13 @@ impl PluginInstance {
                             self.dialogs.insert(id, dialog);
                             self.poll_dialogs(cx); // Make sure we wait for the new dialog
                             return Ok(None);
+                        }
+                        IncomingResult::HandledWithCommand(command, target) => {
+                            return Ok(Some(PluginInstanceOutput::RunCommand {
+                                id,
+                                command,
+                                target,
+                            }));
                         }
                         IncomingResult::Error(error) => {
                             self.errors.push(error);

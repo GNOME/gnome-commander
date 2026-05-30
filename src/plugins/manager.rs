@@ -81,7 +81,7 @@ pub async fn show_plugin_manager(mut channel: PluginHostChannel, parent: &MainWi
                             setup_row(&name, row, data, &channel);
                         }
                     }
-                    MessageFromPluginHost::ApiResponse{..} => {}
+                    _ => {}
                 }
             }
             _ = receiver.recv().fuse() => break,

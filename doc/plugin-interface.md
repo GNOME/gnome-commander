@@ -250,6 +250,12 @@ This request will be sent to the plugin whenever one of its menu items is activa
 * `action` (string): Action of the menu item that was activated
 * `state` (object): Current Gnome Commander state, same as the object sent in the [context-menu-items request](#context-menu-items)
 * `parameter` (string): The additional parameter associated with the menu item if any
+* `modifiers` (object): The state of keyboard modifiers with the following properties
+  * `shift` (boolean): `true` if the Shift modifier key is pressed
+  * `control` (boolean): `true` if the Control modifier key is pressed
+  * `alt` (boolean): `true` if the Alt modifier key is pressed
+  * `super` (boolean): `true` if the Super modifier key is pressed
+  * `meta` (boolean): `true` if the Meta modifier key is pressed
 
 Note that plugins should not assume that the state didn’t change between displaying the context menu and menu activation. If current state is relevant, the state provided with this message should be considered.
 
@@ -307,3 +313,29 @@ The `WidgetSpec` object can be one of the following:
   * `vertical` (boolean, optional): Whether the child widgets should be arranged vertically instead of the default horizontal arrangement
 
 The response is sent to the plugin after the user clicks one of the dialog buttons or closes the dialog. The response data is an array with two elements: `[button, fields]`. Here `button` is a string indicating which button was chosen by the user, it will be the identifier of the cancel button if the dialog was closed. `fields` is an object capturing the state of the input fields and checkboxes, containing properties with property key being the field identifier and property value the field text (string) or checked state (boolean). It is up to the plugin to validate the information provided and possibly to send another `show-dialog` request if corrections have to be made.
+
+### Commands API
+
+This API allows plugins to run shell commands via Gnome Commander. *Note*: Commands are always run via shell and can produce side-effects unless properly escaped. It is up to the plugin to ensure that the command is safe to run.
+
+Using this API requires sending a registration message:
+
+```json
+{
+  "type": "register",
+  "payload": {"name": "commands", "version": "1.0"}
+}
+```
+
+#### run-command
+
+The plugin sends this request to run a command. The request data is an object with the following properties:
+
+* `command` (string): Properly escaped shell command
+* `target` (string): One of:
+  * `"background"`: Runs the command in background, with its output only visible in Gnome Commander’s stdout and stderr streams.
+  * `"embedded"`: Runs the command in the embedded terminal if available.
+  * `"external"`: Runs the command in a new terminal window.
+  * `"any"`: Runs the command in the embedded terminal if available, otherwise in a new terminal window.
+
+The response is an array of strings (errors). If the command was started successfully this array will be empty. In case of an execution error it will contain the error messages. Typically the first error message will be the localized generic message and the second (if present) will be the untranslated specific error message. *Note*: The response is sent before the command terminates and is no indication of execution success.

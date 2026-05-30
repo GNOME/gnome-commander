@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+use gtk::gdk;
 use std::collections::HashMap;
 
 #[derive(Debug, serde::Deserialize)]
@@ -94,6 +95,7 @@ pub enum ApiRequestToPlugin {
         action: String,
         state: PanelsState,
         parameter: String,
+        modifiers: ModifierState,
     },
 }
 
@@ -153,6 +155,28 @@ pub struct PanelsState {
     pub inactive_selected_files: Vec<String>,
 }
 
+#[derive(Debug, Default, Clone, serde::Serialize)]
+pub struct ModifierState {
+    pub shift: bool,
+    pub control: bool,
+    pub alt: bool,
+    #[serde(rename = "super")]
+    pub super_: bool,
+    pub meta: bool,
+}
+
+impl From<gdk::ModifierType> for ModifierState {
+    fn from(modifiers: gdk::ModifierType) -> Self {
+        Self {
+            shift: modifiers.contains(gdk::ModifierType::SHIFT_MASK),
+            control: modifiers.contains(gdk::ModifierType::CONTROL_MASK),
+            alt: modifiers.contains(gdk::ModifierType::ALT_MASK),
+            super_: modifiers.contains(gdk::ModifierType::SUPER_MASK),
+            meta: modifiers.contains(gdk::ModifierType::META_MASK),
+        }
+    }
+}
+
 #[derive(Debug, Clone, serde::Deserialize)]
 pub struct MenuItem {
     pub label: String,
@@ -167,6 +191,7 @@ pub enum ApiRequestToHost {
     GetSetting(String),
     SetSetting(String, serde_json::Value),
     ShowDialog(DialogSpec),
+    RunCommand(String, String),
 }
 
 #[derive(Debug, Clone, serde::Serialize)]
@@ -174,6 +199,7 @@ pub enum ApiRequestToHost {
 pub enum ApiResponseFromHost {
     GetSetting(serde_json::Value),
     ShowDialog(String, HashMap<String, DialogWidgetValue>),
+    RunCommand(Vec<String>),
 }
 
 fn default_dialog_width() -> i32 {

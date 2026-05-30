@@ -9,14 +9,13 @@ use crate::{
     dialogs::open_with_other_dialog::show_open_with_other_dialog,
     file::{File, FileOps},
     file_edit::file_edit,
-    main_win::{ExecutionTarget, MainWindow},
+    main_win::MainWindow,
     options::ProgramsOptions,
     transfer::download_to_temporary,
-    utils::{ErrorMessage, get_modifiers_state, temp_file},
+    utils::{ErrorMessage, temp_file},
 };
 use gettextrs::{gettext, ngettext};
-use gtk::{gdk, gio, glib, prelude::*};
-use std::path::PathBuf;
+use gtk::{gio, prelude::*};
 
 pub async fn file_list_action_file_edit(file_list: &FileList) {
     let Some(parent_window) = file_list.root().and_downcast::<gtk::Window>() else {
@@ -179,65 +178,4 @@ pub async fn file_list_action_execute(file_list: &FileList) {
     };
 
     parent_window.execute_file(&file).await;
-}
-
-#[derive(glib::Variant)]
-pub struct Script {
-    pub path: PathBuf,
-    pub in_terminal: bool,
-}
-
-pub async fn file_list_action_execute_script(
-    file_list: &FileList,
-    Script { path, in_terminal }: Script,
-) {
-    let Some(parent_window) = file_list.root().and_downcast::<MainWindow>() else {
-        eprintln!("Unexpected: parent window isn't the main window");
-        return;
-    };
-    let files = file_list.selected_files();
-
-    let mask = get_modifiers_state(parent_window.upcast_ref());
-    let is_shift_pressed = mask.is_some_and(|m| {
-        m.contains(gdk::ModifierType::SHIFT_MASK)
-            && !m.contains(gdk::ModifierType::CONTROL_MASK)
-            && !m.contains(gdk::ModifierType::ALT_MASK)
-    });
-
-    if is_shift_pressed {
-        // Run script per file
-        for file in files {
-            let mut command = glib::shell_quote(&path);
-            command.push(" ");
-            command.push(glib::shell_quote(file.path_name()));
-            parent_window
-                .execute_command(
-                    &command.to_string_lossy(),
-                    if in_terminal {
-                        ExecutionTarget::AnyTerminal
-                    } else {
-                        ExecutionTarget::Background
-                    },
-                )
-                .await;
-        }
-    } else {
-        // Run script with list of files
-        let mut command = glib::shell_quote(&path);
-        for file in &files {
-            command.push(" ");
-            command.push(glib::shell_quote(file.path_name()));
-        }
-
-        parent_window
-            .execute_command(
-                &command.to_string_lossy(),
-                if in_terminal {
-                    ExecutionTarget::AnyTerminal
-                } else {
-                    ExecutionTarget::Background
-                },
-            )
-            .await;
-    }
 }

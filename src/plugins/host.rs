@@ -5,6 +5,7 @@
 use super::{
     InactivePluginHostChannel, MessageFromPluginHost, MessageToPluginHost, PluginInstance,
     PluginInstanceOutput,
+    protocol::{ApiResponseFromHost, MessageToPlugin},
 };
 use crate::options::PluginsOptions;
 use async_broadcast::Sender as BroadcastSender;
@@ -91,6 +92,25 @@ impl PluginHost {
                     Some(updated_message(instance))
                 }
             }
+            MessageToPluginHost::RunCommandResult {
+                id,
+                plugin_name,
+                result,
+            } => {
+                let instance = self.plugins.get_mut(&plugin_name)?;
+                let mut messages = vec![];
+                if let Err(error) = result {
+                    messages.push(error.message);
+                    if let Some(secondary_text) = error.secondary_text {
+                        messages.push(secondary_text);
+                    }
+                }
+                instance.send_message(MessageToPlugin::ApiResponse(
+                    id,
+                    ApiResponseFromHost::RunCommand(messages),
+                ));
+                None
+            }
             MessageToPluginHost::ApiRequest {
                 id,
                 plugin_name,
@@ -138,22 +158,37 @@ impl PluginHost {
             result.push(updated_message(instance));
         }
 
-        if let PluginInstanceOutput::ApiResponse { id, response }
-        | PluginInstanceOutput::UpdatedAndApiResponse { id, response } = message
-            && let Some(mut count) = pending_api_requests.remove(&id)
-        {
-            count -= 1;
-            if count > 0 {
-                pending_api_requests.insert(id, count);
-            }
+        match message {
+            PluginInstanceOutput::Updated => {}
+            PluginInstanceOutput::ApiResponse { id, response }
+            | PluginInstanceOutput::UpdatedAndApiResponse { id, response } => {
+                if let Some(mut count) = pending_api_requests.remove(&id) {
+                    count -= 1;
+                    if count > 0 {
+                        pending_api_requests.insert(id, count);
+                    }
 
-            if response.is_some() || count == 0 {
-                result.push(MessageFromPluginHost::ApiResponse {
+                    if response.is_some() || count == 0 {
+                        result.push(MessageFromPluginHost::ApiResponse {
+                            id,
+                            plugin_name: instance.file_name().to_string(),
+                            plugin_display_name: instance.name(),
+                            response,
+                            last: count == 0,
+                        });
+                    }
+                }
+            }
+            PluginInstanceOutput::RunCommand {
+                id,
+                command,
+                target,
+            } => {
+                result.push(MessageFromPluginHost::RunCommand {
                     id,
                     plugin_name: instance.file_name().to_string(),
-                    plugin_display_name: instance.name(),
-                    response,
-                    last: count == 0,
+                    command,
+                    target,
                 });
             }
         }

@@ -61,8 +61,7 @@ mod imp {
         debug::debug,
         file_list::{
             actions::{
-                Script, file_list_action_execute, file_list_action_execute_script,
-                file_list_action_file_edit, file_list_action_open_with,
+                file_list_action_execute, file_list_action_file_edit, file_list_action_open_with,
                 file_list_action_open_with_default, file_list_action_open_with_other,
             },
             popup::list_popup_menu,
@@ -217,17 +216,6 @@ mod imp {
             klass.install_action_async("fl.execute", None, |obj, _, _| async move {
                 file_list_action_execute(&obj).await;
             });
-            klass.install_action_async(
-                "fl.execute-script",
-                Some(&Script::static_variant_type()),
-                |obj, _, parameter| async move {
-                    if let Some(script) = parameter.as_ref().and_then(Script::from_variant) {
-                        file_list_action_execute_script(&obj, script).await;
-                    } else {
-                        eprintln!("Cannot load script from a variant");
-                    }
-                },
-            );
             klass.install_action_async(
                 "fl.drop-files",
                 Some(&Option::<TransferType>::static_variant_type()),
