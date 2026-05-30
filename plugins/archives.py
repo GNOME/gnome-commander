@@ -422,7 +422,10 @@ class ArchivesPlugin(Plugin):
 
         target_path = target_dir or source_dir
         if not format.MULTI_FILE:
-            target_path = os.path.join(target_path, 'unpacked')
+            basename, ext = os.path.splitext(file)
+            target_path = os.path.join(
+                target_path, basename if ext else 'unpacked'
+            )
         result = await self.show_dialog({
             'title': _('Extract Archive'),
             'modal': True,
