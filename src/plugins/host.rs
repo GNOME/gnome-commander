@@ -7,7 +7,7 @@ use super::{
     PluginInstanceOutput,
     protocol::{ApiResponseFromHost, MessageToPlugin},
 };
-use crate::options::PluginsOptions;
+use crate::{debug::debug, options::PluginsOptions};
 use async_broadcast::Sender as BroadcastSender;
 use async_channel::Receiver;
 use futures::Stream;
@@ -61,6 +61,7 @@ impl PluginHost {
     }
 
     fn process_incoming(&mut self, message: MessageToPluginHost) -> Option<MessageFromPluginHost> {
+        debug!('p', "Message to plugin host: {message:?}");
         match message {
             MessageToPluginHost::GetPlugins => Some(MessageFromPluginHost::Plugins(
                 self.plugins
@@ -195,6 +196,15 @@ impl PluginHost {
 
         result
     }
+
+    fn send_outgoing(
+        sender: &BroadcastSender<MessageFromPluginHost>,
+        message: MessageFromPluginHost,
+    ) {
+        debug!('p', "Message from plugin host: {message:?}");
+        // An error here is expected when no receivers are active.
+        let _ = sender.try_broadcast(message);
+    }
 }
 
 impl Future for PluginHost {
@@ -203,8 +213,7 @@ impl Future for PluginHost {
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         while let Poll::Ready(Some(message)) = Pin::new(&mut self.receiver).poll_next(cx) {
             if let Some(outgoing) = self.process_incoming(message) {
-                // An error here is expected when no receivers are active.
-                let _ = self.sender.try_broadcast(outgoing);
+                Self::send_outgoing(&self.sender, outgoing);
             }
         }
 
@@ -231,13 +240,11 @@ impl Future for PluginHost {
                                 pending_api_requests,
                             );
                             for message in outgoing.into_iter() {
-                                let _ = sender.try_broadcast(message);
+                                Self::send_outgoing(sender, message);
                             }
                         }
                     }
-
-                    // An error here is expected when no receivers are active.
-                    let _ = sender.try_broadcast(message);
+                    Self::send_outgoing(sender, message);
                 }
             }
         }

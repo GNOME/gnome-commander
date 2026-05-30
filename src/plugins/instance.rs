@@ -9,6 +9,7 @@ use super::{
 };
 use crate::{
     config::{DATADIR, PACKAGE},
+    debug::debug,
     main_win::ExecutionTarget,
     options::PluginsOptions,
 };
@@ -207,6 +208,7 @@ impl PluginInstance {
     }
 
     pub fn send_message(&mut self, msg: MessageToPlugin) {
+        debug!('p', "Message to plugin {}: {msg:?}", self.file_name());
         let data = match serde_json::to_vec(&msg) {
             Ok(data) => data,
             Err(error) => {
@@ -278,6 +280,7 @@ impl PluginInstance {
         const UPDATED: Result<Option<PluginInstanceOutput>, ()> =
             Ok(Some(PluginInstanceOutput::Updated));
 
+        debug!('p', "Message from plugin {}: {message:?}", self.file_name());
         match message {
             MessageFromPlugin::Info(data) => {
                 self.metadata.name = Some(data.name);
