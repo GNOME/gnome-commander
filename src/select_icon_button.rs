@@ -2,9 +2,8 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::config::PIXMAPS_DIR;
 use gettextrs::gettext;
-use gtk::{gio, glib, prelude::*, subclass::prelude::*};
+use gtk::{gdk, gio, glib, prelude::*, subclass::prelude::*};
 use std::path::PathBuf;
 
 mod imp {
@@ -63,9 +62,22 @@ mod imp {
 
         async fn clicked(&self) {
             let parent = self.obj().root().and_downcast::<gtk::Window>();
-            let directory = self
-                .directory()
-                .unwrap_or_else(|| PathBuf::from(&PIXMAPS_DIR));
+            let directory = self.directory().unwrap_or_else(|| {
+                if let Some(display) = gdk::Display::default() {
+                    // User-specific search paths are listed first, yet these are less likely to
+                    // contain icons. So we start from the end of the list.
+                    for path in gtk::IconTheme::for_display(&display)
+                        .search_path()
+                        .into_iter()
+                        .rev()
+                    {
+                        if std::fs::exists(&path).is_ok_and(|result| result) {
+                            return path;
+                        }
+                    }
+                }
+                PathBuf::from("/")
+            });
 
             let filter = gtk::FileFilter::new();
             filter.add_pixbuf_formats();

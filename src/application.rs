@@ -81,6 +81,7 @@ mod imp {
             }
 
             if let Some(display) = gdk::Display::default() {
+                gio::resources_register_include!("icons.gresource").unwrap();
                 gtk::IconTheme::for_display(&display).add_search_path(ICONS_DIR);
             }
 

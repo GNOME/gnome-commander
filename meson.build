@@ -39,8 +39,6 @@ summary('buildtype', get_option('buildtype'), section: 'Build Configuration')
 summary('debug', get_option('debug'), section: 'Build Configuration')
 
 plugin_dir = libdir / meson.project_name() / 'plugins'
-pixmaps_dir = datadir / 'pixmaps' / meson.project_name()
-icons_dir = datadir / meson.project_name() / 'icons'
 
 conf_data = configuration_data()
 
@@ -49,8 +47,6 @@ conf_data.set_quoted('PACKAGE',           '@0@'.format(meson.project_name()), de
 conf_data.set_quoted('PACKAGE_NAME',      '@0@'.format(meson.project_name()), description : 'Define to the full name of this package.')
 conf_data.set_quoted('PACKAGE_URL',       '@0@'.format(package_url), description : 'Define to the home page for this package.')
 conf_data.set_quoted('PACKAGE_BUGREPORT', '@0@'.format(package_bugreport), description : 'Define to the address where bug reports for this package should be sent.')
-conf_data.set_quoted('PIXMAPS_DIR',       '@0@'.format(pixmaps_dir), description : 'pixmaps location')
-conf_data.set_quoted('ICONS_DIR',         '@0@'.format(icons_dir), description : 'icons location')
 conf_data.set_quoted('PLUGIN_DIR',        '@0@'.format(plugin_dir), description : 'location of plugins')
 conf_data.set_quoted('PREFIX',            '@0@'.format(prefix), description : 'definition of PREFIX')
 conf_data.set_quoted('PACKAGE_VERSION',   '@0@'.format(meson.project_version()), description : 'Define to the version of this package.')
@@ -87,8 +83,6 @@ summary(
     'bindir': bindir,
     'libdir': libdir,
     'datadir': datadir,
-    'iconsdir': icons_dir,
-    'pixmapsdir': pixmaps_dir,
     'plugindir': plugin_dir
   },
   section: 'Directories'
@@ -103,7 +97,6 @@ summary(
 
 subdir('src')
 subdir('data')
-subdir('pixmaps')
 subdir('plugins')
 
 if get_option('help')
@@ -113,6 +106,5 @@ subdir('po')
 
 gnome.post_install(
   glib_compile_schemas: true,
-  gtk_update_icon_cache: true,
   update_desktop_database: true
 )

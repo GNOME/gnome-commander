@@ -18,7 +18,6 @@ use crate::{
     file::{File, FileOps},
     filter::{Filter, fnmatch},
     history::History,
-    imageloader::icon_cache,
     layout::{
         PREF_COLORS,
         ls_colors::{LsPalletteColor, ls_colors_get},
@@ -2893,8 +2892,6 @@ fn matches_pattern(file: &str, patterns: &str) -> bool {
 }
 
 fn create_icon_factory() -> gtk::ListItemFactory {
-    let icon_cache = icon_cache();
-
     let color_settings = gio::Settings::new(PREF_COLORS);
 
     let factory = gtk::SignalListItemFactory::new();
@@ -2955,7 +2952,7 @@ fn create_icon_factory() -> gtk::ListItemFactory {
             if !file.is_dotdot() && file.file_info().is_symlink() {
                 overlay.add_overlay(
                     &gtk::Image::builder()
-                        .gicon(icon_cache.symlink_overlay())
+                        .icon_name("gnome-commander-overlay-symlink")
                         .pixel_size(9)
                         .halign(gtk::Align::End)
                         .valign(gtk::Align::End)
@@ -2972,8 +2969,54 @@ fn create_icon_factory() -> gtk::ListItemFactory {
                     stack.set_visible_child(&label);
                 }
                 mode => {
-                    if let Some(icon) = icon_cache.file_icon(&file, mode) {
-                        image.set_from_gicon(&icon);
+                    let file_type_icon = match file.file_type() {
+                        gio::FileType::Directory
+                        | gio::FileType::Shortcut
+                        | gio::FileType::Mountable => "file_type_dir",
+                        gio::FileType::SymbolicLink => "file_type_symlink",
+                        gio::FileType::Special => "file_type_socket",
+                        _ => "file_type_regular",
+                    };
+
+                    if mode == GraphicalLayoutMode::MimeIcons
+                        && let Some(mime_type) = file.content_type()
+                    {
+                        let mut icons: Vec<&str> = Vec::new();
+                        let mime_default = mime_type.replace('/', "-");
+                        icons.push(&mime_default);
+
+                        if mime_type.starts_with("text") {
+                            icons.push("text-x-generic");
+                        } else if mime_type.starts_with("video") {
+                            icons.push("video-x-generic");
+                        } else if mime_type.starts_with("image") {
+                            icons.push("image-x-generic");
+                        } else if mime_type.starts_with("audio") {
+                            icons.push("audio-x-generic");
+                        } else if mime_type.starts_with("pack") {
+                            icons.push("package-x-generic");
+                        } else if mime_type.starts_with("font") {
+                            icons.push("font-x-generic");
+                        }
+
+                        let mime_fallback = format!("gnome-{mime_default}");
+                        icons.push(&mime_fallback);
+
+                        match file.file_type() {
+                            gio::FileType::Directory
+                            | gio::FileType::Shortcut
+                            | gio::FileType::Mountable => {
+                                icons.extend(["inode-directory", "i-directory"]);
+                            }
+                            gio::FileType::SymbolicLink => {
+                                icons.extend(["inode-symlink", "i-symlink"]);
+                            }
+                            _ => icons.push("i-regular"),
+                        }
+                        icons.push(file_type_icon);
+                        image.set_from_gicon(&gio::ThemedIcon::from_names(&icons));
+                    } else {
+                        image.set_icon_name(Some(file_type_icon));
                     }
                     stack.set_visible_child(&overlay);
                 }

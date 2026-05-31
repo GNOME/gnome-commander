@@ -161,11 +161,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
       <summary>Icon scale quality</summary>
       <description>Describes the different interpolation modes that can be used with the scaling functions.</description>
     </key>
-    <key name="mime-icon-dir" type="s">
-      <default>''</default>
-      <summary>MIME icon directory</summary>
-      <description>Directory in which MIME icons are located.</description>
-    </key>
     <key name="cmdline-history" type="as">
       <default>[]</default>
       <summary>Command line history</summary>

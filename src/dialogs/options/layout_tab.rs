@@ -11,11 +11,10 @@ use crate::{
         ls_colors_palette::LsColorsPalette,
     },
     options::{ColorOptions, GeneralOptions, types::WriteResult},
-    select_directory_button::DirectoryButton,
     types::{ExtensionDisplayMode, GraphicalLayoutMode, IconScaleQuality},
 };
 use gettextrs::gettext;
-use gtk::{gio, pango, prelude::*};
+use gtk::{pango, prelude::*};
 use std::{cell::RefCell, rc::Rc};
 
 pub struct LayoutTab {
@@ -29,7 +28,6 @@ pub struct LayoutTab {
     ls_color_palette: Rc<RefCell<LsColorsPalette>>,
     icon_size: gtk::SpinButton,
     icon_scale_quality: gtk::Scale,
-    mime_icon_dir: DirectoryButton,
 }
 
 impl LayoutTab {
@@ -241,20 +239,6 @@ impl LayoutTab {
         );
         grid.attach(&icon_scale_quality, 1, 1, 1, 1);
 
-        let mime_icon_dir = DirectoryButton::default();
-        grid.attach(
-            &gtk::Label::builder()
-                .label(gettext("Theme icon directory:"))
-                .halign(gtk::Align::Start)
-                .mnemonic_widget(&mime_icon_dir)
-                .build(),
-            0,
-            2,
-            1,
-            1,
-        );
-        grid.attach(&mime_icon_dir, 1, 2, 1, 1);
-
         graphical_layout_mode
             .bind_property("selected", &mime_icon_settings_frame, "sensitive")
             .transform_to(|_, selected: u32| Some(selected == 2))
@@ -285,7 +269,6 @@ impl LayoutTab {
             ls_color_palette,
             icon_size,
             icon_scale_quality,
-            mime_icon_dir,
         }
     }
 
@@ -314,8 +297,6 @@ impl LayoutTab {
             .set_value(general_options.icon_size.get() as f64);
         self.icon_scale_quality
             .set_value(u32::from(general_options.icon_scale_quality.get()) as f64);
-        self.mime_icon_dir
-            .set_file(general_options.mime_icon_dir.get().map(gio::File::for_path));
     }
 
     pub fn write(
@@ -352,9 +333,6 @@ impl LayoutTab {
             .set(IconScaleQuality::from(
                 self.icon_scale_quality.value() as u32
             ))?;
-        general_options
-            .mime_icon_dir
-            .set(self.mime_icon_dir.file().and_then(|f| f.path()))?;
         Ok(())
     }
 }
