@@ -8,7 +8,7 @@ use super::{
     protocol::{MessageFromPlugin, MessageToPlugin},
 };
 use crate::{
-    config::{DATADIR, PACKAGE},
+    config::{PACKAGE, locale_dir},
     debug::debug,
     main_win::ExecutionTarget,
     options::PluginsOptions,
@@ -154,7 +154,7 @@ impl PluginInstance {
         match Command::new(&self.path)
             .env("PYTHONPATH", &self.system_dir)
             .env("GETTEXT_DOMAIN", PACKAGE)
-            .env("GETTEXT_DIR", Path::new(DATADIR).join("locale"))
+            .env("GETTEXT_DIR", locale_dir())
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .spawn()

@@ -59,14 +59,13 @@ mod gmodule;
 use application::Application;
 use gtk::prelude::*;
 use std::error::Error;
-use std::path::Path;
 use std::process::Termination;
 
-use crate::config::{DATADIR, PACKAGE};
+use crate::config::{PACKAGE, locale_dir};
 
 fn main() -> Result<impl Termination, Box<dyn Error>> {
     gettextrs::setlocale(gettextrs::LocaleCategory::LcAll, "");
-    gettextrs::bindtextdomain(PACKAGE, Path::new(DATADIR).join("locale"))?;
+    gettextrs::bindtextdomain(PACKAGE, locale_dir())?;
     gettextrs::bind_textdomain_codeset(PACKAGE, "UTF-8")?;
     gettextrs::textdomain(PACKAGE)?;
 
