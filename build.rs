@@ -2,13 +2,13 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use glib_build_tools::compile_resources;
 use std::{
     env,
     fs::File,
     io::Write,
     path,
     path::{Path, PathBuf},
+    process::Command,
 };
 use walkdir::WalkDir;
 
@@ -16,27 +16,25 @@ fn main() {
     system_deps::Config::new().probe().unwrap();
 
     compile_resources(
-        &["pixmaps"],
-        &generate_gresource("pixmaps").as_os_str().to_string_lossy(),
+        "pixmaps",
+        "/org/gnome/gnome-commander/icons",
         "icons.gresource",
     );
 }
 
-fn generate_gresource(root_dir: impl AsRef<Path>) -> PathBuf {
+fn compile_resources(root_dir: impl AsRef<Path>, prefix: &str, outfile: &str) {
     let outdir = env::var_os("OUT_DIR").unwrap();
-    let mut path = PathBuf::from(outdir);
-    path.push("icons.gresource.xml");
+    let mut xml_path = PathBuf::from(&outdir);
+    xml_path.push(&format!("{outfile}.xml"));
 
-    let mut file = File::create(&path).unwrap();
-    file.write_all(
-        br#"<?xml version="1.0" encoding="UTF-8"?>
-        <gresources>
-            <gresource prefix="/org/gnome/gnome-commander/icons">
-    "#,
+    let mut file = File::create(&xml_path).unwrap();
+    write!(
+        file,
+        r#"<?xml version="1.0" encoding="UTF-8"?><gresources><gresource prefix="{prefix}">"#
     )
     .unwrap();
 
-    for entry in WalkDir::new(path::absolute(root_dir).unwrap()) {
+    for entry in WalkDir::new(path::absolute(&root_dir).unwrap()) {
         let entry = entry.unwrap();
         if !entry.file_type().is_file() {
             continue;
@@ -64,5 +62,21 @@ fn generate_gresource(root_dir: impl AsRef<Path>) -> PathBuf {
         }
     }
     file.write_all(br#"</gresource></gresources>"#).unwrap();
-    path
+
+    let mut out_path = PathBuf::from(&outdir);
+    out_path.push(outfile);
+    let output = Command::new("glib-compile-resources")
+        .arg("--target")
+        .arg(out_path)
+        .arg(xml_path)
+        .output()
+        .unwrap();
+    assert!(
+        output.status.success(),
+        "glib-compile-resources failed with exit status {} and stderr:\n{}",
+        output.status,
+        String::from_utf8_lossy(&output.stderr)
+    );
+
+    println!("cargo:rerun-if-changed={}", root_dir.as_ref().display());
 }
