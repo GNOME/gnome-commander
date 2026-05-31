@@ -181,7 +181,8 @@ class Plugin:
         if hasattr(self, method):
             try:
                 response = await getattr(self, method)(data)
-            except:
+            except Exception as e:
+                self.send_message('error', str(e))
                 traceback.print_exc()
                 response = []
             if method != 'menu_activated':
