@@ -52,6 +52,9 @@ async-std = { version = "1.13.2", features = ["attributes"] }
 rusty-fork = "0.3.0"
 tempfile = "3.11.0"
 
+[profile.dev.package."*"]
+opt-level = 3
+
 [profile.test]
 rpath = true
 
