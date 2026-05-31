@@ -14,8 +14,6 @@ gnome = import('gnome')
 i18n = import('i18n')
 
 # Constants
-package_url = 'https://gnome.pages.gitlab.gnome.org/gnome-commander/'
-package_bugreport = 'https://gitlab.gnome.org/GNOME/gnome-commander/issues'
 app_id = 'org.gnome.gnome-commander'
 
 prefix = get_option('prefix')
@@ -42,10 +40,6 @@ plugin_dir = libdir / meson.project_name() / 'plugins'
 conf_data = configuration_data()
 
 conf_data.set_quoted('DATADIR',           '@0@'.format(datadir), description : '')
-conf_data.set_quoted('PACKAGE',           '@0@'.format(meson.project_name()), description : 'Name of package')
-conf_data.set_quoted('PACKAGE_NAME',      '@0@'.format(meson.project_name()), description : 'Define to the full name of this package.')
-conf_data.set_quoted('PACKAGE_URL',       '@0@'.format(package_url), description : 'Define to the home page for this package.')
-conf_data.set_quoted('PACKAGE_BUGREPORT', '@0@'.format(package_bugreport), description : 'Define to the address where bug reports for this package should be sent.')
 conf_data.set_quoted('PLUGIN_DIR',        '@0@'.format(plugin_dir), description : 'location of plugins')
 conf_data.set_quoted('PREFIX',            '@0@'.format(prefix), description : 'definition of PREFIX')
 
