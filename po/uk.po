@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/"
 "\n"
 "POT-Creation-Date: 2026-05-26 16:20+0000\n"
-"PO-Revision-Date: 2026-05-27 21:27+0300\n"
+"PO-Revision-Date: 2026-05-31 21:44+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2198,12 +2198,16 @@ msgid ""
 "PDF handling requires pypdf package for Python to be installed on your "
 "system."
 msgstr ""
+"Для обробки PDF у вашій системі має бути встановлено пакунок pypdf для"
+" Python."
 
 #: plugins/document-metadata.py:190
 msgid ""
 "Package pypdf for Python is not installed on your system, PDF handling has "
 "been disabled."
 msgstr ""
+"У вашій системі не встановлено пакунок pypdf для Python, отже обробку PDF"
+" вимкнено."
 
 #: plugins/document-metadata.py:206
 #| msgid "Undefined"
@@ -2276,13 +2280,15 @@ msgstr "Піксельна композиція."
 
 #: plugins/image-metadata.py:41
 msgid "Thresholding"
-msgstr ""
+msgstr "Поділ за пороговим значенням"
 
 #: plugins/image-metadata.py:41
 msgid ""
 "For black and white TIFF files that represent shades of gray, the technique "
 "used to convert from gray to black and white pixels."
 msgstr ""
+"Для чорно-білих зображень TIFF, де відтворено відтінки сірого, методика, яку"
+" використано для перетворення з сірого на чорні і білі пікселі."
 
 #: plugins/image-metadata.py:42
 #| msgid "Page Width"
@@ -2312,17 +2318,16 @@ msgstr "Послідовність заповнення"
 
 #: plugins/image-metadata.py:44
 msgid "The logical order of bits within a byte"
-msgstr ""
+msgstr "Логічний порядок бітів у байті"
 
 #: plugins/image-metadata.py:45
 msgid "Document Name"
 msgstr "Назва документа"
 
 #: plugins/image-metadata.py:45
-#, fuzzy
 #| msgid "The last time the document was saved."
 msgid "The name of the document from which this image was scanned."
-msgstr "Час останнього збереження документа."
+msgstr "Назва документа, з якого було заскановано це зображення."
 
 #: plugins/image-metadata.py:46
 msgid "Image Description"
@@ -2330,14 +2335,13 @@ msgstr "Опис зображення"
 
 #: plugins/image-metadata.py:46
 msgid "A character string giving the title of the image."
-msgstr ""
+msgstr "Рядок символів, який задає заголовок зображення."
 
 #: plugins/image-metadata.py:47
 msgid "Manufacturer"
 msgstr "Виробник"
 
 #: plugins/image-metadata.py:47
-#, fuzzy
 #| msgid ""
 #| "The manufacturer of the recording equipment. This is the manufacturer of "
 #| "the DSC, scanner, video digitizer or other equipment that generated the "
@@ -2348,15 +2352,13 @@ msgid ""
 msgstr ""
 "Виробник обладнання для записування даних. Це може бути виробник цифрового "
 "дзеркального фотоапарата, сканера, засобу для цифрування відеоданих або "
-"іншого обладнання, за допомогою якого було створено зображення. Якщо "
-"значення поля є порожнім, вважається, що виробник є невідомим."
+"іншого обладнання, за допомогою якого було створено зображення."
 
 #: plugins/image-metadata.py:48
 msgid "Model"
 msgstr "Модель"
 
 #: plugins/image-metadata.py:48
-#, fuzzy
 #| msgid ""
 #| "The model name or model number of the equipment. This is the model name "
 #| "or number of the DSC, scanner, video digitizer or other equipment that "
@@ -2368,8 +2370,7 @@ msgid ""
 "generated the image."
 msgstr ""
 "Назва моделі або номер моделі обладнання. Це назва або номер DSC, сканера, "
-"цифрового відеоперетворювача або іншого обладнання що генерує зображення. "
-"Якщо це поле залишається порожнім, дані вважаються невідомими."
+"цифрового відеоперетворювача або іншого обладнання що генерує зображення."
 
 #: plugins/image-metadata.py:49
 msgid "Orientation"
@@ -2385,14 +2386,13 @@ msgstr "Фрагментів на піксель"
 
 #: plugins/image-metadata.py:50
 msgid "The number of components per pixel."
-msgstr ""
+msgstr "Кількість компонентів на один піксель."
 
 #: plugins/image-metadata.py:51
 msgid "Rows per Strip"
 msgstr "Ліній на смугу"
 
 #: plugins/image-metadata.py:51
-#, fuzzy
 #| msgid ""
 #| "The number of rows per strip. This is the number of rows in the image of "
 #| "one strip when an image is divided into strips. With JPEG compressed data "
@@ -2400,25 +2400,21 @@ msgstr "Ліній на смугу"
 msgid ""
 "The number of rows per strip. This is the number of rows in the image of one "
 "strip when an image is divided into strips."
-msgstr ""
-"Кількість ліній на смугу, якщо зображення розбите на смуги. В разі "
-"використання  JPEG стиснення параметр не потрібен і пропускається."
+msgstr "Кількість ліній на смугу, якщо зображення розбите на смуги."
 
 #: plugins/image-metadata.py:52 plugins/image-metadata.py:85
-#, fuzzy
 #| msgid "Sample Rate"
 msgid "SMin Sample Value"
-msgstr "Частота дискретизації"
+msgstr "Значення дискретизації SMin"
 
 #: plugins/image-metadata.py:52 plugins/image-metadata.py:85
 msgid "This field specifies the minimum sample value."
 msgstr ""
 
 #: plugins/image-metadata.py:53 plugins/image-metadata.py:86
-#, fuzzy
 #| msgid "Max Aperture Value"
 msgid "SMax Sample Value"
-msgstr "Максимальна апертура"
+msgstr "Значення дискретизації SMax"
 
 #: plugins/image-metadata.py:53 plugins/image-metadata.py:86
 msgid "This field specifies the maximum sample value."
@@ -2467,17 +2463,15 @@ msgid ""
 msgstr ""
 
 #: plugins/image-metadata.py:57
-#, fuzzy
 #| msgid "Page Size"
 msgid "Page Name"
 msgstr "Назва сторінки"
 
 #: plugins/image-metadata.py:57
-#, fuzzy
 #| msgid ""
 #| "The name of the country/primary location where the object was created."
 msgid "The name of the page from which this image was scanned."
-msgstr "Назва країни або основного місця, де було створено об'єкт."
+msgstr "Назва сторінки, з якої було заскановано це зображення."
 
 #: plugins/image-metadata.py:58
 #| msgid "Position Sync"
@@ -2503,10 +2497,9 @@ msgid ""
 msgstr ""
 
 #: plugins/image-metadata.py:60
-#, fuzzy
 #| msgid "Resolution Unit"
 msgid "Gray Response Unit"
-msgstr "Одиниця роздільної здатності"
+msgstr "Одиниця відповіді сірого"
 
 #: plugins/image-metadata.py:60
 msgid "The precision of the information contained in the GrayResponseCurve."
@@ -2514,42 +2507,37 @@ msgstr ""
 
 #: plugins/image-metadata.py:61
 msgid "Gray Response Curve"
-msgstr ""
+msgstr "Крива відгуку сірого"
 
 #: plugins/image-metadata.py:61
 msgid "For grayscale data, the optical density of each possible pixel value."
 msgstr ""
 
 #: plugins/image-metadata.py:62
-#, fuzzy
 #| msgid "Options"
 msgid "T4 Options"
-msgstr "Параметри"
+msgstr "Параметри T4"
 
 #: plugins/image-metadata.py:62
-#, fuzzy
 #| msgid "Encoding time."
 msgid "T.4-encoding options."
-msgstr "Час кодування."
+msgstr "Параметри кодування T.4."
 
 #: plugins/image-metadata.py:63
-#, fuzzy
 #| msgid "Options"
 msgid "T6 Options"
-msgstr "Параметри"
+msgstr "Параметри T6"
 
 #: plugins/image-metadata.py:63
-#, fuzzy
 #| msgid "Encoding time."
 msgid "T.6-encoding options."
-msgstr "Час кодування."
+msgstr "Параметри кодування T.6."
 
 #: plugins/image-metadata.py:64
 msgid "Resolution Unit"
 msgstr "Одиниця роздільної здатності"
 
 #: plugins/image-metadata.py:64
-#, fuzzy
 #| msgid ""
 #| "The unit for measuring <Exif.XResolution> and <Exif.YResolution>. The "
 #| "same unit is used for both <Exif.XResolution> and <Exif.YResolution>. If "
@@ -2558,20 +2546,17 @@ msgid ""
 "The unit for measuring <XResolution> and <YResolution>. The same unit is "
 "used for both <XResolution> and <YResolution>."
 msgstr ""
-"Одиниця виміру <Exif.XResolution> і <Exif.YResolution>. Для "
-"<Exif.XResolution> і <Exif.YResolution> використовується одна одиниця. Якщо "
-"роздільна здатність зображення є невідомою, припускається типове значення 2 "
-"(дюйми)."
+"Одиниця виміру <XResolution> і <YResolution>. Для "
+"<XResolution> і <YResolution> використовується одна одиниця."
 
 #: plugins/image-metadata.py:65
-#, fuzzy
 #| msgid "F Number"
 msgid "Page Number"
 msgstr "Номер сторінки"
 
 #: plugins/image-metadata.py:65
 msgid "The page number of the page from which this image was scanned."
-msgstr ""
+msgstr "Номер сторінки, з якої було заскановано це зображення."
 
 #: plugins/image-metadata.py:66
 msgid "Transfer Function"
@@ -2586,7 +2571,6 @@ msgid "Software"
 msgstr "Програмне забезпечення"
 
 #: plugins/image-metadata.py:67
-#, fuzzy
 #| msgid ""
 #| "This tag records the name and version of the software or firmware of the "
 #| "camera or image input device used to generate the image. When the field "
@@ -2597,14 +2581,13 @@ msgid ""
 msgstr ""
 "Цей тег містить назву та версію програмного забезпечення або мікропрограми "
 "фотокамери або іншого ввідного пристрою, що був використаний для створення "
-"зображення. В разі, коли поле залишено порожнім, дані вважаються невідомими."
+"зображення."
 
 #: plugins/image-metadata.py:68
 msgid "Date and Time"
 msgstr "Дата і Час"
 
 #: plugins/image-metadata.py:68
-#, fuzzy
 #| msgid ""
 #| "The date and time when the original image data was generated. For a "
 #| "digital still camera the date and time the picture was taken are recorded."
@@ -2612,8 +2595,8 @@ msgid ""
 "The date and time of image creation. In Exif standard, it is the date and "
 "time the file was changed."
 msgstr ""
-"Дата і час, коли було створено оригінальне зображення. Для цифрової "
-"фотокамери це дата і час зйомки."
+"Дата і час створення зображення. У стандарті EXIF це дата і час, коли файл"
+" було змінено."
 
 #: plugins/image-metadata.py:69 plugins/multimedia-metadata.py:198
 #: plugins/multimedia-metadata.py:258
@@ -2651,10 +2634,9 @@ msgid "White Point"
 msgstr "Відмітка білого"
 
 #: plugins/image-metadata.py:72
-#, fuzzy
 #| msgid "Format of the date in the file panel."
 msgid "The chromaticity of the white point of the image."
-msgstr "Формат дат на панелі файлів."
+msgstr "Показник кольору відмітки білого для зображення."
 
 #: plugins/image-metadata.py:73
 msgid "Primary Chromaticities"
@@ -2697,10 +2679,9 @@ msgid "The tile width in pixels. This is the number of columns in each tile."
 msgstr ""
 
 #: plugins/image-metadata.py:77
-#, fuzzy
 #| msgid "Image Length"
 msgid "Tile Length"
-msgstr "Довжина зображення"
+msgstr "Довжина плитки"
 
 #: plugins/image-metadata.py:77
 msgid ""
@@ -2715,33 +2696,34 @@ msgstr "Набір чорнил"
 msgid ""
 "The set of inks used in a separated (PhotometricInterpretation=5) image."
 msgstr ""
+"Набір чорнил, які використано в окремому (PhotometricInterpretation=5)"
+" зображенні."
 
 #: plugins/image-metadata.py:79
-#, fuzzy
 #| msgid "Name"
 msgid "Ink Names"
-msgstr "Назва"
+msgstr "Назви чорнил"
 
 #: plugins/image-metadata.py:79
 msgid ""
 "The name of each ink used in a separated (PhotometricInterpretation=5) image."
 msgstr ""
+"Назви кожного з чорнил, які використано в окремому"
+" (PhotometricInterpretation=5) зображенні."
 
 #: plugins/image-metadata.py:80
-#, fuzzy
 #| msgid "Number of frames."
 msgid "Number Of Inks"
-msgstr "Кількість кадрів."
+msgstr "Кількість чорнил"
 
 #: plugins/image-metadata.py:80
-#, fuzzy
 #| msgid "Number of frames."
 msgid "The number of inks."
-msgstr "Кількість кадрів."
+msgstr "Кількість чорнил."
 
 #: plugins/image-metadata.py:81
 msgid "Dot Range"
-msgstr ""
+msgstr "Діапазон крапок"
 
 #: plugins/image-metadata.py:81
 #, python-format
@@ -2749,10 +2731,9 @@ msgid "The component values that correspond to a 0% dot and 100% dot."
 msgstr ""
 
 #: plugins/image-metadata.py:82
-#, fuzzy
 #| msgid "Last Printed"
 msgid "Target Printer"
-msgstr "Останній друк"
+msgstr "Принтер призначення"
 
 #: plugins/image-metadata.py:82
 msgid ""
@@ -2761,10 +2742,9 @@ msgid ""
 msgstr ""
 
 #: plugins/image-metadata.py:83
-#, fuzzy
 #| msgid "Bits per Sample"
 msgid "Extra Samples"
-msgstr "Бітів на семпл"
+msgstr "Додаткові семпли"
 
 #: plugins/image-metadata.py:83
 msgid ""
@@ -2787,7 +2767,7 @@ msgstr "Діапазон переносу"
 
 #: plugins/image-metadata.py:87
 msgid "Expands the range of the TransferFunction"
-msgstr ""
+msgstr "Розширює діапазон TransferFunction"
 
 #: plugins/image-metadata.py:88
 #| msgid "Path"
@@ -2802,7 +2782,7 @@ msgstr ""
 
 #: plugins/image-metadata.py:89
 msgid "JPEG tables"
-msgstr ""
+msgstr "Таблиці JPEG"
 
 #: plugins/image-metadata.py:89
 msgid ""
@@ -2811,14 +2791,14 @@ msgid ""
 msgstr ""
 
 #: plugins/image-metadata.py:90
-#, fuzzy
 #| msgid "JPEG Procedure"
 msgid "JPEG Process"
-msgstr "Процедура JPEG"
+msgstr "Процес JPEG"
 
 #: plugins/image-metadata.py:90
 msgid "This field indicates the process used to produce the compressed data"
 msgstr ""
+"Це поле вказує на процес, який використано для створення стиснених даних"
 
 #: plugins/image-metadata.py:91
 msgid "YCbCr Coefficients"
@@ -2851,7 +2831,6 @@ msgid "YCbCr Positioning"
 msgstr "Позиціювання YCbCr"
 
 #: plugins/image-metadata.py:93
-#, fuzzy
 #| msgid ""
 #| "The sampling ratio of chrominance components in relation to the luminance "
 #| "component. In JPEG compressed data a JPEG marker is used instead of this "
@@ -2859,9 +2838,7 @@ msgstr "Позиціювання YCbCr"
 msgid ""
 "The position of chrominance components in relation to the luminance "
 "component."
-msgstr ""
-"Частка у вибірці компонентів колірності відносно компонента освітленості. У "
-"стиснених даних JPEG замість цієї мітки використовується позначка JPEG."
+msgstr "Позиція компонентів колірності відносно компонента освітленості."
 
 #: plugins/image-metadata.py:94
 msgid "Reference Black/White"
@@ -2872,14 +2849,13 @@ msgid "The reference black point value and reference white point value."
 msgstr ""
 
 #: plugins/image-metadata.py:95
-#, fuzzy
 #| msgid "Window state"
 msgid "Windows Rating"
-msgstr "Стан вікна"
+msgstr "Оцінка Windows"
 
 #: plugins/image-metadata.py:95
 msgid "Rating tag used by Windows"
-msgstr ""
+msgstr "Мітка оцінки, яка використовується Windows"
 
 #: plugins/image-metadata.py:96
 #, fuzzy
@@ -3111,7 +3087,7 @@ msgstr "Конфігурація компонентів"
 
 #: plugins/image-metadata.py:116
 msgid "Information specific to compressed data."
-msgstr ""
+msgstr "Специфічні для стиснених даних відомості."
 
 #: plugins/image-metadata.py:117
 #, fuzzy
