@@ -35,13 +35,8 @@ summary('datadir', get_option('datadir'))
 summary('buildtype', get_option('buildtype'), section: 'Build Configuration')
 summary('debug', get_option('debug'), section: 'Build Configuration')
 
-plugin_dir = libdir / meson.project_name() / 'plugins'
-
-conf_data = configuration_data()
-
-conf_data.set_quoted('DATADIR',           '@0@'.format(datadir), description : '')
-conf_data.set_quoted('PLUGIN_DIR',        '@0@'.format(plugin_dir), description : 'location of plugins')
-conf_data.set_quoted('PREFIX',            '@0@'.format(prefix), description : 'definition of PREFIX')
+locale_dir = datadir / 'locale'
+plugin_dir = datadir / meson.project_name() / 'plugins'
 
 meson.add_dist_script(
   find_program('check-news.sh').full_path(),
@@ -75,7 +70,8 @@ summary(
     'bindir': bindir,
     'libdir': libdir,
     'datadir': datadir,
-    'plugindir': plugin_dir
+    'plugindir': plugin_dir,
+    'localedir': locale_dir,
   },
   section: 'Directories'
 )

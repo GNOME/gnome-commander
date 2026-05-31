@@ -4,7 +4,7 @@ Gnome Commander allows delegating some of the work to plugins which are essentia
 
 ## Installing plugins
 
-Gnome Commander plugins can be installed system wide or for a particular user account. The directory for system plugins is typically `/usr/lib64/gnome-commander/plugins` but can vary if the Gnome Commander build was configured with a different library directory. The user plugin directory is usually `~/.config/gnome-commander/plugins`. If a plugin with the same file name is present in both directories, the per-user installation takes precedence.
+Gnome Commander plugins can be installed system wide or for a particular user account. The directory for system plugins is typically `/usr/share/gnome-commander/plugins` but can vary if the Gnome Commander build was configured with a different library directory. The user plugin directory is usually `~/.config/gnome-commander/plugins`. If a plugin with the same file name is present in both directories, the per-user installation takes precedence.
 
 Plugins should be installed at the top level of the plugins directory, any plugins nested within subdirectories will not be considered. A plugin can be either a single executable file or a directory. If it is the latter, the directory is expected to contain an executable file `main` which will be started.
 

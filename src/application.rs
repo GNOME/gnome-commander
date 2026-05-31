@@ -10,7 +10,7 @@ use gtk::{gdk, gio, glib, pango, prelude::*, subclass::prelude::*};
 mod imp {
     use super::*;
     use crate::{
-        config::{ICONS_DIR, PACKAGE},
+        config::{ICONS_PREFIX, PACKAGE},
         connection::list::ConnectionList,
         debug::set_debug_flags,
         main_win::MainWindow,
@@ -82,7 +82,7 @@ mod imp {
 
             if let Some(display) = gdk::Display::default() {
                 gio::resources_register_include!("icons.gresource").unwrap();
-                gtk::IconTheme::for_display(&display).add_search_path(ICONS_DIR);
+                gtk::IconTheme::for_display(&display).add_search_path(ICONS_PREFIX);
             }
 
             create_config_directory();

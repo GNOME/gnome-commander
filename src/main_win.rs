@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use crate::{
-    config::{PACKAGE, PLUGIN_DIR},
+    config::{PACKAGE, plugin_dir},
     connection::{
         Connection, ConnectionExt, bookmark::BookmarkGoToVariant, list::ConnectionList,
         remote::ConnectionRemote,
@@ -168,10 +168,10 @@ pub mod imp {
         }
 
         fn new() -> Self {
-            let system_plugins_dir = Path::new(PLUGIN_DIR);
+            let system_plugins_dir = plugin_dir();
             let user_plugins_dir = glib::user_config_dir().join(PACKAGE).join("plugins");
             let (plugin_host, plugin_channel) =
-                PluginHost::new(system_plugins_dir, &user_plugins_dir);
+                PluginHost::new(&system_plugins_dir, &user_plugins_dir);
             glib::spawn_future_local(plugin_host);
 
             let file_metadata_service = FileMetadataService::new(plugin_channel.clone());
