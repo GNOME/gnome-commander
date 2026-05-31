@@ -3,9 +3,8 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::{config::PIXMAPS_DIR, utils::u32_enum};
-use gtk::{glib, pango, prelude::*, subclass::prelude::*};
-use std::path::Path;
+use crate::utils::u32_enum;
+use gtk::{gio, glib, pango, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
@@ -35,7 +34,10 @@ mod imp {
 
         fn new() -> Self {
             Self {
-                tab_label_pin: gtk::Image::from_file(Path::new(PIXMAPS_DIR).join("pin.png")),
+                tab_label_pin: gtk::Image::from_gicon(&gio::ThemedIcon::from_names(&[
+                    "pin",
+                    "gnome-commander-pin",
+                ])),
                 tab_label_text: gtk::Label::builder().hexpand(true).build(),
                 label: Default::default(),
                 locked: Default::default(),

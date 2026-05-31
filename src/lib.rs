@@ -28,7 +28,6 @@ pub mod hintbox;
 pub mod history;
 pub mod history_entry;
 pub mod i18n;
-pub mod imageloader;
 pub mod intviewer;
 pub mod layout;
 pub mod main_win;

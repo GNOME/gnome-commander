@@ -42,7 +42,7 @@ mod imp {
 
             let obj = self.obj();
             obj.set_width_request(60);
-            obj.set_secondary_icon_name(Some("gnome-commander-down"));
+            obj.set_secondary_icon_name(Some("go-down"));
             obj.connect_icon_press(|obj, icon_pos| {
                 if icon_pos == gtk::EntryIconPosition::Secondary {
                     obj.show_history();

@@ -174,12 +174,15 @@ mod imp {
                     .build(),
 
                 bookmark_button: gtk::ToggleButton::builder()
-                    .icon_name("gnome-commander-bookmark-outline")
+                    .child(&gtk::Image::from_gicon(&gio::ThemedIcon::from_names(&[
+                        "bookmarks",
+                        "gnome-commander-bookmark-outline",
+                    ])))
                     .can_focus(false)
                     .has_frame(false)
                     .build(),
                 history_button: gtk::ToggleButton::builder()
-                    .icon_name("gnome-commander-down")
+                    .icon_name("go-down")
                     .can_focus(false)
                     .has_frame(false)
                     .build(),

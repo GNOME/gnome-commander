@@ -18,8 +18,8 @@ use crate::{
         ls_colors_palette::{LsColorsPalette, load_palette, save_palette},
     },
     options::types::{
-        AppOption, BoolOption, DurationOption, EnumOption, I32Option, OptionalPathOption,
-        RGBAOption, StringOption, StrvOption, U32Option, VariantOption, WriteResult,
+        AppOption, BoolOption, DurationOption, EnumOption, I32Option, RGBAOption, StringOption,
+        StrvOption, U32Option, VariantOption, WriteResult,
     },
     plugins::PluginMetadata,
     search::profile::{LegacySearchProfileVariant, SearchProfile, SearchProfileVariant},
@@ -73,7 +73,6 @@ pub struct GeneralOptions {
 
     pub icon_size: U32Option,
     pub icon_scale_quality: EnumOption<IconScaleQuality>,
-    pub mime_icon_dir: OptionalPathOption,
 
     pub select_dirs: BoolOption,
 
@@ -176,7 +175,6 @@ impl GeneralOptions {
             permissions_display_mode: EnumOption::new(&settings, "perm-display-mode"),
             icon_size: U32Option::new(&settings, "icon-size"),
             icon_scale_quality: EnumOption::new(&settings, "icon-scale-quality"),
-            mime_icon_dir: OptionalPathOption::new(&settings, "mime-icon-dir"),
             select_dirs: BoolOption::new(&settings, "select-dirs"),
             case_sensitive: BoolOption::new(&settings, "case-sensitive"),
             left_mouse_button_mode: EnumOption::new(&settings, "clicks-to-open-item"),

@@ -40,7 +40,9 @@ vte = { package = "vte4", version = "0.10.0", features = ["v0_76"] }
 winnow = "0.7"
 
 [build-dependencies]
+glib-build-tools = "0.22.0"
 system-deps = "7"
+walkdir = "2.5.0"
 
 [package.metadata.system-deps.gmodule_2_0]
 name = "gmodule-2.0"

@@ -73,7 +73,6 @@ pub mod imp {
     use super::*;
     use crate::{
         command_line::CommandLine,
-        config::PIXMAPS_DIR,
         dir::Directory,
         layout::ls_colors_palette::LsColorPalettes,
         options::{FiltersOptions, utils::remember_window_state},
@@ -890,8 +889,8 @@ pub mod imp {
             .pixel_size(9)
             .halign(gtk::Align::End)
             .valign(gtk::Align::End)
+            .icon_name("gnome-commander-overlay-umount")
             .build();
-        overlay_image.set_from_file(Some(Path::new(PIXMAPS_DIR).join("overlay_umount.png")));
         overlay.add_overlay(&overlay_image);
 
         button.set_child(Some(&overlay));
@@ -908,13 +907,13 @@ pub mod imp {
             .build()
     }
 
-    const COPY_FILE_NAMES_ICON: &str = "gnome-commander-copy-file-names-symbolic";
-    const DELETE_FILE_ICON: &str = "gnome-commander-recycling-bin-symbolic";
-    const EDIT_FILE_ICON: &str = "gnome-commander-edit-symbolic";
+    const COPY_FILE_NAMES_ICON: &str = "gnome-commander-copy-file-names";
+    const DELETE_FILE_ICON: &str = "gnome-commander-recycling-bin";
+    const EDIT_FILE_ICON: &str = "gnome-commander-edit";
     const GTK_MAILSEND_STOCKID: &str = "mail-send";
     const GTK_TERMINAL_STOCKID: &str = "utilities-terminal";
-    const REMOTE_CONNECT_ICON: &str = "gnome-commander-folder-remote-symbolic";
-    const REMOTE_DISCONNECT_ICON: &str = "gnome-commander-folder-remote-disconnect-symbolic";
+    const REMOTE_CONNECT_ICON: &str = "gnome-commander-folder-remote";
+    const REMOTE_DISCONNECT_ICON: &str = "gnome-commander-folder-remote-disconnect";
 
     fn create_slide_popup() -> gio::Menu {
         let menu = gio::Menu::new();

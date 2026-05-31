@@ -29,7 +29,6 @@ mod hintbox;
 mod history;
 mod history_entry;
 mod i18n;
-mod imageloader;
 mod intviewer;
 mod layout;
 mod main_win;
