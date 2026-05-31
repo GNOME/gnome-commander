@@ -11,6 +11,6 @@ pub const ICONS_DIR: &str = "/org/gnome/gnome-commander/icons";
 pub const PLUGIN_DIR: &str = @PLUGIN_DIR@;
 
 pub const PACKAGE_NAME: &str = @PACKAGE_NAME@;
-pub const PACKAGE_VERSION: &str = @PACKAGE_VERSION@;
+pub const PACKAGE_VERSION: &str = env!("CARGO_PKG_VERSION");
 pub const PACKAGE_URL: &str = @PACKAGE_URL@;
 pub const PACKAGE_BUGREPORT: &str = @PACKAGE_BUGREPORT@;

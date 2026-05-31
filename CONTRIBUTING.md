@@ -74,7 +74,7 @@ Gnome Commander is being developed in several branches:
 * One or more stable branches, named after the current stable release (e.g. gcmd-1-18), which only include bugfixes, doc updates, translation updates, but no new features.
 * Optionally, some feature branches where new ideas or big features are cooked until they are ready to be merged into the main branch.
 
-The version numbers (major, minor and micro) follow the standard of odd and even versioning. Even numbers are stable versions that are intended for all-day use. Odd versions are development versions. The current version number is stored at the top of [meson.build](meson.build).
+The version numbers (major, minor and micro) follow the standard of odd and even versioning. Even numbers are stable versions that are intended for all-day use. Odd versions are development versions. The current version number is stored at the top of [Cargo.toml](Cargo.toml).
 
 ### Why we don’t want “AI” contributions
 
