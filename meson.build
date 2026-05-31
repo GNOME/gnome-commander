@@ -5,7 +5,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 project('gnome-commander', ['rust'],
-  version: '2.1.0',
   license: 'GPLv3',
   meson_version: '>= 0.59',
 )
@@ -49,7 +48,6 @@ conf_data.set_quoted('PACKAGE_URL',       '@0@'.format(package_url), description
 conf_data.set_quoted('PACKAGE_BUGREPORT', '@0@'.format(package_bugreport), description : 'Define to the address where bug reports for this package should be sent.')
 conf_data.set_quoted('PLUGIN_DIR',        '@0@'.format(plugin_dir), description : 'location of plugins')
 conf_data.set_quoted('PREFIX',            '@0@'.format(prefix), description : 'definition of PREFIX')
-conf_data.set_quoted('PACKAGE_VERSION',   '@0@'.format(meson.project_version()), description : 'Define to the version of this package.')
 
 meson.add_dist_script(
   find_program('check-news.sh').full_path(),
