@@ -16,7 +16,6 @@ pub struct PluginMetadata {
     pub translators: Vec<String>,
     pub webpage: Option<String>,
     pub enabled: bool,
-    pub was_empty: bool,
 }
 
 type VariantType = HashMap<String, glib::Variant>;
@@ -53,10 +52,7 @@ impl ToVariant for PluginMetadata {
 impl FromVariant for PluginMetadata {
     fn from_variant(variant: &glib::Variant) -> Option<Self> {
         let map = VariantType::from_variant(variant)?;
-        let mut result = Self {
-            was_empty: map.is_empty(),
-            ..Default::default()
-        };
+        let mut result = Self::default();
         for (key, value) in map.into_iter() {
             match key.as_str() {
                 Self::SETTING_NAME => result.name = String::from_variant(&value),

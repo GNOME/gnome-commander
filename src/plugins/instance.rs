@@ -80,8 +80,14 @@ impl PluginInstance {
         let metadata = options
             .metadata
             .get()
-            .remove(file_name.to_string_lossy().as_ref())
-            .unwrap_or_default();
+            .remove(file_name.to_string_lossy().as_ref());
+        let is_new = metadata.is_none();
+        let mut metadata = metadata.unwrap_or_default();
+        if is_new && path.ancestors().any(|ancestor| ancestor == system_dir) {
+            // Plugins in system dir are enabled by default
+            metadata.enabled = true;
+        }
+
         Self {
             file_name,
             path,
@@ -116,14 +122,6 @@ impl PluginInstance {
     /// the plugin is running.
     pub fn is_enabled(&self) -> bool {
         self.metadata.enabled
-            || (
-                // Plugins in system dir are enabled by default
-                self.metadata.was_empty
-                    && self
-                        .path
-                        .ancestors()
-                        .any(|ancestor| ancestor == self.system_dir)
-            )
     }
 
     /// Tests whether the plugin signaled being ready. The result is only meaningful for enabled
