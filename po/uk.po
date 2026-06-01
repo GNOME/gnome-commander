@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/"
 "\n"
 "POT-Creation-Date: 2026-05-26 16:20+0000\n"
-"PO-Revision-Date: 2026-05-31 21:44+0300\n"
+"PO-Revision-Date: 2026-06-01 20:36+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2300,6 +2300,8 @@ msgid ""
 "The width of the dithering or halftoning matrix used to create a dithered or "
 "halftoned bilevel file."
 msgstr ""
+"Ширина матриці розсіювання або тонування, яку буде використано для створення"
+" розмитого або тонованого дворівневого файла."
 
 #: plugins/image-metadata.py:43
 #| msgid "Focal Length"
@@ -2311,6 +2313,8 @@ msgid ""
 "The length of the dithering or halftoning matrix used to create a dithered "
 "or halftoned bilevel file."
 msgstr ""
+"Довжина матриці розсіювання або тонування, яку буде використано для"
+" створення розмитого або тонованого дворівневого файла."
 
 #: plugins/image-metadata.py:44
 msgid "Fill Order"
@@ -2409,7 +2413,7 @@ msgstr "Значення дискретизації SMin"
 
 #: plugins/image-metadata.py:52 plugins/image-metadata.py:85
 msgid "This field specifies the minimum sample value."
-msgstr ""
+msgstr "Це поле визначає мінімальне значення дискретизації."
 
 #: plugins/image-metadata.py:53 plugins/image-metadata.py:86
 #| msgid "Max Aperture Value"
@@ -2418,7 +2422,7 @@ msgstr "Значення дискретизації SMax"
 
 #: plugins/image-metadata.py:53 plugins/image-metadata.py:86
 msgid "This field specifies the maximum sample value."
-msgstr ""
+msgstr "Це поле визначає максимальне значення дискретизації."
 
 #: plugins/image-metadata.py:54
 #| msgid "x Resolution"
@@ -2461,6 +2465,8 @@ msgstr "Площинна конфігурація"
 msgid ""
 "Indicates whether pixel components are recorded in a chunky or planar format."
 msgstr ""
+"Вказує на те, записано компоненти пікселів у фрагментованому чи плоскому"
+" форматах."
 
 #: plugins/image-metadata.py:57
 #| msgid "Page Size"
@@ -2483,6 +2489,9 @@ msgid ""
 "X position of the image. The X offset in ResolutionUnits of the left side of "
 "the image, with respect to the left side of the page."
 msgstr ""
+"Позиція зображення за віссю X. Зсув за віссю X в одиницях роздільної"
+" здатності (ResolutionUnits) лівого краю зображення відносно лівого краю"
+" сторінки."
 
 #: plugins/image-metadata.py:59
 #| msgid "YCbCr Positioning"
@@ -2495,6 +2504,10 @@ msgid ""
 "image, with respect to the top of the page. In the TIFF coordinate scheme, "
 "the positive Y direction is down, so that YPosition is always positive."
 msgstr ""
+"Розташування зображення за віссю Y. Зсув верхньої частини зображення за"
+" віссю Y відносно верхньої частини сторінки в одиницях роздільної здатності"
+" (ResolutionUnits). У системі координат TIFF додатний напрямок вісі Y"
+" спрямований вниз, тому значення YPosition завжди додатне."
 
 #: plugins/image-metadata.py:60
 #| msgid "Resolution Unit"
@@ -2503,7 +2516,7 @@ msgstr "Одиниця відповіді сірого"
 
 #: plugins/image-metadata.py:60
 msgid "The precision of the information contained in the GrayResponseCurve."
-msgstr ""
+msgstr "Точність даних, що містяться у GrayResponseCurve."
 
 #: plugins/image-metadata.py:61
 msgid "Gray Response Curve"
@@ -2564,7 +2577,7 @@ msgstr "Перенести функцію"
 
 #: plugins/image-metadata.py:66
 msgid "A transfer function for the image, described in tabular style."
-msgstr ""
+msgstr "Функція передавання, описана у табличному стилі."
 
 #: plugins/image-metadata.py:67
 msgid "Software"
@@ -2644,7 +2657,7 @@ msgstr "Основна кольоровість"
 
 #: plugins/image-metadata.py:73
 msgid "The chromaticity of the three primary colors of the image."
-msgstr ""
+msgstr "Кольоровість трьох основних кольорів зображення."
 
 #: plugins/image-metadata.py:74
 #| msgid "Color Space"
@@ -2660,7 +2673,7 @@ msgstr ""
 
 #: plugins/image-metadata.py:75
 msgid "Halftone Hints"
-msgstr ""
+msgstr "Виправлення півтонів"
 
 #: plugins/image-metadata.py:75
 msgid ""
@@ -2807,14 +2820,13 @@ msgstr "Коефіцієнти YCbCr"
 #: plugins/image-metadata.py:91
 msgid ""
 "The matrix coefficients for transformation from RGB to YCbCr image data."
-msgstr ""
+msgstr "Коефіцієнти матриці для перетворення даних зображення з RGB до YCbCr."
 
 #: plugins/image-metadata.py:92
 msgid "YCbCr Sub-Sampling"
-msgstr "Суб-семплінг YCbCr"
+msgstr "Субдискретизація YCbCr"
 
 #: plugins/image-metadata.py:92
-#, fuzzy
 #| msgid ""
 #| "The sampling ratio of chrominance components in relation to the luminance "
 #| "component. In JPEG compressed data a JPEG marker is used instead of this "
@@ -2823,8 +2835,7 @@ msgid ""
 "The sampling ratio of chrominance components in relation to the luminance "
 "component."
 msgstr ""
-"Частка у вибірці компонентів колірності відносно компонента освітленості. У "
-"стиснених даних JPEG замість цієї мітки використовується позначка JPEG."
+"Частка у вибірці компонентів колірності відносно компонента освітленості."
 
 #: plugins/image-metadata.py:93
 msgid "YCbCr Positioning"
@@ -2846,7 +2857,7 @@ msgstr "Базовий рівень чорного/білого"
 
 #: plugins/image-metadata.py:94
 msgid "The reference black point value and reference white point value."
-msgstr ""
+msgstr "Значення еталонної точки чорного і значення еталонної точки білого."
 
 #: plugins/image-metadata.py:95
 #| msgid "Window state"
@@ -2858,10 +2869,9 @@ msgid "Rating tag used by Windows"
 msgstr "Мітка оцінки, яка використовується Windows"
 
 #: plugins/image-metadata.py:96
-#, fuzzy
 #| msgid "CFA Repeat Pattern Dim"
 msgid "CFA Repeat Pattern Dimension"
-msgstr "Притлумлення взірця повторення CFA"
+msgstr "Розмірність взірця повторення CFA"
 
 #: plugins/image-metadata.py:96
 msgid ""
@@ -2874,7 +2884,6 @@ msgid "CFA Pattern"
 msgstr "Шаблон CFA"
 
 #: plugins/image-metadata.py:97
-#, fuzzy
 #| msgid ""
 #| "The color filter array (CFA) geometric pattern of the image sensor when a "
 #| "one-chip color area sensor is used. It does not apply to all sensing "
@@ -2883,9 +2892,9 @@ msgid ""
 "Indicates the color filter array (CFA) geometric pattern of the image sensor "
 "when a one-chip color area sensor is used."
 msgstr ""
-"Геометрична структура масиву кольорових фільтрів  (color filter array, CFA) "
-"однокристального сенсору зображення. Не застосовується до інших сенсорних "
-"методів."
+"Вказує на геометричну структуру масиву фільтрів кольорів (color filter"
+" array, CFA) "
+"однокристального сенсору зображення."
 
 #: plugins/image-metadata.py:98
 msgid "Battery Level"
@@ -2893,7 +2902,7 @@ msgstr "Рівень батареї"
 
 #: plugins/image-metadata.py:98
 msgid "Contains a value of the battery level as a fraction or string"
-msgstr ""
+msgstr "Містить значення рівня заряду акумулятора як частку або рядок"
 
 #: plugins/image-metadata.py:99 plugins/multimedia-metadata.py:90
 #: plugins/multimedia-metadata.py:206 plugins/multimedia-metadata.py:264
@@ -2901,10 +2910,9 @@ msgid "Copyright"
 msgstr "Авторські права"
 
 #: plugins/image-metadata.py:99
-#, fuzzy
 #| msgid "Routing information."
 msgid "Copyright information."
-msgstr "Відомості щодо авторських прав"
+msgstr "Відомості щодо авторських прав."
 
 #: plugins/image-metadata.py:100
 msgid "Exposure Time"
@@ -2915,10 +2923,9 @@ msgid "Exposure time, given in seconds."
 msgstr "Час експозиції в секундах."
 
 #: plugins/image-metadata.py:101
-#, fuzzy
 #| msgid "F Number"
 msgid "FNumber"
-msgstr "Діафрагма"
+msgstr "Діафрагмове число"
 
 #: plugins/image-metadata.py:101
 #| msgid "F Number"
@@ -2934,6 +2941,8 @@ msgid ""
 "Contains an InterColor Consortium (ICC) format color space characterization/"
 "profile"
 msgstr ""
+"Містить характеризацію/профіль формату простору кольорів InterColor"
+" Consortium (ICC)"
 
 #: plugins/image-metadata.py:103
 msgid "Exposure Program"
@@ -2952,10 +2961,9 @@ msgid "Spectral Sensitivity"
 msgstr "Спектральна чутливість"
 
 #: plugins/image-metadata.py:104
-#, fuzzy
 #| msgid "The spectral sensitivity of each channel of the camera used."
 msgid "Indicates the spectral sensitivity of each channel of the camera used."
-msgstr "Спектральна чутливість кожного каналу використаної камери."
+msgstr "Вказує на спектральну чутливість кожного каналу використаної камери."
 
 #: plugins/image-metadata.py:105
 msgid "ISO Speed Ratings"
@@ -2981,6 +2989,8 @@ msgid ""
 "Indicates the Opto-Electric Conversion Function (OECF) specified in ISO "
 "14524."
 msgstr ""
+"Вказує на функцію оптоелектричного перетворення (OECF), задану у ISO "
+"14524."
 
 #: plugins/image-metadata.py:107
 #| msgid "Replace"
@@ -2988,10 +2998,9 @@ msgid "Interlace"
 msgstr "Міжрядковість"
 
 #: plugins/image-metadata.py:107
-#, fuzzy
 #| msgid "Indicates the value of coefficient gamma."
 msgid "Indicates the field number of multifield images."
-msgstr "Вказує значення коефіцієнту гамми."
+msgstr "Вказує на номер поля у зображеннях з багатьма полями."
 
 #: plugins/image-metadata.py:108
 msgid "Time Zone Offset"
@@ -3006,36 +3015,33 @@ msgid ""
 msgstr ""
 
 #: plugins/image-metadata.py:109
-#, fuzzy
 #| msgid "Size Mode"
 msgid "Self Timer Mode"
-msgstr "Режим розміру"
+msgstr "Режим автоспуску"
 
 #: plugins/image-metadata.py:109
 msgid "Number of seconds image capture was delayed from button press."
-msgstr ""
+msgstr "Затримка створення зображення від натискання кнопки у секундах."
 
 #: plugins/image-metadata.py:110
 msgid "Exif Version"
 msgstr "Версія EXIF"
 
 #: plugins/image-metadata.py:110
-#, fuzzy
 #| msgid "The version of the originating program."
 msgid "The version of this standard supported."
-msgstr "Версія програми походження."
+msgstr "Підтримувана версія цього стандарту."
 
 #: plugins/image-metadata.py:111
-#, fuzzy
 #| msgid "Date and Time (original)"
 msgid "Date Time Original"
 msgstr "Дата і час (оригінал)"
 
 #: plugins/image-metadata.py:111
-#, fuzzy
 #| msgid "The date and time when the image was stored as digital data."
 msgid "The date and time when the original image data was generated."
-msgstr "Дата і час, коли зображення було збережене як цифрові дані."
+msgstr ""
+"Дата і час, коли  початкове зображення було збережене як цифрові дані."
 
 #: plugins/image-metadata.py:112
 msgid "Date and Time (digitized)"
@@ -3046,10 +3052,9 @@ msgid "The date and time when the image was stored as digital data."
 msgstr "Дата і час, коли зображення було збережене як цифрові дані."
 
 #: plugins/image-metadata.py:113
-#, fuzzy
 #| msgid "Subsec Time"
 msgid "Offset Time"
-msgstr "Частки секунд часу"
+msgstr "Час зсуву"
 
 #: plugins/image-metadata.py:113
 msgid ""
@@ -3058,10 +3063,9 @@ msgid ""
 msgstr ""
 
 #: plugins/image-metadata.py:114
-#, fuzzy
 #| msgid "Subsec Time Original"
 msgid "Offset Time Original"
-msgstr "Частки секунди часу створення оригіналу"
+msgstr "Час зсуву (оригінал)"
 
 #: plugins/image-metadata.py:114
 msgid ""
@@ -3070,10 +3074,9 @@ msgid ""
 msgstr ""
 
 #: plugins/image-metadata.py:115
-#, fuzzy
 #| msgid "Subsec Time Digitized"
 msgid "Offset Time Digitized"
-msgstr "Частки секунди часу цифрування"
+msgstr "Час зсуву цифрування"
 
 #: plugins/image-metadata.py:115
 msgid ""
@@ -3090,7 +3093,6 @@ msgid "Information specific to compressed data."
 msgstr "Специфічні для стиснених даних відомості."
 
 #: plugins/image-metadata.py:117
-#, fuzzy
 #| msgid "Compressed Bits per Pixel"
 msgid "Compressed Bits Per Pixel"
 msgstr "Кількість стиснених бітів на піксель"
@@ -3111,10 +3113,9 @@ msgid "Shutter Speed Value"
 msgstr "Значення швидкості руху затвору"
 
 #: plugins/image-metadata.py:118
-#, fuzzy
 #| msgid "Shutter Speed"
 msgid "Shutter speed."
-msgstr "Витримка"
+msgstr "Швидкість затвору."
 
 #: plugins/image-metadata.py:119
 #| msgid "Max Aperture Value"
