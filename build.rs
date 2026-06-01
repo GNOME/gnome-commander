@@ -3,7 +3,9 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use std::{
-    env, fs,
+    env,
+    ffi::OsString,
+    fs,
     fs::File,
     io::Write,
     path,
@@ -24,6 +26,8 @@ fn main() {
     );
 
     compile_locales("po");
+
+    compile_schemas("data");
 }
 
 fn compile_resources(root_dir: impl AsRef<Path>, prefix: &str, outfile: &str) {
@@ -85,20 +89,24 @@ fn compile_resources(root_dir: impl AsRef<Path>, prefix: &str, outfile: &str) {
     println!("cargo::rerun-if-changed={}", root_dir.as_ref().display());
 }
 
+fn locale_list(locale_dir: impl AsRef<Path>) -> Vec<String> {
+    let linguas = fs::read(locale_dir.as_ref().join("LINGUAS")).unwrap();
+    let linguas = String::from_utf8(linguas).unwrap();
+    linguas
+        .split(['\n', '\r'])
+        .map(|lang| lang.trim())
+        .filter(|lang| !lang.is_empty() && !lang.starts_with('#'))
+        .map(str::to_owned)
+        .collect()
+}
+
 fn compile_locales(root_dir: impl AsRef<Path>) {
     let outdir = env::var_os("OUT_DIR").unwrap();
 
     let mut locale_dir = PathBuf::from(&outdir);
     locale_dir.push("locale");
 
-    let linguas = fs::read(root_dir.as_ref().join("LINGUAS")).unwrap();
-    let linguas = String::from_utf8(linguas).unwrap();
-    for lang in linguas.split(['\n', '\r']) {
-        let lang = lang.trim();
-        if lang.is_empty() || lang.starts_with('#') {
-            continue;
-        }
-
+    for lang in locale_list(&root_dir) {
         let _ = fs::create_dir_all(locale_dir.join(format!("{lang}/LC_MESSAGES")));
         let output = Command::new("msgfmt")
             .arg("-o")
@@ -115,4 +123,32 @@ fn compile_locales(root_dir: impl AsRef<Path>) {
     }
     println!("cargo::rerun-if-changed={}", root_dir.as_ref().display());
     println!("cargo::rustc-env=LOCAL_LOCALE_DIR={}", locale_dir.display());
+}
+
+fn compile_schemas(root_dir: impl AsRef<Path>) {
+    let outdir = env::var_os("OUT_DIR").unwrap();
+
+    let mut schema_dir = PathBuf::from(&outdir);
+    schema_dir.push("schemas");
+
+    let _ = fs::create_dir_all(&schema_dir);
+    let output = Command::new("glib-compile-schemas")
+        .arg("--strict")
+        .arg({
+            let mut param = OsString::new();
+            param.extend(["--targetdir=".as_ref(), schema_dir.as_os_str()]);
+            param
+        })
+        .arg(root_dir.as_ref())
+        .output()
+        .unwrap();
+    assert!(
+        output.status.success(),
+        "glib-compile-schemas failed with exit status {} and stderr:\n{}",
+        output.status,
+        String::from_utf8_lossy(&output.stderr)
+    );
+
+    println!("cargo::rerun-if-changed={}", root_dir.as_ref().display());
+    println!("cargo::rustc-env=LOCAL_SCHEMA_DIR={}", schema_dir.display());
 }
