@@ -66,7 +66,7 @@
   </suggests>
 
   <releases>
-    <release type="stable" version="2.0.2" date="2026-??-??">
+    <release type="stable" version="2.0.3" date="2026-??-??">
       <description>
         <p>This release fixes the following bugs:</p>
         <ul>
@@ -74,6 +74,18 @@
         </ul>
         <p>New or updated translations: ...</p>
         <p>New or updated docs: ...</p>
+      </description>
+    </release>
+    <release type="stable" version="2.0.2" date="2026-06-01">
+      <description>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Issue #345: The Copy button in the Copy File dialog wasn’t set as the default action</li>
+          <li>Issue #356 and #357: Glitches displaying free space of the current volume</li>
+          <li>Issue #358: Double-clicking tab area created a new tab but didn’t keep the selected file</li>
+          <li>Issue #363: Switching tabs didn’t reset Quick Filter</li>
+          <li>Issue #349 and #350: Incorrect logic determining when directory monitoring should be stopped</li>
+        </ul>
       </description>
     </release>
     <release type="stable" version="2.0.1" date="2026-05-27">
