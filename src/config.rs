@@ -28,6 +28,11 @@ const LOCAL_PLUGIN_DIR: Option<&str> = option_env!("LOCAL_PLUGIN_DIR");
 #[cfg(not(debug_assertions))]
 const LOCAL_PLUGIN_DIR: Option<&str> = None;
 
+#[cfg(debug_assertions)]
+const LOCAL_SCHEMA_DIR: Option<&str> = option_env!("LOCAL_SCHEMA_DIR");
+#[cfg(not(debug_assertions))]
+const LOCAL_SCHEMA_DIR: Option<&str> = None;
+
 pub fn locale_dir() -> PathBuf {
     LOCAL_LOCALE_DIR
         .filter(|dir| fs::exists(dir).is_ok_and(|result| result))
@@ -40,4 +45,8 @@ pub fn plugin_dir() -> PathBuf {
         .filter(|dir| fs::exists(dir).is_ok_and(|result| result))
         .unwrap_or(GLOBAL_PLUGIN_DIR)
         .into()
+}
+
+pub fn schema_dir() -> Option<PathBuf> {
+    LOCAL_SCHEMA_DIR.map(PathBuf::from)
 }

@@ -6,6 +6,7 @@
 use crate::{
     advanced_rename::profile::AdvancedRenameProfileVariant,
     app::FavoriteAppVariant,
+    config::schema_dir,
     connection::list::{BookmarkVariant, ConnectionVariant, CustomDeviceVariant},
     file_list::quick_search::QuickSearchMode,
     file_selector::{LegacyTabVariant, TabVariant},
@@ -13,7 +14,6 @@ use crate::{
     history::History,
     intviewer::search_bar::Mode,
     layout::{
-        PREF_COLORS,
         color_themes::{ColorTheme, ColorThemeId, load_custom_theme, save_custom_theme},
         ls_colors_palette::{LsColorsPalette, load_palette, save_palette},
     },
@@ -35,6 +35,25 @@ use crate::{
 use gettextrs::gettext;
 use gtk::{gio, prelude::*};
 use std::{collections::BTreeMap, rc::Rc, sync::LazyLock};
+
+fn get_settings(schema_id: &str) -> gio::Settings {
+    thread_local! {
+        static SOURCE: Rc<Option<gio::SettingsSchemaSource>> = Rc::new(schema_dir().and_then(
+            |dir| gio::SettingsSchemaSource::from_directory(dir, None, false).ok()
+        ));
+    }
+    SOURCE.with(|source| {
+        source
+            .as_ref()
+            .as_ref()
+            .and_then(|source| {
+                source.lookup(schema_id, true).map(|schema| {
+                    gio::Settings::new_full(&schema, gio::SettingsBackend::NONE, None)
+                })
+            })
+            .unwrap_or_else(|| gio::Settings::new(schema_id))
+    })
+}
 
 pub struct GeneralOptions {
     pub allow_multiple_instances: BoolOption,
@@ -133,7 +152,7 @@ pub struct GeneralOptions {
 
 impl GeneralOptions {
     fn new() -> Self {
-        let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.general");
+        let settings = get_settings("org.gnome.gnome-commander.preferences.general");
 
         Self {
             allow_multiple_instances: BoolOption::new(&settings, "allow-multiple-instances"),
@@ -263,7 +282,7 @@ pub struct ColorOptions {
 
 impl ColorOptions {
     fn new() -> Self {
-        let settings = gio::Settings::new(PREF_COLORS);
+        let settings = get_settings("org.gnome.gnome-commander.preferences.colors");
         Self {
             theme: EnumOption::new(&settings, "theme"),
             use_ls_colors: BoolOption::new(&settings, "use-ls-colors"),
@@ -328,7 +347,7 @@ pub struct ConfirmOptions {
 
 impl ConfirmOptions {
     fn new() -> Self {
-        let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.confirmations");
+        let settings = get_settings("org.gnome.gnome-commander.preferences.confirmations");
         Self {
             confirm_delete: BoolOption::new(&settings, "delete"),
             confirm_delete_default: EnumOption::new(&settings, "delete-default"),
@@ -367,7 +386,7 @@ pub struct FiltersOptions {
 
 impl FiltersOptions {
     fn new() -> Self {
-        let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.filter");
+        let settings = get_settings("org.gnome.gnome-commander.preferences.filter");
         Self {
             hide_unknown: BoolOption::new(&settings, "hide-unknown"),
             hide_regular: BoolOption::new(&settings, "hide-regular"),
@@ -403,7 +422,7 @@ pub struct ProgramsOptions {
 
 impl ProgramsOptions {
     fn new() -> Self {
-        let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.programs");
+        let settings = get_settings("org.gnome.gnome-commander.preferences.programs");
         Self {
             dont_download: BoolOption::new(&settings, "dont-download"),
             use_internal_viewer: BoolOption::new(&settings, "use-internal-viewer"),
@@ -571,7 +590,7 @@ pub struct NetworkOptions {
 
 impl NetworkOptions {
     fn new() -> Self {
-        let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.network");
+        let settings = get_settings("org.gnome.gnome-commander.preferences.network");
         Self {
             quick_connect_uri: StringOption::new(&settings, "quick-connect-uri"),
         }
@@ -605,7 +624,7 @@ pub struct ViewerOptions {
 
 impl ViewerOptions {
     fn new() -> Self {
-        let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.internal-viewer");
+        let settings = get_settings("org.gnome.gnome-commander.preferences.internal-viewer");
         Self {
             window_width: U32Option::new(&settings, "window-width"),
             window_height: U32Option::new(&settings, "window-height"),
@@ -656,7 +675,7 @@ pub struct PluginsOptions {
 
 impl PluginsOptions {
     fn new() -> Self {
-        let settings = gio::Settings::new("org.gnome.gnome-commander.plugins.general");
+        let settings = get_settings("org.gnome.gnome-commander.plugins.general");
         Self {
             metadata: VariantOption::new(&settings, "metadata"),
             persistent_settings: VariantOption::new(&settings, "persistent-settings"),

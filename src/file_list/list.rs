@@ -18,10 +18,7 @@ use crate::{
     file::{File, FileOps},
     filter::{Filter, fnmatch},
     history::History,
-    layout::{
-        PREF_COLORS,
-        ls_colors::{LsPalletteColor, ls_colors_get},
-    },
+    layout::ls_colors::{LsPalletteColor, ls_colors_get},
     main_win::MainWindow,
     open_connection::open_connection,
     options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
@@ -2892,7 +2889,7 @@ fn matches_pattern(file: &str, patterns: &str) -> bool {
 }
 
 fn create_icon_factory() -> gtk::ListItemFactory {
-    let color_settings = gio::Settings::new(PREF_COLORS);
+    let options = ColorOptions::instance();
 
     let factory = gtk::SignalListItemFactory::new();
     factory.connect_setup(|_, obj| {
@@ -2960,8 +2957,7 @@ fn create_icon_factory() -> gtk::ListItemFactory {
                 );
             }
 
-            let use_ls_colors = color_settings.boolean("use-ls-colors");
-            apply_css(&item, use_ls_colors, label.upcast_ref());
+            apply_css(&item, options.use_ls_colors.get(), label.upcast_ref());
 
             match GeneralOptions::instance().graphical_layout_mode.get() {
                 GraphicalLayoutMode::Text => {
@@ -3159,7 +3155,7 @@ fn create_text_cell_factory(
     cells: &imp::CellsMap,
     bind: impl Fn(FileListCell, FileListItem) + 'static,
 ) -> gtk::ListItemFactory {
-    let color_settings = gio::Settings::new(PREF_COLORS);
+    let options = ColorOptions::instance();
 
     let factory = gtk::SignalListItemFactory::new();
     factory.connect_setup(move |_, obj| {
@@ -3167,9 +3163,7 @@ fn create_text_cell_factory(
             let cell = FileListCell::default();
             cell.set_xalign(alignment);
 
-            color_settings
-                .bind("use-ls-colors", &cell, "use-ls-colors")
-                .build();
+            options.use_ls_colors.bind(&cell, "use-ls-colors").build();
 
             list_item.set_child(Some(&cell));
         }
