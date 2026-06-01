@@ -54,8 +54,6 @@ mod weak_map;
 mod weak_ref;
 mod weak_set;
 
-mod gmodule;
-
 use application::Application;
 use gtk::prelude::*;
 use std::error::Error;

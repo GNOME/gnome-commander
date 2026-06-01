@@ -52,5 +52,3 @@ pub mod utils;
 pub mod weak_map;
 pub mod weak_ref;
 pub mod weak_set;
-
-pub mod gmodule;
