@@ -7,6 +7,7 @@
 project('gnome-commander', ['rust'],
   license: 'GPLv3',
   meson_version: '>= 0.59',
+  default_options: ['buildtype=release'],
 )
 
 # Importing modules
