@@ -6,6 +6,7 @@ data/org.gnome.gnome-commander.metainfo.xml.in
 plugins/archives.py
 plugins/document-metadata.py
 plugins/image-metadata.py
+plugins/menu-scripts.py
 plugins/multimedia-metadata.py
 plugins/plugin_helper.py
 src/advanced_rename/advanced_rename_dialog.rs
@@ -59,7 +60,6 @@ src/dialogs/profiles/manage_profiles_dialog.rs
 src/dialogs/remote_dialog.rs
 src/dialogs/shortcuts_dialog.rs
 src/dialogs/transfer_progress_dialog.rs
-src/dirlist.rs
 src/dir.rs
 src/file_edit.rs
 src/file_list/actions.rs
