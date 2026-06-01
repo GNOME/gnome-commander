@@ -13,6 +13,7 @@ stages:
 variables:
   MESON_BUILD_DIR: "_build"
   TARBALL_ARTIFACT_PATH: "${MESON_BUILD_DIR}/meson-dist/${CI_PROJECT_NAME}-${CI_COMMIT_TAG}.tar.xz"
+  PORTABLE_NAME: ${CI_PROJECT_NAME}-portable-${CI_COMMIT_TAG}
 
 include:
   - component: "gitlab.gnome.org/GNOME/citemplates/release-service@master"
@@ -26,6 +27,17 @@ build_and_test:
   script:
     - cargo fmt --all --check
     - xvfb-run cargo test --workspace
+
+create_portable:
+  stage: build
+  script:
+    - mkdir ${PORTABLE_NAME}
+    - ./build_portable.py ${PORTABLE_NAME}.zip
+    - unzip ${PORTABLE_NAME}.zip -d ${PORTABLE_NAME}
+  artifacts:
+    name: ${PORTABLE_NAME}
+    paths:
+      - ${PORTABLE_NAME}
 
 create_tarball:
   stage: release
