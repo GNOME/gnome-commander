@@ -76,9 +76,17 @@ If you want to uninstall Gnome Commander again, run as root:
 ninja -C builddir uninstall
 ```
 
+Creating a portable build
+=========================
 
-The Details
-===========
+Portable builds can be run anywhere without installing as long as the required
+GNOME libraries are present. To create one run the following command:
 
-More detailed installation instructions can be found in meson's
-website: https://mesonbuild.com/Quick-guide.html
+```sh
+./build_portable.py portable.zip
+```
+
+If you unpack the resulting `portable.zip` archive and run the `gnome-commander`
+application within it, it should just work. All required files (like plugins or
+locales) will be loaded from within the unpacked directory, any settings changes
+will be stored in `settings/settings.ini` within the directory.

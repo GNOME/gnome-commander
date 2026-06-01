@@ -541,12 +541,6 @@ pub mod imp {
                 .invert_boolean()
                 .build();
         }
-
-        fn dispose(&self) {
-            if let Err(error) = self.obj().save_state() {
-                eprintln!("Failed to save state: {error}");
-            }
-        }
     }
 
     impl WidgetImpl for MainWindow {
@@ -554,6 +548,13 @@ pub mod imp {
             self.parent_realize();
             let _ =
                 WidgetExt::activate_action(&*self.obj(), UserAction::ViewEqualPanes.name(), None);
+        }
+
+        fn unrealize(&self) {
+            self.parent_unrealize();
+            if let Err(error) = self.obj().save_state() {
+                eprintln!("Failed to save state: {error}");
+            }
         }
     }
 

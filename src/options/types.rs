@@ -8,6 +8,7 @@ use std::{marker::PhantomData, time::Duration};
 
 pub type WriteResult = Result<(), glib::BoolError>;
 
+#[derive(PartialEq, Eq)]
 pub struct EnumRepr(i32);
 
 pub trait SettingsRepr {
@@ -157,7 +158,9 @@ where
         let settings = self.settings.clone();
         let key = self.key;
         object.connect_notify_local(Some(property), move |object, param| {
-            if let Ok(value) = i32::try_from(object.property::<u32>(param.name())) {
+            if let Ok(value) = i32::try_from(object.property::<u32>(param.name()))
+                && EnumRepr::value(&settings, key) != EnumRepr(value)
+            {
                 let _ = EnumRepr::set_value(&settings, key, EnumRepr(value));
             }
         });
