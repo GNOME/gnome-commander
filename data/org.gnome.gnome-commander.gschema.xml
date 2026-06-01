@@ -14,6 +14,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 <schemalist>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander" path="/org/gnome/gnome-commander/">
     <child name="preferences" schema="org.gnome.gnome-commander.preferences"/>
+    <child name="plugins" schema="org.gnome.gnome-commander.plugins"/>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences" path="/org/gnome/gnome-commander/preferences/">
     <child name="general" schema="org.gnome.gnome-commander.preferences.general"/>
@@ -23,6 +24,9 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <child name="programs" schema="org.gnome.gnome-commander.preferences.programs"/>
     <child name="colors" schema="org.gnome.gnome-commander.preferences.colors"/>
     <child name="internal-viewer" schema="org.gnome.gnome-commander.preferences.internal-viewer"/>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.plugins" path="/org/gnome/gnome-commander/plugins/">
+    <child name="general" schema="org.gnome.gnome-commander.plugins.general"/>
   </schema>
 
   <enum id="org.gnome.gnome-commander.preferences.general.icon-scale-quality-enum">
