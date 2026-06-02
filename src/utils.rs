@@ -114,13 +114,13 @@ fn substitute_command_argument(command_template: &str, arg: &OsStr) -> OsString 
     cmd
 }
 
-pub fn make_run_in_terminal_command(command: &OsStr, options: &ProgramsOptions) -> OsString {
+pub fn make_run_in_terminal_command(command: &OsStr) -> OsString {
     let shell = std::env::var("SHELL").unwrap_or_else(|_| "/bin/sh".to_owned());
     let arg = glib::shell_quote(substitute_command_argument(
         &format!("{shell} -c %s"),
         &glib::shell_quote(command),
     ));
-    substitute_command_argument(&options.terminal_exec_cmd.get(), &arg)
+    substitute_command_argument(&ProgramsOptions::instance().terminal_exec_cmd.get(), &arg)
 }
 
 pub trait SenderExt<T> {
@@ -129,8 +129,8 @@ pub trait SenderExt<T> {
 
 impl<T> SenderExt<T> for async_channel::Sender<T> {
     fn toss(&self, message: T) {
-        if let Err(err) = self.send_blocking(message) {
-            eprintln!("Cannot send a message: {}", err);
+        if let Err(error) = self.send_blocking(message) {
+            eprintln!("Cannot send a message: {}", error);
         }
     }
 }
@@ -207,7 +207,7 @@ pub fn dialog_button_box(
     bx.upcast()
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub struct ErrorMessage {
     pub message: String,
     pub secondary_text: Option<String>,
@@ -386,7 +386,7 @@ pub fn size_to_string(size: u64, mode: SizeDisplayMode) -> String {
                 ngettext("{} MiB", "{} MiB", size_u32)
                     .replace("{}", &format!("{:.1}", size as f64 / MIBI as f64))
             } else if size >= KIBI {
-                ngettext("{} kiB", "{} kiB", size_u32)
+                ngettext("{} KiB", "{} KiB", size_u32)
                     .replace("{}", &format!("{:.1}", size as f64 / KIBI as f64))
             } else {
                 ngettext("{} byte", "{} bytes", size_u32).replace("{}", &size.to_string())
@@ -802,7 +802,7 @@ macro_rules! u32_enum {
     ($(#[$type_meta:meta])* $vis:vis enum $type:ident {
         $($(#[$meta:meta])* $variant:ident,)+
     }) => {
-        #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Default)]
+        #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
         #[derive(::gtk::glib::ValueDelegate, ::gtk::glib::Variant)]
         #[value_delegate(from = u32)]
         #[variant_enum(repr)]

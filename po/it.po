@@ -5494,3 +5494,1830 @@ msgstr "Nessuno"
 #: plugins/taglib/taglib-plugin.cc:421
 msgid "10-15ms"
 msgstr "10-15ms"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME Commander"
+
+#~ msgid "A two paned file manager"
+#~ msgstr "Un file manager a due pannelli"
+
+#~ msgid "No error description available"
+#~ msgstr "Nessuna descrizione disponibile per l'errore"
+
+#~ msgid "Create Archive..."
+#~ msgstr "Crea Archivio..."
+
+#, c-format
+#~ msgid "Extract to '%s'"
+#~ msgstr "Estrai in '%s'"
+
+#~ msgid "Default type"
+#~ msgstr "Tipo predefinito"
+
+#~ msgid "/_Save Profile As..."
+#~ msgstr "/_Salva profilo come..."
+
+#~ msgid "/_Manage Profiles..."
+#~ msgstr "/_Gestisci profili..."
+
+#~ msgid "Current file name"
+#~ msgstr "Nome attuale del file"
+
+#~ msgid "New file name"
+#~ msgstr "Nuovo nome file"
+
+#~ msgid "File size"
+#~ msgstr "Dimensione file"
+
+#~ msgid "File modification date"
+#~ msgstr "Data modifica file"
+
+#~ msgid "Profiles..."
+#~ msgstr "Profili..."
+
+#~ msgid "_Replace with:"
+#~ msgstr "_Sostituisci con:"
+
+#~ msgid ""
+#~ "Some regular expressions functionality is disabled. To enable it's necessary"
+#~ " to build GNOME Commander with GLib ≥ 2.14. Please contact your package "
+#~ "maintainer about that."
+#~ msgstr ""
+#~ "Alcune funzionalità delle espressioni regolari sono disabilitate. Per "
+#~ "abilitarle è necessario compilare GNOME Commander con GLib ≥ 2.14. "
+#~ "Contattare il proprio manutentore di pacchetti riguardo a questo."
+
+#~ msgid "Bookmark name is missing."
+#~ msgstr "Nome del segnalibro mancante."
+
+#~ msgid "Bookmark target is missing."
+#~ msgstr "Destinazione del segnalibro mancante."
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the corresponding row and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "Per modificare un tasto scorciatoia, fare click sulla riga corrispondente e "
+#~ "digitare un nuovo acceleratore, oppure premere ESC per annullare."
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Tasto scorciatoia"
+
+#~ msgid "Keyboard shortcut for selected action"
+#~ msgstr "Scorciatoia da tastiera per l'azione selezionata"
+
+#~ msgid "Action"
+#~ msgstr "Azione"
+
+#~ msgid "User action"
+#~ msgstr "Azione utente"
+
+#~ msgid "Optional data"
+#~ msgstr "Dati opzionali"
+
+#, c-format
+#~ msgid "Shortcut \"%s\" is already taken by \"%s\"."
+#~ msgstr "La scorciatoia \"%s\" è già usata da \"%s\"."
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "Scorciatoie in conflitto"
+
+#, c-format
+#~ msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
+#~ msgstr ""
+#~ "Il riassegnamento della scorciatoia causerà la rimozione della stessa da "
+#~ "\"%s\"."
+
+#~ msgid "Invalid shortcut."
+#~ msgstr "Scorciatoia non valida."
+
+#~ msgid "Do nothing"
+#~ msgstr "Non fare nulla"
+
+#~ msgid "Group"
+#~ msgstr "Gruppo"
+
+#~ msgid "Bookmark group"
+#~ msgstr "Gruppo segnalibri"
+
+#~ msgid "Bookmark name"
+#~ msgstr "Nome segnalibro"
+
+#~ msgid "Keyboard shortcut for selected bookmark"
+#~ msgstr "Scorciatoia da tastiera per il segnalibro selezionato"
+
+#~ msgid "Bookmarked path"
+#~ msgstr "Percorso salvato come segnalibro"
+
+#~ msgid "Profile name"
+#~ msgstr "Nome profilo"
+
+#~ msgid "/Local path..."
+#~ msgstr "/Percorso locale..."
+
+#~ msgid "/Remote location..."
+#~ msgstr "/Posizione remota..."
+
+#~ msgid "_Import"
+#~ msgstr "_Importa"
+
+#~ msgid "Save password in GNOME keyring"
+#~ msgstr "Salva password nel portachiavi di GNOME"
+
+#~ msgid "Network protocol"
+#~ msgstr "Protocollo di rete"
+
+#~ msgid "Connection name"
+#~ msgstr "Nome connessione"
+
+#~ msgid "Connections"
+#~ msgstr "Connessioni"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "Password per FTP anonimo:"
+
+#~ msgid "Search local directories only"
+#~ msgstr "Ricerca solo directory locali"
+
+#~ msgid "Files _not containing text"
+#~ msgstr "File che _non contengono testo"
+
+#, c-format
+#~ msgid "Failed to read file %s: %s"
+#~ msgstr "Lettura del file %s non riuscita: %s"
+
+#, c-format
+#~ msgid "Searching in: %s"
+#~ msgstr "Ricerca in: %s"
+
+#, c-format
+#~ msgid "Found %d match - search aborted"
+#~ msgid_plural "Found %d matches - search aborted"
+#~ msgstr[0] "Trovata %d occorrenza - ricerca interrotta"
+#~ msgstr[1] "Trovate %d occorrenze - ricerca interrotta"
+
+#, c-format
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "Trovata %d occorrenza"
+#~ msgstr[1] "Trovate %d occorrenze"
+
+#, c-format
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr ""
+#~ "Impostazione dell'id del gruppo per il processo figlio %d non riuscita: "
+#~ "%s.\n"
+
+#~ msgid "Error parsing the search command."
+#~ msgstr "Errore nell'analisi del comando di ricerca."
+
+#~ msgid "Error running the search command."
+#~ msgstr "Errore nell'esecuzione del comando di ricerca."
+
+#, c-format
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr "Cambiamento directory al di fuori di %s non riuscito"
+
+#~ msgid "Search..."
+#~ msgstr "Cerca..."
+
+#, c-format
+#~ msgid "%d file listed"
+#~ msgid_plural "%d files listed"
+#~ msgstr[0] "%d file elencato"
+#~ msgstr[1] "%d file elencati"
+
+#~ msgid "Accelerator key"
+#~ msgstr "Tasto acceleratore"
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr "Modificatori acceleratore"
+
+#~ msgid "Accelerator Mode"
+#~ msgstr "Modalità acceleratore"
+
+#~ msgid "The type of accelerator."
+#~ msgstr "Il tipo di acceleratore."
+
+#~ msgid "Disabled"
+#~ msgstr "Disabilitato"
+
+#~ msgid "New accelerator..."
+#~ msgstr "Nuovo acceleratore..."
+
+#~ msgid "Credits"
+#~ msgstr "Ringraziamenti"
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "Pagina web dei plugin"
+
+#~ msgid "C_redits"
+#~ msgstr "_Ringraziamenti"
+
+#~ msgid "/Grandparent"
+#~ msgstr "/Superiore"
+
+#~ msgid "/Parent"
+#~ msgstr "/Corrente"
+
+#~ msgid "/File name"
+#~ msgstr "/Nome del file"
+
+#~ msgid "/File name (range)"
+#~ msgstr "/Nome del file (intervallo)"
+
+#~ msgid "/File name without extension"
+#~ msgstr "/Nome del file senza estensione"
+
+#~ msgid "/File name without extension (range)"
+#~ msgstr "/Nome del file senza estensione (intervallo)"
+
+#~ msgid "/File extension"
+#~ msgstr "/Estensione del file"
+
+#~ msgid "/Counter"
+#~ msgstr "/Contatore"
+
+#~ msgid "/Counter (width)"
+#~ msgstr "/Contatore (larghezza)"
+
+#~ msgid "/Counter (auto)"
+#~ msgstr "/Contatore (auto)"
+
+#~ msgid "/Hexadecimal random number (width)"
+#~ msgstr "/Numero casuale esadecimale (larghezza)"
+
+#~ msgid "/Date"
+#~ msgstr "/Data"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "/Data/<locale>"
+
+#~ msgid "/Date/yyyy-mm-dd"
+#~ msgstr "/Data/aaaa-mm-gg"
+
+#~ msgid "/Date/yy-mm-dd"
+#~ msgstr "/Data/aa-mm-gg"
+
+#~ msgid "/Date/yy.mm.dd"
+#~ msgstr "/Data/aa.mm.gg"
+
+#~ msgid "/Date/yymmdd"
+#~ msgstr "/Data/aammgg"
+
+#~ msgid "/Date/dd.mm.yy"
+#~ msgstr "/Data/gg.mm.aa"
+
+#~ msgid "/Date/mm-dd-yy"
+#~ msgstr "/Data/mm-gg-aa"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/Date/aaaa"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/Data/aa"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/Data/mm"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/Data/mmm"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/Data/gg"
+
+#~ msgid "/Time"
+#~ msgstr "/Ora"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/Ora/<locale>"
+
+#~ msgid "/Time/HH.MM.SS"
+#~ msgstr "/Ora/OO.MM.SS"
+
+#~ msgid "/Time/HH-MM-SS"
+#~ msgstr "/Ora/OO-MM-SS"
+
+#~ msgid "/Time/HHMMSS"
+#~ msgstr "/Ora/OOMMSS"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/Ora/OO"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/Ora/MM"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/Ora/SS"
+
+#~ msgid "Regex pattern"
+#~ msgstr "Schema regex"
+
+#~ msgid "Replacement"
+#~ msgstr "Sostituzione"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "Maiuscole/Minuscole"
+
+#, c-format
+#~ msgid "Could not chown %s"
+#~ msgstr "Chown non possibile per %s"
+
+#~ msgid "Chown"
+#~ msgstr "Chown"
+
+#~ msgid "<New connection>"
+#~ msgstr "<Nuova connessione>"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "Vai a: %s"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "Connetti a: %s"
+
+#, c-format
+#~ msgid "Disconnect from: %s"
+#~ msgstr "Disconnetti da: %s"
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "Connessione a %s\n"
+
+#, c-format
+#~ msgid "Mount failed: mount exited with existatus %d"
+#~ msgstr "Mount non riuscito: mount terminato con stato di uscita %d"
+
+#~ msgid "Device is now safe to remove"
+#~ msgstr "Il dispositivo può essere rimosso in sicurezza"
+
+#, c-format
+#~ msgid ""
+#~ "Cannot unmount the volume:\n"
+#~ "%s %s"
+#~ msgstr ""
+#~ "Impossibile smontare il volume:\n"
+#~ "%s %s"
+
+#~ msgid "Unknown error"
+#~ msgstr "Errore sconosciuto"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "Vai a: %s (%s)"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr "Monta: %s"
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr "Smonta: %s"
+
+#~ msgid "S_hare:"
+#~ msgstr "_Condividi:"
+
+#~ msgid "_User name:"
+#~ msgstr "Nome _utente:"
+
+#~ msgid "_Password:"
+#~ msgstr "_Password:"
+
+#, c-format
+#~ msgid "\"%s\" is not a valid location"
+#~ msgstr "\"%s\" non è una posizione valida"
+
+#~ msgid "Remote Server"
+#~ msgstr "Server remoto"
+
+#~ msgid "Use _GNOME Keyring Manager for authentication"
+#~ msgstr "Usare il gestore portachiavi di _GNOME per l'autenticazione"
+
+#~ msgid "Failed to browse the network. Is the SMB module installed?"
+#~ msgstr "Problema nel trovare la rete: Il modulo SMB è installato?"
+
+#~ msgid "Audio Files"
+#~ msgstr "File audio"
+
+#~ msgid "CamelCase"
+#~ msgstr "CamelCase"
+
+#, c-format
+#~ msgid "Deleted %ld of %ld file"
+#~ msgid_plural "Deleted %ld of %ld files"
+#~ msgstr[0] "Eliminato %ld di %ld file"
+#~ msgstr[1] "Eliminati %ld di %ld file"
+
+#~ msgid "Deleting..."
+#~ msgstr "Eliminazione..."
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting \"%s\"\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Errore durante l'eliminazione di \"%s\"\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Delete problem"
+#~ msgstr "Problema durante l'eliminazione"
+
+#, c-format
+#~ msgid "Do you want to delete \"%s\"?"
+#~ msgstr "Eliminare \"%s\"?"
+
+#, c-format
+#~ msgid "Do you want to delete the selected file?"
+#~ msgid_plural "Do you want to delete the %d selected files?"
+#~ msgstr[0] "Eliminare il file selezionato?"
+#~ msgstr[1] "Eliminare i %d file selezionati?"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid "Manage bookmarks..."
+#~ msgstr "Gestione segnalibri..."
+
+#~ msgid "/_Copy here"
+#~ msgstr "/_Copia qui"
+
+#~ msgid "/_Move here"
+#~ msgstr "/_Muovi qui"
+
+#~ msgid "/_Link here"
+#~ msgstr "/Crea co_llegamento qui"
+
+#~ msgid "/C_ancel"
+#~ msgstr "/_Annulla"
+
+#~ msgid "Failed to open connection."
+#~ msgstr "Apertura della connessione non riuscita."
+
+#~ msgid "Couldn't retrieve MIME type of the file."
+#~ msgstr "Non è possibile recuperare il tipo MIME del file."
+
+#~ msgid "Open with other..."
+#~ msgstr "Apri con altro..."
+
+#~ msgid "Needs terminal"
+#~ msgstr "Necessita terminale"
+
+#, c-format
+#~ msgid "_Open with \"%s\""
+#~ msgstr "_Apri con \"%s\""
+
+#~ msgid "Copy file names"
+#~ msgstr "Copia nomi dei file"
+
+#~ msgid "Send files"
+#~ msgstr "Invia file"
+
+#~ msgid "Open this _folder"
+#~ msgstr "Apri questa _cartella"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "Apri un _terminale qui"
+
+#~ msgid "_Properties..."
+#~ msgstr "_Proprietà..."
+
+#~ msgid "Other _Application..."
+#~ msgstr "Altra _applicazione..."
+
+#~ msgid "Image:"
+#~ msgstr "Immagine:"
+
+#~ msgid "Type:"
+#~ msgstr "Tipo:"
+
+#~ msgid "MIME Type:"
+#~ msgstr "Tipo MIME:"
+
+#~ msgid "Type"
+#~ msgstr "Tipo"
+
+#~ msgid "Metadata namespace"
+#~ msgstr "Spazio dei nomi dei metadati"
+
+#~ msgid "Tag name"
+#~ msgstr "Nome tag"
+
+#~ msgid "Tag value"
+#~ msgstr "Valore tag"
+
+#~ msgid "Metadata tag description"
+#~ msgstr "Descrizione tag metadati"
+
+#, c-format
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] "%s di %s kB con %d di %d file"
+#~ msgstr[1] "%s di %s kB con %d di %d file"
+
+#, c-format
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] "%s, %d di %d dir selezionata"
+#~ msgstr[1] "%s, %d di %d dir selezionate"
+
+#~ msgid "The tab is locked, close anyway ?"
+#~ msgstr "La scheda è bloccata, chiudere comunque?"
+
+#~ msgid "Copy Tab to Other _Pane"
+#~ msgstr "Copia scheda nell'altro _pannello"
+
+#~ msgid "No file name given"
+#~ msgstr "Nessun nome di file fornito"
+
+#~ msgid "Filter:"
+#~ msgstr "Filtro:"
+
+#~ msgid "Unknown file type"
+#~ msgstr "Tipo di file sconosciuto"
+
+#~ msgid "Regular file"
+#~ msgstr "File normale"
+
+#~ msgid "FIFO"
+#~ msgstr "FIFO"
+
+#~ msgid "UNIX Socket"
+#~ msgstr "UNIX Socket"
+
+#~ msgid "Character device"
+#~ msgstr "Device a caratteri"
+
+#~ msgid "Block device"
+#~ msgstr "Device a blocchi"
+
+#~ msgid "Symbolic link"
+#~ msgstr "Collegamento simbolico"
+
+#~ msgid "_Directory"
+#~ msgstr "_Directory"
+
+#~ msgid "_Text File"
+#~ msgstr "File di _testo"
+
+#~ msgid "_New"
+#~ msgstr "_Nuovo"
+
+#~ msgid "Switch to Vertical Layout"
+#~ msgstr "Cambia in disposizione verticale"
+
+#~ msgid "Switch to Horizontal Layout"
+#~ msgstr "Cambia in disposizione orizzontale"
+
+#~ msgid "Start _GNOME Commander as root"
+#~ msgstr "Avvia _GNOME Commander come Root"
+
+#~ msgid "_Quit"
+#~ msgstr "_Esci"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "_Ripristina selezione"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "Copia nomi dei _file"
+
+#~ msgid "_Search..."
+#~ msgstr "Ce_rca..."
+
+#~ msgid "_Quick Search..."
+#~ msgstr "Ricerca _veloce..."
+
+#~ msgid "_Enable Filter..."
+#~ msgstr "A_bilita filtro..."
+
+#~ msgid "_Bookmark this Directory..."
+#~ msgstr "_Aggiungi directory ai segnalibri..."
+
+#~ msgid "_Manage Bookmarks..."
+#~ msgstr "_Gestisci segnalibri..."
+
+#~ msgid "_Configure Plugins..."
+#~ msgstr "_Configura plugin..."
+
+#~ msgid "_Options..."
+#~ msgstr "_Opzioni..."
+
+#~ msgid "_Keyboard Shortcuts..."
+#~ msgstr "_Scorciatoie da tastiera..."
+
+#~ msgid "_Remote Server..."
+#~ msgstr "Server _remoto..."
+
+#~ msgid "New Connection..."
+#~ msgstr "Nuova connessione..."
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "GNOME Commander sul _Web"
+
+#~ msgid "GNOME Commander - ROOT PRIVILEGES"
+#~ msgstr "GNOME Commander - PRIVILEGI DI ROOT"
+
+#~ msgid "Refresh"
+#~ msgstr "Aggiorna"
+
+#~ msgid "Go to the oldest"
+#~ msgstr "Vai al più vecchio"
+
+#~ msgid "Go back"
+#~ msgstr "Vai indietro"
+
+#~ msgid "Go forward"
+#~ msgstr "Vai avanti"
+
+#~ msgid "Go to the latest"
+#~ msgstr "Vai al più recente"
+
+#~ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+#~ msgstr "Copia i nomi dei file (Maiusc per percorsi completi, Alt per URI)"
+
+#~ msgid "Cut"
+#~ msgstr "Taglia"
+
+#~ msgid "Paste"
+#~ msgstr "Incolla"
+
+#~ msgid "Open terminal (SHIFT for root privileges)"
+#~ msgstr "Apri terminale (Maiusc per privilegi di root)"
+
+#, c-format
+#~ msgid "Copy \"%s\" to"
+#~ msgstr "Copia \"%s\" in"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "Confronta l'inizio del nome del file"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "Confronta la fine del nome file"
+
+#~ msgid "Don't start a new instance"
+#~ msgstr "Non avviare una nuova istanza"
+
+#~ msgid ""
+#~ "See the manual page for \"strftime\" for help on how to set the format "
+#~ "string."
+#~ msgstr ""
+#~ "Vedere la pagina di manuale per \"strftime\" per un aiuto su come impostare "
+#~ "la stringa di formato."
+
+#~ msgid "Edit Colors..."
+#~ msgstr "Modifica colori..."
+
+#~ msgid "Colors"
+#~ msgstr "Colori"
+
+#~ msgid "Palette"
+#~ msgstr "Tavolozza"
+
+#~ msgid "Foreground:"
+#~ msgstr "Primo piano:"
+
+#~ msgid "Background:"
+#~ msgstr "Sfondo:"
+
+#~ msgid "File panes"
+#~ msgstr "Pannelli dei file"
+
+#~ msgid "Edit..."
+#~ msgstr "Modifica..."
+
+#~ msgid "Edit colors..."
+#~ msgstr "Modifica colori..."
+
+#~ msgid "Document icon directory:"
+#~ msgstr "Directory icone documenti:"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "OK predefinito per le conferme"
+
+#~ msgid "Copy overwrite"
+#~ msgstr "Copia e sovrascrivi"
+
+#~ msgid "Silently"
+#~ msgstr "Senza chiedere"
+
+#~ msgid "Move overwrite"
+#~ msgstr "Muovi e sovrascrivi"
+
+#~ msgid "Drag and Drop"
+#~ msgstr "Trascina e rilascia"
+
+#~ msgid "Fifo files"
+#~ msgstr "File fifo"
+
+#~ msgid "Socket files"
+#~ msgstr "File socket"
+
+#~ msgid "Character devices"
+#~ msgstr "Device a caratteri"
+
+#~ msgid "Block devices"
+#~ msgstr "Device a blocchi"
+
+#~ msgid "Other favorite apps"
+#~ msgstr "Altre applicazioni preferite"
+
+#~ msgid "Device:"
+#~ msgstr "Device:"
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr "Salta montaggio (utile quando è usato super mount)"
+
+#~ msgid "Skip All"
+#~ msgstr "Salta tutti"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Sovrascrivi file"
+
+#, c-format
+#~ msgid "copy %d file to"
+#~ msgid_plural "copy %d files to"
+#~ msgstr[0] "copia %d file in"
+#~ msgstr[1] "copia %d file in"
+
+#, c-format
+#~ msgid "Move \"%s\" to"
+#~ msgstr "Muovi \"%s\" in"
+
+#, c-format
+#~ msgid "move %d file to"
+#~ msgid_plural "move %d files to"
+#~ msgstr[0] "muovi %d file in"
+#~ msgstr[1] "muovi %d file in"
+
+#, c-format
+#~ msgid "The directory '%s' doesn't exist, do you want to create it?"
+#~ msgstr "La directory «%s» non esiste, crearla?"
+
+#~ msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
+#~ msgstr "Impossibile caricare il modulo python «gnomevfs» («gnome.vfs»)"
+
+#~ msgid "Name matches regex:"
+#~ msgstr "Nome corrisponde a regex:"
+
+#~ msgid "Name contains:"
+#~ msgstr "Nome contiene:"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "Maius_cole/Minuscole"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr "Aggiungi directory corrente ai segnalibri"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "Gestisci segnalibri"
+
+#~ msgid "Open folder"
+#~ msgstr "Apri cartella"
+
+#~ msgid "Open terminal"
+#~ msgstr "Avvia terminale"
+
+#~ msgid "Open terminal as root"
+#~ msgstr "Apri terminale come root"
+
+#~ msgid "Start GNOME Commander as root"
+#~ msgstr "Avvia GNOME Commander come root"
+
+#~ msgid "Close connection"
+#~ msgstr "Chiudi connessione"
+
+#~ msgid "New connection"
+#~ msgstr "Nuova connessione"
+
+#~ msgid "Open connection"
+#~ msgstr "Apri connessione"
+
+#~ msgid "Change left connection"
+#~ msgstr "Cambia connessione sinistra"
+
+#~ msgid "Change right connection"
+#~ msgstr "Cambia connessione destra"
+
+#~ msgid "Show user defined files"
+#~ msgstr "Mostra file definiti dall'utente"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "Strumento rinominazione avanzata"
+
+#~ msgid "Change permissions"
+#~ msgstr "Cambia permessi"
+
+#~ msgid "Change owner/group"
+#~ msgstr "Cambia proprietario/gruppo"
+
+#~ msgid "Copy files"
+#~ msgstr "Copia file"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "Crea collegamento simbolico"
+
+#~ msgid "Delete files"
+#~ msgstr "Elimina file"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "Confronta file (diff)"
+
+#~ msgid "Edit file"
+#~ msgstr "Modifica file"
+
+#~ msgid "Edit a new file"
+#~ msgstr "Modifica un nuovo file"
+
+#~ msgid "Create directory"
+#~ msgstr "Crea directory"
+
+#~ msgid "Move files"
+#~ msgstr "Muovi file"
+
+#~ msgid "Rename files"
+#~ msgstr "Rinomina file"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "Sincronizza directory"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr "Informazioni su GNOME Commander"
+
+#~ msgid "Help contents"
+#~ msgstr "Sommario"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "Aiuto sulle scorciatoie da tastiera"
+
+#~ msgid "Report a problem"
+#~ msgstr "Segnala un problema"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr "GNOME Commander sul web"
+
+#~ msgid "Compare directories"
+#~ msgstr "Confronta directory"
+
+#~ msgid "Invert selection"
+#~ msgstr "Inverti selezione"
+
+#~ msgid "Select all"
+#~ msgstr "Seleziona tutti"
+
+#~ msgid "Unselect all"
+#~ msgstr "Deseleziona tutti"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Scorciatoie da tastiera"
+
+#~ msgid "Configure plugins"
+#~ msgstr "Configura plugin"
+
+#~| msgid "Execute python plugin"
+#~ msgid "Execute Python plugin"
+#~ msgstr "Esegui plugin Python"
+
+#~ msgid "Back one directory"
+#~ msgstr "Indietro di una directory"
+
+#~ msgid "Close the current tab"
+#~ msgstr "Chiudi la scheda corrente"
+
+#~ msgid "Close all tabs"
+#~ msgstr "Chiudi tutte le schede"
+
+#~ msgid "Show directory history"
+#~ msgstr "Mostra cronologia directory"
+
+#~ msgid "Equal panel size"
+#~ msgstr "Dimensione pannelli uguale"
+
+#~ msgid "Maximize panel size"
+#~ msgstr "Massimizza dimensione pannelli"
+
+#~ msgid "Back to the first directory"
+#~ msgstr "Indietro alla prima directory"
+
+#~ msgid "Forward one directory"
+#~ msgstr "Avanti di una directory"
+
+#~ msgid "Open directory in the active window"
+#~ msgstr "Apri directory nel pannello attivo"
+
+#~ msgid "Open directory in the inactive window"
+#~ msgstr "Apri directory nel pannello inattivo"
+
+#~ msgid "Open directory in the left window"
+#~ msgstr "Apri directory nel pannello di sinistra"
+
+#~ msgid "Open directory in the right window"
+#~ msgstr "Apri directory nel pannello di destra"
+
+#~ msgid "Open directory in the new tab (inactive window)"
+#~ msgstr "Apri directory nella nuova scheda (finestra inattiva)"
+
+#~ msgid "Forward to the last directory"
+#~ msgstr "Avanti all'ultima directory"
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "Apri directory in una nuova scheda"
+
+#~ msgid "Show terminal"
+#~ msgstr "Mostra terminale"
+
+#, c-format
+#~ msgid "Create symbolic links of %i file in %s?"
+#~ msgid_plural "Create symbolic links of %i files in %s?"
+#~ msgstr[0] "Creare collegamento simbolico di %i file in %s?"
+#~ msgstr[1] "Creare collegamenti simbolici di %i file in %s?"
+
+#~ msgid "Unable to open terminal"
+#~ msgstr "Impossibile aprire il terminale"
+
+#~ msgid "Unable to open terminal in root mode."
+#~ msgstr "Impossibile aprire il terminale come root."
+
+#~ msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found."
+#~ msgstr "xdg-su, gksu, gnomesu, kdesu o beesu non trovato."
+
+#~ msgid "Unable to start Nautilus."
+#~ msgstr "Impossibile avviare Nautilus."
+
+#~ msgid "Unable to start GNOME Commander in root mode."
+#~ msgstr "Impossibile avviare GNOME Commander come root."
+
+#~ msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+#~ msgstr "xdg-su, gksu, gnomesu, kdesu o beesu non trovato"
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "Un veloce e potente gestore di file per il desktop GNOME"
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME Commander è software libero; puoi ridistribuirlo e/o modificarlo sotto"
+#~ " i termini della licenza GNU General Public License come pubblicata dalla "
+#~ "Free Software Foundation; dalla versione 2 della licenza, o (a tua scelta) "
+#~ "qualsiasi versione successiva."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "GNOME Commander è distribuito nella speranza di essere utile, ma SENZA "
+#~ "ALCUNA GARANZIA; senza nemmeno garanzia implicita di COMMERCIABILITÀ o di "
+#~ "IDONEITÀ PER UN PARTICOLARE SCOPO. Per maggiori dettagli consultare la GNU "
+#~ "General Public License."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+#~ "Una copia della GNU General Public License dovrebbe essere stata\n"
+#~ "ricevuta insieme a GNOME Commander; in caso contrario, scrivere alla Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, (USA)."
+
+#, c-format
+#~ msgid ""
+#~ "Overwrite file:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "With:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+#~ msgstr ""
+#~ "Sovrascrivere file:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "Con:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+
+#~ msgid "Replace All"
+#~ msgstr "Sostituisci tutti"
+
+#, c-format
+#~ msgid ""
+#~ "Error while copying to %s\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Errore durante la copia in %s\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Transfer problem"
+#~ msgstr "Problema trasferimento"
+
+#~ msgid "copying..."
+#~ msgstr "Copia..."
+
+#, c-format
+#~ msgid "[file %ld of %ld] \"%s\""
+#~ msgstr "[file %ld di %ld] \"%s\""
+
+#~ msgid "preparing..."
+#~ msgstr "preparazione..."
+
+#~ msgid "stopping..."
+#~ msgstr "arresto..."
+
+#, c-format
+#~ msgid "%s of %s copied"
+#~ msgstr "%s di %s copiati"
+
+#, c-format
+#~ msgid "%.0f%% copied"
+#~ msgstr "%.0f%% copiati"
+
+#, c-format
+#~ msgid "Couldn't load installed file type pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Non è possibile caricare la pixmap per il tipo di file installato, tentativo"
+#~ " di caricare %s al suo posto"
+
+#, c-format
+#~ msgid ""
+#~ "Can't find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-commander from the gnome-commander-%s/src directory"
+#~ msgstr ""
+#~ "Impossibile trovare la pixmap. Controllare di aver installato il programma o"
+#~ " che sia in esecuzione gnome-commander dalla directory gnome-"
+#~ "commander-%s/src"
+
+#, c-format
+#~ msgid "Couldn't load installed pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Non è possibile caricare la pixmap installata, tentativo di caricare %s al "
+#~ "suo posto"
+
+#~ msgid "Find"
+#~ msgstr "Trova"
+
+#~ msgid "Searching..."
+#~ msgstr "Ricerca..."
+
+#, c-format
+#~ msgid "Searching for \"%s\""
+#~ msgstr "Ricerca di \"%s\""
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr "Posizione: %lu di %lu\tColonna: %d\t%s"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "pixel"
+#~ msgstr[1] "pixel"
+
+#~ msgid "bit/sample"
+#~ msgid_plural "bits/sample"
+#~ msgstr[0] "Bit per campione"
+#~ msgstr[1] "Bit per campione"
+
+#~ msgid "_Copy selection"
+#~ msgstr "_Copia selezione"
+
+#~ msgid "_Binary"
+#~ msgstr "_Binario"
+
+#~ msgid "Zoom _Out"
+#~ msgstr "Z_oom indietro"
+
+#~ msgid "Best _Fit"
+#~ msgstr "_Adatta"
+
+#~ msgid "Find..."
+#~ msgstr "Trova..."
+
+#~ msgid "_Rotate 180°"
+#~ msgstr "R_uota di 180°"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "Modalità _binaria"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "_Salva le impostazioni correnti"
+
+#, c-format
+#~ msgid "Pattern \"%s\" was not found"
+#~ msgstr "Il modello  \"%s\" non è stato trovato"
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr "Specificare la directory di partenza per il pannello di sinistra"
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr "Specificare la directory di partenza per il pannello di destra"
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr "Specificare la directory per i file di configurazione"
+
+#~ msgid "File Manager"
+#~ msgstr "Gestore di file"
+
+#~ msgid "Disable"
+#~ msgstr "Disabilita"
+
+#~ msgid "Enable"
+#~ msgstr "Abilita"
+
+#~ msgid "Version"
+#~ msgstr "Versione"
+
+#~ msgid "_Enable"
+#~ msgstr "_Abilita"
+
+#~ msgid "_Configure"
+#~ msgstr "_Configura"
+
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr "<Tag Exif e IPTC non supportati>"
+
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr "<Tag ID3, APE, FLAC e Vorbis non supportati>"
+
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr "<Tag OLE2 e ODF non supportati>"
+
+#~ msgid "<PDF tags not supported>"
+#~ msgstr "<Tag PDF non supportati>"
+
+#~ msgid "Set to \"1\" if track is new to the user (default \"0\")."
+#~ msgstr "Impostata ad \"1\" se la traccia è nuova per l'utente (predefinito \"0\")."
+
+#~ msgid "\"1\" if the copyrighted bit is set."
+#~ msgstr "\"1\" se il bit protetto da copyright è impostato."
+
+#~ msgid "\"1\" if the \"original\" bit is set."
+#~ msgstr "\"1\" se il bit \"originale\" è impostato."
+
+#~ msgid "Created"
+#~ msgstr "Creato"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr ""
+#~ "Data associata con un evento nel ciclo di vita della risorsa (data di "
+#~ "creazione/pubblicazione)."
+
+#~ msgid "Number of \"notes\" in the document."
+#~ msgstr "Numero di \"note\" nel documento."
+
+#~ msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
+#~ msgstr ""
+#~ "Tipo di presentazione, come \"Mostra su schermo\", \"Proiezione "
+#~ "diapositive\", ecc."
+
+#~ msgid ""
+#~ "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
+#~ "enforced\" or \"Locked for annotations\"."
+#~ msgstr ""
+#~ "Uno di: \"Protetto da password\", \"Consigliato in sola lettura\", \"Forzato"
+#~ " in sola lettura\" o \"Bloccato per annotazioni\"."
+
+#~ msgid ""
+#~ "Copyright information. The tag is used to indicate both the photographer and"
+#~ " editor copyrights. It is the copyright notice of the person or organization"
+#~ " claiming rights to the image. The Interoperability copyright statement "
+#~ "including date and rights should be written in this field; e.g., "
+#~ "\"Copyright, John Smith, 19xx. All rights reserved.\". The field records "
+#~ "both the photographer and editor copyrights, with each recorded in a "
+#~ "separate part of the statement. When there is a clear distinction between "
+#~ "the photographer and editor copyrights, these are to be written in the order"
+#~ " of photographer followed by editor copyright, separated by NULL (in this "
+#~ "case, since the statement also ends with a NULL, there are two NULL codes) "
+#~ "(see example 1). When only the photographer is given, it is terminated by "
+#~ "one NULL code. When only the editor copyright is given, the photographer "
+#~ "copyright part consists of one space followed by a terminating NULL code, "
+#~ "then the editor copyright is given. When the field is left blank, it is "
+#~ "treated as unknown."
+#~ msgstr ""
+#~ "Informazioni sul copyright. Il tag è usato per indicare sia i diritti "
+#~ "d'autore del fotografo che del redattore. Esso è l'avviso dei diritti "
+#~ "d'autore della persona od organizzazione che rivendica i diritti "
+#~ "sull'immagine. La dichiarazione dell'interoperabilità dei diritti d'autore, "
+#~ "includendo data e diritti, dovrebbe essere scritta in questo campo; p.es., "
+#~ "\"Copyright, Mario Rossi, 20xx. Tutti i diritti riservati.\". Il campo "
+#~ "registra sia i diritti d'autore del fotografo che del redattore, ognuno "
+#~ "registrato in una parte separata della dichiarazione. Quando c'è una "
+#~ "distinzione chiara tra i diritti d'autore del fotografo e del redattore, "
+#~ "questi devono essere scritti nell'ordine del fotografo seguito dai diritti "
+#~ "d'autore del redattore, separate da NULL (in questo caso, dato che anche la "
+#~ "dichiarazione finisce con un NULL, ci sono due codici NULL) (vedi esempio "
+#~ "1). Quando è dato solo il fotografo, esso è terminato con un codice NULL. "
+#~ "Quando sono dati solo i diritti d'autore del redattore, la parte dei diritti"
+#~ " d'autore del fotografo consiste di uno spazio seguito da un codice di "
+#~ "terminazione NULL, poi sono dati i diritti d'autore del redattore. Quando il"
+#~ " campo è lasciato in bianco è trattato come sconosciuto."
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr "Puntatore IFD Exif"
+
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr ""
+#~ "Un puntatore all'IFD Exif. Interoperabilità: IFD Exif ha la stessa struttura"
+#~ " dell'IFD specificato in TIFF."
+
+#~ msgid ""
+#~ "Indicates whether the latitude is north or south latitude. The ASCII value "
+#~ "'N' indicates north latitude, and 'S' is south latitude."
+#~ msgstr ""
+#~ "Indica se la latitudine è una latitudine nord o sud. Il valore ASCII «N» "
+#~ "indica latitudine nord, e «S» indica latitudine sud."
+
+#~ msgid ""
+#~ "Indicates whether the longitude is east or west longitude. ASCII 'E' "
+#~ "indicates east longitude, and 'W' is west longitude."
+#~ msgstr ""
+#~ "Indica se la longitudine è una longitudine est o ovest. Il valore ASCII «E» "
+#~ "indica longitudine est, e «W» è longitudine ovest."
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr "Puntatore interoperabilità IFD"
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+#~ "Interoperabilità IFD è composta da tag che contengono le informazioni per "
+#~ "assicurare l'interoperabilità e a cui punta il tag seguente collocato in "
+#~ "Exif IFD. La struttura di interoperabilità dell'interoperabilità IFD è la "
+#~ "stessa della struttura IFD definita per il TIFF ma non contiene dati "
+#~ "immagine caratteristicamente comparata con il normale IFD TIFF."
+
+#~ msgid ""
+#~ "Indicates the identification of the Interoperability rule. Use \"R98\" for "
+#~ "stating ExifR98 Rules."
+#~ msgstr ""
+#~ "Indica l'identificazione della regola di Interoperabilità. Usare \"R98\" per"
+#~ " indicare le regole ExifR98."
+
+#~ msgid ""
+#~ "The reference black point value and reference white point value. No defaults"
+#~ " are given in TIFF, but the values below are given as defaults here. The "
+#~ "color space is declared in a color space information tag, with the default "
+#~ "being the value that gives the optimal image characteristics "
+#~ "Interoperability these conditions."
+#~ msgstr ""
+#~ "Il valore del punto di riferimento nero e il valore del punto di riferimento"
+#~ " bianco. In TIFF non vengono dati valori predefiniti, ma i valori "
+#~ "sottostanti sono dati come predefiniti qui. Lo spazio colore è dichiarato in"
+#~ " un tag di informazione spazio colore, con predefinito il valore che dà le "
+#~ "caratteristiche di Interoperabilità ottimali dell'immagine in queste "
+#~ "condizioni."
+
+#~ msgid ""
+#~ "This tag is used to record the name of an audio file related to the image "
+#~ "data. The only relational information recorded here is the Exif audio file "
+#~ "name and extension (an ASCII string consisting of 8 characters + '.' + 3 "
+#~ "characters). The path is not recorded. When using this tag, audio files must"
+#~ " be recorded in conformance to the Exif audio format. Writers are also "
+#~ "allowed to store the data such as Audio within APP2 as FlashPix extension "
+#~ "stream data. Audio files must be recorded in conformance to the Exif audio "
+#~ "format. If multiple files are mapped to one file, the above format is used "
+#~ "to record just one audio file name. If there are multiple audio files, the "
+#~ "first recorded file is given. When there are three Exif audio files "
+#~ "\"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the Exif image file"
+#~ " name for each of them, \"DSC00001.JPG\", is indicated. By combining "
+#~ "multiple relational information, a variety of playback possibilities can be "
+#~ "supported. The method of using relational information is left to the "
+#~ "implementation on the playback side. Since this information is an ASCII "
+#~ "character string, it is terminated by NULL. When this tag is used to map "
+#~ "audio files, the relation of the audio file to image data must also be "
+#~ "indicated on the audio file end."
+#~ msgstr ""
+#~ "Questo tag è usato per memorizzare il nome di un file audio associato ai "
+#~ "dati immagine. La sola informazione relazionale qui memorizzata è il nome e "
+#~ "l'estensione Exif del file audio (una stringa ASCII composta da 8 caratteri "
+#~ "+ '.' + 3 caratteri). Il percorso non è memorizzato. Quando viene usato "
+#~ "questo tag, i file audio devono essere registrati in conformità al formato "
+#~ "audio Exif. Agli scrittori è inoltre permesso di memorizzare i dati come "
+#~ "Audio all'interno di APP2 come flusso dati dell'estensione FlashPix. I file "
+#~ "Audio devono essere memorizzati in conformità al formato audio Exif. Se file"
+#~ " multipli sono mappati in un unico file, il formato suddetto è usato per "
+#~ "registrare solo un nome di file audio. Se ci sono file audio multipli, viene"
+#~ " fornito solo il primo file registrato. Quando ci sono tre file audio Exif "
+#~ "\"SND00001.WAV\", \"SND00002.WAV\" e \"SND00003.WAV\", è indicato, per "
+#~ "ognuno, il nome Exif del file immagine \"DSC00001.JPG\". Dalla combinazione "
+#~ "di informazioni relazionali multiple, può essere supportata una varietà di "
+#~ "riproduzioni possibili. Il metodo d'uso delle informazioni relazionali è "
+#~ "lasciato all'implementazione lato riproduzione. Dato che quest'informazione "
+#~ "è una stringa di caratteri ASCII, è terminata da NULL. Quando questo tag è "
+#~ "usato per mappare file audio, la relazione del file audio ai dati immagine "
+#~ "deve essere indicata anche nel audio."
+
+#~ msgid ""
+#~ "A tag for Exif users to write keywords or comments on the image besides "
+#~ "those in <Exif.ImageDescription>, and without the character code limitations"
+#~ " of the <Exif.ImageDescription> tag. The character code used in the "
+#~ "<Exif.UserComment> tag is identified based on an ID code in a fixed 8-byte "
+#~ "area at the start of the tag data area. The unused portion of the area is "
+#~ "padded with NULL (\"00.h\"). ID codes are assigned by means of registration."
+#~ " The value of CountN is determinated based on the 8 bytes in the character "
+#~ "code area and the number of bytes in the user comment part. Since the TYPE "
+#~ "is not ASCII, NULL termination is not necessary. The ID code for the "
+#~ "<Exif.UserComment> area may be a Defined code such as JIS or ASCII, or may "
+#~ "be Undefined. The Undefined name is UndefinedText, and the ID code is filled"
+#~ " with 8 bytes of all \"NULL\" (\"00.H\"). An Exif reader that reads the "
+#~ "<Exif.UserComment> tag must have a function for determining the ID code. "
+#~ "This function is not required in Exif readers that do not use the "
+#~ "<Exif.UserComment> tag. When a <Exif.UserComment> area is set aside, it is "
+#~ "recommended that the ID code be ASCII and that the following user comment "
+#~ "part be filled with blank characters [20.H]."
+#~ msgstr ""
+#~ "Un tag per utenti Exif per scrivere parole chiave o commenti sull'immagine "
+#~ "oltre a quelli in <Exif.ImageDescription>, e senza le limitazioni di codice "
+#~ "dei caratteri del tag <Exif.ImageDescription>. Il codice dei caratteri usato"
+#~ " nel tag <Exif.UserComment> è identificato in base a un codice ID in un'area"
+#~ " di 8-byte fissi all'inizio dell'area dati del tag. La porzione inutilizzata"
+#~ " dell'area è riempita con NULL (\"00.h\"). I codici ID sono assegnati per "
+#~ "mezzo di registrazione. Il valore di CountN è determinato in base agli 8 "
+#~ "byte nell'area del codice dei caratteri e il numero di byte nella parte del "
+#~ "commento utente. Dato che TYPE non è ASCII, la terminazione con NULL non è "
+#~ "necessaria. Il codice ID per l'area <Exif.UserComment> può essere un codice "
+#~ "definito come JIS o ASCII, o può essere indefinito. Il nome Undefined è "
+#~ "UndefinedText, e il codice ID è riempito con 8 byte tutti \"NULL\" "
+#~ "(\"00.H\"). Un lettore Exif che legge il tag <Exif.UserComment> deve avere "
+#~ "una funzione per determinare il codice ID. Questa funzione non è richiesta "
+#~ "nei lettori Exif che non usano il tag <Exif.UserComment>. Quando un'area "
+#~ "<Exif.UserComment> è messa da parte, è raccomandato che il codice ID sia "
+#~ "ASCII e che la seguente parte di commento utente sia riempita con caratteri "
+#~ "vuoti [20.H]."
+
+#~ msgid ""
+#~ "The matrix coefficients for transformation from RGB to YCbCr image data. No "
+#~ "default is given in TIFF; but here \"Color Space Guidelines\" is used as the"
+#~ " default. The color space is declared in a color space information tag, with"
+#~ " the default being the value that gives the optimal image characteristics "
+#~ "Interoperability this condition."
+#~ msgstr ""
+#~ "La matrice dei coefficienti per trasformazioni da dati immagine RGB a YCbCr."
+#~ " Nessun predefinito è dato in TIFF; ma qui \"Color Space Guidelines\" è "
+#~ "usato come predefinito. Lo spazio colore è dichiarato in un tag di "
+#~ "informazioni sullo spazio colore, con il valore predefinito che dà "
+#~ "caratteristiche di interoperabilità ottimali per l'immagine in queste "
+#~ "condizioni"
+
+#~ msgid "File's contents filtered as plain text."
+#~ msgstr "Contenuti del file filtrato come puro testo."
+
+#~ msgid ""
+#~ "MIME type of the file or if a directory it should contain value \"Folder\"."
+#~ msgstr ""
+#~ "Tipo MIME del file o se è una directory dovrebbe contenere il valore "
+#~ "\"Folder\""
+
+#~ msgid "Permission string in unix format eg \"-rw-r--r--\"."
+#~ msgstr "Stringa dei permessi in formato unix, es \"-rw-r--r--\"."
+
+#~ msgid "Emphasis"
+#~ msgstr "Enfasi"
+
+#~ msgid "Emphasis."
+#~ msgstr "Enfasi."
+
+#~ msgid "Equalization 2"
+#~ msgstr "Equalizzazione 2"
+
+#~ msgid "Frames"
+#~ msgstr "Frame"
+
+#~ msgid "Number of frames."
+#~ msgstr "Numero di frame."
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr "Persone coinvolte 2"
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr "Dimensione del file audio in byte, escluso il tag ID3."
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr "Regolazione volume 2"
+
+#~ msgid "Set to \"1\" if flash was fired."
+#~ msgstr "Impostato a \"1\" se il flash è stato usato."
+
+#~ msgid ""
+#~ "Represents the orientation of the image wrt camera (IE \"top,left\" or "
+#~ "\"bottom,right\")."
+#~ msgstr ""
+#~ "Rappresenta l'orientamento dell'immagine rispetto alla fotocamera (cioè "
+#~ "\"top,left  o \"bottom,right\")."
+
+#~ msgid ""
+#~ "The type of action that this object provides to a previous object. '01' "
+#~ "Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
+#~ msgstr ""
+#~ "Il tipo di azione che questo oggetto fornisce ad un precedente oggetto. «01»"
+#~ " Uccidi Oggetto, «02» Rimpiazza Oggetto, «03» Accoda Oggetto, «04» "
+#~ "Riferimento Oggetto."
+
+#~ msgid ""
+#~ "The type of update this object provides to a previous object. The link to "
+#~ "the previous object is made using the ARM. '01' indicates an additional "
+#~ "language."
+#~ msgstr ""
+#~ "Il tipo di aggiornamento che questo oggetto fornisce ad un oggetto "
+#~ "precedente. Il collegamento all'oggetto precedente è fatto usando l'ARM. "
+#~ "«01» indica una lingua aggiuntiva."
+
+#~ msgid ""
+#~ "Specifies the envelope handling priority and not the editorial urgency. '1' "
+#~ "for most urgent, '5' for normal, and '8' for least urgent. '9' is user-"
+#~ "defined."
+#~ msgstr ""
+#~ "Specifica la priorità di manipolazione dell'involucro e non l'urgenza "
+#~ "editoriale. «1» per molto urgente, «5» per normale, e «8» per poco urgente. "
+#~ "«9» è definito dall'utente."
+
+#~ msgid ""
+#~ "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
+#~ "for square."
+#~ msgstr ""
+#~ "La disposizione dell'area dell'immagine: «P» per verticale, «L» per "
+#~ "orizzontale, e «S» per quadrata."
+
+#~ msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
+#~ msgstr "Dove «a» è mattina, «p» è sera, «b» è entrambi."
+
+#~ msgid ""
+#~ "Specifies the editorial urgency of content and not necessarily the envelope "
+#~ "handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
+#~ msgstr ""
+#~ "Specifica l'urgenza editoriale del contenuto e non necessariamente la "
+#~ "priorità di gestione involucro. «1» è molto urgente, «5» normale, e «8» poco"
+#~ " urgente."
+
+#~ msgid "Set to \"1\" if optimized for network access."
+#~ msgstr "Impostato ad \"1\" se ottimizzato per l'accesso via rete."
+
+#~ msgid "Set to \"1\" if printing is allowed."
+#~ msgstr "Impostato a \"1\" se la stampa è permessa."
+
+#~ msgid "Set to \"1\" if high resolution printing is allowed."
+#~ msgstr "Impostato a \"1\" se la stampa in alta risoluzione è permessa."
+
+#~ msgid "Set to \"1\" if copying the contents is allowed."
+#~ msgstr "Impostato a \"1\" se la copia del contenuto è permessa."
+
+#~ msgid "Set to \"1\" if modifying the contents is allowed."
+#~ msgstr "Impostato a \"1\" se la modifica del contenuto è permessa."
+
+#~ msgid ""
+#~ "Set to \"1\" if inserting, rotating, or deleting pages and creating "
+#~ "navigation elements is allowed."
+#~ msgstr ""
+#~ "Impostato a \"1\" se l'inserimento, la rotazione o l'eliminazione di pagine "
+#~ "e la creazione elementi di navigazione sono permessi."
+
+#~ msgid "Set to \"1\" if adding or modifying text annotations is allowed."
+#~ msgstr ""
+#~ "Impostato a \"1\" se l'aggiunta o modifica di annotazioni di testo è "
+#~ "permessa."
+
+#~ msgid "Set to \"1\" if filling of form fields is allowed."
+#~ msgstr "Impostato a \"1\" se il completamento dei campi del modulo è permesso."
+
+#~| msgid ""
+#~| "Set to \"1\" if accessibility support (eg. screen readers) is enabled."
+#~ msgid "Set to \"1\" if accessibility support (e.g. screen readers) is enabled."
+#~ msgstr ""
+#~ "Impostato a \"1\" se il supporto per l'accessibilità (p.es. lettori di "
+#~ "schermo) è abilitato."
+
+#~ msgid "No Proofing"
+#~ msgstr "Nessuna correzione"
+
+#~ msgid "Arabic"
+#~ msgstr "Arabo"
+
+#~ msgid "Bulgarian"
+#~ msgstr "Bulgaro"
+
+#~ msgid "Catalan"
+#~ msgstr "Catalano"
+
+#~ msgid "Traditional Chinese"
+#~ msgstr "Cinese tradizionale"
+
+#~ msgid "Simplified Chinese"
+#~ msgstr "Cinese semplificato"
+
+#~ msgid "Chechen"
+#~ msgstr "Ceceno"
+
+#~ msgid "Danish"
+#~ msgstr "Danese"
+
+#~ msgid "German"
+#~ msgstr "Tedesco"
+
+#~ msgid "Swiss German"
+#~ msgstr "Tedesco svizzero"
+
+#~ msgid "Greek"
+#~ msgstr "Greco"
+
+#~ msgid "U.S. English"
+#~ msgstr "Inglese americano"
+
+#~ msgid "U.K. English"
+#~ msgstr "Inglese britannico"
+
+#~ msgid "Australian English"
+#~ msgstr "Inglese australiano"
+
+#~ msgid "Castilian Spanish"
+#~ msgstr "Spagnolo castigliano"
+
+#~ msgid "Mexican Spanish"
+#~ msgstr "Spagnolo messicano"
+
+#~ msgid "Finnish"
+#~ msgstr "Finlandese"
+
+#~ msgid "French"
+#~ msgstr "Francese"
+
+#~ msgid "Belgian French"
+#~ msgstr "Francese belga"
+
+#~ msgid "Canadian French"
+#~ msgstr "Francese canadese"
+
+#~ msgid "Swiss French"
+#~ msgstr "Francese svizzero"
+
+#~ msgid "Hebrew"
+#~ msgstr "Ebraico"
+
+#~ msgid "Hungarian"
+#~ msgstr "Ungherese"
+
+#~ msgid "Icelandic"
+#~ msgstr "Islandese"
+
+#~ msgid "Italian"
+#~ msgstr "Italiano"
+
+#~ msgid "Swiss Italian"
+#~ msgstr "Italiano svizzero"
+
+#~ msgid "Japanese"
+#~ msgstr "Giapponese"
+
+#~ msgid "Korean"
+#~ msgstr "Coreano"
+
+#~ msgid "Dutch"
+#~ msgstr "Olandese"
+
+#~ msgid "Belgian Dutch"
+#~ msgstr "Olandese belga"
+
+#~ msgid "Norwegian Bokmal"
+#~ msgstr "Norvegese bokmal"
+
+#~ msgid "Norwegian Nynorsk"
+#~ msgstr "Norvegese nynorsk"
+
+#~ msgid "Polish"
+#~ msgstr "Polacco"
+
+#~ msgid "Brazilian Portuguese"
+#~ msgstr "Portoghese brasiliano"
+
+#~ msgid "Portuguese"
+#~ msgstr "Portoghese"
+
+#~ msgid "Rhaeto-Romanic"
+#~ msgstr "Ladino"
+
+#~ msgid "Romanian"
+#~ msgstr "Rumeno"
+
+#~ msgid "Russian"
+#~ msgstr "Russo"
+
+#~ msgid "Croato-Serbian (Latin)"
+#~ msgstr "Croato-Serbo (latino)"
+
+#~ msgid "Serbo-Croatian (Cyrillic)"
+#~ msgstr "Serbo-Croato (cirillico)"
+
+#~ msgid "Slovak"
+#~ msgstr "Slovacco"
+
+#~ msgid "Albanian"
+#~ msgstr "Albanese"
+
+#~ msgid "Swedish"
+#~ msgstr "Svedese"
+
+#~ msgid "Thai"
+#~ msgstr "Tailandese"
+
+#~ msgid "Turkish"
+#~ msgstr "Turco"
+
+#~ msgid "Urdu"
+#~ msgstr "Urdu"
+
+#~ msgid "Indonesian"
+#~ msgstr "Indonesiano"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Ucraino"
+
+#~ msgid "Byelorussian"
+#~ msgstr "Bielorusso"
+
+#~ msgid "Slovenian"
+#~ msgstr "Sloveno"
+
+#~ msgid "Estonian"
+#~ msgstr "Estone"
+
+#~ msgid "Latvian"
+#~ msgstr "Lettone"
+
+#~ msgid "Lithuanian"
+#~ msgstr "Lituano"
+
+#~ msgid "Farsi"
+#~ msgstr "Persiano"
+
+#~ msgid "Basque"
+#~ msgstr "Basco"
+
+#~ msgid "Macedonian"
+#~ msgstr "Macedone"
+
+#~ msgid "Afrikaans"
+#~ msgstr "Afrikaans"
+
+#~ msgid "Malayalam"
+#~ msgstr "Malayalam"
+
+#, c-format
+#~ msgid "unsupported tag (suppressed %u B of binary data)"
+#~ msgstr "tag non supportato (eliminati %u B dei dati binari)"
+
+#, c-format
+#~ msgid "No default application found for the MIME type %s."
+#~ msgstr "Nessuna applicazione predefinita trovata per il tipo MIME %s."
+
+#, c-format
+#~ msgid ""
+#~ "\"%s\" seems to be a binary executable file but it lacks the executable bit."
+#~ " Do you want to set it and then run the file?"
+#~ msgstr ""
+#~ "\"%s\" sembra essere un file binario eseguibile ma manca il bit di "
+#~ "esecuzione. Impostarlo e poi eseguire il file?"
+
+#~ msgid "Make Executable?"
+#~ msgstr "Rendere eseguibile?"
+
+#, c-format
+#~ msgid ""
+#~ "\"%s\" is an executable text file. Do you want to run it, or display its "
+#~ "contents?"
+#~ msgstr ""
+#~ "\"%s\" è un file di testo eseguibile. Si vuole eseguirlo o vederne il "
+#~ "contenuto?"
+
+#~ msgid "Run or Display"
+#~ msgstr "Esegui o mostra"
+
+#~ msgid "Display"
+#~ msgstr "Mostra"
+
+#~ msgid "Run"
+#~ msgstr "Esegui"
+
+#, c-format
+#~ msgid ""
+#~ "%s does not know how to open remote file. Do you want to download the file "
+#~ "to a temporary location and then open it?"
+#~ msgid_plural ""
+#~ "%s does not know how to open remote files. Do you want to download the files"
+#~ " to a temporary location and then open them?"
+#~ msgstr[0] ""
+#~ "Impossibile aprire un file remoto con %s. Scaricare il file in una posizione"
+#~ " temporanea e poi aprirlo?"
+#~ msgstr[1] ""
+#~ "Impossibile aprire i file remoti con %s. Scaricare i file in una posizione "
+#~ "temporanea e poi aprirli?"
+
+#, c-format
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "(%sbyte)"
+#~ msgstr[1] "(%sbyte)"
+
+#, c-format
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "%sbyte"
+#~ msgstr[1] "%sbyte"
+
+#~ msgid "Failed to create a directory in which to store temporary files."
+#~ msgstr ""
+#~ "Creazione directory in cui memorizzare i file temporanei non riuscita."
+
+#, c-format
+#~ msgid "Creating directory %s... "
+#~ msgstr "Creazione directory %s... "
+
+#, c-format
+#~ msgid "Failed to create the directory %s"
+#~ msgstr "Creazione della directory %s non riuscita"
+
+#, c-format
+#~ msgid "Couldn't read from the directory %s: %s"
+#~ msgstr "Impossibile leggere dalla directory %s: %s"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "Si è verificato un errore nella visualizzazione dell'aiuto."
+
+#~ msgid "CVS options"
+#~ msgstr "Opzioni per CVS"
+
+#~ msgid "Compression level"
+#~ msgstr "Livello di compressione"
+
+#~ msgid "Unified diff format"
+#~ msgstr "Formato diff unificato"
+
+#~ msgid "A plugin that eventually will be a simple CVS client"
+#~ msgstr "Un plugin che diventerà un semplice client CVS"
+
+#~ msgid "Compare with"
+#~ msgstr "Confronta con"
+
+#~ msgid "HEAD"
+#~ msgstr "HEAD"
+
+#~ msgid "The previous revision"
+#~ msgstr "La revisione precedente"
+
+#~ msgid "Other revision"
+#~ msgstr "Altra revisione"
+
+#~ msgid "CVS Diff"
+#~ msgstr "Diff CVS"
+
+#~ msgid "revision"
+#~ msgstr "revisione"
+
+#~ msgid "Revision:"
+#~ msgstr "Revisione:"
+
+#~ msgid "Compare..."
+#~ msgstr "Confronta..."
+
+#~ msgid "Author:"
+#~ msgstr "Autore:"
+
+#~ msgid "Date:"
+#~ msgstr "Data:"
+
+#~ msgid "State:"
+#~ msgstr "Stato:"
+
+#~ msgid "Lines:"
+#~ msgstr "Righe:"
+
+#~ msgid "Message:"
+#~ msgstr "Messaggio:"
+
+#~ msgid "_Change"
+#~ msgstr "_Cambia"
+
+#~ msgid "_MIME Types..."
+#~ msgstr "Tipi _MIME..."
+
+#~ msgid "_Contents"
+#~ msgstr "_Sommario"
+
+#~ msgid "MIME types"
+#~ msgstr "Tipi MIME"

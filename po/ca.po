@@ -7296,3 +7296,1388 @@ msgstr "Cap"
 #: plugins/taglib/taglib-plugin.cc:421
 msgid "10-15ms"
 msgstr "10-15ms"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME Commander"
+
+#~ msgid "Two-pane file manager"
+#~ msgstr "Un gestor de fitxers amb dues subfinestres"
+
+#~ msgid ""
+#~ "GNOME Commander is a “two-pane” graphical file manager for the GNOME desktop"
+#~ " environment. It features separate tabs for each pane, setting up custom "
+#~ "device buttons, bookmark manager, fully integrated commandline, file quick "
+#~ "search, an internal image viewer, a powerful batch renaming tool, and FTP "
+#~ "and Samba access."
+#~ msgstr ""
+#~ "GNOME Commander és un gestor de fitxers gràfic amb «dues subfinestres» per "
+#~ "l'entorn d'escriptori del GNOME. Disposa de pestanyes separades per a cada "
+#~ "finestra, configuració de botons personalitzada pel dispositiu, gestor de "
+#~ "punts d'interès, línia d'ordres totalment integrada, cerca ràpida de "
+#~ "fitxers, visor d'imatges intern, una potent eina per a canviar els noms per "
+#~ "lots i, accés FTP i Samba."
+
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+#~ "GNOME Commander té com a objectiu els usuaris avançats que vulguin centrar-"
+#~ "se en una gestió precisa de fitxers, treballant en paral·lel mitjançant "
+#~ "aplicacions especials i executant comandes intel·ligents."
+
+#~ msgid "A two paned file manager"
+#~ msgstr "Un gestor de fitxers amb dues subfinestres"
+
+#~ msgid "Use default font"
+#~ msgstr "Utilitza el tipus de lletra predeterminada"
+
+#~ msgid ""
+#~ "Whether to use the system's default fixed width font for the file panels "
+#~ "instead of a font specific to gnome-commander."
+#~ msgstr ""
+#~ "Si utilitzeu el tipus de lletra d'amplada fixa del sistema per als panells "
+#~ "de fitxers en lloc d'un tipus de lletra específic per a gnome-command."
+
+#~ msgid ""
+#~ "A custom font that will be used for the file panes if the “Use default font”"
+#~ " option is turned off."
+#~ msgstr ""
+#~ "S'utilitzarà un tipus de lletra personalitzat per a les finestres de fitxers"
+#~ " si l'opció \"Utilitza la lletra predeterminada\" està desactivada."
+
+#~ msgid ""
+#~ "Defines how the filesize will be displayed in the associated pane column."
+#~ msgstr ""
+#~ "Defineix com es mostrarà la mida de fitxer a la columna de la finestra "
+#~ "associada."
+
+#~ msgid ""
+#~ "Defines how the file permission will be displayed in the associated pane "
+#~ "column."
+#~ msgstr ""
+#~ "Defineix com es mostrarà el permís de fitxer a la columna de la finestra "
+#~ "associada."
+
+#~ msgid "Defines the icon style of files and folders in the file panes."
+#~ msgstr ""
+#~ "Defineix l'estil de la icona dels fitxers i les carpetes a les finestres "
+#~ "dels fitxers."
+
+#~ msgid "Defines the height of a row in the file pane."
+#~ msgstr "Defineix l'alçària d'una fila a la finestra dels fitxers."
+
+#~ msgid "Format of the date in the file pane."
+#~ msgstr "Format de la data a les finestres dels fitxers."
+
+#~ msgid "The font in the file panes."
+#~ msgstr "El tipus de lletra a les finestres dels fitxers."
+
+#~ msgid "Size of icons in the file pane."
+#~ msgstr "Mida de les icones a la finestra de fitxers."
+
+#~ msgid "Device icon size"
+#~ msgstr "Mida de la icona del dispositiu"
+
+#~ msgid "Icon size in the device list."
+#~ msgstr "Mida de la icona en el llistat de dispositius."
+
+#~ msgid ""
+#~ "Defines if the orientation of the file panes should be horizontal or not."
+#~ msgstr ""
+#~ "Defineix si l'orientació de les finestres dels fitxers han de ser "
+#~ "horitzontals o no."
+
+#~ msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
+#~ msgstr ""
+#~ "Velocitat d'actualització de la interfície gràfica d'usuari en 1/1000 de "
+#~ "segon."
+
+#~ msgid "Main window horizontal position"
+#~ msgstr "Finestra principal posició horitzontal"
+
+#~ msgid "Position of the main window in horizontal direction."
+#~ msgstr "Posició de la finestra principal en sentit horitzontal."
+
+#~ msgid "Main window vertical position"
+#~ msgstr "Posició vertical de la finestra principal"
+
+#~ msgid "Position of the main window in vertical direction."
+#~ msgstr "Posició de la finestra principal en direcció vertical."
+
+#~ msgid ""
+#~ "Defines if the current directories are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Defineix si els directoris actuals es tornen a obrir quan es reinicia el "
+#~ "GNOME Commander."
+
+#~ msgid ""
+#~ "Defines if the current open tabs are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Defineix si les pestanyes actuals obertes es tornen a obrir quan es reinicia"
+#~ " el GNOME Commander."
+
+#~ msgid ""
+#~ "This option defines if directories will be marked when all items in a file "
+#~ "pane should be marked."
+#~ msgstr ""
+#~ "Aquesta opció defineix si es marcaran els directoris quan s'han de marcar "
+#~ "tots els elements d'una finestra de fitxers."
+
+#~ msgid "Quick search exact match begin"
+#~ msgstr "Inicia la coincidència exacta de la cerca ràpida"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the beginning"
+#~ " of an item name."
+#~ msgstr ""
+#~ "Aquesta opció defineix si la cerca ràpida ha de coincidir explícitament al "
+#~ "començament del nom d'un ítem."
+
+#~ msgid "Quick search exact match end"
+#~ msgstr "Final de coincidència exacte de cerca ràpida"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the end of an"
+#~ " item name."
+#~ msgstr ""
+#~ "Aquesta opció defineix si la cerca ràpida ha de coincidir explícitament al "
+#~ "final del nom d'un ítem."
+
+#~ msgid "Skip device mounting"
+#~ msgstr "Saltar el muntatge del dispositiu"
+
+#~ msgid ""
+#~ "This option defines if mounting of devices should be skipped when they are "
+#~ "opened."
+#~ msgstr ""
+#~ "Aquesta opció defineix si s'ha de saltar el muntatge de dispositius quan "
+#~ "s'obren."
+
+#~ msgid ""
+#~ "The entries in this list are used for restoring the tabs from the last "
+#~ "session."
+#~ msgstr ""
+#~ "Les entrades d'aquesta llista s'utilitzen per a restaurar les pestanyes de "
+#~ "la darrera sessió."
+
+#~ msgid "Hide FIFO pipes"
+#~ msgstr "Amaga les canonades FIFO"
+
+#~ msgid "Hide sockets"
+#~ msgstr "Amaga els sòcols"
+
+#~ msgid "Hide character devices"
+#~ msgstr "Oculta els dispositius de caràcter"
+
+#~ msgid "Hide block devices"
+#~ msgstr "Amaga els dispositius de blocs"
+
+#~ msgid "Leave terminal open"
+#~ msgstr "Deixar el terminal obert"
+
+#~ msgid ""
+#~ "This option defines if a terminal window should stay open after a command "
+#~ "finishes inside of it."
+#~ msgstr ""
+#~ "Aquesta opció defineix si una finestra del terminal hauria de romandre "
+#~ "oberta un cop finalitzi una ordre."
+
+#~ msgid "Fixed font name"
+#~ msgstr "Nom del tipus de lletra fix"
+
+#~ msgid "Name of the default font with fixed character width."
+#~ msgstr "Nom del tipus de lletra per defecte amb amplada de caràcters fixa."
+
+#~ msgid "Variable font name"
+#~ msgstr "Nom del tipus de lletra variable"
+
+#~ msgid "Name of the default font with variable character width."
+#~ msgstr ""
+#~ "Nom del tipus de lletra per defecte amb amplada de caràcters variable."
+
+#~ msgid "Font size"
+#~ msgstr "Mida del tipus de lletra"
+
+#~ msgid "This option defines the default font size."
+#~ msgstr "Aquesta opció defineix la mida del tipus de lletra per defecte."
+
+#~ msgid "Horizontal offset"
+#~ msgstr "Desplaçament horitzontal"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "horizontal direction."
+#~ msgstr ""
+#~ "Aquesta opció defineix el desplaçament visual del visualitzador de fitxers "
+#~ "intern en direcció horitzontal."
+
+#~ msgid "Vertical offset"
+#~ msgstr "Desplaçament vertical"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "vertical direction."
+#~ msgstr ""
+#~ "Aquesta opció defineix el desplaçament visual del visualitzador de fitxers "
+#~ "intern en direcció vertical."
+
+#~ msgid "No error description available"
+#~ msgstr "No hi ha cap descripció disponible quant a l'error"
+
+#~ msgid "Folder selection"
+#~ msgstr "Selecció de carpeta"
+
+#~ msgid "File selection"
+#~ msgstr "Selecció de fitxer"
+
+#~ msgid "/_Save Profile As…"
+#~ msgstr "/Anomena i de_sa el perfil..."
+
+#~ msgid "/_Manage Profiles…"
+#~ msgstr "/_Gestiona els perfils..."
+
+#~ msgid "Current file name"
+#~ msgstr "Nom de fitxer actual"
+
+#~ msgid "New file name"
+#~ msgstr "Nom de fitxer nou"
+
+#~ msgid "File size"
+#~ msgstr "Mida del fitxer"
+
+#~ msgid "File modification date"
+#~ msgstr "Data de modificació del fitxer"
+
+#~ msgid "_Replace with:"
+#~ msgstr "_Reemplaça per:"
+
+#, c-format
+#~ msgid "Could not chown %s"
+#~ msgstr "No s'ha pogut canviar el propietari de %s"
+
+#~ msgid "Chown"
+#~ msgstr "Canvia el propietari"
+
+#~ msgid "S_hare:"
+#~ msgstr "_Recurs compartit:"
+
+#~ msgid "_User name:"
+#~ msgstr "Nom d'_usuari:"
+
+#, c-format
+#~ msgid "“%s” is not a valid location"
+#~ msgstr "«%s» no és una ubicació vàlida"
+
+#~ msgid "Remote Server"
+#~ msgstr "Servidor remot"
+
+#, c-format
+#~ msgid "Deleted %ld of %ld file"
+#~ msgid_plural "Deleted %ld of %ld files"
+#~ msgstr[0] "Eliminat %ld de %ld arxiu"
+#~ msgstr[1] "Eliminats %ld de %ld arxius"
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "S'ha produït un error en esborrar «%s»\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Delete problem"
+#~ msgstr "Problema en esborrar"
+
+#, c-format
+#~ msgid "Do you want to delete “%s”?"
+#~ msgstr "Voleu esborrar «%s»?"
+
+#, c-format
+#~ msgid "Do you want to delete the selected file?"
+#~ msgid_plural "Do you want to delete the %d selected files?"
+#~ msgstr[0] "Desitgeu esborrar el fitxer seleccionat?"
+#~ msgstr[1] "Desitgeu esborrar els %d fitxers seleccionats?"
+
+#~ msgid "Bookmark name is missing."
+#~ msgstr "Falta el nom del punt d'interès."
+
+#~ msgid "Bookmark target is missing."
+#~ msgstr "Falta el destí de punt d'interès."
+
+#~ msgid "Image:"
+#~ msgstr "Imatge:"
+
+#~ msgid "Type:"
+#~ msgstr "Tipus:"
+
+#~ msgid "MIME Type:"
+#~ msgstr "Tipus MIME:"
+
+#~ msgid "Type"
+#~ msgstr "Tipus"
+
+#~ msgid "Metadata namespace"
+#~ msgstr "Espai de noms de metadades"
+
+#~ msgid "Tag name"
+#~ msgstr "Nom de l'etiqueta"
+
+#~ msgid "Tag value"
+#~ msgstr "Valor de l'etiqueta"
+
+#~ msgid "Metadata tag description"
+#~ msgstr "Descripció de l'etiqueta de metadades"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the corresponding row and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "Per a editar una tecla de drecera, feu clic a la fila corresponent i "
+#~ "escriviu un nou accelerador, o premeu Esc per a cancel·lar."
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Tecla de drecera"
+
+#~ msgid "Keyboard shortcut for selected action"
+#~ msgstr "Drecera de teclat de l'acció seleccionada"
+
+#~ msgid "Action"
+#~ msgstr "Acció"
+
+#~ msgid "User action"
+#~ msgstr "Acció de l'usuari"
+
+#~ msgid "Optional data"
+#~ msgstr "Dades opcionals"
+
+#, c-format
+#~ msgid "Shortcut “%s” is already taken by “%s”."
+#~ msgstr "La drecera «%s» ja està presa per «%s»."
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "Dreceres conflictives"
+
+#, c-format
+#~ msgid "Reassigning the shortcut will cause it to be removed from “%s”."
+#~ msgstr "La reassignació de la drecera en provocarà la supressió de «%s»."
+
+#~ msgid "Invalid shortcut."
+#~ msgstr "La drecera no és vàlida."
+
+#~ msgid "Do nothing"
+#~ msgstr "No facis res"
+
+#, c-format
+#~ msgid "Copy “%s” to"
+#~ msgstr "Copia «%s» a"
+
+#~ msgid "Group"
+#~ msgstr "Grup"
+
+#~ msgid "Bookmark group"
+#~ msgstr "Grup de punts d'interès"
+
+#~ msgid "Bookmark name"
+#~ msgstr "Nom del punt d'interès"
+
+#~ msgid "Keyboard shortcut for selected bookmark"
+#~ msgstr "Drecera de teclat del punt d'interès seleccionat"
+
+#~ msgid "Bookmarked path"
+#~ msgstr "Camí afegit als punts d'interès"
+
+#~ msgid "Profile name"
+#~ msgstr "Nom de perfil"
+
+#~ msgid "Sorting/Quick search"
+#~ msgstr "Ordenació/cerca ràpida"
+
+#~ msgid "ALT+letters (menu access with F12)"
+#~ msgstr "ALT+lletres (accés al menú amb F12)"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "Coincideix amb el començament del nom del fitxer"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "Coincideix amb el final del nom del fitxer"
+
+#~ msgid ""
+#~ "Search window is minimizable\n"
+#~ "(Needs program restart if altered)"
+#~ msgstr ""
+#~ "La finestra de cerca es pot minimitzar\n"
+#~ "(cal reiniciar el programa si es modifica)"
+
+#~ msgid ""
+#~ "See the manual page for “strftime” for help on how to set the format string."
+#~ msgstr ""
+#~ "Vegeu la pàgina del manual de «strftime» per a obtenir ajuda sobre la "
+#~ "definició de la cadena de format."
+
+#~ msgid "Colors"
+#~ msgstr "Colors"
+
+#~ msgid "Palette"
+#~ msgstr "Paleta"
+
+#~ msgid "Foreground:"
+#~ msgstr "Primer pla:"
+
+#~ msgid "Background:"
+#~ msgstr "Fons:"
+
+#~ msgid "File panes"
+#~ msgstr "Subfinestres de fitxer"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "Valors per defecte de confirmació a D'acord"
+
+#~ msgid "Copy overwrite"
+#~ msgstr "Sobreescriptura de la còpia"
+
+#~ msgid "Silently"
+#~ msgstr "En silenci"
+
+#~ msgid "Move overwrite"
+#~ msgstr "Sobreescriptura del moviment"
+
+#~ msgid "Drag and Drop"
+#~ msgstr "Arrossegar i deixar anar"
+
+#~ msgid "Fifo files"
+#~ msgstr "Fitxers FIFO"
+
+#~ msgid "Socket files"
+#~ msgstr "Fitxers de sòcol"
+
+#~ msgid "Character devices"
+#~ msgstr "Dispositius de caràcters"
+
+#~ msgid "Block devices"
+#~ msgstr "Dispositius de blocs"
+
+#~ msgid "Leave terminal window open"
+#~ msgstr "Deixa oberta la finestra del terminal"
+
+#~ msgid "Device:"
+#~ msgstr "Dispositiu:"
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr "Ignora el muntatge (útil quan es faci servir el super-mount)"
+
+#~ msgid "Skip All"
+#~ msgstr "Ignora-ho tot"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Sobreescriu els fitxers"
+
+#, c-format
+#~ msgid "copy %d file to"
+#~ msgid_plural "copy %d files to"
+#~ msgstr[0] "copia %d fitxer a"
+#~ msgstr[1] "copia %d fitxers a"
+
+#, c-format
+#~ msgid "Move “%s” to"
+#~ msgstr "Mou «%s» a"
+
+#, c-format
+#~ msgid "move %d file to"
+#~ msgid_plural "move %d files to"
+#~ msgstr[0] "mou %d fitxer a"
+#~ msgstr[1] "mou %d fitxers a"
+
+#, c-format
+#~ msgid "The directory “%s” doesn’t exist, do you want to create it?"
+#~ msgstr "El directori «%s» no existeix. Voleu crear-lo?"
+
+#~ msgid "Network protocol"
+#~ msgstr "Protocol de xarxa"
+
+#~ msgid "Connection name"
+#~ msgstr "Nom de la connexió"
+
+#~ msgid "Connections"
+#~ msgstr "Connexions"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "Contrasenya FTP anònima:"
+
+#~ msgid "Search local directories only"
+#~ msgstr "Cerca només als directoris locals"
+
+#~ msgid "Files _not containing text"
+#~ msgstr "Fitxers que _no contenen text"
+
+#, c-format
+#~ msgid "Failed to read file %s: %s"
+#~ msgstr "No s'ha pogut llegir el fitxer %s: %s"
+
+#, c-format
+#~ msgid "Searching in: %s"
+#~ msgstr "S'està cercant en: %s"
+
+#, c-format
+#~ msgid "Found %d match — search aborted"
+#~ msgid_plural "Found %d matches — search aborted"
+#~ msgstr[0] "S'ha trobat %d coincidència: cerca cancel·lada"
+#~ msgstr[1] "S'han trobat %d coincidències: cerca cancel·lada"
+
+#, c-format
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "S'ha trobat %d concordança"
+#~ msgstr[1] "S'han trobat %d concordances"
+
+#, c-format
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr ""
+#~ "No s'ha pogut establir l'identificador del grup de processos del fill %d: "
+#~ "%s.\n"
+
+#~ msgid "Error parsing the search command."
+#~ msgstr "S'ha produït un error en analitzar l'ordre de cerca."
+
+#~ msgid "Error running the search command."
+#~ msgstr "S'ha produït un error en executar l'ordre de cerca."
+
+#, c-format
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr "No s'ha pogut canviar el directori fora de %s"
+
+#, c-format
+#~ msgid "%d file listed"
+#~ msgid_plural "%d files listed"
+#~ msgstr[0] "%d fitxer llistat"
+#~ msgstr[1] "%d fitxers llistats"
+
+#~ msgid "Accelerator key"
+#~ msgstr "Tecla acceleradora"
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr "Modificadors de l'accelerador"
+
+#~ msgid "Accelerator Mode"
+#~ msgstr "Mode de l'accelerador"
+
+#~ msgid "The type of accelerator."
+#~ msgstr "El tipus d'accelerador."
+
+#~ msgid "Disabled"
+#~ msgstr "Inhabilitat"
+
+#~ msgid "New accelerator…"
+#~ msgstr "Accelerador nou..."
+
+#~ msgid "Credits"
+#~ msgstr "Crèdits"
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "Pàgina web dels connectors"
+
+#~ msgid "C_redits"
+#~ msgstr "C_rèdits"
+
+#~ msgid "/Grandparent"
+#~ msgstr "/Avi"
+
+#~ msgid "/Parent"
+#~ msgstr "/Pare"
+
+#~ msgid "/File name"
+#~ msgstr "/Nom del fitxer"
+
+#~ msgid "/File name (range)"
+#~ msgstr "/Nom de fiter (rang)"
+
+#~ msgid "/File name without extension"
+#~ msgstr "/Nom de fitxer sense extensió"
+
+#~ msgid "/File name without extension (range)"
+#~ msgstr "/Nom de fitxer sense extensió (rang)"
+
+#~ msgid "/File extension"
+#~ msgstr "/Extensió de fitxer"
+
+#~ msgid "/Counter"
+#~ msgstr "/Comptador"
+
+#~ msgid "/Counter (width)"
+#~ msgstr "/Comptador (amplada)"
+
+#~ msgid "/Counter (auto)"
+#~ msgstr "/Comptador (automàtic)"
+
+#~ msgid "/Hexadecimal random number (width)"
+#~ msgstr "/Nombre hexadecimal aleatori (amplada)"
+
+#~ msgid "/Date"
+#~ msgstr "/Data"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "/Data/<locale>"
+
+#~ msgid "/Date/yyyy-mm-dd"
+#~ msgstr "/Data/aaaa-mm-dd"
+
+#~ msgid "/Date/yy-mm-dd"
+#~ msgstr "/Data/aa-mm-dd"
+
+#~ msgid "/Date/yy.mm.dd"
+#~ msgstr "/Data/aa.mm.dd"
+
+#~ msgid "/Date/yymmdd"
+#~ msgstr "/Data/aammdd"
+
+#~ msgid "/Date/dd.mm.yy"
+#~ msgstr "/Data/dd.mm.aa"
+
+#~ msgid "/Date/mm-dd-yy"
+#~ msgstr "/Data/mm-dd-aa"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/Data/aaaa"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/Data/aa"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/Data/mm"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/Data/mmm"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/Data/dd"
+
+#~ msgid "/Time"
+#~ msgstr "/Hora"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/Hora/<locale>"
+
+#~ msgid "/Time/HH.MM.SS"
+#~ msgstr "/Hora/HH.MM.SS"
+
+#~ msgid "/Time/HH-MM-SS"
+#~ msgstr "/Hora/HH-MM-SS"
+
+#~ msgid "/Time/HHMMSS"
+#~ msgstr "/Hora/HHMMSS"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/Hora/HH"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/Hora/MM"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/Hora/SS"
+
+#~ msgid "Regex pattern"
+#~ msgstr "Patró d'expressions regulars"
+
+#~ msgid "Replacement"
+#~ msgstr "Reemplaçament"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "Considera diferents majúscules i minúscules"
+
+#, c-format
+#~ msgid "The program has now finished. Press Enter to close this window.\n"
+#~ msgstr "El programa ha acabat. Premeu Enter per a tancar aquesta finestra.\n"
+
+#, c-format
+#~ msgid "Mount failed: mount exited with exitstatus %d"
+#~ msgstr "No s'ha pogut muntar: el muntatge ha acabat amb l'estat de sortida %d"
+
+#~ msgid "Device is now safe to remove"
+#~ msgstr "Ja podeu extreure el dispositiu amb seguretat"
+
+#, c-format
+#~ msgid ""
+#~ "Cannot unmount the volume:\n"
+#~ "%s %s"
+#~ msgstr ""
+#~ "No es pot desmuntar el volum:\n"
+#~ "%s%s"
+
+#~ msgid "Unknown error"
+#~ msgstr "Error desconegut"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "Ves a: %s (%s)"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr "Munta: %s"
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr "Desmunta: %s"
+
+#~ msgid "<New connection>"
+#~ msgstr "<New connection>"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "Ves a: %s"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "Connecta amb: %s"
+
+#, c-format
+#~ msgid "Disconnect from: %s"
+#~ msgstr "Desconnecta de: %s"
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "S'està connectant amb %s\n"
+
+#~ msgid "Failed to browse the network. Is the SMB module installed?"
+#~ msgstr ""
+#~ "No s'ha pogut navegar per la xarxa. Potser no s'ha instal·lat el mòdul SMB."
+
+#~ msgid "/_Copy here"
+#~ msgstr "/_Copia aquí"
+
+#~ msgid "/_Move here"
+#~ msgstr "/_Mou aquí"
+
+#~ msgid "/_Link here"
+#~ msgstr "/_Enllaça aquí"
+
+#~ msgid "/C_ancel"
+#~ msgstr "/C_ancel·la"
+
+#, c-format
+#~ msgid ""
+#~ "“%s” seems to be a binary executable file but it lacks the executable bit. "
+#~ "Do you want to set it and then run the file?"
+#~ msgstr ""
+#~ "«%s» sembla ser un fitxer binari executable però li falta el bit executable."
+#~ " Vols configurar-lo i després executar el fitxer?"
+
+#~ msgid "Make Executable?"
+#~ msgstr "Desitgeu fer-lo executable?"
+
+#~ msgid "OK"
+#~ msgstr "D'acord"
+
+#, c-format
+#~ msgid ""
+#~ "“%s” is an executable text file. Do you want to run it, or display its "
+#~ "contents?"
+#~ msgstr ""
+#~ "«%s» és un fitxer de text executable. Voleu executar-lo o visualitzar-ne el "
+#~ "contingut?"
+
+#~ msgid "Run or Display"
+#~ msgstr "Executa o visualitza"
+
+#~ msgid "Display"
+#~ msgstr "Visualitza"
+
+#~ msgid "Run"
+#~ msgstr "Executa"
+
+#, c-format
+#~ msgid "No default application found for the MIME type %s."
+#~ msgstr "No s'ha trobat cap aplicació per defecte per al tipus MIME %s."
+
+#, c-format
+#~ msgid ""
+#~ "%s does not know how to open remote file. Do you want to download the file "
+#~ "to a temporary location and then open it?"
+#~ msgid_plural ""
+#~ "%s does not know how to open remote files. Do you want to download the files"
+#~ " to a temporary location and then open them?"
+#~ msgstr[0] ""
+#~ "%s no pot obrir fitxers remots. Voleu descarregar el fitxer en una ubicació "
+#~ "temporal i obrir-lo?"
+#~ msgstr[1] ""
+#~ "%s no pot obrir fitxers remots. Voleu descarregar els fitxers en una "
+#~ "ubicació temporal i obrir-los?"
+
+#~ msgid "Failed to open connection."
+#~ msgstr "No s'ha pogut establir la connexió."
+
+#~ msgid "Needs terminal"
+#~ msgstr "Necessita una terminal"
+
+#, c-format
+#~ msgid "_Open with “%s”"
+#~ msgstr "_Obre amb «%s»"
+
+#~ msgid "Other _Application…"
+#~ msgstr "Una altra _aplicació..."
+
+#~ msgid "Cut"
+#~ msgstr "Retalla"
+
+#~ msgid "Send files"
+#~ msgstr "Envia els fitxers"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "Obre en un _terminal"
+
+#~ msgid "Copy file names"
+#~ msgstr "Copia els noms dels fitxers"
+
+#, c-format
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] "%s de %s kB en %d de %d fitxer"
+#~ msgstr[1] "%s de %s kB en %d de %d fitxers"
+
+#, c-format
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] "%s, %d directori seleccionat de %d"
+#~ msgstr[1] "%s, %d directoris seleccionats de %d"
+
+#~ msgid "Copy Tab to Other _Pane"
+#~ msgstr "Copia la _pestanya a una altra finestra"
+
+#~ msgid "No file name given"
+#~ msgstr "No s'ha donat cap nom de fitxer"
+
+#~ msgid "Filter:"
+#~ msgstr "Filtra:"
+
+#~ msgid "_New"
+#~ msgstr "_Nou"
+
+#~ msgid "_Directory"
+#~ msgstr "_Directori"
+
+#~ msgid "_Text File"
+#~ msgstr "Fitxer de _text"
+
+#~ msgid "_Enable Filter…"
+#~ msgstr "Habilita _el filtre..."
+
+#~ msgid "Start _GNOME Commander as root"
+#~ msgstr "Inicia el _GNOME Commander com a root"
+
+#~ msgid "_Quit"
+#~ msgstr "_Surt"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "Copia els noms dels _fitxers"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "_Restaura la selecció"
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "Ves a la _web del GNOME Commander"
+
+#~ msgid "Refresh"
+#~ msgstr "Actualitza"
+
+#~ msgid "Go to the oldest"
+#~ msgstr "Ves al més antic"
+
+#~ msgid "Go back"
+#~ msgstr "Ves enrere"
+
+#~ msgid "Go forward"
+#~ msgstr "Ves endavant"
+
+#~ msgid "Go to the latest"
+#~ msgstr "Ves al més nou"
+
+#~ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+#~ msgstr ""
+#~ "Copia els noms dels fitxers (SHIFT per a camins complets, ALT per a URI)"
+
+#~ msgid "Paste"
+#~ msgstr "Enganxa"
+
+#~ msgid "Open terminal (SHIFT for root privileges)"
+#~ msgstr "Obre un terminal (SHIFT per a privilegis de root)"
+
+#~ msgid "GNOME Commander — ROOT PRIVILEGES"
+#~ msgstr "GNOME Commander: PRIVILEGIS ROOT"
+
+#~ msgid "Path matches regex:"
+#~ msgstr "El camí coincideix amb l'expressió regular:"
+
+#~ msgid "Name contains:"
+#~ msgstr "El nom conté:"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "_Distingeix entre majúscules i minúscules"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr "Afegeix el directori actual als punts d'interès"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "Gestionar els punts d'interès"
+
+#~ msgid "Open terminal"
+#~ msgstr "Obre un terminal"
+
+#~ msgid "Open terminal as root"
+#~ msgstr "Obre un terminal com a root"
+
+#~ msgid "Start GNOME Commander as root"
+#~ msgstr "Inicia el GNOME Commander com a root"
+
+#~ msgid "Close connection"
+#~ msgstr "Tanca la connexió"
+
+#~ msgid "New connection"
+#~ msgstr "Connexió nova"
+
+#~ msgid "Open connection"
+#~ msgstr "Obre una connexió"
+
+#~ msgid "Change left connection"
+#~ msgstr "Canvi connexió esquerra"
+
+#~ msgid "Change right connection"
+#~ msgstr "Canvia la connexió dreta"
+
+#~ msgid "Show user defined files"
+#~ msgstr "Mostra els fitxers definits per l'usuari"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "Eina de canvi de nom avançada"
+
+#~ msgid "Change permissions"
+#~ msgstr "Canvia els permisos"
+
+#~ msgid "Change owner/group"
+#~ msgstr "Canvia el propietari/grup"
+
+#~ msgid "Copy files"
+#~ msgstr "Copia els fitxers"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "Crea un enllaç simbòlic"
+
+#~ msgid "Delete files"
+#~ msgstr "Suprimeix els fitxers"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "Compara els fitxers (diferències)"
+
+#~ msgid "Edit file"
+#~ msgstr "Edita el fitxer"
+
+#~ msgid "Edit a new file"
+#~ msgstr "Edita un fitxer nou"
+
+#~ msgid "Create directory"
+#~ msgstr "Crea un directori"
+
+#~ msgid "Move files"
+#~ msgstr "Mou els fitxers"
+
+#~ msgid "Rename files"
+#~ msgstr "Canvia el nom dels fitxers"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "Sincronitza els directoris"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr "Quant al GNOME Commander"
+
+#~ msgid "Help contents"
+#~ msgstr "Contingut de l'ajuda"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "Ajuda sobre dreceres de teclat"
+
+#~ msgid "Report a problem"
+#~ msgstr "Informa d'un problema"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr "Ves a la web del GNOME Commander"
+
+#~ msgid "Compare directories"
+#~ msgstr "Compara els directoris"
+
+#~ msgid "Invert selection"
+#~ msgstr "Inverteix la selecció"
+
+#~ msgid "Select all"
+#~ msgstr "Selecciona-ho tot"
+
+#~ msgid "Unselect all"
+#~ msgstr "No seleccionis res"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Dreceres de teclat"
+
+#~ msgid "Configure plugins"
+#~ msgstr "Configura els connectors"
+
+#~ msgid "Back one directory"
+#~ msgstr "Torna enrere un directori"
+
+#~ msgid "Close the current tab"
+#~ msgstr "Tanca la pestanya actual"
+
+#~ msgid "Close all tabs"
+#~ msgstr "Tanca totes les pestanyes"
+
+#~ msgid "Show directory history"
+#~ msgstr "Mostra l'historial de directoris"
+
+#~ msgid "Equal panel size"
+#~ msgstr "Iguala la mida de la finestra"
+
+#~ msgid "Maximize panel size"
+#~ msgstr "Maximitza la mida de la finestra"
+
+#~ msgid "Back to the first directory"
+#~ msgstr "Torna al primer directori"
+
+#~ msgid "Forward one directory"
+#~ msgstr "Avança un directori"
+
+#~ msgid "Open directory in the active window"
+#~ msgstr "Obre el directori a la finestra activa"
+
+#~ msgid "Open directory in the inactive window"
+#~ msgstr "Obre el directori a la finestra inactiva"
+
+#~ msgid "Open directory in the left window"
+#~ msgstr "Obre el directori a la finestra esquerra"
+
+#~ msgid "Open directory in the right window"
+#~ msgstr "Obre el directori a la finestra dreta"
+
+#~ msgid "Open directory in the new tab (inactive window)"
+#~ msgstr "Obre el directori a la pestanya nova (finestra inactiva)"
+
+#~ msgid "Forward to the last directory"
+#~ msgstr "Avança al darrer directori"
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "Obre el directori en una nova pestanya"
+
+#~ msgid "Show terminal"
+#~ msgstr "Mostra el terminal"
+
+#, c-format
+#~ msgid "Create symbolic links of %i file in %s?"
+#~ msgid_plural "Create symbolic links of %i files in %s?"
+#~ msgstr[0] "Voleu crear enllaços simbòlics d'%i fitxer a %s?"
+#~ msgstr[1] "Voleu crear enllaços simbòlics de %i fitxers a %s?"
+
+#~ msgid "Unable to open terminal in root mode."
+#~ msgstr "No es pot obrir el terminal en mode root."
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
+#~ msgstr "No s'ha trobat gksudo, xdg-su, gksu, gnomesu, kdesu o beesu."
+
+#~ msgid "Unable to start GNOME Commander in root mode."
+#~ msgstr "No es pot iniciar el GNOME Commander en mode root."
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+#~ msgstr "No s'ha trobat gksudo, xdg-su, gksu, gnomesu, kdesu o beesu"
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "Un gestor de fitxers ràpid i potent per a l'escriptori GNOME"
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME Commander és un programari gratuït; podeu redistribuir-lo i / o "
+#~ "modificar-lo segons els termes de la Llicència Pública General GNU publicada"
+#~ " per la Free Software Foundation; ja sigui en la versió 2 de la Llicència o "
+#~ "(a la vostra elecció) qualsevol versió posterior."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "El GNOME Commander es distribueix amb l'esperança que sigui útil, però SENSE"
+#~ " CAP GARANTIA, ni tan sols la garantia implícita de COMERCIALITZACIÓ o "
+#~ "ADEQUACIÓ A UN PROPÒSIT PARTICULAR. Vegeu la Llicència Pública General GNU "
+#~ "per a més detalls."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+#~ "Hauríeu d'haver rebut una còpia de la Llicència Pública General GNU "
+#~ "juntament amb el GNOME Commander; si no, escriviu a la Free Software "
+#~ "Foundation, Inc. , 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, "
+#~ "Estats Units."
+
+#, c-format
+#~ msgid ""
+#~ "Overwrite file:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "With:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+#~ msgstr ""
+#~ "Sobreescriu el fitxer:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "Amb:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+
+#~ msgid "Replace All"
+#~ msgstr "Reemplaça-ho tot"
+
+#, c-format
+#~ msgid ""
+#~ "Error while copying to %s\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "S'ha produït un error en copiar a %s\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Transfer problem"
+#~ msgstr "Hi ha hagut un problema amb la transferència"
+
+#, c-format
+#~ msgid "[file %ld of %ld] “%s”"
+#~ msgstr "[fitxer %ld de %ld] «%s»"
+
+#~ msgid "stopping…"
+#~ msgstr "s'està aturant..."
+
+#, c-format
+#~ msgid "%s of %s copied"
+#~ msgstr "%s de %s copiat"
+
+#, c-format
+#~ msgid "%.0f%% copied"
+#~ msgstr "%.0f%% copiat"
+
+#, c-format
+#~ msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "No s'ha pogut carregar el tipus de fitxer instal·lat pixmap. S'està provant "
+#~ "de carregar %s"
+
+#, c-format
+#~ msgid ""
+#~ "Can’t find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-commander from the gnome-commander-%s/src directory"
+#~ msgstr ""
+#~ "No es pot trobar el mapa de píxels enlloc. Assegureu-vos que heu instal·lat "
+#~ "el programa o que està executant gnome-commander des del directori gnome-"
+#~ "commander-%s/src."
+
+#, c-format
+#~ msgid "Couldn’t load installed pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "No s'ha pogut carregar el mapa de píxels instal·lat. S'està provant de "
+#~ "carregar %s"
+
+#~ msgid "Find"
+#~ msgstr "Cerca"
+
+#~ msgid "Searching…"
+#~ msgstr "S'està cercant..."
+
+#, c-format
+#~ msgid "Searching for “%s”"
+#~ msgstr "Cercant «%s»"
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr "Posició: %lu de %lu\tColumna: %d\t%s"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "píxel"
+#~ msgstr[1] "píxels"
+
+#~ msgid "bit/sample"
+#~ msgid_plural "bits/sample"
+#~ msgstr[0] "bit/exemple"
+#~ msgstr[1] "bits/exemple"
+
+#~ msgid "_Copy selection"
+#~ msgstr "_Copia la selecció"
+
+#~ msgid "_Binary"
+#~ msgstr "_Binari"
+
+#~ msgid "Arabic (Windows, CP1256)"
+#~ msgstr "Àrab (Windows, CP1256)"
+
+#~ msgid "Rotate Clockwise"
+#~ msgstr "Gira en sentit horari"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "Mode _binari"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "De_sa la configuració actual"
+
+#, c-format
+#~ msgid "Pattern “%s” was not found"
+#~ msgstr "No s'ha trobat la plantilla «%s»"
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr "Especifiqueu en quin directori comença la subfinestra esquerra"
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr "Especifiqueu en quin directori comença la subfinestra dreta"
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr "Especifiqueu el directori per als fitxers de configuració"
+
+#~ msgid "File Manager"
+#~ msgstr "Gestor de fitxers"
+
+#~ msgid "Disable"
+#~ msgstr "Inhabilita"
+
+#~ msgid "Enable"
+#~ msgstr "Habilita"
+
+#~ msgid "Version"
+#~ msgstr "Versió"
+
+#~ msgid "_Enable"
+#~ msgstr "_Habilita"
+
+#~ msgid "_Configure"
+#~ msgstr "_Configura"
+
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr "<Exif and IPTC tags not supported>"
+
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr "<No s'admeten les etiquetes ID3, APE, FLAC i Vorbis>"
+
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr "<OLE2 and ODF tags not supported>"
+
+#~ msgid "<PDF tags not supported>"
+#~ msgstr "<PDF tags not supported>"
+
+#~ msgid "Created"
+#~ msgstr "Creat"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr ""
+#~ "La data associada amb un esdeveniment del cicle vital del recurs (data de "
+#~ "creació/publicació)."
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr "Punter IFD Exif"
+
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr ""
+#~ "Un punter a l'IFD Exif. Interoperativament, l'Exif IFD té la mateixa "
+#~ "estructura que l'IFD especificat en TIFF."
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr "Punter IFD d'interoperabilitat"
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+#~ "L'IFD d'interoperabilitat es compon d'etiquetes que emmagatzemen la "
+#~ "informació per a garantir la interoperabilitat, apuntades per l'etiqueta "
+#~ "següent ubicada a l'IFD Exif. L'estructura d'interoperabilitat de l'IFD "
+#~ "d'interoperabilitat és la mateixa que l'estructura de l'IFD TIFF, però no "
+#~ "conté les dades d'imatge característiques de l'IFD TIFF normal."
+
+#~ msgid "Emphasis"
+#~ msgstr "Èmfasi"
+
+#~ msgid "Emphasis."
+#~ msgstr "Èmfasi."
+
+#~ msgid "Equalization 2"
+#~ msgstr "Equalització 2"
+
+#~ msgid "Frames"
+#~ msgstr "Fotogrames"
+
+#~ msgid "Number of frames."
+#~ msgstr "El nombre de fotogrames."
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr "Persones involucrades 2"
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr "Mida del fitxer d'àudio en bytes, excloent l'etiqueta ID3."
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr "Ajustament de volum 2"
+
+#, c-format
+#~ msgid "unsupported tag (suppressed %ld B of binary data)"
+#~ msgstr "etiqueta no admesa (%ld B suprimida de dades binàries)"
+
+#, c-format
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "(%sbyte)"
+#~ msgstr[1] "(%sbytes)"
+
+#, c-format
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "%sbyte"
+#~ msgstr[1] "%sbytes"
+
+#~ msgid "Failed to change working directory to a temporary directory."
+#~ msgstr "Ha fallat el canvi de la carpeta de treball a la temporal."
+
+#~ msgid "Failed to create a directory in which to store temporary files."
+#~ msgstr "Ha fallat la creació de la carpeta on desar els fitxers temporals."
+
+#, c-format
+#~ msgid "Couldn’t read from the directory %s: %s"
+#~ msgstr "no es pot llegir de la carpeta %s: %s"
+
+#, c-format
+#~ msgid "Creating directory %s… "
+#~ msgstr "Crea una carpeta %s… "
+
+#, c-format
+#~ msgid "Failed to create the directory %s"
+#~ msgstr "No s'ha pogut crear el directori %s"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "S'ha produït un error en mostrar l'ajuda."
+
+#, c-format
+#~ msgid "Couldn’t move path from “%s” to “%s”: %s"
+#~ msgstr "No es pot canviar el camí de “%s” a “%s”: %s"

@@ -72,7 +72,6 @@ async fn ask_download_tmp(parent_window: &gtk::Window, app: &App) -> bool {
 pub async fn mime_exec_single(
     parent_window: &gtk::Window,
     file: &File,
-    options: &ProgramsOptions,
 ) -> Result<(), ErrorMessage> {
     // Check if the file is a binary executable that lacks the executable bit
 
@@ -140,7 +139,7 @@ pub async fn mime_exec_single(
     let context = gdk::Display::default().map(|display| display.app_launch_context());
     if file.is_local() {
         app_info.launch(&[file.file().clone()], context.as_ref())
-    } else if app.handles_uris() && options.dont_download.get() {
+    } else if app.handles_uris() && ProgramsOptions::instance().dont_download.get() {
         app_info.launch_uris(&[&file.uri()], context.as_ref())
     } else {
         if !ask_download_tmp(parent_window, &app).await {

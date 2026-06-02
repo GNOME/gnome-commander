@@ -3,27 +3,22 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::{actions::Script, list::FileList};
+use super::{list::ColumnID, list::FileList};
 use crate::{
     app::{App, AppTarget, RegularApp, UserDefinedApp, load_favorite_apps},
-    config::PACKAGE,
     debug::debug,
     file::{File, FileOps},
     filter::fnmatch,
-    libgcmd::file_actions::{FileActions, FileActionsExt},
     main_win::MainWindow,
     options::GeneralOptions,
-    plugin_manager::wrap_plugin_menu,
+    plugins::{
+        ApiRequestToPlugin, ApiResponseFromPlugin, MessageFromPluginHost, MessageToPluginHost,
+    },
     user_actions::UserAction,
     utils::MenuBuilderExt,
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
-use std::{
-    fs,
-    io::{self, BufRead},
-    path::Path,
-};
 
 const MAX_OPEN_WITH_APPS: usize = 20;
 
@@ -53,60 +48,6 @@ fn fav_app_matches_files(app: &UserDefinedApp, files: &[File]) -> bool {
             })
         }
     }
-}
-
-/// Try to get the script info out of the script
-fn extract_script_info(script_path: &Path) -> Option<(String, bool)> {
-    let file = fs::File::open(script_path).ok()?;
-
-    let mut script_name = None;
-    let mut in_terminal = false;
-    for line in io::BufReader::new(file).lines().map_while(Result::ok) {
-        if let Some(name) = line.strip_prefix("#name:") {
-            script_name = Some(name.trim().to_string());
-        }
-        if let Some(term) = line.trim().strip_prefix("#term:") {
-            in_terminal = term.trim() == "true";
-        }
-    }
-    Some((script_name?, in_terminal))
-}
-
-fn create_action_script_menu() -> Option<gio::Menu> {
-    let scripts_dir = glib::user_config_dir().join(PACKAGE).join("scripts");
-
-    let menu = gio::Menu::new();
-
-    for entry in fs::read_dir(scripts_dir).ok()?.flatten() {
-        let path = entry.path();
-        if !path.is_file() {
-            continue;
-        }
-
-        let mut script_info = Script {
-            path,
-            in_terminal: false,
-        };
-        let script_name;
-
-        // Try to get the scriptname out of the script, otherwise take the filename
-        if let Some((name, in_terminal)) = extract_script_info(&script_info.path) {
-            script_info.in_terminal = in_terminal;
-            script_name = name;
-        } else {
-            script_name = entry.file_name().to_string_lossy().to_string();
-        }
-
-        let item = gio::MenuItem::new(Some(&script_name), None);
-        item.set_action_and_target_value(
-            Some("fl.execute-script"),
-            Some(&script_info.to_variant()),
-        );
-
-        menu.append_item(&item);
-    }
-
-    Some(menu)
 }
 
 /// This method adds all "open" popup entries
@@ -187,28 +128,66 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
     add_open_with_entries(&menu, file_list);
 
     // Add plugin popup entries
-    for (action_group_name, plugin) in main_win.plugin_manager().active_plugins() {
-        if let Some(file_actions) = plugin.downcast_ref::<FileActions>()
-            && let Some(plugin_menu) = file_actions.create_popup_menu_items(&main_win.state())
-        {
-            let plugin_menu = wrap_plugin_menu(&action_group_name, &plugin_menu);
-            menu.append_section(None, &plugin_menu);
+    let section = gio::Menu::new();
+    menu.append_section(None, &section);
+    let mut channel = main_win.plugin_channel();
+    let id = channel.new_id();
+    channel.send(MessageToPluginHost::ApiRequest {
+        id,
+        plugin_name: None,
+        request: ApiRequestToPlugin::ContextMenuItems(main_win.state()),
+    });
+
+    glib::spawn_future_local(async move {
+        let mut received = Vec::new();
+        loop {
+            if let MessageFromPluginHost::ApiResponse {
+                id: resp_id,
+                plugin_name,
+                plugin_display_name,
+                response,
+                last,
+            } = channel.receive().await
+                && resp_id == id
+            {
+                if let Some(ApiResponseFromPlugin::ContextMenuItems(items)) = response {
+                    received.extend(
+                        items
+                            .into_iter()
+                            .map(|item| (plugin_name.clone(), plugin_display_name.clone(), item)),
+                    );
+                }
+                if last {
+                    break;
+                }
+            }
         }
-    }
+
+        received.sort_by_cached_key(|(plugin_name, _, _)| plugin_name.clone());
+
+        for (plugin_name, plugin_display_name, item) in received {
+            let label = if plugin_display_name.is_empty() {
+                item.label
+            } else {
+                format!("{} | {plugin_display_name}", item.label)
+            };
+            let menuitem = gio::MenuItem::new(Some(&label), None);
+            menuitem.set_action_and_target_value(
+                Some(UserAction::PluginAction.name()),
+                Some(&(&plugin_name, &item.action, &item.parameter).to_variant()),
+            );
+            section.append_item(&menuitem);
+        }
+    });
 
     // Add favorite applications menu entries
-    let options = GeneralOptions::new();
     let fav_menu = gio::Menu::new();
-    for app in load_favorite_apps(&options) {
+    for app in load_favorite_apps(&GeneralOptions::instance()) {
         if fav_app_matches_files(&app, &files) {
             fav_menu.append_item(&fav_app_menu_item(&App::UserDefined(app)));
         }
     }
     menu.append_section(None, &fav_menu);
-
-    if let Some(section) = create_action_script_menu() {
-        menu.append_section(None, &section);
-    }
 
     menu.append_section(None, &{
         gio::Menu::new()
@@ -227,13 +206,24 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
 }
 
 pub fn list_popup_menu() -> gio::Menu {
-    gio::Menu::new()
-        .submenu(gettext("New"), {
-            gio::Menu::new()
-                .action(UserAction::FileMkdir)
-                .action(UserAction::FileEditNewDoc)
-        })
-        .action(UserAction::EditCapPaste)
-        .action(UserAction::CommandOpenTerminal)
-        .action(UserAction::ViewRefresh)
+    let mut columns_menu = gio::Menu::new();
+    for column in ColumnID::all() {
+        if column != ColumnID::Dir
+            && let Some(title) = column.title()
+        {
+            columns_menu = columns_menu.item(title, format!("fl.toggle-column-{}", column.name()));
+        }
+    }
+
+    gio::Menu::new().section(columns_menu).section(
+        gio::Menu::new()
+            .submenu(gettext("New"), {
+                gio::Menu::new()
+                    .action(UserAction::FileMkdir)
+                    .action(UserAction::FileEditNewDoc)
+            })
+            .action(UserAction::EditCapPaste)
+            .action(UserAction::CommandOpenTerminal)
+            .action(UserAction::ViewRefresh),
+    )
 }

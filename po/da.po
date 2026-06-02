@@ -7966,3 +7966,1228 @@ msgstr[1] "{} byte"
 
 #~ msgid "Close _Duplicate Tabs"
 #~ msgstr "Luk _ens faneblade"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME Commander"
+
+#~ msgid "Two-pane file manager"
+#~ msgstr "Et filhåndteringsprogram med to ruder"
+
+#~ msgid ""
+#~ "GNOME Commander is a “two-pane” graphical file manager for the GNOME desktop"
+#~ " environment. It features separate tabs for each pane, setting up custom "
+#~ "device buttons, bookmark manager, fully integrated commandline, file quick "
+#~ "search, an internal image viewer, a powerful batch renaming tool, and FTP "
+#~ "and Samba access."
+#~ msgstr ""
+#~ "GNOME Commander er et filhåndteringsprogram med to ruder til GNOME-"
+#~ "skrivebordsmiljøet. GNOME Commander har separate faneblade til hver rude, "
+#~ "knapper for enheder som kan tilpasses, bogmærker, fuldt integreret "
+#~ "kommandolinje, hurtig filsøgning, intern billedfremviser, funktionsrigt "
+#~ "masseomdøbningsværktøj, samt FTP- og Samba-adgang."
+
+# Ikke sikker på 'smart' her, det er nok bare om kommandoer generelt
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+#~ "GNOME Commander er henvendt til viderekomne brugere, som fokuserer på præcis"
+#~ " filhåndtering, parallelarbejde gennem specialiserede programmer, samt brug "
+#~ "af kommandoer."
+
+#~ msgid "A two paned file manager"
+#~ msgstr "Et filhåndteringsprogram med to paneler"
+
+#~ msgid ""
+#~ "A custom font that will be used for the file panes if the “Use default font”"
+#~ " option is turned off."
+#~ msgstr ""
+#~ "Brugertilpasset skrifttype, som bruges til filruderne hvis “Brug "
+#~ "standardskrifttype” er slået fra."
+
+#~ msgid ""
+#~ "Defines how the filesize will be displayed in the associated pane column."
+#~ msgstr "Angiver hvordan filstørrelsen vises i den tilknyttede rudekolonne."
+
+#~ msgid ""
+#~ "Defines how the file permission will be displayed in the associated pane "
+#~ "column."
+#~ msgstr ""
+#~ "Angiver hvordan filrettigheder vil blive vist i den tilknyttede rudekolonne."
+
+#~ msgid "Defines the icon style of files and folders in the file panes."
+#~ msgstr "Angiver ikonstilen for filer og mapper i filruderne."
+
+#~ msgid "Defines the height of a row in the file pane."
+#~ msgstr "Angiver højden på en række i filruden."
+
+#~ msgid "Format of the date in the file pane."
+#~ msgstr "Format for datoen i filruden."
+
+#~ msgid "The font in the file panes."
+#~ msgstr "Skrifttypen i filruderne."
+
+#~ msgid "Size of icons in the file pane."
+#~ msgstr "Størrelse af ikoner i filruden."
+
+#~ msgid ""
+#~ "Defines if the orientation of the file panes should be horizontal or not."
+#~ msgstr "Angiver om orienteringen af filruderne skal være vandret."
+
+#~ msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
+#~ msgstr "Opdateringsfrekvens for grafisk brugergrænseflade i millisekunder."
+
+#~ msgid ""
+#~ "Defines if the current directories are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Angiver om de nuværende mapper genåbnes, når GNOME Commander genstartes."
+
+#~ msgid ""
+#~ "Defines if the current open tabs are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Angiver, om de i øjeblikket åbne faneblade genåbnes, når GNOME Commander "
+#~ "genstartes."
+
+#~ msgid ""
+#~ "This option defines if symbolic links should be treated as regular files. In"
+#~ " the file pane they are listed between other files and not at the top if "
+#~ "their target is not existing."
+#~ msgstr ""
+#~ "Denne indstilling definerer, om symbolske links skal behandles som "
+#~ "almindelige filer. I filruden vises de mellem andre filer og ikke øverst, "
+#~ "hvis deres mål ikke findes."
+
+#~ msgid ""
+#~ "This option defines if directories will be marked when all items in a file "
+#~ "pane should be marked."
+#~ msgstr ""
+#~ "Denne indstilling angiver, om også mapper skal markeres, når alle elementer "
+#~ "i en filrude skal markeres."
+
+#~ msgid "Quick search exact match begin"
+#~ msgstr "Hurtigsøgning med eksakt match af start"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the beginning"
+#~ " of an item name."
+#~ msgstr ""
+#~ "Denne indstilling angiver, om hurtigsøgning eksplicit skal matche ved "
+#~ "begyndelsen af et elementnavn."
+
+#~ msgid "Quick search exact match end"
+#~ msgstr "Hurtigsøgning med eksakt match af slutning"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the end of an"
+#~ " item name."
+#~ msgstr ""
+#~ "Denne indstilling angiver, om hurtigsøgning skal matche eksplicit ved "
+#~ "afslutningen af et elementnavn."
+
+#~ msgid ""
+#~ "The entries in this list are used for restoring the tabs from the last "
+#~ "session."
+#~ msgstr ""
+#~ "Posterne i denne liste bruges til at gendanne fanebladene fra den sidste "
+#~ "session."
+
+#~ msgid "Leave terminal open"
+#~ msgstr "Lad terminalen forblive åben"
+
+#~ msgid ""
+#~ "This option defines if a terminal window should stay open after a command "
+#~ "finishes inside of it."
+#~ msgstr ""
+#~ "Denne indstilling angiver, om et terminalvindue skal forblive åbent, efter "
+#~ "en kommando afslutter inden i det."
+
+#~ msgid "Fixed font name"
+#~ msgstr "Skrifttypenavn for fastbredde"
+
+#~ msgid "Name of the default font with fixed character width."
+#~ msgstr "Navnet på standardskrifttypen for fastbreddeskrift."
+
+#~ msgid "Variable font name"
+#~ msgstr "Navn for skrifttype med variabel bredde"
+
+#~ msgid "Name of the default font with variable character width."
+#~ msgstr "Navnet for standardskrifttypen for tekst med variabel tegnbredde."
+
+#~ msgid "Font size"
+#~ msgstr "Skriftstørrelse"
+
+#~ msgid "This option defines the default font size."
+#~ msgstr "Denne indstilling angiver standardskriftstørrelsen."
+
+#~ msgid "Horizontal offset"
+#~ msgstr "Vandret position"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "horizontal direction."
+#~ msgstr ""
+#~ "Denne indstilling angiver den visuelle position af den interne filfremviser "
+#~ "i vandret retning."
+
+#~ msgid "Vertical offset"
+#~ msgstr "Lodret position"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "vertical direction."
+#~ msgstr ""
+#~ "Denne indstilling angiver den visuelle position af den interne filfremviser "
+#~ "i lodret retning."
+
+#~ msgid "Remote Server"
+#~ msgstr "Fjernserver"
+
+#~ msgid "Connection method is not selected"
+#~ msgstr "Forbindelsesmetoden er ikke valgt"
+
+#~ msgid "Deletion failed"
+#~ msgstr "Kunne ikke slette"
+
+#~ msgid "Current file name"
+#~ msgstr "Nuværende filnavn"
+
+#~ msgid "New file name"
+#~ msgstr "Nyt filnavn"
+
+#~ msgid "File size"
+#~ msgstr "Filstørrelse"
+
+#~ msgid "File modification date"
+#~ msgstr "Dato for filændring"
+
+#~ msgid "Image:"
+#~ msgstr "Billede:"
+
+#~ msgid "Content Type:"
+#~ msgstr "Indholdstype:"
+
+#, c-format
+#~ msgid "Make directory failed: %s\n"
+#~ msgstr "Oprettelse af mappe mislykkedes: %s\n"
+
+#~ msgid "Sorting/Quick search"
+#~ msgstr "Sortering/hurtigsøgning"
+
+#~ msgid "ALT+letters (menu access with F12)"
+#~ msgstr "ALT+bogstaver (menuadgang med F12)"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "Match begyndelsen af filnavnet"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "Match slutningen af filnavnet"
+
+#~ msgid ""
+#~ "Search window is minimizable\n"
+#~ "(Needs program restart if altered)"
+#~ msgstr ""
+#~ "Søgevinduet kan minimeres\n"
+#~ "(programmet skal genstartes efter ændring)"
+
+#~ msgid "File panes"
+#~ msgstr "Filpaneler"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "Bekræftelse viser som OK som standardvalg"
+
+#~ msgid "Leave terminal window open"
+#~ msgstr "Lad terminalvinduet forblive åbent"
+
+#~ msgid "Search local directories only"
+#~ msgstr "Søg kun i lokale mapper"
+
+#~ msgid "Files _not containing text"
+#~ msgstr "Filer, der _ikke indeholder tekst"
+
+#, c-format
+#~ msgid "Failed to read file %s: File is not searchable"
+#~ msgstr "Kunne ikke læse filen %s: Filen er ikke søgbar"
+
+#, c-format
+#~ msgid "Failed to read file %s: %s"
+#~ msgstr "Kunne ikke læse filen %s: %s"
+
+#, c-format
+#~ msgid "Searching in: %s"
+#~ msgstr "Søger i: %s"
+
+#, c-format
+#~ msgid "Found %d match — search aborted"
+#~ msgid_plural "Found %d matches — search aborted"
+#~ msgstr[0] "Fandt %d træffer — søgning afbrudt"
+#~ msgstr[1] "Fandt %d træffere — søgning afbrudt"
+
+#, c-format
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "Fandt %d træffer"
+#~ msgstr[1] "Fandt %d træffere"
+
+#, c-format
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr "Kunne ikke angive procesgruppe-id for underproces %d: %s.\n"
+
+#~ msgid "Error parsing the search command."
+#~ msgstr "Fejl ved fortolkning af søgekommandoen."
+
+#~ msgid "Error running the search command."
+#~ msgstr "Fejl ved kørsel af søgekommandoen."
+
+#, c-format
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr "Kunne ikke skifte mappe uden for %s"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Overskriv filer"
+
+#~ msgid "Profile name"
+#~ msgstr "Profilnavn"
+
+#~ msgid "Keyboard Shortcut"
+#~ msgstr "Tastaturgenvej"
+
+#~ msgid "_Action"
+#~ msgstr "_Handling"
+
+#~ msgid "_Shortcut"
+#~ msgstr "_Genvejstast"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the \"Assign\" button and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "Redigér genvejstaster ved at klikke på knappen “Tildel” og tast en ny genvej"
+#~ " eller tryk Esc for at annullere."
+
+#~ msgid "New shortcut..."
+#~ msgstr "Ny genvejstast …"
+
+#~ msgid "Assign"
+#~ msgstr "Tildel"
+
+#~ msgid "No action is selected."
+#~ msgstr "Der er ikke valgt en handling."
+
+#~ msgid "No shortcut is defined."
+#~ msgstr "Der er ikke defineret en genvejstast."
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Genvejstast"
+
+#~ msgid "Action"
+#~ msgstr "Handling"
+
+#~ msgid "stopping…"
+#~ msgstr "stopper …"
+
+#~ msgid "Cut"
+#~ msgstr "Klip"
+
+#~ msgid "Copy file names"
+#~ msgstr "Kopiér filnavne"
+
+#~ msgid "Send files"
+#~ msgstr "Send filer"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "Åbn _terminal her"
+
+#~ msgid "_Directory"
+#~ msgstr "_Mappe"
+
+#~ msgid "_Text File"
+#~ msgstr "_Tekstfil"
+
+#~ msgid "Credits"
+#~ msgstr "Bidragydere"
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "Webside for udvidelsesmoduler"
+
+#~ msgid "C_redits"
+#~ msgstr "_Bidragsydere"
+
+#~ msgid "Regex pattern"
+#~ msgstr "Regex-mønster"
+
+#~ msgid "Replacement"
+#~ msgstr "Erstatning"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "Forskel på store og små bogstaver ved sammenligning"
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr "Angiv startmappen for venstre panel"
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr "Angiv startmappen for højre panel"
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr "Angiv mappen for konfigurationsfiler"
+
+#, c-format
+#~ msgid "The program has now finished. Press Enter to close this window.\n"
+#~ msgstr "Programmet er kørt færdigt. Tryk Enter for at lukke dette vindue.\n"
+
+#~ msgid "<New connection>"
+#~ msgstr "<Ny forbindelse>"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "Gå til: %s"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "Forbind til: %s"
+
+#, c-format
+#~ msgid "Disconnect from: %s"
+#~ msgstr "Afbryd forbindelse fra: %s"
+
+#, c-format
+#~ msgid "Mount failed: mount exited with exitstatus %d"
+#~ msgstr "Montering mislykkedes: mount afsluttede med fejlstatus %d"
+
+#, c-format
+#~ msgid ""
+#~ "Cannot unmount the volume:\n"
+#~ "%s\n"
+#~ "Error code: %d"
+#~ msgstr ""
+#~ "Kan ikke afmontere diskenheden:\n"
+#~ "%s\n"
+#~ "Fejlkode: %d"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "Gå til: %s (%s)"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr "Montér: %s"
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr "Afmontér: %s"
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "Forbinder til %s\n"
+
+#, c-format
+#~ msgid "_Open with “%s”"
+#~ msgstr "_Åbn med “%s”"
+
+#~ msgid "Filter:"
+#~ msgstr "Filter:"
+
+#~ msgid "Refresh"
+#~ msgstr "Genopfrisk"
+
+#~ msgid "Go to the oldest"
+#~ msgstr "Gå til ældste"
+
+#~ msgid "Go back"
+#~ msgstr "Gå tilbage"
+
+#~ msgid "Go forward"
+#~ msgstr "Gå fremad"
+
+#~ msgid "Go to the latest"
+#~ msgstr "Gå til seneste"
+
+#~ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+#~ msgstr "Kopiér filnavne (SKIFT for fulde stier, ALT for URI'er)"
+
+#~ msgid "Paste"
+#~ msgstr "Indsæt"
+
+#~ msgid "Open terminal"
+#~ msgstr "Åbn terminal"
+
+#~ msgid "GNOME Commander — ROOT PRIVILEGES"
+#~ msgstr "GNOME Commander — ROOT-RETTIGHEDER"
+
+#~ msgid "Path matches regex:"
+#~ msgstr "Sti matcher regex:"
+
+#~ msgid "Name contains:"
+#~ msgstr "Navn indeholder:"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "Forskel på _store og små bogstaver"
+
+#, c-format
+#~ msgid "Source “%s” could not be deleted. Aborting!"
+#~ msgstr "Kilden “%s” kunne ikke slettes. Afbryder!"
+
+#~ msgid "Find"
+#~ msgstr "Find"
+
+#~ msgid "Searching…"
+#~ msgstr "Søger …"
+
+#~ msgid "Searching for “{}”"
+#~ msgstr "Søger efter “{}”"
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr "Position: %lu af %lu\tKolonne: %d\t%s"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "pixel"
+#~ msgstr[1] "pixel"
+
+#~ msgid "bit/sample"
+#~ msgid_plural "bits/sample"
+#~ msgstr[0] "bit/prøve"
+#~ msgstr[1] "bit/prøve"
+
+#~ msgid "_Copy selection"
+#~ msgstr "_Kopiér markering"
+
+#~ msgid "_Enable Filter…"
+#~ msgstr "_Aktivér filter …"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "Kopiér _filnavne"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "_Gendan markering"
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "GNOME Commander på _nettet"
+
+#~ msgid "Failed to open connection."
+#~ msgstr "Kunne ikke åbne forbindelse."
+
+#~ msgid "A file {} has no URI"
+#~ msgstr "Filen {} har ingen URI"
+
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr "<Exif- og IPTC-mærker understøttes ikke>"
+
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr "<ID3-, APE-, FLAC- and Vorbis-mærker understøttes ikke>"
+
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr "<OLE2- og ODF-mærker understøttes ikke>"
+
+#~ msgid "<PDF tags not supported>"
+#~ msgstr "<PDF-mærker understøttes ikke>"
+
+#~ msgid "Created"
+#~ msgstr "Oprettet"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr ""
+#~ "Dato tilknyttet en begivenhed i ressourcens livscyklus (skabelses- eller "
+#~ "udgivelsesdato)."
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr "Exif-IFD-pointer"
+
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr ""
+#~ "En pointer til Exif-IFD'en. Interoperability-Exif-IFD'en har samme struktur "
+#~ "som IFD'en angivet i TIFF."
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr "Interoperability IFD-pointer"
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+#~ "Interoperability-IFD'en består af mærker, der indeholder information for at "
+#~ "sikre interoperabilitet, og angives af det følgende mærke, der ligger i "
+#~ "Exif-IFD'en. Interoperability-strukturen af en Interoperability-IFD er den "
+#~ "samme som den struktur, der er defineret for TIFF-IFD'er, men indeholder "
+#~ "ikke billeddata, som er karakteristisk for en normal TIFF-IFD."
+
+#~ msgid "Emphasis"
+#~ msgstr "Eftertryk"
+
+#~ msgid "Emphasis."
+#~ msgstr "Eftertryk."
+
+#~ msgid "Equalization 2"
+#~ msgstr "Equalisering 2"
+
+#~ msgid "Frames"
+#~ msgstr "Billeder"
+
+#~ msgid "Number of frames."
+#~ msgstr "Antal billeder."
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr "InvolvedPeople2"
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr "Størrelse af lydfilen i byte, eksklusive ID3-mærket."
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr "Lydstyrkejustering 2"
+
+#, c-format
+#~ msgid "unsupported tag (suppressed %ld B of binary data)"
+#~ msgstr "mærke understøttes ikke (%ld B binær data undertrykt)"
+
+#~ msgid "No command was given."
+#~ msgstr "Ingen kommando givet."
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME Commander er fri software. Du kan redistribuere og/eller modificere "
+#~ "det under de betingelserne som er angivet i GNU General Public License, som "
+#~ "udgivet af Free Software Foundation. Enten version 2 af licensen eller "
+#~ "(efter eget valg) enhver senere version."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "GNOME Commander distribueres i håb om at det vil vise sig nyttigt, men UDEN "
+#~ "NOGEN FORM FOR GARANTI, uden selv de underforståede garantier omkring "
+#~ "SALGBARHED eller EGNETHED TIL ET BESTEMT FORMÅL. Yderligere detaljer kan "
+#~ "læses i GNU General Public License."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+#~ "Du bør have modtaget en kopi af GNU General Public License sammen med dette "
+#~ "program. Hvis ikke, så skriv til Free Software Foundation, Inc., Franklin "
+#~ "Street 51, femte sal, Boston, MA 02110-1301, USA."
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "Et hurtigt og kraftfuldt filhåndteringsprogram til GNOME-skrivebordet"
+
+#~ msgid "Copy files"
+#~ msgstr "Kopiér filer"
+
+#~ msgid "Move files"
+#~ msgstr "Flyt filer"
+
+#~ msgid "Delete files"
+#~ msgstr "Slet filer"
+
+#~ msgid "Edit file"
+#~ msgstr "Redigér fil"
+
+#~ msgid "Edit a new file"
+#~ msgstr "Redigér en ny fil"
+
+#~ msgid "Change permissions"
+#~ msgstr "Ændr rettigheder"
+
+#~ msgid "Change owner/group"
+#~ msgstr "Ændr ejer/gruppe"
+
+#~ msgid "Create directory"
+#~ msgstr "Opret mappe"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "Sammenlign filer (diff)"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "Synkronisér mapper"
+
+#~ msgid "Rename files"
+#~ msgstr "Omdøb filer"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "Opret symbolsk link"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "Avanceret omdøbningsværktøj"
+
+#~ msgid "Select all"
+#~ msgstr "Vælg alle"
+
+#~ msgid "Unselect all"
+#~ msgstr "Afmarkér alle"
+
+#~ msgid "Select all files"
+#~ msgstr "Vælg alle filer"
+
+#~ msgid "Unselect all files"
+#~ msgstr "Fravælg alle filer"
+
+#~ msgid "Select with pattern"
+#~ msgstr "Vælg efter mønster"
+
+#~ msgid "Unselect with pattern"
+#~ msgstr "Fravælg efter mønster"
+
+#~ msgid "Invert selection"
+#~ msgstr "Omvend markering"
+
+#~ msgid "Select with same extension"
+#~ msgstr "Vælg med samme filendelse"
+
+#~ msgid "Unselect with same extension"
+#~ msgstr "Fravælg med samme filendelse"
+
+#~ msgid "Restore selection"
+#~ msgstr "Gendan markering"
+
+#~ msgid "Compare directories"
+#~ msgstr "Sammenlign mapper"
+
+#~ msgid "Show user defined files"
+#~ msgstr "Vis brugerdefinerede filer"
+
+#~ msgid "Show directory history"
+#~ msgstr "Vis mappehistorik"
+
+#~ msgid "Show hidden files"
+#~ msgstr "Vis skjulte filer"
+
+#~ msgid "Show backup files"
+#~ msgstr "Vis sikkerhedskopifiler"
+
+#~ msgid "Back to the first directory"
+#~ msgstr "Tilbage til første mappe"
+
+#~ msgid "Back one directory"
+#~ msgstr "Én mappe tilbage"
+
+#~ msgid "Forward one directory"
+#~ msgstr "Én mappe fremad"
+
+#~ msgid "Forward to the last directory"
+#~ msgstr "Fremad til sidste mappe"
+
+#~ msgid "Refresh tab"
+#~ msgstr "Opdatér faneblad"
+
+#~ msgid "Equal panel size"
+#~ msgstr "Paneler lige store"
+
+#~ msgid "Maximize panel size"
+#~ msgstr "Maksimér panelstørrelse"
+
+#~ msgid "Open directory in the left window"
+#~ msgstr "Åbn mappe i det venstre vindue"
+
+#~ msgid "Open directory in the right window"
+#~ msgstr "Åbn mappe i det højre vindue"
+
+#~ msgid "Open directory in the active window"
+#~ msgstr "Åbn mappe i det aktive vindue"
+
+#~ msgid "Open directory in the inactive window"
+#~ msgstr "Åbn mappe i det inaktive vindue"
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "Åbn mappe i et nyt faneblad"
+
+#~ msgid "Close the current tab"
+#~ msgstr "Luk det aktuelle faneblad"
+
+#~ msgid "Close all tabs"
+#~ msgstr "Luk alle faneblade"
+
+#~ msgid "Open directory in the new tab (inactive window)"
+#~ msgstr "Åbn mappe i det nye faneblad (inaktivt vindue)"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr "Bogmærk aktuelle mappe"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "Håndtér bogmærker"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Tastaturgenveje"
+
+#~ msgid "Open connection"
+#~ msgstr "Åbn forbindelse"
+
+#~ msgid "New connection"
+#~ msgstr "Ny forbindelse"
+
+#~ msgid "Set connection"
+#~ msgstr "Indstil forbindelse"
+
+#~ msgid "Change left connection"
+#~ msgstr "Ændr venstre forbindelse"
+
+#~ msgid "Change right connection"
+#~ msgstr "Ændr højre forbindelse"
+
+#~ msgid "Close connection"
+#~ msgstr "Afbryd forbindelse"
+
+#~ msgid "Configure plugins"
+#~ msgstr "Indstil udvidelsesmoduler"
+
+#~ msgid "Help contents"
+#~ msgstr "Indhold i hjælp"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "Hjælp til tastaturgenveje"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr "GNOME Commander på nettet"
+
+#~ msgid "Report a problem"
+#~ msgstr "Indrapportér et problem"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr "Om GNOME Commander"
+
+#, c-format
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "(%sbyte)"
+#~ msgstr[1] "(%sbyte)"
+
+#, c-format
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "%sbyte"
+#~ msgstr[1] "%sbyte"
+
+#, c-format
+#~ msgid "Creating directory %s… "
+#~ msgstr "Opretter mappen %s … "
+
+#, c-format
+#~ msgid "Failed to create the directory %s: %s"
+#~ msgstr "Kunne ikke oprette mappen %s: %s"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "Der opstod en fejl under visning af hjælp."
+
+#~ msgid "Cannot create a file for a path {}."
+#~ msgstr "Kan ikke oprette en fil for stien {}."
+
+#~ msgid "No error description available"
+#~ msgstr "Ingen fejlbeskrivelse tilgængelig"
+
+#~ msgid "Bookmark name is missing."
+#~ msgstr "Bogmærkenavn mangler."
+
+#~ msgid "Bookmark target is missing."
+#~ msgstr "Bogmærkemål mangler."
+
+#~ msgid "Chown"
+#~ msgstr "Chown"
+
+#~ msgid "Delete problem"
+#~ msgstr "Problem ved sletning"
+
+#~ msgid "Type"
+#~ msgstr "Type"
+
+#~ msgid "Metadata namespace"
+#~ msgstr "Navnerum for metadata"
+
+#~ msgid "Tag name"
+#~ msgstr "Mærkenavn"
+
+#~ msgid "Tag value"
+#~ msgstr "Mærkeværdi"
+
+#~ msgid "Metadata tag description"
+#~ msgstr "Mærkebeskrivelse til metadata"
+
+#~ msgid "Keyboard shortcut for selected action"
+#~ msgstr "Tastaturgenvej for den valgte handling"
+
+#~ msgid "User action"
+#~ msgstr "Brugerhandling"
+
+#~ msgid "Optional data"
+#~ msgstr "Valgfri data"
+
+#~ msgid "Do nothing"
+#~ msgstr "Gør intet"
+
+#~ msgid "Group"
+#~ msgstr "Gruppe"
+
+#~ msgid "Bookmark group"
+#~ msgstr "Bogmærkegruppe"
+
+#~ msgid "Bookmark name"
+#~ msgstr "Bogmærkenavn"
+
+#~ msgid "Keyboard shortcut for selected bookmark"
+#~ msgstr "Tastaturgenvej for det valgte bogmærke"
+
+#~ msgid "Bookmarked path"
+#~ msgstr "Sti for bogmærke"
+
+#~ msgid "Colors"
+#~ msgstr "Farver"
+
+#~ msgid "Palette"
+#~ msgstr "Palet"
+
+#~ msgid "Foreground:"
+#~ msgstr "Forgrund:"
+
+#~ msgid "Background:"
+#~ msgstr "Baggrund:"
+
+#~ msgid "Unknown error"
+#~ msgstr "Ukendt fejl"
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "Genvejskonflikter"
+
+#~ msgid "Network protocol"
+#~ msgstr "Netværksprotokol"
+
+#~ msgid "Connection name"
+#~ msgstr "Forbindelsesnavn"
+
+#~ msgid "Accelerator key"
+#~ msgstr "Genvejstast"
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr "Genvejsmodifikatorer"
+
+#~ msgid "Accelerator Mode"
+#~ msgstr "Genvejstilstand"
+
+#~ msgid "The type of accelerator."
+#~ msgstr "Typen af genvej."
+
+#~ msgid "Disabled"
+#~ msgstr "Deaktiveret"
+
+#~ msgid "New accelerator…"
+#~ msgstr "Ny genvej …"
+
+#~ msgid "Needs terminal"
+#~ msgstr "Kræver terminal"
+
+#, c-format
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] "%s af %s kB i %d af %d fil"
+#~ msgstr[1] "%s af %s kB i %d af %d filer"
+
+#, c-format
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] "%s, %d af %d mappe markeret"
+#~ msgstr[1] "%s, %d af %d mapper markeret"
+
+#~ msgid "Start _GNOME Commander as root"
+#~ msgstr "Start _GNOME Commander som root"
+
+#~ msgid "_Quit"
+#~ msgstr "_Afslut"
+
+#~ msgid "Open terminal (SHIFT for root privileges)"
+#~ msgstr "Åbn terminal (SKIFT for at få root-adgang)"
+
+#~ msgid "Open terminal as root"
+#~ msgstr "Åbn terminal som root"
+
+#~ msgid "Start GNOME Commander as root"
+#~ msgstr "Start GNOME Commander som root"
+
+#~ msgid "Show terminal"
+#~ msgstr "Vis terminal"
+
+#~ msgid "Transfer problem"
+#~ msgstr "Overførselsproblem"
+
+#~ msgid "Copy problem"
+#~ msgstr "Kopieringsproblem"
+
+#, c-format
+#~ msgid ""
+#~ "Overwrite file:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "With:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+#~ msgstr ""
+#~ "Overskriv fil:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "Med:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+
+#, c-format
+#~ msgid ""
+#~ "Error while transferring “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Fejl ved overførsel af “%s”\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Move problem"
+#~ msgstr "Flytningsproblem"
+
+#, c-format
+#~ msgid "[file %ld of %ld] “%s”"
+#~ msgstr "[fil %ld af %ld] “%s”"
+
+#, c-format
+#~ msgid ""
+#~ "Error while creating symlink “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Fejl ved oprettelse af symbolsk henvisning “%s”\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Symlink creation problem"
+#~ msgstr "Problem ved oprettelse af symbolsk henvisning"
+
+#, c-format
+#~ msgid "%s of %s copied"
+#~ msgstr "%s af %s kopieret"
+
+#, c-format
+#~ msgid "Couldn’t load installed pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Kunne ikke indlæse installeret pixmap, forsøger at indlæse %s i stedet"
+
+#, c-format
+#~ msgid ""
+#~ "Can’t find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-commander from the gnome-commander-%s/src directory"
+#~ msgstr ""
+#~ "Kan ikke finde pixmap. Sikr dig at du har installeret programmet, eller "
+#~ "kører gnome-commander fra mappen gnome-commander-%s/src"
+
+#~ msgid "_Binary"
+#~ msgstr "_Binær"
+
+#~ msgid "Arabic (Windows, CP1256)"
+#~ msgstr "Arabisk (Windows, CP1256)"
+
+#~ msgid "Rotate Clockwise"
+#~ msgstr "Rotér med uret"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "_Binær tilstand"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "_Gem nuværende indstillinger"
+
+#~ msgid "Make Executable?"
+#~ msgstr "Gør eksekverbar?"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid "Run or Display"
+#~ msgstr "Kør eller vis"
+
+#~ msgid "Run"
+#~ msgstr "Kør"
+
+#~ msgid "Disable"
+#~ msgstr "Deaktivér"
+
+#~ msgid "Enable"
+#~ msgstr "Aktivér"
+
+#~ msgid "_Enable"
+#~ msgstr "_Aktivér"
+
+#~ msgid "Unable to open terminal in root mode."
+#~ msgstr "Kan ikke åbne terminal i root-tilstand."
+
+#~ msgid "Cannot determine executable of Gnome Commander"
+#~ msgstr "Kan ikke bestemme Gnome Commanders eksekverbare fil"
+
+#~ msgid "Unable to start GNOME Commander in root mode."
+#~ msgstr "Kan ikke starte GNOME Commander i root-tilstand."
+
+#~ msgid "Failed to change working directory to a temporary directory."
+#~ msgstr "Kunne ikke ændre arbejdsmappe til en midlertidig mappe."
+
+#~ msgid "Failed to create a directory in which to store temporary files."
+#~ msgstr "Kunne ikke oprette en mappe til lagring af midlertidige filer."
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu, beesu or pkexec is not found."
+#~ msgstr ""
+#~ "gksudo, xdg-su, gksu, gnomesu, kdesu, beesu eller pkexec blev ikke fundet."
+
+#~ msgid "Use default font"
+#~ msgstr "Brug standardskrifttype"
+
+#~ msgid ""
+#~ "Whether to use the system’s default fixed width font for the file panels "
+#~ "instead of a font specific to gnome-commander."
+#~ msgstr ""
+#~ "Om systemets standardskrifttype for fastbreddeskrift skal bruges til "
+#~ "filpanelerne frem for en særlig skrifttype for gnome-commander."
+
+#~ msgid "Device icon size"
+#~ msgstr "Størrelse af enhedsikon"
+
+#~ msgid "Icon size in the device list."
+#~ msgstr "Ikonstørrelse i enhedslisten."
+
+#~ msgid "Main window horizontal position"
+#~ msgstr "Vandret position af hovedvindue"
+
+#~ msgid "Position of the main window in horizontal direction."
+#~ msgstr "Vandret position af hovedvindue."
+
+#~ msgid "Main window vertical position"
+#~ msgstr "Lodret position af hovedvindue"
+
+#~ msgid "Position of the main window in vertical direction."
+#~ msgstr "Lodret position af hovedvindue."
+
+#~ msgid "Folder selection"
+#~ msgstr "Mappevalg"
+
+#~ msgid "File selection"
+#~ msgstr "Filvalg"
+
+#~ msgid "Connections"
+#~ msgstr "Forbindelser"
+
+#~ msgid "/File name"
+#~ msgstr "/Filnavn"
+
+#~ msgid "/Counter"
+#~ msgstr "/Tæller"
+
+#~ msgid "/Date"
+#~ msgstr "/Dato"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "/Dato/<lokaliseret>"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/Dato/åååå"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/Dato/åå"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/Dato/mm"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/Dato/mmm"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/Dato/dd"
+
+#~ msgid "/Time"
+#~ msgstr "/Tid"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/Tid/<lokaliseret>"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/Tid/TT"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/Tid/MM"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/Tid/SS"
+
+#~ msgid "Other _Application…"
+#~ msgstr "Andet _program …"
+
+#~ msgid "Copy Tab to Other _Pane"
+#~ msgstr "Kopiér faneblad til anden _rude"
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+#~ msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu eller beesu ikke fundet"
+
+#, c-format
+#~ msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
+#~ msgstr ""
+#~ "Kunne ikke indlæse installeret pixmap for filtype — forsøger at indlæse %s i"
+#~ " stedet"
+
+#, c-format
+#~ msgid "Pattern “%s” was not found"
+#~ msgstr "Mønstret “%s” blev ikke fundet"
+
+#~ msgid "File Manager"
+#~ msgstr "Filhåndtering"
+
+#~ msgid "Skip device mounting"
+#~ msgstr "Spring enhedsmontering over"
+
+#~ msgid ""
+#~ "This option defines if mounting of devices should be skipped when they are "
+#~ "opened."
+#~ msgstr ""
+#~ "Denne indstilling angiver, om montering af enheder skal springes over, når "
+#~ "de åbnes."
+
+#~ msgid "S_hare:"
+#~ msgstr "_Deling:"
+
+#~ msgid "_User name:"
+#~ msgstr "_Brugernavn:"
+
+#~ msgid "Copy overwrite"
+#~ msgstr "Overskriv ved kopiering"
+
+#~ msgid "Silently"
+#~ msgstr "Tavst"
+
+#~ msgid "Move overwrite"
+#~ msgstr "Flyt-overskriv"
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr "Spring montering over (brugbart ved anvendelse af super-mount)"
+
+#~ msgid "Skip All"
+#~ msgstr "Spring alle over"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "Anonym FTP-adgangskode:"
+
+#~ msgid "Device is now safe to remove"
+#~ msgstr "Enheden kan nu fjernes sikkert"
+
+#~ msgid "Couldn’t read from the directory %s: %s"
+#~ msgstr "Kunne ikke læse fra mappen %s: %s"
+
+#~ msgid "Couldn’t move path from “%s” to “%s”: %s"
+#~ msgstr "Kunne ikke flytte sti fra “%s” til “%s”: %s"

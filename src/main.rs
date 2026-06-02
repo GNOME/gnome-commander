@@ -30,17 +30,15 @@ mod hintbox;
 mod history;
 mod history_entry;
 mod i18n;
-mod imageloader;
 mod intviewer;
 mod layout;
-mod libgcmd;
 mod main_win;
 mod notebook_ext;
 mod open_connection;
 mod open_file;
 mod options;
 mod paned_ext;
-mod plugin_manager;
+mod plugins;
 mod pwd;
 mod search;
 mod select_directory_button;
@@ -57,19 +55,16 @@ mod weak_map;
 mod weak_ref;
 mod weak_set;
 
-mod gmodule;
-
 use application::Application;
 use gtk::prelude::*;
 use std::error::Error;
-use std::path::Path;
 use std::process::Termination;
 
-use crate::config::{DATADIR, PACKAGE};
+use crate::config::{PACKAGE, locale_dir};
 
 fn main() -> Result<impl Termination, Box<dyn Error>> {
     gettextrs::setlocale(gettextrs::LocaleCategory::LcAll, "");
-    gettextrs::bindtextdomain(PACKAGE, Path::new(DATADIR).join("locale"))?;
+    gettextrs::bindtextdomain(PACKAGE, locale_dir())?;
     gettextrs::bind_textdomain_codeset(PACKAGE, "UTF-8")?;
     gettextrs::textdomain(PACKAGE)?;
 

@@ -6,7 +6,7 @@
 use crate::{
     debug::debug,
     file::FileOps,
-    options::{GeneralOptions, ProgramsOptions, types::WriteResult},
+    options::{GeneralOptions, types::WriteResult},
     spawn::{parse_command_template, spawn_async_command},
     utils::{ErrorMessage, make_run_in_terminal_command, u32_enum},
 };
@@ -124,23 +124,15 @@ impl UserDefinedApp {
         self.pattern_string.split(';').collect()
     }
 
-    pub fn build_command_line(
-        &self,
-        files: &[impl FileOps],
-        options: &ProgramsOptions,
-    ) -> Option<OsString> {
+    pub fn build_command_line(&self, files: &[impl FileOps]) -> Option<OsString> {
         let mut commandline = parse_command_template(files, &self.command_template)?;
         if self.requires_terminal {
-            commandline = make_run_in_terminal_command(&commandline, options);
+            commandline = make_run_in_terminal_command(&commandline);
         }
         Some(commandline)
     }
 
-    pub fn launch(
-        &self,
-        files: &[impl FileOps],
-        options: &ProgramsOptions,
-    ) -> Result<(), ErrorMessage> {
+    pub fn launch(&self, files: &[impl FileOps]) -> Result<(), ErrorMessage> {
         let working_directory: Option<PathBuf> = files
             .first()
             .ok_or_else(|| ErrorMessage {
@@ -150,12 +142,10 @@ impl UserDefinedApp {
             })?
             .parent_path();
 
-        let command = self
-            .build_command_line(files, options)
-            .ok_or_else(|| ErrorMessage {
-                message: gettext("Cannot build a command line."),
-                secondary_text: None,
-            })?;
+        let command = self.build_command_line(files).ok_or_else(|| ErrorMessage {
+            message: gettext("Cannot build a command line."),
+            secondary_text: None,
+        })?;
 
         spawn_async_command(working_directory.as_deref(), &command)
             .map_err(|e| e.into_message())?;
@@ -233,14 +223,10 @@ impl App {
         }
     }
 
-    pub fn launch(
-        &self,
-        files: &[impl FileOps],
-        options: &ProgramsOptions,
-    ) -> Result<(), ErrorMessage> {
+    pub fn launch(&self, files: &[impl FileOps]) -> Result<(), ErrorMessage> {
         match self {
             App::Regular(app) => app.launch(files),
-            App::UserDefined(app) => app.launch(files, options),
+            App::UserDefined(app) => app.launch(files),
         }
     }
 }

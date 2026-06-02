@@ -24,20 +24,18 @@ mod imp {
         utils::{MenuBuilderExt, attributes_bold},
     };
     use std::{
-        cell::{Cell, OnceCell, RefCell},
+        cell::{Cell, RefCell},
         sync::OnceLock,
     };
 
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::AdvancedRenameProfileComponent)]
     pub struct AdvancedRenameProfileComponent {
-        #[property(get, construct_only)]
-        file_metadata_service: OnceCell<FileMetadataService>,
         #[property(get, set, nullable)]
         profile: RefCell<Option<AdvancedRenameProfile>>,
 
         pub template_entry: HistoryEntry,
-        metadata_button: gtk::MenuButton,
+        pub metadata_button: gtk::MenuButton,
 
         pub counter_start_spin: gtk::SpinButton,
         pub counter_step_spin: gtk::SpinButton,
@@ -91,7 +89,6 @@ mod imp {
             let regex_selection_model = gtk::SingleSelection::new(Some(regex_model.clone()));
 
             Self {
-                file_metadata_service: OnceCell::new(),
                 profile: Default::default(),
 
                 template_entry: Default::default(),
@@ -212,11 +209,6 @@ mod imp {
                 bbox.append(&button);
 
                 bbox_size_group.add_widget(&self.metadata_button);
-                self.metadata_button.set_menu_model(Some(
-                    &this
-                        .file_metadata_service()
-                        .create_menu("advrenametag.insert-text-tag"),
-                ));
                 if let Some(popover) = self
                     .metadata_button
                     .popover()
@@ -860,11 +852,16 @@ glib::wrapper! {
 }
 
 impl AdvancedRenameProfileComponent {
-    pub fn new(file_metadata_service: &FileMetadataService) -> Self {
-        let this: Self = glib::Object::builder()
-            .property("file-metadata-service", file_metadata_service)
-            .build();
-        this
+    pub fn new() -> Self {
+        glib::Object::builder().build()
+    }
+
+    pub async fn update_metadata_menu(&self, file_metadata_service: &FileMetadataService) {
+        self.imp().metadata_button.set_menu_model(Some(
+            &file_metadata_service
+                .create_menu("advrenametag.insert-text-tag")
+                .await,
+        ));
     }
 
     pub fn set_template_history(&self, history: &[String]) {
@@ -990,8 +987,10 @@ async fn get_selected_range(
     let entry = gtk::Entry::builder()
         .text(filename)
         .activates_default(true)
+        .editable(false)
         .hexpand(true)
         .build();
+    entry.select_region(0, -1);
     let label = gtk::Label::builder()
         .label(gettext("_Select range:"))
         .use_underline(true)
@@ -1024,7 +1023,7 @@ async fn get_selected_range(
     ));
 
     let ok_button = gtk::Button::builder()
-        .label(gettext("_Insert"))
+        .label(gettext("I_nsert"))
         .use_underline(true)
         .build();
     ok_button.connect_clicked(glib::clone!(
@@ -1048,12 +1047,13 @@ async fn get_selected_range(
 
     dialog.present();
     let result = receiver.recv().await.unwrap_or_default();
+    let selection_bounds = entry.selection_bounds();
     dialog.close();
 
     if result {
         let inversed = option.is_active();
 
-        if let Some((begin, end)) = entry.selection_bounds() {
+        if let Some((begin, end)) = selection_bounds {
             let len = i32::from(entry.text_length());
             if !inversed {
                 if end == len {

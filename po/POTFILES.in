@@ -3,12 +3,12 @@
 data/org.gnome.gnome-commander.desktop.in
 data/org.gnome.gnome-commander.gschema.xml
 data/org.gnome.gnome-commander.metainfo.xml.in
-plugins/exiv2/exiv2-plugin.cc
-plugins/fileroller/file-roller-plugin.cc
-plugins/gsf/gsf-plugin.cc
-plugins/poppler/poppler-plugin.cc
-plugins/taglib/taglib-plugin.cc
-plugins/test/test-plugin.cc
+plugins/archives.py
+plugins/document-metadata.py
+plugins/image-metadata.py
+plugins/menu-scripts.py
+plugins/multimedia-metadata.py
+plugins/plugin_helper.py
 src/advanced_rename/advanced_rename_dialog.rs
 src/advanced_rename/profile_component.rs
 src/advanced_rename/profile.rs
@@ -60,7 +60,6 @@ src/dialogs/profiles/manage_profiles_dialog.rs
 src/dialogs/remote_dialog.rs
 src/dialogs/shortcuts_dialog.rs
 src/dialogs/transfer_progress_dialog.rs
-src/dirlist.rs
 src/dir.rs
 src/file_edit.rs
 src/file_list/actions.rs
@@ -78,7 +77,9 @@ src/main_win.rs
 src/open_connection.rs
 src/open_file.rs
 src/options/options.rs
-src/plugin_manager.rs
+src/plugins/dialogs.rs
+src/plugins/instance.rs
+src/plugins/manager.rs
 src/search/backend.rs
 src/search/content_search.rs
 src/search/search_dialog.rs

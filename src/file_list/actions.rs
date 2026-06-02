@@ -9,49 +9,21 @@ use crate::{
     dialogs::open_with_other_dialog::show_open_with_other_dialog,
     file::{File, FileOps},
     file_edit::file_edit,
-    file_view::file_view,
-    main_win::{ExecutionTarget, MainWindow},
+    main_win::MainWindow,
     options::ProgramsOptions,
     transfer::download_to_temporary,
-    utils::{ErrorMessage, get_modifiers_state, temp_file},
+    utils::{ErrorMessage, temp_file},
 };
 use gettextrs::{gettext, ngettext};
-use gtk::{gdk, gio, glib, prelude::*};
-use std::path::PathBuf;
-
-pub async fn file_list_action_file_view(file_list: &FileList, use_internal_viewer: Option<bool>) {
-    let options = ProgramsOptions::new();
-
-    let Some(parent_window) = file_list.root().and_downcast::<gtk::Window>() else {
-        eprintln!("No window");
-        return;
-    };
-    let Some(file) = file_list.selected_file() else {
-        return;
-    };
-    let file_metadata_service = file_list.file_metadata_service();
-    if let Err(error) = file_view(
-        parent_window.upcast_ref(),
-        &file,
-        use_internal_viewer,
-        &options,
-        &file_metadata_service,
-    )
-    .await
-    {
-        error.show(parent_window.upcast_ref()).await;
-    }
-}
+use gtk::{gio, prelude::*};
 
 pub async fn file_list_action_file_edit(file_list: &FileList) {
-    let options = ProgramsOptions::new();
-
     let Some(parent_window) = file_list.root().and_downcast::<gtk::Window>() else {
         eprintln!("No window");
         return;
     };
     let files = file_list.selected_files();
-    if let Err(error) = file_edit(files, &options).await {
+    if let Err(error) = file_edit(files).await {
         error.show(&parent_window).await;
     }
 }
@@ -89,12 +61,7 @@ fn create_temporary_files(files: &[File]) -> Result<Vec<File>, ErrorMessage> {
     Ok(temp_files)
 }
 
-async fn mime_exec_multiple(
-    files: Vec<File>,
-    app: App,
-    parent_window: &gtk::Window,
-    options: &ProgramsOptions,
-) {
+async fn mime_exec_multiple(files: Vec<File>, app: App, parent_window: &gtk::Window) {
     if files.is_empty() {
         ErrorMessage::new(gettext("No files were given to open."), None::<String>)
             .show(parent_window)
@@ -102,63 +69,61 @@ async fn mime_exec_multiple(
         return;
     }
 
-    let files_to_open: Vec<_> = if app.handles_uris() && options.dont_download.get() {
-        files
-    } else {
-        let (mut local, remote): (Vec<File>, Vec<File>) =
-            files.into_iter().partition(|f| f.is_local());
+    let files_to_open: Vec<_> =
+        if app.handles_uris() && ProgramsOptions::instance().dont_download.get() {
+            files
+        } else {
+            let (mut local, remote): (Vec<File>, Vec<File>) =
+                files.into_iter().partition(|f| f.is_local());
 
-        if ask_download_remote_files(parent_window, &app.name(), remote.len() as u32).await {
-            let tmp_files = match create_temporary_files(&remote) {
-                Ok(files) => files,
-                Err(error) => {
-                    error.show(parent_window).await;
+            if ask_download_remote_files(parent_window, &app.name(), remote.len() as u32).await {
+                let tmp_files = match create_temporary_files(&remote) {
+                    Ok(files) => files,
+                    Err(error) => {
+                        error.show(parent_window).await;
+                        return;
+                    }
+                };
+
+                if download_to_temporary(
+                    parent_window.clone(),
+                    remote.iter().map(|f| f.file().clone()).collect(),
+                    tmp_files.iter().map(|f| f.file().clone()).collect(),
+                    gio::FileCopyFlags::OVERWRITE,
+                )
+                .await
+                {
+                    local.extend(tmp_files);
+                } else {
+                    ErrorMessage::new(gettext("Download failed."), None::<String>)
+                        .show(parent_window)
+                        .await;
                     return;
                 }
-            };
-
-            if download_to_temporary(
-                parent_window.clone(),
-                remote.iter().map(|f| f.file().clone()).collect(),
-                tmp_files.iter().map(|f| f.file().clone()).collect(),
-                gio::FileCopyFlags::OVERWRITE,
-            )
-            .await
-            {
-                local.extend(tmp_files);
-            } else {
-                ErrorMessage::new(gettext("Download failed."), None::<String>)
-                    .show(parent_window)
-                    .await;
-                return;
             }
-        }
 
-        local
-    };
+            local
+        };
 
-    if let Err(error) = app.launch(&files_to_open, options) {
+    if let Err(error) = app.launch(&files_to_open) {
         error.show(parent_window).await;
     }
 }
 
 /// Executes a list of files with the same application
 pub async fn file_list_action_open_with(file_list: &FileList, app: App) {
-    let options = ProgramsOptions::new();
-
     let Some(parent_window) = file_list.root().and_downcast::<gtk::Window>() else {
         eprintln!("File list has no parent window");
         return;
     };
     let files = file_list.selected_files();
 
-    mime_exec_multiple(files, app, &parent_window, &options).await;
+    mime_exec_multiple(files, app, &parent_window).await;
 }
 
 /// Iterates through all files and gets their default application.
 /// All files with the same default app are grouped together and opened in one call.
 pub async fn file_list_action_open_with_default(file_list: &FileList) {
-    let options = ProgramsOptions::new();
     let Some(parent_window) = file_list.root().and_downcast::<gtk::Window>() else {
         eprintln!("File list has no parent window");
         return;
@@ -190,7 +155,7 @@ pub async fn file_list_action_open_with_default(file_list: &FileList) {
 
     for (app_info, files) in grouped {
         let app = App::Regular(RegularApp { app_info });
-        mime_exec_multiple(files, app, &parent_window, &options).await;
+        mime_exec_multiple(files, app, &parent_window).await;
     }
 }
 
@@ -213,65 +178,4 @@ pub async fn file_list_action_execute(file_list: &FileList) {
     };
 
     parent_window.execute_file(&file).await;
-}
-
-#[derive(glib::Variant)]
-pub struct Script {
-    pub path: PathBuf,
-    pub in_terminal: bool,
-}
-
-pub async fn file_list_action_execute_script(
-    file_list: &FileList,
-    Script { path, in_terminal }: Script,
-) {
-    let Some(parent_window) = file_list.root().and_downcast::<MainWindow>() else {
-        eprintln!("Unexpected: parent window isn't the main window");
-        return;
-    };
-    let files = file_list.selected_files();
-
-    let mask = get_modifiers_state(parent_window.upcast_ref());
-    let is_shift_pressed = mask.is_some_and(|m| {
-        m.contains(gdk::ModifierType::SHIFT_MASK)
-            && !m.contains(gdk::ModifierType::CONTROL_MASK)
-            && !m.contains(gdk::ModifierType::ALT_MASK)
-    });
-
-    if is_shift_pressed {
-        // Run script per file
-        for file in files {
-            let mut command = glib::shell_quote(&path);
-            command.push(" ");
-            command.push(glib::shell_quote(file.path_name()));
-            parent_window
-                .execute_command(
-                    &command.to_string_lossy(),
-                    if in_terminal {
-                        ExecutionTarget::AnyTerminal
-                    } else {
-                        ExecutionTarget::Background
-                    },
-                )
-                .await;
-        }
-    } else {
-        // Run script with list of files
-        let mut command = glib::shell_quote(&path);
-        for file in &files {
-            command.push(" ");
-            command.push(glib::shell_quote(file.path_name()));
-        }
-
-        parent_window
-            .execute_command(
-                &command.to_string_lossy(),
-                if in_terminal {
-                    ExecutionTarget::AnyTerminal
-                } else {
-                    ExecutionTarget::Background
-                },
-            )
-            .await;
-    }
 }

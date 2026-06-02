@@ -4461,3 +4461,2010 @@ msgstr "མི་ལི་སྐར་ཆ་ ༡༠-༡༥།"
 
 #~ msgid "_Remove"
 #~ msgstr "རྩ་བསྐྲད་གཏང་།(_R)"
+
+#~ msgid "A two paned file manager"
+#~ msgstr "པེན་གཉིས་ཡོད་མི་ཡིག་སྣོད་འཛིན་སྐྱོང་པ་ཅིག"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "ཇི་ནོམ་གཙོ་དཔོན།"
+
+#~ msgid "No error description available"
+#~ msgstr "འགྲེལ་བཤད་འཛོལ་བ་ཐོབ་ཚུགསཔ་མེད།"
+
+#~ msgid "CVS options"
+#~ msgstr "སི་ཝི་ཨེསི་གདམ་ཁ་ཚུ།"
+
+#~ msgid "Compression level"
+#~ msgstr "ཨེབ་བཙུགས་གནས་རིམ།"
+
+#~ msgid "Unified diff format"
+#~ msgstr "གཅིག་མཚུངས་ཁྱད་པར་རྩ་སྒྲིག"
+
+#~ msgid "A plugin that eventually will be a simple CVS client"
+#~ msgstr "པ་ལག་ཨིན་ཅིག་དེ་མཐའ་ཐུག་ལུ་སི་ཝི་ཨེསི་ཞབས་ཏོག་སྤྱོད་མི་འཇམ་སམ་འོང་།"
+
+#~ msgid "Compare with"
+#~ msgstr "དང་གཅིག་ཁར་ག་བསྡུར་བརྐྱབ་ནི།"
+
+#~ msgid "HEAD"
+#~ msgstr "མགུ་ཏོག"
+
+#~ msgid "The previous revision"
+#~ msgstr "ཧེ་མམ་གྱི་བསྐྱར་སྦྱོང་་འདི།"
+
+#~ msgid "Other revision"
+#~ msgstr "གཞན་བསྐྱར་སྦྱོང་།"
+
+#~ msgid "CVS Diff"
+#~ msgstr "སི་ཝི་ཨེསི་ཁྱད་པར།"
+
+#~ msgid "revision"
+#~ msgstr "བསྐྱར་སྦྱོང་།"
+
+#~ msgid "Revision:"
+#~ msgstr "བསྐྱར་སྦྱོང་།:"
+
+#~ msgid "Compare..."
+#~ msgstr "ག་བསྡུར་བརྐྱབ་ནི།..."
+
+#~ msgid "Author:"
+#~ msgstr "རྩོམ་པ་པོ།:"
+
+#~ msgid "Date:"
+#~ msgstr "ཚེས་གྲངས།:"
+
+#~ msgid "State:"
+#~ msgstr "གནས་ལུགས།:"
+
+#~ msgid "Lines:"
+#~ msgstr "གྱལ་ཚུ།:"
+
+#~ msgid "Message:"
+#~ msgstr "འཕྲིན་དོན།:"
+
+#~ msgid "Create Archive..."
+#~ msgstr "ཡིག་མཛོད་གསར་བསྐྲུན་འབད།..."
+
+#, c-format
+#~ msgid "Extract to '%s'"
+#~ msgstr "ལུ་ཕྱིར་འདོན་འབད། '%s'"
+
+#~ msgid "Default type"
+#~ msgstr "སྔོན་སྒྲིག་དབྱེ་བ།"
+
+#, c-format
+#~ msgid "%d file listed"
+#~ msgid_plural "%d files listed"
+#~ msgstr[0] "%d ཡིག་སྣོད་ཐོ་བཀོད་འབད་ཡོདཔ་"
+#~ msgstr[1] "%d files listed"
+
+#~ msgid "Credits"
+#~ msgstr "ངོ་བསྟོད་ཚུ།"
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "པ་ལག་ཨིན་ཝེབ་ཤོག་ལེབ།"
+
+#~ msgid "C_redits"
+#~ msgstr "ངོ་བསྟོད་ཚུ།(_r)"
+
+#~ msgid "/Grandparent"
+#~ msgstr "/གེརེན་རྩ་ལག"
+
+#~ msgid "/Parent"
+#~ msgstr "/རྩ་ལག"
+
+#~ msgid "/File name"
+#~ msgstr "/ཡིག་སྣོད་མིང་།"
+
+#~ msgid "/File name without extension"
+#~ msgstr "/ཡིག་སྣོད་མིང་རྒྱ་བསྐྱེད་མེདཔ་སྦེ།"
+
+#~ msgid "/File extension"
+#~ msgstr "/ཡིག་སྣོད་རྒྱ་བསྐྱེད།"
+
+#~ msgid "/Counter"
+#~ msgstr "/གདོང་ལེན།"
+
+#~ msgid "/Counter (precision)"
+#~ msgstr "/གདོང་ལེན(ཀྲིག་ཀྲི།)"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "/ཚེས་གྲངས/<locale>"
+
+#~ msgid "/Date/yyyy-mm-dd"
+#~ msgstr "/ཚེས་གྲངས།/ཝའི་ཝའི་ཝའི་ཝའི-ཨེམ་ཨེམ-ཌི་ཌི།"
+
+#~ msgid "/Date/yy-mm-dd"
+#~ msgstr "/ཚེས་གྲངས།/ཝའི་ཝའི-ཨེམ་ཨེམ-ཌི་ཌི།"
+
+#~ msgid "/Date/yy.mm.dd"
+#~ msgstr "/ཚེས་གྲངས།/ཝའི་ཝའི.ཨེམ་ཨེམ.ཌི་ཌི།"
+
+#~ msgid "/Date/yymmdd"
+#~ msgstr "/ཚེས་གྲངས།/ཝའི་ཝའི་ཨེམ་ཨེམ་ཌི་ཌི།"
+
+#~ msgid "/Date/dd.mm.yy"
+#~ msgstr "/ཚེས་གྲངས།/ཌི་ཌི.ཨེམ་ཨེམ.ཝའི་ཝའི།"
+
+#~ msgid "/Date/mm-dd-yy"
+#~ msgstr "/ཚེས་གྲངས།/ཨེམ་ཨེམ-ཌི་ཌི-ཝའི་ཝའི།"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/ཚེས་གྲངས།/ཝའི་ཝའི་ཝའི་ཝའི།"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/ཚེས་གྲངས།/ཝའི་ཝའི།"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/ཚེསགྲངས།/ཨེམ་ཨེམ།"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/ཚེས་གྲངས།/ཨེམ་ཨེམ་ཨེམ།"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/ཚེས་གྲངས།/ཌི་ཌི།"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/དུས་ཚོད།/<locale>"
+
+#~ msgid "/Time/HH.MM.SS"
+#~ msgstr "/དུས་ཚོད།/ཨེཆ་ཨེཆ.ཨེམ་ཨེམ.ཨེསི་ཨེསི།"
+
+#~ msgid "/Time/HH-MM-SS"
+#~ msgstr "/དུས་ཚོད།/ཨེཆ་ཨེཆ-ཨེམ་ཨེམ-ཨེསི་ཨེསི།"
+
+#~ msgid "/Time/HHMMSS"
+#~ msgstr "/དུས་ཚོད།/ཨེཆ་ཨེཆ་ཨེམ་ཨེམ་ཨེསི་ཨེསི།"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/དུས་ཚོད།/ཨེཆ་ཨེཆ།"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/དུས་ཚོད།/ཨེམ་ཨེམ།"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/དུས་ཚོད།/ཨེསི་ཨེསི།"
+
+#~ msgid "Invalid source pattern"
+#~ msgstr "ནུས་མེད་འབྱུང་ཁུངས་དཔེ་གཞི།"
+
+#~ msgid "Replace this:"
+#~ msgstr "འདི་ཚབ་བཙུགས།:"
+
+#, fuzzy
+#~ msgid "With this:"
+#~ msgstr "འདི་དང་གཅིག་ཁར།"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "ཡི་གུ་ཆེ་ཆུང་གི་ཉེན་ཁ་མཐུན་སྒྲིག"
+
+#~ msgid "New Rule"
+#~ msgstr "ལམ་ལུགས་གསརཔ།"
+
+#~ msgid "Counter start value:"
+#~ msgstr "འགོ་བཙུགས་གནས་གོང་གདོང་ལེན།:"
+
+#~ msgid "Counter increment:"
+#~ msgstr "ཡར་འཕར་གདོང་ལེན།:"
+
+#~ msgid "Counter minimum digit count:"
+#~ msgstr "ཨང་ཡིག་གྱངས་ཁ་རྐྱབས་ནི་ཉུང་མཐའ་གདོང་ལེན།:"
+
+#~ msgid "Template Options"
+#~ msgstr "ཊེམ་པེ་ལེཊི་གདམ་ཁ་ཚུ།"
+
+#~ msgid "Auto-update when the template is entered"
+#~ msgstr "ཊེམ་པེ་ལེཊི་འདི་བཙུགས་ཡོད་པའི་སྐབས་རང་བཞིན་དུས་མཐུན་བཟོ།"
+
+#~ msgid "O_ptions..."
+#~ msgstr "གདམ་ཁ་ཚུ།(_o)..."
+
+#~ msgid "Replace this"
+#~ msgstr "འདི་ཚབ་བཙུགས།"
+
+#~ msgid "With this"
+#~ msgstr "འདི་དང་གཅིག་ཁར།"
+
+#~ msgid "Re_move All"
+#~ msgstr "ཆ་མཉམ་རྩ་བསྐྲད་གཏང་།(_m)"
+
+#~ msgid "Result"
+#~ msgstr "འགྲུབ་འབྲས།"
+
+#, fuzzy
+#~ msgid "Current file names"
+#~ msgstr "ད་ལྟོའི་ཡིག་སྣོད་མིང་།"
+
+#, fuzzy
+#~ msgid "New file names"
+#~ msgstr "ཡིག་སྣོད་མིང་གསརཔ་ཚུ།"
+
+#~ msgid "Rese_t"
+#~ msgstr "སླར་སྒྲིག(_t)"
+
+#~ msgid "Bookmark name:"
+#~ msgstr "དེབ་རྟགས་མིང་།:"
+
+#~ msgid "Bookmark target:"
+#~ msgstr "དེབ་རྟགས་དམིགས་གཏད།:"
+
+#~ msgid "Bookmark name is missing"
+#~ msgstr "དེབ་རྟགས་མིང་འདི་བརླག་སྟོར་ཞུགས་ཡོདཔ།"
+
+#~ msgid "Bookmark target is missing"
+#~ msgstr "དེབ་རྟགས་དམིགས་གཏད་འདི་བརླག་སྟོཡ་ཞུགས་ཡོདཔ།"
+
+#~ msgid "Bookmark Groups"
+#~ msgstr "དེབ་རྟགས་སྡེ་ཚན་ཚུ།"
+
+#~ msgid "path"
+#~ msgstr "འགྲུལ་ལམ།"
+
+#~ msgid ""
+#~ "To bookmark a directory the whole search path to the directory must be in "
+#~ "valid UTF-8 encoding\n"
+#~ msgstr ""
+#~ "སྣོད་ཐོ་འདི་ལུ་སྣོད་ཐོ་ཅིག་འཚོལ་ཞིབ་འགྲུལ་ལམ་ཧྲིལ་བུམ་འདི་དེབ་རྟགས་བཀལ་ནི་ལུ་ཡུ་ཊི་ཨེཕ་-༨"
+#~ " ཨིན་ཀོ་ཌིང་ནུས་ཅན་ནང་དགོཔ་ཨིན།\n"
+
+#, c-format
+#~ msgid ""
+#~ "Could not chmod %s\n"
+#~ "%s"
+#~ msgstr ""
+#~ "སི་ཨེཆ་མོཌི་མ་ཚུགསཔ། %s\n"
+#~ "%s"
+
+#, c-format
+#~ msgid ""
+#~ "Could not chown %s\n"
+#~ "%s"
+#~ msgstr ""
+#~ "ཅོའོན་མ་ཚུགསཔ། %s\n"
+#~ "%s"
+
+#~ msgid "Chown"
+#~ msgstr "ཅོའུན།"
+
+#~ msgid "Mount failed: Permission denied"
+#~ msgstr "བརྩེགས་ཅན་འཐུས་ཤོར་ཡོདཔ།: གནང་བ་ཉན་མ་བཏུབ།"
+
+#~ msgid "Mount failed: No medium found"
+#~ msgstr "བརྩེགས་ཅན་འཐུས་ཤོར་ཡོདཔ།: བརྡ་ལམ་འཚོལ་མ་ཐོབ་པར་ཡོདཔ།"
+
+#, c-format
+#~ msgid "Mount failed: mount exited with existatus %d"
+#~ msgstr ""
+#~ "བརྩེགས་ཅན་འཐུས་ཤོར་ཡོདཔ།: "
+#~ "བརྩེགས་ཅན་དང་གཅིག་ཁར་ཨི་ཨེགསི་ཨའི་གནས་ཚཐ་ཕྱིར་ཐོན་ཡོདཔ། %d"
+
+#~ msgid ""
+#~ "Volume unmounting succeeded.\n"
+#~ "It is safe to eject the media."
+#~ msgstr ""
+#~ "སྐད་ཤུགས་བརྩེགས་བཤོལ་འབད་ནི་མཐར་འཁྱོལ་ཡོདཔ་ཨིན།\n"
+#~ "བརྡ་ལམ་འདི་ཕྱིར་བཏོན་ནི་ཉེན་མེད་ཨིན།"
+
+#, c-format
+#~ msgid ""
+#~ "Volume unmounting failed:\n"
+#~ "%s %s"
+#~ msgstr ""
+#~ "སྐད་ཤུགས་བརྩེགས་བཤོལ་འཐུས་ཤོར་ཡོདཔ།:\n"
+#~ "%s %s"
+
+#~ msgid "Unknown Error"
+#~ msgstr "མ་ཤེས་པའི་འཛོལ་བ།"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "ལུ་འགྱོ།: %s (%s)"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr "སྦྱར་བརྩེགས།: %s"
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr "བརྩེགས་བཤོལ།: %s"
+
+#, c-format
+#~ msgid "\"%s\" is not a valid location"
+#~ msgstr ""
+
+#~ msgid "Please check the spelling and try again."
+#~ msgstr ""
+
+#, fuzzy
+#~ msgid "S_hare:"
+#~ msgstr "རྣོ་ཅན་གྱི་ཚད།"
+
+#, fuzzy
+#~ msgid "_Remote dir:"
+#~ msgstr "ཐག་རིང་གི་སྣོད་ཐོ།:"
+
+#, fuzzy
+#~ msgid "_User name:"
+#~ msgstr "ལག་ལེན་པ།:"
+
+#, fuzzy
+#~ msgid "_Password:"
+#~ msgstr "ཆོག་ཡིག:"
+
+#, fuzzy
+#~ msgid "Remote Server"
+#~ msgstr "ཐག་རིང་གི་སྣོད་ཐོ།:"
+
+#~ msgid "Use _GNOME Keyring Manager for authentication"
+#~ msgstr ""
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "ལུ་མཐུད་ལམ་མཐུད་དོ། %s\n"
+
+#, fuzzy
+#~ msgid "<New connection>"
+#~ msgstr "ཨེཕ་ཊི་པི་མཐུད་ལམ་གསརཔ།"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "ལུ་འགྱོ།: %s"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "ལུ་མཐུད་ལམ་མཐུད།: %s"
+
+#, c-format
+#~ msgid "Disconnect from: %s"
+#~ msgstr "ལས་མཐུད་ལམ་བཏོག་ནི།: %s"
+
+#, c-format
+#~ msgid "Creates the FTP connection to %s"
+#~ msgstr "ལུ་ཨེཕ་ཊི་པི་མཐུད་ལམ་འདི་གསར་བསྐྲུན་འབདཝ་ཨིན། %s"
+
+#, c-format
+#~ msgid "Removes the FTP connection to %s"
+#~ msgstr "ལུ་ཨེཕ་ཊི་པི་མཐུད་ལམ་འདི་རྩ་བསྐྲད་གཏངམ་ཨིན། %s"
+
+#~ msgid "Failed to browse the network. Is the SMB module installed?"
+#~ msgstr ""
+#~ "ཡོངས་འབྲེལ་འདི་བརྡ་འཚོལ་འབད་ནི་ལུ་འཐུས་ཤོར་ཡོདཔ། "
+#~ "ཨེསི་ཨེམ་བི་ཚད་གཞི་འདི་གཞི་བཙུགས་འབད་ནུག་ག?"
+
+#, c-format
+#~ msgid "Deleted %ld of %ld file"
+#~ msgid_plural "Deleted %ld of %ld files"
+#~ msgstr[0] "གི་ %ld ཡིག་སྣོད་ %ld བཏོན་གཏང་ཡོདཔ།"
+#~ msgstr[1] "གི་ %ld ཡིག་སྣོད་ཚུ་ %ld བཏོན་གཏང་ཡོདཔ།"
+
+#~ msgid "Deleting..."
+#~ msgstr "བཏོན་གཏང་དོ།..."
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting \"%s\"\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "བཏོན་གཏང་བའི་སྐབས་འཛོལ་བ། \"%s\"\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Delete problem"
+#~ msgstr "དཀའ་ངལ་བཏོན་གཏང་།"
+
+#, c-format
+#~ msgid "Do you want to delete \"%s\"?"
+#~ msgstr "ཁྱོད་ཀྱིས་བཏོན་གཏང་ནི་ཨིན་ན \"%s\"?"
+
+#, c-format
+#~ msgid "Do you want to delete the selected file?"
+#~ msgid_plural "Do you want to delete the %d selected files?"
+#~ msgstr[0] "ཁྱོད་ཀྱིས་སེལ་འཐུ་འབད་ཡོད་མི་ཡིག་སྣོད་འདི་བཏོན་གཏང་ནི་ཨིན་ན?"
+#~ msgstr[1] "ཁྱོད་ཀྱིས་སེལ་འཐུ་འབད་ཡོད་མི་ཡིག་སྣོད་ཚུ་%d བཏོན་གཏང་ནི་ཨིན་ན?"
+
+#~ msgid "OK"
+#~ msgstr "བཏུབ།"
+
+#~ msgid "Manage bookmarks..."
+#~ msgstr "དེབ་རྟགས་ཚུ་འཛིན་སྐྱོང་འབད།..."
+
+#, c-format
+#~ msgid "Not an ordinary file: %s"
+#~ msgstr "ཡིག་སྣོད་དཀྱུ་མ་ཅིག་མེན།: %s"
+
+#~ msgid "Open with other..."
+#~ msgstr "གཞན་དང་གཅིག་ཁར་ཁ་ཕྱེ།..."
+
+#~ msgid "Needs terminal"
+#~ msgstr "ཊར་མི་ནཱལ་དགོཔ།"
+
+#, c-format
+#~ msgid "_Open with \"%s\""
+#~ msgstr " \"%s\"དང་གཅིག་ཁར་ཁ་ཕྱེ། (_O)"
+
+#~ msgid "Open With..."
+#~ msgstr "གཅིག་ཁར་ཁ་ཕྱེ།..."
+
+#, fuzzy
+#~ msgid "Send files"
+#~ msgstr "ཡིག་སྣོད་ལ་ལོ་ཅིག"
+
+#, fuzzy
+#~ msgid "Open _terminal here"
+#~ msgstr "ཊར་མི་ནཱལ་དགོཔ།"
+
+#~ msgid "_Properties..."
+#~ msgstr "རྒྱུ་དངོས་ཚུ།(_P)..."
+
+#~ msgid "Other..."
+#~ msgstr "གཞན།..."
+
+#, c-format
+#~ msgid "%s byte"
+#~ msgid_plural "%s bytes"
+#~ msgstr[0] "%s བཱའིཊི།"
+#~ msgstr[1] "%s བཱའིཊི་ཚུ།"
+
+#, fuzzy
+#~ msgid "Image:"
+#~ msgstr "གཟུགས་བརྙན།"
+
+#~ msgid "Filename:"
+#~ msgstr "ཡིག་སྣོད་མིང་།:"
+
+#~ msgid "Type:"
+#~ msgstr "དབྱེ་བ།:"
+
+#~ msgid "MIME Type:"
+#~ msgstr "ཨེམ་ཨའི་ཨེམ་ཨི་དབྱེ་བ།:"
+
+#~ msgid "_Change"
+#~ msgstr "བསྒྱུར་བཅོས།(_C)"
+
+#, fuzzy
+#~ msgid "Type"
+#~ msgstr "དབྱེ་བ།:"
+
+#, fuzzy
+#~ msgid "Metadata namespace"
+#~ msgstr "མེ་ཊ་གནད་སྡུད་"
+
+#, fuzzy
+#~ msgid "Tag name"
+#~ msgstr "མིང་།"
+
+#~ msgid "Tag value"
+#~ msgstr ""
+
+#, fuzzy
+#~ msgid "Metadata tag description"
+#~ msgstr "ནང་དོན་སྡེ་ཚན་འགྲེལ་བཤད།"
+
+#, c-format
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] "%s གི་ %s kB ནང་ %d གི་ %d ཡིག་སྣོད་"
+#~ msgstr[1] "%s གི་ %s kB ནང་ %d གི་ %d ཡིག་སྣོད་ཚུ་"
+
+#, c-format
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] "%s, %d འདི་ %d གི་སྣོད་ཐོ་སེལ་འཐུ་འབད་ཡོདཔ་"
+#~ msgstr[1] "%s, %dའདི་ %dསྣོད་ཐོ་ཚུ་སེལ་འཐུ་འབད་ཡོདཔ།"
+
+#, c-format
+#~ msgid "Listing failed: %s\n"
+#~ msgstr "ཐོ་ཡིག་འཐུས་ཤོར་ཡོདཔ།: %s\n"
+
+#, c-format
+#~ msgid "Failed to open connection: %s\n"
+#~ msgstr "མཐུད་ལམ་མཐུད་ནི་ལུ་འཐུས་ཤོར་ཡོདཔ།: %s\n"
+
+#~ msgid "No file name given"
+#~ msgstr "ཡིག་སྣོད་མིང་གྲ་སྒྲིག་མེདཔ།"
+
+#~ msgid "Symlink name:"
+#~ msgstr "རིམ་ལུགས་འབྲུལ་མཐུད་མིང་།:"
+
+#~ msgid "Filter:"
+#~ msgstr "ཚགས་མ།:"
+
+#~ msgid "Unknown file type"
+#~ msgstr "མ་ཤེས་པའི་ཡིག་སྣོད་དབྱེ་བ།"
+
+#~ msgid "Regular file"
+#~ msgstr "དུས་རྒྱུན་ཡིག་སྣོད།"
+
+#~ msgid "FIFO"
+#~ msgstr "ཨེཕ་ཨའི་ཨེཕ་ཨོ།"
+
+#~ msgid "UNIX Socket"
+#~ msgstr "ཡུ་ཨེན་ཨའི་ཨེགསི་སོ་ཀེཊི།"
+
+#~ msgid "Character device"
+#~ msgstr "ཡིག་འབྲུ་ཐབས་འཕྲུལ།"
+
+#~ msgid "Block device"
+#~ msgstr "ཐབས་འཕྲུལ་འགག"
+
+#~ msgid "Symbolic link"
+#~ msgstr "བརྡ་མཚོན་པའི་འབྲེལ་མཐུད།"
+
+#~ msgid "_Directory"
+#~ msgstr "སྣོད་ཐོ།(_D)"
+
+#~ msgid "_Text File"
+#~ msgstr "ཚིག་ཡིག་ཡིག་སྣོད།(_T)"
+
+#~ msgid "_New..."
+#~ msgstr "གསརཔ།(_N)..."
+
+#~ msgid "Switch to Vertical Layout"
+#~ msgstr "ཀེར་ཕྲང་སྒྲིག་བཀོད་ལུ་སོར་བསྒྱུར་འབད།"
+
+#~ msgid "Switch to Horizontal Layout"
+#~ msgstr "ཐད་སྙོམས་སྒྲིག་བཀོད་ལུ་སོར་བསྒྱུར་འབད།"
+
+#~ msgid "_Quit"
+#~ msgstr "སྤང་།(_Q)"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "སེལ་འཐུ་སོར་ཆུད་འབད།(_R)"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "ཡིག་སྣོད་མིང་ཚུ་འདྲ་བཤུས་འབད།(_F)"
+
+#~ msgid "_Search..."
+#~ msgstr "འཚོལ་ཞིབ་འབད།(_S)..."
+
+#~ msgid "_Quick Search..."
+#~ msgstr "འཕྲལ་མགྱོགས་འཚོལ་ཞིབ་འབད།(_Q)..."
+
+#~ msgid "_Enable Filter..."
+#~ msgstr "ཚགས་མ་ལྕོགས་ཅན་བཟོ།(_E)..."
+
+#~ msgid "Show Commandline"
+#~ msgstr "བརྡ་བཀོད་གྱལ་སྟོན།"
+
+#~ msgid "_Bookmark this Directory..."
+#~ msgstr "སྣོད་ཐོ་འདི་དེབ་རྟགས་བཀལ།(_B)"
+
+#~ msgid "_Manage Bookmarks..."
+#~ msgstr "དེབ་རྟགས་ཚུ་འཛིན་སྐྱོང་འབད།(_M)..."
+
+#~ msgid "_Configure Plugins..."
+#~ msgstr "པ་ལག་ཨིན་ཚུ་རིམ་སྒྲིག(_C)..."
+
+#~ msgid "_Options..."
+#~ msgstr "གདམ་ཁ་ཚུ།(_O)..."
+
+#, fuzzy
+#~ msgid "Edit _MIME Types..."
+#~ msgstr "ཨེམ་ཨའི་ཨེམ་ཨི་དབྱེ་བ་ཚུ་ཞུན་དག་འབད།(_M)..."
+
+#~ msgid "_Remote Server..."
+#~ msgstr ""
+
+#, fuzzy
+#~ msgid "New Connection..."
+#~ msgstr "ཨེཕ་ཊི་པི་མཐུད་ལམ་གསརཔ།"
+
+#~ msgid "_Contents"
+#~ msgstr "ནང་དོན་ཚུ།(_C)"
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "ཝེབ་འདི་གུ་ཇི་ནོམ་གཙོ་དཔོན།(_W)"
+
+#~ msgid "F10 Quit"
+#~ msgstr "ཨེཕ་༡༠ སྤང་།"
+
+#~ msgid "Refresh"
+#~ msgstr "ཡང་སེལ།"
+
+#~ msgid "Goto the oldest"
+#~ msgstr "རྙིང་ཤོས་འདི་ལུ་འགྱོ།"
+
+#~ msgid "Go back"
+#~ msgstr "ལོག་འགྱོ།"
+
+#~ msgid "Go forward"
+#~ msgstr "གདོང་བསྐྱོད་འགྱོ།"
+
+#~ msgid "Goto the latest"
+#~ msgstr "མཐའ་མཇུག་འདི་ལུ་འགྱོ།"
+
+#~ msgid "Copy file names (SHIFT for full paths)"
+#~ msgstr "ཡིག་སྣོད་མིང་ཚུ་འདྲ་བཤུས་འབད(འགྲུལ་ལམ་གངམ་ཚུ་གི་དོན་ལུ་སོར་ལྡེ།)།"
+
+#~ msgid "Cut"
+#~ msgstr "བཏོག"
+
+#~ msgid "Paste"
+#~ msgstr "སྦྱར།"
+
+#, fuzzy
+#~ msgid "Open terminal"
+#~ msgstr "ཊར་མི་ནཱལ་དགོཔ།"
+
+#, c-format
+#~ msgid "Copy \"%s\" to"
+#~ msgstr "ལུ་ \"%s\" འདྲ་བཤུས་འབད།"
+
+#~ msgid "Use right mouse button to"
+#~ msgstr "ལུ་མཱའུསི་ཨེབ་རྟ་གཡསཔ་ལག་ལེན་འཐབ།"
+
+#~ msgid "Show popup menu"
+#~ msgstr "པོཔ་ཨཔ་དཀར་ཆག་སྟོན།"
+
+#~ msgid "Select files"
+#~ msgstr "ཡིག་སྣོད་ཚུ་སྟོན།"
+
+#~ msgid "Match filenames using"
+#~ msgstr "ལག་ལེན་འཐབ་དེ་ཡིག་སྣོད་མིང་ཚུ་མཐུན་སྒྲིག་འབད།"
+
+#~ msgid "Shell syntax"
+#~ msgstr "ཤལ་ཚིག་སྦྱོར།"
+
+#~ msgid "Regex syntax"
+#~ msgstr "རི་ཇེགསི་ཚིག་སྦྱོར།"
+
+#~ msgid "Sorting options"
+#~ msgstr "གདམ་ཁ་ཚུ་དབྱེ་སེལ་འབད་དོ།"
+
+#~ msgid "Quick search using"
+#~ msgstr "འཕྲལ་མགྱོགས་འཚོལ་ཞིབ་ལག་ལེན་འཐབ་དོ།"
+
+#~ msgid "Directory options"
+#~ msgstr "སྣོད་ཐོ་གདམ་ཁ་ཚུ།"
+
+#~ msgid "Directory cache size"
+#~ msgstr "སྣོད་ཐོ་འདྲ་མཛོད་ཚད།"
+
+#~ msgid "_Test"
+#~ msgstr "བརྟག་ཞིབ།(_T)"
+
+#~ msgid ""
+#~ "See the manual page for \"strftime\" for help on how to set the format "
+#~ "string."
+#~ msgstr ""
+#~ "རྩ་སྒྲིག་ཡིག་རྒྱུན་གུ་གཞི་སྒྲིག་འབད་ནི་ལུ་གྲོགས་རམ་དོན་ལུ་\"strftime\"དོན་ལུ་ལག་དེབ་ཤོག་ལེབ་འདི་བལྟ།"
+
+#~ msgid "Edit Colors..."
+#~ msgstr "ཚོས་གཞི་ཚུ་ཞུན་དག་འབད།..."
+
+#~ msgid "Colors"
+#~ msgstr "ཚོས་གཞི་ཚུ།"
+
+#~ msgid "File panes"
+#~ msgstr "ཡིག་སྣོད་པེན་ཚུ།"
+
+#~ msgid "Edit..."
+#~ msgstr "ཞུན་དག་འབད།..."
+
+#~ msgid "Document icon directory:"
+#~ msgstr "ཡིག་ཆ་ངོས་དཔར་སྣོད་ཐོ།:"
+
+#~ msgid "Copy overwrite"
+#~ msgstr "ཚབ་སྲུང་འབད་ནི་འདྲ་བཤུས་འབད།"
+
+#~ msgid "Silently"
+#~ msgstr "སྒྲ་མེད།"
+
+#~ msgid "Move overwrite"
+#~ msgstr "འཚབ་སྲུང་འབད་ནི་སྤོ།"
+
+#~ msgid "Fifo files"
+#~ msgstr "ཕི་ཕོ་ཡིག་སྣོད་ཚུ།"
+
+#~ msgid "Socket files"
+#~ msgstr "སོ་ཀེཊི་ཡིག་སྣོད་ཚུ།"
+
+#~ msgid "Character devices"
+#~ msgstr "ཡིག་འབྲུ་ཐབས་འཕྲུལ་ཚུ།"
+
+#~ msgid "Block devices"
+#~ msgstr "ཐབས་འཕྲུལ་ཚུ་འགག"
+
+#, fuzzy
+#~ msgid "Authentication"
+#~ msgstr "ཕྱོགས།"
+
+#~ msgid "Use GNOME Keyring Manager for authentication"
+#~ msgstr ""
+
+#, fuzzy
+#~ msgid "Anonymous FTP access"
+#~ msgstr "མིང་མེད་ཆོག་ཡིག:"
+
+#~ msgid "Password:"
+#~ msgstr "ཆོག་ཡིག:"
+
+#~ msgid "Other favorite apps"
+#~ msgstr "གཞན་དགའ་མི་ཨེཔསི།"
+
+#~ msgid "Device:"
+#~ msgstr "ཐབས་འཕྲུལ།:"
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr ""
+#~ "སྦྱར་བརྩེགས་འབད་ནི་གོམ་འགྱོ(ཡང་དག་སྦྱར་བརྩེགས་ལག་ལེན་འཐབ་པའི་སྐབས་ཕན་ཐོགས་ཅན་ཨིན།)།"
+
+#, fuzzy
+#~ msgid "Network"
+#~ msgstr "དེབ་རྟགས་གསརཔ།"
+
+#~ msgid "Pattern:"
+#~ msgstr "དཔེ་གཞི།:"
+
+#~ msgid "Skip All"
+#~ msgstr "ཆ་མཉམ་གོམ་འགྱོ།"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "ཚབ་སྲུང་འབད་ནི་ཡིག་སྣོད་ཚུ།"
+
+#, c-format
+#~ msgid "copy %d file to"
+#~ msgid_plural "copy %d files to"
+#~ msgstr[0] "ལུ་ %d ཡིག་སྣོད་འདྲ་བཤུས་འབད།"
+#~ msgstr[1] "ལུ་ %d ཡིག་སྣོད་ཚུ་འདྲ་བཤུས་འབད།"
+
+#, c-format
+#~ msgid "Move \"%s\" to"
+#~ msgstr "ལུ་ \"%s\" སྤོ།"
+
+#, c-format
+#~ msgid "move %d file to"
+#~ msgid_plural "move %d files to"
+#~ msgstr[0] "ལུ་ %d ཡིག་སྣོད་ཚུ་སྤོ།"
+#~ msgstr[1] "ལུ་ %d ཡིག་སྣོད་ཚུ་སྤོ།"
+
+#, c-format
+#~ msgid "The directory '%s' doesn't exist, do you want to create it?"
+#~ msgstr "སྣོད་ཐོ་འདི་'%s'མེདཔ་ལས་ཁྱོད་ཀྱི་གསར་བསྐྲུན་འབད་ནི་ཨིན་ན?"
+
+#~ msgid "Can't load python module 'gnomevfs' ('gnome.vfs')\n"
+#~ msgstr "པའི་ཐཱོན་ཚད་གཞི་ 'gnomevfs' ('gnome.vfs') མངོན་གསལ་འབད་མ་ཚུགས\n"
+
+#~ msgid "GNOME authentication manager usage"
+#~ msgstr ""
+
+#~ msgid "Network protocol"
+#~ msgstr ""
+
+#, fuzzy
+#~ msgid "Connection name"
+#~ msgstr "མཐུད་ལམ་ཚུ།"
+
+#~ msgid "Connections"
+#~ msgstr "མཐུད་ལམ་ཚུ།"
+
+#, fuzzy
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "མིང་མེད་ཆོག་ཡིག:"
+
+#, c-format
+#~ msgid "Failed to open file %s: %s\n"
+#~ msgstr "ཡིག་སྣོད་ཁ་ཕྱེ་ནི་ལུ་འཐུས་ཤོར་ཡོདཔ། %s: %s\n"
+
+#, c-format
+#~ msgid "Failed to read from file %s: %s\n"
+#~ msgstr "ཡིག་སྣོད་ལས་ལྷག་ནི་ལུ་འཐུས་ཤོར་ཡོདཔ། %s: %s\n"
+
+#, c-format
+#~ msgid "Searching in: %s"
+#~ msgstr "ནང་འཚོལ་ཞིབ་འབད་དོ།: %s"
+
+#, c-format
+#~ msgid "Found %d match before I was stopped"
+#~ msgid_plural "Found %d matches before I was stopped"
+#~ msgstr[0] "ང་བཀག་ཡོད་པའི་ཧེ་མ་མཐུན་སྒྲིག %d འཚོལ་ཐོབ་ཡོདཔ།"
+#~ msgstr[1] "ང་བཀག་ཡོད་པའི་ཧེ་མ་མཐུན་སྒྲིག་ཚུ་ %d འཚོལ་ཐོབ་ཡོདཔ།"
+
+#, c-format
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "མཐུན་སྒྲིག་ %d ཐོབ་ཡོདཔ།"
+#~ msgstr[1] "མཐུན་སྒྲིག་ཚུ་ %d ཐོབ་ཡོདཔ།"
+
+#~ msgid "Search..."
+#~ msgstr "འཚོལ་ཞིབ་འབད།..."
+
+#~ msgid "Search for: "
+#~ msgstr "དོན་ལུ་འཚོལ་ཞིབ་འབད།: "
+
+#~ msgid "Search in: "
+#~ msgstr "ནང་འཚོལ་ཞིབ་འབད།: "
+
+#~ msgid "Find text: "
+#~ msgstr "ཚིག་ཡིག་འཚོལ།: "
+
+#~ msgid "Search Recursively"
+#~ msgstr "ལོག་རིམ་འཚོལ་ཞིབ་འབད།"
+
+#~ msgid "Goto"
+#~ msgstr "ལུ་འགྱོ།"
+
+#~ msgid "Enter password"
+#~ msgstr "ཆོག་ཡིག་ཐོ་བཀོད་འབད་"
+
+#~ msgid ""
+#~ "Problem: access not permitted\n"
+#~ "\n"
+#~ "please supply user credentials\n"
+#~ "\n"
+#~ "Remember: wrong credentials may lead to account locking"
+#~ msgstr ""
+#~ "དཀའ་ངལ: འཛུལ་སྤྱོད་མི་ཆོག་\n"
+#~ "\n"
+#~ "ལག་ལེན་པའི་ངོ་སྤྲོད་བཀྲམ་སྤེལ་འབད་གནང་\n"
+#~ "\n"
+#~ "སེམས་ཁར་བཞག: ངོ་སྤྲོད་འཛོལ་བ་དེ་གིས་རྩིས་ཐོའི་ལྡེ་མིག་ལུ་འགོ་ཁྲིད་འོང་"
+
+#, c-format
+#~ msgid "Can't find a host or workgroup named %s\n"
+#~ msgstr "ཧོསཊི་ཡང་ན་ལཱ་སྡེ་མིང་བཏགས་ཡོད་མི་ཅིག་འཚོལ་མ་ཐོབ། %s\n"
+
+#, c-format
+#~ msgid "Create symbolic links of %i file in %s?"
+#~ msgid_plural "Create symbolic links of %i files in %s?"
+#~ msgstr[0] ""
+#~ "ནང་ཡིག་སྣོད་ཚུ་ %i གི་བརྡ་མཚོན་པའི་འབྲེལ་མཐུད་ཚུ་གསར་བསྐྲུན་འབད་ནི་ཨིན་ན %s?"
+#~ msgstr[1] ""
+#~ "ནང་ཡིག་སྣོད་ཚུ་ %i གི་བརྡ་མཚོན་པའི་འབྲེལ་མཐུད་ཚུ་གསར་བསྐྲུན་འབད་ནི་ཨིན་ན %s?"
+
+#, c-format
+#~ msgid "running `%s'\n"
+#~ msgstr "གཡོག་བཀོལ་དོ་  `%s'\n"
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr ""
+#~ "ཇི་ནོམ་ཌེཀསི་ཊོཔ་འདི་གི་དོན་ལུ་མགྱོགས་དྲགས་དང་ཡིག་སྣོད་འཛིན་སྐྱོང་ནུས་ཤུགས་ཅན་ཅིག"
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "ཇི་ནོམ་ གཙོ་དཔོན་དེ་ རང་དབང་མཉེན་ཆས་ཅིག་ཨིན་ ཁྱོད་ཀྱིས་དེ་ "
+#~ "ལོག་བགོ་བཀྲམ་འབད་བཏུབ་ནི་ཨིནམ་དང་ ཡང་ན་ རང་དབང་མཉེན་ཆས་གཞི་ཚོགས་ཀྱིས་ "
+#~ "དཔེ་བསྐྲུན་འབད་ཡོད་པའི་ ཇི་ཨེན་ཡུ་ མི་མང་ཆོག་ཐམ་གྱི་ དོན་ཚིག་གི་འོག་ལུ་ "
+#~ "ལེགས་བཅོས་འབད་བཏུབ ; ཡང་ན་ ཆོག་ཐམ་གྱི་ ཐོན་རིམ་ ༢་པ་ ཡང་ན་  "
+#~ "(ཁྱོད་རའི་གདམ་ཁའི་ཐོག་ ) ཤུལ་ལས་ཀྱི་ཐོན་རིམ་གང་རུང་ཅིག།"
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "ཇི་ནོམ་ གཙོ་དཔོན་དེ་ ཕན་ཐོགས་ཅན་ཅིག་ཡོདཔ་འོང་མནོ་བའི་རེ་བ་བསྐྱེད་དེ་ "
+#~ "བགོ་བཀྲམ་འབད་འབདཝ་ཨིན་ དེ་འབདཝ་ད་ ཉེན་ལེན་ག་ནི་ཡང་མེདཔ་ཨིནམ་དང་ ཡང་ན་ "
+#~ "བྱེ་བྲག་ དགོས་དོན་གྱི་དོན་ལུ་ ཚོང་འབྲེལ་ ཡང་ན་ ཚུད་སྒྲིག་གི་ "
+#~ "བརྡ་སྟོན་འབད་ཡོད་པའི་ ཉེན་ལེན་ཡང་མེནཔ་ཨིན་། རྒྱས་བཤད་ཧེང་བཀལ་གྱི་དོན་ལུ་ "
+#~ "ཇི་ཨེན་ཡུ་ ཡོངས་ཁྱབ་མི་མང་ཆོག་ཐམ་བལྟ།"
+
+#, fuzzy
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, see <http://www.gnu.org/licenses/>."
+#~ msgstr ""
+#~ "ཁྱོད་ཀྱིས་ ཇི་ནོམ་གཙོ་དཔོན་དང་གཅིག་ཁར་ ཇི་ཨེན་ཡུ "
+#~ "ཡོངས་ཁྱབ་མི་མང་ཆོག་ཐམ་གྱི་འདྲ་ཤུས་ཅིག་ཐོབ་ཡོད་དགོཔ་ཨིན་; དེ་མེན་པ་ཅིན་ ; "
+#~ "Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  "
+#~ "02111-1307  USA ལུ་ ཡི་གུ་བྲིས་"
+
+#~ msgid "stopping..."
+#~ msgstr "བཀག་དོ།..."
+
+#, fuzzy, c-format
+#~ msgid "%s of %s copied"
+#~ msgstr "%d%% གི་ %s འདྲ་བཤུས་འབད་ཡོདཔ།"
+
+#, fuzzy, c-format
+#~ msgid "%.0f%% copied"
+#~ msgstr "%d%% འདྲ་བཤུས་འབད་ཡོདཔ།"
+
+#, c-format
+#~ msgid ""
+#~ "The file \"%s\" already exists.\n"
+#~ "\n"
+#~ "Do you want to overwrite it?\n"
+#~ msgstr ""
+#~ "ཡིག་སྣོད་འདི་ \"%s\" ཧེ་མ་ལས་ཡོདཔ།\n"
+#~ "\n"
+#~ "ཁྱོད་ཀྱིས་ཚབ་སྲུང་འབད་ནི་ཨིན་ན?\n"
+
+#~ msgid "Replace All"
+#~ msgstr "ཆ་མཉམ་ཚབ་བཙུགས།"
+
+#, c-format
+#~ msgid ""
+#~ "Error while copying to %s\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "ལུ་འདྲ་བཤུས་འབད་བའི་སྐབས་འཛོལ་བ། %s\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Transfer problem"
+#~ msgstr "དཀའ་ངལ་གནས་སོར་་གཏང་།"
+
+#~ msgid "copying..."
+#~ msgstr "འདྲ་བཤུས་འབད་དོ།..."
+
+#, c-format
+#~ msgid "[file %ld of %ld] \"%s\""
+#~ msgstr "[གི་ %ld ཡིག་སྣོད %ld] \"%s\""
+
+#~ msgid ""
+#~ "Copying a directory into itself is a bad idea.\n"
+#~ "The whole operation was cancelled."
+#~ msgstr ""
+#~ "སྣོད་ཐོ་ཅིག་འདིའི་ནང་ན་འགྲ་བཤུས་འབད་ནི་འདི་རང་གནས་སྐབས་བྱང་ཉེས་ཨིན།\n"
+#~ "བཀོལ་སྤྱོད་ཧྲིལ་བུམ་ཆ་མེད་གཏང་ཡོདཔ།"
+
+#~ msgid "preparing..."
+#~ msgstr "གྲ་སྒྲིག་འབད་དོ།..."
+
+#~ msgid ""
+#~ "Couldn't load installed file type pixmap, trying to load from source-dir\n"
+#~ msgstr ""
+#~ "གཞི་བཙུགས་ཡོད་མི་ཡིག་སྣོད་དབྱེ་བ་པར་ཁྲ་མངོན་གསལ་འབད་མ་ཚུགསཔ་ལས་ "
+#~ "འབྱུང་ཁུངས་སྣོད་ཐོ་ལས་མངོན་གསལ་འབད་ནི་ལུ་འབད་རྩོལ་འབད་དོ།\n"
+
+#, c-format
+#~ msgid "Trying to load %s instead\n"
+#~ msgstr "ཚབ་ལུ་ %s མངོན་གསལ་འབད་ནི་ལུ་འབད་རྩོལ་འབད་དོ།\n"
+
+#, c-format
+#~ msgid ""
+#~ "Can't find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-commander from the gnome-commander-%s/src directory\n"
+#~ msgstr ""
+#~ "པར་ཁྲ་འདི་ག་སྟེ་ཡང་འཚོལ་མ་ཐོབ། ཁྱོད་ཀྱིས་ཇི་ནོམ་-་གཙོ་དཔོན་-%s/src "
+#~ "སྣོད་ཐོ་འདི་ལས་ཇི་ནོམ་-གཙོ་དཔོན་ལག་ལེན་འཐབ་ནི་ཡང་ན་ལས་རིམ་འདི་གཞི་བཙུགས་འབད་ཡོདཔ་ངེས་ཏིག་བཟོ།\n"
+
+#~ msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
+#~ msgstr ""
+#~ "པར་ཁྲ་གཞི་བཙུགས་འབད་ཡོད་མི་མངོན་གསལ་འབད་མ་ཚུགསཔ་ལས་ "
+#~ "འབྱུང་ཁུངས་སྣོད་ཐོ་ལས་མངོན་གསལ་འབད་ནི་ལུ་འབད་རྩོལ་འབད་དོ།\n"
+
+#~ msgid "Find"
+#~ msgstr "འཚོལ།"
+
+#~ msgid "Searching..."
+#~ msgstr "འཚོལ་ཞིབ་འབད་དོ།..."
+
+#, c-format
+#~ msgid "Searching for \"%s\""
+#~ msgstr "དོན་ལུ་འཚོལ་ཞིབ་འབད་དོ། \"%s\""
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr "ཊི་ཀེར་ཐིག་: %lu གི་ %luགནས་ས།: %d\t%s"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#, fuzzy
+#~ msgid "bit/sample"
+#~ msgid_plural "bits/sample"
+#~ msgstr[0] "དཔེ་ཚད་རེ་རེ་བིཊིསི།"
+#~ msgstr[1] "དཔེ་ཚད་རེ་རེ་བིཊིསི།"
+
+#~ msgid "_Binary"
+#~ msgstr "ཟུང་ལྡན།(_B)"
+
+#~ msgid "Zoom _Out"
+#~ msgstr "ནང་རྒྱས་ཟུམ།(_O)"
+
+#~ msgid "Best _Fit"
+#~ msgstr "ལེགས་སྒྲིག(_F)"
+
+#~ msgid "Find..."
+#~ msgstr "འཚོལ།..."
+
+#~ msgid "_No Parsing (original file)"
+#~ msgstr "མིང་དཔྱད་འབད་ནི་མེད(ཡིག་སྣོད་ངོ་མ)།(_N)"
+
+#~ msgid "_HTML Parser"
+#~ msgstr "ཨེཆ་ཊི་ཨེམ་ཨེལ་མིང་དཔྱདཔ།(_H)"
+
+#~ msgid "_PS/PDF Parser"
+#~ msgstr "པི་ཨེསི/པི་ཌི་ཨེཕ་མིང་དཔྱདཔ།(_P)"
+
+#~ msgid "_Show EXIF/IPTC Information"
+#~ msgstr "ཨི་ཨེགསི་ཨའི་ཨེཕ་/ཨའི་པི་ཊི་སི་བརྡ་དོན་སྟོན།(_S)"
+
+#~ msgid "_Rotate 180°"
+#~ msgstr " ༡༨༠°བསྒྱིར།(_R)"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "ཐབས་ལམ་ཟུང་ལྡན།(_B)"
+
+#~ msgid "_Decimal Offset in Hexdump"
+#~ msgstr "ཧེགསི་བཀོག་བཞག་ནང་བཅུ་ཚག་པར་ལེན།(_D)"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "ད་ལྟོའི་སྒྲིག་སྟངས་ཚུ་སྲུང་བཞག་འབད།(_S)"
+
+#, c-format
+#~ msgid "Pattern \"%s\" was not found"
+#~ msgstr "དཔེ་གཞི་ \"%s\" དེ་འཚོལ་མ་ཐོབ་པར་ཡོདཔ།"
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr "གཡོན་པེན་འདི་གི་དོན་ལུ་འགོ་བཙུགས་སྣོད་ཐོ་འདི་གསལ་བཀོད་འབད།"
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr "གཡས་པེན་འདི་གི་དོན་ལུ་འགོ་བཙུགས་སྣོད་ཐོ་འདི་གསལ་བཀོད་འབད།"
+
+#~ msgid "File Manager"
+#~ msgstr "ཡིག་སྣོད་འཛིན་སྐྱོང་པ།"
+
+#, c-format
+#~ msgid ""
+#~ "When parsing the users and groups on this system it was found that the user "
+#~ "%s is part of the group %s. This user can however not be found.\n"
+#~ msgstr ""
+#~ "རིམ་ལུགས་འདི་གུ་སྡེ་ཚན་ཚུ་དང་ལག་ལེན་པ་ཚུ་མིང་དཔྱད་འབད་བའི་སྐབས་ལག་ལེན་པ་འདི་"
+#~ " %s སྡེ་ཚན་འདི་གི་ཡན་ལག་མེནམ་ %s ཨིནམ་ཤེས་ཡོདཔ་ཨིན། "
+#~ "ལག་ལེན་འདི་ག་དེ་འབད་རུང་འཚོལ་མི་ཐོབ་ཨིན།\n"
+
+#~ msgid "Disable"
+#~ msgstr "ལྕོགས་མིན་བཟོ།"
+
+#~ msgid "Enable"
+#~ msgstr "ལྕོགས་ཅན་བཟོ།"
+
+#~ msgid "Version"
+#~ msgstr "ཐོན་རིམ།"
+
+#~ msgid "_Enable"
+#~ msgstr "ལྕོགས་ཅན་བཟོ།(_E)"
+
+#~ msgid "_Configure"
+#~ msgstr "རིམ་སྒྲིག(_C)"
+
+#, fuzzy
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr "<Exif tags not supported>"
+
+#, fuzzy
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr "<ID3 tags not supported>"
+
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr "<OLE2 དང་ ODF ངོ་རྟགས་ཚུ་རྒྱབ་སྐྱོར་མ་འབད་བས་>"
+
+#~ msgid "Set to \"1\" if track is new to the user (default \"0\")."
+#~ msgstr ""
+#~ "གླུ་རིམ་འདི་ལག་ལེན་པ་འདི་ལུ་ གསརཔ་ཨིན་པ་ཅིན་\"1\"ལུ་གཞི་སྒྲིག་འབད།  "
+#~ "(སྔོན་སྒྲིག \"0\")"
+
+#~ msgid "\"1\" if the copyrighted bit is set."
+#~ msgstr ""
+
+#~ msgid "\"1\" if the \"original\" bit is set."
+#~ msgstr ""
+
+#~ msgid "Created"
+#~ msgstr "གསར་བསྐྲུན་འབད་ཡོད་མི།"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr ""
+#~ "བྱུང་ཁུངས་ (གསར་བསྐྲུན་/དཔེ་བསྐྲུན་ཚེས་གྲངས) གི་སྐྱེས་རིམ་འགོར་ལོ་ནང་  "
+#~ "ཆ་ཤས་དང་ཅིག་ཁར་མཉམ་སྦྲགས་འབད་ཡོད་པའིཚེས་གྲངས།"
+
+#~ msgid "Number of \"notes\" in the document."
+#~ msgstr "ཡིག་ཆའི་ནང་ \"notes\" གི་ཨང་གྲངས།"
+
+#~ msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
+#~ msgstr "གསལ་སྟོན་གྱི་དབྱེ་བ་  དཔེར་ན་ \"On-screen Show\", \"SlideView\", ལ་སོགས་པ།"
+
+#~ msgid ""
+#~ "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
+#~ "enforced\" or \"Locked for annotations\"."
+#~ msgstr ""
+#~ "གཅིག་གིས་: \"Password protected\", \"Read-only recommended\", \"Read-only "
+#~ "enforced\" ཡང་ན་ \"Locked for annotations\"."
+
+#~ msgid ""
+#~ "Copyright information. The tag is used to indicate both the photographer and"
+#~ " editor copyrights. It is the copyright notice of the person or organization"
+#~ " claiming rights to the image. The Interoperability copyright statement "
+#~ "including date and rights should be written in this field; e.g., "
+#~ "\"Copyright, John Smith, 19xx. All rights reserved.\". The field records "
+#~ "both the photographer and editor copyrights, with each recorded in a "
+#~ "separate part of the statement. When there is a clear distinction between "
+#~ "the photographer and editor copyrights, these are to be written in the order"
+#~ " of photographer followed by editor copyright, separated by NULL (in this "
+#~ "case, since the statement also ends with a NULL, there are two NULL codes) "
+#~ "(see example 1). When only the photographer is given, it is terminated by "
+#~ "one NULL code. When only the editor copyright is given, the photographer "
+#~ "copyright part consists of one space followed by a terminating NULL code, "
+#~ "then the editor copyright is given. When the field is left blank, it is "
+#~ "treated as unknown."
+#~ msgstr ""
+#~ "བརྡ་དོན་འདྲ་བཤུས་དབང་ཆ།  "
+#~ "ངོ་རྟགས་འདི་ཕོ་ཊོ་ག་ར་ཕར་དང་ཞུན་དག་པའི་འདྲ་བཤུས་དབང་ཆ་གཉིས་ཆ་བརྡ་སྟོན་ནི་ལུ་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།"
+#~ "  "
+#~ "གཟུགས་བརྙན་འདི་ལུ་དབང་ཆ་ཡོད་པའི་འགོ་འདྲེན་ཡང་ན་གང་ཟག་འདི་གི་འདྲ་བཤུས་དབང་ཆ་བརྡ་བསྐུལ་འདི་ཨིན།"
+#~ "  "
+#~ "ས་སྒོ་འདི་ནང་ཚེས་གྲངས་དང་དབང་ཆ་ཚུ་གྲངས་སུ་བཙུགས་ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་འདྲ་བཤུས་དབང་ཆ་གསལ་བཤད་འདི་འབྲི་དགོཔ་ཨིན།"
+#~ " དཔེར་ན་ \"Copyright, John Smith, 19xx. All rights reserved.\"། "
+#~ "ས་སྒོ་འདི་གིས་ཕོ་ཊོ་ག་ར་ཕར་དང་ཞུན་དག་པ་འདྲ་བཤུས་དབང་ཆ་ཚུ་དང་གཅིག་ཁར་གསལ་བཤད་འདི་གི་སོ་སོ་ཁ་འཕྲལ་འཕྱལཝ་ཡན་ལག་ཅིག་ནང་རེ་རེ་སྒྲ་བཟུང་ཡོད་མི་གཉིས་ཆ་རང་སྒྲ་བཟུངམ་ཨིན།"
+#~ "  "
+#~ "ཕོ་ཊོ་ག་ར་ཕར་དང་ཞུན་དག་པ་འདྲ་བཤུས་དབང་ཆ་ཚུ་གི་བར་ན་ཁྱད་རྟགས་ཅན་བསལ་བ་ཅིག་ཡོད་པའི་སྐབས་སྟོང་ཆ་གིས་སོ་སོ་འཕྱལ་ཡོད་མི་"
+#~ " (གནད་དོན་འདི་ནང་ "
+#~ "གསལ་བཤད་འདི་ཡང་སྟོང་ཆ་ཅིག་གིས་མཇུག་བསྡུཝ་ལས་སྟོང་ཆ་ཨང་རྟགས་གཉིས་ཡོད།)ཞུན་དག་པ་འདྲ་བཤུས་དབང་ཆ་གིས་རྗེས་སུ་འབྲང་་ཡོད་མི་ཕོ་ཊོ་ག་ར་ཕར་གྱི་གོ་རིམ་འབྲི་དགོཔ་ཨིན།"
+#~ " (དཔེར་བརྗོད་ ༡་ པམ་ནང་་བལྟ།) "
+#~ "ཕོ་ཊོ་ག་ར་ཕར་འདི་རྐྱངམ་ཅིག་གྲ་སྒྲིག་ཡོདཔ་ད་སྟོང་ཆ་ཨང་རྟགས་གཅིག་གིས་རྩ་གྲོལ་གཏང་ཡོདཔ་ཨིན།"
+#~ "  ཞུན་དག་པ་འདྲ་བཤུས་དབང་ཆ་འདི་གྲ་སྒྲིག་ཡོདཔ་ད་ "
+#~ "ཕོ་ཊོ་ག་ར་ཕར་འདྲ་བཤུས་དབང་ཆ་ཡན་ལག་འདི་རྩ་གྲོལ་སྟོང་ཆ་ཨང་རྟགས་ཅིག་གིས་རྗེས་སུ་འབྲང་ཡོད་མི་བར་སྟོང་གཅིག་གི་རིམ་མཐུན་ཡོདཔ་ལས་དེ་ལས་"
+#~ " ཞུན་དག་པ་འདྲ་བཤུས་དབང་ཆ་འདི་གྲ་སྒྲིག་ཡོདཔ་ཨིན།  "
+#~ "ས་སྒོ་འདི་སྟོངམ་བཞག་ཡོདཔ་ད་་ འདི་ལུ་མ་ཤེསཔ་སྦེ་བརྩི་འཇོག་འབདཝ་ཨིན།"
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr "ཨི་ཨེགསི་ཨའི་ཨེཕ་ ཨའི་ཨེཕ་ཌི་དཔག་བྱེད།"
+
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr ""
+#~ "ཨི་ཨེགསི་ཨའི་ཨེཕ་ ཨའི་ཨེཕ་ཌི་འདི་ལུ་དཔག་བྱེད་འདི། "
+#~ "ཨི་ཨེགསི་ཨའི་ཨེཕ་ཨའི་ཨེཕ་ཌི་འདི་ལུ་ "
+#~ "ཊི་ཨའི་ཨེཕ་ཨེཕ་ནང་གསལ་བཀོད་འབད་ཡོད་མི་ཨའི་ཨེཕ་ཌི་འདི་གི་གཞི་བཀོད་ཅོག་འཐདཔ་ཡོདཔ་ཨིན།"
+
+#~ msgid ""
+#~ "This tag indicates the exposure mode set when the image was shot. In auto-"
+#~ "bracketing mode, the camera shoots a series of frames of the same scene at "
+#~ "different exposure settings."
+#~ msgstr ""
+#~ "ངོ་རྟགས་འདི་གིས་གཟུགས་བརྙན་དེ་པར་བཏབ་པའི་སྐབས་མདངས་ཕོག་ཐབས་ལམ་གཞི་སྒྲིག་འདི་བརྡ་སྟོནམ་ཨིན།"
+#~ " "
+#~ "ར་ང་བཞིན་གུག་ཤད་ཅན་ཐབས་ལམ་ནང་པར་ཆས་འདི་གིས་སོ་སོ་མདངས་ཕོག་སྒྲིག་སྟངས་ཚུ་ལུ་འཆར་སྣང་ཅོག་འཐདཔ་འདི་གི་གཞི་ཁྲམ་ཚུ་གི་རྒྱུན་རིམ་ཅིག་པར་བཏབ་ཨིན།"
+
+#~ msgid ""
+#~ "Indicates the strobe energy at the time the image is captured, as measured "
+#~ "in Beam Candle Power Seconds (BCPS)."
+#~ msgstr ""
+#~ "བིམ་ཀན་ཌལ་ནུས་ཤུགས་སྐར་ཆག་ཚུ་(བི་སི་པི་ཨེསི།)ནང་འཇལ་ཡོད་མི་བཟུམ་གཟུགས་བརྙན་འདི་དུས་ཚོད་ལུ་འཛིན་བཟུང་ཡོད་པའི་སྐབས་སི་ཊོབ་ནུས་ཤུགས་འདི་བརྡ་སྟོནམ་ཨིན།"
+#~ " "
+
+#~ msgid ""
+#~ "This tag indicates the equivalent focal length assuming a 35mm film camera, "
+#~ "in mm. A value of 0 means the focal length is unknown. Note that this tag "
+#~ "differs from the <Exif.FocalLength> tag."
+#~ msgstr ""
+#~ "ངོ་རྟགས་འདི་གིས་ཨེམ་ཨེམ་ནང་གློག་བརྙན་་པར་ཆས་ ཨེམ་ཨེམ་༣༥་ "
+#~ "ཕོ་ཀཱལ་རིང་ཚད་་འདྲ་མཉམ་ཚོད་དཔག་འདི་བརྡ་སྟོནམ་ཨིན། ༠ གི་ "
+#~ "གནས་གོང་ཅིག་འདི་ཕོ་ཀཱལ་རིང་ཚད་འདི་མ་ཤེསཔ་ཨིན། "
+#~ "དྲན་འཛིན་ངོ་རྟགས་འདི་<Exif.FocalLength>ངོ་རྟགས་འདི་ལས་སོ་སོ་འགྱུརཝ་ཨིན། "
+
+#~ msgid ""
+#~ "Indicates the unit for measuring <Exif.FocalPlaneXResolution> and "
+#~ "<Exif.FocalPlaneYResolution>. This value is the same as the "
+#~ "<Exif.ResolutionUnit>."
+#~ msgstr ""
+#~ "འཇལ་ནི་དོན་ལུ་ <Exif.FocalPlaneXResolution> དང་ <Exif.FocalPlaneYResolution>"
+#~ " ཆ་ཕྲན་འདི་བརྡ་སྟོནམ་ཨིན། གནས་གོང་འདི་ "
+#~ "<Exif.ResolutionUnit>བཟུམ་སྦེ་ཅོག་འཐདཔ་ཨིན།"
+
+#~ msgid ""
+#~ "Indicates the number of pixels in the image width (X) direction per "
+#~ "<Exif.FocalPlaneResolutionUnit> on the camera focal plane."
+#~ msgstr ""
+#~ "གཟུགས་བརྙན་རྒྱ་ཚད་བཀོད་རྒྱ་་(ཨེགསི་)འདི་ནང་ <Exif.FocalPlaneResolutionUnit> "
+#~ "པར་ཆས་ཕོ་ཀཱལ་བྱིལ་ལི་འདི་གུ་རེ་རེ་གི་པིག་སེལ་ཚུ་གི་ཨང་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#, fuzzy
+#~ msgid ""
+#~ "Indicates the number of pixels in the image height (Y) direction per "
+#~ "<Exif.FocalPlaneResolutionUnit> on the camera focal plane."
+#~ msgstr ""
+#~ "གཟུགས་བརྙན་མཐོ་ཚད་བཀོད་རྒྱ་འདི་ནང་ (ཝི་)  <Exif.FocalPlaneResolutionUnit> "
+#~ "པར་ཆས་ཕོ་ཀཱལ་བྱིལ་ལི་འདི་གུ་པིག་སེལ་ཚུ་གི་ཨང་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#~ msgid ""
+#~ "Indicates whether the latitude is north or south latitude. The ASCII value "
+#~ "'N' indicates north latitude, and 'S' is south latitude."
+#~ msgstr ""
+#~ "ལྷོ་བྱང་མཐོ་ཚད་འདི་བྱང་ཡང་ན་ལྷོའི་ལྷོ་བྱང་མཚམས་ཐིག་ཨིན་ན་བརྡ་སྟོནམ་ཨིན།  "
+#~ "ཨེ་ཨེསི་སི་ཨའི་ཨའི་གནས་གོང་འདི་ 'N' བྱང་ལྷོ་མཚམས་ཐིག་་དང་ 'S' ལྷོའི་ "
+#~ "ལྷོ་བྱང་མཚམས་ཐིག་བརྡ་སྟོནམ་ཨིན།"
+
+#~ msgid ""
+#~ "Indicates whether the longitude is east or west longitude. ASCII 'E' "
+#~ "indicates east longitude, and 'W' is west longitude."
+#~ msgstr ""
+#~ "གཞུང་ཐིག་འདི་ཤར་ཡང་ན་ནུབ་ཀྱི་གཞུང་ཐིག་ཨིན་ན་བརྡ་སྟོནམ་ཨིན། "
+#~ "ཨེ་ཨེསི་སི་ཨའི་ཨའི་ 'E' གིས་ཤར་གྱི་གཞུང་ཐིག་བརྡ་སྟོནམ་ཨིནམ་དང་  "
+#~ "'W'ནུབ་ཀྱིས་གཞུང་ཐིག་བརྡ་སྟོནམ་ཨིན།"
+
+#~ msgid ""
+#~ "A character string giving the title of the image. Two-bytes character codes "
+#~ "cannot be used. When a 2-bytes code is necessary, the Exif private tag "
+#~ "<Exif.UserComment> is to be used."
+#~ msgstr ""
+#~ "གཟུགས་བརྙན་འདི་གི་མགོ་མིང་འདི་བྱིན་མི་ཡིག་འབྲུ་ཡིག་རྒྱུན་འདི།  "
+#~ "ཡིག་འབྲུ་ཨང་རྟགས་བཱའིཊིསི་-གཉིས་ལག་ལེན་འཐབ་མི་བཏུབ་ཨིན། བཱའིཊིསི་-༢ "
+#~ "ཨང་རྟགས་ཉེར་མཁོའི་སྐབས་ སྒེར་དོན་ངོ་རྟགས་ཨི་ཨེགསི་ཨའི་ཨེཕ་ "
+#~ "འདི་<Exif.UserComment> འདི་ལག་ལེན་འཐབ་དགོཔ་ཨིན།"
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr "ཨིན་ཊར་ཨོ་པ་རེ་བི་ལི་ཊི་ཨའི་ཨེཕ་ཌི་དཔག་བྱེད།"
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+#~ "ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་ཨའི་ཨེཕ་ཌི་འདི་ཨི་ཨེགསི་ཨའི་ཨེཕ་ཨའི་ཨེཕ་ཌི་ནང་འོག་གི་་ངོ་རྟགས་གནས་ཡོད་མི་འདི་གིས་རྩེ་དཔག་ཡོད་མི་དང་ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་འདི་ངེས་གཏན་བཟོ་ནི་ལུ་བརྡ་དོན་འདི་གསོག་འཇོག་འབད་མི་ངོ་རྟགས་ཚུ་གི་བརྩམ་ཡོད་མི་ཨིན།"
+#~ " "
+#~ "ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་ཨའི་ཨེཕ་ཌི་གི་ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་གཞི་བཀོད་འདི་ཊི་ཨའི་ཨེཕ་ཨེཕ་་ཨའི་ཨེཕ་ཌི་གཞི་བཀོད་ངེས་འཛིན་འབད་ཡོད་མི་ཅག་འཐདཔ་ཨིན་རུང་"
+#~ " སྤྱིར་བཏང་ཊི་ཨའི་ཨེཕ་ཨེཕ་ "
+#~ "ཨའི་ཨེཕ་ཌི་དང་གཅིག་ཁར་ག་བསྡུར་འབད་ཡོད་མི་་གཟུགས་བརྙན་གནས་སྡུད་ཡིག་འབྲུ་འདི་མེདཔ་ཨིན།"
+
+#~ msgid ""
+#~ "Indicates the identification of the Interoperability rule. Use \"R98\" for "
+#~ "stating ExifR98 Rules. Four bytes used including the termination code "
+#~ "(NULL)."
+#~ msgstr ""
+#~ "ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་ལམ་ལུགས་འདི་གི་་ངོ་རྟགས་འདི་བརྡ་སྟོནམ་ཨིན།  "
+#~ "ཨི་ཨེགསི་ཨའི་ཨེཕ་ཨར་༩༨ ལམ་ལུགས་ཚུ་  གསལ་བཤད་འབད་ནི་དོན་ལུ་ \"R98\" "
+#~ "ལག་ལེན་འཐབ། "
+#~ "རྩ་གྲོལ་ཨང་རྟགས(ཨེན་ཡུ་ཨེལ་ཨེལ)་འདི་གྲངས་སུ་བཙུགས་བཱའིཊིསི་བཞི་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།"
+
+#~ msgid ""
+#~ "Indicates the ISO Speed and ISO Latitude of the camera or input device as "
+#~ "specified in ISO 12232."
+#~ msgstr ""
+#~ "ཨའི་ཨེསི་ཨོ་ ༡༢༢༣༢ "
+#~ "ནང་གསལ་བཀོད་འབད་ཡོད་མི་བཟུམ་སྦེ་པར་ཆས་ཡང་ན་ཨིན་པུཊི་ཐབས་འཕྲུལ་འདི་གི་ཨའི་ཨེསི་ཨོ་མགྱོགས་ཚད་དང་ཨའི་ཨེསི་ཨོ་ལྷོ་བྱང་མཚམས་བརྡ་སྟོནམ་ཨིན།"
+
+#~ msgid ""
+#~ "Indicates the color filter array (CFA) geometric pattern of the image sensor"
+#~ " when a one-chip color area sensor is used. It does not apply to all sensing"
+#~ " methods."
+#~ msgstr ""
+#~ "ཅིབས་ཚོས་གཞི་མངའ་ཁོངས་ཚོར་འཕྲུལ་གཅིག་ལག་ལེན་འཐབ་ཡོད་པའི་སྐབས་གཟུགས་བརྙན་ཚོར་འཕྲུལ་འདི་གི་ཚོས་གཞི་ཚགས་མ་ཨེ་རེ་(སི་ཨེཕ་ཨེ་)ཐིག་རྩིས་ཀྱི་དཔེ་གཞི་འདི་བརྡ་སྟོནམ་ཨིན།"
+#~ " ཚོར་འཕྲུལ་ཐབས་ལམ་ཚུ་ཆ་མཉམ་ལུ་འཇུག་སྤྱོད་མི་འབད།"
+
+#~ msgid ""
+#~ "Indicates the Opto-Electronic Conversion Function (OECF) specified in ISO "
+#~ "14524. <Exif.OECF> is the relationship between the camera optical input and "
+#~ "the image values."
+#~ msgstr ""
+#~ "ཨའི་ཨེསི་ཨོ་ ༡༤༥༢༤ "
+#~ "ནང་གསལ་བཀོད་འབད་ཡོད་མི་་ཨོ་པི་ཊི་ཨོ་གློག་ཆས་གཞི་བསྒྱུར་ལས་འགན་ "
+#~ "(ཨོ་ཨི་སི་ཨེཕ་) འདི་བརྡ་སྟོནམ་ཨིན། <Exif.OECF> "
+#~ "འདི་པར་ཆས་མཐོང་བའི་ཨིན་པུཊི་དང་གཟུགས་བརྙན་གནས་གོང་ཚུ་གི་བར་ན་མཐུན་འབྲེལ་ཨིན།"
+
+#~ msgid ""
+#~ "The reference black point value and reference white point value. No defaults"
+#~ " are given in TIFF, but the values below are given as defaults here. The "
+#~ "color space is declared in a color space information tag, with the default "
+#~ "being the value that gives the optimal image characteristics "
+#~ "Interoperability these conditions."
+#~ msgstr ""
+#~ "གཞི་བསྟུན་གནགཔོ་རྩེ་གནས་གོང་དང་གཞི་བསྟུན་དཀརཔོ་རྩེ་གནས་གོང་འདི། "
+#~ "ཊི་ཨའི་ཨེཕ་ཨེཕ་ནང་སྔོན་སྒྲིག་ཚུ་མ་བྱིན་པར་ཡོད་ "
+#~ "ཨིན་རུང་འོག་ལུ་གནས་གོང་ཚུ་སྔོན་སྒྲིག་བཟུམ་སྦེ་བྱིན་ཡོདཔ་ཨིན། "
+#~ "ཚོས་གཞི་བར་སྟོང་འདི་ཚོས་གཞི་བར་སྟོང་བརྡ་དོན་ངོ་རྟགས་ཅིག་ནང་གསལ་བསྒྲགས་འབད་ཡོདཔ་དང་གཅིག་ཁར་སྔོན་སྒྲིག་འདི་གནས་གོང་དེ་གནས་སྟངས་འདི་ཚུ་ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་གཟུགས་བརྙན་ཡིག་འབྲུ་ཚུ་གང་དྲག་བྱིནམ་ཨིན།"
+
+#~ msgid ""
+#~ "This tag is used to record the name of an audio file related to the image "
+#~ "data. The only relational information recorded here is the Exif audio file "
+#~ "name and extension (an ASCII string consisting of 8 characters + '.' + 3 "
+#~ "characters). The path is not recorded. When using this tag, audio files must"
+#~ " be recorded in conformance to the Exif audio format. Writers are also "
+#~ "allowed to store the data such as Audio within APP2 as FlashPix extension "
+#~ "stream data. Audio files must be recorded in conformance to the Exif audio "
+#~ "format. If multiple files are mapped to one file, the above format is used "
+#~ "to record just one audio file name. If there are multiple audio files, the "
+#~ "first recorded file is given. When there are three Exif audio files "
+#~ "\"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the Exif image file"
+#~ " name for each of them, \"DSC00001.JPG\", is indicated. By combining "
+#~ "multiple relational information, a variety of playback possibilities can be "
+#~ "supported. The method of using relational information is left to the "
+#~ "implementation on the playback side. Since this information is an ASCII "
+#~ "character string, it is terminated by NULL. When this tag is used to map "
+#~ "audio files, the relation of the audio file to image data must also be "
+#~ "indicated on the audio file end."
+#~ msgstr ""
+#~ "ངོ་རྟགས་འདི་གཟུགས་བརྙན་གནས་སྡུད་འདི་ལུ་རྣར་ཉན་ཡིག་སྣོད་འབྲེལ་བའི་མིང་འདི་སྒྲ་བཟུང་འབད་ནི་ལུ་ལག་ལེན་འཐབ་བཏུབ་ཨིན།"
+#~ "  "
+#~ "མཚུངས་གྲངས་བརྡ་དོན་སྒྲ་བཟུང་འབད་ཡོད་མི་རྐྱངམ་ཅིགཔ་འདི་ཨི་ཨེགསི་ཨའི་ཨེཕ་རྣར་ཉན་མིང་དང་རྒྱ་བསྐྱེད་"
+#~ " (ཨེ་ཨེསི་སི་ཨའི་ཨའི་ཡིག་རྒྱུན་ཡིག་འབྲུ་ ༨ གི་རིམ་མཐུན་འབད་མི་ + '.' + "
+#~ "ཡིག་འབྲུ་ ༣ )ཨིན།  འགྲུལ་ལམ་འདི་སྒྲ་བཟུང་འབད་མེདཔ།  "
+#~ "ངོ་རྟགས་འདི་ལག་ལེན་འཐབ་པའི་སྐབས་རྣར་་ཉན་ཡིག་སྣོད་ཚུ་ཨི་ཨེགསི་ཨའི་ཨེཕ་རྣར་ཉན་རྩ་སྒྲིག་འདི་ལུ་ཀོན་ཕོ་མེནསི་ནང་སྒྲ་བཟུང་འབད་དགོཔ་ཨིན།"
+#~ " རྩོམ་འབྲི་པ་ཚུ་ཡང་རིབ་སྟོན་པར་རྒྱ་བསྐྱེད་རྒྱུན་རིམ་གནས་སྡུད་བཟུམ་སྦེ་ "
+#~ "༢ཨེ་པི་པི་ ནང་འཁོད་རྣར་ཉན་བཟུམ་སྦེ་གནས་སྡུད་འདི་གསགོ་འཇོག་འབད་བཅུགཔ་ཨིན།  "
+#~ "རྣར་ཉན་ཡིག་སྣོད་ཚུ་ཨི་ཨེགསི་ཨའི་ཨེཕ་རྣར་ཉན་རྩ་སྒྲིག་་འདི་ལུ་ཀོན་ཕོ་མེནསི་ནང་སྒྲ་བཟུང་འབད་དགོཔ་ཨིན།"
+#~ "  སྣ་མང་ཡིག་སྣོད་ཚུ་ཡིག་སྣོད་གཅིག་ལུ་ས་ཁྲ་བཟོ་ཡོད་པ་ཅིན་ "
+#~ "ལྟག་གི་རྩ་སྒྲིག་འདི་རྣར་་ཉན་ཡིག་སྣོད་མིང་གཅིག་སྒྲ་བཟུང་ནི་ལུ་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།"
+#~ "  སྣ་མང་ཡིག་སྣོད་ཚུ་ཡོད་པ་ཅིན་ "
+#~ "དང་པ་སྒྲ་བཟུང་འབད་ཡོད་མི་ཡིག་སྣོད་འདི་གྲ་སྒྲིག་ཡོདཔ་ཨིན།  "
+#~ "ཨི་ཨེགསི་ཨའི་ཨི་ཨེཕ་རྣར་ཉན་ཡིག་སྣོད་ཚུ་ཡོད་པ་ཅིན་ \"SND00001.WAV\" "
+#~ "\"SND00002.WAV\" "
+#~ "དང་\"SND00003.WAV\"ཁོང་གི་དོན་ལུ་གཟུགས་བརྙན་ཡིག་སྣོད་མིང་འདི་ "
+#~ "\"DSC00001.JPG\"བརྡ་སྟོནམ་ཨིན།  "
+#~ "སྣ་མང་མཚུངས་གྲངས་བརྡ་དོན་མཉམ་བསྡོམས་དེ་གིས་གླུ་གཞས་གཏང་ཡོད་མི་གི་འདྲ་མིན་སྣ་ཚོགས་ཅིག་རྒྱབ་སྐྱོར་འབད་བཏུབ་ཨིན།"
+#~ "  "
+#~ "མཐུན་ལམ་བརྡ་དོན་ལག་ལེན་འཐབ་ནི་གི་ཐབས་ལམ་འདི་གླུ་གཞས་གཏང་མི་ས་ཁོངས་འདི་གུ་བསྟར་སྤྱོད་འདི་ལུ་བཀོད་བཞག་ཡོདཔ་ཨིན།"
+#~ " བརྡ་དོན་འདི་ཨེ་ཨེསི་སི་ཨའི་ཨའི་ཡིག་འབྲུ་ཡིག་རྒྱུན་ཨིནམ་ལས་ཚུར་ "
+#~ "སྟོང་ཆ་གིས་རྩ་གྲོལ་གཏང་ཡོདཔ་ཨིན།  "
+#~ "ངོ་རྟགས་འདི་རྣར་ཉན་ཡིག་སྣོད་ཚུ་ས་ཁྲ་བཟོ་ནི་ལུ་ལག་ལེན་འཐབ་ཡོདཔ་ད་ "
+#~ "རྣར་ཉན་ཡིག་སྣོད་གཟུགས་བརྙན་གནས་སྡུད་ལུ་འབྲེལ་བ་འདི་རྣར་ཉན་ཡིག་སྣོད་མཇུག་འདི་གུ་བརྡ་སྟོན་དགོཔ་ཨིན།"
+
+#~ msgid ""
+#~ "This tag indicates the direction of saturation processing applied by the "
+#~ "camera when the image was shot."
+#~ msgstr ""
+#~ "ངོ་རྟགས་འདི་གིས་གཟུགས་བརྙན་འདི་བཏབ་པའི་སྐབས་པར་ཆས་ཀྱིས་འཇུག་སྤྱོད་འབད་ཡོད་མི་མཐའ་ཚད་ལས་སྦྱོར་གྱི་ཕྱོགས་འདི་་བརྡ་སྟོནམ་ཨིན།"
+#~ " "
+
+#~ msgid ""
+#~ "This tag indicates the type of scene that was shot. It can also be used to "
+#~ "record the mode in which the image was shot. Note that this differs from "
+#~ "<Exif.SceneType> tag."
+#~ msgstr ""
+#~ "ངོ་རྟགས་འདི་གིས་པར་བཏབ་ཡོད་མི་འཆར་སྣང་གི་དབྱེ་བ་འདི་བརྡ་སྟོནམ་ཨིན། "
+#~ "འདི་ཡང་གཟུགས་བརྙན་དེ་བཏབ་ཡོད་མི་ནང་ཐབས་ལམ་འདི་སྒྲ་བཟུང་་ནི་ལུ་ལག་ལེན་འཐབ་བཏུབ་ཨིན།"
+#~ " དྲན་འཛིན་ དེ་ངོ་རྟགས་ལས་ <Exif.SceneType> སོ་སོ་འགྱུར་འབདཝ་ཨིན།"
+
+#~ msgid ""
+#~ "Indicates the type of scene. If a DSC recorded the image, this tag value "
+#~ "must always be set to 1, indicating that the image was directly "
+#~ "photographed."
+#~ msgstr ""
+#~ "འཆར་སྣང་གི་དབྱེ་བ་འདི་བརྡ་སྟོནམ་ཨིན། "
+#~ "ཌི་ཨེསི་སི་ཅིག་གིས་གཟུགས་བརྙན་འདི་སྒྲ་བཟུང་ཡོད་པ་ཅིན་ "
+#~ "གཟུགས་བརྙན་དེ་ཐད་ཀར་དུ་ཕོ་ཊོ་གར་ཕབཌི་བརྡ་སྟོན་དེ་ངོ་རྟགས་གནས་གོང་འདི་ཨ་རྟག་རང་"
+#~ " ༡ ལུ་གཞི་སྒྲིག་འབད་དགོཔ་ཨིན།"
+
+#~ msgid "Indicates the image sensor type on the camera or input device."
+#~ msgstr ""
+#~ "པར་ཆས་ཡང་ན་ཨིན་པུཊི་ཐབས་འཕྲུལ་འདི་གུ་གཟུགས་བརྙན་ཚོར་འཕྲུལ་དབྱེ་བ་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#~ msgid ""
+#~ "This tag indicates the direction of sharpness processing applied by the "
+#~ "camera when the image was shot."
+#~ msgstr ""
+#~ "ངོ་རྟགས་འདི་གིས་གཟུགས་བརྙན་འདི་བཏབ་པའི་སྐབས་པར་ཆས་ཀྱིས་འཇུག་སྤྱོད་འབད་ཡོད་མི་རྣོ་ཅན་ལས་སྦྱོར་གྱི་བཀོད་རྒྱ་འདི་བརྡ་སྟོནམ་ཨིན།"
+#~ " "
+
+#~ msgid "Indicates the spectral sensitivity of each channel of the camera used."
+#~ msgstr ""
+#~ "པར་ཆས་འདི་ལག་ལེན་འཐབ་ཡོད་མི་གི་རྒྱུན་ལམ་རེ་རེ་གི་སི་པིཊིརེལ་ཉེན་ཁ་ཅན་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#~ msgid ""
+#~ "This tag indicates the location and area of the main subject in the overall "
+#~ "scene."
+#~ msgstr ""
+#~ "ངོ་རྟགས་འདི་གིས་གནས་ཁོངས་དང་འཆར་སྣང་སྤྱིར་བསྡོམས་འདི་ནང་དོན་ཚན་གཙོ་བོ་འདི་གི་མངའ་ཁོངས་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#~ msgid "This tag indicates the distance to the subject."
+#~ msgstr "ངོ་རྟགས་འདི་གིས་དོན་ཚན་འདི་ལུ་གྱང་ཚད་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#~ msgid ""
+#~ "Indicates the location of the main subject in the scene. The value of this "
+#~ "tag represents the pixel at the center of the main subject relative to the "
+#~ "left edge, prior to rotation processing as per the <Exif.Rotation> tag. The "
+#~ "first value indicates the X column number and second indicates the Y row "
+#~ "number."
+#~ msgstr ""
+#~ "འཆར་སྣང་ནང་དོན་ཚན་གཙོ་བོ་འདི་གི་གནས་ཁོངས་འདི་བརྡ་སྟོནམ་ཨིན། "
+#~ "ངོ་རྟགས་འདི་གི་གནས་གོང་འདི་གིས་<Exif.Rotation>ངོ་རྟགས་འདི་རེ་སྦེ་ལས་སྦྱོར་སྒྱིར་ནི་ལུ་གོང་ལུ་མཐའམ་གཡོན་འདི་ལུ་འབྲེལ་བ་ཡོད་པའི་དོན་ཚན་གཙོ་བོ་འདི་གི་དབུས་ལུ་པིག་སེལ་འདི་ཁྱད་ཚབ་འབདཝ་ཨིན།"
+#~ " གནས་གོང་དང་པམ་འདི་གིས་ཀེར་ཐིག་ཨང་ཨེགསི་་དང་ "
+#~ "གཉིས་པམ་འདི་གིས་གྱལ་ཨང་ཝའི་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#~ msgid "A tag used to record fractions of seconds for the <Exif.DateTime> tag."
+#~ msgstr ""
+#~ "ངོ་རྟགས་ཅིག་ངོ་རྟགས་འདི་གི་དོན་ལུ་སྐར་ཆག་ཚུ་གི་ <Exif.DateTime> "
+#~ "དཔྱ་ཕྲན་ཚུ་གི་སྒྲ་བཟུང་ནི་ལུ་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།"
+
+#~ msgid ""
+#~ "A tag used to record fractions of seconds for the <Exif.DateTimeDigitized> "
+#~ "tag."
+#~ msgstr ""
+#~ "ངོ་རྟགས་ཅིག་ངོ་རྟགས་འདི་གི་དོན་ལུ་<Exif.DateTimeDigitized> "
+#~ "སྐར་ཆག་ཚུ་གི་དཔྱ་ཕྲན་ཚུ་གི་སྒྲ་བཟུང་ནི་ལུ་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།"
+
+#~ msgid ""
+#~ "A tag used to record fractions of seconds for the <Exif.DateTimeOriginal> "
+#~ "tag."
+#~ msgstr ""
+#~ "ངོ་རྟགས་ཅིག་ངོ་རྟགས་འདི་གི་དོན་ལུ་ <Exif.DateTimeOriginal> "
+#~ "སྐར་ཆག་ཚུ་གི་དཔྱ་ཕྲན་ཚུ་སྒྲ་བཟུང་ནི་ལུ་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།"
+
+#~ msgid ""
+#~ "A tag for Exif users to write keywords or comments on the image besides "
+#~ "those in <Exif.ImageDescription>, and without the character code limitations"
+#~ " of the <Exif.ImageDescription> tag. The character code used in the "
+#~ "<Exif.UserComment> tag is identified based on an ID code in a fixed 8-byte "
+#~ "area at the start of the tag data area. The unused portion of the area is "
+#~ "padded with NULL (\"00.h\"). ID codes are assigned by means of registration."
+#~ " The value of CountN is determinated based on the 8 bytes in the character "
+#~ "code area and the number of bytes in the user comment part. Since the TYPE "
+#~ "is not ASCII, NULL termination is not necessary. The ID code for the "
+#~ "<Exif.UserComment> area may be a Defined code such as JIS or ASCII, or may "
+#~ "be Undefined. The Undefined name is UndefinedText, and the ID code is filled"
+#~ " with 8 bytes of all \"NULL\" (\"00.H\"). An Exif reader that reads the "
+#~ "<Exif.UserComment> tag must have a function for determining the ID code. "
+#~ "This function is not required in Exif readers that do not use the "
+#~ "<Exif.UserComment> tag. When a <Exif.UserComment> area is set aside, it is "
+#~ "recommended that the ID code be ASCII and that the following user comment "
+#~ "part be filled with blank characters [20.H]."
+#~ msgstr ""
+#~ "ཨི་ཨེགསི་ཨའི་ཨེཕ་ལག་ལེན་པ་ཚུ་གི་དོན་ལུ་གཙོ་ཚིག་ཚུ་འབྲི་ནི་ཡང་ན་གཞན་ལས་ལྷག་པའི་གཟུགས་བརྙན་འདི་གི་བསམ་བཀོད་ཚུ་"
+#~ " <Exif.ImageDescription>དང་ཡིག་འབྲུ་ཨང་རྟགས་ཚད་མེདཔ་སྦེ་ "
+#~ "<Exif.ImageDescription> ངོ་རྟགས་འདི་གི་ཨིན།  ཡིག་འབྲུ་ཨང་རྟགས་ "
+#~ "<Exif.UserComment> "
+#~ "ངོ་རྟགས་འདི་ནང་ལག་ལེན་འཐབ་ཡོད་མི་འདི་ངོ་རྟགས་གནས་སྡུད་མངའ་ཁོངས་འདི་གི་འགོ་བཙུགས་ལུ་"
+#~ " མངའ་ཁོངས་བཱའིཊི་ "
+#~ "༨་གཏན་བཟོ་ཡོད་མི་ཅིག་ནང་ཨའི་ཌི་ཨང་རྟགས་ཅིག་གུ་གཞི་བཞག་ཐོག་ལས་ངོས་འཛིན་འབད་ཡོདཔ་ཨིན།"
+#~ "   "
+#~ "མངའ་ཁོངས་འདི་གི་ལག་ལེན་བཤོལ་སྙོམས་ཚད་འདི་སྟོང་ཆ་དང་གཅིག་ཁར་བར་ཤབས་ཡོདཔ་ཨིན "
+#~ "(\"00.h\")། ཨའི་ཌི་ཨང་རྟགས་ཚུ་ཐོ་འགོད་ཀྱི་འབད་འགན་སྤྲོད་ཡོདཔ་ཨིན། "
+#~ "གྱངས་ཁ་རྐྱབས་ཨེན་གྱི་གནས་གོང་འདི་ཡིག་འབྲུ་ཨང་རྟགས་མངའ་ཁོངས་འདི་ནང་བཱའིཊིསི་ "
+#~ "༨ འདི་གུ་་དང་ "
+#~ "ལག་ལེན་པ་བསམ་བཀོད་ཡན་ལག་འདི་ནང་བཱའིཊིསི་གི་ཨང་འདི་གཞི་བཞག་ཐོག་ལས་གཏན་འབེབས་བཟོ་ཡོདཔ་ཨིན།"
+#~ "  དབྱེ་བ་འདི་ཨེ་ཨེསི་སི་ཨའི་ཨའི་མེན་པ་ལས་ཚུར་ "
+#~ "སྟོང་ཆ་རྩ་གྲོལ་འདི་ཉེར་མཁོ་མེད། མངའ་ཁོངས་འདི་གིས་དོན་ལུ་ <Exif.UserComment> "
+#~ "ཨའི་ཌི་ཨང་རྟགས་འདི་ཇེ་ཨའི་ཨེསི་ཡང་ན་ཨེ་ཨེསི་སི་ཨའི་ཨའི་སྦེ་ཨང་རྟགས་ངེས་འཛིན་འབད་ཡོདཔ་ཡང་ན་ངེས་འཛིན་བཤོལ་མེདཔ་ཨིན།"
+#~ " ངེས་འཛིན་བཤོལ་མིང་འདི་ངེས་འཛིན་བཤོལ་ཚིག་ཡིག་ "
+#~ "དང་ཨའི་ཌི་ཨང་རྟགས་འདི་བཱའིཊིསི་༨ དང་གཅིག་ཁར་བཀང་ཡོདཔ་ཨིན\"NULL\" (\"00.H\")།"
+#~ " ཨི་ཨེགསི་ཨའི་ཨེཕ་ལྷག་མི་ངོ་རྟགས་འདི་ <Exif.UserComment> "
+#~ "ལྷག་མི་འདི་ཨའི་ཌི་ཨང་རྟགས་འདི་གཏན་འབེབས་བཟོ་ནི་དོན་ལུ་ལས་འགན་དགོཔ་ཨིན།  "
+#~ "ལས་འགན་འདི་ཨི་ཨེགསི་ཨའི་ཨེཕ་ལྷག་མི་ <Exif.UserComment> "
+#~ "ངོ་རྟགས་འདི་ལག་ལེན་མ་འཐབ་མི་ནང་དགོས་མཁོ་མེདཔ་ཨིན།  "
+#~ "མངའ་ཁོངས་ཅིག་ས་ཁོངས་རུ་གཞི་སྒྲིག་ཡོད་པའི་སྐབས་ "
+#~ "ཨའི་ཌི་ཨང་རྟགས་འདི་ཨེ་ཨེསི་སི་ཨའི་ཨའི་སྦེ་འོས་སྦྱོར་འབད་ཡོདཔ་དང་ "
+#~ "འོག་གི་ལག་ལེན་པ་བསམ་བཀོད་ཡན་ལག་འདི་<Exif.UserComment> "
+#~ "ཡིག་འབྲུ་སྟོངམ་སྦེ་བཀང་བཞག་དགོཔ་ characters [20.H]ཨིན།"
+
+#~ msgid ""
+#~ "The matrix coefficients for transformation from RGB to YCbCr image data. No "
+#~ "default is given in TIFF; but here \"Color Space Guidelines\" is used as the"
+#~ " default. The color space is declared in a color space information tag, with"
+#~ " the default being the value that gives the optimal image characteristics "
+#~ "Interoperability this condition."
+#~ msgstr ""
+#~ "ཨར་ཇི་བི་ལས་ཝའི་སི་བི་སི་ཨར་གཟུགས་བརྙན་གནས་སྡུད་ལུ་བཟོ་བསྒྱུར་འབད་ནི་དོན་ལུ་མེ་ཊེགསི་གྲངས་རྟགས་འདི།"
+#~ " ཊི་ཨའི་ཨེཕ་ཨེཕ་ནང་སྔོན་སྒྲིག་གྲ་སྒྲིག་མེད་ཨིན་རུང་ ན་ལུ་\"Color Space "
+#~ "Guidelines\" སྔོན་སྒྲིག་བཟུམ་སྦེ་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན། "
+#~ "ཚོས་གཞི་བར་སྟོང་འདི་ཚོས་གཞི་བར་སྟོང་བརྡ་དོན་ངོ་རྟགས་་དང་གཅིག་ཁར་ "
+#~ "སྔོན་སྒྲིག་འདི་གནས་གོང་འབད་གནས་སྟངས་འདི་གཟུགས་བརྙན་ཡིག་འབྲུ་ཚུ་ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་གང་དྲག་སྦེ་བྱིནམ་གསལ་བསྒྲགས་འབད་ཡོདཔ་ཨིན།"
+
+#~ msgid "File's contents filtered as plain text."
+#~ msgstr "ཡིག་སྣོད་ཀྱི་ནང་དོན་ཚུཚིག་ཡིག་ཉག་རྐྱང་སྦེ་ཚགས་མ་བཟོ་ཡོདཔ་ཨིན།"
+
+#~ msgid "MIME type of the file or if a directory it should contain value \"Folder\""
+#~ msgstr ""
+#~ "ཡིག་སྣོད་འདི་གི་ཨེམ་ཨའི་ཨེམ་ཨི་དབྱེ་བ་ཡང་ན་སྣོད་ཐོ་ཅིག་གི་ནང་ན་གནས་གོང་ཡོད་དགོ་པ་ཅིན"
+#~ " \"Folder\"།"
+
+#~ msgid "Permission string in unix format eg \"-rw-r--r--\"."
+#~ msgstr "ཡུ་ནིགསི་རྩ་སྒྲིག་ནང་ཡིག་རྒྱུན་གནང་བ་ དཔེར་ན་ \"-rw-r--r--\"."
+
+#~ msgid "Emphasis"
+#~ msgstr "གཙོ་བཏོན།"
+
+#~ msgid "Emphasis."
+#~ msgstr "གཙོ་བཏོན།"
+
+#~ msgid "Equalization 2"
+#~ msgstr "མཉམ་པ་ ༢།"
+
+#~ msgid "Frames"
+#~ msgstr "གཞི་ཁྲམ་ཚུ།"
+
+#~ msgid "Number of frames."
+#~ msgstr "གཞི་ཁྲམ་ཚུ་གི་ཨང་།"
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr "འབྲེལ་བ་ཡོད་མི་མི་མང་༢།"
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr "ཨའི་ཌི་༣ ངོ་རྟགས་གྲངས་ལས་བཏོན་དེ་ བཱའིཊིསི་ནང་གི་་རྣར་ཉན་འདི་གི་ཚད།"
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr "སྐད་ཤུགས་བདེ་སྒྲིག་ ༢།"
+
+#~ msgid "Set to \"1\" if flash was fired."
+#~ msgstr "རིབ་སྟོན་དེ་མེ་བཏང་ཡོད་པ་ཅིན་ \"1\" ལུ་གཞི་སྒྲིག་འབད།"
+
+#~ msgid ""
+#~ "Represents the orientation of the image wrt camera (IE \"top,left\" or "
+#~ "\"bottom,right\")."
+#~ msgstr ""
+#~ "གཟུགས་བརྙན་ཌབ་ལུ་ཨར་ཊི་པར་ཆས་འདི་གི་ཕྱོགས་འདི་ཁྱད་ཚབ་འབདཝ་ཨིན། (IE "
+#~ "\"top,left\" or \"bottom,right\")."
+
+#~ msgid ""
+#~ "The type of action that this object provides to a previous object. '01' "
+#~ "Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
+#~ msgstr ""
+#~ "ཧེ་མམ་གྱི་དངོས་པོ་ཅིག་ལུ་དངོས་པོ་འདི་བྱིན་མཁན་བྱ་བ་དེ་གི་དབྱེ་བ།  '01' "
+#~ "དངོས་པོ་གསད '02' དངོས་པོ་ཚབ་མ་བཙུགས་ནི '03' དངོས་པོ་མཇུག་བསྣོན་འབད་ནི་ '04' "
+#~ "དངོས་པོ་གཞི་བསྟུན་ཨིན།"
+
+#~ msgid "A textual description of the data"
+#~ msgstr "གནས་སྡུད་འདི་གི་ཚིག་ཡིག་གི་འགྲེལ་བཤད་ཅིག"
+
+#~ msgid ""
+#~ "Indicates the code of a country/geographical location referenced by the "
+#~ "content of the object (multiple values allowed)."
+#~ msgstr ""
+#~ "དངོས་པོ་(སྣ་མང་གནས་གོང་འབད་བཅུག་མི་ཚུ།)འདི་གི་ནང་དོན་གིས་གཞི་བསྟུན་འབད་ཡོད་མི་རྒྱལ་ཁབ་/ས་ཆའི་གནས་ཁོངས་ཅིག་གི་ཨང་རྟགས་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#~ msgid ""
+#~ "Indicates the type of update this object provides to a previous object. The "
+#~ "link to the previous object is made using the ARM. '01' indicates an "
+#~ "additional language."
+#~ msgstr ""
+#~ "དངོས་པོ་ཧེ་མམ་ཅིག་ལུ་བྱིན་མི་དངོས་པོ་འདི་དུས་མཐུན་བཟོ་མི་གི་དབྱེ་འདི་བརྡ་སྟོནམ་ཨིན།"
+#~ " "
+#~ "ཧེ་མམ་གྱི་དངོས་པོ་འདི་ལུ་འབྲེལ་ལམ་འདི་ཨེ་ཨར་ཨེམ་འདི་ལག་ལེན་འཐབ་དེ་བཟོ་བཟོཝ་ཨིན།"
+#~ " '01' འདི་ཁ་སྐད་ཁ་སྐོང་རྐྱབས་ནི་ཅིག་བརྡ་སྟོནམ་ཨིན།"
+
+#~ msgid "A number unique for the date in 1:70 and the service ID in 1:30."
+#~ msgstr ""
+#~ "༡:༣༠་ ནང་ཨའི་ཌི་ཞབས་ཏོག་འདི་དང་ ༡:༧༠་ "
+#~ "ནང་ཚེས་གྲངས་འདི་གི་དོན་ལུ་མཐུན་མོང་མ་ཡིན་པའི་ཨང་ཅིག"
+
+#~ msgid ""
+#~ "Specifies the envelope handling priority and not the editorial urgency. '1' "
+#~ "for most urgent, '5' for normal, and '8' for least urgent. '9' is user-"
+#~ "defined."
+#~ msgstr ""
+#~ "ཡིག་བཤུབ་ལེགས་སྐྱོང་འཐབ་པ་གཙོ་རིམ་འདི་གསལ་བཀོད་འབདཝ་དང་རྩོམ་སྒྲིག་པའི་འབྲི་རྩོམ་འཕྲལ་མཁོ་མེནམ།"
+#~ "  '1' འཕྲལ་མཐོ་མང་ཤོས་དོན་ལུ་ '5' སྤྱིར་བཏང་དོན་ལུ་ དང་ '8' "
+#~ "འཕྲལ་མཁོ་ཉུང་མཐའ་དོན་ལུ་ཨིན། '9' འདི་ལག་ལེན་པ་-ངེས་འཛིན་འབད་ཡོདཔ་ཨིན།"
+
+#~ msgid ""
+#~ "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
+#~ "for square."
+#~ msgstr ""
+#~ "གཟུགས་བརྙན་མངའ་ཁོངས་འདི་གི་སྒྲིག་བཀོད་འདི་: 'P' ཡར་་ཕྲང་དོན་ལུ་ 'L' "
+#~ "ཀེ་ཀེ་དོན་ལུ་ དང་ 'S' གྲུ་བཞི་དོན་ལུ་ཨིན།"
+
+#~ msgid "Indicates the data format of the image object."
+#~ msgstr "གཟུགས་བརྙན་དངོས་པོ་འདི་གི་གནས་སྡུད་རྩ་སྒྲིག་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#~ msgid ""
+#~ "The maximum size for a subfile dataset (8:10) containing a portion of the "
+#~ "object data."
+#~ msgstr ""
+#~ "དངོས་པོ་གནས་སྡུད་འདི་གི་ཆ་ཚད་ཅིག་ཡོད་མི་ཡིག་སྣོད་ཡན་ལག་གནས་སྡུད་གཞི་སྒྲིག(༨:༡༠)ཅིག་གི་དོན་ལུ་ཚད་མང་མཐའ་འདི།"
+
+#~ msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
+#~ msgstr "ཡོད་ས་ 'a' དྲོ་པ 'p' ཕྱི་རུ 'b' འདི་གཉིས་ཆ་རང་།"
+
+#~ msgid "The object preview data"
+#~ msgstr "དངོས་པོ་སྔོན་ལྟ་ཚེས་གྲངས་འདི།"
+
+#~ msgid ""
+#~ "Binary value indicating the file format of the object preview data in "
+#~ "dataset 2:202."
+#~ msgstr ""
+#~ "༢:༢༠༢་ "
+#~ "གནས་སྡུད་གཞི་སྒྲིག་ནང་སྔོན་ལྟ་གནས་སྡུད་དངོས་པོ་འདི་གི་ཡིག་སྣོད་རྩ་སྒྲིིག་འདི་བརྡ་སྟོན་པའི་ཟུང་ལྡན་གནས་གོང་།"
+
+#~ msgid "The version of the preview file format specified in 2:200."
+#~ msgstr ""
+#~ "༢:༢༠༠་ ནང་གསལ་བཀོད་འབད་ཡོད་མི་སྔོན་ལྟ་ཡིག་སྣོད་རྩ་སྒྲིག་འདི་གི་ཐོན་རིམ་འདི།"
+
+#~ msgid "Identifies the version of the IIM, Part 2"
+#~ msgstr "ཨའི་ཨའི་ཨེམ་ ཡན་ལག་༢ འདི་གི་ཐོན་རིམ་འདི་ངོས་འཛིན་འབདཝ་ཨིན།"
+
+#~ msgid ""
+#~ "Specifies the editorial urgency of content and not necessarily the envelope "
+#~ "handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
+#~ msgstr ""
+#~ "ནང་དོན་གྱི་རྩོམ་སྒྲིག་པའི་འབྲི་རྩོམ་འཕྲལ་མཁོ་འདི་གསལ་བཀོད་འབདཝ་དང་ "
+#~ "ཡིག་བཤུབ་ལེགས་སྐྱོང་འཐབ་པ་གཙོ་རིམ་འདི་ཉེར་མཁོ་མེདཔ་ཨིན། '1' "
+#~ "འདི་་འཕྲལ་མཐོ་ཆེ་ཤོས་ '5' སྤྱིར་བཏང་ དང་ '8' འཕྲལ་མཁོ་ཉུང་མཐའ།"
+
+#~ msgid ""
+#~ "The name of the person involved in the writing, editing or correcting the "
+#~ "object or caption/abstract (multiple values allowed)"
+#~ msgstr ""
+#~ "དངོས་པོ་ཡང་ན་དཔར་བཤད་/སྙིང་བཅུད་(སྣ་མང་གནས་གོང་ཚུ་བཅུག་ཡོད་མི་)རྩོམ་སྒྲིག་ "
+#~ "ཞུན་དག་འབད་ནི་ཡང་ན་ནོར་བཅོས་འབད་ནི་འདི་ནང་འབྲེལ་བ་ཡོད་མི་གང་ཟག་འདི་གི་མིང་འདི།"
+
+#~ msgid "No Proofing"
+#~ msgstr "ཞུན་ལྷག་མེད་"
+
+#~ msgid "Arabic"
+#~ msgstr ""
+
+#~ msgid "Bulgarian"
+#~ msgstr ""
+
+#~ msgid "Catalan"
+#~ msgstr ""
+
+#~ msgid "Traditional Chinese"
+#~ msgstr "སྔོན་སྲོལ་རྒྱ་ནག"
+
+#~ msgid "Simplified Chinese"
+#~ msgstr "རྒྱ་ནག་གི།(འཇམ་བཟོས་) "
+
+#~ msgid "Chechen"
+#~ msgstr ""
+
+#~ msgid "Danish"
+#~ msgstr ""
+
+#, fuzzy
+#~ msgid "German"
+#~ msgstr "སུའིསི་ ཇཇར་མཱན།"
+
+#~ msgid "Swiss German"
+#~ msgstr "སུའིསི་ ཇཇར་མཱན།"
+
+#, fuzzy
+#~ msgid "Greek"
+#~ msgstr "རིགས།"
+
+#~ msgid "U.S. English"
+#~ msgstr "ཡུ་ཨེསི་ ཨིང་ལིཤ་"
+
+#~ msgid "U.K. English"
+#~ msgstr "ཡུ་ཀེ་ ཨིང་ལིཤ།"
+
+#~ msgid "Australian English"
+#~ msgstr "ཨཱསི་ཊ་ལི་ཡཱན་ཨིང་ལིཤ།"
+
+#~ msgid "Castilian Spanish"
+#~ msgstr "ཀེསི་ཊི་ལིན་ སིཔེ་ནིཤི།"
+
+#~ msgid "Mexican Spanish"
+#~ msgstr "མེག་སི་ཀེན་ སིཔེ་ནིཤི།"
+
+#~ msgid "Finnish"
+#~ msgstr ""
+
+#, fuzzy
+#~ msgid "French"
+#~ msgstr "སུའིསི་ཕེརེནཆི།"
+
+#~ msgid "Belgian French"
+#~ msgstr "བེལ་ཇི་ཡཱན་ ཕེརེནཆི།"
+
+#~ msgid "Canadian French"
+#~ msgstr "ཀེ་ན་ཌི་ཡཱན་ཕེརེནཆི།"
+
+#~ msgid "Swiss French"
+#~ msgstr "སུའིསི་ཕེརེནཆི།"
+
+#~ msgid "Hebrew"
+#~ msgstr ""
+
+#~ msgid "Hungarian"
+#~ msgstr ""
+
+#~ msgid "Icelandic"
+#~ msgstr ""
+
+#, fuzzy
+#~ msgid "Italian"
+#~ msgstr "སུའིསི་ཨི་ཊ་ལི་ཡཱན།"
+
+#~ msgid "Swiss Italian"
+#~ msgstr "སུའིསི་ཨི་ཊ་ལི་ཡཱན།"
+
+#~ msgid "Japanese"
+#~ msgstr ""
+
+#~ msgid "Korean"
+#~ msgstr ""
+
+#~ msgid "Dutch"
+#~ msgstr ""
+
+#~ msgid "Belgian Dutch"
+#~ msgstr "བེལ་ཇི་ཡཱན་ ཌཆ།"
+
+#~ msgid "Norwegian Bokmal"
+#~ msgstr "ནོར་ཝེ་ཇི་ཡཱན་ བོག་མཱལ།"
+
+#, fuzzy
+#~ msgid "Norwegian Nynorsk"
+#~ msgstr "ནོར་ཝེ་ཇི་ཡཱན་ བོག་མཱལ།"
+
+#, fuzzy
+#~ msgid "Polish"
+#~ msgstr "དཔར་བསྐྲུན་པ།"
+
+#~ msgid "Brazilian Portuguese"
+#~ msgstr ""
+
+#, fuzzy
+#~ msgid "Portuguese"
+#~ msgstr "རྒྱུ་དངོས་ཚུ།"
+
+#~ msgid "Rhaeto-Romanic"
+#~ msgstr "རེའི་ཊོ-རོ་མཱ་ནིཀ"
+
+#~ msgid "Romanian"
+#~ msgstr ""
+
+#, fuzzy
+#~ msgid "Russian"
+#~ msgstr "གཅིག་སྡུད།"
+
+#~ msgid "Croato-Serbian (Latin)"
+#~ msgstr "ཀོརའོ་ཊོ-སར་བི་ཡཱན། (ལེ་ཊིན)"
+
+#~ msgid "Serbo-Croatian (Cyrillic)"
+#~ msgstr "སར་བོ་-ཀོརའོ་ཤན (སི་རི་ལིཀ)"
+
+#~ msgid "Slovak"
+#~ msgstr ""
+
+#, fuzzy
+#~ msgid "Albanian"
+#~ msgstr "གླུ་མཛོད་ཁེ་ཕན།"
+
+#~ msgid "Swedish"
+#~ msgstr ""
+
+#~ msgid "Thai"
+#~ msgstr ""
+
+#~ msgid "Turkish"
+#~ msgstr ""
+
+#~ msgid "Urdu"
+#~ msgstr ""
+
+#~ msgid "Indonesian"
+#~ msgstr ""
+
+#~ msgid "Ukrainian"
+#~ msgstr ""
+
+#~ msgid "Byelorussian"
+#~ msgstr ""
+
+#~ msgid "Slovenian"
+#~ msgstr ""
+
+#~ msgid "Estonian"
+#~ msgstr ""
+
+#, fuzzy
+#~ msgid "Latvian"
+#~ msgstr "གནས་ཁོངས-ཡན་ལག"
+
+#~ msgid "Lithuanian"
+#~ msgstr ""
+
+#~ msgid "Farsi"
+#~ msgstr "ཕར་སི།"
+
+#~ msgid "Basque"
+#~ msgstr ""
+
+#~ msgid "Macedonian"
+#~ msgstr ""
+
+#~ msgid "Afrikaans"
+#~ msgstr ""
+
+#~ msgid "Malayalam"
+#~ msgstr ""
+
+#, c-format
+#~ msgid "unsupported tag (suppressed %u B of binary data)"
+#~ msgstr ""
+
+#, c-format
+#~ msgid ""
+#~ "No default application found for the mime-type %s.\n"
+#~ "Open the \"File types and programs\" page in the Control Center to add one."
+#~ msgstr ""
+#~ "ཨེམ་ཨའི་ཨེམ་ཨི་དབྱེ་བ་འདི་གི་དོན་ལུ་སྔོན་སྒྲིག་གློག་རིམ་འཚོལ་ཐོབ་མེདཔ། %s.\n"
+#~ "གཅིག་ཁ་སྐོང་རྐྱབས་ནི་ལུ་ཚད་འཛིན་དབུས་འདི་ནང་ \"File types and programs\" ཤོག་ལེབ་འདི་ཁ་ཕྱེ།"
+
+#, c-format
+#~ msgid ""
+#~ "\"%s\" seems to be a binary executable file but it lacks the executable bit."
+#~ " Do you want to set it and then run the file?"
+#~ msgstr ""
+#~ "\"%s\" "
+#~ "ཟུང་ལྡན་ལག་ལེན་འཐབ་བཏུབ་པའི་ཡིག་སྣོད་ཅིག་ཨིནམ་བཟུམ་ཅིག་ཨིན་རུང་འདི་ལུ་ལག་ལེན་འཐབ་བཏུབ་པའི་བིཊི་འདི་ལྡང་མིན་ཡོདཔ་ཨིན།"
+#~ " ཁྱོད་ཀྱིས་འདི་གཞི་སྒྲིག་འབད་སྦེ་ཡིག་སྣོད་འདི་གཡོག་བཀོལ་ནི་ཨིན་ན།?"
+
+#~ msgid "Make Executable?"
+#~ msgstr "ལག་ལེན་འཐབ་བཏུབ་བཟོ་ནི་ཨིན་ན?"
+
+#, c-format
+#~ msgid ""
+#~ "\"%s\" is an executable text file. Do you want to run it, or display its "
+#~ "contents?"
+#~ msgstr ""
+#~ "\"%s\" འདི་ལག་ལེན་འཐབ་བཏུབ་པའི་ཚིག་ཡིག་ཡིག་སྣོད་ཅིག་ཨིན། "
+#~ "ཁྱོད་ཀྱིས་འདི་གཡོག་བཀོལ་ནི་ཡང་ན་འདིའི་ནང་དོན་བཀྲམ་སྟོན་འབད་ནི་ཨིན་ན?"
+
+#~ msgid "Run or Display"
+#~ msgstr "གཡོག་བཀོལ་ཡང་ན་བཀྲམ་སྟོན་འབད།"
+
+#~ msgid "Display"
+#~ msgstr "བཀྲམ་སྟོན་འབད།"
+
+#~ msgid "Run"
+#~ msgstr "གཡོག་བཀོལ།"
+
+#, c-format
+#~ msgid ""
+#~ "%s does not know how to open remote file. Do you want to download the file "
+#~ "to a temporary location and then open it?"
+#~ msgid_plural ""
+#~ "%s does not know how to open remote files. Do you want to download the files"
+#~ " to a temporary location and then open them?"
+#~ msgstr[0] ""
+#~ "%s གིས་ཐག་རིང་གི་ཡིག་སྣོད་ཁ་ག་དེ་ཕྱེ་ནི་ཨིན་ན་མི་ཤེས་པས། "
+#~ "ཁྱོད་ཀྱིས་ཡིག་སྣོད་འདི་གནས་སྐབས་གནས་ཁོངས་ཅིག་ལུ་ཕབ་ལེན་འབད་སྦེ་དེ་ལས་ཁ་ཕྱེ་ནི་ཨིན་ན།?"
+#~ msgstr[1] ""
+#~ "%s གིས་ཐག་རིང་གི་ཡིག་སྣོད་ཚུ་ག་དེ་ཁ་ཕྱེ་ནི་ཨིན་ན་མི་ཤེས་པས། "
+#~ "ཁྱོད་ཀྱིས་ཡིག་སྣོད་ཚུ་གནས་སྐབས་གནས་ཁོངས་ཅིག་ལུ་ཕབ་ལེན་འབད་སྦེ་དེ་ཚུ་ཁ་ཕྱེ་ནི་ཨིན་ན།?"
+
+#, c-format
+#~ msgid ""
+#~ "Failed to create a directory in which to store temporary files.\n"
+#~ "Error message: %s\n"
+#~ msgstr ""
+#~ "གནས་སྐབས་ཡིག་སྣོད་ཚུ་གསོག་འཇོག་འབད་ནི་ནང་སྣོད་ཐོ་ཅིག་གསར་བསྐྲུན་འབད་ནི་འཐུས་ཤོར་འབྱུང་ཡོདཔ།\n"
+#~ "འཕྲིན་དོན་འཛོལ་བ།: %s\n"
+
+#, c-format
+#~ msgid "Creating directory %s... "
+#~ msgstr "སྣོད་ཐོ་གསར་བསྐྲུན་འབད་དོ། %s... "
+
+#, c-format
+#~ msgid "Failed to create the directory %s"
+#~ msgstr "སྣོད་ཐོ་གསར་བསྐྲུན་འབད་ནི་འཐུས་ཤོར་འབྱུང་ཡོདཔ། %s"
+
+#, c-format
+#~ msgid "Couldn't read from the directory %s: %s"
+#~ msgstr "སྣོད་ཐོ་འདི་ལས་ལྷག་མ་ཚུགས། %s: %s"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "གྲོགས་རམ་བཀྲམ་སྟོན་འབད་ནི་འཛོལ་བ་འབྱུང་ཡོདཔ།"
+
+#~ msgid "JPEG Proc"
+#~ msgstr "ཇེ་པི་ཨི་ཇི་པི་ཨར་ཨོ་སི།"
+
+#~ msgid "Dir"
+#~ msgstr "སྣོད་ཐོ།"
+
+#~ msgid "_Add..."
+#~ msgstr "ཁ་སྐོང་རྐྱབས།(_A)..."
+
+#~ msgid "_Edit..."
+#~ msgstr "ཞུན་དག་འབད།(_E)..."
+
+#~ msgid "_Goto"
+#~ msgstr "ལུ་འགྱོ།(_G)"
+
+#~ msgid "No alias specified"
+#~ msgstr "མིང་གཞན་གསལ་བཀོད་འབད་མེདཔ།"
+
+#~ msgid "No host specified"
+#~ msgstr "ཧོསཊི་གསལ་བཀོད་འབད་མེདཔ།"
+
+#~ msgid "Invalid port number: %s"
+#~ msgstr "ནུས་མེད་འདྲེན་ལམ་ཨང་།: %s"
+
+#~ msgid "Host:"
+#~ msgstr "ཧོསཊི།:"
+
+#, fuzzy
+#~ msgid "Edit Remote Connection"
+#~ msgstr "ཨེཕ་ཊི་པི་མཐུད་ལམ་ཞུན་དག་འབད།"
+
+#~ msgid "Connect"
+#~ msgstr "མཐུད་ལམ་མཐུད།"
+
+#~ msgid "_Hex"
+#~ msgstr "ཧེགསི།(_H)"
+
+#~ msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
+#~ msgstr "ཊི་བིཊི་ཚུ་དཔེ་ཚད: %dx%d ཊི་རྒྱས་ཟུམ།: %dགཟུགས་བརྙན་ཚད: %s"
+
+#~ msgid "_Hex dump"
+#~ msgstr "ཧེགསི་བཀོག་བཞག(_H)"
+
+#~ msgid "CCIT J17"
+#~ msgstr "སི་སི་ཨའི་ཊི་ཇེ་ ༡༧།"
+
+#~ msgid "Enter password for %s@%s"
+#~ msgstr "དོན་ལུ་ཆོག་ཡིག་བཙུགས། %s@%s"
+
+#~ msgid "Enter Password"
+#~ msgstr "ཆོག་ཡིག་བཙུགས།"
+
+#~ msgid "FTP Connect"
+#~ msgstr "ཨེཕ་ཊི་པི་མཐུད་ལམ་མཐུད།"
+
+#~ msgid "FTP Quick Connect"
+#~ msgstr "ཨེཕ་ཊི་པི་འཕྲལ་མགྱོགས་མཐུད་ལམ་མཐུད།"
+
+#~ msgid "FTP _Connect..."
+#~ msgstr "ཨེཕ་ཊི་པི་མཐུད་ལམ་མཐུད།(_C)..."
+
+#~ msgid "FTP _Quick Connect..."
+#~ msgstr "ཨེཕ་ཊི་པི་འཕྲལ་མགྱོགས་མཐུད་ལམ་མཐུད།(_Q)..."
+
+#~ msgid "The F number."
+#~ msgstr "ཨེཕ་ཨང་འདི།"
+
+#~ msgid "Icon Path"
+#~ msgstr "ངོས་དཔར་འགྲུལ་ལམ།"
+
+#~ msgid "Editable file URI for a custom icon for the file."
+#~ msgstr ""
+#~ "ཡིག་སྣོད་འདིའི་དོན་ལུ་སྲོལ་སྒྲིག་ངོས་དཔར་ཅིག་གི་དོན་ལུ་ཞུན་དག་འབད་བཏུབ་མི་ཡུ་ཨར་ཨེལ་ཡིག་སྣོད།"
+
+#~ msgid "Large Thumbnail Path"
+#~ msgstr "མཐེ་གཟེར་འགྲུལ་ལམ་སྦོམ།"
+
+#~ msgid ""
+#~ "Editable file URI for a larger thumbnail of the file suitable for previews."
+#~ msgstr ""
+#~ "སྔོན་ལྟ་ཚུ་གི་དོན་ལུ་ཡིག་སྣོད་འོས་འབབ་ཅན་གྱི་མཐེ་གཟེར་སྦོམ་མི་ཅིག་གི་དོན་ལུ་ཞུན་དག་འབད་བཏུབ་མི་ཡིག་སྣོད་ཡུ་ཨར་ཨའི།"
+
+#~ msgid "Small Thumbnail Path"
+#~ msgstr "མཐེ་གཟེར་འགྲུལ་ལམ་ཆུང་ཀུ།"
+
+#~ msgid ""
+#~ "Editable file URI for a small thumbnail of the file suitable for use in icon"
+#~ " views."
+#~ msgstr ""
+#~ "ངོས་དཔར་མཐོང་སྣང་ཚུ་ནང་ལག་ལེན་འཐབ་ནི་དོན་ལུ་ཡིག་སྣོད་འོས་འབབ་འདི་གི་མཐེ་གཟེར་ཆུང་ཀུ་ཅིག་གི་དོན་ལུ་ཞུན་དག་འབད་བཏུབ་མི་ཡིག་སྣོད་ཡུ་ཨར་ཨའི།"
+
+#~ msgid "Lead Artist"
+#~ msgstr "གླུ་གཞསཔ་འགོ་ཁྲིད།"
+
+#~ msgid "Lead performer(s)."
+#~ msgstr "ལཱ་འགན་འགྲུབ་མི་འགོ་ཁྲིད(ཨེསི)།"
+
+#~ msgid "Track number"
+#~ msgstr "གླུ་རིམ་ཨང་།"
+
+#~ msgid "Camera Make"
+#~ msgstr "པར་ཆས་བཟོ།"
+
+#~ msgid "Camera Model"
+#~ msgstr "པར་ཆས་དཔེ།"
+
+#~ msgid "F number"
+#~ msgstr "ཨེཕ་ ཨང་།"
+
+#~ msgid "<ICC tags not supported>"
+#~ msgstr "<ICC tags not supported>"
+
+#~ msgid "<IPTC tags not supported>"
+#~ msgstr "<IPTC tags not supported>"
+
+#~ msgid "_Execute"
+#~ msgstr "ལག་ལེན་འཐབ་ནི།(_E)"
+
+#~ msgid "_Cut"
+#~ msgstr "བཏོག(_C)"
+
+#~ msgid "Total number of chars in document."
+#~ msgstr "ཡིག་ཆ་ནང་ཡིག་འབྲུ་ཚུ་གི་ཨང་བསྡོམས།"

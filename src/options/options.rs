@@ -6,6 +6,7 @@
 use crate::{
     advanced_rename::profile::AdvancedRenameProfileVariant,
     app::FavoriteAppVariant,
+    config::{schema_dir, settings_keyfile},
     connection::list::{BookmarkVariant, ConnectionVariant, CustomDeviceVariant},
     file_list::quick_search::QuickSearchMode,
     file_selector::{LegacyTabVariant, TabVariant},
@@ -13,14 +14,14 @@ use crate::{
     history::History,
     intviewer::search_bar::Mode,
     layout::{
-        PREF_COLORS,
         color_themes::{ColorTheme, ColorThemeId, load_custom_theme, save_custom_theme},
         ls_colors_palette::{LsColorsPalette, load_palette, save_palette},
     },
     options::types::{
-        AppOption, BoolOption, DurationOption, EnumOption, I32Option, OptionalPathOption,
-        RGBAOption, StringOption, StrvOption, U32Option, VariantOption, WriteResult,
+        AppOption, BoolOption, DurationOption, EnumOption, I32Option, RGBAOption, StringOption,
+        StrvOption, U32Option, VariantOption, WriteResult,
     },
+    plugins::PluginMetadata,
     search::profile::{LegacySearchProfileVariant, SearchProfile, SearchProfileVariant},
     shortcuts::ShortcutVariant,
     tab_label::TabLockIndicator,
@@ -33,7 +34,44 @@ use crate::{
 };
 use gettextrs::gettext;
 use gtk::{gio, prelude::*};
-use std::{rc::Rc, sync::LazyLock};
+use std::{collections::BTreeMap, rc::Rc, sync::LazyLock};
+
+fn get_settings(child_path: impl IntoIterator<Item = &'static str>) -> gio::Settings {
+    const BASE_NAME: &str = "org.gnome.gnome-commander";
+    const BASE_PATH: &str = "/org/gnome/gnome-commander/";
+    thread_local! {
+        static SETTINGS: Rc<gio::Settings> = Rc::new({
+            let source = schema_dir().and_then(
+                |dir| gio::SettingsSchemaSource::from_directory(dir, None, false).ok()
+            );
+            source
+                .as_ref()
+                .and_then(|source| {
+                    source.lookup(BASE_NAME, true).map(|schema| {
+                        let backend = settings_keyfile().map(|path| {
+                            gio::keyfile_settings_backend_new(
+                                &path.as_os_str().to_string_lossy(),
+                                BASE_PATH,
+                                None,
+                            )
+                        });
+                        gio::Settings::new_full(&schema, backend.as_ref(), None)
+                    })
+                })
+                .unwrap_or_else(|| gio::Settings::new(BASE_NAME))
+        });
+    }
+
+    // Important: We should only use one base gio::Settings instance. Otherwise the keyfile backend
+    // will fail to synchronize writes.
+    SETTINGS.with(|settings| {
+        let mut settings = settings.as_ref().clone();
+        for name in child_path {
+            settings = settings.child(name);
+        }
+        settings
+    })
+}
 
 pub struct GeneralOptions {
     pub allow_multiple_instances: BoolOption,
@@ -62,8 +100,7 @@ pub struct GeneralOptions {
     pub legacy_file_list_tabs: VariantOption<Vec<LegacyTabVariant>>,
 
     pub list_font: StringOption,
-    pub list_row_height: U32Option,
-    pub list_column_width: [U32Option; 9],
+    pub list_column_width: [(&'static str, U32Option); 9],
 
     pub date_display_format: StringOption,
     pub graphical_layout_mode: EnumOption<GraphicalLayoutMode>,
@@ -73,12 +110,10 @@ pub struct GeneralOptions {
 
     pub icon_size: U32Option,
     pub icon_scale_quality: EnumOption<IconScaleQuality>,
-    pub mime_icon_dir: OptionalPathOption,
 
     pub select_dirs: BoolOption,
 
     pub case_sensitive: BoolOption,
-    pub symbolic_links_as_regular_files: BoolOption,
 
     pub left_mouse_button_mode: EnumOption<LeftMouseButtonMode>,
     pub middle_mouse_button_mode: EnumOption<MiddleMouseButtonMode>,
@@ -134,8 +169,8 @@ pub struct GeneralOptions {
 }
 
 impl GeneralOptions {
-    pub fn new() -> Self {
-        let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.general");
+    fn new() -> Self {
+        let settings = get_settings(["preferences", "general"]);
 
         Self {
             allow_multiple_instances: BoolOption::new(&settings, "allow-multiple-instances"),
@@ -159,17 +194,16 @@ impl GeneralOptions {
             file_list_tabs: VariantOption::new(&settings, "file-list-tabs-v2"),
             legacy_file_list_tabs: VariantOption::new(&settings, "file-list-tabs"),
             list_font: StringOption::new(&settings, "list-font"),
-            list_row_height: U32Option::new(&settings, "list-row-height"),
             list_column_width: [
-                U32Option::new(&settings, "column-width-icon"),
-                U32Option::new(&settings, "column-width-name"),
-                U32Option::new(&settings, "column-width-ext"),
-                U32Option::new(&settings, "column-width-dir"),
-                U32Option::new(&settings, "column-width-size"),
-                U32Option::new(&settings, "column-width-date"),
-                U32Option::new(&settings, "column-width-perm"),
-                U32Option::new(&settings, "column-width-owner"),
-                U32Option::new(&settings, "column-width-group"),
+                ("icon", U32Option::new(&settings, "column-width-icon")),
+                ("name", U32Option::new(&settings, "column-width-name")),
+                ("ext", U32Option::new(&settings, "column-width-ext")),
+                ("dir", U32Option::new(&settings, "column-width-dir")),
+                ("size", U32Option::new(&settings, "column-width-size")),
+                ("date", U32Option::new(&settings, "column-width-date")),
+                ("perm", U32Option::new(&settings, "column-width-perm")),
+                ("uid", U32Option::new(&settings, "column-width-owner")),
+                ("gid", U32Option::new(&settings, "column-width-group")),
             ],
             date_display_format: StringOption::new(&settings, "date-disp-format"),
             graphical_layout_mode: EnumOption::new(&settings, "graphical-layout-mode"),
@@ -178,13 +212,8 @@ impl GeneralOptions {
             permissions_display_mode: EnumOption::new(&settings, "perm-display-mode"),
             icon_size: U32Option::new(&settings, "icon-size"),
             icon_scale_quality: EnumOption::new(&settings, "icon-scale-quality"),
-            mime_icon_dir: OptionalPathOption::new(&settings, "mime-icon-dir"),
             select_dirs: BoolOption::new(&settings, "select-dirs"),
             case_sensitive: BoolOption::new(&settings, "case-sensitive"),
-            symbolic_links_as_regular_files: BoolOption::new(
-                &settings,
-                "symbolic-links-as-regular-files",
-            ),
             left_mouse_button_mode: EnumOption::new(&settings, "clicks-to-open-item"),
             middle_mouse_button_mode: EnumOption::new(&settings, "middle-mouse-btn-mode"),
             right_mouse_button_mode: EnumOption::new(&settings, "right-mouse-btn-mode"),
@@ -231,6 +260,13 @@ impl GeneralOptions {
             gui_update_rate: DurationOption::new(&settings, "gui-update-rate"),
         }
     }
+
+    pub fn instance() -> Rc<Self> {
+        thread_local! {
+            static INSTANCE: Rc<GeneralOptions> = Rc::new(GeneralOptions::new());
+        }
+        INSTANCE.with(|instance| instance.clone())
+    }
 }
 
 pub struct ColorOptions {
@@ -263,8 +299,8 @@ pub struct ColorOptions {
 }
 
 impl ColorOptions {
-    pub fn new() -> Self {
-        let settings = gio::Settings::new(PREF_COLORS);
+    fn new() -> Self {
+        let settings = get_settings(["preferences", "colors"]);
         Self {
             theme: EnumOption::new(&settings, "theme"),
             use_ls_colors: BoolOption::new(&settings, "use-ls-colors"),
@@ -295,16 +331,23 @@ impl ColorOptions {
         }
     }
 
+    pub fn instance() -> Rc<Self> {
+        thread_local! {
+            static INSTANCE: Rc<ColorOptions> = Rc::new(ColorOptions::new());
+        }
+        INSTANCE.with(|instance| instance.clone())
+    }
+
     pub fn custom_theme(&self) -> ColorTheme {
-        load_custom_theme(self)
+        load_custom_theme()
     }
 
     pub fn set_custom_theme(&self, theme: &ColorTheme) -> WriteResult {
-        save_custom_theme(theme, self)
+        save_custom_theme(theme)
     }
 
     pub fn ls_color_palette(&self) -> LsColorsPalette {
-        load_palette(self)
+        load_palette()
     }
 
     pub fn set_ls_color_palette(&self, palette: &LsColorsPalette) -> WriteResult {
@@ -321,8 +364,8 @@ pub struct ConfirmOptions {
 }
 
 impl ConfirmOptions {
-    pub fn new() -> Self {
-        let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.confirmations");
+    fn new() -> Self {
+        let settings = get_settings(["preferences", "confirmations"]);
         Self {
             confirm_delete: BoolOption::new(&settings, "delete"),
             confirm_delete_default: EnumOption::new(&settings, "delete-default"),
@@ -330,6 +373,13 @@ impl ConfirmOptions {
             confirm_move_overwrite: EnumOption::new(&settings, "move-overwrite"),
             dnd_mode: EnumOption::new(&settings, "mouse-drag-and-drop"),
         }
+    }
+
+    pub fn instance() -> Rc<Self> {
+        thread_local! {
+            static INSTANCE: Rc<ConfirmOptions> = Rc::new(ConfirmOptions::new());
+        }
+        INSTANCE.with(|instance| instance.clone())
     }
 }
 
@@ -346,10 +396,6 @@ pub struct FiltersOptions {
     pub hide_regular: BoolOption,
     pub hide_directory: BoolOption,
     pub hide_special: BoolOption,
-    pub hide_shortcut: BoolOption,
-    pub hide_mountable: BoolOption,
-    pub hide_virtual: BoolOption,
-    pub hide_volatile: BoolOption,
     pub hide_hidden: BoolOption,
     pub hide_backup: BoolOption,
     pub hide_symlink: BoolOption,
@@ -357,22 +403,25 @@ pub struct FiltersOptions {
 }
 
 impl FiltersOptions {
-    pub fn new() -> Self {
-        let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.filter");
+    fn new() -> Self {
+        let settings = get_settings(["preferences", "filter"]);
         Self {
             hide_unknown: BoolOption::new(&settings, "hide-unknown"),
             hide_regular: BoolOption::new(&settings, "hide-regular"),
             hide_directory: BoolOption::new(&settings, "hide-directory"),
             hide_special: BoolOption::new(&settings, "hide-special"),
-            hide_shortcut: BoolOption::new(&settings, "hide-shortcut"),
-            hide_mountable: BoolOption::new(&settings, "hide-mountable"),
-            hide_virtual: BoolOption::new(&settings, "hide-virtual"),
-            hide_volatile: BoolOption::new(&settings, "hide-volatile"),
             hide_hidden: BoolOption::new(&settings, "hide-dotfile"),
             hide_backup: BoolOption::new(&settings, "hide-backupfiles"),
             hide_symlink: BoolOption::new(&settings, "hide-symlink"),
             backup_pattern: StringOption::new(&settings, "backup-pattern"),
         }
+    }
+
+    pub fn instance() -> Rc<Self> {
+        thread_local! {
+            static INSTANCE: Rc<FiltersOptions> = Rc::new(FiltersOptions::new());
+        }
+        INSTANCE.with(|instance| instance.clone())
     }
 }
 
@@ -390,8 +439,8 @@ pub struct ProgramsOptions {
 }
 
 impl ProgramsOptions {
-    pub fn new() -> Self {
-        let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.programs");
+    fn new() -> Self {
+        let settings = get_settings(["preferences", "programs"]);
         Self {
             dont_download: BoolOption::new(&settings, "dont-download"),
             use_internal_viewer: BoolOption::new(&settings, "use-internal-viewer"),
@@ -404,6 +453,13 @@ impl ProgramsOptions {
             terminal_cmd: StringOption::new(&settings, "terminal-cmd"),
             terminal_exec_cmd: StringOption::new(&settings, "terminal-exec-cmd"),
         }
+    }
+
+    pub fn instance() -> Rc<Self> {
+        thread_local! {
+            static INSTANCE: Rc<ProgramsOptions> = Rc::new(ProgramsOptions::new());
+        }
+        INSTANCE.with(|instance| instance.clone())
     }
 }
 
@@ -551,17 +607,25 @@ pub struct NetworkOptions {
 }
 
 impl NetworkOptions {
-    pub fn new() -> Self {
-        let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.network");
+    fn new() -> Self {
+        let settings = get_settings(["preferences", "network"]);
         Self {
             quick_connect_uri: StringOption::new(&settings, "quick-connect-uri"),
         }
+    }
+
+    pub fn instance() -> Rc<Self> {
+        thread_local! {
+            static INSTANCE: Rc<NetworkOptions> = Rc::new(NetworkOptions::new());
+        }
+        INSTANCE.with(|instance| instance.clone())
     }
 }
 
 pub struct ViewerOptions {
     pub window_width: U32Option,
     pub window_height: U32Option,
+    pub window_state: U32Option,
 
     pub encoding: StringOption,
     pub monospaced_font: StringOption,
@@ -577,11 +641,12 @@ pub struct ViewerOptions {
 }
 
 impl ViewerOptions {
-    pub fn new() -> Self {
-        let settings = gio::Settings::new("org.gnome.gnome-commander.preferences.internal-viewer");
+    fn new() -> Self {
+        let settings = get_settings(["preferences", "internal-viewer"]);
         Self {
             window_width: U32Option::new(&settings, "window-width"),
             window_height: U32Option::new(&settings, "window-height"),
+            window_state: U32Option::new(&settings, "window-state"),
             encoding: StringOption::new(&settings, "charset"),
             monospaced_font: StringOption::new(&settings, "monospaced-font"),
             tab_size: U32Option::new(&settings, "tab-size"),
@@ -594,6 +659,13 @@ impl ViewerOptions {
             case_sensitive_search: BoolOption::new(&settings, "case-sensitive-search"),
             search_mode: EnumOption::new(&settings, "search-mode"),
         }
+    }
+
+    pub fn instance() -> Rc<Self> {
+        thread_local! {
+            static INSTANCE: Rc<ViewerOptions> = Rc::new(ViewerOptions::new());
+        }
+        INSTANCE.with(|instance| instance.clone())
     }
 
     pub fn add_to_history(&self, text: &str, mode: Mode) -> WriteResult {
@@ -611,5 +683,27 @@ impl ViewerOptions {
         history.insert(0, text.to_owned());
         history.truncate(INTVIEWER_HISTORY_SIZE);
         option.set(history)
+    }
+}
+
+pub struct PluginsOptions {
+    pub metadata: VariantOption<BTreeMap<String, PluginMetadata>>,
+    pub persistent_settings: VariantOption<BTreeMap<String, BTreeMap<String, String>>>,
+}
+
+impl PluginsOptions {
+    fn new() -> Self {
+        let settings = get_settings(["plugins", "general"]);
+        Self {
+            metadata: VariantOption::new(&settings, "metadata"),
+            persistent_settings: VariantOption::new(&settings, "persistent-settings"),
+        }
+    }
+
+    pub fn instance() -> Rc<Self> {
+        thread_local! {
+            static INSTANCE: Rc<PluginsOptions> = Rc::new(PluginsOptions::new());
+        }
+        INSTANCE.with(|instance| instance.clone())
     }
 }

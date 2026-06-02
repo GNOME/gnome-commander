@@ -4,6 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 pub mod device;
+mod dir_cache;
 pub mod home;
 pub mod list;
 pub mod remote;

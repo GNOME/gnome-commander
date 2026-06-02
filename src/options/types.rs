@@ -4,10 +4,11 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use gtk::{gdk, gio, prelude::*};
-use std::{marker::PhantomData, path::PathBuf, time::Duration};
+use std::{marker::PhantomData, time::Duration};
 
 pub type WriteResult = Result<(), glib::BoolError>;
 
+#[derive(PartialEq, Eq)]
 pub struct EnumRepr(i32);
 
 pub trait SettingsRepr {
@@ -157,7 +158,9 @@ where
         let settings = self.settings.clone();
         let key = self.key;
         object.connect_notify_local(Some(property), move |object, param| {
-            if let Ok(value) = i32::try_from(object.property::<u32>(param.name())) {
+            if let Ok(value) = i32::try_from(object.property::<u32>(param.name()))
+                && EnumRepr::value(&settings, key) != EnumRepr(value)
+            {
                 let _ = EnumRepr::set_value(&settings, key, EnumRepr(value));
             }
         });
@@ -175,7 +178,6 @@ pub type StrvOption = AppOption<Vec<String>>;
 pub type VariantOption<T> = AppOption<T, glib::Variant, TypeConvertVariant<T>>;
 pub type EnumOption<T> = AppOption<T, EnumRepr, TypeConvertEnum<T>>;
 pub type RGBAOption = AppOption<gdk::RGBA, String, TypeConvertRGBA>;
-pub type OptionalPathOption = AppOption<Option<PathBuf>, String, TypeConvertOptionalPath>;
 pub type DurationOption = AppOption<Duration, u32, TypeConvertDuration>;
 
 pub trait TypeConvert<T, R> {
@@ -236,23 +238,6 @@ impl TypeConvert<gdk::RGBA, String> for TypeConvertRGBA {
 
     fn to_repr(value: gdk::RGBA) -> String {
         value.to_str().to_string()
-    }
-}
-
-#[derive(Debug, Clone)]
-pub struct TypeConvertOptionalPath;
-
-impl TypeConvert<Option<PathBuf>, String> for TypeConvertOptionalPath {
-    fn from_repr(value: String) -> Option<PathBuf> {
-        Some(value).filter(|s| !s.is_empty()).map(PathBuf::from)
-    }
-
-    fn to_repr(value: Option<PathBuf>) -> String {
-        value
-            .as_ref()
-            .and_then(|path| path.to_str())
-            .unwrap_or_default()
-            .to_owned()
     }
 }
 

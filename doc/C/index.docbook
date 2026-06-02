@@ -2,16 +2,14 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY author "Uwe Scholz">
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "1.19.0">
-  <!ENTITY manrevision "1.19.0">
-  <!ENTITY date "??? 2026">
+  <!ENTITY appversion "2.0.3">
+  <!ENTITY manrevision "2.0.3">
   <!ENTITY app "Gnome Commander">
 ]>
 <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
        Use the appversion entity to specify the version of the application.
        Use the manrevision entity to specify the revision number of this manual.
-       Use the date entity to specify the release date of this manual.
        Use the app entity to specify the name of the application. -->
 <!-- =============Document Header ============================= -->
 <article id="index" lang="en">
@@ -668,6 +666,42 @@
         <revdescription>
           <para role="author">Uwe Scholz
             <email>u.scholz83@gmx.de</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>Gnome Commander Manual V2.0.0;</revnumber>
+        <date>2026-05-17</date>
+        <revdescription>
+          <para role="author">Uwe Scholz
+            <email>u.scholz83@gmx.de</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>Gnome Commander Manual V2.0.1;</revnumber>
+        <date>2026-05-27</date>
+        <revdescription>
+          <para role="author">Wladimir Palant
+            <email>jhpgnome@palant.de</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>Gnome Commander Manual V2.0.2;</revnumber>
+        <date>2026-06-01</date>
+        <revdescription>
+          <para role="author">Wladimir Palant
+            <email>jhpgnome@palant.de</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>Gnome Commander Manual V2.0.3;</revnumber>
+        <date>2026-??-??</date>
+        <revdescription>
+          <para role="author">Wladimir Palant
+            <email>jhpgnome@palant.de</email></para>
           <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
@@ -1655,9 +1689,9 @@
         <para>A powerful tool for batch renaming of the files selected in &app;.
         It allows to easily rename lots of files in one go.
         The file names can be created by parts of the original file name, its path,
-        numbering the files or accessing hundreds of informations about the file,
+        numbering the files or accessing hundreds of metadata information about the file,
         like creation date or <link linkend="gnome-commander-advanced-rename-metadata-tags">Exif/IPTC</link>
-        informations of an image.</para>
+        information of an image.</para>
 
         <para>When started, the following dialog is displayed:</para>
 
@@ -4535,7 +4569,7 @@
       <para>To modify the general options click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
          then click on the <guilabel>General</guilabel> tab.
        </para>
-       <para>The options available are described in more details in the
+       <para>The options available are described in more detail in the
          <xref linkend="gcmd-TBL-setting1"/>.</para>
       <para/>
       <table frame="topbot" id="gcmd-TBL-setting1">
@@ -4696,19 +4730,6 @@
             </row>
             <row>
               <entry colname="colspec0" valign="top">
-                <para/>
-              </entry>
-              <entry colname="colspec2" valign="top">
-                <para>Treat symbolic links as regular files</para>
-              </entry>
-              <entry colname="colspec3" valign="top">
-                <para>If enabled, symbolic links will be treated as regular files.
-                  In the file panel they are then listed between other files and not at
-                  the top if their target does not existing.</para>
-              </entry>
-            </row>
-            <row>
-              <entry colname="colspec0" valign="top">
                 <para>
                   <guilabel>Quick search</guilabel>
                 </para>
@@ -4855,49 +4876,32 @@
           </tbody>
         </tgroup>
       </table>
-
-
     </sect2>
     <!-- Format options-->
     <sect2 id="gnome-commander-prefs-format">
       <title>Format</title>
-      <para>The Format tab contains the options on how file informations are displayed.
-       </para>
+      <para>The Format tab contains the options on how file information in the associated
+        file panel columns are displayed.</para>
       <para>
         <itemizedlist>
           <listitem>
-            <para><guilabel>Size display mode</guilabel> select the size information
-            format.</para>
+            <para><guilabel>Size display mode</guilabel> - Here the size information
+            format is specified.</para>
           </listitem>
           <listitem>
-            <para><guilabel>Permission display mode</guilabel> select the permissions
-            display format.</para>
+            <para><guilabel>Permission display mode</guilabel> - Here the permissions
+            display format is specified.</para>
           </listitem>
           <listitem>
-            <para><guilabel>Date format</guilabel> select the date display format.
+            <para><guilabel>Date format</guilabel> - Here the date display format is specified.
             </para>
           </listitem>
         </itemizedlist>
       </para>
       <para>To modify the Format options click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on
          the <guilabel>Format</guilabel> tab.</para>
-      <para>The options available are described in more details in the
-       <xref linkend="gcmd-TBL-setting2"/></para>
-      <!-- ==== Figure ==== -->
-      <figure id="options-format-fig">
-        <title>Format options</title>
-        <screenshot>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="figures/gnome-commander_options_format.png" format="PNG"/>
-            </imageobject>
-            <textobject>
-              <phrase>Shows &app; format preferences dialog.</phrase>
-            </textobject>
-          </mediaobject>
-        </screenshot>
-      </figure>
-      <!-- ==== End of Figure ==== -->
+      <para>The options available are described in more detail below in the
+       <xref linkend="gcmd-TBL-setting2"/>.</para>
       <table frame="topbot" id="gcmd-TBL-setting2">
         <title>Format option tab</title>
         <tgroup cols="2" colsep="0" rowsep="0">
@@ -4927,8 +4931,7 @@
                 <para>Powered</para>
               </entry>
               <entry>
-                <para>The powered option displays file sizes using units such as B KB
-                MB</para>
+                <para>The powered option displays file sizes using units such as bytes, KiB, MiB</para>
               </entry>
             </row>
             <row>
@@ -4991,7 +4994,7 @@
               </entry>
               <entry>
                 <para>The date format is defined by GIO's g_date_time_format() function.
-                For more information about possible date format qualifiers read more at
+                For more information about possible date format qualifiers read more in the section
                 <xref linkend="gnome-commander-advanced-rename-g-date-time-format"/>.
                 </para>
               </entry>
@@ -5022,23 +5025,8 @@
       <para>To modify the Panes layout options click on <menuchoice><guimenu>
          Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
          then click on the <guilabel>Layout</guilabel> tab.</para>
-      <para>The options available are described in more details in the
+      <para>The options available are described in more detail below in the
        <xref linkend="gcmd-TBL-setting3"/></para>
-      <!-- ==== Figure ==== -->
-      <figure id="options-layout-fig">
-        <title>Layout options</title>
-        <screenshot>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="figures/gnome-commander_options_layout.png" format="PNG"/>
-            </imageobject>
-            <textobject>
-              <phrase>Shows &app; layout preferences dialog.</phrase>
-            </textobject>
-          </mediaobject>
-        </screenshot>
-      </figure>
-      <!-- ==== End of Figure ==== -->
       <table frame="topbot" id="gcmd-TBL-setting3">
         <title>Layout option tab</title>
         <tgroup cols="2" colsep="0" rowsep="0">
@@ -5071,20 +5059,6 @@
                 <para>This button opens a font selection dialog, where you can preview
                 and select the preferred font and size in which text is displayed in
                 the panes.</para>
-              </entry>
-            </row>
-            <row>
-              <entry>
-                <para/>
-                <guilabel/>
-              </entry>
-              <entry colname="colspec2">
-                <para>Row height</para>
-              </entry>
-              <entry colname="colspec3">
-                <para>This is the height of every row displayed in the panes in pixels
-                you can increase or decrease it here using the spin button or entering
-                the size manually.</para>
               </entry>
             </row>
             <row>
@@ -5259,17 +5233,9 @@
     </sect3>
     <sect3 id="gnome-commander-prefs-layout-ls_colors">
       <title>Configuring Custom LS_COLORS</title>
-       <para>&app; does not differentiate files types by default.</para>
        <para>You can configure it to differentiate file types like LS_COLORS does when using the command shell. For more information on this you can look up the <ulink url="http://linux.die.net/man/5/dir_colors">dir_colors man page</ulink>.</para>
        <para>To enable the use of LS_COLORS for &app; click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options</guimenuitem></menuchoice>, then on the <guilabel>Layout</guilabel> tab and activate the <guilabel>Colorize files according to the LS_COLORS environment variable</guilabel> check box.</para>
-       <para>If you prefer other shades of colors than given by the LS_COLOR variable you may change them by clicking on the <guilabel>Edit colors...</guilabel> button.</para>
-       <note><para>Some users reported that custom LS_COLORS, defined in ~/.dir_colors, are not applied if &app; was started by clicking on a .desktop file or by starting it using the GNOME menu. In that case you have to make sure that LS_COLORS is set in the file ~/.profile or ~/.xprofile.</para>
-       <para>For this you will need to find out the default TERM value of your system. Therefore, login to a virtual terminal by pressing <keycombo><keycap>CTRL</keycap><keycap>ALT</keycap><keycap>F1</keycap></keycombo> and execute the command <keycombo><keycap>echo $TERM</keycap></keycombo>. If the output is <keycombo><keycap>linux</keycap></keycombo>, the entry in ~/.profile might look like this:</para>
-       <programlisting>
-   # Set colors
-   export TERM=linux
-   test -r ~/.dir_colors &amp;&amp; eval &quot;$(dircolors -b ~/.dir_colors)&quot;</programlisting></note>
-
+       <para>If you prefer the basic colors from LS_COLOR variable to be translated into different shades of colors you may change them by clicking on the <guilabel>Edit colors...</guilabel> button.</para>
     </sect3>
 <!-- ====Confirmation==== -->
     </sect2>
@@ -5284,29 +5250,14 @@
         </listitem>
         <listitem>
           <para>In the tab lock indicator section, you can configure the way how a locked tab will be indicated. There are three different possibilities:
-          <itemizedlist>
-            <listitem><para><guilabel>Lock icon</guilabel>: An icon is shown,</para></listitem>
-            <listitem><para><guilabel>* (asterisk)</guilabel>: An asterisk is shown,</para></listitem>
-            <listitem><para><guilabel>Styled text</guilabel>: The name of the tab is colored.</para></listitem>
-          </itemizedlist>
-    </para>
+            <itemizedlist>
+              <listitem><para><guilabel>Lock icon</guilabel>: An icon is shown,</para></listitem>
+              <listitem><para><guilabel>* (asterisk)</guilabel>: An asterisk is shown,</para></listitem>
+              <listitem><para><guilabel>Styled text</guilabel>: The name of the tab is colored.</para></listitem>
+            </itemizedlist>
+          </para>
         </listitem>
       </itemizedlist>
-      <!-- ==== Figure ==== -->
-      <figure id="options-tabs-fig">
-        <title>Tabs options</title>
-        <screenshot>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="figures/gnome-commander_options_tabs.png" format="PNG"/>
-            </imageobject>
-            <textobject>
-              <phrase>Shows &app; tabs preferences dialog.</phrase>
-            </textobject>
-          </mediaobject>
-        </screenshot>
-      </figure>
-      <!-- ==== End of Figure ==== -->
       <para/>
     </sect2>
     <sect2 id="gnome-commander-prefs-confirmation">
@@ -5337,23 +5288,8 @@
       <para>To modify the confirmation settings click on <menuchoice><guimenu>
        Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
        then click on the <guilabel>Confirmation</guilabel> tab.</para>
-      <para>The options available are described in more details in the
+      <para>The options available are described in more detail below in the
        <xref linkend="gcmd-TBL-setting4"/>.</para>
-      <!-- ==== Figure ==== -->
-      <figure id="options-confirmation-fig">
-        <title>Confirmation options</title>
-        <screenshot>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="figures/gnome-commander_options_confirmation.png" format="PNG"/>
-            </imageobject>
-            <textobject>
-              <phrase>Shows &app; confirmation preferences dialog.</phrase>
-            </textobject>
-          </mediaobject>
-        </screenshot>
-      </figure>
-      <!-- ==== End of Figure ==== -->
       <para/>
       <table frame="topbot" id="gcmd-TBL-setting4">
         <title>Layout option tab</title>
@@ -5496,13 +5432,35 @@
               </entry>
               <entry colname="colspec3">
                 <para>When this option is selected and if an item is dragged and dropped by using the mouse, a dialog opens in which the user is asked what should happen:
-    <itemizedlist>
-      <listitem><para><guilabel>Copy here</guilabel>: A copy of the item is created</para></listitem>
-      <listitem><para><guilabel>Move here</guilabel>: The item is moved</para></listitem>
-      <listitem><para><guilabel>Link here</guilabel>: A link to the item is created</para></listitem>
-      <listitem><para><guilabel>Cancel</guilabel>: No action is performed</para></listitem>
-    </itemizedlist>
-    </para>
+                  <itemizedlist>
+                    <listitem><para><guilabel>Copy here</guilabel>: A copy of the item is created</para></listitem>
+                    <listitem><para><guilabel>Move here</guilabel>: The item is moved</para></listitem>
+                    <listitem><para><guilabel>Link here</guilabel>: A link to the item is created</para></listitem>
+                    <listitem><para><guilabel>Cancel</guilabel>: No action is performed</para></listitem>
+                  </itemizedlist>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para/>
+              </entry>
+              <entry colname="cospec2">
+                <para>Copy</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>Items are copied without confirmation.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para/>
+              </entry>
+              <entry colname="cospec2">
+                <para>Move</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>Items are moved without confirmation.</para>
               </entry>
             </row>
           </tbody>
@@ -5517,21 +5475,6 @@
        <guilabel>Filters</guilabel> tab.</para>
       <para>The description for the files you can add in the hidden section is in the
         <xref linkend="gcmd-TBL-setting5"></xref></para>
-      <!-- ==== Figure ==== -->
-      <figure id="options-filters-fig">
-        <title>Filters options</title>
-        <screenshot>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="figures/gnome-commander_options_filters.png" format="PNG"/>
-            </imageobject>
-            <textobject>
-              <phrase>Shows &app; filters preferences dialog.</phrase>
-            </textobject>
-          </mediaobject>
-        </screenshot>
-      </figure>
-      <!-- ==== End of Figure ==== -->
       <para/>
       <table frame="topbot" id="gcmd-TBL-setting5">
         <title>Filters option tab</title>
@@ -5590,46 +5533,18 @@
             </row>
             <row>
               <entry>
-                <para></para>
+                <para/>
               </entry>
               <entry colname="colspec2">
-                <para>Fifo files </para>
+                <para>Socket, fifo, block or character devices</para>
               </entry>
               <entry colname="colspec3">
-                <para>A FIFO file does not contain any user information. Instead, it allows two or more processes to communicate with each other by reading/writing to/from this file.</para>
-              </entry>
-            </row>
-            <row>
-              <entry>
-                <para></para>
-              </entry>
-              <entry colname="colspec2">
-                <para>Socket files</para>
-              </entry>
-              <entry colname="colspec3">
-                <para>Socket files are the representation of physical devices in the filesystem.</para>
-              </entry>
-            </row>
-            <row>
-              <entry>
-                <para></para>
-              </entry>
-              <entry colname="colspec2">
-                <para>Character devices</para>
-              </entry>
-              <entry colname="colspec3">
-                <para>A peripheral device that transfers data one byte at a time such as a serial port.</para>
-              </entry>
-            </row>
-            <row>
-              <entry>
-                <para></para>
-              </entry>
-              <entry colname="colspec2">
-                <para>Block devices</para>
-              </entry>
-              <entry colname="colspec3">
-                <para>A peripheral device that transfers a group of bytes of data at a time such as a disk.</para>
+                <itemizedlist>
+                  <listitem><para>Socket files are the representation of physical devices in the filesystem.</para></listitem>
+                  <listitem><para>A FIFO file does not contain any user information. Instead, it allows two or more processes to communicate with each other by reading/writing to/from this file.</para></listitem>
+                  <listitem><para>A peripheral device that transfers a group of bytes of data at a time such as a disk.</para></listitem>
+                  <listitem><para>A peripheral device that transfers data one byte at a time such as a serial port.</para></listitem>
+                </itemizedlist>
               </entry>
             </row>
             <row>
@@ -5669,13 +5584,13 @@
             </row>
             <row>
               <entry>
-                <para></para>
-              </entry>
-              <entry colname="colspec2">
                 <para>Backup files</para>
               </entry>
+              <entry colname="colspec2">
+                <para>Text box for user-defined filename extensions</para>
+              </entry>
               <entry colname="colspec3">
-                <para>If backup files are hidden you can add more filename extensions here that are used as backup files on your system.</para>
+                <para>If backup files are hidden you can add filename extensions here that are used as backup files on your system. Separate multiple entries with semicolon.</para>
               </entry>
             </row>
           </tbody>
@@ -5688,22 +5603,7 @@
       <!-- Brief description-->
       <para>This section of the options dialog lets you configure preferred applications for different tasks.
       In the <guilabel>Other favorite apps</guilabel> section you can specify even more applications for opening
-      certain document types. See <xref linkend="gcmd-TBL-setting6"></xref> and below for more information.</para>
-      <!-- == Figure ==== -->
-      <figure id="options-programs-fig">
-        <title>Programs options</title>
-        <screenshot>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="figures/gnome-commander_options_programs.png" format="PNG"/>
-            </imageobject>
-            <textobject>
-              <phrase>Shows &app; programs preferences dialog.</phrase>
-            </textobject>
-          </mediaobject>
-        </screenshot>
-      </figure>
-      <!-- ==== End of Figure ==== -->
+      certain document types. See the <xref linkend="gcmd-TBL-setting6"></xref> and below for more information.</para>
       <para/>
       <para>
         <table frame="topbot" id="gcmd-TBL-setting6">
@@ -5747,13 +5647,13 @@
                 <para>Viewer:</para>
               </entry>
               <entry colname="colspec3">
-      <para>Set which application is used when the view command is used by pressing the <keycap>F3</keycap> key. Default value: "gedit %s". %s is the variable containing the selected items. See <xref linkend="gcmd-TBL-setting7"></xref> table for more information. By default &app; uses an internal viewer. See next row.</para>
+                <para>Set which application is used when the view command is used by pressing the <keycap>F3</keycap> key. Default value: <command>gedit %s</command>. %s is the variable containing the selected items. See <xref linkend="gcmd-TBL-setting7"></xref> table for more information. By default &app; uses an internal viewer. See next row.</para>
               </entry>
               </row>
               <row>
               <entry><para></para></entry>
               <entry colname="colspec2">
-                <para>Use internal viewer</para>
+                <para>Use Internal Viewer</para>
               </entry>
               <entry colname="colspec3">
                 <para>When this option is activated (default) &app; uses its internal viewer to display the selected item, if it is deactivated the application defined above will be used instead.</para>
@@ -5765,7 +5665,7 @@
                 <para>Editor:</para>
               </entry>
               <entry colname="colspec3">
-                <para>In this text box you can type in the command line used to start your favorite text editor. Default value: "gedit %s"</para>
+                <para>In this text box you can type in the command line used to start your favorite text editor. Default value: <command>gedit %u</command>.</para>
               </entry>
               </row>
               <row>
@@ -5774,8 +5674,26 @@
                 <para>Differ:</para>
               </entry>
               <entry colname="colspec3">
-                <para>In this text box you can type in the command line used to start your favorite comparison tool. %s is the variable containing the selected files to compare. Default value: "meld %s"</para>
+                <para>In this text box you can type in the command line used to start your favorite comparison tool. %s is the variable containing the selected files to compare. Default value: <command>meld %s</command>.</para>
               </entry>
+              </row>
+              <row>
+                <entry><para></para></entry>
+                <entry colname="colspec2">
+                  <para>Search:</para>
+                </entry>
+                <entry colname="colspec3">
+                  <para>In this text box you can type in the command line used to searching files and folders.</para>
+                </entry>
+              </row>
+              <row>
+                <entry><para></para></entry>
+                <entry colname="colspec2">
+                  <para>Use Internal Search</para>
+                </entry>
+                <entry colname="colspec3">
+                  <para>When this option is activated (default) &app; uses its internal search for searching the file system.</para>
+                </entry>
               </row>
               <row>
               <entry><para></para></entry>
@@ -5783,7 +5701,7 @@
                 <para>Send files:</para>
               </entry>
               <entry colname="colspec3">
-                <para>In this text box you can type in the command line used to send files to a preferred application. %s is the variable containing the selected files to be sent. Default value: "nautilus-sendto %s"</para>
+                <para>In this text box you can type in the command line used to send files to a preferred application. %s is the variable containing the selected files to be sent. Default value: <command>xdg-email --attach %s"</command></para>
               </entry>
               </row>
               <row>
@@ -5792,7 +5710,7 @@
                 <para>Terminal:</para>
               </entry>
               <entry colname="colspec3">
-                <para>In this text box you can type in the command line used to start your favorite terminal application. Default value: "gnome-terminal".</para>
+                <para>In this text box you can type in the command line used to start your favorite terminal application. Default value: <command>xdg-terminal-exec</command>.</para>
               </entry>
               </row>
         <row>
@@ -5851,15 +5769,6 @@
               </entry>
               <entry colname="colspec3">
                 <para>In this text box you can type in the command line used to start your app from the list above with a favorite terminal application. %s is the variable used to pass the command to be executed  in the terminal. Default value: "gnome-terminal -e %s".</para>
-              </entry>
-              </row>
-              <row>
-              <entry><para></para></entry>
-              <entry colname="colspec2">
-                <para>Leave terminal window open</para>
-              </entry>
-              <entry colname="colspec3">
-                <para>With this checkbox you can decide if you want the leave a terminal window open when the command in it finishes.</para>
               </entry>
               </row>
             </tbody>
@@ -7064,106 +6973,25 @@
         <para>The above works only to do a first time download and not for updating the code,
         if you already have a version of the code simply run <command>git pull</command> to get the latest revisions.</para>
       </note>
-      <para>Just remember to run <command>./autogen.sh</command> before building by <command>make</command>.</para>
-      <warning><para>Be aware that there can be serious bugs in code from GNOME git repository.
-      This code is intended for hacking, development and testing purposes only.</para></warning>
     </sect2>
   </sect1>
 
-<!-- ============= Configuration files ==================== -->
-<!-- This section contains info about the program configuration files.-->
-  <sect1 id="gnome-commander-configuration-files">
-    <title>Configuration Files</title>
-    <para>This section gives an overview of the configuration files used by &app;:
-    </para>
-    <note>
-        <para>
-          Since &app; version 1.10.0 the location of configuration files changed from <guilabel>~/.gnome-commander</guilabel>
-          to <guilabel>~/.config/gnome-commander</guilabel>. Existing files are automatically moved when starting &app; 1.10.0
-          the first time.
-        </para>
-    </note>
-    <para>
-      <term>
-        <guilabel>~/.config/gnome-commander/scripts/*</guilabel>
-      </term>
-      In this directory the user can place scripts for the <xref linkend="popup-menu-actions"></xref>.
-    </para>
-    <note>
-      <para>
-        Since &app; version 1.10.0 the following option files are obsolete. If they have been created by earlier &app; versions
-        then the filename is extended automatically by <guilabel>*.deprecated</guilabel> and their settings are imported in
-        GSettings under the path <guilabel>org.gnome.gnome-commander</guilabel>.
-      </para>
-    <variablelist>
-      <varlistentry>
-        <term>
-          <guilabel>~/.config/gnome-commander/devices</guilabel>
-        </term>
-        <listitem>
-          <para/>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          <guilabel>~/.config/gnome-commander/fav-apps</guilabel>
-        </term>
-        <listitem>
-          <para/>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          <guilabel>~/.config/gnome-commander/gnome-commander.xml</guilabel>
-        </term>
-        <listitem>
-          <para/>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-    </note>
-    <note>
-        <para>
-            Since &app; version  1.6.0 the options file <guilabel>~/.gnome2/gnome-commander</guilabel> is obsolete.
-            The settings of this file are now stored in GSettings under the path <guilabel>org.gnome.gnome-commander</guilabel>.
-        </para>
-    </note>
-  </sect1>
-
-<xi:include href="releases.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-
-<!-- ============= Bugs ================================== -->
-<!-- This section is optional and is commented out by default.
-     You can use it to describe known bugs and limitations of the
-      program if there are any - please be frank and list all
-     problems you know of.
--->
   <sect1 id="gnome-commander-bugs">
     <title>Known Bugs and Limitations</title>
-    <para>You can report or view &app; bugs at <ulink type="http" url="https://gitlab.gnome.org/GNOME/gnome-commander/issues">gitlab.gnome.org</ulink>.</para>
+    <para>You can report or view &app; bugs at <ulink type="http" url="https://gitlab.gnome.org/GNOME/gnome-commander/-/work_items">gitlab.gnome.org</ulink>.</para>
     <para>Some words about bugs: Though &app; is relatively free from bugs and is a quite mature program, no programs will ever be totally bug free.
         New bugs can be introduced with new features, or through other programs and libraries it depends on,
-        this goes especially for development and testing versions. Quality bug reporting is very important
-        and can be a very good help for the developers to make a better program.
-        Bug reporting is not an act of dissatisfaction, so you are very welcome to help us find, hunt down and kill the bugs.
+        especially for development and testing versions. Quality bug reporting is very important
+        and can be a very good help for the developers to make a better program.</para>
+    <para>Bug reporting is not an act of dissatisfaction, so you are very welcome to help us find and fix the bugs.
         Testing of the new releases and bug reporting is the best way users without programming knowledge can help out in the development of a program,
         and those with programming knowledge are very welcome to suggest fixes and/or send patches to the developers,
         all in the spirit of free and open source software.</para>
-    <para>Known limitation:
-    <itemizedlist>
-    <listitem><para></para></listitem>
-    </itemizedlist></para>
   <para><emphasis>Given enough eyeballs, all bugs are shallow.</emphasis></para>
 
   <para><foreignphrase>Linus law.</foreignphrase></para>
  </sect1>
 
-<!-- ============= About ================================== -->
-<!-- This section contains info about the program (not docs), such as
-      author's name(s), web page, license, feedback address. This
-      section is optional: primary place for this info is "About.." box of
-      the program. However, if you do wish to include this info in the
-      manual, this is the place to put it. Alternatively, you can put this information in the title page.-->
   <sect1 id="gnome-commander-about">
     <title>About &app;</title>
     <sect2 id="gnome-commander-history">
@@ -7178,9 +7006,19 @@
       contributed with many great ideas and by helping finding bugs and other inconsistencies.
       After Magnus resigned from the project, Thomas Jost helped to maintain the homepage at
       Savannah.org</para>
+      <para>While the program was first written in C, Piotr started to migrate the
+      codebase to C++. The migration was never really finished and the status was merely a
+      mixture of both.</para>
       <para>Unfortunately, Piotr suddenly passed away in the beginning of 2012 and &app; had no
       maintainer for nearly two years. Late in 2013, Uwe Scholz, a user of &app; since the
-      days before version 1.0, took over the project as project maintainer.</para>
+      days before version 1.0, took over the project as project maintainer. His main goal
+      was to keep the project alive, e.g. by getting rid of the legacy library dependency
+      "gnome-vfs".</para>
+      <para>In 2024, Andrey Kutejko got involved in the project and migrated &app; from Gtk2 to Gtk4.
+      He also started the migration from C++ to the Rust language.</para>
+      <para>In early 2026, Wladimir Palant joined the project and fixed a lot of bugs, improved
+      performance and introduced new features, for example the embedded terminal output.
+      Wladimir became the new project maintainer after the release of &app; version 2.0.</para>
     </sect2>
     <sect2 id="gnome-commander-location">
       <title>Location</title>
@@ -7189,14 +7027,8 @@
       of 2003, the source tree moved to Gnome.org. Though, the homepage and mailing lists were
       still hosted at Savannah.</para>
       <para>Since 2013, the location of the &app; home page has been moved to GitHub.org.</para>
-    </sect2>
-    <sect2 id="gnome-commander-bug-reporting">
-      <title>Bug Reporting</title>
-    <para>
-      If you found a bug, you can check if it is already reported on our
-      <ulink type="http" url="https://gitlab.gnome.org/GNOME/gnome-commander/issues">GitLab</ulink>
-      page at Gnome.org. If not, please report the bug. If you want to fix it by yourself
-      have a look at the section <xref linkend="gnome-commander-development-version"></xref>.</para>
+      <para>Since 2026, the location of the &app; home page has been moved to GNOME GitLab pages
+        where it also got a modern outfit.</para>
     </sect2>
     <sect2 id="gnome-commander-License">
       <title>License</title>
@@ -7205,7 +7037,7 @@
       Software Foundation, either version 3 of the License, or (at your option)
       any later version. A copy of this license can be found at this
       <ulink type="http" url="https://www.gnu.org/licenses/gpl-3.0">link</ulink>,
-      or in the file COPYING included with the source code of this program.</para>
+      or in the folder LICENSES included with the source code of this program.</para>
     </sect2>
   </sect1>
 </article>

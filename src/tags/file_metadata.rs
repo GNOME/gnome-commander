@@ -3,63 +3,82 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::{GnomeCmdTag, GnomeCmdTagClass};
-use indexmap::IndexMap;
+use super::Tag;
+
+struct GroupsIterator<'a> {
+    tags: &'a [(Box<dyn Tag>, String)],
+    index: usize,
+}
+
+impl<'a> Iterator for GroupsIterator<'a> {
+    type Item = Vec<(&'a Box<dyn Tag>, &'a str)>;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.index >= self.tags.len() {
+            return None;
+        }
+
+        let class = self.tags[self.index].0.class();
+        let mut tags = Vec::new();
+        while self.index < self.tags.len() && self.tags[self.index].0.class() == class {
+            tags.push((&self.tags[self.index].0, self.tags[self.index].1.as_str()));
+            self.index += 1;
+        }
+        Some(tags)
+    }
+}
 
 #[derive(Default)]
 pub struct FileMetadata {
-    pub tags: IndexMap<GnomeCmdTagClass, IndexMap<GnomeCmdTag, Vec<String>>>,
+    tags: Vec<(Box<dyn Tag>, String)>,
+    sorted: bool,
 }
 
 impl FileMetadata {
-    pub fn add(&mut self, tag: GnomeCmdTag, value: Option<&str>) {
-        let Some(value) = value.map(|v| v.trim_end()).filter(|v| !v.is_empty()) else {
-            return;
-        };
-
-        if let Some(tag_class) = tag.class() {
-            self.tags
-                .entry(tag_class)
-                .or_default()
-                .entry(tag)
-                .or_default()
-                .push(value.to_owned());
-        } else {
-            eprintln!("Invalid tag \"{}\".", tag.0);
+    pub fn add(&mut self, tag: Box<dyn Tag>, mut value: String) {
+        value.truncate(value.trim_end().len());
+        if !value.is_empty() {
+            self.tags.push((tag, value));
+            self.sorted = false;
         }
     }
 
-    pub fn has(&self, tag: &GnomeCmdTag) -> bool {
-        let Some(tag_class) = tag.class() else {
-            return false;
-        };
-        self.tags
-            .get(&tag_class)
-            .map(|k| k.contains_key(tag))
-            .unwrap_or_default()
+    pub fn get(&self, tag: &str) -> Option<String> {
+        let values = self
+            .tags
+            .iter()
+            .filter(|(t, _)| t.id() == tag)
+            .map(|(_, v)| v.as_str())
+            .collect::<Vec<_>>();
+        if values.is_empty() {
+            None
+        } else {
+            Some(values.join(", "))
+        }
     }
 
-    pub fn get(&self, tag: &GnomeCmdTag) -> Option<String> {
-        let tag_class = tag.class()?;
+    pub fn get_first(&self, tag: &str) -> Option<String> {
         self.tags
-            .get(&tag_class)
-            .and_then(|k| k.get(tag))
-            .map(|values| values.join(", "))
+            .iter()
+            .find(|(t, _)| t.id() == tag)
+            .map(|(_, v)| v.clone())
     }
 
-    pub fn get_first(&self, tag: &GnomeCmdTag) -> Option<String> {
-        let tag_class = tag.class()?;
-        self.tags
-            .get(&tag_class)
-            .and_then(|k| k.get(tag))
-            .and_then(|values| values.first())
-            .cloned()
+    pub fn groups(&mut self) -> impl Iterator<Item = Vec<(&Box<dyn Tag>, &str)>> {
+        if !self.sorted {
+            self.tags
+                .sort_by_cached_key(|(tag, _)| tag.class().to_string());
+            self.sorted = true;
+        }
+        GroupsIterator {
+            tags: &self.tags,
+            index: 0,
+        }
     }
 
-    pub fn dump(&self) -> impl Iterator<Item = (GnomeCmdTag, String)> + '_ {
-        self.tags
-            .values()
-            .flat_map(|m| m.iter())
-            .flat_map(|(tag, values)| values.iter().map(|v| (tag.clone(), v.clone())))
+    pub fn to_tsv(&self) -> String {
+        self.tags.iter().fold(String::new(), |tsv, (tag, value)| {
+            tsv + tag.id() + "\t" + &tag.name() + "\t" + value + "\n"
+        })
     }
 }

@@ -1,3 +1,4 @@
-[build]
-rustflags = ["-L", "builddir/libgcmd"]
-rustdocflags = ["-L", "builddir/libgcmd"]
+[env]
+GLOBAL_LOCALE_DIR = "/usr/share/locale"
+GLOBAL_PLUGIN_DIR = "/usr/share/gnome-commander/plugins"
+LOCAL_PLUGIN_DIR = { value = "plugins", relative = true }

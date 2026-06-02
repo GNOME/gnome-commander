@@ -34,7 +34,7 @@ mod imp {
 
     pub const SIGNAL_DIALOG_RESPONSE: &str = "dialog-response";
 
-    #[derive(glib::Properties, Default)]
+    #[derive(glib::Properties)]
     #[properties(wrapper_type = super::FilePropertiesDialog)]
     pub struct FilePropertiesDialog {
         notebook: gtk::Notebook,
@@ -45,8 +45,8 @@ mod imp {
         #[property(get, construct_only)]
         file: OnceCell<File>,
         file_metadata: RefCell<Option<FileMetadata>>,
-        #[property(get, construct_only)]
-        file_metadata_service: OnceCell<FileMetadataService>,
+        metadata_view: FileMetainfoView,
+        summary_position: RefCell<Option<(gtk::Grid, i32)>>,
         #[property(get, construct_only)]
         connection: OnceCell<Option<Connection>>,
     }
@@ -75,7 +75,8 @@ mod imp {
                 chmod_component: Default::default(),
                 file: Default::default(),
                 file_metadata: Default::default(),
-                file_metadata_service: Default::default(),
+                metadata_view: FileMetainfoView::new(),
+                summary_position: Default::default(),
                 connection: Default::default(),
             }
         }
@@ -319,17 +320,7 @@ mod imp {
                 self.do_calc_tree_size(size_label);
             }
 
-            if !file.is_special() {
-                let file_metadata_service = self.obj().file_metadata_service();
-
-                let metadata = file_metadata_service.extract_metadata(&file);
-
-                for (title, value) in file_metadata_service.file_summary(&metadata) {
-                    attach_labels(&tab, format!("{title}:"), truncate(&value, 120), &mut y);
-                }
-
-                self.file_metadata.replace(Some(metadata));
-            }
+            self.summary_position.replace(Some((tab.clone(), y)));
 
             tab.upcast()
         }
@@ -373,7 +364,6 @@ mod imp {
 
             self.chmod_component.set_permissions(file.permissions());
             self.chmod_component.set_hexpand(true);
-            tab.attach(&self.chmod_component, 0, 3, 1, 1);
 
             tab.upcast()
         }
@@ -381,11 +371,9 @@ mod imp {
         fn metadata_tab(&self) -> gtk::Widget {
             let tab = gtk::Grid::builder().row_spacing(6).build();
 
-            let view = FileMetainfoView::new(&self.obj().file_metadata_service());
-            view.set_hexpand(true);
-            view.set_vexpand(true);
-            view.set_file(Some(self.obj().file()));
-            tab.attach(&view, 0, 0, 2, 1);
+            self.metadata_view.set_hexpand(true);
+            self.metadata_view.set_vexpand(true);
+            tab.attach(&self.metadata_view, 0, 0, 2, 1);
 
             let copy_button = gtk::Button::builder()
                 .label(gettext("Co_py"))
@@ -448,10 +436,24 @@ mod imp {
             });
         }
 
+        pub fn set_metadata(
+            &self,
+            mut metadata: FileMetadata,
+            file_metadata_service: &FileMetadataService,
+        ) {
+            if let Some((grid, mut y)) = self.summary_position.take() {
+                for (title, value) in file_metadata_service.file_summary(&metadata) {
+                    attach_labels(&grid, format!("{title}:"), truncate(&value, 120), &mut y);
+                }
+            }
+
+            self.metadata_view.set_metadata(&mut metadata);
+            self.file_metadata.replace(Some(metadata));
+        }
+
         fn copy_clicked(&self) {
             if let Some(metadata) = self.file_metadata.borrow().as_ref() {
-                let tsv = self.obj().file_metadata_service().to_tsv(metadata);
-                self.obj().clipboard().set_text(&tsv);
+                self.obj().clipboard().set_text(&metadata.to_tsv());
             }
         }
 
@@ -533,15 +535,9 @@ glib::wrapper! {
 }
 
 impl FilePropertiesDialog {
-    pub fn new(
-        parent_window: &gtk::Window,
-        file_metadata_service: &FileMetadataService,
-        file: &File,
-        connection: Option<Connection>,
-    ) -> Self {
+    pub fn new(parent_window: &gtk::Window, file: &File, connection: &Connection) -> Self {
         glib::Object::builder()
             .property("transient-for", parent_window)
-            .property("file-metadata-service", file_metadata_service)
             .property("file", file)
             .property("connection", connection)
             .build()
@@ -551,7 +547,7 @@ impl FilePropertiesDialog {
         parent_window: &MainWindow,
         file_metadata_service: &FileMetadataService,
         file: &File,
-        connection: Option<Connection>,
+        connection: &Connection,
     ) -> bool {
         if file.is_dotdot() {
             return false;
@@ -564,12 +560,7 @@ impl FilePropertiesDialog {
         } else {
             let dialog = parent_window.set_dialog(
                 &handle,
-                Self::new(
-                    parent_window.upcast_ref(),
-                    file_metadata_service,
-                    file,
-                    connection,
-                ),
+                Self::new(parent_window.upcast_ref(), file, connection),
             );
 
             let (sender, receiver) = async_channel::bounded::<bool>(1);
@@ -587,6 +578,13 @@ impl FilePropertiesDialog {
             );
 
             dialog.present();
+            if !file.is_special() {
+                dialog.imp().set_metadata(
+                    file_metadata_service.extract_metadata(file).await,
+                    file_metadata_service,
+                );
+            }
+
             let changed = receiver.recv().await == Ok(true);
             dialog.close();
 

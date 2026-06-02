@@ -158,8 +158,6 @@ fn code_to_type(key: &str) -> Option<gio::FileType> {
         "di" => Some(gio::FileType::Directory),
         "ln" => Some(gio::FileType::SymbolicLink),
         "pi" => Some(gio::FileType::Special),
-        "sc" => Some(gio::FileType::Shortcut),
-        "mn" => Some(gio::FileType::Mountable),
         _ => None,
     }
 }

@@ -6,7 +6,6 @@
 use crate::{
     debug::debug,
     file::{File, FileOps},
-    options::ProgramsOptions,
     utils::{ErrorMessage, make_run_in_terminal_command},
 };
 use gettextrs::gettext;
@@ -181,10 +180,9 @@ pub fn run_command_indir(
     working_directory: Option<&Path>,
     command: &OsStr,
     in_terminal: bool,
-    options: &ProgramsOptions,
 ) -> Result<(), SpawnError> {
     let actual_command = if in_terminal {
-        make_run_in_terminal_command(command, options)
+        make_run_in_terminal_command(command)
     } else {
         command.to_owned()
     };

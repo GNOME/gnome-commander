@@ -95,7 +95,7 @@ pub async fn show_open_with_other_dialog(parent_window: &MainWindow, files: &[Fi
         }
 
         if parent_window
-            .execute_command(
+            .execute_command_with_message(
                 &full_command.to_string_lossy(),
                 if needs_terminal.is_active() {
                     ExecutionTarget::AnyTerminal

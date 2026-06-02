@@ -52,7 +52,7 @@ configure_file(
   input: meson.project_name() + '.ebuild.in',
   output: meson.project_name() + '-' + meson.project_version() + '.ebuild',
   install: false,
-  configuration: conf_data
+  configuration: configuration_data()
 )
 
 # Validate desktop file

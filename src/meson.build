@@ -6,17 +6,9 @@
 
 rpath = get_option('prefix') / get_option('libdir')
 
-config_rs = configure_file(
-  input: 'config.rs.in',
-  output: 'config.rs',
-  configuration: conf_data
-)
-run_command(
-  'cp',
-  meson.project_build_root() / 'src' / 'config.rs',
-  meson.project_source_root() / 'src' / 'config.rs',
-  check: true
-)
+env = environment()
+env.set('GLOBAL_LOCALE_DIR', locale_dir)
+env.set('GLOBAL_PLUGIN_DIR', plugin_dir)
 
 cargo_options = [
   '--manifest-path', meson.project_source_root() / 'Cargo.toml',
@@ -34,10 +26,6 @@ endif
 
 cargo_env = [
   'CARGO_HOME=' + meson.project_build_root() / 'cargo-home',
-  'RUSTFLAGS=-L ' + (meson.project_build_root() / 'src')
-        + ' -L ' + (meson.project_build_root() / 'libgcmd')
-        + ' -lgcmd'
-        + ' -C link-arg=-Wl,-rpath=' + rpath,
 ]
 
 libgmcddialogs_dep = declare_dependency(
@@ -48,7 +36,7 @@ commander = custom_target(
   'gnome-commander',
   build_by_default: true,
   build_always_stale: true,
-  input: [config_rs],
+  input: [],
   output: meson.project_name(),
   console: true,
   install: true,
@@ -66,6 +54,6 @@ test(
   'cargo-test', cargo,
   env: cargo_env,
   args: ['test', '--no-fail-fast'] + cargo_options,
-  depends: [commander, libgcmd],
-  timeout: 180
+  depends: [commander],
+  timeout: 300
 )

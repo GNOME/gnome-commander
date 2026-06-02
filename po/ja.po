@@ -8317,3 +8317,230 @@ msgstr[0] "{} バイト"
 #: src/utils.rs:641
 msgid "Closing of a file enumerator failed"
 msgstr "ファイル列挙子を閉じるのに失敗しました"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME Commander"
+
+#~ msgid ""
+#~ "Defines if the current directories are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Defines if the current directories are opened again when GNOME Commander is "
+#~ "restarted."
+
+#~ msgid ""
+#~ "Defines if the current open tabs are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Defines if the current open tabs are opened again when GNOME Commander is "
+#~ "restarted."
+
+#~ msgid "Quick search exact match begin"
+#~ msgstr "Quick search exact match begin"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the beginning"
+#~ " of an item name."
+#~ msgstr ""
+#~ "This option defines if quick search should match explicitly at the beginning"
+#~ " of an item name."
+
+#~ msgid "Quick search exact match end"
+#~ msgstr "Quick search exact match end"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the end of an"
+#~ " item name."
+#~ msgstr ""
+#~ "This option defines if quick search should match explicitly at the end of an"
+#~ " item name."
+
+#~ msgid "Fixed font name"
+#~ msgstr "Fixed font name"
+
+#~ msgid "Name of the default font with fixed character width."
+#~ msgstr "Name of the default font with fixed character width."
+
+#~ msgid "Variable font name"
+#~ msgstr "Variable font name"
+
+#~ msgid "Name of the default font with variable character width."
+#~ msgstr "Name of the default font with variable character width."
+
+#~ msgid "Font size"
+#~ msgstr "Font size"
+
+#~ msgid "This option defines the default font size."
+#~ msgstr "This option defines the default font size."
+
+#~ msgid ""
+#~ "GNOME Commander is a “dual-panel” graphical file manager for the GNOME "
+#~ "desktop environment. It features separate tabs for each panel, setting up "
+#~ "custom device buttons, bookmark manager, fully integrated commandline, file "
+#~ "quick search, an internal image viewer, a powerful batch renaming tool, and "
+#~ "FTP and Samba access."
+#~ msgstr ""
+#~ "GNOME Commander は、GNOME デスクトップ環境向けの 2 "
+#~ "画面グラフィカルファイルマネージャーです。各パネルに独立したタブがあり、カスタムデバイスボタンの設定、ブックマークマネージャー、完全に統合されたコマンドライン、ファイルのクイック検索、内蔵の画像ビューア、強力な一括ファイル名変更ツール、FTP"
+#~ " および Samba アクセスなどの機能を備えています。"
+
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+#~ "GNOME Commander "
+#~ "は、緻密なファイル管理、専用のアプリケーションを使った並行作業、便利なコマンドの実行に重点を置きたい上級ユーザーを対象としています。"
+
+#~ msgid "Connection method is not selected"
+#~ msgstr "接続方法が選択されていません"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "確認時にデフォルトを OK にする"
+
+#~ msgid "ALT+letters (menu access with F12)"
+#~ msgstr "ALT+文字列 (F12 でメニューアクセス)"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "ファイル名の先頭から合致させる"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "ファイル名の末尾から合致させる"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "ファイルを上書きする"
+
+#~ msgid "Keyboard Shortcut"
+#~ msgstr "キーボードショートカット"
+
+#~ msgid "_Action"
+#~ msgstr "アクション(_A)"
+
+#~ msgid "_Shortcut"
+#~ msgstr "ショートカット(_S)"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the \"Assign\" button and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "ショートカットキーを編集するには、\"割り当てる\"ボタンをクリックして新たなアクセラレータをタイプしてください。ESC キーを押すとキャンセルします。"
+
+#~ msgid "New shortcut..."
+#~ msgstr "新しいショートカット…"
+
+#~ msgid "Assign"
+#~ msgstr "割り当てる"
+
+#~ msgid "No action is selected."
+#~ msgstr "アクションが選択されていません。"
+
+#~ msgid "No shortcut is defined."
+#~ msgstr "ショートカットが定義されていません。"
+
+#~ msgid "_Update Shortcut"
+#~ msgstr "ショートカットを更新(_U)"
+
+#~ msgid "A_dd Shortcut"
+#~ msgstr "ショートカットを追加(_D)"
+
+#~ msgid "Shortcut Key"
+#~ msgstr "ショートカットキー"
+
+#~ msgid "Action"
+#~ msgstr "アクション"
+
+#, rust-format
+#~ msgid "A total of {selected_bytes} has been selected."
+#~ msgstr "合計 {selected_bytes} を選択しました。"
+
+#, rust-format
+#~ msgid "{selected_files} file selected."
+#~ msgid_plural "{selected_files} files selected."
+#~ msgstr[0] "{selected_files} 個のファイルを選択しました。"
+
+#, rust-format
+#~ msgid "{selected_dirs} directory selected."
+#~ msgid_plural "{selected_dirs} directories selected."
+#~ msgstr[0] "{selected_dirs} 個の ディレクトリを選択しました。"
+
+#~ msgid "Filter:"
+#~ msgstr "フィルター:"
+
+#~ msgid "Sea_rch"
+#~ msgstr "検索(_R)"
+
+#~ msgid "Find"
+#~ msgstr "検索"
+
+#~ msgid "Searching…"
+#~ msgstr "検索中…"
+
+#, rust-format
+#~ msgid "Searching for “{}”"
+#~ msgstr "“{}” を検索中"
+
+#~ msgid "_Copy selection"
+#~ msgstr "選択したテキストをコピー(_C)"
+
+#, rust-format
+#~ msgid "Pattern “{}” was not found"
+#~ msgstr "パターン “{}” は見つかりませんでした"
+
+#~ msgid "_Binary"
+#~ msgstr "バイナリモード(_B)"
+
+#~ msgid "Rotate Clockwise"
+#~ msgstr "右回りに回転"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "バイナリモード(_B)"
+
+#~ msgid "GNOME Commander — ROOT PRIVILEGES"
+#~ msgstr "GNOME Commander — ルート権限"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "大文字/小文字を区別(_V)"
+
+#~ msgid "Path matches regex:"
+#~ msgstr "以下の正規表現に合致する:"
+
+#~ msgid "Name contains:"
+#~ msgstr "次の名前を含む:"
+
+#~ msgid ""
+#~ "GNOME Commander is free software: you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation, either version 3 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME Commander is free software: you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation, either version 3 of the License, or (at your option) "
+#~ "any later version."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " Foobar. If not, see <https://www.gnu.org/licenses/>."
+#~ msgstr ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " Foobar. If not, see <https://www.gnu.org/licenses/>."
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "GNOME デスクトップ用の高速で強力なファイルマネージャー"
+
+#~ msgid "_Enable Filter…"
+#~ msgstr "フィルターを有効にする(_E)…"
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "GNOME Commander の Web サイト(_W)"

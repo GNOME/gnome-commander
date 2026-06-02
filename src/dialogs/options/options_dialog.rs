@@ -95,11 +95,11 @@ mod imp {
                 .build();
             obj.set_child(Some(&content_area));
 
-            let general_options = GeneralOptions::new();
-            let color_options = ColorOptions::new();
-            let confirmation_options = ConfirmOptions::new();
-            let filters_options = FiltersOptions::new();
-            let programs_options = ProgramsOptions::new();
+            let general_options = GeneralOptions::instance();
+            let color_options = ColorOptions::instance();
+            let confirmation_options = ConfirmOptions::instance();
+            let filters_options = FiltersOptions::instance();
+            let programs_options = ProgramsOptions::instance();
 
             remember_window_size(
                 &*obj,
@@ -234,11 +234,11 @@ impl OptionsDialog {
     }
 
     pub fn save(&self) -> WriteResult {
-        let general_options = GeneralOptions::new();
-        let color_options = ColorOptions::new();
-        let confirmation_options = ConfirmOptions::new();
-        let filters_options = FiltersOptions::new();
-        let programs_options = ProgramsOptions::new();
+        let general_options = GeneralOptions::instance();
+        let color_options = ColorOptions::instance();
+        let confirmation_options = ConfirmOptions::instance();
+        let filters_options = FiltersOptions::instance();
+        let programs_options = ProgramsOptions::instance();
 
         self.imp().general_tab.write(&general_options)?;
         self.imp().format_tab.write(&general_options)?;

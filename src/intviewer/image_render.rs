@@ -559,7 +559,10 @@ impl ImageRender {
         self.imp().display_pixbuf.replace(None);
 
         match gdk_pixbuf::Pixbuf::from_file(filename) {
-            Ok(pixbuf) => {
+            Ok(mut pixbuf) => {
+                if let Some(rotated) = pixbuf.apply_embedded_orientation() {
+                    pixbuf = rotated;
+                }
                 self.imp().original_pixbuf.replace(Some(pixbuf));
             }
             Err(error) => {

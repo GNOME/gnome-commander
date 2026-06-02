@@ -8681,3 +8681,269 @@ msgstr[1] "{} bájt"
 #: src/utils.rs:641
 msgid "Closing of a file enumerator failed"
 msgstr "Egy fájlfelsoroló bezárása nem sikerült"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME Commander"
+
+#~ msgid ""
+#~ "Defines if the current directories are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Meghatározza, hogy az aktuális könyvtárak megnyíljanak-e a GNOME Commander "
+#~ "újraindításakor."
+
+#~ msgid ""
+#~ "Defines if the current open tabs are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "Meghatározza, hogy a jelenlegi nyitott lapok nyílnak-e meg a GNOME Commander"
+#~ " újraindításakor."
+
+#~ msgid "Quick search exact match begin"
+#~ msgstr "Gyors keresés az elemek kezdetére"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the beginning"
+#~ " of an item name."
+#~ msgstr ""
+#~ "Ez a beállítás meghatározza, hogy a gyors keresés az elemnevek kezdetére "
+#~ "keressen-e."
+
+#~ msgid "Quick search exact match end"
+#~ msgstr "Gyors keresés az elemek végére"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the end of an"
+#~ " item name."
+#~ msgstr ""
+#~ "Ez a beállítás meghatározza, hogy a gyors keresés az elemnevek végére "
+#~ "keressen-e."
+
+#~ msgid "Fixed font name"
+#~ msgstr "Rögzített szélességű betűkészlet"
+
+#~ msgid "Name of the default font with fixed character width."
+#~ msgstr "Az alapértelmezett rögzített szélességű betűkészlet neve."
+
+#~ msgid "Variable font name"
+#~ msgstr "Változó szélességű betűkészlet"
+
+#~ msgid "Name of the default font with variable character width."
+#~ msgstr "Az alapértelmezett változó szélességű betűkészlet neve."
+
+#~ msgid "Font size"
+#~ msgstr "Betűméret"
+
+#~ msgid "This option defines the default font size."
+#~ msgstr "Ez a beállítás meghatározza az alapértelmezett betűméretet."
+
+#~ msgid ""
+#~ "GNOME Commander is a “dual-panel” graphical file manager for the GNOME "
+#~ "desktop environment. It features separate tabs for each panel, setting up "
+#~ "custom device buttons, bookmark manager, fully integrated commandline, file "
+#~ "quick search, an internal image viewer, a powerful batch renaming tool, and "
+#~ "FTP and Samba access."
+#~ msgstr ""
+#~ "A GNOME Commander egy „kétpaneles” grafikus fájlkezelő a GNOME asztali "
+#~ "környezethez. Jellemzői többek közt az elválasztott lapok mindkét panelhez, "
+#~ "egyéni eszközgombok beállítása, könyvjelzőkezelő, teljesen integrált "
+#~ "parancssor, gyors fájlkeresés, beépített képnézegető, hatékony tömeges "
+#~ "átnevező eszköz, valamint FTP és Samba hozzáférés."
+
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+#~ "A GNOME Commander programot képzett felhasználóknak szánják, akik precíz "
+#~ "fájlkezesre szeretik helyezni a fókuszt, párhuzamosan több alkalmazással "
+#~ "dolgoznak és okos parancsokat futtatnak."
+
+#~ msgid "Remote Server"
+#~ msgstr "Távoli kiszolgáló"
+
+#~ msgid "Connection method is not selected"
+#~ msgstr "A kapcsolódási módszer nincs kiválasztva"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "Alapértelmezetten OK megerősítés"
+
+#~ msgid "ALT+letters (menu access with F12)"
+#~ msgstr "Alt+betűk (a menü elérése az F12-vel)"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "Illeszkedés a fájlnév kezdetére"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "Illeszkedés a fájlnév végére"
+
+#~ msgid ""
+#~ "Search window is minimizable\n"
+#~ "(Needs program restart if altered)"
+#~ msgstr ""
+#~ "A keresési ablak minimalizálható\n"
+#~ "(A módosítása a program újraindítását igényli)"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Fájlok felülírása"
+
+#~ msgid "Keyboard Shortcut"
+#~ msgstr "Gyorsbillentyű"
+
+#~ msgid "_Action"
+#~ msgstr "_Művelet"
+
+#~ msgid "_Shortcut"
+#~ msgstr "_Gyorsbillentyű"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the \"Assign\" button and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "Egy gyorsbillentyű szerkesztéséhez kattintson a „Hozzárendelés” gombra, "
+#~ "gépelje be az új gyorsbillentyűt, vagy a megszakításhoz nyomja meg az Esc "
+#~ "billentyűt."
+
+#~ msgid "_Update Shortcut"
+#~ msgstr "Gyorsbillentyű _frissítése"
+
+#~ msgid "New shortcut..."
+#~ msgstr "Új gyorsbillentyű…"
+
+#~ msgid "Assign"
+#~ msgstr "Hozzárendelés"
+
+#~ msgid "No action is selected."
+#~ msgstr "Nincs művelet kiválasztva."
+
+#~ msgid "No shortcut is defined."
+#~ msgstr "Nincs gyorsbillentyű meghatározva."
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Gyorsbillentyű gomb"
+
+#~ msgid "Action"
+#~ msgstr "Művelet"
+
+#, rust-format
+#~ msgid "A total of {selected_bytes} has been selected."
+#~ msgstr "Összesen {selected_bytes} lett kijelölve."
+
+#, rust-format
+#~ msgid "{selected_files} file selected."
+#~ msgid_plural "{selected_files} files selected."
+#~ msgstr[0] "{selected_files} fájl kijelölve."
+#~ msgstr[1] "{selected_files} fájl kijelölve."
+
+#, rust-format
+#~ msgid "{selected_dirs} directory selected."
+#~ msgid_plural "{selected_dirs} directories selected."
+#~ msgstr[0] "{selected_dirs} könyvtár kijelölve."
+#~ msgstr[1] "{selected_dirs} könyvtár kijelölve."
+
+#~ msgid "Filter:"
+#~ msgstr "Szűrő:"
+
+#~ msgid "Sea_rch"
+#~ msgstr "Ke_resés"
+
+#~ msgid "Find"
+#~ msgstr "Keresés"
+
+#~ msgid "Searching…"
+#~ msgstr "Keresés…"
+
+#, rust-format
+#~ msgid "Searching for “{}”"
+#~ msgstr "A(z) „{}” keresése"
+
+#~ msgid "_Copy selection"
+#~ msgstr "_Kijelölés másolása"
+
+#, rust-format
+#~ msgid "Pattern “{}” was not found"
+#~ msgstr "A(z) „{}” minta nem található"
+
+#~ msgid "_Binary"
+#~ msgstr "_Bináris"
+
+#~ msgid "Rotate Clockwise"
+#~ msgstr "Forgatás jobbra"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "_Bináris mód"
+
+#~ msgid "GNOME Commander — ROOT PRIVILEGES"
+#~ msgstr "GNOME Commander — RENDSZERGAZDAI JOGOSULTSÁGOK"
+
+#~ msgid "Search failed"
+#~ msgstr "A keresés sikertelen"
+
+#~ msgid "Something went wrong, cannot get start directory."
+#~ msgstr "Valami probléma történt, nem lehet lekérni a kezdési könyvtárat."
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "Kis- és _nagybetű"
+
+#~ msgid "Path matches regex:"
+#~ msgstr "Az útvonal illeszkedik a reguláris kifejezésre:"
+
+#~ msgid "Name contains:"
+#~ msgstr "A név tartalmazza:"
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "A GNOME Commander szabad szoftver, terjesztheti és/vagy módosíthatja a Free "
+#~ "Software Foundation által kiadott GNU General Public License második (vagy "
+#~ "bármely későbbi) változatában foglaltak alapján."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "A GNOME Commander programot abban a reményben terjesztjük, hogy hasznos "
+#~ "lesz, de nem vállalunk SEMMIFÉLE GARANCIÁT, még olyan értelemben sem, hogy a"
+#~ " program alkalmas-e a KÖZREADÁSRA vagy EGY BIZONYOS FELADAT ELVÉGZÉSÉRE. "
+#~ "További részletekért tanulmányozza a GNU GPL licencet."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+#~ "A GNOME Commander programhoz a GNU General Public License egy példánya is "
+#~ "jár, ha nem kapta meg, írjon a Free Software Foundation Inc.-nek. "
+#~ "Levélcímük: 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA."
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "Gyors és hatékony fájlkezelő a GNOME asztali környezethez"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "Kijelölés visszaállí_tása"
+
+#~ msgid "_Enable Filter…"
+#~ msgstr "Szűrő _engedélyezése…"
+
+#~ msgid "Show directory history"
+#~ msgstr "Könyvtár előzmények megjelenítése"
+
+#~ msgid "Set connection"
+#~ msgstr "Kapcsolat beállítása"
+
+#~ msgid "Change left connection"
+#~ msgstr "Bal kapcsolat módosítása"
+
+#~ msgid "Change right connection"
+#~ msgstr "Jobb kapcsolat módosítása"
+
+#~ msgid "Close connection"
+#~ msgstr "Kapcsolat lezárása"
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "GNOME Commander a _weben"

@@ -6,6 +6,7 @@
 pub mod basic;
 pub mod file_metadata;
 pub mod image;
+pub mod plugin;
 
 #[path = "tags.rs"]
 mod tags_inner;

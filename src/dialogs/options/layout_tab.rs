@@ -11,17 +11,15 @@ use crate::{
         ls_colors_palette::LsColorsPalette,
     },
     options::{ColorOptions, GeneralOptions, types::WriteResult},
-    select_directory_button::DirectoryButton,
     types::{ExtensionDisplayMode, GraphicalLayoutMode, IconScaleQuality},
 };
 use gettextrs::gettext;
-use gtk::{gio, pango, prelude::*};
+use gtk::{pango, prelude::*};
 use std::{cell::RefCell, rc::Rc};
 
 pub struct LayoutTab {
     vbox: gtk::Box,
     list_font: gtk::FontDialogButton,
-    row_height: gtk::SpinButton,
     extension_display_mode: gtk::DropDown,
     graphical_layout_mode: gtk::DropDown,
     color_theme: gtk::DropDown,
@@ -30,7 +28,6 @@ pub struct LayoutTab {
     ls_color_palette: Rc<RefCell<LsColorsPalette>>,
     icon_size: gtk::SpinButton,
     icon_scale_quality: gtk::Scale,
-    mime_icon_dir: DirectoryButton,
 }
 
 impl LayoutTab {
@@ -66,33 +63,6 @@ impl LayoutTab {
             1,
         );
         grid.attach(&list_font, 1, 0, 2, 1);
-
-        let row_height = gtk::SpinButton::builder()
-            .adjustment(
-                &gtk::Adjustment::builder()
-                    .lower(8.0)
-                    .upper(64.0)
-                    .step_increment(1.0)
-                    .page_increment(10.0)
-                    .page_size(0.0)
-                    .build(),
-            )
-            .climb_rate(1.0)
-            .digits(0)
-            .numeric(true)
-            .build();
-        grid.attach(
-            &gtk::Label::builder()
-                .label(gettext("Row height:"))
-                .halign(gtk::Align::Start)
-                .mnemonic_widget(&row_height)
-                .build(),
-            0,
-            1,
-            1,
-            1,
-        );
-        grid.attach(&row_height, 1, 1, 2, 1);
 
         let extension_display_mode = gtk::DropDown::builder()
             .model(&gtk::StringList::new(&[
@@ -269,20 +239,6 @@ impl LayoutTab {
         );
         grid.attach(&icon_scale_quality, 1, 1, 1, 1);
 
-        let mime_icon_dir = DirectoryButton::default();
-        grid.attach(
-            &gtk::Label::builder()
-                .label(gettext("Theme icon directory:"))
-                .halign(gtk::Align::Start)
-                .mnemonic_widget(&mime_icon_dir)
-                .build(),
-            0,
-            2,
-            1,
-            1,
-        );
-        grid.attach(&mime_icon_dir, 1, 2, 1, 1);
-
         graphical_layout_mode
             .bind_property("selected", &mime_icon_settings_frame, "sensitive")
             .transform_to(|_, selected: u32| Some(selected == 2))
@@ -305,7 +261,6 @@ impl LayoutTab {
         Self {
             vbox,
             list_font,
-            row_height,
             extension_display_mode,
             graphical_layout_mode,
             color_theme,
@@ -314,7 +269,6 @@ impl LayoutTab {
             ls_color_palette,
             icon_size,
             icon_scale_quality,
-            mime_icon_dir,
         }
     }
 
@@ -327,8 +281,6 @@ impl LayoutTab {
             .set_font_desc(&pango::FontDescription::from_string(
                 &general_options.list_font.get(),
             ));
-        self.row_height
-            .set_value(general_options.list_row_height.get() as f64);
         self.extension_display_mode
             .set_selected(general_options.extension_display_mode.get().into());
         self.graphical_layout_mode
@@ -345,8 +297,6 @@ impl LayoutTab {
             .set_value(general_options.icon_size.get() as f64);
         self.icon_scale_quality
             .set_value(u32::from(general_options.icon_scale_quality.get()) as f64);
-        self.mime_icon_dir
-            .set_file(general_options.mime_icon_dir.get().map(gio::File::for_path));
     }
 
     pub fn write(
@@ -357,9 +307,6 @@ impl LayoutTab {
         if let Some(font_desc) = self.list_font.font_desc() {
             general_options.list_font.set(font_desc.to_str())?;
         }
-        general_options.list_row_height.set(
-            <i32 as TryInto<u32>>::try_into(self.row_height.value_as_int()).unwrap_or_default(),
-        )?;
         general_options
             .extension_display_mode
             .set(ExtensionDisplayMode::from(
@@ -386,9 +333,6 @@ impl LayoutTab {
             .set(IconScaleQuality::from(
                 self.icon_scale_quality.value() as u32
             ))?;
-        general_options
-            .mime_icon_dir
-            .set(self.mime_icon_dir.file().and_then(|f| f.path()))?;
         Ok(())
     }
 }

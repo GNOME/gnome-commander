@@ -6,12 +6,15 @@
 use crate::{
     connection::{Connection, ConnectionExt},
     debug::debug,
-    utils::WindowExt,
+    utils::{ErrorMessage, WindowExt},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
 
-pub async fn open_connection(parent_window: &gtk::Window, con: &Connection) -> bool {
+pub async fn open_connection(
+    parent_window: &gtk::Window,
+    con: &Connection,
+) -> Result<(), ErrorMessage> {
     let dialog = gtk::Window::builder()
         .transient_for(parent_window)
         .modal(true)
@@ -51,15 +54,8 @@ pub async fn open_connection(parent_window: &gtk::Window, con: &Connection) -> b
     dialog.present();
 
     let result = con.open(parent_window, Some(&cancellable)).await;
+    debug!('m', "connection open result {:?}", result);
 
     dialog.close();
-
-    debug!('m', "connecion open result {:?}", result);
-    match result {
-        Ok(()) => true,
-        Err(error) => {
-            error.show(parent_window).await;
-            false
-        }
-    }
+    result
 }

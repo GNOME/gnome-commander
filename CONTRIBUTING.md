@@ -12,7 +12,7 @@ It doesn’t have to be a bug report, ideas that would make your life easier are
 
 That said, there are ways to make your contribution more useful:
 
-* Always run the lastest version of Gnome Commander. If you can: [build the development version](INSTALL) and test it as well. Maybe the issue is resolved already.
+* Always run the lastest version of Gnome Commander. If you can: [build the development version](INSTALL.md) and test it as well. Maybe the issue is resolved already.
 * Search existing reports first, maybe somebody reported this issue already. Please refrain from commenting in resolved reports however, usually your issue will be similar but different. You can add a link to that report to yours.
 * Please provide all relevant context information: your operating system, desktop environment, Gnome Commander version, any configuration changes which might be related, console output showing up if you run Gnome Commander from command line etc.
 * Describe the issue in terms that allow us to reproduce it: what were your exact steps that led to the issue? What happened then and what did you expect to happen? Does it happen every time? If not, do you have an idea when it happens? You can also record a short screen video if you are unsure how to describe the issue.
@@ -27,7 +27,7 @@ Please keep in mind: translating isn’t always straightforward. You translate t
 
 ### Contributing code
 
-See the [INSTALL file](INSTALL) for instructions on building and running the code. If you want to contribute changes back you will need to create a merge request. Here is how it works:
+See the [INSTALL file](INSTALL.md) for instructions on building and running the code. If you want to contribute changes back you will need to create a merge request. Here is how it works:
 
 * Fork this repository on GitLab if you haven’t done so yet. You can then click the Code dropdown and get the address that you need to clone:
   ```bash
@@ -74,7 +74,7 @@ Gnome Commander is being developed in several branches:
 * One or more stable branches, named after the current stable release (e.g. gcmd-1-18), which only include bugfixes, doc updates, translation updates, but no new features.
 * Optionally, some feature branches where new ideas or big features are cooked until they are ready to be merged into the main branch.
 
-The version numbers (major, minor and micro) follow the standard of odd and even versioning. Even numbers are stable versions that are intended for all-day use. Odd versions are development versions. The current version number is stored at the top of [meson.build](meson.build).
+The version numbers (major, minor and micro) follow the standard of odd and even versioning. Even numbers are stable versions that are intended for all-day use. Odd versions are development versions. The current version number is stored at the top of [Cargo.toml](Cargo.toml).
 
 ### Why we don’t want “AI” contributions
 

@@ -66,6 +66,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         move |_| sender.toss(true)
     ));
 
+    dialog.set_default_widget(Some(&ok_btn));
     dialog.set_cancel_widget(&cancel_btn);
 
     grid.attach(
@@ -119,7 +120,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
     .await;
 
     if success {
-        if let Err(error) = dir.relist_files(main_win.upcast_ref(), false).await {
+        if let Err(error) = dir.relist_files(None).await {
             error.show(main_win.upcast_ref()).await;
         }
         main_win.focus_file_lists();

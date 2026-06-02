@@ -5,18 +5,18 @@
 
 use crate::options::GeneralOptions;
 use gettextrs::gettext;
-use gtk::{gdk, gio, glib, prelude::*, subclass::prelude::*};
+use gtk::{gdk, gio, glib, pango, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
     use crate::{
-        config::{ICONS_DIR, PACKAGE},
+        config::{ICONS_PREFIX, PACKAGE},
         connection::list::ConnectionList,
         debug::set_debug_flags,
         main_win::MainWindow,
         options::SearchConfig,
     };
-    use std::{cell::RefCell, ops::ControlFlow, path::PathBuf};
+    use std::{borrow::Cow, cell::RefCell, ops::ControlFlow, path::PathBuf};
 
     #[derive(Default, glib::Properties)]
     #[properties(wrapper_type = super::Application)]
@@ -81,16 +81,18 @@ mod imp {
             }
 
             if let Some(display) = gdk::Display::default() {
-                gtk::IconTheme::for_display(&display).add_search_path(ICONS_DIR);
+                gio::resources_register_include!("icons.gresource").unwrap();
+                gtk::IconTheme::for_display(&display).add_search_path(ICONS_PREFIX);
             }
 
             create_config_directory();
 
-            let options = GeneralOptions::new();
+            let options = GeneralOptions::instance();
             ConnectionList::create(options.show_samba_workgroups_button.get());
             SearchConfig::get().load(&options);
             ConnectionList::get().load(&options);
             ConnectionList::get().set_volume_monitor();
+            setup_list_font(&options);
         }
 
         fn activate(&self) {
@@ -107,14 +109,12 @@ mod imp {
                 self.start_left_dir.borrow().as_deref(),
                 self.start_right_dir.borrow().as_deref(),
             );
-            let options = GeneralOptions::new();
-            main_win.load_command_line_history(&options);
+            main_win.load_command_line_history(&GeneralOptions::instance());
             main_win.present();
-            main_win.set_current_panel(0);
         }
 
         fn shutdown(&self) {
-            let options = GeneralOptions::new();
+            let options = GeneralOptions::instance();
             if let Err(error) =
                 SearchConfig::get().save(&options, options.save_search_history.get())
             {
@@ -161,6 +161,81 @@ mod imp {
                 gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
             );
         }
+    }
+
+    fn escape_css(value: &str) -> Cow<'_, str> {
+        if value.contains(['"', '\\']) {
+            Cow::Owned(value.replace('\\', "\\\\").replace('"', "\\\""))
+        } else {
+            Cow::Borrowed(value)
+        }
+    }
+
+    fn font_to_css(font_name: &str) -> String {
+        let font_desc = pango::FontDescription::from_string(font_name);
+        let mut result = String::from(".gnome-cmd-file-list{font:");
+        match font_desc.style() {
+            pango::Style::Italic => result.push_str(" italic"),
+            pango::Style::Oblique => result.push_str(" oblique"),
+            _ => {}
+        }
+        if font_desc.variant() == pango::Variant::SmallCaps {
+            result.push_str(" small-caps");
+        }
+        match font_desc.weight() {
+            pango::Weight::Thin => result.push_str(" 100"),
+            pango::Weight::Ultralight => result.push_str(" 200"),
+            pango::Weight::Light => result.push_str(" 300"),
+            pango::Weight::Semilight => result.push_str(" 350"),
+            pango::Weight::Book => result.push_str(" 380"),
+            pango::Weight::Medium => result.push_str(" 500"),
+            pango::Weight::Semibold => result.push_str(" 600"),
+            pango::Weight::Bold => result.push_str(" 700"),
+            pango::Weight::Ultrabold => result.push_str(" 800"),
+            pango::Weight::Heavy => result.push_str(" 900"),
+            pango::Weight::Ultraheavy => result.push_str(" 1000"),
+            _ => {}
+        }
+        {
+            let size = font_desc.size();
+            if size > 0 && !font_desc.is_size_absolute() {
+                result.push_str(&format!(
+                    " {:.1}pt",
+                    f64::from(size) / f64::from(pango::SCALE)
+                ));
+            } else {
+                result.push_str(" 10pt")
+            }
+        }
+        if let Some(family) = font_desc.family() {
+            result.push_str(&format!(" \"{}\",monospace", escape_css(&family)));
+        } else {
+            result.push_str(" monospace");
+        }
+        result.push_str(";}");
+        result
+    }
+
+    fn setup_list_font(options: &GeneralOptions) {
+        let Some(display) = gdk::Display::default() else {
+            return;
+        };
+
+        let css_provider = gtk::CssProvider::new();
+        css_provider.load_from_string(&font_to_css(&options.list_font.get()));
+        gtk::style_context_add_provider_for_display(
+            &display,
+            &css_provider,
+            gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
+        );
+
+        options.list_font.connect_changed(glib::clone!(
+            #[strong]
+            css_provider,
+            move |font_name| {
+                css_provider.load_from_string(&font_to_css(&font_name));
+            }
+        ));
     }
 
     fn create_config_directory() {
@@ -213,6 +288,6 @@ impl Application {
 
 impl Default for Application {
     fn default() -> Self {
-        Self::new(GeneralOptions::new().allow_multiple_instances.get())
+        Self::new(GeneralOptions::instance().allow_multiple_instances.get())
     }
 }

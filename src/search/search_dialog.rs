@@ -11,10 +11,10 @@ use crate::{
     dialogs::profiles::{ProfileManager, manage_profiles_dialog::manage_profiles},
     dir::Directory,
     file::FileOps,
+    file_view::file_view,
     main_win::MainWindow,
     options::SearchConfig,
     shortcuts::Area,
-    tags::FileMetadataService,
     user_actions::UserAction,
     utils::WindowExt,
 };
@@ -198,17 +198,14 @@ mod imp {
         pub config: OnceCell<Rc<SearchConfig>>,
 
         #[property(get, construct_only)]
-        pub file_metadata_service: OnceCell<FileMetadataService>,
-        #[property(get, construct_only)]
         pub main_window: OnceCell<MainWindow>,
 
         #[property(get, set)]
         pub dir_browser: RefCell<DirectoryButton>,
         #[property(get, set)]
         pub profile_component: RefCell<SelectionProfileComponent>,
-        virtual_directory: Directory,
         #[property(get, set)]
-        pub result_list: RefCell<Option<FileList>>,
+        pub result_list: RefCell<FileList>,
         quick_search_box: gtk::Box,
         pub status_label: gtk::Label,
         pub progress_bar: gtk::ProgressBar,
@@ -249,15 +246,23 @@ mod imp {
                 },
             );
 
-            klass.install_action(UserAction::FileView.name(), None, |obj, _, _| {
-                obj.imp().file_view();
+            klass.install_action_async(UserAction::FileView.name(), None, |obj, _, _| async move {
+                obj.imp().file_view().await;
             });
-            klass.install_action(UserAction::FileInternalView.name(), None, |obj, _, _| {
-                obj.imp().file_internal_view();
-            });
-            klass.install_action(UserAction::FileExternalView.name(), None, |obj, _, _| {
-                obj.imp().file_external_view();
-            });
+            klass.install_action_async(
+                UserAction::FileInternalView.name(),
+                None,
+                |obj, _, _| async move {
+                    obj.imp().file_internal_view().await;
+                },
+            );
+            klass.install_action_async(
+                UserAction::FileExternalView.name(),
+                None,
+                |obj, _, _| async move {
+                    obj.imp().file_external_view().await;
+                },
+            );
             klass.install_action(UserAction::FileEdit.name(), None, |obj, _, _| {
                 obj.imp().file_edit();
             });
@@ -277,14 +282,12 @@ mod imp {
             let labels_size_group = gtk::SizeGroup::new(gtk::SizeGroupMode::Horizontal);
             Self {
                 config: Default::default(),
-                file_metadata_service: Default::default(),
                 main_window: Default::default(),
                 dir_browser: Default::default(),
                 profile_component: RefCell::new(SelectionProfileComponent::new(Some(
                     &labels_size_group,
                 ))),
-                virtual_directory: Directory::create_virtual(),
-                result_list: Default::default(),
+                result_list: RefCell::new(FileList::new()),
                 quick_search_box: gtk::Box::builder()
                     .orientation(gtk::Orientation::Vertical)
                     .build(),
@@ -362,21 +365,8 @@ mod imp {
             grid.attach(&this.profile_component(), 0, 1, 2, 1);
 
             // file list
-            let result_list = FileList::new(&this.file_metadata_service());
+            let result_list = self.result_list.borrow();
             result_list.set_height_request(200);
-            self.result_list.replace(Some(result_list.clone()));
-
-            self.virtual_directory.connect_closure(
-                "file-deleted",
-                false,
-                glib::closure_local!(
-                    #[weak]
-                    result_list,
-                    move |_: &Directory, f: &File| {
-                        result_list.remove_file(f);
-                    }
-                ),
-            );
 
             result_list.connect_show_quick_search(glib::clone!(
                 #[weak(rename_to = quick_search_box)]
@@ -393,7 +383,7 @@ mod imp {
                 .vexpand(true)
                 .hscrollbar_policy(gtk::PolicyType::Automatic)
                 .vscrollbar_policy(gtk::PolicyType::Automatic)
-                .child(&result_list)
+                .child(&*result_list)
                 .build();
             grid.attach(&sw, 0, 2, 2, 1);
             grid.attach(&self.quick_search_box, 0, 3, 2, 1);
@@ -486,7 +476,7 @@ mod imp {
                 }
             ));
 
-            let options = GeneralOptions::new();
+            let options = GeneralOptions::instance();
             remember_window_size(
                 &*this,
                 &options.search_window_width,
@@ -590,9 +580,7 @@ mod imp {
         }
 
         fn selected_file(&self) -> Option<File> {
-            let result_list = self.obj().result_list()?;
-            let file = result_list.selected_file()?;
-            Some(file)
+            self.obj().result_list().selected_file()
         }
 
         fn jump(&self) {
@@ -605,12 +593,7 @@ mod imp {
                 .obj()
                 .main_window()
                 .file_selector(FileSelectorID::Active);
-            file_selector.go_to_file(
-                &file,
-                self.obj()
-                    .result_list()
-                    .and_then(|result_list| result_list.connection()),
-            );
+            file_selector.go_to_file(&file, self.obj().result_list().connection());
             file_selector.grab_focus();
         }
 
@@ -634,10 +617,6 @@ mod imp {
 
             let start_dir = self.start_directory(&file);
 
-            let Some(result_list) = self.result_list.borrow().clone() else {
-                return;
-            };
-
             if let Some(cancellable) = self.cancellable.replace(None) {
                 cancellable.cancel();
             }
@@ -649,7 +628,7 @@ mod imp {
 
             let progress_bar = &self.progress_bar;
             let update_gui_timeout_id = glib::timeout_add_local(
-                GeneralOptions::new().gui_update_rate.get(),
+                GeneralOptions::instance().gui_update_rate.get(),
                 glib::clone!(
                     #[weak]
                     progress_bar,
@@ -669,20 +648,17 @@ mod imp {
             self.find_button.set_sensitive(false);
             self.obj().set_default_widget(Some(&self.stop_button));
 
-            self.virtual_directory.clear_files();
-            result_list.clear();
-            result_list
-                .set_connection_async(&start_dir.connection(), None)
-                .await;
-            result_list.set_base_dir(start_dir.local_path());
+            let result_list = self.result_list.borrow().clone();
+            let directory = Directory::create_virtual(&start_dir.connection());
+            result_list.set_directory(&directory);
 
             let search_result = backend::search(
                 &profile,
                 &start_dir,
                 &|message| match message {
                     SearchMessage::File(file) => {
-                        self.virtual_directory.listen_to_file(&file);
-                        self.virtual_directory.add_file(&file);
+                        directory.listen_to_file(&file);
+                        directory.add_file(&file);
                         result_list.append_file(&file);
                     }
                     SearchMessage::Status(status) => self.status_label.set_text(&status),
@@ -708,10 +684,7 @@ mod imp {
         fn search_finished(&self, stopped: bool) {
             self.progress_bar.set_visible(false);
 
-            let Some(result_list) = self.obj().result_list() else {
-                return;
-            };
-
+            let result_list = self.obj().result_list();
             let count = result_list.size();
 
             let status = if stopped {
@@ -756,53 +729,57 @@ mod imp {
             let text_pattern = default_profile.content_pattern();
             if !text_pattern.is_empty() {
                 config.add_content_pattern(&text_pattern);
-                if let Err(error) = ViewerOptions::new().add_to_history(&text_pattern, Mode::Text) {
+                if let Err(error) =
+                    ViewerOptions::instance().add_to_history(&text_pattern, Mode::Text)
+                {
                     eprintln!("{error}");
                 }
                 profile_component.set_content_patterns_history(&config.content_patterns());
             }
         }
 
-        pub fn file_view(&self) {
-            if let Some(file_list) = self.result_list.borrow().as_ref()
-                && let Err(error) =
-                    file_list.activate_action("fl.file-view", Some(&None::<bool>.to_variant()))
+        async fn file_view_impl(&self, use_internal_viewer: Option<bool>) {
+            let Some(file) = self.result_list.borrow().selected_file() else {
+                return;
+            };
+
+            if let Err(error) = file_view(
+                self.obj().upcast_ref(),
+                &file,
+                use_internal_viewer,
+                self.obj().main_window().file_metadata_service(),
+            )
+            .await
             {
-                eprintln!("Cannot activate action `file-view`: {error}");
+                error.show(self.obj().upcast_ref()).await;
             }
         }
 
-        pub fn file_internal_view(&self) {
-            if let Some(file_list) = self.result_list.borrow().as_ref()
-                && let Err(error) =
-                    file_list.activate_action("fl.file-view", Some(&true.to_variant()))
-            {
-                eprintln!("Cannot activate action `file-view`: {error}");
-            }
+        pub async fn file_view(&self) {
+            self.file_view_impl(None).await;
         }
 
-        pub fn file_external_view(&self) {
-            if let Some(file_list) = self.result_list.borrow().as_ref()
-                && let Err(error) =
-                    file_list.activate_action("fl.file-view", Some(&false.to_variant()))
-            {
-                eprintln!("Cannot activate action `file-view`: {error}");
-            }
+        pub async fn file_internal_view(&self) {
+            self.file_view_impl(Some(true)).await;
+        }
+
+        pub async fn file_external_view(&self) {
+            self.file_view_impl(Some(false)).await;
         }
 
         pub fn file_edit(&self) {
-            if let Some(file_list) = self.result_list.borrow().as_ref()
-                && let Err(error) = file_list.activate_action("fl.file-edit", None)
+            if let Err(error) = self
+                .result_list
+                .borrow()
+                .activate_action("fl.file-edit", None)
             {
                 eprintln!("Cannot activate action `file-edit`: {error}");
             }
         }
 
         pub fn file_delete(&self, force: bool) {
-            if let Some(file_list) = self.result_list.borrow().as_ref() {
-                let file_list = file_list.clone();
-                glib::spawn_future_local(async move { file_list.show_delete_dialog(force).await });
-            }
+            let file_list = self.obj().result_list();
+            glib::spawn_future_local(async move { file_list.show_delete_dialog(force).await });
         }
     }
 }
@@ -814,13 +791,8 @@ glib::wrapper! {
 }
 
 impl SearchDialog {
-    pub fn new(
-        config: Rc<SearchConfig>,
-        file_metadata_service: &FileMetadataService,
-        main_window: &MainWindow,
-    ) -> Self {
+    pub fn new(config: Rc<SearchConfig>, main_window: &MainWindow) -> Self {
         let this: Self = glib::Object::builder()
-            .property("file-metadata-service", file_metadata_service)
             .property("main-window", main_window)
             .build();
         this.imp().config.set(config.clone()).ok().unwrap();
@@ -840,25 +812,18 @@ impl SearchDialog {
         this
     }
 
-    pub fn show_and_set_focus(
-        &self,
-        start_dir: Option<&Directory>,
-        transient_for: Option<&MainWindow>,
-    ) {
+    pub fn show_and_set_focus(&self, start_dir: &Directory, transient_for: Option<&MainWindow>) {
         self.set_transient_for(transient_for);
         self.present();
         self.profile_component().grab_focus();
 
         self.profile_component().update();
-        self.set_start_dir(start_dir);
+        self.set_start_dir(Some(start_dir));
 
-        self.dir_browser()
-            .set_file(start_dir.map(|d| d.file().clone()));
+        self.dir_browser().set_file(Some(start_dir.file().clone()));
     }
 
     pub fn update_style(&self) {
-        if let Some(fl) = self.result_list() {
-            fl.update_style();
-        }
+        self.result_list().update_style();
     }
 }

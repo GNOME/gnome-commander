@@ -17,7 +17,7 @@ use gtk::{glib, prelude::*};
 #[async_recursion::async_recursion(?Send)]
 async fn chown_recursively(
     parent_window: &gtk::Window,
-    connection: Option<&Connection>,
+    connection: &Connection,
     file: &File,
     uid: Option<uid_t>,
     gid: gid_t,
@@ -36,11 +36,9 @@ async fn chown_recursively(
         return;
     }
 
-    if file.is_directory()
-        && let Some(connection) = connection
-    {
+    if file.is_directory() {
         let dir = Directory::new_from_file(connection, &*file.file());
-        if let Err(error) = dir.list_files(parent_window, false).await {
+        if let Err(error) = dir.list_files().await {
             error.show(parent_window).await;
             return;
         }
@@ -53,14 +51,14 @@ async fn chown_recursively(
             .cloned()
             .collect::<Vec<_>>();
         for child in files {
-            chown_recursively(parent_window, Some(connection), &child, uid, gid, recurse).await;
+            chown_recursively(parent_window, connection, &child, uid, gid, recurse).await;
         }
     }
 }
 
 async fn chown_files(
     parent_window: &gtk::Window,
-    connection: Option<&Connection>,
+    connection: &Connection,
     files: &[File],
     uid: Option<uid_t>,
     gid: gid_t,
@@ -73,7 +71,7 @@ async fn chown_files(
 
 pub async fn show_chown_dialog(
     parent_window: &gtk::Window,
-    connection: Option<&Connection>,
+    connection: &Connection,
     files: &[File],
 ) -> bool {
     let Some(file) = files.first() else {

@@ -6365,3 +6365,1777 @@ msgstr "无"
 #: plugins/taglib/taglib-plugin.cc:421
 msgid "10-15ms"
 msgstr "10-15 毫秒"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME 指挥官"
+
+#~ msgid "Two-pane file manager"
+#~ msgstr "双栏文件管理器"
+
+#~ msgid ""
+#~ "GNOME Commander is a “two-pane” graphical file manager for the GNOME desktop"
+#~ " environment. It features separate tabs for each pane, setting up custom "
+#~ "device buttons, bookmark manager, fully integrated commandline, file quick "
+#~ "search, an internal image viewer, a powerful batch renaming tool, and FTP "
+#~ "and Samba access."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+
+#~ msgid "A two paned file manager"
+#~ msgstr "一个双栏文件管理器"
+
+#~ msgid "Use default font"
+#~ msgstr "使用默认字体"
+
+#~ msgid ""
+#~ "Whether to use the system’s default fixed width font for the file panels "
+#~ "instead of a font specific to gnome-commander."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "A custom font that will be used for the file panes if the “Use default font”"
+#~ " option is turned off."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Defines how the filesize will be displayed in the associated pane column."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Defines how the file permission will be displayed in the associated pane "
+#~ "column."
+#~ msgstr ""
+
+#~ msgid "Defines the icon style of files and folders in the file panes."
+#~ msgstr ""
+
+#~ msgid "Defines the height of a row in the file pane."
+#~ msgstr ""
+
+#~ msgid "Format of the date in the file pane."
+#~ msgstr "文件面板中的日期格式。"
+
+#~ msgid "The font in the file panes."
+#~ msgstr "文件面板中的字体。"
+
+#, fuzzy
+#~| msgid "Number of lines in the document."
+#~ msgid "Size of icons in the file pane."
+#~ msgstr "文档的行数。"
+
+#~ msgid "Device icon size"
+#~ msgstr "设备图标大小"
+
+#~ msgid "Icon size in the device list."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Defines if the orientation of the file panes should be horizontal or not."
+#~ msgstr ""
+
+#~ msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
+#~ msgstr ""
+
+#~ msgid "Main window horizontal position"
+#~ msgstr ""
+
+#~ msgid "Position of the main window in horizontal direction."
+#~ msgstr ""
+
+#~ msgid "Main window vertical position"
+#~ msgstr ""
+
+#~ msgid "Position of the main window in vertical direction."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Defines if the current directories are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Defines if the current open tabs are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This option defines if directories will be marked when all items in a file "
+#~ "pane should be marked."
+#~ msgstr ""
+
+#~ msgid "Quick search exact match begin"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the beginning"
+#~ " of an item name."
+#~ msgstr ""
+
+#, fuzzy
+#~| msgid "Quick search"
+#~ msgid "Quick search exact match end"
+#~ msgstr "快速搜索"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the end of an"
+#~ " item name."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The entries in this list are used for restoring the tabs from the last "
+#~ "session."
+#~ msgstr ""
+
+#, fuzzy
+#~| msgid "Needs terminal"
+#~ msgid "Leave terminal open"
+#~ msgstr "需要终端"
+
+#~ msgid ""
+#~ "This option defines if a terminal window should stay open after a command "
+#~ "finishes inside of it."
+#~ msgstr ""
+
+#~ msgid "Fixed font name"
+#~ msgstr "定宽字体名称"
+
+#~ msgid "Name of the default font with fixed character width."
+#~ msgstr "定宽字符的默认字体名称。"
+
+#~ msgid "Variable font name"
+#~ msgstr ""
+
+#~ msgid "Name of the default font with variable character width."
+#~ msgstr ""
+
+#~ msgid "Font size"
+#~ msgstr "字体大小"
+
+#~ msgid "This option defines the default font size."
+#~ msgstr ""
+
+#, fuzzy
+#~| msgid "Flip _Horizontal"
+#~ msgid "Horizontal offset"
+#~ msgstr "水平翻转(_H)"
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "horizontal direction."
+#~ msgstr ""
+
+#~ msgid "Vertical offset"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This option defines the visual offset of the internal file viewer in "
+#~ "vertical direction."
+#~ msgstr ""
+
+#~ msgid "No error description available"
+#~ msgstr "没有可用的错误描述"
+
+#~ msgid "Folder selection"
+#~ msgstr "文件夹选择"
+
+#~ msgid "File selection"
+#~ msgstr "文件选择"
+
+#, fuzzy
+#~| msgid "/_Save Profile As..."
+#~ msgid "/_Save Profile As…"
+#~ msgstr "/配置另存为(_S)..."
+
+#, fuzzy
+#~| msgid "/_Manage Profiles..."
+#~ msgid "/_Manage Profiles…"
+#~ msgstr "/管理配置(_M)..."
+
+#~ msgid "Current file name"
+#~ msgstr "当前文件名"
+
+#~ msgid "New file name"
+#~ msgstr "新文件名"
+
+#~ msgid "File size"
+#~ msgstr "文件大小"
+
+#~ msgid "File modification date"
+#~ msgstr "文件更改日期"
+
+#~ msgid "_Replace with:"
+#~ msgstr "替换(_R)："
+
+#, fuzzy, c-format
+#~| msgid "Could not chown %s"
+#~ msgid "Could not chmod %s"
+#~ msgstr "无改变 %s 的所有者"
+
+#, c-format
+#~ msgid "Could not chown %s"
+#~ msgstr "无改变 %s 的所有者"
+
+#~ msgid "Chown"
+#~ msgstr "改变所有者"
+
+#, c-format
+#~ msgid "“%s” is not a valid location"
+#~ msgstr "“%s”是无效的路径"
+
+#~ msgid "Remote Server"
+#~ msgstr "远程服务器"
+
+#, fuzzy, c-format
+#~| msgid "Deleted %ld of %ld file"
+#~| msgid_plural "Deleted %ld of %ld files"
+#~ msgid "Deleted %lu of %lu file"
+#~ msgid_plural "Deleted %lu of %lu files"
+#~ msgstr[0] "已删除 %ld 个文件，共 %ld 个"
+
+#, fuzzy, c-format
+#~| msgid ""
+#~| "Error while deleting \"%s\"\n"
+#~| "\n"
+#~| "%s"
+#~ msgid ""
+#~ "Error while deleting “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "删除 %s 时出错。\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Delete problem"
+#~ msgstr "删除问题"
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting: \n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+
+#, c-format
+#~ msgid "Do you really want to delete “%s”?"
+#~ msgstr "您确认要删除“%s”吗？"
+
+#, fuzzy, c-format
+#~| msgid "The directory '%s' doesn't exist, do you want to create it?"
+#~ msgid "The directory “%s” is not empty. Do you really want to delete it?"
+#~ msgstr "目录 %s 不存在，您要创建吗？"
+
+#, fuzzy, c-format
+#~| msgid "Do you want to delete \"%s\"?"
+#~ msgid "Do you want to permanently delete “%s”?"
+#~ msgstr "您想删除“%s”吗？"
+
+#, c-format
+#~ msgid "Do you want to move “%s” to the trash can?"
+#~ msgstr ""
+
+#, fuzzy
+#~| msgid "Bookmark name is missing"
+#~ msgid "Bookmark name is missing."
+#~ msgstr "书签名称丢失"
+
+#, fuzzy
+#~| msgid "Bookmark target is missing"
+#~ msgid "Bookmark target is missing."
+#~ msgstr "书签目标丢失"
+
+#~ msgid "Image:"
+#~ msgstr "图像："
+
+#~ msgid "Content Type:"
+#~ msgstr "内容类型："
+
+#~ msgid "Type"
+#~ msgstr "类型："
+
+#~ msgid "Metadata namespace"
+#~ msgstr "元数据命名空间"
+
+#~ msgid "Tag name"
+#~ msgstr "标签名称"
+
+#~ msgid "Tag value"
+#~ msgstr "标签值"
+
+#~ msgid "Metadata tag description"
+#~ msgstr "元数据 Tag 描述"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the corresponding row and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr "要编辑快捷键，点击相应列并按下新的快捷键，或按 ESC 键取消。"
+
+#~ msgid "Shortcut Key"
+#~ msgstr "快捷键"
+
+#~ msgid "Keyboard shortcut for selected action"
+#~ msgstr "对应所选操作的键盘快捷键"
+
+#~ msgid "Action"
+#~ msgstr "操作"
+
+#~ msgid "User action"
+#~ msgstr "用户操作"
+
+#~ msgid "Optional data"
+#~ msgstr "可选数据"
+
+#, fuzzy, c-format
+#~| msgid "Shortcut \"%s\" is already taken by \"%s\"."
+#~ msgid "Shortcut “%s” is already taken by “%s”."
+#~ msgstr "快捷键“%s”已被“%s”占用。"
+
+#~ msgid "Conflicting Shortcuts"
+#~ msgstr "冲突的快捷键"
+
+#, fuzzy, c-format
+#~| msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
+#~ msgid "Reassigning the shortcut will cause it to be removed from “%s”."
+#~ msgstr "重新分配快捷键将把它从“%s”移除。"
+
+#~ msgid "Invalid shortcut."
+#~ msgstr "无效的快捷键。"
+
+#~ msgid "Do nothing"
+#~ msgstr "无操作"
+
+#, c-format
+#~ msgid "Copy “%s” to"
+#~ msgstr "复制“%s”到"
+
+#~ msgid "Group"
+#~ msgstr "组"
+
+#~ msgid "Bookmark group"
+#~ msgstr "书签组"
+
+#~ msgid "Bookmark name"
+#~ msgstr "书签名称"
+
+#~ msgid "Keyboard shortcut for selected bookmark"
+#~ msgstr "所选书签的键盘快捷键"
+
+#~ msgid "Bookmarked path"
+#~ msgstr "加为书签的路径"
+
+#~ msgid "Profile name"
+#~ msgstr "配置名称"
+
+#, c-format
+#~ msgid "Make directory failed: %s\n"
+#~ msgstr "创建目录失败：%s\n"
+
+#, fuzzy
+#~| msgid "Quick search"
+#~ msgid "Sorting/Quick search"
+#~ msgstr "快速搜索"
+
+#, fuzzy
+#~| msgid "ALT+letters (menu access with F10)"
+#~ msgid "ALT+letters (menu access with F12)"
+#~ msgstr "ALT+字母键(用 F10 访问菜单)"
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "匹配文件名开头"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "匹配文件名的结尾"
+
+#, fuzzy
+#~| msgid ""
+#~| "See the manual page for \"strftime\" for help on how to set the format "
+#~| "string."
+#~ msgid ""
+#~ "See the manual page for “strftime” for help on how to set the format string."
+#~ msgstr "查看手册页的“strftime”获得格式字符串的帮助。"
+
+#~ msgid "Colors"
+#~ msgstr "颜色"
+
+#~ msgid "Palette"
+#~ msgstr "调色板"
+
+#~ msgid "Foreground:"
+#~ msgstr "前景："
+
+#~ msgid "Background:"
+#~ msgstr "背景："
+
+#~ msgid "File panes"
+#~ msgstr "文件窗格"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr ""
+
+#~ msgid "Leave terminal window open"
+#~ msgstr ""
+
+#~ msgid "Device:"
+#~ msgstr "设备："
+
+#~ msgid "Overwrite Files"
+#~ msgstr "覆盖文件"
+
+#, c-format
+#~ msgid "copy %d file to"
+#~ msgid_plural "copy %d files to"
+#~ msgstr[0] "复制 %d 个文件到"
+
+#, c-format
+#~ msgid "Move “%s” to"
+#~ msgstr "移动“%s”到"
+
+#, c-format
+#~ msgid "move %d file to"
+#~ msgid_plural "move %d files to"
+#~ msgstr[0] "移动 %d 个文件到"
+
+#, fuzzy, c-format
+#~| msgid "The directory '%s' doesn't exist, do you want to create it?"
+#~ msgid "The directory “%s” doesn’t exist, do you want to create it?"
+#~ msgstr "目录 %s 不存在，您要创建吗？"
+
+#~ msgid "Unknown error"
+#~ msgstr "未知错误"
+
+#~ msgid "Network protocol"
+#~ msgstr "网络协议"
+
+#~ msgid "Connection name"
+#~ msgstr "连接名"
+
+#~ msgid "Connections"
+#~ msgstr "连接"
+
+#, c-format
+#~ msgid "%d file listed"
+#~ msgid_plural "%d files listed"
+#~ msgstr[0] "已列出 %d 个文件"
+
+#~ msgid "Accelerator key"
+#~ msgstr "快捷键"
+
+#~ msgid "Accelerator modifiers"
+#~ msgstr "快捷键修饰键"
+
+#~ msgid "Accelerator Mode"
+#~ msgstr "快捷键模式"
+
+#~ msgid "The type of accelerator."
+#~ msgstr "快捷键类型。"
+
+#~ msgid "Disabled"
+#~ msgstr "已禁用"
+
+#~ msgid "New accelerator…"
+#~ msgstr "新建快捷键…"
+
+#~ msgid "Credits"
+#~ msgstr "鸣谢："
+
+#~ msgid "Plugin Webpage"
+#~ msgstr "插件主页"
+
+#~ msgid "C_redits"
+#~ msgstr "鸣谢(_R)"
+
+#~ msgid "/Grandparent"
+#~ msgstr "/上上级"
+
+#~ msgid "/Parent"
+#~ msgstr "/向上"
+
+#~ msgid "/File name"
+#~ msgstr "/文件名"
+
+#~ msgid "/File name (range)"
+#~ msgstr "/文件名(范围)"
+
+#~ msgid "/File name without extension"
+#~ msgstr "/不带扩展名的文件名"
+
+#~ msgid "/File name without extension (range)"
+#~ msgstr "/不带扩展名的文件名(范围)"
+
+#~ msgid "/File extension"
+#~ msgstr "/文件扩展名"
+
+#~ msgid "/Counter"
+#~ msgstr "/计数"
+
+#~ msgid "/Counter (width)"
+#~ msgstr "/计数器（宽度）"
+
+#~ msgid "/Counter (auto)"
+#~ msgstr "/计数器（自动）"
+
+#~ msgid "/Hexadecimal random number (width)"
+#~ msgstr "/十六进制随机数(宽度)"
+
+#~ msgid "/Date"
+#~ msgstr "/日期"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "日期/<locale>"
+
+#~ msgid "/Date/yyyy-mm-dd"
+#~ msgstr "/日期/yyyy-mm-dd"
+
+#~ msgid "/Date/yy-mm-dd"
+#~ msgstr "/日期/yy-mm-dd"
+
+#~ msgid "/Date/yy.mm.dd"
+#~ msgstr "/日期/yy.mm.dd"
+
+#~ msgid "/Date/yymmdd"
+#~ msgstr "/日期/yymmdd"
+
+#~ msgid "/Date/dd.mm.yy"
+#~ msgstr "/日期/dd.mm.yy"
+
+#~ msgid "/Date/mm-dd-yy"
+#~ msgstr "/日期/mm-dd-yy"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/日期/yyyy"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/日期/yy"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/日期/mm"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/日期/mmm"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/日期/dd"
+
+#~ msgid "/Time"
+#~ msgstr "/时间"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/时间/<locale>"
+
+#~ msgid "/Time/HH.MM.SS"
+#~ msgstr "/时间/HH.MM.SS"
+
+#~ msgid "/Time/HH-MM-SS"
+#~ msgstr "/时间/HH-MM-SS"
+
+#~ msgid "/Time/HHMMSS"
+#~ msgstr "/时间/HHMMSS"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/时间/HH"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/时间/MM"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/时间/SS"
+
+#~ msgid "Regex pattern"
+#~ msgstr "正则表达式模式"
+
+#~ msgid "Replacement"
+#~ msgstr "替换"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "区分大小写"
+
+#, c-format
+#~ msgid "The program has now finished. Press Enter to close this window.\n"
+#~ msgstr ""
+
+#, fuzzy, c-format
+#~| msgid "Mount failed: mount exited with existatus %d"
+#~ msgid "Mount failed: mount exited with exitstatus %d"
+#~ msgstr "挂载错误：mount 退出。状态 %d"
+
+#, c-format
+#~ msgid ""
+#~ "Cannot unmount the volume:\n"
+#~ "%s\n"
+#~ "Error code: %d"
+#~ msgstr ""
+#~ "无法卸载卷：\n"
+#~ "%s\n"
+#~ "错误代码：%d"
+
+#, c-format
+#~ msgid "Go to: %s (%s)"
+#~ msgstr "转到：%s (%s)"
+
+#, c-format
+#~ msgid "Go to: %s"
+#~ msgstr "转到：%s"
+
+#, c-format
+#~ msgid "Mount: %s"
+#~ msgstr "挂载：%s"
+
+#, c-format
+#~ msgid "Unmount: %s"
+#~ msgstr "卸载：%s"
+
+#~ msgid "<New connection>"
+#~ msgstr "<新建连接>"
+
+#, c-format
+#~ msgid "Connect to: %s"
+#~ msgstr "连接到：%s"
+
+#, c-format
+#~ msgid "Disconnect from: %s"
+#~ msgstr "从 %s 断开连接"
+
+#, c-format
+#~ msgid "Connecting to %s\n"
+#~ msgstr "正在连接到 %s\n"
+
+#, c-format
+#~ msgid "_Open with “%s”"
+#~ msgstr "使用“%s”打开(_O)"
+
+#~ msgid "/_Copy here"
+#~ msgstr "/复制到此处(_C)"
+
+#~ msgid "/_Move here"
+#~ msgstr "/移动到此处(_M)"
+
+#~ msgid "/_Link here"
+#~ msgstr "/链接到此处(_L)"
+
+#~ msgid "/C_ancel"
+#~ msgstr "/取消(_A)"
+
+#, fuzzy, c-format
+#~| msgid ""
+#~| "\"%s\" seems to be a binary executable file but it lacks the executable bit."
+#~| " Do you want to set it and then run the file?"
+#~ msgid ""
+#~ "“%s” seems to be a binary executable file but it lacks the executable bit. "
+#~ "Do you want to set it and then run the file?"
+#~ msgstr "“%s”是一个二进制可执行文件，但是缺少可执行位。您想设置可执行位并运行它吗？"
+
+#~ msgid "Make Executable?"
+#~ msgstr "使其可执行？"
+
+#~ msgid "OK"
+#~ msgstr "确定"
+
+#, fuzzy, c-format
+#~| msgid ""
+#~| "\"%s\" is an executable text file. Do you want to run it, or display its "
+#~| "contents?"
+#~ msgid ""
+#~ "“%s” is an executable text file. Do you want to run it, or display its "
+#~ "contents?"
+#~ msgstr "“%s”是一个可执行的文本文件。您想运行它还是显示它的内容？"
+
+#~ msgid "Run or Display"
+#~ msgstr "运行或显示"
+
+#~ msgid "Display"
+#~ msgstr "显示"
+
+#~ msgid "Run"
+#~ msgstr "运行"
+
+#, fuzzy, c-format
+#~| msgid "No default application found for the MIME type %s."
+#~ msgid "No default application found for the file type %s."
+#~ msgstr "没有对应于 MIME 类型 %s 的默认应用程序。"
+
+#, c-format
+#~ msgid ""
+#~ "%s does not know how to open remote file. Do you want to download the file "
+#~ "to a temporary location and then open it?"
+#~ msgid_plural ""
+#~ "%s does not know how to open remote files. Do you want to download the files"
+#~ " to a temporary location and then open them?"
+#~ msgstr[0] "%s 不知道如何打开远程文件。您想将其下载到一个临时位置再打开吗？"
+
+#~ msgid "Failed to open connection."
+#~ msgstr "打开连接失败。"
+
+#~ msgid "Needs terminal"
+#~ msgstr "需要终端"
+
+#~ msgid "Other _Application…"
+#~ msgstr "其他应用程序(_A)…"
+
+#~ msgid "Cut"
+#~ msgstr "剪切"
+
+#~ msgid "Send files"
+#~ msgstr "发送文件"
+
+#~ msgid "Open _terminal here"
+#~ msgstr "打开终端"
+
+#~ msgid "Copy file names"
+#~ msgstr "复制文件名"
+
+#, c-format
+#~ msgid "%s of %s kB in %d of %d file"
+#~ msgid_plural "%s of %s kB in %d of %d files"
+#~ msgstr[0] "选中了在 %4$d 个文件中的第 %3$d 个，即 %2$s kB 中的 %1$s"
+
+#, c-format
+#~ msgid "%s, %d of %d dir selected"
+#~ msgid_plural "%s, %d of %d dirs selected"
+#~ msgstr[0] "选中了 %1$s，%3$d 个目录中的第 %2$d 个"
+
+#~ msgid "Copy Tab to Other _Pane"
+#~ msgstr "将标签复制到另一面板(_P)"
+
+#~ msgid "No file name given"
+#~ msgstr "没有给文件名"
+
+#~ msgid "Filter:"
+#~ msgstr "过滤器："
+
+#~ msgid "_New"
+#~ msgstr "新建(_N)"
+
+#~ msgid "_Directory"
+#~ msgstr "目录(_D)"
+
+#~ msgid "_Text File"
+#~ msgstr "文本文件(_T)"
+
+#, fuzzy
+#~| msgid "_Enable Filter..."
+#~ msgid "_Enable Filter…"
+#~ msgstr "启用过滤器(_E)..."
+
+#~ msgid "Start _GNOME Commander as root"
+#~ msgstr "以 Root 启动 _GNOME 指挥官"
+
+#~ msgid "_Quit"
+#~ msgstr "退出(_Q)"
+
+#~ msgid "Copy _File Names"
+#~ msgstr "复制文件名(_F)"
+
+#~ msgid "_Restore Selection"
+#~ msgstr "恢复选择(_R)"
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "网上的 GNOME 指挥官(_W)"
+
+#~ msgid "Refresh"
+#~ msgstr "刷新"
+
+#~ msgid "Go to the oldest"
+#~ msgstr "转到最先的位置"
+
+#~ msgid "Go back"
+#~ msgstr "后退"
+
+#~ msgid "Go forward"
+#~ msgstr "前进"
+
+#~ msgid "Go to the latest"
+#~ msgstr "转到最后的位置"
+
+#~ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+#~ msgstr "复制文件名(按 SHIFT 复制完整路径，按 ALT 复制 URI)"
+
+#~ msgid "Paste"
+#~ msgstr "粘贴"
+
+#~ msgid "Open terminal (SHIFT for root privileges)"
+#~ msgstr "打开终端(用 SHIFT 来得到 root 权限)"
+
+#~ msgid "GNOME Commander — ROOT PRIVILEGES"
+#~ msgstr "GNOME 指挥官 - ROOT 特权"
+
+#~ msgid "Path matches regex:"
+#~ msgstr ""
+
+#~ msgid "Name contains:"
+#~ msgstr "名称包含："
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "区分大小写(_V)"
+
+#~ msgid "Bookmark current directory"
+#~ msgstr "添加当前目录为书签"
+
+#~ msgid "Manage bookmarks"
+#~ msgstr "管理书签"
+
+#~ msgid "Open terminal"
+#~ msgstr "打开终端"
+
+#, fuzzy
+#~ msgid "Open terminal as root"
+#~ msgstr "打开终端"
+
+#~ msgid "Start GNOME Commander as root"
+#~ msgstr "以 root 启动 GNOME 指挥官"
+
+#~ msgid "Close connection"
+#~ msgstr "关闭连接"
+
+#~ msgid "New connection"
+#~ msgstr "新建连接"
+
+#~ msgid "Open connection"
+#~ msgstr "打开连接"
+
+#~ msgid "Change left connection"
+#~ msgstr "更改左侧连接"
+
+#~ msgid "Change right connection"
+#~ msgstr "更改右侧连接"
+
+#~ msgid "Show user defined files"
+#~ msgstr "显示用户定义的文件"
+
+#~ msgid "Advanced rename tool"
+#~ msgstr "高级重命名工具"
+
+#~ msgid "Change permissions"
+#~ msgstr "更改权限"
+
+#~ msgid "Change owner/group"
+#~ msgstr "改变所有者/组"
+
+#~ msgid "Copy files"
+#~ msgstr "复制文件"
+
+#~ msgid "Create symbolic link"
+#~ msgstr "创建符号连接"
+
+#~ msgid "Delete files"
+#~ msgstr "删除文件"
+
+#~ msgid "Compare files (diff)"
+#~ msgstr "比较文件(diff)"
+
+#~ msgid "Edit file"
+#~ msgstr "编辑文件"
+
+#~ msgid "Edit a new file"
+#~ msgstr "编辑新文件"
+
+#~ msgid "Create directory"
+#~ msgstr "创建目录"
+
+#~ msgid "Move files"
+#~ msgstr "移动文件"
+
+#~ msgid "Rename files"
+#~ msgstr "重命名文件"
+
+#~ msgid "Synchronize directories"
+#~ msgstr "同步目录"
+
+#~ msgid "About GNOME Commander"
+#~ msgstr "关于 GNOME 指挥官"
+
+#~ msgid "Help contents"
+#~ msgstr "帮助内容"
+
+#~ msgid "Help on keyboard shortcuts"
+#~ msgstr "有关键盘快捷键的帮助"
+
+#~ msgid "Report a problem"
+#~ msgstr "报告问题"
+
+#~ msgid "GNOME Commander on the web"
+#~ msgstr "网上的 GNOME 指挥官"
+
+#~ msgid "Compare directories"
+#~ msgstr "比较目录"
+
+#~ msgid "Invert selection"
+#~ msgstr "反转选择"
+
+#~ msgid "Select all"
+#~ msgstr "全部选中"
+
+#~ msgid "Select all files"
+#~ msgstr "选择全部文件"
+
+#~ msgid "Unselect all files"
+#~ msgstr "取消选择全部文件"
+
+#~ msgid "Unselect all"
+#~ msgstr "全部不选"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "键盘快捷键"
+
+#~ msgid "Configure plugins"
+#~ msgstr "配置插件"
+
+#~ msgid "Back one directory"
+#~ msgstr "后退一个目录"
+
+#~ msgid "Close the current tab"
+#~ msgstr "关闭当前标签"
+
+#~ msgid "Close all tabs"
+#~ msgstr "关闭所有标签"
+
+#~ msgid "Show directory history"
+#~ msgstr "显示目录历史"
+
+#~ msgid "Equal panel size"
+#~ msgstr "使面板等大"
+
+#, fuzzy
+#~| msgid "Equal panel size"
+#~ msgid "Maximize panel size"
+#~ msgstr "使面板等大"
+
+#~ msgid "Back to the first directory"
+#~ msgstr "后退到第一个目录"
+
+#~ msgid "Forward one directory"
+#~ msgstr "前进一个目录"
+
+#~ msgid "Open directory in the active window"
+#~ msgstr "在活动窗口中打开目录"
+
+#~ msgid "Open directory in the inactive window"
+#~ msgstr "在非活动窗口打开文件夹"
+
+#~ msgid "Open directory in the left window"
+#~ msgstr "在左侧窗口中打开目录"
+
+#~ msgid "Open directory in the right window"
+#~ msgstr "在右侧窗口中打开目录"
+
+#~ msgid "Open directory in the new tab (inactive window)"
+#~ msgstr "在新标签中打开目录(不激活窗口)"
+
+#~ msgid "Forward to the last directory"
+#~ msgstr "前往上次的目录"
+
+#~ msgid "Open directory in a new tab"
+#~ msgstr "在新标签中打开目录"
+
+#~ msgid "Show terminal"
+#~ msgstr "显示终端"
+
+#, c-format
+#~ msgid "Create symbolic links of %i file in %s?"
+#~ msgid_plural "Create symbolic links of %i files in %s?"
+#~ msgstr[0] "在 %2$s 中创建 %1$i 个文件的符号链接？"
+
+#, fuzzy
+#~ msgid "Unable to open terminal in root mode."
+#~ msgstr "无法打开终端"
+
+#, fuzzy
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
+#~ msgstr "没有找到 xdg-su、gksu、gnomesu、kdesu 或 beesu。"
+
+#~ msgid "Unable to start GNOME Commander in root mode."
+#~ msgstr "无法以 root 模式启动 GNOME 指挥官。"
+
+#, fuzzy
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+#~ msgstr "没有找到 xdg-su、gksu、gnomesu、kdesu 或 beesu。"
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "GNOME 桌面上的一个快速强大的文件管理器"
+
+#~ msgid ""
+#~ "GNOME Commander is free software; you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation; either version 2 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME 指挥官是自由软件；您可以在自由软件基金会发布的 GNU 通用公共许可证的条款约束下重新发布和/或修改它；可以自愿选择许可证的第 2 "
+#~ "版或其他更新版本。"
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "GNOME Commander 的发布是希望它有用，但没有任何担保；甚至没有任何商业性或对特定目的适合的担保。参见 GNU "
+#~ "通用公共许可协议获取更多信息。"
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+#~ msgstr ""
+#~ "您应当已随 GNOME Commander 收到了一份 GNU 通用公共许可协议；如果没有，可以给自由软件基金会写信，地址是：51 Franklin "
+#~ "Street, Fifth Floor, Boston, MA 02110-1301, USA"
+
+#~ msgid "Transfer problem"
+#~ msgstr "传输问题"
+
+#, fuzzy
+#~| msgid "Copy File"
+#~ msgid "Copy problem"
+#~ msgstr "复制文件"
+
+#, c-format
+#~ msgid ""
+#~ "Overwrite file:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>\n"
+#~ "\n"
+#~ "With:\n"
+#~ "\n"
+#~ "<b>%s</b>\n"
+#~ "<span color='dimgray' size='smaller'>%s</span>"
+#~ msgstr ""
+
+#, fuzzy, c-format
+#~| msgid ""
+#~| "Error while deleting \"%s\"\n"
+#~| "\n"
+#~| "%s"
+#~ msgid ""
+#~ "Error while transferring “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "删除 %s 时出错。\n"
+#~ "\n"
+#~ "%s"
+
+#, fuzzy
+#~| msgid "Delete problem"
+#~ msgid "Move problem"
+#~ msgstr "删除问题"
+
+#, fuzzy, c-format
+#~| msgid "[file %ld of %ld] \"%s\""
+#~ msgid "[file %ld of %ld] “%s”"
+#~ msgstr "[第%ld个文件，共%ld个]“%s”"
+
+#, fuzzy, c-format
+#~| msgid ""
+#~| "Error while deleting \"%s\"\n"
+#~| "\n"
+#~| "%s"
+#~ msgid ""
+#~ "Error while creating symlink “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "删除 %s 时出错。\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Symlink creation problem"
+#~ msgstr ""
+
+#, c-format
+#~ msgid ""
+#~ "Source “%s” could not be deleted. Aborting!\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+
+#~ msgid "stopping…"
+#~ msgstr "正在停止…"
+
+#, c-format
+#~ msgid "%s of %s copied"
+#~ msgstr "已复制 %2$s 中的 %1$s"
+
+#, c-format
+#~ msgid "%.0f%% copied"
+#~ msgstr "已复制 %.0f%%"
+
+#, fuzzy, c-format
+#~ msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
+#~ msgstr "不能加载已安装的文件类型 pixmap，尝试从源目录中加载\n"
+
+#, fuzzy, c-format
+#~ msgid ""
+#~ "Can’t find the pixmap anywhere. Make sure you have installed the program or "
+#~ "is executing gnome-commander from the gnome-commander-%s/src directory"
+#~ msgstr ""
+#~ "找不到 pixmap。请确保您已经安装了该程序或执行的是 gnome-commander-%s/src 目录中的 gnome-commander\n"
+
+#, fuzzy, c-format
+#~ msgid "Couldn’t load installed pixmap, trying to load %s instead"
+#~ msgstr "不能加载已安装的 pixmap，尝试从源目录中加载\n"
+
+#~ msgid "Find"
+#~ msgstr "查找"
+
+#~ msgid "Searching…"
+#~ msgstr "正在搜索…"
+
+#, fuzzy, c-format
+#~| msgid "Searching for \"%s\""
+#~ msgid "Searching for “%s”"
+#~ msgstr "搜索“%s”"
+
+#, c-format
+#~ msgid "Position: %lu of %lu\tColumn: %d\t%s"
+#~ msgstr "位置：%lu / %lu\t列：%d\t%s"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "像素"
+
+#~ msgid "bit/sample"
+#~ msgid_plural "bits/sample"
+#~ msgstr[0] "位"
+
+#, fuzzy
+#~ msgid "_Copy selection"
+#~ msgstr "复制选择的文本(_C)"
+
+#~ msgid "_Binary"
+#~ msgstr "二进制(_B)"
+
+#~ msgid "Arabic (Windows, CP1256)"
+#~ msgstr ""
+
+#~ msgid "Rotate Clockwise"
+#~ msgstr "顺时针旋转"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "二进制模式(_B)"
+
+#~ msgid "_Save Current Settings"
+#~ msgstr "保存当前设置(_S)"
+
+#, fuzzy, c-format
+#~| msgid "Pattern \"%s\" was not found"
+#~ msgid "Pattern “%s” was not found"
+#~ msgstr "未找到“%s”模式"
+
+#~ msgid "Specify the start directory for the left pane"
+#~ msgstr "指定左侧窗格的起始目录"
+
+#~ msgid "Specify the start directory for the right pane"
+#~ msgstr "指定右侧窗格的起始目录"
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr "指定配置文件目录"
+
+#~ msgid "File Manager"
+#~ msgstr "文件管理器"
+
+#~ msgid "Disable"
+#~ msgstr "禁用"
+
+#~ msgid "Enable"
+#~ msgstr "启用"
+
+#~ msgid "Version"
+#~ msgstr "版本"
+
+#~ msgid "_Enable"
+#~ msgstr "启用(_E)"
+
+#~ msgid "_Configure"
+#~ msgstr "配置(_C)"
+
+#~ msgid "<Exif and IPTC tags not supported>"
+#~ msgstr "<不支持 Exif 和 IPTC 标签>"
+
+#~ msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+#~ msgstr "<不支持 ID3、APE、FLAC 和 Vorbis 标签>"
+
+#~ msgid "<OLE2 and ODF tags not supported>"
+#~ msgstr "<不支持 OLE2 和 ODF 标签>"
+
+#~ msgid "<PDF tags not supported>"
+#~ msgstr "<不支持 PDF 标签>"
+
+#~ msgid "Created"
+#~ msgstr "已创建"
+
+#~ msgid ""
+#~ "Date associated with an event in the life cycle of the resource "
+#~ "(creation/publication date)."
+#~ msgstr "资源生命周期内与一个事件相关联的日期(创建/发布日期)。"
+
+#~ msgid "Exif IFD Pointer"
+#~ msgstr "Exif IFD 指针"
+
+#, fuzzy
+#~ msgid ""
+#~ "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure"
+#~ " as that of the IFD specified in TIFF."
+#~ msgstr "到 Exif IFD 的指针。对于互操作性，Exif IFD 和 TIFF 中指定的 IFD 有相同结构。"
+
+#~ msgid "Interoperability IFD Pointer"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Interoperability IFD is composed of tags which stores the information to "
+#~ "ensure the Interoperability and pointed by the following tag located in Exif"
+#~ " IFD. The Interoperability structure of Interoperability IFD is the same as "
+#~ "TIFF defined IFD structure but does not contain the image data "
+#~ "characteristically compared with normal TIFF IFD."
+#~ msgstr ""
+
+#~ msgid "Emphasis"
+#~ msgstr ""
+
+#~ msgid "Emphasis."
+#~ msgstr ""
+
+#~ msgid "Equalization 2"
+#~ msgstr "均衡 2"
+
+#~ msgid "Frames"
+#~ msgstr "帧"
+
+#~ msgid "Number of frames."
+#~ msgstr "帧数。"
+
+#~ msgid "InvolvedPeople2"
+#~ msgstr ""
+
+#~ msgid "Size of the audio file in bytes, excluding the ID3 tag."
+#~ msgstr "以字节为单位的音频文件大小，不包括 ID3 标签。"
+
+#~ msgid "Volume Adjustment 2"
+#~ msgstr "音量调节 2"
+
+#, c-format
+#~ msgid "unsupported tag (suppressed %ld B of binary data)"
+#~ msgstr ""
+
+#, c-format
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "（%s字节）"
+
+#, c-format
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "%s字节"
+
+#, fuzzy
+#~| msgid ""
+#~| "Failed to create a directory in which to store temporary files"
+#~ msgid "Failed to change working directory to a temporary directory."
+#~ msgstr "创建用于保存临时文件的目录失败"
+
+#, fuzzy
+#~| msgid ""
+#~| "Failed to create a directory in which to store temporary files"
+#~ msgid "Failed to create a directory in which to store temporary files."
+#~ msgstr "创建用于保存临时文件的目录失败"
+
+#, c-format
+#~ msgid "Creating directory %s… "
+#~ msgstr "正在创建目录 %s … "
+
+#, c-format
+#~ msgid "Failed to create the directory %s: %s"
+#~ msgstr "创建目录 %s 失败：%s"
+
+#~ msgid "There was an error displaying help."
+#~ msgstr "显示帮助时出现了错误。"
+
+#~ msgid "CVS options"
+#~ msgstr "CVS 选项"
+
+#~ msgid "Compression level"
+#~ msgstr "压缩级别"
+
+#~ msgid "Unified diff format"
+#~ msgstr "统一 DIFF 格式"
+
+#~ msgid "A plugin that eventually will be a simple CVS client"
+#~ msgstr "一个简单的 CVS 插件"
+
+#~ msgid "Compare with"
+#~ msgstr "比较"
+
+#~ msgid "HEAD"
+#~ msgstr "HEAD"
+
+#~ msgid "The previous revision"
+#~ msgstr "以前的修订版"
+
+#~ msgid "Other revision"
+#~ msgstr "其它修订版"
+
+#~ msgid "CVS Diff"
+#~ msgstr "CVS 差异"
+
+#~ msgid "revision"
+#~ msgstr "修订"
+
+#~ msgid "Revision:"
+#~ msgstr "修订："
+
+#~ msgid "Compare..."
+#~ msgstr "比较..."
+
+#~ msgid "Author:"
+#~ msgstr "作者："
+
+#~ msgid "Date:"
+#~ msgstr "日期:"
+
+#~ msgid "State:"
+#~ msgstr "状态："
+
+#~ msgid "Lines:"
+#~ msgstr "行数："
+
+#~ msgid "Message:"
+#~ msgstr "信息："
+
+#~ msgid "Create Archive..."
+#~ msgstr "建立压缩文件..."
+
+#~ msgid "Profiles..."
+#~ msgstr "配置(_P)..."
+
+#~ msgid ""
+#~ "Some regular expressions functionality is disabled. To enable it's necessary"
+#~ " to build GNOME Commander with GLib ≥ 2.14. Please contact your package "
+#~ "maintainer about that."
+#~ msgstr "部分正则表达式功能已禁用。若要启用这部分功能，请使用 GLib ≥ 2.14 编译 GNOME 指挥官。请联系您的软件包维护者。"
+
+#~ msgid "/Local path..."
+#~ msgstr "/本地路径..."
+
+#~ msgid "_Import"
+#~ msgstr "导入(_I)"
+
+#~ msgid "Device is now safe to remove"
+#~ msgstr "设备现在可以安全地移除"
+
+#~ msgid "S_hare:"
+#~ msgstr "共享(_H)："
+
+#~ msgid "_Remote dir:"
+#~ msgstr "删除目录(_R)："
+
+#~ msgid "_User name:"
+#~ msgstr "用户名(_U)："
+
+#~ msgid "_Password:"
+#~ msgstr "密码(_P)："
+
+#~ msgid "Use _GNOME Keyring Manager for authentication"
+#~ msgstr "使用 _GNOME 密钥环认证"
+
+#~ msgid "Audio Files"
+#~ msgstr "音频文件"
+
+#, fuzzy
+#~ msgid "CamelCase"
+#~ msgstr "驼峰格式"
+
+#~ msgid "Manage bookmarks..."
+#~ msgstr "管理书签..."
+
+#~ msgid "Open this _folder"
+#~ msgstr "打开此文件夹"
+
+#~ msgid "_Properties..."
+#~ msgstr "属性(_P)..."
+
+#~ msgid "Type:"
+#~ msgstr "类型："
+
+#~ msgid "MIME Type:"
+#~ msgstr "MIME 类型："
+
+#~ msgid "_Change"
+#~ msgstr "更改(_C)"
+
+#~ msgid "Regular file"
+#~ msgstr "常规文件"
+
+#~ msgid "FIFO"
+#~ msgstr "先进先出文件(FIFO)"
+
+#~ msgid "UNIX Socket"
+#~ msgstr "UNIX 套接字"
+
+#~ msgid "Character device"
+#~ msgstr "字符设备"
+
+#~ msgid "Block device"
+#~ msgstr "块设备"
+
+#~ msgid "Symbolic link"
+#~ msgstr "符号链接"
+
+#~ msgid "Switch to Vertical Layout"
+#~ msgstr "切换到垂直布局"
+
+#~ msgid "Switch to Horizontal Layout"
+#~ msgstr "切换到水平布局"
+
+#~ msgid "_Search..."
+#~ msgstr "搜索(_S)..."
+
+#~ msgid "_Options..."
+#~ msgstr "选项(_O)..."
+
+#~ msgid "_Keyboard Shortcuts..."
+#~ msgstr "键盘快捷键(_K)..."
+
+#~ msgid "_MIME Types..."
+#~ msgstr "_MIME 类型..."
+
+#~ msgid "_Remote Server..."
+#~ msgstr "远程服务器(_R)..."
+
+#~ msgid "New Connection..."
+#~ msgstr "新建连接..."
+
+#~ msgid "_Contents"
+#~ msgstr "内容(_C)"
+
+#~ msgid "Match file names using"
+#~ msgstr "匹配文件名的方式"
+
+#~ msgid "Shell syntax"
+#~ msgstr "Shell 语法"
+
+#~ msgid "Regex syntax"
+#~ msgstr "正则语法"
+
+#~ msgid "Sorting options"
+#~ msgstr "排序选项"
+
+#~ msgid "Edit..."
+#~ msgstr "编辑..."
+
+#~ msgid "Document icon directory:"
+#~ msgstr "文档图标目录："
+
+#~ msgid "Silently"
+#~ msgstr "安静"
+
+#~ msgid "Fifo files"
+#~ msgstr "先进先出文件(FIFO)"
+
+#~ msgid "Socket files"
+#~ msgstr "套接字文件"
+
+#~ msgid "Character devices"
+#~ msgstr "字符设备"
+
+#~ msgid "Authentication"
+#~ msgstr "认证"
+
+#~ msgid "Use GNOME Keyring Manager for authentication"
+#~ msgstr "使用 GNOME 密钥环管理器进行身份认证"
+
+#~ msgid "Anonymous FTP access"
+#~ msgstr "匿名 FTP 访问"
+
+#~ msgid "Password:"
+#~ msgstr "密码："
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr "省略加载(使用 super-mount 是有用)"
+
+#~ msgid "Network"
+#~ msgstr "网络"
+
+#~ msgid "Skip All"
+#~ msgstr "全部跳过"
+
+#~ msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
+#~ msgstr "无法加载 python 模块“gnomevfs”(“gnome.vfs”)"
+
+#~ msgid "GNOME authentication manager usage"
+#~ msgstr "GNOME 身份认证管理器使用"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "匿名 FTP 密码："
+
+#~ msgid "_Limited depth"
+#~ msgstr "限制深度(_L)"
+
+#~ msgid "Files _not containing text"
+#~ msgstr "文件不包含文本(_N)"
+
+#, fuzzy
+#~ msgid "Failed to open file %s: %s"
+#~ msgstr "打开文件 %s 失败：%s\n"
+
+#, fuzzy
+#~ msgid "Failed to seek in file %s: %s"
+#~ msgstr "在 %s 中搜索失败：%s\n"
+
+#, fuzzy
+#~ msgid "Failed to read from file %s: %s"
+#~ msgstr "从文件 %s 读取失败：%s\n"
+
+#~ msgid "Searching in: %s"
+#~ msgstr "搜索于：%s"
+
+#~ msgid "Found %d match - search aborted"
+#~ msgid_plural "Found %d matches - search aborted"
+#~ msgstr[0] "找到 %d 项匹配 - 搜索中止"
+
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "找到 %d 项匹配"
+
+#~ msgid "Search..."
+#~ msgstr "搜索..."
+
+#~ msgid "Search _in: "
+#~ msgstr "搜索位置(_I)："
+
+#~ msgid "Search _recursively"
+#~ msgstr "递归搜索(_R)"
+
+#~ msgid "_Go to"
+#~ msgstr "转到(_G)"
+
+#~ msgid "Enter password"
+#~ msgstr "输入密码"
+
+#~ msgid ""
+#~ "Problem: access not permitted\n"
+#~ "\n"
+#~ "please supply user credentials\n"
+#~ "\n"
+#~ "Remember: wrong credentials may lead to account locking"
+#~ msgstr ""
+#~ "问题：不允许访问\n"
+#~ "\n"
+#~ "请提供用户凭据\n"
+#~ "\n"
+#~ "提醒：错误的凭据可能导致账户锁定"
+
+#~ msgid "Open folder"
+#~ msgstr "打开文件夹"
+
+#~ msgid "MIME types"
+#~ msgstr "MIME 类型"
+
+#~ msgid "Execute python plugin"
+#~ msgstr "执行 python 插件"
+
+#~ msgid "Unable to start Nautilus."
+#~ msgstr "无法启动 Nautilus。"
+
+#~ msgid ""
+#~ "The file \"%s\" already exists.\n"
+#~ "\n"
+#~ "Do you want to overwrite it?\n"
+#~ msgstr ""
+#~ "文件“%s”已经存在\n"
+#~ "\n"
+#~ "您要覆盖它吗？\n"
+
+#~ msgid ""
+#~ "Error while copying to %s\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "复制到 %s 时发生错误\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "copying..."
+#~ msgstr "正在复制..."
+
+#~ msgid "Find..."
+#~ msgstr "查找..."
+
+#~ msgid "Arabic"
+#~ msgstr "阿拉伯语"
+
+#~ msgid "Bulgarian"
+#~ msgstr "保加利亚语"
+
+#~ msgid "Catalan"
+#~ msgstr "加泰罗尼亚语"
+
+#~ msgid "Traditional Chinese"
+#~ msgstr "繁体中文"
+
+#~ msgid "Simplified Chinese"
+#~ msgstr "简体中文"
+
+#~ msgid "Chechen"
+#~ msgstr "车臣语"
+
+#~ msgid "Danish"
+#~ msgstr "丹麦语"
+
+#~ msgid "German"
+#~ msgstr "德语"
+
+#~ msgid "Swiss German"
+#~ msgstr "瑞士德语"
+
+#~ msgid "Greek"
+#~ msgstr "希腊语"
+
+#~ msgid "U.S. English"
+#~ msgstr "美国英语"
+
+#~ msgid "U.K. English"
+#~ msgstr "英国英语"
+
+#~ msgid "Australian English"
+#~ msgstr "澳大利亚英语"
+
+#~ msgid "Castilian Spanish"
+#~ msgstr "卡斯提尔西班牙语"
+
+#~ msgid "Mexican Spanish"
+#~ msgstr "墨西哥西班牙语"
+
+#~ msgid "Finnish"
+#~ msgstr "芬兰语"
+
+#~ msgid "French"
+#~ msgstr "法语"
+
+#~ msgid "Belgian French"
+#~ msgstr "比利时法语"
+
+#~ msgid "Canadian French"
+#~ msgstr "加拿大法语"
+
+#~ msgid "Swiss French"
+#~ msgstr "瑞士法语"
+
+#~ msgid "Hebrew"
+#~ msgstr "希伯来语"
+
+#~ msgid "Hungarian"
+#~ msgstr "匈牙利语"
+
+#~ msgid "Icelandic"
+#~ msgstr "冰岛语"
+
+#~ msgid "Italian"
+#~ msgstr "意大利语"
+
+#~ msgid "Swiss Italian"
+#~ msgstr "瑞士意大利语"
+
+#~ msgid "Japanese"
+#~ msgstr "日语"
+
+#~ msgid "Korean"
+#~ msgstr "韩语"
+
+#~ msgid "Dutch"
+#~ msgstr "荷兰语"
+
+#~ msgid "Belgian Dutch"
+#~ msgstr "比利时荷兰语"
+
+#~ msgid "Norwegian Bokmal"
+#~ msgstr "挪威的巴克摩语"
+
+#~ msgid "Norwegian Nynorsk"
+#~ msgstr "挪威的尼诺斯克语"
+
+#~ msgid "Polish"
+#~ msgstr "波兰语"
+
+#~ msgid "Brazilian Portuguese"
+#~ msgstr "巴西葡萄牙语"
+
+#~ msgid "Portuguese"
+#~ msgstr "葡萄牙语"
+
+#~ msgid "Rhaeto-Romanic"
+#~ msgstr "拉托-罗曼语"
+
+#~ msgid "Romanian"
+#~ msgstr "罗马尼亚语"
+
+#~ msgid "Russian"
+#~ msgstr "俄语"
+
+#~ msgid "Croato-Serbian (Latin)"
+#~ msgstr "克罗地亚-塞尔维亚语(拉丁)"
+
+#~ msgid "Serbo-Croatian (Cyrillic)"
+#~ msgstr "塞尔维亚-克罗地亚语(斯拉夫)"
+
+#~ msgid "Slovak"
+#~ msgstr "斯洛伐克语"
+
+#~ msgid "Albanian"
+#~ msgstr "阿尔巴尼亚语"
+
+#~ msgid "Swedish"
+#~ msgstr "瑞典语"
+
+#~ msgid "Thai"
+#~ msgstr "泰语"
+
+#~ msgid "Urdu"
+#~ msgstr "乌尔都语"
+
+#~ msgid "Indonesian"
+#~ msgstr "印度尼西亚语"
+
+#~ msgid "Ukrainian"
+#~ msgstr "乌克兰语"
+
+#~ msgid "Byelorussian"
+#~ msgstr "白俄罗斯语"
+
+#~ msgid "Slovenian"
+#~ msgstr "斯洛文尼亚语"
+
+#~ msgid "Estonian"
+#~ msgstr "爱沙尼亚语"
+
+#~ msgid "Latvian"
+#~ msgstr "拉脱维亚语"
+
+#~ msgid "Lithuanian"
+#~ msgstr "立陶宛语"
+
+#~ msgid "Farsi"
+#~ msgstr "波斯语"
+
+#~ msgid "Basque"
+#~ msgstr "巴斯克语"
+
+#~ msgid "Macedonian"
+#~ msgstr "马其顿语"
+
+#~ msgid "Afrikaans"
+#~ msgstr "南非语"
+
+#~ msgid "Malayalam"
+#~ msgstr "马来亚拉姆语"
+
+#~ msgid "_Test"
+#~ msgstr "测试(_T)"
+
+#~ msgid "Can't find a host or workgroup named %s\n"
+#~ msgstr "找不到名叫 %s 的主机或工作组\n"
+
+#~ msgid "Trying to load %s instead\n"
+#~ msgstr "尝试加载 %s 来作为替换\n"

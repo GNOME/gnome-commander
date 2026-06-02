@@ -14,6 +14,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 <schemalist>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander" path="/org/gnome/gnome-commander/">
     <child name="preferences" schema="org.gnome.gnome-commander.preferences"/>
+    <child name="plugins" schema="org.gnome.gnome-commander.plugins"/>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences" path="/org/gnome/gnome-commander/preferences/">
     <child name="general" schema="org.gnome.gnome-commander.preferences.general"/>
@@ -23,6 +24,9 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <child name="programs" schema="org.gnome.gnome-commander.preferences.programs"/>
     <child name="colors" schema="org.gnome.gnome-commander.preferences.colors"/>
     <child name="internal-viewer" schema="org.gnome.gnome-commander.preferences.internal-viewer"/>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.plugins" path="/org/gnome/gnome-commander/plugins/">
+    <child name="general" schema="org.gnome.gnome-commander.plugins.general"/>
   </schema>
 
   <enum id="org.gnome.gnome-commander.preferences.general.icon-scale-quality-enum">
@@ -78,13 +82,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
           This string array represents the history of visited directories.
       </description>
     </key>
-    <key name="panel-font" type="s">
-      <default>'DejaVu Sans Mono 8'</default>
-      <summary>Panel font</summary>
-      <description>
-          A custom font that will be used for the file panels if the “Use default font” option is turned off.
-      </description>
-    </key>
     <key name='size-display-mode' enum='org.gnome.gnome-commander.GnomeCmdSizeDisplayMode'>
       <default>'powered'</default>
       <summary>Filesize display mode</summary>
@@ -106,13 +103,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
         Defines the icon style of files and folders in the file panels.
       </description>
     </key>
-    <key name="list-row-height" type="u">
-      <default>16</default>
-      <summary>List row height</summary>
-      <description>
-        Defines the height of a row in the file panel.
-      </description>
-    </key>
     <key name="date-disp-format" type="s">
       <!-- Translators: Feel free to replace the default date format to a common value
            used in your country. See https://docs.gtk.org/glib/method.DateTime.format.html for details.
@@ -126,7 +116,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
       </description>
     </key>
     <key name="list-font" type="s">
-      <default>'DejaVu Sans Mono 8'</default>
+      <default>'DejaVu Sans Mono 10'</default>
       <summary>List font</summary>
       <description>The font in the file panels.</description>
     </key>
@@ -174,11 +164,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
       <default>'GDK_INTERP_HYPER'</default>
       <summary>Icon scale quality</summary>
       <description>Describes the different interpolation modes that can be used with the scaling functions.</description>
-    </key>
-    <key name="mime-icon-dir" type="s">
-      <default>'/usr/local/share/pixmaps/gnome-commander/mime-icons'</default>
-      <summary>MIME icon directory</summary>
-      <description>Directory in which MIME icons are located.</description>
     </key>
     <key name="cmdline-history" type="as">
       <default>[]</default>
@@ -313,63 +298,63 @@ SPDX-License-Identifier: GPL-3.0-or-later
       <default>20</default>
       <summary>Width of icon column</summary>
       <description>
-          This option defines the width of the icon column.
+          This setting is only present for backwards compatibility and will be removed in future.
       </description>
     </key>
     <key name="column-width-name" type="u">
       <default>140</default>
       <summary>Width of name column</summary>
       <description>
-          This option defines the width of the name column.
+          This setting is only present for backwards compatibility and will be removed in future.
       </description>
     </key>
     <key name="column-width-ext" type="u">
       <default>40</default>
       <summary>Width of extension column</summary>
       <description>
-          This option defines the width of the extension column.
+          This setting is only present for backwards compatibility and will be removed in future.
       </description>
     </key>
     <key name="column-width-dir" type="u">
       <default>240</default>
       <summary>Width of directory column</summary>
       <description>
-          This option defines the width of the directory column.
+          This setting is only present for backwards compatibility and will be removed in future.
       </description>
     </key>
     <key name="column-width-size" type="u">
       <default>70</default>
       <summary>Width of size column</summary>
       <description>
-          This option defines the width of the size column.
+          This setting is only present for backwards compatibility and will be removed in future.
       </description>
     </key>
     <key name="column-width-date" type="u">
       <default>150</default>
       <summary>Width of date column</summary>
       <description>
-          This option defines the width of the date column.
+          This setting is only present for backwards compatibility and will be removed in future.
       </description>
     </key>
     <key name="column-width-perm" type="u">
       <default>70</default>
       <summary>Width of permissions column</summary>
       <description>
-          This option defines the width of the permissions column.
+          This setting is only present for backwards compatibility and will be removed in future.
       </description>
     </key>
     <key name="column-width-owner" type="u">
       <default>50</default>
       <summary>Width of owner column</summary>
       <description>
-          This option defines the width of the owner column.
+          This setting is only present for backwards compatibility and will be removed in future.
       </description>
     </key>
     <key name="column-width-group" type="u">
       <default>50</default>
       <summary>Width of group column</summary>
       <description>
-          This option defines the width of the group column.
+          This setting is only present for backwards compatibility and will be removed in future.
       </description>
     </key>
     <key name="keybindings" type="a(sssbbbbbb)">
@@ -455,14 +440,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
         <summary>Case sensitive sorting</summary>
         <description>
             This option defines if sorting should be case sensitive.
-        </description>
-    </key>
-    <key name="symbolic-links-as-regular-files" type="b">
-        <default>false</default>
-        <summary>Treat symbolic links as regular files</summary>
-        <description>
-            This option defines if symbolic links should be treated as regular files.
-            In the file panel they are listed between other files and not at the top if their target is not existing.
         </description>
     </key>
     <key name="select-dirs" type="b">
@@ -686,22 +663,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <key name="hide-special" type="b">
       <default>false</default>
       <summary>Hide special files, such as a socket, fifo, block devices, or character devices.</summary>
-    </key>
-    <key name="hide-shortcut" type="b">
-      <default>false</default>
-      <summary>Hide shortcut files (Windows systems)</summary>
-    </key>
-    <key name="hide-mountable" type="b">
-      <default>false</default>
-      <summary>Hide mountable locations</summary>
-    </key>
-    <key name="hide-virtual" type="b">
-      <default>false</default>
-      <summary>Hide virtual files</summary>
-    </key>
-    <key name="hide-volatile" type="b">
-      <default>false</default>
-      <summary>Hide volatile files</summary>
     </key>
     <key name="hide-dotfile" type="b">
       <default>true</default>
@@ -1057,6 +1018,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           The height of the internal file viewer window.
       </description>
     </key>
+    <key name="window-state" type="u">
+      <default>0</default>
+      <summary>Window state</summary>
+      <description>
+          The number represents the internal file viewer window state, e.g. “maximized”, “fullscreen”, etc. and is calculated internally.
+      </description>
+    </key>
     <key name="search-pattern-text" type="as">
       <default>[]</default>
       <summary>Search pattern for text</summary>
@@ -1072,28 +1040,19 @@ SPDX-License-Identifier: GPL-3.0-or-later
       </description>
     </key>
   </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.plugins.file-roller-plugin" path="/org/gnome/gnome-commander/plugins/file-roller-plugin/">
-    <key name="default-type" type="s">
-        <default>'.zip'</default>
-        <summary>File suffix</summary>
-        <description>
-            Default file suffix of archives created with the File Roller plugin.
-        </description>
-    </key>
-    <key name="prefix-pattern" type="s">
-        <default>'$N'</default>
-        <summary>Prefix pattern</summary>
-        <description>
-            The prefix pattern is used to build up the name for an archive created with the File Roller plugin.
-        </description>
-    </key>
-  </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.plugins.general" path="/org/gnome/gnome-commander/plugins/general/">
-    <key name="autoload" type="as">
-      <default>[]</default>
-      <summary>Automatically loaded plugins</summary>
+    <key name="metadata" type="a{sa{sv}}">
+      <default>{}</default>
+      <summary>Plugin metadata</summary>
       <description>
-          This is the list of automatically loaded plugins, whereas each entry represents the file name of the plugin.
+          Metadata of known plugins by their file name.
+      </description>
+    </key>
+    <key name="persistent-settings" type="a{sa{ss}}">
+      <default>{}</default>
+      <summary>Persistent settings</summary>
+      <description>
+          Settings persisted by the plugins.
       </description>
     </key>
   </schema>

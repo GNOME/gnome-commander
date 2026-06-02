@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use crate::{
-    connection::{Connection, list::ConnectionList},
+    connection::Connection,
     dir::Directory,
     file::{File, FileOps},
     options::{ConfirmOptions, DeleteDefault, GeneralOptions},
@@ -35,7 +35,7 @@ enum DeleteErrorAction {
 struct DeleteData {
     parent_window: gtk::Window,
     progress_dialog: Option<DeleteProgressDialog>,
-    connection: Option<Connection>,
+    connection: Connection,
     /// this is the real list of deleted files
     deleted_files: Vec<File>,
     delete_action: DeleteAction,
@@ -161,7 +161,6 @@ async fn confirm_delete_directory(
     file: &File,
     can_measure: bool,
     first_confirmation: bool,
-    options: &ConfirmOptions,
 ) -> DeleteNonEmpty {
     let msg = if can_measure {
         gettext("The directory “{}” is not empty. Do you really want to delete it?")
@@ -184,10 +183,12 @@ async fn confirm_delete_directory(
             gettext("Delete"),
         ])
         .cancel_button(0)
-        .default_button(match options.confirm_delete_default.get() {
-            DeleteDefault::Cancel => 0,
-            DeleteDefault::Delete => 1,
-        })
+        .default_button(
+            match ConfirmOptions::instance().confirm_delete_default.get() {
+                DeleteDefault::Cancel => 0,
+                DeleteDefault::Delete => 1,
+            },
+        )
         .build()
         .choose_future(Some(parent_window))
         .await;
@@ -260,14 +261,8 @@ async fn perform_delete_operation_one(delete_data: &mut DeleteData, file: &File)
             return DeleteResult::Continue(());
         }
         Err(error) if error.matches(gio::IOErrorEnum::NotEmpty) => {
-            let dir = Directory::new_from_file(
-                &delete_data
-                    .connection
-                    .clone()
-                    .unwrap_or_else(|| ConnectionList::get().home().upcast()),
-                &*file.file(),
-            );
-            if let Err(problem) = dir.list_files(&delete_data.parent_window, false).await {
+            let dir = Directory::new_from_file(&delete_data.connection, &*file.file());
+            if let Err(problem) = dir.list_files().await {
                 return handle_delete_problem(delete_data, file, problem).await;
             }
 
@@ -328,7 +323,7 @@ async fn count_total_items(files: &[File]) -> Option<u64> {
 pub async fn do_delete(
     parent_window: &gtk::Window,
     delete_action: DeleteAction,
-    connection: Option<&Connection>,
+    connection: &Connection,
     files: &[File],
     mut show_progress: bool,
 ) {
@@ -363,7 +358,7 @@ pub async fn do_delete(
             .map_or(parent_window, |p| p.upcast_ref())
             .clone(),
         progress_dialog,
-        connection: connection.cloned(),
+        connection: connection.clone(),
         deleted_files: Vec::new(),
         delete_action,
         cancellable,
@@ -414,9 +409,8 @@ async fn measure_directory(file: &File) -> Result<(bool, bool), glib::Error> {
 async fn remove_items_from_list_to_be_deleted(
     parent_window: &gtk::Window,
     files: Vec<File>,
-    options: &ConfirmOptions,
 ) -> Result<Vec<File>, glib::Error> {
-    if !options.confirm_delete.get() {
+    if !ConfirmOptions::instance().confirm_delete.get() {
         return Ok(files);
     };
 
@@ -433,14 +427,9 @@ async fn remove_items_from_list_to_be_deleted(
         if !file.is_symlink() && file.is_directory() {
             let (confirm_needed, can_measure) = measure_directory(&file).await?;
             if confirm_needed {
-                let response = confirm_delete_directory(
-                    parent_window,
-                    &file,
-                    can_measure,
-                    first_confirmation,
-                    options,
-                )
-                .await;
+                let response =
+                    confirm_delete_directory(parent_window, &file, can_measure, first_confirmation)
+                        .await;
                 first_confirmation = false;
 
                 match response {
@@ -471,8 +460,8 @@ async fn confirm_delete(
     parent_window: &gtk::Window,
     files: &[File],
     delete_action: DeleteAction,
-    options: &ConfirmOptions,
 ) -> bool {
+    let options = ConfirmOptions::instance();
     if !options.confirm_delete.get() {
         return true;
     }
@@ -522,45 +511,42 @@ async fn confirm_delete(
 
 pub async fn show_delete_dialog(
     parent_window: &gtk::Window,
-    connection: Option<&Connection>,
+    connection: &Connection,
     files: &[File],
     force_delete: bool,
-    general_options: &GeneralOptions,
-    confirm_options: &ConfirmOptions,
 ) {
     let files: Vec<_> = files.iter().filter(|f| !f.is_dotdot()).cloned().collect();
     if files.is_empty() {
         return;
     }
 
-    let permanent_delete = force_delete || !general_options.use_trash.get();
+    let permanent_delete = force_delete || !GeneralOptions::instance().use_trash.get();
     let delete_action = if permanent_delete {
         DeleteAction::DeletePermanently
     } else {
         DeleteAction::DeleteToTrash
     };
 
-    if !confirm_delete(parent_window, &files, delete_action, confirm_options).await {
+    if !confirm_delete(parent_window, &files, delete_action).await {
         return;
     }
 
-    let files =
-        match remove_items_from_list_to_be_deleted(parent_window, files, confirm_options).await {
-            Ok(files) => files,
-            Err(error) => {
-                let _ = gtk::AlertDialog::builder()
-                    .modal(true)
-                    .message(gettext("Error while deleting"))
-                    .detail(error.message())
-                    .buttons([gettext("Abort")])
-                    .cancel_button(0)
-                    .default_button(0)
-                    .build()
-                    .choose_future(Some(parent_window))
-                    .await;
-                return;
-            }
-        };
+    let files = match remove_items_from_list_to_be_deleted(parent_window, files).await {
+        Ok(files) => files,
+        Err(error) => {
+            let _ = gtk::AlertDialog::builder()
+                .modal(true)
+                .message(gettext("Error while deleting"))
+                .detail(error.message())
+                .buttons([gettext("Abort")])
+                .cancel_button(0)
+                .default_button(0)
+                .build()
+                .choose_future(Some(parent_window))
+                .await;
+            return;
+        }
+    };
 
     if files.is_empty() {
         return;

@@ -49,18 +49,17 @@ impl LsColorsPalette {
     }
 
     fn create_css(&self) -> String {
-        let mut css = String::from(":root {");
+        let mut css = String::new();
         for plane in LsPallettePlane::all() {
             for palette_color in LsPalletteColor::all() {
                 css.push_str(&format!(
-                    "--ls-color-{}-{}: {};\n",
+                    "@define-color ls-color-{}-{} {};\n",
                     plane.name(),
                     palette_color.name(),
                     self.color(plane, palette_color).to_str()
                 ));
             }
         }
-        css.push('}');
         css
     }
 }
@@ -90,9 +89,9 @@ fn options(
         ])
 }
 
-pub fn load_palette(settings: &ColorOptions) -> LsColorsPalette {
+pub fn load_palette() -> LsColorsPalette {
     let mut palette: LsColorsPalette = Default::default();
-    for ((plane, palette_color), option) in options(settings) {
+    for ((plane, palette_color), option) in options(&ColorOptions::instance()) {
         palette.set_color(plane, palette_color, option.get());
     }
     palette
@@ -112,7 +111,6 @@ type Callback = Box<dyn Fn(&LsColorPalettes)>;
 
 pub struct LsColorPalettes {
     callback: RefCell<Option<Callback>>,
-    settings: ColorOptions,
     css_provider: Option<gtk::CssProvider>,
 }
 
@@ -130,11 +128,11 @@ impl LsColorPalettes {
 
         let this = Rc::new(Self {
             callback: Default::default(),
-            settings: ColorOptions::new(),
             css_provider,
         });
 
-        for (_, option) in options(&this.settings) {
+        let settings = ColorOptions::instance();
+        for (_, option) in options(&settings) {
             let weak_ref = Rc::downgrade(&this);
             option.connect_changed(move |_| {
                 if let Some(this) = weak_ref.upgrade() {
@@ -157,7 +155,7 @@ impl LsColorPalettes {
             return;
         };
 
-        let palette = load_palette(&self.settings);
+        let palette = load_palette();
         css_provider.load_from_string(&palette.create_css());
 
         if let Some(callback) = self.callback.borrow().as_ref() {

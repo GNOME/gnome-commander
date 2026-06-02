@@ -16,7 +16,6 @@ pub async fn prepare_move_dialog_show(
     main_win: &MainWindow,
     from: &FileSelector,
     to: &FileSelector,
-    options: &ConfirmOptions,
 ) {
     let src_files = from.file_list().selected_files();
     let num_files = src_files.len();
@@ -73,7 +72,7 @@ pub async fn prepare_move_dialog_show(
 
     dialog.append_to_left(&frame);
 
-    match options.confirm_move_overwrite.get() {
+    match ConfirmOptions::instance().confirm_move_overwrite.get() {
         ConfirmOverwriteMode::Silently => &silent,
         ConfirmOverwriteMode::SkipAll => &skip,
         ConfirmOverwriteMode::RenameAll => &rename,
@@ -109,7 +108,7 @@ pub async fn prepare_move_dialog_show(
     )
     .await;
 
-    if let Err(error) = dest_dir.relist_files(main_win.upcast_ref(), false).await {
+    if let Err(error) = dest_dir.relist_files(None).await {
         error.show(main_win.upcast_ref()).await;
     }
 

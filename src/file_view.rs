@@ -13,7 +13,7 @@ use crate::{
     utils::{ErrorMessage, temp_file},
 };
 use gettextrs::gettext;
-use gtk::{gio, prelude::*};
+use gtk::gio;
 
 pub async fn file_view_internal(
     parent_window: &gtk::Window,
@@ -44,8 +44,7 @@ pub async fn file_view_internal(
         tmp_file
     };
 
-    let viewer = ViewerWindow::file_view(&file_to_view, file_metadata_service);
-    viewer.present();
+    ViewerWindow::file_view(&file_to_view, file_metadata_service).await;
     Ok(())
 }
 
@@ -61,7 +60,6 @@ pub async fn file_view(
     parent_window: &gtk::Window,
     file: &File,
     use_internal_viewer: Option<bool>,
-    options: &ProgramsOptions,
     file_metadata_service: &FileMetadataService,
 ) -> Result<(), ErrorMessage> {
     if file.is_directory() {
@@ -71,13 +69,14 @@ pub async fn file_view(
         ));
     }
 
+    let options = ProgramsOptions::instance();
     let use_internal_viewer =
         use_internal_viewer.unwrap_or_else(|| options.use_internal_viewer.get());
 
     if use_internal_viewer {
         file_view_internal(parent_window, file, file_metadata_service).await?;
     } else {
-        file_view_external(file, options).await?;
+        file_view_external(file, &options).await?;
     }
     Ok(())
 }

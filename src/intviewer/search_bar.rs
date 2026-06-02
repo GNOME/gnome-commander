@@ -3,7 +3,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::utils::u32_enum;
+use crate::{options::ViewerOptions, utils::u32_enum};
 use gtk::{gdk, glib, prelude::*, subclass::prelude::*};
 
 const STATE_EDITING: &str = "editing";
@@ -16,9 +16,7 @@ const MESSAGE_ENCODING_ERROR: &str = "encoding_error";
 
 mod imp {
     use super::*;
-    use crate::{
-        history_entry::HistoryEntry, options::ViewerOptions, utils::NO_MOD, utils::hbox_builder,
-    };
+    use crate::{history_entry::HistoryEntry, utils::NO_MOD, utils::hbox_builder};
     use gettextrs::gettext;
     use std::sync::OnceLock;
 
@@ -30,7 +28,6 @@ mod imp {
         pub(super) match_case: gtk::ToggleButton,
         pub(super) hex_mode: gtk::ToggleButton,
         pub(super) message: gtk::Stack,
-        pub(super) options: ViewerOptions,
     }
 
     #[glib::object_subclass]
@@ -40,7 +37,7 @@ mod imp {
         type ParentType = gtk::Widget;
 
         fn new() -> Self {
-            let options = ViewerOptions::new();
+            let options = ViewerOptions::instance();
 
             Self {
                 inner: gtk::SearchBar::builder().show_close_button(true).build(),
@@ -61,7 +58,6 @@ mod imp {
                     .active(options.search_mode.get() == Mode::Binary)
                     .build(),
                 message: gtk::Stack::new(),
-                options,
             }
         }
     }
@@ -161,7 +157,9 @@ mod imp {
                             #[weak(rename_to = imp)]
                             self,
                             move |button| {
-                                let _ = imp.options.case_sensitive_search.set(button.is_active());
+                                let _ = ViewerOptions::instance()
+                                    .case_sensitive_search
+                                    .set(button.is_active());
                                 imp.obj().set_message(MESSAGE_NONE);
                             }
                         ));
@@ -177,12 +175,12 @@ mod imp {
                                 } else {
                                     Mode::Text
                                 };
-                                let _ = imp.options.search_mode.set(mode);
+                                let _ = ViewerOptions::instance().search_mode.set(mode);
                                 imp.update_search_mode(mode);
                                 imp.obj().set_message(MESSAGE_NONE);
                             }
                         ));
-                        self.update_search_mode(self.options.search_mode.get());
+                        self.update_search_mode(ViewerOptions::instance().search_mode.get());
                         &self.hex_mode
                     })
                     .append({
@@ -270,8 +268,8 @@ mod imp {
 
         pub(super) fn update_search_mode(&self, mode: Mode) {
             let option = match mode {
-                Mode::Text => &self.options.search_pattern_text,
-                Mode::Binary => &self.options.search_pattern_hex,
+                Mode::Text => &ViewerOptions::instance().search_pattern_text,
+                Mode::Binary => &ViewerOptions::instance().search_pattern_hex,
             };
             self.entry.set_history(&option.get());
         }
@@ -362,7 +360,7 @@ impl SearchBar {
         if text.is_empty() {
             return;
         }
-        if let Err(error) = self.imp().options.add_to_history(&text, mode) {
+        if let Err(error) = ViewerOptions::instance().add_to_history(&text, mode) {
             eprintln!("{error}");
         }
         self.imp().update_search_mode(mode);

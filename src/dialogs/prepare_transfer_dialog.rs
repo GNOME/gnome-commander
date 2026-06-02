@@ -168,17 +168,14 @@ glib::wrapper! {
 }
 
 fn con_device_has_path(fs: &FileSelector, path: &Path) -> Option<(Connection, PathBuf)> {
-    let con = fs.file_list().connection()?;
+    let con = fs.file_list().connection();
     let mount_path = con.downcast_ref::<ConnectionDevice>()?.mountp_string()?;
     let relative_path = path.strip_prefix(&mount_path).ok()?;
     Some((con, relative_path.to_path_buf()))
 }
 
 fn path_points_at_directory(to: &FileSelector, dest_path: &Path) -> bool {
-    let Some(con) = to.file_list().connection() else {
-        return false;
-    };
-    let file = gio::File::for_uri(&con.create_uri(dest_path));
+    let file = gio::File::for_uri(&to.file_list().connection().create_uri(dest_path));
     file.query_file_type(gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE)
         == gio::FileType::Directory
 }
@@ -209,7 +206,7 @@ impl PrepareTransferDialog {
         let dialog: Self = glib::Object::builder().build();
 
         let src_files = from.file_list().selected_files();
-        let default_dest_dir = to.file_list().directory().unwrap();
+        let default_dest_dir = to.file_list().directory();
 
         let single_source_file = if src_files.len() == 1 {
             src_files.first()
@@ -317,10 +314,7 @@ pub async fn handle_user_input(
     default_dest_dir: &Directory,
     user_path: &str,
 ) -> Option<(Directory, Option<String>)> {
-    let Some(src_directory) = src_fs.file_list().directory() else {
-        eprintln!("No current directory");
-        return None;
-    };
+    let src_directory = src_fs.file_list().directory();
 
     let mut con = default_dest_dir.connection();
 
@@ -339,11 +333,7 @@ pub async fn handle_user_input(
     // }
 
     let dest_file = if dest_path.is_absolute() {
-        if dst_fs
-            .file_list()
-            .connection()
-            .is_some_and(|c| c.is_local())
-        {
+        if dst_fs.file_list().connection().is_local() {
             if let Some((dev, path)) = con_device_has_path(dst_fs, &dest_path)
                 .or_else(|| con_device_has_path(src_fs, &dest_path))
             {

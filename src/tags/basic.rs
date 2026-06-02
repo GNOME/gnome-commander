@@ -3,10 +3,13 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::GnomeCmdTag;
-use crate::{libgcmd::file_metadata_extractor::FileMetadataExtractor, utils::u32_enum};
+use super::{FileMetadataExtractor, Tag};
+use crate::{
+    file::{File, FileOps},
+    utils::{permissions_to_text, u32_enum},
+};
 use gettextrs::gettext;
-use gtk::{gio, glib::subclass::prelude::*, prelude::*};
+use std::borrow::Cow;
 
 u32_enum! {
     enum FileTag {
@@ -28,8 +31,14 @@ u32_enum! {
 }
 
 impl FileTag {
-    fn tag(&self) -> GnomeCmdTag {
-        let str = match self {
+    fn boxed(self) -> Box<dyn Tag> {
+        Box::new(self)
+    }
+}
+
+impl Tag for FileTag {
+    fn id(&self) -> &str {
+        match self {
             Self::Name => "File.Name",
             Self::Path => "File.Path",
             Self::Link => "File.Link",
@@ -43,16 +52,15 @@ impl FileTag {
             Self::Keywords => "File.Keywords",
             Self::Rank => "File.Rank",
             Self::Content => "File.Content",
-        };
-        GnomeCmdTag(str.into())
+        }
     }
 
-    fn from_tag(tag: &GnomeCmdTag) -> Option<Self> {
-        Self::all().find(|t| &t.tag() == tag)
+    fn class(&self) -> Cow<'_, str> {
+        Cow::Owned(gettext("File"))
     }
 
-    fn name(self) -> String {
-        match self {
+    fn name(&self) -> Cow<'_, str> {
+        Cow::Owned(match self {
             Self::Name => gettext("Name"),
             Self::Path => gettext("Path"),
             Self::Link => gettext("Link"),
@@ -66,11 +74,11 @@ impl FileTag {
             Self::Keywords => gettext("Keywords"),
             Self::Rank => gettext("Rank"),
             Self::Content => gettext("Content"),
-        }
+        })
     }
 
-    fn description(self) -> String {
-        match self {
+    fn description(&self) -> Cow<'_, str> {
+        Cow::Owned(match self {
             Self::Name => gettext("File name excluding path but including the file extension."),
             Self::Path => gettext("Full file path of file excluding the file name."),
             Self::Link => gettext("URI of link target."),
@@ -92,135 +100,66 @@ impl FileTag {
                 "Editable file rank for grading favourites. Value should be in the range 1..10.",
             ),
             Self::Content => gettext("File’s contents filtered as plain text."),
-        }
+        })
+    }
+
+    fn clone(&self) -> Box<dyn Tag> {
+        (*self).boxed()
     }
 }
 
-mod imp {
-    use super::*;
-    use crate::{
-        libgcmd::{
-            file_descriptor::{FileDescriptor, FileDescriptorExt},
-            file_metadata_extractor::FileMetadataExtractorImpl,
-        },
-        tags::{GnomeCmdTag, GnomeCmdTagClass},
-        utils::permissions_to_text,
-    };
+#[derive(Debug, Default)]
+pub struct BasicMetadataExtractor {}
 
-    #[derive(Default)]
-    pub struct BasicMetadataExtractor {}
-
-    #[glib::object_subclass]
-    impl ObjectSubclass for BasicMetadataExtractor {
-        const NAME: &'static str = "GnomeCmdBasicMetadataExtractor";
-        type Type = super::BasicMetadataExtractor;
-        type Interfaces = (FileMetadataExtractor,);
+impl FileMetadataExtractor for BasicMetadataExtractor {
+    async fn supported_tags(&self) -> Vec<(String, Vec<Box<dyn Tag>>)> {
+        let class = FileTag::Name.class().into_owned();
+        vec![(class, FileTag::all().map(FileTag::boxed).collect())]
     }
 
-    impl ObjectImpl for BasicMetadataExtractor {}
-
-    impl FileMetadataExtractorImpl for BasicMetadataExtractor {
-        fn supported_tags(&self) -> Vec<GnomeCmdTag> {
-            FileTag::all().map(|t| t.tag()).collect()
-        }
-
-        fn summary_tags(&self) -> Vec<GnomeCmdTag> {
-            [FileTag::Description, FileTag::Publisher]
-                .iter()
-                .map(|t| t.tag())
-                .collect()
-        }
-
-        fn class_name(&self, class: &GnomeCmdTagClass) -> Option<String> {
-            if class.0 == "File" {
-                Some(gettext("File"))
-            } else {
-                None
-            }
-        }
-
-        fn tag_name(&self, tag: &GnomeCmdTag) -> Option<String> {
-            Some(FileTag::from_tag(tag)?.name())
-        }
-
-        fn tag_description(&self, tag: &GnomeCmdTag) -> Option<String> {
-            Some(FileTag::from_tag(tag)?.description())
-        }
-
-        fn extract_metadata<F: FnMut(GnomeCmdTag, Option<&str>)>(
-            &self,
-            fd: &impl IsA<FileDescriptor>,
-            mut add: F,
-        ) {
-            let file = fd.file();
-            let file_info = fd.file_info();
-
-            (add)(FileTag::Name.tag(), Some(&file_info.display_name()));
-            (add)(
-                FileTag::Path.tag(),
-                file.parent()
-                    .and_then(|p| p.path())
-                    .as_ref()
-                    .and_then(|p| p.to_str()),
-            );
-            (add)(FileTag::Link.tag(), Some(&file.uri()));
-            (add)(
-                FileTag::Size.tag(),
-                Some(
-                    &file_info
-                        .attribute_uint64(gio::FILE_ATTRIBUTE_STANDARD_SIZE)
-                        .to_string(),
-                ),
-            );
-
-            if let Ok(info) = file.query_info(
-                "time::*",
-                gio::FileQueryInfoFlags::NONE,
-                gio::Cancellable::NONE,
-            ) {
-                (add)(
-                    FileTag::Accessed.tag(),
-                    info.access_date_time()
-                        .and_then(|dt| dt.format("%Y-%m-%d %T").ok())
-                        .as_deref(),
-                );
-
-                (add)(
-                    FileTag::Modified.tag(),
-                    info.modification_date_time()
-                        .and_then(|dt| dt.format("%Y-%m-%d %T").ok())
-                        .as_deref(),
-                );
-            }
-
-            (add)(
-                FileTag::Permissions.tag(),
-                Some(&permissions_to_text(
-                    file_info.attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE),
-                )),
-            );
-
-            if file_info.file_type() == gio::FileType::Directory {
-                (add)(FileTag::Format.tag(), Some(&gettext("Folder")));
-            } else {
-                (add)(
-                    FileTag::Format.tag(),
-                    file_info
-                        .attribute_string(gio::FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE)
-                        .as_deref(),
-                );
-            }
-        }
+    fn summary_tags(&self) -> Vec<Box<dyn Tag>> {
+        [FileTag::Description, FileTag::Publisher]
+            .into_iter()
+            .map(FileTag::boxed)
+            .collect()
     }
-}
 
-glib::wrapper! {
-    pub struct BasicMetadataExtractor(ObjectSubclass<imp::BasicMetadataExtractor>)
-        @implements FileMetadataExtractor;
-}
+    async fn extract_metadata(&self, file: &File) -> Vec<(Box<dyn Tag>, String)> {
+        let mut tags = Vec::new();
 
-impl Default for BasicMetadataExtractor {
-    fn default() -> Self {
-        glib::Object::builder().build()
+        tags.push((FileTag::Name.boxed(), file.name()));
+        if let Some(path) = file.parent_path() {
+            tags.push((FileTag::Path.boxed(), path.to_string_lossy().to_string()));
+        }
+        tags.push((FileTag::Link.boxed(), file.uri()));
+        if let Some(size) = file.size() {
+            tags.push((FileTag::Size.boxed(), size.to_string()));
+        }
+
+        if let Some(dt) = file
+            .access_date()
+            .and_then(|dt| dt.format("%Y-%m-%d %T").ok())
+        {
+            tags.push((FileTag::Accessed.boxed(), dt.to_string()));
+        }
+        if let Some(dt) = file
+            .modification_date()
+            .and_then(|dt| dt.format("%Y-%m-%d %T").ok())
+        {
+            tags.push((FileTag::Modified.boxed(), dt.to_string()));
+        }
+
+        tags.push((
+            FileTag::Permissions.boxed(),
+            permissions_to_text(file.permissions()),
+        ));
+
+        if file.is_directory() {
+            tags.push((FileTag::Format.boxed(), gettext("Folder")));
+        } else if let Some(content_type) = file.content_type() {
+            tags.push((FileTag::Format.boxed(), content_type.to_string()));
+        }
+
+        tags
     }
 }

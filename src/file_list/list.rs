@@ -12,28 +12,23 @@ use super::{
     quick_search::{QuickSearch, QuickSearchMode},
 };
 use crate::{
-    connection::{Connection, ConnectionExt, ConnectionInterface, list::ConnectionList},
+    connection::{Connection, ConnectionExt},
     dialogs::{delete_dialog::show_delete_dialog, rename_popover::show_rename_popover},
     dir::{Directory, DirectoryState},
     file::{File, FileOps},
     filter::{Filter, fnmatch},
     history::History,
-    imageloader::icon_cache,
-    layout::{
-        PREF_COLORS,
-        ls_colors::{LsPalletteColor, ls_colors_get},
-    },
+    layout::ls_colors::{LsPalletteColor, ls_colors_get},
     main_win::MainWindow,
     open_connection::open_connection,
     options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
-    tags::FileMetadataService,
     types::{ExtensionDisplayMode, GraphicalLayoutMode, SizeDisplayMode, TransferType},
     utils::{ErrorMessage, MenuBuilderExt, SenderExt, size_to_string, time_to_string, u32_enum},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
 use std::{
-    collections::HashSet,
+    collections::{BTreeMap, HashSet},
     ffi::OsStr,
     path::{Path, PathBuf},
 };
@@ -62,13 +57,11 @@ mod imp {
         debug::debug,
         file_list::{
             actions::{
-                Script, file_list_action_execute, file_list_action_execute_script,
-                file_list_action_file_edit, file_list_action_file_view, file_list_action_open_with,
+                file_list_action_execute, file_list_action_file_edit, file_list_action_open_with,
                 file_list_action_open_with_default, file_list_action_open_with_other,
             },
             popup::list_popup_menu,
         },
-        tags::FileMetadataService,
         transfer::{copy_files, link_files, move_files},
         types::{
             ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GraphicalLayoutMode,
@@ -82,7 +75,7 @@ mod imp {
         weak_map::WeakMap,
     };
     use std::{
-        cell::{Cell, OnceCell, RefCell},
+        cell::{Cell, RefCell},
         collections::BTreeMap,
         rc::Rc,
         sync::OnceLock,
@@ -97,25 +90,22 @@ mod imp {
         pub command_line: bool,
     }
 
+    #[derive(Debug, PartialEq, Eq)]
+    enum State {
+        Loaded,
+        Loading,
+        Error(ErrorMessage),
+    }
+
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::FileList)]
     pub struct FileList {
         pub quick_search: glib::WeakRef<QuickSearch>,
-        #[property(get, construct_only)]
-        pub file_metadata_service: OnceCell<FileMetadataService>,
-        #[property(get, set, nullable)]
-        pub base_dir: RefCell<Option<PathBuf>>,
 
-        #[property(get, set)]
-        pub font_name: RefCell<String>,
-
-        #[property(get, set)]
-        pub row_height: Cell<u32>,
-
-        #[property(get, set)]
+        #[property(get, set = Self::set_extension_display_mode)]
         pub extension_display_mode: Cell<ExtensionDisplayMode>,
 
-        #[property(get, set)]
+        #[property(get, set = Self::set_graphical_layout_mode)]
         graphical_layout_mode: Cell<GraphicalLayoutMode>,
 
         #[property(get, set)]
@@ -132,9 +122,6 @@ mod imp {
 
         #[property(get, set, default = true)]
         case_sensitive: Cell<bool>,
-
-        #[property(get, set)]
-        symbolic_links_as_regular_files: Cell<bool>,
 
         #[property(get, set)]
         left_mouse_button_mode: Cell<LeftMouseButtonMode>,
@@ -168,8 +155,12 @@ mod imp {
         pub selection: gtk::SingleSelection,
         #[property(get)]
         pub view: gtk::ColumnView,
-        pub columns: RefCell<Vec<gtk::ColumnViewColumn>>,
         pub row_selector: Rc<ListRowSelector>,
+
+        state: RefCell<State>,
+        state_widget: gtk::Label,
+        state_widget_timeout: RefCell<Option<glib::SourceId>>,
+        current_list_operation: RefCell<Option<gio::Cancellable>>,
 
         pub cells_map: BTreeMap<ColumnID, CellsMap>,
 
@@ -181,11 +172,9 @@ mod imp {
 
         pub focus_later: RefCell<Option<PathBuf>>,
 
-        pub connection: RefCell<Option<Connection>>,
-        pub connection_handlers: RefCell<Vec<glib::SignalHandlerId>>,
-
-        pub directory: RefCell<Option<Directory>>,
+        pub directory: RefCell<Directory>,
         pub directory_handlers: RefCell<Vec<glib::SignalHandlerId>>,
+        pub connection_handlers: RefCell<Vec<glib::SignalHandlerId>>,
         pub history: History<(Connection, PathBuf)>,
 
         pub current_size_calculation: Cell<Option<gio::Cancellable>>,
@@ -200,10 +189,6 @@ mod imp {
         type ParentType = gtk::Widget;
 
         fn class_init(klass: &mut Self::Class) {
-            klass.install_action_async("fl.file-view", None, |obj, _, parameter| async move {
-                let use_internal_viewer = parameter.and_then(|v| v.get::<bool>());
-                file_list_action_file_view(&obj, use_internal_viewer).await;
-            });
             klass.install_action_async("fl.file-edit", None, |obj, _, _| async move {
                 file_list_action_file_edit(&obj).await;
             });
@@ -227,17 +212,6 @@ mod imp {
             klass.install_action_async("fl.execute", None, |obj, _, _| async move {
                 file_list_action_execute(&obj).await;
             });
-            klass.install_action_async(
-                "fl.execute-script",
-                Some(&Script::static_variant_type()),
-                |obj, _, parameter| async move {
-                    if let Some(script) = parameter.as_ref().and_then(Script::from_variant) {
-                        file_list_action_execute_script(&obj, script).await;
-                    } else {
-                        eprintln!("Cannot load script from a variant");
-                    }
-                },
-            );
             klass.install_action_async(
                 "fl.drop-files",
                 Some(&Option::<TransferType>::static_variant_type()),
@@ -267,11 +241,7 @@ mod imp {
             let row_selector = ListRowSelector::new(&view);
             Self {
                 quick_search: Default::default(),
-                file_metadata_service: Default::default(),
-                base_dir: Default::default(),
 
-                font_name: Default::default(),
-                row_height: Default::default(),
                 extension_display_mode: Default::default(),
                 graphical_layout_mode: Default::default(),
                 size_display_mode: Default::default(),
@@ -279,7 +249,6 @@ mod imp {
                 date_display_format: Default::default(),
                 use_ls_colors: Default::default(),
                 case_sensitive: Default::default(),
-                symbolic_links_as_regular_files: Default::default(),
                 left_mouse_button_mode: Default::default(),
                 middle_mouse_button_mode: Default::default(),
                 right_mouse_button_mode: Default::default(),
@@ -296,8 +265,17 @@ mod imp {
 
                 selection,
                 view,
-                columns: Default::default(),
                 row_selector,
+
+                state: RefCell::new(State::Loaded),
+                state_widget: gtk::Label::builder()
+                    .css_classes(["gnome-cmd-file-list-state"])
+                    .visible(false)
+                    .halign(gtk::Align::End)
+                    .valign(gtk::Align::End)
+                    .build(),
+                state_widget_timeout: Default::default(),
+                current_list_operation: Default::default(),
 
                 cells_map: ColumnID::all().map(|c| (c, Default::default())).collect(),
 
@@ -308,11 +286,11 @@ mod imp {
 
                 focus_later: Default::default(),
 
-                connection: Default::default(),
-                connection_handlers: Default::default(),
-
-                directory: Default::default(),
+                directory: RefCell::new(Directory::create_virtual(
+                    ConnectionList::get().home().upcast_ref(),
+                )),
                 directory_handlers: Default::default(),
+                connection_handlers: Default::default(),
                 history: History::new(20),
 
                 current_size_calculation: Default::default(),
@@ -330,16 +308,12 @@ mod imp {
             fl.set_layout_manager(Some(gtk::BinLayout::new()));
             self.view.add_css_class("gnome-cmd-file-list");
 
-            let filters_options = FiltersOptions::new();
+            let filters_options = FiltersOptions::instance();
             for option in [
                 &filters_options.hide_unknown,
                 &filters_options.hide_regular,
                 &filters_options.hide_directory,
                 &filters_options.hide_special,
-                &filters_options.hide_shortcut,
-                &filters_options.hide_mountable,
-                &filters_options.hide_virtual,
-                &filters_options.hide_volatile,
                 &filters_options.hide_hidden,
                 &filters_options.hide_backup,
                 &filters_options.hide_symlink,
@@ -347,16 +321,22 @@ mod imp {
                 option.connect_changed(glib::clone!(
                     #[weak(rename_to = imp)]
                     self,
-                    move |_| if let Some(filter) = imp.filter_model.filter() {
-                        filter.changed(gtk::FilterChange::Different);
+                    move |_| {
+                        if let Some(filter) = imp.filter_model.filter() {
+                            filter.changed(gtk::FilterChange::Different);
+                        }
+                        imp.obj().emit_files_changed();
                     }
                 ));
             }
             filters_options.backup_pattern.connect_changed(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
-                move |_| if let Some(filter) = imp.filter_model.filter() {
-                    filter.changed(gtk::FilterChange::Different);
+                move |_| {
+                    if let Some(filter) = imp.filter_model.filter() {
+                        filter.changed(gtk::FilterChange::Different);
+                    }
+                    imp.obj().emit_files_changed();
                 }
             ));
             self.filter_model
@@ -376,12 +356,12 @@ mod imp {
                 .child(&self.view)
                 .build();
 
-            let capture_event_box = gtk::Box::builder()
-                .orientation(gtk::Orientation::Vertical)
-                .build();
-            capture_event_box.append(&scrolled_window);
+            let capture_event_box = gtk::Overlay::builder().child(&scrolled_window).build();
+            capture_event_box.add_overlay(&self.state_widget);
             capture_event_box.set_parent(&*fl);
 
+            let action_group = gio::SimpleActionGroup::new();
+            let general_options = GeneralOptions::instance();
             for (column_id, title, factory, sorter) in [
                 (ColumnID::Icon, "", create_icon_factory(), None),
                 (
@@ -434,18 +414,58 @@ mod imp {
                 ),
             ] {
                 let column = gtk::ColumnViewColumn::builder()
+                    .id(column_id.name())
                     .title(title)
                     .factory(&factory)
                     .resizable(true)
                     .expand(column_id != ColumnID::Icon)
                     .build();
                 column.set_sorter(sorter.as_ref());
+
+                // Apply legacy width option, new column options will overwrite it later if present
+                if let Some(width) = general_options
+                    .list_column_width
+                    .iter()
+                    .find(|(name, _)| *name == column_id.name())
+                    .and_then(|(_, option)| option.get().try_into().ok())
+                {
+                    column.set_fixed_width(width);
+                }
+
+                // Create action to toggle column visibility
+                let action = gio::SimpleAction::new_stateful(
+                    &format!("toggle-column-{}", column_id.name()),
+                    None,
+                    &column.is_visible().to_variant(),
+                );
+                if column_id == ColumnID::Name {
+                    action.set_enabled(false);
+                } else {
+                    action.connect_change_state(glib::clone!(
+                        #[weak]
+                        column,
+                        move |_, state| {
+                            if let Some(visible) = state.and_then(bool::from_variant) {
+                                column.set_visible(visible);
+                            };
+                        }
+                    ));
+                }
+                column.connect_visible_notify(glib::clone!(
+                    #[weak]
+                    action,
+                    move |column| {
+                        action.set_state(&column.is_visible().to_variant());
+                    }
+                ));
+                action_group.add_action(&action);
+
                 self.view.append_column(&column);
-                self.columns.borrow_mut().push(column);
             }
+            fl.insert_action_group("fl", Some(&action_group));
 
             let sorter = gtk::MultiSorter::new();
-            sorter.append(FileTypeSorter::default());
+            sorter.append(FileTypeSorter::get());
             sorter.append(
                 self.view
                     .sorter()
@@ -561,12 +581,6 @@ mod imp {
             ));
             fl.add_controller(drop_target);
 
-            let general_options = GeneralOptions::new();
-            general_options.list_font.bind(&*fl, "font-name").build();
-            general_options
-                .list_row_height
-                .bind(&*fl, "row-height")
-                .build();
             general_options
                 .extension_display_mode
                 .bind_enum(&*fl, "extension-display-mode");
@@ -586,10 +600,6 @@ mod imp {
             general_options
                 .case_sensitive
                 .bind(&*fl, "case-sensitive")
-                .build();
-            general_options
-                .symbolic_links_as_regular_files
-                .bind(&*fl, "symbolic-links-as-regular-files")
                 .build();
             general_options
                 .left_mouse_button_mode
@@ -612,21 +622,11 @@ mod imp {
                 .quick_search_shortcut
                 .bind_enum(&*fl, "quick-search-shortcut");
 
-            let confirm_options = ConfirmOptions::new();
-            confirm_options.dnd_mode.bind_enum(&*fl, "dnd-mode");
+            ConfirmOptions::instance()
+                .dnd_mode
+                .bind_enum(&*fl, "dnd-mode");
 
-            for (column, key) in fl
-                .view()
-                .columns()
-                .iter::<gtk::ColumnViewColumn>()
-                .flatten()
-                .zip(&general_options.list_column_width)
-            {
-                key.bind(&column, "fixed-width").build();
-            }
-
-            let color_options = ColorOptions::new();
-            color_options
+            ColorOptions::instance()
                 .use_ls_colors
                 .bind(&*fl, "use-ls-colors")
                 .build();
@@ -645,15 +645,20 @@ mod imp {
             while let Some(child) = self.obj().first_child() {
                 child.unparent();
             }
-            if let Some(directory) = self.directory.take() {
-                for handler_id in self.directory_handlers.take() {
-                    directory.disconnect(handler_id);
-                }
+
+            let directory = self.directory.borrow();
+            directory.unpin_from_cache();
+            directory.cancel_monitoring();
+            if let Some(cancellable) = self.current_list_operation.take() {
+                cancellable.cancel();
             }
-            if let Some(connection) = self.connection.take() {
-                for handler_id in self.connection_handlers.take() {
-                    connection.disconnect(handler_id);
-                }
+            for handler_id in self.directory_handlers.take() {
+                directory.disconnect(handler_id);
+            }
+
+            let connection = directory.connection();
+            for handler_id in self.connection_handlers.take() {
+                connection.disconnect(handler_id);
             }
         }
 
@@ -700,9 +705,59 @@ mod imp {
         fn grab_focus(&self) -> bool {
             self.view.grab_focus()
         }
+
+        fn unrealize(&self) {
+            self.parent_unrealize();
+
+            // Break up reference loop
+            if let Some(cancellable) = self.current_list_operation.take() {
+                cancellable.cancel();
+            }
+        }
     }
 
     impl FileList {
+        fn set_extension_display_mode(&self, value: ExtensionDisplayMode) {
+            self.extension_display_mode.replace(value);
+
+            // Refresh name and ext columns
+            for column in self
+                .view
+                .columns()
+                .iter::<gtk::ColumnViewColumn>()
+                .flatten()
+            {
+                if column.id().is_some_and(|name| {
+                    name == ColumnID::Name.name() || name == ColumnID::Ext.name()
+                }) {
+                    let factory = column.factory();
+                    column.set_factory(gtk::ListItemFactory::NONE);
+                    column.set_factory(factory.as_ref());
+                }
+            }
+        }
+
+        fn set_graphical_layout_mode(&self, value: GraphicalLayoutMode) {
+            self.graphical_layout_mode.replace(value);
+
+            // Refresh icon column
+            if let Some(column) = self
+                .view
+                .columns()
+                .iter::<gtk::ColumnViewColumn>()
+                .flatten()
+                .find(|column| {
+                    column
+                        .id()
+                        .is_some_and(|name| name == ColumnID::Icon.name())
+                })
+            {
+                let factory = column.factory();
+                column.set_factory(gtk::ListItemFactory::NONE);
+                column.set_factory(factory.as_ref());
+            }
+        }
+
         fn filter_row(&self, obj: &glib::Object, options: &FiltersOptions) -> bool {
             let Some(item) = obj.downcast_ref::<FileListItem>() else {
                 return false;
@@ -717,34 +772,20 @@ mod imp {
             let hide = match file.file_type() {
                 gio::FileType::Unknown => options.hide_unknown.get(),
                 gio::FileType::Regular => options.hide_regular.get(),
-                gio::FileType::Directory => options.hide_directory.get(),
                 gio::FileType::SymbolicLink => options.hide_symlink.get(),
                 gio::FileType::Special => options.hide_special.get(),
-                gio::FileType::Shortcut => options.hide_shortcut.get(),
-                gio::FileType::Mountable => options.hide_mountable.get(),
                 _ => false,
             };
             if hide {
+                return false;
+            }
+            if options.hide_directory.get() && file.is_directory() {
                 return false;
             }
             if options.hide_symlink.get() && file.is_symlink() {
                 return false;
             }
             if options.hide_hidden.get() && file.file_info().is_hidden() {
-                return false;
-            }
-            if options.hide_virtual.get()
-                && file
-                    .file_info()
-                    .boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL)
-            {
-                return false;
-            }
-            if options.hide_volatile.get()
-                && file
-                    .file_info()
-                    .boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VOLATILE)
-            {
                 return false;
             }
             if options.hide_backup.get() && matches_pattern(&name, &options.backup_pattern.get()) {
@@ -757,50 +798,16 @@ mod imp {
             filter.matches(&name)
         }
 
-        pub fn set_connection(&self, connection: &Connection) {
-            if Some(connection) == self.connection.borrow().as_ref() {
-                return;
-            }
-
-            let previous_connection = self.connection.replace(Some(connection.clone()));
-
-            if let Some(previous_connection) = previous_connection {
-                for handler_id in self.connection_handlers.take() {
-                    previous_connection.disconnect(handler_id);
-                }
-            }
-
-            self.connection_handlers
-                .borrow_mut()
-                .push(connection.connect_closure(
-                    "close",
-                    false,
-                    glib::closure_local!(
-                        #[weak(rename_to = imp)]
-                        self,
-                        move |c: &Connection| {
-                            if Some(c) == imp.connection.borrow().as_ref() {
-                                imp.obj()
-                                    .set_connection(&ConnectionList::get().home(), None);
-                            }
-                        }
-                    ),
-                ));
-
-            self.obj().emit_by_name::<()>("con-changed", &[&connection]);
-        }
-
         fn add_to_history(&self, directory: &Directory) {
-            if let Some(connection) = &*self.connection.borrow() {
-                self.history
-                    .add((connection.clone(), directory.path_from_root()));
-            }
+            self.history
+                .add((directory.connection(), directory.path_from_root()));
 
             self.obj().emit_by_name::<()>("dir-changed", &[directory]);
         }
 
         pub fn set_directory(&self, directory: &Directory) {
-            if Some(directory) == self.directory.borrow().as_ref() {
+            if directory.state() != DirectoryState::Empty && directory == &*self.directory.borrow()
+            {
                 return;
             }
 
@@ -809,18 +816,39 @@ mod imp {
                 sender.toss(None);
             }
 
-            let previous_directory = self.directory.replace(Some(directory.clone()));
-            if let Some(previous_directory) = previous_directory {
-                previous_directory.cancel_monitoring();
-                for handler_id in self.directory_handlers.take() {
-                    previous_directory.disconnect(handler_id);
+            let previous_directory = self.directory.replace(directory.clone());
+            previous_directory.unpin_from_cache();
+            previous_directory.cancel_monitoring();
+            if let Some(cancellable) = self.current_list_operation.take() {
+                cancellable.cancel();
+            }
+            for handler_id in self.directory_handlers.take() {
+                previous_directory.disconnect(handler_id);
+            }
+
+            let previous_connection = previous_directory.connection();
+            if previous_connection != directory.connection() {
+                for handler_id in self.connection_handlers.take() {
+                    previous_connection.disconnect(handler_id);
                 }
-                if previous_directory.is_local()
-                    && !previous_directory.is_monitored()
-                    && previous_directory.needs_mtime_update()
-                {
-                    previous_directory.update_mtime();
-                }
+
+                self.connection_handlers
+                    .borrow_mut()
+                    .push(directory.connection().connect_closure(
+                        "close",
+                        false,
+                        glib::closure_local!(
+                            #[weak(rename_to = imp)]
+                            self,
+                            move |c: &Connection| {
+                                if c == &imp.directory.borrow().connection() {
+                                    imp.set_directory(&ConnectionList::get().home().default_dir());
+                                }
+                            }
+                        ),
+                    ));
+                self.obj()
+                    .emit_by_name::<()>("con-changed", &[&directory.connection()]);
             }
 
             self.directory_handlers
@@ -912,15 +940,109 @@ mod imp {
                     ),
                 ));
 
+            directory.pin_to_cache();
             self.obj().show_files(directory);
             directory.start_monitoring();
             self.add_to_history(directory);
+
+            if directory.state() == DirectoryState::Empty || !directory.connection().is_open() {
+                self.set_state(State::Loading);
+
+                let obj = self.obj().clone();
+                let directory = directory.clone();
+                glib::spawn_future_local(async move {
+                    let connection = directory.connection();
+                    if !connection.is_open()
+                        && let Some(window) = obj.root().and_downcast::<gtk::Window>()
+                    {
+                        match open_connection(&window, &connection).await {
+                            Err(error) => obj.imp().set_state(State::Error(error)),
+                            Ok(_) => obj.imp().relist().await,
+                        }
+                        obj.emit_by_name::<()>("con-changed", &[&directory.connection()]);
+                    } else {
+                        obj.imp().relist().await;
+                    }
+                });
+            } else {
+                self.set_state(State::Loaded);
+            }
+        }
+
+        pub async fn relist(&self) {
+            if self.current_list_operation.borrow().is_some() {
+                return;
+            }
+            self.set_state(State::Loading);
+
+            let cancellable = gio::Cancellable::new();
+            self.current_list_operation
+                .replace(Some(cancellable.clone()));
+            let result = self
+                .obj()
+                .directory()
+                .relist_files(Some(&cancellable))
+                .await;
+            self.current_list_operation.replace(None);
+
+            if !cancellable.is_cancelled() {
+                self.set_state(match result {
+                    Ok(_) => State::Loaded,
+                    Err(error) => State::Error(error),
+                });
+            }
+        }
+
+        fn set_state(&self, state: State) {
+            if state == *self.state.borrow() {
+                return;
+            }
+            self.state.replace(state);
+            self.update_state_widget();
+        }
+
+        fn update_state_widget(&self) {
+            if let Some(timeout) = self.state_widget_timeout.take() {
+                timeout.remove();
+            }
+            match &*self.state.borrow() {
+                State::Loaded => self.state_widget.set_visible(false),
+                State::Loading => {
+                    self.state_widget.set_label(&gettext("Loading…"));
+                    self.state_widget.set_tooltip_text(None);
+                    self.state_widget.add_css_class("loading");
+                    self.state_widget.remove_css_class("error");
+
+                    // Only display the loading message if loading takes some time.
+                    self.state_widget_timeout
+                        .replace(Some(glib::timeout_add_local_once(
+                            Duration::from_millis(500),
+                            glib::clone!(
+                                #[weak(rename_to = imp)]
+                                self,
+                                move || {
+                                    imp.state_widget_timeout.replace(None);
+                                    imp.state_widget.set_visible(true);
+                                }
+                            ),
+                        )));
+                }
+                State::Error(error) => {
+                    self.state_widget.set_label(&error.message);
+                    self.state_widget
+                        .set_tooltip_text(error.secondary_text.as_deref());
+                    self.state_widget.remove_css_class("loading");
+                    self.state_widget.add_css_class("error");
+                    self.state_widget.set_visible(true);
+                }
+            }
         }
 
         fn on_dir_list_ok(&self, dir: &Directory) {
             debug!('l', "on_dir_list_ok");
+            self.set_state(State::Loaded);
             self.obj().show_files(dir);
-            self.add_to_history(dir);
+            self.obj().emit_files_changed();
         }
 
         fn on_dir_list_failed(&self, _dir: &Directory, error: &glib::Error) {
@@ -928,13 +1050,10 @@ mod imp {
         }
 
         fn on_directory_deleted(&self, dir: &Directory) {
-            if let Some(parent_dir) = dir.existing_parent()
-                && let Some(path) = parent_dir.local_path()
-            {
-                self.obj().goto_directory(&path);
-            } else {
-                self.obj().goto_directory(Path::new("~"));
-            }
+            self.set_directory(
+                &dir.existing_parent()
+                    .unwrap_or_else(|| ConnectionList::get().home().default_dir()),
+            );
         }
 
         fn on_directory_renamed(&self, dir: &Directory) {
@@ -948,7 +1067,7 @@ mod imp {
         }
 
         fn on_dir_file_deleted(&self, dir: &Directory, f: &File) {
-            if self.directory.borrow().as_ref() == Some(dir) {
+            if &*self.directory.borrow() == dir {
                 self.obj().remove_file(f);
             }
         }
@@ -1429,10 +1548,7 @@ mod imp {
                 return false;
             }
 
-            let Some(dir) = self.obj().directory() else {
-                return false;
-            };
-
+            let dir = self.obj().directory();
             let file = self.row_at_coords(x, y).map(|(_, item)| item.file());
 
             let destination = match file {
@@ -1622,9 +1738,7 @@ mod imp {
                 }
             };
 
-            if let Err(error) = destination.relist_files(&window, false).await {
-                error.show(&window).await;
-            }
+            self.relist().await;
         }
     }
 
@@ -1654,10 +1768,10 @@ mod imp {
         match file_type {
             gio::FileType::Regular => " ",
             gio::FileType::Directory => "/",
+            gio::FileType::Shortcut => "/",
+            gio::FileType::Mountable => "/",
             gio::FileType::SymbolicLink => "@",
             gio::FileType::Special => "S",
-            gio::FileType::Shortcut => "K",
-            gio::FileType::Mountable => "M",
             _ => "?",
         }
     }
@@ -1759,10 +1873,8 @@ impl ColumnID {
 }
 
 impl FileList {
-    pub fn new(file_metadata_service: &FileMetadataService) -> Self {
-        glib::Object::builder()
-            .property("file-metadata-service", file_metadata_service)
-            .build()
+    pub fn new() -> Self {
+        glib::Object::builder().build()
     }
 
     pub fn set_filter(&self, filter: Option<Filter>) {
@@ -1770,6 +1882,7 @@ impl FileList {
         if let Some(filter) = self.imp().filter_model.filter() {
             filter.changed(gtk::FilterChange::Different);
         }
+        self.emit_files_changed();
     }
 
     pub fn start_range_selection(&self, up: bool, closed: bool) {
@@ -1862,10 +1975,7 @@ impl FileList {
             return;
         }
 
-        let Some(destination) = self.directory() else {
-            return;
-        };
-
+        let destination = self.directory();
         let data = match read_types(&clipboard, DROP_TYPES).await {
             Ok((data, _)) => data,
             Err(error) => {
@@ -2024,13 +2134,9 @@ impl FileList {
             .as_ref()
             .and_then(|sorter| sorter.primary_sort_column());
 
-        let col = self
-            .imp()
-            .columns
-            .borrow()
-            .iter()
-            .position(|c| sort_column.as_ref() == Some(c))
-            .and_then(|pos| u32::try_from(pos).ok().map(ColumnID::from))
+        let col = sort_column
+            .and_then(|column| column.id())
+            .and_then(|name| ColumnID::from_name(&name))
             .unwrap_or_default();
         let direction = cv_sorter
             .map(|sorter| sorter.primary_sort_order())
@@ -2038,15 +2144,82 @@ impl FileList {
         (col, direction)
     }
 
-    pub fn set_sorting(&self, column: ColumnID, order: gtk::SortType) {
-        if let Some(column) = self.imp().columns.borrow().get(column as usize) {
+    pub fn set_sorting(&self, column_id: ColumnID, order: gtk::SortType) {
+        if let Some(column) = self
+            .view()
+            .columns()
+            .iter::<gtk::ColumnViewColumn>()
+            .flatten()
+            .find(|column| column.id().is_some_and(|name| name == column_id.name()))
+        {
             self.view().sort_by_column(None, order);
-            self.view().sort_by_column(Some(column), order);
+            self.view().sort_by_column(Some(&column), order);
         }
     }
 
-    pub fn show_column(&self, col: ColumnID, value: bool) {
-        if let Some(column) = self.imp().columns.borrow().get(col as usize) {
+    pub fn column_options(&self) -> Vec<ColumnOptions> {
+        self.view()
+            .columns()
+            .iter::<gtk::ColumnViewColumn>()
+            .flatten()
+            .filter_map(|column| {
+                let column_id = ColumnID::from_name(&column.id()?)?;
+                if column_id == ColumnID::Dir {
+                    return None;
+                }
+                let mut options = ColumnOptions::new(column_id);
+                options.set_width(column.fixed_width());
+                options.set_visible(column.is_visible());
+                Some(options)
+            })
+            .collect()
+    }
+
+    pub fn set_column_options(&self, column_options: &[ColumnOptions]) {
+        let mut position = 0;
+        for options in column_options {
+            let Some(column_id) = options.column() else {
+                continue;
+            };
+            if column_id == ColumnID::Dir {
+                continue;
+            }
+            let Some((current_position, column)) = self
+                .view()
+                .columns()
+                .iter::<gtk::ColumnViewColumn>()
+                .flatten()
+                .enumerate()
+                .find(|(_, column)| column.id().is_some_and(|name| name == column_id.name()))
+                .and_then(|(pos, column)| u32::try_from(pos).ok().map(|pos| (pos, column)))
+            else {
+                continue;
+            };
+
+            let width = options.width();
+            if width > 0 {
+                column.set_fixed_width(width);
+            }
+
+            if column_id != ColumnID::Name {
+                column.set_visible(options.visible());
+            }
+
+            if current_position != position {
+                self.view().insert_column(position, &column);
+            }
+            position += 1;
+        }
+    }
+
+    pub fn show_column(&self, column_id: ColumnID, value: bool) {
+        if let Some(column) = self
+            .view()
+            .columns()
+            .iter::<gtk::ColumnViewColumn>()
+            .flatten()
+            .find(|column| column.id().is_some_and(|name| name == column_id.name()))
+        {
             column.set_visible(value);
         }
     }
@@ -2055,7 +2228,7 @@ impl FileList {
         self.imp().items_iter().any(|item| item.file() == *f)
     }
 
-    fn focused_file_position(&self) -> Option<u32> {
+    pub fn focused_file_position(&self) -> Option<u32> {
         Some(self.imp().selection.selected()).filter(|p| *p != gtk::INVALID_LIST_POSITION)
     }
 
@@ -2144,97 +2317,16 @@ impl FileList {
         };
     }
 
-    pub fn connection(&self) -> Option<Connection> {
-        self.imp().connection.borrow().clone()
+    pub fn connection(&self) -> Connection {
+        self.imp().directory.borrow().connection()
     }
 
-    pub fn set_connection(&self, connection: &impl IsA<Connection>, start_dir: Option<&Directory>) {
-        let this = self.clone();
-        let connection = connection.as_ref().clone();
-        let start_dir = start_dir.cloned();
-        glib::spawn_future_local(async move {
-            this.set_connection_async(&connection, start_dir).await;
-        });
-    }
-
-    pub async fn set_connection_async(
-        &self,
-        connection: &impl IsA<Connection>,
-        start_dir: Option<Directory>,
-    ) {
-        let connection = connection.as_ref();
-        if self.connection().as_ref() == Some(connection) {
-            let directory = if !connection.should_remember_dir() {
-                connection.default_dir()
-            } else {
-                start_dir
-            };
-            if let Some(directory) = directory {
-                self.set_directory_async(&directory).await;
-            }
-            return;
-        }
-
-        let opened = if connection.is_open() {
-            true
-        } else if let Some(window) = self.root().and_downcast::<gtk::Window>() {
-            open_connection(&window, connection).await
-        } else {
-            eprintln!("No window");
-            false
-        };
-
-        if opened {
-            self.imp().set_connection(connection);
-        }
-
-        if let Some(directory) = start_dir.or_else(|| connection.default_dir()) {
-            self.set_directory_async(&directory).await;
-        }
-    }
-
-    pub fn directory(&self) -> Option<Directory> {
+    pub fn directory(&self) -> Directory {
         self.imp().directory.borrow().clone()
     }
 
     pub fn set_directory(&self, directory: &Directory) {
-        let this = self.clone();
-        let directory = directory.clone();
-        glib::spawn_future_local(async move {
-            this.set_directory_async(&directory).await;
-        });
-    }
-
-    pub async fn set_directory_async(&self, directory: &Directory) {
-        if Some(directory) == self.directory().as_ref() {
-            return;
-        }
-
-        let Some(window) = self.root().and_downcast::<gtk::Window>() else {
-            return;
-        };
-
-        self.set_cursor(gdk::Cursor::from_name("wait", None).as_ref());
-
-        let result = match directory.state() {
-            DirectoryState::Empty => directory.list_files(&window, true).await,
-            DirectoryState::Listing | DirectoryState::Canceling => Ok(()),
-            DirectoryState::Listed => {
-                // check if the dir has up-to-date file list; if not and it's a local dir - relist it
-                if directory.is_local() && !directory.is_monitored() && directory.update_mtime() {
-                    directory.relist_files(&window, true).await
-                } else {
-                    Ok(())
-                }
-            }
-        };
-
-        self.set_cursor(None);
         self.imp().set_directory(directory);
-
-        if let Err(error) = result {
-            error.show(&window).await;
-        }
     }
 
     pub fn dir_history(&self) -> &History<(Connection, PathBuf)> {
@@ -2242,18 +2334,8 @@ impl FileList {
     }
 
     pub async fn reload(&self) {
-        let Some(directory) = self.directory() else {
-            return;
-        };
-        let Some(window) = self.root().and_downcast::<gtk::Window>() else {
-            eprintln!("No window");
-            return;
-        };
-
         self.unselect_all();
-        if let Err(error) = directory.relist_files(&window, true).await {
-            error.show(&window).await;
-        }
+        self.imp().relist().await;
     }
 
     pub fn append_file(&self, file: &File) {
@@ -2291,7 +2373,19 @@ impl FileList {
     }
 
     pub fn select_row(&self, pos: u32) {
-        self.imp().row_selector.select_row(pos);
+        if self.imp().view.size(gtk::Orientation::Vertical) > 0 {
+            self.imp().row_selector.select_row(pos);
+        } else {
+            // Too early to set selection
+            glib::timeout_add_local_once(
+                std::time::Duration::from_millis(10),
+                glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move || obj.select_row(pos),
+                ),
+            );
+        }
     }
 
     pub fn toggle_with_pattern(&self, pattern: &Filter, mode: bool) {
@@ -2306,78 +2400,6 @@ impl FileList {
             }
         }
         self.emit_files_changed();
-    }
-
-    pub fn goto_directory(&self, dir: &Path) {
-        let this = self.clone();
-        let dir = dir.to_path_buf();
-        glib::spawn_future_local(async move {
-            this.goto_directory_async(&dir).await;
-        });
-    }
-
-    pub async fn goto_directory_async(&self, dir: &Path) {
-        if let Err(error) = self.goto_directory_actual(dir).await {
-            match self.root().and_downcast::<gtk::Window>() {
-                Some(window) => error.show(&window).await,
-                None => eprintln!("{error}"),
-            }
-        }
-    }
-
-    pub async fn goto_directory_actual(&self, dir: &Path) -> Result<(), ErrorMessage> {
-        let dir = if let Ok(relative) = dir.strip_prefix("~") {
-            glib::home_dir().join(relative)
-        } else {
-            glib::shell_unquote(dir)
-                .as_ref()
-                .map(Path::new)
-                .unwrap_or(dir)
-                .to_path_buf()
-        };
-
-        let (new_dir, focus_dir) = if dir == Path::new("..") {
-            let cwd = self
-                .directory()
-                .ok_or_else(|| ErrorMessage::brief(gettext("Current directory is not set.")))?;
-
-            // let's get the parent directory
-            (
-                cwd.parent()
-                    .ok_or_else(|| ErrorMessage::brief(gettext("No parent directory")))?,
-                Some(cwd),
-            )
-        } else {
-            (
-                if dir.is_absolute() {
-                    let connection = self
-                        .connection()
-                        .unwrap_or_else(|| ConnectionList::get().home().upcast());
-                    Directory::new(&connection, &connection.create_uri(&dir))
-                } else if dir.starts_with("\\\\") {
-                    let connection = ConnectionList::get().smb().ok_or_else(|| {
-                        ErrorMessage::brief(gettext("No SAMBA connection is available"))
-                    })?;
-                    Directory::new(&connection, &connection.create_uri(&dir))
-                } else {
-                    self.directory()
-                        .ok_or_else(|| {
-                            ErrorMessage::brief(gettext("Current directory is not set."))
-                        })
-                        .map(|cwd| cwd.child(&dir))?
-                },
-                None,
-            )
-        };
-
-        self.set_directory_async(&new_dir).await;
-
-        // focus the current dir when going back to the parent dir
-        if let Some(focus_dir) = focus_dir {
-            self.focus_file(&focus_dir.path_name(), false);
-        }
-
-        Ok(())
     }
 
     fn emit_files_changed(&self) {
@@ -2480,17 +2502,7 @@ impl FileList {
         };
         let files = self.selected_files();
         if !files.is_empty() {
-            let general_options = GeneralOptions::new();
-            let confirm_options = ConfirmOptions::new();
-            show_delete_dialog(
-                &window,
-                self.connection().as_ref(),
-                &files,
-                force,
-                &general_options,
-                &confirm_options,
-            )
-            .await;
+            show_delete_dialog(&window, &self.connection(), &files, force).await;
         }
     }
 
@@ -2542,7 +2554,7 @@ impl FileList {
                 &[quick_search.upcast_ref::<gtk::Widget>()],
             );
             quick_search.set_mode(
-                mode.unwrap_or_else(|| GeneralOptions::new().quick_search_default_mode.get()),
+                mode.unwrap_or_else(|| GeneralOptions::instance().quick_search_default_mode.get()),
             );
             self.imp().quick_search.set(Some(&quick_search));
             quick_search
@@ -2558,12 +2570,6 @@ impl FileList {
     }
 
     pub fn update_style(&self) {
-        // TODO: Maybe??? gtk_cell_renderer_set_fixed_size (priv->columns[1], )
-        // gtk_clist_set_row_height (*this, gnome_cmd_data.options.list_row_height);
-
-        // let font_desc = pango::FontDescription::from_string(&self.font_name());
-        // gtk_widget_override_font (*this, font_desc);
-
         if let Some(main_win) = self.root().and_downcast::<MainWindow>()
             && main_win.color_themes().has_theme()
         {
@@ -2603,18 +2609,16 @@ impl FileList {
         store.remove_all();
         store.splice(0, 0, &items);
 
-        if self.is_realized() {
-            // If we have been waiting for this file to show up, focus it
-            let focus_later = self.imp().focus_later.take();
-            let focus_later_item = items
-                .into_iter()
-                .find(|item| focus_later.as_ref() == Some(&item.file().path_name()));
+        // If we have been waiting for this file to show up, focus it
+        let focus_later = self.imp().focus_later.take();
+        let focus_later_item = items
+            .into_iter()
+            .find(|item| focus_later.as_ref() == Some(&item.file().path_name()));
 
-            if let Some(item) = focus_later_item {
-                self.focus_file_at_row(&item);
-            } else {
-                self.select_row(0);
-            }
+        if let Some(item) = focus_later_item {
+            self.focus_file_at_row(&item);
+        } else if store.n_items() > 0 {
+            self.select_row(0);
         }
     }
 
@@ -2776,7 +2780,7 @@ impl FileList {
     }
 
     pub fn add_cwd_to_cmdline(&self) {
-        if let Some(path) = self.directory().and_then(|d| d.local_path()) {
+        if let Some(path) = self.directory().local_path() {
             self.add_to_cmdline(path);
         }
     }
@@ -2791,6 +2795,72 @@ impl FileList {
                 self.add_to_cmdline(file.name());
             }
         }
+    }
+}
+
+#[derive(Debug)]
+pub struct ColumnOptions(BTreeMap<String, glib::Variant>);
+
+impl ToVariant for ColumnOptions {
+    fn to_variant(&self) -> glib::Variant {
+        self.0.to_variant()
+    }
+}
+
+impl FromVariant for ColumnOptions {
+    fn from_variant(variant: &glib::Variant) -> Option<Self> {
+        BTreeMap::from_variant(variant).map(Self)
+    }
+}
+
+impl StaticVariantType for ColumnOptions {
+    fn static_variant_type() -> std::borrow::Cow<'static, glib::VariantTy> {
+        BTreeMap::<String, glib::Variant>::static_variant_type()
+    }
+}
+
+impl ColumnOptions {
+    const SETTING_NAME: &str = "name";
+    const SETTING_WIDTH: &str = "width";
+    const SETTING_VISIBLE: &str = "visible";
+
+    pub fn new(column: ColumnID) -> Self {
+        let mut inner = BTreeMap::new();
+        inner.insert(
+            Self::SETTING_NAME.to_string(),
+            column.name().to_owned().into(),
+        );
+        Self(inner)
+    }
+
+    pub fn column(&self) -> Option<ColumnID> {
+        self.0
+            .get(Self::SETTING_NAME)
+            .and_then(String::from_variant)
+            .and_then(|name| ColumnID::from_name(&name))
+    }
+
+    pub fn width(&self) -> i32 {
+        self.0
+            .get(Self::SETTING_WIDTH)
+            .and_then(i32::from_variant)
+            .unwrap_or(-1)
+    }
+
+    pub fn set_width(&mut self, width: i32) {
+        self.0.insert(Self::SETTING_WIDTH.to_string(), width.into());
+    }
+
+    pub fn visible(&self) -> bool {
+        self.0
+            .get(Self::SETTING_VISIBLE)
+            .and_then(bool::from_variant)
+            .unwrap_or(true)
+    }
+
+    pub fn set_visible(&mut self, visible: bool) {
+        self.0
+            .insert(Self::SETTING_VISIBLE.to_string(), visible.into());
     }
 }
 
@@ -2819,11 +2889,7 @@ fn matches_pattern(file: &str, patterns: &str) -> bool {
 }
 
 fn create_icon_factory() -> gtk::ListItemFactory {
-    let icon_cache = icon_cache();
-
-    let color_settings = gio::Settings::new(PREF_COLORS);
-
-    let global_options = GeneralOptions::new();
+    let options = ColorOptions::instance();
 
     let factory = gtk::SignalListItemFactory::new();
     factory.connect_setup(|_, obj| {
@@ -2883,7 +2949,7 @@ fn create_icon_factory() -> gtk::ListItemFactory {
             if !file.is_dotdot() && file.file_info().is_symlink() {
                 overlay.add_overlay(
                     &gtk::Image::builder()
-                        .gicon(icon_cache.symlink_overlay())
+                        .icon_name("gnome-commander-overlay-symlink")
                         .pixel_size(9)
                         .halign(gtk::Align::End)
                         .valign(gtk::Align::End)
@@ -2891,17 +2957,62 @@ fn create_icon_factory() -> gtk::ListItemFactory {
                 );
             }
 
-            let use_ls_colors = color_settings.boolean("use-ls-colors");
-            apply_css(&item, use_ls_colors, label.upcast_ref());
+            apply_css(&item, options.use_ls_colors.get(), label.upcast_ref());
 
-            match global_options.graphical_layout_mode.get() {
+            match GeneralOptions::instance().graphical_layout_mode.get() {
                 GraphicalLayoutMode::Text => {
                     label.set_text(imp::type_string(file.file_type()));
                     stack.set_visible_child(&label);
                 }
                 mode => {
-                    if let Some(icon) = icon_cache.file_icon(&file, mode) {
-                        image.set_from_gicon(&icon);
+                    let file_type_icon = match file.file_type() {
+                        gio::FileType::Directory
+                        | gio::FileType::Shortcut
+                        | gio::FileType::Mountable => "file_type_dir",
+                        gio::FileType::SymbolicLink => "file_type_symlink",
+                        gio::FileType::Special => "file_type_socket",
+                        _ => "file_type_regular",
+                    };
+
+                    if mode == GraphicalLayoutMode::MimeIcons
+                        && let Some(mime_type) = file.content_type()
+                    {
+                        let mut icons: Vec<&str> = Vec::new();
+                        let mime_default = mime_type.replace('/', "-");
+                        icons.push(&mime_default);
+
+                        if mime_type.starts_with("text") {
+                            icons.push("text-x-generic");
+                        } else if mime_type.starts_with("video") {
+                            icons.push("video-x-generic");
+                        } else if mime_type.starts_with("image") {
+                            icons.push("image-x-generic");
+                        } else if mime_type.starts_with("audio") {
+                            icons.push("audio-x-generic");
+                        } else if mime_type.starts_with("pack") {
+                            icons.push("package-x-generic");
+                        } else if mime_type.starts_with("font") {
+                            icons.push("font-x-generic");
+                        }
+
+                        let mime_fallback = format!("gnome-{mime_default}");
+                        icons.push(&mime_fallback);
+
+                        match file.file_type() {
+                            gio::FileType::Directory
+                            | gio::FileType::Shortcut
+                            | gio::FileType::Mountable => {
+                                icons.extend(["inode-directory", "i-directory"]);
+                            }
+                            gio::FileType::SymbolicLink => {
+                                icons.extend(["inode-symlink", "i-symlink"]);
+                            }
+                            _ => icons.push("i-regular"),
+                        }
+                        icons.push(file_type_icon);
+                        image.set_from_gicon(&gio::ThemedIcon::from_names(&icons));
+                    } else {
+                        image.set_icon_name(Some(file_type_icon));
                     }
                     stack.set_visible_child(&overlay);
                 }
@@ -2912,10 +3023,9 @@ fn create_icon_factory() -> gtk::ListItemFactory {
 }
 
 fn create_name_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
-    let global_options = GeneralOptions::new();
     create_text_cell_factory(0.0, cells, move |cell, item| {
         let prop = if matches!(
-            global_options.extension_display_mode.get(),
+            GeneralOptions::instance().extension_display_mode.get(),
             ExtensionDisplayMode::Stripped
         ) {
             "stem"
@@ -2932,11 +3042,10 @@ fn create_name_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
 }
 
 fn create_ext_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
-    let global_options = GeneralOptions::new();
     create_text_cell_factory(0.0, cells, move |cell, item| {
         cell.bind(&item);
         if !matches!(
-            global_options.extension_display_mode.get(),
+            GeneralOptions::instance().extension_display_mode.get(),
             ExtensionDisplayMode::WithFname
         ) {
             cell.add_binding(
@@ -2960,9 +3069,8 @@ fn create_dir_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
 }
 
 fn create_size_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
-    let global_options = GeneralOptions::new();
     create_text_cell_factory(1.0, cells, move |cell, item| {
-        let mode = global_options.size_display_mode.get();
+        let mode = GeneralOptions::instance().size_display_mode.get();
         let is_directory = item.file().is_directory();
         cell.bind(&item);
         cell.add_binding(
@@ -2983,9 +3091,8 @@ fn create_size_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
 }
 
 fn create_date_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
-    let global_options = GeneralOptions::new();
     create_text_cell_factory(0.0, cells, move |cell, item| {
-        let format = global_options.date_display_format.get();
+        let format = GeneralOptions::instance().date_display_format.get();
 
         cell.bind(&item);
         cell.add_binding(
@@ -3000,9 +3107,8 @@ fn create_date_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
 }
 
 fn create_perm_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
-    let global_options = GeneralOptions::new();
     create_text_cell_factory(0.0, cells, move |cell, item| {
-        let mode = global_options.permissions_display_mode.get();
+        let mode = GeneralOptions::instance().permissions_display_mode.get();
 
         cell.bind(&item);
         cell.add_binding(
@@ -3049,7 +3155,7 @@ fn create_text_cell_factory(
     cells: &imp::CellsMap,
     bind: impl Fn(FileListCell, FileListItem) + 'static,
 ) -> gtk::ListItemFactory {
-    let color_settings = gio::Settings::new(PREF_COLORS);
+    let options = ColorOptions::instance();
 
     let factory = gtk::SignalListItemFactory::new();
     factory.connect_setup(move |_, obj| {
@@ -3057,9 +3163,7 @@ fn create_text_cell_factory(
             let cell = FileListCell::default();
             cell.set_xalign(alignment);
 
-            color_settings
-                .bind("use-ls-colors", &cell, "use-ls-colors")
-                .build();
+            options.use_ls_colors.bind(&cell, "use-ls-colors").build();
 
             list_item.set_child(Some(&cell));
         }

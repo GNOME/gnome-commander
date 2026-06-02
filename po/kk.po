@@ -8803,3 +8803,343 @@ msgstr "Файлды санап шығу құралын жабу сәтсіз а
 #~ msgctxt "Filename suffix"
 #~ msgid "Copy"
 #~ msgstr "Көшірме"
+
+#~ msgid "GNOME Commander"
+#~ msgstr "GNOME Commander"
+
+#~ msgid ""
+#~ "Defines if the current directories are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "GNOME Commander қайта іске қосылғанда ағымдағы бумалар қайта ашылатынын "
+#~ "анықтайды."
+
+#~ msgid ""
+#~ "Defines if the current open tabs are opened again when GNOME Commander is "
+#~ "restarted."
+#~ msgstr ""
+#~ "GNOME Commander қайта іске қосылғанда ағымдағы ашық беттер қайта ашылатынын "
+#~ "анықтайды."
+
+#~ msgid "Fixed font name"
+#~ msgstr "Бекітілген қаріп аты"
+
+#~ msgid "Name of the default font with fixed character width."
+#~ msgstr "Таңба ені бекітілген бастапқы қаріптің аты."
+
+#~ msgid "Variable font name"
+#~ msgstr "Айнымалы қаріп аты"
+
+#~ msgid "Name of the default font with variable character width."
+#~ msgstr "Таңба ені айнымалы бастапқы қаріптің аты."
+
+#~ msgid "Font size"
+#~ msgstr "Қаріп өлшемі"
+
+#~ msgid "This option defines the default font size."
+#~ msgstr "Бұл опция бастапқы қаріп өлшемін анықтайды."
+
+#~ msgid ""
+#~ "GNOME Commander is a “dual-panel” graphical file manager for the GNOME "
+#~ "desktop environment. It features separate tabs for each panel, setting up "
+#~ "custom device buttons, bookmark manager, fully integrated commandline, file "
+#~ "quick search, an internal image viewer, a powerful batch renaming tool, and "
+#~ "FTP and Samba access."
+#~ msgstr ""
+#~ "GNOME Commander — бұл GNOME жұмыс үстелі ортасына арналған «екі панельді» "
+#~ "графикалық файлдар менеджері. Ол әр панель үшін бөлек беттерді, құрылғының "
+#~ "таңдамалы батырмаларын баптауды, бетбелгілер менеджерін, толық біріктірілген"
+#~ " командалық жолды, файлдарды жылдам іздеуді, ішкі сурет қарап шығу құралын, "
+#~ "атын өзгертудің қуатты топтық сайманын, сондай-ақ FTP және Samba қол "
+#~ "жеткізуін ұсынады."
+
+#~ msgid ""
+#~ "GNOME Commander aims to advanced users who like to focus on precise file "
+#~ "management, working in parallel through special applications, and running "
+#~ "smart commands."
+#~ msgstr ""
+#~ "GNOME Commander файлдарды дәл басқаруға, арнайы қолданбалар арқылы қатар "
+#~ "жұмыс істеуге және ақылды командаларды орындауға назар аударатын тәжірибелі "
+#~ "пайдаланушыларға арналған."
+
+#~ msgid "Connection method is not selected"
+#~ msgstr "Қосылу әдісі таңдалмаған"
+
+#~ msgid "Confirm defaults to OK"
+#~ msgstr "Растау үнсіз келісім бойынша OK болады"
+
+#, rust-format
+#~ msgid "A total of {selected_bytes} has been selected."
+#~ msgstr "Барлығы {selected_bytes} таңдалды."
+
+#, rust-format
+#~ msgid "{selected_files} file selected."
+#~ msgid_plural "{selected_files} files selected."
+#~ msgstr[0] "{selected_files} файл таңдалды."
+
+#, rust-format
+#~ msgid "{selected_dirs} directory selected."
+#~ msgid_plural "{selected_dirs} directories selected."
+#~ msgstr[0] "{selected_dirs} бума таңдалды."
+
+#~ msgid "Sea_rch"
+#~ msgstr "І_здеу"
+
+#~ msgid "Find"
+#~ msgstr "Табу"
+
+#~ msgid "Searching…"
+#~ msgstr "Іздеу…"
+
+#, rust-format
+#~ msgid "Searching for “{}”"
+#~ msgstr "«{}» ізделуде"
+
+#~ msgid "_Copy selection"
+#~ msgstr "Ерекшелеуді _көшіру"
+
+#, rust-format
+#~ msgid "Pattern “{}” was not found"
+#~ msgstr "«{}» үлгісі табылмады"
+
+#~ msgid "_Binary"
+#~ msgstr "_Екілік"
+
+#~ msgid "Rotate Clockwise"
+#~ msgstr "Сағат тілі бойымен бұру"
+
+#~ msgid "_Binary Mode"
+#~ msgstr "_Екілік режим"
+
+#~ msgid "GNOME Commander — ROOT PRIVILEGES"
+#~ msgstr "GNOME Commander — ӘКІМШІ ҚҰҚЫҚТАРЫ"
+
+#~ msgid "GNOME Commander Window"
+#~ msgstr "GNOME Commander терезесі"
+
+#~ msgid "A fast and powerful file manager for the GNOME desktop"
+#~ msgstr "GNOME жұмыс үстеліне арналған жылдам әрі қуатты файл менеджері"
+
+#~ msgid "GNOME Commander on the _Web"
+#~ msgstr "Желідегі GNOME Commander _беті"
+
+#~ msgid "Quick search exact match begin"
+#~ msgstr "Жылдам іздеудің басынан сәйкес келуі"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the beginning"
+#~ " of an item name."
+#~ msgstr ""
+#~ "Бұл опция жылдам іздеу элемент атының басында нақты сәйкес келуі керектігін "
+#~ "анықтайды."
+
+#~ msgid "Quick search exact match end"
+#~ msgstr "Жылдам іздеудің соңынан сәйкес келуі"
+
+#~ msgid ""
+#~ "This option defines if quick search should match explicitly at the end of an"
+#~ " item name."
+#~ msgstr ""
+#~ "Бұл опция жылдам іздеу элемент атының соңында нақты сәйкес келуі керектігін "
+#~ "анықтайды."
+
+#~ msgid "Match beginning of the file name"
+#~ msgstr "Файл атының басына сәйкес келуі"
+
+#~ msgid "Match end of the file name"
+#~ msgstr "Файл атының соңына сәйкес келуі"
+
+#~ msgid "Overwrite Files"
+#~ msgstr "Файлдарды үстінен жазу"
+
+#~ msgid "Filter:"
+#~ msgstr "Сүзгі:"
+
+#~ msgid "Case sensiti_ve"
+#~ msgstr "Регистрді _ескеру"
+
+#~ msgid "Path matches regex:"
+#~ msgstr "Жол тұрақты өрнекке сәйкес келеді:"
+
+#~ msgid "Name contains:"
+#~ msgstr "Атында бар:"
+
+#~ msgid "_Enable Filter…"
+#~ msgstr "_Сүзгіні іске қосу…"
+
+#~ msgid "Keyboard Shortcut"
+#~ msgstr "Пернетақта жарлығы"
+
+#~ msgid "_Action"
+#~ msgstr "Әре_кет"
+
+#~ msgid "_Shortcut"
+#~ msgstr "Жар_лық"
+
+#~ msgid ""
+#~ "To edit a shortcut key, click on the \"Assign\" button and type a new "
+#~ "accelerator, or press escape to cancel."
+#~ msgstr ""
+#~ "Жарлық пернесін түзету үшін «Тағайындау» батырмасына шертіп, жаңа үдеткішті "
+#~ "теріңіз немесе бас тарту үшін escape пернесін басыңыз."
+
+#~ msgid "New shortcut..."
+#~ msgstr "Жаңа жарлық..."
+
+#~ msgid "Assign"
+#~ msgstr "Тағайындау"
+
+#~ msgid "No action is selected."
+#~ msgstr "Әрекет таңдалмады."
+
+#~ msgid "No shortcut is defined."
+#~ msgstr "Жарлық анықталмады."
+
+#~ msgid "_Update Shortcut"
+#~ msgstr "Жарлықты жаңар_ту"
+
+#~ msgid "Shortcut Key"
+#~ msgstr "Жарлық пернесі"
+
+#~ msgid "Action"
+#~ msgstr "Әрекет"
+
+#~ msgid ""
+#~ "GNOME Commander is free software: you can redistribute it and/or modify it "
+#~ "under the terms of the GNU General Public License as published by the Free "
+#~ "Software Foundation, either version 3 of the License, or (at your option) "
+#~ "any later version."
+#~ msgstr ""
+#~ "GNOME Commander — еркін бағдарламалық қамтама: сіз оны Free Software "
+#~ "Foundation жариялаған GNU General Public License (3-нұсқа немесе (өз "
+#~ "қалауыңыз бойынша) кез келген кейінгі нұсқа) шарттарына сәйкес қайта тарата "
+#~ "аласыз және/немесе өзгерте аласыз."
+
+#~ msgid ""
+#~ "GNOME Commander is distributed in the hope that it will be useful, but "
+#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+#~ "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for"
+#~ " more details."
+#~ msgstr ""
+#~ "GNOME Commander пайдалы болады деген үмітпен таратылады, бірақ ЕШҚАНДАЙ "
+#~ "КЕПІЛДІК берілмейді; тіпті САТУҒА ЖАРАМДЫЛЫҚ немесе БЕЛГІЛІ БІР МАҚСАТҚА "
+#~ "СӘЙКЕСТІК кепілдігі де жоқ. Толығырақ ақпаратты GNU General Public License "
+#~ "лицензиясынан қараңыз."
+
+#~ msgid ""
+#~ "You should have received a copy of the GNU General Public License along with"
+#~ " Foobar. If not, see <https://www.gnu.org/licenses/>."
+#~ msgstr ""
+#~ "Сіз GNOME Commander бағдарламасымен бірге GNU General Public License "
+#~ "көшірмесін алуыңыз керек еді. Егер алмасаңыз, "
+#~ "<https://www.gnu.org/licenses/> сілтемесін қараңыз."
+
+#~ msgid ""
+#~ "Search window is minimizable\n"
+#~ "(Needs program restart if altered)"
+#~ msgstr ""
+#~ "Іздеу терезесін жиюға болады\n"
+#~ "(Өзгертілсе, бағдарламаны қайта іске қосу керек)"
+
+#~ msgid "Search failed"
+#~ msgstr "Іздеу сәтсіз аяқталды"
+
+#~ msgid "Something went wrong, cannot get start directory."
+#~ msgstr "Бірдеңе дұрыс болмады, бастапқы буманы алу мүмкін емес."
+
+#~ msgid "_Restore Selection"
+#~ msgstr "Таңдауды қал_пына келтіру"
+
+#~ msgid "Image:"
+#~ msgstr "Сурет:"
+
+#~ msgid "Type"
+#~ msgstr "Түрі"
+
+#~ msgid "Do nothing"
+#~ msgstr "Ешнәрсе жасамау"
+
+#~ msgid "Group"
+#~ msgstr "Тобы"
+
+#~ msgid "Colors"
+#~ msgstr "Түстер"
+
+#~ msgid "Palette"
+#~ msgstr "Палитра"
+
+#~ msgid "Unknown error"
+#~ msgstr "Белгісіз қате"
+
+#~ msgid "Disabled"
+#~ msgstr "Сөндірулі"
+
+#~ msgid "New accelerator…"
+#~ msgstr "Жаңа үдеткіш…"
+
+#~ msgid "Credits"
+#~ msgstr "Жасағандар"
+
+#~ msgid "C_redits"
+#~ msgstr "Ж_асағандар"
+
+#~ msgid "Replacement"
+#~ msgstr "Немен алмастыру"
+
+#~ msgid "Run"
+#~ msgstr "Орындау"
+
+#~ msgid "Cut"
+#~ msgstr "Қиып алу"
+
+#~ msgid "_Quit"
+#~ msgstr "_Шығу"
+
+#~ msgid "Refresh"
+#~ msgstr "Жаңарту"
+
+#~ msgid "Go back"
+#~ msgstr "Артқа өту"
+
+#~ msgid "Go forward"
+#~ msgstr "Алға өту"
+
+#~ msgid "Paste"
+#~ msgstr "Кірістіру"
+
+#~ msgid "Delete files"
+#~ msgstr "Файлдарды өшіру"
+
+#~ msgid "Invert selection"
+#~ msgstr "Таңдауды терістеу"
+
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Пернетақта жарлықтары"
+
+#~ msgid "Close the current tab"
+#~ msgstr "Ағымдағы терезені жабу"
+
+#~ msgid "pixel"
+#~ msgid_plural "pixels"
+#~ msgstr[0] "пиксель"
+
+#~ msgid "Disable"
+#~ msgstr "Сөндіру"
+
+#~ msgid "Enable"
+#~ msgstr "Іске қосу"
+
+#~ msgid "_Enable"
+#~ msgstr "Іск_е қосу"
+
+#~ msgid "Created"
+#~ msgstr "Жасалған"
+
+#~ msgid "_User name:"
+#~ msgstr "Па_йдаланушы аты:"
+
+#~ msgid "Type:"
+#~ msgstr "Түрі:"
+
+#~ msgid "MIME Type:"
+#~ msgstr "MIME түрі:"

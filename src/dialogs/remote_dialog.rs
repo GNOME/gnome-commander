@@ -299,10 +299,7 @@ mod imp {
             self.obj().close();
 
             glib::timeout_add_local_once(Duration::from_millis(1), move || {
-                if fs.is_current_tab_locked() {
-                    fs.new_tab();
-                }
-                fs.file_list().set_connection(&connection, None);
+                fs.goto(&fs.file_list(), &connection.default_dir());
             });
         }
     }

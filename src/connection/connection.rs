@@ -4,14 +4,13 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::{
-    bookmark::Bookmark, device::ConnectionDevice, home::ConnectionHome, remote::ConnectionRemote,
-    smb::ConnectionSmb,
+    bookmark::Bookmark, device::ConnectionDevice, dir_cache::DirCache, home::ConnectionHome,
+    remote::ConnectionRemote, smb::ConnectionSmb,
 };
-use crate::{debug::debug, dir::Directory, file::FileOps, utils::ErrorMessage};
+use crate::{debug::debug, dir::Directory, utils::ErrorMessage};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::{
-    cell::Ref,
-    collections::HashMap,
+    cell::{Ref, RefMut},
     future::Future,
     ops::Deref,
     path::{Path, PathBuf},
@@ -27,12 +26,10 @@ mod imp {
 
     pub struct Connection {
         pub uuid: String,
-        pub dir_cache: RefCell<HashMap<String, Directory>>,
+        pub(super) dir_cache: RefCell<DirCache>,
         pub bookmarks: RefCell<Vec<Bookmark>>,
         pub alias: RefCell<Option<String>>,
         pub state: Cell<ConnectionState>,
-        /// the start directory of this connection
-        pub default_dir: RefCell<Option<Directory>>,
         pub base_path: RefCell<Option<PathBuf>>,
     }
 
@@ -48,7 +45,6 @@ mod imp {
                 bookmarks: RefCell::new(Vec::new()),
                 alias: Default::default(),
                 state: Cell::new(ConnectionState::Closed),
-                default_dir: Default::default(),
                 base_path: Default::default(),
             }
         }
@@ -57,10 +53,6 @@ mod imp {
     impl ObjectImpl for Connection {
         fn constructed(&self) {
             self.parent_constructed();
-        }
-
-        fn dispose(&self) {
-            self.obj().set_default_dir(None);
         }
 
         fn signals() -> &'static [glib::subclass::Signal] {
@@ -87,53 +79,6 @@ impl Connection {
     fn emit_updated(&self) {
         self.emit_by_name::<()>("updated", &[]);
     }
-
-    pub fn add_to_cache(&self, directory: &Directory, uri: &str) {
-        debug!('k', "ADDING {directory:?} {uri} to the cache");
-        self.imp()
-            .dir_cache
-            .borrow_mut()
-            .insert(uri.to_owned(), directory.clone());
-    }
-
-    pub fn remove_from_cache(&self, directory: &Directory) {
-        let uri = directory.uri();
-        debug!('k', "REMOVING {directory:?} {uri} from the cache");
-        self.imp().dir_cache.borrow_mut().remove(&uri);
-    }
-
-    pub fn remove_from_cache_by_uri(&self, uri: &str) {
-        // We have to hold on to the removed directories here. These have to be dropped after our
-        // cache reference is released because it will call remove_from_cache() which needs a cache
-        // reference as well.
-        let _removed: Vec<_> = self
-            .imp()
-            .dir_cache
-            .borrow_mut()
-            .extract_if(|u, _| u.starts_with(uri))
-            .collect();
-        debug!(
-            'k',
-            "REMOVING {uri} from the cache together with {:?}",
-            _removed
-                .into_iter()
-                .map(|(uri, _dir)| uri)
-                .collect::<Vec<_>>()
-        );
-    }
-
-    pub fn cache_lookup(&self, uri: &str) -> Option<Directory> {
-        match self.imp().dir_cache.borrow().get(uri) {
-            Some(directory) => {
-                debug!('k', "FOUND {directory:?} {uri} in the cache, reusing it!");
-                Some(directory.clone())
-            }
-            None => {
-                debug!('k', "FAILED to find {uri} in the cache");
-                None
-            }
-        }
-    }
 }
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -144,6 +89,14 @@ pub enum ConnectionState {
 }
 
 pub trait ConnectionExt: IsA<Connection> + 'static {
+    fn dir_cache(&self) -> Ref<'_, DirCache> {
+        self.as_ref().imp().dir_cache.borrow()
+    }
+
+    fn dir_cache_mut(&self) -> RefMut<'_, DirCache> {
+        self.as_ref().imp().dir_cache.borrow_mut()
+    }
+
     fn uuid(&self) -> String {
         self.as_ref().imp().uuid.clone()
     }
@@ -165,15 +118,19 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
 
     fn set_state(&self, state: ConnectionState) {
         self.as_ref().imp().state.set(state);
+        if state == ConnectionState::Closed {
+            self.dir_cache_mut().invalidate_all();
+        }
         self.emit_by_name::<()>("updated", &[]);
     }
 
-    fn default_dir(&self) -> Option<Directory> {
-        self.as_ref().imp().default_dir.borrow().clone()
-    }
-
-    fn set_default_dir(&self, dir: Option<&Directory>) {
-        self.as_ref().imp().default_dir.replace(dir.cloned());
+    fn default_dir(&self) -> Directory {
+        Directory::new(
+            self,
+            &self
+                .as_ref()
+                .create_uri(&self.base_path().unwrap_or(PathBuf::from("/"))),
+        )
     }
 
     fn base_path(&self) -> Option<PathBuf> {
@@ -296,10 +253,6 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
         match open_result {
             Ok(Ok(())) => {
                 debug!('m', "OPEN_OK detected");
-                let dir = self
-                    .base_path()
-                    .map(|base_path| Directory::new(self, &self.as_ref().create_uri(&base_path)));
-                self.as_ref().set_default_dir(dir.as_ref());
                 self.set_state(ConnectionState::Open);
                 Ok(())
             }
@@ -372,15 +325,6 @@ pub trait ConnectionInterface {
 
     fn should_remember_dir(&self) -> bool {
         true
-    }
-
-    fn needs_open_visprog(&self) -> bool {
-        false
-    }
-
-    /// Defines if a graphical progress bar should be drawn when opening a folder
-    fn needs_list_visprog(&self) -> bool {
-        false
     }
 
     fn can_show_free_space(&self) -> bool {
