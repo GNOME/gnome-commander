@@ -84,7 +84,7 @@ summary(
   section: 'User defined options'
 )
 
-subdir('src')
+subdir('gnome-commander')
 subdir('data')
 subdir('plugins')
 

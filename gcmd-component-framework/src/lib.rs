@@ -58,7 +58,7 @@ container_ext_impl!(gtk::WindowHandle, set_child, gtk::Widget);
 /// The basic syntax is:
 ///
 /// ```rust
-/// # use gnome_commander::with;
+/// # use gcmd_component_framework::with;
 /// # use gtk::prelude::*;
 /// # gtk::init();
 /// let view = with!(gtk::Window => {
@@ -74,7 +74,7 @@ container_ext_impl!(gtk::WindowHandle, set_child, gtk::Widget);
 /// say in the `view.window` property, you can pass the existing object to manipulate:
 ///
 /// ```rust
-/// # use gnome_commander::with;
+/// # use gcmd_component_framework::with;
 /// # use gtk::prelude::*;
 /// # gtk::init();
 /// # #[derive(Default)]
@@ -94,7 +94,7 @@ container_ext_impl!(gtk::WindowHandle, set_child, gtk::Widget);
 /// You can nest additional widgets within the root widget:
 ///
 /// ```rust
-/// # use gnome_commander::with;
+/// # use gcmd_component_framework::with;
 /// # use gtk::prelude::*;
 /// # gtk::init();
 /// # #[derive(Default)]
@@ -124,7 +124,7 @@ container_ext_impl!(gtk::WindowHandle, set_child, gtk::Widget);
 /// children however. In such cases the method can be called explicitly:
 ///
 /// ```rust
-/// # use gnome_commander::with;
+/// # use gcmd_component_framework::with;
 /// # use gtk::prelude::*;
 /// # gtk::init();
 /// let view = with!(gtk::Box => {
@@ -135,7 +135,7 @@ container_ext_impl!(gtk::WindowHandle, set_child, gtk::Widget);
 /// Some calls can be made conditional using the `if_!()` pseudo-macro:
 ///
 /// ```rust
-/// # use gnome_commander::with;
+/// # use gcmd_component_framework::with;
 /// # use gtk::prelude::*;
 /// # gtk::init();
 /// let state = 1;
@@ -165,7 +165,7 @@ container_ext_impl!(gtk::WindowHandle, set_child, gtk::Widget);
 /// It is also possible to iterate over a collection using the `for_!()` pseudo-macro:
 ///
 /// ```rust
-/// # use gnome_commander::with;
+/// # use gcmd_component_framework::with;
 /// # use gtk::prelude::*;
 /// # gtk::init();
 /// let view = with!(gtk::Box => {
@@ -211,7 +211,7 @@ macro_rules! with {
         }
         $($rest:tt)*
     }, $obj:ident) => {
-        $crate::components::ContainerExt::container_set_child(
+        $crate::ContainerExt::container_set_child(
             &$obj, &$crate::with!($type => {$($ops)*})
         );
         $crate::with!{@block {$($rest)*}, $obj}
@@ -223,7 +223,7 @@ macro_rules! with {
         }
         $($rest:tt)*
     }, $obj:ident) => {
-        $crate::components::ContainerExt::container_set_child(
+        $crate::ContainerExt::container_set_child(
             &$obj, $crate::with!($expr => {$($ops)*})
         );
         $crate::with!{@block {$($rest)*}, $obj}
@@ -287,7 +287,7 @@ macro_rules! with {
 /// input channel. This macro is meant to be used within the [with! macro](crate::with):
 ///
 /// ```rust,ignore
-/// # use gnome_commander::{forward_input, with};
+/// # use gcmd_component_framework::{forward_input, with};
 /// # use gtk::prelude::*;
 /// # gtk::init();
 /// with!(gtk::Button => {
@@ -309,7 +309,7 @@ macro_rules! forward_input {
 /// output channel. This macro is meant to be used within the [with! macro](crate::with):
 ///
 /// ```rust,ignore
-/// # use gnome_commander::{forward_input, with};
+/// # use gcmd_component_framework::{forward_input, with};
 /// # use gtk::prelude::*;
 /// # gtk::init();
 /// with!(gtk::Button => {

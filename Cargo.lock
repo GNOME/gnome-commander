@@ -510,6 +510,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "gcmd-component-framework"
+version = "2.1.0"
+dependencies = [
+ "async-channel 2.5.0",
+ "futures",
+ "gtk4",
+]
+
+[[package]]
 name = "gdk-pixbuf"
 version = "0.22.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -714,6 +723,7 @@ dependencies = [
  "async-std",
  "bimap",
  "futures",
+ "gcmd-component-framework",
  "gettext-rs",
  "glib",
  "glob",

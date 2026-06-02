@@ -8,7 +8,6 @@ pub mod application;
 pub mod chmod_component;
 pub mod chown_component;
 pub mod command_line;
-pub mod components;
 pub mod config;
 pub mod connection;
 pub mod connection_bar;

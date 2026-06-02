@@ -5,12 +5,10 @@
 
 use super::{ShortcutsDialogInput, shortcut_entry::ShortcutEntry};
 use crate::{
-    components::{Component, ComponentController, ComponentSender},
-    forward_output,
     shortcuts::{Call, Shortcut, Shortcuts},
     user_actions::UserAction,
-    with,
 };
+use component_framework::{Component, ComponentController, ComponentSender, forward_output, with};
 use gettextrs::gettext;
 use gtk::prelude::*;
 

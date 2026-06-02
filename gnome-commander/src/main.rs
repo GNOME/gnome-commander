@@ -9,7 +9,6 @@ mod application;
 mod chmod_component;
 mod chown_component;
 mod command_line;
-mod components;
 mod config;
 mod connection;
 mod connection_bar;

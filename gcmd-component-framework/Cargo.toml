@@ -1,0 +1,18 @@
+[package]
+name = "gcmd-component-framework"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+
+[lib]
+name = "gcmd_component_framework"
+path = "src/lib.rs"
+
+[dependencies]
+async-channel.workspace = true
+futures.workspace = true
+gtk.workspace = true
+
+[lints]
+workspace = true

@@ -8,16 +8,16 @@ mod capture;
 mod shortcut_entry;
 
 use crate::{
-    components::{Component, ComponentController, ComponentSender},
-    forward_input, forward_output,
     main_win::MainWindow,
     shortcuts::{Area, Call, Shortcut, Shortcuts},
     user_actions::UserAction,
     utils::{NO_MOD, SHIFT, WindowExt, display_help},
-    with,
 };
 use action_entry::ActionEntry;
 use capture::{Capture, CaptureOutput};
+use component_framework::{
+    Component, ComponentController, ComponentSender, forward_input, forward_output, with,
+};
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
 

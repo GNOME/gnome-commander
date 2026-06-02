@@ -20,14 +20,14 @@ fn main() {
     system_deps::Config::new().probe().unwrap();
 
     compile_resources(
-        "pixmaps",
+        "../pixmaps",
         "/org/gnome/gnome-commander/icons",
         "icons.gresource",
     );
 
-    compile_locales("po");
+    compile_locales("../po");
 
-    compile_schemas("data");
+    compile_schemas("../data");
 }
 
 fn compile_resources(root_dir: impl AsRef<Path>, prefix: &str, outfile: &str) {

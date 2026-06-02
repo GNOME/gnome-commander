@@ -4,12 +4,8 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::action_entry::ActionEntryInput;
-use crate::{
-    components::{Component, ComponentSender},
-    forward_output,
-    shortcuts::Shortcut,
-    with,
-};
+use crate::shortcuts::Shortcut;
+use component_framework::{Component, ComponentSender, forward_output, with};
 use gettextrs::gettext;
 use gtk::prelude::*;
 

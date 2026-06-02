@@ -1,28 +1,32 @@
-[package]
-name = "gnome-commander"
+[workspace]
+resolver = "3"
+members = [
+  "gnome-commander",
+  "gcmd-component-framework",
+]
+default-members = [
+  "gnome-commander",
+  "gcmd-component-framework",
+]
+
+[workspace.package]
 version = "2.1.0"
-edition = "2024"
 # Note: Updating minimum Rust version also requires the Docker build environment.
 # See docker directory for instructions.
 rust-version = "1.92"
+edition = "2024"
+repository = "https://gitlab.gnome.org/GNOME/gnome-commander/"
 
-[lib]
-name = "gnome_commander"
-path = "src/lib.rs"
-
-[[bin]]
-name = "gnome-commander"
-path = "src/main.rs"
-test = false
-
-[dependencies]
+[workspace.dependencies]
 async-broadcast = "0.7.2"
 async-channel = "2.3.1"
 async-io = "2.6.0"
 async-process = "2.5.0"
 async-recursion = "1.1.1"
+async-std = { version = "1.13.2", features = ["attributes"] }
 bimap = "0.6.3"
 futures = "0.3.31"
+component-framework = { path = "gcmd-component-framework", package = "gcmd-component-framework" }
 gettext-rs = { version = "0.7.0", features = ["gettext-system"] }
 glib = { version = "0.22", features = ["v2_80"] }
 glob = "0.3.2"
@@ -32,25 +36,21 @@ indexmap = "2.7.1"
 libc = "0.2.155"
 memmap2 = "0.9.7"
 regex = "1.11.1"
+rusty-fork = "0.3.0"
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.149"
+system-deps = "7"
 tempfile = "3.11.0"
 unicode-segmentation = "1.12.0"
 vte = { package = "vte4", version = "0.10.0", features = ["v0_76"] }
+walkdir = "2.5.0"
 winnow = "0.7"
 
-[build-dependencies]
-system-deps = "7"
-walkdir = "2.5.0"
+[workspace.lints.rust]
+async_fn_in_trait = "allow"
 
-[package.metadata.system-deps.gmodule_2_0]
-name = "gmodule-2.0"
-version = "2"
-
-[dev-dependencies]
-async-std = { version = "1.13.2", features = ["attributes"] }
-rusty-fork = "0.3.0"
-tempfile = "3.11.0"
+[workspace.lints.clippy]
+new_without_default = "allow"
 
 [profile.dev.package."*"]
 opt-level = 3
@@ -62,9 +62,3 @@ rpath = true
 strip = true
 lto = true
 codegen-units = 1
-
-[lints.rust]
-async_fn_in_trait = "allow"
-
-[lints.clippy]
-new_without_default = "allow"
