@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/"
 "\n"
 "POT-Creation-Date: 2026-06-01 20:56+0000\n"
-"PO-Revision-Date: 2026-06-02 16:54+0300\n"
+"PO-Revision-Date: 2026-06-02 18:44+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2485,10 +2485,12 @@ msgstr "Виконавець"
 msgid ""
 "This tag records the name of the camera owner, photographer or image creator."
 msgstr ""
+"Ця мітка вказує на ім'я власника фотоапарата, фотографа або творця"
+" зображення."
 
 #: plugins/image-metadata.py:70
 msgid "Host Computer"
-msgstr ""
+msgstr "Основний комп'ютер"
 
 #: plugins/image-metadata.py:70
 msgid ""
@@ -2611,7 +2613,7 @@ msgstr "Принтер призначення"
 msgid ""
 "A description of the printing environment for which this separation is "
 "intended."
-msgstr ""
+msgstr "Опис середовища друку, для якого було виконано відокремлення."
 
 #: plugins/image-metadata.py:88
 msgid "Extra Samples"
@@ -3245,7 +3247,6 @@ msgid "Focal Plane Y Resolution"
 msgstr "Фокальна роздільна здатність за Y"
 
 #: plugins/image-metadata.py:158
-#, fuzzy
 #| msgid ""
 #| "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageLength> "
 #| "direction. The same value as <Exif.XResolution> is designated."
@@ -3253,8 +3254,8 @@ msgid ""
 "Number of pixels per FocalPlaneResolutionUnit (37392) in ImageLength "
 "direction for main image."
 msgstr ""
-"Кількість пікселів на <Exif.ResolutionUnit> у напрямку <Exif.ImageLength>. "
-"Використовується те саме значення, що і для <Exif.XResolution>."
+"Кількість пікселів на FocalPlaneResolutionUnit (37392) у напрямку"
+" ImageLength для основного зображення."
 
 #: plugins/image-metadata.py:159
 msgid "Focal Plane Resolution Unit"
@@ -3265,6 +3266,8 @@ msgid ""
 "Unit of measurement for FocalPlaneXResolution(37390) and "
 "FocalPlaneYResolution(37391)."
 msgstr ""
+"Одиниця виміру для FocalPlaneXResolution(37390) і"
+" FocalPlaneYResolution(37391)."
 
 #: plugins/image-metadata.py:160
 msgid "Subject Location"
@@ -3281,10 +3284,9 @@ msgid "Sensing Method"
 msgstr "Тип сенсора"
 
 #: plugins/image-metadata.py:162
-#, fuzzy
 #| msgid "Title of image."
 msgid "Type of image sensor."
-msgstr "Назва зображення."
+msgstr "Тип датчика зображення"
 
 #: plugins/image-metadata.py:163
 msgid "File Source"
@@ -3320,6 +3322,8 @@ msgid ""
 "This tag indicates the use of special processing on image data, such as "
 "rendering geared to output."
 msgstr ""
+"Ця мітка вказує на те, чи було використано особливу обробку даних "
+"зображення, на зразок перетворення зчеплення до виводу."
 
 #: plugins/image-metadata.py:166
 msgid "Exposure Mode"
@@ -3364,7 +3368,6 @@ msgid "Focal Length In 35mm Film"
 msgstr "Фокусна відстань в 35 мм варіанті"
 
 #: plugins/image-metadata.py:169
-#, fuzzy
 #| msgid ""
 #| "The equivalent focal length assuming a 35mm film camera, in mm. A value "
 #| "of 0 means the focal length is unknown. Note that this tag differs from "
@@ -3373,19 +3376,18 @@ msgid ""
 "This tag indicates the equivalent focal length assuming a 35mm film camera, "
 "in mm. A value of 0 means the focal length is unknown."
 msgstr ""
-"Еквівалентна фокусна відстань приведена до 35 мм камери в мм. 0 відповідає "
-"невідомій фокусній відстані. Зауважте, що цей тег відрізняється від тегу "
-"<Exif.FocalLength>."
+"Ця мітка вказує еквівалентну фокусну відстань, яку приведено до 35-мм"
+" камери, у мм. 0 відповідає "
+"невідомій фокусній відстані."
 
 #: plugins/image-metadata.py:170
 msgid "Scene Capture Type"
 msgstr "Тип сцени зйомки"
 
 #: plugins/image-metadata.py:170
-#, fuzzy
 #| msgid "This tag indicates the degree of overall image gain adjustment."
 msgid "This tag indicates the type of scene that was shot."
-msgstr "Цей теґ вказує встановлений рівень загальної яскравості зображення."
+msgstr "Ця мітка вказує на тип знятої сцени."
 
 #: plugins/image-metadata.py:171
 msgid "Gain Control"
@@ -3440,6 +3442,8 @@ msgid ""
 "This tag indicates information on the picture-taking conditions of a "
 "particular camera model."
 msgstr ""
+"Ця мітка вказує на відомості щодо умов знімання зображення певною моделлю"
+" фотоапарата."
 
 #: plugins/image-metadata.py:176
 msgid "Subject Distance Range"
@@ -3455,7 +3459,7 @@ msgstr "Унікальний ID зображення"
 
 #: plugins/image-metadata.py:177
 msgid "This tag indicates an identifier assigned uniquely to each image."
-msgstr ""
+msgstr "Ця мітка вказує на унікальний ідентифікатор для кожного зображення."
 
 #: plugins/image-metadata.py:178
 msgid "Camera Owner Name"
@@ -3466,6 +3470,8 @@ msgid ""
 "This tag records the owner of a camera used in photography as an ASCII "
 "string."
 msgstr ""
+"У цій мітці записують власника фотоапарата, використаного у фотографії, у"
+" форматі рядка ASCII."
 
 #: plugins/image-metadata.py:179
 msgid "Body Serial Number"
@@ -3496,6 +3502,7 @@ msgstr "Виробник об'єктива"
 #: plugins/image-metadata.py:181
 msgid "This tag records the lens manufactor as an ASCII string."
 msgstr ""
+"У цій мітці записано дані щодо виробника об'єктива у форматі рядка ASCII."
 
 #: plugins/image-metadata.py:182
 msgid "Lens Model"
@@ -3541,34 +3548,29 @@ msgid "Interoperability Index"
 msgstr "Індекс сумісності"
 
 #: plugins/image-metadata.py:189
-#, fuzzy
 #| msgid ""
 #| "Indicates the identification of the Interoperability rule. Use “R98” for "
 #| "stating ExifR98 Rules."
 msgid "Indicates the identification of the Interoperability rule."
-msgstr ""
-"Вказує на ідентифікацію правила забезпечення взаємодії Скористайтеся "
-"значенням «R98» для визначення правил ExifR98."
+msgstr "Вказує на ідентифікацію правила забезпечення взаємодії."
 
 #: plugins/image-metadata.py:190
 msgid "Interoperability Version"
 msgstr "Версія для сумісності"
 
 #: plugins/image-metadata.py:190
-#, fuzzy
 #| msgid "Interoperability version."
 msgid "Interoperability version"
-msgstr "Версія для сумісності."
+msgstr "Версія взаємодії"
 
 #: plugins/image-metadata.py:191
 msgid "Related Image File Format"
 msgstr "Формат файлу зв'язаного зображення"
 
 #: plugins/image-metadata.py:191
-#, fuzzy
 #| msgid "The data format of the image object."
 msgid "File format of image file"
-msgstr "Формат даних об'єкта зображення."
+msgstr "Формат файла для файла зображення"
 
 #: plugins/image-metadata.py:192
 msgid "Related Image Width"
@@ -3587,27 +3589,22 @@ msgid "Image height"
 msgstr "Висота зображення"
 
 #: plugins/image-metadata.py:194
-#, fuzzy
 #| msgid "GPS Tag Version"
 msgid "GPS Version ID"
-msgstr "Версія теґу GPS"
+msgstr "Ідентифікатор версії GPS"
 
 #: plugins/image-metadata.py:194
-#, fuzzy
 #| msgid ""
 #| "Indicates the version of <Exif.GPS.InfoIFD>. This tag is mandatory when "
 #| "<Exif.GPS.Info> tag is present."
 msgid ""
 "Indicates the version of <GPSInfoIFD>. The version is given as 2.0.0.0."
-msgstr ""
-"Вказує версію <Exif.GPS.InfoIFD>. Цей тег є обов'язковим коли "
-"<Exif.GPS.Info> тег присутній."
+msgstr "Вказує на версію <GPSInfoIFD>. Версія задається у форматі 2.0.0.0."
 
 #: plugins/image-metadata.py:195
-#, fuzzy
 #| msgid "Altitude Reference"
 msgid "GPS Latitude Reference"
-msgstr "Відносна висота"
+msgstr "Еталон широти GPS"
 
 #: plugins/image-metadata.py:195
 msgid ""
@@ -3635,10 +3632,9 @@ msgstr ""
 "десяткових розряди формат відповідатиме гг/1,хххх/100,0/1. "
 
 #: plugins/image-metadata.py:197
-#, fuzzy
 #| msgid "Altitude Reference"
 msgid "GPS Longitude Reference"
-msgstr "Відносна висота"
+msgstr "Еталон довготи GPS"
 
 #: plugins/image-metadata.py:197
 msgid ""
@@ -3689,6 +3685,9 @@ msgid ""
 "expressed as three RATIONAL values giving the hour, minute, and second "
 "(atomic clock)."
 msgstr ""
+"Вказує на час UTC (всесвітнього координованого часу). Часова позначка"
+" виражається у форматі трьох РАЦІОНАЛЬНИХ значень — годин, хвилин і секунд"
+" (атомний годинник)."
 
 #: plugins/image-metadata.py:201
 msgid "GPS Satellites"
@@ -3700,6 +3699,10 @@ msgid ""
 "describe the number of satellites, their ID number, angle of elevation, "
 "azimuth, SNR and other information in ASCII notation."
 msgstr ""
+"Вказує на супутники GPS, які було використано для вимірювання. Цією міткою"
+" можна скористатися для опису кількості супутників, ідентифікаційних"
+" номерів, кутів висоти, азимутів, співвідношень сигнал/шум та інших"
+" відомостей у записі ASCII."
 
 #: plugins/image-metadata.py:202
 msgid "GPS Status"
@@ -3822,13 +3825,11 @@ msgid ""
 msgstr ""
 
 #: plugins/image-metadata.py:212
-#, fuzzy
 #| msgid "Altitude Reference"
 msgid "GPS Destination Latitude Reference"
-msgstr "Відносна висота"
+msgstr "Еталон широти призначення GPS"
 
 #: plugins/image-metadata.py:212
-#, fuzzy
 #| msgid ""
 #| "Indicates whether the latitude is north or south latitude. The ASCII "
 #| "value “N” indicates north latitude, and “S” is south latitude."
@@ -3837,7 +3838,8 @@ msgid ""
 "latitude. The ASCII value \"N\" indicates north latitude, and \"S\" is south "
 "latitude."
 msgstr ""
-"Визначає, є широта точки цілі північною чи південною. Значення ASCII «N» "
+"Визначає, є широта точки призначення північною чи південною. Значення ASCII"
+" «N» "
 "означає північну широту, а значення «S» — південну."
 
 #: plugins/image-metadata.py:213
@@ -3862,10 +3864,9 @@ msgstr ""
 "1,мммм/100,0/1."
 
 #: plugins/image-metadata.py:214
-#, fuzzy
 #| msgid "Altitude Reference"
 msgid "GPS Destination Longitude Reference"
-msgstr "Відносна висота"
+msgstr "Еталон довготи призначення GPS"
 
 #: plugins/image-metadata.py:214
 #| msgid ""
@@ -3913,10 +3914,9 @@ msgstr ""
 "точку цілі. «T» — істинний напрямок, а «M» — напрямок на магнітний полюс."
 
 #: plugins/image-metadata.py:217
-#, fuzzy
 #| msgid "Destination"
 msgid "GPS Destination Bearing"
-msgstr "Призначення"
+msgstr "Пеленг призначення GPS"
 
 #: plugins/image-metadata.py:217
 msgid ""
@@ -3927,7 +3927,7 @@ msgstr ""
 
 #: plugins/image-metadata.py:218
 msgid "GPS Destination Distance Reference"
-msgstr ""
+msgstr "Еталон відстані призначення GPS"
 
 #: plugins/image-metadata.py:218
 msgid ""
@@ -5124,6 +5124,8 @@ msgid ""
 "Required mutagen module not found. Please install mutagen for Python3 on "
 "your system."
 msgstr ""
+"Потрібного для роботи модуля mutagen не знайдено. Будь ласка, встановіть у"
+" вашій системі mutagen для Python3."
 
 #: plugins/plugin_helper.py:203 plugins/plugin_helper.py:206
 msgid "Unsupported application protocol"
@@ -7810,16 +7812,18 @@ msgstr "Роботу дочірнього процесу перервано не
 
 #: src/plugins/instance.rs:442
 msgid "Incoming message exceeded maximum size"
-msgstr ""
+msgstr "Розмір вхідного повідомлення перевищує максимальний"
 
 #: src/plugins/instance.rs:508
 msgid "Plugin didn't start up within maximum time"
-msgstr ""
+msgstr "Додаток не було запущено у межах максимального проміжку часу"
 
 #: src/plugins/instance.rs:525
 #, rust-format
 msgid "No response to API request {} received within maximum time"
 msgstr ""
+"Протягом максимального проміжку часу не було отримано відповіді на запит API"
+" {}"
 
 #: src/plugins/manager.rs:27
 msgid "Available plugins"
@@ -7842,7 +7846,7 @@ msgstr "Запуск…"
 
 #: src/plugins/manager.rs:198
 msgid "Plugin has errors, click to copy."
-msgstr ""
+msgstr "У додатку виявлено помилки; натисніть, щоб скопіювати дані."
 
 #: src/plugins/manager.rs:218
 msgid "About"
@@ -8347,7 +8351,7 @@ msgstr "_Надіслати файли"
 
 #: src/user_actions.rs:1633
 msgid "Qui_t"
-msgstr ""
+msgstr "Ви_йти"
 
 #: src/user_actions.rs:1640
 msgid "Toggle selection"
