@@ -3,8 +3,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::{
-    for_statement::ForStatement, if_statement::IfStatement, method_call::MethodCall,
-    subcomponent::Subcomponent, widget::Widget,
+    for_statement::ForStatement, if_statement::IfStatement, method_call::MethodCall, widget::Widget,
 };
 use quote::{ToTokens, quote_spanned};
 use syn::{
@@ -17,7 +16,6 @@ pub enum Statement {
     For(ForStatement),
     If(IfStatement),
     Method(MethodCall),
-    Subcomponent(Subcomponent),
     Widget(Widget),
 }
 
@@ -29,8 +27,6 @@ impl Parse for Statement {
             Self::If(input.parse()?)
         } else if input.peek(Token![.]) {
             Self::Method(input.parse()?)
-        } else if input.peek(Token![+]) {
-            Self::Subcomponent(input.parse()?)
         } else {
             Self::Widget(input.parse()?)
         })
@@ -43,21 +39,12 @@ impl ToTokens for Statement {
             Self::For(for_statement) => for_statement.to_tokens(stream),
             Self::If(if_statement) => if_statement.to_tokens(stream),
             Self::Method(method_call) => method_call.to_tokens(stream),
-            Self::Subcomponent(subcomponent) => subcomponent.to_tokens(stream),
             Self::Widget(widget) => {
-                if widget.is_reference() {
-                    stream.extend(quote_spanned! {widget.span()=>
-                        ::component_framework::container::ContainerExt::container_set_child(
-                            __context_ref, #widget
-                        );
-                    });
-                } else {
-                    stream.extend(quote_spanned! {widget.span()=>
-                        ::component_framework::container::ContainerExt::container_set_child(
-                            __context_ref, &#widget
-                        );
-                    });
-                }
+                stream.extend(quote_spanned! {widget.span()=>
+                    ::component_framework::container::ContainerExt::container_set_child(
+                        &__context, #widget
+                    );
+                });
             }
         }
     }

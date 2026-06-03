@@ -140,8 +140,9 @@ use proc_macro::TokenStream;
 /// assert_eq!(view.observe_children().n_items(), 5);
 /// ```
 ///
-/// In more complicated scenarios your component might embed other components. The `with!()` macro
-/// allows adding them to the view while also forwarding their output messages.
+/// In more complicated scenarios your component might embed other components. This can be done via
+/// `ComponentController::attach()` method that both sets up message translation and produces the
+/// widget to be added to the view.
 ///
 /// ```rust
 /// # use component_framework::{Component, ComponentController, ComponentSender, with};
@@ -161,6 +162,10 @@ use proc_macro::TokenStream;
 ///
 /// struct Child;
 ///
+/// fn translate_child_message(message: ChildOutput) -> ParentInput {
+///     ParentInput::MessageFromChild(message)
+/// }
+///
 /// impl Component for Parent {
 ///     type View = gtk::Box;
 ///     type Input = ParentInput;
@@ -173,7 +178,9 @@ use proc_macro::TokenStream;
 ///             gtk::Label {
 ///                 .set_label("Behold, child below");
 ///             }
-///             + self.child ~> |child_output| ParentInput::MessageFromChild(child_output);
+///             self.child.attach(sender, translate_child_message) {
+///                 .set_visible(true);
+///             }
 ///         })
 ///     }
 ///
@@ -199,10 +206,6 @@ use proc_macro::TokenStream;
 /// #   }
 /// }
 /// ```
-///
-/// Message forwarding it optional but should be done for any child components producing output
-/// messages. Note that message forwarding requires a local variable `sender` pointing to the target
-/// `ComponentSender` instance.
 #[proc_macro]
 pub fn with(input: TokenStream) -> TokenStream {
     with::with(input)

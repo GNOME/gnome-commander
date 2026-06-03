@@ -7,19 +7,19 @@ use gtk::prelude::*;
 /// A helper trait used by the [with! macro](crate::with), provides a standard API to add a child to
 /// some Gtk widgets. This trait is used when no explicit method is specified in `with!`.
 pub trait ContainerExt<T> {
-    fn container_set_child(&self, child: &T);
+    fn container_set_child(&self, child: T);
 }
 
 macro_rules! container_ext_impl {
     ($container_type:ty, $method:ident, $child_type:ty) => {
-        impl<T: IsA<$child_type>> ContainerExt<T> for $container_type {
-            fn container_set_child(&self, child: &T) {
+        impl<T: AsRef<$child_type>> ContainerExt<T> for $container_type {
+            fn container_set_child(&self, child: T) {
                 self.$method(child.as_ref().into());
             }
         }
 
-        impl<T: IsA<$child_type>> ContainerExt<T> for &$container_type {
-            fn container_set_child(&self, child: &T) {
+        impl<T: AsRef<$child_type>> ContainerExt<T> for &$container_type {
+            fn container_set_child(&self, child: T) {
                 self.$method(child.as_ref().into());
             }
         }

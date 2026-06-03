@@ -106,7 +106,7 @@ impl Component for ActionEntry {
                     }
 
                     for shortcut in &self.shortcuts {
-                        + shortcut ~> |message| message;
+                        shortcut.attach(sender, |message| message) {}
                     }
                 }
             }

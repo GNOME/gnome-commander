@@ -7,7 +7,6 @@ mod for_statement;
 mod if_statement;
 mod method_call;
 mod statement;
-mod subcomponent;
 mod widget;
 
 use proc_macro::TokenStream;

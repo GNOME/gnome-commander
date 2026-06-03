@@ -111,10 +111,11 @@ impl<T: Component + Sized> ComponentController<T> {
         }
     }
 
-    /// Fuses the outgoing channel of the component with the incoming channel of a parent component
-    /// applying the given message conversion function. This is usually called by the `with!()`
-    /// macro when a subcomponent is inserted in the view.
-    pub fn forward_messages<Parent, F>(&self, sender: &ComponentSender<Parent>, conversion: F)
+    /// This method is meant to be called to insert subcomponents via [with!() macro](super::with).
+    /// It fuses the outgoing channel of the component with the incoming channel of a parent
+    /// component applying the given message conversion function. It also returns the root widget of
+    /// the component, allowing it to be directly inserted into the view.
+    pub fn attach<Parent, F>(&self, sender: &ComponentSender<Parent>, conversion: F) -> &T::Root
     where
         Parent: Component + 'static,
         F: Fn(T::Output) -> Parent::Input + 'static,
@@ -133,6 +134,8 @@ impl<T: Component + Sized> ComponentController<T> {
         if let Some(old_handler) = self.forward_handler.replace(handler) {
             old_handler.abort();
         }
+
+        self.root()
     }
 
     /// Provides access to the component’s model.
