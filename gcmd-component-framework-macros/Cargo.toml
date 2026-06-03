@@ -1,0 +1,23 @@
+[package]
+name = "gcmd-component-framework-macros"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+
+[lib]
+name = "gcmd_component_framework_macros"
+path = "src/lib.rs"
+proc-macro = true
+
+[lints]
+workspace = true
+
+[dependencies]
+proc-macro2 = "1.0.106"
+quote = "1.0.45"
+syn = "2.0.117"
+
+[dev-dependencies]
+component-framework.workspace = true
+gtk.workspace = true

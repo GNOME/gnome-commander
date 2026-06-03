@@ -1,0 +1,55 @@
+[package]
+name = "gnome-commander"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+
+[lib]
+name = "gnome_commander"
+path = "src/lib.rs"
+
+[[bin]]
+name = "gnome-commander"
+path = "src/main.rs"
+test = false
+
+[dependencies]
+async-broadcast.workspace = true
+async-channel.workspace = true
+async-io.workspace = true
+async-process.workspace = true
+async-recursion.workspace = true
+bimap.workspace = true
+futures.workspace = true
+component-framework.workspace = true
+gettext-rs.workspace = true
+glib.workspace = true
+glob.workspace = true
+grep.workspace = true
+gtk.workspace = true
+indexmap.workspace = true
+libc.workspace = true
+memmap2.workspace = true
+regex.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tempfile.workspace = true
+unicode-segmentation.workspace = true
+vte.workspace = true
+winnow.workspace = true
+
+[build-dependencies]
+system-deps.workspace = true
+walkdir.workspace = true
+
+[package.metadata.system-deps.gmodule_2_0]
+name = "gmodule-2.0"
+version = "2"
+
+[dev-dependencies]
+async-std.workspace = true
+rusty-fork.workspace = true
+
+[lints]
+workspace = true

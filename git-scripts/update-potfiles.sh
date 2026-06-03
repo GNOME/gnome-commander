@@ -13,6 +13,6 @@ data/org.gnome.gnome-commander.metainfo.xml.in
 EOF
 
 {
-  grep -RHo 'gettextrs' src/ | cut -d: -f1 && \
-  find src/ plugins/ -regex '.*\.py$' -exec grep -lE "\bN?_\s*\(" '{}' \;
+  grep -RHo 'gettextrs' gnome-commander/src/ | cut -d: -f1 && \
+  find plugins/ -regex '.*\.py$' -exec grep -lE "\bN?_\s*\(" '{}' \;
 } | sort -u >> po/POTFILES.in

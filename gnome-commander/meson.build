@@ -12,7 +12,7 @@ env.set('GLOBAL_PLUGIN_DIR', plugin_dir)
 
 cargo_options = [
   '--manifest-path', meson.project_source_root() / 'Cargo.toml',
-  '--target-dir', meson.project_build_root() / 'src',
+  '--target-dir', meson.project_build_root() / 'gnome-commander',
 ]
 
 if profile == 'debug'
@@ -46,7 +46,7 @@ commander = custom_target(
     cargo_env,
     cargo, 'build', cargo_options,
     '&&',
-    'cp', 'src' / rust_target / meson.project_name(), '@OUTPUT@',
+    'cp', 'gnome-commander' / rust_target / meson.project_name(), '@OUTPUT@',
   ]
 )
 
