@@ -22,9 +22,8 @@ impl Component for ShortcutEntry {
     type Root = gtk::Box;
 
     fn init(&mut self, sender: &ComponentSender<Self>) -> Self::View {
-        let root = Self::View::default();
         let shortcut = self.shortcut;
-        with!(&root {
+        with!(Self::View {
             .set_orientation(gtk::Orientation::Horizontal);
             if self.modified {
                 .add_css_class("keyboard-shortcuts-modified");
@@ -41,9 +40,7 @@ impl Component for ShortcutEntry {
                 .add_css_class("flat");
                 .connect_clicked(forward_output!(sender, Self::Output::EditShortcut(shortcut)));
             }
-        });
-
-        root
+        })
     }
 
     fn root<'a>(&self, view: &'a Self::View) -> &'a Self::Root {
