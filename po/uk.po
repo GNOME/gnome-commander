@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/"
 "\n"
 "POT-Creation-Date: 2026-06-01 20:56+0000\n"
-"PO-Revision-Date: 2026-06-02 18:44+0300\n"
+"PO-Revision-Date: 2026-06-03 16:13+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2406,6 +2406,8 @@ msgstr "Крива відгуку сірого"
 #: plugins/image-metadata.py:61
 msgid "For grayscale data, the optical density of each possible pixel value."
 msgstr ""
+"Для даних у відтінках сірого оптична густина кожного можливого значення"
+" пікселів."
 
 #: plugins/image-metadata.py:62
 msgid "T4 Options"
@@ -2509,6 +2511,8 @@ msgid ""
 "A predictor is a mathematical operator that is applied to the image data "
 "before an encoding scheme is applied."
 msgstr ""
+"Предиктор — це математичний оператор, який застосовується до даних"
+" зображення перед застосуванням схеми кодування."
 
 #: plugins/image-metadata.py:72
 msgid "White Point"
@@ -2536,6 +2540,10 @@ msgid ""
 "color map (often called a lookup table) for palette-color images. In a "
 "palette-color image, a pixel value is used to index into an RGB lookup table."
 msgstr ""
+"Карта кольорів для зображень з палітрою кольорів. Це поле визначає карту"
+" кольорів червоний-зелений-синій (часто її називають таблицею пошуку) для"
+" зображень кольорів палітри. У зображенні кольорів палітри значення пікселя"
+" використовується для індексації у таблиці пошуку RGB."
 
 #: plugins/image-metadata.py:75
 msgid "Halftone Hints"
@@ -2547,6 +2555,8 @@ msgid ""
 "the range of gray levels within a colorimetrically-specified image that "
 "should retain tonal detail."
 msgstr ""
+"Мета поля HalftoneHints — передати функції напівтонів діапазон рівнів сірого"
+" у колориметрично заданому зображенні, який має зберегти тональні подробиці."
 
 #: plugins/image-metadata.py:76
 msgid "Tile Width"
@@ -2624,6 +2634,8 @@ msgid ""
 "Specifies that each pixel has m extra components whose interpretation is "
 "defined by one of the values listed below."
 msgstr ""
+"Вказує, що кожен піксель має m додаткових компонентів, інтерпретація яких"
+" визначається одним із значень, перелічених нижче."
 
 #: plugins/image-metadata.py:89
 msgid "Sample Format"
@@ -2650,6 +2662,8 @@ msgid ""
 "A TIFF ClipPath is intended to mirror the essentials of PostScript's path "
 "creation functionality."
 msgstr ""
+"ClipPath TIFF призначено для віддзеркалення основ функціональності створення"
+" контурів PostScript."
 
 #: plugins/image-metadata.py:94
 msgid "JPEG tables"
@@ -2660,6 +2674,9 @@ msgid ""
 "This optional tag may be used to encode the JPEG quantization and Huffman "
 "tables for subsequent use by the JPEG decompression process."
 msgstr ""
+"Цією необов'язковою міткою можна скористатися для кодування квантування JPEG"
+" та таблиць Гаффмана для подальшого використання у процесі розпаковування"
+" JPEG."
 
 #: plugins/image-metadata.py:95
 msgid "JPEG Process"
@@ -2725,6 +2742,8 @@ msgid ""
 "Contains two values representing the minimum rows and columns to define the "
 "repeating patterns of the color filter array"
 msgstr ""
+"Містить два значення, що відповідають мінімальній кількості рядків і"
+" стовпців для визначення повторюваних взірців масиву фільтрів кольорів"
 
 #: plugins/image-metadata.py:102
 msgid "CFA Pattern"
@@ -2845,6 +2864,11 @@ msgid ""
 "picture was taken. It may also contain the time zone offset of the clock "
 "used to create the DateTime tag-value when the image was modified."
 msgstr ""
+"У цій необов'язковій мітці закодовано часовий пояс годинника камери"
+" (відносно середнього часу за Гринвічем), який використовувався для"
+" створення значення мітки DataTimeOriginal під час зйомки зображення. Вона"
+" також може містити зміщення часового поясу годинника, який використовувався"
+" для створення значення мітки DateTime під час зміни зображення."
 
 #: plugins/image-metadata.py:114
 msgid "Self Timer Mode"
@@ -2888,6 +2912,8 @@ msgid ""
 "Time difference from Universal Time Coordinated including daylight saving "
 "time of DateTime tag."
 msgstr ""
+"Різниця у часі з універсальним координованим часом, включаючи перехід на"
+" літній час, з мітки DateTime."
 
 #: plugins/image-metadata.py:119
 msgid "Offset Time Original"
@@ -2898,6 +2924,8 @@ msgid ""
 "Time difference from Universal Time Coordinated including daylight saving "
 "time of DateTimeOriginal tag."
 msgstr ""
+"Різниця у часі з універсальним координованим часом, включаючи перехід на"
+" літній час, з мітки DateTimeOriginal."
 
 #: plugins/image-metadata.py:120
 msgid "Offset Time Digitized"
@@ -2908,6 +2936,8 @@ msgid ""
 "Time difference from Universal Time Coordinated including daylight saving "
 "time of DateTimeDigitized tag."
 msgstr ""
+"Різниця у часі з універсальним координованим часом, включаючи перехід на"
+" літній час, з мітки DateTimeDigitized."
 
 #: plugins/image-metadata.py:121
 msgid "Components Configuration"
@@ -3045,6 +3075,8 @@ msgstr "Номер зображення"
 #: plugins/image-metadata.py:136
 msgid "Number assigned to an image, e.g., in a chained image burst."
 msgstr ""
+"Число, пов'язане із зображенням, наприклад, у ланцюговому послідовному"
+" передаванні зображень."
 
 #: plugins/image-metadata.py:137
 msgid "Security Classification"
@@ -3084,6 +3116,7 @@ msgstr "Індекс експозиції"
 #| "image is captured."
 msgid "Encodes the camera exposure index setting when image was captured."
 msgstr ""
+"Кодує параметр індексу витримки фотоапарата, коли було створено зображення."
 
 #: plugins/image-metadata.py:141
 msgid "TIFF/EP Standard ID"
@@ -3094,6 +3127,8 @@ msgid ""
 "Contains four ASCII characters representing the TIFF/EP standard version of "
 "a TIFF/EP file, eg '1', '0', '0', '0'"
 msgstr ""
+"Містить чотири символи ASCII, що відповідають версії стандарту TIFF/EP файла"
+" TIFF/EP, приклади: «1», «0», «0», «0»"
 
 #: plugins/image-metadata.py:142
 msgid "Maker Note"
@@ -3119,6 +3154,9 @@ msgid ""
 "those in <ImageDescription>, and without the character code limitations of "
 "the <ImageDescription> tag."
 msgstr ""
+"Мітка для користувачів Exif, щоб вони могли додавати ключові слова або"
+" коментарі до зображення, окрім тих, що містяться в <ImageDescription>, і"
+" без обмежень на кодування символів мітки <ImageDescription>."
 
 #: plugins/image-metadata.py:144
 #| msgid "Subsec Time"
@@ -3216,6 +3254,8 @@ msgid ""
 "The color space information tag is always recorded as the color space "
 "specifier."
 msgstr ""
+"Мітка відомості щодо простору кольорів завжди записують як специфікатор"
+" простору кольорів."
 
 #: plugins/image-metadata.py:154
 msgid "Related Sound File"
@@ -3229,6 +3269,8 @@ msgid ""
 "This tag is used to record the name of an audio file related to the image "
 "data."
 msgstr ""
+"Цю мітку використовують для запису назви файла звукових даних, пов'язаного з"
+" даними зображення."
 
 #: plugins/image-metadata.py:157
 #| msgid "Focal Plane x-Resolution"
@@ -3240,6 +3282,8 @@ msgid ""
 "Number of pixels per FocalPlaneResolutionUnit (37392) in ImageWidth "
 "direction for main image."
 msgstr ""
+"Кількість пікселів на FocalPlaneResolutionUnit (37392) у напрямку ширини"
+" зображення (ImageWidth) для основного зображення."
 
 #: plugins/image-metadata.py:158
 #| msgid "Focal Plane x-Resolution"
@@ -3482,6 +3526,8 @@ msgid ""
 "This tag records the serial number of the body of the camera that was used "
 "in photography as an ASCII string."
 msgstr ""
+"У цій мітці буде записано серійний номер корпусу камери, яку було"
+" використано для фотографування, у вигляді рядка ASCII."
 
 #: plugins/image-metadata.py:180
 msgid "Lens Specification"
@@ -3494,6 +3540,11 @@ msgid ""
 "length, which are specification information for the lens that was used in "
 "photography. When the minimum F number is unknown, the notation is 0/0"
 msgstr ""
+"У цій мітці має бути зазначено мінімальну фокусну відстань, максимальну"
+" фокусну відстань, мінімальне число F в межах мінімальної фокусної відстані"
+" та мінімальне число F в межах максимальної фокусної відстані, що є"
+" специфікацією об'єктива, який використовувався при фотографуванні. Якщо"
+" мінімальне число F невідоме, буде зазначено 0/0."
 
 #: plugins/image-metadata.py:181
 msgid "Lens Make"
@@ -3512,6 +3563,8 @@ msgstr "Модель об'єктива"
 msgid ""
 "This tag records the lens's model name and model number as an ASCII string."
 msgstr ""
+"У цій мітці записано назву моделі та номер моделі об'єктива у вигляді рядка"
+" ASCII."
 
 #: plugins/image-metadata.py:183
 msgid "Lens Serial Number"
@@ -3522,6 +3575,8 @@ msgid ""
 "This tag records the serial number of the interchangeable lens that was used "
 "in photography as an ASCII string."
 msgstr ""
+"У цій мітці буде записано серійний номер змінного об'єктива, який було"
+" використано для фотографування, у вигляді рядка ASCII."
 
 #: plugins/image-metadata.py:184
 msgid "Gamma"
@@ -3542,6 +3597,10 @@ msgid ""
 "corner of the ActiveArea rectangle. The values are stored in row-column-"
 "sample scan order."
 msgstr ""
+"Визначає рівень кодування нульового освітлення (також відомий як термічний"
+" чорний або чорний потік) як повторюваний взірець. Початком цього взірця є"
+" верхній лівий кут прямокутника ActiveArea. Значення зберігаються у порядку"
+" сканування рядок-стовпець-семпл."
 
 #: plugins/image-metadata.py:189
 msgid "Interoperability Index"
@@ -3765,7 +3824,7 @@ msgstr "Визначає швидкість руху приймача даних
 
 #: plugins/image-metadata.py:207
 msgid "GPS Track Ref"
-msgstr ""
+msgstr "Еталон маршруту GPS"
 
 #: plugins/image-metadata.py:207
 msgid ""
@@ -3823,6 +3882,8 @@ msgid ""
 "data is restricted to Japan, the value of this tag is \"TOKYO\" or "
 "\"WGS-84\"."
 msgstr ""
+"Вказує на геодезичні дані, які використано приймачем GPS. Якщо геодезичні"
+" дані обмежені Японією, значення цієї мітки — «TOKYO» або «WGS-84»."
 
 #: plugins/image-metadata.py:212
 #| msgid "Altitude Reference"
@@ -3903,7 +3964,7 @@ msgstr ""
 
 #: plugins/image-metadata.py:216
 msgid "GPS Destination Bearing Reference"
-msgstr ""
+msgstr "Еталонний пеленг призначення GPS"
 
 #: plugins/image-metadata.py:216
 msgid ""
@@ -4009,6 +4070,8 @@ msgid ""
 "Required exifread module not found. Please install exifread for Python3 on "
 "your system."
 msgstr ""
+"Потрібного для роботи модуля exifread не знайдено. Будь ласка, встановіть у"
+" вашій системі exifread для Python3."
 
 #: plugins/image-metadata.py:291 plugins/image-metadata.py:298
 msgid "EXIF"
@@ -4030,6 +4093,12 @@ msgid ""
 "special comment #single-file:true indicates that the script should be run "
 "once for each selected file."
 msgstr ""
+"Скрипти можуть містити спеціальні коментарі. Спеціальний коментар"
+" #name:MyScript можна використовувати для позначення назви скрипту, яку буде"
+" показано у контекстному меню. Спеціальний коментар #term:true вказує на те,"
+" що скрипт, якщо це можливо, слід запускати у вбудованому терміналі і у"
+" вікні термінала в іншому випадку. Спеціальний коментар #single-file:true"
+" вказує на те, що скрипт слід запускати один раз для кожного вибраного файла."
 
 #: plugins/menu-scripts.py:66
 msgid ""
@@ -4037,6 +4106,10 @@ msgid ""
 "receive all selected files as command line arguments. Holding the Shift key "
 "while clicking the menu item will force it to be run once for each file."
 msgstr ""
+"Типовий (якщо немає спеціального коментаря single-file) скрипт отримуватиме"
+" всі вибрані файли як аргументи командного рядка. Утримування клавіші Shift"
+" під час натискання на пункт меню примусово запустить його один раз для"
+" кожного файла."
 
 #: plugins/multimedia-metadata.py:33
 msgid "Album Gain"
