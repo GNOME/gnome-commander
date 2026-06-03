@@ -63,25 +63,25 @@ impl Component for ShortcutsDialog {
     fn init(&mut self, sender: &ComponentSender<Self>) -> Self::View {
         let view = Self::View::default();
 
-        with!(&view.dialog => {
-            add_css_class("dialog");
-            set_title(Some(&gettext("Keyboard Shortcuts")));
-            set_destroy_with_parent(true);
-            set_size_request(800, 600);
-            set_resizable(true);
-            set_cancel_widget(&view.cancel_button);
+        with!(&view.dialog {
+            .add_css_class("dialog");
+            .set_title(Some(&gettext("Keyboard Shortcuts")));
+            .set_destroy_with_parent(true);
+            .set_size_request(800, 600);
+            .set_resizable(true);
+            .set_cancel_widget(&view.cancel_button);
 
-            gtk::Box => {
-                set_orientation(gtk::Orientation::Vertical);
+            gtk::Box {
+                .set_orientation(gtk::Orientation::Vertical);
 
-                &view.search_field => {
-                    set_placeholder_text(Some(&gettext("Search shortcuts…")));
-                    set_activates_default(false);
-                    set_search_delay(50);
+                &view.search_field {
+                    .set_placeholder_text(Some(&gettext("Search shortcuts…")));
+                    .set_activates_default(false);
+                    .set_search_delay(50);
 
-                    connect_search_changed(forward_input!(sender, Self::Input::UpdateFilter));
+                    .connect_search_changed(forward_input!(sender, Self::Input::UpdateFilter));
 
-                    connect_stop_search(glib::clone!(
+                    .connect_stop_search(glib::clone!(
                         #[strong]
                         sender,
                         move |search_field| {
@@ -94,26 +94,26 @@ impl Component for ShortcutsDialog {
                     ));
                 }
 
-                &view.modified_only => {
-                    set_label(Some(&gettext("Show only _modified shortcuts")));
-                    set_use_underline(true);
-                    connect_toggled(forward_input!(sender, Self::Input::UpdateFilter));
+                &view.modified_only {
+                    .set_label(Some(&gettext("Show only _modified shortcuts")));
+                    .set_use_underline(true);
+                    .connect_toggled(forward_input!(sender, Self::Input::UpdateFilter));
                 }
 
-                gtk::ScrolledWindow => {
-                    set_hscrollbar_policy(gtk::PolicyType::Never);
-                    set_vscrollbar_policy(gtk::PolicyType::Automatic);
-                    set_has_frame(true);
-                    set_hexpand(true);
-                    set_vexpand(true);
+                gtk::ScrolledWindow {
+                    .set_hscrollbar_policy(gtk::PolicyType::Never);
+                    .set_vscrollbar_policy(gtk::PolicyType::Automatic);
+                    .set_has_frame(true);
+                    .set_hexpand(true);
+                    .set_vexpand(true);
 
-                    &view.list => {
-                        set_selection_mode(gtk::SelectionMode::None);
-                        set_show_separators(true);
-                        add_css_class("rich-list");
-                        set_header_func(update_row_header);
+                    &view.list {
+                        .set_selection_mode(gtk::SelectionMode::None);
+                        .set_show_separators(true);
+                        .add_css_class("rich-list");
+                        .set_header_func(update_row_header);
 
-                        connect_row_activated(glib::clone!(
+                        .connect_row_activated(glib::clone!(
                             #[strong]
                             sender,
                             move |_, row| {
@@ -121,8 +121,8 @@ impl Component for ShortcutsDialog {
                             },
                         ));
 
-                        add_controller(gtk::EventControllerKey => {
-                            connect_key_pressed(glib::clone!(
+                        .add_controller(with!(gtk::EventControllerKey {
+                            .connect_key_pressed(glib::clone!(
                                 #[strong]
                                 sender,
                                 move |_, key, _, modifiers| {
@@ -137,38 +137,38 @@ impl Component for ShortcutsDialog {
                                     }
                                 }
                             ));
-                        });
+                        }));
 
-                        for_!(entry in &self.entries => {
-                            entry.root() => {}
-                        });
+                        for entry in &self.entries {
+                            + entry ~> |message| message;
+                        }
                     }
                 }
 
-                gtk::Box => {
-                    add_css_class("spacing");
-                    set_orientation(gtk::Orientation::Horizontal);
+                gtk::Box {
+                    .add_css_class("spacing");
+                    .set_orientation(gtk::Orientation::Horizontal);
 
-                    gtk::Button => {
-                        set_label(&gettext("_Help"));
-                        set_use_underline(true);
+                    gtk::Button {
+                        .set_label(&gettext("_Help"));
+                        .set_use_underline(true);
 
-                        connect_clicked(forward_input!(sender, Self::Input::DisplayHelp));
+                        .connect_clicked(forward_input!(sender, Self::Input::DisplayHelp));
                     }
 
-                    &view.cancel_button => {
-                        set_label(&gettext("_Cancel"));
-                        set_use_underline(true);
-                        set_hexpand(true);
-                        set_halign(gtk::Align::End);
+                    &view.cancel_button {
+                        .set_label(&gettext("_Cancel"));
+                        .set_use_underline(true);
+                        .set_hexpand(true);
+                        .set_halign(gtk::Align::End);
 
-                        connect_clicked(forward_output!(sender, Self::Output::Cancelled));
+                        .connect_clicked(forward_output!(sender, Self::Output::Cancelled));
                     }
 
-                    gtk::Button => {
-                        set_label(&gettext("_Save Shortcuts"));
-                        set_use_underline(true);
-                        connect_clicked(forward_output!(sender, Self::Output::Accepted));
+                    gtk::Button {
+                        .set_label(&gettext("_Save Shortcuts"));
+                        .set_use_underline(true);
+                        .connect_clicked(forward_output!(sender, Self::Output::Accepted));
                     }
                 }
             }
@@ -238,8 +238,8 @@ impl Component for ShortcutsDialog {
         }
     }
 
-    async fn forward_messages(&mut self, sender: &ComponentSender<Self>) {
-        Self::forward_messages_ident(sender, &mut self.entries).await;
+    async fn handle_subcomponents(&mut self) {
+        Self::handle_subcomponent_list(&mut self.entries).await;
     }
 }
 

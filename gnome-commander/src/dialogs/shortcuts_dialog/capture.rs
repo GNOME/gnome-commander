@@ -46,21 +46,21 @@ impl Component for Capture {
 
     fn init(&mut self, sender: &ComponentSender<Self>) -> Self::View {
         let view = Self::View::default();
-        with!(&view.dialog => {
-            add_css_class("dialog");
-            set_modal(true);
-            set_title(Some(&if self.existing_key.is_some() {
+        with!(&view.dialog {
+            .add_css_class("dialog");
+            .set_modal(true);
+            .set_title(Some(&if self.existing_key.is_some() {
                 gettext("Edit Shortcut")
             } else {
                 gettext("Add Shortcut")
             }));
-            set_width_request(500);
-            set_resizable(false);
-            set_cancel_widget(&view.cancel_button);
+            .set_width_request(500);
+            .set_resizable(false);
+            .set_cancel_widget(&view.cancel_button);
 
-            add_controller(gtk::EventControllerKey => {
-                set_propagation_phase(gtk::PropagationPhase::Capture);
-                connect_key_pressed(glib::clone!(
+            .add_controller(with!(gtk::EventControllerKey {
+                .set_propagation_phase(gtk::PropagationPhase::Capture);
+                .connect_key_pressed(glib::clone!(
                     #[strong]
                     sender,
                     move |_, key, _, modifiers| {
@@ -87,13 +87,13 @@ impl Component for Capture {
                         }
                     }
                 ));
-            });
+            }));
 
-            gtk::Box =>  {
-                set_orientation(gtk::Orientation::Vertical);
+            gtk::Box {
+                .set_orientation(gtk::Orientation::Vertical);
 
-                gtk::Label => {
-                    set_label(&if let Some(existing_key) = self.existing_key {
+                gtk::Label {
+                    .set_label(&if let Some(existing_key) = self.existing_key {
                         gettext("Enter a shortcut to replace “{shortcut}” for action “{action}.”")
                             .replace("{action}", &self.action.description())
                             .replace("{shortcut}", &existing_key.label())
@@ -101,15 +101,15 @@ impl Component for Capture {
                         gettext("Enter a new shortcut for action “{action}.”")
                             .replace("{action}", &self.action.description())
                     });
-                    set_wrap(true);
-                    set_wrap_mode(gtk::pango::WrapMode::Word);
-                    set_max_width_chars(1);
-                    set_justify(gtk::Justification::Center);
+                    .set_wrap(true);
+                    .set_wrap_mode(gtk::pango::WrapMode::Word);
+                    .set_max_width_chars(1);
+                    .set_justify(gtk::Justification::Center);
                 }
 
-                &view.instructions => {
-                    add_css_class("keyboard-shortcuts-key-capture-instructions");
-                    set_label(&{
+                &view.instructions {
+                    .add_css_class("keyboard-shortcuts-key-capture-instructions");
+                    .set_label(&{
                         let mut instructions_text = gettext(
                             "Press the desired key combination on your keyboard."
                         );
@@ -123,31 +123,31 @@ impl Component for Capture {
                         }
                         instructions_text
                     });
-                    set_wrap(true);
-                    set_wrap_mode(gtk::pango::WrapMode::Word);
-                    set_max_width_chars(1);
-                    set_justify(gtk::Justification::Left);
+                    .set_wrap(true);
+                    .set_wrap_mode(gtk::pango::WrapMode::Word);
+                    .set_max_width_chars(1);
+                    .set_justify(gtk::Justification::Left);
                 }
 
-                gtk::Box => {
-                    set_orientation(gtk::Orientation::Horizontal);
-                    add_css_class("spacing");
+                gtk::Box {
+                    .set_orientation(gtk::Orientation::Horizontal);
+                    .add_css_class("spacing");
 
-                    &view.cancel_button => {
-                        set_label(&gettext("Cancel"));
-                        set_focusable(false);
-                        set_hexpand(true);
-                        set_halign(gtk::Align::End);
-                        connect_clicked(forward_output!(sender, Self::Output::Cancelled));
+                    &view.cancel_button {
+                        .set_label(&gettext("Cancel"));
+                        .set_focusable(false);
+                        .set_hexpand(true);
+                        .set_halign(gtk::Align::End);
+                        .connect_clicked(forward_output!(sender, Self::Output::Cancelled));
                     }
 
-                    if_!(self.existing_key.is_some() => {
-                        gtk::Button => {
-                            set_label(&gettext("Remove Shortcut"));
-                            set_focusable(false);
-                            connect_clicked(forward_output!(sender, Self::Output::Removed));
+                    if self.existing_key.is_some() {
+                        gtk::Button {
+                            .set_label(&gettext("Remove Shortcut"));
+                            .set_focusable(false);
+                            .connect_clicked(forward_output!(sender, Self::Output::Removed));
                         }
-                    });
+                    }
                 }
             }
         });

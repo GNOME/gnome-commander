@@ -47,4 +47,3 @@ container_ext_impl!(gtk::ToggleButton, set_child, gtk::Widget);
 container_ext_impl!(gtk::TreeExpander, set_child, gtk::Widget);
 container_ext_impl!(gtk::Window, set_child, gtk::Widget);
 container_ext_impl!(gtk::WindowHandle, set_child, gtk::Widget);
-

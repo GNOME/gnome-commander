@@ -24,22 +24,22 @@ impl Component for ShortcutEntry {
     fn init(&mut self, sender: &ComponentSender<Self>) -> Self::View {
         let root = Self::View::default();
         let shortcut = self.shortcut;
-        with!({&root} => {
-            set_orientation(gtk::Orientation::Horizontal);
-            if_!(self.modified => {
-                add_css_class("keyboard-shortcuts-modified");
-            });
-            set_halign(gtk::Align::End);
+        with!(&root {
+            .set_orientation(gtk::Orientation::Horizontal);
+            if self.modified {
+                .add_css_class("keyboard-shortcuts-modified");
+            }
+            .set_halign(gtk::Align::End);
 
-            gtk::Label => {
-                set_label(&shortcut.label());
+            gtk::Label {
+                .set_label(&shortcut.label());
             }
 
-            gtk::Button => {
-                set_icon_name("document-edit");
-                set_tooltip_text(Some(&gettext("Edit Shortcut")));
-                add_css_class("flat");
-                connect_clicked(forward_output!(sender, Self::Output::EditShortcut(shortcut)));
+            gtk::Button {
+                .set_icon_name("document-edit");
+                .set_tooltip_text(Some(&gettext("Edit Shortcut")));
+                .add_css_class("flat");
+                .connect_clicked(forward_output!(sender, Self::Output::EditShortcut(shortcut)));
             }
         });
 

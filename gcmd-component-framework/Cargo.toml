@@ -11,6 +11,7 @@ path = "src/lib.rs"
 
 [dependencies]
 async-channel.workspace = true
+component-framework-macros = { path = "../gcmd-component-framework-macros", package = "gcmd-component-framework-macros" }
 futures.workspace = true
 gtk.workspace = true
 

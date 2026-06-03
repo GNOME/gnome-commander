@@ -61,56 +61,53 @@ impl Component for ActionEntry {
         while let Some(child) = view.first_child() {
             child.unparent();
         }
-        for entry in &self.shortcuts {
-            entry.root().unparent();
-        }
 
         let action = self.action;
-        with!({&*view} => {
-            gtk::Box => {
-                set_orientation(gtk::Orientation::Horizontal);
-                if_!(self.modified => {
-                    add_css_class("keyboard-shortcuts-modified");
-                });
-                add_css_class(&format!("area-{}", action.area().as_str()));
+        with!(&*view {
+            gtk::Box {
+                .set_orientation(gtk::Orientation::Horizontal);
+                if self.modified {
+                    .add_css_class("keyboard-shortcuts-modified");
+                }
+                .add_css_class(&format!("area-{}", action.area().as_str()));
 
-                gtk::Label => {
-                    set_label(&action.description());
-                    set_hexpand(true);
-                    set_halign(gtk::Align::Start);
+                gtk::Label {
+                    .set_label(&action.description());
+                    .set_hexpand(true);
+                    .set_halign(gtk::Align::Start);
                 }
 
-                gtk::Box => {
-                    set_orientation(gtk::Orientation::Vertical);
+                gtk::Box {
+                    .set_orientation(gtk::Orientation::Vertical);
 
-                    gtk::Box => {
-                        set_orientation(gtk::Orientation::Horizontal);
-                        set_halign(gtk::Align::End);
+                    gtk::Box {
+                        .set_orientation(gtk::Orientation::Horizontal);
+                        .set_halign(gtk::Align::End);
 
-                        if_!(self.modified => {
-                            gtk::Button => {
-                                set_icon_name("edit-undo");
-                                set_tooltip_text(Some(&gettext("Reset to Default")));
-                                add_css_class("flat");
-                                connect_clicked(
+                        if self.modified {
+                            gtk::Button {
+                                .set_icon_name("edit-undo");
+                                .set_tooltip_text(Some(&gettext("Reset to Default")));
+                                .add_css_class("flat");
+                                .connect_clicked(
                                     forward_output!(sender, Self::Output::ResetAction(action))
                                 );
                             }
-                        });
+                        }
 
-                        gtk::Button => {
-                            set_icon_name("document-new");
-                            set_tooltip_text(Some(&gettext("Add Shortcut")));
-                            add_css_class("flat");
-                            connect_clicked(
+                        gtk::Button {
+                            .set_icon_name("document-new");
+                            .set_tooltip_text(Some(&gettext("Add Shortcut")));
+                            .add_css_class("flat");
+                            .connect_clicked(
                                 forward_output!(sender, Self::Output::AddActionShortcut(action))
                             );
                         }
                     }
 
-                    for_!(shortcut in &self.shortcuts => {
-                        shortcut.root() => {}
-                    });
+                    for shortcut in &self.shortcuts {
+                        + shortcut ~> |message| message;
+                    }
                 }
             }
         });
@@ -120,8 +117,8 @@ impl Component for ActionEntry {
         }
     }
 
-    async fn forward_messages(&mut self, sender: &ComponentSender<Self>) {
-        Self::forward_messages_ident(sender, &mut self.shortcuts).await;
+    async fn handle_subcomponents(&mut self) {
+        Self::handle_subcomponent_list(&mut self.shortcuts).await;
     }
 }
 

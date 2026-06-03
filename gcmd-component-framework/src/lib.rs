@@ -4,240 +4,13 @@
 
 pub mod container;
 
+pub use component_framework_macros::with;
 use futures::{
     FutureExt,
     future::{pending, select_all},
 };
-
-/// A helper macro to compose a view.
-///
-/// The basic syntax is:
-///
-/// ```rust
-/// # use gcmd_component_framework::with;
-/// # use gtk::prelude::*;
-/// # gtk::init();
-/// let view = with!(gtk::Window => {
-///     set_title(Some("My Window"));
-///     set_modal(true);
-///     set_resizable(true);
-/// });
-///
-/// assert!(view.is::<gtk::Window>());
-/// ```
-///
-/// This will create a new window and call a bunch of methods on it. If you already have a window,
-/// say in the `view.window` property, you can pass the existing object to manipulate:
-///
-/// ```rust
-/// # use gcmd_component_framework::with;
-/// # use gtk::prelude::*;
-/// # gtk::init();
-/// # #[derive(Default)]
-/// # struct View {
-/// #     window: gtk::Window,
-/// # }
-/// # let view = View::default();
-/// with!(&view.window => {
-///     set_title(Some("My Window"));
-///     set_modal(true);
-///     set_resizable(true);
-/// });
-///
-/// assert!(view.window.is_modal());
-/// ```
-///
-/// You can nest additional widgets within the root widget:
-///
-/// ```rust
-/// # use gcmd_component_framework::with;
-/// # use gtk::prelude::*;
-/// # gtk::init();
-/// # #[derive(Default)]
-/// # struct View {
-/// #     window: gtk::Window,
-/// #     button: gtk::Button,
-/// # }
-/// # let view = View::default();
-/// with!(&view.window => {
-///     set_title(Some("My Window"));
-///
-///     gtk::Box => {
-///         set_orientation(gtk::Orientation::Vertical);
-///
-///         &view.button => {
-///             set_label("My Button");
-///         }
-///     }
-/// });
-///
-/// assert_eq!(view.button.label(), Some("My Button".into()));
-/// assert_eq!(view.window.child(), view.button.parent());
-/// ```
-///
-/// By default, child widgets will be added using [ContainerExt trait](container::ContainerExt)
-/// which is implemented for various Gtk widget types. Some container types have multiple types to
-/// add children however. In such cases the method can be called explicitly:
-///
-/// ```rust
-/// # use gcmd_component_framework::with;
-/// # use gtk::prelude::*;
-/// # gtk::init();
-/// let view = with!(gtk::Box => {
-///     add_controller(gtk::EventControllerFocus => {});
-/// });
-/// ```
-///
-/// Some calls can be made conditional using the `if_!()` pseudo-macro:
-///
-/// ```rust
-/// # use gcmd_component_framework::with;
-/// # use gtk::prelude::*;
-/// # gtk::init();
-/// let state = 1;
-/// let view = with!(gtk::Box => {
-///     set_orientation(gtk::Orientation::Vertical);
-///     if_!(state == 0 => {
-///         set_visible(false);
-///     },
-///     state == 1 => {
-///         gtk::Label => {
-///             set_label("State is 1");
-///         }
-///     },
-///     else => {
-///         gtk::Label => {
-///             set_label("Unknown state");
-///         }
-///     });
-/// });
-///
-/// assert_eq!(
-///     view.first_child().and_downcast::<gtk::Label>().map(|label| label.label()),
-///     Some("State is 1".into()),
-/// );
-/// ```
-///
-/// It is also possible to iterate over a collection using the `for_!()` pseudo-macro:
-///
-/// ```rust
-/// # use gcmd_component_framework::with;
-/// # use gtk::prelude::*;
-/// # gtk::init();
-/// let view = with!(gtk::Box => {
-///     set_orientation(gtk::Orientation::Horizontal);
-///     for_!(i in 0..5 => {
-///         gtk::Button => {
-///             set_label(&format!("Set to {i}"));
-///         }
-///     });
-/// });
-///
-/// assert_eq!(view.observe_children().n_items(), 5);
-/// ```
-#[macro_export]
-macro_rules! with {
-    ($type:ty => {
-        $($ops:tt)*
-    }) => {
-        $crate::with!{{<$type>::default()} => { $($ops)* }}
-    };
-
-    ($expr:expr => {
-        $($ops:tt)*
-    }) => {{
-        let __obj = $expr;
-        $crate::with!{@block {$($ops)*}, __obj}
-        __obj
-    }};
-
-    (@block {}, $obj:ident) => {};
-
-    (@block {
-        $method:ident($($params:tt)*);
-        $($rest:tt)*
-    }, $obj:ident) => {
-        $crate::with!{@call $obj.$method($($params)*)}
-        $crate::with!{@block {$($rest)*}, $obj}
-    };
-
-    (@block {
-        $type:ty => {
-            $($ops:tt)*
-        }
-        $($rest:tt)*
-    }, $obj:ident) => {
-        $crate::container::ContainerExt::container_set_child(
-            &$obj, &$crate::with!($type => {$($ops)*})
-        );
-        $crate::with!{@block {$($rest)*}, $obj}
-    };
-
-    (@block {
-        $expr:expr => {
-            $($ops:tt)*
-        }
-        $($rest:tt)*
-    }, $obj:ident) => {
-        $crate::container::ContainerExt::container_set_child(
-            &$obj, $crate::with!($expr => {$($ops)*})
-        );
-        $crate::with!{@block {$($rest)*}, $obj}
-    };
-
-    (@block {
-        if_!($expr_if:expr => {
-            $($ops_if:tt)*
-        }
-        $(,$expr_elseif:expr => {
-            $($ops_elseif:tt)*
-        })*
-        $(,else => {
-            $($ops_else:tt)*
-        })?
-        $(,)?);
-        $($rest:tt)*
-    }, $obj:ident) => {
-        if $expr_if {
-            $crate::with!{@block {$($ops_if)*}, $obj}
-        }
-        $(else if $expr_elseif {
-            $crate::with!{@block {$($ops_elseif)*}, $obj}
-        })*
-        $(else {
-            $crate::with!{@block {$($ops_else)*}, $obj}
-        })?
-        $crate::with!{@block {$($rest)*}, $obj}
-    };
-
-    (@block {
-        for_!($pat:pat in $expr:expr => {
-            $($ops:tt)*
-        });
-        $($rest:tt)*
-    }, $obj:ident) => {
-        for $pat in $expr {
-            $crate::with!{@block {$($ops)*}, $obj}
-        }
-        $crate::with!{@block {$($rest)*}, $obj}
-    };
-
-    (@call $obj:ident.$method:ident($($param:expr),*$(,)?)) => {
-        $obj.$method($($param,)*);
-    };
-
-    (@call $obj:ident.$method:ident($type:ty => {
-        $($inner:tt)*
-    })) => {
-        $obj.$method($crate::with!($type => {$($inner)*}));
-    };
-
-    (@call $obj:ident.$method:ident($expr:expr => {
-        $($inner:tt)*
-    })) => {
-        $obj.$method($crate::with!($expr => {$($inner)*}));
-    };
-}
+use gtk::glib;
+use std::cell::Cell;
 
 /// Produces a simple signal handler that will always send a particular message to the sender’s
 /// input channel. This macro is meant to be used within the [with! macro](crate::with):
@@ -323,47 +96,39 @@ pub trait Component {
     /// require view updates.
     fn update_view(&self, _sender: &ComponentSender<Self>, _view: &mut Self::View) {}
 
-    /// Helper method to implement [forward_messages() method](#method.forward_messages). This will
-    /// process messages from given subcomponents by forwarding them to the input channel unchanged.
-    fn forward_messages_ident<T>(
-        sender: &ComponentSender<Self>,
+    /// Helper method to implement [handle_subcomponents() method](#method.handle_subcomponents).
+    /// This will handle messages for a given subcomponent list.
+    fn handle_subcomponent_list<T>(
         controllers: &mut [ComponentController<T>],
     ) -> impl Future<Output = ()>
     where
-        T: Component<Output = Self::Input>,
+        T: Component,
         Self: Sized,
     {
         async {
             if !controllers.is_empty() {
-                loop {
-                    let (result, _, _) = select_all(
-                        controllers
-                            .iter_mut()
-                            .map(|controller| controller.receive().boxed_local()),
-                    )
-                    .await;
-                    match result {
-                        Ok(msg) => sender.input(msg),
-                        Err(error) => {
-                            eprintln!("Something is wrong, failed forwarding messages: {error}");
-                            break;
-                        }
-                    }
-                }
+                select_all(
+                    controllers
+                        .iter_mut()
+                        .map(|controller| controller.handle_incoming().boxed_local()),
+                )
+                .await;
             } else {
                 pending::<()>().await;
             }
         }
     }
 
-    /// Process the messages of subcomponents forever. This method MUST be overwritten if this
-    /// component has subcomponents. Usually this should call [forward_messages_ident()
-    /// method](#method.forward_messages_ident). If subcomponents of different types exist, multiple
-    /// calls to `forward_messages_ident()` can be combined via [futures::select!()
+    /// Process the messages of subcomponents forever by waiting on their respective
+    /// [handle_incoming() method](ComponentController#method.handle_incoming). This method MUST be
+    /// overwritten if this component has subcomponents.
+    ///
+    /// To handle multiple subcomponent this can use [handle_subcomponent_list()
+    /// method](#method.handle_subcomponent_list) or [futures::select!()
     /// macro](futures::select).
     ///
     /// This method should never return.
-    fn forward_messages(&mut self, _sender: &ComponentSender<Self>) -> impl Future<Output = ()> {
+    fn handle_subcomponents(&mut self) -> impl Future<Output = ()> {
         pending()
     }
 
@@ -387,6 +152,7 @@ pub trait Component {
             sender,
             input_receiver,
             output_receiver,
+            forward_handler: Default::default(),
         }
     }
 }
@@ -454,13 +220,31 @@ impl<'a, T: Component + Sized> std::ops::Drop for Ref<'a, T> {
 /// Controller of an active component encapsulating the component’s model, view as well as input and
 /// output channels. Transparent read access to model’s properties is possible, for mutable access
 /// use [model_mut() method](ComponentController#method.model_mut).
-#[derive(Debug)]
 pub struct ComponentController<T: Component + Sized> {
     component: T,
     view: T::View,
     sender: ComponentSender<T>,
     input_receiver: async_channel::Receiver<T::Input>,
     output_receiver: async_channel::Receiver<T::Output>,
+    forward_handler: Cell<Option<glib::JoinHandle<()>>>,
+}
+
+impl<T> std::fmt::Debug for ComponentController<T>
+where
+    T: Component + std::fmt::Debug,
+    T::Input: std::fmt::Debug,
+    T::Output: std::fmt::Debug,
+    T::View: std::fmt::Debug,
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        f.debug_struct("ComponentController")
+            .field("component", &self.component)
+            .field("view", &self.view)
+            .field("sender", &self.sender)
+            .field("input_receiver", &self.input_receiver)
+            .field("output_receiver", &self.output_receiver)
+            .finish()
+    }
 }
 
 impl<T: Component + Sized> std::ops::Deref for ComponentController<T> {
@@ -481,15 +265,55 @@ impl<T: Component + Sized> ComponentController<T> {
     pub async fn receive(&mut self) -> Result<T::Output, async_channel::RecvError> {
         loop {
             futures::select! {
+                output_result = self.output_receiver.recv().fuse() => return output_result,
                 input_result = self.input_receiver.recv().fuse() => {
                     let msg = input_result.expect("Something is wrong, input channel got closed");
                     self.component.update(msg, &self.sender, &mut self.view).await;
                 }
-                output_result = self.output_receiver.recv().fuse() => return output_result,
-                _ = self.component.forward_messages(&self.sender).fuse() => {
-                    panic!("forward_messages() returned, this should never happen");
+                _ = self.component.handle_subcomponents().fuse() => {
+                    panic!("handle_subcomponents() returned, this should never happen");
                 }
             }
+        }
+    }
+
+    /// Processes incoming messages for the component and its subcomponents, updating the component
+    /// as necessary. This function never returns.
+    pub async fn handle_incoming(&mut self) {
+        loop {
+            futures::select! {
+                input_result = self.input_receiver.recv().fuse() => {
+                    let msg = input_result.expect("Something is wrong, input channel got closed");
+                    self.component.update(msg, &self.sender, &mut self.view).await;
+                }
+                _ = self.component.handle_subcomponents().fuse() => {
+                    panic!("handle_subcomponents() returned, this should never happen");
+                }
+            }
+        }
+    }
+
+    /// Fuses the outgoing channel of the component with the incoming channel of a parent component
+    /// applying the given message conversion function. This is usually called by the `with!()`
+    /// macro when a subcomponent is inserted in the view.
+    pub fn forward_messages<Parent, F>(&self, sender: &ComponentSender<Parent>, conversion: F)
+    where
+        Parent: Component + 'static,
+        F: Fn(T::Output) -> Parent::Input + 'static,
+        T::Output: 'static,
+    {
+        let receiver = self.output_receiver.clone();
+        let sender = sender.clone();
+        let handler = Some(glib::spawn_future_local(async move {
+            // We can exit the loop on Err() because it means the sender is dropped, typically along
+            // with the corresponding component.
+            while let Ok(message) = receiver.recv().await {
+                sender.input(conversion(message));
+            }
+        }));
+
+        if let Some(old_handler) = self.forward_handler.replace(handler) {
+            old_handler.abort();
         }
     }
 

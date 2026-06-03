@@ -3,10 +3,12 @@ resolver = "3"
 members = [
   "gnome-commander",
   "gcmd-component-framework",
+  "gcmd-component-framework-macros",
 ]
 default-members = [
   "gnome-commander",
   "gcmd-component-framework",
+  "gcmd-component-framework-macros",
 ]
 
 [workspace.package]
