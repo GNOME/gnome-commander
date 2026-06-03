@@ -14,12 +14,14 @@ macro_rules! container_ext_impl {
     ($container_type:ty, $method:ident, $child_type:ty) => {
         impl<T: AsRef<$child_type>> ContainerExt<T> for $container_type {
             fn container_set_child(&self, child: T) {
+                child.as_ref().unparent();
                 self.$method(child.as_ref().into());
             }
         }
 
         impl<T: AsRef<$child_type>> ContainerExt<T> for &$container_type {
             fn container_set_child(&self, child: T) {
+                child.as_ref().unparent();
                 self.$method(child.as_ref().into());
             }
         }

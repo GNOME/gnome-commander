@@ -58,9 +58,6 @@ impl Component for ActionEntry {
             .root()
             .and_then(|root| root.focus())
             .is_some_and(|focus| focus.is_ancestor(view));
-        while let Some(child) = view.first_child() {
-            child.unparent();
-        }
 
         let action = self.action;
         with!(&*view {
