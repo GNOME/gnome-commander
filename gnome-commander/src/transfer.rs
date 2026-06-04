@@ -49,31 +49,24 @@ struct XferData {
     problem_action: Cell<Option<ProblemAction>>,
 }
 
-fn create_xfer_data(
-    transfer_type: TransferType,
-    copy_flags: gio::FileCopyFlags,
-    overwrite_mode: ConfirmOverwriteMode,
-    src_files: Vec<gio::File>,
-    dst_files: Vec<gio::File>,
-    bytes_total: u64,
-    files_total: u64,
-    cancellable: gio::Cancellable,
-) -> XferData {
-    XferData {
-        transfer_type,
-        copy_flags,
-        overwrite_mode,
-        src_files,
-        dst_files,
-        bytes_total,
-        files_total,
-        cancellable,
-        current_file_number: Default::default(),
-        current_src_file: Default::default(),
-        file_size: Default::default(),
-        bytes_copied_file: Default::default(),
-        bytes_total_transferred: Default::default(),
-        problem_action: Default::default(),
+impl Default for XferData {
+    fn default() -> Self {
+        Self {
+            transfer_type: TransferType::Copy,
+            copy_flags: gio::FileCopyFlags::NONE,
+            overwrite_mode: Default::default(),
+            src_files: Default::default(),
+            dst_files: Default::default(),
+            bytes_total: Default::default(),
+            files_total: Default::default(),
+            cancellable: gio::Cancellable::new(),
+            current_file_number: Default::default(),
+            current_src_file: Default::default(),
+            file_size: Default::default(),
+            bytes_copied_file: Default::default(),
+            bytes_total_transferred: Default::default(),
+            problem_action: Default::default(),
+        }
     }
 }
 
@@ -131,16 +124,17 @@ pub async fn copy_files(
     win.set_transient_for(Some(&parent_window));
     win.set_title(Some(&gettext("preparing…")));
 
-    let xfer_data = create_xfer_data(
-        TransferType::Copy,
+    let xfer_data = XferData {
+        transfer_type: TransferType::Copy,
         copy_flags,
         overwrite_mode,
         src_files,
         dst_files,
         bytes_total,
         files_total,
-        win.cancellable().clone(),
-    );
+        cancellable: win.cancellable().clone(),
+        ..Default::default()
+    };
 
     win.present();
     let success = transfer_files(win.upcast_ref(), &xfer_data).await;
@@ -203,16 +197,17 @@ pub async fn move_files(
     win.set_transient_for(Some(&parent_window));
     win.set_title(Some(&gettext("preparing…")));
 
-    let xfer_data = create_xfer_data(
-        TransferType::Move,
+    let xfer_data = XferData {
+        transfer_type: TransferType::Move,
         copy_flags,
         overwrite_mode,
         src_files,
         dst_files,
         bytes_total,
         files_total,
-        win.cancellable().clone(),
-    );
+        cancellable: win.cancellable().clone(),
+        ..Default::default()
+    };
 
     win.present();
     let success = transfer_files(win.upcast_ref(), &xfer_data).await;
@@ -275,16 +270,17 @@ pub async fn link_files(
     win.set_transient_for(Some(&parent_window));
     win.set_title(Some(&gettext("preparing…")));
 
-    let xfer_data = create_xfer_data(
-        TransferType::Link,
+    let xfer_data = XferData {
+        transfer_type: TransferType::Link,
         copy_flags,
         overwrite_mode,
         src_files,
         dst_files,
         bytes_total,
         files_total,
-        win.cancellable().clone(),
-    );
+        cancellable: win.cancellable().clone(),
+        ..Default::default()
+    };
 
     win.present();
     let success = transfer_files(win.upcast_ref(), &xfer_data).await;
@@ -308,16 +304,17 @@ pub async fn download_to_temporary(
     win.set_transient_for(Some(&parent_window));
     win.set_title(Some(&gettext("downloading to /tmp")));
 
-    let xfer_data = create_xfer_data(
-        TransferType::Copy,
+    let xfer_data = XferData {
+        transfer_type: TransferType::Copy,
         copy_flags,
-        ConfirmOverwriteMode::Query,
+        overwrite_mode: ConfirmOverwriteMode::Query,
         src_files,
         dst_files,
         bytes_total,
         files_total,
-        win.cancellable().clone(),
-    );
+        cancellable: win.cancellable().clone(),
+        ..Default::default()
+    };
 
     win.present();
     let success = transfer_files(win.upcast_ref(), &xfer_data).await;

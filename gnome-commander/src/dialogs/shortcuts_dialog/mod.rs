@@ -490,7 +490,7 @@ fn update_row_header(row: &gtk::ListBoxRow, previous_row: Option<&gtk::ListBoxRo
         row.child().and_then(|child| {
             for css_class in child.css_classes() {
                 if let Some(area_name) = css_class.strip_prefix("area-") {
-                    return Some(Area::from_str(area_name));
+                    return Some(Area::from_name(area_name));
                 }
             }
             None

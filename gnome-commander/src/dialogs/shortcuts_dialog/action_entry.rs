@@ -66,7 +66,7 @@ impl Component for ActionEntry {
                 if self.modified {
                     .add_css_class("keyboard-shortcuts-modified");
                 }
-                .add_css_class(&format!("area-{}", action.area().as_str()));
+                .add_css_class(&format!("area-{}", action.area().as_name()));
 
                 gtk::Label {
                     .set_label(&action.description());

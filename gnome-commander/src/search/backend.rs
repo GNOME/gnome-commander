@@ -14,6 +14,14 @@ use gettextrs::gettext;
 use gtk::gio::{self, prelude::*};
 use std::collections::BTreeSet;
 
+const ATTRIBUTES: &str = const_format::formatcp!(
+    "{},{},{},{}",
+    gio::FILE_ATTRIBUTE_STANDARD_NAME.as_str(),
+    gio::FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME.as_str(),
+    gio::FILE_ATTRIBUTE_STANDARD_TYPE.as_str(),
+    gio::FILE_ATTRIBUTE_STANDARD_IS_SYMLINK.as_str()
+);
+
 pub enum SearchMessage {
     Status(String),
     File(File),
@@ -68,14 +76,6 @@ pub async fn search(
     let cancellable = cancellable.clone();
     let (sender, receiver) = async_channel::unbounded::<(bool, String)>();
 
-    let attributes = format!(
-        "{},{},{},{}",
-        gio::FILE_ATTRIBUTE_STANDARD_NAME,
-        gio::FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
-        gio::FILE_ATTRIBUTE_STANDARD_TYPE,
-        gio::FILE_ATTRIBUTE_STANDARD_IS_SYMLINK
-    );
-
     std::thread::spawn(move || {
         search_dir_recursive(
             &gio::File::for_uri(&start_dir),
@@ -84,7 +84,6 @@ pub async fn search(
             &filename_filter,
             &mut content_search,
             &sender,
-            &attributes,
             &cancellable,
         )
     });
@@ -125,7 +124,6 @@ fn search_dir_recursive(
     filename_filter: &Option<Filter>,
     content_search: &mut Option<ContentSearch>,
     sender: &async_channel::Sender<(bool, String)>,
-    attributes: &str,
     cancellable: &gio::Cancellable,
 ) {
     if cancellable.is_cancelled() {
@@ -145,7 +143,7 @@ fn search_dir_recursive(
 
     let dir_file = gio::File::for_uri(dir);
     let files: Vec<_> = match dir_file.enumerate_children(
-        attributes,
+        ATTRIBUTES,
         gio::FileQueryInfoFlags::NONE,
         Some(cancellable),
     ) {
@@ -213,7 +211,6 @@ fn search_dir_recursive(
                 filename_filter,
                 content_search,
                 sender,
-                attributes,
                 cancellable,
             );
         }

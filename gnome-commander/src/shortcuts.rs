@@ -20,7 +20,7 @@ pub enum Area {
 }
 
 impl Area {
-    pub fn as_str(&self) -> &'static str {
+    pub fn as_name(&self) -> &'static str {
         match self {
             Self::Panel => "panel",
             Self::CommandLine => "command-line",
@@ -29,7 +29,7 @@ impl Area {
         }
     }
 
-    pub fn from_str(value: &str) -> Self {
+    pub fn from_name(value: &str) -> Self {
         match value {
             "panel" => Self::Panel,
             "command-line" => Self::CommandLine,
@@ -551,7 +551,7 @@ impl Shortcuts {
                 };
 
                 if binding.action_name.is_empty() {
-                    self.unregister(&shortcut, Area::from_str(&binding.action_data));
+                    self.unregister(&shortcut, Area::from_name(&binding.action_data));
                 } else {
                     let Some(user_action) = UserAction::from_name(&binding.action_name) else {
                         eprintln!(
@@ -726,7 +726,7 @@ impl Shortcuts {
                     .map(|((area, shortcut), _)| ShortcutVariant {
                         accelerator: shortcut.as_accelerator(),
                         action_name: String::new(),
-                        action_data: area.as_str().to_owned(),
+                        action_data: area.as_name().to_owned(),
                     }),
             )
             .collect()

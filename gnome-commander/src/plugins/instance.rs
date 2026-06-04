@@ -627,7 +627,7 @@ mod test {
                 Timer::after(Duration::from_millis(100)).await;
             }
             futures::future::poll_fn(|cx| {
-                while let Poll::Ready(_) = instance.poll(cx) {}
+                while instance.poll(cx).is_ready() {}
                 Poll::Ready(())
             })
             .await

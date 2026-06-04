@@ -38,6 +38,7 @@ tempfile.workspace = true
 unicode-segmentation.workspace = true
 vte.workspace = true
 winnow.workspace = true
+const_format = "0.2.36"
 
 [build-dependencies]
 system-deps.workspace = true

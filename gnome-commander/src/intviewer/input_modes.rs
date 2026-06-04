@@ -471,10 +471,10 @@ mod test {
         assert_eq!(imd.previous_char_offset(6), 5);
         assert_eq!(imd.previous_char_offset(7), 6);
 
-        assert_eq!(imd.is_at_char_boundary(0), true);
-        assert_eq!(imd.is_at_char_boundary(5), true);
-        assert_eq!(imd.is_at_char_boundary(6), true);
-        assert_eq!(imd.is_at_char_boundary(7), true);
+        assert!(imd.is_at_char_boundary(0));
+        assert!(imd.is_at_char_boundary(5));
+        assert!(imd.is_at_char_boundary(6));
+        assert!(imd.is_at_char_boundary(7));
 
         assert_eq!(imd.next_char_boundary(0), 0);
         assert_eq!(imd.next_char_boundary(5), 5);
@@ -553,26 +553,26 @@ mod test {
         assert_eq!(imd.previous_char_offset(18), 17);
         assert_eq!(imd.previous_char_offset(19), 18);
 
-        assert_eq!(imd.is_at_char_boundary(0), true);
-        assert_eq!(imd.is_at_char_boundary(1), true);
-        assert_eq!(imd.is_at_char_boundary(2), true);
-        assert_eq!(imd.is_at_char_boundary(3), true);
-        assert_eq!(imd.is_at_char_boundary(4), true);
-        assert_eq!(imd.is_at_char_boundary(5), false);
-        assert_eq!(imd.is_at_char_boundary(6), true);
-        assert_eq!(imd.is_at_char_boundary(7), false);
-        assert_eq!(imd.is_at_char_boundary(8), true);
-        assert_eq!(imd.is_at_char_boundary(9), false);
-        assert_eq!(imd.is_at_char_boundary(10), false);
-        assert_eq!(imd.is_at_char_boundary(11), true);
-        assert_eq!(imd.is_at_char_boundary(12), false);
-        assert_eq!(imd.is_at_char_boundary(13), false);
-        assert_eq!(imd.is_at_char_boundary(14), false);
-        assert_eq!(imd.is_at_char_boundary(15), true);
-        assert_eq!(imd.is_at_char_boundary(16), false);
-        assert_eq!(imd.is_at_char_boundary(17), false);
-        assert_eq!(imd.is_at_char_boundary(18), true);
-        assert_eq!(imd.is_at_char_boundary(19), true);
+        assert!(imd.is_at_char_boundary(0));
+        assert!(imd.is_at_char_boundary(1));
+        assert!(imd.is_at_char_boundary(2));
+        assert!(imd.is_at_char_boundary(3));
+        assert!(imd.is_at_char_boundary(4));
+        assert!(!imd.is_at_char_boundary(5));
+        assert!(imd.is_at_char_boundary(6));
+        assert!(!imd.is_at_char_boundary(7));
+        assert!(imd.is_at_char_boundary(8));
+        assert!(!imd.is_at_char_boundary(9));
+        assert!(!imd.is_at_char_boundary(10));
+        assert!(imd.is_at_char_boundary(11));
+        assert!(!imd.is_at_char_boundary(12));
+        assert!(!imd.is_at_char_boundary(13));
+        assert!(!imd.is_at_char_boundary(14));
+        assert!(imd.is_at_char_boundary(15));
+        assert!(!imd.is_at_char_boundary(16));
+        assert!(!imd.is_at_char_boundary(17));
+        assert!(imd.is_at_char_boundary(18));
+        assert!(imd.is_at_char_boundary(19));
 
         assert_eq!(imd.next_char_boundary(0), 0);
         assert_eq!(imd.next_char_boundary(1), 1);
