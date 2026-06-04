@@ -258,26 +258,20 @@ mod imp {
                 match display_mode {
                     TextRenderDisplayMode::Text => self.text_mode_display_line(
                         snapshot,
-                        offset,
-                        eol_offset,
-                        marker_start,
-                        marker_end,
+                        (offset, eol_offset),
+                        (marker_start, marker_end),
                         &display_options,
                     ),
                     TextRenderDisplayMode::FixedWidth => self.fixed_width_mode_display_line(
                         snapshot,
-                        offset,
-                        eol_offset,
-                        marker_start,
-                        marker_end,
+                        (offset, eol_offset),
+                        (marker_start, marker_end),
                         &display_options,
                     ),
                     TextRenderDisplayMode::Hexdump => self.hex_mode_display_line(
                         snapshot,
-                        offset,
-                        eol_offset,
-                        marker_start,
-                        marker_end,
+                        (offset, eol_offset),
+                        (marker_start, marker_end),
                         &display_options,
                         &display_options_alternate,
                     ),
@@ -744,8 +738,7 @@ mod imp {
 
             text_mode_line_iter(
                 &self.input_mode.borrow(),
-                line_offset,
-                next_line_offset,
+                (line_offset, next_line_offset),
                 tab_size,
             )
             .find_map(move |(offset, c, _)| (c >= column).then_some(offset))
@@ -810,8 +803,7 @@ mod imp {
             &self,
             snapshot: &gtk::Snapshot,
             chars: &[(u64, u32, char)],
-            marker_start: u64,
-            marker_end: u64,
+            marker: (u64, u64),
             display_options: &DisplayOptions,
         ) {
             let layout = self.obj().create_pango_layout(None);
@@ -819,7 +811,7 @@ mod imp {
 
             let marked: MinMax<u32> = chars
                 .iter()
-                .filter(|(offset, _, _)| *offset >= marker_start && *offset < marker_end)
+                .filter(|(offset, _, _)| *offset >= marker.0 && *offset < marker.1)
                 .map(|(_, column, _)| *column)
                 .collect();
 
@@ -848,7 +840,7 @@ mod imp {
                     (self.char_width.get() * (*column as i32)) as f32,
                     0_f32,
                 ));
-                if *current >= marker_start && *current < marker_end {
+                if *current >= marker.0 && *current < marker.1 {
                     snapshot.append_layout(&layout, &display_options.marker_text_color);
                 } else {
                     snapshot.append_layout(&layout, &display_options.text_color);
@@ -870,33 +862,26 @@ mod imp {
             }
         }
 
-        fn text_mode_chars(&self, start_of_line: u64, end_of_line: u64) -> Vec<(u64, u32, char)> {
-            text_mode_line_iter(
-                &self.input_mode.borrow(),
-                start_of_line,
-                end_of_line,
-                self.tab_size.get(),
-            )
-            .filter_map(|(offset, column, character)| match character {
-                Some('\r') | Some('\n') => None,
-                Some(ch) if ch == '\0' || ch.is_whitespace() => Some((offset, column, ' ')),
-                Some(ch) => Some((offset, column, ch)),
-                None => Some((offset, column, '\u{FFFD}')),
-            })
-            .collect::<Vec<_>>()
+        fn text_mode_chars(&self, line: (u64, u64)) -> Vec<(u64, u32, char)> {
+            text_mode_line_iter(&self.input_mode.borrow(), line, self.tab_size.get())
+                .filter_map(|(offset, column, character)| match character {
+                    Some('\r') | Some('\n') => None,
+                    Some(ch) if ch == '\0' || ch.is_whitespace() => Some((offset, column, ' ')),
+                    Some(ch) => Some((offset, column, ch)),
+                    None => Some((offset, column, '\u{FFFD}')),
+                })
+                .collect::<Vec<_>>()
         }
 
         fn text_mode_display_line(
             &self,
             snapshot: &gtk::Snapshot,
-            start_of_line: u64,
-            end_of_line: u64,
-            marker_start: u64,
-            marker_end: u64,
+            line: (u64, u64),
+            marker: (u64, u64),
             display_options: &DisplayOptions,
         ) {
-            let chars = self.text_mode_chars(start_of_line, end_of_line);
-            self.display_line(snapshot, &chars, marker_start, marker_end, display_options);
+            let chars = self.text_mode_chars(line);
+            self.display_line(snapshot, &chars, marker, display_options);
         }
 
         pub fn text_mode_copy_to_clipboard(&self, start_offset: u64, end_offset: u64) {
@@ -914,12 +899,8 @@ mod imp {
             }
         }
 
-        fn fixed_width_mode_chars(
-            &self,
-            start_of_line: u64,
-            end_of_line: u64,
-        ) -> Vec<(u64, u32, char)> {
-            fixed_width_mode_line_iter(&self.input_mode.borrow(), start_of_line, end_of_line)
+        fn fixed_width_mode_chars(&self, line: (u64, u64)) -> Vec<(u64, u32, char)> {
+            fixed_width_mode_line_iter(&self.input_mode.borrow(), line)
                 .map(|(offset, column, character)| {
                     (
                         offset,
@@ -933,32 +914,28 @@ mod imp {
         fn fixed_width_mode_display_line(
             &self,
             snapshot: &gtk::Snapshot,
-            start_of_line: u64,
-            end_of_line: u64,
-            marker_start: u64,
-            marker_end: u64,
+            line: (u64, u64),
+            marker: (u64, u64),
             display_options: &DisplayOptions,
         ) {
-            let chars = self.fixed_width_mode_chars(start_of_line, end_of_line);
-            self.display_line(snapshot, &chars, marker_start, marker_end, display_options);
+            let chars = self.fixed_width_mode_chars(line);
+            self.display_line(snapshot, &chars, marker, display_options);
         }
 
         fn hex_mode_display_line(
             &self,
             snapshot: &gtk::Snapshot,
-            start_of_line: u64,
-            end_of_line: u64,
-            marker_start: u64,
-            marker_end: u64,
+            line: (u64, u64),
+            marker: (u64, u64),
             display_options: &DisplayOptions,
             display_options_alternate: &DisplayOptions,
         ) {
             let layout = self.obj().create_pango_layout(None);
             layout.set_font_description(Some(&*self.font_desc.borrow()));
             layout.set_text(&if self.hexadecimal_offset.get() {
-                format!("{:08X}", start_of_line)
+                format!("{:08X}", line.0)
             } else {
-                format!("{:09}", start_of_line)
+                format!("{:09}", line.0)
             });
             snapshot.append_layout(&layout, &display_options.text_color);
 
@@ -972,7 +949,7 @@ mod imp {
             let mut hex_chars = Vec::new();
             let mut bin_chars = Vec::new();
             for (offset, column, byte, character) in
-                hex_mode_line_iter(&self.input_mode.borrow(), start_of_line, end_of_line)
+                hex_mode_line_iter(&self.input_mode.borrow(), line)
             {
                 if let Some(byte) = byte {
                     hex_chars.extend(
@@ -996,13 +973,7 @@ mod imp {
                 (self.char_width.get() * hex_offset as i32) as f32,
                 0_f32,
             ));
-            self.display_line(
-                snapshot,
-                &hex_chars,
-                marker_start,
-                marker_end,
-                display_options,
-            );
+            self.display_line(snapshot, &hex_chars, marker, display_options);
             snapshot.restore();
 
             snapshot.save();
@@ -1010,13 +981,7 @@ mod imp {
                 (self.char_width.get() * bin_offset as i32) as f32,
                 0_f32,
             ));
-            self.display_line(
-                snapshot,
-                &bin_chars,
-                marker_start,
-                marker_end,
-                display_options_alternate,
-            );
+            self.display_line(snapshot, &bin_chars, marker, display_options_alternate);
             snapshot.restore();
         }
 
@@ -1037,12 +1002,11 @@ mod imp {
 
     fn text_mode_line_iter(
         input_mode: &Arc<InputMode>,
-        start: u64,
-        end: u64,
+        line: (u64, u64),
         tab_size: u32,
     ) -> impl Iterator<Item = (u64, u32, Option<char>)> + use<'_> {
         input_mode
-            .offsets(start, end)
+            .offsets(line.0, line.1)
             .scan(0, move |column, offset| {
                 let current = *column;
                 let character = input_mode.character(offset);
@@ -1057,11 +1021,10 @@ mod imp {
 
     fn fixed_width_mode_line_iter(
         input_mode: &Arc<InputMode>,
-        start: u64,
-        end: u64,
+        line: (u64, u64),
     ) -> impl Iterator<Item = (u64, u32, Option<char>)> + use<'_> {
         input_mode
-            .offsets(start, end)
+            .offsets(line.0, line.1)
             .scan(0, move |column, offset| {
                 let current = *column;
                 let character = input_mode.character(offset);
@@ -1072,12 +1035,11 @@ mod imp {
 
     fn hex_mode_line_iter(
         input_mode: &Arc<InputMode>,
-        start: u64,
-        end: u64,
+        line: (u64, u64),
     ) -> impl Iterator<Item = (u64, u32, Option<u8>, Option<char>)> + use<'_> {
         let use_encoding = input_mode.char_size().is_some_and(|size| size == 1);
         input_mode
-            .byte_offsets(start, end)
+            .byte_offsets(line.0, line.1)
             .scan(0, move |column, offset| {
                 let current = *column;
                 let byte = input_mode.raw_byte(offset);
@@ -1362,7 +1324,7 @@ mod test {
         fn display_mode() {
             gtk::init().unwrap();
             let text_render = TextRender::new();
-            text_render.load_file(&Path::new(FILENAME));
+            text_render.load_file(Path::new(FILENAME));
             for mode in [
                 TextRenderDisplayMode::Text,
                 TextRenderDisplayMode::FixedWidth,
@@ -1377,7 +1339,7 @@ mod test {
         fn tab_size() {
             gtk::init().unwrap();
             let text_render = TextRender::new();
-            text_render.load_file(&Path::new(FILENAME));
+            text_render.load_file(Path::new(FILENAME));
             for tab_size in 1..=10 {
                 text_render.set_tab_size(tab_size);
                 assert_eq!(text_render.tab_size(), tab_size);
@@ -1388,7 +1350,7 @@ mod test {
         fn wrap_mode() {
             gtk::init().unwrap();
             let text_render = TextRender::new();
-            text_render.load_file(&Path::new(FILENAME));
+            text_render.load_file(Path::new(FILENAME));
             for mode in [false, true] {
                 text_render.set_wrap_mode(mode);
                 assert_eq!(text_render.wrap_mode(), mode);
@@ -1399,7 +1361,7 @@ mod test {
         fn fixed_limit() {
             gtk::init().unwrap();
             let text_render = TextRender::new();
-            text_render.load_file(&Path::new(FILENAME));
+            text_render.load_file(Path::new(FILENAME));
             for limit in 1..=10 {
                 text_render.set_fixed_limit(limit);
                 assert_eq!(text_render.fixed_limit(), limit);
@@ -1410,7 +1372,7 @@ mod test {
         fn encoding() {
             gtk::init().unwrap();
             let text_render = TextRender::new();
-            text_render.load_file(&Path::new(FILENAME));
+            text_render.load_file(Path::new(FILENAME));
             for encoding in ["ASCII", "UTF8", "CP437", "CP1251"] {
                 text_render.set_encoding(encoding);
                 assert_eq!(text_render.encoding(), encoding);

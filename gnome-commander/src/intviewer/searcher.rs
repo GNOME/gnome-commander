@@ -96,14 +96,11 @@ impl Searcher {
         while j + m <= n {
             let bytes = imd.bytes(j, m as usize);
             match self.bm.scan(&bytes) {
-                Ok(ScanResult::Match(_advancement)) => {
+                ScanResult::Match(_advancement) => {
                     return Some(j);
                 }
-                Ok(ScanResult::NoMatch(advancement)) => {
+                ScanResult::NoMatch(advancement) => {
                     j += advancement as u64;
-                }
-                _ => {
-                    break;
                 }
             }
 
@@ -132,14 +129,11 @@ impl Searcher {
         while j >= m - 1 {
             let bytes = imd.bytes_backwards(j, m as usize);
             match self.bm.scan(&bytes) {
-                Ok(ScanResult::Match(_advancement)) => {
+                ScanResult::Match(_advancement) => {
                     return Some(j + 1);
                 }
-                Ok(ScanResult::NoMatch(advancement)) => {
+                ScanResult::NoMatch(advancement) => {
                     j = j.saturating_sub(advancement as u64);
-                }
-                _ => {
-                    break;
                 }
             }
 

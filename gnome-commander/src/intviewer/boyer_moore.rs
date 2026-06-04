@@ -40,19 +40,15 @@ impl<T: Eq + Hash + Copy> BoyerMoore<T> {
         self.good[0]
     }
 
-    pub fn scan(&self, values: &[T]) -> Result<ScanResult, ()> {
-        if values.len() != self.pattern.len() {
-            return Err(());
-        }
+    pub fn scan(&self, values: &[T]) -> ScanResult {
+        assert_eq!(values.len(), self.pattern.len());
         for i in (0..self.pattern.len()).rev() {
             let value = &values[i];
             if !self.eq_class.equal(&self.pattern[i], value) {
-                return Ok(ScanResult::NoMatch(
-                    self.advancement(i, &self.eq_class.normal(value)),
-                ));
+                return ScanResult::NoMatch(self.advancement(i, &self.eq_class.normal(value)));
             }
         }
-        Ok(ScanResult::Match(self.good_match_advancement()))
+        ScanResult::Match(self.good_match_advancement())
     }
 }
 
@@ -254,7 +250,7 @@ mod test {
             0x9d, 0x9e, 0x9f, 0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa,
             0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4, 0xb5, 0xb6, 0xb7, 0xb8,
             0xb9, 0xba, 0xbb, 0xbc, 0xbd, 0xbe, 0xbf, 0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6,
-            0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0x05, 0x04, 0xB4, 0xFe,
+            0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0x05, 0x04, 0xb4, 0xfe,
             0x01, 0x01, 0x04, 0xd8, 0xd9, 0xda, 0xdb, 0xdc, 0xdd, 0xde, 0xdf, 0xe0, 0xe1, 0xe2,
             0xe3, 0xe4, 0xe5, 0xe6, 0xe7, 0xe8, 0xe9, 0xea, 0xeb, 0xec, 0xed, 0xee, 0xef, 0xf0,
             0xf1, 0xf2, 0xf3, 0xf4, 0xf5, 0xf6, 0xf7, 0xf8, /* a match */
@@ -280,15 +276,12 @@ mod test {
         let mut found = Vec::new();
         while j <= n - m {
             match bm.scan(&TEXT[j..(j + m)]) {
-                Ok(ScanResult::Match(advancement)) => {
+                ScanResult::Match(advancement) => {
                     found.push(j);
                     j += advancement;
                 }
-                Ok(ScanResult::NoMatch(advancement)) => {
+                ScanResult::NoMatch(advancement) => {
                     j += advancement;
-                }
-                _ => {
-                    unreachable!();
                 }
             }
         }
@@ -334,15 +327,12 @@ mod test {
         let mut found = Vec::new();
         while j <= n - m {
             match bm.scan(&TEXT.as_bytes()[j..(j + m)]) {
-                Ok(ScanResult::Match(advancement)) => {
+                ScanResult::Match(advancement) => {
                     found.push(j);
                     j += advancement;
                 }
-                Ok(ScanResult::NoMatch(advancement)) => {
+                ScanResult::NoMatch(advancement) => {
                     j += advancement;
-                }
-                _ => {
-                    unreachable!();
                 }
             }
         }
@@ -352,22 +342,22 @@ mod test {
 
     #[test]
     fn match_advancement() {
-        fn scan(pattern: &str, text: &str) -> Result<ScanResult, ()> {
+        fn scan(pattern: &str, text: &str) -> ScanResult {
             let bm = boyer_moore_bytes_new(pattern.as_bytes().to_vec(), true);
             bm.scan(text.as_bytes())
         }
 
         // good: 3
-        assert_eq!(scan("test", "test"), Ok(ScanResult::Match(3)));
+        assert_eq!(scan("test", "test"), ScanResult::Match(3));
         // good: 3, bad: 1
-        assert_eq!(scan("test", "ttst"), Ok(ScanResult::NoMatch(3)));
+        assert_eq!(scan("test", "ttst"), ScanResult::NoMatch(3));
         // good: 4, bad: 2
-        assert_eq!(scan("xest", "ttst"), Ok(ScanResult::NoMatch(4)));
+        assert_eq!(scan("xest", "ttst"), ScanResult::NoMatch(4));
         // good: 3, bad: -2
-        assert_eq!(scan("test", "sest"), Ok(ScanResult::NoMatch(3)));
+        assert_eq!(scan("test", "sest"), ScanResult::NoMatch(3));
         // good: 4, bad: -2
-        assert_eq!(scan("esttest", "abcsest"), Ok(ScanResult::NoMatch(4)));
+        assert_eq!(scan("esttest", "abcsest"), ScanResult::NoMatch(4));
         // good: 3, bad: 4
-        assert_eq!(scan("zastest", "abxyzst"), Ok(ScanResult::NoMatch(4)));
+        assert_eq!(scan("zastest", "abxyzst"), ScanResult::NoMatch(4));
     }
 }

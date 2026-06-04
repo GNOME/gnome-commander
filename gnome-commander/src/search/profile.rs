@@ -215,9 +215,9 @@ mod test {
         assert_eq!(profile.name(), "name");
         assert_eq!(profile.max_depth(), 3);
         assert_eq!(profile.path_syntax(), PatternType::Regex);
-        assert_eq!(profile.path_match_case(), true);
+        assert!(profile.path_match_case());
         assert_eq!(profile.path_pattern(), "path");
-        assert_eq!(profile.content_match_case(), true);
+        assert!(profile.content_match_case());
         assert_eq!(profile.content_pattern(), "text");
     }
 }
