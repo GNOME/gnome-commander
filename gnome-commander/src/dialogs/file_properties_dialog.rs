@@ -7,6 +7,7 @@ use crate::{
     connection::Connection,
     file::{File, FileOps},
     main_win::MainWindow,
+    shortcuts::Area,
     tags::FileMetadataService,
     utils::SenderExt,
 };
@@ -22,6 +23,7 @@ mod imp {
         file_metainfo_view::FileMetainfoView,
         tags::file_metadata::FileMetadata,
         types::SizeDisplayMode,
+        user_actions::UserAction,
         utils::{
             ErrorMessage, WindowExt, dialog_button_box, display_help, nice_size, time_to_string,
         },
@@ -37,7 +39,7 @@ mod imp {
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::FilePropertiesDialog)]
     pub struct FilePropertiesDialog {
-        notebook: gtk::Notebook,
+        pub(super) notebook: gtk::Notebook,
         filename_label: gtk::Label,
         filename_entry: gtk::Entry,
         chown_component: ChownComponent,
@@ -56,6 +58,15 @@ mod imp {
         const NAME: &'static str = "GnomeCmdFilePropertiesDialog";
         type Type = super::FilePropertiesDialog;
         type ParentType = gtk::Window;
+
+        fn class_init(klass: &mut Self::Class) {
+            klass.install_action(UserAction::ViewNextTab.name(), None, |obj, _, _| {
+                obj.imp().notebook.emit_change_current_page(1);
+            });
+            klass.install_action(UserAction::ViewPrevTab.name(), None, |obj, _, _| {
+                obj.imp().notebook.emit_change_current_page(-1);
+            });
+        }
 
         fn new() -> Self {
             let filename_entry = gtk::Entry::builder()
@@ -576,6 +587,10 @@ impl FilePropertiesDialog {
                     None
                 }),
             );
+
+            parent_window
+                .shortcuts()
+                .add_controller(&dialog.imp().notebook, Area::Panel);
 
             dialog.present();
             if !file.is_special() {
