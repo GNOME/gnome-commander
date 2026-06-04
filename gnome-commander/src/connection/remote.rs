@@ -73,15 +73,15 @@ impl ConnectionRemote {
         Ok(Self::new(alias, &uri))
     }
 
-    pub fn method(&self) -> Option<ConnectionMethodID> {
+    pub fn method(&self) -> Option<ConnectionMethod> {
         let uri = self.uri()?;
-        ConnectionMethodID::from_uri(&uri)
+        ConnectionMethod::from_uri(&uri)
     }
 
     pub fn icon_name(&self) -> &'static str {
         match self.method() {
-            Some(ConnectionMethodID::CON_FILE) => "folder",
-            Some(ConnectionMethodID::CON_URI) => "network-workgroup",
+            Some(ConnectionMethod::File) => "folder",
+            Some(ConnectionMethod::Uri) => "network-workgroup",
             Some(_) => "folder-remote",
             _ => "network-workgroup",
         }
@@ -250,32 +250,29 @@ impl ConnectionInterface for ConnectionRemote {
 }
 
 u32_enum! {
-    #[allow(non_camel_case_types)]
-    pub enum ConnectionMethodID {
+    pub enum ConnectionMethod {
         #[default]
-        CON_SFTP,
-        CON_FTP,
-        CON_ANON_FTP,
-        CON_SMB,
-        CON_DAV,
-        CON_DAVS,
-        CON_URI,
-        CON_FILE,
+        Sftp,
+        Ftp,
+        AnonFtp,
+        Smb,
+        Dav,
+        Davs,
+        Uri,
+        File,
     }
 }
 
-impl ConnectionMethodID {
-    pub fn from_uri(uri: &glib::Uri) -> Option<ConnectionMethodID> {
+impl ConnectionMethod {
+    pub fn from_uri(uri: &glib::Uri) -> Option<ConnectionMethod> {
         match uri.scheme().as_str() {
-            "file" => Some(ConnectionMethodID::CON_FILE),
-            "ftp" if uri.user().as_deref() == Some("anonymous") => {
-                Some(ConnectionMethodID::CON_ANON_FTP)
-            }
-            "ftp" => Some(ConnectionMethodID::CON_FTP),
-            "sftp" => Some(ConnectionMethodID::CON_SFTP),
-            "dav" => Some(ConnectionMethodID::CON_DAV),
-            "davs" => Some(ConnectionMethodID::CON_DAVS),
-            "smb" => Some(ConnectionMethodID::CON_SMB),
+            "file" => Some(Self::File),
+            "ftp" if uri.user().as_deref() == Some("anonymous") => Some(Self::AnonFtp),
+            "ftp" => Some(Self::Ftp),
+            "sftp" => Some(Self::Sftp),
+            "dav" => Some(Self::Dav),
+            "davs" => Some(Self::Davs),
+            "smb" => Some(Self::Smb),
             _ => None,
         }
     }

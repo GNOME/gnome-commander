@@ -5,7 +5,7 @@
 
 use super::action_entry::ActionEntryInput;
 use crate::shortcuts::Shortcut;
-use component_framework::{Component, ComponentSender, forward_output, with};
+use component_framework::prelude::*;
 use gettextrs::gettext;
 use gtk::prelude::*;
 
