@@ -1116,16 +1116,25 @@ fn new_nonexisting_dest_file(file: &gio::File) -> ControlFlow<BreakReason, gio::
 fn find_nonexisting_name(file: &gio::File) -> Option<gio::File> {
     let path = file.path()?;
     let parent_path = path.parent()?;
-    let base_name = path.file_name()?.to_string_lossy();
+    let base_name = path.file_prefix()?.to_string_lossy();
 
     (1_u64..).find_map(|increment| {
-        let new_name = pgettext(
+        let new_name = if let Some(ext) = path.extension() {
+            pgettext(
+                "A template for a file name. In a case of a conflict with an existing one.",
+                "{name} (Copy {number}).{ext}",
+            )
+            .replace("{name}", &base_name)
+            .replace("{number}", &increment.to_string())
+            .replace("{ext}", &ext.to_string_lossy())
+        } else {
+        pgettext(
             "A template for a file name. In a case of a conflict with an existing one.",
             "{name} (Copy {number})",
         )
         .replace("{name}", &base_name)
-        .replace("{number}", &increment.to_string());
-
+        .replace("{number}", &increment.to_string())
+    };
         let path = parent_path.join(new_name);
         if !path.exists() {
             Some(gio::File::for_path(path))
