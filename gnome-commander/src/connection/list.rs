@@ -379,10 +379,10 @@ impl ConnectionList {
     fn save_connections(&self) -> Vec<ConnectionVariant> {
         self.iter()
             .filter_map(|c| c.downcast::<ConnectionRemote>().ok())
-            .filter_map(|device| {
+            .filter_map(|c| {
                 Some(ConnectionVariant {
-                    alias: device.alias()?,
-                    uri: device.uri_string()?,
+                    alias: c.alias()?,
+                    uri: c.uri_string()?,
                 })
             })
             .collect()
