@@ -71,10 +71,10 @@
 //!   (corresponds to `Text` with `wrap_lines` flag off), `Wrap` (`Text` with `wrap_lines` on),
 //!   `Fixed` (used for `FixedWidth` with variable-length encodings) and `Binary` (used for
 //!   `FixedWidth` with fixed-length encodings and for `Hexdump`).
-//! * [`wrap_limit`](data_presentation::DataPresentation::wrap_limit) is used in `Wrap` mode, a
+//! * [`wrap_limit`](data_presentation::DataPresentation::set_wrap_limit) is used in `Wrap` mode, a
 //!   maximum number of characters to display in a line.
-//! * [`fixed_count`](data_presentation::DataPresentation::fixed_count) is used to determine line
-//!   wrapping in both `Fixed` and `Binary` mode. However, in `Fixed` mode it is a number of
+//! * [`fixed_count`](data_presentation::DataPresentation::set_fixed_count) is used to determine
+//!   line wrapping in both `Fixed` and `Binary` mode. However, in `Fixed` mode it is a number of
 //!   *characters* (corresponds to viewer window’s `chars_per_line`) where as in `Binary` mode it
 //!   it is the number of *bytes* at which a line should be wrapped.
 //!
