@@ -539,7 +539,7 @@ mod imp {
 
             let (icon, text) =
                 if let Some(connection) = list_item.item().and_downcast::<Connection>() {
-                    (connection.go_icon(), connection.alias())
+                    (connection.go_icon(), Some(connection.display_name()))
                 } else {
                     (None, None)
                 };
