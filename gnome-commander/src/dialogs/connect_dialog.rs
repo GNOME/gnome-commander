@@ -281,7 +281,7 @@ impl ConnectDialog {
     pub async fn edit_connection(
         parent_window: &gtk::Window,
         connection: &ConnectionRemote,
-    ) -> bool {
+    ) -> Option<ConnectionRemote> {
         let controller = ConnectDialog {
             temporary: false,
             alias: connection.alias(),
@@ -291,11 +291,10 @@ impl ConnectDialog {
         controller.root().set_transient_for(Some(parent_window));
 
         if let Some(new_connection) = Self::wait_for_connection(controller).await {
-            connection.set_alias(new_connection.alias().as_deref());
-            connection.set_uri(new_connection.uri().as_ref());
-            true
+            new_connection.bookmarks_from(connection);
+            Some(new_connection)
         } else {
-            false
+            None
         }
     }
 }

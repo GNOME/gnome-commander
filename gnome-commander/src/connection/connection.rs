@@ -159,6 +159,14 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
         self.as_ref().imp().bookmarks.borrow()
     }
 
+    /// Moves bookmarks from old connection instance to the new one.
+    fn bookmarks_from(&self, other: impl AsRef<Connection>) {
+        self.as_ref()
+            .imp()
+            .bookmarks
+            .replace(other.as_ref().imp().bookmarks.take());
+    }
+
     fn replace_bookmark(&self, old_bookmark: &Bookmark, new_bookmark: Bookmark) -> bool {
         {
             let mut bookmarks = self.as_ref().imp().bookmarks.borrow_mut();
