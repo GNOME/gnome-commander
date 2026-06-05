@@ -65,7 +65,7 @@ impl ContentSearch {
         Ok(Self {
             matcher: RegexMatcherBuilder::new()
                 .fixed_strings(true)
-                .case_insensitive(match_case)
+                .case_insensitive(!match_case)
                 .dot_matches_new_line(true)
                 .build(pattern)
                 .map_err(|error| {
