@@ -209,7 +209,10 @@ mod imp {
             let filter = gtk::FilterListModel::new(
                 Some(list),
                 Some(gtk::CustomFilter::new(|item| {
-                    item.downcast_ref::<ConnectionRemote>().is_some()
+                    item.downcast_ref::<ConnectionRemote>()
+                        .is_some_and(|connection| {
+                            connection.alias().is_some_and(|alias| !alias.is_empty())
+                        })
                 })),
             );
             self.selection.set_model(Some(&filter));
