@@ -336,6 +336,7 @@ impl Component for ConnectDialog {
                         .unwrap_or(ConnectionMethod::Sftp)
                         .into()
                     );
+                    .set_hexpand(true);
                     .set_sensitive(self.temporary || self.uri.is_none());
                     .connect_selected_notify(forward_input!(sender, Self::Input::TypeChanged));
                 }), 1, GridRow::TypeSelector.into(), 1, 1);
