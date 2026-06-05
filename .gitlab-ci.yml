@@ -4,7 +4,7 @@
 #
 # SPDX-License-Identifier: CC0-1.0
 
-image: registry.gitlab.gnome.org/gnome/gnome-commander/buildenv:v1.0.1
+image: registry.gitlab.gnome.org/gnome/gnome-commander/buildenv:v1.0.2
 
 stages:
   - build
