@@ -1177,11 +1177,11 @@ impl FileSelector {
 
         let menu = gio::Menu::new();
         for (index, (connection, path)) in dir_history.into_iter().enumerate() {
-            let alias = connection
-                .downcast_ref::<ConnectionHome>()
-                .is_none()
-                .then(|| connection.display_name())
-                .unwrap_or_default();
+            let alias = if connection.is::<ConnectionHome>() {
+                String::new()
+            } else {
+                connection.display_name()
+            };
             let path = if alias.is_empty() {
                 path.to_string_lossy()
             } else {
