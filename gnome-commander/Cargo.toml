@@ -41,12 +41,7 @@ winnow.workspace = true
 const_format = "0.2.36"
 
 [build-dependencies]
-system-deps.workspace = true
 walkdir.workspace = true
-
-[package.metadata.system-deps.gmodule_2_0]
-name = "gmodule-2.0"
-version = "2"
 
 [dev-dependencies]
 async-std.workspace = true

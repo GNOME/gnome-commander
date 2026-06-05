@@ -17,8 +17,6 @@ use walkdir::WalkDir;
 const PACKAGE: &str = env!("CARGO_PKG_NAME");
 
 fn main() {
-    system_deps::Config::new().probe().unwrap();
-
     compile_resources(
         "../pixmaps",
         "/org/gnome/gnome-commander/icons",
