@@ -1462,13 +1462,7 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
             .section(connections_disconnect.clone())
     });
 
-    local_connections_menu(&connections_goto);
-    connections_menu(&connections_disconnect);
-    ConnectionList::get().connect_list_changed(move || {
-        local_connections_menu(&connections_goto);
-        connections_menu(&connections_disconnect);
-    });
-
+    let bookmarks = gio::Menu::new();
     menu.append_submenu(Some(&gettext("_Bookmarks")), &{
         gio::Menu::new()
             .section({
@@ -1476,7 +1470,16 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
                     .action(UserAction::BookmarksAddCurrent)
                     .action(UserAction::BookmarksEdit)
             })
-            .section(create_bookmarks_menu())
+            .section(bookmarks.clone())
+    });
+
+    local_connections_menu(&connections_goto);
+    connections_menu(&connections_disconnect);
+    bookmarks_menu(&bookmarks);
+    ConnectionList::get().connect_list_changed(move || {
+        local_connections_menu(&connections_goto);
+        connections_menu(&connections_disconnect);
+        bookmarks_menu(&bookmarks);
     });
 
     let plugins = gio::Menu::new();
@@ -1546,8 +1549,8 @@ fn connections_menu(menu: &gio::Menu) {
     }
 }
 
-fn create_bookmarks_menu() -> gio::Menu {
-    let menu = gio::Menu::new();
+fn bookmarks_menu(menu: &gio::Menu) {
+    menu.remove_all();
 
     for con in ConnectionList::get().iter() {
         let bookmarks = con.bookmarks();
@@ -1577,8 +1580,6 @@ fn create_bookmarks_menu() -> gio::Menu {
             ));
         }
     }
-
-    menu
 }
 
 async fn plugins_menu(channel: &mut PluginHostChannel, menu: &gio::Menu) {
