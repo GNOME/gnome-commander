@@ -5,6 +5,7 @@
 mod component;
 pub mod container;
 mod controller;
+pub mod helpers;
 pub mod prelude;
 mod sender;
 mod widget;

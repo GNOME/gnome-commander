@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+use crate::helpers::{Grid, GridRow};
 use gtk::prelude::*;
 
 /// A helper trait used by the [with! macro](crate::with), provides a standard API to add a child to
@@ -49,3 +50,6 @@ container_ext_impl!(gtk::ToggleButton, set_child, gtk::Widget);
 container_ext_impl!(gtk::TreeExpander, set_child, gtk::Widget);
 container_ext_impl!(gtk::Window, set_child, gtk::Widget);
 container_ext_impl!(gtk::WindowHandle, set_child, gtk::Widget);
+
+container_ext_impl!(Grid, append_row, GridRow);
+container_ext_impl!(GridRow, append, gtk::Widget);

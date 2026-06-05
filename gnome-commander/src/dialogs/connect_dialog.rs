@@ -11,37 +11,22 @@ use crate::{
     main_win::MainWindow,
     utils::{ErrorMessage, display_help},
 };
-use component_framework::prelude::*;
+use component_framework::{
+    helpers::{Grid, GridRow},
+    prelude::*,
+};
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
-
-#[derive(Clone, Copy, PartialEq)]
-enum GridRow {
-    TypeSelector = 0,
-    Alias,
-    Uri,
-    Server,
-    SubTitleOptionals,
-    Port,
-    Folder,
-    Domain,
-    Buttons,
-}
-
-impl From<GridRow> for i32 {
-    fn from(row: GridRow) -> Self {
-        row as Self
-    }
-}
 
 #[derive(Debug, Default)]
 pub struct ConnectDialogView {
     dialog: gtk::Window,
-    grid: gtk::Grid,
+    grid: Grid,
     type_combo: gtk::DropDown,
     alias_entry: gtk::Entry,
     uri_entry: gtk::Entry,
     server_entry: gtk::Entry,
+    optional_label: gtk::Label,
     port_entry: gtk::Entry,
     folder_entry: gtk::Entry,
     domain_entry: gtk::Entry,
@@ -127,42 +112,43 @@ pub struct ConnectDialog {
 
 impl ConnectDialog {
     fn update_row_visibility(&self, view: &ConnectDialogView) {
-        const DYNAMIC_ROWS: &[GridRow] = &[
-            GridRow::Uri,
-            GridRow::Server,
-            GridRow::SubTitleOptionals,
-            GridRow::Port,
-            GridRow::Folder,
-            GridRow::Domain,
+        let dynamic_rows = [
+            view.uri_entry.upcast_ref::<gtk::Widget>(),
+            view.server_entry.upcast_ref(),
+            view.optional_label.upcast_ref(),
+            view.port_entry.upcast_ref(),
+            view.folder_entry.upcast_ref(),
+            view.domain_entry.upcast_ref(),
         ];
 
-        let layout: &[GridRow] = match view.method() {
+        let layout: &[&gtk::Widget] = match view.method() {
             ConnectionMethod::Sftp
             | ConnectionMethod::Ftp
             | ConnectionMethod::AnonFtp
             | ConnectionMethod::Dav
             | ConnectionMethod::Davs => &[
-                GridRow::Server,
-                GridRow::SubTitleOptionals,
-                GridRow::Port,
-                GridRow::Folder,
+                view.server_entry.upcast_ref(),
+                view.optional_label.upcast_ref(),
+                view.port_entry.upcast_ref(),
+                view.folder_entry.upcast_ref(),
             ],
             ConnectionMethod::Smb => &[
-                GridRow::Server,
-                GridRow::SubTitleOptionals,
-                GridRow::Folder,
-                GridRow::Domain,
+                view.server_entry.upcast_ref(),
+                view.optional_label.upcast_ref(),
+                view.folder_entry.upcast_ref(),
+                view.domain_entry.upcast_ref(),
             ],
-            ConnectionMethod::Uri => &[GridRow::Uri],
+            ConnectionMethod::Uri => &[view.uri_entry.upcast_ref()],
             _ => &[],
         };
 
-        for &row in DYNAMIC_ROWS {
-            let visible = layout.contains(&row);
-            if let Some(label) = view.grid.child_at(0, row.into()) {
+        for widget in dynamic_rows {
+            let visible = layout.contains(&widget);
+            let (_, row, _, _) = view.grid.query_child(widget);
+            if let Some(label) = view.grid.child_at(0, row) {
                 label.set_visible(visible);
             }
-            if let Some(entry) = view.grid.child_at(1, row.into()) {
+            if let Some(entry) = view.grid.child_at(1, row) {
                 entry.set_visible(visible);
             }
         }
@@ -321,149 +307,158 @@ impl Component for ConnectDialog {
             .set_resizable(false);
 
             &view.grid {
-                .attach(
-                    &with!(label_for(&format!("<b>{}</b>", gettext("Service _type:")), &view.type_combo) {
-                        .set_use_markup(true);
-                    }),
-                    0, GridRow::TypeSelector.into(), 1, 1,
-                );
-                .attach(with!(&view.type_combo {
-                    .set_model(Some(&create_methods_model()));
-                    .set_selected(self.uri
-                        .as_ref()
-                        .and_then(ConnectionMethod::from_uri)
-                        .unwrap_or(ConnectionMethod::Sftp)
-                        .into()
+                GridRow {
+                    .labeled_with(
+                        &gettext("Service _type:"),
+                        |label| label.add_css_class("important")
                     );
-                    .set_hexpand(true);
-                    .set_sensitive(self.temporary || self.uri.is_none());
-                    .connect_selected_notify(forward_input!(sender, Self::Input::TypeChanged));
-                }), 1, GridRow::TypeSelector.into(), 1, 1);
 
-                if !self.temporary {
-                    .attach(
-                        &label_for(&gettext("_Alias:"), &view.alias_entry),
-                        0, GridRow::Alias.into(), 1, 1,
-                    );
-                    .attach(with!(&view.alias_entry {
-                        .set_activates_default(true);
-                        if let Some(alias) = &self.alias {
-                            .set_text(alias);
-                        }
-                    }), 1, GridRow::Alias.into(), 1, 1);
+                    &view.type_combo {
+                        .set_model(Some(&create_methods_model()));
+                        .set_selected(self.uri
+                            .as_ref()
+                            .and_then(ConnectionMethod::from_uri)
+                            .unwrap_or(ConnectionMethod::Sftp)
+                            .into()
+                        );
+                        .set_hexpand(true);
+                        .set_sensitive(self.temporary || self.uri.is_none());
+                        .connect_selected_notify(forward_input!(sender, Self::Input::TypeChanged));
+                    }
                 }
 
-                .attach(
-                    &label_for(&gettext("_Location (URI):"), &view.uri_entry),
-                    0, GridRow::Uri.into(), 1, 1,
-                );
-                .attach(with!(&view.uri_entry {
-                    .set_activates_default(true);
-                    if let Some(uri) = self.uri.as_ref() {
-                        .set_text(&uri.to_str());
-                    }
-                }), 1, GridRow::Uri.into(), 1, 1);
+                if !self.temporary {
+                    GridRow {
+                        .labeled(&gettext("_Alias:"));
 
-                .attach(
-                    &label_for(&gettext("_Server:"), &view.server_entry),
-                    0, GridRow::Server.into(), 1, 1,
-                );
-                .attach(with!(&view.server_entry {
-                    .set_activates_default(true);
-                    if let Some(host) = self.uri.as_ref().and_then(|uri| uri.host()) {
-                        .set_text(host.split_once(';').map(|(_, host)| host).unwrap_or(&host));
+                        &view.alias_entry {
+                            .set_activates_default(true);
+                            if let Some(alias) = &self.alias {
+                                .set_text(alias);
+                            }
+                        }
                     }
-                }), 1, GridRow::Server.into(), 1, 1);
+                }
 
-                .attach(&with!(gtk::Label {
-                    .set_label(&format!("<b>{}</b>", gettext("Optional information")));
-                    .set_use_markup(true);
-                    .set_halign(gtk::Align::Start);
-                    .set_valign(gtk::Align::Center);
-                }), 0, GridRow::SubTitleOptionals.into(), 2, 1);
+                GridRow {
+                    .labeled(&gettext("_Location (URI):"));
 
-                .attach(
-                    &label_for(&gettext("_Port:"), &view.port_entry),
-                    0, GridRow::Port.into(), 1, 1,
-                );
-                .attach(with!(&view.port_entry {
-                    .set_activates_default(true);
-                    if let Some(uri) = self.uri.as_ref() && uri.port() != -1 {
-                        .set_text(&uri.port().to_string());
+                    &view.uri_entry {
+                        .set_activates_default(true);
+                        if let Some(uri) = self.uri.as_ref() {
+                            .set_text(&uri.to_str());
+                        }
                     }
-                    .connect_insert_text(|port_entry, text, pos| {
-                        let new_chars = text.chars()
-                            .filter(char::is_ascii_digit)
-                            .collect::<String>();
-                        if new_chars.is_empty() {
-                            return;
+                }
+
+                GridRow {
+                    .labeled(&gettext("_Server:"));
+
+                    &view.server_entry {
+                        .set_activates_default(true);
+                        if let Some(host) = self.uri.as_ref().and_then(|uri| uri.host()) {
+                            .set_text(host.split_once(';').map(|(_, host)| host).unwrap_or(&host));
+                        }
+                    }
+                }
+
+                GridRow {
+                    .spanned(2);
+
+                    &view.optional_label {
+                        .set_label(&gettext("Optional information"));
+                        .add_css_class("important");
+                        .set_use_markup(true);
+                        .set_halign(gtk::Align::Start);
+                    }
+                }
+
+                GridRow {
+                    .labeled(&gettext("_Port:"));
+
+                    &view.port_entry {
+                        .set_activates_default(true);
+                        if let Some(uri) = self.uri.as_ref() && uri.port() != -1 {
+                            .set_text(&uri.port().to_string());
+                        }
+                        .connect_insert_text(|port_entry, text, pos| {
+                            let new_chars = text.chars()
+                                .filter(char::is_ascii_digit)
+                                .collect::<String>();
+                            if new_chars.is_empty() {
+                                return;
+                            }
+
+                            // We are mixing character and byte positions here. However, since we are
+                            // only dealing with ASCII digits this is fine.
+                            let mut text = port_entry.text().to_string();
+                            text.insert_str(*pos as usize, &new_chars);
+                            port_entry.set_text(&text);
+                            *pos += new_chars.len() as i32;
+                        });
+                    }
+                }
+
+                GridRow {
+                    .labeled(&gettext("_Folder:"));
+
+                    &view.folder_entry {
+                        .set_activates_default(true);
+                        if let Some(uri) = self.uri.as_ref() {
+                            .set_text(&uri.path());
+                        }
+                    }
+                }
+
+                GridRow {
+                    .labeled(&gettext("_Domain name:"));
+
+                    &view.domain_entry {
+                        .set_activates_default(true);
+                        if let Some(host) = self.uri.as_ref().and_then(|uri| uri.host()) {
+                            .set_text(
+                                host.split_once(';').map(|(domain, _)| domain).unwrap_or_default()
+                            );
+                        }
+                    }
+                }
+
+                GridRow {
+                    .spanned(2);
+
+                    gtk::Box {
+                        .add_css_class("spacing");
+                        .set_orientation(gtk::Orientation::Horizontal);
+
+                        gtk::Button {
+                            .set_label(&gettext("_Help"));
+                            .set_use_underline(true);
+                            .connect_clicked(forward_input!(sender, Self::Input::Help));
                         }
 
-                        // We are mixing character and byte positions here. However, since we are
-                        // only dealing with ASCII digits this is fine.
-                        let mut text = port_entry.text().to_string();
-                        text.insert_str(*pos as usize, &new_chars);
-                        port_entry.set_text(&text);
-                        *pos += new_chars.len() as i32;
-                    });
-                }), 1, GridRow::Port.into(), 1, 1);
+                        gtk::Button {
+                            .set_label(&gettext("_Cancel"));
+                            .set_use_underline(true);
+                            .set_as_cancel();
+                            .set_hexpand(true);
+                            .set_halign(gtk::Align::End);
+                            .connect_clicked(forward_output!(sender, None));
+                        }
 
-                .attach(
-                    &label_for(&gettext("_Folder:"), &view.folder_entry),
-                    0, GridRow::Folder.into(), 1, 1,
-                );
-                .attach(with!(&view.folder_entry {
-                    .set_activates_default(true);
-                    if let Some(uri) = self.uri.as_ref() {
-                        .set_text(&uri.path());
+                        gtk::Button {
+                            .set_label(&if self.temporary {
+                                gettext("C_onnect")
+                            } else if self.uri.is_none() {
+                                gettext("A_dd Connection")
+                            } else {
+                                gettext("_Update Connection")
+                            });
+                            .set_use_underline(true);
+                            .set_as_default();
+                            .connect_clicked(forward_input!(sender, Self::Input::Accept));
+                        }
                     }
-                }), 1, GridRow::Folder.into(), 1, 1);
-
-                .attach(
-                    &label_for(&gettext("_Domain name:"), &view.domain_entry),
-                    0, GridRow::Domain.into(), 1, 1,
-                );
-                .attach(with!(&view.domain_entry {
-                    .set_activates_default(true);
-                    if let Some(host) = self.uri.as_ref().and_then(|uri| uri.host()) {
-                        .set_text(
-                            host.split_once(';').map(|(domain, _)| domain).unwrap_or_default()
-                        );
-                    }
-                }), 1, GridRow::Domain.into(), 1, 1);
-
-                .attach(&with!(gtk::Box {
-                    .add_css_class("spacing");
-                    .set_orientation(gtk::Orientation::Horizontal);
-
-                    gtk::Button {
-                        .set_label(&gettext("_Help"));
-                        .set_use_underline(true);
-                        .connect_clicked(forward_input!(sender, Self::Input::Help));
-                    }
-
-                    gtk::Button {
-                        .set_label(&gettext("_Cancel"));
-                        .set_use_underline(true);
-                        .set_as_cancel();
-                        .set_hexpand(true);
-                        .set_halign(gtk::Align::End);
-                        .connect_clicked(forward_output!(sender, None));
-                    }
-
-                    gtk::Button {
-                        .set_label(&if self.temporary {
-                            gettext("C_onnect")
-                        } else if self.uri.is_none() {
-                            gettext("A_dd Connection")
-                        } else {
-                            gettext("_Update Connection")
-                        });
-                        .set_use_underline(true);
-                        .set_as_default();
-                        .connect_clicked(forward_input!(sender, Self::Input::Accept));
-                    }
-                }), 0, GridRow::Buttons.into(), 2, 1);
+                }
             }
         });
 
@@ -511,14 +506,4 @@ fn create_methods_model() -> gio::ListModel {
         &gettext("Custom location"),
     ])
     .upcast()
-}
-
-fn label_for(text: &str, widget: &impl IsA<gtk::Widget>) -> gtk::Label {
-    with!(gtk::Label {
-        .set_label(text);
-        .set_use_underline(true);
-        .set_halign(gtk::Align::Start);
-        .set_valign(gtk::Align::Center);
-        .set_mnemonic_widget(Some(widget));
-    })
 }
