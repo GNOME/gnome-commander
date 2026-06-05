@@ -11,13 +11,11 @@ use crate::{
     main_win::MainWindow,
     shortcuts::{Area, Call, Shortcut, Shortcuts},
     user_actions::UserAction,
-    utils::{NO_MOD, SHIFT, WindowExt, display_help},
+    utils::{NO_MOD, SHIFT, display_help},
 };
 use action_entry::ActionEntry;
 use capture::{Capture, CaptureOutput};
-use component_framework::{
-    Component, ComponentController, ComponentSender, forward_input, forward_output, with,
-};
+use component_framework::prelude::*;
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
 
@@ -27,7 +25,6 @@ pub struct ShortcutsDialogView {
     search_field: gtk::SearchEntry,
     modified_only: gtk::CheckButton,
     list: gtk::ListBox,
-    cancel_button: gtk::Button,
 }
 
 #[derive(Debug)]
@@ -69,7 +66,6 @@ impl Component for ShortcutsDialog {
             .set_destroy_with_parent(true);
             .set_size_request(800, 600);
             .set_resizable(true);
-            .set_cancel_widget(&view.cancel_button);
 
             gtk::Box {
                 .set_orientation(gtk::Orientation::Vertical);
@@ -156,9 +152,10 @@ impl Component for ShortcutsDialog {
                         .connect_clicked(forward_input!(sender, Self::Input::DisplayHelp));
                     }
 
-                    &view.cancel_button {
+                    gtk::Button {
                         .set_label(&gettext("_Cancel"));
                         .set_use_underline(true);
+                        .set_as_cancel();
                         .set_hexpand(true);
                         .set_halign(gtk::Align::End);
 

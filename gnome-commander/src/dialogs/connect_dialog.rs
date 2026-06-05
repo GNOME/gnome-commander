@@ -6,433 +6,229 @@
 use crate::{
     connection::{
         ConnectionExt,
-        remote::{ConnectionMethodID, ConnectionRemote, ConnectionRemoteExt},
+        remote::{ConnectionMethod, ConnectionRemote, ConnectionRemoteExt},
     },
     main_win::MainWindow,
-    utils::WindowExt,
+    utils::{ErrorMessage, display_help},
+};
+use component_framework::{
+    helpers::{Grid, GridRow},
+    prelude::*,
 };
 use gettextrs::gettext;
-use gtk::{gio, glib, prelude::*, subclass::prelude::*};
+use gtk::{gio, glib, prelude::*};
 
-mod imp {
-    use super::*;
-    use crate::utils::{ErrorMessage, SenderExt, dialog_button_box, display_help};
+#[derive(Debug, Default)]
+pub struct ConnectDialogView {
+    dialog: gtk::Window,
+    grid: Grid,
+    type_combo: gtk::DropDown,
+    alias_entry: gtk::Entry,
+    uri_entry: gtk::Entry,
+    server_entry: gtk::Entry,
+    optional_label: gtk::Label,
+    port_entry: gtk::Entry,
+    folder_entry: gtk::Entry,
+    domain_entry: gtk::Entry,
+}
 
-    fn create_methods_model() -> gio::ListModel {
-        gtk::StringList::new(&[
-            &gettext("SSH"),
-            &gettext("FTP (with login)"),
-            &gettext("Public FTP"),
-            &gettext("Windows share"),
-            &gettext("WebDAV (HTTP)"),
-            &gettext("Secure WebDAV (HTTPS)"),
-            &gettext("Custom location"),
-        ])
-        .upcast()
+impl ConnectDialogView {
+    pub fn method(&self) -> ConnectionMethod {
+        ConnectionMethod::from(self.type_combo.selected())
     }
 
-    #[derive(Clone, Copy, PartialEq)]
-    enum GridRow {
-        TypeSelector = 0,
-        Alias,
-        Uri,
-        Server,
-        SubTitleOptionals,
-        Port,
-        Folder,
-        Domain,
-        Buttons,
+    pub fn alias(&self) -> String {
+        self.alias_entry.text().to_string()
     }
 
-    const DYNAMIC_ROWS: &[GridRow] = &[
-        GridRow::Uri,
-        GridRow::Server,
-        GridRow::SubTitleOptionals,
-        GridRow::Port,
-        GridRow::Folder,
-        GridRow::Domain,
-    ];
-
-    pub struct ConnectDialog {
-        pub grid: gtk::Grid,
-        pub type_combo: gtk::DropDown,
-        pub alias_entry: gtk::Entry,
-        pub uri_entry: gtk::Entry,
-        pub server_entry: gtk::Entry,
-        pub port_entry: gtk::Entry,
-        pub folder_entry: gtk::Entry,
-        pub domain_entry: gtk::Entry,
-        pub ok_btn: gtk::Button,
-        sender: async_channel::Sender<Option<glib::Uri>>,
-        pub receiver: async_channel::Receiver<Option<glib::Uri>>,
-    }
-
-    #[glib::object_subclass]
-    impl ObjectSubclass for ConnectDialog {
-        const NAME: &'static str = "GnomeCmdConnectDialog";
-        type Type = super::ConnectDialog;
-        type ParentType = gtk::Window;
-
-        fn new() -> Self {
-            let (sender, receiver) = async_channel::bounded(1);
-            Self {
-                grid: gtk::Grid::builder().build(),
-                type_combo: gtk::DropDown::builder()
-                    .model(&create_methods_model())
-                    .build(),
-                alias_entry: gtk::Entry::builder().activates_default(true).build(),
-                uri_entry: gtk::Entry::builder().activates_default(true).build(),
-                server_entry: gtk::Entry::builder().activates_default(true).build(),
-                port_entry: gtk::Entry::builder().activates_default(true).build(),
-                folder_entry: gtk::Entry::builder().activates_default(true).build(),
-                domain_entry: gtk::Entry::builder().activates_default(true).build(),
-                ok_btn: gtk::Button::builder().use_underline(true).build(),
-                sender,
-                receiver,
-            }
+    pub fn server(&self) -> Result<String, ErrorMessage> {
+        let server = self.server_entry.text();
+        let server = server.trim();
+        if server.is_empty() {
+            Err(ErrorMessage::new(
+                gettext("You must enter a name for the server"),
+                Some(gettext("Please enter a name and try again.")),
+            ))
+        } else {
+            Ok(server.to_string())
         }
     }
 
-    impl ObjectImpl for ConnectDialog {
-        fn constructed(&self) {
-            self.parent_constructed();
-
-            let obj = self.obj();
-
-            obj.add_css_class("dialog");
-            obj.set_resizable(false);
-
-            obj.set_child(Some(&self.grid));
-
-            let label = gtk::Label::builder()
-                .label(format!("<b>{}</b>", gettext("Service _type:")))
-                .use_underline(true)
-                .use_markup(true)
-                .mnemonic_widget(&self.type_combo)
-                .halign(gtk::Align::Start)
-                .valign(gtk::Align::Center)
-                .build();
-
-            self.grid
-                .attach(&label, 0, GridRow::TypeSelector as i32, 1, 1);
-            self.grid
-                .attach(&self.type_combo, 1, GridRow::TypeSelector as i32, 1, 1);
-
-            self.type_combo.connect_selected_notify(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                move |_| {
-                    let method = imp.get_method();
-                    imp.setup_for_type(Some(method));
-                }
-            ));
-
-            self.attach_entry(&gettext("_Alias:"), &self.alias_entry, GridRow::Alias);
-            self.attach_entry(&gettext("_Location (URI):"), &self.uri_entry, GridRow::Uri);
-            self.attach_entry(&gettext("_Server:"), &self.server_entry, GridRow::Server);
-
-            let subtitle = gtk::Label::builder()
-                .label(format!("<b>{}</b>", gettext("Optional information")))
-                .use_markup(true)
-                .halign(gtk::Align::Start)
-                .valign(gtk::Align::Center)
-                .build();
-            self.grid
-                .attach(&subtitle, 0, GridRow::SubTitleOptionals as i32, 2, 1);
-
-            self.attach_entry(&gettext("_Port:"), &self.port_entry, GridRow::Port);
-            // g_signal_connect (dialog.imp().port_entry, "insert-text", G_CALLBACK (port_insert_text), NULL);
-            self.attach_entry(&gettext("_Folder:"), &self.folder_entry, GridRow::Folder);
-            self.attach_entry(
-                &gettext("_Domain name:"),
-                &self.domain_entry,
-                GridRow::Domain,
-            );
-
-            let help_btn = gtk::Button::builder()
-                .label(gettext("_Help"))
-                .use_underline(true)
-                .build();
-            help_btn.connect_clicked(glib::clone!(
-                #[weak]
-                obj,
-                move |_| {
-                    glib::spawn_future_local(async move {
-                        display_help(
-                            obj.upcast_ref(),
-                            Some("gnome-commander-config-remote-connections"),
-                        )
-                        .await;
-                    });
-                }
-            ));
-
-            let cancel_btn = gtk::Button::builder()
-                .label(gettext("_Cancel"))
-                .use_underline(true)
-                .build();
-            cancel_btn.connect_clicked(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                move |_| imp.sender.toss(None)
-            ));
-
-            self.ok_btn.connect_clicked(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                move |_| {
-                    glib::spawn_future_local(async move { imp.ok_clicked().await });
-                }
-            ));
-
-            self.grid.attach(
-                &dialog_button_box(&[&help_btn], &[&cancel_btn, &self.ok_btn]),
-                0,
-                GridRow::Buttons as i32,
-                2,
-                1,
-            );
-
-            obj.set_default_widget(Some(&self.ok_btn));
-            obj.set_cancel_widget(&cancel_btn);
+    pub fn port(&self) -> Result<i32, ErrorMessage> {
+        let port = self.port_entry.text();
+        let port = port.trim();
+        if port.is_empty() {
+            Ok(-1)
+        } else {
+            port.parse().map_err(|_error| {
+                ErrorMessage::brief(gettext("You must enter a number for the port"))
+            })
         }
     }
 
-    impl WidgetImpl for ConnectDialog {}
-    impl WindowImpl for ConnectDialog {}
-
-    impl ConnectDialog {
-        fn attach_entry(&self, label: &str, entry: &gtk::Entry, row: GridRow) {
-            let label = label_for(label, entry);
-            self.grid.attach(&label, 0, row as i32, 1, 1);
-            self.grid.attach(entry, 1, row as i32, 1, 1);
-        }
-
-        pub fn setup_for_type(&self, method: Option<ConnectionMethodID>) {
-            let layout: &[GridRow] = match method {
-                Some(ConnectionMethodID::CON_SFTP)
-                | Some(ConnectionMethodID::CON_FTP)
-                | Some(ConnectionMethodID::CON_ANON_FTP)
-                | Some(ConnectionMethodID::CON_DAV)
-                | Some(ConnectionMethodID::CON_DAVS) => &[
-                    GridRow::Server,
-                    GridRow::SubTitleOptionals,
-                    GridRow::Port,
-                    GridRow::Folder,
-                ],
-                Some(ConnectionMethodID::CON_SMB) => &[
-                    GridRow::Server,
-                    GridRow::SubTitleOptionals,
-                    GridRow::Folder,
-                    GridRow::Domain,
-                ],
-                Some(ConnectionMethodID::CON_URI) => &[GridRow::Uri],
-                _ => &[],
-            };
-
-            for row in DYNAMIC_ROWS {
-                let visible = layout.contains(row);
-                if let Some(label) = self.grid.child_at(0, *row as i32) {
-                    label.set_visible(visible);
-                }
-                if let Some(entry) = self.grid.child_at(1, *row as i32) {
-                    entry.set_visible(visible);
-                }
-            }
-        }
-
-        pub fn get_method(&self) -> ConnectionMethodID {
-            ConnectionMethodID::from(self.type_combo.selected())
-        }
-
-        pub fn set_method(&self, method: Option<ConnectionMethodID>) {
-            self.type_combo
-                .set_selected(method.unwrap_or(ConnectionMethodID::CON_URI) as u32);
-            self.setup_for_type(method);
-        }
-
-        pub fn get_server(&self) -> Result<String, ErrorMessage> {
-            let server = self.server_entry.text();
-            let server = server.trim();
-            if server.is_empty() {
-                Err(ErrorMessage {
-                    message: gettext("You must enter a name for the server"),
-                    secondary_text: Some(gettext("Please enter a name and try again.")),
-                })
-            } else {
-                Ok(server.to_string())
-            }
-        }
-
-        pub fn get_port(&self) -> Result<i32, ErrorMessage> {
-            let port = self.port_entry.text();
-            let port = port.trim();
-            if port.is_empty() {
-                Ok(-1)
-            } else {
-                port.parse::<i32>().map_err(|_error| ErrorMessage {
-                    message: gettext("You must enter a number for the port"),
-                    secondary_text: None,
-                })
-            }
-        }
-
-        pub fn get_domain(&self) -> Option<String> {
-            let domain = self.domain_entry.text();
-            let domain = domain.trim();
-            if domain.is_empty() {
-                None
-            } else {
-                Some(domain.to_string())
-            }
-        }
-
-        pub fn get_folder(&self) -> String {
-            let folder = self.folder_entry.text();
-            let folder = folder.trim_start_matches('/');
-            if folder.is_empty() {
-                folder.to_owned()
-            } else {
-                format!("/{folder}")
-            }
-        }
-
-        pub fn get_connection_uri(&self) -> Result<glib::Uri, ErrorMessage> {
-            let method = self.get_method();
-            let uri = match method {
-                ConnectionMethodID::CON_SFTP => glib::Uri::build(
-                    glib::UriFlags::NONE,
-                    "sftp",
-                    None,
-                    Some(&self.get_server()?),
-                    self.get_port()?,
-                    &self.get_folder(),
-                    None,
-                    None,
-                ),
-                ConnectionMethodID::CON_FTP | ConnectionMethodID::CON_ANON_FTP => glib::Uri::build(
-                    glib::UriFlags::NONE,
-                    "ftp",
-                    None,
-                    Some(&self.get_server()?),
-                    self.get_port()?,
-                    &self.get_folder(),
-                    None,
-                    None,
-                ),
-                ConnectionMethodID::CON_SMB => {
-                    let mut host = self.get_server()?;
-                    if let Some(domain) = self.get_domain() {
-                        host = format!("{domain};{host}");
-                    }
-                    glib::Uri::build(
-                        glib::UriFlags::NON_DNS,
-                        "smb",
-                        None,
-                        Some(&host),
-                        -1,
-                        &self.get_folder(),
-                        None,
-                        None,
-                    )
-                }
-                ConnectionMethodID::CON_DAV => glib::Uri::build(
-                    glib::UriFlags::NONE,
-                    "dav",
-                    None,
-                    Some(&self.get_server()?),
-                    self.get_port()?,
-                    &self.get_folder(),
-                    None,
-                    None,
-                ),
-                ConnectionMethodID::CON_DAVS => glib::Uri::build(
-                    glib::UriFlags::NONE,
-                    "davs",
-                    None,
-                    Some(&self.get_server()?),
-                    self.get_port()?,
-                    &self.get_folder(),
-                    None,
-                    None,
-                ),
-                ConnectionMethodID::CON_URI => {
-                    let uri = self.uri_entry.text();
-                    glib::Uri::parse(&uri, glib::UriFlags::NONE).map_err(|_| ErrorMessage {
-                        message: gettext("“{}” is not a valid location").replace("{}", &uri),
-                        secondary_text: Some(gettext("Please check spelling and try again.")),
-                    })?
-                }
-                _ => {
-                    return Err(ErrorMessage {
-                        message: "Unsupported connection method".to_string(),
-                        secondary_text: None,
-                    });
-                }
-            };
-            Ok(uri)
-        }
-
-        async fn ok_clicked(&self) {
-            match self.get_connection_uri() {
-                Ok(data) => self.sender.toss(Some(data)),
-                Err(error) => error.show(self.obj().upcast_ref()).await,
-            }
+    pub fn domain(&self) -> Option<String> {
+        let domain = self.domain_entry.text();
+        let domain = domain.trim();
+        if domain.is_empty() {
+            None
+        } else {
+            Some(domain.to_string())
         }
     }
 
-    fn label_for(text: &str, widget: &impl IsA<gtk::Widget>) -> gtk::Label {
-        gtk::Label::builder()
-            .label(text)
-            .use_underline(true)
-            .halign(gtk::Align::Start)
-            .valign(gtk::Align::Center)
-            .mnemonic_widget(widget)
-            .build()
+    pub fn folder(&self) -> String {
+        let folder = self.folder_entry.text();
+        let folder = folder.trim_start_matches('/');
+        if folder.is_empty() {
+            folder.to_owned()
+        } else {
+            format!("/{folder}")
+        }
+    }
+
+    pub fn uri(&self) -> Result<glib::Uri, ErrorMessage> {
+        let uri = self.uri_entry.text();
+        glib::Uri::parse(&uri, glib::UriFlags::NONE).map_err(|_| {
+            ErrorMessage::new(
+                gettext("“{}” is not a valid location").replace("{}", &uri),
+                Some(gettext("Please check spelling and try again.")),
+            )
+        })
     }
 }
 
-glib::wrapper! {
-    pub struct ConnectDialog(ObjectSubclass<imp::ConnectDialog>)
-        @extends gtk::Window, gtk::Widget,
-        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Root, gtk::Native;
+pub enum ConnectDialogInput {
+    TypeChanged,
+    Help,
+    Accept,
 }
 
-/*
-fn port_insert_text(editable: &GtkEditable, new_text: &str, new_text_length: i32, position: &i32) {
-    if new_text_length < 0 {
-        new_text_length = strlen(new_text);
-    }
-
-    if (new_text_length != 1 || g_ascii_isdigit(new_text[0])) {
-        return;
-    }
-
-    gdk_display_beep(gtk_widget_get_display(GTK_WIDGET(editable)));
-    g_signal_stop_emission_by_name(editable, "insert-text");
-}
-*/
-
-impl Default for ConnectDialog {
-    fn default() -> Self {
-        glib::Object::builder().build()
-    }
+#[derive(Debug)]
+pub struct ConnectDialog {
+    temporary: bool,
+    alias: Option<String>,
+    uri: Option<glib::Uri>,
 }
 
 impl ConnectDialog {
-    async fn wait_for_connection(dialog: ConnectDialog) -> Option<ConnectionRemote> {
-        dialog.present();
-        let response = dialog.imp().receiver.recv().await;
-        let connection: Option<ConnectionRemote> = match response {
-            Ok(Some(uri)) => {
-                let alias = dialog.imp().alias_entry.text();
-                let con = ConnectionRemote::new(&alias, &uri);
-                Some(con)
-            }
-            _ => None,
+    fn update_row_visibility(&self, view: &ConnectDialogView) {
+        let dynamic_rows = [
+            view.uri_entry.upcast_ref::<gtk::Widget>(),
+            view.server_entry.upcast_ref(),
+            view.optional_label.upcast_ref(),
+            view.port_entry.upcast_ref(),
+            view.folder_entry.upcast_ref(),
+            view.domain_entry.upcast_ref(),
+        ];
+
+        let layout: &[&gtk::Widget] = match view.method() {
+            ConnectionMethod::Sftp
+            | ConnectionMethod::Ftp
+            | ConnectionMethod::AnonFtp
+            | ConnectionMethod::Dav
+            | ConnectionMethod::Davs => &[
+                view.server_entry.upcast_ref(),
+                view.optional_label.upcast_ref(),
+                view.port_entry.upcast_ref(),
+                view.folder_entry.upcast_ref(),
+            ],
+            ConnectionMethod::Smb => &[
+                view.server_entry.upcast_ref(),
+                view.optional_label.upcast_ref(),
+                view.folder_entry.upcast_ref(),
+                view.domain_entry.upcast_ref(),
+            ],
+            ConnectionMethod::Uri => &[view.uri_entry.upcast_ref()],
+            _ => &[],
         };
-        dialog.close();
-        connection
+
+        for widget in dynamic_rows {
+            let visible = layout.contains(&widget);
+            let (_, row, _, _) = view.grid.query_child(widget);
+            if let Some(label) = view.grid.child_at(0, row) {
+                label.set_visible(visible);
+            }
+            if let Some(entry) = view.grid.child_at(1, row) {
+                entry.set_visible(visible);
+            }
+        }
+    }
+
+    fn get_connection_uri(&self, view: &ConnectDialogView) -> Result<glib::Uri, ErrorMessage> {
+        let uri = match view.method() {
+            ConnectionMethod::Sftp => glib::Uri::build(
+                glib::UriFlags::NONE,
+                "sftp",
+                None,
+                Some(&view.server()?),
+                view.port()?,
+                &view.folder(),
+                None,
+                None,
+            ),
+            ConnectionMethod::Ftp | ConnectionMethod::AnonFtp => glib::Uri::build(
+                glib::UriFlags::NONE,
+                "ftp",
+                None,
+                Some(&view.server()?),
+                view.port()?,
+                &view.folder(),
+                None,
+                None,
+            ),
+            ConnectionMethod::Smb => glib::Uri::build(
+                glib::UriFlags::NON_DNS,
+                "smb",
+                None,
+                Some(&if let Some(domain) = view.domain() {
+                    format!("{domain};{}", view.server()?)
+                } else {
+                    view.server()?
+                }),
+                -1,
+                &view.folder(),
+                None,
+                None,
+            ),
+            ConnectionMethod::Dav => glib::Uri::build(
+                glib::UriFlags::NONE,
+                "dav",
+                None,
+                Some(&view.server()?),
+                view.port()?,
+                &view.folder(),
+                None,
+                None,
+            ),
+            ConnectionMethod::Davs => glib::Uri::build(
+                glib::UriFlags::NONE,
+                "davs",
+                None,
+                Some(&view.server()?),
+                view.port()?,
+                &view.folder(),
+                None,
+                None,
+            ),
+            ConnectionMethod::Uri => view.uri()?,
+            _ => {
+                return Err(ErrorMessage::brief("Unsupported connection method"));
+            }
+        };
+        Ok(uri)
+    }
+
+    async fn wait_for_connection(
+        mut controller: ComponentController<Self>,
+    ) -> Option<ConnectionRemote> {
+        controller.root().present();
+
+        let response = controller.receive().await;
+        controller.root().close();
+
+        let (alias, uri) = response.ok()??;
+        let connection = ConnectionRemote::new(&alias, &uri);
+        Some(connection)
     }
 
     /// Dialog for setting up a new remote server connection.
@@ -440,91 +236,274 @@ impl ConnectDialog {
         parent_window: &MainWindow,
         uri: Option<glib::Uri>,
     ) -> Option<ConnectionRemote> {
-        if let Some(dialog) = parent_window.get_dialog::<ConnectDialog>("connect") {
+        if let Some(dialog) = parent_window.get_dialog::<gtk::Window>("connect") {
             dialog.present();
             None
         } else {
-            let dialog = parent_window.set_dialog("connect", ConnectDialog::default());
-            dialog.set_transient_for(Some(parent_window));
-            dialog.set_title(Some(&gettext("New Connection")));
-            dialog.imp().alias_entry.set_sensitive(true);
-
-            if let Some(uri) = uri {
-                dialog.set_uri(&uri);
-            } else {
-                dialog.imp().set_method(Some(ConnectionMethodID::CON_SFTP));
+            let controller = ConnectDialog {
+                temporary: true,
+                alias: None,
+                uri,
             }
+            .build();
+            controller.root().set_transient_for(Some(parent_window));
+            parent_window.set_dialog("connect", controller.root().clone());
 
-            dialog.imp().ok_btn.set_label(&gettext("C_onnect"));
-            Self::wait_for_connection(dialog).await
+            Self::wait_for_connection(controller).await
         }
     }
 
     pub async fn add_connection(parent_window: &gtk::Window) -> Option<ConnectionRemote> {
-        let dialog = ConnectDialog::default();
-        dialog.set_transient_for(Some(parent_window));
-        dialog.set_title(Some(&gettext("Add Connection")));
-        dialog.set_modal(true);
-        dialog.imp().set_method(Some(ConnectionMethodID::CON_SFTP));
-        dialog.imp().ok_btn.set_label(&gettext("A_dd Connection"));
-        Self::wait_for_connection(dialog).await
+        let controller = ConnectDialog {
+            temporary: false,
+            alias: None,
+            uri: None,
+        }
+        .build();
+        controller.root().set_transient_for(Some(parent_window));
+        Self::wait_for_connection(controller).await
     }
 
-    pub async fn edit_connection(parent_window: &gtk::Window, con: &ConnectionRemote) -> bool {
-        let dialog = ConnectDialog::default();
-        dialog.set_transient_for(Some(parent_window));
-        dialog.set_title(Some(&gettext("Edit Connection")));
-        dialog.set_modal(true);
+    pub async fn edit_connection(
+        parent_window: &gtk::Window,
+        connection: &ConnectionRemote,
+    ) -> Option<ConnectionRemote> {
+        let controller = ConnectDialog {
+            temporary: false,
+            alias: connection.alias(),
+            uri: connection.uri(),
+        }
+        .build();
+        controller.root().set_transient_for(Some(parent_window));
 
-        dialog.imp().type_combo.set_sensitive(false);
-
-        if let Some(alias) = con.alias() {
-            dialog.imp().alias_entry.set_text(&alias);
+        if let Some(new_connection) = Self::wait_for_connection(controller).await {
+            new_connection.bookmarks_from(connection);
+            Some(new_connection)
         } else {
-            dialog.imp().alias_entry.set_sensitive(false);
+            None
         }
+    }
+}
 
-        if let Some(uri) = con.uri() {
-            dialog.set_uri(&uri);
-        }
+impl Component for ConnectDialog {
+    type View = ConnectDialogView;
+    type Input = ConnectDialogInput;
+    type Output = Option<(String, glib::Uri)>;
+    type Root = gtk::Window;
 
-        dialog
-            .imp()
-            .ok_btn
-            .set_label(&gettext("_Update Connection"));
+    fn init(&mut self, sender: &ComponentSender<Self>) -> Self::View {
+        let view = Self::View::default();
 
-        dialog.present();
-        let mut result = false;
+        with!(&view.dialog {
+            .add_css_class("dialog");
+            .set_title(Some(&if self.temporary {
+                gettext("New Connection")
+            } else if self.uri.is_none() {
+                gettext("Add Connection")
+            } else {
+                gettext("Edit Connection")
+            }));
+            .set_modal(!self.temporary);
+            .set_resizable(false);
 
-        let response = dialog.imp().receiver.recv().await;
-        if let Ok(Some(uri)) = response {
-            let alias = dialog.imp().alias_entry.text();
-            con.set_alias(Some(&alias));
-            con.set_uri(Some(&uri));
-            result = true;
-        }
-        dialog.close();
-        result
+            &view.grid {
+                GridRow {
+                    .labeled_with(
+                        &gettext("Service _type:"),
+                        |label| label.add_css_class("important")
+                    );
+
+                    &view.type_combo {
+                        .set_model(Some(&create_methods_model()));
+                        .set_selected(self.uri
+                            .as_ref()
+                            .and_then(ConnectionMethod::from_uri)
+                            .unwrap_or(ConnectionMethod::Sftp)
+                            .into()
+                        );
+                        .set_hexpand(true);
+                        .set_sensitive(self.temporary || self.uri.is_none());
+                        .connect_selected_notify(forward_input!(sender, Self::Input::TypeChanged));
+                    }
+                }
+
+                if !self.temporary {
+                    GridRow {
+                        .labeled(&gettext("_Alias:"));
+
+                        &view.alias_entry {
+                            .set_activates_default(true);
+                            if let Some(alias) = &self.alias {
+                                .set_text(alias);
+                            }
+                        }
+                    }
+                }
+
+                GridRow {
+                    .labeled(&gettext("_Location (URI):"));
+
+                    &view.uri_entry {
+                        .set_activates_default(true);
+                        if let Some(uri) = self.uri.as_ref() {
+                            .set_text(&uri.to_str());
+                        }
+                    }
+                }
+
+                GridRow {
+                    .labeled(&gettext("_Server:"));
+
+                    &view.server_entry {
+                        .set_activates_default(true);
+                        if let Some(host) = self.uri.as_ref().and_then(|uri| uri.host()) {
+                            .set_text(host.split_once(';').map(|(_, host)| host).unwrap_or(&host));
+                        }
+                    }
+                }
+
+                GridRow {
+                    .spanned(2);
+
+                    &view.optional_label {
+                        .set_label(&gettext("Optional information"));
+                        .add_css_class("important");
+                        .set_use_markup(true);
+                        .set_halign(gtk::Align::Start);
+                    }
+                }
+
+                GridRow {
+                    .labeled(&gettext("_Port:"));
+
+                    &view.port_entry {
+                        .set_activates_default(true);
+                        if let Some(uri) = self.uri.as_ref() && uri.port() != -1 {
+                            .set_text(&uri.port().to_string());
+                        }
+                        .connect_insert_text(|port_entry, text, pos| {
+                            let new_chars = text.chars()
+                                .filter(char::is_ascii_digit)
+                                .collect::<String>();
+                            if new_chars.is_empty() {
+                                return;
+                            }
+
+                            // We are mixing character and byte positions here. However, since we are
+                            // only dealing with ASCII digits this is fine.
+                            let mut text = port_entry.text().to_string();
+                            text.insert_str(*pos as usize, &new_chars);
+                            port_entry.set_text(&text);
+                            *pos += new_chars.len() as i32;
+                        });
+                    }
+                }
+
+                GridRow {
+                    .labeled(&gettext("_Folder:"));
+
+                    &view.folder_entry {
+                        .set_activates_default(true);
+                        if let Some(uri) = self.uri.as_ref() {
+                            .set_text(&uri.path());
+                        }
+                    }
+                }
+
+                GridRow {
+                    .labeled(&gettext("_Domain name:"));
+
+                    &view.domain_entry {
+                        .set_activates_default(true);
+                        if let Some(host) = self.uri.as_ref().and_then(|uri| uri.host()) {
+                            .set_text(
+                                host.split_once(';').map(|(domain, _)| domain).unwrap_or_default()
+                            );
+                        }
+                    }
+                }
+
+                GridRow {
+                    .spanned(2);
+
+                    gtk::Box {
+                        .add_css_class("spacing");
+                        .set_orientation(gtk::Orientation::Horizontal);
+
+                        gtk::Button {
+                            .set_label(&gettext("_Help"));
+                            .set_use_underline(true);
+                            .connect_clicked(forward_input!(sender, Self::Input::Help));
+                        }
+
+                        gtk::Button {
+                            .set_label(&gettext("_Cancel"));
+                            .set_use_underline(true);
+                            .set_as_cancel();
+                            .set_hexpand(true);
+                            .set_halign(gtk::Align::End);
+                            .connect_clicked(forward_output!(sender, None));
+                        }
+
+                        gtk::Button {
+                            .set_label(&if self.temporary {
+                                gettext("C_onnect")
+                            } else if self.uri.is_none() {
+                                gettext("A_dd Connection")
+                            } else {
+                                gettext("_Update Connection")
+                            });
+                            .set_use_underline(true);
+                            .set_as_default();
+                            .connect_clicked(forward_input!(sender, Self::Input::Accept));
+                        }
+                    }
+                }
+            }
+        });
+
+        self.update_row_visibility(&view);
+
+        view
     }
 
-    fn set_uri(&self, uri: &glib::Uri) {
-        self.imp().set_method(ConnectionMethodID::from_uri(uri));
-
-        self.imp().uri_entry.set_text(&uri.to_str());
-
-        let full_host = uri.host().unwrap_or_default();
-        let (domain, host) = full_host
-            .split_once(';')
-            .unwrap_or_else(|| ("", &full_host));
-
-        self.imp().server_entry.set_text(host);
-
-        let port = uri.port();
-        if port != -1 {
-            self.imp().port_entry.set_text(&port.to_string());
-        }
-
-        self.imp().folder_entry.set_text(&uri.path());
-        self.imp().domain_entry.set_text(domain);
+    fn root<'a>(&self, view: &'a Self::View) -> &'a Self::Root {
+        &view.dialog
     }
+
+    async fn update(
+        &mut self,
+        msg: Self::Input,
+        sender: &ComponentSender<Self>,
+        view: &mut Self::View,
+    ) {
+        match msg {
+            Self::Input::TypeChanged => {
+                self.update_row_visibility(view);
+            }
+            Self::Input::Help => {
+                let dialog = view.dialog.clone();
+                glib::spawn_future_local(async move {
+                    display_help(&dialog, Some("gnome-commander-config-remote-connections")).await;
+                });
+            }
+            Self::Input::Accept => match self.get_connection_uri(view) {
+                Ok(uri) => sender.output(Some((view.alias(), uri))),
+                Err(error) => error.show(&view.dialog).await,
+            },
+        }
+    }
+}
+
+fn create_methods_model() -> gio::ListModel {
+    gtk::StringList::new(&[
+        &gettext("SSH"),
+        &gettext("FTP (with login)"),
+        &gettext("Public FTP"),
+        &gettext("Windows share"),
+        &gettext("WebDAV (HTTP)"),
+        &gettext("Secure WebDAV (HTTPS)"),
+        &gettext("Custom location"),
+    ])
+    .upcast()
 }

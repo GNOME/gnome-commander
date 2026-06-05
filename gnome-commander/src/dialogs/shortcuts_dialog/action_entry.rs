@@ -8,7 +8,7 @@ use crate::{
     shortcuts::{Call, Shortcut, Shortcuts},
     user_actions::UserAction,
 };
-use component_framework::{Component, ComponentController, ComponentSender, forward_output, with};
+use component_framework::prelude::*;
 use gettextrs::gettext;
 use gtk::prelude::*;
 

@@ -35,7 +35,8 @@ frame.flat {
     border: none;
 }
 
-frame > label {
+frame > label,
+label.important {
     font-weight: bold;
 }
 

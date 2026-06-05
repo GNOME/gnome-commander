@@ -3,12 +3,8 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::{
-    shortcuts::Shortcut,
-    user_actions::UserAction,
-    utils::{NO_MOD, WindowExt},
-};
-use component_framework::{Component, ComponentSender, forward_output, with};
+use crate::{shortcuts::Shortcut, user_actions::UserAction, utils::NO_MOD};
+use component_framework::prelude::*;
 use gettextrs::gettext;
 use gtk::{gdk, glib, prelude::*};
 
@@ -16,7 +12,6 @@ use gtk::{gdk, glib, prelude::*};
 pub struct CaptureView {
     dialog: gtk::Window,
     instructions: gtk::Label,
-    cancel_button: gtk::Button,
 }
 
 #[derive(Debug)]
@@ -56,7 +51,6 @@ impl Component for Capture {
             }));
             .set_width_request(500);
             .set_resizable(false);
-            .set_cancel_widget(&view.cancel_button);
 
             .add_controller(with!(gtk::EventControllerKey {
                 .set_propagation_phase(gtk::PropagationPhase::Capture);
@@ -133,8 +127,9 @@ impl Component for Capture {
                     .set_orientation(gtk::Orientation::Horizontal);
                     .add_css_class("spacing");
 
-                    &view.cancel_button {
+                    gtk::Button {
                         .set_label(&gettext("Cancel"));
+                        .set_as_cancel();
                         .set_focusable(false);
                         .set_hexpand(true);
                         .set_halign(gtk::Align::End);

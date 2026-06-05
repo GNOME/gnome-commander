@@ -5,12 +5,16 @@
 mod component;
 pub mod container;
 mod controller;
+pub mod helpers;
+pub mod prelude;
 mod sender;
+mod widget;
 
 pub use component::Component;
 pub use component_framework_macros::with;
 pub use controller::{ComponentController, Ref};
 pub use sender::ComponentSender;
+pub use widget::GcmdWidgetExt;
 
 /// Produces a simple signal handler that will always send a particular message to the sender’s
 /// input channel. This macro is meant to be used within the [with! macro](crate::with):

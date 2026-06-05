@@ -137,9 +137,7 @@ impl ConnectionList {
         }
     }
 
-    pub fn add(&self, connection: &impl IsA<Connection>) {
-        let connection = connection.as_ref();
-        self.imp().connections.append(connection);
+    fn add_handler(&self, connection: &Connection) {
         let handler_id = connection.connect_updated(glib::clone!(
             #[weak(rename_to = this)]
             self,
@@ -159,6 +157,23 @@ impl ConnectionList {
             .connection_handlers
             .borrow_mut()
             .insert(connection.clone(), handler_id);
+    }
+
+    fn remove_handler(&self, connection: &Connection) {
+        if let Some(handler_id) = self
+            .imp()
+            .connection_handlers
+            .borrow_mut()
+            .remove(connection)
+        {
+            connection.disconnect(handler_id);
+        }
+    }
+
+    pub fn add(&self, connection: &impl IsA<Connection>) {
+        let connection = connection.as_ref();
+        self.imp().connections.append(connection);
+        self.add_handler(connection);
         self.mark_changed();
     }
 
@@ -168,33 +183,18 @@ impl ConnectionList {
         if let Some(position) = store.find(connection) {
             store.remove(position);
         }
-        if let Some(handler_id) = self
-            .imp()
-            .connection_handlers
-            .borrow_mut()
-            .remove(connection)
-        {
-            connection.disconnect(handler_id);
-        }
+        self.remove_handler(connection);
         self.mark_changed();
     }
 
     pub fn replace(&self, old: &impl IsA<Connection>, new: &impl IsA<Connection>) {
         let store = &self.imp().connections;
+        self.remove_handler(old.as_ref());
+        self.add_handler(new.as_ref());
         if let Some(position) = store.find(old.as_ref()) {
             store.splice(position, 1, &[new.as_ref().clone()]);
         } else {
             store.append(new.as_ref());
-        }
-    }
-
-    #[deprecated(note = "This is a hack. Prefer to use immutable objects instead.")]
-    pub fn refresh(&self, connection: &impl IsA<Connection>) {
-        let store = &self.imp().connections;
-        let connection = connection.as_ref();
-        if let Some(position) = store.find(connection) {
-            store.remove(position);
-            store.insert(position, connection);
         }
     }
 

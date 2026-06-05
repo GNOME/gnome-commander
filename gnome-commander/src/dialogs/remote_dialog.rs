@@ -251,8 +251,12 @@ mod imp {
                 return;
             };
 
-            if ConnectDialog::edit_connection(self.obj().upcast_ref(), &connection).await {
-                self.obj().connections().refresh(&connection);
+            if let Some(new_connection) =
+                ConnectDialog::edit_connection(self.obj().upcast_ref(), &connection).await
+            {
+                self.obj()
+                    .connections()
+                    .replace(&connection, &new_connection);
                 self.row_selector.select_row(position);
                 self.view.grab_focus();
             }
