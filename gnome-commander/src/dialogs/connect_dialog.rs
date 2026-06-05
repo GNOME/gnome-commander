@@ -351,7 +351,6 @@ impl Component for ConnectDialog {
                         if let Some(alias) = &self.alias {
                             .set_text(alias);
                         }
-                        .set_sensitive(self.temporary || self.uri.is_none() || self.alias.is_some());
                     }), 1, GridRow::Alias.into(), 1, 1);
                 }
 
