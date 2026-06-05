@@ -4,7 +4,7 @@
 #
 # SPDX-License-Identifier: CC0-1.0
 
-image: registry.gitlab.gnome.org/gnome/gnome-commander/buildenv:v1.0.0
+image: registry.gitlab.gnome.org/gnome/gnome-commander/buildenv:v1.0.1
 
 stages:
   - build
@@ -27,6 +27,8 @@ build_and_test:
   script:
     - cargo fmt --all --check
     - xvfb-run cargo test --workspace
+    - cargo clippy --all-targets --all-features -- -Dwarnings
+    - RUSTDOCFLAGS='-D warnings' cargo doc --no-deps
 
 create_portable:
   stage: build
