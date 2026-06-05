@@ -750,25 +750,23 @@ pub mod imp {
                     .query_exists(gio::Cancellable::NONE)
             {
                 file_selector.back();
+            } else if let Some(relative) = dest_dir.strip_prefix("~") {
+                let mut dir = ConnectionList::get().home().default_dir();
+                for part in relative.split(std::path::MAIN_SEPARATOR) {
+                    if !part.is_empty() {
+                        dir = dir.child(part);
+                    }
+                }
+                file_selector.goto(&file_list, &dir);
             } else {
-                if let Some(relative) = dest_dir.strip_prefix("~") {
-                    let mut dir = ConnectionList::get().home().default_dir();
-                    for part in relative.split(std::path::MAIN_SEPARATOR) {
-                        if !part.is_empty() {
-                            dir = dir.child(part);
-                        }
-                    }
-                    file_selector.goto(&file_list, &dir);
+                let path = PathBuf::from(
+                    glib::shell_unquote(dest_dir).unwrap_or_else(|_| dest_dir.into()),
+                );
+                if path.is_absolute() {
+                    file_selector.goto_path(&file_list, &path);
                 } else {
-                    let path = PathBuf::from(
-                        glib::shell_unquote(dest_dir).unwrap_or_else(|_| dest_dir.into()),
-                    );
-                    if path.is_absolute() {
-                        file_selector.goto_path(&file_list, &path);
-                    } else {
-                        file_selector.goto(&file_list, &file_list.directory().child(&path));
-                    }
-                };
+                    file_selector.goto(&file_list, &file_list.directory().child(&path));
+                }
             }
         }
 

@@ -7,7 +7,7 @@ RUN apt-get update && \
   gi-docgen gobject-introspection libgtk-4-dev libvte-2.91-gtk4-dev 7zip python3-pypdf \
   python3-exifread python3-mutagen xvfb
 
-RUN rustup component add rustfmt
+RUN rustup component add rustfmt clippy
 
 WORKDIR /app
 CMD ["bash"]
