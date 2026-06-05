@@ -341,17 +341,19 @@ impl Component for ConnectDialog {
                     .connect_selected_notify(forward_input!(sender, Self::Input::TypeChanged));
                 }), 1, GridRow::TypeSelector.into(), 1, 1);
 
-                .attach(
-                    &label_for(&gettext("_Alias:"), &view.alias_entry),
-                    0, GridRow::Alias.into(), 1, 1,
-                );
-                .attach(with!(&view.alias_entry {
-                    .set_activates_default(true);
-                    if let Some(alias) = &self.alias {
-                        .set_text(alias);
-                    }
-                    .set_sensitive(self.temporary || self.uri.is_none() || self.alias.is_some());
-                }), 1, GridRow::Alias.into(), 1, 1);
+                if !self.temporary {
+                    .attach(
+                        &label_for(&gettext("_Alias:"), &view.alias_entry),
+                        0, GridRow::Alias.into(), 1, 1,
+                    );
+                    .attach(with!(&view.alias_entry {
+                        .set_activates_default(true);
+                        if let Some(alias) = &self.alias {
+                            .set_text(alias);
+                        }
+                        .set_sensitive(self.temporary || self.uri.is_none() || self.alias.is_some());
+                    }), 1, GridRow::Alias.into(), 1, 1);
+                }
 
                 .attach(
                     &label_for(&gettext("_Location (URI):"), &view.uri_entry),
