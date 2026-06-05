@@ -5,6 +5,8 @@ import re
 import pathlib
 import subprocess
 import sys
+import tempfile
+import venv
 import zipfile
 
 
@@ -29,7 +31,14 @@ def find_binary(dir: str, name: str) -> str:
     sys.exit(1)
 
 
-def run():
+def zip_recursive(archive: zipfile.ZipFile, dir: str, prefix: str) -> None:
+    for dirpath, _, filenames in os.walk(dir):
+        for filename in filenames:
+            path = os.path.join(dirpath, filename)
+            archive.write(path, prefix + os.path.relpath(path, dir))
+
+
+def run() -> None:
     parser = argparse.ArgumentParser(
         description='Create a portable build of the application.'
     )
@@ -38,7 +47,8 @@ def run():
 
     repo_dir = os.path.dirname(__file__)
 
-    pathlib.Path(repo_dir, 'build.rs').touch()   # Force re-run
+    pathlib.Path(repo_dir, 'gnome-commander',
+                 'build.rs').touch()   # Force re-run
     output = subprocess.check_output(
         ['cargo', 'build', '-vv', '--release'],
         cwd=repo_dir,
@@ -56,7 +66,7 @@ def run():
     schema_dir = find_env(output, 'LOCAL_SCHEMA_DIR')
     binary_path = find_binary(locale_dir, 'gnome-commander')
 
-    with zipfile.ZipFile(args.output, 'w') as archive:
+    with zipfile.ZipFile(args.output, 'w', compression=zipfile.ZIP_DEFLATED) as archive:
         archive.write(binary_path, os.path.basename(binary_path))
         archive.write(os.path.join(schema_dir, 'gschemas.compiled'),
                       'settings/gschemas.compiled')
@@ -65,11 +75,54 @@ def run():
                 continue
             archive.write(os.path.join(plugins_dir, filename),
                           f'plugins/{filename}')
-        for dirpath, _, filenames in os.walk(locale_dir):
-            for filename in filenames:
-                path = os.path.join(dirpath, filename)
-                archive.write(path,
-                              'locale/' + os.path.relpath(path, locale_dir))
+        with tempfile.TemporaryDirectory() as venv_dir:
+            venv.EnvBuilder(with_pip=True).create(venv_dir)
+            subprocess.check_call([
+                os.path.join(venv_dir, 'bin', 'pip3'),
+                'install', 'pypdf', 'exifread', 'mutagen'
+            ])
+
+            venv_lib_dir = None
+            for name in os.listdir(os.path.join(venv_dir, 'lib')):
+                if name.startswith('python'):
+                    venv_lib_dir = os.path.join(
+                        venv_dir, 'lib', name, 'site-packages')
+                    break
+            if venv_lib_dir:
+                for name in os.listdir(venv_lib_dir):
+                    path = os.path.join(venv_lib_dir, name)
+                    if not os.path.isdir(path) or name == 'pip' or 'dist-info' in name:
+                        continue
+                    zip_recursive(archive, path, f'plugins/{name}/')
+            else:
+                print(
+                    'Failed finding virtual environment\'s site-packages directory, packaging module skipped',
+                    file=sys.stderr
+                )
+        zip_recursive(archive, locale_dir, 'locale/')
+        archive.writestr('README', '''
+Using Gnome Commander portable builds
+=====================================
+
+After uncompressing this portable build you can run gnome-commander application
+in the root directory without installing it. The application will create its
+settings file under settings/settings.ini, system-wide configuration files are
+not accessed.
+
+System dependencies
+-------------------
+
+This build still depends on some system libraries which should
+usually be present in any GNOME install:
+
+libgtk-4-1
+libvte-2.91-gtk4-0
+
+If starting Gnome Commander gives you errors about missing libraries, you might
+need to install these. On Debian or Ubuntu based systems the names above are the
+package names to be installed, on other distributions the package names could
+vary slightly.
+'''.strip())
 
 
 if __name__ == '__main__':
