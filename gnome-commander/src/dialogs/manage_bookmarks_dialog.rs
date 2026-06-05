@@ -270,12 +270,7 @@ mod imp {
                 let Ok(node) = obj.try_borrow::<TaggedBookmark>() else {
                     return;
                 };
-                label.set_markup(&bold(
-                    &node
-                        .connection
-                        .alias()
-                        .unwrap_or_else(|| node.connection.uuid()),
-                ));
+                label.set_markup(&bold(&node.connection.display_name()));
             });
             factory.upcast()
         }

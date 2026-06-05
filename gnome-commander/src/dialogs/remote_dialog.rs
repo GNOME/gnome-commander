@@ -209,7 +209,10 @@ mod imp {
             let filter = gtk::FilterListModel::new(
                 Some(list),
                 Some(gtk::CustomFilter::new(|item| {
-                    item.downcast_ref::<ConnectionRemote>().is_some()
+                    item.downcast_ref::<ConnectionRemote>()
+                        .is_some_and(|connection| {
+                            connection.alias().is_some_and(|alias| !alias.is_empty())
+                        })
                 })),
             );
             self.selection.set_model(Some(&filter));
@@ -370,7 +373,7 @@ fn connection_alias_factory() -> gtk::ListItemFactory {
         };
         label.set_label("");
         if let Some(device) = list_item.item().and_downcast::<Connection>() {
-            label.set_label(&device.alias().unwrap_or_else(|| device.uuid()));
+            label.set_label(&device.display_name());
         };
     });
     factory.upcast()

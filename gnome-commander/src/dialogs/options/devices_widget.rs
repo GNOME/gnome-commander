@@ -192,7 +192,7 @@ fn device_alias_factory() -> gtk::ListItemFactory {
         };
         label.set_label("");
         if let Some(device) = list_item.item().and_downcast::<Connection>() {
-            label.set_label(&device.alias().unwrap_or_else(|| device.uuid()));
+            label.set_label(&device.display_name());
         };
     });
     factory.upcast()

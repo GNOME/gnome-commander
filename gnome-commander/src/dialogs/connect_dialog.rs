@@ -220,6 +220,7 @@ impl ConnectDialog {
 
     async fn wait_for_connection(
         mut controller: ComponentController<Self>,
+        needs_alias: bool,
     ) -> Option<ConnectionRemote> {
         controller.root().present();
 
@@ -227,7 +228,14 @@ impl ConnectDialog {
         controller.root().close();
 
         let (alias, uri) = response.ok()??;
-        let connection = ConnectionRemote::new(&alias, &uri);
+        let connection = ConnectionRemote::new(
+            &if needs_alias && alias.is_empty() {
+                uri.to_str().to_string()
+            } else {
+                alias
+            },
+            &uri,
+        );
         Some(connection)
     }
 
@@ -249,7 +257,7 @@ impl ConnectDialog {
             controller.root().set_transient_for(Some(parent_window));
             parent_window.set_dialog("connect", controller.root().clone());
 
-            Self::wait_for_connection(controller).await
+            Self::wait_for_connection(controller, false).await
         }
     }
 
@@ -261,7 +269,7 @@ impl ConnectDialog {
         }
         .build();
         controller.root().set_transient_for(Some(parent_window));
-        Self::wait_for_connection(controller).await
+        Self::wait_for_connection(controller, true).await
     }
 
     pub async fn edit_connection(
@@ -276,7 +284,7 @@ impl ConnectDialog {
         .build();
         controller.root().set_transient_for(Some(parent_window));
 
-        if let Some(new_connection) = Self::wait_for_connection(controller).await {
+        if let Some(new_connection) = Self::wait_for_connection(controller, true).await {
             new_connection.bookmarks_from(connection);
             Some(new_connection)
         } else {

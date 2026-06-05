@@ -216,7 +216,7 @@ impl ConnectionInterface for ConnectionDevice {
                             eprintln!("Unable to mount the volume, error: {error}");
                             ErrorMessage::with_error(
                                 gettext("Unable to mount the volume {}")
-                                    .replace("{}", &self.alias().unwrap_or_default()),
+                                    .replace("{}", &self.display_name()),
                                 &error,
                             )
                         })?;
@@ -238,7 +238,7 @@ impl ConnectionInterface for ConnectionDevice {
                         eprintln!("Unable to mount the volume: error: {error}");
                         Err(ErrorMessage::with_error(
                             gettext("Unable to mount the volume {}")
-                                .replace("{}", &self.alias().unwrap_or_default()),
+                                .replace("{}", &self.display_name()),
                             &error,
                         ))?;
                     }
@@ -315,28 +315,24 @@ impl ConnectionInterface for ConnectionDevice {
     }
 
     fn open_message(&self) -> Option<String> {
-        let alias = self.alias()?;
-        Some(gettext("Mounting %s").replace("%s", &alias))
+        Some(gettext("Mounting %s").replace("%s", &self.display_name()))
     }
 
     fn go_text(&self) -> Option<String> {
-        let alias = self.alias()?;
         Some(match self.mountp_string() {
             Some(mount_point) => gettext("Go to: {device_name} ({mount_point})")
-                .replace("{device_name}", &alias)
+                .replace("{device_name}", &self.display_name())
                 .replace("{mount_point}", &mount_point.display().to_string()),
-            None => gettext("Go to: {device_name}").replace("{device_name}", &alias),
+            None => gettext("Go to: {device_name}").replace("{device_name}", &self.display_name()),
         })
     }
 
     fn open_text(&self) -> Option<String> {
-        let alias = self.alias()?;
-        Some(gettext("Mount: {device_name}").replace("{device_name}", &alias))
+        Some(gettext("Mount: {device_name}").replace("{device_name}", &self.display_name()))
     }
 
     fn close_text(&self) -> Option<String> {
-        let alias = self.alias()?;
-        Some(gettext("Unmount: {device_name}").replace("{device_name}", &alias))
+        Some(gettext("Unmount: {device_name}").replace("{device_name}", &self.display_name()))
     }
 
     fn open_icon(&self) -> Option<gio::Icon> {

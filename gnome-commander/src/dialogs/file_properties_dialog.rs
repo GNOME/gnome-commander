@@ -247,7 +247,7 @@ mod imp {
                         "{}{}",
                         connection
                             .as_ref()
-                            .and_then(|c| c.alias())
+                            .map(|c| c.display_name())
                             .unwrap_or_default(),
                         uuid
                     ),

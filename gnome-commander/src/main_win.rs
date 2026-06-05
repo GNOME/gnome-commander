@@ -1573,7 +1573,7 @@ fn bookmarks_menu(menu: &gio::Menu) {
             }
 
             menu.append_item(&gio::MenuItem::new_submenu(
-                con.alias().as_deref(),
+                Some(&con.display_name()),
                 &group_items,
             ));
         }

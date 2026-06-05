@@ -115,8 +115,7 @@ mod imp {
                         self.image.clear();
                     }
                     if !self.only_icon.get() || icon.is_none() {
-                        self.label
-                            .set_label(&connection.alias().unwrap_or_default());
+                        self.label.set_label(&connection.display_name());
                     } else {
                         self.label.set_label("");
                     }

@@ -316,11 +316,11 @@ impl ConnectionList {
             .iter()
             .filter_map(|c| c.downcast::<ConnectionRemote>().ok())
         {
-            let alias = con.alias().unwrap_or_default();
+            let group_name = con.display_name();
             for bookmark in &*con.bookmarks() {
                 bookmarks.push(BookmarkVariant {
                     is_remote: true,
-                    group_name: alias.clone(),
+                    group_name: group_name.clone(),
                     name: bookmark.name().to_owned(),
                     path: bookmark.path().to_owned(),
                 });
@@ -379,10 +379,10 @@ impl ConnectionList {
     fn save_connections(&self) -> Vec<ConnectionVariant> {
         self.iter()
             .filter_map(|c| c.downcast::<ConnectionRemote>().ok())
-            .filter_map(|device| {
+            .filter_map(|c| {
                 Some(ConnectionVariant {
-                    alias: device.alias()?,
-                    uri: device.uri_string()?,
+                    alias: c.alias()?,
+                    uri: c.uri_string()?,
                 })
             })
             .collect()

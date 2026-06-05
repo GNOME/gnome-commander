@@ -4,8 +4,13 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::{
-    bookmark::Bookmark, device::ConnectionDevice, dir_cache::DirCache, home::ConnectionHome,
-    remote::ConnectionRemote, smb::ConnectionSmb,
+    bookmark::Bookmark,
+    device::ConnectionDevice,
+    dir_cache::DirCache,
+    home::ConnectionHome,
+    list::ConnectionList,
+    remote::{ConnectionRemote, ConnectionRemoteExt},
+    smb::ConnectionSmb,
 };
 use crate::{debug::debug, dir::Directory, utils::ErrorMessage};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
@@ -112,14 +117,44 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
             .replace(alias.map(ToOwned::to_owned));
     }
 
+    fn display_name(&self) -> String {
+        let alias = self.alias().unwrap_or_default();
+        if alias.is_empty() {
+            self.as_ref()
+                .downcast_ref::<ConnectionRemote>()
+                .and_then(|connection| connection.uri())
+                .map(|uri| uri.to_str().to_string())
+                .unwrap_or_else(|| self.uuid())
+        } else {
+            alias
+        }
+    }
+
     fn state(&self) -> ConnectionState {
         self.as_ref().imp().state.get()
     }
 
     fn set_state(&self, state: ConnectionState) {
         self.as_ref().imp().state.set(state);
-        if state == ConnectionState::Closed {
+        if state == ConnectionState::Open {
+            // Temporary remote connections might not be on the list yet, make sure they are
+            if self.as_ref().is::<ConnectionRemote>() {
+                let list = ConnectionList::get();
+                if list.find_by_uuid(&self.uuid()).is_none() {
+                    list.add(self);
+                }
+            }
+        } else if state == ConnectionState::Closed {
             self.dir_cache_mut().invalidate_all();
+
+            // Temporary remote connections need to be removed from list once they are closed
+            if self
+                .as_ref()
+                .downcast_ref::<ConnectionRemote>()
+                .is_some_and(|connection| connection.alias().as_ref().is_none_or(String::is_empty))
+            {
+                ConnectionList::get().remove(self);
+            }
         }
         self.emit_by_name::<()>("updated", &[]);
     }
