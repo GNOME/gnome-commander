@@ -770,7 +770,6 @@ dependencies = [
  "rusty-fork",
  "serde",
  "serde_json",
- "system-deps",
  "tempfile",
  "unicode-segmentation",
  "vte4",

@@ -41,7 +41,6 @@ regex = "1.11.1"
 rusty-fork = "0.3.0"
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.149"
-system-deps = "7"
 tempfile = "3.11.0"
 unicode-segmentation = "1.12.0"
 vte = { package = "vte4", version = "0.10.0", features = ["v0_76"] }
@@ -56,9 +55,6 @@ new_without_default = "allow"
 
 [profile.dev.package."*"]
 opt-level = 3
-
-[profile.test]
-rpath = true
 
 [profile.release]
 strip = true
