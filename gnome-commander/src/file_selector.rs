@@ -5,10 +5,8 @@
 
 use crate::{
     connection::{
-        Connection, ConnectionExt, ConnectionInterface,
-        home::ConnectionHome,
-        list::ConnectionList,
-        remote::{ConnectionRemote, ConnectionRemoteExt},
+        Connection, ConnectionExt, ConnectionInterface, home::ConnectionHome, list::ConnectionList,
+        remote::ConnectionRemote,
     },
     dir::Directory,
     file::{File, FileOps},
@@ -1179,22 +1177,15 @@ impl FileSelector {
 
         let menu = gio::Menu::new();
         for (index, (connection, path)) in dir_history.into_iter().enumerate() {
-            let path = if let Some(alias) = connection
+            let alias = connection
                 .downcast_ref::<ConnectionHome>()
                 .is_none()
-                .then(|| connection.alias())
-                .flatten()
-                .filter(|alias| !alias.is_empty())
-                .or_else(|| {
-                    // Temporary connections don't have aliases, use URI as fallback.
-                    connection
-                        .downcast_ref::<ConnectionRemote>()
-                        .and_then(|con| con.uri())
-                        .map(|uri| uri.to_str().to_string())
-                }) {
-                std::borrow::Cow::Owned(format!("{alias}: {}", path.display()))
-            } else {
+                .then(|| connection.display_name())
+                .unwrap_or_default();
+            let path = if alias.is_empty() {
                 path.to_string_lossy()
+            } else {
+                std::borrow::Cow::Owned(format!("{alias}: {}", path.display()))
             };
 
             let item = gio::MenuItem::new(Some(&path), None);

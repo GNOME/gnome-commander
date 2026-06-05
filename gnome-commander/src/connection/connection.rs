@@ -124,7 +124,7 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
                 .downcast_ref::<ConnectionRemote>()
                 .and_then(|connection| connection.uri())
                 .map(|uri| uri.to_str().to_string())
-                .unwrap_or_default()
+                .unwrap_or_else(|| self.uuid())
         } else {
             alias
         }

@@ -1004,7 +1004,7 @@ async fn bookmarks_goto(main_win: MainWindow, goto: BookmarkGoToVariant) {
     }) else {
         eprintln!(
             "[{}] Unknown bookmark name: '{}' - ignored",
-            connection.alias().unwrap_or_default(),
+            connection.display_name(),
             goto.bookmark_name
         );
         return;

@@ -223,15 +223,15 @@ impl ConnectionInterface for ConnectionRemote {
     }
 
     fn go_text(&self) -> Option<String> {
-        Some(gettext("Go to: {connection}").replace("{connection}", &self.alias()?))
+        Some(gettext("Go to: {connection}").replace("{connection}", &self.display_name()))
     }
 
     fn open_text(&self) -> Option<String> {
-        Some(gettext("Connect to: {connection}").replace("{connection}", &self.alias()?))
+        Some(gettext("Connect to: {connection}").replace("{connection}", &self.display_name()))
     }
 
     fn close_text(&self) -> Option<String> {
-        Some(gettext("Disconnect from: {connection}").replace("{connection}", &self.alias()?))
+        Some(gettext("Disconnect from: {connection}").replace("{connection}", &self.display_name()))
     }
 
     fn open_tooltip(&self) -> Option<String> {
