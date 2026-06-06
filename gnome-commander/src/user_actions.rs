@@ -7,7 +7,7 @@ use crate::{
     advanced_rename::advanced_rename_dialog::advanced_rename_dialog_show,
     config::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_URL, PACKAGE_VERSION},
     connection::{
-        ConnectionExt,
+        Connection, ConnectionExt,
         bookmark::BookmarkGoToVariant,
         home::ConnectionHome,
         list::ConnectionList,
@@ -986,10 +986,15 @@ async fn bookmarks_edit(main_win: MainWindow) {
 }
 
 async fn bookmarks_goto(main_win: MainWindow, goto: BookmarkGoToVariant) {
-    let Some(connection) = ConnectionList::get().find_by_uuid(&goto.connection_uuid) else {
+    let list = ConnectionList::get();
+    let connection = if goto.connection_alias.is_empty() {
+        list.home().upcast::<Connection>()
+    } else if let Some(connection) = list.find_by_alias(&goto.connection_alias) {
+        connection
+    } else {
         eprintln!(
             "[{}] Unsupported bookmark group: '{}' - ignored",
-            goto.bookmark_name, goto.connection_uuid
+            goto.bookmark_name, goto.connection_alias
         );
         return;
     };

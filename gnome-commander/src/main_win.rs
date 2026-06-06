@@ -1553,21 +1553,13 @@ fn bookmarks_menu(menu: &gio::Menu) {
     for con in ConnectionList::get().iter() {
         let bookmarks = con.bookmarks();
         if !bookmarks.is_empty() {
-            let con_uuid = con.uuid();
-
             // Add bookmarks for this group
             let group_items = gio::Menu::new();
             for bookmark in &*bookmarks {
                 let item = gio::MenuItem::new(Some(bookmark.name()), None);
                 item.set_action_and_target_value(
                     Some(UserAction::BookmarksGoto.name()),
-                    Some(
-                        &BookmarkGoToVariant {
-                            connection_uuid: con_uuid.clone(),
-                            bookmark_name: bookmark.name().to_owned(),
-                        }
-                        .to_variant(),
-                    ),
+                    Some(&BookmarkGoToVariant::new(&con, bookmark).to_variant()),
                 );
                 group_items.append_item(&item);
             }

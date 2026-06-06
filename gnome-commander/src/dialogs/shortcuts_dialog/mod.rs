@@ -8,6 +8,7 @@ mod capture;
 mod shortcut_entry;
 
 use crate::{
+    connection::{ConnectionExt, bookmark::BookmarkGoToVariant, list::ConnectionList},
     main_win::MainWindow,
     shortcuts::{Area, Call, Shortcut, Shortcuts},
     user_actions::UserAction,
@@ -31,9 +32,9 @@ pub struct ShortcutsDialogView {
 pub enum ShortcutsDialogInput {
     UpdateFilter,
     ResetSearch,
-    ResetAction(UserAction),
-    AddActionShortcut(UserAction),
-    EditActionShortcut(UserAction, Shortcut),
+    ResetAction(usize),
+    AddActionShortcut(usize),
+    EditActionShortcut(usize, Shortcut),
     RowActivate(i32),
     TypeToSearch(char),
     DisplayHelp,
@@ -47,7 +48,6 @@ pub enum ShortcutsDialogOutput {
 
 pub struct ShortcutsDialog {
     entries: Vec<ComponentController<ActionEntry>>,
-    hidden_actions: Vec<(Shortcut, Call)>,
     default_shortcuts: Shortcuts,
 }
 
@@ -201,22 +201,18 @@ impl Component for ShortcutsDialog {
                 view.search_field.set_text("");
                 view.list.grab_focus();
             }
-            Self::Input::ResetAction(action) => {
-                self.reset_action(&view.dialog, action).await;
+            Self::Input::ResetAction(index) => {
+                self.reset_action(&view.dialog, index).await;
             }
-            Self::Input::AddActionShortcut(action) => {
-                self.add_shortcut(&view.dialog, action).await;
+            Self::Input::AddActionShortcut(index) => {
+                self.add_shortcut(&view.dialog, index).await;
             }
-            Self::Input::EditActionShortcut(action, shortcut) => {
-                self.edit_shortcut(&view.dialog, action, shortcut).await;
+            Self::Input::EditActionShortcut(index, shortcut) => {
+                self.edit_shortcut(&view.dialog, index, shortcut).await;
             }
             Self::Input::RowActivate(row) => {
-                if let Some(action) = usize::try_from(row)
-                    .ok()
-                    .and_then(|row| self.entries.get(row))
-                    .map(|entry| entry.action)
-                {
-                    self.add_shortcut(&view.dialog, action).await;
+                if let Ok(index) = usize::try_from(row) {
+                    self.add_shortcut(&view.dialog, index).await;
                 }
             }
             Self::Input::TypeToSearch(chr) => {
@@ -249,14 +245,13 @@ impl ShortcutsDialog {
         default_shortcuts.set_default();
 
         let mut entries: Vec<_> = UserAction::all()
-            // TODO: Action parameters cannot currently be configured
             .filter(|action| !action.has_parameter())
             .map(|action| {
                 let shortcuts: Vec<_> = shortcuts
                     .extract_if(.., |(_, call)| call.action == action)
                     .map(|(shortcut, _)| shortcut)
                     .collect();
-                ActionEntry::new(action, shortcuts, &default_shortcuts)
+                ActionEntry::new(action, None, shortcuts, &default_shortcuts)
             })
             .collect();
         entries.sort_by_cached_key(|entry| {
@@ -266,9 +261,50 @@ impl ShortcutsDialog {
             )
         });
 
+        let mut bookmark_entries = Vec::new();
+        for connection in ConnectionList::get().iter() {
+            for bookmark in &*connection.bookmarks() {
+                let action_data = BookmarkGoToVariant::new(&connection, bookmark)
+                    .to_variant()
+                    .print(false)
+                    .to_string();
+
+                let shortcuts: Vec<_> = shortcuts
+                    .extract_if(.., |(_, call)| {
+                        call.action == UserAction::BookmarksGoto
+                            && call.action_data.as_ref() == Some(&action_data)
+                    })
+                    .map(|(shortcut, _)| shortcut)
+                    .collect();
+                let mut entry = ActionEntry::new(
+                    UserAction::BookmarksGoto,
+                    Some(action_data),
+                    shortcuts,
+                    &default_shortcuts,
+                );
+                entry.override_description(format!(
+                    "{} ⮞ {}",
+                    connection.display_name(),
+                    bookmark.name()
+                ));
+                bookmark_entries.push(entry);
+            }
+        }
+        bookmark_entries.sort_by_cached_key(|entry| {
+            entry
+                .description
+                .as_deref()
+                .map(str::to_lowercase)
+                .unwrap_or_default()
+        });
+        entries.extend(bookmark_entries);
+
+        for (index, entry) in entries.iter_mut().enumerate() {
+            entry.index = index;
+        }
+
         Self {
             entries: entries.into_iter().map(|action| action.build()).collect(),
-            hidden_actions: shortcuts,
             default_shortcuts,
         }
     }
@@ -290,8 +326,8 @@ impl ShortcutsDialog {
         }
     }
 
-    fn index_of(&self, action: UserAction) -> Option<usize> {
-        self.entries.iter().position(|entry| entry.action == action)
+    fn action_at(&self, index: usize) -> Option<UserAction> {
+        Some(self.entries.get(index)?.action)
     }
 
     fn save_shortcuts(self, shortcuts: &Shortcuts) {
@@ -301,40 +337,47 @@ impl ShortcutsDialog {
             let entry = entry.into_model();
             for shortcut in entry.shortcuts.into_iter() {
                 let shortcut = shortcut.into_model();
-                shortcuts.register(shortcut.shortcut, entry.action);
+                shortcuts.register_full(
+                    shortcut.shortcut,
+                    entry.action,
+                    entry.action_data.as_deref(),
+                );
             }
-        }
-
-        for (shortcut, call) in self.hidden_actions.into_iter() {
-            shortcuts.register_full(shortcut, call.action, call.action_data.as_deref());
         }
 
         shortcuts.set_mandatory();
     }
 
-    async fn reset_action(&mut self, parent: &gtk::Window, action: UserAction) {
+    async fn reset_action(&mut self, parent: &gtk::Window, index: usize) {
+        let Some(action) = self.action_at(index) else {
+            return;
+        };
         let default_shortcuts = self.default_shortcuts.for_call(&Call {
             action,
             action_data: None,
         });
 
         if self
-            .resolve_conflicts(parent, &default_shortcuts, action)
+            .resolve_conflicts(parent, &default_shortcuts, action, index)
             .await
-            && let Some(entry) = self.entries.iter_mut().find(|entry| entry.action == action)
+            && let Some(entry) = self.entries.iter_mut().find(|entry| entry.index == index)
         {
             entry.model_mut().reset_to_defaults(&default_shortcuts);
         }
     }
 
-    async fn add_shortcut(&mut self, parent: &gtk::Window, action: UserAction) {
+    async fn add_shortcut(&mut self, parent: &gtk::Window, index: usize) {
+        let Some(action) = self.action_at(index) else {
+            return;
+        };
         if let CaptureOutput::Set(shortcut) = Capture::get_shortcut(parent, action, None).await
-            && let Some(index) = self.index_of(action)
             && self
                 .entries
                 .get(index)
                 .is_some_and(|entry| !entry.has_shortcut(shortcut))
-            && self.resolve_conflicts(parent, &[shortcut], action).await
+            && self
+                .resolve_conflicts(parent, &[shortcut], action, index)
+                .await
             && let Some(entry) = self.entries.get_mut(index)
         {
             entry
@@ -343,13 +386,8 @@ impl ShortcutsDialog {
         }
     }
 
-    async fn edit_shortcut(
-        &mut self,
-        parent: &gtk::Window,
-        action: UserAction,
-        shortcut: Shortcut,
-    ) {
-        let Some(index) = self.index_of(action) else {
+    async fn edit_shortcut(&mut self, parent: &gtk::Window, index: usize, shortcut: Shortcut) {
+        let Some(action) = self.action_at(index) else {
             return;
         };
         match Capture::get_shortcut(parent, action, Some(&shortcut)).await {
@@ -365,7 +403,7 @@ impl ShortcutsDialog {
                         .model_mut()
                         .remove_shortcut(shortcut, &self.default_shortcuts);
                 } else if self
-                    .resolve_conflicts(parent, &[new_shortcut], action)
+                    .resolve_conflicts(parent, &[new_shortcut], action, index)
                     .await
                     && let Some(entry) = self.entries.get_mut(index)
                 {
@@ -392,32 +430,12 @@ impl ShortcutsDialog {
         parent: &gtk::Window,
         shortcuts: &[Shortcut],
         assigned_to: UserAction,
+        assigned_index: usize,
     ) -> bool {
         let assigned_area = assigned_to.area();
 
-        loop {
-            let mut remove = None;
-            for (index, (shortcut, call)) in self.hidden_actions.iter().enumerate() {
-                if shortcuts.contains(shortcut) && call.action.area().intersects(assigned_area) {
-                    remove = Some((index, call.action, *shortcut));
-                    break;
-                }
-            }
-            if let Some((index, action, shortcut)) = remove {
-                if !conflict_confirm(parent, action, shortcut).await {
-                    return false;
-                }
-
-                // Remove the conflict and re-run the check
-                self.hidden_actions.remove(index);
-            } else {
-                break;
-            }
-        }
-
         for entry in self.entries.iter_mut() {
-            let action = entry.action;
-            if action == assigned_to || !action.area().intersects(assigned_area) {
+            if entry.index == assigned_index || !entry.action.area().intersects(assigned_area) {
                 continue;
             }
 
@@ -431,7 +449,7 @@ impl ShortcutsDialog {
                 }
 
                 if let Some(shortcut) = remove {
-                    if !conflict_confirm(parent, action, shortcut).await {
+                    if !conflict_confirm(parent, entry.action, shortcut).await {
                         return false;
                     }
 
@@ -483,15 +501,35 @@ fn filter_row(row: &gtk::ListBoxRow, filter_text: &str, modified_only: bool) -> 
 }
 
 fn update_row_header(row: &gtk::ListBoxRow, previous_row: Option<&gtk::ListBoxRow>) {
+    fn is_bookmark(row: &gtk::ListBoxRow) -> bool {
+        row.child()
+            .is_some_and(|child| child.css_classes().iter().any(|cls| cls == "is-bookmark"))
+    }
+
     fn get_area(row: &gtk::ListBoxRow) -> Option<Area> {
-        row.child().and_then(|child| {
-            for css_class in child.css_classes() {
-                if let Some(area_name) = css_class.strip_prefix("area-") {
-                    return Some(Area::from_name(area_name));
-                }
+        for css_class in row.child()?.css_classes() {
+            if let Some(area_name) = css_class.strip_prefix("area-") {
+                return Some(Area::from_name(area_name));
             }
-            None
-        })
+        }
+        None
+    }
+
+    if is_bookmark(row) {
+        if !previous_row.map(is_bookmark).unwrap_or_default() {
+            if row.header().is_none() {
+                row.set_header(Some(
+                    &gtk::Label::builder()
+                        .label(gettext("Bookmarks"))
+                        .halign(gtk::Align::Start)
+                        .css_classes(["keyboard-shortcuts-section-header"])
+                        .build(),
+                ));
+            }
+        } else {
+            row.set_header(gtk::Widget::NONE);
+        }
+        return;
     }
 
     let Some(area) = get_area(row) else {
