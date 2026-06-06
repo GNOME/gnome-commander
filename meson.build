@@ -93,6 +93,9 @@ if get_option('help')
 endif
 subdir('po')
 
+install_data('pixmaps/gnome-commander.svg',
+  install_dir: datadir / 'icons' / 'hicolor' / 'scalable' / 'apps')
+
 gnome.post_install(
   glib_compile_schemas: true,
   update_desktop_database: true
