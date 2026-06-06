@@ -1,0 +1,76 @@
+{
+    "app-id": "org.gnome.gnome-commander",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "50",
+    "sdk": "org.gnome.Sdk",
+    "sdk-extensions": [
+        "org.freedesktop.Sdk.Extension.rust-stable"
+    ],
+    "command": "gnome-commander",
+    "finish-args": [
+        "--share=network",
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--device=all",
+        "--filesystem=host"
+    ],
+    "cleanup": [
+        "/bin/m*",
+        "/bin/EXIF.py",
+        "/etc",
+        "/libexec/vte-urlencode-cwd",
+        "/include",
+        "/lib/pkgconfig",
+        "/lib/systemd",
+        "/man",
+        "/share/man",
+        "*.la",
+        "*.a"
+    ],
+    "modules": [
+        {
+            "name": "vte",
+            "buildsystem": "meson",
+            "config-opts": [
+                "--buildtype=release",
+                "-Dapp=false",
+                "-Dgtk3=false",
+                "-Dgtk4=true",
+                "-Dglade=false",
+                "-Dgir=false",
+                "-Dvapi=false"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/vte/0.84/vte-0.84.0.tar.xz",
+                    "sha256": "0414e31583836aeb7878da25f67c515f7e8879917ecc37c92e26b83e8d8fc3e3",
+                    "x-checker-data": {
+                        "type": "gnome",
+                        "version-scheme": "odd-minor-is-unstable",
+                        "name": "vte"
+                    }
+                }
+            ]
+        },
+        "python3-modules.json",
+        {
+            "name": "gnome-commander",
+            "buildsystem": "meson",
+            "build-options": {
+                "append-path": "/usr/lib/sdk/rust-stable/bin",
+                "build-args": [
+                    "--share=network"
+                ]
+            },
+            "sources": [
+                {
+                    "type": "git",
+                    "branch": "main",
+                    "url": "https://gitlab.gnome.org/GNOME/gnome-commander.git"
+                }
+            ]
+        }
+    ]
+}
