@@ -14,8 +14,11 @@ use gtk::prelude::*;
 
 #[derive(Debug)]
 pub struct ActionEntry {
+    pub(super) index: usize,
     pub(super) modified: bool,
     pub(super) action: UserAction,
+    pub(super) action_data: Option<String>,
+    pub(super) description: Option<String>,
     pub(super) shortcuts: Vec<ComponentController<ShortcutEntry>>,
 }
 
@@ -48,7 +51,7 @@ impl Component for ActionEntry {
     ) {
         match msg {
             Self::Input::EditShortcut(shortcut) => {
-                sender.output(Self::Output::EditActionShortcut(self.action, shortcut))
+                sender.output(Self::Output::EditActionShortcut(self.index, shortcut))
             }
         }
     }
@@ -59,17 +62,24 @@ impl Component for ActionEntry {
             .and_then(|root| root.focus())
             .is_some_and(|focus| focus.is_ancestor(view));
 
-        let action = self.action;
+        let index = self.index;
         with!(&*view {
             gtk::Box {
                 .set_orientation(gtk::Orientation::Horizontal);
                 if self.modified {
                     .add_css_class("keyboard-shortcuts-modified");
                 }
-                .add_css_class(&format!("area-{}", action.area().as_name()));
+                .add_css_class(&format!("area-{}", self.action.area().as_name()));
+                if UserAction::BookmarksGoto == self.action {
+                    .add_css_class("is-bookmark");
+                }
 
                 gtk::Label {
-                    .set_label(&action.description());
+                    if let Some(description) = self.description.as_ref() {
+                        .set_label(description);
+                    } else {
+                        .set_label(&self.action.description());
+                    }
                     .set_hexpand(true);
                     .set_halign(gtk::Align::Start);
                 }
@@ -87,7 +97,7 @@ impl Component for ActionEntry {
                                 .set_tooltip_text(Some(&gettext("Reset to Default")));
                                 .add_css_class("flat");
                                 .connect_clicked(
-                                    forward_output!(sender, Self::Output::ResetAction(action))
+                                    forward_output!(sender, Self::Output::ResetAction(index))
                                 );
                             }
                         }
@@ -97,7 +107,7 @@ impl Component for ActionEntry {
                             .set_tooltip_text(Some(&gettext("Add Shortcut")));
                             .add_css_class("flat");
                             .connect_clicked(
-                                forward_output!(sender, Self::Output::AddActionShortcut(action))
+                                forward_output!(sender, Self::Output::AddActionShortcut(index))
                             );
                         }
                     }
@@ -122,12 +132,13 @@ impl Component for ActionEntry {
 impl ActionEntry {
     pub fn new(
         action: UserAction,
+        action_data: Option<String>,
         shortcuts: Vec<Shortcut>,
         default_shortcuts: &Shortcuts,
     ) -> Self {
         let default_shortcuts = default_shortcuts.for_call(&Call {
             action,
-            action_data: None,
+            action_data: action_data.clone(),
         });
 
         let shortcuts = shortcuts
@@ -142,17 +153,24 @@ impl ActionEntry {
             .collect::<Vec<_>>();
 
         Self {
+            index: 0,
             modified: shortcuts.len() != default_shortcuts.len()
                 || shortcuts.iter().any(|s| s.modified),
             action,
+            action_data,
+            description: None,
             shortcuts,
         }
+    }
+
+    pub fn override_description(&mut self, description: String) {
+        self.description = Some(description);
     }
 
     fn defaults(&self, default_shortcuts: &Shortcuts) -> Vec<Shortcut> {
         default_shortcuts.for_call(&Call {
             action: self.action,
-            action_data: None,
+            action_data: self.action_data.clone(),
         })
     }
 

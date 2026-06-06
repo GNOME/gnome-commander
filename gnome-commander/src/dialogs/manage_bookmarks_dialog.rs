@@ -5,12 +5,16 @@
 
 use super::edit_bookmark_dialog::edit_bookmark_dialog;
 use crate::{
-    connection::{Connection, ConnectionExt, bookmark::Bookmark, list::ConnectionList},
+    connection::{
+        Connection, ConnectionExt, bookmark::Bookmark, bookmark::BookmarkGoToVariant,
+        list::ConnectionList,
+    },
     dir::Directory,
     file::FileOps,
     main_win::MainWindow,
     options::GeneralOptions,
-    shortcuts::Shortcuts,
+    shortcuts::{Call, Shortcuts},
+    user_actions::UserAction,
     utils::{ErrorMessage, WindowExt, bold},
 };
 use gettextrs::gettext;
@@ -126,7 +130,6 @@ mod imp {
                     .title(gettext("Shortcut"))
                     .factory(&self.shortcut_factory())
                     .resizable(true)
-                    .visible(false) // TODO: implement shortcut management
                     .build(),
             );
             self.view.append_column(
@@ -334,17 +337,20 @@ mod imp {
                     while let Some(child) = bx.first_child() {
                         child.unparent();
                     }
+
+                    let call = Call {
+                        action: UserAction::BookmarksGoto,
+                        action_data: Some(
+                            BookmarkGoToVariant::new(&node.connection, &node.bookmark)
+                                .to_variant()
+                                .print(false)
+                                .to_string(),
+                        ),
+                    };
                     let shortcuts = imp.shortcuts.borrow();
-                    if let Some(shortcuts) = shortcuts
-                        .as_ref()
-                        .map(|s| s.bookmark_shortcuts(node.bookmark.name()))
-                    {
+                    if let Some(shortcuts) = shortcuts.as_ref().map(|s| s.for_call(&call)) {
                         for shortcut in shortcuts {
-                            bx.append(
-                                &gtk::ShortcutLabel::builder()
-                                    .accelerator(shortcut.name())
-                                    .build(),
-                            );
+                            bx.append(&gtk::Label::builder().label(shortcut.label()).build());
                         }
                     }
                 }

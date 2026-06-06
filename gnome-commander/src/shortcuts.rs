@@ -5,11 +5,8 @@
 
 use crate::user_actions::UserAction;
 use gettextrs::gettext;
-use gtk::{gdk, prelude::*};
-use std::{
-    cell::RefCell,
-    collections::{BTreeMap, BTreeSet},
-};
+use gtk::{gdk, glib, prelude::*};
+use std::{cell::RefCell, collections::HashMap};
 
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
 pub enum Area {
@@ -151,14 +148,20 @@ impl Shortcut {
             .trigger(&gtk::KeyvalTrigger::new(self.key, self.state))
             .action(&gtk::NamedAction::new(call.action.name()));
         if let Some(parameter_type) = call.action.parameter_type() {
-            match parameter_type {
-                // TODO: This should work for types other than strings
-                value if value == String::static_variant_type() => {
-                    builder = builder.arguments(&call.action_data.to_variant());
+            let Some(action_data) = call.action_data.as_ref() else {
+                eprintln!(
+                    "<KeyBindings> Missing parameter for action {}",
+                    call.action.name()
+                );
+                return None;
+            };
+            match glib::Variant::parse(Some(&parameter_type), action_data) {
+                Ok(variant) => {
+                    builder = builder.arguments(&variant);
                 }
-                _ => {
+                Err(error) => {
                     eprintln!(
-                        "<KeyBindings> invalid key: cannot process parameter for action {}, non-string type required.",
+                        "<KeyBindings> Failed parsing parameter for action {}: {error}",
                         call.action.name()
                     );
                     return None;
@@ -189,7 +192,7 @@ pub struct Call {
 
 #[derive(Clone)]
 pub struct Shortcuts {
-    actions: RefCell<BTreeMap<(Area, Shortcut), Call>>,
+    actions: RefCell<HashMap<(Area, Shortcut), Call>>,
     controllers: RefCell<Vec<(Area, glib::WeakRef<gtk::ShortcutController>)>>,
     top_level_controller: gtk::ShortcutController,
 }
@@ -647,7 +650,7 @@ impl Shortcuts {
             (Shortcut::ctrl_shift(Key::W), UserAction::ViewCloseAllTabs),
         ]
         .into_iter()
-        .collect::<BTreeMap<_, _>>();
+        .collect::<HashMap<_, _>>();
 
         for keybinding in variant.iter() {
             let Some(sv) = LegacyShortcutVariant::from_variant(&keybinding) else {
@@ -729,19 +732,6 @@ impl Shortcuts {
                         action_data: area.as_name().to_owned(),
                     }),
             )
-            .collect()
-    }
-
-    pub fn bookmark_shortcuts(&self, bookmark_name: &str) -> BTreeSet<Shortcut> {
-        self.actions
-            .borrow()
-            .iter()
-            .filter(|((_, shortcut), call)| {
-                shortcut.key.is_upper()
-                    && call.action == UserAction::BookmarksGoto
-                    && call.action_data.as_deref() == Some(bookmark_name)
-            })
-            .map(|((_, shortcut), _)| *shortcut)
             .collect()
     }
 }
