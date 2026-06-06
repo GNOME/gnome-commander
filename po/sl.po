@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
 "POT-Creation-Date: 2026-05-26 20:42+0000\n"
-"PO-Revision-Date: 2026-05-26 23:46+0200\n"
+"PO-Revision-Date: 2026-06-06 11:17+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -1227,10 +1227,8 @@ msgid "Co_mpress selected files to:"
 msgstr "Stisni iz_brane datoteke v:"
 
 #: plugins/archives.py:340
-#, fuzzy
-#| msgid "Compression"
 msgid "Compression format:"
-msgstr "Stiskanje"
+msgstr "Oblika stiskanja:"
 
 #: plugins/archives.py:354 src/advanced_rename/profile_component.rs:1012
 #: src/advanced_rename/regex_dialog.rs:102 src/dialogs/chmod_dialog.rs:136 src/dialogs/chown_dialog.rs:107
@@ -1254,7 +1252,7 @@ msgstr "_Ustvari"
 
 #: plugins/archives.py:395
 msgid "Archive creation failed"
-msgstr ""
+msgstr "Ustvarjanje arhiva ni uspelo"
 
 #: plugins/archives.py:401
 msgid "Creating \"{}\" failed."
@@ -1289,7 +1287,7 @@ msgstr "Zagon {} ni uspel."
 
 #: plugins/archives.py:486 plugins/archives.py:510
 msgid "Destination file \"{}\" already exists. Overwrite?"
-msgstr ""
+msgstr "Ciljna datoteka »{}« že obstaja. Jo želite prepisati?"
 
 #: plugins/archives.py:514
 msgid "Apply to _all"
@@ -1322,10 +1320,8 @@ msgid "Description"
 msgstr "Opis"
 
 #: plugins/document-metadata.py:46
-#, fuzzy
-#| msgid "Description of the image."
 msgid "Description of a document"
-msgstr "Opis slike."
+msgstr "Opis dokumenta"
 
 #: plugins/document-metadata.py:47 plugins/multimedia-metadata.py:106 plugins/multimedia-metadata.py:219
 msgid "Language"
@@ -1349,10 +1345,8 @@ msgid "Title"
 msgstr "Naslov"
 
 #: plugins/document-metadata.py:49
-#, fuzzy
-#| msgid "Title of the document."
 msgid "Title of a document"
-msgstr "Naziv dokumenta"
+msgstr "Naslov dokumenta"
 
 #: plugins/document-metadata.py:50
 msgid "Auto Reload"
@@ -1360,7 +1354,7 @@ msgstr "Samodejno znova naloži"
 
 #: plugins/document-metadata.py:50
 msgid "Delay after which the document is reloaded or replaced by another document"
-msgstr ""
+msgstr "Zamik, po katerem se dokument ponovno naloži ali zamenja z drugim dokumentom"
 
 #: plugins/document-metadata.py:51
 msgid "Date Created"
@@ -1388,7 +1382,7 @@ msgstr "Trajanje urejanja"
 
 #: plugins/document-metadata.py:53
 msgid "Total time spent editing a document"
-msgstr ""
+msgstr "Skupni čas, porabljen za urejanje dokumenta"
 
 #: plugins/document-metadata.py:54
 msgid "Generator"
@@ -1468,19 +1462,16 @@ msgid "Number of characters that a document producer has counted in a document"
 msgstr "Število znakov v dokumentu."
 
 #: plugins/document-metadata.py:64
-#, fuzzy
-#| msgid "Page Count"
 msgid "Draw Count"
-msgstr "Štetje strani"
+msgstr "Števec risb"
 
 #: plugins/document-metadata.py:64
 msgid "Number of drawing shapes that a document producer has counted in a document"
 msgstr ""
 
 #: plugins/document-metadata.py:65
-#, fuzzy
 msgid "Frame Count"
-msgstr "Števec sličic"
+msgstr "Števec okvirjev"
 
 #: plugins/document-metadata.py:65
 msgid "Number of text boxes that a document producer has counted in a document"
@@ -1555,10 +1546,8 @@ msgid "Number of lines contained in a document instance"
 msgstr "Število vrstic v dokumentu."
 
 #: plugins/document-metadata.py:73
-#, fuzzy
-#| msgid "Sentence case"
 msgid "Sentence Count"
-msgstr "Stavčni zapis"
+msgstr "Števec povedi"
 
 #: plugins/document-metadata.py:73
 #, fuzzy
@@ -1679,7 +1668,6 @@ msgid "Display mode of the document thumbnail"
 msgstr "Naziv dokumenta"
 
 #: plugins/document-metadata.py:94
-#, fuzzy
 msgid "Links Up-to-Date"
 msgstr "Povezave posodobljene"
 
@@ -1723,7 +1711,7 @@ msgstr ""
 
 #: plugins/document-metadata.py:101
 msgid "Read-Only Recommended"
-msgstr ""
+msgstr "Priporočeno samo za branje"
 
 #: plugins/document-metadata.py:101
 msgid "Security level of this document: recommended to be opened as read-only"
@@ -1731,7 +1719,7 @@ msgstr ""
 
 #: plugins/document-metadata.py:102
 msgid "Read-Only Enforced"
-msgstr ""
+msgstr "Vsiljeno samo za branje"
 
 #: plugins/document-metadata.py:102
 msgid "Security level of this document: enforced to be opened as read-only"
@@ -1753,10 +1741,8 @@ msgid "Category"
 msgstr "Kategorija"
 
 #: plugins/document-metadata.py:106
-#, fuzzy
-#| msgid "Title of the document."
 msgid "Category of the document"
-msgstr "Naziv dokumenta"
+msgstr "Kategorija dokumenta"
 
 #: plugins/document-metadata.py:107
 msgid "Content Status"
@@ -1791,10 +1777,8 @@ msgid "Last Printed"
 msgstr "Zadnjič natisnjeno"
 
 #: plugins/document-metadata.py:116
-#, fuzzy
-#| msgid "The date and time of image creation."
 msgid "Date and time of the last printing"
-msgstr "Datum in čas zajetja slike."
+msgstr "Datum in čas zadnjega tiskanja"
 
 #: plugins/document-metadata.py:121 plugins/multimedia-metadata.py:53
 msgid "Version"
@@ -1808,9 +1792,8 @@ msgstr ""
 #. https://pypdf.readthedocs.io/en/stable/modules/XmpInformation.html
 #: plugins/document-metadata.py:125
 #, fuzzy
-#| msgid "Contrast"
 msgid "Contributor"
-msgstr "Kontrast"
+msgstr "Sodelavec"
 
 #: plugins/document-metadata.py:125
 msgid "Entity responsible for making contributions to the document"
@@ -1838,10 +1821,8 @@ msgid "The file format of the document"
 msgstr "Naziv dokumenta"
 
 #: plugins/document-metadata.py:129
-#, fuzzy
-#| msgid "ARM Identifier"
 msgid "Identifier"
-msgstr "Določilo ARM"
+msgstr "Identifikator"
 
 #: plugins/document-metadata.py:129
 #, fuzzy
@@ -1871,10 +1852,8 @@ msgid "Relationship to other document"
 msgstr "Naziv dokumenta"
 
 #: plugins/document-metadata.py:132
-#, fuzzy
-#| msgid "Height"
 msgid "Rights"
-msgstr "Višina"
+msgstr "Pravice"
 
 #: plugins/document-metadata.py:132
 msgid "Information about rights held in and over the document"
@@ -1889,32 +1868,24 @@ msgid "A related document from which this document is derived"
 msgstr ""
 
 #: plugins/document-metadata.py:134
-#, fuzzy
-#| msgid "File Type"
 msgid "Type"
-msgstr "Vrsta datoteke"
+msgstr "Vrsta"
 
 #: plugins/document-metadata.py:134
-#, fuzzy
-#| msgid "The PDF version of the document."
 msgid "The nature or genre of the document"
-msgstr "Različica PDF dokumenta."
+msgstr "Narava ali žanr dokumenta."
 
 #: plugins/document-metadata.py:143
 msgid "PDF Version"
 msgstr "Različica PDF"
 
 #: plugins/document-metadata.py:143
-#, fuzzy
-#| msgid "The PDF version of the document."
 msgid "The PDF version of the document"
-msgstr "Različica PDF dokumenta."
+msgstr "PDF-različica dokumenta."
 
 #: plugins/document-metadata.py:147
-#, fuzzy
-#| msgid "Metadata view"
 msgid "Metadata Date"
-msgstr "Metapodatkovni pogled"
+msgstr "Datum metapodatkov"
 
 #: plugins/document-metadata.py:147
 msgid "Date and time that any metadata for this resource was last changed"
@@ -1963,16 +1934,12 @@ msgid "Package pypdf for Python is not installed on your system, PDF handling ha
 msgstr ""
 
 #: plugins/document-metadata.py:206
-#, fuzzy
-#| msgid "Undefined"
 msgid "User-Defined:"
-msgstr "Nedoločeno"
+msgstr "Uporabniško določeno:"
 
 #: plugins/document-metadata.py:211 plugins/document-metadata.py:222
-#, fuzzy
-#| msgid "Document Name"
 msgid "Document"
-msgstr "Ime dokumenta"
+msgstr "Dokument"
 
 #: plugins/image-metadata.py:27 src/tags/image.rs:40
 msgid "Image"
@@ -2047,20 +2014,16 @@ msgid ""
 msgstr ""
 
 #: plugins/image-metadata.py:42
-#, fuzzy
-#| msgid "Page Width"
 msgid "Cell Width"
-msgstr "Širina strani"
+msgstr "Širina celice"
 
 #: plugins/image-metadata.py:42
 msgid "The width of the dithering or halftoning matrix used to create a dithered or halftoned bilevel file."
 msgstr ""
 
 #: plugins/image-metadata.py:43
-#, fuzzy
-#| msgid "Focal Length"
 msgid "Cell Length"
-msgstr "Goriščna razdalja"
+msgstr "Dolžina celice"
 
 #: plugins/image-metadata.py:43
 msgid ""
@@ -2081,9 +2044,8 @@ msgstr "Ime dokumenta"
 
 #: plugins/image-metadata.py:45
 #, fuzzy
-#| msgid "The last time the document was saved."
 msgid "The name of the document from which this image was scanned."
-msgstr "Čas zadnjega shranjevanja dokumenta."
+msgstr "Ime dokumenta, iz katerega je bila optično prebrana slika."
 
 #: plugins/image-metadata.py:46
 msgid "Image Description"
@@ -2370,10 +2332,8 @@ msgid "This tag records information about the host computer used to generate the
 msgstr ""
 
 #: plugins/image-metadata.py:71
-#, fuzzy
-#| msgid "Credit"
 msgid "Predictor"
-msgstr "Zasluge"
+msgstr "Napovedovalnik"
 
 #: plugins/image-metadata.py:71
 msgid ""
@@ -2400,10 +2360,8 @@ msgid "The chromaticity of the three primary colors of the image."
 msgstr ""
 
 #: plugins/image-metadata.py:74
-#, fuzzy
-#| msgid "Color Space"
 msgid "Color Map"
-msgstr "Barvni prostor"
+msgstr "Katalog barv"
 
 #: plugins/image-metadata.py:74
 msgid ""
@@ -2423,20 +2381,16 @@ msgid ""
 msgstr ""
 
 #: plugins/image-metadata.py:76
-#, fuzzy
-#| msgid "_Fixed Width"
 msgid "Tile Width"
-msgstr "_Nespremenljiva širina"
+msgstr "Širina tlakovca"
 
 #: plugins/image-metadata.py:76
 msgid "The tile width in pixels. This is the number of columns in each tile."
 msgstr ""
 
 #: plugins/image-metadata.py:77
-#, fuzzy
-#| msgid "Image Length"
 msgid "Tile Length"
-msgstr "Dolžina slike"
+msgstr "Dolžina tlakovca"
 
 #: plugins/image-metadata.py:77
 msgid "The tile length (height) in pixels. This is the number of rows in each tile."
@@ -2451,10 +2405,8 @@ msgid "The set of inks used in a separated (PhotometricInterpretation=5) image."
 msgstr ""
 
 #: plugins/image-metadata.py:79
-#, fuzzy
-#| msgid "Name"
 msgid "Ink Names"
-msgstr "Ime"
+msgstr "Imena črnila"
 
 #: plugins/image-metadata.py:79
 msgid "The name of each ink used in a separated (PhotometricInterpretation=5) image."
@@ -2465,10 +2417,8 @@ msgid "Number Of Inks"
 msgstr ""
 
 #: plugins/image-metadata.py:80
-#, fuzzy
-#| msgid "The number of bits in each audio sample."
 msgid "The number of inks."
-msgstr "Število bitov vsakega zvočnega vzorca."
+msgstr "Število črnil."
 
 #: plugins/image-metadata.py:81
 msgid "Dot Range"
@@ -2480,20 +2430,16 @@ msgid "The component values that correspond to a 0% dot and 100% dot."
 msgstr ""
 
 #: plugins/image-metadata.py:82
-#, fuzzy
-#| msgid "Last Printed"
 msgid "Target Printer"
-msgstr "Zadnjič natisnjeno"
+msgstr "Ciljni tiskalnik"
 
 #: plugins/image-metadata.py:82
 msgid "A description of the printing environment for which this separation is intended."
 msgstr ""
 
 #: plugins/image-metadata.py:83
-#, fuzzy
-#| msgid "Bits per Sample"
 msgid "Extra Samples"
-msgstr "Bitov na vzorec"
+msgstr "Dodatni vzorci"
 
 #: plugins/image-metadata.py:83
 msgid ""
@@ -2520,10 +2466,8 @@ msgid "Expands the range of the TransferFunction"
 msgstr ""
 
 #: plugins/image-metadata.py:88
-#, fuzzy
-#| msgid "Path"
 msgid "Clip Path"
-msgstr "Pot"
+msgstr "Pot posnetka"
 
 #: plugins/image-metadata.py:88
 msgid "A TIFF ClipPath is intended to mirror the essentials of PostScript's path creation functionality."
@@ -2540,10 +2484,8 @@ msgid ""
 msgstr ""
 
 #: plugins/image-metadata.py:90
-#, fuzzy
-#| msgid "JPEG Procedure"
 msgid "JPEG Process"
-msgstr "JPEG Procedura"
+msgstr "Postopek JPEG"
 
 #: plugins/image-metadata.py:90
 msgid "This field indicates the process used to produce the compressed data"
@@ -3628,7 +3570,7 @@ msgstr ""
 
 #: plugins/image-metadata.py:196
 msgid "GPS Satellites"
-msgstr ""
+msgstr "Sateliti GPS"
 
 #: plugins/image-metadata.py:196
 msgid ""
@@ -4025,7 +3967,7 @@ msgstr ""
 
 #: plugins/multimedia-metadata.py:44
 msgid "Frames per Second"
-msgstr ""
+msgstr "sličic na sekundo"
 
 #: plugins/multimedia-metadata.py:44
 msgid "Video frames per second"
@@ -4053,7 +3995,7 @@ msgstr "Dolžina skladbe v milisekundah."
 
 #: plugins/multimedia-metadata.py:47
 msgid "Protected"
-msgstr ""
+msgstr "Zaščiteno"
 
 #: plugins/multimedia-metadata.py:47
 msgid "Whether or not the file is “protected”"
@@ -7713,7 +7655,7 @@ msgstr "poteka pripravljanje …"
 
 #: src/plugins/manager.rs:197
 msgid "Plugin has errors, click to copy."
-msgstr ""
+msgstr "Vstavek ima napake, kliknite za kopiranje."
 
 #: src/plugins/manager.rs:217
 msgid "About"
