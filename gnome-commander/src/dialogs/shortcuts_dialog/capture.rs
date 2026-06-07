@@ -3,10 +3,11 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::{shortcuts::Shortcut, user_actions::UserAction, utils::NO_MOD};
+use crate::{shortcuts::Shortcut, utils::NO_MOD};
 use component_framework::prelude::*;
 use gettextrs::gettext;
 use gtk::{gdk, glib, prelude::*};
+use std::borrow::Cow;
 
 #[derive(Debug, Default)]
 pub struct CaptureView {
@@ -28,7 +29,7 @@ pub enum CaptureOutput {
 }
 
 pub struct Capture {
-    action: UserAction,
+    action: String,
     existing_key: Option<Shortcut>,
     state: u8,
 }
@@ -89,11 +90,11 @@ impl Component for Capture {
                 gtk::Label {
                     .set_label(&if let Some(existing_key) = self.existing_key {
                         gettext("Enter a shortcut to replace “{shortcut}” for action “{action}.”")
-                            .replace("{action}", &self.action.description())
+                            .replace("{action}", &self.action)
                             .replace("{shortcut}", &existing_key.label())
                     } else {
                         gettext("Enter a new shortcut for action “{action}.”")
-                            .replace("{action}", &self.action.description())
+                            .replace("{action}", &self.action)
                     });
                     .set_wrap(true);
                     .set_wrap_mode(gtk::pango::WrapMode::Word);
@@ -219,11 +220,11 @@ impl Component for Capture {
 impl Capture {
     pub async fn get_shortcut(
         parent: &gtk::Window,
-        action: UserAction,
+        action: Cow<'_, str>,
         existing_key: Option<&Shortcut>,
     ) -> CaptureOutput {
         let mut controller = Self {
-            action,
+            action: action.to_string(),
             existing_key: existing_key.copied(),
             state: 0,
         }

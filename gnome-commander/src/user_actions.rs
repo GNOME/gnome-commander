@@ -8,7 +8,7 @@ use crate::{
     config::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_URL, PACKAGE_VERSION},
     connection::{
         Connection, ConnectionExt,
-        bookmark::BookmarkGoToVariant,
+        bookmark::Bookmark,
         home::ConnectionHome,
         list::ConnectionList,
         remote::{ConnectionRemote, ConnectionRemoteExt},
@@ -57,6 +57,32 @@ use std::{
     iter::Iterator,
     path::{Path, PathBuf},
 };
+
+#[derive(Debug, glib::Variant)]
+pub struct BookmarkActionVariant {
+    pub connection_alias: String,
+    pub bookmark_name: String,
+}
+
+impl BookmarkActionVariant {
+    pub fn new(connection: &Connection, bookmark: &Bookmark) -> Self {
+        Self {
+            connection_alias: if connection.is::<ConnectionHome>() {
+                String::new()
+            } else {
+                connection.alias().unwrap_or_default()
+            },
+            bookmark_name: bookmark.name().to_owned(),
+        }
+    }
+}
+
+#[derive(Debug, glib::Variant)]
+pub struct PluginActionVariant {
+    pub plugin_name: String,
+    pub action: String,
+    pub parameter: String,
+}
 
 async fn file_copy(main_win: MainWindow) {
     let src_fs = main_win.file_selector(FileSelectorID::Active);
@@ -985,7 +1011,7 @@ async fn bookmarks_edit(main_win: MainWindow) {
     }
 }
 
-async fn bookmarks_goto(main_win: MainWindow, goto: BookmarkGoToVariant) {
+async fn bookmarks_goto(main_win: MainWindow, goto: BookmarkActionVariant) {
     let list = ConnectionList::get();
     let connection = if goto.connection_alias.is_empty() {
         list.home().upcast::<Connection>()
@@ -1122,15 +1148,14 @@ async fn plugins_configure(main_win: MainWindow) {
     show_plugin_manager(main_win.plugin_channel(), &main_win).await;
 }
 
-async fn plugin_action(main_win: MainWindow, data: (String, String, String)) {
-    let (plugin_name, action, parameter) = data;
+async fn plugin_action(main_win: MainWindow, data: PluginActionVariant) {
     let channel = main_win.plugin_channel();
     channel.send(MessageToPluginHost::ApiRequest {
         id: channel.new_id(),
-        plugin_name: Some(plugin_name),
+        plugin_name: Some(data.plugin_name),
         request: ApiRequestToPlugin::MenuActivated {
-            action,
-            parameter,
+            action: data.action,
+            parameter: data.parameter,
             state: main_win.state(),
             modifiers: get_modifiers_state(main_win.upcast_ref())
                 .map(ModifierState::from)
@@ -2066,7 +2091,7 @@ user_actions! {
 
     BookmarksGoto in Panel => (
         "bookmarks-goto" | "bookmarks.goto",
-        gettext("Go to bookmarked location"),
+        String::new(), // invisible to users
         bookmarks_goto,
     ),
 
