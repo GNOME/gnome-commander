@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
 "POT-Creation-Date: 2026-06-06 09:06+0000\n"
-"PO-Revision-Date: 2026-06-06 16:27+0200\n"
+"PO-Revision-Date: 2026-06-07 11:11+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -3305,10 +3305,8 @@ msgid "gid"
 msgstr "gid"
 
 #: gnome-commander/src/file_list/list.rs:1011
-#, fuzzy
-#| msgid "copying…"
 msgid "Loading…"
-msgstr "Kopiranje ..."
+msgstr "Nalaganje …"
 
 #: gnome-commander/src/file_list/list.rs:1650
 msgid "_Copy here"
@@ -3778,10 +3776,8 @@ msgid "Drop connection"
 msgstr "Prekini povezavo"
 
 #: gnome-commander/src/main_win.rs:1267
-#, fuzzy
-#| msgid "Embedded Files"
 msgid "Embedded terminal is busy"
-msgstr "Vgrajene datoteke"
+msgstr "Vgrajeni terminal je zelo zaseden"
 
 #: gnome-commander/src/main_win.rs:1272
 msgid "Failed starting shell"
@@ -3914,9 +3910,8 @@ msgstr "Datoteka: {}"
 
 #: gnome-commander/src/plugins/manager.rs:191
 #, fuzzy
-#| msgid "preparing…"
 msgid "Starting…"
-msgstr "poteka pripravljanje …"
+msgstr "Začenjanje …"
 
 #: gnome-commander/src/plugins/manager.rs:198
 msgid "Plugin has errors, click to copy."
@@ -4838,11 +4833,8 @@ msgid "Closing of a file enumerator failed"
 msgstr "Zapiranje oštevilčevalnika datotek ni uspelo"
 
 #: plugins/archives.py:289
-#, fuzzy
-#| msgid "A plugin that adds File Roller shortcuts for creating and extracting compressed archives."
 msgid "A plugin adding context menu items to create and extract compressed archives."
-msgstr ""
-"Vstavek, ki doda bližnjico do programa File Roller za ustvarjanje in razširjanje stisnjenih datotek."
+msgstr "Vstavek, ki dodaja kontekstne menijske elemente za ustvarjanje in izvlečenje stisnjenih arhivov."
 
 #: plugins/archives.py:328
 msgid "Create Archive"
@@ -4865,26 +4857,20 @@ msgid "Creating \"{}\" failed."
 msgstr "Ustvarjanje »{}« ni uspelo."
 
 #: plugins/archives.py:430
-#, fuzzy
-#| msgid "Create Archive"
 msgid "Extract Archive"
-msgstr "Ustvari arhiv"
+msgstr "Razširi arhiv"
 
 #: plugins/archives.py:437
 msgid "Ex_tract {} to:"
-msgstr ""
+msgstr "Raz_širi {} v:"
 
 #: plugins/archives.py:463
-#, fuzzy
-#| msgid "Directory listing failed."
 msgid "Extracting failed"
-msgstr "Izpis map ni uspel."
+msgstr "Razširjanje ni uspelo"
 
 #: plugins/archives.py:469
-#, fuzzy
-#| msgid "Launch of {} failed."
 msgid "Extracting \"{}\" failed."
-msgstr "Zagon {} ni uspel."
+msgstr "Razširjanje »{}« ni uspelo."
 
 #: plugins/archives.py:489 plugins/archives.py:510
 msgid "Destination file \"{}\" already exists. Overwrite?"
@@ -4899,10 +4885,8 @@ msgid "Create Archive…"
 msgstr "Ustvari arhiv …"
 
 #: plugins/archives.py:541
-#, fuzzy
-#| msgid "Create Archive…"
 msgid "Extract Archive…"
-msgstr "Ustvari arhiv …"
+msgstr "Razširi arhiv …"
 
 #. https://docs.oasis-open.org/office/OpenDocument/v1.4/os/part3-schema/OpenDocument-v1.4-os-part3-schema.html#a_3_2__office_meta_
 #: plugins/document-metadata.py:45
@@ -4910,10 +4894,8 @@ msgid "Date Modified"
 msgstr "Datum spremembe"
 
 #: plugins/document-metadata.py:45
-#, fuzzy
-#| msgid "Specifies the date and time when the document was last printed."
 msgid "Date and time when the document was last modified"
-msgstr "Določa datum in čas, ko je bil dokument natisnjen."
+msgstr "Datum in čas, ko je bil dokument nazadnje spremenjen."
 
 #: plugins/document-metadata.py:46
 msgid "Description of a document"
@@ -4957,20 +4939,16 @@ msgid "Date Created"
 msgstr "Datum stvaritve"
 
 #: plugins/document-metadata.py:51
-#, fuzzy
-#| msgid "The last time the document was saved."
 msgid "Date and time when a document was created"
-msgstr "Čas zadnjega shranjevanja dokumenta."
+msgstr "Datum in čas, ko je bil dokument ustvarjen"
 
 #: plugins/document-metadata.py:52
 msgid "Revision Count"
 msgstr "Štetje predelav"
 
 #: plugins/document-metadata.py:52
-#, fuzzy
-#| msgid "Number of times a file has been played."
 msgid "Number of times a document has been edited"
-msgstr "Število predvajanj datoteke."
+msgstr "Število urejanj dokumenta"
 
 #: plugins/document-metadata.py:53
 msgid "Editing Duration"
@@ -4995,9 +4973,8 @@ msgstr "Začetni ustvarjalec"
 
 #: plugins/document-metadata.py:55
 #, fuzzy
-#| msgid "Number of bytes in the document."
 msgid "Name of the initial creator of a document"
-msgstr "Število bajtov v dokumentu."
+msgstr "Ime začetnega ustvarjalca dokumenta"
 
 #: plugins/document-metadata.py:56
 msgid "Keyword"
@@ -5012,26 +4989,20 @@ msgid "Print Date"
 msgstr "Datum tiskanja"
 
 #: plugins/document-metadata.py:57
-#, fuzzy
-#| msgid "Specifies the date and time when the document was last printed."
 msgid "Date and time when a document was last printed"
-msgstr "Določa datum in čas, ko je bil dokument natisnjen."
+msgstr "Datum in čas, ko je bil dokument nazadnje natisnjen"
 
 #: plugins/document-metadata.py:58
 msgid "Printed By"
 msgstr "Tiskal"
 
 #: plugins/document-metadata.py:58
-#, fuzzy
-#| msgid "Specifies the name of the last person who printed the document."
 msgid "Name of the last person who printed a document"
-msgstr "Določa ime osebe, ki je zadnja natisnila dokument."
+msgstr "Ime zadnje osebe, ki je natisnila dokument"
 
 #: plugins/document-metadata.py:59
-#, fuzzy
-#| msgid "The template file that is been used to generate this document."
 msgid "Document template that was used to create a document"
-msgstr "Predloga, ki je bila uporabljena za ustvarjanje tega dokumenta."
+msgstr "Predloga, uporabljena za ustvarjanje tega dokumenta"
 
 #. https://docs.oasis-open.org/office/OpenDocument/v1.4/os/part3-schema/OpenDocument-v1.4-os-part3-schema.html#element-meta_document-statistic
 #: plugins/document-metadata.py:62
@@ -5208,49 +5179,40 @@ msgstr "Oblika predstavitve"
 
 #: plugins/document-metadata.py:85
 #, fuzzy
-#| msgid "Number of slides in the presentation document."
 msgid "Intended format for a presentation document"
-msgstr "Število diapozitivov v dokumentu predstavitve."
+msgstr "Predvidena oblika predstavitvenega dokumenta"
 
 #: plugins/document-metadata.py:88
 msgid "Slide Count"
 msgstr "Štetje diapozitivov"
 
 #: plugins/document-metadata.py:88
-#, fuzzy
-#| msgid "Number of slides in the presentation document."
 msgid "Number of slides in a presentation document"
-msgstr "Število diapozitivov v dokumentu predstavitve."
+msgstr "Število prosojnic v dokumentu predstavitve"
 
 #: plugins/document-metadata.py:89
 msgid "Note Count"
 msgstr "Štetje opomb"
 
 #: plugins/document-metadata.py:89
-#, fuzzy
-#| msgid "Number of slides in the presentation document."
 msgid "Number of slides in a presentation containing notes"
-msgstr "Število diapozitivov v dokumentu predstavitve."
+msgstr "Število prosojnic v predstavitvi, ki vsebujejo opombe"
 
 #: plugins/document-metadata.py:91
 msgid "Hidden Slide Count"
 msgstr "Štetje skritih diapozitivov"
 
 #: plugins/document-metadata.py:91
-#, fuzzy
-#| msgid "Number of hidden slides in the presentation document."
 msgid "Number of hidden slides in a presentation document"
-msgstr "Število skritih diapozitivov v predstavitvenem dokumentu."
+msgstr "Število skritih prosojnic v dokumentu predstavitve"
 
 #: plugins/document-metadata.py:92
 msgid "Multimedia Clip Count"
 msgstr "Štetje predstavnih predmetov"
 
 #: plugins/document-metadata.py:92
-#, fuzzy
-#| msgid "Number of slides in the presentation document."
 msgid "Number of sound or video clips that are present in the document"
-msgstr "Število diapozitivov v dokumentu predstavitve."
+msgstr "Število zvočnih ali video posnetkov, ki so prisotni v dokumentu"
 
 #: plugins/document-metadata.py:93
 #, fuzzy
@@ -5278,25 +5240,23 @@ msgstr "Dokument v skupni rabi"
 
 #: plugins/document-metadata.py:96
 msgid "Indicates if this document is currently shared between multiple producers"
-msgstr ""
+msgstr "Označuje, ali je ta dokument trenutno v skupni rabi med več proizvajalci"
 
 #: plugins/document-metadata.py:97
 msgid "Relative Hyperlink Base"
-msgstr ""
+msgstr "Osnova relativnih hiperpovezav"
 
 #: plugins/document-metadata.py:97
 msgid "Base string used for evaluating relative hyperlinks in this document"
-msgstr ""
+msgstr "Osnovni niz, uporabljen za ocenjevanje relativnih hiperpovezav v tem dokumentu"
 
 #: plugins/document-metadata.py:99
 msgid "Application Version"
 msgstr "Različica programa"
 
 #: plugins/document-metadata.py:99
-#, fuzzy
-#| msgid "The application that generated this document."
 msgid "Version of the application which produced this document"
-msgstr "Program s katerim je bil dokument ustvarjen."
+msgstr "Različica programa, s katerim je izdelan ta dokument"
 
 #: plugins/document-metadata.py:100
 msgid "Password-Protected"
@@ -5304,7 +5264,7 @@ msgstr "Zaščiteno z geslom"
 
 #: plugins/document-metadata.py:100
 msgid "Security level of this document: password-protected"
-msgstr ""
+msgstr "Stopnja varnosti tega dokumenta: zaščiteno z geslom"
 
 #: plugins/document-metadata.py:101
 msgid "Read-Only Recommended"
@@ -5312,7 +5272,7 @@ msgstr "Priporočeno samo za branje"
 
 #: plugins/document-metadata.py:101
 msgid "Security level of this document: recommended to be opened as read-only"
-msgstr ""
+msgstr "Raven varnosti tega dokumenta: priporočeno odpiranje samo za branje"
 
 #: plugins/document-metadata.py:102
 msgid "Read-Only Enforced"
@@ -5320,7 +5280,7 @@ msgstr "Vsiljeno samo za branje"
 
 #: plugins/document-metadata.py:102
 msgid "Security level of this document: enforced to be opened as read-only"
-msgstr ""
+msgstr "Stopnja varnosti tega dokumenta: zahtevano odpiranje samo za branje"
 
 #: plugins/document-metadata.py:103
 #, fuzzy
@@ -5330,7 +5290,7 @@ msgstr "Povezane podrobnosti."
 
 #: plugins/document-metadata.py:103
 msgid "Security level of this document: locked for annotation"
-msgstr ""
+msgstr "Varnostna raven tega dokumenta: zaklenjeno za označevanje"
 
 #. https://learn.microsoft.com/en-us/dotnet/api/documentformat.openxml.packaging.ipackageproperties?view=openxml-3.0.1
 #: plugins/document-metadata.py:106
@@ -5347,11 +5307,11 @@ msgstr "Stanje vsebine"
 
 #: plugins/document-metadata.py:107
 msgid "Status of the content, for example “Draft”, “Reviewed”, and “Final”"
-msgstr ""
+msgstr "Stanje vsebine, npr. »Osnutek«, »Pregledano« in »Končno«"
 
 #: plugins/document-metadata.py:113
 msgid "Keywords to support searching and indexing"
-msgstr ""
+msgstr "Ključne besede za podporo iskanju in indeksiranju"
 
 #: plugins/document-metadata.py:115
 #, fuzzy
@@ -5379,7 +5339,7 @@ msgstr "Različica"
 
 #: plugins/document-metadata.py:121
 msgid "Version number, set by the user or by the application"
-msgstr ""
+msgstr "Številka različice, ki jo določi uporabnik ali program"
 
 #. https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#section-3
 #. https://pypdf.readthedocs.io/en/stable/modules/XmpInformation.html
@@ -5389,8 +5349,9 @@ msgid "Contributor"
 msgstr "Sodelavec"
 
 #: plugins/document-metadata.py:125
+#, fuzzy
 msgid "Entity responsible for making contributions to the document"
-msgstr ""
+msgstr "Subjekt, odgovoren za prispevke k dokumentu"
 
 #: plugins/document-metadata.py:126
 #, fuzzy
@@ -5398,10 +5359,13 @@ msgid "Coverage"
 msgstr "Pokritost"
 
 #: plugins/document-metadata.py:126
+#, fuzzy
 msgid ""
 "Spatial or temporal topic of the document, spatial applicability of the document, or jurisdiction under "
 "which the document is relevant"
 msgstr ""
+"Prostorska ali časovna tema dokumenta, prostorska uporabnost dokumenta ali jurisdikcija, pod katero je "
+"dokument relevanten"
 
 #: plugins/document-metadata.py:128
 #, fuzzy
@@ -5420,28 +5384,28 @@ msgid "Unique identifier of the document"
 msgstr "Naziv dokumenta"
 
 #: plugins/document-metadata.py:130
+#, fuzzy
 msgid "Entity responsible for making the document available"
-msgstr ""
+msgstr "Subjekt, odgovoren za dostopnost dokumenta"
 
 #: plugins/document-metadata.py:131
 #, fuzzy
-#| msgid "Deletion"
 msgid "Relationship"
-msgstr "Brisanje"
+msgstr "Odnos"
 
 #: plugins/document-metadata.py:131
 #, fuzzy
-#| msgid "Title of the document."
 msgid "Relationship to other document"
-msgstr "Naziv dokumenta"
+msgstr "Povezava z drugim dokumentom"
 
 #: plugins/document-metadata.py:132
 msgid "Rights"
 msgstr "Pravice"
 
 #: plugins/document-metadata.py:132
+#, fuzzy
 msgid "Information about rights held in and over the document"
-msgstr ""
+msgstr "Informacije o pravicah, ki so v dokumentu in nad njim"
 
 #: plugins/document-metadata.py:133
 msgid "Source"
@@ -5449,7 +5413,7 @@ msgstr "Izvor"
 
 #: plugins/document-metadata.py:133
 msgid "A related document from which this document is derived"
-msgstr ""
+msgstr "Soroden dokument, iz katerega je ta dokument izpeljan"
 
 #: plugins/document-metadata.py:134
 msgid "Type"
@@ -5473,7 +5437,7 @@ msgstr "Datum metapodatkov"
 
 #: plugins/document-metadata.py:147
 msgid "Date and time that any metadata for this resource was last changed"
-msgstr ""
+msgstr "Datum in ura, ko so bili metapodatki za ta vir nazadnje spremenjeni"
 
 #: plugins/document-metadata.py:148
 #, fuzzy
@@ -5493,7 +5457,7 @@ msgstr "Del PDF/A"
 
 #: plugins/document-metadata.py:149
 msgid "The part of the PDF/A standard that the document conforms to (e.g., 1, 2, 3)"
-msgstr ""
+msgstr "Del standarda PDF/A, s katerim je dokument skladen (npr. 1, 2, 3)"
 
 #: plugins/document-metadata.py:150
 msgid "PDF/A Conformance"
@@ -5501,21 +5465,23 @@ msgstr "Skladnost s PDF/A"
 
 #: plugins/document-metadata.py:150
 msgid "The conformance level within the PDF/A standard (e.g., A, B, U)"
-msgstr ""
+msgstr "Raven skladnosti znotraj standarda PDF/A (npr. A, B, U)"
 
 #: plugins/document-metadata.py:174
 msgid ""
 "A plugin for extracting metadata from documents in OpenDocument (OpenOffice/LibreOffice), Open XML "
 "(Microsoft Office) and PDF formats."
 msgstr ""
+"Vstavek za pridobivanje metapodatkov iz dokumentov v zapisih OpenDocument (OpenOffice/LibreOffice), Open "
+"XML (Microsoft Office) in PDF."
 
 #: plugins/document-metadata.py:176
 msgid "PDF handling requires pypdf package for Python to be installed on your system."
-msgstr ""
+msgstr "Za obravnavo PDF-jev morate imeti na sistemu nameščen paket pypdf za Python."
 
 #: plugins/document-metadata.py:190
 msgid "Package pypdf for Python is not installed on your system, PDF handling has been disabled."
-msgstr ""
+msgstr "Paket pypdf za Python ni nameščen na vašem sistemu, upravljanje PDF-jev je onemogočeno."
 
 #: plugins/document-metadata.py:206
 msgid "User-Defined:"
@@ -5553,10 +5519,8 @@ msgid "Bits per Sample"
 msgstr "Bitov na vzorec"
 
 #: plugins/image-metadata.py:38
-#, fuzzy
-#| msgid "The number of bits in each audio sample."
 msgid "The number of bits per image component."
-msgstr "Število bitov vsakega zvočnega vzorca."
+msgstr "Število bitov na komponento slike."
 
 #: plugins/image-metadata.py:39
 msgid "Compression"
@@ -5581,34 +5545,43 @@ msgstr "Fotometrično tolmačenje"
 
 #: plugins/image-metadata.py:40
 msgid "The pixel composition."
-msgstr ""
+msgstr "Kompozicija slikovnih točk."
 
 #: plugins/image-metadata.py:41
+#, fuzzy
 msgid "Thresholding"
-msgstr ""
+msgstr "Pragovanje"
 
 #: plugins/image-metadata.py:41
 msgid ""
 "For black and white TIFF files that represent shades of gray, the technique used to convert from gray to "
 "black and white pixels."
 msgstr ""
+"Za črno-bele datoteke TIFF, ki predstavljajo odtenke sive, se uporablja tehnika za pretvorbo iz sivinskih "
+"v črno-bele slikovne točke."
 
 #: plugins/image-metadata.py:42
 msgid "Cell Width"
 msgstr "Širina celice"
 
 #: plugins/image-metadata.py:42
+#, fuzzy
 msgid "The width of the dithering or halftoning matrix used to create a dithered or halftoned bilevel file."
 msgstr ""
+"Širina matrike stresanja ali poltoniranja, uporabljene za ustvarjanje stresene ali poltonirane "
+"dvonivojske datoteke."
 
 #: plugins/image-metadata.py:43
 msgid "Cell Length"
 msgstr "Dolžina celice"
 
 #: plugins/image-metadata.py:43
+#, fuzzy
 msgid ""
 "The length of the dithering or halftoning matrix used to create a dithered or halftoned bilevel file."
 msgstr ""
+"Dolžina matrike stresanja ali poltoniranja, uporabljene za ustvarjanje stresene ali poltonirane "
+"dvonivojske datoteke."
 
 #: plugins/image-metadata.py:44
 msgid "Fill Order"
@@ -5616,7 +5589,7 @@ msgstr "Vrstni red polnjenja"
 
 #: plugins/image-metadata.py:44
 msgid "The logical order of bits within a byte"
-msgstr ""
+msgstr "Logični zaporedje bitov znotraj bajta"
 
 #: plugins/image-metadata.py:45
 msgid "Document Name"
@@ -5633,7 +5606,7 @@ msgstr "Opis slike"
 
 #: plugins/image-metadata.py:46
 msgid "A character string giving the title of the image."
-msgstr ""
+msgstr "Niz znakov, ki podaja naslov slike."
 
 #: plugins/image-metadata.py:47
 msgid "Manufacturer"
@@ -5683,7 +5656,7 @@ msgstr "Vzorci na točko"
 
 #: plugins/image-metadata.py:50
 msgid "The number of components per pixel."
-msgstr ""
+msgstr "Število komponent na slikovno točko."
 
 #: plugins/image-metadata.py:51
 msgid "Rows per Strip"
@@ -5709,7 +5682,7 @@ msgstr "Hitrost vzorčenja"
 
 #: plugins/image-metadata.py:52 plugins/image-metadata.py:90
 msgid "This field specifies the minimum sample value."
-msgstr ""
+msgstr "To polje določa nnjmanjšo vrednost vzorca."
 
 #: plugins/image-metadata.py:53 plugins/image-metadata.py:91
 #, fuzzy
@@ -5719,11 +5692,9 @@ msgstr "Največja vrednost zaslonke"
 
 #: plugins/image-metadata.py:53 plugins/image-metadata.py:91
 msgid "This field specifies the maximum sample value."
-msgstr ""
+msgstr "To polje določa največjo vrednost vzorca."
 
 #: plugins/image-metadata.py:54
-#, fuzzy
-#| msgid "x Resolution"
 msgid "X-Resolution"
 msgstr "Ločljivost X"
 
@@ -5740,8 +5711,6 @@ msgstr ""
 "določena vrednost 72 [dpi]."
 
 #: plugins/image-metadata.py:55
-#, fuzzy
-#| msgid "x Resolution"
 msgid "Y-Resolution"
 msgstr "Ločljivost X"
 
@@ -5762,8 +5731,9 @@ msgid "Planar Configuration"
 msgstr "Nastavitev ravnine"
 
 #: plugins/image-metadata.py:56
+#, fuzzy
 msgid "Indicates whether pixel components are recorded in a chunky or planar format."
-msgstr ""
+msgstr "Označuje, ali so komponente slikovnih točk zabeležene v masivni ali ravninski obliki."
 
 #: plugins/image-metadata.py:57
 msgid "Page Name"
@@ -5780,21 +5750,25 @@ msgid "X Position"
 msgstr "Položaj X"
 
 #: plugins/image-metadata.py:58
+#, fuzzy
 msgid ""
 "X position of the image. The X offset in ResolutionUnits of the left side of the image, with respect to "
 "the left side of the page."
-msgstr ""
+msgstr "X-položaj slike. Zamik X v ResolutionUnits leve strani slike glede na levo stran strani."
 
 #: plugins/image-metadata.py:59
 msgid "Y Position"
 msgstr "Položaj Y"
 
 #: plugins/image-metadata.py:59
+#, fuzzy
 msgid ""
 "Y position of the image. The Y offset in ResolutionUnits of the top of the image, with respect to the top "
 "of the page. In the TIFF coordinate scheme, the positive Y direction is down, so that YPosition is always "
 "positive."
 msgstr ""
+"Y-položaj slike. Zamik > v ResolutionUnits zgornje strani slike glede na zgornjo stran strani. V "
+"koordinatni shemi TIFF je pozitivna smer Y navzdol, tako da je YPosition vedno pozitivenn."
 
 #: plugins/image-metadata.py:60
 #, fuzzy
@@ -5804,15 +5778,16 @@ msgstr "Enota ločljivosti"
 
 #: plugins/image-metadata.py:60
 msgid "The precision of the information contained in the GrayResponseCurve."
-msgstr ""
+msgstr "Natančnost informacij, vsebovanih v GrayResponseCurve."
 
 #: plugins/image-metadata.py:61
+#, fuzzy
 msgid "Gray Response Curve"
-msgstr ""
+msgstr "Krivulja sivinskega odziva"
 
 #: plugins/image-metadata.py:61
 msgid "For grayscale data, the optical density of each possible pixel value."
-msgstr ""
+msgstr "Za podatke v sivinah optična gostota vsake možne vrednosti slikovne točke."
 
 #: plugins/image-metadata.py:62
 msgid "T4 Options"
@@ -5854,7 +5829,7 @@ msgstr "F število"
 
 #: plugins/image-metadata.py:65
 msgid "The page number of the page from which this image was scanned."
-msgstr ""
+msgstr "Številka strani, s katere je bila ta slika skenirana."
 
 #: plugins/image-metadata.py:66
 msgid "Transfer Function"
@@ -5862,7 +5837,7 @@ msgstr "Funkcija prenosa"
 
 #: plugins/image-metadata.py:66
 msgid "A transfer function for the image, described in tabular style."
-msgstr ""
+msgstr "Prenosna funkcija za sliko, opisana v tabelarnem slogu."
 
 #: plugins/image-metadata.py:67
 msgid "Software"
@@ -5900,15 +5875,15 @@ msgstr "Izvajalec"
 
 #: plugins/image-metadata.py:69
 msgid "This tag records the name of the camera owner, photographer or image creator."
-msgstr ""
+msgstr "Ta značka beleži ime lastnika fotoaparata, fotografa ali ustvarjalca slik."
 
 #: plugins/image-metadata.py:70
 msgid "Host Computer"
-msgstr ""
+msgstr "Gostiteljski računalnik"
 
 #: plugins/image-metadata.py:70
 msgid "This tag records information about the host computer used to generate the image."
-msgstr ""
+msgstr "Ta značka beleži informacije o gostiteljskem računalniku, uporabljenemu za generiranje slike."
 
 #: plugins/image-metadata.py:71
 msgid "Predictor"
@@ -5919,6 +5894,8 @@ msgid ""
 "A predictor is a mathematical operator that is applied to the image data before an encoding scheme is "
 "applied."
 msgstr ""
+"Napovedovalnik je matematični operator, ki se uporabi na slikovnih podatkih, preden se uporabi shema "
+"kodiranja."
 
 #: plugins/image-metadata.py:72
 msgid "White Point"
@@ -5936,7 +5913,7 @@ msgstr "Osnovna barvitost"
 
 #: plugins/image-metadata.py:73
 msgid "The chromaticity of the three primary colors of the image."
-msgstr ""
+msgstr "Kromatičnost treh osnovnih barv slike."
 
 #: plugins/image-metadata.py:74
 msgid "Color Map"
@@ -5948,6 +5925,9 @@ msgid ""
 "lookup table) for palette-color images. In a palette-color image, a pixel value is used to index into an "
 "RGB lookup table."
 msgstr ""
+"Katalog barv za paletne barvne slike. To polje določa katalog barv rdeče-zeleno-modro (pogosto imenovano "
+"iskalna tabela) za slike v barvah palete. Pri barvni sliki se vrednost slikovne točke uporabi za "
+"indeksiranje v iskalno tabelo RGB."
 
 #: plugins/image-metadata.py:75
 msgid "Halftone Hints"
@@ -5965,7 +5945,7 @@ msgstr "Širina tlakovca"
 
 #: plugins/image-metadata.py:76
 msgid "The tile width in pixels. This is the number of columns in each tile."
-msgstr ""
+msgstr "Širina tlakovcev v slikovnih točkah. To je število stolpcev v vsakem tlakovcu."
 
 #: plugins/image-metadata.py:77
 msgid "Tile Length"
@@ -5973,15 +5953,15 @@ msgstr "Dolžina tlakovca"
 
 #: plugins/image-metadata.py:77
 msgid "The tile length (height) in pixels. This is the number of rows in each tile."
-msgstr ""
+msgstr "Dolžina tlakovca (višina) v slikovnih točkah. To je število vrstic v vsakem tlakovcu."
 
 #: plugins/image-metadata.py:78
 msgid "Ink Set"
-msgstr ""
+msgstr "Nabor črnil"
 
 #: plugins/image-metadata.py:78
 msgid "The set of inks used in a separated (PhotometricInterpretation=5) image."
-msgstr ""
+msgstr "Nabor črnil, uporabljenih v ločeni (PhotometricInterpretation=5) sliki."
 
 #: plugins/image-metadata.py:79
 msgid "Ink Names"
@@ -5989,7 +5969,7 @@ msgstr "Imena črnila"
 
 #: plugins/image-metadata.py:79
 msgid "The name of each ink used in a separated (PhotometricInterpretation=5) image."
-msgstr ""
+msgstr "Ime vsakega črnila, uporabljenega v ločeni (PhotometricInterpretation=5) sliki."
 
 #: plugins/image-metadata.py:80
 msgid "Number Of Inks"
@@ -6167,10 +6147,8 @@ msgid "Copyright"
 msgstr "Avtorske pravice"
 
 #: plugins/image-metadata.py:104
-#, fuzzy
-#| msgid "Routing information."
 msgid "Copyright information."
-msgstr "Podrobnosti usmerjevalne razpredelnice."
+msgstr "Podatki o avtorski in sorodnih pravicah."
 
 #: plugins/image-metadata.py:105
 msgid "Exposure Time"
@@ -6238,9 +6216,8 @@ msgstr ""
 
 #: plugins/image-metadata.py:112
 #, fuzzy
-#| msgid "Replace"
 msgid "Interlace"
-msgstr "Zamenjaj"
+msgstr "Prepletanje"
 
 #: plugins/image-metadata.py:112
 #, fuzzy
@@ -6266,8 +6243,9 @@ msgid "Self Timer Mode"
 msgstr "Način velikosti"
 
 #: plugins/image-metadata.py:114
+#, fuzzy
 msgid "Number of seconds image capture was delayed from button press."
-msgstr ""
+msgstr "Število sekund, za katero je bil zajem slike po pritisku na sprožilec zamaknjen."
 
 #: plugins/image-metadata.py:115
 msgid "Exif Version"
@@ -6301,9 +6279,8 @@ msgstr "Datum in čas shranjevanja slike v digitalni obliki."
 
 #: plugins/image-metadata.py:118
 #, fuzzy
-#| msgid "Subsec Time"
 msgid "Offset Time"
-msgstr "Delež časa"
+msgstr "Čas zamika"
 
 #: plugins/image-metadata.py:118
 msgid "Time difference from Universal Time Coordinated including daylight saving time of DateTime tag."
@@ -6336,8 +6313,9 @@ msgid "Components Configuration"
 msgstr "Nastavitev enot"
 
 #: plugins/image-metadata.py:121
+#, fuzzy
 msgid "Information specific to compressed data."
-msgstr ""
+msgstr "Informacije, specifične za stisnjene podatke."
 
 #: plugins/image-metadata.py:122
 #, fuzzy
@@ -6437,17 +6415,14 @@ msgid "Focal Length"
 msgstr "Goriščna razdalja"
 
 #: plugins/image-metadata.py:132
-#, fuzzy
-#| msgid "Focal length of lens in mm."
 msgid "The actual focal length of the lens, in mm."
-msgstr "Žariščna razdalja leče v milimetrih."
+msgstr "Dejanska goriščna razdalja objektiva v milimetrih."
 
 #: plugins/image-metadata.py:133 plugins/image-metadata.py:155
 msgid "Flash Energy"
 msgstr "Flash energija"
 
 #: plugins/image-metadata.py:133 plugins/image-metadata.py:155
-#, fuzzy
 msgid "Amount of flash energy (BCPS)."
 msgstr "Količina energije bliskavice (BCPS)."
 
@@ -6456,10 +6431,8 @@ msgid "Spatial Frequency Response"
 msgstr "Odziv prostorske frekvence"
 
 #: plugins/image-metadata.py:134 plugins/image-metadata.py:156
-#, fuzzy
-#| msgid "Name of the album."
 msgid "SFR of the camera."
-msgstr "Ime albuma"
+msgstr "SFR kamere."
 
 #: plugins/image-metadata.py:135
 msgid "Noise"
@@ -6470,10 +6443,8 @@ msgid "Noise measurement values."
 msgstr "Vrednosti meritve šuma."
 
 #: plugins/image-metadata.py:136
-#, fuzzy
-#| msgid "F Number"
 msgid "Image Number"
-msgstr "F število"
+msgstr "Številka slike"
 
 #: plugins/image-metadata.py:136
 msgid "Number assigned to an image, e.g., in a chained image burst."
@@ -6488,10 +6459,8 @@ msgid "Security classification assigned to the image."
 msgstr "Varnostna razvrstitev, dodeljena sliki."
 
 #: plugins/image-metadata.py:138
-#, fuzzy
-#| msgid "Image Width"
 msgid "Image History"
-msgstr "Širina slike"
+msgstr "Zgodovina slike"
 
 #: plugins/image-metadata.py:138
 #, fuzzy
@@ -6596,8 +6565,9 @@ msgid "Windows Title"
 msgstr "Širina okna"
 
 #: plugins/image-metadata.py:147
+#, fuzzy
 msgid "Title tag used by Windows, encoded in UCS2"
-msgstr ""
+msgstr "Naslovna oznaka, ki jo uporablja Windows, kodirana v UCS2"
 
 #: plugins/image-metadata.py:148
 #, fuzzy
@@ -6668,9 +6638,8 @@ msgstr "Vzorec predpone se uporablja za izgradnjo imena arhiva, ustvarjenega z v
 
 #: plugins/image-metadata.py:157
 #, fuzzy
-#| msgid "Focal Plane x-Resolution"
 msgid "Focal Plane X Resolution"
-msgstr "Ploskev žariščne ločljivosti X"
+msgstr "Ločljivost goriščne ravnine X"
 
 #: plugins/image-metadata.py:157
 msgid "Number of pixels per FocalPlaneResolutionUnit (37392) in ImageWidth direction for main image."
@@ -6678,9 +6647,8 @@ msgstr ""
 
 #: plugins/image-metadata.py:158
 #, fuzzy
-#| msgid "Focal Plane x-Resolution"
 msgid "Focal Plane Y Resolution"
-msgstr "Ploskev žariščne ločljivosti X"
+msgstr "Ločljivost Y v goriščni ravnini"
 
 #: plugins/image-metadata.py:158
 #, fuzzy
@@ -6715,10 +6683,8 @@ msgid "Sensing Method"
 msgstr "Metoda zaznavanja"
 
 #: plugins/image-metadata.py:162
-#, fuzzy
-#| msgid "Title of image."
 msgid "Type of image sensor."
-msgstr "Naslov slike."
+msgstr "Vrsta slikovnega tipala."
 
 #: plugins/image-metadata.py:163
 msgid "File Source"
@@ -6876,10 +6842,8 @@ msgid "Subject Distance Range"
 msgstr "Oddaljenost območja predmeta"
 
 #: plugins/image-metadata.py:176
-#, fuzzy
-#| msgid "The distance to the subject."
 msgid "This tag indicates the distance to the subject."
-msgstr "Razdalja do predmeta."
+msgstr "Ta značka označuje razdaljo do subjekta."
 
 #: plugins/image-metadata.py:177
 msgid "Image Unique ID"
@@ -6890,20 +6854,16 @@ msgid "This tag indicates an identifier assigned uniquely to each image."
 msgstr ""
 
 #: plugins/image-metadata.py:178
-#, fuzzy
-#| msgid "C_hange Owner"
 msgid "Camera Owner Name"
-msgstr "Spremeni _lastništvo"
+msgstr "Ime lastnika kamere/fotoaparata"
 
 #: plugins/image-metadata.py:178
 msgid "This tag records the owner of a camera used in photography as an ASCII string."
 msgstr ""
 
 #: plugins/image-metadata.py:179
-#, fuzzy
-#| msgid "Track Number"
 msgid "Body Serial Number"
-msgstr "Številka sledi"
+msgstr "Serijska številka ohišja"
 
 #: plugins/image-metadata.py:179
 msgid ""
@@ -6912,10 +6872,8 @@ msgid ""
 msgstr ""
 
 #: plugins/image-metadata.py:180
-#, fuzzy
-#| msgid "License information."
 msgid "Lens Specification"
-msgstr "Podrobnosti dovoljenja."
+msgstr "Specifikacija objektiva"
 
 #: plugins/image-metadata.py:180
 msgid ""
@@ -6925,30 +6883,24 @@ msgid ""
 msgstr ""
 
 #: plugins/image-metadata.py:181
-#, fuzzy
-#| msgid "Make"
 msgid "Lens Make"
-msgstr "Izvedba"
+msgstr "Izdelovalec objektiva"
 
 #: plugins/image-metadata.py:181
 msgid "This tag records the lens manufactor as an ASCII string."
-msgstr ""
+msgstr "Ta značka beleži izdelovalca objektiva kot niz ASCII."
 
 #: plugins/image-metadata.py:182
-#, fuzzy
-#| msgid "Model"
 msgid "Lens Model"
-msgstr "Model"
+msgstr "Model objektiva"
 
 #: plugins/image-metadata.py:182
 msgid "This tag records the lens's model name and model number as an ASCII string."
-msgstr ""
+msgstr "Ta značka beleži ime modela in številko modela objektiva kot niz ASCII."
 
 #: plugins/image-metadata.py:183
-#, fuzzy
-#| msgid "Envelope Number"
 msgid "Lens Serial Number"
-msgstr "Številka ovojnice"
+msgstr "Serijska številka objektiva"
 
 #: plugins/image-metadata.py:183
 msgid ""
@@ -6966,9 +6918,8 @@ msgstr "Določa vrednost barvnega koeficienta."
 
 #: plugins/image-metadata.py:185
 #, fuzzy
-#| msgid "Battery Level"
 msgid "Black Level"
-msgstr "Polnost baterije"
+msgstr "Raven črnine"
 
 #: plugins/image-metadata.py:185
 msgid ""
@@ -7012,8 +6963,6 @@ msgid "Related Image Width"
 msgstr "Skladna širina slike"
 
 #: plugins/image-metadata.py:192
-#, fuzzy
-#| msgid "Image Width"
 msgid "Image width"
 msgstr "Širina slike"
 
@@ -7022,25 +6971,16 @@ msgid "Related Image Length"
 msgstr "Skladna dolžina slike"
 
 #: plugins/image-metadata.py:193
-#, fuzzy
-#| msgid "Page Height"
 msgid "Image height"
-msgstr "Višina strani"
+msgstr "Višina slike"
 
 #: plugins/image-metadata.py:194
-#, fuzzy
-#| msgid "GPS Tag Version"
 msgid "GPS Version ID"
-msgstr "Različica oznake GPS"
+msgstr "ID različice GPS"
 
 #: plugins/image-metadata.py:194
-#, fuzzy
-#| msgid ""
-#| "Indicates the version of <Exif.GPS.InfoIFD>. This tag is mandatory when <Exif.GPS.Info> tag is present."
 msgid "Indicates the version of <GPSInfoIFD>. The version is given as 2.0.0.0."
-msgstr ""
-"Določa različico <Exif.GPS.InfoIFD>. Oznaka je obvezna v primeru, če je določena tudi vrednost <Exif.GPS."
-"Info>."
+msgstr "Določa različico <GPSInfoIFD>. Različica je navedena v obliki 2.0.0.0."
 
 #: plugins/image-metadata.py:195
 #, fuzzy
@@ -7061,10 +7001,8 @@ msgstr ""
 "vrednost »S« južno."
 
 #: plugins/image-metadata.py:196
-#, fuzzy
-#| msgid "Latitude"
 msgid "GPS Latitude"
-msgstr "Zemljepisna širina"
+msgstr "Zemljepisna širina GPS"
 
 #: plugins/image-metadata.py:196
 msgid ""
@@ -7079,9 +7017,8 @@ msgstr ""
 
 #: plugins/image-metadata.py:197
 #, fuzzy
-#| msgid "Altitude Reference"
 msgid "GPS Longitude Reference"
-msgstr "Vrednost nadmorske višine"
+msgstr "Referenca nadmorske višine GPS"
 
 #: plugins/image-metadata.py:197
 #, fuzzy
@@ -7096,10 +7033,8 @@ msgstr ""
 "dolžino, vrednost »W« zahodno."
 
 #: plugins/image-metadata.py:198
-#, fuzzy
-#| msgid "Longitude"
 msgid "GPS Longitude"
-msgstr "Zemljepisna dolžina"
+msgstr "Zemljepisna dolžina GPS"
 
 #: plugins/image-metadata.py:198
 msgid ""
@@ -7113,10 +7048,8 @@ msgstr ""
 "mmmm/100,0/1."
 
 #: plugins/image-metadata.py:199
-#, fuzzy
-#| msgid "Altitude"
 msgid "GPS Altitude"
-msgstr "Nadmorska višina"
+msgstr "Nadmorska višina GPS"
 
 #: plugins/image-metadata.py:199
 #, fuzzy
@@ -7128,10 +7061,8 @@ msgid ""
 msgstr "Določa nadmorsko višino glede na <Exif.GPS.AltitudeRef>. Vrednost enot je v metrih."
 
 #: plugins/image-metadata.py:200
-#, fuzzy
-#| msgid "Time Sent"
 msgid "GPS Time Stamp"
-msgstr "Čas pošiljanja"
+msgstr "Časovni žig GPS"
 
 #: plugins/image-metadata.py:200
 msgid ""
@@ -7150,10 +7081,8 @@ msgid ""
 msgstr ""
 
 #: plugins/image-metadata.py:202
-#, fuzzy
-#| msgid "Edit Status"
 msgid "GPS Status"
-msgstr "Stanje urejanja"
+msgstr "Stanje GPS"
 
 #: plugins/image-metadata.py:202
 msgid ""
@@ -7162,10 +7091,8 @@ msgid ""
 msgstr ""
 
 #: plugins/image-metadata.py:203
-#, fuzzy
-#| msgid "Exposure Mode"
 msgid "GPS Measure Mode"
-msgstr "Način osvetlitve"
+msgstr "Način merjenja GPS"
 
 #: plugins/image-metadata.py:203
 msgid ""
@@ -7175,7 +7102,7 @@ msgstr ""
 
 #: plugins/image-metadata.py:204
 msgid "GPS Data Degree of Precision"
-msgstr ""
+msgstr "Stopnja natančnosti podatkov GPS"
 
 #: plugins/image-metadata.py:204
 msgid ""
@@ -8294,11 +8221,11 @@ msgstr "Album"
 
 #: plugins/multimedia-metadata.py:200
 msgid "Debut album name"
-msgstr ""
+msgstr "Ime debitantskega albuma"
 
 #: plugins/multimedia-metadata.py:201
 msgid "Record label or publisher"
-msgstr ""
+msgstr "Glasbena založba ali založnik"
 
 #: plugins/multimedia-metadata.py:203 plugins/multimedia-metadata.py:279
 msgid "Track Number"
@@ -8334,7 +8261,7 @@ msgstr "Podrejeno mesto"
 
 #: plugins/multimedia-metadata.py:207
 msgid "Publication right holder"
-msgstr ""
+msgstr "Imetnik pravic za objavo"
 
 #: plugins/multimedia-metadata.py:208
 #, fuzzy
@@ -8358,7 +8285,7 @@ msgstr "F število"
 
 #: plugins/multimedia-metadata.py:210
 msgid "Catalog number"
-msgstr ""
+msgstr "Kataloška številka"
 
 #: plugins/multimedia-metadata.py:211
 #, fuzzy
@@ -8568,1495 +8495,6 @@ msgid "Required mutagen module not found. Please install mutagen for Python3 on 
 msgstr ""
 
 #: plugins/plugin_helper.py:203 plugins/plugin_helper.py:206
+#, fuzzy
 msgid "Unsupported application protocol"
-msgstr ""
-
-#~ msgid "MIME icon directory"
-#~ msgstr "Mapa ikon MIME"
-
-#~ msgid "Directory in which MIME icons are located."
-#~ msgstr "Mapa, v kateri so shranjene ikone MIME."
-
-#~ msgid "Theme icon directory:"
-#~ msgstr "Mapa s tematskimi ikonami:"
-
-#~ msgid "Waiting for file list"
-#~ msgstr "Čakanje na izpis datotek"
-
-#~ msgid "{} file listed"
-#~ msgid_plural "{} files listed"
-#~ msgstr[0] "{} izpisanih datotek"
-#~ msgstr[1] "{} izpisana datoteka"
-#~ msgstr[2] "{} izpisani datoteki"
-#~ msgstr[3] "{} izpisane datoteke"
-
-#~ msgid "Current directory is not set."
-#~ msgstr "Trenutna mapa ni nastavljena."
-
-#~ msgid "No parent directory"
-#~ msgstr "Ni nadrejene mape"
-
-#~ msgid "No SAMBA connection is available"
-#~ msgstr "Povezava SAMBA ni na voljo"
-
-#~ msgid "Nothing to compare"
-#~ msgstr "Ničesar ni za primerjavo"
-
-#~ msgid "File suffix"
-#~ msgstr "Pripona datoteke"
-
-#~ msgid "Default file suffix of archives created with the File Roller plugin."
-#~ msgstr "Privzeta pripona arhivov, ki so ustvarjeni z vstavkom File Roller."
-
-#~ msgid "Prefix pattern"
-#~ msgstr "Vzorec predpone"
-
-#~ msgid "Automatically loaded plugins"
-#~ msgstr "Samodejno naloži vstavke"
-
-#~ msgid ""
-#~ "This is the list of automatically loaded plugins, whereas each entry represents the file name of the "
-#~ "plugin."
-#~ msgstr "To je seznam samodejno naloženih vstavkov, vsak vnos pa predstavlja ime datoteke tega vstavka."
-
-#~ msgid "Name of an album the image belongs to."
-#~ msgstr "Ime albuma, ki mu pripada spodnja slika."
-
-#~ msgid "Make of camera used to take the image."
-#~ msgstr "Izvedba aparata s katerim je bila zajeta slika."
-
-#~ msgid "Comments"
-#~ msgstr "_Opombe"
-
-#~ msgid "User definable free text."
-#~ msgstr "Uporabniško določeno prosto besedilo."
-
-#~ msgid "Embedded copyright message."
-#~ msgstr "Vstavljeno sporočilo avtorstva."
-
-#~ msgid "Creator"
-#~ msgstr "Ustvarjalec"
-
-#~ msgid "Datetime image was originally created."
-#~ msgstr "Datum in čas nastanka slike."
-
-#~ msgid ""
-#~ "The program used by the camera to set exposure when the picture is taken. EG Manual, Normal, Aperture "
-#~ "priority etc."
-#~ msgstr ""
-#~ "Program, ki ga uporablja kamera za določitev osvetlitve ob zajemanju slike. EG ročni, običajni, "
-#~ "Prednost zaslonke in podobno."
-
-#~ msgid "Exposure time used to capture the photo in seconds."
-#~ msgstr "Čas osvetlitve med zajemanjem slike v sekundah."
-
-#~ msgid "Set to “1” if flash was fired."
-#~ msgstr "Vrednost » 1 «, če je bila slika narejena s sproženo bliskavico."
-
-#~ msgid "Diameter of the aperture relative to the effective focal length of the lens."
-#~ msgstr "Premer zaslonke določen relativno na žariščno dolžino leče."
-
-#~ msgid "ISO speed used to acquire the document contents. For example, 100, 200, 400, etc."
-#~ msgstr "Hitrost ISO za dostop do vsebine dokumenta. Vrednosti 100, 200, 400, etc."
-
-#~ msgid "String of keywords."
-#~ msgstr "Niz ključnih besed."
-
-#~ msgid ""
-#~ "Metering mode used to acquire the image (IE Unknown, Average, CenterWeightedAverage, Spot, MultiSpot, "
-#~ "Pattern, Partial)."
-#~ msgstr ""
-#~ "Način merjenja, ki se uporablja pri pridobivanju slike (neznano, povprečno, vzorčno, delno, točkovno, "
-#~ "večtočkovno)."
-
-#~ msgid "Represents the orientation of the image wrt camera (IE “top,left” or “bottom,right”)."
-#~ msgstr "Vrednost predstavlja usmerjenost slike (IE »zgoraj,levo« ali »spodaj,desno«)."
-
-#~ msgid "White balance setting of the camera when the picture was taken (auto or manual)."
-#~ msgstr "Nastavitev beline aparata med zajemanjem slike (samodejno ali ročno)."
-
-#~ msgid ""
-#~ "Copyright information. The tag is used to indicate both the photographer and editor copyrights. It is "
-#~ "the copyright notice of the person or organization claiming rights to the image. The Interoperability "
-#~ "copyright statement including date and rights should be written in this field; e.g., “Copyright, John "
-#~ "Smith, 19xx. All rights reserved.”. The field records both the photographer and editor copyrights, "
-#~ "with each recorded in a separate part of the statement. When there is a clear distinction between the "
-#~ "photographer and editor copyrights, these are to be written in the order of photographer followed by "
-#~ "editor copyright, separated by NULL (in this case, since the statement also ends with a NULL, there "
-#~ "are two NULL codes) (see example 1). When only the photographer is given, it is terminated by one NULL "
-#~ "code. When only the editor copyright is given, the photographer copyright part consists of one space "
-#~ "followed by a terminating NULL code, then the editor copyright is given. When the field is left blank, "
-#~ "it is treated as unknown."
-#~ msgstr ""
-#~ "Podrobnosti lastništva. Oznaka določa tako lastništvo fotografa kot tudi urednika. Lastništvo mora "
-#~ "biti vpisano popolno z vsemi pripadajočimi podatki; primer: »Lastništvo, Janez Novak, 19xx. Vse "
-#~ "pravice pridržane.«. Polje vključuje lastništva vseh sodelujočih, podatki pa morajo biti zapisani na "
-#~ "ločenih delih. Kadar so avtorske pravice jasno ločene, morajo biti zabeležene od fotografa, do "
-#~ "oblikovalcev in naprej in se morajo ločiti z vrednostjo NULL (v tem primeru sta na koncu dve vrednosti "
-#~ "NULL, oglejte si primer 1). Kadar pa je lastništvo vezano le na fotografa, se konča z enojno NULL "
-#~ "kodo. Prazno polje se obravnava kot neznan podatek lastništva."
-
-#~ msgid ""
-#~ "The exposure bias. The units is the APEX value. Ordinarily it is given in the range of -99.99 to 99.99."
-#~ msgstr ""
-#~ "Vrednosti nagnjenosti osvetlitve so v APEX enotah. Običajno se vrednost giblje med -99.99 in 99.99."
-
-#~ msgid "This tag is recorded when an image is taken using a strobe light (flash)."
-#~ msgstr "Podatki oznake se shranijo, kadar je slika zajeta z osvetljevanjem z bliskavico."
-
-#~ msgid ""
-#~ "The strobe energy at the time the image is captured, as measured in Beam Candle Power Seconds (BCPS)."
-#~ msgstr "Energija bliskavice ob zajetju slike, izmerjene v BCPS (Beam Candle Power Seconds)."
-
-#~ msgid ""
-#~ "The actual focal length of the lens, in mm. Conversion is not made to the focal length of a 35 mm film "
-#~ "camera."
-#~ msgstr ""
-#~ "Dejanska žariščna razdalja leče v milimetrih. Pretvorba ne velja za žariščno razdaljo 35 mm filmske "
-#~ "kamere."
-
-#~ msgid ""
-#~ "The smallest F number of the lens. The unit is the APEX value. Ordinarily it is given in the range of "
-#~ "00.00 to 99.99, but it is not limited to this range."
-#~ msgstr ""
-#~ "Najmanjša goriščna (F) razdalja leče. Enota je v APEX vrednostih. Običajno je podana v območju med "
-#~ "00.00 in 99.99, vendar na to območje ni omejena."
-
-#~ msgid "Shutter speed. The unit is the APEX (Additive System of Photographic Exposure) setting."
-#~ msgstr "Hitrost zaklopke. Enota predstavlja APEX vrednost (Additive System of Photographic Exposure)."
-
-#~ msgid "Pixel X Dimension"
-#~ msgstr "Dimenzija točke X"
-
-#~ msgid ""
-#~ "Information specific to compressed data. When a compressed file is recorded, the valid width of the "
-#~ "meaningful image must be recorded in this tag, whether or not there is padding data or a restart "
-#~ "marker. This tag should not exist in an uncompressed file."
-#~ msgstr ""
-#~ "Podrobnosti posebej določene za stisnjene podatke. Kadar je shranjena stisnjena datoteka, mora biti "
-#~ "veljavna širina slike zabeležena v oznaki, neodvisno od ostalih podatkov in markerjev. Oznaka ne sme "
-#~ "biti na voljo pri nestisnjenih zapisih slik."
-
-#~ msgid "Pixel Y Dimension"
-#~ msgstr "Dimenzija točke Y"
-
-#~ msgid ""
-#~ "Information specific to compressed data. When a compressed file is recorded, the valid height of the "
-#~ "meaningful image must be recorded in this tag, whether or not there is padding data or a restart "
-#~ "marker. This tag should not exist in an uncompressed file. Since data padding is unnecessary in the "
-#~ "vertical direction, the number of lines recorded in this valid image height tag will in fact be the "
-#~ "same as that recorded in the SOF."
-#~ msgstr ""
-#~ "Podrobnosti posebej določene za stisnjene podatke. Kadar je shranjena stisnjena datoteka, mora biti "
-#~ "veljavna višina slike zabeležena v oznaki, neodvisno od ostalih podatkov in markerjev. Oznaka ne sme "
-#~ "biti na voljo pri nestisnjenih zapisih slik. Ker podlaganje podatkov v navpični smeri ni zahtevano, je "
-#~ "število vrstic enako shranjeni vrednosti SOF."
-
-#~ msgid "y Resolution"
-#~ msgstr "Ločljivost Y"
-
-#~ msgid ""
-#~ "The number of rows of image data. In JPEG compressed data a JPEG marker is used instead of this tag."
-#~ msgstr ""
-#~ "Število vrstic podatkov slike. Pri JPEG stiskanju je uporabljen poseben marker namesto te oznake."
-
-#~ msgid ""
-#~ "The number of columns of image data, equal to the number of pixels per row. In JPEG compressed data a "
-#~ "JPEG marker is used instead of this tag."
-#~ msgstr ""
-#~ "Število stolpcev podatkov slike, ki je enako številu točk na vrstico. Pri JPEG stiskanju je uporabljen "
-#~ "poseben marker namesto te oznake."
-
-#~ msgid ""
-#~ "The use of special processing on image data, such as rendering geared to output. When special "
-#~ "processing is performed, the reader is expected to disable or minimize any further processing."
-#~ msgstr ""
-#~ "Uporaba posebnih učinkov pri obdelavi slike, kot na primer posebni način izrisovanja. V primeru "
-#~ "uporabe posebnih učinkov bralnik onemogoči ali zmanjša vse ostale učinke na sliko."
-
-#~ msgid ""
-#~ "The color space information tag is always recorded as the color space specifier. Normally sRGB is used "
-#~ "to define the color space based on the PC monitor conditions and environment. If a color space other "
-#~ "than sRGB is used, Uncalibrated is set. Image data recorded as Uncalibrated can be treated as sRGB "
-#~ "when it is converted to FlashPix."
-#~ msgstr ""
-#~ "Podrobnosti prostora barve je vedno zabeležen kot določilo prostora barve. Običajno je uporabljeno "
-#~ "sRGB določilo prostora na osnovi zaslona in okolja. V primeru, da je uporabljen drug sistem namesto "
-#~ "sistema sRGB, je določena vrednost neumerjeno. Podatke slike zajete neumerjeno je mogoče obravnavati "
-#~ "kot vrednosti sRGB, kadar so vrednosti prevedene v sistem FlashPix."
-
-#~ msgid "Document name."
-#~ msgstr "Ime dokumenta."
-
-#~ msgid ""
-#~ "A tag for Exif users to write keywords or comments on the image besides those in <Exif."
-#~ "ImageDescription>, and without the character code limitations of the <Exif.ImageDescription> tag. The "
-#~ "character code used in the <Exif.UserComment> tag is identified based on an ID code in a fixed 8-byte "
-#~ "area at the start of the tag data area. The unused portion of the area is padded with NULL (“00.h”). "
-#~ "ID codes are assigned by means of registration. The value of CountN is determinated based on the 8 "
-#~ "bytes in the character code area and the number of bytes in the user comment part. Since the TYPE is "
-#~ "not ASCII, NULL termination is not necessary. The ID code for the <Exif.UserComment> area may be a "
-#~ "Defined code such as JIS or ASCII, or may be Undefined. The Undefined name is UndefinedText, and the "
-#~ "ID code is filled with 8 bytes of all “NULL” (“00.H”). An Exif reader that reads the <Exif."
-#~ "UserComment> tag must have a function for determining the ID code. This function is not required in "
-#~ "Exif readers that do not use the <Exif.UserComment> tag. When a <Exif.UserComment> area is set aside, "
-#~ "it is recommended that the ID code be ASCII and that the following user comment part be filled with "
-#~ "blank characters [20.H]."
-#~ msgstr ""
-#~ "Oznaka za uporabnike določil Exif, s katerimi je mogoče ob ključnih besedah in komentarjih k sliki "
-#~ "zapisati tudi druge oznake <Exif.ImageDescription> in brez omejitev znakovne kode oznake <Exif."
-#~ "ImageDescription>. Znakovna koda, uporabljena v oznaki <Exif.UserComment>, je določena na podlagi "
-#~ "identifikacijske kode v stalnem 8-bajtnem območju na začetku podatkovnega območja oznake. "
-#~ "Neizkoriščeni del območja je zapolnjen z NULL (\"00.h\"). ID določila se dodelijo z registracijo. "
-#~ "Vrednost CountN se določi na podlagi 8 bajtov v območju kod znakov in števila bajtov v delu z "
-#~ "uporabniškim komentarjem. Ker TYPE ni ASCII, zaključek NULL ni potreben. ID koda za območje <Exif."
-#~ "UserComment> je lahko opredeljena koda, kot sta JIS ali ASCII, ali pa je nedoločena. Nedoločeno ime je "
-#~ "UndefinedText, ID koda pa je napolnjena z 8 bajti vseh \"NULL\" (\"00.H\"). Bralnik Exif, ki bere "
-#~ "oznako <Exif.UserComment>, mora imeti funkcijo za določanje kode ID. Ta funkcija ni potrebna v "
-#~ "bralnikih Exif, ki ne uporabljajo oznake <Exif.UserComment>. Kadar je območje <Exif.UserComment> "
-#~ "rezervirano, je priporočljivo, da je ID koda ASCII in da je naslednji del uporabniškega komentarja "
-#~ "izpolnjen s praznimi znaki [20.H]."
-
-#~ msgid "Aperture"
-#~ msgstr "Zaslonka"
-
-#~ msgid "The lens aperture. The unit is the APEX value."
-#~ msgstr "Zaslonka leče. Vrednost je APEX enotah."
-
-#~ msgid ""
-#~ "Name of the camera owner, photographer or image creator. The detailed format is not specified, but it "
-#~ "is recommended that the information be written for ease of Interoperability. When the field is left "
-#~ "blank, it is treated as unknown."
-#~ msgstr ""
-#~ "Ime lastnika aparata, fotografa ali ustvarjalca slike. Podroben zapis ni določen, vendar je "
-#~ "priporočeno, da se podatek vpiše zaradi lažjega vzajemnega delovanja. Prazno polje določa vrednost "
-#~ "neznanega podatka."
-
-#~ msgid "Battery level."
-#~ msgstr "Polnost baterije."
-
-#~ msgid ""
-#~ "The number of bits per image component. Each component of the image is 8 bits, so the value for this "
-#~ "tag is 8. In JPEG compressed data a JPEG marker is used instead of this tag."
-#~ msgstr ""
-#~ "Število bitov na enoto slike. Vsaka enota slike ima 8 bitov, zato je vrednost oznake 8. Pri stisnjenih "
-#~ "datotekah JPEG je uporabljena oznaka JPEG namesto te oznake."
-
-#~ msgid ""
-#~ "The value of brightness. The unit is the APEX value. Ordinarily it is given in the range of -99.99 to "
-#~ "99.99."
-#~ msgstr "Vrednosti osvetlitve so v APEX enotah. Vrednost se vrednost med -99.99 in 99.99."
-
-#~ msgid "CFA Repeat Pattern Dim."
-#~ msgstr "CFA ponavljalni vzorec zameglitve."
-
-#~ msgid ""
-#~ "Information specific to compressed data. The channels of each component are arranged in order from the "
-#~ "1st component to the 4th. For uncompressed data the data arrangement is given in the <Exif."
-#~ "PhotometricInterpretation> tag. However, since <Exif.PhotometricInterpretation> can only express the "
-#~ "order of Y, Cb and Cr, this tag is provided for cases when compressed data uses components other than "
-#~ "Y, Cb, and Cr and to enable support of other sequences."
-#~ msgstr ""
-#~ "Podrobnosti značilne za stisnjene podatke. Vrednosti posamezne barve so urejene v vrsti od prve do "
-#~ "četrte. Nestisnjeni podatki so urejeni v oznaki <Exif.PhotometricInterpretation>, vendar pa so urejeni "
-#~ "le v vrsti Y, Cb in Cr. Zato oznaka določa le podatke stisnjenih slik, ki uporabljajo druge sheme "
-#~ "zaporedij barv."
-
-#~ msgid ""
-#~ "Information on the picture-taking conditions of a particular camera model. The tag is used only to "
-#~ "indicate the picture-taking conditions in the reader."
-#~ msgstr "Podrobnosti pogojev zajemanja posameznega aparata."
-
-#~ msgid ""
-#~ "The version of Exif standard supported. Nonexistence of this field is taken to mean nonconformance to "
-#~ "the standard."
-#~ msgstr "Določa podporo Exif standardu. V primeru, da polje ni določeno, standard Exif ni podprt."
-
-#~ msgid "Fill order."
-#~ msgstr "Vrstni red polnjenja."
-
-#~ msgid ""
-#~ "The unit for measuring <Exif.FocalPlaneXResolution> and <Exif.FocalPlaneYResolution>. This value is "
-#~ "the same as the <Exif.ResolutionUnit>."
-#~ msgstr ""
-#~ "Enota za merjenje <Exif.FocalPlaneXResolution> in <Exif.FocalPlaneYResolution>. Vrednost je enaka "
-#~ "vrednosti <Exif.ResolutionUnit>."
-
-#~ msgid ""
-#~ "The number of pixels in the image width (X) direction per <Exif.FocalPlaneResolutionUnit> on the "
-#~ "camera focal plane."
-#~ msgstr "Število točk širine slike (X) za <Exif.FocalPlaneResolutionUnit> na ploskovnem žarišču aparata."
-
-#~ msgid "Focal Plane y-Resolution"
-#~ msgstr "Ploskev žariščne ločljivosti Y"
-
-#~ msgid ""
-#~ "The number of pixels in the image height (Y) direction per <Exif.FocalPlaneResolutionUnit> on the "
-#~ "camera focal plane."
-#~ msgstr "Število točk višine slike (Y) za <Exif.FocalPlaneResolutionUnit> na ploskovnem žarišču aparata."
-
-#~ msgid ""
-#~ "Indicates the altitude used as the reference altitude. If the reference is sea level and the altitude "
-#~ "is above sea level, 0 is given. If the altitude is below sea level, a value of 1 is given and the "
-#~ "altitude is indicated as an absolute value in the <Exif.GPS.Altitude> tag. The reference unit is "
-#~ "meters."
-#~ msgstr ""
-#~ "Določa nadmorsko višino kot referenčno vrednost. V primeru, da je referenčna vrednost nadmorska "
-#~ "višina, dejanska pa je nad to vrednostjo, se zabeleži vrednost 0. Nadmorska višina pod ravnjo gladine "
-#~ "morja določi vrednost 1, dejanska vrednost pa se zabeleži kot absolutna vrednost v oznaki <Exif.GPS."
-#~ "Altitude>. Vrednost je v metrih."
-
-#~ msgid "GPS Info IFDPointer"
-#~ msgstr "GPS Info IFDPointer"
-
-#~ msgid ""
-#~ "A pointer to the GPS Info IFD. The Interoperability structure of the GPS Info IFD, like that of Exif "
-#~ "IFD, has no image data."
-#~ msgstr ""
-#~ "Kazalnik na GPS podrobnosti IFD. Vrednost vzajemnega delovanja zgradbe GPS podrobnosti IFD, kot Exif "
-#~ "IFD, ne vsebuje podatkov slike."
-
-#~ msgid "North or South Latitude"
-#~ msgstr "Severna ali južna zemljepisna širina"
-
-#~ msgid "East or West Longitude"
-#~ msgstr "Vzhodna ali zahodna zemljepisna dolžina"
-
-#~ msgid ""
-#~ "A character string giving the title of the image. Two-bytes character codes cannot be used. When a 2-"
-#~ "bytes code is necessary, the Exif Private tag <Exif.UserComment> is to be used."
-#~ msgstr ""
-#~ "Znakovni niz naslova slike v 2-bitni znakovni kodi. Pri uporabi te vrste kode je uporabljena tudi "
-#~ "oznaka <Exif.UserComment>."
-
-#~ msgid "Image Resources Block"
-#~ msgstr "Izvorni blok slike"
-
-#~ msgid "Image Resources Block."
-#~ msgstr "Izvorni blok slike."
-
-#~ msgid ""
-#~ "This tag indicates an identifier assigned uniquely to each image. It is recorded as an ASCII string "
-#~ "equivalent to hexadecimal notation and 128-bit fixed length."
-#~ msgstr ""
-#~ "Oznaka določa enoznačno določilo slike. Določilo je shranjeno v obliki ASCII niza enakega "
-#~ "šestnajstiški vrednosti 128 bitne dolžine."
-
-#~ msgid "Inter Color Profile."
-#~ msgstr "Barvni profil Inter."
-
-#~ msgid "IPTC/NAA"
-#~ msgstr "IPTC/NAA"
-
-#~ msgid "An IPTC/NAA record."
-#~ msgstr "Zapis IPTC/NAA."
-
-#~ msgid "JPEG Interchange Format"
-#~ msgstr "Menjalni JPEG zapis"
-
-#~ msgid ""
-#~ "The offset to the start byte (SOI) of JPEG compressed thumbnail data. This is not used for primary "
-#~ "image JPEG data."
-#~ msgstr ""
-#~ "Zamik do začetnega bita (SOI) pri JPEG stisnjenih podatkih sličic. Možnost ni v uporabi pri osnovnih "
-#~ "slikah."
-
-#~ msgid "JPEG Interchange Format Length"
-#~ msgstr "Dolžina menjalnega JPEG zapisa"
-
-#~ msgid ""
-#~ "The number of bytes of JPEG compressed thumbnail data. This is not used for primary image JPEG data. "
-#~ "JPEG thumbnails are not divided but are recorded as a continuous JPEG bitstream from SOI to EOI. Appn "
-#~ "and COM markers should not be recorded. Compressed thumbnails must be recorded in no more than 64 "
-#~ "Kbytes, including all other data to be recorded in APP1."
-#~ msgstr ""
-#~ "Število bajtov stisnjenih podatkov JPEG sličic. Možnost se ne uporablja pri osnovni velikosti JPEG "
-#~ "slike. Sličice JPEG niso razdeljene ampak so posnete kot nadaljujoči se JPEG pretok od SOI do EOI. "
-#~ "Appn in COM markerji niso posneti. Stisnjene sličice ne smejo biti večje od 64 kilobajtov, vključno z "
-#~ "ostalimi podatki, ki so posneti v APP1."
-
-#~ msgid "JPEG procedure."
-#~ msgstr "Postopek JPEG."
-
-#~ msgid ""
-#~ "The Opto-Electronic Conversion Function (OECF) specified in ISO 14524. <Exif.OECF> is the relationship "
-#~ "between the camera optical input and the image values."
-#~ msgstr ""
-#~ "Opto-Elektronska funkcija pretvorbe (OECF) določena z ISO 14524. <Exif.OECF> predstavlja povezavo med "
-#~ "optičnim zajemanjem aparata in vrednostim slike."
-
-#~ msgid "The pixel composition. In JPEG compressed data a JPEG marker is used instead of this tag."
-#~ msgstr "Zgradba točke slike. Pri JPEG stiskanju je uporabljen poseben marker namesto te oznake."
-
-#~ msgid ""
-#~ "Indicates whether pixel components are recorded in a chunky or planar format. In JPEG compressed files "
-#~ "a JPEG marker is used instead of this tag. If this field does not exist, the TIFF default of 1 "
-#~ "(chunky) is assumed."
-#~ msgstr ""
-#~ "Določa kako so točke v sliki shranjene. Pri stisnjenih JPEG zapisih slik je namesto te oznake "
-#~ "uporabljen marker. V primeru, da to polje ne obstaja, je določena privzeta TIFF vrednost 1."
-
-#~ msgid ""
-#~ "The chromaticity of the three primary colors of the image. Normally this tag is not necessary, since "
-#~ "colorspace is specified in <Exif.ColorSpace> tag."
-#~ msgstr ""
-#~ "Barvitost osnovnih treh barv slike. Običajno je oznaka izpuščena, saj je barvni prostor določen v "
-#~ "oznaki <Exif.ColorSpace>."
-
-#~ msgid ""
-#~ "The reference black point value and reference white point value. No defaults are given in TIFF, but "
-#~ "the values below are given as defaults here. The color space is declared in a color space information "
-#~ "tag, with the default being the value that gives the optimal image characteristics under these "
-#~ "conditions."
-#~ msgstr ""
-#~ "Referenčni vrednosti črne in bele točke. Privzetih vrednosti za TIFF ni, so pa te določene spodaj. "
-#~ "Barvno polje določa vrednost, ki najbolj ustreza pogojem prikazovanja."
-
-#~ msgid "Related image file format."
-#~ msgstr "Privzeti slikovni zapis datoteke."
-
-#~ msgid "Related image length."
-#~ msgstr "Po razmerju določena dolžina slike."
-
-#~ msgid "Related image width."
-#~ msgstr "Po razmerju določena širina slike."
-
-#~ msgid ""
-#~ "This tag is used to record the name of an audio file related to the image data. The only relational "
-#~ "information recorded here is the Exif audio file name and extension (an ASCII string consisting of 8 "
-#~ "characters + “.” + 3 characters). The path is not recorded. When using this tag, audio files must be "
-#~ "recorded in conformance to the Exif audio format. Writers are also allowed to store the data such as "
-#~ "Audio within APP2 as FlashPix extension stream data. Audio files must be recorded in conformance to "
-#~ "the Exif audio format. If multiple files are mapped to one file, the above format is used to record "
-#~ "just one audio file name. If there are multiple audio files, the first recorded file is given. When "
-#~ "there are three Exif audio files “SND00001.WAV”, “SND00002.WAV” and “SND00003.WAV”, the Exif image "
-#~ "file name for each of them, “DSC00001.JPG”, is indicated. By combining multiple relational "
-#~ "information, a variety of playback possibilities can be supported. The method of using relational "
-#~ "information is left to the implementation on the playback side. Since this information is an ASCII "
-#~ "character string, it is terminated by NULL. When this tag is used to map audio files, the relation of "
-#~ "the audio file to image data must also be indicated on the audio file end."
-#~ msgstr ""
-#~ "Oznaka se uporablja za zapis imena zvočne datoteke, povezane s slikovnimi podatki. Edina relacijska "
-#~ "informacija, ki se zapiše na tem mestu, je ime zvočne datoteke Exif in razširitev (niz ASCII, "
-#~ "sestavljen iz 8 znakov + \".\" + 3 znaki). Pot se ne vpiše. Pri uporabi te oznake morajo biti zvočne "
-#~ "datoteke zapisane v skladu z zvočnim formatom Exif. Zapisovalci lahko podatke, kot je Audio, shranijo "
-#~ "tudi v APP2 kot podatke toka z razširitvijo FlashPix. Zvočne datoteke morajo biti zapisane v skladu z "
-#~ "zvočnim formatom Exif. Če je več datotek preslikanih v eno datoteko, se zgornji format uporabi za "
-#~ "zapis samo enega imena zvočne datoteke. Če je zvočnih datotek več, se navede prva zapisana datoteka. "
-#~ "Če obstajajo tri zvočne datoteke Exif \"SND00001.WAV\", \"SND00002.WAV\" in \"SND00003.WAV\", je "
-#~ "navedeno ime slikovne datoteke Exif za vsako od njih, \"DSC00001.JPG\". Z združevanjem več relacijskih "
-#~ "informacij je mogoče podpirati različne možnosti predvajanja. Način uporabe relacijskih informacij je "
-#~ "prepuščen izvedbi na strani predvajanja. Ker so te informacije niz znakov ASCII, se končajo z NULL. "
-#~ "Kadar se ta oznaka uporablja za preslikavo zvočnih datotek, je treba na koncu zvočne datoteke navesti "
-#~ "tudi razmerje med zvočno datoteko in slikovnimi podatki."
-
-#~ msgid ""
-#~ "The number of components per pixel. Since this standard applies to RGB and YCbCr images, the value set "
-#~ "for this tag is 3. In JPEG compressed data a JPEG marker is used instead of this tag."
-#~ msgstr ""
-#~ "Število enot na točko slike. Ker standard določa RGB in YCbCr barvne sheme slik, je vrednost oznake "
-#~ "določena s 3. Pri JPEG stiskanju podatkov se namesto te oznake uporablja JPEG marker."
-
-#~ msgid ""
-#~ "The type of scene that was shot. It can also be used to record the mode in which the image was shot. "
-#~ "Note that this differs from <Exif.SceneType> tag."
-#~ msgstr ""
-#~ "Vrsta slikane scene. Lahko se uporablja kot oznaka načina zajemanja slike. Oznaka ni enaka oznaki "
-#~ "<Exif.SceneType>."
-
-#~ msgid "The image sensor type on the camera or input device."
-#~ msgstr "Vrsta tipala na aparatu."
-
-#~ msgid ""
-#~ "This tag records the camera or input device spatial frequency table and SFR values in the direction of "
-#~ "image width, image height, and diagonal direction, as specified in ISO 12233."
-#~ msgstr ""
-#~ "Oznaka vsebuje podatke aparata o prostorski frekvenci in SFR vrednostih v smeri širine, višine in "
-#~ "diagonale slike, kot je določeno v ISO 12233."
-
-#~ msgid "Strip Byte Count"
-#~ msgstr "Števec bajtov trakov"
-
-#~ msgid ""
-#~ "The total number of bytes in each strip. With JPEG compressed data this designation is not needed and "
-#~ "is omitted."
-#~ msgstr "Skupno število bajtov v vsakem traku. Pri JPEG stiskanju ta oznaka ni zahtevana in se ne beleži."
-
-#~ msgid "Strip Offsets"
-#~ msgstr "Zamik trakov"
-
-#~ msgid ""
-#~ "For each strip, the byte offset of that strip. It is recommended that this be selected so the number "
-#~ "of strip bytes does not exceed 64 Kbytes. With JPEG compressed data this designation is not needed and "
-#~ "is omitted."
-#~ msgstr ""
-#~ "Za vsak trak določen zamik začetka traku. Priporočljivo je, da je vrednost bajtov traku ne presega 64 "
-#~ "kilobajtov podatkov. Pri JPEG stiskanju podatkov vrednost ni zahtevana in se ne beleži."
-
-#~ msgid "Sub IFD Offsets"
-#~ msgstr "SubIFD zamik"
-
-#~ msgid "Defined by Adobe Corporation to enable TIFF Trees within a TIFF file."
-#~ msgstr "Določen preko Adobe standarda, da omogoči TIFF zgradbo znotraj TIFF datoteke."
-
-#~ msgid ""
-#~ "The location of the main subject in the scene. The value of this tag represents the pixel at the "
-#~ "center of the main subject relative to the left edge, prior to rotation processing as per the <Exif."
-#~ "Rotation> tag. The first value indicates the X column number and second indicates the Y row number."
-#~ msgstr ""
-#~ "Lega glavnega predmeta na skupni sceni. Vrednost oznake predstavlja točko v središču glavnega predmeta "
-#~ "glede na levi rob, pred obračanjem slike določenim v oznaki <Exif.Rotation>. Prva vrednost določa "
-#~ "stolpec X, druga pa vrstico Y."
-
-#~ msgid "TIFF/EP Standard ID."
-#~ msgstr "TIFF/EP Standard ID."
-
-#~ msgid ""
-#~ "A transfer function for the image, described in tabular style. Normally this tag is not necessary, "
-#~ "since color space is specified in <Exif.ColorSpace> tag."
-#~ msgstr ""
-#~ "Funkcija prenosa slike, opisana v razpredelnici. Običajno oznaka ni zahtevana, saj je barvni prostor "
-#~ "določen v oznaki <Exif.ColorSpace>."
-
-#~ msgid "Transfer range."
-#~ msgstr "Območje prenosa."
-
-#~ msgid ""
-#~ "The chromaticity of the white point of the image. Normally this tag is not necessary, since color "
-#~ "space is specified in <Exif.ColorSpace> tag."
-#~ msgstr ""
-#~ "Barvitost belih točk na sliki. Običajno oznaka ni zahtevana, saj je barvni prostor določen v oznaki "
-#~ "<Exif.ColorSpace>."
-
-#~ msgid "XML Packet"
-#~ msgstr "Paket XML"
-
-#~ msgid ""
-#~ "The matrix coefficients for transformation from RGB to YCbCr image data. No default is given in TIFF; "
-#~ "but here “Color Space Guidelines” is used as the default. The color space is declared in a color space "
-#~ "information tag, with the default being the value that gives the optimal image characteristics under "
-#~ "this condition."
-#~ msgstr ""
-#~ "Matrični koeficienti pretvarjanja RGB v YCbCr barvni sistem slike. Privzeta vrednost v TIFF ni "
-#~ "določena; je pa privzeta vrednost določena v polju \"Vodila barvnega prostora\". Barvni prostor je "
-#~ "določan v ločeni oznaki, privzeta vrednost pa je tista, ki najbolje podpira pogoje vzajemnega "
-#~ "delovanja."
-
-#~ msgid ""
-#~ "The position of chrominance components in relation to the luminance component. This field is "
-#~ "designated only for JPEG compressed data or uncompressed YCbCr data. The TIFF default is 1 (centered); "
-#~ "but when Y:Cb:Cr = 4:2:2 it is recommended that 2 (co-sited) be used to record data, in order to "
-#~ "improve the image quality when viewed on TV systems. When this field does not exist, the reader shall "
-#~ "assume the TIFF default. In the case of Y:Cb:Cr = 4:2:0, the TIFF default (centered) is recommended. "
-#~ "If the reader does not have the capability of supporting both kinds of <Exif.YCbCrPositioning>, it "
-#~ "shall follow the TIFF default regardless of the value in this field. It is preferable that readers be "
-#~ "able to support both centered and co-sited positioning."
-#~ msgstr ""
-#~ "Lega barvitosti v povezavi z osvetljenostjo slike. Polje določa vrednost le za stisnjene JPEG podatke "
-#~ "ali nestisnjene podatke YCbCr. Privzeta TIFF vrednosti je 1 (sredinjeno); vendar je priporočena za "
-#~ "razmerje Y:Cb:Cr = 4:2:2 vrednost 2 za shranjevanje podatkov, z namenom izboljšanja kakovosti slike "
-#~ "pri pregledovanju preko TV zaslonov. V primeru, da polje ne obstaja, bralnik slik privzame vrednost 1. "
-#~ "V primeru razmerja Y:Cb:Cr = 4:2:0, je prav tako priporočena vrednost 1. V primeru, da bralnik slik ne "
-#~ "podpira obeh vrst podatkov <Exif.YCbCrPositioning>, sledi privzeti TIFF vrednosti neodvisno od "
-#~ "vrednosti polja."
-
-#~ msgid "By-line"
-#~ msgstr "Vrstično"
-
-#~ msgid ""
-#~ "Name of the creator of the object, e.g. writer, photographer or graphic artist (multiple values "
-#~ "allowed)."
-#~ msgstr "Ime ustvarjalca predmeta, primer: pisatelj, fotograf, umetnik (dovoljenih več vnosov)."
-
-#~ msgid "By-line Title"
-#~ msgstr "Vrstična oznaka"
-
-#~ msgid "Title of the creator or creators of the object."
-#~ msgstr "Naslov ustvarjalca ali ustvarjalcev predmeta."
-
-#~ msgid "Headline"
-#~ msgstr "Naslovna vrstica"
-
-#~ msgid "A publishable entry providing a synopsis of the contents of the object."
-#~ msgstr "Objavljen vnos, ki ponuja strnjen povzetek vsebine predmeta."
-
-#~ msgid "The location within a city from which the object originates."
-#~ msgstr "Podrobni podatki o mestu, kjer je bil predmet ustvarjen."
-
-#~ msgid "City"
-#~ msgstr "Mesto"
-
-#~ msgid "City of object origin."
-#~ msgstr "Mesto izvora predmeta."
-
-#~ msgid "Province, State"
-#~ msgstr "Provinca, Država"
-
-#~ msgid "The Province/State where the object originates."
-#~ msgstr "Okraj ali območje od koder predmet izvira."
-
-#~ msgid "Country Code"
-#~ msgstr "Koda države"
-
-#~ msgid "The code of the country/primary location where the object was created."
-#~ msgstr "Koda države ali kraja, kjer je bil predmet ustvarjen."
-
-#~ msgid "Country Name"
-#~ msgstr "Ime države"
-
-#~ msgid ""
-#~ "The person or organization which can provide further background information on the object (multiple "
-#~ "values allowed)."
-#~ msgstr "Oseba ali organizacija, ki lahko ponudi več podrobnosti o predmetu (dovoljenih več vnosov)."
-
-#~ msgid "Any necessary copyright notice."
-#~ msgstr "Vsako obvezno opozorilo avtorskih pravic."
-
-#~ msgid "Identifies the provider of the object, not necessarily the owner/creator."
-#~ msgstr "Določa ponudnika predmeta in ne nujno lastnika ali ustvarjalca."
-
-#~ msgid "Used to indicate specific information retrieval words (multiple values allowed)."
-#~ msgstr "Uporabljen za določitev posebnih podrobnosti pridobivanja besed (dovoljenih več vnosov)."
-
-#~ msgid "Digital Creation Date"
-#~ msgstr "Datum digitaliziranja"
-
-#~ msgid "The date the digital representation of the object was created."
-#~ msgstr "Datum, ko je bila digitalna predstavitev ustvarjena."
-
-#~ msgid "Digital Creation Time"
-#~ msgstr "Čas digitaliziranja"
-
-#~ msgid "The time the digital representation of the object was created."
-#~ msgstr "Čas, ko je bila digitalna predstavitev ustvarjena."
-
-#~ msgid "Image Orientation"
-#~ msgstr "Usmerjenost slike"
-
-#~ msgid "The layout of the image area: “P” for portrait, “L” for landscape, and “S” for square."
-#~ msgstr "Razpored območja slike: »P« portret, »L« za ležeče in »S« za kvadratno območje."
-
-#~ msgid "Special Instructions"
-#~ msgstr "Posebna navodila"
-
-#~ msgid "Other editorial instructions concerning the use of the object."
-#~ msgstr "Druga navodila urejevanja, ki so povezana z uporabo predmeta."
-
-#~ msgid "Urgency"
-#~ msgstr "Nujnost"
-
-#~ msgid ""
-#~ "Specifies the editorial urgency of content and not necessarily the envelope handling priority. “1” is "
-#~ "most urgent, “5” normal, and “8” least urgent."
-#~ msgstr ""
-#~ "Določa prednost urejanja in ne nujno upravljanja z ovojnico. Vrednost »1« pomeni nujno, »5« običajno "
-#~ "in »8« odložljivo."
-
-#~ msgid "Action Advised"
-#~ msgstr "Priporočeno dejanje"
-
-#~ msgid ""
-#~ "The type of action that this object provides to a previous object. “01” Object Kill, “02” Object "
-#~ "Replace, “03” Object Append, “04” Object Reference."
-#~ msgstr ""
-#~ "Vrsta dejanja, ki ga predmet ponuja glede na predhodni predmet. »01« predmet uniči, »02« predmet "
-#~ "zamenjaj, »03« predmet pripni, »04« predmet naveži."
-
-#~ msgid "Identifies the Abstract Relationship Method (ARM)."
-#~ msgstr "Določa abstraktni način povezovanja (Abstract relationship method)."
-
-#~ msgid "Identifies the version of the Abstract Relationship Method (ARM)."
-#~ msgstr "Določa različico abstraktnega načina povezovanja (Abstract relationship method version)."
-
-#~ msgid "Audio Duration"
-#~ msgstr "Trajanje posnetka"
-
-#~ msgid "The running time of the audio data in the form HHMMSS."
-#~ msgstr "Trajanje predvajanja zvoka v obliki HHMMSS."
-
-#~ msgid "Audio Outcue"
-#~ msgstr "Zvočno oddajanje"
-
-#~ msgid "The content at the end of the audio data."
-#~ msgstr "Vsebina na koncu podatkov zvočnega posnetka."
-
-#~ msgid "Audio Sampling Rate"
-#~ msgstr "Raven vzorčenja zvoka"
-
-#~ msgid "The sampling rate in Hz of the audio data."
-#~ msgstr "Raven vzorčenja zvočnih podatkov v Hz."
-
-#~ msgid "Audio Sampling Resolution"
-#~ msgstr "Ločljivost zvočnega vzorčenja"
-
-#~ msgid "Audio Type"
-#~ msgstr "Zvočna vrsta"
-
-#~ msgid "The number of channels and type of audio (music, text, etc.) in the object."
-#~ msgstr "Število kanalov in vrsta zvočne datoteke (glasba, besedilo, ...) v predmetu."
-
-#~ msgid "Identifies the subject of the object in the opinion of the provider (Deprecated)."
-#~ msgstr "Določa zadevo predmeta med možnostmi ponudnika (opuščeno)."
-
-#~ msgid "Coded Character Set"
-#~ msgstr "kodirani znakovni nabor"
-
-#~ msgid "Control functions used for the announcement, invocation or designation of coded character sets."
-#~ msgstr "Nadzorne funkcije uporabljane za objavljanje, pozivanje ali označbo nabora znakov kodiranja."
-
-#~ msgid "Confirmed Data Size"
-#~ msgstr "Potrjena velikost podatkov"
-
-#~ msgid "Total size of the object data."
-#~ msgstr "Skupna velikost podatkov predmeta."
-
-#~ msgid "Content Location Code"
-#~ msgstr "Koda mesta vsebine"
-
-#~ msgid ""
-#~ "The code of a country/geographical location referenced by the content of the object (multiple values "
-#~ "allowed)."
-#~ msgstr "Koda države ali geografska lega določena v vsebini predmeta (dovoljenih več vnosov)."
-
-#~ msgid "Content Location Name"
-#~ msgstr "Ime mesta vsebine"
-
-#~ msgid ""
-#~ "A full, publishable name of a country/geographical location referenced by the content of the object "
-#~ "(multiple values allowed)."
-#~ msgstr ""
-#~ "Polno, objavljeno ime države ali geografskega kraja, ki je določen v vsebini predmeta (dovoljenih več "
-#~ "vnosov)."
-
-#~ msgid ""
-#~ "The date the intellectual content of the object was created rather than the date of the creation of "
-#~ "the physical representation."
-#~ msgstr "Datum, ko je bila avtorska vsebina ustvarjena, namesto datuma dejanskega izdelka."
-
-#~ msgid "The day the service sent the material."
-#~ msgstr "Dan pošiljanja storitev materiala."
-
-#~ msgid "Editorial Update"
-#~ msgstr "Uredniška posodobitev"
-
-#~ msgid ""
-#~ "The type of update this object provides to a previous object. The link to the previous object is made "
-#~ "using the ARM. “01” indicates an additional language."
-#~ msgstr ""
-#~ "Vrsta posodobitve predmeta glede na predhodni predmet. Povezava s predhodnim predmetom je ustvarjena z "
-#~ "ARM. »01» določa dodatni jezik."
-
-#~ msgid "Status of the object, according to the practice of the provider."
-#~ msgstr "Stanje urejanja predmeta, kot ga določa ponudnik."
-
-#~ msgid "A number unique for the date and the service ID."
-#~ msgstr "Enoznačna številka datuma in ID storitve."
-
-#~ msgid "Envelope Priority"
-#~ msgstr "Prednost ovojnice"
-
-#~ msgid ""
-#~ "Specifies the envelope handling priority and not the editorial urgency. “1” for most urgent, “5” for "
-#~ "normal, and “8” for least urgent. “9” is user-defined."
-#~ msgstr ""
-#~ "Določa prednost upravljanja z ovojnico in ne nujnost urejanja. Vrednost »1« določa nujno, »5« običajno "
-#~ "in »8« odložljivo. Vrednost »9« določa prednost po meri."
-
-#~ msgid "Expiration Date"
-#~ msgstr "Datum preteka"
-
-#~ msgid "Designates the latest date the provider intends the object to be used."
-#~ msgstr "Določa najpoznejši datum, do katerega je predvidena uporaba predmeta."
-
-#~ msgid "Expiration Time"
-#~ msgstr "Čas preteka"
-
-#~ msgid "Designates the latest time the provider intends the object to be used."
-#~ msgstr "Določa najpoznejši čas do katerega je predvidena uporaba predmeta."
-
-#~ msgid "File format of the data described by this metadata."
-#~ msgstr "Zapis datoteke in podatki opisani v metapodatkih."
-
-#~ msgid "File Version"
-#~ msgstr "Različica datoteke"
-
-#~ msgid "Version of the file format."
-#~ msgstr "Različica oblike datoteke."
-
-#~ msgid "Fixture Identifier"
-#~ msgstr "Določilo osvetljevala"
-
-#~ msgid ""
-#~ "Identifies objects that recur often and predictably, enabling users to immediately find or recall such "
-#~ "an object."
-#~ msgstr ""
-#~ "Določa predmete, ki se pojavljajo pogosto in so predvidljivi, s čimer omogoči uporabniku hitro iskanje "
-#~ "med takimi predmeti."
-
-#~ msgid "Image Type"
-#~ msgstr "Vrsta slike"
-
-#~ msgid "Language Identifier"
-#~ msgstr "Določilo jezika"
-
-#~ msgid "The major national language of the object, according to the 2-letter codes of ISO 639:1988."
-#~ msgstr "Določilo jezika predmeta v obliki dvo-črkovne kode ISO 639 standarda: 1988."
-
-#~ msgid "Maximum Object Size"
-#~ msgstr "Največja velikost predmeta"
-
-#~ msgid "The largest possible size of the object if the size is not known."
-#~ msgstr "Največja možna velikost predmeta v primeru, da ta ni znana."
-
-#~ msgid "Max Subfile Size"
-#~ msgstr "Največja velikost prikazne datoteke"
-
-#~ msgid "The maximum size for a subfile dataset containing a portion of the object data."
-#~ msgstr ""
-#~ "Največja dovoljena velikost podatkov posamezne prikazne datoteke, ki vsebujejo del podatkov predmeta."
-
-#~ msgid "Model Version"
-#~ msgstr "Različica modela"
-
-#~ msgid "Version of IIM part 1."
-#~ msgstr "Različica IIM del 1."
-
-#~ msgid "Object Attribute Reference"
-#~ msgstr "Sklic atributov predmeta"
-
-#~ msgid "Defines the nature of the object independent of the subject (multiple values allowed)."
-#~ msgstr "Določa naravo predmeta neodvisno od predmeta samega (dovoljenih več vnosov)."
-
-#~ msgid "Object Cycle"
-#~ msgstr "Kroženje predmeta"
-
-#~ msgid "Where “a” is morning, “p” is evening, “b” is both."
-#~ msgstr "Vrednost » a « določa dopoldanski čas, » p « popoldanski, » b « obe vrednosti."
-
-#~ msgid "A shorthand reference for the object."
-#~ msgstr "Kratek sklic predmeta"
-
-#~ msgid "Object Size Announced"
-#~ msgstr "Objavljena velikost predmeta"
-
-#~ msgid "The total size of the object data if it is known."
-#~ msgstr "Skupna znana velikost podatkov predmeta."
-
-#~ msgid "Object Type Reference"
-#~ msgstr "Sklic vrste predmeta"
-
-#~ msgid "Distinguishes between different types of objects within the IIM."
-#~ msgstr "Loči med različnimi vrstami predmetov znotraj IIM."
-
-#~ msgid "Originating Program"
-#~ msgstr "Izvorni program"
-
-#~ msgid "The type of program used to originate the object."
-#~ msgstr "Vrsta programa s katerim je bil predmet ustvarjen."
-
-#~ msgid "Original Transmission Reference"
-#~ msgstr "Običajni sklic prenosa"
-
-#~ msgid "A code representing the location of original transmission."
-#~ msgstr "Koda, ki določa kraj prvotnega prenosa."
-
-#~ msgid "Preview Data"
-#~ msgstr "Podatki predogleda"
-
-#~ msgid "The object preview data."
-#~ msgstr "Podatki predogleda predmeta."
-
-#~ msgid "Preview File Format"
-#~ msgstr "Oblika predogleda datoteke"
-
-#~ msgid "Binary value indicating the file format of the object preview data."
-#~ msgstr "Dvojiška vrednost, ki določa zapis datoteke predogleda podatkov predmeta."
-
-#~ msgid "Preview File Format Version"
-#~ msgstr "Predogled različice zapisa datoteke"
-
-#~ msgid "The version of the preview file format."
-#~ msgstr "Različica zapisa predogleda datoteke."
-
-#~ msgid "Product ID"
-#~ msgstr "ID izdelka"
-
-#~ msgid "Allows a provider to identify subsets of its overall service."
-#~ msgstr "Omogoča ponudniku določiti podrejene enote skupne storitve."
-
-#~ msgid "Program Version"
-#~ msgstr "Različica programa"
-
-#~ msgid "Rasterized Caption"
-#~ msgstr "Rastrska oznaka"
-
-#~ msgid ""
-#~ "Contains rasterized object description and is used where characters that have not been coded are "
-#~ "required for the caption."
-#~ msgstr ""
-#~ "Vsebuje opis rastrskega predmeta in je uporabljen tam, kjer so znaki, ki niso kodirani, zahtevani v "
-#~ "naslovu."
-
-#~ msgid "Identifies the version of the IIM, Part 2."
-#~ msgstr "Določa različico IIM, del 2."
-
-#~ msgid "Reference Date"
-#~ msgstr "Sklicni datum"
-
-#~ msgid "The date of a prior envelope to which the current object refers."
-#~ msgstr "Datum predhodne ovojnice, ki ji trenutni predmet pripada."
-
-#~ msgid "Reference Number"
-#~ msgstr "Sklicno število"
-
-#~ msgid "The Envelope Number of a prior envelope to which the current object refers."
-#~ msgstr "Številka predhodne ovojnice, ki ji trenutni predmet pripada."
-
-#~ msgid "Reference Service"
-#~ msgstr "Sklicna storitev"
-
-#~ msgid "The Service Identifier of a prior envelope to which the current object refers."
-#~ msgstr "Določilo storitve predhodne ovojnice, ki ji trenutni predmet pripada."
-
-#~ msgid "Designates the earliest date the provider intends the object to be used."
-#~ msgstr "Določa najpoznejši datum, do katerega je predvidena uporaba predmeta."
-
-#~ msgid "Designates the earliest time the provider intends the object to be used."
-#~ msgstr "Določa najpoznejši čas, do katerega je predvidena uporaba predmeta."
-
-#~ msgid "Service Identifier"
-#~ msgstr "Določilo storitve"
-
-#~ msgid "Identifies the provider and product."
-#~ msgstr "Določa ponudnika in izdelek."
-
-#~ msgid "Set to 0 if the size of the object is known and 1 if not known."
-#~ msgstr "Vrednost 0 predstavlja znano velikost, vrednost 1 pa neznano."
-
-#~ msgid "The original owner of the intellectual content of the object."
-#~ msgstr "Prvi lastnik avtorstva vsebine predmeta."
-
-#~ msgid "Subfile"
-#~ msgstr "Prikazna datoteka"
-
-#~ msgid "The object data itself. Subfiles must be sequential so that the subfiles may be reassembled."
-#~ msgstr ""
-#~ "Lastni podatki predmeta. Prikazne datoteke si morajo slediti v zaporedju, da jih je mogoče ponovno "
-#~ "sestaviti."
-
-#~ msgid ""
-#~ "A structured definition of the subject matter. It must contain an IPR, an 8 digit Subject Reference "
-#~ "Number and an optional Subject Name, Subject Matter Name, and Subject Detail Name each separated by a "
-#~ "colon (:)."
-#~ msgstr ""
-#~ "Oblikovana definicija predmeta. Vsebovati mora IPR, 8 mestno referenčno število predmeta in poljubno "
-#~ "ime predmeta, enota in podrobnosti, ločene s podpičjem (:)."
-
-#~ msgid "Supplemental Category"
-#~ msgstr "Dopolnilna kategorija"
-
-#~ msgid "Further refines the subject of the object (Deprecated)."
-#~ msgstr "Podrobneje določa naslov predmeta (opuščeno)"
-
-#~ msgid "Time Created"
-#~ msgstr "Čas stvaritve"
-
-#~ msgid ""
-#~ "The time the intellectual content of the object was created rather than the date of the creation of "
-#~ "the physical representation (multiple values allowed)."
-#~ msgstr ""
-#~ "Obdobje v katerem je bila ustvarjena avtorska vsebina predmeta, namesto datuma dejanskega posnetka "
-#~ "vsebine (dovoljenih več vnosov)."
-
-#~ msgid "The time the service sent the material."
-#~ msgstr "Čas pošiljanja materiala."
-
-#~ msgid "Unique Name of Object"
-#~ msgstr "Enoznačno ime predmeta"
-
-#~ msgid ""
-#~ "An eternal, globally unique identification for the object, independent of provider and for any media "
-#~ "form."
-#~ msgstr ""
-#~ "Notranji, splošno enoznačno določilo predmeta, neodvisno od ponudnika in določeno za vsako obliko "
-#~ "predstavne vsebine."
-
-#~ msgid "Writer/Editor"
-#~ msgstr "Pisec/Urednik"
-
-#~ msgid ""
-#~ "The name of the person involved in the writing, editing or correcting the object or caption/abstract "
-#~ "(multiple values allowed)."
-#~ msgstr ""
-#~ "Ime osebe, ki je odgovorna za pisanje, urejanje ali popravljanje predmeta ali naslova (dovoljenih več "
-#~ "vnosov)."
-
-#~ msgid "Could not load schemas from %s: %s\n"
-#~ msgstr "Ni mogoče naložiti shem iz %s: %s\n"
-
-#~ msgid ""
-#~ "Error running \"%s\"\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Napaka med zaganjanjem »%s«\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid "What file name should the new archive have?"
-#~ msgstr "Kakšno ime naj ima nov arhiv?"
-
-#~ msgid "_OK"
-#~ msgstr "V _redu"
-
-#~ msgid "Extract in Current Directory"
-#~ msgstr "Razširi v trenutno mapo"
-
-#~ msgid "Extract to “%s”"
-#~ msgstr "Razširi v mapo »%s«"
-
-#~ msgid "File-roller options"
-#~ msgstr "Možnosti File-roller"
-
-#~ msgid "Default archive type"
-#~ msgstr "Privzeta vrsta arhiva"
-
-#~ msgid "File prefix pattern"
-#~ msgstr "Vzorec predpone datoteke"
-
-#~ msgid ""
-#~ "Use $N as a pattern for the original file name. See the manual page for “strftime” for other patterns."
-#~ msgstr ""
-#~ "Uporabi $N za vzorec imena izvorne datoteke. Drugi vzorci so predstavljeni na straneh priročnika pri "
-#~ "zapisih »strftime«."
-
-#~ msgid "Author"
-#~ msgstr "Avtor"
-
-#~ msgid ""
-#~ "An entity primarily responsible for making the content of the resource, typically a person, "
-#~ "organization, or service."
-#~ msgstr "Sestavljalec besedila vira, ki je lahko oseba organizacija ali storitev."
-
-#~ msgid "Document subject."
-#~ msgstr "Zadeva dokumenta"
-
-#~ msgid "An account of the content of the resource."
-#~ msgstr "Račun vsebine vira."
-
-#~ msgid "Category."
-#~ msgstr "Kategorija"
-
-#~ msgid "Searchable, indexable keywords."
-#~ msgstr "Iskalne, indeksirane ključne besede."
-
-#~ msgid "Number of revision on the document."
-#~ msgstr "Število predelav dokumenta."
-
-#~ msgid "Number of pages in the document."
-#~ msgstr "Število strani v dokumentu."
-
-#~ msgid "Line Count"
-#~ msgstr "Štetje vrstic"
-
-#~ msgid "Number of words in the document."
-#~ msgstr "Število besed v dokumentu."
-
-#~ msgid "Byte Count"
-#~ msgstr "Štetje bajtov"
-
-#~ msgid "Codepage"
-#~ msgstr "Kodni nabor"
-
-#~ msgid "The MS codepage to encode strings for metadata."
-#~ msgstr "MS koda za kodiranje nizov metapodatkov."
-
-#~ msgid "Organization that the <Doc.Creator> entity is associated with."
-#~ msgstr "Organizacija s katero je povezan predmet <Doc.Creator>."
-
-#~ msgid "Datetime document was originally created."
-#~ msgstr "Čas, ko je bil dokument ustvarjen."
-
-#~ msgid "Dictionary"
-#~ msgstr "Slovar"
-
-#~ msgid "Dictionary."
-#~ msgstr "Slovar."
-
-#~ msgid "The total time taken until the last modification."
-#~ msgstr "Skupni čas od zadnje spremembe."
-
-#~ msgid "Number of images in the document."
-#~ msgstr "Število slik v dokumentu."
-
-#~ msgid "Specifies the name of the person who created the document initially."
-#~ msgstr "Ime osebe, ki je prva ustvarila dokument."
-
-#~ msgid "The locale language of the intellectual content of the resource."
-#~ msgstr "Krajevni jezik intelektualne vsebine vira."
-
-#~ msgid "The last time this document was printed."
-#~ msgstr "Čas zadnjega tiskanja dokumenta."
-
-#~ msgid "Last Saved By"
-#~ msgstr "Zadnjič shranil"
-
-#~ msgid ""
-#~ "The entity that made the last change to the document, typically a person, organization, or service."
-#~ msgstr "Oseba ali organizacija ali storitev, ki je zadnja spreminjala dokument."
-
-#~ msgid "Locale System Default"
-#~ msgstr "Sistemsko privzete jezikovne nastavitve"
-
-#~ msgid "Identifier representing the default system locale."
-#~ msgstr "Določilo, ki predstavlja privzeti krajevni sistemski jezik."
-
-#~ msgid "Number of multimedia clips in the document."
-#~ msgstr "Število predstavnih predmetov v dokumentu."
-
-#~ msgid "Name of the manager of <Doc.Creator> entity."
-#~ msgstr "Ime upravljalnika predmeta <Doc.Creator>."
-
-#~ msgid "Number of “notes” in the document."
-#~ msgstr "Število »opomb« v dokumentu."
-
-#~ msgid "Number of objects (OLE and other graphics) in the document."
-#~ msgstr "Število predmetov (OLE in drugi slikovni viri) v dokumentu."
-
-#~ msgid "Type of presentation, like “On-screen Show”, “SlideView”, etc."
-#~ msgstr "Vrsta predstavitve, npr.: »zaslonski prikaz«, »predstavitev«, in drugo."
-
-#~ msgid "Scale."
-#~ msgstr "Merilo."
-
-#~ msgid "Security"
-#~ msgstr "Varnost"
-
-#~ msgid ""
-#~ "One of: “Password protected”, “Read-only recommended”, “Read-only enforced” or “Locked for "
-#~ "annotations”."
-#~ msgstr ""
-#~ "Izbrane možnosti: »Zaščiteno z geslom«, »Priporočeno le za branje«, »Vsiljeno le za branje« ali "
-#~ "»Zaklenjeno za pripombe«."
-
-#~ msgid "Spreadsheet Count"
-#~ msgstr "Štetje preglednic"
-
-#~ msgid "Case Sensitive"
-#~ msgstr "Razlikovanje velikosti črk"
-
-#~ msgid "Case sensitive."
-#~ msgstr "Upoštevaj velikost črk."
-
-#~ msgid "Links Dirty"
-#~ msgstr "Pomanjkljive povezave"
-
-#~ msgid "Links dirty."
-#~ msgstr "Pomanjkljive povezave v dokumentu."
-
-#~ msgid "Doc"
-#~ msgstr "Doc"
-
-#~ msgid "A plugin for extracting metadata from document files using libgsf library."
-#~ msgstr "Vstavek za pridobivanje metapodatkov iz datotek dokumentov z uporabo knjižnice libgsf."
-
-#~ msgid "Page size format."
-#~ msgstr "Oblika velikosti strani."
-
-#~ msgid "Page width in mm."
-#~ msgstr "Širina strani v milimetrih."
-
-#~ msgid "Page height in mm."
-#~ msgstr "Višina strani v milimetrih."
-
-#~ msgid "The application that converted the document to PDF."
-#~ msgstr "Program s katerim je bil dokument pretvorjen v PDF zapis."
-
-#~ msgid "Number of embedded files in the document."
-#~ msgstr "Število vstavljenih datotek v dokumentu."
-
-#~ msgid "Fast Web View"
-#~ msgstr "Hitri spletni pogled"
-
-#~ msgid "Set to “1” if optimized for network access."
-#~ msgstr "Vrednost » 1 «, če je omogočen omrežni dostop."
-
-#~ msgid "Printing"
-#~ msgstr "Tiskanje"
-
-#~ msgid "Set to “1” if printing is allowed."
-#~ msgstr "Vrednost » 1 «, če je omogočeno tiskanje."
-
-#~ msgid "Printing in High Resolution"
-#~ msgstr "Tiskanje v visoki ločljivosti"
-
-#~ msgid "Set to “1” if high resolution printing is allowed."
-#~ msgstr "Vrednost » 1 «, če je omogočeno tiskanje v visoki ločljivosti."
-
-#~ msgid "Copying"
-#~ msgstr "Kopiranje"
-
-#~ msgid "Set to “1” if copying the contents is allowed."
-#~ msgstr "Vrednost » 1 «, če je omogočeno kopiranje vsebine."
-
-#~ msgid "Modifying"
-#~ msgstr "Spreminjanje"
-
-#~ msgid "Set to “1” if modifying the contents is allowed."
-#~ msgstr "Vrednost » 1 «, če je omogočeno spreminjanje vsebine."
-
-#~ msgid "Document Assembly"
-#~ msgstr "Sestavljanje dokumentov"
-
-#~ msgid "Set to “1” if inserting, rotating, or deleting pages and creating navigation elements is allowed."
-#~ msgstr ""
-#~ "Vrednost » 1 «, če je omogočeno vstavljanje, obračanje in brisanje strani ter ustvarjanje predmetov."
-
-#~ msgid "Commenting"
-#~ msgstr "Opombe"
-
-#~ msgid "Set to “1” if adding or modifying text annotations is allowed."
-#~ msgstr "Vrednost » 1 «, če je omogočeno dodajanje in spreminjanje besedilnih opomb."
-
-#~ msgid "Form Filling"
-#~ msgstr "Izpolnjevanje obrazcev"
-
-#~ msgid "Set to “1” if filling of form fields is allowed."
-#~ msgstr "Vrednost » 1 «, če je omogočeno izpolnjevanje polj obrazcev."
-
-#~ msgid "Accessibility Support"
-#~ msgstr "Podpora dostopnosti"
-
-#~ msgid "Set to “1” if accessibility support (e.g. screen readers) is enabled."
-#~ msgstr "Vrednost » 1 «, če je omogočena podpora dostopnosti (bralnik zaslona, zaslonska tipkovnica)"
-
-#~ msgid "%s, Portrait"
-#~ msgstr "%s, pokončno"
-
-#~ msgid "%s, Landscape"
-#~ msgstr "%s, ležeče"
-
-#~ msgid "A plugin for extracting metadata from PDF files using Poppler library."
-#~ msgstr "Vstavek za pridobivanje metapodatkov iz datotek PDF z uporabo knjižnice Poppler."
-
-#~ msgid "Album Artist"
-#~ msgstr "Izvajalec albuma"
-
-#~ msgid "Artist of the album."
-#~ msgstr "Izvajalec albuma"
-
-#~ msgid "Gain adjustment of the album."
-#~ msgstr "Prilagoditev okrepitve zvoka za celoten album."
-
-#~ msgid "Peak gain adjustment of album."
-#~ msgstr "Prilagoditev okrepitve vrhov albuma."
-
-#~ msgid "Album Track Count"
-#~ msgstr "Štetje sledi albuma"
-
-#~ msgid "Total number of tracks on the album."
-#~ msgstr "Število sledi na albumu."
-
-#~ msgid "Artist of the track."
-#~ msgstr "Izvajalec zvočnega zapisa."
-
-#~ msgid "Bitrate with units (kbps)."
-#~ msgstr "Bitna hitrost v enotah (kbps)."
-
-#~ msgid "Number of channels in the audio (2 = stereo)."
-#~ msgstr "Število kanalov zvoka (2 = stereo)."
-
-#~ msgid "Codec Version"
-#~ msgstr "Različica kodeka"
-
-#~ msgid "Codec version."
-#~ msgstr "Različica uporabljenega kodeka."
-
-#~ msgid "Codec"
-#~ msgstr "Kodek"
-
-#~ msgid "Codec encoding description."
-#~ msgstr "Opis kodiranja kodeka."
-
-#~ msgid "Comments on the track."
-#~ msgstr "Opombe na sledi."
-
-#~ msgid "Cover Album Thumbnail Path"
-#~ msgstr "Pod do sličic naslovnice albuma"
-
-#~ msgid "File path to thumbnail image of the cover album."
-#~ msgstr "Pot do sličice naslovnice albuma."
-
-#~ msgid "Disc Number"
-#~ msgstr "Številka diska"
-
-#~ msgid "Specifies which disc the track is on."
-#~ msgstr "Določa disk na katerem je iskana sled."
-
-#~ msgid "Duration"
-#~ msgstr "Trajanje"
-
-#~ msgid "Duration of track in seconds."
-#~ msgstr "Trajanje sledi v sekundah."
-
-#~ msgid "Duration [MM:SS]"
-#~ msgstr "Trajanje [MM:SS]"
-
-#~ msgid "Duration of track as MM:SS."
-#~ msgstr "Trajanje sledi MM:SS."
-
-#~ msgid "Is New"
-#~ msgstr "Je nov"
-
-#~ msgid "Set to “1” if track is new to the user (default “0”)."
-#~ msgstr "Vrednost » 1 «, če je sled v zbirki nova (privzeta vrednost je »0«)."
-
-#~ msgid "Last Play"
-#~ msgstr "Zadnjič predvajano"
-
-#~ msgid "When track was last played."
-#~ msgstr "Kdaj je bila sled nazadnje predvajana."
-
-#~ msgid "Lyrics"
-#~ msgstr "Besedilo"
-
-#~ msgid "MB album artist ID"
-#~ msgstr "ID izvajalca albuma"
-
-#~ msgid "MusicBrainz album artist ID in UUID format."
-#~ msgstr "MusicBrainz ID izvajalca albuma v zapisu UUID."
-
-#~ msgid "MB Album ID"
-#~ msgstr "MB ID albuma"
-
-#~ msgid "MusicBrainz album ID in UUID format."
-#~ msgstr "MusicBrainz ID albuma v zapisu UUID."
-
-#~ msgid "MB Artist ID"
-#~ msgstr "MB ID izvajalca"
-
-#~ msgid "MusicBrainz artist ID in UUID format."
-#~ msgstr "MusicBrainz ID izvajalca v zapisu UUID."
-
-#~ msgid "MusicBrainz track ID in UUID format."
-#~ msgstr "MusicBrainz ID sledi v zapisu UUID."
-
-#~ msgid "Name of the performer/conductor of the music."
-#~ msgstr "Ime izvajalca/dirigenta skladbe."
-
-#~ msgid "Play Count"
-#~ msgstr "Števec predvajanj"
-
-#~ msgid "Number of times the track has been played."
-#~ msgstr "Število predvajanj sledi."
-
-#~ msgid "Date track was released."
-#~ msgstr "Datum objave sledi."
-
-#~ msgid "Title of the track."
-#~ msgstr "Naslov sledi."
-
-#~ msgid "Gain adjustment of the track."
-#~ msgstr "Prilagoditev okrepitve zvoka sledi."
-
-#~ msgid "Position of track on the album."
-#~ msgstr "Lega sledi v albumu."
-
-#~ msgid "Track Peak Gain"
-#~ msgstr "Okrepitev zvočnih vrhov sledi"
-
-#~ msgid "Peak gain adjustment of track."
-#~ msgstr "Prilagoditev okrepitve zvočnih vrhov sledi."
-
-#~ msgid "Year"
-#~ msgstr "Leto"
-
-#~ msgid "Year."
-#~ msgstr "Leto."
-
-#~ msgid "Channel Mode"
-#~ msgstr "Kanalni način"
-
-#~ msgid "MPEG channel mode."
-#~ msgstr "Kanalni način MPEG."
-
-#~ msgid "Copyrighted"
-#~ msgstr "Avtorsko zaščiteno"
-
-#~ msgid "“1” if the copyrighted bit is set."
-#~ msgstr "Vrednost » 1 «, če je določen podatek avtorske zaščite."
-
-#~ msgid "MPEG layer."
-#~ msgstr "MPEG sloj."
-
-#~ msgid "Original Audio"
-#~ msgstr "Izvorni zvok"
-
-#~ msgid "“1” if the “original” bit is set."
-#~ msgstr "Vrednost » 1 «, če je določen » izvorni « bit."
-
-#~ msgid "MPEG Version"
-#~ msgstr "Različica MPEG"
-
-#~ msgid "MPEG version."
-#~ msgstr "Uporabljena različica MPEG."
-
-#~ msgid "Maximum bitrate"
-#~ msgstr "Največja bitna hitrost"
-
-#~ msgid "Maximum bitrate in kbps."
-#~ msgstr "Največja bitna hitrost v kbps"
-
-#~ msgid "Minimum bitrate"
-#~ msgstr "Najmanjša bitna hitrost"
-
-#~ msgid "Minimum bitrate in kbps."
-#~ msgstr "Najmanjša bitna hitrost v kbps."
-
-#~ msgid "Nominal bitrate"
-#~ msgstr "Nazivna bitna hitrost"
-
-#~ msgid "Nominal bitrate in kbps."
-#~ msgstr "Nazivna bitna hitrost v kbps."
-
-#~ msgid "Stereo"
-#~ msgstr "Stereo"
-
-#~ msgid "Joint stereo"
-#~ msgstr "Združeni stereo"
-
-#~ msgid "Dual channel"
-#~ msgstr "Dvojni kanal"
-
-#~ msgid "Single channel"
-#~ msgstr "Enojni kanal"
-
-#~ msgid "Layer I"
-#~ msgstr "Sloj I"
-
-#~ msgid "Layer II"
-#~ msgstr "Sloj II"
-
-#~ msgid "Layer III"
-#~ msgstr "Sloj III"
-
-#~ msgid "Reserved"
-#~ msgstr "Zadržano"
-
-#~ msgid "None"
-#~ msgstr "Brez"
-
-#~ msgid "10-15ms"
-#~ msgstr "10–15ms"
-
-#~ msgid "Audio"
-#~ msgstr "Zvok"
-
-#~ msgid "A plugin for extracting metadata using TagLib library."
-#~ msgstr "Vstavek za pridobivanje metapodatkov z uporabo knjižnice TagLib."
-
-#~ msgid "This is an example plugin that is mostly useful as a simple example for aspiring plugin hackers"
-#~ msgstr "To je preizkusni vstavek za prikaz delovanja"
-
-#~ msgid "Configure"
-#~ msgstr "Prilagodi"
+msgstr "Nepodprti aplikacijski protokol"
