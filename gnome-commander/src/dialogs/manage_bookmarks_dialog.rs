@@ -5,16 +5,13 @@
 
 use super::edit_bookmark_dialog::edit_bookmark_dialog;
 use crate::{
-    connection::{
-        Connection, ConnectionExt, bookmark::Bookmark, bookmark::BookmarkGoToVariant,
-        list::ConnectionList,
-    },
+    connection::{Connection, ConnectionExt, bookmark::Bookmark, list::ConnectionList},
     dir::Directory,
     file::FileOps,
     main_win::MainWindow,
     options::GeneralOptions,
     shortcuts::{Call, Shortcuts},
-    user_actions::UserAction,
+    user_actions::{BookmarkActionVariant, UserAction},
     utils::{ErrorMessage, WindowExt, bold},
 };
 use gettextrs::gettext;
@@ -341,7 +338,7 @@ mod imp {
                     let call = Call {
                         action: UserAction::BookmarksGoto,
                         action_data: Some(
-                            BookmarkGoToVariant::new(&node.connection, &node.bookmark)
+                            BookmarkActionVariant::new(&node.connection, &node.bookmark)
                                 .to_variant()
                                 .print(false)
                                 .to_string(),

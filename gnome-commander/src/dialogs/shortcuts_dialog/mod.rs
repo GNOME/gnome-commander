@@ -8,10 +8,14 @@ mod capture;
 mod shortcut_entry;
 
 use crate::{
-    connection::{ConnectionExt, bookmark::BookmarkGoToVariant, list::ConnectionList},
+    connection::{ConnectionExt, list::ConnectionList},
     main_win::MainWindow,
+    plugins::{
+        ApiRequestToPlugin, ApiResponseFromPlugin, MessageFromPluginHost, MessageToPluginHost,
+        PluginHostChannel,
+    },
     shortcuts::{Area, Call, Shortcut, Shortcuts},
-    user_actions::UserAction,
+    user_actions::{BookmarkActionVariant, PluginActionVariant, UserAction},
     utils::{NO_MOD, SHIFT, display_help},
 };
 use action_entry::ActionEntry;
@@ -19,6 +23,7 @@ use capture::{Capture, CaptureOutput};
 use component_framework::prelude::*;
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
+use std::ops::Deref;
 
 #[derive(Debug, Default)]
 pub struct ShortcutsDialogView {
@@ -30,6 +35,7 @@ pub struct ShortcutsDialogView {
 
 #[derive(Debug)]
 pub enum ShortcutsDialogInput {
+    AddPluginEntries(Vec<(String, PluginActionVariant)>),
     UpdateFilter,
     ResetSearch,
     ResetAction(usize),
@@ -48,6 +54,7 @@ pub enum ShortcutsDialogOutput {
 
 pub struct ShortcutsDialog {
     entries: Vec<ComponentController<ActionEntry>>,
+    remaining_shortcuts: Vec<(Shortcut, Call)>,
     default_shortcuts: Shortcuts,
 }
 
@@ -187,10 +194,37 @@ impl Component for ShortcutsDialog {
     async fn update(
         &mut self,
         msg: Self::Input,
-        _sender: &ComponentSender<Self>,
+        sender: &ComponentSender<Self>,
         view: &mut Self::View,
     ) {
         match msg {
+            Self::Input::AddPluginEntries(menu_items) => {
+                for (description, action) in menu_items {
+                    let action_data = action.to_variant().print(false).to_string();
+
+                    let shortcuts: Vec<_> = self
+                        .remaining_shortcuts
+                        .extract_if(.., |(_, call)| {
+                            call.action == UserAction::PluginAction
+                                && call.action_data.as_ref() == Some(&action_data)
+                        })
+                        .map(|(shortcut, _)| shortcut)
+                        .collect();
+                    let mut entry = ActionEntry::new(
+                        UserAction::PluginAction,
+                        Some(action_data),
+                        shortcuts,
+                        &self.default_shortcuts,
+                    );
+                    entry.override_description(description);
+                    entry.index = self.entries.len();
+
+                    let controller = entry.build();
+                    view.list
+                        .append(controller.attach(sender, |message| message));
+                    self.entries.push(controller);
+                }
+            }
             Self::Input::UpdateFilter => {
                 let filter_text = view.search_field.text().to_lowercase();
                 let modified_only = view.modified_only.is_active();
@@ -264,7 +298,7 @@ impl ShortcutsDialog {
         let mut bookmark_entries = Vec::new();
         for connection in ConnectionList::get().iter() {
             for bookmark in &*connection.bookmarks() {
-                let action_data = BookmarkGoToVariant::new(&connection, bookmark)
+                let action_data = BookmarkActionVariant::new(&connection, bookmark)
                     .to_variant()
                     .print(false)
                     .to_string();
@@ -290,13 +324,7 @@ impl ShortcutsDialog {
                 bookmark_entries.push(entry);
             }
         }
-        bookmark_entries.sort_by_cached_key(|entry| {
-            entry
-                .description
-                .as_deref()
-                .map(str::to_lowercase)
-                .unwrap_or_default()
-        });
+        bookmark_entries.sort_by_cached_key(|entry| entry.description().to_lowercase());
         entries.extend(bookmark_entries);
 
         for (index, entry) in entries.iter_mut().enumerate() {
@@ -305,6 +333,7 @@ impl ShortcutsDialog {
 
         Self {
             entries: entries.into_iter().map(|action| action.build()).collect(),
+            remaining_shortcuts: shortcuts,
             default_shortcuts,
         }
     }
@@ -317,6 +346,8 @@ impl ShortcutsDialog {
             controller.root().set_transient_for(Some(parent));
             parent.set_dialog("shortcuts", controller.root().clone());
 
+            retrieve_plugin_items(parent.plugin_channel(), controller.sender().clone());
+
             let result = controller.receive().await;
             controller.root().close();
 
@@ -324,10 +355,6 @@ impl ShortcutsDialog {
                 controller.into_model().save_shortcuts(shortcuts);
             }
         }
-    }
-
-    fn action_at(&self, index: usize) -> Option<UserAction> {
-        Some(self.entries.get(index)?.action)
     }
 
     fn save_shortcuts(self, shortcuts: &Shortcuts) {
@@ -349,16 +376,16 @@ impl ShortcutsDialog {
     }
 
     async fn reset_action(&mut self, parent: &gtk::Window, index: usize) {
-        let Some(action) = self.action_at(index) else {
+        let Some(ActionEntry { action, .. }) = self.entries.get(index).map(Deref::deref) else {
             return;
         };
         let default_shortcuts = self.default_shortcuts.for_call(&Call {
-            action,
+            action: *action,
             action_data: None,
         });
 
         if self
-            .resolve_conflicts(parent, &default_shortcuts, action, index)
+            .resolve_conflicts(parent, &default_shortcuts, *action, index)
             .await
             && let Some(entry) = self.entries.iter_mut().find(|entry| entry.index == index)
         {
@@ -367,10 +394,14 @@ impl ShortcutsDialog {
     }
 
     async fn add_shortcut(&mut self, parent: &gtk::Window, index: usize) {
-        let Some(action) = self.action_at(index) else {
+        let Some((action, description)) = self
+            .entries
+            .get(index)
+            .map(|entry| (entry.action, entry.description()))
+        else {
             return;
         };
-        if let CaptureOutput::Set(shortcut) = Capture::get_shortcut(parent, action, None).await
+        if let CaptureOutput::Set(shortcut) = Capture::get_shortcut(parent, description, None).await
             && self
                 .entries
                 .get(index)
@@ -387,10 +418,14 @@ impl ShortcutsDialog {
     }
 
     async fn edit_shortcut(&mut self, parent: &gtk::Window, index: usize, shortcut: Shortcut) {
-        let Some(action) = self.action_at(index) else {
+        let Some((action, description)) = self
+            .entries
+            .get(index)
+            .map(|entry| (entry.action, entry.description()))
+        else {
             return;
         };
-        match Capture::get_shortcut(parent, action, Some(&shortcut)).await {
+        match Capture::get_shortcut(parent, description, Some(&shortcut)).await {
             CaptureOutput::Set(new_shortcut) => {
                 if new_shortcut == shortcut {
                     return;
@@ -449,7 +484,7 @@ impl ShortcutsDialog {
                 }
 
                 if let Some(shortcut) = remove {
-                    if !conflict_confirm(parent, entry.action, shortcut).await {
+                    if !conflict_confirm(parent, &entry.description(), shortcut).await {
                         return false;
                     }
 
@@ -484,6 +519,55 @@ fn find_text(widget: &gtk::Widget, filter_text: &str) -> bool {
     }
 }
 
+fn retrieve_plugin_items(mut channel: PluginHostChannel, sender: ComponentSender<ShortcutsDialog>) {
+    glib::spawn_future_local(async move {
+        let id = channel.new_id();
+        channel.send(MessageToPluginHost::ApiRequest {
+            id,
+            plugin_name: None,
+            request: ApiRequestToPlugin::MainMenuItems,
+        });
+
+        let mut received = Vec::new();
+        loop {
+            if let MessageFromPluginHost::ApiResponse {
+                id: resp_id,
+                plugin_name,
+                plugin_display_name,
+                response,
+                last,
+            } = channel.receive().await
+                && resp_id == id
+            {
+                if let Some(ApiResponseFromPlugin::MainMenuItems(items)) = response {
+                    received.extend(items.into_iter().map(|item| {
+                        (
+                            if plugin_display_name.is_empty() {
+                                item.label
+                            } else {
+                                format!("{plugin_display_name} ⮞ {}", item.label)
+                            },
+                            PluginActionVariant {
+                                plugin_name: plugin_name.clone(),
+                                action: item.action,
+                                parameter: item.parameter,
+                            },
+                        )
+                    }));
+                }
+                if last {
+                    break;
+                }
+            }
+        }
+
+        received.sort_by_cached_key(|(d, PluginActionVariant { plugin_name, .. })| {
+            (plugin_name.clone(), d.clone())
+        });
+        sender.input(ShortcutsDialogInput::AddPluginEntries(received));
+    });
+}
+
 fn filter_row(row: &gtk::ListBoxRow, filter_text: &str, modified_only: bool) -> bool {
     if filter_text.is_empty() && !modified_only {
         return true;
@@ -500,50 +584,52 @@ fn filter_row(row: &gtk::ListBoxRow, filter_text: &str, modified_only: bool) -> 
     filter_text.is_empty() || find_text(&widget, filter_text)
 }
 
+#[derive(Debug, Eq, PartialEq)]
+enum RowType {
+    Bookmark,
+    Plugin,
+    General(Area),
+}
+
+impl RowType {
+    pub fn section_label(&self) -> String {
+        match self {
+            Self::Bookmark => gettext("Bookmarks"),
+            Self::Plugin => gettext("Plugins"),
+            Self::General(area) => area.label(),
+        }
+    }
+}
+
 fn update_row_header(row: &gtk::ListBoxRow, previous_row: Option<&gtk::ListBoxRow>) {
-    fn is_bookmark(row: &gtk::ListBoxRow) -> bool {
-        row.child()
-            .is_some_and(|child| child.css_classes().iter().any(|cls| cls == "is-bookmark"))
-    }
-
-    fn get_area(row: &gtk::ListBoxRow) -> Option<Area> {
-        for css_class in row.child()?.css_classes() {
-            if let Some(area_name) = css_class.strip_prefix("area-") {
-                return Some(Area::from_name(area_name));
-            }
-        }
-        None
-    }
-
-    if is_bookmark(row) {
-        if !previous_row.map(is_bookmark).unwrap_or_default() {
-            if row.header().is_none() {
-                row.set_header(Some(
-                    &gtk::Label::builder()
-                        .label(gettext("Bookmarks"))
-                        .halign(gtk::Align::Start)
-                        .css_classes(["keyboard-shortcuts-section-header"])
-                        .build(),
-                ));
-            }
+    fn get_type(row: &gtk::ListBoxRow) -> Option<RowType> {
+        let child = row.child()?;
+        if child.css_classes().iter().any(|cls| cls == "is-bookmark") {
+            Some(RowType::Bookmark)
+        } else if child.css_classes().iter().any(|cls| cls == "is-plugin") {
+            Some(RowType::Plugin)
         } else {
-            row.set_header(gtk::Widget::NONE);
+            for css_class in child.css_classes() {
+                if let Some(area_name) = css_class.strip_prefix("area-") {
+                    return Some(RowType::General(Area::from_name(area_name)));
+                }
+            }
+            None
         }
-        return;
     }
 
-    let Some(area) = get_area(row) else {
+    let Some(row_type) = get_type(row) else {
         return;
     };
 
     if previous_row
-        .and_then(get_area)
-        .is_none_or(|previous_area| previous_area != area)
+        .and_then(get_type)
+        .is_none_or(|previous_type| previous_type != row_type)
     {
         if row.header().is_none() {
             row.set_header(Some(
                 &gtk::Label::builder()
-                    .label(area.label())
+                    .label(row_type.section_label())
                     .halign(gtk::Align::Start)
                     .css_classes(["keyboard-shortcuts-section-header"])
                     .build(),
@@ -554,18 +640,17 @@ fn update_row_header(row: &gtk::ListBoxRow, previous_row: Option<&gtk::ListBoxRo
     }
 }
 
-async fn conflict_confirm(parent: &gtk::Window, action: UserAction, accel: Shortcut) -> bool {
-    let description = action.description();
+async fn conflict_confirm(parent: &gtk::Window, description: &str, accel: Shortcut) -> bool {
     gtk::AlertDialog::builder()
         .modal(true)
         .message(
             gettext("Shortcut “{shortcut}” is already taken by “{action}”.")
                 .replace("{shortcut}", &accel.label())
-                .replace("{action}", &description),
+                .replace("{action}", description),
         )
         .detail(
             gettext("Reassigning the shortcut will cause it to be removed from “{action}”.")
-                .replace("{action}", &description),
+                .replace("{action}", description),
         )
         .buttons([gettext("_Cancel"), gettext("_Reassign shortcut")])
         .cancel_button(0)

@@ -95,6 +95,11 @@ impl<T: Component + Sized> ComponentController<T> {
         }
     }
 
+    /// Returns the sender which can be used to communicate with the component.
+    pub fn sender(&self) -> &ComponentSender<T> {
+        &self.sender
+    }
+
     /// Processes incoming messages for the component and its subcomponents, updating the component
     /// as necessary. This function never returns.
     pub async fn handle_incoming(&mut self) {

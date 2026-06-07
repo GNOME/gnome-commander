@@ -11,6 +11,7 @@ use crate::{
 use component_framework::prelude::*;
 use gettextrs::gettext;
 use gtk::prelude::*;
+use std::borrow::Cow;
 
 #[derive(Debug)]
 pub struct ActionEntry {
@@ -72,14 +73,12 @@ impl Component for ActionEntry {
                 .add_css_class(&format!("area-{}", self.action.area().as_name()));
                 if UserAction::BookmarksGoto == self.action {
                     .add_css_class("is-bookmark");
+                } else if UserAction::PluginAction == self.action {
+                    .add_css_class("is-plugin");
                 }
 
                 gtk::Label {
-                    if let Some(description) = self.description.as_ref() {
-                        .set_label(description);
-                    } else {
-                        .set_label(&self.action.description());
-                    }
+                    .set_label(&self.description());
                     .set_hexpand(true);
                     .set_halign(gtk::Align::Start);
                 }
@@ -165,6 +164,14 @@ impl ActionEntry {
 
     pub fn override_description(&mut self, description: String) {
         self.description = Some(description);
+    }
+
+    pub fn description(&self) -> Cow<'_, str> {
+        if let Some(description) = &self.description {
+            Cow::Borrowed(description)
+        } else {
+            Cow::Owned(self.action.description())
+        }
     }
 
     fn defaults(&self, default_shortcuts: &Shortcuts) -> Vec<Shortcut> {

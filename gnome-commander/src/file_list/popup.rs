@@ -14,7 +14,7 @@ use crate::{
     plugins::{
         ApiRequestToPlugin, ApiResponseFromPlugin, MessageFromPluginHost, MessageToPluginHost,
     },
-    user_actions::UserAction,
+    user_actions::{PluginActionVariant, UserAction},
     utils::MenuBuilderExt,
 };
 use gettextrs::gettext;
@@ -174,7 +174,14 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
             let menuitem = gio::MenuItem::new(Some(&label), None);
             menuitem.set_action_and_target_value(
                 Some(UserAction::PluginAction.name()),
-                Some(&(&plugin_name, &item.action, &item.parameter).to_variant()),
+                Some(
+                    &PluginActionVariant {
+                        plugin_name,
+                        action: item.action,
+                        parameter: item.parameter,
+                    }
+                    .to_variant(),
+                ),
             );
             section.append_item(&menuitem);
         }

@@ -5,10 +5,7 @@
 
 use crate::{
     config::{PACKAGE, plugin_dir},
-    connection::{
-        Connection, ConnectionExt, bookmark::BookmarkGoToVariant, list::ConnectionList,
-        remote::ConnectionRemote,
-    },
+    connection::{Connection, ConnectionExt, list::ConnectionList, remote::ConnectionRemote},
     dir::Directory,
     file::{File, FileOps},
     file_selector::{FileSelector, TabPosition, TabState, TabVariant},
@@ -24,7 +21,7 @@ use crate::{
     spawn::{SpawnError, app_needs_terminal, run_command_indir},
     tags::FileMetadataService,
     types::FileSelectorID,
-    user_actions::UserAction,
+    user_actions::{BookmarkActionVariant, PluginActionVariant, UserAction},
     utils::{ErrorMessage, MenuBuilderExt, sleep},
 };
 use gettextrs::gettext;
@@ -1559,7 +1556,7 @@ fn bookmarks_menu(menu: &gio::Menu) {
                 let item = gio::MenuItem::new(Some(bookmark.name()), None);
                 item.set_action_and_target_value(
                     Some(UserAction::BookmarksGoto.name()),
-                    Some(&BookmarkGoToVariant::new(&con, bookmark).to_variant()),
+                    Some(&BookmarkActionVariant::new(&con, bookmark).to_variant()),
                 );
                 group_items.append_item(&item);
             }
@@ -1617,7 +1614,14 @@ async fn plugins_menu(channel: &mut PluginHostChannel, menu: &gio::Menu) {
         let menuitem = gio::MenuItem::new(Some(&label), None);
         menuitem.set_action_and_target_value(
             Some(UserAction::PluginAction.name()),
-            Some(&(&plugin_name, &item.action, &item.parameter).to_variant()),
+            Some(
+                &PluginActionVariant {
+                    plugin_name,
+                    action: item.action,
+                    parameter: item.parameter,
+                }
+                .to_variant(),
+            ),
         );
         menu.append_item(&menuitem);
     }
