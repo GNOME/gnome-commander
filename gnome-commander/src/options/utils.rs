@@ -19,7 +19,7 @@ pub fn remember_window_size(
 
     let width_option = width_option.clone();
     let height_option = height_option.clone();
-    window.as_ref().connect_destroy(move |window| {
+    window.as_ref().connect_unmap(move |window| {
         if let Ok(width) = u32::try_from(window.default_width()) {
             let _ = width_option.set(width);
         }
@@ -39,7 +39,7 @@ pub fn remember_window_state(
     window.as_ref().set_maximized(state_option.get() == 4);
 
     let state_option = state_option.clone();
-    window.as_ref().connect_destroy(move |window| {
+    window.as_ref().connect_unmap(move |window| {
         let _ = state_option.set(if window.is_maximized() { 4_u32 } else { 0 });
     });
 }
