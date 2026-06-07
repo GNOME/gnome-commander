@@ -38,6 +38,19 @@ def zip_recursive(archive: zipfile.ZipFile, dir: str, prefix: str) -> None:
             archive.write(path, prefix + os.path.relpath(path, dir))
 
 
+def locate_lib(name: str, binary_path: str) -> bytes | None:
+    result = subprocess.run(
+        ['ldd', binary_path],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+    ).stdout
+    for line in result.splitlines():
+        match = re.search(rb'=>\s*(\S+)', line)
+        if match and name.encode() in match.group(1):
+            return match.group(1)
+    return None
+
+
 def run() -> None:
     parser = argparse.ArgumentParser(
         description='Create a portable build of the application.'
@@ -54,10 +67,11 @@ def run() -> None:
         cwd=repo_dir,
         env=dict(
             os.environ,
-            GLOBAL_LOCALE_DIR='locale',
-            GLOBAL_PLUGIN_DIR='plugins',
-            GLOBAL_SCHEMA_DIR='settings',
-            SETTINGS_KEYFILE='settings/settings.ini',
+            GLOBAL_LOCALE_DIR='../locale',
+            GLOBAL_PLUGIN_DIR='../plugins',
+            GLOBAL_SCHEMA_DIR='../settings',
+            SETTINGS_KEYFILE='../settings/settings.ini',
+            RUSTFLAGS='-C link-args=-Wl,-rpath,$ORIGIN',
         )
     )
 
@@ -67,7 +81,7 @@ def run() -> None:
     binary_path = find_binary(locale_dir, 'gnome-commander')
 
     with zipfile.ZipFile(args.output, 'w', compression=zipfile.ZIP_DEFLATED) as archive:
-        archive.write(binary_path, os.path.basename(binary_path))
+        archive.write(binary_path, 'bin/' + os.path.basename(binary_path))
         archive.write(os.path.join(schema_dir, 'gschemas.compiled'),
                       'settings/gschemas.compiled')
         for filename in os.listdir(plugins_dir):
@@ -96,10 +110,24 @@ def run() -> None:
                     zip_recursive(archive, path, f'plugins/{name}/')
             else:
                 print(
-                    'Failed finding virtual environment\'s site-packages directory, packaging module skipped',
+                    'Failed finding virtual environment\'s site-packages directory, packaging modules skipped',
                     file=sys.stderr
                 )
         zip_recursive(archive, locale_dir, 'locale/')
+
+        for lib in ['libvte-2.91-gtk4', 'libicuuc', 'libicudata']:
+            path = locate_lib(lib, binary_path)
+            if path:
+                archive.write(path, 'lib/' + os.path.basename(path).decode())
+            else:
+                print(f'Failed to locate {lib}, packaging dependency skipped',
+                      file=sys.stderr)
+        archive.writestr(zipfile.ZipInfo.from_file(binary_path, os.path.basename(binary_path)), '''
+#!/bin/sh
+BASE_DIR=`dirname $0`
+LD_LIBRARY_PATH=$BASE_DIR/lib $BASE_DIR/bin/gnome-commander
+'''.strip())
+
         archive.writestr('README', '''
 Using Gnome Commander portable builds
 =====================================
@@ -112,16 +140,13 @@ not accessed.
 System dependencies
 -------------------
 
-This build still depends on some system libraries which should
-usually be present in any GNOME install:
-
-libgtk-4-1
-libvte-2.91-gtk4-0
-
-If starting Gnome Commander gives you errors about missing libraries, you might
-need to install these. On Debian or Ubuntu based systems the names above are the
-package names to be installed, on other distributions the package names could
-vary slightly.
+This build still depends on some system libraries (Gtk4 and related) which
+should usually be present in any Linux desktop install. The libvte library is
+often missing however, which is why it is packaged with this build. If however
+Gnome Commander fails to start due to “missing” libraries where a different
+version of the library is present on your system you should install
+libvte-2.91-gtk4-0 package on your system and run bin/gnome-commander instead of
+the wrapper in the root directory.
 '''.strip())
 
 
