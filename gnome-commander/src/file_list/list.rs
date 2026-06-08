@@ -31,6 +31,7 @@ use std::{
     collections::{BTreeMap, HashSet},
     ffi::OsStr,
     path::{Path, PathBuf},
+    time::Duration,
 };
 
 const TYPE_URI_LIST: &str = "text/uri-list";
@@ -79,7 +80,6 @@ mod imp {
         collections::BTreeMap,
         rc::Rc,
         sync::OnceLock,
-        time::Duration,
     };
 
     pub type CellsMap = Rc<WeakMap<FileListItem, FileListCell>>;
@@ -146,6 +146,7 @@ mod imp {
 
         #[property(get)]
         pub store: gio::ListStore,
+        pub(super) will_emit_file_changes: Cell<bool>,
 
         pub sort_model: gtk::SortListModel,
         pub(super) filter_model: gtk::FilterListModel,
@@ -258,6 +259,7 @@ mod imp {
                 quick_search_shortcut: Default::default(),
 
                 store,
+                will_emit_file_changes: Default::default(),
 
                 sort_model,
                 filter_model,
@@ -909,12 +911,14 @@ mod imp {
             self.directory_handlers
                 .borrow_mut()
                 .push(directory.connect_closure(
-                    "file-deleted",
+                    "files-deleted",
                     false,
                     glib::closure_local!(
                         #[weak(rename_to = imp)]
                         self,
-                        move |d: &Directory, f: &File| imp.on_dir_file_deleted(d, f)
+                        move |d: &Directory, files: &glib::BoxedAnyObject| {
+                            imp.on_dir_files_deleted(d, &files.borrow::<Vec<File>>())
+                        }
                     ),
                 ));
             self.directory_handlers
@@ -1066,9 +1070,32 @@ mod imp {
             }
         }
 
-        fn on_dir_file_deleted(&self, dir: &Directory, f: &File) {
+        fn on_dir_files_deleted(&self, dir: &Directory, files: &[File]) {
             if &*self.directory.borrow() == dir {
-                self.obj().remove_file(f);
+                let mut positions = Vec::new();
+                for (position, item) in self.store.iter::<FileListItem>().flatten().enumerate() {
+                    if files.contains(&item.file()) {
+                        positions.push(position);
+                    }
+                }
+                if positions.is_empty() {
+                    return;
+                }
+
+                let obj = self.obj();
+                let was_focused = obj
+                    .root()
+                    .as_ref()
+                    .and_then(gtk::Root::focus)
+                    .is_some_and(|widget| widget.is_ancestor(&*obj));
+                for position in positions.into_iter().rev() {
+                    self.store.remove(position as u32);
+                }
+                obj.emit_files_changed();
+                if was_focused {
+                    // Removing focused row makes Gtk transfer focus away from the list, restore it.
+                    obj.grab_focus();
+                }
             }
         }
 
@@ -2075,32 +2102,6 @@ impl FileList {
         });
     }
 
-    pub fn remove_file(&self, f: &File) -> bool {
-        let Some(store_position) = self
-            .imp()
-            .store
-            .iter::<FileListItem>()
-            .flatten()
-            .position(|item| item.file() == *f)
-        else {
-            return false;
-        };
-
-        let was_focused = self
-            .root()
-            .as_ref()
-            .and_then(gtk::Root::focus)
-            .is_some_and(|widget| widget.is_ancestor(self));
-        self.imp().store.remove(store_position as u32);
-        self.emit_files_changed();
-        if was_focused {
-            // Removing focused row makes Gtk transfer focus away from the list, restore it.
-            self.grab_focus();
-        }
-
-        true
-    }
-
     pub fn clear(&self) {
         self.imp().store.remove_all();
     }
@@ -2378,7 +2379,7 @@ impl FileList {
         } else {
             // Too early to set selection
             glib::timeout_add_local_once(
-                std::time::Duration::from_millis(10),
+                Duration::from_millis(10),
                 glib::clone!(
                     #[weak(rename_to = obj)]
                     self,
@@ -2403,7 +2404,20 @@ impl FileList {
     }
 
     fn emit_files_changed(&self) {
-        self.emit_by_name::<()>("files-changed", &[]);
+        if !self.imp().will_emit_file_changes.replace(true) {
+            // Make sure we emit this signal at most once in 10ms
+            glib::timeout_add_local_once(
+                Duration::from_millis(10),
+                glib::clone!(
+                    #[strong(rename_to = this)]
+                    self,
+                    move || {
+                        this.imp().will_emit_file_changes.set(false);
+                        this.emit_by_name::<()>("files-changed", &[]);
+                    }
+                ),
+            );
+        }
     }
 
     pub fn set_selected_files(&self, files: &HashSet<File>) {
