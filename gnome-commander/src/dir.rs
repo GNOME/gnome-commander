@@ -12,7 +12,7 @@ use crate::{
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, glib::object::WeakRef, prelude::*, subclass::prelude::*};
-use std::{cell::Ref, path::Path, rc::Rc};
+use std::{cell::Ref, collections::HashMap, path::Path, rc::Rc, time::Duration};
 
 const SIGNAL_FILE_CREATED: &str = "file-created";
 const SIGNAL_FILE_DELETED: &str = "file-deleted";
@@ -42,6 +42,7 @@ mod imp {
         pub mtime: RefCell<Option<glib::DateTime>>,
         pub file_monitor: RefCell<Option<gio::FileMonitor>>,
         pub monitor_users: Cell<u32>,
+        pub(super) monitor_queue: RefCell<HashMap<String, (gio::File, gio::FileMonitorEvent)>>,
         pub lock: Cell<bool>,
         /// Weak reference to be set as "parent directory" on directory’s files. Sharing a single
         /// weak reference avoids hitting Glib's limits.
@@ -66,6 +67,7 @@ mod imp {
                 mtime: Default::default(),
                 file_monitor: Default::default(),
                 monitor_users: Default::default(),
+                monitor_queue: Default::default(),
                 lock: Default::default(),
                 weak_ref: Default::default(),
             }
@@ -285,71 +287,70 @@ impl Directory {
         self.emit_by_name::<()>(SIGNAL_DIR_DELETED, &[]);
     }
 
-    fn find_file(&self, uri_str: &str) -> Option<(usize, File)> {
-        for (i, f) in self.files().iter().enumerate() {
-            if f.uri() == uri_str {
-                return Some((i, f.clone()));
-            }
-        }
-        None
-    }
-
     pub fn listen_to_file(&self, file: &File) {
         file.set_parent_directory(Some(self.imp().weak_ref.clone()));
     }
 
-    pub fn file_created(&self, uri_str: &str) {
-        if self.find_file(uri_str).is_some() {
-            return;
+    fn files_created(&self, files: Vec<gio::File>) {
+        let files = files
+            .into_iter()
+            .filter_map(|file| {
+                let file_info = match file.query_info(
+                    File::DEFAULT_ATTRIBUTES,
+                    gio::FileQueryInfoFlags::NONE,
+                    gio::Cancellable::NONE,
+                ) {
+                    Ok(file_info) => Some(file_info),
+                    Err(_error) => {
+                        debug!(
+                            't',
+                            "Could not retrieve file information for {}, error: {_error}",
+                            file.uri(),
+                        );
+                        None
+                    }
+                }?;
+                Some(File::new_from_file(file, &file_info))
+            })
+            .collect::<Vec<_>>();
+
+        for file in &files {
+            self.listen_to_file(file);
+            self.emit_by_name::<()>(SIGNAL_FILE_CREATED, &[file]);
+        }
+        self.imp().files.borrow_mut().extend(files);
+    }
+
+    fn files_deleted(&self, positions: Vec<usize>) {
+        {
+            let files = self.imp().files.borrow();
+            let connection = self.imp().connection.borrow();
+            let mut dir_cache = connection.dir_cache_mut();
+            for position in &positions {
+                if let Some(file) = files.get(*position) {
+                    dir_cache.remove_with_children(&file.uri());
+                    self.emit_by_name::<()>(SIGNAL_FILE_DELETED, &[file]);
+                }
+            }
         }
 
-        let file = gio::File::for_uri(uri_str);
-        let file_info = match file.query_info(
-            File::DEFAULT_ATTRIBUTES,
-            gio::FileQueryInfoFlags::NONE,
-            gio::Cancellable::NONE,
-        ) {
-            Ok(file_info) => file_info,
-            Err(error) => {
+        let mut files = self.imp().files.borrow_mut();
+        for position in positions.into_iter().rev() {
+            files.remove(position);
+        }
+    }
+
+    fn file_changed_impl(&self, file: &File) {
+        match file.refresh_file_info() {
+            Ok(()) => {
+                self.emit_by_name::<()>(SIGNAL_FILE_CHANGED, &[file]);
+            }
+            Err(_error) => {
                 debug!(
                     't',
-                    "Could not retrieve file information for {}, error: {}", uri_str, error
+                    "Could not retrieve file information for changed file {:?}: {_error}",
+                    file.file().basename(),
                 );
-                return;
-            }
-        };
-
-        let f = File::new_from_file(file, &file_info);
-        self.listen_to_file(&f);
-        self.add_file(&f);
-        self.emit_by_name::<()>(SIGNAL_FILE_CREATED, &[&f]);
-    }
-
-    pub fn file_deleted(&self, uri_str: &str) {
-        self.connection()
-            .dir_cache_mut()
-            .remove_with_children(uri_str);
-
-        if let Some((position, file)) = self.find_file(uri_str) {
-            self.emit_by_name::<()>(SIGNAL_FILE_DELETED, &[&file]);
-            self.imp().files.borrow_mut().remove(position);
-        }
-    }
-
-    pub fn file_changed(&self, uri_str: &str) {
-        if let Some((_, file)) = self.find_file(uri_str) {
-            match file.refresh_file_info() {
-                Ok(()) => {
-                    self.emit_by_name::<()>(SIGNAL_FILE_CHANGED, &[&file]);
-                }
-                Err(error) => {
-                    debug!(
-                        't',
-                        "Could not retrieve file information for changed file {:?}: {}",
-                        file.file().basename(),
-                        error
-                    );
-                }
             }
         }
     }
@@ -381,6 +382,108 @@ impl Directory {
         self.emit_by_name::<()>(SIGNAL_FILE_RENAMED, &[file]);
     }
 
+    fn add_to_monitor_queue(&self, file: &gio::File, event: gio::FileMonitorEvent) {
+        // Normalize event types to simplify folding below.
+        let event = match event {
+            gio::FileMonitorEvent::AttributeChanged => {
+                gio::FileMonitorEvent::Changed
+            }
+            gio::FileMonitorEvent::Changed
+            | gio::FileMonitorEvent::Deleted
+            | gio::FileMonitorEvent::Created => event,
+            _ => return,
+        };
+
+        let mut queue = self.imp().monitor_queue.borrow_mut();
+        let is_first = queue.is_empty();
+        queue
+            .entry(file.uri().to_string())
+            .and_modify(|(_, existing_event)| {
+                // Fold event types. We abuse unmounted event to mark a no-op here.
+                if existing_event == &event {
+                    return;
+                }
+
+                if existing_event == &gio::FileMonitorEvent::Changed
+                    || existing_event == &gio::FileMonitorEvent::Unmounted
+                {
+                    // Other event types always take precedence over a change event.
+                    *existing_event = event;
+                } else if existing_event == &gio::FileMonitorEvent::Deleted
+                    && event == gio::FileMonitorEvent::Created
+                {
+                    // Create on top of delete is a change event.
+                    *existing_event = gio::FileMonitorEvent::Changed;
+                } else if existing_event == &gio::FileMonitorEvent::Created
+                    && event == gio::FileMonitorEvent::Deleted
+                {
+                    // Delete on top of create is a no-op.
+                    *existing_event = gio::FileMonitorEvent::Unmounted;
+                }
+            })
+            .or_insert_with(|| (file.clone(), event));
+
+        if is_first {
+            glib::timeout_add_local_once(
+                Duration::from_millis(10),
+                glib::clone!(
+                    #[strong(rename_to = this)]
+                    self,
+                    move || this.process_monitor_queue(),
+                ),
+            );
+        }
+    }
+
+    pub fn file_created(&self, uri: &str) {
+        self.add_to_monitor_queue(&gio::File::for_uri(uri), gio::FileMonitorEvent::Created);
+    }
+
+    pub fn file_deleted(&self, uri: &str) {
+        self.add_to_monitor_queue(&gio::File::for_uri(uri), gio::FileMonitorEvent::Deleted);
+    }
+
+    pub fn file_changed(&self, uri: &str) {
+        self.add_to_monitor_queue(&gio::File::for_uri(uri), gio::FileMonitorEvent::Changed);
+    }
+
+    fn process_monitor_queue(&self) {
+        let mut queue = std::mem::take(&mut *self.imp().monitor_queue.borrow_mut());
+        // We don't care about changes to directory itself, only its contents
+        queue.remove(&self.uri());
+
+        // Do a single pass through the file list ot validate queue contents.
+        let mut remove = Vec::new();
+        for (index, file) in self.files().iter().enumerate() {
+            if let Some((_, event)) = queue.remove(&file.uri()) {
+                if event == gio::FileMonitorEvent::Deleted {
+                    remove.push(index);
+                } else if event == gio::FileMonitorEvent::Changed {
+                    self.file_changed_impl(file);
+                }
+                // Ignore created for files we already know
+            }
+        }
+
+        let add = queue
+            .into_iter()
+            .filter_map(|(_, (file, event))| {
+                if event == gio::FileMonitorEvent::Created {
+                    Some(file)
+                } else {
+                    None
+                }
+            })
+            .collect::<Vec<_>>();
+
+        if !remove.is_empty() {
+            self.files_deleted(remove);
+        }
+        if !add.is_empty() {
+            self.files_created(add);
+        }
+    }
+
     pub fn start_monitoring(&self) {
         let monitor_users = self.imp().monitor_users.get();
         if monitor_users != 0 {
@@ -388,7 +491,7 @@ impl Directory {
             return;
         }
 
-        //ToDo: We might want to activate G_FILE_MONITOR_WATCH_MOVES in the future
+        // TODO: FileMonitorFlags::WATCH_MOVES
         match self
             .file()
             .monitor_directory(gio::FileMonitorFlags::NONE, gio::Cancellable::NONE)
@@ -398,19 +501,8 @@ impl Directory {
                     #[weak(rename_to = this)]
                     self,
                     move |_, file, _, event| {
-                        let uri = file.uri();
-                        if uri == this.uri() {
-                            // We don't care about changes to directory itself, only its contents
-                            return;
-                        }
-                        debug!('n', "{:?} for {}", event, uri);
-                        match event {
-                            gio::FileMonitorEvent::Changed
-                            | gio::FileMonitorEvent::AttributeChanged => this.file_changed(&uri),
-                            gio::FileMonitorEvent::Deleted => this.file_deleted(&uri),
-                            gio::FileMonitorEvent::Created => this.file_created(&uri),
-                            _ => {}
-                        }
+                        debug!('n', "{:?} for {}", event, file.uri());
+                        this.add_to_monitor_queue(file, event);
                     }
                 ));
 
@@ -419,8 +511,8 @@ impl Directory {
                 self.imp().file_monitor.replace(Some(file_monitor));
                 self.imp().monitor_users.set(monitor_users + 1);
             }
-            Err(error) => {
-                debug!('n', "Failed to add monitor to {}: {}", self.uri(), error);
+            Err(_error) => {
+                debug!('n', "Failed to add monitor to {}: {_error}", self.uri());
             }
         }
     }
@@ -436,6 +528,7 @@ impl Directory {
             && let Some(file_monitor) = self.imp().file_monitor.take()
         {
             file_monitor.cancel();
+            self.imp().monitor_queue.borrow_mut().clear();
             debug!('n', "Removed monitor from {}", self.uri());
         }
     }
