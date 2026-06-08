@@ -31,6 +31,7 @@ use std::{
     collections::{BTreeMap, HashSet},
     ffi::OsStr,
     path::{Path, PathBuf},
+    time::Duration,
 };
 
 const TYPE_URI_LIST: &str = "text/uri-list";
@@ -79,7 +80,6 @@ mod imp {
         collections::BTreeMap,
         rc::Rc,
         sync::OnceLock,
-        time::Duration,
     };
 
     pub type CellsMap = Rc<WeakMap<FileListItem, FileListCell>>;
@@ -146,6 +146,7 @@ mod imp {
 
         #[property(get)]
         pub store: gio::ListStore,
+        pub(super) will_emit_file_changes: Cell<bool>,
 
         pub sort_model: gtk::SortListModel,
         pub(super) filter_model: gtk::FilterListModel,
@@ -258,6 +259,7 @@ mod imp {
                 quick_search_shortcut: Default::default(),
 
                 store,
+                will_emit_file_changes: Default::default(),
 
                 sort_model,
                 filter_model,
@@ -2378,7 +2380,7 @@ impl FileList {
         } else {
             // Too early to set selection
             glib::timeout_add_local_once(
-                std::time::Duration::from_millis(10),
+                Duration::from_millis(10),
                 glib::clone!(
                     #[weak(rename_to = obj)]
                     self,
@@ -2403,7 +2405,20 @@ impl FileList {
     }
 
     fn emit_files_changed(&self) {
-        self.emit_by_name::<()>("files-changed", &[]);
+        if !self.imp().will_emit_file_changes.replace(true) {
+            // Make sure we emit this signal at most once in 10ms
+            glib::timeout_add_local_once(
+                Duration::from_millis(10),
+                glib::clone!(
+                    #[strong(rename_to = this)]
+                    self,
+                    move || {
+                        this.imp().will_emit_file_changes.set(false);
+                        this.emit_by_name::<()>("files-changed", &[]);
+                    }
+                ),
+            );
+        }
     }
 
     pub fn set_selected_files(&self, files: &HashSet<File>) {
