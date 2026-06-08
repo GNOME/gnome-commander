@@ -917,7 +917,7 @@ mod imp {
                         #[weak(rename_to = imp)]
                         self,
                         move |d: &Directory, files: &glib::BoxedAnyObject| {
-                            imp.on_dir_files_deleted(d, &*files.borrow::<Vec<File>>())
+                            imp.on_dir_files_deleted(d, &files.borrow::<Vec<File>>())
                         }
                     ),
                 ));
