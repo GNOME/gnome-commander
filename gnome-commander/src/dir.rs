@@ -15,7 +15,7 @@ use gtk::{gio, glib, glib::object::WeakRef, prelude::*, subclass::prelude::*};
 use std::{cell::Ref, collections::HashMap, path::Path, rc::Rc, time::Duration};
 
 const SIGNAL_FILE_CREATED: &str = "file-created";
-const SIGNAL_FILE_DELETED: &str = "file-deleted";
+const SIGNAL_FILES_DELETED: &str = "files-deleted";
 const SIGNAL_FILE_CHANGED: &str = "file-changed";
 const SIGNAL_FILE_RENAMED: &str = "file-renamed";
 const SIGNAL_LIST_OK: &str = "list-ok";
@@ -88,8 +88,8 @@ mod imp {
                     glib::subclass::Signal::builder(SIGNAL_FILE_CREATED)
                         .param_types([File::static_type()])
                         .build(),
-                    glib::subclass::Signal::builder(SIGNAL_FILE_DELETED)
-                        .param_types([File::static_type()])
+                    glib::subclass::Signal::builder(SIGNAL_FILES_DELETED)
+                        .param_types([glib::BoxedAnyObject::static_type()])
                         .build(),
                     glib::subclass::Signal::builder(SIGNAL_FILE_CHANGED)
                         .param_types([File::static_type()])
@@ -326,12 +326,15 @@ impl Directory {
             let files = self.imp().files.borrow();
             let connection = self.imp().connection.borrow();
             let mut dir_cache = connection.dir_cache_mut();
-            for position in &positions {
-                if let Some(file) = files.get(*position) {
-                    dir_cache.remove_with_children(&file.uri());
-                    self.emit_by_name::<()>(SIGNAL_FILE_DELETED, &[file]);
-                }
+            let files = positions
+                .iter()
+                .filter_map(|position| files.get(*position))
+                .cloned()
+                .collect::<Vec<_>>();
+            for file in &files {
+                dir_cache.remove_with_children(&file.uri());
             }
+            self.emit_by_name::<()>(SIGNAL_FILES_DELETED, &[&glib::BoxedAnyObject::new(files)]);
         }
 
         let mut files = self.imp().files.borrow_mut();
@@ -385,9 +388,7 @@ impl Directory {
     fn add_to_monitor_queue(&self, file: &gio::File, event: gio::FileMonitorEvent) {
         // Normalize event types to simplify folding below.
         let event = match event {
-            gio::FileMonitorEvent::AttributeChanged => {
-                gio::FileMonitorEvent::Changed
-            }
+            gio::FileMonitorEvent::AttributeChanged => gio::FileMonitorEvent::Changed,
             gio::FileMonitorEvent::Changed
             | gio::FileMonitorEvent::Deleted
             | gio::FileMonitorEvent::Created => event,

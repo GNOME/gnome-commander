@@ -911,12 +911,14 @@ mod imp {
             self.directory_handlers
                 .borrow_mut()
                 .push(directory.connect_closure(
-                    "file-deleted",
+                    "files-deleted",
                     false,
                     glib::closure_local!(
                         #[weak(rename_to = imp)]
                         self,
-                        move |d: &Directory, f: &File| imp.on_dir_file_deleted(d, f)
+                        move |d: &Directory, files: &glib::BoxedAnyObject| {
+                            imp.on_dir_files_deleted(d, &*files.borrow::<Vec<File>>())
+                        }
                     ),
                 ));
             self.directory_handlers
@@ -1068,9 +1070,32 @@ mod imp {
             }
         }
 
-        fn on_dir_file_deleted(&self, dir: &Directory, f: &File) {
+        fn on_dir_files_deleted(&self, dir: &Directory, files: &[File]) {
             if &*self.directory.borrow() == dir {
-                self.obj().remove_file(f);
+                let mut positions = Vec::new();
+                for (position, item) in self.store.iter::<FileListItem>().flatten().enumerate() {
+                    if files.contains(&item.file()) {
+                        positions.push(position);
+                    }
+                }
+                if positions.is_empty() {
+                    return;
+                }
+
+                let obj = self.obj();
+                let was_focused = obj
+                    .root()
+                    .as_ref()
+                    .and_then(gtk::Root::focus)
+                    .is_some_and(|widget| widget.is_ancestor(&*obj));
+                for position in positions.into_iter().rev() {
+                    self.store.remove(position as u32);
+                }
+                obj.emit_files_changed();
+                if was_focused {
+                    // Removing focused row makes Gtk transfer focus away from the list, restore it.
+                    obj.grab_focus();
+                }
             }
         }
 
@@ -2075,32 +2100,6 @@ impl FileList {
             }
             this.emit_files_changed();
         });
-    }
-
-    pub fn remove_file(&self, f: &File) -> bool {
-        let Some(store_position) = self
-            .imp()
-            .store
-            .iter::<FileListItem>()
-            .flatten()
-            .position(|item| item.file() == *f)
-        else {
-            return false;
-        };
-
-        let was_focused = self
-            .root()
-            .as_ref()
-            .and_then(gtk::Root::focus)
-            .is_some_and(|widget| widget.is_ancestor(self));
-        self.imp().store.remove(store_position as u32);
-        self.emit_files_changed();
-        if was_focused {
-            // Removing focused row makes Gtk transfer focus away from the list, restore it.
-            self.grab_focus();
-        }
-
-        true
     }
 
     pub fn clear(&self) {
