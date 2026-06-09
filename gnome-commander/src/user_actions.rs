@@ -269,7 +269,7 @@ async fn file_mkdir(main_win: MainWindow) {
     if let Some(new_dir) = new_dir {
         // focus the created directory (if possible)
         if new_dir.parent().is_some_and(|p| p.equal(&dir_file)) {
-            dir.file_created(&new_dir.uri());
+            dir.file_created(&new_dir);
             file_list.focus_file(&new_dir.basename().unwrap(), true);
         }
     }
@@ -403,7 +403,7 @@ async fn create_symlinks(
         loop {
             match symlink_file.make_symbolic_link(&target_absolute_name, gio::Cancellable::NONE) {
                 Ok(_) => {
-                    directory.file_created(&symlink_file.uri());
+                    directory.file_created(&symlink_file);
                     break;
                 }
                 Err(_) if skip_all => {

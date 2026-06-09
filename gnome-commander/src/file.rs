@@ -333,7 +333,7 @@ pub trait FileOps {
     fn set_file(&self, file: gio::File);
 
     fn on_deleted(&self) {}
-    fn on_renamed(&self, _old_uri_str: &str) {}
+    fn on_renamed(&self, _new_file: &gio::File) {}
     fn on_changed(&self) {}
 
     fn uri(&self) -> String {
@@ -385,14 +385,11 @@ pub trait FileOps {
     }
 
     fn rename(&self, new_name: &str) -> Result<(), glib::Error> {
-        let old_uri_str = self.uri();
-
         let new_file = self
             .file()
             .set_display_name(new_name, gio::Cancellable::NONE)?;
-        self.set_file(new_file);
 
-        self.on_renamed(&old_uri_str);
+        self.on_renamed(&new_file);
         Ok(())
     }
 
@@ -462,20 +459,19 @@ impl FileOps for File {
 
     fn on_deleted(&self) {
         if let Some(parent) = self.parent_directory() {
-            parent.file_deleted(&self.uri());
+            parent.file_deleted(&self.file());
         }
     }
 
-    fn on_renamed(&self, old_uri_str: &str) {
-        let _ = self.refresh_file_info();
+    fn on_renamed(&self, new_file: &gio::File) {
         if let Some(parent) = self.parent_directory() {
-            parent.file_renamed(self, old_uri_str);
+            parent.file_renamed(self, new_file);
         }
     }
 
     fn on_changed(&self) {
         if let Some(parent) = self.parent_directory() {
-            parent.file_changed(&self.uri());
+            parent.file_changed(&self.file());
         }
     }
 }
