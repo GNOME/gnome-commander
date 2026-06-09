@@ -163,7 +163,7 @@ pub async fn show_create_symlink_dialog(
                     .parent()
                     .is_some_and(|parent| directory.file().equal(&parent))
                 {
-                    directory.file_created(&symlink_file.uri());
+                    directory.file_created(&symlink_file);
                 }
                 break;
             }
