@@ -38,7 +38,7 @@ impl Component for ShortcutEntry {
                 .set_icon_name("document-edit");
                 .set_tooltip_text(Some(&gettext("Edit Shortcut")));
                 .add_css_class("flat");
-                .connect_clicked(forward_output!(sender, Self::Output::EditShortcut(shortcut)));
+                .connect_clicked(forward!(sender.output(Self::Output::EditShortcut(shortcut))));
             }
         })
     }

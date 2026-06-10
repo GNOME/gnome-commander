@@ -331,7 +331,7 @@ impl Component for ConnectDialog {
                         );
                         .set_hexpand(true);
                         .set_sensitive(self.temporary || self.uri.is_none());
-                        .connect_selected_notify(forward_input!(sender, Self::Input::TypeChanged));
+                        .connect_selected_notify(forward!(sender.input(Self::Input::TypeChanged)));
                     }
                 }
 
@@ -441,7 +441,7 @@ impl Component for ConnectDialog {
                         gtk::Button {
                             .set_label(&gettext("_Help"));
                             .set_use_underline(true);
-                            .connect_clicked(forward_input!(sender, Self::Input::Help));
+                            .connect_clicked(forward!(sender.input(Self::Input::Help)));
                         }
 
                         gtk::Button {
@@ -450,7 +450,7 @@ impl Component for ConnectDialog {
                             .set_as_cancel();
                             .set_hexpand(true);
                             .set_halign(gtk::Align::End);
-                            .connect_clicked(forward_output!(sender, None));
+                            .connect_clicked(forward!(sender.output(None)));
                         }
 
                         gtk::Button {
@@ -463,7 +463,7 @@ impl Component for ConnectDialog {
                             });
                             .set_use_underline(true);
                             .set_as_default();
-                            .connect_clicked(forward_input!(sender, Self::Input::Accept));
+                            .connect_clicked(forward!(sender.input(Self::Input::Accept)));
                         }
                     }
                 }

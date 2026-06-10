@@ -336,103 +336,101 @@ impl Component for ViewerWindow {
 
             .insert_action_group("viewer", Some(with!(&view.action_group {
                 gio::SimpleAction::new("copy-text-selection", None) {
-                    .connect_activate(forward_input!(|_param| sender, Self::Input::CopySelection));
+                    .connect_activate(forward!(|_, _| sender.input(Self::Input::CopySelection)));
                 }
                 gio::SimpleAction::new("select-all", None) {
-                    .connect_activate(forward_input!(|_param| sender, Self::Input::SelectAll));
+                    .connect_activate(forward!(|_, _| sender.input(Self::Input::SelectAll)));
                 }
                 gio::SimpleAction::new("close", None) {
-                    .connect_activate(forward_output!(|_param| sender, ()));
+                    .connect_activate(forward!(|_, _| sender.output(())));
                 }
                 gio::SimpleAction::new("zoom-in", None) {
-                    .connect_activate(forward_input!(|_param| sender, Self::Input::ZoomIn));
+                    .connect_activate(forward!(|_, _| sender.input(Self::Input::ZoomIn)));
                 }
                 gio::SimpleAction::new("zoom-out", None) {
-                    .connect_activate(forward_input!(|_param| sender, Self::Input::ZoomOut));
+                    .connect_activate(forward!(|_, _| sender.input(Self::Input::ZoomOut)));
                 }
                 gio::SimpleAction::new("normal-size", None) {
-                    .connect_activate(forward_input!(|_param| sender, Self::Input::ZoomNormal));
+                    .connect_activate(forward!(|_, _| sender.input(Self::Input::ZoomNormal)));
                 }
                 gio::SimpleAction::new("best-fit", None) {
-                    .connect_activate(forward_input!(|_param| sender, Self::Input::ZoomBestFit));
+                    .connect_activate(forward!(|_, _| sender.input(Self::Input::ZoomBestFit)));
                 }
                 gio::SimpleAction::new("find", None) {
-                    .connect_activate(forward_input!(|_param| sender, Self::Input::Find));
+                    .connect_activate(forward!(|_, _| sender.input(Self::Input::Find)));
                 }
                 gio::SimpleAction::new("find-next", None) {
-                    .connect_activate(forward_input!(
-                        |_param| sender, Self::Input::StartSearch(true))
-                    );
+                    .connect_activate(forward!(
+                        |_, _| sender.input(Self::Input::StartSearch(true))
+                    ));
                 }
                 gio::SimpleAction::new("find-previous", None) {
-                    .connect_activate(forward_input!(
-                        |_param| sender, Self::Input::StartSearch(false))
-                    );
+                    .connect_activate(forward!(
+                        |_, _| sender.input(Self::Input::StartSearch(false))
+                    ));
                 }
                 gio::SimpleAction::new_stateful(
                     "display-mode",
                     Some(&DisplayMode::static_variant_type()),
                     &self.display_mode.to_variant(),
                 ) {
-                    .connect_activate(forward_input!(|param| sender, Self::Input::DisplayMode(
+                    .connect_activate(forward!(|_, param| sender.input(Self::Input::DisplayMode(
                         param.and_then(DisplayMode::from_variant).unwrap_or_default()
-                    )));
+                    ))));
                 }
                 gio::SimpleAction::new_stateful(
                     "wrap-lines",
                     None,
                     &false.to_variant(),
                 ) {
-                    .connect_activate(forward_input!(|_param| sender, Self::Input::ToggleWrapMode));
+                    .connect_activate(forward!(|_, _| sender.input(Self::Input::ToggleWrapMode)));
                 }
                 gio::SimpleAction::new_stateful(
                     "encoding",
                     Some(&String::static_variant_type()),
                     &"".to_variant(),
                 ) {
-                    .connect_activate(forward_input!(|param| sender, Self::Input::Encoding(
+                    .connect_activate(forward!(|_, param| sender.input(Self::Input::Encoding(
                         param.and_then(String::from_variant).unwrap_or_else(|| String::from("UTF8"))
-                    )));
+                    ))));
                 }
                 gio::SimpleAction::new("imageop", Some(&ImageOperation::static_variant_type())) {
-                    .connect_activate(forward_input!(|param| sender, Self::Input::ImageOp(
+                    .connect_activate(forward!(|_, param| sender.input(Self::Input::ImageOp(
                         param.and_then(ImageOperation::from_variant).unwrap_or_default()
-                    )));
+                    ))));
                 }
                 gio::SimpleAction::new("choose-font", None) {
-                    .connect_activate(forward_input!(|_param| sender, Self::Input::ChooseFont));
+                    .connect_activate(forward!(|_, _| sender.input(Self::Input::ChooseFont)));
                 }
                 gio::SimpleAction::new_stateful(
                     "chars-per-line",
                     Some(&u32::static_variant_type()),
                     &0u32.to_variant(),
                 ) {
-                    .connect_activate(forward_input!(|param| sender, Self::Input::CharsPerLine(
+                    .connect_activate(forward!(|_, param| sender.input(Self::Input::CharsPerLine(
                         param.and_then(u32::from_variant).unwrap_or(80)
-                    )));
+                    ))));
                 }
                 gio::SimpleAction::new_stateful(
                     "hexadecimal-offset",
                     None,
                     &false.to_variant(),
                 ) {
-                    .connect_activate(forward_input!(
-                        |_param| sender, Self::Input::ToggleHexOffset)
-                    );
+                    .connect_activate(forward!(|_, _| sender.input(Self::Input::ToggleHexOffset)));
                 }
                 gio::SimpleAction::new_stateful(
                     "metadata-visible",
                     None,
                     &false.to_variant(),
                 ) {
-                    .connect_activate(forward_input!(|_param| sender, Self::Input::ToggleMetadata));
+                    .connect_activate(forward!(|_, _| sender.input(Self::Input::ToggleMetadata)));
                 }
                 gio::SimpleAction::new("quick-help", None) {
-                    .connect_activate(forward_input!(|_param| sender, Self::Input::QuickHelp));
+                    .connect_activate(forward!(|_, _| sender.input(Self::Input::QuickHelp)));
                 }
                 gio::SimpleAction::new("keyboard-shortcuts", None) {
-                    .connect_activate(forward_input!(
-                        |_param| sender, Self::Input::KeyboardShortcuts
+                    .connect_activate(forward!(
+                        |_, _| sender.input(Self::Input::KeyboardShortcuts)
                     ));
                 }
             })));
@@ -481,7 +479,7 @@ impl Component for ViewerWindow {
             }));
 
             // Make sure we signal that we are done even if close action isn't used.
-            .connect_unmap(forward_output!(sender, ()));
+            .connect_unmap(forward!(sender.output(())));
 
             .connect_focus_widget_notify({
                 let sender = sender.clone();
@@ -513,7 +511,7 @@ impl Component for ViewerWindow {
                             .load_file(&self.file);
 
                             .connect_text_status_changed(
-                                forward_input!(sender, Self::Input::TextStatusUpdate)
+                                forward!(sender.input(Self::Input::TextStatusUpdate))
                             );
 
                             .add_controller(with!(gtk::GestureClick {
@@ -539,7 +537,7 @@ impl Component for ViewerWindow {
                             .set_scale_factor(1.0);
 
                             .connect_image_status_changed(
-                                forward_input!(sender, Self::Input::ImageStatusUpdate)
+                                forward!(sender.input(Self::Input::ImageStatusUpdate))
                             );
 
                             .add_controller(with!(gtk::GestureClick {
@@ -562,8 +560,8 @@ impl Component for ViewerWindow {
                         let sender = sender.clone();
                         move |_, forward| sender.input(Self::Input::StartSearch(forward))
                     });
-                    .connect_closed(forward_input!(sender, Self::Input::FocusContent));
-                    .connect_abort(forward_input!(sender, Self::Input::CancelSearch));
+                    .connect_closed(forward!(sender.input(Self::Input::FocusContent)));
+                    .connect_abort(forward!(sender.input(Self::Input::CancelSearch)));
                 }
 
                 gtk::Box {
@@ -593,25 +591,25 @@ impl Component for ViewerWindow {
 
         with!(&mut self.option_handlers {
             .push(options.tab_size.connect_changed(
-                forward_input!(sender, Self::Input::UpdateTabSize)
+                forward!(sender.input(Self::Input::UpdateTabSize))
             ));
             .push(options.wrap_mode.connect_changed(
-                forward_input!(sender, Self::Input::UpdateWrapMode)
+                forward!(sender.input(Self::Input::UpdateWrapMode))
             ));
             .push(options.encoding.connect_changed(
-                forward_input!(sender, Self::Input::UpdateEncoding)
+                forward!(sender.input(Self::Input::UpdateEncoding))
             ));
             .push(options.monospaced_font.connect_changed(
-                forward_input!(sender, Self::Input::UpdateMonospacedFont)
+                forward!(sender.input(Self::Input::UpdateMonospacedFont))
             ));
             .push(options.binary_bytes_per_line.connect_changed(
-                forward_input!(sender, Self::Input::UpdateCharsPerLine)
+                forward!(sender.input(Self::Input::UpdateCharsPerLine))
             ));
             .push(options.metadata_visible.connect_changed(
-                forward_input!(sender, Self::Input::UpdateMetadata)
+                forward!(sender.input(Self::Input::UpdateMetadata))
             ));
             .push(options.display_hex_offset.connect_changed(
-                forward_input!(sender, Self::Input::UpdateHexOffset)
+                forward!(sender.input(Self::Input::UpdateHexOffset))
             ));
         });
 

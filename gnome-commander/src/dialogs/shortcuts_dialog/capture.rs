@@ -134,14 +134,14 @@ impl Component for Capture {
                         .set_focusable(false);
                         .set_hexpand(true);
                         .set_halign(gtk::Align::End);
-                        .connect_clicked(forward_output!(sender, Self::Output::Cancelled));
+                        .connect_clicked(forward!(sender.output(Self::Output::Cancelled)));
                     }
 
                     if self.existing_key.is_some() {
                         gtk::Button {
                             .set_label(&gettext("Remove Shortcut"));
                             .set_focusable(false);
-                            .connect_clicked(forward_output!(sender, Self::Output::Removed));
+                            .connect_clicked(forward!(sender.output(Self::Output::Removed)));
                         }
                     }
                 }
