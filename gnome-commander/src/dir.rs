@@ -12,7 +12,9 @@ use crate::{
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, glib::object::WeakRef, prelude::*, subclass::prelude::*};
-use std::{cell::Ref, collections::HashMap, path::Path, rc::Rc, time::Duration};
+use std::{
+    cell::Ref, collections::HashMap, collections::HashSet, path::Path, rc::Rc, time::Duration,
+};
 
 const SIGNAL_FILE_CREATED: &str = "file-created";
 const SIGNAL_FILES_DELETED: &str = "files-deleted";
@@ -365,8 +367,8 @@ impl Directory {
             let files = self.imp().files.borrow();
             let files = positions
                 .iter()
-                .filter_map(|position| files.get(*position).cloned())
-                .collect::<Vec<_>>();
+                .filter_map(|position| Some(files.get(*position)?.uri()))
+                .collect::<HashSet<_>>();
             self.emit_by_name::<()>(SIGNAL_FILES_DELETED, &[&glib::BoxedAnyObject::new(files)]);
         }
 

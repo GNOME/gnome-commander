@@ -917,7 +917,7 @@ mod imp {
                         #[weak(rename_to = imp)]
                         self,
                         move |d: &Directory, files: &glib::BoxedAnyObject| {
-                            imp.on_dir_files_deleted(d, &files.borrow::<Vec<File>>())
+                            imp.on_dir_files_deleted(d, &files.borrow::<HashSet<String>>())
                         }
                     ),
                 ));
@@ -1070,33 +1070,59 @@ mod imp {
             }
         }
 
-        fn on_dir_files_deleted(&self, dir: &Directory, files: &[File]) {
-            if &*self.directory.borrow() == dir {
-                let mut positions = Vec::new();
-                for (position, item) in self.store.iter::<FileListItem>().flatten().enumerate() {
-                    if files.contains(&item.file()) {
-                        positions.push(position);
-                    }
-                }
-                if positions.is_empty() {
-                    return;
-                }
+        fn on_dir_files_deleted(&self, dir: &Directory, files: &HashSet<String>) {
+            if &*self.directory.borrow() != dir {
+                return;
+            }
 
-                let obj = self.obj();
-                let was_focused = obj
-                    .root()
-                    .as_ref()
-                    .and_then(gtk::Root::focus)
-                    .is_some_and(|widget| widget.is_ancestor(&*obj));
-                for position in positions.into_iter().rev() {
-                    self.store.remove(position as u32);
-                }
-                obj.emit_files_changed();
-                if was_focused {
-                    // Removing focused row makes Gtk transfer focus away from the list, restore it.
-                    obj.grab_focus();
+            // Adjust selection prior to removal to prevent Gtk from messing up keyboard focus, also
+            // avoid slowdown due to too many selection update events.
+            let obj = self.obj();
+            if let Some(current_position) = obj.focused_file_position() {
+                let removed = self
+                    .items_iter()
+                    .enumerate()
+                    .filter_map(|(position, item)| {
+                        if files.contains(&item.file().uri()) {
+                            Some(position)
+                        } else {
+                            None
+                        }
+                    })
+                    .collect::<Vec<_>>();
+                if let Some(new_position) = (0..=current_position)
+                    .rev()
+                    .find(|pos| removed.binary_search(&(*pos as usize)).is_err())
+                    .or_else(|| {
+                        (current_position + 1 < self.selection.n_items())
+                            .then(|| current_position + 1)
+                    })
+                {
+                    obj.select_row(new_position);
                 }
             }
+
+            let removed = self
+                .store
+                .iter::<FileListItem>()
+                .flatten()
+                .enumerate()
+                .filter_map(|(position, item)| {
+                    if files.contains(&item.file().uri()) {
+                        Some(position)
+                    } else {
+                        None
+                    }
+                })
+                .collect::<Vec<_>>();
+            if removed.is_empty() {
+                return;
+            }
+
+            for position in removed.into_iter().rev() {
+                self.store.remove(position as u32);
+            }
+            obj.emit_files_changed();
         }
 
         fn on_dir_file_changed(&self, f: &File) {
