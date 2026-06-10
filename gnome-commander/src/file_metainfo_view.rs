@@ -80,11 +80,13 @@ glib::wrapper! {
         @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 }
 
-impl FileMetainfoView {
-    pub fn new() -> Self {
+impl Default for FileMetainfoView {
+    fn default() -> Self {
         glib::Object::builder().build()
     }
+}
 
+impl FileMetainfoView {
     pub fn set_metadata(&self, metadata: &mut FileMetadata) {
         self.imp().view.set_model(None::<&gtk::SelectionModel>);
 

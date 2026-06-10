@@ -1090,11 +1090,13 @@ glib::wrapper! {
         @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::Scrollable;
 }
 
-impl TextRender {
-    pub fn new() -> Self {
+impl Default for TextRender {
+    fn default() -> Self {
         glib::Object::builder().build()
     }
+}
 
+impl TextRender {
     pub fn scale_factor(&self) -> f64 {
         self.imp().scale_factor.get()
     }
@@ -1323,7 +1325,7 @@ mod test {
         #[test]
         fn display_mode() {
             gtk::init().unwrap();
-            let text_render = TextRender::new();
+            let text_render = TextRender::default();
             text_render.load_file(Path::new(FILENAME));
             for mode in [
                 TextRenderDisplayMode::Text,
@@ -1338,7 +1340,7 @@ mod test {
         #[test]
         fn tab_size() {
             gtk::init().unwrap();
-            let text_render = TextRender::new();
+            let text_render = TextRender::default();
             text_render.load_file(Path::new(FILENAME));
             for tab_size in 1..=10 {
                 text_render.set_tab_size(tab_size);
@@ -1349,7 +1351,7 @@ mod test {
         #[test]
         fn wrap_mode() {
             gtk::init().unwrap();
-            let text_render = TextRender::new();
+            let text_render = TextRender::default();
             text_render.load_file(Path::new(FILENAME));
             for mode in [false, true] {
                 text_render.set_wrap_mode(mode);
@@ -1360,7 +1362,7 @@ mod test {
         #[test]
         fn fixed_limit() {
             gtk::init().unwrap();
-            let text_render = TextRender::new();
+            let text_render = TextRender::default();
             text_render.load_file(Path::new(FILENAME));
             for limit in 1..=10 {
                 text_render.set_fixed_limit(limit);
@@ -1371,7 +1373,7 @@ mod test {
         #[test]
         fn encoding() {
             gtk::init().unwrap();
-            let text_render = TextRender::new();
+            let text_render = TextRender::default();
             text_render.load_file(Path::new(FILENAME));
             for encoding in ["ASCII", "UTF8", "CP437", "CP1251"] {
                 text_render.set_encoding(encoding);

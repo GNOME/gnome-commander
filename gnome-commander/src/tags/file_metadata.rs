@@ -28,7 +28,7 @@ impl<'a> Iterator for GroupsIterator<'a> {
     }
 }
 
-#[derive(Default)]
+#[derive(Debug, Default)]
 pub struct FileMetadata {
     tags: Vec<(Box<dyn Tag>, String)>,
     sorted: bool,

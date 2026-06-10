@@ -28,11 +28,24 @@ pub use widget::GcmdWidgetExt;
 ///     connect_clicked(forward_input!(sender, Self::Input::Increase));
 /// });
 /// ```
+///
+/// By default the generated closure expects a single parameter which is ignored. If the signal has
+/// additional parameters, these need to be listed and can be added to your message:
+///
+/// ```rust,ignore
+/// # use gcmd_component_framework::{forward_input, with};
+/// # use gtk::prelude::*;
+/// # gtk::init();
+/// with!(gtk::Button => {
+///     set_label("Increase counter");
+///     connect_move_focus(forward_input!(|direction| sender, Self::Input::MoveFocus(direction)));
+/// });
+/// ```
 #[macro_export]
 macro_rules! forward_input {
-    ($sender:ident, $expr:expr) => {{
+    ($(|$($param:ident),*|)? $sender:ident, $expr:expr) => {{
         let __sender = $sender.clone();
-        move |_| {
+        move |_$($(, $param)*)?| {
             __sender.input($expr);
         }
     }};
@@ -42,19 +55,19 @@ macro_rules! forward_input {
 /// output channel. This macro is meant to be used within the [with! macro](crate::with):
 ///
 /// ```rust,ignore
-/// # use gcmd_component_framework::{forward_input, with};
+/// # use gcmd_component_framework::{forward_output, with};
 /// # use gtk::prelude::*;
 /// # gtk::init();
 /// with!(gtk::Button => {
 ///     set_label("Cancel");
-///     connect_clicked(forward_input!(sender, Self::Output::Cancelled));
+///     connect_clicked(forward_output!(sender, Self::Output::Cancelled));
 /// });
 /// ```
 #[macro_export]
 macro_rules! forward_output {
-    ($sender:ident, $expr:expr) => {{
+    ($(|$($param:ident),*|)? $sender:ident, $expr:expr) => {{
         let __sender = $sender.clone();
-        move |_| {
+        move |_$($(, $param)*)?| {
             __sender.output($expr);
         }
     }};

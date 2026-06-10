@@ -476,21 +476,6 @@ pub trait MenuBuilderExt {
         param: impl glib::variant::ToVariant,
     ) -> Self;
 
-    fn item_accel(
-        self,
-        label: impl Into<String>,
-        detailed_action: impl AsRef<str>,
-        accel: &str,
-    ) -> Self;
-
-    fn item_param_accel(
-        self,
-        label: impl Into<String>,
-        action: impl AsRef<str>,
-        param: impl glib::variant::ToVariant,
-        accel: &str,
-    ) -> Self;
-
     fn action(self, action: UserAction) -> Self;
 
     fn section(self, section: gio::Menu) -> Self;
@@ -516,32 +501,6 @@ impl MenuBuilderExt for gio::Menu {
         self
     }
 
-    fn item_accel(
-        self,
-        label: impl Into<String>,
-        detailed_action: impl AsRef<str>,
-        accel: &str,
-    ) -> Self {
-        let item = gio::MenuItem::new(Some(&label.into()), Some(detailed_action.as_ref()));
-        item.set_attribute_value("accel", Some(&accel.to_variant()));
-        self.append_item(&item);
-        self
-    }
-
-    fn item_param_accel(
-        self,
-        label: impl Into<String>,
-        action: impl AsRef<str>,
-        param: impl glib::variant::ToVariant,
-        accel: &str,
-    ) -> Self {
-        let item = gio::MenuItem::new(Some(&label.into()), None);
-        item.set_action_and_target_value(Some(action.as_ref()), Some(&param.to_variant()));
-        item.set_attribute_value("accel", Some(&accel.to_variant()));
-        self.append_item(&item);
-        self
-    }
-
     fn action(self, action: UserAction) -> Self {
         self.item(action.menu_description(), action.name())
     }
@@ -555,50 +514,6 @@ impl MenuBuilderExt for gio::Menu {
         self.append_submenu(Some(&label.into()), &section);
         self
     }
-}
-
-pub fn extract_menu_shortcuts(menu: &gio::MenuModel) -> gio::ListStore {
-    fn collect(menu: &gio::MenuModel, item_index: i32, accel: &str, store: &gio::ListStore) {
-        let Some(trigger) = gtk::ShortcutTrigger::parse_string(accel) else {
-            eprintln!("Failed to parse '{}' as an accelerator.", accel);
-            return;
-        };
-        let Some(action_name) = menu
-            .item_attribute_value(item_index, gio::MENU_ATTRIBUTE_ACTION, None)
-            .as_ref()
-            .and_then(|a| a.str())
-            .map(ToString::to_string)
-        else {
-            eprintln!("No action for an accelerator {}.", accel);
-            return;
-        };
-        let target_value = menu.item_attribute_value(item_index, gio::MENU_ATTRIBUTE_TARGET, None);
-
-        let shortcut = gtk::Shortcut::new(Some(trigger), Some(gtk::NamedAction::new(&action_name)));
-        shortcut.set_arguments(target_value.as_ref());
-
-        store.append(&shortcut);
-    }
-
-    fn traverse(store: &gio::ListStore, menu: &gio::MenuModel) {
-        for item_index in 0..menu.n_items() {
-            if let Some(accel) = menu
-                .item_attribute_value(item_index, "accel", None)
-                .as_ref()
-                .and_then(|v| v.str())
-            {
-                collect(menu, item_index, accel, store);
-            }
-            let iter = menu.iterate_item_links(item_index);
-            while let Some((_link_name, model)) = iter.next() {
-                traverse(store, &model);
-            }
-        }
-    }
-
-    let store = gio::ListStore::new::<gtk::Shortcut>();
-    traverse(&store, menu);
-    store
 }
 
 pub trait GnomeCmdFileExt {
@@ -686,11 +601,6 @@ fn box_builder(orientation: gtk::Orientation) -> BoxBuilder {
 /// Creates a `BoxBuilder` instance for a box with horizontal orientation.
 pub fn hbox_builder() -> BoxBuilder {
     box_builder(gtk::Orientation::Horizontal)
-}
-
-/// Creates a `BoxBuilder` instance for a box with vertical orientation.
-pub fn vbox_builder() -> BoxBuilder {
-    box_builder(gtk::Orientation::Vertical)
 }
 
 /// Gtk doesn't allow changing focused row while the list isn't focused, things end up in an

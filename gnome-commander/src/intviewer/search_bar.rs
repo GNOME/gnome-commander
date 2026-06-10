@@ -282,11 +282,13 @@ glib::wrapper! {
         @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 }
 
-impl SearchBar {
-    pub fn new() -> Self {
+impl Default for SearchBar {
+    fn default() -> Self {
         glib::Object::builder().build()
     }
+}
 
+impl SearchBar {
     pub fn show(&self, focus: bool) {
         self.imp().inner.set_search_mode(true);
         if focus {

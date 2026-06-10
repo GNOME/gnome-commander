@@ -90,8 +90,4 @@ impl GridRow {
             .borrow_mut()
             .push((span, widget.as_ref().clone()));
     }
-
-    /// No-op for compatibility with Gtk widget types.
-    #[doc(hidden)]
-    pub fn unparent(&self) {}
 }
