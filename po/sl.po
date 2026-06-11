@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
 "POT-Creation-Date: 2026-06-10 08:57+0000\n"
-"PO-Revision-Date: 2026-06-11 10:08+0200\n"
+"PO-Revision-Date: 2026-06-11 17:04+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.8\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
 #: data/org.gnome.gnome-commander.desktop.in:2 data/org.gnome.gnome-commander.metainfo.xml.in:16
@@ -1653,14 +1653,17 @@ msgid "Specify the start directory for the right panel"
 msgstr "Določite začetno mapo za desno podokno"
 
 #: gnome-commander/src/application.rs:246
+#, rust-format
 msgid "Failed to create the directory {directory}: {error}"
 msgstr "Ustvarjanje mape {directory} je spodletelo: {error}"
 
 #: gnome-commander/src/app.rs:62 gnome-commander/src/open_file.rs:168
+#, rust-format
 msgid "Launch of {} failed."
 msgstr "Zagon {} ni uspel."
 
 #: gnome-commander/src/app.rs:139
+#, rust-format
 msgid "Cannot launch an app {}. No files were given."
 msgstr "Programa {} ni mogoče zagnati. Datoteke niso bile podane."
 
@@ -1722,6 +1725,7 @@ msgstr "Če izvedete ukaz, se bo izhod pojavil tukaj."
 
 #: gnome-commander/src/connection/device.rs:174 gnome-commander/src/connection/device.rs:188
 #: gnome-commander/src/connection/device.rs:218 gnome-commander/src/connection/device.rs:240
+#, rust-format
 msgid "Unable to mount the volume {}"
 msgstr "Nosilca {} ni mogoče priklopiti"
 
@@ -1734,18 +1738,22 @@ msgid "Mounting %s"
 msgstr "Priklop %s"
 
 #: gnome-commander/src/connection/device.rs:323
+#, rust-format
 msgid "Go to: {device_name} ({mount_point})"
 msgstr "Pojdi na: {device_name} ({mount_point})"
 
 #: gnome-commander/src/connection/device.rs:326
+#, rust-format
 msgid "Go to: {device_name}"
 msgstr "Pojdi na: {device_name}"
 
 #: gnome-commander/src/connection/device.rs:331
+#, rust-format
 msgid "Mount: {device_name}"
 msgstr "Priklopi: {device_name}"
 
 #: gnome-commander/src/connection/device.rs:335
+#, rust-format
 msgid "Unmount: {device_name}"
 msgstr "Odklopi: {device_name}"
 
@@ -1771,6 +1779,7 @@ msgid "Mount failed: no medium found"
 msgstr "Priklop je spodletel: nosilca ni mogoče najti"
 
 #: gnome-commander/src/connection/device.rs:455
+#, rust-format
 msgid "Mount failed: mount exited with exitstatus {}"
 msgstr "Priklop je spodletel: priklop zaključen s stanjem izhoda {}"
 
@@ -1779,6 +1788,7 @@ msgid "Mount failed: mount exited without an exitstatus"
 msgstr "Priklop je spodletel: priklop zaključen brez stanja izhoda"
 
 #: gnome-commander/src/connection/device.rs:471
+#, rust-format
 msgid "Unmount failed: umount exited with exitstatus {}"
 msgstr "Priklop je spodletel: odklop umount zaključen s stanjem izhoda {}"
 
@@ -1811,18 +1821,22 @@ msgid "Disconnect error"
 msgstr "Napaka prekinjanja povezave"
 
 #: gnome-commander/src/connection/remote.rs:220
+#, rust-format
 msgid "Connecting to {hostname}"
 msgstr "Povezovanje z {hostname}"
 
 #: gnome-commander/src/connection/remote.rs:226
+#, rust-format
 msgid "Go to: {connection}"
 msgstr "Pojdi na: {connection}"
 
 #: gnome-commander/src/connection/remote.rs:230
+#, rust-format
 msgid "Connect to: {connection}"
 msgstr "Poveži se z: {connection}"
 
 #: gnome-commander/src/connection/remote.rs:234
+#, rust-format
 msgid "Disconnect from: {connection}"
 msgstr "Prekini povezavo z: {connection}"
 
@@ -1867,6 +1881,7 @@ msgid "Translated by"
 msgstr "Prevod"
 
 #: gnome-commander/src/dialogs/chmod_dialog.rs:33
+#, rust-format
 msgid "Could not chmod {}"
 msgstr "Ni možno spremeniti lastnosti {} s chmod"
 
@@ -1891,6 +1906,7 @@ msgid "C_hange Permissions"
 msgstr "Spremeni d_ovoljenja"
 
 #: gnome-commander/src/dialogs/chown_dialog.rs:28
+#, rust-format
 msgid "Could not chown {}"
 msgstr "Ni možno spremeniti lastništva {} s chown"
 
@@ -1919,6 +1935,7 @@ msgid "You must enter a number for the port"
 msgstr "Vnesti morate številko vrat"
 
 #: gnome-commander/src/dialogs/connect_dialog.rs:93
+#, rust-format
 msgid "“{}” is not a valid location"
 msgstr "»{}« ni veljavno mesto"
 
@@ -2031,6 +2048,7 @@ msgid "Deleting…"
 msgstr "Poteka brisanje …"
 
 #: gnome-commander/src/dialogs/delete_dialog.rs:143
+#, rust-format
 msgid "Deleted {count} of {total} file"
 msgid_plural "Deleted {count} of {total} files"
 msgstr[0] "Izbrisanih {count} od {total} datotek"
@@ -2039,10 +2057,12 @@ msgstr[2] "Izbrisani {count} od {total} datotek"
 msgstr[3] "Izbrisane {count} od {total} datotek"
 
 #: gnome-commander/src/dialogs/delete_dialog.rs:166
+#, rust-format
 msgid "The directory “{}” is not empty. Do you really want to delete it?"
 msgstr "Mapa »{}« ni prazna. Ali jo res želite izbrisati?"
 
 #: gnome-commander/src/dialogs/delete_dialog.rs:169
+#, rust-format
 msgid "Do you really want to delete “{}”?"
 msgstr "Ali res želite izbrisati »{}«?"
 
@@ -2076,6 +2096,7 @@ msgid "Delete"
 msgstr "Izbriši"
 
 #: gnome-commander/src/dialogs/delete_dialog.rs:206
+#, rust-format
 msgid "Error while deleting “{file}”"
 msgstr "Napaka pri brisanju »{file}«"
 
@@ -2096,10 +2117,12 @@ msgid "Retry"
 msgstr "Poskusi znova"
 
 #: gnome-commander/src/dialogs/delete_dialog.rs:474
+#, rust-format
 msgid "Do you want to permanently delete “{}”?"
 msgstr "Ali želite trajno izbrisati »{}«?"
 
 #: gnome-commander/src/dialogs/delete_dialog.rs:477
+#, rust-format
 msgid "Do you want to move “{}” to the trash can?"
 msgstr "Ali želite premakniti »{}« v koš?"
 
@@ -2239,6 +2262,7 @@ msgid "Copy File"
 msgstr "Kopiraj datoteko"
 
 #: gnome-commander/src/dialogs/make_copy_dialog.rs:38 gnome-commander/src/dialogs/prepare_copy_dialog.rs:34
+#, rust-format
 msgid "Copy “{}” to"
 msgstr "Kopirajte »{}« v"
 
@@ -3056,6 +3080,7 @@ msgid "Bad expression"
 msgstr "Napačen izraz"
 
 #: gnome-commander/src/dialogs/prepare_copy_dialog.rs:36
+#, rust-format
 msgid "copy {} file to"
 msgid_plural "copy {} files to"
 msgstr[0] "kopiraj {} datotek v"
@@ -3077,10 +3102,12 @@ msgid "_Move"
 msgstr "Pre_makni"
 
 #: gnome-commander/src/dialogs/prepare_move_dialog.rs:34
+#, rust-format
 msgid "Move “{}” to"
 msgstr "Premakni »{}« v"
 
 #: gnome-commander/src/dialogs/prepare_move_dialog.rs:36
+#, rust-format
 msgid "move {} file to"
 msgid_plural "move {} files to"
 msgstr[0] "premakni {} datotek v"
@@ -3089,10 +3116,12 @@ msgstr[2] "premakni {} datoteki v"
 msgstr[3] "premakni {} datoteke v"
 
 #: gnome-commander/src/dialogs/prepare_transfer_dialog.rs:184
+#, rust-format
 msgid "The directory “{}” doesn’t exist, do you want to create it?"
 msgstr "Mapa »{}« ne obstaja, jo želite ustvariti?"
 
 #: gnome-commander/src/dialogs/prepare_transfer_dialog.rs:435
+#, rust-format
 msgid "Directory {} cannot be created."
 msgstr "Mape {} ni mogoče ustvariti."
 
@@ -3147,10 +3176,12 @@ msgid "Edit Shortcut"
 msgstr "Dodaj tipkovno bližnjico"
 
 #: gnome-commander/src/dialogs/shortcuts_dialog/capture.rs:92
+#, rust-format
 msgid "Enter a shortcut to replace “{shortcut}” for action “{action}.”"
 msgstr "Vnesite tipkovno bližnjico, da zamenjate »{shortcut}« za dejanje »{action}«."
 
 #: gnome-commander/src/dialogs/shortcuts_dialog/capture.rs:96
+#, rust-format
 msgid "Enter a new shortcut for action “{action}.”"
 msgstr "Vnesite novo tipkovno bližnjico za dejanje »{action}«."
 
@@ -3182,6 +3213,7 @@ msgstr ""
 "tipko za bližnjico."
 
 #: gnome-commander/src/dialogs/shortcuts_dialog/capture.rs:246
+#, rust-format
 msgid "Shortcut “{shortcut}” cannot be reconfigured."
 msgstr "Tipkovne bližnjice »{shortcut}« ni možno ponovno prilagoditi."
 
@@ -3206,16 +3238,16 @@ msgid "_Save Shortcuts"
 msgstr "Shrani tipke za _bližnjice"
 
 #: gnome-commander/src/dialogs/shortcuts_dialog/mod.rs:598
-#, fuzzy
-#| msgid "_Plugins"
 msgid "Plugins"
-msgstr "_Vstavki"
+msgstr "Vstavki"
 
 #: gnome-commander/src/dialogs/shortcuts_dialog/mod.rs:647
+#, rust-format
 msgid "Shortcut “{shortcut}” is already taken by “{action}”."
 msgstr "Tipkovna bližnjica »{shortcut}« se že uporablja za »{action}«."
 
 #: gnome-commander/src/dialogs/shortcuts_dialog/mod.rs:652
+#, rust-format
 msgid "Reassigning the shortcut will cause it to be removed from “{action}”."
 msgstr "Če bližnjico znova dodelite, bo odvzeta »{action}«."
 
@@ -3228,12 +3260,13 @@ msgid "Progress"
 msgstr "Napredek"
 
 #: gnome-commander/src/dialogs/transfer_progress_dialog.rs:138
+#, rust-format
 msgctxt "size copied"
 msgid "{copied} of {total} copied"
 msgstr "kopirano {copied} od {total}"
 
 #: gnome-commander/src/dialogs/transfer_progress_dialog.rs:144
-#, no-c-format
+#, no-c-format, rust-format
 msgctxt "percentage copied"
 msgid "{}% copied"
 msgstr "Kopirano {}% c"
@@ -3247,6 +3280,7 @@ msgid "Not an ordinary file."
 msgstr "Ni običajna datoteka."
 
 #: gnome-commander/src/file_list/actions.rs:38 gnome-commander/src/open_file.rs:58
+#, rust-format
 msgid ""
 "{} does not know how to open remote file. Do you want to download the file to a temporary location and "
 "then open it?"
@@ -3331,18 +3365,22 @@ msgid "C_ancel"
 msgstr "Pre_kliči"
 
 #: gnome-commander/src/file_list/list.rs:2520
+#, rust-format
 msgid "Selected: {selected_bytes} of {total_bytes}."
 msgstr "Izbranih {selected_bytes} od {total_bytes}."
 
 #: gnome-commander/src/file_list/list.rs:2527
+#, rust-format
 msgid "Files: {selected_files} of {total_files}."
 msgstr "Datoteke: {selected_files} od {total_files}."
 
 #: gnome-commander/src/file_list/list.rs:2531
+#, rust-format
 msgid "Directories: {selected_dirs} of {total_dirs}."
 msgstr "Mape: {selected_dirs} od {total_dirs}."
 
 #: gnome-commander/src/file_list/list.rs:2575
+#, rust-format
 msgid "Cannot rename a file to {new_name}"
 msgstr "Datoteke ni mogoče preimenovati v {new_name}"
 
@@ -3352,6 +3390,7 @@ msgstr "<MAPA>"
 
 #. Add the default "Open" menu entry at the top of the popup
 #: gnome-commander/src/file_list/popup.rs:65
+#, rust-format
 msgid "_Open with “{}”"
 msgstr "_Odpri s programom »{}«"
 
@@ -3385,6 +3424,7 @@ msgid "Description"
 msgstr "Opis"
 
 #: gnome-commander/src/file.rs:101
+#, rust-format
 msgid "Failed to get file info for {path}."
 msgstr "Pridobivanje podatkov o datoteki za {path} ni uspelo."
 
@@ -3481,10 +3521,12 @@ msgid "Cannot translate into text encoding"
 msgstr "Ni nožno prevesti v kodiranje besedila"
 
 #: gnome-commander/src/intviewer/window.rs:447
+#, rust-format
 msgid "Position: {offset} of {size}"
 msgstr "Položaj: {offset} / {size}"
 
 #: gnome-commander/src/intviewer/window.rs:452
+#, rust-format
 msgid "Column: {}"
 msgstr "Stolpec: {}"
 
@@ -3497,6 +3539,7 @@ msgid "Could not recognize the image file format"
 msgstr "Ni možno prepoznati vrste zapisa slikovne datoteke"
 
 #: gnome-commander/src/intviewer/window.rs:478
+#, rust-format
 msgid "{width} x {height} pixel"
 msgid_plural "{width} x {height} pixels"
 msgstr[0] "{width} x {height} sl. točk"
@@ -3505,6 +3548,7 @@ msgstr[2] "{width} x {height} sl. točki"
 msgstr[3] "{width} x {height} sl. točke"
 
 #: gnome-commander/src/intviewer/window.rs:485
+#, rust-format
 msgid "{} bit/sample"
 msgid_plural "{} bits/sample"
 msgstr[0] "{} bitov/vzorec"
@@ -3806,6 +3850,7 @@ msgid "_Plugins"
 msgstr "_Vstavki"
 
 #: gnome-commander/src/open_file.rs:18
+#, rust-format
 msgid ""
 "“{}” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then "
 "run the file?"
@@ -3818,6 +3863,7 @@ msgid "_Mark as Executable"
 msgstr "_Označi kot izvršljivo"
 
 #: gnome-commander/src/open_file.rs:40
+#, rust-format
 msgid "“{}” is an executable text file. Do you want to run it, or display its contents?"
 msgstr "Datoteka »{}« je izršljiva besedilna datoteka. Ali jo želite zagnati ali pregledati njeno vsebino?"
 
@@ -3842,6 +3888,7 @@ msgid "Change of a file mode failed"
 msgstr "Spreminjanje datotečnega načina ni uspelo"
 
 #: gnome-commander/src/open_file.rs:127
+#, rust-format
 msgid "No default application found for the file type {}."
 msgstr "Za vrsto datoteke {} ni določen privzeti program."
 
@@ -3866,22 +3913,27 @@ msgid "API registration received after initialization"
 msgstr "Registracija API-ja prejeta po inicializaciji"
 
 #: gnome-commander/src/plugins/instance.rs:311
+#, rust-format
 msgid "Multiple registrations for API {}"
 msgstr "Več registracij za API {}"
 
 #: gnome-commander/src/plugins/instance.rs:321
+#, rust-format
 msgid "Registration for unknown API {}"
 msgstr "Registracija za neznani API {}"
 
 #: gnome-commander/src/plugins/instance.rs:360
+#, rust-format
 msgid "No API to handle request {} from plugin"
 msgstr "Ni API-ja za obdelavo zahtev {} vstavka"
 
 #: gnome-commander/src/plugins/instance.rs:368
+#, rust-format
 msgid "Response to unknown API request {}"
 msgstr "Odgovor na neznano zahtevo {} API-ja"
 
 #: gnome-commander/src/plugins/instance.rs:382
+#, rust-format
 msgid "Response to API request {} has wrong type"
 msgstr "Odgovor na zahtevo {} API-ja je napačne vrste"
 
@@ -3899,6 +3951,7 @@ msgid "Plugin didn't start up within maximum time"
 msgstr "Vstavek se ni zagnal v najdaljšem možnem času"
 
 #: gnome-commander/src/plugins/instance.rs:525
+#, rust-format
 msgid "No response to API request {} received within maximum time"
 msgstr "V največjem možnem času ni prejeta nobena odgovora na zahtevo API {}"
 
@@ -3907,15 +3960,16 @@ msgid "Available plugins"
 msgstr "Razpoložljivi vstavki"
 
 #: gnome-commander/src/plugins/manager.rs:176
+#, rust-format
 msgid "Version: {}"
 msgstr "Različica: {}"
 
 #: gnome-commander/src/plugins/manager.rs:183
+#, rust-format
 msgid "File: {}"
 msgstr "Datoteka: {}"
 
 #: gnome-commander/src/plugins/manager.rs:191
-#, fuzzy
 msgid "Starting…"
 msgstr "Začenjanje …"
 
@@ -3932,6 +3986,7 @@ msgid "Invalid file name pattern."
 msgstr "Neveljaven vzorec imena datoteke."
 
 #: gnome-commander/src/search/backend.rs:136
+#, rust-format
 msgid "Searching in: {}"
 msgstr "Iskanje v: {}"
 
@@ -3956,6 +4011,7 @@ msgid "_Look in folder:"
 msgstr "_Preišči v mapi:"
 
 #: gnome-commander/src/search/search_dialog.rs:692
+#, rust-format
 msgid "Found {} match — search aborted"
 msgid_plural "Found {} matches — search aborted"
 msgstr[0] "Najdenih {} zadetkov - iskanje preklicano"
@@ -3964,6 +4020,7 @@ msgstr[2] "Najdena {} zadetka - iskanje preklicano"
 msgstr[3] "Najdeni {} zadetki - iskanje preklicano"
 
 #: gnome-commander/src/search/search_dialog.rs:697
+#, rust-format
 msgid "Found {} match"
 msgid_plural "Found {} matches"
 msgstr[0] "Najdenih {} zadetkov"
@@ -4193,6 +4250,7 @@ msgid "Skip all"
 msgstr "Preskoči vse"
 
 #: gnome-commander/src/transfer.rs:539 gnome-commander/src/transfer.rs:652
+#, rust-format
 msgid ""
 "Overwrite file:\n"
 "\n"
@@ -4220,10 +4278,12 @@ msgid "Replace all"
 msgstr "Zamenjaj vse"
 
 #: gnome-commander/src/transfer.rs:611 gnome-commander/src/transfer.rs:716
+#, rust-format
 msgid "Error while transferring “{file}”"
 msgstr "Napaka pri prenosu »{file}«"
 
 #: gnome-commander/src/transfer.rs:748
+#, rust-format
 msgid "Error while creating symlink “{file}”"
 msgstr "Napaka pri ustvarjanju simbolne povezave »{file}«"
 
@@ -4248,10 +4308,12 @@ msgid "copying…"
 msgstr "Kopiranje ..."
 
 #: gnome-commander/src/transfer.rs:1062
+#, rust-format
 msgid "[file {index} of {count}] “{file}”"
 msgstr "[datoteka {index} / {count}] »{file}«"
 
 #: gnome-commander/src/transfer.rs:1121
+#, rust-format
 msgctxt "A template for a file name. In a case of a conflict with an existing one."
 msgid "{name} (Copy {number})"
 msgstr "{name} (kopija {number})"
@@ -4281,6 +4343,7 @@ msgid "link to %s"
 msgstr "povezava do %s"
 
 #: gnome-commander/src/user_actions.rs:453
+#, rust-format
 msgid "Create symbolic links of {count} file in {dir}?"
 msgid_plural "Create symbolic links of {count} files in {dir}?"
 msgstr[0] "Želite ustvariti simbolne povezave {count} datotek v {dir}?"
@@ -4779,10 +4842,12 @@ msgid "Cannot create a temporary file."
 msgstr "Začasne datoteke ni mogoče ustvariti."
 
 #: gnome-commander/src/utils.rs:276
+#, rust-format
 msgid "There was an error while opening help uri {uri}."
 msgstr "Pri odpiranju uri {uri} za vsebino pomoči je prišlo do napake."
 
 #: gnome-commander/src/utils.rs:377
+#, rust-format
 msgid "{} PiB"
 msgid_plural "{} PiB"
 msgstr[0] "{} PiB"
@@ -4791,6 +4856,7 @@ msgstr[2] "{} PiB"
 msgstr[3] "{} PiB"
 
 #: gnome-commander/src/utils.rs:380
+#, rust-format
 msgid "{} TiB"
 msgid_plural "{} TiB"
 msgstr[0] "{} PiB"
@@ -4799,6 +4865,7 @@ msgstr[2] "{} PiB"
 msgstr[3] "{} PiB"
 
 #: gnome-commander/src/utils.rs:383
+#, rust-format
 msgid "{} GiB"
 msgid_plural "{} GiB"
 msgstr[0] "{} PiB"
@@ -4807,6 +4874,7 @@ msgstr[2] "{} PiB"
 msgstr[3] "{} PiB"
 
 #: gnome-commander/src/utils.rs:386
+#, rust-format
 msgid "{} MiB"
 msgid_plural "{} MiB"
 msgstr[0] "{} MiB"
@@ -4815,6 +4883,7 @@ msgstr[2] "{} MiB"
 msgstr[3] "{} MiB"
 
 #: gnome-commander/src/utils.rs:389
+#, rust-format
 msgid "{} KiB"
 msgid_plural "{} KiB"
 msgstr[0] "{} KiB"
@@ -4823,6 +4892,7 @@ msgstr[2] "{} KiB"
 msgstr[3] "{} KiB"
 
 #: gnome-commander/src/utils.rs:392 gnome-commander/src/utils.rs:403 gnome-commander/src/utils.rs:407
+#, rust-format
 msgid "{} byte"
 msgid_plural "{} bytes"
 msgstr[0] "{} bajtov"
@@ -5048,10 +5118,8 @@ msgid "Number of images that a document producer has counted in a document"
 msgstr "Število slik, ki jih je proizvajalec dokumenta preštel v dokumentu"
 
 #: plugins/document-metadata.py:67
-#, fuzzy
-#| msgid "Character Count"
 msgid "Non-Whitespace Character Count"
-msgstr "Štetje znakov"
+msgstr "Števec znakov, ki niso presledki"
 
 #: plugins/document-metadata.py:67
 msgid "Number of non-white space characters that a document producer has counted in a document"
@@ -5143,26 +5211,22 @@ msgstr "Upravljalnik"
 
 #: plugins/document-metadata.py:80
 #, fuzzy
-#| msgid "Number of characters in the document."
 msgid "Name of a supervisor associated with the document"
-msgstr "Število znakov v dokumentu."
+msgstr "Ime nadzornika, povezanega z dokumentom."
 
 #: plugins/document-metadata.py:81
 msgid "Company"
 msgstr "Podjetje"
 
 #: plugins/document-metadata.py:81
-#, fuzzy
-#| msgid "Number of characters in the document."
 msgid "Name of a company associated with the document"
-msgstr "Število znakov v dokumentu."
+msgstr "Ime podjetja, povezanega z dokumentom."
 
 #: plugins/document-metadata.py:85
 msgid "Presentation Format"
 msgstr "Oblika predstavitve"
 
 #: plugins/document-metadata.py:85
-#, fuzzy
 msgid "Intended format for a presentation document"
 msgstr "Predvidena oblika predstavitvenega dokumenta"
 
@@ -5344,20 +5408,16 @@ msgstr ""
 "dokument relevanten"
 
 #: plugins/document-metadata.py:128
-#, fuzzy
-#| msgid "Title of the document."
 msgid "The file format of the document"
-msgstr "Naziv dokumenta"
+msgstr "Vrsta datoteke dokumenta"
 
 #: plugins/document-metadata.py:129
 msgid "Identifier"
 msgstr "Identifikator"
 
 #: plugins/document-metadata.py:129
-#, fuzzy
-#| msgid "Title of the document."
 msgid "Unique identifier of the document"
-msgstr "Naziv dokumenta"
+msgstr "Enoznačni identifikator dokumenta"
 
 #: plugins/document-metadata.py:130
 #, fuzzy
@@ -5675,32 +5735,24 @@ msgid "X-Resolution"
 msgstr "Ločljivost X"
 
 #: plugins/image-metadata.py:54
-#, fuzzy
-#| msgid ""
-#| "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageWidth> direction. When the image "
-#| "resolution is unknown, 72 [dpi] is designated."
 msgid ""
 "The number of pixels per <ResolutionUnit> in the <ImageWidth> direction. When the image resolution is "
 "unknown, 72 [dpi] is designated."
 msgstr ""
-"Število točk na <Exif.ResolutionUnit> v <Exif.ImageWidth> smeri. Kadar je ločljivost slike znana, je "
-"določena vrednost 72 [dpi]."
+"Število točk na <ResolutionUnit> v smeri <ImageWidth>. Kadar je ločljivost slike znana, je določena "
+"vrednost 72 [dpi]."
 
 #: plugins/image-metadata.py:55
 msgid "Y-Resolution"
 msgstr "Ločljivost X"
 
 #: plugins/image-metadata.py:55
-#, fuzzy
-#| msgid ""
-#| "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageLength> direction. The same value as "
-#| "<Exif.XResolution> is designated."
 msgid ""
 "The number of pixels per <ResolutionUnit> in the <ImageLength> direction. The same value as <XResolution> "
 "is designated."
 msgstr ""
-"Število točk na <Exif.ResolutionUnit> v<Exif.ImageLength> smeri. Uporabljena je enaka vrednost kot pri "
-"oznaki<Exif.XResolution>."
+"Število točk na <ResolutionUnit> v smeri <ImageLength>. Uporabljena je enaka vrednost kot pri oznaki "
+"<XResolution>."
 
 #: plugins/image-metadata.py:56
 msgid "Planar Configuration"
@@ -5716,10 +5768,8 @@ msgid "Page Name"
 msgstr "Ime strani"
 
 #: plugins/image-metadata.py:57
-#, fuzzy
-#| msgid "The name of the country/primary location where the object was created."
 msgid "The name of the page from which this image was scanned."
-msgstr "Ime države ali kraja, kjer je bil predmet ustvarjen."
+msgstr "Ime strani, s katere je bila slika optično prebrana."
 
 #: plugins/image-metadata.py:58
 msgid "X Position"
@@ -5788,8 +5838,9 @@ msgstr "Enota ločljivosti"
 #: plugins/image-metadata.py:64
 #, fuzzy
 #| msgid ""
-#| "The unit for measuring <Exif.XResolution> and <Exif.YResolution>. The same unit is used for both <Exif."
-#| "XResolution> and <Exif.YResolution>. If the image resolution is unknown, 2 (inches) is designated."
+#| "The unit for measuring <Exif.XResolution> and <Exif.YResolution>. The same unit is used for both "
+#| "<Exif.XResolution> and <Exif.YResolution>. If the image resolution is unknown, 2 (inches) is "
+#| "designated."
 msgid ""
 "The unit for measuring <XResolution> and <YResolution>. The same unit is used for both <XResolution> and "
 "<YResolution>."
@@ -5906,14 +5957,18 @@ msgstr ""
 "indeksiranje v iskalno tabelo RGB."
 
 #: plugins/image-metadata.py:75
+#, fuzzy
 msgid "Halftone Hints"
-msgstr ""
+msgstr "Namigi za poltone"
 
 #: plugins/image-metadata.py:75
+#, fuzzy
 msgid ""
 "The purpose of the HalftoneHints field is to convey to the halftone function the range of gray levels "
 "within a colorimetrically-specified image that should retain tonal detail."
 msgstr ""
+"Namen polja »Namigi za poltone« je, da funkciji za poltone posreduje obseg sivih odtenkov znotraj "
+"kolorimetrično opredeljene slike, pri katerih naj se ohranijo tonske podrobnosti."
 
 #: plugins/image-metadata.py:76
 msgid "Tile Width"
@@ -5982,6 +6037,8 @@ msgid ""
 "Specifies that each pixel has m extra components whose interpretation is defined by one of the values "
 "listed below."
 msgstr ""
+"Določa, da ima vsaka slikovna točka m dodatnih komponent, katerih pomen je opredeljen z eno od spodaj "
+"navedenih vrednosti."
 
 #: plugins/image-metadata.py:89
 #, fuzzy
@@ -5991,7 +6048,7 @@ msgstr "Zapis datoteke"
 
 #: plugins/image-metadata.py:89
 msgid "This field specifies how to interpret each data sample in a pixel."
-msgstr ""
+msgstr "To polje določa, kako naj se interpretira vsak vzorec podatkov v slikovni točki."
 
 #: plugins/image-metadata.py:92
 msgid "Transfer Range"
@@ -6025,7 +6082,7 @@ msgstr "Postopek JPEG"
 
 #: plugins/image-metadata.py:95
 msgid "This field indicates the process used to produce the compressed data"
-msgstr ""
+msgstr "To polje nakazuje postopek, uporabljen za izdelavo stisnjenih podatkov"
 
 #: plugins/image-metadata.py:96
 msgid "YCbCr Coefficients"
@@ -6033,7 +6090,7 @@ msgstr "Koeficient YCbCr"
 
 #: plugins/image-metadata.py:96
 msgid "The matrix coefficients for transformation from RGB to YCbCr image data."
-msgstr ""
+msgstr "Koeficienti matrike za preoblikovanje podatkov slike iz RGB v YCbCr."
 
 #: plugins/image-metadata.py:97
 msgid "YCbCr Sub-Sampling"
@@ -6069,7 +6126,7 @@ msgstr "Sklicna črnina/belina"
 
 #: plugins/image-metadata.py:99
 msgid "The reference black point value and reference white point value."
-msgstr ""
+msgstr "Referenčna vrednost črne točke in referenčna vrednost bele točke."
 
 #: plugins/image-metadata.py:100
 #, fuzzy
@@ -6092,6 +6149,8 @@ msgid ""
 "Contains two values representing the minimum rows and columns to define the repeating patterns of the "
 "color filter array"
 msgstr ""
+"Vsebuje dve vrednosti, ki izkazujeta najmanjše število vrstic in stolpcev za določitev ponavljajočih se "
+"vzorcev matrike barvnega filtra"
 
 #: plugins/image-metadata.py:102
 msgid "CFA Pattern"
@@ -6115,7 +6174,7 @@ msgstr "Polnost baterije"
 
 #: plugins/image-metadata.py:103
 msgid "Contains a value of the battery level as a fraction or string"
-msgstr ""
+msgstr "Vsebuje vrednost ravni baterije kot ulomek ali niz"
 
 #: plugins/image-metadata.py:104 plugins/multimedia-metadata.py:90 plugins/multimedia-metadata.py:206
 #: plugins/multimedia-metadata.py:264
@@ -6228,10 +6287,8 @@ msgid "Exif Version"
 msgstr "Exif različica"
 
 #: plugins/image-metadata.py:115
-#, fuzzy
-#| msgid "The version of the originating program."
 msgid "The version of this standard supported."
-msgstr "Različica osnovnega izvornega programa."
+msgstr "Različica podprtega standarda."
 
 #: plugins/image-metadata.py:116
 #, fuzzy
@@ -6240,10 +6297,8 @@ msgid "Date Time Original"
 msgstr "Datum in čas (originalno)"
 
 #: plugins/image-metadata.py:116
-#, fuzzy
-#| msgid "The date and time when the image was stored as digital data."
 msgid "The date and time when the original image data was generated."
-msgstr "Datum in čas shranjevanja slike v digitalni obliki."
+msgstr "Datum in čas, ko so bili izdelani originalni podatki slike."
 
 #: plugins/image-metadata.py:117
 msgid "Date and Time (digitized)"
@@ -6254,9 +6309,8 @@ msgid "The date and time when the image was stored as digital data."
 msgstr "Datum in čas shranjevanja slike v digitalni obliki."
 
 #: plugins/image-metadata.py:118
-#, fuzzy
 msgid "Offset Time"
-msgstr "Čas zamika"
+msgstr "Časovni zamik"
 
 #: plugins/image-metadata.py:118
 msgid "Time difference from Universal Time Coordinated including daylight saving time of DateTime tag."
@@ -6450,9 +6504,8 @@ msgstr "Območje predmeta"
 
 #: plugins/image-metadata.py:139
 #, fuzzy
-#| msgid "The location and area of the main subject in the overall scene."
 msgid "This tag indicates the location and area of the main subject in the overall scene."
-msgstr "Lega in območje glavnega predmeta na skupni sceni."
+msgstr "Ta značka nakazuje položaj in površino glavnega subjekta v skupnem prizoru."
 
 #: plugins/image-metadata.py:140 plugins/image-metadata.py:161
 msgid "Exposure Index"
@@ -6480,13 +6533,8 @@ msgstr "Beležnica"
 
 #: plugins/image-metadata.py:142
 #, fuzzy
-#| msgid ""
-#| "A tag for manufacturers of Exif writers to record any desired information. The contents are up to the "
-#| "manufacturer."
 msgid "A tag for manufacturers of Exif writers to record any desired information."
-msgstr ""
-"Oznaka za proizvajalce Exif zapisovalcev za shranjevanje želenih podrobnosti o sliki. Vsebino določajo "
-"proizvajalci."
+msgstr "Značka za proizvajalca zapisovalcev Exif za shranjevanje želenih podrobnosti o sliki."
 
 #: plugins/image-metadata.py:143
 msgid "User Comment"
@@ -6615,7 +6663,7 @@ msgstr "Vzorec predpone se uporablja za izgradnjo imena arhiva, ustvarjenega z v
 #: plugins/image-metadata.py:157
 #, fuzzy
 msgid "Focal Plane X Resolution"
-msgstr "Ločljivost goriščne ravnine X"
+msgstr "Ločljivost X goriščne ravnine"
 
 #: plugins/image-metadata.py:157
 msgid "Number of pixels per FocalPlaneResolutionUnit (37392) in ImageWidth direction for main image."
@@ -6759,10 +6807,8 @@ msgid "Scene Capture Type"
 msgstr "Vrsta zajema scene"
 
 #: plugins/image-metadata.py:170
-#, fuzzy
-#| msgid "This tag indicates the degree of overall image gain adjustment."
 msgid "This tag indicates the type of scene that was shot."
-msgstr "Oznaka določa raven splošne prilagoditve okrepitve slike."
+msgstr "Značka določa vrsto poslikanega prizora."
 
 #: plugins/image-metadata.py:171
 msgid "Gain Control"
@@ -6893,7 +6939,6 @@ msgid "Indicates the value of coefficient gamma."
 msgstr "Določa vrednost barvnega koeficienta."
 
 #: plugins/image-metadata.py:185
-#, fuzzy
 msgid "Black Level"
 msgstr "Raven črnine"
 
@@ -6988,8 +7033,8 @@ msgid ""
 "places, the format is dd/1,mmmm/100,0/1."
 msgstr ""
 "Določa geografsko širino, ki je izražena s tremi racionalnimi vrednostmi ločeno za stopinje, minute in "
-"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,"
-"mmmm/100,0/1."
+"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,mmmm/"
+"100,0/1."
 
 #: plugins/image-metadata.py:197
 #, fuzzy
@@ -7015,13 +7060,13 @@ msgstr "Zemljepisna dolžina GPS"
 #: plugins/image-metadata.py:198
 msgid ""
 "Indicates the longitude. The longitude is expressed as three RATIONAL values giving the degrees, minutes, "
-"and seconds, respectively. When degrees, minutes and seconds are expressed, the format is ddd/1,mm/1,"
-"ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up to two "
-"decimal places, the format is ddd/1,mmmm/100,0/1."
+"and seconds, respectively. When degrees, minutes and seconds are expressed, the format is ddd/1,mm/1,ss/"
+"1. When degrees and minutes are used and, for example, fractions of minutes are given up to two decimal "
+"places, the format is ddd/1,mmmm/100,0/1."
 msgstr ""
 "Določa geografsko dolžino, ki je izražena s tremi racionalnimi vrednostmi ločeno za stopinje, minute in "
-"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,"
-"mmmm/100,0/1."
+"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,mmmm/"
+"100,0/1."
 
 #: plugins/image-metadata.py:199
 msgid "GPS Altitude"
@@ -7111,16 +7156,12 @@ msgstr ""
 "predstavljajo kilometre na uro, milje na uro in vozle."
 
 #: plugins/image-metadata.py:206
-#, fuzzy
-#| msgid "ISO Speed"
 msgid "GPS Speed"
-msgstr "Hitrost ISO"
+msgstr "Hitrost GPS"
 
 #: plugins/image-metadata.py:206
-#, fuzzy
-#| msgid "Indicates the value of coefficient gamma."
 msgid "Indicates the speed of GPS receiver movement."
-msgstr "Določa vrednost barvnega koeficienta."
+msgstr "Določa hitrost gibanja sprejemnika GPS."
 
 #: plugins/image-metadata.py:207
 msgid "GPS Track Ref"
@@ -7143,10 +7184,8 @@ msgid "Indicates the direction of GPS receiver movement. The range of values is 
 msgstr ""
 
 #: plugins/image-metadata.py:209
-#, fuzzy
-#| msgid "Subject Reference"
 msgid "GPS Image Direction Reference"
-msgstr "Sklic predmeta"
+msgstr "Sklic smeri slike GPS"
 
 #: plugins/image-metadata.py:209
 msgid ""
@@ -7155,10 +7194,8 @@ msgid ""
 msgstr ""
 
 #: plugins/image-metadata.py:210
-#, fuzzy
-#| msgid "Image Description"
 msgid "GPS Image Direction"
-msgstr "Opis slike"
+msgstr "Smer slike GPS"
 
 #: plugins/image-metadata.py:210
 msgid ""
@@ -7203,9 +7240,9 @@ msgstr "Cilj"
 #, fuzzy
 #| msgid ""
 #| "Indicates the latitude. The latitude is expressed as three RATIONAL values giving the degrees, "
-#| "minutes, and seconds, respectively. When degrees, minutes and seconds are expressed, the format is "
-#| "dd/1,mm/1,ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up "
-#| "to two decimal places, the format is dd/1,mmmm/100,0/1."
+#| "minutes, and seconds, respectively. When degrees, minutes and seconds are expressed, the format is dd/"
+#| "1,mm/1,ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up to "
+#| "two decimal places, the format is dd/1,mmmm/100,0/1."
 msgid ""
 "Indicates the latitude of the destination point. The latitude is expressed as three RATIONAL values "
 "giving the degrees, minutes, and seconds, respectively. If latitude is expressed as degrees, minutes and "
@@ -7213,8 +7250,8 @@ msgid ""
 "fractions of minutes are given up to two decimal places, the format would be dd/1,mmmm/100,0/1."
 msgstr ""
 "Določa geografsko širino, ki je izražena s tremi racionalnimi vrednostmi ločeno za stopinje, minute in "
-"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,"
-"mmmm/100,0/1."
+"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,mmmm/"
+"100,0/1."
 
 #: plugins/image-metadata.py:214
 #, fuzzy
@@ -7244,9 +7281,9 @@ msgstr "Cilj"
 #, fuzzy
 #| msgid ""
 #| "Indicates the longitude. The longitude is expressed as three RATIONAL values giving the degrees, "
-#| "minutes, and seconds, respectively. When degrees, minutes and seconds are expressed, the format is "
-#| "ddd/1,mm/1,ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up "
-#| "to two decimal places, the format is ddd/1,mmmm/100,0/1."
+#| "minutes, and seconds, respectively. When degrees, minutes and seconds are expressed, the format is ddd/"
+#| "1,mm/1,ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up to "
+#| "two decimal places, the format is ddd/1,mmmm/100,0/1."
 msgid ""
 "Indicates the longitude of the destination point. The longitude is expressed as three RATIONAL values "
 "giving the degrees, minutes, and seconds, respectively. If longitude is expressed as degrees, minutes and "
@@ -7254,8 +7291,8 @@ msgid ""
 "fractions of minutes are given up to two decimal places, the format would be ddd/1,mmmm/100,0/1."
 msgstr ""
 "Določa geografsko dolžino, ki je izražena s tremi racionalnimi vrednostmi ločeno za stopinje, minute in "
-"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,"
-"mmmm/100,0/1."
+"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,mmmm/"
+"100,0/1."
 
 #: plugins/image-metadata.py:216
 msgid "GPS Destination Bearing Reference"
@@ -7303,10 +7340,8 @@ msgid "Indicates the distance to the destination point."
 msgstr "Razdalja do predmeta določena v metrih."
 
 #: plugins/image-metadata.py:220
-#, fuzzy
-#| msgid "Sensing Method"
 msgid "GPS Processing Method"
-msgstr "Metoda zaznavanja"
+msgstr "Metoda obdelave GPS"
 
 #: plugins/image-metadata.py:220
 msgid "A character string recording the name of the method used for location finding."
@@ -7323,10 +7358,8 @@ msgid "A character string recording the name of the GPS area."
 msgstr "Niz znakov, ki beleži ime področja GPS."
 
 #: plugins/image-metadata.py:222
-#, fuzzy
-#| msgid "Date Sent"
 msgid "GPS Date Stamp"
-msgstr "Datum pošiljanja"
+msgstr "Časovni žig GPS"
 
 #: plugins/image-metadata.py:222
 msgid ""
@@ -7407,10 +7440,8 @@ msgid "Bitrate"
 msgstr "Bitna hitrost"
 
 #: plugins/multimedia-metadata.py:35
-#, fuzzy
-#| msgid "Bitrate in kbps."
 msgid "Bitrate in bps"
-msgstr "Bitna hitrost, podana v kbps."
+msgstr "Bitna hitrost, podana v bps"
 
 #: plugins/multimedia-metadata.py:36
 msgid "The audio sample size"
@@ -8184,7 +8215,7 @@ msgstr "Uporabniško določena URL povezava."
 
 #: plugins/multimedia-metadata.py:196
 msgid "Music piece title"
-msgstr ""
+msgstr "Naslov glasbenega dela"
 
 #: plugins/multimedia-metadata.py:197
 msgid "Additional sub title"
@@ -8337,8 +8368,9 @@ msgid "Abstract"
 msgstr "Naslov, povzetek"
 
 #: plugins/multimedia-metadata.py:218
+#, fuzzy
 msgid "Abstract link"
-msgstr ""
+msgstr "Abstraktna povezava"
 
 #: plugins/multimedia-metadata.py:219
 #, fuzzy
