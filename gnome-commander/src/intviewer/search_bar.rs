@@ -172,7 +172,7 @@ impl SearchBarView {
 
 #[derive(Debug)]
 pub enum SearchBarInput {
-    Show,
+    Show(String),
     Close,
     Closed,
     StartSearch(bool),
@@ -336,8 +336,11 @@ impl Component for SearchBar {
         view: &mut Self::View,
     ) {
         match msg {
-            Self::Input::Show => {
+            Self::Input::Show(text) => {
                 view.searchbar.set_search_mode(true);
+                if !text.is_empty() {
+                    view.entry.set_text(&text);
+                }
                 view.entry.grab_focus();
             }
             Self::Input::Close => view.searchbar.set_search_mode(false),

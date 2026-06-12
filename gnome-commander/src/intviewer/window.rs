@@ -507,7 +507,8 @@ impl Component for ViewerWindow {
                 ViewerActions::Output::ZoomNormal => self.zoom_normal(view),
                 ViewerActions::Output::Find => {
                     if self.display_mode != DisplayMode::Image {
-                        self.searchbar.send(SearchBarInput::Show);
+                        self.searchbar
+                            .send(SearchBarInput::Show(view.text_render.selected_text()));
                     }
                 }
                 ViewerActions::Output::FindNext | ViewerActions::Output::FindPrevious => {

@@ -1293,6 +1293,18 @@ impl TextRender {
         self.emit_text_status_changed();
     }
 
+    pub fn selected_text(&self) -> String {
+        self.marker()
+            .map(|(marker_start, marker_end)| {
+                let input_mode = self.imp().input_mode.borrow();
+                input_mode
+                    .offsets(marker_start, marker_end)
+                    .filter_map(|offset| input_mode.character(offset))
+                    .collect()
+            })
+            .unwrap_or_default()
+    }
+
     pub fn copy_selection(&self) {
         let Some((marker_start, marker_end)) = self.marker() else {
             return;
