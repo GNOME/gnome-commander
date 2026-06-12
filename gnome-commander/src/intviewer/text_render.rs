@@ -6,7 +6,7 @@
 use super::data_presentation::DataPresentation;
 use crate::{
     intviewer::{file_input_source::FileInputSource, input_modes::InputMode},
-    utils::{CONTROL, Max, NO_MOD},
+    utils::{CONTROL, Max, NO_MOD, SHIFT, get_modifiers_state},
 };
 use gtk::{gdk, glib, graphene, pango, prelude::*, subclass::prelude::*};
 use std::{path::Path, sync::Arc};
@@ -631,12 +631,30 @@ mod imp {
 
             if n_press == 1 && self.button.get().is_none() {
                 self.button.set(Some(button));
-                self.marker_start.set(match self.obj().display_mode() {
-                    TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => {
-                        self.text_mode_pixel_to_offset(x, y)
-                    }
-                    TextRenderDisplayMode::Hexdump => self.hex_mode_pixel_to_offset(x, y, true),
-                });
+                if self
+                    .obj()
+                    .root()
+                    .and_downcast()
+                    .and_then(|window| get_modifiers_state(&window))
+                    .is_some_and(|state| state.contains(SHIFT))
+                {
+                    self.marker_end.set(match self.obj().display_mode() {
+                        TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => {
+                            self.text_mode_pixel_to_offset(x, y)
+                        }
+                        TextRenderDisplayMode::Hexdump => {
+                            self.hex_mode_pixel_to_offset(x, y, false)
+                        }
+                    });
+                    self.obj().queue_draw();
+                } else {
+                    self.marker_start.set(match self.obj().display_mode() {
+                        TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => {
+                            self.text_mode_pixel_to_offset(x, y)
+                        }
+                        TextRenderDisplayMode::Hexdump => self.hex_mode_pixel_to_offset(x, y, true),
+                    });
+                }
             } else if n_press == 2 || n_press == 3 {
                 let offset = match self.obj().display_mode() {
                     TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => {
