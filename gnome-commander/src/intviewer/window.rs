@@ -6,7 +6,7 @@
 use super::{
     image_render::{ImageOperation, ImageRender},
     input_modes::preprocess_for_cp437_conversion,
-    search_bar::{SearchBar, SearchSettings},
+    search_bar::{SearchBar, SearchBarError, SearchBarInput, SearchBarOutput, SearchSettings},
     searcher::Searcher,
     text_render::{TextRender, TextRenderDisplayMode},
 };
@@ -97,7 +97,6 @@ pub struct ViewerWindowView {
     stack: gtk::Stack,
     text_render: TextRender,
     image_render: ImageRender,
-    searchbar: SearchBar,
     status_label: gtk::Label,
     metadata_view: FileMetainfoView,
 }
@@ -205,8 +204,7 @@ pub enum ViewerWindowInput {
     TextViewerContextMenu(i32, f64, f64),
     ImageStatusUpdate,
     ImageViewerContextMenu(i32, f64, f64),
-    StartSearch(bool),
-    CancelSearch,
+    SearchBar(SearchBarOutput),
     SearchProgress(u32),
     SearchDone(Option<u64>),
     Action(ViewerActions::Output),
@@ -223,6 +221,7 @@ pub enum ViewerWindowInput {
 #[derive(Debug)]
 pub struct ViewerWindow {
     action_group: ComponentController<ActionGroup<ViewerActions::List>>,
+    searchbar: ComponentController<SearchBar>,
     option_handlers: Vec<glib::SignalHandlerId>,
     file: PathBuf,
     display_mode: DisplayMode,
@@ -256,7 +255,6 @@ impl Component for ViewerWindow {
             stack: Default::default(),
             text_render: Default::default(),
             image_render: Default::default(),
-            searchbar: Default::default(),
             status_label: Default::default(),
             metadata_view: Default::default(),
         };
@@ -376,14 +374,7 @@ impl Component for ViewerWindow {
                     }), Some("image"));
                 }
 
-                &view.searchbar {
-                    .connect_search({
-                        let sender = sender.clone();
-                        move |_, forward| sender.input(Self::Input::StartSearch(forward))
-                    });
-                    .connect_closed(forward!(sender.input(Self::Input::FocusContent)));
-                    .connect_abort(forward!(sender.input(Self::Input::CancelSearch)));
-                }
+                self.searchbar.attach(sender, Self::Input::SearchBar);
 
                 gtk::Box {
                     .set_orientation(gtk::Orientation::Horizontal);
@@ -479,13 +470,20 @@ impl Component for ViewerWindow {
                     view.image_viewer_context_menu(x, y)
                 }
             }
-            Self::Input::StartSearch(forward) => self.start_search(sender, view, forward),
-            Self::Input::CancelSearch => {
-                if let Some((cancellable, _, _)) = self.current_search.as_ref() {
-                    cancellable.cancel();
+            Self::Input::SearchBar(message) => match message {
+                SearchBarOutput::StartSearch(forward, settings) => {
+                    self.start_search(sender, view, forward, settings)
                 }
+                SearchBarOutput::StopSearch => {
+                    if let Some((cancellable, _, _)) = self.current_search.as_ref() {
+                        cancellable.cancel();
+                    }
+                }
+                SearchBarOutput::Closed => sender.input(Self::Input::FocusContent),
+            },
+            Self::Input::SearchProgress(progress) => {
+                self.searchbar.send(SearchBarInput::Progress(progress))
             }
-            Self::Input::SearchProgress(progress) => view.searchbar.show_progress(progress),
             Self::Input::SearchDone(found) => self.search_done(view, found),
             Self::Input::Action(action) => match action {
                 ViewerActions::Output::CopySelection => {
@@ -509,11 +507,19 @@ impl Component for ViewerWindow {
                 ViewerActions::Output::ZoomNormal => self.zoom_normal(view),
                 ViewerActions::Output::Find => {
                     if self.display_mode != DisplayMode::Image {
-                        view.searchbar.show(true);
+                        self.searchbar.send(SearchBarInput::Show);
                     }
                 }
-                ViewerActions::Output::FindNext => self.start_search(sender, view, true),
-                ViewerActions::Output::FindPrevious => self.start_search(sender, view, false),
+                ViewerActions::Output::FindNext | ViewerActions::Output::FindPrevious => {
+                    if self.display_mode == DisplayMode::Image || self.current_search.is_some() {
+                        return;
+                    }
+
+                    self.searchbar.send(SearchBarInput::StartSearch(matches!(
+                        action,
+                        ViewerActions::Output::FindNext
+                    )));
+                }
                 ViewerActions::Output::DisplayMode(mode) => {
                     self.display_mode = mode;
                     self.update_display_mode(view);
@@ -579,14 +585,19 @@ impl Component for ViewerWindow {
     }
 
     async fn handle_subcomponents(&mut self) {
-        self.action_group.handle_incoming().await
+        use futures::FutureExt;
+        futures::select!(
+            _ = self.action_group.handle_incoming().fuse() => {}
+            _ = self.searchbar.handle_incoming().fuse() => {}
+        )
     }
 }
 
 impl ViewerWindow {
     fn new(file: &File, path: &Path) -> Self {
         Self {
-            action_group: ActionGroup::default().build(),
+            action_group: Default::default(),
+            searchbar: Default::default(),
             option_handlers: Vec::new(),
             file: path.to_path_buf(),
             current_scale_index: DEFAULT_IMAGE_SCALE_INDEX,
@@ -604,7 +615,7 @@ impl ViewerWindow {
         };
 
         let mut viewer = Self::new(file, &path).build();
-        viewer.sender().input(ViewerWindowInput::FocusContent);
+        viewer.send(ViewerWindowInput::FocusContent);
 
         futures::select!(
             _ = viewer.receive().fuse() => {
@@ -612,7 +623,7 @@ impl ViewerWindow {
                 return;
             },
             metadata = file_metadata_service.extract_metadata(file).fuse() => {
-                viewer.sender().input(ViewerWindowInput::SetMetadata(metadata));
+                viewer.send(ViewerWindowInput::SetMetadata(metadata));
             }
         );
 
@@ -647,7 +658,7 @@ impl ViewerWindow {
                 }
                 view.stack.set_visible_child_name("image");
                 view.image_render.notify_status_changed();
-                view.searchbar.hide();
+                self.searchbar.send(SearchBarInput::Close);
             }
         }
 
@@ -810,23 +821,11 @@ impl ViewerWindow {
         sender: &ComponentSender<Self>,
         view: &ViewerWindowView,
         forward: bool,
+        settings: SearchSettings,
     ) {
-        if self.display_mode == DisplayMode::Image || self.current_search.is_some() {
-            return;
-        }
-
-        let Some(settings) = view.searchbar.settings() else {
-            // No search active, just show and focus search bar
-            view.searchbar.show(true);
-            return;
-        };
-
-        view.searchbar.show(false);
-        view.searchbar.add_to_history();
-
         let input_mode = view.text_render.input_mode();
         let end_offset = input_mode.max_offset();
-        let start_offset = if view.searchbar.showing_not_found() {
+        let start_offset = if self.searchbar.displayed_error() == SearchBarError::NotFound {
             // Wrap the search around after “Not found”
             if forward { 0 } else { end_offset }
         } else if let Some((start_marker, end_marker)) = view.text_render.marker() {
@@ -859,7 +858,8 @@ impl ViewerWindow {
                 let Some((slice, _)) = glib::IConv::new(&*encoding, "UTF8")
                     .and_then(|mut iconv| iconv.convert(pattern.as_bytes()).ok())
                 else {
-                    view.searchbar.show_encoding_error();
+                    self.searchbar
+                        .send(SearchBarInput::ShowError(SearchBarError::EncodingError));
                     return;
                 };
                 (slice.to_vec(), match_case)
@@ -907,7 +907,7 @@ impl ViewerWindow {
         let Some((cancellable, forward, pattern_len)) = self.current_search.take() else {
             return;
         };
-        view.searchbar.hide_progress();
+        self.searchbar.send(SearchBarInput::HideProgress);
         match found {
             Some(result) => {
                 let input_mode = view.text_render.input_mode();
@@ -923,7 +923,8 @@ impl ViewerWindow {
             }
             None => {
                 if !cancellable.is_cancelled() {
-                    view.searchbar.show_not_found();
+                    self.searchbar
+                        .send(SearchBarInput::ShowError(SearchBarError::NotFound));
                 }
             }
         }

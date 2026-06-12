@@ -65,6 +65,12 @@ where
     }
 }
 
+impl<T: Component + Default> Default for ComponentController<T> {
+    fn default() -> Self {
+        T::default().build()
+    }
+}
+
 impl<T: Component + Sized> std::ops::Deref for ComponentController<T> {
     type Target = T;
 
@@ -93,6 +99,11 @@ impl<T: Component + Sized> ComponentController<T> {
                 }
             }
         }
+    }
+
+    /// Sends a message to the component’s input channel.
+    pub fn send(&self, message: T::Input) {
+        self.sender.input(message);
     }
 
     /// Returns the sender which can be used to communicate with the component.

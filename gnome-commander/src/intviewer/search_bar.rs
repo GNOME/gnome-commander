@@ -3,355 +3,107 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::{options::ViewerOptions, utils::u32_enum};
-use gtk::{gdk, glib, prelude::*, subclass::prelude::*};
+use crate::{history_entry::HistoryEntry, options::ViewerOptions, utils::u32_enum};
+use component_framework::{
+    action_list,
+    helpers::{ActionGroup, ActionListOutput},
+    prelude::*,
+};
+use gettextrs::gettext;
+use gtk::{glib, prelude::*};
 
-const STATE_EDITING: &str = "editing";
-const STATE_SEARCHING: &str = "searching";
-
-const MESSAGE_NONE: &str = "";
-const MESSAGE_NOT_HEX: &str = "not_hex";
-const MESSAGE_NOT_FOUND: &str = "not_found";
-const MESSAGE_ENCODING_ERROR: &str = "encoding_error";
-
-mod imp {
-    use super::*;
-    use crate::{history_entry::HistoryEntry, utils::NO_MOD, utils::hbox_builder};
-    use gettextrs::gettext;
-    use std::sync::OnceLock;
-
-    pub struct SearchBar {
-        pub(super) inner: gtk::SearchBar,
-        pub(super) entry: HistoryEntry,
-        pub(super) entry_buttons: gtk::Stack,
-        pub(super) stop_button: gtk::Button,
-        pub(super) match_case: gtk::ToggleButton,
-        pub(super) hex_mode: gtk::ToggleButton,
-        pub(super) message: gtk::Stack,
-    }
-
-    #[glib::object_subclass]
-    impl ObjectSubclass for SearchBar {
-        const NAME: &'static str = "GnomeCmdViewerSearchBar";
-        type Type = super::SearchBar;
-        type ParentType = gtk::Widget;
-
-        fn new() -> Self {
-            let options = ViewerOptions::instance();
-
-            Self {
-                inner: gtk::SearchBar::builder().show_close_button(true).build(),
-                entry: Default::default(),
-                entry_buttons: gtk::Stack::new(),
-                stop_button: gtk::Button::builder()
-                    .icon_name("edit-delete")
-                    .tooltip_text(gettext("Stop"))
-                    .build(),
-                match_case: gtk::ToggleButton::builder()
-                    .icon_name("gnome-commander-match-case")
-                    .tooltip_text(gettext("Case sensitive"))
-                    .active(options.case_sensitive_search.get())
-                    .build(),
-                hex_mode: gtk::ToggleButton::builder()
-                    .icon_name("gnome-commander-hex")
-                    .tooltip_text(gettext("Hexadecimal"))
-                    .active(options.search_mode.get() == Mode::Binary)
-                    .build(),
-                message: gtk::Stack::new(),
-            }
-        }
-    }
-
-    impl ObjectImpl for SearchBar {
-        fn constructed(&self) {
-            self.parent_constructed();
-
-            let obj = self.obj();
-            obj.set_layout_manager(Some(gtk::BoxLayout::new(gtk::Orientation::Vertical)));
-
-            self.inner.set_child(Some(
-                &hbox_builder()
-                    .add_css_class("spacing")
-                    .append(
-                        &hbox_builder()
-                            .append({
-                                self.entry.set_hexpand(true);
-                                self.entry.set_placeholder_text(Some(&gettext("Search…")));
-                                self.entry.set_primary_icon_name(Some("system-search"));
-                                self.entry.set_primary_icon_activatable(true);
-                                self.entry.set_popover_position(gtk::PositionType::Top);
-                                self.entry.connect_activate(glib::clone!(
-                                    #[weak(rename_to = imp)]
-                                    self,
-                                    move |_| {
-                                        imp.start_search(true);
-                                    }
-                                ));
-                                self.entry.connect_icon_press(move |entry, icon_pos| {
-                                    if icon_pos == gtk::EntryIconPosition::Primary {
-                                        entry.emit_activate();
-                                    }
-                                });
-                                self.entry.connect_changed(glib::clone!(
-                                    #[weak(rename_to = obj)]
-                                    self.obj(),
-                                    move |_| {
-                                        obj.set_message(MESSAGE_NONE);
-                                    }
-                                ));
-                                &self.entry
-                            })
-                            .append({
-                                self.entry_buttons.add_named(
-                                    &hbox_builder()
-                                        .append(&{
-                                            let button = gtk::Button::builder()
-                                                .icon_name("go-up")
-                                                .tooltip_text(gettext("Previous Match"))
-                                                .build();
-                                            button.connect_clicked(glib::clone!(
-                                                #[weak(rename_to = imp)]
-                                                self,
-                                                move |_| {
-                                                    imp.start_search(false);
-                                                }
-                                            ));
-                                            button
-                                        })
-                                        .append(&{
-                                            let button = gtk::Button::builder()
-                                                .icon_name("go-down")
-                                                .tooltip_text(gettext("Next Match"))
-                                                .build();
-                                            button.connect_clicked(glib::clone!(
-                                                #[weak(rename_to = imp)]
-                                                self,
-                                                move |_| {
-                                                    imp.start_search(true);
-                                                }
-                                            ));
-                                            button
-                                        })
-                                        .build(),
-                                    Some(STATE_EDITING),
-                                );
-                                self.entry_buttons.add_named(
-                                    {
-                                        self.stop_button.connect_clicked(glib::clone!(
-                                            #[weak(rename_to = imp)]
-                                            self,
-                                            move |_| {
-                                                imp.stop_search();
-                                            }
-                                        ));
-                                        &self.stop_button
-                                    },
-                                    Some(STATE_SEARCHING),
-                                );
-                                &self.entry_buttons
-                            })
-                            .build(),
-                    )
-                    .append({
-                        self.match_case.connect_toggled(glib::clone!(
-                            #[weak(rename_to = imp)]
-                            self,
-                            move |button| {
-                                let _ = ViewerOptions::instance()
-                                    .case_sensitive_search
-                                    .set(button.is_active());
-                                imp.obj().set_message(MESSAGE_NONE);
-                            }
-                        ));
-                        &self.match_case
-                    })
-                    .append({
-                        self.hex_mode.connect_toggled(glib::clone!(
-                            #[weak(rename_to = imp)]
-                            self,
-                            move |button| {
-                                let mode = if button.is_active() {
-                                    Mode::Binary
-                                } else {
-                                    Mode::Text
-                                };
-                                let _ = ViewerOptions::instance().search_mode.set(mode);
-                                imp.update_search_mode(mode);
-                                imp.obj().set_message(MESSAGE_NONE);
-                            }
-                        ));
-                        self.update_search_mode(ViewerOptions::instance().search_mode.get());
-                        &self.hex_mode
-                    })
-                    .append({
-                        self.message
-                            .add_named(&gtk::Label::new(None), Some(MESSAGE_NONE));
-                        self.message.add_named(
-                            &gtk::Label::new(Some(&gettext("Invalid hexadecimal pattern"))),
-                            Some(MESSAGE_NOT_HEX),
-                        );
-                        self.message.add_named(
-                            &gtk::Label::new(Some(&gettext("Not found"))),
-                            Some(MESSAGE_NOT_FOUND),
-                        );
-                        self.message.add_named(
-                            &gtk::Label::new(Some(&gettext("Cannot translate into text encoding"))),
-                            Some(MESSAGE_ENCODING_ERROR),
-                        );
-                        &self.message
-                    })
-                    .build(),
-            ));
-
-            self.inner.connect_search_mode_enabled_notify(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                move |inner| {
-                    if !inner.is_search_mode() {
-                        if imp.obj().state() == STATE_SEARCHING {
-                            imp.stop_search();
-                        }
-                        imp.obj().emit_by_name::<()>("closed", &[]);
-                    }
-                }
-            ));
-
-            let controller = gtk::ShortcutController::new();
-            controller.add_shortcut(
-                gtk::Shortcut::builder()
-                    .trigger(&gtk::KeyvalTrigger::new(gdk::Key::Escape, NO_MOD))
-                    .action(&gtk::CallbackAction::new(glib::clone!(
-                        #[weak(rename_to = obj)]
-                        self.obj(),
-                        #[upgrade_or]
-                        glib::Propagation::Proceed,
-                        move |_, _| {
-                            obj.hide();
-                            glib::Propagation::Stop
-                        }
-                    )))
-                    .build(),
-            );
-            self.inner.add_controller(controller);
-
-            self.inner.set_parent(&*obj);
-        }
-
-        fn dispose(&self) {
-            self.inner.unparent();
-        }
-
-        fn signals() -> &'static [glib::subclass::Signal] {
-            static SIGNALS: OnceLock<Vec<glib::subclass::Signal>> = OnceLock::new();
-            SIGNALS.get_or_init(|| {
-                vec![
-                    glib::subclass::Signal::builder("search")
-                        .param_types([bool::static_type()])
-                        .build(),
-                    glib::subclass::Signal::builder("abort").build(),
-                    glib::subclass::Signal::builder("closed").build(),
-                ]
-            })
-        }
-    }
-
-    impl WidgetImpl for SearchBar {}
-
-    impl SearchBar {
-        fn start_search(&self, forward: bool) {
-            self.obj().emit_by_name::<()>("search", &[&forward]);
-        }
-
-        fn stop_search(&self) {
-            self.obj().emit_by_name::<()>("abort", &[]);
-        }
-
-        pub(super) fn update_search_mode(&self, mode: Mode) {
-            let option = match mode {
-                Mode::Text => &ViewerOptions::instance().search_pattern_text,
-                Mode::Binary => &ViewerOptions::instance().search_pattern_hex,
-            };
-            self.entry.set_history(&option.get());
-        }
+u32_enum! {
+    enum State {
+        #[default]
+        Editing,
+        Searching,
     }
 }
 
-glib::wrapper! {
-    pub struct SearchBar(ObjectSubclass<imp::SearchBar>)
-        @extends gtk::Widget,
-        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
-}
-
-impl Default for SearchBar {
-    fn default() -> Self {
-        glib::Object::builder().build()
+impl From<State> for String {
+    fn from(value: State) -> Self {
+        u32::from(value).to_string()
     }
 }
 
-impl SearchBar {
-    pub fn show(&self, focus: bool) {
-        self.imp().inner.set_search_mode(true);
-        if focus {
-            self.imp().entry.grab_focus();
-        }
+u32_enum! {
+    pub enum SearchBarError {
+        #[default]
+        None,
+        NotHex,
+        NotFound,
+        EncodingError,
     }
+}
 
-    pub fn hide(&self) {
-        self.imp().inner.set_search_mode(false);
+impl From<SearchBarError> for String {
+    fn from(value: SearchBarError) -> Self {
+        u32::from(value).to_string()
     }
+}
 
-    fn state(&self) -> String {
-        self.imp()
-            .entry_buttons
-            .visible_child_name()
-            .unwrap_or_default()
-            .to_string()
+u32_enum! {
+    pub enum Mode {
+        #[default]
+        Text,
+        Binary,
     }
+}
 
-    fn set_state(&self, state: &'static str) {
-        self.imp().entry_buttons.set_visible_child_name(state);
+#[derive(Debug)]
+pub enum SearchSettings {
+    Text { pattern: String, match_case: bool },
+    Binary { pattern: Vec<u8>, match_case: bool },
+}
+
+action_list! {
+    enum SearchBarActions {
+        "searchbar.close" as Close,
     }
+}
 
-    fn set_message(&self, message: &'static str) {
-        self.imp().message.set_visible_child_name(message);
-        if message == MESSAGE_NONE {
-            self.imp().entry.remove_css_class("error");
-        } else {
-            self.imp().entry.add_css_class("error");
-        }
-    }
+#[derive(Debug, Default)]
+pub struct SearchBarView {
+    searchbar: gtk::SearchBar,
+    entry: HistoryEntry,
+    entry_buttons: gtk::Stack,
+    stop_button: gtk::Button,
+    match_case: gtk::ToggleButton,
+    hex_mode: gtk::ToggleButton,
+    message: gtk::Stack,
+}
 
-    pub fn settings(&self) -> Option<SearchSettings> {
-        let text = self.imp().entry.text();
-        if self.imp().hex_mode.is_active() {
+impl SearchBarView {
+    pub fn settings(&self) -> Result<Option<SearchSettings>, SearchBarError> {
+        let text = self.entry.text();
+        if self.hex_mode.is_active() {
             // Whitespace is ignored in hex patterns
             if text.trim().is_empty() {
-                None
+                Ok(None)
             } else if let Some(pattern) = hex_to_bytes(&text) {
-                Some(SearchSettings::Binary {
+                Ok(Some(SearchSettings::Binary {
                     pattern,
-                    match_case: self.imp().match_case.is_active(),
-                })
+                    match_case: self.match_case.is_active(),
+                }))
             } else {
-                self.set_message(MESSAGE_NOT_HEX);
-                None
+                Err(SearchBarError::NotHex)
             }
         } else {
             // Whitespace matters for text patterns
             if text.is_empty() {
-                None
+                Ok(None)
             } else {
-                Some(SearchSettings::Text {
+                Ok(Some(SearchSettings::Text {
                     pattern: text.to_string(),
-                    match_case: self.imp().match_case.is_active(),
-                })
+                    match_case: self.match_case.is_active(),
+                }))
             }
         }
     }
 
     pub fn add_to_history(&self) {
-        let mut text = self.imp().entry.text().to_string();
-        let mode = if self.imp().hex_mode.is_active() {
+        let mut text = self.entry.text().to_string();
+        let mode = if self.hex_mode.is_active() {
             Mode::Binary
         } else {
             Mode::Text
@@ -365,85 +117,293 @@ impl SearchBar {
         if let Err(error) = ViewerOptions::instance().add_to_history(&text, mode) {
             eprintln!("{error}");
         }
-        self.imp().update_search_mode(mode);
+        self.update_search_mode(mode);
     }
 
     pub fn show_progress(&self, progress: u32) {
-        self.set_message(MESSAGE_NONE);
-        self.set_state(STATE_SEARCHING);
+        self.set_state(State::Searching);
 
-        let entry = &self.imp().entry;
-        if entry
+        if self
+            .entry
             .root()
             .and_then(|root| root.focus())
-            .is_some_and(|focus| focus.is_ancestor(entry))
+            .is_some_and(|focus| focus.is_ancestor(&self.entry))
         {
-            self.imp().stop_button.grab_focus();
+            self.stop_button.grab_focus();
         }
 
-        entry.set_progress_fraction(f64::from(progress.clamp(0, 1000)) / 1000.0);
-        entry.set_sensitive(false);
-        self.imp().match_case.set_sensitive(false);
-        self.imp().hex_mode.set_sensitive(false);
+        self.entry
+            .set_progress_fraction(f64::from(progress.clamp(0, 1000)) / 1000.0);
+        self.entry.set_sensitive(false);
+        self.match_case.set_sensitive(false);
+        self.hex_mode.set_sensitive(false);
     }
 
     pub fn hide_progress(&self) {
-        let entry = &self.imp().entry;
-        entry.set_progress_fraction(0.0);
-        entry.set_sensitive(true);
-        self.imp().match_case.set_sensitive(true);
-        self.imp().hex_mode.set_sensitive(true);
+        self.entry.set_progress_fraction(0.0);
+        self.entry.set_sensitive(true);
+        self.match_case.set_sensitive(true);
+        self.hex_mode.set_sensitive(true);
 
-        if self.imp().stop_button.has_focus() {
-            entry.grab_focus();
+        if self.stop_button.has_focus() {
+            self.entry.grab_focus();
         }
 
-        self.set_state(STATE_EDITING);
+        self.set_state(State::Editing);
     }
 
-    pub fn show_not_found(&self) {
-        self.set_message(MESSAGE_NOT_FOUND);
+    pub fn update_search_mode(&self, mode: Mode) {
+        let option = match mode {
+            Mode::Text => &ViewerOptions::instance().search_pattern_text,
+            Mode::Binary => &ViewerOptions::instance().search_pattern_hex,
+        };
+        self.entry.set_history(&option.get());
     }
 
-    pub fn showing_not_found(&self) -> bool {
-        self.imp().message.visible_child_name().as_deref() == Some(MESSAGE_NOT_FOUND)
+    fn is_state(&self, state: State) -> bool {
+        self.entry_buttons.visible_child_name().as_deref() == Some(&String::from(state))
     }
 
-    pub fn show_encoding_error(&self) {
-        self.set_message(MESSAGE_ENCODING_ERROR);
+    fn set_state(&self, state: State) {
+        self.entry_buttons
+            .set_visible_child_name(&String::from(state));
+    }
+}
+
+#[derive(Debug)]
+pub enum SearchBarInput {
+    Show,
+    Close,
+    Closed,
+    StartSearch(bool),
+    Progress(u32),
+    HideProgress,
+    ShowError(SearchBarError),
+    ToggleMatchCase,
+    ToggleHexMode,
+}
+
+#[derive(Debug)]
+pub enum SearchBarOutput {
+    StartSearch(bool, SearchSettings),
+    StopSearch,
+    Closed,
+}
+
+#[derive(Debug, Default)]
+pub struct SearchBar {
+    action_group: ComponentController<ActionGroup<SearchBarActions::List>>,
+    error: SearchBarError,
+}
+
+impl Component for SearchBar {
+    type Input = SearchBarInput;
+    type Output = SearchBarOutput;
+    type View = SearchBarView;
+    type Root = gtk::SearchBar;
+
+    fn init(&mut self, sender: &ComponentSender<Self>) -> Self::View {
+        let view = Self::View::default();
+        let options = ViewerOptions::instance();
+
+        with!(&view.searchbar {
+            .set_show_close_button(true);
+            .connect_search_mode_enabled_notify({
+                let sender = sender.clone();
+                move |inner| {
+                    if !inner.is_search_mode() {
+                        sender.input(Self::Input::Closed);
+                    }
+                }
+            });
+
+            .insert_action_group(SearchBarActions::prefix(), Some(self.action_group.attach(
+                sender, |message| {
+                    match message {
+                        SearchBarActions::Output::Close => Self::Input::Close,
+                    }
+                }
+            )));
+
+            .add_controller(with!(gtk::ShortcutController {
+                SearchBarActions::Output::Close.shortcut("Escape");
+            }));
+
+            gtk::Box {
+                .set_orientation(gtk::Orientation::Horizontal);
+                .add_css_class("spacing");
+
+                gtk::Box {
+                    .set_orientation(gtk::Orientation::Horizontal);
+
+                    &view.entry {
+                        .set_hexpand(true);
+                        .set_placeholder_text(Some(&gettext("Search…")));
+                        .set_primary_icon_name(Some("system-search"));
+                        .set_primary_icon_activatable(true);
+                        .set_popover_position(gtk::PositionType::Top);
+                        .connect_activate(forward!(sender.input(Self::Input::StartSearch(true))));
+                        .connect_icon_press({
+                            let sender = sender.clone();
+                            move |_, icon_pos| {
+                                if icon_pos == gtk::EntryIconPosition::Primary {
+                                    sender.input(Self::Input::StartSearch(true));
+                                }
+                            }
+                        });
+                        .connect_changed(forward!(sender.input(
+                            Self::Input::ShowError(SearchBarError::None)
+                        )));
+                    }
+
+                    &view.entry_buttons {
+                        .add_named(&with!(gtk::Box {
+                            .set_orientation(gtk::Orientation::Horizontal);
+
+                            gtk::Button {
+                                .set_icon_name("go-up");
+                                .set_tooltip_text(Some(&gettext("Previous Match")));
+                                .connect_clicked(forward!(sender.input(
+                                    Self::Input::StartSearch(false)
+                                )));
+                            }
+
+                            gtk::Button {
+                                .set_icon_name("go-down");
+                                .set_tooltip_text(Some(&gettext("Next Match")));
+                                .connect_clicked(forward!(sender.input(
+                                    Self::Input::StartSearch(true)
+                                )));
+                            }
+                        }), Some(&String::from(State::Editing)));
+
+                        .add_named(with!(&view.stop_button {
+                            .set_icon_name("edit-delete");
+                            .set_tooltip_text(Some(&gettext("Stop")));
+                            .connect_clicked(forward!(sender.output(Self::Output::StopSearch)));
+                        }), Some(&String::from(State::Searching)));
+                    }
+                }
+
+                &view.match_case {
+                    .set_icon_name("gnome-commander-match-case");
+                    .set_tooltip_text(Some(&gettext("Case sensitive")));
+                    .set_active(options.case_sensitive_search.get());
+                    .connect_toggled(forward!(sender.input(Self::Input::ToggleMatchCase)));
+                }
+
+                &view.hex_mode {
+                    .set_icon_name("gnome-commander-hex");
+                    .set_tooltip_text(Some(&gettext("Hexadecimal")));
+                    .set_active(options.search_mode.get() == Mode::Binary);
+                    .connect_toggled(forward!(sender.input(Self::Input::ToggleHexMode)));
+                }
+
+                &view.message {
+                    .add_named(
+                        &gtk::Label::new(None), Some(&String::from(SearchBarError::None))
+                    );
+                    .add_named(
+                        &gtk::Label::new(Some(&gettext("Invalid hexadecimal pattern"))),
+                        Some(&String::from(SearchBarError::NotHex)),
+                    );
+                    .add_named(
+                        &gtk::Label::new(Some(&gettext("Not found"))),
+                        Some(&String::from(SearchBarError::NotFound)),
+                    );
+                    .add_named(
+                        &gtk::Label::new(Some(&gettext("Cannot translate into text encoding"))),
+                        Some(&String::from(SearchBarError::EncodingError)),
+                    );
+                }
+            }
+        });
+
+        view.update_search_mode(options.search_mode.get());
+        self.show_error(SearchBarError::None, &view);
+
+        view
     }
 
-    pub fn connect_search<F>(&self, callback: F) -> glib::SignalHandlerId
-    where
-        F: Fn(&Self, bool) + 'static,
-    {
-        self.connect_closure(
-            "search",
-            false,
-            glib::closure_local!(move |this: &Self, forward: bool| { (callback)(this, forward) }),
-        )
+    fn root<'a>(&self, view: &'a Self::View) -> &'a Self::Root {
+        &view.searchbar
     }
 
-    pub fn connect_abort<F>(&self, callback: F) -> glib::SignalHandlerId
-    where
-        F: Fn(&Self) + 'static,
-    {
-        self.connect_closure(
-            "abort",
-            false,
-            glib::closure_local!(move |this: &Self| { (callback)(this) }),
-        )
+    async fn update(
+        &mut self,
+        msg: Self::Input,
+        sender: &ComponentSender<Self>,
+        view: &mut Self::View,
+    ) {
+        match msg {
+            Self::Input::Show => {
+                view.searchbar.set_search_mode(true);
+                view.entry.grab_focus();
+            }
+            Self::Input::Close => view.searchbar.set_search_mode(false),
+            Self::Input::StartSearch(forward) => {
+                view.searchbar.set_search_mode(true);
+                match view.settings() {
+                    Ok(Some(settings)) => {
+                        view.add_to_history();
+                        sender.output(Self::Output::StartSearch(forward, settings));
+                    }
+                    Ok(None) => {
+                        view.entry.grab_focus();
+                    }
+                    Err(error) => self.show_error(error, view),
+                }
+            }
+            Self::Input::Progress(progress) => {
+                view.show_progress(progress);
+                self.show_error(SearchBarError::None, view);
+            }
+            Self::Input::HideProgress => view.hide_progress(),
+            Self::Input::Closed => {
+                if view.is_state(State::Searching) {
+                    sender.output(Self::Output::StopSearch);
+                }
+                sender.output(Self::Output::Closed);
+            }
+            Self::Input::ShowError(error) => self.show_error(error, view),
+            Self::Input::ToggleMatchCase => {
+                let _ = ViewerOptions::instance()
+                    .case_sensitive_search
+                    .set(view.match_case.is_active());
+                self.show_error(SearchBarError::None, view);
+            }
+            Self::Input::ToggleHexMode => {
+                let mode = if view.hex_mode.is_active() {
+                    Mode::Binary
+                } else {
+                    Mode::Text
+                };
+                let _ = ViewerOptions::instance().search_mode.set(mode);
+                view.update_search_mode(mode);
+                self.show_error(SearchBarError::None, view);
+            }
+        }
     }
 
-    pub fn connect_closed<F>(&self, callback: F) -> glib::SignalHandlerId
-    where
-        F: Fn(&Self) + 'static,
-    {
-        self.connect_closure(
-            "closed",
-            false,
-            glib::closure_local!(move |this: &Self| { (callback)(this) }),
-        )
+    async fn handle_subcomponents(&mut self) {
+        self.action_group.handle_incoming().await
+    }
+}
+
+impl SearchBar {
+    fn show_error(&mut self, error: SearchBarError, view: &SearchBarView) {
+        self.error = error;
+
+        view.message.set_visible_child_name(&String::from(error));
+        if error == SearchBarError::None {
+            view.entry.remove_css_class("error");
+        } else {
+            view.entry.add_css_class("error");
+        }
+    }
+
+    pub fn displayed_error(&self) -> SearchBarError {
+        self.error
     }
 }
 
@@ -465,20 +425,6 @@ fn hex_to_bytes(text: &str) -> Option<Vec<u8>> {
         // There is a remainder, not an even length
         None
     }
-}
-
-u32_enum! {
-    pub enum Mode {
-        #[default]
-        Text,
-        Binary,
-    }
-}
-
-#[derive(Debug)]
-pub enum SearchSettings {
-    Text { pattern: String, match_case: bool },
-    Binary { pattern: Vec<u8>, match_case: bool },
 }
 
 #[cfg(test)]
