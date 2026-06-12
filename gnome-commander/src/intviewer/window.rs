@@ -15,9 +15,13 @@ use crate::{
     file_metainfo_view::FileMetainfoView,
     options::{ViewerOptions, types::WriteResult, utils::remember_window_state},
     tags::{FileMetadataService, file_metadata::FileMetadata},
-    utils::{MenuBuilderExt, display_help, u32_enum},
+    utils::{display_help, u32_enum},
 };
-use component_framework::prelude::*;
+use component_framework::{
+    action_list,
+    helpers::{ActionGroup, ActionListOutput, MenuSection, Submenu},
+    prelude::*,
+};
 use gettextrs::{gettext, ngettext};
 use gtk::{gdk, gio, glib, pango, prelude::*};
 use std::{
@@ -61,33 +65,34 @@ impl DisplayMode {
     }
 }
 
-trait ShortcutControllerExt {
-    fn action_shortcut(&self, action: &str, shortcut: &str);
-    fn action_shortcut_with_param(&self, action: &str, param: impl ToVariant, shortcut: &str);
-}
-
-impl ShortcutControllerExt for gtk::ShortcutController {
-    fn action_shortcut(&self, action: &str, shortcut: &str) {
-        self.add_shortcut(gtk::Shortcut::new(
-            gtk::ShortcutTrigger::parse_string(shortcut),
-            Some(gtk::NamedAction::new(action)),
-        ));
-    }
-
-    fn action_shortcut_with_param(&self, action: &str, param: impl ToVariant, shortcut: &str) {
-        let shortcut = gtk::Shortcut::new(
-            gtk::ShortcutTrigger::parse_string(shortcut),
-            Some(gtk::NamedAction::new(action)),
-        );
-        shortcut.set_arguments(Some(&param.to_variant()));
-        self.add_shortcut(shortcut);
+action_list! {
+    enum ViewerActions {
+        "viewer.copy-text-selection" as CopySelection,
+        "viewer.select-all" as SelectAll,
+        "viewer.close" as Close,
+        "viewer.zoom-in" as ZoomIn,
+        "viewer.zoom-out" as ZoomOut,
+        "viewer.normal-size" as ZoomNormal,
+        "viewer.best-fit" as ZoomBestFit,
+        "viewer.find" as Find,
+        "viewer.find-next" as FindNext,
+        "viewer.find-previous" as FindPrevious,
+        "viewer.display-mode" as DisplayMode(DisplayMode) = DisplayMode,
+        "viewer.wrap-lines" as ToggleWrapMode = bool,
+        "viewer.encoding" as Encoding(String) = String,
+        "viewer.imageop" as ImageOp(ImageOperation),
+        "viewer.choose-font" as ChooseFont,
+        "viewer.chars-per-line" as CharsPerLine(u32) = u32,
+        "viewer.hexadecimal-offset" as ToggleHexOffset = bool,
+        "viewer.metadata-visible" as ToggleMetadata = bool,
+        "viewer.quick-help" as QuickHelp,
+        "viewer.keyboard-shortcuts" as KeyboardShortcuts,
     }
 }
 
 #[derive(Debug)]
 pub struct ViewerWindowView {
     window: gtk::Window,
-    action_group: gio::SimpleActionGroup,
     menubar: gtk::PopoverMenuBar,
     stack: gtk::Stack,
     text_render: TextRender,
@@ -168,85 +173,27 @@ impl ViewerWindowView {
     }
 
     pub fn text_viewer_context_menu(&self, x: f64, y: f64) {
-        let menu = gio::Menu::new()
-            .item(gettext("_Copy Selection"), "viewer.copy-text-selection")
-            .item(gettext("_Select All"), "viewer.select-all");
+        let menu = with!(gio::Menu {
+            ViewerActions::Output::CopySelection.menuitem(gettext("_Copy Selection"));
+            ViewerActions::Output::SelectAll.menuitem(gettext("_Select All"));
+        });
         Self::show_context_menu(&self.text_render, menu, x, y);
     }
 
     pub fn image_viewer_context_menu(&self, x: f64, y: f64) {
-        let menu = gio::Menu::new()
-            .item_param(
-                gettext("_Rotate Clockwise"),
-                "viewer.imageop",
-                ImageOperation::RotateClockwise,
-            )
-            .item_param(
-                gettext("Rotate Counter Clockwis_e"),
-                "viewer.imageop",
-                ImageOperation::RotateCounterclockwise,
-            )
-            .item_param(
-                gettext("Rotate 180\u{00B0}"),
-                "viewer.imageop",
-                ImageOperation::RotateUpsideDown,
-            )
-            .item_param(
-                gettext("Flip _Vertical"),
-                "viewer.imageop",
-                ImageOperation::FlipVertical,
-            )
-            .item_param(
-                gettext("Flip _Horizontal"),
-                "viewer.imageop",
-                ImageOperation::FlipHorizontal,
-            );
+        let menu = with!(gio::Menu {
+            ViewerActions::Output::ImageOp(ImageOperation::RotateClockwise)
+                .menuitem(gettext("_Rotate Clockwise"));
+            ViewerActions::Output::ImageOp(ImageOperation::RotateCounterclockwise)
+                .menuitem(gettext("Rotate Counter Clockwis_e"));
+            ViewerActions::Output::ImageOp(ImageOperation::RotateUpsideDown)
+                .menuitem(gettext("Rotate 180°"));
+            ViewerActions::Output::ImageOp(ImageOperation::FlipVertical)
+                .menuitem(gettext("Flip _Vertical"));
+            ViewerActions::Output::ImageOp(ImageOperation::FlipHorizontal)
+                .menuitem(gettext("Flip _Horizontal"));
+        });
         Self::show_context_menu(&self.image_render, menu, x, y);
-    }
-
-    pub fn update_tab_size(&self) {
-        self.text_render
-            .set_tab_size(ViewerOptions::instance().tab_size.get());
-    }
-
-    pub fn update_wrap_mode(&self) {
-        let value = ViewerOptions::instance().wrap_mode.get();
-        self.text_render.set_wrap_mode(value);
-        self.action_group
-            .change_action_state("wrap-lines", &value.to_variant())
-    }
-
-    pub fn update_encoding(&self) {
-        let value = ViewerOptions::instance().encoding.get();
-        self.text_render.set_encoding(value.as_str());
-        self.action_group
-            .change_action_state("encoding", &value.to_variant())
-    }
-
-    pub fn update_monospaced_font(&self) {
-        self.text_render
-            .set_monospaced_font(ViewerOptions::instance().monospaced_font.get());
-    }
-
-    pub fn update_chars_per_line(&self) {
-        let value = ViewerOptions::instance().binary_bytes_per_line.get();
-        self.text_render.set_fixed_limit(value);
-        self.action_group
-            .change_action_state("chars-per-line", &value.to_variant())
-    }
-
-    pub fn update_metadata(&self) {
-        let value = ViewerOptions::instance().metadata_visible.get();
-        self.metadata_view.set_visible(value);
-        self.action_group
-            .change_action_state("metadata-visible", &value.to_variant())
-    }
-
-    pub fn update_hex_offset(&self) {
-        let value = ViewerOptions::instance().display_hex_offset.get();
-        self.text_render.set_hexadecimal_offset(value);
-        self.action_group
-            .change_action_state("hexadecimal-offset", &value.to_variant())
     }
 }
 
@@ -255,30 +202,14 @@ pub enum ViewerWindowInput {
     SetMetadata(FileMetadata),
     FocusContent,
     TextStatusUpdate,
-    TextViewerContextMenu(f64, f64),
+    TextViewerContextMenu(i32, f64, f64),
     ImageStatusUpdate,
-    ImageViewerContextMenu(f64, f64),
-    CopySelection,
-    SelectAll,
-    ZoomIn,
-    ZoomOut,
-    ZoomBestFit,
-    ZoomNormal,
-    Find,
+    ImageViewerContextMenu(i32, f64, f64),
     StartSearch(bool),
     CancelSearch,
     SearchProgress(u32),
     SearchDone(Option<u64>),
-    DisplayMode(DisplayMode),
-    ToggleWrapMode,
-    Encoding(String),
-    ImageOp(ImageOperation),
-    ChooseFont,
-    CharsPerLine(u32),
-    ToggleHexOffset,
-    ToggleMetadata,
-    QuickHelp,
-    KeyboardShortcuts,
+    Action(ViewerActions::Output),
 
     UpdateTabSize,
     UpdateWrapMode,
@@ -291,6 +222,7 @@ pub enum ViewerWindowInput {
 
 #[derive(Debug)]
 pub struct ViewerWindow {
+    action_group: ComponentController<ActionGroup<ViewerActions::List>>,
     option_handlers: Vec<glib::SignalHandlerId>,
     file: PathBuf,
     display_mode: DisplayMode,
@@ -320,7 +252,6 @@ impl Component for ViewerWindow {
     fn init(&mut self, sender: &ComponentSender<Self>) -> Self::View {
         let view = Self::View {
             window: Default::default(),
-            action_group: Default::default(),
             menubar: gtk::PopoverMenuBar::from_model(gio::MenuModel::NONE),
             stack: Default::default(),
             text_render: Default::default(),
@@ -334,148 +265,44 @@ impl Component for ViewerWindow {
             .set_icon_name(Some("gnome-commander-internal-viewer"));
             .set_title(self.file.to_str());
 
-            .insert_action_group("viewer", Some(with!(&view.action_group {
-                gio::SimpleAction::new("copy-text-selection", None) {
-                    .connect_activate(forward!(|_, _| sender.input(Self::Input::CopySelection)));
-                }
-                gio::SimpleAction::new("select-all", None) {
-                    .connect_activate(forward!(|_, _| sender.input(Self::Input::SelectAll)));
-                }
-                gio::SimpleAction::new("close", None) {
-                    .connect_activate(forward!(|_, _| sender.output(())));
-                }
-                gio::SimpleAction::new("zoom-in", None) {
-                    .connect_activate(forward!(|_, _| sender.input(Self::Input::ZoomIn)));
-                }
-                gio::SimpleAction::new("zoom-out", None) {
-                    .connect_activate(forward!(|_, _| sender.input(Self::Input::ZoomOut)));
-                }
-                gio::SimpleAction::new("normal-size", None) {
-                    .connect_activate(forward!(|_, _| sender.input(Self::Input::ZoomNormal)));
-                }
-                gio::SimpleAction::new("best-fit", None) {
-                    .connect_activate(forward!(|_, _| sender.input(Self::Input::ZoomBestFit)));
-                }
-                gio::SimpleAction::new("find", None) {
-                    .connect_activate(forward!(|_, _| sender.input(Self::Input::Find)));
-                }
-                gio::SimpleAction::new("find-next", None) {
-                    .connect_activate(forward!(
-                        |_, _| sender.input(Self::Input::StartSearch(true))
-                    ));
-                }
-                gio::SimpleAction::new("find-previous", None) {
-                    .connect_activate(forward!(
-                        |_, _| sender.input(Self::Input::StartSearch(false))
-                    ));
-                }
-                gio::SimpleAction::new_stateful(
-                    "display-mode",
-                    Some(&DisplayMode::static_variant_type()),
-                    &self.display_mode.to_variant(),
-                ) {
-                    .connect_activate(forward!(|_, param| sender.input(Self::Input::DisplayMode(
-                        param.and_then(DisplayMode::from_variant).unwrap_or_default()
-                    ))));
-                }
-                gio::SimpleAction::new_stateful(
-                    "wrap-lines",
-                    None,
-                    &false.to_variant(),
-                ) {
-                    .connect_activate(forward!(|_, _| sender.input(Self::Input::ToggleWrapMode)));
-                }
-                gio::SimpleAction::new_stateful(
-                    "encoding",
-                    Some(&String::static_variant_type()),
-                    &"".to_variant(),
-                ) {
-                    .connect_activate(forward!(|_, param| sender.input(Self::Input::Encoding(
-                        param.and_then(String::from_variant).unwrap_or_else(|| String::from("UTF8"))
-                    ))));
-                }
-                gio::SimpleAction::new("imageop", Some(&ImageOperation::static_variant_type())) {
-                    .connect_activate(forward!(|_, param| sender.input(Self::Input::ImageOp(
-                        param.and_then(ImageOperation::from_variant).unwrap_or_default()
-                    ))));
-                }
-                gio::SimpleAction::new("choose-font", None) {
-                    .connect_activate(forward!(|_, _| sender.input(Self::Input::ChooseFont)));
-                }
-                gio::SimpleAction::new_stateful(
-                    "chars-per-line",
-                    Some(&u32::static_variant_type()),
-                    &0u32.to_variant(),
-                ) {
-                    .connect_activate(forward!(|_, param| sender.input(Self::Input::CharsPerLine(
-                        param.and_then(u32::from_variant).unwrap_or(80)
-                    ))));
-                }
-                gio::SimpleAction::new_stateful(
-                    "hexadecimal-offset",
-                    None,
-                    &false.to_variant(),
-                ) {
-                    .connect_activate(forward!(|_, _| sender.input(Self::Input::ToggleHexOffset)));
-                }
-                gio::SimpleAction::new_stateful(
-                    "metadata-visible",
-                    None,
-                    &false.to_variant(),
-                ) {
-                    .connect_activate(forward!(|_, _| sender.input(Self::Input::ToggleMetadata)));
-                }
-                gio::SimpleAction::new("quick-help", None) {
-                    .connect_activate(forward!(|_, _| sender.input(Self::Input::QuickHelp)));
-                }
-                gio::SimpleAction::new("keyboard-shortcuts", None) {
-                    .connect_activate(forward!(
-                        |_, _| sender.input(Self::Input::KeyboardShortcuts)
-                    ));
-                }
-            })));
+            .insert_action_group(
+                ViewerActions::prefix(),
+                Some(self.action_group.attach(sender, Self::Input::Action))
+            );
 
             .add_controller(with!(gtk::ShortcutController {
-                .action_shortcut("viewer.close", "<Control>Q");
-                .action_shortcut("viewer.close", "Escape");
-                .action_shortcut_with_param("viewer.display-mode", DisplayMode::Text, "1");
-                .action_shortcut_with_param(
-                    "viewer.display-mode", DisplayMode::FixedWidth, "2"
-                );
-                .action_shortcut_with_param("viewer.display-mode", DisplayMode::Hexdump, "3");
-                .action_shortcut_with_param("viewer.display-mode", DisplayMode::Image, "4");
-                .action_shortcut("viewer.zoom-in", "<Control>equal");
-                .action_shortcut("viewer.zoom-in", "<Control>KP_Add");
-                .action_shortcut("viewer.zoom-in", "<Control>plus");
-                .action_shortcut("viewer.zoom-out", "<Control>KP_Subtract");
-                .action_shortcut("viewer.zoom-out", "<Control>minus");
-                .action_shortcut("viewer.normal-size", "<Control>0");
-                .action_shortcut("viewer.best-fit", "<Control>period");
-                .action_shortcut("viewer.copy-text-selection", "<Control>C");
-                .action_shortcut("viewer.select-all", "<Control>A");
-                .action_shortcut("viewer.find", "<Control>F");
-                .action_shortcut("viewer.find-next", "F3");
-                .action_shortcut("viewer.find-previous", "<Shift>F3");
-                .action_shortcut("viewer.wrap-lines", "<Control>W");
-                .action_shortcut_with_param("viewer.encoding", "UTF8", "U");
-                .action_shortcut_with_param("viewer.encoding", "ASCII", "A");
-                .action_shortcut_with_param("viewer.encoding", "CP437", "Q");
-                .action_shortcut_with_param(
-                    "viewer.imageop",
-                    ImageOperation::RotateClockwise,
-                    "<Control>R",
-                );
-                .action_shortcut_with_param(
-                    "viewer.imageop",
-                    ImageOperation::RotateUpsideDown,
-                    "<Control><Shift>R",
-                );
-                .action_shortcut_with_param("viewer.chars-per-line", 20u32, "<Control>2");
-                .action_shortcut_with_param("viewer.chars-per-line", 40u32, "<Control>4");
-                .action_shortcut_with_param("viewer.chars-per-line", 80u32, "<Control>8");
-                .action_shortcut("viewer.metadata-visible", "T");
-                .action_shortcut("viewer.hexadecimal-offset", "<Control>D");
-                .action_shortcut("viewer.quick-help", "F1");
+                ViewerActions::Output::Close.shortcut("<Control>Q");
+                ViewerActions::Output::Close.shortcut("Escape");
+                ViewerActions::Output::DisplayMode(DisplayMode::Text).shortcut("1");
+                ViewerActions::Output::DisplayMode(DisplayMode::FixedWidth).shortcut("2");
+                ViewerActions::Output::DisplayMode(DisplayMode::Hexdump).shortcut("3");
+                ViewerActions::Output::DisplayMode(DisplayMode::Image).shortcut("4");
+                ViewerActions::Output::ZoomIn.shortcut("<Control>equal");
+                ViewerActions::Output::ZoomIn.shortcut("<Control>KP_Add");
+                ViewerActions::Output::ZoomIn.shortcut("<Control>plus");
+                ViewerActions::Output::ZoomOut.shortcut("<Control>KP_Subtract");
+                ViewerActions::Output::ZoomOut.shortcut("<Control>minus");
+                ViewerActions::Output::ZoomNormal.shortcut("<Control>0");
+                ViewerActions::Output::ZoomBestFit.shortcut("<Control>period");
+                ViewerActions::Output::CopySelection.shortcut("<Control>C");
+                ViewerActions::Output::SelectAll.shortcut("<Control>A");
+                ViewerActions::Output::Find.shortcut("<Control>F");
+                ViewerActions::Output::FindNext.shortcut("F3");
+                ViewerActions::Output::FindPrevious.shortcut("<Shift>F3");
+                ViewerActions::Output::ToggleWrapMode.shortcut("<Control>W");
+                ViewerActions::Output::Encoding("UTF8".to_owned()).shortcut("U");
+                ViewerActions::Output::Encoding("ASCII".to_owned()).shortcut("A");
+                ViewerActions::Output::Encoding("CP437".to_owned()).shortcut("Q");
+                ViewerActions::Output::ImageOp(ImageOperation::RotateClockwise)
+                    .shortcut("<Control>R");
+                ViewerActions::Output::ImageOp(ImageOperation::RotateUpsideDown)
+                    .shortcut("<Control><Shift>R");
+                ViewerActions::Output::CharsPerLine(20).shortcut("<Control>2");
+                ViewerActions::Output::CharsPerLine(40).shortcut("<Control>4");
+                ViewerActions::Output::CharsPerLine(80).shortcut("<Control>8");
+                ViewerActions::Output::ToggleMetadata.shortcut("T");
+                ViewerActions::Output::ToggleHexOffset.shortcut("<Control>D");
+                ViewerActions::Output::QuickHelp.shortcut("F1");
             }));
 
             // Make sure we signal that we are done even if close action isn't used.
@@ -500,7 +327,7 @@ impl Component for ViewerWindow {
                 .set_orientation(gtk::Orientation::Vertical);
                 .add_css_class("spacing");
 
-                &view.menubar {}
+                &view.menubar;
 
                 &view.stack {
                     .add_named(&with!(gtk::ScrolledWindow {
@@ -516,14 +343,11 @@ impl Component for ViewerWindow {
 
                             .add_controller(with!(gtk::GestureClick {
                                 .set_button(3);
-                                .connect_pressed({
-                                    let sender = sender.clone();
-                                    move |_, n_press, x, y| {
-                                        if n_press == 1 {
-                                            sender.input(Self::Input::TextViewerContextMenu(x, y));
-                                        }
-                                    }
-                                });
+                                .connect_pressed(forward!(
+                                    |_, n_press, x, y| sender.input(
+                                        Self::Input::TextViewerContextMenu(n_press, x, y)
+                                    )
+                                ));
                             }));
                         }
                     }), Some("text"));
@@ -542,14 +366,11 @@ impl Component for ViewerWindow {
 
                             .add_controller(with!(gtk::GestureClick {
                                 .set_button(3);
-                                .connect_pressed({
-                                    let sender = sender.clone();
-                                    move |_, n_press, x, y| {
-                                        if n_press == 1 {
-                                            sender.input(Self::Input::ImageViewerContextMenu(x, y));
-                                        }
-                                    }
-                                });
+                                .connect_pressed(forward!(
+                                    |_, n_press, x, y| sender.input(
+                                        Self::Input::ImageViewerContextMenu(n_press, x, y)
+                                    )
+                                ));
                             }));
                         }
                     }), Some("image"));
@@ -569,7 +390,7 @@ impl Component for ViewerWindow {
                     .add_css_class("spacing");
                     .add_css_class("offset");
 
-                    &view.status_label {}
+                    &view.status_label;
                 }
 
                 &view.metadata_view {
@@ -614,13 +435,13 @@ impl Component for ViewerWindow {
         });
 
         self.update_display_mode(&view);
-        view.update_tab_size();
-        view.update_wrap_mode();
-        view.update_encoding();
-        view.update_monospaced_font();
-        view.update_chars_per_line();
-        view.update_metadata();
-        view.update_hex_offset();
+        self.update_tab_size(&view);
+        self.update_wrap_mode(&view);
+        self.update_encoding(&view);
+        self.update_monospaced_font(&view);
+        self.update_chars_per_line(&view);
+        self.update_metadata(&view);
+        self.update_hex_offset(&view);
 
         view
     }
@@ -647,30 +468,15 @@ impl Component for ViewerWindow {
                 }
             }
             Self::Input::TextStatusUpdate => view.text_status_update(),
-            Self::Input::TextViewerContextMenu(x, y) => view.text_viewer_context_menu(x, y),
+            Self::Input::TextViewerContextMenu(n_press, x, y) => {
+                if n_press == 1 {
+                    view.text_viewer_context_menu(x, y)
+                }
+            }
             Self::Input::ImageStatusUpdate => view.image_status_update(),
-            Self::Input::ImageViewerContextMenu(x, y) => view.image_viewer_context_menu(x, y),
-            Self::Input::CopySelection => {
-                if self.display_mode != DisplayMode::Image {
-                    view.text_render.copy_selection();
-                }
-            }
-            Self::Input::SelectAll => {
-                if self.display_mode != DisplayMode::Image {
-                    view.text_render.set_marker(0, view.text_render.size());
-                }
-            }
-            Self::Input::ZoomIn => self.zoom_in(view),
-            Self::Input::ZoomOut => self.zoom_out(view),
-            Self::Input::ZoomBestFit => {
-                if self.display_mode == DisplayMode::Image {
-                    view.image_render.set_best_fit(true);
-                }
-            }
-            Self::Input::ZoomNormal => self.zoom_normal(view),
-            Self::Input::Find => {
-                if self.display_mode != DisplayMode::Image {
-                    view.searchbar.show(true);
+            Self::Input::ImageViewerContextMenu(n_press, x, y) => {
+                if n_press == 1 {
+                    view.image_viewer_context_menu(x, y)
                 }
             }
             Self::Input::StartSearch(forward) => self.start_search(sender, view, forward),
@@ -681,72 +487,106 @@ impl Component for ViewerWindow {
             }
             Self::Input::SearchProgress(progress) => view.searchbar.show_progress(progress),
             Self::Input::SearchDone(found) => self.search_done(view, found),
-            Self::Input::DisplayMode(mode) => {
-                self.display_mode = mode;
-                self.update_display_mode(view);
-            }
-            Self::Input::ToggleWrapMode => {
-                let options = ViewerOptions::instance();
-                handle_write_result(options.wrap_mode.set(!options.wrap_mode.get()));
-            }
-            Self::Input::Encoding(encoding) => {
-                let options = ViewerOptions::instance();
-                handle_write_result(options.encoding.set(encoding));
-            }
-            Self::Input::ImageOp(operation) => {
-                if self.display_mode == DisplayMode::Image {
-                    view.image_render.operation(operation);
-                    view.image_render.queue_draw();
+            Self::Input::Action(action) => match action {
+                ViewerActions::Output::CopySelection => {
+                    if self.display_mode != DisplayMode::Image {
+                        view.text_render.copy_selection();
+                    }
                 }
-            }
-            Self::Input::ChooseFont => Self::choose_font(view).await,
-            Self::Input::CharsPerLine(num_chars) => {
-                let options = ViewerOptions::instance();
-                handle_write_result(options.binary_bytes_per_line.set(num_chars));
-            }
-            Self::Input::ToggleHexOffset => {
-                let options = ViewerOptions::instance();
-                handle_write_result(
-                    options
-                        .display_hex_offset
-                        .set(!options.display_hex_offset.get()),
-                );
-            }
-            Self::Input::ToggleMetadata => {
-                let options = ViewerOptions::instance();
-                handle_write_result(
-                    options
-                        .metadata_visible
-                        .set(!options.metadata_visible.get()),
-                );
-            }
-            Self::Input::QuickHelp => {
-                let window = view.window.clone();
-                glib::spawn_future_local(async move {
-                    display_help(&window, Some("gnome-commander-internal-viewer")).await;
-                });
-            }
-            Self::Input::KeyboardShortcuts => {
-                let window = view.window.clone();
-                glib::spawn_future_local(async move {
-                    display_help(&window, Some("gnome-commander-internal-viewer-keyboard")).await;
-                });
-            }
+                ViewerActions::Output::SelectAll => {
+                    if self.display_mode != DisplayMode::Image {
+                        view.text_render.set_marker(0, view.text_render.size());
+                    }
+                }
+                ViewerActions::Output::Close => sender.output(()),
+                ViewerActions::Output::ZoomIn => self.zoom_in(view),
+                ViewerActions::Output::ZoomOut => self.zoom_out(view),
+                ViewerActions::Output::ZoomBestFit => {
+                    if self.display_mode == DisplayMode::Image {
+                        view.image_render.set_best_fit(true);
+                    }
+                }
+                ViewerActions::Output::ZoomNormal => self.zoom_normal(view),
+                ViewerActions::Output::Find => {
+                    if self.display_mode != DisplayMode::Image {
+                        view.searchbar.show(true);
+                    }
+                }
+                ViewerActions::Output::FindNext => self.start_search(sender, view, true),
+                ViewerActions::Output::FindPrevious => self.start_search(sender, view, false),
+                ViewerActions::Output::DisplayMode(mode) => {
+                    self.display_mode = mode;
+                    self.update_display_mode(view);
+                }
+                ViewerActions::Output::ToggleWrapMode => {
+                    let options = ViewerOptions::instance();
+                    handle_write_result(options.wrap_mode.set(!options.wrap_mode.get()));
+                }
+                ViewerActions::Output::Encoding(encoding) => {
+                    let options = ViewerOptions::instance();
+                    handle_write_result(options.encoding.set(encoding));
+                }
+                ViewerActions::Output::ImageOp(operation) => {
+                    if self.display_mode == DisplayMode::Image {
+                        view.image_render.operation(operation);
+                        view.image_render.queue_draw();
+                    }
+                }
+                ViewerActions::Output::ChooseFont => Self::choose_font(view).await,
+                ViewerActions::Output::CharsPerLine(num_chars) => {
+                    let options = ViewerOptions::instance();
+                    handle_write_result(options.binary_bytes_per_line.set(num_chars));
+                }
+                ViewerActions::Output::ToggleHexOffset => {
+                    let options = ViewerOptions::instance();
+                    handle_write_result(
+                        options
+                            .display_hex_offset
+                            .set(!options.display_hex_offset.get()),
+                    );
+                }
+                ViewerActions::Output::ToggleMetadata => {
+                    let options = ViewerOptions::instance();
+                    handle_write_result(
+                        options
+                            .metadata_visible
+                            .set(!options.metadata_visible.get()),
+                    );
+                }
+                ViewerActions::Output::QuickHelp => {
+                    let window = view.window.clone();
+                    glib::spawn_future_local(async move {
+                        display_help(&window, Some("gnome-commander-internal-viewer")).await;
+                    });
+                }
+                ViewerActions::Output::KeyboardShortcuts => {
+                    let window = view.window.clone();
+                    glib::spawn_future_local(async move {
+                        display_help(&window, Some("gnome-commander-internal-viewer-keyboard"))
+                            .await;
+                    });
+                }
+            },
 
-            Self::Input::UpdateTabSize => view.update_tab_size(),
-            Self::Input::UpdateWrapMode => view.update_wrap_mode(),
-            Self::Input::UpdateEncoding => view.update_encoding(),
-            Self::Input::UpdateMonospacedFont => view.update_monospaced_font(),
-            Self::Input::UpdateCharsPerLine => view.update_chars_per_line(),
-            Self::Input::UpdateMetadata => view.update_metadata(),
-            Self::Input::UpdateHexOffset => view.update_hex_offset(),
+            Self::Input::UpdateTabSize => self.update_tab_size(view),
+            Self::Input::UpdateWrapMode => self.update_wrap_mode(view),
+            Self::Input::UpdateEncoding => self.update_encoding(view),
+            Self::Input::UpdateMonospacedFont => self.update_monospaced_font(view),
+            Self::Input::UpdateCharsPerLine => self.update_chars_per_line(view),
+            Self::Input::UpdateMetadata => self.update_metadata(view),
+            Self::Input::UpdateHexOffset => self.update_hex_offset(view),
         }
+    }
+
+    async fn handle_subcomponents(&mut self) {
+        self.action_group.handle_incoming().await
     }
 }
 
 impl ViewerWindow {
     fn new(file: &File, path: &Path) -> Self {
         Self {
+            action_group: ActionGroup::default().build(),
             option_handlers: Vec::new(),
             file: path.to_path_buf(),
             current_scale_index: DEFAULT_IMAGE_SCALE_INDEX,
@@ -814,15 +654,57 @@ impl ViewerWindow {
         view.menubar
             .set_menu_model(Some(&create_menu(self.display_mode)));
 
-        view.action_group
-            .change_action_state("display-mode", &self.display_mode.to_variant());
-        if let Some(action) = view
-            .action_group
-            .lookup_action("best-fit")
-            .and_downcast::<gio::SimpleAction>()
-        {
-            action.set_enabled(self.display_mode == DisplayMode::Image);
-        }
+        self.action_group
+            .change_action_state(ViewerActions::State::DisplayMode(self.display_mode));
+        self.action_group.enable_action(
+            ViewerActions::List::ZoomBestFit,
+            self.display_mode == DisplayMode::Image,
+        );
+    }
+
+    pub fn update_tab_size(&self, view: &ViewerWindowView) {
+        view.text_render
+            .set_tab_size(ViewerOptions::instance().tab_size.get());
+    }
+
+    pub fn update_wrap_mode(&self, view: &ViewerWindowView) {
+        let value = ViewerOptions::instance().wrap_mode.get();
+        view.text_render.set_wrap_mode(value);
+        self.action_group
+            .change_action_state(ViewerActions::State::ToggleWrapMode(value))
+    }
+
+    pub fn update_encoding(&self, view: &ViewerWindowView) {
+        let value = ViewerOptions::instance().encoding.get();
+        view.text_render.set_encoding(value.as_str());
+        self.action_group
+            .change_action_state(ViewerActions::State::Encoding(value))
+    }
+
+    pub fn update_monospaced_font(&self, view: &ViewerWindowView) {
+        view.text_render
+            .set_monospaced_font(ViewerOptions::instance().monospaced_font.get());
+    }
+
+    pub fn update_chars_per_line(&self, view: &ViewerWindowView) {
+        let value = ViewerOptions::instance().binary_bytes_per_line.get();
+        view.text_render.set_fixed_limit(value);
+        self.action_group
+            .change_action_state(ViewerActions::State::CharsPerLine(value))
+    }
+
+    pub fn update_metadata(&self, view: &ViewerWindowView) {
+        let value = ViewerOptions::instance().metadata_visible.get();
+        view.metadata_view.set_visible(value);
+        self.action_group
+            .change_action_state(ViewerActions::State::ToggleMetadata(value))
+    }
+
+    pub fn update_hex_offset(&self, view: &ViewerWindowView) {
+        let value = ViewerOptions::instance().display_hex_offset.get();
+        view.text_render.set_hexadecimal_offset(value);
+        self.action_group
+            .change_action_state(ViewerActions::State::ToggleHexOffset(value))
     }
 
     fn zoom_in(&mut self, view: &ViewerWindowView) {
@@ -968,12 +850,7 @@ impl ViewerWindow {
                 pattern,
                 match_case,
             } => {
-                let encoding = view
-                    .action_group
-                    .action_state("encoding")
-                    .as_ref()
-                    .and_then(String::from_variant)
-                    .unwrap_or_else(|| "UTF8".to_owned());
+                let encoding = ViewerOptions::instance().encoding.get();
                 let pattern = if encoding.eq_ignore_ascii_case("CP437") {
                     preprocess_for_cp437_conversion(&pattern)
                 } else {
@@ -1087,176 +964,118 @@ impl ViewerWindow {
 }
 
 fn create_menu(display_mode: DisplayMode) -> gio::Menu {
-    let mut menu = gio::Menu::new()
-        .submenu(
-            gettext("_File"),
-            gio::Menu::new().item(gettext("_Close"), "viewer.close"),
-        )
-        .submenu(
-            gettext("_View"),
-            gio::Menu::new()
-                .item_param(gettext("_Text"), "viewer.display-mode", DisplayMode::Text)
-                .item_param(
-                    gettext("_Fixed Width"),
-                    "viewer.display-mode",
-                    DisplayMode::FixedWidth,
-                )
-                .item_param(
-                    gettext("_Hexadecimal"),
-                    "viewer.display-mode",
-                    DisplayMode::Hexdump,
-                )
-                .item_param(gettext("_Image"), "viewer.display-mode", DisplayMode::Image)
-                .section(
-                    gio::Menu::new()
-                        .item(gettext("_Zoom In"), "viewer.zoom-in")
-                        .item(gettext("_Zoom Out"), "viewer.zoom-out")
-                        .item(gettext("_Normal Size"), "viewer.normal-size")
-                        .item(gettext("_Best Fit"), "viewer.best-fit"),
-                ),
-        );
+    with!(gio::Menu {
+        Submenu::new(gettext("_File")) {
+            ViewerActions::Output::Close.menuitem(gettext("_Close"));
+        }
+        Submenu::new(gettext("_View")) {
+            ViewerActions::Output::DisplayMode(DisplayMode::Text).menuitem(gettext("_Text"));
+            ViewerActions::Output::DisplayMode(DisplayMode::FixedWidth)
+                .menuitem(gettext("_Fixed Width"));
+            ViewerActions::Output::DisplayMode(DisplayMode::Hexdump)
+                .menuitem(gettext("_Hexadecimal"));
+            ViewerActions::Output::DisplayMode(DisplayMode::Image).menuitem(gettext("_Image"));
+            MenuSection {
+                ViewerActions::Output::ZoomIn.menuitem(gettext("_Zoom In"));
+                ViewerActions::Output::ZoomOut.menuitem(gettext("_Zoom Out"));
+                ViewerActions::Output::ZoomNormal.menuitem(gettext("_Normal Size"));
+                ViewerActions::Output::ZoomBestFit.menuitem(gettext("_Best Fit"));
+            }
+        }
+        if matches!(
+            display_mode,
+            DisplayMode::Text | DisplayMode::FixedWidth | DisplayMode::Hexdump
+        ) {
+            Submenu::new(gettext("_Text")) {
+                ViewerActions::Output::CopySelection.menuitem(gettext("_Copy Text Selection"));
+                ViewerActions::Output::SelectAll.menuitem(gettext("_Select All"));
+                ViewerActions::Output::Find.menuitem(gettext("Find…"));
+                ViewerActions::Output::FindNext.menuitem(gettext("Find Next"));
+                ViewerActions::Output::FindPrevious.menuitem(gettext("Find Previous"));
+                MenuSection {
+                    ViewerActions::Output::ToggleWrapMode.menuitem(gettext("_Wrap lines"));
+                }
+                Submenu::new(gettext("_Encoding")) {
+                    ViewerActions::Output::Encoding("UTF8".to_owned()).menuitem(gettext("_UTF-8"));
+                    ViewerActions::Output::Encoding("ASCII".to_owned())
+                        .menuitem(gettext("English (US-_ASCII)"));
+                    ViewerActions::Output::Encoding("CP437".to_owned())
+                        .menuitem(gettext("Terminal (CP437)"));
+                    ViewerActions::Output::Encoding("ISO-8859-6".to_owned())
+                        .menuitem(gettext("Arabic (ISO-8859-6)"));
+                    ViewerActions::Output::Encoding("ARABIC".to_owned())
+                        .menuitem(gettext("Arabic (Windows, CP1256)"));
+                    ViewerActions::Output::Encoding("CP864".to_owned())
+                        .menuitem(gettext("Arabic (Dos, CP864)"));
+                    ViewerActions::Output::Encoding("ISO-8859-4".to_owned())
+                        .menuitem(gettext("Baltic (ISO-8859-4)"));
+                    ViewerActions::Output::Encoding("ISO-8859-2".to_owned())
+                        .menuitem(gettext("Central European (ISO-8859-2)"));
+                    ViewerActions::Output::Encoding("CP1250".to_owned())
+                        .menuitem(gettext("Central European (CP1250)"));
+                    ViewerActions::Output::Encoding("ISO-8859-5".to_owned())
+                        .menuitem(gettext("Cyrillic (ISO-8859-5)"));
+                    ViewerActions::Output::Encoding("CP1251".to_owned())
+                        .menuitem(gettext("Cyrillic (CP1251)"));
+                    ViewerActions::Output::Encoding("ISO-8859-7".to_owned())
+                        .menuitem(gettext("Greek (ISO-8859-7)"));
+                    ViewerActions::Output::Encoding("CP1253".to_owned())
+                        .menuitem(gettext("Greek (CP1253)"));
+                    ViewerActions::Output::Encoding("HEBREW".to_owned())
+                        .menuitem(gettext("Hebrew (Windows, CP1255)"));
+                    ViewerActions::Output::Encoding("CP862".to_owned())
+                        .menuitem(gettext("Hebrew (Dos, CP862)"));
+                    ViewerActions::Output::Encoding("ISO-8859-8".to_owned())
+                        .menuitem(gettext("Hebrew (ISO-8859-8)"));
+                    ViewerActions::Output::Encoding("ISO-8859-15".to_owned())
+                        .menuitem(gettext("Latin 9 (ISO-8859-15)"));
+                    ViewerActions::Output::Encoding("ISO-8859-3".to_owned())
+                        .menuitem(gettext("Maltese (ISO-8859-3)"));
+                    ViewerActions::Output::Encoding("ISO-8859-9".to_owned())
+                        .menuitem(gettext("Turkish (ISO-8859-9)"));
+                    ViewerActions::Output::Encoding("CP1254".to_owned())
+                        .menuitem(gettext("Turkish (CP1254)"));
+                    ViewerActions::Output::Encoding("CP1252".to_owned())
+                        .menuitem(gettext("Western (CP1252)"));
+                    ViewerActions::Output::Encoding("ISO-8859-1".to_owned())
+                        .menuitem(gettext("Western (ISO-8859-1)"));
+                }
+            }
+        } else {
+            Submenu::new(gettext("_Image")) {
+                ViewerActions::Output::ImageOp(ImageOperation::RotateClockwise)
+                    .menuitem(gettext("_Rotate Clockwise"));
+                ViewerActions::Output::ImageOp(ImageOperation::RotateCounterclockwise)
+                    .menuitem(gettext("Rotate Counter Clockwis_e"));
+                ViewerActions::Output::ImageOp(ImageOperation::RotateUpsideDown)
+                    .menuitem(gettext("Rotate 180°"));
+                ViewerActions::Output::ImageOp(ImageOperation::FlipVertical)
+                    .menuitem(gettext("Flip _Vertical"));
+                ViewerActions::Output::ImageOp(ImageOperation::FlipHorizontal)
+                    .menuitem(gettext("Flip _Horizontal"));
+            }
+        }
 
-    if matches!(
-        display_mode,
-        DisplayMode::Text | DisplayMode::FixedWidth | DisplayMode::Hexdump
-    ) {
-        menu = menu.submenu(
-            gettext("_Text"),
-            gio::Menu::new()
-                .item(
-                    gettext("_Copy Text Selection"),
-                    "viewer.copy-text-selection",
-                )
-                .item(gettext("_Select All"), "viewer.select-all")
-                .item(gettext("Find…"), "viewer.find")
-                .item(gettext("Find Next"), "viewer.find-next")
-                .item(gettext("Find Previous"), "viewer.find-previous")
-                .section(gio::Menu::new().item(gettext("_Wrap lines"), "viewer.wrap-lines"))
-                .submenu(
-                    gettext("_Encoding"),
-                    gio::Menu::new()
-                        .item(gettext("_UTF-8"), "viewer.encoding('UTF8')")
-                        .item(gettext("English (US-_ASCII)"), "viewer.encoding('ASCII')")
-                        .item(gettext("Terminal (CP437)"), "viewer.encoding('CP437')")
-                        .item(
-                            gettext("Arabic (ISO-8859-6)"),
-                            "viewer.encoding('ISO-8859-6')",
-                        )
-                        .item(
-                            gettext("Arabic ( Windows, CP1256)"),
-                            "viewer.encoding('ARABIC')",
-                        )
-                        .item(gettext("Arabic (Dos, CP864)"), "viewer.encoding('CP864')")
-                        .item(
-                            gettext("Baltic (ISO-8859-4)"),
-                            "viewer.encoding('ISO-8859-4')",
-                        )
-                        .item(
-                            gettext("Central European (ISO-8859-2)"),
-                            "viewer.encoding('ISO-8859-2')",
-                        )
-                        .item(
-                            gettext("Central European (CP1250)"),
-                            "viewer.encoding('CP1250')",
-                        )
-                        .item(
-                            gettext("Cyrillic (ISO-8859-5)"),
-                            "viewer.encoding('ISO-8859-5')",
-                        )
-                        .item(gettext("Cyrillic (CP1251)"), "viewer.encoding('CP1251')")
-                        .item(
-                            gettext("Greek (ISO-8859-7)"),
-                            "viewer.encoding('ISO-8859-7')",
-                        )
-                        .item(gettext("Greek (CP1253)"), "viewer.encoding('CP1253')")
-                        .item(
-                            gettext("Hebrew (Windows, CP1255)"),
-                            "viewer.encoding('HEBREW')",
-                        )
-                        .item(gettext("Hebrew (Dos, CP862)"), "viewer.encoding('CP862')")
-                        .item(
-                            gettext("Hebrew (ISO-8859-8)"),
-                            "viewer.encoding('ISO-8859-8')",
-                        )
-                        .item(
-                            gettext("Latin 9 (ISO-8859-15)"),
-                            "viewer.encoding('ISO-8859-15')",
-                        )
-                        .item(
-                            gettext("Maltese (ISO-8859-3)"),
-                            "viewer.encoding('ISO-8859-3')",
-                        )
-                        .item(
-                            gettext("Turkish (ISO-8859-9)"),
-                            "viewer.encoding('ISO-8859-9')",
-                        )
-                        .item(gettext("Turkish (CP1254)"), "viewer.encoding('CP1254')")
-                        .item(gettext("Western (CP1252)"), "viewer.encoding('CP1252')")
-                        .item(
-                            gettext("Western (ISO-8859-1)"),
-                            "viewer.encoding('ISO-8859-1')",
-                        ),
-                ),
-        );
-    }
+        Submenu::new(gettext("_Settings")) {
+            ViewerActions::Output::ChooseFont.menuitem(gettext("_Font…"));
+            Submenu::new(gettext("Fixed _Width Mode")) {
+                ViewerActions::Output::CharsPerLine(20).menuitem(gettext("_20 chars/line"));
+                ViewerActions::Output::CharsPerLine(40).menuitem(gettext("_40 chars/line"));
+                ViewerActions::Output::CharsPerLine(80).menuitem(gettext("_80 chars/line"));
+                ViewerActions::Output::CharsPerLine(120).menuitem(gettext("_120 chars/line"));
+                ViewerActions::Output::CharsPerLine(160).menuitem(gettext("1_60 chars/line"));
+            }
+            MenuSection {
+                ViewerActions::Output::ToggleMetadata.menuitem(gettext("Show Metadata _Tags"));
+                ViewerActions::Output::ToggleHexOffset.menuitem(gettext("_Hexadecimal Offset"));
+            }
+        }
 
-    if display_mode == DisplayMode::Image {
-        menu = menu.submenu(
-            gettext("_Image"),
-            gio::Menu::new()
-                .item_param(
-                    gettext("_Rotate Clockwise"),
-                    "viewer.imageop",
-                    ImageOperation::RotateClockwise,
-                )
-                .item_param(
-                    gettext("Rotate Counter Clockwis_e"),
-                    "viewer.imageop",
-                    ImageOperation::RotateCounterclockwise,
-                )
-                .item_param(
-                    gettext("Rotate 180\u{00B0}"),
-                    "viewer.imageop",
-                    ImageOperation::RotateUpsideDown,
-                )
-                .item_param(
-                    gettext("Flip _Vertical"),
-                    "viewer.imageop",
-                    ImageOperation::FlipVertical,
-                )
-                .item_param(
-                    gettext("Flip _Horizontal"),
-                    "viewer.imageop",
-                    ImageOperation::FlipHorizontal,
-                ),
-        );
-    }
-
-    menu.submenu(
-        gettext("_Settings"),
-        gio::Menu::new()
-            .item(gettext("_Font…"), "viewer.choose-font")
-            .submenu(
-                gettext("Fixed _Width Mode"),
-                gio::Menu::new()
-                    .item_param(gettext("_20 chars/line"), "viewer.chars-per-line", 20u32)
-                    .item_param(gettext("_40 chars/line"), "viewer.chars-per-line", 40u32)
-                    .item_param(gettext("_80 chars/line"), "viewer.chars-per-line", 80u32)
-                    .item_param(gettext("_120 chars/line"), "viewer.chars-per-line", 120u32)
-                    .item_param(gettext("1_60 chars/line"), "viewer.chars-per-line", 160u32),
-            )
-            .section(
-                gio::Menu::new()
-                    .item(gettext("Show Metadata _Tags"), "viewer.metadata-visible")
-                    .item(gettext("_Hexadecimal Offset"), "viewer.hexadecimal-offset"),
-            ),
-    )
-    .submenu(
-        gettext("_Help"),
-        gio::Menu::new()
-            .item(gettext("Quick _Help"), "viewer.quick-help")
-            .item(gettext("_Keyboard Shortcuts"), "viewer.keyboard-shortcuts"),
-    )
+        Submenu::new(gettext("_Help")) {
+            ViewerActions::Output::QuickHelp.menuitem(gettext("Quick _Help"));
+            ViewerActions::Output::KeyboardShortcuts.menuitem(gettext("_Keyboard Shortcuts"));
+        }
+    })
 }
 
 fn handle_write_result(result: WriteResult) {

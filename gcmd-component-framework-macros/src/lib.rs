@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+mod action_list;
 mod with;
 
 use proc_macro::TokenStream;
@@ -93,6 +94,9 @@ use proc_macro::TokenStream;
 ///     .attach(&with!(gtk::Label {}), 2, 4, 1, 1);
 /// });
 /// ```
+///
+/// An empty block `{}` can be replaced by a semicolon `;`. So `with!(gtk::Box {})` and
+/// `with!(gtk::Box;)` are equivalent.
 ///
 /// You can use `if` blocks to make calls conditional:
 ///
@@ -209,4 +213,73 @@ use proc_macro::TokenStream;
 #[proc_macro]
 pub fn with(input: TokenStream) -> TokenStream {
     with::with(input)
+}
+
+/// A macro to produce an action list to be used with the `ActionGroup` component.
+///
+/// ```rust
+/// # mod wrapper {
+/// # use component_framework::action_list;
+/// # use gtk::glib;
+/// #[derive(Debug, glib::Variant)]
+/// pub enum Mode {
+///     Text,
+///     Image,
+/// }
+///
+/// action_list! {
+///     pub enum MyActions {
+///         "mywidget.copy" as Copy,
+///         "mywidget.paste" as Paste(String),
+///         "mywidget.active" as ToggleActive = bool,
+///         "mywidget.set-mode" as SetMode(Mode) = Mode(Mode::Text),
+///     }
+/// }
+/// # }
+/// # use wrapper::MyActions;
+///
+/// assert_eq!(MyActions::prefix(), "mywidget");
+/// ```
+///
+/// All action names should contain the same prefix. Actions can have a parameter and a state. For
+/// actions with a parameter its type should be specified in parentheses after the action
+/// identifier. For actions with a state its type and initial value should be specified after the
+/// equals sign. Initial value can be omitted for types implementing `Default`.
+///
+/// The above example will produce three enums:
+///
+/// * `MyActionList::List` implements `ActionList` trait and enumerates only action identifiers:
+///   ```rust,ignore
+///   pub enum List {
+///       Copy,
+///       Paste,
+///       ToggleActive,
+///       SetMode,
+///   }
+///   ```
+///   This type is used e.g. when an action has to be enabled or disabled.
+/// * `MyActionList::Output` implements `ActionListOutput` trait and enumerates actions with their
+///   parameters if any:
+///   ```rust,ignore
+///   pub enum Output {
+///       Copy,
+///       Paste(String),
+///       ToggleActive,
+///       SetMode(Mode),
+///   }
+///   ```
+///   This type is generated when the action is triggered. It is also used to produce something that
+///   can trigger an action like a shortcut or a menu item.
+/// * `MyActionList::State` implements `ActionListState` trait and enumerates actions with their
+///   state. Actions without a state are omitted:
+///   ```rust,ignore
+///   pub enum State {
+///       ToggleActive(bool),
+///       SetMode(Mode),
+///   }
+///   ```
+///   This type is used when an action’s state has to be changed.
+#[proc_macro]
+pub fn action_list(input: TokenStream) -> TokenStream {
+    action_list::action_list(input)
 }

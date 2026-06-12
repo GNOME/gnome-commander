@@ -143,7 +143,7 @@ impl Component for ShortcutsDialog {
                         }));
 
                         for entry in &self.entries {
-                            entry.attach(sender, |message| message) {}
+                            entry.attach(sender, |message| message);
                         }
                     }
                 }

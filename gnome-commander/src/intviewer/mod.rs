@@ -59,30 +59,32 @@
 //! `window::ViewerWindow` represents operational mode in the same terms that are displayed to the
 //! user:
 //!
-//! * [`display_mode`](window::ViewerWindow::display_mode()) enum which can take the values
+//! * [`DisplayMode` enum](window::DisplayMode) which can take the values
 //!   `Text`, `FixedWidth` or `Hexdump` (as well as `Image` to display an image)
-//! * [`wrap_lines`](window::ViewerWindow::wrap_lines()) flag, only considered in `Text` mode
-//! * [`chars_per_line`](window::ViewerWindow::chars_per_line()) setting, only_considered in
-//!   `FixedWidth` mode
+//! * [`wrap_mode` setting](crate::options::ViewerOptions::wrap_mode), only considered in `Text`
+//!   mode
+//! * [`binary_bytes_per_line` setting](crate::options::ViewerOptions::binary_bytes_per_line), only
+//!   considered in `FixedWidth` mode. The setting name has historical reasons, it actually contains
+//!   a number of characters.
 //!
 //! `data_presentation::DataPresentation` uses different internal modes:
 //!
 //! * [`mode`](data_presentation::DataPresentation::mode) enum which can take the values `NoWrap`
-//!   (corresponds to `Text` with `wrap_lines` flag off), `Wrap` (`Text` with `wrap_lines` on),
+//!   (corresponds to `Text` with `wrap_mode` flag off), `Wrap` (`Text` with `wrap_mode` on),
 //!   `Fixed` (used for `FixedWidth` with variable-length encodings) and `Binary` (used for
 //!   `FixedWidth` with fixed-length encodings and for `Hexdump`).
 //! * [`wrap_limit`](data_presentation::DataPresentation::set_wrap_limit) is used in `Wrap` mode, a
 //!   maximum number of characters to display in a line.
 //! * [`fixed_count`](data_presentation::DataPresentation::set_fixed_count) is used to determine
 //!   line wrapping in both `Fixed` and `Binary` mode. However, in `Fixed` mode it is a number of
-//!   *characters* (corresponds to viewer window’s `chars_per_line`) where as in `Binary` mode it
-//!   it is the number of *bytes* at which a line should be wrapped.
+//!   *characters* (corresponds to viewer window’s `binary_bytes_per_line`) whereas in `Binary`
+//!   mode it is the number of *bytes* at which a line should be wrapped.
 //!
 //! Note that the viewer’s `FixedWidth` mode always displays characters regardless of which data
 //! presentation mode it is mapped to, never bytes. So when the simpler logic of the data
 //! presentation’s `Binary` mode is used, `fixed_count` will be set to the number of bytes in
-//! `chars_per_line` characters, meaning that `chars_per_line` will be multiplied with the character
-//! length.
+//! `binary_bytes_per_line` characters, meaning that `binary_bytes_per_line` will be multiplied with
+//! the character length.
 //!
 //! The `Hexdump` mode on the other hand displays bytes. So `fixed_count` will always be set to 16
 //! here, representing the number of bytes shown in a hex dump line. The selected encoding is

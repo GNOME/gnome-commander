@@ -11,18 +11,20 @@ mod sender;
 mod widget;
 
 pub use component::Component;
-pub use component_framework_macros::with;
+pub use component_framework_macros::{action_list, with};
 pub use controller::{ComponentController, Ref};
 pub use sender::ComponentSender;
 pub use widget::GcmdWidgetExt;
 
 /// Turns a method call into a closure, while cloning the object so that it can be captured by the
-/// closure. Typically this is used to produce a signal handler that will always send a particular
+/// closure.
+///
+/// Typically this is used to produce a signal handler that will always send a particular
 /// message to the sender channel. This macro is meant to be used within the
 /// [with! macro](crate::with):
 ///
 /// ```rust
-/// # use gcmd_component_framework::prelude::*;
+/// # use component_framework::prelude::*;
 /// # use gtk::prelude::*;
 /// # gtk::init();
 /// # enum MyInput {
@@ -46,7 +48,7 @@ pub use widget::GcmdWidgetExt;
 /// these have to be listed explicitly:
 ///
 /// ```rust
-/// # use gcmd_component_framework::prelude::*;
+/// # use component_framework::prelude::*;
 /// # use gtk::prelude::*;
 /// # gtk::init();
 /// # enum MyInput {

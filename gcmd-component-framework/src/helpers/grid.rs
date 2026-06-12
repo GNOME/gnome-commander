@@ -6,6 +6,29 @@ use gtk::prelude::*;
 use std::cell::{Cell, RefCell};
 
 /// A helper wrapping `gtk4::Grid`, allows structured adding of rows.
+///
+/// ```rust
+/// # use component_framework::{with, helpers::{Grid, GridRow}};
+/// # use gtk::prelude::*;
+/// # gtk::init();
+/// let widget = with!(Grid {
+///     GridRow {
+///         .labeled("_Label for the text field:");
+///         gtk::Entry {
+///             .set_placeholder_text(Some("Enter your text here"));
+///         }
+///         gtk::Button {
+///             .set_label("_Save");
+///         }
+///     }
+///     GridRow {
+///         .spanned(3);
+///         gtk::Label {
+///             .set_label("This spans all three columns");
+///         }
+///     }
+/// });
+/// ```
 #[derive(Debug, Default)]
 pub struct Grid {
     grid: gtk::Grid,
