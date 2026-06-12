@@ -1247,6 +1247,15 @@ impl TextRender {
         self.imp().last_displayed_offset.get()
     }
 
+    pub fn is_range_visible(&self, start: u64, end: u64) -> bool {
+        let (start, end) = if start > end {
+            (end, start)
+        } else {
+            (start, end)
+        };
+        end > self.current_offset() && start < self.end_offset()
+    }
+
     pub fn size(&self) -> u64 {
         self.imp().input_mode.borrow().max_offset()
     }

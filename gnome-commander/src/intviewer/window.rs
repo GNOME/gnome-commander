@@ -829,7 +829,9 @@ impl ViewerWindow {
         let start_offset = if self.searchbar.displayed_error() == SearchBarError::NotFound {
             // Wrap the search around after “Not found”
             if forward { 0 } else { end_offset }
-        } else if let Some((start_marker, end_marker)) = view.text_render.marker() {
+        } else if let Some((start_marker, end_marker)) = view.text_render.marker()
+            && view.text_render.is_range_visible(start_marker, end_marker)
+        {
             // Start at the marked text if there is any
             if forward {
                 input_mode.next_char_offset(start_marker)
