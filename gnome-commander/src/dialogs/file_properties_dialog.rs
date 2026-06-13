@@ -86,7 +86,7 @@ mod imp {
                 chmod_component: Default::default(),
                 file: Default::default(),
                 file_metadata: Default::default(),
-                metadata_view: FileMetainfoView::new(),
+                metadata_view: FileMetainfoView::default(),
                 summary_position: Default::default(),
                 connection: Default::default(),
             }

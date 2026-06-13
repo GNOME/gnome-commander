@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::helpers::{Grid, GridRow};
-use gtk::prelude::*;
+use crate::helpers::{Grid, GridRow, MenuSection, Submenu};
+use gtk::{gio, prelude::*};
 
 /// A helper trait used by the [with! macro](crate::with), provides a standard API to add a child to
 /// some Gtk widgets. This trait is used when no explicit method is specified in `with!`.
@@ -23,6 +23,22 @@ macro_rules! container_ext_impl {
         impl<T: AsRef<$child_type>> ContainerExt<T> for &$container_type {
             fn container_set_child(&self, child: T) {
                 child.as_ref().unparent();
+                self.$method(child.as_ref().into());
+            }
+        }
+    };
+}
+
+macro_rules! container_ext_impl_simple {
+    ($container_type:ty, $method:ident, $child_type:ty) => {
+        impl<T: AsRef<$child_type>> ContainerExt<T> for $container_type {
+            fn container_set_child(&self, child: T) {
+                self.$method(child.as_ref().into());
+            }
+        }
+
+        impl<T: AsRef<$child_type>> ContainerExt<T> for &$container_type {
+            fn container_set_child(&self, child: T) {
                 self.$method(child.as_ref().into());
             }
         }
@@ -50,6 +66,29 @@ container_ext_impl!(gtk::ToggleButton, set_child, gtk::Widget);
 container_ext_impl!(gtk::TreeExpander, set_child, gtk::Widget);
 container_ext_impl!(gtk::Window, set_child, gtk::Widget);
 container_ext_impl!(gtk::WindowHandle, set_child, gtk::Widget);
+container_ext_impl_simple!(gio::Menu, append_item, gio::MenuItem);
+container_ext_impl_simple!(Submenu, append_item, gio::MenuItem);
+container_ext_impl_simple!(MenuSection, append_item, gio::MenuItem);
+container_ext_impl_simple!(gio::SimpleActionGroup, add_action, gio::Action);
 
-container_ext_impl!(Grid, append_row, GridRow);
+container_ext_impl_simple!(Grid, append_row, GridRow);
 container_ext_impl!(GridRow, append, gtk::Widget);
+
+impl ContainerExt<gtk::Shortcut> for gtk::ShortcutController {
+    fn container_set_child(&self, child: gtk::Shortcut) {
+        self.add_shortcut(child);
+    }
+}
+
+impl<T: AsRef<gio::Menu>> ContainerExt<Submenu> for T {
+    fn container_set_child(&self, child: Submenu) {
+        self.as_ref()
+            .append_submenu(Some(child.label()), child.as_ref());
+    }
+}
+
+impl<T: AsRef<gio::Menu>> ContainerExt<MenuSection> for T {
+    fn container_set_child(&self, child: MenuSection) {
+        self.as_ref().append_section(None, child.as_ref());
+    }
+}

@@ -6,7 +6,7 @@ rust-version.workspace = true
 repository.workspace = true
 
 [lib]
-name = "gcmd_component_framework_macros"
+name = "component_framework_macros"
 path = "src/lib.rs"
 proc-macro = true
 

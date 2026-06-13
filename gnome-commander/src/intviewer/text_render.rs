@@ -6,7 +6,7 @@
 use super::data_presentation::DataPresentation;
 use crate::{
     intviewer::{file_input_source::FileInputSource, input_modes::InputMode},
-    utils::{CONTROL, Max, NO_MOD},
+    utils::{CONTROL, Max, NO_MOD, SHIFT, get_modifiers_state},
 };
 use gtk::{gdk, glib, graphene, pango, prelude::*, subclass::prelude::*};
 use std::{path::Path, sync::Arc};
@@ -601,6 +601,29 @@ mod imp {
             self.obj().queue_draw();
         }
 
+        /// Determines the character's class as far as word selection is concerned.
+        fn char_class(c: char) -> u8 {
+            use glib::Unichar;
+            match c.unicode_type() {
+                // Alphanumeric
+                glib::UnicodeType::LowercaseLetter
+                | glib::UnicodeType::ModifierLetter
+                | glib::UnicodeType::OtherLetter
+                | glib::UnicodeType::TitlecaseLetter
+                | glib::UnicodeType::UppercaseLetter
+                | glib::UnicodeType::DecimalNumber
+                | glib::UnicodeType::LetterNumber
+                | glib::UnicodeType::OtherNumber
+                | glib::UnicodeType::ConnectPunctuation => 1,
+                // Whitespace
+                glib::UnicodeType::LineSeparator
+                | glib::UnicodeType::ParagraphSeparator
+                | glib::UnicodeType::SpaceSeparator => 2,
+                // Everything else
+                _ => 3,
+            }
+        }
+
         fn button_press(&self, button: u32, n_press: i32, x: f64, y: f64) {
             if !self.obj().has_focus() {
                 self.obj().grab_focus();
@@ -608,12 +631,87 @@ mod imp {
 
             if n_press == 1 && self.button.get().is_none() {
                 self.button.set(Some(button));
-                self.marker_start.set(match self.obj().display_mode() {
+                if self
+                    .obj()
+                    .root()
+                    .and_downcast()
+                    .and_then(|window| get_modifiers_state(&window))
+                    .is_some_and(|state| state.contains(SHIFT))
+                {
+                    self.marker_end.set(match self.obj().display_mode() {
+                        TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => {
+                            self.text_mode_pixel_to_offset(x, y)
+                        }
+                        TextRenderDisplayMode::Hexdump => {
+                            self.hex_mode_pixel_to_offset(x, y, false)
+                        }
+                    });
+                    self.obj().queue_draw();
+                } else {
+                    self.marker_start.set(match self.obj().display_mode() {
+                        TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => {
+                            self.text_mode_pixel_to_offset(x, y)
+                        }
+                        TextRenderDisplayMode::Hexdump => self.hex_mode_pixel_to_offset(x, y, true),
+                    });
+                }
+            } else if n_press == 2 || n_press == 3 {
+                let offset = match self.obj().display_mode() {
                     TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => {
                         self.text_mode_pixel_to_offset(x, y)
                     }
                     TextRenderDisplayMode::Hexdump => self.hex_mode_pixel_to_offset(x, y, true),
-                });
+                };
+                let input_mode = self.input_mode.borrow();
+                let dp = self.data_presentation.borrow();
+
+                // Determine line boundaries
+                let mut line_start = self.obj().current_offset();
+                let line_end = loop {
+                    let next_line = dp.scroll_lines(&input_mode, line_start, 1);
+                    if next_line == line_start || next_line > offset {
+                        break next_line;
+                    } else {
+                        line_start = next_line;
+                    }
+                };
+
+                if n_press == 3 {
+                    // Select the entire line
+                    self.marker_start.set(line_start);
+                    self.marker_end.set(line_end);
+                    self.obj().queue_draw();
+                } else {
+                    // Select word: find characters of the same class left and right of position
+                    // within the current line.
+                    let Some(cls) = input_mode.character(offset).map(Self::char_class) else {
+                        return;
+                    };
+
+                    let mut start_offset = offset;
+                    while let offset = input_mode.previous_char_offset(start_offset)
+                        && offset != start_offset
+                        && offset >= line_start
+                        && let Some(c) = input_mode.character(offset)
+                        && Self::char_class(c) == cls
+                    {
+                        start_offset = offset
+                    }
+
+                    let mut end_offset = offset;
+                    while let offset = input_mode.next_char_offset(end_offset)
+                        && offset != end_offset
+                        && offset < line_end
+                        && let Some(c) = input_mode.character(offset)
+                        && Self::char_class(c) == cls
+                    {
+                        end_offset = offset
+                    }
+
+                    self.marker_start.set(start_offset);
+                    self.marker_end.set(input_mode.next_char_offset(end_offset));
+                    self.obj().queue_draw();
+                }
             }
         }
 
@@ -1090,11 +1188,13 @@ glib::wrapper! {
         @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::Scrollable;
 }
 
-impl TextRender {
-    pub fn new() -> Self {
+impl Default for TextRender {
+    fn default() -> Self {
         glib::Object::builder().build()
     }
+}
 
+impl TextRender {
     pub fn scale_factor(&self) -> f64 {
         self.imp().scale_factor.get()
     }
@@ -1165,6 +1265,15 @@ impl TextRender {
         self.imp().last_displayed_offset.get()
     }
 
+    pub fn is_range_visible(&self, start: u64, end: u64) -> bool {
+        let (start, end) = if start > end {
+            (end, start)
+        } else {
+            (start, end)
+        };
+        end > self.current_offset() && start < self.end_offset()
+    }
+
     pub fn size(&self) -> u64 {
         self.imp().input_mode.borrow().max_offset()
     }
@@ -1209,6 +1318,18 @@ impl TextRender {
 
     pub fn notify_status_changed(&self) {
         self.emit_text_status_changed();
+    }
+
+    pub fn selected_text(&self) -> String {
+        self.marker()
+            .map(|(marker_start, marker_end)| {
+                let input_mode = self.imp().input_mode.borrow();
+                input_mode
+                    .offsets(marker_start, marker_end)
+                    .filter_map(|offset| input_mode.character(offset))
+                    .collect()
+            })
+            .unwrap_or_default()
     }
 
     pub fn copy_selection(&self) {
@@ -1323,7 +1444,7 @@ mod test {
         #[test]
         fn display_mode() {
             gtk::init().unwrap();
-            let text_render = TextRender::new();
+            let text_render = TextRender::default();
             text_render.load_file(Path::new(FILENAME));
             for mode in [
                 TextRenderDisplayMode::Text,
@@ -1338,7 +1459,7 @@ mod test {
         #[test]
         fn tab_size() {
             gtk::init().unwrap();
-            let text_render = TextRender::new();
+            let text_render = TextRender::default();
             text_render.load_file(Path::new(FILENAME));
             for tab_size in 1..=10 {
                 text_render.set_tab_size(tab_size);
@@ -1349,7 +1470,7 @@ mod test {
         #[test]
         fn wrap_mode() {
             gtk::init().unwrap();
-            let text_render = TextRender::new();
+            let text_render = TextRender::default();
             text_render.load_file(Path::new(FILENAME));
             for mode in [false, true] {
                 text_render.set_wrap_mode(mode);
@@ -1360,7 +1481,7 @@ mod test {
         #[test]
         fn fixed_limit() {
             gtk::init().unwrap();
-            let text_render = TextRender::new();
+            let text_render = TextRender::default();
             text_render.load_file(Path::new(FILENAME));
             for limit in 1..=10 {
                 text_render.set_fixed_limit(limit);
@@ -1371,7 +1492,7 @@ mod test {
         #[test]
         fn encoding() {
             gtk::init().unwrap();
-            let text_render = TextRender::new();
+            let text_render = TextRender::default();
             text_render.load_file(Path::new(FILENAME));
             for encoding in ["ASCII", "UTF8", "CP437", "CP1251"] {
                 text_render.set_encoding(encoding);

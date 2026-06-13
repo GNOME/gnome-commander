@@ -16,7 +16,7 @@ use std::{
     collections::BTreeMap,
 };
 
-pub trait Tag: std::fmt::Debug {
+pub trait Tag: std::fmt::Debug + Send {
     fn id(&self) -> &str;
     fn class(&self) -> Cow<'_, str>;
     fn name(&self) -> Cow<'_, str>;

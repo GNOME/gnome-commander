@@ -82,7 +82,7 @@ impl Component for ShortcutsDialog {
                     .set_activates_default(false);
                     .set_search_delay(50);
 
-                    .connect_search_changed(forward_input!(sender, Self::Input::UpdateFilter));
+                    .connect_search_changed(forward!(sender.input(Self::Input::UpdateFilter)));
 
                     .connect_stop_search(glib::clone!(
                         #[strong]
@@ -100,7 +100,7 @@ impl Component for ShortcutsDialog {
                 &view.modified_only {
                     .set_label(Some(&gettext("Show only _modified shortcuts")));
                     .set_use_underline(true);
-                    .connect_toggled(forward_input!(sender, Self::Input::UpdateFilter));
+                    .connect_toggled(forward!(sender.input(Self::Input::UpdateFilter)));
                 }
 
                 gtk::ScrolledWindow {
@@ -143,7 +143,7 @@ impl Component for ShortcutsDialog {
                         }));
 
                         for entry in &self.entries {
-                            entry.attach(sender, |message| message) {}
+                            entry.attach(sender, |message| message);
                         }
                     }
                 }
@@ -156,7 +156,7 @@ impl Component for ShortcutsDialog {
                         .set_label(&gettext("_Help"));
                         .set_use_underline(true);
 
-                        .connect_clicked(forward_input!(sender, Self::Input::DisplayHelp));
+                        .connect_clicked(forward!(sender.input(Self::Input::DisplayHelp)));
                     }
 
                     gtk::Button {
@@ -166,13 +166,13 @@ impl Component for ShortcutsDialog {
                         .set_hexpand(true);
                         .set_halign(gtk::Align::End);
 
-                        .connect_clicked(forward_output!(sender, Self::Output::Cancelled));
+                        .connect_clicked(forward!(sender.output(Self::Output::Cancelled)));
                     }
 
                     gtk::Button {
                         .set_label(&gettext("_Save Shortcuts"));
                         .set_use_underline(true);
-                        .connect_clicked(forward_output!(sender, Self::Output::Accepted));
+                        .connect_clicked(forward!(sender.output(Self::Output::Accepted)));
                     }
                 }
             }

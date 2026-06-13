@@ -520,11 +520,13 @@ glib::wrapper! {
         @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::Scrollable;
 }
 
-impl ImageRender {
-    pub fn new() -> Self {
+impl Default for ImageRender {
+    fn default() -> Self {
         glib::Object::builder().build()
     }
+}
 
+impl ImageRender {
     pub fn origin_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
         self.imp().original_pixbuf.borrow().clone()
     }

@@ -96,7 +96,7 @@ impl Component for ActionEntry {
                                 .set_tooltip_text(Some(&gettext("Reset to Default")));
                                 .add_css_class("flat");
                                 .connect_clicked(
-                                    forward_output!(sender, Self::Output::ResetAction(index))
+                                    forward!(sender.output(Self::Output::ResetAction(index)))
                                 );
                             }
                         }
@@ -106,13 +106,13 @@ impl Component for ActionEntry {
                             .set_tooltip_text(Some(&gettext("Add Shortcut")));
                             .add_css_class("flat");
                             .connect_clicked(
-                                forward_output!(sender, Self::Output::AddActionShortcut(index))
+                                forward!(sender.output(Self::Output::AddActionShortcut(index)))
                             );
                         }
                     }
 
                     for shortcut in &self.shortcuts {
-                        shortcut.attach(sender, |message| message) {}
+                        shortcut.attach(sender, |message| message);
                     }
                 }
             }

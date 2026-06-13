@@ -11,51 +11,72 @@ mod sender;
 mod widget;
 
 pub use component::Component;
-pub use component_framework_macros::with;
+pub use component_framework_macros::{action_list, with};
 pub use controller::{ComponentController, Ref};
 pub use sender::ComponentSender;
 pub use widget::GcmdWidgetExt;
 
-/// Produces a simple signal handler that will always send a particular message to the sender’s
-/// input channel. This macro is meant to be used within the [with! macro](crate::with):
+/// Turns a method call into a closure, while cloning the object so that it can be captured by the
+/// closure.
 ///
-/// ```rust,ignore
-/// # use gcmd_component_framework::{forward_input, with};
+/// Typically this is used to produce a signal handler that will always send a particular
+/// message to the sender channel. This macro is meant to be used within the
+/// [with! macro](crate::with):
+///
+/// ```rust
+/// # use component_framework::prelude::*;
 /// # use gtk::prelude::*;
 /// # gtk::init();
-/// with!(gtk::Button => {
-///     set_label("Increase counter");
-///     connect_clicked(forward_input!(sender, Self::Input::Increase));
+/// # enum MyInput {
+/// #   Increase,
+/// # }
+/// # #[derive(Clone)]
+/// # struct Sender;
+/// # impl Sender {
+/// #   pub fn input(&self, _input: MyInput) {}
+/// # }
+/// # let _sender = Sender;
+/// # let sender = &_sender;
+/// with!(gtk::Button {
+///     .set_label("Increase counter");
+///     .connect_clicked(forward!(sender.input(MyInput::Increase)));
+/// });
+/// ```
+///
+/// By default the generated closure receives a single parameter and ignores it. If the closure
+/// needs to take a different number of parameters or the parameters needs to be used in the call
+/// these have to be listed explicitly:
+///
+/// ```rust
+/// # use component_framework::prelude::*;
+/// # use gtk::prelude::*;
+/// # gtk::init();
+/// # enum MyInput {
+/// #   MoveFocus(gtk::DirectionType),
+/// # }
+/// # #[derive(Clone)]
+/// # struct Sender;
+/// # impl Sender {
+/// #   pub fn input(&self, _input: MyInput) {}
+/// # }
+/// # let _sender = Sender;
+/// # let sender = &_sender;
+/// with!(gtk::Button {
+///     .set_label("Increase counter");
+///     .connect_move_focus(
+///         forward!(|_, direction| sender.input(MyInput::MoveFocus(direction)))
+///     );
 /// });
 /// ```
 #[macro_export]
-macro_rules! forward_input {
-    ($sender:ident, $expr:expr) => {{
-        let __sender = $sender.clone();
-        move |_| {
-            __sender.input($expr);
+macro_rules! forward {
+    (|$($params:pat_param),*| $obj:ident.$method:ident($($call_params:expr),* $(,)?)) => {{
+        let __obj = $obj.clone();
+        move |$($params,)*| {
+            __obj.$method($($call_params),*);
         }
     }};
-}
-
-/// Produces a simple signal handler that will always send a particular message to the sender’s
-/// output channel. This macro is meant to be used within the [with! macro](crate::with):
-///
-/// ```rust,ignore
-/// # use gcmd_component_framework::{forward_input, with};
-/// # use gtk::prelude::*;
-/// # gtk::init();
-/// with!(gtk::Button => {
-///     set_label("Cancel");
-///     connect_clicked(forward_input!(sender, Self::Output::Cancelled));
-/// });
-/// ```
-#[macro_export]
-macro_rules! forward_output {
-    ($sender:ident, $expr:expr) => {{
-        let __sender = $sender.clone();
-        move |_| {
-            __sender.output($expr);
-        }
-    }};
+    ($obj:ident.$method:ident($($call_params:expr),* $(,)?)) => {
+        $crate::forward!(|_| $obj.$method($($call_params),*))
+    }
 }

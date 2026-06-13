@@ -4,23 +4,30 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::{
-    search_bar::{SearchBar, SearchSettings},
+    image_render::{ImageOperation, ImageRender},
+    input_modes::preprocess_for_cp437_conversion,
+    search_bar::{SearchBar, SearchBarError, SearchBarInput, SearchBarOutput, SearchSettings},
     searcher::Searcher,
-    text_render::TextRender,
+    text_render::{TextRender, TextRenderDisplayMode},
 };
 use crate::{
     file::{File, FileOps},
-    intviewer::image_render::ImageOperation,
-    tags::FileMetadataService,
-    utils::{MenuBuilderExt, SenderExt, extract_menu_shortcuts, pending, u32_enum},
+    file_metainfo_view::FileMetainfoView,
+    options::{ViewerOptions, types::WriteResult, utils::remember_window_state},
+    tags::{FileMetadataService, file_metadata::FileMetadata},
+    utils::{display_help, u32_enum},
+};
+use component_framework::{
+    action_list,
+    helpers::{ActionGroup, ActionListOutput, MenuSection, Submenu},
+    prelude::*,
 };
 use gettextrs::{gettext, ngettext};
-use gtk::{
-    gio,
-    glib::{self, translate::*},
-    pango,
-    prelude::*,
-    subclass::prelude::*,
+use gtk::{gdk, gio, glib, pango, prelude::*};
+use std::{
+    cell::Cell,
+    path::{Path, PathBuf},
+    time::{Duration, Instant},
 };
 
 const TEXT_SCALE_FACTORS: &[f64] = &[
@@ -58,1076 +65,1025 @@ impl DisplayMode {
     }
 }
 
-mod imp {
-    use super::*;
-    use crate::{
-        file_metainfo_view::FileMetainfoView,
-        intviewer::{
-            image_render::ImageRender, input_modes::preprocess_for_cp437_conversion,
-            text_render::TextRenderDisplayMode,
-        },
-        options::{ViewerOptions, utils::remember_window_state},
-        utils::{display_help, hbox_builder, vbox_builder},
-    };
-    use gtk::gdk;
-    use std::cell::{Cell, RefCell};
-
-    #[derive(glib::Properties)]
-    #[properties(wrapper_type = super::ViewerWindow)]
-    pub struct ViewerWindow {
-        menubar: gtk::PopoverMenuBar,
-        shortcuts_controller: RefCell<gtk::ShortcutController>,
-        pub stack: gtk::Stack,
-        pub text_render: TextRender,
-        pub image_render: ImageRender,
-        pub status_label: gtk::Label,
-        pub metadata_view: FileMetainfoView,
-
-        #[property(get, set)]
-        pub file: RefCell<Option<File>>,
-        pub(super) searchbar: SearchBar,
-        pub current_scale_index: Cell<usize>,
-        pub img_initialized: Cell<bool>,
-
-        #[property(get, set = Self::set_display_mode)]
-        display_mode: Cell<DisplayMode>,
-
-        #[property(get, set)]
-        pub wrap_lines: Cell<bool>,
-        #[property(get, set)]
-        pub encoding: RefCell<String>,
-        #[property(get, set)]
-        pub monospaced_font: RefCell<String>,
-        #[property(get, set)]
-        pub chars_per_line: Cell<i32>,
-        #[property(get, set)]
-        pub hexadecimal_offset: Cell<bool>,
-        #[property(get, set)]
-        pub metadata_visible: Cell<bool>,
-    }
-
-    #[glib::object_subclass]
-    impl ObjectSubclass for ViewerWindow {
-        const NAME: &'static str = "GnomeCmdViewerWindow";
-        type Type = super::ViewerWindow;
-        type ParentType = gtk::Window;
-
-        fn class_init(klass: &mut Self::Class) {
-            klass.install_action("viewer.copy-text-selection", None, |obj, _, _| {
-                obj.imp().copy_selection()
-            });
-            klass.install_action("viewer.select-all", None, |obj, _, _| {
-                obj.imp().select_all()
-            });
-            klass.install_action("viewer.close", None, |obj, _, _| obj.close());
-            klass.install_action("viewer.zoom-in", None, |obj, _, _| obj.imp().zoom_in());
-            klass.install_action("viewer.zoom-out", None, |obj, _, _| obj.imp().zoom_out());
-            klass.install_action("viewer.normal-size", None, |obj, _, _| {
-                obj.imp().zoom_normal()
-            });
-            klass.install_action("viewer.best-fit", None, |obj, _, _| {
-                obj.imp().zoom_best_fit()
-            });
-            klass.install_action("viewer.find", None, |obj, _, _| obj.imp().find());
-            klass.install_action_async("viewer.find-next", None, |obj, _, _| async move {
-                obj.imp().start_search(true).await
-            });
-            klass.install_action_async("viewer.find-previous", None, |obj, _, _| async move {
-                obj.imp().start_search(false).await
-            });
-            klass.install_property_action("viewer.display-mode", "display-mode");
-            klass.install_property_action("viewer.wrap-lines", "wrap-lines");
-            klass.install_property_action("viewer.encoding", "encoding");
-            klass.install_action(
-                "viewer.imageop",
-                Some(&ImageOperation::static_variant_type()),
-                |obj, _, p| obj.imp().image_operation(p),
-            );
-            klass.install_action_async("viewer.choose-font", None, async |obj, _, _| {
-                obj.imp().choose_font().await
-            });
-            klass.install_property_action("viewer.chars-per-line", "chars-per-line");
-            klass.install_property_action("viewer.hexadecimal-offset", "hexadecimal-offset");
-            klass.install_property_action("viewer.metadata-visible", "metadata-visible");
-            klass.install_action_async("viewer.quick-help", None, |w, _, _| async move {
-                display_help(w.upcast_ref(), Some("gnome-commander-internal-viewer")).await
-            });
-            klass.install_action_async("viewer.keyboard-shortcuts", None, |w, _, _| async move {
-                display_help(
-                    w.upcast_ref(),
-                    Some("gnome-commander-internal-viewer-keyboard"),
-                )
-                .await
-            });
-        }
-
-        fn new() -> Self {
-            let image_render = ImageRender::new();
-            image_render.set_best_fit(true);
-            image_render.set_scale_factor(1.0);
-
-            let display_mode = Default::default();
-            let menu = create_menu(display_mode);
-            Self {
-                menubar: gtk::PopoverMenuBar::from_model(Some(&menu)),
-                shortcuts_controller: RefCell::new(gtk::ShortcutController::for_model(
-                    &extract_menu_shortcuts(menu.upcast_ref()),
-                )),
-                stack: gtk::Stack::builder().vexpand(true).build(),
-                text_render: TextRender::new(),
-                image_render,
-                status_label: gtk::Label::default(),
-                metadata_view: FileMetainfoView::new(),
-
-                file: Default::default(),
-                searchbar: SearchBar::new(),
-                current_scale_index: Cell::new(DEFAULT_IMAGE_SCALE_INDEX),
-                img_initialized: Default::default(),
-                display_mode: Cell::new(display_mode),
-
-                wrap_lines: Cell::new(true),
-                encoding: Default::default(),
-                monospaced_font: Default::default(),
-                hexadecimal_offset: Cell::new(true),
-                chars_per_line: Cell::new(20),
-                metadata_visible: Cell::new(true),
-            }
-        }
-    }
-
-    #[glib::derived_properties]
-    impl ObjectImpl for ViewerWindow {
-        fn constructed(&self) {
-            self.parent_constructed();
-
-            let window = self.obj();
-
-            window.set_icon_name(Some("gnome-commander-internal-viewer"));
-            window.set_title(Some("GViewer"));
-
-            window.set_child(Some(
-                &vbox_builder()
-                    .add_css_class("spacing")
-                    .append(&self.menubar)
-                    .append({
-                        let tscrollbox = gtk::ScrolledWindow::builder()
-                            .child(&self.text_render)
-                            .hexpand(true)
-                            .vexpand(true)
-                            .build();
-                        self.text_render.connect_text_status_changed(glib::clone!(
-                            #[weak(rename_to = imp)]
-                            self,
-                            move |_| imp.text_status_update()
-                        ));
-
-                        let button_gesture = gtk::GestureClick::builder().button(3).build();
-                        button_gesture.connect_pressed(glib::clone!(
-                            #[weak(rename_to = imp)]
-                            self,
-                            move |_, n_press, x, y| imp
-                                .on_text_viewer_button_pressed(n_press, x, y)
-                        ));
-                        self.text_render.add_controller(button_gesture);
-
-                        let iscrollbox = gtk::ScrolledWindow::builder()
-                            .child(&self.image_render)
-                            .hexpand(true)
-                            .vexpand(true)
-                            .build();
-                        self.image_render.connect_image_status_changed(glib::clone!(
-                            #[weak(rename_to = imp)]
-                            self,
-                            move |_| imp.image_status_update()
-                        ));
-
-                        let button_gesture = gtk::GestureClick::builder().button(3).build();
-                        button_gesture.connect_pressed(glib::clone!(
-                            #[weak(rename_to = imp)]
-                            self,
-                            move |_, n_press, x, y| imp
-                                .on_image_viewer_button_pressed(n_press, x, y)
-                        ));
-                        self.image_render.add_controller(button_gesture);
-
-                        self.stack.add_named(&tscrollbox, Some("text"));
-                        self.stack.add_named(&iscrollbox, Some("image"));
-                        self.stack.set_visible_child_name("text");
-
-                        &self.stack
-                    })
-                    .append({
-                        self.searchbar.connect_search(glib::clone!(
-                            #[weak(rename_to = imp)]
-                            self,
-                            move |_, forward| {
-                                glib::spawn_future_local(async move {
-                                    imp.start_search(forward).await;
-                                });
-                            }
-                        ));
-                        self.searchbar.connect_closed(glib::clone!(
-                            #[weak(rename_to = imp)]
-                            self,
-                            move |_| {
-                                imp.text_render.grab_focus();
-                            }
-                        ));
-                        &self.searchbar
-                    })
-                    .append(
-                        &hbox_builder()
-                            .add_css_class("spacing")
-                            .add_css_class("offset")
-                            .append(&self.status_label)
-                            .build(),
-                    )
-                    .append({
-                        self.metadata_view.set_vexpand(true);
-                        window
-                            .bind_property("metadata-visible", &self.metadata_view, "visible")
-                            .bidirectional()
-                            .build();
-                        &self.metadata_view
-                    })
-                    .build(),
-            ));
-
-            window.connect_focus_widget_notify(|window| {
-                if gtk::prelude::GtkWindowExt::focus(window)
-                    .is_some_and(|widget| widget.widget_name() == "GtkPopoverMenuBarItem")
-                {
-                    // Individual menu bar items should never be focused, return focus to the
-                    // content area. This is quite a hack to compensate for Gtk's shortcomings but
-                    // worst-case scenario is that this won't work in some future Gtk version and
-                    // focus simply remains on the menu requiring the user to click.
-                    if window.imp().display_mode.get() == DisplayMode::Image {
-                        window.imp().image_render.grab_focus();
-                    } else {
-                        window.imp().text_render.grab_focus();
-                    }
-                }
-            });
-
-            let options = ViewerOptions::instance();
-
-            remember_window_state(
-                &*window,
-                &options.window_width,
-                &options.window_height,
-                &options.window_state,
-            );
-
-            options.tab_size.bind(&self.text_render, "tab-size").build();
-
-            options.wrap_mode.bind(&*window, "wrap-lines").build();
-            window
-                .bind_property("wrap-lines", &self.text_render, "wrap-mode")
-                .bidirectional()
-                .sync_create()
-                .build();
-
-            options.encoding.bind(&*window, "encoding").build();
-            window
-                .bind_property("encoding", &self.text_render, "encoding")
-                .bidirectional()
-                .sync_create()
-                .build();
-
-            options
-                .monospaced_font
-                .bind(&*window, "monospaced-font")
-                .build();
-            window
-                .bind_property("monospaced-font", &self.text_render, "monospaced-font")
-                .bidirectional()
-                .sync_create()
-                .build();
-
-            options
-                .binary_bytes_per_line
-                .bind(&*window, "chars-per-line")
-                .build();
-            window
-                .bind_property("chars-per-line", &self.text_render, "fixed-limit")
-                .bidirectional()
-                .sync_create()
-                .build();
-
-            options
-                .metadata_visible
-                .bind(&*window, "metadata-visible")
-                .build();
-
-            options
-                .display_hex_offset
-                .bind(&*window, "hexadecimal-offset")
-                .build();
-            window
-                .bind_property(
-                    "hexadecimal-offset",
-                    &self.text_render,
-                    "hexadecimal-offset",
-                )
-                .bidirectional()
-                .sync_create()
-                .build();
-
-            let key_controller = gtk::EventControllerKey::new();
-            key_controller.connect_key_pressed(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                #[upgrade_or]
-                glib::Propagation::Proceed,
-                move |_, key, _, state| imp.key_pressed(key, state)
-            ));
-            window.add_controller(key_controller);
-
-            window.add_controller(self.shortcuts_controller.borrow().clone());
-        }
-    }
-
-    impl WidgetImpl for ViewerWindow {}
-    impl WindowImpl for ViewerWindow {}
-
-    impl ViewerWindow {
-        fn set_display_mode(&self, mode: DisplayMode) {
-            self.display_mode.set(mode);
-
-            if mode == DisplayMode::Image && !self.img_initialized.get() {
-                // do lazy-initialization of the image render, only when the user first asks to display the file as image
-                if let Some(path) = self.obj().file().and_then(|f| f.local_path()) {
-                    self.img_initialized.set(true);
-                    self.image_render.load_file(&path);
-                } else {
-                    eprintln!("ViewerWindow::set_display_mode: file path is None");
-                }
-            }
-
-            match mode {
-                DisplayMode::Text => {
-                    self.text_render
-                        .set_display_mode(TextRenderDisplayMode::Text);
-                    self.stack.set_visible_child_name("text");
-                    self.text_render.notify_status_changed();
-                }
-                DisplayMode::FixedWidth => {
-                    self.text_render
-                        .set_display_mode(TextRenderDisplayMode::FixedWidth);
-                    self.stack.set_visible_child_name("text");
-                    self.text_render.notify_status_changed();
-                }
-                DisplayMode::Hexdump => {
-                    self.text_render
-                        .set_display_mode(TextRenderDisplayMode::Hexdump);
-                    self.stack.set_visible_child_name("text");
-                    self.text_render.notify_status_changed();
-                }
-                DisplayMode::Image => {
-                    self.stack.set_visible_child_name("image");
-                    self.image_render.notify_status_changed();
-                    self.searchbar.hide();
-                }
-            }
-
-            let menu = create_menu(mode);
-            self.menubar.set_menu_model(Some(&menu));
-            self.obj()
-                .remove_controller(&self.shortcuts_controller.replace(
-                    gtk::ShortcutController::for_model(&extract_menu_shortcuts(menu.upcast_ref())),
-                ));
-            self.obj()
-                .add_controller(self.shortcuts_controller.borrow().clone());
-
-            self.obj()
-                .action_set_enabled("viewer.best-fit", mode == DisplayMode::Image);
-        }
-
-        fn text_status_update(&self) {
-            let position = gettext("Position: {offset} of {size}")
-                .replace("{offset}", &self.text_render.current_offset().to_string())
-                .replace("{size}", &self.text_render.size().to_string());
-
-            let column =
-                gettext("Column: {}").replace("{}", &self.text_render.column().to_string());
-
-            let scale = format!("{}%", (self.text_render.scale_factor() * 100.0) as i64);
-
-            let wrap = if self.text_render.wrap_mode() {
-                &gettext("Wrap")
-            } else {
-                ""
-            };
-
-            self.status_label
-                .set_text(&format!("{position}\t{column}\t{scale}\t{wrap}"));
-        }
-
-        fn image_status_update(&self) {
-            let Some(pixbuf) = self.image_render.origin_pixbuf() else {
-                self.status_label
-                    .set_text(&gettext("Could not recognize the image file format"));
-                return;
-            };
-
-            let width = pixbuf.width();
-            let height = pixbuf.height();
-            let bits_per_sample = pixbuf.bits_per_sample();
-
-            let size = ngettext(
-                "{width} x {height} pixel",
-                "{width} x {height} pixels",
-                height as u32,
-            )
-            .replace("{width}", &width.to_string())
-            .replace("{height}", &height.to_string());
-
-            let depth = ngettext("{} bit/sample", "{} bits/sample", bits_per_sample as u32)
-                .replace("{}", &bits_per_sample.to_string());
-
-            let scale = if !self.image_render.best_fit() {
-                format!("{}%", (self.image_render.scale_factor() * 100.0) as i64)
-            } else {
-                format!(
-                    "{}%\t{}",
-                    (self.image_render.real_scale_factor() * 100.0) as i64,
-                    gettext("(fit to window)")
-                )
-            };
-
-            self.status_label
-                .set_text(&format!("{size}\t{depth}\t{scale}"));
-        }
-
-        fn copy_selection(&self) {
-            if self.display_mode.get() != DisplayMode::Image {
-                self.text_render.copy_selection();
-            }
-        }
-
-        fn select_all(&self) {
-            if self.display_mode.get() != DisplayMode::Image {
-                self.text_render.set_marker(0, self.text_render.size());
-            }
-        }
-
-        fn zoom_in(&self) {
-            match self.display_mode.get() {
-                DisplayMode::Text | DisplayMode::FixedWidth | DisplayMode::Hexdump => {
-                    let current_factor = self.text_render.scale_factor();
-                    let current_index = TEXT_SCALE_FACTORS
-                        .iter()
-                        .position(|f| *f == current_factor)
-                        .unwrap_or(DEFAULT_TEXT_SCALE_INDEX);
-                    if current_index < TEXT_SCALE_FACTORS.len() - 1 {
-                        self.text_render
-                            .set_scale_factor(TEXT_SCALE_FACTORS[current_index + 1]);
-                    }
-                }
-                DisplayMode::Image => {
-                    let index = if self.image_render.best_fit() {
-                        let current_factor = self.image_render.real_scale_factor();
-                        let mut index = 0;
-                        for (i, factor) in IMAGE_SCALE_FACTORS.iter().enumerate() {
-                            index = i;
-                            if *factor > current_factor {
-                                break;
-                            }
-                        }
-                        self.image_render.set_best_fit(false);
-                        index
-                    } else {
-                        let current_index = self.current_scale_index.get();
-                        if current_index >= IMAGE_SCALE_FACTORS.len() - 1 {
-                            return;
-                        }
-                        current_index + 1
-                    };
-
-                    self.current_scale_index.set(index);
-
-                    let scale_factor = IMAGE_SCALE_FACTORS[index];
-                    if self.image_render.scale_factor() != scale_factor {
-                        self.image_render.set_scale_factor(scale_factor);
-                    }
-                }
-            }
-        }
-
-        fn zoom_out(&self) {
-            match self.display_mode.get() {
-                DisplayMode::Text | DisplayMode::FixedWidth | DisplayMode::Hexdump => {
-                    let current_factor = self.text_render.scale_factor();
-                    let current_index = TEXT_SCALE_FACTORS
-                        .iter()
-                        .position(|f| *f == current_factor)
-                        .unwrap_or(DEFAULT_TEXT_SCALE_INDEX);
-                    if current_index > 0 {
-                        self.text_render
-                            .set_scale_factor(TEXT_SCALE_FACTORS[current_index - 1]);
-                    }
-                }
-                DisplayMode::Image => {
-                    let index = if self.image_render.best_fit() {
-                        let current_factor = self.image_render.real_scale_factor();
-                        let mut index = 0;
-                        for (i, factor) in IMAGE_SCALE_FACTORS.iter().enumerate().rev() {
-                            index = i;
-                            if *factor < current_factor {
-                                break;
-                            }
-                        }
-                        self.image_render.set_best_fit(false);
-                        index
-                    } else {
-                        let current_index = self.current_scale_index.get();
-                        if current_index == 0 {
-                            return;
-                        }
-                        current_index - 1
-                    };
-
-                    self.current_scale_index.set(index);
-
-                    let scale_factor = IMAGE_SCALE_FACTORS[index];
-                    if self.image_render.scale_factor() != scale_factor {
-                        self.image_render.set_scale_factor(scale_factor);
-                    }
-                }
-            }
-        }
-
-        fn zoom_normal(&self) {
-            match self.display_mode.get() {
-                DisplayMode::Text | DisplayMode::FixedWidth | DisplayMode::Hexdump => {
-                    self.text_render
-                        .set_scale_factor(TEXT_SCALE_FACTORS[DEFAULT_TEXT_SCALE_INDEX]);
-                }
-                DisplayMode::Image => {
-                    self.image_render.set_best_fit(false);
-                    self.current_scale_index.set(DEFAULT_IMAGE_SCALE_INDEX);
-                    self.image_render.set_scale_factor(1.0);
-                }
-            }
-        }
-
-        fn zoom_best_fit(&self) {
-            match self.display_mode.get() {
-                DisplayMode::Text | DisplayMode::FixedWidth | DisplayMode::Hexdump => {
-                    // nothing to do
-                }
-                DisplayMode::Image => {
-                    self.image_render.set_best_fit(true);
-                }
-            }
-        }
-
-        fn find(&self) {
-            if self.display_mode.get() == DisplayMode::Image {
-                return;
-            }
-
-            self.searchbar.show(true);
-        }
-
-        async fn start_search(&self, forward: bool) {
-            #[derive(Debug, Clone, Copy)]
-            enum SearchProgress {
-                Progress(u32),
-                Done(Option<u64>),
-            }
-
-            if self.display_mode.get() == DisplayMode::Image {
-                return;
-            }
-
-            let Some(settings) = self.searchbar.settings() else {
-                // No search active, just show and focus search bar
-                self.searchbar.show(true);
-                return;
-            };
-
-            self.searchbar.show(false);
-            self.searchbar.add_to_history();
-
-            let input_mode = self.text_render.input_mode();
-            let end_offset = input_mode.max_offset();
-            let start_offset = if self.searchbar.showing_not_found() {
-                // Wrap the search around after “Not found”
-                if forward { 0 } else { end_offset }
-            } else if let Some((start_marker, end_marker)) = self.text_render.marker() {
-                // Start at the marked text if there is any
-                if forward {
-                    input_mode.next_char_offset(start_marker)
-                } else {
-                    input_mode.previous_char_offset(end_marker)
-                }
-            } else {
-                // Default to starting at the edge of the current screen
-                if forward {
-                    self.text_render.current_offset()
-                } else {
-                    self.text_render.end_offset()
-                }
-            };
-
-            let (pattern, match_case) = match settings {
-                SearchSettings::Text {
-                    pattern,
-                    match_case,
-                } => {
-                    let encoding = self.encoding.borrow();
-                    let pattern = if encoding.eq_ignore_ascii_case("CP437") {
-                        preprocess_for_cp437_conversion(&pattern)
-                    } else {
-                        pattern.into()
-                    };
-                    let Some((slice, _)) = glib::IConv::new(&*encoding, "UTF8")
-                        .and_then(|mut iconv| iconv.convert(pattern.as_bytes()).ok())
-                    else {
-                        self.searchbar.show_encoding_error();
-                        return;
-                    };
-                    (slice.to_vec(), match_case)
-                }
-                SearchSettings::Binary {
-                    pattern,
-                    match_case,
-                } => (pattern, match_case),
-            };
-            let pattern_len = pattern.len();
-
-            let cancellable = gio::Cancellable::new();
-            let abort_handler = self.searchbar.connect_abort(glib::clone!(
-                #[strong]
-                cancellable,
-                move |_| cancellable.cancel()
-            ));
-
-            let (sender, receiver) = async_channel::bounded::<SearchProgress>(1);
-
-            let thread = std::thread::spawn(glib::clone!(
-                #[strong]
-                cancellable,
-                move || {
-                    let searcher = Searcher::new(
-                        input_mode,
-                        start_offset,
-                        end_offset,
-                        &pattern,
-                        match_case,
-                        forward,
-                        cancellable,
-                    );
-
-                    let found = searcher.search(|p| {
-                        sender.toss(SearchProgress::Progress(p));
-                    });
-                    sender.toss(SearchProgress::Done(found));
-                }
-            ));
-
-            let found = loop {
-                let message = receiver.recv().await.unwrap();
-                match message {
-                    SearchProgress::Progress(progress) => self.searchbar.show_progress(progress),
-                    SearchProgress::Done(found) => break found,
-                }
-            };
-            self.searchbar.disconnect(abort_handler);
-            let _ = thread.join();
-            pending().await;
-
-            self.searchbar.hide_progress();
-            match found {
-                Some(result) => {
-                    let input_mode = self.text_render.input_mode();
-                    self.text_render.set_marker(
-                        input_mode.previous_char_boundary(result),
-                        input_mode.next_char_boundary(if forward {
-                            result + pattern_len as u64
-                        } else {
-                            result - pattern_len as u64
-                        }),
-                    );
-                    self.text_render.ensure_offset_visible(result);
-                }
-                None => {
-                    if !cancellable.is_cancelled() {
-                        self.searchbar.show_not_found();
-                    }
-                }
-            }
-        }
-
-        fn image_operation(&self, op: Option<&glib::Variant>) {
-            let Some(operation) = op.and_then(ImageOperation::from_variant) else {
-                return;
-            };
-            self.image_render.operation(operation);
-            self.image_render.queue_draw();
-        }
-
-        async fn choose_font(&self) {
-            let dialog = gtk::FontDialog::builder().modal(true).build();
-            dialog.set_filter(Some(&gtk::CustomFilter::new(|font| {
-                if let Some(family) = font.downcast_ref::<pango::FontFamily>() {
-                    family.is_monospace()
-                } else if let Some(face) = font.downcast_ref::<pango::FontFace>() {
-                    face.family().is_monospace()
-                } else {
-                    eprintln!(
-                        "Font filter received unexpected object type {}",
-                        font.type_()
-                    );
-                    true
-                }
-            })));
-
-            let font = pango::FontDescription::from_string(&self.monospaced_font.borrow());
-            match dialog
-                .choose_font_future(Some(&*self.obj()), Some(&font))
-                .await
-            {
-                Ok(font) => self.obj().set_monospaced_font(&*font.to_str()),
-                Err(error) => {
-                    if !error.matches(gtk::DialogError::Dismissed) {
-                        eprintln!("Failed choosing font: {error}");
-                    }
-                }
-            }
-        }
-
-        fn key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
-            match key {
-                gdk::Key::plus | gdk::Key::KP_Add | gdk::Key::equal => {
-                    self.zoom_in();
-                    glib::Propagation::Stop
-                }
-
-                gdk::Key::minus | gdk::Key::KP_Subtract => {
-                    self.zoom_out();
-                    glib::Propagation::Stop
-                }
-                gdk::Key::Q | gdk::Key::q if state == gdk::ModifierType::CONTROL_MASK => {
-                    self.obj().close();
-                    glib::Propagation::Stop
-                }
-                _ => glib::Propagation::Proceed,
-            }
-        }
-
-        fn show_context_menu(
-            &self,
-            widget: &impl IsA<gtk::Widget>,
-            menu: gio::Menu,
-            x: f64,
-            y: f64,
-        ) {
-            let popover = gtk::PopoverMenu::from_model(Some(&menu));
-            popover.set_parent(widget);
-            popover.set_position(gtk::PositionType::Bottom);
-            popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 0, 0)));
-            popover.connect_closed(|this| {
-                let this = this.clone();
-                glib::spawn_future_local(async move {
-                    this.unparent();
-                });
-            });
-            popover.popup();
-        }
-
-        fn on_text_viewer_button_pressed(&self, n_press: i32, x: f64, y: f64) {
-            if n_press == 1 {
-                let menu = gio::Menu::new()
-                    .item(gettext("_Copy Selection"), "viewer.copy-text-selection")
-                    .item(gettext("_Select All"), "viewer.select-all");
-                self.show_context_menu(&self.text_render, menu, x, y);
-            }
-        }
-
-        fn on_image_viewer_button_pressed(&self, n_press: i32, x: f64, y: f64) {
-            if n_press == 1 {
-                let menu = gio::Menu::new()
-                    .item_param(
-                        gettext("_Rotate Clockwise"),
-                        "viewer.imageop",
-                        ImageOperation::RotateClockwise,
-                    )
-                    .item_param(
-                        gettext("Rotate Counter Clockwis_e"),
-                        "viewer.imageop",
-                        ImageOperation::RotateCounterclockwise,
-                    )
-                    .item_param(
-                        gettext("Rotate 180\u{00B0}"),
-                        "viewer.imageop",
-                        ImageOperation::RotateUpsideDown,
-                    )
-                    .item_param(
-                        gettext("Flip _Vertical"),
-                        "viewer.imageop",
-                        ImageOperation::FlipVertical,
-                    )
-                    .item_param(
-                        gettext("Flip _Horizontal"),
-                        "viewer.imageop",
-                        ImageOperation::FlipHorizontal,
-                    );
-                self.show_context_menu(&self.image_render, menu, x, y);
-            }
-        }
+action_list! {
+    enum ViewerActions {
+        "viewer.copy-text-selection" as CopySelection,
+        "viewer.select-all" as SelectAll,
+        "viewer.close" as Close,
+        "viewer.zoom-in" as ZoomIn,
+        "viewer.zoom-out" as ZoomOut,
+        "viewer.normal-size" as ZoomNormal,
+        "viewer.best-fit" as ZoomBestFit,
+        "viewer.find" as Find,
+        "viewer.find-next" as FindNext,
+        "viewer.find-previous" as FindPrevious,
+        "viewer.display-mode" as DisplayMode(DisplayMode) = DisplayMode,
+        "viewer.wrap-lines" as ToggleWrapMode = bool,
+        "viewer.encoding" as Encoding(String) = String,
+        "viewer.imageop" as ImageOp(ImageOperation),
+        "viewer.choose-font" as ChooseFont,
+        "viewer.chars-per-line" as CharsPerLine(u32) = u32,
+        "viewer.hexadecimal-offset" as ToggleHexOffset = bool,
+        "viewer.metadata-visible" as ToggleMetadata = bool,
+        "viewer.quick-help" as QuickHelp,
+        "viewer.keyboard-shortcuts" as KeyboardShortcuts,
     }
 }
 
-glib::wrapper! {
-    pub struct ViewerWindow(ObjectSubclass<imp::ViewerWindow>)
-        @extends gtk::Widget, gtk::Window,
-        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Native, gtk::Root;
+#[derive(Debug)]
+pub struct ViewerWindowView {
+    window: gtk::Window,
+    menubar: gtk::PopoverMenuBar,
+    stack: gtk::Stack,
+    text_render: TextRender,
+    image_render: ImageRender,
+    status_label: gtk::Label,
+    metadata_view: FileMetainfoView,
 }
 
-impl ViewerWindow {
-    pub async fn file_view(file: &File, file_metadata_service: &FileMetadataService) {
-        let w: Self = glib::Object::builder().build();
-        w.load_file(file);
-        w.present();
-        w.imp().stack.grab_focus();
-        w.imp()
-            .metadata_view
-            .set_metadata(&mut file_metadata_service.extract_metadata(file).await);
+impl ViewerWindowView {
+    pub fn text_status_update(&self) {
+        let position = gettext("Position: {offset} of {size}")
+            .replace("{offset}", &self.text_render.current_offset().to_string())
+            .replace("{size}", &self.text_render.size().to_string());
+
+        let column = gettext("Column: {}").replace("{}", &self.text_render.column().to_string());
+
+        let scale = format!("{}%", (self.text_render.scale_factor() * 100.0) as i64);
+
+        let wrap = if self.text_render.wrap_mode() {
+            &gettext("Wrap")
+        } else {
+            ""
+        };
+
+        self.status_label
+            .set_text(&format!("{position}\t{column}\t{scale}\t{wrap}"));
     }
 
-    fn load_file(&self, file: &File) {
-        let Some(path) = file.local_path() else {
-            eprintln!("ViewerWindow::load_file: file path is None");
+    pub fn image_status_update(&self) {
+        let Some(pixbuf) = self.image_render.origin_pixbuf() else {
+            self.status_label
+                .set_text(&gettext("Could not recognize the image file format"));
             return;
         };
 
-        self.set_file(file);
+        let width = pixbuf.width();
+        let height = pixbuf.height();
+        let bits_per_sample = pixbuf.bits_per_sample();
 
-        self.imp().text_render.load_file(&path);
-        self.set_display_mode(DisplayMode::guess(file).unwrap_or_default());
+        let size = ngettext(
+            "{width} x {height} pixel",
+            "{width} x {height} pixels",
+            height as u32,
+        )
+        .replace("{width}", &width.to_string())
+        .replace("{height}", &height.to_string());
 
-        self.set_title(path.to_str());
+        let depth = ngettext("{} bit/sample", "{} bits/sample", bits_per_sample as u32)
+            .replace("{}", &bits_per_sample.to_string());
+
+        let scale = if !self.image_render.best_fit() {
+            format!("{}%", (self.image_render.scale_factor() * 100.0) as i64)
+        } else {
+            format!(
+                "{}%\t{}",
+                (self.image_render.real_scale_factor() * 100.0) as i64,
+                gettext("(fit to window)")
+            )
+        };
+
+        self.status_label
+            .set_text(&format!("{size}\t{depth}\t{scale}"));
+    }
+
+    fn show_context_menu(widget: &impl IsA<gtk::Widget>, menu: gio::Menu, x: f64, y: f64) {
+        let popover = gtk::PopoverMenu::from_model(Some(&menu));
+        popover.set_parent(widget);
+        popover.set_position(gtk::PositionType::Bottom);
+        popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 0, 0)));
+        popover.connect_closed(|this| {
+            let this = this.clone();
+            glib::spawn_future_local(async move {
+                this.unparent();
+            });
+        });
+        popover.popup();
+    }
+
+    pub fn text_viewer_context_menu(&self, x: f64, y: f64) {
+        let menu = with!(gio::Menu {
+            ViewerActions::Output::CopySelection.menuitem(gettext("_Copy Selection"));
+            ViewerActions::Output::SelectAll.menuitem(gettext("_Select All"));
+        });
+        Self::show_context_menu(&self.text_render, menu, x, y);
+    }
+
+    pub fn image_viewer_context_menu(&self, x: f64, y: f64) {
+        let menu = with!(gio::Menu {
+            ViewerActions::Output::ImageOp(ImageOperation::RotateClockwise)
+                .menuitem(gettext("_Rotate Clockwise"));
+            ViewerActions::Output::ImageOp(ImageOperation::RotateCounterclockwise)
+                .menuitem(gettext("Rotate Counter Clockwis_e"));
+            ViewerActions::Output::ImageOp(ImageOperation::RotateUpsideDown)
+                .menuitem(gettext("Rotate 180°"));
+            ViewerActions::Output::ImageOp(ImageOperation::FlipVertical)
+                .menuitem(gettext("Flip _Vertical"));
+            ViewerActions::Output::ImageOp(ImageOperation::FlipHorizontal)
+                .menuitem(gettext("Flip _Horizontal"));
+        });
+        Self::show_context_menu(&self.image_render, menu, x, y);
+    }
+}
+
+#[derive(Debug)]
+pub enum ViewerWindowInput {
+    SetMetadata(FileMetadata),
+    FocusContent,
+    TextStatusUpdate,
+    TextViewerContextMenu(i32, f64, f64),
+    ImageStatusUpdate,
+    ImageViewerContextMenu(i32, f64, f64),
+    SearchBar(SearchBarOutput),
+    SearchProgress(u32),
+    SearchDone(Option<u64>),
+    Action(ViewerActions::Output),
+
+    UpdateTabSize,
+    UpdateWrapMode,
+    UpdateEncoding,
+    UpdateMonospacedFont,
+    UpdateCharsPerLine,
+    UpdateMetadata,
+    UpdateHexOffset,
+}
+
+#[derive(Debug)]
+pub struct ViewerWindow {
+    action_group: ComponentController<ActionGroup<ViewerActions::List>>,
+    searchbar: ComponentController<SearchBar>,
+    option_handlers: Vec<glib::SignalHandlerId>,
+    file: PathBuf,
+    display_mode: DisplayMode,
+    current_scale_index: usize,
+    current_search: Option<(gio::Cancellable, bool, usize)>,
+}
+
+impl Drop for ViewerWindow {
+    fn drop(&mut self) {
+        let options = ViewerOptions::instance();
+        for handler in self.option_handlers.drain(..) {
+            options.encoding.disconnect(handler);
+        }
+
+        if let Some((cancellable, _, _)) = self.current_search.as_ref() {
+            cancellable.cancel();
+        }
+    }
+}
+
+impl Component for ViewerWindow {
+    type View = ViewerWindowView;
+    type Root = gtk::Window;
+    type Input = ViewerWindowInput;
+    type Output = ();
+
+    fn init(&mut self, sender: &ComponentSender<Self>) -> Self::View {
+        let view = Self::View {
+            window: Default::default(),
+            menubar: gtk::PopoverMenuBar::from_model(gio::MenuModel::NONE),
+            stack: Default::default(),
+            text_render: Default::default(),
+            image_render: Default::default(),
+            status_label: Default::default(),
+            metadata_view: Default::default(),
+        };
+
+        with!(&view.window {
+            .set_icon_name(Some("gnome-commander-internal-viewer"));
+            .set_title(self.file.to_str());
+
+            .insert_action_group(
+                ViewerActions::prefix(),
+                Some(self.action_group.attach(sender, Self::Input::Action))
+            );
+
+            .add_controller(with!(gtk::ShortcutController {
+                ViewerActions::Output::Close.shortcut("<Control>Q");
+                ViewerActions::Output::Close.shortcut("Escape");
+                ViewerActions::Output::DisplayMode(DisplayMode::Text).shortcut("1");
+                ViewerActions::Output::DisplayMode(DisplayMode::FixedWidth).shortcut("2");
+                ViewerActions::Output::DisplayMode(DisplayMode::Hexdump).shortcut("3");
+                ViewerActions::Output::DisplayMode(DisplayMode::Image).shortcut("4");
+                ViewerActions::Output::ZoomIn.shortcut("<Control>equal");
+                ViewerActions::Output::ZoomIn.shortcut("<Control>KP_Add");
+                ViewerActions::Output::ZoomIn.shortcut("<Control>plus");
+                ViewerActions::Output::ZoomOut.shortcut("<Control>KP_Subtract");
+                ViewerActions::Output::ZoomOut.shortcut("<Control>minus");
+                ViewerActions::Output::ZoomNormal.shortcut("<Control>0");
+                ViewerActions::Output::ZoomBestFit.shortcut("<Control>period");
+                ViewerActions::Output::CopySelection.shortcut("<Control>C");
+                ViewerActions::Output::SelectAll.shortcut("<Control>A");
+                ViewerActions::Output::Find.shortcut("<Control>F");
+                ViewerActions::Output::FindNext.shortcut("F3");
+                ViewerActions::Output::FindPrevious.shortcut("<Shift>F3");
+                ViewerActions::Output::ToggleWrapMode.shortcut("<Control>W");
+                ViewerActions::Output::Encoding("UTF8".to_owned()).shortcut("U");
+                ViewerActions::Output::Encoding("ASCII".to_owned()).shortcut("A");
+                ViewerActions::Output::Encoding("CP437".to_owned()).shortcut("Q");
+                ViewerActions::Output::ImageOp(ImageOperation::RotateClockwise)
+                    .shortcut("<Control>R");
+                ViewerActions::Output::ImageOp(ImageOperation::RotateUpsideDown)
+                    .shortcut("<Control><Shift>R");
+                ViewerActions::Output::CharsPerLine(20).shortcut("<Control>2");
+                ViewerActions::Output::CharsPerLine(40).shortcut("<Control>4");
+                ViewerActions::Output::CharsPerLine(80).shortcut("<Control>8");
+                ViewerActions::Output::ToggleMetadata.shortcut("T");
+                ViewerActions::Output::ToggleHexOffset.shortcut("<Control>D");
+                ViewerActions::Output::QuickHelp.shortcut("F1");
+            }));
+
+            // Make sure we signal that we are done even if close action isn't used.
+            .connect_unmap(forward!(sender.output(())));
+
+            .connect_focus_widget_notify({
+                let sender = sender.clone();
+                move |window| {
+                    if gtk::prelude::GtkWindowExt::focus(window)
+                        .is_some_and(|widget| widget.widget_name() == "GtkPopoverMenuBarItem")
+                    {
+                        // Individual menu bar items should never be focused, return focus to the
+                        // content area. This is quite a hack to compensate for Gtk's shortcomings
+                        // but worst-case scenario is that this won't work in some future Gtk
+                        // version and focus simply remains on the menu requiring the user to click.
+                        sender.input(Self::Input::FocusContent);
+                    }
+                }
+            });
+
+            gtk::Box {
+                .set_orientation(gtk::Orientation::Vertical);
+                .add_css_class("spacing");
+
+                &view.menubar;
+
+                &view.stack {
+                    .add_named(&with!(gtk::ScrolledWindow {
+                        .set_hexpand(true);
+                        .set_vexpand(true);
+
+                        &view.text_render {
+                            .load_file(&self.file);
+
+                            .connect_text_status_changed(
+                                forward!(sender.input(Self::Input::TextStatusUpdate))
+                            );
+
+                            .add_controller(with!(gtk::GestureClick {
+                                .set_button(3);
+                                .connect_pressed(forward!(
+                                    |_, n_press, x, y| sender.input(
+                                        Self::Input::TextViewerContextMenu(n_press, x, y)
+                                    )
+                                ));
+                            }));
+                        }
+                    }), Some("text"));
+
+                    .add_named(&with!(gtk::ScrolledWindow {
+                        .set_hexpand(true);
+                        .set_vexpand(true);
+
+                        &view.image_render {
+                            .set_best_fit(true);
+                            .set_scale_factor(1.0);
+
+                            .connect_image_status_changed(
+                                forward!(sender.input(Self::Input::ImageStatusUpdate))
+                            );
+
+                            .add_controller(with!(gtk::GestureClick {
+                                .set_button(3);
+                                .connect_pressed(forward!(
+                                    |_, n_press, x, y| sender.input(
+                                        Self::Input::ImageViewerContextMenu(n_press, x, y)
+                                    )
+                                ));
+                            }));
+                        }
+                    }), Some("image"));
+                }
+
+                self.searchbar.attach(sender, Self::Input::SearchBar);
+
+                gtk::Box {
+                    .set_orientation(gtk::Orientation::Horizontal);
+                    .add_css_class("spacing");
+                    .add_css_class("offset");
+
+                    &view.status_label;
+                }
+
+                &view.metadata_view {
+                    .set_vexpand(true);
+                }
+            }
+
+            .present();
+        });
+
+        let options = ViewerOptions::instance();
+
+        remember_window_state(
+            &view.window,
+            &options.window_width,
+            &options.window_height,
+            &options.window_state,
+        );
+
+        with!(&mut self.option_handlers {
+            .push(options.tab_size.connect_changed(
+                forward!(sender.input(Self::Input::UpdateTabSize))
+            ));
+            .push(options.wrap_mode.connect_changed(
+                forward!(sender.input(Self::Input::UpdateWrapMode))
+            ));
+            .push(options.encoding.connect_changed(
+                forward!(sender.input(Self::Input::UpdateEncoding))
+            ));
+            .push(options.monospaced_font.connect_changed(
+                forward!(sender.input(Self::Input::UpdateMonospacedFont))
+            ));
+            .push(options.binary_bytes_per_line.connect_changed(
+                forward!(sender.input(Self::Input::UpdateCharsPerLine))
+            ));
+            .push(options.metadata_visible.connect_changed(
+                forward!(sender.input(Self::Input::UpdateMetadata))
+            ));
+            .push(options.display_hex_offset.connect_changed(
+                forward!(sender.input(Self::Input::UpdateHexOffset))
+            ));
+        });
+
+        self.update_display_mode(&view);
+        self.update_tab_size(&view);
+        self.update_wrap_mode(&view);
+        self.update_encoding(&view);
+        self.update_monospaced_font(&view);
+        self.update_chars_per_line(&view);
+        self.update_metadata(&view);
+        self.update_hex_offset(&view);
+
+        view
+    }
+
+    fn root<'a>(&self, view: &'a Self::View) -> &'a Self::Root {
+        &view.window
+    }
+
+    async fn update(
+        &mut self,
+        msg: Self::Input,
+        sender: &ComponentSender<Self>,
+        view: &mut Self::View,
+    ) {
+        match msg {
+            Self::Input::SetMetadata(mut metadata) => {
+                view.metadata_view.set_metadata(&mut metadata)
+            }
+            Self::Input::FocusContent => {
+                if self.display_mode == DisplayMode::Image {
+                    view.image_render.grab_focus();
+                } else {
+                    view.text_render.grab_focus();
+                }
+            }
+            Self::Input::TextStatusUpdate => view.text_status_update(),
+            Self::Input::TextViewerContextMenu(n_press, x, y) => {
+                if n_press == 1 {
+                    view.text_viewer_context_menu(x, y)
+                }
+            }
+            Self::Input::ImageStatusUpdate => view.image_status_update(),
+            Self::Input::ImageViewerContextMenu(n_press, x, y) => {
+                if n_press == 1 {
+                    view.image_viewer_context_menu(x, y)
+                }
+            }
+            Self::Input::SearchBar(message) => match message {
+                SearchBarOutput::StartSearch(forward, settings) => {
+                    self.start_search(sender, view, forward, settings)
+                }
+                SearchBarOutput::StopSearch => {
+                    if let Some((cancellable, _, _)) = self.current_search.as_ref() {
+                        cancellable.cancel();
+                    }
+                }
+                SearchBarOutput::Closed => sender.input(Self::Input::FocusContent),
+            },
+            Self::Input::SearchProgress(progress) => {
+                self.searchbar.send(SearchBarInput::Progress(progress))
+            }
+            Self::Input::SearchDone(found) => self.search_done(view, found),
+            Self::Input::Action(action) => match action {
+                ViewerActions::Output::CopySelection => {
+                    if self.display_mode != DisplayMode::Image {
+                        view.text_render.copy_selection();
+                    }
+                }
+                ViewerActions::Output::SelectAll => {
+                    if self.display_mode != DisplayMode::Image {
+                        view.text_render.set_marker(0, view.text_render.size());
+                    }
+                }
+                ViewerActions::Output::Close => sender.output(()),
+                ViewerActions::Output::ZoomIn => self.zoom_in(view),
+                ViewerActions::Output::ZoomOut => self.zoom_out(view),
+                ViewerActions::Output::ZoomBestFit => {
+                    if self.display_mode == DisplayMode::Image {
+                        view.image_render.set_best_fit(true);
+                    }
+                }
+                ViewerActions::Output::ZoomNormal => self.zoom_normal(view),
+                ViewerActions::Output::Find => {
+                    if self.display_mode != DisplayMode::Image {
+                        self.searchbar
+                            .send(SearchBarInput::Show(view.text_render.selected_text()));
+                    }
+                }
+                ViewerActions::Output::FindNext | ViewerActions::Output::FindPrevious => {
+                    if self.display_mode == DisplayMode::Image || self.current_search.is_some() {
+                        return;
+                    }
+
+                    self.searchbar.send(SearchBarInput::StartSearch(matches!(
+                        action,
+                        ViewerActions::Output::FindNext
+                    )));
+                }
+                ViewerActions::Output::DisplayMode(mode) => {
+                    self.display_mode = mode;
+                    self.update_display_mode(view);
+                }
+                ViewerActions::Output::ToggleWrapMode => {
+                    let options = ViewerOptions::instance();
+                    handle_write_result(options.wrap_mode.set(!options.wrap_mode.get()));
+                }
+                ViewerActions::Output::Encoding(encoding) => {
+                    let options = ViewerOptions::instance();
+                    handle_write_result(options.encoding.set(encoding));
+                }
+                ViewerActions::Output::ImageOp(operation) => {
+                    if self.display_mode == DisplayMode::Image {
+                        view.image_render.operation(operation);
+                        view.image_render.queue_draw();
+                    }
+                }
+                ViewerActions::Output::ChooseFont => Self::choose_font(view).await,
+                ViewerActions::Output::CharsPerLine(num_chars) => {
+                    let options = ViewerOptions::instance();
+                    handle_write_result(options.binary_bytes_per_line.set(num_chars));
+                }
+                ViewerActions::Output::ToggleHexOffset => {
+                    let options = ViewerOptions::instance();
+                    handle_write_result(
+                        options
+                            .display_hex_offset
+                            .set(!options.display_hex_offset.get()),
+                    );
+                }
+                ViewerActions::Output::ToggleMetadata => {
+                    let options = ViewerOptions::instance();
+                    handle_write_result(
+                        options
+                            .metadata_visible
+                            .set(!options.metadata_visible.get()),
+                    );
+                }
+                ViewerActions::Output::QuickHelp => {
+                    let window = view.window.clone();
+                    glib::spawn_future_local(async move {
+                        display_help(&window, Some("gnome-commander-internal-viewer")).await;
+                    });
+                }
+                ViewerActions::Output::KeyboardShortcuts => {
+                    let window = view.window.clone();
+                    glib::spawn_future_local(async move {
+                        display_help(&window, Some("gnome-commander-internal-viewer-keyboard"))
+                            .await;
+                    });
+                }
+            },
+
+            Self::Input::UpdateTabSize => self.update_tab_size(view),
+            Self::Input::UpdateWrapMode => self.update_wrap_mode(view),
+            Self::Input::UpdateEncoding => self.update_encoding(view),
+            Self::Input::UpdateMonospacedFont => self.update_monospaced_font(view),
+            Self::Input::UpdateCharsPerLine => self.update_chars_per_line(view),
+            Self::Input::UpdateMetadata => self.update_metadata(view),
+            Self::Input::UpdateHexOffset => self.update_hex_offset(view),
+        }
+    }
+
+    async fn handle_subcomponents(&mut self) {
+        use futures::FutureExt;
+        futures::select!(
+            _ = self.action_group.handle_incoming().fuse() => {}
+            _ = self.searchbar.handle_incoming().fuse() => {}
+        )
+    }
+}
+
+impl ViewerWindow {
+    fn new(file: &File, path: &Path) -> Self {
+        Self {
+            action_group: Default::default(),
+            searchbar: Default::default(),
+            option_handlers: Vec::new(),
+            file: path.to_path_buf(),
+            current_scale_index: DEFAULT_IMAGE_SCALE_INDEX,
+            display_mode: DisplayMode::guess(file).unwrap_or_default(),
+            current_search: None,
+        }
+    }
+
+    pub async fn file_view(file: &File, file_metadata_service: &FileMetadataService) {
+        use futures::FutureExt;
+
+        let Some(path) = file.local_path() else {
+            eprintln!("Cannot view file: no local path");
+            return;
+        };
+
+        let mut viewer = Self::new(file, &path).build();
+        viewer.send(ViewerWindowInput::FocusContent);
+
+        futures::select!(
+            _ = viewer.receive().fuse() => {
+                viewer.root().close();
+                return;
+            },
+            metadata = file_metadata_service.extract_metadata(file).fuse() => {
+                viewer.send(ViewerWindowInput::SetMetadata(metadata));
+            }
+        );
+
+        let _ = viewer.receive().await;
+        viewer.root().close();
+    }
+
+    fn update_display_mode(&self, view: &ViewerWindowView) {
+        match self.display_mode {
+            DisplayMode::Text => {
+                view.text_render
+                    .set_display_mode(TextRenderDisplayMode::Text);
+                view.stack.set_visible_child_name("text");
+                view.text_render.notify_status_changed();
+            }
+            DisplayMode::FixedWidth => {
+                view.text_render
+                    .set_display_mode(TextRenderDisplayMode::FixedWidth);
+                view.stack.set_visible_child_name("text");
+                view.text_render.notify_status_changed();
+            }
+            DisplayMode::Hexdump => {
+                view.text_render
+                    .set_display_mode(TextRenderDisplayMode::Hexdump);
+                view.stack.set_visible_child_name("text");
+                view.text_render.notify_status_changed();
+            }
+            DisplayMode::Image => {
+                if view.image_render.origin_pixbuf().is_none() {
+                    // Image render not initialized yet, initialize now.
+                    view.image_render.load_file(&self.file)
+                }
+                view.stack.set_visible_child_name("image");
+                view.image_render.notify_status_changed();
+                self.searchbar.send(SearchBarInput::Close);
+            }
+        }
+
+        view.menubar
+            .set_menu_model(Some(&create_menu(self.display_mode)));
+
+        self.action_group
+            .change_action_state(ViewerActions::State::DisplayMode(self.display_mode));
+        self.action_group.enable_action(
+            ViewerActions::List::ZoomBestFit,
+            self.display_mode == DisplayMode::Image,
+        );
+    }
+
+    pub fn update_tab_size(&self, view: &ViewerWindowView) {
+        view.text_render
+            .set_tab_size(ViewerOptions::instance().tab_size.get());
+    }
+
+    pub fn update_wrap_mode(&self, view: &ViewerWindowView) {
+        let value = ViewerOptions::instance().wrap_mode.get();
+        view.text_render.set_wrap_mode(value);
+        self.action_group
+            .change_action_state(ViewerActions::State::ToggleWrapMode(value))
+    }
+
+    pub fn update_encoding(&self, view: &ViewerWindowView) {
+        let value = ViewerOptions::instance().encoding.get();
+        view.text_render.set_encoding(value.as_str());
+        self.action_group
+            .change_action_state(ViewerActions::State::Encoding(value))
+    }
+
+    pub fn update_monospaced_font(&self, view: &ViewerWindowView) {
+        view.text_render
+            .set_monospaced_font(ViewerOptions::instance().monospaced_font.get());
+    }
+
+    pub fn update_chars_per_line(&self, view: &ViewerWindowView) {
+        let value = ViewerOptions::instance().binary_bytes_per_line.get();
+        view.text_render.set_fixed_limit(value);
+        self.action_group
+            .change_action_state(ViewerActions::State::CharsPerLine(value))
+    }
+
+    pub fn update_metadata(&self, view: &ViewerWindowView) {
+        let value = ViewerOptions::instance().metadata_visible.get();
+        view.metadata_view.set_visible(value);
+        self.action_group
+            .change_action_state(ViewerActions::State::ToggleMetadata(value))
+    }
+
+    pub fn update_hex_offset(&self, view: &ViewerWindowView) {
+        let value = ViewerOptions::instance().display_hex_offset.get();
+        view.text_render.set_hexadecimal_offset(value);
+        self.action_group
+            .change_action_state(ViewerActions::State::ToggleHexOffset(value))
+    }
+
+    fn zoom_in(&mut self, view: &ViewerWindowView) {
+        match self.display_mode {
+            DisplayMode::Text | DisplayMode::FixedWidth | DisplayMode::Hexdump => {
+                let current_factor = view.text_render.scale_factor();
+                let current_index = TEXT_SCALE_FACTORS
+                    .iter()
+                    .position(|f| *f == current_factor)
+                    .unwrap_or(DEFAULT_TEXT_SCALE_INDEX);
+                if current_index < TEXT_SCALE_FACTORS.len() - 1 {
+                    view.text_render
+                        .set_scale_factor(TEXT_SCALE_FACTORS[current_index + 1]);
+                }
+            }
+            DisplayMode::Image => {
+                let index = if view.image_render.best_fit() {
+                    let current_factor = view.image_render.real_scale_factor();
+                    let mut index = 0;
+                    for (i, factor) in IMAGE_SCALE_FACTORS.iter().enumerate() {
+                        index = i;
+                        if *factor > current_factor {
+                            break;
+                        }
+                    }
+                    view.image_render.set_best_fit(false);
+                    index
+                } else {
+                    if self.current_scale_index >= IMAGE_SCALE_FACTORS.len() - 1 {
+                        return;
+                    }
+                    self.current_scale_index + 1
+                };
+
+                self.current_scale_index = index;
+
+                let scale_factor = IMAGE_SCALE_FACTORS[index];
+                if view.image_render.scale_factor() != scale_factor {
+                    view.image_render.set_scale_factor(scale_factor);
+                }
+            }
+        }
+    }
+
+    fn zoom_out(&mut self, view: &ViewerWindowView) {
+        match self.display_mode {
+            DisplayMode::Text | DisplayMode::FixedWidth | DisplayMode::Hexdump => {
+                let current_factor = view.text_render.scale_factor();
+                let current_index = TEXT_SCALE_FACTORS
+                    .iter()
+                    .position(|f| *f == current_factor)
+                    .unwrap_or(DEFAULT_TEXT_SCALE_INDEX);
+                if current_index > 0 {
+                    view.text_render
+                        .set_scale_factor(TEXT_SCALE_FACTORS[current_index - 1]);
+                }
+            }
+            DisplayMode::Image => {
+                let index = if view.image_render.best_fit() {
+                    let current_factor = view.image_render.real_scale_factor();
+                    let mut index = 0;
+                    for (i, factor) in IMAGE_SCALE_FACTORS.iter().enumerate().rev() {
+                        index = i;
+                        if *factor < current_factor {
+                            break;
+                        }
+                    }
+                    view.image_render.set_best_fit(false);
+                    index
+                } else {
+                    if self.current_scale_index == 0 {
+                        return;
+                    }
+                    self.current_scale_index - 1
+                };
+
+                self.current_scale_index = index;
+
+                let scale_factor = IMAGE_SCALE_FACTORS[index];
+                if view.image_render.scale_factor() != scale_factor {
+                    view.image_render.set_scale_factor(scale_factor);
+                }
+            }
+        }
+    }
+
+    fn zoom_normal(&mut self, view: &ViewerWindowView) {
+        match self.display_mode {
+            DisplayMode::Text | DisplayMode::FixedWidth | DisplayMode::Hexdump => {
+                view.text_render
+                    .set_scale_factor(TEXT_SCALE_FACTORS[DEFAULT_TEXT_SCALE_INDEX]);
+            }
+            DisplayMode::Image => {
+                view.image_render.set_best_fit(false);
+                self.current_scale_index = DEFAULT_IMAGE_SCALE_INDEX;
+                view.image_render.set_scale_factor(1.0);
+            }
+        }
+    }
+
+    fn start_search(
+        &mut self,
+        sender: &ComponentSender<Self>,
+        view: &ViewerWindowView,
+        forward: bool,
+        settings: SearchSettings,
+    ) {
+        let input_mode = view.text_render.input_mode();
+        let end_offset = input_mode.max_offset();
+        let start_offset = if self.searchbar.displayed_error() == SearchBarError::NotFound {
+            // Wrap the search around after “Not found”
+            if forward { 0 } else { end_offset }
+        } else if let Some((start_marker, end_marker)) = view.text_render.marker()
+            && view.text_render.is_range_visible(start_marker, end_marker)
+        {
+            // Start at the marked text if there is any
+            if forward {
+                input_mode.next_char_offset(start_marker)
+            } else {
+                input_mode.previous_char_offset(end_marker)
+            }
+        } else {
+            // Default to starting at the edge of the current screen
+            if forward {
+                view.text_render.current_offset()
+            } else {
+                view.text_render.end_offset()
+            }
+        };
+
+        let (pattern, match_case) = match settings {
+            SearchSettings::Text {
+                pattern,
+                match_case,
+            } => {
+                let encoding = ViewerOptions::instance().encoding.get();
+                let pattern = if encoding.eq_ignore_ascii_case("CP437") {
+                    preprocess_for_cp437_conversion(&pattern)
+                } else {
+                    pattern.into()
+                };
+                let Some((slice, _)) = glib::IConv::new(&*encoding, "UTF8")
+                    .and_then(|mut iconv| iconv.convert(pattern.as_bytes()).ok())
+                else {
+                    self.searchbar
+                        .send(SearchBarInput::ShowError(SearchBarError::EncodingError));
+                    return;
+                };
+                (slice.to_vec(), match_case)
+            }
+            SearchSettings::Binary {
+                pattern,
+                match_case,
+            } => (pattern, match_case),
+        };
+
+        let cancellable = gio::Cancellable::new();
+        self.current_search = Some((cancellable.clone(), forward, pattern.len()));
+
+        let sender = sender.clone();
+        std::thread::spawn(move || {
+            let searcher = Searcher::new(
+                input_mode,
+                start_offset,
+                end_offset,
+                &pattern,
+                match_case,
+                forward,
+                cancellable,
+            );
+
+            // Only report progress every 100 ms to avoid filling up the channel.
+            let start = Instant::now();
+            let min_interval = Duration::from_millis(100);
+            let last_report = Cell::new(None);
+            let found = searcher.search(|p| {
+                let elapsed = start.elapsed();
+                if last_report
+                    .get()
+                    .is_none_or(|last_report| elapsed - last_report >= min_interval)
+                {
+                    sender.input(ViewerWindowInput::SearchProgress(p));
+                    last_report.set(Some(elapsed));
+                }
+            });
+            sender.input(ViewerWindowInput::SearchDone(found));
+        });
+    }
+
+    fn search_done(&mut self, view: &ViewerWindowView, found: Option<u64>) {
+        let Some((cancellable, forward, pattern_len)) = self.current_search.take() else {
+            return;
+        };
+        self.searchbar.send(SearchBarInput::HideProgress);
+        match found {
+            Some(result) => {
+                let input_mode = view.text_render.input_mode();
+                view.text_render.set_marker(
+                    input_mode.previous_char_boundary(result),
+                    input_mode.next_char_boundary(if forward {
+                        result + pattern_len as u64
+                    } else {
+                        result - pattern_len as u64
+                    }),
+                );
+                view.text_render.ensure_offset_visible(result);
+            }
+            None => {
+                if !cancellable.is_cancelled() {
+                    self.searchbar
+                        .send(SearchBarInput::ShowError(SearchBarError::NotFound));
+                }
+            }
+        }
+    }
+
+    async fn choose_font(view: &ViewerWindowView) {
+        let dialog = gtk::FontDialog::builder().modal(true).build();
+        dialog.set_filter(Some(&gtk::CustomFilter::new(|font| {
+            if let Some(family) = font.downcast_ref::<pango::FontFamily>() {
+                family.is_monospace()
+            } else if let Some(face) = font.downcast_ref::<pango::FontFace>() {
+                face.family().is_monospace()
+            } else {
+                eprintln!(
+                    "Font filter received unexpected object type {}",
+                    font.type_()
+                );
+                true
+            }
+        })));
+
+        let options = ViewerOptions::instance();
+        let font = pango::FontDescription::from_string(&options.monospaced_font.get());
+        match dialog
+            .choose_font_future(Some(&view.window), Some(&font))
+            .await
+        {
+            Ok(font) => {
+                handle_write_result(options.monospaced_font.set(&*font.to_str()));
+            }
+            Err(error) => {
+                if !error.matches(gtk::DialogError::Dismissed) {
+                    eprintln!("Failed choosing font: {error}");
+                }
+            }
+        }
     }
 }
 
 fn create_menu(display_mode: DisplayMode) -> gio::Menu {
-    let mut menu = gio::Menu::new()
-        .submenu(
-            gettext("_File"),
-            gio::Menu::new().item_accel(gettext("_Close"), "viewer.close", "Escape"),
-        )
-        .submenu(
-            gettext("_View"),
-            gio::Menu::new()
-                .item_param_accel(
-                    gettext("_Text"),
-                    "viewer.display-mode",
-                    DisplayMode::Text,
-                    "1",
-                )
-                .item_param_accel(
-                    gettext("_Fixed Width"),
-                    "viewer.display-mode",
-                    DisplayMode::FixedWidth,
-                    "2",
-                )
-                .item_param_accel(
-                    gettext("_Hexadecimal"),
-                    "viewer.display-mode",
-                    DisplayMode::Hexdump,
-                    "3",
-                )
-                .item_param_accel(
-                    gettext("_Image"),
-                    "viewer.display-mode",
-                    DisplayMode::Image,
-                    "4",
-                )
-                .section(
-                    gio::Menu::new()
-                        .item_accel(gettext("_Zoom In"), "viewer.zoom-in", "<Control>plus")
-                        .item_accel(gettext("_Zoom Out"), "viewer.zoom-out", "<Control>minus")
-                        .item_accel(gettext("_Normal Size"), "viewer.normal-size", "<Control>0")
-                        .item_accel(gettext("_Best Fit"), "viewer.best-fit", "<Control>period"),
-                ),
-        );
+    with!(gio::Menu {
+        Submenu::new(gettext("_File")) {
+            ViewerActions::Output::Close.menuitem(gettext("_Close"));
+        }
+        Submenu::new(gettext("_View")) {
+            ViewerActions::Output::DisplayMode(DisplayMode::Text).menuitem(gettext("_Text"));
+            ViewerActions::Output::DisplayMode(DisplayMode::FixedWidth)
+                .menuitem(gettext("_Fixed Width"));
+            ViewerActions::Output::DisplayMode(DisplayMode::Hexdump)
+                .menuitem(gettext("_Hexadecimal"));
+            ViewerActions::Output::DisplayMode(DisplayMode::Image).menuitem(gettext("_Image"));
+            MenuSection {
+                ViewerActions::Output::ZoomIn.menuitem(gettext("_Zoom In"));
+                ViewerActions::Output::ZoomOut.menuitem(gettext("_Zoom Out"));
+                ViewerActions::Output::ZoomNormal.menuitem(gettext("_Normal Size"));
+                ViewerActions::Output::ZoomBestFit.menuitem(gettext("_Best Fit"));
+            }
+        }
+        if matches!(
+            display_mode,
+            DisplayMode::Text | DisplayMode::FixedWidth | DisplayMode::Hexdump
+        ) {
+            Submenu::new(gettext("_Text")) {
+                ViewerActions::Output::CopySelection.menuitem(gettext("_Copy Text Selection"));
+                ViewerActions::Output::SelectAll.menuitem(gettext("_Select All"));
+                ViewerActions::Output::Find.menuitem(gettext("Find…"));
+                ViewerActions::Output::FindNext.menuitem(gettext("Find Next"));
+                ViewerActions::Output::FindPrevious.menuitem(gettext("Find Previous"));
+                MenuSection {
+                    ViewerActions::Output::ToggleWrapMode.menuitem(gettext("_Wrap lines"));
+                }
+                Submenu::new(gettext("_Encoding")) {
+                    ViewerActions::Output::Encoding("UTF8".to_owned()).menuitem(gettext("_UTF-8"));
+                    ViewerActions::Output::Encoding("ASCII".to_owned())
+                        .menuitem(gettext("English (US-_ASCII)"));
+                    ViewerActions::Output::Encoding("CP437".to_owned())
+                        .menuitem(gettext("Terminal (CP437)"));
+                    ViewerActions::Output::Encoding("ISO-8859-6".to_owned())
+                        .menuitem(gettext("Arabic (ISO-8859-6)"));
+                    ViewerActions::Output::Encoding("ARABIC".to_owned())
+                        .menuitem(gettext("Arabic (Windows, CP1256)"));
+                    ViewerActions::Output::Encoding("CP864".to_owned())
+                        .menuitem(gettext("Arabic (Dos, CP864)"));
+                    ViewerActions::Output::Encoding("ISO-8859-4".to_owned())
+                        .menuitem(gettext("Baltic (ISO-8859-4)"));
+                    ViewerActions::Output::Encoding("ISO-8859-2".to_owned())
+                        .menuitem(gettext("Central European (ISO-8859-2)"));
+                    ViewerActions::Output::Encoding("CP1250".to_owned())
+                        .menuitem(gettext("Central European (CP1250)"));
+                    ViewerActions::Output::Encoding("ISO-8859-5".to_owned())
+                        .menuitem(gettext("Cyrillic (ISO-8859-5)"));
+                    ViewerActions::Output::Encoding("CP1251".to_owned())
+                        .menuitem(gettext("Cyrillic (CP1251)"));
+                    ViewerActions::Output::Encoding("ISO-8859-7".to_owned())
+                        .menuitem(gettext("Greek (ISO-8859-7)"));
+                    ViewerActions::Output::Encoding("CP1253".to_owned())
+                        .menuitem(gettext("Greek (CP1253)"));
+                    ViewerActions::Output::Encoding("HEBREW".to_owned())
+                        .menuitem(gettext("Hebrew (Windows, CP1255)"));
+                    ViewerActions::Output::Encoding("CP862".to_owned())
+                        .menuitem(gettext("Hebrew (Dos, CP862)"));
+                    ViewerActions::Output::Encoding("ISO-8859-8".to_owned())
+                        .menuitem(gettext("Hebrew (ISO-8859-8)"));
+                    ViewerActions::Output::Encoding("ISO-8859-15".to_owned())
+                        .menuitem(gettext("Latin 9 (ISO-8859-15)"));
+                    ViewerActions::Output::Encoding("ISO-8859-3".to_owned())
+                        .menuitem(gettext("Maltese (ISO-8859-3)"));
+                    ViewerActions::Output::Encoding("ISO-8859-9".to_owned())
+                        .menuitem(gettext("Turkish (ISO-8859-9)"));
+                    ViewerActions::Output::Encoding("CP1254".to_owned())
+                        .menuitem(gettext("Turkish (CP1254)"));
+                    ViewerActions::Output::Encoding("CP1252".to_owned())
+                        .menuitem(gettext("Western (CP1252)"));
+                    ViewerActions::Output::Encoding("ISO-8859-1".to_owned())
+                        .menuitem(gettext("Western (ISO-8859-1)"));
+                }
+            }
+        } else {
+            Submenu::new(gettext("_Image")) {
+                ViewerActions::Output::ImageOp(ImageOperation::RotateClockwise)
+                    .menuitem(gettext("_Rotate Clockwise"));
+                ViewerActions::Output::ImageOp(ImageOperation::RotateCounterclockwise)
+                    .menuitem(gettext("Rotate Counter Clockwis_e"));
+                ViewerActions::Output::ImageOp(ImageOperation::RotateUpsideDown)
+                    .menuitem(gettext("Rotate 180°"));
+                ViewerActions::Output::ImageOp(ImageOperation::FlipVertical)
+                    .menuitem(gettext("Flip _Vertical"));
+                ViewerActions::Output::ImageOp(ImageOperation::FlipHorizontal)
+                    .menuitem(gettext("Flip _Horizontal"));
+            }
+        }
 
-    if matches!(
-        display_mode,
-        DisplayMode::Text | DisplayMode::FixedWidth | DisplayMode::Hexdump
-    ) {
-        menu = menu.submenu(
-            gettext("_Text"),
-            gio::Menu::new()
-                .item_accel(
-                    gettext("_Copy Text Selection"),
-                    "viewer.copy-text-selection",
-                    "<Control>C",
-                )
-                .item_accel(gettext("_Select All"), "viewer.select-all", "<Control>A")
-                .item_accel(gettext("Find…"), "viewer.find", "<Control>F")
-                .item_accel(gettext("Find Next"), "viewer.find-next", "F3")
-                .item_accel(
-                    gettext("Find Previous"),
-                    "viewer.find-previous",
-                    "<Shift>F3",
-                )
-                .section(gio::Menu::new().item_accel(
-                    gettext("_Wrap lines"),
-                    "viewer.wrap-lines",
-                    "<Control>W",
-                ))
-                .submenu(
-                    gettext("_Encoding"),
-                    gio::Menu::new()
-                        .item_accel(gettext("_UTF-8"), "viewer.encoding('UTF8')", "U")
-                        .item_accel(
-                            gettext("English (US-_ASCII)"),
-                            "viewer.encoding('ASCII')",
-                            "A",
-                        )
-                        .item_accel(gettext("Terminal (CP437)"), "viewer.encoding('CP437')", "Q")
-                        .item(
-                            gettext("Arabic (ISO-8859-6)"),
-                            "viewer.encoding('ISO-8859-6')",
-                        )
-                        .item(
-                            gettext("Arabic ( Windows, CP1256)"),
-                            "viewer.encoding('ARABIC')",
-                        )
-                        .item(gettext("Arabic (Dos, CP864)"), "viewer.encoding('CP864')")
-                        .item(
-                            gettext("Baltic (ISO-8859-4)"),
-                            "viewer.encoding('ISO-8859-4')",
-                        )
-                        .item(
-                            gettext("Central European (ISO-8859-2)"),
-                            "viewer.encoding('ISO-8859-2')",
-                        )
-                        .item(
-                            gettext("Central European (CP1250)"),
-                            "viewer.encoding('CP1250')",
-                        )
-                        .item(
-                            gettext("Cyrillic (ISO-8859-5)"),
-                            "viewer.encoding('ISO-8859-5')",
-                        )
-                        .item(gettext("Cyrillic (CP1251)"), "viewer.encoding('CP1251')")
-                        .item(
-                            gettext("Greek (ISO-8859-7)"),
-                            "viewer.encoding('ISO-8859-7')",
-                        )
-                        .item(gettext("Greek (CP1253)"), "viewer.encoding('CP1253')")
-                        .item(
-                            gettext("Hebrew (Windows, CP1255)"),
-                            "viewer.encoding('HEBREW')",
-                        )
-                        .item(gettext("Hebrew (Dos, CP862)"), "viewer.encoding('CP862')")
-                        .item(
-                            gettext("Hebrew (ISO-8859-8)"),
-                            "viewer.encoding('ISO-8859-8')",
-                        )
-                        .item(
-                            gettext("Latin 9 (ISO-8859-15)"),
-                            "viewer.encoding('ISO-8859-15')",
-                        )
-                        .item(
-                            gettext("Maltese (ISO-8859-3)"),
-                            "viewer.encoding('ISO-8859-3')",
-                        )
-                        .item(
-                            gettext("Turkish (ISO-8859-9)"),
-                            "viewer.encoding('ISO-8859-9')",
-                        )
-                        .item(gettext("Turkish (CP1254)"), "viewer.encoding('CP1254')")
-                        .item(gettext("Western (CP1252)"), "viewer.encoding('CP1252')")
-                        .item(
-                            gettext("Western (ISO-8859-1)"),
-                            "viewer.encoding('ISO-8859-1')",
-                        ),
-                ),
-        );
+        Submenu::new(gettext("_Settings")) {
+            ViewerActions::Output::ChooseFont.menuitem(gettext("_Font…"));
+            Submenu::new(gettext("Fixed _Width Mode")) {
+                ViewerActions::Output::CharsPerLine(20).menuitem(gettext("_20 chars/line"));
+                ViewerActions::Output::CharsPerLine(40).menuitem(gettext("_40 chars/line"));
+                ViewerActions::Output::CharsPerLine(80).menuitem(gettext("_80 chars/line"));
+                ViewerActions::Output::CharsPerLine(120).menuitem(gettext("_120 chars/line"));
+                ViewerActions::Output::CharsPerLine(160).menuitem(gettext("1_60 chars/line"));
+            }
+            MenuSection {
+                ViewerActions::Output::ToggleMetadata.menuitem(gettext("Show Metadata _Tags"));
+                ViewerActions::Output::ToggleHexOffset.menuitem(gettext("_Hexadecimal Offset"));
+            }
+        }
+
+        Submenu::new(gettext("_Help")) {
+            ViewerActions::Output::QuickHelp.menuitem(gettext("Quick _Help"));
+            ViewerActions::Output::KeyboardShortcuts.menuitem(gettext("_Keyboard Shortcuts"));
+        }
+    })
+}
+
+fn handle_write_result(result: WriteResult) {
+    if let Err(error) = result {
+        eprintln!("Failed saving option: {error}");
     }
-
-    if display_mode == DisplayMode::Image {
-        menu = menu.submenu(
-            gettext("_Image"),
-            gio::Menu::new()
-                .item_param_accel(
-                    gettext("_Rotate Clockwise"),
-                    "viewer.imageop",
-                    ImageOperation::RotateClockwise,
-                    "<Control>R",
-                )
-                .item_param(
-                    gettext("Rotate Counter Clockwis_e"),
-                    "viewer.imageop",
-                    ImageOperation::RotateCounterclockwise,
-                )
-                .item_param_accel(
-                    gettext("Rotate 180\u{00B0}"),
-                    "viewer.imageop",
-                    ImageOperation::RotateUpsideDown,
-                    "<Control><Shift>R",
-                )
-                .item_param(
-                    gettext("Flip _Vertical"),
-                    "viewer.imageop",
-                    ImageOperation::FlipVertical,
-                )
-                .item_param(
-                    gettext("Flip _Horizontal"),
-                    "viewer.imageop",
-                    ImageOperation::FlipHorizontal,
-                ),
-        );
-    }
-
-    menu.submenu(
-        gettext("_Settings"),
-        gio::Menu::new()
-            .item(gettext("_Font…"), "viewer.choose-font")
-            .submenu(
-                gettext("Fixed _Width Mode"),
-                gio::Menu::new()
-                    .item_accel(
-                        gettext("_20 chars/line"),
-                        "viewer.chars-per-line(20)",
-                        "<Control>2",
-                    )
-                    .item_accel(
-                        gettext("_40 chars/line"),
-                        "viewer.chars-per-line(40)",
-                        "<Control>4",
-                    )
-                    .item_accel(
-                        gettext("_80 chars/line"),
-                        "viewer.chars-per-line(80)",
-                        "<Control>8",
-                    )
-                    .item(gettext("_120 chars/line"), "viewer.chars-per-line(120)")
-                    .item(gettext("1_60 chars/line"), "viewer.chars-per-line(160)"),
-            )
-            .section(
-                gio::Menu::new()
-                    .item_accel(
-                        gettext("Show Metadata _Tags"),
-                        "viewer.metadata-visible",
-                        "T",
-                    )
-                    .item_accel(
-                        gettext("_Hexadecimal Offset"),
-                        "viewer.hexadecimal-offset",
-                        "<Control>D",
-                    ),
-            ),
-    )
-    .submenu(
-        gettext("_Help"),
-        gio::Menu::new()
-            .item_accel(gettext("Quick _Help"), "viewer.quick-help", "F1")
-            .item(gettext("_Keyboard Shortcuts"), "viewer.keyboard-shortcuts"),
-    )
 }

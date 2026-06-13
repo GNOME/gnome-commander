@@ -5,7 +5,7 @@
 use super::block::Block;
 use quote::{ToTokens, quote};
 use syn::{
-    Error, Expr, TypePath,
+    Error, Expr, Token, TypePath,
     parse::{Parse, ParseStream},
 };
 
@@ -31,15 +31,19 @@ impl ToTokens for WidgetSource {
 
 pub struct Widget {
     source: WidgetSource,
-    block: Block,
+    block: Option<Block>,
 }
 
 impl Parse for Widget {
     fn parse(input: ParseStream) -> Result<Self, Error> {
-        Ok(Self {
-            source: input.parse()?,
-            block: input.parse()?,
-        })
+        let source = input.parse()?;
+        let block = if input.peek(Token![;]) {
+            input.parse::<Token![;]>()?;
+            None
+        } else {
+            Some(input.parse()?)
+        };
+        Ok(Self { source, block })
     }
 }
 
