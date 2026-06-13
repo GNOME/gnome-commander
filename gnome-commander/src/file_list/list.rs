@@ -2609,8 +2609,8 @@ impl FileList {
         quick_search.grab_focus_without_selecting();
     }
 
-    pub fn update_style(&self) {
-        if let Some(main_win) = self.root().and_downcast::<MainWindow>()
+    pub fn update_style(&self, main_win: Option<&MainWindow>) {
+        if let Some(main_win) = main_win
             && main_win.color_themes().has_theme()
         {
             self.view().add_css_class("themed");
