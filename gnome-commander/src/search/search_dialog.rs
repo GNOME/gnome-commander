@@ -476,6 +476,8 @@ mod imp {
                 }
             ));
 
+            this.update_style();
+
             let options = GeneralOptions::instance();
             remember_window_size(
                 &*this,
@@ -824,6 +826,7 @@ impl SearchDialog {
     }
 
     pub fn update_style(&self) {
-        self.result_list().update_style();
+        self.result_list()
+            .update_style(self.imp().main_window.get());
     }
 }
