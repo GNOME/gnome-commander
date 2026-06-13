@@ -23,8 +23,8 @@ impl FileInputSource {
         let mmap = unsafe { Mmap::map(&file) };
         Ok(match mmap {
             Ok(mmap) => Self::Mmap(mmap),
-            Err(error) => {
-                debug!('v', "Cannot mmap a file '{}': {}", path.display(), error);
+            Err(_error) => {
+                debug!('v', "Cannot mmap a file '{}': {}", path.display(), _error);
                 Self::Buffer(Mutex::new(FileBuffer::new(file)))
             }
         })

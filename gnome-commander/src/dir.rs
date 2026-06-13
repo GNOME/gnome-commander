@@ -335,12 +335,12 @@ impl Directory {
         let files = files
             .into_iter()
             .filter_map(|file| {
-                let file_info = match file.query_info(
+                match file.query_info(
                     File::DEFAULT_ATTRIBUTES,
                     gio::FileQueryInfoFlags::NONE,
                     gio::Cancellable::NONE,
                 ) {
-                    Ok(file_info) => Some(file_info),
+                    Ok(file_info) => Some(File::new_from_file(file, &file_info)),
                     Err(_error) => {
                         debug!(
                             't',
@@ -349,8 +349,7 @@ impl Directory {
                         );
                         None
                     }
-                }?;
-                Some(File::new_from_file(file, &file_info))
+                }
             })
             .collect::<Vec<_>>();
 

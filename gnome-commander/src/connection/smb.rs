@@ -73,8 +73,7 @@ impl ConnectionInterface for ConnectionSmb {
         Box::pin(async move {
             let file = gio::File::for_uri(&self.create_uri(&self.base_path().unwrap_or_default()));
 
-            let uri_string = file.uri();
-            debug!('s', "Connecting to {}", uri_string);
+            debug!('s', "Connecting to {}", file.uri());
             match file
                 .query_info_future(
                     "standard::*",
