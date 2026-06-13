@@ -441,12 +441,17 @@ impl Directory {
         for (index, file) in self.files().iter().enumerate() {
             let uri = file.uri();
             if let Some(event) = queue.remove(&uri) {
-                if event == ChangeEvent::Deleted {
-                    remove.insert(uri, index);
-                } else if event == ChangeEvent::Changed {
-                    self.file_changed_impl(file);
+                match event {
+                    ChangeEvent::Deleted => {
+                        remove.insert(uri, index);
+                    }
+                    ChangeEvent::Changed => self.file_changed_impl(file),
+                    ChangeEvent::Created(..) => {
+                        // Created for a known file is probably a rename, treat is like Changed
+                        self.file_changed_impl(file);
+                    }
+                    ChangeEvent::None => {}
                 }
-                // Ignore ChangeEvent::Created for files we already know
             }
         }
 
