@@ -5,7 +5,7 @@
 
 use crate::{
     advanced_rename::advanced_rename_dialog::advanced_rename_dialog_show,
-    config::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_URL, PACKAGE_VERSION},
+    config::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_REVISION, PACKAGE_URL, PACKAGE_VERSION},
     connection::{
         Connection, ConnectionExt,
         bookmark::Bookmark,
@@ -1223,7 +1223,12 @@ Copyright \u{00A9} 2026 Wladimir Palant";
         .transient_for(&main_win)
         .modal(true)
         .name("Gnome Commander")
-        .version(PACKAGE_VERSION)
+        .version(
+            PACKAGE_REVISION
+                .map(|rev| format!("{PACKAGE_VERSION} {rev}"))
+                .as_deref()
+                .unwrap_or(PACKAGE_VERSION),
+        )
         .comments(gettext("A fast and powerful file manager"))
         .copyright(copyright)
         .license_type(gtk::License::Gpl30)
