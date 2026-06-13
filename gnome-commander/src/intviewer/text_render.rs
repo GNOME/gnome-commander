@@ -730,6 +730,36 @@ mod imp {
 
         fn motion_notify(&self, x: f64, y: f64) {
             if self.button.get().is_some() {
+                // If cursor is outside the text area: scroll towards it.
+                if let Some(hadjustment) = self.obj().hadjustment() {
+                    if x < 0.0 && hadjustment.value() > 0.0 {
+                        hadjustment.set_value(hadjustment.value() - hadjustment.page_increment());
+                    } else if x > f64::from(self.obj().width())
+                        && hadjustment.value() < hadjustment.upper()
+                    {
+                        hadjustment.set_value(hadjustment.value() + hadjustment.page_increment());
+                    }
+                }
+                if let Some(vadjustment) = self.obj().vadjustment() {
+                    if y < 0.0 && vadjustment.value() > 0.0 {
+                        let dp = self.data_presentation.borrow();
+                        vadjustment.set_value(dp.scroll_lines(
+                            &self.input_mode.borrow(),
+                            vadjustment.value() as u64,
+                            -1,
+                        ) as f64);
+                    } else if y > f64::from(self.obj().height())
+                        && vadjustment.value() < vadjustment.upper()
+                    {
+                        let dp = self.data_presentation.borrow();
+                        vadjustment.set_value(dp.scroll_lines(
+                            &self.input_mode.borrow(),
+                            vadjustment.value() as u64,
+                            1,
+                        ) as f64);
+                    }
+                }
+
                 let new_marker = match self.obj().display_mode() {
                     TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => {
                         self.text_mode_pixel_to_offset(x, y)
