@@ -15,6 +15,7 @@ pub const ICONS_PREFIX: &str = "/org/gnome/gnome-commander/icons";
 
 pub const PACKAGE_NAME: &str = env!("CARGO_PKG_NAME");
 pub const PACKAGE_VERSION: &str = env!("CARGO_PKG_VERSION");
+pub const PACKAGE_REVISION: Option<&str> = option_env!("GIT_REVISION");
 pub const PACKAGE_URL: &str = "https://gnome.pages.gitlab.gnome.org/gnome-commander/";
 pub const PACKAGE_BUGREPORT: &str = "https://gitlab.gnome.org/GNOME/gnome-commander/issues";
 

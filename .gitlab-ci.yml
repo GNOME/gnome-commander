@@ -34,7 +34,7 @@ create_portable:
   stage: build
   script:
     - mkdir ${PORTABLE_NAME}
-    - ./build_portable.py ${PORTABLE_NAME}.zip
+    - GIT_REVISION=${CI_COMMIT_SHORT_SHA} ./build_portable.py ${PORTABLE_NAME}.zip
     - unzip ${PORTABLE_NAME}.zip -d ${PORTABLE_NAME}
   artifacts:
     name: ${PORTABLE_NAME}
