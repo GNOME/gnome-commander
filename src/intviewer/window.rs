@@ -302,7 +302,7 @@ mod imp {
 
             window.connect_focus_widget_notify(|window| {
                 if gtk::prelude::GtkWindowExt::focus(window)
-                    .is_some_and(|widget| widget.widget_name() == "GtkPopoverMenuBarItem")
+                    .is_none_or(|widget| widget.widget_name() == "GtkPopoverMenuBarItem")
                 {
                     // Individual menu bar items should never be focused, return focus to the
                     // content area. This is quite a hack to compensate for Gtk's shortcomings but
