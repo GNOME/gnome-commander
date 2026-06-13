@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 project('gnome-commander', ['C', 'cpp', 'rust'],
-  version: '2.0.3',
+  version: '2.0.4',
   license: 'GPLv3',
   meson_version: '>= 0.59',
   default_options: ['cpp_std=c++17', 'build.cpp_std=c++17']
