@@ -471,7 +471,6 @@ mod imp {
                     }
                 }
             }
-            // self.obj().setup_current_font();
             if let Some(hadjustment) = self.obj().hadjustment() {
                 self.update_hadjustment_limits(&hadjustment);
                 hadjustment.set_value(0.0);

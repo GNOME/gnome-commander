@@ -3,7 +3,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::{dir::Directory, options::GeneralOptions, utils::ErrorMessage};
+use crate::{dir::Directory, utils::ErrorMessage};
 use futures::{
     future::{Either, select},
     stream::StreamExt,
@@ -16,7 +16,6 @@ use std::{
     ffi::OsString,
     path::{Path, PathBuf},
     rc::Rc,
-    time::Instant,
 };
 
 mod imp {
@@ -31,7 +30,6 @@ mod imp {
         pub file_info: RefCell<gio::FileInfo>,
         pub is_dotdot: Cell<bool>,
         pub parent_dir: RefCell<Option<Rc<WeakRef<Directory>>>>,
-        pub last_update: RefCell<Option<Instant>>,
     }
 
     #[glib::object_subclass]
@@ -45,7 +43,6 @@ mod imp {
                 file_info: RefCell::new(gio::FileInfo::new()),
                 is_dotdot: Default::default(),
                 parent_dir: Default::default(),
-                last_update: Default::default(),
             }
         }
     }
@@ -309,19 +306,6 @@ impl File {
             }
             gio::FileType::Regular => self.size(),
             _ => None,
-        }
-    }
-
-    pub fn needs_update(&self) -> bool {
-        let Some(last_update) = *self.imp().last_update.borrow() else {
-            return true;
-        };
-        let now = Instant::now();
-        if now.duration_since(last_update) > GeneralOptions::instance().gui_update_rate.get() {
-            self.imp().last_update.replace(Some(now));
-            true
-        } else {
-            false
         }
     }
 }

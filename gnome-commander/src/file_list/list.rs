@@ -1049,8 +1049,8 @@ mod imp {
             self.obj().emit_files_changed();
         }
 
-        fn on_dir_list_failed(&self, _dir: &Directory, error: &glib::Error) {
-            debug!('l', "on_dir_list_failed: {}", error);
+        fn on_dir_list_failed(&self, _dir: &Directory, _error: &glib::Error) {
+            debug!('l', "on_dir_list_failed: {}", _error);
         }
 
         fn on_directory_deleted(&self, dir: &Directory) {
@@ -1173,9 +1173,7 @@ mod imp {
         }
 
         pub fn update_file(&self, f: &File) {
-            if f.needs_update()
-                && let Some(item) = self.obj().get_row_from_file(f)
-            {
+            if let Some(item) = self.obj().get_row_from_file(f) {
                 item.update();
             }
         }
@@ -2431,9 +2429,9 @@ impl FileList {
 
     fn emit_files_changed(&self) {
         if !self.imp().will_emit_file_changes.replace(true) {
-            // Make sure we emit this signal at most once in 10ms
+            // Make sure we don't emit this signal too frequently
             glib::timeout_add_local_once(
-                Duration::from_millis(10),
+                GeneralOptions::instance().gui_update_rate.get(),
                 glib::clone!(
                     #[strong(rename_to = this)]
                     self,

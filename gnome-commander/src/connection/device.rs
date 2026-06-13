@@ -253,10 +253,10 @@ impl ConnectionInterface for ConnectionDevice {
         window: Option<gtk::Window>,
     ) -> Pin<Box<dyn Future<Output = Result<(), ErrorMessage>> + '_>> {
         Box::pin(async {
-            if let Err(error) = std::env::set_current_dir(glib::home_dir()) {
+            if let Err(_error) = std::env::set_current_dir(glib::home_dir()) {
                 debug!(
                     'm',
-                    "Could not go back to home directory before unmounting: {error}"
+                    "Could not go back to home directory before unmounting: {_error}"
                 );
             }
 

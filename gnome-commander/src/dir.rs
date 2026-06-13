@@ -8,13 +8,12 @@ use crate::{
     debug::debug,
     dirlist::list_directory,
     file::{File, FileOps},
+    options::GeneralOptions,
     utils::ErrorMessage,
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, glib::object::WeakRef, prelude::*, subclass::prelude::*};
-use std::{
-    cell::Ref, collections::HashMap, collections::HashSet, path::Path, rc::Rc, time::Duration,
-};
+use std::{cell::Ref, collections::HashMap, collections::HashSet, path::Path, rc::Rc};
 
 const SIGNAL_FILE_CREATED: &str = "file-created";
 const SIGNAL_FILES_DELETED: &str = "files-deleted";
@@ -336,12 +335,12 @@ impl Directory {
         let files = files
             .into_iter()
             .filter_map(|file| {
-                let file_info = match file.query_info(
+                match file.query_info(
                     File::DEFAULT_ATTRIBUTES,
                     gio::FileQueryInfoFlags::NONE,
                     gio::Cancellable::NONE,
                 ) {
-                    Ok(file_info) => Some(file_info),
+                    Ok(file_info) => Some(File::new_from_file(file, &file_info)),
                     Err(_error) => {
                         debug!(
                             't',
@@ -350,8 +349,7 @@ impl Directory {
                         );
                         None
                     }
-                }?;
-                Some(File::new_from_file(file, &file_info))
+                }
             })
             .collect::<Vec<_>>();
 
@@ -499,7 +497,7 @@ impl Directory {
 
         if is_first {
             glib::timeout_add_local_once(
-                Duration::from_millis(10),
+                GeneralOptions::instance().gui_update_rate.get(),
                 glib::clone!(
                     #[strong(rename_to = this)]
                     self,
