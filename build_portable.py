@@ -71,7 +71,6 @@ def run() -> None:
             GLOBAL_PLUGIN_DIR='../plugins',
             GLOBAL_SCHEMA_DIR='../settings',
             SETTINGS_KEYFILE='../settings/settings.ini',
-            RUSTFLAGS='-C link-args=-Wl,-rpath,$ORIGIN',
         )
     )
 
