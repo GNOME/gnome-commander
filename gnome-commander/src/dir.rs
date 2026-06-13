@@ -8,13 +8,12 @@ use crate::{
     debug::debug,
     dirlist::list_directory,
     file::{File, FileOps},
+    options::GeneralOptions,
     utils::ErrorMessage,
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, glib::object::WeakRef, prelude::*, subclass::prelude::*};
-use std::{
-    cell::Ref, collections::HashMap, collections::HashSet, path::Path, rc::Rc, time::Duration,
-};
+use std::{cell::Ref, collections::HashMap, collections::HashSet, path::Path, rc::Rc};
 
 const SIGNAL_FILE_CREATED: &str = "file-created";
 const SIGNAL_FILES_DELETED: &str = "files-deleted";
@@ -499,7 +498,7 @@ impl Directory {
 
         if is_first {
             glib::timeout_add_local_once(
-                Duration::from_millis(10),
+                GeneralOptions::instance().gui_update_rate.get(),
                 glib::clone!(
                     #[strong(rename_to = this)]
                     self,
