@@ -128,7 +128,7 @@ impl Searcher {
         let mut j = self.start_offset;
         let mut update_counter = update_interval;
 
-        j = j.saturating_sub(1);
+        j = j.checked_sub(1)?;
         while j >= m - 1 {
             let bytes = imd.bytes_backwards(j, m as usize);
             match self.bm.scan(&bytes) {
