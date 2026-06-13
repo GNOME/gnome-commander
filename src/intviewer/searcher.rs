@@ -136,7 +136,11 @@ impl Searcher {
                     return Some(j + 1);
                 }
                 Ok(ScanResult::NoMatch(advancement)) => {
-                    j = j.saturating_sub(advancement as u64);
+                    if let Some(new_position) = j.checked_sub(advancement as u64) {
+                        j = new_position;
+                    } else {
+                        break;
+                    }
                 }
                 _ => {
                     break;
