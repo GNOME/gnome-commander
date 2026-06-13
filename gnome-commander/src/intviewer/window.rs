@@ -53,14 +53,18 @@ u32_enum! {
 impl DisplayMode {
     pub fn guess(file: &File) -> Option<Self> {
         let content_type = file.content_type().map(|ct| ct.to_lowercase())?;
-        if content_type.starts_with("text/") {
-            Some(Self::Text)
-        } else if content_type.starts_with("image/") {
-            Some(Self::Image)
-        } else if content_type.starts_with("application/") {
-            Some(Self::FixedWidth)
-        } else {
-            None
+        match content_type.split_once('/')?.0 {
+            "text" => Some(Self::Text),
+            "image" => Some(Self::Image),
+            "audio" | "video" => Some(Self::FixedWidth),
+            "application" => {
+                if gio::content_type_is_a(&content_type, "text/plain") {
+                    Some(Self::Text)
+                } else {
+                    Some(Self::FixedWidth)
+                }
+            }
+            _ => None,
         }
     }
 }
