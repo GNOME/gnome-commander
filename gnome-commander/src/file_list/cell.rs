@@ -5,7 +5,7 @@
 
 use super::item::FileListItem;
 use super::list::apply_css;
-use gtk::{glib, prelude::*, subclass::prelude::*};
+use gtk::{glib, pango, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
@@ -52,8 +52,12 @@ mod imp {
             self.label.set_parent(&*this);
             self.label.set_hexpand(true);
             self.label.set_vexpand(true);
+            self.label.set_ellipsize(pango::EllipsizeMode::Middle);
 
             this.bind_property("text", &self.label, "label")
+                .sync_create()
+                .build();
+            this.bind_property("text", &self.label, "tooltip-text")
                 .sync_create()
                 .build();
             this.bind_property("xalign", &self.label, "xalign")
