@@ -128,13 +128,16 @@ impl Component for ViewerWindow {
             .add_controller(with!(gtk::ShortcutController {
                 .set_propagation_phase(gtk::PropagationPhase::Capture);
 
-                ViewerWindowActions::Output::Close.shortcut("<Control>W");
-                ViewerWindowActions::Output::Close.shortcut("Escape");
-                ViewerWindowActions::Output::Quit.shortcut("<Control>Q");
                 ViewerWindowActions::Output::NextTab.shortcut("<Control>ISO_Left_Tab");
                 ViewerWindowActions::Output::NextTab.shortcut("<Control>Tab");
                 ViewerWindowActions::Output::PreviousTab.shortcut("<Shift><Control>ISO_Left_Tab");
                 ViewerWindowActions::Output::PreviousTab.shortcut("<Shift><Control>Tab");
+            }));
+
+            .add_controller(with!(gtk::ShortcutController {
+                ViewerWindowActions::Output::Close.shortcut("<Control>W");
+                ViewerWindowActions::Output::Close.shortcut("Escape");
+                ViewerWindowActions::Output::Quit.shortcut("<Control>Q");
                 ViewerActions::Output::DisplayMode(DisplayMode::Text).shortcut("1");
                 ViewerActions::Output::DisplayMode(DisplayMode::FixedWidth).shortcut("2");
                 ViewerActions::Output::DisplayMode(DisplayMode::Hexdump).shortcut("3");
