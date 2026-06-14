@@ -22,4 +22,12 @@
     </foaf:Person>
   </maintainer>
 
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>GNOME Internationalisation Team</foaf:name>
+      <foaf:mbox rdf:resource="mailto:gnome-i18n@gnome.org" />
+      <gnome:userid>translations</gnome:userid>
+    </foaf:Person>
+  </maintainer>
+
 </Project>
