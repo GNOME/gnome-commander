@@ -6,11 +6,11 @@
 //! ### Internal Viewer
 //!
 //! This module contains all the functionality of the internal viewer. Normally, the entry point
-//! to the module’s functionality will be [`window::ViewerWindow`] which is the Gtk widget
-//! representing the viewer window. All other modules and types are meant to be used internally.
-//! How these play together:
+//! to the module’s functionality will be [`window::ViewerWindow`] (window containing any number of
+//! viewers) or [`viewer::Viewer`] (actual viewer component). All other modules and types are meant
+//! to be used internally. How these play together:
 //!
-//! * `window::ViewerWindow` can display either text content (Text, Fixed Width and Hexadecimal
+//! * `viewer::Viewer` can display either text content (Text, Fixed Width and Hexadecimal
 //!   modes) or images (Image mode). The former is handled by the [`text_render::TextRender`]
 //!   widget, the latter [`image_render::ImageRender`] widget. Both widgets are always present in
 //!   the viewer window but only one is visible at a time.
@@ -28,8 +28,8 @@
 //!     * [`data_presentation::DataPresentation`] somewhat abstracts away how bytes or characters
 //!       are mapped to lines depending on the selected viewer mode.
 //! * [`search_bar::SearchBar`] widget provides the user interface to enter text search parameters.
-//!   It also contains controls to initiate a search, but it merely passes on the signal to
-//!   `window::ViewerWindow`. The latter also has some ways of initiating a search such as
+//!   It also contains controls to initiate a search, but it merely produces a message for
+//!   `viewer::Viewer`. The latter also has some ways of initiating a search such as
 //!   keyboard shortcuts.
 //! * [`searcher::Searcher`] is the type tasked with performing a search. It will scan the file
 //!   starting from a given position forward or backward.
@@ -52,20 +52,17 @@
 //!
 //! #### Operational modes
 //!
-//! When text content is displayed, [`window::ViewerWindow`] and
+//! When text content is displayed, [`viewer::Viewer`] and
 //! [`data_presentation::DataPresentation`] have different means of representing the current
 //! operational mode. The mapping between the two is not entirely trivial.
 //!
-//! `window::ViewerWindow` represents operational mode in the same terms that are displayed to the
-//! user:
+//! `viewer::Viewer` represents operational mode in the same terms that are displayed to the user:
 //!
-//! * [`DisplayMode` enum](window::DisplayMode) which can take the values
-//!   `Text`, `FixedWidth` or `Hexdump` (as well as `Image` to display an image)
-//! * [`wrap_mode` setting](crate::options::ViewerOptions::wrap_mode), only considered in `Text`
-//!   mode
-//! * [`binary_bytes_per_line` setting](crate::options::ViewerOptions::binary_bytes_per_line), only
-//!   considered in `FixedWidth` mode. The setting name has historical reasons, it actually contains
-//!   a number of characters.
+//! * [`display_mode` setting](viewer::Viewer::display_mode()) which can take the values `Text`,
+//!   `FixedWidth` or `Hexdump` (as well as `Image` to display an image)
+//! * [`wrap_mode` setting](viewer::Viewer::wrap_mode()), only considered in `Text` mode
+//! * [`chars_per_line` setting](viewer::Viewer::update_chars_per_line()), only considered in
+//!   `FixedWidth` mode.
 //!
 //! `data_presentation::DataPresentation` uses different internal modes:
 //!
@@ -77,14 +74,14 @@
 //!   maximum number of characters to display in a line.
 //! * [`fixed_count`](data_presentation::DataPresentation::set_fixed_count) is used to determine
 //!   line wrapping in both `Fixed` and `Binary` mode. However, in `Fixed` mode it is a number of
-//!   *characters* (corresponds to viewer window’s `binary_bytes_per_line`) whereas in `Binary`
-//!   mode it is the number of *bytes* at which a line should be wrapped.
+//!   *characters* (corresponds to viewer window’s `chars_per_line`) whereas in `Binary` mode it is
+//!   the number of *bytes* at which a line should be wrapped.
 //!
 //! Note that the viewer’s `FixedWidth` mode always displays characters regardless of which data
 //! presentation mode it is mapped to, never bytes. So when the simpler logic of the data
 //! presentation’s `Binary` mode is used, `fixed_count` will be set to the number of bytes in
-//! `binary_bytes_per_line` characters, meaning that `binary_bytes_per_line` will be multiplied with
-//! the character length.
+//! `chars_per_line` characters, meaning that `chars_per_line` will be multiplied with the character
+//! length.
 //!
 //! The `Hexdump` mode on the other hand displays bytes. So `fixed_count` will always be set to 16
 //! here, representing the number of bytes shown in a hex dump line. The selected encoding is
@@ -100,4 +97,5 @@ pub mod input_modes;
 pub mod search_bar;
 pub mod searcher;
 pub mod text_render;
+pub mod viewer;
 pub mod window;
