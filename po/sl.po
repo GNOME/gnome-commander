@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
-"POT-Creation-Date: 2026-06-10 08:57+0000\n"
-"PO-Revision-Date: 2026-06-11 17:04+0200\n"
+"POT-Creation-Date: 2026-06-14 10:08+0000\n"
+"PO-Revision-Date: 2026-06-14 13:33+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 2.2.1\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
 #: data/org.gnome.gnome-commander.desktop.in:2 data/org.gnome.gnome-commander.metainfo.xml.in:16
@@ -1171,12 +1171,10 @@ msgid "Metadata of known plugins by their file name."
 msgstr "Metapodatki znanih vstavkov po imenu datotek."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1053
-#, fuzzy
 msgid "Persistent settings"
 msgstr "Trajne nastavitve"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1054
-#, fuzzy
 msgid "Settings persisted by the plugins."
 msgstr "Nastavitve, trajne za vstavke."
 
@@ -1244,7 +1242,7 @@ msgstr "Rezultati"
 #: gnome-commander/src/dialogs/profiles/edit_profile_dialog.rs:55
 #: gnome-commander/src/dialogs/profiles/manage_profiles_dialog.rs:215
 #: gnome-commander/src/dialogs/remote_dialog.rs:151 gnome-commander/src/dialogs/shortcuts_dialog/mod.rs:156
-#: gnome-commander/src/intviewer/window.rs:1128 gnome-commander/src/main_win.rs:1497
+#: gnome-commander/src/intviewer/window.rs:616 gnome-commander/src/main_win.rs:1497
 #: gnome-commander/src/search/search_dialog.rs:402
 msgid "_Help"
 msgstr "Pomo_č"
@@ -1258,7 +1256,7 @@ msgstr "Ponastavi"
 #: gnome-commander/src/dialogs/about_plugin.rs:117
 #: gnome-commander/src/dialogs/manage_bookmarks_dialog.rs:200
 #: gnome-commander/src/dialogs/options/edit_colors_dialog.rs:170
-#: gnome-commander/src/dialogs/remote_dialog.rs:163 gnome-commander/src/intviewer/window.rs:919
+#: gnome-commander/src/dialogs/remote_dialog.rs:163 gnome-commander/src/intviewer/window.rs:506
 #: gnome-commander/src/plugins/manager.rs:57 gnome-commander/src/search/search_dialog.rs:416
 msgid "_Close"
 msgstr "_Zapri"
@@ -1268,23 +1266,23 @@ msgid "_Apply"
 msgstr "_Uveljavi"
 
 #: gnome-commander/src/advanced_rename/advanced_rename_dialog.rs:787
-#: gnome-commander/src/search/search_dialog.rs:549
+#: gnome-commander/src/search/search_dialog.rs:551
 msgid "New profile"
 msgstr "Nov profil"
 
 #: gnome-commander/src/advanced_rename/advanced_rename_dialog.rs:797
 #: gnome-commander/src/advanced_rename/advanced_rename_dialog.rs:822
-#: gnome-commander/src/search/search_dialog.rs:557
+#: gnome-commander/src/search/search_dialog.rs:559
 msgid "Profiles"
 msgstr "Profili"
 
 #: gnome-commander/src/advanced_rename/advanced_rename_dialog.rs:1043
-#: gnome-commander/src/search/search_dialog.rs:505
+#: gnome-commander/src/search/search_dialog.rs:507
 msgid "_Save Profile As…"
 msgstr "_Shrani profil kot …"
 
 #: gnome-commander/src/advanced_rename/advanced_rename_dialog.rs:1050
-#: gnome-commander/src/search/search_dialog.rs:514
+#: gnome-commander/src/search/search_dialog.rs:516
 msgid "_Manage Profiles…"
 msgstr "_Upravljaj profile …"
 
@@ -1653,17 +1651,14 @@ msgid "Specify the start directory for the right panel"
 msgstr "Določite začetno mapo za desno podokno"
 
 #: gnome-commander/src/application.rs:246
-#, rust-format
 msgid "Failed to create the directory {directory}: {error}"
 msgstr "Ustvarjanje mape {directory} je spodletelo: {error}"
 
 #: gnome-commander/src/app.rs:62 gnome-commander/src/open_file.rs:168
-#, rust-format
 msgid "Launch of {} failed."
 msgstr "Zagon {} ni uspel."
 
 #: gnome-commander/src/app.rs:139
-#, rust-format
 msgid "Cannot launch an app {}. No files were given."
 msgstr "Programa {} ni mogoče zagnati. Datoteke niso bile podane."
 
@@ -1703,11 +1698,11 @@ msgstr "Pogled besedila:"
 msgid "Number view:"
 msgstr "Pogled številk:"
 
-#: gnome-commander/src/command_line.rs:62 gnome-commander/src/user_actions.rs:1749
+#: gnome-commander/src/command_line.rs:62 gnome-commander/src/user_actions.rs:1754
 msgid "_Copy"
 msgstr "_Kopiraj"
 
-#: gnome-commander/src/command_line.rs:63 gnome-commander/src/user_actions.rs:1755
+#: gnome-commander/src/command_line.rs:63 gnome-commander/src/user_actions.rs:1760
 msgid "_Paste"
 msgstr "_Prilepi"
 
@@ -1725,7 +1720,6 @@ msgstr "Če izvedete ukaz, se bo izhod pojavil tukaj."
 
 #: gnome-commander/src/connection/device.rs:174 gnome-commander/src/connection/device.rs:188
 #: gnome-commander/src/connection/device.rs:218 gnome-commander/src/connection/device.rs:240
-#, rust-format
 msgid "Unable to mount the volume {}"
 msgstr "Nosilca {} ni mogoče priklopiti"
 
@@ -1738,22 +1732,18 @@ msgid "Mounting %s"
 msgstr "Priklop %s"
 
 #: gnome-commander/src/connection/device.rs:323
-#, rust-format
 msgid "Go to: {device_name} ({mount_point})"
 msgstr "Pojdi na: {device_name} ({mount_point})"
 
 #: gnome-commander/src/connection/device.rs:326
-#, rust-format
 msgid "Go to: {device_name}"
 msgstr "Pojdi na: {device_name}"
 
 #: gnome-commander/src/connection/device.rs:331
-#, rust-format
 msgid "Mount: {device_name}"
 msgstr "Priklopi: {device_name}"
 
 #: gnome-commander/src/connection/device.rs:335
-#, rust-format
 msgid "Unmount: {device_name}"
 msgstr "Odklopi: {device_name}"
 
@@ -1779,7 +1769,6 @@ msgid "Mount failed: no medium found"
 msgstr "Priklop je spodletel: nosilca ni mogoče najti"
 
 #: gnome-commander/src/connection/device.rs:455
-#, rust-format
 msgid "Mount failed: mount exited with exitstatus {}"
 msgstr "Priklop je spodletel: priklop zaključen s stanjem izhoda {}"
 
@@ -1788,7 +1777,6 @@ msgid "Mount failed: mount exited without an exitstatus"
 msgstr "Priklop je spodletel: priklop zaključen brez stanja izhoda"
 
 #: gnome-commander/src/connection/device.rs:471
-#, rust-format
 msgid "Unmount failed: umount exited with exitstatus {}"
 msgstr "Priklop je spodletel: odklop umount zaključen s stanjem izhoda {}"
 
@@ -1821,22 +1809,18 @@ msgid "Disconnect error"
 msgstr "Napaka prekinjanja povezave"
 
 #: gnome-commander/src/connection/remote.rs:220
-#, rust-format
 msgid "Connecting to {hostname}"
 msgstr "Povezovanje z {hostname}"
 
 #: gnome-commander/src/connection/remote.rs:226
-#, rust-format
 msgid "Go to: {connection}"
 msgstr "Pojdi na: {connection}"
 
 #: gnome-commander/src/connection/remote.rs:230
-#, rust-format
 msgid "Connect to: {connection}"
 msgstr "Poveži se z: {connection}"
 
 #: gnome-commander/src/connection/remote.rs:234
-#, rust-format
 msgid "Disconnect from: {connection}"
 msgstr "Prekini povezavo z: {connection}"
 
@@ -1852,15 +1836,15 @@ msgstr "Zapre oddaljeno povezavo z %s"
 msgid "SMB"
 msgstr "SMB"
 
-#: gnome-commander/src/connection/smb.rs:88
+#: gnome-commander/src/connection/smb.rs:87
 msgid "Failed to browse the network. Is Samba supported on the system?"
 msgstr "Brskanje po omrežju je spodletelo. Ali sistem podpira možnosti Sambe?"
 
-#: gnome-commander/src/connection/smb.rs:136
+#: gnome-commander/src/connection/smb.rs:135
 msgid "Searching for workgroups and hosts"
 msgstr "Iskanje delovnih skupin in gostiteljev"
 
-#: gnome-commander/src/connection/smb.rs:140
+#: gnome-commander/src/connection/smb.rs:139
 msgid "Go to: Samba Network"
 msgstr "Skoči na: samba omrežje"
 
@@ -1881,7 +1865,6 @@ msgid "Translated by"
 msgstr "Prevod"
 
 #: gnome-commander/src/dialogs/chmod_dialog.rs:33
-#, rust-format
 msgid "Could not chmod {}"
 msgstr "Ni možno spremeniti lastnosti {} s chmod"
 
@@ -1906,7 +1889,6 @@ msgid "C_hange Permissions"
 msgstr "Spremeni d_ovoljenja"
 
 #: gnome-commander/src/dialogs/chown_dialog.rs:28
-#, rust-format
 msgid "Could not chown {}"
 msgstr "Ni možno spremeniti lastništva {} s chown"
 
@@ -1935,7 +1917,6 @@ msgid "You must enter a number for the port"
 msgstr "Vnesti morate številko vrat"
 
 #: gnome-commander/src/dialogs/connect_dialog.rs:93
-#, rust-format
 msgid "“{}” is not a valid location"
 msgstr "»{}« ni veljavno mesto"
 
@@ -2048,7 +2029,6 @@ msgid "Deleting…"
 msgstr "Poteka brisanje …"
 
 #: gnome-commander/src/dialogs/delete_dialog.rs:143
-#, rust-format
 msgid "Deleted {count} of {total} file"
 msgid_plural "Deleted {count} of {total} files"
 msgstr[0] "Izbrisanih {count} od {total} datotek"
@@ -2057,12 +2037,10 @@ msgstr[2] "Izbrisani {count} od {total} datotek"
 msgstr[3] "Izbrisane {count} od {total} datotek"
 
 #: gnome-commander/src/dialogs/delete_dialog.rs:166
-#, rust-format
 msgid "The directory “{}” is not empty. Do you really want to delete it?"
 msgstr "Mapa »{}« ni prazna. Ali jo res želite izbrisati?"
 
 #: gnome-commander/src/dialogs/delete_dialog.rs:169
-#, rust-format
 msgid "Do you really want to delete “{}”?"
 msgstr "Ali res želite izbrisati »{}«?"
 
@@ -2096,7 +2074,6 @@ msgid "Delete"
 msgstr "Izbriši"
 
 #: gnome-commander/src/dialogs/delete_dialog.rs:206
-#, rust-format
 msgid "Error while deleting “{file}”"
 msgstr "Napaka pri brisanju »{file}«"
 
@@ -2117,12 +2094,10 @@ msgid "Retry"
 msgstr "Poskusi znova"
 
 #: gnome-commander/src/dialogs/delete_dialog.rs:474
-#, rust-format
 msgid "Do you want to permanently delete “{}”?"
 msgstr "Ali želite trajno izbrisati »{}«?"
 
 #: gnome-commander/src/dialogs/delete_dialog.rs:477
-#, rust-format
 msgid "Do you want to move “{}” to the trash can?"
 msgstr "Ali želite premakniti »{}« v koš?"
 
@@ -2262,7 +2237,6 @@ msgid "Copy File"
 msgstr "Kopiraj datoteko"
 
 #: gnome-commander/src/dialogs/make_copy_dialog.rs:38 gnome-commander/src/dialogs/prepare_copy_dialog.rs:34
-#, rust-format
 msgid "Copy “{}” to"
 msgstr "Kopirajte »{}« v"
 
@@ -2722,7 +2696,7 @@ msgstr "Enojni klik odstrani izbor"
 msgid "Middle mouse button"
 msgstr "Srednji gumb miške"
 
-#: gnome-commander/src/dialogs/options/general_tab.rs:96 gnome-commander/src/user_actions.rs:1841
+#: gnome-commander/src/dialogs/options/general_tab.rs:96 gnome-commander/src/user_actions.rs:1846
 msgid "Up one directory"
 msgstr "Odpre mapo višje"
 
@@ -2763,7 +2737,7 @@ msgid "Sorting"
 msgstr "Razvrščanje"
 
 #: gnome-commander/src/dialogs/options/general_tab.rs:149 gnome-commander/src/file_list/quick_search.rs:83
-#: gnome-commander/src/intviewer/search_bar.rs:52
+#: gnome-commander/src/intviewer/search_bar.rs:290
 #: gnome-commander/src/search/selection_profile_component.rs:45
 #: gnome-commander/src/search/selection_profile_component.rs:58
 msgid "Case sensitive"
@@ -3080,7 +3054,6 @@ msgid "Bad expression"
 msgstr "Napačen izraz"
 
 #: gnome-commander/src/dialogs/prepare_copy_dialog.rs:36
-#, rust-format
 msgid "copy {} file to"
 msgid_plural "copy {} files to"
 msgstr[0] "kopiraj {} datotek v"
@@ -3102,12 +3075,10 @@ msgid "_Move"
 msgstr "Pre_makni"
 
 #: gnome-commander/src/dialogs/prepare_move_dialog.rs:34
-#, rust-format
 msgid "Move “{}” to"
 msgstr "Premakni »{}« v"
 
 #: gnome-commander/src/dialogs/prepare_move_dialog.rs:36
-#, rust-format
 msgid "move {} file to"
 msgid_plural "move {} files to"
 msgstr[0] "premakni {} datotek v"
@@ -3116,12 +3087,10 @@ msgstr[2] "premakni {} datoteki v"
 msgstr[3] "premakni {} datoteke v"
 
 #: gnome-commander/src/dialogs/prepare_transfer_dialog.rs:184
-#, rust-format
 msgid "The directory “{}” doesn’t exist, do you want to create it?"
 msgstr "Mapa »{}« ne obstaja, jo želite ustvariti?"
 
 #: gnome-commander/src/dialogs/prepare_transfer_dialog.rs:435
-#, rust-format
 msgid "Directory {} cannot be created."
 msgstr "Mape {} ni mogoče ustvariti."
 
@@ -3176,12 +3145,10 @@ msgid "Edit Shortcut"
 msgstr "Dodaj tipkovno bližnjico"
 
 #: gnome-commander/src/dialogs/shortcuts_dialog/capture.rs:92
-#, rust-format
 msgid "Enter a shortcut to replace “{shortcut}” for action “{action}.”"
 msgstr "Vnesite tipkovno bližnjico, da zamenjate »{shortcut}« za dejanje »{action}«."
 
 #: gnome-commander/src/dialogs/shortcuts_dialog/capture.rs:96
-#, rust-format
 msgid "Enter a new shortcut for action “{action}.”"
 msgstr "Vnesite novo tipkovno bližnjico za dejanje »{action}«."
 
@@ -3213,7 +3180,6 @@ msgstr ""
 "tipko za bližnjico."
 
 #: gnome-commander/src/dialogs/shortcuts_dialog/capture.rs:246
-#, rust-format
 msgid "Shortcut “{shortcut}” cannot be reconfigured."
 msgstr "Tipkovne bližnjice »{shortcut}« ni možno ponovno prilagoditi."
 
@@ -3242,12 +3208,10 @@ msgid "Plugins"
 msgstr "Vstavki"
 
 #: gnome-commander/src/dialogs/shortcuts_dialog/mod.rs:647
-#, rust-format
 msgid "Shortcut “{shortcut}” is already taken by “{action}”."
 msgstr "Tipkovna bližnjica »{shortcut}« se že uporablja za »{action}«."
 
 #: gnome-commander/src/dialogs/shortcuts_dialog/mod.rs:652
-#, rust-format
 msgid "Reassigning the shortcut will cause it to be removed from “{action}”."
 msgstr "Če bližnjico znova dodelite, bo odvzeta »{action}«."
 
@@ -3260,18 +3224,17 @@ msgid "Progress"
 msgstr "Napredek"
 
 #: gnome-commander/src/dialogs/transfer_progress_dialog.rs:138
-#, rust-format
 msgctxt "size copied"
 msgid "{copied} of {total} copied"
 msgstr "kopirano {copied} od {total}"
 
 #: gnome-commander/src/dialogs/transfer_progress_dialog.rs:144
-#, no-c-format, rust-format
+#, no-c-format
 msgctxt "percentage copied"
 msgid "{}% copied"
 msgstr "Kopirano {}% c"
 
-#: gnome-commander/src/dir.rs:278
+#: gnome-commander/src/dir.rs:277
 msgid "Directory listing failed."
 msgstr "Izpis map ni uspel."
 
@@ -3280,7 +3243,6 @@ msgid "Not an ordinary file."
 msgstr "Ni običajna datoteka."
 
 #: gnome-commander/src/file_list/actions.rs:38 gnome-commander/src/open_file.rs:58
-#, rust-format
 msgid ""
 "{} does not know how to open remote file. Do you want to download the file to a temporary location and "
 "then open it?"
@@ -3312,35 +3274,35 @@ msgstr "Prenos ni uspel."
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Ni mogoče pridobiti vrste MIME za datoteko."
 
-#: gnome-commander/src/file_list/list.rs:371 gnome-commander/src/file_list/list.rs:1894
+#: gnome-commander/src/file_list/list.rs:371 gnome-commander/src/file_list/list.rs:1892
 msgid "name"
 msgstr "ime"
 
-#: gnome-commander/src/file_list/list.rs:377 gnome-commander/src/file_list/list.rs:1895
+#: gnome-commander/src/file_list/list.rs:377 gnome-commander/src/file_list/list.rs:1893
 msgid "ext"
 msgstr "pri"
 
-#: gnome-commander/src/file_list/list.rs:383 gnome-commander/src/file_list/list.rs:1896
+#: gnome-commander/src/file_list/list.rs:383 gnome-commander/src/file_list/list.rs:1894
 msgid "dir"
 msgstr "mapa"
 
-#: gnome-commander/src/file_list/list.rs:389 gnome-commander/src/file_list/list.rs:1897
+#: gnome-commander/src/file_list/list.rs:389 gnome-commander/src/file_list/list.rs:1895
 msgid "size"
 msgstr "velikost"
 
-#: gnome-commander/src/file_list/list.rs:395 gnome-commander/src/file_list/list.rs:1898
+#: gnome-commander/src/file_list/list.rs:395 gnome-commander/src/file_list/list.rs:1896
 msgid "date"
 msgstr "datum"
 
-#: gnome-commander/src/file_list/list.rs:401 gnome-commander/src/file_list/list.rs:1899
+#: gnome-commander/src/file_list/list.rs:401 gnome-commander/src/file_list/list.rs:1897
 msgid "perm"
 msgstr "dov"
 
-#: gnome-commander/src/file_list/list.rs:407 gnome-commander/src/file_list/list.rs:1900
+#: gnome-commander/src/file_list/list.rs:407 gnome-commander/src/file_list/list.rs:1898
 msgid "uid"
 msgstr "uid"
 
-#: gnome-commander/src/file_list/list.rs:413 gnome-commander/src/file_list/list.rs:1901
+#: gnome-commander/src/file_list/list.rs:413 gnome-commander/src/file_list/list.rs:1899
 msgid "gid"
 msgstr "gid"
 
@@ -3348,49 +3310,44 @@ msgstr "gid"
 msgid "Loading…"
 msgstr "Nalaganje …"
 
-#: gnome-commander/src/file_list/list.rs:1703
+#: gnome-commander/src/file_list/list.rs:1701
 msgid "_Copy here"
 msgstr "_Kopiraj sem"
 
-#: gnome-commander/src/file_list/list.rs:1708
+#: gnome-commander/src/file_list/list.rs:1706
 msgid "_Move here"
 msgstr "_Premakni sem"
 
-#: gnome-commander/src/file_list/list.rs:1713
+#: gnome-commander/src/file_list/list.rs:1711
 msgid "_Link here"
 msgstr "_Poveži sem"
 
-#: gnome-commander/src/file_list/list.rs:1719
+#: gnome-commander/src/file_list/list.rs:1717
 msgid "C_ancel"
 msgstr "Pre_kliči"
 
-#: gnome-commander/src/file_list/list.rs:2520
-#, rust-format
+#: gnome-commander/src/file_list/list.rs:2518
 msgid "Selected: {selected_bytes} of {total_bytes}."
 msgstr "Izbranih {selected_bytes} od {total_bytes}."
 
-#: gnome-commander/src/file_list/list.rs:2527
-#, rust-format
+#: gnome-commander/src/file_list/list.rs:2525
 msgid "Files: {selected_files} of {total_files}."
 msgstr "Datoteke: {selected_files} od {total_files}."
 
-#: gnome-commander/src/file_list/list.rs:2531
-#, rust-format
+#: gnome-commander/src/file_list/list.rs:2529
 msgid "Directories: {selected_dirs} of {total_dirs}."
 msgstr "Mape: {selected_dirs} od {total_dirs}."
 
-#: gnome-commander/src/file_list/list.rs:2575
-#, rust-format
+#: gnome-commander/src/file_list/list.rs:2573
 msgid "Cannot rename a file to {new_name}"
 msgstr "Datoteke ni mogoče preimenovati v {new_name}"
 
-#: gnome-commander/src/file_list/list.rs:3122
+#: gnome-commander/src/file_list/list.rs:3120
 msgid "<DIR>"
 msgstr "<MAPA>"
 
 #. Add the default "Open" menu entry at the top of the popup
 #: gnome-commander/src/file_list/popup.rs:65
-#, rust-format
 msgid "_Open with “{}”"
 msgstr "_Odpri s programom »{}«"
 
@@ -3423,8 +3380,7 @@ msgstr "Vrednost"
 msgid "Description"
 msgstr "Opis"
 
-#: gnome-commander/src/file.rs:101
-#, rust-format
+#: gnome-commander/src/file.rs:98
 msgid "Failed to get file info for {path}."
 msgstr "Pridobivanje podatkov o datoteki za {path} ni uspelo."
 
@@ -3452,7 +3408,7 @@ msgstr "Zavihek je zaklenjen; naj se vseeno zapre?"
 msgid "C_lose Tab"
 msgstr "_Zapri zavihek"
 
-#: gnome-commander/src/file_selector.rs:1666 gnome-commander/src/user_actions.rs:1931
+#: gnome-commander/src/file_selector.rs:1666 gnome-commander/src/user_actions.rs:1936
 msgid "Open in New _Tab"
 msgstr "Odpri v novem _zavihku"
 
@@ -3472,11 +3428,11 @@ msgstr "O_sveži zavihek"
 msgid "Copy Tab to Other _Panel"
 msgstr "Kopiraj zavihek v drugo _ploščo"
 
-#: gnome-commander/src/file_selector.rs:1704 gnome-commander/src/user_actions.rs:1937
+#: gnome-commander/src/file_selector.rs:1704 gnome-commander/src/user_actions.rs:1942
 msgid "_Close Tab"
 msgstr "_Zapri zavihek"
 
-#: gnome-commander/src/file_selector.rs:1708 gnome-commander/src/user_actions.rs:1943
+#: gnome-commander/src/file_selector.rs:1708 gnome-commander/src/user_actions.rs:1948
 msgid "Close _All Tabs"
 msgstr "Zapri _vse zavihke"
 
@@ -3488,304 +3444,263 @@ msgstr "Zapri po_dvojene zavihke"
 msgid "Failed to download a file"
 msgstr "Prejem datoteke ni uspel"
 
-#: gnome-commander/src/intviewer/search_bar.rs:48
-msgid "Stop"
-msgstr "Ustavi"
-
-#: gnome-commander/src/intviewer/search_bar.rs:57
-msgid "Hexadecimal"
-msgstr "Šestnajstiško"
-
-#: gnome-commander/src/intviewer/search_bar.rs:79 gnome-commander/src/search/search_dialog.rs:342
+#: gnome-commander/src/intviewer/search_bar.rs:241 gnome-commander/src/search/search_dialog.rs:342
 msgid "Search…"
 msgstr "Poišči …"
 
-#: gnome-commander/src/intviewer/search_bar.rs:110
+#: gnome-commander/src/intviewer/search_bar.rs:265
 msgid "Previous Match"
 msgstr "Prejšnji zadetek"
 
-#: gnome-commander/src/intviewer/search_bar.rs:124
+#: gnome-commander/src/intviewer/search_bar.rs:273
 msgid "Next Match"
 msgstr "Naslednji zadetek"
 
-#: gnome-commander/src/intviewer/search_bar.rs:190
+#: gnome-commander/src/intviewer/search_bar.rs:282
+msgid "Stop"
+msgstr "Ustavi"
+
+#: gnome-commander/src/intviewer/search_bar.rs:297
+msgid "Hexadecimal"
+msgstr "Šestnajstiško"
+
+#: gnome-commander/src/intviewer/search_bar.rs:307
 msgid "Invalid hexadecimal pattern"
 msgstr "Neveljaven šestnajstiški vzorec"
 
-#: gnome-commander/src/intviewer/search_bar.rs:194
+#: gnome-commander/src/intviewer/search_bar.rs:311
 msgid "Not found"
 msgstr "Ni zadetkov"
 
-#: gnome-commander/src/intviewer/search_bar.rs:198
+#: gnome-commander/src/intviewer/search_bar.rs:315
 msgid "Cannot translate into text encoding"
 msgstr "Ni nožno prevesti v kodiranje besedila"
 
-#: gnome-commander/src/intviewer/window.rs:447
-#, rust-format
-msgid "Position: {offset} of {size}"
-msgstr "Položaj: {offset} / {size}"
-
-#: gnome-commander/src/intviewer/window.rs:452
-#, rust-format
-msgid "Column: {}"
-msgstr "Stolpec: {}"
-
-#: gnome-commander/src/intviewer/window.rs:457
-msgid "Wrap"
-msgstr "Prelomi"
-
-#: gnome-commander/src/intviewer/window.rs:469
-msgid "Could not recognize the image file format"
-msgstr "Ni možno prepoznati vrste zapisa slikovne datoteke"
-
-#: gnome-commander/src/intviewer/window.rs:478
-#, rust-format
-msgid "{width} x {height} pixel"
-msgid_plural "{width} x {height} pixels"
-msgstr[0] "{width} x {height} sl. točk"
-msgstr[1] "{width} x {height} sl. točka"
-msgstr[2] "{width} x {height} sl. točki"
-msgstr[3] "{width} x {height} sl. točke"
-
-#: gnome-commander/src/intviewer/window.rs:485
-#, rust-format
-msgid "{} bit/sample"
-msgid_plural "{} bits/sample"
-msgstr[0] "{} bitov/vzorec"
-msgstr[1] "{} bit/vzorec"
-msgstr[2] "{} bita/vzorec"
-msgstr[3] "{} biti/vzorec"
-
-#: gnome-commander/src/intviewer/window.rs:494
-msgid "(fit to window)"
-msgstr "(prilagodi oknu)"
-
-#: gnome-commander/src/intviewer/window.rs:843
-msgid "_Copy Selection"
-msgstr "_Kopiraj izbor"
-
-#: gnome-commander/src/intviewer/window.rs:844 gnome-commander/src/intviewer/window.rs:969
-#: gnome-commander/src/user_actions.rs:1682
-msgid "_Select All"
-msgstr "Izberi _vse"
-
-#: gnome-commander/src/intviewer/window.rs:853 gnome-commander/src/intviewer/window.rs:1059
-msgid "_Rotate Clockwise"
-msgstr "_Zasukaj v smeri urinega kazalca"
-
-#: gnome-commander/src/intviewer/window.rs:858 gnome-commander/src/intviewer/window.rs:1065
-msgid "Rotate Counter Clockwis_e"
-msgstr "Zasukaj v obratni smeri urinega kazalca"
-
-#: gnome-commander/src/intviewer/window.rs:863 gnome-commander/src/intviewer/window.rs:1070
-msgid "Rotate 180°"
-msgstr "Zasukaj za 180°"
-
-#: gnome-commander/src/intviewer/window.rs:868 gnome-commander/src/intviewer/window.rs:1076
-msgid "Flip _Vertical"
-msgstr "Obrni _navpično"
-
-#: gnome-commander/src/intviewer/window.rs:873 gnome-commander/src/intviewer/window.rs:1081
-msgid "Flip _Horizontal"
-msgstr "Obrni _vodoravno"
-
-#: gnome-commander/src/intviewer/window.rs:918 gnome-commander/src/main_win.rs:1352
+#: gnome-commander/src/intviewer/window.rs:505 gnome-commander/src/main_win.rs:1352
 msgid "_File"
 msgstr "_Datoteka"
 
-#: gnome-commander/src/intviewer/window.rs:922 gnome-commander/src/main_win.rs:1405
+#: gnome-commander/src/intviewer/window.rs:507
+msgid "_Quit"
+msgstr "_Izhod"
+
+#: gnome-commander/src/intviewer/window.rs:509 gnome-commander/src/main_win.rs:1405
 msgid "_View"
 msgstr "Po_gled"
 
-#: gnome-commander/src/intviewer/window.rs:925 gnome-commander/src/intviewer/window.rs:962
+#: gnome-commander/src/intviewer/window.rs:510 gnome-commander/src/intviewer/window.rs:531
 msgid "_Text"
 msgstr "_Besedilo"
 
-#: gnome-commander/src/intviewer/window.rs:931
+#: gnome-commander/src/intviewer/window.rs:512
 msgid "_Fixed Width"
 msgstr "_Nespremenljiva širina"
 
-#: gnome-commander/src/intviewer/window.rs:937
+#: gnome-commander/src/intviewer/window.rs:514
 msgid "_Hexadecimal"
 msgstr "_Šestnajstiško"
 
-#: gnome-commander/src/intviewer/window.rs:943 gnome-commander/src/intviewer/window.rs:1056
+#: gnome-commander/src/intviewer/window.rs:515 gnome-commander/src/intviewer/window.rs:587
 msgid "_Image"
 msgstr "_Slika"
 
-#: gnome-commander/src/intviewer/window.rs:950
+#: gnome-commander/src/intviewer/window.rs:517
 msgid "_Zoom In"
 msgstr "_Približaj"
 
-#: gnome-commander/src/intviewer/window.rs:951
+#: gnome-commander/src/intviewer/window.rs:518
 msgid "_Zoom Out"
 msgstr "_Oddalji"
 
-#: gnome-commander/src/intviewer/window.rs:952
+#: gnome-commander/src/intviewer/window.rs:519
 msgid "_Normal Size"
 msgstr "_Navadna velikost"
 
-#: gnome-commander/src/intviewer/window.rs:953
+#: gnome-commander/src/intviewer/window.rs:520
 msgid "_Best Fit"
 msgstr "_Najboljše prileganje"
 
-#: gnome-commander/src/intviewer/window.rs:965
-msgid "_Copy Text Selection"
-msgstr "_Kopiraj izbor besedila"
-
-#: gnome-commander/src/intviewer/window.rs:970
-msgid "Find…"
-msgstr "Najdi …"
-
-#: gnome-commander/src/intviewer/window.rs:971
-msgid "Find Next"
-msgstr "Najdi naslednje"
-
-#: gnome-commander/src/intviewer/window.rs:973
-msgid "Find Previous"
-msgstr "Najdi prejšnje"
-
-#: gnome-commander/src/intviewer/window.rs:978
-msgid "_Wrap lines"
-msgstr "_Ovij vrstice"
-
-#: gnome-commander/src/intviewer/window.rs:983
-msgid "_Encoding"
-msgstr "_Nabor znakov"
-
-#: gnome-commander/src/intviewer/window.rs:985
-msgid "_UTF-8"
-msgstr "_UTF-8"
-
-#: gnome-commander/src/intviewer/window.rs:987
-msgid "English (US-_ASCII)"
-msgstr "Angleški (US-_ASCII)"
-
-#: gnome-commander/src/intviewer/window.rs:991
-msgid "Terminal (CP437)"
-msgstr "Terminal (CP437)"
-
-#: gnome-commander/src/intviewer/window.rs:993
-msgid "Arabic (ISO-8859-6)"
-msgstr "Arabski (ISO-8859-6)"
-
-#: gnome-commander/src/intviewer/window.rs:997
-msgid "Arabic ( Windows, CP1256)"
-msgstr "Arabski (Windows, CP1256)"
-
-#: gnome-commander/src/intviewer/window.rs:1000
-msgid "Arabic (Dos, CP864)"
-msgstr "Arabski (Dos, CP864)"
-
-#: gnome-commander/src/intviewer/window.rs:1002
-msgid "Baltic (ISO-8859-4)"
-msgstr "Baltski (ISO-8859-4)"
-
-#: gnome-commander/src/intviewer/window.rs:1006
-msgid "Central European (ISO-8859-2)"
-msgstr "Srednjevropski (ISO-8859-2)"
-
-#: gnome-commander/src/intviewer/window.rs:1010
-msgid "Central European (CP1250)"
-msgstr "Srednjeevropski (CP1250)"
-
-#: gnome-commander/src/intviewer/window.rs:1014
-msgid "Cyrillic (ISO-8859-5)"
-msgstr "Cirilica (ISO-8859-5)"
-
-#: gnome-commander/src/intviewer/window.rs:1017
-msgid "Cyrillic (CP1251)"
-msgstr "Cirilica (CP1251)"
-
-#: gnome-commander/src/intviewer/window.rs:1019
-msgid "Greek (ISO-8859-7)"
-msgstr "Grški (ISO-8859-7)"
-
-#: gnome-commander/src/intviewer/window.rs:1022
-msgid "Greek (CP1253)"
-msgstr "Grški (CP1253)"
-
-#: gnome-commander/src/intviewer/window.rs:1024
-msgid "Hebrew (Windows, CP1255)"
-msgstr "Hebrejski (Windows, CP1255)"
-
-#: gnome-commander/src/intviewer/window.rs:1027
-msgid "Hebrew (Dos, CP862)"
-msgstr "Hebrejski (Dos, CP862)"
-
-#: gnome-commander/src/intviewer/window.rs:1029
-msgid "Hebrew (ISO-8859-8)"
-msgstr "Hebrejski (ISO-8859-8)"
-
-#: gnome-commander/src/intviewer/window.rs:1033
-msgid "Latin 9 (ISO-8859-15)"
-msgstr "Latinica 9 (ISO-8859-15)"
-
-#: gnome-commander/src/intviewer/window.rs:1037
-msgid "Maltese (ISO-8859-3)"
-msgstr "Malteški (ISO-8859-3)"
-
-#: gnome-commander/src/intviewer/window.rs:1041
-msgid "Turkish (ISO-8859-9)"
-msgstr "Turški (ISO-8859-9)"
-
-#: gnome-commander/src/intviewer/window.rs:1044
-msgid "Turkish (CP1254)"
-msgstr "Turški (CP1254)"
-
-#: gnome-commander/src/intviewer/window.rs:1045
-msgid "Western (CP1252)"
-msgstr "Zahodni (CP1252)"
-
-#: gnome-commander/src/intviewer/window.rs:1047
-msgid "Western (ISO-8859-1)"
-msgstr "Zahodni (ISO-8859-1)"
-
-#: gnome-commander/src/intviewer/window.rs:1089 gnome-commander/src/main_win.rs:1441
-msgid "_Settings"
-msgstr "_Nastavitve"
-
-#: gnome-commander/src/intviewer/window.rs:1091
-msgid "_Font…"
-msgstr "_Pisava …"
-
-#: gnome-commander/src/intviewer/window.rs:1093
-msgid "Fixed _Width Mode"
-msgstr "Način nespremenljive _širine"
-
-#: gnome-commander/src/intviewer/window.rs:1096
-msgid "_20 chars/line"
-msgstr "_20 znakov/vrstico"
-
-#: gnome-commander/src/intviewer/window.rs:1101
-msgid "_40 chars/line"
-msgstr "_40 znakov/vrstico"
-
-#: gnome-commander/src/intviewer/window.rs:1106
-msgid "_80 chars/line"
-msgstr "_80 znakov/vrstico"
-
-#: gnome-commander/src/intviewer/window.rs:1110
-msgid "_120 chars/line"
-msgstr "_120 znakov/vrstico"
-
-#: gnome-commander/src/intviewer/window.rs:1111
-msgid "1_60 chars/line"
-msgstr "1_60 znakov/vrstico"
-
-#: gnome-commander/src/intviewer/window.rs:1116
+#: gnome-commander/src/intviewer/window.rs:524
 msgid "Show Metadata _Tags"
 msgstr "Pokaži _značke metapodatkov"
 
-#: gnome-commander/src/intviewer/window.rs:1121
+#: gnome-commander/src/intviewer/window.rs:532
+msgid "_Copy Text Selection"
+msgstr "_Kopiraj izbor besedila"
+
+#: gnome-commander/src/intviewer/window.rs:533 gnome-commander/src/user_actions.rs:1687
+msgid "_Select All"
+msgstr "Izberi _vse"
+
+#: gnome-commander/src/intviewer/window.rs:534
+msgid "Find…"
+msgstr "Najdi …"
+
+#: gnome-commander/src/intviewer/window.rs:535
+msgid "Find Next"
+msgstr "Najdi naslednje"
+
+#: gnome-commander/src/intviewer/window.rs:536
+msgid "Find Previous"
+msgstr "Najdi prejšnje"
+
+#: gnome-commander/src/intviewer/window.rs:538
+msgid "_Wrap lines"
+msgstr "_Ovij vrstice"
+
+#: gnome-commander/src/intviewer/window.rs:540
+msgid "_Encoding"
+msgstr "_Nabor znakov"
+
+#: gnome-commander/src/intviewer/window.rs:541
+msgid "_UTF-8"
+msgstr "_UTF-8"
+
+#: gnome-commander/src/intviewer/window.rs:543
+msgid "English (US-_ASCII)"
+msgstr "Angleški (US-_ASCII)"
+
+#: gnome-commander/src/intviewer/window.rs:545
+msgid "Terminal (CP437)"
+msgstr "Terminal (CP437)"
+
+#: gnome-commander/src/intviewer/window.rs:547
+msgid "Arabic (ISO-8859-6)"
+msgstr "Arabski (ISO-8859-6)"
+
+#: gnome-commander/src/intviewer/window.rs:549
+msgid "Arabic (Windows, CP1256)"
+msgstr "Arabski (Windows, CP1256)"
+
+#: gnome-commander/src/intviewer/window.rs:551
+msgid "Arabic (Dos, CP864)"
+msgstr "Arabski (Dos, CP864)"
+
+#: gnome-commander/src/intviewer/window.rs:553
+msgid "Baltic (ISO-8859-4)"
+msgstr "Baltski (ISO-8859-4)"
+
+#: gnome-commander/src/intviewer/window.rs:555
+msgid "Central European (ISO-8859-2)"
+msgstr "Srednjevropski (ISO-8859-2)"
+
+#: gnome-commander/src/intviewer/window.rs:557
+msgid "Central European (CP1250)"
+msgstr "Srednjeevropski (CP1250)"
+
+#: gnome-commander/src/intviewer/window.rs:559
+msgid "Cyrillic (ISO-8859-5)"
+msgstr "Cirilica (ISO-8859-5)"
+
+#: gnome-commander/src/intviewer/window.rs:561
+msgid "Cyrillic (CP1251)"
+msgstr "Cirilica (CP1251)"
+
+#: gnome-commander/src/intviewer/window.rs:563
+msgid "Greek (ISO-8859-7)"
+msgstr "Grški (ISO-8859-7)"
+
+#: gnome-commander/src/intviewer/window.rs:565
+msgid "Greek (CP1253)"
+msgstr "Grški (CP1253)"
+
+#: gnome-commander/src/intviewer/window.rs:567
+msgid "Hebrew (Windows, CP1255)"
+msgstr "Hebrejski (Windows, CP1255)"
+
+#: gnome-commander/src/intviewer/window.rs:569
+msgid "Hebrew (Dos, CP862)"
+msgstr "Hebrejski (Dos, CP862)"
+
+#: gnome-commander/src/intviewer/window.rs:571
+msgid "Hebrew (ISO-8859-8)"
+msgstr "Hebrejski (ISO-8859-8)"
+
+#: gnome-commander/src/intviewer/window.rs:573
+msgid "Latin 9 (ISO-8859-15)"
+msgstr "Latinica 9 (ISO-8859-15)"
+
+#: gnome-commander/src/intviewer/window.rs:575
+msgid "Maltese (ISO-8859-3)"
+msgstr "Malteški (ISO-8859-3)"
+
+#: gnome-commander/src/intviewer/window.rs:577
+msgid "Turkish (ISO-8859-9)"
+msgstr "Turški (ISO-8859-9)"
+
+#: gnome-commander/src/intviewer/window.rs:579
+msgid "Turkish (CP1254)"
+msgstr "Turški (CP1254)"
+
+#: gnome-commander/src/intviewer/window.rs:581
+msgid "Western (CP1252)"
+msgstr "Zahodni (CP1252)"
+
+#: gnome-commander/src/intviewer/window.rs:583
+msgid "Western (ISO-8859-1)"
+msgstr "Zahodni (ISO-8859-1)"
+
+#: gnome-commander/src/intviewer/window.rs:589
+msgid "_Rotate Clockwise"
+msgstr "_Zasukaj v smeri urinega kazalca"
+
+#: gnome-commander/src/intviewer/window.rs:591
+msgid "Rotate Counter Clockwis_e"
+msgstr "Zasukaj v obratni smeri urinega kazalca"
+
+#: gnome-commander/src/intviewer/window.rs:593
+msgid "Rotate 180°"
+msgstr "Zasukaj za 180°"
+
+#: gnome-commander/src/intviewer/window.rs:595
+msgid "Flip _Vertical"
+msgstr "Obrni _navpično"
+
+#: gnome-commander/src/intviewer/window.rs:597
+msgid "Flip _Horizontal"
+msgstr "Obrni _vodoravno"
+
+#: gnome-commander/src/intviewer/window.rs:601 gnome-commander/src/main_win.rs:1441
+msgid "_Settings"
+msgstr "_Nastavitve"
+
+#: gnome-commander/src/intviewer/window.rs:602
+msgid "_Font…"
+msgstr "_Pisava …"
+
+#: gnome-commander/src/intviewer/window.rs:603
+msgid "Fixed _Width Mode"
+msgstr "Način nespremenljive _širine"
+
+#: gnome-commander/src/intviewer/window.rs:604
+msgid "_20 chars/line"
+msgstr "_20 znakov/vrstico"
+
+#: gnome-commander/src/intviewer/window.rs:605
+msgid "_40 chars/line"
+msgstr "_40 znakov/vrstico"
+
+#: gnome-commander/src/intviewer/window.rs:606
+msgid "_80 chars/line"
+msgstr "_80 znakov/vrstico"
+
+#: gnome-commander/src/intviewer/window.rs:607
+msgid "_120 chars/line"
+msgstr "_120 znakov/vrstico"
+
+#: gnome-commander/src/intviewer/window.rs:608
+msgid "1_60 chars/line"
+msgstr "1_60 znakov/vrstico"
+
+#: gnome-commander/src/intviewer/window.rs:612
 msgid "_Hexadecimal Offset"
 msgstr "_Šestnajstiški odmik"
 
-#: gnome-commander/src/intviewer/window.rs:1130
+#: gnome-commander/src/intviewer/window.rs:617
 msgid "Quick _Help"
 msgstr "Hitra po_moč"
 
-#: gnome-commander/src/intviewer/window.rs:1131 gnome-commander/src/user_actions.rs:2190
+#: gnome-commander/src/intviewer/window.rs:618 gnome-commander/src/user_actions.rs:2195
 msgid "_Keyboard Shortcuts"
 msgstr "_Tipkovne bližnjice"
 
@@ -3850,7 +3765,6 @@ msgid "_Plugins"
 msgstr "_Vstavki"
 
 #: gnome-commander/src/open_file.rs:18
-#, rust-format
 msgid ""
 "“{}” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then "
 "run the file?"
@@ -3863,7 +3777,6 @@ msgid "_Mark as Executable"
 msgstr "_Označi kot izvršljivo"
 
 #: gnome-commander/src/open_file.rs:40
-#, rust-format
 msgid "“{}” is an executable text file. Do you want to run it, or display its contents?"
 msgstr "Datoteka »{}« je izršljiva besedilna datoteka. Ali jo želite zagnati ali pregledati njeno vsebino?"
 
@@ -3871,7 +3784,7 @@ msgstr "Datoteka »{}« je izršljiva besedilna datoteka. Ali jo želite zagnati
 msgid "_Display"
 msgstr "_Pokaži"
 
-#: gnome-commander/src/open_file.rs:45 gnome-commander/src/user_actions.rs:2239
+#: gnome-commander/src/open_file.rs:45 gnome-commander/src/user_actions.rs:2244
 msgid "_Run"
 msgstr "_Zaženi"
 
@@ -3888,7 +3801,6 @@ msgid "Change of a file mode failed"
 msgstr "Spreminjanje datotečnega načina ni uspelo"
 
 #: gnome-commander/src/open_file.rs:127
-#, rust-format
 msgid "No default application found for the file type {}."
 msgstr "Za vrsto datoteke {} ni določen privzeti program."
 
@@ -3913,27 +3825,22 @@ msgid "API registration received after initialization"
 msgstr "Registracija API-ja prejeta po inicializaciji"
 
 #: gnome-commander/src/plugins/instance.rs:311
-#, rust-format
 msgid "Multiple registrations for API {}"
 msgstr "Več registracij za API {}"
 
 #: gnome-commander/src/plugins/instance.rs:321
-#, rust-format
 msgid "Registration for unknown API {}"
 msgstr "Registracija za neznani API {}"
 
 #: gnome-commander/src/plugins/instance.rs:360
-#, rust-format
 msgid "No API to handle request {} from plugin"
 msgstr "Ni API-ja za obdelavo zahtev {} vstavka"
 
 #: gnome-commander/src/plugins/instance.rs:368
-#, rust-format
 msgid "Response to unknown API request {}"
 msgstr "Odgovor na neznano zahtevo {} API-ja"
 
 #: gnome-commander/src/plugins/instance.rs:382
-#, rust-format
 msgid "Response to API request {} has wrong type"
 msgstr "Odgovor na zahtevo {} API-ja je napačne vrste"
 
@@ -3951,7 +3858,6 @@ msgid "Plugin didn't start up within maximum time"
 msgstr "Vstavek se ni zagnal v najdaljšem možnem času"
 
 #: gnome-commander/src/plugins/instance.rs:525
-#, rust-format
 msgid "No response to API request {} received within maximum time"
 msgstr "V največjem možnem času ni prejeta nobena odgovora na zahtevo API {}"
 
@@ -3960,12 +3866,10 @@ msgid "Available plugins"
 msgstr "Razpoložljivi vstavki"
 
 #: gnome-commander/src/plugins/manager.rs:176
-#, rust-format
 msgid "Version: {}"
 msgstr "Različica: {}"
 
 #: gnome-commander/src/plugins/manager.rs:183
-#, rust-format
 msgid "File: {}"
 msgstr "Datoteka: {}"
 
@@ -3986,7 +3890,6 @@ msgid "Invalid file name pattern."
 msgstr "Neveljaven vzorec imena datoteke."
 
 #: gnome-commander/src/search/backend.rs:136
-#, rust-format
 msgid "Searching in: {}"
 msgstr "Iskanje v: {}"
 
@@ -4010,8 +3913,7 @@ msgstr "_Najdi"
 msgid "_Look in folder:"
 msgstr "_Preišči v mapi:"
 
-#: gnome-commander/src/search/search_dialog.rs:692
-#, rust-format
+#: gnome-commander/src/search/search_dialog.rs:694
 msgid "Found {} match — search aborted"
 msgid_plural "Found {} matches — search aborted"
 msgstr[0] "Najdenih {} zadetkov - iskanje preklicano"
@@ -4019,8 +3921,7 @@ msgstr[1] "Najden {} zadetek - iskanje preklicano"
 msgstr[2] "Najdena {} zadetka - iskanje preklicano"
 msgstr[3] "Najdeni {} zadetki - iskanje preklicano"
 
-#: gnome-commander/src/search/search_dialog.rs:697
-#, rust-format
+#: gnome-commander/src/search/search_dialog.rs:699
 msgid "Found {} match"
 msgid_plural "Found {} matches"
 msgstr[0] "Najdenih {} zadetkov"
@@ -4250,7 +4151,6 @@ msgid "Skip all"
 msgstr "Preskoči vse"
 
 #: gnome-commander/src/transfer.rs:539 gnome-commander/src/transfer.rs:652
-#, rust-format
 msgid ""
 "Overwrite file:\n"
 "\n"
@@ -4278,12 +4178,10 @@ msgid "Replace all"
 msgstr "Zamenjaj vse"
 
 #: gnome-commander/src/transfer.rs:611 gnome-commander/src/transfer.rs:716
-#, rust-format
 msgid "Error while transferring “{file}”"
 msgstr "Napaka pri prenosu »{file}«"
 
 #: gnome-commander/src/transfer.rs:748
-#, rust-format
 msgid "Error while creating symlink “{file}”"
 msgstr "Napaka pri ustvarjanju simbolne povezave »{file}«"
 
@@ -4308,12 +4206,10 @@ msgid "copying…"
 msgstr "Kopiranje ..."
 
 #: gnome-commander/src/transfer.rs:1062
-#, rust-format
 msgid "[file {index} of {count}] “{file}”"
 msgstr "[datoteka {index} / {count}] »{file}«"
 
 #: gnome-commander/src/transfer.rs:1121
-#, rust-format
 msgctxt "A template for a file name. In a case of a conflict with an existing one."
 msgid "{name} (Copy {number})"
 msgstr "{name} (kopija {number})"
@@ -4343,7 +4239,6 @@ msgid "link to %s"
 msgstr "povezava do %s"
 
 #: gnome-commander/src/user_actions.rs:453
-#, rust-format
 msgid "Create symbolic links of {count} file in {dir}?"
 msgid_plural "Create symbolic links of {count} files in {dir}?"
 msgstr[0] "Želite ustvariti simbolne povezave {count} datotek v {dir}?"
@@ -4379,461 +4274,461 @@ msgstr "Prišlo je do napake pri odpiranju domače strani."
 msgid "There was an error reporting problem."
 msgstr "Prišlo je do napake pri poročanju o napaki."
 
-#: gnome-commander/src/user_actions.rs:1227
+#: gnome-commander/src/user_actions.rs:1232
 msgid "A fast and powerful file manager"
 msgstr "Hiter in zmogljiv urejevalnik datotek"
 
-#: gnome-commander/src/user_actions.rs:1233
+#: gnome-commander/src/user_actions.rs:1238
 msgid "translator-credits"
 msgstr ""
 "Matej Urbančič <mateju@src.gnome.org>\n"
 "Martin Srebotnjak <miles@filmsi.net>"
 
-#: gnome-commander/src/user_actions.rs:1525
+#: gnome-commander/src/user_actions.rs:1530
 msgid "Copy Files"
 msgstr "Kopiraj datoteke"
 
-#: gnome-commander/src/user_actions.rs:1531
+#: gnome-commander/src/user_actions.rs:1536
 msgid "Copy files with rename"
 msgstr "Kopiraj in preimenuj datoteke"
 
-#: gnome-commander/src/user_actions.rs:1537
+#: gnome-commander/src/user_actions.rs:1542
 msgid "Move Files"
 msgstr "Premakni datoteke"
 
-#: gnome-commander/src/user_actions.rs:1543
+#: gnome-commander/src/user_actions.rs:1548
 msgid "_Delete"
 msgstr "_Izbriši"
 
-#: gnome-commander/src/user_actions.rs:1549
+#: gnome-commander/src/user_actions.rs:1554
 msgid "Delete Permanently"
 msgstr "Izbriši trajno"
 
-#: gnome-commander/src/user_actions.rs:1555
+#: gnome-commander/src/user_actions.rs:1560
 msgid "View File"
 msgstr "Pokaži datoteko"
 
-#: gnome-commander/src/user_actions.rs:1561
+#: gnome-commander/src/user_actions.rs:1566
 msgid "View with internal viewer"
 msgstr "Poglej datoteko z vgrajenim pregledovalnikom"
 
-#: gnome-commander/src/user_actions.rs:1567
+#: gnome-commander/src/user_actions.rs:1572
 msgid "View with external viewer"
 msgstr "Poglej datoteko z zunanjim pregledovalnikom"
 
-#: gnome-commander/src/user_actions.rs:1573
+#: gnome-commander/src/user_actions.rs:1578
 msgid "Edit (SHIFT for new document)"
 msgstr "Uredi (s tipko SHIFT se odpre nov dokument)"
 
-#: gnome-commander/src/user_actions.rs:1579
+#: gnome-commander/src/user_actions.rs:1584
 msgid "New _Text File"
 msgstr "Nova _besedilna datoteka"
 
-#: gnome-commander/src/user_actions.rs:1585
+#: gnome-commander/src/user_actions.rs:1590
 msgid "_Search…"
 msgstr "_Poišči …"
 
-#: gnome-commander/src/user_actions.rs:1591
+#: gnome-commander/src/user_actions.rs:1596
 msgid "_Quick Search…"
 msgstr "_Hitro iskanje …"
 
-#: gnome-commander/src/user_actions.rs:1597
+#: gnome-commander/src/user_actions.rs:1602
 msgid "Quick _Filter…"
 msgstr "_Hitro iskanje …"
 
-#: gnome-commander/src/user_actions.rs:1603
+#: gnome-commander/src/user_actions.rs:1608
 msgid "Change Per_missions"
 msgstr "Spremeni _dovoljenja"
 
-#: gnome-commander/src/user_actions.rs:1609
+#: gnome-commander/src/user_actions.rs:1614
 msgid "Change _Owner/Group"
 msgstr "Spremeni _lastništvo"
 
-#: gnome-commander/src/user_actions.rs:1615
+#: gnome-commander/src/user_actions.rs:1620
 msgid "New _Directory"
 msgstr "Nova _mapa"
 
-#: gnome-commander/src/user_actions.rs:1621
+#: gnome-commander/src/user_actions.rs:1626
 msgid "_Properties…"
 msgstr "_Lastnosti …"
 
-#: gnome-commander/src/user_actions.rs:1627
+#: gnome-commander/src/user_actions.rs:1632
 msgid "_Diff"
 msgstr "_Primerjava"
 
-#: gnome-commander/src/user_actions.rs:1633
+#: gnome-commander/src/user_actions.rs:1638
 msgid "S_ynchronize Directories"
 msgstr "_Uskladi mapi"
 
-#: gnome-commander/src/user_actions.rs:1639
+#: gnome-commander/src/user_actions.rs:1644
 msgid "_Rename"
 msgstr "P_reimenuj"
 
-#: gnome-commander/src/user_actions.rs:1645
+#: gnome-commander/src/user_actions.rs:1650
 msgid "Create Symbolic _Link"
 msgstr "Ustvari simbo_lno povezavo"
 
-#: gnome-commander/src/user_actions.rs:1651
+#: gnome-commander/src/user_actions.rs:1656
 msgid "Advanced _Rename Tool"
 msgstr "Napre_dno preimenovanje"
 
-#: gnome-commander/src/user_actions.rs:1657
+#: gnome-commander/src/user_actions.rs:1662
 msgid "_Send Files"
 msgstr "Pošlji _datoteke"
 
-#: gnome-commander/src/user_actions.rs:1663
+#: gnome-commander/src/user_actions.rs:1668
 msgid "Qui_t"
 msgstr "Iz_hod"
 
-#: gnome-commander/src/user_actions.rs:1670
+#: gnome-commander/src/user_actions.rs:1675
 msgid "Toggle selection"
 msgstr "Preklopi izbor"
 
-#: gnome-commander/src/user_actions.rs:1676
+#: gnome-commander/src/user_actions.rs:1681
 msgid "Toggle selection and move cursor downward"
 msgstr "Preklopi izbor in premakni kazalnik nižje"
 
-#: gnome-commander/src/user_actions.rs:1688
+#: gnome-commander/src/user_actions.rs:1693
 msgid "_Unselect All"
 msgstr "P_očisti vse"
 
-#: gnome-commander/src/user_actions.rs:1694
+#: gnome-commander/src/user_actions.rs:1699
 msgid "Select all _Files"
 msgstr "Izberi _vse datoteke"
 
-#: gnome-commander/src/user_actions.rs:1700
+#: gnome-commander/src/user_actions.rs:1705
 msgid "Unselect all Fi_les"
 msgstr "Počisti izbor vse_h datotek"
 
-#: gnome-commander/src/user_actions.rs:1706
+#: gnome-commander/src/user_actions.rs:1711
 msgid "Select with _Pattern"
 msgstr "Izberi z _vzorcem"
 
-#: gnome-commander/src/user_actions.rs:1712
+#: gnome-commander/src/user_actions.rs:1717
 msgid "Unselect with P_attern"
 msgstr "Počisti izbor z v_zorcem"
 
-#: gnome-commander/src/user_actions.rs:1718
+#: gnome-commander/src/user_actions.rs:1723
 msgid "_Invert Selection"
 msgstr "Preo_brni izbor"
 
-#: gnome-commander/src/user_actions.rs:1724
+#: gnome-commander/src/user_actions.rs:1729
 msgid "Select with same _Extension"
 msgstr "Izberi vse z iso _pripono"
 
-#: gnome-commander/src/user_actions.rs:1730
+#: gnome-commander/src/user_actions.rs:1735
 msgid "Unselect with same E_xtension"
 msgstr "Počisti izbor datotek z isto _pripono"
 
-#: gnome-commander/src/user_actions.rs:1736
+#: gnome-commander/src/user_actions.rs:1741
 msgid "_Compare Directories"
 msgstr "_Primerjava map"
 
-#: gnome-commander/src/user_actions.rs:1743
+#: gnome-commander/src/user_actions.rs:1748
 msgid "Cu_t"
 msgstr "I_zreži"
 
-#: gnome-commander/src/user_actions.rs:1761
+#: gnome-commander/src/user_actions.rs:1766
 msgid "Copy _File Names (SHIFT for full paths, ALT for URIs)"
 msgstr "Kopiraj imena _datotek (s tipko SHIFT kopirate celotna pot, z ALT pa naslove URI)"
 
-#: gnome-commander/src/user_actions.rs:1768
+#: gnome-commander/src/user_actions.rs:1773
 msgid "Execute command"
 msgstr "Izvedi ukaz"
 
-#: gnome-commander/src/user_actions.rs:1774
+#: gnome-commander/src/user_actions.rs:1779
 msgid "Open _Terminal"
 msgstr "Odpri _terminal"
 
-#: gnome-commander/src/user_actions.rs:1781
+#: gnome-commander/src/user_actions.rs:1786
 msgid "Show Device Buttons"
 msgstr "Pokaži gumbe naprav"
 
-#: gnome-commander/src/user_actions.rs:1787
+#: gnome-commander/src/user_actions.rs:1792
 msgid "Show Device List"
 msgstr "Pokaži seznam naprav"
 
-#: gnome-commander/src/user_actions.rs:1793
+#: gnome-commander/src/user_actions.rs:1798
 msgid "Show Toolbar"
 msgstr "Pokaži orodno vrstico"
 
-#: gnome-commander/src/user_actions.rs:1799
+#: gnome-commander/src/user_actions.rs:1804
 msgid "Show Buttonbar"
 msgstr "Pokaži funkcijske tipke"
 
-#: gnome-commander/src/user_actions.rs:1805
+#: gnome-commander/src/user_actions.rs:1810
 msgid "Show Command Line"
 msgstr "Pokaži ukazno vrstico"
 
-#: gnome-commander/src/user_actions.rs:1811
+#: gnome-commander/src/user_actions.rs:1816
 msgid "Show Directory History"
 msgstr "Pokaži zgodovino mape"
 
-#: gnome-commander/src/user_actions.rs:1817
+#: gnome-commander/src/user_actions.rs:1822
 msgid "Show Command Line History"
 msgstr "Pokaži zgodovino ukazne vrstice"
 
-#: gnome-commander/src/user_actions.rs:1823
+#: gnome-commander/src/user_actions.rs:1828
 msgid "Show Hidden Files"
 msgstr "Pokaži skrite datoteke"
 
-#: gnome-commander/src/user_actions.rs:1829
+#: gnome-commander/src/user_actions.rs:1834
 msgid "Show Backup Files"
 msgstr "Pokaži varnostne kopije"
 
-#: gnome-commander/src/user_actions.rs:1835
+#: gnome-commander/src/user_actions.rs:1840
 msgid "Hide Command Line Output When Inactive"
 msgstr "Skrij izhod ukazne vrstice ob nedejavnosti"
 
-#: gnome-commander/src/user_actions.rs:1847
+#: gnome-commander/src/user_actions.rs:1852
 msgid "Back to oldest"
 msgstr "Nazaj na najstarejše"
 
-#: gnome-commander/src/user_actions.rs:1853
+#: gnome-commander/src/user_actions.rs:1858
 msgid "_Back"
 msgstr "_Nazaj"
 
-#: gnome-commander/src/user_actions.rs:1859
+#: gnome-commander/src/user_actions.rs:1864
 msgid "_Forward"
 msgstr "_Naprej"
 
-#: gnome-commander/src/user_actions.rs:1865
+#: gnome-commander/src/user_actions.rs:1870
 msgid "Forward to latest"
 msgstr "Naprej na najnovejše"
 
-#: gnome-commander/src/user_actions.rs:1871
+#: gnome-commander/src/user_actions.rs:1876
 msgid "_Refresh"
 msgstr "_Osveži"
 
-#: gnome-commander/src/user_actions.rs:1877
+#: gnome-commander/src/user_actions.rs:1882
 msgid "_Equal Panel Size"
 msgstr "_Enako veliki plošči"
 
-#: gnome-commander/src/user_actions.rs:1883
+#: gnome-commander/src/user_actions.rs:1888
 msgid "_Maximize Panel Size"
 msgstr "_Razpni velikost plošče"
 
-#: gnome-commander/src/user_actions.rs:1889
+#: gnome-commander/src/user_actions.rs:1894
 msgid "Open directory in the left panel"
 msgstr "Odpre mapo v levem podoknu"
 
-#: gnome-commander/src/user_actions.rs:1895
+#: gnome-commander/src/user_actions.rs:1900
 msgid "Open directory in the right panel"
 msgstr "Odpre mapo v desnem podoknu"
 
-#: gnome-commander/src/user_actions.rs:1901
+#: gnome-commander/src/user_actions.rs:1906
 msgid "Open directory in the active panel"
 msgstr "Odpre mapo v dejavnem podoknu"
 
-#: gnome-commander/src/user_actions.rs:1907
+#: gnome-commander/src/user_actions.rs:1912
 msgid "Open directory in the inactive panel"
 msgstr "Odpre mapo v nedejavnem podoknu"
 
-#: gnome-commander/src/user_actions.rs:1913
+#: gnome-commander/src/user_actions.rs:1918
 msgid "Change directory"
 msgstr "Spremeni mapo"
 
-#: gnome-commander/src/user_actions.rs:1919
+#: gnome-commander/src/user_actions.rs:1924
 msgid "Home directory"
 msgstr "Domači imenik"
 
-#: gnome-commander/src/user_actions.rs:1925
+#: gnome-commander/src/user_actions.rs:1930
 msgid "Root directory"
 msgstr "Korenska mapa"
 
-#: gnome-commander/src/user_actions.rs:1949
+#: gnome-commander/src/user_actions.rs:1954
 msgid "Close duplicate tabs"
 msgstr "Zapri podvojene zavihke"
 
-#: gnome-commander/src/user_actions.rs:1955
+#: gnome-commander/src/user_actions.rs:1960
 msgid "Previous tab"
 msgstr "Predhodni zavihek"
 
-#: gnome-commander/src/user_actions.rs:1961
+#: gnome-commander/src/user_actions.rs:1966
 msgid "Next tab"
 msgstr "Naslednji zavihek"
 
-#: gnome-commander/src/user_actions.rs:1967
+#: gnome-commander/src/user_actions.rs:1972
 msgid "Open directory in the new tab"
 msgstr "Odpri mapo v novem zavihku"
 
-#: gnome-commander/src/user_actions.rs:1973
+#: gnome-commander/src/user_actions.rs:1978
 msgid "Open directory in the new tab (inactive panel)"
 msgstr "Odpri mapo v novem zavihku (nedejavno podokno)"
 
-#: gnome-commander/src/user_actions.rs:1979
+#: gnome-commander/src/user_actions.rs:1984
 msgid "Lock/unlock tab"
 msgstr "Zakleni/Odkleni zavihek"
 
-#: gnome-commander/src/user_actions.rs:1985
+#: gnome-commander/src/user_actions.rs:1990
 msgid "_Horizontal Orientation"
 msgstr "_Vodoravna postavitev"
 
-#: gnome-commander/src/user_actions.rs:1991
+#: gnome-commander/src/user_actions.rs:1996
 msgid "Display main menu"
 msgstr "Pokaži glavni meni"
 
-#: gnome-commander/src/user_actions.rs:1997
+#: gnome-commander/src/user_actions.rs:2002
 msgid "Move cursor one step up"
 msgstr "Premakni kazalko en korak višje"
 
-#: gnome-commander/src/user_actions.rs:2003
+#: gnome-commander/src/user_actions.rs:2008
 msgid "Move cursor one step down"
 msgstr "Premakni kazalko en korak nižje"
 
-#: gnome-commander/src/user_actions.rs:2009
+#: gnome-commander/src/user_actions.rs:2014
 msgid "Switch to Opposite Panel"
 msgstr "Preklopi na nasprotni pult"
 
-#: gnome-commander/src/user_actions.rs:2015
+#: gnome-commander/src/user_actions.rs:2020
 msgid "Swap panels"
 msgstr "Zamenjaj plošče"
 
-#: gnome-commander/src/user_actions.rs:2021
+#: gnome-commander/src/user_actions.rs:2026
 msgid "Show panel size selector"
 msgstr "Prikaži izbirnik velikosti plošče"
 
-#: gnome-commander/src/user_actions.rs:2033
+#: gnome-commander/src/user_actions.rs:2038
 msgid "Calculate Size for All Directories"
 msgstr "Izračunaj velikost vseh map"
 
-#: gnome-commander/src/user_actions.rs:2039
+#: gnome-commander/src/user_actions.rs:2044
 msgid "Sort by Name"
 msgstr "Ime države"
 
-#: gnome-commander/src/user_actions.rs:2045
+#: gnome-commander/src/user_actions.rs:2050
 msgid "Sort by Extension"
 msgstr "Razvrsti po končnici"
 
-#: gnome-commander/src/user_actions.rs:2051
+#: gnome-commander/src/user_actions.rs:2056
 msgid "Sort by Date"
 msgstr "Razvrsti po datumu"
 
-#: gnome-commander/src/user_actions.rs:2057
+#: gnome-commander/src/user_actions.rs:2062
 msgid "Sort by Size"
 msgstr "Razvrsti po velikosti"
 
-#: gnome-commander/src/user_actions.rs:2063
+#: gnome-commander/src/user_actions.rs:2068
 msgid "Sort by Permissions"
 msgstr "Razvsti po dovoljenjih"
 
-#: gnome-commander/src/user_actions.rs:2069
+#: gnome-commander/src/user_actions.rs:2074
 msgid "Sort by Owner"
 msgstr "Razvrsti po lastniku"
 
-#: gnome-commander/src/user_actions.rs:2075
+#: gnome-commander/src/user_actions.rs:2080
 msgid "Sort by Group"
 msgstr "Razvrsti po skupini"
 
-#: gnome-commander/src/user_actions.rs:2082
+#: gnome-commander/src/user_actions.rs:2087
 msgid "_Bookmark this Directory…"
 msgstr "_Ustvari zaznamek mape …"
 
-#: gnome-commander/src/user_actions.rs:2088
+#: gnome-commander/src/user_actions.rs:2093
 msgid "_Manage Bookmarks…"
 msgstr "_Upravljaj zaznamke …"
 
-#: gnome-commander/src/user_actions.rs:2100
+#: gnome-commander/src/user_actions.rs:2105
 msgid "Show bookmarks of current device"
 msgstr "Pokaži zaznamke trenutne naprave"
 
-#: gnome-commander/src/user_actions.rs:2107
+#: gnome-commander/src/user_actions.rs:2112
 msgid "_Options…"
 msgstr "_Možnosti …"
 
-#: gnome-commander/src/user_actions.rs:2113
+#: gnome-commander/src/user_actions.rs:2118
 msgid "_Keyboard Shortcuts…"
 msgstr "_Tipkovne bližnjice …"
 
-#: gnome-commander/src/user_actions.rs:2120
+#: gnome-commander/src/user_actions.rs:2125
 msgid "_Remote Server…"
 msgstr "_Oddaljeni strežnik …"
 
-#: gnome-commander/src/user_actions.rs:2126
+#: gnome-commander/src/user_actions.rs:2131
 msgid "_New Connection…"
 msgstr "_Nova povezava …"
 
-#: gnome-commander/src/user_actions.rs:2132
+#: gnome-commander/src/user_actions.rs:2137
 msgid "Set Connection"
 msgstr "Nastavi povezavo"
 
-#: gnome-commander/src/user_actions.rs:2140
+#: gnome-commander/src/user_actions.rs:2145
 msgid "Connect to First Remote Server"
 msgstr "Poveži se s prvim oddaljenim strežnikom"
 
-#: gnome-commander/src/user_actions.rs:2146
+#: gnome-commander/src/user_actions.rs:2151
 msgid "Change Left Connection"
 msgstr "Spremeni povezavo na levi"
 
-#: gnome-commander/src/user_actions.rs:2152
+#: gnome-commander/src/user_actions.rs:2157
 msgid "Change Right Connection"
 msgstr "Spremeni povezavo na desni"
 
-#: gnome-commander/src/user_actions.rs:2158
+#: gnome-commander/src/user_actions.rs:2163
 msgid "Close Connection"
 msgstr "Zapri povezavo"
 
-#: gnome-commander/src/user_actions.rs:2164
+#: gnome-commander/src/user_actions.rs:2169
 msgid "Drop Connection"
 msgstr "Prekini povezavo"
 
-#: gnome-commander/src/user_actions.rs:2171
+#: gnome-commander/src/user_actions.rs:2176
 msgid "_Configure Plugins…"
 msgstr "_Prilagodi vstavke …"
 
-#: gnome-commander/src/user_actions.rs:2184
+#: gnome-commander/src/user_actions.rs:2189
 msgid "_Documentation"
 msgstr "_Dokumentacija"
 
-#: gnome-commander/src/user_actions.rs:2196
+#: gnome-commander/src/user_actions.rs:2201
 msgid "Gnome Commander on the _Web"
 msgstr "Program Gnome Commander na _spletu"
 
-#: gnome-commander/src/user_actions.rs:2202
+#: gnome-commander/src/user_actions.rs:2207
 msgid "Report a _Problem"
 msgstr "Prijavi _težavo"
 
-#: gnome-commander/src/user_actions.rs:2208
+#: gnome-commander/src/user_actions.rs:2213
 msgid "_About"
 msgstr "_O Programu"
 
-#: gnome-commander/src/user_actions.rs:2215
+#: gnome-commander/src/user_actions.rs:2220
 msgid "Jump to Panels"
 msgstr "Skoči na pulte"
 
-#: gnome-commander/src/user_actions.rs:2221
+#: gnome-commander/src/user_actions.rs:2226
 msgid "Jump to Command Line"
 msgstr "Skoči v ukazno vrstico"
 
-#: gnome-commander/src/user_actions.rs:2227
+#: gnome-commander/src/user_actions.rs:2232
 msgid "Jump to Command Output"
 msgstr "Skoči na izhod ukaza"
 
-#: gnome-commander/src/user_actions.rs:2233
+#: gnome-commander/src/user_actions.rs:2238
 msgid "Clear Command Line"
 msgstr "Počisti ukazno vrstico"
 
-#: gnome-commander/src/user_actions.rs:2245
+#: gnome-commander/src/user_actions.rs:2250
 msgid "Run in _terminal"
 msgstr "Izvedi v _terminalu"
 
-#: gnome-commander/src/user_actions.rs:2251
+#: gnome-commander/src/user_actions.rs:2256
 msgid "Run _ignoring output"
 msgstr "Izvedi _ob prezrtju izhoda"
 
-#: gnome-commander/src/user_actions.rs:2257
+#: gnome-commander/src/user_actions.rs:2262
 msgid "Open Current File"
 msgstr "Odpre trenutno datoteko"
 
-#: gnome-commander/src/user_actions.rs:2263
+#: gnome-commander/src/user_actions.rs:2268
 msgid "Add Current Directory to Command Line"
 msgstr "Dodaj trenutno mapo v ukazno vrstico"
 
-#: gnome-commander/src/user_actions.rs:2269
+#: gnome-commander/src/user_actions.rs:2274
 msgid "Add Current File Name to Command Line"
 msgstr "Dodaj ime trenutne datoteke v ukazno vrstico"
 
-#: gnome-commander/src/user_actions.rs:2275
+#: gnome-commander/src/user_actions.rs:2280
 msgid "Add Current File Path to Command Line"
 msgstr "Dodaj pot trenutne datoteke v ukazno vrstico"
 
@@ -4842,12 +4737,10 @@ msgid "Cannot create a temporary file."
 msgstr "Začasne datoteke ni mogoče ustvariti."
 
 #: gnome-commander/src/utils.rs:276
-#, rust-format
 msgid "There was an error while opening help uri {uri}."
 msgstr "Pri odpiranju uri {uri} za vsebino pomoči je prišlo do napake."
 
 #: gnome-commander/src/utils.rs:377
-#, rust-format
 msgid "{} PiB"
 msgid_plural "{} PiB"
 msgstr[0] "{} PiB"
@@ -4856,7 +4749,6 @@ msgstr[2] "{} PiB"
 msgstr[3] "{} PiB"
 
 #: gnome-commander/src/utils.rs:380
-#, rust-format
 msgid "{} TiB"
 msgid_plural "{} TiB"
 msgstr[0] "{} PiB"
@@ -4865,7 +4757,6 @@ msgstr[2] "{} PiB"
 msgstr[3] "{} PiB"
 
 #: gnome-commander/src/utils.rs:383
-#, rust-format
 msgid "{} GiB"
 msgid_plural "{} GiB"
 msgstr[0] "{} PiB"
@@ -4874,7 +4765,6 @@ msgstr[2] "{} PiB"
 msgstr[3] "{} PiB"
 
 #: gnome-commander/src/utils.rs:386
-#, rust-format
 msgid "{} MiB"
 msgid_plural "{} MiB"
 msgstr[0] "{} MiB"
@@ -4883,7 +4773,6 @@ msgstr[2] "{} MiB"
 msgstr[3] "{} MiB"
 
 #: gnome-commander/src/utils.rs:389
-#, rust-format
 msgid "{} KiB"
 msgid_plural "{} KiB"
 msgstr[0] "{} KiB"
@@ -4892,7 +4781,6 @@ msgstr[2] "{} KiB"
 msgstr[3] "{} KiB"
 
 #: gnome-commander/src/utils.rs:392 gnome-commander/src/utils.rs:403 gnome-commander/src/utils.rs:407
-#, rust-format
 msgid "{} byte"
 msgid_plural "{} bytes"
 msgstr[0] "{} bajtov"
@@ -4900,7 +4788,7 @@ msgstr[1] "{} bajt"
 msgstr[2] "{} bajta"
 msgstr[3] "{} bajti"
 
-#: gnome-commander/src/utils.rs:641
+#: gnome-commander/src/utils.rs:556
 msgid "Closing of a file enumerator failed"
 msgstr "Zapiranje oštevilčevalnika datotek ni uspelo"
 
@@ -5389,7 +5277,6 @@ msgid "Contributor"
 msgstr "Sodelavec"
 
 #: plugins/document-metadata.py:125
-#, fuzzy
 msgid "Entity responsible for making contributions to the document"
 msgstr "Subjekt, odgovoren za prispevke k dokumentu"
 
@@ -5399,12 +5286,11 @@ msgid "Coverage"
 msgstr "Pokritost"
 
 #: plugins/document-metadata.py:126
-#, fuzzy
 msgid ""
 "Spatial or temporal topic of the document, spatial applicability of the document, or jurisdiction under "
 "which the document is relevant"
 msgstr ""
-"Prostorska ali časovna tema dokumenta, prostorska uporabnost dokumenta ali jurisdikcija, pod katero je "
+"Prostorska ali časovna tema dokumenta, prostorska uporabnost dokumenta ali jurisdikcija, za katero je "
 "dokument relevanten"
 
 #: plugins/document-metadata.py:128
@@ -5420,7 +5306,6 @@ msgid "Unique identifier of the document"
 msgstr "Enoznačni identifikator dokumenta"
 
 #: plugins/document-metadata.py:130
-#, fuzzy
 msgid "Entity responsible for making the document available"
 msgstr "Subjekt, odgovoren za dostopnost dokumenta"
 
@@ -5476,16 +5361,12 @@ msgid "Date and time that any metadata for this resource was last changed"
 msgstr "Datum in ura, ko so bili metapodatki za ta vir nazadnje spremenjeni"
 
 #: plugins/document-metadata.py:148
-#, fuzzy
-#| msgid "Initial Creator"
 msgid "Initial Generator"
-msgstr "Začetni ustvarjalec"
+msgstr "Začetni izdelovalec"
 
 #: plugins/document-metadata.py:148
-#, fuzzy
-#| msgid "The template file that is been used to generate this document."
 msgid "Name of the first known tool used to create the document"
-msgstr "Predloga, ki je bila uporabljena za ustvarjanje tega dokumenta."
+msgstr "Ime prvega znanega orodja, uporabljenega za izdelavo dokumenta"
 
 #: plugins/document-metadata.py:149
 msgid "PDF/A Part"
@@ -5545,10 +5426,8 @@ msgid "A general indication of the kind of data contained in this subfile."
 msgstr "Splošna navedba vrste podatkov zapisanih v prikazni datoteki"
 
 #: plugins/image-metadata.py:37
-#, fuzzy
-#| msgid "New Subfile Type"
 msgid "Subfile Type"
-msgstr "Nova vrsta prikazne datoteke"
+msgstr "Vrsta poddatoteke"
 
 #: plugins/image-metadata.py:38 plugins/multimedia-metadata.py:36
 msgid "Bits per Sample"
@@ -5563,17 +5442,12 @@ msgid "Compression"
 msgstr "Stiskanje"
 
 #: plugins/image-metadata.py:39
-#, fuzzy
-#| msgid ""
-#| "The compression scheme used for the image data. When a primary image is JPEG compressed, this "
-#| "designation is not necessary and is omitted. When thumbnails use JPEG compression, this tag value is "
-#| "set to 6."
 msgid ""
 "The compression scheme used for the image data. When thumbnails use JPEG compression, this tag value is "
 "set to 6."
 msgstr ""
-"Shema stiskanja za slikovne podatke. Kadar je osnovna slika stisnjena v JPEG načinu, določilo ni obvezno "
-"in ga lahko izpustimo. V primeru, da je JPEG stiskanje uporabljeno za sličice, je določena vrednost 6."
+"Shema stiskanja za slikovne podatke. V primeru, da je JPEG-stiskanje uporabljeno za ogledne sličice, je "
+"določena vrednost 6."
 
 #: plugins/image-metadata.py:40
 msgid "Photometric Interpretation"
@@ -5838,9 +5712,8 @@ msgstr "Enota ločljivosti"
 #: plugins/image-metadata.py:64
 #, fuzzy
 #| msgid ""
-#| "The unit for measuring <Exif.XResolution> and <Exif.YResolution>. The same unit is used for both "
-#| "<Exif.XResolution> and <Exif.YResolution>. If the image resolution is unknown, 2 (inches) is "
-#| "designated."
+#| "The unit for measuring <Exif.XResolution> and <Exif.YResolution>. The same unit is used for both <Exif."
+#| "XResolution> and <Exif.YResolution>. If the image resolution is unknown, 2 (inches) is designated."
 msgid ""
 "The unit for measuring <XResolution> and <YResolution>. The same unit is used for both <XResolution> and "
 "<YResolution>."
@@ -6011,8 +5884,9 @@ msgid "The number of inks."
 msgstr "Število črnil."
 
 #: plugins/image-metadata.py:83
+#, fuzzy
 msgid "Dot Range"
-msgstr ""
+msgstr "Obseg pike"
 
 #: plugins/image-metadata.py:85
 #, fuzzy, no-python-format
@@ -6056,7 +5930,7 @@ msgstr "Območje prenosa"
 
 #: plugins/image-metadata.py:92
 msgid "Expands the range of the TransferFunction"
-msgstr ""
+msgstr "Razširi območje TransferFunction"
 
 #: plugins/image-metadata.py:93
 msgid "Clip Path"
@@ -6064,7 +5938,7 @@ msgstr "Pot posnetka"
 
 #: plugins/image-metadata.py:93
 msgid "A TIFF ClipPath is intended to mirror the essentials of PostScript's path creation functionality."
-msgstr ""
+msgstr "TIFF ClipPath je namenjen zrcaljenju osnov funkcionalnosti ustvarjanja poti v PostScriptu."
 
 #: plugins/image-metadata.py:94
 msgid "JPEG tables"
@@ -6075,6 +5949,8 @@ msgid ""
 "This optional tag may be used to encode the JPEG quantization and Huffman tables for subsequent use by "
 "the JPEG decompression process."
 msgstr ""
+"Ta neobvezna značka se lahko uporabi za kodiranje kvantizacije JPEG in Huffmanovih tabel za kasnejšo "
+"uporabo v procesu dekompresije JPEG."
 
 #: plugins/image-metadata.py:95
 msgid "JPEG Process"
@@ -6129,14 +6005,12 @@ msgid "The reference black point value and reference white point value."
 msgstr "Referenčna vrednost črne točke in referenčna vrednost bele točke."
 
 #: plugins/image-metadata.py:100
-#, fuzzy
-#| msgid "Window state"
 msgid "Windows Rating"
-msgstr "Stanje okna"
+msgstr "Ocena Windows"
 
 #: plugins/image-metadata.py:100
 msgid "Rating tag used by Windows"
-msgstr ""
+msgstr "Oznaka za oceno, ki jo uporablja Windows"
 
 #: plugins/image-metadata.py:101
 #, fuzzy
@@ -6194,16 +6068,12 @@ msgid "Exposure time, given in seconds."
 msgstr "Čas osvetlitve določen v sekundah."
 
 #: plugins/image-metadata.py:106
-#, fuzzy
-#| msgid "F Number"
 msgid "FNumber"
-msgstr "F število"
+msgstr "F-število"
 
 #: plugins/image-metadata.py:106
-#, fuzzy
-#| msgid "F Number"
 msgid "The F number."
-msgstr "F število"
+msgstr "F-število."
 
 #: plugins/image-metadata.py:107
 msgid "Inter Color Profile"
@@ -6211,7 +6081,7 @@ msgstr "Barvni profil Inter"
 
 #: plugins/image-metadata.py:107
 msgid "Contains an InterColor Consortium (ICC) format color space characterization/profile"
-msgstr ""
+msgstr "Vsebuje karakterizacijo/profil barvnega prostora v zapisu InterColor Consortium (ICC)"
 
 #: plugins/image-metadata.py:108
 msgid "Exposure Program"
@@ -6226,10 +6096,8 @@ msgid "Spectral Sensitivity"
 msgstr "Spektralna občutljivost"
 
 #: plugins/image-metadata.py:109
-#, fuzzy
-#| msgid "The spectral sensitivity of each channel of the camera used."
 msgid "Indicates the spectral sensitivity of each channel of the camera used."
-msgstr "Spektralna občutljivost posameznega kanala aparata."
+msgstr "Označuje spektralno občutljivost vsakega kanala uporabljenega fotoaparata."
 
 #: plugins/image-metadata.py:110
 msgid "ISO Speed Ratings"
@@ -6247,18 +6115,15 @@ msgstr "OECF"
 
 #: plugins/image-metadata.py:111
 msgid "Indicates the Opto-Electric Conversion Function (OECF) specified in ISO 14524."
-msgstr ""
+msgstr "Označuje funkcijo optoelektrične pretvorbe (OECF), določeno v ISO 14524."
 
 #: plugins/image-metadata.py:112
-#, fuzzy
 msgid "Interlace"
 msgstr "Prepletanje"
 
 #: plugins/image-metadata.py:112
-#, fuzzy
-#| msgid "Indicates the value of coefficient gamma."
 msgid "Indicates the field number of multifield images."
-msgstr "Določa vrednost barvnega koeficienta."
+msgstr "Označuje število polja večpoljnih slik."
 
 #: plugins/image-metadata.py:113
 msgid "Time Zone Offset"
@@ -6270,15 +6135,15 @@ msgid ""
 "create the DataTimeOriginal tag-value when the picture was taken. It may also contain the time zone "
 "offset of the clock used to create the DateTime tag-value when the image was modified."
 msgstr ""
+"Ta neobvezna značka kodira časovni pas ure fotoaparata (glede na Greenwichski srednji čas), ki se "
+"uporablja za ustvarjanje vrednosti značke DataTimeOriginal k fotografiji. Lahko vsebuje tudi časovni "
+"zamik ure, ki je bila uporabljena za ustvarjanje vrednosti oznake DateTime, ko je bila slika spremenjena."
 
 #: plugins/image-metadata.py:114
-#, fuzzy
-#| msgid "Size Mode"
 msgid "Self Timer Mode"
-msgstr "Način velikosti"
+msgstr "Način samosprožilca"
 
 #: plugins/image-metadata.py:114
-#, fuzzy
 msgid "Number of seconds image capture was delayed from button press."
 msgstr "Število sekund, za katero je bil zajem slike po pritisku na sprožilec zamaknjen."
 
@@ -6315,6 +6180,7 @@ msgstr "Časovni zamik"
 #: plugins/image-metadata.py:118
 msgid "Time difference from Universal Time Coordinated including daylight saving time of DateTime tag."
 msgstr ""
+"Časovna razlika glede na UTC (Universal Time Coordinated), vključno s poletnim časom značke DateTime."
 
 #: plugins/image-metadata.py:119
 #, fuzzy
@@ -6326,6 +6192,8 @@ msgstr "Delež časa osnove"
 msgid ""
 "Time difference from Universal Time Coordinated including daylight saving time of DateTimeOriginal tag."
 msgstr ""
+"Časovna razlika glede na UTC (Universal Time Coordinated), vključno s poletnim časom značke "
+"DateTimeOriginal."
 
 #: plugins/image-metadata.py:120
 #, fuzzy
@@ -6337,6 +6205,8 @@ msgstr "Delež časa digitaliziranja"
 msgid ""
 "Time difference from Universal Time Coordinated including daylight saving time of DateTimeDigitized tag."
 msgstr ""
+"Časovna razlika glede na UTC (Universal Time Coordinated), vključno s poletnim časom značke "
+"DateTimeDigitalized."
 
 #: plugins/image-metadata.py:121
 msgid "Components Configuration"
@@ -6478,7 +6348,7 @@ msgstr "Številka slike"
 
 #: plugins/image-metadata.py:136
 msgid "Number assigned to an image, e.g., in a chained image burst."
-msgstr ""
+msgstr "Številka, dodeljena sliki, npr. v verižnem slikovnem nizu."
 
 #: plugins/image-metadata.py:137
 msgid "Security Classification"
@@ -6526,6 +6396,8 @@ msgid ""
 "Contains four ASCII characters representing the TIFF/EP standard version of a TIFF/EP file, eg '1', '0', "
 "'0', '0'"
 msgstr ""
+"Vsebuje štiri ASCII-znake, ki predstavljajo standardno različico TIFF/EP datoteke TIFF/EP, npr. '1', '0', "
+"'0', '0'"
 
 #: plugins/image-metadata.py:142
 msgid "Maker Note"
@@ -6545,6 +6417,8 @@ msgid ""
 "A tag for Exif users to write keywords or comments on the image besides those in <ImageDescription>, and "
 "without the character code limitations of the <ImageDescription> tag."
 msgstr ""
+"Značka za uporabnike Exif, da na sliko pišejo ključne besede ali komentarje poleg tistih v "
+"<ImageDescription>, in brez omejitev kode znakov značke <ImageDescription>."
 
 #: plugins/image-metadata.py:144
 #, fuzzy
@@ -6583,55 +6457,44 @@ msgid "A tag used to record fractions of seconds for the <DateTimeDigitized> tag
 msgstr "Del sekunde za oznako <Exif.DateTimeDigitized>."
 
 #: plugins/image-metadata.py:147
-#, fuzzy
-#| msgid "Window width"
 msgid "Windows Title"
-msgstr "Širina okna"
+msgstr "Naslov - Windows"
 
 #: plugins/image-metadata.py:147
-#, fuzzy
 msgid "Title tag used by Windows, encoded in UCS2"
-msgstr "Naslovna oznaka, ki jo uporablja Windows, kodirana v UCS2"
+msgstr "Naslovna značka, ki jo uporablja sistem Windows, kodirana v UCS2"
 
 #: plugins/image-metadata.py:148
-#, fuzzy
-#| msgid "User Comment"
 msgid "Windows Comment"
-msgstr "Opomba uporabnika"
+msgstr "Komentar - Windows"
 
 #: plugins/image-metadata.py:148
 msgid "Comment tag used by Windows, encoded in UCS2"
-msgstr ""
+msgstr "Značka komentarja, ki jo uporablja Windows, kodirana v UCS2"
 
 #: plugins/image-metadata.py:149
-#, fuzzy
-#| msgid "Windows share"
 msgid "Windows Author"
-msgstr "Souporaba z Windows sistemom"
+msgstr "Avtor - Windows"
 
 #: plugins/image-metadata.py:149
 msgid "Author tag used by Windows, encoded in UCS2"
-msgstr ""
+msgstr "Značka avtorja, ki jo uporablja Windows, kodirana v UCS2"
 
 #: plugins/image-metadata.py:150
-#, fuzzy
-#| msgid "Keywords"
 msgid "Windows Keywords"
-msgstr "Ključne besede"
+msgstr "Ključne besede - Windows"
 
 #: plugins/image-metadata.py:150
 msgid "Keywords tag used by Windows, encoded in UCS2"
-msgstr ""
+msgstr "Značka ključnih besed, ki jih uporablja Windows, kodirane v UCS2"
 
 #: plugins/image-metadata.py:151
-#, fuzzy
-#| msgid "Windows share"
 msgid "Windows Subject"
-msgstr "Souporaba z Windows sistemom"
+msgstr "Zadeva - Windows"
 
 #: plugins/image-metadata.py:151
 msgid "Subject tag used by Windows, encoded in UCS2"
-msgstr ""
+msgstr "Značka subjekta, ki jo uporablja Windows, kodirana v UCS2"
 
 #: plugins/image-metadata.py:152
 msgid "FlashPix Version"
@@ -6647,7 +6510,7 @@ msgstr "Barvni prostor"
 
 #: plugins/image-metadata.py:153
 msgid "The color space information tag is always recorded as the color space specifier."
-msgstr ""
+msgstr "Informacijska značka barvnega prostora je vedno zabeležena kot določitelj barvnega prostora."
 
 #: plugins/image-metadata.py:154
 msgid "Related Sound File"
@@ -6668,6 +6531,7 @@ msgstr "Ločljivost X goriščne ravnine"
 #: plugins/image-metadata.py:157
 msgid "Number of pixels per FocalPlaneResolutionUnit (37392) in ImageWidth direction for main image."
 msgstr ""
+"Število slikovnih točk na enoto FocalPlaneResolutionUnit (37392) v smeri širine slike za glavno sliko."
 
 #: plugins/image-metadata.py:158
 #, fuzzy
@@ -6690,17 +6554,15 @@ msgstr "Enota ploskovne ločljivosti žarišča"
 
 #: plugins/image-metadata.py:159
 msgid "Unit of measurement for FocalPlaneXResolution(37390) and FocalPlaneYResolution(37391)."
-msgstr ""
+msgstr "Merska enota za FocalPlaneXResolution(37390) in FocalPlaneYResolution(37391)."
 
 #: plugins/image-metadata.py:160
 msgid "Subject Location"
 msgstr "Mesto predmeta"
 
 #: plugins/image-metadata.py:160
-#, fuzzy
-#| msgid "The location and area of the main subject in the overall scene."
 msgid "Indicates the location and area of the main subject in the overall scene."
-msgstr "Lega in območje glavnega predmeta na skupni sceni."
+msgstr "Označuje lokacijo in območje glavnega subjekta v celotnem prizoru."
 
 #: plugins/image-metadata.py:162
 msgid "Sensing Method"
@@ -6725,16 +6587,12 @@ msgid "Scene Type"
 msgstr "Vrsta scene"
 
 #: plugins/image-metadata.py:164
-#, fuzzy
-#| msgid ""
-#| "The type of scene. If a DSC recorded the image, this tag value must always be set to 1, indicating "
-#| "that the image was directly photographed."
 msgid ""
 "Indicates the type of scene. If a DSC recorded the image, this tag value must always be set to 1, "
 "indicating that the image was directly photographed."
 msgstr ""
-"Vrsta slikane scene. V primeru, da je slika zajeta z DSC, mora biti vrednost določena kot 1, kar določa, "
-"da je bila slika neposredno zajeta."
+"Označuje vrsto prizora. Če je DSC posnel sliko, mora biti ta vrednost oznake vedno nastavljena na 1, kar "
+"pomeni, da je bila slika neposredno fotografirana."
 
 #: plugins/image-metadata.py:165
 msgid "Custom Rendered"
@@ -6743,6 +6601,7 @@ msgstr "Izris po meri"
 #: plugins/image-metadata.py:165
 msgid "This tag indicates the use of special processing on image data, such as rendering geared to output."
 msgstr ""
+"Ta značka označuje uporabo posebne obdelave slikovnih podatkov, kot je izrisovanje, prilagojeno izhodu."
 
 #: plugins/image-metadata.py:166
 msgid "Exposure Mode"
@@ -6857,7 +6716,7 @@ msgstr "Opis nastavitev naprave"
 
 #: plugins/image-metadata.py:175
 msgid "This tag indicates information on the picture-taking conditions of a particular camera model."
-msgstr ""
+msgstr "Ta značka prikazuje informacije o pogojih pri fotografiranja z določenim modelom fotoaparata."
 
 #: plugins/image-metadata.py:176
 msgid "Subject Distance Range"
@@ -6873,7 +6732,7 @@ msgstr "Enovit ID slike"
 
 #: plugins/image-metadata.py:177
 msgid "This tag indicates an identifier assigned uniquely to each image."
-msgstr ""
+msgstr "Ta značka označuje identifikator, ki je edinstveno dodeljen vsaki sliki."
 
 #: plugins/image-metadata.py:178
 msgid "Camera Owner Name"
@@ -6881,7 +6740,7 @@ msgstr "Ime lastnika kamere/fotoaparata"
 
 #: plugins/image-metadata.py:178
 msgid "This tag records the owner of a camera used in photography as an ASCII string."
-msgstr ""
+msgstr "Ta značka zabeleži lastnika fotoaparata, uporabljenega za fotografijo, kot ASCII-niz."
 
 #: plugins/image-metadata.py:179
 msgid "Body Serial Number"
@@ -6892,6 +6751,7 @@ msgid ""
 "This tag records the serial number of the body of the camera that was used in photography as an ASCII "
 "string."
 msgstr ""
+"Ta značka beleži serijsko številko ohišja fotoaparata, ki je bil uporabljen za fotografijo, kot ASCII-niz."
 
 #: plugins/image-metadata.py:180
 msgid "Lens Specification"
@@ -6903,6 +6763,9 @@ msgid ""
 "and minimum F number in the maximum focal length, which are specification information for the lens that "
 "was used in photography. When the minimum F number is unknown, the notation is 0/0"
 msgstr ""
+"Ta značka navaja minimalno goriščno razdaljo, največjo goriščno razdaljo, najmanjše število F pri "
+"najmanjši goriščni razdalji in najmanjše število F pri največji goriščni razdalji, kar so specifikacijske "
+"informacije za objektiv, uporabljen pri fotografiji. Ko minimalno število F ni znano, je zapisano 0/0"
 
 #: plugins/image-metadata.py:181
 msgid "Lens Make"
@@ -6929,6 +6792,8 @@ msgid ""
 "This tag records the serial number of the interchangeable lens that was used in photography as an ASCII "
 "string."
 msgstr ""
+"Ta značka beleži serijsko številko zamenljivega objektiva, ki se je uporabljal v fotografiji, kot ASCII-"
+"niz."
 
 #: plugins/image-metadata.py:184
 msgid "Gamma"
@@ -6948,6 +6813,9 @@ msgid ""
 "The origin of this pattern is the top-left corner of the ActiveArea rectangle. The values are stored in "
 "row-column-sample scan order."
 msgstr ""
+"Določa raven kodiranja ničelne svetlobe (t. i. termični črni ali črni tok) kot ponavljajoči se vzorec. "
+"Izvor tega vzorca je zgornji levi kot pravokotnika ActiveArea. Vrednosti so shranjene v zaporedju vrstica-"
+"stolpec-vzorec skeniranja."
 
 #: plugins/image-metadata.py:189
 msgid "Interoperability Index"
@@ -7033,8 +6901,8 @@ msgid ""
 "places, the format is dd/1,mmmm/100,0/1."
 msgstr ""
 "Določa geografsko širino, ki je izražena s tremi racionalnimi vrednostmi ločeno za stopinje, minute in "
-"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,mmmm/"
-"100,0/1."
+"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,"
+"mmmm/100,0/1."
 
 #: plugins/image-metadata.py:197
 #, fuzzy
@@ -7060,13 +6928,13 @@ msgstr "Zemljepisna dolžina GPS"
 #: plugins/image-metadata.py:198
 msgid ""
 "Indicates the longitude. The longitude is expressed as three RATIONAL values giving the degrees, minutes, "
-"and seconds, respectively. When degrees, minutes and seconds are expressed, the format is ddd/1,mm/1,ss/"
-"1. When degrees and minutes are used and, for example, fractions of minutes are given up to two decimal "
-"places, the format is ddd/1,mmmm/100,0/1."
+"and seconds, respectively. When degrees, minutes and seconds are expressed, the format is ddd/1,mm/1,"
+"ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up to two "
+"decimal places, the format is ddd/1,mmmm/100,0/1."
 msgstr ""
 "Določa geografsko dolžino, ki je izražena s tremi racionalnimi vrednostmi ločeno za stopinje, minute in "
-"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,mmmm/"
-"100,0/1."
+"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,"
+"mmmm/100,0/1."
 
 #: plugins/image-metadata.py:199
 msgid "GPS Altitude"
@@ -7164,14 +7032,17 @@ msgid "Indicates the speed of GPS receiver movement."
 msgstr "Določa hitrost gibanja sprejemnika GPS."
 
 #: plugins/image-metadata.py:207
+#, fuzzy
 msgid "GPS Track Ref"
-msgstr ""
+msgstr "Sklic sledenja GPS"
 
 #: plugins/image-metadata.py:207
 msgid ""
 "Indicates the reference for giving the direction of GPS receiver movement. \"T\" denotes true direction "
 "and \"M\" is magnetic direction."
 msgstr ""
+"Označuje referenco za določanje smeri gibanja sprejemnika GPS. »T« označuje pravo smer, »M« pa magnetno "
+"smer."
 
 #: plugins/image-metadata.py:208
 #, fuzzy
@@ -7181,7 +7052,7 @@ msgstr "MB ID sledi"
 
 #: plugins/image-metadata.py:208
 msgid "Indicates the direction of GPS receiver movement. The range of values is from 0.00 to 359.99."
-msgstr ""
+msgstr "Označuje smer gibanja sprejemnika GPS. Razpon vrednosti je od 0,00 do 359,99."
 
 #: plugins/image-metadata.py:209
 msgid "GPS Image Direction Reference"
@@ -7192,6 +7063,7 @@ msgid ""
 "Indicates the reference for giving the direction of the image when it is captured. \"T\" denotes true "
 "direction and \"M\" is magnetic direction."
 msgstr ""
+"Označuje referenco za določanje smeri slike ob zajemu. »T« označuje pravo smer, »M« pa magnetno smer."
 
 #: plugins/image-metadata.py:210
 msgid "GPS Image Direction"
@@ -7200,17 +7072,19 @@ msgstr "Smer slike GPS"
 #: plugins/image-metadata.py:210
 msgid ""
 "Indicates the direction of the image when it was captured. The range of values is from 0.00 to 359.99."
-msgstr ""
+msgstr "Označuje smer slike ob zajetju. Razpon vrednosti je od 0,00 do 359,99."
 
 #: plugins/image-metadata.py:211
 msgid "GPS Map Datum"
-msgstr ""
+msgstr "Datum zemljevida GPS"
 
 #: plugins/image-metadata.py:211
 msgid ""
 "Indicates the geodetic survey data used by the GPS receiver. If the survey data is restricted to Japan, "
 "the value of this tag is \"TOKYO\" or \"WGS-84\"."
 msgstr ""
+"Označuje geodetske geodetske podatke, ki jih uporablja sprejemnik GPS. Če so podatki iz raziskave omejeni "
+"na Japonsko, je vrednost te oznake »TOKIO« ali »WGS-84«."
 
 #: plugins/image-metadata.py:212
 #, fuzzy
@@ -7240,9 +7114,9 @@ msgstr "Cilj"
 #, fuzzy
 #| msgid ""
 #| "Indicates the latitude. The latitude is expressed as three RATIONAL values giving the degrees, "
-#| "minutes, and seconds, respectively. When degrees, minutes and seconds are expressed, the format is dd/"
-#| "1,mm/1,ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up to "
-#| "two decimal places, the format is dd/1,mmmm/100,0/1."
+#| "minutes, and seconds, respectively. When degrees, minutes and seconds are expressed, the format is "
+#| "dd/1,mm/1,ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up "
+#| "to two decimal places, the format is dd/1,mmmm/100,0/1."
 msgid ""
 "Indicates the latitude of the destination point. The latitude is expressed as three RATIONAL values "
 "giving the degrees, minutes, and seconds, respectively. If latitude is expressed as degrees, minutes and "
@@ -7250,8 +7124,8 @@ msgid ""
 "fractions of minutes are given up to two decimal places, the format would be dd/1,mmmm/100,0/1."
 msgstr ""
 "Določa geografsko širino, ki je izražena s tremi racionalnimi vrednostmi ločeno za stopinje, minute in "
-"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,mmmm/"
-"100,0/1."
+"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,"
+"mmmm/100,0/1."
 
 #: plugins/image-metadata.py:214
 #, fuzzy
@@ -7281,9 +7155,9 @@ msgstr "Cilj"
 #, fuzzy
 #| msgid ""
 #| "Indicates the longitude. The longitude is expressed as three RATIONAL values giving the degrees, "
-#| "minutes, and seconds, respectively. When degrees, minutes and seconds are expressed, the format is ddd/"
-#| "1,mm/1,ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up to "
-#| "two decimal places, the format is ddd/1,mmmm/100,0/1."
+#| "minutes, and seconds, respectively. When degrees, minutes and seconds are expressed, the format is "
+#| "ddd/1,mm/1,ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up "
+#| "to two decimal places, the format is ddd/1,mmmm/100,0/1."
 msgid ""
 "Indicates the longitude of the destination point. The longitude is expressed as three RATIONAL values "
 "giving the degrees, minutes, and seconds, respectively. If longitude is expressed as degrees, minutes and "
@@ -7291,12 +7165,12 @@ msgid ""
 "fractions of minutes are given up to two decimal places, the format would be ddd/1,mmmm/100,0/1."
 msgstr ""
 "Določa geografsko dolžino, ki je izražena s tremi racionalnimi vrednostmi ločeno za stopinje, minute in "
-"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,mmmm/"
-"100,0/1."
+"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,"
+"mmmm/100,0/1."
 
 #: plugins/image-metadata.py:216
 msgid "GPS Destination Bearing Reference"
-msgstr ""
+msgstr "Referenčna GPS smer do cilja"
 
 #: plugins/image-metadata.py:216
 #, fuzzy
@@ -7315,17 +7189,19 @@ msgstr "Cilj"
 
 #: plugins/image-metadata.py:217
 msgid "Indicates the bearing to the destination point. The range of values is from 0.00 to 359.99."
-msgstr ""
+msgstr "Označuje smer do ciljne točke. Razpon vrednosti je od 0,00 do 359,99."
 
 #: plugins/image-metadata.py:218
 msgid "GPS Destination Distance Reference"
-msgstr ""
+msgstr "Referenčna GPS razdalja do cilja"
 
 #: plugins/image-metadata.py:218
 msgid ""
 "Indicates the unit used to express the distance to the destination point. \"K\", \"M\" and \"N\" "
 "represent kilometers, miles and nautical miles."
 msgstr ""
+"Označuje enoto, ki se uporablja za izražanje razdalje do ciljne točke. »K«, »M« in »N« predstavljajo "
+"kilometre, milje in navtične milje."
 
 #: plugins/image-metadata.py:219
 #, fuzzy
@@ -7345,7 +7221,7 @@ msgstr "Metoda obdelave GPS"
 
 #: plugins/image-metadata.py:220
 msgid "A character string recording the name of the method used for location finding."
-msgstr ""
+msgstr "Niz znakov, ki beleži ime metode, uporabljene za iskanje lokacije."
 
 #: plugins/image-metadata.py:221
 #, fuzzy
@@ -7371,11 +7247,11 @@ msgstr ""
 
 #: plugins/image-metadata.py:223
 msgid "GPS Differential"
-msgstr ""
+msgstr "Diferencial GPS"
 
 #: plugins/image-metadata.py:223
 msgid "Indicates whether differential correction is applied to the GPS receiver."
-msgstr ""
+msgstr "Označuje, ali je na GPS sprejemniku uporabljena korekcija diferenciala."
 
 #: plugins/image-metadata.py:233
 #, fuzzy
@@ -7385,11 +7261,11 @@ msgstr "Vstavek za pridobivanje metapodatkov iz slik z uporabo knjižnice libexi
 
 #: plugins/image-metadata.py:235
 msgid "Python3 package exifread has to be installed on your system for this plugin to work."
-msgstr ""
+msgstr "Da ta vstavek deluje, mora biti na vašem sistemu nameščen paket exifread."
 
 #: plugins/image-metadata.py:250
 msgid "Required exifread module not found. Please install exifread for Python3 on your system."
-msgstr ""
+msgstr "Zahtevani modul exifread ni bil najden. Namestite exifread za Python3 na svoj sistem."
 
 #: plugins/image-metadata.py:291 plugins/image-metadata.py:298
 msgid "EXIF"
@@ -7409,6 +7285,10 @@ msgid ""
 "should be run in the embedded terminal if possible and in the terminal window otherwise. The special "
 "comment #single-file:true indicates that the script should be run once for each selected file."
 msgstr ""
+"Skripti lahko vsebujejo posebne komentarje. Poseben komentar #name:MyScript se lahko uporabi za "
+"označevanje imena skripta, ki se prikaže v kontekstnem meniju. Poseben komentar #term:true nakazuje, da "
+"naj se skript, če je mogoče, izvede v vgrajenem terminalu, sicer pa v terminalskem oknu. Poseben komentar "
+"#single-file:true pomeni, da je treba skript zagnati enkrat za vsako izbrano datoteko."
 
 #: plugins/menu-scripts.py:66
 msgid ""
@@ -7416,14 +7296,18 @@ msgid ""
 "command line arguments. Holding the Shift key while clicking the menu item will force it to be run once "
 "for each file."
 msgstr ""
+"Privzeto (razen če je prisoten poseben komentar za eno datoteko) bo skripta prejela vse izbrane datoteke "
+"kot argumente ukazne vrstice. Držanje dvigalke med klikom na meni bo prisililo, da se zažene enkrat za "
+"vsako datoteko."
 
 #: plugins/multimedia-metadata.py:33
 msgid "Album Gain"
 msgstr "Okrepitev zvoka albuma"
 
 #: plugins/multimedia-metadata.py:33
+#, fuzzy
 msgid "Replay Gain for this album"
-msgstr ""
+msgstr "Ojačanje ponovnega predvajanja za ta album"
 
 #: plugins/multimedia-metadata.py:34
 #, fuzzy
@@ -7562,8 +7446,9 @@ msgid "Title Gain"
 msgstr "Naslov"
 
 #: plugins/multimedia-metadata.py:49
+#, fuzzy
 msgid "Replay Gain for this song"
-msgstr ""
+msgstr "Ojačitev ponovnega predvajanja za to pesem"
 
 #: plugins/multimedia-metadata.py:50
 #, fuzzy
@@ -7573,7 +7458,7 @@ msgstr "Naslov"
 
 #: plugins/multimedia-metadata.py:50
 msgid "Peak data for this song"
-msgstr ""
+msgstr "Podatki o vrhovih za to pesem"
 
 #: plugins/multimedia-metadata.py:53
 #, fuzzy
@@ -8383,7 +8268,7 @@ msgstr "Bibliografija"
 
 #: plugins/multimedia-metadata.py:220
 msgid "Bibliography/discography link"
-msgstr ""
+msgstr "Povezava do bibliografije/diskografije"
 
 #. Vorbis comments are not standardized, there are various lists floating around.
 #. Using https://exiftool.org/TagNames/Vorbis.html plus some tags found in real-life files.
@@ -8514,11 +8399,11 @@ msgstr "Vstavek za pridobivanje metapodatkov iz slik z uporabo knjižnice libexi
 
 #: plugins/multimedia-metadata.py:325
 msgid "Python3 package mutagen has to be install on your system for this plugin to work."
-msgstr ""
+msgstr "Paket mutagen za Python3 mora biti nameščen na vašem sistemu, da ta vstavek deluje."
 
 #: plugins/multimedia-metadata.py:336
 msgid "Required mutagen module not found. Please install mutagen for Python3 on your system."
-msgstr ""
+msgstr "Zahtevani modul mutagen ni najden. Namestite mutagen za Python3 na svoj sistem."
 
 #: plugins/plugin_helper.py:203 plugins/plugin_helper.py:206
 #, fuzzy
