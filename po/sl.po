@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
 "POT-Creation-Date: 2026-06-14 13:58+0000\n"
-"PO-Revision-Date: 2026-06-21 09:52+0200\n"
+"PO-Revision-Date: 2026-06-21 23:08+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -5218,9 +5218,8 @@ msgid "Number of sound or video clips that are present in the document"
 msgstr "Število zvočnih ali video posnetkov, ki so prisotni v dokumentu"
 
 #: plugins/document-metadata.py:93
-#, fuzzy
 msgid "Scale Crop"
-msgstr "Umerjenje obreza"
+msgstr "Obrez z umerjenjem"
 
 #: plugins/document-metadata.py:93
 msgid "Display mode of the document thumbnail"
@@ -5519,9 +5518,8 @@ msgid "The pixel composition."
 msgstr "Kompozicija slikovnih točk."
 
 #: plugins/image-metadata.py:41
-#, fuzzy
 msgid "Thresholding"
-msgstr "Pragovanje"
+msgstr "Določanje praga"
 
 #: plugins/image-metadata.py:41
 msgid ""
@@ -5629,7 +5627,6 @@ msgstr ""
 "razdeljena na trakove."
 
 #: plugins/image-metadata.py:52 plugins/image-metadata.py:90
-#, fuzzy
 msgid "SMin Sample Value"
 msgstr "Vrednost vzorca SMin"
 
@@ -5638,7 +5635,6 @@ msgid "This field specifies the minimum sample value."
 msgstr "To polje določa nnjmanjšo vrednost vzorca."
 
 #: plugins/image-metadata.py:53 plugins/image-metadata.py:91
-#, fuzzy
 msgid "SMax Sample Value"
 msgstr "Vrednost vzorca SMax"
 
@@ -5914,7 +5910,6 @@ msgid "Target Printer"
 msgstr "Ciljni tiskalnik"
 
 #: plugins/image-metadata.py:87
-#, fuzzy
 msgid "A description of the printing environment for which this separation is intended."
 msgstr "Opis tiskarskega okolja, za katerega je ta ločitev namenjena."
 
@@ -5931,7 +5926,6 @@ msgstr ""
 "navedenih vrednosti."
 
 #: plugins/image-metadata.py:89
-#, fuzzy
 msgid "Sample Format"
 msgstr "Oblika vzorčenja"
 
@@ -6016,10 +6010,8 @@ msgid "Rating tag used by Windows"
 msgstr "Oznaka za oceno, ki jo uporablja Windows"
 
 #: plugins/image-metadata.py:101
-#, fuzzy
-#| msgid "CFA Repeat Pattern Dim"
 msgid "CFA Repeat Pattern Dimension"
-msgstr "CFA ponavljalni vzorec zameglitve"
+msgstr "Mera ponavljalnega vzorca CFA"
 
 #: plugins/image-metadata.py:101
 msgid ""
@@ -6034,16 +6026,12 @@ msgid "CFA Pattern"
 msgstr "CFA Vzorec"
 
 #: plugins/image-metadata.py:102
-#, fuzzy
-#| msgid ""
-#| "The color filter array (CFA) geometric pattern of the image sensor when a one-chip color area sensor "
-#| "is used. It does not apply to all sensing methods."
 msgid ""
 "Indicates the color filter array (CFA) geometric pattern of the image sensor when a one-chip color area "
 "sensor is used."
 msgstr ""
-"Geometrična vrsta vzorca barvnega filtra (CFA) barvnega tipala, kadar je uporabljen čip z enim tipalom za "
-"barve in zato ni določen za vse metode zaznavanja."
+"Določa geometrični vzorec matrike barvnega filtra (CFA) barvnega tipala, kadar je uporabljeno tipalo za "
+"barve z enim čipom."
 
 #: plugins/image-metadata.py:103
 msgid "Battery Level"
@@ -6107,10 +6095,8 @@ msgid "ISO Speed Ratings"
 msgstr "Ocena ISO hitrosti"
 
 #: plugins/image-metadata.py:110
-#, fuzzy
-#| msgid "The ISO Speed and ISO Latitude of the camera or input device as specified in ISO 12232."
 msgid "Indicates the ISO Speed and ISO Latitude of the camera or input device as specified in ISO 12232."
-msgstr "Hitrost ISO in širina ISO aparata ali druge vhodne naprave kot to določa standard ISO 12232."
+msgstr "Hitrost ISO in širina ISO aparata ali druge vhodne naprave, kot to določa standard ISO 12232."
 
 #: plugins/image-metadata.py:111
 msgid "OECF"
@@ -6184,9 +6170,8 @@ msgstr ""
 "Časovna razlika glede na UTC (Universal Time Coordinated), vključno s poletnim časom značke DateTime."
 
 #: plugins/image-metadata.py:119
-#, fuzzy
 msgid "Offset Time Original"
-msgstr "Zamaknjeni datum in čas"
+msgstr "Zamaknjeni čas izvirnika"
 
 #: plugins/image-metadata.py:119
 msgid ""
@@ -6196,10 +6181,8 @@ msgstr ""
 "DateTimeOriginal."
 
 #: plugins/image-metadata.py:120
-#, fuzzy
-#| msgid "Subsec Time Digitized"
 msgid "Offset Time Digitized"
-msgstr "Delež časa digitaliziranja"
+msgstr "Zamaknjeni čas digitaliziranja"
 
 #: plugins/image-metadata.py:120
 msgid ""
@@ -6249,16 +6232,12 @@ msgid "The value of brightness."
 msgstr "Vrednost svetlosti."
 
 #: plugins/image-metadata.py:126
-#, fuzzy
-#| msgid "Exposure Bias"
 msgid "Exposure Bias Value"
-msgstr "Nagnjenost osvetlitve"
+msgstr "Vrednost odmika ekspozicije"
 
 #: plugins/image-metadata.py:126
-#, fuzzy
-#| msgid "Exposure Bias"
 msgid "The exposure bias."
-msgstr "Nagnjenost osvetlitve"
+msgstr "Odmik ekspozicije."
 
 #: plugins/image-metadata.py:127
 msgid "Max Aperture Value"
@@ -6405,7 +6384,6 @@ msgstr ""
 "<ImageDescription>, in brez omejitev kode znakov značke <ImageDescription>."
 
 #: plugins/image-metadata.py:144
-#, fuzzy
 msgid "Sub-seconds Time"
 msgstr "Čas v podsekundnem zapisu"
 
@@ -6414,18 +6392,14 @@ msgid "A tag used to record fractions of seconds for the <DateTime> tag."
 msgstr "Značka , ki zapiše ulomljeni del sekunde za značko <DateTime>."
 
 #: plugins/image-metadata.py:145
-#, fuzzy
-#| msgid "Subsec Time Original"
 msgid "Sub-seconds Time Original"
-msgstr "Delež časa osnove"
+msgstr "Delež časa izvirnika"
 
 #: plugins/image-metadata.py:145
 msgid "A tag used to record fractions of seconds for the <DateTimeOriginal> tag."
 msgstr "Značka , ki zapiše ulomljeni del sekunde za značko <DateTimeOriginal>."
 
 #: plugins/image-metadata.py:146
-#, fuzzy
-#| msgid "Subsec Time Digitized"
 msgid "Sub-seconds Time Digitized"
 msgstr "Delež časa digitaliziranja"
 
@@ -6594,32 +6568,24 @@ msgid "Digital Zoom Ratio"
 msgstr "Raven digitalnega približanja"
 
 #: plugins/image-metadata.py:168
-#, fuzzy
-#| msgid ""
-#| "The digital zoom ratio when the image was shot. If the numerator of the recorded value is 0, this "
-#| "indicates that digital zoom was not used."
 msgid ""
 "This tag indicates the digital zoom ratio when the image was shot. If the numerator of the recorded value "
 "is 0, this indicates that digital zoom was not used."
 msgstr ""
-"Razmerje digitalnega približanja ob zajetju slike. Številčna vrednost enaka 0 določa, da digitalno "
-"približanje ni bilo uporabljena. "
+"Razmerje digitalnega približanja (zoom) ob zajetju slike. Številčna vrednost enaka 0 določa, da digitalno "
+"približanje ni bilo uporabljeno."
 
 #: plugins/image-metadata.py:169
 msgid "Focal Length In 35mm Film"
 msgstr "Žariščna razdalja 35 mm filma"
 
 #: plugins/image-metadata.py:169
-#, fuzzy
-#| msgid ""
-#| "The equivalent focal length assuming a 35mm film camera, in mm. A value of 0 means the focal length is "
-#| "unknown. Note that this tag differs from the <Exif.FocalLength> tag."
 msgid ""
 "This tag indicates the equivalent focal length assuming a 35mm film camera, in mm. A value of 0 means the "
 "focal length is unknown."
 msgstr ""
-"Žariščna razdalja, privzeto predvidena za 35mm filmsko kamero. Vrednost 0 mm predstavlja neznano "
-"vrednost. Ta oznaka ni enaka oznaki <Exif.FocalLength>."
+"Žariščna razdalja, privzeto predvidena za 35-mm filmsko kamero. Vrednost 0 mm predstavlja neznano "
+"vrednost."
 
 #: plugins/image-metadata.py:170
 msgid "Scene Capture Type"
@@ -6642,33 +6608,27 @@ msgid "Contrast"
 msgstr "Kontrast"
 
 #: plugins/image-metadata.py:172
-#, fuzzy
-#| msgid "The direction of contrast processing applied by the camera when the image was shot."
 msgid ""
 "This tag indicates the direction of contrast processing applied by the camera when the image was shot."
-msgstr "Smer obdelave kontrasta slike, ki ga predoči aparat ob zajemanju slike."
+msgstr "Ta značka vsebuje smer obdelave kontrasta slike, ki jo uveljavi aparat ob zajemanju slike."
 
 #: plugins/image-metadata.py:173
 msgid "Saturation"
 msgstr "Nasičenost"
 
 #: plugins/image-metadata.py:173
-#, fuzzy
-#| msgid "The direction of saturation processing applied by the camera when the image was shot."
 msgid ""
 "This tag indicates the direction of saturation processing applied by the camera when the image was shot."
-msgstr "Smer zasičenosti slike med zajemanjem."
+msgstr "Ta značka vsebuje smer obdelave nasičenosti, ki jo je kamera uveljavila ob zajemanju slike."
 
 #: plugins/image-metadata.py:174
 msgid "Sharpness"
 msgstr "Ostrina"
 
 #: plugins/image-metadata.py:174
-#, fuzzy
-#| msgid "The direction of sharpness processing applied by the camera when the image was shot."
 msgid ""
 "This tag indicates the direction of sharpness processing applied by the camera when the image was shot."
-msgstr "Smer ostritve, ki jo je zabeležil aparat med zajemanjem slike.."
+msgstr "Ta značka vsebuje smer obdelave ostrenja, ki ga je uveljavil aparat med zajemanjem slike.."
 
 #: plugins/image-metadata.py:175
 msgid "Device Setting Description"
@@ -6952,10 +6912,8 @@ msgstr ""
 "PDOP pa med tridimenzionalnim merjenjem."
 
 #: plugins/image-metadata.py:205
-#, fuzzy
-#| msgid "Subject Reference"
 msgid "GPS Speed Reference"
-msgstr "Sklic predmeta"
+msgstr "Sklic hitrosti GPS"
 
 #: plugins/image-metadata.py:205
 msgid ""
@@ -6974,7 +6932,6 @@ msgid "Indicates the speed of GPS receiver movement."
 msgstr "Določa hitrost gibanja sprejemnika GPS."
 
 #: plugins/image-metadata.py:207
-#, fuzzy
 msgid "GPS Track Ref"
 msgstr "Sklic sledenja GPS"
 
@@ -6987,7 +6944,6 @@ msgstr ""
 "smer."
 
 #: plugins/image-metadata.py:208
-#, fuzzy
 msgid "GPS Track"
 msgstr "Sledenje GPS"
 
@@ -7028,89 +6984,66 @@ msgstr ""
 "na Japonsko, je vrednost te oznake »TOKIO« ali »WGS-84«."
 
 #: plugins/image-metadata.py:212
-#, fuzzy
 msgid "GPS Destination Latitude Reference"
-msgstr "Referenca ciljne emljepisne širine GPS"
+msgstr "Referenca ciljne zemljepisne širine GPS"
 
 #: plugins/image-metadata.py:212
-#, fuzzy
-#| msgid ""
-#| "Indicates whether the latitude is north or south latitude. The ASCII value “N” indicates north "
-#| "latitude, and “S” is south latitude."
 msgid ""
 "Indicates whether the latitude of the destination point is north or south latitude. The ASCII value \"N\" "
 "indicates north latitude, and \"S\" is south latitude."
 msgstr ""
-"Določa zemljepisno širino kot sever in jug. ASCII vrednost »N« določa severno zemljepisno širino in "
-"vrednost »S« južno."
+"Določa zemljepisno širino ciljne točke kot severno ali južno širino. ASCII-vrednost »N« določa severno "
+"zemljepisno širino in vrednost »S« južno."
 
 #: plugins/image-metadata.py:213
-#, fuzzy
 msgid "GPS Destination Latitude"
-msgstr "Zemljepisna širina cilja GPS"
+msgstr "Ciljna zemljepisna širina GPS"
 
 #: plugins/image-metadata.py:213
-#, fuzzy
-#| msgid ""
-#| "Indicates the latitude. The latitude is expressed as three RATIONAL values giving the degrees, "
-#| "minutes, and seconds, respectively. When degrees, minutes and seconds are expressed, the format is dd/"
-#| "1,mm/1,ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up to "
-#| "two decimal places, the format is dd/1,mmmm/100,0/1."
 msgid ""
 "Indicates the latitude of the destination point. The latitude is expressed as three RATIONAL values "
 "giving the degrees, minutes, and seconds, respectively. If latitude is expressed as degrees, minutes and "
 "seconds, a typical format would be dd/1,mm/1,ss/1. When degrees and minutes are used and, for example, "
 "fractions of minutes are given up to two decimal places, the format would be dd/1,mmmm/100,0/1."
 msgstr ""
-"Določa geografsko širino, ki je izražena s tremi racionalnimi vrednostmi ločeno za stopinje, minute in "
-"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,mmmm/"
-"100,0/1."
+"Določa zemljepisno širino ciljne točke, ki je izražena s tremi ločenimi racionalnimi vrednostmi za "
+"stopinje, minute in sekunde. Če je zemljepisna širina izražena v stopinjah, minutah in sekundah, bi bil "
+"tipičen zapis dd/1,mm/1,ss/1. Če se uporabljajo stopinje in minute in npr. ulomljeni deli minut do dveh "
+"decimalk, bi bil zapis z deleži oblikovan kot dd/1,mmmm/100,0/1."
 
 #: plugins/image-metadata.py:214
-#, fuzzy
 msgid "GPS Destination Longitude Reference"
-msgstr "Sklic za ciljno zemljepisno dolžino GPS"
+msgstr "Referenca ciljne zemljepisne dolžine GPS"
 
 #: plugins/image-metadata.py:214
-#, fuzzy
-#| msgid ""
-#| "Indicates whether the longitude is east or west longitude. ASCII “E” indicates east longitude, and “W” "
-#| "is west longitude."
 msgid ""
 "Indicates whether the longitude of the destination point is east or west longitude. ASCII \"E\" indicates "
 "east longitude, and \"W\" is west longitude."
 msgstr ""
-"Določa, ali je zemljepisna dolžina vzhodno in zahodno. ASCII vrednost »E« določa vzhodno zemljepisno "
-"dolžino, vrednost »W« zahodno."
+"Določa zemljepisno dolžino ciljne točke kot vzhodno ali zahodno dolžino. ASCII-vrednost »E« določa "
+"vzhodno zemljepisno dolžino, vrednost »W« zahodno."
 
 #: plugins/image-metadata.py:215
-#, fuzzy
 msgid "GPS Destination Longitude"
 msgstr "Ciljna zemljepisna dolžina GPS"
 
 #: plugins/image-metadata.py:215
-#, fuzzy
-#| msgid ""
-#| "Indicates the longitude. The longitude is expressed as three RATIONAL values giving the degrees, "
-#| "minutes, and seconds, respectively. When degrees, minutes and seconds are expressed, the format is ddd/"
-#| "1,mm/1,ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up to "
-#| "two decimal places, the format is ddd/1,mmmm/100,0/1."
 msgid ""
 "Indicates the longitude of the destination point. The longitude is expressed as three RATIONAL values "
 "giving the degrees, minutes, and seconds, respectively. If longitude is expressed as degrees, minutes and "
 "seconds, a typical format would be ddd/1,mm/1,ss/1. When degrees and minutes are used and, for example, "
 "fractions of minutes are given up to two decimal places, the format would be ddd/1,mmmm/100,0/1."
 msgstr ""
-"Določa geografsko dolžino, ki je izražena s tremi racionalnimi vrednostmi ločeno za stopinje, minute in "
-"sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,mmmm/"
-"100,0/1."
+"Določa zemljepisno dolžino ciljne točke, ki je izražena s tremi ločenimi racionalnimi vrednostmi za "
+"stopinje, minute in sekunde. Če je zemljepisna dolžina izražena v stopinjah, minutah in sekundah, bi bil "
+"tipičen zapis dd/1,mm/1,ss/1. Če se uporabljajo stopinje in minute in npr. ulomljeni deli minut do dveh "
+"decimalk, bi bil zapis z deleži oblikovan kot dd/1,mmmm/100,0/1."
 
 #: plugins/image-metadata.py:216
 msgid "GPS Destination Bearing Reference"
 msgstr "Referenčna GPS smer do cilja"
 
 #: plugins/image-metadata.py:216
-#, fuzzy
 msgid ""
 "Indicates the reference used for giving the bearing to the destination point. \"T\" denotes true "
 "direction and \"M\" is magnetic direction."
@@ -7119,7 +7052,6 @@ msgstr ""
 "pa magnetno smer."
 
 #: plugins/image-metadata.py:217
-#, fuzzy
 msgid "GPS Destination Bearing"
 msgstr "Ciljni kot GPS"
 
@@ -7140,7 +7072,6 @@ msgstr ""
 "kilometre, milje in navtične milje."
 
 #: plugins/image-metadata.py:219
-#, fuzzy
 msgid "GPS Destination Distance"
 msgstr "Ciljna razdalja GPS"
 
@@ -7157,10 +7088,8 @@ msgid "A character string recording the name of the method used for location fin
 msgstr "Niz znakov, ki beleži ime metode, uporabljene za iskanje lokacije."
 
 #: plugins/image-metadata.py:221
-#, fuzzy
-#| msgid "Linked information."
 msgid "GPS Area Information"
-msgstr "Povezane podrobnosti."
+msgstr "Podrobnosti področja GPS"
 
 #: plugins/image-metadata.py:221
 msgid "A character string recording the name of the GPS area."
@@ -7233,14 +7162,12 @@ msgid "Album Gain"
 msgstr "Okrepitev zvoka albuma"
 
 #: plugins/multimedia-metadata.py:33
-#, fuzzy
 msgid "Replay Gain for this album"
 msgstr "Ojačanje ponovnega predvajanja za ta album"
 
 #: plugins/multimedia-metadata.py:34
-#, fuzzy
 msgid "Album Peak"
-msgstr "Ojačitev vrha albuma."
+msgstr "Vrh albuma"
 
 #: plugins/multimedia-metadata.py:34
 msgid "Peak data for this album"
@@ -7347,17 +7274,14 @@ msgid "Sample rate in Hz"
 msgstr "Hitrost vzorčenja v Hz"
 
 #: plugins/multimedia-metadata.py:49
-#, fuzzy
 msgid "Title Gain"
 msgstr "Ojačitev naslova"
 
 #: plugins/multimedia-metadata.py:49
-#, fuzzy
 msgid "Replay Gain for this song"
 msgstr "Ojačitev ponovnega predvajanja za to pesem"
 
 #: plugins/multimedia-metadata.py:50
-#, fuzzy
 msgid "Title Peak"
 msgstr "Vrh naslova"
 
@@ -7370,10 +7294,8 @@ msgid "Format version"
 msgstr "Različica zapisa"
 
 #: plugins/multimedia-metadata.py:57
-#, fuzzy
-#| msgid "Multimedia Clip Count"
 msgid "Multimedia"
-msgstr "Štetje predstavnih predmetov"
+msgstr "Večpredstavnost"
 
 #: plugins/multimedia-metadata.py:78
 msgid "Band"
@@ -8082,10 +8004,8 @@ msgid "Catalog number"
 msgstr "Kataloška številka"
 
 #: plugins/multimedia-metadata.py:211
-#, fuzzy
-#| msgid "Label"
 msgid "Label Code"
-msgstr "Oznaka"
+msgstr "Koda založbe"
 
 #: plugins/multimedia-metadata.py:213 plugins/multimedia-metadata.py:265
 msgid "Release date"
@@ -8100,14 +8020,12 @@ msgid "Record date"
 msgstr "Datum snemanja."
 
 #: plugins/multimedia-metadata.py:215
-#, fuzzy
 msgid "Record Location"
-msgstr "Kraj albuma/posnetka"
+msgstr "Kraj snemanja"
 
 #: plugins/multimedia-metadata.py:215
-#, fuzzy
 msgid "Record location"
-msgstr "Kraj albuma/posnetka"
+msgstr "Kraj snemanja."
 
 #: plugins/multimedia-metadata.py:216 plugins/multimedia-metadata.py:269
 msgid "Genre"
@@ -8126,9 +8044,8 @@ msgid "Abstract"
 msgstr "Povzetek"
 
 #: plugins/multimedia-metadata.py:218
-#, fuzzy
 msgid "Abstract link"
-msgstr "Povezava povzetka"
+msgstr "Povezava do povzetka"
 
 #: plugins/multimedia-metadata.py:219
 msgid "Used language for music/spoken words"
@@ -8193,20 +8110,16 @@ msgid "Location"
 msgstr "Mesto"
 
 #: plugins/multimedia-metadata.py:272
-#, fuzzy
-#| msgid "Location where track was recorded."
 msgid "Location where track was recorded"
-msgstr "Mesto snemanja posnetka."
+msgstr "Kraj, kjer so izdelali posnetek"
 
 #: plugins/multimedia-metadata.py:274
 msgid "Organization"
 msgstr "Organizacija"
 
 #: plugins/multimedia-metadata.py:274
-#, fuzzy
-#| msgid "Organization producing the track."
 msgid "Organization producing the track"
-msgstr "Ustanova, ki je izdala zapis."
+msgstr "Ustanova, ki je založila posnetek"
 
 #: plugins/multimedia-metadata.py:276
 msgid "Performer"
@@ -8217,16 +8130,12 @@ msgid "Producer"
 msgstr "Producent"
 
 #: plugins/multimedia-metadata.py:277
-#, fuzzy
-#| msgid "Lyrics of the track."
 msgid "Producer of the track"
-msgstr "Besedilo skladbe."
+msgstr "Producent posnetka"
 
 #: plugins/multimedia-metadata.py:278
-#, fuzzy
-#| msgid "Track Gain"
 msgid "Track title"
-msgstr "Okrepitev zvoka sledi"
+msgstr "Naslov posnetka"
 
 #: plugins/multimedia-metadata.py:280
 msgid "Vorbis Version"
