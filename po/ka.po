@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
 "POT-Creation-Date: 2026-06-14 13:58+0000\n"
-"PO-Revision-Date: 2026-06-19 11:42+0200\n"
+"PO-Revision-Date: 2026-07-25 05:02+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <ka@li.org>\n"
 "Language: ka\n"
@@ -1230,6 +1230,31 @@ msgid ""
 "commands."
 msgstr ""
 
+#: data/org.gnome.gnome-commander.metainfo.xml.in:36
+msgid "file manager"
+msgstr "ფაილების მმართველი"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:37
+msgid "file system"
+msgstr "ფაილური სისტემა"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:38
+#: gnome-commander/src/dialogs/connect_dialog.rs:508
+msgid "SSH"
+msgstr "SSH"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:39
+msgid "FTP"
+msgstr "FTP"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:40
+msgid "WebDAV"
+msgstr "WebDAV"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:54
+msgid "The Gnome Commander team"
+msgstr "Gnome Commander-ის გუნდი"
+
 #: gnome-commander/src/advanced_rename/advanced_rename_dialog.rs:341
 msgid "Profiles…"
 msgstr "პროფილები…"
@@ -1339,7 +1364,7 @@ msgstr "ფაილების სიის განახლება"
 
 #: gnome-commander/src/advanced_rename/profile_component.rs:95
 msgid "Metatag"
-msgstr ""
+msgstr "მეტაჭდე"
 
 #: gnome-commander/src/advanced_rename/profile_component.rs:111
 #: gnome-commander/src/dialogs/options/apps_widget.rs:68
@@ -1461,27 +1486,27 @@ msgstr "<ლოკალი>"
 
 #: gnome-commander/src/advanced_rename/profile_component.rs:647
 msgid "yyyy-mm-dd"
-msgstr ""
+msgstr "წწწწ-თთ-დდ"
 
 #: gnome-commander/src/advanced_rename/profile_component.rs:651
 msgid "yy-mm-dd"
-msgstr ""
+msgstr "წწ-თთ-დდ"
 
 #: gnome-commander/src/advanced_rename/profile_component.rs:655
 msgid "yy.mm.dd"
-msgstr ""
+msgstr "წწ.თთ.დდ"
 
 #: gnome-commander/src/advanced_rename/profile_component.rs:658
 msgid "yymmdd"
-msgstr ""
+msgstr "წწთთდდ"
 
 #: gnome-commander/src/advanced_rename/profile_component.rs:660
 msgid "dd.mm.yy"
-msgstr ""
+msgstr "დდ.თთ.წწ"
 
 #: gnome-commander/src/advanced_rename/profile_component.rs:664
 msgid "mm-dd-yy"
-msgstr ""
+msgstr "თთ-დდ-წწ"
 
 #: gnome-commander/src/advanced_rename/profile_component.rs:667
 msgid "yyyy"
@@ -1510,15 +1535,15 @@ msgstr "დრო"
 
 #: gnome-commander/src/advanced_rename/profile_component.rs:678
 msgid "HH.MM.SS"
-msgstr ""
+msgstr "სთ.წთ.წმ"
 
 #: gnome-commander/src/advanced_rename/profile_component.rs:682
 msgid "HH-MM-SS"
-msgstr ""
+msgstr "წთ-წთ-წმ"
 
 #: gnome-commander/src/advanced_rename/profile_component.rs:685
 msgid "HHMMSS"
-msgstr ""
+msgstr "სთწთწმ"
 
 #: gnome-commander/src/advanced_rename/profile_component.rs:686
 msgid "HH"
@@ -1598,12 +1623,12 @@ msgstr "<არცერთი>"
 #: gnome-commander/src/advanced_rename/profile_component.rs:841
 #: gnome-commander/src/advanced_rename/profile.rs:78
 msgid "leading"
-msgstr ""
+msgstr "თავში მიწერილი"
 
 #: gnome-commander/src/advanced_rename/profile_component.rs:842
 #: gnome-commander/src/advanced_rename/profile.rs:79
 msgid "trailing"
-msgstr ""
+msgstr "ბოლოში მიწერილი"
 
 #: gnome-commander/src/advanced_rename/profile_component.rs:843
 #: gnome-commander/src/advanced_rename/profile.rs:80
@@ -1705,7 +1730,7 @@ msgstr ""
 #: gnome-commander/src/app.rs:62 gnome-commander/src/open_file.rs:168
 #, rust-format
 msgid "Launch of {} failed."
-msgstr ""
+msgstr "{}-ის გაშვება ჩავარდა."
 
 #: gnome-commander/src/app.rs:139
 #, rust-format
@@ -1822,11 +1847,11 @@ msgstr ""
 
 #: gnome-commander/src/connection/device.rs:449
 msgid "Mount failed: permission denied"
-msgstr ""
+msgstr "მიმაგრება ჩავარდა: წვდომა აკრძალულია"
 
 #: gnome-commander/src/connection/device.rs:452
 msgid "Mount failed: no medium found"
-msgstr ""
+msgstr "მიმაგრება ჩავარდა: დისკი აღმოჩენილი არაა"
 
 #: gnome-commander/src/connection/device.rs:455
 #, rust-format
@@ -1868,7 +1893,7 @@ msgstr ""
 
 #: gnome-commander/src/connection/remote.rs:195
 msgid "Disconnect error"
-msgstr ""
+msgstr "გათიშვის შეცდომა"
 
 #: gnome-commander/src/connection/remote.rs:220
 #, rust-format
@@ -1912,7 +1937,7 @@ msgstr ""
 
 #: gnome-commander/src/connection/smb.rs:139
 msgid "Go to: Samba Network"
-msgstr ""
+msgstr "გადასვლა: Samba-ის ქსელზე"
 
 #: gnome-commander/src/dialogs/about_plugin.rs:16
 msgid "About %s"
@@ -1967,7 +1992,7 @@ msgstr "ფაილის მფლობელი"
 
 #: gnome-commander/src/dialogs/chown_dialog.rs:99
 msgid "Apply Recursively"
-msgstr ""
+msgstr "რეკურსიული გადატარება"
 
 #: gnome-commander/src/dialogs/chown_dialog.rs:115
 msgid "C_hange Owner"
@@ -2016,7 +2041,7 @@ msgstr ""
 
 #: gnome-commander/src/dialogs/connect_dialog.rs:352
 msgid "_Location (URI):"
-msgstr ""
+msgstr "_მდებარეობა (URI):"
 
 #: gnome-commander/src/dialogs/connect_dialog.rs:363
 msgid "_Server:"
@@ -2024,7 +2049,7 @@ msgstr "_სერვერი:"
 
 #: gnome-commander/src/dialogs/connect_dialog.rs:377
 msgid "Optional information"
-msgstr ""
+msgstr "დამატებითი ინფორმაცია"
 
 #: gnome-commander/src/dialogs/connect_dialog.rs:385
 msgid "_Port:"
@@ -2049,10 +2074,6 @@ msgstr "შეერთების _დამატება"
 #: gnome-commander/src/dialogs/connect_dialog.rs:462
 msgid "_Update Connection"
 msgstr "_შეერთების განახლება"
-
-#: gnome-commander/src/dialogs/connect_dialog.rs:508
-msgid "SSH"
-msgstr "SSH"
 
 #: gnome-commander/src/dialogs/connect_dialog.rs:509
 msgid "FTP (with login)"
@@ -2088,7 +2109,7 @@ msgstr ""
 
 #: gnome-commander/src/dialogs/create_symlink_dialog.rs:67
 msgid "Symbolic link name:"
-msgstr ""
+msgstr "სიმბმულის სახელი:"
 
 #: gnome-commander/src/dialogs/create_symlink_dialog.rs:171
 msgid "Making a symbolic link failed"
@@ -2203,11 +2224,11 @@ msgstr "სანიშნის ჩასწორება"
 
 #: gnome-commander/src/dialogs/edit_bookmark_dialog.rs:42
 msgid "Bookmark _name:"
-msgstr ""
+msgstr "სა_ნიშნეს სახელი:"
 
 #: gnome-commander/src/dialogs/edit_bookmark_dialog.rs:61
 msgid "Bookmark _target:"
-msgstr ""
+msgstr "სანიშნეს სამი_ზნე:"
 
 #: gnome-commander/src/dialogs/edit_bookmark_dialog.rs:87
 msgid "_Add Bookmark"
@@ -2253,7 +2274,7 @@ msgstr "ფაილის სახელი:"
 
 #: gnome-commander/src/dialogs/file_properties_dialog.rs:216
 msgid "Symlink target:"
-msgstr ""
+msgstr "სიმბმულის სამიზნე:"
 
 #: gnome-commander/src/dialogs/file_properties_dialog.rs:233
 msgid "Location:"
@@ -2293,7 +2314,7 @@ msgstr "Size:"
 
 #: gnome-commander/src/dialogs/file_properties_dialog.rs:352
 msgid "Owner and group"
-msgstr ""
+msgstr "მფლობელი და ჯგუფი"
 
 #: gnome-commander/src/dialogs/file_properties_dialog.rs:366
 msgid "Access permissions"
@@ -2301,7 +2322,7 @@ msgstr "წვდომის უფლებები"
 
 #: gnome-commander/src/dialogs/file_properties_dialog.rs:390
 msgid "Co_py"
-msgstr ""
+msgstr "კო_პირება"
 
 #: gnome-commander/src/dialogs/file_properties_dialog.rs:486
 msgid "Failed to apply changes."
@@ -2365,7 +2386,7 @@ msgstr ""
 
 #: gnome-commander/src/dialogs/mkdir_dialog.rs:35
 msgid "Make Directory"
-msgstr ""
+msgstr "საქაღალდის შექმნა"
 
 #: gnome-commander/src/dialogs/mkdir_dialog.rs:93
 msgid "_Make Directory"
@@ -2373,7 +2394,7 @@ msgstr "საქაღალდის შექ_მნა"
 
 #: gnome-commander/src/dialogs/mkdir_dialog.rs:124
 msgid "A directory name must be entered"
-msgstr ""
+msgstr "საქაღალდის სახელის შეყვანა აუცილებელია"
 
 #: gnome-commander/src/dialogs/mkdir_dialog.rs:135
 msgid "Make directory failed"
@@ -2385,7 +2406,7 @@ msgstr "ფაილის სახელი შეყვანილი არ
 
 #: gnome-commander/src/dialogs/new_text_file.rs:33
 msgid "Cannot create a file"
-msgstr ""
+msgstr "ფაილის შექმნა შეუძლებელია"
 
 #: gnome-commander/src/dialogs/new_text_file.rs:44
 msgid "New Text File"
@@ -2417,7 +2438,7 @@ msgstr "ახალი აპლიკაცია"
 
 #: gnome-commander/src/dialogs/options/app_dialog.rs:28
 msgid "Edit Application"
-msgstr ""
+msgstr "აპლიკაციის ჩასწორება"
 
 #: gnome-commander/src/dialogs/options/app_dialog.rs:53
 msgid "Label:"
@@ -2447,7 +2468,7 @@ msgstr ""
 
 #: gnome-commander/src/dialogs/options/app_dialog.rs:105
 msgid "Requires terminal"
-msgstr ""
+msgstr "სჭირდება ტერმინალი"
 
 #: gnome-commander/src/dialogs/options/app_dialog.rs:115
 msgid "Show for"
@@ -2455,7 +2476,7 @@ msgstr ""
 
 #: gnome-commander/src/dialogs/options/app_dialog.rs:126
 msgid "All directories"
-msgstr ""
+msgstr "ყველა საქაღალდე"
 
 #: gnome-commander/src/dialogs/options/app_dialog.rs:132
 msgid "All directories and files"
@@ -2463,7 +2484,7 @@ msgstr ""
 
 #: gnome-commander/src/dialogs/options/app_dialog.rs:138
 msgid "Some files"
-msgstr ""
+msgstr "ზოგიერთი ფაილი"
 
 #: gnome-commander/src/dialogs/options/app_dialog.rs:147
 msgid "File patterns"
@@ -2557,7 +2578,7 @@ msgstr "ახალი მოწყობილობა"
 
 #: gnome-commander/src/dialogs/options/device_dialog.rs:26
 msgid "Edit Device"
-msgstr ""
+msgstr "მოწყობილობის ჩასწორება"
 
 #: gnome-commander/src/dialogs/options/device_dialog.rs:54
 msgid "Alias:"
@@ -2565,7 +2586,7 @@ msgstr "მეტსახელი:"
 
 #: gnome-commander/src/dialogs/options/device_dialog.rs:65
 msgid "Device/Label:"
-msgstr ""
+msgstr "მოწყობილობა/ჭდე:"
 
 #: gnome-commander/src/dialogs/options/device_dialog.rs:76
 msgid "Mount point:"
@@ -2681,7 +2702,7 @@ msgstr "უცნობი"
 
 #: gnome-commander/src/dialogs/options/filters_tab.rs:38
 msgid "Regular files"
-msgstr ""
+msgstr "ჩვეულებრივი ფაილები"
 
 #: gnome-commander/src/dialogs/options/filters_tab.rs:41
 #: gnome-commander/src/dialogs/options/general_tab.rs:223
@@ -2703,7 +2724,7 @@ msgstr "სარეზერვო ფაილები"
 
 #: gnome-commander/src/dialogs/options/filters_tab.rs:53
 msgid "Symlinks"
-msgstr ""
+msgstr "სიმბმულები"
 
 #: gnome-commander/src/dialogs/options/filters_tab.rs:64
 msgid "Filetypes to hide"
@@ -2741,11 +2762,11 @@ msgstr ""
 
 #: gnome-commander/src/dialogs/options/format_tab.rs:75
 msgid "Text (rw-r--r--)"
-msgstr ""
+msgstr "ტექსტი (rw-r--r--)"
 
 #: gnome-commander/src/dialogs/options/format_tab.rs:80
 msgid "Number (644)"
-msgstr ""
+msgstr "რიცხვი (644)"
 
 #: gnome-commander/src/dialogs/options/format_tab.rs:99
 msgid "Format:"
@@ -2848,7 +2869,7 @@ msgstr "ფილტრი"
 
 #: gnome-commander/src/dialogs/options/general_tab.rs:178
 msgid "CTRL+ALT+letters"
-msgstr ""
+msgstr "CTRL+ALT+ასოები"
 
 #: gnome-commander/src/dialogs/options/general_tab.rs:182
 msgid "ALT+letters (menu access with F10)"
@@ -2876,7 +2897,7 @@ msgstr ""
 
 #: gnome-commander/src/dialogs/options/general_tab.rs:221
 msgid "Save on exit"
-msgstr ""
+msgstr "შენახვა გასვლისას"
 
 #: gnome-commander/src/dialogs/options/general_tab.rs:226
 #: gnome-commander/src/dialogs/options/options_dialog.rs:135
@@ -2885,7 +2906,7 @@ msgstr "ჩანართები"
 
 #: gnome-commander/src/dialogs/options/general_tab.rs:229
 msgid "Directory history"
-msgstr ""
+msgstr "საქაღალდის ისტორია"
 
 #: gnome-commander/src/dialogs/options/general_tab.rs:233
 msgid "Commandline history"
@@ -2905,35 +2926,35 @@ msgstr "ფონტი:"
 
 #: gnome-commander/src/dialogs/options/layout_tab.rs:69
 msgid "With file name"
-msgstr ""
+msgstr "ფაილის სახელით"
 
 #: gnome-commander/src/dialogs/options/layout_tab.rs:70
 msgid "In separate column"
-msgstr ""
+msgstr "ცალკე სვეტში"
 
 #: gnome-commander/src/dialogs/options/layout_tab.rs:71
 msgid "In both columns"
-msgstr ""
+msgstr "ორივე სვეტში"
 
 #: gnome-commander/src/dialogs/options/layout_tab.rs:77
 msgid "Display file extensions:"
-msgstr ""
+msgstr "ფაილის გაფართოებების ჩვენება:"
 
 #: gnome-commander/src/dialogs/options/layout_tab.rs:90
 msgid "No icons"
-msgstr ""
+msgstr "ხატულების გარეშე"
 
 #: gnome-commander/src/dialogs/options/layout_tab.rs:91
 msgid "File type icons"
-msgstr ""
+msgstr "ფაილის ტიპის ხატულები"
 
 #: gnome-commander/src/dialogs/options/layout_tab.rs:92
 msgid "MIME icons"
-msgstr ""
+msgstr "MIME ხატულები"
 
 #: gnome-commander/src/dialogs/options/layout_tab.rs:98
 msgid "Graphical mode:"
-msgstr ""
+msgstr "გრაფიკული რეჟიმი:"
 
 #: gnome-commander/src/dialogs/options/layout_tab.rs:111
 msgid "Respect theme colors"
@@ -2953,7 +2974,7 @@ msgstr "კლასიკური"
 
 #: gnome-commander/src/dialogs/options/layout_tab.rs:115
 msgid "Deep blue"
-msgstr ""
+msgstr "მუქი ლურჯი"
 
 #: gnome-commander/src/dialogs/options/layout_tab.rs:116
 msgid "Cafezinho"
@@ -3038,7 +3059,7 @@ msgstr ""
 
 #: gnome-commander/src/dialogs/options/programs_tab.rs:61
 msgid "Standard programs"
-msgstr ""
+msgstr "სტანდარტული პროგრამები"
 
 #: gnome-commander/src/dialogs/options/programs_tab.rs:65
 msgid "Viewer:"
@@ -3098,7 +3119,7 @@ msgstr ""
 
 #: gnome-commander/src/dialogs/options/tabs_tab.rs:51
 msgid "* (asterisk)"
-msgstr ""
+msgstr "* (ვარსკვლავი)"
 
 #: gnome-commander/src/dialogs/options/tabs_tab.rs:57
 msgid "Styled text"
@@ -3327,7 +3348,7 @@ msgstr ""
 #, no-c-format, rust-format
 msgctxt "percentage copied"
 msgid "{}% copied"
-msgstr ""
+msgstr "{}% დაკოპირდა"
 
 #: gnome-commander/src/dir.rs:277
 msgid "Directory listing failed."
@@ -3486,11 +3507,11 @@ msgstr ""
 
 #: gnome-commander/src/file_selector.rs:1131
 msgid "Add current dir"
-msgstr ""
+msgstr "მიმდინარე საქ-ის დამატება"
 
 #: gnome-commander/src/file_selector.rs:1133
 msgid "Manage bookmarks…"
-msgstr ""
+msgstr "სანიშნეების მართვა…"
 
 #: gnome-commander/src/file_selector.rs:1256
 msgid "%s free"
@@ -3658,11 +3679,11 @@ msgstr "_კოდირება"
 
 #: gnome-commander/src/intviewer/window.rs:544
 msgid "_UTF-8"
-msgstr ""
+msgstr "_UTF-8"
 
 #: gnome-commander/src/intviewer/window.rs:546
 msgid "English (US-_ASCII)"
-msgstr ""
+msgstr "ინგლისური (US-_ASCII)"
 
 #: gnome-commander/src/intviewer/window.rs:548
 msgid "Terminal (CP437)"
@@ -3674,11 +3695,11 @@ msgstr "არაბული (ISO-8859-6)"
 
 #: gnome-commander/src/intviewer/window.rs:552
 msgid "Arabic (Windows, CP1256)"
-msgstr ""
+msgstr "არაბული (Windows, CP1256)"
 
 #: gnome-commander/src/intviewer/window.rs:554
 msgid "Arabic (Dos, CP864)"
-msgstr ""
+msgstr "არაბული (Dos, CP864)"
 
 #: gnome-commander/src/intviewer/window.rs:556
 msgid "Baltic (ISO-8859-4)"
@@ -3706,15 +3727,15 @@ msgstr "ბერძნული (ISO-8859-7)"
 
 #: gnome-commander/src/intviewer/window.rs:568
 msgid "Greek (CP1253)"
-msgstr ""
+msgstr "ბერძნული (CP1253)"
 
 #: gnome-commander/src/intviewer/window.rs:570
 msgid "Hebrew (Windows, CP1255)"
-msgstr ""
+msgstr "ივრითი (Windows, CP1255)"
 
 #: gnome-commander/src/intviewer/window.rs:572
 msgid "Hebrew (Dos, CP862)"
-msgstr ""
+msgstr "ივრითი (Dos, CP862)"
 
 #: gnome-commander/src/intviewer/window.rs:574
 msgid "Hebrew (ISO-8859-8)"
@@ -3774,27 +3795,27 @@ msgstr "_ფონტი…"
 
 #: gnome-commander/src/intviewer/window.rs:606
 msgid "Fixed _Width Mode"
-msgstr ""
+msgstr "ფიქსირებული სიგანის რე_ჟიმი"
 
 #: gnome-commander/src/intviewer/window.rs:607
 msgid "_20 chars/line"
-msgstr ""
+msgstr "_20 სიმბოლო/ხაზზე"
 
 #: gnome-commander/src/intviewer/window.rs:608
 msgid "_40 chars/line"
-msgstr ""
+msgstr "_40 სიმბოლო/ხაზზე"
 
 #: gnome-commander/src/intviewer/window.rs:609
 msgid "_80 chars/line"
-msgstr ""
+msgstr "_80 სიმბოლო/ხაზზე"
 
 #: gnome-commander/src/intviewer/window.rs:610
 msgid "_120 chars/line"
-msgstr ""
+msgstr "_120 სიმბოლო/ხაზზე"
 
 #: gnome-commander/src/intviewer/window.rs:611
 msgid "1_60 chars/line"
-msgstr ""
+msgstr "1_60 სიმბოლო/ხაზზე"
 
 #: gnome-commander/src/intviewer/window.rs:615
 msgid "_Hexadecimal Offset"
@@ -3811,31 +3832,31 @@ msgstr "კლავიატურის მალსახმობები"
 
 #: gnome-commander/src/main_win.rs:223
 msgid "F3 View"
-msgstr ""
+msgstr "F3 ნახვა"
 
 #: gnome-commander/src/main_win.rs:224
 msgid "F4 Edit"
-msgstr ""
+msgstr "F4 ჩასწორება"
 
 #: gnome-commander/src/main_win.rs:225
 msgid "F5 Copy"
-msgstr ""
+msgstr "F5 კოპირება"
 
 #: gnome-commander/src/main_win.rs:226
 msgid "F6 Move"
-msgstr ""
+msgstr "F6 გადატანა"
 
 #: gnome-commander/src/main_win.rs:227
 msgid "F7 Mkdir"
-msgstr ""
+msgstr "F7 საქ.შექმნ"
 
 #: gnome-commander/src/main_win.rs:228
 msgid "F8 Delete"
-msgstr ""
+msgstr "F8 წაშლა"
 
 #: gnome-commander/src/main_win.rs:229
 msgid "F9 Search"
-msgstr ""
+msgstr "F9 ძებნა"
 
 #: gnome-commander/src/main_win.rs:266
 msgid "Gnome Commander — ROOT PRIVILEGES"
@@ -3896,7 +3917,7 @@ msgstr "_გაშვება"
 
 #: gnome-commander/src/open_file.rs:63
 msgid "_No"
-msgstr ""
+msgstr "_არა"
 
 #: gnome-commander/src/open_file.rs:63
 msgid "_Yes"
@@ -4081,7 +4102,7 @@ msgstr "(არცერთი)"
 
 #: gnome-commander/src/select_icon_button.rs:86
 msgid "Select an Image File"
-msgstr ""
+msgstr "აირჩიეთ გამოსახულების ფაილი"
 
 #: gnome-commander/src/select_icon_button.rs:104
 msgid "Choose Icon"
@@ -4839,7 +4860,7 @@ msgstr ""
 
 #: gnome-commander/src/utils.rs:92
 msgid "Cannot create a temporary file."
-msgstr ""
+msgstr "დროებითი ფაილის შექმნის შეცდომა."
 
 #: gnome-commander/src/utils.rs:276
 #, rust-format
@@ -5650,7 +5671,6 @@ msgid "This field specifies the minimum sample value."
 msgstr ""
 
 #: plugins/image-metadata.py:53 plugins/image-metadata.py:91
-#| msgid "Max Aperture Value"
 msgid "SMax Sample Value"
 msgstr "SMax-ის ნიმუშის მნიშვნელობა"
 
@@ -7315,7 +7335,7 @@ msgstr ""
 
 #: plugins/multimedia-metadata.py:84
 msgid "CD ID"
-msgstr ""
+msgstr "CD ID"
 
 #: plugins/multimedia-metadata.py:84
 msgid "Music CD identifier."
@@ -7336,7 +7356,7 @@ msgstr "კომპოზიტორი"
 
 #: plugins/multimedia-metadata.py:86
 msgid "Composer."
-msgstr ""
+msgstr "კომპოზიტორი."
 
 #: plugins/multimedia-metadata.py:87 plugins/multimedia-metadata.py:202
 #: plugins/multimedia-metadata.py:262
@@ -7345,7 +7365,7 @@ msgstr "დირიჟორი"
 
 #: plugins/multimedia-metadata.py:87
 msgid "Conductor."
-msgstr ""
+msgstr "დირიჟორი."
 
 #: plugins/multimedia-metadata.py:88
 msgid "Content Group"
@@ -7353,7 +7373,7 @@ msgstr "შემცველობის ჯგუფი"
 
 #: plugins/multimedia-metadata.py:88
 msgid "Content group description."
-msgstr ""
+msgstr "შემცველობის ჯგუფის აღწერა."
 
 #: plugins/multimedia-metadata.py:89
 msgid "Content Type"
@@ -7365,19 +7385,19 @@ msgstr ""
 
 #: plugins/multimedia-metadata.py:90
 msgid "Copyright message."
-msgstr ""
+msgstr "საავტორო უფლებების შეტყობინება."
 
 #: plugins/multimedia-metadata.py:91
 msgid "Encryption Registration"
-msgstr ""
+msgstr "დაშიფვრის რეგისტრაცია"
 
 #: plugins/multimedia-metadata.py:91
 msgid "Encryption method registration."
-msgstr ""
+msgstr "დაშიფვრის მეთოდის რეგისტრაცია."
 
 #: plugins/multimedia-metadata.py:92
 msgid "Date."
-msgstr ""
+msgstr "თარიღი."
 
 #: plugins/multimedia-metadata.py:93
 msgid "Encoded By"
@@ -7391,7 +7411,7 @@ msgstr ""
 
 #: plugins/multimedia-metadata.py:94
 msgid "Software."
-msgstr ""
+msgstr "პროგრამები."
 
 #: plugins/multimedia-metadata.py:95
 msgid "Encoding Time"
@@ -7399,7 +7419,7 @@ msgstr "კოდირების დრო"
 
 #: plugins/multimedia-metadata.py:95
 msgid "Encoding time."
-msgstr ""
+msgstr "კოდირების დრო."
 
 #: plugins/multimedia-metadata.py:96 plugins/multimedia-metadata.py:97
 msgid "Equalization"
@@ -7407,7 +7427,7 @@ msgstr "ეკვალიზაცია"
 
 #: plugins/multimedia-metadata.py:96
 msgid "Equalization."
-msgstr ""
+msgstr "ეკვალიზაცია."
 
 #: plugins/multimedia-metadata.py:97
 msgid "Equalisation curve predefine within the audio file."
@@ -7423,7 +7443,7 @@ msgstr ""
 
 #: plugins/multimedia-metadata.py:99
 msgid "File owner."
-msgstr ""
+msgstr "ფაილის მფლობელი."
 
 #: plugins/multimedia-metadata.py:100
 msgid "File Type"
@@ -7431,7 +7451,7 @@ msgstr "ფაილის ტიპი"
 
 #: plugins/multimedia-metadata.py:100
 msgid "File type."
-msgstr ""
+msgstr "ფაილის ტიპი."
 
 #: plugins/multimedia-metadata.py:101
 msgid "General Object"
@@ -8650,11 +8670,6 @@ msgstr ""
 #~ msgid "Audio"
 #~ msgstr "აუდიო"
 
-#, rust-format
-#~ msgid "{} file listed"
-#~ msgid_plural "{} files listed"
-#~ msgstr[0] "{} ჩამოთვლილი ფაილი"
-
 #~ msgid "Current directory is not set."
 #~ msgstr "მიმდინარე საქაღალდე დაყენებული არაა."
 
@@ -8929,6 +8944,3 @@ msgstr ""
 
 #~ msgid "Unknown error"
 #~ msgstr "უცნობი შეცდომა"
-
-#~ msgid "File Manager"
-#~ msgstr "ფაილების მმართველი"
