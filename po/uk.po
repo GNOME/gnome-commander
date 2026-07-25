@@ -3,23 +3,22 @@
 #
 # Maxim Dubovoy <max@mylinux.com.ua>, 2004.
 # Maxim Dziumanenko <mvd@mylinux.com.ua>, 2004.
-# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022, 2023, 2024, 2025, 2026.
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024, 2025, 2026 Yuri Chornoivan <yurchor@ukr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander 1.3.0\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/"
-"\n"
-"POT-Creation-Date: 2026-06-13 15:42+0000\n"
-"PO-Revision-Date: 2026-06-13 21:22+0300\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
+"POT-Creation-Date: 2026-06-14 13:58+0000\n"
+"PO-Revision-Date: 2026-07-25 15:38+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 23.04.3\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n%10>=2"
+" && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Lokalize 25.12.1\n"
 
 #: data/org.gnome.gnome-commander.desktop.in:2
 #: data/org.gnome.gnome-commander.metainfo.xml.in:16
@@ -35,8 +34,8 @@ msgstr "Програма для керування файлами з двопа�
 #: data/org.gnome.gnome-commander.desktop.in:5
 msgid "file;manager;folder;explore;disk;filesystem;"
 msgstr ""
-"file;manager;folder;explore;disk;filesystem;файл;керування;менеджер;тека;наві"
-"гація;диск;файлова "
+"file;manager;folder;explore;disk;filesystem;файл;керування;менеджер;тека;навіг"
+"ація;диск;файлова "
 "система;"
 
 #: data/org.gnome.gnome-commander.gschema.xml:52
@@ -184,8 +183,7 @@ msgid "Right mouse button mode"
 msgstr "Режим правої кнопки миші"
 
 #: data/org.gnome.gnome-commander.gschema.xml:147
-msgid ""
-"Defines what happens when the right mouse button is clicked on an item."
+msgid "Defines what happens when the right mouse button is clicked on an item."
 msgstr "Визначає дію у відповідь на клацання правою кнопкою миші на пункті."
 
 #: data/org.gnome.gnome-commander.gschema.xml:153
@@ -525,8 +523,7 @@ msgid "Save commandline history on exit"
 msgstr "Зберігати журнал командного рядка при виході"
 
 #: data/org.gnome.gnome-commander.gschema.xml:413
-msgid ""
-"Defines if the history of commands in the commandline is saved on exit."
+msgid "Defines if the history of commands in the commandline is saved on exit."
 msgstr ""
 "Визначає, чи буде програма зберігати журнал команд, відданих у командному "
 "рядку, при виході."
@@ -537,8 +534,7 @@ msgstr "Зберігати журнал пошуку при виході"
 
 #: data/org.gnome.gnome-commander.gschema.xml:420
 msgid "Defines if the history of search patterns is saved on exit."
-msgstr ""
-"Визначає, чи буде програма зберігати журнал взірців пошуку при виході."
+msgstr "Визначає, чи буде програма зберігати журнал взірців пошуку при виході."
 
 #: data/org.gnome.gnome-commander.gschema.xml:426
 msgid "Always show tab bar"
@@ -908,8 +904,7 @@ msgstr "Команда засобу перегляду"
 
 #: data/org.gnome.gnome-commander.gschema.xml:703
 msgid "This string defines the command for starting the (external) viewer."
-msgstr ""
-"Цей рядок визначає команду для запуску (зовнішнього) засобу перегляду."
+msgstr "Цей рядок визначає команду для запуску (зовнішнього) засобу перегляду."
 
 #: data/org.gnome.gnome-commander.gschema.xml:709
 msgid "Editor command"
@@ -1419,6 +1414,36 @@ msgstr ""
 "зосередитися на точному керуванні файлами, паралельній роботі із "
 "спеціалізованими програмами та виконанні добре продуманих команд."
 
+#: data/org.gnome.gnome-commander.metainfo.xml.in:36
+#| msgid "File Manager"
+msgid "file manager"
+msgstr "менеджер файлів"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:37
+#| msgid "{} file listed"
+#| msgid_plural "{} files listed"
+msgid "file system"
+msgstr "файлова система"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:38
+#: gnome-commander/src/dialogs/connect_dialog.rs:508
+msgid "SSH"
+msgstr "SSH"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:39
+msgid "FTP"
+msgstr "FTP"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:40
+#| msgid "WebDAV (HTTP)"
+msgid "WebDAV"
+msgstr "WebDAV"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:54
+#| msgid "Gnome Commander"
+msgid "The Gnome Commander team"
+msgstr "Команда Gnome Commander"
+
 #: gnome-commander/src/advanced_rename/advanced_rename_dialog.rs:341
 msgid "Profiles…"
 msgstr "Профілі…"
@@ -1464,7 +1489,7 @@ msgstr "Результат"
 #: gnome-commander/src/dialogs/profiles/manage_profiles_dialog.rs:215
 #: gnome-commander/src/dialogs/remote_dialog.rs:151
 #: gnome-commander/src/dialogs/shortcuts_dialog/mod.rs:156
-#: gnome-commander/src/intviewer/window.rs:1082
+#: gnome-commander/src/intviewer/window.rs:619
 #: gnome-commander/src/main_win.rs:1497
 #: gnome-commander/src/search/search_dialog.rs:402
 msgid "_Help"
@@ -1480,7 +1505,7 @@ msgstr "Скинути"
 #: gnome-commander/src/dialogs/manage_bookmarks_dialog.rs:200
 #: gnome-commander/src/dialogs/options/edit_colors_dialog.rs:170
 #: gnome-commander/src/dialogs/remote_dialog.rs:163
-#: gnome-commander/src/intviewer/window.rs:977
+#: gnome-commander/src/intviewer/window.rs:509
 #: gnome-commander/src/plugins/manager.rs:57
 #: gnome-commander/src/search/search_dialog.rs:416
 msgid "_Close"
@@ -1941,12 +1966,12 @@ msgid "Number view:"
 msgstr "Числове представлення:"
 
 #: gnome-commander/src/command_line.rs:62
-#: gnome-commander/src/user_actions.rs:1749
+#: gnome-commander/src/user_actions.rs:1754
 msgid "_Copy"
 msgstr "_Копіювати"
 
 #: gnome-commander/src/command_line.rs:63
-#: gnome-commander/src/user_actions.rs:1755
+#: gnome-commander/src/user_actions.rs:1760
 msgid "_Paste"
 msgstr "Вст_авити"
 
@@ -2033,8 +2058,7 @@ msgstr "Не вдалося змонтувати: команда mount заве�
 #: gnome-commander/src/connection/device.rs:471
 #, rust-format
 msgid "Unmount failed: umount exited with exitstatus {}"
-msgstr ""
-"Не вдалося демонтувати: команда umount завершилась зі станом виходу {}"
+msgstr "Не вдалося демонтувати: команда umount завершилась зі станом виходу {}"
 
 #: gnome-commander/src/connection/device.rs:475
 msgid "Failed to execute the umount command"
@@ -2097,15 +2121,15 @@ msgstr "Закриває віддалене з'єднання з %s"
 msgid "SMB"
 msgstr "SMB"
 
-#: gnome-commander/src/connection/smb.rs:88
+#: gnome-commander/src/connection/smb.rs:87
 msgid "Failed to browse the network. Is Samba supported on the system?"
 msgstr "Помилка огляду мережі. Чи встановлено у системі підтримку Samba?"
 
-#: gnome-commander/src/connection/smb.rs:136
+#: gnome-commander/src/connection/smb.rs:135
 msgid "Searching for workgroups and hosts"
 msgstr "Пошук робочі групи і вузлів"
 
-#: gnome-commander/src/connection/smb.rs:140
+#: gnome-commander/src/connection/smb.rs:139
 msgid "Go to: Samba Network"
 msgstr "Перейти до: мережа Samba"
 
@@ -2245,10 +2269,6 @@ msgstr "Д_одати з'єднання"
 #: gnome-commander/src/dialogs/connect_dialog.rs:462
 msgid "_Update Connection"
 msgstr "_Оновити з'єднання"
-
-#: gnome-commander/src/dialogs/connect_dialog.rs:508
-msgid "SSH"
-msgstr "SSH"
 
 #: gnome-commander/src/dialogs/connect_dialog.rs:509
 msgid "FTP (with login)"
@@ -2970,8 +2990,7 @@ msgid "Test result:"
 msgstr "Результат перевірки:"
 
 #: gnome-commander/src/dialogs/options/format_tab.rs:129
-msgid ""
-"See the help page in the documentation on how to set the format string."
+msgid "See the help page in the documentation on how to set the format string."
 msgstr ""
 "Щоб зрозуміти, як встановити формат, ознайомтеся зі сторінкою довідки у "
 "документації."
@@ -2997,7 +3016,7 @@ msgid "Middle mouse button"
 msgstr "Середня кнопка миші"
 
 #: gnome-commander/src/dialogs/options/general_tab.rs:96
-#: gnome-commander/src/user_actions.rs:1841
+#: gnome-commander/src/user_actions.rs:1846
 msgid "Up one directory"
 msgstr "Вище на один каталог"
 
@@ -3561,7 +3580,7 @@ msgctxt "percentage copied"
 msgid "{}% copied"
 msgstr "Скопійовано {}%"
 
-#: gnome-commander/src/dir.rs:278
+#: gnome-commander/src/dir.rs:277
 msgid "Directory listing failed."
 msgstr "Не вдалося вивести вміст каталогу."
 
@@ -3604,42 +3623,42 @@ msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Не вдалося отримати тип MIME файла."
 
 #: gnome-commander/src/file_list/list.rs:371
-#: gnome-commander/src/file_list/list.rs:1894
+#: gnome-commander/src/file_list/list.rs:1892
 msgid "name"
 msgstr "назва"
 
 #: gnome-commander/src/file_list/list.rs:377
-#: gnome-commander/src/file_list/list.rs:1895
+#: gnome-commander/src/file_list/list.rs:1893
 msgid "ext"
 msgstr "розш."
 
 #: gnome-commander/src/file_list/list.rs:383
-#: gnome-commander/src/file_list/list.rs:1896
+#: gnome-commander/src/file_list/list.rs:1894
 msgid "dir"
 msgstr "каталог"
 
 #: gnome-commander/src/file_list/list.rs:389
-#: gnome-commander/src/file_list/list.rs:1897
+#: gnome-commander/src/file_list/list.rs:1895
 msgid "size"
 msgstr "розмір"
 
 #: gnome-commander/src/file_list/list.rs:395
-#: gnome-commander/src/file_list/list.rs:1898
+#: gnome-commander/src/file_list/list.rs:1896
 msgid "date"
 msgstr "дата"
 
 #: gnome-commander/src/file_list/list.rs:401
-#: gnome-commander/src/file_list/list.rs:1899
+#: gnome-commander/src/file_list/list.rs:1897
 msgid "perm"
 msgstr "права"
 
 #: gnome-commander/src/file_list/list.rs:407
-#: gnome-commander/src/file_list/list.rs:1900
+#: gnome-commander/src/file_list/list.rs:1898
 msgid "uid"
 msgstr "власник"
 
 #: gnome-commander/src/file_list/list.rs:413
-#: gnome-commander/src/file_list/list.rs:1901
+#: gnome-commander/src/file_list/list.rs:1899
 msgid "gid"
 msgstr "група"
 
@@ -3647,43 +3666,43 @@ msgstr "група"
 msgid "Loading…"
 msgstr "Завантаження…"
 
-#: gnome-commander/src/file_list/list.rs:1703
+#: gnome-commander/src/file_list/list.rs:1701
 msgid "_Copy here"
 msgstr "_Копіювати сюди"
 
-#: gnome-commander/src/file_list/list.rs:1708
+#: gnome-commander/src/file_list/list.rs:1706
 msgid "_Move here"
 msgstr "Пер_есунути сюди"
 
-#: gnome-commander/src/file_list/list.rs:1713
+#: gnome-commander/src/file_list/list.rs:1711
 msgid "_Link here"
 msgstr "_Створити посилання тут"
 
-#: gnome-commander/src/file_list/list.rs:1719
+#: gnome-commander/src/file_list/list.rs:1717
 msgid "C_ancel"
 msgstr "_Скасувати"
 
-#: gnome-commander/src/file_list/list.rs:2520
+#: gnome-commander/src/file_list/list.rs:2518
 #, rust-format
 msgid "Selected: {selected_bytes} of {total_bytes}."
 msgstr "Позначено: {selected_bytes} з {total_bytes}."
 
-#: gnome-commander/src/file_list/list.rs:2527
+#: gnome-commander/src/file_list/list.rs:2525
 #, rust-format
 msgid "Files: {selected_files} of {total_files}."
 msgstr "Файли: {selected_files} з {total_files}."
 
-#: gnome-commander/src/file_list/list.rs:2531
+#: gnome-commander/src/file_list/list.rs:2529
 #, rust-format
 msgid "Directories: {selected_dirs} of {total_dirs}."
 msgstr "Каталоги: {selected_dirs} з {total_dirs}."
 
-#: gnome-commander/src/file_list/list.rs:2575
+#: gnome-commander/src/file_list/list.rs:2573
 #, rust-format
 msgid "Cannot rename a file to {new_name}"
 msgstr "Не вдалося перейменувати файл на {new_name}"
 
-#: gnome-commander/src/file_list/list.rs:3122
+#: gnome-commander/src/file_list/list.rs:3120
 msgid "<DIR>"
 msgstr "<КАТ>"
 
@@ -3724,7 +3743,7 @@ msgstr "Значення"
 msgid "Description"
 msgstr "Опис"
 
-#: gnome-commander/src/file.rs:101
+#: gnome-commander/src/file.rs:98
 #, rust-format
 msgid "Failed to get file info for {path}."
 msgstr "Не вдалося отримати відомості щодо файла для {path}."
@@ -3756,7 +3775,7 @@ msgid "C_lose Tab"
 msgstr "Закр_ити вкладку"
 
 #: gnome-commander/src/file_selector.rs:1666
-#: gnome-commander/src/user_actions.rs:1931
+#: gnome-commander/src/user_actions.rs:1936
 msgid "Open in New _Tab"
 msgstr "_Відкрити на новій вкладці"
 
@@ -3777,12 +3796,12 @@ msgid "Copy Tab to Other _Panel"
 msgstr "Копіювати вкладку у іншу _панель"
 
 #: gnome-commander/src/file_selector.rs:1704
-#: gnome-commander/src/user_actions.rs:1937
+#: gnome-commander/src/user_actions.rs:1942
 msgid "_Close Tab"
 msgstr "_Закрити вкладки"
 
 #: gnome-commander/src/file_selector.rs:1708
-#: gnome-commander/src/user_actions.rs:1943
+#: gnome-commander/src/user_actions.rs:1948
 msgid "Close _All Tabs"
 msgstr "_Закрити всі вкладки"
 
@@ -3827,285 +3846,238 @@ msgstr "Не знайдено"
 msgid "Cannot translate into text encoding"
 msgstr "Не вдалося перенести до кодування тексту"
 
-#: gnome-commander/src/intviewer/window.rs:110
-#, rust-format
-msgid "Position: {offset} of {size}"
-msgstr "Розташування: {offset} з {size}"
-
-#: gnome-commander/src/intviewer/window.rs:114
-#, rust-format
-msgid "Column: {}"
-msgstr "Стовпчик: {}"
-
-#: gnome-commander/src/intviewer/window.rs:119
-msgid "Wrap"
-msgstr "Прокрутка"
-
-#: gnome-commander/src/intviewer/window.rs:131
-msgid "Could not recognize the image file format"
-msgstr "Не вдалося розпізнати формат зображення"
-
-#: gnome-commander/src/intviewer/window.rs:140
-#, rust-format
-msgid "{width} x {height} pixel"
-msgid_plural "{width} x {height} pixels"
-msgstr[0] "{width} x {height} піксель"
-msgstr[1] "{width} x {height} пікселі"
-msgstr[2] "{width} x {height} пікселів"
-msgstr[3] "{width} x {height} піксель"
-
-#: gnome-commander/src/intviewer/window.rs:147
-#, rust-format
-msgid "{} bit/sample"
-msgid_plural "{} bits/sample"
-msgstr[0] "{} біт/семпл"
-msgstr[1] "{} біта/семпл"
-msgstr[2] "{} бітів/семпл"
-msgstr[3] "{} біт/семпл"
-
-#: gnome-commander/src/intviewer/window.rs:156
-msgid "(fit to window)"
-msgstr "(до розміру вікна)"
-
-#: gnome-commander/src/intviewer/window.rs:180
-msgid "_Copy Selection"
-msgstr "_Копіювати позначене"
-
-#: gnome-commander/src/intviewer/window.rs:181
-#: gnome-commander/src/intviewer/window.rs:999
-#: gnome-commander/src/user_actions.rs:1682
-msgid "_Select All"
-msgstr "Виді_лити все"
-
-#: gnome-commander/src/intviewer/window.rs:189
-#: gnome-commander/src/intviewer/window.rs:1055
-msgid "_Rotate Clockwise"
-msgstr "_Обернути за годинниковою стрілкою"
-
-#: gnome-commander/src/intviewer/window.rs:191
-#: gnome-commander/src/intviewer/window.rs:1057
-msgid "Rotate Counter Clockwis_e"
-msgstr "Розвернути _проти годинника"
-
-#: gnome-commander/src/intviewer/window.rs:193
-#: gnome-commander/src/intviewer/window.rs:1059
-msgid "Rotate 180°"
-msgstr "Обернути на 180°"
-
-#: gnome-commander/src/intviewer/window.rs:195
-#: gnome-commander/src/intviewer/window.rs:1061
-msgid "Flip _Vertical"
-msgstr "Відобразити _вертикально"
-
-#: gnome-commander/src/intviewer/window.rs:197
-#: gnome-commander/src/intviewer/window.rs:1063
-msgid "Flip _Horizontal"
-msgstr "Відобразити _горизонтально"
-
-#: gnome-commander/src/intviewer/window.rs:976
+#: gnome-commander/src/intviewer/window.rs:508
 #: gnome-commander/src/main_win.rs:1352
 msgid "_File"
 msgstr "_Файл"
 
-#: gnome-commander/src/intviewer/window.rs:979
+#: gnome-commander/src/intviewer/window.rs:510
+msgid "_Quit"
+msgstr "Ви_йти"
+
+#: gnome-commander/src/intviewer/window.rs:512
 #: gnome-commander/src/main_win.rs:1405
 msgid "_View"
 msgstr "_Вигляд"
 
-#: gnome-commander/src/intviewer/window.rs:980
-#: gnome-commander/src/intviewer/window.rs:997
+#: gnome-commander/src/intviewer/window.rs:513
+#: gnome-commander/src/intviewer/window.rs:534
 msgid "_Text"
 msgstr "_Текст"
 
-#: gnome-commander/src/intviewer/window.rs:982
+#: gnome-commander/src/intviewer/window.rs:515
 msgid "_Fixed Width"
 msgstr "_Фіксована ширина"
 
-#: gnome-commander/src/intviewer/window.rs:984
+#: gnome-commander/src/intviewer/window.rs:517
 msgid "_Hexadecimal"
 msgstr "_Шістнадцяткове"
 
-#: gnome-commander/src/intviewer/window.rs:985
-#: gnome-commander/src/intviewer/window.rs:1053
+#: gnome-commander/src/intviewer/window.rs:518
+#: gnome-commander/src/intviewer/window.rs:590
 msgid "_Image"
 msgstr "_Зображення"
 
-#: gnome-commander/src/intviewer/window.rs:987
+#: gnome-commander/src/intviewer/window.rs:520
 msgid "_Zoom In"
 msgstr "_Збільшити"
 
-#: gnome-commander/src/intviewer/window.rs:988
+#: gnome-commander/src/intviewer/window.rs:521
 msgid "_Zoom Out"
 msgstr "З_меншити"
 
-#: gnome-commander/src/intviewer/window.rs:989
+#: gnome-commander/src/intviewer/window.rs:522
 msgid "_Normal Size"
 msgstr "_Нормальний розмір"
 
-#: gnome-commander/src/intviewer/window.rs:990
+#: gnome-commander/src/intviewer/window.rs:523
 msgid "_Best Fit"
 msgstr "_Оптимізувати"
 
-#: gnome-commander/src/intviewer/window.rs:998
+#: gnome-commander/src/intviewer/window.rs:527
+msgid "Show Metadata _Tags"
+msgstr "Показати _теги метаданих"
+
+#: gnome-commander/src/intviewer/window.rs:535
 msgid "_Copy Text Selection"
 msgstr "_Копіювати позначений текст"
 
-#: gnome-commander/src/intviewer/window.rs:1000
+#: gnome-commander/src/intviewer/window.rs:536
+#: gnome-commander/src/user_actions.rs:1687
+msgid "_Select All"
+msgstr "Виді_лити все"
+
+#: gnome-commander/src/intviewer/window.rs:537
 msgid "Find…"
 msgstr "Знайти…"
 
-#: gnome-commander/src/intviewer/window.rs:1001
+#: gnome-commander/src/intviewer/window.rs:538
 msgid "Find Next"
 msgstr "Знайти далі"
 
-#: gnome-commander/src/intviewer/window.rs:1002
+#: gnome-commander/src/intviewer/window.rs:539
 msgid "Find Previous"
 msgstr "Знайти позаду"
 
-#: gnome-commander/src/intviewer/window.rs:1004
+#: gnome-commander/src/intviewer/window.rs:541
 msgid "_Wrap lines"
 msgstr "_Згорнути рядки"
 
-#: gnome-commander/src/intviewer/window.rs:1006
+#: gnome-commander/src/intviewer/window.rs:543
 msgid "_Encoding"
 msgstr "_Кодування"
 
-#: gnome-commander/src/intviewer/window.rs:1007
+#: gnome-commander/src/intviewer/window.rs:544
 msgid "_UTF-8"
 msgstr "_UTF-8"
 
-#: gnome-commander/src/intviewer/window.rs:1009
+#: gnome-commander/src/intviewer/window.rs:546
 msgid "English (US-_ASCII)"
 msgstr "Англійське (US-_ASCII)"
 
-#: gnome-commander/src/intviewer/window.rs:1011
+#: gnome-commander/src/intviewer/window.rs:548
 msgid "Terminal (CP437)"
 msgstr "Термінал (CP437)"
 
-#: gnome-commander/src/intviewer/window.rs:1013
+#: gnome-commander/src/intviewer/window.rs:550
 msgid "Arabic (ISO-8859-6)"
 msgstr "Арабське (ISO-8859-6)"
 
-#: gnome-commander/src/intviewer/window.rs:1015
-#| msgid "Arabic ( Windows, CP1256)"
+#: gnome-commander/src/intviewer/window.rs:552
 msgid "Arabic (Windows, CP1256)"
 msgstr "Арабське (Windows, CP1256)"
 
-#: gnome-commander/src/intviewer/window.rs:1017
+#: gnome-commander/src/intviewer/window.rs:554
 msgid "Arabic (Dos, CP864)"
 msgstr "Арабське (DOS, CP864)"
 
-#: gnome-commander/src/intviewer/window.rs:1019
+#: gnome-commander/src/intviewer/window.rs:556
 msgid "Baltic (ISO-8859-4)"
 msgstr "Балтійське (ISO-8859-4)"
 
-#: gnome-commander/src/intviewer/window.rs:1021
+#: gnome-commander/src/intviewer/window.rs:558
 msgid "Central European (ISO-8859-2)"
 msgstr "Центральноєвропейське (ISO-8859-2)"
 
-#: gnome-commander/src/intviewer/window.rs:1023
+#: gnome-commander/src/intviewer/window.rs:560
 msgid "Central European (CP1250)"
 msgstr "Центральноєвропейське (CP1250)"
 
-#: gnome-commander/src/intviewer/window.rs:1025
+#: gnome-commander/src/intviewer/window.rs:562
 msgid "Cyrillic (ISO-8859-5)"
 msgstr "Кирилиця (ISO-8859-5)"
 
-#: gnome-commander/src/intviewer/window.rs:1027
+#: gnome-commander/src/intviewer/window.rs:564
 msgid "Cyrillic (CP1251)"
 msgstr "Кирилиця (CP1251)"
 
-#: gnome-commander/src/intviewer/window.rs:1029
+#: gnome-commander/src/intviewer/window.rs:566
 msgid "Greek (ISO-8859-7)"
 msgstr "Грецьке (ISO 8859-7)"
 
-#: gnome-commander/src/intviewer/window.rs:1031
+#: gnome-commander/src/intviewer/window.rs:568
 msgid "Greek (CP1253)"
 msgstr "Грецьке (CP1253)"
 
-#: gnome-commander/src/intviewer/window.rs:1033
+#: gnome-commander/src/intviewer/window.rs:570
 msgid "Hebrew (Windows, CP1255)"
 msgstr "Іврит (Windows, CP1255)"
 
-#: gnome-commander/src/intviewer/window.rs:1035
+#: gnome-commander/src/intviewer/window.rs:572
 msgid "Hebrew (Dos, CP862)"
 msgstr "Іврит (DOS, CP862)"
 
-#: gnome-commander/src/intviewer/window.rs:1037
+#: gnome-commander/src/intviewer/window.rs:574
 msgid "Hebrew (ISO-8859-8)"
 msgstr "Іврит (ISO-8859-8)"
 
-#: gnome-commander/src/intviewer/window.rs:1039
+#: gnome-commander/src/intviewer/window.rs:576
 msgid "Latin 9 (ISO-8859-15)"
 msgstr "Латиниця 9 (ISO-8859-15)"
 
-#: gnome-commander/src/intviewer/window.rs:1041
+#: gnome-commander/src/intviewer/window.rs:578
 msgid "Maltese (ISO-8859-3)"
 msgstr "Мальтійська (ISO-8859-3)"
 
-#: gnome-commander/src/intviewer/window.rs:1043
+#: gnome-commander/src/intviewer/window.rs:580
 msgid "Turkish (ISO-8859-9)"
 msgstr "Турецьке (ISO 8859-9)"
 
-#: gnome-commander/src/intviewer/window.rs:1045
+#: gnome-commander/src/intviewer/window.rs:582
 msgid "Turkish (CP1254)"
 msgstr "Турецьке (CP1254)"
 
-#: gnome-commander/src/intviewer/window.rs:1047
+#: gnome-commander/src/intviewer/window.rs:584
 msgid "Western (CP1252)"
 msgstr "Західноєвропейське (CP1252)"
 
-#: gnome-commander/src/intviewer/window.rs:1049
+#: gnome-commander/src/intviewer/window.rs:586
 msgid "Western (ISO-8859-1)"
 msgstr "Західне (ISO-8859-1)"
 
-#: gnome-commander/src/intviewer/window.rs:1067
+#: gnome-commander/src/intviewer/window.rs:592
+msgid "_Rotate Clockwise"
+msgstr "_Обернути за годинниковою стрілкою"
+
+#: gnome-commander/src/intviewer/window.rs:594
+msgid "Rotate Counter Clockwis_e"
+msgstr "Розвернути _проти годинника"
+
+#: gnome-commander/src/intviewer/window.rs:596
+msgid "Rotate 180°"
+msgstr "Обернути на 180°"
+
+#: gnome-commander/src/intviewer/window.rs:598
+msgid "Flip _Vertical"
+msgstr "Відобразити _вертикально"
+
+#: gnome-commander/src/intviewer/window.rs:600
+msgid "Flip _Horizontal"
+msgstr "Відобразити _горизонтально"
+
+#: gnome-commander/src/intviewer/window.rs:604
 #: gnome-commander/src/main_win.rs:1441
 msgid "_Settings"
 msgstr "Н_астройки"
 
-#: gnome-commander/src/intviewer/window.rs:1068
+#: gnome-commander/src/intviewer/window.rs:605
 msgid "_Font…"
 msgstr "_Шрифт…"
 
-#: gnome-commander/src/intviewer/window.rs:1069
+#: gnome-commander/src/intviewer/window.rs:606
 msgid "Fixed _Width Mode"
 msgstr "Режим фіксованої _ширини"
 
-#: gnome-commander/src/intviewer/window.rs:1070
+#: gnome-commander/src/intviewer/window.rs:607
 msgid "_20 chars/line"
 msgstr "_20 символів на рядок"
 
-#: gnome-commander/src/intviewer/window.rs:1071
+#: gnome-commander/src/intviewer/window.rs:608
 msgid "_40 chars/line"
 msgstr "_40 символів на рядок"
 
-#: gnome-commander/src/intviewer/window.rs:1072
+#: gnome-commander/src/intviewer/window.rs:609
 msgid "_80 chars/line"
 msgstr "_80 символів на рядок"
 
-#: gnome-commander/src/intviewer/window.rs:1073
+#: gnome-commander/src/intviewer/window.rs:610
 msgid "_120 chars/line"
 msgstr "_120 символів на рядок"
 
-#: gnome-commander/src/intviewer/window.rs:1074
+#: gnome-commander/src/intviewer/window.rs:611
 msgid "1_60 chars/line"
 msgstr "1_60 символів на рядок"
 
-#: gnome-commander/src/intviewer/window.rs:1077
-msgid "Show Metadata _Tags"
-msgstr "Показати _теги метаданих"
-
-#: gnome-commander/src/intviewer/window.rs:1078
+#: gnome-commander/src/intviewer/window.rs:615
 msgid "_Hexadecimal Offset"
 msgstr "_Шістнадцятковий зсув"
 
-#: gnome-commander/src/intviewer/window.rs:1083
+#: gnome-commander/src/intviewer/window.rs:620
 msgid "Quick _Help"
 msgstr "Швидка _довідка"
 
-#: gnome-commander/src/intviewer/window.rs:1084
-#: gnome-commander/src/user_actions.rs:2190
+#: gnome-commander/src/intviewer/window.rs:621
+#: gnome-commander/src/user_actions.rs:2195
 msgid "_Keyboard Shortcuts"
 msgstr "_Комбінації клавіш"
 
@@ -4195,7 +4167,7 @@ msgstr ""
 msgid "_Display"
 msgstr "_Показати"
 
-#: gnome-commander/src/open_file.rs:45 gnome-commander/src/user_actions.rs:2239
+#: gnome-commander/src/open_file.rs:45 gnome-commander/src/user_actions.rs:2244
 msgid "_Run"
 msgstr "_Виконати"
 
@@ -4665,8 +4637,7 @@ msgstr "Не вказано команди пошуку."
 
 #: gnome-commander/src/user_actions.rs:198
 msgid "You can set a command for a search tool in the program options."
-msgstr ""
-"Ви можете визначити команду — інструмент пошуку у параметрах програми."
+msgstr "Ви можете визначити команду — інструмент пошуку у параметрах програми."
 
 #: gnome-commander/src/user_actions.rs:302
 msgid "Operation not supported on remote file systems"
@@ -4721,459 +4692,459 @@ msgstr "Помилка відкриття домашньої сторінки."
 msgid "There was an error reporting problem."
 msgstr "Виникла проблема звіту про помилку."
 
-#: gnome-commander/src/user_actions.rs:1227
+#: gnome-commander/src/user_actions.rs:1232
 msgid "A fast and powerful file manager"
 msgstr "Швидкий та потужний менеджер файлів"
 
-#: gnome-commander/src/user_actions.rs:1233
+#: gnome-commander/src/user_actions.rs:1238
 msgid "translator-credits"
 msgstr "Maxim Dziumanenko <mvd@mylinux.com.ua>"
 
-#: gnome-commander/src/user_actions.rs:1525
+#: gnome-commander/src/user_actions.rs:1530
 msgid "Copy Files"
 msgstr "Копіювати файли"
 
-#: gnome-commander/src/user_actions.rs:1531
+#: gnome-commander/src/user_actions.rs:1536
 msgid "Copy files with rename"
 msgstr "Копіювати файл з перейменуванням "
 
-#: gnome-commander/src/user_actions.rs:1537
+#: gnome-commander/src/user_actions.rs:1542
 msgid "Move Files"
 msgstr "Пересунути файли"
 
-#: gnome-commander/src/user_actions.rs:1543
+#: gnome-commander/src/user_actions.rs:1548
 msgid "_Delete"
 msgstr "В_идалити"
 
-#: gnome-commander/src/user_actions.rs:1549
+#: gnome-commander/src/user_actions.rs:1554
 msgid "Delete Permanently"
 msgstr "Вилучити остаточно"
 
-#: gnome-commander/src/user_actions.rs:1555
+#: gnome-commander/src/user_actions.rs:1560
 msgid "View File"
 msgstr "Переглянути файл"
 
-#: gnome-commander/src/user_actions.rs:1561
+#: gnome-commander/src/user_actions.rs:1566
 msgid "View with internal viewer"
 msgstr "Перегляд у вбудованому переглядачі"
 
-#: gnome-commander/src/user_actions.rs:1567
+#: gnome-commander/src/user_actions.rs:1572
 msgid "View with external viewer"
 msgstr "Перегляд у зовнішньому переглядачі"
 
-#: gnome-commander/src/user_actions.rs:1573
+#: gnome-commander/src/user_actions.rs:1578
 msgid "Edit (SHIFT for new document)"
 msgstr "Редагувати (SHIFT для нового документа)"
 
-#: gnome-commander/src/user_actions.rs:1579
+#: gnome-commander/src/user_actions.rs:1584
 msgid "New _Text File"
 msgstr "Створити _текстовий файл"
 
-#: gnome-commander/src/user_actions.rs:1585
+#: gnome-commander/src/user_actions.rs:1590
 msgid "_Search…"
 msgstr "З_найти…"
 
-#: gnome-commander/src/user_actions.rs:1591
+#: gnome-commander/src/user_actions.rs:1596
 msgid "_Quick Search…"
 msgstr "_Швидкий пошук…"
 
-#: gnome-commander/src/user_actions.rs:1597
+#: gnome-commander/src/user_actions.rs:1602
 msgid "Quick _Filter…"
 msgstr "Швидке _фільтрування…"
 
-#: gnome-commander/src/user_actions.rs:1603
+#: gnome-commander/src/user_actions.rs:1608
 msgid "Change Per_missions"
 msgstr "Змінити _права доступу"
 
-#: gnome-commander/src/user_actions.rs:1609
+#: gnome-commander/src/user_actions.rs:1614
 msgid "Change _Owner/Group"
 msgstr "Змінити _власника/групу"
 
-#: gnome-commander/src/user_actions.rs:1615
+#: gnome-commander/src/user_actions.rs:1620
 msgid "New _Directory"
 msgstr "Створити _каталог"
 
-#: gnome-commander/src/user_actions.rs:1621
+#: gnome-commander/src/user_actions.rs:1626
 msgid "_Properties…"
 msgstr "В_ластивості…"
 
-#: gnome-commander/src/user_actions.rs:1627
+#: gnome-commander/src/user_actions.rs:1632
 msgid "_Diff"
 msgstr "Показати ві_дміни"
 
-#: gnome-commander/src/user_actions.rs:1633
+#: gnome-commander/src/user_actions.rs:1638
 msgid "S_ynchronize Directories"
 msgstr "С_инхронізувати каталоги"
 
-#: gnome-commander/src/user_actions.rs:1639
+#: gnome-commander/src/user_actions.rs:1644
 msgid "_Rename"
 msgstr "Перей_менувати"
 
-#: gnome-commander/src/user_actions.rs:1645
+#: gnome-commander/src/user_actions.rs:1650
 msgid "Create Symbolic _Link"
 msgstr "Створити символічне _посилання"
 
-#: gnome-commander/src/user_actions.rs:1651
+#: gnome-commander/src/user_actions.rs:1656
 msgid "Advanced _Rename Tool"
 msgstr "_Розширений інструмент перейменування"
 
-#: gnome-commander/src/user_actions.rs:1657
+#: gnome-commander/src/user_actions.rs:1662
 msgid "_Send Files"
 msgstr "_Надіслати файли"
 
-#: gnome-commander/src/user_actions.rs:1663
+#: gnome-commander/src/user_actions.rs:1668
 msgid "Qui_t"
 msgstr "Ви_йти"
 
-#: gnome-commander/src/user_actions.rs:1670
+#: gnome-commander/src/user_actions.rs:1675
 msgid "Toggle selection"
 msgstr "Перемкнути стан позначення"
 
-#: gnome-commander/src/user_actions.rs:1676
+#: gnome-commander/src/user_actions.rs:1681
 msgid "Toggle selection and move cursor downward"
 msgstr "Перемкнути позначення і пересунути курсор нижче"
 
-#: gnome-commander/src/user_actions.rs:1688
+#: gnome-commander/src/user_actions.rs:1693
 msgid "_Unselect All"
 msgstr "_Зняти все позначення"
 
-#: gnome-commander/src/user_actions.rs:1694
+#: gnome-commander/src/user_actions.rs:1699
 msgid "Select all _Files"
 msgstr "Позначити усі _файли"
 
-#: gnome-commander/src/user_actions.rs:1700
+#: gnome-commander/src/user_actions.rs:1705
 msgid "Unselect all Fi_les"
 msgstr "Зняти позначення з усіх ф_айлів"
 
-#: gnome-commander/src/user_actions.rs:1706
+#: gnome-commander/src/user_actions.rs:1711
 msgid "Select with _Pattern"
 msgstr "Позначити за вз_ірцем"
 
-#: gnome-commander/src/user_actions.rs:1712
+#: gnome-commander/src/user_actions.rs:1717
 msgid "Unselect with P_attern"
 msgstr "З_няти позначення за взірцем"
 
-#: gnome-commander/src/user_actions.rs:1718
+#: gnome-commander/src/user_actions.rs:1723
 msgid "_Invert Selection"
 msgstr "_Інвертувати позначення"
 
-#: gnome-commander/src/user_actions.rs:1724
+#: gnome-commander/src/user_actions.rs:1729
 msgid "Select with same _Extension"
 msgstr "Позначити файли з тим самим су_фіксом"
 
-#: gnome-commander/src/user_actions.rs:1730
+#: gnome-commander/src/user_actions.rs:1735
 msgid "Unselect with same E_xtension"
 msgstr "Зняти позначення з файлів з тим самим с_уфіксом"
 
-#: gnome-commander/src/user_actions.rs:1736
+#: gnome-commander/src/user_actions.rs:1741
 msgid "_Compare Directories"
 msgstr "_Порівняти каталоги"
 
-#: gnome-commander/src/user_actions.rs:1743
+#: gnome-commander/src/user_actions.rs:1748
 msgid "Cu_t"
 msgstr "_Вирізати"
 
-#: gnome-commander/src/user_actions.rs:1761
+#: gnome-commander/src/user_actions.rs:1766
 msgid "Copy _File Names (SHIFT for full paths, ALT for URIs)"
 msgstr "Копіювати назви _файлів (SHIFT для повного шляху, ALT для URI)"
 
-#: gnome-commander/src/user_actions.rs:1768
+#: gnome-commander/src/user_actions.rs:1773
 msgid "Execute command"
 msgstr "Виконати команду"
 
-#: gnome-commander/src/user_actions.rs:1774
+#: gnome-commander/src/user_actions.rs:1779
 msgid "Open _Terminal"
 msgstr "Відкрити _термінал"
 
-#: gnome-commander/src/user_actions.rs:1781
+#: gnome-commander/src/user_actions.rs:1786
 msgid "Show Device Buttons"
 msgstr "Показати кнопки пристроїв"
 
-#: gnome-commander/src/user_actions.rs:1787
+#: gnome-commander/src/user_actions.rs:1792
 msgid "Show Device List"
 msgstr "Показати список пристроїв"
 
-#: gnome-commander/src/user_actions.rs:1793
+#: gnome-commander/src/user_actions.rs:1798
 msgid "Show Toolbar"
 msgstr "Панель інструментів"
 
-#: gnome-commander/src/user_actions.rs:1799
+#: gnome-commander/src/user_actions.rs:1804
 msgid "Show Buttonbar"
 msgstr "Показати панель кнопок"
 
-#: gnome-commander/src/user_actions.rs:1805
+#: gnome-commander/src/user_actions.rs:1810
 msgid "Show Command Line"
 msgstr "Показати командний рядок"
 
-#: gnome-commander/src/user_actions.rs:1811
+#: gnome-commander/src/user_actions.rs:1816
 msgid "Show Directory History"
 msgstr "Показати журнал каталогів"
 
-#: gnome-commander/src/user_actions.rs:1817
+#: gnome-commander/src/user_actions.rs:1822
 msgid "Show Command Line History"
 msgstr "Показати журнал командного рядка"
 
-#: gnome-commander/src/user_actions.rs:1823
+#: gnome-commander/src/user_actions.rs:1828
 msgid "Show Hidden Files"
 msgstr "Показати приховані файли"
 
-#: gnome-commander/src/user_actions.rs:1829
+#: gnome-commander/src/user_actions.rs:1834
 msgid "Show Backup Files"
 msgstr "Показати резервні файли"
 
-#: gnome-commander/src/user_actions.rs:1835
+#: gnome-commander/src/user_actions.rs:1840
 msgid "Hide Command Line Output When Inactive"
 msgstr "Приховувати виведення до командного рядка, якщо він неактивний"
 
-#: gnome-commander/src/user_actions.rs:1847
+#: gnome-commander/src/user_actions.rs:1852
 msgid "Back to oldest"
 msgstr "Назад до найстаршого"
 
-#: gnome-commander/src/user_actions.rs:1853
+#: gnome-commander/src/user_actions.rs:1858
 msgid "_Back"
 msgstr "Н_азад"
 
-#: gnome-commander/src/user_actions.rs:1859
+#: gnome-commander/src/user_actions.rs:1864
 msgid "_Forward"
 msgstr "В_перед"
 
-#: gnome-commander/src/user_actions.rs:1865
+#: gnome-commander/src/user_actions.rs:1870
 msgid "Forward to latest"
 msgstr "Вбере до останнього"
 
-#: gnome-commander/src/user_actions.rs:1871
+#: gnome-commander/src/user_actions.rs:1876
 msgid "_Refresh"
 msgstr "_Оновити"
 
-#: gnome-commander/src/user_actions.rs:1877
+#: gnome-commander/src/user_actions.rs:1882
 msgid "_Equal Panel Size"
 msgstr "З_рівняти розмір панелей"
 
-#: gnome-commander/src/user_actions.rs:1883
+#: gnome-commander/src/user_actions.rs:1888
 msgid "_Maximize Panel Size"
 msgstr "_Максимізувати розмір панелі"
 
-#: gnome-commander/src/user_actions.rs:1889
+#: gnome-commander/src/user_actions.rs:1894
 msgid "Open directory in the left panel"
 msgstr "Відкрити каталог на лівій панелі"
 
-#: gnome-commander/src/user_actions.rs:1895
+#: gnome-commander/src/user_actions.rs:1900
 msgid "Open directory in the right panel"
 msgstr "Відкрити каталог на правій панелі"
 
-#: gnome-commander/src/user_actions.rs:1901
+#: gnome-commander/src/user_actions.rs:1906
 msgid "Open directory in the active panel"
 msgstr "Відкрити каталог на активній панелі"
 
-#: gnome-commander/src/user_actions.rs:1907
+#: gnome-commander/src/user_actions.rs:1912
 msgid "Open directory in the inactive panel"
 msgstr "Відкрити каталог на неактивній панелі"
 
-#: gnome-commander/src/user_actions.rs:1913
+#: gnome-commander/src/user_actions.rs:1918
 msgid "Change directory"
 msgstr "Змінити каталог"
 
-#: gnome-commander/src/user_actions.rs:1919
+#: gnome-commander/src/user_actions.rs:1924
 msgid "Home directory"
 msgstr "Домашній каталог"
 
-#: gnome-commander/src/user_actions.rs:1925
+#: gnome-commander/src/user_actions.rs:1930
 msgid "Root directory"
 msgstr "Кореневий каталог"
 
-#: gnome-commander/src/user_actions.rs:1949
+#: gnome-commander/src/user_actions.rs:1954
 msgid "Close duplicate tabs"
 msgstr "Закрити дублікати вкладок"
 
-#: gnome-commander/src/user_actions.rs:1955
+#: gnome-commander/src/user_actions.rs:1960
 msgid "Previous tab"
 msgstr "попередня вкладка"
 
-#: gnome-commander/src/user_actions.rs:1961
+#: gnome-commander/src/user_actions.rs:1966
 msgid "Next tab"
 msgstr "Наступна вкладка"
 
-#: gnome-commander/src/user_actions.rs:1967
+#: gnome-commander/src/user_actions.rs:1972
 msgid "Open directory in the new tab"
 msgstr "Відкрити каталог у новій вкладці"
 
-#: gnome-commander/src/user_actions.rs:1973
+#: gnome-commander/src/user_actions.rs:1978
 msgid "Open directory in the new tab (inactive panel)"
 msgstr "Відкрити каталог у новій вкладці (неактивна панель)"
 
-#: gnome-commander/src/user_actions.rs:1979
+#: gnome-commander/src/user_actions.rs:1984
 msgid "Lock/unlock tab"
 msgstr "Заблокувати/розблокувати вкладку"
 
-#: gnome-commander/src/user_actions.rs:1985
+#: gnome-commander/src/user_actions.rs:1990
 msgid "_Horizontal Orientation"
 msgstr "_Горизонтальна орієнтація"
 
-#: gnome-commander/src/user_actions.rs:1991
+#: gnome-commander/src/user_actions.rs:1996
 msgid "Display main menu"
 msgstr "Показати головне меню"
 
-#: gnome-commander/src/user_actions.rs:1997
+#: gnome-commander/src/user_actions.rs:2002
 msgid "Move cursor one step up"
 msgstr "Пересунути курсор на крок вище"
 
-#: gnome-commander/src/user_actions.rs:2003
+#: gnome-commander/src/user_actions.rs:2008
 msgid "Move cursor one step down"
 msgstr "Пересунути курсор на крок нижче"
 
-#: gnome-commander/src/user_actions.rs:2009
+#: gnome-commander/src/user_actions.rs:2014
 msgid "Switch to Opposite Panel"
 msgstr "Перемкнутися на протилежну панель"
 
-#: gnome-commander/src/user_actions.rs:2015
+#: gnome-commander/src/user_actions.rs:2020
 msgid "Swap panels"
 msgstr "Поміняти панелі місцями"
 
-#: gnome-commander/src/user_actions.rs:2021
+#: gnome-commander/src/user_actions.rs:2026
 msgid "Show panel size selector"
 msgstr "Показати елемент вибору розміру панелі"
 
-#: gnome-commander/src/user_actions.rs:2033
+#: gnome-commander/src/user_actions.rs:2038
 msgid "Calculate Size for All Directories"
 msgstr "Обчислити розмір для усіх каталогів"
 
-#: gnome-commander/src/user_actions.rs:2039
+#: gnome-commander/src/user_actions.rs:2044
 msgid "Sort by Name"
 msgstr "Упорядкувати за назвою"
 
-#: gnome-commander/src/user_actions.rs:2045
+#: gnome-commander/src/user_actions.rs:2050
 msgid "Sort by Extension"
 msgstr "Упорядкувати за суфіксом"
 
-#: gnome-commander/src/user_actions.rs:2051
+#: gnome-commander/src/user_actions.rs:2056
 msgid "Sort by Date"
 msgstr "Упорядкувати за датою"
 
-#: gnome-commander/src/user_actions.rs:2057
+#: gnome-commander/src/user_actions.rs:2062
 msgid "Sort by Size"
 msgstr "Упорядкувати за розміром"
 
-#: gnome-commander/src/user_actions.rs:2063
+#: gnome-commander/src/user_actions.rs:2068
 msgid "Sort by Permissions"
 msgstr "Упорядкувати за правами доступу"
 
-#: gnome-commander/src/user_actions.rs:2069
+#: gnome-commander/src/user_actions.rs:2074
 msgid "Sort by Owner"
 msgstr "Упорядкувати за власником"
 
-#: gnome-commander/src/user_actions.rs:2075
+#: gnome-commander/src/user_actions.rs:2080
 msgid "Sort by Group"
 msgstr "Упорядкувати за групою"
 
-#: gnome-commander/src/user_actions.rs:2082
+#: gnome-commander/src/user_actions.rs:2087
 msgid "_Bookmark this Directory…"
 msgstr "_Закладка на поточний каталог…"
 
-#: gnome-commander/src/user_actions.rs:2088
+#: gnome-commander/src/user_actions.rs:2093
 msgid "_Manage Bookmarks…"
 msgstr "_Керування закладками…"
 
-#: gnome-commander/src/user_actions.rs:2100
+#: gnome-commander/src/user_actions.rs:2105
 msgid "Show bookmarks of current device"
 msgstr "Показати закладки поточного пристрою"
 
-#: gnome-commander/src/user_actions.rs:2107
+#: gnome-commander/src/user_actions.rs:2112
 msgid "_Options…"
 msgstr "П_араметри…"
 
-#: gnome-commander/src/user_actions.rs:2113
+#: gnome-commander/src/user_actions.rs:2118
 msgid "_Keyboard Shortcuts…"
 msgstr "_Клавіатурні скорочення…"
 
-#: gnome-commander/src/user_actions.rs:2120
+#: gnome-commander/src/user_actions.rs:2125
 msgid "_Remote Server…"
 msgstr "_Віддалений сервер…"
 
-#: gnome-commander/src/user_actions.rs:2126
+#: gnome-commander/src/user_actions.rs:2131
 msgid "_New Connection…"
 msgstr "С_творити з'єднання…"
 
-#: gnome-commander/src/user_actions.rs:2132
+#: gnome-commander/src/user_actions.rs:2137
 msgid "Set Connection"
 msgstr "Встановити з'єднання"
 
-#: gnome-commander/src/user_actions.rs:2140
+#: gnome-commander/src/user_actions.rs:2145
 msgid "Connect to First Remote Server"
 msgstr "Встановити з'єднання з першим віддаленим сервером"
 
-#: gnome-commander/src/user_actions.rs:2146
+#: gnome-commander/src/user_actions.rs:2151
 msgid "Change Left Connection"
 msgstr "Змінити ліве з'єднання"
 
-#: gnome-commander/src/user_actions.rs:2152
+#: gnome-commander/src/user_actions.rs:2157
 msgid "Change Right Connection"
 msgstr "Змінити праве з'єднання"
 
-#: gnome-commander/src/user_actions.rs:2158
+#: gnome-commander/src/user_actions.rs:2163
 msgid "Close Connection"
 msgstr "Закрити з'єднання"
 
-#: gnome-commander/src/user_actions.rs:2164
+#: gnome-commander/src/user_actions.rs:2169
 msgid "Drop Connection"
 msgstr "Розірвати з'єднання"
 
-#: gnome-commander/src/user_actions.rs:2171
+#: gnome-commander/src/user_actions.rs:2176
 msgid "_Configure Plugins…"
 msgstr "_Налаштувати додатки…"
 
-#: gnome-commander/src/user_actions.rs:2184
+#: gnome-commander/src/user_actions.rs:2189
 msgid "_Documentation"
 msgstr "_Документація"
 
-#: gnome-commander/src/user_actions.rs:2196
+#: gnome-commander/src/user_actions.rs:2201
 msgid "Gnome Commander on the _Web"
 msgstr "Gnome Commander у _веб"
 
-#: gnome-commander/src/user_actions.rs:2202
+#: gnome-commander/src/user_actions.rs:2207
 msgid "Report a _Problem"
 msgstr "Сповістити про _проблему"
 
-#: gnome-commander/src/user_actions.rs:2208
+#: gnome-commander/src/user_actions.rs:2213
 msgid "_About"
 msgstr "_Про модуль"
 
-#: gnome-commander/src/user_actions.rs:2215
+#: gnome-commander/src/user_actions.rs:2220
 msgid "Jump to Panels"
 msgstr "Перейти до панелей"
 
-#: gnome-commander/src/user_actions.rs:2221
+#: gnome-commander/src/user_actions.rs:2226
 msgid "Jump to Command Line"
 msgstr "Перейти до командного рядка"
 
-#: gnome-commander/src/user_actions.rs:2227
+#: gnome-commander/src/user_actions.rs:2232
 msgid "Jump to Command Output"
 msgstr "Перейти до панелі виведених командою даних"
 
-#: gnome-commander/src/user_actions.rs:2233
+#: gnome-commander/src/user_actions.rs:2238
 msgid "Clear Command Line"
 msgstr "Очистити панель командного рядка"
 
-#: gnome-commander/src/user_actions.rs:2245
+#: gnome-commander/src/user_actions.rs:2250
 msgid "Run in _terminal"
 msgstr "Запустити в _терміналі"
 
-#: gnome-commander/src/user_actions.rs:2251
+#: gnome-commander/src/user_actions.rs:2256
 msgid "Run _ignoring output"
 msgstr "Запустити, про_ігнорувавши виведене"
 
-#: gnome-commander/src/user_actions.rs:2257
+#: gnome-commander/src/user_actions.rs:2262
 msgid "Open Current File"
 msgstr "Відкрити поточний файл"
 
-#: gnome-commander/src/user_actions.rs:2263
+#: gnome-commander/src/user_actions.rs:2268
 msgid "Add Current Directory to Command Line"
 msgstr "Додати поточний каталогу до рядка команди"
 
-#: gnome-commander/src/user_actions.rs:2269
+#: gnome-commander/src/user_actions.rs:2274
 msgid "Add Current File Name to Command Line"
 msgstr "Додати назву поточного файла до рядка команди"
 
-#: gnome-commander/src/user_actions.rs:2275
+#: gnome-commander/src/user_actions.rs:2280
 msgid "Add Current File Path to Command Line"
 msgstr "Додати шлях до поточного файла до рядка команди"
 
@@ -5443,8 +5414,7 @@ msgid "Character Count"
 msgstr "Кількість символів"
 
 #: plugins/document-metadata.py:63
-msgid ""
-"Number of characters that a document producer has counted in a document"
+msgid "Number of characters that a document producer has counted in a document"
 msgstr ""
 "Кількість символів, яку нараховано програмою, за допомогою якої створено "
 "документ"
@@ -5465,8 +5435,7 @@ msgid "Frame Count"
 msgstr "Підрахунок кадрів"
 
 #: plugins/document-metadata.py:65
-msgid ""
-"Number of text boxes that a document producer has counted in a document"
+msgid "Number of text boxes that a document producer has counted in a document"
 msgstr ""
 "Кількість текстових полів, яку нараховано програмою, за допомогою якої "
 "створено документ"
@@ -5532,8 +5501,7 @@ msgid "Paragraph Count"
 msgstr "Кількість параграфів"
 
 #: plugins/document-metadata.py:71
-msgid ""
-"Number of paragraphs that a document producer has counted in a document"
+msgid "Number of paragraphs that a document producer has counted in a document"
 msgstr ""
 "Кількість абзаців, яку нараховано програмою, за допомогою якої створено "
 "документ"
@@ -6659,8 +6627,7 @@ msgstr "Дата і час (оригінал)"
 
 #: plugins/image-metadata.py:116
 msgid "The date and time when the original image data was generated."
-msgstr ""
-"Дата і час, коли  початкове зображення було збережене як цифрові дані."
+msgstr "Дата і час, коли  початкове зображення було збережене як цифрові дані."
 
 #: plugins/image-metadata.py:117
 msgid "Date and Time (digitized)"
@@ -7376,8 +7343,7 @@ msgid "GPS Version ID"
 msgstr "Ідентифікатор версії GPS"
 
 #: plugins/image-metadata.py:194
-msgid ""
-"Indicates the version of <GPSInfoIFD>. The version is given as 2.0.0.0."
+msgid "Indicates the version of <GPSInfoIFD>. The version is given as 2.0.0.0."
 msgstr "Вказує на версію <GPSInfoIFD>. Версія задається у форматі 2.0.0.0."
 
 #: plugins/image-metadata.py:195
@@ -8837,6 +8803,42 @@ msgstr ""
 msgid "Unsupported application protocol"
 msgstr "Непідтримуваний протокол програми"
 
+#, rust-format
+#~ msgid "Position: {offset} of {size}"
+#~ msgstr "Розташування: {offset} з {size}"
+
+#, rust-format
+#~ msgid "Column: {}"
+#~ msgstr "Стовпчик: {}"
+
+#~ msgid "Wrap"
+#~ msgstr "Прокрутка"
+
+#~ msgid "Could not recognize the image file format"
+#~ msgstr "Не вдалося розпізнати формат зображення"
+
+#, rust-format
+#~ msgid "{width} x {height} pixel"
+#~ msgid_plural "{width} x {height} pixels"
+#~ msgstr[0] "{width} x {height} піксель"
+#~ msgstr[1] "{width} x {height} пікселі"
+#~ msgstr[2] "{width} x {height} пікселів"
+#~ msgstr[3] "{width} x {height} піксель"
+
+#, rust-format
+#~ msgid "{} bit/sample"
+#~ msgid_plural "{} bits/sample"
+#~ msgstr[0] "{} біт/семпл"
+#~ msgstr[1] "{} біта/семпл"
+#~ msgstr[2] "{} бітів/семпл"
+#~ msgstr[3] "{} біт/семпл"
+
+#~ msgid "(fit to window)"
+#~ msgstr "(до розміру вікна)"
+
+#~ msgid "_Copy Selection"
+#~ msgstr "_Копіювати позначене"
+
 #~ msgid "Go to bookmarked location"
 #~ msgstr "Перейти по закладці"
 
@@ -8851,14 +8853,6 @@ msgstr "Непідтримуваний протокол програми"
 
 #~ msgid "Waiting for file list"
 #~ msgstr "Очікування на список файлів"
-
-#, rust-format
-#~ msgid "{} file listed"
-#~ msgid_plural "{} files listed"
-#~ msgstr[0] "{} файл у списку"
-#~ msgstr[1] "{} файли у списку"
-#~ msgstr[2] "{} файлів у списку"
-#~ msgstr[3] "{} файл у списку"
 
 #~ msgid "Current directory is not set."
 #~ msgstr "Поточний каталог не встановлено."
@@ -11381,9 +11375,6 @@ msgstr "Непідтримуваний протокол програми"
 #~ msgid "Connection name"
 #~ msgstr "Назва з’єднання"
 
-#~ msgid "_Quit"
-#~ msgstr "Ви_йти"
-
 #~ msgid "No file name given"
 #~ msgstr "Не надані назви файлів"
 
@@ -11605,9 +11596,6 @@ msgstr "Непідтримуваний протокол програми"
 
 #~ msgid "Other _Application…"
 #~ msgstr "Інша п_рограма…"
-
-#~ msgid "File Manager"
-#~ msgstr "Менеджер файлів"
 
 #~ msgid "/File name"
 #~ msgstr "/Назва файла"
