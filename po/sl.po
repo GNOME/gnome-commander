@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
 "POT-Creation-Date: 2026-06-13 11:37+0000\n"
-"PO-Revision-Date: 2026-06-21 23:10+0200\n"
+"PO-Revision-Date: 2026-07-26 11:28+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -1206,6 +1206,30 @@ msgid ""
 msgstr ""
 "Program Gnome Commander je namenjen naprednim uporabnikom, ki želijo imeti pregled nad datotekami, "
 "opravljati več nalog hkrati in izvajati naprednejša datotečna opravila."
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:36
+msgid "file manager"
+msgstr "upravljalnik datotek"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:37
+msgid "file system"
+msgstr "datotečni sistem"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:38 src/dialogs/connect_dialog.rs:23
+msgid "SSH"
+msgstr "SSH"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:39
+msgid "FTP"
+msgstr "FTP"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:40
+msgid "WebDAV"
+msgstr "WebDAV"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:54
+msgid "The Gnome Commander team"
+msgstr "Ekipa Gnome Commander"
 
 #: plugins/exiv2/exiv2-plugin.cc:63 plugins/taglib/taglib-plugin.cc:70
 msgid "Album"
@@ -5523,10 +5547,6 @@ msgstr "Uporabi po strukturi map"
 #: src/dialogs/chown_dialog.rs:117
 msgid "C_hange Owner"
 msgstr "Spremeni _lastništvo"
-
-#: src/dialogs/connect_dialog.rs:23
-msgid "SSH"
-msgstr "SSH"
 
 #: src/dialogs/connect_dialog.rs:24
 msgid "FTP (with login)"
