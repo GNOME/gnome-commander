@@ -10,8 +10,8 @@
 msgid ""
 msgstr "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
-"POT-Creation-Date: 2026-06-05 12:32+0000\n"
-"PO-Revision-Date: 2026-06-06 10:00+0100\n"
+"POT-Creation-Date: 2026-06-13 11:37+0000\n"
+"PO-Revision-Date: 2026-07-26 10:00+0100\n"
 "Last-Translator: Asier Saratsua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -388,7 +388,7 @@ msgstr "Ikonoen zutabearen zabalera"
 msgid ""
 "This setting is only present for backwards compatibility and will be removed "
 "in future."
-msgstr ""
+msgstr "Ezarpen hau atzerako bateragarritasunagatik soilik dago, etorkizunean kendu egingo da."
 
 #: data/org.gnome.gnome-commander.gschema.xml:307
 msgid "Width of name column"
@@ -1272,7 +1272,7 @@ msgid ""
 "Gnome Commander aims to advanced users who like to focus on precise file "
 "management, working in parallel through special applications, and running "
 "smart commands."
-msgstr ""
+msgstr "GNOME Commander erabiltzaile aurreratuak ditu jomugan, fitxategien kudeaketa zehatza nahi dutenak, aplikazio berezituen bidez paraleloan lan egiten dutenak eta komando adimentsuak exekutatzen dituztenak."
 
 #: plugins/exiv2/exiv2-plugin.cc:63 plugins/taglib/taglib-plugin.cc:70
 msgid "Album"
@@ -3889,7 +3889,7 @@ msgstr "Bit-tasa (kb/s)."
 
 #: plugins/taglib/taglib-plugin.cc:73
 msgid "Bitrate with units (kbps)."
-msgstr "Bit-tasa unitateekin (kb/s)."
+msgstr ""
 
 #: plugins/taglib/taglib-plugin.cc:74
 msgid "Channels"
@@ -4948,23 +4948,23 @@ msgid "_Apply"
 msgstr "_Aplikatu"
 
 #: src/advanced_rename/advanced_rename_dialog.rs:792
-#: src/search/search_dialog.rs:559
+#: src/search/search_dialog.rs:561
 msgid "New profile"
 msgstr "Profil berria"
 
 #: src/advanced_rename/advanced_rename_dialog.rs:803
 #: src/advanced_rename/advanced_rename_dialog.rs:829
-#: src/search/search_dialog.rs:567
+#: src/search/search_dialog.rs:569
 msgid "Profiles"
 msgstr "Profilak"
 
 #: src/advanced_rename/advanced_rename_dialog.rs:1050
-#: src/search/search_dialog.rs:515
+#: src/search/search_dialog.rs:517
 msgid "_Save Profile As…"
 msgstr "_Gorde profila honela…"
 
 #: src/advanced_rename/advanced_rename_dialog.rs:1057
-#: src/search/search_dialog.rs:524
+#: src/search/search_dialog.rs:526
 msgid "_Manage Profiles…"
 msgstr "_Kudeatu profilak…"
 
@@ -5415,7 +5415,7 @@ msgstr "_Baztertu"
 
 #: src/connection/device.rs:441
 msgid "Failed to execute the mount command"
-msgstr "Huts egin du muntatzeko komandoa exekutatzeak"
+msgstr "Huts egin du muntatzeko komandoa exekutatzean"
 
 #: src/connection/device.rs:451
 msgid "Mount failed: permission denied"
@@ -6154,15 +6154,15 @@ msgstr "_Eguneratu gailua"
 
 #: src/dialogs/options/device_dialog.rs:169
 msgid "A device needs to have a non-empty alias"
-msgstr ""
+msgstr "Gailuak hutsik ez dagoen aliasa behar du"
 
 #: src/dialogs/options/device_dialog.rs:176
 msgid "A device needs to have a non-empty path/label"
-msgstr ""
+msgstr "Gailuak hutsik ez dagoen bidea/etiketa behar du"
 
 #: src/dialogs/options/device_dialog.rs:183
 msgid "A device needs to have a non-empty mount point"
-msgstr ""
+msgstr "Gailuak hutsik ez dagoen muntatze-puntua behar du"
 
 #: src/dialogs/options/devices_tab.rs:34
 msgid ""
@@ -6290,7 +6290,7 @@ msgctxt ""
 "'Powered' refers to the mode of file size display (here - display using "
 "units of data: kB, MB, GB, ...)"
 msgid "Powered"
-msgstr ""
+msgstr "Aurreratua"
 
 #: src/dialogs/options/format_tab.rs:48
 msgctxt ""
@@ -6735,7 +6735,7 @@ msgstr "Eraman “{}” hona:"
 msgid "move {} file to"
 msgid_plural "move {} files to"
 msgstr[0] "eraman fitxategi {} hona:"
-msgstr[1] "eraman {} fitxategi hona:"
+msgstr[1] "mugitu {} fitxategi hona:"
 
 #: src/dialogs/prepare_transfer_dialog.rs:187
 #, rust-format
@@ -6783,7 +6783,7 @@ msgstr "Ez da zerbitzaririk hautatu"
 
 #: src/dialogs/shortcuts_dialog.rs:101
 msgid "Search shortcuts…"
-msgstr ""
+msgstr "Bilatu laster-teklak"
 
 #: src/dialogs/shortcuts_dialog.rs:125
 msgid "Keyboard Shortcuts"
@@ -6791,11 +6791,11 @@ msgstr "Laster-teklak"
 
 #: src/dialogs/shortcuts_dialog.rs:146
 msgid "Show only _modified shortcuts"
-msgstr ""
+msgstr "Gorde _aldatutako lasterbideak soilik"
 
 #: src/dialogs/shortcuts_dialog.rs:229
 msgid "_Save Shortcuts"
-msgstr ""
+msgstr "_Gorde lasterbideak"
 
 #: src/dialogs/shortcuts_dialog.rs:439 src/dialogs/shortcuts_dialog.rs:731
 msgid "Add Shortcut"
@@ -6830,7 +6830,7 @@ msgstr ""
 
 #: src/dialogs/shortcuts_dialog.rs:711
 msgid "_Reassign shortcut"
-msgstr "Esleitu laster-tekla _berriro"
+msgstr "Esleitu lasterbidea _berriro"
 
 #: src/dialogs/shortcuts_dialog.rs:745
 #, rust-format
@@ -6844,11 +6844,11 @@ msgstr ""
 
 #: src/dialogs/shortcuts_dialog.rs:759
 msgid "Press the desired key combination on your keyboard."
-msgstr ""
+msgstr "Sakatu nahi duzun tekla-konbinazioa zure teklatuan."
 
 #: src/dialogs/shortcuts_dialog.rs:761
 msgid "Press Esc twice to cancel."
-msgstr ""
+msgstr "Sakatu Esc bi aldiz uzteko"
 
 #: src/dialogs/shortcuts_dialog.rs:764
 msgid "Press Backspace twice to remove the shortcut."
@@ -6856,7 +6856,7 @@ msgstr ""
 
 #: src/dialogs/shortcuts_dialog.rs:791
 msgid "Remove Shortcut"
-msgstr ""
+msgstr "Kendu lasterbidea"
 
 #: src/dialogs/shortcuts_dialog.rs:854
 msgid "Press Esc again to cancel or Enter to use Esc as shortcut key."
@@ -6876,13 +6876,13 @@ msgstr "Aurrerapena"
 #, rust-format
 msgctxt "size copied"
 msgid "{copied} of {total} copied"
-msgstr ""
+msgstr "{copied} / {total} kopiatuta"
 
 #: src/dialogs/transfer_progress_dialog.rs:144
 #, no-c-format, rust-format
 msgctxt "percentage copied"
 msgid "{}% copied"
-msgstr ""
+msgstr "%{} kopiatuta"
 
 #: src/dirlist.rs:34
 msgid "Waiting for file list"
@@ -6892,8 +6892,8 @@ msgstr "Fitxategi-zerrendaren zain"
 #, rust-format
 msgid "{} file listed"
 msgid_plural "{} files listed"
-msgstr[0] ""
-msgstr[1] "%d fitxategi zerrendatuta"
+msgstr[0] "Fitxategi {} zerrendatuta"
+msgstr[1] "{} fitxategi zerrendatuta"
 
 #: src/dir.rs:218
 msgid "Directory listing failed."
@@ -6911,16 +6911,16 @@ msgid ""
 msgid_plural ""
 "{} does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
-msgstr[0] ""
-msgstr[1] "%s(e)k ez daki urruneko fitxategia nola ireki. Fitxategia aldi baterako direktorio batean deskargatu eta ondoren ireki nahi duzu?"
+msgstr[0] "{}(e)k ez daki nola ireki urruneko fitxategia. Fitxategia aldi baterako kokaleku batean deskargatu eta ondoren ireki nahi al duzu?"
+msgstr[1] "{}(e)k ez daki urruneko fitxategia nola ireki. Fitxategiak aldi baterako direktorio batean deskargatu eta ondoren ireki nahi dituzu?"
 
 #: src/file_list/actions.rs:99
 msgid "No files were given to open."
-msgstr ""
+msgstr "Ez da fitxategirik eman irekitzeko."
 
 #: src/file_list/actions.rs:130
 msgid "Download failed."
-msgstr ""
+msgstr "Deskargak huts egin du."
 
 #: src/file_list/actions.rs:184
 msgid "Couldn’t retrieve MIME type of the file."
@@ -6976,30 +6976,30 @@ msgstr "_Utzi"
 
 #: src/file_list/list.rs:2456 src/file_list/list.rs:2479
 msgid "Current directory is not set."
-msgstr ""
+msgstr "Uneko direktorioa ez dago ezarrita."
 
 #: src/file_list/list.rs:2461
 msgid "No parent directory"
-msgstr ""
+msgstr "Ez dago direktorio gurasorik"
 
 #: src/file_list/list.rs:2473
 msgid "No SAMBA connection is available"
-msgstr ""
+msgstr "Ez dago SAMBA konexiorik erabilgarri"
 
 #: src/file_list/list.rs:2572
 #, rust-format
 msgid "Selected: {selected_bytes} of {total_bytes}."
-msgstr ""
+msgstr "Hautatuta: {selected_bytes} / {total_bytes}."
 
 #: src/file_list/list.rs:2579
 #, rust-format
 msgid "Files: {selected_files} of {total_files}."
-msgstr ""
+msgstr "Fitxategiak: {selected_files} / {total_files}."
 
 #: src/file_list/list.rs:2583
 #, rust-format
 msgid "Directories: {selected_dirs} of {total_dirs}."
-msgstr ""
+msgstr "Direktorioak: {selected_dirs} / {total_dirs}."
 
 #: src/file_list/list.rs:2637
 #, rust-format
@@ -7008,7 +7008,7 @@ msgstr ""
 
 #: src/file_list/list.rs:3146
 msgid "<DIR>"
-msgstr ""
+msgstr "<DIR>"
 
 #. Add the default "Open" menu entry at the top of the popup
 #: src/file_list/popup.rs:124
@@ -7030,11 +7030,11 @@ msgstr "E_xekutatu"
 
 #: src/file_list/popup.rs:241
 msgid "New"
-msgstr ""
+msgstr "Berria"
 
 #: src/file_list/quick_search.rs:95
 msgid "Close"
-msgstr ""
+msgstr "Itxi"
 
 #: src/file_metainfo_view.rs:59
 msgid "Value"
@@ -7067,7 +7067,7 @@ msgstr "Fitxa blokeatuta dago. Itxi dena den?"
 
 #: src/file_selector.rs:1716 src/user_actions.rs:876
 msgid "C_lose Tab"
-msgstr ""
+msgstr "I_txi fitxa"
 
 #: src/file_selector.rs:1757 src/user_actions.rs:1970
 msgid "Open in New _Tab"
@@ -7087,7 +7087,7 @@ msgstr "_Freskatu fitxa"
 
 #: src/file_selector.rs:1789
 msgid "Copy Tab to Other _Panel"
-msgstr ""
+msgstr "Kopiatu fitxa beste _panelean"
 
 #: src/file_selector.rs:1795 src/user_actions.rs:1976
 msgid "_Close Tab"
@@ -7103,15 +7103,15 @@ msgstr "Itxi _bikoiztutako fitxak"
 
 #: src/file_view.rs:40
 msgid "Failed to download a file"
-msgstr ""
+msgstr "Fitxategi bat deskargatzeak huts egin du"
 
 #: src/intviewer/search_bar.rs:51
 msgid "Stop"
-msgstr ""
+msgstr "Gelditu"
 
 #: src/intviewer/search_bar.rs:60
 msgid "Hexadecimal"
-msgstr ""
+msgstr "Hamaseitarra"
 
 #: src/intviewer/search_bar.rs:83 src/search/search_dialog.rs:339
 msgid "Search…"
@@ -7119,33 +7119,33 @@ msgstr "Bilatu…"
 
 #: src/intviewer/search_bar.rs:114
 msgid "Previous Match"
-msgstr ""
+msgstr "Aurreko parekatzea"
 
 #: src/intviewer/search_bar.rs:128
 msgid "Next Match"
-msgstr ""
+msgstr "Hurrengo parekatzea"
 
 #: src/intviewer/search_bar.rs:192
 msgid "Invalid hexadecimal pattern"
-msgstr ""
+msgstr "Baliogabeko eredu hamaseitarra"
 
 #: src/intviewer/search_bar.rs:196
 msgid "Not found"
-msgstr ""
+msgstr "Ez da aurkitu"
 
 #: src/intviewer/search_bar.rs:200
 msgid "Cannot translate into text encoding"
-msgstr ""
+msgstr "Ezin da testu-kodeketara itzuli"
 
 #: src/intviewer/window.rs:449
 #, rust-format
 msgid "Position: {offset} of {size}"
-msgstr ""
+msgstr "Kokalekua: {offset} / {size}"
 
 #: src/intviewer/window.rs:454
 #, rust-format
 msgid "Column: {}"
-msgstr ""
+msgstr "Zutabea: {}"
 
 #: src/intviewer/window.rs:459
 msgid "Wrap"
@@ -7153,21 +7153,21 @@ msgstr "Egokitu"
 
 #: src/intviewer/window.rs:471
 msgid "Could not recognize the image file format"
-msgstr ""
+msgstr "Ez da irudiaren fitxategi-formatua ezagutzen"
 
 #: src/intviewer/window.rs:480
 #, rust-format
 msgid "{width} x {height} pixel"
 msgid_plural "{width} x {height} pixels"
-msgstr[0] ""
-msgstr[1] "Zabalera pixeletan."
+msgstr[0] "{width} x {height} pixel"
+msgstr[1] "{width} x {height} pixel"
 
 #: src/intviewer/window.rs:487
 #, rust-format
 msgid "{} bit/sample"
 msgid_plural "{} bits/sample"
-msgstr[0] ""
-msgstr[1] "bit/lagineko"
+msgstr[0] "{} bit/lagineko"
+msgstr[1] "{} bit/lagineko"
 
 #: src/intviewer/window.rs:496
 msgid "(fit to window)"
@@ -7175,7 +7175,7 @@ msgstr "(doitu leihora)"
 
 #: src/intviewer/window.rs:845
 msgid "_Copy Selection"
-msgstr ""
+msgstr "_Kopiatu hautapena"
 
 #: src/intviewer/window.rs:846 src/intviewer/window.rs:974
 #: src/user_actions.rs:1721
@@ -7184,11 +7184,11 @@ msgstr "_Hautatu denak"
 
 #: src/intviewer/window.rs:855 src/intviewer/window.rs:1064
 msgid "_Rotate Clockwise"
-msgstr ""
+msgstr "Biratu erlojuaren _noranzkoan"
 
 #: src/intviewer/window.rs:860 src/intviewer/window.rs:1070
 msgid "Rotate Counter Clockwis_e"
-msgstr "Biratu erlojuaren norantzaren _aurka"
+msgstr "Biratu erlojuaren noranzkoaren _aurka"
 
 #: src/intviewer/window.rs:865 src/intviewer/window.rs:1075
 msgid "Rotate 180°"
@@ -7216,7 +7216,7 @@ msgstr "_Testua"
 
 #: src/intviewer/window.rs:936
 msgid "_Fixed Width"
-msgstr ""
+msgstr "_Zabalera finkoa"
 
 #: src/intviewer/window.rs:942
 msgid "_Hexadecimal"
@@ -7284,7 +7284,7 @@ msgstr "Arabiarra (ISO-8859-6)"
 
 #: src/intviewer/window.rs:1002
 msgid "Arabic ( Windows, CP1256)"
-msgstr ""
+msgstr "Arabiarra (Windows, CP1256)"
 
 #: src/intviewer/window.rs:1005
 msgid "Arabic (Dos, CP864)"
@@ -7360,11 +7360,11 @@ msgstr "_Ezarpenak"
 
 #: src/intviewer/window.rs:1096
 msgid "_Font…"
-msgstr ""
+msgstr "_Letra-tipoa…"
 
 #: src/intviewer/window.rs:1098
 msgid "Fixed _Width Mode"
-msgstr ""
+msgstr "_Zabalera finkoko modua"
 
 #: src/intviewer/window.rs:1101
 msgid "_20 chars/line"
@@ -7380,11 +7380,11 @@ msgstr "_80 karak/lerroko"
 
 #: src/intviewer/window.rs:1115
 msgid "_120 chars/line"
-msgstr ""
+msgstr "_120 karak/lerroko"
 
 #: src/intviewer/window.rs:1116
 msgid "1_60 chars/line"
-msgstr ""
+msgstr "1_60 karak/lerroko"
 
 #: src/intviewer/window.rs:1121
 msgid "Show Metadata _Tags"
@@ -7432,7 +7432,7 @@ msgstr "F9 Bilatu"
 
 #: src/main_win.rs:263
 msgid "Gnome Commander — ROOT PRIVILEGES"
-msgstr ""
+msgstr "GNOME Commander — ERRO-PRIBILEGIOAK"
 
 #: src/main_win.rs:638
 msgid "Drop connection"
@@ -7463,43 +7463,43 @@ msgstr "_Pluginak"
 msgid ""
 "“{}” seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
-msgstr ""
+msgstr "Badirudi “{}” fitxategi exekutagarria dela baina ez du bit exekutagarria. Hura ezarri eta fitxategia exekutatu nahi duzu?"
 
 #: src/open_file.rs:23
 msgid "_Mark as Executable"
-msgstr ""
+msgstr "_Markatu exekutagarri gisa"
 
 #: src/open_file.rs:40
 #, rust-format
 msgid ""
 "“{}” is an executable text file. Do you want to run it, or display its "
 "contents?"
-msgstr ""
+msgstr "“{}” testu-fitxategi exekutagarria da. Exekutatu nahi duzu, ala edukia ikusi?"
 
 #: src/open_file.rs:45
 msgid "_Display"
-msgstr ""
+msgstr "_Bistaratu"
 
 #: src/open_file.rs:45 src/user_actions.rs:2278
 msgid "_Run"
-msgstr ""
+msgstr "_Exekutatu"
 
 #: src/open_file.rs:63
 msgid "_No"
-msgstr ""
+msgstr "E_z"
 
 #: src/open_file.rs:63
 msgid "_Yes"
-msgstr ""
+msgstr "_Bai"
 
 #: src/open_file.rs:91
 msgid "Change of a file mode failed"
-msgstr ""
+msgstr "Fitxategi-modu baten aldaketak huts egin du"
 
 #: src/open_file.rs:128
 #, rust-format
 msgid "No default application found for the file type {}."
-msgstr ""
+msgstr "Ez da aplikazio lehenetsirik aurkitu {} fitxategi motarako."
 
 #: src/open_file.rs:131
 msgid "Open the \"Applications\" page in the Control Center to add one."
@@ -7507,7 +7507,7 @@ msgstr "Ireki kontrol-zentroko \"Aplikazioak\" orria bat gehitzeko."
 
 #: src/options/options.rs:407
 msgid "Default"
-msgstr ""
+msgstr "Lehenetsia"
 
 #: src/plugin_manager.rs:391
 msgid "Available plugins"
@@ -7516,29 +7516,29 @@ msgstr "Erabilgarri dauden pluginak"
 #: src/plugin_manager.rs:452
 #, rust-format
 msgid "Version: {}"
-msgstr ""
+msgstr "Bertsioa: {}"
 
 #: src/plugin_manager.rs:459
 #, rust-format
 msgid "File: {}"
-msgstr ""
+msgstr "Fitxategia: {}"
 
 #: src/plugin_manager.rs:469
 msgid "About"
-msgstr ""
+msgstr "Honi buruz"
 
 #: src/plugin_manager.rs:480
 msgid "Configure"
-msgstr ""
+msgstr "Konfiguratu"
 
 #: src/search/backend.rs:52
 msgid "Invalid file name pattern."
-msgstr ""
+msgstr "Fitxategi-izenen eredu baliogabea."
 
 #: src/search/backend.rs:138
 #, rust-format
 msgid "Searching in: {}"
-msgstr ""
+msgstr "Bilatzen hemen: {}"
 
 #: src/search/content_search.rs:73
 msgid "Invalid text content regular expression."
@@ -7546,7 +7546,7 @@ msgstr ""
 
 #: src/search/search_dialog.rs:302
 msgid "Pr_ofiles…"
-msgstr ""
+msgstr "Pr_ofilak…"
 
 #: src/search/search_dialog.rs:313
 msgid "_Stop"
@@ -7560,27 +7560,27 @@ msgstr "A_urkitu"
 msgid "_Look in folder:"
 msgstr "_Bilatu karpetan:"
 
-#: src/search/search_dialog.rs:717
+#: src/search/search_dialog.rs:719
 #, rust-format
 msgid "Found {} match — search aborted"
 msgid_plural "Found {} matches — search aborted"
-msgstr[0] ""
-msgstr[1] "%d bat etortze aurkitu dira - bilaketa abortatuta"
+msgstr[0] "Bat etortze {} aurkitu da - bilaketa abortatuta"
+msgstr[1] "{} bat etortze aurkitu dira - bilaketa abortatuta"
 
-#: src/search/search_dialog.rs:722
+#: src/search/search_dialog.rs:724
 #, rust-format
 msgid "Found {} match"
 msgid_plural "Found {} matches"
-msgstr[0] ""
-msgstr[1] "%d bat etortze aurkitu dira"
+msgstr[0] "Bat etortze {} aurkitu da"
+msgstr[1] "{} bat etortze aurkitu dira"
 
 #: src/search/selection_profile_component.rs:49
 msgid "Regex match"
-msgstr ""
+msgstr "Adierazpen erregularra"
 
 #: src/search/selection_profile_component.rs:79
 msgid "File _path:"
-msgstr ""
+msgstr "Fitxategiaren bide-izena:"
 
 #: src/search/selection_profile_component.rs:97
 msgid "Search _recursively:"
@@ -7622,15 +7622,15 @@ msgstr "Aukeratu ikonoa"
 
 #: src/shortcuts.rs:43
 msgid "Panels"
-msgstr ""
+msgstr "Panelak"
 
 #: src/shortcuts.rs:45
 msgid "Command Output"
-msgstr ""
+msgstr "Komandoaren irteera"
 
 #: src/shortcuts.rs:46
 msgid "Gnome Commander Window"
-msgstr ""
+msgstr "GNOME Commander leihoa"
 
 #: src/spawn.rs:126 src/spawn.rs:130
 msgid "No valid command given."
@@ -7638,7 +7638,7 @@ msgstr "Ez da baliozko komandorik eman."
 
 #: src/spawn.rs:127
 msgid "Bad command template."
-msgstr ""
+msgstr "Okerreko komando-txantiloia."
 
 #: src/spawn.rs:133 src/user_actions.rs:189
 msgid "Unable to execute command."
@@ -7724,15 +7724,15 @@ msgstr "Fitxategiaren edukiak testu soileko moduan iragaziak."
 
 #: src/tags/basic.rs:204
 msgid "Folder"
-msgstr ""
+msgstr "Karpeta"
 
 #: src/tags/image.rs:39
 msgid "Image size"
-msgstr ""
+msgstr "Irudi-tamaina"
 
 #: src/tags/image.rs:47
 msgid "Width and height in pixels."
-msgstr ""
+msgstr "Zabalera eta altuera pixeletan."
 
 #: src/transfer.rs:96
 msgid "Copying a directory into itself is a bad idea."
@@ -7777,7 +7777,13 @@ msgid ""
 "With:\n"
 "\n"
 "{src}"
-msgstr ""
+msgstr "Gainidatzi fitxategia:\n"
+"\n"
+"{dst}\n"
+"\n"
+"Honekin:\n"
+"\n"
+"{src}"
 
 #: src/transfer.rs:555 src/transfer.rs:573 src/transfer.rs:668
 #: src/transfer.rs:686
@@ -7791,12 +7797,12 @@ msgstr "Ordeztu denak"
 #: src/transfer.rs:610 src/transfer.rs:715
 #, rust-format
 msgid "Error while transferring “{file}”"
-msgstr ""
+msgstr "Errorea “{file}” transferitzean"
 
 #: src/transfer.rs:747
 #, rust-format
 msgid "Error while creating symlink “{file}”"
-msgstr ""
+msgstr "Errorea “{file}” esteka sinbolikoa sortzean"
 
 #: src/transfer.rs:755
 msgid "Ignore"
@@ -7804,11 +7810,11 @@ msgstr "Ez ikusi egin"
 
 #: src/transfer.rs:814
 msgid "Unrecoverable error"
-msgstr ""
+msgstr "Gainditu ezineko errorea"
 
 #: src/transfer.rs:892
 msgid "File enumeration error"
-msgstr ""
+msgstr "Errorea fitxategia zenbatzean"
 
 #: src/transfer.rs:995
 msgid "Source “%s” could not be copied. Aborting!"
@@ -7821,14 +7827,14 @@ msgstr "kopiatzen…"
 #: src/transfer.rs:1061
 #, rust-format
 msgid "[file {index} of {count}] “{file}”"
-msgstr ""
+msgstr "[file {index} / {count}] “{file}”"
 
 #: src/transfer.rs:1120
 #, rust-format
 msgctxt ""
 "A template for a file name. In a case of a conflict with an existing one."
 msgid "{name} (Copy {number})"
-msgstr ""
+msgstr "{name} ({number}. kopia)"
 
 #: src/user_actions.rs:176
 msgid "No search command given."
@@ -7852,7 +7858,7 @@ msgstr "Hautatutako fitxategi gehiegi"
 
 #: src/user_actions.rs:354
 msgid "Nothing to compare"
-msgstr ""
+msgstr "Ezer ez konparatzeko"
 
 #: src/user_actions.rs:376
 msgid "link to %s"
@@ -7901,7 +7907,7 @@ msgstr "Asier Sarasua Garmendia <asiersarasua@ni.eus>"
 
 #: src/user_actions.rs:1564
 msgid "Copy Files"
-msgstr ""
+msgstr "Kopiatu fitxategiak"
 
 #: src/user_actions.rs:1570
 msgid "Copy files with rename"
@@ -7909,7 +7915,7 @@ msgstr "Kopiatu fitxategiak izenez aldatuz"
 
 #: src/user_actions.rs:1576
 msgid "Move Files"
-msgstr ""
+msgstr "Lekuz aldatu fitxategiak"
 
 #: src/user_actions.rs:1582
 msgid "_Delete"
@@ -7917,11 +7923,11 @@ msgstr "Ez_abatu"
 
 #: src/user_actions.rs:1588
 msgid "Delete Permanently"
-msgstr ""
+msgstr "Ezabatu betiko"
 
 #: src/user_actions.rs:1594
 msgid "View File"
-msgstr ""
+msgstr "Ikusi fitxategia"
 
 #: src/user_actions.rs:1600
 msgid "View with internal viewer"
@@ -7937,7 +7943,7 @@ msgstr "Editatu (MAIUS -> dokumentu berriak)"
 
 #: src/user_actions.rs:1618
 msgid "New _Text File"
-msgstr ""
+msgstr "_Testu-fitxategi berria"
 
 #: src/user_actions.rs:1624
 msgid "_Search…"
@@ -7949,7 +7955,7 @@ msgstr "Bi_laketa azkarra…"
 
 #: src/user_actions.rs:1636
 msgid "Quick _Filter…"
-msgstr ""
+msgstr "Iragazki _bizkorra…"
 
 #: src/user_actions.rs:1642
 msgid "Change Per_missions"
@@ -7961,7 +7967,7 @@ msgstr "Aldatu _Jabea/Taldea"
 
 #: src/user_actions.rs:1654
 msgid "New _Directory"
-msgstr ""
+msgstr "_Direktorio berria"
 
 #: src/user_actions.rs:1660
 msgid "_Properties…"
@@ -7977,7 +7983,7 @@ msgstr "_Sinkronizatu direktorioak"
 
 #: src/user_actions.rs:1678
 msgid "_Rename"
-msgstr ""
+msgstr "_Aldatu izena"
 
 #: src/user_actions.rs:1684
 msgid "Create _Symbolic Link"
@@ -7989,7 +7995,7 @@ msgstr "I_zena aldatzeko tresna aurreratua"
 
 #: src/user_actions.rs:1696
 msgid "_Send Files"
-msgstr ""
+msgstr "_Bidali fitxategiak"
 
 #: src/user_actions.rs:1702
 msgid "Quit"
@@ -8053,7 +8059,7 @@ msgstr "Exekutatu komandoa"
 
 #: src/user_actions.rs:1813
 msgid "Open _Terminal"
-msgstr ""
+msgstr "Ireki _terminala"
 
 #: src/user_actions.rs:1820
 msgid "Show Device Buttons"
@@ -8077,11 +8083,11 @@ msgstr "Erakutsi komando-lerroa"
 
 #: src/user_actions.rs:1850
 msgid "Show Directory History"
-msgstr ""
+msgstr "Erakutsi direktorioaren historia"
 
 #: src/user_actions.rs:1856
 msgid "Show Command Line History"
-msgstr ""
+msgstr "Erakutsi komando-lerroaren historia"
 
 #: src/user_actions.rs:1862
 msgid "Show Hidden Files"
@@ -8093,11 +8099,11 @@ msgstr "Erakutsi babeskopia-fitxategiak"
 
 #: src/user_actions.rs:1874
 msgid "Hide Command Line Output When Inactive"
-msgstr ""
+msgstr "Ezkutatu komando-lerroaren irteera inaktibo dagoenean"
 
 #: src/user_actions.rs:1886
 msgid "Back to oldest"
-msgstr ""
+msgstr "Atzera zaharrenera"
 
 #: src/user_actions.rs:1892
 msgid "_Back"
@@ -8109,7 +8115,7 @@ msgstr "A_urrera"
 
 #: src/user_actions.rs:1904
 msgid "Forward to latest"
-msgstr ""
+msgstr "Aurrera berrienera"
 
 #: src/user_actions.rs:1910
 msgid "_Refresh"
@@ -8125,19 +8131,19 @@ msgstr "Maximizatu panelaren tamaina"
 
 #: src/user_actions.rs:1928
 msgid "Open directory in the left panel"
-msgstr ""
+msgstr "Ireki direktorioa ezkerreko panelean"
 
 #: src/user_actions.rs:1934
 msgid "Open directory in the right panel"
-msgstr ""
+msgstr "Ireki direktorioa eskuineko panelean"
 
 #: src/user_actions.rs:1940
 msgid "Open directory in the active panel"
-msgstr ""
+msgstr "Ireki direktorioa panel aktiboan"
 
 #: src/user_actions.rs:1946
 msgid "Open directory in the inactive panel"
-msgstr ""
+msgstr "Ireki direktorioa panel inaktiboan"
 
 #: src/user_actions.rs:1952
 msgid "Change directory"
@@ -8169,7 +8175,7 @@ msgstr "Ireki direktorioa fitxa berrian"
 
 #: src/user_actions.rs:2012
 msgid "Open directory in the new tab (inactive panel)"
-msgstr ""
+msgstr "Ireki direktorioa fitxa berrian (panel inaktiboa)"
 
 #: src/user_actions.rs:2018
 msgid "Lock/unlock tab"
@@ -8193,47 +8199,47 @@ msgstr "Mugitu kurtsorea urrats bat behera"
 
 #: src/user_actions.rs:2048
 msgid "Switch to Opposite Panel"
-msgstr ""
+msgstr "Aldatu aurkako panelera"
 
 #: src/user_actions.rs:2054
 msgid "Swap panels"
-msgstr ""
+msgstr "Trukatu panelak"
 
 #: src/user_actions.rs:2060
 msgid "Show panel size selector"
-msgstr ""
+msgstr "Erakutsi panel-tamainaren hautatzailea"
 
 #: src/user_actions.rs:2072
 msgid "Calculate Size for All Directories"
-msgstr ""
+msgstr "Kalkulatu direktorio guztien tamaina"
 
 #: src/user_actions.rs:2078
 msgid "Sort by Name"
-msgstr ""
+msgstr "Ordenatu izenaren arabera"
 
 #: src/user_actions.rs:2084
 msgid "Sort by Extension"
-msgstr ""
+msgstr "Ordenatu luzapenaren arabera"
 
 #: src/user_actions.rs:2090
 msgid "Sort by Date"
-msgstr ""
+msgstr "Ordenatu dataren arabera"
 
 #: src/user_actions.rs:2096
 msgid "Sort by Size"
-msgstr ""
+msgstr "Ordenatu tamainaren arabera"
 
 #: src/user_actions.rs:2102
 msgid "Sort by Permissions"
-msgstr ""
+msgstr "Ordenatu baimenen arabera"
 
 #: src/user_actions.rs:2108
 msgid "Sort by Owner"
-msgstr ""
+msgstr "Ordenatu jabearen arabera"
 
 #: src/user_actions.rs:2114
 msgid "Sort by Group"
-msgstr ""
+msgstr "Ordenatu taldearen arabera"
 
 #: src/user_actions.rs:2121
 msgid "_Bookmark this Directory…"
@@ -8269,27 +8275,27 @@ msgstr "Konexio berria…"
 
 #: src/user_actions.rs:2171
 msgid "Set Connection"
-msgstr ""
+msgstr "Ezarri konexioa"
 
 #: src/user_actions.rs:2179
 msgid "Connect to First Remote Server"
-msgstr ""
+msgstr "Konektatu urruneko lehen zerbitzariarekin"
 
 #: src/user_actions.rs:2185
 msgid "Change Left Connection"
-msgstr ""
+msgstr "Aldatu ezkerreko konexioa"
 
 #: src/user_actions.rs:2191
 msgid "Change Right Connection"
-msgstr ""
+msgstr "Aldatu eskuineko konexioa"
 
 #: src/user_actions.rs:2197
 msgid "Close Connection"
-msgstr ""
+msgstr "Itxi konexioa"
 
 #: src/user_actions.rs:2203
 msgid "Drop Connection"
-msgstr ""
+msgstr "Deskonektatu"
 
 #: src/user_actions.rs:2210
 msgid "_Configure Plugins…"
@@ -8301,7 +8307,7 @@ msgstr "_Dokumentazioa"
 
 #: src/user_actions.rs:2235
 msgid "Gnome Commander on the _Web"
-msgstr ""
+msgstr "GNOME Commander _sarean"
 
 #: src/user_actions.rs:2241
 msgid "Report a _Problem"
@@ -8313,23 +8319,23 @@ msgstr "Honi _buruz"
 
 #: src/user_actions.rs:2254
 msgid "Jump to Panels"
-msgstr ""
+msgstr "Joan paneletara"
 
 #: src/user_actions.rs:2260
 msgid "Jump to Command Line"
-msgstr ""
+msgstr "Joan komando-lerrora"
 
 #: src/user_actions.rs:2266
 msgid "Jump to Command Output"
-msgstr ""
+msgstr "Joan komando-irteerara"
 
 #: src/user_actions.rs:2272
 msgid "Clear Command Line"
-msgstr ""
+msgstr "Garbitu komando-lerroa"
 
 #: src/user_actions.rs:2284
 msgid "Run in _terminal"
-msgstr ""
+msgstr "Exekutatu _terminalean"
 
 #: src/user_actions.rs:2290
 msgid "Run _ignoring output"
@@ -8337,70 +8343,70 @@ msgstr ""
 
 #: src/user_actions.rs:2296
 msgid "Open Current File"
-msgstr ""
+msgstr "Ireki uneko fitxategia"
 
 #: src/user_actions.rs:2302
 msgid "Add Current Directory to Command Line"
-msgstr ""
+msgstr "Gehitu uneko direktorioa komando-lerroari"
 
 #: src/user_actions.rs:2308
 msgid "Add Current File Name to Command Line"
-msgstr ""
+msgstr "Gehitu uneko fitxategi-izena komando-lerroari"
 
 #: src/user_actions.rs:2314
 msgid "Add Current File Path to Command Line"
-msgstr ""
+msgstr "Gehitu uneko fitxategiaren bide-izena komando-lerroari"
 
 #: src/utils.rs:92
 msgid "Cannot create a temporary file."
-msgstr ""
+msgstr "Ezin da aldi baterako fitxategia sortu."
 
 #: src/utils.rs:276
 #, rust-format
 msgid "There was an error while opening help uri {uri}."
-msgstr ""
+msgstr "Errorea gertatu da laguntzako {uri} URIa irekitzean."
 
 #: src/utils.rs:377
 #, rust-format
 msgid "{} PiB"
 msgid_plural "{} PiB"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "PiB {}"
+msgstr[1] "{} PiB"
 
 #: src/utils.rs:380
 #, rust-format
 msgid "{} TiB"
 msgid_plural "{} TiB"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "TiB {}"
+msgstr[1] "{} TiB"
 
 #: src/utils.rs:383
 #, rust-format
 msgid "{} GiB"
 msgid_plural "{} GiB"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "GiB {}"
+msgstr[1] "{} GiB"
 
 #: src/utils.rs:386
 #, rust-format
 msgid "{} MiB"
 msgid_plural "{} MiB"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "MiB {}"
+msgstr[1] "{} MiB"
 
 #: src/utils.rs:389
 #, rust-format
 msgid "{} kiB"
 msgid_plural "{} kiB"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "kiB {}"
+msgstr[1] "{} kiB"
 
 #: src/utils.rs:392 src/utils.rs:403 src/utils.rs:407
 #, rust-format
 msgid "{} byte"
 msgid_plural "{} bytes"
-msgstr[0] ""
-msgstr[1] "%s byte"
+msgstr[0] "Byte {}"
+msgstr[1] "{} byte"
 
 #: src/utils.rs:641
 msgid "Closing of a file enumerator failed"
