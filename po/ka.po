@@ -7,10 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/"
-"issues/\n"
-"POT-Creation-Date: 2026-05-29 22:44+0000\n"
-"PO-Revision-Date: 2026-06-01 06:13+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
+"POT-Creation-Date: 2026-06-13 11:37+0000\n"
+"PO-Revision-Date: 2026-08-05 05:15+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <ka@li.org>\n"
 "Language: ka\n"
@@ -22,7 +21,6 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.desktop.in:2
 #: data/org.gnome.gnome-commander.metainfo.xml.in:16 src/main_win.rs:265
-#| msgid "GNOME Commander"
 msgid "Gnome Commander"
 msgstr "Gnome Commander"
 
@@ -41,8 +39,8 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:49
 msgid ""
-"The entries in this array represent the profiles in the advanced rename tool "
-"with specific settings for each profile."
+"The entries in this array represent the profiles in the advanced rename tool with "
+"specific settings for each profile."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:55
@@ -67,8 +65,7 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:70
 msgid ""
-"This string array represents the history of templates in the advanced rename "
-"tool."
+"This string array represents the history of templates in the advanced rename tool."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:76
@@ -84,19 +81,16 @@ msgid "Filesize display mode"
 msgstr "ფაილის ზომის ჩვენების რეჟიმი"
 
 #: data/org.gnome.gnome-commander.gschema.xml:84
-msgid ""
-"Defines how the filesize will be displayed in the associated panel column."
+msgid "Defines how the filesize will be displayed in the associated panel column."
 msgstr ""
 
-#: data/org.gnome.gnome-commander.gschema.xml:90
-#: src/dialogs/options/format_tab.rs:86
+#: data/org.gnome.gnome-commander.gschema.xml:90 src/dialogs/options/format_tab.rs:86
 msgid "Permission display mode"
 msgstr "წვდომების ჩვენების რეჟიმი"
 
 #: data/org.gnome.gnome-commander.gschema.xml:91
 msgid ""
-"Defines how the file permission will be displayed in the associated panel "
-"column."
+"Defines how the file permission will be displayed in the associated panel column."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:97
@@ -154,8 +148,7 @@ msgid "Left mouse button unselects"
 msgstr "თაგუნას მარცხენა ღილაკი ხსნის მონიშვნას"
 
 #: data/org.gnome.gnome-commander.gschema.xml:136
-msgid ""
-"Defines if a click on an unselected item unselects already selected items."
+msgid "Defines if a click on an unselected item unselects already selected items."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:142
@@ -172,8 +165,8 @@ msgstr "ნაგვის ყუთის გამოყენება"
 
 #: data/org.gnome.gnome-commander.gschema.xml:150
 msgid ""
-"Defines if items should be moved to trash by default instead of really "
-"deleting them."
+"Defines if items should be moved to trash by default instead of really deleting "
+"them."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:156
@@ -190,8 +183,8 @@ msgstr "ხატულას მასშტაბის ხარისხი"
 
 #: data/org.gnome.gnome-commander.gschema.xml:162
 msgid ""
-"Describes the different interpolation modes that can be used with the "
-"scaling functions."
+"Describes the different interpolation modes that can be used with the scaling "
+"functions."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:166
@@ -208,8 +201,7 @@ msgstr "ბრძანების ხაზის ისტორია"
 
 #: data/org.gnome.gnome-commander.gschema.xml:172
 msgid ""
-"This string array represents the history of commands executed in the command "
-"line."
+"This string array represents the history of commands executed in the command line."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:179
@@ -232,8 +224,8 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:191
 msgid ""
-"If enabled, command line output is hidden automatically when the command "
-"line is inactive."
+"If enabled, command line output is hidden automatically when the command line is "
+"inactive."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:197
@@ -241,8 +233,7 @@ msgid "Horizontal orientation"
 msgstr "ჰორიზონტალური ორიენტაცია"
 
 #: data/org.gnome.gnome-commander.gschema.xml:198
-msgid ""
-"Defines if the orientation of the file panels should be horizontal or not."
+msgid "Defines if the orientation of the file panels should be horizontal or not."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:205
@@ -299,10 +290,9 @@ msgstr "სიმბმულის სტრიქონი"
 
 #: data/org.gnome.gnome-commander.gschema.xml:236
 msgid ""
-"This string defines the default name of a newly created symlink. Leave the "
-"string empty to use the default value which is hard coded into the program "
-"code. A “%s” will be expanded to the item name for which a link should be "
-"created."
+"This string defines the default name of a newly created symlink. Leave the string "
+"empty to use the default value which is hard coded into the program code. A “%s” "
+"will be expanded to the item name for which a link should be created."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:244
@@ -386,8 +376,8 @@ msgstr "ხატულას სვეტის სიგანე"
 #: data/org.gnome.gnome-commander.gschema.xml:505
 #: data/org.gnome.gnome-commander.gschema.xml:576
 msgid ""
-"This setting is only present for backwards compatibility and will be removed "
-"in future."
+"This setting is only present for backwards compatibility and will be removed in "
+"future."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:307
@@ -440,8 +430,8 @@ msgstr "მთავარი ფანჯრის მდგომარეო�
 
 #: data/org.gnome.gnome-commander.gschema.xml:379
 msgid ""
-"The number represents the main window state, e.g. “maximized”, “fullscreen”, "
-"etc. and is calculated internally."
+"The number represents the main window state, e.g. “maximized”, “fullscreen”, etc. "
+"and is calculated internally."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:385
@@ -504,8 +494,7 @@ msgstr "ჩანართების ზოლის ყოველთვი�
 msgid "Defines if the tab bar is always shown."
 msgstr ""
 
-#: data/org.gnome.gnome-commander.gschema.xml:434
-#: src/dialogs/options/tabs_tab.rs:62
+#: data/org.gnome.gnome-commander.gschema.xml:434 src/dialogs/options/tabs_tab.rs:62
 msgid "Tab lock indicator"
 msgstr "ჩანართის დაბლოკვის ინდიკატორი"
 
@@ -527,8 +516,8 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:449
 msgid ""
-"This option defines if directories will be marked when all items in a file "
-"panel should be marked."
+"This option defines if directories will be marked when all items in a file panel "
+"should be marked."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:455
@@ -541,12 +530,12 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:462
 msgid "Only device icons"
-msgstr ""
+msgstr "მხოლოდ მოწყობილობის ხატულები"
 
 #: data/org.gnome.gnome-commander.gschema.xml:463
 msgid ""
-"This option defines if only device icons should be shown instead of icons "
-"and text label."
+"This option defines if only device icons should be shown instead of icons and text "
+"label."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:469
@@ -555,8 +544,8 @@ msgstr "Samba-ის სამუშაო ჯგუფების ხატუ
 
 #: data/org.gnome.gnome-commander.gschema.xml:470
 msgid ""
-"This option defines if the Samba workgroups icon should be shown in the "
-"devices list."
+"This option defines if the Samba workgroups icon should be shown in the devices "
+"list."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:476
@@ -589,8 +578,8 @@ msgstr "რეგისტრზე დამოკიდებული სწ�
 
 #: data/org.gnome.gnome-commander.gschema.xml:498
 msgid ""
-"This option is used to remember the state of the \"Case Sensitive\" toggle "
-"in Quick Search."
+"This option is used to remember the state of the \"Case Sensitive\" toggle in "
+"Quick Search."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:504
@@ -603,8 +592,8 @@ msgstr "ფაილის ჩანართების სია"
 
 #: data/org.gnome.gnome-commander.gschema.xml:512
 msgid ""
-"The entries in this list are used for restoring the tabs and their history "
-"from the last session."
+"The entries in this list are used for restoring the tabs and their history from "
+"the last session."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:519
@@ -625,8 +614,7 @@ msgid "List of favorite apps"
 msgstr "რჩეული აპლიკაციების სია"
 
 #: data/org.gnome.gnome-commander.gschema.xml:534
-msgid ""
-"The entries in this list represent the favorite apps configured by the user."
+msgid "The entries in this list represent the favorite apps configured by the user."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:540
@@ -651,8 +639,8 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:555
 msgid ""
-"Defines if the search window is transient or if it can be minimized and "
-"moved behind the main window."
+"Defines if the search window is transient or if it can be minimized and moved "
+"behind the main window."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:561
@@ -660,8 +648,7 @@ msgid "Search text history"
 msgstr "ტექსტის ისტორიაში ძებნა"
 
 #: data/org.gnome.gnome-commander.gschema.xml:562
-msgid ""
-"This string array represents the history of text searches in the search tool."
+msgid "This string array represents the history of text searches in the search tool."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:568
@@ -670,8 +657,8 @@ msgstr "ძიების შაბლონების ისტორია"
 
 #: data/org.gnome.gnome-commander.gschema.xml:569
 msgid ""
-"This string array represents the history of regular expression searches in "
-"the search tool."
+"This string array represents the history of regular expression searches in the "
+"search tool."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:575
@@ -684,8 +671,8 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:583
 msgid ""
-"The entries in this array represent the profiles in the search tool with "
-"specific settings for each profile."
+"The entries in this array represent the profiles in the search tool with specific "
+"settings for each profile."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:591
@@ -718,8 +705,7 @@ msgstr "ნაგულისხმევის წაშლა"
 
 #: data/org.gnome.gnome-commander.gschema.xml:620
 msgid ""
-"This setting defines the default active option in the delete confirmation "
-"dialog."
+"This setting defines the default active option in the delete confirmation dialog."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:626
@@ -728,8 +714,8 @@ msgstr "კოპირებისას თავზე გადაწერ�
 
 #: data/org.gnome.gnome-commander.gschema.xml:627
 msgid ""
-"This option defines the default behavior when items will be overwritten by a "
-"copy command."
+"This option defines the default behavior when items will be overwritten by a copy "
+"command."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:633
@@ -738,8 +724,8 @@ msgstr "გადატანისას თავზე გადაწერ�
 
 #: data/org.gnome.gnome-commander.gschema.xml:634
 msgid ""
-"This option defines the default behavior when items will be overwritten by a "
-"move command."
+"This option defines the default behavior when items will be overwritten by a move "
+"command."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:640
@@ -772,8 +758,7 @@ msgstr "სიმბმულების დამალვა"
 
 #: data/org.gnome.gnome-commander.gschema.xml:666
 msgid ""
-"Hide special files, such as a socket, fifo, block devices, or character "
-"devices."
+"Hide special files, such as a socket, fifo, block devices, or character devices."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:670
@@ -794,8 +779,8 @@ msgstr "მარქაფის ფაილის ნიმუში"
 
 #: data/org.gnome.gnome-commander.gschema.xml:680
 msgid ""
-"The given string defines suffixes (separated by semicolon) for files which "
-"should be filtered out if backup files should be hidden."
+"The given string defines suffixes (separated by semicolon) for files which should "
+"be filtered out if backup files should be hidden."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:689
@@ -804,8 +789,8 @@ msgstr "ფაილების არგადმოწერა"
 
 #: data/org.gnome.gnome-commander.gschema.xml:690
 msgid ""
-"This option defines if remote files should be downloaded before opened by "
-"external programs."
+"This option defines if remote files should be downloaded before opened by external "
+"programs."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:696
@@ -853,8 +838,7 @@ msgid "Search command"
 msgstr "ძებნის ბრძანება"
 
 #: data/org.gnome.gnome-commander.gschema.xml:732
-msgid ""
-"This string defines the command for starting an external file search tool."
+msgid "This string defines the command for starting an external file search tool."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:738
@@ -870,8 +854,7 @@ msgid "Command for execution in terminal"
 msgstr "ტერმინალში შესასრულებელი ბრძანება"
 
 #: data/org.gnome.gnome-commander.gschema.xml:746
-msgid ""
-"This string defines the command for executing another command in a terminal."
+msgid "This string defines the command for executing another command in a terminal."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:752
@@ -960,8 +943,8 @@ msgstr "LS ფერების გამოყენება"
 
 #: data/org.gnome.gnome-commander.gschema.xml:825
 msgid ""
-"This option triggers if the value of the environment variable LS_COLORS "
-"should be used to dye files and folders."
+"This option triggers if the value of the environment variable LS_COLORS should be "
+"used to dye files and folders."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:832
@@ -969,8 +952,7 @@ msgid "LS_COLORS black foreground mapping"
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:833
-msgid ""
-"This option adjusts the foreground color mapping for LS_COLORS black value."
+msgid "This option adjusts the foreground color mapping for LS_COLORS black value."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:839
@@ -978,8 +960,7 @@ msgid "LS_COLORS black background mapping"
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:840
-msgid ""
-"This option adjusts the background color mapping for LS_COLORS black value."
+msgid "This option adjusts the background color mapping for LS_COLORS black value."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:846
@@ -987,8 +968,7 @@ msgid "LS_COLORS red foreground mapping"
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:847
-msgid ""
-"This option adjusts the foreground color mapping for LS_COLORS red value."
+msgid "This option adjusts the foreground color mapping for LS_COLORS red value."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:853
@@ -996,8 +976,7 @@ msgid "LS_COLORS red background mapping"
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:854
-msgid ""
-"This option adjusts the background color mapping for LS_COLORS red value."
+msgid "This option adjusts the background color mapping for LS_COLORS red value."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:860
@@ -1005,8 +984,7 @@ msgid "LS_COLORS green foreground mapping"
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:861
-msgid ""
-"This option adjusts the foreground color mapping for LS_COLORS green value."
+msgid "This option adjusts the foreground color mapping for LS_COLORS green value."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:867
@@ -1014,8 +992,7 @@ msgid "LS_COLORS green background mapping"
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:868
-msgid ""
-"This option adjusts the background color mapping for LS_COLORS green value."
+msgid "This option adjusts the background color mapping for LS_COLORS green value."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:874
@@ -1023,8 +1000,7 @@ msgid "LS_COLORS yellow foreground mapping"
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:875
-msgid ""
-"This option adjusts the foreground color mapping for LS_COLORS yellow value."
+msgid "This option adjusts the foreground color mapping for LS_COLORS yellow value."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:881
@@ -1032,8 +1008,7 @@ msgid "LS_COLORS yellow background mapping"
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:882
-msgid ""
-"This option adjusts the background color mapping for LS_COLORS yellow value."
+msgid "This option adjusts the background color mapping for LS_COLORS yellow value."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:888
@@ -1041,8 +1016,7 @@ msgid "LS_COLORS blue foreground mapping"
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:889
-msgid ""
-"This option adjusts the foreground color mapping for LS_COLORS blue value."
+msgid "This option adjusts the foreground color mapping for LS_COLORS blue value."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:895
@@ -1050,8 +1024,7 @@ msgid "LS_COLORS blue background mapping"
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:896
-msgid ""
-"This option adjusts the background color mapping for LS_COLORS blue value."
+msgid "This option adjusts the background color mapping for LS_COLORS blue value."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:902
@@ -1059,8 +1032,7 @@ msgid "LS_COLORS magenta foreground mapping"
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:903
-msgid ""
-"This option adjusts the foreground color mapping for LS_COLORS magenta value."
+msgid "This option adjusts the foreground color mapping for LS_COLORS magenta value."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:909
@@ -1068,8 +1040,7 @@ msgid "LS_COLORS magenta background mapping"
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:910
-msgid ""
-"This option adjusts the background color mapping for LS_COLORS magenta value."
+msgid "This option adjusts the background color mapping for LS_COLORS magenta value."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:916
@@ -1077,8 +1048,7 @@ msgid "LS_COLORS cyan foreground mapping"
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:917
-msgid ""
-"This option adjusts the foreground color mapping for LS_COLORS cyan value."
+msgid "This option adjusts the foreground color mapping for LS_COLORS cyan value."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:923
@@ -1086,8 +1056,7 @@ msgid "LS_COLORS cyan background mapping"
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:924
-msgid ""
-"This option adjusts the background color mapping for LS_COLORS cyan value."
+msgid "This option adjusts the background color mapping for LS_COLORS cyan value."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:930
@@ -1095,8 +1064,7 @@ msgid "LS_COLORS white foreground mapping"
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:931
-msgid ""
-"This option adjusts the foreground color mapping for LS_COLORS white value."
+msgid "This option adjusts the foreground color mapping for LS_COLORS white value."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:937
@@ -1104,8 +1072,7 @@ msgid "LS_COLORS white background mapping"
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:938
-msgid ""
-"This option adjusts the background color mapping for LS_COLORS white value."
+msgid "This option adjusts the background color mapping for LS_COLORS white value."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:946
@@ -1114,8 +1081,7 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:947
 msgid ""
-"This option defines if searching within the internal viewer is case "
-"sensitive."
+"This option defines if searching within the internal viewer is case sensitive."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:953
@@ -1140,9 +1106,8 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:968
 msgid ""
-"Description of the monospaced font used to display text. It should include "
-"at least font name and size but can also contain additional options like "
-"Italic Light."
+"Description of the monospaced font used to display text. It should include at "
+"least font name and size but can also contain additional options like Italic Light."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:975
@@ -1151,8 +1116,7 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:976
 msgid ""
-"This option defines if the hexadecimal offset should be displayed in hex "
-"mode."
+"This option defines if the hexadecimal offset should be displayed in hex mode."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:982
@@ -1169,8 +1133,8 @@ msgstr "ტაბის ზომა"
 
 #: data/org.gnome.gnome-commander.gschema.xml:990
 msgid ""
-"This option defines the indentation width in terms of characters for a "
-"tabulator character."
+"This option defines the indentation width in terms of characters for a tabulator "
+"character."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:996
@@ -1179,8 +1143,7 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:997
 msgid ""
-"This option defines how many bytes should be displayed in one line in binary "
-"mode."
+"This option defines how many bytes should be displayed in one line in binary mode."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:1003
@@ -1213,8 +1176,8 @@ msgstr "ტექსტის ძიების ნიმუში"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1025
 msgid ""
-"This string array stores the history of text searches within the internal "
-"file viewer."
+"This string array stores the history of text searches within the internal file "
+"viewer."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:1031
@@ -1241,8 +1204,8 @@ msgstr "პრეფიქსის ნიმუში"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1048
 msgid ""
-"The prefix pattern is used to build up the name for an archive created with "
-"the File Roller plugin."
+"The prefix pattern is used to build up the name for an archive created with the "
+"File Roller plugin."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:1056
@@ -1251,8 +1214,8 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:1057
 msgid ""
-"This is the list of automatically loaded plugins, whereas each entry "
-"represents the file name of the plugin."
+"This is the list of automatically loaded plugins, whereas each entry represents "
+"the file name of the plugin."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.metainfo.xml.in:17
@@ -1261,18 +1224,42 @@ msgstr "ორპანელიანი ფაილების მმარ�
 
 #: data/org.gnome.gnome-commander.metainfo.xml.in:19
 msgid ""
-"Gnome Commander is a “dual-panel” graphical file manager. It features "
-"separate tabs for each panel, setting up custom device buttons, bookmark "
-"manager, fully integrated commandline, file quick search, an internal image "
-"viewer, a powerful batch renaming tool, and FTP and Samba access."
+"Gnome Commander is a “dual-panel” graphical file manager. It features separate "
+"tabs for each panel, setting up custom device buttons, bookmark manager, fully "
+"integrated commandline, file quick search, an internal image viewer, a powerful "
+"batch renaming tool, and FTP and Samba access."
 msgstr ""
 
 #: data/org.gnome.gnome-commander.metainfo.xml.in:26
 msgid ""
 "Gnome Commander aims to advanced users who like to focus on precise file "
-"management, working in parallel through special applications, and running "
-"smart commands."
+"management, working in parallel through special applications, and running smart "
+"commands."
 msgstr ""
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:36
+msgid "file manager"
+msgstr "ფაილების მმართველი"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:37
+msgid "file system"
+msgstr "ფაილური სისტემა"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:38 src/dialogs/connect_dialog.rs:23
+msgid "SSH"
+msgstr "SSH"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:39
+msgid "FTP"
+msgstr "FTP"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:40
+msgid "WebDAV"
+msgstr "WebDAV"
+
+#: data/org.gnome.gnome-commander.metainfo.xml.in:54
+msgid "The Gnome Commander team"
+msgstr "Gnome Commander-ის გუნდი"
 
 #: plugins/exiv2/exiv2-plugin.cc:63 plugins/taglib/taglib-plugin.cc:70
 msgid "Album"
@@ -1376,8 +1363,7 @@ msgid "F Number"
 msgstr "F რიცხვი"
 
 #: plugins/exiv2/exiv2-plugin.cc:74 plugins/exiv2/exiv2-plugin.cc:93
-msgid ""
-"Diameter of the aperture relative to the effective focal length of the lens."
+msgid "Diameter of the aperture relative to the effective focal length of the lens."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:75 plugins/exiv2/exiv2-plugin.cc:94
@@ -1394,8 +1380,7 @@ msgstr "ISO მაჩვენებელი"
 
 #: plugins/exiv2/exiv2-plugin.cc:76
 msgid ""
-"ISO speed used to acquire the document contents. For example, 100, 200, 400, "
-"etc."
+"ISO speed used to acquire the document contents. For example, 100, 200, 400, etc."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:77 plugins/exiv2/exiv2-plugin.cc:213
@@ -1451,8 +1436,7 @@ msgstr "თეთრის ბალანსი"
 
 #: plugins/exiv2/exiv2-plugin.cc:82
 msgid ""
-"White balance setting of the camera when the picture was taken (auto or "
-"manual)."
+"White balance setting of the camera when the picture was taken (auto or manual)."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:83 src/tags/image.rs:37
@@ -1475,18 +1459,17 @@ msgstr "სიმაღლე პიქსელებში."
 msgid ""
 "Copyright information. The tag is used to indicate both the photographer and "
 "editor copyrights. It is the copyright notice of the person or organization "
-"claiming rights to the image. The Interoperability copyright statement "
-"including date and rights should be written in this field; e.g., “Copyright, "
-"John Smith, 19xx. All rights reserved.”. The field records both the "
-"photographer and editor copyrights, with each recorded in a separate part of "
-"the statement. When there is a clear distinction between the photographer "
-"and editor copyrights, these are to be written in the order of photographer "
-"followed by editor copyright, separated by NULL (in this case, since the "
-"statement also ends with a NULL, there are two NULL codes) (see example 1). "
-"When only the photographer is given, it is terminated by one NULL code. When "
-"only the editor copyright is given, the photographer copyright part consists "
-"of one space followed by a terminating NULL code, then the editor copyright "
-"is given. When the field is left blank, it is treated as unknown."
+"claiming rights to the image. The Interoperability copyright statement including "
+"date and rights should be written in this field; e.g., “Copyright, John Smith, "
+"19xx. All rights reserved.”. The field records both the photographer and editor "
+"copyrights, with each recorded in a separate part of the statement. When there is "
+"a clear distinction between the photographer and editor copyrights, these are to "
+"be written in the order of photographer followed by editor copyright, separated by "
+"NULL (in this case, since the statement also ends with a NULL, there are two NULL "
+"codes) (see example 1). When only the photographer is given, it is terminated by "
+"one NULL code. When only the editor copyright is given, the photographer copyright "
+"part consists of one space followed by a terminating NULL code, then the editor "
+"copyright is given. When the field is left blank, it is treated as unknown."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:87
@@ -1503,8 +1486,8 @@ msgstr "ექსპოკორექცია"
 
 #: plugins/exiv2/exiv2-plugin.cc:88
 msgid ""
-"The exposure bias. The units is the APEX value. Ordinarily it is given in "
-"the range of -99.99 to 99.99."
+"The exposure bias. The units is the APEX value. Ordinarily it is given in the "
+"range of -99.99 to 99.99."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:89
@@ -1513,20 +1496,18 @@ msgstr "ექსპოზიციის რეჟიმი"
 
 #: plugins/exiv2/exiv2-plugin.cc:89
 msgid ""
-"The exposure mode set when the image was shot. In auto-bracketing mode, the "
-"camera shoots a series of frames of the same scene at different exposure "
-"settings."
+"The exposure mode set when the image was shot. In auto-bracketing mode, the camera "
+"shoots a series of frames of the same scene at different exposure settings."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:90
 msgid ""
-"The class of the program used by the camera to set exposure when the picture "
-"is taken."
+"The class of the program used by the camera to set exposure when the picture is "
+"taken."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:91
-msgid ""
-"This tag is recorded when an image is taken using a strobe light (flash)."
+msgid "This tag is recorded when an image is taken using a strobe light (flash)."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:92
@@ -1535,14 +1516,14 @@ msgstr "განათების ენერგია"
 
 #: plugins/exiv2/exiv2-plugin.cc:92
 msgid ""
-"The strobe energy at the time the image is captured, as measured in Beam "
-"Candle Power Seconds (BCPS)."
+"The strobe energy at the time the image is captured, as measured in Beam Candle "
+"Power Seconds (BCPS)."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:94
 msgid ""
-"The actual focal length of the lens, in mm. Conversion is not made to the "
-"focal length of a 35 mm film camera."
+"The actual focal length of the lens, in mm. Conversion is not made to the focal "
+"length of a 35 mm film camera."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:95
@@ -1551,8 +1532,8 @@ msgstr "ISO შუქმგრძნობიარობა"
 
 #: plugins/exiv2/exiv2-plugin.cc:95
 msgid ""
-"The ISO Speed and ISO Latitude of the camera or input device as specified in "
-"ISO 12232."
+"The ISO Speed and ISO Latitude of the camera or input device as specified in ISO "
+"12232."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:96
@@ -1561,8 +1542,8 @@ msgstr "მაქს. დიაფრაგმის მნიშვნელო
 
 #: plugins/exiv2/exiv2-plugin.cc:96
 msgid ""
-"The smallest F number of the lens. The unit is the APEX value. Ordinarily it "
-"is given in the range of 00.00 to 99.99, but it is not limited to this range."
+"The smallest F number of the lens. The unit is the APEX value. Ordinarily it is "
+"given in the range of 00.00 to 99.99, but it is not limited to this range."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:97
@@ -1575,8 +1556,8 @@ msgstr "შატერის სიჩქარე"
 
 #: plugins/exiv2/exiv2-plugin.cc:98
 msgid ""
-"Shutter speed. The unit is the APEX (Additive System of Photographic "
-"Exposure) setting."
+"Shutter speed. The unit is the APEX (Additive System of Photographic Exposure) "
+"setting."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:99
@@ -1589,10 +1570,10 @@ msgstr "პიქსელის X ზომა"
 
 #: plugins/exiv2/exiv2-plugin.cc:100
 msgid ""
-"Information specific to compressed data. When a compressed file is recorded, "
-"the valid width of the meaningful image must be recorded in this tag, "
-"whether or not there is padding data or a restart marker. This tag should "
-"not exist in an uncompressed file."
+"Information specific to compressed data. When a compressed file is recorded, the "
+"valid width of the meaningful image must be recorded in this tag, whether or not "
+"there is padding data or a restart marker. This tag should not exist in an "
+"uncompressed file."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:101
@@ -1601,12 +1582,12 @@ msgstr "პიქსელის Y ზომა"
 
 #: plugins/exiv2/exiv2-plugin.cc:101
 msgid ""
-"Information specific to compressed data. When a compressed file is recorded, "
-"the valid height of the meaningful image must be recorded in this tag, "
-"whether or not there is padding data or a restart marker. This tag should "
-"not exist in an uncompressed file. Since data padding is unnecessary in the "
-"vertical direction, the number of lines recorded in this valid image height "
-"tag will in fact be the same as that recorded in the SOF."
+"Information specific to compressed data. When a compressed file is recorded, the "
+"valid height of the meaningful image must be recorded in this tag, whether or not "
+"there is padding data or a restart marker. This tag should not exist in an "
+"uncompressed file. Since data padding is unnecessary in the vertical direction, "
+"the number of lines recorded in this valid image height tag will in fact be the "
+"same as that recorded in the SOF."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:102
@@ -1615,8 +1596,8 @@ msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:102
 msgid ""
-"The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageWidth> "
-"direction. When the image resolution is unknown, 72 [dpi] is designated."
+"The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageWidth> direction. "
+"When the image resolution is unknown, 72 [dpi] is designated."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:103
@@ -1635,8 +1616,8 @@ msgstr "გამოსახულების სიგრძე"
 
 #: plugins/exiv2/exiv2-plugin.cc:104
 msgid ""
-"The number of rows of image data. In JPEG compressed data a JPEG marker is "
-"used instead of this tag."
+"The number of rows of image data. In JPEG compressed data a JPEG marker is used "
+"instead of this tag."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:105
@@ -1645,8 +1626,8 @@ msgstr "გამოსახულების სიგანე"
 
 #: plugins/exiv2/exiv2-plugin.cc:105
 msgid ""
-"The number of columns of image data, equal to the number of pixels per row. "
-"In JPEG compressed data a JPEG marker is used instead of this tag."
+"The number of columns of image data, equal to the number of pixels per row. In "
+"JPEG compressed data a JPEG marker is used instead of this tag."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:106
@@ -1655,9 +1636,9 @@ msgstr "ხელით დარენდერებული"
 
 #: plugins/exiv2/exiv2-plugin.cc:106
 msgid ""
-"The use of special processing on image data, such as rendering geared to "
-"output. When special processing is performed, the reader is expected to "
-"disable or minimize any further processing."
+"The use of special processing on image data, such as rendering geared to output. "
+"When special processing is performed, the reader is expected to disable or "
+"minimize any further processing."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:107
@@ -1666,11 +1647,11 @@ msgstr "ფერის სივრცე"
 
 #: plugins/exiv2/exiv2-plugin.cc:107
 msgid ""
-"The color space information tag is always recorded as the color space "
-"specifier. Normally sRGB is used to define the color space based on the PC "
-"monitor conditions and environment. If a color space other than sRGB is "
-"used, Uncalibrated is set. Image data recorded as Uncalibrated can be "
-"treated as sRGB when it is converted to FlashPix."
+"The color space information tag is always recorded as the color space specifier. "
+"Normally sRGB is used to define the color space based on the PC monitor conditions "
+"and environment. If a color space other than sRGB is used, Uncalibrated is set. "
+"Image data recorded as Uncalibrated can be treated as sRGB when it is converted to "
+"FlashPix."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:108
@@ -1687,23 +1668,22 @@ msgstr "მომხმარებლის კომენტარი"
 
 #: plugins/exiv2/exiv2-plugin.cc:109
 msgid ""
-"A tag for Exif users to write keywords or comments on the image besides "
-"those in <Exif.ImageDescription>, and without the character code limitations "
-"of the <Exif.ImageDescription> tag. The character code used in the "
-"<Exif.UserComment> tag is identified based on an ID code in a fixed 8-byte "
-"area at the start of the tag data area. The unused portion of the area is "
-"padded with NULL (“00.h”). ID codes are assigned by means of registration. "
-"The value of CountN is determinated based on the 8 bytes in the character "
-"code area and the number of bytes in the user comment part. Since the TYPE "
-"is not ASCII, NULL termination is not necessary. The ID code for the "
-"<Exif.UserComment> area may be a Defined code such as JIS or ASCII, or may "
-"be Undefined. The Undefined name is UndefinedText, and the ID code is filled "
-"with 8 bytes of all “NULL” (“00.H”). An Exif reader that reads the "
-"<Exif.UserComment> tag must have a function for determining the ID code. "
-"This function is not required in Exif readers that do not use the "
-"<Exif.UserComment> tag. When a <Exif.UserComment> area is set aside, it is "
-"recommended that the ID code be ASCII and that the following user comment "
-"part be filled with blank characters [20.H]."
+"A tag for Exif users to write keywords or comments on the image besides those in "
+"<Exif.ImageDescription>, and without the character code limitations of the "
+"<Exif.ImageDescription> tag. The character code used in the <Exif.UserComment> tag "
+"is identified based on an ID code in a fixed 8-byte area at the start of the tag "
+"data area. The unused portion of the area is padded with NULL (“00.h”). ID codes "
+"are assigned by means of registration. The value of CountN is determinated based "
+"on the 8 bytes in the character code area and the number of bytes in the user "
+"comment part. Since the TYPE is not ASCII, NULL termination is not necessary. The "
+"ID code for the <Exif.UserComment> area may be a Defined code such as JIS or "
+"ASCII, or may be Undefined. The Undefined name is UndefinedText, and the ID code "
+"is filled with 8 bytes of all “NULL” (“00.H”). An Exif reader that reads the "
+"<Exif.UserComment> tag must have a function for determining the ID code. This "
+"function is not required in Exif readers that do not use the <Exif.UserComment> "
+"tag. When a <Exif.UserComment> area is set aside, it is recommended that the ID "
+"code be ASCII and that the following user comment part be filled with blank "
+"characters [20.H]."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:110
@@ -1720,10 +1700,9 @@ msgstr "შემსრულებელი"
 
 #: plugins/exiv2/exiv2-plugin.cc:111
 msgid ""
-"Name of the camera owner, photographer or image creator. The detailed format "
-"is not specified, but it is recommended that the information be written for "
-"ease of Interoperability. When the field is left blank, it is treated as "
-"unknown."
+"Name of the camera owner, photographer or image creator. The detailed format is "
+"not specified, but it is recommended that the information be written for ease of "
+"Interoperability. When the field is left blank, it is treated as unknown."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:112
@@ -1740,9 +1719,9 @@ msgstr "ბიტი/სემპლი"
 
 #: plugins/exiv2/exiv2-plugin.cc:113
 msgid ""
-"The number of bits per image component. Each component of the image is 8 "
-"bits, so the value for this tag is 8. In JPEG compressed data a JPEG marker "
-"is used instead of this tag."
+"The number of bits per image component. Each component of the image is 8 bits, so "
+"the value for this tag is 8. In JPEG compressed data a JPEG marker is used instead "
+"of this tag."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:114
@@ -1751,8 +1730,8 @@ msgstr "სიკაშკაშე"
 
 #: plugins/exiv2/exiv2-plugin.cc:114
 msgid ""
-"The value of brightness. The unit is the APEX value. Ordinarily it is given "
-"in the range of -99.99 to 99.99."
+"The value of brightness. The unit is the APEX value. Ordinarily it is given in the "
+"range of -99.99 to 99.99."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:115 plugins/exiv2/exiv2-plugin.cc:159
@@ -1761,8 +1740,8 @@ msgstr "CFA ნიმუში"
 
 #: plugins/exiv2/exiv2-plugin.cc:115 plugins/exiv2/exiv2-plugin.cc:159
 msgid ""
-"The color filter array (CFA) geometric pattern of the image sensor when a "
-"one-chip color area sensor is used. It does not apply to all sensing methods."
+"The color filter array (CFA) geometric pattern of the image sensor when a one-chip "
+"color area sensor is used. It does not apply to all sensing methods."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:116
@@ -1780,11 +1759,11 @@ msgstr "კომპონენტების მორგება"
 #: plugins/exiv2/exiv2-plugin.cc:117
 msgid ""
 "Information specific to compressed data. The channels of each component are "
-"arranged in order from the 1st component to the 4th. For uncompressed data "
-"the data arrangement is given in the <Exif.PhotometricInterpretation> tag. "
-"However, since <Exif.PhotometricInterpretation> can only express the order "
-"of Y, Cb and Cr, this tag is provided for cases when compressed data uses "
-"components other than Y, Cb, and Cr and to enable support of other sequences."
+"arranged in order from the 1st component to the 4th. For uncompressed data the "
+"data arrangement is given in the <Exif.PhotometricInterpretation> tag. However, "
+"since <Exif.PhotometricInterpretation> can only express the order of Y, Cb and Cr, "
+"this tag is provided for cases when compressed data uses components other than Y, "
+"Cb, and Cr and to enable support of other sequences."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:118
@@ -1804,8 +1783,8 @@ msgstr "შეკუმშვა"
 #: plugins/exiv2/exiv2-plugin.cc:119
 msgid ""
 "The compression scheme used for the image data. When a primary image is JPEG "
-"compressed, this designation is not necessary and is omitted. When "
-"thumbnails use JPEG compression, this tag value is set to 6."
+"compressed, this designation is not necessary and is omitted. When thumbnails use "
+"JPEG compression, this tag value is set to 6."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:120
@@ -1814,8 +1793,7 @@ msgstr "კონტრასტი"
 
 #: plugins/exiv2/exiv2-plugin.cc:120
 msgid ""
-"The direction of contrast processing applied by the camera when the image "
-"was shot."
+"The direction of contrast processing applied by the camera when the image was shot."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:121
@@ -1832,8 +1810,8 @@ msgstr "საწყისი თარიღი და დრო"
 
 #: plugins/exiv2/exiv2-plugin.cc:122
 msgid ""
-"The date and time when the original image data was generated. For a digital "
-"still camera the date and time the picture was taken are recorded."
+"The date and time when the original image data was generated. For a digital still "
+"camera the date and time the picture was taken are recorded."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:123
@@ -1842,8 +1820,8 @@ msgstr "მოწყობილობის პარამეტრები�
 
 #: plugins/exiv2/exiv2-plugin.cc:123
 msgid ""
-"Information on the picture-taking conditions of a particular camera model. "
-"The tag is used only to indicate the picture-taking conditions in the reader."
+"Information on the picture-taking conditions of a particular camera model. The tag "
+"is used only to indicate the picture-taking conditions in the reader."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:124
@@ -1852,8 +1830,8 @@ msgstr "ციფრული გადიდების კოეფიცი�
 
 #: plugins/exiv2/exiv2-plugin.cc:124
 msgid ""
-"The digital zoom ratio when the image was shot. If the numerator of the "
-"recorded value is 0, this indicates that digital zoom was not used."
+"The digital zoom ratio when the image was shot. If the numerator of the recorded "
+"value is 0, this indicates that digital zoom was not used."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:125
@@ -1862,8 +1840,8 @@ msgstr "Exif-ის ვერსია"
 
 #: plugins/exiv2/exiv2-plugin.cc:125
 msgid ""
-"The version of Exif standard supported. Nonexistence of this field is taken "
-"to mean nonconformance to the standard."
+"The version of Exif standard supported. Nonexistence of this field is taken to "
+"mean nonconformance to the standard."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:126
@@ -1872,8 +1850,8 @@ msgstr "ექსპოზიციის ინდექსი"
 
 #: plugins/exiv2/exiv2-plugin.cc:126
 msgid ""
-"The exposure index selected on the camera or input device at the time the "
-"image is captured."
+"The exposure index selected on the camera or input device at the time the image is "
+"captured."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:127
@@ -1886,8 +1864,8 @@ msgstr "ფაილის წყაროები"
 
 #: plugins/exiv2/exiv2-plugin.cc:128
 msgid ""
-"Indicates the image source. If a DSC recorded the image, this tag value of "
-"this tag always be set to 3, indicating that the image was recorded on a DSC."
+"Indicates the image source. If a DSC recorded the image, this tag value of this "
+"tag always be set to 3, indicating that the image was recorded on a DSC."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:129
@@ -1912,8 +1890,8 @@ msgstr "ფოკალური სიგრძე 35 მმ ლენტა"
 
 #: plugins/exiv2/exiv2-plugin.cc:131
 msgid ""
-"The equivalent focal length assuming a 35mm film camera, in mm. A value of 0 "
-"means the focal length is unknown. Note that this tag differs from the "
+"The equivalent focal length assuming a 35mm film camera, in mm. A value of 0 means "
+"the focal length is unknown. Note that this tag differs from the "
 "<Exif.FocalLength> tag."
 msgstr ""
 
@@ -1924,8 +1902,7 @@ msgstr ""
 #: plugins/exiv2/exiv2-plugin.cc:132
 msgid ""
 "The unit for measuring <Exif.FocalPlaneXResolution> and "
-"<Exif.FocalPlaneYResolution>. This value is the same as the "
-"<Exif.ResolutionUnit>."
+"<Exif.FocalPlaneYResolution>. This value is the same as the <Exif.ResolutionUnit>."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:133
@@ -1980,11 +1957,10 @@ msgstr "სიმაღლის საწყისი მნიშვნელ�
 
 #: plugins/exiv2/exiv2-plugin.cc:138
 msgid ""
-"Indicates the altitude used as the reference altitude. If the reference is "
-"sea level and the altitude is above sea level, 0 is given. If the altitude "
-"is below sea level, a value of 1 is given and the altitude is indicated as "
-"an absolute value in the <Exif.GPS.Altitude> tag. The reference unit is "
-"meters."
+"Indicates the altitude used as the reference altitude. If the reference is sea "
+"level and the altitude is above sea level, 0 is given. If the altitude is below "
+"sea level, a value of 1 is given and the altitude is indicated as an absolute "
+"value in the <Exif.GPS.Altitude> tag. The reference unit is meters."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:139
@@ -1993,8 +1969,8 @@ msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:139
 msgid ""
-"A pointer to the GPS Info IFD. The Interoperability structure of the GPS "
-"Info IFD, like that of Exif IFD, has no image data."
+"A pointer to the GPS Info IFD. The Interoperability structure of the GPS Info IFD, "
+"like that of Exif IFD, has no image data."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:140
@@ -2003,11 +1979,11 @@ msgstr "განედი"
 
 #: plugins/exiv2/exiv2-plugin.cc:140
 msgid ""
-"Indicates the latitude. The latitude is expressed as three RATIONAL values "
-"giving the degrees, minutes, and seconds, respectively. When degrees, "
-"minutes and seconds are expressed, the format is dd/1,mm/1,ss/1. When "
-"degrees and minutes are used and, for example, fractions of minutes are "
-"given up to two decimal places, the format is dd/1,mmmm/100,0/1."
+"Indicates the latitude. The latitude is expressed as three RATIONAL values giving "
+"the degrees, minutes, and seconds, respectively. When degrees, minutes and seconds "
+"are expressed, the format is dd/1,mm/1,ss/1. When degrees and minutes are used "
+"and, for example, fractions of minutes are given up to two decimal places, the "
+"format is dd/1,mmmm/100,0/1."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:141
@@ -2016,8 +1992,8 @@ msgstr "ჩრდილოეთი ან სამხრეთი განე
 
 #: plugins/exiv2/exiv2-plugin.cc:141
 msgid ""
-"Indicates whether the latitude is north or south latitude. The ASCII value "
-"“N” indicates north latitude, and “S” is south latitude."
+"Indicates whether the latitude is north or south latitude. The ASCII value “N” "
+"indicates north latitude, and “S” is south latitude."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:142
@@ -2027,10 +2003,10 @@ msgstr "გრძედი"
 #: plugins/exiv2/exiv2-plugin.cc:142
 msgid ""
 "Indicates the longitude. The longitude is expressed as three RATIONAL values "
-"giving the degrees, minutes, and seconds, respectively. When degrees, "
-"minutes and seconds are expressed, the format is ddd/1,mm/1,ss/1. When "
-"degrees and minutes are used and, for example, fractions of minutes are "
-"given up to two decimal places, the format is ddd/1,mmmm/100,0/1."
+"giving the degrees, minutes, and seconds, respectively. When degrees, minutes and "
+"seconds are expressed, the format is ddd/1,mm/1,ss/1. When degrees and minutes are "
+"used and, for example, fractions of minutes are given up to two decimal places, "
+"the format is ddd/1,mmmm/100,0/1."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:143
@@ -2039,8 +2015,8 @@ msgstr "აღმოსავლეთი ან დასავლეთი გ
 
 #: plugins/exiv2/exiv2-plugin.cc:143
 msgid ""
-"Indicates whether the longitude is east or west longitude. ASCII “E” "
-"indicates east longitude, and “W” is west longitude."
+"Indicates whether the longitude is east or west longitude. ASCII “E” indicates "
+"east longitude, and “W” is west longitude."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:144
@@ -2059,9 +2035,9 @@ msgstr "გამოსახულების აღწერა"
 
 #: plugins/exiv2/exiv2-plugin.cc:145
 msgid ""
-"A character string giving the title of the image. Two-bytes character codes "
-"cannot be used. When a 2-bytes code is necessary, the Exif Private tag "
-"<Exif.UserComment> is to be used."
+"A character string giving the title of the image. Two-bytes character codes cannot "
+"be used. When a 2-bytes code is necessary, the Exif Private tag <Exif.UserComment> "
+"is to be used."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:146
@@ -2078,9 +2054,8 @@ msgstr "გამოსახულების უნიკალური ID"
 
 #: plugins/exiv2/exiv2-plugin.cc:147
 msgid ""
-"This tag indicates an identifier assigned uniquely to each image. It is "
-"recorded as an ASCII string equivalent to hexadecimal notation and 128-bit "
-"fixed length."
+"This tag indicates an identifier assigned uniquely to each image. It is recorded "
+"as an ASCII string equivalent to hexadecimal notation and 128-bit fixed length."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:148
@@ -2097,8 +2072,8 @@ msgstr "თავსებადობის ინდექსი"
 
 #: plugins/exiv2/exiv2-plugin.cc:149
 msgid ""
-"Indicates the identification of the Interoperability rule. Use “R98” for "
-"stating ExifR98 Rules."
+"Indicates the identification of the Interoperability rule. Use “R98” for stating "
+"ExifR98 Rules."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:150
@@ -2123,8 +2098,8 @@ msgstr "JPEG თავსებადი ფორმატი"
 
 #: plugins/exiv2/exiv2-plugin.cc:152
 msgid ""
-"The offset to the start byte (SOI) of JPEG compressed thumbnail data. This "
-"is not used for primary image JPEG data."
+"The offset to the start byte (SOI) of JPEG compressed thumbnail data. This is not "
+"used for primary image JPEG data."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:153
@@ -2134,10 +2109,10 @@ msgstr "JPEG თავსებადი ფორმატის სიგრ�
 #: plugins/exiv2/exiv2-plugin.cc:153
 msgid ""
 "The number of bytes of JPEG compressed thumbnail data. This is not used for "
-"primary image JPEG data. JPEG thumbnails are not divided but are recorded as "
-"a continuous JPEG bitstream from SOI to EOI. Appn and COM markers should not "
-"be recorded. Compressed thumbnails must be recorded in no more than 64 "
-"Kbytes, including all other data to be recorded in APP1."
+"primary image JPEG data. JPEG thumbnails are not divided but are recorded as a "
+"continuous JPEG bitstream from SOI to EOI. Appn and COM markers should not be "
+"recorded. Compressed thumbnails must be recorded in no more than 64 Kbytes, "
+"including all other data to be recorded in APP1."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:154
@@ -2162,9 +2137,9 @@ msgstr "მწარმოებელი"
 
 #: plugins/exiv2/exiv2-plugin.cc:156
 msgid ""
-"The manufacturer of the recording equipment. This is the manufacturer of the "
-"DSC, scanner, video digitizer or other equipment that generated the image. "
-"When the field is left blank, it is treated as unknown."
+"The manufacturer of the recording equipment. This is the manufacturer of the DSC, "
+"scanner, video digitizer or other equipment that generated the image. When the "
+"field is left blank, it is treated as unknown."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:157
@@ -2173,15 +2148,15 @@ msgstr "შენიშვნა"
 
 #: plugins/exiv2/exiv2-plugin.cc:157
 msgid ""
-"A tag for manufacturers of Exif writers to record any desired information. "
-"The contents are up to the manufacturer."
+"A tag for manufacturers of Exif writers to record any desired information. The "
+"contents are up to the manufacturer."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:158
 msgid ""
-"The model name or model number of the equipment. This is the model name or "
-"number of the DSC, scanner, video digitizer or other equipment that "
-"generated the image. When the field is left blank, it is treated as unknown."
+"The model name or model number of the equipment. This is the model name or number "
+"of the DSC, scanner, video digitizer or other equipment that generated the image. "
+"When the field is left blank, it is treated as unknown."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:160
@@ -2198,9 +2173,8 @@ msgstr "OECF"
 
 #: plugins/exiv2/exiv2-plugin.cc:161
 msgid ""
-"The Opto-Electronic Conversion Function (OECF) specified in ISO 14524. "
-"<Exif.OECF> is the relationship between the camera optical input and the "
-"image values."
+"The Opto-Electronic Conversion Function (OECF) specified in ISO 14524. <Exif.OECF> "
+"is the relationship between the camera optical input and the image values."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:162
@@ -2213,8 +2187,8 @@ msgstr "ფოტომეტრიული ინტერპრეტაც�
 
 #: plugins/exiv2/exiv2-plugin.cc:163
 msgid ""
-"The pixel composition. In JPEG compressed data a JPEG marker is used instead "
-"of this tag."
+"The pixel composition. In JPEG compressed data a JPEG marker is used instead of "
+"this tag."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:164
@@ -2223,9 +2197,9 @@ msgstr "პლანარული კონფიგურაცია"
 
 #: plugins/exiv2/exiv2-plugin.cc:164
 msgid ""
-"Indicates whether pixel components are recorded in a chunky or planar "
-"format. In JPEG compressed files a JPEG marker is used instead of this tag. "
-"If this field does not exist, the TIFF default of 1 (chunky) is assumed."
+"Indicates whether pixel components are recorded in a chunky or planar format. In "
+"JPEG compressed files a JPEG marker is used instead of this tag. If this field "
+"does not exist, the TIFF default of 1 (chunky) is assumed."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:165
@@ -2234,8 +2208,8 @@ msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:165
 msgid ""
-"The chromaticity of the three primary colors of the image. Normally this tag "
-"is not necessary, since colorspace is specified in <Exif.ColorSpace> tag."
+"The chromaticity of the three primary colors of the image. Normally this tag is "
+"not necessary, since colorspace is specified in <Exif.ColorSpace> tag."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:166
@@ -2244,11 +2218,10 @@ msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:166
 msgid ""
-"The reference black point value and reference white point value. No defaults "
-"are given in TIFF, but the values below are given as defaults here. The "
-"color space is declared in a color space information tag, with the default "
-"being the value that gives the optimal image characteristics under these "
-"conditions."
+"The reference black point value and reference white point value. No defaults are "
+"given in TIFF, but the values below are given as defaults here. The color space is "
+"declared in a color space information tag, with the default being the value that "
+"gives the optimal image characteristics under these conditions."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:167
@@ -2281,24 +2254,22 @@ msgstr "მიბმული ხმოვანი ფაილი"
 
 #: plugins/exiv2/exiv2-plugin.cc:170
 msgid ""
-"This tag is used to record the name of an audio file related to the image "
-"data. The only relational information recorded here is the Exif audio file "
-"name and extension (an ASCII string consisting of 8 characters + “.” + 3 "
-"characters). The path is not recorded. When using this tag, audio files must "
-"be recorded in conformance to the Exif audio format. Writers are also "
-"allowed to store the data such as Audio within APP2 as FlashPix extension "
-"stream data. Audio files must be recorded in conformance to the Exif audio "
-"format. If multiple files are mapped to one file, the above format is used "
-"to record just one audio file name. If there are multiple audio files, the "
-"first recorded file is given. When there are three Exif audio files "
-"“SND00001.WAV”, “SND00002.WAV” and “SND00003.WAV”, the Exif image file name "
-"for each of them, “DSC00001.JPG”, is indicated. By combining multiple "
-"relational information, a variety of playback possibilities can be "
-"supported. The method of using relational information is left to the "
-"implementation on the playback side. Since this information is an ASCII "
-"character string, it is terminated by NULL. When this tag is used to map "
-"audio files, the relation of the audio file to image data must also be "
-"indicated on the audio file end."
+"This tag is used to record the name of an audio file related to the image data. "
+"The only relational information recorded here is the Exif audio file name and "
+"extension (an ASCII string consisting of 8 characters + “.” + 3 characters). The "
+"path is not recorded. When using this tag, audio files must be recorded in "
+"conformance to the Exif audio format. Writers are also allowed to store the data "
+"such as Audio within APP2 as FlashPix extension stream data. Audio files must be "
+"recorded in conformance to the Exif audio format. If multiple files are mapped to "
+"one file, the above format is used to record just one audio file name. If there "
+"are multiple audio files, the first recorded file is given. When there are three "
+"Exif audio files “SND00001.WAV”, “SND00002.WAV” and “SND00003.WAV”, the Exif image "
+"file name for each of them, “DSC00001.JPG”, is indicated. By combining multiple "
+"relational information, a variety of playback possibilities can be supported. The "
+"method of using relational information is left to the implementation on the "
+"playback side. Since this information is an ASCII character string, it is "
+"terminated by NULL. When this tag is used to map audio files, the relation of the "
+"audio file to image data must also be indicated on the audio file end."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:171
@@ -2307,9 +2278,9 @@ msgstr "გარჩევადობის საზომი ერთეუ�
 
 #: plugins/exiv2/exiv2-plugin.cc:171
 msgid ""
-"The unit for measuring <Exif.XResolution> and <Exif.YResolution>. The same "
-"unit is used for both <Exif.XResolution> and <Exif.YResolution>. If the "
-"image resolution is unknown, 2 (inches) is designated."
+"The unit for measuring <Exif.XResolution> and <Exif.YResolution>. The same unit is "
+"used for both <Exif.XResolution> and <Exif.YResolution>. If the image resolution "
+"is unknown, 2 (inches) is designated."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:172
@@ -2318,9 +2289,9 @@ msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:172
 msgid ""
-"The number of rows per strip. This is the number of rows in the image of one "
-"strip when an image is divided into strips. With JPEG compressed data this "
-"designation is not needed and is omitted."
+"The number of rows per strip. This is the number of rows in the image of one strip "
+"when an image is divided into strips. With JPEG compressed data this designation "
+"is not needed and is omitted."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:173
@@ -2329,9 +2300,9 @@ msgstr "სემპლები თითოეულ პიქსელზე"
 
 #: plugins/exiv2/exiv2-plugin.cc:173
 msgid ""
-"The number of components per pixel. Since this standard applies to RGB and "
-"YCbCr images, the value set for this tag is 3. In JPEG compressed data a "
-"JPEG marker is used instead of this tag."
+"The number of components per pixel. Since this standard applies to RGB and YCbCr "
+"images, the value set for this tag is 3. In JPEG compressed data a JPEG marker is "
+"used instead of this tag."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:174
@@ -2340,8 +2311,8 @@ msgstr "გაჯერებულობა"
 
 #: plugins/exiv2/exiv2-plugin.cc:174
 msgid ""
-"The direction of saturation processing applied by the camera when the image "
-"was shot."
+"The direction of saturation processing applied by the camera when the image was "
+"shot."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:175
@@ -2350,8 +2321,8 @@ msgstr "სცენის ჩაწერის ტიპი"
 
 #: plugins/exiv2/exiv2-plugin.cc:175
 msgid ""
-"The type of scene that was shot. It can also be used to record the mode in "
-"which the image was shot. Note that this differs from <Exif.SceneType> tag."
+"The type of scene that was shot. It can also be used to record the mode in which "
+"the image was shot. Note that this differs from <Exif.SceneType> tag."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:176
@@ -2360,8 +2331,8 @@ msgstr "სცენის ტიპი"
 
 #: plugins/exiv2/exiv2-plugin.cc:176
 msgid ""
-"The type of scene. If a DSC recorded the image, this tag value must always "
-"be set to 1, indicating that the image was directly photographed."
+"The type of scene. If a DSC recorded the image, this tag value must always be set "
+"to 1, indicating that the image was directly photographed."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:177
@@ -2378,15 +2349,15 @@ msgstr "სიმკვეთრე"
 
 #: plugins/exiv2/exiv2-plugin.cc:178
 msgid ""
-"The direction of sharpness processing applied by the camera when the image "
-"was shot."
+"The direction of sharpness processing applied by the camera when the image was "
+"shot."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:179
 msgid ""
-"This tag records the name and version of the software or firmware of the "
-"camera or image input device used to generate the image. When the field is "
-"left blank, it is treated as unknown."
+"This tag records the name and version of the software or firmware of the camera or "
+"image input device used to generate the image. When the field is left blank, it is "
+"treated as unknown."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:180
@@ -2395,9 +2366,9 @@ msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:180
 msgid ""
-"This tag records the camera or input device spatial frequency table and SFR "
-"values in the direction of image width, image height, and diagonal "
-"direction, as specified in ISO 12233."
+"This tag records the camera or input device spatial frequency table and SFR values "
+"in the direction of image width, image height, and diagonal direction, as "
+"specified in ISO 12233."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:181
@@ -2424,9 +2395,9 @@ msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:183
 msgid ""
-"For each strip, the byte offset of that strip. It is recommended that this "
-"be selected so the number of strip bytes does not exceed 64 Kbytes. With "
-"JPEG compressed data this designation is not needed and is omitted."
+"For each strip, the byte offset of that strip. It is recommended that this be "
+"selected so the number of strip bytes does not exceed 64 Kbytes. With JPEG "
+"compressed data this designation is not needed and is omitted."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:184
@@ -2467,10 +2438,10 @@ msgstr "სუბიექტის მდებარეობა"
 
 #: plugins/exiv2/exiv2-plugin.cc:188
 msgid ""
-"The location of the main subject in the scene. The value of this tag "
-"represents the pixel at the center of the main subject relative to the left "
-"edge, prior to rotation processing as per the <Exif.Rotation> tag. The first "
-"value indicates the X column number and second indicates the Y row number."
+"The location of the main subject in the scene. The value of this tag represents "
+"the pixel at the center of the main subject relative to the left edge, prior to "
+"rotation processing as per the <Exif.Rotation> tag. The first value indicates the "
+"X column number and second indicates the Y row number."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:189
@@ -2511,9 +2482,8 @@ msgstr "გადაცემის ფუნქცია"
 
 #: plugins/exiv2/exiv2-plugin.cc:193
 msgid ""
-"A transfer function for the image, described in tabular style. Normally this "
-"tag is not necessary, since color space is specified in <Exif.ColorSpace> "
-"tag."
+"A transfer function for the image, described in tabular style. Normally this tag "
+"is not necessary, since color space is specified in <Exif.ColorSpace> tag."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:194
@@ -2550,9 +2520,9 @@ msgstr "YCbCr კოეფიციენტები"
 msgid ""
 "The matrix coefficients for transformation from RGB to YCbCr image data. No "
 "default is given in TIFF; but here “Color Space Guidelines” is used as the "
-"default. The color space is declared in a color space information tag, with "
-"the default being the value that gives the optimal image characteristics "
-"under this condition."
+"default. The color space is declared in a color space information tag, with the "
+"default being the value that gives the optimal image characteristics under this "
+"condition."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:198
@@ -2561,17 +2531,16 @@ msgstr "YCbCr მდებარეობა"
 
 #: plugins/exiv2/exiv2-plugin.cc:198
 msgid ""
-"The position of chrominance components in relation to the luminance "
-"component. This field is designated only for JPEG compressed data or "
-"uncompressed YCbCr data. The TIFF default is 1 (centered); but when Y:Cb:Cr "
-"= 4:2:2 it is recommended that 2 (co-sited) be used to record data, in order "
-"to improve the image quality when viewed on TV systems. When this field does "
-"not exist, the reader shall assume the TIFF default. In the case of Y:Cb:Cr "
-"= 4:2:0, the TIFF default (centered) is recommended. If the reader does not "
-"have the capability of supporting both kinds of <Exif.YCbCrPositioning>, it "
-"shall follow the TIFF default regardless of the value in this field. It is "
-"preferable that readers be able to support both centered and co-sited "
-"positioning."
+"The position of chrominance components in relation to the luminance component. "
+"This field is designated only for JPEG compressed data or uncompressed YCbCr data. "
+"The TIFF default is 1 (centered); but when Y:Cb:Cr = 4:2:2 it is recommended that "
+"2 (co-sited) be used to record data, in order to improve the image quality when "
+"viewed on TV systems. When this field does not exist, the reader shall assume the "
+"TIFF default. In the case of Y:Cb:Cr = 4:2:0, the TIFF default (centered) is "
+"recommended. If the reader does not have the capability of supporting both kinds "
+"of <Exif.YCbCrPositioning>, it shall follow the TIFF default regardless of the "
+"value in this field. It is preferable that readers be able to support both "
+"centered and co-sited positioning."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:199
@@ -2590,8 +2559,8 @@ msgstr "ვისგან"
 
 #: plugins/exiv2/exiv2-plugin.cc:201
 msgid ""
-"Name of the creator of the object, e.g. writer, photographer or graphic "
-"artist (multiple values allowed)."
+"Name of the creator of the object, e.g. writer, photographer or graphic artist "
+"(multiple values allowed)."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:202
@@ -2616,8 +2585,7 @@ msgstr "სათაური"
 
 #: plugins/exiv2/exiv2-plugin.cc:204
 msgid "A publishable entry providing a synopsis of the contents of the object."
-msgstr ""
-"გამოცემადი ჩანაწერი, ობიექტის შემცველობის რომელიც მოკლე შინაარსს გადმოსცემს."
+msgstr "გამოცემადი ჩანაწერი, ობიექტის შემცველობის რომელიც მოკლე შინაარსს გადმოსცემს."
 
 #: plugins/exiv2/exiv2-plugin.cc:205
 msgid "Sub-location"
@@ -2665,8 +2633,8 @@ msgstr "კონტაქტი"
 
 #: plugins/exiv2/exiv2-plugin.cc:210
 msgid ""
-"The person or organization which can provide further background information "
-"on the object (multiple values allowed)."
+"The person or organization which can provide further background information on the "
+"object (multiple values allowed)."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:211
@@ -2682,16 +2650,14 @@ msgid "Credit"
 msgstr "კრედიტი"
 
 #: plugins/exiv2/exiv2-plugin.cc:212
-msgid ""
-"Identifies the provider of the object, not necessarily the owner/creator."
+msgid "Identifies the provider of the object, not necessarily the owner/creator."
 msgstr ""
-"ობიექტის მომწოდებლის იდენტიფიკაცია, რომელიც მფლობელს/შემქმნელს აუცილებლად "
-"*არ* აღნიშნავს."
+"ობიექტის მომწოდებლის იდენტიფიკაცია, რომელიც მფლობელს/შემქმნელს აუცილებლად *არ* "
+"აღნიშნავს."
 
 #: plugins/exiv2/exiv2-plugin.cc:213
 msgid ""
-"Used to indicate specific information retrieval words (multiple values "
-"allowed)."
+"Used to indicate specific information retrieval words (multiple values allowed)."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:214
@@ -2716,8 +2682,8 @@ msgstr "გამოსახულების ორიენტაცია"
 
 #: plugins/exiv2/exiv2-plugin.cc:216
 msgid ""
-"The layout of the image area: “P” for portrait, “L” for landscape, and “S” "
-"for square."
+"The layout of the image area: “P” for portrait, “L” for landscape, and “S” for "
+"square."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:217
@@ -2744,8 +2710,8 @@ msgstr "ნარჩევი ქმედება"
 
 #: plugins/exiv2/exiv2-plugin.cc:219
 msgid ""
-"The type of action that this object provides to a previous object. “01” "
-"Object Kill, “02” Object Replace, “03” Object Append, “04” Object Reference."
+"The type of action that this object provides to a previous object. “01” Object "
+"Kill, “02” Object Replace, “03” Object Append, “04” Object Reference."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:220
@@ -2801,8 +2767,7 @@ msgid "Audio Type"
 msgstr "აუდიოს ტიპი"
 
 #: plugins/exiv2/exiv2-plugin.cc:226
-msgid ""
-"The number of channels and type of audio (music, text, etc.) in the object."
+msgid "The number of channels and type of audio (music, text, etc.) in the object."
 msgstr "არხების რაოდენობა და აუდიოს ტიპი (მუსიკა, ტექსტი და ა.შ.) ობიექტში."
 
 #: plugins/exiv2/exiv2-plugin.cc:227 plugins/gsf/gsf-plugin.cc:69
@@ -2811,10 +2776,8 @@ msgstr "კატეგორია"
 
 #: plugins/exiv2/exiv2-plugin.cc:227
 msgid ""
-"Identifies the subject of the object in the opinion of the provider "
-"(Deprecated)."
-msgstr ""
-"მომწოდებლის შეხედულებაში ობიექტის სათაურის იდენტიფიკაცია (მოძველებულია)."
+"Identifies the subject of the object in the opinion of the provider (Deprecated)."
+msgstr "მომწოდებლის შეხედულებაში ობიექტის სათაურის იდენტიფიკაცია (მოძველებულია)."
 
 #: plugins/exiv2/exiv2-plugin.cc:228
 msgid "Coded Character Set"
@@ -2822,8 +2785,8 @@ msgstr "კოდირებული სიმბოლოთა ნაკრ�
 
 #: plugins/exiv2/exiv2-plugin.cc:228
 msgid ""
-"Control functions used for the announcement, invocation or designation of "
-"coded character sets."
+"Control functions used for the announcement, invocation or designation of coded "
+"character sets."
 msgstr ""
 "კოდირებული სიმბოლოების ნაკრებების გამოცხადებაში, ჩაწოდებაში ან დანიშვნაში "
 "გამოყენებული საკონტროლო ფუნქციები."
@@ -2852,8 +2815,8 @@ msgstr "შემცველობის მდებარეობის ს�
 
 #: plugins/exiv2/exiv2-plugin.cc:231
 msgid ""
-"A full, publishable name of a country/geographical location referenced by "
-"the content of the object (multiple values allowed)."
+"A full, publishable name of a country/geographical location referenced by the "
+"content of the object (multiple values allowed)."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:232 plugins/gsf/gsf-plugin.cc:82
@@ -2863,11 +2826,11 @@ msgstr "შექმნის თარიღი"
 
 #: plugins/exiv2/exiv2-plugin.cc:232
 msgid ""
-"The date the intellectual content of the object was created rather than the "
-"date of the creation of the physical representation."
+"The date the intellectual content of the object was created rather than the date "
+"of the creation of the physical representation."
 msgstr ""
-"ობიექტის ინტელექტუალური შემცველობის შექმნის თარიღი, ფიზიკური წარმოდგენის "
-"შექმნის თარიღის მაგიერ."
+"ობიექტის ინტელექტუალური შემცველობის შექმნის თარიღი, ფიზიკური წარმოდგენის შექმნის "
+"თარიღის მაგიერ."
 
 #: plugins/exiv2/exiv2-plugin.cc:233
 msgid "Date Sent"
@@ -2891,9 +2854,8 @@ msgstr "რედაქტორის განახლება"
 
 #: plugins/exiv2/exiv2-plugin.cc:235
 msgid ""
-"The type of update this object provides to a previous object. The link to "
-"the previous object is made using the ARM. “01” indicates an additional "
-"language."
+"The type of update this object provides to a previous object. The link to the "
+"previous object is made using the ARM. “01” indicates an additional language."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:236
@@ -2918,9 +2880,8 @@ msgstr "კონვერტის პრიორიტეტი"
 
 #: plugins/exiv2/exiv2-plugin.cc:238
 msgid ""
-"Specifies the envelope handling priority and not the editorial urgency. “1” "
-"for most urgent, “5” for normal, and “8” for least urgent. “9” is user-"
-"defined."
+"Specifies the envelope handling priority and not the editorial urgency. “1” for "
+"most urgent, “5” for normal, and “8” for least urgent. “9” is user-defined."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:239
@@ -2930,8 +2891,7 @@ msgstr "_ვადა"
 #: plugins/exiv2/exiv2-plugin.cc:239
 msgid "Designates the latest date the provider intends the object to be used."
 msgstr ""
-"აღნიშნავს უშორეს თარიღს, როცა მომწოდებელი მოელის,რომ ობიექტი გამოყენებული "
-"იქნება."
+"აღნიშნავს უშორეს თარიღს, როცა მომწოდებელი მოელის,რომ ობიექტი გამოყენებული იქნება."
 
 #: plugins/exiv2/exiv2-plugin.cc:240
 msgid "Expiration Time"
@@ -2940,8 +2900,7 @@ msgstr "ვადა"
 #: plugins/exiv2/exiv2-plugin.cc:240
 msgid "Designates the latest time the provider intends the object to be used."
 msgstr ""
-"აღნიშნავს უშორეს დროს, როცა მომწოდებელი მოელის,რომ ობიექტი გამოყენებული "
-"იქნება."
+"აღნიშნავს უშორეს დროს, როცა მომწოდებელი მოელის,რომ ობიექტი გამოყენებული იქნება."
 
 #: plugins/exiv2/exiv2-plugin.cc:241
 msgid "File Format"
@@ -2965,12 +2924,11 @@ msgstr "ჩამჭერის იდენტიფიკატორი"
 
 #: plugins/exiv2/exiv2-plugin.cc:243
 msgid ""
-"Identifies objects that recur often and predictably, enabling users to "
-"immediately find or recall such an object."
+"Identifies objects that recur often and predictably, enabling users to immediately "
+"find or recall such an object."
 msgstr ""
-"ახდენს ხშირად და გეგმიურად მომხდარ ობიექტების იდენტიფიკაციას, რითიც "
-"საშუალებას აძლევს მომხმარებლებს, მომენტალურად დაიბრუნონ ან იპოვონ ასეთი "
-"ობიექტი."
+"ახდენს ხშირად და გეგმიურად მომხდარ ობიექტების იდენტიფიკაციას, რითიც საშუალებას "
+"აძლევს მომხმარებლებს, მომენტალურად დაიბრუნონ ან იპოვონ ასეთი ობიექტი."
 
 #: plugins/exiv2/exiv2-plugin.cc:244
 msgid "Image Type"
@@ -2986,10 +2944,9 @@ msgstr "ენის იდენტიფიკატორი"
 
 #: plugins/exiv2/exiv2-plugin.cc:245
 msgid ""
-"The major national language of the object, according to the 2-letter codes "
-"of ISO 639:1988."
-msgstr ""
-"ობიექტის მთავარი ნაციონალური ენა, ISO 639:1988 -ის მიხედვით, 2 სიმბოლო."
+"The major national language of the object, according to the 2-letter codes of ISO "
+"639:1988."
+msgstr "ობიექტის მთავარი ნაციონალური ენა, ISO 639:1988 -ის მიხედვით, 2 სიმბოლო."
 
 #: plugins/exiv2/exiv2-plugin.cc:246
 msgid "Maximum Object Size"
@@ -3005,8 +2962,7 @@ msgstr "ქვეფაილის მაქსიმალური ზომ�
 
 #: plugins/exiv2/exiv2-plugin.cc:247
 msgid ""
-"The maximum size for a subfile dataset containing a portion of the object "
-"data."
+"The maximum size for a subfile dataset containing a portion of the object data."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:248
@@ -3105,8 +3061,7 @@ msgstr "პროდუქტის ID"
 
 #: plugins/exiv2/exiv2-plugin.cc:259
 msgid "Allows a provider to identify subsets of its overall service."
-msgstr ""
-"უფლებას აძლევს მომწოდებელს, თავისი სრული სერვისის ქვესეტები აღმოაჩინოს."
+msgstr "უფლებას აძლევს მომწოდებელს, თავისი სრული სერვისის ქვესეტები აღმოაჩინოს."
 
 #: plugins/exiv2/exiv2-plugin.cc:260
 msgid "Program Version"
@@ -3122,11 +3077,11 @@ msgstr "რასტერიზებული წარწერა"
 
 #: plugins/exiv2/exiv2-plugin.cc:261
 msgid ""
-"Contains rasterized object description and is used where characters that "
-"have not been coded are required for the caption."
+"Contains rasterized object description and is used where characters that have not "
+"been coded are required for the caption."
 msgstr ""
-"შეიცავს რასტერიზებულ ობიექტის აღწერას და გამოიყენება იქ, სადაც წარწერისთვის "
-"საჭირო სიმბოლოები კოდირებული არაა."
+"შეიცავს რასტერიზებულ ობიექტის აღწერას და გამოიყენება იქ, სადაც წარწერისთვის საჭირო "
+"სიმბოლოები კოდირებული არაა."
 
 #: plugins/exiv2/exiv2-plugin.cc:262
 msgid "Record Version"
@@ -3149,8 +3104,7 @@ msgid "Reference Number"
 msgstr "სარეგისტრაციო ნომერი"
 
 #: plugins/exiv2/exiv2-plugin.cc:264
-msgid ""
-"The Envelope Number of a prior envelope to which the current object refers."
+msgid "The Envelope Number of a prior envelope to which the current object refers."
 msgstr "წინა კონვერტის ნომერი, რომელზეც მიმდინარე ობიექტი მიუთითებს."
 
 #: plugins/exiv2/exiv2-plugin.cc:265
@@ -3159,33 +3113,27 @@ msgstr "რეგისტრაციის სერვისი"
 
 #: plugins/exiv2/exiv2-plugin.cc:265
 msgid ""
-"The Service Identifier of a prior envelope to which the current object "
-"refers."
+"The Service Identifier of a prior envelope to which the current object refers."
 msgstr ""
-"იმ წინა კონვერტის სერვისის იდენტიფიკატორი, რომელზეც მიმდინარე ობიექტი "
-"მიანიშნებს."
+"იმ წინა კონვერტის სერვისის იდენტიფიკატორი, რომელზეც მიმდინარე ობიექტი მიანიშნებს."
 
 #: plugins/exiv2/exiv2-plugin.cc:266 plugins/taglib/taglib-plugin.cc:94
 msgid "Release Date"
 msgstr "რელიზის თარიღი"
 
 #: plugins/exiv2/exiv2-plugin.cc:266
-msgid ""
-"Designates the earliest date the provider intends the object to be used."
+msgid "Designates the earliest date the provider intends the object to be used."
 msgstr ""
-"აღნიშნავს უახლოეს თარიღს, როცა მომწოდებელი მოელის,რომ ობიექტი გამოყენებული "
-"იქნება."
+"აღნიშნავს უახლოეს თარიღს, როცა მომწოდებელი მოელის,რომ ობიექტი გამოყენებული იქნება."
 
 #: plugins/exiv2/exiv2-plugin.cc:267 plugins/taglib/taglib-plugin.cc:216
 msgid "Release Time"
 msgstr "გათავისუფლების დრო"
 
 #: plugins/exiv2/exiv2-plugin.cc:267
-msgid ""
-"Designates the earliest time the provider intends the object to be used."
+msgid "Designates the earliest time the provider intends the object to be used."
 msgstr ""
-"აღნიშნავს უახლოეს დრო, როცა მომწოდებელი მოელის,რომ ობიექტი გამოყენებული "
-"იქნება."
+"აღნიშნავს უახლოეს დრო, როცა მომწოდებელი მოელის,რომ ობიექტი გამოყენებული იქნება."
 
 #: plugins/exiv2/exiv2-plugin.cc:268
 msgid "Service Identifier"
@@ -3217,8 +3165,8 @@ msgstr "ქვეფაილი"
 
 #: plugins/exiv2/exiv2-plugin.cc:271
 msgid ""
-"The object data itself. Subfiles must be sequential so that the subfiles may "
-"be reassembled."
+"The object data itself. Subfiles must be sequential so that the subfiles may be "
+"reassembled."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:272
@@ -3227,9 +3175,9 @@ msgstr "სათაურის ბმა"
 
 #: plugins/exiv2/exiv2-plugin.cc:272
 msgid ""
-"A structured definition of the subject matter. It must contain an IPR, an 8 "
-"digit Subject Reference Number and an optional Subject Name, Subject Matter "
-"Name, and Subject Detail Name each separated by a colon (:)."
+"A structured definition of the subject matter. It must contain an IPR, an 8 digit "
+"Subject Reference Number and an optional Subject Name, Subject Matter Name, and "
+"Subject Detail Name each separated by a colon (:)."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:273
@@ -3246,9 +3194,8 @@ msgstr "შექმნის დრო"
 
 #: plugins/exiv2/exiv2-plugin.cc:274
 msgid ""
-"The time the intellectual content of the object was created rather than the "
-"date of the creation of the physical representation (multiple values "
-"allowed)."
+"The time the intellectual content of the object was created rather than the date "
+"of the creation of the physical representation (multiple values allowed)."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:275
@@ -3265,8 +3212,8 @@ msgstr "ობიექტის უნიკალური სახელი"
 
 #: plugins/exiv2/exiv2-plugin.cc:276
 msgid ""
-"An eternal, globally unique identification for the object, independent of "
-"provider and for any media form."
+"An eternal, globally unique identification for the object, independent of provider "
+"and for any media form."
 msgstr ""
 "სამუდამო, გლობალურად უნიკალური იდენტიფიკატორი ობიექტისთვის. დამოუკიდებელი "
 "მომწოდებლისგან და ყველა მედიის ფორმისგან."
@@ -3277,8 +3224,8 @@ msgstr "დამწერი/რედაქტორი"
 
 #: plugins/exiv2/exiv2-plugin.cc:277
 msgid ""
-"The name of the person involved in the writing, editing or correcting the "
-"object or caption/abstract (multiple values allowed)."
+"The name of the person involved in the writing, editing or correcting the object "
+"or caption/abstract (multiple values allowed)."
 msgstr ""
 
 #: plugins/exiv2/exiv2-plugin.cc:408 src/tags/image.rs:85
@@ -3315,12 +3262,10 @@ msgstr ""
 #: src/advanced_rename/regex_dialog.rs:102 src/dialogs/chmod_dialog.rs:136
 #: src/dialogs/chown_dialog.rs:107 src/dialogs/connect_dialog.rs:171
 #: src/dialogs/create_symlink_dialog.rs:38 src/dialogs/delete_dialog.rs:72
-#: src/dialogs/edit_bookmark_dialog.rs:76
-#: src/dialogs/file_properties_dialog.rs:126 src/dialogs/make_copy_dialog.rs:49
-#: src/dialogs/mkdir_dialog.rs:83 src/dialogs/new_text_file.rs:72
-#: src/dialogs/open_with_other_dialog.rs:40
-#: src/dialogs/options/app_dialog.rs:170
-#: src/dialogs/options/device_dialog.rs:102
+#: src/dialogs/edit_bookmark_dialog.rs:76 src/dialogs/file_properties_dialog.rs:126
+#: src/dialogs/make_copy_dialog.rs:49 src/dialogs/mkdir_dialog.rs:83
+#: src/dialogs/new_text_file.rs:72 src/dialogs/open_with_other_dialog.rs:40
+#: src/dialogs/options/app_dialog.rs:170 src/dialogs/options/device_dialog.rs:102
 #: src/dialogs/options/edit_palette_dialog.rs:122
 #: src/dialogs/options/options_dialog.rs:165
 #: src/dialogs/pattern_selection_dialog.rs:74
@@ -3372,21 +3317,20 @@ msgstr "ნაგულისხმევი არქივის ტიპი"
 msgid "File prefix pattern"
 msgstr "ფაილის პრეფიქსის ნიმუში"
 
-#: plugins/fileroller/file-roller-plugin.cc:663
-#: src/dialogs/options/format_tab.rs:116
+#: plugins/fileroller/file-roller-plugin.cc:663 src/dialogs/options/format_tab.rs:116
 msgid "Test result:"
 msgstr "ტესტის შედეგი:"
 
 #: plugins/fileroller/file-roller-plugin.cc:676
 msgid ""
-"Use $N as a pattern for the original file name. See the manual page for "
-"“strftime” for other patterns."
+"Use $N as a pattern for the original file name. See the manual page for “strftime” "
+"for other patterns."
 msgstr ""
 
 #: plugins/fileroller/file-roller-plugin.cc:787
 msgid ""
-"A plugin that adds File Roller shortcuts for creating and extracting "
-"compressed archives."
+"A plugin that adds File Roller shortcuts for creating and extracting compressed "
+"archives."
 msgstr ""
 
 #: plugins/gsf/gsf-plugin.cc:64 plugins/poppler/poppler-plugin.cc:60
@@ -3395,8 +3339,8 @@ msgstr "ავტორი"
 
 #: plugins/gsf/gsf-plugin.cc:65
 msgid ""
-"An entity primarily responsible for making the content of the resource, "
-"typically a person, organization, or service."
+"An entity primarily responsible for making the content of the resource, typically "
+"a person, organization, or service."
 msgstr ""
 
 #: plugins/gsf/gsf-plugin.cc:66 plugins/poppler/poppler-plugin.cc:57
@@ -3668,8 +3612,8 @@ msgstr "უსაფრთხოება"
 
 #: plugins/gsf/gsf-plugin.cc:102 plugins/poppler/poppler-plugin.cc:56
 msgid ""
-"One of: “Password protected”, “Read-only recommended”, “Read-only enforced” "
-"or “Locked for annotations”."
+"One of: “Password protected”, “Read-only recommended”, “Read-only enforced” or "
+"“Locked for annotations”."
 msgstr ""
 
 #: plugins/gsf/gsf-plugin.cc:103
@@ -3692,8 +3636,7 @@ msgstr "ცხრილების რაოდენობა"
 msgid "Number of tables in the document."
 msgstr ""
 
-#: plugins/gsf/gsf-plugin.cc:106
-#: src/dialogs/profiles/manage_profiles_dialog.rs:104
+#: plugins/gsf/gsf-plugin.cc:106 src/dialogs/profiles/manage_profiles_dialog.rs:104
 msgid "Template"
 msgstr "შაბლონი"
 
@@ -3722,8 +3665,7 @@ msgid "Doc"
 msgstr "ექიმი"
 
 #: plugins/gsf/gsf-plugin.cc:550
-msgid ""
-"A plugin for extracting metadata from document files using libgsf library."
+msgid "A plugin for extracting metadata from document files using libgsf library."
 msgstr ""
 
 #: plugins/poppler/poppler-plugin.cc:65
@@ -3950,7 +3892,7 @@ msgstr ""
 
 #: plugins/taglib/taglib-plugin.cc:78 plugins/taglib/taglib-plugin.cc:171
 msgid "Copyright message."
-msgstr ""
+msgstr "საავტორო უფლებების შეტყობინება."
 
 #: plugins/taglib/taglib-plugin.cc:79
 msgid "Cover Album Thumbnail Path"
@@ -4162,7 +4104,7 @@ msgstr ""
 
 #: plugins/taglib/taglib-plugin.cc:159
 msgid "Band"
-msgstr ""
+msgstr "დიაპაზონი"
 
 #: plugins/taglib/taglib-plugin.cc:159
 msgid "Additional information about the performers in the recording."
@@ -4173,8 +4115,7 @@ msgid "Album Sort Order"
 msgstr "ალბომის დალაგების მიმდევრობა"
 
 #: plugins/taglib/taglib-plugin.cc:160
-msgid ""
-"String which should be used instead of the album name for sorting purposes."
+msgid "String which should be used instead of the album name for sorting purposes."
 msgstr ""
 
 #: plugins/taglib/taglib-plugin.cc:161
@@ -4191,8 +4132,8 @@ msgstr "აუდიოს გადახვევის წერტილი"
 
 #: plugins/taglib/taglib-plugin.cc:162
 msgid ""
-"Fractional offset within the audio data, providing a starting point from "
-"which to find an appropriate point to start decoding."
+"Fractional offset within the audio data, providing a starting point from which to "
+"find an appropriate point to start decoding."
 msgstr ""
 
 #: plugins/taglib/taglib-plugin.cc:163
@@ -4233,7 +4174,7 @@ msgstr "კომპოზიტორი"
 
 #: plugins/taglib/taglib-plugin.cc:167
 msgid "Composer."
-msgstr ""
+msgstr "კომპოზიტორი."
 
 #: plugins/taglib/taglib-plugin.cc:168
 msgid "Conductor"
@@ -4241,7 +4182,7 @@ msgstr "დირიჟორი"
 
 #: plugins/taglib/taglib-plugin.cc:168
 msgid "Conductor."
-msgstr ""
+msgstr "დირიჟორი."
 
 #: plugins/taglib/taglib-plugin.cc:169
 msgid "Content Group"
@@ -4249,7 +4190,7 @@ msgstr "შემცველოგის ჯგუფი"
 
 #: plugins/taglib/taglib-plugin.cc:169
 msgid "Content group description."
-msgstr ""
+msgstr "შემცველობის ჯგუფის აღწერა."
 
 #: plugins/taglib/taglib-plugin.cc:170
 msgid "Content Type"
@@ -4257,15 +4198,15 @@ msgstr "შემცველობის ტიპი"
 
 #: plugins/taglib/taglib-plugin.cc:172
 msgid "Encryption Registration"
-msgstr ""
+msgstr "დაშიფვრის რეგისტრაცია"
 
 #: plugins/taglib/taglib-plugin.cc:172
 msgid "Encryption method registration."
-msgstr ""
+msgstr "დაშიფვრის მეთოდის რეგისტრაცია."
 
 #: plugins/taglib/taglib-plugin.cc:173
 msgid "Date."
-msgstr ""
+msgstr "თარიღი."
 
 #: plugins/taglib/taglib-plugin.cc:174
 msgid "Encoded By"
@@ -4283,7 +4224,7 @@ msgstr "ენკოდერის მორგება"
 
 #: plugins/taglib/taglib-plugin.cc:175
 msgid "Software."
-msgstr ""
+msgstr "პროგრამები."
 
 #: plugins/taglib/taglib-plugin.cc:176
 msgid "Encoding Time"
@@ -4291,7 +4232,7 @@ msgstr "კოდირების დრო"
 
 #: plugins/taglib/taglib-plugin.cc:176
 msgid "Encoding time."
-msgstr ""
+msgstr "კოდირების დრო."
 
 #: plugins/taglib/taglib-plugin.cc:177 plugins/taglib/taglib-plugin.cc:178
 msgid "Equalization"
@@ -4299,7 +4240,7 @@ msgstr "ეკვალიზაცია"
 
 #: plugins/taglib/taglib-plugin.cc:177
 msgid "Equalization."
-msgstr ""
+msgstr "ეკვალიზაცია."
 
 #: plugins/taglib/taglib-plugin.cc:178
 msgid "Equalisation curve predefine within the audio file."
@@ -4319,7 +4260,7 @@ msgstr "ფაილის მფლობელი"
 
 #: plugins/taglib/taglib-plugin.cc:180
 msgid "File owner."
-msgstr ""
+msgstr "ფაილის მფლობელი."
 
 #: plugins/taglib/taglib-plugin.cc:181
 msgid "File Type"
@@ -4327,7 +4268,7 @@ msgstr "ფაილის ტიპი"
 
 #: plugins/taglib/taglib-plugin.cc:181
 msgid "File type."
-msgstr ""
+msgstr "ფაილის ტიპი."
 
 #: plugins/taglib/taglib-plugin.cc:182
 msgid "General Object"
@@ -4669,8 +4610,7 @@ msgstr "გამოყენების პირობები"
 msgid "Terms of use."
 msgstr ""
 
-#: plugins/taglib/taglib-plugin.cc:226
-#: src/advanced_rename/profile_component.rs:682
+#: plugins/taglib/taglib-plugin.cc:226 src/advanced_rename/profile_component.rs:682
 msgid "Time"
 msgstr "დრო"
 
@@ -4764,8 +4704,7 @@ msgstr ""
 
 #: plugins/taglib/taglib-plugin.cc:238
 msgid ""
-"URL pointing at a webpage that will handle the process of paying for this "
-"file."
+"URL pointing at a webpage that will handle the process of paying for this file."
 msgstr ""
 
 #: plugins/taglib/taglib-plugin.cc:239
@@ -4914,8 +4853,8 @@ msgstr ""
 
 #: plugins/test/test-plugin.cc:135
 msgid ""
-"This is an example plugin that is mostly useful as a simple example for "
-"aspiring plugin hackers"
+"This is an example plugin that is mostly useful as a simple example for aspiring "
+"plugin hackers"
 msgstr ""
 
 #: src/advanced_rename/advanced_rename_dialog.rs:343
@@ -4945,13 +4884,11 @@ msgstr "შედეგები"
 #: src/advanced_rename/advanced_rename_dialog.rs:505
 #: src/dialogs/connect_dialog.rs:153 src/dialogs/file_properties_dialog.rs:114
 #: src/dialogs/manage_bookmarks_dialog.rs:196 src/dialogs/mkdir_dialog.rs:73
-#: src/dialogs/options/device_dialog.rs:98
-#: src/dialogs/options/options_dialog.rs:161
+#: src/dialogs/options/device_dialog.rs:98 src/dialogs/options/options_dialog.rs:161
 #: src/dialogs/profiles/edit_profile_dialog.rs:55
 #: src/dialogs/profiles/manage_profiles_dialog.rs:215
 #: src/dialogs/remote_dialog.rs:152 src/dialogs/shortcuts_dialog.rs:203
-#: src/intviewer/window.rs:1133 src/main_win.rs:1457
-#: src/search/search_dialog.rs:412
+#: src/intviewer/window.rs:1133 src/main_win.rs:1457 src/search/search_dialog.rs:412
 msgid "_Help"
 msgstr "_დახმარება"
 
@@ -4960,11 +4897,11 @@ msgstr "_დახმარება"
 msgid "Reset"
 msgstr "საწყის მნიშვნელობაზე დაბრუნება"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:534
-#: src/dialogs/about_plugin.rs:119 src/dialogs/manage_bookmarks_dialog.rs:200
-#: src/dialogs/options/edit_colors_dialog.rs:170
-#: src/dialogs/remote_dialog.rs:164 src/intviewer/window.rs:924
-#: src/plugin_manager.rs:415 src/search/search_dialog.rs:426
+#: src/advanced_rename/advanced_rename_dialog.rs:534 src/dialogs/about_plugin.rs:119
+#: src/dialogs/manage_bookmarks_dialog.rs:200
+#: src/dialogs/options/edit_colors_dialog.rs:170 src/dialogs/remote_dialog.rs:164
+#: src/intviewer/window.rs:924 src/plugin_manager.rs:415
+#: src/search/search_dialog.rs:426
 msgid "_Close"
 msgstr "_დახურვა"
 
@@ -4972,24 +4909,20 @@ msgstr "_დახურვა"
 msgid "_Apply"
 msgstr "გამოყენება"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:792
-#: src/search/search_dialog.rs:559
+#: src/advanced_rename/advanced_rename_dialog.rs:792 src/search/search_dialog.rs:561
 msgid "New profile"
 msgstr "ახალი პროფილი"
 
 #: src/advanced_rename/advanced_rename_dialog.rs:803
-#: src/advanced_rename/advanced_rename_dialog.rs:829
-#: src/search/search_dialog.rs:567
+#: src/advanced_rename/advanced_rename_dialog.rs:829 src/search/search_dialog.rs:569
 msgid "Profiles"
 msgstr "პროფილები"
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1050
-#: src/search/search_dialog.rs:515
+#: src/advanced_rename/advanced_rename_dialog.rs:1050 src/search/search_dialog.rs:517
 msgid "_Save Profile As…"
 msgstr ""
 
-#: src/advanced_rename/advanced_rename_dialog.rs:1057
-#: src/search/search_dialog.rs:524
+#: src/advanced_rename/advanced_rename_dialog.rs:1057 src/search/search_dialog.rs:526
 msgid "_Manage Profiles…"
 msgstr ""
 
@@ -5007,43 +4940,39 @@ msgstr "ფაილის თვისებები"
 
 #: src/advanced_rename/advanced_rename_dialog.rs:1091
 msgid "Update file list"
-msgstr ""
+msgstr "ფაილების სიის განახლება"
 
 #: src/advanced_rename/profile_component.rs:98
 msgid "Metatag"
-msgstr ""
+msgstr "მეტაჭდე"
 
-#: src/advanced_rename/profile_component.rs:114
-#: src/dialogs/options/apps_widget.rs:68
+#: src/advanced_rename/profile_component.rs:114 src/dialogs/options/apps_widget.rs:68
 #: src/dialogs/options/devices_widget.rs:54 src/dialogs/remote_dialog.rs:119
 msgid "_Add"
 msgstr "_დამატება"
 
 #: src/advanced_rename/profile_component.rs:118
-#: src/dialogs/manage_bookmarks_dialog.rs:65
-#: src/dialogs/options/apps_widget.rs:74
+#: src/dialogs/manage_bookmarks_dialog.rs:65 src/dialogs/options/apps_widget.rs:74
 #: src/dialogs/options/devices_widget.rs:61
-#: src/dialogs/profiles/manage_profiles_dialog.rs:159
-#: src/dialogs/remote_dialog.rs:57 src/main_win.rs:1359
+#: src/dialogs/profiles/manage_profiles_dialog.rs:159 src/dialogs/remote_dialog.rs:57
+#: src/main_win.rs:1359
 msgid "_Edit"
 msgstr "_ჩასწორება"
 
 #: src/advanced_rename/profile_component.rs:122
-#: src/dialogs/manage_bookmarks_dialog.rs:70
-#: src/dialogs/options/apps_widget.rs:80
+#: src/dialogs/manage_bookmarks_dialog.rs:70 src/dialogs/options/apps_widget.rs:80
 #: src/dialogs/options/devices_widget.rs:68
-#: src/dialogs/profiles/manage_profiles_dialog.rs:184
-#: src/dialogs/remote_dialog.rs:61
+#: src/dialogs/profiles/manage_profiles_dialog.rs:184 src/dialogs/remote_dialog.rs:61
 msgid "_Remove"
 msgstr "_წაშლა"
 
 #: src/advanced_rename/profile_component.rs:126
 msgid "Remove A_ll"
-msgstr ""
+msgstr "ყვე_ლას წაშლა"
 
 #: src/advanced_rename/profile_component.rs:165
 msgid "_Template"
-msgstr ""
+msgstr "_ნიმუში"
 
 #: src/advanced_rename/profile_component.rs:187
 msgid "Directory"
@@ -5061,11 +4990,11 @@ msgstr "_დასაწყისი:"
 
 #: src/advanced_rename/profile_component.rs:262
 msgid "Ste_p:"
-msgstr ""
+msgstr "ნაბ_იჯი:"
 
 #: src/advanced_rename/profile_component.rs:277
 msgid "Di_gits:"
-msgstr ""
+msgstr "ცი_ფრები:"
 
 #: src/advanced_rename/profile_component.rs:300
 msgid "Regex replacing"
@@ -5126,27 +5055,27 @@ msgstr "<ლოკალი>"
 
 #: src/advanced_rename/profile_component.rs:655
 msgid "yyyy-mm-dd"
-msgstr ""
+msgstr "წწწწ-თთ-დდ"
 
 #: src/advanced_rename/profile_component.rs:659
 msgid "yy-mm-dd"
-msgstr ""
+msgstr "წწ-თთ-დდ"
 
 #: src/advanced_rename/profile_component.rs:663
 msgid "yy.mm.dd"
-msgstr ""
+msgstr "წწ.თთ.დდ"
 
 #: src/advanced_rename/profile_component.rs:666
 msgid "yymmdd"
-msgstr ""
+msgstr "წწთთდდ"
 
 #: src/advanced_rename/profile_component.rs:668
 msgid "dd.mm.yy"
-msgstr ""
+msgstr "დდ.თთ.წწ"
 
 #: src/advanced_rename/profile_component.rs:672
 msgid "mm-dd-yy"
-msgstr ""
+msgstr "თთ-დდ-წწ"
 
 #: src/advanced_rename/profile_component.rs:675
 msgid "yyyy"
@@ -5170,15 +5099,15 @@ msgstr "დდ"
 
 #: src/advanced_rename/profile_component.rs:686
 msgid "HH.MM.SS"
-msgstr ""
+msgstr "სთ.წთ.წმ"
 
 #: src/advanced_rename/profile_component.rs:690
 msgid "HH-MM-SS"
-msgstr ""
+msgstr "წთ-წთ-წმ"
 
 #: src/advanced_rename/profile_component.rs:693
 msgid "HHMMSS"
-msgstr ""
+msgstr "სთწთწმ"
 
 #: src/advanced_rename/profile_component.rs:694
 msgid "HH"
@@ -5218,53 +5147,43 @@ msgstr "დიახ"
 msgid "No"
 msgstr "არა"
 
-#: src/advanced_rename/profile_component.rs:837
-#: src/advanced_rename/profile.rs:42
+#: src/advanced_rename/profile_component.rs:837 src/advanced_rename/profile.rs:42
 msgid "<unchanged>"
 msgstr "<არ შეცვლილა>"
 
-#: src/advanced_rename/profile_component.rs:838
-#: src/advanced_rename/profile.rs:43
+#: src/advanced_rename/profile_component.rs:838 src/advanced_rename/profile.rs:43
 msgid "lowercase"
 msgstr "დაბალი რეგისტრი"
 
-#: src/advanced_rename/profile_component.rs:839
-#: src/advanced_rename/profile.rs:44
+#: src/advanced_rename/profile_component.rs:839 src/advanced_rename/profile.rs:44
 msgid "UPPERCASE"
 msgstr "მაღალირეგისტრი"
 
-#: src/advanced_rename/profile_component.rs:840
-#: src/advanced_rename/profile.rs:45
+#: src/advanced_rename/profile_component.rs:840 src/advanced_rename/profile.rs:45
 msgid "Sentence case"
 msgstr "წინადადების რეგისტრი"
 
-#: src/advanced_rename/profile_component.rs:841
-#: src/advanced_rename/profile.rs:46
+#: src/advanced_rename/profile_component.rs:841 src/advanced_rename/profile.rs:46
 msgid "Initial Caps"
 msgstr "პირველი სიმბოლო მაღალ რეგისტრში"
 
-#: src/advanced_rename/profile_component.rs:842
-#: src/advanced_rename/profile.rs:47
+#: src/advanced_rename/profile_component.rs:842 src/advanced_rename/profile.rs:47
 msgid "tOGGLE cASE"
 msgstr "რეგისტრის გადართვა"
 
-#: src/advanced_rename/profile_component.rs:848
-#: src/advanced_rename/profile.rs:77
+#: src/advanced_rename/profile_component.rs:848 src/advanced_rename/profile.rs:77
 msgid "<none>"
 msgstr "<არცერთი>"
 
-#: src/advanced_rename/profile_component.rs:849
-#: src/advanced_rename/profile.rs:78
+#: src/advanced_rename/profile_component.rs:849 src/advanced_rename/profile.rs:78
 msgid "leading"
 msgstr ""
 
-#: src/advanced_rename/profile_component.rs:850
-#: src/advanced_rename/profile.rs:79
+#: src/advanced_rename/profile_component.rs:850 src/advanced_rename/profile.rs:79
 msgid "trailing"
-msgstr ""
+msgstr "ბოლოში მიწერილი"
 
-#: src/advanced_rename/profile_component.rs:851
-#: src/advanced_rename/profile.rs:80
+#: src/advanced_rename/profile_component.rs:851 src/advanced_rename/profile.rs:80
 msgid "leading and trailing"
 msgstr ""
 
@@ -5332,7 +5251,7 @@ msgstr ""
 #: src/app.rs:62 src/open_file.rs:169
 #, rust-format
 msgid "Launch of {} failed."
-msgstr ""
+msgstr "{}-ის გაშვება ჩავარდა."
 
 #: src/app.rs:147
 #, rust-format
@@ -5433,8 +5352,7 @@ msgstr ""
 msgid "Volume successfully unmounted"
 msgstr ""
 
-#: src/connection/device.rs:353 src/dialogs/shortcuts_dialog.rs:690
-#: src/utils.rs:242
+#: src/connection/device.rs:353 src/dialogs/shortcuts_dialog.rs:690 src/utils.rs:242
 msgid "_Dismiss"
 msgstr "_მოცილება"
 
@@ -5444,11 +5362,11 @@ msgstr ""
 
 #: src/connection/device.rs:451
 msgid "Mount failed: permission denied"
-msgstr ""
+msgstr "მიმაგრება ჩავარდა: წვდომა აკრძალულია"
 
 #: src/connection/device.rs:454
 msgid "Mount failed: no medium found"
-msgstr ""
+msgstr "მიმაგრება ჩავარდა: დისკი აღმოჩენილი არაა"
 
 #: src/connection/device.rs:457
 #, rust-format
@@ -5474,7 +5392,7 @@ msgstr "საწყისი"
 
 #: src/connection/home.rs:97
 msgid "Go to: Home"
-msgstr ""
+msgstr "გადასვლა საწყის გვერდზე"
 
 #: src/connection/remote.rs:142
 msgid "Cannot connect to a remote location"
@@ -5490,7 +5408,7 @@ msgstr ""
 
 #: src/connection/remote.rs:204
 msgid "Disconnect error"
-msgstr ""
+msgstr "გათიშვის შეცდომა"
 
 #: src/connection/remote.rs:237
 #, rust-format
@@ -5534,7 +5452,7 @@ msgstr ""
 
 #: src/connection/smb.rs:159
 msgid "Go to: Samba Network"
-msgstr ""
+msgstr "გადასვლა: Samba-ის ქსელზე"
 
 #: src/dialogs/about_plugin.rs:16
 msgid "About %s"
@@ -5584,15 +5502,11 @@ msgstr ""
 
 #: src/dialogs/chown_dialog.rs:101
 msgid "Apply Recursively"
-msgstr ""
+msgstr "რეკურსიული გადატარება"
 
 #: src/dialogs/chown_dialog.rs:117
 msgid "C_hange Owner"
 msgstr "მფლო_ბელის შეცვლა"
-
-#: src/dialogs/connect_dialog.rs:23
-msgid "SSH"
-msgstr "SSH"
 
 #: src/dialogs/connect_dialog.rs:24
 msgid "FTP (with login)"
@@ -5628,7 +5542,7 @@ msgstr ""
 
 #: src/dialogs/connect_dialog.rs:131
 msgid "_Location (URI):"
-msgstr ""
+msgstr "_მდებარეობა (URI):"
 
 #: src/dialogs/connect_dialog.rs:132
 msgid "_Server:"
@@ -5636,7 +5550,7 @@ msgstr "_სერვერი:"
 
 #: src/dialogs/connect_dialog.rs:135
 msgid "Optional information"
-msgstr ""
+msgstr "დამატებითი ინფორმაცია"
 
 #: src/dialogs/connect_dialog.rs:143
 msgid "_Port:"
@@ -5706,7 +5620,7 @@ msgstr ""
 
 #: src/dialogs/create_symlink_dialog.rs:67
 msgid "Symbolic link name:"
-msgstr ""
+msgstr "სიმბმულის სახელი:"
 
 #: src/dialogs/create_symlink_dialog.rs:171
 msgid "Making a symbolic link failed"
@@ -5740,10 +5654,9 @@ msgstr "გაუქმება"
 
 #: src/dialogs/delete_dialog.rs:178 src/dialogs/delete_dialog.rs:218
 #: src/dialogs/options/confirmation_tab.rs:82
-#: src/dialogs/options/confirmation_tab.rs:111
-#: src/dialogs/prepare_copy_dialog.rs:63 src/dialogs/prepare_move_dialog.rs:63
-#: src/transfer.rs:456 src/transfer.rs:496 src/transfer.rs:557
-#: src/transfer.rs:670 src/user_actions.rs:412
+#: src/dialogs/options/confirmation_tab.rs:111 src/dialogs/prepare_copy_dialog.rs:63
+#: src/dialogs/prepare_move_dialog.rs:63 src/transfer.rs:456 src/transfer.rs:496
+#: src/transfer.rs:557 src/transfer.rs:670 src/user_actions.rs:412
 msgid "Skip"
 msgstr "გამოტოვება"
 
@@ -5766,15 +5679,14 @@ msgid "Error while deleting “{file}”"
 msgstr ""
 
 #: src/dialogs/delete_dialog.rs:218 src/dialogs/delete_dialog.rs:555
-#: src/transfer.rs:456 src/transfer.rs:473 src/transfer.rs:491
-#: src/transfer.rs:508 src/transfer.rs:553 src/transfer.rs:571
-#: src/transfer.rs:666 src/transfer.rs:684
+#: src/transfer.rs:456 src/transfer.rs:473 src/transfer.rs:491 src/transfer.rs:508
+#: src/transfer.rs:553 src/transfer.rs:571 src/transfer.rs:666 src/transfer.rs:684
 msgid "Abort"
 msgstr "შეწყვეტა"
 
 #: src/dialogs/delete_dialog.rs:218 src/transfer.rs:456 src/transfer.rs:492
-#: src/transfer.rs:509 src/transfer.rs:554 src/transfer.rs:572
-#: src/transfer.rs:667 src/transfer.rs:685 src/user_actions.rs:415
+#: src/transfer.rs:509 src/transfer.rs:554 src/transfer.rs:572 src/transfer.rs:667
+#: src/transfer.rs:685 src/user_actions.rs:415
 msgid "Retry"
 msgstr "თავიდან ცდა"
 
@@ -5812,11 +5724,11 @@ msgstr "სანიშნის ჩასწორება"
 
 #: src/dialogs/edit_bookmark_dialog.rs:42
 msgid "Bookmark _name:"
-msgstr ""
+msgstr "სა_ნიშნეს სახელი:"
 
 #: src/dialogs/edit_bookmark_dialog.rs:61
 msgid "Bookmark _target:"
-msgstr ""
+msgstr "სანიშნეს სამი_ზნე:"
 
 #: src/dialogs/edit_bookmark_dialog.rs:87
 msgid "_Add Bookmark"
@@ -5859,7 +5771,7 @@ msgstr "ფაილის სახელი:"
 
 #: src/dialogs/file_properties_dialog.rs:204
 msgid "Symlink target:"
-msgstr ""
+msgstr "სიმბმულის სამიზნე:"
 
 #: src/dialogs/file_properties_dialog.rs:221
 msgid "Location:"
@@ -5899,7 +5811,7 @@ msgstr "Size:"
 
 #: src/dialogs/file_properties_dialog.rs:350
 msgid "Owner and group"
-msgstr ""
+msgstr "მფლობელი და ჯგუფი"
 
 #: src/dialogs/file_properties_dialog.rs:364
 msgid "Access permissions"
@@ -5907,7 +5819,7 @@ msgstr "წვდომის უფლებები"
 
 #: src/dialogs/file_properties_dialog.rs:390
 msgid "Co_py"
-msgstr ""
+msgstr "კო_პირება"
 
 #: src/dialogs/file_properties_dialog.rs:472
 msgid "Failed to apply changes."
@@ -5957,13 +5869,13 @@ msgstr "ბილიკი"
 
 #: src/dialogs/manage_bookmarks_dialog.rs:576
 msgid ""
-"To bookmark a directory the whole search path to the directory must be in "
-"valid UTF-8 encoding"
+"To bookmark a directory the whole search path to the directory must be in valid "
+"UTF-8 encoding"
 msgstr ""
 
 #: src/dialogs/mkdir_dialog.rs:35
 msgid "Make Directory"
-msgstr ""
+msgstr "საქაღალდის შექმნა"
 
 #: src/dialogs/mkdir_dialog.rs:93
 msgid "_Make Directory"
@@ -5971,7 +5883,7 @@ msgstr "საქაღალდის შექ_მნა"
 
 #: src/dialogs/mkdir_dialog.rs:124
 msgid "A directory name must be entered"
-msgstr ""
+msgstr "საქაღალდის სახელის შეყვანა აუცილებელია"
 
 #: src/dialogs/mkdir_dialog.rs:135
 msgid "Make directory failed"
@@ -5983,7 +5895,7 @@ msgstr "ფაილის სახელი შეყვანილი არ
 
 #: src/dialogs/new_text_file.rs:33
 msgid "Cannot create a file"
-msgstr ""
+msgstr "ფაილის შექმნა შეუძლებელია"
 
 #: src/dialogs/new_text_file.rs:49
 msgid "New Text File"
@@ -6015,7 +5927,7 @@ msgstr "ახალი აპლიკაცია"
 
 #: src/dialogs/options/app_dialog.rs:28
 msgid "Edit Application"
-msgstr ""
+msgstr "აპლიკაციის ჩასწორება"
 
 #: src/dialogs/options/app_dialog.rs:53
 msgid "Label:"
@@ -6029,8 +5941,7 @@ msgstr "ბრძანება:"
 msgid "Icon:"
 msgstr "ხატულა:"
 
-#: src/dialogs/options/app_dialog.rs:89
-#: src/dialogs/options/options_dialog.rs:90
+#: src/dialogs/options/app_dialog.rs:89 src/dialogs/options/options_dialog.rs:90
 msgid "Options"
 msgstr "მორგება"
 
@@ -6044,7 +5955,7 @@ msgstr ""
 
 #: src/dialogs/options/app_dialog.rs:105
 msgid "Requires terminal"
-msgstr ""
+msgstr "სჭირდება ტერმინალი"
 
 #: src/dialogs/options/app_dialog.rs:115
 msgid "Show for"
@@ -6052,7 +5963,7 @@ msgstr ""
 
 #: src/dialogs/options/app_dialog.rs:126
 msgid "All directories"
-msgstr ""
+msgstr "ყველა საქაღალდე"
 
 #: src/dialogs/options/app_dialog.rs:132
 msgid "All directories and files"
@@ -6060,7 +5971,7 @@ msgstr ""
 
 #: src/dialogs/options/app_dialog.rs:138
 msgid "Some files"
-msgstr ""
+msgstr "ზოგიერთი ფაილი"
 
 #: src/dialogs/options/app_dialog.rs:147
 msgid "File patterns"
@@ -6106,16 +6017,15 @@ msgid "Query first"
 msgstr ""
 
 #: src/dialogs/options/confirmation_tab.rs:77
-#: src/dialogs/options/confirmation_tab.rs:106
-#: src/dialogs/prepare_copy_dialog.rs:57 src/dialogs/prepare_move_dialog.rs:57
-#: src/transfer.rs:494 src/transfer.rs:511 src/transfer.rs:556
-#: src/transfer.rs:574 src/transfer.rs:669 src/transfer.rs:687
+#: src/dialogs/options/confirmation_tab.rs:106 src/dialogs/prepare_copy_dialog.rs:57
+#: src/dialogs/prepare_move_dialog.rs:57 src/transfer.rs:494 src/transfer.rs:511
+#: src/transfer.rs:556 src/transfer.rs:574 src/transfer.rs:669 src/transfer.rs:687
 msgid "Rename"
 msgstr "სახელის გადარქმევა"
 
 #: src/dialogs/options/confirmation_tab.rs:87
-#: src/dialogs/options/confirmation_tab.rs:116
-#: src/dialogs/prepare_copy_dialog.rs:69 src/dialogs/prepare_move_dialog.rs:69
+#: src/dialogs/options/confirmation_tab.rs:116 src/dialogs/prepare_copy_dialog.rs:69
+#: src/dialogs/prepare_move_dialog.rs:69
 msgid "Overwrite silently"
 msgstr ""
 
@@ -6131,13 +6041,11 @@ msgstr ""
 msgid "Confirm mouse operation"
 msgstr ""
 
-#: src/dialogs/options/confirmation_tab.rs:135
-#: src/dialogs/prepare_copy_dialog.rs:31
+#: src/dialogs/options/confirmation_tab.rs:135 src/dialogs/prepare_copy_dialog.rs:31
 msgid "Copy"
 msgstr "კოპირება"
 
-#: src/dialogs/options/confirmation_tab.rs:140
-#: src/dialogs/prepare_move_dialog.rs:31
+#: src/dialogs/options/confirmation_tab.rs:140 src/dialogs/prepare_move_dialog.rs:31
 msgid "Move"
 msgstr "გადატანა"
 
@@ -6151,7 +6059,7 @@ msgstr "ახალი მოწყობილობა"
 
 #: src/dialogs/options/device_dialog.rs:26
 msgid "Edit Device"
-msgstr ""
+msgstr "მოწყობილობის ჩასწორება"
 
 #: src/dialogs/options/device_dialog.rs:54
 msgid "Alias:"
@@ -6159,7 +6067,7 @@ msgstr "მეტსახელი:"
 
 #: src/dialogs/options/device_dialog.rs:65
 msgid "Device/Label:"
-msgstr ""
+msgstr "მოწყობილობა/ჭდე:"
 
 #: src/dialogs/options/device_dialog.rs:76
 msgid "Mount point:"
@@ -6275,7 +6183,7 @@ msgstr "უცნობი"
 
 #: src/dialogs/options/filters_tab.rs:38
 msgid "Regular files"
-msgstr ""
+msgstr "ჩვეულებრივი ფაილები"
 
 #: src/dialogs/options/filters_tab.rs:41 src/dialogs/options/general_tab.rs:223
 msgid "Directories"
@@ -6295,7 +6203,7 @@ msgstr "სარეზერვო ფაილები"
 
 #: src/dialogs/options/filters_tab.rs:53
 msgid "Symlinks"
-msgstr ""
+msgstr "სიმბმულები"
 
 #: src/dialogs/options/filters_tab.rs:64
 msgid "Filetypes to hide"
@@ -6307,15 +6215,15 @@ msgstr ""
 
 #: src/dialogs/options/format_tab.rs:43
 msgctxt ""
-"'Powered' refers to the mode of file size display (here - display using "
-"units of data: kB, MB, GB, ...)"
+"'Powered' refers to the mode of file size display (here - display using units of "
+"data: kB, MB, GB, ...)"
 msgid "Powered"
 msgstr "ზომის სიდიდე"
 
 #: src/dialogs/options/format_tab.rs:48
 msgctxt ""
-"'<locale>' refers to the mode of file size display (here - use current "
-"locale settings)"
+"'<locale>' refers to the mode of file size display (here - use current locale "
+"settings)"
 msgid "<locale>"
 msgstr "<ლოკალი>"
 
@@ -6333,11 +6241,11 @@ msgstr ""
 
 #: src/dialogs/options/format_tab.rs:75
 msgid "Text (rw-r--r--)"
-msgstr ""
+msgstr "ტექსტი (rw-r--r--)"
 
 #: src/dialogs/options/format_tab.rs:80
 msgid "Number (644)"
-msgstr ""
+msgstr "რიცხვი (644)"
 
 #: src/dialogs/options/format_tab.rs:99
 msgid "Format:"
@@ -6431,7 +6339,7 @@ msgstr "ფილტრი"
 
 #: src/dialogs/options/general_tab.rs:178
 msgid "CTRL+ALT+letters"
-msgstr ""
+msgstr "CTRL+ALT+ასოები"
 
 #: src/dialogs/options/general_tab.rs:182
 msgid "ALT+letters (menu access with F10)"
@@ -6459,16 +6367,15 @@ msgstr ""
 
 #: src/dialogs/options/general_tab.rs:221
 msgid "Save on exit"
-msgstr ""
+msgstr "შენახვა გასვლისას"
 
-#: src/dialogs/options/general_tab.rs:226
-#: src/dialogs/options/options_dialog.rs:135
+#: src/dialogs/options/general_tab.rs:226 src/dialogs/options/options_dialog.rs:135
 msgid "Tabs"
 msgstr "ჩანართები"
 
 #: src/dialogs/options/general_tab.rs:229
 msgid "Directory history"
-msgstr ""
+msgstr "საქაღალდის ისტორია"
 
 #: src/dialogs/options/general_tab.rs:233
 msgid "Commandline history"
@@ -6488,35 +6395,35 @@ msgstr "ფონტი:"
 
 #: src/dialogs/options/layout_tab.rs:71
 msgid "With file name"
-msgstr ""
+msgstr "ფაილის სახელით"
 
 #: src/dialogs/options/layout_tab.rs:72
 msgid "In separate column"
-msgstr ""
+msgstr "ცალკე სვეტში"
 
 #: src/dialogs/options/layout_tab.rs:73
 msgid "In both columns"
-msgstr ""
+msgstr "ორივე სვეტში"
 
 #: src/dialogs/options/layout_tab.rs:79
 msgid "Display file extensions:"
-msgstr ""
+msgstr "ფაილის გაფართოებების ჩვენება:"
 
 #: src/dialogs/options/layout_tab.rs:92
 msgid "No icons"
-msgstr ""
+msgstr "ხატულების გარეშე"
 
 #: src/dialogs/options/layout_tab.rs:93
 msgid "File type icons"
-msgstr ""
+msgstr "ფაილის ტიპის ხატულები"
 
 #: src/dialogs/options/layout_tab.rs:94
 msgid "MIME icons"
-msgstr ""
+msgstr "MIME ხატულები"
 
 #: src/dialogs/options/layout_tab.rs:100
 msgid "Graphical mode:"
-msgstr ""
+msgstr "გრაფიკული რეჟიმი:"
 
 #: src/dialogs/options/layout_tab.rs:113
 msgid "Respect theme colors"
@@ -6536,7 +6443,7 @@ msgstr "კლასიკური"
 
 #: src/dialogs/options/layout_tab.rs:117
 msgid "Deep blue"
-msgstr ""
+msgstr "მუქი ლურჯი"
 
 #: src/dialogs/options/layout_tab.rs:118
 msgid "Cafezinho"
@@ -6624,7 +6531,7 @@ msgstr ""
 
 #: src/dialogs/options/programs_tab.rs:61
 msgid "Standard programs"
-msgstr ""
+msgstr "სტანდარტული პროგრამები"
 
 #: src/dialogs/options/programs_tab.rs:65
 msgid "Viewer:"
@@ -6684,7 +6591,7 @@ msgstr ""
 
 #: src/dialogs/options/tabs_tab.rs:51
 msgid "* (asterisk)"
-msgstr ""
+msgstr "* (ვარსკვლავი)"
 
 #: src/dialogs/options/tabs_tab.rs:57
 msgid "Styled text"
@@ -6787,8 +6694,8 @@ msgstr "_დუბლირება"
 
 #: src/dialogs/profiles/manage_profiles_dialog.rs:210
 msgid ""
-"To rename a profile, click on the corresponding row and type a new name, or "
-"press escape to cancel."
+"To rename a profile, click on the corresponding row and type a new name, or press "
+"escape to cancel."
 msgstr ""
 
 #: src/dialogs/remote_dialog.rs:81
@@ -6882,8 +6789,8 @@ msgstr ""
 
 #: src/dialogs/shortcuts_dialog.rs:865
 msgid ""
-"Press Backspace again to remove the shortcut or Enter to use Backspace as "
-"shortcut key."
+"Press Backspace again to remove the shortcut or Enter to use Backspace as shortcut "
+"key."
 msgstr ""
 
 #: src/dialogs/transfer_progress_dialog.rs:52
@@ -6900,7 +6807,7 @@ msgstr ""
 #, no-c-format, rust-format
 msgctxt "percentage copied"
 msgid "{}% copied"
-msgstr ""
+msgstr "{}% დაკოპირდა"
 
 #: src/dirlist.rs:34
 msgid "Waiting for file list"
@@ -6923,11 +6830,11 @@ msgstr ""
 #: src/file_list/actions.rs:66 src/open_file.rs:58
 #, rust-format
 msgid ""
-"{} does not know how to open remote file. Do you want to download the file "
-"to a temporary location and then open it?"
+"{} does not know how to open remote file. Do you want to download the file to a "
+"temporary location and then open it?"
 msgid_plural ""
-"{} does not know how to open remote files. Do you want to download the files "
-"to a temporary location and then open them?"
+"{} does not know how to open remote files. Do you want to download the files to a "
+"temporary location and then open them?"
 msgstr[0] ""
 
 #: src/file_list/actions.rs:99
@@ -7063,11 +6970,11 @@ msgstr ""
 
 #: src/file_selector.rs:1199
 msgid "Add current dir"
-msgstr ""
+msgstr "მიმდინარე საქ-ის დამატება"
 
 #: src/file_selector.rs:1201
 msgid "Manage bookmarks…"
-msgstr ""
+msgstr "სანიშნეების მართვა…"
 
 #: src/file_selector.rs:1337
 msgid "%s free"
@@ -7191,8 +7098,7 @@ msgstr ""
 msgid "_Copy Selection"
 msgstr "მონიშნულის _კოპირება"
 
-#: src/intviewer/window.rs:846 src/intviewer/window.rs:974
-#: src/user_actions.rs:1721
+#: src/intviewer/window.rs:846 src/intviewer/window.rs:974 src/user_actions.rs:1721
 msgid "_Select All"
 msgstr "ყველაფრის _მონიშვნა"
 
@@ -7282,11 +7188,11 @@ msgstr "_კოდირება"
 
 #: src/intviewer/window.rs:990
 msgid "_UTF-8"
-msgstr ""
+msgstr "_UTF-8"
 
 #: src/intviewer/window.rs:992
 msgid "English (US-_ASCII)"
-msgstr ""
+msgstr "ინგლისური (US-_ASCII)"
 
 #: src/intviewer/window.rs:996
 msgid "Terminal (CP437)"
@@ -7302,7 +7208,7 @@ msgstr ""
 
 #: src/intviewer/window.rs:1005
 msgid "Arabic (Dos, CP864)"
-msgstr ""
+msgstr "არაბული (Dos, CP864)"
 
 #: src/intviewer/window.rs:1007
 msgid "Baltic (ISO-8859-4)"
@@ -7330,15 +7236,15 @@ msgstr "ბერძნული (ISO-8859-7)"
 
 #: src/intviewer/window.rs:1027
 msgid "Greek (CP1253)"
-msgstr ""
+msgstr "ბერძნული (CP1253)"
 
 #: src/intviewer/window.rs:1029
 msgid "Hebrew (Windows, CP1255)"
-msgstr ""
+msgstr "ივრითი (Windows, CP1255)"
 
 #: src/intviewer/window.rs:1032
 msgid "Hebrew (Dos, CP862)"
-msgstr ""
+msgstr "ივრითი (Dos, CP862)"
 
 #: src/intviewer/window.rs:1034
 msgid "Hebrew (ISO-8859-8)"
@@ -7378,27 +7284,27 @@ msgstr "_ფონტი…"
 
 #: src/intviewer/window.rs:1098
 msgid "Fixed _Width Mode"
-msgstr ""
+msgstr "ფიქსირებული სიგანის რე_ჟიმი"
 
 #: src/intviewer/window.rs:1101
 msgid "_20 chars/line"
-msgstr ""
+msgstr "_20 სიმბოლო/ხაზზე"
 
 #: src/intviewer/window.rs:1106
 msgid "_40 chars/line"
-msgstr ""
+msgstr "_40 სიმბოლო/ხაზზე"
 
 #: src/intviewer/window.rs:1111
 msgid "_80 chars/line"
-msgstr ""
+msgstr "_80 სიმბოლო/ხაზზე"
 
 #: src/intviewer/window.rs:1115
 msgid "_120 chars/line"
-msgstr ""
+msgstr "_120 სიმბოლო/ხაზზე"
 
 #: src/intviewer/window.rs:1116
 msgid "1_60 chars/line"
-msgstr ""
+msgstr "1_60 სიმბოლო/ხაზზე"
 
 #: src/intviewer/window.rs:1121
 msgid "Show Metadata _Tags"
@@ -7418,31 +7324,31 @@ msgstr "კლავიატურის მალსახმობები"
 
 #: src/main_win.rs:222
 msgid "F3 View"
-msgstr ""
+msgstr "F3 ნახვა"
 
 #: src/main_win.rs:223
 msgid "F4 Edit"
-msgstr ""
+msgstr "F4 ჩასწორება"
 
 #: src/main_win.rs:224
 msgid "F5 Copy"
-msgstr ""
+msgstr "F5 კოპირება"
 
 #: src/main_win.rs:225
 msgid "F6 Move"
-msgstr ""
+msgstr "F6 გადატანა"
 
 #: src/main_win.rs:226
 msgid "F7 Mkdir"
-msgstr ""
+msgstr "F7 საქ.შექმნ"
 
 #: src/main_win.rs:227
 msgid "F8 Delete"
-msgstr ""
+msgstr "F8 წაშლა"
 
 #: src/main_win.rs:228
 msgid "F9 Search"
-msgstr ""
+msgstr "F9 ძებნა"
 
 #: src/main_win.rs:263
 msgid "Gnome Commander — ROOT PRIVILEGES"
@@ -7475,8 +7381,8 @@ msgstr ""
 #: src/open_file.rs:18
 #, rust-format
 msgid ""
-"“{}” seems to be a binary executable file but it lacks the executable bit. "
-"Do you want to set it and then run the file?"
+"“{}” seems to be a binary executable file but it lacks the executable bit. Do you "
+"want to set it and then run the file?"
 msgstr ""
 
 #: src/open_file.rs:23
@@ -7486,8 +7392,7 @@ msgstr ""
 #: src/open_file.rs:40
 #, rust-format
 msgid ""
-"“{}” is an executable text file. Do you want to run it, or display its "
-"contents?"
+"“{}” is an executable text file. Do you want to run it, or display its contents?"
 msgstr ""
 
 #: src/open_file.rs:45
@@ -7574,13 +7479,13 @@ msgstr "_ძებნა"
 msgid "_Look in folder:"
 msgstr ""
 
-#: src/search/search_dialog.rs:717
+#: src/search/search_dialog.rs:719
 #, rust-format
 msgid "Found {} match — search aborted"
 msgid_plural "Found {} matches — search aborted"
 msgstr[0] ""
 
-#: src/search/search_dialog.rs:722
+#: src/search/search_dialog.rs:724
 #, rust-format
 msgid "Found {} match"
 msgid_plural "Found {} matches"
@@ -7625,7 +7530,7 @@ msgstr "(არცერთი)"
 
 #: src/select_icon_button.rs:74
 msgid "Select an Image File"
-msgstr ""
+msgstr "აირჩიეთ გამოსახულების ფაილი"
 
 #: src/select_icon_button.rs:92
 msgid "Choose Icon"
@@ -7688,8 +7593,7 @@ msgid "URI of link target."
 msgstr ""
 
 #: src/tags/basic.rs:78
-msgid ""
-"Size of the file in bytes or if a directory number of items it contains."
+msgid "Size of the file in bytes or if a directory number of items it contains."
 msgstr ""
 
 #: src/tags/basic.rs:80
@@ -7705,14 +7609,13 @@ msgid "Permission string in unix format eg “-rw-r--r--”."
 msgstr ""
 
 #: src/tags/basic.rs:84
-msgid ""
-"MIME type of the file or if a directory it should contain value “Folder”."
+msgid "MIME type of the file or if a directory it should contain value “Folder”."
 msgstr ""
 
 #: src/tags/basic.rs:87
 msgid ""
-"Editable DC type for the name of the publisher of the file (EG dc:publisher "
-"field in RSS feed)."
+"Editable DC type for the name of the publisher of the file (EG dc:publisher field "
+"in RSS feed)."
 msgstr ""
 
 #: src/tags/basic.rs:89
@@ -7725,8 +7628,7 @@ msgstr ""
 
 #: src/tags/basic.rs:92
 msgid ""
-"Editable file rank for grading favourites. Value should be in the range "
-"1..10."
+"Editable file rank for grading favourites. Value should be in the range 1..10."
 msgstr ""
 
 #: src/tags/basic.rs:94
@@ -7790,8 +7692,7 @@ msgid ""
 "{src}"
 msgstr ""
 
-#: src/transfer.rs:555 src/transfer.rs:573 src/transfer.rs:668
-#: src/transfer.rs:686
+#: src/transfer.rs:555 src/transfer.rs:573 src/transfer.rs:668 src/transfer.rs:686
 msgid "Replace"
 msgstr "ჩანაცვლება"
 
@@ -7836,8 +7737,7 @@ msgstr ""
 
 #: src/transfer.rs:1120
 #, rust-format
-msgctxt ""
-"A template for a file name. In a case of a conflict with an existing one."
+msgctxt "A template for a file name. In a case of a conflict with an existing one."
 msgid "{name} (Copy {number})"
 msgstr ""
 
@@ -7885,8 +7785,8 @@ msgstr "გაფრთხილება"
 
 #: src/user_actions.rs:504
 msgid ""
-"The default send-to command only supports one selected file at a time. You "
-"can change the command in the program options."
+"The default send-to command only supports one selected file at a time. You can "
+"change the command in the program options."
 msgstr ""
 
 #: src/user_actions.rs:724
@@ -8363,7 +8263,7 @@ msgstr ""
 
 #: src/utils.rs:92
 msgid "Cannot create a temporary file."
-msgstr ""
+msgstr "დროებითი ფაილის შექმნის შეცდომა."
 
 #: src/utils.rs:276
 #, rust-format
@@ -8670,6 +8570,3 @@ msgstr ""
 
 #~ msgid "Unknown error"
 #~ msgstr "უცნობი შეცდომა"
-
-#~ msgid "File Manager"
-#~ msgstr "ფაილების მმართველი"
