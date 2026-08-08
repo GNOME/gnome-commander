@@ -29,10 +29,12 @@ mod imp {
     pub struct CommandLine {
         pub action_group: gio::SimpleActionGroup,
         pub terminal: vte::Terminal,
+        pub(super) command_exited: gtk::Label,
+        pub(super) command_exited_with_error: gtk::Label,
         pub(super) terminal_busy: Cell<bool>,
         pub cwd: gtk::Label,
         pub entry: HistoryEntry,
-        pub(super) output_widget: gtk::Widget,
+        pub(super) output_widget: gtk::Box,
         pub(super) focus_controllers: [gtk::EventControllerFocus; 2],
         #[property(get, set = Self::set_autohide_output)]
         autohide_output: Cell<bool>,
@@ -46,33 +48,42 @@ mod imp {
         type ParentType = gtk::Frame;
 
         fn new() -> Self {
-            let terminal = vte::Terminal::builder()
-                .allow_hyperlink(true)
-                .audible_bell(false)
-                .enable_fallback_scrolling(false)
-                .input_enabled(true)
-                .scroll_on_keystroke(true)
-                .scroll_unit_is_pixels(true)
-                .can_focus(true)
-                .can_target(true)
-                .focus_on_click(true)
-                .vexpand(true)
-                .context_menu_model(&{
-                    let menu = gio::Menu::new();
-                    menu.append(Some(&gettext("_Copy")), Some("term.copy"));
-                    menu.append(Some(&gettext("_Paste")), Some("term.paste"));
-                    menu.append(Some(&gettext("_Select all")), Some("term.select-all"));
-                    menu
-                })
-                .build();
             Self {
                 action_group: gio::SimpleActionGroup::new(),
-                output_widget: gtk::ScrolledWindow::builder()
-                    .child(&terminal)
+                output_widget: gtk::Box::builder()
+                    .orientation(gtk::Orientation::Vertical)
                     .css_classes(["command-line-output"])
-                    .build()
-                    .upcast(),
-                terminal,
+                    .build(),
+                terminal: vte::Terminal::builder()
+                    .allow_hyperlink(true)
+                    .audible_bell(false)
+                    .enable_fallback_scrolling(false)
+                    .input_enabled(true)
+                    .scroll_on_keystroke(true)
+                    .scroll_unit_is_pixels(true)
+                    .can_focus(true)
+                    .can_target(true)
+                    .focus_on_click(true)
+                    .vexpand(true)
+                    .context_menu_model(&{
+                        let menu = gio::Menu::new();
+                        menu.append(Some(&gettext("_Copy")), Some("term.copy"));
+                        menu.append(Some(&gettext("_Paste")), Some("term.paste"));
+                        menu.append(Some(&gettext("_Select all")), Some("term.select-all"));
+                        menu
+                    })
+                    .build(),
+                command_exited: gtk::Label::builder()
+                    .label(gettext("Command exited"))
+                    .xalign(0.0)
+                    .visible(false)
+                    .css_classes(["command-exited-message"])
+                    .build(),
+                command_exited_with_error: gtk::Label::builder()
+                    .visible(false)
+                    .xalign(0.0)
+                    .css_classes(["command-exited-with-error-message"])
+                    .build(),
                 terminal_busy: Default::default(),
                 cwd: gtk::Label::builder().selectable(true).build(),
                 entry: HistoryEntry::default(),
@@ -106,6 +117,14 @@ mod imp {
                 .visible(false)
                 .build();
             obj.set_label_widget(Some(&label));
+
+            let terminal_scrolled = gtk::ScrolledWindow::builder()
+                .child(&self.terminal)
+                .vexpand(true)
+                .build();
+            self.output_widget.append(&terminal_scrolled);
+            self.output_widget.append(&self.command_exited);
+            self.output_widget.append(&self.command_exited_with_error);
 
             self.setup_actions();
 
@@ -147,11 +166,10 @@ mod imp {
                 .feed(gettext("If you run a command its output will appear here.").as_bytes());
             self.terminal.feed("\r\n".as_bytes());
 
-            for (focus_controller, widget) in self
-                .focus_controllers
-                .iter()
-                .zip([obj.upcast_ref::<gtk::Widget>(), &self.output_widget])
-            {
+            for (focus_controller, widget) in self.focus_controllers.iter().zip([
+                obj.upcast_ref::<gtk::Widget>(),
+                self.output_widget.upcast_ref(),
+            ]) {
                 focus_controller.connect_enter(glib::clone!(
                     #[weak(rename_to = imp)]
                     self,
@@ -380,7 +398,7 @@ impl CommandLine {
     }
 
     pub fn output(&self) -> &gtk::Widget {
-        &self.imp().output_widget
+        self.imp().output_widget.upcast_ref()
     }
 
     pub fn set_directory(&self, directory: &str) {
@@ -502,24 +520,26 @@ impl CommandLine {
             Ok(_) => {
                 // Child started successfully, wait for it to exit
                 let (sender, receiver) = async_channel::bounded(1);
-                let handler = self.imp().terminal.connect_child_exited(move |_, _| {
-                    sender.toss(());
+                let handler = self.imp().terminal.connect_child_exited(move |_, status| {
+                    sender.toss(status);
                 });
-                let _ = receiver.recv().await;
+                let result = receiver.recv().await;
                 self.imp().terminal.disconnect(handler);
-                Ok(())
+                Ok(result.unwrap_or(0))
             }
             Err(error) => Err(error),
         };
-        self.post_exec();
+        self.post_exec(&result);
 
-        result
+        result.map(|_| ())
     }
 
     fn pre_exec(&self) {
         self.imp().terminal.grab_focus();
 
         self.imp().terminal_busy.set(true);
+        self.imp().command_exited.set_visible(false);
+        self.imp().command_exited_with_error.set_visible(false);
         if let Some(root) = self.root() {
             root.action_set_enabled(UserAction::RunEmbedded.name(), false);
         }
@@ -534,7 +554,23 @@ impl CommandLine {
         }
     }
 
-    fn post_exec(&self) {
+    fn post_exec(&self, result: &Result<i32, glib::Error>) {
+        match result {
+            Ok(0) => self.imp().command_exited.set_visible(true),
+            Ok(status) => {
+                let message = &self.imp().command_exited_with_error;
+                message.set_label(
+                    &gettext("Command exited with status {}").replace("{}", &status.to_string()),
+                );
+                message.set_visible(true);
+            }
+            Err(error) => {
+                let message = &self.imp().command_exited_with_error;
+                message.set_label(&error.to_string());
+                message.set_visible(true);
+            }
+        }
+
         if self.imp().terminal.is_focus() {
             self.grab_focus();
         }

@@ -60,7 +60,26 @@ listview.gcmd-toolbar {
 
 .command-line, .command-line-output {
     margin: 1px 2px;
+}
+
+.command-line {
     border-spacing: 4px;
+}
+
+.command-exited-message, .command-exited-with-error-message {
+    padding: 2px;
+}
+
+.command-exited-message {
+    color: #fff;
+    background-color: #036;
+    border-top: 2px solid #08f;
+}
+
+.command-exited-with-error-message {
+    color: #faa;
+    background-color: #600;
+    border-top: 2px solid #c00;
 }
 
 @keyframes bell {
