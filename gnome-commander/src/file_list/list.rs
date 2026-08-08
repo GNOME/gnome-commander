@@ -2553,6 +2553,7 @@ impl FileList {
             .selection()
             .selected_item()
             .and_downcast::<FileListItem>()
+            .filter(|item| !item.file().is_dotdot())
         else {
             return;
         };
