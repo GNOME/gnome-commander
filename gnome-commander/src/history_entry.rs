@@ -111,7 +111,11 @@ mod imp {
         factory.connect_setup(|_, obj| {
             if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() {
                 list_item.set_child(Some(
-                    &gtk::Label::builder().hexpand(true).xalign(0.0).build(),
+                    &gtk::Label::builder()
+                        .hexpand(true)
+                        .xalign(0.0)
+                        .ellipsize(gtk::pango::EllipsizeMode::Middle)
+                        .build(),
                 ));
             }
         });
