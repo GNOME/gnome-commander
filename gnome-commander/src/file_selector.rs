@@ -11,7 +11,7 @@ use crate::{
     dir::Directory,
     file::{File, FileOps},
     file_list::list::{ColumnID, ColumnOptions, FileList},
-    main_win::{ExecutionTarget, MainWindow},
+    main_win::MainWindow,
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
     open_file::mime_exec_single,
     shortcuts::{Area, Shortcuts},
@@ -662,23 +662,6 @@ impl FileSelector {
                 if let Some(command_line) = this.command_line().filter(|cl| cl.is_visible()) {
                     command_line.append_text(text);
                     command_line.grab_focus();
-                }
-            }
-        ));
-        fl.connect_cmdline_execute(glib::clone!(
-            #[weak(rename_to = this)]
-            self,
-            #[upgrade_or]
-            false,
-            move |_| {
-                if let Some(command_line) = this
-                    .command_line()
-                    .filter(|cl| !cl.is_empty() && cl.terminal_available())
-                {
-                    command_line.process_command(ExecutionTarget::EmbeddedTerminal);
-                    true
-                } else {
-                    false
                 }
             }
         ));

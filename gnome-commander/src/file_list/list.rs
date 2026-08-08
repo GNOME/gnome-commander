@@ -690,10 +690,6 @@ mod imp {
                     glib::subclass::Signal::builder("cmdline-append")
                         .param_types([String::static_type()])
                         .build(),
-                    // Execute a command in a command line
-                    glib::subclass::Signal::builder("cmdline-execute")
-                        .return_type::<bool>()
-                        .build(),
                     // Quick Search needs to be displayed
                     glib::subclass::Signal::builder("show-quick-search")
                         .param_types([gtk::Widget::static_type()])
@@ -2716,17 +2712,6 @@ impl FileList {
         )
     }
 
-    pub fn connect_cmdline_execute<F>(&self, callback: F) -> glib::SignalHandlerId
-    where
-        F: Fn(&Self) -> bool + 'static,
-    {
-        self.connect_closure(
-            "cmdline-execute",
-            false,
-            glib::closure_local!(move |this| (callback)(this)),
-        )
-    }
-
     pub fn connect_list_clicked<F>(&self, callback: F) -> glib::SignalHandlerId
     where
         F: Fn(&Self, u32, Option<File>) + 'static,
@@ -2805,8 +2790,7 @@ impl FileList {
     }
 
     pub fn open_file(&self) {
-        let event_processed = self.emit_by_name::<bool>("cmdline-execute", &[]);
-        if !event_processed && let Some(file) = self.focused_file() {
+        if let Some(file) = self.focused_file() {
             self.emit_by_name::<()>("file-activated", &[&file]);
         }
     }
