@@ -1131,9 +1131,7 @@ impl MainWindow {
         // Reset legacy option, making sure we don't import it more than once
         options
             .legacy_keybindings
-            .set(glib::Variant::array_from_iter::<LegacyShortcutVariant>(
-                [].into_iter(),
-            ))?;
+            .set(glib::Variant::array_from_iter::<LegacyShortcutVariant>([]))?;
 
         self.save_tabs(
             options.save_tabs_on_exit.get(),

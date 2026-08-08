@@ -59,16 +59,13 @@ impl Searcher {
     }
 
     fn progress(&self, position: u64) -> u32 {
-        if self.max_offset == 0 {
-            0
+        (if let Some(position) = position.checked_mul(1000) {
+            position.checked_div(self.max_offset)
         } else {
-            (if let Some(position) = position.checked_mul(1000) {
-                position / self.max_offset
-            } else {
-                //  Overflow, file is too large
-                position / (self.max_offset / 1000)
-            }) as u32
-        }
+            //  Overflow, file is too large
+            position.checked_div(self.max_offset / 1000)
+        })
+        .unwrap_or_default() as u32
     }
 
     #[inline]

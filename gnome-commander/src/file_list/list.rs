@@ -1394,10 +1394,10 @@ mod imp {
                             }
                         }
                         Some(CONTROL) => item.toggle_selected(),
-                        Some(NO_MOD) => {
-                            if !item.selected() && self.left_mouse_button_unselects.get() {
-                                self.obj().unselect_all();
-                            }
+                        Some(NO_MOD)
+                            if !item.selected() && self.left_mouse_button_unselects.get() =>
+                        {
+                            self.obj().unselect_all();
                         }
                         _ => {}
                     }
