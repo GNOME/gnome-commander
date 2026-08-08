@@ -2787,7 +2787,6 @@ impl FileList {
         let popover = gtk::PopoverMenu::from_model(Some(&menu));
         popover.set_parent(self);
         popover.set_position(gtk::PositionType::Bottom);
-        popover.set_flags(gtk::PopoverMenuFlags::NESTED);
         popover.set_pointing_to(
             point_to
                 .cloned()
