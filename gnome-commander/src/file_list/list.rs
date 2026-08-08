@@ -1086,12 +1086,12 @@ mod imp {
                         }
                     })
                     .collect::<Vec<_>>();
-                if let Some(new_position) = (0..=current_position)
-                    .rev()
+                if let Some(new_position) = (current_position..self.selection.n_items())
                     .find(|pos| removed.binary_search(&(*pos as usize)).is_err())
                     .or_else(|| {
-                        (current_position + 1 < self.selection.n_items())
-                            .then(|| current_position + 1)
+                        (0..current_position)
+                            .rev()
+                            .find(|pos| removed.binary_search(&(*pos as usize)).is_err())
                     })
                 {
                     obj.select_row(new_position);
