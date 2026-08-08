@@ -59,12 +59,9 @@ mod imp {
                 .vexpand(true)
                 .context_menu_model(&{
                     let menu = gio::Menu::new();
-                    menu.append(Some(&gettext("_Copy")), Some("cmdline.term-copy"));
-                    menu.append(Some(&gettext("_Paste")), Some("cmdline.term-paste"));
-                    menu.append(
-                        Some(&gettext("_Select all")),
-                        Some("cmdline.term-select-all"),
-                    );
+                    menu.append(Some(&gettext("_Copy")), Some("term.copy"));
+                    menu.append(Some(&gettext("_Paste")), Some("term.paste"));
+                    menu.append(Some(&gettext("_Select all")), Some("term.select-all"));
                     menu
                 })
                 .build();
@@ -118,7 +115,7 @@ mod imp {
                 move |_| {
                     if let Some(action) = imp
                         .action_group
-                        .lookup_action("term-copy")
+                        .lookup_action("copy")
                         .and_downcast::<gio::SimpleAction>()
                     {
                         action.set_enabled(
@@ -322,7 +319,7 @@ mod imp {
         fn setup_actions(&self) {
             let obj = self.obj();
 
-            let action = gio::SimpleAction::new("term-copy", None);
+            let action = gio::SimpleAction::new("copy", None);
             action.set_enabled(false);
             action.connect_activate(glib::clone!(
                 #[weak]
@@ -331,7 +328,7 @@ mod imp {
             ));
             self.action_group.add_action(&action);
 
-            let action = gio::SimpleAction::new("term-paste", None);
+            let action = gio::SimpleAction::new("paste", None);
             action.set_enabled(false);
             action.connect_activate(glib::clone!(
                 #[weak]
@@ -340,7 +337,7 @@ mod imp {
             ));
             self.action_group.add_action(&action);
 
-            let action = gio::SimpleAction::new("term-select-all", None);
+            let action = gio::SimpleAction::new("select-all", None);
             action.connect_activate(glib::clone!(
                 #[weak]
                 obj,
@@ -348,16 +345,18 @@ mod imp {
             ));
             self.action_group.add_action(&action);
 
-            obj.insert_action_group("cmdline", Some(&self.action_group));
+            obj.imp()
+                .terminal
+                .insert_action_group("term", Some(&self.action_group));
 
             let shortcuts = gtk::ShortcutController::new();
             shortcuts.add_shortcut(gtk::Shortcut::new(
                 gtk::ShortcutTrigger::parse_string("<Ctrl><Shift>c"),
-                Some(gtk::NamedAction::new("cmdline.term-copy")),
+                Some(gtk::NamedAction::new("term.copy")),
             ));
             shortcuts.add_shortcut(gtk::Shortcut::new(
                 gtk::ShortcutTrigger::parse_string("<Ctrl><Shift>v"),
-                Some(gtk::NamedAction::new("cmdline.term-paste")),
+                Some(gtk::NamedAction::new("term.paste")),
             ));
             obj.imp().terminal.add_controller(shortcuts);
         }
@@ -528,7 +527,7 @@ impl CommandLine {
         if let Some(action) = self
             .imp()
             .action_group
-            .lookup_action("term-paste")
+            .lookup_action("paste")
             .and_downcast::<gio::SimpleAction>()
         {
             action.set_enabled(true);
@@ -548,7 +547,7 @@ impl CommandLine {
         if let Some(action) = self
             .imp()
             .action_group
-            .lookup_action("term-paste")
+            .lookup_action("paste")
             .and_downcast::<gio::SimpleAction>()
         {
             action.set_enabled(false);
