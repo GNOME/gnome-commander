@@ -260,11 +260,7 @@ impl DataPresentation {
 
         let mut offset = start_of_line;
 
-        loop {
-            let Some(value) = input_mode.raw_byte(offset) else {
-                break;
-            };
-
+        while let Some(value) = input_mode.raw_byte(offset) {
             offset = input_mode.next_char_offset(offset);
 
             // break upon end of line

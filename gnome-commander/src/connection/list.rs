@@ -213,7 +213,7 @@ impl ConnectionList {
                 if file.has_uri_scheme("file") {
                     con.downcast_ref::<ConnectionDevice>()
                         .and_then(|con| con.mountp_string())
-                        .and_then(|mount_path| file.path().map(|path| (mount_path, path)))
+                        .zip(file.path())
                         .is_some_and(|(mount_path, path)| path.starts_with(mount_path))
                 } else {
                     con.downcast_ref::<ConnectionRemote>()
