@@ -61,10 +61,7 @@ mod imp {
                     let menu = gio::Menu::new();
                     menu.append(Some(&gettext("_Copy")), Some("term.copy"));
                     menu.append(Some(&gettext("_Paste")), Some("term.paste"));
-                    menu.append(
-                        Some(&gettext("_Select all")),
-                        Some("term.select-all"),
-                    );
+                    menu.append(Some(&gettext("_Select all")), Some("term.select-all"));
                     menu
                 })
                 .build();
@@ -348,7 +345,9 @@ mod imp {
             ));
             self.action_group.add_action(&action);
 
-            obj.imp().terminal.insert_action_group("term", Some(&self.action_group));
+            obj.imp()
+                .terminal
+                .insert_action_group("term", Some(&self.action_group));
 
             let shortcuts = gtk::ShortcutController::new();
             shortcuts.add_shortcut(gtk::Shortcut::new(
