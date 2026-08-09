@@ -259,6 +259,9 @@ impl Component for ViewerWindow {
 
                         gtk::Label {
                             .set_label(viewer.short_title());
+                            .set_width_chars(40);
+                            .set_ellipsize(pango::EllipsizeMode::Middle);
+                            .set_tooltip_text(Some(viewer.short_title()));
                         }
 
                         gtk::Button {
