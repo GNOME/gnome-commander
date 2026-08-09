@@ -383,6 +383,7 @@ mod imp {
                 .vexpand(true)
                 .hscrollbar_policy(gtk::PolicyType::Automatic)
                 .vscrollbar_policy(gtk::PolicyType::Automatic)
+                .css_classes(["gnome-cmd-file-selector", "active"])
                 .child(&*result_list)
                 .build();
             grid.attach(&sw, 0, 2, 2, 1);
