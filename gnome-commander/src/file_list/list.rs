@@ -1962,7 +1962,11 @@ impl FileList {
     }
 
     pub fn show_dir_tree_size(&self, position: u32) {
-        if let Some(item) = self.imp().item_at(position) {
+        if let Some(item) = self
+            .imp()
+            .item_at(position)
+            .filter(|i| !i.file().is_dotdot())
+        {
             let cancellable = self.new_size_calculation_cancellable();
             glib::spawn_future_local(async move {
                 item.set_size(
