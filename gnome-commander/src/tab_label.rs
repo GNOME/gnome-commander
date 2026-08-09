@@ -15,6 +15,7 @@ mod imp {
     pub struct TabLabel {
         tab_label_pin: gtk::Image,
         tab_label_text: gtk::Label,
+        pub(super) close_button: gtk::Button,
 
         #[property(get, set = Self::set_label)]
         label: RefCell<String>,
@@ -39,6 +40,10 @@ mod imp {
                     "gnome-commander-pin",
                 ])),
                 tab_label_text: gtk::Label::builder().hexpand(true).build(),
+                close_button: gtk::Button::builder()
+                    .icon_name("window-close")
+                    .focusable(false)
+                    .build(),
                 label: Default::default(),
                 locked: Default::default(),
                 indicator: Default::default(),
@@ -60,6 +65,9 @@ mod imp {
 
             self.tab_label_pin.set_parent(&*this);
             self.tab_label_text.set_parent(&*this);
+
+            self.close_button.add_css_class("flat");
+            self.close_button.set_parent(&*this);
         }
     }
 
@@ -127,6 +135,19 @@ glib::wrapper! {
 impl Default for TabLabel {
     fn default() -> Self {
         glib::Object::builder().build()
+    }
+}
+
+impl TabLabel {
+    pub fn connect_close<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self) + 'static,
+    {
+        self.imp().close_button.connect_clicked(glib::clone!(
+            #[weak(rename_to = this)]
+            self,
+            move |_| callback(&this)
+        ))
     }
 }
 

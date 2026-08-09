@@ -619,10 +619,24 @@ impl FileSelector {
             }
         }
 
-        let n = self
-            .imp()
-            .notebook
-            .append_page(&fl, Some(&TabLabel::default()));
+        let label = TabLabel::default();
+        label.connect_close(glib::clone!(
+            #[weak(rename_to = this)]
+            self,
+            #[weak]
+            fl,
+            move |_| {
+                glib::spawn_future_local(async move {
+                    if let Some(index) = this.imp().notebook.page_num(&fl)
+                        && let Some(window) = this.root().and_downcast::<gtk::Window>()
+                        && (!this.is_tab_locked(&fl) || ask_close_locked_tab(&window).await)
+                    {
+                        this.close_tab_nth(index);
+                    }
+                });
+            }
+        ));
+        let n = self.imp().notebook.append_page(&fl, Some(&label));
         self.update_show_tabs();
         self.imp().notebook.set_tab_reorderable(&fl, true);
         fl.update_style(self.root().and_downcast::<MainWindow>().as_ref());
