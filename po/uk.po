@@ -7,17 +7,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander 1.3.0\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
-"POT-Creation-Date: 2026-06-14 13:58+0000\n"
-"PO-Revision-Date: 2026-07-25 15:38+0300\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/"
+"\n"
+"POT-Creation-Date: 2026-08-09 10:08+0000\n"
+"PO-Revision-Date: 2026-08-09 19:29+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n%10>=2"
-" && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n%10>="
+"2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 25.12.1\n"
 
 #: data/org.gnome.gnome-commander.desktop.in:2
@@ -34,8 +35,8 @@ msgstr "Програма для керування файлами з двопа�
 #: data/org.gnome.gnome-commander.desktop.in:5
 msgid "file;manager;folder;explore;disk;filesystem;"
 msgstr ""
-"file;manager;folder;explore;disk;filesystem;файл;керування;менеджер;тека;навіг"
-"ація;диск;файлова "
+"file;manager;folder;explore;disk;filesystem;файл;керування;менеджер;тека;наві"
+"гація;диск;файлова "
 "система;"
 
 #: data/org.gnome.gnome-commander.gschema.xml:52
@@ -183,7 +184,8 @@ msgid "Right mouse button mode"
 msgstr "Режим правої кнопки миші"
 
 #: data/org.gnome.gnome-commander.gschema.xml:147
-msgid "Defines what happens when the right mouse button is clicked on an item."
+msgid ""
+"Defines what happens when the right mouse button is clicked on an item."
 msgstr "Визначає дію у відповідь на клацання правою кнопкою миші на пункті."
 
 #: data/org.gnome.gnome-commander.gschema.xml:153
@@ -523,7 +525,8 @@ msgid "Save commandline history on exit"
 msgstr "Зберігати журнал командного рядка при виході"
 
 #: data/org.gnome.gnome-commander.gschema.xml:413
-msgid "Defines if the history of commands in the commandline is saved on exit."
+msgid ""
+"Defines if the history of commands in the commandline is saved on exit."
 msgstr ""
 "Визначає, чи буде програма зберігати журнал команд, відданих у командному "
 "рядку, при виході."
@@ -534,7 +537,8 @@ msgstr "Зберігати журнал пошуку при виході"
 
 #: data/org.gnome.gnome-commander.gschema.xml:420
 msgid "Defines if the history of search patterns is saved on exit."
-msgstr "Визначає, чи буде програма зберігати журнал взірців пошуку при виході."
+msgstr ""
+"Визначає, чи буде програма зберігати журнал взірців пошуку при виході."
 
 #: data/org.gnome.gnome-commander.gschema.xml:426
 msgid "Always show tab bar"
@@ -904,7 +908,8 @@ msgstr "Команда засобу перегляду"
 
 #: data/org.gnome.gnome-commander.gschema.xml:703
 msgid "This string defines the command for starting the (external) viewer."
-msgstr "Цей рядок визначає команду для запуску (зовнішнього) засобу перегляду."
+msgstr ""
+"Цей рядок визначає команду для запуску (зовнішнього) засобу перегляду."
 
 #: data/org.gnome.gnome-commander.gschema.xml:709
 msgid "Editor command"
@@ -1415,13 +1420,10 @@ msgstr ""
 "спеціалізованими програмами та виконанні добре продуманих команд."
 
 #: data/org.gnome.gnome-commander.metainfo.xml.in:36
-#| msgid "File Manager"
 msgid "file manager"
 msgstr "менеджер файлів"
 
 #: data/org.gnome.gnome-commander.metainfo.xml.in:37
-#| msgid "{} file listed"
-#| msgid_plural "{} files listed"
 msgid "file system"
 msgstr "файлова система"
 
@@ -1435,12 +1437,10 @@ msgid "FTP"
 msgstr "FTP"
 
 #: data/org.gnome.gnome-commander.metainfo.xml.in:40
-#| msgid "WebDAV (HTTP)"
 msgid "WebDAV"
 msgstr "WebDAV"
 
 #: data/org.gnome.gnome-commander.metainfo.xml.in:54
-#| msgid "Gnome Commander"
 msgid "The Gnome Commander team"
 msgstr "Команда Gnome Commander"
 
@@ -1490,7 +1490,7 @@ msgstr "Результат"
 #: gnome-commander/src/dialogs/remote_dialog.rs:151
 #: gnome-commander/src/dialogs/shortcuts_dialog/mod.rs:156
 #: gnome-commander/src/intviewer/window.rs:619
-#: gnome-commander/src/main_win.rs:1497
+#: gnome-commander/src/main_win.rs:1495
 #: gnome-commander/src/search/search_dialog.rs:402
 msgid "_Help"
 msgstr "_Довідка"
@@ -1569,7 +1569,7 @@ msgstr "_Додати"
 #: gnome-commander/src/dialogs/options/devices_widget.rs:61
 #: gnome-commander/src/dialogs/profiles/manage_profiles_dialog.rs:159
 #: gnome-commander/src/dialogs/remote_dialog.rs:56
-#: gnome-commander/src/main_win.rs:1376
+#: gnome-commander/src/main_win.rs:1374
 msgid "_Edit"
 msgstr "_Правка"
 
@@ -1861,7 +1861,7 @@ msgstr "_Інвертувати позначення"
 #: gnome-commander/src/dialogs/shortcuts_dialog/mod.rs:163
 #: gnome-commander/src/dialogs/shortcuts_dialog/mod.rs:655
 #: gnome-commander/src/dialogs/transfer_progress_dialog.rs:73
-#: gnome-commander/src/file_selector.rs:1625
+#: gnome-commander/src/file_selector.rs:1622
 #: gnome-commander/src/open_connection.rs:38
 #: gnome-commander/src/open_file.rs:23 gnome-commander/src/open_file.rs:45
 #: gnome-commander/src/user_actions.rs:849 plugins/archives.py:354
@@ -1965,27 +1965,38 @@ msgstr "Текстове представлення:"
 msgid "Number view:"
 msgstr "Числове представлення:"
 
-#: gnome-commander/src/command_line.rs:62
+#: gnome-commander/src/command_line.rs:70
 #: gnome-commander/src/user_actions.rs:1754
 msgid "_Copy"
 msgstr "_Копіювати"
 
-#: gnome-commander/src/command_line.rs:63
+#: gnome-commander/src/command_line.rs:71
 #: gnome-commander/src/user_actions.rs:1760
 msgid "_Paste"
 msgstr "Вст_авити"
 
-#: gnome-commander/src/command_line.rs:65
+#: gnome-commander/src/command_line.rs:72
 msgid "_Select all"
 msgstr "_Вибрати все"
 
-#: gnome-commander/src/command_line.rs:108 gnome-commander/src/shortcuts.rs:41
+#: gnome-commander/src/command_line.rs:77
+#| msgid "Command Line"
+msgid "Command exited"
+msgstr "Команда завершила роботу"
+
+#: gnome-commander/src/command_line.rs:116 gnome-commander/src/shortcuts.rs:41
 msgid "Command Line"
 msgstr "Командний рядок"
 
-#: gnome-commander/src/command_line.rs:150
+#: gnome-commander/src/command_line.rs:166
 msgid "If you run a command its output will appear here."
 msgstr "Якщо ви віддасте команду, тут буде показано виведені нею дані."
+
+#: gnome-commander/src/command_line.rs:563
+#, rust-format
+#| msgid "Mount failed: mount exited with exitstatus {}"
+msgid "Command exited with status {}"
+msgstr "Команда завершила роботу зі станом {}"
 
 #: gnome-commander/src/connection/device.rs:174
 #: gnome-commander/src/connection/device.rs:188
@@ -2058,7 +2069,8 @@ msgstr "Не вдалося змонтувати: команда mount заве�
 #: gnome-commander/src/connection/device.rs:471
 #, rust-format
 msgid "Unmount failed: umount exited with exitstatus {}"
-msgstr "Не вдалося демонтувати: команда umount завершилась зі станом виходу {}"
+msgstr ""
+"Не вдалося демонтувати: команда umount завершилась зі станом виходу {}"
 
 #: gnome-commander/src/connection/device.rs:475
 msgid "Failed to execute the umount command"
@@ -2348,8 +2360,8 @@ msgstr "Скасувати"
 #: gnome-commander/src/dialogs/options/confirmation_tab.rs:111
 #: gnome-commander/src/dialogs/prepare_copy_dialog.rs:62
 #: gnome-commander/src/dialogs/prepare_move_dialog.rs:62
-#: gnome-commander/src/transfer.rs:457 gnome-commander/src/transfer.rs:497
-#: gnome-commander/src/transfer.rs:558 gnome-commander/src/transfer.rs:671
+#: gnome-commander/src/transfer.rs:458 gnome-commander/src/transfer.rs:498
+#: gnome-commander/src/transfer.rs:559 gnome-commander/src/transfer.rs:672
 #: gnome-commander/src/user_actions.rs:417
 msgid "Skip"
 msgstr "Пропустити"
@@ -2375,18 +2387,18 @@ msgstr "Помилка при вилученні «{file}»"
 
 #: gnome-commander/src/dialogs/delete_dialog.rs:219
 #: gnome-commander/src/dialogs/delete_dialog.rs:541
-#: gnome-commander/src/transfer.rs:457 gnome-commander/src/transfer.rs:474
-#: gnome-commander/src/transfer.rs:492 gnome-commander/src/transfer.rs:509
-#: gnome-commander/src/transfer.rs:554 gnome-commander/src/transfer.rs:572
-#: gnome-commander/src/transfer.rs:667 gnome-commander/src/transfer.rs:685
+#: gnome-commander/src/transfer.rs:458 gnome-commander/src/transfer.rs:475
+#: gnome-commander/src/transfer.rs:493 gnome-commander/src/transfer.rs:510
+#: gnome-commander/src/transfer.rs:555 gnome-commander/src/transfer.rs:573
+#: gnome-commander/src/transfer.rs:668 gnome-commander/src/transfer.rs:686
 msgid "Abort"
 msgstr "Перервати"
 
 #: gnome-commander/src/dialogs/delete_dialog.rs:219
-#: gnome-commander/src/transfer.rs:457 gnome-commander/src/transfer.rs:493
-#: gnome-commander/src/transfer.rs:510 gnome-commander/src/transfer.rs:555
-#: gnome-commander/src/transfer.rs:573 gnome-commander/src/transfer.rs:668
-#: gnome-commander/src/transfer.rs:686 gnome-commander/src/user_actions.rs:420
+#: gnome-commander/src/transfer.rs:458 gnome-commander/src/transfer.rs:494
+#: gnome-commander/src/transfer.rs:511 gnome-commander/src/transfer.rs:556
+#: gnome-commander/src/transfer.rs:574 gnome-commander/src/transfer.rs:669
+#: gnome-commander/src/transfer.rs:687 gnome-commander/src/user_actions.rs:420
 msgid "Retry"
 msgstr "Повторити"
 
@@ -2744,9 +2756,9 @@ msgstr "Перепитати"
 #: gnome-commander/src/dialogs/options/confirmation_tab.rs:106
 #: gnome-commander/src/dialogs/prepare_copy_dialog.rs:56
 #: gnome-commander/src/dialogs/prepare_move_dialog.rs:56
-#: gnome-commander/src/transfer.rs:495 gnome-commander/src/transfer.rs:512
-#: gnome-commander/src/transfer.rs:557 gnome-commander/src/transfer.rs:575
-#: gnome-commander/src/transfer.rs:670 gnome-commander/src/transfer.rs:688
+#: gnome-commander/src/transfer.rs:496 gnome-commander/src/transfer.rs:513
+#: gnome-commander/src/transfer.rs:558 gnome-commander/src/transfer.rs:576
+#: gnome-commander/src/transfer.rs:671 gnome-commander/src/transfer.rs:689
 msgid "Rename"
 msgstr "Перей_менувати"
 
@@ -2990,7 +3002,8 @@ msgid "Test result:"
 msgstr "Результат перевірки:"
 
 #: gnome-commander/src/dialogs/options/format_tab.rs:129
-msgid "See the help page in the documentation on how to set the format string."
+msgid ""
+"See the help page in the documentation on how to set the format string."
 msgstr ""
 "Щоб зрозуміти, як встановити формат, ознайомтеся зі сторінкою довідки у "
 "документації."
@@ -3697,12 +3710,12 @@ msgstr "Файли: {selected_files} з {total_files}."
 msgid "Directories: {selected_dirs} of {total_dirs}."
 msgstr "Каталоги: {selected_dirs} з {total_dirs}."
 
-#: gnome-commander/src/file_list/list.rs:2573
+#: gnome-commander/src/file_list/list.rs:2574
 #, rust-format
 msgid "Cannot rename a file to {new_name}"
 msgstr "Не вдалося перейменувати файл на {new_name}"
 
-#: gnome-commander/src/file_list/list.rs:3120
+#: gnome-commander/src/file_list/list.rs:3108
 msgid "<DIR>"
 msgstr "<КАТ>"
 
@@ -3748,64 +3761,64 @@ msgstr "Опис"
 msgid "Failed to get file info for {path}."
 msgstr "Не вдалося отримати відомості щодо файла для {path}."
 
-#: gnome-commander/src/file_selector.rs:1131
+#: gnome-commander/src/file_selector.rs:1128
 msgid "Add current dir"
 msgstr "Додати поточний каталог"
 
-#: gnome-commander/src/file_selector.rs:1133
+#: gnome-commander/src/file_selector.rs:1130
 msgid "Manage bookmarks…"
 msgstr "Керування закладками…"
 
-#: gnome-commander/src/file_selector.rs:1256
+#: gnome-commander/src/file_selector.rs:1253
 msgid "%s free"
 msgstr "%s вільно"
 
-#: gnome-commander/src/file_selector.rs:1262
+#: gnome-commander/src/file_selector.rs:1259
 msgid "Unknown disk usage"
 msgstr "Невідоме використання диску"
 
-#: gnome-commander/src/file_selector.rs:1624
+#: gnome-commander/src/file_selector.rs:1621
 #: gnome-commander/src/user_actions.rs:848
 msgid "The tab is locked, close anyway?"
 msgstr "Вкладку заблоковано. Закрити її попри це?"
 
-#: gnome-commander/src/file_selector.rs:1625
+#: gnome-commander/src/file_selector.rs:1622
 #: gnome-commander/src/user_actions.rs:849
 msgid "C_lose Tab"
 msgstr "Закр_ити вкладку"
 
-#: gnome-commander/src/file_selector.rs:1666
+#: gnome-commander/src/file_selector.rs:1663
 #: gnome-commander/src/user_actions.rs:1936
 msgid "Open in New _Tab"
 msgstr "_Відкрити на новій вкладці"
 
-#: gnome-commander/src/file_selector.rs:1675
+#: gnome-commander/src/file_selector.rs:1672
 msgid "_Unlock Tab"
 msgstr "Р_озблокувати вкладку"
 
-#: gnome-commander/src/file_selector.rs:1677
+#: gnome-commander/src/file_selector.rs:1674
 msgid "_Lock Tab"
 msgstr "За_блокувати вкладку"
 
-#: gnome-commander/src/file_selector.rs:1689
+#: gnome-commander/src/file_selector.rs:1686
 msgid "_Refresh Tab"
 msgstr "_Оновити вкладку"
 
-#: gnome-commander/src/file_selector.rs:1698
+#: gnome-commander/src/file_selector.rs:1695
 msgid "Copy Tab to Other _Panel"
 msgstr "Копіювати вкладку у іншу _панель"
 
-#: gnome-commander/src/file_selector.rs:1704
+#: gnome-commander/src/file_selector.rs:1701
 #: gnome-commander/src/user_actions.rs:1942
 msgid "_Close Tab"
 msgstr "_Закрити вкладки"
 
-#: gnome-commander/src/file_selector.rs:1708
+#: gnome-commander/src/file_selector.rs:1705
 #: gnome-commander/src/user_actions.rs:1948
 msgid "Close _All Tabs"
 msgstr "_Закрити всі вкладки"
 
-#: gnome-commander/src/file_selector.rs:1712
+#: gnome-commander/src/file_selector.rs:1709
 msgid "Close _Duplicate Tabs"
 msgstr "Закрити _дублювати вкладок"
 
@@ -3847,7 +3860,7 @@ msgid "Cannot translate into text encoding"
 msgstr "Не вдалося перенести до кодування тексту"
 
 #: gnome-commander/src/intviewer/window.rs:508
-#: gnome-commander/src/main_win.rs:1352
+#: gnome-commander/src/main_win.rs:1350
 msgid "_File"
 msgstr "_Файл"
 
@@ -3856,7 +3869,7 @@ msgid "_Quit"
 msgstr "Ви_йти"
 
 #: gnome-commander/src/intviewer/window.rs:512
-#: gnome-commander/src/main_win.rs:1405
+#: gnome-commander/src/main_win.rs:1403
 msgid "_View"
 msgstr "_Вигляд"
 
@@ -4036,7 +4049,7 @@ msgid "Flip _Horizontal"
 msgstr "Відобразити _горизонтально"
 
 #: gnome-commander/src/intviewer/window.rs:604
-#: gnome-commander/src/main_win.rs:1441
+#: gnome-commander/src/main_win.rs:1439
 msgid "_Settings"
 msgstr "Н_астройки"
 
@@ -4117,27 +4130,27 @@ msgstr "Gnome Commander – З ПРАВАМИ ROOT"
 msgid "Drop connection"
 msgstr "Розірвати з'єднання"
 
-#: gnome-commander/src/main_win.rs:1264
+#: gnome-commander/src/main_win.rs:1262
 msgid "Embedded terminal is busy"
 msgstr "Вбудований термінал зайнято"
 
-#: gnome-commander/src/main_win.rs:1269
+#: gnome-commander/src/main_win.rs:1267
 msgid "Failed starting shell"
 msgstr "Не вдалося запустити командну оболонку"
 
-#: gnome-commander/src/main_win.rs:1388
+#: gnome-commander/src/main_win.rs:1386
 msgid "_Mark"
 msgstr "В_ідмітка"
 
-#: gnome-commander/src/main_win.rs:1449
+#: gnome-commander/src/main_win.rs:1447
 msgid "_Connections"
 msgstr "З'_єднання"
 
-#: gnome-commander/src/main_win.rs:1461
+#: gnome-commander/src/main_win.rs:1459
 msgid "_Bookmarks"
 msgstr "_Закладки"
 
-#: gnome-commander/src/main_win.rs:1481
+#: gnome-commander/src/main_win.rs:1479
 msgid "_Plugins"
 msgstr "_Модулі"
 
@@ -4525,43 +4538,43 @@ msgstr "Висота у пікселях."
 msgid "Width and height in pixels."
 msgstr "Ширина і висота у пікселях."
 
-#: gnome-commander/src/transfer.rs:89
+#: gnome-commander/src/transfer.rs:90
 msgid "Copying a directory into itself is a bad idea."
 msgstr "Не варто копіювати каталог сам у себе."
 
-#: gnome-commander/src/transfer.rs:90 gnome-commander/src/transfer.rs:163
-#: gnome-commander/src/transfer.rs:236
+#: gnome-commander/src/transfer.rs:91 gnome-commander/src/transfer.rs:164
+#: gnome-commander/src/transfer.rs:237
 msgid "The whole operation was cancelled."
 msgstr "Операція цілком відмінена."
 
-#: gnome-commander/src/transfer.rs:125 gnome-commander/src/transfer.rs:198
-#: gnome-commander/src/transfer.rs:271
+#: gnome-commander/src/transfer.rs:126 gnome-commander/src/transfer.rs:199
+#: gnome-commander/src/transfer.rs:272
 msgid "preparing…"
 msgstr "приготування…"
 
-#: gnome-commander/src/transfer.rs:162 gnome-commander/src/transfer.rs:235
+#: gnome-commander/src/transfer.rs:163 gnome-commander/src/transfer.rs:236
 msgid "Moving a directory into itself is a bad idea."
 msgstr "Не варто пересувати каталог сам у себе."
 
-#: gnome-commander/src/transfer.rs:305
+#: gnome-commander/src/transfer.rs:306
 msgid "downloading to /tmp"
 msgstr "завантаження в /tmp"
 
-#: gnome-commander/src/transfer.rs:494 gnome-commander/src/transfer.rs:511
+#: gnome-commander/src/transfer.rs:495 gnome-commander/src/transfer.rs:512
 msgid "Copy into"
 msgstr "Копіювати до"
 
-#: gnome-commander/src/transfer.rs:496 gnome-commander/src/transfer.rs:560
-#: gnome-commander/src/transfer.rs:673
+#: gnome-commander/src/transfer.rs:497 gnome-commander/src/transfer.rs:561
+#: gnome-commander/src/transfer.rs:674
 msgid "Rename all"
 msgstr "Перейменувати все"
 
-#: gnome-commander/src/transfer.rs:498 gnome-commander/src/transfer.rs:561
-#: gnome-commander/src/transfer.rs:674 gnome-commander/src/user_actions.rs:418
+#: gnome-commander/src/transfer.rs:499 gnome-commander/src/transfer.rs:562
+#: gnome-commander/src/transfer.rs:675 gnome-commander/src/user_actions.rs:418
 msgid "Skip all"
 msgstr "Пропустити все"
 
-#: gnome-commander/src/transfer.rs:539 gnome-commander/src/transfer.rs:652
+#: gnome-commander/src/transfer.rs:540 gnome-commander/src/transfer.rs:653
 #, rust-format
 msgid ""
 "Overwrite file:\n"
@@ -4580,51 +4593,51 @@ msgstr ""
 "\n"
 "{src}"
 
-#: gnome-commander/src/transfer.rs:556 gnome-commander/src/transfer.rs:574
-#: gnome-commander/src/transfer.rs:669 gnome-commander/src/transfer.rs:687
+#: gnome-commander/src/transfer.rs:557 gnome-commander/src/transfer.rs:575
+#: gnome-commander/src/transfer.rs:670 gnome-commander/src/transfer.rs:688
 msgid "Replace"
 msgstr "Замінити"
 
-#: gnome-commander/src/transfer.rs:559 gnome-commander/src/transfer.rs:672
+#: gnome-commander/src/transfer.rs:560 gnome-commander/src/transfer.rs:673
 msgid "Replace all"
 msgstr "Замінити все"
 
-#: gnome-commander/src/transfer.rs:611 gnome-commander/src/transfer.rs:716
+#: gnome-commander/src/transfer.rs:612 gnome-commander/src/transfer.rs:717
 #, rust-format
 msgid "Error while transferring “{file}”"
 msgstr "Помилка при передаванні «{file}»"
 
-#: gnome-commander/src/transfer.rs:748
+#: gnome-commander/src/transfer.rs:749
 #, rust-format
 msgid "Error while creating symlink “{file}”"
 msgstr "Помилка під час спроби створення символічного посилання «{file}»"
 
-#: gnome-commander/src/transfer.rs:756
+#: gnome-commander/src/transfer.rs:757
 msgid "Ignore"
 msgstr "Ігнорувати"
 
-#: gnome-commander/src/transfer.rs:815
+#: gnome-commander/src/transfer.rs:816
 msgid "Unrecoverable error"
 msgstr "Критична помилка"
 
-#: gnome-commander/src/transfer.rs:893
+#: gnome-commander/src/transfer.rs:894
 msgid "File enumeration error"
 msgstr "Помилка нумерації файлів"
 
-#: gnome-commander/src/transfer.rs:996
+#: gnome-commander/src/transfer.rs:997
 msgid "Source “%s” could not be copied. Aborting!"
 msgstr "Не вдалося скопіювати джерело «%s» Перериваємо обробку!"
 
-#: gnome-commander/src/transfer.rs:1043
+#: gnome-commander/src/transfer.rs:1044
 msgid "copying…"
 msgstr "копіювання…"
 
-#: gnome-commander/src/transfer.rs:1062
+#: gnome-commander/src/transfer.rs:1063
 #, rust-format
 msgid "[file {index} of {count}] “{file}”"
 msgstr "[файл {index} з {count}] «{file}»"
 
-#: gnome-commander/src/transfer.rs:1121
+#: gnome-commander/src/transfer.rs:1123
 #, rust-format
 msgctxt ""
 "A template for a file name. In a case of a conflict with an existing one."
@@ -4637,7 +4650,8 @@ msgstr "Не вказано команди пошуку."
 
 #: gnome-commander/src/user_actions.rs:198
 msgid "You can set a command for a search tool in the program options."
-msgstr "Ви можете визначити команду — інструмент пошуку у параметрах програми."
+msgstr ""
+"Ви можете визначити команду — інструмент пошуку у параметрах програми."
 
 #: gnome-commander/src/user_actions.rs:302
 msgid "Operation not supported on remote file systems"
@@ -5414,7 +5428,8 @@ msgid "Character Count"
 msgstr "Кількість символів"
 
 #: plugins/document-metadata.py:63
-msgid "Number of characters that a document producer has counted in a document"
+msgid ""
+"Number of characters that a document producer has counted in a document"
 msgstr ""
 "Кількість символів, яку нараховано програмою, за допомогою якої створено "
 "документ"
@@ -5435,7 +5450,8 @@ msgid "Frame Count"
 msgstr "Підрахунок кадрів"
 
 #: plugins/document-metadata.py:65
-msgid "Number of text boxes that a document producer has counted in a document"
+msgid ""
+"Number of text boxes that a document producer has counted in a document"
 msgstr ""
 "Кількість текстових полів, яку нараховано програмою, за допомогою якої "
 "створено документ"
@@ -5501,7 +5517,8 @@ msgid "Paragraph Count"
 msgstr "Кількість параграфів"
 
 #: plugins/document-metadata.py:71
-msgid "Number of paragraphs that a document producer has counted in a document"
+msgid ""
+"Number of paragraphs that a document producer has counted in a document"
 msgstr ""
 "Кількість абзаців, яку нараховано програмою, за допомогою якої створено "
 "документ"
@@ -6627,7 +6644,8 @@ msgstr "Дата і час (оригінал)"
 
 #: plugins/image-metadata.py:116
 msgid "The date and time when the original image data was generated."
-msgstr "Дата і час, коли  початкове зображення було збережене як цифрові дані."
+msgstr ""
+"Дата і час, коли  початкове зображення було збережене як цифрові дані."
 
 #: plugins/image-metadata.py:117
 msgid "Date and Time (digitized)"
@@ -7343,7 +7361,8 @@ msgid "GPS Version ID"
 msgstr "Ідентифікатор версії GPS"
 
 #: plugins/image-metadata.py:194
-msgid "Indicates the version of <GPSInfoIFD>. The version is given as 2.0.0.0."
+msgid ""
+"Indicates the version of <GPSInfoIFD>. The version is given as 2.0.0.0."
 msgstr "Вказує на версію <GPSInfoIFD>. Версія задається у форматі 2.0.0.0."
 
 #: plugins/image-metadata.py:195
