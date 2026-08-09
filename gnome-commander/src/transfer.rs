@@ -21,6 +21,7 @@ use gettextrs::{gettext, pgettext};
 use gtk::{gio, glib, prelude::*};
 use std::{
     cell::{Cell, RefCell},
+    ffi::OsString,
     ops::ControlFlow,
     path::PathBuf,
 };
@@ -1113,15 +1114,24 @@ fn new_nonexisting_dest_file(file: &gio::File) -> ControlFlow<BreakReason, gio::
 fn find_nonexisting_name(file: &gio::File) -> Option<gio::File> {
     let path = file.path()?;
     let parent_path = path.parent()?;
-    let base_name = path.file_name()?.to_string_lossy();
+    let stem = path.file_stem()?;
+    let extension = path.extension();
 
     (1_u64..).find_map(|increment| {
-        let new_name = pgettext(
+        let template = pgettext(
             "A template for a file name. In a case of a conflict with an existing one.",
             "{name} (Copy {number})",
         )
-        .replace("{name}", &base_name)
         .replace("{number}", &increment.to_string());
+        let (prefix, postfix) = template.split_once("{name}")?;
+
+        let mut new_name = OsString::from(prefix);
+        new_name.push(stem);
+        new_name.push(postfix);
+        if let Some(extension) = extension {
+            new_name.push(".");
+            new_name.push(extension);
+        }
 
         let path = parent_path.join(new_name);
         if !path.exists() {
