@@ -62,6 +62,15 @@ use std::process::Termination;
 use crate::config::{PACKAGE, locale_dir};
 
 fn main() -> Result<impl Termination, Box<dyn Error>> {
+    if let Some(mismatch) = glib::check_version(2, 80, 0) {
+        eprintln!("GLib version mismatch: {mismatch}");
+        std::process::exit(1);
+    }
+    if let Some(mismatch) = gtk::check_version(4, 14, 0) {
+        eprintln!("GTK version mismatch: {mismatch}");
+        std::process::exit(1);
+    }
+
     gettextrs::setlocale(gettextrs::LocaleCategory::LcAll, "");
     gettextrs::bindtextdomain(PACKAGE, locale_dir())?;
     gettextrs::bind_textdomain_codeset(PACKAGE, "UTF-8")?;
