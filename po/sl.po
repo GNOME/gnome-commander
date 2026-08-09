@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
-"POT-Creation-Date: 2026-06-14 13:58+0000\n"
-"PO-Revision-Date: 2026-07-24 23:20+0200\n"
+"POT-Creation-Date: 2026-08-09 09:08+0000\n"
+"PO-Revision-Date: 2026-08-09 11:32+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -1266,7 +1266,7 @@ msgstr "Rezultati"
 #: gnome-commander/src/dialogs/profiles/edit_profile_dialog.rs:55
 #: gnome-commander/src/dialogs/profiles/manage_profiles_dialog.rs:215
 #: gnome-commander/src/dialogs/remote_dialog.rs:151 gnome-commander/src/dialogs/shortcuts_dialog/mod.rs:156
-#: gnome-commander/src/intviewer/window.rs:619 gnome-commander/src/main_win.rs:1497
+#: gnome-commander/src/intviewer/window.rs:619 gnome-commander/src/main_win.rs:1495
 #: gnome-commander/src/search/search_dialog.rs:402
 msgid "_Help"
 msgstr "Pomo_č"
@@ -1341,7 +1341,7 @@ msgstr "_Dodaj"
 #: gnome-commander/src/dialogs/options/apps_widget.rs:74
 #: gnome-commander/src/dialogs/options/devices_widget.rs:61
 #: gnome-commander/src/dialogs/profiles/manage_profiles_dialog.rs:159
-#: gnome-commander/src/dialogs/remote_dialog.rs:56 gnome-commander/src/main_win.rs:1376
+#: gnome-commander/src/dialogs/remote_dialog.rs:56 gnome-commander/src/main_win.rs:1374
 msgid "_Edit"
 msgstr "_Uredi"
 
@@ -1624,7 +1624,7 @@ msgstr "_Obrni izbor"
 #: gnome-commander/src/dialogs/profiles/manage_profiles_dialog.rs:237
 #: gnome-commander/src/dialogs/shortcuts_dialog/mod.rs:163
 #: gnome-commander/src/dialogs/shortcuts_dialog/mod.rs:655
-#: gnome-commander/src/dialogs/transfer_progress_dialog.rs:73 gnome-commander/src/file_selector.rs:1625
+#: gnome-commander/src/dialogs/transfer_progress_dialog.rs:73 gnome-commander/src/file_selector.rs:1608
 #: gnome-commander/src/open_connection.rs:38 gnome-commander/src/open_file.rs:23
 #: gnome-commander/src/open_file.rs:45 gnome-commander/src/user_actions.rs:849 plugins/archives.py:354
 msgid "_Cancel"
@@ -1725,25 +1725,34 @@ msgstr "Pogled besedila:"
 msgid "Number view:"
 msgstr "Pogled številk:"
 
-#: gnome-commander/src/command_line.rs:62 gnome-commander/src/user_actions.rs:1754
+#: gnome-commander/src/command_line.rs:70 gnome-commander/src/user_actions.rs:1754
 msgid "_Copy"
 msgstr "_Kopiraj"
 
-#: gnome-commander/src/command_line.rs:63 gnome-commander/src/user_actions.rs:1760
+#: gnome-commander/src/command_line.rs:71 gnome-commander/src/user_actions.rs:1760
 msgid "_Paste"
 msgstr "_Prilepi"
 
-#: gnome-commander/src/command_line.rs:65
+#: gnome-commander/src/command_line.rs:72
 msgid "_Select all"
 msgstr "Izberi _vse"
 
-#: gnome-commander/src/command_line.rs:108 gnome-commander/src/shortcuts.rs:41
+#: gnome-commander/src/command_line.rs:77
+msgid "Command exited"
+msgstr "Ukaz zaključen"
+
+#: gnome-commander/src/command_line.rs:116 gnome-commander/src/shortcuts.rs:41
 msgid "Command Line"
 msgstr "Ukazna vrstica"
 
-#: gnome-commander/src/command_line.rs:150
+#: gnome-commander/src/command_line.rs:166
 msgid "If you run a command its output will appear here."
 msgstr "Če izvedete ukaz, se bo izhod pojavil tukaj."
+
+#: gnome-commander/src/command_line.rs:563
+#, rust-format
+msgid "Command exited with status {}"
+msgstr "Ukaz zaključen s stanjem {}"
 
 #: gnome-commander/src/connection/device.rs:174 gnome-commander/src/connection/device.rs:188
 #: gnome-commander/src/connection/device.rs:218 gnome-commander/src/connection/device.rs:240
@@ -2094,9 +2103,9 @@ msgstr "Prekliči"
 #: gnome-commander/src/dialogs/options/confirmation_tab.rs:82
 #: gnome-commander/src/dialogs/options/confirmation_tab.rs:111
 #: gnome-commander/src/dialogs/prepare_copy_dialog.rs:62
-#: gnome-commander/src/dialogs/prepare_move_dialog.rs:62 gnome-commander/src/transfer.rs:457
-#: gnome-commander/src/transfer.rs:497 gnome-commander/src/transfer.rs:558
-#: gnome-commander/src/transfer.rs:671 gnome-commander/src/user_actions.rs:417
+#: gnome-commander/src/dialogs/prepare_move_dialog.rs:62 gnome-commander/src/transfer.rs:458
+#: gnome-commander/src/transfer.rs:498 gnome-commander/src/transfer.rs:559
+#: gnome-commander/src/transfer.rs:672 gnome-commander/src/user_actions.rs:417
 msgid "Skip"
 msgstr "Preskoči"
 
@@ -2119,17 +2128,17 @@ msgid "Error while deleting “{file}”"
 msgstr "Napaka pri brisanju »{file}«"
 
 #: gnome-commander/src/dialogs/delete_dialog.rs:219 gnome-commander/src/dialogs/delete_dialog.rs:541
-#: gnome-commander/src/transfer.rs:457 gnome-commander/src/transfer.rs:474
-#: gnome-commander/src/transfer.rs:492 gnome-commander/src/transfer.rs:509
-#: gnome-commander/src/transfer.rs:554 gnome-commander/src/transfer.rs:572
-#: gnome-commander/src/transfer.rs:667 gnome-commander/src/transfer.rs:685
-msgid "Abort"
-msgstr "Prekliči"
-
-#: gnome-commander/src/dialogs/delete_dialog.rs:219 gnome-commander/src/transfer.rs:457
+#: gnome-commander/src/transfer.rs:458 gnome-commander/src/transfer.rs:475
 #: gnome-commander/src/transfer.rs:493 gnome-commander/src/transfer.rs:510
 #: gnome-commander/src/transfer.rs:555 gnome-commander/src/transfer.rs:573
 #: gnome-commander/src/transfer.rs:668 gnome-commander/src/transfer.rs:686
+msgid "Abort"
+msgstr "Prekliči"
+
+#: gnome-commander/src/dialogs/delete_dialog.rs:219 gnome-commander/src/transfer.rs:458
+#: gnome-commander/src/transfer.rs:494 gnome-commander/src/transfer.rs:511
+#: gnome-commander/src/transfer.rs:556 gnome-commander/src/transfer.rs:574
+#: gnome-commander/src/transfer.rs:669 gnome-commander/src/transfer.rs:687
 #: gnome-commander/src/user_actions.rs:420
 msgid "Retry"
 msgstr "Poskusi znova"
@@ -2473,10 +2482,10 @@ msgstr "Najprej izvedi poizvedbo"
 #: gnome-commander/src/dialogs/options/confirmation_tab.rs:77
 #: gnome-commander/src/dialogs/options/confirmation_tab.rs:106
 #: gnome-commander/src/dialogs/prepare_copy_dialog.rs:56
-#: gnome-commander/src/dialogs/prepare_move_dialog.rs:56 gnome-commander/src/transfer.rs:495
-#: gnome-commander/src/transfer.rs:512 gnome-commander/src/transfer.rs:557
-#: gnome-commander/src/transfer.rs:575 gnome-commander/src/transfer.rs:670
-#: gnome-commander/src/transfer.rs:688
+#: gnome-commander/src/dialogs/prepare_move_dialog.rs:56 gnome-commander/src/transfer.rs:496
+#: gnome-commander/src/transfer.rs:513 gnome-commander/src/transfer.rs:558
+#: gnome-commander/src/transfer.rs:576 gnome-commander/src/transfer.rs:671
+#: gnome-commander/src/transfer.rs:689
 msgid "Rename"
 msgstr "Preimenuj"
 
@@ -3330,79 +3339,79 @@ msgstr "Prenos ni uspel."
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Ni mogoče pridobiti vrste MIME za datoteko."
 
-#: gnome-commander/src/file_list/list.rs:371 gnome-commander/src/file_list/list.rs:1892
+#: gnome-commander/src/file_list/list.rs:371 gnome-commander/src/file_list/list.rs:1888
 msgid "name"
 msgstr "ime"
 
-#: gnome-commander/src/file_list/list.rs:377 gnome-commander/src/file_list/list.rs:1893
+#: gnome-commander/src/file_list/list.rs:377 gnome-commander/src/file_list/list.rs:1889
 msgid "ext"
 msgstr "pri"
 
-#: gnome-commander/src/file_list/list.rs:383 gnome-commander/src/file_list/list.rs:1894
+#: gnome-commander/src/file_list/list.rs:383 gnome-commander/src/file_list/list.rs:1890
 msgid "dir"
 msgstr "mapa"
 
-#: gnome-commander/src/file_list/list.rs:389 gnome-commander/src/file_list/list.rs:1895
+#: gnome-commander/src/file_list/list.rs:389 gnome-commander/src/file_list/list.rs:1891
 msgid "size"
 msgstr "velikost"
 
-#: gnome-commander/src/file_list/list.rs:395 gnome-commander/src/file_list/list.rs:1896
+#: gnome-commander/src/file_list/list.rs:395 gnome-commander/src/file_list/list.rs:1892
 msgid "date"
 msgstr "datum"
 
-#: gnome-commander/src/file_list/list.rs:401 gnome-commander/src/file_list/list.rs:1897
+#: gnome-commander/src/file_list/list.rs:401 gnome-commander/src/file_list/list.rs:1893
 msgid "perm"
 msgstr "dov"
 
-#: gnome-commander/src/file_list/list.rs:407 gnome-commander/src/file_list/list.rs:1898
+#: gnome-commander/src/file_list/list.rs:407 gnome-commander/src/file_list/list.rs:1894
 msgid "uid"
 msgstr "uid"
 
-#: gnome-commander/src/file_list/list.rs:413 gnome-commander/src/file_list/list.rs:1899
+#: gnome-commander/src/file_list/list.rs:413 gnome-commander/src/file_list/list.rs:1895
 msgid "gid"
 msgstr "gid"
 
-#: gnome-commander/src/file_list/list.rs:1015
+#: gnome-commander/src/file_list/list.rs:1011
 msgid "Loading…"
 msgstr "Nalaganje …"
 
-#: gnome-commander/src/file_list/list.rs:1701
+#: gnome-commander/src/file_list/list.rs:1697
 msgid "_Copy here"
 msgstr "_Kopiraj sem"
 
-#: gnome-commander/src/file_list/list.rs:1706
+#: gnome-commander/src/file_list/list.rs:1702
 msgid "_Move here"
 msgstr "_Premakni sem"
 
-#: gnome-commander/src/file_list/list.rs:1711
+#: gnome-commander/src/file_list/list.rs:1707
 msgid "_Link here"
 msgstr "_Poveži sem"
 
-#: gnome-commander/src/file_list/list.rs:1717
+#: gnome-commander/src/file_list/list.rs:1713
 msgid "C_ancel"
 msgstr "Pre_kliči"
 
-#: gnome-commander/src/file_list/list.rs:2518
+#: gnome-commander/src/file_list/list.rs:2514
 #, rust-format
 msgid "Selected: {selected_bytes} of {total_bytes}."
 msgstr "Izbranih {selected_bytes} od {total_bytes}."
 
-#: gnome-commander/src/file_list/list.rs:2525
+#: gnome-commander/src/file_list/list.rs:2521
 #, rust-format
 msgid "Files: {selected_files} of {total_files}."
 msgstr "Datoteke: {selected_files} od {total_files}."
 
-#: gnome-commander/src/file_list/list.rs:2529
+#: gnome-commander/src/file_list/list.rs:2525
 #, rust-format
 msgid "Directories: {selected_dirs} of {total_dirs}."
 msgstr "Mape: {selected_dirs} od {total_dirs}."
 
-#: gnome-commander/src/file_list/list.rs:2573
+#: gnome-commander/src/file_list/list.rs:2570
 #, rust-format
 msgid "Cannot rename a file to {new_name}"
 msgstr "Datoteke ni mogoče preimenovati v {new_name}"
 
-#: gnome-commander/src/file_list/list.rs:3120
+#: gnome-commander/src/file_list/list.rs:3104
 msgid "<DIR>"
 msgstr "<MAPA>"
 
@@ -3446,59 +3455,59 @@ msgstr "Opis"
 msgid "Failed to get file info for {path}."
 msgstr "Pridobivanje podatkov o datoteki za {path} ni uspelo."
 
-#: gnome-commander/src/file_selector.rs:1131
+#: gnome-commander/src/file_selector.rs:1114
 msgid "Add current dir"
 msgstr "Dodaj trenutno mapo"
 
-#: gnome-commander/src/file_selector.rs:1133
+#: gnome-commander/src/file_selector.rs:1116
 msgid "Manage bookmarks…"
 msgstr "Upravljanje zaznamkov …"
 
-#: gnome-commander/src/file_selector.rs:1256
+#: gnome-commander/src/file_selector.rs:1239
 msgid "%s free"
 msgstr "Prosto %s"
 
-#: gnome-commander/src/file_selector.rs:1262
+#: gnome-commander/src/file_selector.rs:1245
 msgid "Unknown disk usage"
 msgstr "Nedoločena zasedenost diska"
 
-#: gnome-commander/src/file_selector.rs:1624 gnome-commander/src/user_actions.rs:848
+#: gnome-commander/src/file_selector.rs:1607 gnome-commander/src/user_actions.rs:848
 msgid "The tab is locked, close anyway?"
 msgstr "Zavihek je zaklenjen; naj se vseeno zapre?"
 
-#: gnome-commander/src/file_selector.rs:1625 gnome-commander/src/user_actions.rs:849
+#: gnome-commander/src/file_selector.rs:1608 gnome-commander/src/user_actions.rs:849
 msgid "C_lose Tab"
 msgstr "_Zapri zavihek"
 
-#: gnome-commander/src/file_selector.rs:1666 gnome-commander/src/user_actions.rs:1936
+#: gnome-commander/src/file_selector.rs:1649 gnome-commander/src/user_actions.rs:1936
 msgid "Open in New _Tab"
 msgstr "Odpri v novem _zavihku"
 
-#: gnome-commander/src/file_selector.rs:1675
+#: gnome-commander/src/file_selector.rs:1658
 msgid "_Unlock Tab"
 msgstr "_Odkleni zavihek"
 
-#: gnome-commander/src/file_selector.rs:1677
+#: gnome-commander/src/file_selector.rs:1660
 msgid "_Lock Tab"
 msgstr "_Zakleni zavihek"
 
-#: gnome-commander/src/file_selector.rs:1689
+#: gnome-commander/src/file_selector.rs:1672
 msgid "_Refresh Tab"
 msgstr "O_sveži zavihek"
 
-#: gnome-commander/src/file_selector.rs:1698
+#: gnome-commander/src/file_selector.rs:1681
 msgid "Copy Tab to Other _Panel"
 msgstr "Kopiraj zavihek v drugo _ploščo"
 
-#: gnome-commander/src/file_selector.rs:1704 gnome-commander/src/user_actions.rs:1942
+#: gnome-commander/src/file_selector.rs:1687 gnome-commander/src/user_actions.rs:1942
 msgid "_Close Tab"
 msgstr "_Zapri zavihek"
 
-#: gnome-commander/src/file_selector.rs:1708 gnome-commander/src/user_actions.rs:1948
+#: gnome-commander/src/file_selector.rs:1691 gnome-commander/src/user_actions.rs:1948
 msgid "Close _All Tabs"
 msgstr "Zapri _vse zavihke"
 
-#: gnome-commander/src/file_selector.rs:1712
+#: gnome-commander/src/file_selector.rs:1695
 msgid "Close _Duplicate Tabs"
 msgstr "Zapri po_dvojene zavihke"
 
@@ -3538,7 +3547,7 @@ msgstr "Ni zadetkov"
 msgid "Cannot translate into text encoding"
 msgstr "Ni nožno prevesti v kodiranje besedila"
 
-#: gnome-commander/src/intviewer/window.rs:508 gnome-commander/src/main_win.rs:1352
+#: gnome-commander/src/intviewer/window.rs:508 gnome-commander/src/main_win.rs:1350
 msgid "_File"
 msgstr "_Datoteka"
 
@@ -3546,7 +3555,7 @@ msgstr "_Datoteka"
 msgid "_Quit"
 msgstr "_Izhod"
 
-#: gnome-commander/src/intviewer/window.rs:512 gnome-commander/src/main_win.rs:1405
+#: gnome-commander/src/intviewer/window.rs:512 gnome-commander/src/main_win.rs:1403
 msgid "_View"
 msgstr "Po_gled"
 
@@ -3722,7 +3731,7 @@ msgstr "Obrni _navpično"
 msgid "Flip _Horizontal"
 msgstr "Obrni _vodoravno"
 
-#: gnome-commander/src/intviewer/window.rs:604 gnome-commander/src/main_win.rs:1441
+#: gnome-commander/src/intviewer/window.rs:604 gnome-commander/src/main_win.rs:1439
 msgid "_Settings"
 msgstr "_Nastavitve"
 
@@ -3802,27 +3811,27 @@ msgstr "Gnome Commander - SKRBNIŠKI NAČIN"
 msgid "Drop connection"
 msgstr "Prekini povezavo"
 
-#: gnome-commander/src/main_win.rs:1264
+#: gnome-commander/src/main_win.rs:1262
 msgid "Embedded terminal is busy"
 msgstr "Vgrajeni terminal je zelo zaseden"
 
-#: gnome-commander/src/main_win.rs:1269
+#: gnome-commander/src/main_win.rs:1267
 msgid "Failed starting shell"
 msgstr "Neuspeli zagon lupine"
 
-#: gnome-commander/src/main_win.rs:1388
+#: gnome-commander/src/main_win.rs:1386
 msgid "_Mark"
 msgstr "_Označi"
 
-#: gnome-commander/src/main_win.rs:1449
+#: gnome-commander/src/main_win.rs:1447
 msgid "_Connections"
 msgstr "_Povezave"
 
-#: gnome-commander/src/main_win.rs:1461
+#: gnome-commander/src/main_win.rs:1459
 msgid "_Bookmarks"
 msgstr "_Zaznamki"
 
-#: gnome-commander/src/main_win.rs:1481
+#: gnome-commander/src/main_win.rs:1479
 msgid "_Plugins"
 msgstr "_Vstavki"
 
@@ -4190,43 +4199,43 @@ msgstr "Višina v točkah."
 msgid "Width and height in pixels."
 msgstr "Širina in višina v slikovnih točkah."
 
-#: gnome-commander/src/transfer.rs:89
+#: gnome-commander/src/transfer.rs:90
 msgid "Copying a directory into itself is a bad idea."
 msgstr "Kopiranje mape v samo sebe ni mogoče."
 
-#: gnome-commander/src/transfer.rs:90 gnome-commander/src/transfer.rs:163
-#: gnome-commander/src/transfer.rs:236
+#: gnome-commander/src/transfer.rs:91 gnome-commander/src/transfer.rs:164
+#: gnome-commander/src/transfer.rs:237
 msgid "The whole operation was cancelled."
 msgstr "Celotno opravilo je preklicano."
 
-#: gnome-commander/src/transfer.rs:125 gnome-commander/src/transfer.rs:198
-#: gnome-commander/src/transfer.rs:271
+#: gnome-commander/src/transfer.rs:126 gnome-commander/src/transfer.rs:199
+#: gnome-commander/src/transfer.rs:272
 msgid "preparing…"
 msgstr "poteka pripravljanje …"
 
-#: gnome-commander/src/transfer.rs:162 gnome-commander/src/transfer.rs:235
+#: gnome-commander/src/transfer.rs:163 gnome-commander/src/transfer.rs:236
 msgid "Moving a directory into itself is a bad idea."
 msgstr "Premikanje mape samo vase ni dobra zamisel."
 
-#: gnome-commander/src/transfer.rs:305
+#: gnome-commander/src/transfer.rs:306
 msgid "downloading to /tmp"
 msgstr "prejmi v /tmp"
 
-#: gnome-commander/src/transfer.rs:494 gnome-commander/src/transfer.rs:511
+#: gnome-commander/src/transfer.rs:495 gnome-commander/src/transfer.rs:512
 msgid "Copy into"
 msgstr "Kopiraj v"
 
-#: gnome-commander/src/transfer.rs:496 gnome-commander/src/transfer.rs:560
-#: gnome-commander/src/transfer.rs:673
+#: gnome-commander/src/transfer.rs:497 gnome-commander/src/transfer.rs:561
+#: gnome-commander/src/transfer.rs:674
 msgid "Rename all"
 msgstr "Preimenuj vse"
 
-#: gnome-commander/src/transfer.rs:498 gnome-commander/src/transfer.rs:561
-#: gnome-commander/src/transfer.rs:674 gnome-commander/src/user_actions.rs:418
+#: gnome-commander/src/transfer.rs:499 gnome-commander/src/transfer.rs:562
+#: gnome-commander/src/transfer.rs:675 gnome-commander/src/user_actions.rs:418
 msgid "Skip all"
 msgstr "Preskoči vse"
 
-#: gnome-commander/src/transfer.rs:539 gnome-commander/src/transfer.rs:652
+#: gnome-commander/src/transfer.rs:540 gnome-commander/src/transfer.rs:653
 #, rust-format
 msgid ""
 "Overwrite file:\n"
@@ -4245,51 +4254,51 @@ msgstr ""
 "\n"
 "{src}"
 
-#: gnome-commander/src/transfer.rs:556 gnome-commander/src/transfer.rs:574
-#: gnome-commander/src/transfer.rs:669 gnome-commander/src/transfer.rs:687
+#: gnome-commander/src/transfer.rs:557 gnome-commander/src/transfer.rs:575
+#: gnome-commander/src/transfer.rs:670 gnome-commander/src/transfer.rs:688
 msgid "Replace"
 msgstr "Zamenjaj"
 
-#: gnome-commander/src/transfer.rs:559 gnome-commander/src/transfer.rs:672
+#: gnome-commander/src/transfer.rs:560 gnome-commander/src/transfer.rs:673
 msgid "Replace all"
 msgstr "Zamenjaj vse"
 
-#: gnome-commander/src/transfer.rs:611 gnome-commander/src/transfer.rs:716
+#: gnome-commander/src/transfer.rs:612 gnome-commander/src/transfer.rs:717
 #, rust-format
 msgid "Error while transferring “{file}”"
 msgstr "Napaka pri prenosu »{file}«"
 
-#: gnome-commander/src/transfer.rs:748
+#: gnome-commander/src/transfer.rs:749
 #, rust-format
 msgid "Error while creating symlink “{file}”"
 msgstr "Napaka pri ustvarjanju simbolne povezave »{file}«"
 
-#: gnome-commander/src/transfer.rs:756
+#: gnome-commander/src/transfer.rs:757
 msgid "Ignore"
 msgstr "Prezri"
 
-#: gnome-commander/src/transfer.rs:815
+#: gnome-commander/src/transfer.rs:816
 msgid "Unrecoverable error"
 msgstr "Nepopravljiva napaka"
 
-#: gnome-commander/src/transfer.rs:893
+#: gnome-commander/src/transfer.rs:894
 msgid "File enumeration error"
 msgstr "Napaka pri oštevilčevanju datotek"
 
-#: gnome-commander/src/transfer.rs:996
+#: gnome-commander/src/transfer.rs:997
 msgid "Source “%s” could not be copied. Aborting!"
 msgstr "Vira »%s« ni mogoče kopirati. Opravilo je preklicano!"
 
-#: gnome-commander/src/transfer.rs:1043
+#: gnome-commander/src/transfer.rs:1044
 msgid "copying…"
 msgstr "Kopiranje ..."
 
-#: gnome-commander/src/transfer.rs:1062
+#: gnome-commander/src/transfer.rs:1063
 #, rust-format
 msgid "[file {index} of {count}] “{file}”"
 msgstr "[datoteka {index} / {count}] »{file}«"
 
-#: gnome-commander/src/transfer.rs:1121
+#: gnome-commander/src/transfer.rs:1123
 #, rust-format
 msgctxt "A template for a file name. In a case of a conflict with an existing one."
 msgid "{name} (Copy {number})"
