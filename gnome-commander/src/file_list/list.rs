@@ -813,6 +813,10 @@ mod imp {
                 // Cancel ongoing drop mode selection.
                 sender.toss(None);
             }
+            if let Some(quick_search) = self.quick_search.upgrade() {
+                // Cancel quick search.
+                quick_search.remove();
+            }
 
             let previous_directory = self.directory.replace(directory.clone());
             previous_directory.unpin_from_cache();
