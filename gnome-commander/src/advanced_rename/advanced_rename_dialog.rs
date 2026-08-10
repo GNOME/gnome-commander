@@ -20,7 +20,7 @@ use crate::{
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, graphene, pango, prelude::*, subclass::prelude::*};
-use std::rc::Rc;
+use std::{cell::RefCell, rc::Rc};
 
 const ADVRENAME_HISTORY_SIZE: usize = 10;
 
@@ -1087,20 +1087,22 @@ pub async fn advanced_rename_dialog_show(parent_window: &MainWindow, file_list: 
         return;
     }
 
-    let (dialog, initialized) =
-        if let Some(dialog) = parent_window.get_dialog::<AdvancedRenameDialog>("advrename") {
-            (dialog, true)
+    thread_local! {
+        static DIALOG: RefCell<glib::WeakRef<AdvancedRenameDialog>> = Default::default();
+    }
+
+    let (dialog, initialized) = DIALOG.with_borrow_mut(|stored_dialog| {
+        if let Some(stored_dialog) = stored_dialog.upgrade() {
+            (stored_dialog, true)
         } else {
             let cfg = AdvRenameConfig::new();
             cfg.load();
 
-            let dialog: AdvancedRenameDialog = parent_window.set_dialog(
-                "advrename",
-                glib::Object::builder()
-                    .property("transient-for", parent_window)
-                    .property("file-list", file_list)
-                    .build(),
-            );
+            let dialog: AdvancedRenameDialog = glib::Object::builder()
+                .property("transient-for", parent_window)
+                .property("file-list", file_list)
+                .build();
+            *stored_dialog = dialog.downgrade();
 
             dialog.imp().config.set(cfg.clone()).ok().unwrap();
             dialog.imp().main_window.set(Some(parent_window));
@@ -1117,7 +1119,8 @@ pub async fn advanced_rename_dialog_show(parent_window: &MainWindow, file_list: 
             dialog.profile_component().update();
 
             (dialog, false)
-        };
+        }
+    });
 
     gnome_cmd_advrename_dialog_set(&dialog, &files).await;
     dialog.present();

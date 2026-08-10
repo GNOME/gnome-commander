@@ -4,7 +4,6 @@
 
 use crate::{
     dialogs::about_plugin::about_plugin_dialog,
-    main_win::MainWindow,
     plugins::{
         MessageFromPluginHost, MessageToPluginHost, PluginData, PluginHostChannel, plugin_channel,
     },
@@ -15,24 +14,34 @@ use gettextrs::gettext;
 use gtk::prelude::*;
 use std::{
     borrow::Cow,
+    cell::RefCell,
     collections::{HashMap, HashSet},
 };
 
-pub async fn show_plugin_manager(parent: &MainWindow) {
-    if let Some(dialog) = parent.get_dialog::<gtk::Window>("plugins") {
-        dialog.present();
-        return;
+pub async fn show_plugin_manager(parent: &gtk::Window) {
+    thread_local! {
+        static DIALOG: RefCell<glib::WeakRef<gtk::Window>> = Default::default();
     }
 
-    let dialog = gtk::Window::builder()
-        .transient_for(parent)
-        .title(gettext("Available plugins"))
-        .width_request(500)
-        .height_request(300)
-        .resizable(true)
-        .build();
-    dialog.add_css_class("dialog");
-    let dialog = parent.set_dialog("plugins", dialog);
+    let Some(dialog) = DIALOG.with_borrow_mut(|stored_dialog| {
+        if let Some(stored_dialog) = stored_dialog.upgrade() {
+            stored_dialog.present();
+            None
+        } else {
+            let dialog = gtk::Window::builder()
+                .transient_for(parent)
+                .title(gettext("Available plugins"))
+                .width_request(500)
+                .height_request(300)
+                .resizable(true)
+                .build();
+            dialog.add_css_class("dialog");
+            *stored_dialog = dialog.downgrade();
+            Some(dialog)
+        }
+    }) else {
+        return;
+    };
 
     let vbox = gtk::Box::builder()
         .orientation(gtk::Orientation::Vertical)

@@ -9,7 +9,6 @@ mod shortcut_entry;
 
 use crate::{
     connection::{ConnectionExt, list::ConnectionList},
-    main_win::MainWindow,
     plugins::{
         ApiRequestToPlugin, ApiResponseFromPlugin, MessageFromPluginHost, MessageToPluginHost,
         plugin_channel,
@@ -23,7 +22,7 @@ use capture::{Capture, CaptureOutput};
 use component_framework::prelude::*;
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
-use std::ops::Deref;
+use std::{cell::RefCell, ops::Deref};
 
 #[derive(Debug, Default)]
 pub struct ShortcutsDialogView {
@@ -338,22 +337,32 @@ impl ShortcutsDialog {
         }
     }
 
-    pub async fn run(parent: &MainWindow, shortcuts: &Shortcuts) {
-        if let Some(dialog) = parent.get_dialog::<gtk::Window>("shortcuts") {
-            dialog.present();
-        } else {
-            let mut controller = ShortcutsDialog::new(shortcuts).build();
-            controller.root().set_transient_for(Some(parent));
-            parent.set_dialog("shortcuts", controller.root().clone());
+    pub async fn run(parent: &gtk::Window, shortcuts: &Shortcuts) {
+        thread_local! {
+            static DIALOG: RefCell<glib::WeakRef<gtk::Window>> = Default::default();
+        }
 
-            retrieve_plugin_items(controller.sender().clone());
-
-            let result = controller.receive().await;
-            controller.root().close();
-
-            if matches!(result, Ok(ShortcutsDialogOutput::Accepted)) {
-                controller.into_model().save_shortcuts(shortcuts);
+        let Some(mut controller) = DIALOG.with_borrow_mut(|stored_dialog| {
+            if let Some(stored_dialog) = stored_dialog.upgrade() {
+                stored_dialog.present();
+                None
+            } else {
+                let controller = ShortcutsDialog::new(shortcuts).build();
+                controller.root().set_transient_for(Some(parent));
+                *stored_dialog = controller.root().downgrade();
+                Some(controller)
             }
+        }) else {
+            return;
+        };
+
+        retrieve_plugin_items(controller.sender().clone());
+
+        let result = controller.receive().await;
+        controller.root().close();
+
+        if matches!(result, Ok(ShortcutsDialogOutput::Accepted)) {
+            controller.into_model().save_shortcuts(shortcuts);
         }
     }
 
