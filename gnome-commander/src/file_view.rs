@@ -8,18 +8,13 @@ use crate::{
     intviewer::window::ViewerWindow,
     options::ProgramsOptions,
     spawn::{SpawnError, spawn_async},
-    tags::FileMetadataService,
     transfer::download_to_temporary,
     utils::{ErrorMessage, temp_file},
 };
 use gettextrs::gettext;
 use gtk::gio;
 
-pub async fn file_view_internal(
-    parent_window: &gtk::Window,
-    f: &File,
-    file_metadata_service: &FileMetadataService,
-) -> Result<(), ErrorMessage> {
+pub async fn file_view_internal(parent_window: &gtk::Window, f: &File) -> Result<(), ErrorMessage> {
     let file_to_view = if f.is_local() {
         // If the file is local there is no need to download it
         f.clone()
@@ -44,7 +39,7 @@ pub async fn file_view_internal(
         tmp_file
     };
 
-    ViewerWindow::file_view(&file_to_view, file_metadata_service).await;
+    ViewerWindow::file_view(&file_to_view).await;
     Ok(())
 }
 
@@ -60,7 +55,6 @@ pub async fn file_view(
     parent_window: &gtk::Window,
     file: &File,
     use_internal_viewer: Option<bool>,
-    file_metadata_service: &FileMetadataService,
 ) -> Result<(), ErrorMessage> {
     if file.is_directory() {
         return Err(ErrorMessage::new(
@@ -74,7 +68,7 @@ pub async fn file_view(
         use_internal_viewer.unwrap_or_else(|| options.use_internal_viewer.get());
 
     if use_internal_viewer {
-        file_view_internal(parent_window, file, file_metadata_service).await?;
+        file_view_internal(parent_window, file).await?;
     } else {
         file_view_external(file, &options).await?;
     }

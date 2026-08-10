@@ -7,7 +7,7 @@ use super::{
     basic::BasicMetadataExtractor, file_metadata::FileMetadata, image::ImageMetadataExtractor,
     plugin::PluginMetadataExtractor,
 };
-use crate::{file::File, plugins::InactivePluginHostChannel};
+use crate::file::File;
 use futures::future::join3;
 use gtk::{gio, glib::prelude::*};
 use std::{
@@ -50,6 +50,7 @@ pub trait FileMetadataExtractor {
     async fn extract_metadata(&self, file: &File) -> Vec<(Box<dyn Tag>, String)>;
 }
 
+#[derive(Debug, Default)]
 pub struct FileMetadataService {
     basic_extractor: BasicMetadataExtractor,
     image_extractor: ImageMetadataExtractor,
@@ -57,14 +58,6 @@ pub struct FileMetadataService {
 }
 
 impl FileMetadataService {
-    pub fn new(plugin_channel: InactivePluginHostChannel) -> Self {
-        Self {
-            basic_extractor: Default::default(),
-            image_extractor: Default::default(),
-            plugin_extractor: PluginMetadataExtractor::new(plugin_channel),
-        }
-    }
-
     pub async fn extract_metadata(&self, file: &File) -> FileMetadata {
         let mut metadata = FileMetadata::default();
         let (basic_tags, image_tags, plugin_tags) = join3(

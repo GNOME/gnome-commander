@@ -746,13 +746,7 @@ mod imp {
                 return;
             };
 
-            if let Err(error) = file_view(
-                self.obj().upcast_ref(),
-                &file,
-                use_internal_viewer,
-                self.obj().main_window().file_metadata_service(),
-            )
-            .await
+            if let Err(error) = file_view(self.obj().upcast_ref(), &file, use_internal_viewer).await
             {
                 error.show(self.obj().upcast_ref()).await;
             }

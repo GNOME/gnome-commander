@@ -6,8 +6,8 @@ use super::{FileMetadataExtractor, Tag};
 use crate::{
     file::{File, FileOps},
     plugins::{
-        ApiRequestToPlugin, ApiResponseFromPlugin, InactivePluginHostChannel,
-        MessageFromPluginHost, MessageToPluginHost,
+        ApiRequestToPlugin, ApiResponseFromPlugin, MessageFromPluginHost, MessageToPluginHost,
+        plugin_channel,
     },
 };
 use std::borrow::Cow;
@@ -54,20 +54,12 @@ impl Tag for PluginTag {
     }
 }
 
-#[derive(Debug)]
-pub struct PluginMetadataExtractor {
-    plugin_channel: InactivePluginHostChannel,
-}
-
-impl PluginMetadataExtractor {
-    pub fn new(plugin_channel: InactivePluginHostChannel) -> Self {
-        Self { plugin_channel }
-    }
-}
+#[derive(Debug, Default)]
+pub struct PluginMetadataExtractor {}
 
 impl FileMetadataExtractor for PluginMetadataExtractor {
     async fn supported_tags(&self) -> Vec<(String, Vec<Box<dyn Tag>>)> {
-        let mut channel = self.plugin_channel.activate_cloned();
+        let mut channel = plugin_channel();
         let id = channel.new_id();
         channel.send(MessageToPluginHost::ApiRequest {
             id,
@@ -116,7 +108,7 @@ impl FileMetadataExtractor for PluginMetadataExtractor {
     }
 
     async fn extract_metadata(&self, file: &File) -> Vec<(Box<dyn Tag>, String)> {
-        let mut channel = self.plugin_channel.activate_cloned();
+        let mut channel = plugin_channel();
         let id = channel.new_id();
         channel.send(MessageToPluginHost::ApiRequest {
             id,

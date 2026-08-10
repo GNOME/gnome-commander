@@ -12,7 +12,7 @@ use crate::{
     main_win::MainWindow,
     plugins::{
         ApiRequestToPlugin, ApiResponseFromPlugin, MessageFromPluginHost, MessageToPluginHost,
-        PluginHostChannel,
+        plugin_channel,
     },
     shortcuts::{Area, Call, Shortcut, Shortcuts},
     user_actions::{BookmarkActionVariant, PluginActionVariant, UserAction},
@@ -346,7 +346,7 @@ impl ShortcutsDialog {
             controller.root().set_transient_for(Some(parent));
             parent.set_dialog("shortcuts", controller.root().clone());
 
-            retrieve_plugin_items(parent.plugin_channel(), controller.sender().clone());
+            retrieve_plugin_items(controller.sender().clone());
 
             let result = controller.receive().await;
             controller.root().close();
@@ -519,8 +519,9 @@ fn find_text(widget: &gtk::Widget, filter_text: &str) -> bool {
     }
 }
 
-fn retrieve_plugin_items(mut channel: PluginHostChannel, sender: ComponentSender<ShortcutsDialog>) {
+fn retrieve_plugin_items(sender: ComponentSender<ShortcutsDialog>) {
     glib::spawn_future_local(async move {
+        let mut channel = plugin_channel();
         let id = channel.new_id();
         channel.send(MessageToPluginHost::ApiRequest {
             id,

@@ -40,7 +40,9 @@ use crate::{
     file_view::file_view,
     main_win::{ExecutionTarget, MainWindow},
     options::{GeneralOptions, NetworkOptions, ProgramsOptions, SearchConfig},
-    plugins::{ApiRequestToPlugin, MessageToPluginHost, ModifierState, show_plugin_manager},
+    plugins::{
+        ApiRequestToPlugin, MessageToPluginHost, ModifierState, plugin_channel, show_plugin_manager,
+    },
     search::search_dialog::SearchDialog,
     shortcuts::Area,
     spawn::{SpawnError, spawn_async, spawn_async_command},
@@ -130,14 +132,7 @@ async fn file_view_impl(main_win: MainWindow, use_internal_viewer: Option<bool>)
         return;
     };
 
-    if let Err(error) = file_view(
-        main_win.upcast_ref(),
-        &file,
-        use_internal_viewer,
-        main_win.file_metadata_service(),
-    )
-    .await
-    {
+    if let Err(error) = file_view(main_win.upcast_ref(), &file, use_internal_viewer).await {
         error.show(main_win.upcast_ref()).await;
     }
 }
@@ -280,13 +275,7 @@ async fn file_properties(main_win: MainWindow) {
     let file_list = file_selector.file_list();
 
     if let Some(file) = file_list.selected_file() {
-        let changed = FilePropertiesDialog::show(
-            &main_win,
-            main_win.file_metadata_service(),
-            &file,
-            &file_list.connection(),
-        )
-        .await;
+        let changed = FilePropertiesDialog::show(&main_win, &file, &file_list.connection()).await;
 
         if changed {
             file_list.focus_file(&file.path_name(), true);
@@ -1145,11 +1134,11 @@ async fn connections_close_current(main_win: MainWindow) {
 /************** Plugins Menu ***********/
 
 async fn plugins_configure(main_win: MainWindow) {
-    show_plugin_manager(main_win.plugin_channel(), &main_win).await;
+    show_plugin_manager(&main_win).await;
 }
 
 async fn plugin_action(main_win: MainWindow, data: PluginActionVariant) {
-    let channel = main_win.plugin_channel();
+    let channel = plugin_channel();
     channel.send(MessageToPluginHost::ApiRequest {
         id: channel.new_id(),
         plugin_name: Some(data.plugin_name),

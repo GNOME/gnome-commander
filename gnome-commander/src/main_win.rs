@@ -4,7 +4,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use crate::{
-    config::{PACKAGE, plugin_dir},
     connection::{Connection, ConnectionExt, list::ConnectionList, remote::ConnectionRemote},
     dir::Directory,
     file::{File, FileOps},
@@ -13,13 +12,12 @@ use crate::{
     options::{GeneralOptions, types::WriteResult},
     paned_ext::GnomeCmdPanedExt,
     plugins::{
-        ApiRequestToPlugin, ApiResponseFromPlugin, InactivePluginHostChannel,
-        MessageFromPluginHost, MessageToPluginHost, PanelsState, PluginHost, PluginHostChannel,
+        ApiRequestToPlugin, ApiResponseFromPlugin, MessageFromPluginHost, MessageToPluginHost,
+        PanelsState, PluginHostChannel, plugin_channel,
     },
     search::search_dialog::SearchDialog,
     shortcuts::{Area, LegacyShortcutVariant, Shortcuts},
     spawn::{SpawnError, app_needs_terminal, run_command_indir},
-    tags::FileMetadataService,
     types::FileSelectorID,
     user_actions::{BookmarkActionVariant, PluginActionVariant, UserAction},
     utils::{ErrorMessage, MenuBuilderExt, sleep},
@@ -112,9 +110,6 @@ pub mod imp {
         #[property(get, set = Self::set_current_panel)]
         current_panel: Cell<u32>,
 
-        pub plugin_channel: InactivePluginHostChannel,
-        pub file_metadata_service: FileMetadataService,
-
         pub color_themes: Rc<ColorThemes>,
         ls_color_palettes: Rc<LsColorPalettes>,
 
@@ -165,14 +160,6 @@ pub mod imp {
         }
 
         fn new() -> Self {
-            let system_plugins_dir = plugin_dir();
-            let user_plugins_dir = glib::user_config_dir().join(PACKAGE).join("plugins");
-            let (plugin_host, plugin_channel) =
-                PluginHost::new(&system_plugins_dir, &user_plugins_dir);
-            glib::spawn_future_local(plugin_host);
-
-            let file_metadata_service = FileMetadataService::new(plugin_channel.clone());
-
             let (con_drop, con_drop_image) = build_con_drop_button();
 
             let cmdline = CommandLine::new();
@@ -228,9 +215,6 @@ pub mod imp {
                 delete_btn: buttonbar_button(&gettext("F8 Delete"), UserAction::FileDelete.name()),
                 find_btn: buttonbar_button(&gettext("F9 Search"), UserAction::FileSearch.name()),
 
-                plugin_channel,
-                file_metadata_service,
-
                 color_themes: ColorThemes::new(),
                 ls_color_palettes: LsColorPalettes::new(),
 
@@ -260,7 +244,7 @@ pub mod imp {
 
             let mw = self.obj();
 
-            self.handle_plugin_host_requests(&self.plugin_channel);
+            self.handle_plugin_host_requests();
 
             mw.set_title(Some(&if uid() == 0 {
                 gettext("Gnome Commander — ROOT PRIVILEGES")
@@ -276,7 +260,7 @@ pub mod imp {
                 .build();
             mw.set_child(Some(&vbox));
 
-            let menu = main_menu(&mw);
+            let menu = main_menu();
 
             self.menubar.set_menu_model(Some(&menu));
             mw.bind_property("menu-visible", &self.menubar, "visible")
@@ -559,8 +543,8 @@ pub mod imp {
     impl ApplicationWindowImpl for MainWindow {}
 
     impl MainWindow {
-        fn handle_plugin_host_requests(&self, channel: &InactivePluginHostChannel) {
-            let mut channel = channel.activate_cloned();
+        fn handle_plugin_host_requests(&self) {
+            let mut channel = plugin_channel();
             let obj = self.obj().clone();
             glib::spawn_future_local(async move {
                 loop {
@@ -946,10 +930,6 @@ impl MainWindow {
         glib::Object::builder().build()
     }
 
-    pub fn plugin_channel(&self) -> PluginHostChannel {
-        self.imp().plugin_channel.activate_cloned()
-    }
-
     pub fn left_panel(&self) -> FileSelector {
         self.imp().file_selector_left.borrow().clone()
     }
@@ -1200,10 +1180,6 @@ impl MainWindow {
         }
     }
 
-    pub fn file_metadata_service(&self) -> &FileMetadataService {
-        &self.imp().file_metadata_service
-    }
-
     pub fn get_dialog<T: IsA<gtk::Window>>(&self, handle: &str) -> Option<T> {
         self.imp()
             .active_dialogs
@@ -1344,7 +1320,7 @@ impl MainWindow {
     }
 }
 
-fn main_menu(main_win: &MainWindow) -> gio::Menu {
+fn main_menu() -> gio::Menu {
     let menu = gio::Menu::new();
 
     menu.append_submenu(Some(&gettext("_File")), &{
@@ -1482,7 +1458,7 @@ fn main_menu(main_win: &MainWindow) -> gio::Menu {
             .section(plugins.clone())
     });
 
-    let mut channel = main_win.plugin_channel();
+    let mut channel = plugin_channel();
     glib::spawn_future_local(async move {
         plugins_menu(&mut channel, &plugins).await;
         loop {

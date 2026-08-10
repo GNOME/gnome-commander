@@ -361,7 +361,7 @@ impl Component for ViewerWindow {
 }
 
 impl ViewerWindow {
-    pub async fn file_view(file: &File, file_metadata_service: &FileMetadataService) {
+    pub async fn file_view(file: &File) {
         use futures::FutureExt;
 
         thread_local! {
@@ -380,7 +380,7 @@ impl ViewerWindow {
             sender.input(ViewerWindowInput::AddFile(id, path, content_type));
             sender.input(ViewerWindowInput::SetMetadata(
                 id,
-                file_metadata_service.extract_metadata(file).await,
+                FileMetadataService::default().extract_metadata(file).await,
             ));
         } else {
             let mut this = Self {
@@ -397,6 +397,7 @@ impl ViewerWindow {
             let sender = this.sender().clone();
             INSTANCE.with_borrow_mut(|instance| *instance = Some(sender));
 
+            let file_metadata_service = FileMetadataService::default();
             futures::select!(
                 _ = this.receive().fuse() => {
                     this.root().close();
