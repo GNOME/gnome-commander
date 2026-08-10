@@ -856,9 +856,9 @@ impl AdvancedRenameProfileComponent {
         glib::Object::builder().build()
     }
 
-    pub async fn update_metadata_menu(&self, file_metadata_service: &FileMetadataService) {
+    pub async fn update_metadata_menu(&self) {
         self.imp().metadata_button.set_menu_model(Some(
-            &file_metadata_service
+            &FileMetadataService::default()
                 .create_menu("advrenametag.insert-text-tag")
                 .await,
         ));

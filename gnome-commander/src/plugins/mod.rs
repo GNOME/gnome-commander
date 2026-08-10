@@ -11,6 +11,7 @@ mod manager;
 mod metadata;
 mod protocol;
 
+use crate::config::{PACKAGE, plugin_dir};
 use apis::{Apis, IncomingResult};
 pub use channel::{
     InactivePluginHostChannel, MessageFromPluginHost, MessageToPluginHost, PluginData,
@@ -24,3 +25,18 @@ pub use metadata::PluginMetadata;
 pub use protocol::{
     ApiCall, ApiInfo, ApiRequestToPlugin, ApiResponseFromPlugin, ModifierState, PanelsState,
 };
+
+pub fn plugin_channel() -> PluginHostChannel {
+    thread_local! {
+        static CHANNEL: InactivePluginHostChannel = {
+            let system_plugins_dir = plugin_dir();
+            let user_plugins_dir = glib::user_config_dir().join(PACKAGE).join("plugins");
+            let (plugin_host, plugin_channel) =
+                PluginHost::new(&system_plugins_dir, &user_plugins_dir);
+            glib::spawn_future_local(plugin_host);
+            plugin_channel
+        };
+    }
+
+    CHANNEL.with(|channel| channel.activate_cloned())
+}

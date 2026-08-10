@@ -5,7 +5,9 @@
 use crate::{
     dialogs::about_plugin::about_plugin_dialog,
     main_win::MainWindow,
-    plugins::{MessageFromPluginHost, MessageToPluginHost, PluginData, PluginHostChannel},
+    plugins::{
+        MessageFromPluginHost, MessageToPluginHost, PluginData, PluginHostChannel, plugin_channel,
+    },
     utils::{NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
 };
 use futures::FutureExt;
@@ -16,7 +18,7 @@ use std::{
     collections::{HashMap, HashSet},
 };
 
-pub async fn show_plugin_manager(mut channel: PluginHostChannel, parent: &MainWindow) {
+pub async fn show_plugin_manager(parent: &MainWindow) {
     if let Some(dialog) = parent.get_dialog::<gtk::Window>("plugins") {
         dialog.present();
         return;
@@ -67,6 +69,7 @@ pub async fn show_plugin_manager(mut channel: PluginHostChannel, parent: &MainWi
     dialog.present();
     list.grab_focus();
 
+    let mut channel = plugin_channel();
     channel.send(MessageToPluginHost::GetPlugins);
 
     loop {

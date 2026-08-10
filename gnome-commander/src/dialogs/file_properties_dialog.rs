@@ -447,11 +447,9 @@ mod imp {
             });
         }
 
-        pub fn set_metadata(
-            &self,
-            mut metadata: FileMetadata,
-            file_metadata_service: &FileMetadataService,
-        ) {
+        pub async fn set_metadata(&self, file: &File) {
+            let file_metadata_service = FileMetadataService::default();
+            let mut metadata = file_metadata_service.extract_metadata(file).await;
             if let Some((grid, mut y)) = self.summary_position.take() {
                 for (title, value) in file_metadata_service.file_summary(&metadata) {
                     attach_labels(&grid, format!("{title}:"), truncate(&value, 120), &mut y);
@@ -554,12 +552,7 @@ impl FilePropertiesDialog {
             .build()
     }
 
-    pub async fn show(
-        parent_window: &MainWindow,
-        file_metadata_service: &FileMetadataService,
-        file: &File,
-        connection: &Connection,
-    ) -> bool {
+    pub async fn show(parent_window: &MainWindow, file: &File, connection: &Connection) -> bool {
         if file.is_dotdot() {
             return false;
         }
@@ -594,10 +587,7 @@ impl FilePropertiesDialog {
 
             dialog.present();
             if !file.is_special() {
-                dialog.imp().set_metadata(
-                    file_metadata_service.extract_metadata(file).await,
-                    file_metadata_service,
-                );
+                dialog.imp().set_metadata(file).await;
             }
 
             let changed = receiver.recv().await == Ok(true);

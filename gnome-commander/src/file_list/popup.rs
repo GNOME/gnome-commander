@@ -13,6 +13,7 @@ use crate::{
     options::GeneralOptions,
     plugins::{
         ApiRequestToPlugin, ApiResponseFromPlugin, MessageFromPluginHost, MessageToPluginHost,
+        plugin_channel,
     },
     user_actions::{PluginActionVariant, UserAction},
     utils::MenuBuilderExt,
@@ -130,7 +131,7 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
     // Add plugin popup entries
     let section = gio::Menu::new();
     menu.append_section(None, &section);
-    let mut channel = main_win.plugin_channel();
+    let mut channel = plugin_channel();
     let id = channel.new_id();
     channel.send(MessageToPluginHost::ApiRequest {
         id,

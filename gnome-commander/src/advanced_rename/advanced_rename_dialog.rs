@@ -15,6 +15,7 @@ use crate::{
     history::History,
     main_win::MainWindow,
     options::GeneralOptions,
+    tags::FileMetadataService,
     utils::{size_to_string, time_to_string},
 };
 use gettextrs::gettext;
@@ -690,14 +691,7 @@ mod imp {
 
         async fn file_list_view(&self) {
             if let Some((_, item)) = self.selected_item()
-                && let Some(main_window) = self.obj().main_window()
-                && let Err(error) = file_view(
-                    self.obj().upcast_ref(),
-                    &item.file(),
-                    None,
-                    main_window.file_metadata_service(),
-                )
-                .await
+                && let Err(error) = file_view(self.obj().upcast_ref(), &item.file(), None).await
             {
                 error.show(self.obj().upcast_ref()).await;
             }
@@ -708,13 +702,9 @@ mod imp {
                 && let Some(main_window) = self.obj().main_window()
                 && let Some(file_list) = self.obj().file_list()
             {
-                let file_changed = FilePropertiesDialog::show(
-                    &main_window,
-                    main_window.file_metadata_service(),
-                    &item.file(),
-                    &file_list.connection(),
-                )
-                .await;
+                let file_changed =
+                    FilePropertiesDialog::show(&main_window, &item.file(), &file_list.connection())
+                        .await;
                 if file_changed {
                     self.file_list_update_files().await;
                 }
@@ -749,16 +739,10 @@ mod imp {
         }
 
         async fn file_list_update_files(&self) {
-            let Some(main_window) = self.obj().main_window() else {
-                return;
-            };
             for index in 0..self.files.n_items() {
                 if let Some(item) = self.files.item(index).and_downcast::<Item>() {
                     let file = item.file();
-                    let metadata = main_window
-                        .file_metadata_service()
-                        .extract_metadata(&file)
-                        .await;
+                    let metadata = FileMetadataService::default().extract_metadata(&file).await;
 
                     let new_item = item.deep_copy();
                     new_item.clear_error();
@@ -1135,33 +1119,24 @@ pub async fn advanced_rename_dialog_show(parent_window: &MainWindow, file_list: 
             (dialog, false)
         };
 
-    gnome_cmd_advrename_dialog_set(parent_window, &dialog, &files).await;
+    gnome_cmd_advrename_dialog_set(&dialog, &files).await;
     dialog.present();
 
     if !initialized {
         dialog.profile_component().grab_focus();
-        dialog
-            .profile_component()
-            .update_metadata_menu(parent_window.file_metadata_service())
-            .await;
+        dialog.profile_component().update_metadata_menu().await;
     }
 }
 
-async fn gnome_cmd_advrename_dialog_set(
-    parent_window: &MainWindow,
-    dialog: &AdvancedRenameDialog,
-    file_list: &[File],
-) {
+async fn gnome_cmd_advrename_dialog_set(dialog: &AdvancedRenameDialog, file_list: &[File]) {
     dialog
         .profile_component()
         .set_sample_file_name(file_list.first().map(|f| f.name()));
 
+    let file_metadata_service = FileMetadataService::default();
     let files = &dialog.imp().files;
     for file in file_list {
-        let metadata = parent_window
-            .file_metadata_service()
-            .extract_metadata(file)
-            .await;
+        let metadata = file_metadata_service.extract_metadata(file).await;
 
         let item = Item::new(file);
         item.clear_error();
