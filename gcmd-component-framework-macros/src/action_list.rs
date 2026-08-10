@@ -6,16 +6,19 @@ use proc_macro::TokenStream;
 use proc_macro2::Span;
 use quote::{ToTokens, quote};
 use syn::{
-    Attribute, Error, Expr, Ident, LitStr, Token, Type, Visibility, braced, parenthesized,
+    Attribute, Error, Expr, Ident, LitStr, Meta, Token, Type, Visibility, braced, parenthesized,
     parse::{Parse, ParseStream},
     parse_macro_input,
     punctuated::Punctuated,
+    spanned::Spanned,
     token::{Brace, Comma, Paren},
 };
 
 struct Action {
     attrs: Vec<Attribute>,
     name: LitStr,
+    shortcuts: Vec<(Expr, Option<Expr>)>,
+    label: Option<Expr>,
     _as_token: Token![as],
     ident: Ident,
     param: Option<(Paren, Type)>,
@@ -24,9 +27,45 @@ struct Action {
 
 impl Parse for Action {
     fn parse(input: ParseStream) -> Result<Self, Error> {
+        let mut attrs = input.call(Attribute::parse_outer)?;
+        let mut shortcuts = Vec::new();
+        let mut label = None;
+        for attr in attrs.extract_if(.., |attr| {
+            attr.meta
+                .path()
+                .get_ident()
+                .is_some_and(|ident| ident == "shortcut")
+        }) {
+            match attr.meta {
+                Meta::Path(path) => return Err(Error::new(path.span(), "Shortcut value required")),
+                Meta::List(list) => {
+                    let args = list.parse_args_with(Punctuated::<Expr, Comma>::parse_terminated)?;
+                    match args.len() {
+                        0 => return Err(Error::new(list.span(), "Shortcut value required")),
+                        1 => shortcuts.push((args[0].clone(), None)),
+                        2 => shortcuts.push((args[0].clone(), Some(args[1].clone()))),
+                        _ => return Err(Error::new(list.span(), "Too many parameters")),
+                    }
+                }
+                Meta::NameValue(name_value) => shortcuts.push((name_value.value, None)),
+            }
+        }
+        for attr in attrs.extract_if(.., |attr| {
+            attr.meta
+                .path()
+                .get_ident()
+                .is_some_and(|ident| ident == "label")
+        }) {
+            if label.is_some() {
+                return Err(Error::new(label.span(), "Duplicate label"));
+            }
+            label = Some(attr.meta.require_name_value()?.value.clone());
+        }
         Ok(Self {
             attrs: input.call(Attribute::parse_outer)?,
             name: input.parse()?,
+            shortcuts,
+            label,
             _as_token: input.parse()?,
             ident: input.parse()?,
             param: if input.peek(Paren) {
@@ -88,10 +127,30 @@ impl Action {
         }
     }
 
+    pub fn shortcuts(&self) -> Vec<impl ToTokens> {
+        let ident = &self.ident;
+        self.shortcuts
+            .iter()
+            .map(|(shortcut, param)| {
+                if let Some(param) = param {
+                    quote! {(#shortcut, Self::Output::#ident(#param))}
+                } else {
+                    quote! {(#shortcut, Self::Output::#ident)}
+                }
+            })
+            .collect()
+    }
+
     pub fn name(&self) -> impl ToTokens {
         let ident = &self.ident;
         let name = &self.name;
         quote! {Self::#ident => #name}
+    }
+
+    pub fn label(&self) -> Option<impl ToTokens> {
+        let ident = &self.ident;
+        let label = self.label.as_ref()?;
+        Some(quote! {Self::#ident => ::std::borrow::Cow::from(#label)})
     }
 
     pub fn parameter_type(&self) -> impl ToTokens {
@@ -207,7 +266,9 @@ impl Actions {
         let attrs = &self.attrs;
         let action_list_decl = self.actions.iter().map(Action::list_decl);
         let action_ident = self.actions.iter().map(|action| &action.ident);
+        let action_shortcuts = self.actions.iter().map(Action::shortcuts);
         let action_name = self.actions.iter().map(Action::name);
+        let action_label = self.actions.iter().filter_map(Action::label);
         let parameter_type = self.actions.iter().map(Action::parameter_type);
         let has_default_state = self.actions.iter().map(Action::has_default_state);
         let default_state = self.actions.iter().map(Action::default_state);
@@ -221,11 +282,23 @@ impl Actions {
                 type Output = Output;
                 type State = State;
                 fn all() -> impl ::std::iter::Iterator<Item = Self> {
-                    [#(Self::#action_ident,)*].into_iter()
+                    ::std::iter::IntoIterator::into_iter([#(Self::#action_ident,)*])
+                }
+                fn shortcuts() -> impl ::std::iter::Iterator<Item = (&'static str, Self::Output)>
+                {
+                    ::std::iter::IntoIterator::into_iter([
+                        #(#(#action_shortcuts,)*)*
+                    ])
                 }
                 fn name(&self) -> &'static str {
                     match self {
                         #(#action_name,)*
+                    }
+                }
+                fn label(&self) -> ::std::borrow::Cow<'_, str> {
+                    match self {
+                        #(#action_label,)*
+                        _ => ::std::borrow::Cow::Borrowed(""),
                     }
                 }
                 fn parameter_type(&self)
@@ -260,7 +333,7 @@ impl Actions {
         let action_output_decl = self.actions.iter().map(Action::output_decl);
         let to_action_params = self.actions.iter().map(Action::to_action_params);
         quote! {
-            #[derive(Debug)]
+            #[derive(Debug, Clone, PartialEq, Eq)]
             pub enum Output {
                 #(#action_output_decl,)*
             }

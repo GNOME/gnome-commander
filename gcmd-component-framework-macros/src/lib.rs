@@ -221,7 +221,7 @@ pub fn with(input: TokenStream) -> TokenStream {
 /// # mod wrapper {
 /// # use component_framework::action_list;
 /// # use gtk::glib;
-/// #[derive(Debug, glib::Variant)]
+/// #[derive(Debug, Clone, PartialEq, Eq, glib::Variant)]
 /// pub enum Mode {
 ///     Text,
 ///     Image,

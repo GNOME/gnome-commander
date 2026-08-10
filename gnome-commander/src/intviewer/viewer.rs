@@ -16,7 +16,11 @@ use crate::{
     tags::file_metadata::FileMetadata,
     utils::u32_enum,
 };
-use component_framework::{action_list, helpers::ActionListOutput, prelude::*};
+use component_framework::{
+    action_list,
+    helpers::{ActionGroup, ActionListOutput, Shortcuts},
+    prelude::*,
+};
 use gettextrs::{gettext, ngettext};
 use gtk::{gdk, gio, glib, prelude::*};
 use std::{
@@ -66,19 +70,66 @@ impl DisplayMode {
 
 action_list! {
     pub enum ViewerActions {
+        #[label = gettext("_Copy Text Selection")]
+        #[shortcut = "<Control>C"]
         "viewer.copy-text-selection" as CopySelection,
+
+        #[label = gettext("_Select All")]
+        #[shortcut = "<Control>A"]
         "viewer.select-all" as SelectAll,
+
+        #[label = gettext("_Zoom In")]
+        #[shortcut = "<Control>equal"]
+        #[shortcut = "<Control>KP_Add"]
+        #[shortcut = "<Control>plus"]
         "viewer.zoom-in" as ZoomIn,
+
+        #[label = gettext("_Zoom Out")]
+        #[shortcut = "<Control>KP_Subtract"]
+        #[shortcut = "<Control>minus"]
         "viewer.zoom-out" as ZoomOut,
+
+        #[label = gettext("_Normal Size")]
+        #[shortcut = "<Control>0"]
         "viewer.normal-size" as ZoomNormal,
+
+        #[label = gettext("_Best Fit")]
+        #[shortcut = "<Control>period"]
         "viewer.best-fit" as ZoomBestFit,
+
+        #[label = gettext("Show Metadata _Tags")]
+        #[shortcut = "T"]
         "viewer.metadata-visible" as ToggleMetadataVisible = bool,
+
+        #[label = gettext("Find…")]
+        #[shortcut = "<Control>F"]
         "viewer.find" as Find,
+
+        #[label = gettext("Find Next")]
+        #[shortcut = "F3"]
         "viewer.find-next" as FindNext,
+
+        #[label = gettext("Find Previous")]
+        #[shortcut = "<Shift>F3"]
         "viewer.find-previous" as FindPrevious,
+
+        #[shortcut("1", DisplayMode::Text)]
+        #[shortcut("2", DisplayMode::FixedWidth)]
+        #[shortcut("3", DisplayMode::Hexdump)]
+        #[shortcut("4", DisplayMode::Image)]
         "viewer.display-mode" as DisplayMode(DisplayMode) = DisplayMode,
+
+        #[label = gettext("_Wrap lines")]
+        #[shortcut = "W"]
         "viewer.wrap-lines" as ToggleWrapMode = bool,
+
+        #[shortcut("U", "UTF8".to_owned())]
+        #[shortcut("A", "ASCII".to_owned())]
+        #[shortcut("Q", "CP437".to_owned())]
         "viewer.encoding" as Encoding(String) = String,
+
+        #[shortcut("<Control>R", ImageOperation::RotateClockwise)]
+        #[shortcut("<Control><Shift>R", ImageOperation::RotateUpsideDown)]
         "viewer.imageop" as ImageOp(ImageOperation),
     }
 }
@@ -165,8 +216,8 @@ impl ViewerView {
 
     pub fn text_viewer_context_menu(&self, x: f64, y: f64) {
         let menu = with!(gio::Menu {
-            ViewerActions::Output::CopySelection.menuitem(gettext("_Copy Selection"));
-            ViewerActions::Output::SelectAll.menuitem(gettext("_Select All"));
+            ViewerActions::Output::CopySelection.menuitem();
+            ViewerActions::Output::SelectAll.menuitem();
         });
         Self::show_context_menu(&self.text_render, menu, x, y);
     }
@@ -174,15 +225,15 @@ impl ViewerView {
     pub fn image_viewer_context_menu(&self, x: f64, y: f64) {
         let menu = with!(gio::Menu {
             ViewerActions::Output::ImageOp(ImageOperation::RotateClockwise)
-                .menuitem(gettext("_Rotate Clockwise"));
+                .menuitem_with_label(gettext("_Rotate Clockwise"));
             ViewerActions::Output::ImageOp(ImageOperation::RotateCounterclockwise)
-                .menuitem(gettext("Rotate Counter Clockwis_e"));
+                .menuitem_with_label(gettext("Rotate Counter Clockwis_e"));
             ViewerActions::Output::ImageOp(ImageOperation::RotateUpsideDown)
-                .menuitem(gettext("Rotate 180°"));
+                .menuitem_with_label(gettext("Rotate 180°"));
             ViewerActions::Output::ImageOp(ImageOperation::FlipVertical)
-                .menuitem(gettext("Flip _Vertical"));
+                .menuitem_with_label(gettext("Flip _Vertical"));
             ViewerActions::Output::ImageOp(ImageOperation::FlipHorizontal)
-                .menuitem(gettext("Flip _Horizontal"));
+                .menuitem_with_label(gettext("Flip _Horizontal"));
         });
         Self::show_context_menu(&self.image_render, menu, x, y);
     }
@@ -218,6 +269,8 @@ pub enum ViewerOutput {
 #[derive(Debug)]
 pub struct Viewer {
     id: usize,
+    action_group: ComponentController<ActionGroup<ViewerActions::List>>,
+    shortcuts: ComponentController<Shortcuts<ViewerActions::List>>,
     searchbar: ComponentController<SearchBar>,
     option_handlers: Vec<glib::SignalHandlerId>,
     file: PathBuf,
@@ -254,6 +307,13 @@ impl Component for Viewer {
         with!(&view.root {
             .set_orientation(gtk::Orientation::Vertical);
             .add_css_class("spacing");
+
+            .insert_action_group(
+                ViewerActions::prefix(),
+                Some(self.action_group.attach(sender, Self::Input::Action))
+            );
+
+            &self.shortcuts;
 
             &view.stack {
                 .add_named(&with!(gtk::ScrolledWindow {
@@ -468,7 +528,12 @@ impl Component for Viewer {
     }
 
     async fn handle_subcomponents(&mut self) {
-        self.searchbar.handle_incoming().await
+        use futures::FutureExt;
+        futures::select!(
+            _ = self.action_group.handle_incoming().fuse() => {}
+            _ = self.shortcuts.handle_incoming().fuse() => {}
+            _ = self.searchbar.handle_incoming().fuse() => {}
+        );
     }
 }
 
@@ -477,6 +542,8 @@ impl Viewer {
         let options = ViewerOptions::instance();
         Self {
             id,
+            action_group: Default::default(),
+            shortcuts: Shortcuts::new([]).build(),
             searchbar: Default::default(),
             option_handlers: Vec::new(),
             file: path.to_path_buf(),

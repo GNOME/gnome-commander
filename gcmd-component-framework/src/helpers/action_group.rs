@@ -16,7 +16,9 @@ pub trait ActionList: Sized {
     type Output: ActionListOutput<Self>;
     type State: ActionListState<Self>;
     fn all() -> impl Iterator<Item = Self>;
+    fn shortcuts() -> impl Iterator<Item = (&'static str, Self::Output)>;
     fn name(&self) -> &'static str;
+    fn label(&self) -> Cow<'_, str>;
     fn parameter_type(&self) -> Option<Cow<'static, glib::VariantTy>>;
     fn has_default_state(&self) -> bool;
     fn default_state(&self) -> Option<glib::Variant>;
@@ -38,7 +40,7 @@ pub trait ActionList: Sized {
 
 /// Trait implemented by an action list’s output type, provides helpers to work with keyboard
 /// shortcuts and menus.
-pub trait ActionListOutput<T: ActionList<Output = Self>>: Sized {
+pub trait ActionListOutput<T: ActionList<Output = Self>>: Sized + Clone + Eq {
     fn to_action_params(&self) -> (T, Option<glib::Variant>);
 
     /// Produces a `gtk4::Shortcut` instance that will trigger this action. `key` is a shortcut
@@ -53,10 +55,19 @@ pub trait ActionListOutput<T: ActionList<Output = Self>>: Sized {
         shortcut
     }
 
-    // Produces a `gio::MenuItem` instance that will trigger this action.
-    fn menuitem(&self, label: impl Into<String>) -> gio::MenuItem {
+    /// Produces a `gio::MenuItem` instance with a pre-defined label that will trigger this action.
+    fn menuitem(&self) -> gio::MenuItem {
         let (action, param) = self.to_action_params();
-        let menuitem = gio::MenuItem::new(Some(&label.into()), None);
+        let menuitem = gio::MenuItem::new(Some(action.label().as_ref()), None);
+        menuitem.set_action_and_target_value(Some(action.name()), param.as_ref());
+        menuitem
+    }
+
+    /// Produces a `gio::MenuItem` instance with a custom label that will trigger this action. This
+    /// is useful for parametrized actions that have different labels depending on the parameter.
+    fn menuitem_with_label(&self, label: impl AsRef<str>) -> gio::MenuItem {
+        let (action, param) = self.to_action_params();
+        let menuitem = gio::MenuItem::new(Some(label.as_ref()), None);
         menuitem.set_action_and_target_value(Some(action.name()), param.as_ref());
         menuitem
     }

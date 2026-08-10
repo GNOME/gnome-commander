@@ -39,7 +39,7 @@ impl Parse for IfStatement {
     fn parse(input: ParseStream) -> Result<Self, Error> {
         Ok(Self {
             _if_token: input.parse()?,
-            expr: input.parse()?,
+            expr: Expr::parse_without_eager_brace(input)?,
             block: input.parse()?,
             elseifs: Self::parse_elseifs(input)?,
             else_branch: Self::parse_else_branch(input)?,
@@ -77,7 +77,7 @@ impl Parse for ElseIfBranch {
         Ok(Self {
             _else_token: input.parse()?,
             _if_token: input.parse()?,
-            expr: input.parse()?,
+            expr: Expr::parse_without_eager_brace(input)?,
             block: input.parse()?,
         })
     }

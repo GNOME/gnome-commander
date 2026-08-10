@@ -7,9 +7,11 @@
 mod action_group;
 mod grid;
 mod menu;
+mod shortcuts;
 
 pub use action_group::{
     ActionGroup, ActionGroupInput, ActionList, ActionListOutput, ActionListState,
 };
 pub use grid::{Grid, GridRow};
 pub use menu::{MenuSection, Submenu};
+pub use shortcuts::Shortcuts;

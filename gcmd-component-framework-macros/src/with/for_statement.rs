@@ -23,7 +23,7 @@ impl Parse for ForStatement {
             _for_token: input.parse()?,
             pat: Pat::parse_multi(input)?,
             _in_token: input.parse()?,
-            expr: input.parse()?,
+            expr: Expr::parse_without_eager_brace(input)?,
             block: input.parse()?,
         })
     }
