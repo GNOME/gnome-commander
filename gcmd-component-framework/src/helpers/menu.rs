@@ -11,17 +11,22 @@ use gtk::gio;
 /// # use gtk::gio;
 /// action_list!(
 ///     enum MyWidgetActions {
+///         #[label = "_Quit"]
 ///         "mywidget.quit" as Quit,
+///
+///         #[label = "_Copy"]
 ///         "mywidget.copy" as Copy,
+///
+///         #[label = "_Paste"]
 ///         "mywidget.paste" as Paste,
 ///     }
 /// );
 ///
 /// let menu = with!(gio::Menu {
-///     MyWidgetActions::Output::Quit.menuitem("_Quit");
+///     MyWidgetActions::Output::Quit.menuitem();
 ///     Submenu::new("_Edit") {
-///         MyWidgetActions::Output::Copy.menuitem("_Copy");
-///         MyWidgetActions::Output::Paste.menuitem("_Paste");
+///         MyWidgetActions::Output::Copy.menuitem();
+///         MyWidgetActions::Output::Paste.menuitem();
 ///     }
 /// });
 /// ```
@@ -65,21 +70,28 @@ impl AsRef<gio::Menu> for Submenu {
 /// # use gtk::gio;
 /// action_list!(
 ///     enum MyWidgetActions {
+///         #[label = "_Copy"]
 ///         "mywidget.copy" as Copy,
+///
+///         #[label = "_Paste"]
 ///         "mywidget.paste" as Paste,
+///
+///         #[label = "Find _Next"]
 ///         "mywidget.find-next" as FindNext,
+///
+///         #[label = "Find P_revious"]
 ///         "mywidget.find-prev" as FindPrevious,
 ///     }
 /// );
 ///
 /// let menu = with!(gio::Menu {
 ///     MenuSection {
-///         MyWidgetActions::Output::Copy.menuitem("_Copy");
-///         MyWidgetActions::Output::Paste.menuitem("_Paste");
+///         MyWidgetActions::Output::Copy.menuitem();
+///         MyWidgetActions::Output::Paste.menuitem();
 ///     }
 ///     MenuSection {
-///         MyWidgetActions::Output::FindNext.menuitem("Find _Next");
-///         MyWidgetActions::Output::FindPrevious.menuitem("Find P_revious");
+///         MyWidgetActions::Output::FindNext.menuitem();
+///         MyWidgetActions::Output::FindPrevious.menuitem();
 ///     }
 /// });
 /// ```

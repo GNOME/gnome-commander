@@ -2,7 +2,10 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::helpers::{Grid, GridRow, MenuSection, Submenu};
+use crate::{
+    helpers::{ActionList, Grid, GridRow, MenuSection, Shortcuts, Submenu},
+    prelude::*,
+};
 use gtk::{gio, prelude::*};
 
 /// A helper trait used by the [with! macro](crate::with), provides a standard API to add a child to
@@ -90,5 +93,13 @@ impl<T: AsRef<gio::Menu>> ContainerExt<Submenu> for T {
 impl<T: AsRef<gio::Menu>> ContainerExt<MenuSection> for T {
     fn container_set_child(&self, child: MenuSection) {
         self.as_ref().append_section(None, child.as_ref());
+    }
+}
+
+impl<T: AsRef<gtk::Widget>, L: ActionList> ContainerExt<&ComponentController<Shortcuts<L>>> for T {
+    fn container_set_child(&self, child: &ComponentController<Shortcuts<L>>) {
+        for controller in child.root().controllers() {
+            self.as_ref().add_controller(controller);
+        }
     }
 }
