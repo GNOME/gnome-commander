@@ -20,7 +20,7 @@ use crate::{
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gio, glib, pango, prelude::*, subclass::prelude::*};
-use std::rc::Rc;
+use std::{cell::RefCell, rc::Rc};
 
 struct SearchProfiles {
     profiles: gio::ListStore,
@@ -367,6 +367,7 @@ mod imp {
             // file list
             let result_list = self.result_list.borrow();
             result_list.set_height_request(200);
+            result_list.update_style(self.main_window.get());
 
             result_list.connect_show_quick_search(glib::clone!(
                 #[weak(rename_to = quick_search_box)]
@@ -476,8 +477,6 @@ mod imp {
                     this.profile_component().copy();
                 }
             ));
-
-            this.update_style();
 
             let options = GeneralOptions::instance();
             remember_window_size(
@@ -787,6 +786,10 @@ glib::wrapper! {
         @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Root, gtk::Native;
 }
 
+thread_local! {
+    static DIALOG: RefCell<glib::WeakRef<SearchDialog>> = Default::default();
+}
+
 impl SearchDialog {
     pub fn new(config: Rc<SearchConfig>, main_window: &MainWindow) -> Self {
         let this: Self = glib::Object::builder()
@@ -809,19 +812,37 @@ impl SearchDialog {
         this
     }
 
-    pub fn show_and_set_focus(&self, start_dir: &Directory, transient_for: Option<&MainWindow>) {
-        self.set_transient_for(transient_for);
-        self.present();
-        self.profile_component().grab_focus();
+    pub fn show(
+        main_window: &MainWindow,
+        start_dir: &Directory,
+        transient_for: Option<&MainWindow>,
+    ) {
+        let dialog = DIALOG.with_borrow_mut(|stored_dialog| {
+            stored_dialog.upgrade().unwrap_or_else(|| {
+                let search_config = SearchConfig::get();
+                let dialog = SearchDialog::new(search_config, main_window);
+                *stored_dialog = dialog.downgrade();
+                dialog
+            })
+        });
 
-        self.profile_component().update();
-        self.set_start_dir(Some(start_dir));
+        dialog.set_transient_for(transient_for);
+        dialog.present();
+        dialog.profile_component().grab_focus();
 
-        self.dir_browser().set_file(Some(start_dir.file().clone()));
+        dialog.profile_component().update();
+        dialog.set_start_dir(Some(start_dir));
+
+        dialog
+            .dir_browser()
+            .set_file(Some(start_dir.file().clone()));
     }
 
-    pub fn update_style(&self) {
-        self.result_list()
-            .update_style(self.imp().main_window.get());
+    pub fn update_style() {
+        if let Some(dialog) = DIALOG.with_borrow(glib::WeakRef::upgrade) {
+            dialog
+                .result_list()
+                .update_style(dialog.imp().main_window.get());
+        }
     }
 }

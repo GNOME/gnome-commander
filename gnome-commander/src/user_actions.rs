@@ -39,7 +39,7 @@ use crate::{
     file_selector::{FileSelector, TabOptions},
     file_view::file_view,
     main_win::{ExecutionTarget, MainWindow},
-    options::{GeneralOptions, NetworkOptions, ProgramsOptions, SearchConfig},
+    options::{GeneralOptions, NetworkOptions, ProgramsOptions},
     plugins::{
         ApiRequestToPlugin, MessageToPluginHost, ModifierState, plugin_channel, show_plugin_manager,
     },
@@ -173,12 +173,8 @@ async fn file_search(main_win: MainWindow) {
     let file_list = file_selector.file_list();
 
     if ProgramsOptions::instance().use_internal_search.get() {
-        let dlg = main_win.get_or_create_dialog("search", || {
-            let search_config = SearchConfig::get();
-
-            SearchDialog::new(search_config, &main_win)
-        });
-        dlg.show_and_set_focus(
+        SearchDialog::show(
+            &main_win,
             &file_list.directory(),
             GeneralOptions::instance()
                 .search_window_is_transient
@@ -987,7 +983,7 @@ async fn bookmarks_add_current(main_win: MainWindow) {
 async fn bookmarks_edit(main_win: MainWindow) {
     let connection_list = ConnectionList::get();
     let shortcuts = main_win.shortcuts();
-    let result = BookmarksDialog::show(&main_win, connection_list, shortcuts).await;
+    let result = BookmarksDialog::show(main_win.upcast_ref(), connection_list, shortcuts).await;
     if let Some(bookmark) = result {
         let fs = main_win.file_selector(FileSelectorID::Active);
         fs.goto(
@@ -1053,14 +1049,13 @@ async fn options_edit(main_win: MainWindow) {
 
 async fn options_edit_shortcuts(main_win: MainWindow) {
     let shortcuts = main_win.shortcuts();
-    ShortcutsDialog::run(&main_win, shortcuts).await;
+    ShortcutsDialog::run(main_win.upcast_ref(), shortcuts).await;
 }
 
 /************** Connections Menu **************/
 
 async fn connections_open(main_win: MainWindow) {
-    let dialog = main_win.get_or_create_dialog("connections", || RemoteDialog::new(&main_win));
-    dialog.present();
+    RemoteDialog::show(&main_win);
 }
 
 async fn connections_new(main_win: MainWindow) {
@@ -1134,7 +1129,7 @@ async fn connections_close_current(main_win: MainWindow) {
 /************** Plugins Menu ***********/
 
 async fn plugins_configure(main_win: MainWindow) {
-    show_plugin_manager(&main_win).await;
+    show_plugin_manager(main_win.upcast_ref()).await;
 }
 
 async fn plugin_action(main_win: MainWindow, data: PluginActionVariant) {

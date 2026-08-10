@@ -73,12 +73,7 @@ pub mod imp {
         options::{FiltersOptions, utils::remember_window_state},
         pwd::uid,
     };
-    use std::{
-        cell::{Cell, RefCell},
-        collections::HashMap,
-        path::PathBuf,
-        time::Duration,
-    };
+    use std::{cell::Cell, path::PathBuf, time::Duration};
 
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::MainWindow)]
@@ -133,8 +128,6 @@ pub mod imp {
         view_backup_files: Cell<bool>,
         #[property(get, set)]
         cmdline_autohide_output: Cell<bool>,
-
-        pub active_dialogs: RefCell<HashMap<String, glib::WeakRef<gtk::Window>>>,
 
         pub shortcuts: Shortcuts,
     }
@@ -231,7 +224,6 @@ pub mod imp {
                 view_backup_files: Cell::new(true),
                 cmdline_autohide_output: Cell::new(true),
 
-                active_dialogs: Default::default(),
                 shortcuts: Shortcuts::new(),
             }
         }
@@ -1180,39 +1172,11 @@ impl MainWindow {
         }
     }
 
-    pub fn get_dialog<T: IsA<gtk::Window>>(&self, handle: &str) -> Option<T> {
-        self.imp()
-            .active_dialogs
-            .borrow()
-            .get(handle)
-            .and_then(|weak_ref| weak_ref.upgrade())
-            .and_downcast::<T>()
-    }
-
-    pub fn set_dialog<T: IsA<gtk::Window>>(&self, handle: &str, dialog: T) -> T {
-        self.imp()
-            .active_dialogs
-            .borrow_mut()
-            .insert(handle.to_owned(), dialog.as_ref().downgrade());
-        dialog
-    }
-
-    pub fn get_or_create_dialog<F, T>(&self, handle: &str, initializer: F) -> T
-    where
-        F: FnOnce() -> T,
-        T: IsA<gtk::Window>,
-    {
-        self.get_dialog(handle)
-            .unwrap_or_else(|| self.set_dialog(handle, initializer()))
-    }
-
     pub fn update_style(&self) {
         self.imp().file_selector_left.borrow().update_style();
         self.imp().file_selector_right.borrow().update_style();
         self.imp().cmdline.update_style();
-        if let Some(dialog) = self.get_dialog::<SearchDialog>("search") {
-            dialog.update_style();
-        }
+        SearchDialog::update_style();
     }
 
     pub async fn execute_command(

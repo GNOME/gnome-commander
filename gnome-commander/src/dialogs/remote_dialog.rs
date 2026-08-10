@@ -12,6 +12,7 @@ use crate::{
 };
 use gettextrs::{gettext, pgettext};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
+use std::cell::RefCell;
 
 mod imp {
     use super::*;
@@ -319,15 +320,24 @@ glib::wrapper! {
 }
 
 impl RemoteDialog {
-    pub fn new(main_window: &MainWindow) -> Self {
-        let dialog: RemoteDialog = glib::Object::builder()
-            .property("transient-for", main_window)
-            .property("connections", ConnectionList::get())
-            .property("main-window", main_window)
-            .build();
-        dialog.imp().fill_model();
-        dialog.imp().view.grab_focus();
-        dialog
+    pub fn show(main_window: &MainWindow) {
+        thread_local! {
+            static DIALOG: RefCell<glib::WeakRef<RemoteDialog>> = Default::default();
+        }
+        let dialog = DIALOG.with_borrow_mut(|stored_dialog| {
+            stored_dialog.upgrade().unwrap_or_else(|| {
+                let dialog: RemoteDialog = glib::Object::builder()
+                    .property("transient-for", main_window)
+                    .property("connections", ConnectionList::get())
+                    .property("main-window", main_window)
+                    .build();
+                dialog.imp().fill_model();
+                dialog.imp().view.grab_focus();
+                *stored_dialog = dialog.downgrade();
+                dialog
+            })
+        });
+        dialog.present();
     }
 }
 

@@ -13,6 +13,7 @@ use crate::{
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
+use std::{cell::RefCell, collections::HashMap};
 
 mod imp {
     use super::*;
@@ -553,19 +554,24 @@ impl FilePropertiesDialog {
     }
 
     pub async fn show(parent_window: &MainWindow, file: &File, connection: &Connection) -> bool {
+        thread_local! {
+            static DIALOGS: RefCell<HashMap<String, FilePropertiesDialog>> = Default::default();
+        }
+
         if file.is_dotdot() {
             return false;
         }
 
-        let handle = format!("fileproperties {}", file.uri());
-        if let Some(dialog) = parent_window.get_dialog::<Self>(&handle) {
+        let key = file.uri();
+        if let Some(dialog) = DIALOGS.with_borrow(|dialogs| dialogs.get(&key).cloned()) {
             dialog.present();
             false
         } else {
-            let dialog = parent_window.set_dialog(
-                &handle,
-                Self::new(parent_window.upcast_ref(), file, connection),
-            );
+            let dialog = DIALOGS.with_borrow_mut(|dialogs| {
+                let dialog = Self::new(parent_window.upcast_ref(), file, connection);
+                dialogs.insert(key.clone(), dialog.clone());
+                dialog
+            });
 
             let (sender, receiver) = async_channel::bounded::<bool>(1);
             dialog.connect(
@@ -592,6 +598,7 @@ impl FilePropertiesDialog {
 
             let changed = receiver.recv().await == Ok(true);
             dialog.close();
+            DIALOGS.with_borrow_mut(|dialogs| dialogs.remove(&key));
 
             changed
         }

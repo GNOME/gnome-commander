@@ -17,6 +17,7 @@ use component_framework::{
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
+use std::cell::RefCell;
 
 #[derive(Debug, Default)]
 pub struct ConnectDialogView {
@@ -244,21 +245,28 @@ impl ConnectDialog {
         parent_window: &MainWindow,
         uri: Option<glib::Uri>,
     ) -> Option<ConnectionRemote> {
-        if let Some(dialog) = parent_window.get_dialog::<gtk::Window>("connect") {
-            dialog.present();
-            None
-        } else {
-            let controller = ConnectDialog {
-                temporary: true,
-                alias: None,
-                uri,
-            }
-            .build();
-            controller.root().set_transient_for(Some(parent_window));
-            parent_window.set_dialog("connect", controller.root().clone());
-
-            Self::wait_for_connection(controller, false).await
+        thread_local! {
+            static DIALOG: RefCell<glib::WeakRef<gtk::Window>> = Default::default();
         }
+
+        let controller = DIALOG.with_borrow_mut(|dialog| {
+            if let Some(dialog) = dialog.upgrade() {
+                dialog.present();
+                None
+            } else {
+                let controller = ConnectDialog {
+                    temporary: true,
+                    alias: None,
+                    uri,
+                }
+                .build();
+                controller.root().set_transient_for(Some(parent_window));
+                *dialog = controller.root().downgrade();
+                Some(controller)
+            }
+        })?;
+
+        Self::wait_for_connection(controller, false).await
     }
 
     pub async fn add_connection(parent_window: &gtk::Window) -> Option<ConnectionRemote> {

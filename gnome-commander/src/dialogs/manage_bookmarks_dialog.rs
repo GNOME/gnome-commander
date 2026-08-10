@@ -8,7 +8,6 @@ use crate::{
     connection::{Connection, ConnectionExt, bookmark::Bookmark, list::ConnectionList},
     dir::Directory,
     file::FileOps,
-    main_win::MainWindow,
     options::GeneralOptions,
     shortcuts::{Call, Shortcuts},
     user_actions::{BookmarkActionVariant, UserAction},
@@ -16,6 +15,7 @@ use crate::{
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
+use std::cell::RefCell;
 
 mod imp {
     use super::*;
@@ -523,24 +523,30 @@ impl BookmarksDialog {
     }
 
     pub async fn show(
-        parent_window: &MainWindow,
+        parent_window: &gtk::Window,
         connection_list: &ConnectionList,
         shortcuts: &Shortcuts,
     ) -> Option<TaggedBookmark> {
-        if let Some(dialog) = parent_window.get_dialog::<Self>("bookmarks") {
-            dialog.present();
-            None
-        } else {
-            let dialog = parent_window.set_dialog(
-                "bookmarks",
-                Self::new(parent_window.upcast_ref(), connection_list, shortcuts),
-            );
-            dialog.present();
-            dialog.imp().view.grab_focus();
-            let result = dialog.imp().receiver.recv().await.ok().flatten();
-            dialog.close();
-            result
+        thread_local! {
+            static DIALOG: RefCell<glib::WeakRef<BookmarksDialog>> = Default::default();
         }
+
+        let dialog = DIALOG.with_borrow_mut(|stored_dialog| {
+            if let Some(stored_dialog) = stored_dialog.upgrade() {
+                stored_dialog.present();
+                None
+            } else {
+                let dialog = Self::new(parent_window, connection_list, shortcuts);
+                *stored_dialog = dialog.downgrade();
+                Some(dialog)
+            }
+        })?;
+
+        dialog.present();
+        dialog.imp().view.grab_focus();
+        let result = dialog.imp().receiver.recv().await.ok().flatten();
+        dialog.close();
+        result
     }
 }
 
