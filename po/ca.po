@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
 "POT-Creation-Date: 2020-07-20 08:22+0000\n"
-"PO-Revision-Date: 2026-02-16 16:47+0000\n"
-"Last-Translator: Miquel-Àngel Burgos i Fradeja <miquel.angel.burgos@gmail.com>\n"
+"PO-Revision-Date: 2026-08-11 16:47+0000\n"
+"Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -87,7 +87,7 @@ msgstr "Font de les finestres"
 
 #: data/org.gnome.gnome-commander.gschema.xml:90
 msgid "Filesize display mode"
-msgstr "Mode de visualització del fitxer"
+msgstr "Mode de visualització de la mida del fitxer"
 
 #: data/org.gnome.gnome-commander.gschema.xml:97
 #: src/dialogs/options/format_tab.rs:86
@@ -700,7 +700,7 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:676
 msgid "Hide regular files"
-msgstr "Amaga els fitxers habituals"
+msgstr "Amaga els fitxers normals"
 
 #: data/org.gnome.gnome-commander.gschema.xml:680
 msgid "Hide directories"
@@ -4910,13 +4910,13 @@ msgid ""
 "vertical direction, the number of lines recorded in this valid image height "
 "tag will in fact be the same as that recorded in the SOF."
 msgstr ""
-"Informació específica de dades comprimides. Quan es grava un fitxer "
+"Informació específica de les dades comprimides. Quan es registra un fitxer "
 "comprimit, cal registrar en aquesta etiqueta l'alçària vàlida de la imatge "
-"significativa, tant si hi ha o no dades de rellotge o un marcador de "
-"reinici. Aquesta etiqueta no hauria d'existir en un fitxer no comprimit. Com"
-" que el rellotge de dades no és necessari en la direcció vertical, el nombre"
+"significativa, tant si hi ha dades de farciment o un marcador de reinici com "
+"si no. Aquesta etiqueta no hauria d'existir en un fitxer no comprimit. Com "
+"que el farciment de dades no és necessari en la direcció vertical, el nombre "
 " de línies enregistrades en aquesta etiqueta d'alçària d'imatge vàlida serà "
-"de fet la mateixa que la registrada al SOF."
+"de fet el mateix que el registrat al SOF."
 
 #: plugins/exiv2/exiv2-plugin.cc:164
 msgid "Planar Configuration"
@@ -5534,7 +5534,7 @@ msgstr "El camí complet del fitxer sense el nom del fitxer."
 
 #: src/tags/basic.rs:82
 msgid "Permission string in unix format eg “-rw-r--r--”."
-msgstr "Cadena d'autorització en format unix, per exemple, \"-rw-r - r--\"."
+msgstr "Cadena de permisos en format Unix, per exemple, «-rw-r--r--»."
 
 #: plugins/taglib/taglib-plugin.cc:213 src/tags/basic.rs:64
 msgid "Publisher"
@@ -5545,8 +5545,8 @@ msgid ""
 "Editable DC type for the name of the publisher of the file (EG dc:publisher "
 "field in RSS feed)."
 msgstr ""
-"Tipus de DC editable per al nom de l'editor del fitxer (per exemple, camp "
-"dc:editor en fils RSS)."
+"Tipus DC editable per al nom de l'editor del fitxer (per exemple, el camp "
+"dc:publisher en un canal RSS)."
 
 #: src/tags/basic.rs:67
 msgid "Rank"
@@ -6214,7 +6214,7 @@ msgstr "Missatge de copyright encastat."
 
 #: plugins/exiv2/exiv2-plugin.cc:69
 msgid "Datetime image was originally created."
-msgstr "Imatge de la data i hora en què es va crear originàriament."
+msgstr "Data i hora en què es va crear originalment la imatge."
 
 #: plugins/exiv2/exiv2-plugin.cc:70
 msgid "Description of the image."
@@ -6413,7 +6413,7 @@ msgstr "Llegenda, Resum"
 
 #: plugins/exiv2/exiv2-plugin.cc:203 plugins/taglib/taglib-plugin.cc:337
 msgid "A textual description of the data."
-msgstr "Una descripció textual de la data."
+msgstr "Una descripció textual de les dades."
 
 #: plugins/exiv2/exiv2-plugin.cc:227
 msgid ""
@@ -6793,7 +6793,7 @@ msgstr "Previsualització de dades"
 
 #: plugins/exiv2/exiv2-plugin.cc:256
 msgid "The object preview data."
-msgstr "Objecte de previsualització de dades."
+msgstr "Les dades de previsualització de l'objecte."
 
 #: plugins/exiv2/exiv2-plugin.cc:257
 msgid "Preview File Format"
@@ -6914,7 +6914,7 @@ msgstr "Mode Mida"
 
 #: plugins/exiv2/exiv2-plugin.cc:269
 msgid "Set to 0 if the size of the object is known and 1 if not known."
-msgstr "Estableix a 0 si la mida de l'objecte es coneix 1 si no."
+msgstr "Estableix a 0 si es coneix la mida de l'objecte i a 1 si no es coneix."
 
 #: plugins/exiv2/exiv2-plugin.cc:270
 msgid "Source"
