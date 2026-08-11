@@ -141,9 +141,9 @@ mod imp {
             }
             self.debug_flags.replace(debug_flags);
             self.start_left_dir
-                .replace(get_string_option(options, "start-left-dir").map(parse_dir));
+                .replace(get_string_option(options, "start-left-dir").map(PathBuf::from));
             self.start_right_dir
-                .replace(get_string_option(options, "start-right-dir").map(parse_dir));
+                .replace(get_string_option(options, "start-right-dir").map(PathBuf::from));
 
             self.parent_handle_local_options(options)
         }
@@ -254,14 +254,6 @@ mod imp {
         options
             .lookup_value(key, Some(&String::static_variant_type()))
             .and_then(|v| v.get())
-    }
-
-    fn parse_dir(dir: String) -> PathBuf {
-        if dir == "." {
-            glib::current_dir()
-        } else {
-            PathBuf::from(dir)
-        }
     }
 }
 
