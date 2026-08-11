@@ -5,15 +5,15 @@
 
 use super::prepare_transfer_dialog::PrepareTransferDialog;
 use crate::{
-    file::FileOps, file_selector::FileSelector, main_win::MainWindow, options::ConfirmOptions,
-    transfer::copy_files, types::ConfirmOverwriteMode,
+    file::FileOps, file_selector::FileSelector, options::ConfirmOptions, transfer::copy_files,
+    types::ConfirmOverwriteMode,
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gio, prelude::*};
 use std::path::PathBuf;
 
 pub async fn prepare_copy_dialog_show(
-    main_win: &MainWindow,
+    parent: &gtk::Window,
     from: &FileSelector,
     to: &FileSelector,
 ) {
@@ -26,7 +26,7 @@ pub async fn prepare_copy_dialog_show(
     };
 
     let dialog = PrepareTransferDialog::new(from, to);
-    dialog.set_transient_for(Some(main_win));
+    dialog.set_transient_for(Some(parent));
     dialog.set_title(Some(&gettext("Copy")));
     dialog.set_accept_label(&gettext("C_opy"));
 
@@ -119,7 +119,7 @@ pub async fn prepare_copy_dialog_show(
     }
 
     let _transfer_result = copy_files(
-        main_win.clone().upcast(),
+        parent.clone(),
         src_files.iter().map(|f| f.file().clone()).collect(),
         dest_dir.clone(),
         dest_fn.map(PathBuf::from),
@@ -129,8 +129,6 @@ pub async fn prepare_copy_dialog_show(
     .await;
 
     if let Err(error) = dest_dir.relist_files(None).await {
-        error.show(main_win.upcast_ref()).await;
+        error.show(parent).await;
     }
-
-    main_win.focus_file_lists();
 }

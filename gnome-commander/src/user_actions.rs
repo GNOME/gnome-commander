@@ -89,7 +89,7 @@ pub struct PluginActionVariant {
 async fn file_copy(main_win: MainWindow) {
     let src_fs = main_win.file_selector(FileSelectorID::Active);
     let dst_fs = main_win.file_selector(FileSelectorID::Inactive);
-    prepare_copy_dialog_show(&main_win, &src_fs, &dst_fs).await;
+    prepare_copy_dialog_show(main_win.upcast_ref(), &src_fs, &dst_fs).await;
 }
 
 async fn file_copy_as(main_win: MainWindow) {
@@ -98,13 +98,13 @@ async fn file_copy_as(main_win: MainWindow) {
     let Some(file) = file_list.selected_file() else {
         return;
     };
-    make_copy_dialog(&file, &file_list.directory(), &main_win).await;
+    make_copy_dialog(&file, &file_list.directory(), main_win.upcast_ref()).await;
 }
 
 async fn file_move(main_win: MainWindow) {
     let src_fs = main_win.file_selector(FileSelectorID::Active);
     let dst_fs = main_win.file_selector(FileSelectorID::Inactive);
-    prepare_move_dialog_show(&main_win, &src_fs, &dst_fs).await;
+    prepare_move_dialog_show(main_win.upcast_ref(), &src_fs, &dst_fs).await;
 }
 
 async fn file_delete(main_win: MainWindow) {
