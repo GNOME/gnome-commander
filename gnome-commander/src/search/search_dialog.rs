@@ -795,8 +795,10 @@ impl SearchDialog {
 
         main_window
             .shortcuts()
-            .add_controller(&this, Area::MainWindow);
-        main_window.shortcuts().add_controller(&this, Area::Panel);
+            .add_controller(&this.result_list(), Area::MainWindow);
+        main_window
+            .shortcuts()
+            .add_controller(&this.result_list(), Area::Panel);
 
         let profile_component = this.profile_component();
         profile_component.set_profile(Some(config.default_profile()));
