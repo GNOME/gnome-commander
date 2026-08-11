@@ -256,11 +256,11 @@ fn app_handle_local_options(
 fn main() -> Result<impl Termination, Box<dyn Error>> {
     if let Some(mismatch) = glib::check_version(2, 80, 0) {
         eprintln!("GLib version mismatch: {mismatch}");
-        std::process::exit(1);
+        return Ok(glib::ExitCode::FAILURE);
     }
     if let Some(mismatch) = gtk::check_version(4, 14, 0) {
         eprintln!("GTK version mismatch: {mismatch}");
-        std::process::exit(1);
+        return Ok(glib::ExitCode::FAILURE);
     }
 
     gettextrs::setlocale(gettextrs::LocaleCategory::LcAll, "");
@@ -307,6 +307,5 @@ fn main() -> Result<impl Termination, Box<dyn Error>> {
     app.connect_shutdown(app_shutdown);
     app.connect_handle_local_options(app_handle_local_options);
 
-    let exis_code = app.run();
-    Ok(exis_code)
+    Ok(app.run())
 }
