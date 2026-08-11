@@ -367,7 +367,6 @@ mod imp {
             // file list
             let result_list = self.result_list.borrow();
             result_list.set_height_request(200);
-            result_list.update_style(self.main_window.get());
 
             result_list.connect_show_quick_search(glib::clone!(
                 #[weak(rename_to = quick_search_box)]
@@ -786,10 +785,6 @@ glib::wrapper! {
         @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Root, gtk::Native;
 }
 
-thread_local! {
-    static DIALOG: RefCell<glib::WeakRef<SearchDialog>> = Default::default();
-}
-
 impl SearchDialog {
     pub fn new(config: Rc<SearchConfig>, main_window: &MainWindow) -> Self {
         let this: Self = glib::Object::builder()
@@ -817,6 +812,10 @@ impl SearchDialog {
         start_dir: &Directory,
         transient_for: Option<&MainWindow>,
     ) {
+        thread_local! {
+            static DIALOG: RefCell<glib::WeakRef<SearchDialog>> = Default::default();
+        }
+
         let dialog = DIALOG.with_borrow_mut(|stored_dialog| {
             stored_dialog.upgrade().unwrap_or_else(|| {
                 let search_config = SearchConfig::get();
@@ -836,13 +835,5 @@ impl SearchDialog {
         dialog
             .dir_browser()
             .set_file(Some(start_dir.file().clone()));
-    }
-
-    pub fn update_style() {
-        if let Some(dialog) = DIALOG.with_borrow(glib::WeakRef::upgrade) {
-            dialog
-                .result_list()
-                .update_style(dialog.imp().main_window.get());
-        }
     }
 }

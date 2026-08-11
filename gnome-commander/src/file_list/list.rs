@@ -18,7 +18,10 @@ use crate::{
     file::{File, FileOps},
     filter::{Filter, fnmatch},
     history::History,
-    layout::ls_colors::{LsPalletteColor, ls_colors_get},
+    layout::{
+        color_themes::{ColorThemeListener, ColorThemes},
+        ls_colors::{LsPalletteColor, ls_colors_get},
+    },
     main_win::MainWindow,
     open_connection::open_connection,
     options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
@@ -76,7 +79,7 @@ mod imp {
         weak_map::WeakMap,
     };
     use std::{
-        cell::{Cell, RefCell},
+        cell::{Cell, OnceCell, RefCell},
         collections::BTreeMap,
         rc::Rc,
         sync::OnceLock,
@@ -119,6 +122,7 @@ mod imp {
 
         #[property(get, set)]
         pub use_ls_colors: Cell<bool>,
+        theme_listener: OnceCell<ColorThemeListener<Box<dyn Fn()>>>,
 
         #[property(get, set, default = true)]
         case_sensitive: Cell<bool>,
@@ -249,6 +253,7 @@ mod imp {
                 permissions_display_mode: Default::default(),
                 date_display_format: Default::default(),
                 use_ls_colors: Default::default(),
+                theme_listener: Default::default(),
                 case_sensitive: Default::default(),
                 left_mouse_button_mode: Default::default(),
                 middle_mouse_button_mode: Default::default(),
@@ -309,6 +314,15 @@ mod imp {
             let fl = self.obj();
             fl.set_layout_manager(Some(gtk::BinLayout::new()));
             self.view.add_css_class("gnome-cmd-file-list");
+
+            fl.update_theme();
+            self.theme_listener.get_or_init(|| {
+                ColorThemeListener::new(Box::new(glib::clone!(
+                    #[weak]
+                    fl,
+                    move || fl.update_theme()
+                )))
+            });
 
             let filters_options = FiltersOptions::instance();
             for option in [
@@ -2612,10 +2626,8 @@ impl FileList {
         quick_search.grab_focus_without_selecting();
     }
 
-    pub fn update_style(&self, main_win: Option<&MainWindow>) {
-        if let Some(main_win) = main_win
-            && main_win.color_themes().has_theme()
-        {
+    pub fn update_theme(&self) {
+        if ColorThemes::has_theme() {
             self.view().add_css_class("themed");
         } else {
             self.view().remove_css_class("themed");

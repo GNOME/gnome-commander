@@ -11,7 +11,6 @@ use crate::{
     dir::Directory,
     file::{File, FileOps},
     file_list::list::{ColumnID, ColumnOptions, FileList},
-    main_win::MainWindow,
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
     open_file::mime_exec_single,
     shortcuts::{Area, Shortcuts},
@@ -639,7 +638,6 @@ impl FileSelector {
         let n = self.imp().notebook.append_page(&fl, Some(&label));
         self.update_show_tabs();
         self.imp().notebook.set_tab_reorderable(&fl, true);
-        fl.update_style(self.root().and_downcast::<MainWindow>().as_ref());
 
         fl.connect_con_changed(glib::clone!(
             #[weak(rename_to = this)]
@@ -1227,11 +1225,10 @@ impl FileSelector {
         self.imp().history_button.set_active(true);
     }
 
-    pub fn update_style(&self) {
+    pub fn update_view(&self) {
         self.update_show_tabs();
         for i in 0..self.tab_count() {
             let fl = self.file_list_nth(i);
-            fl.update_style(self.root().and_downcast::<MainWindow>().as_ref());
             self.imp().update_tab_label(&fl);
         }
         self.update_connections();

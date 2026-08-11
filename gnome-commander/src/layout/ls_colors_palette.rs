@@ -6,7 +6,7 @@
 use super::ls_colors::{LsPalletteColor, LsPallettePlane};
 use crate::options::{ColorOptions, types::RGBAOption};
 use gtk::gdk;
-use std::{cell::RefCell, rc::Rc};
+use std::{marker::PhantomData, rc::Rc};
 
 type PlaneColors = [gdk::RGBA; LsPalletteColor::count()];
 
@@ -48,7 +48,7 @@ impl LsColorsPalette {
         self.colors[plane as usize][palette_color as usize] = color;
     }
 
-    fn create_css(&self) -> String {
+    pub fn create_css(&self) -> String {
         let mut css = String::new();
         for plane in LsPallettePlane::all() {
             for palette_color in LsPalletteColor::all() {
@@ -107,59 +107,39 @@ pub fn save_palette(
     Ok(())
 }
 
-type Callback = Box<dyn Fn(&LsColorPalettes)>;
-
-pub struct LsColorPalettes {
-    callback: RefCell<Option<Callback>>,
-    css_provider: Option<gtk::CssProvider>,
+pub struct LsColorsPaletteListener<C: ?Sized> {
+    settings: Rc<ColorOptions>,
+    handlers: Vec<glib::SignalHandlerId>,
+    callback: PhantomData<C>,
 }
 
-impl LsColorPalettes {
-    pub fn new() -> Rc<Self> {
-        let css_provider = gdk::Display::default().map(|display| {
-            let css_provider = gtk::CssProvider::new();
-            gtk::style_context_add_provider_for_display(
-                &display,
-                &css_provider,
-                gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
-            );
-            css_provider
-        });
-
-        let this = Rc::new(Self {
-            callback: Default::default(),
-            css_provider,
-        });
+impl<C: Fn() + 'static> LsColorsPaletteListener<C> {
+    /// Produces a listener object. As long as that object is alive, the callback will be called on
+    /// color palette changes.
+    pub fn new(callback: C) -> Self {
+        let mut handlers = Vec::new();
+        let callback = Rc::new(callback);
 
         let settings = ColorOptions::instance();
         for (_, option) in options(&settings) {
-            let weak_ref = Rc::downgrade(&this);
-            option.connect_changed(move |_| {
-                if let Some(this) = weak_ref.upgrade() {
-                    this.update_palette();
-                }
-            });
+            let callback_cloned = callback.clone();
+            handlers.push(option.connect_changed(move |_| {
+                callback_cloned();
+            }));
         }
-        this.update_palette();
 
-        this
+        Self {
+            settings,
+            handlers,
+            callback: Default::default(),
+        }
     }
+}
 
-    pub fn set_update_callback(&self, callback: impl Fn(&Self) + 'static) {
-        self.callback.replace(Some(Box::new(callback)));
-    }
-
-    fn update_palette(&self) {
-        let Some(css_provider) = self.css_provider.as_ref() else {
-            eprintln!("No display");
-            return;
-        };
-
-        let palette = load_palette();
-        css_provider.load_from_string(&palette.create_css());
-
-        if let Some(callback) = self.callback.borrow().as_ref() {
-            (callback)(self);
+impl<C: ?Sized> Drop for LsColorsPaletteListener<C> {
+    fn drop(&mut self) {
+        for handler in self.handlers.drain(..) {
+            self.settings.theme.disconnect(handler);
         }
     }
 }

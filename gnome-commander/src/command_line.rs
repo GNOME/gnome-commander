@@ -622,6 +622,4 @@ impl CommandLine {
     pub fn show_history(&self) {
         self.imp().entry.show_history();
     }
-
-    pub fn update_style(&self) {}
 }
