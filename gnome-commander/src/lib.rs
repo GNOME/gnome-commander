@@ -4,7 +4,6 @@
 
 pub mod advanced_rename;
 pub mod app;
-pub mod application;
 pub mod chmod_component;
 pub mod chown_component;
 pub mod command_line;
