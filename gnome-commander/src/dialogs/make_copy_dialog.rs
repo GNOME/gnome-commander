@@ -6,7 +6,6 @@
 use crate::{
     dir::Directory,
     file::{File, FileOps},
-    main_win::MainWindow,
     transfer::copy_files,
     types::ConfirmOverwriteMode,
     utils::{NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
@@ -15,12 +14,12 @@ use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
 use std::path::{Path, PathBuf};
 
-pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) {
+pub async fn make_copy_dialog(f: &File, dir: &Directory, parent: &gtk::Window) {
     let dialog = gtk::Window::builder()
         .resizable(false)
         .title(gettext("Copy File"))
         .modal(true)
-        .transient_for(main_win)
+        .transient_for(parent)
         .build();
     dialog.add_css_class("dialog");
 
@@ -110,7 +109,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
 
     let src_files = vec![f.file().clone()];
     let success = copy_files(
-        main_win.clone().upcast(),
+        parent.clone(),
         src_files,
         dest_dir,
         Some(PathBuf::from(dest_fn)),
@@ -119,10 +118,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
     )
     .await;
 
-    if success {
-        if let Err(error) = dir.relist_files(None).await {
-            error.show(main_win.upcast_ref()).await;
-        }
-        main_win.focus_file_lists();
+    if success && let Err(error) = dir.relist_files(None).await {
+        error.show(parent).await;
     }
 }
