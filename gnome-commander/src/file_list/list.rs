@@ -1803,7 +1803,10 @@ mod imp {
                 }
             };
 
-            self.relist().await;
+            // Only reload remote directories, for local directories we rely on monitoring
+            if !destination.is_local() {
+                let _ = destination.relist_files(None).await;
+            }
         }
     }
 
