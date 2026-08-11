@@ -8,7 +8,7 @@ use crate::{
     utils::u32_enum,
 };
 use gtk::{gdk, glib};
-use std::{borrow::Cow, cell::RefCell, rc::Rc};
+use std::{borrow::Cow, marker::PhantomData, rc::Rc};
 
 const fn from_hex(color: &'static str) -> gdk::RGBA {
     const fn strip_prefix(input: &str, prefix: char) -> Option<&str> {
@@ -74,7 +74,7 @@ impl Default for ColorTheme {
 }
 
 impl ColorTheme {
-    fn create_css(&self) -> String {
+    pub fn create_css(&self) -> String {
         format!(
             r#"
                 @define-color color-norm-bg {norm_bg};
@@ -201,37 +201,40 @@ u32_enum! {
     }
 }
 
-type Callback = Box<dyn Fn(&ColorThemes)>;
-
-pub struct ColorThemes {
-    callback: RefCell<Option<Callback>>,
-    css_provider: Option<gtk::CssProvider>,
-}
+pub struct ColorThemes;
 
 impl ColorThemes {
-    pub fn new() -> Rc<Self> {
-        let css_provider = gdk::Display::default().map(|display| {
-            let css_provider = gtk::CssProvider::new();
-            gtk::style_context_add_provider_for_display(
-                &display,
-                &css_provider,
-                gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
-            );
-            css_provider
-        });
+    fn theme_id() -> ColorThemeId {
+        ColorOptions::instance().theme.get()
+    }
 
-        let this = Rc::new(Self {
-            callback: Default::default(),
-            css_provider,
-        });
+    pub fn has_theme() -> bool {
+        Self::theme_id() != ColorThemeId::None
+    }
+
+    pub fn theme() -> Option<Cow<'static, ColorTheme>> {
+        theme_by_id(Self::theme_id())
+    }
+}
+
+pub struct ColorThemeListener<C: ?Sized> {
+    settings: Rc<ColorOptions>,
+    handlers: Vec<glib::SignalHandlerId>,
+    callback: PhantomData<C>,
+}
+
+impl<C: Fn() + 'static> ColorThemeListener<C> {
+    /// Produces a listener object. As long as that object is alive, the callback will be called on
+    /// color theme changes.
+    pub fn new(callback: C) -> Self {
+        let mut handlers = Vec::new();
+        let callback = Rc::new(callback);
 
         let settings = ColorOptions::instance();
-        let weak_ref = Rc::downgrade(&this);
-        settings.theme.connect_changed(move |_| {
-            if let Some(this) = weak_ref.upgrade() {
-                this.update_theme();
-            }
-        });
+        let callback_cloned = callback.clone();
+        handlers.push(settings.theme.connect_changed(move |_| {
+            callback_cloned();
+        }));
         for option in [
             &settings.custom_norm_fg,
             &settings.custom_norm_bg,
@@ -242,50 +245,25 @@ impl ColorThemes {
             &settings.custom_curs_fg,
             &settings.custom_curs_bg,
         ] {
-            let weak_ref = Rc::downgrade(&this);
-            option.connect_changed(move |_| {
-                if let Some(this) = weak_ref.upgrade() {
-                    this.update_theme();
-                }
-            });
+            let callback_cloned = callback.clone();
+            handlers.push(option.connect_changed(move |_| {
+                callback_cloned();
+            }));
         }
-        this.update_theme();
 
-        this
-    }
-
-    pub fn set_update_callback(&self, callback: impl Fn(&Self) + 'static) {
-        self.callback.replace(Some(Box::new(callback)));
-    }
-
-    fn update_theme(&self) {
-        let Some(css_provider) = &self.css_provider else {
-            eprintln!("No display");
-            return;
-        };
-
-        css_provider.load_from_string(
-            &self
-                .theme()
-                .map(|theme| theme.create_css())
-                .unwrap_or_default(),
-        );
-
-        if let Some(callback) = self.callback.borrow().as_ref() {
-            (callback)(self);
+        Self {
+            settings,
+            handlers,
+            callback: Default::default(),
         }
     }
+}
 
-    fn theme_id(&self) -> ColorThemeId {
-        ColorOptions::instance().theme.get()
-    }
-
-    pub fn has_theme(&self) -> bool {
-        self.theme_id() != ColorThemeId::None
-    }
-
-    pub fn theme(&self) -> Option<Cow<'static, ColorTheme>> {
-        theme_by_id(self.theme_id())
+impl<C: ?Sized> Drop for ColorThemeListener<C> {
+    fn drop(&mut self) {
+        for handler in self.handlers.drain(..) {
+            self.settings.theme.disconnect(handler);
+        }
     }
 }
 

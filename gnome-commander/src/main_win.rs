@@ -8,14 +8,12 @@ use crate::{
     dir::Directory,
     file::{File, FileOps},
     file_selector::{FileSelector, TabPosition, TabState, TabVariant},
-    layout::color_themes::ColorThemes,
     options::{GeneralOptions, types::WriteResult},
     paned_ext::GnomeCmdPanedExt,
     plugins::{
         ApiRequestToPlugin, ApiResponseFromPlugin, MessageFromPluginHost, MessageToPluginHost,
         PanelsState, PluginHostChannel, plugin_channel,
     },
-    search::search_dialog::SearchDialog,
     shortcuts::{Area, LegacyShortcutVariant, Shortcuts},
     spawn::{SpawnError, app_needs_terminal, run_command_indir},
     types::FileSelectorID,
@@ -105,7 +103,6 @@ pub mod imp {
         #[property(get, set = Self::set_current_panel)]
         current_panel: Cell<u32>,
 
-        pub color_themes: Rc<ColorThemes>,
         ls_color_palettes: Rc<LsColorPalettes>,
 
         #[property(get, set)]
@@ -208,7 +205,6 @@ pub mod imp {
                 delete_btn: buttonbar_button(&gettext("F8 Delete"), UserAction::FileDelete.name()),
                 find_btn: buttonbar_button(&gettext("F9 Search"), UserAction::FileSearch.name()),
 
-                color_themes: ColorThemes::new(),
                 ls_color_palettes: LsColorPalettes::new(),
 
                 current_panel: Cell::new(0),
@@ -491,11 +487,6 @@ pub mod imp {
                 .add_shortcuts(&self.shortcuts);
             self.cmdline.add_shortcuts(&self.shortcuts);
 
-            self.color_themes.set_update_callback(glib::clone!(
-                #[weak(rename_to = this)]
-                self.obj(),
-                move |_| this.update_view()
-            ));
             self.ls_color_palettes.set_update_callback(glib::clone!(
                 #[weak(rename_to = this)]
                 self.obj(),
@@ -1131,7 +1122,8 @@ impl MainWindow {
     }
 
     pub fn update_view(&self) {
-        self.update_style();
+        self.imp().file_selector_left.borrow().update_view();
+        self.imp().file_selector_right.borrow().update_view();
     }
 
     pub fn shortcuts(&self) -> &Shortcuts {
@@ -1170,13 +1162,6 @@ impl MainWindow {
                 .filter_map(get_file_name)
                 .collect(),
         }
-    }
-
-    pub fn update_style(&self) {
-        self.imp().file_selector_left.borrow().update_style();
-        self.imp().file_selector_right.borrow().update_style();
-        self.imp().cmdline.update_style();
-        SearchDialog::update_style();
     }
 
     pub async fn execute_command(
@@ -1277,10 +1262,6 @@ impl MainWindow {
         if let Some(handle_rect) = self.imp().paned.handle_rect() {
             self.imp().show_slide_popup_at(&handle_rect.center());
         }
-    }
-
-    pub fn color_themes(&self) -> &Rc<ColorThemes> {
-        &self.imp().color_themes
     }
 }
 

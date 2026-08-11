@@ -57,22 +57,30 @@ use crate::{
     config::{ICONS_PREFIX, PACKAGE, locale_dir},
     connection::list::ConnectionList,
     debug::set_debug_flags,
+    layout::color_themes::{ColorThemeListener, ColorThemes},
     main_win::MainWindow,
     options::{GeneralOptions, SearchConfig},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, pango, prelude::*};
 use std::{
-    borrow::Cow, cell::RefCell, error::Error, ops::ControlFlow, path::PathBuf, process::Termination,
+    borrow::Cow,
+    cell::{OnceCell, RefCell},
+    error::Error,
+    ops::ControlFlow,
+    path::PathBuf,
+    process::Termination,
 };
 
 thread_local! {
     static START_LEFT_DIR: RefCell<Option<PathBuf>> = Default::default();
     static START_RIGHT_DIR: RefCell<Option<PathBuf>> = Default::default();
+    static THEME_LISTENER: OnceCell<ColorThemeListener<Box<dyn Fn()>>> = Default::default();
 }
 
 fn load_application_css() {
     if let Some(display) = gdk::Display::default() {
+        // CSS provider for static CSS data
         let provider = gtk::CssProvider::new();
         provider.load_from_string(include_str!("application.css"));
         gtk::style_context_add_provider_for_display(
@@ -80,7 +88,29 @@ fn load_application_css() {
             &provider,
             gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
         );
+
+        // CSS provider for dynamic CSS data
+        let css_provider = gtk::CssProvider::new();
+        gtk::style_context_add_provider_for_display(
+            &display,
+            &css_provider,
+            gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
+        );
+        THEME_LISTENER.with(move |theme_listener| {
+            theme_listener.get_or_init(move || {
+                update_theme_css(&css_provider);
+                ColorThemeListener::new(Box::new(move || update_theme_css(&css_provider)))
+            });
+        })
     }
+}
+
+fn update_theme_css(css_provider: &gtk::CssProvider) {
+    css_provider.load_from_string(
+        &ColorThemes::theme()
+            .map(|theme| theme.create_css())
+            .unwrap_or_default(),
+    );
 }
 
 fn escape_css(value: &str) -> Cow<'_, str> {
