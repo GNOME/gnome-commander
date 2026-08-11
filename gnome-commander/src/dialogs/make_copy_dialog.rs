@@ -118,7 +118,11 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, parent: &gtk::Window) {
     )
     .await;
 
-    if success && let Err(error) = dir.relist_files(None).await {
+    // Only reload remote directories, for local directories we rely on monitoring
+    if success
+        && !dir.is_local()
+        && let Err(error) = dir.relist_files(None).await
+    {
         error.show(parent).await;
     }
 }

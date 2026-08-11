@@ -128,7 +128,10 @@ pub async fn prepare_copy_dialog_show(
     )
     .await;
 
-    if let Err(error) = dest_dir.relist_files(None).await {
+    // Only reload remote directories, for local directories we rely on monitoring
+    if !dest_dir.is_local()
+        && let Err(error) = dest_dir.relist_files(None).await
+    {
         error.show(parent).await;
     }
 }
