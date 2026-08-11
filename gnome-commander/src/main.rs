@@ -57,7 +57,10 @@ use crate::{
     config::{ICONS_PREFIX, PACKAGE, locale_dir},
     connection::list::ConnectionList,
     debug::set_debug_flags,
-    layout::color_themes::{ColorThemeListener, ColorThemes},
+    layout::{
+        color_themes::{ColorThemeListener, ColorThemes},
+        ls_colors_palette::{LsColorsPaletteListener, load_palette},
+    },
     main_win::MainWindow,
     options::{GeneralOptions, SearchConfig},
 };
@@ -76,6 +79,7 @@ thread_local! {
     static START_LEFT_DIR: RefCell<Option<PathBuf>> = Default::default();
     static START_RIGHT_DIR: RefCell<Option<PathBuf>> = Default::default();
     static THEME_LISTENER: OnceCell<ColorThemeListener<Box<dyn Fn()>>> = Default::default();
+    static LS_COLORS_PALETTE_LISTENER: OnceCell<LsColorsPaletteListener<Box<dyn Fn()>>> = Default::default();
 }
 
 fn load_application_css() {
@@ -89,7 +93,7 @@ fn load_application_css() {
             gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
         );
 
-        // CSS provider for dynamic CSS data
+        // CSS provider for color theme CSS data
         let css_provider = gtk::CssProvider::new();
         gtk::style_context_add_provider_for_display(
             &display,
@@ -101,7 +105,23 @@ fn load_application_css() {
                 update_theme_css(&css_provider);
                 ColorThemeListener::new(Box::new(move || update_theme_css(&css_provider)))
             });
-        })
+        });
+
+        // CSS provider for LS_COLORS palette CSS data
+        let css_provider = gtk::CssProvider::new();
+        gtk::style_context_add_provider_for_display(
+            &display,
+            &css_provider,
+            gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
+        );
+        LS_COLORS_PALETTE_LISTENER.with(move |ls_colors_palette_listener| {
+            ls_colors_palette_listener.get_or_init(move || {
+                update_theme_css(&css_provider);
+                LsColorsPaletteListener::new(Box::new(move || {
+                    update_ls_colors_palette_css(&css_provider)
+                }))
+            });
+        });
     }
 }
 
@@ -111,6 +131,10 @@ fn update_theme_css(css_provider: &gtk::CssProvider) {
             .map(|theme| theme.create_css())
             .unwrap_or_default(),
     );
+}
+
+fn update_ls_colors_palette_css(css_provider: &gtk::CssProvider) {
+    css_provider.load_from_string(&load_palette().create_css());
 }
 
 fn escape_css(value: &str) -> Cow<'_, str> {

@@ -67,7 +67,6 @@ pub mod imp {
     use crate::{
         command_line::CommandLine,
         dir::Directory,
-        layout::ls_colors_palette::LsColorPalettes,
         options::{FiltersOptions, utils::remember_window_state},
         pwd::uid,
     };
@@ -102,8 +101,6 @@ pub mod imp {
         pub focus_controller_right: gtk::EventControllerFocus,
         #[property(get, set = Self::set_current_panel)]
         current_panel: Cell<u32>,
-
-        ls_color_palettes: Rc<LsColorPalettes>,
 
         #[property(get, set)]
         menu_visible: Cell<bool>,
@@ -204,8 +201,6 @@ pub mod imp {
                 mkdir_btn: buttonbar_button(&gettext("F7 Mkdir"), UserAction::FileMkdir.name()),
                 delete_btn: buttonbar_button(&gettext("F8 Delete"), UserAction::FileDelete.name()),
                 find_btn: buttonbar_button(&gettext("F9 Search"), UserAction::FileSearch.name()),
-
-                ls_color_palettes: LsColorPalettes::new(),
 
                 current_panel: Cell::new(0),
 
@@ -486,12 +481,6 @@ pub mod imp {
                 .borrow()
                 .add_shortcuts(&self.shortcuts);
             self.cmdline.add_shortcuts(&self.shortcuts);
-
-            self.ls_color_palettes.set_update_callback(glib::clone!(
-                #[weak(rename_to = this)]
-                self.obj(),
-                move |_| this.update_view()
-            ));
 
             let filters_options = FiltersOptions::instance();
             filters_options
