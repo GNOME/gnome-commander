@@ -101,6 +101,101 @@ listview.gcmd-toolbar {
     animation: bell 0.5s ease-out;
 }
 
+/* File list */
+
+.gnome-cmd-file-list cell {
+  padding: 0;
+}
+
+.gnome-cmd-file-list .cell {
+  padding: 4px 6px;
+}
+
+.gnome-cmd-file-list:not(.themed) .sel {
+  font-weight: bold;
+}
+.gnome-cmd-file-list:not(.themed) .sel:not(:focus) {
+  background-color: rgba(128, 128, 128, 0.3);
+}
+
+.gnome-cmd-file-list-state {
+  border: 1px solid #000;
+  border-radius: 0.5em;
+  color: #000;
+  margin: 2em;
+  padding: 0.5em;
+}
+.gnome-cmd-file-list-state.loading {
+  background-color: #996;
+}
+.gnome-cmd-file-list-state.error {
+  background-color: #966;
+}
+
+/*
+  Note: !important is not supported, so we make sure selectors have the same specificity, making
+  them apply in order.
+*/
+.gnome-cmd-file-list.themed,
+.gnome-cmd-file-list.themed listview {
+  background-color: @color-norm-bg;
+}
+.gnome-cmd-file-list.themed row {
+  background-color: unset;
+  color: @color-norm-fg;
+}
+.gnome-cmd-file-list.themed row:nth-child(2n) {
+  background-color: @color-alt-bg;
+  color: @color-alt-fg;
+}
+.gnome-cmd-file-list.themed row.sel {
+  background-color: @color-sel-bg;
+}
+.gnome-cmd-file-selector.active .gnome-cmd-file-list.themed row:selected {
+  background-color: @color-curs-bg;
+  color: @color-curs-fg;
+}
+.gnome-cmd-file-list.themed row.sel,
+.gnome-cmd-file-selector.active .gnome-cmd-file-list.themed row.sel {
+  color: @color-sel-fg;
+}
+
+@define-color ls-color-fg-black    #000;
+@define-color ls-color-fg-red      #f00;
+@define-color ls-color-fg-green    #0f0;
+@define-color ls-color-fg-yellow   #ff0;
+@define-color ls-color-fg-blue     #00f;
+@define-color ls-color-fg-magenta  #f0f;
+@define-color ls-color-fg-cyan     #0ff;
+@define-color ls-color-fg-white    #fff;
+
+@define-color ls-color-bg-black    #000;
+@define-color ls-color-bg-red      #f00;
+@define-color ls-color-bg-green    #0f0;
+@define-color ls-color-bg-yellow   #ff0;
+@define-color ls-color-bg-blue     #00f;
+@define-color ls-color-bg-magenta  #f0f;
+@define-color ls-color-bg-cyan     #0ff;
+@define-color ls-color-bg-white    #fff;
+
+.gnome-cmd-file-list .fg-black   { color: @ls-color-fg-black; }
+.gnome-cmd-file-list .fg-red     { color: @ls-color-fg-red; }
+.gnome-cmd-file-list .fg-green   { color: @ls-color-fg-green; }
+.gnome-cmd-file-list .fg-yellow  { color: @ls-color-fg-yellow; }
+.gnome-cmd-file-list .fg-blue    { color: @ls-color-fg-blue; }
+.gnome-cmd-file-list .fg-magenta { color: @ls-color-fg-magenta; }
+.gnome-cmd-file-list .fg-cyan    { color: @ls-color-fg-cyan; }
+.gnome-cmd-file-list .fg-white   { color: @ls-color-fg-white; }
+
+.gnome-cmd-file-list .bg-black   { background-color: @ls-color-bg-black; }
+.gnome-cmd-file-list .bg-red     { background-color: @ls-color-bg-red; }
+.gnome-cmd-file-list .bg-green   { background-color: @ls-color-bg-green; }
+.gnome-cmd-file-list .bg-yellow  { background-color: @ls-color-bg-yellow; }
+.gnome-cmd-file-list .bg-blue    { background-color: @ls-color-bg-blue; }
+.gnome-cmd-file-list .bg-magenta { background-color: @ls-color-bg-magenta; }
+.gnome-cmd-file-list .bg-cyan    { background-color: @ls-color-bg-cyan; }
+.gnome-cmd-file-list .bg-white   { background-color: @ls-color-bg-white; }
+
 /* Search dialog */
 
 .search-profile-grid {

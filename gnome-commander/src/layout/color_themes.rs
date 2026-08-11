@@ -211,16 +211,6 @@ pub struct ColorThemes {
 impl ColorThemes {
     pub fn new() -> Rc<Self> {
         let css_provider = gdk::Display::default().map(|display| {
-            // CSS provider for static CSS data
-            let css_provider = gtk::CssProvider::new();
-            css_provider.load_from_string(include_str!("styles.css"));
-            gtk::style_context_add_provider_for_display(
-                &display,
-                &css_provider,
-                gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
-            );
-
-            // CSS provider for dynamic CSS data
             let css_provider = gtk::CssProvider::new();
             gtk::style_context_add_provider_for_display(
                 &display,
