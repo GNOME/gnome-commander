@@ -772,7 +772,10 @@ async fn report_transfer_problem(
     src: &gio::File,
     dst: &gio::File,
 ) -> ProblemAction {
-    let action = if let Some(problem_action) = xfer_data.problem_action.get() && let Some(ref used_for) = *xfer_data.action_used_for.borrow() && !used_for.equal(dst) {
+    let action = if let Some(problem_action) = xfer_data.problem_action.get()
+        && let Some(ref used_for) = *xfer_data.action_used_for.borrow()
+        && !used_for.equal(dst)
+    {
         Ok(problem_action)
     } else {
         match xfer_data.transfer_type {
@@ -811,7 +814,7 @@ async fn report_transfer_problem(
                 xfer_data.action_used_for.replace(Some(dst.clone()));
             } else {
                 xfer_data.problem_action.set(None);
-                xfer_data.action_used_for.take();
+                xfer_data.action_used_for.replace(None);
             }
             action
         }
@@ -1193,7 +1196,7 @@ async fn copy_single_file(
             file_done(xfer_data);
             if xfer_data.problem_action.get() == Some(ProblemAction::Retry) {
                 xfer_data.problem_action.set(None);
-                xfer_data.action_used_for.take();
+                xfer_data.action_used_for.replace(None);
             }
             ControlFlow::Continue(None)
         }
