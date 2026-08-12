@@ -48,7 +48,7 @@ struct XferData {
 
     /// action to take when an error occurs
     problem_action: Cell<Option<ProblemAction>>,
-    error_code: Cell<Option<i32>>,
+    action_used_for: RefCell<Option<gio::File>>,
 }
 
 impl Default for XferData {
@@ -68,7 +68,7 @@ impl Default for XferData {
             bytes_copied_file: Default::default(),
             bytes_total_transferred: Default::default(),
             problem_action: Default::default(),
-            error_code: Default::default(),
+            action_used_for: Default::default(),
         }
     }
 }
@@ -772,7 +772,7 @@ async fn report_transfer_problem(
     src: &gio::File,
     dst: &gio::File,
 ) -> ProblemAction {
-    let action = if let Some(problem_action) = xfer_data.problem_action.get() && xfer_data.error_code.get() == Some(error.code()) {
+    let action = if let Some(problem_action) = xfer_data.problem_action.get() && let Some(ref used_for) = *xfer_data.action_used_for.borrow() && !used_for.equal(dst) {
         Ok(problem_action)
     } else {
         match xfer_data.transfer_type {
@@ -808,10 +808,10 @@ async fn report_transfer_problem(
         Ok(action) => {
             if action.reusable() {
                 xfer_data.problem_action.set(Some(action));
-                xfer_data.error_code.set(Some(error.code()));
+                xfer_data.action_used_for.replace(Some(dst.clone()));
             } else {
                 xfer_data.problem_action.set(None);
-                xfer_data.error_code.set(None);
+                xfer_data.action_used_for.take();
             }
             action
         }
@@ -1193,7 +1193,7 @@ async fn copy_single_file(
             file_done(xfer_data);
             if xfer_data.problem_action.get() == Some(ProblemAction::Retry) {
                 xfer_data.problem_action.set(None);
-                xfer_data.error_code.set(None);
+                xfer_data.action_used_for.take();
             }
             ControlFlow::Continue(None)
         }
