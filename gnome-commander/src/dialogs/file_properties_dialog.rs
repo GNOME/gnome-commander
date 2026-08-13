@@ -553,7 +553,7 @@ impl FilePropertiesDialog {
             .build()
     }
 
-    pub async fn show(parent_window: &MainWindow, file: &File, connection: &Connection) -> bool {
+    pub async fn show(parent_window: &gtk::Window, file: &File, connection: &Connection) -> bool {
         thread_local! {
             static DIALOGS: RefCell<HashMap<String, FilePropertiesDialog>> = Default::default();
         }
@@ -568,7 +568,7 @@ impl FilePropertiesDialog {
             false
         } else {
             let dialog = DIALOGS.with_borrow_mut(|dialogs| {
-                let dialog = Self::new(parent_window.upcast_ref(), file, connection);
+                let dialog = Self::new(parent_window, file, connection);
                 dialogs.insert(key.clone(), dialog.clone());
                 dialog
             });
@@ -587,9 +587,11 @@ impl FilePropertiesDialog {
                 }),
             );
 
-            parent_window
-                .shortcuts()
-                .add_controller(&dialog.imp().notebook, Area::Panel);
+            if let Some(main_win) = parent_window.downcast_ref::<MainWindow>() {
+                main_win
+                    .shortcuts()
+                    .add_controller(&dialog.imp().notebook, Area::Panel);
+            }
 
             dialog.present();
             if !file.is_special() {

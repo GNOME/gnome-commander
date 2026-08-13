@@ -8,7 +8,6 @@ use crate::{
         ConnectionExt,
         remote::{ConnectionMethod, ConnectionRemote, ConnectionRemoteExt},
     },
-    main_win::MainWindow,
     utils::{ErrorMessage, display_help},
 };
 use component_framework::{
@@ -242,7 +241,7 @@ impl ConnectDialog {
 
     /// Dialog for setting up a new remote server connection.
     pub async fn new_connection(
-        parent_window: &MainWindow,
+        parent_window: &gtk::Window,
         uri: Option<glib::Uri>,
     ) -> Option<ConnectionRemote> {
         thread_local! {
