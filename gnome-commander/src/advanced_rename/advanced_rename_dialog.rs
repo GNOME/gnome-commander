@@ -13,7 +13,6 @@ use crate::{
     file::{File, FileOps},
     file_list::list::FileList,
     history::History,
-    main_win::MainWindow,
     options::GeneralOptions,
     tags::FileMetadataService,
     utils::{size_to_string, time_to_string},
@@ -261,7 +260,6 @@ mod imp {
     #[properties(wrapper_type = super::AdvancedRenameDialog)]
     pub struct AdvancedRenameDialog {
         pub(super) config: OnceCell<AdvRenameConfig>,
-        pub(super) main_window: glib::WeakRef<MainWindow>,
 
         #[property(get, set)]
         profile_component: OnceCell<AdvancedRenameProfileComponent>,
@@ -328,7 +326,6 @@ mod imp {
 
             Self {
                 config: Default::default(),
-                main_window: Default::default(),
                 profile_component: Default::default(),
 
                 files,
@@ -699,12 +696,15 @@ mod imp {
 
         async fn file_list_properties(&self) {
             if let Some((_, item)) = self.selected_item()
-                && let Some(main_window) = self.obj().main_window()
+                && let Some(parent_window) = self.obj().transient_for()
                 && let Some(file_list) = self.obj().file_list()
             {
-                let file_changed =
-                    FilePropertiesDialog::show(&main_window, &item.file(), &file_list.connection())
-                        .await;
+                let file_changed = FilePropertiesDialog::show(
+                    &parent_window,
+                    &item.file(),
+                    &file_list.connection(),
+                )
+                .await;
                 if file_changed {
                     self.file_list_update_files().await;
                 }
@@ -1075,13 +1075,7 @@ glib::wrapper! {
         @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Root, gtk::Native;
 }
 
-impl AdvancedRenameDialog {
-    pub fn main_window(&self) -> Option<MainWindow> {
-        self.imp().main_window.upgrade()
-    }
-}
-
-pub async fn advanced_rename_dialog_show(parent_window: &MainWindow, file_list: &FileList) {
+pub async fn advanced_rename_dialog_show(parent_window: &gtk::Window, file_list: &FileList) {
     let files = file_list.selected_files();
     if files.is_empty() {
         return;
@@ -1105,7 +1099,6 @@ pub async fn advanced_rename_dialog_show(parent_window: &MainWindow, file_list: 
             *stored_dialog = dialog.downgrade();
 
             dialog.imp().config.set(cfg.clone()).ok().unwrap();
-            dialog.imp().main_window.set(Some(parent_window));
 
             dialog.imp().update_profile_menu();
 

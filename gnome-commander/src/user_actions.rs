@@ -271,7 +271,8 @@ async fn file_properties(main_win: MainWindow) {
     let file_list = file_selector.file_list();
 
     if let Some(file) = file_list.selected_file() {
-        let changed = FilePropertiesDialog::show(&main_win, &file, &file_list.connection()).await;
+        let changed =
+            FilePropertiesDialog::show(main_win.upcast_ref(), &file, &file_list.connection()).await;
 
         if changed {
             file_list.focus_file(&file.path_name(), true);
@@ -474,7 +475,7 @@ async fn file_create_symlink(main_win: MainWindow) {
 async fn file_advrename(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
-    advanced_rename_dialog_show(&main_win, &file_list).await;
+    advanced_rename_dialog_show(main_win.upcast_ref(), &file_list).await;
 }
 
 async fn file_sendto(main_win: MainWindow) {
@@ -1061,7 +1062,7 @@ async fn connections_open(main_win: MainWindow) {
 async fn connections_new(main_win: MainWindow) {
     let options = NetworkOptions::instance();
     let uri = glib::Uri::parse(&options.quick_connect_uri.get(), glib::UriFlags::NONE).ok();
-    if let Some(connection) = ConnectDialog::new_connection(&main_win, uri).await {
+    if let Some(connection) = ConnectDialog::new_connection(main_win.upcast_ref(), uri).await {
         let fs = main_win.file_selector(FileSelectorID::Active);
         let file_list = fs.file_list();
         fs.goto(&file_list, &connection.default_dir());
