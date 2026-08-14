@@ -364,6 +364,9 @@ mod imp {
                         .build(),
                     glib::subclass::Signal::builder("list-clicked").build(),
                     glib::subclass::Signal::builder("activate-request").build(),
+                    glib::subclass::Signal::builder("execute-file")
+                        .param_types([File::static_type()])
+                        .build(),
                 ]
             })
         }
@@ -666,7 +669,11 @@ impl FileSelector {
             #[weak(rename_to = this)]
             self,
             move |fl, file| {
-                this.do_file_specific_action(fl, file);
+                let fl = fl.clone();
+                let file = file.clone();
+                glib::spawn_future_local(async move {
+                    this.do_file_specific_action(&fl, &file).await;
+                });
             }
         ));
         fl.connect_cmdline_append(glib::clone!(
@@ -1106,6 +1113,17 @@ impl FileSelector {
         )
     }
 
+    pub fn connect_execute_file<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, File) + 'static,
+    {
+        self.connect_closure(
+            "execute-file",
+            false,
+            glib::closure_local!(move |this: &Self, file: File| { (callback)(this, file) }),
+        )
+    }
+
     pub fn connection_bar(&self) -> gtk::Widget {
         self.imp().connection_bar.clone().upcast()
     }
@@ -1260,7 +1278,7 @@ impl FileSelector {
         }
     }
 
-    pub fn do_file_specific_action(&self, fl: &FileList, file: &File) {
+    pub async fn do_file_specific_action(&self, fl: &FileList, file: &File) {
         match file.file_type() {
             gio::FileType::Directory => {
                 if file.is_dotdot() {
@@ -1271,12 +1289,13 @@ impl FileSelector {
             }
             gio::FileType::Regular => {
                 if let Some(parent_window) = self.root().and_downcast::<gtk::Window>() {
-                    let file = file.clone();
-                    glib::spawn_future_local(async move {
-                        if let Err(error) = mime_exec_single(&parent_window, &file).await {
-                            error.show(&parent_window).await;
+                    match mime_exec_single(&parent_window, file).await {
+                        Ok(true) => {
+                            self.emit_by_name::<()>("execute-file", &[file]);
                         }
-                    });
+                        Ok(false) => {}
+                        Err(error) => error.show(&parent_window).await,
+                    }
                 }
             }
             _ => {}

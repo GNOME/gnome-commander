@@ -404,6 +404,29 @@ pub mod imp {
                     move || imp.on_right_fs_select()
                 ));
 
+            self.file_selector_left
+                .borrow()
+                .connect_execute_file(glib::clone!(
+                    #[weak]
+                    mw,
+                    move |_, file| {
+                        glib::spawn_future_local(async move {
+                            mw.execute_file(&file).await;
+                        });
+                    }
+                ));
+            self.file_selector_right
+                .borrow()
+                .connect_execute_file(glib::clone!(
+                    #[weak]
+                    mw,
+                    move |_, file| {
+                        glib::spawn_future_local(async move {
+                            mw.execute_file(&file).await;
+                        });
+                    }
+                ));
+
             let options = GeneralOptions::instance();
             remember_window_state(
                 &*mw,

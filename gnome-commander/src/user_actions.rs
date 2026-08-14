@@ -802,7 +802,9 @@ async fn view_directory(main_win: MainWindow) {
     if let Some(file) = file_list.selected_file()
         && file.is_directory()
     {
-        file_selector.do_file_specific_action(&file_list, &file);
+        file_selector
+            .do_file_specific_action(&file_list, &file)
+            .await;
     }
 }
 
