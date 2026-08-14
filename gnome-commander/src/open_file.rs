@@ -6,7 +6,6 @@
 use crate::{
     app::{App, RegularApp},
     file::{File, FileOps},
-    main_win::MainWindow,
     options::ProgramsOptions,
     transfer::download_to_temporary,
     utils::{ErrorMessage, GNOME_CMD_PERM_USER_EXEC, temp_file},
@@ -72,7 +71,7 @@ async fn ask_download_tmp(parent_window: &gtk::Window, app: &App) -> bool {
 pub async fn mime_exec_single(
     parent_window: &gtk::Window,
     file: &File,
-) -> Result<(), ErrorMessage> {
+) -> Result<bool, ErrorMessage> {
     // Check if the file is a binary executable that lacks the executable bit
 
     let content_type = file.content_type();
@@ -82,7 +81,7 @@ pub async fn mime_exec_single(
 
     if !file.is_executable() && is_executable_content_type {
         if !ask_make_executable(parent_window, file).await {
-            return Ok(());
+            return Ok(false);
         }
 
         file.chmod(file.permissions() | GNOME_CMD_PERM_USER_EXEC)
@@ -102,7 +101,7 @@ pub async fn mime_exec_single(
             .is_some_and(|c| c.starts_with("text/") || c.starts_with("application/"))
         {
             match ask_open_text(parent_window, file).await {
-                OpenText::Cancel => return Ok(()),
+                OpenText::Cancel => return Ok(false),
                 OpenText::Display => false,
                 OpenText::Run => true,
             }
@@ -111,15 +110,7 @@ pub async fn mime_exec_single(
         }
     };
     if execute {
-        if let Some(win) = parent_window.downcast_ref::<MainWindow>().cloned() {
-            let file = file.clone();
-            glib::spawn_future_local(async move {
-                win.execute_file(&file).await;
-            });
-        } else {
-            eprintln!("Unexpected: parent window isn't the main window");
-        }
-        return Ok(());
+        return Ok(true);
     }
 
     let Some(app_info) = file.app_info_for_content_type() else {
@@ -143,7 +134,7 @@ pub async fn mime_exec_single(
         app_info.launch_uris(&[&file.uri()], context.as_ref())
     } else {
         if !ask_download_tmp(parent_window, &app).await {
-            return Ok(());
+            return Ok(false);
         }
 
         let tmp_file = temp_file(file)?;
@@ -158,7 +149,7 @@ pub async fn mime_exec_single(
         .await
         {
             // TODO ensure that error is shown
-            return Ok(());
+            return Ok(false);
         }
 
         app_info.launch(&[tmp_file.file().clone()], context.as_ref())
@@ -170,5 +161,5 @@ pub async fn mime_exec_single(
         )
     })?;
 
-    Ok(())
+    Ok(false)
 }
