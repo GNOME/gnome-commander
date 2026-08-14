@@ -46,8 +46,8 @@ struct XferData {
     bytes_copied_file: Cell<u64>,
     bytes_total_transferred: Cell<u64>,
 
-    /// action to take when an error occurs
-    problem_action: Cell<Option<ProblemAction>>,
+    /// action to take when an error occurs and its first file
+    problem_action_info: RefCell<Option<(ProblemAction, gio::File)>>,
 }
 
 impl Default for XferData {
@@ -66,7 +66,7 @@ impl Default for XferData {
             file_size: Default::default(),
             bytes_copied_file: Default::default(),
             bytes_total_transferred: Default::default(),
-            problem_action: Default::default(),
+            problem_action_info: Default::default(),
         }
     }
 }
@@ -770,8 +770,11 @@ async fn report_transfer_problem(
     src: &gio::File,
     dst: &gio::File,
 ) -> ProblemAction {
-    let action = if let Some(problem_action) = xfer_data.problem_action.get() {
-        Ok(problem_action)
+    let action = if let Some((problem_action, used_for)) =
+        xfer_data.problem_action_info.borrow().as_ref()
+        && !used_for.equal(src)
+    {
+        Ok(*problem_action)
     } else {
         match xfer_data.transfer_type {
             TransferType::Copy => {
@@ -805,9 +808,11 @@ async fn report_transfer_problem(
     match action {
         Ok(action) => {
             if action.reusable() {
-                xfer_data.problem_action.set(Some(action));
+                xfer_data
+                    .problem_action_info
+                    .replace(Some((action, src.clone())));
             } else {
-                xfer_data.problem_action.set(None);
+                xfer_data.problem_action_info.replace(None);
             }
             action
         }
@@ -1187,8 +1192,11 @@ async fn copy_single_file(
         }
         Ok(()) => {
             file_done(xfer_data);
-            if xfer_data.problem_action.get() == Some(ProblemAction::Retry) {
-                xfer_data.problem_action.set(None);
+            if matches!(
+                xfer_data.problem_action_info.borrow().as_ref(),
+                Some((ProblemAction::Retry, _))
+            ) {
+                xfer_data.problem_action_info.replace(None);
             }
             ControlFlow::Continue(None)
         }
