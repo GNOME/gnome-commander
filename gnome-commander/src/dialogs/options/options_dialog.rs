@@ -4,17 +4,16 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::{
-    confirmation_tab::CondifrmationTab, devices_tab::DevicesTab, filters_tab::FiltersTab,
+    confirmation_tab::ConfirmationTab, devices_tab::DevicesTab, filters_tab::FiltersTab,
     format_tab::FormatTab, general_tab::GeneralTab, layout_tab::LayoutTab,
     programs_tab::ProgramsTab, tabs_tab::TabsTab,
 };
 use crate::{
-    main_win::MainWindow,
     options::{
         ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions, ProgramsOptions,
         types::WriteResult, utils::remember_window_size,
     },
-    shortcuts::Area,
+    shortcuts::{Area, Shortcuts},
     user_actions::UserAction,
     utils::{SenderExt, WindowExt, dialog_button_box, display_help},
 };
@@ -31,7 +30,7 @@ mod imp {
         pub(super) format_tab: FormatTab,
         pub(super) layout_tab: LayoutTab,
         pub(super) tabs_tab: TabsTab,
-        pub(super) confirmation_tab: CondifrmationTab,
+        pub(super) confirmation_tab: ConfirmationTab,
         pub(super) filters_tab: FiltersTab,
         pub(super) programs_tab: ProgramsTab,
         pub(super) devices_tab: DevicesTab,
@@ -65,7 +64,7 @@ mod imp {
                 format_tab: FormatTab::new(),
                 layout_tab: LayoutTab::new(),
                 tabs_tab: TabsTab::new(),
-                confirmation_tab: CondifrmationTab::new(),
+                confirmation_tab: ConfirmationTab::new(),
                 filters_tab: FiltersTab::new(),
                 programs_tab: ProgramsTab::new(),
                 devices_tab: DevicesTab::new(),
@@ -256,13 +255,11 @@ impl OptionsDialog {
     }
 }
 
-pub async fn show_options_dialog(parent_window: &MainWindow) -> bool {
+pub async fn show_options_dialog(parent_window: &gtk::Window) -> bool {
     let dialog: OptionsDialog = glib::Object::builder().build();
     dialog.set_transient_for(Some(parent_window));
 
-    parent_window
-        .shortcuts()
-        .add_controller(dialog.notebook(), Area::Panel);
+    Shortcuts::global().add_controller(dialog.notebook(), Area::Panel);
 
     dialog.present();
 

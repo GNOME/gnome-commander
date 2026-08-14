@@ -23,10 +23,9 @@ mod imp {
         options::utils::remember_window_size,
         utils::{ListRowSelector, SenderExt, dialog_button_box, display_help},
     };
-    use std::{cell::RefCell, rc::Rc};
+    use std::rc::Rc;
 
     pub struct BookmarksDialog {
-        pub shortcuts: RefCell<Option<Shortcuts>>,
         pub flatten_model: gtk::FlattenListModel,
         pub selection_model: gtk::SingleSelection,
         pub view: gtk::ColumnView,
@@ -57,7 +56,6 @@ mod imp {
             let row_selector = ListRowSelector::new(&view);
             let (sender, receiver) = async_channel::bounded(1);
             Self {
-                shortcuts: Default::default(),
                 flatten_model,
                 selection_model,
                 view,
@@ -314,44 +312,37 @@ mod imp {
                     .build();
                 list_item.set_child(Some(&bx));
             });
-            factory.connect_bind(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                move |_, list_item| {
-                    let Some(list_item) = list_item.downcast_ref::<gtk::ListItem>() else {
-                        return;
-                    };
-                    let Some(obj) = list_item.item().and_downcast::<glib::BoxedAnyObject>() else {
-                        return;
-                    };
-                    let Ok(node) = obj.try_borrow::<TaggedBookmark>() else {
-                        return;
-                    };
-                    let Some(bx) = list_item.child().and_downcast::<gtk::Box>() else {
-                        return;
-                    };
+            factory.connect_bind(|_, list_item| {
+                let Some(list_item) = list_item.downcast_ref::<gtk::ListItem>() else {
+                    return;
+                };
+                let Some(obj) = list_item.item().and_downcast::<glib::BoxedAnyObject>() else {
+                    return;
+                };
+                let Ok(node) = obj.try_borrow::<TaggedBookmark>() else {
+                    return;
+                };
+                let Some(bx) = list_item.child().and_downcast::<gtk::Box>() else {
+                    return;
+                };
 
-                    while let Some(child) = bx.first_child() {
-                        child.unparent();
-                    }
-
-                    let call = Call {
-                        action: UserAction::BookmarksGoto,
-                        action_data: Some(
-                            BookmarkActionVariant::new(&node.connection, &node.bookmark)
-                                .to_variant()
-                                .print(false)
-                                .to_string(),
-                        ),
-                    };
-                    let shortcuts = imp.shortcuts.borrow();
-                    if let Some(shortcuts) = shortcuts.as_ref().map(|s| s.for_call(&call)) {
-                        for shortcut in shortcuts {
-                            bx.append(&gtk::Label::builder().label(shortcut.label()).build());
-                        }
-                    }
+                while let Some(child) = bx.first_child() {
+                    child.unparent();
                 }
-            ));
+
+                let call = Call {
+                    action: UserAction::BookmarksGoto,
+                    action_data: Some(
+                        BookmarkActionVariant::new(&node.connection, &node.bookmark)
+                            .to_variant()
+                            .print(false)
+                            .to_string(),
+                    ),
+                };
+                for shortcut in Shortcuts::global().for_call(&call) {
+                    bx.append(&gtk::Label::builder().label(shortcut.label()).build());
+                }
+            });
             factory.upcast()
         }
 
@@ -481,15 +472,10 @@ glib::wrapper! {
 }
 
 impl BookmarksDialog {
-    fn new(
-        parent_window: &gtk::Window,
-        connection_list: &ConnectionList,
-        shortcuts: &Shortcuts,
-    ) -> Self {
+    fn new(parent_window: &gtk::Window, connection_list: &ConnectionList) -> Self {
         let dialog: Self = glib::Object::builder()
             .property("transient-for", parent_window)
             .build();
-        *dialog.imp().shortcuts.borrow_mut() = Some(shortcuts.clone());
         dialog.set_model(connection_list);
         dialog
     }
@@ -525,7 +511,6 @@ impl BookmarksDialog {
     pub async fn show(
         parent_window: &gtk::Window,
         connection_list: &ConnectionList,
-        shortcuts: &Shortcuts,
     ) -> Option<TaggedBookmark> {
         thread_local! {
             static DIALOG: RefCell<glib::WeakRef<BookmarksDialog>> = Default::default();
@@ -536,7 +521,7 @@ impl BookmarksDialog {
                 stored_dialog.present();
                 None
             } else {
-                let dialog = Self::new(parent_window, connection_list, shortcuts);
+                let dialog = Self::new(parent_window, connection_list);
                 *stored_dialog = dialog.downgrade();
                 Some(dialog)
             }

@@ -63,6 +63,7 @@ use crate::{
     },
     main_win::MainWindow,
     options::{GeneralOptions, SearchConfig},
+    shortcuts::Shortcuts,
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, pango, prelude::*};
@@ -245,6 +246,8 @@ fn app_startup(_app: &gtk::Application) {
     ConnectionList::get().load(&options);
     ConnectionList::get().set_volume_monitor();
     setup_list_font(&options);
+
+    Shortcuts::global().load(&options.keybindings.get(), options.legacy_keybindings.get());
 }
 
 fn app_activate(app: &gtk::Application) {

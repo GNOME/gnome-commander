@@ -14,7 +14,7 @@ use crate::{
     file_view::file_view,
     main_win::MainWindow,
     options::SearchConfig,
-    shortcuts::Area,
+    shortcuts::{Area, Shortcuts},
     user_actions::UserAction,
     utils::WindowExt,
 };
@@ -793,12 +793,9 @@ impl SearchDialog {
         this.imp().config.set(config.clone()).ok().unwrap();
         this.imp().update_profile_menu();
 
-        main_window
-            .shortcuts()
-            .add_controller(&this.result_list(), Area::MainWindow);
-        main_window
-            .shortcuts()
-            .add_controller(&this.result_list(), Area::Panel);
+        let shortcuts = Shortcuts::global();
+        shortcuts.add_controller(&this.result_list(), Area::MainWindow);
+        shortcuts.add_controller(&this.result_list(), Area::Panel);
 
         let profile_component = this.profile_component();
         profile_component.set_profile(Some(config.default_profile()));

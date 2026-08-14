@@ -14,7 +14,7 @@ use crate::{
         ApiRequestToPlugin, ApiResponseFromPlugin, MessageFromPluginHost, MessageToPluginHost,
         PanelsState, PluginHostChannel, plugin_channel,
     },
-    shortcuts::{Area, LegacyShortcutVariant, Shortcuts},
+    shortcuts::{Area, Shortcuts},
     spawn::{SpawnError, app_needs_terminal, run_command_indir},
     types::FileSelectorID,
     user_actions::{BookmarkActionVariant, PluginActionVariant, UserAction},
@@ -122,8 +122,6 @@ pub mod imp {
         view_backup_files: Cell<bool>,
         #[property(get, set)]
         cmdline_autohide_output: Cell<bool>,
-
-        pub shortcuts: Shortcuts,
     }
 
     #[glib::object_subclass]
@@ -214,8 +212,6 @@ pub mod imp {
                 view_hidden_files: Cell::new(true),
                 view_backup_files: Cell::new(true),
                 cmdline_autohide_output: Cell::new(true),
-
-                shortcuts: Shortcuts::new(),
             }
         }
     }
@@ -470,17 +466,9 @@ pub mod imp {
                 .set_only()
                 .build();
 
-            self.shortcuts
-                .load(&options.keybindings.get(), options.legacy_keybindings.get());
-            self.shortcuts.attach(&*mw);
-            self.shortcuts.add_controller(&*mw, Area::MainWindow);
-            self.file_selector_left
-                .borrow()
-                .add_shortcuts(&self.shortcuts);
-            self.file_selector_right
-                .borrow()
-                .add_shortcuts(&self.shortcuts);
-            self.cmdline.add_shortcuts(&self.shortcuts);
+            let shortcuts = Shortcuts::global();
+            shortcuts.attach(&*mw);
+            shortcuts.add_controller(&*mw, Area::MainWindow);
 
             let filters_options = FiltersOptions::instance();
             filters_options
@@ -1078,13 +1066,6 @@ impl MainWindow {
     pub fn save_state(&self) -> WriteResult {
         let options = GeneralOptions::instance();
 
-        options.keybindings.set(self.imp().shortcuts.save())?;
-
-        // Reset legacy option, making sure we don't import it more than once
-        options
-            .legacy_keybindings
-            .set(glib::Variant::array_from_iter::<LegacyShortcutVariant>([]))?;
-
         self.save_tabs(
             options.save_tabs_on_exit.get(),
             options.save_dirs_on_exit.get(),
@@ -1113,10 +1094,6 @@ impl MainWindow {
     pub fn update_view(&self) {
         self.imp().file_selector_left.borrow().update_view();
         self.imp().file_selector_right.borrow().update_view();
-    }
-
-    pub fn shortcuts(&self) -> &Shortcuts {
-        &self.imp().shortcuts
     }
 
     pub fn state(&self) -> PanelsState {

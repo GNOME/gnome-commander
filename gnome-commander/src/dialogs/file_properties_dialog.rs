@@ -6,8 +6,7 @@
 use crate::{
     connection::Connection,
     file::{File, FileOps},
-    main_win::MainWindow,
-    shortcuts::Area,
+    shortcuts::{Area, Shortcuts},
     tags::FileMetadataService,
     utils::SenderExt,
 };
@@ -587,11 +586,7 @@ impl FilePropertiesDialog {
                 }),
             );
 
-            if let Some(main_win) = parent_window.downcast_ref::<MainWindow>() {
-                main_win
-                    .shortcuts()
-                    .add_controller(&dialog.imp().notebook, Area::Panel);
-            }
+            Shortcuts::global().add_controller(&dialog.imp().notebook, Area::Panel);
 
             dialog.present();
             if !file.is_special() {

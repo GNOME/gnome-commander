@@ -270,8 +270,8 @@ impl Component for ShortcutsDialog {
 }
 
 impl ShortcutsDialog {
-    fn new(shortcuts: &Shortcuts) -> Self {
-        let mut shortcuts: Vec<_> = shortcuts.all();
+    fn new() -> Self {
+        let mut shortcuts: Vec<_> = Shortcuts::global().all();
         shortcuts.retain(|(shortcut, _)| !shortcut.is_mandatory());
 
         let default_shortcuts = Shortcuts::new();
@@ -337,7 +337,7 @@ impl ShortcutsDialog {
         }
     }
 
-    pub async fn run(parent: &gtk::Window, shortcuts: &Shortcuts) {
+    pub async fn run(parent: &gtk::Window) {
         thread_local! {
             static DIALOG: RefCell<glib::WeakRef<gtk::Window>> = Default::default();
         }
@@ -347,7 +347,7 @@ impl ShortcutsDialog {
                 stored_dialog.present();
                 None
             } else {
-                let controller = ShortcutsDialog::new(shortcuts).build();
+                let controller = ShortcutsDialog::new().build();
                 controller.root().set_transient_for(Some(parent));
                 *stored_dialog = controller.root().downgrade();
                 Some(controller)
@@ -362,11 +362,12 @@ impl ShortcutsDialog {
         controller.root().close();
 
         if matches!(result, Ok(ShortcutsDialogOutput::Accepted)) {
-            controller.into_model().save_shortcuts(shortcuts);
+            controller.into_model().save_shortcuts();
         }
     }
 
-    fn save_shortcuts(self, shortcuts: &Shortcuts) {
+    fn save_shortcuts(self) {
+        let shortcuts = Shortcuts::global();
         shortcuts.clear();
 
         for entry in self.entries.into_iter() {
@@ -382,6 +383,7 @@ impl ShortcutsDialog {
         }
 
         shortcuts.set_mandatory();
+        shortcuts.save();
     }
 
     async fn reset_action(&mut self, parent: &gtk::Window, index: usize) {
