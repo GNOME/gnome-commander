@@ -983,8 +983,7 @@ async fn bookmarks_add_current(main_win: MainWindow) {
 
 async fn bookmarks_edit(main_win: MainWindow) {
     let connection_list = ConnectionList::get();
-    let shortcuts = main_win.shortcuts();
-    let result = BookmarksDialog::show(main_win.upcast_ref(), connection_list, shortcuts).await;
+    let result = BookmarksDialog::show(main_win.upcast_ref(), connection_list).await;
     if let Some(bookmark) = result {
         let fs = main_win.file_selector(FileSelectorID::Active);
         fs.goto(
@@ -1043,14 +1042,13 @@ async fn bookmarks_view(main_win: MainWindow) {
 /************** Options Menu **************/
 
 async fn options_edit(main_win: MainWindow) {
-    if show_options_dialog(&main_win).await {
+    if show_options_dialog(main_win.upcast_ref()).await {
         main_win.update_view();
     }
 }
 
 async fn options_edit_shortcuts(main_win: MainWindow) {
-    let shortcuts = main_win.shortcuts();
-    ShortcutsDialog::run(main_win.upcast_ref(), shortcuts).await;
+    ShortcutsDialog::run(main_win.upcast_ref()).await;
 }
 
 /************** Connections Menu **************/

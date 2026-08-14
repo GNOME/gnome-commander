@@ -3,10 +3,10 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::user_actions::UserAction;
+use crate::{options::GeneralOptions, user_actions::UserAction};
 use gettextrs::gettext;
 use gtk::{gdk, glib, prelude::*};
-use std::{cell::RefCell, collections::HashMap};
+use std::{cell::RefCell, collections::HashMap, rc::Rc};
 
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
 pub enum Area {
@@ -210,6 +210,15 @@ impl Shortcuts {
             controllers: Default::default(),
             top_level_controller,
         }
+    }
+
+    /// Retrieves the globally used shortcuts instance.
+    pub fn global() -> Rc<Self> {
+        thread_local! {
+            static INSTANCE: Rc<Shortcuts> = Rc::new(Shortcuts::new());
+        }
+
+        INSTANCE.with(|instance| instance.clone())
     }
 
     pub fn set_mandatory(&self) {
@@ -572,6 +581,7 @@ impl Shortcuts {
             }
         } else {
             self.load_legacy(legacy);
+            self.save();
         }
 
         self.set_mandatory();
@@ -700,7 +710,7 @@ impl Shortcuts {
         }
     }
 
-    pub fn save(&self) -> Vec<ShortcutVariant> {
+    pub fn save(&self) {
         let defaults = Self::new();
         defaults.set_default();
 
@@ -708,7 +718,7 @@ impl Shortcuts {
         let actual_shortcuts = &self.actions.borrow();
 
         // Save modified key bindings.
-        actual_shortcuts
+        let bindings: Vec<_> = actual_shortcuts
             .iter()
             .filter(|(key, call)| {
                 let (_, shortcut) = key;
@@ -732,7 +742,16 @@ impl Shortcuts {
                         action_data: area.as_name().to_owned(),
                     }),
             )
-            .collect()
+            .collect();
+
+        let options = GeneralOptions::instance();
+        if let Err(error) = options.keybindings.set(bindings) {
+            eprintln!("Failed to save keyboard shortcuts: {}", error.message);
+        }
+        // Reset legacy option, making sure we don't import it more than once
+        let _ = options
+            .legacy_keybindings
+            .set(glib::Variant::array_from_iter::<LegacyShortcutVariant>([]));
     }
 }
 

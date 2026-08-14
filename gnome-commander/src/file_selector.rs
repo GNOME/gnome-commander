@@ -297,6 +297,8 @@ mod imp {
                 move || this.update_connections()
             ));
 
+            Shortcuts::global().add_controller(&self.notebook, Area::Panel);
+
             self.notebook.connect_switch_page(glib::clone!(
                 #[weak]
                 this,
@@ -1279,10 +1281,6 @@ impl FileSelector {
             }
             _ => {}
         }
-    }
-
-    pub fn add_shortcuts(&self, shortcuts: &Shortcuts) {
-        shortcuts.add_controller(&self.imp().notebook, Area::Panel);
     }
 }
 

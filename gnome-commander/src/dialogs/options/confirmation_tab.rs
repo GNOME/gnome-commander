@@ -11,7 +11,7 @@ use crate::{
 use gettextrs::gettext;
 use gtk::prelude::*;
 
-pub struct CondifrmationTab {
+pub struct ConfirmationTab {
     vbox: gtk::Box,
 
     confirm_delete_check: gtk::CheckButton,
@@ -32,7 +32,7 @@ pub struct CondifrmationTab {
     dnd_move: gtk::CheckButton,
 }
 
-impl CondifrmationTab {
+impl ConfirmationTab {
     pub fn new() -> Self {
         let vbox = gtk::Box::builder()
             .orientation(gtk::Orientation::Vertical)

@@ -128,6 +128,10 @@ mod imp {
 
             self.setup_actions();
 
+            let shortcuts = Shortcuts::global();
+            shortcuts.add_controller(&self.entry, Area::CommandLine);
+            shortcuts.add_controller(&self.terminal, Area::Terminal);
+
             self.terminal.connect_selection_changed(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
@@ -390,11 +394,6 @@ glib::wrapper! {
 impl CommandLine {
     pub fn new() -> Self {
         glib::Object::builder().build()
-    }
-
-    pub fn add_shortcuts(&self, shortcuts: &Shortcuts) {
-        shortcuts.add_controller(&self.imp().entry, Area::CommandLine);
-        shortcuts.add_controller(&self.imp().terminal, Area::Terminal);
     }
 
     pub fn output(&self) -> &gtk::Widget {
