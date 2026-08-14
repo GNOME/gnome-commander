@@ -772,7 +772,7 @@ async fn report_transfer_problem(
 ) -> ProblemAction {
     let action = if let Some((problem_action, used_for)) =
         xfer_data.problem_action_info.borrow().as_ref()
-        && !used_for.equal(dst)
+        && !used_for.equal(src)
     {
         Ok(*problem_action)
     } else {
@@ -810,7 +810,7 @@ async fn report_transfer_problem(
             if action.reusable() {
                 xfer_data
                     .problem_action_info
-                    .replace(Some((action, dst.clone())));
+                    .replace(Some((action, src.clone())));
             } else {
                 xfer_data.problem_action_info.replace(None);
             }
