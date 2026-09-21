@@ -117,7 +117,7 @@ fn load_application_css() {
         );
         LS_COLORS_PALETTE_LISTENER.with(move |ls_colors_palette_listener| {
             ls_colors_palette_listener.get_or_init(move || {
-                update_theme_css(&css_provider);
+                update_ls_colors_palette_css(&css_provider);
                 LsColorsPaletteListener::new(Box::new(move || {
                     update_ls_colors_palette_css(&css_provider)
                 }))
