@@ -45,7 +45,7 @@
     </screenshot>
   </screenshots>
   <url type="homepage">https://gnome.pages.gitlab.gnome.org/gnome-commander/</url>
-  <url type="bugtracker">https://gitlab.gnome.org/GNOME/gnome-commander/issues</url>
+  <url type="bugtracker">https://gitlab.gnome.org/GNOME/gnome-commander/-/work_items</url>
   <url type="contribute">https://gnome.pages.gitlab.gnome.org/gnome-commander/#contributing</url>
   <url type="vcs-browser">https://gitlab.gnome.org/GNOME/gnome-commander</url>
   <update_contact>gcmd-devel_AT_nongnu.org</update_contact>
