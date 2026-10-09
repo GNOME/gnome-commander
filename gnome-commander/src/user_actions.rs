@@ -1553,7 +1553,7 @@ user_actions! {
 
     FileCopyAs in Panel => (
         "file-copy-as" | "file.copy_as",
-        gettext("Copy files with rename"),
+        gettext("Copy File in Current Directory"),
         file_copy_as,
     ),
 
@@ -1583,13 +1583,13 @@ user_actions! {
 
     FileInternalView in MainWindow => (
         "file-internal-view" | "file.internal_view",
-        gettext("View with internal viewer"),
+        gettext("View With Internal Viewer"),
         file_internal_view,
     ),
 
     FileExternalView in MainWindow => (
         "file-external-view" | "file.external_view",
-        gettext("View with external viewer"),
+        gettext("View With External Viewer"),
         file_external_view,
     ),
 
@@ -1692,13 +1692,13 @@ user_actions! {
     // Mark actions
     MarkToggle in Panel => (
         "mark-toggle" | "mark.toggle",
-        gettext("Toggle selection"),
+        gettext("Toggle Selection"),
         mark_toggle,
     ),
 
     MarkToggleAndStep in Panel => (
         "mark-toggle-and-step" | "mark.toggle_and_step",
-        gettext("Toggle selection and move cursor downward"),
+        gettext("Toggle Selection and Move Down"),
         mark_toggle_and_step,
     ),
 
@@ -1728,13 +1728,13 @@ user_actions! {
 
     MarkSelectWithPattern in Panel => (
         "mark-select-with-pattern" | "mark.select_with_pattern",
-        gettext("Select with _Pattern"),
+        gettext("Select With _Pattern"),
         mark_select_with_pattern,
     ),
 
     MarkUnselectWithPattern in Panel => (
         "mark-unselect-with-pattern" | "mark.unselect_with_pattern",
-        gettext("Unselect with P_attern"),
+        gettext("Unselect With P_attern"),
         mark_unselect_with_pattern,
     ),
 
@@ -1746,13 +1746,13 @@ user_actions! {
 
     MarkSelectAllWithSameExtension in Panel => (
         "mark-select-all-with-same-extension" | "mark.select_all_with_same_extension",
-        gettext("Select with same _Extension"),
+        gettext("Select Files With Same _Extension"),
         mark_select_all_with_same_extension,
     ),
 
     MarkUnselectAllWithSameExtension in Panel => (
         "mark-unselect-all-with-same-extension" | "mark.unselect_all_with_same_extension",
-        gettext("Unselect with same E_xtension"),
+        gettext("Unselect Files With Same E_xtension"),
         mark_unselect_all_with_same_extension,
     ),
 
@@ -1790,7 +1790,7 @@ user_actions! {
     // Command actions
     CommandExecute in MainWindow => (
         "command-execute" | "command.execute",
-        gettext("Execute command"),
+        String::new(), // invisible to users
         command_execute,
     ),
 
@@ -1863,13 +1863,13 @@ user_actions! {
 
     ViewUp in Panel => (
         "view-up" | "view.up",
-        gettext("Up one directory"),
+        gettext("Up one Directory"),
         view_up,
     ),
 
     ViewFirst in Panel => (
         "view-first" | "view.first",
-        gettext("Back to oldest"),
+        gettext("Back to Oldest"),
         view_first,
     ),
 
@@ -1887,7 +1887,7 @@ user_actions! {
 
     ViewLast in Panel => (
         "view-last" | "view.last",
-        gettext("Forward to latest"),
+        gettext("Forward to Latest"),
         view_last,
     ),
 
@@ -1911,43 +1911,43 @@ user_actions! {
 
     ViewInLeftPane in Panel => (
         "view-in-left-pane" | "view.in_left_pane",
-        gettext("Open directory in the left panel"),
+        gettext("Open Directory in the Left Panel"),
         view_in_left_pane,
     ),
 
     ViewInRightPane in Panel => (
         "view-in-right-pane" | "view.in_right_pane",
-        gettext("Open directory in the right panel"),
+        gettext("Open Directory in the Right Panel"),
         view_in_right_pane,
     ),
 
     ViewInActivePane in Panel => (
         "view-in-active-pane" | "view.in_active_pane",
-        gettext("Open directory in the active panel"),
+        gettext("Open Directory in the Active Panel"),
         view_in_active_pane,
     ),
 
     ViewInInactivePane in Panel => (
         "view-in-inactive-pane" | "view.in_inactive_pane",
-        gettext("Open directory in the inactive panel"),
+        gettext("Open Directory in the Inactive Panel"),
         view_in_inactive_pane,
     ),
 
     ViewDirectory in Panel => (
         "view-directory" | "view.directory",
-        gettext("Change directory"),
+        gettext("Change to Directory"),
         view_directory,
     ),
 
     ViewHome in Panel => (
         "view-home" | "view.home",
-        gettext("Home directory"),
+        gettext("Home Directory"),
         view_home,
     ),
 
     ViewRoot in Panel => (
         "view-root" | "view.root",
-        gettext("Root directory"),
+        gettext("Root Directory"),
         view_root,
     ),
 
@@ -1971,37 +1971,37 @@ user_actions! {
 
     ViewCloseDuplicateTabs in Panel => (
         "view-close-duplicate-tabs" | "view.close_duplicate_tabs",
-        gettext("Close duplicate tabs"),
+        gettext("Close Duplicate Tabs"),
         view_close_duplicate_tabs,
     ),
 
     ViewPrevTab in Panel => (
         "view-prev-tab" | "view.prev_tab",
-        gettext("Previous tab"),
+        gettext("Previous Tab"),
         view_prev_tab,
     ),
 
     ViewNextTab in Panel => (
         "view-next-tab" | "view.next_tab",
-        gettext("Next tab"),
+        gettext("Next Tab"),
         view_next_tab,
     ),
 
     ViewInNewTab in Panel => (
         "view-in-new-tab" | "view.in_new_tab",
-        gettext("Open directory in the new tab"),
+        gettext("Open Directory in a New Tab"),
         view_in_new_tab,
     ),
 
     ViewInInactiveTab in Panel => (
         "view-in-inactive-tab" | "view.in_inactive_tab",
-        gettext("Open directory in the new tab (inactive panel)"),
+        gettext("Open Directory in a New Tab (Inactive Panel)"),
         view_in_inactive_tab,
     ),
 
     ViewToggleTabLock in Panel => (
         "view-toggle-tab-lock" | "view.toggle_lock_tab",
-        gettext("Lock/unlock tab"),
+        gettext("Lock/Unlock tab"),
         view_toggle_tab_lock,
     ),
 
@@ -2013,19 +2013,19 @@ user_actions! {
 
     ViewMainMenu in MainWindow => (
         "view-main-menu" | "view.main_menu",
-        gettext("Display main menu"),
+        gettext("Display Main Menu"),
         "menu-visible",
     ),
 
     ViewStepUp in Panel => (
         "view-step-up" | "view.step_up",
-        gettext("Move cursor one step up"),
+        gettext("Move Up"),
         view_step_up,
     ),
 
     ViewStepDown in Panel => (
         "view-step-down" | "view.step_down",
-        gettext("Move cursor one step down"),
+        gettext("Move Down"),
         view_step_down,
     ),
 
@@ -2061,13 +2061,13 @@ user_actions! {
 
     SwapPanes in Panel => (
         "swap-panes",
-        gettext("Swap panels"),
+        gettext("Swap Panels"),
         swap_panels,
     ),
 
     ShowSlidePopup in Panel => (
         "show-slide-popup",
-        gettext("Show panel size selector"),
+        gettext("Show Panel Size Selector"),
         show_slide_popup,
     ),
 
@@ -2079,7 +2079,7 @@ user_actions! {
 
     CalculateDirectorySizes in Panel => (
         "calculate-directory-sizes",
-        gettext("Calculate Size for All Directories"),
+        gettext("Calculate Size for all Directories"),
         calculate_directory_sizes,
     ),
 
@@ -2128,7 +2128,7 @@ user_actions! {
     // Bookmark actions
     BookmarksAddCurrent in Panel => (
         "bookmarks-add-current" | "bookmarks.add_current",
-        gettext("_Bookmark this Directory…"),
+        gettext("_Bookmark This Directory…"),
         bookmarks_add_current,
     ),
 
@@ -2146,7 +2146,7 @@ user_actions! {
 
     BookmarksView in Panel => (
         "bookmarks-view" | "bookmarks.view",
-        gettext("Show bookmarks of current device"),
+        gettext("Show Bookmarks for Current Device"),
         bookmarks_view,
     ),
 
@@ -2291,13 +2291,13 @@ user_actions! {
 
     RunExternal in CommandLine => (
         "run-external",
-        gettext("Run in _terminal"),
+        gettext("Run in _Terminal"),
         cmdline_run_external,
     ),
 
     RunNoCapture in CommandLine => (
         "cmdline-run-nocapture",
-        gettext("Run _ignoring output"),
+        gettext("Run _Ignoring Output"),
         cmdline_run_nocapture,
     ),
 
