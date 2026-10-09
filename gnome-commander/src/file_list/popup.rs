@@ -240,6 +240,7 @@ pub fn list_popup_menu() -> gio::Menu {
                     }
                     columns_menu
                 })
-                .action(UserAction::ViewResetColumnWidth),
+                .action(UserAction::ViewResetColumnWidth)
+                .action(UserAction::ViewPropagateColumnOptions),
         )
 }

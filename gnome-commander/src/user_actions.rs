@@ -925,6 +925,20 @@ async fn view_reset_column_width(main_win: MainWindow) {
         .reset_column_width();
 }
 
+async fn view_propagate_column_options(main_win: MainWindow) {
+    let options = main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .column_options();
+    let (selector1, selector2) = main_win.file_selectors();
+    for file_list in (0..selector1.tab_count())
+        .map(|n| selector1.file_list_nth(n))
+        .chain((0..selector2.tab_count()).map(|n| selector2.file_list_nth(n)))
+    {
+        file_list.set_column_options(&options);
+    }
+}
+
 async fn switch_panels(main_win: MainWindow) {
     main_win.switch_to_opposite();
 }
@@ -2005,6 +2019,12 @@ user_actions! {
         "view-reset-column-width",
         gettext("Reset Column _Width"),
         view_reset_column_width,
+    ),
+
+    ViewPropagateColumnOptions in Panel => (
+        "view-propagate-column-options",
+        gettext("Apply Column _Options to all Tabs"),
+        view_propagate_column_options,
     ),
 
     SwitchPanels in Panel => (
