@@ -946,6 +946,13 @@ async fn view_file_menu(main_win: MainWindow) {
         .show_file_popup(None);
 }
 
+async fn view_list_menu(main_win: MainWindow) {
+    main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .show_list_popup();
+}
+
 async fn switch_panels(main_win: MainWindow) {
     main_win.switch_to_opposite();
 }
@@ -2038,6 +2045,12 @@ user_actions! {
         "view-file-menu",
         gettext("Show File Menu"),
         view_file_menu,
+    ),
+
+    ViewListMenu in Panel => (
+        "view-list-menu",
+        gettext("Show List Menu"),
+        view_list_menu,
     ),
 
     SwitchPanels in Panel => (

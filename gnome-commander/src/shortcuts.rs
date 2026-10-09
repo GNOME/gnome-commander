@@ -375,6 +375,8 @@ impl Shortcuts {
         self.register(Shortcut::ctrl(Key::Tab), UserAction::ViewNextTab);
         self.register(Shortcut::shift(Key::F10), UserAction::ViewFileMenu);
         self.register(Shortcut::key(Key::Menu), UserAction::ViewFileMenu);
+        self.register(Shortcut::ctrl_shift(Key::F10), UserAction::ViewListMenu);
+        self.register(Shortcut::ctrl(Key::Menu), UserAction::ViewListMenu);
         self.register(
             Shortcut::alt_shift(Key::Return),
             UserAction::CalculateDirectorySizes,

@@ -1468,7 +1468,7 @@ mod imp {
             None
         }
 
-        fn show_list_popup(&self, x: f64, y: f64) {
+        pub fn show_list_popup(&self, x: f64, y: f64) {
             let menu = list_popup_menu();
             let popover = gtk::PopoverMenu::from_model(Some(&menu));
             popover.set_parent(&*self.obj());
@@ -2802,6 +2802,11 @@ impl FileList {
         );
         popover.present();
         popover.popup();
+    }
+
+    pub fn show_list_popup(&self) {
+        self.imp()
+            .show_list_popup(f64::from(self.width()) / 2.0, 0.0);
     }
 
     pub fn open_file(&self) {
