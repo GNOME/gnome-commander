@@ -3019,11 +3019,12 @@ fn create_icon_factory() -> gtk::ListItemFactory {
                 }
                 mode => {
                     let file_type_icon = match file.file_type() {
+                        gio::FileType::Unknown => "file_type_unknown",
                         gio::FileType::Directory
                         | gio::FileType::Shortcut
-                        | gio::FileType::Mountable => "file_type_dir",
-                        gio::FileType::SymbolicLink => "file_type_symlink",
-                        gio::FileType::Special => "file_type_socket",
+                        | gio::FileType::Mountable => "file_type_directory",
+                        gio::FileType::SymbolicLink => "file_type_symbolic_link",
+                        gio::FileType::Special => "file_type_special",
                         _ => "file_type_regular",
                     };
 
