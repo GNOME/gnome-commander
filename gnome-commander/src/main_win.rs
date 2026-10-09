@@ -69,6 +69,7 @@ pub mod imp {
         dir::Directory,
         options::{FiltersOptions, utils::remember_window_state},
         pwd::uid,
+        utils::get_modifiers_state,
     };
     use std::{cell::Cell, path::PathBuf, time::Duration};
 
@@ -550,6 +551,43 @@ pub mod imp {
         }
 
         fn create_toolbar(&self) {
+            let action_group = gio::SimpleActionGroup::new();
+            {
+                let action = gio::SimpleAction::new("edit", None);
+                action.connect_activate(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self.obj(),
+                    move |_, _| {
+                        let mask = get_modifiers_state(obj.upcast_ref());
+                        if mask.is_some_and(|m| m.contains(gdk::ModifierType::SHIFT_MASK)) {
+                            UserAction::FileEditNewDoc.activate(obj, None);
+                        } else {
+                            UserAction::FileEdit.activate(obj, None);
+                        }
+                    }
+                ));
+                action_group.add_action(&action);
+            }
+            {
+                let action = gio::SimpleAction::new("copy-fnames", None);
+                action.connect_activate(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self.obj(),
+                    move |_, _| {
+                        let mask = get_modifiers_state(obj.upcast_ref());
+                        if mask.is_some_and(|m| m.contains(gdk::ModifierType::SHIFT_MASK)) {
+                            UserAction::EditCopyPaths.activate(obj, None);
+                        } else if mask.is_some_and(|m| m.contains(gdk::ModifierType::ALT_MASK)) {
+                            UserAction::EditCopyURIs.activate(obj, None);
+                        } else {
+                            UserAction::EditCopyNames.activate(obj, None);
+                        }
+                    }
+                ));
+                action_group.add_action(&action);
+            }
+            self.toolbar.insert_action_group("tb", Some(&action_group));
+
             self.toolbar
                 .append(&toolbar_button(UserAction::ViewRefresh, "view-refresh"));
             self.toolbar
@@ -564,10 +602,21 @@ pub mod imp {
                 .append(&toolbar_button(UserAction::ViewLast, "go-last"));
             self.toolbar
                 .append(&gtk::Separator::new(gtk::Orientation::Vertical));
-            self.toolbar.append(&toolbar_button(
-                UserAction::EditCopyNames,
-                COPY_FILE_NAMES_ICON,
-            ));
+            self.toolbar.append(&{
+                let label = format!(
+                    "{}\n{}\n{}",
+                    UserAction::EditCopyNames.description(),
+                    gettext("SHIFT for full paths"),
+                    gettext("ALT for URIs")
+                );
+                let button = gtk::Button::builder()
+                    .icon_name(COPY_FILE_NAMES_ICON)
+                    .tooltip_text(&label)
+                    .action_name("tb.copy-fnames")
+                    .build();
+                button.add_css_class("flat");
+                button
+            });
             self.toolbar
                 .append(&toolbar_button(UserAction::EditCapCut, "edit-cut"));
             self.toolbar
@@ -576,8 +625,20 @@ pub mod imp {
                 .append(&toolbar_button(UserAction::EditCapPaste, "edit-paste"));
             self.toolbar
                 .append(&toolbar_button(UserAction::FileDelete, DELETE_FILE_ICON));
-            self.toolbar
-                .append(&toolbar_button(UserAction::FileEdit, EDIT_FILE_ICON));
+            self.toolbar.append(&{
+                let label = format!(
+                    "{}\n{}",
+                    UserAction::FileEdit.description(),
+                    gettext("SHIFT for new document")
+                );
+                let button = gtk::Button::builder()
+                    .icon_name(EDIT_FILE_ICON)
+                    .tooltip_text(&label)
+                    .action_name("tb.edit")
+                    .build();
+                button.add_css_class("flat");
+                button
+            });
             self.toolbar.append(&toolbar_button(
                 UserAction::FileSendto,
                 GTK_MAILSEND_STOCKID,
