@@ -50,7 +50,7 @@ use crate::{
     utils::{ErrorMessage, display_help, get_modifiers_state},
 };
 use gettextrs::{gettext, ngettext};
-use gtk::{gdk, gio, glib, prelude::*};
+use gtk::{gio, glib, prelude::*};
 use std::{
     borrow::Cow,
     cmp::Ordering,
@@ -645,24 +645,35 @@ async fn edit_cap_paste(main_win: MainWindow) {
 }
 
 async fn edit_copy_fnames(main_win: MainWindow) {
-    let mask = get_modifiers_state(main_win.upcast_ref());
-
     let files = main_win
         .file_selector(FileSelectorID::Active)
         .file_list()
         .selected_files();
 
-    let names: Vec<String> = match mask {
-        Some(gdk::ModifierType::SHIFT_MASK) => files
-            .into_iter()
-            .filter_map(|f| f.local_path())
-            .map(|p| p.to_string_lossy().to_string())
-            .collect(),
-        Some(gdk::ModifierType::ALT_MASK) => files.into_iter().map(|f| f.uri()).collect(),
-        _ => files.into_iter().map(|f| f.name()).collect(),
-    };
-
+    let names: Vec<_> = files.into_iter().map(|f| f.name()).collect();
     main_win.clipboard().set_text(&names.join(" "));
+}
+
+async fn edit_copy_fpaths(main_win: MainWindow) {
+    let files = main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .selected_files();
+    let paths: Vec<_> = files
+        .into_iter()
+        .filter_map(|f| f.local_path())
+        .map(|p| p.to_string_lossy().to_string())
+        .collect();
+    main_win.clipboard().set_text(&paths.join(" "));
+}
+
+async fn edit_copy_furis(main_win: MainWindow) {
+    let files = main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .selected_files();
+    let uris: Vec<_> = files.into_iter().map(|f| f.uri()).collect();
+    main_win.clipboard().set_text(&uris.join(" "));
 }
 
 /************** Command Menu **************/
@@ -1778,8 +1789,20 @@ user_actions! {
 
     EditCopyNames in Panel => (
         "edit-copy-fnames" | "edit.copy_filenames",
-        gettext("Copy _File Names (SHIFT for full paths, ALT for URIs)"),
+        gettext("Copy _File Names"),
         edit_copy_fnames,
+    ),
+
+    EditCopyPaths in Panel => (
+        "edit-copy-paths",
+        gettext("Copy File Paths"),
+        edit_copy_fpaths,
+    ),
+
+    EditCopyURIs in Panel => (
+        "edit-copy-uris",
+        gettext("Copy File URIs"),
+        edit_copy_furis,
     ),
 
     // Command actions
