@@ -123,8 +123,8 @@ class ZipArchives(CompressionFormat):
                     with archive.open(member) as source, open(filepath, 'wb') as target:
                         shutil.copyfileobj(source, target)
 
-                timestamp = datetime.datetime(*member.date_time).timestamp()
                 try:
+                    timestamp = datetime.datetime(*member.date_time).timestamp()
                     os.utime(filepath, (time.time(), timestamp))
                 except:
                     pass
