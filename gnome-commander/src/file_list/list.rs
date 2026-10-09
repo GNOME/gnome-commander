@@ -2243,7 +2243,7 @@ impl FileList {
             };
 
             let width = options.width();
-            if width > 0 {
+            if width != 0 {
                 column.set_fixed_width(width);
             }
 
@@ -2839,6 +2839,17 @@ impl FileList {
             } else {
                 self.add_to_cmdline(file.name());
             }
+        }
+    }
+
+    pub fn reset_column_width(&self) {
+        for column in self
+            .view()
+            .columns()
+            .iter::<gtk::ColumnViewColumn>()
+            .flatten()
+        {
+            column.set_fixed_width(-1);
         }
     }
 }

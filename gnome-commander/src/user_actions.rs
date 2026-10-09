@@ -918,6 +918,13 @@ async fn view_step_down(main_win: MainWindow) {
         .focus_next();
 }
 
+async fn view_reset_column_width(main_win: MainWindow) {
+    main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .reset_column_width();
+}
+
 async fn switch_panels(main_win: MainWindow) {
     main_win.switch_to_opposite();
 }
@@ -1992,6 +1999,12 @@ user_actions! {
         "view-step-down" | "view.step_down",
         gettext("Move cursor one step down"),
         view_step_down,
+    ),
+
+    ViewResetColumnWidth in Panel => (
+        "view-reset-column-width",
+        gettext("Reset Column _Width"),
+        view_reset_column_width,
     ),
 
     SwitchPanels in Panel => (
