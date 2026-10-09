@@ -638,6 +638,29 @@ mod imp {
                 .quick_search_shortcut
                 .bind_enum(&*fl, "quick-search-shortcut");
 
+            general_options.list_font.connect_changed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| {
+                    // Refresh icon column
+                    if let Some(column) = imp
+                        .view
+                        .columns()
+                        .iter::<gtk::ColumnViewColumn>()
+                        .flatten()
+                        .find(|column| {
+                            column
+                                .id()
+                                .is_some_and(|name| name == ColumnID::Icon.name())
+                        })
+                    {
+                        let factory = column.factory();
+                        column.set_factory(gtk::ListItemFactory::NONE);
+                        column.set_factory(factory.as_ref());
+                    }
+                }
+            ));
+
             ConfirmOptions::instance()
                 .dnd_mode
                 .bind_enum(&*fl, "dnd-mode");
@@ -2958,6 +2981,30 @@ fn create_icon_factory() -> gtk::ListItemFactory {
                 .build();
             stack.add_named(&overlay, Some("overlay"));
 
+            overlay.connect_realize(|overlay| {
+                if let Some(image) = overlay.child().and_downcast::<gtk::Image>() {
+                    let layout = image.create_pango_layout(None);
+                    layout.set_text("A");
+                    let letter_height = layout.pixel_extents().1.height();
+                    image.set_pixel_size(letter_height);
+
+                    if let Some(mut child) = overlay.first_accessible_child() {
+                        loop {
+                            if let Some(widget) = child.downcast_ref::<gtk::Image>()
+                                && widget != &image
+                            {
+                                widget.set_pixel_size(letter_height / 2);
+                            }
+
+                            child = match child.next_accessible_sibling() {
+                                Some(child) => child,
+                                None => break,
+                            }
+                        }
+                    }
+                }
+            });
+
             let label = gtk::Label::builder()
                 .hexpand(true)
                 .halign(gtk::Align::Center)
@@ -3000,12 +3047,13 @@ fn create_icon_factory() -> gtk::ListItemFactory {
 
             let file = item.file();
             if !file.is_dotdot() && file.file_info().is_symlink() {
+                let image_size = image.pixel_size();
                 overlay.add_overlay(
                     &gtk::Image::builder()
-                        .icon_name("gnome-commander-overlay-symlink")
-                        .pixel_size(9)
+                        .icon_name("file_type_symbolic_link")
                         .halign(gtk::Align::End)
                         .valign(gtk::Align::End)
+                        .pixel_size(if image_size < 0 { -1 } else { image_size / 2 })
                         .build(),
                 );
             }
@@ -3019,11 +3067,12 @@ fn create_icon_factory() -> gtk::ListItemFactory {
                 }
                 mode => {
                     let file_type_icon = match file.file_type() {
+                        gio::FileType::Unknown => "file_type_unknown",
                         gio::FileType::Directory
                         | gio::FileType::Shortcut
-                        | gio::FileType::Mountable => "file_type_dir",
-                        gio::FileType::SymbolicLink => "file_type_symlink",
-                        gio::FileType::Special => "file_type_socket",
+                        | gio::FileType::Mountable => "file_type_directory",
+                        gio::FileType::SymbolicLink => "file_type_symbolic_link",
+                        gio::FileType::Special => "file_type_special",
                         _ => "file_type_regular",
                     };
 

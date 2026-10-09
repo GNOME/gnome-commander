@@ -79,16 +79,6 @@ u32_enum! {
 }
 
 u32_enum! {
-    pub enum IconScaleQuality {
-        Nearest,
-        Tiles,
-        Bilinear,
-        #[default]
-        Hyper,
-    }
-}
-
-u32_enum! {
     pub enum QuickSearchShortcut {
         #[default]
         CtrlAlt,

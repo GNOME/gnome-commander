@@ -6,18 +6,13 @@ SPDX-FileCopyrightText = "The individuals contributing to the program documentat
 SPDX-License-Identifier = "GFDL-1.3-or-later"
 
 [[annotations]]
-path = "pixmaps/**/*"
+path = "pixmaps/*"
 SPDX-FileCopyrightText = "The Gnome project or the Gnome Commander maintainers"
 SPDX-License-Identifier = "GPL-3.0-or-later"
 
 [[annotations]]
-path = "plugins/fileroller/*.png"
-SPDX-FileCopyrightText = "2009 Piotr Eljasiak"
-SPDX-License-Identifier = "GPL-3.0-or-later"
-
-[[annotations]]
-path = "plugins/test/*.png"
-SPDX-FileCopyrightText = "2009 Piotr Eljasiak"
+path = "pixmaps/file-type-icons/*"
+SPDX-FileCopyrightText = "Matthieu James <matthieu.james@gmail.com>"
 SPDX-License-Identifier = "GPL-3.0-or-later"
 
 [[annotations]]
