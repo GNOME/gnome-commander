@@ -25,7 +25,11 @@ use crate::{
     main_win::MainWindow,
     open_connection::open_connection,
     options::{ColorOptions, ConfirmOptions, FiltersOptions, GeneralOptions},
-    types::{ExtensionDisplayMode, GraphicalLayoutMode, SizeDisplayMode, TransferType},
+    transfer::{copy_files, link_files, move_files},
+    types::{
+        ConfirmOverwriteMode, ExtensionDisplayMode, GraphicalLayoutMode, SizeDisplayMode,
+        TransferType,
+    },
     utils::{ErrorMessage, MenuBuilderExt, SenderExt, size_to_string, time_to_string, u32_enum},
 };
 use gettextrs::gettext;
@@ -66,10 +70,9 @@ mod imp {
             },
             popup::list_popup_menu,
         },
-        transfer::{copy_files, link_files, move_files},
         types::{
-            ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GraphicalLayoutMode,
-            LeftMouseButtonMode, MiddleMouseButtonMode, PermissionDisplayMode, QuickSearchShortcut,
+            DndMode, ExtensionDisplayMode, GraphicalLayoutMode, LeftMouseButtonMode,
+            MiddleMouseButtonMode, PermissionDisplayMode, QuickSearchShortcut,
             RightMouseButtonMode,
         },
         utils::{
@@ -2599,21 +2602,29 @@ impl FileList {
         };
 
         let file = selected.file();
-        if let Some(new_name) = show_rename_popover(&file.name(), self, &rect).await {
-            match file.rename(&new_name) {
-                Ok(_) => {
-                    selected.update();
-                    self.focus_file(Path::new(&new_name), true);
+        if let Some(new_name) = show_rename_popover(&file.name(), self, &rect).await
+            && new_name != file.name()
+        {
+            let native_file = file.file().clone();
+            if move_files(
+                window.clone(),
+                vec![native_file],
+                self.directory(),
+                Some(PathBuf::from(&new_name)),
+                gio::FileCopyFlags::NONE,
+                ConfirmOverwriteMode::Query,
+            )
+            .await
+            {
+                // Only reload remote directories, for local directories we rely on monitoring
+                let directory = self.directory();
+                if !directory.is_local()
+                    && let Err(error) = directory.relist_files(None).await
+                {
+                    error.show(&window).await;
                 }
-                Err(error) => {
-                    ErrorMessage::with_error(
-                        gettext("Cannot rename a file to {new_name}")
-                            .replace("{new_name}", &new_name),
-                        &error,
-                    )
-                    .show(&window)
-                    .await;
-                }
+
+                self.focus_file(Path::new(&new_name), true);
             }
             self.grab_focus();
         }
