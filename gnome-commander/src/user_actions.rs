@@ -152,12 +152,7 @@ async fn file_external_view(main_win: MainWindow) {
 async fn file_edit(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
-
-    let mask = get_modifiers_state(main_win.upcast_ref());
-
-    if mask.is_some_and(|m| m.contains(gdk::ModifierType::SHIFT_MASK)) {
-        show_new_textfile_dialog(main_win.upcast_ref(), &file_list).await;
-    } else if let Err(error) = file_list.activate_action("fl.file-edit", None) {
+    if let Err(error) = file_list.activate_action("fl.file-edit", None) {
         eprintln!("Cannot activate action `file-edit`: {}", error);
     }
 }
@@ -1595,7 +1590,7 @@ user_actions! {
 
     FileEdit in MainWindow => (
         "file-edit" | "file.edit",
-        gettext("Edit (SHIFT for new document)"),
+        gettext("Edit"),
         file_edit,
     ),
 
