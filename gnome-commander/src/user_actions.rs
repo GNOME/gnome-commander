@@ -918,6 +918,41 @@ async fn view_step_down(main_win: MainWindow) {
         .focus_next();
 }
 
+async fn view_reset_column_width(main_win: MainWindow) {
+    main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .reset_column_width();
+}
+
+async fn view_propagate_column_options(main_win: MainWindow) {
+    let options = main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .column_options();
+    let (selector1, selector2) = main_win.file_selectors();
+    for file_list in (0..selector1.tab_count())
+        .map(|n| selector1.file_list_nth(n))
+        .chain((0..selector2.tab_count()).map(|n| selector2.file_list_nth(n)))
+    {
+        file_list.set_column_options(&options);
+    }
+}
+
+async fn view_file_menu(main_win: MainWindow) {
+    main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .show_file_popup(None);
+}
+
+async fn view_list_menu(main_win: MainWindow) {
+    main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .show_list_popup();
+}
+
 async fn switch_panels(main_win: MainWindow) {
     main_win.switch_to_opposite();
 }
@@ -1992,6 +2027,30 @@ user_actions! {
         "view-step-down" | "view.step_down",
         gettext("Move cursor one step down"),
         view_step_down,
+    ),
+
+    ViewResetColumnWidth in Panel => (
+        "view-reset-column-width",
+        gettext("Reset Column _Width"),
+        view_reset_column_width,
+    ),
+
+    ViewPropagateColumnOptions in Panel => (
+        "view-propagate-column-options",
+        gettext("Apply Column _Options to all Tabs"),
+        view_propagate_column_options,
+    ),
+
+    ViewFileMenu in Panel => (
+        "view-file-menu",
+        gettext("Show File Menu"),
+        view_file_menu,
+    ),
+
+    ViewListMenu in Panel => (
+        "view-list-menu",
+        gettext("Show List Menu"),
+        view_list_menu,
     ),
 
     SwitchPanels in Panel => (

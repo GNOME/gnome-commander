@@ -1357,14 +1357,6 @@ mod imp {
         fn key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
             match (state, key) {
                 (SHIFT, gdk::Key::Tab | gdk::Key::ISO_Left_Tab) => glib::Propagation::Stop,
-                (SHIFT, gdk::Key::F10) => {
-                    self.obj().show_file_popup(None);
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::Menu) => {
-                    self.obj().show_file_popup(None);
-                    glib::Propagation::Stop
-                }
                 _ => glib::Propagation::Proceed,
             }
         }
@@ -1476,7 +1468,7 @@ mod imp {
             None
         }
 
-        fn show_list_popup(&self, x: f64, y: f64) {
+        pub fn show_list_popup(&self, x: f64, y: f64) {
             let menu = list_popup_menu();
             let popover = gtk::PopoverMenu::from_model(Some(&menu));
             popover.set_parent(&*self.obj());
@@ -2243,7 +2235,7 @@ impl FileList {
             };
 
             let width = options.width();
-            if width > 0 {
+            if width != 0 {
                 column.set_fixed_width(width);
             }
 
@@ -2785,7 +2777,7 @@ impl FileList {
         ))
     }
 
-    fn show_file_popup(&self, point_to: Option<&gdk::Rectangle>) {
+    pub fn show_file_popup(&self, point_to: Option<&gdk::Rectangle>) {
         let Some(main_win) = self.root().and_downcast::<MainWindow>() else {
             return;
         };
@@ -2810,6 +2802,11 @@ impl FileList {
         );
         popover.present();
         popover.popup();
+    }
+
+    pub fn show_list_popup(&self) {
+        self.imp()
+            .show_list_popup(f64::from(self.width()) / 2.0, 0.0);
     }
 
     pub fn open_file(&self) {
@@ -2839,6 +2836,17 @@ impl FileList {
             } else {
                 self.add_to_cmdline(file.name());
             }
+        }
+    }
+
+    pub fn reset_column_width(&self) {
+        for column in self
+            .view()
+            .columns()
+            .iter::<gtk::ColumnViewColumn>()
+            .flatten()
+        {
+            column.set_fixed_width(-1);
         }
     }
 }
