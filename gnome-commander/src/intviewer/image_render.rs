@@ -189,34 +189,29 @@ pub mod imp {
                 cr.set_source_pixbuf(&disp_pixbuf, 0.0, 0.0);
                 cr.paint()
             } else {
-                let src_x;
-                let src_y;
-                let dst_x;
-                let dst_y;
-
-                if dw >= 0.0 {
-                    src_x = 0.0;
-                    dst_x = dw / 2.0;
+                let (src_x, dst_x) = if dw >= 0.0 {
+                    (0.0, dw / 2.0)
                 } else {
-                    src_x = self
-                        .obj()
-                        .hadjustment()
-                        .map(|a| a.value().clamp(0.0, -dw))
-                        .unwrap_or_default();
-                    dst_x = 0.0;
-                }
+                    (
+                        self.obj()
+                            .hadjustment()
+                            .map(|a| a.value().clamp(0.0, -dw))
+                            .unwrap_or_default(),
+                        0.0,
+                    )
+                };
 
-                if dh >= 0.0 {
-                    src_y = 0.0;
-                    dst_y = dh / 2.0;
+                let (src_y, dst_y) = if dh >= 0.0 {
+                    (0.0, dh / 2.0)
                 } else {
-                    src_y = self
-                        .obj()
-                        .vadjustment()
-                        .map(|a| a.value().clamp(0.0, -dh))
-                        .unwrap_or_default();
-                    dst_y = 0.0;
-                }
+                    (
+                        self.obj()
+                            .vadjustment()
+                            .map(|a| a.value().clamp(0.0, -dh))
+                            .unwrap_or_default(),
+                        0.0,
+                    )
+                };
 
                 cr.translate(-src_x, -src_y);
                 cr.set_source_pixbuf(&disp_pixbuf, dst_x, dst_y);
@@ -446,15 +441,11 @@ pub mod imp {
                     return;
                 }
 
-                let dest_width;
-                let dest_height;
-                if height * pixbuf_width >= width * pixbuf_height {
-                    dest_width = width;
-                    dest_height = width * pixbuf_height / pixbuf_width;
+                let (dest_width, dest_height) = if height * pixbuf_width >= width * pixbuf_height {
+                    (width, width * pixbuf_height / pixbuf_width)
                 } else {
-                    dest_width = height * pixbuf_width / pixbuf_height;
-                    dest_height = height;
-                }
+                    (height * pixbuf_width / pixbuf_height, height)
+                };
 
                 if dest_width >= 1 && dest_height >= 1 {
                     self.display_pixbuf.replace(pixbuf.scale_simple(
