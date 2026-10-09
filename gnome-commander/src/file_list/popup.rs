@@ -214,24 +214,25 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
 }
 
 pub fn list_popup_menu() -> gio::Menu {
-    let mut columns_menu = gio::Menu::new();
-    for column in ColumnID::all() {
-        if column != ColumnID::Dir
-            && let Some(title) = column.title()
-        {
-            columns_menu = columns_menu.item(title, format!("fl.toggle-column-{}", column.name()));
-        }
-    }
-
-    gio::Menu::new().section(columns_menu).section(
-        gio::Menu::new()
-            .submenu(gettext("New"), {
-                gio::Menu::new()
-                    .action(UserAction::FileMkdir)
-                    .action(UserAction::FileEditNewDoc)
-            })
-            .action(UserAction::EditCapPaste)
-            .action(UserAction::CommandOpenTerminal)
-            .action(UserAction::ViewRefresh),
-    )
+    gio::Menu::new()
+        .submenu(gettext("_New"), {
+            gio::Menu::new()
+                .action(UserAction::FileMkdir)
+                .action(UserAction::FileEditNewDoc)
+        })
+        .action(UserAction::EditCapPaste)
+        .action(UserAction::CommandOpenTerminal)
+        .action(UserAction::ViewRefresh)
+        .submenu(gettext("List _Columns"), {
+            let mut columns_menu = gio::Menu::new();
+            for column in ColumnID::all() {
+                if column != ColumnID::Dir
+                    && let Some(title) = column.title()
+                {
+                    columns_menu =
+                        columns_menu.item(title, format!("fl.toggle-column-{}", column.name()));
+                }
+            }
+            columns_menu
+        })
 }
