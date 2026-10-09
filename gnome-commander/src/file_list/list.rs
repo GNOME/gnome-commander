@@ -1357,14 +1357,6 @@ mod imp {
         fn key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
             match (state, key) {
                 (SHIFT, gdk::Key::Tab | gdk::Key::ISO_Left_Tab) => glib::Propagation::Stop,
-                (SHIFT, gdk::Key::F10) => {
-                    self.obj().show_file_popup(None);
-                    glib::Propagation::Stop
-                }
-                (NO_MOD, gdk::Key::Menu) => {
-                    self.obj().show_file_popup(None);
-                    glib::Propagation::Stop
-                }
                 _ => glib::Propagation::Proceed,
             }
         }
@@ -2785,7 +2777,7 @@ impl FileList {
         ))
     }
 
-    fn show_file_popup(&self, point_to: Option<&gdk::Rectangle>) {
+    pub fn show_file_popup(&self, point_to: Option<&gdk::Rectangle>) {
         let Some(main_win) = self.root().and_downcast::<MainWindow>() else {
             return;
         };

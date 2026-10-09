@@ -939,6 +939,13 @@ async fn view_propagate_column_options(main_win: MainWindow) {
     }
 }
 
+async fn view_file_menu(main_win: MainWindow) {
+    main_win
+        .file_selector(FileSelectorID::Active)
+        .file_list()
+        .show_file_popup(None);
+}
+
 async fn switch_panels(main_win: MainWindow) {
     main_win.switch_to_opposite();
 }
@@ -2025,6 +2032,12 @@ user_actions! {
         "view-propagate-column-options",
         gettext("Apply Column _Options to all Tabs"),
         view_propagate_column_options,
+    ),
+
+    ViewFileMenu in Panel => (
+        "view-file-menu",
+        gettext("Show File Menu"),
+        view_file_menu,
     ),
 
     SwitchPanels in Panel => (
