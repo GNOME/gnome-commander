@@ -7,7 +7,6 @@ gnome-commander/src/advanced_rename/advanced_rename_dialog.rs
 gnome-commander/src/advanced_rename/profile_component.rs
 gnome-commander/src/advanced_rename/profile.rs
 gnome-commander/src/advanced_rename/regex_dialog.rs
-gnome-commander/src/application.rs
 gnome-commander/src/app.rs
 gnome-commander/src/chmod_component.rs
 gnome-commander/src/chown_component.rs
@@ -68,6 +67,7 @@ gnome-commander/src/file.rs
 gnome-commander/src/file_selector.rs
 gnome-commander/src/file_view.rs
 gnome-commander/src/intviewer/search_bar.rs
+gnome-commander/src/intviewer/viewer.rs
 gnome-commander/src/intviewer/window.rs
 gnome-commander/src/main.rs
 gnome-commander/src/main_win.rs
