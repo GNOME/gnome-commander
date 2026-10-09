@@ -3002,7 +3002,7 @@ fn create_icon_factory() -> gtk::ListItemFactory {
             if !file.is_dotdot() && file.file_info().is_symlink() {
                 overlay.add_overlay(
                     &gtk::Image::builder()
-                        .icon_name("gnome-commander-overlay-symlink")
+                        .icon_name("file_type_symbolic_link")
                         .pixel_size(9)
                         .halign(gtk::Align::End)
                         .valign(gtk::Align::End)
