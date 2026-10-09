@@ -26,7 +26,7 @@ use crate::{
     shortcuts::ShortcutVariant,
     tab_label::TabLockIndicator,
     types::{
-        ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GraphicalLayoutMode, IconScaleQuality,
+        ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GraphicalLayoutMode,
         LeftMouseButtonMode, MiddleMouseButtonMode, PermissionDisplayMode, QuickSearchShortcut,
         RightMouseButtonMode, SizeDisplayMode,
     },
@@ -107,9 +107,6 @@ pub struct GeneralOptions {
     pub extension_display_mode: EnumOption<ExtensionDisplayMode>,
     pub size_display_mode: EnumOption<SizeDisplayMode>,
     pub permissions_display_mode: EnumOption<PermissionDisplayMode>,
-
-    pub icon_size: U32Option,
-    pub icon_scale_quality: EnumOption<IconScaleQuality>,
 
     pub select_dirs: BoolOption,
 
@@ -210,8 +207,6 @@ impl GeneralOptions {
             extension_display_mode: EnumOption::new(&settings, "extension-display-mode"),
             size_display_mode: EnumOption::new(&settings, "size-display-mode"),
             permissions_display_mode: EnumOption::new(&settings, "perm-display-mode"),
-            icon_size: U32Option::new(&settings, "icon-size"),
-            icon_scale_quality: EnumOption::new(&settings, "icon-scale-quality"),
             select_dirs: BoolOption::new(&settings, "select-dirs"),
             case_sensitive: BoolOption::new(&settings, "case-sensitive"),
             left_mouse_button_mode: EnumOption::new(&settings, "clicks-to-open-item"),

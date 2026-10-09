@@ -638,30 +638,28 @@ mod imp {
                 .quick_search_shortcut
                 .bind_enum(&*fl, "quick-search-shortcut");
 
-            general_options
-                .list_font
-                .connect_changed(glib::clone!(
-                    #[weak(rename_to = imp)]
-                    self,
-                    move |_| {
-                        // Refresh icon column
-                        if let Some(column) = imp
-                            .view
-                            .columns()
-                            .iter::<gtk::ColumnViewColumn>()
-                            .flatten()
-                            .find(|column| {
-                                column
-                                    .id()
-                                    .is_some_and(|name| name == ColumnID::Icon.name())
-                            })
-                        {
-                            let factory = column.factory();
-                            column.set_factory(gtk::ListItemFactory::NONE);
-                            column.set_factory(factory.as_ref());
-                        }
+            general_options.list_font.connect_changed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| {
+                    // Refresh icon column
+                    if let Some(column) = imp
+                        .view
+                        .columns()
+                        .iter::<gtk::ColumnViewColumn>()
+                        .flatten()
+                        .find(|column| {
+                            column
+                                .id()
+                                .is_some_and(|name| name == ColumnID::Icon.name())
+                        })
+                    {
+                        let factory = column.factory();
+                        column.set_factory(gtk::ListItemFactory::NONE);
+                        column.set_factory(factory.as_ref());
                     }
-                ));
+                }
+            ));
 
             ConfirmOptions::instance()
                 .dnd_mode
@@ -3055,11 +3053,7 @@ fn create_icon_factory() -> gtk::ListItemFactory {
                         .icon_name("file_type_symbolic_link")
                         .halign(gtk::Align::End)
                         .valign(gtk::Align::End)
-                        .pixel_size(if image_size < 0 {
-                            -1
-                        } else {
-                            image_size / 2
-                        })
+                        .pixel_size(if image_size < 0 { -1 } else { image_size / 2 })
                         .build(),
                 );
             }

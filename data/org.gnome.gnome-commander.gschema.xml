@@ -29,13 +29,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <child name="general" schema="org.gnome.gnome-commander.plugins.general"/>
   </schema>
 
-  <enum id="org.gnome.gnome-commander.preferences.general.icon-scale-quality-enum">
-    <value nick="GDK_INTERP_NEAREST" value="0"/>
-    <value nick="GDK_INTERP_TILES" value="1"/>
-    <value nick="GDK_INTERP_BILINEAR" value="2"/>
-    <value nick="GDK_INTERP_HYPER" value="3"/>
-  </enum>
-
   <enum id="org.gnome.gnome-commander.preferences.confirmations.delete-default-enum">
     <value nick="cancel" value="0"/>
     <value nick="delete" value="1"/>
@@ -154,16 +147,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
       <description>
           Defines if items should be moved to trash by default instead of really deleting them.
       </description>
-    </key>
-    <key name="icon-size" type="u">
-      <default>16</default>
-      <summary>Icon size</summary>
-      <description>Size of icons in the file panel.</description>
-    </key>
-    <key name="icon-scale-quality" enum='org.gnome.gnome-commander.preferences.general.icon-scale-quality-enum'>
-      <default>'GDK_INTERP_HYPER'</default>
-      <summary>Icon scale quality</summary>
-      <description>Describes the different interpolation modes that can be used with the scaling functions.</description>
     </key>
     <key name="cmdline-history" type="as">
       <default>[]</default>

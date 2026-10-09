@@ -11,7 +11,7 @@ use crate::{
         ls_colors_palette::LsColorsPalette,
     },
     options::{ColorOptions, GeneralOptions, types::WriteResult},
-    types::{ExtensionDisplayMode, GraphicalLayoutMode, IconScaleQuality},
+    types::{ExtensionDisplayMode, GraphicalLayoutMode},
 };
 use gettextrs::gettext;
 use gtk::{pango, prelude::*};
@@ -26,8 +26,6 @@ pub struct LayoutTab {
     custom_color_theme: Rc<RefCell<ColorTheme>>,
     use_ls_colors: gtk::CheckButton,
     ls_color_palette: Rc<RefCell<LsColorsPalette>>,
-    icon_size: gtk::SpinButton,
-    icon_scale_quality: gtk::Scale,
 }
 
 impl LayoutTab {
@@ -185,66 +183,6 @@ impl LayoutTab {
         hbox.append(&ls_colors_edit_btn);
         grid.attach(&hbox, 0, 5, 3, 1);
 
-        // MIME icon settings
-
-        let grid = gtk::Grid::builder()
-            .column_spacing(12)
-            .row_spacing(6)
-            .build();
-        let mime_icon_settings_frame = create_category(&gettext("MIME icon settings"), &grid);
-        vbox.append(&mime_icon_settings_frame);
-
-        let icon_size = gtk::SpinButton::builder()
-            .adjustment(
-                &gtk::Adjustment::builder()
-                    .lower(8.0)
-                    .upper(64.0)
-                    .step_increment(1.0)
-                    .page_increment(10.0)
-                    .page_size(0.0)
-                    .build(),
-            )
-            .climb_rate(1.0)
-            .digits(0)
-            .numeric(true)
-            .build();
-        grid.attach(
-            &gtk::Label::builder()
-                .label(gettext("Icon size:"))
-                .halign(gtk::Align::Start)
-                .mnemonic_widget(&icon_size)
-                .build(),
-            0,
-            0,
-            1,
-            1,
-        );
-        grid.attach(&icon_size, 1, 0, 1, 1);
-
-        let icon_scale_quality = gtk::Scale::builder()
-            .orientation(gtk::Orientation::Horizontal)
-            .adjustment(&gtk::Adjustment::builder().lower(0.0).upper(3.0).build())
-            .digits(0)
-            .build();
-        grid.attach(
-            &gtk::Label::builder()
-                .label(gettext("Scaling quality:"))
-                .halign(gtk::Align::Start)
-                .mnemonic_widget(&icon_scale_quality)
-                .build(),
-            0,
-            1,
-            1,
-            1,
-        );
-        grid.attach(&icon_scale_quality, 1, 1, 1, 1);
-
-        graphical_layout_mode
-            .bind_property("selected", &mime_icon_settings_frame, "sensitive")
-            .transform_to(|_, selected: u32| Some(selected == 2))
-            .sync_create()
-            .build();
-
         color_theme
             .bind_property("selected", &color_btn, "sensitive")
             .transform_to(|_, selected: u32| {
@@ -267,8 +205,6 @@ impl LayoutTab {
             custom_color_theme,
             use_ls_colors,
             ls_color_palette,
-            icon_size,
-            icon_scale_quality,
         }
     }
 
@@ -293,10 +229,6 @@ impl LayoutTab {
             .set_active(color_options.use_ls_colors.get());
         self.ls_color_palette
             .replace(color_options.ls_color_palette());
-        self.icon_size
-            .set_value(general_options.icon_size.get() as f64);
-        self.icon_scale_quality
-            .set_value(u32::from(general_options.icon_scale_quality.get()) as f64);
     }
 
     pub fn write(
@@ -325,14 +257,6 @@ impl LayoutTab {
             .use_ls_colors
             .set(self.use_ls_colors.is_active())?;
         color_options.set_ls_color_palette(&self.ls_color_palette.borrow())?;
-        general_options
-            .icon_size
-            .set(self.icon_size.value_as_int() as u32)?;
-        general_options
-            .icon_scale_quality
-            .set(IconScaleQuality::from(
-                self.icon_scale_quality.value() as u32
-            ))?;
         Ok(())
     }
 }
