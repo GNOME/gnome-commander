@@ -1829,13 +1829,21 @@ mod imp {
     }
 
     fn is_quicksearch_starting_character(key: gdk::Key) -> bool {
-        (key >= gdk::Key::A && key <= gdk::Key::Z)
-            || (key >= gdk::Key::a && key <= gdk::Key::z)
-            || (key >= gdk::Key::_0 && key <= gdk::Key::_9)
-            || key == gdk::Key::period
-            || key == gdk::Key::question
-            || key == gdk::Key::asterisk
-            || key == gdk::Key::bracketleft
+        use glib::Unichar;
+        key.to_unicode().is_some_and(|c| {
+            matches!(
+                c.unicode_type(),
+                glib::UnicodeType::LowercaseLetter
+                    | glib::UnicodeType::ModifierLetter
+                    | glib::UnicodeType::OtherLetter
+                    | glib::UnicodeType::TitlecaseLetter
+                    | glib::UnicodeType::UppercaseLetter
+                    | glib::UnicodeType::DecimalNumber
+                    | glib::UnicodeType::LetterNumber
+                    | glib::UnicodeType::OtherNumber
+                    | glib::UnicodeType::OpenPunctuation
+            ) || matches!(c, '.' | '*' | '?')
+        })
     }
 
     fn is_quicksearch_starting_modifier(
