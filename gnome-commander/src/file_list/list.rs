@@ -41,14 +41,8 @@ use std::{
     time::Duration,
 };
 
-const TYPE_URI_LIST: &str = "text/uri-list";
-const TYPE_TEXT_PLAIN: &str = "text/plain";
-const TYPE_URL: &str = "_NETSCAPE_URL";
 const TYPE_GNOME_PROPRIETARY: &str = "x-special/gnome-copied-files";
 const TYPE_KDE_PROPRIETARY: &str = "application/x-kde-cutselection";
-
-const DRAG_TYPES: &[&str] = &[TYPE_URI_LIST, TYPE_TEXT_PLAIN];
-const DROP_TYPES: &[&str] = &[TYPE_URI_LIST, TYPE_URL];
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 enum ContentSharingOperation {
@@ -590,7 +584,7 @@ mod imp {
                         | gdk::DragAction::LINK
                         | gdk::DragAction::ASK,
                 )
-                .formats(&gdk::ContentFormats::new(DROP_TYPES))
+                .formats(&gdk::ContentFormats::for_type(gdk::FileList::static_type()))
                 .build();
             drop_target.connect_drop(glib::clone!(
                 #[weak(rename_to = imp)]
@@ -1530,55 +1524,53 @@ mod imp {
                 .obj()
                 .selected_files()
                 .into_iter()
-                .map(|f| f.uri())
+                .map(|f| f.file().clone())
                 .collect::<Vec<_>>();
             if files.is_empty() {
                 return None;
             }
 
-            let mut providers = DRAG_TYPES
-                .iter()
-                .map(|mime| {
-                    gdk::ContentProvider::for_bytes(
-                        mime,
-                        &glib::Bytes::from_owned(files.join("\r\n")),
-                    )
-                })
-                .collect::<Vec<_>>();
+            let provider =
+                gdk::ContentProvider::for_value(&gdk::FileList::from_array(&files).into());
+            if op == ContentSharingOperation::Drag {
+                return Some(provider);
+            }
+
+            let mut providers = vec![provider];
             if op == ContentSharingOperation::Cut {
                 // Remember which file list to notify on internal cut operation.
                 providers.push(gdk::ContentProvider::for_value(&self.obj().to_value()));
             }
-            if matches!(
-                op,
-                ContentSharingOperation::Copy | ContentSharingOperation::Cut
-            ) {
-                // GNOME and KDE have different solutions to differentiate cut and copy operations.
-                // GNOME has a MIME type similar to text/uri-list which is prepended by the
-                // operation type. KDE adds a MIME type that only contains a flag indicating whether
-                // this is a cut operation.
-                let mut data = files.join("\n");
-                data.insert_str(
-                    0,
-                    if op == ContentSharingOperation::Cut {
-                        "cut\n"
-                    } else {
-                        "copy\n"
-                    },
-                );
-                providers.push(gdk::ContentProvider::for_bytes(
-                    TYPE_GNOME_PROPRIETARY,
-                    &glib::Bytes::from_owned(data),
-                ));
-                providers.push(gdk::ContentProvider::for_bytes(
-                    TYPE_KDE_PROPRIETARY,
-                    &glib::Bytes::from_owned(String::from(if op == ContentSharingOperation::Cut {
-                        "1"
-                    } else {
-                        "0"
-                    })),
-                ));
-            }
+
+            // GNOME and KDE have different solutions to differentiate cut and copy operations.
+            // GNOME has a MIME type similar to text/uri-list which is prepended by the
+            // operation type. KDE adds a MIME type that only contains a flag indicating whether
+            // this is a cut operation.
+            let mut data = files
+                .into_iter()
+                .map(|f| f.uri())
+                .collect::<Vec<_>>()
+                .join("\n");
+            data.insert_str(
+                0,
+                if op == ContentSharingOperation::Cut {
+                    "cut\n"
+                } else {
+                    "copy\n"
+                },
+            );
+            providers.push(gdk::ContentProvider::for_bytes(
+                TYPE_GNOME_PROPRIETARY,
+                &glib::Bytes::from_owned(data),
+            ));
+            providers.push(gdk::ContentProvider::for_bytes(
+                TYPE_KDE_PROPRIETARY,
+                &glib::Bytes::from_owned(String::from(if op == ContentSharingOperation::Cut {
+                    "1"
+                } else {
+                    "0"
+                })),
+            ));
 
             Some(gdk::ContentProvider::new_union(&providers))
         }
@@ -1592,49 +1584,36 @@ mod imp {
                 return;
             }
 
-            let drag = drag.clone();
-            let obj = self.obj().clone();
-            glib::spawn_future_local(async move {
-                let stream = gio::MemoryOutputStream::new_resizable();
-                if let Err(error) = drag
-                    .content()
-                    .write_mime_type_future(TYPE_URI_LIST, &stream, glib::Priority::DEFAULT)
-                    .await
-                {
+            let value = match drag.content().value(gdk::FileList::static_type()) {
+                Ok(value) => value,
+                Err(error) => {
                     eprintln!("Error reading files to delete after drag: {error}");
                     return;
                 }
-                if let Err(error) = stream.close(gio::Cancellable::NONE) {
-                    eprintln!("Error closing memory output stream: {error}");
+            };
+
+            let files = match value.get::<gdk::FileList>() {
+                Ok(file_list) => file_list.files(),
+                Err(error) => {
+                    eprintln!("Error reading files to delete after drag: {error}");
                     return;
                 }
+            };
 
-                let data = stream.steal_as_bytes();
-                let Ok(data) = String::from_utf8(data.to_vec()) else {
-                    eprintln!("Error reading files to delete after drag: not in UTF-8 format");
-                    return;
-                };
-
-                let uris = glib::Uri::list_extract_uris(&data);
-                for uri in uris.into_iter() {
-                    if let Some(item) = obj.imp().items_iter().find(|item| item.file().uri() == uri)
-                    {
-                        // A move operation won't necessarily move all files
-                        let file = item.file();
-                        if !file.file().query_exists(gio::Cancellable::NONE) {
-                            file.on_deleted();
-                        }
+            for file in files {
+                let uri = file.uri();
+                if let Some(item) = self.items_iter().find(|item| item.file().uri() == uri) {
+                    // A move operation won't necessarily move all files
+                    let file = item.file();
+                    if !file.file().query_exists(gio::Cancellable::NONE) {
+                        file.on_deleted();
                     }
                 }
-            });
+            }
         }
 
         fn drop(&self, drop: &gdk::Drop, x: f64, y: f64) -> bool {
-            let formats = drop.formats();
-            if !DROP_TYPES
-                .iter()
-                .any(|mime| formats.contain_mime_type(mime))
-            {
+            if !drop.formats().contains_type(gdk::FileList::static_type()) {
                 return false;
             }
 
@@ -1650,36 +1629,25 @@ mod imp {
             let drop = drop.clone();
             let obj = self.obj().clone();
             glib::spawn_future_local(async move {
-                let stream = match drop.read_future(DROP_TYPES, glib::Priority::DEFAULT).await {
-                    Ok((stream, _)) => stream,
-                    Err(error) => {
-                        eprintln!("Error reading drop data: {error}");
-                        drop.finish(gdk::DragAction::empty());
-                        return;
-                    }
-                };
-                let data = match stream
-                    .read_bytes_future(i32::MAX as usize, glib::Priority::DEFAULT)
+                let value = match drop
+                    .read_value_future(gdk::FileList::static_type(), glib::Priority::DEFAULT)
                     .await
                 {
-                    Ok(data) => data,
+                    Ok(value) => value,
                     Err(error) => {
                         eprintln!("Error reading drop data: {error}");
                         drop.finish(gdk::DragAction::empty());
                         return;
                     }
                 };
-
-                let Ok(data) = String::from_utf8(data.to_vec()) else {
-                    eprintln!("Error reading drop data: not in UTF-8 format");
-                    drop.finish(gdk::DragAction::empty());
-                    return;
+                let files = match value.get::<gdk::FileList>() {
+                    Ok(file_list) => file_list.files(),
+                    Err(error) => {
+                        eprintln!("Error reading drop data: {error}");
+                        drop.finish(gdk::DragAction::empty());
+                        return;
+                    }
                 };
-
-                let files = glib::Uri::list_extract_uris(&data)
-                    .into_iter()
-                    .map(|uri| gio::File::for_uri(&uri))
-                    .collect::<Vec<_>>();
 
                 let transfer_type = if obj
                     .imp()
@@ -2058,44 +2026,32 @@ impl FileList {
     }
 
     pub async fn paste_files(&self) {
-        async fn read_types(
-            clipboard: &gdk::Clipboard,
-            types: &[&str],
-        ) -> Result<(glib::Bytes, glib::GString), glib::Error> {
-            let (stream, mime) = clipboard
-                .read_future(types, glib::Priority::DEFAULT)
-                .await?;
-            let bytes = stream
-                .read_bytes_future(i32::MAX as usize, glib::Priority::DEFAULT)
-                .await?;
-            Ok((bytes, mime))
-        }
-
         let clipboard = self.clipboard();
-        let formats = clipboard.formats();
-        if !DROP_TYPES
-            .iter()
-            .any(|mime| formats.contain_mime_type(mime))
+        if !clipboard
+            .formats()
+            .contains_type(gdk::FileList::static_type())
         {
             return;
         }
 
         let destination = self.directory();
-        let data = match read_types(&clipboard, DROP_TYPES).await {
-            Ok((data, _)) => data,
+        let value = match clipboard
+            .read_value_future(gdk::FileList::static_type(), glib::Priority::DEFAULT)
+            .await
+        {
+            Ok(value) => value,
             Err(error) => {
                 eprintln!("Error reading clipboard data: {error}");
                 return;
             }
         };
-        let Ok(data) = String::from_utf8(data.to_vec()) else {
-            eprintln!("Error reading clipboard data: not in UTF-8 format");
-            return;
+        let files = match value.get::<gdk::FileList>() {
+            Ok(file_list) => file_list.files(),
+            Err(error) => {
+                eprintln!("Error reading clipboard data: {error}");
+                return;
+            }
         };
-        let files = glib::Uri::list_extract_uris(&data)
-            .into_iter()
-            .map(|uri| gio::File::for_uri(&uri))
-            .collect::<Vec<_>>();
 
         // This will only be set for a local cut operation
         let file_list = clipboard
@@ -2106,9 +2062,10 @@ impl FileList {
 
         if let Some(file_list) = file_list {
             self.imp()
-                .drop_files(TransferType::Move, files, destination)
+                .drop_files(TransferType::Move, files.clone(), destination)
                 .await;
-            for uri in glib::Uri::list_extract_uris(&data).into_iter() {
+            for file in &files {
+                let uri = file.uri();
                 if let Some(item) = file_list
                     .imp()
                     .items_iter()
@@ -2122,6 +2079,19 @@ impl FileList {
                 }
             }
         } else {
+            async fn read_types(
+                clipboard: &gdk::Clipboard,
+                types: &[&str],
+            ) -> Result<(glib::Bytes, glib::GString), glib::Error> {
+                let (stream, mime) = clipboard
+                    .read_future(types, glib::Priority::DEFAULT)
+                    .await?;
+                let bytes = stream
+                    .read_bytes_future(i32::MAX as usize, glib::Priority::DEFAULT)
+                    .await?;
+                Ok((bytes, mime))
+            }
+
             async fn is_move(clipboard: &gdk::Clipboard) -> bool {
                 let Ok((data, mime)) =
                     read_types(clipboard, &[TYPE_GNOME_PROPRIETARY, TYPE_KDE_PROPRIETARY]).await
