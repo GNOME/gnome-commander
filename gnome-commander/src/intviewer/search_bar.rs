@@ -4,11 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use crate::{history_entry::HistoryEntry, options::ViewerOptions, utils::u32_enum};
-use component_framework::{
-    action_list,
-    helpers::{ActionGroup, ActionListOutput},
-    prelude::*,
-};
+use component_framework::prelude::*;
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
 
@@ -54,12 +50,6 @@ u32_enum! {
 pub enum SearchSettings {
     Text { pattern: String, match_case: bool },
     Binary { pattern: Vec<u8>, match_case: bool },
-}
-
-action_list! {
-    enum SearchBarActions {
-        "searchbar.close" as Close,
-    }
 }
 
 #[derive(Debug, Default)]
@@ -192,7 +182,7 @@ pub enum SearchBarOutput {
 
 #[derive(Debug, Default)]
 pub struct SearchBar {
-    action_group: ComponentController<ActionGroup<SearchBarActions::List>>,
+    visible: bool,
     error: SearchBarError,
 }
 
@@ -216,18 +206,6 @@ impl Component for SearchBar {
                     }
                 }
             });
-
-            .insert_action_group(SearchBarActions::prefix(), Some(self.action_group.attach(
-                sender, |message| {
-                    match message {
-                        SearchBarActions::Output::Close => Self::Input::Close,
-                    }
-                }
-            )));
-
-            .add_controller(with!(gtk::ShortcutController {
-                SearchBarActions::Output::Close.shortcut("Escape");
-            }));
 
             gtk::Box {
                 .set_orientation(gtk::Orientation::Horizontal);
@@ -337,14 +315,19 @@ impl Component for SearchBar {
     ) {
         match msg {
             Self::Input::Show(text) => {
+                self.visible = true;
                 view.searchbar.set_search_mode(true);
                 if !text.is_empty() {
                     view.entry.set_text(&text);
                 }
                 view.entry.grab_focus();
             }
-            Self::Input::Close => view.searchbar.set_search_mode(false),
+            Self::Input::Close => {
+                self.visible = false;
+                view.searchbar.set_search_mode(false)
+            }
             Self::Input::StartSearch(forward) => {
+                self.visible = true;
                 view.searchbar.set_search_mode(true);
                 match view.settings() {
                     Ok(Some(settings)) => {
@@ -387,10 +370,6 @@ impl Component for SearchBar {
             }
         }
     }
-
-    async fn handle_subcomponents(&mut self) {
-        self.action_group.handle_incoming().await
-    }
 }
 
 impl SearchBar {
@@ -407,6 +386,10 @@ impl SearchBar {
 
     pub fn displayed_error(&self) -> SearchBarError {
         self.error
+    }
+
+    pub fn is_visible(&self) -> bool {
+        self.visible
     }
 }
 

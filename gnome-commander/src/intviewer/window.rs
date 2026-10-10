@@ -307,7 +307,12 @@ impl Component for ViewerWindow {
             }
             Self::Input::WindowAction(action) => match action {
                 ViewerWindowActions::Output::Close => {
-                    view.notebook.remove_page(view.notebook.current_page());
+                    let viewer = self.current_viewer(view);
+                    if viewer.search_bar_visible() {
+                        viewer.send(ViewerInput::CloseSearchBar);
+                    } else {
+                        view.notebook.remove_page(view.notebook.current_page());
+                    }
                 }
                 ViewerWindowActions::Output::Quit => sender.output(()),
                 ViewerWindowActions::Output::NextTab => {
