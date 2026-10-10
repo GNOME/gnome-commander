@@ -447,6 +447,7 @@ mod imp {
                     .iter()
                     .find(|(name, _)| *name == column_id.name())
                     .and_then(|(_, option)| option.get().try_into().ok())
+                    && width > 0
                 {
                     column.set_fixed_width(width);
                 }
