@@ -121,7 +121,7 @@ impl File {
         info.set_is_hidden(false);
         info.set_is_symlink(false);
         info.set_size(0);
-        info.set_attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE, 0xFFF);
+        info.set_attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE, 0o777);
         Self::new_from_file(
             dir.file().parent().unwrap_or_else(|| dir.file().clone()),
             &info,
