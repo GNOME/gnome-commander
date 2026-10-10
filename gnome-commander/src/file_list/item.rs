@@ -107,19 +107,15 @@ impl FileListItem {
 
         self.set_modification_time(file.modification_date());
 
-        self.set_permissions(file.permissions());
-
-        self.set_owner(if is_dotdot {
-            None
+        if is_dotdot {
+            self.set_permissions(u32::MAX);
+            self.set_owner(None::<String>);
+            self.set_group(None::<String>);
         } else {
-            Some(self.file().owner())
-        });
-
-        self.set_group(if is_dotdot {
-            None
-        } else {
-            Some(self.file().group())
-        });
+            self.set_permissions(file.permissions());
+            self.set_owner(Some(self.file().owner()));
+            self.set_group(Some(self.file().group()));
+        }
     }
 
     pub fn toggle_selected(&self) {
