@@ -65,14 +65,6 @@ impl FileListItem {
         glib::Object::builder().property("file", file).build()
     }
 
-    pub fn copy(&self) -> Self {
-        glib::Object::builder()
-            .property("file", self.file())
-            .property("size", self.size())
-            .property("selected", self.selected())
-            .build()
-    }
-
     pub fn update(&self) {
         let file = self.file();
         let is_dotdot = file.is_dotdot();
