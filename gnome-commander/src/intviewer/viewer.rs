@@ -247,6 +247,7 @@ pub enum ViewerInput {
     TextViewerContextMenu(i32, f64, f64),
     ImageStatusUpdate,
     ImageViewerContextMenu(i32, f64, f64),
+    CloseSearchBar,
     SearchBar(SearchBarOutput),
     SearchProgress(u32),
     SearchDone(Option<u64>),
@@ -439,6 +440,7 @@ impl Component for Viewer {
                     view.image_viewer_context_menu(x, y)
                 }
             }
+            Self::Input::CloseSearchBar => self.searchbar.send(SearchBarInput::Close),
             Self::Input::SearchBar(message) => match message {
                 SearchBarOutput::StartSearch(forward, settings) => {
                     self.start_search(sender, view, forward, settings)
@@ -752,6 +754,10 @@ impl Viewer {
                 view.image_render.set_scale_factor(1.0);
             }
         }
+    }
+
+    pub fn search_bar_visible(&self) -> bool {
+        self.searchbar.is_visible()
     }
 
     fn start_search(
