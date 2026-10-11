@@ -108,13 +108,13 @@ mod imp {
         #[property(get, set = Self::set_graphical_layout_mode)]
         graphical_layout_mode: Cell<GraphicalLayoutMode>,
 
-        #[property(get, set)]
+        #[property(get, set = Self::set_size_display_mode)]
         size_display_mode: Cell<SizeDisplayMode>,
 
-        #[property(get, set)]
+        #[property(get, set = Self::set_permissions_display_mode)]
         permissions_display_mode: Cell<PermissionDisplayMode>,
 
-        #[property(get, set)]
+        #[property(get, set = Self::set_date_display_format)]
         date_display_format: RefCell<String>,
 
         #[property(get, set)]
@@ -747,19 +747,14 @@ mod imp {
     }
 
     impl FileList {
-        fn set_extension_display_mode(&self, value: ExtensionDisplayMode) {
-            self.extension_display_mode.replace(value);
-
-            // Refresh name and ext columns
+        fn refresh_column(&self, column_id: ColumnID) {
             for column in self
                 .view
                 .columns()
                 .iter::<gtk::ColumnViewColumn>()
                 .flatten()
             {
-                if column.id().is_some_and(|name| {
-                    name == ColumnID::Name.name() || name == ColumnID::Ext.name()
-                }) {
+                if column.id().is_some_and(|name| name == column_id.name()) {
                     let factory = column.factory();
                     column.set_factory(gtk::ListItemFactory::NONE);
                     column.set_factory(factory.as_ref());
@@ -767,25 +762,30 @@ mod imp {
             }
         }
 
+        fn set_extension_display_mode(&self, value: ExtensionDisplayMode) {
+            self.extension_display_mode.replace(value);
+            self.refresh_column(ColumnID::Name);
+            self.refresh_column(ColumnID::Ext);
+        }
+
         fn set_graphical_layout_mode(&self, value: GraphicalLayoutMode) {
             self.graphical_layout_mode.replace(value);
+            self.refresh_column(ColumnID::Icon);
+        }
 
-            // Refresh icon column
-            if let Some(column) = self
-                .view
-                .columns()
-                .iter::<gtk::ColumnViewColumn>()
-                .flatten()
-                .find(|column| {
-                    column
-                        .id()
-                        .is_some_and(|name| name == ColumnID::Icon.name())
-                })
-            {
-                let factory = column.factory();
-                column.set_factory(gtk::ListItemFactory::NONE);
-                column.set_factory(factory.as_ref());
-            }
+        fn set_size_display_mode(&self, value: SizeDisplayMode) {
+            self.size_display_mode.replace(value);
+            self.refresh_column(ColumnID::Size);
+        }
+
+        fn set_permissions_display_mode(&self, value: PermissionDisplayMode) {
+            self.permissions_display_mode.replace(value);
+            self.refresh_column(ColumnID::Perm);
+        }
+
+        fn set_date_display_format(&self, value: String) {
+            self.date_display_format.replace(value);
+            self.refresh_column(ColumnID::Date);
         }
 
         fn filter_row(&self, obj: &glib::Object, options: &FiltersOptions) -> bool {
