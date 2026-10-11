@@ -8,7 +8,9 @@ use crate::{
     connection::Connection,
     dir::Directory,
     file::{File, FileOps},
-    utils::{ErrorMessage, NO_BUTTONS, SenderExt, WindowExt, dialog_button_box},
+    utils::{
+        ErrorMessage, NO_BUTTONS, SPECIAL_PERMISSIONS_MASK, SenderExt, WindowExt, dialog_button_box,
+    },
 };
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
@@ -28,7 +30,10 @@ async fn chmod_recursively(
     permissions: u32,
     recursive: Option<ChmodRecursiveMode>,
 ) {
-    if let Err(error) = file.chmod(permissions) {
+    // Keep special flags unchanged, we cannot configure them
+    if let Err(error) = file.chmod(
+        (file.permissions() & SPECIAL_PERMISSIONS_MASK) | (permissions & !SPECIAL_PERMISSIONS_MASK),
+    ) {
         ErrorMessage::with_error(
             gettext("Could not chmod {}").replace("{}", &file.name()),
             &error,

@@ -8,7 +8,7 @@ use crate::{
     file::{File, FileOps},
     options::ProgramsOptions,
     transfer::download_to_temporary,
-    utils::{ErrorMessage, GNOME_CMD_PERM_USER_EXEC, temp_file},
+    utils::{ErrorMessage, PERM_USER_EXEC, temp_file},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, prelude::*};
@@ -84,7 +84,7 @@ pub async fn mime_exec_single(
             return Ok(false);
         }
 
-        file.chmod(file.permissions() | GNOME_CMD_PERM_USER_EXEC)
+        file.chmod(file.permissions() | PERM_USER_EXEC)
             .map_err(|error| ErrorMessage {
                 message: gettext("Change of a file mode failed"),
                 secondary_text: Some(error.to_string()),
