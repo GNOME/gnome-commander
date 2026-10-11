@@ -552,12 +552,13 @@ mod imp {
             let layout = self.obj().create_pango_layout(None);
             layout.set_font_description(Some(&*self.font_desc.borrow()));
             input_mode.adjust_invisible_characters(move |ch| {
-                ch != '\0' && {
-                    layout.set_text(&ch.to_string());
-                    let (_ink_rect, logical_rect) = layout.pixel_extents();
-                    // Pango displays something
-                    logical_rect.width() > 0
-                }
+                ch != '\0'
+                    && (ch == '\n' || {
+                        layout.set_text(&ch.to_string());
+                        let (_ink_rect, logical_rect) = layout.pixel_extents();
+                        // Pango displays something
+                        logical_rect.width() > 0
+                    })
             })
         }
 
@@ -1088,7 +1089,7 @@ mod imp {
                     bin_chars.push((
                         offset,
                         column,
-                        character.filter(|c| *c != '\0').unwrap_or('.'),
+                        character.map_or('.', |c| if c.is_control() { '.' } else { c }),
                     ));
                 }
             }
