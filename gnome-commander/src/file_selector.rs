@@ -362,7 +362,6 @@ mod imp {
                     glib::subclass::Signal::builder("dir-changed")
                         .param_types([Directory::static_type()])
                         .build(),
-                    glib::subclass::Signal::builder("list-clicked").build(),
                     glib::subclass::Signal::builder("activate-request").build(),
                     glib::subclass::Signal::builder("execute-file")
                         .param_types([File::static_type()])
@@ -747,8 +746,6 @@ impl FileSelector {
 
     fn on_list_list_clicked(&self, fl: &FileList, button: u32, file: Option<File>) {
         match button {
-            1 | 3 => self.emit_by_name::<()>("list-clicked", &[]),
-
             2 => {
                 if fl.middle_mouse_button_mode() == MiddleMouseButtonMode::GoesUpDir {
                     self.goto_parent(fl);
@@ -1084,16 +1081,6 @@ impl FileSelector {
             let directory = Directory::new(&con, &con.create_uri(&path));
             self.new_tab(&directory, TabOptions::new().grab_focus(false));
         }
-    }
-
-    pub fn connect_list_clicked<F>(&self, callback: F) -> glib::SignalHandlerId
-    where
-        F: Fn() + 'static,
-    {
-        self.connect_local("list-clicked", false, move |_| {
-            (callback)();
-            None
-        })
     }
 
     pub fn connect_directory_changed<F>(&self, callback: F) -> glib::SignalHandlerId

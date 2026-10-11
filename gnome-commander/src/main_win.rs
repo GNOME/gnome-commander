@@ -392,21 +392,6 @@ pub mod imp {
 
             self.file_selector_left
                 .borrow()
-                .connect_list_clicked(glib::clone!(
-                    #[weak(rename_to = imp)]
-                    self,
-                    move || imp.on_left_fs_select()
-                ));
-            self.file_selector_right
-                .borrow()
-                .connect_list_clicked(glib::clone!(
-                    #[weak(rename_to = imp)]
-                    self,
-                    move || imp.on_right_fs_select()
-                ));
-
-            self.file_selector_left
-                .borrow()
                 .connect_execute_file(glib::clone!(
                     #[weak]
                     mw,
@@ -824,14 +809,6 @@ pub mod imp {
             if !focus_controller.contains_focus() {
                 fs.file_list().grab_focus();
             }
-        }
-
-        fn on_left_fs_select(&self) {
-            self.obj().set_current_panel(0);
-        }
-
-        fn on_right_fs_select(&self) {
-            self.obj().set_current_panel(1);
         }
 
         fn on_fs_dir_changed(&self, fs: &FileSelector, _dir: &Directory) {
