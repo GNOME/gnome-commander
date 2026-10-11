@@ -25,6 +25,10 @@ mod imp {
         #[property(get, set)]
         extension: RefCell<String>,
         #[property(get, set)]
+        icons: RefCell<Vec<String>>,
+        #[property(get, set)]
+        type_string: RefCell<String>,
+        #[property(get, set)]
         directory: RefCell<String>,
         #[property(get, set)]
         size: Cell<i64>,
@@ -87,6 +91,68 @@ impl FileListItem {
             self.set_stem(file.name());
             self.set_extension("");
         }
+
+        let file_type = file.file_type();
+        self.set_icons({
+            let mut icons = Vec::new();
+
+            if let Some(mime_type) = file.content_type() {
+                icons.push(mime_type.replace('/', "-"));
+                icons.push(format!("gnome-{}", mime_type.replace('/', "-")));
+
+                if mime_type.starts_with("text") {
+                    icons.push("text-x-generic".to_owned());
+                } else if mime_type.starts_with("video") {
+                    icons.push("video-x-generic".to_owned());
+                } else if mime_type.starts_with("image") {
+                    icons.push("image-x-generic".to_owned());
+                } else if mime_type.starts_with("audio") {
+                    icons.push("audio-x-generic".to_owned());
+                } else if mime_type.starts_with("pack") {
+                    icons.push("package-x-generic".to_owned());
+                } else if mime_type.starts_with("font") {
+                    icons.push("font-x-generic".to_owned());
+                }
+            }
+
+            match file_type {
+                gio::FileType::Directory | gio::FileType::Shortcut | gio::FileType::Mountable => {
+                    icons.extend(["inode-directory".to_owned(), "i-directory".to_owned()]);
+                }
+                gio::FileType::SymbolicLink => {
+                    icons.extend(["inode-symlink".to_owned(), "i-symlink".to_owned()]);
+                }
+                _ => icons.push("i-regular".to_owned()),
+            }
+
+            icons.push(
+                match file_type {
+                    gio::FileType::Unknown => "file_type_unknown",
+                    gio::FileType::Directory
+                    | gio::FileType::Shortcut
+                    | gio::FileType::Mountable => "file_type_directory",
+                    gio::FileType::SymbolicLink => "file_type_symbolic_link",
+                    gio::FileType::Special => "file_type_special",
+                    _ => "file_type_regular",
+                }
+                .to_owned(),
+            );
+
+            icons
+        });
+
+        self.set_type_string(
+            match file_type {
+                gio::FileType::Regular => " ",
+                gio::FileType::Directory => "/",
+                gio::FileType::Shortcut => "/",
+                gio::FileType::Mountable => "/",
+                gio::FileType::SymbolicLink => "@",
+                gio::FileType::Special => "S",
+                _ => "?",
+            }
+            .to_owned(),
+        );
 
         self.set_directory(if let Some(ref base) = self.base_dir() {
             base.relative_path(&*self.file().file())

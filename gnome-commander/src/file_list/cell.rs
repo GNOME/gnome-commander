@@ -5,7 +5,7 @@
 
 use super::item::FileListItem;
 use super::list::apply_css;
-use gtk::{glib, pango, prelude::*, subclass::prelude::*};
+use gtk::{glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
@@ -14,19 +14,13 @@ mod imp {
     #[derive(glib::Properties, Default)]
     #[properties(wrapper_type = super::FileListCell)]
     pub struct FileListCell {
-        #[property(get, set)]
-        text: RefCell<String>,
-
         #[property(get, set = Self::set_item, nullable)]
         item: RefCell<Option<FileListItem>>,
-        #[property(get, set)]
-        xalign: Cell<f32>,
         #[property(get, set = Self::set_selected)]
         selected: Cell<bool>,
         #[property(get, set = Self::set_use_ls_colors)]
         use_ls_colors: Cell<bool>,
 
-        pub label: gtk::Label,
         pub bindings: RefCell<Vec<glib::Binding>>,
     }
 
@@ -48,21 +42,6 @@ mod imp {
             this.set_hexpand(true);
             this.set_vexpand(true);
             this.add_css_class("cell");
-
-            self.label.set_parent(&*this);
-            self.label.set_hexpand(true);
-            self.label.set_vexpand(true);
-            self.label.set_ellipsize(pango::EllipsizeMode::Middle);
-
-            this.bind_property("text", &self.label, "label")
-                .sync_create()
-                .build();
-            this.bind_property("text", &self.label, "tooltip-text")
-                .sync_create()
-                .build();
-            this.bind_property("xalign", &self.label, "xalign")
-                .sync_create()
-                .build();
         }
 
         fn dispose(&self) {
@@ -134,11 +113,5 @@ impl FileListCell {
 
     pub fn add_binding(&self, binding: glib::Binding) {
         self.imp().bindings.borrow_mut().push(binding);
-    }
-
-    pub fn clear_bindings(&self) {
-        for binding in self.imp().bindings.borrow_mut().drain(..) {
-            binding.unbind();
-        }
     }
 }
