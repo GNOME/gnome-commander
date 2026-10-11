@@ -418,13 +418,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
           Defines the style of the tab lock indicator.
       </description>
     </key>
-    <key name="case-sensitive" type="b">
-        <default>true</default>
-        <summary>Case sensitive sorting</summary>
-        <description>
-            This option defines if sorting should be case sensitive.
-        </description>
-    </key>
     <key name="select-dirs" type="b">
         <default>true</default>
         <summary>Select directories when all is marked</summary>

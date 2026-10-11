@@ -10,17 +10,14 @@ use std::cmp;
 
 mod imp {
     use super::*;
-    use crate::options::GeneralOptions;
-    use std::cell::{Cell, OnceCell};
+    use std::cell::OnceCell;
 
-    type CompareFunc = Box<dyn Fn(&File, &File, bool) -> gtk::Ordering + 'static>;
+    type CompareFunc = Box<dyn Fn(&File, &File) -> gtk::Ordering + 'static>;
 
     #[derive(Default, glib::Properties)]
     #[properties(wrapper_type = super::FileAttrSorter)]
     pub struct FileAttrSorter {
         pub compare: OnceCell<CompareFunc>,
-        #[property(get, set = Self::set_case_sensitive)]
-        case_sensitive: Cell<bool>,
     }
 
     #[glib::object_subclass]
@@ -34,11 +31,6 @@ mod imp {
     impl ObjectImpl for FileAttrSorter {
         fn constructed(&self) {
             self.parent_constructed();
-
-            GeneralOptions::instance()
-                .case_sensitive
-                .bind(&*self.obj(), "case-sensitive")
-                .build();
         }
     }
 
@@ -52,26 +44,18 @@ mod imp {
                 (None, Some(_)) => gtk::Ordering::Larger,
                 (Some(_), None) => gtk::Ordering::Smaller,
                 (Some(item1), Some(item2)) => {
-                    let case_sensitive = self.case_sensitive.get();
                     let file1 = item1.file();
                     let file2 = item2.file();
-                    let result = (self.compare.get().unwrap())(&file1, &file2, case_sensitive);
+                    let result = (self.compare.get().unwrap())(&file1, &file2);
                     if result != gtk::Ordering::Equal {
                         result
                     } else {
-                        collate_key(&file1.name(), case_sensitive)
-                            .cmp(&collate_key(&file2.name(), case_sensitive))
+                        glib::FilenameCollationKey::from(&file1.name())
+                            .cmp(&glib::FilenameCollationKey::from(&file2.name()))
                             .into()
                     }
                 }
             }
-        }
-    }
-
-    impl FileAttrSorter {
-        fn set_case_sensitive(&self, value: bool) {
-            self.case_sensitive.set(value);
-            self.obj().changed(gtk::SorterChange::Different);
         }
     }
 }
@@ -84,15 +68,15 @@ glib::wrapper! {
 impl FileAttrSorter {
     fn by_key<F, K>(key_fn: F) -> Self
     where
-        F: Fn(&File, bool) -> K + 'static,
+        F: Fn(&File) -> K + 'static,
         K: cmp::Ord,
     {
         let this: Self = glib::Object::builder().build();
         this.imp()
             .compare
-            .set(Box::new(move |file1, file2, case_sensitive| {
-                let file_key1 = (key_fn)(file1, case_sensitive);
-                let file_key2 = (key_fn)(file2, case_sensitive);
+            .set(Box::new(move |file1, file2| {
+                let file_key1 = (key_fn)(file1);
+                let file_key2 = (key_fn)(file2);
                 file_key1.cmp(&file_key2).into()
             }))
             .ok()
@@ -101,52 +85,44 @@ impl FileAttrSorter {
     }
 
     pub fn by_name() -> Self {
-        Self::by_key(|_, _| ())
+        Self::by_key(|_| ())
     }
 
     pub fn by_ext() -> Self {
-        Self::by_key(|file, case_sensitive| {
+        Self::by_key(|file| {
             file.extension()
                 .as_ref()
                 .and_then(|e| e.to_str())
-                .map(|e| collate_key(e, case_sensitive))
+                .map(glib::FilenameCollationKey::from)
         })
     }
 
     pub fn by_dir() -> Self {
-        Self::by_key(|file, case_sensitive| {
+        Self::by_key(|file| {
             file.parent_path()
                 .as_ref()
                 .and_then(|d| d.to_str())
-                .map(|d| collate_key(d, case_sensitive))
+                .map(glib::FilenameCollationKey::from)
         })
     }
 
     pub fn by_size() -> Self {
-        Self::by_key(|file, _| file.size())
+        Self::by_key(|file| file.size())
     }
 
     pub fn by_perm() -> Self {
-        Self::by_key(|file, _| file.permissions())
+        Self::by_key(|file| file.permissions())
     }
 
     pub fn by_date() -> Self {
-        Self::by_key(|file, _| file.modification_date())
+        Self::by_key(|file| file.modification_date())
     }
 
     pub fn by_owner() -> Self {
-        Self::by_key(|file, _| (file.uid(), file.owner()))
+        Self::by_key(|file| (file.uid(), file.owner()))
     }
 
     pub fn by_group() -> Self {
-        Self::by_key(|file, _| (file.gid(), file.group()))
-    }
-}
-
-fn collate_key(name: &str, case_sensitive: bool) -> glib::FilenameCollationKey {
-    if case_sensitive {
-        glib::FilenameCollationKey::from(name)
-    } else {
-        glib::FilenameCollationKey::from(glib::casefold(name))
+        Self::by_key(|file| (file.gid(), file.group()))
     }
 }

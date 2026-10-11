@@ -121,9 +121,6 @@ mod imp {
         pub use_ls_colors: Cell<bool>,
         theme_listener: OnceCell<ColorThemeListener<Box<dyn Fn()>>>,
 
-        #[property(get, set, default = true)]
-        case_sensitive: Cell<bool>,
-
         #[property(get, set)]
         left_mouse_button_mode: Cell<LeftMouseButtonMode>,
 
@@ -250,7 +247,6 @@ mod imp {
                 date_display_format: Default::default(),
                 use_ls_colors: Default::default(),
                 theme_listener: Default::default(),
-                case_sensitive: Default::default(),
                 left_mouse_button_mode: Default::default(),
                 middle_mouse_button_mode: Default::default(),
                 right_mouse_button_mode: Default::default(),
@@ -607,10 +603,6 @@ mod imp {
             general_options
                 .date_display_format
                 .bind(&*fl, "date-display-format")
-                .build();
-            general_options
-                .case_sensitive
-                .bind(&*fl, "case-sensitive")
                 .build();
             general_options
                 .left_mouse_button_mode

@@ -26,7 +26,6 @@ pub struct GeneralTab {
     rmb_select: gtk::CheckButton,
     delete_to_trash: gtk::CheckButton,
     select_dirs: gtk::CheckButton,
-    case_sensitive: gtk::CheckButton,
     quick_search_mode_search: gtk::CheckButton,
     quick_search_mode_filter: gtk::CheckButton,
     quick_search_ctrl_alt: gtk::CheckButton,
@@ -139,16 +138,6 @@ impl GeneralTab {
             .label(gettext("Select directories"))
             .build();
         selection.append(&select_dirs);
-
-        let sorting = gtk::Box::builder()
-            .orientation(gtk::Orientation::Vertical)
-            .spacing(6)
-            .build();
-        vbox.append(&create_category(&gettext("Sorting"), &sorting));
-        let case_sensitive = gtk::CheckButton::builder()
-            .label(gettext("Case sensitive"))
-            .build();
-        sorting.append(&case_sensitive);
 
         let quick_search = gtk::Box::builder()
             .orientation(gtk::Orientation::Vertical)
@@ -276,7 +265,6 @@ impl GeneralTab {
             rmb_select,
             delete_to_trash,
             select_dirs,
-            case_sensitive,
             quick_search_mode_search,
             quick_search_mode_filter,
             quick_search_ctrl_alt,
@@ -322,7 +310,6 @@ impl GeneralTab {
         );
         self.delete_to_trash.set_active(options.use_trash.get());
         self.select_dirs.set_active(options.select_dirs.get());
-        self.case_sensitive.set_active(options.case_sensitive.get());
         radio_group_set_value(
             [
                 (&self.quick_search_mode_search, QuickSearchMode::Search),
@@ -375,9 +362,6 @@ impl GeneralTab {
         ]))?;
         options.use_trash.set(self.delete_to_trash.is_active())?;
         options.select_dirs.set(self.select_dirs.is_active())?;
-        options
-            .case_sensitive
-            .set(self.case_sensitive.is_active())?;
         options
             .quick_search_default_mode
             .set(radio_group_get_value([
