@@ -58,6 +58,7 @@ container_ext_impl!(gtk::LinkButton, set_child, gtk::Widget);
 container_ext_impl!(gtk::ListBox, append, gtk::Widget);
 container_ext_impl!(gtk::ListBoxRow, set_child, gtk::Widget);
 container_ext_impl!(gtk::MenuButton, set_child, gtk::Widget);
+container_ext_impl!(gtk::Overlay, set_child, gtk::Widget);
 container_ext_impl!(gtk::Popover, set_child, gtk::Widget);
 container_ext_impl!(gtk::Revealer, set_child, gtk::Widget);
 container_ext_impl!(gtk::ScrolledWindow, set_child, gtk::Widget);

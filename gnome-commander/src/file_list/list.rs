@@ -32,8 +32,9 @@ use crate::{
     },
     utils::{ErrorMessage, MenuBuilderExt, SenderExt, size_to_string, time_to_string, u32_enum},
 };
+use component_framework::prelude::*;
 use gettextrs::gettext;
-use gtk::{gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
+use gtk::{gdk, gio, glib, graphene, pango, prelude::*, subclass::prelude::*};
 use std::{
     collections::{BTreeMap, HashSet},
     ffi::OsStr,
@@ -1821,18 +1822,6 @@ mod imp {
         }
     }
 
-    pub fn type_string(file_type: gio::FileType) -> &'static str {
-        match file_type {
-            gio::FileType::Regular => " ",
-            gio::FileType::Directory => "/",
-            gio::FileType::Shortcut => "/",
-            gio::FileType::Mountable => "/",
-            gio::FileType::SymbolicLink => "@",
-            gio::FileType::Special => "S",
-            _ => "?",
-        }
-    }
-
     pub fn display_permissions(permissions: u32, mode: PermissionDisplayMode) -> String {
         match mode {
             PermissionDisplayMode::Number => permissions_to_numbers(permissions),
@@ -2962,56 +2951,56 @@ fn create_icon_factory() -> gtk::ListItemFactory {
     let options = ColorOptions::instance();
 
     let factory = gtk::SignalListItemFactory::new();
-    factory.connect_setup(|_, obj| {
+    factory.connect_setup(move |_, obj| {
         if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() {
-            let stack = gtk::Stack::builder().hexpand(true).build();
-            stack.add_css_class("cell");
+            let cell = FileListCell::default();
+            options.use_ls_colors.bind(&cell, "use-ls-colors").build();
 
-            let image = gtk::Image::builder().build();
-            let overlay = gtk::Overlay::builder()
-                .child(&image)
-                .hexpand(true)
-                .halign(gtk::Align::Center)
-                .build();
-            stack.add_named(&overlay, Some("overlay"));
+            with!(gtk::Stack {
+                .set_parent(&cell);
+                .set_hexpand(true);
+                .add_named(&with!(gtk::Overlay {
+                    .set_hexpand(true);
+                    .set_halign(gtk::Align::Center);
+                    .connect_realize(|overlay| {
+                        if let Some(image) = overlay.child().and_downcast::<gtk::Image>() {
+                            let layout = image.create_pango_layout(None);
+                            layout.set_text("A");
+                            let letter_height = layout.pixel_extents().1.height();
+                            image.set_pixel_size(letter_height);
 
-            overlay.connect_realize(|overlay| {
-                if let Some(image) = overlay.child().and_downcast::<gtk::Image>() {
-                    let layout = image.create_pango_layout(None);
-                    layout.set_text("A");
-                    let letter_height = layout.pixel_extents().1.height();
-                    image.set_pixel_size(letter_height);
+                            if let Some(mut child) = overlay.first_accessible_child() {
+                                loop {
+                                    if let Some(widget) = child.downcast_ref::<gtk::Image>()
+                                        && widget != &image
+                                    {
+                                        widget.set_pixel_size(letter_height / 2);
+                                    }
 
-                    if let Some(mut child) = overlay.first_accessible_child() {
-                        loop {
-                            if let Some(widget) = child.downcast_ref::<gtk::Image>()
-                                && widget != &image
-                            {
-                                widget.set_pixel_size(letter_height / 2);
-                            }
-
-                            child = match child.next_accessible_sibling() {
-                                Some(child) => child,
-                                None => break,
+                                    child = match child.next_accessible_sibling() {
+                                        Some(child) => child,
+                                        None => break,
+                                    }
+                                }
                             }
                         }
-                    }
-                }
+                    });
+                    gtk::Image {}
+                }), Some("overlay"));
+                .add_named(&with!(gtk::Label {
+                    .set_hexpand(true);
+                    .set_halign(gtk::Align::Center);
+                    .set_xalign(0.5);
+                }), Some("label"));
             });
 
-            let label = gtk::Label::builder()
-                .hexpand(true)
-                .halign(gtk::Align::Center)
-                .xalign(0.5)
-                .build();
-            stack.add_named(&label, Some("label"));
-
-            list_item.set_child(Some(&stack));
+            list_item.set_child(Some(&cell));
         }
     });
     factory.connect_bind(move |_, obj| {
         if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>()
-            && let Some(stack) = list_item.child().and_downcast::<gtk::Stack>()
+            && let Some(cell) = list_item.child().and_downcast::<FileListCell>()
+            && let Some(stack) = cell.first_child().and_downcast::<gtk::Stack>()
             && let Some(item) = list_item.item().and_downcast::<FileListItem>()
             && let Some(overlay) = stack
                 .child_by_name("overlay")
@@ -3019,8 +3008,7 @@ fn create_icon_factory() -> gtk::ListItemFactory {
             && let Some(image) = overlay.child().and_downcast::<gtk::Image>()
             && let Some(label) = stack.child_by_name("label").and_downcast::<gtk::Label>()
         {
-            image.clear();
-            label.set_text("");
+            cell.bind(&item);
 
             // Remove existing overlay image if any
             if let Some(mut child) = overlay.first_accessible_child() {
@@ -3052,64 +3040,30 @@ fn create_icon_factory() -> gtk::ListItemFactory {
                 );
             }
 
-            apply_css(&item, options.use_ls_colors.get(), label.upcast_ref());
-
             match GeneralOptions::instance().graphical_layout_mode.get() {
                 GraphicalLayoutMode::Text => {
-                    label.set_text(imp::type_string(file.file_type()));
+                    cell.add_binding(
+                        item.bind_property("type-string", &label, "label")
+                            .sync_create()
+                            .build(),
+                    );
                     stack.set_visible_child(&label);
                 }
                 mode => {
-                    let file_type_icon = match file.file_type() {
-                        gio::FileType::Unknown => "file_type_unknown",
-                        gio::FileType::Directory
-                        | gio::FileType::Shortcut
-                        | gio::FileType::Mountable => "file_type_directory",
-                        gio::FileType::SymbolicLink => "file_type_symbolic_link",
-                        gio::FileType::Special => "file_type_special",
-                        _ => "file_type_regular",
-                    };
-
-                    if mode == GraphicalLayoutMode::MimeIcons
-                        && let Some(mime_type) = file.content_type()
-                    {
-                        let mut icons: Vec<&str> = Vec::new();
-                        let mime_default = mime_type.replace('/', "-");
-                        icons.push(&mime_default);
-
-                        if mime_type.starts_with("text") {
-                            icons.push("text-x-generic");
-                        } else if mime_type.starts_with("video") {
-                            icons.push("video-x-generic");
-                        } else if mime_type.starts_with("image") {
-                            icons.push("image-x-generic");
-                        } else if mime_type.starts_with("audio") {
-                            icons.push("audio-x-generic");
-                        } else if mime_type.starts_with("pack") {
-                            icons.push("package-x-generic");
-                        } else if mime_type.starts_with("font") {
-                            icons.push("font-x-generic");
-                        }
-
-                        let mime_fallback = format!("gnome-{mime_default}");
-                        icons.push(&mime_fallback);
-
-                        match file.file_type() {
-                            gio::FileType::Directory
-                            | gio::FileType::Shortcut
-                            | gio::FileType::Mountable => {
-                                icons.extend(["inode-directory", "i-directory"]);
-                            }
-                            gio::FileType::SymbolicLink => {
-                                icons.extend(["inode-symlink", "i-symlink"]);
-                            }
-                            _ => icons.push("i-regular"),
-                        }
-                        icons.push(file_type_icon);
-                        image.set_from_gicon(&gio::ThemedIcon::from_names(&icons));
-                    } else {
-                        image.set_icon_name(Some(file_type_icon));
-                    }
+                    cell.add_binding(
+                        item.bind_property("icons", &image, "gicon")
+                            .transform_to(move |_, icons: Vec<String>| {
+                                if mode == GraphicalLayoutMode::MimeIcons && icons.len() > 1 {
+                                    Some(gio::ThemedIcon::from_names(
+                                        &icons.iter().map(String::as_str).collect::<Vec<_>>(),
+                                    ))
+                                } else {
+                                    icons.last().map(|icon| gio::ThemedIcon::new(icon))
+                                }
+                            })
+                            .sync_create()
+                            .build(),
+                    );
                     stack.set_visible_child(&overlay);
                 }
             }
@@ -3130,7 +3084,7 @@ fn add_cell_class(child: &gtk::Widget, css_class: &str) {
 }
 
 fn create_name_factory() -> gtk::ListItemFactory {
-    create_text_cell_factory(0.0, move |cell, item| {
+    create_text_cell_factory(0.0, move |cell, label, item| {
         add_cell_class(cell.upcast_ref(), "cell-name");
         let prop = if matches!(
             GeneralOptions::instance().extension_display_mode.get(),
@@ -3142,7 +3096,7 @@ fn create_name_factory() -> gtk::ListItemFactory {
         };
         cell.bind(&item);
         cell.add_binding(
-            item.bind_property(prop, &cell, "text")
+            item.bind_property(prop, &label, "label")
                 .sync_create()
                 .build(),
         );
@@ -3150,7 +3104,7 @@ fn create_name_factory() -> gtk::ListItemFactory {
 }
 
 fn create_ext_factory() -> gtk::ListItemFactory {
-    create_text_cell_factory(0.0, move |cell, item| {
+    create_text_cell_factory(0.0, move |cell, label, item| {
         add_cell_class(cell.upcast_ref(), "cell-ext");
         cell.bind(&item);
         if !matches!(
@@ -3158,7 +3112,7 @@ fn create_ext_factory() -> gtk::ListItemFactory {
             ExtensionDisplayMode::WithFname
         ) {
             cell.add_binding(
-                item.bind_property("extension", &cell, "text")
+                item.bind_property("extension", &label, "label")
                     .sync_create()
                     .build(),
             );
@@ -3167,10 +3121,10 @@ fn create_ext_factory() -> gtk::ListItemFactory {
 }
 
 fn create_dir_factory() -> gtk::ListItemFactory {
-    create_text_cell_factory(0.0, move |cell, item| {
+    create_text_cell_factory(0.0, move |cell, label, item| {
         cell.bind(&item);
         cell.add_binding(
-            item.bind_property("directory", &cell, "text")
+            item.bind_property("directory", &label, "label")
                 .sync_create()
                 .build(),
         );
@@ -3178,12 +3132,12 @@ fn create_dir_factory() -> gtk::ListItemFactory {
 }
 
 fn create_size_factory() -> gtk::ListItemFactory {
-    create_text_cell_factory(1.0, move |cell, item| {
+    create_text_cell_factory(1.0, move |cell, label, item| {
         let mode = GeneralOptions::instance().size_display_mode.get();
         let is_directory = item.file().is_directory();
         cell.bind(&item);
         cell.add_binding(
-            item.bind_property("size", &cell, "text")
+            item.bind_property("size", &label, "label")
                 .transform_to(move |_, size: i64| {
                     if size >= 0 {
                         Some(size_to_string(size as u64, mode))
@@ -3200,12 +3154,12 @@ fn create_size_factory() -> gtk::ListItemFactory {
 }
 
 fn create_date_factory() -> gtk::ListItemFactory {
-    create_text_cell_factory(0.0, move |cell, item| {
+    create_text_cell_factory(0.0, move |cell, label, item| {
         let format = GeneralOptions::instance().date_display_format.get();
 
         cell.bind(&item);
         cell.add_binding(
-            item.bind_property("modification-time", &cell, "text")
+            item.bind_property("modification-time", &label, "label")
                 .transform_to(move |_, dt: Option<glib::DateTime>| {
                     time_to_string(dt?, &format).ok()
                 })
@@ -3216,12 +3170,12 @@ fn create_date_factory() -> gtk::ListItemFactory {
 }
 
 fn create_perm_factory() -> gtk::ListItemFactory {
-    create_text_cell_factory(0.0, move |cell, item| {
+    create_text_cell_factory(1.0, move |cell, label, item| {
         let mode = GeneralOptions::instance().permissions_display_mode.get();
 
         cell.bind(&item);
         cell.add_binding(
-            item.bind_property("permissions", &cell, "text")
+            item.bind_property("permissions", &label, "label")
                 .transform_to(move |_, permissions: u32| {
                     if permissions != u32::MAX {
                         Some(imp::display_permissions(permissions, mode))
@@ -3236,10 +3190,10 @@ fn create_perm_factory() -> gtk::ListItemFactory {
 }
 
 fn create_owner_factory() -> gtk::ListItemFactory {
-    create_text_cell_factory(0.0, move |cell, item| {
+    create_text_cell_factory(0.0, move |cell, label, item| {
         cell.bind(&item);
         cell.add_binding(
-            item.bind_property("owner", &cell, "text")
+            item.bind_property("owner", &label, "label")
                 .transform_to(|_, v: Option<String>| v)
                 .sync_create()
                 .build(),
@@ -3248,10 +3202,10 @@ fn create_owner_factory() -> gtk::ListItemFactory {
 }
 
 fn create_group_factory() -> gtk::ListItemFactory {
-    create_text_cell_factory(0.0, move |cell, item| {
+    create_text_cell_factory(0.0, move |cell, label, item| {
         cell.bind(&item);
         cell.add_binding(
-            item.bind_property("group", &cell, "text")
+            item.bind_property("group", &label, "label")
                 .transform_to(|_, v: Option<String>| v)
                 .sync_create()
                 .build(),
@@ -3261,7 +3215,7 @@ fn create_group_factory() -> gtk::ListItemFactory {
 
 fn create_text_cell_factory(
     alignment: f32,
-    bind: impl Fn(FileListCell, FileListItem) + 'static,
+    bind: impl Fn(FileListCell, gtk::Label, FileListItem) + 'static,
 ) -> gtk::ListItemFactory {
     let options = ColorOptions::instance();
 
@@ -3269,31 +3223,38 @@ fn create_text_cell_factory(
     factory.connect_setup(move |_, obj| {
         if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() {
             let cell = FileListCell::default();
-            cell.set_xalign(alignment);
 
             options.use_ls_colors.bind(&cell, "use-ls-colors").build();
+
+            let label = gtk::Label::builder()
+                .hexpand(true)
+                .vexpand(true)
+                .xalign(alignment)
+                .ellipsize(pango::EllipsizeMode::Middle)
+                .build();
+            label
+                .bind_property("label", &label, "tooltip-text")
+                .sync_create()
+                .build();
+            label.set_parent(&cell);
 
             list_item.set_child(Some(&cell));
         }
     });
     factory.connect_bind(move |_, obj| {
-        let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() else {
-            return;
-        };
-        let Some(cell) = list_item.child().and_downcast::<FileListCell>() else {
-            return;
-        };
-        let Some(item) = list_item.item().and_downcast::<FileListItem>() else {
-            return;
-        };
-        (bind)(cell, item);
+        if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>()
+            && let Some(cell) = list_item.child().and_downcast::<FileListCell>()
+            && let Some(label) = cell.first_child().and_downcast::<gtk::Label>()
+            && let Some(item) = list_item.item().and_downcast::<FileListItem>()
+        {
+            (bind)(cell, label, item);
+        }
     });
     factory.connect_unbind(move |_, obj| {
         if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>()
             && let Some(cell) = list_item.child().and_downcast::<FileListCell>()
         {
             cell.unbind();
-            cell.clear_bindings();
         }
     });
     factory.upcast()
