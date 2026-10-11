@@ -102,6 +102,9 @@ mod imp {
     pub struct FileList {
         pub quick_search: glib::WeakRef<QuickSearch>,
 
+        #[property(get, set)]
+        locked: Cell<bool>,
+
         #[property(get, set = Self::set_extension_display_mode)]
         pub extension_display_mode: Cell<ExtensionDisplayMode>,
 
@@ -244,6 +247,7 @@ mod imp {
             Self {
                 quick_search: Default::default(),
 
+                locked: Default::default(),
                 extension_display_mode: Default::default(),
                 graphical_layout_mode: Default::default(),
                 size_display_mode: Default::default(),
