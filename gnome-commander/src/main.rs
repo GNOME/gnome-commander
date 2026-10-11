@@ -49,8 +49,6 @@ mod transfer;
 mod types;
 mod user_actions;
 mod utils;
-mod weak_map;
-mod weak_ref;
 
 use crate::{
     config::{ICONS_PREFIX, PACKAGE, locale_dir},

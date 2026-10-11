@@ -48,5 +48,3 @@ pub mod transfer;
 pub mod types;
 pub mod user_actions;
 pub mod utils;
-pub mod weak_map;
-pub mod weak_ref;

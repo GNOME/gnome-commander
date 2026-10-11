@@ -73,16 +73,12 @@ mod imp {
             ALT, CONTROL, CONTROL_ALT, ListRowSelector, NO_MOD, SHIFT, get_modifiers_state,
             permissions_to_numbers, permissions_to_text,
         },
-        weak_map::WeakMap,
     };
     use std::{
         cell::{Cell, OnceCell, RefCell},
-        collections::BTreeMap,
         rc::Rc,
         sync::OnceLock,
     };
-
-    pub type CellsMap = Rc<WeakMap<FileListItem, FileListCell>>;
 
     #[derive(Debug, Default, Copy, Clone, PartialEq, Eq)]
     struct TextTarget {
@@ -166,8 +162,6 @@ mod imp {
         state_widget: gtk::Label,
         state_widget_timeout: RefCell<Option<glib::SourceId>>,
         current_list_operation: RefCell<Option<gio::Cancellable>>,
-
-        pub cells_map: BTreeMap<ColumnID, CellsMap>,
 
         pub shift_down: Cell<bool>,
         pub range_selection_start: Cell<Option<u32>>,
@@ -285,8 +279,6 @@ mod imp {
                 state_widget_timeout: Default::default(),
                 current_list_operation: Default::default(),
 
-                cells_map: ColumnID::all().map(|c| (c, Default::default())).collect(),
-
                 shift_down: Default::default(),
                 range_selection_start: Default::default(),
                 range_selection_closed: Default::default(),
@@ -384,49 +376,49 @@ mod imp {
                 (
                     ColumnID::Name,
                     &gettext("name"),
-                    create_name_factory(&self.cells_map[&ColumnID::Name]),
+                    create_name_factory(),
                     Some(FileAttrSorter::by_name()),
                 ),
                 (
                     ColumnID::Ext,
                     &gettext("ext"),
-                    create_ext_factory(&self.cells_map[&ColumnID::Ext]),
+                    create_ext_factory(),
                     Some(FileAttrSorter::by_ext()),
                 ),
                 (
                     ColumnID::Dir,
                     &gettext("dir"),
-                    create_dir_factory(&self.cells_map[&ColumnID::Dir]),
+                    create_dir_factory(),
                     Some(FileAttrSorter::by_dir()),
                 ),
                 (
                     ColumnID::Size,
                     &gettext("size"),
-                    create_size_factory(&self.cells_map[&ColumnID::Size]),
+                    create_size_factory(),
                     Some(FileAttrSorter::by_size()),
                 ),
                 (
                     ColumnID::Date,
                     &gettext("date"),
-                    create_date_factory(&self.cells_map[&ColumnID::Date]),
+                    create_date_factory(),
                     Some(FileAttrSorter::by_date()),
                 ),
                 (
                     ColumnID::Perm,
                     &gettext("perm"),
-                    create_perm_factory(&self.cells_map[&ColumnID::Perm]),
+                    create_perm_factory(),
                     Some(FileAttrSorter::by_perm()),
                 ),
                 (
                     ColumnID::Owner,
                     &gettext("uid"),
-                    create_owner_factory(&self.cells_map[&ColumnID::Owner]),
+                    create_owner_factory(),
                     Some(FileAttrSorter::by_owner()),
                 ),
                 (
                     ColumnID::Group,
                     &gettext("gid"),
-                    create_group_factory(&self.cells_map[&ColumnID::Group]),
+                    create_group_factory(),
                     Some(FileAttrSorter::by_group()),
                 ),
             ] {
@@ -1482,16 +1474,13 @@ mod imp {
 
         fn item_at_coords(&self, x: f64, y: f64) -> Option<FileListItem> {
             let mut widget = self.view.pick(x, y, gtk::PickFlags::DEFAULT)?;
-            let cell = loop {
-                match widget.downcast_ref::<FileListCell>() {
-                    Some(cell) => break Some(cell.clone()),
-                    None => match widget.parent() {
-                        Some(parent) => widget = parent,
-                        None => break None,
-                    },
+            loop {
+                if let Some(cell) = widget.downcast_ref::<FileListCell>() {
+                    return cell.item();
+                } else {
+                    widget = widget.parent()?;
                 }
-            }?;
-            cell.item()
+            }
         }
 
         pub fn show_list_popup(&self, x: f64, y: f64) {
@@ -2572,20 +2561,14 @@ impl FileList {
             eprintln!("No window");
             return;
         };
-        let Some(selected) = self
-            .selection()
-            .selected_item()
-            .and_downcast::<FileListItem>()
-            .filter(|item| !item.file().is_dotdot())
-        else {
+        let Some(file) = self.selected_file() else {
             return;
         };
-        let Some(rect) = self.focus_row_coordinates(&selected) else {
+        let Some(rect) = self.focus_row_coordinates() else {
             eprintln!("Selected file is not visible");
             return;
         };
 
-        let file = selected.file();
         if let Some(new_name) = show_rename_popover(&file.name(), self, &rect).await
             && new_name != file.name()
         {
@@ -2767,22 +2750,44 @@ impl FileList {
         )
     }
 
-    fn item_rect(&self, item: &FileListItem, column: ColumnID) -> Option<graphene::Rect> {
-        self.imp()
-            .cells_map
-            .get(&column)?
-            .find_by_key(item)
-            .and_then(|c| c.compute_bounds(self))
-    }
-
-    fn focus_row_coordinates(&self, item: &FileListItem) -> Option<gdk::Rectangle> {
-        let name_rect = self.item_rect(item, ColumnID::Name)?;
-        let rect = if self.extension_display_mode() != ExtensionDisplayMode::Both {
-            if let Some(ext_rect) = self.item_rect(item, ColumnID::Ext) {
-                name_rect.union(&ext_rect)
+    fn focus_row_coordinates(&self) -> Option<gdk::Rectangle> {
+        let mut child = self.imp().view.first_child()?;
+        let list_view = loop {
+            if child.css_name() == "listview" {
+                break child;
             } else {
-                name_rect
+                child = child.next_sibling()?;
             }
+        };
+
+        let mut child = list_view.first_child()?;
+        let selected_row = loop {
+            if child.state_flags().contains(gtk::StateFlags::SELECTED) {
+                break child;
+            } else {
+                child = child.next_sibling()?;
+            }
+        };
+
+        fn child_rect(
+            reference: &FileList,
+            row: &gtk::Widget,
+            css_class: &str,
+        ) -> Option<graphene::Rect> {
+            let mut child = row.first_child()?;
+            loop {
+                if child.has_css_class(css_class) {
+                    return child.compute_bounds(reference);
+                }
+                child = child.next_sibling()?;
+            }
+        }
+
+        let name_rect = child_rect(self, &selected_row, "cell-name")?;
+        let rect = if self.extension_display_mode() != ExtensionDisplayMode::Both
+            && let Some(ext_rect) = child_rect(self, &selected_row, "cell-ext")
+        {
+            name_rect.union(&ext_rect)
         } else {
             name_rect
         };
@@ -2809,13 +2814,7 @@ impl FileList {
         popover.set_pointing_to(
             point_to
                 .cloned()
-                .or_else(|| {
-                    let selected = self
-                        .selection()
-                        .selected_item()
-                        .and_downcast::<FileListItem>()?;
-                    self.focus_row_coordinates(&selected)
-                })
+                .or_else(|| self.focus_row_coordinates())
                 .as_ref(),
         );
         popover.present();
@@ -3119,8 +3118,20 @@ fn create_icon_factory() -> gtk::ListItemFactory {
     factory.upcast()
 }
 
-fn create_name_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
-    create_text_cell_factory(0.0, cells, move |cell, item| {
+fn add_cell_class(child: &gtk::Widget, css_class: &str) {
+    let mut parent = child.parent();
+    while let Some(p) = parent {
+        if p.accessible_role() == gtk::AccessibleRole::GridCell {
+            p.add_css_class(css_class);
+            break;
+        }
+        parent = p.parent();
+    }
+}
+
+fn create_name_factory() -> gtk::ListItemFactory {
+    create_text_cell_factory(0.0, move |cell, item| {
+        add_cell_class(cell.upcast_ref(), "cell-name");
         let prop = if matches!(
             GeneralOptions::instance().extension_display_mode.get(),
             ExtensionDisplayMode::Stripped
@@ -3138,8 +3149,9 @@ fn create_name_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
     })
 }
 
-fn create_ext_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
-    create_text_cell_factory(0.0, cells, move |cell, item| {
+fn create_ext_factory() -> gtk::ListItemFactory {
+    create_text_cell_factory(0.0, move |cell, item| {
+        add_cell_class(cell.upcast_ref(), "cell-ext");
         cell.bind(&item);
         if !matches!(
             GeneralOptions::instance().extension_display_mode.get(),
@@ -3154,8 +3166,8 @@ fn create_ext_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
     })
 }
 
-fn create_dir_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
-    create_text_cell_factory(0.0, cells, move |cell, item| {
+fn create_dir_factory() -> gtk::ListItemFactory {
+    create_text_cell_factory(0.0, move |cell, item| {
         cell.bind(&item);
         cell.add_binding(
             item.bind_property("directory", &cell, "text")
@@ -3165,8 +3177,8 @@ fn create_dir_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
     })
 }
 
-fn create_size_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
-    create_text_cell_factory(1.0, cells, move |cell, item| {
+fn create_size_factory() -> gtk::ListItemFactory {
+    create_text_cell_factory(1.0, move |cell, item| {
         let mode = GeneralOptions::instance().size_display_mode.get();
         let is_directory = item.file().is_directory();
         cell.bind(&item);
@@ -3187,8 +3199,8 @@ fn create_size_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
     })
 }
 
-fn create_date_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
-    create_text_cell_factory(0.0, cells, move |cell, item| {
+fn create_date_factory() -> gtk::ListItemFactory {
+    create_text_cell_factory(0.0, move |cell, item| {
         let format = GeneralOptions::instance().date_display_format.get();
 
         cell.bind(&item);
@@ -3203,8 +3215,8 @@ fn create_date_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
     })
 }
 
-fn create_perm_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
-    create_text_cell_factory(0.0, cells, move |cell, item| {
+fn create_perm_factory() -> gtk::ListItemFactory {
+    create_text_cell_factory(0.0, move |cell, item| {
         let mode = GeneralOptions::instance().permissions_display_mode.get();
 
         cell.bind(&item);
@@ -3223,8 +3235,8 @@ fn create_perm_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
     })
 }
 
-fn create_owner_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
-    create_text_cell_factory(0.0, cells, move |cell, item| {
+fn create_owner_factory() -> gtk::ListItemFactory {
+    create_text_cell_factory(0.0, move |cell, item| {
         cell.bind(&item);
         cell.add_binding(
             item.bind_property("owner", &cell, "text")
@@ -3235,8 +3247,8 @@ fn create_owner_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
     })
 }
 
-fn create_group_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
-    create_text_cell_factory(0.0, cells, move |cell, item| {
+fn create_group_factory() -> gtk::ListItemFactory {
+    create_text_cell_factory(0.0, move |cell, item| {
         cell.bind(&item);
         cell.add_binding(
             item.bind_property("group", &cell, "text")
@@ -3249,7 +3261,6 @@ fn create_group_factory(cells: &imp::CellsMap) -> gtk::ListItemFactory {
 
 fn create_text_cell_factory(
     alignment: f32,
-    cells: &imp::CellsMap,
     bind: impl Fn(FileListCell, FileListItem) + 'static,
 ) -> gtk::ListItemFactory {
     let options = ColorOptions::instance();
@@ -3265,36 +3276,26 @@ fn create_text_cell_factory(
             list_item.set_child(Some(&cell));
         }
     });
-    factory.connect_bind(glib::clone!(
-        #[strong]
-        cells,
-        move |_, obj| {
-            let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() else {
-                return;
-            };
-            let Some(cell) = list_item.child().and_downcast::<FileListCell>() else {
-                return;
-            };
-            let Some(item) = list_item.item().and_downcast::<FileListItem>() else {
-                return;
-            };
-            cells.add(&item, &cell);
-            (bind)(cell, item);
+    factory.connect_bind(move |_, obj| {
+        let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() else {
+            return;
+        };
+        let Some(cell) = list_item.child().and_downcast::<FileListCell>() else {
+            return;
+        };
+        let Some(item) = list_item.item().and_downcast::<FileListItem>() else {
+            return;
+        };
+        (bind)(cell, item);
+    });
+    factory.connect_unbind(move |_, obj| {
+        if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>()
+            && let Some(cell) = list_item.child().and_downcast::<FileListCell>()
+        {
+            cell.unbind();
+            cell.clear_bindings();
         }
-    ));
-    factory.connect_unbind(glib::clone!(
-        #[strong]
-        cells,
-        move |_, obj| {
-            if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>()
-                && let Some(cell) = list_item.child().and_downcast::<FileListCell>()
-            {
-                cell.unbind();
-                cell.clear_bindings();
-                cells.remove_value(&cell);
-            }
-        }
-    ));
+    });
     factory.upcast()
 }
 
