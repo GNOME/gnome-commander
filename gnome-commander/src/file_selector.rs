@@ -22,7 +22,7 @@ use crate::{
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, graphene, pango, prelude::*, subclass::prelude::*};
 use std::{
-    collections::{BTreeMap, BTreeSet, HashMap},
+    collections::{BTreeMap, BTreeSet, HashSet},
     path::{Path, PathBuf},
 };
 
@@ -904,24 +904,26 @@ impl FileSelector {
     }
 
     pub fn close_duplicate_tabs(&self) {
-        let mut dirs = HashMap::<Directory, BTreeSet<u32>>::new();
+        let current_page = self.imp().notebook.current_page();
+        let mut existing_dirs = HashSet::new();
         for index in 0..self.tab_count() {
             let file_list = self.file_list_nth(index);
-            if !self.is_tab_locked(&file_list) {
-                dirs.entry(file_list.directory()).or_default().insert(index);
+            if self.is_tab_locked(&file_list) || Some(index) == current_page {
+                existing_dirs.insert(file_list.directory());
             }
         }
 
         let mut duplicates = BTreeSet::new();
-        if let Some(mut indexes) = dirs.remove(&self.file_list().directory()) {
-            if let Some(current_index) = self.imp().notebook.current_page() {
-                indexes.remove(&current_index);
+        for index in 0..self.tab_count() {
+            let file_list = self.file_list_nth(index);
+            if !self.is_tab_locked(&file_list) && Some(index) != current_page {
+                let directory = file_list.directory();
+                if existing_dirs.contains(&directory) {
+                    duplicates.insert(index);
+                } else {
+                    existing_dirs.insert(directory);
+                }
             }
-            duplicates.extend(indexes);
-        }
-
-        for indexes in dirs.values() {
-            duplicates.extend(indexes.iter().skip(1));
         }
 
         for index in duplicates.into_iter().rev() {
