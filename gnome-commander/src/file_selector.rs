@@ -640,7 +640,10 @@ impl FileSelector {
                 });
             }
         ));
-        let n = self.imp().notebook.append_page(&fl, Some(&label));
+        let n = self
+            .imp()
+            .notebook
+            .insert_page(&fl, Some(&label), options.position);
         self.update_show_tabs();
         self.imp().notebook.set_tab_reorderable(&fl, true);
 
@@ -1329,6 +1332,7 @@ pub struct TabOptions {
     pub grab_focus: bool,
     pub selected_file: Option<PathBuf>,
     pub column_options: Vec<ColumnOptions>,
+    pub position: Option<u32>,
 }
 
 impl TabOptions {
@@ -1342,15 +1346,30 @@ impl TabOptions {
             grab_focus: true,
             selected_file: None,
             column_options: Vec::new(),
+            position: None,
         }
     }
 
     pub fn from(file_list: &FileList) -> Self {
+        fn find_notebook(file_list: &FileList) -> Option<gtk::Notebook> {
+            let mut parent = file_list.parent()?;
+            loop {
+                match parent.downcast() {
+                    Ok(notebook) => return Some(notebook),
+                    Err(p) => parent = p.parent()?,
+                }
+            }
+        }
+
         let (sort_column, sort_direction) = file_list.sorting();
         Self::new()
             .sort_column(sort_column)
             .sort_direction(sort_direction)
             .column_options(file_list.column_options())
+            .position(
+                find_notebook(file_list)
+                    .and_then(|notebook| notebook.page_num(file_list).map(|n| n + 1)),
+            )
     }
 
     pub fn sort_column(mut self, sort_column: ColumnID) -> Self {
@@ -1394,6 +1413,11 @@ impl TabOptions {
 
     pub fn column_options(mut self, column_options: Vec<ColumnOptions>) -> Self {
         self.column_options = column_options;
+        self
+    }
+
+    pub fn position(mut self, position: Option<u32>) -> Self {
+        self.position = position;
         self
     }
 }
