@@ -21,39 +21,45 @@ use std::{
     time::Duration,
 };
 
-pub const GNOME_CMD_PERM_USER_READ: u32 = 256; //r--------
-pub const GNOME_CMD_PERM_USER_WRITE: u32 = 128; //-w-------
-pub const GNOME_CMD_PERM_USER_EXEC: u32 = 64; //--x------
-pub const GNOME_CMD_PERM_GROUP_READ: u32 = 32; //---r-----
-pub const GNOME_CMD_PERM_GROUP_WRITE: u32 = 16; //----w----
-pub const GNOME_CMD_PERM_GROUP_EXEC: u32 = 8; //-----x---
-pub const GNOME_CMD_PERM_OTHER_READ: u32 = 4; //------r--
-pub const GNOME_CMD_PERM_OTHER_WRITE: u32 = 2; //-------w-
-pub const GNOME_CMD_PERM_OTHER_EXEC: u32 = 1; //--------x
+pub const PERM_SPECIAL_SUID: u32 = 0o4000; //--s------
+pub const PERM_SPECIAL_SGID: u32 = 0o2000; //-----s---
+pub const PERM_SPECIAL_STICKY: u32 = 0o1000; //--------t
+pub const PERM_USER_READ: u32 = 0o400; //r--------
+pub const PERM_USER_WRITE: u32 = 0o200; //-w-------
+pub const PERM_USER_EXEC: u32 = 0o100; //--x------
+pub const PERM_GROUP_READ: u32 = 0o040; //---r-----
+pub const PERM_GROUP_WRITE: u32 = 0o020; //----w----
+pub const PERM_GROUP_EXEC: u32 = 0o010; //-----x---
+pub const PERM_OTHER_READ: u32 = 0o004; //------r--
+pub const PERM_OTHER_WRITE: u32 = 0o002; //-------w-
+pub const PERM_OTHER_EXEC: u32 = 0o001; //--------x
 
 pub const PERMISSION_MASKS: [[u32; 3]; 3] = [
-    [
-        GNOME_CMD_PERM_USER_READ,
-        GNOME_CMD_PERM_USER_WRITE,
-        GNOME_CMD_PERM_USER_EXEC,
-    ],
-    [
-        GNOME_CMD_PERM_GROUP_READ,
-        GNOME_CMD_PERM_GROUP_WRITE,
-        GNOME_CMD_PERM_GROUP_EXEC,
-    ],
-    [
-        GNOME_CMD_PERM_OTHER_READ,
-        GNOME_CMD_PERM_OTHER_WRITE,
-        GNOME_CMD_PERM_OTHER_EXEC,
-    ],
+    [PERM_USER_READ, PERM_USER_WRITE, PERM_USER_EXEC],
+    [PERM_GROUP_READ, PERM_GROUP_WRITE, PERM_GROUP_EXEC],
+    [PERM_OTHER_READ, PERM_OTHER_WRITE, PERM_OTHER_EXEC],
 ];
+
+const SPECIAL_PERMISSIONS: [(u32, char); 3] = [
+    (PERM_SPECIAL_SUID, 's'),
+    (PERM_SPECIAL_SGID, 's'),
+    (PERM_SPECIAL_STICKY, 't'),
+];
+pub const SPECIAL_PERMISSIONS_MASK: u32 = !0o777;
 
 pub fn permissions_to_text(permissions: u32) -> String {
     let mut result = String::with_capacity(9);
-    for grantee_masks in PERMISSION_MASKS {
+    for (grantee_masks, (special_mask, special_symbol)) in
+        PERMISSION_MASKS.into_iter().zip(SPECIAL_PERMISSIONS)
+    {
         for (mask, symbol) in grantee_masks.iter().zip(['r', 'w', 'x']) {
-            result.push(if (permissions & mask) != 0 {
+            result.push(if symbol == 'x' && (permissions & special_mask) != 0 {
+                if (permissions & mask) != 0 {
+                    special_symbol
+                } else {
+                    special_symbol.to_ascii_uppercase()
+                }
+            } else if (permissions & mask) != 0 {
                 symbol
             } else {
                 '-'
@@ -64,7 +70,7 @@ pub fn permissions_to_text(permissions: u32) -> String {
 }
 
 pub fn permissions_to_numbers(permissions: u32) -> String {
-    format!("{:03o}", permissions)
+    format!("{:03o}", permissions & 0o7777)
 }
 
 pub const NO_MOD: gdk::ModifierType = gdk::ModifierType::NO_MODIFIER_MASK;

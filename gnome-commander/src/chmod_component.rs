@@ -3,16 +3,18 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::utils::PERMISSION_MASKS;
+use crate::utils::{PERMISSION_MASKS, SPECIAL_PERMISSIONS_MASK};
 use gtk::{glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
     use crate::utils::{grid_attach, permissions_to_numbers, permissions_to_text};
     use gettextrs::gettext;
+    use std::cell::Cell;
 
     pub struct ChmodComponent {
         pub check_boxes: [[gtk::CheckButton; 3]; 3],
+        pub special: Cell<u32>,
         pub text_view: gtk::Label,
         pub number_view: gtk::Label,
     }
@@ -45,6 +47,7 @@ mod imp {
             }
             Self {
                 check_boxes: [row(), row(), row()],
+                special: Default::default(),
                 text_view: gtk::Label::builder().halign(gtk::Align::Start).build(),
                 number_view: gtk::Label::builder().halign(gtk::Align::Start).build(),
             }
@@ -160,7 +163,7 @@ impl ChmodComponent {
     }
 
     pub fn permissions(&self) -> u32 {
-        let mut permissions = 0;
+        let mut permissions = self.imp().special.get();
 
         for (y, cb_group) in self.imp().check_boxes.iter().enumerate() {
             for (x, cb) in cb_group.iter().enumerate() {
@@ -173,6 +176,9 @@ impl ChmodComponent {
     }
 
     pub fn set_permissions(&self, permissions: u32) {
+        self.imp()
+            .special
+            .set(permissions & SPECIAL_PERMISSIONS_MASK);
         for (y, cb_group) in self.imp().check_boxes.iter().enumerate() {
             for (x, cb) in cb_group.iter().enumerate() {
                 cb.set_active((permissions & PERMISSION_MASKS[y][x]) != 0);
