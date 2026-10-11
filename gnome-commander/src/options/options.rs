@@ -110,8 +110,6 @@ pub struct GeneralOptions {
 
     pub select_dirs: BoolOption,
 
-    pub case_sensitive: BoolOption,
-
     pub left_mouse_button_mode: EnumOption<LeftMouseButtonMode>,
     pub middle_mouse_button_mode: EnumOption<MiddleMouseButtonMode>,
     pub right_mouse_button_mode: EnumOption<RightMouseButtonMode>,
@@ -208,7 +206,6 @@ impl GeneralOptions {
             size_display_mode: EnumOption::new(&settings, "size-display-mode"),
             permissions_display_mode: EnumOption::new(&settings, "perm-display-mode"),
             select_dirs: BoolOption::new(&settings, "select-dirs"),
-            case_sensitive: BoolOption::new(&settings, "case-sensitive"),
             left_mouse_button_mode: EnumOption::new(&settings, "clicks-to-open-item"),
             middle_mouse_button_mode: EnumOption::new(&settings, "middle-mouse-btn-mode"),
             right_mouse_button_mode: EnumOption::new(&settings, "right-mouse-btn-mode"),
