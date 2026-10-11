@@ -1401,14 +1401,14 @@ mod imp {
         }
 
         fn on_button_press(&self, button: u32, n_press: i32, x: f64, y: f64) {
-            let cell = self.row_at_coords(x, y);
+            let item = self.item_at_coords(x, y);
 
             self.obj().emit_by_name::<()>(
                 "list-clicked",
-                &[&button, &cell.as_ref().map(|f| f.1.file())],
+                &[&button, &item.as_ref().map(|item| item.file())],
             );
 
-            if let Some((_, item)) = cell.as_ref() {
+            if let Some(item) = item.as_ref() {
                 let position = self.items_iter().position(|i| &i == item);
                 if let Some(position) = position.and_then(|p| p.try_into().ok()) {
                     self.obj().select_row(position);
@@ -1467,7 +1467,7 @@ mod imp {
         }
 
         fn on_button_release(&self, button: u32, n_press: i32, x: f64, y: f64) {
-            let Some((_, item)) = self.row_at_coords(x, y) else {
+            let Some(item) = self.item_at_coords(x, y) else {
                 return;
             };
             if n_press == 1
@@ -1480,7 +1480,7 @@ mod imp {
             }
         }
 
-        fn row_at_coords(&self, x: f64, y: f64) -> Option<(ColumnID, FileListItem)> {
+        fn item_at_coords(&self, x: f64, y: f64) -> Option<FileListItem> {
             let mut widget = self.view.pick(x, y, gtk::PickFlags::DEFAULT)?;
             let cell = loop {
                 match widget.downcast_ref::<FileListCell>() {
@@ -1491,12 +1491,7 @@ mod imp {
                     },
                 }
             }?;
-            for (column_id, cells_map) in &self.cells_map {
-                if let Some(item) = cells_map.find_by_value(&cell) {
-                    return Some((*column_id, item.clone()));
-                }
-            }
-            None
+            cell.item()
         }
 
         pub fn show_list_popup(&self, x: f64, y: f64) {
@@ -1622,7 +1617,7 @@ mod imp {
             }
 
             let dir = self.obj().directory();
-            let file = self.row_at_coords(x, y).map(|(_, item)| item.file());
+            let file = self.item_at_coords(x, y).map(|item| item.file());
 
             let destination = match file {
                 Some(file) if file.is_dotdot() => dir.parent().unwrap_or(dir),
