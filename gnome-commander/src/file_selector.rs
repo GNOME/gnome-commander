@@ -37,7 +37,6 @@ mod imp {
         options::GeneralOptions,
         tab_label::TabLabel,
         utils::get_modifiers_state,
-        weak_set::WeakSet,
     };
     use std::{
         cell::{Cell, RefCell},
@@ -73,7 +72,6 @@ mod imp {
         list: RefCell<Option<FileList>>,
 
         select_connection_in_progress: Cell<bool>,
-        pub locked_tabs: WeakSet<FileList>,
 
         pub tab_popover: gtk::PopoverMenu,
     }
@@ -215,7 +213,6 @@ mod imp {
                 list: Default::default(),
 
                 select_connection_in_progress: Default::default(),
-                locked_tabs: Default::default(),
 
                 tab_popover: gtk::PopoverMenu::builder()
                     .position(gtk::PositionType::Bottom)
@@ -796,15 +793,11 @@ impl FileSelector {
     }
 
     pub fn is_tab_locked(&self, fl: &FileList) -> bool {
-        self.imp().locked_tabs.contains(fl)
+        fl.locked()
     }
 
     pub fn set_tab_locked(&self, fl: &FileList, lock: bool) {
-        if lock {
-            self.imp().locked_tabs.insert(fl);
-        } else {
-            self.imp().locked_tabs.remove(fl);
-        }
+        fl.set_locked(lock)
     }
 
     pub fn is_current_tab_locked(&self) -> bool {

@@ -51,7 +51,6 @@ mod user_actions;
 mod utils;
 mod weak_map;
 mod weak_ref;
-mod weak_set;
 
 use crate::{
     config::{ICONS_PREFIX, PACKAGE, locale_dir},
