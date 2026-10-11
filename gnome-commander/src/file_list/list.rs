@@ -3094,7 +3094,6 @@ fn create_name_factory() -> gtk::ListItemFactory {
         } else {
             "name"
         };
-        cell.bind(&item);
         cell.add_binding(
             item.bind_property(prop, &label, "label")
                 .sync_create()
@@ -3106,7 +3105,6 @@ fn create_name_factory() -> gtk::ListItemFactory {
 fn create_ext_factory() -> gtk::ListItemFactory {
     create_text_cell_factory(0.0, move |cell, label, item| {
         add_cell_class(cell.upcast_ref(), "cell-ext");
-        cell.bind(&item);
         if !matches!(
             GeneralOptions::instance().extension_display_mode.get(),
             ExtensionDisplayMode::WithFname
@@ -3122,7 +3120,6 @@ fn create_ext_factory() -> gtk::ListItemFactory {
 
 fn create_dir_factory() -> gtk::ListItemFactory {
     create_text_cell_factory(0.0, move |cell, label, item| {
-        cell.bind(&item);
         cell.add_binding(
             item.bind_property("directory", &label, "label")
                 .sync_create()
@@ -3135,7 +3132,6 @@ fn create_size_factory() -> gtk::ListItemFactory {
     create_text_cell_factory(1.0, move |cell, label, item| {
         let mode = GeneralOptions::instance().size_display_mode.get();
         let is_directory = item.file().is_directory();
-        cell.bind(&item);
         cell.add_binding(
             item.bind_property("size", &label, "label")
                 .transform_to(move |_, size: i64| {
@@ -3157,7 +3153,6 @@ fn create_date_factory() -> gtk::ListItemFactory {
     create_text_cell_factory(0.0, move |cell, label, item| {
         let format = GeneralOptions::instance().date_display_format.get();
 
-        cell.bind(&item);
         cell.add_binding(
             item.bind_property("modification-time", &label, "label")
                 .transform_to(move |_, dt: Option<glib::DateTime>| {
@@ -3173,7 +3168,6 @@ fn create_perm_factory() -> gtk::ListItemFactory {
     create_text_cell_factory(1.0, move |cell, label, item| {
         let mode = GeneralOptions::instance().permissions_display_mode.get();
 
-        cell.bind(&item);
         cell.add_binding(
             item.bind_property("permissions", &label, "label")
                 .transform_to(move |_, permissions: u32| {
@@ -3191,7 +3185,6 @@ fn create_perm_factory() -> gtk::ListItemFactory {
 
 fn create_owner_factory() -> gtk::ListItemFactory {
     create_text_cell_factory(0.0, move |cell, label, item| {
-        cell.bind(&item);
         cell.add_binding(
             item.bind_property("owner", &label, "label")
                 .transform_to(|_, v: Option<String>| v)
@@ -3203,7 +3196,6 @@ fn create_owner_factory() -> gtk::ListItemFactory {
 
 fn create_group_factory() -> gtk::ListItemFactory {
     create_text_cell_factory(0.0, move |cell, label, item| {
-        cell.bind(&item);
         cell.add_binding(
             item.bind_property("group", &label, "label")
                 .transform_to(|_, v: Option<String>| v)
@@ -3247,6 +3239,7 @@ fn create_text_cell_factory(
             && let Some(label) = cell.first_child().and_downcast::<gtk::Label>()
             && let Some(item) = list_item.item().and_downcast::<FileListItem>()
         {
+            cell.bind(&item);
             (bind)(cell, label, item);
         }
     });
