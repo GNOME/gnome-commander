@@ -5,6 +5,9 @@
 
 use crate::intviewer::input_modes::InputMode;
 
+// We don't allow really unwrapped lines in NoWrap mode for performance reasons, merely long ones.
+const NOWRAP_LIMIT: u32 = 4096;
+
 pub struct DataPresentation {
     mode: DataPresentationMode,
     wrap_limit: u32,
@@ -34,8 +37,12 @@ impl DataPresentation {
 
     pub fn align_offset_to_line_start(&self, input_mode: &InputMode, offset: u64) -> u64 {
         match self.mode() {
-            DataPresentationMode::NoWrap => self.nowrap_align_offset(input_mode, offset),
-            DataPresentationMode::Wrap => self.wrap_align_offset(input_mode, offset),
+            DataPresentationMode::NoWrap => {
+                self.wrap_align_offset(input_mode, NOWRAP_LIMIT, offset)
+            }
+            DataPresentationMode::Wrap => {
+                self.wrap_align_offset(input_mode, self.wrap_limit, offset)
+            }
             DataPresentationMode::Fixed => self.fixed_align_offset(input_mode, offset),
             DataPresentationMode::Binary => self.bin_align_offset(input_mode, offset),
         }
@@ -44,9 +51,11 @@ impl DataPresentation {
     pub fn scroll_lines(&self, input_mode: &InputMode, current_offset: u64, delta: i32) -> u64 {
         match self.mode() {
             DataPresentationMode::NoWrap => {
-                self.nowrap_scroll_lines(input_mode, current_offset, delta)
+                self.wrap_scroll_lines(input_mode, NOWRAP_LIMIT, current_offset, delta)
             }
-            DataPresentationMode::Wrap => self.wrap_scroll_lines(input_mode, current_offset, delta),
+            DataPresentationMode::Wrap => {
+                self.wrap_scroll_lines(input_mode, self.wrap_limit, current_offset, delta)
+            }
             DataPresentationMode::Fixed => {
                 self.fixed_scroll_lines(input_mode, current_offset, delta, false)
             }
@@ -58,8 +67,12 @@ impl DataPresentation {
 
     pub fn end_of_line_offset(&self, input_mode: &InputMode, start_of_line: u64) -> u64 {
         match self.mode() {
-            DataPresentationMode::NoWrap => self.nowrap_get_eol(input_mode, start_of_line),
-            DataPresentationMode::Wrap => self.wrap_get_eol(input_mode, start_of_line),
+            DataPresentationMode::NoWrap => {
+                self.wrap_get_eol(input_mode, NOWRAP_LIMIT, start_of_line)
+            }
+            DataPresentationMode::Wrap => {
+                self.wrap_get_eol(input_mode, self.wrap_limit, start_of_line)
+            }
             DataPresentationMode::Fixed => self.fixed_get_eol(input_mode, start_of_line),
             DataPresentationMode::Binary => self.bin_get_eol(input_mode, start_of_line),
         }
@@ -118,69 +131,14 @@ impl DataPresentation {
         0
     }
 
-    fn nowrap_scroll_lines(
-        &self,
-        input_mode: &InputMode,
-        mut current_offset: u64,
-        mut delta: i32,
-    ) -> u64 {
-        if delta == 0 {
-            return current_offset;
-        }
-
-        let mut forward = true;
-        if delta < 0 {
-            delta = -delta;
-            forward = false;
-        }
-
-        for _ in 0..delta {
-            let temp = if forward {
-                self.nowrap_get_eol(input_mode, current_offset)
-            } else {
-                let Some(temp) = self
-                    .find_previous_crlf(input_mode, current_offset)
-                    .map(|t| self.nowrap_align_offset(input_mode, t))
-                else {
-                    break;
-                };
-                temp
-            };
-
-            // Offset didn't changed ? we've reached eof
-            if temp == current_offset {
-                break;
-            }
-
-            current_offset = temp;
-        }
-        current_offset
-    }
-
-    fn nowrap_get_eol(&self, input_mode: &InputMode, start_of_line: u64) -> u64 {
-        let mut offset = start_of_line;
-        while let Some(value) = input_mode.raw_byte(offset) {
-            offset += 1;
-
-            // break upon end of line
-            if value == b'\n' {
-                break;
-            } else if value == b'\r' {
-                // Treat CRLF combination as a single EOL
-                if let Some(value) = input_mode.raw_byte(offset)
-                    && value == b'\n'
-                {
-                    offset += 1;
-                }
-                break;
-            }
-        }
-        offset
-    }
-
     /// returns the start offset of the previous line,
     /// with special handling for wrap mode.
-    fn find_previous_wrapped_text_line(&self, input_mode: &InputMode, start: u64) -> u64 {
+    fn find_previous_wrapped_text_line(
+        &self,
+        input_mode: &InputMode,
+        wrap_limit: u32,
+        start: u64,
+    ) -> u64 {
         // step 1: find start offset of previous text line
         let Some(mut offset) = self
             .find_previous_crlf(input_mode, start)
@@ -191,7 +149,7 @@ impl DataPresentation {
 
         // Step 2
         loop {
-            let next_line_offset = self.wrap_get_eol(input_mode, offset);
+            let next_line_offset = self.wrap_get_eol(input_mode, wrap_limit, offset);
 
             // this is the line we want: When the next line's offset is the current
             // offset ('start' parameter), 'offset' will point to the previous
@@ -205,12 +163,12 @@ impl DataPresentation {
         }
     }
 
-    pub fn wrap_align_offset(&self, input_mode: &InputMode, offset: u64) -> u64 {
+    pub fn wrap_align_offset(&self, input_mode: &InputMode, wrap_limit: u32, offset: u64) -> u64 {
         let mut line_start = self.nowrap_align_offset(input_mode, offset);
         let mut temp = line_start;
         while temp <= offset {
             line_start = temp;
-            temp = self.wrap_scroll_lines(input_mode, temp, 1);
+            temp = self.wrap_scroll_lines(input_mode, wrap_limit, temp, 1);
             if temp == line_start {
                 break;
             }
@@ -221,6 +179,7 @@ impl DataPresentation {
     fn wrap_scroll_lines(
         &self,
         input_mode: &InputMode,
+        wrap_limit: u32,
         mut current_offset: u64,
         mut delta: i32,
     ) -> u64 {
@@ -236,9 +195,9 @@ impl DataPresentation {
 
         for _ in 0..delta {
             let temp = if forward {
-                self.wrap_get_eol(input_mode, current_offset)
+                self.wrap_get_eol(input_mode, wrap_limit, current_offset)
             } else {
-                self.find_previous_wrapped_text_line(input_mode, current_offset)
+                self.find_previous_wrapped_text_line(input_mode, wrap_limit, current_offset)
             };
 
             // Offset didn't change? we've reached eof
@@ -251,7 +210,7 @@ impl DataPresentation {
         current_offset
     }
 
-    fn wrap_get_eol(&self, input_mode: &InputMode, start_of_line: u64) -> u64 {
+    fn wrap_get_eol(&self, input_mode: &InputMode, wrap_limit: u32, start_of_line: u64) -> u64 {
         /* A Single TAB character in the file,
         Translates to several displayable characters on the screen.
         We need to take that into account when calculating number of
@@ -280,7 +239,7 @@ impl DataPresentation {
                 char_count += 1;
             }
 
-            if char_count >= self.wrap_limit {
+            if char_count >= wrap_limit {
                 break;
             }
         }

@@ -69,7 +69,8 @@
 //! * [`mode`](data_presentation::DataPresentation::mode) enum which can take the values `NoWrap`
 //!   (corresponds to `Text` with `wrap_mode` flag off), `Wrap` (`Text` with `wrap_mode` on),
 //!   `Fixed` (used for `FixedWidth` with variable-length encodings) and `Binary` (used for
-//!   `FixedWidth` with fixed-length encodings and for `Hexdump`).
+//!   `FixedWidth` with fixed-length encodings and for `Hexdump`). For performance reasons, `NoWrap`
+//!   mode is essentially the same as `Wrap` but uses a large constant for wrapping length.
 //! * [`wrap_limit`](data_presentation::DataPresentation::set_wrap_limit) is used in `Wrap` mode, a
 //!   maximum number of characters to display in a line.
 //! * [`fixed_count`](data_presentation::DataPresentation::set_fixed_count) is used to determine
