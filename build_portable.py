@@ -80,6 +80,7 @@ def run() -> None:
     binary_path = find_binary(locale_dir, 'gnome-commander')
 
     with zipfile.ZipFile(args.output, 'w', compression=zipfile.ZIP_DEFLATED) as archive:
+        archive.write(os.path.join(repo_dir, 'PORTABLE'), 'README')
         archive.write(binary_path, 'bin/' + os.path.basename(binary_path))
         archive.write(os.path.join(schema_dir, 'gschemas.compiled'),
                       'settings/gschemas.compiled')
@@ -127,25 +128,20 @@ BASE_DIR=`dirname $0`
 LD_LIBRARY_PATH=$BASE_DIR/lib $BASE_DIR/bin/gnome-commander
 '''.strip())
 
-        archive.writestr('README', '''
-Using Gnome Commander portable builds
-=====================================
-
-After uncompressing this portable build you can run gnome-commander application
-in the root directory without installing it. The application will create its
-settings file under settings/settings.ini, system-wide configuration files are
-not accessed.
-
-System dependencies
--------------------
-
-This build still depends on some system libraries (Gtk4 and related) which
-should usually be present in any Linux desktop install. The libvte library is
-often missing however, which is why it is packaged with this build. If however
-Gnome Commander fails to start due to “missing” libraries where a different
-version of the library is present on your system you should install
-libvte-2.91-gtk4-0 package on your system and run bin/gnome-commander instead of
-the wrapper in the root directory.
+        archive.write(
+            os.path.join(repo_dir, 'pixmaps', 'gnome-commander.svg'),
+            'gnome-commander.svg'
+        )
+        archive.writestr('org.gnome.gnome-commander.desktop', '''
+[Desktop Entry]
+# Change this to the real path of the portable build and copy the
+# file into ~/.local/share/applications
+Exec=/home/me/Downloads/gnome-commander-portable/gnome-commander
+Name=Gnome Commander
+Icon=gnome-commander
+Terminal=false
+Type=Application
+StartupNotify=true
 '''.strip())
 
 
