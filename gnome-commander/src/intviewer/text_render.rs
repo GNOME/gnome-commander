@@ -826,6 +826,20 @@ mod imp {
                         hadjustment.set_value((column + 1) as f64);
                     }
                 }
+                (CONTROL, gdk::Key::Left | gdk::Key::KP_Left) => {
+                    if !self.wrap_mode.get() {
+                        hadjustment.set_value(
+                            hadjustment.value() - f64::from(self.chars_per_line.get() - 1),
+                        );
+                    }
+                }
+                (CONTROL, gdk::Key::Right | gdk::Key::KP_Right) => {
+                    if !self.wrap_mode.get() {
+                        hadjustment.set_value(
+                            hadjustment.value() + f64::from(self.chars_per_line.get() - 1),
+                        );
+                    }
+                }
                 (NO_MOD, gdk::Key::Home | gdk::Key::KP_Home) => hadjustment.set_value(0.0),
                 (NO_MOD, gdk::Key::End | gdk::Key::KP_End) => {
                     let max_column = self.displayed_max_column.get();
