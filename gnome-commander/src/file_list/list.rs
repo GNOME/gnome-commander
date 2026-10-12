@@ -1369,8 +1369,10 @@ mod imp {
                 (NO_MOD, gdk::Key::Escape) => {
                     if let Some(quick_search) = self.quick_search.upgrade() {
                         quick_search.remove();
+                        glib::Propagation::Stop
+                    } else {
+                        glib::Propagation::Proceed
                     }
-                    glib::Propagation::Stop
                 }
                 (SHIFT, gdk::Key::Tab | gdk::Key::ISO_Left_Tab) => glib::Propagation::Stop,
                 _ => glib::Propagation::Proceed,
