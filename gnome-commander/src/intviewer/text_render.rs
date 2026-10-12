@@ -897,87 +897,138 @@ mod imp {
         }
 
         fn adjust_selection(&self, key: gdk::Key, dp: &DataPresentation) {
-            fn ensure_line_offset(
+            fn extend_by_lines(
                 render: &TextRender,
                 input_mode: &InputMode,
                 dp: &DataPresentation,
+                current_line: u64,
                 file_offset: u64,
-            ) -> u64 {
-                if let Some(offset) = render.marker_end_offset.get() {
+                delta: i32,
+            ) -> (u64, Option<u64>) {
+                let display_mode = render.obj().display_mode();
+                let offset = if let Some(offset) = render.marker_end_offset.get() {
                     offset
+                } else if display_mode == TextRenderDisplayMode::Hexdump {
+                    // Offset in bytes
+                    file_offset - current_line
                 } else {
-                    let offset =
-                        file_offset - dp.align_offset_to_line_start(input_mode, file_offset);
+                    // Offset in characters
+                    let mut offset = 0;
+                    let mut current_char = current_line;
+                    while current_char < file_offset {
+                        offset += 1;
+                        current_char = input_mode.next_char_offset(current_char);
+                    }
                     render.marker_end_offset.set(Some(offset));
                     offset
-                }
+                };
+
+                let line_start = dp.scroll_lines(input_mode, current_line, delta);
+                let line_end = dp.end_of_line_offset(input_mode, line_start);
+                render.obj().ensure_offset_visible(line_start);
+
+                (
+                    if line_start == current_line {
+                        if delta > 0 { line_end } else { line_start }
+                    } else if display_mode == TextRenderDisplayMode::Hexdump {
+                        // Offset in bytes
+                        std::cmp::min(
+                            line_start.saturating_add(offset),
+                            line_end.saturating_sub(1),
+                        )
+                    } else {
+                        // Offset in characters
+                        let mut position = line_start;
+                        for _ in 0..offset {
+                            let next_char = input_mode.next_char_offset(position);
+                            if next_char >= line_end {
+                                break;
+                            }
+                            position = next_char;
+                        }
+                        position
+                    },
+                    Some(line_start),
+                )
             }
 
             let input_mode = self.input_mode.borrow();
             let current = self.marker_end.get();
-            let new = match key {
+
+            let mut current_line = self.obj().current_offset();
+            loop {
+                let next_line = dp.scroll_lines(&input_mode, current_line, 1);
+                if next_line > current || next_line == current_line {
+                    break;
+                }
+                current_line = next_line;
+            }
+
+            let (new, scroll_to_position) = match key {
                 gdk::Key::Left | gdk::Key::KP_Left => {
                     self.marker_end_offset.set(None);
-                    input_mode.previous_char_offset(current)
+                    let new = input_mode.previous_char_offset(current);
+                    let current_line = if new >= current_line {
+                        current_line
+                    } else {
+                        dp.scroll_lines(&input_mode, current_line, -1)
+                    };
+                    (new, Some(current_line))
                 }
                 gdk::Key::Right | gdk::Key::KP_Right => {
                     self.marker_end_offset.set(None);
-                    input_mode.next_char_offset(current)
+                    (input_mode.next_char_offset(current), None)
                 }
                 gdk::Key::Home | gdk::Key::KP_Home => {
                     self.marker_end_offset.set(None);
-                    dp.align_offset_to_line_start(&input_mode, current)
+                    (current_line, None)
                 }
                 gdk::Key::End | gdk::Key::KP_End => {
                     self.marker_end_offset.set(None);
-                    input_mode.previous_char_offset(dp.end_of_line_offset(&input_mode, current))
+                    (
+                        input_mode
+                            .previous_char_offset(dp.end_of_line_offset(&input_mode, current_line)),
+                        None,
+                    )
                 }
                 gdk::Key::Up | gdk::Key::KP_Up => {
-                    let offset = ensure_line_offset(self, &input_mode, dp, current);
-                    let line_end = input_mode
-                        .previous_char_offset(dp.align_offset_to_line_start(&input_mode, current));
-                    let line_start = dp.align_offset_to_line_start(&input_mode, line_end);
-                    std::cmp::min(line_start.saturating_add(offset), line_end)
+                    extend_by_lines(self, &input_mode, dp, current_line, current, -1)
                 }
                 gdk::Key::Down | gdk::Key::KP_Down => {
-                    let offset = ensure_line_offset(self, &input_mode, dp, current);
-                    let line_start = dp.end_of_line_offset(&input_mode, current);
-                    let line_end = input_mode
-                        .previous_char_offset(dp.end_of_line_offset(&input_mode, line_start));
-                    std::cmp::min(line_start.saturating_add(offset), line_end)
+                    extend_by_lines(self, &input_mode, dp, current_line, current, 1)
                 }
-                gdk::Key::Page_Up | gdk::Key::KP_Page_Up => {
-                    let offset = ensure_line_offset(self, &input_mode, dp, current);
-                    let line_end = input_mode.previous_char_offset(dp.scroll_lines(
-                        &input_mode,
-                        current,
-                        -(self.lines_displayed.get() - 1),
-                    ));
-                    let line_start = dp.align_offset_to_line_start(&input_mode, line_end);
-                    std::cmp::min(line_start.saturating_add(offset), line_end)
-                }
-                gdk::Key::Page_Down | gdk::Key::KP_Page_Down => {
-                    let offset = ensure_line_offset(self, &input_mode, dp, current);
-                    let line_start =
-                        dp.scroll_lines(&input_mode, current, self.lines_displayed.get() - 1);
-                    let line_end = input_mode
-                        .previous_char_offset(dp.end_of_line_offset(&input_mode, line_start));
-                    std::cmp::min(line_start.saturating_add(offset), line_end)
-                }
+                gdk::Key::Page_Up | gdk::Key::KP_Page_Up => extend_by_lines(
+                    self,
+                    &input_mode,
+                    dp,
+                    current_line,
+                    current,
+                    -(self.lines_displayed.get() - 1),
+                ),
+                gdk::Key::Page_Down | gdk::Key::KP_Page_Down => extend_by_lines(
+                    self,
+                    &input_mode,
+                    dp,
+                    current_line,
+                    current,
+                    self.lines_displayed.get() - 1,
+                ),
                 // These aren't actual user inputs, we pass these keys to avoid passing in modifiers
                 gdk::Key::_0 => {
                     self.marker_end_offset.set(None);
-                    0
+                    (0, None)
                 }
                 gdk::Key::_9 => {
                     self.marker_end_offset.set(None);
-                    input_mode.max_offset().saturating_sub(1)
+                    (input_mode.max_offset().saturating_sub(1), None)
                 }
-                _ => current,
+                _ => (current, None),
             };
             if new != current {
                 self.marker_end.set(new);
-                self.obj().ensure_offset_visible(new);
+                // In Fixed Width mode this offset has to be a line start or content might shift
+                self.obj()
+                    .ensure_offset_visible(scroll_to_position.unwrap_or(new));
                 self.obj().queue_draw();
             }
         }
