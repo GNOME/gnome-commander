@@ -1,0 +1,66 @@
+Gnome Commander portable builds
+===============================
+
+Differences to regular builds
+-----------------------------
+
+The portable build mostly avoids depending on system-wide state, instead
+keeping everything within a single directory. Instead of system-wide settings
+the settings are stored in settings/settings.ini file right next to the
+settings schema. Instead of global translations the portable build takes
+translations from the locale directory. Instead of globally installed plugins
+it loads plugins from the plugins directory.
+
+Portable builds still depend on some system libraries (Gtk4 and related) which
+should usually be present in any Linux desktop install. The libvte library
+often isn’t present in the system however which is why it is packaged in the
+lib directory of the portable build.
+
+Getting a portable build
+------------------------
+
+Starting with Gnome Commander 2.2 portable builds are provided for all releases
+on https://gitlab.gnome.org/GNOME/gnome-commander/-/releases (under Assets).
+Once downloaded the package only needs to be unpacked and can be used.
+
+Portable builds are also being created after each change in the Gnome Commander
+repository. If you want to try out the current Gnome Commander development
+state you can grab a build from
+https://gitlab.gnome.org/GNOME/gnome-commander/-/artifacts (use Download button
+next to any create_portable job).
+
+Updating the portable build
+---------------------------
+
+Portable builds are currently being updated manually. Download and unpack a new
+build, then copy settings/settings.ini file from the old build to the new one.
+You are done, you can run the new build now.
+
+Fixing the application icon
+---------------------------
+
+Linux doesn’t have a way to look up the application icon in the application
+directory. You can address this by copying org.gnome.gnome-commander.desktop
+file from the portable build into your applications directory, typically
+~/.local/share/applications. You have to edit it and change the Exec entry into
+the actual path to gnome-commander within the portable build.
+
+You then copy gnome-commander.svg file from the portable build into your icons
+directory, typically ~/.local/share/icons (might need to be created first).
+
+It might take a few minutes for GNOME to pick up the new application but then
+you should be able to start it, and it will have the correct icon.
+
+Potential issues
+----------------
+
+The portable build is supposed to behave in the same way as the regular build.
+However, the settings backend is known to behave somewhat differently than the
+regular one, which caused behavior differences in the past.
+
+There can also be a version mismatch between installed Gtk libraries and the
+libvte library provided by the portable build. If Gnome Commander fails to
+start due to “missing” libraries where a different version of the library is
+present on your system you should install libvte-2.91-gtk4-0 package on your
+system and run bin/gnome-commander instead of the wrapper in the root
+directory of the portable build.
