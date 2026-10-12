@@ -6,7 +6,7 @@
 use super::data_presentation::DataPresentation;
 use crate::{
     intviewer::{file_input_source::FileInputSource, input_modes::InputMode},
-    utils::{CONTROL, Max, NO_MOD, SHIFT, get_modifiers_state},
+    utils::{CONTROL, CONTROL_SHIFT, Max, NO_MOD, SHIFT, get_modifiers_state},
 };
 use gtk::{gdk, glib, graphene, pango, prelude::*, subclass::prelude::*};
 use std::{path::Path, sync::Arc};
@@ -71,6 +71,7 @@ mod imp {
         pub lines_displayed: Cell<i32>,
         pub marker_start: Cell<u64>,
         pub marker_end: Cell<u64>,
+        pub marker_end_offset: Cell<Option<u64>>,
         /// The button pressed to start a selection
         button: Cell<Option<u32>>,
         hexmode_marker_on_hexdump: Cell<bool>,
@@ -118,6 +119,7 @@ mod imp {
                 lines_displayed: Default::default(),
                 marker_start: Default::default(),
                 marker_end: Default::default(),
+                marker_end_offset: Default::default(),
                 button: Default::default(),
                 hexmode_marker_on_hexdump: Default::default(),
 
@@ -646,6 +648,7 @@ mod imp {
                             self.hex_mode_pixel_to_offset(x, y, false)
                         }
                     });
+                    self.marker_end_offset.set(None);
                     self.obj().queue_draw();
                 } else {
                     self.marker_start.set(match self.obj().display_mode() {
@@ -680,6 +683,7 @@ mod imp {
                     // Select the entire line
                     self.marker_start.set(line_start);
                     self.marker_end.set(line_end);
+                    self.marker_end_offset.set(None);
                     self.obj().queue_draw();
                 } else {
                     // Select word: find characters of the same class left and right of position
@@ -710,6 +714,7 @@ mod imp {
 
                     self.marker_start.set(start_offset);
                     self.marker_end.set(input_mode.next_char_offset(end_offset));
+                    self.marker_end_offset.set(None);
                     self.obj().queue_draw();
                 }
             }
@@ -724,6 +729,7 @@ mod imp {
                     }
                     TextRenderDisplayMode::Hexdump => self.hex_mode_pixel_to_offset(x, y, false),
                 });
+                self.marker_end_offset.set(None);
                 self.obj().queue_draw();
             }
         }
@@ -768,6 +774,7 @@ mod imp {
                 };
                 if new_marker != self.marker_end.get() {
                     self.marker_end.set(new_marker);
+                    self.marker_end_offset.set(None);
                     self.obj().queue_draw();
                 }
             }
@@ -836,6 +843,36 @@ mod imp {
                         self.input_mode.borrow().max_offset() - 1,
                     ) as f64)
                 }
+                (
+                    SHIFT,
+                    gdk::Key::Up
+                    | gdk::Key::KP_Up
+                    | gdk::Key::Down
+                    | gdk::Key::KP_Down
+                    | gdk::Key::Left
+                    | gdk::Key::KP_Left
+                    | gdk::Key::Right
+                    | gdk::Key::KP_Right
+                    | gdk::Key::Page_Up
+                    | gdk::Key::KP_Page_Up
+                    | gdk::Key::Page_Down
+                    | gdk::Key::KP_Page_Down
+                    | gdk::Key::Home
+                    | gdk::Key::KP_Home
+                    | gdk::Key::End
+                    | gdk::Key::KP_End,
+                ) => {
+                    self.adjust_selection(key, &dp);
+                    return glib::Propagation::Stop;
+                }
+                (CONTROL_SHIFT, gdk::Key::Home | gdk::Key::KP_Home) => {
+                    self.adjust_selection(gdk::Key::_0, &dp);
+                    return glib::Propagation::Stop;
+                }
+                (CONTROL_SHIFT, gdk::Key::End | gdk::Key::KP_End) => {
+                    self.adjust_selection(gdk::Key::_9, &dp);
+                    return glib::Propagation::Stop;
+                }
                 _ => return glib::Propagation::Proceed,
             }
 
@@ -843,6 +880,92 @@ mod imp {
             self.obj().queue_draw();
 
             glib::Propagation::Stop
+        }
+
+        fn adjust_selection(&self, key: gdk::Key, dp: &DataPresentation) {
+            fn ensure_line_offset(
+                render: &TextRender,
+                input_mode: &InputMode,
+                dp: &DataPresentation,
+                file_offset: u64,
+            ) -> u64 {
+                if let Some(offset) = render.marker_end_offset.get() {
+                    offset
+                } else {
+                    let offset =
+                        file_offset - dp.align_offset_to_line_start(input_mode, file_offset);
+                    render.marker_end_offset.set(Some(offset));
+                    offset
+                }
+            }
+
+            let input_mode = self.input_mode.borrow();
+            let current = self.marker_end.get();
+            let new = match key {
+                gdk::Key::Left | gdk::Key::KP_Left => {
+                    self.marker_end_offset.set(None);
+                    input_mode.previous_char_offset(current)
+                }
+                gdk::Key::Right | gdk::Key::KP_Right => {
+                    self.marker_end_offset.set(None);
+                    input_mode.next_char_offset(current)
+                }
+                gdk::Key::Home | gdk::Key::KP_Home => {
+                    self.marker_end_offset.set(None);
+                    dp.align_offset_to_line_start(&input_mode, current)
+                }
+                gdk::Key::End | gdk::Key::KP_End => {
+                    self.marker_end_offset.set(None);
+                    input_mode.previous_char_offset(dp.end_of_line_offset(&input_mode, current))
+                }
+                gdk::Key::Up | gdk::Key::KP_Up => {
+                    let offset = ensure_line_offset(self, &input_mode, dp, current);
+                    let line_end = input_mode
+                        .previous_char_offset(dp.align_offset_to_line_start(&input_mode, current));
+                    let line_start = dp.align_offset_to_line_start(&input_mode, line_end);
+                    std::cmp::min(line_start.saturating_add(offset), line_end)
+                }
+                gdk::Key::Down | gdk::Key::KP_Down => {
+                    let offset = ensure_line_offset(self, &input_mode, dp, current);
+                    let line_start = dp.end_of_line_offset(&input_mode, current);
+                    let line_end = input_mode
+                        .previous_char_offset(dp.end_of_line_offset(&input_mode, line_start));
+                    std::cmp::min(line_start.saturating_add(offset), line_end)
+                }
+                gdk::Key::Page_Up | gdk::Key::KP_Page_Up => {
+                    let offset = ensure_line_offset(self, &input_mode, dp, current);
+                    let line_end = input_mode.previous_char_offset(dp.scroll_lines(
+                        &input_mode,
+                        current,
+                        -(self.lines_displayed.get() - 1),
+                    ));
+                    let line_start = dp.align_offset_to_line_start(&input_mode, line_end);
+                    std::cmp::min(line_start.saturating_add(offset), line_end)
+                }
+                gdk::Key::Page_Down | gdk::Key::KP_Page_Down => {
+                    let offset = ensure_line_offset(self, &input_mode, dp, current);
+                    let line_start =
+                        dp.scroll_lines(&input_mode, current, self.lines_displayed.get() - 1);
+                    let line_end = input_mode
+                        .previous_char_offset(dp.end_of_line_offset(&input_mode, line_start));
+                    std::cmp::min(line_start.saturating_add(offset), line_end)
+                }
+                // These aren't actual user inputs, we pass these keys to avoid passing in modifiers
+                gdk::Key::_0 => {
+                    self.marker_end_offset.set(None);
+                    0
+                }
+                gdk::Key::_9 => {
+                    self.marker_end_offset.set(None);
+                    input_mode.max_offset().saturating_sub(1)
+                }
+                _ => current,
+            };
+            if new != current {
+                self.marker_end.set(new);
+                self.obj().ensure_offset_visible(new);
+                self.obj().queue_draw();
+            }
         }
 
         pub fn text_mode_pixel_to_offset(&self, x: f64, y: f64) -> u64 {
@@ -1282,6 +1405,7 @@ impl TextRender {
     pub fn set_marker(&self, start: u64, end: u64) {
         self.imp().marker_start.set(start);
         self.imp().marker_end.set(end);
+        self.imp().marker_end_offset.set(None);
         self.queue_draw();
     }
 
