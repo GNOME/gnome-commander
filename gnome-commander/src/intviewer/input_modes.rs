@@ -94,14 +94,6 @@ impl InputMode {
             .clamp(0, self.max_offset())
     }
 
-    pub fn byte_offsets(&self, start: u64, end: u64) -> impl Iterator<Item = u64> {
-        std::iter::successors(Some(start), move |offset| {
-            (*offset < end)
-                .then(|| *offset + 1)
-                .filter(|next_offset| *next_offset < end)
-        })
-    }
-
     pub fn offsets(&self, start: u64, end: u64) -> impl Iterator<Item = u64> {
         std::iter::successors(Some(start), move |offset| {
             (*offset < end)

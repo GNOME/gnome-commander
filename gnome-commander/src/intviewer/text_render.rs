@@ -447,9 +447,18 @@ mod imp {
             self.display_mode.set(mode);
 
             {
+                let mut input_mode = self.input_mode.borrow_mut();
+                let Some(input_mode) = Arc::get_mut(&mut input_mode) else {
+                    eprintln!(
+                        "Failed setting display mode, could not get mutable input mode reference"
+                    );
+                    return;
+                };
+
                 let mut dp = self.data_presentation.borrow_mut();
                 match mode {
                     TextRenderDisplayMode::Text => {
+                        input_mode.set_mode(&self.encoding.borrow());
                         dp.set_mode(if self.wrap_mode.get() {
                             DataPresentationMode::Wrap
                         } else {
@@ -457,7 +466,8 @@ mod imp {
                         });
                     }
                     TextRenderDisplayMode::FixedWidth => {
-                        if let Some(char_size) = self.input_mode.borrow().char_size()
+                        input_mode.set_mode(&self.encoding.borrow());
+                        if let Some(char_size) = input_mode.char_size()
                             && char_size > 0
                         {
                             dp.set_fixed_count(self.fixed_limit.get() * char_size);
@@ -468,10 +478,17 @@ mod imp {
                         }
                     }
                     TextRenderDisplayMode::Hexdump => {
+                        if input_mode.char_size() != Some(1) {
+                            // Hex mode always works with single bytes, so we force ISO-8859-1 for
+                            // multi-byte encodings. It is a subset of Unicode for the first 256
+                            // code points.
+                            input_mode.set_mode("ISO-8859-1");
+                        }
                         dp.set_fixed_count(HEXDUMP_FIXED_LIMIT);
                         dp.set_mode(DataPresentationMode::Binary);
                     }
                 }
+                self.filter_undisplayable_chars(input_mode);
             }
             if let Some(hadjustment) = self.obj().hadjustment() {
                 self.update_hadjustment_limits(&hadjustment);
@@ -524,6 +541,14 @@ mod imp {
                 if let Some(input_mode) = Arc::get_mut(&mut input_mode) {
                     self.encoding.replace(encoding.clone());
                     input_mode.set_mode(&encoding);
+                    if self.display_mode.get() == TextRenderDisplayMode::Hexdump
+                        && input_mode.char_size() != Some(1)
+                    {
+                        // Hex mode always works with single bytes, so we force ISO-8859-1 for
+                        // multi-byte encodings. It is a subset of Unicode for the first 256
+                        // code points.
+                        input_mode.set_mode("ISO-8859-1");
+                    }
                     self.filter_undisplayable_chars(input_mode);
                 } else {
                     eprintln!(
@@ -905,14 +930,9 @@ mod imp {
                 file_offset: u64,
                 delta: i32,
             ) -> (u64, Option<u64>) {
-                let display_mode = render.obj().display_mode();
                 let offset = if let Some(offset) = render.marker_end_offset.get() {
                     offset
-                } else if display_mode == TextRenderDisplayMode::Hexdump {
-                    // Offset in bytes
-                    file_offset - current_line
                 } else {
-                    // Offset in characters
                     let mut offset = 0;
                     let mut current_char = current_line;
                     while current_char < file_offset {
@@ -930,14 +950,7 @@ mod imp {
                 (
                     if line_start == current_line {
                         if delta > 0 { line_end } else { line_start }
-                    } else if display_mode == TextRenderDisplayMode::Hexdump {
-                        // Offset in bytes
-                        std::cmp::min(
-                            line_start.saturating_add(offset),
-                            line_end.saturating_sub(1),
-                        )
                     } else {
-                        // Offset in characters
                         let mut position = line_start;
                         for _ in 0..offset {
                             let next_char = input_mode.next_char_offset(position);
@@ -1353,17 +1366,12 @@ mod imp {
         input_mode: &Arc<InputMode>,
         line: (u64, u64),
     ) -> impl Iterator<Item = (u64, u32, Option<u8>, Option<char>)> + use<'_> {
-        let use_encoding = input_mode.char_size().is_some_and(|size| size == 1);
         input_mode
-            .byte_offsets(line.0, line.1)
+            .offsets(line.0, line.1)
             .scan(0, move |column, offset| {
                 let current = *column;
                 let byte = input_mode.raw_byte(offset);
-                let character = if use_encoding {
-                    input_mode.character(offset)
-                } else {
-                    byte.and_then(|byte| char::from_u32(byte.into()))
-                };
+                let character = input_mode.character(offset);
                 *column += 1;
                 Some((offset, current, byte, character))
             })
