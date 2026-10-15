@@ -3,7 +3,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::intviewer::input_modes::InputMode;
+use super::input_modes::{FileOffset, InputMode};
 
 // We don't allow really unwrapped lines in NoWrap mode for performance reasons, merely long ones.
 const NOWRAP_LIMIT: u32 = 4096;
@@ -35,7 +35,11 @@ impl DataPresentation {
         self.mode = mode;
     }
 
-    pub fn align_offset_to_line_start(&self, input_mode: &InputMode, offset: u64) -> u64 {
+    pub fn align_offset_to_line_start(
+        &self,
+        input_mode: &InputMode,
+        offset: FileOffset,
+    ) -> FileOffset {
         match self.mode() {
             DataPresentationMode::NoWrap => {
                 self.wrap_align_offset(input_mode, NOWRAP_LIMIT, offset)
@@ -48,7 +52,12 @@ impl DataPresentation {
         }
     }
 
-    pub fn scroll_lines(&self, input_mode: &InputMode, current_offset: u64, delta: i32) -> u64 {
+    pub fn scroll_lines(
+        &self,
+        input_mode: &InputMode,
+        current_offset: FileOffset,
+        delta: i32,
+    ) -> FileOffset {
         match self.mode() {
             DataPresentationMode::NoWrap => {
                 self.wrap_scroll_lines(input_mode, NOWRAP_LIMIT, current_offset, delta)
@@ -65,7 +74,11 @@ impl DataPresentation {
         }
     }
 
-    pub fn end_of_line_offset(&self, input_mode: &InputMode, start_of_line: u64) -> u64 {
+    pub fn end_of_line_offset(
+        &self,
+        input_mode: &InputMode,
+        start_of_line: FileOffset,
+    ) -> FileOffset {
         match self.mode() {
             DataPresentationMode::NoWrap => {
                 self.wrap_get_eol(input_mode, NOWRAP_LIMIT, start_of_line)
@@ -92,43 +105,47 @@ impl DataPresentation {
 
     /// Scans the file from offset "start" backwards until a CR/LF/CRLF is found.
     /// Returns the offset of the previous CR/LF/CRLF, or None if start of the file is reached.
-    fn find_previous_crlf(&self, input_mode: &InputMode, start: u64) -> Option<u64> {
-        for offset in (0..start).rev() {
-            match input_mode.raw_byte(offset) {
+    fn find_previous_crlf(&self, input_mode: &InputMode, start: FileOffset) -> Option<FileOffset> {
+        let mut offset = input_mode.previous_char_offset(start);
+        loop {
+            match input_mode.character(offset) {
                 None => return None,
-                Some(b'\r') => return Some(offset),
-                Some(b'\n') => {
-                    if offset > 0 && input_mode.raw_byte(offset - 1) == Some(b'\r') {
+                Some('\r') => return Some(offset),
+                Some('\n') => {
+                    let prev_offset = input_mode.previous_char_offset(offset);
+                    if input_mode.character(prev_offset) == Some('\r') {
                         // Treat CRLF combination as a single EOL
-                        return Some(offset - 1);
+                        return Some(prev_offset);
                     } else {
                         return Some(offset);
                     }
                 }
                 _ => {}
             }
+            if offset == FileOffset::default() {
+                return None;
+            }
+            offset = input_mode.previous_char_offset(offset);
         }
-        None
     }
 
     /// Scans the file backwards starting from offset to find the start of the line.
-    fn nowrap_align_offset(&self, input_mode: &InputMode, offset: u64) -> u64 {
-        for offset in (0..offset).rev() {
-            return match input_mode.raw_byte(offset) {
-                None => 0,
-                Some(b'\n') => offset + 1,
-                Some(b'\r') => {
-                    if input_mode.raw_byte(offset + 1) == Some(b'\n') {
-                        // Treat CRLF combination as a single EOL
-                        continue;
-                    } else {
-                        offset + 1
-                    }
+    fn nowrap_align_offset(&self, input_mode: &InputMode, start: FileOffset) -> FileOffset {
+        let mut offset = start;
+        while offset != FileOffset::default() {
+            let prev_offset = input_mode.previous_char_offset(offset);
+            match input_mode.character(prev_offset) {
+                None => break,
+                Some('\n') => return offset,
+                // Treat CRLF combination as a single EOL
+                Some('\r') if input_mode.character(offset) != Some('\n') => {
+                    return offset;
                 }
-                _ => continue,
-            };
+                _ => {}
+            }
+            offset = prev_offset;
         }
-        0
+        offset
     }
 
     /// returns the start offset of the previous line,
@@ -137,15 +154,13 @@ impl DataPresentation {
         &self,
         input_mode: &InputMode,
         wrap_limit: u32,
-        start: u64,
-    ) -> u64 {
+        start: FileOffset,
+    ) -> FileOffset {
         // step 1: find start offset of previous text line
-        let Some(mut offset) = self
+        let mut offset = self
             .find_previous_crlf(input_mode, start)
             .map(|t| self.nowrap_align_offset(input_mode, t))
-        else {
-            return start;
-        };
+            .unwrap_or_default();
 
         // Step 2
         loop {
@@ -163,7 +178,12 @@ impl DataPresentation {
         }
     }
 
-    pub fn wrap_align_offset(&self, input_mode: &InputMode, wrap_limit: u32, offset: u64) -> u64 {
+    pub fn wrap_align_offset(
+        &self,
+        input_mode: &InputMode,
+        wrap_limit: u32,
+        offset: FileOffset,
+    ) -> FileOffset {
         let mut line_start = self.nowrap_align_offset(input_mode, offset);
         let mut temp = line_start;
         while temp <= offset {
@@ -180,9 +200,9 @@ impl DataPresentation {
         &self,
         input_mode: &InputMode,
         wrap_limit: u32,
-        mut current_offset: u64,
+        mut current_offset: FileOffset,
         mut delta: i32,
-    ) -> u64 {
+    ) -> FileOffset {
         if delta == 0 {
             return current_offset;
         }
@@ -210,7 +230,12 @@ impl DataPresentation {
         current_offset
     }
 
-    fn wrap_get_eol(&self, input_mode: &InputMode, wrap_limit: u32, start_of_line: u64) -> u64 {
+    fn wrap_get_eol(
+        &self,
+        input_mode: &InputMode,
+        wrap_limit: u32,
+        start_of_line: FileOffset,
+    ) -> FileOffset {
         /* A Single TAB character in the file,
         Translates to several displayable characters on the screen.
         We need to take that into account when calculating number of
@@ -246,7 +271,7 @@ impl DataPresentation {
         offset
     }
 
-    fn fixed_align_offset(&self, _input_mode: &InputMode, offset: u64) -> u64 {
+    fn fixed_align_offset(&self, _input_mode: &InputMode, offset: FileOffset) -> FileOffset {
         // We cannot align the offset short of scanning the entire file, just take the current
         // offset as line start.
         offset
@@ -255,55 +280,54 @@ impl DataPresentation {
     fn fixed_scroll_lines(
         &self,
         input_mode: &InputMode,
-        current_offset: u64,
+        current_offset: FileOffset,
         delta: i32,
         past_last_line: bool,
-    ) -> u64 {
+    ) -> FileOffset {
         let fixed_count = self.fixed_count.max(1);
         if delta < 0 {
-            let mut offset = current_offset;
-            for _ in 0..(-delta) as u32 * fixed_count {
-                offset = input_mode.previous_char_offset(offset);
-            }
-            offset
+            input_mode.move_backward_by(current_offset, fixed_count as u64 * (-delta) as u64)
         } else {
             // Slightly more complicated logic when scrolling forward because we usually don't
             // want to "scroll" past the start of the last line: it will cause the content to
             // shift around.
-            let max_offset = input_mode.max_offset();
+            let size = input_mode.size();
             let mut line_offset = current_offset;
             for _ in 0..delta {
-                let mut offset = line_offset;
-                for _ in 0..fixed_count {
-                    offset = input_mode.next_char_offset(offset);
-                    if !past_last_line && offset >= max_offset {
-                        return line_offset;
-                    }
+                let next_line = input_mode.move_forward_by(line_offset, fixed_count as u64);
+                if !past_last_line && next_line >= size {
+                    break;
                 }
-                line_offset = offset;
+                line_offset = next_line;
             }
-            line_offset.clamp(0, max_offset)
+            line_offset
         }
     }
 
-    fn fixed_get_eol(&self, input_mode: &InputMode, start_of_line: u64) -> u64 {
+    fn fixed_get_eol(&self, input_mode: &InputMode, start_of_line: FileOffset) -> FileOffset {
         self.fixed_scroll_lines(input_mode, start_of_line, 1, true)
     }
 
-    fn bin_align_offset(&self, input_mode: &InputMode, offset: u64) -> u64 {
-        let fixed_count = self.fixed_count.max(1) as u64;
-        offset.clamp(0, input_mode.max_offset()) / fixed_count * fixed_count
+    fn bin_align_offset(&self, input_mode: &InputMode, offset: FileOffset) -> FileOffset {
+        input_mode.align_offset_to_line_length(offset, self.fixed_count as u64)
     }
 
-    fn bin_scroll_lines(&self, input_mode: &InputMode, current_offset: u64, delta: i32) -> u64 {
+    fn bin_scroll_lines(
+        &self,
+        input_mode: &InputMode,
+        current_offset: FileOffset,
+        delta: i32,
+    ) -> FileOffset {
         let fixed_count = self.fixed_count.max(1);
-        (self
-            .bin_align_offset(input_mode, current_offset)
-            .saturating_add_signed(fixed_count as i64 * delta as i64))
-        .clamp(0, input_mode.max_offset())
+        let offset = self.bin_align_offset(input_mode, current_offset);
+        if delta > 0 {
+            input_mode.move_forward_by(offset, fixed_count as u64 * delta as u64)
+        } else {
+            input_mode.move_backward_by(offset, fixed_count as u64 * (-delta) as u64)
+        }
     }
 
-    fn bin_get_eol(&self, input_mode: &InputMode, start_of_line: u64) -> u64 {
+    fn bin_get_eol(&self, input_mode: &InputMode, start_of_line: FileOffset) -> FileOffset {
         self.bin_scroll_lines(input_mode, start_of_line, 1)
     }
 }
@@ -325,7 +349,8 @@ pub fn next_tab_position(column: u32, tab_size: u32) -> u32 {
 }
 
 #[cfg(test)]
-mod test {
+mod data_presentation_test {
+    use super::super::{input_modes::InputSourceExt, input_source::InputSource};
     use super::*;
 
     #[test]
@@ -343,30 +368,58 @@ mod test {
     }
 
     const ABRACADABRA: &[u8] = b"\na\r\nab\nabra\r\nabrac\nabraca\r\nabracad\nabracada\r\nabracadab\nabracadabr\r\nabracadabra\n";
+    const ABRACADABRA2: &[u8] = "abracardabra\nкадабра".as_bytes();
+
+    fn offset(value: u64) -> FileOffset {
+        InputSource::from(ABRACADABRA).get_file_offset(value)
+    }
 
     #[test]
     fn nowrap() {
-        let mut imd = InputMode::new(ABRACADABRA);
-        imd.set_mode("CP437");
+        let mut imd = InputMode::new(ABRACADABRA.into());
+        imd.set_mode("CP437", true);
         let mut dp = DataPresentation::new();
         dp.set_mode(DataPresentationMode::NoWrap);
 
-        assert_eq!(dp.nowrap_align_offset(&imd, 0), 0);
-        assert_eq!(dp.nowrap_align_offset(&imd, 1), 1);
-        assert_eq!(dp.nowrap_align_offset(&imd, 2), 1);
-        assert_eq!(dp.nowrap_align_offset(&imd, 3), 1);
-        assert_eq!(dp.nowrap_align_offset(&imd, 4), 4);
-        assert_eq!(dp.nowrap_align_offset(&imd, 6), 4);
-        assert_eq!(dp.nowrap_align_offset(&imd, 6), 4);
-        assert_eq!(dp.nowrap_align_offset(&imd, 7), 7);
+        assert_eq!(dp.nowrap_align_offset(&imd, offset(0)), offset(0));
+        assert_eq!(dp.nowrap_align_offset(&imd, offset(1)), offset(1));
+        assert_eq!(dp.nowrap_align_offset(&imd, offset(2)), offset(1));
+        assert_eq!(dp.nowrap_align_offset(&imd, offset(3)), offset(1));
+        assert_eq!(dp.nowrap_align_offset(&imd, offset(4)), offset(4));
+        assert_eq!(dp.nowrap_align_offset(&imd, offset(6)), offset(4));
+        assert_eq!(dp.nowrap_align_offset(&imd, offset(6)), offset(4));
+        assert_eq!(dp.nowrap_align_offset(&imd, offset(7)), offset(7));
 
-        assert_eq!(dp.scroll_lines(&imd, 0, 1), 1);
-        assert_eq!(dp.scroll_lines(&imd, 1, 1), 4);
-        assert_eq!(dp.scroll_lines(&imd, 4, 1), 7);
+        assert_eq!(dp.scroll_lines(&imd, offset(0), 1), offset(1));
+        assert_eq!(dp.scroll_lines(&imd, offset(1), 1), offset(4));
+        assert_eq!(dp.scroll_lines(&imd, offset(4), 1), offset(7));
 
-        assert_eq!(dp.scroll_lines(&imd, 7, -1), 4);
-        assert_eq!(dp.scroll_lines(&imd, 4, -1), 1);
-        assert_eq!(dp.scroll_lines(&imd, 1, -1), 0);
+        assert_eq!(dp.scroll_lines(&imd, offset(7), -1), offset(4));
+        assert_eq!(dp.scroll_lines(&imd, offset(4), -1), offset(1));
+        assert_eq!(dp.scroll_lines(&imd, offset(1), -1), offset(0));
+    }
+
+    #[test]
+    fn wrap() {
+        let mut imd = InputMode::new(ABRACADABRA2.into());
+        imd.set_mode("UTF8", true);
+        let mut dp = DataPresentation::new();
+        dp.set_mode(DataPresentationMode::Wrap);
+        dp.set_wrap_limit(5);
+
+        assert_eq!(dp.scroll_lines(&imd, offset(0), 1), offset(5));
+        assert_eq!(dp.scroll_lines(&imd, offset(5), 1), offset(10));
+        assert_eq!(dp.scroll_lines(&imd, offset(10), 1), offset(13));
+        assert_eq!(dp.scroll_lines(&imd, offset(13), 1), offset(23));
+        assert_eq!(dp.scroll_lines(&imd, offset(23), 1), offset(27));
+        assert_eq!(dp.scroll_lines(&imd, offset(27), 1), offset(27));
+
+        assert_eq!(dp.scroll_lines(&imd, offset(27), -1), offset(23));
+        assert_eq!(dp.scroll_lines(&imd, offset(23), -1), offset(13));
+        assert_eq!(dp.scroll_lines(&imd, offset(13), -1), offset(10));
+        assert_eq!(dp.scroll_lines(&imd, offset(10), -1), offset(5));
+        assert_eq!(dp.scroll_lines(&imd, offset(5), -1), offset(0));
+        assert_eq!(dp.scroll_lines(&imd, offset(0), -1), offset(0));
     }
 
     #[test]

@@ -5,13 +5,13 @@
 
 use super::{
     boyer_moore::{BoyerMoore, ScanResult, boyer_moore_bytes_new},
-    input_modes::InputMode,
+    input_modes::{FileOffset, InputSourceExt},
+    input_source::InputSource,
 };
 use gtk::{gio, gio::prelude::*};
-use std::sync::Arc;
 
 pub struct Searcher {
-    input_mode: Arc<InputMode>,
+    input_source: InputSource,
     bm: BoyerMoore<u8>,
     start_offset: u64,
     max_offset: u64,
@@ -21,9 +21,9 @@ pub struct Searcher {
 
 impl Searcher {
     pub fn new(
-        input_mode: Arc<InputMode>,
-        start_offset: u64,
-        max_offset: u64,
+        input_source: InputSource,
+        start_offset: FileOffset,
+        max_offset: FileOffset,
         buffer: &[u8],
         case_sensitive: bool,
         forward: bool,
@@ -39,22 +39,34 @@ impl Searcher {
         );
 
         Self {
-            input_mode,
+            start_offset: input_source.get_raw_offset(start_offset),
+            max_offset: input_source.get_raw_offset(max_offset),
+            input_source,
             bm,
-            start_offset,
-            max_offset,
             forward,
             cancellable,
         }
     }
 
-    pub fn search<F: Fn(u32)>(&self, progress_callback: F) -> Option<u64> {
+    pub fn search<F: Fn(u32)>(&self, progress_callback: F) -> Option<(FileOffset, FileOffset)> {
         progress_callback(self.progress(self.start_offset));
 
         if self.forward {
-            self.search_forward(progress_callback)
+            self.search_forward(progress_callback).map(|match_start| {
+                (
+                    self.input_source.get_file_offset(match_start),
+                    self.input_source
+                        .get_file_offset(match_start + self.bm.pattern.len() as u64),
+                )
+            })
         } else {
-            self.search_backward(progress_callback)
+            self.search_backward(progress_callback).map(|match_start| {
+                (
+                    self.input_source.get_file_offset(match_start),
+                    self.input_source
+                        .get_file_offset(match_start - self.bm.pattern.len() as u64),
+                )
+            })
         }
     }
 
@@ -82,7 +94,7 @@ impl Searcher {
     }
 
     fn search_forward<F: Fn(u32)>(&self, progress_callback: F) -> Option<u64> {
-        let imd = &self.input_mode;
+        let source = &self.input_source;
         let update_interval = self.update_interval();
 
         let m = self.bm.pattern.len() as u64;
@@ -91,7 +103,7 @@ impl Searcher {
         let mut update_counter = update_interval;
 
         while j + m <= n {
-            let bytes = imd.bytes(j, m as usize);
+            let bytes = source.bytes(j, m as usize);
             match self.bm.scan(&bytes) {
                 ScanResult::Match(_advancement) => {
                     return Some(j);
@@ -115,7 +127,7 @@ impl Searcher {
     }
 
     fn search_backward<F: Fn(u32)>(&self, progress_callback: F) -> Option<u64> {
-        let imd = &self.input_mode;
+        let source = &self.input_source;
         let update_interval = self.update_interval();
 
         let m = self.bm.pattern.len() as u64;
@@ -124,7 +136,7 @@ impl Searcher {
 
         j = j.checked_sub(1)?;
         while j >= m - 1 {
-            let bytes = imd.bytes_backwards(j, m as usize);
+            let bytes = source.bytes_backwards(j, m as usize);
             match self.bm.scan(&bytes) {
                 ScanResult::Match(_advancement) => {
                     return Some(j + 1);

@@ -92,9 +92,9 @@
 
 pub mod boyer_moore;
 pub mod data_presentation;
-pub mod file_input_source;
 pub mod image_render;
 pub mod input_modes;
+pub mod input_source;
 pub mod search_bar;
 pub mod searcher;
 pub mod text_render;

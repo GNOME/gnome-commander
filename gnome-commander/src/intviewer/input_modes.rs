@@ -3,41 +3,120 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+use super::input_source::InputSource;
 use std::borrow::Cow;
 
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+pub struct FileOffset {
+    offset: u64,
+}
+
+impl FileOffset {
+    fn new(offset: u64) -> Self {
+        Self { offset }
+    }
+
+    fn add(self, n: u64, size: FileOffset) -> Self {
+        Self {
+            offset: self.offset.saturating_add(n).clamp(0, size.offset),
+        }
+    }
+
+    fn inc(self, size: FileOffset) -> Self {
+        self.add(1, size)
+    }
+
+    fn sub(self, n: u64) -> Self {
+        Self {
+            offset: self.offset.saturating_sub(n),
+        }
+    }
+
+    fn dec(self) -> Self {
+        self.sub(1)
+    }
+}
+
+impl From<FileOffset> for f64 {
+    fn from(value: FileOffset) -> Self {
+        value.offset as Self
+    }
+}
+
+impl From<f64> for FileOffset {
+    fn from(value: f64) -> Self {
+        FileOffset {
+            offset: value as u64,
+        }
+    }
+}
+
+impl std::ops::Sub for FileOffset {
+    type Output = f64;
+
+    fn sub(self, rhs: Self) -> Self::Output {
+        f64::from(self) - f64::from(rhs)
+    }
+}
+
+impl std::fmt::Display for FileOffset {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        std::fmt::Display::fmt(&self.offset, f)
+    }
+}
+
+impl std::fmt::UpperHex for FileOffset {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        std::fmt::UpperHex::fmt(&self.offset, f)
+    }
+}
+
 pub struct InputMode {
-    source: Box<dyn InputSource + Send + Sync>,
-    encoding: Box<dyn CharacterEncoding + Send + Sync>,
+    source: InputSource,
+    encoding: Box<dyn CharacterEncoding + Send>,
 }
 
 impl InputMode {
-    pub fn new<S: InputSource + Send + Sync + 'static>(source: S) -> Self {
+    pub fn new(source: InputSource) -> Self {
         Self {
-            source: Box::new(source),
+            source,
             encoding: Box::new(SingleByteEncoding::new("ASCII")),
         }
     }
 
-    pub fn max_offset(&self) -> u64 {
-        self.source.max_offset()
+    /// Creates a copy of the input source and translates the offset into a raw offset. This
+    /// functionality is meant for the search which should access the raw input source for
+    /// performance reasons.
+    pub fn clone_input_source(&self) -> std::io::Result<InputSource> {
+        self.source.reopen()
     }
 
-    pub fn set_mode(&mut self, encoding: &str) {
+    pub fn size(&self) -> FileOffset {
+        FileOffset::new(self.source.size())
+    }
+
+    pub fn max_offset(&self) -> FileOffset {
+        self.size().dec()
+    }
+
+    pub fn set_mode(&mut self, encoding: &str, allow_newlines: bool) {
         self.encoding = if encoding.eq_ignore_ascii_case("UTF8") {
             Box::new(UTF8Encoding)
         } else {
-            Box::new(SingleByteEncoding::new(encoding))
+            let mut encoding = SingleByteEncoding::new(encoding);
+            if allow_newlines {
+                encoding.allow_newlines();
+            }
+            Box::new(encoding)
         };
     }
 
     /// Returns a Unicode character at the specified offset.
-    ///
-    /// Note: `offset`` is ALWAYS THE BYTE OFFSET IN THE FILE, never logical offset.
-    pub fn character(&self, offset: u64) -> Option<char> {
+    pub fn character(&self, offset: FileOffset) -> Option<char> {
         self.encoding.char_at(self, offset)
     }
 
-    pub fn characters(&self, offset: u64, length: usize) -> Vec<char> {
+    pub fn characters(&self, offset: FileOffset, length: usize) -> Vec<char> {
         std::iter::successors(Some(offset), move |offset| {
             Some(self.next_char_offset(*offset))
         })
@@ -46,7 +125,7 @@ impl InputMode {
         .collect()
     }
 
-    pub fn characters_backwards(&self, offset: u64, length: usize) -> Vec<char> {
+    pub fn characters_backwards(&self, offset: FileOffset, length: usize) -> Vec<char> {
         std::iter::successors(Some(offset), move |offset| {
             Some(self.previous_char_offset(*offset))
         })
@@ -58,43 +137,43 @@ impl InputMode {
     /// Returns the raw untranslated byte at `offset`.
     ///
     /// Will return `None` on failure or EOF.
-    pub fn raw_byte(&self, offset: u64) -> Option<u8> {
-        self.source.byte(offset)
+    pub fn raw_byte(&self, offset: FileOffset) -> Option<u8> {
+        self.source.byte(offset.offset)
     }
 
-    pub fn bytes(&self, offset: u64, length: usize) -> Vec<u8> {
-        std::iter::successors(Some(offset), move |offset| offset.checked_add(1))
-            .take(length)
-            .map(|offset| self.raw_byte(offset).unwrap_or_default())
-            .collect()
+    pub fn bytes(&self, offset: FileOffset, length: usize) -> Vec<u8> {
+        self.source.bytes(offset.offset, length)
     }
 
-    pub fn bytes_backwards(&self, offset: u64, length: usize) -> Vec<u8> {
-        std::iter::successors(Some(offset), move |offset| offset.checked_sub(1))
-            .take(length)
-            .map(|offset| self.raw_byte(offset).unwrap_or_default())
-            .collect()
+    pub fn bytes_backwards(&self, offset: FileOffset, length: usize) -> Vec<u8> {
+        self.source.bytes_backwards(offset.offset, length)
     }
 
-    /// Returns the BYTE offset of the next logical character.
+    /// Returns the offset of the next logical character.
     ///
     /// The size of a character depends on the chosen encoding and can be non-constant.
-    pub fn next_char_offset(&self, current_offset: u64) -> u64 {
-        self.encoding
-            .next_char_offset(self, current_offset)
-            .clamp(0, self.max_offset())
+    pub fn next_char_offset(&self, current_offset: FileOffset) -> FileOffset {
+        self.encoding.next_char_offset(self, current_offset)
     }
 
-    /// Returns the BYTE offset of the previous logical character.
+    /// Returns the offset of the previous logical character.
     ///
     /// The size of a character depends on the chosen encoding and can be non-constant.
-    pub fn previous_char_offset(&self, current_offset: u64) -> u64 {
-        self.encoding
-            .previous_char_offset(self, current_offset)
-            .clamp(0, self.max_offset())
+    pub fn previous_char_offset(&self, current_offset: FileOffset) -> FileOffset {
+        self.encoding.previous_char_offset(self, current_offset)
     }
 
-    pub fn offsets(&self, start: u64, end: u64) -> impl Iterator<Item = u64> {
+    /// Moves the offset forward by the given number of logical characters.
+    pub fn move_forward_by(&self, current_offset: FileOffset, n: u64) -> FileOffset {
+        self.encoding.move_forward_by(self, current_offset, n)
+    }
+
+    /// Moves the offset backward by the given number of logical characters.
+    pub fn move_backward_by(&self, current_offset: FileOffset, n: u64) -> FileOffset {
+        self.encoding.move_backward_by(self, current_offset, n)
+    }
+
+    pub fn offsets(&self, start: FileOffset, end: FileOffset) -> impl Iterator<Item = FileOffset> {
         std::iter::successors(Some(start), move |offset| {
             (*offset < end)
                 .then(|| self.next_char_offset(*offset))
@@ -109,20 +188,27 @@ impl InputMode {
 
     /// Checks whether a character starts at the given offset. This will always return `true` for
     /// single-byte encodings.
-    pub fn is_at_char_boundary(&self, offset: u64) -> bool {
+    pub fn is_at_char_boundary(&self, offset: FileOffset) -> bool {
         self.encoding.is_at_char_boundary(self, offset)
     }
 
     /// If not currently at a character start, finds next character start. Otherwise returns the
     /// offset unchanged.
-    pub fn next_char_boundary(&self, offset: u64) -> u64 {
+    pub fn next_char_boundary(&self, offset: FileOffset) -> FileOffset {
         self.encoding.next_char_boundary(self, offset)
     }
 
     /// If not currently at a character start, finds previous character start. Otherwise returns the
     /// offset unchanged.
-    pub fn previous_char_boundary(&self, offset: u64) -> u64 {
+    pub fn previous_char_boundary(&self, offset: FileOffset) -> FileOffset {
         self.encoding.previous_char_boundary(self, offset)
+    }
+
+    /// For fixed-width encodings this shifts the offset backward towards a line start for lines of
+    /// given fixed number of characters. For variable-width encoding the offset is left unchanged.
+    pub fn align_offset_to_line_length(&self, offset: FileOffset, line_length: u64) -> FileOffset {
+        self.encoding
+            .align_offset_to_line_length(offset, line_length)
     }
 
     /// Used by higher layers (text-render) to update the translation table,
@@ -138,13 +224,9 @@ impl InputMode {
 
 impl Default for InputMode {
     fn default() -> Self {
-        InputMode::new(&[0_u8][0..0])
+        const DATA: &[u8] = &[];
+        InputMode::new(DATA.into())
     }
-}
-
-pub trait InputSource {
-    fn max_offset(&self) -> u64;
-    fn byte(&self, offset: u64) -> Option<u8>;
 }
 
 const CP437_SPECIAL_CHARS: &str = "☺☻♥♦♣♠•◘○◙♂♀♪♫☼►◄↕‼¶§▬↨↑↓→←∟↔▲▼⌂";
@@ -160,41 +242,54 @@ pub fn preprocess_for_cp437_conversion(text: &str) -> Cow<'_, str> {
     current
 }
 
-impl InputSource for &[u8] {
-    fn max_offset(&self) -> u64 {
-        self.len() as u64
-    }
-
-    fn byte(&self, offset: u64) -> Option<u8> {
-        let index: usize = offset.try_into().ok()?;
-        Some(*self.get(index)?)
-    }
-}
-
 trait CharacterEncoding {
     /// For fixed-width encodings, this should return the size of a character in bytes. For
     /// variable-width encodings `None`` is returned.
     fn char_size(&self) -> Option<u32>;
 
     /// Decodes the character at the given offset.
-    fn char_at(&self, input_mode: &InputMode, offset: u64) -> Option<char>;
+    fn char_at(&self, input_mode: &InputMode, offset: FileOffset) -> Option<char>;
 
-    /// Determines the byte offset of the character after the given offset. Note: the offset isn’t
+    /// Determines the offset of the character after the given offset. Note: the offset isn’t
     /// necessarily aligned with the character boundary.
-    fn next_char_offset(&self, input_mode: &InputMode, current_offset: u64) -> u64;
+    fn next_char_offset(&self, input_mode: &InputMode, current_offset: FileOffset) -> FileOffset;
 
-    /// Determines the byte offset of the character before the given offset. Note: the offset isn’t
+    /// Determines the offset of the character before the given offset. Note: the offset isn’t
     /// necessarily aligned with the character boundary.
-    fn previous_char_offset(&self, input_mode: &InputMode, current_offset: u64) -> u64;
+    fn previous_char_offset(
+        &self,
+        input_mode: &InputMode,
+        current_offset: FileOffset,
+    ) -> FileOffset;
+
+    /// Moves offset forward by the given number of characters.
+    fn move_forward_by(
+        &self,
+        input_mode: &InputMode,
+        current_offset: FileOffset,
+        n: u64,
+    ) -> FileOffset;
+
+    /// Moves offset backward by the given number of characters.
+    fn move_backward_by(
+        &self,
+        input_mode: &InputMode,
+        current_offset: FileOffset,
+        n: u64,
+    ) -> FileOffset;
 
     /// Checks whether the offset is aligned with the character boundary.
-    fn is_at_char_boundary(&self, input_mode: &InputMode, offset: u64) -> bool;
+    fn is_at_char_boundary(&self, input_mode: &InputMode, offset: FileOffset) -> bool;
 
     /// Aligns the offset to character boundary, going forward.
-    fn next_char_boundary(&self, input_mode: &InputMode, offset: u64) -> u64;
+    fn next_char_boundary(&self, input_mode: &InputMode, offset: FileOffset) -> FileOffset;
 
     /// Aligns the offset to character boundary, going backwards.
-    fn previous_char_boundary(&self, input_mode: &InputMode, offset: u64) -> u64;
+    fn previous_char_boundary(&self, input_mode: &InputMode, offset: FileOffset) -> FileOffset;
+
+    /// If possible, shifts the offset backward to align it with the line start for lines with given
+    /// fixed number of characters.
+    fn align_offset_to_line_length(&self, offset: FileOffset, line_length: u64) -> FileOffset;
 
     /// Will be called with a callback that can determine whether a character can be rendered. This
     /// can be used to adjust the character's presentation.
@@ -254,6 +349,11 @@ impl SingleByteEncoding {
         }
         Some(table)
     }
+
+    pub fn allow_newlines(&mut self) {
+        self.translation_table[b'\n' as usize] = '\n';
+        self.translation_table[b'\r' as usize] = '\r';
+    }
 }
 
 impl CharacterEncoding for SingleByteEncoding {
@@ -261,32 +361,60 @@ impl CharacterEncoding for SingleByteEncoding {
         Some(1)
     }
 
-    fn char_at(&self, input_mode: &InputMode, offset: u64) -> Option<char> {
+    fn char_at(&self, input_mode: &InputMode, offset: FileOffset) -> Option<char> {
         input_mode
             .raw_byte(offset)
             .map(|byte| self.translation_table[byte as usize])
     }
 
-    fn next_char_offset(&self, input_mode: &InputMode, current_offset: u64) -> u64 {
-        current_offset
-            .saturating_add(1)
-            .clamp(0, input_mode.max_offset())
+    fn next_char_offset(&self, input_mode: &InputMode, current_offset: FileOffset) -> FileOffset {
+        self.move_forward_by(input_mode, current_offset, 1)
     }
 
-    fn previous_char_offset(&self, _input_mode: &InputMode, current_offset: u64) -> u64 {
-        current_offset.saturating_sub(1)
+    fn previous_char_offset(
+        &self,
+        input_mode: &InputMode,
+        current_offset: FileOffset,
+    ) -> FileOffset {
+        self.move_backward_by(input_mode, current_offset, 1)
     }
 
-    fn is_at_char_boundary(&self, _input_mode: &InputMode, _offset: u64) -> bool {
+    fn move_forward_by(
+        &self,
+        input_mode: &InputMode,
+        current_offset: FileOffset,
+        n: u64,
+    ) -> FileOffset {
+        current_offset.add(n, input_mode.size())
+    }
+
+    fn move_backward_by(
+        &self,
+        _input_mode: &InputMode,
+        current_offset: FileOffset,
+        n: u64,
+    ) -> FileOffset {
+        current_offset.sub(n)
+    }
+
+    fn is_at_char_boundary(&self, _input_mode: &InputMode, _offset: FileOffset) -> bool {
         true
     }
 
-    fn next_char_boundary(&self, _input_mode: &InputMode, offset: u64) -> u64 {
+    fn next_char_boundary(&self, _input_mode: &InputMode, offset: FileOffset) -> FileOffset {
         offset
     }
 
-    fn previous_char_boundary(&self, _input_mode: &InputMode, offset: u64) -> u64 {
+    fn previous_char_boundary(&self, _input_mode: &InputMode, offset: FileOffset) -> FileOffset {
         offset
+    }
+
+    fn align_offset_to_line_length(&self, offset: FileOffset, line_length: u64) -> FileOffset {
+        if line_length <= 1 {
+            offset
+        } else {
+            FileOffset::new(offset.offset / line_length * line_length)
+        }
     }
 
     fn adjust_invisible_characters(&mut self, check_visibility: Box<dyn Fn(char) -> bool>) {
@@ -321,7 +449,7 @@ impl CharacterEncoding for UTF8Encoding {
         None
     }
 
-    fn char_at(&self, input_mode: &InputMode, offset: u64) -> Option<char> {
+    fn char_at(&self, input_mode: &InputMode, offset: FileOffset) -> Option<char> {
         let b = input_mode.raw_byte(offset)?;
         Some(
             Self::char_len(b)
@@ -334,97 +462,141 @@ impl CharacterEncoding for UTF8Encoding {
         )
     }
 
-    fn next_char_offset(&self, input_mode: &InputMode, current_offset: u64) -> u64 {
+    fn next_char_offset(&self, input_mode: &InputMode, current_offset: FileOffset) -> FileOffset {
         // Rust supports at most four bytes long UTF-8 sequences, try decoding.
         let bytes = input_mode.bytes(current_offset, 4);
         for len in 1..=4 {
             if std::str::from_utf8(&bytes[..len]).is_ok() {
-                return current_offset.saturating_add(len as u64);
+                return current_offset.add(len as u64, input_mode.size());
             }
         }
-        current_offset.saturating_add(1)
+        current_offset.inc(input_mode.size())
     }
 
-    fn previous_char_offset(&self, input_mode: &InputMode, current_offset: u64) -> u64 {
+    fn previous_char_offset(
+        &self,
+        input_mode: &InputMode,
+        current_offset: FileOffset,
+    ) -> FileOffset {
         // Rust supports at most four bytes long UTF-8 sequences, try decoding.
-        let mut bytes = input_mode.bytes(
-            current_offset.saturating_sub(4),
-            std::cmp::min(4, current_offset) as usize,
-        );
-        while bytes.len() < 4 {
-            bytes.insert(0, 0);
+        let mut bytes = input_mode.bytes_backwards(current_offset, 5);
+        while bytes.len() < 5 {
+            bytes.push(0);
         }
+        bytes.reverse();
+        bytes.pop();
         for len in 1..=4 {
             if std::str::from_utf8(&bytes[4 - len..4]).is_ok() {
-                return current_offset.saturating_sub(len as u64);
+                return current_offset.sub(len as u64);
             }
         }
-        current_offset.saturating_sub(1)
+        current_offset.dec()
     }
 
-    fn next_char_boundary(&self, input_mode: &InputMode, offset: u64) -> u64 {
+    fn move_forward_by(
+        &self,
+        input_mode: &InputMode,
+        mut current_offset: FileOffset,
+        n: u64,
+    ) -> FileOffset {
+        for _ in 0..n {
+            current_offset = self.next_char_offset(input_mode, current_offset);
+        }
+        current_offset
+    }
+
+    fn move_backward_by(
+        &self,
+        input_mode: &InputMode,
+        mut current_offset: FileOffset,
+        n: u64,
+    ) -> FileOffset {
+        for _ in 0..n {
+            current_offset = self.previous_char_offset(input_mode, current_offset);
+        }
+        current_offset
+    }
+
+    fn next_char_boundary(&self, input_mode: &InputMode, offset: FileOffset) -> FileOffset {
         // Skip at most 3 continuation bytes
         let mut result = offset;
-        for distance in 1..=3 {
+        for _ in 0..3 {
             if input_mode
                 .raw_byte(result)
                 .is_none_or(|byte| !Self::is_continuation(byte))
             {
                 break;
             }
-            if let Some(offset) = offset.checked_add(distance) {
-                result = offset;
-            } else {
-                break;
-            };
+            result = result.inc(input_mode.size())
         }
         result
     }
 
-    fn previous_char_boundary(&self, input_mode: &InputMode, offset: u64) -> u64 {
+    fn previous_char_boundary(&self, input_mode: &InputMode, offset: FileOffset) -> FileOffset {
         // Skip at most 3 continuation bytes
         let mut result = offset;
-        for distance in 1..=3 {
+        for _ in 0..3 {
             if input_mode
                 .raw_byte(result)
                 .is_none_or(|byte| !Self::is_continuation(byte))
             {
                 break;
             }
-            if let Some(offset) = offset.checked_sub(distance) {
-                result = offset;
-            } else {
-                break;
-            };
+            result = result.dec();
         }
         result
     }
 
-    fn is_at_char_boundary(&self, input_mode: &InputMode, offset: u64) -> bool {
+    fn is_at_char_boundary(&self, input_mode: &InputMode, offset: FileOffset) -> bool {
         !input_mode
             .raw_byte(offset)
             .is_some_and(Self::is_continuation)
     }
+
+    fn align_offset_to_line_length(&self, offset: FileOffset, _line_length: u64) -> FileOffset {
+        offset
+    }
 }
+
+pub trait InputSourceExt {
+    fn get_raw_offset(&self, offset: FileOffset) -> u64 {
+        offset.offset
+    }
+    fn get_file_offset(&self, offset: u64) -> FileOffset {
+        FileOffset::new(offset)
+    }
+}
+
+impl InputSourceExt for InputSource {}
 
 #[cfg(test)]
 mod test {
     use super::*;
 
+    fn offset(value: u64) -> FileOffset {
+        FileOffset::new(value)
+    }
+
     #[test]
     fn test_decode_cp437() {
         let data: &[u8] = &[0x00, 0x03, 0x0A, 0x20, 0x41, 0x80, 0xFE];
-        let mut imd = InputMode::new(data);
-        imd.set_mode("CP437");
-        assert_eq!(String::from_iter(imd.characters(0, 7)), "\x00♥◙ AÇ■");
+        let mut imd = InputMode::new(data.into());
+        imd.set_mode("CP437", false);
+        assert_eq!(
+            String::from_iter(imd.characters(offset(0), 7)),
+            "\x00♥◙ AÇ■"
+        );
     }
 
     #[test]
     fn test_decode_windows1251() {
         let data: &[u8] = &[0x00, 0x03, 0x0A, 0x20, 0x41, 0x80, 0xFE];
-        let mut imd = InputMode::new(data);
-        imd.set_mode("CP1251");
-        assert_eq!(String::from_iter(imd.characters(0, 7)), "\x00\x03\n AЂю");
+        let mut imd = InputMode::new(data.into());
+        imd.set_mode("CP1251", false);
+        assert_eq!(
+            String::from_iter(imd.characters(offset(0), 7)),
+            "\x00\x03\n AЂю"
+        );
     }
 
     #[test]
@@ -439,44 +611,44 @@ mod test {
     #[test]
     fn test_ascii_encoding() {
         let data: &[u8] = &[0x00, 0x03, 0x0A, 0x20, 0x41, 0x80, 0xFE];
-        let mut imd = InputMode::new(data);
-        imd.set_mode("ASCII");
+        let mut imd = InputMode::new(data.into());
+        imd.set_mode("ASCII", true);
 
         assert_eq!(imd.char_size(), Some(1));
 
-        assert_eq!(imd.character(0), Some('\0'));
-        assert_eq!(imd.character(1), Some('\x03'));
-        assert_eq!(imd.character(2), Some('\n'));
-        assert_eq!(imd.character(3), Some(' '));
-        assert_eq!(imd.character(4), Some('A'));
-        assert_eq!(imd.character(5), Some('.'));
-        assert_eq!(imd.character(6), Some('.'));
-        assert_eq!(imd.character(7), None);
+        assert_eq!(imd.character(offset(0)), Some('\0'));
+        assert_eq!(imd.character(offset(1)), Some('\x03'));
+        assert_eq!(imd.character(offset(2)), Some('\n'));
+        assert_eq!(imd.character(offset(3)), Some(' '));
+        assert_eq!(imd.character(offset(4)), Some('A'));
+        assert_eq!(imd.character(offset(5)), Some('.'));
+        assert_eq!(imd.character(offset(6)), Some('.'));
+        assert_eq!(imd.character(offset(7)), None);
 
-        assert_eq!(imd.next_char_offset(0), 1);
-        assert_eq!(imd.next_char_offset(5), 6);
-        assert_eq!(imd.next_char_offset(6), 7);
-        assert_eq!(imd.next_char_offset(7), 7);
+        assert_eq!(imd.next_char_offset(offset(0)), offset(1));
+        assert_eq!(imd.next_char_offset(offset(5)), offset(6));
+        assert_eq!(imd.next_char_offset(offset(6)), offset(7));
+        assert_eq!(imd.next_char_offset(offset(7)), offset(7));
 
-        assert_eq!(imd.previous_char_offset(0), 0);
-        assert_eq!(imd.previous_char_offset(5), 4);
-        assert_eq!(imd.previous_char_offset(6), 5);
-        assert_eq!(imd.previous_char_offset(7), 6);
+        assert_eq!(imd.previous_char_offset(offset(0)), offset(0));
+        assert_eq!(imd.previous_char_offset(offset(5)), offset(4));
+        assert_eq!(imd.previous_char_offset(offset(6)), offset(5));
+        assert_eq!(imd.previous_char_offset(offset(7)), offset(6));
 
-        assert!(imd.is_at_char_boundary(0));
-        assert!(imd.is_at_char_boundary(5));
-        assert!(imd.is_at_char_boundary(6));
-        assert!(imd.is_at_char_boundary(7));
+        assert!(imd.is_at_char_boundary(offset(0)));
+        assert!(imd.is_at_char_boundary(offset(5)));
+        assert!(imd.is_at_char_boundary(offset(6)));
+        assert!(imd.is_at_char_boundary(offset(7)));
 
-        assert_eq!(imd.next_char_boundary(0), 0);
-        assert_eq!(imd.next_char_boundary(5), 5);
-        assert_eq!(imd.next_char_boundary(6), 6);
-        assert_eq!(imd.next_char_boundary(7), 7);
+        assert_eq!(imd.next_char_boundary(offset(0)), offset(0));
+        assert_eq!(imd.next_char_boundary(offset(5)), offset(5));
+        assert_eq!(imd.next_char_boundary(offset(6)), offset(6));
+        assert_eq!(imd.next_char_boundary(offset(7)), offset(7));
 
-        assert_eq!(imd.previous_char_boundary(0), 0);
-        assert_eq!(imd.previous_char_boundary(5), 5);
-        assert_eq!(imd.previous_char_boundary(6), 6);
-        assert_eq!(imd.previous_char_boundary(7), 7);
+        assert_eq!(imd.previous_char_boundary(offset(0)), offset(0));
+        assert_eq!(imd.previous_char_boundary(offset(5)), offset(5));
+        assert_eq!(imd.previous_char_boundary(offset(6)), offset(6));
+        assert_eq!(imd.previous_char_boundary(offset(7)), offset(7));
     }
 
     #[test]
@@ -489,123 +661,123 @@ mod test {
             0xF4, 0x8F, 0xBF, 0xBF, // \u{10FFFF}
             0xF4, 0x8F, 0xBF, 0x22, // incomplete sequence
         ];
-        let mut imd = InputMode::new(data);
-        imd.set_mode("UTF8");
+        let mut imd = InputMode::new(data.into());
+        imd.set_mode("UTF8", false);
 
         assert_eq!(imd.char_size(), None);
 
-        assert_eq!(imd.character(0), Some('\0'));
-        assert_eq!(imd.character(1), Some('\n'));
-        assert_eq!(imd.character(2), Some(' '));
-        assert_eq!(imd.character(3), Some('A'));
-        assert_eq!(imd.character(4), Some('\x7f'));
-        assert_eq!(imd.character(5), Some('.'));
-        assert_eq!(imd.character(6), Some('т'));
-        assert_eq!(imd.character(7), Some('.'));
-        assert_eq!(imd.character(8), Some('\u{D7FF}'));
-        assert_eq!(imd.character(9), Some('.'));
-        assert_eq!(imd.character(10), Some('.'));
-        assert_eq!(imd.character(11), Some('\u{10FFFF}'));
-        assert_eq!(imd.character(12), Some('.'));
-        assert_eq!(imd.character(13), Some('.'));
-        assert_eq!(imd.character(14), Some('.'));
-        assert_eq!(imd.character(15), Some('.'));
-        assert_eq!(imd.character(16), Some('.'));
-        assert_eq!(imd.character(17), Some('.'));
-        assert_eq!(imd.character(18), Some('"'));
-        assert_eq!(imd.character(19), None); // out of bounds
+        assert_eq!(imd.character(offset(0)), Some('\0'));
+        assert_eq!(imd.character(offset(1)), Some('\n'));
+        assert_eq!(imd.character(offset(2)), Some(' '));
+        assert_eq!(imd.character(offset(3)), Some('A'));
+        assert_eq!(imd.character(offset(4)), Some('\x7f'));
+        assert_eq!(imd.character(offset(5)), Some('.'));
+        assert_eq!(imd.character(offset(6)), Some('т'));
+        assert_eq!(imd.character(offset(7)), Some('.'));
+        assert_eq!(imd.character(offset(8)), Some('\u{D7FF}'));
+        assert_eq!(imd.character(offset(9)), Some('.'));
+        assert_eq!(imd.character(offset(10)), Some('.'));
+        assert_eq!(imd.character(offset(11)), Some('\u{10FFFF}'));
+        assert_eq!(imd.character(offset(12)), Some('.'));
+        assert_eq!(imd.character(offset(13)), Some('.'));
+        assert_eq!(imd.character(offset(14)), Some('.'));
+        assert_eq!(imd.character(offset(15)), Some('.'));
+        assert_eq!(imd.character(offset(16)), Some('.'));
+        assert_eq!(imd.character(offset(17)), Some('.'));
+        assert_eq!(imd.character(offset(18)), Some('"'));
+        assert_eq!(imd.character(offset(19)), None); // out of bounds
 
-        assert_eq!(imd.next_char_offset(0), 1);
-        assert_eq!(imd.next_char_offset(1), 2);
-        assert_eq!(imd.next_char_offset(2), 3);
-        assert_eq!(imd.next_char_offset(3), 4);
-        assert_eq!(imd.next_char_offset(4), 5);
-        assert_eq!(imd.next_char_offset(5), 6);
-        assert_eq!(imd.next_char_offset(6), 8);
-        assert_eq!(imd.next_char_offset(8), 11);
-        assert_eq!(imd.next_char_offset(11), 15);
-        assert_eq!(imd.next_char_offset(15), 16);
-        assert_eq!(imd.next_char_offset(16), 17);
-        assert_eq!(imd.next_char_offset(17), 18);
-        assert_eq!(imd.next_char_offset(18), 19);
-        assert_eq!(imd.next_char_offset(19), 19);
+        assert_eq!(imd.next_char_offset(offset(0)), offset(1));
+        assert_eq!(imd.next_char_offset(offset(1)), offset(2));
+        assert_eq!(imd.next_char_offset(offset(2)), offset(3));
+        assert_eq!(imd.next_char_offset(offset(3)), offset(4));
+        assert_eq!(imd.next_char_offset(offset(4)), offset(5));
+        assert_eq!(imd.next_char_offset(offset(5)), offset(6));
+        assert_eq!(imd.next_char_offset(offset(6)), offset(8));
+        assert_eq!(imd.next_char_offset(offset(8)), offset(11));
+        assert_eq!(imd.next_char_offset(offset(11)), offset(15));
+        assert_eq!(imd.next_char_offset(offset(15)), offset(16));
+        assert_eq!(imd.next_char_offset(offset(16)), offset(17));
+        assert_eq!(imd.next_char_offset(offset(17)), offset(18));
+        assert_eq!(imd.next_char_offset(offset(18)), offset(19));
+        assert_eq!(imd.next_char_offset(offset(19)), offset(19));
 
-        assert_eq!(imd.previous_char_offset(0), 0);
-        assert_eq!(imd.previous_char_offset(1), 0);
-        assert_eq!(imd.previous_char_offset(2), 1);
-        assert_eq!(imd.previous_char_offset(3), 2);
-        assert_eq!(imd.previous_char_offset(4), 3);
-        assert_eq!(imd.previous_char_offset(5), 4);
-        assert_eq!(imd.previous_char_offset(6), 5);
-        assert_eq!(imd.previous_char_offset(8), 6);
-        assert_eq!(imd.previous_char_offset(11), 8);
-        assert_eq!(imd.previous_char_offset(15), 11);
-        assert_eq!(imd.previous_char_offset(16), 15);
-        assert_eq!(imd.previous_char_offset(17), 16);
-        assert_eq!(imd.previous_char_offset(18), 17);
-        assert_eq!(imd.previous_char_offset(19), 18);
+        assert_eq!(imd.previous_char_offset(offset(0)), offset(0));
+        assert_eq!(imd.previous_char_offset(offset(1)), offset(0));
+        assert_eq!(imd.previous_char_offset(offset(2)), offset(1));
+        assert_eq!(imd.previous_char_offset(offset(3)), offset(2));
+        assert_eq!(imd.previous_char_offset(offset(4)), offset(3));
+        assert_eq!(imd.previous_char_offset(offset(5)), offset(4));
+        assert_eq!(imd.previous_char_offset(offset(6)), offset(5));
+        assert_eq!(imd.previous_char_offset(offset(8)), offset(6));
+        assert_eq!(imd.previous_char_offset(offset(11)), offset(8));
+        assert_eq!(imd.previous_char_offset(offset(15)), offset(11));
+        assert_eq!(imd.previous_char_offset(offset(16)), offset(15));
+        assert_eq!(imd.previous_char_offset(offset(17)), offset(16));
+        assert_eq!(imd.previous_char_offset(offset(18)), offset(17));
+        assert_eq!(imd.previous_char_offset(offset(19)), offset(18));
 
-        assert!(imd.is_at_char_boundary(0));
-        assert!(imd.is_at_char_boundary(1));
-        assert!(imd.is_at_char_boundary(2));
-        assert!(imd.is_at_char_boundary(3));
-        assert!(imd.is_at_char_boundary(4));
-        assert!(!imd.is_at_char_boundary(5));
-        assert!(imd.is_at_char_boundary(6));
-        assert!(!imd.is_at_char_boundary(7));
-        assert!(imd.is_at_char_boundary(8));
-        assert!(!imd.is_at_char_boundary(9));
-        assert!(!imd.is_at_char_boundary(10));
-        assert!(imd.is_at_char_boundary(11));
-        assert!(!imd.is_at_char_boundary(12));
-        assert!(!imd.is_at_char_boundary(13));
-        assert!(!imd.is_at_char_boundary(14));
-        assert!(imd.is_at_char_boundary(15));
-        assert!(!imd.is_at_char_boundary(16));
-        assert!(!imd.is_at_char_boundary(17));
-        assert!(imd.is_at_char_boundary(18));
-        assert!(imd.is_at_char_boundary(19));
+        assert!(imd.is_at_char_boundary(offset(0)));
+        assert!(imd.is_at_char_boundary(offset(1)));
+        assert!(imd.is_at_char_boundary(offset(2)));
+        assert!(imd.is_at_char_boundary(offset(3)));
+        assert!(imd.is_at_char_boundary(offset(4)));
+        assert!(!imd.is_at_char_boundary(offset(5)));
+        assert!(imd.is_at_char_boundary(offset(6)));
+        assert!(!imd.is_at_char_boundary(offset(7)));
+        assert!(imd.is_at_char_boundary(offset(8)));
+        assert!(!imd.is_at_char_boundary(offset(9)));
+        assert!(!imd.is_at_char_boundary(offset(10)));
+        assert!(imd.is_at_char_boundary(offset(11)));
+        assert!(!imd.is_at_char_boundary(offset(12)));
+        assert!(!imd.is_at_char_boundary(offset(13)));
+        assert!(!imd.is_at_char_boundary(offset(14)));
+        assert!(imd.is_at_char_boundary(offset(15)));
+        assert!(!imd.is_at_char_boundary(offset(16)));
+        assert!(!imd.is_at_char_boundary(offset(17)));
+        assert!(imd.is_at_char_boundary(offset(18)));
+        assert!(imd.is_at_char_boundary(offset(19)));
 
-        assert_eq!(imd.next_char_boundary(0), 0);
-        assert_eq!(imd.next_char_boundary(1), 1);
-        assert_eq!(imd.next_char_boundary(2), 2);
-        assert_eq!(imd.next_char_boundary(3), 3);
-        assert_eq!(imd.next_char_boundary(4), 4);
-        assert_eq!(imd.next_char_boundary(5), 6);
-        assert_eq!(imd.next_char_boundary(6), 6);
-        assert_eq!(imd.next_char_boundary(7), 8);
-        assert_eq!(imd.next_char_boundary(8), 8);
-        assert_eq!(imd.next_char_boundary(9), 11);
-        assert_eq!(imd.next_char_boundary(10), 11);
-        assert_eq!(imd.next_char_boundary(11), 11);
-        assert_eq!(imd.next_char_boundary(12), 15);
-        assert_eq!(imd.next_char_boundary(13), 15);
-        assert_eq!(imd.next_char_boundary(14), 15);
-        assert_eq!(imd.next_char_boundary(15), 15);
-        assert_eq!(imd.next_char_boundary(16), 18);
-        assert_eq!(imd.next_char_boundary(17), 18);
-        assert_eq!(imd.next_char_boundary(18), 18);
-        assert_eq!(imd.next_char_boundary(19), 19);
+        assert_eq!(imd.next_char_boundary(offset(0)), offset(0));
+        assert_eq!(imd.next_char_boundary(offset(1)), offset(1));
+        assert_eq!(imd.next_char_boundary(offset(2)), offset(2));
+        assert_eq!(imd.next_char_boundary(offset(3)), offset(3));
+        assert_eq!(imd.next_char_boundary(offset(4)), offset(4));
+        assert_eq!(imd.next_char_boundary(offset(5)), offset(6));
+        assert_eq!(imd.next_char_boundary(offset(6)), offset(6));
+        assert_eq!(imd.next_char_boundary(offset(7)), offset(8));
+        assert_eq!(imd.next_char_boundary(offset(8)), offset(8));
+        assert_eq!(imd.next_char_boundary(offset(9)), offset(11));
+        assert_eq!(imd.next_char_boundary(offset(10)), offset(11));
+        assert_eq!(imd.next_char_boundary(offset(11)), offset(11));
+        assert_eq!(imd.next_char_boundary(offset(12)), offset(15));
+        assert_eq!(imd.next_char_boundary(offset(13)), offset(15));
+        assert_eq!(imd.next_char_boundary(offset(14)), offset(15));
+        assert_eq!(imd.next_char_boundary(offset(15)), offset(15));
+        assert_eq!(imd.next_char_boundary(offset(16)), offset(18));
+        assert_eq!(imd.next_char_boundary(offset(17)), offset(18));
+        assert_eq!(imd.next_char_boundary(offset(18)), offset(18));
+        assert_eq!(imd.next_char_boundary(offset(19)), offset(19));
 
-        assert_eq!(imd.previous_char_boundary(0), 0);
-        assert_eq!(imd.previous_char_boundary(1), 1);
-        assert_eq!(imd.previous_char_boundary(2), 2);
-        assert_eq!(imd.previous_char_boundary(3), 3);
-        assert_eq!(imd.previous_char_boundary(4), 4);
-        assert_eq!(imd.previous_char_boundary(5), 4);
-        assert_eq!(imd.previous_char_boundary(6), 6);
-        assert_eq!(imd.previous_char_boundary(7), 6);
-        assert_eq!(imd.previous_char_boundary(8), 8);
-        assert_eq!(imd.previous_char_boundary(9), 8);
-        assert_eq!(imd.previous_char_boundary(10), 8);
-        assert_eq!(imd.previous_char_boundary(11), 11);
-        assert_eq!(imd.previous_char_boundary(12), 11);
-        assert_eq!(imd.previous_char_boundary(13), 11);
-        assert_eq!(imd.previous_char_boundary(14), 11);
-        assert_eq!(imd.previous_char_boundary(15), 15);
-        assert_eq!(imd.previous_char_boundary(16), 15);
-        assert_eq!(imd.previous_char_boundary(17), 15);
-        assert_eq!(imd.previous_char_boundary(18), 18);
-        assert_eq!(imd.previous_char_boundary(19), 19);
+        assert_eq!(imd.previous_char_boundary(offset(0)), offset(0));
+        assert_eq!(imd.previous_char_boundary(offset(1)), offset(1));
+        assert_eq!(imd.previous_char_boundary(offset(2)), offset(2));
+        assert_eq!(imd.previous_char_boundary(offset(3)), offset(3));
+        assert_eq!(imd.previous_char_boundary(offset(4)), offset(4));
+        assert_eq!(imd.previous_char_boundary(offset(5)), offset(4));
+        assert_eq!(imd.previous_char_boundary(offset(6)), offset(6));
+        assert_eq!(imd.previous_char_boundary(offset(7)), offset(6));
+        assert_eq!(imd.previous_char_boundary(offset(8)), offset(8));
+        assert_eq!(imd.previous_char_boundary(offset(9)), offset(8));
+        assert_eq!(imd.previous_char_boundary(offset(10)), offset(8));
+        assert_eq!(imd.previous_char_boundary(offset(11)), offset(11));
+        assert_eq!(imd.previous_char_boundary(offset(12)), offset(11));
+        assert_eq!(imd.previous_char_boundary(offset(13)), offset(11));
+        assert_eq!(imd.previous_char_boundary(offset(14)), offset(11));
+        assert_eq!(imd.previous_char_boundary(offset(15)), offset(15));
+        assert_eq!(imd.previous_char_boundary(offset(16)), offset(15));
+        assert_eq!(imd.previous_char_boundary(offset(17)), offset(15));
+        assert_eq!(imd.previous_char_boundary(offset(18)), offset(18));
+        assert_eq!(imd.previous_char_boundary(offset(19)), offset(19));
     }
 }

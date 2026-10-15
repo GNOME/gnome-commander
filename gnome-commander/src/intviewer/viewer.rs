@@ -5,7 +5,7 @@
 
 use super::{
     image_render::{ImageOperation, ImageRender},
-    input_modes::preprocess_for_cp437_conversion,
+    input_modes::{FileOffset, preprocess_for_cp437_conversion},
     search_bar::{SearchBar, SearchBarError, SearchBarInput, SearchBarOutput, SearchSettings},
     searcher::Searcher,
     text_render::{TextRender, TextRenderDisplayMode},
@@ -250,7 +250,7 @@ pub enum ViewerInput {
     CloseSearchBar,
     SearchBar(SearchBarOutput),
     SearchProgress(u32),
-    SearchDone(Option<u64>),
+    SearchDone(Option<(FileOffset, FileOffset)>),
     Action(ViewerActions::Output),
 
     UpdateMonospacedFont,
@@ -280,7 +280,7 @@ pub struct Viewer {
     wrap_mode: bool,
     encoding: String,
     current_scale_index: usize,
-    current_search: Option<(gio::Cancellable, bool, usize)>,
+    current_search: Option<gio::Cancellable>,
 }
 
 impl Drop for Viewer {
@@ -290,7 +290,7 @@ impl Drop for Viewer {
             options.encoding.disconnect(handler);
         }
 
-        if let Some((cancellable, _, _)) = self.current_search.as_ref() {
+        if let Some(cancellable) = self.current_search.as_ref() {
             cancellable.cancel();
         }
     }
@@ -446,7 +446,7 @@ impl Component for Viewer {
                     self.start_search(sender, view, forward, settings)
                 }
                 SearchBarOutput::StopSearch => {
-                    if let Some((cancellable, _, _)) = self.current_search.as_ref() {
+                    if let Some(cancellable) = self.current_search.as_ref() {
                         cancellable.cancel();
                     }
                 }
@@ -464,7 +464,8 @@ impl Component for Viewer {
                 }
                 ViewerActions::Output::SelectAll => {
                     if self.display_mode != DisplayMode::Image {
-                        view.text_render.set_marker(0, view.text_render.size());
+                        view.text_render
+                            .set_marker(FileOffset::default(), view.text_render.size());
                     }
                 }
                 ViewerActions::Output::ZoomIn => self.zoom_in(view),
@@ -768,10 +769,14 @@ impl Viewer {
         settings: SearchSettings,
     ) {
         let input_mode = view.text_render.input_mode();
-        let end_offset = input_mode.max_offset();
+        let end_offset = input_mode.size();
         let start_offset = if self.searchbar.displayed_error() == SearchBarError::NotFound {
             // Wrap the search around after “Not found”
-            if forward { 0 } else { end_offset }
+            if forward {
+                FileOffset::default()
+            } else {
+                end_offset
+            }
         } else if let Some((start_marker, end_marker)) = view.text_render.marker()
             && view.text_render.is_range_visible(start_marker, end_marker)
         {
@@ -787,6 +792,15 @@ impl Viewer {
                 view.text_render.current_offset()
             } else {
                 view.text_render.end_offset()
+            }
+        };
+        let input_source = match input_mode.clone_input_source() {
+            Ok(input_source) => input_source,
+            Err(error) => {
+                eprintln!("{error}");
+                self.searchbar
+                    .send(SearchBarInput::ShowError(SearchBarError::NotFound));
+                return;
             }
         };
 
@@ -817,12 +831,12 @@ impl Viewer {
         };
 
         let cancellable = gio::Cancellable::new();
-        self.current_search = Some((cancellable.clone(), forward, pattern.len()));
+        self.current_search = Some(cancellable.clone());
 
         let sender = sender.clone();
         std::thread::spawn(move || {
             let searcher = Searcher::new(
-                input_mode,
+                input_source,
                 start_offset,
                 end_offset,
                 &pattern,
@@ -849,23 +863,19 @@ impl Viewer {
         });
     }
 
-    fn search_done(&mut self, view: &ViewerView, found: Option<u64>) {
-        let Some((cancellable, forward, pattern_len)) = self.current_search.take() else {
+    fn search_done(&mut self, view: &ViewerView, found: Option<(FileOffset, FileOffset)>) {
+        let Some(cancellable) = self.current_search.take() else {
             return;
         };
         self.searchbar.send(SearchBarInput::HideProgress);
         match found {
-            Some(result) => {
+            Some((match_start, match_end)) => {
                 let input_mode = view.text_render.input_mode();
                 view.text_render.set_marker(
-                    input_mode.previous_char_boundary(result),
-                    input_mode.next_char_boundary(if forward {
-                        result + pattern_len as u64
-                    } else {
-                        result - pattern_len as u64
-                    }),
+                    input_mode.previous_char_boundary(match_start),
+                    input_mode.next_char_boundary(match_end),
                 );
-                view.text_render.ensure_offset_visible(result);
+                view.text_render.ensure_offset_visible(match_start);
             }
             None => {
                 if !cancellable.is_cancelled() {

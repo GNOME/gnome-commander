@@ -2,48 +2,84 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::{debug::debug, intviewer::input_modes::InputSource};
+use crate::debug::debug;
 use memmap2::Mmap;
 use std::{
     fs,
     io::{self, Read, Seek},
-    path::Path,
+    path::{Path, PathBuf},
     sync::Mutex,
 };
 
-pub enum FileInputSource {
+enum FileData {
     Buffer(Mutex<FileBuffer>),
     Mmap(Mmap),
+    Static(&'static [u8]),
 }
 
-impl FileInputSource {
+pub struct InputSource {
+    path: PathBuf,
+    data: FileData,
+}
+
+impl From<&'static [u8]> for InputSource {
+    fn from(data: &'static [u8]) -> Self {
+        Self {
+            path: Default::default(),
+            data: FileData::Static(data),
+        }
+    }
+}
+
+impl InputSource {
     pub fn open(path: &Path) -> io::Result<Self> {
         let file = fs::File::open(path)?;
 
         let mmap = unsafe { Mmap::map(&file) };
-        Ok(match mmap {
-            Ok(mmap) => Self::Mmap(mmap),
-            Err(_error) => {
-                debug!('v', "Cannot mmap a file '{}': {}", path.display(), _error);
-                Self::Buffer(Mutex::new(FileBuffer::new(file)))
-            }
+        Ok(Self {
+            path: path.to_path_buf(),
+            data: match mmap {
+                Ok(mmap) => FileData::Mmap(mmap),
+                Err(_error) => {
+                    debug!('v', "Cannot mmap a file '{}': {}", path.display(), _error);
+                    FileData::Buffer(Mutex::new(FileBuffer::new(file)))
+                }
+            },
         })
     }
-}
 
-impl InputSource for FileInputSource {
-    fn max_offset(&self) -> u64 {
-        match self {
-            Self::Buffer(buffer) => buffer.lock().unwrap().size().unwrap_or_default(),
-            Self::Mmap(mmap) => mmap.len() as u64,
+    pub fn reopen(&self) -> io::Result<Self> {
+        Self::open(&self.path)
+    }
+
+    pub fn size(&self) -> u64 {
+        match &self.data {
+            FileData::Buffer(buffer) => buffer.lock().unwrap().size().unwrap_or_default(),
+            FileData::Mmap(mmap) => mmap.len() as u64,
+            FileData::Static(data) => data.len() as u64,
         }
     }
 
-    fn byte(&self, offset: u64) -> Option<u8> {
-        match self {
-            Self::Buffer(buffer) => buffer.lock().unwrap().byte(offset).ok(),
-            Self::Mmap(mmap) => mmap.get(offset as usize).copied(),
+    pub fn byte(&self, offset: u64) -> Option<u8> {
+        match &self.data {
+            FileData::Buffer(buffer) => buffer.lock().unwrap().byte(offset).ok(),
+            FileData::Mmap(mmap) => mmap.get(offset as usize).copied(),
+            FileData::Static(data) => data.get(offset as usize).copied(),
         }
+    }
+
+    pub fn bytes(&self, offset: u64, length: usize) -> Vec<u8> {
+        std::iter::successors(Some(offset), move |offset| offset.checked_add(1))
+            .take(length)
+            .map(|offset| self.byte(offset).unwrap_or_default())
+            .collect()
+    }
+
+    pub fn bytes_backwards(&self, offset: u64, length: usize) -> Vec<u8> {
+        std::iter::successors(Some(offset), move |offset| offset.checked_sub(1))
+            .take(length)
+            .map(|offset| self.byte(offset).unwrap_or_default())
+            .collect()
     }
 }
 
@@ -108,9 +144,9 @@ mod test {
     #[test]
     fn get_byte_does_read() {
         let file_path = PathBuf::from("../AUTHORS");
-        let fops = FileInputSource::open(&file_path).unwrap();
+        let fops = InputSource::open(&file_path).unwrap();
 
-        let end = fops.max_offset();
+        let end = fops.size();
 
         for current in 0..end {
             let value = fops.byte(current);
