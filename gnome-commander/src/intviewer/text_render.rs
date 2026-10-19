@@ -1022,7 +1022,6 @@ mod imp {
             };
             if new != current {
                 self.marker_end.set(new);
-                // In Fixed Width mode this offset has to be a line start or content might shift
                 self.obj().ensure_offset_visible(new);
                 self.obj().queue_draw();
             }
