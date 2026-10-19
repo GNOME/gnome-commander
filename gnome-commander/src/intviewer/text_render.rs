@@ -556,15 +556,15 @@ mod imp {
                 // Encoding could change data presentation mode, do the necessary updates.
                 self.set_display_mode(self.display_mode.get());
             } else {
+                let dp = self.data_presentation.borrow();
+                dp.clear_cache();
                 if let Some(vadjustment) = self.obj().vadjustment() {
                     vadjustment.set_value(
-                        self.data_presentation
-                            .borrow()
-                            .align_offset_to_line_start(
-                                &self.input_mode.borrow(),
-                                self.obj().current_offset(),
-                            )
-                            .into(),
+                        dp.align_offset_to_line_start(
+                            &self.input_mode.borrow(),
+                            self.obj().current_offset(),
+                        )
+                        .into(),
                     );
                 }
 
@@ -883,7 +883,7 @@ mod imp {
                 (CONTROL, gdk::Key::End | gdk::Key::KP_End) => vadjustment.set_value(
                     dp.align_offset_to_line_start(
                         &self.input_mode.borrow(),
-                        self.input_mode.borrow().max_offset(),
+                        self.input_mode.borrow().size(),
                     )
                     .into(),
                 ),
