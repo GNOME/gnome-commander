@@ -74,7 +74,7 @@ mod imp {
         pub lines_displayed: Cell<i32>,
         pub marker_start: Cell<FileOffset>,
         pub marker_end: Cell<FileOffset>,
-        pub marker_end_offset: Cell<Option<u64>>,
+        pub marker_end_column: Cell<Option<u32>>,
         /// The button pressed to start a selection
         button: Cell<Option<u32>>,
         hexmode_marker_on_hexdump: Cell<bool>,
@@ -122,7 +122,7 @@ mod imp {
                 lines_displayed: Default::default(),
                 marker_start: Default::default(),
                 marker_end: Default::default(),
-                marker_end_offset: Default::default(),
+                marker_end_column: Default::default(),
                 button: Default::default(),
                 hexmode_marker_on_hexdump: Default::default(),
 
@@ -663,7 +663,7 @@ mod imp {
                     .is_some_and(|state| state.contains(SHIFT))
                 {
                     self.marker_end.set(self.pixel_to_offset(x, y, false));
-                    self.marker_end_offset.set(None);
+                    self.marker_end_column.set(None);
                     self.obj().queue_draw();
                 } else {
                     self.marker_start.set(self.pixel_to_offset(x, y, true));
@@ -688,7 +688,7 @@ mod imp {
                     // Select the entire line
                     self.marker_start.set(line_start);
                     self.marker_end.set(line_end);
-                    self.marker_end_offset.set(None);
+                    self.marker_end_column.set(None);
                     self.obj().queue_draw();
                 } else {
                     // Select word: find characters of the same class left and right of position
@@ -719,7 +719,7 @@ mod imp {
 
                     self.marker_start.set(start_offset);
                     self.marker_end.set(input_mode.next_char_offset(end_offset));
-                    self.marker_end_offset.set(None);
+                    self.marker_end_column.set(None);
                     self.obj().queue_draw();
                 }
             }
@@ -729,7 +729,7 @@ mod imp {
             if self.button.get() == Some(button) {
                 self.button.set(None);
                 self.marker_end.set(self.pixel_to_offset(x, y, false));
-                self.marker_end_offset.set(None);
+                self.marker_end_column.set(None);
                 self.obj().queue_draw();
             }
         }
@@ -775,7 +775,7 @@ mod imp {
                 let new_marker = self.pixel_to_offset(x, y, false);
                 if new_marker != self.marker_end.get() {
                     self.marker_end.set(new_marker);
-                    self.marker_end_offset.set(None);
+                    self.marker_end_column.set(None);
                     self.obj().queue_draw();
                 }
             }
@@ -900,6 +900,27 @@ mod imp {
         }
 
         fn adjust_selection(&self, key: gdk::Key, dp: &DataPresentation) {
+            fn char_columns(
+                input_mode: &InputMode,
+                start: FileOffset,
+                tab_size: Option<u32>,
+            ) -> impl Iterator<Item = (FileOffset, u32)> {
+                std::iter::successors(Some(start), |offset| {
+                    Some(input_mode.next_char_offset(*offset))
+                })
+                .scan(0, move |column, offset| {
+                    let current = *column;
+                    *column = if let Some(tab_size) = tab_size
+                        && input_mode.character(offset) == Some('\t')
+                    {
+                        next_tab_position(current, tab_size)
+                    } else {
+                        current + 1
+                    };
+                    Some((offset, current))
+                })
+            }
+
             fn extend_by_lines(
                 render: &TextRender,
                 input_mode: &InputMode,
@@ -907,33 +928,33 @@ mod imp {
                 current_line: FileOffset,
                 file_offset: FileOffset,
                 delta: i32,
-            ) -> (FileOffset, Option<FileOffset>) {
-                let offset = if let Some(offset) = render.marker_end_offset.get() {
-                    offset
+            ) -> FileOffset {
+                let tab_size = if render.obj().display_mode() == TextRenderDisplayMode::Text {
+                    Some(render.obj().tab_size())
                 } else {
-                    let mut offset = 0;
-                    let mut current_char = current_line;
-                    while current_char < file_offset {
-                        offset += 1;
-                        current_char = input_mode.next_char_offset(current_char);
-                    }
-                    render.marker_end_offset.set(Some(offset));
-                    offset
+                    None
+                };
+                let column = if let Some(column) = render.marker_end_column.get() {
+                    column
+                } else {
+                    let column = char_columns(input_mode, current_line, tab_size)
+                        .find_map(|(offset, column)| (offset >= file_offset).then_some(column));
+                    render.marker_end_column.set(column);
+                    column.unwrap_or_default()
                 };
 
                 let line_start = dp.scroll_lines(input_mode, current_line, delta);
                 let line_end = dp.end_of_line_offset(input_mode, line_start);
 
-                (
-                    if line_start == current_line {
-                        if delta > 0 { line_end } else { line_start }
-                    } else {
-                        input_mode
-                            .move_forward_by(line_start, offset)
-                            .min(input_mode.previous_char_offset(line_end))
-                    },
-                    Some(line_start),
-                )
+                if line_start == current_line {
+                    if delta > 0 { line_end } else { line_start }
+                } else {
+                    char_columns(input_mode, line_start, tab_size)
+                        .take_while(|(offset, col)| *col <= column && *offset < line_end)
+                        .last()
+                        .map(|(offset, _)| offset)
+                        .unwrap_or(line_end)
+                }
             }
 
             let input_mode = self.input_mode.borrow();
@@ -948,32 +969,23 @@ mod imp {
                 current_line = next_line;
             }
 
-            let (new, scroll_to_position) = match key {
+            let new = match key {
                 gdk::Key::Left | gdk::Key::KP_Left => {
-                    self.marker_end_offset.set(None);
-                    let new = input_mode.previous_char_offset(current);
-                    let current_line = if new >= current_line {
-                        current_line
-                    } else {
-                        dp.scroll_lines(&input_mode, current_line, -1)
-                    };
-                    (new, Some(current_line))
+                    self.marker_end_column.set(None);
+                    input_mode.previous_char_offset(current)
                 }
                 gdk::Key::Right | gdk::Key::KP_Right => {
-                    self.marker_end_offset.set(None);
-                    (input_mode.next_char_offset(current), None)
+                    self.marker_end_column.set(None);
+                    input_mode.next_char_offset(current)
                 }
                 gdk::Key::Home | gdk::Key::KP_Home => {
-                    self.marker_end_offset.set(None);
-                    (current_line, None)
+                    self.marker_end_column.set(None);
+                    current_line
                 }
                 gdk::Key::End | gdk::Key::KP_End => {
-                    self.marker_end_offset.set(None);
-                    (
-                        input_mode
-                            .previous_char_offset(dp.end_of_line_offset(&input_mode, current_line)),
-                        None,
-                    )
+                    self.marker_end_column.set(None);
+                    input_mode
+                        .previous_char_offset(dp.end_of_line_offset(&input_mode, current_line))
                 }
                 gdk::Key::Up | gdk::Key::KP_Up => {
                     extend_by_lines(self, &input_mode, dp, current_line, current, -1)
@@ -999,20 +1011,19 @@ mod imp {
                 ),
                 // These aren't actual user inputs, we pass these keys to avoid passing in modifiers
                 gdk::Key::_0 => {
-                    self.marker_end_offset.set(None);
-                    (FileOffset::default(), None)
+                    self.marker_end_column.set(None);
+                    FileOffset::default()
                 }
                 gdk::Key::_9 => {
-                    self.marker_end_offset.set(None);
-                    (input_mode.size(), None)
+                    self.marker_end_column.set(None);
+                    input_mode.size()
                 }
-                _ => (current, None),
+                _ => current,
             };
             if new != current {
                 self.marker_end.set(new);
                 // In Fixed Width mode this offset has to be a line start or content might shift
-                self.obj()
-                    .ensure_offset_visible(scroll_to_position.unwrap_or(new));
+                self.obj().ensure_offset_visible(new);
                 self.obj().queue_draw();
             }
         }
@@ -1468,7 +1479,7 @@ impl TextRender {
     pub fn set_marker(&self, start: FileOffset, end: FileOffset) {
         self.imp().marker_start.set(start);
         self.imp().marker_end.set(end);
-        self.imp().marker_end_offset.set(None);
+        self.imp().marker_end_column.set(None);
         self.queue_draw();
     }
 
