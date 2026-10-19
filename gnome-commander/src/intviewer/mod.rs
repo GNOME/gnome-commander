@@ -17,8 +17,7 @@
 //! * `image_render::ImageRender` is the simpler component because it relies on [`gtk::gdk_pixbuf`]
 //!   crate for most of its functionality. It has no internal dependencies.
 //! * `text_render::TextRender` relies on a number of components working together:
-//!     * [`input_modes::InputSource`] trait provides access to raw file bytes. For anything other
-//!       than tests the implementation used will be [`file_input_source::FileInputSource`].
+//!     * [`input_source::InputSource`] type provides access to raw file bytes.
 //!     * `input_modes::CharacterEncoding` trait provides functionality mapping bytes to
 //!       characters. There are implementations of this trait handling single-byte encodings and
 //!       UTF-8.
@@ -92,9 +91,9 @@
 
 pub mod boyer_moore;
 pub mod data_presentation;
-pub mod file_input_source;
 pub mod image_render;
 pub mod input_modes;
+pub mod input_source;
 pub mod search_bar;
 pub mod searcher;
 pub mod text_render;
