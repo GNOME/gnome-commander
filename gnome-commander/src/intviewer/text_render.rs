@@ -18,10 +18,7 @@ const HEXDUMP_FIXED_LIMIT: u32 = 16;
 
 mod imp {
     use super::*;
-    use crate::{
-        intviewer::data_presentation::{DataPresentationMode, next_tab_position},
-        utils::MinMax,
-    };
+    use crate::intviewer::data_presentation::{DataPresentationMode, next_tab_position};
     use std::{
         cell::{Cell, RefCell},
         sync::OnceLock,
@@ -1125,20 +1122,22 @@ mod imp {
         fn display_line(
             &self,
             snapshot: &gtk::Snapshot,
-            chars: &[(FileOffset, u32, char)],
+            chars: &[(FileOffset, u32, u32, char)],
             marker: (FileOffset, FileOffset),
             display_options: &DisplayOptions,
         ) {
             let layout = self.obj().create_pango_layout(None);
             layout.set_font_description(Some(&*self.font_desc.borrow()));
 
-            let marked: MinMax<u32> = chars
+            let marked = chars
                 .iter()
-                .filter(|(offset, _, _)| *offset >= marker.0 && *offset < marker.1)
-                .map(|(_, column, _)| *column)
-                .collect();
+                .filter(|(offset, _, _, _)| *offset >= marker.0 && *offset < marker.1)
+                .fold(None, |current, (_, start, end, _)| match current {
+                    None => Some((*start, *end)),
+                    Some((min, max)) => Some((min.min(*start), max.max(*end))),
+                });
 
-            if let Some((start, end)) = marked.take() {
+            if let Some((start, end)) = marked {
                 snapshot.save();
                 snapshot.translate(&graphene::Point::new(
                     (self.char_width.get() * (start as i32)) as f32,
@@ -1156,7 +1155,7 @@ mod imp {
                 snapshot.restore();
             }
 
-            for (current, column, character) in chars {
+            for (current, column, _, character) in chars {
                 layout.set_text(&character.to_string());
                 snapshot.save();
                 snapshot.translate(&graphene::Point::new(
@@ -1173,7 +1172,7 @@ mod imp {
 
             let max_column = chars
                 .iter()
-                .map(|(_, column, _)| *column)
+                .map(|(_, _, end, _)| *end)
                 .max()
                 .unwrap_or_default();
             if max_column > self.displayed_max_column.get() {
@@ -1189,15 +1188,20 @@ mod imp {
             &self,
             line: (FileOffset, FileOffset),
             marker: (FileOffset, FileOffset),
-        ) -> Vec<(FileOffset, u32, char)> {
-            text_mode_line_iter(&self.input_mode.borrow(), line, self.tab_size.get())
+        ) -> Vec<(FileOffset, u32, u32, char)> {
+            let tab_size = self.tab_size.get();
+            text_mode_line_iter(&self.input_mode.borrow(), line, tab_size)
                 .filter_map(|(offset, column, character)| match character {
-                    Some('\r') | Some('\n') => {
-                        (offset >= marker.0 && offset < marker.1).then_some((offset, column, '↲'))
+                    Some('\r') | Some('\n') => (offset >= marker.0 && offset < marker.1)
+                        .then_some((offset, column, column, '↲')),
+                    Some('\t') if offset >= marker.0 && offset < marker.1 => {
+                        Some((offset, column, next_tab_position(column, tab_size) - 1, ' '))
                     }
-                    Some(ch) if ch == '\0' || ch.is_whitespace() => Some((offset, column, ' ')),
-                    Some(ch) => Some((offset, column, ch)),
-                    None => Some((offset, column, '\u{FFFD}')),
+                    Some(ch) if ch == '\0' || ch.is_whitespace() => {
+                        Some((offset, column, column, ' '))
+                    }
+                    Some(ch) => Some((offset, column, column, ch)),
+                    None => Some((offset, column, column, '\u{FFFD}')),
                 })
                 .collect::<Vec<_>>()
         }
@@ -1235,11 +1239,12 @@ mod imp {
         fn fixed_width_mode_chars(
             &self,
             line: (FileOffset, FileOffset),
-        ) -> Vec<(FileOffset, u32, char)> {
+        ) -> Vec<(FileOffset, u32, u32, char)> {
             fixed_width_mode_line_iter(&self.input_mode.borrow(), line)
                 .map(|(offset, column, character)| {
                     (
                         offset,
+                        column,
                         column,
                         character.map_or('.', |c| if c.is_control() { '.' } else { c }),
                     )
@@ -1289,13 +1294,13 @@ mod imp {
             {
                 if let Some(byte) = byte {
                     hex_chars.extend(
-                        format!("{byte:02X}")
-                            .chars()
-                            .enumerate()
-                            .map(|(i, c)| (offset, column * 3 + i as u32, c)),
+                        format!("{byte:02X}").chars().enumerate().map(|(i, c)| {
+                            (offset, column * 3 + i as u32, column * 3 + i as u32, c)
+                        }),
                     );
                     bin_chars.push((
                         offset,
+                        column,
                         column,
                         character.map_or('.', |c| if c.is_control() { '.' } else { c }),
                     ));
