@@ -662,31 +662,14 @@ mod imp {
                     .and_then(|window| get_modifiers_state(&window))
                     .is_some_and(|state| state.contains(SHIFT))
                 {
-                    self.marker_end.set(match self.obj().display_mode() {
-                        TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => {
-                            self.text_mode_pixel_to_offset(x, y)
-                        }
-                        TextRenderDisplayMode::Hexdump => {
-                            self.hex_mode_pixel_to_offset(x, y, false)
-                        }
-                    });
+                    self.marker_end.set(self.pixel_to_offset(x, y, false));
                     self.marker_end_offset.set(None);
                     self.obj().queue_draw();
                 } else {
-                    self.marker_start.set(match self.obj().display_mode() {
-                        TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => {
-                            self.text_mode_pixel_to_offset(x, y)
-                        }
-                        TextRenderDisplayMode::Hexdump => self.hex_mode_pixel_to_offset(x, y, true),
-                    });
+                    self.marker_start.set(self.pixel_to_offset(x, y, true));
                 }
             } else if n_press == 2 || n_press == 3 {
-                let offset = match self.obj().display_mode() {
-                    TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => {
-                        self.text_mode_pixel_to_offset(x, y)
-                    }
-                    TextRenderDisplayMode::Hexdump => self.hex_mode_pixel_to_offset(x, y, true),
-                };
+                let offset = self.pixel_to_offset(x, y, true);
                 let input_mode = self.input_mode.borrow();
                 let dp = self.data_presentation.borrow();
 
@@ -745,12 +728,7 @@ mod imp {
         fn button_release(&self, button: u32, x: f64, y: f64) {
             if self.button.get() == Some(button) {
                 self.button.set(None);
-                self.marker_end.set(match self.obj().display_mode() {
-                    TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => {
-                        self.text_mode_pixel_to_offset(x, y)
-                    }
-                    TextRenderDisplayMode::Hexdump => self.hex_mode_pixel_to_offset(x, y, false),
-                });
+                self.marker_end.set(self.pixel_to_offset(x, y, false));
                 self.marker_end_offset.set(None);
                 self.obj().queue_draw();
             }
@@ -794,12 +772,7 @@ mod imp {
                     }
                 }
 
-                let new_marker = match self.obj().display_mode() {
-                    TextRenderDisplayMode::Text | TextRenderDisplayMode::FixedWidth => {
-                        self.text_mode_pixel_to_offset(x, y)
-                    }
-                    TextRenderDisplayMode::Hexdump => self.hex_mode_pixel_to_offset(x, y, false),
-                };
+                let new_marker = self.pixel_to_offset(x, y, false);
                 if new_marker != self.marker_end.get() {
                     self.marker_end.set(new_marker);
                     self.marker_end_offset.set(None);
@@ -1044,10 +1017,17 @@ mod imp {
             }
         }
 
-        pub fn text_mode_pixel_to_offset(&self, x: f64, y: f64) -> FileOffset {
+        fn pixel_to_offset(&self, x: f64, y: f64, start_marker: bool) -> FileOffset {
+            match self.obj().display_mode() {
+                TextRenderDisplayMode::Text => self.text_mode_pixel_to_offset(x, y, true),
+                TextRenderDisplayMode::FixedWidth => self.text_mode_pixel_to_offset(x, y, false),
+                TextRenderDisplayMode::Hexdump => self.hex_mode_pixel_to_offset(x, y, start_marker),
+            }
+        }
+
+        fn text_mode_pixel_to_offset(&self, x: f64, y: f64, expand_tabs: bool) -> FileOffset {
             let char_width = self.char_width.get();
             let char_height = self.char_height.get();
-            let tab_size = self.tab_size.get();
 
             let current_offset = self.obj().current_offset();
 
@@ -1063,16 +1043,26 @@ mod imp {
             let line_offset = dp.scroll_lines(&self.input_mode.borrow(), current_offset, line);
             let next_line_offset = dp.scroll_lines(&self.input_mode.borrow(), line_offset, 1);
 
-            text_mode_line_iter(
-                &self.input_mode.borrow(),
-                (line_offset, next_line_offset),
-                tab_size,
-            )
-            .find_map(move |(offset, c, _)| (c >= column).then_some(offset))
-            .unwrap_or(next_line_offset)
+            if expand_tabs {
+                let tab_size = self.tab_size.get();
+                text_mode_line_iter(
+                    &self.input_mode.borrow(),
+                    (line_offset, next_line_offset),
+                    tab_size,
+                )
+                .find_map(move |(offset, c, _)| (c >= column).then_some(offset))
+                .unwrap_or(next_line_offset)
+            } else {
+                fixed_width_mode_line_iter(
+                    &self.input_mode.borrow(),
+                    (line_offset, next_line_offset),
+                )
+                .find_map(move |(offset, c, _)| (c >= column).then_some(offset))
+                .unwrap_or(next_line_offset)
+            }
         }
 
-        pub fn hex_mode_pixel_to_offset(&self, x: f64, y: f64, start_marker: bool) -> FileOffset {
+        fn hex_mode_pixel_to_offset(&self, x: f64, y: f64, start_marker: bool) -> FileOffset {
             let char_width = self.char_width.get();
             let char_height = self.char_height.get();
 
