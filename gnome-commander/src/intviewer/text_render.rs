@@ -1185,10 +1185,16 @@ mod imp {
             }
         }
 
-        fn text_mode_chars(&self, line: (FileOffset, FileOffset)) -> Vec<(FileOffset, u32, char)> {
+        fn text_mode_chars(
+            &self,
+            line: (FileOffset, FileOffset),
+            marker: (FileOffset, FileOffset),
+        ) -> Vec<(FileOffset, u32, char)> {
             text_mode_line_iter(&self.input_mode.borrow(), line, self.tab_size.get())
                 .filter_map(|(offset, column, character)| match character {
-                    Some('\r') | Some('\n') => None,
+                    Some('\r') | Some('\n') => {
+                        (offset >= marker.0 && offset < marker.1).then_some((offset, column, '↲'))
+                    }
                     Some(ch) if ch == '\0' || ch.is_whitespace() => Some((offset, column, ' ')),
                     Some(ch) => Some((offset, column, ch)),
                     None => Some((offset, column, '\u{FFFD}')),
@@ -1203,7 +1209,7 @@ mod imp {
             marker: (FileOffset, FileOffset),
             display_options: &DisplayOptions,
         ) {
-            let chars = self.text_mode_chars(line);
+            let chars = self.text_mode_chars(line, marker);
             self.display_line(snapshot, &chars, marker, display_options);
         }
 
