@@ -5,14 +5,14 @@
 use crate::debug::debug;
 use memmap2::Mmap;
 use std::{
+    cell::RefCell,
     fs,
     io::{self, Read, Seek},
     path::{Path, PathBuf},
-    sync::Mutex,
 };
 
 enum FileData {
-    Buffer(Mutex<FileBuffer>),
+    Buffer(RefCell<FileBuffer>),
     Mmap(Mmap),
     Static(&'static [u8]),
 }
@@ -42,7 +42,7 @@ impl InputSource {
                 Ok(mmap) => FileData::Mmap(mmap),
                 Err(_error) => {
                     debug!('v', "Cannot mmap a file '{}': {}", path.display(), _error);
-                    FileData::Buffer(Mutex::new(FileBuffer::new(file)))
+                    FileData::Buffer(RefCell::new(FileBuffer::new(file)))
                 }
             },
         })
@@ -54,7 +54,7 @@ impl InputSource {
 
     pub fn size(&self) -> u64 {
         match &self.data {
-            FileData::Buffer(buffer) => buffer.lock().unwrap().size().unwrap_or_default(),
+            FileData::Buffer(buffer) => buffer.borrow_mut().size().unwrap_or_default(),
             FileData::Mmap(mmap) => mmap.len() as u64,
             FileData::Static(data) => data.len() as u64,
         }
@@ -62,7 +62,7 @@ impl InputSource {
 
     pub fn byte(&self, offset: u64) -> Option<u8> {
         match &self.data {
-            FileData::Buffer(buffer) => buffer.lock().unwrap().byte(offset).ok(),
+            FileData::Buffer(buffer) => buffer.borrow_mut().byte(offset).ok(),
             FileData::Mmap(mmap) => mmap.get(offset as usize).copied(),
             FileData::Static(data) => data.get(offset as usize).copied(),
         }
