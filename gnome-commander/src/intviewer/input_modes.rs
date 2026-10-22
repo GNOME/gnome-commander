@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::input_source::InputSource;
-use std::borrow::Cow;
+use std::{borrow::Cow, path::Path};
 
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct FileOffset {
@@ -34,6 +34,20 @@ impl FileOffset {
 
     fn dec(self) -> Self {
         self.sub(1)
+    }
+
+    /// This converts the offset to a number.
+    ///
+    /// Using this method should normally not be necessary!
+    pub fn to_raw_offset(self) -> usize {
+        self.offset as usize
+    }
+
+    /// This converts a number into a file offset.
+    ///
+    /// Using this method should normally not be necessary!
+    pub fn from_raw_offset(offset: usize) -> Self {
+        Self::new(offset as u64)
     }
 }
 
@@ -84,11 +98,8 @@ impl InputMode {
         }
     }
 
-    /// Creates a copy of the input source and translates the offset into a raw offset. This
-    /// functionality is meant for the search which should access the raw input source for
-    /// performance reasons.
-    pub fn clone_input_source(&self) -> std::io::Result<InputSource> {
-        self.source.reopen()
+    pub fn path(&self) -> &Path {
+        self.source.path()
     }
 
     pub fn size(&self) -> FileOffset {
@@ -557,17 +568,6 @@ impl CharacterEncoding for UTF8Encoding {
         offset
     }
 }
-
-pub trait InputSourceExt {
-    fn get_raw_offset(&self, offset: FileOffset) -> u64 {
-        offset.offset
-    }
-    fn get_file_offset(&self, offset: u64) -> FileOffset {
-        FileOffset::new(offset)
-    }
-}
-
-impl InputSourceExt for InputSource {}
 
 #[cfg(test)]
 mod test {

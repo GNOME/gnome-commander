@@ -23,11 +23,8 @@ use component_framework::{
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gdk, gio, glib, prelude::*};
-use std::{
-    cell::Cell,
-    path::{Path, PathBuf},
-    time::{Duration, Instant},
-};
+use regex_syntax::hir::Hir;
+use std::path::{Path, PathBuf};
 
 const TEXT_SCALE_FACTORS: &[f64] = &[
     0.3, 0.5, 0.67, 0.8, 0.9, 1.0, 1.1, 1.2, 1.33, 1.5, 1.7, 2.0, 2.4, 3.0, 4.0, 5.0,
@@ -250,7 +247,7 @@ pub enum ViewerInput {
     CloseSearchBar,
     SearchBar(SearchBarOutput),
     SearchProgress(u32),
-    SearchDone(Option<(FileOffset, FileOffset)>),
+    SearchDone(Option<(usize, usize)>),
     Action(ViewerActions::Output),
 
     UpdateMonospacedFont,
@@ -761,50 +758,13 @@ impl Viewer {
         self.searchbar.is_visible()
     }
 
-    fn start_search(
-        &mut self,
-        sender: &ComponentSender<Self>,
-        view: &ViewerView,
-        forward: bool,
-        settings: SearchSettings,
-    ) {
-        let input_mode = view.text_render.input_mode();
-        let end_offset = input_mode.size();
-        let start_offset = if self.searchbar.displayed_error() == SearchBarError::NotFound {
-            // Wrap the search around after “Not found”
-            if forward {
-                FileOffset::default()
-            } else {
-                end_offset
-            }
-        } else if let Some((start_marker, end_marker)) = view.text_render.marker()
-            && view.text_render.is_range_visible(start_marker, end_marker)
-        {
-            // Start at the marked text if there is any
-            if forward {
-                input_mode.next_char_offset(start_marker)
-            } else {
-                input_mode.previous_char_offset(end_marker)
-            }
-        } else {
-            // Default to starting at the edge of the current screen
-            if forward {
-                view.text_render.current_offset()
-            } else {
-                view.text_render.end_offset()
-            }
-        };
-        let input_source = match input_mode.clone_input_source() {
-            Ok(input_source) => input_source,
-            Err(error) => {
-                eprintln!("{error}");
-                self.searchbar
-                    .send(SearchBarInput::ShowError(SearchBarError::NotFound));
-                return;
-            }
-        };
+    fn convert_pattern(settings: SearchSettings) -> Option<Hir> {
+        fn to_literal(iconv: &mut glib::IConv, s: &str) -> Option<Hir> {
+            let (slice, _) = iconv.convert(s.as_bytes()).ok()?;
+            Some(Hir::literal(slice.as_slice()))
+        }
 
-        let (pattern, match_case) = match settings {
+        Some(match settings {
             SearchSettings::Text {
                 pattern,
                 match_case,
@@ -815,61 +775,136 @@ impl Viewer {
                 } else {
                     pattern.into()
                 };
-                let Some((slice, _)) = glib::IConv::new(&*encoding, "UTF8")
-                    .and_then(|mut iconv| iconv.convert(pattern.as_bytes()).ok())
-                else {
-                    self.searchbar
-                        .send(SearchBarInput::ShowError(SearchBarError::EncodingError));
-                    return;
-                };
-                (slice.to_vec(), match_case)
+                let iconv = &mut glib::IConv::new(&*encoding, "UTF8")?;
+
+                if match_case {
+                    to_literal(iconv, &pattern)?
+                } else {
+                    let mut hirs = Vec::new();
+                    let mut literal = String::new();
+                    for char in pattern.chars() {
+                        let upper = char.to_uppercase().to_string();
+                        let lower = char.to_lowercase().to_string();
+                        if upper != lower {
+                            if !literal.is_empty() {
+                                hirs.push(to_literal(iconv, &literal)?);
+                                literal = String::new();
+                            }
+                            hirs.push(Hir::alternation(vec![
+                                to_literal(iconv, &upper)?,
+                                to_literal(iconv, &lower)?,
+                            ]));
+                        } else {
+                            literal.push(char);
+                        }
+                    }
+                    if !literal.is_empty() {
+                        hirs.push(to_literal(iconv, &literal)?);
+                    }
+                    Hir::concat(hirs)
+                }
             }
-            SearchSettings::Binary {
-                pattern,
-                match_case,
-            } => (pattern, match_case),
-        };
+            SearchSettings::Binary { pattern } => Hir::literal(pattern),
+        })
+    }
 
-        let cancellable = gio::Cancellable::new();
-        self.current_search = Some(cancellable.clone());
+    fn start_search(
+        &mut self,
+        sender: &ComponentSender<Self>,
+        view: &ViewerView,
+        forward: bool,
+        settings: SearchSettings,
+    ) {
+        let mut searcher = {
+            let input_mode = view.text_render.input_mode();
+            let end_offset = input_mode.size();
+            let start_offset = if self.searchbar.displayed_error() == SearchBarError::NotFound {
+                // Wrap the search around after “Not found”
+                if forward {
+                    FileOffset::default()
+                } else {
+                    end_offset
+                }
+            } else if let Some((start_marker, end_marker)) = view.text_render.marker()
+                && view.text_render.is_range_visible(start_marker, end_marker)
+            {
+                // Start at the marked text if there is any
+                if forward {
+                    input_mode.next_char_offset(start_marker)
+                } else {
+                    input_mode.previous_char_offset(end_marker)
+                }
+            } else {
+                // Default to starting at the edge of the current screen
+                if forward {
+                    view.text_render.current_offset()
+                } else {
+                    view.text_render.end_offset()
+                }
+            };
 
-        let sender = sender.clone();
-        std::thread::spawn(move || {
-            let searcher = Searcher::new(
-                input_source,
-                start_offset,
-                end_offset,
-                &pattern,
-                match_case,
+            let Some(hir) = Self::convert_pattern(settings) else {
+                self.searchbar
+                    .send(SearchBarInput::ShowError(SearchBarError::EncodingError));
+                return;
+            };
+
+            let cancellable = gio::Cancellable::new();
+            self.current_search = Some(cancellable.clone());
+
+            match Searcher::new(
+                input_mode.path(),
+                start_offset.to_raw_offset(),
+                end_offset.to_raw_offset(),
+                &hir.to_string(),
                 forward,
                 cancellable,
-            );
+            ) {
+                Some(searcher) => searcher,
+                None => {
+                    sender.input(ViewerInput::SearchDone(None));
+                    return;
+                }
+            }
+        };
 
-            // Only report progress every 100 ms to avoid filling up the channel.
-            let start = Instant::now();
-            let min_interval = Duration::from_millis(100);
-            let last_report = Cell::new(None);
-            let found = searcher.search(|p| {
-                let elapsed = start.elapsed();
-                if last_report
-                    .get()
-                    .is_none_or(|last_report| elapsed - last_report >= min_interval)
-                {
-                    sender.input(ViewerInput::SearchProgress(p));
-                    last_report.set(Some(elapsed));
+        let sender = sender.clone();
+        glib::spawn_future_local(async move {
+            let progress_receiver = searcher.progress_receiver();
+            let (result_sender, result_receiver) = async_channel::bounded(1);
+            std::thread::spawn(move || {
+                if let Err(error) = result_sender.send_blocking(searcher.search()) {
+                    eprintln!("Failed sending search result: {error}");
                 }
             });
-            sender.input(ViewerInput::SearchDone(found));
+
+            loop {
+                use futures::FutureExt;
+                futures::select! {
+                    progress = progress_receiver.recv().fuse() => {
+                        // Ignore errors here: sender might have been dropped because search is done
+                        if let Ok(progress) = progress {
+                            sender.input(ViewerInput::SearchProgress(progress));
+                        }
+                    },
+                    result = result_receiver.recv().fuse() => {
+                        sender.input(ViewerInput::SearchDone(result.unwrap_or(None)));
+                        break;
+                    }
+                }
+            }
         });
     }
 
-    fn search_done(&mut self, view: &ViewerView, found: Option<(FileOffset, FileOffset)>) {
+    fn search_done(&mut self, view: &ViewerView, found: Option<(usize, usize)>) {
         let Some(cancellable) = self.current_search.take() else {
             return;
         };
         self.searchbar.send(SearchBarInput::HideProgress);
         match found {
             Some((match_start, match_end)) => {
+                let match_start = FileOffset::from_raw_offset(match_start);
+                let match_end = FileOffset::from_raw_offset(match_end);
                 let input_mode = view.text_render.input_mode();
                 view.text_render.set_marker(
                     input_mode.previous_char_boundary(match_start),

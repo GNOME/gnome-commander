@@ -21,8 +21,9 @@ async-io.workspace = true
 async-process.workspace = true
 async-recursion.workspace = true
 bimap.workspace = true
-futures.workspace = true
 component-framework.workspace = true
+const_format = "0.2.36"
+futures.workspace = true
 gettext-rs.workspace = true
 glib.workspace = true
 glob.workspace = true
@@ -32,13 +33,14 @@ indexmap.workspace = true
 libc.workspace = true
 memmap2.workspace = true
 regex.workspace = true
+regex-cursor = { version = "0.1.5", default-features = false, features = ["perf-inline"] }
+regex-syntax = { version = "0.8.11", features = ["std"], default-features = false }
 serde.workspace = true
 serde_json.workspace = true
 tempfile.workspace = true
 unicode-segmentation.workspace = true
 vte.workspace = true
 winnow.workspace = true
-const_format = "0.2.36"
 
 [build-dependencies]
 walkdir.workspace = true

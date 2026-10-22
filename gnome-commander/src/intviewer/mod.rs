@@ -32,8 +32,6 @@
 //!   keyboard shortcuts.
 //! * [`searcher::Searcher`] is the type tasked with performing a search. It will scan the file
 //!   starting from a given position forward or backward.
-//! * [`boyer_moore::BoyerMoore`] is used by `searcher::Searcher` internally and is our
-//!   implementation of the Boyer-Moore string-search algorithm.
 //!
 //! #### Offsets
 //!
@@ -89,7 +87,6 @@
 //! their respective Unicode characters. For other encodings the bytes will be mapped to the first
 //! 256 Unicode codepoints.
 
-pub mod boyer_moore;
 pub mod data_presentation;
 pub mod image_render;
 pub mod input_modes;

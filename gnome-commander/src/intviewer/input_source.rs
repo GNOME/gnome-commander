@@ -48,8 +48,8 @@ impl InputSource {
         })
     }
 
-    pub fn reopen(&self) -> io::Result<Self> {
-        Self::open(&self.path)
+    pub fn path(&self) -> &Path {
+        &self.path
     }
 
     pub fn size(&self) -> u64 {
