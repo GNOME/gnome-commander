@@ -22,7 +22,6 @@ use gettextrs::gettext;
 use gtk::{gio, pango, prelude::*};
 use std::{
     cell::RefCell,
-    path::PathBuf,
     sync::atomic::{AtomicUsize, Ordering},
 };
 
@@ -76,7 +75,7 @@ pub struct ViewerWindowView {
 #[derive(Debug)]
 pub enum ViewerWindowInput {
     UpdateCurrent,
-    AddFile(usize, PathBuf, Option<String>),
+    AddFile(usize, gio::File, Option<String>),
     FileClosed(usize),
     FileReordered(usize),
     FocusContent,
@@ -219,7 +218,7 @@ impl Component for ViewerWindow {
         match msg {
             Self::Input::UpdateCurrent => {
                 let viewer = self.current_viewer(view);
-                view.window.set_title(viewer.title());
+                view.window.set_title(Some(&viewer.title()));
                 for message in [
                     ViewerOutput::DisplayMode(viewer.display_mode()),
                     ViewerOutput::MetadataVisible(viewer.metadata_visible()),
@@ -230,8 +229,8 @@ impl Component for ViewerWindow {
                 }
                 viewer.send(ViewerInput::FocusContent);
             }
-            Self::Input::AddFile(id, path, content_type) => {
-                let viewer = Viewer::new(id, &path, content_type.as_deref()).build();
+            Self::Input::AddFile(id, file, content_type) => {
+                let viewer = Viewer::new(id, file, content_type.as_deref()).build();
                 let index = view.notebook.append_page(
                     viewer.attach(sender, move |message| Self::Input::Viewer(id, message)),
                     Some(&with!(gtk::Box {
@@ -245,10 +244,10 @@ impl Component for ViewerWindow {
                         }));
 
                         gtk::Label {
-                            .set_label(viewer.short_title());
+                            .set_label(&viewer.short_title());
                             .set_width_chars(40);
                             .set_ellipsize(pango::EllipsizeMode::Middle);
-                            .set_tooltip_text(Some(viewer.short_title()));
+                            .set_tooltip_text(Some(&viewer.short_title()));
                         }
 
                         gtk::Button {
@@ -374,15 +373,14 @@ impl ViewerWindow {
         }
         static VIEWER_ID: AtomicUsize = AtomicUsize::new(0);
 
-        let Some(path) = file.local_path() else {
-            eprintln!("Cannot view file: no local path");
-            return;
-        };
-
         let id = VIEWER_ID.fetch_add(1, Ordering::Relaxed);
         let content_type = file.content_type().as_ref().map(glib::GString::to_string);
         if let Some(sender) = INSTANCE.with_borrow(|sender| sender.as_ref().cloned()) {
-            sender.input(ViewerWindowInput::AddFile(id, path, content_type));
+            sender.input(ViewerWindowInput::AddFile(
+                id,
+                file.file().clone(),
+                content_type,
+            ));
             sender.input(ViewerWindowInput::SetMetadata(
                 id,
                 FileMetadataService::default().extract_metadata(file).await,
@@ -397,7 +395,11 @@ impl ViewerWindow {
                 option_handlers: Vec::new(),
             }
             .build();
-            this.send(ViewerWindowInput::AddFile(id, path, content_type));
+            this.send(ViewerWindowInput::AddFile(
+                id,
+                file.file().clone(),
+                content_type,
+            ));
 
             let sender = this.sender().clone();
             INSTANCE.with_borrow_mut(|instance| *instance = Some(sender));

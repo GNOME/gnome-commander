@@ -3,11 +3,12 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::{content_search::ContentSearch, profile::SearchProfile};
+use super::profile::SearchProfile;
 use crate::{
     dir::Directory,
     file::{File, FileOps},
     filter::{Filter, PatternType},
+    intviewer::{search_bar::SearchSettings, searcher::Searcher},
     utils::ErrorMessage,
 };
 use gettextrs::gettext;
@@ -15,10 +16,11 @@ use gtk::gio::{self, prelude::*};
 use std::collections::BTreeSet;
 
 const ATTRIBUTES: &str = const_format::formatcp!(
-    "{},{},{},{}",
+    "{},{},{},{},{}",
     gio::FILE_ATTRIBUTE_STANDARD_NAME.as_str(),
     gio::FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME.as_str(),
     gio::FILE_ATTRIBUTE_STANDARD_TYPE.as_str(),
+    gio::FILE_ATTRIBUTE_STANDARD_SIZE.as_str(),
     gio::FILE_ATTRIBUTE_STANDARD_IS_SYMLINK.as_str()
 );
 
@@ -64,11 +66,19 @@ pub async fn search(
         None
     };
 
-    let mut content_search = if !profile.content_pattern().is_empty() {
-        Some(ContentSearch::new(
-            &profile.content_pattern(),
-            profile.content_match_case(),
-        )?)
+    let content_search = if !profile.content_pattern().is_empty() {
+        SearchSettings::Text {
+            pattern: profile.content_pattern(),
+            match_case: profile.content_match_case(),
+        }
+        .into_regex_pattern("UTF8")
+        .and_then(|regex_pattern| match Searcher::new(&regex_pattern, true) {
+            Ok(searcher) => Some(searcher),
+            Err(error) => {
+                eprintln!("Failed compiling search expression: {error}");
+                None
+            }
+        })
     } else {
         None
     };
@@ -82,7 +92,7 @@ pub async fn search(
             &start_dir,
             max_depth,
             &filename_filter,
-            &mut content_search,
+            &content_search,
             &sender,
             &cancellable,
         )
@@ -122,7 +132,7 @@ fn search_dir_recursive(
     dir: &str,
     level: i32,
     filename_filter: &Option<Filter>,
-    content_search: &mut Option<ContentSearch>,
+    content_search: &Option<Searcher>,
     sender: &async_channel::Sender<(bool, String)>,
     cancellable: &gio::Cancellable,
 ) {
@@ -172,7 +182,9 @@ fn search_dir_recursive(
 
         if let Some(content_search) = content_search
             && (info.file_type() != gio::FileType::Regular
-                || !content_search.check(&file, cancellable))
+                || content_search
+                    .search(&file, 0, info.size() as usize, cancellable.clone())
+                    .is_none())
         {
             continue;
         }

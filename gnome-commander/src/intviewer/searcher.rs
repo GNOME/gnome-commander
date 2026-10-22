@@ -15,16 +15,11 @@ use regex_cursor::{
         util::syntax,
     },
 };
-use std::{
-    fs::File,
-    io::{Error, Read, Seek, SeekFrom},
-    path::Path,
-    time::{Duration, Instant},
-};
+use std::time::{Duration, Instant};
 
 struct FileCursor {
-    file: File,
-    page: Vec<u8>,
+    stream: gio::FileInputStream,
+    page: glib::Bytes,
     current_offset: usize,
     size: usize,
     cancellable: gio::Cancellable,
@@ -40,19 +35,18 @@ impl FileCursor {
     const REPORT_INTERVAL: Duration = Duration::from_millis(100);
 
     pub fn new(
-        path: &Path,
+        file: &gio::File,
         current_offset: usize,
         size: usize,
         cancellable: gio::Cancellable,
         sender: Sender<u32>,
-    ) -> Result<Self, Error> {
-        let file = File::open(path)?;
+    ) -> Result<Self, glib::Error> {
+        let stream = file.read(Some(&cancellable))?;
         let current_offset = current_offset / Self::PAGE_SIZE * Self::PAGE_SIZE;
-        let page = vec![0; Self::PAGE_SIZE];
 
         let mut result = Self {
-            file,
-            page,
+            stream,
+            page: glib::Bytes::from_static(&[]),
             current_offset,
             size,
             cancellable,
@@ -66,22 +60,14 @@ impl FileCursor {
         Ok(result)
     }
 
-    fn read_page(&mut self, offset: usize) -> Result<(), Error> {
-        if offset >= self.size {
-            return Err(Error::other("EOF reached"));
-        }
+    fn read_page(&mut self, offset: usize) -> Result<(), glib::Error> {
+        self.stream
+            .seek(offset as i64, glib::SeekType::Set, Some(&self.cancellable))?;
 
-        if self.file.seek(SeekFrom::Start(offset as u64))? != offset as u64 {
-            return Err(Error::other("Failed setting file position"));
-        }
-
-        let size = Self::PAGE_SIZE.min(self.size - offset);
-        if self.file.read(&mut self.page[0..size])? != size {
-            return Err(Error::other(
-                "Didn't get the requested number of bytes from file",
-            ));
-        }
-
+        let bytes = self
+            .stream
+            .read_bytes(Self::PAGE_SIZE, Some(&self.cancellable))?;
+        self.page = bytes;
         self.current_offset = offset;
 
         let elapsed = self.start.elapsed();
@@ -111,15 +97,14 @@ impl Cursor for FileCursor {
     }
 
     fn advance(&mut self) -> bool {
-        !self.cancellable.is_cancelled()
+        self.page.len() == Self::PAGE_SIZE
             && self
                 .read_page(self.current_offset + Self::PAGE_SIZE)
                 .is_ok()
     }
 
     fn backtrack(&mut self) -> bool {
-        !self.cancellable.is_cancelled()
-            && self.current_offset > 0
+        self.current_offset > 0
             && self
                 .read_page(self.current_offset.saturating_sub(Self::PAGE_SIZE))
                 .is_ok()
@@ -168,96 +153,58 @@ impl Cursor for FileCursor {
 /// by default. In backwards direction we have the opposite scenario however, and the forward
 /// automaton needs to be anchored to run from the known start of the match.
 pub struct Searcher {
-    input: Input<FileCursor>,
     regex: Regex,
-    start_offset: usize,
-    max_offset: usize,
     forward: bool,
+    sender: Sender<u32>,
     receiver: Receiver<u32>,
 }
 
 impl Searcher {
-    pub fn new(
-        path: &Path,
-        start_offset: usize,
-        max_offset: usize,
-        pattern: &str,
-        forward: bool,
-        cancellable: gio::Cancellable,
-    ) -> Option<Self> {
+    #[allow(clippy::result_large_err)]
+    pub fn new(pattern: &str, forward: bool) -> Result<Self, dense::BuildError> {
         let (sender, receiver) = async_channel::unbounded();
-        let cursor = match FileCursor::new(path, start_offset, max_offset, cancellable, sender) {
-            Ok(cursor) => cursor,
-            Err(error) => {
-                eprintln!("{error}");
-                return None;
-            }
-        };
-        let input = Input::new(cursor);
-
-        fn build_automaton(
-            builder: &dense::Builder,
-            pattern: &str,
-        ) -> Option<dense::DFA<Vec<u32>>> {
-            match builder.build(pattern) {
-                Ok(automaton) => Some(automaton),
-                Err(error) => {
-                    eprintln!("{error}");
-                    None
-                }
-            }
-        }
 
         let (dfa_forward, dfa_reverse) = if forward {
             (
-                build_automaton(
-                    dense::DFA::builder().syntax(syntax::Config::new().utf8(false)),
-                    pattern,
-                )?,
-                build_automaton(
-                    dense::DFA::builder()
-                        .configure(
-                            dense::Config::new()
-                                .prefilter(None)
-                                .specialize_start_states(false)
-                                .start_kind(StartKind::Anchored)
-                                .match_kind(MatchKind::All),
-                        )
-                        .syntax(syntax::Config::new().utf8(false))
-                        .thompson(thompson::Config::new().reverse(true)),
-                    pattern,
-                )?,
+                dense::DFA::builder()
+                    .syntax(syntax::Config::new().utf8(false))
+                    .build(pattern)?,
+                dense::DFA::builder()
+                    .configure(
+                        dense::Config::new()
+                            .prefilter(None)
+                            .specialize_start_states(false)
+                            .start_kind(StartKind::Anchored)
+                            .match_kind(MatchKind::All),
+                    )
+                    .syntax(syntax::Config::new().utf8(false))
+                    .thompson(thompson::Config::new().reverse(true))
+                    .build(pattern)?,
             )
         } else {
             (
-                build_automaton(
-                    dense::DFA::builder()
-                        .configure(
-                            dense::Config::new()
-                                .prefilter(None)
-                                .specialize_start_states(false)
-                                .start_kind(StartKind::Anchored)
-                                .match_kind(MatchKind::All),
-                        )
-                        .syntax(syntax::Config::new().utf8(false)),
-                    pattern,
-                )?,
-                build_automaton(
-                    dense::DFA::builder()
-                        .thompson(thompson::Config::new().reverse(true))
-                        .syntax(syntax::Config::new().utf8(false)),
-                    pattern,
-                )?,
+                dense::DFA::builder()
+                    .configure(
+                        dense::Config::new()
+                            .prefilter(None)
+                            .specialize_start_states(false)
+                            .start_kind(StartKind::Anchored)
+                            .match_kind(MatchKind::All),
+                    )
+                    .syntax(syntax::Config::new().utf8(false))
+                    .build(pattern)?,
+                dense::DFA::builder()
+                    .thompson(thompson::Config::new().reverse(true))
+                    .syntax(syntax::Config::new().utf8(false))
+                    .build(pattern)?,
             )
         };
         let regex = Regex::builder().build_from_dfas(dfa_forward, dfa_reverse);
 
-        Some(Self {
-            input,
+        Ok(Self {
             regex,
-            start_offset,
-            max_offset,
             forward,
+            sender,
             receiver,
         })
     }
@@ -266,40 +213,65 @@ impl Searcher {
         self.receiver.clone()
     }
 
-    pub fn search(&mut self) -> Option<(usize, usize)> {
+    pub fn search(
+        &self,
+        file: &gio::File,
+        start_offset: usize,
+        max_offset: usize,
+        cancellable: gio::Cancellable,
+    ) -> Option<(usize, usize)> {
+        let cursor = match FileCursor::new(
+            file,
+            start_offset,
+            max_offset,
+            cancellable,
+            self.sender.clone(),
+        ) {
+            Ok(cursor) => cursor,
+            Err(error) => {
+                eprintln!("Failed opening file {} for searching: {error}", file.uri());
+                return None;
+            }
+        };
+
+        let mut input = Input::new(cursor);
         if self.forward {
-            self.search_forward()
+            self.search_forward(&mut input, start_offset)
         } else {
-            self.search_backward()
+            self.search_backward(&mut input, start_offset)
         }
     }
 
-    fn search_forward(&mut self) -> Option<(usize, usize)> {
-        self.input.set_span(self.start_offset..self.max_offset);
-        self.input.set_anchored(Anchored::No);
-        self.input.set_earliest(false);
-        try_search(&self.regex, &mut self.input)
+    fn search_forward(
+        &self,
+        input: &mut Input<FileCursor>,
+        start_offset: usize,
+    ) -> Option<(usize, usize)> {
+        input.set_span(start_offset..input.end());
+        try_search(&self.regex, input)
             .unwrap_or_default()
             .map(|m| (m.start(), m.end()))
     }
 
-    fn search_backward(&mut self) -> Option<(usize, usize)> {
+    fn search_backward(
+        &self,
+        input: &mut Input<FileCursor>,
+        start_offset: usize,
+    ) -> Option<(usize, usize)> {
         // There is no try_search_reverse(), so we replicate try_search() logic.
-        self.input.set_span(0..self.start_offset);
-        self.input.set_anchored(Anchored::No);
-        self.input.set_earliest(false);
-        let start = try_search_rev(self.regex.reverse(), &mut self.input).unwrap_or_default()?;
+        input.set_span(0..start_offset);
+        let start = try_search_rev(self.regex.reverse(), input).unwrap_or_default()?;
 
-        if start.offset() == self.input.end() {
+        if start.offset() == input.end() {
             // Empty match at the end of the search area
             return Some((start.offset(), start.offset()));
         }
 
         // Perform search in opposite direction to find the end of the match
-        self.input.set_span(start.offset()..self.input.end());
-        self.input.set_anchored(Anchored::Yes);
-        self.input.set_earliest(false);
-        let end = try_search_fwd(self.regex.forward(), &mut self.input).unwrap_or_default()?;
+        input.set_span(start.offset()..input.end());
+        input.set_anchored(Anchored::Yes);
+        input.set_earliest(false);
+        let end = try_search_fwd(self.regex.forward(), input).unwrap_or_default()?;
 
         Some((start.offset(), end.offset()))
     }
