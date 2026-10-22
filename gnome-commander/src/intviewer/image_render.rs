@@ -4,8 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use crate::utils::u32_enum;
-use gtk::{gdk, gdk_pixbuf, glib, graphene, prelude::*, subclass::prelude::*};
-use std::path::Path;
+use gtk::{gdk, gdk_pixbuf, gio, glib, graphene, prelude::*, subclass::prelude::*};
 
 const IMAGE_RENDER_DEFAULT_WIDTH: i32 = 100;
 const IMAGE_RENDER_DEFAULT_HEIGHT: i32 = 200;
@@ -547,11 +546,14 @@ impl ImageRender {
         }
     }
 
-    pub fn load_file(&self, filename: &Path) {
+    pub fn load_file(&self, file: &gio::File) {
         self.imp().original_pixbuf.replace(None);
         self.imp().display_pixbuf.replace(None);
 
-        match gdk_pixbuf::Pixbuf::from_file(filename) {
+        match file
+            .read(gio::Cancellable::NONE)
+            .and_then(|stream| gdk_pixbuf::Pixbuf::from_stream(&stream, gio::Cancellable::NONE))
+        {
             Ok(mut pixbuf) => {
                 if let Some(rotated) = pixbuf.apply_embedded_orientation() {
                     pixbuf = rotated;

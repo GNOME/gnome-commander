@@ -4,19 +4,20 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::input_source::InputSource;
-use std::{borrow::Cow, path::Path};
+use gtk::gio;
+use std::borrow::Cow;
 
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct FileOffset {
-    offset: u64,
+    offset: i64,
 }
 
 impl FileOffset {
-    fn new(offset: u64) -> Self {
+    fn new(offset: i64) -> Self {
         Self { offset }
     }
 
-    fn add(self, n: u64, size: FileOffset) -> Self {
+    fn add(self, n: i64, size: FileOffset) -> Self {
         Self {
             offset: self.offset.saturating_add(n).clamp(0, size.offset),
         }
@@ -26,9 +27,9 @@ impl FileOffset {
         self.add(1, size)
     }
 
-    fn sub(self, n: u64) -> Self {
+    fn sub(self, n: i64) -> Self {
         Self {
-            offset: self.offset.saturating_sub(n),
+            offset: (self.offset - n).max(0),
         }
     }
 
@@ -47,7 +48,7 @@ impl FileOffset {
     ///
     /// Using this method should normally not be necessary!
     pub fn from_raw_offset(offset: usize) -> Self {
-        Self::new(offset as u64)
+        Self::new(offset as i64)
     }
 }
 
@@ -60,7 +61,7 @@ impl From<FileOffset> for f64 {
 impl From<f64> for FileOffset {
     fn from(value: f64) -> Self {
         FileOffset {
-            offset: value as u64,
+            offset: value as i64,
         }
     }
 }
@@ -98,8 +99,8 @@ impl InputMode {
         }
     }
 
-    pub fn path(&self) -> &Path {
-        self.source.path()
+    pub fn file(&self) -> &gio::File {
+        self.source.file()
     }
 
     pub fn size(&self) -> FileOffset {
@@ -175,12 +176,12 @@ impl InputMode {
     }
 
     /// Moves the offset forward by the given number of logical characters.
-    pub fn move_forward_by(&self, current_offset: FileOffset, n: u64) -> FileOffset {
+    pub fn move_forward_by(&self, current_offset: FileOffset, n: i64) -> FileOffset {
         self.encoding.move_forward_by(self, current_offset, n)
     }
 
     /// Moves the offset backward by the given number of logical characters.
-    pub fn move_backward_by(&self, current_offset: FileOffset, n: u64) -> FileOffset {
+    pub fn move_backward_by(&self, current_offset: FileOffset, n: i64) -> FileOffset {
         self.encoding.move_backward_by(self, current_offset, n)
     }
 
@@ -217,7 +218,7 @@ impl InputMode {
 
     /// For fixed-width encodings this shifts the offset backward towards a line start for lines of
     /// given fixed number of characters. For variable-width encoding the offset is left unchanged.
-    pub fn align_offset_to_line_length(&self, offset: FileOffset, line_length: u64) -> FileOffset {
+    pub fn align_offset_to_line_length(&self, offset: FileOffset, line_length: i64) -> FileOffset {
         self.encoding
             .align_offset_to_line_length(offset, line_length)
     }
@@ -278,7 +279,7 @@ trait CharacterEncoding {
         &self,
         input_mode: &InputMode,
         current_offset: FileOffset,
-        n: u64,
+        n: i64,
     ) -> FileOffset;
 
     /// Moves offset backward by the given number of characters.
@@ -286,7 +287,7 @@ trait CharacterEncoding {
         &self,
         input_mode: &InputMode,
         current_offset: FileOffset,
-        n: u64,
+        n: i64,
     ) -> FileOffset;
 
     /// Checks whether the offset is aligned with the character boundary.
@@ -300,7 +301,7 @@ trait CharacterEncoding {
 
     /// If possible, shifts the offset backward to align it with the line start for lines with given
     /// fixed number of characters.
-    fn align_offset_to_line_length(&self, offset: FileOffset, line_length: u64) -> FileOffset;
+    fn align_offset_to_line_length(&self, offset: FileOffset, line_length: i64) -> FileOffset;
 
     /// Will be called with a callback that can determine whether a character can be rendered. This
     /// can be used to adjust the character's presentation.
@@ -394,7 +395,7 @@ impl CharacterEncoding for SingleByteEncoding {
         &self,
         input_mode: &InputMode,
         current_offset: FileOffset,
-        n: u64,
+        n: i64,
     ) -> FileOffset {
         current_offset.add(n, input_mode.size())
     }
@@ -403,7 +404,7 @@ impl CharacterEncoding for SingleByteEncoding {
         &self,
         _input_mode: &InputMode,
         current_offset: FileOffset,
-        n: u64,
+        n: i64,
     ) -> FileOffset {
         current_offset.sub(n)
     }
@@ -420,7 +421,7 @@ impl CharacterEncoding for SingleByteEncoding {
         offset
     }
 
-    fn align_offset_to_line_length(&self, offset: FileOffset, line_length: u64) -> FileOffset {
+    fn align_offset_to_line_length(&self, offset: FileOffset, line_length: i64) -> FileOffset {
         if line_length <= 1 {
             offset
         } else {
@@ -478,7 +479,7 @@ impl CharacterEncoding for UTF8Encoding {
         let bytes = input_mode.bytes(current_offset, 4);
         for len in 1..=4 {
             if std::str::from_utf8(&bytes[..len]).is_ok() {
-                return current_offset.add(len as u64, input_mode.size());
+                return current_offset.add(len as i64, input_mode.size());
             }
         }
         current_offset.inc(input_mode.size())
@@ -498,7 +499,7 @@ impl CharacterEncoding for UTF8Encoding {
         bytes.pop();
         for len in 1..=4 {
             if std::str::from_utf8(&bytes[4 - len..4]).is_ok() {
-                return current_offset.sub(len as u64);
+                return current_offset.sub(len as i64);
             }
         }
         current_offset.dec()
@@ -508,7 +509,7 @@ impl CharacterEncoding for UTF8Encoding {
         &self,
         input_mode: &InputMode,
         mut current_offset: FileOffset,
-        n: u64,
+        n: i64,
     ) -> FileOffset {
         for _ in 0..n {
             current_offset = self.next_char_offset(input_mode, current_offset);
@@ -520,7 +521,7 @@ impl CharacterEncoding for UTF8Encoding {
         &self,
         input_mode: &InputMode,
         mut current_offset: FileOffset,
-        n: u64,
+        n: i64,
     ) -> FileOffset {
         for _ in 0..n {
             current_offset = self.previous_char_offset(input_mode, current_offset);
@@ -564,7 +565,7 @@ impl CharacterEncoding for UTF8Encoding {
             .is_some_and(Self::is_continuation)
     }
 
-    fn align_offset_to_line_length(&self, offset: FileOffset, _line_length: u64) -> FileOffset {
+    fn align_offset_to_line_length(&self, offset: FileOffset, _line_length: i64) -> FileOffset {
         offset
     }
 }
@@ -573,7 +574,7 @@ impl CharacterEncoding for UTF8Encoding {
 mod test {
     use super::*;
 
-    fn offset(value: u64) -> FileOffset {
+    fn offset(value: i64) -> FileOffset {
         FileOffset::new(value)
     }
 

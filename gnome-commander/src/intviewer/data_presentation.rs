@@ -421,7 +421,7 @@ impl DataPresentation {
 
     fn fixed_next_line(&self, input_mode: &InputMode, current_offset: FileOffset) -> FileOffset {
         let fixed_count = self.fixed_count.max(1);
-        input_mode.move_forward_by(current_offset, fixed_count as u64)
+        input_mode.move_forward_by(current_offset, fixed_count as i64)
     }
 
     fn fixed_previous_line(
@@ -430,21 +430,21 @@ impl DataPresentation {
         current_offset: FileOffset,
     ) -> FileOffset {
         let fixed_count = self.fixed_count.max(1);
-        input_mode.move_backward_by(current_offset, fixed_count as u64)
+        input_mode.move_backward_by(current_offset, fixed_count as i64)
     }
 
     fn bin_align_offset(&self, input_mode: &InputMode, offset: FileOffset) -> FileOffset {
-        input_mode.align_offset_to_line_length(offset, self.fixed_count as u64)
+        input_mode.align_offset_to_line_length(offset, self.fixed_count as i64)
     }
 
     fn bin_next_line(&self, input_mode: &InputMode, current_offset: FileOffset) -> FileOffset {
         let fixed_count = self.fixed_count.max(1);
-        input_mode.move_forward_by(current_offset, fixed_count as u64)
+        input_mode.move_forward_by(current_offset, fixed_count as i64)
     }
 
     fn bin_previous_line(&self, input_mode: &InputMode, current_offset: FileOffset) -> FileOffset {
         let fixed_count = self.fixed_count.max(1);
-        input_mode.move_backward_by(current_offset, fixed_count as u64)
+        input_mode.move_backward_by(current_offset, fixed_count as i64)
     }
 }
 
@@ -485,7 +485,7 @@ mod data_presentation_test {
     const ABRACADABRA: &[u8] = b"\na\r\nab\nabra\r\nabrac\nabraca\r\nabracad\nabracada\r\nabracadab\nabracadabr\r\nabracadabra\n";
     const ABRACADABRA2: &[u8] = "abracardabra\nкадабра".as_bytes();
 
-    fn offset(value: u64) -> FileOffset {
+    fn offset(value: i64) -> FileOffset {
         FileOffset::from_raw_offset(value as usize)
     }
 

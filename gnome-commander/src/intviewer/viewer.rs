@@ -5,7 +5,7 @@
 
 use super::{
     image_render::{ImageOperation, ImageRender},
-    input_modes::{FileOffset, preprocess_for_cp437_conversion},
+    input_modes::FileOffset,
     search_bar::{SearchBar, SearchBarError, SearchBarInput, SearchBarOutput, SearchSettings},
     searcher::Searcher,
     text_render::{TextRender, TextRenderDisplayMode},
@@ -23,8 +23,6 @@ use component_framework::{
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gdk, gio, glib, prelude::*};
-use regex_syntax::hir::Hir;
-use std::path::{Path, PathBuf};
 
 const TEXT_SCALE_FACTORS: &[f64] = &[
     0.3, 0.5, 0.67, 0.8, 0.9, 1.0, 1.1, 1.2, 1.33, 1.5, 1.7, 2.0, 2.4, 3.0, 4.0, 5.0,
@@ -271,7 +269,7 @@ pub struct Viewer {
     shortcuts: ComponentController<Shortcuts<ViewerActions::List>>,
     searchbar: ComponentController<SearchBar>,
     option_handlers: Vec<glib::SignalHandlerId>,
-    file: PathBuf,
+    file: gio::File,
     display_mode: DisplayMode,
     metadata_visible: bool,
     wrap_mode: bool,
@@ -538,7 +536,7 @@ impl Component for Viewer {
 }
 
 impl Viewer {
-    pub fn new(id: usize, path: &Path, content_type: Option<&str>) -> Self {
+    pub fn new(id: usize, file: gio::File, content_type: Option<&str>) -> Self {
         let options = ViewerOptions::instance();
         Self {
             id,
@@ -546,7 +544,7 @@ impl Viewer {
             shortcuts: Shortcuts::new([]).build(),
             searchbar: Default::default(),
             option_handlers: Vec::new(),
-            file: path.to_path_buf(),
+            file,
             current_scale_index: DEFAULT_IMAGE_SCALE_INDEX,
             display_mode: DisplayMode::guess(content_type).unwrap_or_default(),
             metadata_visible: options.metadata_visible.get(),
@@ -560,14 +558,25 @@ impl Viewer {
         self.id
     }
 
-    pub fn title(&self) -> Option<&str> {
-        self.file.to_str()
+    pub fn title(&self) -> String {
+        self.file
+            .path()
+            .and_then(|path| path.to_str().map(String::from))
+            .unwrap_or_else(|| self.file.uri().to_string())
     }
 
-    pub fn short_title(&self) -> &str {
+    pub fn short_title(&self) -> String {
         self.file
-            .file_name()
-            .and_then(|name| name.to_str())
+            .path()
+            .and_then(|path| {
+                path.file_name()
+                    .map(|name| name.to_string_lossy().to_string())
+            })
+            .or_else(|| {
+                glib::Uri::parse(&self.file.uri(), glib::UriFlags::NONE)
+                    .ok()
+                    .map(|uri| uri.path().into())
+            })
             .unwrap_or_default()
     }
 
@@ -758,56 +767,6 @@ impl Viewer {
         self.searchbar.is_visible()
     }
 
-    fn convert_pattern(settings: SearchSettings) -> Option<Hir> {
-        fn to_literal(iconv: &mut glib::IConv, s: &str) -> Option<Hir> {
-            let (slice, _) = iconv.convert(s.as_bytes()).ok()?;
-            Some(Hir::literal(slice.as_slice()))
-        }
-
-        Some(match settings {
-            SearchSettings::Text {
-                pattern,
-                match_case,
-            } => {
-                let encoding = ViewerOptions::instance().encoding.get();
-                let pattern = if encoding.eq_ignore_ascii_case("CP437") {
-                    preprocess_for_cp437_conversion(&pattern)
-                } else {
-                    pattern.into()
-                };
-                let iconv = &mut glib::IConv::new(&*encoding, "UTF8")?;
-
-                if match_case {
-                    to_literal(iconv, &pattern)?
-                } else {
-                    let mut hirs = Vec::new();
-                    let mut literal = String::new();
-                    for char in pattern.chars() {
-                        let upper = char.to_uppercase().to_string();
-                        let lower = char.to_lowercase().to_string();
-                        if upper != lower {
-                            if !literal.is_empty() {
-                                hirs.push(to_literal(iconv, &literal)?);
-                                literal = String::new();
-                            }
-                            hirs.push(Hir::alternation(vec![
-                                to_literal(iconv, &upper)?,
-                                to_literal(iconv, &lower)?,
-                            ]));
-                        } else {
-                            literal.push(char);
-                        }
-                    }
-                    if !literal.is_empty() {
-                        hirs.push(to_literal(iconv, &literal)?);
-                    }
-                    Hir::concat(hirs)
-                }
-            }
-            SearchSettings::Binary { pattern } => Hir::literal(pattern),
-        })
-    }
-
     fn start_search(
         &mut self,
         sender: &ComponentSender<Self>,
@@ -815,8 +774,12 @@ impl Viewer {
         forward: bool,
         settings: SearchSettings,
     ) {
-        let mut searcher = {
+        let cancellable = gio::Cancellable::new();
+        self.current_search = Some(cancellable.clone());
+
+        let (searcher, file, start_offset, end_offset) = {
             let input_mode = view.text_render.input_mode();
+            let file = input_mode.file().clone();
             let end_offset = input_mode.size();
             let start_offset = if self.searchbar.displayed_error() == SearchBarError::NotFound {
                 // Wrap the search around after “Not found”
@@ -843,29 +806,28 @@ impl Viewer {
                 }
             };
 
-            let Some(hir) = Self::convert_pattern(settings) else {
+            let Some(regex_pattern) =
+                settings.into_regex_pattern(&ViewerOptions::instance().encoding.get())
+            else {
                 self.searchbar
                     .send(SearchBarInput::ShowError(SearchBarError::EncodingError));
                 return;
             };
 
-            let cancellable = gio::Cancellable::new();
-            self.current_search = Some(cancellable.clone());
-
-            match Searcher::new(
-                input_mode.path(),
-                start_offset.to_raw_offset(),
-                end_offset.to_raw_offset(),
-                &hir.to_string(),
-                forward,
-                cancellable,
-            ) {
-                Some(searcher) => searcher,
-                None => {
+            let searcher = match Searcher::new(&regex_pattern, forward) {
+                Ok(searcher) => searcher,
+                Err(error) => {
+                    eprintln!("Failed compiling search expression: {error}");
                     sender.input(ViewerInput::SearchDone(None));
                     return;
                 }
-            }
+            };
+            (
+                searcher,
+                file,
+                start_offset.to_raw_offset(),
+                end_offset.to_raw_offset(),
+            )
         };
 
         let sender = sender.clone();
@@ -873,7 +835,12 @@ impl Viewer {
             let progress_receiver = searcher.progress_receiver();
             let (result_sender, result_receiver) = async_channel::bounded(1);
             std::thread::spawn(move || {
-                if let Err(error) = result_sender.send_blocking(searcher.search()) {
+                if let Err(error) = result_sender.send_blocking(searcher.search(
+                    &file,
+                    start_offset,
+                    end_offset,
+                    cancellable,
+                )) {
                     eprintln!("Failed sending search result: {error}");
                 }
             });

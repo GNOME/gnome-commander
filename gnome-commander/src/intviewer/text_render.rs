@@ -11,8 +11,8 @@ use crate::{
     },
     utils::{CONTROL, CONTROL_SHIFT, Max, NO_MOD, SHIFT, get_modifiers_state},
 };
-use gtk::{gdk, glib, graphene, pango, prelude::*, subclass::prelude::*};
-use std::{cell::Ref, path::Path};
+use gtk::{gdk, gio, glib, graphene, pango, prelude::*, subclass::prelude::*};
+use std::cell::Ref;
 
 const HEXDUMP_FIXED_LIMIT: u32 = 16;
 
@@ -1526,11 +1526,11 @@ impl TextRender {
         self.imp().input_mode.borrow()
     }
 
-    pub fn load_file(&self, filename: &Path) {
-        let source = match InputSource::open(filename) {
+    pub fn load_file(&self, file: &gio::File) {
+        let source = match InputSource::open(file) {
             Ok(source) => source,
             Err(error) => {
-                eprintln!("Failed to load file {}: {}", filename.display(), error);
+                eprintln!("Failed to load file {}: {}", file.uri(), error);
                 self.imp().input_mode.replace(Default::default());
                 return;
             }
@@ -1683,7 +1683,7 @@ mod test {
         fn display_mode() {
             gtk::init().unwrap();
             let text_render = TextRender::default();
-            text_render.load_file(Path::new(FILENAME));
+            text_render.load_file(&gio::File::for_path(FILENAME));
             for mode in [
                 TextRenderDisplayMode::Text,
                 TextRenderDisplayMode::FixedWidth,
@@ -1698,7 +1698,7 @@ mod test {
         fn tab_size() {
             gtk::init().unwrap();
             let text_render = TextRender::default();
-            text_render.load_file(Path::new(FILENAME));
+            text_render.load_file(&gio::File::for_path(FILENAME));
             for tab_size in 1..=10 {
                 text_render.set_tab_size(tab_size);
                 assert_eq!(text_render.tab_size(), tab_size);
@@ -1709,7 +1709,7 @@ mod test {
         fn wrap_mode() {
             gtk::init().unwrap();
             let text_render = TextRender::default();
-            text_render.load_file(Path::new(FILENAME));
+            text_render.load_file(&gio::File::for_path(FILENAME));
             for mode in [false, true] {
                 text_render.set_wrap_mode(mode);
                 assert_eq!(text_render.wrap_mode(), mode);
@@ -1720,7 +1720,7 @@ mod test {
         fn fixed_limit() {
             gtk::init().unwrap();
             let text_render = TextRender::default();
-            text_render.load_file(Path::new(FILENAME));
+            text_render.load_file(&gio::File::for_path(FILENAME));
             for limit in 1..=10 {
                 text_render.set_fixed_limit(limit);
                 assert_eq!(text_render.fixed_limit(), limit);
@@ -1731,7 +1731,7 @@ mod test {
         fn encoding() {
             gtk::init().unwrap();
             let text_render = TextRender::default();
-            text_render.load_file(Path::new(FILENAME));
+            text_render.load_file(&gio::File::for_path(FILENAME));
             for encoding in ["ASCII", "UTF8", "CP437", "CP1251"] {
                 text_render.set_encoding(encoding);
                 assert_eq!(text_render.encoding(), encoding);

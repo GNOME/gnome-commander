@@ -2,80 +2,62 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::debug::debug;
-use memmap2::Mmap;
-use std::{
-    cell::RefCell,
-    fs,
-    io::{self, Read, Seek},
-    path::{Path, PathBuf},
-};
+use gtk::{gio, gio::prelude::*};
+use std::cell::RefCell;
 
 enum FileData {
     Buffer(RefCell<FileBuffer>),
-    Mmap(Mmap),
     Static(&'static [u8]),
 }
 
 pub struct InputSource {
-    path: PathBuf,
+    file: gio::File,
     data: FileData,
 }
 
 impl From<&'static [u8]> for InputSource {
     fn from(data: &'static [u8]) -> Self {
         Self {
-            path: Default::default(),
+            file: gio::File::for_uri(""),
             data: FileData::Static(data),
         }
     }
 }
 
 impl InputSource {
-    pub fn open(path: &Path) -> io::Result<Self> {
-        let file = fs::File::open(path)?;
-
-        let mmap = unsafe { Mmap::map(&file) };
+    pub fn open(file: &gio::File) -> Result<Self, glib::Error> {
         Ok(Self {
-            path: path.to_path_buf(),
-            data: match mmap {
-                Ok(mmap) => FileData::Mmap(mmap),
-                Err(_error) => {
-                    debug!('v', "Cannot mmap a file '{}': {}", path.display(), _error);
-                    FileData::Buffer(RefCell::new(FileBuffer::new(file)))
-                }
-            },
+            file: file.clone(),
+            data: FileData::Buffer(RefCell::new(FileBuffer::new(file)?)),
         })
     }
 
-    pub fn path(&self) -> &Path {
-        &self.path
+    pub fn file(&self) -> &gio::File {
+        &self.file
     }
 
-    pub fn size(&self) -> u64 {
+    pub fn size(&self) -> i64 {
         match &self.data {
             FileData::Buffer(buffer) => buffer.borrow_mut().size().unwrap_or_default(),
-            FileData::Mmap(mmap) => mmap.len() as u64,
-            FileData::Static(data) => data.len() as u64,
+            FileData::Static(data) => data.len() as i64,
         }
     }
 
-    pub fn byte(&self, offset: u64) -> Option<u8> {
+    pub fn byte(&self, offset: i64) -> Option<u8> {
         match &self.data {
             FileData::Buffer(buffer) => buffer.borrow_mut().byte(offset).ok(),
-            FileData::Mmap(mmap) => mmap.get(offset as usize).copied(),
             FileData::Static(data) => data.get(offset as usize).copied(),
         }
     }
 
-    pub fn bytes(&self, offset: u64, length: usize) -> Vec<u8> {
+    pub fn bytes(&self, offset: i64, length: usize) -> Vec<u8> {
         std::iter::successors(Some(offset), move |offset| offset.checked_add(1))
             .take(length)
             .map(|offset| self.byte(offset).unwrap_or_default())
             .collect()
     }
 
-    pub fn bytes_backwards(&self, offset: u64, length: usize) -> Vec<u8> {
+    pub fn bytes_backwards(&self, offset: i64, length: usize) -> Vec<u8> {
         std::iter::successors(Some(offset), move |offset| offset.checked_sub(1))
             .take(length)
             .map(|offset| self.byte(offset).unwrap_or_default())
@@ -83,68 +65,85 @@ impl InputSource {
     }
 }
 
-const PAGE_SIZE: u64 = 8192;
-
 pub struct FileBuffer {
-    file: fs::File,
-    pages: Vec<Option<Vec<u8>>>,
+    stream: gio::FileInputStream,
+    cache_offset: i64,
+    cache: Vec<u8>,
 }
 
 impl FileBuffer {
-    pub fn new(file: fs::File) -> Self {
-        Self {
-            file,
-            pages: Default::default(),
-        }
+    const PAGE_SIZE: usize = 0x2000;
+    const MAX_EXTRA_PAGES: usize = 2;
+
+    pub fn new(file: &gio::File) -> Result<Self, glib::Error> {
+        Ok(Self {
+            stream: file.read(gio::Cancellable::NONE)?,
+            cache_offset: 0,
+            cache: Vec::new(),
+        })
     }
 
-    pub fn size(&mut self) -> io::Result<u64> {
-        self.file.seek(io::SeekFrom::End(0))?;
-        let position = self.file.stream_position()?;
-        Ok(position)
+    pub fn size(&self) -> Result<i64, glib::Error> {
+        self.stream
+            .seek(0, glib::SeekType::End, gio::Cancellable::NONE)?;
+        Ok(self.stream.tell())
     }
 
-    pub fn byte(&mut self, offset: u64) -> io::Result<u8> {
-        let page = self.page((offset / PAGE_SIZE) as usize)?;
-        let byte = page
-            .get((offset % PAGE_SIZE) as usize)
-            .ok_or_else(|| io::Error::from(io::ErrorKind::UnexpectedEof))?;
-        Ok(*byte)
+    pub fn byte(&mut self, offset: i64) -> Result<u8, glib::Error> {
+        self.ensure_cached(offset)?;
+        Ok(self.cache[(offset - self.cache_offset) as usize])
     }
 
-    fn page(&mut self, page: usize) -> io::Result<&[u8]> {
-        let size = self.size()?;
-        let total_pages = size.div_ceil(PAGE_SIZE);
-        let pages = &mut self.pages;
-        if pages.len() < page + 1 {
-            pages.resize(page + 1, None);
-        }
-        if pages[page].is_none() {
-            self.file
-                .seek(io::SeekFrom::Start(page as u64 * PAGE_SIZE))?;
+    fn ensure_cached(&mut self, offset: i64) -> Result<(), glib::Error> {
+        if offset < self.cache_offset || offset >= self.cache_offset + self.cache.len() as i64 {
+            let page_start = offset / Self::PAGE_SIZE as i64 * Self::PAGE_SIZE as i64;
+            if page_start >= self.cache_offset
+                && page_start < self.cache_offset + self.cache.len() as i64
+            {
+                // We should have that offset in cache already but last page is incomplete - EOF
+                return Err(glib::Error::new(glib::FileError::Failed, "EOF"));
+            }
 
-            let page_size = if page as u64 + 1 == total_pages {
-                size % PAGE_SIZE
+            self.stream
+                .seek(page_start, glib::SeekType::Set, gio::Cancellable::NONE)?;
+            let mut page = self
+                .stream
+                .read_bytes(Self::PAGE_SIZE, gio::Cancellable::NONE)?
+                .to_vec();
+            if page_start + page.len() as i64 == self.cache_offset {
+                self.cache.truncate(Self::PAGE_SIZE * Self::MAX_EXTRA_PAGES);
+                page.append(&mut self.cache);
+                self.cache = page;
+                self.cache_offset = page_start;
+            } else if self.cache_offset + self.cache.len() as i64 == page_start {
+                if self.cache.len() > Self::PAGE_SIZE * Self::MAX_EXTRA_PAGES {
+                    let extra_elements = self.cache.len() - Self::PAGE_SIZE * Self::MAX_EXTRA_PAGES;
+                    self.cache.drain(0..extra_elements);
+                    self.cache_offset += extra_elements as i64;
+                }
+                self.cache.append(&mut page);
             } else {
-                PAGE_SIZE
-            } as usize;
-            let mut buf = vec![0; page_size];
-            self.file.read_exact(&mut buf)?;
-            pages[page] = Some(buf);
+                self.cache = page;
+                self.cache_offset = page_start;
+            }
+
+            if offset >= self.cache_offset + self.cache.len() as i64 {
+                // We read the page but it is incomplete - EOF
+                return Err(glib::Error::new(glib::FileError::Failed, "EOF"));
+            }
         }
-        Ok(pages[page].as_ref().unwrap())
+        Ok(())
     }
 }
 
 #[cfg(test)]
 mod test {
     use super::*;
-    use std::path::PathBuf;
 
     #[test]
     fn get_byte_does_read() {
-        let file_path = PathBuf::from("../AUTHORS");
-        let fops = InputSource::open(&file_path).unwrap();
+        let path = std::fs::canonicalize("../AUTHORS").unwrap();
+        let fops = InputSource::open(&gio::File::for_path(path)).unwrap();
 
         let end = fops.size();
 

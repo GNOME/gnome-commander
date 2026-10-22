@@ -3,10 +3,12 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+use super::input_modes::preprocess_for_cp437_conversion;
 use crate::{history_entry::HistoryEntry, options::ViewerOptions, utils::u32_enum};
 use component_framework::prelude::*;
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
+use regex_syntax::hir::Hir;
 
 u32_enum! {
     enum State {
@@ -50,6 +52,58 @@ u32_enum! {
 pub enum SearchSettings {
     Text { pattern: String, match_case: bool },
     Binary { pattern: Vec<u8> },
+}
+
+impl SearchSettings {
+    pub fn into_regex_pattern(self, encoding: &str) -> Option<String> {
+        fn to_literal(iconv: &mut glib::IConv, s: &str) -> Option<Hir> {
+            let (slice, _) = iconv.convert(s.as_bytes()).ok()?;
+            Some(Hir::literal(slice.as_slice()))
+        }
+
+        let hir = match self {
+            Self::Text {
+                pattern,
+                match_case,
+            } => {
+                let pattern = if encoding.eq_ignore_ascii_case("CP437") {
+                    preprocess_for_cp437_conversion(&pattern)
+                } else {
+                    pattern.into()
+                };
+                let iconv = &mut glib::IConv::new(encoding, "UTF8")?;
+
+                if match_case {
+                    to_literal(iconv, &pattern)?
+                } else {
+                    let mut hirs = Vec::new();
+                    let mut literal = String::new();
+                    for char in pattern.chars() {
+                        let upper = char.to_uppercase().to_string();
+                        let lower = char.to_lowercase().to_string();
+                        if upper != lower {
+                            if !literal.is_empty() {
+                                hirs.push(to_literal(iconv, &literal)?);
+                                literal = String::new();
+                            }
+                            hirs.push(Hir::alternation(vec![
+                                to_literal(iconv, &upper)?,
+                                to_literal(iconv, &lower)?,
+                            ]));
+                        } else {
+                            literal.push(char);
+                        }
+                    }
+                    if !literal.is_empty() {
+                        hirs.push(to_literal(iconv, &literal)?);
+                    }
+                    Hir::concat(hirs)
+                }
+            }
+            SearchSettings::Binary { pattern } => Hir::literal(pattern),
+        };
+        Some(hir.to_string())
+    }
 }
 
 #[derive(Debug, Default)]
