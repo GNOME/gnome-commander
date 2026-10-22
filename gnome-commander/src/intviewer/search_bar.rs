@@ -49,7 +49,7 @@ u32_enum! {
 #[derive(Debug)]
 pub enum SearchSettings {
     Text { pattern: String, match_case: bool },
-    Binary { pattern: Vec<u8>, match_case: bool },
+    Binary { pattern: Vec<u8> },
 }
 
 #[derive(Debug, Default)]
@@ -71,10 +71,7 @@ impl SearchBarView {
             if text.trim().is_empty() {
                 Ok(None)
             } else if let Some(pattern) = hex_to_bytes(&text) {
-                Ok(Some(SearchSettings::Binary {
-                    pattern,
-                    match_case: self.match_case.is_active(),
-                }))
+                Ok(Some(SearchSettings::Binary { pattern }))
             } else {
                 Err(SearchBarError::NotHex)
             }
@@ -132,7 +129,8 @@ impl SearchBarView {
     pub fn hide_progress(&self) {
         self.entry.set_progress_fraction(0.0);
         self.entry.set_sensitive(true);
-        self.match_case.set_sensitive(true);
+        self.match_case
+            .set_sensitive(ViewerOptions::instance().search_mode.get() != Mode::Binary);
         self.hex_mode.set_sensitive(true);
 
         if self.stop_button.has_focus() {
@@ -148,6 +146,8 @@ impl SearchBarView {
             Mode::Binary => &ViewerOptions::instance().search_pattern_hex,
         };
         self.entry.set_history(&option.get());
+
+        self.match_case.set_sensitive(mode != Mode::Binary);
     }
 
     fn is_state(&self, state: State) -> bool {

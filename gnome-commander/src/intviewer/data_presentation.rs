@@ -466,7 +466,6 @@ pub fn next_tab_position(column: u32, tab_size: u32) -> u32 {
 
 #[cfg(test)]
 mod data_presentation_test {
-    use super::super::{input_modes::InputSourceExt, input_source::InputSource};
     use super::*;
 
     #[test]
@@ -487,7 +486,7 @@ mod data_presentation_test {
     const ABRACADABRA2: &[u8] = "abracardabra\nкадабра".as_bytes();
 
     fn offset(value: u64) -> FileOffset {
-        InputSource::from(ABRACADABRA).get_file_offset(value)
+        FileOffset::from_raw_offset(value as usize)
     }
 
     #[test]
