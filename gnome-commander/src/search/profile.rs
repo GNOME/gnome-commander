@@ -233,6 +233,7 @@ mod test {
         assert_eq!(profile.path_syntax(), PatternType::Regex);
         assert!(profile.path_match_case());
         assert_eq!(profile.path_pattern(), "path");
+        assert_eq!(profile.content_mode(), Mode::Text);
         assert!(profile.content_match_case());
         assert_eq!(profile.content_pattern(), "text");
     }

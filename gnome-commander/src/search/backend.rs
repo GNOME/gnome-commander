@@ -86,9 +86,7 @@ pub async fn search(
             } else if let Some(pattern) = hex_to_bytes(&pattern) {
                 Some(SearchSettings::Binary { pattern })
             } else {
-                return Err(ErrorMessage::brief(gettext(
-                    "Invalid hexadecimal pattern",
-                )));
+                return Err(ErrorMessage::brief(gettext("Invalid hexadecimal pattern")));
             }
         }
     };
