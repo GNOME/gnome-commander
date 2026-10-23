@@ -246,6 +246,7 @@ pub enum ViewerInput {
     SearchBar(SearchBarOutput),
     SearchProgress(u32),
     SearchDone(Option<(usize, usize)>),
+    Select((usize, usize)),
     Action(ViewerActions::Output),
 
     UpdateMonospacedFont,
@@ -451,6 +452,7 @@ impl Component for Viewer {
                 self.searchbar.send(SearchBarInput::Progress(progress))
             }
             Self::Input::SearchDone(found) => self.search_done(view, found),
+            Self::Input::Select(selection) => self.select(view, selection),
             Self::Input::Action(action) => match action {
                 ViewerActions::Output::CopySelection => {
                     if self.display_mode != DisplayMode::Image {
@@ -536,8 +538,12 @@ impl Component for Viewer {
 }
 
 impl Viewer {
-    pub fn new(id: usize, file: gio::File, content_type: Option<&str>) -> Self {
+    pub fn new(id: usize, file: gio::File, content_type: Option<&str>, force_text: bool) -> Self {
         let options = ViewerOptions::instance();
+        let display_mode = match DisplayMode::guess(content_type).unwrap_or_default() {
+            DisplayMode::Image if force_text => DisplayMode::FixedWidth,
+            mode => mode,
+        };
         Self {
             id,
             action_group: Default::default(),
@@ -546,7 +552,7 @@ impl Viewer {
             option_handlers: Vec::new(),
             file,
             current_scale_index: DEFAULT_IMAGE_SCALE_INDEX,
-            display_mode: DisplayMode::guess(content_type).unwrap_or_default(),
+            display_mode,
             metadata_visible: options.metadata_visible.get(),
             wrap_mode: options.wrap_mode.get(),
             encoding: options.encoding.get(),
@@ -869,15 +875,8 @@ impl Viewer {
         };
         self.searchbar.send(SearchBarInput::HideProgress);
         match found {
-            Some((match_start, match_end)) => {
-                let match_start = FileOffset::from_raw_offset(match_start);
-                let match_end = FileOffset::from_raw_offset(match_end);
-                let input_mode = view.text_render.input_mode();
-                view.text_render.set_marker(
-                    input_mode.previous_char_boundary(match_start),
-                    input_mode.next_char_boundary(match_end),
-                );
-                view.text_render.ensure_offset_visible(match_start);
+            Some(selection) => {
+                self.select(view, selection);
             }
             None => {
                 if !cancellable.is_cancelled() {
@@ -886,6 +885,18 @@ impl Viewer {
                 }
             }
         }
+    }
+
+    fn select(&mut self, view: &ViewerView, selection: (usize, usize)) {
+        let (start, end) = selection;
+        let start = FileOffset::from_raw_offset(start);
+        let end = FileOffset::from_raw_offset(end);
+        let input_mode = view.text_render.input_mode();
+        view.text_render.set_marker(
+            input_mode.previous_char_boundary(start),
+            input_mode.next_char_boundary(end),
+        );
+        view.text_render.ensure_offset_visible(start);
     }
 }
 

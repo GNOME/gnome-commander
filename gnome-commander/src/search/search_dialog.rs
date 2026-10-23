@@ -20,7 +20,7 @@ use crate::{
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gio, glib, pango, prelude::*, subclass::prelude::*};
-use std::{cell::RefCell, rc::Rc};
+use std::{cell::RefCell, collections::HashMap, rc::Rc};
 
 struct SearchProfiles {
     profiles: gio::ListStore,
@@ -220,6 +220,8 @@ mod imp {
 
         #[property(get, set, nullable)]
         cancellable: RefCell<Option<gio::Cancellable>>,
+
+        content_matches: RefCell<HashMap<String, (usize, usize)>>,
     }
 
     #[glib::object_subclass]
@@ -326,6 +328,7 @@ mod imp {
                 start_dir: Default::default(),
 
                 cancellable: Default::default(),
+                content_matches: Default::default(),
             }
         }
     }
@@ -648,18 +651,38 @@ mod imp {
             self.find_button.set_sensitive(false);
             self.obj().set_default_widget(Some(&self.stop_button));
 
-            let result_list = self.result_list.borrow().clone();
             let directory = Directory::create_virtual(&start_dir.connection());
-            result_list.set_directory(&directory);
+            self.result_list.borrow().set_directory(&directory);
+            self.content_matches.borrow_mut().clear();
 
             let search_result = backend::search(
                 &profile,
                 &start_dir,
-                &|message| match message {
-                    SearchMessage::File(file) => {
+                async |message| match message {
+                    SearchMessage::File(uri, content_match) => {
+                        let file = gio::File::for_uri(&uri);
+                        let file = match file
+                            .query_info_future(
+                                File::DEFAULT_ATTRIBUTES,
+                                gio::FileQueryInfoFlags::NONE,
+                                glib::Priority::DEFAULT,
+                            )
+                            .await
+                        {
+                            Ok(info) => File::new_from_file(&file, &info),
+                            Err(error) => {
+                                eprintln!("Cannot query attributes for '{uri}': {error}");
+                                return;
+                            }
+                        };
+
                         directory.listen_to_file(&file);
                         directory.add_file(&file);
-                        result_list.append_file(&file);
+                        self.result_list.borrow().append_file(&file);
+
+                        if let Some(content_match) = content_match {
+                            self.content_matches.borrow_mut().insert(uri, content_match);
+                        }
                     }
                     SearchMessage::Status(status) => self.status_label.set_text(&status),
                 },
@@ -743,7 +766,14 @@ mod imp {
                 return;
             };
 
-            if let Err(error) = file_view(self.obj().upcast_ref(), &file, use_internal_viewer).await
+            let content_match = self.content_matches.borrow().get(&file.uri()).copied();
+            if let Err(error) = file_view(
+                self.obj().upcast_ref(),
+                &file,
+                use_internal_viewer,
+                content_match,
+            )
+            .await
             {
                 error.show(self.obj().upcast_ref()).await;
             }

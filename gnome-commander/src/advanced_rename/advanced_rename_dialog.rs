@@ -688,7 +688,8 @@ mod imp {
 
         async fn file_list_view(&self) {
             if let Some((_, item)) = self.selected_item()
-                && let Err(error) = file_view(self.obj().upcast_ref(), &item.file(), None).await
+                && let Err(error) =
+                    file_view(self.obj().upcast_ref(), &item.file(), None, None).await
             {
                 error.show(self.obj().upcast_ref()).await;
             }

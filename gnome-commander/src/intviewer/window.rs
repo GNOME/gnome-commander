@@ -75,7 +75,7 @@ pub struct ViewerWindowView {
 #[derive(Debug)]
 pub enum ViewerWindowInput {
     UpdateCurrent,
-    AddFile(usize, gio::File, Option<String>),
+    AddFile(usize, gio::File, Option<String>, Option<(usize, usize)>),
     FileClosed(usize),
     FileReordered(usize),
     FocusContent,
@@ -229,8 +229,12 @@ impl Component for ViewerWindow {
                 }
                 viewer.send(ViewerInput::FocusContent);
             }
-            Self::Input::AddFile(id, file, content_type) => {
-                let viewer = Viewer::new(id, file, content_type.as_deref()).build();
+            Self::Input::AddFile(id, file, content_type, selection) => {
+                let viewer =
+                    Viewer::new(id, file, content_type.as_deref(), selection.is_some()).build();
+                if let Some(selection) = selection {
+                    viewer.send(ViewerInput::Select(selection));
+                }
                 let index = view.notebook.append_page(
                     viewer.attach(sender, move |message| Self::Input::Viewer(id, message)),
                     Some(&with!(gtk::Box {
@@ -365,7 +369,7 @@ impl Component for ViewerWindow {
 }
 
 impl ViewerWindow {
-    pub async fn file_view(file: &File) {
+    pub async fn file_view(file: &File, selection: Option<(usize, usize)>) {
         use futures::FutureExt;
 
         thread_local! {
@@ -380,6 +384,7 @@ impl ViewerWindow {
                 id,
                 file.file().clone(),
                 content_type,
+                selection,
             ));
             sender.input(ViewerWindowInput::SetMetadata(
                 id,
@@ -399,6 +404,7 @@ impl ViewerWindow {
                 id,
                 file.file().clone(),
                 content_type,
+                selection,
             ));
 
             let sender = this.sender().clone();

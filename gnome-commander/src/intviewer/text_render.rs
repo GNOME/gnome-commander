@@ -1459,6 +1459,12 @@ impl TextRender {
             changed_adjustment = true;
         }
 
+        if self.max_column() == 0 {
+            // There was no draw yet. We need to call snapshot() to make sure hadjustment limits are
+            // set correctly.
+            self.imp().snapshot(&gtk::Snapshot::new());
+        }
+
         let hoffset = offset - line_start;
         let chars_per_line = self.chars_per_line() as f64;
         if let Some(hadjustment) = self.hadjustment()
