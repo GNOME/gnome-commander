@@ -132,7 +132,7 @@ async fn file_view_impl(main_win: MainWindow, use_internal_viewer: Option<bool>)
         return;
     };
 
-    if let Err(error) = file_view(main_win.upcast_ref(), &file, use_internal_viewer).await {
+    if let Err(error) = file_view(main_win.upcast_ref(), &file, use_internal_viewer, None).await {
         error.show(main_win.upcast_ref()).await;
     }
 }

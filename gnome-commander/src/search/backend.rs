@@ -6,7 +6,7 @@
 use super::profile::SearchProfile;
 use crate::{
     dir::Directory,
-    file::{File, FileOps},
+    file::FileOps,
     filter::{Filter, PatternType},
     intviewer::{
         search_bar::{Mode, SearchSettings, hex_to_bytes},
@@ -29,13 +29,13 @@ const ATTRIBUTES: &str = const_format::formatcp!(
 
 pub enum SearchMessage {
     Status(String),
-    File(File),
+    File(String, Option<(usize, usize)>),
 }
 
 pub async fn search(
     profile: &SearchProfile,
     start_dir: &Directory,
-    on_message: &dyn Fn(SearchMessage),
+    on_message: impl AsyncFn(SearchMessage),
     cancellable: &gio::Cancellable,
 ) -> Result<(), ErrorMessage> {
     let max_depth = profile.max_depth();
@@ -101,7 +101,7 @@ pub async fn search(
         });
 
     let cancellable = cancellable.clone();
-    let (sender, receiver) = async_channel::unbounded::<(bool, String)>();
+    let (sender, receiver) = async_channel::unbounded();
 
     std::thread::spawn(move || {
         search_dir_recursive(
@@ -115,23 +115,8 @@ pub async fn search(
         )
     });
 
-    while let Ok((is_result, value)) = receiver.recv().await {
-        if is_result {
-            let file = gio::File::for_uri(&value);
-            match file
-                .query_info_future(
-                    File::DEFAULT_ATTRIBUTES,
-                    gio::FileQueryInfoFlags::NONE,
-                    glib::Priority::DEFAULT,
-                )
-                .await
-            {
-                Ok(info) => (on_message)(SearchMessage::File(File::new_from_file(&file, &info))),
-                Err(error) => eprintln!("Cannot query attributes for '{value}': {error}"),
-            }
-        } else {
-            (on_message)(SearchMessage::Status(value));
-        }
+    while let Ok(message) = receiver.recv().await {
+        (on_message)(message).await;
     }
 
     Ok(())
@@ -150,7 +135,7 @@ fn search_dir_recursive(
     level: i32,
     filename_filter: &Option<Filter>,
     content_search: &Option<Searcher>,
-    sender: &async_channel::Sender<(bool, String)>,
+    sender: &async_channel::Sender<SearchMessage>,
     cancellable: &gio::Cancellable,
 ) {
     if cancellable.is_cancelled() {
@@ -158,10 +143,8 @@ fn search_dir_recursive(
     }
 
     if start.uri() != dir {
-        let message = (
-            false,
-            gettext("Searching in: {}").replace("{}", &get_path(start, dir)),
-        );
+        let message =
+            SearchMessage::Status(gettext("Searching in: {}").replace("{}", &get_path(start, dir)));
         if let Err(error) = sender.send_blocking(message) {
             eprintln!("Sending search result to channel failed: {error}");
             return;
@@ -197,17 +180,21 @@ fn search_dir_recursive(
             continue;
         }
 
-        if let Some(content_search) = content_search
-            && (info.file_type() != gio::FileType::Regular
-                || content_search
-                    .search(&file, 0, info.size() as usize, cancellable.clone())
-                    .is_none())
-        {
-            continue;
+        let mut content_match = None;
+        if let Some(content_search) = content_search {
+            if info.file_type() != gio::FileType::Regular {
+                continue;
+            }
+
+            content_match =
+                content_search.search(&file, 0, info.size() as usize, cancellable.clone());
+            if content_match.is_none() {
+                continue;
+            }
         }
 
         // The file matched the search criteria, let's add it to the list
-        let message = (true, file.uri().to_string());
+        let message = SearchMessage::File(file.uri().to_string(), content_match);
         if let Err(error) = sender.send_blocking(message) {
             eprintln!("Sending search result to channel failed: {error}");
             return;

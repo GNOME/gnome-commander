@@ -14,7 +14,11 @@ use crate::{
 use gettextrs::gettext;
 use gtk::gio;
 
-pub async fn file_view_internal(parent_window: &gtk::Window, f: &File) -> Result<(), ErrorMessage> {
+pub async fn file_view_internal(
+    parent_window: &gtk::Window,
+    f: &File,
+    selection: Option<(usize, usize)>,
+) -> Result<(), ErrorMessage> {
     let file_to_view = if f.is_local() {
         // If the file is local there is no need to download it
         f.clone()
@@ -39,7 +43,7 @@ pub async fn file_view_internal(parent_window: &gtk::Window, f: &File) -> Result
         tmp_file
     };
 
-    ViewerWindow::file_view(&file_to_view).await;
+    ViewerWindow::file_view(&file_to_view, selection).await;
     Ok(())
 }
 
@@ -55,6 +59,7 @@ pub async fn file_view(
     parent_window: &gtk::Window,
     file: &File,
     use_internal_viewer: Option<bool>,
+    selection: Option<(usize, usize)>,
 ) -> Result<(), ErrorMessage> {
     if file.is_directory() {
         return Err(ErrorMessage::new(
@@ -68,7 +73,7 @@ pub async fn file_view(
         use_internal_viewer.unwrap_or_else(|| options.use_internal_viewer.get());
 
     if use_internal_viewer {
-        file_view_internal(parent_window, file).await?;
+        file_view_internal(parent_window, file, selection).await?;
     } else {
         file_view_external(file, &options).await?;
     }
