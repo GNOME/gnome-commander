@@ -447,7 +447,7 @@ impl SearchBar {
     }
 }
 
-fn hex_to_bytes(text: &str) -> Option<Vec<u8>> {
+pub fn hex_to_bytes(text: &str) -> Option<Vec<u8>> {
     let nibs = text
         .chars()
         .filter(|c| !c.is_ascii_whitespace())
