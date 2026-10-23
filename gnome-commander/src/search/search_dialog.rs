@@ -181,7 +181,6 @@ mod imp {
         dir::Directory,
         file::File,
         file_list::list::FileList,
-        intviewer::search_bar::Mode,
         main_win::MainWindow,
         options::{GeneralOptions, ViewerOptions, utils::remember_window_size},
         select_directory_button::DirectoryButton,
@@ -730,8 +729,8 @@ mod imp {
             let text_pattern = default_profile.content_pattern();
             if !text_pattern.is_empty() {
                 config.add_content_pattern(&text_pattern);
-                if let Err(error) =
-                    ViewerOptions::instance().add_to_history(&text_pattern, Mode::Text)
+                if let Err(error) = ViewerOptions::instance()
+                    .add_to_history(&text_pattern, default_profile.content_mode())
                 {
                     eprintln!("{error}");
                 }

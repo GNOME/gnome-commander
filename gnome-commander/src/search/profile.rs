@@ -3,7 +3,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::filter::PatternType;
+use crate::{filter::PatternType, intviewer::search_bar::Mode};
 use gtk::{glib, prelude::*, subclass::prelude::*};
 use std::collections::BTreeMap;
 
@@ -26,6 +26,8 @@ mod imp {
         pub max_depth: Cell<i32>,
         #[property(get, set)]
         pub content_pattern: RefCell<String>,
+        #[property(get, set)]
+        pub content_mode: Cell<Mode>,
         #[property(get, set)]
         pub content_match_case: Cell<bool>,
     }
@@ -61,6 +63,7 @@ impl SearchProfile {
         self.set_path_match_case(false);
         self.set_max_depth(-1);
         self.set_content_pattern("");
+        self.set_content_mode(Mode::Text);
         self.set_content_match_case(false);
     }
 
@@ -71,6 +74,7 @@ impl SearchProfile {
         self.set_path_match_case(other.path_match_case());
         self.set_max_depth(other.max_depth());
         self.set_content_pattern(other.content_pattern());
+        self.set_content_mode(other.content_mode());
         self.set_content_match_case(other.content_match_case());
     }
 
@@ -85,6 +89,7 @@ impl SearchProfile {
     const SETTING_PATH_SYNTAX: &str = "path-syntax";
     const SETTING_PATH_MATCH_CASE: &str = "path-match-case";
     const SETTING_PATH_PATTERN: &str = "path-pattern";
+    const SETTING_CONTENT_MODE: &str = "content-mode";
     const SETTING_CONTENT_MATCH_CASE: &str = "content-match-case";
     const SETTING_CONTENT_PATTERN: &str = "content-pattern";
 
@@ -103,6 +108,10 @@ impl SearchProfile {
         v.insert(
             Self::SETTING_PATH_PATTERN.to_string(),
             self.path_pattern().into(),
+        );
+        v.insert(
+            Self::SETTING_CONTENT_MODE.to_string(),
+            self.content_mode().into(),
         );
         v.insert(
             Self::SETTING_CONTENT_MATCH_CASE.to_string(),
@@ -146,6 +155,12 @@ impl SearchProfile {
         {
             self.set_path_pattern(path_pattern);
         }
+        if let Some(content_mode) = variant
+            .get(Self::SETTING_CONTENT_MODE)
+            .and_then(Mode::from_variant)
+        {
+            self.set_content_mode(content_mode);
+        }
         if let Some(content_match_case) = variant
             .get(Self::SETTING_CONTENT_MATCH_CASE)
             .and_then(bool::from_variant)
@@ -165,6 +180,7 @@ impl SearchProfile {
         self.set_max_depth(variant.max_depth);
         self.set_path_syntax(PatternType::from(variant.path_syntax as u32));
         self.set_path_pattern(variant.path_pattern);
+        self.set_content_mode(Mode::Text);
         self.set_content_match_case(variant.content_match_case);
         self.set_content_pattern(variant.content_pattern);
     }

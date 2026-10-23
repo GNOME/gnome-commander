@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::profile::SearchProfile;
-use crate::filter::PatternType;
+use crate::{filter::PatternType, intviewer::search_bar::Mode};
 use gettextrs::{gettext, ngettext};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
@@ -27,6 +27,7 @@ mod imp {
         pub recurse_drop_down: gtk::DropDown,
         pub content_entry: HistoryEntry,
         pub content_match_case: gtk::ToggleButton,
+        pub content_hex_mode: gtk::ToggleButton,
     }
 
     #[glib::object_subclass]
@@ -56,6 +57,10 @@ mod imp {
                 content_match_case: gtk::ToggleButton::builder()
                     .icon_name("gnome-commander-match-case")
                     .tooltip_text(gettext("Case sensitive"))
+                    .build(),
+                content_hex_mode: gtk::ToggleButton::builder()
+                    .icon_name("gnome-commander-hex")
+                    .tooltip_text(gettext("Hexadecimal"))
                     .build(),
             }
         }
@@ -117,7 +122,17 @@ mod imp {
             self.content_entry.set_hexpand(true);
             content_box.append(&self.content_entry);
             content_box.append(&self.content_match_case);
+            content_box.append(&self.content_hex_mode);
             grid.attach(&content_box, 1, 2, 1, 1);
+
+            self.content_hex_mode.connect_toggled(glib::clone!(
+                #[weak(rename_to = this)]
+                self,
+                move |_| {
+                    this.content_match_case
+                        .set_sensitive(!this.content_hex_mode.is_active());
+                }
+            ));
 
             if let Some(labels_size_group) = self.obj().labels_size_group() {
                 labels_size_group.add_widget(&path_label);
@@ -198,6 +213,12 @@ impl SelectionProfileComponent {
         self.imp()
             .content_match_case
             .set_active(profile.content_match_case());
+        self.imp()
+            .content_match_case
+            .set_sensitive(profile.content_mode() != Mode::Binary);
+        self.imp()
+            .content_hex_mode
+            .set_active(profile.content_mode() == Mode::Binary);
     }
 
     pub fn copy(&self) {
@@ -217,6 +238,11 @@ impl SelectionProfileComponent {
         });
         profile.set_content_pattern(text_pattern);
         profile.set_content_match_case(self.imp().content_match_case.is_active());
+        profile.set_content_mode(if self.imp().content_hex_mode.is_active() {
+            Mode::Binary
+        } else {
+            Mode::Text
+        });
     }
 
     pub fn set_name_patterns_history(&self, history: &[String]) {

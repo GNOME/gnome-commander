@@ -8,7 +8,10 @@ use crate::{
     dir::Directory,
     file::{File, FileOps},
     filter::{Filter, PatternType},
-    intviewer::{search_bar::SearchSettings, searcher::Searcher},
+    intviewer::{
+        search_bar::{Mode, SearchSettings, hex_to_bytes},
+        searcher::Searcher,
+    },
     utils::ErrorMessage,
 };
 use gettextrs::gettext;
@@ -66,22 +69,38 @@ pub async fn search(
         None
     };
 
-    let content_search = if !profile.content_pattern().is_empty() {
-        SearchSettings::Text {
-            pattern: profile.content_pattern(),
-            match_case: profile.content_match_case(),
+    let content_search_settings = match profile.content_mode() {
+        Mode::Text => {
+            let pattern = profile.content_pattern();
+            (!pattern.is_empty()).then(|| SearchSettings::Text {
+                pattern,
+                match_case: profile.content_match_case(),
+            })
         }
-        .into_regex_pattern("UTF8")
+        Mode::Binary => {
+            let pattern = profile.content_pattern();
+
+            // Whitespace is ignored in hex patterns
+            if pattern.trim().is_empty() {
+                None
+            } else if let Some(pattern) = hex_to_bytes(&pattern) {
+                Some(SearchSettings::Binary { pattern })
+            } else {
+                return Err(ErrorMessage::brief(gettext(
+                    "Invalid hexadecimal pattern",
+                )));
+            }
+        }
+    };
+    let content_search = content_search_settings
+        .and_then(|settings| settings.into_regex_pattern("UTF8"))
         .and_then(|regex_pattern| match Searcher::new(&regex_pattern, true) {
             Ok(searcher) => Some(searcher),
             Err(error) => {
                 eprintln!("Failed compiling search expression: {error}");
                 None
             }
-        })
-    } else {
-        None
-    };
+        });
 
     let cancellable = cancellable.clone();
     let (sender, receiver) = async_channel::unbounded::<(bool, String)>();
