@@ -3,14 +3,12 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::data_presentation::DataPresentation;
-use crate::{
-    intviewer::{
-        input_modes::{FileOffset, InputMode},
-        input_source::InputSource,
-    },
-    utils::{CONTROL, CONTROL_SHIFT, Max, NO_MOD, SHIFT, get_modifiers_state},
+use super::{
+    data_presentation::{DataPresentation, next_tab_position},
+    input_modes::{FileOffset, InputMode},
+    input_source::InputSource,
 };
+use crate::utils::{CONTROL, CONTROL_SHIFT, Max, NO_MOD, SHIFT, get_modifiers_state};
 use gtk::{gdk, gio, glib, graphene, pango, prelude::*, subclass::prelude::*};
 use std::cell::Ref;
 
@@ -18,7 +16,7 @@ const HEXDUMP_FIXED_LIMIT: u32 = 16;
 
 mod imp {
     use super::*;
-    use crate::intviewer::data_presentation::{DataPresentationMode, next_tab_position};
+    use crate::intviewer::data_presentation::DataPresentationMode;
     use std::{
         cell::{Cell, RefCell},
         sync::OnceLock,
@@ -897,27 +895,6 @@ mod imp {
         }
 
         fn adjust_selection(&self, key: gdk::Key, dp: &DataPresentation) {
-            fn char_columns(
-                input_mode: &InputMode,
-                start: FileOffset,
-                tab_size: Option<u32>,
-            ) -> impl Iterator<Item = (FileOffset, u32)> {
-                std::iter::successors(Some(start), |offset| {
-                    Some(input_mode.next_char_offset(*offset))
-                })
-                .scan(0, move |column, offset| {
-                    let current = *column;
-                    *column = if let Some(tab_size) = tab_size
-                        && input_mode.character(offset) == Some('\t')
-                    {
-                        next_tab_position(current, tab_size)
-                    } else {
-                        current + 1
-                    };
-                    Some((offset, current))
-                })
-            }
-
             fn extend_by_lines(
                 render: &TextRender,
                 input_mode: &InputMode,
@@ -1465,9 +1442,14 @@ impl TextRender {
             self.imp().snapshot(&gtk::Snapshot::new());
         }
 
-        let hoffset = offset - line_start;
+        let tab_size =
+            (self.display_mode() == TextRenderDisplayMode::Text).then(|| self.tab_size());
+        let hoffset = char_columns(&input_mode, line_start, tab_size).find_map(
+            |(char_offset, char_column)| (char_offset >= offset).then_some(char_column as f64),
+        );
         let chars_per_line = self.chars_per_line() as f64;
-        if let Some(hadjustment) = self.hadjustment()
+        if let Some(hoffset) = hoffset
+            && let Some(hadjustment) = self.hadjustment()
             && (hoffset < hadjustment.value() || hoffset >= hadjustment.value() + chars_per_line)
         {
             hadjustment.set_value(hoffset - chars_per_line / 2.0);
@@ -1623,6 +1605,27 @@ impl TextRender {
             glib::closure_local!(move |this| (f)(this)),
         )
     }
+}
+
+fn char_columns(
+    input_mode: &InputMode,
+    start: FileOffset,
+    tab_size: Option<u32>,
+) -> impl Iterator<Item = (FileOffset, u32)> {
+    std::iter::successors(Some(start), |offset| {
+        Some(input_mode.next_char_offset(*offset))
+    })
+    .scan(0, move |column, offset| {
+        let current = *column;
+        *column = if let Some(tab_size) = tab_size
+            && input_mode.character(offset) == Some('\t')
+        {
+            next_tab_position(current, tab_size)
+        } else {
+            current + 1
+        };
+        Some((offset, current))
+    })
 }
 
 fn get_max_char_width_and_height(
