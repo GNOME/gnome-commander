@@ -98,7 +98,11 @@ async fn file_copy_as(main_win: MainWindow) {
     let Some(file) = file_list.selected_file() else {
         return;
     };
-    make_copy_dialog(&file, &file_list.directory(), main_win.upcast_ref()).await;
+    if let Some(file) = make_copy_dialog(&file, &file_list.directory(), main_win.upcast_ref()).await
+        && let Some(name) = file.basename()
+    {
+        file_list.focus_file(&name, true);
+    }
 }
 
 async fn file_move(main_win: MainWindow) {
