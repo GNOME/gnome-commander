@@ -98,7 +98,11 @@ async fn file_copy_as(main_win: MainWindow) {
     let Some(file) = file_list.selected_file() else {
         return;
     };
-    make_copy_dialog(&file, &file_list.directory(), main_win.upcast_ref()).await;
+    if let Some(file) = make_copy_dialog(&file, &file_list.directory(), main_win.upcast_ref()).await
+        && let Some(name) = file.basename()
+    {
+        file_list.focus_file(&name);
+    }
 }
 
 async fn file_move(main_win: MainWindow) {
@@ -256,7 +260,7 @@ async fn file_mkdir(main_win: MainWindow) {
         // focus the created directory (if possible)
         if new_dir.parent().is_some_and(|p| p.equal(&dir_file)) {
             dir.file_created(&new_dir);
-            file_list.focus_file(&new_dir.basename().unwrap(), true);
+            file_list.focus_file(&new_dir.basename().unwrap());
         }
     }
 }
@@ -270,7 +274,7 @@ async fn file_properties(main_win: MainWindow) {
             FilePropertiesDialog::show(main_win.upcast_ref(), &file, &file_list.connection()).await;
 
         if changed {
-            file_list.focus_file(&file.path_name(), true);
+            file_list.focus_file(&file.path_name());
         }
     }
 }

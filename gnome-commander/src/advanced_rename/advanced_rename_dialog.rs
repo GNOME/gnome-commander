@@ -877,7 +877,7 @@ mod imp {
             if let Some(new_focused_file_name) = new_focused_file_name
                 && let Some(fl) = self.obj().file_list()
             {
-                fl.focus_file(Path::new(&new_focused_file_name), true);
+                fl.focus_file(Path::new(&new_focused_file_name));
             }
 
             self.update_new_filenames();

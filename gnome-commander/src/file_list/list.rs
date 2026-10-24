@@ -2379,7 +2379,7 @@ impl FileList {
             .and_then(|p| p.try_into().ok())
     }
 
-    pub fn focus_file(&self, focus_file: &Path, _scroll_to_file: bool) {
+    pub fn focus_file(&self, focus_file: &Path) {
         match self.find_file_by_name(focus_file) {
             Some(position) => {
                 self.select_row(position);
@@ -2576,7 +2576,7 @@ impl FileList {
                 }
 
                 if let Some(name) = file.basename() {
-                    self.focus_file(&name, true);
+                    self.focus_file(&name);
                 }
             }
             self.grab_focus();

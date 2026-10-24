@@ -704,7 +704,7 @@ impl FileSelector {
         self.imp().update_tab_label(&fl);
 
         if let Some(selected_file) = options.selected_file {
-            fl.focus_file(&selected_file, true);
+            fl.focus_file(&selected_file);
         }
 
         if options.activate {
@@ -847,7 +847,7 @@ impl FileSelector {
         let directory = file_list.directory();
         if let Some(parent) = directory.parent() {
             self.goto(file_list, &parent);
-            file_list.focus_file(&directory.path_name(), false);
+            file_list.focus_file(&directory.path_name());
         }
     }
 
@@ -879,7 +879,7 @@ impl FileSelector {
             &file_list,
             &Directory::new_from_file(&connection, &parent_file),
         );
-        file_list.focus_file(&file.path_name(), true);
+        file_list.focus_file(&file.path_name());
     }
 
     pub fn close_all_tabs(&self) {

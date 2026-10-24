@@ -14,7 +14,11 @@ use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
 use std::path::{Path, PathBuf};
 
-pub async fn make_copy_dialog(f: &File, dir: &Directory, parent: &gtk::Window) {
+pub async fn make_copy_dialog(
+    f: &File,
+    dir: &Directory,
+    parent: &gtk::Window,
+) -> Option<gio::File> {
     let dialog = gtk::Window::builder()
         .resizable(false)
         .title(gettext("Copy File"))
@@ -91,7 +95,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, parent: &gtk::Window) {
     dialog.close();
 
     if response != Ok(true) {
-        return;
+        return None;
     }
 
     let dest_dir;
@@ -108,7 +112,8 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, parent: &gtk::Window) {
     }
 
     let src_files = vec![f.file().clone()];
-    let resulting_files = copy_files(
+
+    if let Some(file) = copy_files(
         parent.clone(),
         src_files,
         dest_dir,
@@ -116,13 +121,17 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, parent: &gtk::Window) {
         gio::FileCopyFlags::NONE,
         ConfirmOverwriteMode::Query,
     )
-    .await;
-
-    // Only reload remote directories, for local directories we rely on monitoring
-    if !resulting_files.is_empty()
-        && !dir.is_local()
-        && let Err(error) = dir.relist_files(None).await
+    .await
+    .pop()
     {
-        error.show(parent).await;
+        // Only reload remote directories, for local directories we rely on monitoring
+        if !dir.is_local()
+            && let Err(error) = dir.relist_files(None).await
+        {
+            error.show(parent).await;
+        }
+        Some(file)
+    } else {
+        None
     }
 }
