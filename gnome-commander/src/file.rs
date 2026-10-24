@@ -11,12 +11,7 @@ use futures::{
 use gettextrs::gettext;
 use gtk::{gio, glib, glib::object::WeakRef, prelude::*, subclass::prelude::*};
 use libc::{gid_t, uid_t};
-use std::{
-    cell::Ref,
-    ffi::OsString,
-    path::{Path, PathBuf},
-    rc::Rc,
-};
+use std::{cell::Ref, ffi::OsString, path::PathBuf, rc::Rc};
 
 mod imp {
     use super::*;
@@ -84,10 +79,9 @@ impl File {
         this
     }
 
-    pub fn new_from_path(path: &Path) -> Result<Self, ErrorMessage> {
-        let file = gio::File::for_path(path);
-
+    pub fn query_file(file: impl AsRef<gio::File>) -> Result<Self, ErrorMessage> {
         let file_info = file
+            .as_ref()
             .query_info(
                 Self::DEFAULT_ATTRIBUTES,
                 gio::FileQueryInfoFlags::NONE,
@@ -96,7 +90,7 @@ impl File {
             .map_err(|error| {
                 ErrorMessage::with_error(
                     gettext("Failed to get file info for {path}.")
-                        .replace("{path}", &path.display().to_string()),
+                        .replace("{path}", &file.as_ref().uri()),
                     &error,
                 )
             })?;

@@ -88,7 +88,7 @@ pub fn temp_directory() -> &'static tempfile::TempDir {
         .get_or_init(|| tempfile::tempdir().expect("Cannot create a temporary directory."))
 }
 
-pub fn temp_file(f: &File) -> Result<File, ErrorMessage> {
+pub fn temp_file(f: &File) -> Result<gio::File, ErrorMessage> {
     let name = f.name();
     let name_parts = name.rsplit_once('.');
 
@@ -102,7 +102,7 @@ pub fn temp_file(f: &File) -> Result<File, ErrorMessage> {
         })?;
 
     let path = temp_file.into_temp_path();
-    File::new_from_path(&path)
+    Ok(gio::File::for_path(path))
 }
 
 fn substitute_command_argument(command_template: &str, arg: &OsStr) -> OsString {

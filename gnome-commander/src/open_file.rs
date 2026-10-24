@@ -139,20 +139,21 @@ pub async fn mime_exec_single(
 
         let tmp_file = temp_file(file)?;
         let src_files = vec![file.file().clone()];
-        let dst_files = vec![tmp_file.file().clone()];
-        if !download_to_temporary(
+        let dst_files = vec![tmp_file];
+        if let Some(file) = download_to_temporary(
             parent_window.clone(),
             src_files,
             dst_files,
             gio::FileCopyFlags::OVERWRITE,
         )
         .await
+        .pop()
         {
+            app_info.launch(&[file], context.as_ref())
+        } else {
             // TODO ensure that error is shown
             return Ok(false);
         }
-
-        app_info.launch(&[tmp_file.file().clone()], context.as_ref())
     }
     .map_err(|error| {
         ErrorMessage::with_error(

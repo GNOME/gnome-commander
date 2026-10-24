@@ -78,9 +78,9 @@ pub async fn copy_files(
     dest_fn: Option<PathBuf>,
     copy_flags: gio::FileCopyFlags,
     overwrite_mode: ConfirmOverwriteMode,
-) -> bool {
+) -> Vec<gio::File> {
     if src_files.is_empty() {
-        return true;
+        return Default::default();
     }
 
     // Sanity check
@@ -92,14 +92,14 @@ pub async fn copy_files(
             )
             .show(&parent_window)
             .await;
-            return false;
+            return Default::default();
         }
         if file_is_already_in_dir(file, &to) && dest_fn.is_some() && dest_fn == file.basename() {
             debug!(
                 'x',
                 "Copying a file to the same directory as it's already in, is not permitted"
             );
-            return false;
+            return Default::default();
         }
     }
 
@@ -110,7 +110,7 @@ pub async fn copy_files(
         for file in &src_files {
             let Some(basename) = file.basename() else {
                 eprintln!("Error: Cannot get basename of a file {}.", file.uri());
-                return false;
+                return Default::default();
             };
             dst_files.push(to.get_child_gfile(&basename));
         }
@@ -141,7 +141,7 @@ pub async fn copy_files(
     let success = transfer_files(win.upcast_ref(), &xfer_data).await;
     win.close();
 
-    success.is_continue()
+    success.continue_value().unwrap_or_default()
 }
 
 pub async fn move_files(
@@ -151,9 +151,9 @@ pub async fn move_files(
     dest_fn: Option<PathBuf>,
     copy_flags: gio::FileCopyFlags,
     overwrite_mode: ConfirmOverwriteMode,
-) -> bool {
+) -> Vec<gio::File> {
     if src_files.is_empty() {
-        return true;
+        return Default::default();
     }
 
     // Sanity check
@@ -165,14 +165,14 @@ pub async fn move_files(
             )
             .show(&parent_window)
             .await;
-            return false;
+            return Default::default();
         }
         if file_is_already_in_dir(file, &to) && dest_fn.is_some() && dest_fn == file.basename() {
             debug!(
                 'x',
                 "Moving a file to the same directory as it's already in, is not permitted"
             );
-            return false;
+            return Default::default();
         }
     }
 
@@ -183,7 +183,7 @@ pub async fn move_files(
         for file in &src_files {
             let Some(basename) = file.basename() else {
                 eprintln!("Error: Cannot get basename of a file {}.", file.uri());
-                return false;
+                return Default::default();
             };
             dst_files.push(to.get_child_gfile(&basename));
         }
@@ -214,7 +214,7 @@ pub async fn move_files(
     let success = transfer_files(win.upcast_ref(), &xfer_data).await;
     win.close();
 
-    success.is_continue()
+    success.continue_value().unwrap_or_default()
 }
 
 pub async fn link_files(
@@ -224,9 +224,9 @@ pub async fn link_files(
     dest_fn: Option<PathBuf>,
     copy_flags: gio::FileCopyFlags,
     overwrite_mode: ConfirmOverwriteMode,
-) -> bool {
+) -> Vec<gio::File> {
     if src_files.is_empty() {
-        return true;
+        return Default::default();
     }
 
     // Sanity check
@@ -238,14 +238,14 @@ pub async fn link_files(
             )
             .show(&parent_window)
             .await;
-            return false;
+            return Default::default();
         }
         if file_is_already_in_dir(file, &to) && dest_fn.is_some() && dest_fn == file.basename() {
             debug!(
                 'x',
                 "Moving a file to the same directory as it's already in, is not permitted"
             );
-            return false;
+            return Default::default();
         }
     }
 
@@ -256,7 +256,7 @@ pub async fn link_files(
         for file in &src_files {
             let Some(basename) = file.basename() else {
                 eprintln!("Error: Cannot get basename of a file {}.", file.uri());
-                return false;
+                return Default::default();
             };
             dst_files.push(to.get_child_gfile(&basename));
         }
@@ -287,7 +287,7 @@ pub async fn link_files(
     let success = transfer_files(win.upcast_ref(), &xfer_data).await;
     win.close();
 
-    success.is_continue()
+    success.continue_value().unwrap_or_default()
 }
 
 pub async fn download_to_temporary(
@@ -295,7 +295,7 @@ pub async fn download_to_temporary(
     src_files: Vec<gio::File>,
     dst_files: Vec<gio::File>,
     copy_flags: gio::FileCopyFlags,
-) -> bool {
+) -> Vec<gio::File> {
     let (bytes_total, files_total) = set_files_total(&src_files).await;
 
     let win = TransferProgressWindow::new(
@@ -321,7 +321,7 @@ pub async fn download_to_temporary(
     let success = transfer_files(win.upcast_ref(), &xfer_data).await;
     win.close();
 
-    success.is_continue()
+    success.continue_value().unwrap_or_default()
 }
 
 async fn set_files_total(src_list: &[gio::File]) -> (u64, u64) {
@@ -343,11 +343,12 @@ async fn set_files_total(src_list: &[gio::File]) -> (u64, u64) {
 async fn transfer_files(
     window: &TransferProgressWindow,
     xfer_data: &XferData,
-) -> ControlFlow<BreakReason> {
+) -> ControlFlow<BreakReason, Vec<gio::File>> {
     if xfer_data.src_files.len() != xfer_data.dst_files.len() {
         return ControlFlow::Break(BreakReason::Failed);
     }
 
+    let mut resulting_files = Vec::new();
     for (src, dst) in xfer_data.src_files.iter().zip(xfer_data.dst_files.iter()) {
         if xfer_data.cancellable.is_cancelled() {
             break;
@@ -355,16 +356,26 @@ async fn transfer_files(
 
         match xfer_data.transfer_type {
             TransferType::Copy => {
-                copy_file_recursively(xfer_data, window, src, dst, xfer_data.copy_flags).await?;
+                if let Some(file) =
+                    copy_file_recursively(xfer_data, window, src, dst, xfer_data.copy_flags).await?
+                {
+                    resulting_files.push(file);
+                }
             }
             TransferType::Move => {
-                move_file_recursively(xfer_data, window, src, dst, xfer_data.copy_flags).await?;
+                if let Some(file) =
+                    move_file_recursively(xfer_data, window, src, dst, xfer_data.copy_flags).await?
+                {
+                    resulting_files.push(file);
+                }
             }
             TransferType::Link => {
                 let symlink_src_path = src.path().unwrap();
 
                 match dst.make_symbolic_link(symlink_src_path, gio::Cancellable::NONE) {
-                    Ok(()) => {}
+                    Ok(()) => {
+                        resulting_files.push(dst.clone());
+                    }
                     Err(error) => {
                         report_transfer_problem(xfer_data, window, &error, src, dst).await;
                     }
@@ -373,7 +384,7 @@ async fn transfer_files(
         }
     }
 
-    ControlFlow::Continue(())
+    ControlFlow::Continue(resulting_files)
 }
 
 fn file_is_parent_to_dir_or_equal(file: &gio::File, dir: &Directory) -> bool {
@@ -840,7 +851,7 @@ async fn copy_file_recursively(
     src: &gio::File,
     dst: &gio::File,
     flags: gio::FileCopyFlags,
-) -> ControlFlow<BreakReason> {
+) -> ControlFlow<BreakReason, Option<gio::File>> {
     if xfer_data.cancellable.is_cancelled() {
         return ControlFlow::Break(BreakReason::Cancelled);
     }
@@ -861,7 +872,7 @@ async fn copy_file_recursively(
                                 .await;
                         }
                         ProblemAction::Skip | ProblemAction::SkipAll => {
-                            return ControlFlow::Continue(());
+                            return ControlFlow::Continue(None);
                         }
                         ProblemAction::Abort => {
                             return ControlFlow::Break(BreakReason::Cancelled);
@@ -917,13 +928,14 @@ async fn copy_file_recursively(
                     .await?;
             }
             let _ = enumerator.close(gio::Cancellable::NONE);
-            ControlFlow::Continue(())
+            ControlFlow::Continue(Some(dst.clone()))
         }
         gio::FileType::Regular => {
             let action = copy_single_file(xfer_data, window, src, dst, flags).await?;
             match action {
-                None | Some(ProblemAction::Skip) | Some(ProblemAction::SkipAll) => {
-                    ControlFlow::Continue(())
+                None => ControlFlow::Continue(Some(dst.clone())),
+                Some(ProblemAction::Skip) | Some(ProblemAction::SkipAll) => {
+                    ControlFlow::Continue(None)
                 }
                 Some(ProblemAction::Retry) => {
                     copy_file_recursively(xfer_data, window, src, dst, flags).await
@@ -948,7 +960,7 @@ async fn copy_file_recursively(
                 }
             }
         }
-        _ => ControlFlow::Continue(()),
+        _ => ControlFlow::Continue(None),
     }
 }
 
@@ -959,7 +971,7 @@ async fn move_file_recursively(
     src: &gio::File,
     dst: &gio::File,
     flags: gio::FileCopyFlags,
-) -> ControlFlow<BreakReason> {
+) -> ControlFlow<BreakReason, Option<gio::File>> {
     if xfer_data.cancellable.is_cancelled() {
         return ControlFlow::Break(BreakReason::Cancelled);
     }
@@ -973,9 +985,8 @@ async fn move_file_recursively(
             ControlFlow::Break(BreakReason::Cancelled)
         }
         Err(error) if error.matches(gio::IOErrorEnum::WouldRecurse) && src_is_directory => {
-            if copy_file_recursively(xfer_data, window, src, dst, xfer_data.copy_flags)
-                .await
-                .is_continue()
+            if let ControlFlow::Continue(dst) =
+                copy_file_recursively(xfer_data, window, src, dst, xfer_data.copy_flags).await
             {
                 // Folder was copied, now delete the source for completing the move operation
                 // do_delete() only really needs the file name, none of the other info.
@@ -994,7 +1005,7 @@ async fn move_file_recursively(
                     false, // do not show progress window
                 )
                 .await;
-                ControlFlow::Continue(())
+                ControlFlow::Continue(dst)
             } else {
                 if !xfer_data.cancellable.is_cancelled() {
                     run_failure_dialog(
@@ -1027,7 +1038,7 @@ async fn move_file_recursively(
                     let dst = new_nonexisting_dest_file(dst)?;
                     move_file_recursively(xfer_data, window, src, &dst, flags).await
                 }
-                ProblemAction::Skip | ProblemAction::SkipAll => ControlFlow::Continue(()),
+                ProblemAction::Skip | ProblemAction::SkipAll => ControlFlow::Continue(None),
                 ProblemAction::CopyInto => {
                     // Copy into can only be selected in case of copying a directory into an
                     // already existing directory, so we are ignoring this here because we deal with
@@ -1039,7 +1050,7 @@ async fn move_file_recursively(
         }
         Ok(()) => {
             file_done(xfer_data);
-            ControlFlow::Continue(())
+            ControlFlow::Continue(Some(dst.clone()))
         }
     }
 }
@@ -1147,6 +1158,7 @@ fn find_nonexisting_name(file: &gio::File) -> Option<gio::File> {
     })
 }
 
+#[derive(Debug, Copy, Clone)]
 enum BreakReason {
     Cancelled,
     Failed,

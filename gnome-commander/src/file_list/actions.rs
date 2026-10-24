@@ -53,7 +53,7 @@ async fn ask_download_remote_files(
     }
 }
 
-fn create_temporary_files(files: &[File]) -> Result<Vec<File>, ErrorMessage> {
+fn create_temporary_files(files: &[File]) -> Result<Vec<gio::File>, ErrorMessage> {
     let mut temp_files = Vec::new();
     for file in files {
         temp_files.push(temp_file(file)?);
@@ -85,17 +85,22 @@ async fn mime_exec_multiple(files: Vec<File>, app: App, parent_window: &gtk::Win
                     }
                 };
 
-                if download_to_temporary(
+                let resulting_files = download_to_temporary(
                     parent_window.clone(),
                     remote.iter().map(|f| f.file().clone()).collect(),
-                    tmp_files.iter().map(|f| f.file().clone()).collect(),
+                    tmp_files,
                     gio::FileCopyFlags::OVERWRITE,
                 )
-                .await
-                {
-                    local.extend(tmp_files);
+                .await;
+                if !resulting_files.is_empty() {
+                    for file in resulting_files {
+                        match File::query_file(file) {
+                            Ok(file) => local.push(file),
+                            Err(error) => error.show(parent_window).await,
+                        }
+                    }
                 } else {
-                    ErrorMessage::new(gettext("Download failed."), None::<String>)
+                    ErrorMessage::brief(gettext("Download failed."))
                         .show(parent_window)
                         .await;
                     return;

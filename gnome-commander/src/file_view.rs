@@ -26,21 +26,23 @@ pub async fn file_view_internal(
         // The file is remote, let's download it to a temporary file first
         let tmp_file = temp_file(f)?;
         let src_files = vec![f.file().clone()];
-        let dst_files = vec![tmp_file.file().clone()];
-        if !download_to_temporary(
+        let dst_files = vec![tmp_file];
+        if let Some(file) = download_to_temporary(
             parent_window.clone(),
             src_files,
             dst_files,
             gio::FileCopyFlags::OVERWRITE,
         )
         .await
+        .pop()
         {
+            File::query_file(file)?
+        } else {
             return Err(ErrorMessage {
                 message: gettext("Failed to download a file"),
                 secondary_text: None,
             });
         }
-        tmp_file
     };
 
     ViewerWindow::file_view(&file_to_view, selection).await;
