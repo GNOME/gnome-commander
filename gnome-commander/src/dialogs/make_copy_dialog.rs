@@ -108,7 +108,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, parent: &gtk::Window) {
     }
 
     let src_files = vec![f.file().clone()];
-    let success = copy_files(
+    let resulting_files = copy_files(
         parent.clone(),
         src_files,
         dest_dir,
@@ -119,7 +119,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, parent: &gtk::Window) {
     .await;
 
     // Only reload remote directories, for local directories we rely on monitoring
-    if success
+    if !resulting_files.is_empty()
         && !dir.is_local()
         && let Err(error) = dir.relist_files(None).await
     {

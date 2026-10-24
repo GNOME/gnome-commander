@@ -2556,7 +2556,7 @@ impl FileList {
             && new_name != file.name()
         {
             let native_file = file.file().clone();
-            if move_files(
+            if let Some(file) = move_files(
                 window.clone(),
                 vec![native_file],
                 self.directory(),
@@ -2565,6 +2565,7 @@ impl FileList {
                 ConfirmOverwriteMode::Query,
             )
             .await
+            .pop()
             {
                 // Only reload remote directories, for local directories we rely on monitoring
                 let directory = self.directory();
@@ -2574,7 +2575,9 @@ impl FileList {
                     error.show(&window).await;
                 }
 
-                self.focus_file(Path::new(&new_name), true);
+                if let Some(name) = file.basename() {
+                    self.focus_file(&name, true);
+                }
             }
             self.grab_focus();
         }
