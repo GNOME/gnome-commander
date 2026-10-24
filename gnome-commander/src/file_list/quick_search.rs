@@ -183,7 +183,7 @@ mod imp {
             let previous_focus = self.obj().root().and_then(|root| root.focus());
             let file_list = self.obj().file_list();
             file_list.grab_focus();
-            file_list.focus_file(&file.path_name(), true);
+            file_list.focus_file(&file.path_name());
             if let Some(widget) = previous_focus {
                 self.restore_focus(&widget);
             }
