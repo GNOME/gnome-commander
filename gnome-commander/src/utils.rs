@@ -89,12 +89,18 @@ pub fn temp_directory() -> &'static tempfile::TempDir {
 }
 
 pub fn temp_file(f: &File) -> Result<gio::File, ErrorMessage> {
-    let name = f.name();
-    let name_parts = name.rsplit_once('.');
+    let name = f.path_name();
+    let stem = name.file_stem();
+    let extension = name.extension().map(|extension| {
+        let mut str = OsString::new();
+        str.push(".");
+        str.push(extension);
+        str
+    });
 
     let temp_file = tempfile::Builder::new()
-        .prefix(name_parts.map(|p| p.0).unwrap_or("tmp"))
-        .suffix(name_parts.map(|p| p.0).unwrap_or(".tmp"))
+        .prefix(stem.unwrap_or(OsStr::new("tmp")))
+        .suffix(extension.as_deref().unwrap_or(OsStr::new(".tmp")))
         .tempfile_in(temp_directory().path())
         .map_err(|error| ErrorMessage {
             message: gettext("Cannot create a temporary file."),
