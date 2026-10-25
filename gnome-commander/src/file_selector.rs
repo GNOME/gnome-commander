@@ -475,6 +475,10 @@ mod imp {
             tab_label.set_label(fl.directory().name());
             tab_label.set_locked(self.obj().is_tab_locked(fl));
             tab_label.set_indicator(GeneralOptions::instance().tab_lock_indicator.get());
+
+            self.notebook
+                .page(fl)
+                .set_tab_label(Some(&tab_label.label()));
         }
 
         pub fn update_selected_files_label(&self) {
