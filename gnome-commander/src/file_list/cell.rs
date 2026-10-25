@@ -70,6 +70,21 @@ mod imp {
 
         fn set_selected(&self, value: bool) {
             self.selected.set(value);
+
+            let mut parent = self.obj().accessible_parent();
+            while let Some(p) = parent {
+                if p.accessible_role() == gtk::AccessibleRole::Row {
+                    // TODO: localize
+                    p.update_property(&[gtk::accessible::Property::Description(if value {
+                        "selected"
+                    } else {
+                        "not selected"
+                    })]);
+                    break;
+                }
+                parent = p.accessible_parent();
+            }
+
             self.apply_css();
         }
 
