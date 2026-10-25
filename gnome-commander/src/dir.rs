@@ -257,6 +257,7 @@ impl Directory {
             return Ok(());
         };
 
+        self.set_state(DirectoryState::Listing);
         let result = match list_directory(self, cancellable).await {
             Ok(file_infos) => {
                 if !cancellable.is_some_and(|c| c.is_cancelled()) {
@@ -433,6 +434,19 @@ impl Directory {
     }
 
     fn process_monitor_queue(&self) {
+        if self.state() == DirectoryState::Listing {
+            // Delay processing queue until the directory loads
+            glib::timeout_add_local_once(
+                GeneralOptions::instance().gui_update_rate.get(),
+                glib::clone!(
+                    #[strong(rename_to = this)]
+                    self,
+                    move || this.process_monitor_queue(),
+                ),
+            );
+            return;
+        }
+
         let mut queue = std::mem::take(&mut *self.imp().monitor_queue.borrow_mut());
         debug!('n', "Processing monitoring queue: {queue:?}");
 
