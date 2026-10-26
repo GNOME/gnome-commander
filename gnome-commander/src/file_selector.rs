@@ -105,6 +105,7 @@ mod imp {
                         obj.goto(
                             &file_list,
                             &Self::Type::directory_for_path(&connection, &path),
+                            true,
                         );
                     }
                 },
@@ -387,7 +388,7 @@ mod imp {
                 self.obj()
                     .new_tab(&con.default_dir(), TabOptions::from(&file_list));
             } else {
-                self.obj().goto(&file_list, &con.default_dir());
+                self.obj().goto(&file_list, &con.default_dir(), true);
             }
             self.obj().emit_by_name::<()>("activate-request", &[]);
         }
@@ -839,9 +840,12 @@ impl FileSelector {
         }
     }
 
-    pub fn goto(&self, file_list: &FileList, directory: &Directory) {
+    pub fn goto(&self, file_list: &FileList, directory: &Directory, grab_focus: bool) {
         if self.is_tab_locked(file_list) {
-            self.new_tab(directory, TabOptions::from(file_list));
+            self.new_tab(
+                directory,
+                TabOptions::from(file_list).grab_focus(grab_focus),
+            );
         } else {
             file_list.set_directory(directory);
         }
@@ -850,23 +854,24 @@ impl FileSelector {
     pub fn goto_parent(&self, file_list: &FileList) {
         let directory = file_list.directory();
         if let Some(parent) = directory.parent() {
-            self.goto(file_list, &parent);
+            self.goto(file_list, &parent, true);
             file_list.focus_file(&directory.path_name());
         }
     }
 
     pub fn goto_child(&self, file_list: &FileList, child_name: &Path) {
-        self.goto(file_list, &file_list.directory().child(child_name));
+        self.goto(file_list, &file_list.directory().child(child_name), true);
     }
 
     pub fn directory_for_path(connection: &Connection, path: &Path) -> Directory {
         Directory::new(connection, &connection.create_uri(path))
     }
 
-    pub fn goto_path(&self, file_list: &FileList, path: &Path) {
+    pub fn goto_path(&self, file_list: &FileList, path: &Path, grab_focus: bool) {
         self.goto(
             file_list,
             &Self::directory_for_path(&file_list.connection(), path),
+            grab_focus,
         );
     }
 
@@ -882,6 +887,7 @@ impl FileSelector {
         self.goto(
             &file_list,
             &Directory::new_from_file(&connection, &parent_file),
+            true,
         );
         file_list.focus_file(&file.path_name());
     }
@@ -952,7 +958,7 @@ impl FileSelector {
                 TabOptions::from(&file_list),
             );
         } else {
-            self.goto_path(&file_list, Path::new(path));
+            self.goto_path(&file_list, Path::new(path), true);
         }
         self.emit_by_name::<()>("activate-request", &[]);
     }
@@ -961,7 +967,11 @@ impl FileSelector {
         let file_list = self.file_list();
         let history = file_list.dir_history();
         if let Some((connection, dir)) = history.first() {
-            self.goto(&file_list, &Self::directory_for_path(&connection, &dir));
+            self.goto(
+                &file_list,
+                &Self::directory_for_path(&connection, &dir),
+                true,
+            );
         }
     }
 
@@ -969,7 +979,11 @@ impl FileSelector {
         let file_list = self.file_list();
         let history = file_list.dir_history();
         if let Some((connection, dir)) = history.back() {
-            self.goto(&file_list, &Self::directory_for_path(&connection, &dir));
+            self.goto(
+                &file_list,
+                &Self::directory_for_path(&connection, &dir),
+                true,
+            );
         }
     }
 
@@ -977,7 +991,11 @@ impl FileSelector {
         let file_list = self.file_list();
         let history = file_list.dir_history();
         if let Some((connection, dir)) = history.forward() {
-            self.goto(&file_list, &Self::directory_for_path(&connection, &dir));
+            self.goto(
+                &file_list,
+                &Self::directory_for_path(&connection, &dir),
+                true,
+            );
         }
     }
 
@@ -985,7 +1003,11 @@ impl FileSelector {
         let file_list = self.file_list();
         let history = file_list.dir_history();
         if let Some((connection, dir)) = history.last() {
-            self.goto(&file_list, &Self::directory_for_path(&connection, &dir));
+            self.goto(
+                &file_list,
+                &Self::directory_for_path(&connection, &dir),
+                true,
+            );
         }
     }
 
