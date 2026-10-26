@@ -644,7 +644,7 @@ pub mod imp {
 
         pub fn update_drop_con_button(&self, connection: Option<&Connection>) {
             if let Some(connection) = connection {
-                let closeable = connection.is_closeable();
+                let closeable = connection.is_closeable() && connection.is_open();
                 self.obj()
                     .action_set_enabled(UserAction::ConnectionsCloseCurrent.name(), closeable);
 
