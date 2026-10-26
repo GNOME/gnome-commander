@@ -248,6 +248,56 @@ pub mod imp {
                 .build();
             vbox.append(&self.menubar);
 
+            {
+                // Fallback menu button in title bar if main menu is hidden
+                let titlebar = gtk::HeaderBar::new();
+                titlebar.add_css_class("titlebar");
+                titlebar.add_css_class("default-decoration");
+                mw.set_titlebar(Some(&titlebar));
+
+                let menu_button = gtk::ToggleButton::builder()
+                    .icon_name("open-menu")
+                    .can_focus(false)
+                    .has_frame(false)
+                    .build();
+                titlebar.pack_end(&menu_button);
+                mw.bind_property("menu-visible", &menu_button, "visible")
+                    .invert_boolean()
+                    .sync_create()
+                    .build();
+
+                let menu_popover = gtk::PopoverMenu::builder()
+                    .menu_model(&menu)
+                    .position(gtk::PositionType::Bottom)
+                    .build();
+                titlebar.pack_end(&menu_popover);
+
+                menu_popover.connect_closed(glib::clone!(
+                    #[weak]
+                    menu_button,
+                    move |_| {
+                        menu_button.set_active(false);
+                    }
+                ));
+
+                menu_button.connect_clicked(move |menu_button| {
+                    menu_popover.set_pointing_to(
+                        menu_button
+                            .compute_bounds(&menu_button.parent().unwrap())
+                            .map(|rect| {
+                                gdk::Rectangle::new(
+                                    rect.x() as i32,
+                                    rect.y() as i32,
+                                    rect.width() as i32,
+                                    rect.height() as i32,
+                                )
+                            })
+                            .as_ref(),
+                    );
+                    menu_popover.popup();
+                });
+            }
+
             mw.connect_focus_widget_notify(|mw| {
                 if gtk::prelude::GtkWindowExt::focus(mw)
                     .is_none_or(|widget| widget.widget_name() == "GtkPopoverMenuBarItem")

@@ -40,6 +40,11 @@ label.important {
     font-weight: bold;
 }
 
+headerbar .toggle {
+    margin: 0;
+    padding: 0;
+}
+
 /* Main window */
 
 listview.gcmd-toolbar {
