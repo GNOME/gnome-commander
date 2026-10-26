@@ -767,15 +767,15 @@ pub mod imp {
                         dir = dir.child(part);
                     }
                 }
-                file_selector.goto(&file_list, &dir);
+                file_selector.goto(&file_list, &dir, false);
             } else {
                 let path = PathBuf::from(
                     glib::shell_unquote(dest_dir).unwrap_or_else(|_| dest_dir.into()),
                 );
                 if path.is_absolute() {
-                    file_selector.goto_path(&file_list, &path);
+                    file_selector.goto_path(&file_list, &path, false);
                 } else {
-                    file_selector.goto(&file_list, &file_list.directory().child(&path));
+                    file_selector.goto(&file_list, &file_list.directory().child(&path), false);
                 }
             }
         }
@@ -1033,7 +1033,7 @@ impl MainWindow {
             .flatten()
             .unwrap_or_else(|| src.file_list().directory());
 
-        dst.goto(&dst.file_list(), &dir);
+        dst.goto(&dst.file_list(), &dir, true);
     }
 
     pub fn load_tabs(&self, start_left_dir: Option<&Path>, start_right_dir: Option<&Path>) {

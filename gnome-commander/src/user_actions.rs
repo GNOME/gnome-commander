@@ -821,13 +821,17 @@ async fn view_directory(main_win: MainWindow) {
 async fn view_home(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
-    file_selector.goto(&file_list, &ConnectionList::get().home().default_dir());
+    file_selector.goto(
+        &file_list,
+        &ConnectionList::get().home().default_dir(),
+        true,
+    );
 }
 
 async fn view_root(main_win: MainWindow) {
     let file_selector = main_win.file_selector(FileSelectorID::Active);
     let file_list = file_selector.file_list();
-    file_selector.goto_path(&file_list, Path::new("/"));
+    file_selector.goto_path(&file_list, Path::new("/"), true);
 }
 
 async fn view_new_tab(main_win: MainWindow) {
@@ -1039,6 +1043,7 @@ async fn bookmarks_edit(main_win: MainWindow) {
                 &bookmark.connection,
                 Path::new(bookmark.bookmark.path()),
             ),
+            true,
         );
     }
 }
@@ -1077,6 +1082,7 @@ async fn bookmarks_goto(main_win: MainWindow, goto: BookmarkActionVariant) {
     fs.goto(
         &fs.file_list(),
         &FileSelector::directory_for_path(&connection, path),
+        true,
     );
 }
 
@@ -1110,7 +1116,7 @@ async fn connections_new(main_win: MainWindow) {
     if let Some(connection) = ConnectDialog::new_connection(main_win.upcast_ref(), uri).await {
         let fs = main_win.file_selector(FileSelectorID::Active);
         let file_list = fs.file_list();
-        fs.goto(&file_list, &connection.default_dir());
+        fs.goto(&file_list, &connection.default_dir(), true);
         if let Some(quick_connect_uri) = connection.uri().map(|uri| uri.to_str())
             && let Err(error) = options.quick_connect_uri.set(quick_connect_uri)
         {

@@ -307,7 +307,7 @@ mod imp {
             self.obj().close();
 
             glib::timeout_add_local_once(Duration::from_millis(1), move || {
-                fs.goto(&fs.file_list(), &connection.default_dir());
+                fs.goto(&fs.file_list(), &connection.default_dir(), true);
             });
         }
     }
