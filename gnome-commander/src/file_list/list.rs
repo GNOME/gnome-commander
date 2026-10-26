@@ -821,8 +821,11 @@ mod imp {
         }
 
         fn add_to_history(&self, directory: &Directory) {
-            self.history
-                .add((directory.connection(), directory.path_from_root()));
+            let entry = (directory.connection(), directory.path_from_root());
+            if Some(&entry) != self.history.current().as_ref() {
+                self.history.drop_head();
+                self.history.add(entry);
+            }
 
             self.obj().emit_by_name::<()>("dir-changed", &[directory]);
         }

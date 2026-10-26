@@ -40,7 +40,17 @@ impl<T: PartialEq + Clone> History<T> {
         self.position.set(0);
     }
 
-    fn current(&self) -> Option<T> {
+    /// Drops any items before the current item. Calling this before adding a new item ensures that
+    /// navigation after restoring a previous history item results in the expected history.
+    pub fn drop_head(&self) {
+        let position = self.position.get();
+        if position > 0 {
+            self.entries.borrow_mut().drain(0..position);
+            self.position.set(0);
+        }
+    }
+
+    pub fn current(&self) -> Option<T> {
         self.entries.borrow().get(self.position.get()).cloned()
     }
 
