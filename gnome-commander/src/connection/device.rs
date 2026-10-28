@@ -28,7 +28,6 @@ mod imp {
         pub device_fn: RefCell<Option<String>>,
         pub mount_point: RefCell<Option<PathBuf>>,
         pub icon: RefCell<Option<gio::Icon>>,
-        pub mount: RefCell<Option<gio::Mount>>,
         pub volume: RefCell<Option<gio::Volume>>,
     }
 
@@ -52,11 +51,8 @@ impl ConnectionDevice {
     pub fn new(alias: &str, device_fn: &str, mountp: &Path, icon: Option<&gio::Icon>) -> Self {
         let this: Self = glib::Object::builder().build();
         this.set_device_fn(Some(device_fn));
-        this.set_mountp(Some(mountp));
+        this.set_mountp(mountp);
         this.set_icon(icon);
-        this.set_autovol(false);
-        this.set_mount(None);
-        this.set_volume(None);
         this.set_alias(Some(alias));
 
         // No caching of local directories
@@ -69,11 +65,11 @@ impl ConnectionDevice {
         let uuid = volume.identifier(gio::VOLUME_IDENTIFIER_KIND_UUID)?;
         let this: Self = glib::Object::builder().build();
         this.set_device_fn(Some(&uuid));
-        this.set_mountp(None);
-        this.set_icon(Some(&volume.icon()));
-        this.set_alias(Some(&volume.name()));
-        this.set_autovol(true);
-        this.set_volume(Some(volume));
+        this.set_volume(volume);
+
+        // No caching of local directories
+        this.dir_cache_mut().reduce_unpinned_capacity(0);
+
         Some(this)
     }
 
@@ -81,7 +77,7 @@ impl ConnectionDevice {
         self.imp().device_fn.borrow().clone()
     }
 
-    pub fn set_device_fn(&self, device_fn: Option<&str>) {
+    fn set_device_fn(&self, device_fn: Option<&str>) {
         self.imp()
             .device_fn
             .replace(device_fn.map(ToOwned::to_owned));
@@ -91,18 +87,17 @@ impl ConnectionDevice {
         self.imp().mount_point.borrow().clone()
     }
 
-    pub fn set_mountp(&self, mount_point: Option<&Path>) {
-        self.imp()
-            .mount_point
-            .replace(mount_point.map(ToOwned::to_owned));
-        self.set_base_path(mount_point.map(ToOwned::to_owned));
+    fn set_mountp(&self, mount_point: &Path) {
+        self.imp().mount_point.replace(Some(mount_point.to_owned()));
+        self.set_base_path(Some(mount_point.to_owned()));
+        self.set_autovol(false);
     }
 
     pub fn icon(&self) -> Option<gio::Icon> {
         self.imp().icon.borrow().clone()
     }
 
-    pub fn set_icon(&self, icon: Option<&gio::Icon>) {
+    fn set_icon(&self, icon: Option<&gio::Icon>) {
         self.imp().icon.replace(icon.cloned());
     }
 
@@ -110,30 +105,39 @@ impl ConnectionDevice {
         self.imp().auto_volume.get()
     }
 
-    pub fn set_autovol(&self, autovol: bool) {
+    fn set_autovol(&self, autovol: bool) {
         self.imp().auto_volume.set(autovol);
-    }
-
-    pub fn mount(&self) -> Option<gio::Mount> {
-        self.imp().mount.borrow().clone()
-    }
-
-    pub fn set_mount(&self, mount: Option<&gio::Mount>) {
-        self.imp().mount.replace(mount.cloned());
-        self.set_base_path(mount.and_then(|mount| mount.default_location().path()));
     }
 
     pub fn volume(&self) -> Option<gio::Volume> {
         self.imp().volume.borrow().clone()
     }
 
-    pub fn set_volume(&self, volume: Option<&gio::Volume>) {
-        self.imp().volume.replace(volume.cloned());
+    fn set_volume(&self, volume: &gio::Volume) {
+        self.imp().volume.replace(Some(volume.clone()));
+
+        self.set_autovol(true);
+        self.set_icon(Some(&volume.icon()));
+        self.set_alias(Some(&volume.name()));
         self.set_base_path(
             volume
-                .and_then(|volume| volume.get_mount())
+                .get_mount()
                 .and_then(|mount| mount.default_location().path()),
         );
+
+        volume.connect_changed(glib::clone!(
+            #[weak(rename_to = this)]
+            self,
+            move |volume| {
+                this.set_icon(Some(&volume.icon()));
+                this.set_alias(Some(&volume.name()));
+                this.set_base_path(
+                    volume
+                        .get_mount()
+                        .and_then(|mount| mount.default_location().path()),
+                );
+            }
+        ));
     }
 
     async fn legacy_mount(&self) -> Result<(), ErrorMessage> {
@@ -220,8 +224,7 @@ impl ConnectionInterface for ConnectionDevice {
                                 &error,
                             )
                         })?;
-                    self.set_mount(volume.get_mount().as_ref());
-                    self.mount().unwrap()
+                    volume.get_mount().unwrap()
                 };
 
                 let file = mount.default_location();
@@ -261,7 +264,11 @@ impl ConnectionInterface for ConnectionDevice {
             }
 
             if self.autovol() {
-                if let Some(mount) = self.mount().filter(|m| m.can_unmount()) {
+                if let Some(mount) = self
+                    .volume()
+                    .and_then(|volume| volume.get_mount())
+                    .filter(|m| m.can_unmount())
+                {
                     debug!('m', "umounting GIO mount \"{}\"", mount.name());
 
                     match mount
