@@ -651,8 +651,9 @@ impl FileSelector {
         fl.connect_con_changed(glib::clone!(
             #[weak(rename_to = this)]
             self,
-            move |_, con| {
+            move |fl, con| {
                 this.imp().select_connection(con);
+                this.on_list_dir_changed(fl, &fl.directory());
             }
         ));
         fl.connect_dir_changed(glib::clone!(
