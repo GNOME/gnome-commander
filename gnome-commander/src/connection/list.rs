@@ -462,19 +462,33 @@ impl ConnectionList {
     }
 
     fn remove_volume(&self, volume: &gio::Volume) {
-        let Some(uuid) = volume.identifier(gio::VOLUME_IDENTIFIER_KIND_UUID) else {
-            return;
+        let device = if let Some(uuid) = volume.identifier(gio::VOLUME_IDENTIFIER_KIND_UUID) {
+            self.iter()
+                .filter_map(|c| c.downcast::<ConnectionDevice>().ok())
+                .filter(|d| d.autovol())
+                .find(|d| d.device_fn().as_deref() == Some(&uuid))
+        } else if let Some(unix_device_string) =
+            volume.identifier(gio::VOLUME_IDENTIFIER_KIND_UNIX_DEVICE)
+        {
+            self.iter()
+                .filter_map(|c| c.downcast::<ConnectionDevice>().ok())
+                .filter(|d| d.autovol())
+                .find(|d| {
+                    d.volume().is_some_and(|volume| {
+                        volume
+                            .identifier(gio::VOLUME_IDENTIFIER_KIND_UNIX_DEVICE)
+                            .as_ref()
+                            == Some(&unix_device_string)
+                    })
+                })
+        } else {
+            None
         };
-        let Some(device) = self
-            .iter()
-            .filter_map(|c| c.downcast::<ConnectionDevice>().ok())
-            .filter(|d| d.autovol())
-            .find(|d| d.device_fn().as_deref() == Some(&uuid))
-        else {
-            return;
-        };
-        debug!('m', "Remove Volume: {:?}", device.device_fn());
-        self.remove(&device);
+
+        if let Some(device) = device {
+            debug!('m', "Remove Volume: {:?}", device.device_fn());
+            self.remove(&device);
+        }
     }
 
     pub fn set_volume_monitor(&self) {
