@@ -236,7 +236,8 @@ mod imp {
                 let connection = self.obj().connection();
                 let uuid = connection
                     .and_downcast_ref::<ConnectionDevice>()
-                    .and_then(|d| d.mount())
+                    .and_then(|d| d.volume())
+                    .and_then(|v| v.get_mount())
                     .and_then(|m| m.uuid())
                     .map(|u| format!(" ({})", u))
                     .unwrap_or_default();
