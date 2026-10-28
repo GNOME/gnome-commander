@@ -263,33 +263,41 @@ impl ConnectionInterface for ConnectionDevice {
                 );
             }
 
-            if self.autovol() {
-                if let Some(mount) = self
-                    .volume()
-                    .and_then(|volume| volume.get_mount())
-                    .filter(|m| m.can_unmount())
+            if let Some(volume) = self.volume() {
+                let result = if let Some(drive) = volume.drive()
+                    && drive.can_eject()
+                {
+                    debug!('m', "ejecting GIO drive \"{}\"", drive.name());
+                    drive
+                        .eject_with_operation_future(
+                            gio::MountUnmountFlags::NONE,
+                            gio::MountOperation::NONE,
+                        )
+                        .await
+                } else if let Some(mount) = volume.get_mount()
+                    && mount.can_unmount()
                 {
                     debug!('m', "umounting GIO mount \"{}\"", mount.name());
-
-                    match mount
+                    mount
                         .unmount_with_operation_future(
                             gio::MountUnmountFlags::NONE,
                             gio::MountOperation::NONE,
                         )
                         .await
-                    {
-                        Ok(()) => {
-                            self.set_state(ConnectionState::Closed);
-                            show_message_dialog_volume_unmounted(window);
-                            Ok(())
-                        }
-                        Err(error) => Err(ErrorMessage::with_error(
-                            gettext("Cannot unmount the volume"),
-                            &error,
-                        )),
-                    }
                 } else {
                     Ok(())
+                };
+
+                match result {
+                    Ok(()) => {
+                        self.set_state(ConnectionState::Closed);
+                        show_message_dialog_volume_unmounted(window);
+                        Ok(())
+                    }
+                    Err(error) => Err(ErrorMessage::with_error(
+                        gettext("Cannot unmount the volume"),
+                        &error,
+                    )),
                 }
             } else if let Some(mount_point) = self.mountp_string() {
                 legacy_umount(&mount_point)
