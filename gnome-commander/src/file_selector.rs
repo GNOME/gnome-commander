@@ -390,7 +390,7 @@ mod imp {
             } else {
                 self.obj().goto(&file_list, &con.default_dir(), true);
             }
-            self.obj().emit_by_name::<()>("activate-request", &[]);
+            self.obj().grab_focus();
         }
 
         pub fn is_control_pressed(&self) -> bool {
