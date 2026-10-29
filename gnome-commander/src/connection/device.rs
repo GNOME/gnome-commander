@@ -194,6 +194,17 @@ impl ConnectionDevice {
             }
         }
     }
+
+    pub fn root(&self) -> Option<gio::File> {
+        if let Some(volume) = self.volume() {
+            volume
+                .get_mount()
+                .map(|mount| mount.root())
+                .or_else(|| volume.activation_root())
+        } else {
+            Some(gio::File::for_path(self.mountp_string()?))
+        }
+    }
 }
 
 impl ConnectionInterface for ConnectionDevice {
@@ -308,12 +319,7 @@ impl ConnectionInterface for ConnectionDevice {
     }
 
     fn create_uri(&self, path: &Path) -> String {
-        if let Some(root) = self.volume().and_then(|volume| {
-            volume
-                .get_mount()
-                .map(|mount| mount.root())
-                .or_else(|| volume.activation_root())
-        }) {
+        if let Some(root) = self.root() {
             root.resolve_relative_path(path).uri().to_string()
         } else {
             glib::filename_to_uri(path, None)

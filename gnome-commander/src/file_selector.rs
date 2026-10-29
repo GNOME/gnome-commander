@@ -154,7 +154,7 @@ mod imp {
             );
 
             Self {
-                connection_bar: ConnectionBar::new(connection_list),
+                connection_bar: ConnectionBar::new(&connection_list),
                 connection_list: connection_list.clone(),
                 connection_dropdown: gtk::DropDown::builder()
                     .model(&model)
@@ -476,9 +476,8 @@ mod imp {
             let dir = fl.directory();
             if let Some(connection) = dir.connection().downcast_ref::<ConnectionDevice>()
                 && connection
-                    .volume()
-                    .and_then(|v| v.get_mount())
-                    .is_some_and(|m| m.root().uri() == dir.uri())
+                    .root()
+                    .is_some_and(|root| root.equal(&*dir.file()))
             {
                 tab_label.set_label(&*connection.alias().unwrap_or_default());
             } else if let Some(connection) = dir.connection().downcast_ref::<ConnectionRemote>()
@@ -1104,7 +1103,7 @@ impl FileSelector {
         let connection_list = ConnectionList::get();
 
         for tab in tabs {
-            let directory = restore_directory(connection_list, tab.current_location());
+            let directory = restore_directory(&connection_list, tab.current_location());
             self.new_tab(&directory, tab.tab_options());
         }
 

@@ -17,13 +17,13 @@ use gtk::{
     glib::{self, subclass::prelude::*},
     prelude::*,
 };
-use std::{path::Path, sync::OnceLock};
+use std::path::Path;
 
 mod imp {
     use super::*;
-    use crate::connection::{home::ConnectionHome, smb::ConnectionSmb};
+    use crate::connection::home::ConnectionHome;
     use std::{
-        cell::{Cell, OnceCell, RefCell},
+        cell::{Cell, RefCell},
         collections::HashMap,
         sync::OnceLock,
     };
@@ -32,7 +32,6 @@ mod imp {
         pub changed: Cell<bool>,
         pub locked: Cell<bool>,
         pub home: ConnectionHome,
-        pub smb: OnceCell<ConnectionSmb>,
         pub connections: gio::ListStore,
         pub connection_handlers: RefCell<HashMap<Connection, glib::SignalHandlerId>>,
         pub volume_monitor: gio::VolumeMonitor,
@@ -48,7 +47,6 @@ mod imp {
                 changed: Default::default(),
                 locked: Default::default(),
                 home: Default::default(),
-                smb: Default::default(),
                 connections: gio::ListStore::new::<Connection>(),
                 connection_handlers: Default::default(),
                 volume_monitor: gio::VolumeMonitor::get(),
@@ -80,29 +78,28 @@ glib::wrapper! {
     pub struct ConnectionList(ObjectSubclass<imp::ConnectionList>);
 }
 
-static LIST: OnceLock<glib::thread_guard::ThreadGuard<ConnectionList>> = OnceLock::new();
-
 impl ConnectionList {
-    pub fn create(show_samba_workgroups_button: bool) {
-        LIST.get_or_init(|| {
-            glib::thread_guard::ThreadGuard::new(ConnectionList::new(show_samba_workgroups_button))
-        });
-    }
-
-    pub fn get() -> &'static Self {
-        LIST.get()
-            .expect("Connection list isn't created yet")
-            .get_ref()
-    }
-
-    pub fn new(show_samba_workgroups_button: bool) -> Self {
-        let this: Self = glib::Object::builder().build();
-        if show_samba_workgroups_button {
-            let smb = ConnectionSmb::default();
-            this.imp().connections.append(&smb);
-            this.imp().smb.set(smb).unwrap();
+    pub fn get() -> Self {
+        thread_local! {
+            static LIST: ConnectionList = ConnectionList::new();
         }
-        this
+
+        LIST.with(|list| list.clone())
+    }
+
+    fn new() -> Self {
+        glib::Object::builder().build()
+    }
+
+    pub fn enable_smb(&self, value: bool) {
+        if value && self.smb().is_none() {
+            self.imp().connections.append(&ConnectionSmb::default());
+        } else if !value && let Some(smb) = self.smb() {
+            let store = &self.imp().connections;
+            if let Some(position) = store.find(&smb) {
+                store.remove(position);
+            }
+        }
     }
 
     pub fn all(&self) -> gio::ListModel {
@@ -229,7 +226,8 @@ impl ConnectionList {
     }
 
     pub fn smb(&self) -> Option<ConnectionSmb> {
-        self.imp().smb.get().cloned()
+        self.iter()
+            .find_map(|con| con.downcast::<ConnectionSmb>().ok())
     }
 
     pub fn get_remote_con_for_file(&self, file: &gio::File) -> Option<ConnectionRemote> {

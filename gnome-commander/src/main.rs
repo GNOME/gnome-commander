@@ -238,7 +238,7 @@ fn app_startup(_app: &gtk::Application) {
     create_config_directory();
 
     let options = GeneralOptions::instance();
-    ConnectionList::create(options.show_samba_workgroups_button.get());
+    ConnectionList::get().enable_smb(options.show_samba_workgroups_button.get());
     SearchConfig::get().load(&options);
     ConnectionList::get().load(&options);
     ConnectionList::get().set_volume_monitor();
