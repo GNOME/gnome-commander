@@ -473,7 +473,17 @@ mod imp {
                 return;
             };
 
-            tab_label.set_label(fl.directory().name());
+            let dir = fl.directory();
+            if let Some(connection) = dir.connection().downcast_ref::<ConnectionDevice>()
+                && connection
+                    .volume()
+                    .and_then(|v| v.get_mount())
+                    .is_some_and(|m| m.root().uri() == dir.uri())
+            {
+                tab_label.set_label(&*connection.alias().unwrap_or_default());
+            } else {
+                tab_label.set_label(dir.name());
+            }
             tab_label.set_locked(self.obj().is_tab_locked(fl));
             tab_label.set_indicator(GeneralOptions::instance().tab_lock_indicator.get());
 

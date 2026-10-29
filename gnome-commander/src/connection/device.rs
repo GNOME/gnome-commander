@@ -61,16 +61,16 @@ impl ConnectionDevice {
         this
     }
 
-    pub fn new_auto_volume(volume: &gio::Volume) -> Option<Self> {
-        let uuid = volume.identifier(gio::VOLUME_IDENTIFIER_KIND_UUID)?;
+    pub fn new_auto_volume(volume: &gio::Volume) -> Self {
+        let uuid = volume.identifier(gio::VOLUME_IDENTIFIER_KIND_UUID);
         let this: Self = glib::Object::builder().build();
-        this.set_device_fn(Some(&uuid));
+        this.set_device_fn(uuid.as_deref());
         this.set_volume(volume);
 
         // No caching of local directories
         this.dir_cache_mut().reduce_unpinned_capacity(0);
 
-        Some(this)
+        this
     }
 
     pub fn device_fn(&self) -> Option<String> {
@@ -308,9 +308,18 @@ impl ConnectionInterface for ConnectionDevice {
     }
 
     fn create_uri(&self, path: &Path) -> String {
-        glib::filename_to_uri(path, None)
-            .map(|uri| uri.into())
-            .unwrap_or_else(|_| "file:///".to_string())
+        if let Some(root) = self.volume().and_then(|volume| {
+            volume
+                .get_mount()
+                .map(|mount| mount.root())
+                .or_else(|| volume.activation_root())
+        }) {
+            root.resolve_relative_path(path).uri().to_string()
+        } else {
+            glib::filename_to_uri(path, None)
+                .map(|uri| uri.into())
+                .unwrap_or_else(|_| "file:///".to_string())
+        }
     }
 
     fn is_local(&self) -> bool {

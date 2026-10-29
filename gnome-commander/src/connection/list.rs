@@ -453,12 +453,7 @@ impl ConnectionList {
                 return;
             }
         }
-        // If it does not exist already and a UUID is available, create the new device connection
-        if let Some(dev) = ConnectionDevice::new_auto_volume(volume) {
-            self.add(&dev);
-        } else {
-            debug!('m', "Device does not have a UUID. Skipping");
-        }
+        self.add(&ConnectionDevice::new_auto_volume(volume));
     }
 
     fn remove_volume(&self, volume: &gio::Volume) {
