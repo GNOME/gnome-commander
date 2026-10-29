@@ -59,6 +59,7 @@ gnome-commander/src/dialogs/transfer_progress_dialog.rs
 gnome-commander/src/dir.rs
 gnome-commander/src/file_edit.rs
 gnome-commander/src/file_list/actions.rs
+gnome-commander/src/file_list/cell.rs
 gnome-commander/src/file_list/list.rs
 gnome-commander/src/file_list/popup.rs
 gnome-commander/src/file_list/quick_search.rs

@@ -5,6 +5,7 @@
 
 use super::item::FileListItem;
 use super::list::apply_css;
+use gettextrs::gettext;
 use gtk::{glib, prelude::*, subclass::prelude::*};
 
 mod imp {
@@ -74,12 +75,14 @@ mod imp {
             let mut parent = self.obj().accessible_parent();
             while let Some(p) = parent {
                 if p.accessible_role() == gtk::AccessibleRole::Row {
-                    // TODO: localize
-                    p.update_property(&[gtk::accessible::Property::Description(if value {
-                        "selected"
+                    let state = if value {
+                        // Translators: file list item selection state, announced by screen readers
+                        gettext("selected")
                     } else {
-                        "not selected"
-                    })]);
+                        // Translators: file list item selection state, announced by screen readers
+                        gettext("not selected")
+                    };
+                    p.update_property(&[gtk::accessible::Property::Description(&state)]);
                     break;
                 }
                 parent = p.accessible_parent();
