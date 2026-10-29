@@ -1034,7 +1034,7 @@ async fn bookmarks_add_current(main_win: MainWindow) {
 
 async fn bookmarks_edit(main_win: MainWindow) {
     let connection_list = ConnectionList::get();
-    let result = BookmarksDialog::show(main_win.upcast_ref(), connection_list).await;
+    let result = BookmarksDialog::show(main_win.upcast_ref(), &connection_list).await;
     if let Some(bookmark) = result {
         let fs = main_win.file_selector(FileSelectorID::Active);
         fs.goto(

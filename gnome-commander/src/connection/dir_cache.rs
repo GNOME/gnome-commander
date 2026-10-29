@@ -195,12 +195,12 @@ impl DirCache {
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::connection::{Connection, ConnectionExt};
+    use crate::connection::{Connection, ConnectionExt, list::ConnectionList};
     use glib::prelude::*;
     use std::{cell::RefCell, rc::Rc};
 
     fn test_get_insert_evict() {
-        let conn: Connection = glib::Object::builder().build();
+        let conn: Connection = ConnectionList::get().home().upcast();
         conn.dir_cache_mut().reduce_unpinned_capacity(2);
 
         assert_eq!(conn.dir_cache().get("file:///dir1"), None);
@@ -279,7 +279,7 @@ mod test {
 
     #[test]
     fn test_rename_unpinned() {
-        let conn: Connection = glib::Object::builder().build();
+        let conn: Connection = ConnectionList::get().home().upcast();
         conn.dir_cache_mut().reduce_unpinned_capacity(4);
 
         let directory1 = Directory::new(&conn, "file:///dir1");
@@ -307,7 +307,7 @@ mod test {
 
     #[test]
     fn test_rename_pinned() {
-        let conn: Connection = glib::Object::builder().build();
+        let conn: Connection = ConnectionList::get().home().upcast();
         conn.dir_cache_mut().reduce_unpinned_capacity(3);
 
         let directory1 = Directory::new(&conn, "file:///dir1");
@@ -353,7 +353,7 @@ mod test {
                 );
             }
 
-            let conn: Connection = glib::Object::builder().build();
+            let conn: Connection = ConnectionList::get().home().upcast();
             conn.dir_cache_mut().reduce_unpinned_capacity(1);
             let result = Rc::new(RefCell::new(false));
 
@@ -394,7 +394,7 @@ mod test {
 
     #[test]
     fn test_zero_capacity() {
-        let conn: Connection = glib::Object::builder().build();
+        let conn: Connection = ConnectionList::get().home().upcast();
         conn.dir_cache_mut().reduce_unpinned_capacity(0);
 
         let directory1 = Directory::new(&conn, "file:///dir1");

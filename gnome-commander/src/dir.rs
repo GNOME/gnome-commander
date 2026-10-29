@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use crate::{
-    connection::{Connection, ConnectionExt},
+    connection::{Connection, ConnectionExt, device::ConnectionDevice, list::ConnectionList},
     debug::debug,
     dirlist::list_directory,
     file::{File, FileOps},
@@ -168,16 +168,31 @@ impl Directory {
 
     pub fn new_from_file(connection: &impl IsA<Connection>, file: impl AsRef<gio::File>) -> Self {
         let file = file.as_ref();
+
+        let connection = if file.has_uri_scheme("file") {
+            // Check whether this file belongs to the Home volume or some device volume
+            ConnectionList::get()
+                .iter()
+                .find(|c| {
+                    c.downcast_ref::<ConnectionDevice>()
+                        .and_then(|device| device.root())
+                        .is_some_and(|root| root.equal(file) || root.relative_path(file).is_some())
+                })
+                .unwrap_or_else(|| ConnectionList::get().home().upcast())
+        } else {
+            connection.as_ref().clone()
+        };
+
         let is_virtual = file.has_uri_scheme("virtual");
-        if !is_virtual && let Some(directory) = connection.as_ref().dir_cache().get(&file.uri()) {
+        if !is_virtual && let Some(directory) = connection.dir_cache().get(&file.uri()) {
             directory.clone()
         } else {
             let this: Self = glib::Object::builder().build();
-            this.imp().connection.replace(connection.as_ref().clone());
             this.imp().file.replace(file.clone());
             if !is_virtual {
-                connection.as_ref().dir_cache_mut().insert(&this);
+                connection.dir_cache_mut().insert(&this);
             }
+            this.imp().connection.replace(connection);
             this
         }
     }
