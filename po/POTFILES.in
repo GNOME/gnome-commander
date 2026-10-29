@@ -78,7 +78,6 @@ gnome-commander/src/plugins/dialogs.rs
 gnome-commander/src/plugins/instance.rs
 gnome-commander/src/plugins/manager.rs
 gnome-commander/src/search/backend.rs
-gnome-commander/src/search/content_search.rs
 gnome-commander/src/search/search_dialog.rs
 gnome-commander/src/search/selection_profile_component.rs
 gnome-commander/src/select_directory_button.rs
