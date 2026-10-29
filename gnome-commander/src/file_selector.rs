@@ -481,6 +481,10 @@ mod imp {
                     .is_some_and(|m| m.root().uri() == dir.uri())
             {
                 tab_label.set_label(&*connection.alias().unwrap_or_default());
+            } else if let Some(connection) = dir.connection().downcast_ref::<ConnectionRemote>()
+                && connection.create_uri(Path::new("/")) == dir.uri()
+            {
+                tab_label.set_label(&*connection.alias().unwrap_or_default());
             } else {
                 tab_label.set_label(dir.name());
             }
