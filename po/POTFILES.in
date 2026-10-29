@@ -73,7 +73,7 @@ gnome-commander/src/main.rs
 gnome-commander/src/main_win.rs
 gnome-commander/src/open_connection.rs
 gnome-commander/src/open_file.rs
-gnome-commander/src/options/options.rs
+gnome-commander/src/options/mod.rs
 gnome-commander/src/plugins/dialogs.rs
 gnome-commander/src/plugins/instance.rs
 gnome-commander/src/plugins/manager.rs
