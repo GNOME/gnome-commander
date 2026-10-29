@@ -132,18 +132,24 @@ impl TransferProgressWindow {
         }
 
         let size_display_mode = self.imp().size_display_mode.get();
-        let bytes_total_str = size_to_string(bytes_total, size_display_mode);
+        let bytes_total_str = if bytes_total > 0 {
+            size_to_string(bytes_total, size_display_mode)
+        } else {
+            "?".to_string()
+        };
         let bytes_copied_str = size_to_string(bytes_copied, size_display_mode);
         self.imp().file_progress_label.set_text(
             &pgettext("size copied", "{copied} of {total} copied")
                 .replace("{copied}", &bytes_copied_str)
                 .replace("{total}", &bytes_total_str),
         );
-        self.set_title(Some(
-            // xgettext:no-c-format
-            &pgettext("percentage copied", "{}% copied")
-                .replace("{}", &format!("{:.0}", total_prog * 100.0)),
-        ));
+        if total_prog > 0.0 {
+            self.set_title(Some(
+                // xgettext:no-c-format
+                &pgettext("percentage copied", "{}% copied")
+                    .replace("{}", &format!("{:.0}", total_prog * 100.0)),
+            ));
+        }
     }
 
     pub fn set_msg(&self, msg: &str) {
