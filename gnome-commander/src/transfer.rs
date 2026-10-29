@@ -372,7 +372,7 @@ async fn transfer_files(
             TransferType::Link => {
                 let symlink_src_path = src.path().unwrap();
 
-                match dst.make_symbolic_link(symlink_src_path, gio::Cancellable::NONE) {
+                match dst.make_symbolic_link(symlink_src_path, Some(&xfer_data.cancellable)) {
                     Ok(()) => {
                         resulting_files.push(dst.clone());
                     }
@@ -856,7 +856,7 @@ async fn copy_file_recursively(
         return ControlFlow::Break(BreakReason::Cancelled);
     }
 
-    match src.query_file_type(gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE) {
+    match src.query_file_type(gio::FileQueryInfoFlags::NONE, Some(&xfer_data.cancellable)) {
         gio::FileType::Directory => {
             match dst.make_directory_future(glib::Priority::DEFAULT).await {
                 Ok(()) => {}
@@ -889,9 +889,12 @@ async fn copy_file_recursively(
             let enumerator = match src.enumerate_children(
                 "*",
                 gio::FileQueryInfoFlags::NONE,
-                gio::Cancellable::NONE,
+                Some(&xfer_data.cancellable),
             ) {
                 Ok(enumerator) => enumerator,
+                Err(error) if error.matches(gio::IOErrorEnum::Cancelled) => {
+                    return ControlFlow::Break(BreakReason::Cancelled);
+                }
                 Err(error) => {
                     eprintln!("g_file_enumerate_children error: {}", error);
                     report_transfer_problem(xfer_data, window, &error, src, dst).await;
@@ -900,9 +903,12 @@ async fn copy_file_recursively(
             };
 
             loop {
-                let child_file_info = match enumerator.next_file(gio::Cancellable::NONE) {
+                let child_file_info = match enumerator.next_file(Some(&xfer_data.cancellable)) {
                     Ok(Some(file)) => file,
                     Ok(None) => break,
+                    Err(error) if error.matches(gio::IOErrorEnum::Cancelled) => {
+                        return ControlFlow::Break(BreakReason::Cancelled);
+                    }
                     Err(error) => {
                         eprintln!("File enumeration error: {}", error);
                         run_failure_dialog(
@@ -914,11 +920,6 @@ async fn copy_file_recursively(
                         return ControlFlow::Break(BreakReason::Failed);
                     }
                 };
-
-                if xfer_data.cancellable.is_cancelled() {
-                    let _ = enumerator.close(gio::Cancellable::NONE);
-                    return ControlFlow::Break(BreakReason::Cancelled);
-                }
 
                 let child_name = child_file_info.name();
                 let source_child = enumerator.container().child(&child_name);
@@ -977,7 +978,7 @@ async fn move_file_recursively(
     }
 
     let src_is_directory = src
-        .query_file_type(gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE)
+        .query_file_type(gio::FileQueryInfoFlags::NONE, Some(&xfer_data.cancellable))
         == gio::FileType::Directory;
 
     match move_file(xfer_data, window, src, dst, flags).await {
@@ -1068,7 +1069,7 @@ async fn progress_update(window: &TransferProgressWindow, xfer_data: &XferData) 
             file.query_info(
                 gio::FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
                 gio::FileQueryInfoFlags::NONE,
-                gio::Cancellable::NONE,
+                Some(&xfer_data.cancellable),
             )
             .ok()
         })
@@ -1176,6 +1177,10 @@ async fn copy_file(
     let (result, mut progress) = src.copy_future(dst, flags, glib::Priority::DEFAULT);
     let mut result = result.fuse();
     loop {
+        if xfer_data.cancellable.is_cancelled() {
+            return Err(glib::Error::new(gio::IOErrorEnum::Cancelled, ""));
+        }
+
         let mut next = progress.next().fuse();
         let p = select! {
             p = next => p,
@@ -1227,6 +1232,10 @@ async fn move_file(
     let (result, mut progress) = src.move_future(dst, flags, glib::Priority::DEFAULT);
     let mut result = result.fuse();
     loop {
+        if xfer_data.cancellable.is_cancelled() {
+            return Err(glib::Error::new(gio::IOErrorEnum::Cancelled, ""));
+        }
+
         let mut next = progress.next().fuse();
         let p = select! {
             p = next => p,

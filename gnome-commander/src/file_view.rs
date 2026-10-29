@@ -38,10 +38,7 @@ pub async fn file_view_internal(
         {
             File::query_file(file)?
         } else {
-            return Err(ErrorMessage {
-                message: gettext("Failed to download a file"),
-                secondary_text: None,
-            });
+            return Ok(());
         }
     };
 
