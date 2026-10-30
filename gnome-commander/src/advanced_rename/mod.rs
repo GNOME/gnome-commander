@@ -2,10 +2,13 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-pub mod advanced_rename_dialog;
-pub mod convert;
-pub mod item;
+mod advanced_rename_dialog;
+mod cell;
+mod convert;
+mod item;
 pub mod profile;
-pub mod profile_component;
-pub mod regex_dialog;
-pub mod template;
+mod profile_component;
+mod regex_dialog;
+mod template;
+
+pub use advanced_rename_dialog::advanced_rename_dialog_show;

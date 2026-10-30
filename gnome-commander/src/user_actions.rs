@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use crate::{
-    advanced_rename::advanced_rename_dialog::advanced_rename_dialog_show,
+    advanced_rename::advanced_rename_dialog_show,
     config::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_REVISION, PACKAGE_URL, PACKAGE_VERSION},
     connection::{
         Connection, ConnectionExt,
