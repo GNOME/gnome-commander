@@ -73,6 +73,7 @@ mod imp {
         /// The button pressed to start a selection
         button: Cell<Option<u32>>,
         hexmode_marker_on_hexdump: Cell<bool>,
+        pub(super) delayed_ensure_offset: Cell<Option<FileOffset>>,
 
         pub char_width: Cell<i32>,
         pub char_height: Cell<i32>,
@@ -120,6 +121,7 @@ mod imp {
                 marker_end_column: Default::default(),
                 button: Default::default(),
                 hexmode_marker_on_hexdump: Default::default(),
+                delayed_ensure_offset: Default::default(),
 
                 char_width: Default::default(),
                 char_height: Default::default(),
@@ -438,6 +440,10 @@ mod imp {
             }
             if let Some(adjustment) = self.obj().vadjustment() {
                 self.update_vadjustment_limits(&adjustment);
+            }
+
+            if let Some(offset) = self.delayed_ensure_offset.take() {
+                self.obj().ensure_offset_visible(offset);
             }
         }
 
@@ -1436,6 +1442,13 @@ impl TextRender {
             changed_adjustment = true;
         }
 
+        let chars_per_line = self.chars_per_line() as f64;
+        if chars_per_line == 0.0 {
+            // Viewport size isn’t known yet. Delay scrolling until it is.
+            self.imp().delayed_ensure_offset.set(Some(offset));
+            return;
+        }
+
         if self.max_column() == 0 {
             // There was no draw yet. We need to call snapshot() to make sure hadjustment limits are
             // set correctly.
@@ -1447,7 +1460,6 @@ impl TextRender {
         let hoffset = char_columns(&input_mode, line_start, tab_size).find_map(
             |(char_offset, char_column)| (char_offset >= offset).then_some(char_column as f64),
         );
-        let chars_per_line = self.chars_per_line() as f64;
         if let Some(hoffset) = hoffset
             && let Some(hadjustment) = self.hadjustment()
             && (hoffset < hadjustment.value() || hoffset >= hadjustment.value() + chars_per_line)
