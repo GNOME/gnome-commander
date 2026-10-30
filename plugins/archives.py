@@ -46,7 +46,7 @@ def sanitize_path(parent: str, path: str) -> str:
         path = path.replace('/', os.path.sep)
     if os.path.altsep and os.path.altsep != '/':
         path = path.replace(os.path.altsep, os.path.sep)
-    _, _, path = os.path.splitroot(path)
+    __, __, path = os.path.splitroot(path)
     invalid_parts = ('', os.path.curdir, os.path.pardir)
     path = os.path.sep.join(part for part in path.split(os.path.sep)
                             if part not in invalid_parts)
@@ -207,7 +207,7 @@ class SevenZipArchives(CompressionFormat):
             [self.command_path, 'u', '-t7z', '-sae', '-aoa', destination, *files],
             cwd=source_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE
         )
-        (_, stderr) = proc.communicate()
+        (__, stderr) = proc.communicate()
         if proc.returncode != 0:
             raise Exception(stderr.decode(errors='replace').strip())
 
@@ -216,7 +216,7 @@ class SevenZipArchives(CompressionFormat):
             [self.command_path, 'x', '-aou', file],
             cwd=destination, stdout=subprocess.PIPE, stderr=subprocess.PIPE
         )
-        (_, stderr) = proc.communicate()
+        (__, stderr) = proc.communicate()
         if proc.returncode != 0:
             raise Exception(stderr.decode(errors='replace').strip())
 
@@ -481,7 +481,7 @@ class ArchivesPlugin(Plugin):
             })
 
     async def query_overwrite_one(self, path: str) -> str:
-        button, _ = await self.show_dialog({
+        button, __ = await self.show_dialog({
             'title': 'File exists',
             'modal': True,
             'child': {
