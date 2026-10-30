@@ -108,11 +108,13 @@ listview.gcmd-toolbar {
 
 /* File list */
 
-.gnome-cmd-file-list cell {
+.gnome-cmd-file-list cell,
+.adv-rename-file-list cell {
   padding: 0;
 }
 
-.gnome-cmd-file-list .cell {
+.gnome-cmd-file-list .cell,
+.adv-rename-file-list .cell {
   padding: 4px 6px;
 }
 

@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use super::{
+    cell::ListCell,
     item::Item,
     profile::{AdvancedRenameProfile, load_advrename_profiles, save_advrename_profiles},
     profile_component::AdvancedRenameProfileComponent,
@@ -323,6 +324,7 @@ mod imp {
             let files = gio::ListStore::new::<Item>();
             let file_selection = gtk::SingleSelection::new(Some(files.clone()));
             let file_view = gtk::ColumnView::builder().model(&file_selection).build();
+            file_view.add_css_class("adv-rename-file-list");
 
             Self {
                 config: Default::default(),
@@ -720,14 +722,29 @@ mod imp {
             }
         }
 
+        fn file_list_item_at_coords(&self, x: f64, y: f64) -> Option<Item> {
+            let mut widget = self.file_view.pick(x, y, gtk::PickFlags::DEFAULT)?;
+            loop {
+                if let Some(cell) = widget.downcast_ref::<ListCell>() {
+                    return cell.item().clone();
+                } else {
+                    widget = widget.parent()?;
+                }
+            }
+        }
+
         fn file_list_button_pressed(&self, n_press: i32, x: f64, y: f64) {
             if n_press != 1 {
                 return;
             }
-            if let Some(point) = self
-                .file_view
-                .compute_point(&*self.obj(), &graphene::Point::new(x as f32, y as f32))
+            if let Some(item) = self.file_list_item_at_coords(x, y)
+                && let Some(point) = self
+                    .file_view
+                    .compute_point(&*self.obj(), &graphene::Point::new(x as f32, y as f32))
             {
+                if let Some(position) = self.files.find(&item) {
+                    self.file_selection.set_selected(position);
+                }
                 self.file_view_popover
                     .set_pointing_to(Some(&gdk::Rectangle::new(
                         point.x() as i32,
@@ -896,24 +913,6 @@ mod imp {
         }
     }
 
-    fn bind(widget: &impl IsA<gtk::Widget>, bindings: impl IntoIterator<Item = glib::Binding>) {
-        unsafe {
-            widget
-                .as_ref()
-                .set_data::<Vec<glib::Binding>>("bindings", bindings.into_iter().collect())
-        }
-    }
-
-    fn unbind(widget: &impl IsA<gtk::Widget>) {
-        if let Some(bindings) =
-            unsafe { widget.as_ref().steal_data::<Vec<glib::Binding>>("bindings") }
-        {
-            for binding in bindings {
-                binding.unbind();
-            }
-        }
-    }
-
     fn file_cell_factory(
         xalign: f32,
         bind_value: impl Fn(&Item, &gtk::Label) -> glib::Binding + 'static,
@@ -923,46 +922,48 @@ mod imp {
             let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() else {
                 return;
             };
-            let label = gtk::Label::builder().xalign(xalign).build();
-            list_item.set_child(Some(&label));
+            let cell = ListCell::default();
+            cell.label().set_xalign(xalign);
+            list_item.set_child(Some(&cell));
         });
         factory.connect_bind(move |_, obj| {
             let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() else {
                 return;
             };
-            let Some(label) = list_item.child().and_downcast::<gtk::Label>() else {
+            let Some(cell) = list_item.child().and_downcast::<ListCell>() else {
                 return;
             };
-            unbind(&label);
             match list_item.item().and_downcast::<Item>() {
                 Some(item) => {
-                    let binding1 = (bind_value)(&item, &label);
+                    cell.set_item(Some(item.clone()));
 
-                    let binding2 = item
-                        .bind_property("error", &label, "attributes")
-                        .transform_to(|_, error: Option<&str>| {
-                            if error.is_some() {
-                                let attrs = pango::AttrList::new();
-                                attrs.insert(pango::AttrInt::new_style(pango::Style::Italic));
-                                attrs.insert(pango::AttrColor::new_foreground(0xFFFF, 0, 0));
-                                Some(attrs.to_value())
-                            } else {
-                                None
-                            }
-                        })
-                        .sync_create()
-                        .build();
-
-                    let binding3 = item
-                        .bind_property("error", &label, "tooltip-text")
-                        .sync_create()
-                        .build();
-
-                    bind(&label, [binding1, binding2, binding3]);
+                    let label = cell.label();
+                    cell.add_binding((bind_value)(&item, label));
+                    cell.add_binding(
+                        item.bind_property("error", label, "attributes")
+                            .transform_to(|_, error: Option<&str>| {
+                                if error.is_some() {
+                                    let attrs = pango::AttrList::new();
+                                    attrs.insert(pango::AttrInt::new_style(pango::Style::Italic));
+                                    attrs.insert(pango::AttrColor::new_foreground(0xFFFF, 0, 0));
+                                    Some(attrs.to_value())
+                                } else {
+                                    None
+                                }
+                            })
+                            .sync_create()
+                            .build(),
+                    );
+                    cell.add_binding(
+                        item.bind_property("error", label, "tooltip-text")
+                            .sync_create()
+                            .build(),
+                    );
                 }
                 None => {
-                    label.set_label("");
-                    label.set_attributes(None);
+                    cell.set_item(None);
+                    cell.label().set_label("");
+                    cell.label().set_attributes(None);
                 }
             }
         });
@@ -970,12 +971,12 @@ mod imp {
             let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() else {
                 return;
             };
-            let Some(label) = list_item.child().and_downcast::<gtk::Label>() else {
+            let Some(cell) = list_item.child().and_downcast::<ListCell>() else {
                 return;
             };
-            unbind(&label);
-            label.set_label("");
-            label.set_attributes(None);
+            cell.label().set_label("");
+            cell.label().set_attributes(None);
+            cell.set_item(None);
         });
         factory.upcast()
     }
