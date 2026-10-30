@@ -2357,8 +2357,12 @@ impl FileList {
     }
 
     pub async fn reload(&self) {
+        let selected_name = self.selected_file().map(|file| file.path_name());
         self.unselect_all();
         self.imp().relist().await;
+        if let Some(name) = selected_name {
+            self.focus_file(&name);
+        }
     }
 
     pub fn append_file(&self, file: &File) {
