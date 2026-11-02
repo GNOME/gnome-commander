@@ -31,8 +31,7 @@ struct XferData {
     copy_flags: gio::FileCopyFlags,
     overwrite_mode: ConfirmOverwriteMode,
 
-    src_files: Vec<gio::File>,
-    dst_files: Vec<gio::File>,
+    files: Vec<(gio::File, gio::File)>,
 
     bytes_total: u64,
     files_total: u64,
@@ -56,8 +55,7 @@ impl Default for XferData {
             transfer_type: TransferType::Copy,
             copy_flags: gio::FileCopyFlags::NONE,
             overwrite_mode: Default::default(),
-            src_files: Default::default(),
-            dst_files: Default::default(),
+            files: Default::default(),
             bytes_total: Default::default(),
             files_total: Default::default(),
             cancellable: gio::Cancellable::new(),
@@ -79,44 +77,19 @@ pub async fn copy_files(
     copy_flags: gio::FileCopyFlags,
     overwrite_mode: ConfirmOverwriteMode,
 ) -> Vec<gio::File> {
-    if src_files.is_empty() {
+    let files = construct_transfer_list(
+        &parent_window,
+        src_files,
+        to,
+        dest_fn,
+        gettext("Copying a directory into itself is a bad idea."),
+    )
+    .await;
+    if files.is_empty() {
         return Default::default();
     }
 
-    // Sanity check
-    for file in &src_files {
-        if file_is_parent_to_dir_or_equal(file, &to) {
-            ErrorMessage::new(
-                gettext("Copying a directory into itself is a bad idea."),
-                Some(gettext("The whole operation was cancelled.")),
-            )
-            .show(&parent_window)
-            .await;
-            return Default::default();
-        }
-        if file_is_already_in_dir(file, &to) && dest_fn.is_some() && dest_fn == file.basename() {
-            debug!(
-                'x',
-                "Copying a file to the same directory as it's already in, is not permitted"
-            );
-            return Default::default();
-        }
-    }
-
-    let mut dst_files = Vec::<gio::File>::new();
-    if let Some(filename) = dest_fn.as_ref().filter(|_| src_files.len() == 1) {
-        dst_files.push(to.get_child_gfile(filename));
-    } else {
-        for file in &src_files {
-            let Some(basename) = file.basename() else {
-                eprintln!("Error: Cannot get basename of a file {}.", file.uri());
-                return Default::default();
-            };
-            dst_files.push(to.get_child_gfile(&basename));
-        }
-    }
-
-    let (bytes_total, files_total) = set_files_total(&src_files).await;
+    let (bytes_total, files_total) = set_files_total(&files).await;
 
     let win = TransferProgressWindow::new(
         files_total,
@@ -129,8 +102,7 @@ pub async fn copy_files(
         transfer_type: TransferType::Copy,
         copy_flags,
         overwrite_mode,
-        src_files,
-        dst_files,
+        files,
         bytes_total,
         files_total,
         cancellable: win.cancellable().clone(),
@@ -152,44 +124,19 @@ pub async fn move_files(
     copy_flags: gio::FileCopyFlags,
     overwrite_mode: ConfirmOverwriteMode,
 ) -> Vec<gio::File> {
-    if src_files.is_empty() {
+    let files = construct_transfer_list(
+        &parent_window,
+        src_files,
+        to,
+        dest_fn,
+        gettext("Moving a directory into itself is a bad idea."),
+    )
+    .await;
+    if files.is_empty() {
         return Default::default();
     }
 
-    // Sanity check
-    for file in &src_files {
-        if file_is_parent_to_dir_or_equal(file, &to) {
-            ErrorMessage::new(
-                gettext("Moving a directory into itself is a bad idea."),
-                Some(gettext("The whole operation was cancelled.")),
-            )
-            .show(&parent_window)
-            .await;
-            return Default::default();
-        }
-        if file_is_already_in_dir(file, &to) && dest_fn.is_some() && dest_fn == file.basename() {
-            debug!(
-                'x',
-                "Moving a file to the same directory as it's already in, is not permitted"
-            );
-            return Default::default();
-        }
-    }
-
-    let mut dst_files = Vec::<gio::File>::new();
-    if let Some(filename) = dest_fn.as_ref().filter(|_| src_files.len() == 1) {
-        dst_files.push(to.get_child_gfile(filename));
-    } else {
-        for file in &src_files {
-            let Some(basename) = file.basename() else {
-                eprintln!("Error: Cannot get basename of a file {}.", file.uri());
-                return Default::default();
-            };
-            dst_files.push(to.get_child_gfile(&basename));
-        }
-    }
-
-    let (bytes_total, files_total) = set_files_total(&src_files).await;
+    let (bytes_total, files_total) = set_files_total(&files).await;
 
     let win = TransferProgressWindow::new(
         files_total,
@@ -202,8 +149,7 @@ pub async fn move_files(
         transfer_type: TransferType::Move,
         copy_flags,
         overwrite_mode,
-        src_files,
-        dst_files,
+        files,
         bytes_total,
         files_total,
         cancellable: win.cancellable().clone(),
@@ -225,44 +171,19 @@ pub async fn link_files(
     copy_flags: gio::FileCopyFlags,
     overwrite_mode: ConfirmOverwriteMode,
 ) -> Vec<gio::File> {
-    if src_files.is_empty() {
+    let files = construct_transfer_list(
+        &parent_window,
+        src_files,
+        to,
+        dest_fn,
+        gettext("Moving a directory into itself is a bad idea."),
+    )
+    .await;
+    if files.is_empty() {
         return Default::default();
     }
 
-    // Sanity check
-    for file in &src_files {
-        if file_is_parent_to_dir_or_equal(file, &to) {
-            ErrorMessage::new(
-                gettext("Moving a directory into itself is a bad idea."),
-                Some(gettext("The whole operation was cancelled.")),
-            )
-            .show(&parent_window)
-            .await;
-            return Default::default();
-        }
-        if file_is_already_in_dir(file, &to) && dest_fn.is_some() && dest_fn == file.basename() {
-            debug!(
-                'x',
-                "Moving a file to the same directory as it's already in, is not permitted"
-            );
-            return Default::default();
-        }
-    }
-
-    let mut dst_files = Vec::<gio::File>::new();
-    if let Some(filename) = dest_fn.as_ref().filter(|_| src_files.len() == 1) {
-        dst_files.push(to.get_child_gfile(filename));
-    } else {
-        for file in &src_files {
-            let Some(basename) = file.basename() else {
-                eprintln!("Error: Cannot get basename of a file {}.", file.uri());
-                return Default::default();
-            };
-            dst_files.push(to.get_child_gfile(&basename));
-        }
-    }
-
-    let (bytes_total, files_total) = set_files_total(&src_files).await;
+    let (bytes_total, files_total) = set_files_total(&files).await;
 
     let win = TransferProgressWindow::new(
         files_total,
@@ -275,8 +196,7 @@ pub async fn link_files(
         transfer_type: TransferType::Link,
         copy_flags,
         overwrite_mode,
-        src_files,
-        dst_files,
+        files,
         bytes_total,
         files_total,
         cancellable: win.cancellable().clone(),
@@ -296,7 +216,8 @@ pub async fn download_to_temporary(
     dst_files: Vec<gio::File>,
     copy_flags: gio::FileCopyFlags,
 ) -> Vec<gio::File> {
-    let (bytes_total, files_total) = set_files_total(&src_files).await;
+    let files = src_files.into_iter().zip(dst_files).collect::<Vec<_>>();
+    let (bytes_total, files_total) = set_files_total(&files).await;
 
     let win = TransferProgressWindow::new(
         files_total,
@@ -309,8 +230,7 @@ pub async fn download_to_temporary(
         transfer_type: TransferType::Copy,
         copy_flags,
         overwrite_mode: ConfirmOverwriteMode::Query,
-        src_files,
-        dst_files,
+        files,
         bytes_total,
         files_total,
         cancellable: win.cancellable().clone(),
@@ -324,11 +244,75 @@ pub async fn download_to_temporary(
     success.continue_value().unwrap_or_default()
 }
 
-async fn set_files_total(src_list: &[gio::File]) -> (u64, u64) {
+async fn construct_transfer_list(
+    parent_window: &gtk::Window,
+    src_files: Vec<gio::File>,
+    to: Directory,
+    dest_fn: Option<PathBuf>,
+    nesting_error_message: String,
+) -> Vec<(gio::File, gio::File)> {
+    if src_files.is_empty() {
+        return Default::default();
+    }
+
+    // Sanity check
+    for file in &src_files {
+        if file_is_parent_to_dir_or_equal(file, &to) {
+            ErrorMessage::new(
+                nesting_error_message,
+                Some(gettext("The whole operation was cancelled.")),
+            )
+            .show(parent_window)
+            .await;
+            return Default::default();
+        }
+    }
+
+    let mut files = Vec::new();
+    if let Some(filename) = dest_fn.as_ref()
+        && src_files.len() == 1
+        && let Some(src_file) = src_files.first()
+    {
+        let dst_file = to.get_child_gfile(filename);
+        if !dst_file.equal(src_file) {
+            files.push((src_file.clone(), dst_file));
+        } else {
+            debug!(
+                'x',
+                "Request to transfer file {} into itself, skipping",
+                src_file.uri()
+            );
+        }
+    } else {
+        for src_file in src_files {
+            let Some(basename) = src_file.basename() else {
+                debug!(
+                    'x',
+                    "Cannot get basename of file {}, skipping",
+                    src_file.uri()
+                );
+                continue;
+            };
+            let dst_file = to.get_child_gfile(&basename);
+            if !dst_file.equal(&src_file) {
+                files.push((src_file, to.get_child_gfile(&basename)));
+            } else {
+                debug!(
+                    'x',
+                    "Request to transfer file {} into itself, skipping",
+                    src_file.uri()
+                );
+            }
+        }
+    }
+    files
+}
+
+async fn set_files_total(files: &[(gio::File, gio::File)]) -> (u64, u64) {
     let mut bytes_total = 0;
     let mut files_total = 0;
-    for file in src_list {
-        if let Ok((disk_usage, _, files)) = file
+    for (src_file, _) in files {
+        if let Ok((disk_usage, _, files)) = src_file
             .measure_disk_usage_future(gio::FileMeasureFlags::NONE, glib::Priority::DEFAULT)
             .0
             .await
@@ -344,12 +328,8 @@ async fn transfer_files(
     window: &TransferProgressWindow,
     xfer_data: &XferData,
 ) -> ControlFlow<BreakReason, Vec<gio::File>> {
-    if xfer_data.src_files.len() != xfer_data.dst_files.len() {
-        return ControlFlow::Break(BreakReason::Failed);
-    }
-
     let mut resulting_files = Vec::new();
-    for (src, dst) in xfer_data.src_files.iter().zip(xfer_data.dst_files.iter()) {
+    for (src, dst) in xfer_data.files.iter() {
         if xfer_data.cancellable.is_cancelled() {
             break;
         }
@@ -392,11 +372,6 @@ fn file_is_parent_to_dir_or_equal(file: &gio::File, dir: &Directory) -> bool {
     let is_parent = dir_file.has_parent(Some(file));
     let are_equal = dir_file.equal(file);
     is_parent || are_equal
-}
-
-fn file_is_already_in_dir(file: &gio::File, dir: &Directory) -> bool {
-    file.parent()
-        .is_some_and(|parent| parent.equal(&*dir.file()))
 }
 
 fn file_details(
