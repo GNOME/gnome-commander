@@ -34,7 +34,7 @@ impl GenericDialog {
             title.truncate(50);
             title += "…";
         }
-        title = title + " | " + &instance.name();
+        title = title + " ⮜ " + &instance.name();
 
         let dialog = gtk::Window::builder()
             .title(title)
