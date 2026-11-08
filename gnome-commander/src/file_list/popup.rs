@@ -170,7 +170,7 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
             let label = if plugin_display_name.is_empty() {
                 item.label
             } else {
-                format!("{} | {plugin_display_name}", item.label)
+                format!("{} ⮜ {plugin_display_name}", item.label)
             };
             let menuitem = gio::MenuItem::new(Some(&label), None);
             menuitem.set_action_and_target_value(
