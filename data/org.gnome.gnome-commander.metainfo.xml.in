@@ -66,14 +66,115 @@
   </suggests>
 
   <releases>
-    <release type="stable" version="2.0.4" date="2026-??-??">
+    <release type="stable" version="2.2.0" date="2026-11-11">
       <description>
+        <p>This release includes the following features and changes:</p>
+        <p>Issue #207: New plugin interface</p>
+        <ul>
+        <li>The interface is documented.</li>
+        <li>New built-in plugins have similar but not identical functionality to the old ones.</li>
+        <li>Built-in plugins are enabled automatically, user-installed plugins in <code>~/.config/gnome-commander/plugins</code> have to be enabled.</li>
+        <li>Plugins can be written in any programming language.</li>
+        <li>Python-based plugins can import <code>plugin_helper</code> module that makes implementation simpler.</li>
+        <li>Issue #332: Context menu scripts are a plugin now. Also, new special comment <code>#single-file:true</code> indicates that the script should always be run for each file separately.</li>
+        <li>Issue #333: Main menu actions of plugins can be assigned a keyboard shortcut via Keyboard Shortcuts dialog.</li>
+        <li>Issue #340: Placing the mouse pointer above the file name in Plugins dialog will show the full path to the plugin.</li>
+        </ul>
+        <p>Various improvements to the internal viewer</p>
+        <ul>
+        <li>Issue #383: Made all files show up as different tabs within a single viewer window</li>
+        <li>Issue #273: Made case-insensitive search work with non-ASCII letters</li>
+        <li>Issue #324: Remember window’s maximized state (AndriiC)</li>
+        <li>Issue #336: Scroll automatically during selection if the mouse cursor moves out of the text</li>
+        <li>Issue #370: Search defaults to the selected text</li>
+        <li>Issue #371: Handle selection via double-click (word) or tripple-click (line)</li>
+        <li>Issue #384: Search only continues from the selection if that selection is visible</li>
+        <li>Issue #390: Improved guessing of preferable display mode when file is opened</li>
+        <li>Implemented extending selection via Shift+Click</li>
+        <li>Issue #401: Implemented extending selection via keyboard (e.g. Shift+Left or Shift+Page Down)</li>
+        <li>Issue #424: Pressing Escape will close the search bar even if it isn’t focused.</li>
+        <li>Issue #431: Added support for Ctrl+Left and Ctrl+Right keyboard shortcuts for faster horizontal navigation</li>
+        <li>Issue #432: Line length in unwrapped Text mode has been restricted to 4096 characters to improve performance</li>
+        <li>Issue #433: Made newline characters visible when they are selected</li>
+        <li>Roughly factor 10 search performance improvement</li>
+        <li>When opening viewer from the Search dialog, the search match is immediately selected</li>
+        <li>Fixed handling of newlines in Text mode with CP437 encoding</li>
+        </ul>
+        <p>Improvements to handling of removable devices</p>
+        <ul>
+        <li>Issue #450: Eject devices when possible instead of merely unmounting them</li>
+        <li>Issue #451: Fixed recognizing device removal</li>
+        <li>Issue #452: Added support for MTP devices like smartphones</li>
+        <li>Issue #453: Made sure selected connection reflects navigation in and out of a device mount directory</li>
+        </ul>
+        <p>Other features and changes</p>
+        <ul>
+        <li>Issue #367: Portable builds</li>
+        <li>Issue #300: Added new “Copy File Paths” and “Copy File URIs” actions, their keyboard shortcuts can now be configured separately from “Copy File Names”.</li>
+        <li>Issue #312: Improved file column management, allowing to reset column widths and apply current settings to all tabs</li>
+        <li>Issue #318: File icon size is set automatically according to font size, the unused icon size and scale quality settings have been removed.</li>
+        <li>Issue #322: Keep selected file on directory reload</li>
+        <li>Issue #359: Made navigating back to a directory and switching to a different directory then produce the expected navigation history</li>
+        <li>Issue #365: Quick Search is closed when current directory changes</li>
+        <li>Issue #366: When “Rename” action is chosen on file name conflict, renaming keeps file extension now</li>
+        <li>Keyboard shortcuts can now be assigned to bookmarks via Keyboard Shortcuts dialog.</li>
+        <li>Issue #372, #382, #392: Made displaying directory changes (files added, removed, renamed) more consistent and a whole lot faster</li>
+        <li>Issue #374: Open new file list tabs next to the current tab</li>
+        <li>Issue #380: Renaming files will now offer the usual actions if this name already exists. Renaming files into a different directory is possible as well.</li>
+        <li>Issue #398: Display a message when a command running in embedded terminal is done</li>
+        <li>Issue #409: Made screen readers say whether a file is selected</li>
+        <li>Issue #410: Added configurable Ctrl+Shift+F10 and Ctrl+Menu keyboard shortcuts to open file list header pop-up. Made Shift+F10 and Menu keyboard shortcuts configurable as well.</li>
+        <li>Issue #413: Copy File in Current Directory action will now select the new file</li>
+        <li>Issue #418: Improved interoperability of Drag &amp; Drop with other applications</li>
+        <li>Issue #422: Starting Quick Search via non-ASCII letters is possible now.</li>
+        <li>Issue #423: Pressing Escape will close Quick Search even if it isn’t focused.</li>
+        <li>Issue #430: Special file permissions like suid are now displayed in all the relevant places, they are left unchanged when file permissions are modified</li>
+        <li>Issue #440: Made Search dialog’s content search work without reading entire files into memory</li>
+        <li>Issue #449: When main menu isn’t visible its contents are accessible via a button in the title bar</li>
+        <li>Started migrating the code to a new component framework to improve maintainability and reliability</li>
+        <li>Added hex search to Search dialog’s content search</li>
+        <li>Listing a large directory no longer hangs Gnome Commander and can now be aborted</li>
+        <li>Temporary network connections now show up in all device lists as long as they are open.</li>
+        <li>Added keyboard mnemonics to some main menu items that didn’t have any.</li>
+        </ul>
         <p>This release fixes the following bugs:</p>
         <ul>
-          <li>Issue xxx: ...</li>
+        <li>Issue #226: Allowed cancelling file transfers in the middle of a file</li>
+        <li>Issue #301: Spell “KiB” correctly</li>
+        <li>Issue #321: Only reload the destination of copy/move operation if it is a remote directory</li>
+        <li>Issue #343: Made file context menu in Advanced Rename dialog apply to the file being right-clicked</li>
+        <li>Issue #346: Made Ctrl+Tab/Ctrl+Shift+Tab switch tabs in File Properties dialog (Lukáš Tyrychtr)</li>
+        <li>Issue #351: Fixed inconsistent updates when multiple directories are removed</li>
+        <li>Issue #353: Made sure clicking device buttons doesn’t leave input focus there</li>
+        <li>Issue #354: Made sure middle-clicking <code>..</code> opens a new tab (regression in Gnome Commander 2.0)</li>
+        <li>Issue #355: Made closing duplicate tabs not leave unnecessary duplicates of locked tabs around</li>
+        <li>Issue #360: <code>cd</code> command on a locked tab was affecting current tab instead of opening a new one</li>
+        <li>Issue #361: Running <code>cd dir</code> on command line will no longer change input focus</li>
+        <li>Issue #364: Navigation to a bookmark with a quoted name like <code>'test'</code> was failing</li>
+        <li>Issue #369: Removed “case-sensitive sorting” option which wasn’t really working</li>
+        <li>Issue #375: Made sure the Bookmarks submenu of the main menu updates on connection or bookmark changes</li>
+        <li>Issue #391: Made file icon update when the file changes</li>
+        <li>Issue #397: Do not attempt to calculate size of <code>..</code> directory</li>
+        <li>Issue #402: Pressing Enter on a file will no longer run command line, only when command line is focused</li>
+        <li>Issue #403: Fixed display of selected item in the search results list</li>
+        <li>Issue #404: Fixed embedded terminal actions (Copy/Paste/Select All)</li>
+        <li>Issue #405: Command line history wouldn’t open if some commands are very long</li>
+        <li>Issue #406: Do not allow renaming <code>..</code></li>
+        <li>Issue #407: Pressing Delete in a text field in the Search dialog no longer suggests deleting a file</li>
+        <li>Issue #408: Fixed crash when copying files to a read-only file system and choosing “Replace All” (Lukáš Tyrychtr)</li>
+        <li>Issue #411: Fixed input focus issues when closing a submenu of the file context menu</li>
+        <li>Issue #417: Changes to format options apply immediately now</li>
+        <li>Issue #426: Fixed internal viewer displaying and copying newlines as dots in ASCII mode</li>
+        <li>Issue #427: Do not display file permissions for <code>..</code></li>
+        <li>Issue #429: Display file’s context menu when right-clicking its icon</li>
+        <li>Issue #435: Moving up in internal viewer while in wrapped text mode wouldn’t reach start of file</li>
+        <li>Issue #436: Corrected mouse selection in internal viewer’s Fixed Width mode when tab characters are present</li>
+        <li>Issue #438: Display selected tab characters with correct width in internal viewer’s Text mode</li>
+        <li>Issue #444: Made search result selection in internal viewer work with invalid UTF-8 correctly</li>
+        <li>Resolved keyboard mnemonics conflict in the File menu between “Search” and “Create Symbolic Link”</li>
         </ul>
-        <p>New or updated translations: ...</p>
-        <p>New or updated docs: ...</p>
+        <p>New or updated translations: ca (Jordi Mas), cs (Patrik Sivek), de (Stefan), eu (Asier Saratsua Garmendia), ka (Ekaterine Papava), kk (Baurzhan Muftakhidinov), nb (Kjartan Maraas), ru (Sergej A.), sl (Martin), sr (Марко Костић), sv (Anders Jonsson), uk (Yuri Chornoivan)</p>
+        <p>New or updated docs: hu (Balázs Úr), kk (Baurzhan Muftakhidinov), ru (Sergej A.), sv (Anders Jonsson)</p>
       </description>
     </release>
     <release type="stable" version="2.0.3" date="2026-06-13">
