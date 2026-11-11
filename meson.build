@@ -39,17 +39,23 @@ summary('debug', get_option('debug'), section: 'Build Configuration')
 locale_dir = datadir / 'locale'
 plugin_dir = datadir / meson.project_name() / 'plugins'
 
-meson.add_dist_script(
-  find_program('check-news.sh').full_path(),
-  '@0@'.format(meson.project_version()),
-  'data/org.gnome.gnome-commander.metainfo.xml.in'
-)
-
 cargo = find_program('cargo', required: true)
 cargo_version = run_command(cargo, '--version', check: true).stdout().strip()
 message(cargo_version)
 rustc_version = run_command('rustc', '--version', check: true).stdout().strip()
 message(rustc_version)
+
+project_version = run_command(
+  find_program('project_version.py'),
+  cargo,
+  check: true
+).stdout().strip()
+
+meson.add_dist_script(
+  find_program('check-news.sh').full_path(),
+  '@0@'.format(project_version),
+  'data/org.gnome.gnome-commander.metainfo.xml.in'
+)
 
 if get_option('debug')
     profile = 'debug'
@@ -62,7 +68,7 @@ dependency('gi-docgen', native: true, required: false)
 summary = [
   '',
   '-----------',
-  'Gnome Commander @0@'.format(meson.project_version()),
+  'Gnome Commander @0@'.format(project_version),
   '-----------',
 ]
 
