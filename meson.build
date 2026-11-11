@@ -8,6 +8,11 @@ project('gnome-commander', ['rust'],
   license: 'GPLv3',
   meson_version: '>= 0.59',
   default_options: ['buildtype=release'],
+  version: run_command(
+    find_program('project_version.py'),
+    find_program('cargo'),
+    check: true
+  ).stdout().strip(),
 )
 
 # Importing modules

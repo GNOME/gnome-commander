@@ -45,7 +45,8 @@ Then, do a `appstream-util validate data/org.gnome.gnome-commander.metainfo.xml.
 occur.
 
 Take note of [[https://handbook.gnome.org/maintainers/making-a-release.html]] on the release day.
-Ignore what is mentioned there about the NEWS file.
+Ignore what is mentioned there about the NEWS file. Make sure to run `cargo metadata` after updating
+the version number in `Cargo.toml` so that `Cargo.lock` updates as well.
 
 By tagging the release (previously we always used `git tag -s <tag>` for that) and pushing it to
 GNOME GitLab, the commands in the `create_tarball` section of the file

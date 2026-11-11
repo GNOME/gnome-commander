@@ -12,7 +12,7 @@ default-members = [
 ]
 
 [workspace.package]
-version = "2.1.0"
+version = "2.2.3"
 # Note: Updating minimum Rust version also requires the Docker build environment.
 # See docker directory for instructions.
 rust-version = "1.92"
