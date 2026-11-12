@@ -503,7 +503,7 @@ dependencies = [
 
 [[package]]
 name = "gcmd-component-framework"
-version = "2.2.3"
+version = "2.3.0"
 dependencies = [
  "async-channel 2.5.0",
  "futures",
@@ -513,7 +513,7 @@ dependencies = [
 
 [[package]]
 name = "gcmd-component-framework-macros"
-version = "2.2.3"
+version = "2.3.0"
 dependencies = [
  "gcmd-component-framework",
  "gtk4",
@@ -704,7 +704,7 @@ dependencies = [
 
 [[package]]
 name = "gnome-commander"
-version = "2.2.3"
+version = "2.3.0"
 dependencies = [
  "async-broadcast",
  "async-channel 2.5.0",

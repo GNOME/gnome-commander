@@ -4,8 +4,6 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-rpath = get_option('prefix') / get_option('libdir')
-
 cargo_options = [
   '--manifest-path', meson.project_source_root() / 'Cargo.toml',
   '--target-dir', meson.project_build_root() / 'gnome-commander',
@@ -25,10 +23,6 @@ cargo_env = [
   'GLOBAL_LOCALE_DIR=' + locale_dir,
   'GLOBAL_PLUGIN_DIR=' + plugin_dir,
 ]
-
-libgmcddialogs_dep = declare_dependency(
-  include_directories: [include_directories('.')],
-)
 
 commander = custom_target(
   'gnome-commander',
