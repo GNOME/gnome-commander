@@ -2041,7 +2041,7 @@ user_actions! {
 
     ViewMainMenu in MainWindow => (
         "view-main-menu" | "view.main_menu",
-        gettext("Display Main Menu"),
+        gettext("Show Main Menu"),
         "menu-visible",
     ),
 

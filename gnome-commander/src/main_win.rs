@@ -1414,6 +1414,7 @@ fn main_menu() -> gio::Menu {
             })
             .section({
                 gio::Menu::new()
+                    .action(UserAction::ViewMainMenu)
                     .action(UserAction::ViewToolbar)
                     .action(UserAction::ViewConbuttons)
                     .action(UserAction::ViewDevlist)
