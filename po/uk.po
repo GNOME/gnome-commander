@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander 1.3.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/"
 "\n"
-"POT-Creation-Date: 2026-11-11 16:28+0000\n"
-"PO-Revision-Date: 2026-11-12 21:00+0200\n"
+"POT-Creation-Date: 2026-11-14 08:20+0000\n"
+"PO-Revision-Date: 2026-11-14 22:10+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1460,7 +1460,7 @@ msgstr "Результат"
 #: gnome-commander/src/dialogs/remote_dialog.rs:152
 #: gnome-commander/src/dialogs/shortcuts_dialog/mod.rs:155
 #: gnome-commander/src/intviewer/window.rs:640
-#: gnome-commander/src/main_win.rs:1493
+#: gnome-commander/src/main_win.rs:1494
 #: gnome-commander/src/search/search_dialog.rs:405
 msgid "_Help"
 msgstr "_Довідка"
@@ -3563,13 +3563,11 @@ msgstr "Не вдалося отримати тип MIME файла."
 
 #. Translators: file list item selection state, announced by screen readers
 #: gnome-commander/src/file_list/cell.rs:80
-#| msgid "Uns_elect"
 msgid "selected"
 msgstr "позначено"
 
 #. Translators: file list item selection state, announced by screen readers
 #: gnome-commander/src/file_list/cell.rs:83
-#| msgid "No file selected"
 msgid "not selected"
 msgstr "не позначено"
 
@@ -4053,7 +4051,7 @@ msgid "Western (ISO-8859-1)"
 msgstr "Західне (ISO-8859-1)"
 
 #: gnome-commander/src/intviewer/window.rs:620
-#: gnome-commander/src/main_win.rs:1437
+#: gnome-commander/src/main_win.rs:1438
 msgid "_Settings"
 msgstr "Н_астройки"
 
@@ -4158,15 +4156,15 @@ msgstr "Не вдалося запустити командну оболонку
 msgid "_Mark"
 msgstr "В_ідмітка"
 
-#: gnome-commander/src/main_win.rs:1445
+#: gnome-commander/src/main_win.rs:1446
 msgid "_Connections"
 msgstr "З'_єднання"
 
-#: gnome-commander/src/main_win.rs:1457
+#: gnome-commander/src/main_win.rs:1458
 msgid "_Bookmarks"
 msgstr "_Закладки"
 
-#: gnome-commander/src/main_win.rs:1477
+#: gnome-commander/src/main_win.rs:1478
 msgid "_Plugins"
 msgstr "_Модулі"
 
@@ -5014,7 +5012,8 @@ msgid "_Horizontal Orientation"
 msgstr "_Горизонтальна орієнтація"
 
 #: gnome-commander/src/user_actions.rs:2044
-msgid "Display Main Menu"
+#| msgid "Show File Menu"
+msgid "Show Main Menu"
 msgstr "Показати головне меню"
 
 #: gnome-commander/src/user_actions.rs:2050
@@ -8857,6 +8856,9 @@ msgstr ""
 #: plugins/plugin_helper.py:224 plugins/plugin_helper.py:231
 msgid "Unsupported application protocol"
 msgstr "Непідтримуваний протокол програми"
+
+#~ msgid "Display Main Menu"
+#~ msgstr "Показати головне меню"
 
 #~ msgid "Case sensitive sorting"
 #~ msgstr "Впорядкування з урахуванням регістру"
