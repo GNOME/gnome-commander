@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
-"POT-Creation-Date: 2026-11-11 16:28+0000\n"
-"PO-Revision-Date: 2026-11-12 09:51+0100\n"
+"POT-Creation-Date: 2026-11-14 08:20+0000\n"
+"PO-Revision-Date: 2026-11-15 00:28+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -1242,7 +1242,7 @@ msgstr "Rezultati"
 #: gnome-commander/src/dialogs/profiles/edit_profile_dialog.rs:55
 #: gnome-commander/src/dialogs/profiles/manage_profiles_dialog.rs:215
 #: gnome-commander/src/dialogs/remote_dialog.rs:152 gnome-commander/src/dialogs/shortcuts_dialog/mod.rs:155
-#: gnome-commander/src/intviewer/window.rs:640 gnome-commander/src/main_win.rs:1493
+#: gnome-commander/src/intviewer/window.rs:640 gnome-commander/src/main_win.rs:1494
 #: gnome-commander/src/search/search_dialog.rs:405
 msgid "_Help"
 msgstr "Pomo_č"
@@ -3735,7 +3735,7 @@ msgstr "Zahodni (CP1252)"
 msgid "Western (ISO-8859-1)"
 msgstr "Zahodni (ISO-8859-1)"
 
-#: gnome-commander/src/intviewer/window.rs:620 gnome-commander/src/main_win.rs:1437
+#: gnome-commander/src/intviewer/window.rs:620 gnome-commander/src/main_win.rs:1438
 msgid "_Settings"
 msgstr "_Nastavitve"
 
@@ -3840,15 +3840,15 @@ msgstr "Neuspeli zagon lupine"
 msgid "_Mark"
 msgstr "_Označi"
 
-#: gnome-commander/src/main_win.rs:1445
+#: gnome-commander/src/main_win.rs:1446
 msgid "_Connections"
 msgstr "_Povezave"
 
-#: gnome-commander/src/main_win.rs:1457
+#: gnome-commander/src/main_win.rs:1458
 msgid "_Bookmarks"
 msgstr "_Zaznamki"
 
-#: gnome-commander/src/main_win.rs:1477
+#: gnome-commander/src/main_win.rs:1478
 msgid "_Plugins"
 msgstr "_Vstavki"
 
@@ -4676,7 +4676,7 @@ msgid "_Horizontal Orientation"
 msgstr "_Vodoravna postavitev"
 
 #: gnome-commander/src/user_actions.rs:2044
-msgid "Display Main Menu"
+msgid "Show Main Menu"
 msgstr "Pokaži glavni meni"
 
 #: gnome-commander/src/user_actions.rs:2050
