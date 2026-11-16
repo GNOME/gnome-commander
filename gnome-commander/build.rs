@@ -50,9 +50,11 @@ fn compile_resources(root_dir: impl AsRef<Path>, prefix: &str, outfile: &str) {
             continue;
         };
         if extension == "svg" {
+            // Putting window icons into the right subdirectory is important on X11, lookup will
+            // fail otherwise.
             write!(
                 file,
-                r#"<file preprocess="xml-stripblanks" alias="{}">{}</file>"#,
+                r#"<file preprocess="xml-stripblanks" alias="scalable/apps/{}">{}</file>"#,
                 entry.file_name().display(),
                 entry.path().display()
             )
