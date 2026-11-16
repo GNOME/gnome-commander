@@ -7,15 +7,19 @@ This file applies if you are the maintainer of the Gentoo ebuild. [Here](https:/
 1. Create a local overlay via layman:
    https://wiki.gentoo.org/wiki/Ebuild_repository#Layman
 
-2. After successfully running:
+2. Firt, run:
    ```bash
    meson dist -C builddir
    ```
-   move the ebuild file from:
+   Now, get the latest crates list by running:
+   ```
+   pycargoebuild ./ -f
+   ```
+   This generates a new ebuild file with the current crates list, which can be used to update the ebuild inside:
    ```
    builddir/data/
    ```
-   to:
+   After doing so, move the new file to:
    ```
    /usr/local/portage/gnome-extra/gnome-commander/
    ```
