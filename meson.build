@@ -100,6 +100,8 @@ subdir('po')
 
 install_data('pixmaps/gnome-commander.svg',
   install_dir: datadir / 'icons' / 'hicolor' / 'scalable' / 'apps')
+install_data('pixmaps/gnome-commander-internal-viewer.svg',
+  install_dir: datadir / 'icons' / 'hicolor' / 'scalable' / 'apps')
 
 gnome.post_install(
   glib_compile_schemas: true,
