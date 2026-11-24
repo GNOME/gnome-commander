@@ -40,6 +40,12 @@ const LOCAL_SCHEMA_DIR: Option<&str> = None;
 
 const SETTINGS_KEYFILE: Option<&str> = option_env!("SETTINGS_KEYFILE");
 
+const GLOBAL_HELP_DIR: Option<&str> = option_env!("GLOBAL_HELP_DIR");
+#[cfg(debug_assertions)]
+const LOCAL_HELP_DIR: Option<&str> = option_env!("LOCAL_HELP_DIR");
+#[cfg(not(debug_assertions))]
+const LOCAL_HELP_DIR: Option<&str> = None;
+
 fn resolve_path(path: &str) -> PathBuf {
     env::current_exe()
         .ok()
@@ -73,4 +79,11 @@ pub fn schema_dir() -> Option<PathBuf> {
 
 pub fn settings_keyfile() -> Option<PathBuf> {
     SETTINGS_KEYFILE.map(resolve_path)
+}
+
+pub fn help_dir() -> Option<PathBuf> {
+    LOCAL_HELP_DIR
+        .filter(|dir| fs::exists(dir).is_ok_and(|result| result))
+        .or(GLOBAL_HELP_DIR)
+        .map(resolve_path)
 }

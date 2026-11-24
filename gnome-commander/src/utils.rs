@@ -4,6 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use crate::{
+    config::help_dir,
     file::{File, FileOps},
     options::ProgramsOptions,
     types::SizeDisplayMode,
@@ -16,6 +17,7 @@ use std::{
     ffi::{OsStr, OsString},
     fmt,
     mem::swap,
+    path::{Path, PathBuf},
     rc::Rc,
     sync::OnceLock,
     time::Duration,
@@ -277,9 +279,24 @@ impl fmt::Display for ErrorMessage {
 }
 
 pub async fn display_help(parent_window: &gtk::Window, link_id: Option<&str>) {
-    let mut help_uri = format!("help:{}", crate::config::PACKAGE);
+    fn doc_path(base_dir: &Path, lang: &str) -> PathBuf {
+        let mut path = base_dir.to_path_buf();
+        path.push(lang);
+        path.push("index.docbook");
+        path
+    }
+
+    let (mut help_uri, link_separator) = if let Some(dir) = help_dir() {
+        let lang = glib::language_names()
+            .into_iter()
+            .find(|lang| std::fs::exists(doc_path(&dir, lang)).is_ok_and(|exists| exists))
+            .unwrap_or("C".into());
+        (format!("ghelp:{}", doc_path(&dir, &lang).display()), '?')
+    } else {
+        (format!("help:{}", crate::config::PACKAGE), '/')
+    };
     if let Some(link_id) = link_id {
-        help_uri.push('/');
+        help_uri.push(link_separator);
         help_uri.push_str(link_id);
     }
     if let Err(error) = gtk::UriLauncher::new(&help_uri)
