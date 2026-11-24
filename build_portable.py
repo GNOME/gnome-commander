@@ -3,6 +3,7 @@ import argparse
 import os
 import pathlib
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -54,6 +55,69 @@ def locate_lib(name: str, binary_path: str) -> bytes | None:
     return None
 
 
+def build_docs(source: str, target: str, media_subdir: str) -> None:
+    def source_file(language: str, *names) -> str:
+        return os.path.join(source, language, *names)
+
+    def target_file(language: str, *names) -> str:
+        return os.path.join(target, language, *names)
+
+    def source_media(language: str, *names) -> str:
+        return source_file(language, media_subdir, *names)
+
+    def target_media(language: str, *names) -> str:
+        return target_file(language, media_subdir, *names)
+
+    with open(os.path.join(source, "LINGUAS")) as input:
+        languages = input.read().strip().splitlines()
+
+    sources = []
+    os.mkdir(target_file("C"))
+    for name in os.listdir(source_file("C")):
+        if os.path.isfile(source_file("C", name)):
+            sources.append(name)
+            shutil.copy2(source_file("C", name), target_file("C", name))
+
+    media = []
+    os.mkdir(target_media("C"))
+    for name in os.listdir(source_media("C")):
+        if os.path.isfile(source_media("C", name)):
+            media.append(name)
+            shutil.copy2(source_media("C", name), target_media("C", name))
+
+    for language in languages:
+        os.mkdir(target_file(language))
+        subprocess.check_call(
+            [
+                "msgfmt",
+                source_file(language, f"{language}.po"),
+                "-o",
+                target_file(language, f"{language}.mo"),
+            ]
+        )
+        subprocess.check_call(
+            [
+                "itstool",
+                "-m",
+                target_file(language, f"{language}.mo"),
+                "--lang",
+                language,
+                "-o",
+                target_file(language),
+                *(source_file("C", name) for name in sources),
+            ]
+        )
+        os.unlink(target_file(language, f"{language}.mo"))
+
+        os.mkdir(target_media(language))
+        for name in media:
+            if os.path.isfile(source_media(language, name)):
+                shutil.copy2(source_media(language, name), target_media(language, name))
+            else:
+                # Python cannot write symlinks to ZIP archives
+                shutil.copy2(source_media("C", name), target_media(language, name))
+
+
 def run() -> None:
     parser = argparse.ArgumentParser(
         description="Create a portable build of the application."
@@ -73,10 +137,12 @@ def run() -> None:
             GLOBAL_PLUGIN_DIR="../plugins",
             GLOBAL_SCHEMA_DIR="../settings",
             SETTINGS_KEYFILE="../settings/settings.ini",
+            GLOBAL_HELP_DIR="../doc",
         ),
     )
 
     plugins_dir = os.path.join(repo_dir, "plugins")
+    docs_source = os.path.join(repo_dir, "doc")
     locale_dir = find_env(output, "LOCAL_LOCALE_DIR")
     schema_dir = find_env(output, "LOCAL_SCHEMA_DIR")
     binary_path = find_binary(locale_dir, "gnome-commander")
@@ -120,6 +186,10 @@ def run() -> None:
                     file=sys.stderr,
                 )
         zip_recursive(archive, locale_dir, "locale/")
+
+        with tempfile.TemporaryDirectory() as docs_output:
+            build_docs(docs_source, docs_output, "figures")
+            zip_recursive(archive, docs_output, "doc/")
 
         for lib in ["libvte-2.91-gtk4", "libicuuc", "libicudata"]:
             path = locate_lib(lib, binary_path)
