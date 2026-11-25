@@ -1485,6 +1485,12 @@ mod imp {
             let menu = list_popup_menu();
             let popover = gtk::PopoverMenu::from_model(Some(&menu));
             popover.set_parent(&*self.obj());
+            popover.connect_closed(|this| {
+                let this = this.clone();
+                glib::spawn_future_local(async move {
+                    this.unparent();
+                });
+            });
             popover.set_position(gtk::PositionType::Bottom);
             popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 0, 0)));
             popover.present();
@@ -1714,14 +1720,14 @@ mod imp {
 
             let popover = gtk::PopoverMenu::from_model(Some(&menu));
             popover.set_parent(&*self.obj());
-            popover.set_autohide(false);
-            popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 1, 1)));
             popover.connect_closed(|this| {
                 let this = this.clone();
                 glib::spawn_future_local(async move {
                     this.unparent();
                 });
             });
+            popover.set_autohide(false);
+            popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 1, 1)));
             popover.popup();
 
             let result = match receiver.recv().await {
@@ -2803,6 +2809,12 @@ impl FileList {
 
         let popover = gtk::PopoverMenu::from_model(Some(&menu));
         popover.set_parent(self);
+        popover.connect_closed(|this| {
+            let this = this.clone();
+            glib::spawn_future_local(async move {
+                this.unparent();
+            });
+        });
         popover.set_position(gtk::PositionType::Bottom);
         popover.set_pointing_to(
             point_to

@@ -60,6 +60,7 @@ pub async fn show_rename_popover(
     entry.add_controller(key_controller);
 
     popover.set_parent(parent);
+    popover.connect_closed(|this| this.unparent());
     popover.present();
     popover.popup();
 
