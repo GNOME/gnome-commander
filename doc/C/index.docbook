@@ -2,8 +2,8 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY author "Uwe Scholz">
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "2.2.3">
-  <!ENTITY manrevision "2.2.3">
+  <!ENTITY appversion "2.2.4">
+  <!ENTITY manrevision "2.2.4">
   <!ENTITY app "Gnome Commander">
 ]>
 <!-- Information about the entities
@@ -45,6 +45,10 @@
       <year>2014</year>
       <year>2013</year>
       <holder>Uwe Scholz</holder>
+    </copyright>
+    <copyright>
+      <year>2026</year>
+      <holder>Wladimir Palant</holder>
     </copyright>
 <!-- translators: uncomment this:
 
@@ -708,6 +712,15 @@
       <revision>
         <revnumber>Gnome Commander Manual V2.2.3;</revnumber>
         <date>2026-11-11</date>
+        <revdescription>
+          <para role="author">Wladimir Palant
+            <email>jhpgnome@palant.de</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>Gnome Commander Manual V2.2.4;</revnumber>
+        <date>2026-11-26</date>
         <revdescription>
           <para role="author">Wladimir Palant
             <email>jhpgnome@palant.de</email></para>
