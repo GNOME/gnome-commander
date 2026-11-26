@@ -29,34 +29,37 @@ Bug fix releases should only happen from inside an already existing stable branc
 branch needs to be created. Also, the translation team does not need to be informed unless massive
 changes in translatable strings occurred. This is usually not the case for bug fix releases.
 
-## Days before the release
+## Performing the release
 
-Update the [MetaInfo](data/org.gnome.gnome-commander.metainfo.xml.in) file with the new features and
-other changes of the upcoming release.
+Update the [MetaInfo](data/org.gnome.gnome-commander.metainfo.xml.in) file, adding a new `<release>`
+tag with the new features and other changes of the release. Run
+`appstream-util validate data/org.gnome.gnome-commander.metainfo.xml.in` and make sure no error is
+reported.
 
-## On the day of the release
+Also update [documentation](doc/C/index.docbook), changing version number in the header, adding a
+new revision and possibly adjusting the copyright information.
 
-When preparing the release, update the release date in the
-[MetaInfo](data/org.gnome.gnome-commander.metainfo.xml.in) file and also in the
-[documentation](doc/C/index.docbook) in the header and in release notes (similar to how it was done
-[here](https://gitlab.gnome.org/GNOME/gnome-commander/-/commit/5b543557c790b5be6d70bb56ad508727a2754d37)).
+Finally, update the version number in [Cargo.toml](Cargo.toml) file. Make sure that
+[Cargo.lock](Cargo.lock) file updates as well, e.g. by running `cargo metadata`. The final commit
+should look similar to [this one](https://gitlab.gnome.org/GNOME/gnome-commander/-/commit/13eb5ff98c3800ded3ddf749241f686c5e8ce554).
 
-Then, do a `appstream-util validate data/org.gnome.gnome-commander.metainfo.xml.in`. No error should
-occur.
+Push your changes to the respective stable branch. Make sure that CI succeeds. Then create a signed
+tag for the release, ideally with a message containing the release notes. This tag will trigger the
+`create_tarball` section of the [.gitlab-ci.yml](.gitlab-ci.yml) file on GitLab, uploading a tar.xz
+archive to the [GNOME download server](https://download.gnome.org/sources/gnome-commander/). A new
+release version will be created automatically in the
+[GitLab releases section](https://gitlab.gnome.org/GNOME/gnome-commander/-/releases) with the
+release notes taken from the tag message.
 
-Take note of [[https://handbook.gnome.org/maintainers/making-a-release.html]] on the release day.
-Ignore what is mentioned there about the NEWS file. Make sure to run `cargo metadata` after updating
-the version number in `Cargo.toml` so that `Cargo.lock` updates as well.
+The maintainer should edit the release notes to add a link to the new tar.xz-archive on the download
+server and a link to the portable build. For the latter, download the build produced for the tag
+from [Artifacts](https://gitlab.gnome.org/GNOME/gnome-commander/-/artifacts), then attach the file
+to the release notes. Once the upload finishes you can copy the link and remove it from release
+notes again, place it into the dedicated links section instead.
 
-By tagging the release (previously we always used `git tag -s <tag>` for that) and pushing it to
-GNOME GitLab, the commands in the `create_tarball` section of the file
-[.gitlab-ci.yml](.gitlab-ci.yml) will be executed on GitLab and a tar.xz archive will be created on
-the [GNOME download server](https://download.gnome.org/sources/gnome-commander/). A new release
-version should also occur in the [GitLab release section](https://gitlab.gnome.org/GNOME/gnome-commander/-/releases).
-The maintainer should copy-paste the changes of the current release from the MetaInfo file to the
-new release entry there and also link the new tar.xz-Archive from the Download server.
+Finally, import your stable branch changes into the development branch, except for the `Cargo.toml`
+change – for major releases the version on the development branch has to be set higher than the one
+on the stable branch, for bugfix releases it stays unchanged. Create a merge request like 
+[this one](https://gitlab.gnome.org/GNOME/gnome-commander/-/merge_requests/720).
 
-Finally, do a post-release version bump in the current stable branch like
-[this one](https://gitlab.gnome.org/GNOME/gnome-commander/-/commit/c9b0fc6a2be2e7df9644cd2730a069103c4a6a98).
-For this, increase the release version and put the next release date on a day in the future. That's
-it.
+That’t it.
