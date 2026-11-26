@@ -66,6 +66,18 @@
   </suggests>
 
   <releases>
+  <release type="stable" version="2.2.4" date="2026-11-26">
+    <description>
+      <p>This release fixes the following bugs:</p>
+      <ul>
+        <li>Issue #447: Strings for screen readers related to file list selection weren’t translatable (Lukáš Tyrychtr)</li>
+        <li>Issue #458: Made documentation files part of the portable builds</li>
+        <li>Issue #462: Broken window icons on X11 sessions</li>
+        <li>Issue #464: “Too many open files” crash due to a memory leak</li>
+      </ul>
+      <p>New or updated translations: sl (Martin)</p>
+    </description>
+  </release>
     <release type="stable" version="2.2.3" date="2026-11-11">
       <description>
         <p>This release includes the following features and changes:</p>
