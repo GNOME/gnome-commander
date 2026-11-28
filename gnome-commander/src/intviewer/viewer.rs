@@ -160,26 +160,22 @@ impl ViewerView {
     }
 
     pub fn image_status_update(&self) {
-        let Some(pixbuf) = self.image_render.origin_pixbuf() else {
+        let Some(details) = self.image_render.image_details() else {
             self.status_label
                 .set_text(&gettext("Could not recognize the image file format"));
             return;
         };
 
-        let width = pixbuf.width();
-        let height = pixbuf.height();
-        let bits_per_sample = pixbuf.bits_per_sample();
+        let width = details.width();
+        let height = details.height();
 
         let size = ngettext(
             "{width} x {height} pixel",
             "{width} x {height} pixels",
-            height as u32,
+            height,
         )
         .replace("{width}", &width.to_string())
         .replace("{height}", &height.to_string());
-
-        let depth = ngettext("{} bit/sample", "{} bits/sample", bits_per_sample as u32)
-            .replace("{}", &bits_per_sample.to_string());
 
         let scale = if !self.image_render.best_fit() {
             format!("{}%", (self.image_render.scale_factor() * 100.0) as i64)
@@ -191,8 +187,7 @@ impl ViewerView {
             )
         };
 
-        self.status_label
-            .set_text(&format!("{size}\t{depth}\t{scale}"));
+        self.status_label.set_text(&format!("{size}\t{scale}"));
     }
 
     fn show_context_menu(widget: &impl IsA<gtk::Widget>, menu: gio::Menu, x: f64, y: f64) {
@@ -623,9 +618,9 @@ impl Viewer {
                 view.text_render.notify_status_changed();
             }
             DisplayMode::Image => {
-                if view.image_render.origin_pixbuf().is_none() {
+                if view.image_render.image_details().is_none() {
                     // Image render not initialized yet, initialize now.
-                    view.image_render.load_file(&self.file)
+                    view.image_render.load_file(&self.file);
                 }
                 view.stack.set_visible_child_name("image");
                 view.image_render.notify_status_changed();

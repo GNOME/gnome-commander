@@ -27,6 +27,7 @@ futures.workspace = true
 gettext-rs.workspace = true
 glib.workspace = true
 glob.workspace = true
+glycin.workspace = true
 gtk.workspace = true
 indexmap.workspace = true
 libc.workspace = true
