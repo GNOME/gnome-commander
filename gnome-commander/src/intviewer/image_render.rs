@@ -4,11 +4,71 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use crate::utils::u32_enum;
-use gtk::{gdk, gdk_pixbuf, gio, glib, graphene, prelude::*, subclass::prelude::*};
+use gtk::{cairo, gdk, gio, glib, graphene, prelude::*, subclass::prelude::*};
 
 const IMAGE_RENDER_DEFAULT_WIDTH: i32 = 100;
 const IMAGE_RENDER_DEFAULT_HEIGHT: i32 = 200;
 const INC_VALUE: f64 = 25.0;
+
+#[derive(Debug, Default, Clone, Copy)]
+pub struct Transformation {
+    rotation: u32,
+    mirror: bool,
+}
+
+impl Transformation {
+    pub fn rotate_clockwise(self) -> Self {
+        Self {
+            rotation: (self.rotation + if !self.mirror { 90 } else { 270 }) % 360,
+            mirror: self.mirror,
+        }
+    }
+
+    pub fn rotate_counterclockwise(self) -> Self {
+        Self {
+            rotation: (self.rotation + if !self.mirror { 270 } else { 90 }) % 360,
+            mirror: self.mirror,
+        }
+    }
+
+    pub fn flip_horizontal(self) -> Self {
+        Self {
+            rotation: self.rotation,
+            mirror: !self.mirror,
+        }
+    }
+
+    pub fn flip_vertical(self) -> Self {
+        Self {
+            rotation: (self.rotation + 180) % 360,
+            mirror: !self.mirror,
+        }
+    }
+
+    pub fn exchanges_dimensions(&self) -> bool {
+        self.rotation == 90 || self.rotation == 270
+    }
+
+    pub fn to_matrix(self, mut width: f64, mut height: f64) -> cairo::Matrix {
+        let mirror_factor = if self.mirror { -1.0 } else { 1.0 };
+        let mut matrix = match self.rotation {
+            90 => cairo::Matrix::new(0.0, 1.0, -mirror_factor, 0.0, 0.0, 0.0),
+            180 => cairo::Matrix::new(-mirror_factor, 0.0, 0.0, -1.0, 0.0, 0.0),
+            270 => cairo::Matrix::new(0.0, -1.0, mirror_factor, 0.0, 0.0, 0.0),
+            _ => cairo::Matrix::new(mirror_factor, 0.0, 0.0, 1.0, 0.0, 0.0),
+        };
+
+        // Add translation to ensure that image coordinates stay non-negative
+        let (x1, y1) = matrix.transform_point(1.0, 0.0);
+        let (x2, y2) = matrix.transform_point(0.0, 1.0);
+        if self.exchanges_dimensions() {
+            (width, height) = (height, width);
+        }
+        matrix.set_x0(width * (1.0 - x1.max(x2)));
+        matrix.set_y0(height * (1.0 - y1.max(y2)));
+        matrix
+    }
+}
 
 pub mod imp {
     use super::*;
@@ -30,8 +90,10 @@ pub mod imp {
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::ImageRender)]
     pub struct ImageRender {
-        pub original_pixbuf: RefCell<Option<gdk_pixbuf::Pixbuf>>,
-        pub display_pixbuf: RefCell<Option<gdk_pixbuf::Pixbuf>>,
+        pub image: RefCell<Option<glycin::Image>>,
+        pub current_frame: RefCell<Option<cairo::ImageSurface>>,
+        pub transformation: Cell<Transformation>,
+        pub display_dimensions: Cell<(i32, i32)>,
         pub drag_state: RefCell<Option<DragState>>,
 
         #[property(get, set = Self::set_hadjustment, override_interface = gtk::Scrollable)]
@@ -62,8 +124,10 @@ pub mod imp {
 
         fn new() -> Self {
             Self {
-                original_pixbuf: Default::default(),
-                display_pixbuf: Default::default(),
+                image: Default::default(),
+                current_frame: Default::default(),
+                transformation: Default::default(),
+                display_dimensions: Cell::new((0, 0)),
                 drag_state: Default::default(),
 
                 hadjustment: Default::default(),
@@ -164,60 +228,61 @@ pub mod imp {
         }
 
         fn size_allocate(&self, _width: i32, _height: i32, _baseline: i32) {
-            self.prepare_display_pixbuf();
+            self.update_display_dimensions();
         }
 
         fn snapshot(&self, snapshot: &gtk::Snapshot) {
-            let Some(disp_pixbuf) = self.display_pixbuf.borrow().clone() else {
+            let Ok(frame_ref) = self.current_frame.try_borrow() else {
                 return;
             };
+            let Some(frame) = frame_ref.as_ref() else {
+                return;
+            };
+            let (display_width, display_height) = self.display_dimensions.get();
 
             let width = self.obj().width();
             let height = self.obj().height();
-            let disp_pixbuf_width = disp_pixbuf.width();
-            let disp_pixbuf_height = disp_pixbuf.height();
 
-            let dw = (width - disp_pixbuf_width) as f64;
-            let dh = (height - disp_pixbuf_height) as f64;
+            let dw = width as f64 - display_width as f64;
+            let dh = height as f64 - display_height as f64;
+
+            let best_fit = self.best_fit.get();
+            let translate_x = if best_fit || dw >= 0.0 {
+                dw / 2.0
+            } else {
+                self.obj()
+                    .hadjustment()
+                    .map(|a| (-a.value()).clamp(dw, 0.0))
+                    .unwrap_or_default()
+            };
+            let translate_y = if best_fit || dh >= 0.0 {
+                dh / 2.0
+            } else {
+                self.obj()
+                    .vadjustment()
+                    .map(|a| (-a.value()).clamp(dh, 0.0))
+                    .unwrap_or_default()
+            };
 
             let rect = graphene::Rect::new(0_f32, 0_f32, width as f32, height as f32);
             let cr = snapshot.append_cairo(&rect);
 
-            let paint_result = if self.best_fit.get() || (dw >= 0.0 && dh >= 0.0) {
-                cr.translate(dw / 2.0, dh / 2.0);
-                cr.set_source_pixbuf(&disp_pixbuf, 0.0, 0.0);
-                cr.paint()
-            } else {
-                let (src_x, dst_x) = if dw >= 0.0 {
-                    (0.0, dw / 2.0)
-                } else {
-                    (
-                        self.obj()
-                            .hadjustment()
-                            .map(|a| a.value().clamp(0.0, -dw))
-                            .unwrap_or_default(),
-                        0.0,
-                    )
-                };
+            let (frame_width, frame_height) = self.frame_dimensions(frame);
+            let scale_x = display_width as f64 / frame_width as f64;
+            let scale_y = display_height as f64 / frame_height as f64;
+            cr.translate(translate_x, translate_y);
+            cr.scale(scale_x, scale_y);
 
-                let (src_y, dst_y) = if dh >= 0.0 {
-                    (0.0, dh / 2.0)
-                } else {
-                    (
-                        self.obj()
-                            .vadjustment()
-                            .map(|a| a.value().clamp(0.0, -dh))
-                            .unwrap_or_default(),
-                        0.0,
-                    )
-                };
+            cr.transform(
+                self.transformation
+                    .get()
+                    .to_matrix(frame.width() as f64, frame.height() as f64),
+            );
 
-                cr.translate(-src_x, -src_y);
-                cr.set_source_pixbuf(&disp_pixbuf, dst_x, dst_y);
-                cr.paint()
-            };
-
-            if let Err(error) = paint_result {
+            if let Err(error) = cr
+                .set_source_surface(frame, 0.0, 0.0)
+                .and_then(|_| cr.paint())
+            {
                 eprintln!("Cairo paint failure: {error}");
             }
         }
@@ -237,13 +302,7 @@ pub mod imp {
             self.hadjustment.replace(Some(adjustment.clone()));
 
             adjustment.set_lower(0.0);
-            adjustment.set_upper(
-                self.display_pixbuf
-                    .borrow()
-                    .as_ref()
-                    .map(|p| p.width())
-                    .unwrap_or_default() as f64,
-            );
+            adjustment.set_upper(0.0);
             adjustment.set_step_increment(INC_VALUE);
             adjustment.set_page_increment(100.0);
             adjustment.set_page_size(100.0);
@@ -263,7 +322,7 @@ pub mod imp {
                     move |_| imp.redraw()
                 )));
 
-            self.redraw();
+            self.update_adjustments();
         }
 
         fn set_vadjustment(&self, adjustment: Option<gtk::Adjustment>) {
@@ -277,13 +336,7 @@ pub mod imp {
             self.vadjustment.replace(Some(adjustment.clone()));
 
             adjustment.set_lower(0.0);
-            adjustment.set_upper(
-                self.display_pixbuf
-                    .borrow()
-                    .as_ref()
-                    .map(|p| p.height())
-                    .unwrap_or_default() as f64,
-            );
+            adjustment.set_upper(0.0);
             adjustment.set_step_increment(INC_VALUE);
             adjustment.set_page_increment(100.0);
             adjustment.set_page_size(100.0);
@@ -303,7 +356,7 @@ pub mod imp {
                     move |_| imp.redraw()
                 )));
 
-            self.redraw();
+            self.update_adjustments();
         }
 
         fn set_hscroll_policy(&self, policy: gtk::ScrollablePolicy) {
@@ -407,99 +460,83 @@ pub mod imp {
 
         fn set_best_fit(&self, best_fit: bool) {
             self.best_fit.set(best_fit);
-            self.prepare_display_pixbuf();
-            self.redraw();
+            self.update_display_dimensions();
         }
 
         fn set_scale_factor(&self, scale_factor: f64) {
             self.scale_factor.set(scale_factor);
-            self.prepare_display_pixbuf();
+            self.update_display_dimensions();
+        }
+
+        pub(super) fn frame_dimensions(&self, frame: &cairo::ImageSurface) -> (i32, i32) {
+            if self.transformation.get().exchanges_dimensions() {
+                (frame.height(), frame.width())
+            } else {
+                (frame.width(), frame.height())
+            }
+        }
+
+        pub(super) fn update_display_dimensions(&self) {
+            self.display_dimensions.set((0, 0));
+            let Ok(frame_ref) = self.current_frame.try_borrow() else {
+                return;
+            };
+            let Some(frame) = frame_ref.as_ref() else {
+                return;
+            };
+
+            let (frame_width, frame_height) = self.frame_dimensions(frame);
+            if frame_width <= 0 || frame_height <= 0 {
+                return;
+            }
+
+            let scale_factor = if self.best_fit.get() {
+                let width = self.obj().width();
+                let height = self.obj().height();
+                if frame_width <= width && frame_height <= height {
+                    // no need to scale down
+                    1.0
+                } else {
+                    (height as f64 / frame_height as f64).min(width as f64 / frame_width as f64)
+                }
+            } else {
+                self.scale_factor.get()
+            };
+
+            self.display_dimensions.set((
+                (frame_width as f64 * scale_factor) as i32,
+                (frame_height as f64 * scale_factor) as i32,
+            ));
+
+            self.update_adjustments();
             self.redraw();
         }
 
-        pub(super) fn prepare_display_pixbuf(&self) {
-            self.display_pixbuf.replace(None);
-            let Some(pixbuf) = self.original_pixbuf.borrow().clone() else {
-                return;
-            };
-
-            let pixbuf_width = pixbuf.width();
-            let pixbuf_height = pixbuf.height();
-
-            if pixbuf_width == 0 || pixbuf_height == 0 {
-                return;
-            }
-
-            if self.best_fit.get() {
-                let width = self.obj().width();
-                let height = self.obj().height();
-
-                if pixbuf_width < width && pixbuf_height < height {
-                    // no need to scale down
-                    self.display_pixbuf.replace(Some(pixbuf));
-                    return;
-                }
-
-                let (dest_width, dest_height) = if height * pixbuf_width >= width * pixbuf_height {
-                    (width, width * pixbuf_height / pixbuf_width)
-                } else {
-                    (height * pixbuf_width / pixbuf_height, height)
-                };
-
-                if dest_width >= 1 && dest_height >= 1 {
-                    self.display_pixbuf.replace(pixbuf.scale_simple(
-                        dest_width,
-                        dest_height,
-                        gdk_pixbuf::InterpType::Nearest,
-                    ));
-                }
-            } else {
-                let scale_factor = self.scale_factor.get();
-
-                self.display_pixbuf.replace(pixbuf.scale_simple(
-                    (pixbuf_width as f64 * scale_factor) as i32,
-                    (pixbuf_height as f64 * scale_factor) as i32,
-                    gdk_pixbuf::InterpType::Nearest,
-                ));
-            }
-
-            self.update_adjustments();
-            self.obj().notify_status_changed();
-        }
-
         fn update_adjustments(&self) {
-            let Some(pixbuf) = self.display_pixbuf.borrow().clone() else {
-                return;
-            };
+            let width = self.obj().width();
+            let height = self.obj().height();
+            let (display_width, display_height) = self.display_dimensions.get();
 
-            let obj_width = self.obj().width();
-            let obj_height = self.obj().height();
-            let pixbuf_width = pixbuf.width();
-            let pixbuf_height = pixbuf.height();
-
-            if self.best_fit.get() || pixbuf_width <= obj_width && pixbuf_height <= obj_height {
+            if self.best_fit.get() || display_width <= width && display_height <= height {
                 if let Some(hadjustment) = self.obj().hadjustment() {
-                    hadjustment.set_lower(0.0);
                     hadjustment.set_upper(0.0);
                     hadjustment.set_value(0.0);
                 }
                 if let Some(vadjustment) = self.obj().vadjustment() {
-                    vadjustment.set_lower(0.0);
                     vadjustment.set_upper(0.0);
                     vadjustment.set_value(0.0);
                 }
             } else {
                 if let Some(hadjustment) = self.obj().hadjustment() {
-                    hadjustment.set_lower(0.0);
-                    hadjustment.set_upper(pixbuf_width as f64);
-                    hadjustment.set_page_size(obj_width as f64);
+                    hadjustment.set_upper(display_width as f64);
+                    hadjustment.set_page_size(width as f64);
                 }
                 if let Some(vadjustment) = self.obj().vadjustment() {
-                    vadjustment.set_lower(0.0);
-                    vadjustment.set_upper(pixbuf_height as f64);
-                    vadjustment.set_page_size(obj_height as f64);
+                    vadjustment.set_upper(display_height as f64);
+                    vadjustment.set_page_size(height as f64);
                 }
             }
+            self.redraw();
         }
     }
 }
@@ -517,65 +554,130 @@ impl Default for ImageRender {
 }
 
 impl ImageRender {
-    pub fn origin_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
-        self.imp().original_pixbuf.borrow().clone()
+    pub fn image_details(&self) -> Option<glycin::ImageDetails> {
+        self.imp()
+            .image
+            .try_borrow()
+            .ok()?
+            .as_ref()
+            .map(|image| image.details())
     }
 
     pub fn operation(&self, operation: ImageOperation) {
-        let Some(pixbuf) = self.imp().original_pixbuf.borrow_mut().clone() else {
+        let transformation = self.imp().transformation.get();
+        self.imp().transformation.set(match operation {
+            ImageOperation::RotateClockwise => transformation.rotate_clockwise(),
+            ImageOperation::RotateCounterclockwise => transformation.rotate_counterclockwise(),
+            ImageOperation::RotateUpsideDown => {
+                transformation.rotate_clockwise().rotate_clockwise()
+            }
+            ImageOperation::FlipVertical => transformation.flip_vertical(),
+            ImageOperation::FlipHorizontal => transformation.flip_horizontal(),
+        });
+
+        self.imp().update_display_dimensions();
+    }
+
+    #[allow(clippy::await_holding_refcell_ref)]
+    async fn load_next_frame(&self) {
+        // We can hold this reference across .await because the only other place accessing the image
+        // uses try_borrow() and releases synchronously. Also, this function never runs multiple
+        // times in parallel.
+        let mut image_ref = self.imp().image.borrow_mut();
+        let Some(image) = image_ref.as_mut() else {
             return;
         };
-
-        let new_pixbuf = match operation {
-            ImageOperation::RotateClockwise => {
-                pixbuf.rotate_simple(gdk_pixbuf::PixbufRotation::Clockwise)
+        let frame = match image.next_frame().await {
+            Ok(frame) => frame,
+            Err(error) => {
+                eprintln!("Failed loading image frame: {error}");
+                return;
             }
-            ImageOperation::RotateCounterclockwise => {
-                pixbuf.rotate_simple(gdk_pixbuf::PixbufRotation::Counterclockwise)
-            }
-            ImageOperation::RotateUpsideDown => {
-                pixbuf.rotate_simple(gdk_pixbuf::PixbufRotation::Upsidedown)
-            }
-            ImageOperation::FlipVertical => pixbuf.flip(false),
-            ImageOperation::FlipHorizontal => pixbuf.flip(true),
         };
 
-        if let Some(new_pixbuf) = new_pixbuf {
-            self.imp().original_pixbuf.replace(Some(new_pixbuf));
-            self.imp().prepare_display_pixbuf();
+        let texture = frame.texture();
+        let mut surface = match cairo::ImageSurface::create(
+            cairo::Format::ARgb32,
+            texture.width(),
+            texture.height(),
+        ) {
+            Ok(surface) => surface,
+            Err(error) => {
+                eprintln!("Failed creating cairo surface: {error}");
+                return;
+            }
+        };
+
+        {
+            let stride = surface.stride().try_into().unwrap_or_default();
+            let mut data = match surface.data() {
+                Ok(data) => data,
+                Err(error) => {
+                    eprintln!("Failed accessing cairo surface data: {error}");
+                    return;
+                }
+            };
+            texture.download(&mut data, stride);
+        }
+
+        self.imp().current_frame.replace(Some(surface));
+        self.imp().update_display_dimensions();
+
+        if let Some(delay) = frame.delay() {
+            glib::timeout_add_local_once(
+                delay,
+                glib::clone!(
+                    #[weak(rename_to = this)]
+                    self,
+                    move || {
+                        glib::spawn_future_local(async move {
+                            this.load_next_frame().await;
+                        });
+                    }
+                ),
+            );
         }
     }
 
     pub fn load_file(&self, file: &gio::File) {
-        self.imp().original_pixbuf.replace(None);
-        self.imp().display_pixbuf.replace(None);
+        self.imp().image.replace(None);
+        self.imp().current_frame.replace(None);
 
-        match file
-            .read(gio::Cancellable::NONE)
-            .and_then(|stream| gdk_pixbuf::Pixbuf::from_stream(&stream, gio::Cancellable::NONE))
-        {
-            Ok(mut pixbuf) => {
-                if let Some(rotated) = pixbuf.apply_embedded_orientation() {
-                    pixbuf = rotated;
+        let this = self.clone();
+        let file = file.clone();
+        glib::spawn_future_local(async move {
+            match glycin::Loader::new(file).load().await {
+                Ok(image) => {
+                    this.imp().image.replace(Some(image));
+                    this.load_next_frame().await;
+                    this.notify_status_changed();
                 }
-                self.imp().original_pixbuf.replace(Some(pixbuf));
+                Err(error) => {
+                    // glycin errors can get very long, use the first line only
+                    let error = error.to_string();
+                    eprintln!(
+                        "Failed to load image: {}",
+                        error
+                            .split_once('\n')
+                            .map(|(first, _)| first)
+                            .unwrap_or(&error)
+                    );
+                }
             }
-            Err(error) => {
-                eprintln!("Failed to load image: {error}");
-            }
-        }
+        });
     }
 
     pub fn real_scale_factor(&self) -> f64 {
-        let original_pixbuf = self.imp().original_pixbuf.borrow();
-        let display_pixbuf = self.imp().display_pixbuf.borrow();
-        if let Some(original_pixbuf) = original_pixbuf.as_ref()
-            && let Some(display_pixbuf) = display_pixbuf.as_ref()
-        {
-            display_pixbuf.width() as f64 / original_pixbuf.width() as f64
-        } else {
-            1.0
-        }
+        self.imp()
+            .current_frame
+            .borrow()
+            .as_ref()
+            .map(|frame| {
+                let (frame_width, _) = self.imp().frame_dimensions(frame);
+                let (display_width, _) = self.imp().display_dimensions.get();
+                display_width as f64 / frame_width as f64
+            })
+            .unwrap_or(1.0)
     }
 
     pub fn notify_status_changed(&self) {
@@ -602,5 +704,119 @@ u32_enum! {
         RotateUpsideDown,
         FlipVertical,
         FlipHorizontal,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_transformations() {
+        const WIDTH: f64 = 40.0;
+        const HEIGHT: f64 = 20.0;
+
+        fn corners(transformation: Transformation) -> [(f64, f64); 4] {
+            let matrix = transformation.to_matrix(WIDTH, HEIGHT);
+            [
+                matrix.transform_point(0.0, 0.0),
+                matrix.transform_point(WIDTH, 0.0),
+                matrix.transform_point(0.0, HEIGHT),
+                matrix.transform_point(WIDTH, HEIGHT),
+            ]
+        }
+
+        let transformation = Transformation::default();
+        assert_eq!(
+            corners(transformation),
+            [(0.0, 0.0), (WIDTH, 0.0), (0.0, HEIGHT), (WIDTH, HEIGHT)]
+        );
+
+        // Rotate clockwise until we are back at identity
+        let transformation = transformation.rotate_clockwise();
+        assert_eq!(
+            corners(transformation),
+            [(HEIGHT, 0.0), (HEIGHT, WIDTH), (0.0, 0.0), (0.0, WIDTH)]
+        );
+
+        let transformation = transformation.rotate_clockwise();
+        assert_eq!(
+            corners(transformation),
+            [(WIDTH, HEIGHT), (0.0, HEIGHT), (WIDTH, 0.0), (0.0, 0.0)]
+        );
+
+        let transformation = transformation.rotate_clockwise();
+        assert_eq!(
+            corners(transformation),
+            [(0.0, WIDTH), (0.0, 0.0), (HEIGHT, WIDTH), (HEIGHT, 0.0)]
+        );
+
+        let transformation = transformation.rotate_clockwise();
+        assert_eq!(
+            corners(transformation),
+            [(0.0, 0.0), (WIDTH, 0.0), (0.0, HEIGHT), (WIDTH, HEIGHT)]
+        );
+
+        // Rotate counter-clockwise until we are back at identity
+        let transformation = transformation.rotate_counterclockwise();
+        assert_eq!(
+            corners(transformation),
+            [(0.0, WIDTH), (0.0, 0.0), (HEIGHT, WIDTH), (HEIGHT, 0.0)]
+        );
+
+        let transformation = transformation.rotate_counterclockwise();
+        assert_eq!(
+            corners(transformation),
+            [(WIDTH, HEIGHT), (0.0, HEIGHT), (WIDTH, 0.0), (0.0, 0.0)]
+        );
+
+        let transformation = transformation.rotate_counterclockwise();
+        assert_eq!(
+            corners(transformation),
+            [(HEIGHT, 0.0), (HEIGHT, WIDTH), (0.0, 0.0), (0.0, WIDTH)]
+        );
+
+        let transformation = transformation.rotate_counterclockwise();
+        assert_eq!(
+            corners(transformation),
+            [(0.0, 0.0), (WIDTH, 0.0), (0.0, HEIGHT), (WIDTH, HEIGHT)]
+        );
+
+        // Combine flipping and rotation
+        let transformation = transformation.flip_horizontal();
+        assert_eq!(
+            corners(transformation),
+            [(WIDTH, 0.0), (0.0, 0.0), (WIDTH, HEIGHT), (0.0, HEIGHT)]
+        );
+
+        let transformation = transformation.flip_vertical();
+        assert_eq!(
+            corners(transformation),
+            [(WIDTH, HEIGHT), (0.0, HEIGHT), (WIDTH, 0.0), (0.0, 0.0)]
+        );
+
+        let transformation = transformation.flip_horizontal();
+        assert_eq!(
+            corners(transformation),
+            [(0.0, HEIGHT), (WIDTH, HEIGHT), (0.0, 0.0), (WIDTH, 0.0)]
+        );
+
+        let transformation = transformation.rotate_clockwise();
+        assert_eq!(
+            corners(transformation),
+            [(0.0, 0.0), (0.0, WIDTH), (HEIGHT, 0.0), (HEIGHT, WIDTH)]
+        );
+
+        let transformation = transformation.flip_vertical();
+        assert_eq!(
+            corners(transformation),
+            [(0.0, WIDTH), (0.0, 0.0), (HEIGHT, WIDTH), (HEIGHT, 0.0)]
+        );
+
+        let transformation = transformation.rotate_clockwise();
+        assert_eq!(
+            corners(transformation),
+            [(0.0, 0.0), (WIDTH, 0.0), (0.0, HEIGHT), (WIDTH, HEIGHT)]
+        );
     }
 }

@@ -14,7 +14,7 @@
 //!   modes) or images (Image mode). The former is handled by the [`text_render::TextRender`]
 //!   widget, the latter [`image_render::ImageRender`] widget. Both widgets are always present in
 //!   the viewer window but only one is visible at a time.
-//! * `image_render::ImageRender` is the simpler component because it relies on [`gtk::gdk_pixbuf`]
+//! * `image_render::ImageRender` is the simpler component because it relies on [`glycin`]
 //!   crate for most of its functionality. It has no internal dependencies.
 //! * `text_render::TextRender` relies on a number of components working together:
 //!     * [`input_source::InputSource`] type provides access to raw file bytes.
