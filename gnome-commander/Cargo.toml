@@ -20,7 +20,6 @@ async-channel.workspace = true
 async-io.workspace = true
 async-process.workspace = true
 async-recursion.workspace = true
-bimap.workspace = true
 component-framework.workspace = true
 const_format = "0.2.36"
 futures.workspace = true

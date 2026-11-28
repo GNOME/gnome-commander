@@ -26,7 +26,6 @@ async-io = "2.6.0"
 async-process = "2.5.0"
 async-recursion = "1.1.1"
 async-std = { version = "1.13.2", features = ["attributes"] }
-bimap = "0.6.3"
 futures = "0.3.31"
 component-framework = { path = "gcmd-component-framework", package = "gcmd-component-framework" }
 gettext-rs = { version = "0.7.0", features = ["gettext-system"] }
