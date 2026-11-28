@@ -417,10 +417,9 @@ impl CharacterEncoding for SingleByteEncoding {
     }
 
     fn adjust_invisible_characters(&mut self, check_visibility: Box<dyn Fn(char) -> bool>) {
-        for byte in 0..256 {
-            let ch = self.translation_table[byte];
-            if !check_visibility(ch) {
-                self.translation_table[byte] = '.';
+        for ch in &mut self.translation_table {
+            if !check_visibility(*ch) {
+                *ch = '.';
             }
         }
     }
