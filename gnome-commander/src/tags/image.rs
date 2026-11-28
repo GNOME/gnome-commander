@@ -9,7 +9,6 @@ use crate::{
     utils::u32_enum,
 };
 use gettextrs::gettext;
-use gtk::gdk_pixbuf::Pixbuf;
 use std::borrow::Cow;
 
 u32_enum! {
@@ -75,13 +74,16 @@ impl FileMetadataExtractor for ImageMetadataExtractor {
     }
 
     async fn extract_metadata(&self, file: &File) -> Vec<(Box<dyn Tag>, String)> {
-        if let Some(path) = file.local_path()
-            && let Ok(Some((_format, width, height))) = Pixbuf::file_info_future(path).await
-        {
+        let loader = glycin::Loader::new(file.file().clone());
+        if let Ok(image) = loader.load().await {
+            let details = image.details();
             vec![
-                (ImageTag::Width.boxed(), width.to_string()),
-                (ImageTag::Height.boxed(), height.to_string()),
-                (ImageTag::Size.boxed(), format!("{width} x {height}")),
+                (ImageTag::Width.boxed(), details.width().to_string()),
+                (ImageTag::Height.boxed(), details.height().to_string()),
+                (
+                    ImageTag::Size.boxed(),
+                    format!("{} x {}", details.width(), details.height()),
+                ),
             ]
         } else {
             vec![]
